@@ -1,5 +1,5 @@
 ﻿using MyLiverpoolSite.Business.Contracts;
-using MyLiverpoolSite.Business.ViewModels.User;
+using MyLiverpoolSite.Business.ViewModels.Users;
 using MyLiverpoolSite.Data.DataAccessLayer;
 using MyLiverpoolSite.Data.Entities;
 

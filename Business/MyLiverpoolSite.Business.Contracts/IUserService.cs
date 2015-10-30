@@ -1,4 +1,4 @@
-﻿using MyLiverpoolSite.Business.ViewModels.User;
+﻿using MyLiverpoolSite.Business.ViewModels.Users;
 
 namespace MyLiverpoolSite.Business.Contracts
 {

@@ -6,7 +6,7 @@ namespace MyLiverpoolSite.Data.Entities
     {
         public NewsCategory()
         {
-            NewsItems = new List<NewsItem>();
+            NewsItems = new HashSet<NewsItem>();
         }
 
         public int Id { get; set; }
@@ -23,6 +23,6 @@ namespace MyLiverpoolSite.Data.Entities
 
         public string UrlPath { get; set; }
 
-        public List<NewsItem> NewsItems { get; set; } 
+        public virtual ICollection<NewsItem> NewsItems { get; set; } 
     }
 }

@@ -44,6 +44,22 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Autofac.Integration.Mvc, Version=3.3.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.Mvc5.3.3.4\lib\net45\Autofac.Integration.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Autofac.Integration.Mvc.Owin, Version=3.1.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.Mvc5.Owin.3.1.0\lib\net45\Autofac.Integration.Mvc.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Autofac.Integration.Owin, Version=3.1.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.Owin.3.1.0\lib\net45\Autofac.Integration.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -247,6 +263,18 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Business\MyLiverpoolSite.Business.Contracts\MyLiverpoolSite.Business.Contracts.csproj">
+      <Project>{2b58260e-385f-4f42-acd7-015faa8ce4f0}</Project>
+      <Name>MyLiverpoolSite.Business.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Business\MyLiverpoolSite.Business.Services\MyLiverpoolSite.Business.Services.csproj">
+      <Project>{2fffee2f-50ee-4eca-adf4-49f0cd327a88}</Project>
+      <Name>MyLiverpoolSite.Business.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Business\MyLiverpoolSite.Business.ViewModels\MyLiverpoolSite.Business.ViewModels.csproj">
+      <Project>{d2412aae-da9a-4da6-a0dc-e3afbacac734}</Project>
+      <Name>MyLiverpoolSite.Business.ViewModels</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Data\MyLiverpoolSite.Data.DataAccessLayer\MyLiverpoolSite.Data.DataAccessLayer.csproj">
       <Project>{ac10a860-1c0e-4910-9e05-428d09f70981}</Project>
       <Name>MyLiverpoolSite.Data.DataAccessLayer</Name>

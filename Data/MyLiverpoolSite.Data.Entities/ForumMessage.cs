@@ -8,19 +8,19 @@
 
         public int ThemeId { get; set; }
 
-        public ForumTheme ForumTheme { get; set; }
+        public virtual ForumTheme ForumTheme { get; set; }
 
-        public long AdditionTimeUTC { get; set; }
+        public long AdditionTimeUtc { get; set; }
 
         public bool IsFirstMessage { get; set; }
 
         public string Message { get; set; }
 
-        public User Author { get; set; }
+        public virtual User Author { get; set; }
 
         public string Ip { get; set; }
 
-        public long LastModifiedTimeUTC { get; set; }
+        public long LastModifiedTimeUtc { get; set; }
 
 
     }

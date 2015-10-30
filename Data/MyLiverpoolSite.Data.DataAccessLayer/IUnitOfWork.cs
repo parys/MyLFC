@@ -16,8 +16,8 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
         IGenericRepository<NewsItem> NewsItemRepository { get; }
         IGenericRepository<BlogCategory> BlogCategoryRepository { get; }
         IGenericRepository<NewsCategory> NewsCategoryRepository { get; }
-        IGenericRepository<BlogComment> BlogCommentRepository { get; }
-        IGenericRepository<NewsComment> NewsCommentRepository { get; }
+       // IGenericRepository<BlogComment> BlogCommentRepository { get; }
+        IGenericRepository<Comment> CommentRepository { get; }
         IGenericRepository<ForumSection> ForumSectionRepository { get; }
         IGenericRepository<ForumTheme> ForumThemeRepository { get; }
         IGenericRepository<ForumSubsection> ForumSubsectionRepository { get; }

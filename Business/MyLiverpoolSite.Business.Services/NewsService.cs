@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using AutoMapper;
 using MyLiverpoolSite.Business.Contracts;
 using MyLiverpoolSite.Business.ViewModels.News;
+using MyLiverpoolSite.Common.Utilities;
 using MyLiverpoolSite.Data.DataAccessLayer;
 using MyLiverpoolSite.Data.Entities;
 
@@ -20,8 +23,8 @@ namespace MyLiverpoolSite.Business.Services
 
         public NewsItem GetById(int id)
         {
-            throw new NotImplementedException();
-           //todo return id > 0 ? _unitOfWork.NewsItemRepository.GetById(id) : null;
+            //throw new NotImplementedException();
+            return id > 0 ? _unitOfWork.NewsItemRepository.GetById(id) : null;
         }
 
         public void Delete(int id)
@@ -35,8 +38,8 @@ namespace MyLiverpoolSite.Business.Services
             if (id.HasValue && id != 0)
             {
                 var newsItem = GetById(id.Value);
-              //  viewModel = Mapper.Map<NewsItem, CreateEditNewsViewModel>(newsItem);
-              //  DateTimeHelpers.ConvertUtcToLocalTime(viewModel.AdditionTime);
+                viewModel = Mapper.Map<NewsItem, CreateEditNewsViewModel>(newsItem);
+                //DateTimeHelpers.ConvertUtcToLocalTime(viewModel.AdditionTime);
             }
             else
             {
@@ -70,8 +73,9 @@ namespace MyLiverpoolSite.Business.Services
 
         public IEnumerable<NewsItem> GetAll()
         {
-            throw new NotImplementedException();
-            //todo return _unitOfWork.NewsItemRepository.Get();
+            // todo pageable 
+            //throw new NotImplementedException();
+            return _unitOfWork.NewsItemRepository.Get().Take(2);
         }
     }
 }

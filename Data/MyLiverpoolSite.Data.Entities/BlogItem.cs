@@ -1,16 +1,21 @@
 ﻿using System.Collections.Generic;
+using System.Web.Mvc;
 
 namespace MyLiverpoolSite.Data.Entities
 {
     public class BlogItem
     {
+        public BlogItem()
+        {
+            Comments = new HashSet<Comment>();
+        }
         public int Id { get; set; }
 
         public int OldId { get; set; }
 
         public int CategoryId { get; set; }
 
-        public BlogCategory BlogCategory { get; set; }
+        public virtual BlogCategory BlogCategory { get; set; }
 
         public int Year { get; set; }
 
@@ -28,14 +33,14 @@ namespace MyLiverpoolSite.Data.Entities
 
         public int NumberCommentaries { get; set; }
 
-        public User User { get; set; }
+        public virtual User User { get; set; }
 
         public string Title { get; set; }
          
-       // [AllowHtml]
+        [AllowHtml]
         public string Brief { get; set; }
 
-       // [AllowHtml]
+        [AllowHtml]
         public string Message { get; set; }
 
         public int Reads { get; set; }
@@ -50,8 +55,8 @@ namespace MyLiverpoolSite.Data.Entities
 
         public string PhotoPath { get; set; }
 
-        public long LastModifiedUTC { get; set; }
+        public long LastModifiedUtc { get; set; }
 
-        public List<BlogComment> Comments { get; set; } 
+        public virtual ICollection<Comment> Comments { get; set; } 
     }
 }

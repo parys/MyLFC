@@ -1,4 +1,4 @@
-﻿namespace MyLiverpoolSite.Business.ViewModels.User
+﻿namespace MyLiverpoolSite.Business.ViewModels.Users
 {
     public class CreateUserViewModel
     {

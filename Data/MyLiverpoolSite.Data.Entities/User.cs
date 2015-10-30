@@ -12,8 +12,7 @@ namespace MyLiverpoolSite.Data.Entities
         public User()
         {
             this.ForumMessages = new HashSet<ForumMessage>();
-            this.BlogComments = new HashSet<BlogComment>();
-            this.NewsComments = new HashSet<NewsComment>();
+            this.Comments = new HashSet<Comment>();
         }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User, int> manager)
@@ -51,7 +50,7 @@ namespace MyLiverpoolSite.Data.Entities
 
         public int OldId { get; set; }
 
-        public string Login { get; set; }
+      //  public string Login { get; set; }
 
         public string Password { get; set; }
 
@@ -85,9 +84,7 @@ namespace MyLiverpoolSite.Data.Entities
 
         public virtual ICollection<ForumMessage> ForumMessages { get; set; }
 
-        public virtual ICollection<BlogComment> BlogComments { get; set; }
-
-        public virtual ICollection<NewsComment> NewsComments { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
 
     }
 }

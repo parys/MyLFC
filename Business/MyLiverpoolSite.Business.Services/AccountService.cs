@@ -18,7 +18,7 @@ namespace MyLiverpoolSite.Business.Services
 
         public int GetUserIdByLoginAndPassword(string login, string password)
         {
-            var user = _unitOfWork.UserRepository.Get().FirstOrDefault(u => u.Login == login && u.Password == password);
+            var user = _unitOfWork.UserRepository.Get().FirstOrDefault(u => u.UserName == login && u.Password == password);
             return user?.Id ?? 0;
         }
 

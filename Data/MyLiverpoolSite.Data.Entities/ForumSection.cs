@@ -4,13 +4,18 @@ namespace MyLiverpoolSite.Data.Entities
 {
     public class ForumSection
     {
-        public long Id { get; set; }
+        public ForumSection()
+        {
+            ForumSubsections = new HashSet<ForumSubsection>();
+        }
 
-        public long IdOld { get; set; }
+        public int Id { get; set; }
+
+        public int IdOld { get; set; }
 
         public string Name { get; set; }
 
-        public List<ForumSubsection> ForumSubsections { get; set; }
+        public virtual ICollection<ForumSubsection> ForumSubsections { get; set; }
 
     }
 }

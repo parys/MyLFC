@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MyLiverpoolSite.Business.ViewModels.User
+﻿namespace MyLiverpoolSite.Business.ViewModels.Users
 {
     public class UserViewModel
     {
@@ -26,6 +20,6 @@ namespace MyLiverpoolSite.Business.ViewModels.User
 
         public string City { get; set; }
 
-        public long RegistrationDateUTC { get; set; }
+        public long RegistrationDateUtc { get; set; }
     }
 }
