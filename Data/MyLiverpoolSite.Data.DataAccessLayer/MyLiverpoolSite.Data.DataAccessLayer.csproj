@@ -60,6 +60,7 @@
     <Compile Include="DataBaseInitializer.cs" />
     <Compile Include="GenericRepository.cs" />
     <Compile Include="IGenericRepository.cs" />
+    <Compile Include="INewsItemsRepository.cs" />
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="LiverpoolContext.cs" />
     <Compile Include="LiverpoolContextOLD.cs" />

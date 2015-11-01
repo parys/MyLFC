@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Threading.Tasks;
 using AutoMapper;
 using MyLiverpoolSite.Business.Contracts;
 using MyLiverpoolSite.Business.ViewModels.News;
-using MyLiverpoolSite.Common.Utilities;
 using MyLiverpoolSite.Data.DataAccessLayer;
 using MyLiverpoolSite.Data.Entities;
 
@@ -14,17 +13,26 @@ namespace MyLiverpoolSite.Business.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly INewsCategoryService _newsCategoryService;
+        private readonly INewsItemsRepository _newsItemsRepository;
 
-        public NewsService(IUnitOfWork unitOfWork, INewsCategoryService newsCategoryService)
+        public NewsService(IUnitOfWork unitOfWork, INewsCategoryService newsCategoryService, INewsItemsRepository newsItemsRepository)
         {
             _unitOfWork = unitOfWork;
             _newsCategoryService = newsCategoryService;
+            _newsItemsRepository = newsItemsRepository;
         }
 
-        public NewsItem GetById(int id)
+        public async Task<IndexNewsViewModel> GetById(int id)
         {
+            IndexNewsViewModel result = null;
+            if (id > 0)
+            {
+                var newsItem = await _newsItemsRepository.GetById(id);
+              //  result = Mapper.Map<IndexNewsViewModel>(_unitOfWork.NewsItemRepository.GetById(id));
+                result = Mapper.Map<IndexNewsViewModel>(newsItem);
+            }
             //throw new NotImplementedException();
-            return id > 0 ? _unitOfWork.NewsItemRepository.GetById(id) : null;
+            return result;
         }
 
         public void Delete(int id)
@@ -38,7 +46,7 @@ namespace MyLiverpoolSite.Business.Services
             if (id.HasValue && id != 0)
             {
                 var newsItem = GetById(id.Value);
-                viewModel = Mapper.Map<NewsItem, CreateEditNewsViewModel>(newsItem);
+                viewModel = Mapper.Map<CreateEditNewsViewModel>(newsItem);
                 //DateTimeHelpers.ConvertUtcToLocalTime(viewModel.AdditionTime);
             }
             else
@@ -71,11 +79,21 @@ namespace MyLiverpoolSite.Business.Services
           //  return newsItem.Id;
         }
 
-        public IEnumerable<NewsItem> GetAll()
+        public IEnumerable<IndexNewsViewModel> GetAll()
         {
             // todo pageable 
+
             //throw new NotImplementedException();
-            return _unitOfWork.NewsItemRepository.Get().Take(2);
+
+            var result = new List<IndexNewsViewModel>();
+
+            var news = _unitOfWork.NewsItemRepository.Get();
+            foreach (var item in news)
+            {
+                var res = Mapper.Map<IndexNewsViewModel>(item);
+                result.Add(res);
+            }
+            return result;
         }
     }
 }

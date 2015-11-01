@@ -46,7 +46,7 @@ namespace MyLiverpoolSite.Business.Services
 
         private static void RegisterNewsMapping()
         {
-                Mapper.CreateMap<CreateEditNewsViewModel, NewsItem>()
+                Mapper.CreateMap<IndexNewsViewModel, NewsItem>()
                     .ForMember(t => t.Id, opt => opt.MapFrom(m => m.Id))
                     .ForMember(t => t.Title, opt => opt.MapFrom(m => m.Title))
                     .ForMember(t => t.Brief, opt => opt.MapFrom(m => m.Brief))
@@ -73,9 +73,9 @@ namespace MyLiverpoolSite.Business.Services
             //        .ForMember(t => t.CategoryId, opt => opt.Ignore())
             ;//MapFrom(m => m.));
 
-                Mapper.CreateMap<NewsItem, CreateEditNewsViewModel>()
-                    //.ForMember(t => t.NewsCategories, opt => opt.Ignore())
-                    .ForMember(t => t.NewsCategories, opt => opt.Ignore());
+            Mapper.CreateMap<NewsItem, IndexNewsViewModel>();
+            //.ForMember(t => t.NewsCategories, opt => opt.Ignore())
+            // .ForMember(t => t.NewsCategories, opt => opt.Ignore());
         }
     }
 }

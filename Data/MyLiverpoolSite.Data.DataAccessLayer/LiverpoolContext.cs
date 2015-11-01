@@ -61,10 +61,12 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
         public DbSet<UserLogin> UserLogins { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
 
-    //    public DbSet<RoleClaim> RoleClaims { get; set; }
+    //    public System.Data.Entity.DbSet<MyLiverpoolSite.Business.ViewModels.News.IndexNewsViewModel> IndexNewsViewModels { get; set; }
 
-       // protected override void On(ModelBuilder modelBuilder)
-       // {
+        //    public DbSet<RoleClaim> RoleClaims { get; set; }
+
+        // protected override void On(ModelBuilder modelBuilder)
+        // {
         //    base.OnModelCreating(modelBuilder);
         //   // modelBuilder.Entity<User>().ForRelational().Table(tableName: "Users");//, schemaName: "Map");
         //   // modelBuilder.Entity<IdentityUser>().ForRelational().Table(tableName: "Users");//, schemaName: "Map");
@@ -75,11 +77,11 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
         //    //  modelBuilder.Entity<IdentityUserLogin>().ToTable("MyUserLogins");
         //    //  modelBuilder.Entity<IdentityUserClaim>().ToTable("MyUserClaims");
         //    //  modelBuilder.Entity<IdentityRole>().ToTable("MyRoles");
-       // }
+        // }
 
         //protected override void OnConfiguring()
         //{
-            
+
         //}
     }
 

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using MyLiverpoolSite.Business.ViewModels.News;
 using MyLiverpoolSite.Data.Entities;
 
@@ -11,7 +12,7 @@ namespace MyLiverpoolSite.Business.Contracts
         /// </summary>
         /// <param name="id">newsItem id</param>
         /// <returns>Found newsItem or null.</returns>
-        NewsItem GetById(int id);
+        Task<IndexNewsViewModel> GetById(int id);
 
         int Create(NewsItem newsItem);
 
@@ -23,6 +24,6 @@ namespace MyLiverpoolSite.Business.Contracts
 
         CreateEditNewsViewModel GetCreateEditViewModel(int? id);
 
-        IEnumerable<NewsItem> GetAll();
+        IEnumerable<IndexNewsViewModel> GetAll();
     }
 }

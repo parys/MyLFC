@@ -1,0 +1,134 @@
+﻿@model MyLiverpoolSite.Business.ViewModels.News.IndexNewsViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>IndexNewsViewModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.OldId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OldId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CategoryId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CategoryId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Year)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Year)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Month)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Month)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Day)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Day)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CanCommentary)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CanCommentary)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AdditionTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AdditionTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Brief)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Brief)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Message)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Message)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Reads)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Reads)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Source)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Source)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PhotoPath)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PhotoPath)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastModifiedUtc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastModifiedUtc)
+        </dd>
+       @foreach (var comment in Model.Comments)
+       {
+           <br/>
+           @Html.DisplayFor(c => comment.Message);
+           }
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
