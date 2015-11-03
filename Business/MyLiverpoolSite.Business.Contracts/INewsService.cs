@@ -14,7 +14,7 @@ namespace MyLiverpoolSite.Business.Contracts
         /// <returns>Found newsItem or null.</returns>
         Task<IndexNewsViewModel> GetById(int id);
 
-        int Create(NewsItem newsItem);
+        Task<int> Create(CreateEditNewsViewModel model, int userId);
 
         int Edit(NewsItem newsItem);
 
@@ -22,8 +22,8 @@ namespace MyLiverpoolSite.Business.Contracts
 
         void Delete(int id);
 
-        CreateEditNewsViewModel GetCreateEditViewModel(int? id);
+        Task<CreateEditNewsViewModel> GetCreateEditViewModel(int? id);
 
-        IEnumerable<IndexNewsViewModel> GetAll();
+        Task<IEnumerable<IndexNewsViewModel>> GetAll();
     }
 }

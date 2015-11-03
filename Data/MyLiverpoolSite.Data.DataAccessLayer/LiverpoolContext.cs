@@ -63,15 +63,15 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
 
             modelBuilder.Entity<User>().HasMany(u => u.Comments).WithOptional();
             modelBuilder.Entity<User>().HasMany(u => u.ForumMessages).WithOptional();
-            modelBuilder.Entity<User>().HasMany(u => u.BlogItems).WithOptional();
-            modelBuilder.Entity<User>().HasMany(u => u.NewsItems).WithOptional();
+        //    modelBuilder.Entity<User>().HasMany(u => u.BlogItems).WithOptional();
+        //    modelBuilder.Entity<User>().HasMany(u => u.NewsItems).WithOptional();
 
-            modelBuilder.Entity<NewsItem>().HasRequired(x => x.User);
-            modelBuilder.Entity<BlogItem>().HasRequired(x => x.User);
-            modelBuilder.Entity<NewsItem>().HasRequired(x => x.NewsCategory);
-            modelBuilder.Entity<BlogItem>().HasRequired(x => x.BlogCategory);
-            modelBuilder.Entity<NewsCategory>().HasMany(u => u.NewsItems);
-            modelBuilder.Entity<BlogCategory>().HasMany(u => u.BlogItems);
+            modelBuilder.Entity<NewsItem>().HasRequired(x => x.Author).WithMany(x => x.NewsItems).HasForeignKey(x => x.AuthorId);
+            modelBuilder.Entity<BlogItem>().HasRequired(x => x.Author).WithMany(x => x.BlogItems).HasForeignKey(x => x.AuthorId);
+            modelBuilder.Entity<NewsItem>().HasRequired(x => x.NewsCategory).WithMany(x => x.NewsItems).HasForeignKey(x => x.NewsCategoryId);
+            modelBuilder.Entity<BlogItem>().HasRequired(x => x.BlogCategory).WithMany(x => x.BlogItems).HasForeignKey(x => x.BlogCategoryId);
+           // modelBuilder.Entity<NewsCategory>().HasMany(u => u.NewsItems);
+          //  modelBuilder.Entity<BlogCategory>().HasMany(u => u.BlogItems);
             modelBuilder.Entity<NewsItem>().HasMany(u => u.Comments);
             modelBuilder.Entity<BlogItem>().HasMany(u => u.Comments);
             modelBuilder.Entity<NewsComment>().HasRequired(u => u.NewsItem).WithRequiredDependent();

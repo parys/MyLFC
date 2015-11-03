@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using MyLiverpoolSite.Business.Contracts;
@@ -40,20 +41,19 @@ namespace MyLiverpoolSite.Business.Services
             throw new System.NotImplementedException();
         }
 
-        public CreateEditNewsViewModel GetCreateEditViewModel(int? id)
+        public async Task<CreateEditNewsViewModel> GetCreateEditViewModel(int? id)
         {
-            CreateEditNewsViewModel viewModel = new CreateEditNewsViewModel();
+            CreateEditNewsViewModel viewModel;
             if (id.HasValue && id != 0)
             {
                 var newsItem = GetById(id.Value);
                 viewModel = Mapper.Map<CreateEditNewsViewModel>(newsItem);
-                //DateTimeHelpers.ConvertUtcToLocalTime(viewModel.AdditionTime);
             }
             else
             {
-              //  viewModel = new NewsItem();
+                viewModel = Mapper.Map<CreateEditNewsViewModel>(new NewsItem());
             }
-            viewModel.NewsCategories = _newsCategoryService.GetNewsCategories();
+            viewModel.NewsCategories = await _newsCategoryService.GetNewsCategories();
 
             return viewModel;
         }
@@ -71,29 +71,29 @@ namespace MyLiverpoolSite.Business.Services
            // return newsItem.Id;
         }
 
-        public int Create(NewsItem newsItem)
+        public async Task<int> Create(CreateEditNewsViewModel model, int userId)
         {
-            throw new NotImplementedException();
-            //todo  _unitOfWork.NewsItemRepository.Add(newsItem);
-           // _unitOfWork.Save();
-          //  return newsItem.Id;
+            var newsItem = Mapper.Map<NewsItem>(model);
+            //todo add time author and other
+            newsItem.AdditionTime = DateTime.Now;
+            newsItem.LastModified = DateTime.Now;
+            newsItem.AuthorId = userId;
+            _unitOfWork.NewsItemRepository.Add(newsItem);
+            _unitOfWork.Save();
+            var result = await _unitOfWork.NewsItemRepository.Get(x => x.Author == newsItem.Author && x.AdditionTime == newsItem.AdditionTime);
+            
+            //  return newsItem.Id;
+            return result.First().Id;
         }
 
-        public IEnumerable<IndexNewsViewModel> GetAll()
+        public async Task<IEnumerable<IndexNewsViewModel>> GetAll()
         {
             // todo pageable 
 
             //throw new NotImplementedException();
 
-            var result = new List<IndexNewsViewModel>();
-
-            var news = _unitOfWork.NewsItemRepository.Get();
-            foreach (var item in news)
-            {
-                var res = Mapper.Map<IndexNewsViewModel>(item);
-                result.Add(res);
-            }
-            return result;
+            var news = await _unitOfWork.NewsItemRepository.Get();
+            return news.Select(Mapper.Map<IndexNewsViewModel>).ToList();
         }
     }
 }

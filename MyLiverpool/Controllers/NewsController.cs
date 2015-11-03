@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using MyLiverpoolSite.Business.Contracts;
 using MyLiverpoolSite.Business.ViewModels.News;
 
@@ -24,7 +25,7 @@ namespace MyLiverpool.Controllers
         // GET: News
         public async Task<ActionResult> Index()
         {
-            return View(_newsService.GetAll());
+            return View( await _newsService.GetAll());
         }
 
         // GET: News/Details/5
@@ -43,9 +44,11 @@ namespace MyLiverpool.Controllers
         }
 
         // GET: News/Create
-        public ActionResult Create()
+        [Authorize]
+        public async Task<ActionResult> Create()
         {
-            return View();
+            var model = await _newsService.GetCreateEditViewModel(null);
+            return View(model);
         }
 
         // POST: News/Create
@@ -53,16 +56,16 @@ namespace MyLiverpool.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,OldId,CategoryId,Year,Month,Day,CanCommentary,AdditionTime,Title,Brief,Message,Reads,Source,PhotoPath,LastModified")] IndexNewsViewModel indexNewsViewModel)
+        public async Task<ActionResult> Create(CreateEditNewsViewModel indexNewsViewModel)
         {
-            throw new NotImplementedException();
-            //if (ModelState.IsValid)
-            //{
-            //    db.IndexNewsViewModels.Add(indexNewsViewModel);
-            //    await db.SaveChangesAsync();
-            //    return RedirectToAction("Index");
-            //}
-
+            //throw new NotImplementedException();
+            if (ModelState.IsValid)
+            {
+                var result = _newsService.Create(indexNewsViewModel, User.Identity.GetUserId<int>());
+              //  await db.SaveChangesAsync();
+                
+            }
+            return RedirectToAction("Index");
             //return View(indexNewsViewModel);
         }
 

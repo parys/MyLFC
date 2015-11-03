@@ -34,7 +34,7 @@ namespace MyLiverpoolSite.Data.Entities
 
         public int NumberCommentaries { get; set; }
 
-        public virtual User User { get; set; }
+        public virtual User Author { get; set; }
 
         public string Title { get; set; }
          
@@ -58,6 +58,9 @@ namespace MyLiverpoolSite.Data.Entities
 
         public DateTime LastModified { get; set; }
 
-        public virtual ICollection<BlogComment> Comments { get; set; } 
+        public virtual ICollection<BlogComment> Comments { get; set; }
+
+        public int BlogCategoryId { get; set; }
+        public int AuthorId { get; set; }
     }
 }

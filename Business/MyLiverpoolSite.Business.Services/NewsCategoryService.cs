@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using MyLiverpoolSite.Business.Contracts;
 using MyLiverpoolSite.Data.DataAccessLayer;
 using MyLiverpoolSite.Data.Entities;
@@ -15,10 +16,10 @@ namespace MyLiverpoolSite.Business.Services
             this._unitOfWork = unitOfWork;
         }
 
-        public IEnumerable<NewsCategory> GetNewsCategories()
+        public async Task<IEnumerable<NewsCategory>> GetNewsCategories()
         {
-            throw new NotImplementedException();
-           //todo return _unitOfWork.NewsCategoryRepository.Get();
+            //throw new NotImplementedException();
+           return await _unitOfWork.NewsCategoryRepository.Get();
         }
     }
 }

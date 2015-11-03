@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace MyLiverpoolSite.Data.DataAccessLayer
 {
@@ -14,14 +15,14 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
         /// <summary>
         /// Returns all objects of given type.
         /// </summary>
-        IEnumerable<TEntity> Get(
+        Task<IEnumerable<TEntity>> Get(
             Expression<Func<TEntity, bool>> filter = null,
             params Expression<Func<TEntity, object>>[] includeProperties);
 
         /// <summary>
         /// Returns element by id
         /// </summary>
-        TEntity GetById(object id);
+        Task<TEntity> GetById(object id);
 
         /// <summary>
         /// Adds object to repository.
@@ -31,12 +32,12 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
         /// <summary>
         /// Deletes object from repository by id.
         /// </summary>
-        void Delete(object id);
+        Task Delete(object id);
 
         /// <summary>
         /// Deletes object from repository by entity.
         /// </summary>
-        void Delete(TEntity entity);
+        Task Delete(TEntity entity);
 
         /// <summary>
         /// Updates object in repository.

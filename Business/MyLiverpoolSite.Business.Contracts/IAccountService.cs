@@ -1,8 +1,10 @@
-﻿namespace MyLiverpoolSite.Business.Contracts
+﻿using System.Threading.Tasks;
+
+namespace MyLiverpoolSite.Business.Contracts
 {
     public interface IAccountService
     {
-        int GetUserIdByLoginAndPassword(string login, string password);
+        Task<int> GetUserIdByLoginAndPassword(string login, string password);
 
       //  HttpCookie GetCookie(int userId, bool rememberMe);
     }

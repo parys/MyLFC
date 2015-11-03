@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using MyLiverpoolSite.Business.Contracts;
 using MyLiverpoolSite.Data.DataAccessLayer;
 
@@ -16,9 +17,10 @@ namespace MyLiverpoolSite.Business.Services
             _unitOfWork = unitOfWork;
         }
 
-        public int GetUserIdByLoginAndPassword(string login, string password)
+        public async Task<int> GetUserIdByLoginAndPassword(string login, string password)
         {
-            var user = _unitOfWork.UserRepository.Get().FirstOrDefault(u => u.UserName == login && u.Password == password);
+            var users = await _unitOfWork.UserRepository.Get();
+            var user = users.FirstOrDefault(u => u.UserName == login && u.Password == password);
             return user?.Id ?? 0;
         }
 

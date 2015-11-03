@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Web.Mvc;
 using MyLiverpoolSite.Data.Entities;
 
 namespace MyLiverpoolSite.Business.ViewModels.News
@@ -19,12 +20,16 @@ namespace MyLiverpoolSite.Business.ViewModels.News
 
         public string Title { get; set; }
 
-      //todo  [AllowHtml]
+        [AllowHtml]
         public string Brief { get; set; }
 
-      //  [AllowHtml]
+        [AllowHtml]
         public string Message { get; set; }
 
         public string Source { get; set; }
+
+        public string PhotoPath { get; set; }
+
+        public int NewsCategoryId { get; set; }
     }
 }

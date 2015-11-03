@@ -69,7 +69,7 @@ namespace MyLiverpoolSite.Business.Services
             //        .ForMember(t => t.RatingNumbers, opt => opt.Ignore())//MapFrom(m => m.));
             //        .ForMember(t => t.RatingSumm, opt => opt.Ignore())//MapFrom(m => m.));
                     .ForMember(t => t.Reads, opt => opt.Ignore())//MapFrom(m => m.));
-            //        .ForMember(t => t.User, opt => opt.Ignore())//MapFrom(m => m.));
+            //        .ForMember(t => t.Author, opt => opt.Ignore())//MapFrom(m => m.));
             //        .ForMember(t => t.Year, opt => opt.Ignore())//MapFrom(m => m.));
             //        .ForMember(t => t.CategoryId, opt => opt.Ignore())
             ;//MapFrom(m => m.));
@@ -77,6 +77,10 @@ namespace MyLiverpoolSite.Business.Services
             Mapper.CreateMap<NewsItem, IndexNewsViewModel>();
             //.ForMember(t => t.NewsCategories, opt => opt.Ignore())
             // .ForMember(t => t.NewsCategories, opt => opt.Ignore());
+
+
+            Mapper.CreateMap<NewsItem, CreateEditNewsViewModel>();
+            Mapper.CreateMap<CreateEditNewsViewModel, NewsItem>();
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace MyLiverpoolSite.Data.DataAccessLayer
 {
@@ -31,7 +32,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
         /// <param name="filter">Filter for selecting desired data.</param>
         /// <param name="includeProperties">Included properties.</param>
         /// <returns>List with filtered data.</returns>
-        public virtual IEnumerable<TEntity> Get(
+        public virtual async Task<IEnumerable<TEntity>> Get(
             Expression<Func<TEntity, bool>> filter = null,
             params Expression<Func<TEntity, object>>[] includeProperties)
         {
@@ -42,7 +43,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
             }
             if (includeProperties == null) return query.ToList();
             query = includeProperties.Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
-            return query.ToList();
+            return await query.ToListAsync();
         }
 
         /// <summary>
@@ -50,9 +51,9 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
         /// </summary>
         /// <param name="id">Entity id.</param>
         /// <returns>Entity.</returns>
-        public virtual TEntity GetById(object id)
+        public virtual async Task<TEntity> GetById(object id)
         {
-            return _dbSet.First();//Find(id);todo
+            return await _dbSet.FirstAsync();//Find(id);todo
         }
 
         /// <summary>
@@ -68,16 +69,16 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
         /// Deletes object from repository by id.
         /// </summary>
         /// <param name="id">Entity id.</param>
-        public virtual void Delete(object id)
+        public virtual async Task Delete(object id)
         {
-            Delete(_dbSet.First());//todoFind(id));
+            await Delete(await _dbSet.FirstAsync());//todoFind(id));
         }
 
         /// <summary>
         /// Deletes object from repository by entity.
         /// </summary>
         /// <param name="entityToDelete">Entity to delete.</param>
-        public virtual void Delete(TEntity entityToDelete)
+        public virtual async Task Delete(TEntity entityToDelete)
         {
             if (_context.Entry(entityToDelete).State == EntityState.Detached)
             {
