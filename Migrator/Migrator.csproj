@@ -67,6 +67,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\MyLiverpoolSite.Common.Utilities\MyLiverpoolSite.Common.Utilities.csproj">
+      <Project>{9170eed7-3e97-4d04-9213-abd33a7d71f0}</Project>
+      <Name>MyLiverpoolSite.Common.Utilities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Data\MyLiverpoolSite.Data.DataAccessLayer\MyLiverpoolSite.Data.DataAccessLayer.csproj">
       <Project>{ac10a860-1c0e-4910-9e05-428d09f70981}</Project>
       <Name>MyLiverpoolSite.Data.DataAccessLayer</Name>

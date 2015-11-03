@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace MyLiverpoolSite.Data.Entities
@@ -7,13 +8,13 @@ namespace MyLiverpoolSite.Data.Entities
     {
         public BlogItem()
         {
-            Comments = new HashSet<Comment>();
+            Comments = new HashSet<BlogComment>();
         }
         public int Id { get; set; }
 
         public int OldId { get; set; }
 
-        public int CategoryId { get; set; }
+    //    public int CategoryId { get; set; }
 
         public virtual BlogCategory BlogCategory { get; set; }
 
@@ -29,7 +30,7 @@ namespace MyLiverpoolSite.Data.Entities
 
         public bool CanCommentary { get; set; }
 
-        public long AdditionTime { get; set; }
+        public DateTime AdditionTime { get; set; }
 
         public int NumberCommentaries { get; set; }
 
@@ -55,8 +56,8 @@ namespace MyLiverpoolSite.Data.Entities
 
         public string PhotoPath { get; set; }
 
-        public long LastModifiedUtc { get; set; }
+        public DateTime LastModified { get; set; }
 
-        public virtual ICollection<Comment> Comments { get; set; } 
+        public virtual ICollection<BlogComment> Comments { get; set; } 
     }
 }

@@ -12,7 +12,9 @@ namespace MyLiverpoolSite.Data.Entities
         public User()
         {
             this.ForumMessages = new HashSet<ForumMessage>();
-            this.Comments = new HashSet<Comment>();
+            this.Comments = new HashSet<NewsComment>();
+            this.BlogItems = new HashSet<BlogItem>();
+            this.NewsItems = new HashSet<NewsItem>();
         }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User, int> manager)
@@ -70,7 +72,7 @@ namespace MyLiverpoolSite.Data.Entities
 
         public string City { get; set; }
 
-        public long RegistrationDateUtc { get; set; }
+        public DateTime RegistrationDate { get; set; }
 
         public string Ip { get; set; }
 
@@ -78,13 +80,17 @@ namespace MyLiverpoolSite.Data.Entities
 
         public bool Verify { get; set; }
 
-        public long LastModifiedUtc { get; set; }
+        public DateTime LastModified { get; set; }
 
         public string Title { get; set; }
 
         public virtual ICollection<ForumMessage> ForumMessages { get; set; }
 
-        public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<NewsComment> Comments { get; set; }
+
+        public virtual ICollection<BlogItem> BlogItems { get; set; }
+
+        public virtual ICollection<NewsItem> NewsItems { get; set; }
 
     }
 }

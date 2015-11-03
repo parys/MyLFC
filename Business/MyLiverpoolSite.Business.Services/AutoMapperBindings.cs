@@ -28,10 +28,10 @@ namespace MyLiverpoolSite.Business.Services
         //    .ForMember(t => t.Gender, opt => opt.Ignore())//MapFrom(m => m.Email))
         //    .ForMember(t => t.Homepage, opt => opt.Ignore())//MapFrom(m => m.Email))
         //    .ForMember(t => t.Ip, opt => opt.Ignore())//MapFrom(m => m.Email))
-        //    .ForMember(t => t.LastModifiedUtc, opt => opt.Ignore())//MapFrom(m => m.Email))
+        //    .ForMember(t => t.LastModified, opt => opt.Ignore())//MapFrom(m => m.Email))
         //    .ForMember(t => t.OldId, opt => opt.Ignore())//MapFrom(m => m.Email))
         //    .ForMember(t => t.PhotoPath, opt => opt.Ignore())//MapFrom(m => m.Email))
-        //    .ForMember(t => t.RegistrationDateUtc, opt => opt.Ignore())//MapFrom(m => m.Email))
+        //    .ForMember(t => t.RegistrationDate, opt => opt.Ignore())//MapFrom(m => m.Email))
         //    .ForMember(t => t.Skype, opt => opt.Ignore())//MapFrom(m => m.Email))
         //    .ForMember(t => t.Title, opt => opt.Ignore())//MapFrom(m => m.Email))
         //    .ForMember(t => t.Verify, opt => opt.Ignore())//MapFrom(m => m.Email))
@@ -57,9 +57,10 @@ namespace MyLiverpoolSite.Business.Services
             //        .ForMember(t => t.Pending, opt => opt.MapFrom(m => m.Pending))
                     .ForMember(t => t.Source, opt => opt.MapFrom(m => m.Source))
                     .ForMember(t => t.AdditionTime, opt => opt.Ignore())//MapFrom(m => m.));
-                    .ForMember(t => t.Comments, opt => opt.Ignore())//MapFrom(m => m.));
+              //      .ForMember(t => t.NewsComments, opt => opt.Ignore())//MapFrom(m => m.));
+                    .ForMember(t => t.Comments, opt => opt.MapFrom(m => m.Comments))
             //        .ForMember(t => t.Day, opt => opt.Ignore())//MapFrom(m => m.));
-            //        .ForMember(t => t.LastModifiedUtc, opt => opt.Ignore())//MapFrom(m => m.));
+            //        .ForMember(t => t.LastModified, opt => opt.Ignore())//MapFrom(m => m.));
             //        .ForMember(t => t.Month, opt => opt.Ignore())//MapFrom(m => m.));
                     .ForMember(t => t.NumberCommentaries, opt => opt.Ignore())//MapFrom(m => m.));
             //        .ForMember(t => t.OldId, opt => opt.Ignore())//MapFrom(m => m.));

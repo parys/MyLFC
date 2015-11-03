@@ -41,27 +41,48 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
        // public DbSet<Role> Roles { get; set; }
 
         public DbSet<BlogItem> BlogItems { get; set; }
-
         public DbSet<NewsItem> NewsItems { get; set; }
-
         public DbSet<BlogCategory> BlogCategories { get; set; }
-
         public DbSet<NewsCategory> NewsCategories { get; set; }
-
-        public DbSet<Comment> Comments { get; set; }
-
+        public DbSet<NewsComment> Comments { get; set; }
         public DbSet<ForumSection> ForumSections { get; set; }
-
         public DbSet<ForumSubsection> ForumSubsections { get; set; }
-
         public DbSet<ForumTheme> ForumThemes { get; set; }
-
         public DbSet<ForumMessage> ForumMessages { get; set; }
         public DbSet<UserClaim> UserClaims { get; set; }
         public DbSet<UserLogin> UserLogins { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
 
-    //    public System.Data.Entity.DbSet<MyLiverpoolSite.Business.ViewModels.News.IndexNewsViewModel> IndexNewsViewModels { get; set; }
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>().ToTable("Users");
+            modelBuilder.Entity<Role>().ToTable("Roles");
+            modelBuilder.Entity<UserClaim>().ToTable("UserClaims");
+            modelBuilder.Entity<UserLogin>().ToTable("UserLogins");
+            modelBuilder.Entity<UserRole>().ToTable("UserRoles");
+
+            modelBuilder.Entity<User>().HasMany(u => u.Comments).WithOptional();
+            modelBuilder.Entity<User>().HasMany(u => u.ForumMessages).WithOptional();
+            modelBuilder.Entity<User>().HasMany(u => u.BlogItems).WithOptional();
+            modelBuilder.Entity<User>().HasMany(u => u.NewsItems).WithOptional();
+
+            modelBuilder.Entity<NewsItem>().HasRequired(x => x.User);
+            modelBuilder.Entity<BlogItem>().HasRequired(x => x.User);
+            modelBuilder.Entity<NewsItem>().HasRequired(x => x.NewsCategory);
+            modelBuilder.Entity<BlogItem>().HasRequired(x => x.BlogCategory);
+            modelBuilder.Entity<NewsCategory>().HasMany(u => u.NewsItems);
+            modelBuilder.Entity<BlogCategory>().HasMany(u => u.BlogItems);
+            modelBuilder.Entity<NewsItem>().HasMany(u => u.Comments);
+            modelBuilder.Entity<BlogItem>().HasMany(u => u.Comments);
+            modelBuilder.Entity<NewsComment>().HasRequired(u => u.NewsItem).WithRequiredDependent();
+            modelBuilder.Entity<BlogComment>().HasRequired(u => u.BlogItem).WithRequiredDependent();
+            
+           // modelBuilder.Entity<User>().HasMany(u => u.Comments).
+            // использование Fluent API
+            base.OnModelCreating(modelBuilder);
+        }
+
+        //    public System.Data.Entity.DbSet<MyLiverpoolSite.Business.ViewModels.News.IndexNewsViewModel> IndexNewsViewModels { get; set; }
 
         //    public DbSet<RoleClaim> RoleClaims { get; set; }
 
@@ -83,7 +104,6 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
         //{
 
         //}
+
     }
-
-
 }

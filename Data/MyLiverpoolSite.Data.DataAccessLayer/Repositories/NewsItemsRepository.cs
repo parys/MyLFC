@@ -20,7 +20,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
 
         public async Task<NewsItem> GetById(int id)
         {
-            return await _context.NewsItems.Include(x => x.Comments).FirstOrDefaultAsync();
+            return await _context.NewsItems.Include(x => x.Comments).FirstOrDefaultAsync(x => x.Id == id);
         }
     }
 }

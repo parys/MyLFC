@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using MyLiverpoolSite.Data.DataAccessLayer;
 using MyLiverpoolSite.Data.Entities;
+using MyLiverpoolSite.Common.Utilities;
 
 namespace Migrator
 {
@@ -12,23 +13,25 @@ namespace Migrator
     {
         private static readonly IUnitOfWork UnitOfWork = new UnitOfWork();
         private static string path = @"D:\\example\";
-        private static int maxChars = 1000;
+        private static int maxChars = 20000;
         private static bool useLimit = true;
 
-        static void Main(string[] args)
+        static void Main()
         {
             UpdateFromFiles();
             UpdateDb();
+            Console.WriteLine("END");
+            Console.ReadKey();
         }
 
         public static void UpdateFromFiles()
         {
             UpdateUsers();
             UpdateUsersId();
-            UpdateBlogItems();
-            UpdateNewsItems();
             UpdateBlogCategory();
             UpdateNewsCategory();
+            UpdateBlogItems();
+            UpdateNewsItems();
             UpdateComments();
             UpdateForumThemes();
             UpdateForumSections();
@@ -37,15 +40,14 @@ namespace Migrator
 
         public static void UpdateDb()
         {
-            UpdateBlogCategoryAndBlogItem();
-            UpdateNewsCategoryAndNewsItem();
+            //UpdateBlogCategoryAndBlogItem();
+            //UpdateNewsCategoryAndNewsItem();
             UpdateCommentsForum();
             UpdateForumSectionAndSubsection();
             UpdateForumSubSectionAndTheme();
             //UpdateComments();
             UpdateCommentsLinks();
-            UpdateCommentsLinksToNewsAndBlogs();
-
+           // UpdateCommentsLinksToNewsAndBlogs();
         }
 
         #region Update from files to DB
@@ -82,7 +84,7 @@ namespace Migrator
                         lastDate += chars[i];
                         i++;
                     }
-                    user.LastModifiedUtc = long.Parse(lastDate);
+                    user.LastModified = DateTimeHelpers.ConvertUtcToLocalTime(long.Parse(lastDate));
                     UnitOfWork.UserRepository.Add(user);
                     while (chars[i] != 10)
                     {
@@ -222,7 +224,7 @@ namespace Migrator
                         regdate += chars[i];
                         i++;
                     }
-                    user.RegistrationDateUtc = long.Parse(regdate);
+                    user.RegistrationDate = DateTimeHelpers.ConvertUtcToLocalTime(long.Parse(regdate));
                     i++;
                     // ip
                     while (chars[i] != '|')
@@ -311,7 +313,7 @@ namespace Migrator
                         lastDate += chars[i];
                         i++;
                     }
-                    user.LastModifiedUtc = long.Parse(lastDate);
+                    user.LastModified = DateTimeHelpers.ConvertUtcToLocalTime(long.Parse(lastDate));
                     UnitOfWork.UserRepository.Add(user);
                     while (chars[i] != 10)
                     {
@@ -336,6 +338,9 @@ namespace Migrator
                 {
                     limit = maxChars;
                 }
+
+                var categories = UnitOfWork.BlogCategoryRepository.Get().ToList();
+
                 for (int i = 0; i < limit; i++)
                 {
                     BlogItem blogItem = new BlogItem();
@@ -355,7 +360,8 @@ namespace Migrator
                         categoryId += chars[i];
                         i++;
                     }
-                    blogItem.CategoryId = int.Parse(categoryId);
+                   // blogItem.CategoryId = int.Parse(categoryId);
+
                     i++;
                     // year
                     string year = null;
@@ -416,7 +422,7 @@ namespace Migrator
                         i++;
                     }
                     i++;
-                    blogItem.AdditionTime = long.Parse(addTime);
+                    blogItem.AdditionTime = DateTimeHelpers.ConvertUtcToLocalTime(long.Parse(addTime));
                     // commentary Number
                     string numberCommentary = null;
                     while (chars[i] != '|')
@@ -436,6 +442,7 @@ namespace Migrator
                     i++;
 
                     blogItem.User = UnitOfWork.UserRepository.Get(u => u.UserName == userName).FirstOrDefault();
+                         
                     //title
                     string title = null;
                     while (chars[i] != '|')
@@ -610,8 +617,18 @@ namespace Migrator
                     }
                     //i++;
 
-                    blogItem.LastModifiedUtc = long.Parse(lastDate);
-                    UnitOfWork.BlogItemRepository.Add(blogItem);
+                    blogItem.LastModified = DateTimeHelpers.ConvertUtcToLocalTime(long.Parse(lastDate));
+
+                    if (useLimit && blogItem.User == null)
+                    {
+                    }
+                    else
+                    {
+                        var category = categories.First(x => x.Id == int.Parse(categoryId));
+                        blogItem.BlogCategory = category;
+                        category.BlogItems.Add(blogItem);
+                        UnitOfWork.BlogItemRepository.Add(blogItem);
+                    }
                     // while (chars[i] != 10)
                     //  {
                     //       i++;
@@ -633,8 +650,11 @@ namespace Migrator
                 var limit = chars.Length;
                 if (useLimit && maxChars < chars.Length)
                 {
-                    limit = maxChars;
+                    limit = maxChars * 10;
                 }
+
+                var categories = UnitOfWork.NewsCategoryRepository.Get().ToList();
+
                 for (int i = 0; i < limit; i++)
                 {
                     NewsItem newsItem = new NewsItem();
@@ -654,7 +674,9 @@ namespace Migrator
                         categoryId += chars[i];
                         i++;
                     }
-                    newsItem.CategoryId = int.Parse(categoryId);
+                  //  newsItem.CategoryId = int.Parse(categoryId);
+
+
                     i++;
                     // year
                     string year = null;
@@ -715,7 +737,7 @@ namespace Migrator
                         i++;
                     }
                     i++;
-                    newsItem.AdditionTime = long.Parse(addTime);
+                    newsItem.AdditionTime = DateTimeHelpers.ConvertUtcToLocalTime(long.Parse(addTime));
                     // commentary Number
                     string numberCommentary = null;
                     while (chars[i] != '|')
@@ -765,25 +787,33 @@ namespace Migrator
                     i++;
 
                     newsItem.Message = message;
+
+                    //while (true)
+                    //{
+                    //    if ( chars[i] == '|' && char.IsDigit(chars[i + 1]))
+                    //    {
+                    //        break;
+                    //    }
+                    //    i++;
+                    //}
+                    //i += 3;
                     // attach
                     while (chars[i] != '|')
                     {
-                        id += chars[i];
+                        //id += chars[i];
                         i++;
                     }
                     i++;
 
                     // files
-                    while (true)
+                    while (chars[i] != '|')
                     {
-                        if (chars[i] == '\\' && chars[i + 1] == '|' && chars[i + 2] == '|')
-                        {
-                            break;
-                        }
                         i++;
                     }
-                    i += 3;
-                    //i++;
+                    i += 1;
+                    i++;
+                    if (chars[i] == '|')
+                        i++;
 
                     // reads
                     string reads = null;
@@ -909,8 +939,18 @@ namespace Migrator
                     }
                     //i++;
 
-                    newsItem.LastModifiedUtc = long.Parse(lastDate);
-                    UnitOfWork.NewsItemRepository.Add(newsItem);
+                    newsItem.LastModified = DateTimeHelpers.ConvertUtcToLocalTime(long.Parse(lastDate));
+
+                    if (useLimit && newsItem.User == null)
+                    {
+                    }
+                    else
+                    {
+                        var category = categories.First(x => x.Id == int.Parse(categoryId));
+                        newsItem.NewsCategory = category;
+                        category.NewsItems.Add(newsItem);
+                        UnitOfWork.NewsItemRepository.Add(newsItem);
+                    }
                     // while (chars[i] != 10)
                     //  {
                     //       i++;
@@ -986,7 +1026,6 @@ namespace Migrator
                     i++;
 
                     UnitOfWork.BlogCategoryRepository.Add(blogCategory);
-
                 }
                 UnitOfWork.Save();
             }
@@ -1075,8 +1114,12 @@ namespace Migrator
                 var limit = chars.Length;
                 if (useLimit && maxChars < chars.Length)
                 {
-                    limit = maxChars;
+                    limit = maxChars*10;
                 }
+
+                var news = UnitOfWork.NewsItemRepository.Get();//n => n.NumberCommentaries > 0);
+                var blogs = UnitOfWork.BlogItemRepository.Get();//n => n.NumberCommentaries > 0);
+
                 for (int i = 0; i < limit; i++)
                 {
 
@@ -1216,40 +1259,73 @@ namespace Migrator
                     //    i++;
                     //}
                     //i++;
-                    Comment comment = new Comment();
+
+
+
+                    
+                //foreach (var comment in newsComments)
+                //{
+                //    foreach (var item in news.Where(newsItem => comment.MaterialId == newsItem.Id))
+                //    {
+                //        if (item.Comments == null)
+                //        {
+                //            item.Comments = new List<NewsComment>();
+                //        }
+                //        item.Comments.Add(comment);
+                //        comment.MaterialId = item.Id;
+                //    }
+                //}
+
                     if (ModuleId == 2)
                     {
-                        comment.Type = CommentType.News;
+                        NewsComment comment = new NewsComment();
+                        comment.OldId = int.Parse(id);
+                        comment.MaterialId = int.Parse(materialId);
+                        comment.NewsItem = news.FirstOrDefault(newsItem => comment.MaterialId == newsItem.OldId);
+                        if (comment.NewsItem == null)
+                        {
+                            continue;
+                        }
+                        if (comment.NewsItem.Comments == null)
+                        {
+                            comment.NewsItem.Comments = new List<NewsComment>();
+                        }
+                        comment.NewsItem.Comments.Add(comment);
+                        if (pending == '1')
+                            comment.Pending = true;
+                        comment.AdditionTime = DateTimeHelpers.ConvertUtcToLocalTime(long.Parse(additionTime));
+                        comment.Author = UnitOfWork.UserRepository.Get(u => u.UserName == userName).FirstOrDefault();
+                        comment.Answer = answer;
+                        comment.Message = message;
+                        comment.ParentCommentId = int.Parse(parentId);
+                        UnitOfWork.NewsCommentRepository.Add(comment);
+                        //comment.Type = CommentType.News;
                     }
-                    else if (ModuleId == 5)
+                    else if (ModuleId == 1)
                     {
-                        comment.Type = CommentType.Blog;
+                        BlogComment comment = new BlogComment(); // { Type = CommentType.Blog };
+                        comment.OldId = int.Parse(id);
+                        comment.MaterialId = int.Parse(materialId);
+                        comment.BlogItem = blogs.FirstOrDefault(newsItem => comment.MaterialId == newsItem.OldId);
+                        if (comment.BlogItem == null)
+                        {
+                            continue;
+                        }
+                        if (comment.BlogItem.Comments == null)
+                        {
+                            comment.BlogItem.Comments = new List<BlogComment>();
+                        }
+                        comment.BlogItem.Comments.Add(comment);
+                        if (pending == '1')
+                            comment.Pending = true;
+                        comment.AdditionTime = DateTimeHelpers.ConvertUtcToLocalTime(long.Parse(additionTime));
+                        comment.Author = UnitOfWork.UserRepository.Get(u => u.UserName == userName).FirstOrDefault();
+                        comment.Answer = answer;
+                        comment.Message = message;
+                        comment.ParentCommentId = int.Parse(parentId);
+                        UnitOfWork.BlogCommentRepository.Add(comment);
+                        // comment.Type = CommentType.Blog;
                     }
-
-                    comment.OldId = int.Parse(id);
-                    comment.MaterialId = int.Parse(materialId);
-                    if (pending == '1')
-                        comment.Pending = true;
-                    comment.AdditionTime = long.Parse(additionTime);
-                    comment.Author = UnitOfWork.UserRepository.Get(u => u.UserName == userName).FirstOrDefault();
-                    comment.Answer = answer;
-                    comment.Message = message;
-                    comment.ParentCommentId = int.Parse(parentId);
-                    UnitOfWork.CommentRepository.Add(comment);
-
-
-                    //Comment comment = new Comment() { Type = CommentType.Blog};
-                    //comment.OldId = int.Parse(id);
-                    //comment.MaterialId = int.Parse(materialId);
-                    //if (pending == '1')
-                    //    comment.Pending = true;
-                    //comment.AdditionTime = long.Parse(additionTime);
-                    //comment.Author = UnitOfWork.UserRepository.Get(u => u.UserName == userName).FirstOrDefault();
-                    //comment.Answer = answer;
-                    //comment.Message = message;
-                    //comment.ParentCommentId = int.Parse(parentId);
-                    //UnitOfWork.BlogCommentRepository.Add(comment);
-
                 }
                 UnitOfWork.Save();
             }
@@ -1314,7 +1390,7 @@ namespace Migrator
                         i++;
                     }
                     i++;
-                    forumTheme.LastMessageAdditionTime = long.Parse(lastDateMessage);
+                    forumTheme.LastMessageAdditionTime = DateTimeHelpers.ConvertUtcToLocalTime(long.Parse(lastDateMessage));
                     // is CLosed
                     while (chars[i] != '|')
                     {
@@ -1611,7 +1687,8 @@ namespace Migrator
                         i++;
                     }
                     i++;
-                    forumMessage.AdditionTimeUtc = long.Parse(additionTime);
+                    forumMessage.AdditionTime = DateTimeHelpers.ConvertUtcToLocalTime(long.Parse(additionTime));
+                    forumMessage.LastModifiedTime = forumMessage.AdditionTime;
                     // pending
                     while (chars[i] != '|')
                     {
@@ -1654,51 +1731,55 @@ namespace Migrator
                 }
                 UnitOfWork.Save();
             }
+            Console.WriteLine("End UpdateForumComments");
         }
 
         #endregion
 
         #region UpdateDB
-        public static void UpdateBlogCategoryAndBlogItem()
-        {
-            var blogCategories = UnitOfWork.BlogCategoryRepository.Get().ToList();
-            var blogs = UnitOfWork.BlogItemRepository.Get().ToList();
-            foreach (var blogCategory in blogCategories)
-            {
-                if (blogCategory.BlogItems == null)
-                {
-                    blogCategory.BlogItems = new List<BlogItem>();
-                }
-                foreach (var blog in blogs.Where(blog => blog.CategoryId == blogCategory.Id))
-                {
-                    blog.BlogCategory = blogCategory;
-                    blogCategory.BlogItems.Add(blog);
-                }
-            }
-            UnitOfWork.Save();
-        }
+        //public static void UpdateBlogCategoryAndBlogItem()
+        //{
+        //    Console.WriteLine("Start UpdateBlogCategoryAndBlogItem");
+        //    var blogCategories = UnitOfWork.BlogCategoryRepository.Get().ToList();
+        //    var blogs = UnitOfWork.BlogItemRepository.Get().ToList();
+        //    foreach (var blogCategory in blogCategories)
+        //    {
+        //        if (blogCategory.BlogItems == null)
+        //        {
+        //            blogCategory.BlogItems = new List<BlogItem>();
+        //        }
+        //        foreach (var blog in blogs.Where(blog => blog.CategoryId == blogCategory.Id))
+        //        {
+        //            blog.BlogCategory = blogCategory;
+        //            blogCategory.BlogItems.Add(blog);
+        //        }
+        //    }
+        //    UnitOfWork.Save();
+        //}
 
-        public static void UpdateNewsCategoryAndNewsItem()
-        {
-            var newsCategories = UnitOfWork.NewsCategoryRepository.Get().ToList();
-            var news = UnitOfWork.NewsItemRepository.Get().ToList();
-            foreach (var newsCategory in newsCategories)
-            {
-                if (newsCategory.NewsItems == null)
-                {
-                    newsCategory.NewsItems = new List<NewsItem>();
-                }
-                foreach (var newss in news.Where(newss => newss.CategoryId == newsCategory.Id))
-                {
-                    newss.NewsCategory = newsCategory;
-                    newsCategory.NewsItems.Add(newss);
-                }
-            }
-            UnitOfWork.Save();
-        }
+        //public static void UpdateNewsCategoryAndNewsItem()
+        //{
+        //    Console.WriteLine("Start UpdateNewsCategoryAndNewsItem");
+        //    var newsCategories = UnitOfWork.NewsCategoryRepository.Get().ToList();
+        //    var news = UnitOfWork.NewsItemRepository.Get().ToList();
+        //    foreach (var newsCategory in newsCategories)
+        //    {
+        //        if (newsCategory.NewsItems == null)
+        //        {
+        //            newsCategory.NewsItems = new List<NewsItem>();
+        //        }
+        //        foreach (var newss in news.Where(newss => newss.CategoryId == newsCategory.Id))
+        //        {
+        //            newss.NewsCategory = newsCategory;
+        //            newsCategory.NewsItems.Add(newss);
+        //        }
+        //    }
+        //    UnitOfWork.Save();
+        //}
 
         public static void UpdateCommentsLinks()
         {
+            Console.WriteLine("Start UpdateCommentsLinks");
             //var comments = UnitOfWork.BlogCommentRepository.Get(c => c.ParentCommentId != 0).ToList();
             //foreach (var comment in comments)
             //{
@@ -1712,24 +1793,25 @@ namespace Migrator
             //    parentComment.Comments.Add(comment);
             //    break;
             //}
-            var newsComments = UnitOfWork.CommentRepository.Get(c => c.ParentCommentId != 0).ToList();
-            foreach (var comment in newsComments)
+            var comments = UnitOfWork.NewsCommentRepository.Get(c => c.ParentCommentId != 0).ToList();
+            foreach (var comment in comments)
             {
-                var parentComment = UnitOfWork.CommentRepository.GetById(comment.ParentCommentId);
+                var parentComment = UnitOfWork.NewsCommentRepository.GetById(comment.ParentCommentId);
 
                 if (parentComment == null) continue;
                 if (parentComment.Comments == null)
                 {
-                    parentComment.Comments = new List<Comment>();
+                    parentComment.Comments = new List<NewsComment>();
                 }
                 parentComment.Comments.Add(comment);
-                break;
             }
             UnitOfWork.Save();
         }
 
         public static void UpdateCommentsForum()
         {
+            Console.WriteLine("Start UpdateCommentsForum");
+
             var posts = UnitOfWork.ForumMessageRepository.Get();
             var themes = UnitOfWork.ForumThemeRepository.Get();
             foreach (var theme in themes)
@@ -1749,6 +1831,7 @@ namespace Migrator
 
         public static void UpdateForumSectionAndSubsection()
         {
+            Console.WriteLine("Start UpdateForumSectionAndSubsection");
             var sections = UnitOfWork.ForumSectionRepository.Get();
             var subSections = UnitOfWork.ForumSubsectionRepository.Get();
             foreach (var section in sections)
@@ -1772,6 +1855,7 @@ namespace Migrator
 
         public static void UpdateForumSubSectionAndTheme()
         {
+            Console.WriteLine("Start UpdateForumSubSectionAndTheme");
             var themes = UnitOfWork.ForumThemeRepository.Get();
             var subSections = UnitOfWork.ForumSubsectionRepository.Get();
 
@@ -1792,34 +1876,25 @@ namespace Migrator
 
         public static void UpdateCommentsLinksToNewsAndBlogs()
         {
-            var comments = UnitOfWork.CommentRepository.Get();
-            var news = UnitOfWork.NewsItemRepository.Get(n => n.NumberCommentaries > 0);
-            foreach (var comment in comments)
-            {
-                foreach (var item in news.Where(newsItem => comment.MaterialId == newsItem.Id))
-                {
-                    if (item.Comments == null)
-                    {
-                        item.Comments = new List<Comment>();
-                    }
-                    item.Comments.Add(comment);
-                    comment.MaterialId = item.Id;
-                }
-            }
-            //  var blogComments = UnitOfWork.BlogCommentRepository.Get();
-            //  var blogs = UnitOfWork.BlogItemRepository.Get(n => n.NumberCommentaries > 0);
-            //  foreach (var comment in blogComments)
-            //   {
-            //       foreach (var blog in blogs.Where(blog => comment.MaterialId == blog.Id))
-            //       {
-            //           if (blog.Comments == null)
-            //           {
-            //               blog.Comments = new List<BlogComment>();
-            //           }
-            //           blog.Comments.Add(comment);
-            //           comment.BlogItem = blog;
-            //       }
-            //s}
+            //Console.WriteLine("Start UpdateCommentsLinksToNewsAndBlogs");
+
+            ////var newsComments = UnitOfWork.NewsCommentRepository.Get();
+           
+            ////var blogComments = UnitOfWork.BlogCommentRepository.Get();
+            ////var blogs = UnitOfWork.BlogItemRepository.Get(n => n.NumberCommentaries > 0);
+            ////foreach (var comment in blogComments)
+            ////{
+            ////    foreach (var blog in blogs.Where(blog => comment.MaterialId == blog.Id))
+            ////    {
+            ////        if (blog.Comments == null)
+            ////        {
+            ////            blog.Comments = new List<BlogComment>();
+            ////        }
+            ////        blog.Comments.Add(comment);
+            ////        comment.BlogItem = blog;
+            ////    }
+            ////}
+            //Console.WriteLine("End UpdateCommentsLinksToNewsAndBlogs");
         }
 
         #endregion

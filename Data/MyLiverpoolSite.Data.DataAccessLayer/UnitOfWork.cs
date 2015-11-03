@@ -16,8 +16,8 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
         private IGenericRepository<NewsItem> _newsItemRepository;
         private IGenericRepository<BlogCategory> _blogCategoryRepository;
         private IGenericRepository<NewsCategory> _newsCategoryRepository;
-        //private IGenericRepository<BlogComment> _blogCommentRepository;
-        private IGenericRepository<Comment> _commentRepository;
+        private IGenericRepository<BlogComment> _blogCommentRepository;
+        private IGenericRepository<NewsComment> _newsCommentRepository;
         private IGenericRepository<ForumSection> _forumSectionRepository;
         private IGenericRepository<ForumTheme> _forumThemeRepository;
         private IGenericRepository<ForumSubsection> _forumSubsectionRepository;
@@ -49,8 +49,8 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
         /// Return roleRepository.
         /// </summary>
         public IGenericRepository<NewsItem> NewsItemRepository => _newsItemRepository ?? (_newsItemRepository = new GenericRepository<NewsItem>(_context));
-     //   public IGenericRepository<BlogComment> BlogCommentRepository => _blogCommentRepository ?? (_blogCommentRepository = new GenericRepository<BlogComment>(_context));
-        public IGenericRepository<Comment> CommentRepository => _commentRepository ?? (_commentRepository = new GenericRepository<Comment>(_context));
+        public IGenericRepository<BlogComment> BlogCommentRepository => _blogCommentRepository ?? (_blogCommentRepository = new GenericRepository<BlogComment>(_context));
+        public IGenericRepository<NewsComment> NewsCommentRepository => _newsCommentRepository ?? (_newsCommentRepository = new GenericRepository<NewsComment>(_context));
         public IGenericRepository<ForumSection> ForumSectionRepository => _forumSectionRepository ?? (_forumSectionRepository = new GenericRepository<ForumSection>(_context));
         public IGenericRepository<ForumTheme> ForumThemeRepository => _forumThemeRepository ?? (_forumThemeRepository = new GenericRepository<ForumTheme>(_context));
         public IGenericRepository<ForumSubsection> ForumSubsectionRepository => _forumSubsectionRepository ?? (_forumSubsectionRepository = new GenericRepository<ForumSubsection>(_context));
@@ -90,6 +90,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
             catch (Exception ex)
             {
                 var e = ex;
+                
                 throw;
             }
         }

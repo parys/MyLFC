@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using MyLiverpoolSite.Data.Entities;
 
@@ -8,7 +9,7 @@ namespace MyLiverpoolSite.Business.ViewModels.News
     {
         public IndexNewsViewModel()
         {
-            Comments = new HashSet<Comment>();
+            Comments = new HashSet<NewsComment>();
         }
 
         public int Id { get; set; }
@@ -27,7 +28,7 @@ namespace MyLiverpoolSite.Business.ViewModels.News
 
         public bool CanCommentary { get; set; }
 
-        public long AdditionTime { get; set; }
+        public DateTime AdditionTime { get; set; }
 
         public uint NumberCommentaries { get; set; }
 
@@ -47,8 +48,8 @@ namespace MyLiverpoolSite.Business.ViewModels.News
 
         public string PhotoPath { get; set; }
 
-        public long LastModifiedUtc { get; set; }
+        public DateTime LastModified { get; set; }
 
-        public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<NewsComment> Comments { get; set; }
     }
 }

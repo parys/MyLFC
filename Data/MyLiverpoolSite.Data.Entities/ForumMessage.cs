@@ -1,4 +1,6 @@
-﻿namespace MyLiverpoolSite.Data.Entities
+﻿using System;
+
+namespace MyLiverpoolSite.Data.Entities
 {
     public class ForumMessage
     {
@@ -10,7 +12,7 @@
 
         public virtual ForumTheme ForumTheme { get; set; }
 
-        public long AdditionTimeUtc { get; set; }
+        public DateTime AdditionTime { get; set; }
 
         public bool IsFirstMessage { get; set; }
 
@@ -20,7 +22,7 @@
 
         public string Ip { get; set; }
 
-        public long LastModifiedTimeUtc { get; set; }
+        public DateTime LastModifiedTime { get; set; }
 
 
     }

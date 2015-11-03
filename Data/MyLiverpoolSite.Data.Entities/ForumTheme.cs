@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace MyLiverpoolSite.Data.Entities
 {
@@ -21,7 +22,7 @@ namespace MyLiverpoolSite.Data.Entities
 
         public bool OnTop { get; set; }
 
-        public long LastMessageAdditionTime { get; set; }
+        public DateTime LastMessageAdditionTime { get; set; }
 
         public bool IsClosed { get; set; }
 

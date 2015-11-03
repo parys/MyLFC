@@ -115,16 +115,16 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.LastModifiedUtc)
+            @Html.DisplayNameFor(model => model.LastModified)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.LastModifiedUtc)
+            @Html.DisplayFor(model => model.LastModified)
         </dd>
        @foreach (var comment in Model.Comments)
        {
            <br/>
-           @Html.DisplayFor(c => comment.Message);
+           @Html.DisplayFor(c => comment.Message); @Html.DisplayFor(c => comment.Author.UserName);
            }
     </dl>
 </div>

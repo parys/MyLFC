@@ -51,7 +51,7 @@
             @Html.DisplayNameFor(model => model.PhotoPath)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LastModifiedUtc)
+            @Html.DisplayNameFor(model => model.LastModified)
         </th>
         <th></th>
     </tr>
@@ -98,7 +98,7 @@
             @Html.DisplayFor(modelItem => item.PhotoPath)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.LastModifiedUtc)
+            @Html.DisplayFor(modelItem => item.LastModified)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

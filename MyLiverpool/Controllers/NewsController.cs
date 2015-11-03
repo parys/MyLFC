@@ -53,7 +53,7 @@ namespace MyLiverpool.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,OldId,CategoryId,Year,Month,Day,CanCommentary,AdditionTime,Title,Brief,Message,Reads,Source,PhotoPath,LastModifiedUtc")] IndexNewsViewModel indexNewsViewModel)
+        public async Task<ActionResult> Create([Bind(Include = "Id,OldId,CategoryId,Year,Month,Day,CanCommentary,AdditionTime,Title,Brief,Message,Reads,Source,PhotoPath,LastModified")] IndexNewsViewModel indexNewsViewModel)
         {
             throw new NotImplementedException();
             //if (ModelState.IsValid)
@@ -87,7 +87,7 @@ namespace MyLiverpool.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,OldId,CategoryId,Year,Month,Day,CanCommentary,AdditionTime,Title,Brief,Message,Reads,Source,PhotoPath,LastModifiedUtc")] IndexNewsViewModel indexNewsViewModel)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,OldId,CategoryId,Year,Month,Day,CanCommentary,AdditionTime,Title,Brief,Message,Reads,Source,PhotoPath,LastModified")] IndexNewsViewModel indexNewsViewModel)
         {
             throw new NotImplementedException();
             //if (ModelState.IsValid)

@@ -94,7 +94,7 @@
     <Compile Include="ForumSubsection.cs" />
     <Compile Include="ForumTheme.cs" />
     <Compile Include="NewsCategory.cs" />
-    <Compile Include="Comment.cs" />
+    <Compile Include="NewsComment.cs" />
     <Compile Include="NewsItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Role.cs" />
