@@ -946,7 +946,8 @@ namespace Migrator
                     }
                     else
                     {
-                        var category = categories.First(x => x.Id == int.Parse(categoryId));
+                        var category = categories.FirstOrDefault(x => x.Id == int.Parse(categoryId)) ??
+                                       categories.First(x => x.Id == 4);
                         newsItem.NewsCategory = category;
                         category.NewsItems.Add(newsItem);
                         UnitOfWork.NewsItemRepository.Add(newsItem);
