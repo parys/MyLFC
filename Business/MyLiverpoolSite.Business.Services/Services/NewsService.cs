@@ -46,7 +46,7 @@ namespace MyLiverpoolSite.Business.Services
             CreateEditNewsViewModel viewModel;
             if (id.HasValue && id != 0)
             {
-                var newsItem = GetById(id.Value);
+                var newsItem = await _unitOfWork.NewsItemRepository.GetById(id.Value);
                 viewModel = Mapper.Map<CreateEditNewsViewModel>(newsItem);
             }
             else
@@ -63,37 +63,36 @@ namespace MyLiverpoolSite.Business.Services
             throw new System.NotImplementedException();
         }
 
-        public int Edit(NewsItem newsItem)
+        public async Task<int> Edit(CreateEditNewsViewModel model)
         {
-            throw new NotImplementedException();
-            //todo _unitOfWork.NewsItemRepository.Update(newsItem);
-            //_unitOfWork.Save();
-           // return newsItem.Id;
+            var newsItem = Mapper.Map<NewsItem>(model);
+            newsItem.LastModified = DateTime.Now;
+            _unitOfWork.NewsItemRepository.Update(newsItem);
+            await _unitOfWork.SaveAsync();
+            return newsItem.Id;
         }
 
         public async Task<int> Create(CreateEditNewsViewModel model, int userId)
         {
             var newsItem = Mapper.Map<NewsItem>(model);
-            //todo add time author and other
             newsItem.AdditionTime = DateTime.Now;
             newsItem.LastModified = DateTime.Now;
             newsItem.AuthorId = userId;
             _unitOfWork.NewsItemRepository.Add(newsItem);
-            _unitOfWork.Save();
-            var result = await _unitOfWork.NewsItemRepository.Get(x => x.Author == newsItem.Author && x.AdditionTime == newsItem.AdditionTime);
-            
-            //  return newsItem.Id;
-            return result.First().Id;
+            await _unitOfWork.SaveAsync();
+            // var result = await _unitOfWork.NewsItemRepository.Get(x => x.AdditionTime == newsItem.AdditionTime);
+
+            return newsItem.Id;
         }
 
-        public async Task<IEnumerable<IndexNewsViewModel>> GetAll()
+        public async Task<IEnumerable<IndexMiniNewsVM>> GetAll()
         {
             // todo pageable 
 
             //throw new NotImplementedException();
 
             var news = await _unitOfWork.NewsItemRepository.Get();
-            return news.Select(Mapper.Map<IndexNewsViewModel>).ToList();
+            return news.Select(Mapper.Map<IndexMiniNewsVM>).ToList();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using MyLiverpoolSite.Data.Entities;
 
@@ -31,5 +32,9 @@ namespace MyLiverpoolSite.Business.ViewModels.News
         public string PhotoPath { get; set; }
 
         public int NewsCategoryId { get; set; }
+
+        public DateTime AdditionTime { get; set; }
+
+        public int AuthorId { get; set; }
     }
 }

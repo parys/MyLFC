@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using MyLiverpoolSite.Data.Entities;
 
 namespace MyLiverpoolSite.Data.DataAccessLayer
@@ -91,6 +92,19 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
             {
                 var e = ex;
                 
+                throw;
+            }
+        }
+        public async Task SaveAsync()
+        {
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                var e = ex;
+
                 throw;
             }
         }

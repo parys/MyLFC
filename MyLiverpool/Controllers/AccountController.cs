@@ -1,10 +1,12 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using MyLiverpoolSite.Business.Services;
 using MyLiverpoolSite.Business.ViewModels;
 using MyLiverpoolSite.Business.ViewModels.Account;
 using MyLiverpoolSite.Data.Entities;
@@ -150,7 +152,13 @@ namespace MyLiverpool.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new User { UserName = model.Email, Email = model.Email };
+                var user = new User
+                {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    LastModified = DateTime.Now,
+                    RegistrationDate = DateTime.Now
+                };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

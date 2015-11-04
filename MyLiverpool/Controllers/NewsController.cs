@@ -56,33 +56,31 @@ namespace MyLiverpool.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(CreateEditNewsViewModel indexNewsViewModel)
+        [Authorize]
+        public async Task<ActionResult> Create(CreateEditNewsViewModel model)
         {
-            //throw new NotImplementedException();
             if (ModelState.IsValid)
             {
-                var result = _newsService.Create(indexNewsViewModel, User.Identity.GetUserId<int>());
-              //  await db.SaveChangesAsync();
-                
+                var result = await _newsService.Create(model, User.Identity.GetUserId<int>());
+                return RedirectToAction("Index");
             }
-            return RedirectToAction("Index");
-            //return View(indexNewsViewModel);
+            return View(model);
         }
 
         // GET: News/Edit/5
+        [Authorize]
         public async Task<ActionResult> Edit(int? id)
         {
-            throw new NotImplementedException();
-            //if (id == null)
-            //{
-            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            //}
-            //IndexNewsViewModel indexNewsViewModel = await db.IndexNewsViewModels.FindAsync(id);
-            //if (indexNewsViewModel == null)
-            //{
-            //    return HttpNotFound();
-            //}
-            //return View(indexNewsViewModel);
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var model = await _newsService.GetCreateEditViewModel(id);
+            if (model == null)
+            {
+                return HttpNotFound();
+            }
+            return View(model);
         }
 
         // POST: News/Edit/5
@@ -90,19 +88,20 @@ namespace MyLiverpool.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,OldId,CategoryId,Year,Month,Day,CanCommentary,AdditionTime,Title,Brief,Message,Reads,Source,PhotoPath,LastModified")] IndexNewsViewModel indexNewsViewModel)
+        [Authorize]
+        public async Task<ActionResult> Edit(CreateEditNewsViewModel model)
         {
-            throw new NotImplementedException();
-            //if (ModelState.IsValid)
-            //{
-            //    db.Entry(indexNewsViewModel).State = EntityState.Modified;
-            //    await db.SaveChangesAsync();
-            //    return RedirectToAction("Index");
-            //}
-            //return View(indexNewsViewModel);
+            if (ModelState.IsValid)
+            {
+                var result = await _newsService.Edit(model);
+
+                return RedirectToAction("Index");
+            }
+            return View(model);
         }
 
         // GET: News/Delete/5
+      //  [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Delete(int? id)
         {
             throw new NotImplementedException();
@@ -121,6 +120,7 @@ namespace MyLiverpool.Controllers
         // POST: News/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+     //   [Authorize(Roles = "Admin")]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
             throw new NotImplementedException();

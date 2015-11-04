@@ -21,7 +21,7 @@ namespace Migrator
             UpdateFromFiles();
             UpdateDb();
             Console.WriteLine("END");
-            Console.ReadKey();
+          //  Console.ReadKey();
         }
 
         public static void UpdateFromFiles()
@@ -370,7 +370,7 @@ namespace Migrator
                         year += chars[i];
                         i++;
                     }
-                    blogItem.Year = int.Parse(year);
+                    //blogItem.Year = int.Parse(year);
                     i++;
                     // month
                     string month = null;
@@ -379,7 +379,7 @@ namespace Migrator
                         month += chars[i];
                         i++;
                     }
-                    blogItem.Month = int.Parse(month);
+                   // blogItem.Month = int.Parse(month);
                     i++;
                     // day
                     string day = null;
@@ -388,7 +388,7 @@ namespace Migrator
                         day += chars[i];
                         i++;
                     }
-                    blogItem.Day = int.Parse(day);
+                   // blogItem.Day = int.Parse(day);
                     i++;
                     // pending
                     while (chars[i] != '|')
@@ -685,7 +685,7 @@ namespace Migrator
                         year += chars[i];
                         i++;
                     }
-                    newsItem.Year = int.Parse(year);
+                   // newsItem.Year = int.Parse(year);
                     i++;
                     // month
                     string month = null;
@@ -694,7 +694,7 @@ namespace Migrator
                         month += chars[i];
                         i++;
                     }
-                    newsItem.Month = int.Parse(month);
+                   // newsItem.Month = int.Parse(month);
                     i++;
                     // day
                     string day = null;
@@ -703,7 +703,7 @@ namespace Migrator
                         day += chars[i];
                         i++;
                     }
-                    newsItem.Day = int.Parse(day);
+                    //newsItem.Day = int.Parse(day);
                     i++;
                     // pending
                     while (chars[i] != '|')

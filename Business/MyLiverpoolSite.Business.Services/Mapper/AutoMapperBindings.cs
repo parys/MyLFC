@@ -46,32 +46,32 @@ namespace MyLiverpoolSite.Business.Services
 
         private static void RegisterNewsMapping()
         {
-                Mapper.CreateMap<IndexNewsViewModel, NewsItem>()
-                    .ForMember(t => t.Id, opt => opt.MapFrom(m => m.Id))
-                    .ForMember(t => t.Title, opt => opt.MapFrom(m => m.Title))
-                    .ForMember(t => t.Brief, opt => opt.MapFrom(m => m.Brief))
-                    .ForMember(t => t.Message, opt => opt.MapFrom(m => m.Message))
-                    .ForMember(t => t.NewsCategory, opt => opt.MapFrom(m => m.NewsCategory))
+                Mapper.CreateMap<IndexNewsViewModel, NewsItem>();
+                    //.ForMember(t => t.Id, opt => opt.MapFrom(m => m.Id))
+                    //.ForMember(t => t.Title, opt => opt.MapFrom(m => m.Title))
+                    //.ForMember(t => t.Brief, opt => opt.MapFrom(m => m.Brief))
+                    //.ForMember(t => t.Message, opt => opt.MapFrom(m => m.Message))
+                    //.ForMember(t => t.NewsCategory, opt => opt.MapFrom(m => m.NewsCategory))
             //        .ForMember(t => t.OnTop, opt => opt.MapFrom(m => m.OnTop))
-                    .ForMember(t => t.CanCommentary, opt => opt.MapFrom(m => m.CanCommentary))
+                //    .ForMember(t => t.CanCommentary, opt => opt.MapFrom(m => m.CanCommentary))
             //        .ForMember(t => t.Pending, opt => opt.MapFrom(m => m.Pending))
-                    .ForMember(t => t.Source, opt => opt.MapFrom(m => m.Source))
-                    .ForMember(t => t.AdditionTime, opt => opt.Ignore())//MapFrom(m => m.));
+                 //   .ForMember(t => t.Source, opt => opt.MapFrom(m => m.Source))
+                   // .ForMember(t => t.AdditionTime, opt => opt.Ignore())//MapFrom(m => m.));
               //      .ForMember(t => t.NewsComments, opt => opt.Ignore())//MapFrom(m => m.));
-                    .ForMember(t => t.Comments, opt => opt.MapFrom(m => m.Comments))
+                  //  .ForMember(t => t.Comments, opt => opt.MapFrom(m => m.Comments))
             //        .ForMember(t => t.Day, opt => opt.Ignore())//MapFrom(m => m.));
             //        .ForMember(t => t.LastModified, opt => opt.Ignore())//MapFrom(m => m.));
             //        .ForMember(t => t.Month, opt => opt.Ignore())//MapFrom(m => m.));
-                    .ForMember(t => t.NumberCommentaries, opt => opt.Ignore())//MapFrom(m => m.));
+                  //  .ForMember(t => t.NumberCommentaries, opt => opt.Ignore())//MapFrom(m => m.));
             //        .ForMember(t => t.OldId, opt => opt.Ignore())//MapFrom(m => m.));
-                    .ForMember(t => t.PhotoPath, opt => opt.Ignore())//MapFrom(m => m.));
+                   // .ForMember(t => t.PhotoPath, opt => opt.Ignore())//MapFrom(m => m.));
             //        .ForMember(t => t.Rating, opt => opt.Ignore())//MapFrom(m => m.));
             //        .ForMember(t => t.RatingNumbers, opt => opt.Ignore())//MapFrom(m => m.));
             //        .ForMember(t => t.RatingSumm, opt => opt.Ignore())//MapFrom(m => m.));
-                    .ForMember(t => t.Reads, opt => opt.Ignore())//MapFrom(m => m.));
+                 //   .ForMember(t => t.Reads, opt => opt.Ignore())//MapFrom(m => m.));
             //        .ForMember(t => t.Author, opt => opt.Ignore())//MapFrom(m => m.));
             //        .ForMember(t => t.Year, opt => opt.Ignore())//MapFrom(m => m.));
-            //        .ForMember(t => t.CategoryId, opt => opt.Ignore())
+            //        .ForMember(t => t.NewsCategoryId, opt => opt.Ignore())
             ;//MapFrom(m => m.));
 
             Mapper.CreateMap<NewsItem, IndexNewsViewModel>();
@@ -81,6 +81,9 @@ namespace MyLiverpoolSite.Business.Services
 
             Mapper.CreateMap<NewsItem, CreateEditNewsViewModel>();
             Mapper.CreateMap<CreateEditNewsViewModel, NewsItem>();
+
+            Mapper.CreateMap<NewsItem, IndexMiniNewsVM>();
+            Mapper.CreateMap<IndexMiniNewsVM, NewsItem>();
         }
     }
 }

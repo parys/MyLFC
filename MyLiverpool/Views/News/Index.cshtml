@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MyLiverpoolSite.Business.ViewModels.News.IndexNewsViewModel>
+﻿@model IEnumerable<MyLiverpoolSite.Business.ViewModels.News.IndexMiniNewsVM>
 
 @{
     ViewBag.Title = "Index";
@@ -12,19 +12,10 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.OldId)
+            @Html.DisplayNameFor(model => model.Id)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CategoryId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Year)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Month)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Day)
+            @Html.DisplayNameFor(model => model.NewsCategory)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.CanCommentary)
@@ -37,9 +28,6 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Brief)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Message)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Reads)
@@ -59,19 +47,10 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.OldId)
+            @Html.DisplayFor(modelItem => item.Id)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CategoryId) 
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Year)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Month)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Day)
+            @Html.DisplayFor(modelItem => item.NewsCategory.Name) 
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.CanCommentary)
@@ -84,9 +63,6 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Brief)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Message)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Reads)

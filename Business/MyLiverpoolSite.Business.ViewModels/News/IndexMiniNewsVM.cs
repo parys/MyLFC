@@ -1,24 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using MyLiverpoolSite.Data.Entities;
 
 namespace MyLiverpoolSite.Business.ViewModels.News
 {
-    public class IndexNewsViewModel
+    public class IndexMiniNewsVM
     {
-        public IndexNewsViewModel()
+        public IndexMiniNewsVM()
         {
             Comments = new HashSet<NewsComment>();
         }
 
         public int Id { get; set; }
 
-        public int OldId { get; set; }
+     //   public int OldId { get; set; }
 
-        public int NewsCategoryId { get; set; }
+      //  public int NewsCategoryId { get; set; }
 
         public virtual NewsCategory NewsCategory { get; set; }
+
+     //   public int Year { get; set; }
+
+    //    public int Month { get; set; }
+
+    //    public int Day { get; set; }
 
         public bool CanCommentary { get; set; }
 
@@ -32,9 +41,6 @@ namespace MyLiverpoolSite.Business.ViewModels.News
 
         [AllowHtml]
         public string Brief { get; set; }
-
-        [AllowHtml]
-        public string Message { get; set; }
 
         public int Reads { get; set; }
 

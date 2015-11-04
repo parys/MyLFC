@@ -19,8 +19,9 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
             : base("DefaultConnection")//, throwIfV1Schema: false)//@"Data Source=Andrew-PC;Initial Catalog=MyLiverpoolDB;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False") 
                                                                //Data Source=ANDREW-PC;Initial Catalog=NewDbTest;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False")
         {
+            //todo
             //Database.SetInitializer<LiverpoolContext>(null);
-            //todo Database.SetInitializer(new DatabaseInitializer());
+            Database.SetInitializer(new DatabaseInitializer());
             
 
             // Create the database and schema if it doesn't exist
@@ -63,6 +64,8 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
 
             modelBuilder.Entity<User>().HasMany(u => u.Comments).WithOptional();
             modelBuilder.Entity<User>().HasMany(u => u.ForumMessages).WithOptional();
+           // modelBuilder.Entity<User>().HasMany(u => u.Roles).WithMany(x => x.)WithOptional();
+
         //    modelBuilder.Entity<User>().HasMany(u => u.BlogItems).WithOptional();
         //    modelBuilder.Entity<User>().HasMany(u => u.NewsItems).WithOptional();
 

@@ -41,8 +41,11 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
             {
                 query = query.Where(filter);
             }
-            if (includeProperties == null) return query.ToList();
-            query = includeProperties.Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
+            if (includeProperties != null)
+            {
+                query = includeProperties.Aggregate(query,
+                    (current, includeProperty) => current.Include(includeProperty));
+            }
             return await query.ToListAsync();
         }
 
@@ -53,7 +56,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
         /// <returns>Entity.</returns>
         public virtual async Task<TEntity> GetById(object id)
         {
-            return await _dbSet.FirstAsync();//Find(id);todo
+            return await Task.FromResult(_dbSet.Find(id)); //todo
         }
 
         /// <summary>
@@ -71,7 +74,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
         /// <param name="id">Entity id.</param>
         public virtual async Task Delete(object id)
         {
-            await Delete(await _dbSet.FirstAsync());//todoFind(id));
+            await Delete(await GetById(id));//todoFind(id));
         }
 
         /// <summary>

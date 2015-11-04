@@ -1,6 +1,5 @@
 ﻿@model MyLiverpoolSite.Business.ViewModels.News.IndexNewsViewModel
-
-@{
+{
     ViewBag.Title = "Details";
 }
 
@@ -11,43 +10,19 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.OldId)
+            @Html.DisplayNameFor(model => model.Id)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.OldId)
+            @Html.DisplayFor(model => model.Id)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.CategoryId)
+            @Html.DisplayNameFor(model => model.NewsCategory)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.CategoryId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Year)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Year)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Month)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Month)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Day)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Day)
+            @Html.DisplayFor(model => model.NewsCategory.Name)
         </dd>
 
         <dt>

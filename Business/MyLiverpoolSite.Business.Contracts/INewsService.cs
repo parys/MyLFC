@@ -16,7 +16,7 @@ namespace MyLiverpoolSite.Business.Contracts
 
         Task<int> Create(CreateEditNewsViewModel model, int userId);
 
-        int Edit(NewsItem newsItem);
+        Task<int> Edit(CreateEditNewsViewModel newsItem);
 
         void Delete(NewsItem newsItem);
 
@@ -24,6 +24,6 @@ namespace MyLiverpoolSite.Business.Contracts
 
         Task<CreateEditNewsViewModel> GetCreateEditViewModel(int? id);
 
-        Task<IEnumerable<IndexNewsViewModel>> GetAll();
+        Task<IEnumerable<IndexMiniNewsVM>> GetAll();
     }
 }

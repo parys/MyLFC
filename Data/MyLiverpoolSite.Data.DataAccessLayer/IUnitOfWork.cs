@@ -1,4 +1,5 @@
-﻿using MyLiverpoolSite.Data.Entities;
+﻿using System.Threading.Tasks;
+using MyLiverpoolSite.Data.Entities;
 
 namespace MyLiverpoolSite.Data.DataAccessLayer
 {
@@ -32,6 +33,8 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
         /// Saves changes to shared data source.
         /// </summary>
         void Save();
+
+        Task SaveAsync();
 
         /// <summary>
         /// The release of resources.
