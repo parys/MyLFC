@@ -19,6 +19,7 @@ namespace MyLiverpoolSite.Data.Entities
         public string Message { get; set; }
 
         public virtual User Author { get; set; }
+        public int AuthorId { get; set; }
 
         public string Ip { get; set; }
 

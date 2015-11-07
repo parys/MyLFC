@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MyLiverpoolSite.Business.ViewModels.News;
+using MyLiverpoolSite.Business.ViewModels.NewsComments;
 using MyLiverpoolSite.Data.Entities;
 
 namespace MyLiverpoolSite.Business.Services
@@ -21,7 +22,7 @@ namespace MyLiverpoolSite.Business.Services
         //    .ForMember(t => t.Email, opt => opt.MapFrom(m => m.Email))
         //    .ForMember(t => t.Birthday, opt => opt.Ignore())//MapFrom(m => m.Email))
         //    .ForMember(t => t.City, opt => opt.Ignore())//MapFrom(m => m.Email))
-        //    .ForMember(t => t.Comments, opt => opt.Ignore())//MapFrom(m => m.Email))
+        //    .ForMember(t => t.Children, opt => opt.Ignore())//MapFrom(m => m.Email))
         //    .ForMember(t => t.Country, opt => opt.Ignore())//MapFrom(m => m.Email))
         //    .ForMember(t => t.ForumMessages, opt => opt.Ignore())//MapFrom(m => m.Email))
         //    .ForMember(t => t.FullName, opt => opt.Ignore())//MapFrom(m => m.Email))
@@ -58,7 +59,7 @@ namespace MyLiverpoolSite.Business.Services
                  //   .ForMember(t => t.Source, opt => opt.MapFrom(m => m.Source))
                    // .ForMember(t => t.AdditionTime, opt => opt.Ignore())//MapFrom(m => m.));
               //      .ForMember(t => t.NewsComments, opt => opt.Ignore())//MapFrom(m => m.));
-                  //  .ForMember(t => t.Comments, opt => opt.MapFrom(m => m.Comments))
+                  //  .ForMember(t => t.Children, opt => opt.MapFrom(m => m.Children))
             //        .ForMember(t => t.Day, opt => opt.Ignore())//MapFrom(m => m.));
             //        .ForMember(t => t.LastModified, opt => opt.Ignore())//MapFrom(m => m.));
             //        .ForMember(t => t.Month, opt => opt.Ignore())//MapFrom(m => m.));
@@ -84,6 +85,9 @@ namespace MyLiverpoolSite.Business.Services
 
             Mapper.CreateMap<NewsItem, IndexMiniNewsVM>();
             Mapper.CreateMap<IndexMiniNewsVM, NewsItem>();
+
+            Mapper.CreateMap<NewsComment, IndexNewsCommentVM>();
+            Mapper.CreateMap<IndexNewsCommentVM, NewsComment>();
         }
     }
 }

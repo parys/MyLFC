@@ -65,7 +65,16 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
         /// <param name="entity">Entity to add.</param>
         public virtual void Add(TEntity entity)
         {
-            _dbSet.Add(entity);
+            try
+            {
+                _dbSet.Add(entity);
+            }
+            catch (Exception ex)
+            {
+                var v = ex;
+               // ex.InnerException.
+                throw;
+            }
         }
 
         /// <summary>

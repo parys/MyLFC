@@ -4,6 +4,7 @@ using Autofac.Integration.Mvc;
 using Microsoft.Owin;
 using MyLiverpoolSite.Business.Contracts;
 using MyLiverpoolSite.Business.Services;
+using MyLiverpoolSite.Business.Services.Services;
 using MyLiverpoolSite.Data.DataAccessLayer;
 using Owin;
 
@@ -20,6 +21,7 @@ namespace MyLiverpool
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
             builder.RegisterType<NewsService>().As<INewsService>();
             builder.RegisterType<NewsCategoryService>().As<INewsCategoryService>();
+            builder.RegisterType<NewsCommentService>().As<INewsCommentService>();
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>();
             builder.RegisterType<NewsItemsRepository>().As<INewsItemsRepository>();
           //  builder.RegisterType<>().As<NewsService>();

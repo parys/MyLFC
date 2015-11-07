@@ -19,7 +19,8 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
             {
                 InitializeRoles(context);
                 InitializeAdmin(context);
-
+                InitializeDeletedUser(context);
+            //    InitializeDeletedUser(context);
             }
         }
 
@@ -52,7 +53,41 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
             context.SaveChanges();
         }
 
-        private async void InitializeAdmin(LiverpoolContext context)
+        private void InitializeDeletedUser(LiverpoolContext context)
+        {
+            const string email = "deleted@deleted.com";
+            const string password = "Admin@123456";
+            const string roleName = "Admin";
+
+            var manager = new ApplicationUserManager(new UserStore<User, Role, int, UserLogin, UserRole, UserClaim>(context));
+
+            var user = new User
+            {
+                Id = -1,
+                UserName = "deleted",
+                Email = email,
+                Password = password,
+                PasswordHash = "AGGiU1NKWK8rnv/982kqHjWXJTa+Iw5UXV/iYEuWAAyWmieeXACECroeFoY3aRQRQg==",
+                SecurityStamp = "3f94995b-bf44-4883-8db5-c915035a9742",
+                Verify = true,
+                LastModified = DateTime.Now,
+                RegistrationDate = DateTime.Now
+
+            };
+            //var result = await manager.CreateAsync(user, password);
+            context.Users.Add(user);
+            context.SaveChanges();
+           // var savedUser = context.Users.First(x => x.UserName == user.UserName);
+         //   var adminRole = context.Roles.First(x => x.Name == roleName);
+          //  var userRole = new UserRole()
+          //  {
+         //       RoleId = adminRole.Id,
+         //       UserId = savedUser.Id
+        //    };
+        }
+    
+
+           private void InitializeAdmin(LiverpoolContext context)
         {
             const string email = "admin@admin.com";
             const string password = "Admin@123456";
@@ -64,7 +99,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
             {
                 UserName = "admin",
                 Email = email,
-               // Password = password,
+                Password = password,
                 PasswordHash = "AGGiU1NKWK8rnv/982kqHjWXJTa+Iw5UXV/iYEuWAAyWmieeXACECroeFoY3aRQRQg==",
                 SecurityStamp = "3f94995b-bf44-4883-8db5-c915035a9742",
                 Verify = true,

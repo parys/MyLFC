@@ -12,7 +12,7 @@ namespace MyLiverpoolSite.Data.Entities
         public User()
         {
             this.ForumMessages = new HashSet<ForumMessage>();
-            this.Comments = new HashSet<NewsComment>();
+            this.NewsComments = new HashSet<NewsComment>();
             this.BlogItems = new HashSet<BlogItem>();
             this.NewsItems = new HashSet<NewsItem>();
         }
@@ -86,7 +86,8 @@ namespace MyLiverpoolSite.Data.Entities
 
         public virtual ICollection<ForumMessage> ForumMessages { get; set; }
 
-        public virtual ICollection<NewsComment> Comments { get; set; }
+        public virtual ICollection<NewsComment> NewsComments { get; set; }
+        public virtual ICollection<BlogComment> BlogComments { get; set; }
 
         public virtual ICollection<BlogItem> BlogItems { get; set; }
 

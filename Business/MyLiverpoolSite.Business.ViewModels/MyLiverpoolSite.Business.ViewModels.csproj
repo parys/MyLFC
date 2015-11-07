@@ -110,6 +110,8 @@
     <Compile Include="Manage\ManageLoginsViewModel.cs" />
     <Compile Include="Manage\SetPasswordViewModel.cs" />
     <Compile Include="Manage\VerifyPhoneNumberViewModel.cs" />
+    <Compile Include="NewsComments\CreateEditNewsCommentVM.cs" />
+    <Compile Include="NewsComments\IndexNewsCommentVM.cs" />
     <Compile Include="News\CreateEditNewsViewModel.cs" />
     <Compile Include="News\IndexMiniNewsVM.cs" />
     <Compile Include="News\IndexNewsViewModel.cs" />

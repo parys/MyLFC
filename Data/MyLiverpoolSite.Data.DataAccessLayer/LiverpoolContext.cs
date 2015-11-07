@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using Microsoft.AspNet.Identity.EntityFramework;
 using MyLiverpoolSite.Data.Entities;
 
@@ -62,8 +63,11 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
             modelBuilder.Entity<UserLogin>().ToTable("UserLogins");
             modelBuilder.Entity<UserRole>().ToTable("UserRoles");
 
-            modelBuilder.Entity<User>().HasMany(u => u.Comments).WithOptional();
-            modelBuilder.Entity<User>().HasMany(u => u.ForumMessages).WithOptional();
+          //  modelBuilder.Entity<User>().HasMany(u => u.NewsComments).WithOptional().HasForeignKey(x => x.AuthorId);
+            modelBuilder.Entity<User>().HasMany(u => u.BlogComments).WithOptional().HasForeignKey(x => x.AuthorId);
+            modelBuilder.Entity<NewsComment>().HasRequired(x => x.Author).WithMany(x => x.NewsComments).HasForeignKey(x => x.AuthorId);
+            modelBuilder.Entity<BlogComment>().HasRequired(x => x.Author).WithMany(x => x.BlogComments).HasForeignKey(x => x.AuthorId);
+            modelBuilder.Entity<User>().HasMany(u => u.ForumMessages).WithOptional().HasForeignKey(x => x.AuthorId);
            // modelBuilder.Entity<User>().HasMany(u => u.Roles).WithMany(x => x.)WithOptional();
 
         //    modelBuilder.Entity<User>().HasMany(u => u.BlogItems).WithOptional();
@@ -75,13 +79,20 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
             modelBuilder.Entity<BlogItem>().HasRequired(x => x.BlogCategory).WithMany(x => x.BlogItems).HasForeignKey(x => x.BlogCategoryId);
            // modelBuilder.Entity<NewsCategory>().HasMany(u => u.NewsItems);
           //  modelBuilder.Entity<BlogCategory>().HasMany(u => u.BlogItems);
-            modelBuilder.Entity<NewsItem>().HasMany(u => u.Comments);
-            modelBuilder.Entity<BlogItem>().HasMany(u => u.Comments);
-            modelBuilder.Entity<NewsComment>().HasRequired(u => u.NewsItem).WithRequiredDependent();
-            modelBuilder.Entity<BlogComment>().HasRequired(u => u.BlogItem).WithRequiredDependent();
+          //  modelBuilder.Entity<NewsItem>().HasMany(u => u.Comments).WithRequired(x => x.NewsItem).HasForeignKey(x => x.NewsItemId);
+          //  modelBuilder.Entity<BlogItem>().HasMany(u => u.Comments).WithRequired(x => x.BlogItem).HasForeignKey(x => x.BlogItemId);
+        //    modelBuilder.Entity<NewsComment>().HasRequired(u => u.NewsItem).WithRequiredPrincipal();//.HasForeignKey(x => x.NewsItemId);
+        //    modelBuilder.Entity<BlogComment>().HasRequired(u => u.BlogItem).WithRequiredPrincipal();//.HasForeignKey(x => x.NewsItemId);
+              modelBuilder.Entity<BlogComment>().HasRequired(u => u.BlogItem).WithMany(x => x.Comments).HasForeignKey(x => x.BlogItemId);
+              modelBuilder.Entity<NewsComment>().HasRequired(u => u.NewsItem).WithMany(x => x.Comments).HasForeignKey(x => x.NewsItemId);
+            //   modelBuilder.Entity<NewsComment>().HasRequired(u => u.Author).WithMany(x => x.NewsComments).HasForeignKey(x => x.AuthorId);
+
+            modelBuilder.Entity<NewsComment>().HasOptional(x => x.Parent).WithMany(x => x.Children).HasForeignKey(x => x.ParentId);
+            modelBuilder.Entity<BlogComment>().HasOptional(x => x.Parent).WithMany(x => x.Children).HasForeignKey(x => x.ParentId);
             
-           // modelBuilder.Entity<User>().HasMany(u => u.Comments).
+           // modelBuilder.Entity<User>().HasMany(u => u.Children).
             // использование Fluent API
+            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>(); ;
             base.OnModelCreating(modelBuilder);
         }
 

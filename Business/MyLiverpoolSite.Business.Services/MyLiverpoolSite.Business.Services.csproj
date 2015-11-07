@@ -96,6 +96,7 @@
     <Compile Include="DataBaseInitializer.cs" />
     <Compile Include="Services\EmailService.cs" />
     <Compile Include="Services\NewsCategoryService.cs" />
+    <Compile Include="Services\NewsCommentService.cs" />
     <Compile Include="Services\NewsService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\SmsService.cs" />

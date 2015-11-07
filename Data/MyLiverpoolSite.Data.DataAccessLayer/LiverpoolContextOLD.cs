@@ -24,7 +24,7 @@
 
 //        public DbSet<NewsCategory> NewsCategories { get; set; }
 
-//        public DbSet<BlogComment> Comments { get; set; }
+//        public DbSet<BlogComment> Children { get; set; }
 
 //        public DbSet<ForumSection> ForumSections { get; set; }
 

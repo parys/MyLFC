@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="IAccountService.cs" />
     <Compile Include="INewsCategoryService.cs" />
+    <Compile Include="INewsCommentService.cs" />
     <Compile Include="INewsService.cs" />
     <Compile Include="IUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
