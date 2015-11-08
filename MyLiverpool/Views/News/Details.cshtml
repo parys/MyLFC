@@ -96,14 +96,59 @@
         <dd>
             @Html.DisplayFor(model => model.LastModified)
         </dd>
-       @foreach (var comment in Model.Comments)
-       {
-           <br/>
-           @Html.DisplayFor(c => comment.Message); @Html.DisplayFor(c => comment.Author.UserName);
-           }
+        @foreach (var comment in Model.Comments)
+        {
+            <br/>
+            @Html.DisplayFor(c => comment.Message)
+            ;
+            @Html.DisplayFor(c => comment.Author.UserName)
+            ;
+        }
     </dl>
+    <div>
+            <textarea id="newsCommentMessage"></textarea>
+            <button id="addComment"> ADD</button>
+        
+    </div>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Edit", "Edit", new {id = Model.Id}) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+@Scripts.Render("~/bundles/jquery")
+<script>
+    $('#addComment').click(function ()
+    {
+        console.log();
+        postValues();
+    });
+    function postValues() {
+        var comment = $('#newsCommentMessage').val();
+        var newsId = @Model.Id;
+        console.log(11);
+        // var qualityAchievement = $('#Aim_AimAchievementQuality_AimAchievementQualityId').val();
+        $.ajax({
+            type: 'post',
+            url: '@Url.Action("AddParentComment", "NewsComment")',
+            data: { comment: comment, newsId: newsId },
+            beforeSend: function() {
+                $('#newsCommentMessage').val('');
+                //     $('#quality-achievement-modal').modal('hide');
+            },
+            success: function(response) {
+                @*commentsListForAim('@Model.Id');
+                $('#slider').slider('option', 'value', response.progress);
+                $('#quality-achievement-button').hide();
+                $('#aim-info').hide();
+                $('#aim-achievement-quality').show();
+                window.showMessageStripe("@AimResources.AimMarkedAsAchived");
+                $(function () {
+                    var nameAchievement = $('#Aim_AimAchievementQuality_AimAchievementQualityId option:selected').text();
+                    $('#Aim_AimAchievementQuality_Name').val(nameAchievement);
+                });
+                $('#aim-achievement-quality').show();*@
+                console.log(1123);
+            }
+        });
+    }
+</script>
