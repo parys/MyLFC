@@ -8,6 +8,6 @@ namespace MyLiverpoolSite.Business.Contracts
 {
     public interface INewsCommentService
     {
-        bool AddParentComment(string comment, int newsId, int userId);
+        Task<int> AddParentComment(string comment, int newsId, int userId);
     }
 }

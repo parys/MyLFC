@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Threading.Tasks;
 using MyLiverpoolSite.Business.Contracts;
 using MyLiverpoolSite.Data.DataAccessLayer;
+using MyLiverpoolSite.Data.Entities;
 
 namespace MyLiverpoolSite.Business.Services.Services
 {
@@ -13,9 +15,19 @@ namespace MyLiverpoolSite.Business.Services.Services
             _unitOfWork = unitOfWork;
         }
 
-        public bool AddParentComment(string comment, int newsId, int userId)
+        public async Task<int> AddParentComment(string comment, int newsId, int userId)
         {
-            throw new NotImplementedException();
+            var newsComment = new NewsComment()
+            {
+                NewsItemId = newsId,
+                AdditionTime = DateTime.Now,
+                AuthorId = userId,
+                Message = comment,
+                Pending = false
+            };
+            _unitOfWork.NewsCommentRepository.Add(newsComment);
+            await _unitOfWork.SaveAsync();
+            return newsComment.Id;
         }
     }
 }
