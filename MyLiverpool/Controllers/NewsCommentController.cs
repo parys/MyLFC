@@ -26,9 +26,9 @@ namespace MyLiverpool.Controllers
         //}
 
         [HttpPost]
-        public async Task<ActionResult> AddParentComment(string comment, int newsId)
+        public async Task<ActionResult> AddComment(string comment, int newsId, int? parentId)
         {
-            var result = await _newsCommentService.AddParentComment(comment, newsId, User.Identity.GetUserId<int>());
+            var result = await _newsCommentService.AddParentComment(comment, newsId, parentId, User.Identity.GetUserId<int>());
             return Json(result);
         }
     }

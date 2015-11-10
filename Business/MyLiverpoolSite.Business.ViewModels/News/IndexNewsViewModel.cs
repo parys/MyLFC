@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using MyLiverpoolSite.Business.ViewModels.NewsComments;
 using MyLiverpoolSite.Data.Entities;
 
 namespace MyLiverpoolSite.Business.ViewModels.News
@@ -9,12 +10,10 @@ namespace MyLiverpoolSite.Business.ViewModels.News
     {
         public IndexNewsViewModel()
         {
-            Comments = new HashSet<NewsComment>();
+            Comments = new HashSet<IndexNewsCommentVM>();
         }
 
         public int Id { get; set; }
-
-        public int OldId { get; set; }
 
         public int NewsCategoryId { get; set; }
 
@@ -44,6 +43,6 @@ namespace MyLiverpoolSite.Business.ViewModels.News
 
         public DateTime LastModified { get; set; }
 
-        public virtual ICollection<NewsComment> Comments { get; set; }
+        public virtual ICollection<IndexNewsCommentVM> Comments { get; set; }
     }
 }

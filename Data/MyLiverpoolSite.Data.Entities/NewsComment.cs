@@ -15,8 +15,6 @@ namespace MyLiverpoolSite.Data.Entities
 
         public int OldId { get; set; }
 
-//        public int MaterialId { get; set; }
-
         public bool Pending { get; set; }
 
         public DateTime AdditionTime { get; set; }

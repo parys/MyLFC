@@ -30,6 +30,7 @@ namespace MyLiverpoolSite.Business.Services
             {
                 var newsItem = await _newsItemsRepository.GetById(id);
               //  result = Mapper.Map<IndexNewsViewModel>(_unitOfWork.NewsItemRepository.GetById(id));
+                newsItem.Comments = newsItem.Comments.Where(x => !x.ParentId.HasValue).ToList();
                 result = Mapper.Map<IndexNewsViewModel>(newsItem);
             }
             //throw new NotImplementedException();

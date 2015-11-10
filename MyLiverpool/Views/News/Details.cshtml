@@ -1,4 +1,5 @@
-﻿@model MyLiverpoolSite.Business.ViewModels.News.IndexNewsViewModel
+﻿@using MyLiverpoolSite.Business.ViewModels.NewsComments
+@model MyLiverpoolSite.Business.ViewModels.News.IndexNewsViewModel
 {
     ViewBag.Title = "Details";
 }
@@ -96,27 +97,65 @@
         <dd>
             @Html.DisplayFor(model => model.LastModified)
         </dd>
-        @foreach (var comment in Model.Comments)
-        {
-            <br />
-            @Html.DisplayFor(c => comment.Message)
-            ;
-            @Html.DisplayFor(c => comment.Author.UserName)
-            ;
-        }
     </dl>
-    @if(User.Identity.IsAuthenticated)
-    {
-        <div >
-            <ul id="comments">
-                
-            </ul>
-            <textarea id="newsCommentMessage"></textarea>
-            <button id="addComment"> ADD</button>
+    <section id="comments">
+        @ShowTree(Model.Comments)
+    </section>
 
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div>
+            <textarea id="newsCommentMessage"></textarea>
+            <br />
+            <button id="addComment"> ADD</button>
         </div>
     }
 </div>
+@helper ShowTree(IEnumerable<IndexNewsCommentVM> comments)
+        {
+foreach (var comment in comments)
+{
+        <div class="comment">
+            @Html.HiddenFor(c => comment.Id)
+            @Html.DisplayFor(c => comment.Message)
+            @Html.DisplayFor(c => comment.Author.UserName)
+            <br />
+            @if (User.Identity.IsAuthenticated)
+            {
+                <button class="reply">add reply </button>
+            }
+        </div>
+    if (comment.Children.Any())
+    {
+            @ShowTree(comment.Children);
+    }
+
+}
+}
+
+<div id="add-reply" class="modal" tabindex="-1" style="display: none; width: 350px; margin: auto; margin-top: 300px; z-index: 999">
+    <div class="modal-header">
+        <h3 class="text-info">add reply</h3>
+        <input id="parent-comment-id" value="" />
+    </div>
+    <div class="modal-body">
+        <form class="form-horizontal" id="edit-aim-comment-form">
+            <div class="control-group">
+                <label style="padding-left: 35px;">comment</label>
+                <div class="controls">
+                    <textarea id="add-reply-comment" data-val="true" data-val-regex="" data-val-regex-pattern="^[^<>]+$"
+                              data-val-required="enterComment" rows="5"
+                              style="margin-left: -35px; margin-top: -21px; width: 519px;"></textarea>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button id="add-reply-comment-submit" class="btn btn-primary" type="submit" aria-hidden="true" style="margin-right: 20px;">Add</button>
+        <a href="#" class="cancel" data-dismiss="modal" style="padding-right: 50px;">Cancel</a>
+    </div>
+</div>
+
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
@@ -125,41 +164,70 @@
 <script>
     $('#addComment').click(function ()
     {
-        console.log();
+        console.log('add comment');
         postValues();
     });
     function postValues() {
         var comment = $('#newsCommentMessage').val();
         var newsId = @Model.Id;
-        // var qualityAchievement = $('#Aim_AimAchievementQuality_AimAchievementQualityId').val();
         $.ajax({
             type: 'post',
-            url: '@Url.Action("AddParentComment", "NewsComment")',
+            url: '@Url.Action("AddComment", "NewsComment")',
             data: { comment: comment, newsId: newsId },
             beforeSend: function() {
-                $('#newsCommentMessage').val('');
+
                 //     $('#quality-achievement-modal').modal('hide');
             },
             success: function(response) {
-                @*commentsListForAim('@Model.Id');
-                $('#slider').slider('option', 'value', response.progress);
-                $('#quality-achievement-button').hide();
-                $('#aim-info').hide();
-                $('#aim-achievement-quality').show();
-                window.showMessageStripe("@AimResources.AimMarkedAsAchived");
-                $(function () {
-                    var nameAchievement = $('#Aim_AimAchievementQuality_AimAchievementQualityId option:selected').text();
-                    $('#Aim_AimAchievementQuality_Name').val(nameAchievement);
-                });
-                $('#aim-achievement-quality').show();*@
+                $('#newsCommentMessage').val('');
                 publishComment(response, comment);
             }
         });
     }
     function publishComment(id, comment) {
         console.log(id);
-        $('#comments').append("<div class='comment'>" + comment  + "</div>");
+        $('#comments').append("<div class='comment'> <input id='comment_Id' name='comment.Id' type='hidden' value=" + id + "> " + comment + "@User.Identity.Name <br> <button class='reply'>add reply </button></div>");
     }
+
+    $('.reply').click(function() {
+        console.log('reply');
+        var comment = $(this).parent();
+        console.log(comment);
+        var id = comment.find(':first-child');
+        $('#parent-comment-id').val(id.val());
+        console.log(id.val());
+        showReplyWindow();
+    });
+
+    function showReplyWindow() {
+        $('#add-reply').show();
+    }
+
+    $('.cancel').click(function() {
+        $('#add-reply').hide();
+    });
+
+    $('#add-reply-comment-submit').click(function() {
+        console.log('add-reply-comment-submit click');
+        var comment = $('#add-reply-comment').val();
+        var newsId = @Model.Id;
+        var parentId = $('#parent-comment-id').val();
+        console.log('add-reply-comment-submit click 2');
+        $.ajax({
+            type: 'post',
+            url: '@Url.Action("AddComment", "NewsComment")',
+            data: { comment: comment, newsId: newsId, parentId: parentId },
+            beforeSend: function() {
+
+                //     $('#quality-achievement-modal').modal('hide');
+            },
+            success: function(response) {
+                $('#add-reply-comment').val('');
+                $('#add-reply').hide();
+                publishComment(response, comment);
+            }
+        });
+    });
 
 
 </script>

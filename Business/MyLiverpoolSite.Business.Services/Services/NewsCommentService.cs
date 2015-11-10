@@ -15,7 +15,7 @@ namespace MyLiverpoolSite.Business.Services.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<int> AddParentComment(string comment, int newsId, int userId)
+        public async Task<int> AddParentComment(string comment, int newsId, int? parentId, int userId)
         {
             var newsComment = new NewsComment()
             {
@@ -23,7 +23,8 @@ namespace MyLiverpoolSite.Business.Services.Services
                 AdditionTime = DateTime.Now,
                 AuthorId = userId,
                 Message = comment,
-                Pending = false
+                Pending = false,
+                ParentId = parentId
             };
             _unitOfWork.NewsCommentRepository.Add(newsComment);
             await _unitOfWork.SaveAsync();
