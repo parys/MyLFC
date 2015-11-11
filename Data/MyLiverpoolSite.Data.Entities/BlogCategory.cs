@@ -2,7 +2,7 @@
 
 namespace MyLiverpoolSite.Data.Entities
 {
-    public class BlogCategory
+    public class BlogCategory : IEntity
     {
         public BlogCategory()
         {

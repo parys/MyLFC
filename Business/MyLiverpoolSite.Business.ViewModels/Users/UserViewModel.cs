@@ -13,13 +13,5 @@
         public string Email { get; set; }
 
         public string Homepage { get; set; }
-
-        public string Skype { get; set; }
-
-        public string Country { get; set; }
-
-        public string City { get; set; }
-
-        public long RegistrationDateUtc { get; set; }
     }
 }

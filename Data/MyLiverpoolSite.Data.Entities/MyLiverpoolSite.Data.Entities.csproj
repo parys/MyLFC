@@ -93,6 +93,7 @@
     <Compile Include="ForumSection.cs" />
     <Compile Include="ForumSubsection.cs" />
     <Compile Include="ForumTheme.cs" />
+    <Compile Include="IEntity.cs" />
     <Compile Include="NewsCategory.cs" />
     <Compile Include="NewsComment.cs" />
     <Compile Include="NewsItem.cs" />

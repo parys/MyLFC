@@ -1,9 +1,13 @@
-﻿using MyLiverpoolSite.Business.Contracts;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
+using AutoMapper;
+using MyLiverpoolSite.Business.Contracts;
 using MyLiverpoolSite.Business.ViewModels.Users;
 using MyLiverpoolSite.Data.DataAccessLayer;
 using MyLiverpoolSite.Data.Entities;
 
-namespace MyLiverpoolSite.Business.Services
+namespace MyLiverpoolSite.Business.Services.Services
 {
     public class UserService : IUserService
     {
@@ -31,6 +35,15 @@ namespace MyLiverpoolSite.Business.Services
            // var user = Mapper.Map<CreateUserViewModel, User>(model);
            // _unitOfWork.UserRepository.Add(user);
             _unitOfWork.Save();
+        }
+
+        public async Task<PageableData<UserViewModel>> GetAll(int page)
+        {
+            var users = await _unitOfWork.UserRepository.Get(page);
+            var usersVM = Mapper.Map<IEnumerable<UserViewModel>>(users);
+            var allUsersCount = await _unitOfWork.UserRepository.GetCount();
+            var result = new PageableData<UserViewModel>(usersVM, page, allUsersCount);
+            return result;
         }
 
         public void IsUserInRole()

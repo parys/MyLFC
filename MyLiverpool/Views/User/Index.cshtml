@@ -1,0 +1,26 @@
+﻿@using MyLiverpool.Helpers
+@model MyLiverpoolSite.Data.DataAccessLayer.PageableData<MyLiverpoolSite.Business.ViewModels.Users.UserViewModel>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<h2>Users</h2>
+<p>
+    @foreach (var user in Model.List)
+    {
+        <div class="item">
+            <span class="id"> 
+                            @user.Id    
+                     </span>        
+            <span class="email">    
+                         @user.Email       
+                  </span>          
+            <span class="activateDate">     
+                        @user.Login       
+                  </span>         
+        </div>
+    }
+</p>  
+<div class="pagination">         @Html.PageLinks(Model.PageNo, Model.CountPage, x => Url.Action("Index", new { page = x }))     </div> 

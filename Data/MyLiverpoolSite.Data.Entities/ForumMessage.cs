@@ -2,7 +2,7 @@
 
 namespace MyLiverpoolSite.Data.Entities
 {
-    public class ForumMessage
+    public class ForumMessage : IEntity
     {
         public int Id { get; set; }
 

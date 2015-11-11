@@ -4,7 +4,7 @@ using System.Web.Mvc;
 
 namespace MyLiverpoolSite.Data.Entities
 {
-    public class BlogItem
+    public class BlogItem : IEntity
     {
         public BlogItem()
         {

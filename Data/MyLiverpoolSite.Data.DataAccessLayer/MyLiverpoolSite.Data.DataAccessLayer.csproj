@@ -94,6 +94,7 @@
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="LiverpoolContext.cs" />
     <Compile Include="LiverpoolContextOLD.cs" />
+    <Compile Include="PageableResult.cs" />
     <Compile Include="Repositories\NewsItemsRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnitOfWork.cs" />

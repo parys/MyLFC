@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MyLiverpoolSite.Business.ViewModels.News;
 using MyLiverpoolSite.Business.ViewModels.NewsComments;
+using MyLiverpoolSite.Business.ViewModels.Users;
 using MyLiverpoolSite.Data.Entities;
 
 namespace MyLiverpoolSite.Business.Services
@@ -84,10 +85,13 @@ namespace MyLiverpoolSite.Business.Services
             Mapper.CreateMap<CreateEditNewsViewModel, NewsItem>();
 
             Mapper.CreateMap<NewsItem, IndexMiniNewsVM>();
-            Mapper.CreateMap<IndexMiniNewsVM, NewsItem>();
+          //  Mapper.CreateMap<IndexMiniNewsVM, NewsItem>();
 
             Mapper.CreateMap<NewsComment, IndexNewsCommentVM>();
-            Mapper.CreateMap<IndexNewsCommentVM, NewsComment>();
+        //    Mapper.CreateMap<IndexNewsCommentVM, NewsComment>();
+
+            Mapper.CreateMap<User, UserViewModel>();
+           // Mapper.CreateMap<IndexNewsCommentVM, NewsComment>();
         }
     }
 }

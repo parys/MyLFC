@@ -1,4 +1,6 @@
-﻿using MyLiverpoolSite.Business.ViewModels.Users;
+﻿using System.Threading.Tasks;
+using MyLiverpoolSite.Business.ViewModels.Users;
+using MyLiverpoolSite.Data.DataAccessLayer;
 
 namespace MyLiverpoolSite.Business.Contracts
 {
@@ -9,5 +11,7 @@ namespace MyLiverpoolSite.Business.Contracts
         bool IsModelValid(CreateUserViewModel model);
 
         void Create(CreateUserViewModel model);
+
+        Task<PageableData<UserViewModel>> GetAll(int page);
     }
 }

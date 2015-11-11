@@ -7,7 +7,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace MyLiverpoolSite.Data.Entities
 {
-    public class User : IdentityUser<int, UserLogin, UserRole, UserClaim>
+    public class User :  IdentityUser<int, UserLogin, UserRole, UserClaim>, IEntity
     {
         public User()
         {
@@ -93,5 +93,6 @@ namespace MyLiverpoolSite.Data.Entities
 
         public virtual ICollection<NewsItem> NewsItems { get; set; }
 
+      //  public int Id { get; set; }
     }
 }

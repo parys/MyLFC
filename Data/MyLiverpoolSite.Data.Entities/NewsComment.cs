@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MyLiverpoolSite.Data.Entities
 {
-    public class NewsComment
+    public class NewsComment : IEntity
     {
         public NewsComment()
         {

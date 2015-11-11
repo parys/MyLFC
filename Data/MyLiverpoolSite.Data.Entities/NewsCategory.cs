@@ -2,7 +2,7 @@
 
 namespace MyLiverpoolSite.Data.Entities
 {
-    public class NewsCategory
+    public class NewsCategory : IEntity
     {
         public NewsCategory()
         {

@@ -2,7 +2,7 @@
 
 namespace MyLiverpoolSite.Data.Entities
 {
-    public partial class Role : IdentityRole<int, UserRole>
+    public partial class Role : IdentityRole<int, UserRole>, IEntity
     {
         //public Role()
         //{

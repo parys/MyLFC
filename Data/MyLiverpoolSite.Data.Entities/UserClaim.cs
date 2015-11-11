@@ -2,7 +2,7 @@
 
 namespace MyLiverpoolSite.Data.Entities
 {
-    public partial class UserClaim : IdentityUserClaim<int>
+    public partial class UserClaim : IdentityUserClaim<int>,IEntity
     {
         //public int Id { get; set; }
         //public string UserId { get; set; }

@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using MyLiverpoolSite.Data.Entities;
 
 namespace MyLiverpoolSite.Data.DataAccessLayer
 {
@@ -11,7 +12,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
     /// Generic repository.
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
-    public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
+    public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class,IEntity
     {
         private readonly LiverpoolContext _context;
         private readonly DbSet<TEntity> _dbSet;
@@ -46,6 +47,22 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 query = includeProperties.Aggregate(query,
                     (current, includeProperty) => current.Include(includeProperty));
             }
+            return await query.ToListAsync();
+        }
+
+        public async Task<IEnumerable<TEntity>> Get(int page, int itemPerPage = 15, Expression<Func<TEntity, bool>> filter = null, params Expression<Func<TEntity, object>>[] includeProperties)
+        {
+            IQueryable<TEntity> query = _dbSet;
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+            if (includeProperties != null)
+            {
+                query = includeProperties.Aggregate(query,
+                    (current, includeProperty) => current.Include(includeProperty));
+            }
+            query = query.OrderBy(x => x.Id).Skip((page - 1) * itemPerPage).Take(itemPerPage);
             return await query.ToListAsync();
         }
 
@@ -107,6 +124,11 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
         {
             _dbSet.Attach(entityToUpdate);
             _context.Entry(entityToUpdate).State = EntityState.Modified;
+        }
+
+        public async Task<int> GetCount()
+        {
+            return await _dbSet.CountAsync();
         }
     }
 }

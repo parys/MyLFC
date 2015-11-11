@@ -20,6 +20,7 @@ namespace MyLiverpool
             var builder = new ContainerBuilder();
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
             builder.RegisterType<NewsService>().As<INewsService>();
+            builder.RegisterType<UserService>().As<IUserService>();
             builder.RegisterType<NewsCategoryService>().As<INewsCategoryService>();
             builder.RegisterType<NewsCommentService>().As<INewsCommentService>();
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>();

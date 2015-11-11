@@ -19,6 +19,9 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
             Expression<Func<TEntity, bool>> filter = null,
             params Expression<Func<TEntity, object>>[] includeProperties);
 
+        Task<IEnumerable<TEntity>> Get(int page, int itemPerPage = 15, Expression<Func<TEntity, bool>> filter = null,
+            params Expression<Func<TEntity, object>>[] includeProperties);
+
         /// <summary>
         /// Returns element by id
         /// </summary>
@@ -43,6 +46,8 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
         /// Updates object in repository.
         /// </summary>
         void Update(TEntity entity);
+
+        Task<int> GetCount();
     }
 }
 

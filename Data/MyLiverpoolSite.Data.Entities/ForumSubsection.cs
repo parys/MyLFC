@@ -2,7 +2,7 @@
 
 namespace MyLiverpoolSite.Data.Entities
 {
-    public class ForumSubsection
+    public class ForumSubsection : IEntity
     {
         public ForumSubsection()
         {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace MyLiverpoolSite.Data.Entities
 {
-    public class ForumTheme
+    public class ForumTheme : IEntity
     {
         public ForumTheme()
         {
