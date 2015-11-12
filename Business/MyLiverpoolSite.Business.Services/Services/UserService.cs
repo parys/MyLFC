@@ -46,6 +46,13 @@ namespace MyLiverpoolSite.Business.Services.Services
             return result;
         }
 
+        public async Task<UserViewModel> GetUserProfile(int id)
+        {
+            var user = await _unitOfWork.UserRepository.GetById(id);
+            var result = Mapper.Map<UserViewModel>(user);
+            return result;
+        }
+
         public void IsUserInRole()
         {
             

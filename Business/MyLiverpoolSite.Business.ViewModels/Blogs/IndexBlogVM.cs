@@ -1,23 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Mvc;
+using MyLiverpoolSite.Business.ViewModels.BlogComments;
 using MyLiverpoolSite.Data.Entities;
 
-namespace MyLiverpoolSite.Business.ViewModels.News
+namespace MyLiverpoolSite.Business.ViewModels.Blogs
 {
-    public class IndexMiniNewsVM
+    public class IndexBlogVM
     {
-        public IndexMiniNewsVM()
+        public IndexBlogVM()
         {
-            Children = new HashSet<NewsComment>();
+            Children = new HashSet<IndexBlogCommentVM>();
         }
 
         public int Id { get; set; }
 
-        public virtual NewsCategory NewsCategory { get; set; }
+        public virtual BlogCategory BlogCategory { get; set; }
 
         public bool CanCommentary { get; set; }
 
@@ -32,6 +30,9 @@ namespace MyLiverpoolSite.Business.ViewModels.News
         [AllowHtml]
         public string Brief { get; set; }
 
+        [AllowHtml]
+        public string Message { get; set; }
+
         public int Reads { get; set; }
 
         public string Source { get; set; }
@@ -40,6 +41,6 @@ namespace MyLiverpoolSite.Business.ViewModels.News
 
         public DateTime LastModified { get; set; }
 
-        public virtual ICollection<NewsComment> Children { get; set; }
+        public virtual ICollection<IndexBlogCommentVM> Children { get; set; }
     }
 }

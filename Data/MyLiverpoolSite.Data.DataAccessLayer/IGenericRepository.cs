@@ -15,11 +15,11 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
         /// <summary>
         /// Returns all objects of given type.
         /// </summary>
-        Task<IEnumerable<TEntity>> Get(
+        Task<ICollection<TEntity>> Get(
             Expression<Func<TEntity, bool>> filter = null,
             params Expression<Func<TEntity, object>>[] includeProperties);
 
-        Task<IEnumerable<TEntity>> Get(int page, int itemPerPage = 15, Expression<Func<TEntity, bool>> filter = null,
+        Task<ICollection<TEntity>> Get(int page, int itemPerPage = 15, Expression<Func<TEntity, bool>> filter = null,
             params Expression<Func<TEntity, object>>[] includeProperties);
 
         /// <summary>

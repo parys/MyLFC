@@ -15,9 +15,12 @@
                             @user.Id    
                      </span>        
             <span class="email">    
-                         @user.Email       
+                         <a href="@Url.Action("GetUserProfile", new { @user.Id})">@user.Email</a>
                   </span>          
             <span class="activateDate">     
+                        @user.Login       
+                  </span>           
+                   <span class="activateDate">     
                         @user.Login       
                   </span>         
         </div>

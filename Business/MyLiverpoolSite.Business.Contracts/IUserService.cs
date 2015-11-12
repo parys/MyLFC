@@ -13,5 +13,7 @@ namespace MyLiverpoolSite.Business.Contracts
         void Create(CreateUserViewModel model);
 
         Task<PageableData<UserViewModel>> GetAll(int page);
+
+        Task<UserViewModel> GetUserProfile(int id);
     }
 }

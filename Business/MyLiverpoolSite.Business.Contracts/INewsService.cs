@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using MyLiverpoolSite.Business.ViewModels.News;
+using MyLiverpoolSite.Data.DataAccessLayer;
 using MyLiverpoolSite.Data.Entities;
 
 namespace MyLiverpoolSite.Business.Contracts
@@ -24,6 +25,6 @@ namespace MyLiverpoolSite.Business.Contracts
 
         Task<CreateEditNewsViewModel> GetCreateEditViewModel(int? id);
 
-        Task<IEnumerable<IndexMiniNewsVM>> GetAll();
+        Task<PageableData<IndexMiniNewsVM>> GetAll(int page);
     }
 }

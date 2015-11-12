@@ -1,26 +1,26 @@
 ﻿using System;
-using System.Threading.Tasks;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using MyLiverpoolSite.Business.Contracts;
-using MyLiverpoolSite.Business.ViewModels.News;
+using MyLiverpoolSite.Business.ViewModels.Blogs;
 
 namespace MyLiverpool.Controllers
 {
-    public class NewsController : Controller
+    public class BlogController : Controller
     {
-        private readonly INewsService _newsService;
+        private readonly IBlogService _blogService;
 
-        public NewsController(INewsService newsService)
+        public BlogController(IBlogService blogService)
         {
-            _newsService = newsService;
+            _blogService = blogService;
         }
 
         // GET: News
         public async Task<ActionResult> Index(int page = 1)
         {
-            return View( await _newsService.GetAll(page));
+            return View(await _blogService.GetAll(page));
         }
 
         // GET: News/Details/5
@@ -30,19 +30,19 @@ namespace MyLiverpool.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            IndexNewsViewModel indexNewsViewModel = await _newsService.GetById(id.Value);
-            if (indexNewsViewModel == null)
+            IndexBlogVM indexblogVM = await _blogService.GetById(id.Value);
+            if (indexblogVM == null)
             {
                 return HttpNotFound();
             }
-            return View(indexNewsViewModel);
+            return View(indexblogVM);
         }
 
         // GET: News/Create
         [Authorize]
         public async Task<ActionResult> Create()
         {
-            var model = await _newsService.GetCreateEditViewModel(null);
+            var model = await _blogService.GetCreateEditViewModel(null);
             return View(model);
         }
 
@@ -52,11 +52,11 @@ namespace MyLiverpool.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<ActionResult> Create(CreateEditNewsViewModel model)
+        public async Task<ActionResult> Create(CreateEditBlogVM model)
         {
             if (ModelState.IsValid)
             {
-                var result = await _newsService.Create(model, User.Identity.GetUserId<int>());
+                var result = await _blogService.Create(model, User.Identity.GetUserId<int>());
                 return RedirectToAction("Index");
             }
             return View(model);
@@ -70,7 +70,7 @@ namespace MyLiverpool.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var model = await _newsService.GetCreateEditViewModel(id);
+            var model = await _blogService.GetCreateEditViewModel(id);
             if (model == null)
             {
                 return HttpNotFound();
@@ -84,11 +84,11 @@ namespace MyLiverpool.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<ActionResult> Edit(CreateEditNewsViewModel model)
+        public async Task<ActionResult> Edit(CreateEditBlogVM model)
         {
             if (ModelState.IsValid)
             {
-                var result = await _newsService.Edit(model);
+                var result = await _blogService.Edit(model);
 
                 return RedirectToAction("Index");
             }
@@ -96,7 +96,7 @@ namespace MyLiverpool.Controllers
         }
 
         // GET: News/Delete/5
-      //  [Authorize(Roles = "Admin")]
+        //  [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Delete(int? id)
         {
             throw new NotImplementedException();
@@ -115,7 +115,7 @@ namespace MyLiverpool.Controllers
         // POST: News/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-     //   [Authorize(Roles = "Admin")]
+        //   [Authorize(Roles = "Admin")]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
             throw new NotImplementedException();

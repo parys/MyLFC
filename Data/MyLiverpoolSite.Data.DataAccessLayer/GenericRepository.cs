@@ -33,7 +33,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
         /// <param name="filter">Filter for selecting desired data.</param>
         /// <param name="includeProperties">Included properties.</param>
         /// <returns>List with filtered data.</returns>
-        public virtual async Task<IEnumerable<TEntity>> Get(
+        public virtual async Task<ICollection<TEntity>> Get(
             Expression<Func<TEntity, bool>> filter = null,
             params Expression<Func<TEntity, object>>[] includeProperties)
         {
@@ -50,7 +50,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
             return await query.ToListAsync();
         }
 
-        public async Task<IEnumerable<TEntity>> Get(int page, int itemPerPage = 15, Expression<Func<TEntity, bool>> filter = null, params Expression<Func<TEntity, object>>[] includeProperties)
+        public async Task<ICollection<TEntity>> Get(int page, int itemPerPage = 15, Expression<Func<TEntity, bool>> filter = null, params Expression<Func<TEntity, object>>[] includeProperties)
         {
             IQueryable<TEntity> query = _dbSet;
             if (filter != null)

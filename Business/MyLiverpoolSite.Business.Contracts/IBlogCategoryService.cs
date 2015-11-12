@@ -4,8 +4,8 @@ using MyLiverpoolSite.Data.Entities;
 
 namespace MyLiverpoolSite.Business.Contracts
 {
-    public interface INewsCategoryService
+    public interface IBlogCategoryService
     {
-        Task<ICollection<NewsCategory>> GetCategories();
+        Task<ICollection<BlogCategory>> GetCategories();
     }
 }

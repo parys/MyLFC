@@ -102,6 +102,10 @@
     <Compile Include="Account\SendCodeViewModel.cs" />
     <Compile Include="Account\SignInViewModel.cs" />
     <Compile Include="Account\VerifyCodeViewModel.cs" />
+    <Compile Include="BlogComments\IndexBlogCommentVM.cs" />
+    <Compile Include="Blogs\CreateEditBlogVM.cs" />
+    <Compile Include="Blogs\IndexBlogVM.cs" />
+    <Compile Include="Blogs\IndexMiniBlogVM.cs" />
     <Compile Include="Manage\AddPhoneNumberViewModel.cs" />
     <Compile Include="Manage\ChangePasswordViewModel.cs" />
     <Compile Include="Manage\ConfigureTwoFactorViewModel.cs" />

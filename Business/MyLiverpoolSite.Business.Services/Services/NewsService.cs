@@ -54,7 +54,7 @@ namespace MyLiverpoolSite.Business.Services
             {
                 viewModel = Mapper.Map<CreateEditNewsViewModel>(new NewsItem());
             }
-            viewModel.NewsCategories = await _newsCategoryService.GetNewsCategories();
+            viewModel.NewsCategories = await _newsCategoryService.GetCategories();
 
             return viewModel;
         }
@@ -81,19 +81,17 @@ namespace MyLiverpoolSite.Business.Services
             newsItem.AuthorId = userId;
             _unitOfWork.NewsItemRepository.Add(newsItem);
             await _unitOfWork.SaveAsync();
-            // var result = await _unitOfWork.NewsItemRepository.Get(x => x.AdditionTime == newsItem.AdditionTime);
 
             return newsItem.Id;
         }
 
-        public async Task<IEnumerable<IndexMiniNewsVM>> GetAll()
+        public async Task<PageableData<IndexMiniNewsVM>> GetAll(int page)
         {
-            // todo pageable 
-
-            //throw new NotImplementedException();
-
-            var news = await _unitOfWork.NewsItemRepository.Get();
-            return news.Select(Mapper.Map<IndexMiniNewsVM>).ToList();
+            var news = await _unitOfWork.NewsItemRepository.Get(page);
+            var newsVM = Mapper.Map<IEnumerable<IndexMiniNewsVM>>(news);
+            var allNewsCount = await _unitOfWork.NewsItemRepository.GetCount();
+            var result = new PageableData<IndexMiniNewsVM>(newsVM, page, allNewsCount);
+            return result;
         }
     }
 }

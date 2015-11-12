@@ -94,6 +94,9 @@
     <Compile Include="ApplicationUserManager.cs" />
     <Compile Include="Mapper\AutoMapperBindings.cs" />
     <Compile Include="DataBaseInitializer.cs" />
+    <Compile Include="Services\BlogCategoryService.cs" />
+    <Compile Include="Services\BlogCommentService.cs" />
+    <Compile Include="Services\BlogService.cs" />
     <Compile Include="Services\EmailService.cs" />
     <Compile Include="Services\NewsCategoryService.cs" />
     <Compile Include="Services\NewsCommentService.cs" />

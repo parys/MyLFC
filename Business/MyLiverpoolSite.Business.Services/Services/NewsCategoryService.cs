@@ -16,9 +16,8 @@ namespace MyLiverpoolSite.Business.Services
             this._unitOfWork = unitOfWork;
         }
 
-        public async Task<IEnumerable<NewsCategory>> GetNewsCategories()
+        public async Task<ICollection<NewsCategory>> GetCategories()
         {
-            //throw new NotImplementedException();
            return await _unitOfWork.NewsCategoryRepository.Get();
         }
     }

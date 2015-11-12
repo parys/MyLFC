@@ -3,19 +3,20 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using MyLiverpoolSite.Data.Entities;
 
-namespace MyLiverpoolSite.Business.ViewModels.News
+namespace MyLiverpoolSite.Business.ViewModels.Blogs
 {
-    public class CreateEditNewsViewModel
+    public class CreateEditBlogVM
     {
-        public CreateEditNewsViewModel()
+        public CreateEditBlogVM()
         {
-            NewsCategories = new HashSet<NewsCategory>();
+            BlogCategories = new HashSet<BlogCategory>();
         }
-        public ICollection<NewsCategory> NewsCategories { get; set; }
+
+        public ICollection<BlogCategory> BlogCategories { get; set; }
 
         public int Id { get; set; }
 
-        public NewsCategory NewsCategory { get; set; }
+        public BlogCategory BlogCategory { get; set; }
 
         public bool Pending { get; set; }
 
