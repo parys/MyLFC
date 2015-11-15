@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Linq;
-using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using MyLiverpoolSite.Business.Services;
 using MyLiverpoolSite.Data.Entities;
@@ -57,7 +56,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
         {
             const string email = "deleted@deleted.com";
             const string password = "Admin@123456";
-            const string roleName = "Admin";
+           // const string roleName = "Admin";
 
             var manager = new ApplicationUserManager(new UserStore<User, Role, int, UserLogin, UserRole, UserClaim>(context));
 
@@ -126,16 +125,5 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
             context.Roles.AddOrUpdate(adminRole);
             context.SaveChanges();
         }
-    }
-
-    public enum RolesEnum
-    {
-        Admin = 1,
-        User = 2,
-        AdminAssistance = 3,
-        MainNewsmaker = 4,
-        Newsmaker = 5,
-
-
     }
 }

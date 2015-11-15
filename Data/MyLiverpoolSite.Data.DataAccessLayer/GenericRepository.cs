@@ -113,7 +113,8 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
             {
                 _dbSet.Attach(entityToDelete);
             }
-            _dbSet.Remove(entityToDelete);
+
+            await Task.FromResult(_dbSet.Remove(entityToDelete));
         }
 
         /// <summary>
