@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
+using MyLiverpoolSite.Business.ViewModels.Resources;
 
 namespace MyLiverpoolSite.Business.ViewModels.Account
 {
@@ -11,7 +7,7 @@ namespace MyLiverpoolSite.Business.ViewModels.Account
     {
         [Required]
         [EmailAddress]
-        [Display(Name = "Email")]
+        [Display(ResourceType = typeof (UsersMessages), Name = "Email")]
         public string Email { get; set; }
     }
 }

@@ -19,9 +19,10 @@ namespace MyLiverpoolSite.Business.Services
 
         public async Task<int> GetUserIdByLoginAndPassword(string login, string password)
         {
-            var users = await _unitOfWork.UserRepository.Get();
-            var user = users.FirstOrDefault(u => u.UserName == login && u.Password == password);
-            return user?.Id ?? 0;
+            throw new NotImplementedException();
+            //var users = await _unitOfWork.UserRepository.Get();
+            //var user = users.FirstOrDefault(u => u.UserName == login && u.Password == password);
+          //  return user?.Id ?? 0;
         }
 
         //public HttpCookie GetCookie(int userId, bool rememberMe)

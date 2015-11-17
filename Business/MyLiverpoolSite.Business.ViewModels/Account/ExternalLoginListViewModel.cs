@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MyLiverpoolSite.Business.ViewModels.Account
+﻿namespace MyLiverpoolSite.Business.ViewModels.Account
 {
     public class ExternalLoginListViewModel
     {

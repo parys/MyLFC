@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
+using MyLiverpoolSite.Business.ViewModels.Resources;
 
 namespace MyLiverpoolSite.Business.ViewModels.Account
 {
@@ -13,11 +9,11 @@ namespace MyLiverpoolSite.Business.ViewModels.Account
         public string Provider { get; set; }
 
         [Required]
-        [Display(Name = "Code")]
+        [Display(ResourceType = typeof (UsersMessages), Name = "Code")]
         public string Code { get; set; }
         public string ReturnUrl { get; set; }
 
-        [Display(Name = "Remember this browser?")]
+        [Display(ResourceType = typeof (UsersMessages), Name = "RememberBrowser")]
         public bool RememberBrowser { get; set; }
 
         public bool RememberMe { get; set; }

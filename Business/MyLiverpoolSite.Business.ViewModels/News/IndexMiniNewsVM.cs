@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 using MyLiverpoolSite.Data.Entities;
 
@@ -19,7 +16,7 @@ namespace MyLiverpoolSite.Business.ViewModels.News
 
         public virtual NewsCategory NewsCategory { get; set; }
 
-        public bool CanCommentary { get; set; }
+     //   public bool CanCommentary { get; set; }
 
         public DateTime AdditionTime { get; set; }
 
@@ -34,11 +31,11 @@ namespace MyLiverpoolSite.Business.ViewModels.News
 
         public int Reads { get; set; }
 
-        public string Source { get; set; }
+   //     public string Source { get; set; }
 
         public string PhotoPath { get; set; }
 
-        public DateTime LastModified { get; set; }
+     //   public DateTime LastModified { get; set; }
 
         public virtual ICollection<NewsComment> Children { get; set; }
     }

@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using MyLiverpoolSite.Business.ViewModels.Resources;
 
 namespace MyLiverpoolSite.Business.ViewModels.Account
 {
@@ -11,18 +9,29 @@ namespace MyLiverpoolSite.Business.ViewModels.Account
     {
         [Required]
         [EmailAddress]
-        [Display(Name = "Email")]
+        [Display(ResourceType = typeof (UsersMessages), Name = "Email")]
         public string Email { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
-        //[DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [StringLength(100, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName ="MinimumLength", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        [Display(ResourceType = typeof(UsersMessages), Name = "Password")]
         public string Password { get; set; }
 
-        // [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [DataType(DataType.Password)]
+        [Display(ResourceType = typeof(UsersMessages), Name = "PasswordConfirmation")]
+        [Compare("Password", ErrorMessageResourceType = typeof (ErrorMessages), ErrorMessageResourceName = "PasswordsNotMatch")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [Display(ResourceType = typeof(UsersMessages), Name = "Login")]
+        public string Login { get; set; }
+
+        [Display(ResourceType = typeof (UsersMessages), Name = "FullName")]
+        public string FullName { get; set; }
+
+        [Required]
+        [Display(ResourceType = typeof (UsersMessages), Name = "BirthDay")]
+        public DateTime BirthDay { get; set; }
     }
 }
