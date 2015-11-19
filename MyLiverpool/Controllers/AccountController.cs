@@ -76,10 +76,7 @@ namespace MyLiverpool.Controllers
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var users = SignInManager.UserManager.Users.ToList();
-            var user = SignInManager.UserManager.FindByEmail(model.Email);
-            var resw = SignInManager.UserManager.CheckPasswordAsync(user, model.Password).Result;
-            var result = await SignInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, false);
+            var result = await SignInManager.PasswordSignInAsync(model.Login, model.Password, model.RememberMe, false);
             switch (result)
             {
                 case SignInStatus.Success:

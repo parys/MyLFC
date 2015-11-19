@@ -98,6 +98,7 @@
     <Compile Include="Services\BlogCommentService.cs" />
     <Compile Include="Services\BlogService.cs" />
     <Compile Include="Services\EmailService.cs" />
+    <Compile Include="Services\ForumService.cs" />
     <Compile Include="Services\NewsCategoryService.cs" />
     <Compile Include="Services\NewsCommentService.cs" />
     <Compile Include="Services\NewsService.cs" />

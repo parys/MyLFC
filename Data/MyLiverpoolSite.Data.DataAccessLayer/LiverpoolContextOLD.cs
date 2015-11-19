@@ -26,13 +26,13 @@
 
 //        public DbSet<BlogComment> Children { get; set; }
 
-//        public DbSet<ForumSection> ForumSections { get; set; }
+//        public DbSet<Section> ForumSections { get; set; }
 
-//        public DbSet<ForumSubsection> ForumSubsections { get; set; }
+//        public DbSet<Subsection> Subsections { get; set; }
 
-//        public DbSet<ForumTheme> ForumThemes { get; set; }
+//        public DbSet<Theme> Themes { get; set; }
 
-//        public DbSet<ForumMessage> ForumMessages { get; set; }
+//        public DbSet<ForumMessage> Messages { get; set; }
 
 //        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 //        {

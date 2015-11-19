@@ -27,7 +27,7 @@ namespace MyLiverpoolSite.Business.Services
         //    .ForMember(t => t.City, opt => opt.Ignore())//MapFrom(m => m.Email))
         //    .ForMember(t => t.Children, opt => opt.Ignore())//MapFrom(m => m.Email))
         //    .ForMember(t => t.Country, opt => opt.Ignore())//MapFrom(m => m.Email))
-        //    .ForMember(t => t.ForumMessages, opt => opt.Ignore())//MapFrom(m => m.Email))
+        //    .ForMember(t => t.Messages, opt => opt.Ignore())//MapFrom(m => m.Email))
         //    .ForMember(t => t.FullName, opt => opt.Ignore())//MapFrom(m => m.Email))
         //    .ForMember(t => t.Gender, opt => opt.Ignore())//MapFrom(m => m.Email))
         //    .ForMember(t => t.Homepage, opt => opt.Ignore())//MapFrom(m => m.Email))

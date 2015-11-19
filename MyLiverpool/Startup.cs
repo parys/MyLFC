@@ -21,7 +21,8 @@ namespace MyLiverpool
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
             builder.RegisterType<NewsService>().As<INewsService>();
             builder.RegisterType<UserService>().As<IUserService>();
-            builder.RegisterType<BlogService>().As<IBlogService>();
+            builder.RegisterType<UserService>().As<IUserService>();
+            builder.RegisterType<ForumService>().As<IForumService>();
             builder.RegisterType<NewsCategoryService>().As<INewsCategoryService>();
             builder.RegisterType<BlogCategoryService>().As<IBlogCategoryService>();
             builder.RegisterType<NewsCommentService>().As<INewsCommentService>();

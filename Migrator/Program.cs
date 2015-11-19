@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using MyLiverpoolSite.Data.DataAccessLayer;
 using MyLiverpoolSite.Data.Entities;
 using MyLiverpoolSite.Common.Utilities;
@@ -16,6 +17,7 @@ namespace Migrator
         private static int maxChars = 20000;
         private static bool useLimit = true;
 
+        private static readonly List<ForumSubsection> Subsections = new List<ForumSubsection>(); 
 
         private static User Deleted;
 
@@ -42,8 +44,9 @@ namespace Migrator
             UpdateBlogItems();
             UpdateNewsItems();
             UpdateComments();
+            UpdateForumSectionsAndPopulateSubsectionList();
+            UpdateForumSubsectionsFromList();
             UpdateForumThemes();
-            UpdateForumSections();
             UpdateForumComments();
         }
 
@@ -51,11 +54,11 @@ namespace Migrator
         {
             //UpdateBlogCategoryAndBlogItem();
             //UpdateNewsCategoryAndNewsItem();
-            UpdateCommentsForum();
-            UpdateForumSectionAndSubsection();
-            UpdateForumSubSectionAndTheme();
+           // UpdateCommentsForum();
+         //   UpdateForumSectionAndSubsection();
+           // UpdateForumSubSectionAndTheme();
             //UpdateComments();
-            UpdateCommentsLinks();
+           // UpdateCommentsLinks();
            // UpdateCommentsLinksToNewsAndBlogs();
         }
 
@@ -331,6 +334,56 @@ namespace Migrator
                 }
                 UnitOfWork.Save();
             }
+        }
+
+        private static void UpdateUsersId()
+        {
+            Console.WriteLine("Start UpdateUsersId");
+            using (FileStream fs = new FileStream(path + "ugen.txt", FileMode.Open))
+            {
+                byte[] data = new byte[fs.Length];
+                fs.Read(data, 0, Convert.ToInt32(fs.Length));
+
+                char[] chars = Encoding.UTF8.GetString(data).ToCharArray();
+                var limit = chars.Length;
+                if (useLimit && maxChars < chars.Length)
+                {
+                    limit = maxChars;
+                }
+                for (int i = 0; i < limit; i++)
+                {
+
+                    // id
+                    string id = null;
+                    while (chars[i] != '|')
+                    {
+                        id += chars[i];
+                        i++;
+                    }
+                    i++;
+                    // login
+                    string userLogin = null;
+                    while (chars[i] != '|')
+                    {
+                        userLogin += chars[i];
+                        i++;
+                    }
+                    i++;
+                    User user = UnitOfWork.UserRepository.Get(u => u.UserName == userLogin).Result.FirstOrDefault();
+                    if (user != null)
+                    {
+                        user.OldId = int.Parse(id);
+                        UnitOfWork.UserRepository.Update(user);
+                    }
+
+                    while (chars[i] != 10)
+                    {
+                        i++;
+                    }
+                }
+                UnitOfWork.Save();
+            }
+
         }
 
         private static void UpdateBlogItems()
@@ -1376,6 +1429,151 @@ namespace Migrator
             }
         }
 
+        private static void UpdateForumSectionsAndPopulateSubsectionList()
+        {
+            Console.WriteLine("Start UpdateForumSections");
+            using (FileStream fs = new FileStream(path + "fr_fr.txt", FileMode.Open))
+            {
+                byte[] data = new byte[fs.Length];
+                fs.Read(data, 0, Convert.ToInt32(fs.Length));
+
+                char[] chars = Encoding.UTF8.GetString(data).ToCharArray();
+                var limit = chars.Length;
+                if (useLimit && maxChars < chars.Length)
+                {
+                    limit = maxChars;
+                }
+                for (int i = 0; i < limit; i++)
+                {
+                    if (chars[i + 2] == '0' || chars[i + 3] == '0')
+                    {
+                        ForumSection forumSection = new ForumSection();
+                        string id = null;
+                        while (chars[i] != '|')
+                        {
+                            id += chars[i];
+                            i++;
+                        }
+                        i++;
+                        forumSection.IdOld = int.Parse(id);
+                        // section id
+                        while (chars[i] != '|')
+                        {
+                            i++;
+                        }
+                        i++;
+                        // is section
+                        while (chars[i] != '|')
+                        {
+                            i++;
+                        }
+                        i++;
+                        // sequence
+                        while (chars[i] != '|')
+                        {
+                            i++;
+                        }
+                        i++;
+                        // time creation
+                        while (chars[i] != '|')
+                        {
+                            i++;
+                        }
+                        i++;
+                        // name
+                        while (chars[i] != '|')
+                        {
+                            forumSection.Name += chars[i];
+                            i++;
+                        }
+                        UnitOfWork.ForumSectionRepository.Add(forumSection);
+                        while (chars[i] != 10)
+                        {
+                            i++;
+                        }
+                    }
+                    else
+                    {
+                        ForumSubsection forumSubsection = new ForumSubsection();
+                        // id
+                        string id = null;
+                        while (chars[i] != '|')
+                        {
+                            id += chars[i];
+                            i++;
+                        }
+                        i++;
+                        forumSubsection.IdOld = int.Parse(id);
+                        // section id
+                        string sectionId = null;
+                        while (chars[i] != '|')
+                        {
+                            sectionId += chars[i];
+                            i++;
+                        }
+                        i++;
+
+                        forumSubsection.SectionId = int.Parse(sectionId);
+                        // is section
+                        while (chars[i] != '|')
+                        {
+                            i++;
+                        }
+                        i++;
+                        // sequence
+                        while (chars[i] != '|')
+                        {
+                            i++;
+                        }
+                        i++;
+                        // sequence
+                        while (chars[i] != '|')
+                        {
+                            i++;
+                        }
+                        i++;
+                        // name 
+                        while (chars[i] != '|')
+                        {
+                            forumSubsection.Name += chars[i];
+                            i++;
+                        }
+                        i++;
+                        // description 
+                        while (chars[i] != '|')
+                        {
+                            forumSubsection.Description += chars[i];
+                            i++;
+                        }
+                        i++;
+                        // last modified
+
+                        Subsections.Add(forumSubsection);
+                   //     UnitOfWork.ForumSubsectionRepository.Add(forumSubsection);
+                        while (chars[i] != 10)
+                        {
+                            i++;
+                        }
+                    }
+                }
+                UnitOfWork.Save();
+            }
+        }
+
+        private static void UpdateForumSubsectionsFromList()
+        {
+            var sections = UnitOfWork.ForumSectionRepository.Get().Result;
+
+            foreach (var subsection in Subsections)
+            {
+                var sectionId = sections.First(x => x.IdOld == subsection.SectionId).Id;
+                subsection.SectionId = sectionId;
+            }
+
+            Subsections.ForEach(x => UnitOfWork.ForumSubsectionRepository.Add(x));
+            UnitOfWork.Save();
+        }
+
         private static void UpdateForumThemes()
         {
             Console.WriteLine("Start UpdateForumThemes");
@@ -1410,7 +1608,9 @@ namespace Migrator
                         i++;
                     }
                     i++;
-                    forumTheme.SectionId = int.Parse(sectionId);
+                    var subsection =
+                        UnitOfWork.ForumSubsectionRepository.Get().Result.First(x => x.IdOld == int.Parse(sectionId));
+                    forumTheme.SubsectionId = subsection.Id;
                     // isPoll
                     while (chars[i] != '|')
                     {
@@ -1514,180 +1714,6 @@ namespace Migrator
             }
         }
 
-        private static void UpdateForumSections()
-        {
-            Console.WriteLine("Start UpdateForumSections");
-            using (FileStream fs = new FileStream(path + "fr_fr.txt", FileMode.Open))
-            {
-                byte[] data = new byte[fs.Length];
-                fs.Read(data, 0, Convert.ToInt32(fs.Length));
-
-                char[] chars = Encoding.UTF8.GetString(data).ToCharArray();
-                var limit = chars.Length;
-                if (useLimit && maxChars < chars.Length)
-                {
-                    limit = maxChars;
-                }
-                for (int i = 0; i < limit; i++)
-                {
-                    if (chars[i + 2] == '0' || chars[i + 3] == '0')
-                    {
-                        ForumSection forumSection = new ForumSection();
-                        string id = null;
-                        while (chars[i] != '|')
-                        {
-                            id += chars[i];
-                            i++;
-                        }
-                        i++;
-                        forumSection.IdOld = int.Parse(id);
-                        // section id
-                        while (chars[i] != '|')
-                        {
-                            i++;
-                        }
-                        i++;
-                        // is section
-                        while (chars[i] != '|')
-                        {
-                            i++;
-                        }
-                        i++;
-                        // sequence
-                        while (chars[i] != '|')
-                        {
-                            i++;
-                        }
-                        i++;
-                        // time creation
-                        while (chars[i] != '|')
-                        {
-                            i++;
-                        }
-                        i++;
-                        // name
-                        while (chars[i] != '|')
-                        {
-                            forumSection.Name += chars[i];
-                            i++;
-                        }
-                        UnitOfWork.ForumSectionRepository.Add(forumSection);
-                        while (chars[i] != 10)
-                        {
-                            i++;
-                        }
-                    }
-                    else
-                    {
-                        ForumSubsection forumSubsection = new ForumSubsection();
-                        // id
-                        string id = null;
-                        while (chars[i] != '|')
-                        {
-                            id += chars[i];
-                            i++;
-                        }
-                        i++;
-                        forumSubsection.IdOld = int.Parse(id);
-                        // section id
-                        string sectionId = null;
-                        while (chars[i] != '|')
-                        {
-                            sectionId += chars[i];
-                            i++;
-                        }
-                        i++;
-
-                        forumSubsection.SectionId = int.Parse(sectionId);
-                        // is section
-                        while (chars[i] != '|')
-                        {
-                            i++;
-                        }
-                        i++;
-                        // sequence
-                        while (chars[i] != '|')
-                        {
-                            i++;
-                        }
-                        i++;
-                        // name 
-                        while (chars[i] != '|')
-                        {
-                            forumSubsection.Name += chars[i];
-                            i++;
-                        }
-                        i++;
-                        // description 
-                        while (chars[i] != '|')
-                        {
-                            forumSubsection.Description += chars[i];
-                            i++;
-                        }
-                        i++;
-                        // last modified
-
-                        UnitOfWork.ForumSubsectionRepository.Add(forumSubsection);
-                        while (chars[i] != 10)
-                        {
-                            i++;
-                        }
-                    }
-                }
-                UnitOfWork.Save();
-            }
-        }
-
-        private static void UpdateUsersId()
-        {
-            Console.WriteLine("Start UpdateUsersId");
-            using (FileStream fs = new FileStream(path + "ugen.txt", FileMode.Open))
-            {
-                byte[] data = new byte[fs.Length];
-                fs.Read(data, 0, Convert.ToInt32(fs.Length));
-
-                char[] chars = Encoding.UTF8.GetString(data).ToCharArray();
-                var limit = chars.Length;
-                if (useLimit && maxChars < chars.Length)
-                {
-                    limit = maxChars;
-                }
-                for (int i = 0; i < limit; i++)
-                {
-
-                    // id
-                    string id = null;
-                    while (chars[i] != '|')
-                    {
-                        id += chars[i];
-                        i++;
-                    }
-                    i++;
-                    // login
-                    string userLogin = null;
-                    while (chars[i] != '|')
-                    {
-                        userLogin += chars[i];
-                        i++;
-                    }
-                    i++;
-                    User user = UnitOfWork.UserRepository.Get(u => u.UserName == userLogin).Result.FirstOrDefault();
-                    if (user != null)
-                    {
-                        user.OldId = int.Parse(id);
-                        UnitOfWork.UserRepository.Update(user);
-                    }
-
-                    while (chars[i] != 10)
-                    {
-                        i++;
-                    }
-                }
-                UnitOfWork.Save();
-            }
-
-        }
-
         private static void UpdateForumComments()
         {
             Console.WriteLine("Start UpdateForumComments");
@@ -1723,7 +1749,12 @@ namespace Migrator
                         i++;
                     }
                     i++;
-                    forumMessage.ThemeId = int.Parse(moduleId);
+                    var theme = UnitOfWork.ForumThemeRepository.Get().Result.FirstOrDefault(x => x.IdOld == int.Parse(moduleId));
+                    if (useLimit && theme != null)
+                    {
+                        forumMessage.ThemeId = theme.Id;
+                    }
+                    
                     //material id
                     string additionTime = null;
                     while (chars[i] != '|')
@@ -1777,8 +1808,10 @@ namespace Migrator
                     {
                         i++;
                     }
-
-                    UnitOfWork.ForumMessageRepository.Add(forumMessage);
+                    if (useLimit && theme != null)
+                    {
+                        UnitOfWork.ForumMessageRepository.Add(forumMessage);
+                    }
 
                 }
                 UnitOfWork.Save();
@@ -1829,7 +1862,7 @@ namespace Migrator
         //    UnitOfWork.Save();
         //}
 
-        public static async void UpdateCommentsLinks()
+        public static void UpdateCommentsLinks()
         {
             Console.WriteLine("Start UpdateCommentsLinks");
             //var blogComments = UnitOfWork.BlogCommentRepository.Get(c => c.ParentId != 0).Result.ToList();
@@ -1872,12 +1905,12 @@ namespace Migrator
             {
                 foreach (var post in posts.Where(post => theme.Id == post.ThemeId))
                 {
-                    post.ForumTheme = theme;
-                    if (theme.ForumMessages == null)
+                    post.Theme = theme;
+                    if (theme.Messages == null)
                     {
-                        theme.ForumMessages = new List<ForumMessage>();
+                        theme.Messages = new List<ForumMessage>();
                     }
-                    theme.ForumMessages.Add(post);
+                    theme.Messages.Add(post);
                 }
             }
             UnitOfWork.Save();
@@ -1894,12 +1927,12 @@ namespace Migrator
                 {
                     if (subSection.SectionId == section.Id)
                     {
-                        subSection.ForumSection = section;
-                        if (section.ForumSubsections == null)
+                        subSection.Section = section;
+                        if (section.Subsections == null)
                         {
-                            section.ForumSubsections = new List<ForumSubsection>();
+                            section.Subsections = new List<ForumSubsection>();
                         }
-                        section.ForumSubsections.Add(subSection);
+                        section.Subsections.Add(subSection);
                     }
                 }
             }
@@ -1915,14 +1948,14 @@ namespace Migrator
 
             foreach (var subSection in subSections)
             {
-                foreach (var theme in themes.Where(theme => subSection.Id == theme.SectionId))
+                foreach (var theme in themes.Where(theme => subSection.Id == theme.SubsectionId))
                 {
-                    theme.ForumSubsection = subSection;
-                    if (subSection.ForumThemes == null)
+                    theme.Subsection = subSection;
+                    if (subSection.Themes == null)
                     {
-                        subSection.ForumThemes = new List<ForumTheme>();
+                        subSection.Themes = new List<ForumTheme>();
                     }
-                    subSection.ForumThemes.Add(theme);
+                    subSection.Themes.Add(theme);
                 }
             }
             UnitOfWork.Save();

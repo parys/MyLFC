@@ -89,10 +89,13 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
 
             modelBuilder.Entity<NewsComment>().HasOptional(x => x.Parent).WithMany(x => x.Children).HasForeignKey(x => x.ParentId);
             modelBuilder.Entity<BlogComment>().HasOptional(x => x.Parent).WithMany(x => x.Children).HasForeignKey(x => x.ParentId);
-            
+
+            modelBuilder.Entity<ForumSubsection>().HasRequired(x => x.Section).WithMany(x => x.Subsections).HasForeignKey(x => x.SectionId);
+            modelBuilder.Entity<ForumTheme>().HasRequired(x => x.Subsection).WithMany(x => x.Themes).HasForeignKey(x => x.SubsectionId);
+            modelBuilder.Entity<ForumMessage>().HasRequired(x => x.Theme).WithMany(x => x.Messages).HasForeignKey(x => x.ThemeId);
            // modelBuilder.Entity<User>().HasMany(u => u.Children).
             // использование Fluent API
-            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>(); ;
+            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>(); 
             base.OnModelCreating(modelBuilder);
         }
 

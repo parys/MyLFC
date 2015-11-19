@@ -1,0 +1,26 @@
+﻿@model MyLiverpoolSite.Business.ViewModels.Forum.ForumVM
+
+@{
+    ViewBag.Title = "title";
+}
+
+<h2></h2>
+<div class="container-fluid">
+
+    @foreach (var item in Model.Sections)
+    {
+        <div class="panel panel-danger">
+            <div class="panel-heading">@item.Name</div>
+            <div class="panel-body">
+                <ul class="list-group">
+                    @foreach (var subsection in item.Subsections)
+                {
+                        <li class="list-group-item">
+                            <span> @subsection.Name</span>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    }
+</div>

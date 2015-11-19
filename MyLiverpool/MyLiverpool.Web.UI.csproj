@@ -191,6 +191,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BlogCommentController.cs" />
     <Compile Include="Controllers\BlogController.cs" />
+    <Compile Include="Controllers\ForumController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\NewsCommentController.cs" />
@@ -282,6 +283,7 @@
     <Content Include="Views\Blog\Index.cshtml" />
     <Content Include="Views\Shared\_LeftSideBar.cshtml" />
     <Content Include="Views\Shared\_RightSideBar.cshtml" />
+    <None Include="Views\Forum\Index.cshtml" />
     <None Include="Views\User\GetUserProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>

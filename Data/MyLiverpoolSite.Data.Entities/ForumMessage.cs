@@ -10,7 +10,7 @@ namespace MyLiverpoolSite.Data.Entities
 
         public int ThemeId { get; set; }
 
-        public virtual ForumTheme ForumTheme { get; set; }
+        public virtual ForumTheme Theme { get; set; }
 
         public DateTime AdditionTime { get; set; }
 
@@ -21,7 +21,7 @@ namespace MyLiverpoolSite.Data.Entities
         public virtual User Author { get; set; }
         public int AuthorId { get; set; }
 
-        public string Ip { get; set; }
+     //   public string Ip { get; set; }
 
         public DateTime LastModifiedTime { get; set; }
 

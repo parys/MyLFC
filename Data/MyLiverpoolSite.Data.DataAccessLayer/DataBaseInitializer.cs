@@ -74,7 +74,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
             var userStore = new UserStore<User, Role, int, UserLogin, UserRole, UserClaim>(context);
             var userManager = new UserManager<User, int>(userStore);
 
-            userManager.Create(user, "123!Qq");
+            userManager.Create(user, "123456");
 
             userManager.AddToRole(user.Id, RolesEnum.User.ToString());
         }
@@ -97,7 +97,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
             var userStore = new UserStore<User, Role, int, UserLogin, UserRole, UserClaim>(context);
             var userManager = new UserManager<User, int>(userStore);
 
-            userManager.Create(user, "123!Qq");
+            userManager.Create(user, "123456");
             userManager.AddToRole(user.Id, RolesEnum.Admin.ToString());
             //var result = await manager.CreateAsync(user, password);
             // context.Users.Add(user);

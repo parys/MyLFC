@@ -6,7 +6,7 @@ namespace MyLiverpoolSite.Data.Entities
     {
         public ForumSubsection()
         {
-            this.ForumThemes = new HashSet<ForumTheme>();
+            this.Themes = new HashSet<ForumTheme>();
         }
 
         public int Id { get; set; }
@@ -15,7 +15,7 @@ namespace MyLiverpoolSite.Data.Entities
 
         public int SectionId { get; set; }
 
-        public virtual ForumSection ForumSection { get; set; }
+        public virtual ForumSection Section { get; set; }
 
         public string Name { get; set; }
 
@@ -29,7 +29,7 @@ namespace MyLiverpoolSite.Data.Entities
 
         public int Views { get; set; }
 
-        public virtual ICollection<ForumTheme> ForumThemes { get; set; }
+        public virtual ICollection<ForumTheme> Themes { get; set; }
 
         //  public long LastMessageAdditionTime { get; set; }
 

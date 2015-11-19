@@ -7,16 +7,18 @@ namespace MyLiverpoolSite.Data.Entities
     {
         public ForumTheme()
         {
-            this.ForumMessages = new HashSet<ForumMessage>();
+            this.Messages = new HashSet<ForumMessage>();
         }
 
         public int Id { get; set; }
 
         public int IdOld { get; set; }
 
-        public int SectionId { get; set; }
+     //   public int SectionId { get; set; }
 
-        public virtual ForumSubsection ForumSubsection { get; set; }
+        public int SubsectionId { get; set; }
+
+        public virtual ForumSubsection Subsection { get; set; }
 
         public bool IsPool { get; set; }
 
@@ -38,6 +40,6 @@ namespace MyLiverpoolSite.Data.Entities
 
         public virtual User LastAnswerUser { get; set; }
 
-        public virtual ICollection<ForumMessage> ForumMessages { get; set; }
+        public virtual ICollection<ForumMessage> Messages { get; set; }
     }
 }
