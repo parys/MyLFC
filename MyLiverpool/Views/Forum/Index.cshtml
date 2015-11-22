@@ -16,7 +16,7 @@
                     @foreach (var subsection in item.Subsections)
                 {
                         <li class="list-group-item">
-                            <span> @subsection.Name</span>
+                            <a  href="@Url.Action("IndexSubsection", new {Id = subsection.Id})"><span> @subsection.Name</span></a>
                         </li>
                     }
                 </ul>

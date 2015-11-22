@@ -127,9 +127,15 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
             _context.Entry(entityToUpdate).State = EntityState.Modified;
         }
 
-        public async Task<int> GetCount()
+        public async Task<int> GetCount(Expression<Func<TEntity, bool>> filter = null)
         {
-            return await _dbSet.CountAsync();
+            IQueryable<TEntity> query = _dbSet;
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+
+            return await query.CountAsync();
         }
     }
 }

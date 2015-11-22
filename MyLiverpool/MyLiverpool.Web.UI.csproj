@@ -284,6 +284,7 @@
     <Content Include="Views\Shared\_LeftSideBar.cshtml" />
     <Content Include="Views\Shared\_RightSideBar.cshtml" />
     <None Include="Views\Forum\Index.cshtml" />
+    <None Include="Views\Forum\IndexSubsection.cshtml" />
     <None Include="Views\User\GetUserProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>

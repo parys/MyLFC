@@ -6,5 +6,7 @@ namespace MyLiverpoolSite.Business.Contracts
     public interface IForumService
     {
         Task<ForumVM> Get();
+
+        Task<ForumSubsectionVM> GetSubsection(int subsectionId, int page = 1);
     }
 }

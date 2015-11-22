@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MyLiverpoolSite.Business.ViewModels.BlogComments;
 using MyLiverpoolSite.Business.ViewModels.Blogs;
+using MyLiverpoolSite.Business.ViewModels.Forum;
 using MyLiverpoolSite.Business.ViewModels.News;
 using MyLiverpoolSite.Business.ViewModels.NewsComments;
 using MyLiverpoolSite.Business.ViewModels.Users;
@@ -101,6 +102,9 @@ namespace MyLiverpoolSite.Business.Services
 
             Mapper.CreateMap<User, UserViewModel>();
            // Mapper.CreateMap<IndexNewsCommentVM, NewsComment>();
+
+            Mapper.CreateMap<ForumSubsection, ForumSubsectionVM>().ForMember(x => x.Themes, y => y.Ignore());
+            Mapper.CreateMap<ForumTheme, ForumThemeVM>();
         }
     }
 }

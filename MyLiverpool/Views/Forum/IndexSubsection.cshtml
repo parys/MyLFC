@@ -1,0 +1,14 @@
+﻿@model MyLiverpoolSite.Business.ViewModels.Forum.ForumSubsectionVM
+
+@{
+
+}
+
+<div>
+    @foreach (var item in Model.Themes.List)
+    {
+        <span>@item.Name</span>
+        <span>@item.Description</span>
+        <br>
+    }
+</div>

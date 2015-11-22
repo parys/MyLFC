@@ -47,7 +47,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
         /// </summary>
         void Update(TEntity entity);
 
-        Task<int> GetCount();
+        Task<int> GetCount(Expression<Func<TEntity, bool>> filter = null);
     }
 }
 

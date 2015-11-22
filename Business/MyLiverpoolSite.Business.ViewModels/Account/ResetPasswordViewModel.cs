@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
+using MyLiverpoolSite.Business.ViewModels.Resources;
 
-namespace MyLiverpoolSite.Business.ViewModels
+namespace MyLiverpoolSite.Business.ViewModels.Account
 {
     public class ResetPasswordViewModel
     {
         [Required]
         [EmailAddress]
-        [Display(Name = "Email")]
+        [Display(ResourceType = typeof (UsersMessages), Name = "Email")]
         public string Email { get; set; }
 
         [Required]

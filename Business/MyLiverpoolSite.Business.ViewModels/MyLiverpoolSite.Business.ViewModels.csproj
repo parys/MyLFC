@@ -106,6 +106,8 @@
     <Compile Include="Blogs\CreateEditBlogVM.cs" />
     <Compile Include="Blogs\IndexBlogVM.cs" />
     <Compile Include="Blogs\IndexMiniBlogVM.cs" />
+    <Compile Include="Forum\ForumSubsectionVM.cs" />
+    <Compile Include="Forum\ForumThemeVM.cs" />
     <Compile Include="Forum\ForumVM.cs" />
     <Compile Include="Manage\AddPhoneNumberViewModel.cs" />
     <Compile Include="Manage\ChangePasswordViewModel.cs" />
@@ -121,7 +123,7 @@
     <Compile Include="News\IndexMiniNewsVM.cs" />
     <Compile Include="News\IndexNewsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ResetPasswordViewModel.cs" />
+    <Compile Include="Account\ResetPasswordViewModel.cs" />
     <Compile Include="Resources\CommonMessages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -141,6 +143,10 @@
     <Compile Include="Users\UserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Data\MyLiverpoolSite.Data.DataAccessLayer\MyLiverpoolSite.Data.DataAccessLayer.csproj">
+      <Project>{AC10A860-1C0E-4910-9E05-428D09F70981}</Project>
+      <Name>MyLiverpoolSite.Data.DataAccessLayer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Data\MyLiverpoolSite.Data.Entities\MyLiverpoolSite.Data.Entities.csproj">
       <Project>{996C9442-54C1-4F0A-BC05-AD1C0E09E20B}</Project>
       <Name>MyLiverpoolSite.Data.Entities</Name>
