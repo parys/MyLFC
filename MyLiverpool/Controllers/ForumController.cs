@@ -20,13 +20,23 @@ namespace MyLiverpool.Controllers
             return View(model);
         }
 
-        public async Task<ActionResult> IndexSubsection(int? id)
+        public async Task<ActionResult> IndexSubsection(int? id, int page = 1)
         {
             if (!id.HasValue)
             {
                 return HttpNotFound();
             }
-            var model = await _forumService.GetSubsection(id.Value);
+            var model = await _forumService.GetSubsection(id.Value, page);
+            return View(model);
+        }
+
+        public async Task<ActionResult> IndexTheme(int? id, int page = 1)
+        {
+            if (!id.HasValue)
+            {
+                return HttpNotFound();
+            }
+            var model = await _forumService.GetTheme(id.Value, page);
             return View(model);
         }
     }

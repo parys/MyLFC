@@ -104,7 +104,8 @@ namespace MyLiverpoolSite.Business.Services
            // Mapper.CreateMap<IndexNewsCommentVM, NewsComment>();
 
             Mapper.CreateMap<ForumSubsection, ForumSubsectionVM>().ForMember(x => x.Themes, y => y.Ignore());
-            Mapper.CreateMap<ForumTheme, ForumThemeVM>();
+            Mapper.CreateMap<ForumTheme, ForumThemeVM>().ForMember(x => x.Messages, y => y.Ignore());
+            Mapper.CreateMap<ForumMessage, ForumMessageVM>();
         }
     }
 }

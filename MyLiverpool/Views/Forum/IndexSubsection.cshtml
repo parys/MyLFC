@@ -1,4 +1,5 @@
-﻿@model MyLiverpoolSite.Business.ViewModels.Forum.ForumSubsectionVM
+﻿@using MyLiverpool.Helpers
+@model MyLiverpoolSite.Business.ViewModels.Forum.ForumSubsectionVM
 
 @{
 
@@ -7,8 +8,9 @@
 <div>
     @foreach (var item in Model.Themes.List)
     {
-        <span>@item.Name</span>
+        <span><a href="@Url.Action("IndexTheme", new {Id = item.Id})">@item.Name</a></span><br>
         <span>@item.Description</span>
         <br>
     }
+    <div class="pagination">         @Html.PageLinks(Model.Themes.PageNo, Model.Themes.CountPage, x => Url.Action("IndexSubsection", new { id = Model.Id, page = x }))     </div>
 </div>

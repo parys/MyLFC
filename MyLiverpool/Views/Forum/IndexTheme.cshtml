@@ -1,0 +1,17 @@
+﻿@using MyLiverpool.Helpers
+@model MyLiverpoolSite.Business.ViewModels.Forum.ForumThemeVM
+
+<div>
+    @foreach (var item in Model.Messages.List)
+    {
+        <div class="panel panel-default">
+        <div class="panel-heading">@item.Author.UserName</div>
+            <div class="panel-body">
+                @Html.Raw("")
+                @item.Message
+            </div>
+    </div>
+        
+    }
+    <div class="pagination">         @Html.PageLinks(Model.Messages.PageNo, Model.Messages.CountPage, x => Url.Action("IndexTheme", new { id = Model.Id, page = x }))     </div>
+</div>

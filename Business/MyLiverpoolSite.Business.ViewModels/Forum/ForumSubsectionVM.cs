@@ -14,6 +14,8 @@ namespace MyLiverpoolSite.Business.ViewModels.Forum
           //  Themes = new 
         }
 
+        public int Id { get; set; }
+
         public PageableData<ForumThemeVM> Themes { get; set; }
     }
 }

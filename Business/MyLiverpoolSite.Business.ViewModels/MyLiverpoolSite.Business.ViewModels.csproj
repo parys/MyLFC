@@ -106,6 +106,7 @@
     <Compile Include="Blogs\CreateEditBlogVM.cs" />
     <Compile Include="Blogs\IndexBlogVM.cs" />
     <Compile Include="Blogs\IndexMiniBlogVM.cs" />
+    <Compile Include="Forum\ForumMessageVM.cs" />
     <Compile Include="Forum\ForumSubsectionVM.cs" />
     <Compile Include="Forum\ForumThemeVM.cs" />
     <Compile Include="Forum\ForumVM.cs" />
@@ -133,6 +134,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ErrorMessages.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\NewsMessages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NewsMessages.resx</DependentUpon>
     </Compile>
     <Compile Include="Resources\UsersMessages.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -164,6 +170,10 @@
     <EmbeddedResource Include="Resources\ErrorMessages.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ErrorMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\NewsMessages.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>NewsMessages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\UsersMessages.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

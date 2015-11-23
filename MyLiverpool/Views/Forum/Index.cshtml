@@ -1,7 +1,8 @@
-﻿@model MyLiverpoolSite.Business.ViewModels.Forum.ForumVM
+﻿@using MyLiverpoolSite.Business.ViewModels.Resources
+@model MyLiverpoolSite.Business.ViewModels.Forum.ForumVM
 
 @{
-    ViewBag.Title = "title";
+    ViewBag.Title = CommonMessages.Forum;
 }
 
 <h2></h2>
@@ -11,16 +12,16 @@
     {
         <div class="panel panel-danger">
             <div class="panel-heading">@item.Name</div>
-            <div class="panel-body">
+         @*   <div class="panel-body"></div>*@
                 <ul class="list-group">
                     @foreach (var subsection in item.Subsections)
                 {
-                        <li class="list-group-item">
+                        <li class="list-group-item list">
                             <a  href="@Url.Action("IndexSubsection", new {Id = subsection.Id})"><span> @subsection.Name</span></a>
                         </li>
                     }
                 </ul>
-            </div>
+            
         </div>
     }
 </div>

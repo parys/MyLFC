@@ -40,5 +40,19 @@ namespace MyLiverpoolSite.Business.Services.Services
             model.Themes = new PageableData<ForumThemeVM>(Mapper.Map<IEnumerable<ForumThemeVM>>(subsectionThemes), page, subsectionThemesCount);
             return model;
         }
+
+        public async Task<ForumThemeVM> GetTheme(int themeId, int page = 1)
+        {
+            var theme = await _unitOfWork.ForumThemeRepository.GetById(themeId);
+            var themeMessages = await _unitOfWork.ForumMessageRepository.Get(page, filter: x => x.ThemeId == themeId);
+            var themeMessagesCount = await _unitOfWork.ForumMessageRepository.GetCount(x => x.ThemeId == themeId);
+            if (theme == null)
+            {
+                return new ForumThemeVM();
+            }
+            var model = Mapper.Map<ForumThemeVM>(theme);
+            model.Messages = new PageableData<ForumMessageVM>(Mapper.Map<IEnumerable<ForumMessageVM>>(themeMessages), page, themeMessagesCount);
+            return model;
+        }
     }
 }
