@@ -29,16 +29,16 @@ namespace MyLiverpoolSite.Business.ViewModels.News
         [Display(ResourceType = typeof(NewsMessages), Name = "CanCommentary")]
         public bool CanCommentary { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceType = typeof (ErrorMessages), ErrorMessageResourceName = "Required")]
         [Display(ResourceType = typeof(NewsMessages), Name = "Title")]
         public string Title { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Required")]
         [AllowHtml]
         [Display(ResourceType = typeof(NewsMessages), Name = "Brief")]
         public string Brief { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Required")]
         [AllowHtml]
         [Display(ResourceType = typeof(NewsMessages), Name = "Message")]
         public string Message { get; set; }
@@ -46,6 +46,7 @@ namespace MyLiverpoolSite.Business.ViewModels.News
         [Display(ResourceType = typeof(NewsMessages), Name = "Source")]
         public string Source { get; set; }
 
+        [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Required")]
         public string PhotoPath { get; set; }
 
         public int NewsCategoryId { get; set; }

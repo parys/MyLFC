@@ -61,6 +61,24 @@ namespace MyLiverpoolSite.Business.ViewModels.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Дата:.
+        /// </summary>
+        public static string AdditionTime {
+            get {
+                return ResourceManager.GetString("AdditionTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Автор:.
+        /// </summary>
+        public static string Author {
+            get {
+                return ResourceManager.GetString("Author", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Краткое описание:.
         /// </summary>
         public static string Brief {
@@ -111,6 +129,15 @@ namespace MyLiverpoolSite.Business.ViewModels.Resources {
         public static string Pending {
             get {
                 return ResourceManager.GetString("Pending", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Просмотры:.
+        /// </summary>
+        public static string Reads {
+            get {
+                return ResourceManager.GetString("Reads", resourceCulture);
             }
         }
         

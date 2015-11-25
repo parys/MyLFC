@@ -77,5 +77,14 @@ namespace MyLiverpoolSite.Business.ViewModels.Resources {
                 return ResourceManager.GetString("PasswordsNotMatch", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Поле обязательно для заполнения..
+        /// </summary>
+        internal static string Required {
+            get {
+                return ResourceManager.GetString("Required", resourceCulture);
+            }
+        }
     }
 }

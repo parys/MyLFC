@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using MyLiverpoolSite.Business.ViewModels.NewsComments;
+using MyLiverpoolSite.Business.ViewModels.Resources;
 using MyLiverpoolSite.Data.Entities;
 
 namespace MyLiverpoolSite.Business.ViewModels.News
@@ -17,14 +19,17 @@ namespace MyLiverpoolSite.Business.ViewModels.News
 
         public int NewsCategoryId { get; set; }
 
+        [Display(Name = "NewsCategory", ResourceType = typeof(NewsMessages))]
         public virtual NewsCategory NewsCategory { get; set; }
 
         public bool CanCommentary { get; set; }
 
+        [Display(Name = "AdditionTime", ResourceType = typeof(NewsMessages))]
         public DateTime AdditionTime { get; set; }
 
         public uint NumberCommentaries { get; set; }
 
+        [Display(Name = "Author", ResourceType = typeof(NewsMessages))]
         public virtual User Author { get; set; }
 
         public string Title { get; set; }
@@ -35,11 +40,11 @@ namespace MyLiverpoolSite.Business.ViewModels.News
         [AllowHtml]
         public string Message { get; set; }
 
+        [Display(Name = "Reads", ResourceType = typeof(NewsMessages))]
         public int Reads { get; set; }
 
+        [Display(Name = "Source", ResourceType = typeof(NewsMessages))]
         public string Source { get; set; }
-
-        public string PhotoPath { get; set; }
 
         public DateTime LastModified { get; set; }
 

@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AdditionTime" xml:space="preserve">
+    <value>Дата:</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>Автор:</value>
+  </data>
   <data name="Brief" xml:space="preserve">
     <value>Краткое описание:</value>
   </data>
@@ -134,6 +140,9 @@
   </data>
   <data name="Pending" xml:space="preserve">
     <value>Материал отложен</value>
+  </data>
+  <data name="Reads" xml:space="preserve">
+    <value>Просмотры:</value>
   </data>
   <data name="Source" xml:space="preserve">
     <value>Источник:</value>

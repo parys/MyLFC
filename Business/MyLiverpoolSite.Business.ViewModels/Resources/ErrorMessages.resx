@@ -124,4 +124,7 @@
   <data name="PasswordsNotMatch" xml:space="preserve">
     <value>Пароли должны совпадать.</value>
   </data>
+  <data name="Required" xml:space="preserve">
+    <value>Поле обязательно для заполнения.</value>
+  </data>
 </root>
