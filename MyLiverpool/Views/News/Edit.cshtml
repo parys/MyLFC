@@ -1,22 +1,17 @@
-﻿@model MyLiverpoolSite.Business.ViewModels.News.CreateEditNewsViewModel
+﻿@using MyLiverpoolSite.Business.ViewModels.Resources
+@model MyLiverpoolSite.Business.ViewModels.News.CreateEditNewsViewModel
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = NewsMessages.Editing;
 }
-
-<h2>Edit</h2>
-
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>IndexNewsViewModel</h4>
+        <h4>@NewsMessages.Editing</h4>
         <hr />
-        <div class="form-horizontal">
-            <h4>IndexNewsViewModel</h4>
-            <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">
                 @*   @Html.LabelFor(model => model.Id, htmlAttributes: new { @class = "control-label col-md-2" })*@
@@ -37,8 +32,6 @@
                 </div>
             </div>
 
-
-
             <div class="form-group">
                 @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -50,7 +43,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Brief, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.TextAreaFor(model => model.Brief, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.TextAreaFor(model => model.Brief, new { @class = "form-control", rows = "3" })
                     @Html.ValidationMessageFor(model => model.Brief, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -58,18 +51,10 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Message, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.TextAreaFor(model => model.Message, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.TextAreaFor(model => model.Message, new { @class = "form-control", rows="5" })
                     @Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger" })
                 </div>
             </div>
-
-            @*<div class="form-group">
-                    @Html.LabelFor(model => model.Reads, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Reads, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Reads, "", new { @class = "text-danger" })
-                    </div>
-                </div>*@
 
             <div class="form-group">
                 @Html.LabelFor(model => model.Source, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -91,7 +76,6 @@
                 <div class="col-md-10">
                     <div class="checkbox">
                         @Html.CheckBoxFor(model => model.CanCommentary)
-                        @Html.ValidationMessageFor(model => model.CanCommentary, "", new { @class = "text-danger" })
                     </div>
                 </div>
             </div>
@@ -100,7 +84,6 @@
                 <div class="col-md-10">
                     <div class="checkbox">
                         @Html.CheckBoxFor(model => model.OnTop)
-                        @Html.ValidationMessageFor(model => model.OnTop, "", new { @class = "text-danger" })
                     </div>
                 </div>
             </div>
@@ -109,23 +92,17 @@
                 <div class="col-md-10">
                     <div class="checkbox">
                         @Html.CheckBoxFor(model => model.Pending)
-                        @Html.ValidationMessageFor(model => model.Pending, "", new { @class = "text-danger" })
                     </div>
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Save" class="btn btn-default" />
+                    <input type="submit" value="@CommonMessages.Save" class="btn btn-default" />
                 </div>
             </div>
         </div>
-    </div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

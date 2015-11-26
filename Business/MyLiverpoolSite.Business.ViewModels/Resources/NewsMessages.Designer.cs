@@ -97,6 +97,15 @@ namespace MyLiverpoolSite.Business.ViewModels.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Редактирование новости.
+        /// </summary>
+        public static string Editing {
+            get {
+                return ResourceManager.GetString("Editing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Полный текст материала:.
         /// </summary>
         public static string Message {
@@ -106,11 +115,29 @@ namespace MyLiverpoolSite.Business.ViewModels.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Новости.
+        /// </summary>
+        public static string News {
+            get {
+                return ResourceManager.GetString("News", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Категория:.
         /// </summary>
         public static string NewsCategory {
             get {
                 return ResourceManager.GetString("NewsCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Создание новости.
+        /// </summary>
+        public static string NewsCreation {
+            get {
+                return ResourceManager.GetString("NewsCreation", resourceCulture);
             }
         }
         

@@ -17,6 +17,7 @@ namespace MyLiverpoolSite.Business.ViewModels.News
 
         public int Id { get; set; }
 
+        [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Required")]
         [Display(ResourceType = typeof(NewsMessages), Name = "NewsCategory")]
         public NewsCategory NewsCategory { get; set; }
 

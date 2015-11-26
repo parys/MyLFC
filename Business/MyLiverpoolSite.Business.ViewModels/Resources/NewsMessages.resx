@@ -129,11 +129,20 @@
   <data name="CanCommentary" xml:space="preserve">
     <value>Разрешить оставлять комментарии</value>
   </data>
+  <data name="Editing" xml:space="preserve">
+    <value>Редактирование новости</value>
+  </data>
   <data name="Message" xml:space="preserve">
     <value>Полный текст материала:</value>
   </data>
+  <data name="News" xml:space="preserve">
+    <value>Новости</value>
+  </data>
   <data name="NewsCategory" xml:space="preserve">
     <value>Категория:</value>
+  </data>
+  <data name="NewsCreation" xml:space="preserve">
+    <value>Создание новости</value>
   </data>
   <data name="OnTop" xml:space="preserve">
     <value>Всегда сверху</value>

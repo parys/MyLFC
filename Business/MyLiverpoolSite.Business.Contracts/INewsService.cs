@@ -21,10 +21,12 @@ namespace MyLiverpoolSite.Business.Contracts
 
         void Delete(NewsItem newsItem);
 
-        void Delete(int id);
+        Task<bool> Delete(int id);
 
         Task<CreateEditNewsViewModel> GetCreateEditViewModel(int? id);
 
         Task<PageableData<IndexMiniNewsVM>> GetAll(int page);
+
+        Task<bool> Activate(int id);
     }
 }

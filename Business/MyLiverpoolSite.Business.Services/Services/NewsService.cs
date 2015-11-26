@@ -33,13 +33,28 @@ namespace MyLiverpoolSite.Business.Services
                 newsItem.Comments = newsItem.Comments.Where(x => !x.ParentId.HasValue).ToList();
                 result = Mapper.Map<IndexNewsViewModel>(newsItem);
             }
-            //throw new NotImplementedException();
             return result;
         }
 
-        public void Delete(int id)
+        public async Task<bool> Delete(int id)
         {
-            throw new System.NotImplementedException();
+            var newsItem = await _unitOfWork.NewsItemRepository.GetById(id);
+            try
+            {
+                var comments = newsItem.Comments.ToList();
+                foreach (var comment in comments)
+                {
+                    await _unitOfWork.NewsCommentRepository.Delete(comment);
+                }
+                await _unitOfWork.NewsItemRepository.Delete(newsItem);
+                await _unitOfWork.SaveAsync();
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         public async Task<CreateEditNewsViewModel> GetCreateEditViewModel(int? id)
@@ -92,6 +107,15 @@ namespace MyLiverpoolSite.Business.Services
             var allNewsCount = await _unitOfWork.NewsItemRepository.GetCount();
             var result = new PageableData<IndexMiniNewsVM>(newsVM, page, allNewsCount);
             return result;
+        }
+
+        public async Task<bool> Activate(int id)
+        {
+            var newsItem = await _unitOfWork.NewsItemRepository.GetById(id);
+            newsItem.Pending = false;
+            _unitOfWork.NewsItemRepository.Update(newsItem);
+            await _unitOfWork.SaveAsync();
+            return true;
         }
     }
 }

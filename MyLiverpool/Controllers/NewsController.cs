@@ -57,7 +57,7 @@ namespace MyLiverpool.Controllers
             if (ModelState.IsValid)
             {
                 var result = await _newsService.Create(model, User.Identity.GetUserId<int>());
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", new {id = result});
             }
             return View(model);
         }
@@ -97,32 +97,15 @@ namespace MyLiverpool.Controllers
 
         // GET: News/Delete/5
       //  [Authorize(Roles = "Admin")]
+        [HttpPost]
         public async Task<ActionResult> Delete(int? id)
         {
-            throw new NotImplementedException();
-            //if (id == null)
-            //{
-            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            //}
-            //IndexNewsViewModel indexNewsViewModel = await db.IndexNewsViewModels.FindAsync(id);
-            //if (indexNewsViewModel == null)
-            //{
-            //    return HttpNotFound();
-            //}
-            //return View(indexNewsViewModel);
-        }
-
-        // POST: News/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-     //   [Authorize(Roles = "Admin")]
-        public async Task<ActionResult> DeleteConfirmed(int id)
-        {
-            throw new NotImplementedException();
-            //    IndexNewsViewModel indexNewsViewModel = await db.IndexNewsViewModels.FindAsync(id);
-            //    db.IndexNewsViewModels.Remove(indexNewsViewModel);
-            //    await db.SaveChangesAsync();
-            //    return RedirectToAction("Index");
+            if (!id.HasValue)
+            {
+                return HttpNotFound();
+            }
+            var result = await _newsService.Delete(id.Value);
+            return Json(result);
         }
 
         protected override void Dispose(bool disposing)
@@ -132,6 +115,16 @@ namespace MyLiverpool.Controllers
                 //db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public async Task<ActionResult> Activate(int? id)
+        {
+            if (!id.HasValue)
+            {
+                return HttpNotFound();
+            }
+            var result = await _newsService.Activate(id.Value);
+            return Json(result);
         }
     }
 }
