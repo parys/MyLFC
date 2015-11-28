@@ -8,14 +8,17 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
+    <script src="~/Scripts/ru.js"></script>
+    <script src="~/Scripts/jquery.wysibb.js"></script>
+    <link rel="stylesheet" href="~/Content/theme/default/wbbtheme.css" />
 
 </head>
 <body>
-    <div class="container-fluid navbar navbar-fixed-top">
+    <div class="container-fluid navbar navbar-inverse navbar-fixed-top">
             @Html.Partial("_LoginPartial")
     </div>
 <div class="container-fluid" style="margin-top: 40px">
-    <header class="navbar navbar-inverse navbar-static-top">
+    <header class="navbar navbar-default navbar-static-top">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="icon-bar"></span>
@@ -52,7 +55,7 @@
         <div class="col-md-3">
             @Html.Partial("_LeftSideBar")
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6" style="background-color: #f5deb3">
             @RenderBody()
         </div>
         <div class="col-md-3">
@@ -66,5 +69,15 @@
 </div>
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    <script>
+        $(document).ready(function () {
+            var wbbOpt = {
+                lang: "ru",
+                traceTextarea : false
+                //buttons: "bold,italic,underline,|,img,youtube,link,|,code,quote"
+            }
+            $(".editor").wysibb(wbbOpt);
+})
+    </script>
 </body>
 </html>

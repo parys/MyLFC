@@ -11,10 +11,12 @@ namespace MyLiverpool.Controllers
     public class NewsController : Controller
     {
         private readonly INewsService _newsService;
+        private readonly INewsCommentService _newsCommentService;
 
-        public NewsController(INewsService newsService)
+        public NewsController(INewsService newsService, INewsCommentService newsCommentService)
         {
             _newsService = newsService;
+            _newsCommentService = newsCommentService;
         }
 
         // GET: News
@@ -124,6 +126,36 @@ namespace MyLiverpool.Controllers
                 return HttpNotFound();
             }
             var result = await _newsService.Activate(id.Value);
+            return Json(result);
+        }
+
+        [Authorize]
+        [ValidateInput(false)]
+        [HttpPost]
+        public async Task<ActionResult> AddComment(string comment, int newsId, int? parentId)
+        {
+            var result = await _newsCommentService.AddCommentAsync(comment, newsId, parentId, User.Identity.GetUserId<int>());
+            return Json(result);
+        }
+
+        [Authorize]
+        [ValidateInput(false)]
+        [HttpPost]
+        public async Task<ActionResult> EditComment(int commentId, string comment, string answer)
+        {
+            var result = await _newsCommentService.EditCommentAsync(commentId, comment, answer);
+            return Json(result);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<ActionResult> DeleteComment(int? id)
+        {
+            if (!id.HasValue)
+            {
+                return HttpNotFound();
+            }
+            var result = await _newsCommentService.DeleteAsync(id.Value);
             return Json(result);
         }
     }

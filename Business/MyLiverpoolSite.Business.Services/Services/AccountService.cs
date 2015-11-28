@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Linq;
 using System.Threading.Tasks;
 using MyLiverpoolSite.Business.Contracts;
 using MyLiverpoolSite.Data.DataAccessLayer;
 
-namespace MyLiverpoolSite.Business.Services
+namespace MyLiverpoolSite.Business.Services.Services
 {
     public class AccountService : IAccountService
     {
@@ -17,7 +16,7 @@ namespace MyLiverpoolSite.Business.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<int> GetUserIdByLoginAndPassword(string login, string password)
+        public Task<int> GetUserIdByLoginAndPassword(string login, string password)
         {
             throw new NotImplementedException();
             //var users = await _unitOfWork.UserRepository.Get();

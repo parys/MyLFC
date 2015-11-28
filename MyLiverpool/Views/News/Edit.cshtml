@@ -43,7 +43,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Brief, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.TextAreaFor(model => model.Brief, new { @class = "form-control", rows = "3" })
+                    @Html.TextAreaFor(model => model.Brief, new { @class = "form-control editor", rows = "3" })
                     @Html.ValidationMessageFor(model => model.Brief, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -51,8 +51,9 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Message, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.TextAreaFor(model => model.Message, new { @class = "form-control", rows="5" })
-                    @Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger" })
+                    <textarea class="form-control " cols="20" data-val="true" data-val-required="Поле обязательно для заполнения." id="Brief" name="Brief" rows="3">@Html.Raw(Model.Message)</textarea>
+                    @*  @Html.TextAreaFor(model => model.Message, new { @class = "form-control editor", rows="8" })*@
+                    @Html.ValidationMessageFor(model => model.Message, "", new {@class = "text-danger"})
                 </div>
             </div>
 
@@ -71,30 +72,33 @@
                     @Html.ValidationMessageFor(model => model.PhotoPath, "", new { @class = "text-danger" })
                 </div>
             </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.CanCommentary, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    <div class="checkbox">
-                        @Html.CheckBoxFor(model => model.CanCommentary)
-                    </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <div class="checkbox">
+                    <label class="control-label">
+                        @Html.CheckBoxFor(model => model.CanCommentary) @NewsMessages.CanCommentary
+                    </label>
                 </div>
             </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.OnTop, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    <div class="checkbox">
-                        @Html.CheckBoxFor(model => model.OnTop)
-                    </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <div class="checkbox">
+                    <label class="control-label">
+                        @Html.CheckBoxFor(model => model.OnTop) @NewsMessages.OnTop
+                    </label>
                 </div>
             </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.Pending, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    <div class="checkbox">
-                        @Html.CheckBoxFor(model => model.Pending)
-                    </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <div class="checkbox">
+                    <label class="control-label">
+                        @Html.CheckBoxFor(model => model.Pending) @NewsMessages.Pending
+                    </label>
                 </div>
             </div>
+        </div>
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">

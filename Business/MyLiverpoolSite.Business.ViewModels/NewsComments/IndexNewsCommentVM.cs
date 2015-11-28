@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Web.Mvc;
 using MyLiverpoolSite.Data.Entities;
 
 namespace MyLiverpoolSite.Business.ViewModels.NewsComments
@@ -18,14 +19,16 @@ namespace MyLiverpoolSite.Business.ViewModels.NewsComments
 
         public virtual User Author { get; set; }
 
+        [AllowHtml]
         public string Message { get; set; }
 
+        [AllowHtml]
         public string Answer { get; set; }
 
         public virtual ICollection<IndexNewsCommentVM> Children { get; set; }
 
         //    [ForeignKey("ParentId")]
-      //  public virtual NewsComment Parent { get; set; }
+        public virtual NewsComment Parent { get; set; }
 
      //   public int? ParentId { get; set; }
 
