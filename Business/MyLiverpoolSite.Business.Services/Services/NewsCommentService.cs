@@ -34,7 +34,7 @@ namespace MyLiverpoolSite.Business.Services.Services
 
         public async Task<bool> EditCommentAsync(int commentId, string message, string answer)
         {
-            var comment = await _unitOfWork.NewsCommentRepository.GetById(commentId);
+            var comment = await _unitOfWork.NewsCommentRepository.GetByIdAsync(commentId);
             comment.Message = message;
             comment.Answer = answer;
             _unitOfWork.NewsCommentRepository.Update(comment);
@@ -44,7 +44,7 @@ namespace MyLiverpoolSite.Business.Services.Services
 
         public async Task<bool> DeleteAsync(int id)
         {
-            var comment = await _unitOfWork.NewsCommentRepository.GetById(id);
+            var comment = await _unitOfWork.NewsCommentRepository.GetByIdAsync(id);
             if (comment.Children.Any())
             {
                 foreach (var item in comment.Children)
@@ -53,7 +53,7 @@ namespace MyLiverpoolSite.Business.Services.Services
                 }
                 comment.Children.ToList().ForEach(x => _unitOfWork.NewsCommentRepository.Update(x));
             }
-            await _unitOfWork.NewsCommentRepository.Delete(id);
+            await _unitOfWork.NewsCommentRepository.DeleteAsync(id);
             await _unitOfWork.SaveAsync();
             return true;
         }

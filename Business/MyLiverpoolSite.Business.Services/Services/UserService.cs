@@ -39,16 +39,16 @@ namespace MyLiverpoolSite.Business.Services.Services
 
         public async Task<PageableData<UserViewModel>> GetAll(int page)
         {
-            var users = await _unitOfWork.UserRepository.Get(page);
+            var users = await _unitOfWork.UserRepository.GetAsync(page);
             var usersVM = Mapper.Map<IEnumerable<UserViewModel>>(users);
-            var allUsersCount = await _unitOfWork.UserRepository.GetCount();
+            var allUsersCount = await _unitOfWork.UserRepository.GetCountAsync();
             var result = new PageableData<UserViewModel>(usersVM, page, allUsersCount);
             return result;
         }
 
         public async Task<UserViewModel> GetUserProfile(int id)
         {
-            var user = await _unitOfWork.UserRepository.GetById(id);
+            var user = await _unitOfWork.UserRepository.GetByIdAsync(id);
             var result = Mapper.Map<UserViewModel>(user);
             return result;
         }

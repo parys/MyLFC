@@ -18,7 +18,7 @@ namespace MyLiverpoolSite.Business.Services.Services
 
         public async Task<ForumVM> Get()
         {
-            var sections = await _unitOfWork.ForumSectionRepository.Get(includeProperties: x => x.Subsections);
+            var sections = await _unitOfWork.ForumSectionRepository.GetAsync(includeProperties: x => x.Subsections);
             var model = new ForumVM()
             {
                 Sections = sections
@@ -28,10 +28,10 @@ namespace MyLiverpoolSite.Business.Services.Services
 
         public async Task<ForumSubsectionVM> GetSubsection(int subsectionId, int page = 1)
         {
-            var subsection = await _unitOfWork.ForumSubsectionRepository.GetById(subsectionId); //todo modify
+            var subsection = await _unitOfWork.ForumSubsectionRepository.GetByIdAsync(subsectionId); //todo modify
             var subsectionThemes =
-                await _unitOfWork.ForumThemeRepository.Get(page, filter: x => x.SubsectionId == subsectionId);
-            var subsectionThemesCount = await _unitOfWork.ForumThemeRepository.GetCount(x => x.SubsectionId == subsectionId);
+                await _unitOfWork.ForumThemeRepository.GetAsync(page, filter: x => x.SubsectionId == subsectionId);
+            var subsectionThemesCount = await _unitOfWork.ForumThemeRepository.GetCountAsync(x => x.SubsectionId == subsectionId);
             if (subsection == null)
             {
                 return new ForumSubsectionVM();
@@ -43,9 +43,9 @@ namespace MyLiverpoolSite.Business.Services.Services
 
         public async Task<ForumThemeVM> GetTheme(int themeId, int page = 1)
         {
-            var theme = await _unitOfWork.ForumThemeRepository.GetById(themeId);
-            var themeMessages = await _unitOfWork.ForumMessageRepository.Get(page, filter: x => x.ThemeId == themeId);
-            var themeMessagesCount = await _unitOfWork.ForumMessageRepository.GetCount(x => x.ThemeId == themeId);
+            var theme = await _unitOfWork.ForumThemeRepository.GetByIdAsync(themeId);
+            var themeMessages = await _unitOfWork.ForumMessageRepository.GetAsync(page, filter: x => x.ThemeId == themeId);
+            var themeMessagesCount = await _unitOfWork.ForumMessageRepository.GetCountAsync(x => x.ThemeId == themeId);
             if (theme == null)
             {
                 return new ForumThemeVM();

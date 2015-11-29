@@ -16,7 +16,9 @@ namespace MyLiverpoolSite.Business.ViewModels.News
 
         public virtual NewsCategory NewsCategory { get; set; }
 
-     //   public bool CanCommentary { get; set; }
+        //   public bool CanCommentary { get; set; }
+
+        public bool Pending { get; set; }
 
         public DateTime AdditionTime { get; set; }
 

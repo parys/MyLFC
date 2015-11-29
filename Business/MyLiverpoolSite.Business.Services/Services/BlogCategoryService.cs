@@ -17,7 +17,7 @@ namespace MyLiverpoolSite.Business.Services.Services
 
         public async Task<ICollection<BlogCategory>> GetCategories()
         {
-            return await _unitOfWork.BlogCategoryRepository.Get();
+            return await _unitOfWork.BlogCategoryRepository.GetAsync();
         }
     }
 }

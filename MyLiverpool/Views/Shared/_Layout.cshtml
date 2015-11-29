@@ -17,7 +17,7 @@
     <div class="container-fluid navbar navbar-inverse navbar-fixed-top">
             @Html.Partial("_LoginPartial")
     </div>
-<div class="container-fluid" style="margin-top: 40px">
+<div class="container-fluid" style="margin-top: 50px">
     <header class="navbar navbar-default navbar-static-top">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -36,7 +36,7 @@
                     <ul class="dropdown-menu">
                         <li>@Html.ActionLink(@CommonMessages.News, "Index", "News")</li>
                         <li>@Html.ActionLink(@CommonMessages.Create, "Create", "News")</li>
-                        <li>@Html.ActionLink("Create", "Create", "News")</li>
+                        <li>@Html.ActionLink(CommonMessages.Categories, "Categories", "News")</li>
                     </ul>
                 </li>
                 <li class="dropdown">
@@ -73,7 +73,7 @@
         $(document).ready(function () {
             var wbbOpt = {
                 lang: "ru",
-                traceTextarea : false
+                traceTextarea : true
                 //buttons: "bold,italic,underline,|,img,youtube,link,|,code,quote"
             }
             $(".editor").wysibb(wbbOpt);

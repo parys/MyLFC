@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using MyLiverpoolSite.Data.DataAccessLayer;
 using MyLiverpoolSite.Data.Entities;
@@ -37,7 +38,7 @@ namespace Migrator
         public static void UpdateFromFiles()
         {
             UpdateUsers();
-            Deleted = UnitOfWork.UserRepository.Get().Result.First(x => x.UserName == "deleted");
+            Deleted = UnitOfWork.UserRepository.GetAsync().Result.First(x => x.UserName == "deleted");
             UpdateUsersId();
             UpdateBlogCategory();
             UpdateNewsCategory();
@@ -369,7 +370,7 @@ namespace Migrator
                         i++;
                     }
                     i++;
-                    User user = UnitOfWork.UserRepository.Get(u => u.UserName == userLogin).Result.FirstOrDefault();
+                    User user = UnitOfWork.UserRepository.GetAsync(u => u.UserName == userLogin).Result.FirstOrDefault();
                     if (user != null)
                     {
                         user.OldId = int.Parse(id);
@@ -401,7 +402,7 @@ namespace Migrator
                     limit = maxChars;
                 }
 
-                var categories = UnitOfWork.BlogCategoryRepository.Get().Result.ToList();
+                var categories = UnitOfWork.BlogCategoryRepository.GetAsync().Result.ToList();
 
                 for (int i = 0; i < limit; i++)
                 {
@@ -503,7 +504,7 @@ namespace Migrator
                     }
                     i++;
 
-                    blogItem.Author = UnitOfWork.UserRepository.Get(u => u.UserName == userName).Result.FirstOrDefault();
+                    blogItem.Author = UnitOfWork.UserRepository.GetAsync(u => u.UserName == userName).Result.FirstOrDefault();
                     if (blogItem.Author == null)
                     {
                         blogItem.AuthorId = Deleted.Id;
@@ -719,7 +720,7 @@ namespace Migrator
                     limit = maxChars * 10;
                 }
 
-                var categories = UnitOfWork.NewsCategoryRepository.Get().Result.ToList();
+                var categories = UnitOfWork.NewsCategoryRepository.GetAsync().Result.ToList();
 
                 for (int i = 0; i < limit; i++)
                 {
@@ -822,7 +823,7 @@ namespace Migrator
                     }
                     i++;
 
-                    newsItem.Author = UnitOfWork.UserRepository.Get(u => u.UserName == userName).Result.FirstOrDefault();
+                    newsItem.Author = UnitOfWork.UserRepository.GetAsync(u => u.UserName == userName).Result.FirstOrDefault();
                     if (newsItem.Author == null)
                     {
                         newsItem.AuthorId = Deleted.Id;
@@ -845,7 +846,18 @@ namespace Migrator
                         i++;
                     }
                     i++;
-
+                    if (brief != null)
+                    {
+                        brief = Regex.Replace(brief, "<!--IMG1-->", "");
+                        var matches = Regex.Matches(brief, "src\\s*=\\s*['\"](?<src>[^'\"]*)['\"]", RegexOptions.IgnoreCase);
+                        if (matches.Count > 0)
+                        {
+                            var path1 = Regex.Replace(matches[0].Value, "src=" ,"");
+                            var path2 = Regex.Replace(path1, "\"" ,"");
+                            newsItem.PhotoPath = path2;
+                        }
+                        brief = Regex.Replace(brief, "<img([\\w\\W]+?)/>", "");
+                    }
                     newsItem.Brief = brief;
                     // message
                     string message = null;
@@ -1137,7 +1149,7 @@ namespace Migrator
                         i++;
                     }
                     i++;
-                    newsCategory.Position = int.Parse(position);
+                 //   newsCategory.Position = int.Parse(position);
                     // count
                     string count = null;
                     while (chars[i] != '|')
@@ -1189,8 +1201,8 @@ namespace Migrator
                     limit = maxChars*10;
                 }
 
-                var news = UnitOfWork.NewsItemRepository.Get().Result;//n => n.NumberCommentaries > 0);
-                var blogs = UnitOfWork.BlogItemRepository.Get().Result;//n => n.NumberCommentaries > 0);
+                var news = UnitOfWork.NewsItemRepository.GetAsync().Result;//n => n.NumberCommentaries > 0);
+                var blogs = UnitOfWork.BlogItemRepository.GetAsync().Result;//n => n.NumberCommentaries > 0);
 
                 for (int i = 0; i < limit; i++)
                 {
@@ -1367,7 +1379,7 @@ namespace Migrator
                         if (pending == '1')
                             comment.Pending = true;
                         comment.AdditionTime = DateTimeHelpers.ConvertUtcToLocalTime(long.Parse(additionTime));
-                        comment.Author = UnitOfWork.UserRepository.Get(u => u.UserName == userName).Result.FirstOrDefault();
+                        comment.Author = UnitOfWork.UserRepository.GetAsync(u => u.UserName == userName).Result.FirstOrDefault();
                         if (comment.Author == null)
                         {
                             comment.AuthorId = Deleted.Id;
@@ -1376,7 +1388,7 @@ namespace Migrator
                         comment.Message = message;
                         if (int.Parse(parentId) > 0)
                         {
-                            var parent = UnitOfWork.NewsCommentRepository.GetById(parentId).Result;
+                            var parent = UnitOfWork.NewsCommentRepository.GetByIdAsync(parentId).Result;
 
                             comment.Parent = parent;
                         }
@@ -1403,7 +1415,7 @@ namespace Migrator
                         if (pending == '1')
                             comment.Pending = true;
                         comment.AdditionTime = DateTimeHelpers.ConvertUtcToLocalTime(long.Parse(additionTime));
-                        comment.Author = UnitOfWork.UserRepository.Get(u => u.UserName == userName).Result.FirstOrDefault();
+                        comment.Author = UnitOfWork.UserRepository.GetAsync(u => u.UserName == userName).Result.FirstOrDefault();
                         if (comment.Author == null)
                         {
                             comment.AuthorId = Deleted.Id;
@@ -1413,7 +1425,7 @@ namespace Migrator
                         // comment.ParentId = int.Parse(parentId);
                         if (int.Parse(parentId) > 0)
                         {
-                            var parent = UnitOfWork.BlogCommentRepository.GetById(parentId).Result;
+                            var parent = UnitOfWork.BlogCommentRepository.GetByIdAsync(parentId).Result;
                             
                             comment.Parent = parent;
                         }
@@ -1562,7 +1574,7 @@ namespace Migrator
 
         private static void UpdateForumSubsectionsFromList()
         {
-            var sections = UnitOfWork.ForumSectionRepository.Get().Result;
+            var sections = UnitOfWork.ForumSectionRepository.GetAsync().Result;
 
             foreach (var subsection in Subsections)
             {
@@ -1609,7 +1621,7 @@ namespace Migrator
                     }
                     i++;
                     var subsection =
-                        UnitOfWork.ForumSubsectionRepository.Get().Result.First(x => x.IdOld == int.Parse(sectionId));
+                        UnitOfWork.ForumSubsectionRepository.GetAsync().Result.First(x => x.IdOld == int.Parse(sectionId));
                     forumTheme.SubsectionId = subsection.Id;
                     // isPoll
                     while (chars[i] != '|')
@@ -1684,7 +1696,7 @@ namespace Migrator
                         i++;
                     }
                     i++;
-                    forumTheme.Author = UnitOfWork.UserRepository.Get(u => u.UserName == author).Result.FirstOrDefault();
+                    forumTheme.Author = UnitOfWork.UserRepository.GetAsync(u => u.UserName == author).Result.FirstOrDefault();
                     // user reg????
                     while (chars[i] != '|')
                     {
@@ -1700,7 +1712,7 @@ namespace Migrator
                         i++;
                     }
                     i++;
-                    forumTheme.LastAnswerUser = UnitOfWork.UserRepository.Get(u => u.UserName == authorLastMessage).Result.FirstOrDefault();
+                    forumTheme.LastAnswerUser = UnitOfWork.UserRepository.GetAsync(u => u.UserName == authorLastMessage).Result.FirstOrDefault();
 
 
 
@@ -1749,7 +1761,7 @@ namespace Migrator
                         i++;
                     }
                     i++;
-                    var theme = UnitOfWork.ForumThemeRepository.Get().Result.FirstOrDefault(x => x.IdOld == int.Parse(moduleId));
+                    var theme = UnitOfWork.ForumThemeRepository.GetAsync().Result.FirstOrDefault(x => x.IdOld == int.Parse(moduleId));
                     if (useLimit && theme != null)
                     {
                         forumMessage.ThemeId = theme.Id;
@@ -1794,7 +1806,7 @@ namespace Migrator
                         i++;
                     }
                     i++;
-                    var author = UnitOfWork.UserRepository.Get(u => u.UserName == userName).Result.FirstOrDefault();
+                    var author = UnitOfWork.UserRepository.GetAsync(u => u.UserName == userName).Result.FirstOrDefault();
                     if (author != null)
                     {
                         forumMessage.AuthorId = author.Id;
@@ -1899,8 +1911,8 @@ namespace Migrator
         {
             Console.WriteLine("Start UpdateCommentsForum");
 
-            var posts = UnitOfWork.ForumMessageRepository.Get().Result;
-            var themes = UnitOfWork.ForumThemeRepository.Get().Result;
+            var posts = UnitOfWork.ForumMessageRepository.GetAsync().Result;
+            var themes = UnitOfWork.ForumThemeRepository.GetAsync().Result;
             foreach (var theme in themes)
             {
                 foreach (var post in posts.Where(post => theme.Id == post.ThemeId))
@@ -1919,8 +1931,8 @@ namespace Migrator
         public static void UpdateForumSectionAndSubsection()
         {
             Console.WriteLine("Start UpdateForumSectionAndSubsection");
-            var sections = UnitOfWork.ForumSectionRepository.Get().Result;
-            var subSections = UnitOfWork.ForumSubsectionRepository.Get().Result;
+            var sections = UnitOfWork.ForumSectionRepository.GetAsync().Result;
+            var subSections = UnitOfWork.ForumSubsectionRepository.GetAsync().Result;
             foreach (var section in sections)
             {
                 foreach (var subSection in subSections)
@@ -1943,8 +1955,8 @@ namespace Migrator
         public static void UpdateForumSubSectionAndTheme()
         {
             Console.WriteLine("Start UpdateForumSubSectionAndTheme");
-            var themes = UnitOfWork.ForumThemeRepository.Get().Result;
-            var subSections = UnitOfWork.ForumSubsectionRepository.Get().Result;
+            var themes = UnitOfWork.ForumThemeRepository.GetAsync().Result;
+            var subSections = UnitOfWork.ForumSubsectionRepository.GetAsync().Result;
 
             foreach (var subSection in subSections)
             {

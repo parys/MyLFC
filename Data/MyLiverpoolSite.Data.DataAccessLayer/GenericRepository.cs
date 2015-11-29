@@ -33,7 +33,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
         /// <param name="filter">Filter for selecting desired data.</param>
         /// <param name="includeProperties">Included properties.</param>
         /// <returns>List with filtered data.</returns>
-        public virtual async Task<ICollection<TEntity>> Get(
+        public virtual async Task<ICollection<TEntity>> GetAsync(
             Expression<Func<TEntity, bool>> filter = null,
             params Expression<Func<TEntity, object>>[] includeProperties)
         {
@@ -50,7 +50,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
             return await query.ToListAsync();
         }
 
-        public async Task<ICollection<TEntity>> Get(int page, int itemPerPage = 15, Expression<Func<TEntity, bool>> filter = null, params Expression<Func<TEntity, object>>[] includeProperties)
+        public async Task<ICollection<TEntity>> GetAsync(int page, int itemPerPage = 15, Expression<Func<TEntity, bool>> filter = null, params Expression<Func<TEntity, object>>[] includeProperties)
         {
             IQueryable<TEntity> query = _dbSet;
             if (filter != null)
@@ -71,7 +71,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
         /// </summary>
         /// <param name="id">Entity id.</param>
         /// <returns>Entity.</returns>
-        public virtual async Task<TEntity> GetById(object id)
+        public virtual async Task<TEntity> GetByIdAsync(object id)
         {
             return await Task.FromResult(_dbSet.Find(id)); //todo
         }
@@ -98,16 +98,16 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
         /// Deletes object from repository by id.
         /// </summary>
         /// <param name="id">Entity id.</param>
-        public virtual async Task Delete(object id)
+        public virtual async Task DeleteAsync(object id)
         {
-            await Delete(await GetById(id));//todoFind(id));
+            await DeleteAsync(await GetByIdAsync(id));//todoFind(id));
         }
 
         /// <summary>
         /// Deletes object from repository by entity.
         /// </summary>
         /// <param name="entityToDelete">Entity to delete.</param>
-        public virtual async Task Delete(TEntity entityToDelete)
+        public virtual async Task DeleteAsync(TEntity entityToDelete)
         {
             if (_context.Entry(entityToDelete).State == EntityState.Detached)
             {
@@ -127,7 +127,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
             _context.Entry(entityToUpdate).State = EntityState.Modified;
         }
 
-        public async Task<int> GetCount(Expression<Func<TEntity, bool>> filter = null)
+        public async Task<int> GetCountAsync(Expression<Func<TEntity, bool>> filter = null)
         {
             IQueryable<TEntity> query = _dbSet;
             if (filter != null)

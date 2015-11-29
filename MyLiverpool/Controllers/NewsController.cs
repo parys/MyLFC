@@ -20,9 +20,9 @@ namespace MyLiverpool.Controllers
         }
 
         // GET: News
-        public async Task<ActionResult> Index(int page = 1)
+        public async Task<ActionResult> Index(int page = 1, int? categoryId = null)
         {
-            return View( await _newsService.GetAll(page));
+            return View( await _newsService.GetAllAsync(page, categoryId));
         }
 
         // GET: News/Details/5
@@ -32,7 +32,7 @@ namespace MyLiverpool.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            IndexNewsViewModel indexNewsViewModel = await _newsService.GetById(id.Value);
+            IndexNewsViewModel indexNewsViewModel = await _newsService.GetByIdAsync(id.Value);
             if (indexNewsViewModel == null)
             {
                 return HttpNotFound();
@@ -44,7 +44,7 @@ namespace MyLiverpool.Controllers
         [Authorize]
         public async Task<ActionResult> Create()
         {
-            var model = await _newsService.GetCreateEditViewModel(null);
+            var model = await _newsService.GetCreateEditViewModelAsync(null);
             return View(model);
         }
 
@@ -58,7 +58,7 @@ namespace MyLiverpool.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await _newsService.Create(model, User.Identity.GetUserId<int>());
+                var result = await _newsService.CreateAsync(model, User.Identity.GetUserId<int>());
                 return RedirectToAction("Details", new {id = result});
             }
             return View(model);
@@ -72,7 +72,7 @@ namespace MyLiverpool.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var model = await _newsService.GetCreateEditViewModel(id);
+            var model = await _newsService.GetCreateEditViewModelAsync(id);
             if (model == null)
             {
                 return HttpNotFound();
@@ -90,7 +90,7 @@ namespace MyLiverpool.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await _newsService.Edit(model);
+                var result = await _newsService.EditAsync(model);
 
                 return RedirectToAction("Index");
             }
@@ -106,7 +106,7 @@ namespace MyLiverpool.Controllers
             {
                 return HttpNotFound();
             }
-            var result = await _newsService.Delete(id.Value);
+            var result = await _newsService.DeleteAsync(id.Value);
             return Json(result);
         }
 
@@ -125,7 +125,7 @@ namespace MyLiverpool.Controllers
             {
                 return HttpNotFound();
             }
-            var result = await _newsService.Activate(id.Value);
+            var result = await _newsService.ActivateAsync(id.Value);
             return Json(result);
         }
 
@@ -157,6 +157,12 @@ namespace MyLiverpool.Controllers
             }
             var result = await _newsCommentService.DeleteAsync(id.Value);
             return Json(result);
+        }
+
+        public async Task<ActionResult> Categories()
+        {
+            var model = await _newsService.GetCategoriesAsync();
+            return View(model);
         }
     }
 }

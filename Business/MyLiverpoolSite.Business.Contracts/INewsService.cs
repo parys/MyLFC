@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using MyLiverpoolSite.Business.ViewModels.News;
+using MyLiverpoolSite.Business.ViewModels.NewsCategories;
 using MyLiverpoolSite.Data.DataAccessLayer;
 using MyLiverpoolSite.Data.Entities;
 
@@ -13,20 +14,22 @@ namespace MyLiverpoolSite.Business.Contracts
         /// </summary>
         /// <param name="id">newsItem id</param>
         /// <returns>Found newsItem or null.</returns>
-        Task<IndexNewsViewModel> GetById(int id);
+        Task<IndexNewsViewModel> GetByIdAsync(int id);
 
-        Task<int> Create(CreateEditNewsViewModel model, int userId);
+        Task<int> CreateAsync(CreateEditNewsViewModel model, int userId);
 
-        Task<int> Edit(CreateEditNewsViewModel newsItem);
+        Task<int> EditAsync(CreateEditNewsViewModel newsItem);
 
         void Delete(NewsItem newsItem);
 
-        Task<bool> Delete(int id);
+        Task<bool> DeleteAsync(int id);
 
-        Task<CreateEditNewsViewModel> GetCreateEditViewModel(int? id);
+        Task<CreateEditNewsViewModel> GetCreateEditViewModelAsync(int? id);
 
-        Task<PageableData<IndexMiniNewsVM>> GetAll(int page);
+        Task<PageableData<IndexMiniNewsVM>> GetAllAsync(int page, int? categoryId);
 
-        Task<bool> Activate(int id);
+        Task<bool> ActivateAsync(int id);
+
+        Task<IEnumerable<IndexNewsCategoryVM>> GetCategoriesAsync();
     }
 }

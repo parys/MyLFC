@@ -6,6 +6,6 @@ namespace MyLiverpoolSite.Business.Contracts
 {
     public interface INewsCategoryService
     {
-        Task<ICollection<NewsCategory>> GetCategories();
+        Task<ICollection<NewsCategory>> GetCategoriesAsync();
     }
 }

@@ -123,6 +123,9 @@
   <data name="Cancel" xml:space="preserve">
     <value>Отмена</value>
   </data>
+  <data name="Categories" xml:space="preserve">
+    <value>Категории</value>
+  </data>
   <data name="Create" xml:space="preserve">
     <value>Добавить</value>
   </data>

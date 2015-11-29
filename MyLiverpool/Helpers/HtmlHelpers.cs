@@ -66,7 +66,7 @@ namespace MyLiverpool.Helpers
                 nextBuilder.MergeAttribute("href", pageUrl.Invoke(currentPage + 1));
                 builder.AppendLine("<li>" + nextBuilder.ToString() + "</li>");
             }
-            return new MvcHtmlString("<ul>" + builder.ToString() + "</ul>");
+            return new MvcHtmlString("<ul class='pagination'>" + builder.ToString() + "</ul>");
         }
     }
 }

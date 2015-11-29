@@ -15,17 +15,17 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
         /// <summary>
         /// Returns all objects of given type.
         /// </summary>
-        Task<ICollection<TEntity>> Get(
+        Task<ICollection<TEntity>> GetAsync(
             Expression<Func<TEntity, bool>> filter = null,
             params Expression<Func<TEntity, object>>[] includeProperties);
 
-        Task<ICollection<TEntity>> Get(int page, int itemPerPage = 15, Expression<Func<TEntity, bool>> filter = null,
+        Task<ICollection<TEntity>> GetAsync(int page, int itemPerPage = 15, Expression<Func<TEntity, bool>> filter = null,
             params Expression<Func<TEntity, object>>[] includeProperties);
 
         /// <summary>
         /// Returns element by id
         /// </summary>
-        Task<TEntity> GetById(object id);
+        Task<TEntity> GetByIdAsync(object id);
 
         /// <summary>
         /// Adds object to repository.
@@ -35,19 +35,19 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
         /// <summary>
         /// Deletes object from repository by id.
         /// </summary>
-        Task Delete(object id);
+        Task DeleteAsync(object id);
 
         /// <summary>
         /// Deletes object from repository by entity.
         /// </summary>
-        Task Delete(TEntity entity);
+        Task DeleteAsync(TEntity entity);
 
         /// <summary>
         /// Updates object in repository.
         /// </summary>
         void Update(TEntity entity);
 
-        Task<int> GetCount(Expression<Func<TEntity, bool>> filter = null);
+        Task<int> GetCountAsync(Expression<Func<TEntity, bool>> filter = null);
     }
 }
 

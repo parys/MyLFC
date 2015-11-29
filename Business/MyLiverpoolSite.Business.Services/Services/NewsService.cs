@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
+using AutoMapper.Mappers;
 using MyLiverpoolSite.Business.Contracts;
 using MyLiverpoolSite.Business.ViewModels.News;
+using MyLiverpoolSite.Business.ViewModels.NewsCategories;
 using MyLiverpoolSite.Data.DataAccessLayer;
 using MyLiverpoolSite.Data.Entities;
 
-namespace MyLiverpoolSite.Business.Services
+namespace MyLiverpoolSite.Business.Services.Services
 {
     public class NewsService : INewsService
     {
@@ -23,30 +26,30 @@ namespace MyLiverpoolSite.Business.Services
             _newsItemsRepository = newsItemsRepository;
         }
 
-        public async Task<IndexNewsViewModel> GetById(int id)
+        public async Task<IndexNewsViewModel> GetByIdAsync(int id)
         {
             IndexNewsViewModel result = null;
             if (id > 0)
             {
                 var newsItem = await _newsItemsRepository.GetById(id);
-              //  result = Mapper.Map<IndexNewsViewModel>(_unitOfWork.NewsItemRepository.GetById(id));
+                //  result = Mapper.Map<IndexNewsViewModel>(_unitOfWork.NewsItemRepository.GetById(id));
                 newsItem.Comments = newsItem.Comments.Where(x => !x.ParentId.HasValue).ToList();
                 result = Mapper.Map<IndexNewsViewModel>(newsItem);
             }
             return result;
         }
 
-        public async Task<bool> Delete(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
-            var newsItem = await _unitOfWork.NewsItemRepository.GetById(id);
+            var newsItem = await _unitOfWork.NewsItemRepository.GetByIdAsync(id);
             try
             {
                 var comments = newsItem.Comments.ToList();
                 foreach (var comment in comments)
                 {
-                    await _unitOfWork.NewsCommentRepository.Delete(comment);
+                    await _unitOfWork.NewsCommentRepository.DeleteAsync(comment);
                 }
-                await _unitOfWork.NewsItemRepository.Delete(newsItem);
+                await _unitOfWork.NewsItemRepository.DeleteAsync(newsItem);
                 await _unitOfWork.SaveAsync();
             }
             catch (Exception)
@@ -57,19 +60,19 @@ namespace MyLiverpoolSite.Business.Services
             return true;
         }
 
-        public async Task<CreateEditNewsViewModel> GetCreateEditViewModel(int? id)
+        public async Task<CreateEditNewsViewModel> GetCreateEditViewModelAsync(int? id)
         {
             CreateEditNewsViewModel viewModel;
             if (id.HasValue && id != 0)
             {
-                var newsItem = await _unitOfWork.NewsItemRepository.GetById(id.Value);
+                var newsItem = await _unitOfWork.NewsItemRepository.GetByIdAsync(id.Value);
                 viewModel = Mapper.Map<CreateEditNewsViewModel>(newsItem);
             }
             else
             {
                 viewModel = Mapper.Map<CreateEditNewsViewModel>(new NewsItem());
             }
-            viewModel.NewsCategories = await _newsCategoryService.GetCategories();
+            viewModel.NewsCategories = await _newsCategoryService.GetCategoriesAsync();
 
             return viewModel;
         }
@@ -79,7 +82,7 @@ namespace MyLiverpoolSite.Business.Services
             throw new System.NotImplementedException();
         }
 
-        public async Task<int> Edit(CreateEditNewsViewModel model)
+        public async Task<int> EditAsync(CreateEditNewsViewModel model)
         {
             var newsItem = Mapper.Map<NewsItem>(model);
             newsItem.LastModified = DateTime.Now;
@@ -88,7 +91,7 @@ namespace MyLiverpoolSite.Business.Services
             return newsItem.Id;
         }
 
-        public async Task<int> Create(CreateEditNewsViewModel model, int userId)
+        public async Task<int> CreateAsync(CreateEditNewsViewModel model, int userId)
         {
             var newsItem = Mapper.Map<NewsItem>(model);
             newsItem.AdditionTime = DateTime.Now;
@@ -100,22 +103,35 @@ namespace MyLiverpoolSite.Business.Services
             return newsItem.Id;
         }
 
-        public async Task<PageableData<IndexMiniNewsVM>> GetAll(int page)
+        public async Task<PageableData<IndexMiniNewsVM>> GetAllAsync(int page, int? categoryId)
         {
-            var news = await _unitOfWork.NewsItemRepository.Get(page);
+            Expression<Func<NewsItem, bool>> filter = null;
+            if (categoryId.HasValue)
+            {
+                filter = x => x.NewsCategoryId == categoryId.Value;
+            }
+            var news = await _unitOfWork.NewsItemRepository.GetAsync(page, filter: filter);
             var newsVM = Mapper.Map<IEnumerable<IndexMiniNewsVM>>(news);
-            var allNewsCount = await _unitOfWork.NewsItemRepository.GetCount();
+            var allNewsCount = await _unitOfWork.NewsItemRepository.GetCountAsync(filter);
             var result = new PageableData<IndexMiniNewsVM>(newsVM, page, allNewsCount);
             return result;
         }
 
-        public async Task<bool> Activate(int id)
+        public async Task<bool> ActivateAsync(int id)
         {
-            var newsItem = await _unitOfWork.NewsItemRepository.GetById(id);
+            var newsItem = await _unitOfWork.NewsItemRepository.GetByIdAsync(id);
             newsItem.Pending = false;
             _unitOfWork.NewsItemRepository.Update(newsItem);
             await _unitOfWork.SaveAsync();
             return true;
+        }
+
+        public async Task<IEnumerable<IndexNewsCategoryVM>> GetCategoriesAsync()
+        {
+            var categories = await _unitOfWork.NewsCategoryRepository.GetAsync();
+            var categoriesVM = Mapper.Map<IEnumerable<IndexNewsCategoryVM>>(categories);
+
+            return categoriesVM;
         }
     }
 }

@@ -27,7 +27,7 @@ namespace MyLiverpoolSite.Business.Services.Services
             IndexBlogVM result = null;
             if (id > 0)
             {
-                var blogItem = await _unitOfWork.BlogItemRepository.GetById(id);
+                var blogItem = await _unitOfWork.BlogItemRepository.GetByIdAsync(id);
                 blogItem.Comments = blogItem.Comments.Where(x => !x.ParentId.HasValue).ToList();
                 result = Mapper.Map<IndexBlogVM>(blogItem);
             }
@@ -44,7 +44,7 @@ namespace MyLiverpoolSite.Business.Services.Services
             CreateEditBlogVM viewModel;
             if (id.HasValue && id != 0)
             {
-                var newsItem = await _unitOfWork.BlogItemRepository.GetById(id.Value);
+                var newsItem = await _unitOfWork.BlogItemRepository.GetByIdAsync(id.Value);
                 viewModel = Mapper.Map<CreateEditBlogVM>(newsItem);
             }
             else
@@ -56,9 +56,9 @@ namespace MyLiverpoolSite.Business.Services.Services
             return viewModel;
         }
 
-        public void Delete(BlogItem newsItem)
+        public void Delete(BlogItem blogItem)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public async Task<int> Edit(CreateEditBlogVM model)
@@ -84,9 +84,9 @@ namespace MyLiverpoolSite.Business.Services.Services
 
         public async Task<PageableData<IndexMiniBlogVM>> GetAll(int page)
         {
-            var blogs = await _unitOfWork.BlogItemRepository.Get(page);
+            var blogs = await _unitOfWork.BlogItemRepository.GetAsync(page);
             var blogsVM = Mapper.Map<IEnumerable<IndexMiniBlogVM>>(blogs);
-            var allNewsCount = await _unitOfWork.BlogItemRepository.GetCount();
+            var allNewsCount = await _unitOfWork.BlogItemRepository.GetCountAsync();
             var result = new PageableData<IndexMiniBlogVM>(blogsVM, page, allNewsCount);
             return result;
         }

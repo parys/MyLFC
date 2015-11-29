@@ -13,7 +13,7 @@ namespace MyLiverpoolSite.Data.Entities
 
         public int OldId { get; set; }
 
-        public int Position { get; set; }
+   //     public int Position { get; set; }
 
         public int ItemsCount { get; set; }
 

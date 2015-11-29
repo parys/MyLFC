@@ -3,6 +3,7 @@ using MyLiverpoolSite.Business.ViewModels.BlogComments;
 using MyLiverpoolSite.Business.ViewModels.Blogs;
 using MyLiverpoolSite.Business.ViewModels.Forum;
 using MyLiverpoolSite.Business.ViewModels.News;
+using MyLiverpoolSite.Business.ViewModels.NewsCategories;
 using MyLiverpoolSite.Business.ViewModels.NewsComments;
 using MyLiverpoolSite.Business.ViewModels.Users;
 using MyLiverpoolSite.Data.Entities;
@@ -106,6 +107,8 @@ namespace MyLiverpoolSite.Business.Services
             Mapper.CreateMap<ForumSubsection, ForumSubsectionVM>().ForMember(x => x.Themes, y => y.Ignore());
             Mapper.CreateMap<ForumTheme, ForumThemeVM>().ForMember(x => x.Messages, y => y.Ignore());
             Mapper.CreateMap<ForumMessage, ForumMessageVM>();
+
+            Mapper.CreateMap<NewsCategory, IndexNewsCategoryVM>();
         }
     }
 }

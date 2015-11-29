@@ -1,0 +1,14 @@
+﻿@using MyLiverpoolSite.Business.ViewModels.Resources
+@model IEnumerable<MyLiverpoolSite.Business.ViewModels.NewsCategories.IndexNewsCategoryVM>
+
+@{
+    ViewBag.Title = CommonMessages.Categories;
+}
+<div>
+    <ul>
+        @foreach (var category in Model)
+        {
+            <li><span><a href="@Url.Action("Index","News", new {categoryId = category.Id})"> @category.Name [@category.ItemsCount]</a></span></li>
+        }
+    </ul>
+</div>

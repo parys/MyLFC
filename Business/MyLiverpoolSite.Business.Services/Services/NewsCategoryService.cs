@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using MyLiverpoolSite.Business.Contracts;
 using MyLiverpoolSite.Data.DataAccessLayer;
 using MyLiverpoolSite.Data.Entities;
 
-namespace MyLiverpoolSite.Business.Services
+namespace MyLiverpoolSite.Business.Services.Services
 {
     public class NewsCategoryService : INewsCategoryService
     {
@@ -16,9 +15,9 @@ namespace MyLiverpoolSite.Business.Services
             this._unitOfWork = unitOfWork;
         }
 
-        public async Task<ICollection<NewsCategory>> GetCategories()
+        public async Task<ICollection<NewsCategory>> GetCategoriesAsync()
         {
-           return await _unitOfWork.NewsCategoryRepository.Get();
+           return await _unitOfWork.NewsCategoryRepository.GetAsync();
         }
     }
 }
