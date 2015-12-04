@@ -5,7 +5,7 @@ using MyLiverpoolSite.Business.Contracts;
 namespace MyLiverpool.Controllers
 {
     //[Authorize]
-    public class UserController : Controller
+    public class UserController : BaseController
     {
         private readonly IUserService _userService;
 

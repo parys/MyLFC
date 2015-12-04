@@ -4,7 +4,7 @@ using MyLiverpoolSite.Business.Contracts;
 
 namespace MyLiverpool.Controllers
 {
-    public class ForumController : Controller
+    public class ForumController : BaseController
     {
         private readonly IForumService _forumService;
 

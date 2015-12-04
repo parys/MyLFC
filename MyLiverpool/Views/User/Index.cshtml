@@ -1,29 +1,41 @@
 ﻿@using MyLiverpool.Helpers
+@using MyLiverpoolSite.Business.ViewModels.Resources
 @model MyLiverpoolSite.Data.DataAccessLayer.PageableData<MyLiverpoolSite.Business.ViewModels.Users.UserViewModel>
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = CommonMessages.Users;
 }
 
-<h2>Index</h2>
+<div class="table-responsive">
+    <table class="table table-striped table-condensed">
+        <thead>
+            <tr>
+                <th>@UsersMessages.LastLogin</th>
+                <th>@UsersMessages.UserName</th>
+                <th>@UsersMessages.RegistrationDate</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model.List)
+            {
 
-<h2>Users</h2>
-<p>
-    @foreach (var user in Model.List)
-    {
-        <div class="item">
-            <span class="id"> 
-                            @user.Id    
-                     </span>        
-            <span class="email">    
-                         <a href="@Url.Action("GetUserProfile", new { @user.Id})">@user.Email</a>
-                  </span>          
-            <span class="activateDate">     
-                        @user.Login       
-                  </span>           
-                   <span class="activateDate">     
-                        @user.Login       
-                  </span>         
-        </div>
-    }
-</p>  
-<div class="pagination">         @Html.PageLinks(Model.PageNo, Model.CountPage, x => Url.Action("Index", new { page = x }))     </div> 
+                <tr>
+                    <td class="">
+                        @user.LastModified
+                    </td>
+                    <td class="">
+                        <a href="@Url.Action("GetUserProfile", new {id = user.Id})">@user.UserName</a>
+                    </td>
+                    <td class="">
+                        @user.RegistrationDate
+                    </td>
+                    <td class="">
+                        @user.RegistrationDate
+                    </td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+</div>
+<div class="pagination"> @Html.PageLinks(Model.PageNo, Model.CountPage, x => Url.Action("Index", new { page = x })) </div> 

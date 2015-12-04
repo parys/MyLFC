@@ -1,18 +1,54 @@
-﻿@model MyLiverpoolSite.Business.ViewModels.Users.UserViewModel
-
+﻿@using MyLiverpoolSite.Business.ViewModels.Resources
+@model MyLiverpoolSite.Business.ViewModels.Users.UserViewModel
 @{
-
+    ViewBag.Title = @Model.UserName;
 }
 
-<h2>title</h2>
-<div class="item">
-    <span class="id">
-        @Model.Id
-    </span>
-    <span class="email">
-        @Model.Email
-    </span>
-    <span class="activateDate">
-        @Model.Login
-    </span>
-</div>
+<h2>@Model.UserName</h2>
+<form class="form-horizontal" role="form">
+    <div class="form-group">
+        <label class="col-sm-2 control-label">@UsersMessages.UserName</label>
+        <div class="col-sm-10">
+            <span class="form-control">@Model.UserName</span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">@UsersMessages.LastLogin</label>
+        <div class="col-sm-10">
+            <span class="form-control">@Model.LastModified</span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">@UsersMessages.RegistrationDate</label>
+        <div class="col-sm-10">
+            <span class="form-control">@Model.RegistrationDate</span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">@UsersMessages.FullName</label>
+        <div class="col-sm-10">
+            <span class="form-control">@Model.FullName</span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">@UsersMessages.BirthDay</label>
+        <div class="col-sm-10">
+            <span class="form-control">@Model.Birthday</span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">@UsersMessages.BirthDay</label>
+        <div class="col-sm-10">
+            <span class="form-control">@Model.RoleGroup.Name</span>
+        </div>
+    </div>
+    @if (Model.Gender.HasValue)
+    {
+        <div class="form-group">
+            <label class="col-sm-2 control-label">@UsersMessages.Gender</label>
+            <div class="col-sm-10">
+                <span class="form-control">@(Model.Gender.Value ? @UsersMessages.Women : @UsersMessages.Men)</span>
+            </div>
+        </div>
+    }
+</form> 

@@ -120,7 +120,7 @@
   <data name="Email" xml:space="preserve">
     <value>Email</value>
   </data>
-  <data name="Login" xml:space="preserve">
+  <data name="UserName" xml:space="preserve">
     <value>Логин</value>
   </data>
   <data name="Password" xml:space="preserve">
@@ -146,5 +146,20 @@
   <data name="Code" xml:space="preserve">
     <value>Код</value>
     <comment>Code</comment>
+  </data>
+  <data name="Gender" xml:space="preserve">
+    <value>Пол</value>
+  </data>
+  <data name="LastLogin" xml:space="preserve">
+    <value>Дата входа</value>
+  </data>
+  <data name="Men" xml:space="preserve">
+    <value>Мужской</value>
+  </data>
+  <data name="RegistrationDate" xml:space="preserve">
+    <value>Дата регистрации</value>
+  </data>
+  <data name="Women" xml:space="preserve">
+    <value>Женский</value>
   </data>
 </root>

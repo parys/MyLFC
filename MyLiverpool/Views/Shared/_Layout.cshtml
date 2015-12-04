@@ -29,22 +29,30 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li>@Html.ActionLink(@CommonMessages.Home, "Index", "Home")</li>
+                <li>@Html.ActionLink(CommonMessages.Home, "Index", "Home")</li>
                 <li>@Html.ActionLink("About", "About", "Home")</li>
                 <li>@Html.ActionLink(CommonMessages.Forum, "Index", "Forum")</li>
                 <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">@CommonMessages.News <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li>@Html.ActionLink(@CommonMessages.News, "Index", "News")</li>
-                        <li>@Html.ActionLink(@CommonMessages.Create, "Create", "News")</li>
+                        <li>@Html.ActionLink(CommonMessages.News, "Index", "News")</li>
+                        <li>@Html.ActionLink(CommonMessages.Create, "Create", "News")</li>
                         <li>@Html.ActionLink(CommonMessages.Categories, "Categories", "News")</li>
                     </ul>
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">@CommonMessages.Blogs <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li>@Html.ActionLink(@CommonMessages.Blogs, "Index", "Blog")</li>
-                        <li>@Html.ActionLink(@CommonMessages.Create, "Create", "Blog")</li>
-                        <li>@Html.ActionLink("Create", "Create", "Blog")</li>
+                        <li>@Html.ActionLink(CommonMessages.Blogs, "Index", "Blog")</li>
+                        <li>@Html.ActionLink(CommonMessages.Create, "Create", "Blog")</li>
+                 @*       <li>@Html.ActionLink(CommonMessages.Categories, "Categories", "Blog")</li>*@
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">@CommonMessages.Users <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink(CommonMessages.Users, "Index", "User")</li>
+                        @*<li>@Html.ActionLink(CommonMessages.Create, "Index", "User")</li>
+    <li>@Html.ActionLink("Create", "Create", "Blog")</li>*@
                     </ul>
                 </li>
             </ul>

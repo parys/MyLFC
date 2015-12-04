@@ -185,5 +185,14 @@ namespace MyLiverpoolSite.Business.ViewModels.Resources {
                 return ResourceManager.GetString("Save", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Пользователи.
+        /// </summary>
+        public static string Users {
+            get {
+                return ResourceManager.GetString("Users", resourceCulture);
+            }
+        }
     }
 }

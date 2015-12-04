@@ -33,12 +33,15 @@
             <div class="row">
                 <span><i> @Html.Raw(item.Brief)</i></span>
             </div>
-            <div>
-                <span class="col-md-3">@Html.DisplayFor(modelItem => item.NewsCategory.Name)</span>
-                <span class="col-md-3">@Html.DisplayFor(modelItem => item.AdditionTime)</span>
-                <span class="col-md-3">@Html.DisplayFor(modelItem => item.Reads)</span>
-                <span class="col-md-3">@Html.DisplayFor(modelItem => item.Author.UserName)</span>
-            </div>
+            <ul class="list-inline">
+                <li class=""><a href="@Url.Action("Index", "News", new {categoryId = item.NewsCategory.Id})">@Html.DisplayFor(modelItem => item.NewsCategory.Name)</a></li>
+                <li class="">|</li>
+                <li class="">@Html.DisplayFor(modelItem => item.AdditionTime)</li>
+                <li class="">|</li>
+                <li class="">@Html.DisplayFor(modelItem => item.Reads)</li>
+                <li class="">|</li>
+                <li class="">@Html.DisplayFor(modelItem => item.Author.UserName)</li>
+            </ul>
         </div>
     }
 </div>

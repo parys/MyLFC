@@ -17,5 +17,9 @@ namespace MyLiverpoolSite.Data.Entities
 
         //public virtual ICollection<User> Users { get; set; }
         //public virtual ICollection<RoleClaim> Claims { get; set; }
+
+        public virtual RoleGroup RoleGroup {get; set; }
+
+        public int RoleGroupId { get; set; }
     }
 }

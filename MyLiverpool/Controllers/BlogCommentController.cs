@@ -5,7 +5,7 @@ using MyLiverpoolSite.Business.Contracts;
 
 namespace MyLiverpool.Controllers
 {
-    public class BlogCommentController : Controller
+    public class BlogCommentController : BaseController
     {
         private readonly IBlogCommentService _blogCommentService;
 

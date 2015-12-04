@@ -97,11 +97,29 @@ namespace MyLiverpoolSite.Business.ViewModels.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Логин.
+        ///   Looks up a localized string similar to Пол.
         /// </summary>
-        public static string Login {
+        public static string Gender {
             get {
-                return ResourceManager.GetString("Login", resourceCulture);
+                return ResourceManager.GetString("Gender", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Дата входа.
+        /// </summary>
+        public static string LastLogin {
+            get {
+                return ResourceManager.GetString("LastLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Мужской.
+        /// </summary>
+        public static string Men {
+            get {
+                return ResourceManager.GetString("Men", resourceCulture);
             }
         }
         
@@ -124,6 +142,15 @@ namespace MyLiverpoolSite.Business.ViewModels.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Дата регистрации.
+        /// </summary>
+        public static string RegistrationDate {
+            get {
+                return ResourceManager.GetString("RegistrationDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Запомнить этот браузер?.
         /// </summary>
         public static string RememberBrowser {
@@ -138,6 +165,24 @@ namespace MyLiverpoolSite.Business.ViewModels.Resources {
         public static string RememberMe {
             get {
                 return ResourceManager.GetString("RememberMe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Логин.
+        /// </summary>
+        public static string UserName {
+            get {
+                return ResourceManager.GetString("UserName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Женский.
+        /// </summary>
+        public static string Women {
+            get {
+                return ResourceManager.GetString("Women", resourceCulture);
             }
         }
     }

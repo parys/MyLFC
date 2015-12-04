@@ -7,7 +7,7 @@ using MyLiverpoolSite.Business.ViewModels.Blogs;
 
 namespace MyLiverpool.Controllers
 {
-    public class BlogController : Controller
+    public class BlogController : BaseController
     {
         private readonly IBlogService _blogService;
 

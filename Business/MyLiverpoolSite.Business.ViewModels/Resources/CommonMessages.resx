@@ -159,4 +159,7 @@
   <data name="Save" xml:space="preserve">
     <value>Сохранить</value>
   </data>
+  <data name="Users" xml:space="preserve">
+    <value>Пользователи</value>
+  </data>
 </root>

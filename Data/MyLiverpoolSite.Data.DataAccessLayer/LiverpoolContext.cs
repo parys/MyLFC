@@ -54,6 +54,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
         public DbSet<UserClaim> UserClaims { get; set; }
         public DbSet<UserLogin> UserLogins { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
+        public DbSet<RoleGroup> RoleGroups { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -93,6 +94,9 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
             modelBuilder.Entity<ForumSubsection>().HasRequired(x => x.Section).WithMany(x => x.Subsections).HasForeignKey(x => x.SectionId);
             modelBuilder.Entity<ForumTheme>().HasRequired(x => x.Subsection).WithMany(x => x.Themes).HasForeignKey(x => x.SubsectionId);
             modelBuilder.Entity<ForumMessage>().HasRequired(x => x.Theme).WithMany(x => x.Messages).HasForeignKey(x => x.ThemeId);
+
+            modelBuilder.Entity<User>().HasRequired(x => x.RoleGroup).WithMany(x => x.Users).HasForeignKey(x => x.RoleGroupId);
+            modelBuilder.Entity<Role>().HasRequired(x => x.RoleGroup).WithMany(x => x.Roles).HasForeignKey(x => x.RoleGroupId);
            // modelBuilder.Entity<User>().HasMany(u => u.Children).
             // использование Fluent API
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>(); 

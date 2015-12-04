@@ -8,7 +8,7 @@ using MyLiverpoolSite.Business.ViewModels.News;
 
 namespace MyLiverpool.Controllers
 {
-    public class NewsController : Controller
+    public class NewsController : BaseController
     {
         private readonly INewsService _newsService;
         private readonly INewsCommentService _newsCommentService;

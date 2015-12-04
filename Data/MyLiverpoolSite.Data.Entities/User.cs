@@ -93,6 +93,10 @@ namespace MyLiverpoolSite.Data.Entities
 
         public virtual ICollection<NewsItem> NewsItems { get; set; }
 
-      //  public int Id { get; set; }
+        public virtual RoleGroup RoleGroup { get; set; }
+
+        public int RoleGroupId { get; set; }
+
+        //  public int Id { get; set; }
     }
 }

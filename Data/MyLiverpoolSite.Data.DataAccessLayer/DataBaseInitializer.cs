@@ -16,6 +16,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
         {
             if (!context.Roles.Any())
             {
+                InitializeRoleGroups(context);
                 InitializeRoles(context);
                 InitializeAdmin(context);
                 InitializeDeletedUser(context);
@@ -23,31 +24,72 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
             }
         }
 
+        private void InitializeRoleGroups(LiverpoolContext context)
+        {
+               var roleStore = new RoleStore<Role, int, UserRole>(context);
+                var roleManager = new RoleManager<Role, int>(roleStore);
+            var roleGroups = new List<RoleGroup>()
+            {
+                new RoleGroup()
+                {
+                    Name = RolesEnum.Admin.ToString()
+                },
+                new RoleGroup()
+                {
+                    Name = RolesEnum.User.ToString()
+                },
+                new RoleGroup()
+                {
+                    Name = RolesEnum.AdminAssistance.ToString()
+                },
+                new RoleGroup()
+                {
+                    Name = RolesEnum.MainNewsmaker.ToString()
+                },
+                new RoleGroup()
+                {
+                    Name = RolesEnum.Newsmaker.ToString()
+                },
+            };
+            roleGroups.ForEach(x => context.RoleGroups.Add(x));
+           // roles.ForEach(x => roleManager.Create(x));
+              //roleManager.Create(new Role { Name = RolesEnum.User.ToString() });
+            context.SaveChanges();
+        }
+
         private void InitializeRoles(LiverpoolContext context)
         {
                var roleStore = new RoleStore<Role, int, UserRole>(context);
                 var roleManager = new RoleManager<Role, int>(roleStore);
+
+            var adminRoleGroupId = context.RoleGroups.First(x => x.Name == RolesEnum.Admin.ToString()).Id;
+
             var roles = new List<Role>()
             {
                 new Role()
                 {
-                    Name = RolesEnum.Admin.ToString()
+                    Name = RolesEnum.Admin.ToString(),
+                    RoleGroupId = adminRoleGroupId
                 },
                 new Role()
                 {
-                    Name = RolesEnum.User.ToString()
+                    Name = RolesEnum.User.ToString(),
+                    RoleGroupId = adminRoleGroupId
                 },
                 new Role()
                 {
-                    Name = RolesEnum.AdminAssistance.ToString()
+                    Name = RolesEnum.AdminAssistance.ToString(),
+                    RoleGroupId = adminRoleGroupId
                 },
                 new Role()
                 {
-                    Name = RolesEnum.MainNewsmaker.ToString()
+                    Name = RolesEnum.MainNewsmaker.ToString(),
+                    RoleGroupId = adminRoleGroupId
                 },
                 new Role()
                 {
-                    Name = RolesEnum.Newsmaker.ToString()
+                    Name = RolesEnum.Newsmaker.ToString(),
+                    RoleGroupId = adminRoleGroupId
                 },
             };
           //  roles.ForEach(x => context.Roles.Add(x));
@@ -67,8 +109,8 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 Email = email,
                 Verify = true,
                 LastModified = DateTime.Now,
-                RegistrationDate = DateTime.Now
-
+                RegistrationDate = DateTime.Now,
+                RoleGroupId = 1 //todo change to simple user
             };
 
             var userStore = new UserStore<User, Role, int, UserLogin, UserRole, UserClaim>(context);
@@ -92,6 +134,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 LastModified = DateTime.Now,
                 RegistrationDate = DateTime.Now,
                 Birthday = DateTime.Now,
+                RoleGroupId = 1 //todo change to simple user
             };
 
             var userStore = new UserStore<User, Role, int, UserLogin, UserRole, UserClaim>(context);
