@@ -15,7 +15,10 @@
                 @if (Request.IsAuthenticated)
             {
                     <span class="small pull-right">
-                        <a href="@Url.Action("Activate", new {id = Model.Id})"><span class="glyphicon glyphicon-ok"></span></a>
+                        @if(Model.Pending)
+                        {
+                            <a href="@Url.Action("Activate", new {id = Model.Id})"><span class="glyphicon glyphicon-ok"></span></a>
+                        }
                         <a href="@Url.Action("Edit", new {id = Model.Id})"><span class="glyphicon glyphicon-pencil"></span></a>
                         <a data-toggle="modal" data-target="#confirmDelete" data-id="@Model.Id"><span class="glyphicon glyphicon-trash"></span></a>
                     </span>
@@ -76,9 +79,9 @@ foreach (var comment in comments)
                     @if (Request.IsAuthenticated)
                     {
                         <span class="pull-right">
-                       @* <a href="@Url.Action("Activate", new {id = Model.Id})"><span class="glyphicon glyphicon-ok"></span></a>*@
-                        <a href="#"><span class="glyphicon glyphicon-pencil"></span></a>
-                        <a data-toggle="modal" data-target="#confirmDeleteComment" data-id="@Model.Id"><span class="glyphicon glyphicon-trash"></span></a>
+                            @* <a href="@Url.Action("Activate", new {id = Model.Id})"><span class="glyphicon glyphicon-ok"></span></a>*@
+                            <a href="#"><span class="glyphicon glyphicon-pencil"></span></a>
+                            <a data-toggle="modal" data-target="#confirmDeleteComment" data-id="@Model.Id"><span class="glyphicon glyphicon-trash"></span></a>
                         </span>
                     }
                 </span>
@@ -118,7 +121,7 @@ foreach (var comment in comments)
             @* id="add-reply" tabindex="-1" style="width: 350px; margin: auto; margin-top: 300px; z-index: 999"*@
             <div class="modal-header">
                 <h3 class="text-info">add reply</h3>
-                <input id="parent-comment-id" value="" hidden=""/>
+                <input id="parent-comment-id" value="" hidden="" />
             </div>
             <div class="modal-body">
                 <form class="form-horizontal" id="edit-aim-comment-form">

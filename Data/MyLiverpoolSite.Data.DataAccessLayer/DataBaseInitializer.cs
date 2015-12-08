@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data.Entity;
 using System.Linq;
+using System.Reflection;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using MyLiverpoolSite.Business.Services;
@@ -32,23 +34,23 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
             {
                 new RoleGroup()
                 {
-                    Name = RolesEnum.Admin.ToString()
+                    Name = GetEnumDescription(RoleGroupsEnum.Admin)
                 },
                 new RoleGroup()
                 {
-                    Name = RolesEnum.User.ToString()
+                    Name = GetEnumDescription(RoleGroupsEnum.User)
                 },
                 new RoleGroup()
                 {
-                    Name = RolesEnum.AdminAssistance.ToString()
+                    Name = GetEnumDescription(RoleGroupsEnum.AdminAssistance)
                 },
                 new RoleGroup()
                 {
-                    Name = RolesEnum.MainNewsmaker.ToString()
+                    Name = GetEnumDescription(RoleGroupsEnum.MainNewsmaker)
                 },
                 new RoleGroup()
                 {
-                    Name = RolesEnum.Newsmaker.ToString()
+                    Name = GetEnumDescription(RoleGroupsEnum.Newsmaker)
                 },
             };
             roleGroups.ForEach(x => context.RoleGroups.Add(x));
@@ -62,34 +64,49 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                var roleStore = new RoleStore<Role, int, UserRole>(context);
                 var roleManager = new RoleManager<Role, int>(roleStore);
 
-            var adminRoleGroupId = context.RoleGroups.First(x => x.Name == RolesEnum.Admin.ToString()).Id;
+            var adminRoleGroup = context.RoleGroups.First(x => x.Name == RoleGroupsEnum.Admin.ToString());
 
             var roles = new List<Role>()
             {
                 new Role()
                 {
-                    Name = RolesEnum.Admin.ToString(),
-                    RoleGroupId = adminRoleGroupId
+                    Name = RoleGroupsEnum.Admin.ToString(),
+                    RoleGroups = new List<RoleGroup>()
+                    {
+                        adminRoleGroup
+                    }
                 },
                 new Role()
                 {
-                    Name = RolesEnum.User.ToString(),
-                    RoleGroupId = adminRoleGroupId
+                    Name = RoleGroupsEnum.User.ToString(),
+                    RoleGroups = new List<RoleGroup>()
+                    {
+                        adminRoleGroup
+                    }
                 },
                 new Role()
                 {
-                    Name = RolesEnum.AdminAssistance.ToString(),
-                    RoleGroupId = adminRoleGroupId
+                    Name = RoleGroupsEnum.AdminAssistance.ToString(),
+                    RoleGroups = new List<RoleGroup>()
+                    {
+                        adminRoleGroup
+                    }
                 },
                 new Role()
                 {
-                    Name = RolesEnum.MainNewsmaker.ToString(),
-                    RoleGroupId = adminRoleGroupId
+                    Name = RoleGroupsEnum.MainNewsmaker.ToString(),
+                    RoleGroups = new List<RoleGroup>()
+                    {
+                        adminRoleGroup
+                    }
                 },
                 new Role()
                 {
-                    Name = RolesEnum.Newsmaker.ToString(),
-                    RoleGroupId = adminRoleGroupId
+                    Name = RoleGroupsEnum.Newsmaker.ToString(),
+                    RoleGroups = new List<RoleGroup>()
+                    {
+                        adminRoleGroup
+                    }
                 },
             };
           //  roles.ForEach(x => context.Roles.Add(x));
@@ -110,7 +127,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 Verify = true,
                 LastModified = DateTime.Now,
                 RegistrationDate = DateTime.Now,
-                RoleGroupId = 1 //todo change to simple user
+                RoleGroupId = 2 //todo change to simple user
             };
 
             var userStore = new UserStore<User, Role, int, UserLogin, UserRole, UserClaim>(context);
@@ -118,7 +135,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
 
             userManager.Create(user, "123456");
 
-            userManager.AddToRole(user.Id, RolesEnum.User.ToString());
+            userManager.AddToRole(user.Id, RoleGroupsEnum.User.ToString());
         }
     
 
@@ -134,14 +151,14 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 LastModified = DateTime.Now,
                 RegistrationDate = DateTime.Now,
                 Birthday = DateTime.Now,
-                RoleGroupId = 1 //todo change to simple user
+                RoleGroupId = 1 
             };
 
             var userStore = new UserStore<User, Role, int, UserLogin, UserRole, UserClaim>(context);
             var userManager = new UserManager<User, int>(userStore);
 
             userManager.Create(user, "123456");
-            userManager.AddToRole(user.Id, RolesEnum.Admin.ToString());
+            userManager.AddToRole(user.Id, RoleGroupsEnum.Admin.ToString());
             //var result = await manager.CreateAsync(user, password);
             // context.Users.Add(user);
             //  context.SaveChanges();
@@ -160,6 +177,22 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
             //context.Users.AddOrUpdate(savedUser);
             //context.Roles.AddOrUpdate(adminRole);
             //context.SaveChanges();
+        }
+
+        public static string GetEnumDescription(Enum value)
+        {
+            FieldInfo fi = value.GetType().GetField(value.ToString());
+
+            DescriptionAttribute[] attributes =
+                (DescriptionAttribute[])fi.GetCustomAttributes(
+                typeof(DescriptionAttribute),
+                false);
+
+            if (attributes != null &&
+                attributes.Length > 0)
+                return attributes[0].Description;
+            else
+                return value.ToString();
         }
     }
 }

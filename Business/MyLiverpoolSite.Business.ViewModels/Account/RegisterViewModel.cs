@@ -24,8 +24,8 @@ namespace MyLiverpoolSite.Business.ViewModels.Account
         public string ConfirmPassword { get; set; }
 
         [Required]
-        [Display(ResourceType = typeof(UsersMessages), Name = "Login")]
-        public string Login { get; set; }
+        [Display(ResourceType = typeof(UsersMessages), Name = "UserName")]
+        public string UserName { get; set; }
 
         [Display(ResourceType = typeof (UsersMessages), Name = "FullName")]
         public string FullName { get; set; }

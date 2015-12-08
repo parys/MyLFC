@@ -5,9 +5,9 @@
 //    public class SignInViewModel
 //    {
 //        [Required]
-//      //  [Display(ResourceType = typeof(SignUpStrings), Name = "Login")]
+//      //  [Display(ResourceType = typeof(SignUpStrings), Name = "UserName")]
 //        [RegularExpression("^[a-zA-Z0-9-_ ]+$")]
-//        public string Login { get; set; }
+//        public string UserName { get; set; }
 
 //        [Required]
 //        [DataType(DataType.Password)]

@@ -101,6 +101,7 @@
     <Compile Include="Role.cs" />
     <Compile Include="RoleClaim.cs" />
     <Compile Include="RoleGroup.cs" />
+    <Compile Include="RoleGroupsEnum.cs" />
     <Compile Include="RolesEnum.cs" />
     <Compile Include="User.cs" />
     <Compile Include="UserClaim.cs" />

@@ -21,18 +21,13 @@ namespace MyLiverpool
 
             var builder = new ContainerBuilder();
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
-            builder.RegisterType<NewsService>().As<INewsService>();
-            builder.RegisterType<UserService>().As<IUserService>();
-            builder.RegisterType<UserService>().As<IUserService>();
-            builder.RegisterType<ForumService>().As<IForumService>();
-            builder.RegisterType<NewsCategoryService>().As<INewsCategoryService>();
-            builder.RegisterType<BlogCategoryService>().As<IBlogCategoryService>();
-            builder.RegisterType<NewsCommentService>().As<INewsCommentService>();
-            builder.RegisterType<BlogCommentService>().As<IBlogCommentService>();
+          
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>();
             builder.RegisterType<NewsItemsRepository>().As<INewsItemsRepository>();
-          //  builder.RegisterType<>().As<NewsService>();
+
+            //  builder.RegisterType<>().As<NewsService>();
             // Register dependencies, then...
+            RegisterServices(builder);
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
             //container.
@@ -43,6 +38,19 @@ namespace MyLiverpool
             app.UseAutofacMvc();
 
             AutoMapperBindings.Configure();
+        }
+
+        private void RegisterServices(ContainerBuilder builder)
+        {
+            builder.RegisterType<AccountService>().As<IAccountService>();
+            builder.RegisterType<BlogCategoryService>().As<IBlogCategoryService>();
+            builder.RegisterType<BlogCommentService>().As<IBlogCommentService>();
+            builder.RegisterType<ForumService>().As<IForumService>();
+            builder.RegisterType<NewsCategoryService>().As<INewsCategoryService>();
+            builder.RegisterType<NewsCommentService>().As<INewsCommentService>();
+            builder.RegisterType<NewsService>().As<INewsService>();
+            builder.RegisterType<RoleService>().As<IRoleService>();
+            builder.RegisterType<UserService>().As<IUserService>();
         }
     }
 }

@@ -13,15 +13,15 @@
     <hr />
     @Html.ValidationSummary("", new { @class = "text-danger" })
     <div class="form-group">
-        @Html.LabelFor(m => m.Login, new { @class = "col-md-2 control-label" })
+        @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Login, new { @class = "form-control" })
+            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", type="email" })
         </div>
     </div>
     <div class="form-group">
@@ -57,4 +57,50 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $('#UserName').on('keyup', function() {
+            var userName = $(this).val();
+            setTimeout(function() {
+                $.ajax({
+                    type: 'post',
+                    url: '@Url.Action("IsUserNameUnique", "Account")',
+                    data: { userName: userName },
+                    beforeSend: function() {
+
+                    },
+                    success: function(response) {
+                        if (response) {
+                            console.log('good name');
+                        } else {
+                            console.log("not good name");
+                        }
+                    }
+                });
+            }, 3000);
+        });
+
+        $('#Email').on('keyup', function () {
+            var email = $(this).val();
+            setTimeout(function () {
+                $.ajax({
+                    type: 'post',
+                    url: '@Url.Action("IsEmailUnique", "Account")',
+                    data: { email: email },
+                    beforeSend: function () {
+
+                    },
+                    success: function (response) {
+                        if (response) {
+                          
+                            console.log('good email');
+                        } else {
+                            console.log("not good email");
+                        }
+                    }
+                });
+            }, 3000);
+        });
+         
+    </script>
 }

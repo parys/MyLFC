@@ -22,7 +22,9 @@ namespace MyLiverpool.Controllers
         // GET: News
         public async Task<ActionResult> Index(int page = 1, int? categoryId = null)
         {
-            return View( await _newsService.GetAllAsync(page, categoryId));
+            var model = await _newsService.GetAllAsync(page, categoryId);
+            return View(model);
+            //  return PartialView("_Index", model);
         }
 
         // GET: News/Details/5

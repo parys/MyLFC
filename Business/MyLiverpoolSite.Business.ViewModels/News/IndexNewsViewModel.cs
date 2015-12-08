@@ -49,5 +49,7 @@ namespace MyLiverpoolSite.Business.ViewModels.News
         public DateTime LastModified { get; set; }
 
         public virtual ICollection<IndexNewsCommentVM> Comments { get; set; }
+
+        public bool Pending { get; set; }
     }
 }

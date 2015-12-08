@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using MyLiverpoolSite.Business.Contracts;
 using MyLiverpoolSite.Business.Services;
 using MyLiverpoolSite.Business.ViewModels;
 using MyLiverpoolSite.Business.ViewModels.Account;
@@ -18,15 +19,18 @@ namespace MyLiverpool.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private readonly IAccountService _accountService;
 
-        public AccountController()
+        public AccountController(IAccountService accountService)
         {
+            _accountService = accountService;
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, IAccountService accountService)
         {
             UserManager = userManager;
             SignInManager = signInManager;
+            _accountService = accountService;
         }
 
         public ApplicationSignInManager SignInManager
@@ -53,8 +57,6 @@ namespace MyLiverpool.Controllers
             }
         }
 
-        //
-        // GET: /Account/Login
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
@@ -62,8 +64,6 @@ namespace MyLiverpool.Controllers
             return View();
         }
 
-        //
-        // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -76,7 +76,7 @@ namespace MyLiverpool.Controllers
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Login, model.Password, model.RememberMe, false);
+            var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, false);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -408,6 +408,20 @@ namespace MyLiverpool.Controllers
         public ActionResult ExternalLoginFailure()
         {
             return View();
+        }
+
+        [AllowAnonymous]
+        public async Task<JsonResult> IsUserNameUnique(string userName)
+        {
+            var result = await _accountService.IsUserNameUnique(userName);
+            return Json(result);
+        }
+
+        [AllowAnonymous]
+        public async Task<JsonResult> IsEmailUnique(string email)
+        {
+            var result = await _accountService.IsEmailUnique(email);
+            return Json(result);
         }
 
         protected override void Dispose(bool disposing)

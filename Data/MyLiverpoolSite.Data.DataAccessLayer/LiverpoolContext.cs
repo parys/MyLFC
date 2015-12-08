@@ -96,7 +96,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
             modelBuilder.Entity<ForumMessage>().HasRequired(x => x.Theme).WithMany(x => x.Messages).HasForeignKey(x => x.ThemeId);
 
             modelBuilder.Entity<User>().HasRequired(x => x.RoleGroup).WithMany(x => x.Users).HasForeignKey(x => x.RoleGroupId);
-            modelBuilder.Entity<Role>().HasRequired(x => x.RoleGroup).WithMany(x => x.Roles).HasForeignKey(x => x.RoleGroupId);
+            modelBuilder.Entity<Role>().HasMany(x => x.RoleGroups).WithMany(x => x.Roles);//.HasForeignKey(x => x.RoleGroupId);
            // modelBuilder.Entity<User>().HasMany(u => u.Children).
             // использование Fluent API
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>(); 

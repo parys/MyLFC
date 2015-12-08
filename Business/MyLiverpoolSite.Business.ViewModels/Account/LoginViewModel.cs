@@ -6,8 +6,8 @@ namespace MyLiverpoolSite.Business.ViewModels.Account
     public class LoginViewModel
     {
         [Required]
-        [Display(ResourceType = typeof (UsersMessages), Name = "Login")]
-        public string Login { get; set; }
+        [Display(ResourceType = typeof (UsersMessages), Name = "UserName")]
+        public string UserName { get; set; }
 
         [Required]
         [DataType(DataType.Password)]

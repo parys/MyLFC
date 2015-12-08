@@ -2,10 +2,13 @@
 {
     public enum RolesEnum
     {
-        Admin = 1,
-        User = 2,
-        AdminAssistance = 3,
-        MainNewsmaker = 4,
-        Newsmaker = 5,
+        Simple = 0,
+        NewsStart = 1,
+        NewsFull = 2,
+        BlogsStart = 3,
+        BlogsFull = 4,
+        UsersStart = 5,
+        UsersFull = 6,
+
     }
 }

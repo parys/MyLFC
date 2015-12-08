@@ -5,6 +5,7 @@ using MyLiverpoolSite.Business.ViewModels.Forum;
 using MyLiverpoolSite.Business.ViewModels.News;
 using MyLiverpoolSite.Business.ViewModels.NewsCategories;
 using MyLiverpoolSite.Business.ViewModels.NewsComments;
+using MyLiverpoolSite.Business.ViewModels.Roles;
 using MyLiverpoolSite.Business.ViewModels.Users;
 using MyLiverpoolSite.Data.Entities;
 
@@ -22,7 +23,7 @@ namespace MyLiverpoolSite.Business.Services
         {
            // Mapper.CreateMap<CreateUserViewModel, User>()
         //    .ForMember(t => t.Id, opt => opt.MapFrom(m => m.Id))
-        //    .ForMember(t => t.Login, opt => opt.MapFrom(m => m.Login))
+        //    .ForMember(t => t.UserName, opt => opt.MapFrom(m => m.UserName))
         //    .ForMember(t => t.Password, opt => opt.MapFrom(m => m.Password))
         //    .ForMember(t => t.Email, opt => opt.MapFrom(m => m.Email))
         //    .ForMember(t => t.Birthday, opt => opt.Ignore())//MapFrom(m => m.Email))
@@ -109,6 +110,12 @@ namespace MyLiverpoolSite.Business.Services
             Mapper.CreateMap<ForumMessage, ForumMessageVM>();
 
             Mapper.CreateMap<NewsCategory, IndexNewsCategoryVM>();
+
+            Mapper.CreateMap<RoleGroup, RoleGroupVM>();
+            Mapper.CreateMap<RoleGroupVM, RoleGroup>();
+
+            Mapper.CreateMap<Role, RoleVM>();
+            Mapper.CreateMap<RoleVM, Role>();
         }
     }
 }
