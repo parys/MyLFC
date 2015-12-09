@@ -411,6 +411,7 @@ namespace MyLiverpool.Controllers
         }
 
         [AllowAnonymous]
+        [HttpPost]
         public async Task<JsonResult> IsUserNameUnique(string userName)
         {
             var result = await _accountService.IsUserNameUnique(userName);
@@ -418,6 +419,7 @@ namespace MyLiverpool.Controllers
         }
 
         [AllowAnonymous]
+        [HttpPost]
         public async Task<JsonResult> IsEmailUnique(string email)
         {
             var result = await _accountService.IsEmailUnique(email);

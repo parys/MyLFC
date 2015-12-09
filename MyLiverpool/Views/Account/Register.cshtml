@@ -1,10 +1,10 @@
 ﻿@using MyLiverpoolSite.Business.ViewModels.Resources
 @model MyLiverpoolSite.Business.ViewModels.Account.RegisterViewModel
 @{
-    ViewBag.Title = "";
+    ViewBag.Title = CommonMessages.Registration;
 }
 
-<h2>@ViewBag.Title.</h2>
+<h2>@CommonMessages.Registration</h2>
 
 @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
@@ -21,7 +21,7 @@
     <div class="form-group">
         @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", type="email" })
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @type="email" })
         </div>
     </div>
     <div class="form-group">
@@ -45,7 +45,7 @@
     <div class="form-group">
         @Html.LabelFor(m => m.BirthDay, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.BirthDay, new { @class = "form-control" })
+            @Html.TextBoxFor(m => m.BirthDay, new { @class = "form-control datepicker" })
         </div>
     </div>
     <div class="form-group">
@@ -61,7 +61,8 @@
     <script>
         $('#UserName').on('keyup', function() {
             var userName = $(this).val();
-            setTimeout(function() {
+            if (userName.length < 3) return;
+            delay(function () {
                 $.ajax({
                     type: 'post',
                     url: '@Url.Action("IsUserNameUnique", "Account")',
@@ -71,8 +72,10 @@
                     },
                     success: function(response) {
                         if (response) {
+                            $('#UserName').toggleClass('input-validation-error');
                             console.log('good name');
                         } else {
+                            $('#UserName').toggleClass('input-validation-error');
                             console.log("not good name");
                         }
                     }
@@ -82,7 +85,8 @@
 
         $('#Email').on('keyup', function () {
             var email = $(this).val();
-            setTimeout(function () {
+            delay(function()
+            {
                 $.ajax({
                     type: 'post',
                     url: '@Url.Action("IsEmailUnique", "Account")',
@@ -92,9 +96,10 @@
                     },
                     success: function (response) {
                         if (response) {
-                          
+                            $('#Email').toggleClass('input-validation-error');
                             console.log('good email');
                         } else {
+                            $('#Email').toggleClass('input-validation-error');
                             console.log("not good email");
                         }
                     }
@@ -102,5 +107,12 @@
             }, 3000);
         });
          
+        var delay = (function () {
+            var timer = 0;
+            return function (callback, ms) {
+                clearTimeout(timer);
+                timer = setTimeout(callback, ms);
+            };
+        })();
     </script>
 }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using MyLiverpoolSite.Business.ViewModels.Resources;
 
@@ -30,7 +29,7 @@ namespace MyLiverpoolSite.Business.ViewModels.Account
         [Display(ResourceType = typeof (UsersMessages), Name = "FullName")]
         public string FullName { get; set; }
 
-        [Required]
+       // [Required]
         [Display(ResourceType = typeof (UsersMessages), Name = "BirthDay")]
         public DateTime BirthDay { get; set; }
     }

@@ -22,47 +22,47 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 InitializeRoles(context);
                 InitializeAdmin(context);
                 InitializeDeletedUser(context);
-            //    InitializeDeletedUser(context);
+                //    InitializeDeletedUser(context);
             }
         }
 
         private void InitializeRoleGroups(LiverpoolContext context)
         {
-               var roleStore = new RoleStore<Role, int, UserRole>(context);
-                var roleManager = new RoleManager<Role, int>(roleStore);
+            var roleStore = new RoleStore<Role, int, UserRole>(context);
+            var roleManager = new RoleManager<Role, int>(roleStore);
             var roleGroups = new List<RoleGroup>()
             {
                 new RoleGroup()
                 {
-                    Name = GetEnumDescription(RoleGroupsEnum.Admin)
+                    Name = RoleGroupsEnum.Admin.ToString()
                 },
                 new RoleGroup()
                 {
-                    Name = GetEnumDescription(RoleGroupsEnum.User)
+                    Name = RoleGroupsEnum.User.ToString()
                 },
                 new RoleGroup()
                 {
-                    Name = GetEnumDescription(RoleGroupsEnum.AdminAssistance)
+                    Name = RoleGroupsEnum.AdminAssistance.ToString()
                 },
                 new RoleGroup()
                 {
-                    Name = GetEnumDescription(RoleGroupsEnum.MainNewsmaker)
+                    Name = RoleGroupsEnum.MainNewsmaker.ToString()
                 },
                 new RoleGroup()
                 {
-                    Name = GetEnumDescription(RoleGroupsEnum.Newsmaker)
+                    Name = RoleGroupsEnum.Newsmaker.ToString()
                 },
             };
             roleGroups.ForEach(x => context.RoleGroups.Add(x));
-           // roles.ForEach(x => roleManager.Create(x));
-              //roleManager.Create(new Role { Name = RolesEnum.User.ToString() });
+            // roles.ForEach(x => roleManager.Create(x));
+            //roleManager.Create(new Role { Name = RolesEnum.User.ToString() });
             context.SaveChanges();
         }
 
         private void InitializeRoles(LiverpoolContext context)
         {
-               var roleStore = new RoleStore<Role, int, UserRole>(context);
-                var roleManager = new RoleManager<Role, int>(roleStore);
+            var roleStore = new RoleStore<Role, int, UserRole>(context);
+            var roleManager = new RoleManager<Role, int>(roleStore);
 
             var adminRoleGroup = context.RoleGroups.First(x => x.Name == RoleGroupsEnum.Admin.ToString());
 
@@ -70,7 +70,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
             {
                 new Role()
                 {
-                    Name = RoleGroupsEnum.Admin.ToString(),
+                    Name = RolesEnum.Simple.ToString(),
                     RoleGroups = new List<RoleGroup>()
                     {
                         adminRoleGroup
@@ -78,7 +78,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 },
                 new Role()
                 {
-                    Name = RoleGroupsEnum.User.ToString(),
+                    Name = RolesEnum.NewsFull.ToString(),
                     RoleGroups = new List<RoleGroup>()
                     {
                         adminRoleGroup
@@ -86,7 +86,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 },
                 new Role()
                 {
-                    Name = RoleGroupsEnum.AdminAssistance.ToString(),
+                    Name = RolesEnum.NewsStart.ToString(),
                     RoleGroups = new List<RoleGroup>()
                     {
                         adminRoleGroup
@@ -94,7 +94,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 },
                 new Role()
                 {
-                    Name = RoleGroupsEnum.MainNewsmaker.ToString(),
+                    Name = RolesEnum.BlogsFull.ToString(),
                     RoleGroups = new List<RoleGroup>()
                     {
                         adminRoleGroup
@@ -102,17 +102,33 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 },
                 new Role()
                 {
-                    Name = RoleGroupsEnum.Newsmaker.ToString(),
+                    Name = RolesEnum.BlogsStart.ToString(),
+                    RoleGroups = new List<RoleGroup>()
+                    {
+                        adminRoleGroup
+                    }
+                },
+                new Role()
+                {
+                    Name = RolesEnum.UsersFull.ToString(),
+                    RoleGroups = new List<RoleGroup>()
+                    {
+                        adminRoleGroup
+                    }
+                },
+                new Role()
+                {
+                    Name = RolesEnum.UsersStart.ToString(),
                     RoleGroups = new List<RoleGroup>()
                     {
                         adminRoleGroup
                     }
                 },
             };
-          //  roles.ForEach(x => context.Roles.Add(x));
+            //  roles.ForEach(x => context.Roles.Add(x));
             roles.ForEach(x => roleManager.Create(x));
-              //roleManager.Create(new Role { Name = RolesEnum.User.ToString() });
-         //   context.SaveChanges();
+            //roleManager.Create(new Role { Name = RolesEnum.User.ToString() });
+            //   context.SaveChanges();
         }
 
         private void InitializeDeletedUser(LiverpoolContext context)
@@ -127,7 +143,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 Verify = true,
                 LastModified = DateTime.Now,
                 RegistrationDate = DateTime.Now,
-                RoleGroupId = 2 //todo change to simple user
+                RoleGroupId = 1 //todo change to simple user
             };
 
             var userStore = new UserStore<User, Role, int, UserLogin, UserRole, UserClaim>(context);
@@ -135,11 +151,11 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
 
             userManager.Create(user, "123456");
 
-            userManager.AddToRole(user.Id, RoleGroupsEnum.User.ToString());
+            userManager.AddToRole(user.Id, RolesEnum.Simple.ToString());
         }
-    
 
-           private void InitializeAdmin(LiverpoolContext context)
+
+        private void InitializeAdmin(LiverpoolContext context)
         {
             const string email = "a@a.c";
 
@@ -151,14 +167,20 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 LastModified = DateTime.Now,
                 RegistrationDate = DateTime.Now,
                 Birthday = DateTime.Now,
-                RoleGroupId = 1 
+                RoleGroupId = 1
             };
 
             var userStore = new UserStore<User, Role, int, UserLogin, UserRole, UserClaim>(context);
             var userManager = new UserManager<User, int>(userStore);
 
             userManager.Create(user, "123456");
-            userManager.AddToRole(user.Id, RoleGroupsEnum.Admin.ToString());
+            var adminRoles = context.RoleGroups.First(x => x.Name == RoleGroupsEnum.Admin.ToString()).Roles.ToList();
+            foreach (var role in adminRoles)
+            {
+                userManager.AddToRole(user.Id, role.Name);
+              //  userManager.AddToRole(user.Id, RoleGroupsEnum.Admin.ToString());
+            }
+
             //var result = await manager.CreateAsync(user, password);
             // context.Users.Add(user);
             //  context.SaveChanges();

@@ -135,6 +135,9 @@
   <data name="DeleteConfirmation" xml:space="preserve">
     <value>Подтверждение удаления</value>
   </data>
+  <data name="EnterToSite" xml:space="preserve">
+    <value>Вход на сайт</value>
+  </data>
   <data name="Forum" xml:space="preserve">
     <value>Форум</value>
   </data>
@@ -152,6 +155,9 @@
   </data>
   <data name="Register" xml:space="preserve">
     <value>Зарегистрироваться</value>
+  </data>
+  <data name="Registration" xml:space="preserve">
+    <value>Регистрация</value>
   </data>
   <data name="Reply" xml:space="preserve">
     <value>Ответить</value>

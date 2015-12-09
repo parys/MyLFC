@@ -115,6 +115,15 @@ namespace MyLiverpoolSite.Business.ViewModels.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Вход на сайт.
+        /// </summary>
+        public static string EnterToSite {
+            get {
+                return ResourceManager.GetString("EnterToSite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Форум.
         /// </summary>
         public static string Forum {
@@ -165,6 +174,15 @@ namespace MyLiverpoolSite.Business.ViewModels.Resources {
         public static string Register {
             get {
                 return ResourceManager.GetString("Register", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Регистрация.
+        /// </summary>
+        public static string Registration {
+            get {
+                return ResourceManager.GetString("Registration", resourceCulture);
             }
         }
         

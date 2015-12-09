@@ -227,6 +227,7 @@
     <Content Include="Content\theme\fonts\wysibbiconfont-wb.eot" />
     <Content Include="Content\theme\fonts\wysibbiconfont-wb.ttf" />
     <Content Include="Content\theme\fonts\wysibbiconfont-wb.woff" />
+    <None Include="Properties\PublishProfiles\build package.pubxml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
