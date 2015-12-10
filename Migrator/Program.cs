@@ -19,6 +19,7 @@ namespace Migrator
         private static bool useLimit = true;
 
         private static readonly List<ForumSubsection> Subsections = new List<ForumSubsection>(); 
+        private static readonly List<ForumTheme> Themes = new List<ForumTheme>(); 
 
         private static User Deleted;
 
@@ -1716,14 +1717,14 @@ namespace Migrator
                     forumTheme.LastAnswerUser = UnitOfWork.UserRepository.GetAsync(u => u.UserName == authorLastMessage).Result.FirstOrDefault();
 
 
-
-                    UnitOfWork.ForumThemeRepository.Add(forumTheme);
+                    Themes.Add(forumTheme);
+                 //   UnitOfWork.ForumThemeRepository.Add(forumTheme);
                     while (chars[i] != 10)
                     {
                         i++;
                     }
                 }
-                UnitOfWork.Save();
+              //  UnitOfWork.Save();
             }
         }
 
@@ -1762,9 +1763,11 @@ namespace Migrator
                         i++;
                     }
                     i++;
-                    var theme = UnitOfWork.ForumThemeRepository.GetAsync().Result.FirstOrDefault(x => x.IdOld == int.Parse(moduleId));
+                  //  var theme = UnitOfWork.ForumThemeRepository.GetAsync().Result.FirstOrDefault(x => x.IdOld == int.Parse(moduleId));
+                    var theme = Themes.FirstOrDefault(x => x.IdOld == int.Parse(moduleId));
                     if (useLimit && theme != null)
                     {
+                       // theme.Messages = 
                         forumMessage.ThemeId = theme.Id;
                     }
                     
@@ -1823,9 +1826,18 @@ namespace Migrator
                     }
                     if (useLimit && theme != null)
                     {
-                        UnitOfWork.ForumMessageRepository.Add(forumMessage);
+                        theme.Messages.Add(forumMessage);
+                        //  UnitOfWork.ForumMessageRepository.Add(forumMessage);
                     }
+                    
 
+                }
+                foreach (var item in Themes)
+                {
+                    if (item.Messages.Any())
+                    {
+                        UnitOfWork.ForumThemeRepository.Add(item);
+                    }
                 }
                 UnitOfWork.Save();
             }

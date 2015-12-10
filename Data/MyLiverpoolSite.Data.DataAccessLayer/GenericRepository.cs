@@ -66,6 +66,22 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
             return await query.ToListAsync();
         }
 
+        public async Task<ICollection<TEntity>> GetOrderedByIdAsync(int page, int itemPerPage = 15, Expression<Func<TEntity, bool>> filter = null, params Expression<Func<TEntity, object>>[] includeProperties)
+        {
+            IQueryable<TEntity> query = _dbSet;
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+            if (includeProperties != null)
+            {
+                query = includeProperties.Aggregate(query,
+                    (current, includeProperty) => current.Include(includeProperty));
+            }
+            query = query.OrderBy(x => x.Id).Skip((page - 1) * itemPerPage).Take(itemPerPage);
+            return await query.ToListAsync();
+        }
+
         /// <summary>
         /// Returns element by id.
         /// </summary>

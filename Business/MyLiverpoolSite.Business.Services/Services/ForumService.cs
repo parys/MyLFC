@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using MyLiverpoolSite.Business.Contracts;
 using MyLiverpoolSite.Business.ViewModels.Forum;
 using MyLiverpoolSite.Data.DataAccessLayer;
+using MyLiverpoolSite.Data.Entities;
 
 namespace MyLiverpoolSite.Business.Services.Services
 {
@@ -44,7 +46,7 @@ namespace MyLiverpoolSite.Business.Services.Services
         public async Task<ForumThemeVM> GetTheme(int themeId, int page = 1)
         {
             var theme = await _unitOfWork.ForumThemeRepository.GetByIdAsync(themeId);
-            var themeMessages = await _unitOfWork.ForumMessageRepository.GetAsync(page, filter: x => x.ThemeId == themeId);
+            var themeMessages = await _unitOfWork.ForumMessageRepository.GetOrderedByIdAsync(page, filter: x => x.ThemeId == themeId);
             var themeMessagesCount = await _unitOfWork.ForumMessageRepository.GetCountAsync(x => x.ThemeId == themeId);
             if (theme == null)
             {
@@ -53,6 +55,23 @@ namespace MyLiverpoolSite.Business.Services.Services
             var model = Mapper.Map<ForumThemeVM>(theme);
             model.Messages = new PageableData<ForumMessageVM>(Mapper.Map<IEnumerable<ForumMessageVM>>(themeMessages), page, themeMessagesCount);
             return model;
+        }
+
+        public async Task<int> AddComment(string comment, int themeId, int userId)
+        {
+            var message = new ForumMessage()
+            {
+                AdditionTime = DateTime.Now,
+                LastModifiedTime = DateTime.Now,
+                AuthorId = userId,
+                Message = comment,
+                ThemeId = themeId
+            };
+
+            _unitOfWork.ForumMessageRepository.Add(message);
+            await _unitOfWork.SaveAsync();
+
+            return message.Id;
         }
     }
 }

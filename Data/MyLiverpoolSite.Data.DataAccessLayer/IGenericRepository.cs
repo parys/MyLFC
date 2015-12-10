@@ -22,6 +22,9 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
         Task<ICollection<TEntity>> GetAsync(int page, int itemPerPage = 15, Expression<Func<TEntity, bool>> filter = null,
             params Expression<Func<TEntity, object>>[] includeProperties);
 
+        Task<ICollection<TEntity>> GetOrderedByIdAsync(int page, int itemPerPage = 15,
+            Expression<Func<TEntity, bool>> filter = null, params Expression<Func<TEntity, object>>[] includeProperties);
+
         /// <summary>
         /// Returns element by id
         /// </summary>

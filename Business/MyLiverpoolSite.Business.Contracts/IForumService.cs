@@ -10,5 +10,7 @@ namespace MyLiverpoolSite.Business.Contracts
         Task<ForumSubsectionVM> GetSubsection(int subsectionId, int page = 1);
 
         Task<ForumThemeVM> GetTheme(int themeId, int page = 1);
+
+        Task<int> AddComment(string comment, int themeId, int userId);
     }
 }

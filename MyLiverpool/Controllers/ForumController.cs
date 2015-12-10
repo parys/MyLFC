@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using MyLiverpoolSite.Business.Contracts;
 
 namespace MyLiverpool.Controllers
@@ -13,7 +14,6 @@ namespace MyLiverpool.Controllers
             _forumService = forumService;
         }
 
-        // GET: Forum
         public async Task<ActionResult> Index()
         {
             var model = await _forumService.Get();
@@ -38,6 +38,14 @@ namespace MyLiverpool.Controllers
             }
             var model = await _forumService.GetTheme(id.Value, page);
             return View(model);
+        }
+
+        [ValidateInput(false)]
+        [HttpPost]
+        public async Task<ActionResult> AddComment(string comment, int themeId)
+        {
+            var model = await _forumService.AddComment(comment, themeId, User.Identity.GetUserId<int>());
+            return Json(model);
         }
     }
 }
