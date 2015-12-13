@@ -1,12 +1,22 @@
-﻿using System.Web.Mvc;
+﻿using System.Threading.Tasks;
+using MyLiverpoolSite.Business.Contracts;
+using System.Web.Mvc;
 
 namespace MyLiverpool.Controllers
 {
     public class HomeController : BaseController
     {
-        public ActionResult Index()
+        private readonly INewsService _newsService;
+
+        public HomeController(INewsService newsService)
         {
-            return View();
+            _newsService = newsService;
+        }
+
+        public async Task<ActionResult> Index()
+        {
+            var model = await _newsService.GetAllAsync(1, null);
+            return View(model);
         }
 
         public ActionResult About()

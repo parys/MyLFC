@@ -94,35 +94,7 @@ namespace MyLiverpool.Controllers
             return View(model);
         }
 
-        // GET: News/Delete/5
-        ////  [Authorize(Roles = "Admin")]
-        //public async Task<ActionResult> Delete(int? id)
-        //{
-        //    throw new NotImplementedException();
-        //    //if (id == null)
-        //    //{
-        //    //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    //}
-        //    //IndexNewsViewModel indexNewsViewModel = await db.IndexNewsViewModels.FindAsync(id);
-        //    //if (indexNewsViewModel == null)
-        //    //{
-        //    //    return HttpNotFound();
-        //    //}
-        //    //return View(indexNewsViewModel);
-        //}
 
-        //// POST: News/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        ////   [Authorize(Roles = "Admin")]
-        //public async Task<ActionResult> DeleteConfirmed(int id)
-        //{
-        //    throw new NotImplementedException();
-        //    //    IndexNewsViewModel indexNewsViewModel = await db.IndexNewsViewModels.FindAsync(id);
-        //    //    db.IndexNewsViewModels.Remove(indexNewsViewModel);
-        //    //    await db.SaveChangesAsync();
-        //    //    return RedirectToAction("Index");
-        //}
 
         protected override void Dispose(bool disposing)
         {

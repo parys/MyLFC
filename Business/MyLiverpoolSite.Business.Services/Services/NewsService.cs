@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.Mappers;
 using MyLiverpoolSite.Business.Contracts;
 using MyLiverpoolSite.Business.ViewModels.News;
 using MyLiverpoolSite.Business.ViewModels.NewsCategories;
+using MyLiverpoolSite.Common.Utilities;
 using MyLiverpoolSite.Data.DataAccessLayer;
 using MyLiverpoolSite.Data.Entities;
 
@@ -105,13 +107,20 @@ namespace MyLiverpoolSite.Business.Services.Services
 
         public async Task<PageableData<IndexMiniNewsVM>> GetAllAsync(int page, int? categoryId)
         {
+            var itemPerPage = GlobalConstants.NewsPerPage;
             Expression<Func<NewsItem, bool>> filter = null;
             if (categoryId.HasValue)
             {
                 filter = x => x.NewsCategoryId == categoryId.Value;
             }
-            var news = await _unitOfWork.NewsItemRepository.GetAsync(page, filter: filter);
-            var newsVM = Mapper.Map<IEnumerable<IndexMiniNewsVM>>(news);
+            var topNews = await _unitOfWork.NewsItemRepository.GetAsync(x => x.OnTop);
+            if (page == GlobalConstants.FirstPage)
+            {
+                itemPerPage = GlobalConstants.NewsPerPage - topNews.Count;
+            }
+            var news = await _unitOfWork.NewsItemRepository.GetAsync(page, filter: filter, itemPerPage: itemPerPage);
+            var newsForView = (page == GlobalConstants.FirstPage) ? topNews.Concat(news) : news;
+            var newsVM = Mapper.Map<IEnumerable<IndexMiniNewsVM>>(newsForView);
             var allNewsCount = await _unitOfWork.NewsItemRepository.GetCountAsync(filter);
             var result = new PageableData<IndexMiniNewsVM>(newsVM, page, allNewsCount);
             return result;
