@@ -25,8 +25,6 @@ namespace MyLiverpoolSite.Data.Entities
 
         public int AnswersCount { get; set; }
 
-        public int Answers { get; set; }
-
         public int Views { get; set; }
 
         public virtual ICollection<ForumTheme> Themes { get; set; }

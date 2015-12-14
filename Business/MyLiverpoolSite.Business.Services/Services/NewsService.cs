@@ -107,21 +107,23 @@ namespace MyLiverpoolSite.Business.Services.Services
 
         public async Task<PageableData<IndexMiniNewsVM>> GetAllAsync(int page, int? categoryId)
         {
-            var itemPerPage = GlobalConstants.NewsPerPage;
-            Expression<Func<NewsItem, bool>> filter = null;
+            // itemPerPage = GlobalConstants.NewsPerPage;
+            Expression<Func<NewsItem, bool>> filter = x => !x.OnTop;
+            Expression<Func<NewsItem, bool>> filterForCount = null;
             if (categoryId.HasValue)
             {
-                filter = x => x.NewsCategoryId == categoryId.Value;
+                filter = x => x.NewsCategoryId == categoryId.Value && !x.OnTop;
+                filterForCount = x => x.NewsCategoryId == categoryId.Value;
             }
             var topNews = await _unitOfWork.NewsItemRepository.GetAsync(x => x.OnTop);
-            if (page == GlobalConstants.FirstPage)
-            {
-                itemPerPage = GlobalConstants.NewsPerPage - topNews.Count;
-            }
+           // if (page == GlobalConstants.FirstPage)
+           // {
+                var itemPerPage = GlobalConstants.NewsPerPage - topNews.Count;
+           // }
             var news = await _unitOfWork.NewsItemRepository.GetAsync(page, filter: filter, itemPerPage: itemPerPage);
             var newsForView = (page == GlobalConstants.FirstPage) ? topNews.Concat(news) : news;
             var newsVM = Mapper.Map<IEnumerable<IndexMiniNewsVM>>(newsForView);
-            var allNewsCount = await _unitOfWork.NewsItemRepository.GetCountAsync(filter);
+            var allNewsCount = await _unitOfWork.NewsItemRepository.GetCountAsync(filterForCount);
             var result = new PageableData<IndexMiniNewsVM>(newsVM, page, allNewsCount);
             return result;
         }

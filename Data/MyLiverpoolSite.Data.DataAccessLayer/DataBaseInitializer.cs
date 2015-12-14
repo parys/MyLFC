@@ -22,6 +22,13 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 InitializeRoles(context);
                 InitializeAdmin(context);
                 InitializeDeletedUser(context);
+
+                InitializeForumSections(context);
+                InitializeForumSubsections(context);
+                InitializeForumThemes(context);
+
+                InitializeNewsCategories(context);
+                InitializeNews(context);
                 //    InitializeDeletedUser(context);
             }
         }
@@ -201,7 +208,562 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
             //context.SaveChanges();
         }
 
-        public static string GetEnumDescription(Enum value)
+        private void InitializeForumSections(LiverpoolContext context)
+        {
+            var forumSection1 = new ForumSection()
+            {
+                Name = "section 1"
+            };
+            var forumSection2 = new ForumSection()
+            {
+                Name = "section 2"
+            };
+            context.ForumSections.Add(forumSection1);
+            context.ForumSections.Add(forumSection2);
+            context.SaveChanges();
+        }
+
+        private void InitializeForumSubsections(LiverpoolContext context)
+        {
+            var forumSubsection1 = new ForumSubsection()
+            {
+                Name = "subsection 1",
+                Description = "subsection description 1",
+                SectionId = 1
+                
+            };
+            var forumSubsection2 = new ForumSubsection()
+            {
+                Name = "subsection 2",
+                Description = "subsection description 2",
+                SectionId = 1
+            };
+            context.ForumSubsections.Add(forumSubsection1);
+            context.ForumSubsections.Add(forumSubsection2);
+            context.SaveChanges();
+        }
+
+        private void InitializeForumThemes(LiverpoolContext context)
+        {
+            var forumThemes1 = new ForumTheme()
+            {
+                Name = "theme 1",
+                Description = "theme description 1",
+                SubsectionId = 1,
+                LastMessageAdditionTime = DateTime.Today,
+                Messages = new List<ForumMessage>()
+                {
+                    new ForumMessage()
+                    {
+                        Message = "message 1",
+                        AdditionTime = DateTime.Now.AddHours(-5),
+                        AuthorId = 1,
+                        LastModifiedTime = DateTime.Now,
+                        ThemeId = 1,
+                    },
+                    new ForumMessage()
+                    {
+                        Message = "message 2",
+                        AdditionTime = DateTime.Now.AddHours(-2),
+                        AuthorId = 2,
+                        LastModifiedTime = DateTime.Now,
+                        ThemeId = 1,
+                    },
+                    new ForumMessage()
+                    {
+                        Message = "message 3",
+                        AdditionTime = DateTime.Now.AddHours(-5),
+                        AuthorId = 2,
+                        LastModifiedTime = DateTime.Now,
+                        ThemeId = 1,
+
+                    },
+                    new ForumMessage()
+                    {
+                        Message = "message 4",
+                        AdditionTime = DateTime.Now.AddHours(-2),
+                        AuthorId = 1,
+                        LastModifiedTime = DateTime.Now,
+                        ThemeId = 1,
+                    },
+                    new ForumMessage()
+                    {
+                        Message = "message 5",
+                        AdditionTime = DateTime.Now.AddHours(-5),
+                        AuthorId = 2,
+                        LastModifiedTime = DateTime.Now,
+                        ThemeId = 1,
+
+                    },
+                    new ForumMessage()
+                    {
+                        Message = "message 6",
+                        AdditionTime = DateTime.Now.AddHours(-2),
+                        AuthorId = 1,
+                        LastModifiedTime = DateTime.Now,
+                        ThemeId = 1,
+                    },
+                    new ForumMessage()
+                    {
+                        Message = "message 7",
+                        AdditionTime = DateTime.Now.AddHours(-5),
+                        AuthorId = 2,
+                        LastModifiedTime = DateTime.Now,
+                        ThemeId = 1,
+
+                    },
+                    new ForumMessage()
+                    {
+                        Message = "message 8",
+                        AdditionTime = DateTime.Now.AddHours(-2),
+                        AuthorId = 1,
+                        LastModifiedTime = DateTime.Now,
+                        ThemeId = 1,
+                    },
+                    new ForumMessage()
+                    {
+                        Message = "message 9",
+                        AdditionTime = DateTime.Now.AddHours(-5),
+                        AuthorId = 2,
+                        LastModifiedTime = DateTime.Now,
+                        ThemeId = 1,
+
+                    },
+                    new ForumMessage()
+                    {
+                        Message = "message 10",
+                        AdditionTime = DateTime.Now.AddHours(-2),
+                        AuthorId = 1,
+                        LastModifiedTime = DateTime.Now,
+                        ThemeId = 1,
+                    },
+                    new ForumMessage()
+                    {
+                        Message = "message 11",
+                        AdditionTime = DateTime.Now.AddHours(-5),
+                        AuthorId = 2,
+                        LastModifiedTime = DateTime.Now,
+                        ThemeId = 1,
+
+                    },
+                    new ForumMessage()
+                    {
+                        Message = "message 12",
+                        AdditionTime = DateTime.Now.AddHours(-2),
+                        AuthorId = 1,
+                        LastModifiedTime = DateTime.Now,
+                        ThemeId = 1,
+                    }
+                }
+                
+            };
+            var forumThemes2 = new ForumTheme()
+            {
+                Name = "theme 2",
+                Description = "theme description 2",
+                SubsectionId = 1,
+                LastMessageAdditionTime = DateTime.Today,
+                Messages = new List<ForumMessage>()
+                {
+                    new ForumMessage()
+                    {
+                        Message = "message 1",
+                        AdditionTime = DateTime.Now.AddHours(-5),
+                        AuthorId = 1,
+                        LastModifiedTime = DateTime.Now,
+                        ThemeId = 2,
+                    },
+                    new ForumMessage()
+                    {
+                        Message = "message 2",
+                        AdditionTime = DateTime.Now.AddHours(-2),
+                        AuthorId = 2,
+                        LastModifiedTime = DateTime.Now,
+                        ThemeId = 2,
+                    },
+                    new ForumMessage()
+                    {
+                        Message = "message 3",
+                        AdditionTime = DateTime.Now.AddHours(-5),
+                        AuthorId = 2,
+                        LastModifiedTime = DateTime.Now,
+                        ThemeId = 2,
+                        
+                    },
+                    new ForumMessage()
+                    {
+                        Message = "message 4",
+                        AdditionTime = DateTime.Now.AddHours(-2),
+                        AuthorId = 1,
+                        LastModifiedTime = DateTime.Now,
+                        ThemeId = 2,
+                    },
+                    new ForumMessage()
+                    {
+                        Message = "message 5",
+                        AdditionTime = DateTime.Now.AddHours(-5),
+                        AuthorId = 2,
+                        LastModifiedTime = DateTime.Now,
+                        ThemeId = 2,
+
+                    },
+                    new ForumMessage()
+                    {
+                        Message = "message 6",
+                        AdditionTime = DateTime.Now.AddHours(-2),
+                        AuthorId = 1,
+                        LastModifiedTime = DateTime.Now,
+                        ThemeId = 2,
+                    },
+                    new ForumMessage()
+                    {
+                        Message = "message 7",
+                        AdditionTime = DateTime.Now.AddHours(-5),
+                        AuthorId = 2,
+                        LastModifiedTime = DateTime.Now,
+                        ThemeId = 2,
+
+                    },
+                    new ForumMessage()
+                    {
+                        Message = "message 8",
+                        AdditionTime = DateTime.Now.AddHours(-2),
+                        AuthorId = 1,
+                        LastModifiedTime = DateTime.Now,
+                        ThemeId = 2,
+                    },
+                    new ForumMessage()
+                    {
+                        Message = "message 9",
+                        AdditionTime = DateTime.Now.AddHours(-5),
+                        AuthorId = 2,
+                        LastModifiedTime = DateTime.Now,
+                        ThemeId = 2,
+
+                    },
+                    new ForumMessage()
+                    {
+                        Message = "message 10",
+                        AdditionTime = DateTime.Now.AddHours(-2),
+                        AuthorId = 1,
+                        LastModifiedTime = DateTime.Now,
+                        ThemeId = 2,
+                    },
+                    new ForumMessage()
+                    {
+                        Message = "message 11",
+                        AdditionTime = DateTime.Now.AddHours(-5),
+                        AuthorId = 2,
+                        LastModifiedTime = DateTime.Now,
+                        ThemeId = 2,
+
+                    },
+                    new ForumMessage()
+                    {
+                        Message = "message 12",
+                        AdditionTime = DateTime.Now.AddHours(-2),
+                        AuthorId = 1,
+                        LastModifiedTime = DateTime.Now,
+                        ThemeId = 2,
+                    }
+                }
+            };
+            context.ForumThemes.Add(forumThemes1);
+            context.ForumThemes.Add(forumThemes2);
+            context.SaveChanges();
+        }
+
+        private void InitializeNewsCategories(LiverpoolContext context)
+        {
+            var categories = new List<NewsCategory>()
+            {
+                new NewsCategory()
+                {
+                    Name = "news category 1",
+                    Description = "new category description 1",
+                },
+                new NewsCategory()
+                {
+                    Name = "news category 2",
+                    Description = "new category description 2",
+                },
+                new NewsCategory()
+                {
+                    Name = "news category 3",
+                    Description = "new category description 3",
+                },
+            };
+            categories.ForEach(x => context.NewsCategories.Add(x));
+            context.SaveChanges();
+        }
+
+        private void InitializeNews(LiverpoolContext context)
+        {
+            var news = new List<NewsItem>()
+            {
+                new NewsItem()
+                {
+                    NewsCategoryId = 1,
+                    AdditionTime = DateTime.Now.AddHours(-24),
+                    AuthorId = 1,
+                    Brief = "brief 1",
+                    CanCommentary = true,
+                    LastModified = DateTime.Now,
+                    Message = "message 1",
+                    OnTop = true,
+                    PhotoPath = "123",
+                    Pending = true,
+                    Reads = 10,
+                    Source = "123",
+                    Title = "news 1"
+                },
+                new NewsItem()
+                {
+                    NewsCategoryId = 2,
+                    AdditionTime = DateTime.Now.AddHours(-12),
+                    AuthorId = 1,
+                    Brief = "brief 2",
+                    CanCommentary = true,
+                    LastModified = DateTime.Now,
+                    Message = "message 2",
+                    OnTop = true,
+                    PhotoPath = "123",
+                    Pending = false,
+                    Reads = 10,
+                    Source = "123",
+                    Title = "news 2"
+                },
+                new NewsItem()
+                {
+                    NewsCategoryId = 3,
+                    AdditionTime = DateTime.Now.AddHours(-10),
+                    AuthorId = 1,
+                    Brief = "brief 3",
+                    CanCommentary = true,
+                    LastModified = DateTime.Now,
+                    Message = "message 3",
+                    OnTop = false,
+                    PhotoPath = "123",
+                    Pending = false,
+                    Reads = 10,
+                    Source = "123",
+                    Title = "news 3"
+                },
+                new NewsItem()
+                {
+                    NewsCategoryId = 1,
+                    AdditionTime = DateTime.Now.AddHours(-9).AddMinutes(10),
+                    AuthorId = 1,
+                    Brief = "brief 4",
+                    CanCommentary = true,
+                    LastModified = DateTime.Now,
+                    Message = "message 4",
+                    OnTop = false,
+                    PhotoPath = "123",
+                    Pending = false,
+                    Reads = 10,
+                    Source = "123",
+                    Title = "news 4"
+                },
+                new NewsItem()
+                {
+                    NewsCategoryId = 3,
+                    AdditionTime = DateTime.Now.AddHours(-8),
+                    AuthorId = 1,
+                    Brief = "brief 5",
+                    CanCommentary = true,
+                    LastModified = DateTime.Now,
+                    Message = "message 5",
+                    OnTop = false,
+                    PhotoPath = "123",
+                    Pending = false,
+                    Reads = 10,
+                    Source = "123",
+                    Title = "news 5"
+                },
+                new NewsItem()
+                {
+                    NewsCategoryId = 1,
+                    AdditionTime = DateTime.Now.AddHours(-7).AddMinutes(10),
+                    AuthorId = 1,
+                    Brief = "brief 6",
+                    CanCommentary = true,
+                    LastModified = DateTime.Now,
+                    Message = "message 6",
+                    OnTop = false,
+                    PhotoPath = "123",
+                    Pending = false,
+                    Reads = 10,
+                    Source = "123",
+                    Title = "news 6"
+                },
+                new NewsItem()
+                {
+                    NewsCategoryId = 3,
+                    AdditionTime = DateTime.Now.AddHours(-6),
+                    AuthorId = 1,
+                    Brief = "brief 7",
+                    CanCommentary = true,
+                    LastModified = DateTime.Now,
+                    Message = "message 7",
+                    OnTop = false,
+                    PhotoPath = "123",
+                    Pending = false,
+                    Reads = 10,
+                    Source = "123",
+                    Title = "news 7"
+                },
+                new NewsItem()
+                {
+                    NewsCategoryId = 1,
+                    AdditionTime = DateTime.Now.AddHours(-5).AddMinutes(10),
+                    AuthorId = 1,
+                    Brief = "brief 8",
+                    CanCommentary = true,
+                    LastModified = DateTime.Now,
+                    Message = "message 8",
+                    OnTop = false,
+                    PhotoPath = "123",
+                    Pending = false,
+                    Reads = 10,
+                    Source = "123",
+                    Title = "news 8"
+                },
+                new NewsItem()
+                {
+                    NewsCategoryId = 3,
+                    AdditionTime = DateTime.Now.AddHours(-4),
+                    AuthorId = 1,
+                    Brief = "brief 9",
+                    CanCommentary = true,
+                    LastModified = DateTime.Now,
+                    Message = "message 9",
+                    OnTop = false,
+                    PhotoPath = "123",
+                    Pending = false,
+                    Reads = 10,
+                    Source = "123",
+                    Title = "news 9"
+                },
+                new NewsItem()
+                {
+                    NewsCategoryId = 1,
+                    AdditionTime = DateTime.Now.AddHours(-2).AddMinutes(10),
+                    AuthorId = 1,
+                    Brief = "brief 10",
+                    CanCommentary = true,
+                    LastModified = DateTime.Now,
+                    Message = "message 10",
+                    OnTop = false,
+                    PhotoPath = "123",
+                    Pending = false,
+                    Reads = 10,
+                    Source = "123",
+                    Title = "news 10"
+                },
+                new NewsItem()
+                {
+                    NewsCategoryId = 3,
+                    AdditionTime = DateTime.Now.AddHours(-1),
+                    AuthorId = 1,
+                    Brief = "brief 11",
+                    CanCommentary = true,
+                    LastModified = DateTime.Now,
+                    Message = "message 11",
+                    OnTop = false,
+                    PhotoPath = "123",
+                    Pending = false,
+                    Reads = 10,
+                    Source = "123",
+                    Title = "news 11"
+                },
+                new NewsItem()
+                {
+                    NewsCategoryId = 1,
+                    AdditionTime = DateTime.Now,
+                    AuthorId = 1,
+                    Brief = "brief 12",
+                    CanCommentary = true,
+                    LastModified = DateTime.Now,
+                    Message = "message 12",
+                    OnTop = false,
+                    PhotoPath = "123",
+                    Pending = false,
+                    Reads = 10,
+                    Source = "123",
+                    Title = "news 12"
+                },
+                new NewsItem()
+                {
+                    NewsCategoryId = 1,
+                    AdditionTime = DateTime.Now,
+                    AuthorId = 1,
+                    Brief = "brief 13",
+                    CanCommentary = true,
+                    LastModified = DateTime.Now,
+                    Message = "message 13",
+                    OnTop = false,
+                    PhotoPath = "123",
+                    Pending = false,
+                    Reads = 10,
+                    Source = "123",
+                    Title = "news 13"
+                },
+                new NewsItem()
+                {
+                    NewsCategoryId = 1,
+                    AdditionTime = DateTime.Now,
+                    AuthorId = 1,
+                    Brief = "brief 14",
+                    CanCommentary = true,
+                    LastModified = DateTime.Now,
+                    Message = "message 14",
+                    OnTop = false,
+                    PhotoPath = "123",
+                    Pending = false,
+                    Reads = 10,
+                    Source = "123",
+                    Title = "news 14"
+                },
+                new NewsItem()
+                {
+                    NewsCategoryId = 1,
+                    AdditionTime = DateTime.Now,
+                    AuthorId = 1,
+                    Brief = "brief 15",
+                    CanCommentary = true,
+                    LastModified = DateTime.Now,
+                    Message = "message 15",
+                    OnTop = false,
+                    PhotoPath = "123",
+                    Pending = false,
+                    Reads = 10,
+                    Source = "123",
+                    Title = "news 15"
+                },
+                new NewsItem()
+                {
+                    NewsCategoryId = 1,
+                    AdditionTime = DateTime.Now,
+                    AuthorId = 1,
+                    Brief = "brief 16",
+                    CanCommentary = true,
+                    LastModified = DateTime.Now,
+                    Message = "message 16",
+                    OnTop = false,
+                    PhotoPath = "123",
+                    Pending = false,
+                    Reads = 10,
+                    Source = "123",
+                    Title = "news 16"
+                },
+            };
+
+            news.ForEach(x => context.NewsItems.Add(x));
+            context.SaveChanges();
+        }
+
+        private static string GetEnumDescription(Enum value)
         {
             FieldInfo fi = value.GetType().GetField(value.ToString());
 
