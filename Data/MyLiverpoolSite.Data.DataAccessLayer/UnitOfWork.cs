@@ -28,6 +28,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
        // private IGenericRepository<UserLogin> _userLoginRepository;
         private IGenericRepository<Role> _roleRepository;
         private IGenericRepository<RoleGroup> _roleGroupRepository;
+        private IGenericRepository<PrivateMessage> _privateMessageRepository;
         //private IGenericRepository<RoleClaim> _roleClaimRepository;
 
         /// <summary>
@@ -62,6 +63,8 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
      //   public IGenericRepository<UserRole> UserRoleRepository => UserRoleRepository ?? (_userRoleRepository = new GenericRepository<UserRole>(_context));
         public IGenericRepository<Role> RoleRepository => _roleRepository ?? (_roleRepository = new GenericRepository<Role>(_context));
         public IGenericRepository<RoleGroup> RoleGroupRepository => _roleGroupRepository ?? (_roleGroupRepository = new GenericRepository<RoleGroup>(_context));
+
+        public IGenericRepository<PrivateMessage> PrivateMessageRepository => _privateMessageRepository ?? (_privateMessageRepository = new GenericRepository<PrivateMessage>(_context));
 
         //public IGenericRepository<RoleClaim> RoleClaimRepository
         //{

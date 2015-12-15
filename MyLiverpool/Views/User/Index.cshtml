@@ -25,6 +25,7 @@
                     </td>
                     <td class="">
                         <a href="@Url.Action("GetUserProfile", new {id = user.Id})">@user.UserName</a>
+                        <a href="@Url.Action("WriteMessage", "User", new { receiverId = user.Id })"><span class="glyphicon glyphicon-envelope"></span></a>
                     </td>
                     <td class="">
                         @user.RegistrationDate

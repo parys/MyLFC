@@ -320,6 +320,8 @@
     <Content Include="Views\Role\Index.cshtml" />
     <Content Include="Views\Shared\_NewsList.cshtml" />
     <None Include="Views\User\GetUserProfile.cshtml" />
+    <None Include="Views\User\PrivateMessages.cshtml" />
+    <None Include="Views\User\WriteMessage.cshtml" />
     <None Include="Web.Somee.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -116,6 +116,9 @@ namespace MyLiverpoolSite.Business.Services
 
             Mapper.CreateMap<Role, RoleVM>();
             Mapper.CreateMap<RoleVM, Role>();
+
+            Mapper.CreateMap<PrivateMessage, PrivateMessageVM>();
+            Mapper.CreateMap<PrivateMessageVM, PrivateMessage>();
         }
     }
 }

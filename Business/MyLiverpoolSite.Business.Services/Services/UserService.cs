@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -34,7 +35,7 @@ namespace MyLiverpoolSite.Business.Services.Services
             //todo
            // var user = Mapper.Map<CreateUserViewModel, User>(model);
            // _unitOfWork.UserRepository.Add(user);
-            _unitOfWork.Save();
+           // _unitOfWork.Save();
         }
 
         public async Task<PageableData<UserViewModel>> GetAll(int page)
@@ -51,6 +52,26 @@ namespace MyLiverpoolSite.Business.Services.Services
             var user = await _unitOfWork.UserRepository.GetByIdAsync(id);
             var result = Mapper.Map<UserViewModel>(user);
             return result;
+        }
+
+        public async Task<PrivateMessageVM> GetPrivateMessageVMAsync(int receiverId)
+        {
+            var receiver = await _unitOfWork.UserRepository.GetByIdAsync(receiverId);
+            return new PrivateMessageVM()
+            {
+                Receiver = receiver,
+                ReceiverId = receiverId
+            };
+        }
+
+        public async Task<int> SavePrivateMessageVMAsync(PrivateMessageVM model, int userId)
+        {
+            var message = Mapper.Map<PrivateMessage>(model);
+            message.SenderId = userId;
+            message.SentTime = DateTime.Now;
+            _unitOfWork.PrivateMessageRepository.Add(message);
+            await _unitOfWork.SaveAsync();
+            return message.Id;
         }
 
         public void IsUserInRole()

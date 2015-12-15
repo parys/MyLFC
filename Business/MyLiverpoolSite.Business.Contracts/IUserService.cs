@@ -15,5 +15,9 @@ namespace MyLiverpoolSite.Business.Contracts
         Task<PageableData<UserViewModel>> GetAll(int page);
 
         Task<UserViewModel> GetUserProfile(int id);
+
+        Task<PrivateMessageVM> GetPrivateMessageVMAsync(int receiverId);
+
+        Task<int> SavePrivateMessageVMAsync(PrivateMessageVM model, int userId);
     }
 }

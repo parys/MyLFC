@@ -28,6 +28,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
      //   IGenericRepository<UserRole> UserRoleRepository { get; }
         IGenericRepository<Role> RoleRepository { get; }
         IGenericRepository<RoleGroup> RoleGroupRepository { get; }
+        IGenericRepository<PrivateMessage> PrivateMessageRepository { get; }
         //IGenericRepository<RoleClaim> RoleClaimRepository { get; }
 
         /// <summary>

@@ -15,6 +15,7 @@ namespace MyLiverpoolSite.Data.Entities
             this.NewsComments = new HashSet<NewsComment>();
             this.BlogItems = new HashSet<BlogItem>();
             this.NewsItems = new HashSet<NewsItem>();
+            this.PrivateMessages = new HashSet<PrivateMessage>();
         }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User, int> manager)
@@ -92,6 +93,8 @@ namespace MyLiverpoolSite.Data.Entities
         public virtual ICollection<BlogItem> BlogItems { get; set; }
 
         public virtual ICollection<NewsItem> NewsItems { get; set; }
+
+        public virtual ICollection<PrivateMessage> PrivateMessages { get; set; }
 
         public virtual RoleGroup RoleGroup { get; set; }
 

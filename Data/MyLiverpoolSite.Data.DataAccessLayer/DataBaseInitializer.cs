@@ -6,13 +6,12 @@ using System.Linq;
 using System.Reflection;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using MyLiverpoolSite.Business.Services;
 using MyLiverpoolSite.Data.Entities;
 
 namespace MyLiverpoolSite.Data.DataAccessLayer
 {
     //todo
-    public class DatabaseInitializer : CreateDatabaseIfNotExists<LiverpoolContext>
+    public class DatabaseInitializer : DropCreateDatabaseIfModelChanges<LiverpoolContext> //todo WARNING ALARM
     {
         protected override void Seed(LiverpoolContext context)
         {

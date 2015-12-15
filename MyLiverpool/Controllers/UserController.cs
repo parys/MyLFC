@@ -1,6 +1,8 @@
 ﻿using System.Threading.Tasks;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using MyLiverpoolSite.Business.Contracts;
+using MyLiverpoolSite.Business.ViewModels.Users;
 
 namespace MyLiverpool.Controllers
 {
@@ -33,6 +35,33 @@ namespace MyLiverpool.Controllers
                 return HttpNotFound();
             }
             return View(result);
+        }
+
+        [Authorize]
+        public async Task<ActionResult> PrivateMessages(int userId)
+        {
+            return View();
+        }
+
+        [Authorize]
+        [HttpGet]
+        public async Task<ActionResult> WriteMessage(int receiverId)
+        {
+            var model = await _userService.GetPrivateMessageVMAsync(receiverId);
+            return View(model);
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> WriteMessage(PrivateMessageVM model)
+        {
+            if (model == null)
+            {
+                return View();
+            }
+            var result = _userService.SavePrivateMessageVMAsync(model, User.Identity.GetUserId<int>());
+            return View();
         }
     }
 }
