@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MyLiverpoolSite.Data.Entities
 {
@@ -10,12 +9,10 @@ namespace MyLiverpoolSite.Data.Entities
 
         public int SenderId { get; set; }
 
-        [ForeignKey("SenderId")]
         public User Sender { get; set; }
 
         public int ReceiverId { get; set; }
 
-        [ForeignKey("ReceiverId")]
         public User Receiver { get; set; }
 
         [StringLength(30)]

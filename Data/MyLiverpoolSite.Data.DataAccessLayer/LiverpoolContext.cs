@@ -99,8 +99,8 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
             modelBuilder.Entity<User>().HasRequired(x => x.RoleGroup).WithMany(x => x.Users).HasForeignKey(x => x.RoleGroupId);
             modelBuilder.Entity<Role>().HasMany(x => x.RoleGroups).WithMany(x => x.Roles);//.HasForeignKey(x => x.RoleGroupId);
 
-          //  modelBuilder.Entity<PrivateMessage>().HasRequired(x => x.Sender).WithMany(x => x.PrivateMessages).HasForeignKey(x => x.SenderId);
-          //  modelBuilder.Entity<PrivateMessage>().HasRequired(x => x.Receiver).WithMany(x => x.PrivateMessages).HasForeignKey(x => x.ReceiverId);
+            modelBuilder.Entity<PrivateMessage>().HasRequired(x => x.Sender).WithMany(x => x.SentPrivateMessages).HasForeignKey(x => x.SenderId);
+            modelBuilder.Entity<PrivateMessage>().HasRequired(x => x.Receiver).WithMany(x => x.ReceivedPrivateMessages).HasForeignKey(x => x.ReceiverId);
            // modelBuilder.Entity<User>().HasMany(u => u.Children).
             // использование Fluent API
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>(); 
