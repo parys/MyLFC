@@ -157,6 +157,7 @@
     </Compile>
     <Compile Include="Roles\RoleRoleGroupVM.cs" />
     <Compile Include="Roles\RoleVM.cs" />
+    <Compile Include="Users\AllPrivateMessagesVM.cs" />
     <Compile Include="Users\CreateUserViewModel.cs" />
     <Compile Include="Roles\RoleGroupVM.cs" />
     <Compile Include="Users\PrivateMessageVM.cs" />

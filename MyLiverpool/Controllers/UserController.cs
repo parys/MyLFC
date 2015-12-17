@@ -27,7 +27,7 @@ namespace MyLiverpool.Controllers
         {
             if (!id.HasValue)
             {
-                return View(); //todo BadRequest();
+                return HttpNotFound(); //todo BadRequest();
             }
             var result = await _userService.GetUserProfile(id.Value);
             if (result == null)
@@ -40,14 +40,19 @@ namespace MyLiverpool.Controllers
         [Authorize]
         public async Task<ActionResult> PrivateMessages(int userId)
         {
-            return View();
+            var model = await _userService.GetPrivateMessagesForUser(userId);
+            return View(model);
         }
 
         [Authorize]
         [HttpGet]
-        public async Task<ActionResult> WriteMessage(int receiverId)
+        public async Task<ActionResult> WriteMessage(int? receiverId)
         {
-            var model = await _userService.GetPrivateMessageVMAsync(receiverId);
+            if (!receiverId.HasValue)
+            {
+                return HttpNotFound(); //todo BadRequest();
+            }
+            var model = await _userService.GetPrivateMessageVMAsync(receiverId.Value);
             return View(model);
         }
 
@@ -58,9 +63,18 @@ namespace MyLiverpool.Controllers
         {
             if (model == null)
             {
-                return View();
+                return View(); //todo BadRequest();
             }
-            var result = _userService.SavePrivateMessageVMAsync(model, User.Identity.GetUserId<int>());
+            var result = await _userService.SavePrivateMessageVMAsync(model, User.Identity.GetUserId<int>());
+            return View();
+        }
+
+        public async Task<ActionResult> ReadMessage(int? id)
+        {
+            if (!id.HasValue)
+            {
+                return HttpNotFound(); //todo BadRequest();
+            }
             return View();
         }
     }

@@ -1,6 +1,37 @@
-﻿@model 
+﻿@model MyLiverpoolSite.Business.ViewModels.Users.AllPrivateMessagesVM
 
 @{
-    Layout = null;
-}
 
+}
+<div class="container">
+    <table>
+        <thead>
+        <tr>
+            <td>number @*todo*@</td>
+            <td>title</td>
+            <td>author</td>
+            <td>sentdate</td>
+        </tr>
+        </thead>
+        <tbody>
+            @for (var i = 0; i < Model.SentMessages.Count(); i++)
+            {
+                <tr>
+                    <td>@i</td>
+                    <td><a href="@Url.Action("ReadMessage", "User", new {id = Model.SentMessages[i].Id})">
+                        @if (!Model.SentMessages[i].IsRead)
+                        {
+                            <b>@Model.SentMessages[i].Title</b>
+                        }
+                        else
+                        {
+                            @Model.SentMessages[i].Title
+                        }
+                    </a></td>
+                    <td><a href="@Url.Action("GetUserProfile", "User", new { id = Model.SentMessages[i].SenderId })">@Model.SentMessages[i].Sender.UserName</a></td>
+                    <td>@Model.SentMessages[i].SentTime</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

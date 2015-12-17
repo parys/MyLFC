@@ -19,5 +19,7 @@ namespace MyLiverpoolSite.Business.Contracts
         Task<PrivateMessageVM> GetPrivateMessageVMAsync(int receiverId);
 
         Task<int> SavePrivateMessageVMAsync(PrivateMessageVM model, int userId);
+
+        Task<AllPrivateMessagesVM> GetPrivateMessagesForUser(int userId);
     }
 }

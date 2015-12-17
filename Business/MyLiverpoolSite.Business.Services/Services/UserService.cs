@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using MyLiverpoolSite.Business.Contracts;
@@ -72,6 +73,19 @@ namespace MyLiverpoolSite.Business.Services.Services
             _unitOfWork.PrivateMessageRepository.Add(message);
             await _unitOfWork.SaveAsync();
             return message.Id;
+        }
+
+        public async Task<AllPrivateMessagesVM> GetPrivateMessagesForUser(int userId)
+        {
+            var allMessages = await 
+                _unitOfWork.PrivateMessageRepository.GetAsync(x => x.ReceiverId == userId || x.SenderId == userId);
+            var allMessagesVm = Mapper.Map<IEnumerable<PrivateMessageVM>>(allMessages);
+            var model = new AllPrivateMessagesVM()
+            {
+                ReceivedMessages = allMessagesVm.Where(x => x.ReceiverId == userId).ToList(),
+                SentMessages = allMessagesVm.Where(x => x.SenderId == userId).ToList()
+            };
+            return model;
         }
 
         public void IsUserInRole()
