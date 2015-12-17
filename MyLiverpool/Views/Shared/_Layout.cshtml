@@ -18,9 +18,21 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/js/select2.min.js"></script>
 </head>
 <body>
-    <div class="container-fluid navbar navbar-inverse navbar-fixed-top">
-        @Html.Partial("_LoginPartial")
-    </div>
+<div class="container-fluid navbar navbar-inverse navbar-fixed-top">
+
+        <ul class="nav navbar-nav col-md-6 list-inline alert-danger">
+            <li>123</li>
+            <li class="divider"></li>
+            <li>@if (Request.IsAuthenticated)
+                {
+                    <a href="@Url.Action("PrivateMessages", "User")"><span class="glyphicon glyphicon-envelope"></span></a>
+                }
+            </li>
+            <li class="divider"></li>
+        </ul>
+   
+    @Html.Partial("_LoginPartial")
+</div>
     <div class="container-fluid" style="margin-top: 50px">
         <header class="navbar navbar-default navbar-static-top">
             <div class="navbar-header">

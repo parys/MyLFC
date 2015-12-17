@@ -162,4 +162,22 @@
   <data name="Women" xml:space="preserve">
     <value>Женский</value>
   </data>
+  <data name="PrivateMessages" xml:space="preserve">
+    <value>Личные сообщения</value>
+  </data>
+  <data name="Received" xml:space="preserve">
+    <value>Полученные</value>
+  </data>
+  <data name="Sent" xml:space="preserve">
+    <value>Отправленные</value>
+  </data>
+  <data name="Annex" xml:space="preserve">
+    <value>Re {0} :</value>
+  </data>
+  <data name="Receiver" xml:space="preserve">
+    <value>Получатель</value>
+  </data>
+  <data name="Sender" xml:space="preserve">
+    <value>Отправитель</value>
+  </data>
 </root>

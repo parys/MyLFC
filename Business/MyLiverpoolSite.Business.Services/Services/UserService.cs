@@ -58,11 +58,28 @@ namespace MyLiverpoolSite.Business.Services.Services
         public async Task<PrivateMessageVM> GetPrivateMessageVMAsync(int receiverId)
         {
             var receiver = await _unitOfWork.UserRepository.GetByIdAsync(receiverId);
+            
             return new PrivateMessageVM()
             {
                 Receiver = receiver,
                 ReceiverId = receiverId
             };
+        }
+
+        public async Task<PrivateMessageVM> GetPrivateMessageForReadVMAsync(int messageId, int receiverId)
+        {
+            var message = await _unitOfWork.PrivateMessageRepository.GetByIdAsync(messageId);
+            if (message.ReceiverId != receiverId && message.SenderId != receiverId)
+            {
+                throw new AccessViolationException(); //todo think about it
+            }
+            if (!message.IsRead && message.ReceiverId == receiverId)
+            {
+                message.IsRead = true;
+                _unitOfWork.PrivateMessageRepository.Update(message);
+                await _unitOfWork.SaveAsync();
+            }
+            return Mapper.Map<PrivateMessageVM>(message);
         }
 
         public async Task<int> SavePrivateMessageVMAsync(PrivateMessageVM model, int userId)
@@ -78,7 +95,7 @@ namespace MyLiverpoolSite.Business.Services.Services
         public async Task<AllPrivateMessagesVM> GetPrivateMessagesForUser(int userId)
         {
             var allMessages = await 
-                _unitOfWork.PrivateMessageRepository.GetAsync(x => x.ReceiverId == userId || x.SenderId == userId);
+                _unitOfWork.PrivateMessageRepository.GetAsync(x => x.ReceiverId == userId || x.SenderId == userId, x => x.Sender);
             var allMessagesVm = Mapper.Map<IEnumerable<PrivateMessageVM>>(allMessages);
             var model = new AllPrivateMessagesVM()
             {
@@ -86,11 +103,6 @@ namespace MyLiverpoolSite.Business.Services.Services
                 SentMessages = allMessagesVm.Where(x => x.SenderId == userId).ToList()
             };
             return model;
-        }
-
-        public void IsUserInRole()
-        {
-            
         }
     }
 }

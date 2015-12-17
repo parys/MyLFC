@@ -61,6 +61,15 @@ namespace MyLiverpoolSite.Business.ViewModels.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ответить.
+        /// </summary>
+        public static string Answer {
+            get {
+                return ResourceManager.GetString("Answer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Блоги.
         /// </summary>
         public static string Blogs {
@@ -160,11 +169,29 @@ namespace MyLiverpoolSite.Business.ViewModels.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Сообщение.
+        /// </summary>
+        public static string Message {
+            get {
+                return ResourceManager.GetString("Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Новости.
         /// </summary>
         public static string News {
             get {
                 return ResourceManager.GetString("News", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Дата получения.
+        /// </summary>
+        public static string ReceivedDate {
+            get {
+                return ResourceManager.GetString("ReceivedDate", resourceCulture);
             }
         }
         
@@ -210,6 +237,24 @@ namespace MyLiverpoolSite.Business.ViewModels.Resources {
         public static string Send {
             get {
                 return ResourceManager.GetString("Send", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Дата отправки.
+        /// </summary>
+        public static string SentDate {
+            get {
+                return ResourceManager.GetString("SentDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Заголовок.
+        /// </summary>
+        public static string Title {
+            get {
+                return ResourceManager.GetString("Title", resourceCulture);
             }
         }
         

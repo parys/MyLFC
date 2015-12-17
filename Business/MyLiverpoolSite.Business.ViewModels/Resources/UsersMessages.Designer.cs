@@ -61,6 +61,15 @@ namespace MyLiverpoolSite.Business.ViewModels.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Re {0} :.
+        /// </summary>
+        public static string Annex {
+            get {
+                return ResourceManager.GetString("Annex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Дата рождения.
         /// </summary>
         public static string BirthDay {
@@ -142,6 +151,33 @@ namespace MyLiverpoolSite.Business.ViewModels.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Личные сообщения.
+        /// </summary>
+        public static string PrivateMessages {
+            get {
+                return ResourceManager.GetString("PrivateMessages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Полученные.
+        /// </summary>
+        public static string Received {
+            get {
+                return ResourceManager.GetString("Received", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Получатель.
+        /// </summary>
+        public static string Receiver {
+            get {
+                return ResourceManager.GetString("Receiver", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Дата регистрации.
         /// </summary>
         public static string RegistrationDate {
@@ -165,6 +201,24 @@ namespace MyLiverpoolSite.Business.ViewModels.Resources {
         public static string RememberMe {
             get {
                 return ResourceManager.GetString("RememberMe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Отправитель.
+        /// </summary>
+        public static string Sender {
+            get {
+                return ResourceManager.GetString("Sender", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Отправленные.
+        /// </summary>
+        public static string Sent {
+            get {
+                return ResourceManager.GetString("Sent", resourceCulture);
             }
         }
         

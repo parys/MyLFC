@@ -1,7 +1,9 @@
 ﻿using System.Threading.Tasks;
 using System.Web.Mvc;
+using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
 using MyLiverpoolSite.Business.Contracts;
+using MyLiverpoolSite.Business.ViewModels.Resources;
 using MyLiverpoolSite.Business.ViewModels.Users;
 
 namespace MyLiverpool.Controllers
@@ -38,21 +40,26 @@ namespace MyLiverpool.Controllers
         }
 
         [Authorize]
-        public async Task<ActionResult> PrivateMessages(int userId)
+        public async Task<ActionResult> PrivateMessages()
         {
-            var model = await _userService.GetPrivateMessagesForUser(userId);
+            var model = await _userService.GetPrivateMessagesForUser(User.Identity.GetUserId<int>());
             return View(model);
         }
 
         [Authorize]
         [HttpGet]
-        public async Task<ActionResult> WriteMessage(int? receiverId)
+        public async Task<ActionResult> WriteMessage(int? receiverId, string answerTitle = null)
         {
             if (!receiverId.HasValue)
             {
                 return HttpNotFound(); //todo BadRequest();
             }
             var model = await _userService.GetPrivateMessageVMAsync(receiverId.Value);
+            if (!answerTitle.IsNullOrWhiteSpace())
+            {
+                int answerNumber = 1;
+                model.Title = string.Format(UsersMessages.Annex, answerNumber) + answerTitle; //todo move it to service and add counter
+            }
             return View(model);
         }
 
@@ -75,7 +82,8 @@ namespace MyLiverpool.Controllers
             {
                 return HttpNotFound(); //todo BadRequest();
             }
-            return View();
+            var model = await _userService.GetPrivateMessageForReadVMAsync(id.Value, User.Identity.GetUserId<int>());
+            return View(model);
         }
     }
 }
