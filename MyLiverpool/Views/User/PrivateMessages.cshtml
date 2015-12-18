@@ -27,19 +27,19 @@
                     <tr>
                         <td>@i</td>
                         <td>
-                            <a href="@Url.Action("ReadMessage", "User", new {id = Model.SentMessages[i].Id})">
-                                @if (!Model.SentMessages[i].IsRead)
+                            <a href="@Url.Action("ReadMessage", "User", new {id = Model.ReceivedMessages[i].Id})">
+                                @if (!Model.ReceivedMessages[i].IsRead)
                                 {
-                                    <b>@Model.SentMessages[i].Title</b>
+                                    <b>@Model.ReceivedMessages[i].Title</b>
                                 }
                                 else
                                 {
-                                    @Model.SentMessages[i].Title
+                                    @Model.ReceivedMessages[i].Title
                                 }
                             </a>
                         </td>
-                        <td><a href="@Url.Action("GetUserProfile", "User", new {id = Model.SentMessages[i].SenderId})">@Model.SentMessages[i].Sender.UserName</a></td>
-                        <td>@Model.SentMessages[i].SentTime</td>
+                        <td><a href="@Url.Action("GetUserProfile", "User", new {id = Model.ReceivedMessages[i].SenderId})">@Model.ReceivedMessages[i].Sender.UserName</a></td>
+                        <td>@Model.ReceivedMessages[i].SentTime</td>
                     </tr>
                 }
             </tbody>

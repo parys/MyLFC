@@ -19,8 +19,10 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
             {
                 InitializeRoleGroups(context);
                 InitializeRoles(context);
+
                 InitializeAdmin(context);
                 InitializeDeletedUser(context);
+                InitializeSimpleUser(context);
 
                 InitializeForumSections(context);
                 InitializeForumSubsections(context);
@@ -28,10 +30,13 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
 
                 InitializeNewsCategories(context);
                 InitializeNews(context);
+
+                InitializePrivateMessages(context);
                 //    InitializeDeletedUser(context);
             }
         }
 
+        #region roles
         private void InitializeRoleGroups(LiverpoolContext context)
         {
             var roleStore = new RoleStore<Role, int, UserRole>(context);
@@ -136,7 +141,9 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
             //roleManager.Create(new Role { Name = RolesEnum.User.ToString() });
             //   context.SaveChanges();
         }
+        #endregion
 
+        #region users 
         private void InitializeDeletedUser(LiverpoolContext context)
         {
             const string email = "deleted@deleted.com";
@@ -160,6 +167,27 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
             userManager.AddToRole(user.Id, RolesEnum.Simple.ToString());
         }
 
+        private void InitializeSimpleUser(LiverpoolContext context)
+        {
+            const string email = "user@user.com";
+
+            var user = new User
+            {
+                UserName = "user",
+                Email = email,
+                Verify = true,
+                LastModified = DateTime.Now,
+                RegistrationDate = DateTime.Now,
+                RoleGroupId = 2 //todo change to simple user
+            };
+
+            var userStore = new UserStore<User, Role, int, UserLogin, UserRole, UserClaim>(context);
+            var userManager = new UserManager<User, int>(userStore);
+
+            userManager.Create(user, "123456");
+
+            userManager.AddToRole(user.Id, RolesEnum.Simple.ToString());
+        }
 
         private void InitializeAdmin(LiverpoolContext context)
         {
@@ -184,7 +212,6 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
             foreach (var role in adminRoles)
             {
                 userManager.AddToRole(user.Id, role.Name);
-              //  userManager.AddToRole(user.Id, RoleGroupsEnum.Admin.ToString());
             }
 
             //var result = await manager.CreateAsync(user, password);
@@ -206,6 +233,8 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
             //context.Roles.AddOrUpdate(adminRole);
             //context.SaveChanges();
         }
+        #endregion
+
 
         private void InitializeForumSections(LiverpoolContext context)
         {
@@ -761,6 +790,53 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
             news.ForEach(x => context.NewsItems.Add(x));
             context.SaveChanges();
         }
+
+        private void InitializePrivateMessages(LiverpoolContext context)
+        {
+            var pms = new List<PrivateMessage>()
+            {
+                new PrivateMessage()
+                {
+                    SenderId = 1,
+                    ReceiverId = 2,
+                    IsRead = false,
+                    SentTime = DateTime.Now.AddDays(-5),
+                    Title = "title 1",
+                    Message = "mess 1"
+                },
+                new PrivateMessage()
+                {
+                    SenderId = 1,
+                    ReceiverId = 2,
+                    IsRead = true,
+                    SentTime = DateTime.Now.AddDays(-3),
+                    Title = "title 2",
+                    Message = "mess 2"
+                },
+                new PrivateMessage()
+                {
+                    SenderId = 2,
+                    ReceiverId = 1,
+                    IsRead = false,
+                    SentTime = DateTime.Now.AddDays(-5),
+                    Title = "title 3",
+                    Message = "mess 3"
+                },
+                new PrivateMessage()
+                {
+                    SenderId = 2,
+                    ReceiverId = 1,
+                    IsRead = true,
+                    SentTime = DateTime.Now.AddDays(-3),
+                    Title = "title 4",
+                    Message = "mess 4"
+                },
+            };
+
+            pms.ForEach(x => context.PrivateMessages.Add(x));
+            context.SaveChanges();
+        }
+
 
         private static string GetEnumDescription(Enum value)
         {

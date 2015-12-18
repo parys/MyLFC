@@ -187,6 +187,15 @@ namespace MyLiverpoolSite.Business.ViewModels.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Читать л/с.
+        /// </summary>
+        public static string ReadPM {
+            get {
+                return ResourceManager.GetString("ReadPM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Дата получения.
         /// </summary>
         public static string ReceivedDate {
@@ -246,6 +255,15 @@ namespace MyLiverpoolSite.Business.ViewModels.Resources {
         public static string SentDate {
             get {
                 return ResourceManager.GetString("SentDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MyLiverpool.ru.
+        /// </summary>
+        public static string SiteTitleAddress {
+            get {
+                return ResourceManager.GetString("SiteTitleAddress", resourceCulture);
             }
         }
         

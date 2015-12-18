@@ -159,6 +159,9 @@
   <data name="News" xml:space="preserve">
     <value>Новости</value>
   </data>
+  <data name="ReadPM" xml:space="preserve">
+    <value>Читать л/с</value>
+  </data>
   <data name="ReceivedDate" xml:space="preserve">
     <value>Дата получения</value>
   </data>
@@ -179,6 +182,9 @@
   </data>
   <data name="SentDate" xml:space="preserve">
     <value>Дата отправки</value>
+  </data>
+  <data name="SiteTitleAddress" xml:space="preserve">
+    <value>MyLiverpool.ru</value>
   </data>
   <data name="Title" xml:space="preserve">
     <value>Заголовок</value>
