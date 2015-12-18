@@ -38,7 +38,7 @@
                                 }
                             </a>
                         </td>
-                        <td><a href="@Url.Action("GetUserProfile", "User", new {id = Model.ReceivedMessages[i].SenderId})">@Model.ReceivedMessages[i].Sender.UserName</a></td>
+                        <td><a href="@Url.Action("Profile", "User", new {id = Model.ReceivedMessages[i].SenderId})">@Model.ReceivedMessages[i].Sender.UserName</a></td>
                         <td>@Model.ReceivedMessages[i].SentTime</td>
                     </tr>
                 }
@@ -72,7 +72,7 @@
                                 }
                             </a>
                         </td>
-                        <td><a href="@Url.Action("GetUserProfile", "User", new {id = Model.SentMessages[i].SenderId})">@Model.SentMessages[i].Sender.UserName</a></td>
+                        <td><a href="@Url.Action("Profile", "User", new {id = Model.SentMessages[i].SenderId})">@Model.SentMessages[i].Sender.UserName</a></td>
                         <td>@Model.SentMessages[i].SentTime</td>
                     </tr>
                 }

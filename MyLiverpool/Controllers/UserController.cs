@@ -20,12 +20,12 @@ namespace MyLiverpool.Controllers
 
         
         public async Task<ActionResult> Index(int page = 1)
-        {
+        { 
             var result = await _userService.GetAll(page);
             return View(result);
         }
 
-        public async Task<ActionResult> GetUserProfile(int? id)
+        public async Task<ActionResult> Profile(int? id)
         {
             if (!id.HasValue)
             {

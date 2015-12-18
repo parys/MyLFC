@@ -52,6 +52,7 @@ namespace MyLiverpoolSite.Business.Services.Services
         {
             var user = await _unitOfWork.UserRepository.GetByIdAsync(id);
             var result = Mapper.Map<UserViewModel>(user);
+            result.RoleGroups = await _unitOfWork.RoleGroupRepository.GetAsync();
             return result;
         }
 

@@ -180,4 +180,7 @@
   <data name="Sender" xml:space="preserve">
     <value>Отправитель</value>
   </data>
+  <data name="Group" xml:space="preserve">
+    <value>Группа</value>
+  </data>
 </root>

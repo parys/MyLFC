@@ -135,6 +135,14 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                         adminRoleGroup
                     }
                 },
+                new Role()
+                {
+                    Name = RolesEnum.AdminFull.ToString(),
+                    RoleGroups = new List<RoleGroup>()
+                    {
+                        adminRoleGroup
+                    }
+                },
             };
             //  roles.ForEach(x => context.Roles.Add(x));
             roles.ForEach(x => roleManager.Create(x));

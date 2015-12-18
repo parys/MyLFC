@@ -267,7 +267,9 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\ru.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -319,7 +321,7 @@
     <None Include="Views\News\Categories.cshtml" />
     <Content Include="Views\Role\Index.cshtml" />
     <Content Include="Views\Shared\_NewsList.cshtml" />
-    <None Include="Views\User\GetUserProfile.cshtml" />
+    <None Include="Views\User\Profile.cshtml" />
     <None Include="Views\User\PrivateMessages.cshtml" />
     <None Include="Views\User\ReadMessage.cshtml" />
     <None Include="Views\User\WriteMessage.cshtml" />

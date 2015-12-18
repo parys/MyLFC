@@ -1,10 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
+using MyLiverpoolSite.Business.ViewModels.Roles;
 using MyLiverpoolSite.Data.Entities;
 
 namespace MyLiverpoolSite.Business.ViewModels.Users
 {
     public class UserViewModel
     {
+        public UserViewModel()
+        {
+            this.RoleGroups = new HashSet<RoleGroup>();
+        }
+
         public int Id { get; set; }
 
         public string UserName { get; set; }
@@ -28,5 +35,9 @@ namespace MyLiverpoolSite.Business.ViewModels.Users
         public DateTime LastModified { get; set; }
 
         public RoleGroup RoleGroup { get; set; }
+
+        public int RoleGroupId { get; set; }
+
+        public virtual ICollection<RoleGroup> RoleGroups { get; set; }
     }
 }

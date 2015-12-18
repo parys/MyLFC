@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
+﻿using System.Threading.Tasks;
 using System.Web.Mvc;
 using MyLiverpoolSite.Business.Contracts;
 
 namespace MyLiverpool.Controllers
 {
+    [Authorize(Roles = "AdminFull")]
     public class RoleController : Controller
     {
         private readonly IRoleService _roleService;
