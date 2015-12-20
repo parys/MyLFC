@@ -4,7 +4,8 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - CommonMessages.SiteTitleAddress</title>
+    <title>@ViewBag.Title - @CommonMessages.SiteTitleAddress</title>
+    <link rel="shortcut icon" type="image/x-icon" href="~/Content/favicon.ico" />
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
@@ -91,7 +92,7 @@
         </div>
         <hr />
         <footer class="bottom container-fluid">
-            <p>&copy; @DateTime.Now.Year - CommonMessages.SiteTitleAddress</p>
+            <p>&copy; @DateTime.Now.Year - @CommonMessages.SiteTitleAddress</p>
         </footer>
     </div>
     @Scripts.Render("~/bundles/bootstrap")

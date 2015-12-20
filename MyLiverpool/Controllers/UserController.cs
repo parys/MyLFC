@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
@@ -76,6 +77,7 @@ namespace MyLiverpool.Controllers
             return View();
         }
 
+        [Authorize]
         public async Task<ActionResult> ReadMessage(int? id)
         {
             if (!id.HasValue)
@@ -84,6 +86,17 @@ namespace MyLiverpool.Controllers
             }
             var model = await _userService.GetPrivateMessageForReadVMAsync(id.Value, User.Identity.GetUserId<int>());
             return View(model);
+        }
+
+        [Authorize(Roles = "AdminFull")] //todo change to Moderator
+        public async Task<JsonResult> BanUser(int? userId, DateTime? endDate)
+        {
+            if (!userId.HasValue || !endDate.HasValue)
+            {
+                return Json(false);
+            }
+            var result = await _userService.BanUser(userId.Value, endDate.Value);
+            return Json(result);
         }
     }
 }

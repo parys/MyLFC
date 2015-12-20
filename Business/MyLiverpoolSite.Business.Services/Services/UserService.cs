@@ -4,6 +4,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using MyLiverpoolSite.Business.Contracts;
 using MyLiverpoolSite.Business.ViewModels.Users;
 using MyLiverpoolSite.Data.DataAccessLayer;
@@ -104,6 +106,14 @@ namespace MyLiverpoolSite.Business.Services.Services
                 SentMessages = allMessagesVm.Where(x => x.SenderId == userId).ToList()
             };
             return model;
+        }
+
+        public async Task<bool> BanUser(int userId, DateTime endDate)
+        {
+            var userStore = new UserStore<User, Role, int, UserLogin, UserRole, UserClaim>(new LiverpoolContext()); //todo move to 1 place
+            var userManager = new UserManager<User, int>(userStore); //todo move it
+            var result = await userManager.SetLockoutEndDateAsync(userId, endDate);
+            return result == IdentityResult.Success;
         }
     }
 }

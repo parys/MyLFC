@@ -120,6 +120,9 @@
   <data name="Answer" xml:space="preserve">
     <value>Ответить</value>
   </data>
+  <data name="Ban" xml:space="preserve">
+    <value>Забанькать</value>
+  </data>
   <data name="Blogs" xml:space="preserve">
     <value>Блоги</value>
   </data>
@@ -128,6 +131,9 @@
   </data>
   <data name="Categories" xml:space="preserve">
     <value>Категории</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>Изменить</value>
   </data>
   <data name="Create" xml:space="preserve">
     <value>Добавить</value>
@@ -173,6 +179,9 @@
   </data>
   <data name="Reply" xml:space="preserve">
     <value>Ответить</value>
+  </data>
+  <data name="RoleEditing" xml:space="preserve">
+    <value>Изменение роли</value>
   </data>
   <data name="Roles" xml:space="preserve">
     <value>Роли</value>

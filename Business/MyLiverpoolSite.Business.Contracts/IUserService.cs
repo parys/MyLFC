@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using MyLiverpoolSite.Business.ViewModels.Users;
 using MyLiverpoolSite.Data.DataAccessLayer;
 
@@ -23,5 +24,7 @@ namespace MyLiverpoolSite.Business.Contracts
         Task<int> SavePrivateMessageVMAsync(PrivateMessageVM model, int userId);
 
         Task<AllPrivateMessagesVM> GetPrivateMessagesForUser(int userId);
+
+        Task<bool> BanUser(int userId, DateTime endDate);
     }
 }

@@ -5,6 +5,8 @@ namespace MyLiverpoolSite.Business.Contracts
 {
     public interface IRoleService
     {
-        Task<RoleRoleGroupVM> GetAllGroups(int page);
+        Task<RoleRoleGroupVM> GetAllGroupsAsync(int page);
+
+        Task<bool> EditRoleGroupAsync(int newRoleGroupId, int userId);
     }
 }

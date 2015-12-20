@@ -70,6 +70,15 @@ namespace MyLiverpoolSite.Business.ViewModels.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Вы действительно хотите забанить пользователя ?.
+        /// </summary>
+        public static string BanUserQuestion {
+            get {
+                return ResourceManager.GetString("BanUserQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Дата рождения.
         /// </summary>
         public static string BirthDay {

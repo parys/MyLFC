@@ -70,6 +70,15 @@ namespace MyLiverpoolSite.Business.ViewModels.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Забанькать.
+        /// </summary>
+        public static string Ban {
+            get {
+                return ResourceManager.GetString("Ban", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Блоги.
         /// </summary>
         public static string Blogs {
@@ -93,6 +102,15 @@ namespace MyLiverpoolSite.Business.ViewModels.Resources {
         public static string Categories {
             get {
                 return ResourceManager.GetString("Categories", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Изменить.
+        /// </summary>
+        public static string Change {
+            get {
+                return ResourceManager.GetString("Change", resourceCulture);
             }
         }
         
@@ -228,6 +246,15 @@ namespace MyLiverpoolSite.Business.ViewModels.Resources {
         public static string Reply {
             get {
                 return ResourceManager.GetString("Reply", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Изменение роли.
+        /// </summary>
+        public static string RoleEditing {
+            get {
+                return ResourceManager.GetString("RoleEditing", resourceCulture);
             }
         }
         

@@ -19,7 +19,6 @@
         <tbody>
             @foreach (var user in Model.List)
             {
-
                 <tr>
                     <td class="">
                         @user.LastModified
@@ -35,7 +34,7 @@
                         @user.RegistrationDate
                     </td>
                     <td class="">
-                        @user.RegistrationDate
+                        @user.RoleGroup.Name
                     </td>
                 </tr>
 

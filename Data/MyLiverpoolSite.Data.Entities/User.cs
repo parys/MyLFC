@@ -27,7 +27,6 @@ namespace MyLiverpoolSite.Data.Entities
             return userIdentity;
         }
 
-        //// public string Id { get; set; }
         // public int Id { get; set; }
         // public string Email { get; set; }
         // public bool EmailConfirmed { get; set; }

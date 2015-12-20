@@ -212,7 +212,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 RoleGroupId = 1
             };
 
-            var userStore = new UserStore<User, Role, int, UserLogin, UserRole, UserClaim>(context);
+            var userStore = new UserStore<User, Role, int, UserLogin, UserRole, UserClaim>(context); //todo move to 1 place
             var userManager = new UserManager<User, int>(userStore);
 
             userManager.Create(user, "123456");

@@ -183,4 +183,7 @@
   <data name="Group" xml:space="preserve">
     <value>Группа</value>
   </data>
+  <data name="BanUserQuestion" xml:space="preserve">
+    <value>Вы действительно хотите забанить пользователя ?</value>
+  </data>
 </root>

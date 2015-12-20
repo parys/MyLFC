@@ -24,7 +24,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
         private IGenericRepository<ForumSubsection> _forumSubsectionRepository;
         private IGenericRepository<ForumMessage> _forumMessageRepository;
         private IGenericRepository<UserClaim> _userClaimRepository;
-      //  private IGenericRepository<UserRole> _userRoleRepository;
+       //  private IGenericRepository<UserRole> _userRoleRepository;
        // private IGenericRepository<UserLogin> _userLoginRepository;
         private IGenericRepository<Role> _roleRepository;
         private IGenericRepository<RoleGroup> _roleGroupRepository;
@@ -60,7 +60,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
         public IGenericRepository<ForumMessage> ForumMessageRepository => _forumMessageRepository ?? (_forumMessageRepository = new GenericRepository<ForumMessage>(_context));
        // public IGenericRepository<UserLogin> UserLoginRepository => _userLoginRepository ?? (_userLoginRepository = new GenericRepository<UserLogin>(_context));
         public IGenericRepository<UserClaim> UserClaimRepository => _userClaimRepository ?? (_userClaimRepository = new GenericRepository<UserClaim>(_context));
-     //   public IGenericRepository<UserRole> UserRoleRepository => UserRoleRepository ?? (_userRoleRepository = new GenericRepository<UserRole>(_context));
+      //   public IGenericRepository<UserRole> UserRoleRepository => UserRoleRepository ?? (_userRoleRepository = new GenericRepository<UserRole>(_context));
         public IGenericRepository<Role> RoleRepository => _roleRepository ?? (_roleRepository = new GenericRepository<Role>(_context));
         public IGenericRepository<RoleGroup> RoleGroupRepository => _roleGroupRepository ?? (_roleGroupRepository = new GenericRepository<RoleGroup>(_context));
 
