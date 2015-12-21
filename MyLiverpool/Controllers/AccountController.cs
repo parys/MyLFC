@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -82,7 +83,7 @@ namespace MyLiverpool.Controllers
                 case SignInStatus.Success:
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
-                    return View("Lockout");
+                    return RedirectToAction("Lockout", new { userName = model.UserName });
                 case SignInStatus.RequiresVerification:
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
@@ -90,6 +91,17 @@ namespace MyLiverpool.Controllers
                     ModelState.AddModelError("", "Invalid login attempt.");
                     return View(model);
             }
+        }
+
+        [AllowAnonymous]
+        public async Task<ActionResult> Lockout(string userName)
+        {
+            if (userName.IsNullOrWhiteSpace())
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            var model = await _accountService.GetLockOutEndDateAsync(userName);
+            return View(model);
         }
 
         //
@@ -414,7 +426,7 @@ namespace MyLiverpool.Controllers
         [HttpPost]
         public async Task<JsonResult> IsUserNameUnique(string userName)
         {
-            var result = await _accountService.IsUserNameUnique(userName);
+            var result = await _accountService.IsUserNameUniqueAsync(userName);
             return Json(result);
         }
 
@@ -422,7 +434,7 @@ namespace MyLiverpool.Controllers
         [HttpPost]
         public async Task<JsonResult> IsEmailUnique(string email)
         {
-            var result = await _accountService.IsEmailUnique(email);
+            var result = await _accountService.IsEmailUniqueAsync(email);
             return Json(result);
         }
 

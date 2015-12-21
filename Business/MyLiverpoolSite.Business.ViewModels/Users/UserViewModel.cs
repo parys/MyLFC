@@ -38,6 +38,8 @@ namespace MyLiverpoolSite.Business.ViewModels.Users
 
         public int RoleGroupId { get; set; }
 
+        public DateTime? LockoutEndDateUtc { get; set; }
+
         public virtual ICollection<RoleGroup> RoleGroups { get; set; }
     }
 }

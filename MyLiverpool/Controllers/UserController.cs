@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Web.Mvc;
 using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
@@ -19,13 +18,14 @@ namespace MyLiverpool.Controllers
             _userService = userService;
         }
 
-        
+        [AllowAnonymous]
         public async Task<ActionResult> Index(int page = 1)
         { 
             var result = await _userService.GetAll(page);
             return View(result);
         }
 
+        [AllowAnonymous]
         public async Task<ActionResult> Profile(int? id)
         {
             if (!id.HasValue)
@@ -89,13 +89,13 @@ namespace MyLiverpool.Controllers
         }
 
         [Authorize(Roles = "UsersStart")]
-        public async Task<JsonResult> BanUser(int? userId, DateTime? endDate)
+        public async Task<JsonResult> BanUser( int? banDayCount, int? userId)
         {
-            if (!userId.HasValue || !endDate.HasValue)
+            if (!userId.HasValue || !banDayCount.HasValue)
             {
                 return Json(false);
             }
-            var result = await _userService.BanUser(userId.Value, endDate.Value);
+            var result = await _userService.BanUser(userId.Value, banDayCount.Value);
             return Json(result);
         }
     }

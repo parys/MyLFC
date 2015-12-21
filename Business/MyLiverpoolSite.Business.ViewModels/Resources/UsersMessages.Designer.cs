@@ -133,6 +133,15 @@ namespace MyLiverpoolSite.Business.ViewModels.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Сколько дней будет длиться бан пользователя ?.
+        /// </summary>
+        public static string HowManyDaysWillUserBanned {
+            get {
+                return ResourceManager.GetString("HowManyDaysWillUserBanned", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Дата входа.
         /// </summary>
         public static string LastLogin {
@@ -250,11 +259,11 @@ namespace MyLiverpoolSite.Business.ViewModels.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Когда закончится блокировка пользователя ?.
+        ///   Looks up a localized string similar to Активность пользователя заблокирована до.
         /// </summary>
-        public static string WhenWillUserBanEnd {
+        public static string UsersActivityBannedUntil {
             get {
-                return ResourceManager.GetString("WhenWillUserBanEnd", resourceCulture);
+                return ResourceManager.GetString("UsersActivityBannedUntil", resourceCulture);
             }
         }
         
@@ -264,6 +273,24 @@ namespace MyLiverpoolSite.Business.ViewModels.Resources {
         public static string Women {
             get {
                 return ResourceManager.GetString("Women", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вы забанены.
+        /// </summary>
+        public static string YouAreBanned {
+            get {
+                return ResourceManager.GetString("YouAreBanned", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ваша блокировка закончится.
+        /// </summary>
+        public static string YourBanWillEndAt {
+            get {
+                return ResourceManager.GetString("YourBanWillEndAt", resourceCulture);
             }
         }
     }

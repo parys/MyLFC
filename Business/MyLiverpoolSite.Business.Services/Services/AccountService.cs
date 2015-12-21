@@ -25,17 +25,24 @@ namespace MyLiverpoolSite.Business.Services.Services
           //  return user?.Id ?? 0;
         }
 
-        public async Task<bool> IsUserNameUnique(string userName)
+        public async Task<bool> IsUserNameUniqueAsync(string userName)
         {
             var foundUser = await _unitOfWork.UserRepository.GetAsync(x => x.UserName == userName);
             return !foundUser.Any();
         }
 
-        public async Task<bool> IsEmailUnique(string email)
+        public async Task<bool> IsEmailUniqueAsync(string email)
         {
             var foundUser = await _unitOfWork.UserRepository.GetAsync(x => x.Email == email);
             return !foundUser.Any();
         }
+
+        public async Task<DateTime> GetLockOutEndDateAsync(string userName)
+        {
+            var user = (await _unitOfWork.UserRepository.GetAsync(x => x.UserName == userName)).First();
+            return user.LockoutEndDateUtc ?? DateTime.Now;
+        }
+
 
         //public HttpCookie GetCookie(int userId, bool rememberMe)
         //{

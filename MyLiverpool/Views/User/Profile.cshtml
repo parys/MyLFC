@@ -5,11 +5,12 @@
     ViewBag.Title = @Model.UserName;
 }
 
-<h2>@Model.UserName
-    @if (User.Identity.GetUserId<int>() != Model.Id)
-    {
-        <a href="@Url.Action("WriteMessage", "User", new {receiverId = Model.Id})"><span class="glyphicon glyphicon-envelope"></span></a>
-    }
+<h2>
+    @Model.UserName
+@if (User.Identity.GetUserId<int>() != Model.Id)
+{
+    <a href="@Url.Action("WriteMessage", "User", new {receiverId = Model.Id})"><span class="glyphicon glyphicon-envelope"></span></a>
+}
 </h2>
 
 <form class="form-horizontal" role="form">
@@ -17,10 +18,14 @@
         <label class="col-sm-2 control-label">@UsersMessages.UserName</label>
         <div class="col-sm-10">
             <span class="form-control">@Model.UserName</span>
-@if (User.IsInRole("UsersStart"))
-{
-    <a data-toggle="modal" data-target="#confirmBan">@CommonMessages.Ban</a>
-}
+            @if (User.IsInRole("UsersStart"))
+            {
+                <a data-toggle="modal" data-target="#confirmBan">@CommonMessages.Ban</a>
+            }
+            @if (Model.LockoutEndDateUtc.HasValue)
+            {
+                <span class="row">@UsersMessages.UsersActivityBannedUntil @Model.LockoutEndDateUtc.Value</span>
+            }
         </div>
     </div>
     <div class="form-group">
@@ -28,7 +33,7 @@
         <div class="col-sm-10">
             @if (User.IsInRole("AdminFull"))
             {
-                @Html.DropDownListFor(x => x.RoleGroupId, new SelectList(Model.RoleGroups, "Id", "RussianName", Model.RoleGroupId), new { @class = "form-control"})
+                @Html.DropDownListFor(x => x.RoleGroupId, new SelectList(Model.RoleGroups, "Id", "RussianName", Model.RoleGroupId), new { @class = "form-control" })
             }
             else
             {
@@ -97,16 +102,13 @@
                 <h4 class="modal-title">@UsersMessages.BanUserQuestion</h4>
             </div>
             <div class="modal-body">
+                <h3>@Model.UserName</h3>
                 <div class="form-group">
-                    <label class="col-md-12 control-label">@UsersMessages.WhenWillUserBanEnd</label> 
+                    <label class="col-md-12 control-label">@UsersMessages.HowManyDaysWillUserBanned</label>
                     <div class="col-md-9 input-group date">
-                        <input class="form-control datepicker" />
-                        <div class="input-group-addon">
-                            <span class="glyphicon glyphicon-th"></span>
-                        </div>
+                        <input id="banDayCount" class="form-control" required="required" />
                     </div>
                 </div>
-                <h3>@Model.UserName</h3>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal" id="cancelBan">@CommonMessages.Cancel</button>
@@ -117,6 +119,11 @@
 </div><!-- /.modal -->
 
 <script>
+    $('.datepicker').datepicker({
+        format: 'dd/mm/yyyy',
+        language: 'ru'
+    });
+
     var previousId = @Model.RoleGroupId;
     $('#RoleGroupId').on('change', function() {
         console.log($('#RoleGroupId').val());
@@ -131,11 +138,10 @@
             type: 'post',
             url: '@Url.Action("EditRoleGroup", "Role")',
             data: { newRoleGroupId: newRoleGroupId, userId: @Model.Id },
-            beforeSend: function () {
+            beforeSend: function() {
 
             },
-            success: function (response) {
-             
+            success: function(response) {
                 if (response) {
                     $('#').val('');
                     $('#confirmChangeRole').modal('hide');
@@ -150,6 +156,28 @@
     $('#applyBan').on('click', function() {
         console.log("ban buuton click");
         var userId = @Model.Id;
-        var date = 1;
+        var date = $('#banDayCount');
+        if (!date) {
+            date.addClass('input-validation-error');
+            return;
+        } else {
+            date.removeClass('input-validation-error');
+        };
+        $.ajax({
+            type: 'post',
+            url: '@Url.Action("BanUser", "User")',
+            data: { banDayCount: date.val(), userId: userId },
+            beforeSend: function() {
+
+            },
+            success: function(response) {
+                if (response) {
+                    $('#banDayCount').val('');
+                    console.log('finish');
+                } else {
+                    console.log("not delete");
+                }
+            }
+        });
     });
 </script>

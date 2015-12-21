@@ -80,10 +80,10 @@
                     },
                     success: function(response) {
                         if (response) {
-                            $('#UserName').toggleClass('input-validation-error');
+                            $('#UserName').removeClass('input-validation-error');
                             console.log('good name');
                         } else {
-                            $('#UserName').toggleClass('input-validation-error');
+                            $('#UserName').addClass('input-validation-error');
                             console.log("not good name");
                         }
                     }
@@ -104,10 +104,10 @@
                     },
                     success: function (response) {
                         if (response) {
-                            $('#Email').toggleClass('input-validation-error');
+                            $('#Email').removeClass('input-validation-error');
                             console.log('good email');
                         } else {
-                            $('#Email').toggleClass('input-validation-error');
+                            $('#Email').addClass('input-validation-error');
                             console.log("not good email");
                         }
                     }

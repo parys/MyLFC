@@ -108,11 +108,11 @@ namespace MyLiverpoolSite.Business.Services.Services
             return model;
         }
 
-        public async Task<bool> BanUser(int userId, DateTime endDate)
+        public async Task<bool> BanUser(int userId, int banDayCount)
         {
             var userStore = new UserStore<User, Role, int, UserLogin, UserRole, UserClaim>(new LiverpoolContext()); //todo move to 1 place
             var userManager = new UserManager<User, int>(userStore); //todo move it
-            var result = await userManager.SetLockoutEndDateAsync(userId, new DateTimeOffset(endDate));
+            var result = await userManager.SetLockoutEndDateAsync(userId, new DateTimeOffset(DateTime.Now.AddDays(banDayCount)));
             return result == IdentityResult.Success;
         }
     }

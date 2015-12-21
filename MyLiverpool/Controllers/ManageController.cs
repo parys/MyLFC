@@ -10,7 +10,7 @@ using MyLiverpoolSite.Business.ViewModels.Manage;
 
 namespace MyLiverpool.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "AdminStart")]
     public class ManageController : BaseController
     {
         private ApplicationSignInManager _signInManager;

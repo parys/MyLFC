@@ -25,6 +25,6 @@ namespace MyLiverpoolSite.Business.Contracts
 
         Task<AllPrivateMessagesVM> GetPrivateMessagesForUser(int userId);
 
-        Task<bool> BanUser(int userId, DateTime endDate);
+        Task<bool> BanUser(int userId, int banDayCount);
     }
 }

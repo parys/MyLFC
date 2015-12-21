@@ -14,12 +14,14 @@ namespace MyLiverpool.Controllers
             _forumService = forumService;
         }
 
+        [AllowAnonymous]
         public async Task<ActionResult> Index()
         {
             var model = await _forumService.Get();
             return View(model);
         }
 
+        [AllowAnonymous]
         public async Task<ActionResult> IndexSubsection(int? id, int page = 1)
         {
             if (!id.HasValue)
@@ -30,6 +32,7 @@ namespace MyLiverpool.Controllers
             return View(model);
         }
 
+        [AllowAnonymous]
         public async Task<ActionResult> IndexTheme(int? id, int page = 1)
         {
             if (!id.HasValue)

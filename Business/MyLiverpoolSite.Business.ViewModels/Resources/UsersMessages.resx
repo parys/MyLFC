@@ -186,7 +186,16 @@
   <data name="BanUserQuestion" xml:space="preserve">
     <value>Вы действительно хотите забанить пользователя ?</value>
   </data>
-  <data name="WhenWillUserBanEnd" xml:space="preserve">
-    <value>Когда закончится блокировка пользователя ?</value>
+  <data name="HowManyDaysWillUserBanned" xml:space="preserve">
+    <value>Сколько дней будет длиться бан пользователя ?</value>
+  </data>
+  <data name="UsersActivityBannedUntil" xml:space="preserve">
+    <value>Активность пользователя заблокирована до</value>
+  </data>
+  <data name="YouAreBanned" xml:space="preserve">
+    <value>Вы забанены</value>
+  </data>
+  <data name="YourBanWillEndAt" xml:space="preserve">
+    <value>Ваша блокировка закончится</value>
   </data>
 </root>

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 namespace MyLiverpoolSite.Business.Contracts
 {
@@ -8,8 +9,10 @@ namespace MyLiverpoolSite.Business.Contracts
 
       //  HttpCookie GetCookie(int userId, bool rememberMe);
 
-        Task<bool> IsUserNameUnique(string userName);
+        Task<bool> IsUserNameUniqueAsync(string userName);
 
-        Task<bool> IsEmailUnique(string email);
+        Task<bool> IsEmailUniqueAsync(string email);
+
+        Task<DateTime> GetLockOutEndDateAsync(string userName);
     }
 }

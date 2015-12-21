@@ -20,6 +20,7 @@ namespace MyLiverpool.Controllers
         }
 
         // GET: News
+        [AllowAnonymous]
         public async Task<ActionResult> Index(int page = 1, int? categoryId = null)
         {
             var model = await _newsService.GetAllAsync(page, categoryId);
@@ -28,6 +29,7 @@ namespace MyLiverpool.Controllers
         }
 
         // GET: News/Details/5
+        [AllowAnonymous]
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
@@ -100,11 +102,15 @@ namespace MyLiverpool.Controllers
         }
 
         // GET: News/Delete/5
-      //  [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "NewsStart")]
         [HttpPost]
         public async Task<ActionResult> Delete(int? id)
         {
             if (!id.HasValue)
+            {
+                return HttpNotFound();
+            }
+            if (!User.IsInRole("NewsFull"))
             {
                 return HttpNotFound();
             }
@@ -121,6 +127,7 @@ namespace MyLiverpool.Controllers
             base.Dispose(disposing);
         }
 
+        [Authorize(Roles = "NewsStart")]
         public async Task<ActionResult> Activate(int? id)
         {
             if (!id.HasValue)
@@ -149,7 +156,7 @@ namespace MyLiverpool.Controllers
             return Json(result);
         }
 
-        [Authorize]
+        [Authorize(Roles = "ModeratorStart")]
         [HttpPost]
         public async Task<ActionResult> DeleteComment(int? id)
         {
@@ -161,6 +168,7 @@ namespace MyLiverpool.Controllers
             return Json(result);
         }
 
+        [AllowAnonymous]
         public async Task<ActionResult> Categories()
         {
             var model = await _newsService.GetCategoriesAsync();
