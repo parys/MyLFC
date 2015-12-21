@@ -13,19 +13,20 @@
     {
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-3">@item.Name</div>
+                <div class="col-md-3">@item.RussianName</div>
                 <div class="col-md-9">
                     @* <select multiple>
     @Html.DropDownList("edit", new SelectList(Model.Roles, "Id", "Name"), string.Empty, new { @class = "select", autofocus = "", multiple = "multiple" })*@
-                    @foreach(var role in item.Roles) {
+                    @foreach (var role in item.Roles)
+                    {
                         @role.Name<br/>
                     }
-       @* @Html.DropDownList("reviewers", new SelectList(Model.Users, "UserId", "FullName"), string.Empty, new { @class = "select", autofocus = "", multiple = "true", style = "width: 480px;" })
+                    @* @Html.DropDownList("reviewers", new SelectList(Model.Users, "UserId", "FullName"), string.Empty, new { @class = "select", autofocus = "", multiple = "true", style = "width: 480px;" })
         @Html.DropDownList("edit-reviewers", new SelectList(Model.Users, "UserId", "FullName"), string.Empty, new { @class = "select", multiple = "true", style = "width: 480px;" })
-    </div>                     *@  
-                   @* </select>*@
+    </div>                     *@
+                    @* </select>*@
                 </div>
-                <hr />
+
                 @*<a href="@Url.Action("Details", "News", new {id = item.Id})" class="col-md-9"><span>@Html.DisplayFor(modelItem => item.Title)</span></a>
                     @if (Request.IsAuthenticated)
                     {
@@ -55,6 +56,7 @@
                     <li class="">@Html.DisplayFor(modelItem => item.Author.UserName)</li>
                 </ul>*@
         </div>
+        <hr />
     }
 </div>
 @*<div class="pagination">

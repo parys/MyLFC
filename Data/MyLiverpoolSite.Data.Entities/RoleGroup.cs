@@ -13,6 +13,8 @@ namespace MyLiverpoolSite.Data.Entities
 
         public string Name { get; set; }
 
+        public string RussianName { get; set; }
+
         public virtual ICollection<Role> Roles { get; set; } 
 
         public virtual ICollection<User> Users { get; set; } 

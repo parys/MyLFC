@@ -17,7 +17,7 @@
         <label class="col-sm-2 control-label">@UsersMessages.UserName</label>
         <div class="col-sm-10">
             <span class="form-control">@Model.UserName</span>
-@if (User.IsInRole("AdminFull"))
+@if (User.IsInRole("UsersStart"))
 {
     <a data-toggle="modal" data-target="#confirmBan">@CommonMessages.Ban</a>
 }
@@ -28,11 +28,11 @@
         <div class="col-sm-10">
             @if (User.IsInRole("AdminFull"))
             {
-                @Html.DropDownListFor(x => x.RoleGroupId, new SelectList(Model.RoleGroups, "Id", "Name", Model.RoleGroupId), new { @class = "form-control"})
+                @Html.DropDownListFor(x => x.RoleGroupId, new SelectList(Model.RoleGroups, "Id", "RussianName", Model.RoleGroupId), new { @class = "form-control"})
             }
             else
             {
-                <span class="form-control">@Model.RoleGroup.Name</span>
+                <span class="form-control">@Model.RoleGroup.RussianName</span>
             }
         </div>
     </div>
@@ -97,12 +97,20 @@
                 <h4 class="modal-title">@UsersMessages.BanUserQuestion</h4>
             </div>
             <div class="modal-body">
+                <div class="form-group">
+                    <label class="col-md-12 control-label">@UsersMessages.WhenWillUserBanEnd</label> 
+                    <div class="col-md-9 input-group date">
+                        <input class="form-control datepicker" />
+                        <div class="input-group-addon">
+                            <span class="glyphicon glyphicon-th"></span>
+                        </div>
+                    </div>
+                </div>
                 <h3>@Model.UserName</h3>
-                <p>@CommonMessages.Ban?</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal" id="cancelBan">@CommonMessages.Cancel</button>
-                <button type="button" class="btn btn-primary" id="applyBan">@CommonMessages.Change</button>
+                <button type="button" class="btn btn-primary" id="applyBan">@CommonMessages.Ban</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -139,9 +147,9 @@
         });
     });
 
-    @*$('#banButton').on('click', function() {
+    $('#applyBan').on('click', function() {
         console.log("ban buuton click");
         var userId = @Model.Id;
-        var date = $();
-    });*@
+        var date = 1;
+    });
 </script>

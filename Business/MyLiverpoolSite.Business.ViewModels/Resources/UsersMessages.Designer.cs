@@ -250,6 +250,15 @@ namespace MyLiverpoolSite.Business.ViewModels.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Когда закончится блокировка пользователя ?.
+        /// </summary>
+        public static string WhenWillUserBanEnd {
+            get {
+                return ResourceManager.GetString("WhenWillUserBanEnd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Женский.
         /// </summary>
         public static string Women {

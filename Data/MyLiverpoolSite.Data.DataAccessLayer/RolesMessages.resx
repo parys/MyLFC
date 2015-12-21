@@ -117,76 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Email" xml:space="preserve">
-    <value>Email</value>
+  <data name="AdminAssistance" xml:space="preserve">
+    <value>Помощник администратора</value>
   </data>
-  <data name="UserName" xml:space="preserve">
-    <value>Логин</value>
+  <data name="Administrator" xml:space="preserve">
+    <value>Администратор</value>
   </data>
-  <data name="Password" xml:space="preserve">
-    <value>Пароль</value>
+  <data name="Author" xml:space="preserve">
+    <value>Автор</value>
   </data>
-  <data name="PasswordConfirmation" xml:space="preserve">
-    <value>Подтверждение пароля</value>
+  <data name="Editor" xml:space="preserve">
+    <value>Редактор</value>
   </data>
-  <data name="FullName" xml:space="preserve">
-    <value>Полное имя</value>
+  <data name="Intern" xml:space="preserve">
+    <value>Стажёр</value>
   </data>
-  <data name="BirthDay" xml:space="preserve">
-    <value>Дата рождения</value>
+  <data name="MainEditor" xml:space="preserve">
+    <value>Главный редактор</value>
   </data>
-  <data name="RememberMe" xml:space="preserve">
-    <value>Запомнить?</value>
-    <comment>Remember me?</comment>
+  <data name="MainModerator" xml:space="preserve">
+    <value>Главный модератор</value>
   </data>
-  <data name="RememberBrowser" xml:space="preserve">
-    <value>Запомнить этот браузер?</value>
-    <comment>Remember this browser?</comment>
+  <data name="MainNewsmaker" xml:space="preserve">
+    <value>Главный ньюсмейкер</value>
   </data>
-  <data name="Code" xml:space="preserve">
-    <value>Код</value>
-    <comment>Code</comment>
+  <data name="Moderator" xml:space="preserve">
+    <value>Модератор</value>
   </data>
-  <data name="Gender" xml:space="preserve">
-    <value>Пол</value>
-  </data>
-  <data name="LastLogin" xml:space="preserve">
-    <value>Дата входа</value>
-  </data>
-  <data name="Men" xml:space="preserve">
-    <value>Мужской</value>
-  </data>
-  <data name="RegistrationDate" xml:space="preserve">
-    <value>Дата регистрации</value>
-  </data>
-  <data name="Women" xml:space="preserve">
-    <value>Женский</value>
-  </data>
-  <data name="PrivateMessages" xml:space="preserve">
-    <value>Личные сообщения</value>
-  </data>
-  <data name="Received" xml:space="preserve">
-    <value>Полученные</value>
-  </data>
-  <data name="Sent" xml:space="preserve">
-    <value>Отправленные</value>
-  </data>
-  <data name="Annex" xml:space="preserve">
-    <value>Re {0} :</value>
-  </data>
-  <data name="Receiver" xml:space="preserve">
-    <value>Получатель</value>
-  </data>
-  <data name="Sender" xml:space="preserve">
-    <value>Отправитель</value>
-  </data>
-  <data name="Group" xml:space="preserve">
-    <value>Группа</value>
-  </data>
-  <data name="BanUserQuestion" xml:space="preserve">
-    <value>Вы действительно хотите забанить пользователя ?</value>
-  </data>
-  <data name="WhenWillUserBanEnd" xml:space="preserve">
-    <value>Когда закончится блокировка пользователя ?</value>
+  <data name="Newsmaker" xml:space="preserve">
+    <value>Ньюсмейкер</value>
   </data>
 </root>

@@ -88,7 +88,7 @@ namespace MyLiverpool.Controllers
             return View(model);
         }
 
-        [Authorize(Roles = "AdminFull")] //todo change to Moderator
+        [Authorize(Roles = "UsersStart")]
         public async Task<JsonResult> BanUser(int? userId, DateTime? endDate)
         {
             if (!userId.HasValue || !endDate.HasValue)

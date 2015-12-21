@@ -45,23 +45,53 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
             {
                 new RoleGroup()
                 {
-                    Name = RoleGroupsEnum.Admin.ToString()
+                    Name = RoleGroupsEnum.Admin.ToString(),
+                    RussianName = RolesMessages.Administrator
                 },
                 new RoleGroup()
                 {
-                    Name = RoleGroupsEnum.User.ToString()
+                    Name = RoleGroupsEnum.Author.ToString(),
+                    RussianName = RolesMessages.Author
                 },
                 new RoleGroup()
                 {
-                    Name = RoleGroupsEnum.AdminAssistance.ToString()
+                    Name = RoleGroupsEnum.AdminAssistance.ToString(),
+                    RussianName = RolesMessages.AdminAssistance
                 },
                 new RoleGroup()
                 {
-                    Name = RoleGroupsEnum.MainNewsmaker.ToString()
+                    Name = RoleGroupsEnum.MainNewsmaker.ToString(),
+                    RussianName = RolesMessages.MainNewsmaker
                 },
                 new RoleGroup()
                 {
-                    Name = RoleGroupsEnum.Newsmaker.ToString()
+                    Name = RoleGroupsEnum.Newsmaker.ToString(),
+                    RussianName = RolesMessages.Newsmaker
+                },
+                new RoleGroup()
+                {
+                    Name = RoleGroupsEnum.Editor.ToString(),
+                    RussianName = RolesMessages.Editor
+                },
+                new RoleGroup()
+                {
+                    Name = RoleGroupsEnum.MainEditor.ToString(),
+                    RussianName = RolesMessages.MainEditor
+                },
+                new RoleGroup()
+                {
+                    Name = RoleGroupsEnum.Intern.ToString(),
+                    RussianName = RolesMessages.Intern
+                },
+                new RoleGroup()
+                {
+                    Name = RoleGroupsEnum.Moderator.ToString(),
+                    RussianName = RolesMessages.Moderator
+                },
+                new RoleGroup()
+                {
+                    Name = RoleGroupsEnum.MainModerator.ToString(),
+                    RussianName = RolesMessages.MainModerator
                 },
             };
             roleGroups.ForEach(x => context.RoleGroups.Add(x));
@@ -75,16 +105,26 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
             var roleStore = new RoleStore<Role, int, UserRole>(context);
             var roleManager = new RoleManager<Role, int>(roleStore);
 
-            var adminRoleGroup = context.RoleGroups.First(x => x.Name == RoleGroupsEnum.Admin.ToString());
+            var adminRoleGroup = context.RoleGroups.First(x => x.Name == RoleGroupsEnum.Admin.ToString()); //1
+            var adminAssistanceRole = context.RoleGroups.First(x => x.Name == RoleGroupsEnum.AdminAssistance.ToString());
+            var moderatorRole = context.RoleGroups.First(x => x.Name == RoleGroupsEnum.Moderator.ToString());//3
+            var mainModeratorRole = context.RoleGroups.First(x => x.Name == RoleGroupsEnum.MainModerator.ToString());
+            var authorRole = context.RoleGroups.First(x => x.Name == RoleGroupsEnum.Author.ToString());//5
+            var internRole = context.RoleGroups.First(x => x.Name == RoleGroupsEnum.Intern.ToString());
+            var mainEditorRole = context.RoleGroups.First(x => x.Name == RoleGroupsEnum.MainEditor.ToString());//7
+            var editorRole = context.RoleGroups.First(x => x.Name == RoleGroupsEnum.Editor.ToString());
+            var mainNewsmakeRole = context.RoleGroups.First(x => x.Name == RoleGroupsEnum.MainNewsmaker.ToString());//9
+            var newsmakerRole = context.RoleGroups.First(x => x.Name == RoleGroupsEnum.Newsmaker.ToString());
 
             var roles = new List<Role>()
             {
-                new Role()
+                new Role() //1
                 {
                     Name = RolesEnum.Simple.ToString(),
                     RoleGroups = new List<RoleGroup>()
                     {
-                        adminRoleGroup
+                        adminRoleGroup,
+                       
                     }
                 },
                 new Role()
@@ -92,15 +132,25 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                     Name = RolesEnum.NewsFull.ToString(),
                     RoleGroups = new List<RoleGroup>()
                     {
-                        adminRoleGroup
+                        adminRoleGroup,
+                        newsmakerRole,
+                        mainNewsmakeRole,
+                        editorRole,
+                        mainEditorRole,
+
                     }
                 },
-                new Role()
+                new Role()//3
                 {
                     Name = RolesEnum.NewsStart.ToString(),
                     RoleGroups = new List<RoleGroup>()
                     {
-                        adminRoleGroup
+                        adminRoleGroup,
+                        internRole,
+                        newsmakerRole,
+                        mainNewsmakeRole,
+                        editorRole,
+                        mainEditorRole,
                     }
                 },
                 new Role()
@@ -108,15 +158,17 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                     Name = RolesEnum.BlogsFull.ToString(),
                     RoleGroups = new List<RoleGroup>()
                     {
-                        adminRoleGroup
+                        adminRoleGroup,
+
                     }
                 },
-                new Role()
+                new Role()//5
                 {
                     Name = RolesEnum.BlogsStart.ToString(),
                     RoleGroups = new List<RoleGroup>()
                     {
-                        adminRoleGroup
+                        adminRoleGroup,
+
                     }
                 },
                 new Role()
@@ -124,15 +176,19 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                     Name = RolesEnum.UsersFull.ToString(),
                     RoleGroups = new List<RoleGroup>()
                     {
-                        adminRoleGroup
+                        adminRoleGroup,
+
                     }
                 },
-                new Role()
+                new Role()//7
                 {
                     Name = RolesEnum.UsersStart.ToString(),
                     RoleGroups = new List<RoleGroup>()
                     {
-                        adminRoleGroup
+                        adminRoleGroup,
+                        moderatorRole,
+                        mainModeratorRole,
+
                     }
                 },
                 new Role()
@@ -140,9 +196,38 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                     Name = RolesEnum.AdminFull.ToString(),
                     RoleGroups = new List<RoleGroup>()
                     {
-                        adminRoleGroup
+                        adminRoleGroup,
+
                     }
                 },
+                new Role()//9
+                {
+                    Name = RolesEnum.ModeratorFull.ToString(),
+                    RoleGroups = new List<RoleGroup>()
+                    {
+                        adminRoleGroup,
+
+                    }
+                },
+                new Role()
+                {
+                    Name = RolesEnum.ModeratorStart.ToString(),
+                    RoleGroups = new List<RoleGroup>()
+                    {
+                        adminRoleGroup,
+
+                    }
+                },
+                new Role()//11
+                {
+                    Name = RolesEnum.Intern.ToString(),
+                    RoleGroups = new List<RoleGroup>()
+                    {
+                        adminRoleGroup,
+
+                    }
+                },
+
             };
             //  roles.ForEach(x => context.Roles.Add(x));
             roles.ForEach(x => roleManager.Create(x));

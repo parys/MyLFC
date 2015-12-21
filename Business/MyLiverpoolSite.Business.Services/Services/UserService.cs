@@ -112,7 +112,7 @@ namespace MyLiverpoolSite.Business.Services.Services
         {
             var userStore = new UserStore<User, Role, int, UserLogin, UserRole, UserClaim>(new LiverpoolContext()); //todo move to 1 place
             var userManager = new UserManager<User, int>(userStore); //todo move it
-            var result = await userManager.SetLockoutEndDateAsync(userId, endDate);
+            var result = await userManager.SetLockoutEndDateAsync(userId, new DateTimeOffset(endDate));
             return result == IdentityResult.Success;
         }
     }

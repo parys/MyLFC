@@ -8,6 +8,8 @@ namespace MyLiverpoolSite.Business.ViewModels.Roles
 
         public string Name { get; set; }
 
+        public string RussianName { get; set; }
+
         public virtual ICollection<RoleVM> Roles { get; set; }
 
     }

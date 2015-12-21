@@ -9,6 +9,10 @@
         BlogsFull = 4,
         UsersStart = 5,
         UsersFull = 6,
-        AdminFull = 7,
+        AdminStart = 7,
+        AdminFull = 8,
+        ModeratorStart = 9,
+        ModeratorFull = 10,
+        Intern = 11,
     }
 }
