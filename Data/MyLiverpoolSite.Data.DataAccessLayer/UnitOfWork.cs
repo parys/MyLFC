@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using MyLiverpoolSite.Data.Entities;
 
 namespace MyLiverpoolSite.Data.DataAccessLayer
@@ -30,6 +32,16 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
         private IGenericRepository<RoleGroup> _roleGroupRepository;
         private IGenericRepository<PrivateMessage> _privateMessageRepository;
         //private IGenericRepository<RoleClaim> _roleClaimRepository;
+
+        public UnitOfWork()
+        {
+            var userStore = new UserStore<User, Role, int, UserLogin, UserRole, UserClaim>(_context);
+            UserManager = new UserManager<User, int>(userStore);
+        }
+
+        //private readonly UserStore<User, Role, int, UserLogin, UserRole, UserClaim> userStore; 
+        public UserManager<User, int> UserManager; 
+
 
         /// <summary>
         /// Return userRepository.

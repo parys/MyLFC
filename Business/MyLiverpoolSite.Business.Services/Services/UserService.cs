@@ -114,6 +114,6 @@ namespace MyLiverpoolSite.Business.Services.Services
             var userManager = new UserManager<User, int>(userStore); //todo move it
             var result = await userManager.SetLockoutEndDateAsync(userId, new DateTimeOffset(DateTime.Now.AddDays(banDayCount)));
             return result == IdentityResult.Success;
-        }
+        } 
     }
 }
