@@ -7,10 +7,10 @@
 
 <h2>
     @Model.UserName
-@if (User.Identity.GetUserId<int>() != Model.Id)
-{
-    <a href="@Url.Action("WriteMessage", "User", new {receiverId = Model.Id})"><span class="glyphicon glyphicon-envelope"></span></a>
-}
+        @if (Request.IsAuthenticated && User.Identity.GetUserId<int>() != Model.Id)
+        {
+            <a href="@Url.Action("WriteMessage", "User", new {receiverId = Model.Id})"><span class="glyphicon glyphicon-envelope"></span></a>
+        }
 </h2>
 
 <form class="form-horizontal" role="form">

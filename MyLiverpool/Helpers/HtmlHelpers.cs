@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Text;
-using System.Web;
 using System.Web.Mvc;
 
 namespace MyLiverpool.Helpers
@@ -12,6 +9,10 @@ namespace MyLiverpool.Helpers
     {
         public static MvcHtmlString PageLinks(this HtmlHelper html, int currentPage, int totalPages, Func<int, string> pageUrl)
         {
+            if (totalPages == 1)
+            {
+                return MvcHtmlString.Empty;
+            }
             StringBuilder builder = new StringBuilder();
 
             var prevBuilder = new TagBuilder("a");

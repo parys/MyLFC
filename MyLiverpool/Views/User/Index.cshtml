@@ -13,7 +13,7 @@
                 <th>@UsersMessages.LastLogin</th>
                 <th>@UsersMessages.UserName</th>
                 <th>@UsersMessages.RegistrationDate</th>
-                <th></th>
+                <th>@UsersMessages.Group</th>
             </tr>
         </thead>
         <tbody>
@@ -25,7 +25,7 @@
                     </td>
                     <td class="">
                         <a href="@Url.Action("Profile", new {id = user.Id})">@user.UserName</a>
-                        @if (User.Identity.GetUserId<int>() != user.Id)
+                        @if (Request.IsAuthenticated && User.Identity.GetUserId<int>() != user.Id)
                         {
                             <a href="@Url.Action("WriteMessage", "User", new {receiverId = user.Id})"><span class="glyphicon glyphicon-envelope"></span></a>
                         }
@@ -34,7 +34,7 @@
                         @user.RegistrationDate
                     </td>
                     <td class="">
-                        @user.RoleGroup.Name
+                        @user.RoleGroup.RussianName
                     </td>
                 </tr>
 

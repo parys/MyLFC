@@ -11,6 +11,7 @@ using MyLiverpoolSite.Business.Contracts;
 using MyLiverpoolSite.Business.Services;
 using MyLiverpoolSite.Business.ViewModels;
 using MyLiverpoolSite.Business.ViewModels.Account;
+using MyLiverpoolSite.Business.ViewModels.Resources;
 using MyLiverpoolSite.Data.Entities;
 
 namespace MyLiverpool.Controllers
@@ -88,7 +89,7 @@ namespace MyLiverpool.Controllers
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
+                    ModelState.AddModelError("", CommonMessages.InvalidLoginAttempt);
                     return View(model);
             }
         }

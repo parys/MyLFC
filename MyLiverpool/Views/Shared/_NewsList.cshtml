@@ -1,4 +1,5 @@
-﻿@using MyLiverpool.Helpers
+﻿@using Microsoft.AspNet.Identity
+@using MyLiverpool.Helpers
 @using MyLiverpoolSite.Business.ViewModels.Resources
 @model MyLiverpoolSite.Data.DataAccessLayer.PageableData<MyLiverpoolSite.Business.ViewModels.News.IndexMiniNewsVM>
 
@@ -12,15 +13,18 @@
         <div class="container-fluid">
             <div class="row">
                 <a href="@Url.Action("Details", "News", new {id = item.Id})" class="col-md-9"><span>@Html.DisplayFor(modelItem => item.Title)</span></a>
-                @if (Request.IsAuthenticated)
+                @if (User.IsInRole("NewsStart"))
                 {
                     <span class="col-md-3">
-                        @if (item.Pending)
+                        @if (item.Pending && User.IsInRole("NewsFull"))
                         {
                             <a href="@Url.Action("Activate", "News", new {id = item.Id})"><span class="glyphicon glyphicon-ok"></span></a>
                         }
-                        <a href="@Url.Action("Edit", "News", new {id = item.Id})"><span class="glyphicon glyphicon-pencil"></span></a>
-                        <a data-toggle="modal" data-target="#confirmDelete" data-id="@item.Id"><span class="glyphicon glyphicon-trash"></span></a>
+                        @if (item.Author.Id == User.Identity.GetUserId<int>() || User.IsInRole("NewsFull"))
+                        {
+                            <a href="@Url.Action("Edit", "News", new {id = item.Id})"><span class="glyphicon glyphicon-pencil"></span></a>
+                            <a data-toggle="modal" data-target="#confirmDelete" data-id="@item.Id"><span class="glyphicon glyphicon-trash"></span></a>
+                        }
                     </span>
                 }
             </div>

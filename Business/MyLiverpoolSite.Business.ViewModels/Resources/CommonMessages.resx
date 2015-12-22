@@ -207,4 +207,7 @@
   <data name="WriteMessage" xml:space="preserve">
     <value>Написать сообщение</value>
   </data>
+  <data name="InvalidLoginAttempt" xml:space="preserve">
+    <value>Неверные логин и/или пароль.</value>
+  </data>
 </root>

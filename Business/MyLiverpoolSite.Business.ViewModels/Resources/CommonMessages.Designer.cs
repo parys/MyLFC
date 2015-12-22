@@ -169,6 +169,15 @@ namespace MyLiverpoolSite.Business.ViewModels.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Неверные логин и/или пароль..
+        /// </summary>
+        public static string InvalidLoginAttempt {
+            get {
+                return ResourceManager.GetString("InvalidLoginAttempt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Войти.
         /// </summary>
         public static string Login {

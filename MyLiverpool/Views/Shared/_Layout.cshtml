@@ -19,116 +19,123 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/js/select2.min.js"></script>
 </head>
 <body>
-<div class="container-fluid navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid navbar navbar-inverse navbar-fixed-top">
         <ul class="nav navbar-nav col-md-6 list-inline alert-danger">
-            <li><a id="back-top" href="#">Наверх</a></li>
+            <li><a id="back-top" href="#" style="display: none;">Наверх</a></li>
             <li class="divider"></li>
-            <li>@if (Request.IsAuthenticated)
-                {
-                    <a href="@Url.Action("PrivateMessages", "User")"><span class="glyphicon glyphicon-envelope"></span> @CommonMessages.ReadPM</a>
-                }
-            </li>
-            <li class="divider"></li>
-        </ul>
-   
+            <li>
+                @if (Request.IsAuthenticated)
+            {
+                <a href="@Url.Action("PrivateMessages", "User")"><span class="glyphicon glyphicon-envelope"></span> @CommonMessages.ReadPM</a>
+            }
+        </li>
+        <li class="divider"></li>
+    </ul>
+
     @Html.Partial("_LoginPartial")
 </div>
-    <div class="container-fluid" style="margin-top: 50px">
-        <header class="navbar navbar-default navbar-static-top">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink(CommonMessages.SiteTitleAddress, "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink(CommonMessages.Home, "Index", "Home")</li>
-                    @if (User.IsInRole("AdminFull"))
-                    {
-                        <li>@Html.ActionLink(CommonMessages.Roles, "Index", "Role")</li>
-                    }
-                    <li>@Html.ActionLink(CommonMessages.Forum, "Index", "Forum")</li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">@CommonMessages.News <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li>@Html.ActionLink(CommonMessages.News, "Index", "News")</li>
-                            <li>@Html.ActionLink(CommonMessages.Create, "Create", "News")</li>
-                            <li>@Html.ActionLink(CommonMessages.Categories, "Categories", "News")</li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">@CommonMessages.Blogs <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li>@Html.ActionLink(CommonMessages.Blogs, "Index", "Blog")</li>
-                            <li>@Html.ActionLink(CommonMessages.Create, "Create", "Blog")</li>
-                            @*       <li>@Html.ActionLink(CommonMessages.Categories, "Categories", "Blog")</li>*@
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">@CommonMessages.Users <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li>@Html.ActionLink(CommonMessages.Users, "Index", "User")</li>
-                            @*<li>@Html.ActionLink(CommonMessages.Create, "Index", "User")</li>
-                                <li>@Html.ActionLink("Create", "Create", "Blog")</li>*@
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-
-        </header>
-        <div class="body-content row">
-            <div class="col-md-3">
-                @Html.Partial("_LeftSideBar")
-            </div>
-            <div class="col-md-6" style="background-color: #f5deb3">
-                @RenderBody()
-            </div>
-            <div class="col-md-3">
-                @Html.Partial("_RightSideBar")
-            </div>
+<div class="container-fluid" style="margin-top: 50px">
+    <header class="navbar navbar-default navbar-static-top">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            @Html.ActionLink(CommonMessages.SiteTitleAddress, "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
         </div>
-        <hr />
-        <footer class="bottom container-fluid">
-            <p>&copy; @DateTime.Now.Year - @CommonMessages.SiteTitleAddress</p>
-        </footer>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li>@Html.ActionLink(CommonMessages.Home, "Index", "Home")</li>
+                @if (User.IsInRole("AdminFull"))
+                {
+                    <li>@Html.ActionLink(CommonMessages.Roles, "Index", "Role")</li>
+                }
+                <li>@Html.ActionLink(CommonMessages.Forum, "Index", "Forum")</li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">@CommonMessages.News <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink(CommonMessages.News, "Index", "News")</li>
+                        @if (User.IsInRole("NewsStart"))
+                        {
+                            <li>@Html.ActionLink(CommonMessages.Create, "Create", "News")</li>
+                        }
+                        <li>@Html.ActionLink(CommonMessages.Categories, "Categories", "News")</li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">@CommonMessages.Blogs <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink(CommonMessages.Blogs, "Index", "Blog")</li>
+                        @if (User.IsInRole("BlogsStart"))
+                        {
+                            <li>@Html.ActionLink(CommonMessages.Create, "Create", "Blog")</li>
+                        }
+                        @*       <li>@Html.ActionLink(CommonMessages.Categories, "Categories", "Blog")</li>*@
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">@CommonMessages.Users <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink(CommonMessages.Users, "Index", "User")</li>
+                        @*<li>@Html.ActionLink(CommonMessages.Create, "Index", "User")</li>
+                            <li>@Html.ActionLink("Create", "Create", "Blog")</li>*@
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+    </header>
+    <div class="body-content row">
+        <div class="col-md-3">
+            @Html.Partial("_LeftSideBar")
+        </div>
+        <div class="col-md-6" style="background-color: #f5deb3">
+            @RenderBody()
+        </div>
+        <div class="col-md-3">
+            @Html.Partial("_RightSideBar")
+        </div>
     </div>
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
-    <script>
-        $(document).ready(function() {
-            var wbbOpt = {
-                lang: "ru",
-                traceTextarea: true
-                //buttons: "bold,italic,underline,|,img,youtube,link,|,code,quote"
-            }
-            $(".editor").wysibb(wbbOpt);
+    <hr />
+    <footer class="bottom container-fluid">
+        <p>&copy; @DateTime.Now.Year - @CommonMessages.SiteTitleAddress</p>
+    </footer>
+</div>
+@Scripts.Render("~/bundles/bootstrap")
+@RenderSection("scripts", required: false)
+<script>
+    $(document).ready(function () {
+        var wbbOpt = {
+            lang: "ru",
+            traceTextarea: true
+            //buttons: "bold,italic,underline,|,img,youtube,link,|,code,quote"
+        }
+        $(".editor").wysibb(wbbOpt);
 
 
-            $('.select').select2();
+        $('.select').select2();
 
-        });
+    });
 
-        $(document).ready(function () {
-            $("#back-top").hide();
-            $(function () {
-                $(window).scroll(function () {
-                    if ($(this).scrollTop() > 100) {
-                        $('#back-top').fadeIn();
-                    } else {
-                        $('#back-top').fadeOut();
-                    }
-                });
-                $('#back-top a').click(function () {
-                    $('body,html').animate({
-                        scrollTop: 0
-                    }, 100);
-                    return false;
-                });
+    $(document).ready(function () {
+        $("#back-top").hide();
+        $(function () {
+            $(window).scroll(function () {
+                if ($(this).scrollTop() > 100) {
+                    $('#back-top').fadeIn();
+                } else {
+                    $('#back-top').fadeOut();
+                }
+            });
+            $('#back-top a').click(function () {
+                $('body,html').animate({
+                    scrollTop: 0
+                }, 100);
+                return false;
             });
         });
-    </script>
+    });
+</script>
 </body>
 </html>
