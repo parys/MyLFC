@@ -110,12 +110,18 @@ namespace MyLiverpoolSite.Business.Services.Services
             // itemPerPage = GlobalConstants.NewsPerPage;
             Expression<Func<NewsItem, bool>> filter = x => !x.OnTop;
             Expression<Func<NewsItem, bool>> filterForCount = null;
+            ICollection<NewsItem> topNews = null;
             if (categoryId.HasValue)
             {
                 filter = x => x.NewsCategoryId == categoryId.Value && !x.OnTop;
                 filterForCount = x => x.NewsCategoryId == categoryId.Value;
+                topNews = await _unitOfWork.NewsItemRepository.GetAsync(x => x.OnTop && x.NewsCategoryId == categoryId.Value);
             }
-            var topNews = await _unitOfWork.NewsItemRepository.GetAsync(x => x.OnTop);
+            else
+            {
+                topNews = await _unitOfWork.NewsItemRepository.GetAsync(x => x.OnTop);
+            }
+             
            // if (page == GlobalConstants.FirstPage)
            // {
                 var itemPerPage = GlobalConstants.NewsPerPage - topNews.Count;
