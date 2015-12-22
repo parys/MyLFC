@@ -1,4 +1,5 @@
-﻿@using Microsoft.AspNet.Identity
+﻿
+@using Microsoft.AspNet.Identity
 @using MyLiverpool.Helpers
 @using MyLiverpoolSite.Business.ViewModels.Resources
 @model MyLiverpoolSite.Data.DataAccessLayer.PageableData<MyLiverpoolSite.Business.ViewModels.News.IndexMiniNewsVM>
@@ -29,7 +30,7 @@
                 }
             </div>
             <div class="row">
-                <img class="img-thumbnail" alt="" src="@item.PhotoPath" style="width: 300px; height: 140px;" />
+                <img class="img-thumbnail" alt="" src="@item.PhotoPath" style="width: 300px; height: 140px;"/>
             </div>
             <div class="row">
                 <span><i> @Html.Raw(item.Brief)</i></span>
@@ -45,9 +46,10 @@
                 <li class="">@Html.DisplayFor(modelItem => item.Reads)</li>
                 <li class="">|</li>
                 <li class="">@NewsMessages.Author</li>
-                <li class=""><a href="@Url.Action("Profile","User", new { id = @item.Author.Id })">@item.Author.UserName</a></li>
+                <li class=""><a href="@Url.Action("Profile", "User", new {id = @item.Author.Id})">@item.Author.UserName</a></li>
             </ul>
         </div>
+        <hr/>
     }
 </div>
 <div class="pagination">  @Html.PageLinks(Model.PageNo, Model.CountPage, x => Url.Action("Index", "News", new { page = x, categoryId = Request.QueryString["categoryId"] }))     </div>
