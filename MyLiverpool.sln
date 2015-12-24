@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyLiverpool.Web.UI", "MyLiverpool\MyLiverpool.Web.UI.csproj", "{0B38DD74-787D-4E5B-8DE3-7434D4311705}"
 EndProject
@@ -26,6 +26,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Migrator", "Migrator\Migrator.csproj", "{90AC141B-80ED-49FB-9411-9DDE85F8FCC4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyLiverpoolSite.Business.Managers", "Business\MyLiverpoolSite.Business.Managers\MyLiverpoolSite.Business.Managers.csproj", "{AF9A9541-0827-4809-91BA-3124B6DAAFFA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NewFolder1", "NewFolder1", "{3C163596-D169-47A3-BF70-D3B0135E1CDB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

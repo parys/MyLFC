@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 using MyLiverpoolSite.Business.Contracts;
 using MyLiverpoolSite.Business.ViewModels.Roles;
 using MyLiverpoolSite.Data.DataAccessLayer;
@@ -46,11 +42,9 @@ namespace MyLiverpoolSite.Business.Services.Services
             var rolesToDelete = GetRolesToDelete(oldRoleGroup.Roles, newRoleGroup.Roles);
             var rolesToAdd = GetRolesToAdd(oldRoleGroup.Roles, newRoleGroup.Roles);
 
-            var userStore = new UserStore<User, Role, int, UserLogin, UserRole, UserClaim>(new LiverpoolContext()); //todo move to 1 place
-            var userManager = new UserManager<User, int>(userStore);
             user.RoleGroupId = newRoleGroupId;
-            var result = await userManager.RemoveFromRolesAsync(userId, rolesToDelete.Select(x => x.Name).ToArray());
-            var result2 = await userManager.AddToRolesAsync(userId, rolesToAdd.Select(x => x.Name).ToArray());
+            await _unitOfWork.UserManager.RemoveFromRolesAsync(userId, rolesToDelete.Select(x => x.Name).ToArray());
+            await _unitOfWork.UserManager.AddToRolesAsync(userId, rolesToAdd.Select(x => x.Name).ToArray());
             
             _unitOfWork.UserRepository.Update(user);
             await _unitOfWork.SaveAsync();

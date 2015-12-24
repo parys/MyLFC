@@ -328,7 +328,7 @@ namespace Migrator
                         i++;
                     }
                     user.LastModified = DateTimeHelpers.ConvertUtcToLocalTime(long.Parse(lastDate));
-                    user.RoleGroupId = 1; //todo change to simple user
+                    user.RoleGroupId = 2; 
                     UnitOfWork.UserRepository.Add(user);
                     while (chars[i] != 10)
                     {

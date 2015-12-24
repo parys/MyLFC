@@ -10,9 +10,10 @@ using MyLiverpoolSite.Data.Entities;
 
 namespace MyLiverpoolSite.Data.DataAccessLayer
 {
-    //todo
     public class DatabaseInitializer : DropCreateDatabaseIfModelChanges<LiverpoolContext> //todo WARNING ALARM
     {
+        private readonly IUnitOfWork _unitOfWork = new UnitOfWork();
+
         protected override void Seed(LiverpoolContext context)
         {
             if (!context.Roles.Any())
@@ -39,13 +40,11 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
         #region roles
         private void InitializeRoleGroups(LiverpoolContext context)
         {
-            var roleStore = new RoleStore<Role, int, UserRole>(context);
-            var roleManager = new RoleManager<Role, int>(roleStore);
             var roleGroups = new List<RoleGroup>()
             {
                 new RoleGroup()
                 {
-                    Name = RoleGroupsEnum.Admin.ToString(),
+                    Name = RoleGroupsEnum.Admin.ToString(),//1
                     RussianName = RolesMessages.Administrator
                 },
                 new RoleGroup()
@@ -55,7 +54,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 },
                 new RoleGroup()
                 {
-                    Name = RoleGroupsEnum.AdminAssistance.ToString(),
+                    Name = RoleGroupsEnum.AdminAssistance.ToString(),//3
                     RussianName = RolesMessages.AdminAssistance
                 },
                 new RoleGroup()
@@ -65,7 +64,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 },
                 new RoleGroup()
                 {
-                    Name = RoleGroupsEnum.Newsmaker.ToString(),
+                    Name = RoleGroupsEnum.Newsmaker.ToString(),//5
                     RussianName = RolesMessages.Newsmaker
                 },
                 new RoleGroup()
@@ -75,7 +74,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 },
                 new RoleGroup()
                 {
-                    Name = RoleGroupsEnum.MainEditor.ToString(),
+                    Name = RoleGroupsEnum.MainEditor.ToString(),//7
                     RussianName = RolesMessages.MainEditor
                 },
                 new RoleGroup()
@@ -85,7 +84,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 },
                 new RoleGroup()
                 {
-                    Name = RoleGroupsEnum.Moderator.ToString(),
+                    Name = RoleGroupsEnum.Moderator.ToString(),//9
                     RussianName = RolesMessages.Moderator
                 },
                 new RoleGroup()
@@ -249,15 +248,12 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 Verify = true,
                 LastModified = DateTime.Now,
                 RegistrationDate = DateTime.Now,
-                RoleGroupId = 1 //todo change to simple user
+                RoleGroupId = 2 
             };
 
-            var userStore = new UserStore<User, Role, int, UserLogin, UserRole, UserClaim>(context);
-            var userManager = new UserManager<User, int>(userStore);
+            _unitOfWork.UserManager.Create(user, "123456");
 
-            userManager.Create(user, "123456");
-
-            userManager.AddToRole(user.Id, RolesEnum.Simple.ToString());
+            _unitOfWork.UserManager.AddToRole(user.Id, RolesEnum.Simple.ToString());
         }
 
         private void InitializeSimpleUser(LiverpoolContext context)
@@ -271,15 +267,12 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 Verify = true,
                 LastModified = DateTime.Now,
                 RegistrationDate = DateTime.Now,
-                RoleGroupId = 2 //todo change to simple user
+                RoleGroupId = 2 
             };
 
-            var userStore = new UserStore<User, Role, int, UserLogin, UserRole, UserClaim>(context);
-            var userManager = new UserManager<User, int>(userStore);
+            _unitOfWork.UserManager.Create(user, "123456");
 
-            userManager.Create(user, "123456");
-
-            userManager.AddToRole(user.Id, RolesEnum.Simple.ToString());
+            _unitOfWork.UserManager.AddToRole(user.Id, RolesEnum.Simple.ToString());
         }
 
         private void InitializeAdmin(LiverpoolContext context)
@@ -297,14 +290,11 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 RoleGroupId = 1
             };
 
-            var userStore = new UserStore<User, Role, int, UserLogin, UserRole, UserClaim>(context); //todo move to 1 place
-            var userManager = new UserManager<User, int>(userStore);
-
-            userManager.Create(user, "123456");
+            _unitOfWork.UserManager.Create(user, "123456");
             var adminRoles = context.RoleGroups.First(x => x.Name == RoleGroupsEnum.Admin.ToString()).Roles.ToList();
             foreach (var role in adminRoles)
             {
-                userManager.AddToRole(user.Id, role.Name);
+                _unitOfWork.UserManager.AddToRole(user.Id, role.Name);
             }
 
             //var result = await manager.CreateAsync(user, password);

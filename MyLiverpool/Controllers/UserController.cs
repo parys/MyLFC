@@ -55,12 +55,8 @@ namespace MyLiverpool.Controllers
             {
                 return HttpNotFound(); //todo BadRequest();
             }
-            var model = await _userService.GetPrivateMessageVMAsync(receiverId.Value);
-            if (!answerTitle.IsNullOrWhiteSpace())
-            {
-                int answerNumber = 1;
-                model.Title = string.Format(UsersMessages.Annex, answerNumber) + answerTitle; //todo move it to service and add counter
-            }
+            var model = await _userService.GetPrivateMessageVMAsync(receiverId.Value, answerTitle);
+
             return View(model);
         }
 

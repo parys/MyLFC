@@ -89,7 +89,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
         /// <returns>Entity.</returns>
         public virtual async Task<TEntity> GetByIdAsync(object id)
         {
-            return await Task.FromResult(_dbSet.Find(id)); //todo
+            return await _dbSet.FindAsync(id);
         }
 
         /// <summary>
@@ -116,7 +116,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
         /// <param name="id">Entity id.</param>
         public virtual async Task DeleteAsync(object id)
         {
-            await DeleteAsync(await GetByIdAsync(id));//todoFind(id));
+            await DeleteAsync(await GetByIdAsync(id));
         }
 
         /// <summary>

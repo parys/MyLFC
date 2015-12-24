@@ -10,7 +10,7 @@ using MyLiverpoolSite.Business.ViewModels.Manage;
 
 namespace MyLiverpool.Controllers
 {
-    [Authorize(Roles = "AdminStart")]
+    [Authorize(Roles = "AdminFull")]
     public class ManageController : BaseController
     {
         private ApplicationSignInManager _signInManager;
@@ -70,7 +70,7 @@ namespace MyLiverpool.Controllers
                 PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
-                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId.ToString()) //todo
+                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId.ToString())
             };
             return View(model);
         }

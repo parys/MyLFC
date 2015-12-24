@@ -11,7 +11,7 @@
 //    //Data Source=ANDREW-PC;Initial Catalog=NewDbTest;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False")
 //        {
 //          // Database.SetInitializer<LiverpoolContextOLD>(null);
-//           //todo Database.SetInitializer(new DatabaseInitializer());
+//           // Database.SetInitializer(new DatabaseInitializer());
 //        }
 
 //        public DbSet<User> Users { get; set; }

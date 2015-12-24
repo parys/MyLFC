@@ -30,7 +30,7 @@ namespace MyLiverpoolSite.Business.Services.Services
 
         public async Task<ForumSubsectionVM> GetSubsection(int subsectionId, int page = 1)
         {
-            var subsection = await _unitOfWork.ForumSubsectionRepository.GetByIdAsync(subsectionId); //todo modify
+            var subsection = await _unitOfWork.ForumSubsectionRepository.GetByIdAsync(subsectionId); 
             var subsectionThemes =
                 await _unitOfWork.ForumThemeRepository.GetAsync(page, filter: x => x.SubsectionId == subsectionId);
             var subsectionThemesCount = await _unitOfWork.ForumThemeRepository.GetCountAsync(x => x.SubsectionId == subsectionId);

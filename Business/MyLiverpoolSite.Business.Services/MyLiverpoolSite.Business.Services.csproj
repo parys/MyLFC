@@ -101,7 +101,6 @@
     <Compile Include="Services\AccountService.cs" />
     <Compile Include="ApplicationSignInManager.cs" />
     <Compile Include="Mapper\AutoMapperBindings.cs" />
-    <Compile Include="DataBaseInitializer.cs" />
     <Compile Include="Services\BlogCategoryService.cs" />
     <Compile Include="Services\BlogCommentService.cs" />
     <Compile Include="Services\BlogService.cs" />

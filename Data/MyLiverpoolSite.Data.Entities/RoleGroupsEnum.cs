@@ -7,7 +7,7 @@ namespace MyLiverpoolSite.Data.Entities
         [Display(Name = "Администратор")]
         Admin = 1,
         [Display(Name = "Пользователь")]
-        Author = 2,
+        Simple = 2,
         [Display(Name = "Помощник Администатора")]
         AdminAssistance = 3,
         [Display(Name = "Главный ньюсмейкер")]
@@ -19,5 +19,6 @@ namespace MyLiverpoolSite.Data.Entities
         Intern = 8,
         Moderator = 9,
         MainModerator = 10,
+        Author = 11,
     }
 }

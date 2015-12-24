@@ -40,7 +40,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
         }
 
         //private readonly UserStore<User, Role, int, UserLogin, UserRole, UserClaim> userStore; 
-        public UserManager<User, int> UserManager; 
+        public UserManager<User, int> UserManager { get; set; } 
 
 
         /// <summary>

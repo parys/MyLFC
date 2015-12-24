@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
 using MyLiverpoolSite.Data.Entities;
 
 namespace MyLiverpoolSite.Data.DataAccessLayer
@@ -31,6 +32,8 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
         IGenericRepository<PrivateMessage> PrivateMessageRepository { get; }
         //IGenericRepository<RoleClaim> RoleClaimRepository { get; }
 
+
+        UserManager<User, int> UserManager { get; set; }
         /// <summary>
         /// Saves changes to shared data source.
         /// </summary>

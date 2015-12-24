@@ -20,7 +20,6 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
             : base("DefaultConnection")//, throwIfV1Schema: false)//@"Data Source=Andrew-PC;Initial Catalog=MyLiverpoolDB;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False") 
                                                                //Data Source=ANDREW-PC;Initial Catalog=NewDbTest;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False")
         {
-            //todo
             //Database.SetInitializer<LiverpoolContext>(null);
             Database.SetInitializer(new DatabaseInitializer());
             

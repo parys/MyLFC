@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 using MyLiverpoolSite.Business.Contracts;
+using MyLiverpoolSite.Business.ViewModels.Resources;
 using MyLiverpoolSite.Business.ViewModels.Users;
 using MyLiverpoolSite.Data.DataAccessLayer;
 using MyLiverpoolSite.Data.Entities;
@@ -58,14 +57,20 @@ namespace MyLiverpoolSite.Business.Services.Services
             return result;
         }
 
-        public async Task<PrivateMessageVM> GetPrivateMessageVMAsync(int receiverId)
+        public async Task<PrivateMessageVM> GetPrivateMessageVMAsync(int receiverId, string answerTitle = null)
         {
             var receiver = await _unitOfWork.UserRepository.GetByIdAsync(receiverId);
-            
+            string title = string.Empty;
+            if (!string.IsNullOrWhiteSpace(answerTitle))
+            {
+                const int answerNumber = 1;
+                title = string.Format(UsersMessages.Annex, answerNumber) + answerTitle; //todo and add counter
+            }
             return new PrivateMessageVM()
             {
                 Receiver = receiver,
-                ReceiverId = receiverId
+                ReceiverId = receiverId,
+                Title = title
             };
         }
 
@@ -110,9 +115,7 @@ namespace MyLiverpoolSite.Business.Services.Services
 
         public async Task<bool> BanUser(int userId, int banDayCount)
         {
-            var userStore = new UserStore<User, Role, int, UserLogin, UserRole, UserClaim>(new LiverpoolContext()); //todo move to 1 place
-            var userManager = new UserManager<User, int>(userStore); //todo move it
-            var result = await userManager.SetLockoutEndDateAsync(userId, new DateTimeOffset(DateTime.Now.AddDays(banDayCount)));
+            var result = await _unitOfWork.UserManager.SetLockoutEndDateAsync(userId, new DateTimeOffset(DateTime.Now.AddDays(banDayCount)));
             return result == IdentityResult.Success;
         } 
     }
