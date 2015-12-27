@@ -1,0 +1,42 @@
+﻿@using MyLiverpoolSite.Business.ViewModels.Resources
+@model MyLiverpoolSite.Business.ViewModels.Users.PrivateMessageVM
+
+@{
+  
+}
+
+<div class="form-horizontal"> 
+    <div class="form-group">
+        <div class="col-md-10">
+            @Html.HiddenFor(model => model.Id, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.HiddenFor(model => model.ReceiverId, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Receiver, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(x => x.Receiver.UserName, new { @class = "form-control", disabled = "disabled",  })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.Title, new {  @class = "form-control", disabled="disabled" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Message, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextAreaFor(model => model.Message, new { @class = "form-control", rows = "4", disabled="disabled" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <a href="@Url.Action("WriteMessage","User", new { receiverId = Model.ReceiverId, answerTitle = Model.Title })">@CommonMessages.Answer</a>  
+        </div>
+    </div>
+</div>

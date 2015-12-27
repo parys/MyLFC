@@ -1,7 +1,8 @@
-﻿using System;
+﻿using System.Security.Claims;
 using System.Threading.Tasks;
 using MyLiverpoolSite.Business.ViewModels.Users;
 using MyLiverpoolSite.Data.DataAccessLayer;
+using MyLiverpoolSite.Data.Entities;
 
 namespace MyLiverpoolSite.Business.Contracts
 {
@@ -26,5 +27,7 @@ namespace MyLiverpoolSite.Business.Contracts
         Task<AllPrivateMessagesVM> GetPrivateMessagesForUser(int userId);
 
         Task<bool> BanUser(int userId, int banDayCount);
+
+        Task<ClaimsIdentity> GenerateUserIdentityAsync(User user, string authenticationType);
     }
 }

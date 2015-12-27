@@ -15,7 +15,7 @@ namespace MvcAngular
                 .IncludeDirectory("~/Scripts/Factories", "*.js")
                 .Include("~/Scripts/app.js"));
 
-            BundleTable.EnableOptimizations = true;
+            BundleTable.EnableOptimizations = false;
         }
     }
 }

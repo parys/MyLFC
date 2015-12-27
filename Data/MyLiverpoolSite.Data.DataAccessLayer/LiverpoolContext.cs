@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
+using System.Security.Cryptography.X509Certificates;
 using Microsoft.AspNet.Identity.EntityFramework;
 using MyLiverpoolSite.Data.Entities;
 
@@ -12,26 +13,28 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
     public class LiverpoolContext : IdentityDbContext<User, Role, int, UserLogin, UserRole, UserClaim>
     //<User, Role, int>
     {
-
-
-        // private static bool _created;
+      //  private static bool _created;
 
         public LiverpoolContext()
             : base("DefaultConnection")//, throwIfV1Schema: false)//@"Data Source=Andrew-PC;Initial Catalog=MyLiverpoolDB;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False") 
                                                                //Data Source=ANDREW-PC;Initial Catalog=NewDbTest;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False")
         {
+
             //Database.SetInitializer<LiverpoolContext>(null);
-            Database.SetInitializer(new DatabaseInitializer());
-            
+
+
 
             // Create the database and schema if it doesn't exist
-            //if (!_created)
-            //{
-            //    Database.AsRelational().ApplyMigrations();
-            //    _created = true;
-            //}
+        //   if (!_created)
+          //  {
+              //  _created = true;
 
-        }
+                //      Database.Create();
+                //    Database.AsRelational().ApplyMigrations();
+
+                // }
+
+            }
 
         public static LiverpoolContext Create()
         {

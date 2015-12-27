@@ -14,5 +14,11 @@ namespace MvcAngular.Controllers
         {
             return View();
         }
+
+        [AllowAnonymous]
+        public ActionResult Register()
+        {
+            return View();
+        }
     }
 }

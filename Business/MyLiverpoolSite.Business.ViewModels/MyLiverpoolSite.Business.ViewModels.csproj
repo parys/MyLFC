@@ -102,6 +102,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccountBindingModels.cs" />
+    <Compile Include="AccountViewModels.cs" />
     <Compile Include="Account\ExternalLoginConfirmationViewModel.cs" />
     <Compile Include="Account\ExternalLoginListViewModel.cs" />
     <Compile Include="Account\ForgotPasswordViewModel.cs" />

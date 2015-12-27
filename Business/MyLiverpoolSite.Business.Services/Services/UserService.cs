@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNet.Identity;
@@ -117,6 +118,15 @@ namespace MyLiverpoolSite.Business.Services.Services
         {
             var result = await _unitOfWork.UserManager.SetLockoutEndDateAsync(userId, new DateTimeOffset(DateTime.Now.AddDays(banDayCount)));
             return result == IdentityResult.Success;
-        } 
+        }
+
+        // lalalalala
+        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(User user, string authenticationType)
+        {
+            // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
+            var userIdentity = await _unitOfWork.UserManager.CreateIdentityAsync(user, authenticationType);
+            // Add custom user claims here
+            return userIdentity;
+        }
     }
 }
