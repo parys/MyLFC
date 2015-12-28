@@ -214,6 +214,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
+    <Compile Include="Controllers\ApiNewsItemsController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\ApiValuesController.cs" />
@@ -229,20 +230,51 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\ui-bootstrap-csp.css" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\angular\angular-cookies.js" />
+    <Content Include="Scripts\angular\angular-mocks.js" />
+    <Content Include="Scripts\angular\angular-ui-router.js" />
+    <Content Include="Scripts\angular\min\angular-ui-router.min.js" />
+    <Content Include="Scripts\angular\ui-bootstrap-tpls.js" />
+    <Content Include="Scripts\angular\min\ui-bootstrap-tpls.min.js" />
+    <Content Include="Scripts\angular\ui-bootstrap.js" />
+    <Content Include="Scripts\angular\min\ui-bootstrap.min.js" />
+    <Content Include="Scripts\angular\1angular.js" />
+    <Content Include="Scripts\angular\min\angular.min.js" />
     <Content Include="Scripts\App.js" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\angular\bootstrap.js" />
+    <Content Include="Scripts\angular\min\bootstrap.min.js" />
     <Content Include="Scripts\Controllers\LandingPageController.js" />
     <Content Include="Scripts\Controllers\LoginController.js" />
     <Content Include="Scripts\Controllers\LogoutController.js" />
+    <Content Include="Scripts\Controllers\NewsController.js" />
     <Content Include="Scripts\Controllers\RegisterController.js" />
     <Content Include="Scripts\Controllers\ValuesController.js" />
+    <Content Include="Scripts\angular\date.js" />
     <Content Include="Scripts\Factories\AuthHttpResponseInterceptor.js" />
     <Content Include="Scripts\Factories\GetValuesFactory.js" />
     <Content Include="Scripts\Factories\LoginFactory.js" />
+    <Content Include="Scripts\Factories\LogoutFactory.js" />
     <Content Include="Scripts\Factories\RegisterFactory.js" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Scripts\angular\angular.min.js.map" />
+    <None Include="Scripts\jquery-1.9.1.intellisense.js" />
+    <Content Include="Scripts\jquery-1.9.1.js" />
+    <Content Include="Scripts\jquery-1.9.1.min.js" />
     <Content Include="Scripts\Services\SessionService.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -310,6 +342,7 @@
     <Content Include="Views\User\WriteMessage.cshtml" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\Values\Get.cshtml" />
+    <Content Include="Scripts\jquery-1.9.1.min.map" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Business\MyLiverpoolSite.Business.Contracts\MyLiverpoolSite.Business.Contracts.csproj">

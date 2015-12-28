@@ -2,17 +2,17 @@
 <!DOCTYPE html>
 <html lang="ru" ng-app="app" ng-controller="LandingPageController">
 <head>
-    <title ng-bind="models.helloAngular"></title>
-    <meta charset="utf-8" />
+    @{
+        ViewBag.Title = CommonMessages.Home;
+    }
+    <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - @CommonMessages.SiteTitleAddress</title>
-   @* <link rel="shortcut icon" type="image/x-icon" href="~/Content/favicon.ico" />*@
+    @* <link rel="shortcut icon" type="image/x-icon" href="~/Content/favicon.ico" />*@
 
 
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/css/bootstrap.min.css">
+    @*<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/css/bootstrap.min.css">*@
     @Styles.Render("~/Content/css")
-
-
 
     @*<script src="~/Scripts/ru.js"></script>
     <script src="~/Scripts/jquery.wysibb.js"></script>
@@ -22,14 +22,18 @@
 
     <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/css/select2.min.css" rel="stylesheet" />
     <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/js/select2.min.js"></script>*@
+
+
+    <base href="/"/>
 </head>
 <body>
+
 <div class="container-fluid navbar navbar-inverse navbar-fixed-top">
     <ul class="nav navbar-nav col-md-6 list-inline alert-danger">
         <li><a id="back-top" href="#" style="display: none;">Наверх</a></li>@* todo move to resource*@
         <li class="divider"></li>
         <li ng-if="loggedIn()">
-                <a href="@Url.Action("PrivateMessages", "User")"><span class="glyphicon glyphicon-envelope"></span> @CommonMessages.ReadPM</a>
+            <a href="@Url.Action("PrivateMessages", "User")"><span class="glyphicon glyphicon-envelope"></span> @CommonMessages.ReadPM</a>
         </li>
         <li class="divider"></li>
     </ul>
@@ -40,7 +44,7 @@
         </li>
         <li>
             <a ui-sref="register" ng-if="!loggedIn()">@CommonMessages.Register</a>
-        </li> 
+        </li>
         <li>
             <a ui-sref="logout" ng-if="loggedIn()">Logout</a>
         </li>
@@ -62,14 +66,14 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li>@Html.ActionLink(CommonMessages.Home, "Index", "Home")</li>
+                <li><a ui-sref="home">@CommonMessages.Home</a></li>
                 @if (User.IsInRole("AdminFull"))
                 {
-                    <li>@Html.ActionLink(CommonMessages.Roles, "Index", "Role")</li>
+                    <li> @Html.ActionLink(CommonMessages.Roles, "Index", "Role") </li>
                 }
-                <li>@Html.ActionLink(CommonMessages.Forum, "Index", "Forum")</li>
+                <li> @Html.ActionLink(CommonMessages.Forum, "Index", "Forum") </li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">@CommonMessages.News <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">@CommonMessages.News<b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li>@Html.ActionLink(CommonMessages.News, "Index", "News")</li>
                         @if (User.IsInRole("NewsStart"))
@@ -80,14 +84,13 @@
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">@CommonMessages.Blogs <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">@CommonMessages.Blogs<b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li>@Html.ActionLink(CommonMessages.Blogs, "Index", "Blog")</li>
                         @if (User.IsInRole("BlogsStart"))
                         {
                             <li>@Html.ActionLink(CommonMessages.Create, "Create", "Blog")</li>
-                        }
-                            @*       <li>@Html.ActionLink(CommonMessages.Categories, "Categories", "Blog")</li>*@</ul>
+                        }@*       <li>@Html.ActionLink(CommonMessages.Categories, "Categories", "Blog")</li>*@</ul>
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">@CommonMessages.Users <b class="caret"></b></a>
@@ -120,10 +123,10 @@
         <p>&copy; @DateTime.Now.Year - @CommonMessages.SiteTitleAddress</p>
     </footer>
 </div>
-<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.10/angular-ui-router.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.0/angular-cookies.min.js"></script>
+@*<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.10/angular-ui-router.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.0/angular-cookies.min.js"></script>*@
 
 
 @Scripts.Render("~/bundles/App")
@@ -159,7 +162,8 @@
     //        });
     //    });
     //});
-    
+
+
 </script>
 </body>
 </html>

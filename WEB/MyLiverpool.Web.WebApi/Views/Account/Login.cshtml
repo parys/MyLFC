@@ -9,33 +9,24 @@
 <div class="row">
     <div class="col-md-8">
         <section id="loginForm">
-            <form role="form" ng-submit="login()">
-                {
-                @Html.AntiForgeryToken()
+            <form class="form-horizontal" role="form" ng-submit="login()">
                 <hr />
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="form-group">
-              @*      @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })*@
-                    <label for="emailAddress">Email address</label>
+                    <label class="col-md-2 control-label" for="emailAddress">Email address</label>
                     <div class="col-md-10">
-                        @*@Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })*@
-                       
                         <input type="text" class="form-control" id="emailAddress" placeholder="Enter email" ng-model="loginForm.username">
                     </div>
                 </div>
                 <div class="form-group">
-                    @*@Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })*@
-    <label for="password">Password</label>
+                    <label class="col-md-2 control-label" for="password">Password</label>
                     <div class="col-md-10">
-                        @*@Html.PasswordFor(m => m.Password, new { @class = "form-control" })*@
                         <input type="password" class="form-control" id="password" placeholder="Password" ng-model="loginForm.password">
-             
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
                         <div class="checkbox">
-                            @Html.CheckBoxFor(m => m.RememberMe)
+                            <input type="checkbox" />
                             @Html.LabelFor(m => m.RememberMe)
                         </div>
                     </div>
@@ -64,7 +55,3 @@
         </section>
     </div>
 </div>
-
-@*@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}*@

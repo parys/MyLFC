@@ -14,14 +14,19 @@ App.factory('GetValuesFactory', GetValuesFactory);
 
 var configFunction = function ($stateProvider, $httpProvider, $locationProvider) {
 
-    $locationProvider.hashPrefix('!').html5Mode(true);
+    $locationProvider.hashPrefix('!').html5Mode({
+        enabled: true,
+        requireBase : false
+    });
 
     $stateProvider
         .state('home', {
-            url: '/home', //?donunts
+            url: '/', //?donunts
+             
             views: {
                 "containerMain": {
-                    templateUrl: '/home/index'
+                    templateUrl: '/news/index',
+                    controller: NewsController
                 } //,
                 //"containerTwo": {
                 //    templateUrl: function (params) { return '/routesDemo/two?donuts=' + params.donuts; }
@@ -77,15 +82,15 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider)
                     controller: LoginController
                 }
             }
-        })
-        .state('logout', {
-            url: '/logout',
-            views: {
-                "ContainerMain": {
-                    templateUrl: 'Account/Logout',
-                    controller: LoguotController
-                }
-        }
+        //})
+        //.state('logout', {
+        //    url: '/logout',
+        //    views: {
+        //        "ContainerMain": {
+        //            templateUrl: 'Account/Logout',
+        //            controller: LoginController
+        //        }
+        //}
         });
 
 

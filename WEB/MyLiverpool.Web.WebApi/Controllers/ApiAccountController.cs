@@ -20,8 +20,8 @@ using MyLiverpoolSite.Data.Entities;
 
 namespace MyLiverpool.Web.WebApi.Controllers
 {
-    [System.Web.Mvc.Authorize]
-    [System.Web.Mvc.RoutePrefix("api/Account")]
+    [Authorize]
+    [RoutePrefix("api/Account")]
     public class ApiAccountController : ApiController
     {
         private const string LocalLoginProvider = "Local";
@@ -57,7 +57,7 @@ namespace MyLiverpool.Web.WebApi.Controllers
 
         // GET api/Account/UserInfo
         [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
-        [System.Web.Mvc.Route("UserInfo")]
+        [Route("UserInfo")]
         public UserInfoViewModel GetUserInfo()
         {
             ExternalLoginData externalLogin = ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);

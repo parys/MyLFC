@@ -12,7 +12,8 @@
 //    }
 //}
 
-//LoginController.$inject = ['$scope', '$routeParams']; var LoginController = function ($scope, $routeParams) {
+//LoginController.$inject = ['$scope', '$routeParams']; 
+//var LoginController = function ($scope, $routeParams) {
 //    $scope.loginForm = {
 //        emailAddress: '',
 //        password: '',
@@ -28,7 +29,7 @@
 //LoginController.$inject = ['$scope', '$stateParams', '$location', 'LoginFactory'];
 
 
-var LoginController = function ($scope, $location, LoginFactory, LogoutFactory, SessionService) {
+var LoginController = function ($scope, $location, LoginFactory, SessionService) {
     $scope.loginForm = {
         username: undefined,
         password: undefined,
@@ -46,13 +47,13 @@ var LoginController = function ($scope, $location, LoginFactory, LogoutFactory, 
     }
 
     $scope.logout = function () {
-        LogoutFactory($scope.loginForm.username, $scope.loginForm.password)
-        .then(function (response) {
+        //LogoutFactory()
+        //.then(function () {
             SessionService.setToken('');
             $location.path('/');
-        }, function (response) {
-            $scope.loginForm.errorMessage = response.error_description;
-        });
+        //}, function (response) {
+        //    $scope.loginForm.errorMessage = response.error_description;
+        //});
     }
 }
-LoginController.$inject = ['$scope', '$location', 'LoginFactory', 'LogoutFactory', 'SessionService'];
+LoginController.$inject = ['$scope', '$location', 'LoginFactory', 'SessionService'];
