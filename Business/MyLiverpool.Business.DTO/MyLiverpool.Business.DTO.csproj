@@ -35,6 +35,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
@@ -72,8 +73,11 @@
     <Compile Include="NewsCommentDto.cs" />
     <Compile Include="NewsItemDto.cs" />
     <Compile Include="NewsMiniDto.cs" />
+    <Compile Include="PrivateMessageMiniDto.cs" />
+    <Compile Include="PrivateMessagesDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserDto.cs" />
+    <Compile Include="UserMiniDto.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

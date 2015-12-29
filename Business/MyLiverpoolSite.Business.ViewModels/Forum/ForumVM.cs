@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using MyLiverpoolSite.Data.Entities;
 
 namespace MyLiverpoolSite.Business.ViewModels.Forum

@@ -20,20 +20,30 @@ namespace MyLiverpoolSite.Business.Services.Mapping
             RegisterNewsCommentMapping();
             RegisterNewsMapping();
 
+            RegisterPrivateMessageMapping();
+
             RegisterUserMapping();
             
         }
 
         private static void RegisterUserMapping()
         {
-            AutoMapper.Mapper.CreateMap<User, UserDto>()
+            Mapper.CreateMap<User, UserDto>()
                 .ForMember(dest => dest.Birthday, src => src.MapFrom(x => x.Birthday))
                 .ForMember(dest => dest.FullName, src => src.MapFrom(x => x.FullName))
                 .ForMember(dest => dest.Gender, src => src.MapFrom(x => x.Gender))
                 .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id))
                 .ForMember(dest => dest.LockoutEndDateUtc, src => src.MapFrom(x => x.LockoutEndDateUtc))
                 .ForMember(dest => dest.RegistrationDate, src => src.MapFrom(x => x.RegistrationDate))
-                .ForMember(dest => dest.RoleGroupName, src => src.MapFrom(x => x.RoleGroup.Name));
+                .ForMember(dest => dest.RoleGroupName, src => src.MapFrom(x => x.RoleGroup.RussianName))
+                .ForMember(dest => dest.UserName, src => src.MapFrom(x => x.UserName));
+
+            Mapper.CreateMap<User, UserMiniDto>()
+                .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id))
+                .ForMember(dest => dest.LastModified, src => src.MapFrom(x => x.LastModified))
+                .ForMember(dest => dest.RegistrationDate, src => src.MapFrom(x => x.RegistrationDate))
+                .ForMember(dest => dest.RoleGroupName, src => src.MapFrom(x => x.RoleGroup.RussianName))
+                .ForMember(dest => dest.UserName, src => src.MapFrom(x => x.UserName));
         }
 
         private static void RegisterNewsMapping()
@@ -121,6 +131,17 @@ namespace MyLiverpoolSite.Business.Services.Mapping
                 .ForMember(dest => dest.Children, src => src.MapFrom(x => x.Children))
                 .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id))
                 .ForMember(dest => dest.Message, src => src.MapFrom(x => x.Message));
+        }
+        private static void RegisterPrivateMessageMapping()
+        {
+            Mapper.CreateMap<PrivateMessage, PrivateMessageMiniDto>()
+                .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id))
+                .ForMember(dest => dest.IsRead, src => src.MapFrom(x => x.IsRead))
+                .ForMember(dest => dest.ReceiverId, src => src.MapFrom(x => x.ReceiverId))
+                .ForMember(dest => dest.ReceiverUserName, src => src.MapFrom(x => x.Receiver.UserName))
+                .ForMember(dest => dest.SenderId, src => src.MapFrom(x => x.SenderId))
+                .ForMember(dest => dest.SenderUserName, src => src.MapFrom(x => x.Sender.UserName))
+                .ForMember(dest => dest.Title, src => src.MapFrom(x => x.Title));
         }
     }
 }

@@ -1,7 +1,5 @@
-﻿@using Microsoft.AspNet.Identity
-@using MyLiverpool.Helpers
-@using MyLiverpoolSite.Business.ViewModels.Resources
-@model MyLiverpoolSite.Data.DataAccessLayer.PageableData<MyLiverpoolSite.Business.ViewModels.Users.UserViewModel>
+﻿@using MyLiverpool.Business.Resources
+
 @{
     ViewBag.Title = CommonMessages.Users;
 }
@@ -16,25 +14,25 @@
                 <th>@UsersMessages.Group</th>
             </tr>
         </thead>
-        <tbody>
-            @foreach (var user in Model.List)
+        <tbody ng-repeat="user in users">
+        @*    @foreach (var user in Model.List)*@
             {
                 <tr>
                     <td class="">
-                        @user.LastModified
+                        {{ user.LastModified | date:'medium' }}
                     </td>
                     <td class="">
-                        <a href="@Url.Action("Profile", new {id = user.Id})">@user.UserName</a>
-                        @if (Request.IsAuthenticated && User.Identity.GetUserId<int>() != user.Id)
+                        <a ui-sref="users({id: user.Id})">{{ user.UserName }}</a>
+                       @* @if (Request.IsAuthenticated && User.Identity.GetUserId<int>() != user.Id)*@
                         {
-                            <a href="@Url.Action("WriteMessage", "User", new {receiverId = user.Id})"><span class="glyphicon glyphicon-envelope"></span></a>
+                            @*<a ui-sref="@Url.Action("WriteMessage", "User", new {receiverId = user.Id})"><span class="glyphicon glyphicon-envelope"></span></a>*@
                         }
                     </td>
                     <td class="">
-                        @user.RegistrationDate
+                        {{ user.RegistrationDate | date:'medium' }}
                     </td>
                     <td class="">
-                        @user.RoleGroup.RussianName
+                        {{ user.RoleGroupName }}
                     </td>
                 </tr>
 
@@ -42,4 +40,4 @@
         </tbody>
     </table>
 </div>
-<div class="pagination"> @Html.PageLinks(Model.PageNo, Model.CountPage, x => Url.Action("Index", new { page = x })) </div> 
+<div class="pagination"> @*@Html.PageLinks(Model.PageNo, Model.CountPage, x => Url.Action("Index", new { page = x }))*@ </div> 

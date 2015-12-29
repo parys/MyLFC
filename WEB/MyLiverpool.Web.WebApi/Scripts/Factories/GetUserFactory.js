@@ -4,7 +4,7 @@
 
         $http({
             method: 'GET',
-            url: SessionService.apiUrl + '/api/User/Get?id='+ id,
+            url: SessionService.apiUrl + '/api/User/Info?id='+ id,
             headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + SessionService.getToken() }
         })
         .success(function (response) {

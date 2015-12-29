@@ -1,14 +1,12 @@
 ﻿using System.Threading.Tasks;
 using System.Web.Mvc;
-using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
 using MyLiverpoolSite.Business.Contracts;
-using MyLiverpoolSite.Business.ViewModels.Resources;
 using MyLiverpoolSite.Business.ViewModels.Users;
 
 namespace MyLiverpool.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class UserController : BaseController
     {
         private readonly IUserService _userService;
@@ -24,32 +22,21 @@ namespace MyLiverpool.Controllers
         }
 
         [AllowAnonymous]
-        public async Task<ActionResult> Index(int page = 1)
+        public ActionResult Index()
         { 
-            var result = await _userService.GetAll(page);
-            return View(result);
+            return View();
         }
 
         [AllowAnonymous]
-        public async Task<ActionResult> Info()      
+        public ActionResult Info()      
         {
-            //if (!id.HasValue)
-            //{
-            //    return HttpNotFound(); //todo BadRequest();
-            //}
-            //var result = await _userService.GetUserProfile(id.Value);
-            //if (result == null)
-            //{
-            //    return HttpNotFound();
-            //}
             return View();
         }
 
         [Authorize]
-        public async Task<ActionResult> PrivateMessages()
+        public ActionResult PrivateMessages()
         {
-            var model = await _userService.GetPrivateMessagesForUser(User.Identity.GetUserId<int>());
-            return View(model);
+            return View();
         }
 
         [Authorize]

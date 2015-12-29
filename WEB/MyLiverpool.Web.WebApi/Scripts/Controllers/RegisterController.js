@@ -37,6 +37,7 @@ var RegisterController = function ($scope, LoginFactory, RegisterFactory, Sessio
             LoginFactory($scope.registerForm.username, $scope.registerForm.password)
             .then(function (response) {
                 SessionService.setToken(response.access_token);
+                SessionService.setUserId(response.id);
             }, function (response) {
                 $scope.registerForm.errorMessage = response;
             });

@@ -1,4 +1,4 @@
-﻿@using MyLiverpoolSite.Business.ViewModels.Resources
+﻿@using MyLiverpool.Business.Resources
 <!DOCTYPE html>
 <html lang="ru" ng-app="app" ng-controller="LandingPageController">
 <head>
@@ -30,10 +30,10 @@
 
 <div class="container-fluid navbar navbar-inverse navbar-fixed-top">
     <ul class="nav navbar-nav col-md-6 list-inline alert-danger">
-        <li><a id="back-top" href="#" style="display: none;">Наверх</a></li>@* todo move to resource*@
+        <li><a id="back-top" href="#" style="display: none;">@CommonMessages.Up</a></li>
         <li class="divider"></li>
         <li ng-if="loggedIn()">
-            <a href="@Url.Action("PrivateMessages", "User")"><span class="glyphicon glyphicon-envelope"></span> @CommonMessages.ReadPM</a>
+            <a ui-sref="pms({id: userId()})"><span class="glyphicon glyphicon-envelope"></span> @CommonMessages.ReadPM</a>
         </li>
         <li class="divider"></li>
     </ul>
@@ -95,7 +95,7 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">@CommonMessages.Users <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li>@Html.ActionLink(CommonMessages.Users, "Index", "User")</li>
+                        <li><a ui-sref="users">@CommonMessages.Users</a></li>
                         @*<li>@Html.ActionLink(CommonMessages.Create, "Index", "User")</li>
                                 <li>@Html.ActionLink("Create", "Create", "Blog")</li>*@
                     </ul>

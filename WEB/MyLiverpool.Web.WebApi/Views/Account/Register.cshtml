@@ -1,5 +1,5 @@
-﻿@using MyLiverpoolSite.Business.ViewModels.Resources
-@model MyLiverpoolSite.Business.ViewModels.Account.RegisterViewModel
+﻿@using MyLiverpool.Business.Resources
+
 @{
     ViewBag.Title = CommonMessages.Registration;
 }
@@ -8,17 +8,17 @@
 <form class="form-horizontal" role="form" ng-submit="register()">
     <hr/>
     <div class="form-group">
-        @Html.LabelFor(m => m.UserName, new {@class = "col-md-2 control-label"})
+        <label class="col-md-2 control-label">@UsersMessages.UserName</label>
         <div class="col-md-10">
             <input type="text" ng-model="registerForm.userName" id="userName" class="form-control"/>
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.Email, new {@class = "col-md-2 control-label"})
+        <label class="col-md-2 control-label">@UsersMessages.Email </label>
         <div class="col-md-10">
-            <input type="email" ng-model="registerForm.emailAddress" id="email" class="form-control"/>
+            <input type="email" ng-model="registerForm.emailAddress" id="email" class="form-control" />
         </div>
-    </div>
+</div>
     <div class="form-group">
         <label for="password" class="col-md-2 control-label">password</label>
         <div class="col-md-10">
@@ -32,17 +32,17 @@
             </div>
 </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.FullName, new {@class = "col-md-2 control-label"})
-        <div class="col-md-10">
-            <input type="text" ng-model="registerForm.fullName" class="form-control"/>
-        </div>
-    </div>
+        <label class="col-md-2 control-label">@UsersMessages.FullName</label>
+            <div class="col-md-10">
+                <input type="text" ng-model="registerForm.fullName" class="form-control" />
+            </div>
+</div>
     <div class="form-group">
-        @Html.LabelFor(m => m.BirthDay, new {@class = "col-md-2 control-label"})
+        <label class="col-md-2 control-label">@UsersMessages.BirthDay</label>
         <div class="col-md-10">
-            <input type="date" ng-model="registerForm.birthDayDate" class="form-control"/>
+            <input type="date" ng-model="registerForm.birthDayDate" class="form-control" />
         </div>
-    </div>
+</div>
     <div class="form-group">
         <p class="help-block" ng-if="registerForm.errorMessage">{{registerForm.errorMessage}}</p>
     </div>

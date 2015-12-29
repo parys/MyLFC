@@ -261,14 +261,18 @@
     <Content Include="Scripts\Controllers\LogoutController.js" />
     <Content Include="Scripts\Controllers\NewsController.js" />
     <Content Include="Scripts\Controllers\NewsItemController.js" />
+    <Content Include="Scripts\Controllers\PmsController.js" />
     <Content Include="Scripts\Controllers\RegisterController.js" />
     <Content Include="Scripts\Controllers\UserController.js" />
+    <Content Include="Scripts\Controllers\UsersController.js" />
     <Content Include="Scripts\Controllers\ValuesController.js" />
     <Content Include="Scripts\angular\date.js" />
     <Content Include="Scripts\Factories\AuthHttpResponseInterceptor.js" />
     <Content Include="Scripts\Factories\GetNewsItemFactory.js" />
     <Content Include="Scripts\Factories\GetNewsItemsFactory.js" />
+    <Content Include="Scripts\Factories\GetPmsFactory.js" />
     <Content Include="Scripts\Factories\GetUserFactory.js" />
+    <Content Include="Scripts\Factories\GetUsersFactory.js" />
     <Content Include="Scripts\Factories\GetValuesFactory.js" />
     <Content Include="Scripts\Factories\LoginFactory.js" />
     <Content Include="Scripts\Factories\LogoutFactory.js" />
@@ -358,6 +362,10 @@
     <ProjectReference Include="..\..\Business\MyLiverpool.Business.DTO\MyLiverpool.Business.DTO.csproj">
       <Project>{c70d0192-ab3e-471b-b0d1-081278be19b8}</Project>
       <Name>MyLiverpool.Business.DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Business\MyLiverpool.Business.Resources\MyLiverpool.Business.Resources.csproj">
+      <Project>{731b35bc-64f3-4766-84da-3597eae72191}</Project>
+      <Name>MyLiverpool.Business.Resources</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Business\MyLiverpoolSite.Business.Contracts\MyLiverpoolSite.Business.Contracts.csproj">
       <Project>{2b58260e-385f-4f42-acd7-015faa8ce4f0}</Project>

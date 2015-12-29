@@ -1,10 +1,10 @@
 ﻿var NewsItemController = function ($scope, GetNewsItemFactory, SessionState) {
-    $scope.newsItem = [];
+    $scope.item = [];
 
     var init = function () {
         GetNewsItemFactory()
             .then(function (response) {
-                $scope.newsItem = response;
+                $scope.item = response;
             },
                 function (response) {
                     //$scope.f = "";

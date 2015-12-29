@@ -7,7 +7,7 @@ using AutoMapper;
 using Microsoft.AspNet.Identity;
 using MyLiverpool.Business.DTO;
 using MyLiverpoolSite.Business.Contracts;
-using MyLiverpoolSite.Business.ViewModels.Resources;
+using MyLiverpool.Business.Resources;
 using MyLiverpoolSite.Business.ViewModels.Users;
 using MyLiverpoolSite.Data.DataAccessLayer;
 using MyLiverpoolSite.Data.Entities;
@@ -130,11 +130,34 @@ namespace MyLiverpoolSite.Business.Services.Services
             return userIdentity;
         }
 
+        #region Dto
         public async Task<UserDto> GetUserProfileDto(int id)
         {
             var user = await _unitOfWork.UserRepository.GetByIdAsync(id);
             var dto = Mapper.Map<UserDto>(user);
             return dto;
         }
+
+        public async Task<PrivateMessagesDto> GetPrivateMessagesDtoAsync(int id)
+        {
+            var messages = await _unitOfWork.PrivateMessageRepository.GetAsync(x => x.ReceiverId == id || x.SenderId == id);
+            var dto = new PrivateMessagesDto()
+            {
+                Received = Mapper.Map<ICollection<PrivateMessageMiniDto>>(messages.Where(x => x.ReceiverId == id)),
+                Sent = Mapper.Map<ICollection<PrivateMessageMiniDto>>(messages.Where(x => x.SenderId == id))
+            };
+            return dto;
+        }
+
+        public async Task<PageableData<UserMiniDto>> GetUsersDtoAsync(int page)
+        {
+            var users = await _unitOfWork.UserRepository.GetAsync(page);
+            var usersDto = Mapper.Map<IEnumerable<UserMiniDto>>(users);
+            var allUsersCount = await _unitOfWork.UserRepository.GetCountAsync();
+            var result = new PageableData<UserMiniDto>(usersDto, page, allUsersCount);
+            return result;
+        }
+
+        #endregion
     }
 }

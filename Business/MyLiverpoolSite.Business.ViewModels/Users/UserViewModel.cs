@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using MyLiverpoolSite.Business.ViewModels.Roles;
 using MyLiverpoolSite.Data.Entities;
 
 namespace MyLiverpoolSite.Business.ViewModels.Users

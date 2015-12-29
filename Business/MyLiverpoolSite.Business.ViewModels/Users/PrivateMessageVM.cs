@@ -1,6 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using MyLiverpoolSite.Business.ViewModels.Resources;
+using MyLiverpool.Business.Resources;
 using MyLiverpoolSite.Data.Entities;
 
 namespace MyLiverpoolSite.Business.ViewModels.Users

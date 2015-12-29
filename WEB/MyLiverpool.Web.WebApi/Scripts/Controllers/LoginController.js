@@ -1,35 +1,4 @@
-﻿//var LoginController = function ($scope, $stateParams, $location, LoginFactory) {
-//    $scope.loginForm = {
-//        emailAddress: '',
-//        password: '',
-//        rememberMe: false,
-//        returnUrl: $stateParams.returnUrl,
-
-//    };
-
-//    $scope.login = function() {
-//        //todo
-//    }
-//}
-
-//LoginController.$inject = ['$scope', '$routeParams']; 
-//var LoginController = function ($scope, $routeParams) {
-//    $scope.loginForm = {
-//        emailAddress: '',
-//        password: '',
-//        rememberMe: false,
-//        returnUrl: $routeParams.returnUrl
-//    };
-
-//    $scope.login = function () {
-//        //todo
-//    }
-//}
-
-//LoginController.$inject = ['$scope', '$stateParams', '$location', 'LoginFactory'];
-
-
-var LoginController = function ($scope, $location, LoginFactory, SessionService) {
+﻿var LoginController = function ($scope, $location, LoginFactory, SessionService) {
     $scope.loginForm = {
         username: undefined,
         password: undefined,
@@ -40,6 +9,7 @@ var LoginController = function ($scope, $location, LoginFactory, SessionService)
         LoginFactory($scope.loginForm.username, $scope.loginForm.password)
         .then(function (response) {
             SessionService.setToken(response.access_token);
+            SessionService.setUserId(response.id);
             $location.path('/');
         }, function (response) {
             $scope.loginForm.errorMessage = response.error_description;
@@ -50,6 +20,7 @@ var LoginController = function ($scope, $location, LoginFactory, SessionService)
         //LogoutFactory()
         //.then(function () {
             SessionService.setToken('');
+            SessionService.setUserId('');
             $location.path('/');
         //}, function (response) {
         //    $scope.loginForm.errorMessage = response.error_description;

@@ -1,16 +1,16 @@
 ﻿@using Microsoft.AspNet.Identity
-@using MyLiverpoolSite.Business.ViewModels.Resources
+@using MyLiverpool.Business.Resources
 
 @{
-  //  ViewBag.Title = @Model.UserName;
+//  ViewBag.Title = @Model.UserName;
 }
 
 <h2>
-  @*  @Model.UserName*@
-        @if (Request.IsAuthenticated)// && User.Identity.GetUserId<int>() != Model.Id)
-        {
-            <a href="@Url.Action("WriteMessage", "User")"><span class="glyphicon glyphicon-envelope"></span></a>
-        }
+    @*  @Model.UserName*@
+    @if (Request.IsAuthenticated)// && User.Identity.GetUserId<int>() != Model.Id)
+    {
+        <a href="@Url.Action("WriteMessage", "User")"><span class="glyphicon glyphicon-envelope"></span></a>
+    }
 </h2>
 
 <form class="form-horizontal" role="form">
@@ -22,10 +22,7 @@
             {
                 <a data-toggle="modal" data-target="#confirmBan">@CommonMessages.Ban</a>
             }
-       @*     @if (Model.LockoutEndDateUtc.HasValue)*@
-            
-                <span class="row">@*@UsersMessages.UsersActivityBannedUntil @Model.LockoutEndDateUtc.Value*@</span>
-            
+            <span class="row" ng-if="user.LockoutEndDateUtc">@UsersMessages.UsersActivityBannedUntil {{ user.LockoutEndDateUtc }}</span>
         </div>
     </div>
     <div class="form-group">
@@ -37,43 +34,42 @@
             }
             else
             {
-                <span class="form-control">@*@Model.RoleGroup.RussianName*@</span>
+                <span class="form-control">{{ user.RoleGroupName }}</span>
             }
         </div>
     </div>
     <div class="form-group">
         <label class="col-sm-2 control-label">@UsersMessages.LastLogin</label>
         <div class="col-sm-10">
-            <span class="form-control">@*@Model.LastModified*@</span>
+            <span class="form-control">{{ user.LastModified | date:'medium'}}</span>
         </div>
     </div>
     <div class="form-group">
         <label class="col-sm-2 control-label">@UsersMessages.RegistrationDate</label>
         <div class="col-sm-10">
-            <span class="form-control">@*@Model.RegistrationDate*@</span>
+            <span class="form-control">{{ user.RegistrationDate | date:'medium' }}</span>
         </div>
     </div>
-    <div class="form-group">
+    <div class="form-group" ng-if="user.FullName">
         <label class="col-sm-2 control-label">@UsersMessages.FullName</label>
         <div class="col-sm-10">
-            <span class="form-control">@*@Model.FullName*@</span>
+            <span class="form-control">{{ user.FullName }}</span>
         </div>
     </div>
     <div class="form-group">
         <label class="col-sm-2 control-label">@UsersMessages.BirthDay</label>
         <div class="col-sm-10">
-            <span class="form-control">@*@Model.Birthday*@</span>
+            <span class="form-control">{{ user.Birthday | date:'medium' }}</span>
         </div>
     </div>
-    @*@if (Model.Gender.HasValue)*@
-    {
-        <div class="form-group">
-            <label class="col-sm-2 control-label">@UsersMessages.Gender</label>
-            <div class="col-sm-10">
-                <span class="form-control">@*@(Model.Gender.Value ? @UsersMessages.Women : @UsersMessages.Men)*@</span>
-            </div>
+    <div class="form-group" ng-if="user.Gender">
+        <label class="col-sm-2 control-label">@UsersMessages.Gender</label>
+        <div class="col-sm-10">
+            <span class="form-control" ng-if="user.Gender">@UsersMessages.Women</span>
+            <span class="form-control" ng-if="!user.Gender">@UsersMessages.Men</span>
         </div>
-    }
+    </div>
+    
 </form>
 
 <div class="modal fade" id="confirmChangeRole">
@@ -102,7 +98,7 @@
                 <h4 class="modal-title">@UsersMessages.BanUserQuestion</h4>
             </div>
             <div class="modal-body">
-             @*   <h3>@Model.UserName</h3>*@
+                @*   <h3>@Model.UserName</h3>*@
                 <div class="form-group">
                     <label class="col-md-12 control-label">@UsersMessages.HowManyDaysWillUserBanned</label>
                     <div class="col-md-9 input-group date">
@@ -125,23 +121,23 @@
     //});
 
     //var previousId = Model.RoleGroupId;
-    $('#RoleGroupId').on('change', function() {
+    $('#RoleGroupId').on('change', function () {
         console.log($('#RoleGroupId').val());
         $('#confirmChangeRole').modal();
     });
-    $('#cancelChangeRole').on('click', function() {
+    $('#cancelChangeRole').on('click', function () {
         $('#RoleGroupId').val(previousId);
     });
-    $('#changeRole').on('click', function() {
+    $('#changeRole').on('click', function () {
         var newRoleGroupId = $('#RoleGroupId').val();
         $.ajax({
             type: 'post',
             url: '@Url.Action("EditRoleGroup", "Role")',
             //data: { newRoleGroupId: newRoleGroupId, userId: Model.Id },
-            beforeSend: function() {
+            beforeSend: function () {
 
             },
-            success: function(response) {
+            success: function (response) {
                 if (response) {
                     $('#').val('');
                     $('#confirmChangeRole').modal('hide');
@@ -153,7 +149,7 @@
         });
     });
 
-    $('#applyBan').on('click', function() {
+    $('#applyBan').on('click', function () {
         console.log("ban buuton click");
         //var userId = Model.Id;
         var date = $('#banDayCount');
@@ -167,10 +163,10 @@
             type: 'post',
             url: '@Url.Action("BanUser", "User")',
             data: { banDayCount: date.val(), userId: userId },
-            beforeSend: function() {
+            beforeSend: function () {
 
             },
-            success: function(response) {
+            success: function (response) {
                 if (response) {
                     $('#banDayCount').val('');
                     console.log('finish');

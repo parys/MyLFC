@@ -32,5 +32,9 @@ namespace MyLiverpoolSite.Business.Contracts
         Task<ClaimsIdentity> GenerateUserIdentityAsync(User user, string authenticationType);
 
         Task<UserDto> GetUserProfileDto(int id);
+
+        Task<PrivateMessagesDto> GetPrivateMessagesDtoAsync(int id);
+
+        Task<PageableData<UserMiniDto>> GetUsersDtoAsync(int page);
     }
 }

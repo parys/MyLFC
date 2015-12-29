@@ -7,6 +7,8 @@ App.controller('ValuesController', ValuesController);
 App.controller('NewsController', NewsController);
 App.controller('NewsItemController', NewsItemController);
 App.controller('UserController', UserController);
+App.controller('UsersController', UsersController);
+App.controller('PmsController', PmsController);
 
 App.service('SessionService', SessionService);
 
@@ -16,6 +18,8 @@ App.factory('RegisterFactory', RegisterFactory);
 App.factory('GetNewsItemsFactory', GetNewsItemsFactory);
 App.factory('GetNewsItemFactory', GetNewsItemFactory);
 App.factory('GetUserFactory', GetUserFactory);
+App.factory('GetUsersFactory', GetUsersFactory);
+App.factory('GetPmsFactory', GetPmsFactory);
 
 var configFunction = function ($stateProvider, $httpProvider, $locationProvider) {
 
@@ -69,6 +73,16 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider)
                 }
             }
         })
+
+        .state('users', {
+            url: '/users?page',
+            views: {
+                "containerMain": {
+                    templateUrl: function (params) { return '/user/index?page=' + params.page },
+                    controller: UsersController
+                }
+            }
+        })
         //.state('sign-out', {
         //      url: '/signout',
         //      controller: function($state, User) {
@@ -89,12 +103,12 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider)
         //        }
         //    }
         //})
-        .state('values', {
-            url: '/values',
+        .state('pms', {
+            url: '/pms?id',
             views: {
                 "containerMain": {
-                    templateUrl: "/Values/Get",
-                    controller: ValuesController
+                    templateUrl: function (params) { return '/User/Pms?id=' + params.id },
+                    controller: PmsController
                 }
             }
         })

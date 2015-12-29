@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using MyLiverpoolSite.Business.ViewModels.Resources;
+using MyLiverpool.Business.Resources;
 
 namespace MyLiverpoolSite.Business.ViewModels.Account
 {

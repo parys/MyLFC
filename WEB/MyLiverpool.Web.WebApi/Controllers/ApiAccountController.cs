@@ -268,7 +268,7 @@ namespace MyLiverpool.Web.WebApi.Controllers
                 ClaimsIdentity cookieIdentity = await _userService.GenerateUserIdentityAsync(user,
                     CookieAuthenticationDefaults.AuthenticationType);
 
-                AuthenticationProperties properties = ApplicationOAuthProvider.CreateProperties(user.UserName);
+                AuthenticationProperties properties = ApplicationOAuthProvider.CreateProperties(user.UserName, user.Id);
                 Authentication.SignIn(properties, oAuthIdentity, cookieIdentity);
             }
             else

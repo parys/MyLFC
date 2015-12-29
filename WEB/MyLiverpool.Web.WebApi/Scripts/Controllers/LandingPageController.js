@@ -1,6 +1,6 @@
 ﻿var LandingPageController = function ($scope, SessionService) {
-    $scope.models = {
-        helloAngular: 'I work! 111'
+    $scope.userId = function() {
+        return SessionService.getUserId();
     };
 
     $scope.navbarProperties = {

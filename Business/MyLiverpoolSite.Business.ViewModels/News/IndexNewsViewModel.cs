@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
+using MyLiverpool.Business.Resources;
 using MyLiverpoolSite.Business.ViewModels.NewsComments;
-using MyLiverpoolSite.Business.ViewModels.Resources;
 using MyLiverpoolSite.Data.Entities;
 
 namespace MyLiverpoolSite.Business.ViewModels.News

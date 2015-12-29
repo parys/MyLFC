@@ -1,6 +1,5 @@
-﻿@using MyLiverpoolSite.Business.ViewModels.NewsComments
-@using MyLiverpoolSite.Business.ViewModels.Resources
-@model MyLiverpoolSite.Business.ViewModels.News.IndexNewsViewModel
+﻿@using MyLiverpool.Business.Resources
+
 @{
 //ViewBag.Title = Model.Title;
 }
@@ -43,9 +42,10 @@
         {{item.Comments.length}}
         @*  @ShowTree(Model.Comments, 0)*@
     </div>
-
-    @*  @if (User.Identity.IsAuthenticated && Model.CanCommentary)*@
-    {<div class="col-md-12">
+    @* && Model.CanCommentary)*@
+   @if (User.Identity.IsAuthenticated) 
+    {
+       <div class="col-md-12" ng-if="item.CanCommentary">
         <div class="">
             <textarea id="newsCommentMessage" class="col-md-4 editor" rows="6"></textarea>
             <br />
@@ -54,7 +54,7 @@
     </div>
     }
 </div>
-@helper ShowTree(IEnumerable<IndexNewsCommentVM> comments, int deep)
+@*@helper ShowTree(IEnumerable<IndexNewsCommentVM> comments, int deep)
         {
 foreach (var comment in comments)
 {
@@ -71,7 +71,7 @@ foreach (var comment in comments)
                     @if (Request.IsAuthenticated)
                     {
                         <span class="pull-right">
-                            @* <a href="@Url.Action("Activate", new {id = Model.Id})"><span class="glyphicon glyphicon-ok"></span></a>*@
+                             <a href="@Url.Action("Activate", new {id = Model.Id})"><span class="glyphicon glyphicon-ok"></span></a>
                             <a href="#"><span class="glyphicon glyphicon-pencil"></span></a>
                             <a data-toggle="modal" data-target="#confirmDeleteComment" data-id="@Model.Id"><span class="glyphicon glyphicon-trash"></span></a>
                         </span>
@@ -105,7 +105,7 @@ foreach (var comment in comments)
         @ShowTree(comment.Children, deep)
     }
 }
-}
+}*@
 
 <div class="modal fade" id="addReply" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">

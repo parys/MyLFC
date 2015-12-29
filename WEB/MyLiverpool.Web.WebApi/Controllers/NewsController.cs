@@ -1,7 +1,5 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Net;
-using System.Web.Http.Results;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using MyLiverpoolSite.Business.Contracts;
@@ -26,13 +24,13 @@ namespace MyLiverpool.Controllers
         }
 
         [AllowAnonymous]
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
             return View();
         }
 
         [AllowAnonymous]
-        public async Task<ActionResult> Info()
+        public ActionResult Info()
         {
             return View();
         }

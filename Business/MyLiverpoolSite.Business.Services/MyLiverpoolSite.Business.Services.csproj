@@ -131,6 +131,10 @@
       <Project>{c70d0192-ab3e-471b-b0d1-081278be19b8}</Project>
       <Name>MyLiverpool.Business.DTO</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MyLiverpool.Business.Resources\MyLiverpool.Business.Resources.csproj">
+      <Project>{731b35bc-64f3-4766-84da-3597eae72191}</Project>
+      <Name>MyLiverpool.Business.Resources</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MyLiverpoolSite.Business.Contracts\MyLiverpoolSite.Business.Contracts.csproj">
       <Project>{2b58260e-385f-4f42-acd7-015faa8ce4f0}</Project>
       <Name>MyLiverpoolSite.Business.Contracts</Name>
