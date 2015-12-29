@@ -1,15 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using MyLiverpool.Business.DTO;
 using MyLiverpoolSite.Business.Contracts;
 using MyLiverpoolSite.Data.DataAccessLayer;
-using MyLiverpoolSite.Data.Entities;
 
 namespace MyLiverpool.Web.WebApi.Controllers
 {
@@ -17,8 +11,6 @@ namespace MyLiverpool.Web.WebApi.Controllers
     public class ApiNewsItemsController : ApiController
     {
         private readonly INewsService _newsService;
-
-        private LiverpoolContext db = new LiverpoolContext();
 
         public ApiNewsItemsController(INewsService newsService)
         {
@@ -32,97 +24,93 @@ namespace MyLiverpool.Web.WebApi.Controllers
             return await _newsService.GetDtoAllAsync(page, categoryId);
         }
 
-        // GET: api/NewsItems/5
-        [ResponseType(typeof(NewsItem))]
+        [HttpGet]
+        [Route("Info")]
+        [ResponseType(typeof(NewsItemDto))]
         public async Task<IHttpActionResult> GetNewsItem(int id)
         {
-            NewsItem newsItem = await db.NewsItems.FindAsync(id);
-            if (newsItem == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(newsItem);
+            var model = await _newsService.GetDtoAsync(id);
+            return Ok(model);
         }
 
-        // PUT: api/NewsItems/5
-        [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutNewsItem(int id, NewsItem newsItem)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //// PUT: api/NewsItems/5
+        //[ResponseType(typeof(void))]
+        //public async Task<IHttpActionResult> PutNewsItem(int id, NewsItem newsItem)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            if (id != newsItem.Id)
-            {
-                return BadRequest();
-            }
+        //    if (id != newsItem.Id)
+        //    {
+        //        return BadRequest();
+        //    }
 
-            db.Entry(newsItem).State = EntityState.Modified;
+        //    db.Entry(newsItem).State = EntityState.Modified;
 
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!NewsItemExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+        //    try
+        //    {
+        //        await db.SaveChangesAsync();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!NewsItemExists(id))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
 
-            return StatusCode(HttpStatusCode.NoContent);
-        }
+        //    return StatusCode(HttpStatusCode.NoContent);
+        //}
 
-        // POST: api/NewsItems
-        [ResponseType(typeof(NewsItem))]
-        public async Task<IHttpActionResult> PostNewsItem(NewsItem newsItem)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //// POST: api/NewsItems
+        //[ResponseType(typeof(NewsItem))]
+        //public async Task<IHttpActionResult> PostNewsItem(NewsItem newsItem)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            db.NewsItems.Add(newsItem);
-            await db.SaveChangesAsync();
+        //    db.NewsItems.Add(newsItem);
+        //    await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = newsItem.Id }, newsItem);
-        }
+        //    return CreatedAtRoute("DefaultApi", new { id = newsItem.Id }, newsItem);
+        //}
 
-        // DELETE: api/NewsItems/5
-        [ResponseType(typeof(NewsItem))]
-        public async Task<IHttpActionResult> DeleteNewsItem(int id)
-        {
-            NewsItem newsItem = await db.NewsItems.FindAsync(id);
-            if (newsItem == null)
-            {
-                return NotFound();
-            }
+        //// DELETE: api/NewsItems/5
+        //[ResponseType(typeof(NewsItem))]
+        //public async Task<IHttpActionResult> DeleteNewsItem(int id)
+        //{
+        //    NewsItem newsItem = await db.NewsItems.FindAsync(id);
+        //    if (newsItem == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            db.NewsItems.Remove(newsItem);
-            await db.SaveChangesAsync();
+        //    db.NewsItems.Remove(newsItem);
+        //    await db.SaveChangesAsync();
 
-            return Ok(newsItem);
-        }
+        //    return Ok(newsItem);
+        //}
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        //protected override void Dispose(bool disposing)
+        //{
+        //    if (disposing)
+        //    {
+        //        db.Dispose();
+        //    }
+        //    base.Dispose(disposing);
+        //}
 
-        private bool NewsItemExists(int id)
-        {
-            return db.NewsItems.Count(e => e.Id == id) > 0;
-        }
+        //private bool NewsItemExists(int id)
+        //{
+        //    return db.NewsItems.Count(e => e.Id == id) > 0;
+        //}
     }
 }

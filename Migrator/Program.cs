@@ -815,7 +815,7 @@ namespace Migrator
                         i++;
                     }
                     i++;
-                    newsItem.NumberCommentaries = int.Parse(numberCommentary);
+              //      newsItem.NumberCommentaries = int.Parse(numberCommentary);
                     //author
                     string userName = null;
                     while (chars[i] != '|')

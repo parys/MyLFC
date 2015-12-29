@@ -5,6 +5,7 @@ App.controller('LoginController', LoginController);
 App.controller('RegisterController', RegisterController);
 App.controller('ValuesController', ValuesController);
 App.controller('NewsController', NewsController);
+App.controller('NewsItemController', NewsItemController);
 App.controller('UserController', UserController);
 
 App.service('SessionService', SessionService);
@@ -13,6 +14,7 @@ App.service('SessionService', SessionService);
 App.factory('LoginFactory', LoginFactory);
 App.factory('RegisterFactory', RegisterFactory);
 App.factory('GetNewsItemsFactory', GetNewsItemsFactory);
+App.factory('GetNewsItemFactory', GetNewsItemFactory);
 App.factory('GetUserFactory', GetUserFactory);
 
 var configFunction = function ($stateProvider, $httpProvider, $locationProvider) {
@@ -45,6 +47,15 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider)
                  "containerMain": {
                     templateUrl: function(params) { return '/news/index?page=' + params.page + '&categoryId=' + params.categoryId },
                     controller: NewsController
+                }
+            }
+        })
+        .state('newsInfo', {
+            url: '/newsInfo?id',
+            views: {
+                 "containerMain": {
+                    templateUrl: function(params) { return '/news/info?id=' + params.id },
+                    controller: NewsItemController
                 }
             }
         })

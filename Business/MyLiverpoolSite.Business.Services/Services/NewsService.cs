@@ -27,6 +27,7 @@ namespace MyLiverpoolSite.Business.Services.Services
             _newsItemsRepository = newsItemsRepository;
         }
 
+        #region VM
         public async Task<IndexNewsViewModel> GetByIdAsync(int id)
         {
             IndexNewsViewModel result = null;
@@ -149,6 +150,7 @@ namespace MyLiverpoolSite.Business.Services.Services
 
             return categoriesVM;
         }
+        #endregion
 
         #region Dto 
         public async Task<PageableData<NewsMiniDto>> GetDtoAllAsync(int page, int? categoryId)
@@ -174,10 +176,21 @@ namespace MyLiverpoolSite.Business.Services.Services
             // }
             var news = await _unitOfWork.NewsItemRepository.GetAsync(page, filter: filter, itemPerPage: itemPerPage);
             var newsForView = (page == GlobalConstants.FirstPage) ? topNews.Concat(news) : news;
-            var newsVM = Mapper.Map<IEnumerable<NewsMiniDto>>(newsForView);
+            var newsVm = Mapper.Map<IEnumerable<NewsMiniDto>>(newsForView);
             var allNewsCount = await _unitOfWork.NewsItemRepository.GetCountAsync(filterForCount);
-            var result = new PageableData<NewsMiniDto>(newsVM, page, allNewsCount);
+            var result = new PageableData<NewsMiniDto>(newsVm, page, allNewsCount);
             return result;
+        }
+
+        public async Task<NewsItemDto> GetDtoAsync(int id)
+        {
+            var newsItem = await _unitOfWork.NewsItemRepository.GetByIdAsync(id);
+            if (newsItem == null)
+            {
+                return null;
+            }
+            var dto = Mapper.Map<NewsItemDto>(newsItem);
+            return dto;
         }
 
         #endregion

@@ -33,7 +33,7 @@ namespace MyLiverpoolSite.Data.Entities
 
         public DateTime AdditionTime { get; set; }
 
-        public int NumberCommentaries { get; set; }
+   //     public int NumberCommentaries { get; set; }
 
         public virtual User Author { get; set; }
 

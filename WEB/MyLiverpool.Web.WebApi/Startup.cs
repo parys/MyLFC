@@ -1,13 +1,11 @@
 ﻿using System.Reflection;
 using System.Web.Http;
-using System.Web.Mvc;
 using Autofac;
-using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
 using Microsoft.Owin;
 using MyLiverpool.Web.WebApi;
 using MyLiverpoolSite.Business.Contracts;
-using MyLiverpoolSite.Business.Services;
+using MyLiverpoolSite.Business.Services.Mapping;
 using MyLiverpoolSite.Business.Services.Services;
 using MyLiverpoolSite.Data.DataAccessLayer;
 using Owin;

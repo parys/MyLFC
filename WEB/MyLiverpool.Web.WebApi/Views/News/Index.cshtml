@@ -6,7 +6,7 @@
 <div class="container-fluid" ng-repeat="item in newsItems">
     <div class="container-fluid">
         <div class="row">
-            <a href="@Url.Action("Details", "News", new {@*id = item.Id*@})" class="col-md-9"><span>{{ item.Title }}</span></a>
+            <a ui-sref="newsInfo({id: item.Id})" class="col-md-9"><span>{{ item.Title }}</span></a>
             @if (User.IsInRole("NewsStart"))
             {
                 <span class="col-md-3">

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Net;
+using System.Web.Http.Results;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using MyLiverpoolSite.Business.Contracts;
@@ -25,36 +26,15 @@ namespace MyLiverpool.Controllers
         }
 
         [AllowAnonymous]
-        public async Task<ActionResult> Index(int page = 1, int? categoryId = null)
+        public async Task<ActionResult> Index()
         {
-           // var model = await _newsService.GetAllAsync(page, categoryId);
             return View();
-            //  return PartialView("_Index", model);
         }
 
-        // GET: News
-        //[AllowAnonymous]
-        //public async Task<ActionResult> Index(int page = 1, int? categoryId = null)
-        //{
-        //    var model = await _newsService.GetAllAsync(page, categoryId);
-        //    return View(model);
-        //    //  return PartialView("_Index", model);
-        //}
-
-        // GET: News/Details/5
         [AllowAnonymous]
-        public async Task<ActionResult> Details(int? id)
+        public async Task<ActionResult> Info()
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            IndexNewsViewModel indexNewsViewModel = await _newsService.GetByIdAsync(id.Value);
-            if (indexNewsViewModel == null)
-            {
-                return HttpNotFound();
-            }
-            return View(indexNewsViewModel);
+            return View();
         }
 
         // GET: News/Create

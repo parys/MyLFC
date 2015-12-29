@@ -260,11 +260,13 @@
     <Content Include="Scripts\Controllers\LoginController.js" />
     <Content Include="Scripts\Controllers\LogoutController.js" />
     <Content Include="Scripts\Controllers\NewsController.js" />
+    <Content Include="Scripts\Controllers\NewsItemController.js" />
     <Content Include="Scripts\Controllers\RegisterController.js" />
     <Content Include="Scripts\Controllers\UserController.js" />
     <Content Include="Scripts\Controllers\ValuesController.js" />
     <Content Include="Scripts\angular\date.js" />
     <Content Include="Scripts\Factories\AuthHttpResponseInterceptor.js" />
+    <Content Include="Scripts\Factories\GetNewsItemFactory.js" />
     <Content Include="Scripts\Factories\GetNewsItemsFactory.js" />
     <Content Include="Scripts\Factories\GetUserFactory.js" />
     <Content Include="Scripts\Factories\GetValuesFactory.js" />
@@ -334,7 +336,7 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\News\Categories.cshtml" />
     <Content Include="Views\News\Create.cshtml" />
-    <Content Include="Views\News\Details.cshtml" />
+    <Content Include="Views\News\Info.cshtml" />
     <Content Include="Views\News\Edit.cshtml" />
     <Content Include="Views\News\Index.cshtml" />
     <Content Include="Views\Role\Index.cshtml" />

@@ -2,57 +2,49 @@
 @using MyLiverpoolSite.Business.ViewModels.Resources
 @model MyLiverpoolSite.Business.ViewModels.News.IndexNewsViewModel
 @{
-    ViewBag.Title = Model.Title;
+//ViewBag.Title = Model.Title;
 }
 
 <div class="row-fluid">
     <div class="row">
         <h3 class="">
             <span class="col-md-9 alert-danger">
-                @Model.Title
+                {{ item.Title }}
             </span>
             <span class="col-md-3">
                 @if (Request.IsAuthenticated)
-            {
+                {
                     <span class="small pull-right">
-                        @if(Model.Pending)
+                        @*       @if(Model.Pending)*@
                         {
-                            <a href="@Url.Action("Activate", new {id = Model.Id})"><span class="glyphicon glyphicon-ok"></span></a>
+                        @*       <a href="@Url.Action("Activate", )"><span class="glyphicon glyphicon-ok"></span></a>*@
                         }
-                        <a href="@Url.Action("Edit", new {id = Model.Id})"><span class="glyphicon glyphicon-pencil"></span></a>
-                        <a data-toggle="modal" data-target="#confirmDelete" data-id="@Model.Id"><span class="glyphicon glyphicon-trash"></span></a>
+                        @*<a href="@Url.Action("Edit", )"><span class="glyphicon glyphicon-pencil"></span></a>*@
+                        <a data-toggle="modal" data-target="#confirmDelete" data-id=""><span class="glyphicon glyphicon-trash"></span></a>
                     </span>
                 }
             </span>
         </h3>
     </div>
     <div class="row-fluid">
-        @Html.HiddenFor(model => model.Id)
-
-        @Html.Raw(Model.Message)
+        @*@Html.HiddenFor(model => model.Id)        
+            @Html.Raw(Model.Message)*@
+        {{ item.Message }}
         <div class="row-fluid alert-warning">
-            @Html.DisplayNameFor(model => model.Reads)
-
-            @Html.DisplayFor(model => model.Reads)
-
-            @Html.DisplayNameFor(model => model.Source)
-
-            @Html.DisplayFor(model => model.Source)
-
-            @Html.DisplayNameFor(model => model.AdditionTime)
-
-            @Html.DisplayFor(model => model.AdditionTime)
-
-            @Html.DisplayNameFor(model => model.NewsCategory)
-
-            @Html.DisplayFor(model => model.NewsCategory.Name)
+            <ul class="list-inline">
+                <li><label>Reads:</label> {{ item.Reads }}</li>
+                <li><label>Source:</label> {{ item.Source }}</li>
+                <li><label>AdditionTime:</label> {{ item.AdditionTime | date:'medium' }}</li>
+                <li><label>NewsCategory:</label> <a ui-sref="news({categoryId: item.NewsCategoryId})"> {{ item.NewsCategoryName }} </a></li>
+            </ul>
         </div>
     </div>
     <div class="media-list" id="comments">
-        @ShowTree(Model.Comments, 0)
+        {{item.Comments.length}}
+        @*  @ShowTree(Model.Comments, 0)*@
     </div>
 
-    @if (User.Identity.IsAuthenticated && Model.CanCommentary)
+    @*  @if (User.Identity.IsAuthenticated && Model.CanCommentary)*@
     {<div class="col-md-12">
         <div class="">
             <textarea id="newsCommentMessage" class="col-md-4 editor" rows="6"></textarea>
@@ -180,125 +172,124 @@ foreach (var comment in comments)
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
-<script>
-    $('#addComment').click(function() {
-        console.log('add comment');
-        postValues();
-    });
-
-    function postValues() {
-        var comment = $('#newsCommentMessage').htmlcode();
-        console.log(comment);
-        if (!comment) {
-            return;
-        }
-        var newsId = @Model.Id;
-        $.ajax({
-            type: 'post',
-            url: '@Url.Action("AddComment", "News")',
-            data: { comment: comment, newsId: newsId },
-            beforeSend: function() {
-
-            },
-            success: function(response) {
-                $('#newsCommentMessage').val('');
-                publishComment(response, comment);
-            }
+@*<script>
+        $('#addComment').click(function() {
+            console.log('add comment');
+            postValues();
         });
-    }
 
-    function publishComment(id, comment) {
-        console.log(id);
-        //"<div class='comment'> <input id='comment_Id' name='comment.Id' type='hidden' value=" + id + "> " + comment + "@User.Identity.Name <br> <button class='reply'>add reply </button></div>");
-
-        $('#comments').append("<li class='media comment'><a class='pull-left' href='#'><img class='media-object img-thumbnail' src='@User.Identity.Name' alt='comment.Author.UserName'></a><div class='media-body'><h4 class='media-heading'>@User.Identity.Name</h4><input id='comment_Id' name='comment.Id' type='hidden' value" + id + "> " + comment + "</div><br/><button class='btn' data-toggle='modal' data-target='#addReply'>@CommonMessages.Reply</button></li>");
-        hideReplyWindow();
-    }
-
-    $('.reply-button').click(function() {
-        console.log('reply');
-        var comment = $(this).parent();
-        console.log(comment);
-        var id = comment.find(':first-child');
-        console.log(id.val());
-        $('#parent-comment-id').val(id.val());
-    });
-
-    function hideReplyWindow() {
-        $('#add-reply-comment').htmlcode('');
-        $('#parent-comment-id').val('');
-        $('#addReply').modal('hide');
-    }
-
-    $('.cancel').click(function() {
-        hideReplyWindow();
-    });
-
-    $('#add-reply-comment-submit').click(function() {
-        console.log('add-reply-comment-submit click');
-        var comment = $('#add-reply-comment').htmlcode();
-        console.log(comment);
-        if (!comment) {
-            return;
-        }
-
-        var newsId = @Model.Id;
-        var parentId = $('#parent-comment-id').val();
-        console.log(parentId);
-        console.log('add-reply-comment-submit click 2');
-        $.ajax({
-            type: 'post',
-            url: '@Url.Action("AddComment", "News")',
-            data: { comment: comment, newsId: newsId, parentId: parentId },
-            beforeSend: function() {
-
-                //     $('#quality-achievement-modal').modal('hide');
-            },
-            success: function(response) {
-                console.log('response start');
-                publishComment(response, comment);
-                console.log('response end');
+        function postValues() {
+            var comment = $('#newsCommentMessage').htmlcode();
+            console.log(comment);
+            if (!comment) {
+                return;
             }
-        });
-    });
+            var newsId = @Model.Id;
+            $.ajax({
+                type: 'post',
+                url: '@Url.Action("AddComment", "News")',
+                data: { comment: comment, newsId: newsId },
+                beforeSend: function() {
 
-    $('#confirmDeleteComment').on('shown.bs.modal', function(e) {
-        console.log('confirmDeleteComment');
-        var id = $(e.relatedTarget).closest('li').attr('data-id');
-        $('#commentId').val(id);
-    });
-
-    $('button#deleteComment').on('click', function() {
-        console.log('delete');
-        deleteComment();
-    });
-
-    function deleteComment() {
-        console.log('deleteComment');
-        var commentId = $('#commentId').val();
-        if (!commentId) {
-            console.log("commentId null");
-            return;
-        }
-        $.ajax({
-            type: 'post',
-            url: '@Url.Action("DeleteComment", "News")',
-            data: { id: commentId },
-            beforeSend: function() {
-
-            },
-            success: function(response) {
-                $('#commentId').val('');
-                if (response) {
-                    $('#commentId').val('');
-                    $("li[data-id='"+ commentId +"']").remove();
-                    console.log('finish');
-                } else {
-                    console.log("not delete");
+                },
+                success: function(response) {
+                    $('#newsCommentMessage').val('');
+                    publishComment(response, comment);
                 }
-                $('#confirmDeleteComment').modal('hide');
-            }
+            });
+        }
+
+        function publishComment(id, comment) {
+            console.log(id);
+            //"<div class='comment'> <input id='comment_Id' name='comment.Id' type='hidden' value=" + id + "> " + comment + "@User.Identity.Name <br> <button class='reply'>add reply </button></div>");
+
+            $('#comments').append("<li class='media comment'><a class='pull-left' href='#'><img class='media-object img-thumbnail' src='@User.Identity.Name' alt='comment.Author.UserName'></a><div class='media-body'><h4 class='media-heading'>@User.Identity.Name</h4><input id='comment_Id' name='comment.Id' type='hidden' value" + id + "> " + comment + "</div><br/><button class='btn' data-toggle='modal' data-target='#addReply'>@CommonMessages.Reply</button></li>");
+            hideReplyWindow();
+        }
+
+        $('.reply-button').click(function() {
+            console.log('reply');
+            var comment = $(this).parent();
+            console.log(comment);
+            var id = comment.find(':first-child');
+            console.log(id.val());
+            $('#parent-comment-id').val(id.val());
         });
-    };
-</script>
+
+        function hideReplyWindow() {
+            $('#add-reply-comment').htmlcode('');
+            $('#parent-comment-id').val('');
+            $('#addReply').modal('hide');
+        }
+
+        $('.cancel').click(function() {
+            hideReplyWindow();
+        });
+
+        $('#add-reply-comment-submit').click(function() {
+            console.log('add-reply-comment-submit click');
+            var comment = $('#add-reply-comment').htmlcode();
+            console.log(comment);
+            if (!comment) {
+                return;
+            }
+
+            var newsId = @Model.Id;
+            var parentId = $('#parent-comment-id').val();
+            console.log(parentId);
+            console.log('add-reply-comment-submit click 2');
+            $.ajax({
+                type: 'post',
+                url: '@Url.Action("AddComment", "News")',
+                data: { comment: comment, newsId: newsId, parentId: parentId },
+                beforeSend: function() {
+
+                    //     $('#quality-achievement-modal').modal('hide');
+                },
+                success: function(response) {
+                    console.log('response start');
+                    publishComment(response, comment);
+                    console.log('response end');
+                }
+            });
+        });
+
+        $('#confirmDeleteComment').on('shown.bs.modal', function(e) {
+            console.log('confirmDeleteComment');
+            var id = $(e.relatedTarget).closest('li').attr('data-id');
+            $('#commentId').val(id);
+        });
+
+        $('button#deleteComment').on('click', function() {
+            console.log('delete');
+            deleteComment();
+        });
+
+        function deleteComment() {
+            console.log('deleteComment');
+            var commentId = $('#commentId').val();
+            if (!commentId) {
+                console.log("commentId null");
+                return;
+            }
+            $.ajax({
+                type: 'post',
+                url: '@Url.Action("DeleteComment", "News")',
+                data: { id: commentId },
+                beforeSend: function() {
+
+                },
+                success: function(response) {
+                    $('#commentId').val('');
+                    if (response) {
+                        $('#commentId').val('');
+                        $("li[data-id='"+ commentId +"']").remove();
+                        console.log('finish');
+                    } else {
+                        console.log("not delete");
+                    }
+                    $('#confirmDeleteComment').modal('hide');
+                }
+            });
+        };
+    </script>*@

@@ -1,16 +1,15 @@
-﻿using System.Collections.Generic;
-using System.Globalization;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using Autofac;
 using Autofac.Integration.Mvc;
 using Microsoft.Owin;
+using MyLiverpool;
 using MyLiverpoolSite.Business.Contracts;
-using MyLiverpoolSite.Business.Services;
+using MyLiverpoolSite.Business.Services.Mapping;
 using MyLiverpoolSite.Business.Services.Services;
 using MyLiverpoolSite.Data.DataAccessLayer;
 using Owin;
 
-[assembly: OwinStartupAttribute(typeof(MyLiverpool.Startup))]
+[assembly: OwinStartup(typeof(Startup))]
 namespace MyLiverpool
 {
     public partial class Startup

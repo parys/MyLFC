@@ -16,7 +16,7 @@ namespace MyLiverpool.Web.WebApi.Controllers
             _userService = userService;
         }
 
-        [Route("Get")]
+        [Route("Info")]
         [HttpGet]
         [ResponseType(typeof(UserDto))]
         public async Task<IHttpActionResult> Get(int id)

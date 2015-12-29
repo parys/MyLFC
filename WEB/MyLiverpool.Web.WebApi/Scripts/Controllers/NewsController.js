@@ -20,14 +20,3 @@
 };
 
 NewsController.$inject = ['$scope', 'GetNewsItemsFactory', 'SessionService'];
-
-
-//$scope.login = function () {
-//    LoginFactory($scope.loginForm.username, $scope.loginForm.password)
-//    .then(function (response) {
-//        SessionService.setToken(response.access_token);
-//        $location.path('/');
-//    }, function (response) {
-//        $scope.loginForm.errorMessage = response.error_description;
-//    });
-//}

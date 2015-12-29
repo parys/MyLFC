@@ -29,10 +29,12 @@ namespace MyLiverpoolSite.Business.Contracts
 
         Task<PageableData<IndexMiniNewsVM>> GetAllAsync(int page, int? categoryId);
 
-        Task<PageableData<NewsMiniDto>> GetDtoAllAsync(int page, int? categoryId);
-
         Task<bool> ActivateAsync(int id);
 
         Task<IEnumerable<IndexNewsCategoryVM>> GetCategoriesAsync();
+
+        Task<PageableData<NewsMiniDto>> GetDtoAllAsync(int page, int? categoryId);
+
+        Task<NewsItemDto> GetDtoAsync(int id);
     }
 }
