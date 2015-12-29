@@ -4,13 +4,16 @@ App.controller('LandingPageController', LandingPageController);
 App.controller('LoginController', LoginController);
 App.controller('RegisterController', RegisterController);
 App.controller('ValuesController', ValuesController);
+App.controller('NewsController', NewsController);
+App.controller('UserController', UserController);
 
 App.service('SessionService', SessionService);
 
 //App.factory('AuthHttpResponseInterceptor', AuthHttpResponseInterceptor);
 App.factory('LoginFactory', LoginFactory);
 App.factory('RegisterFactory', RegisterFactory);
-App.factory('GetValuesFactory', GetValuesFactory);
+App.factory('GetNewsItemsFactory', GetNewsItemsFactory);
+App.factory('GetUserFactory', GetUserFactory);
 
 var configFunction = function ($stateProvider, $httpProvider, $locationProvider) {
 
@@ -34,6 +37,25 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider)
                 //"nestedView@stateOne": {
                 //    templateUrl: '/routesDemo/four'
                 //}
+            }
+        })
+        .state('news', {
+            url: '/news',
+            views: {
+                 "containerMain": {
+                    templateUrl: function(params) { return '/news/index?pageNo=' + params.pageNo + '&categoryId=' + params.categoryId },
+                    controller: NewsController
+                }
+            }
+        })
+
+        .state('userInfo', {
+            url: '/userInfo?id',
+            views: {
+                "containerMain": {
+                    templateUrl: function (params) { return '/user/info?id=' + params.id },
+                    controller: UserController
+                }
             }
         })
         //.state('sign-out', {
@@ -82,15 +104,7 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider)
                     controller: LoginController
                 }
             }
-        //})
-        //.state('logout', {
-        //    url: '/logout',
-        //    views: {
-        //        "ContainerMain": {
-        //            templateUrl: 'Account/Logout',
-        //            controller: LoginController
-        //        }
-        //}
+
         });
 
 

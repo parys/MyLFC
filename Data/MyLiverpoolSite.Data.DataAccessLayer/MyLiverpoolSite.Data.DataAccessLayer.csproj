@@ -114,6 +114,10 @@
     <Compile Include="UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Common\MyLiverpoolSite.Common.Utilities\MyLiverpoolSite.Common.Utilities.csproj">
+      <Project>{9170eed7-3e97-4d04-9213-abd33a7d71f0}</Project>
+      <Name>MyLiverpoolSite.Common.Utilities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MyLiverpoolSite.Data.Entities\MyLiverpoolSite.Data.Entities.csproj">
       <Project>{996c9442-54c1-4f0a-bc05-ad1c0e09e20b}</Project>
       <Name>MyLiverpoolSite.Data.Entities</Name>

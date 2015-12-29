@@ -23,10 +23,15 @@ namespace MyLiverpool.Controllers
         private ApplicationUserManager _userManager;
         private readonly IAccountService _accountService;
 
+        public AccountController()
+        {
+            
+        }
+
         public AccountController(IAccountService accountService)
         {
             _accountService = accountService;
-        }
+        }//todo remove
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, IAccountService accountService)
         {

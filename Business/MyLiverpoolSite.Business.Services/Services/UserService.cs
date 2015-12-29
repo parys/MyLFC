@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNet.Identity;
+using MyLiverpool.Business.DTO;
 using MyLiverpoolSite.Business.Contracts;
 using MyLiverpoolSite.Business.ViewModels.Resources;
 using MyLiverpoolSite.Business.ViewModels.Users;
@@ -127,6 +128,13 @@ namespace MyLiverpoolSite.Business.Services.Services
             var userIdentity = await _unitOfWork.UserManager.CreateIdentityAsync(user, authenticationType);
             // Add custom user claims here
             return userIdentity;
+        }
+
+        public async Task<UserDto> GetUserProfileDto(int id)
+        {
+            var user = await _unitOfWork.UserRepository.GetByIdAsync(id);
+            var dto = Mapper.Map<UserDto>(user);
+            return dto;
         }
     }
 }

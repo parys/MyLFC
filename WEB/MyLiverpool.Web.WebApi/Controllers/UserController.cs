@@ -13,7 +13,12 @@ namespace MyLiverpool.Controllers
     {
         private readonly IUserService _userService;
 
-        public UserController(IUserService userService)
+        public UserController()
+        {
+            
+        }
+
+        public UserController(IUserService userService) //todo remove
         {
             _userService = userService;
         }
@@ -26,18 +31,18 @@ namespace MyLiverpool.Controllers
         }
 
         [AllowAnonymous]
-        public async Task<ActionResult> Profile(int? id)
+        public async Task<ActionResult> Info()      
         {
-            if (!id.HasValue)
-            {
-                return HttpNotFound(); //todo BadRequest();
-            }
-            var result = await _userService.GetUserProfile(id.Value);
-            if (result == null)
-            {
-                return HttpNotFound();
-            }
-            return View(result);
+            //if (!id.HasValue)
+            //{
+            //    return HttpNotFound(); //todo BadRequest();
+            //}
+            //var result = await _userService.GetUserProfile(id.Value);
+            //if (result == null)
+            //{
+            //    return HttpNotFound();
+            //}
+            return View();
         }
 
         [Authorize]

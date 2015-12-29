@@ -1,23 +1,16 @@
-﻿
-@using Microsoft.AspNet.Identity
-@using MyLiverpool.Helpers
-@using MyLiverpoolSite.Business.ViewModels.Resources
-@model MyLiverpoolSite.Data.DataAccessLayer.PageableData<MyLiverpoolSite.Business.ViewModels.News.IndexMiniNewsVM>
-
+﻿@using MyLiverpoolSite.Business.ViewModels.Resources
 @{
     ViewBag.Title = NewsMessages.News;
 }
-
-<div class="container-fluid">
-    @foreach (var item in Model.List)
-    {
-        <div class="container-fluid">
-            <div class="row">
-                <a href="@Url.Action("Details", "News", new {id = item.Id})" class="col-md-9"><span>@Html.DisplayFor(modelItem => item.Title)</span></a>
-                @if (User.IsInRole("NewsStart"))
-                {
-                    <span class="col-md-3">
-                        @if (item.Pending && User.IsInRole("NewsFull"))
+@*<input ng-click="init()" type="button" value="123" />*@
+<div class="container-fluid" ng-repeat="item in newsItems">
+    <div class="container-fluid">
+        <div class="row">
+            <a href="@Url.Action("Details", "News", new {@*id = item.Id*@})" class="col-md-9"><span>{{ item.Title }}</span></a>
+            @if (User.IsInRole("NewsStart"))
+            {
+                <span class="col-md-3">
+                        @*@if (item.Pending && User.IsInRole("NewsFull"))
                         {
                             <a href="@Url.Action("Activate", "News", new {id = item.Id})"><span class="glyphicon glyphicon-ok"></span></a>
                         }
@@ -25,34 +18,33 @@
                         {
                             <a href="@Url.Action("Edit", "News", new {id = item.Id})"><span class="glyphicon glyphicon-pencil"></span></a>
                             <a data-toggle="modal" data-target="#confirmDelete" data-id="@item.Id"><span class="glyphicon glyphicon-trash"></span></a>
-                        }
+                        }*@
                     </span>
-                }
-            </div>
-            <div class="row">
-                <img class="img-thumbnail" alt="" src="@item.PhotoPath" style="width: 300px; height: 140px;"/>
-            </div>
-            <div class="row">
-                <span><i> @Html.Raw(item.Brief)</i></span>
-            </div>
-            <ul class="list-inline">
-                <li class="">@NewsMessages.NewsCategory</li>
-                <li class=""><a href="@Url.Action("Index", "News", new {categoryId = item.NewsCategory.Id})">@Html.DisplayFor(modelItem => item.NewsCategory.Name)</a></li>
-                <li class="">|</li>
-                <li class="">@NewsMessages.AdditionTime</li>
-                <li class="">@Html.DisplayFor(modelItem => item.AdditionTime)</li>
-                <li class="">|</li>
-                <li class="">@NewsMessages.Reads</li>
-                <li class="">@Html.DisplayFor(modelItem => item.Reads)</li>
-                <li class="">|</li>
-                <li class="">@NewsMessages.Author</li>
-                <li class=""><a href="@Url.Action("Profile", "User", new {id = @item.Author.Id})">@item.Author.UserName</a></li>
-            </ul>
+            }
         </div>
-        <hr/>
-    }
+        <div class="row">
+            <img class="img-thumbnail" alt="" ng-src="{{item.PhotoPath}}" style="width: 300px; height: 140px;"/>
+        </div>
+        <div class="row">
+            <span><i> {{ item.Brief }}</i></span>
+        </div>
+        <ul class="list-inline">
+            <li class="">@NewsMessages.NewsCategory</li>
+            @*<li class=""><a href="@Url.Action("Index", "News", new {categoryId = item.NewsCategory.Id})">@Html.DisplayFor(modelItem => item.NewsCategory.Name)</a></li>*@
+            <li class="">|</li>
+            <li class="">@NewsMessages.AdditionTime</li>
+            <li class="">{{item.AdditionTime | date:'medium'}}</li>
+            <li class="">|</li>
+            <li class="">@NewsMessages.Reads</li>
+            <li class="">{{item.Reads}}</li>
+            <li class="">|</li>
+            <li class="">@NewsMessages.Author</li>
+            <li class=""><a ui-sref="userInfo({id: item.AuthorId })">{{item.AuthorUserName }}</a></li>
+        </ul>
+    </div>
+    <hr/>
 </div>
-<div class="pagination">  @Html.PageLinks(Model.PageNo, Model.CountPage, x => Url.Action("Index", "News", new { page = x, categoryId = Request.QueryString["categoryId"] }))     </div>
+<div class="pagination"> @* @Html.PageLinks(Model.PageNo, Model.CountPage, x => Url.Action("Index", "News", new { page = x  ,categoryId = Request.QueryString["categoryId"]*@     </div>
 
 <div class="modal fade" id="confirmDelete">
     <div class="modal-dialog">

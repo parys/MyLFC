@@ -1,5 +1,6 @@
 ﻿using System.Security.Claims;
 using System.Threading.Tasks;
+using MyLiverpool.Business.DTO;
 using MyLiverpoolSite.Business.ViewModels.Users;
 using MyLiverpoolSite.Data.DataAccessLayer;
 using MyLiverpoolSite.Data.Entities;
@@ -29,5 +30,7 @@ namespace MyLiverpoolSite.Business.Contracts
         Task<bool> BanUser(int userId, int banDayCount);
 
         Task<ClaimsIdentity> GenerateUserIdentityAsync(User user, string authenticationType);
+
+        Task<UserDto> GetUserProfileDto(int id);
     }
 }

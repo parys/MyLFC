@@ -1,4 +1,6 @@
-﻿using AutoMapper;
+﻿using System.Security.Cryptography.X509Certificates;
+using AutoMapper;
+using MyLiverpool.Business.DTO;
 using MyLiverpoolSite.Business.ViewModels.BlogComments;
 using MyLiverpoolSite.Business.ViewModels.Blogs;
 using MyLiverpoolSite.Business.ViewModels.Forum;
@@ -21,89 +23,41 @@ namespace MyLiverpoolSite.Business.Services
 
         private static void RegisterUserMapping()
         {
-           // Mapper.CreateMap<CreateUserViewModel, User>()
-        //    .ForMember(t => t.Id, opt => opt.MapFrom(m => m.Id))
-        //    .ForMember(t => t.UserName, opt => opt.MapFrom(m => m.UserName))
-        //    .ForMember(t => t.Password, opt => opt.MapFrom(m => m.Password))
-        //    .ForMember(t => t.Email, opt => opt.MapFrom(m => m.Email))
-        //    .ForMember(t => t.Birthday, opt => opt.Ignore())//MapFrom(m => m.Email))
-        //    .ForMember(t => t.City, opt => opt.Ignore())//MapFrom(m => m.Email))
-        //    .ForMember(t => t.Children, opt => opt.Ignore())//MapFrom(m => m.Email))
-        //    .ForMember(t => t.Country, opt => opt.Ignore())//MapFrom(m => m.Email))
-        //    .ForMember(t => t.Messages, opt => opt.Ignore())//MapFrom(m => m.Email))
-        //    .ForMember(t => t.FullName, opt => opt.Ignore())//MapFrom(m => m.Email))
-        //    .ForMember(t => t.Gender, opt => opt.Ignore())//MapFrom(m => m.Email))
-        //    .ForMember(t => t.Homepage, opt => opt.Ignore())//MapFrom(m => m.Email))
-        //    .ForMember(t => t.Ip, opt => opt.Ignore())//MapFrom(m => m.Email))
-        //    .ForMember(t => t.LastModified, opt => opt.Ignore())//MapFrom(m => m.Email))
-        //    .ForMember(t => t.OldId, opt => opt.Ignore())//MapFrom(m => m.Email))
-        //    .ForMember(t => t.PhotoPath, opt => opt.Ignore())//MapFrom(m => m.Email))
-        //    .ForMember(t => t.RegistrationDate, opt => opt.Ignore())//MapFrom(m => m.Email))
-        //    .ForMember(t => t.Skype, opt => opt.Ignore())//MapFrom(m => m.Email))
-        //    .ForMember(t => t.Title, opt => opt.Ignore())//MapFrom(m => m.Email))
-        //    .ForMember(t => t.Verify, opt => opt.Ignore())//MapFrom(m => m.Email))
-
-            //    ;
-            //    //.ForMember(t => t.NewsCategories, opt => opt.Ignore())
-
-            //    Mapper.CreateMap<User, CreateUserViewModel>()
-            //        // .ForMember(t => t.ConfirmPassword, opt => opt.Ignore())// MapFrom(m => m.))
-            //        .ForMember(t => t.ConfirmPassword, opt => opt.Ignore());// MapFrom(m => m.))
+            Mapper.CreateMap<User, UserDto>()
+                .ForMember(dest => dest.Birthday, src => src.MapFrom(x => x.Birthday))
+                .ForMember(dest => dest.FullName, src => src.MapFrom(x => x.FullName))
+                .ForMember(dest => dest.Gender, src => src.MapFrom(x => x.Gender))
+                .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id))
+                .ForMember(dest => dest.LockoutEndDateUtc, src => src.MapFrom(x => x.LockoutEndDateUtc))
+                .ForMember(dest => dest.RegistrationDate, src => src.MapFrom(x => x.RegistrationDate))
+                .ForMember(dest => dest.RoleGroupName, src => src.MapFrom(x => x.RoleGroup.Name));
         }
 
         private static void RegisterNewsMapping()
         {
-                Mapper.CreateMap<IndexNewsViewModel, NewsItem>();
-                Mapper.CreateMap<IndexBlogVM, BlogItem>();
-            //.ForMember(t => t.Id, opt => opt.MapFrom(m => m.Id))
-            //.ForMember(t => t.Title, opt => opt.MapFrom(m => m.Title))
-            //.ForMember(t => t.Brief, opt => opt.MapFrom(m => m.Brief))
-            //.ForMember(t => t.Message, opt => opt.MapFrom(m => m.Message))
-            //.ForMember(t => t.NewsCategory, opt => opt.MapFrom(m => m.NewsCategory))
-            //        .ForMember(t => t.OnTop, opt => opt.MapFrom(m => m.OnTop))
-            //    .ForMember(t => t.CanCommentary, opt => opt.MapFrom(m => m.CanCommentary))
-            //        .ForMember(t => t.Pending, opt => opt.MapFrom(m => m.Pending))
-            //   .ForMember(t => t.Source, opt => opt.MapFrom(m => m.Source))
-            // .ForMember(t => t.AdditionTime, opt => opt.Ignore())//MapFrom(m => m.));
-            //      .ForMember(t => t.NewsComments, opt => opt.Ignore())//MapFrom(m => m.));
-            //  .ForMember(t => t.Children, opt => opt.MapFrom(m => m.Children))
-            //        .ForMember(t => t.Day, opt => opt.Ignore())//MapFrom(m => m.));
-            //        .ForMember(t => t.LastModified, opt => opt.Ignore())//MapFrom(m => m.));
-            //        .ForMember(t => t.Month, opt => opt.Ignore())//MapFrom(m => m.));
-            //  .ForMember(t => t.NumberCommentaries, opt => opt.Ignore())//MapFrom(m => m.));
-            //        .ForMember(t => t.OldId, opt => opt.Ignore())//MapFrom(m => m.));
-            // .ForMember(t => t.PhotoPath, opt => opt.Ignore())//MapFrom(m => m.));
-            //        .ForMember(t => t.Rating, opt => opt.Ignore())//MapFrom(m => m.));
-            //        .ForMember(t => t.RatingNumbers, opt => opt.Ignore())//MapFrom(m => m.));
-            //        .ForMember(t => t.RatingSumm, opt => opt.Ignore())//MapFrom(m => m.));
-            //   .ForMember(t => t.Reads, opt => opt.Ignore())//MapFrom(m => m.));
-            //        .ForMember(t => t.Author, opt => opt.Ignore())//MapFrom(m => m.));
-            //        .ForMember(t => t.Year, opt => opt.Ignore())//MapFrom(m => m.));
-            //        .ForMember(t => t.NewsCategoryId, opt => opt.Ignore())
-            ;//MapFrom(m => m.));
+#region mapper for VM
+            Mapper.CreateMap<IndexNewsViewModel, NewsItem>();
+            Mapper.CreateMap<IndexBlogVM, BlogItem>();
 
             Mapper.CreateMap<NewsItem, IndexNewsViewModel>();
             Mapper.CreateMap<BlogItem, IndexBlogVM>();
-            //.ForMember(t => t.NewsCategories, opt => opt.Ignore())
-            // .ForMember(t => t.NewsCategories, opt => opt.Ignore());
-
 
             Mapper.CreateMap<NewsItem, CreateEditNewsViewModel>();
             Mapper.CreateMap<CreateEditNewsViewModel, NewsItem>();
-            
+
             Mapper.CreateMap<BlogItem, CreateEditBlogVM>();
             Mapper.CreateMap<CreateEditBlogVM, BlogItem>();
 
             Mapper.CreateMap<NewsItem, IndexMiniNewsVM>();
             Mapper.CreateMap<BlogItem, IndexMiniBlogVM>();
-          //  Mapper.CreateMap<IndexMiniNewsVM, NewsItem>();
+            //  Mapper.CreateMap<IndexMiniNewsVM, NewsItem>();
 
             Mapper.CreateMap<NewsComment, IndexNewsCommentVM>();
             Mapper.CreateMap<BlogComment, IndexBlogCommentVM>();
-        //    Mapper.CreateMap<IndexNewsCommentVM, NewsComment>();
+            //    Mapper.CreateMap<IndexNewsCommentVM, NewsComment>();
 
             Mapper.CreateMap<User, UserViewModel>();
-           // Mapper.CreateMap<IndexNewsCommentVM, NewsComment>();
+            // Mapper.CreateMap<IndexNewsCommentVM, NewsComment>();
 
             Mapper.CreateMap<ForumSubsection, ForumSubsectionVM>().ForMember(x => x.Themes, y => y.Ignore());
             Mapper.CreateMap<ForumTheme, ForumThemeVM>().ForMember(x => x.Messages, y => y.Ignore());
@@ -119,6 +73,22 @@ namespace MyLiverpoolSite.Business.Services
 
             Mapper.CreateMap<PrivateMessage, PrivateMessageVM>();
             Mapper.CreateMap<PrivateMessageVM, PrivateMessage>();
+#endregion
+
+            Mapper.CreateMap<NewsItem, NewsMiniDto>()
+                .ForMember(dest => dest.AdditionTime, src => src.MapFrom(x => x.AdditionTime))
+                .ForMember(dest => dest.AuthorId, src => src.MapFrom(x => x.AuthorId))
+                .ForMember(dest => dest.AuthorUserName, src => src.MapFrom(x => x.Author.UserName))
+                .ForMember(dest => dest.Brief, src => src.MapFrom(x => x.Brief))
+                .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id))
+                .ForMember(dest => dest.NewsCategoryId, src => src.MapFrom(x => x.NewsCategoryId))
+                .ForMember(dest => dest.NewsCategoryName, src => src.MapFrom(x => x.NewsCategory.Name))
+                .ForMember(dest => dest.NumberCommentaries, src => src.MapFrom(x => x.NumberCommentaries))
+                .ForMember(dest => dest.Pending, src => src.MapFrom(x => x.Pending))
+                .ForMember(dest => dest.Title, src => src.MapFrom(x => x.Title))
+                .ForMember(dest => dest.PhotoPath, src => src.MapFrom(x => x.PhotoPath))
+                .ForMember(dest => dest.Reads, src => src.MapFrom(x => x.Reads));
+
         }
     }
 }

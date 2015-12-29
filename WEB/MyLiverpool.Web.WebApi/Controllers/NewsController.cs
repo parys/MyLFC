@@ -13,20 +13,33 @@ namespace MyLiverpool.Controllers
         private readonly INewsService _newsService;
         private readonly INewsCommentService _newsCommentService;
 
-        public NewsController(INewsService newsService, INewsCommentService newsCommentService)
+        public NewsController()
+        {
+            
+        }
+
+        public NewsController(INewsService newsService, INewsCommentService newsCommentService)//todo remove
         {
             _newsService = newsService;
             _newsCommentService = newsCommentService;
         }
 
-        // GET: News
         [AllowAnonymous]
         public async Task<ActionResult> Index(int page = 1, int? categoryId = null)
         {
-            var model = await _newsService.GetAllAsync(page, categoryId);
-            return View(model);
+           // var model = await _newsService.GetAllAsync(page, categoryId);
+            return View();
             //  return PartialView("_Index", model);
         }
+
+        // GET: News
+        //[AllowAnonymous]
+        //public async Task<ActionResult> Index(int page = 1, int? categoryId = null)
+        //{
+        //    var model = await _newsService.GetAllAsync(page, categoryId);
+        //    return View(model);
+        //    //  return PartialView("_Index", model);
+        //}
 
         // GET: News/Details/5
         [AllowAnonymous]

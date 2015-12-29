@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using AutoMapper;
-using AutoMapper.Mappers;
+using MyLiverpool.Business.DTO;
 using MyLiverpoolSite.Business.Contracts;
 using MyLiverpoolSite.Business.ViewModels.News;
 using MyLiverpoolSite.Business.ViewModels.NewsCategories;
@@ -150,5 +149,39 @@ namespace MyLiverpoolSite.Business.Services.Services
 
             return categoriesVM;
         }
+
+        #region Dto 
+        public async Task<PageableData<NewsMiniDto>> GetDtoAllAsync(int page, int? categoryId)
+        {
+            // itemPerPage = GlobalConstants.NewsPerPage;
+            Expression<Func<NewsItem, bool>> filter = x => !x.OnTop;
+            Expression<Func<NewsItem, bool>> filterForCount = null;
+            ICollection<NewsItem> topNews = null;
+            if (categoryId.HasValue)
+            {
+                filter = x => x.NewsCategoryId == categoryId.Value && !x.OnTop;
+                filterForCount = x => x.NewsCategoryId == categoryId.Value;
+                topNews = await _unitOfWork.NewsItemRepository.GetAsync(x => x.OnTop && x.NewsCategoryId == categoryId.Value);
+            }
+            else
+            {
+                topNews = await _unitOfWork.NewsItemRepository.GetAsync(x => x.OnTop);
+            }
+
+            // if (page == GlobalConstants.FirstPage)
+            // {
+            var itemPerPage = GlobalConstants.NewsPerPage - topNews.Count;
+            // }
+            var news = await _unitOfWork.NewsItemRepository.GetAsync(page, filter: filter, itemPerPage: itemPerPage);
+            var newsForView = (page == GlobalConstants.FirstPage) ? topNews.Concat(news) : news;
+            var newsVM = Mapper.Map<IEnumerable<NewsMiniDto>>(newsForView);
+            var allNewsCount = await _unitOfWork.NewsItemRepository.GetCountAsync(filterForCount);
+            var result = new PageableData<NewsMiniDto>(newsVM, page, allNewsCount);
+            return result;
+        }
+
+        #endregion
+
+       
     }
 }

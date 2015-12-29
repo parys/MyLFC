@@ -1,15 +1,15 @@
 ﻿@using Microsoft.AspNet.Identity
 @using MyLiverpoolSite.Business.ViewModels.Resources
-@model MyLiverpoolSite.Business.ViewModels.Users.UserViewModel
+
 @{
-    ViewBag.Title = @Model.UserName;
+  //  ViewBag.Title = @Model.UserName;
 }
 
 <h2>
-    @Model.UserName
-        @if (Request.IsAuthenticated && User.Identity.GetUserId<int>() != Model.Id)
+  @*  @Model.UserName*@
+        @if (Request.IsAuthenticated)// && User.Identity.GetUserId<int>() != Model.Id)
         {
-            <a href="@Url.Action("WriteMessage", "User", new {receiverId = Model.Id})"><span class="glyphicon glyphicon-envelope"></span></a>
+            <a href="@Url.Action("WriteMessage", "User")"><span class="glyphicon glyphicon-envelope"></span></a>
         }
 </h2>
 
@@ -17,15 +17,15 @@
     <div class="form-group">
         <label class="col-sm-2 control-label">@UsersMessages.UserName</label>
         <div class="col-sm-10">
-            <span class="form-control">@Model.UserName</span>
+            <span class="form-control">{{ user.UserName }}</span>
             @if (User.IsInRole("UsersStart"))
             {
                 <a data-toggle="modal" data-target="#confirmBan">@CommonMessages.Ban</a>
             }
-            @if (Model.LockoutEndDateUtc.HasValue)
-            {
-                <span class="row">@UsersMessages.UsersActivityBannedUntil @Model.LockoutEndDateUtc.Value</span>
-            }
+       @*     @if (Model.LockoutEndDateUtc.HasValue)*@
+            
+                <span class="row">@*@UsersMessages.UsersActivityBannedUntil @Model.LockoutEndDateUtc.Value*@</span>
+            
         </div>
     </div>
     <div class="form-group">
@@ -33,44 +33,44 @@
         <div class="col-sm-10">
             @if (User.IsInRole("AdminFull"))
             {
-                @Html.DropDownListFor(x => x.RoleGroupId, new SelectList(Model.RoleGroups, "Id", "RussianName", Model.RoleGroupId), new { @class = "form-control" })
+                @*@Html.DropDownListFor(x => x.RoleGroupId, new SelectList(Model.RoleGroups, "Id", "RussianName", Model.RoleGroupId), new { @class = "form-control" })*@
             }
             else
             {
-                <span class="form-control">@Model.RoleGroup.RussianName</span>
+                <span class="form-control">@*@Model.RoleGroup.RussianName*@</span>
             }
         </div>
     </div>
     <div class="form-group">
         <label class="col-sm-2 control-label">@UsersMessages.LastLogin</label>
         <div class="col-sm-10">
-            <span class="form-control">@Model.LastModified</span>
+            <span class="form-control">@*@Model.LastModified*@</span>
         </div>
     </div>
     <div class="form-group">
         <label class="col-sm-2 control-label">@UsersMessages.RegistrationDate</label>
         <div class="col-sm-10">
-            <span class="form-control">@Model.RegistrationDate</span>
+            <span class="form-control">@*@Model.RegistrationDate*@</span>
         </div>
     </div>
     <div class="form-group">
         <label class="col-sm-2 control-label">@UsersMessages.FullName</label>
         <div class="col-sm-10">
-            <span class="form-control">@Model.FullName</span>
+            <span class="form-control">@*@Model.FullName*@</span>
         </div>
     </div>
     <div class="form-group">
         <label class="col-sm-2 control-label">@UsersMessages.BirthDay</label>
         <div class="col-sm-10">
-            <span class="form-control">@Model.Birthday</span>
+            <span class="form-control">@*@Model.Birthday*@</span>
         </div>
     </div>
-    @if (Model.Gender.HasValue)
+    @*@if (Model.Gender.HasValue)*@
     {
         <div class="form-group">
             <label class="col-sm-2 control-label">@UsersMessages.Gender</label>
             <div class="col-sm-10">
-                <span class="form-control">@(Model.Gender.Value ? @UsersMessages.Women : @UsersMessages.Men)</span>
+                <span class="form-control">@*@(Model.Gender.Value ? @UsersMessages.Women : @UsersMessages.Men)*@</span>
             </div>
         </div>
     }
@@ -102,7 +102,7 @@
                 <h4 class="modal-title">@UsersMessages.BanUserQuestion</h4>
             </div>
             <div class="modal-body">
-                <h3>@Model.UserName</h3>
+             @*   <h3>@Model.UserName</h3>*@
                 <div class="form-group">
                     <label class="col-md-12 control-label">@UsersMessages.HowManyDaysWillUserBanned</label>
                     <div class="col-md-9 input-group date">
@@ -119,12 +119,12 @@
 </div><!-- /.modal -->
 
 <script>
-    $('.datepicker').datepicker({
-        format: 'dd/mm/yyyy',
-        language: 'ru'
-    });
+    //$('.datepicker').datepicker({
+    //    format: 'dd/mm/yyyy',
+    //    language: 'ru'
+    //});
 
-    var previousId = @Model.RoleGroupId;
+    //var previousId = Model.RoleGroupId;
     $('#RoleGroupId').on('change', function() {
         console.log($('#RoleGroupId').val());
         $('#confirmChangeRole').modal();
@@ -137,7 +137,7 @@
         $.ajax({
             type: 'post',
             url: '@Url.Action("EditRoleGroup", "Role")',
-            data: { newRoleGroupId: newRoleGroupId, userId: @Model.Id },
+            //data: { newRoleGroupId: newRoleGroupId, userId: Model.Id },
             beforeSend: function() {
 
             },
@@ -155,7 +155,7 @@
 
     $('#applyBan').on('click', function() {
         console.log("ban buuton click");
-        var userId = @Model.Id;
+        //var userId = Model.Id;
         var date = $('#banDayCount');
         if (!date) {
             date.addClass('input-validation-error');

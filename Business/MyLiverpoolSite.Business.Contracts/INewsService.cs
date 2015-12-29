@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using MyLiverpool.Business.DTO;
 using MyLiverpoolSite.Business.ViewModels.News;
 using MyLiverpoolSite.Business.ViewModels.NewsCategories;
 using MyLiverpoolSite.Data.DataAccessLayer;
@@ -27,6 +28,8 @@ namespace MyLiverpoolSite.Business.Contracts
         Task<CreateEditNewsViewModel> GetCreateEditViewModelAsync(int? id);
 
         Task<PageableData<IndexMiniNewsVM>> GetAllAsync(int page, int? categoryId);
+
+        Task<PageableData<NewsMiniDto>> GetDtoAllAsync(int page, int? categoryId);
 
         Task<bool> ActivateAsync(int id);
 

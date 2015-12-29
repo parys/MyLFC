@@ -60,6 +60,10 @@
       <HintPath>..\..\packages\Autofac.Owin.3.1.0\lib\net45\Autofac.Integration.Owin.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Autofac.Integration.WebApi, Version=3.4.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Autofac.WebApi2.3.4.0\lib\net45\Autofac.Integration.WebApi.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="AutoMapper, Version=4.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\..\packages\AutoMapper.4.1.1\lib\net45\AutoMapper.dll</HintPath>
       <Private>True</Private>
@@ -207,6 +211,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ApiAccountController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ApiUserController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BlogCommentController.cs" />
     <Compile Include="Controllers\BlogController.cs" />
@@ -256,9 +261,12 @@
     <Content Include="Scripts\Controllers\LogoutController.js" />
     <Content Include="Scripts\Controllers\NewsController.js" />
     <Content Include="Scripts\Controllers\RegisterController.js" />
+    <Content Include="Scripts\Controllers\UserController.js" />
     <Content Include="Scripts\Controllers\ValuesController.js" />
     <Content Include="Scripts\angular\date.js" />
     <Content Include="Scripts\Factories\AuthHttpResponseInterceptor.js" />
+    <Content Include="Scripts\Factories\GetNewsItemsFactory.js" />
+    <Content Include="Scripts\Factories\GetUserFactory.js" />
     <Content Include="Scripts\Factories\GetValuesFactory.js" />
     <Content Include="Scripts\Factories\LoginFactory.js" />
     <Content Include="Scripts\Factories\LogoutFactory.js" />
@@ -337,7 +345,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\User\PrivateMessages.cshtml" />
-    <Content Include="Views\User\Profile.cshtml" />
+    <Content Include="Views\User\Info.cshtml" />
     <Content Include="Views\User\ReadMessage.cshtml" />
     <Content Include="Views\User\WriteMessage.cshtml" />
     <Content Include="Views\Web.config" />
@@ -345,6 +353,10 @@
     <Content Include="Scripts\jquery-1.9.1.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Business\MyLiverpool.Business.DTO\MyLiverpool.Business.DTO.csproj">
+      <Project>{c70d0192-ab3e-471b-b0d1-081278be19b8}</Project>
+      <Name>MyLiverpool.Business.DTO</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Business\MyLiverpoolSite.Business.Contracts\MyLiverpoolSite.Business.Contracts.csproj">
       <Project>{2b58260e-385f-4f42-acd7-015faa8ce4f0}</Project>
       <Name>MyLiverpoolSite.Business.Contracts</Name>

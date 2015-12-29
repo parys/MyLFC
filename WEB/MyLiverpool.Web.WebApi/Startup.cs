@@ -1,6 +1,9 @@
-﻿using System.Web.Mvc;
+﻿using System.Reflection;
+using System.Web.Http;
+using System.Web.Mvc;
 using Autofac;
 using Autofac.Integration.Mvc;
+using Autofac.Integration.WebApi;
 using Microsoft.Owin;
 using MyLiverpool.Web.WebApi;
 using MyLiverpoolSite.Business.Contracts;
@@ -19,25 +22,29 @@ namespace MyLiverpool.Web.WebApi
             ConfigureAuth(app);
 
             var builder = new ContainerBuilder();
-            builder.RegisterControllers(typeof(WebApiApplication).Assembly);
-          //  builder.RegisterControllers(typeof(M).Assembly);
-          
+
+            var config = GlobalConfiguration.Configuration;
+
+            builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
+
+            builder.RegisterWebApiFilterProvider(config);
+
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>();
             builder.RegisterType<NewsItemsRepository>().As<INewsItemsRepository>();
 
-            //  builder.RegisterType<>().As<NewsService>();
             // Register dependencies, then...
             RegisterServices(builder);
             var container = builder.Build();
-            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+            config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
             //container.
 
             // Register the Autofac middleware FIRST. This also adds
             // Autofac-injected middleware registered with the container.
-            app.UseAutofacMiddleware(container);
-            app.UseAutofacMvc();
+         //   app.UseAutofacMiddleware(container);
+         //   app.UseAutofacMvc();
+          //  app
 
-            app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);//todo
+         //   app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);//todo
             AutoMapperBindings.Configure();
         }
 

@@ -5,7 +5,7 @@
 }
 
 <h2>@CommonMessages.Registration</h2>
-<form role="form" ng-submit="register()">
+<form class="form-horizontal" role="form" ng-submit="register()">
     <hr/>
     <div class="form-group">
         @Html.LabelFor(m => m.UserName, new {@class = "col-md-2 control-label"})
@@ -55,13 +55,11 @@
 
 
 
-    @Scripts.Render("~/bundles/jqueryval")
-
     <script>
-        $('.datepicker').datepicker({
-            format: 'dd/mm/yyyy',
-            language: 'ru'
-        });
+        //$('.datepicker').datepicker({
+        //    format: 'dd/mm/yyyy',
+        //    language: 'ru'
+        //});
 
         $('#UserName').on('keyup', function() {
             var userName = $(this).val();

@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcAngular", "WEB\MvcAngula
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyLiverpool.Web.WebApi", "WEB\MyLiverpool.Web.WebApi\MyLiverpool.Web.WebApi.csproj", "{80772E91-2354-40D3-8127-7C644BDF160F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyLiverpool.Business.DTO", "Business\MyLiverpool.Business.DTO\MyLiverpool.Business.DTO.csproj", "{C70D0192-AB3E-471B-B0D1-081278BE19B8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -105,6 +107,12 @@ Global
 		{80772E91-2354-40D3-8127-7C644BDF160F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{80772E91-2354-40D3-8127-7C644BDF160F}.Somee|Any CPU.ActiveCfg = Release|Any CPU
 		{80772E91-2354-40D3-8127-7C644BDF160F}.Somee|Any CPU.Build.0 = Release|Any CPU
+		{C70D0192-AB3E-471B-B0D1-081278BE19B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C70D0192-AB3E-471B-B0D1-081278BE19B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C70D0192-AB3E-471B-B0D1-081278BE19B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C70D0192-AB3E-471B-B0D1-081278BE19B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C70D0192-AB3E-471B-B0D1-081278BE19B8}.Somee|Any CPU.ActiveCfg = Release|Any CPU
+		{C70D0192-AB3E-471B-B0D1-081278BE19B8}.Somee|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -119,5 +127,6 @@ Global
 		{AF9A9541-0827-4809-91BA-3124B6DAAFFA} = {55F75FC7-8E75-4FB9-8576-57AF98459383}
 		{FF5FCC7E-9FE1-44C3-9663-B51049104A5B} = {3C163596-D169-47A3-BF70-D3B0135E1CDB}
 		{80772E91-2354-40D3-8127-7C644BDF160F} = {3C163596-D169-47A3-BF70-D3B0135E1CDB}
+		{C70D0192-AB3E-471B-B0D1-081278BE19B8} = {55F75FC7-8E75-4FB9-8576-57AF98459383}
 	EndGlobalSection
 EndGlobal

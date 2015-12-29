@@ -9,15 +9,15 @@ namespace MyLiverpool.Web.WebApi.Controllers
     {
         private readonly INewsService _newsService;
 
-        public HomeController(INewsService newsService)
+        public HomeController()
         {
-            _newsService = newsService;
+          //  _newsService = newsService;
         }
 
         public async Task<ActionResult> Index()
         {
-            var model = await _newsService.GetAllAsync(1, null);
-            return View(model);
+           // var model = await _newsService.GetAllAsync(1, null);
+            return View();
         }
 
         public ActionResult About()

@@ -6,26 +6,30 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
+using MyLiverpool.Business.DTO;
+using MyLiverpoolSite.Business.Contracts;
 using MyLiverpoolSite.Data.DataAccessLayer;
 using MyLiverpoolSite.Data.Entities;
 
 namespace MyLiverpool.Web.WebApi.Controllers
 {
-   // [RoutePrefix("api/News")]
+    [RoutePrefix("api/News")]
     public class ApiNewsItemsController : ApiController
     {
+        private readonly INewsService _newsService;
+
         private LiverpoolContext db = new LiverpoolContext();
 
-        //[Route("List")]
-        //public async Task<IEnumerable<NewsItem>> GetList()
-        //{
-        //    return db.NewsItems;
-        //}
-
-      
-        public IQueryable<NewsItem> GetNewsItems()
+        public ApiNewsItemsController(INewsService newsService)
         {
-            return db.NewsItems;
+            _newsService = newsService;
+        }
+
+        [HttpGet]
+        [Route("List")]
+        public async Task<PageableData<NewsMiniDto>> GetNewsItems(int page = 1, int? categoryId = null)
+        {
+            return await _newsService.GetDtoAllAsync(page, categoryId);
         }
 
         // GET: api/NewsItems/5
