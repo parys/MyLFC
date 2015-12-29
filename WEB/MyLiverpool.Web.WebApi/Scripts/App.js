@@ -40,10 +40,10 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider)
             }
         })
         .state('news', {
-            url: '/news',
+            url: '/news?page&categoryId',
             views: {
                  "containerMain": {
-                    templateUrl: function(params) { return '/news/index?pageNo=' + params.pageNo + '&categoryId=' + params.categoryId },
+                    templateUrl: function(params) { return '/news/index?page=' + params.page + '&categoryId=' + params.categoryId },
                     controller: NewsController
                 }
             }

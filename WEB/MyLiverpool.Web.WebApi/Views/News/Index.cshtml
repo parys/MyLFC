@@ -30,7 +30,7 @@
         </div>
         <ul class="list-inline">
             <li class="">@NewsMessages.NewsCategory</li>
-            @*<li class=""><a href="@Url.Action("Index", "News", new {categoryId = item.NewsCategory.Id})">@Html.DisplayFor(modelItem => item.NewsCategory.Name)</a></li>*@
+            <li class=""><a ui-sref="news({categoryId: item.NewsCategoryId})">{{ item.NewsCategoryName}}</a></li>
             <li class="">|</li>
             <li class="">@NewsMessages.AdditionTime</li>
             <li class="">{{item.AdditionTime | date:'medium'}}</li>

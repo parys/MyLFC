@@ -1,10 +1,10 @@
-﻿var GetNewsItemsFactory = function ($http, $q, SessionService) {
+﻿var GetNewsItemsFactory = function ($http, $q, $stateParams, SessionService) {
     return function () {
         var result = $q.defer();
 
         $http({
             method: 'GET',
-            url: SessionService.apiUrl + '/api/News/List',
+            url: SessionService.apiUrl + '/api/News/List?page=' + $stateParams.page + '&categoryId=' + $stateParams.categoryId,
             headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + SessionService.getToken() }
         })
         .success(function (response) {
@@ -18,4 +18,4 @@
     }
 }
 
-GetNewsItemsFactory.$inject = ['$http', '$q', 'SessionService'];
+GetNewsItemsFactory.$inject = ['$http', '$q', '$stateParams', 'SessionService'];
