@@ -9,6 +9,7 @@ App.controller('NewsItemController', NewsItemController);
 App.controller('UserController', UserController);
 App.controller('UsersController', UsersController);
 App.controller('PmsController', PmsController);
+App.controller('ForumController', ForumController);
 
 App.service('SessionService', SessionService);
 
@@ -20,6 +21,7 @@ App.factory('GetNewsItemFactory', GetNewsItemFactory);
 App.factory('GetUserFactory', GetUserFactory);
 App.factory('GetUsersFactory', GetUsersFactory);
 App.factory('GetPmsFactory', GetPmsFactory);
+App.factory('GetForumFactory', GetForumFactory);
 
 var configFunction = function ($stateProvider, $httpProvider, $locationProvider) {
 
@@ -127,6 +129,16 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider)
                 "containerMain": {
                     templateUrl: '/Account/Login',
                     controller: LoginController
+                }
+            }
+
+        })
+        .state('forum', {
+            url: '/forum',
+            views: {
+                "containerMain": {
+                    templateUrl: '/Forum/Index',
+                    controller: ForumController
                 }
             }
 

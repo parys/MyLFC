@@ -23,7 +23,10 @@ namespace MyLiverpoolSite.Business.Services.Mapping
             RegisterPrivateMessageMapping();
 
             RegisterUserMapping();
-            
+
+            RegisterForumSubsectionMapping();
+            RegisterForumSectionMapping();
+
         }
 
         private static void RegisterUserMapping()
@@ -48,7 +51,8 @@ namespace MyLiverpoolSite.Business.Services.Mapping
 
         private static void RegisterNewsMapping()
         {
-#region mapper for VM
+            #region mapper for VM
+
             AutoMapper.Mapper.CreateMap<IndexNewsViewModel, NewsItem>();
             AutoMapper.Mapper.CreateMap<IndexBlogVM, BlogItem>();
 
@@ -86,7 +90,8 @@ namespace MyLiverpoolSite.Business.Services.Mapping
 
             AutoMapper.Mapper.CreateMap<PrivateMessage, PrivateMessageVM>();
             AutoMapper.Mapper.CreateMap<PrivateMessageVM, PrivateMessage>();
-#endregion
+
+            #endregion
 
             Mapper.CreateMap<NewsItem, NewsMiniDto>()
                 .ForMember(dest => dest.AdditionTime, src => src.MapFrom(x => x.AdditionTime))
@@ -107,17 +112,18 @@ namespace MyLiverpoolSite.Business.Services.Mapping
                 .ForMember(dest => dest.AuthorId, src => src.MapFrom(x => x.AuthorId))
                 .ForMember(dest => dest.AuthorUserName, src => src.MapFrom(x => x.Author.UserName))
                 .ForMember(dest => dest.CanCommentary, src => src.MapFrom(x => x.CanCommentary))
-                .ForMember(dest => dest.Comments, src => src.MapFrom(x => AutoMapper.Mapper.Map<ICollection<NewsCommentDto>>(x.Comments)))
+                .ForMember(dest => dest.Comments,
+                    src => src.MapFrom(x => AutoMapper.Mapper.Map<ICollection<NewsCommentDto>>(x.Comments)))
                 .ForMember(dest => dest.Message, src => src.MapFrom(x => x.Message))
                 .ForMember(dest => dest.NewsCategoryId, src => src.MapFrom(x => x.NewsCategoryId))
                 .ForMember(dest => dest.NewsCategoryName, src => src.MapFrom(x => x.NewsCategory.Name))
-            //    .ForMember(dest => dest.NumberCommentaries, src => src.MapFrom(x => x.NumberCommentaries))
+                //    .ForMember(dest => dest.NumberCommentaries, src => src.MapFrom(x => x.NumberCommentaries))
                 .ForMember(dest => dest.Pending, src => src.MapFrom(x => x.Pending))
                 .ForMember(dest => dest.Reads, src => src.MapFrom(x => x.Reads))
                 .ForMember(dest => dest.Source, src => src.MapFrom(x => x.Source))
                 .ForMember(dest => dest.Title, src => src.MapFrom(x => x.Title));
 
-                
+
 
         }
 
@@ -132,6 +138,7 @@ namespace MyLiverpoolSite.Business.Services.Mapping
                 .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id))
                 .ForMember(dest => dest.Message, src => src.MapFrom(x => x.Message));
         }
+
         private static void RegisterPrivateMessageMapping()
         {
             Mapper.CreateMap<PrivateMessage, PrivateMessageMiniDto>()
@@ -142,6 +149,23 @@ namespace MyLiverpoolSite.Business.Services.Mapping
                 .ForMember(dest => dest.SenderId, src => src.MapFrom(x => x.SenderId))
                 .ForMember(dest => dest.SenderUserName, src => src.MapFrom(x => x.Sender.UserName))
                 .ForMember(dest => dest.Title, src => src.MapFrom(x => x.Title));
+        }
+
+        private static void RegisterForumSubsectionMapping()
+        {
+            Mapper.CreateMap<ForumSubsection, ForumSubsectionMiniDto>()
+               .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id))
+               .ForMember(dest => dest.Name, src => src.MapFrom(x => x.Name))
+               .ForMember(dest => dest.Description, src => src.MapFrom(x => x.Description));
+        }
+
+        private static void RegisterForumSectionMapping()
+        {
+            Mapper.CreateMap<ForumSection, ForumSectionDto>()
+                .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id))
+                .ForMember(dest => dest.Name, src => src.MapFrom(x => x.Name))
+                .ForMember(dest => dest.Subsections,
+                    src => src.MapFrom(x => Mapper.Map<ICollection<ForumSubsectionMiniDto>>(x.Subsections)));
         }
     }
 }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Routing;
 
 namespace MyLiverpool.Web.WebApi
@@ -29,9 +25,9 @@ namespace MyLiverpool.Web.WebApi
             //            defaults: new { controller = "RoutesDemo", action = "Three" });
 
             routes.MapRoute(
-    name: "values",
-    url: "Values/Get",
-    defaults: new { controller = "Values", action = "Get" });
+                name: "values",
+                url: "Values/Get",
+                defaults: new {controller = "Values", action = "Get"});
 
             routes.MapRoute(
                 name: "login",
@@ -66,12 +62,17 @@ namespace MyLiverpool.Web.WebApi
             routes.MapRoute(
                 name: "users",
                 url: "User/index",
-                defaults: new {controller = "User", action = "Index"});
+                defaults: new { controller = "User", action = "Index" });
 
             routes.MapRoute(
                 name: "pms",
                 url: "User/Pms",
                 defaults: new { controller = "User", action = "PrivateMessages" });
+
+            routes.MapRoute(
+                name: "forum",
+                url: "Forum/Index",
+                defaults: new {controller = "Forum", action = "Index"});
 
             routes.MapRoute(
                 name: "Default",

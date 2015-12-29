@@ -211,6 +211,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ApiAccountController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ApiForumController.cs" />
     <Compile Include="Controllers\ApiUserController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BlogCommentController.cs" />
@@ -256,6 +257,7 @@
     <Content Include="Scripts\App.js" />
     <Content Include="Scripts\angular\bootstrap.js" />
     <Content Include="Scripts\angular\min\bootstrap.min.js" />
+    <Content Include="Scripts\Controllers\ForumController.js" />
     <Content Include="Scripts\Controllers\LandingPageController.js" />
     <Content Include="Scripts\Controllers\LoginController.js" />
     <Content Include="Scripts\Controllers\LogoutController.js" />
@@ -268,6 +270,7 @@
     <Content Include="Scripts\Controllers\ValuesController.js" />
     <Content Include="Scripts\angular\date.js" />
     <Content Include="Scripts\Factories\AuthHttpResponseInterceptor.js" />
+    <Content Include="Scripts\Factories\GetForumFactory.js" />
     <Content Include="Scripts\Factories\GetNewsItemFactory.js" />
     <Content Include="Scripts\Factories\GetNewsItemsFactory.js" />
     <Content Include="Scripts\Factories\GetPmsFactory.js" />

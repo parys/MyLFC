@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using MyLiverpool.Business.DTO;
 using MyLiverpoolSite.Business.ViewModels.Forum;
 
 namespace MyLiverpoolSite.Business.Contracts
@@ -12,5 +13,7 @@ namespace MyLiverpoolSite.Business.Contracts
         Task<ForumThemeVM> GetTheme(int themeId, int page = 1);
 
         Task<int> AddComment(string comment, int themeId, int userId);
+
+        Task<ForumDto> GetDtoAsync();
     }
 }

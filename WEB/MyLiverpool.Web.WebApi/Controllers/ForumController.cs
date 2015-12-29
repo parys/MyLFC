@@ -1,13 +1,19 @@
 ﻿using System.Threading.Tasks;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using MyLiverpool.Controllers;
 using MyLiverpoolSite.Business.Contracts;
 
-namespace MyLiverpool.Controllers
+namespace MyLiverpool.Web.WebApi.Controllers
 {
     public class ForumController : BaseController
     {
         private readonly IForumService _forumService;
+
+        public ForumController()
+        {
+            
+        }
 
         public ForumController(IForumService forumService)
         {
@@ -15,10 +21,9 @@ namespace MyLiverpool.Controllers
         }
 
         [AllowAnonymous]
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
-            var model = await _forumService.Get();
-            return View(model);
+            return View();
         }
 
         [AllowAnonymous]

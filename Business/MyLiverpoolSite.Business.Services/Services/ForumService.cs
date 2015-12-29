@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using MyLiverpool.Business.DTO;
 using MyLiverpoolSite.Business.Contracts;
 using MyLiverpoolSite.Business.ViewModels.Forum;
 using MyLiverpoolSite.Data.DataAccessLayer;
@@ -72,6 +73,17 @@ namespace MyLiverpoolSite.Business.Services.Services
             await _unitOfWork.SaveAsync();
 
             return message.Id;
+        }
+
+        public async Task<ForumDto> GetDtoAsync()
+        {
+            var sections = await _unitOfWork.ForumSectionRepository.GetAsync(includeProperties: x => x.Subsections);
+
+            var model = new ForumDto()
+            {
+                Sections = Mapper.Map<ICollection<ForumSectionDto>>(sections)
+            };
+            return model;
         }
     }
 }

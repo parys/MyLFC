@@ -1,27 +1,18 @@
-﻿@using MyLiverpoolSite.Business.ViewModels.Resources
-@model MyLiverpoolSite.Business.ViewModels.Forum.ForumVM
+﻿@using MyLiverpool.Business.Resources
 
 @{
     ViewBag.Title = CommonMessages.Forum;
 }
 
 <h2></h2>
-<div class="container-fluid">
-
-    @foreach (var item in Model.Sections)
-    {
-        <div class="panel panel-danger">
-            <div class="panel-heading">@item.Name</div>
-         @*   <div class="panel-body"></div>*@
-                <ul class="list-group">
-                    @foreach (var subsection in item.Subsections)
-                {
-                        <li class="list-group-item list">
-                            <a  href="@Url.Action("IndexSubsection", new {Id = subsection.Id})"><span> @subsection.Name</span></a>
-                        </li>
-                    }
-                </ul>
-            
-        </div>
-    }
+<div class="container-fluid" ng-repeat="section in sections">
+    <div class="panel panel-danger">
+        <div class="panel-heading">{{ section.Name }}</div>
+        <div class="panel-body"></div>
+        <ul class="list-group" ng-repeat="subsection in section.Subsections">
+            <li class="list-group-item list">
+                <a ui-sref=""><span> {{ subsection.Name}}</span></a>
+            </li>
+        </ul>
+    </div>
 </div>
