@@ -7,11 +7,10 @@ using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using MyLiverpool.Business.Resources;
 using MyLiverpoolSite.Business.Contracts;
 using MyLiverpoolSite.Business.Services;
-using MyLiverpoolSite.Business.ViewModels;
 using MyLiverpoolSite.Business.ViewModels.Account;
-using MyLiverpoolSite.Business.ViewModels.Resources;
 using MyLiverpoolSite.Data.Entities;
 
 namespace MyLiverpool.Controllers

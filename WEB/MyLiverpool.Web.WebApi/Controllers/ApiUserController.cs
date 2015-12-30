@@ -1,5 +1,4 @@
-﻿using System.Security.Cryptography;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Microsoft.AspNet.Identity;
@@ -46,6 +45,16 @@ namespace MyLiverpool.Web.WebApi.Controllers
         public async Task<IHttpActionResult> List(int page = 1)
         {
             var model = await _userService.GetUsersDtoAsync(page);
+            return Ok(model);
+        }
+
+        [Route("Pm")]
+        [HttpGet]
+        [Authorize]
+        [ResponseType(typeof(PrivateMessageDto))]
+        public async Task<IHttpActionResult> Pm(int id)
+        {
+            var model = await _userService.GetPrivateMessageDto(id, User.Identity.GetUserId<int>());
             return Ok(model);
         }
     }

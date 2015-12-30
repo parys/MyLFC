@@ -223,8 +223,6 @@
     <Compile Include="Controllers\ApiNewsItemsController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\UserController.cs" />
-    <Compile Include="Controllers\ApiValuesController.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -360,7 +358,6 @@
     <Content Include="Views\User\ReadMessage.cshtml" />
     <Content Include="Views\User\WriteMessage.cshtml" />
     <Content Include="Views\Web.config" />
-    <Content Include="Views\Values\Get.cshtml" />
     <Content Include="Scripts\jquery-1.9.1.min.map" />
   </ItemGroup>
   <ItemGroup>

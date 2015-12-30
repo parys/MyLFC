@@ -140,7 +140,7 @@ namespace MyLiverpoolSite.Business.Services.Services
 
         public async Task<PrivateMessagesDto> GetPrivateMessagesDtoAsync(int id)
         {
-            var messages = await _unitOfWork.PrivateMessageRepository.GetAsync(x => x.ReceiverId == id || x.SenderId == id);
+            var messages = await _unitOfWork.PrivateMessageRepository.GetAsync(x => x.ReceiverId == id || x.SenderId == id, x => x.Receiver, x => x.Sender);
             var dto = new PrivateMessagesDto()
             {
                 Received = Mapper.Map<ICollection<PrivateMessageMiniDto>>(messages.Where(x => x.ReceiverId == id)),
@@ -156,6 +156,22 @@ namespace MyLiverpoolSite.Business.Services.Services
             var allUsersCount = await _unitOfWork.UserRepository.GetCountAsync();
             var result = new PageableData<UserMiniDto>(usersDto, page, allUsersCount);
             return result;
+        }
+
+        public async Task<PrivateMessageDto> GetPrivateMessageDto(int messageId, int userId)
+        {
+            var message = await _unitOfWork.PrivateMessageRepository.GetByIdAsync(messageId);
+            if (message.ReceiverId != userId && message.SenderId != userId)
+            {
+                throw new AccessViolationException(); //todo think about it
+            }
+            if (!message.IsRead && message.ReceiverId == userId)
+            {
+                message.IsRead = true;
+                _unitOfWork.PrivateMessageRepository.Update(message);
+                await _unitOfWork.SaveAsync();
+            }
+            return Mapper.Map<PrivateMessageDto>(message);
         }
 
         #endregion

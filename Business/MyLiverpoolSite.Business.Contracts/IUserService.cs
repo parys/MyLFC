@@ -36,5 +36,7 @@ namespace MyLiverpoolSite.Business.Contracts
         Task<PrivateMessagesDto> GetPrivateMessagesDtoAsync(int id);
 
         Task<PageableData<UserMiniDto>> GetUsersDtoAsync(int page);
+
+        Task<PrivateMessageDto> GetPrivateMessageDto(int messageId, int userId);
     }
 }

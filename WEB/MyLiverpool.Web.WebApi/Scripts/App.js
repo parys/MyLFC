@@ -144,8 +144,8 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider)
                 }
             }
         })
-        .state('forum/subsection', {
-            url: '/forum/subsection?id&page',
+        .state('subsection', {
+            url: '/subsection?id&page',
             views: {
                 "containerMain": {
                     templateUrl: function (params) { return '/Forum/Subsection?id=' + params.id + '&page=' + params.page },

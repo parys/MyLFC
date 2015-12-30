@@ -24,7 +24,7 @@
                         @user.LastModified
                     </td>
                     <td class="">
-                        <a href="@Url.Action("Profile", new {id = user.Id})">@user.UserName</a>
+                        <a href="@Url.Action("Info", new {id = user.Id})">@user.UserName</a>
                         @if (Request.IsAuthenticated && User.Identity.GetUserId<int>() != user.Id)
                         {
                             <a href="@Url.Action("WriteMessage", "User", new {receiverId = user.Id})"><span class="glyphicon glyphicon-envelope"></span></a>

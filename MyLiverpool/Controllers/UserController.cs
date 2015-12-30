@@ -3,7 +3,7 @@ using System.Web.Mvc;
 using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
 using MyLiverpoolSite.Business.Contracts;
-using MyLiverpoolSite.Business.ViewModels.Resources;
+using MyLiverpool.Business.Resources;
 using MyLiverpoolSite.Business.ViewModels.Users;
 
 namespace MyLiverpool.Controllers
@@ -26,7 +26,7 @@ namespace MyLiverpool.Controllers
         }
 
         [AllowAnonymous]
-        public async Task<ActionResult> Profile(int? id)
+        public async Task<ActionResult> Info(int? id)
         {
             if (!id.HasValue)
             {

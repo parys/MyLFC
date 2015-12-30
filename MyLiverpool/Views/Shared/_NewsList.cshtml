@@ -46,7 +46,7 @@
                 <li class="">@Html.DisplayFor(modelItem => item.Reads)</li>
                 <li class="">|</li>
                 <li class="">@NewsMessages.Author</li>
-                <li class=""><a href="@Url.Action("Profile", "User", new {id = @item.Author.Id})">@item.Author.UserName</a></li>
+                <li class=""><a href="@Url.Action("Info", "User", new {id = @item.Author.Id})">@item.Author.UserName</a></li>
             </ul>
         </div>
         <hr/>

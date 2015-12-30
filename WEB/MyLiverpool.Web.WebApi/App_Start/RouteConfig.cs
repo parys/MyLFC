@@ -8,6 +8,7 @@ namespace MyLiverpool.Web.WebApi
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.LowercaseUrls = true;
 
             //        routes.MapRoute(
             //          name: "routeOne",
@@ -75,7 +76,7 @@ namespace MyLiverpool.Web.WebApi
                 defaults: new {controller = "Forum", action = "Index"});
 
             routes.MapRoute(
-                name: "forumSubsection",
+                name: "subsection",
                 url: "Forum/Subsection",
                 defaults: new {controller = "Forum", action = "Subsection"});
 

@@ -322,7 +322,7 @@
     <None Include="Views\News\Categories.cshtml" />
     <Content Include="Views\Role\Index.cshtml" />
     <Content Include="Views\Shared\_NewsList.cshtml" />
-    <None Include="Views\User\Profile.cshtml" />
+    <None Include="Views\User\Info.cshtml" />
     <None Include="Views\User\PrivateMessages.cshtml" />
     <None Include="Views\User\ReadMessage.cshtml" />
     <None Include="Views\User\WriteMessage.cshtml" />
@@ -340,6 +340,10 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Business\MyLiverpool.Business.Resources\MyLiverpool.Business.Resources.csproj">
+      <Project>{731b35bc-64f3-4766-84da-3597eae72191}</Project>
+      <Name>MyLiverpool.Business.Resources</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Business\MyLiverpoolSite.Business.Contracts\MyLiverpoolSite.Business.Contracts.csproj">
       <Project>{2b58260e-385f-4f42-acd7-015faa8ce4f0}</Project>
       <Name>MyLiverpoolSite.Business.Contracts</Name>

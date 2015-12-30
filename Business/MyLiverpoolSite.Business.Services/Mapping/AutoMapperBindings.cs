@@ -150,6 +150,16 @@ namespace MyLiverpoolSite.Business.Services.Mapping
                 .ForMember(dest => dest.SenderId, src => src.MapFrom(x => x.SenderId))
                 .ForMember(dest => dest.SenderUserName, src => src.MapFrom(x => x.Sender.UserName))
                 .ForMember(dest => dest.Title, src => src.MapFrom(x => x.Title));
+
+            Mapper.CreateMap<PrivateMessage, PrivateMessageDto>()
+                .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id))
+                .ForMember(dest => dest.IsRead, src => src.MapFrom(x => x.IsRead))
+                .ForMember(dest => dest.Message, src => src.MapFrom(x => x.Message))
+                .ForMember(dest => dest.ReceiverId, src => src.MapFrom(x => x.ReceiverId))
+                .ForMember(dest => dest.ReceiverUserName, src => src.MapFrom(x => x.Receiver.UserName))
+                .ForMember(dest => dest.SenderId, src => src.MapFrom(x => x.SenderId))
+                .ForMember(dest => dest.SenderUserName, src => src.MapFrom(x => x.Sender.UserName))
+                .ForMember(dest => dest.Title, src => src.MapFrom(x => x.Title));
         }
 
         private static void RegisterForumThemeMapping()

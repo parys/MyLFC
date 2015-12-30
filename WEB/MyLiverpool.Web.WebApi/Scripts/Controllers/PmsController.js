@@ -4,8 +4,8 @@
     var init = function () {
         GetPmsFactory($stateParams.id)
             .then(function (response) {
-                $scope.received = response.received;
-                $scope.sent = response.sent;
+                $scope.received = response.Received;
+                $scope.sent = response.Sent;
             },
                 function (response) {
                     //$scope.f = "";

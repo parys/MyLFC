@@ -78,6 +78,7 @@
     <Compile Include="NewsCommentDto.cs" />
     <Compile Include="NewsItemDto.cs" />
     <Compile Include="NewsMiniDto.cs" />
+    <Compile Include="PrivateMessageDto.cs" />
     <Compile Include="PrivateMessageMiniDto.cs" />
     <Compile Include="PrivateMessagesDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -20,27 +20,17 @@
                     <td>@CommonMessages.ReceivedDate</td>
                 </tr>
             </thead>
-            <tbody>
-            @*    @for (var i = 0; i < Model.ReceivedMessages.Count(); i++)*@
-                {
+            <tbody ng-repeat="message in received">
                     <tr>
                         <td>i</td>
                         <td>
-                            @*<a href="@Url.Action("ReadMessage", "User", new {id = Model.ReceivedMessages[i].Id})">
-                                @if (!Model.ReceivedMessages[i].IsRead)
-                                {
-                                    <b>@Model.ReceivedMessages[i].Title</b>
-                                }
-                                else
-                                {
-                                    @Model.ReceivedMessages[i].Title
-                                }
-                            </a>*@
+                           @* <a href="@Url.Action("ReadMessage", "User", new {id = Model.ReceivedMessages[i].Id})">*@
+                                <b ng-if="!message.IsRead">{{ message.Title }}</b>
+                                    @*</a>*@
                         </td>
-                      @*  <td><a href="@Url.Action("Profile", "User", new {id = Model.ReceivedMessages[i].SenderId})">@Model.ReceivedMessages[i].Sender.UserName</a></td>*@
-                     @*   <td>@Model.ReceivedMessages[i].SentTime</td>*@
+                        <td><a ui-sref="userInfo({id: message.SenderId})">{{message.SenderUserName}}</a></td>
+                        <td>{{ message.SentTime | date:'medium' }}</td>
                     </tr>
-                }
             </tbody>
         </table>
     </div>
