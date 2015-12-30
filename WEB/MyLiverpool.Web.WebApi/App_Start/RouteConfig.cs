@@ -75,6 +75,11 @@ namespace MyLiverpool.Web.WebApi
                 defaults: new {controller = "Forum", action = "Index"});
 
             routes.MapRoute(
+                name: "forumSubsection",
+                url: "Forum/Subsection",
+                defaults: new {controller = "Forum", action = "Subsection"});
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{*url}",
                 defaults: new { controller = "Home", action = "Index" });

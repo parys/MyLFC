@@ -75,6 +75,7 @@ namespace MyLiverpoolSite.Business.Services.Services
             return message.Id;
         }
 
+#region Dto
         public async Task<ForumDto> GetDtoAsync()
         {
             var sections = await _unitOfWork.ForumSectionRepository.GetAsync(includeProperties: x => x.Subsections);
@@ -85,5 +86,22 @@ namespace MyLiverpoolSite.Business.Services.Services
             };
             return model;
         }
+
+        public async Task<ForumSubsectionDto> GetSubsectionDtoAsync(int subsectionId, int page)
+        {
+            var subsection = await _unitOfWork.ForumSubsectionRepository.GetByIdAsync(subsectionId);
+            var subsectionThemes =
+                await _unitOfWork.ForumThemeRepository.GetAsync(page, filter: x => x.SubsectionId == subsectionId);
+            var subsectionThemesCount = await _unitOfWork.ForumThemeRepository.GetCountAsync(x => x.SubsectionId == subsectionId);
+            if (subsection == null)
+            {
+                return null;
+            }
+            var model = Mapper.Map<ForumSubsectionDto>(subsection);
+            model.Themes = new PageableData<ForumThemeMiniDto>(Mapper.Map<IEnumerable<ForumThemeMiniDto>>(subsectionThemes), page, subsectionThemesCount);
+            return model;
+        } 
+
+#endregion
     }
 }

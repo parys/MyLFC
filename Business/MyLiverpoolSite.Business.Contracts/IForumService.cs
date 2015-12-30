@@ -15,5 +15,7 @@ namespace MyLiverpoolSite.Business.Contracts
         Task<int> AddComment(string comment, int themeId, int userId);
 
         Task<ForumDto> GetDtoAsync();
+
+        Task<ForumSubsectionDto> GetSubsectionDtoAsync(int subsectionId, int page);
     }
 }

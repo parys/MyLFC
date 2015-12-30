@@ -1,5 +1,4 @@
 ﻿@using MyLiverpool.Business.Resources
-
 @{
     ViewBag.Title = CommonMessages.Forum;
 }
@@ -11,7 +10,7 @@
         <div class="panel-body"></div>
         <ul class="list-group" ng-repeat="subsection in section.Subsections">
             <li class="list-group-item list">
-                <a ui-sref=""><span> {{ subsection.Name}}</span></a>
+                <a ui-sref="forumSubsection({id: subsection.Id})"><span> {{ subsection.Name}}</span></a>
             </li>
         </ul>
     </div>

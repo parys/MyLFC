@@ -71,6 +71,7 @@
   <ItemGroup>
     <Compile Include="ForumDto.cs" />
     <Compile Include="ForumSectionDto.cs" />
+    <Compile Include="ForumSubsectionDto.cs" />
     <Compile Include="ForumSubsectionMiniDto.cs" />
     <Compile Include="ForumThemeMiniDto.cs" />
     <Compile Include="IDto.cs" />
@@ -85,6 +86,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Data\MyLiverpoolSite.Data.DataAccessLayer\MyLiverpoolSite.Data.DataAccessLayer.csproj">
+      <Project>{ac10a860-1c0e-4910-9e05-428d09f70981}</Project>
+      <Name>MyLiverpoolSite.Data.DataAccessLayer</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

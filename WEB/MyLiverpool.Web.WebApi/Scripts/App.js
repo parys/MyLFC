@@ -10,6 +10,7 @@ App.controller('UserController', UserController);
 App.controller('UsersController', UsersController);
 App.controller('PmsController', PmsController);
 App.controller('ForumController', ForumController);
+App.controller('ForumSubsectionController', ForumSubsectionController);
 
 App.service('SessionService', SessionService);
 
@@ -22,6 +23,7 @@ App.factory('GetUserFactory', GetUserFactory);
 App.factory('GetUsersFactory', GetUsersFactory);
 App.factory('GetPmsFactory', GetPmsFactory);
 App.factory('GetForumFactory', GetForumFactory);
+App.factory('GetForumSubsectionFactory', GetForumSubsectionFactory);
 
 var configFunction = function ($stateProvider, $httpProvider, $locationProvider) {
 
@@ -141,8 +143,17 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider)
                     controller: ForumController
                 }
             }
-
-        });
+        })
+        .state('forum/subsection', {
+            url: '/forum/subsection?id&page',
+            views: {
+                "containerMain": {
+                    templateUrl: function (params) { return '/Forum/Subsection?id=' + params.id + '&page=' + params.page },
+                    controller: ForumSubsectionController
+                }
+            }
+        })
+    ;
 
 
 

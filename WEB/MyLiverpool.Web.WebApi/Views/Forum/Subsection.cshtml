@@ -1,0 +1,20 @@
+﻿@{
+
+}
+
+<h2></h2>
+<div class="container-fluid">
+    <div class="panel panel-danger">
+        <div class="panel-heading">{{ name }} <span>{{ description }}</span></div>
+        @*   <div class="panel-body"></div>*@
+        <ul class="list-group" ng-repeat="theme in themes">
+                <li class="list-group-item list">
+                    <span><a ui-href="">{{ theme.Name }}</a></span>
+                    <br>
+                    <span>{{ theme.Description }}</span>
+                    <br>
+                </li>
+        </ul>
+    </div>
+                    <div class="pagination"> @*@Html.PageLinks(Model.Themes.PageNo, Model.Themes.CountPage, x => Url.Action("IndexSubsection", new { id = Model.Id, page = x }))*@ </div>
+</div>

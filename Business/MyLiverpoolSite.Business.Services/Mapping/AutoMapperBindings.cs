@@ -24,6 +24,7 @@ namespace MyLiverpoolSite.Business.Services.Mapping
 
             RegisterUserMapping();
 
+            RegisterForumThemeMapping();
             RegisterForumSubsectionMapping();
             RegisterForumSectionMapping();
 
@@ -151,12 +152,26 @@ namespace MyLiverpoolSite.Business.Services.Mapping
                 .ForMember(dest => dest.Title, src => src.MapFrom(x => x.Title));
         }
 
+        private static void RegisterForumThemeMapping()
+        {
+            Mapper.CreateMap<ForumTheme, ForumThemeMiniDto>()
+               .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id))
+               .ForMember(dest => dest.Name, src => src.MapFrom(x => x.Name))
+               .ForMember(dest => dest.Description, src => src.MapFrom(x => x.Description));
+        }
+
         private static void RegisterForumSubsectionMapping()
         {
             Mapper.CreateMap<ForumSubsection, ForumSubsectionMiniDto>()
                .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id))
                .ForMember(dest => dest.Name, src => src.MapFrom(x => x.Name))
                .ForMember(dest => dest.Description, src => src.MapFrom(x => x.Description));
+
+            Mapper.CreateMap<ForumSubsection, ForumSubsectionDto>()
+                .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id))
+                .ForMember(dest => dest.Name, src => src.MapFrom(x => x.Name))
+                .ForMember(dest => dest.Description, src => src.MapFrom(x => x.Description))
+                .ForMember(dest => dest.Themes, src => src.Ignore());
         }
 
         private static void RegisterForumSectionMapping()

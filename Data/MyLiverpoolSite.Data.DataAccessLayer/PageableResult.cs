@@ -2,7 +2,7 @@
 
 namespace MyLiverpoolSite.Data.DataAccessLayer
 {
-    public class PageableData<T> where T : class
+    public class PageableData<T> where T : class //todo move to common not in DAL
     {
         protected int ItemPerPageDefault = 15;
         public IEnumerable<T> List { get; set; }

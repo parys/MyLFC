@@ -27,14 +27,9 @@ namespace MyLiverpool.Web.WebApi.Controllers
         }
 
         [AllowAnonymous]
-        public async Task<ActionResult> IndexSubsection(int? id, int page = 1)
+        public ActionResult Subsection()
         {
-            if (!id.HasValue)
-            {
-                return HttpNotFound();
-            }
-            var model = await _forumService.GetSubsection(id.Value, page);
-            return View(model);
+            return View();
         }
 
         [AllowAnonymous]
