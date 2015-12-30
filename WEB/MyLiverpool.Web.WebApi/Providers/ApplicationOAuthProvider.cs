@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity.Owin;
@@ -50,7 +51,9 @@ namespace MyLiverpool.Web.WebApi.Providers
             ClaimsIdentity cookiesIdentity = await _userService.GenerateUserIdentityAsync(user,
                 CookieAuthenticationDefaults.AuthenticationType);
 
-            AuthenticationProperties properties = CreateProperties(user.UserName, user.Id);
+            var userRoles = await _unitOfWork.UserManager.GetRolesAsync(user.Id);
+
+            AuthenticationProperties properties = CreateProperties(user.UserName, user.Id, userRoles);
             AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, properties);
             context.Validated(ticket);
             context.Request.Context.Authentication.SignIn(cookiesIdentity);
@@ -92,12 +95,13 @@ namespace MyLiverpool.Web.WebApi.Providers
             return Task.FromResult<object>(null);
         }
 
-        public static AuthenticationProperties CreateProperties(string userName, int id)
+        public static AuthenticationProperties CreateProperties(string userName, int id, IList<string> roles)
         {
             IDictionary<string, string> data = new Dictionary<string, string>
             {
                 { "userName", userName },
-                { "id", id.ToString() }
+                { "id", id.ToString() },
+                { "roles", string.Join(", ", roles) }
             };
             return new AuthenticationProperties(data);
         }

@@ -162,3 +162,24 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider)
 configFunction.$inject = ['$stateProvider', '$httpProvider', '$locationProvider'];
 
 App.config(configFunction);
+
+App.run(function (Authentication, Application, $rootScope, $location, RouteFilter) {
+    Authentication.requestUser().then(function() {
+        Application.makeReady();
+    });
+
+    $rootScope.$on('$stateChangeStart', function(scope, next, current) {
+
+
+        if ($location.path() === '/loading') return;
+        //todo edit to use STATE
+
+        if (! Application.isReady()) {
+            $location.path('loading');
+        }
+
+
+        RouteFilter.run($location.path());
+    });
+
+})

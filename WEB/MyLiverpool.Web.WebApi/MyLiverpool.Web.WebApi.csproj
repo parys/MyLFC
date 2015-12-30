@@ -258,6 +258,7 @@
     <Content Include="Scripts\Controllers\ForumController.js" />
     <Content Include="Scripts\Controllers\ForumSubsectionController.js" />
     <Content Include="Scripts\Controllers\LandingPageController.js" />
+    <Content Include="Scripts\Controllers\LoadingCtrl.js" />
     <Content Include="Scripts\Controllers\LoginController.js" />
     <Content Include="Scripts\Controllers\LogoutController.js" />
     <Content Include="Scripts\Controllers\NewsController.js" />
@@ -290,8 +291,11 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Scripts\angular\angular.min.js.map" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
+    <Content Include="Scripts\Factories\RouteFilter.js" />
+    <Content Include="Scripts\Filters.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
     <Content Include="Scripts\jquery-1.9.1.min.js" />
+    <Content Include="Scripts\Services\Authentication.js" />
     <Content Include="Scripts\Services\SessionService.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
