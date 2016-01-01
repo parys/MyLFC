@@ -3,11 +3,11 @@
 App.controller('LandingPageController', LandingPageController);
 App.controller('LoginController', LoginController);
 App.controller('RegisterController', RegisterController);
-App.controller('ValuesController', ValuesController);
 App.controller('NewsController', NewsController);
 App.controller('NewsItemController', NewsItemController);
 App.controller('UserController', UserController);
 App.controller('UsersController', UsersController);
+App.controller('PmController', PmController);
 App.controller('PmsController', PmsController);
 App.controller('ForumController', ForumController);
 App.controller('ForumSubsectionController', ForumSubsectionController);
@@ -25,7 +25,7 @@ App.factory('GetNewsItemsFactory', GetNewsItemsFactory);
 App.factory('GetNewsItemFactory', GetNewsItemFactory);
 App.factory('GetUserFactory', GetUserFactory);
 App.factory('GetUsersFactory', GetUsersFactory);
-App.factory('GetPmsFactory', GetPmsFactory);
+App.factory('PmsFactory', PmsFactory);
 App.factory('GetForumFactory', GetForumFactory);
 App.factory('GetForumSubsectionFactory', GetForumSubsectionFactory);
 
@@ -112,11 +112,20 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider)
         //    }
         //})
         .state('pms', {
-            url: '/pms?id',
+            url: '/pms',//'?id',
             views: {
                 "containerMain": {
-                    templateUrl: function (params) { return '/User/Pms?id=' + params.id },
+                    templateUrl: '/User/Pms', //function (params) { return '/User/Pms?id=' + params.id },
                     controller: PmsController
+                }
+            }
+        })
+        .state('pm', {
+            url: '/pm?id',
+            views: {
+                "containerMain": {
+                    templateUrl: function (params) { return '/User/Pm?id=' + params.id },
+                    controller: PmController
                 }
             }
         })

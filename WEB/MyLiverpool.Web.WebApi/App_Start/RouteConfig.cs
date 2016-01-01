@@ -71,6 +71,11 @@ namespace MyLiverpool.Web.WebApi
                 defaults: new { controller = "User", action = "PrivateMessages" });
 
             routes.MapRoute(
+                name: "pm",
+                url: "User/Pm",
+                defaults: new {controller = "User", action = "ReadMessage"});
+
+            routes.MapRoute(
                 name: "forum",
                 url: "Forum/Index",
                 defaults: new {controller = "Forum", action = "Index"});

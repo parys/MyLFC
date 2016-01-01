@@ -1,11 +1,11 @@
-﻿var PmsController = function ($scope, $stateParams, GetPmsFactory, SessionState) {
+﻿var PmsController = function ($scope, PmsFactory) {
     $scope.received = [];
     $scope.sent = [];
     var init = function () {
-        GetPmsFactory($stateParams.id)
+        PmsFactory.getMessages()
             .then(function (response) {
-                $scope.received = response.Received;
-                $scope.sent = response.Sent;
+                $scope.received = response.received;
+                $scope.sent = response.sent;
             },
                 function (response) {
                     //$scope.f = "";
@@ -15,4 +15,4 @@
     init();
 };
 
-PmsController.$inject = ['$scope', '$stateParams', 'GetPmsFactory', 'SessionService'];
+PmsController.$inject = ['$scope', 'PmsFactory'];

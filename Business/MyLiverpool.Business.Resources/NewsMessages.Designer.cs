@@ -187,7 +187,7 @@ namespace MyLiverpool.Business.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Название материала:.
+        ///   Looks up a localized string similar to Заголовок:.
         /// </summary>
         public static string Title {
             get {

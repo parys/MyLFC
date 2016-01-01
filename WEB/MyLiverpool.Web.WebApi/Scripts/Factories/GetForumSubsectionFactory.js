@@ -5,7 +5,7 @@
         $http({
             method: 'GET',
             url: SessionService.apiUrl + '/api/Forum/subsection?id=' + $stateParams.id + '&page=' + $stateParams.page,
-            headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + SessionService.getToken() }
+            headers: { 'Content-Type': 'application/json' }
         })
         .success(function (response) {
             result.resolve(response);

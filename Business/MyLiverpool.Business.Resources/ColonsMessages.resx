@@ -117,47 +117,20 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AdditionTime" xml:space="preserve">
-    <value>Дата:</value>
-  </data>
-  <data name="Answer" xml:space="preserve">
-    <value>Ответ:</value>
-  </data>
-  <data name="Author" xml:space="preserve">
-    <value>Автор:</value>
-  </data>
-  <data name="Brief" xml:space="preserve">
-    <value>Краткое описание:</value>
-  </data>
-  <data name="CanCommentary" xml:space="preserve">
-    <value>Разрешить оставлять комментарии</value>
-  </data>
-  <data name="Editing" xml:space="preserve">
-    <value>Редактирование новости</value>
-  </data>
   <data name="Message" xml:space="preserve">
-    <value>Полный текст материала:</value>
+    <value>Сообщение:</value>
   </data>
-  <data name="News" xml:space="preserve">
-    <value>Новости</value>
+  <data name="ReceivedDate" xml:space="preserve">
+    <value>Дата получения:</value>
   </data>
-  <data name="NewsCategory" xml:space="preserve">
-    <value>Категория:</value>
+  <data name="Receiver" xml:space="preserve">
+    <value>Получатель:</value>
   </data>
-  <data name="NewsCreation" xml:space="preserve">
-    <value>Создание новости</value>
+  <data name="Sender" xml:space="preserve">
+    <value>Отправитель:</value>
   </data>
-  <data name="OnTop" xml:space="preserve">
-    <value>Всегда сверху</value>
-  </data>
-  <data name="Pending" xml:space="preserve">
-    <value>Материал отложен</value>
-  </data>
-  <data name="Reads" xml:space="preserve">
-    <value>Просмотры:</value>
-  </data>
-  <data name="Source" xml:space="preserve">
-    <value>Источник:</value>
+  <data name="SentDate" xml:space="preserve">
+    <value>Дата отправки:</value>
   </data>
   <data name="Title" xml:space="preserve">
     <value>Заголовок:</value>

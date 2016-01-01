@@ -140,7 +140,7 @@ namespace MyLiverpoolSite.Business.Services.Services
 
         public async Task<PrivateMessagesDto> GetPrivateMessagesDtoAsync(int id)
         {
-            var messages = await _unitOfWork.PrivateMessageRepository.GetAsync(x => x.ReceiverId == id || x.SenderId == id, x => x.Receiver, x => x.Sender);
+            var messages = await _unitOfWork.PrivateMessageRepository.GetAsync(x => x.ReceiverId == id || x.SenderId == id);
             var dto = new PrivateMessagesDto()
             {
                 Received = Mapper.Map<ICollection<PrivateMessageMiniDto>>(messages.Where(x => x.ReceiverId == id)),

@@ -5,7 +5,7 @@
         $http({
             method: 'GET',
             url: SessionService.apiUrl + '/api/Forum',
-            headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + SessionService.getToken() }
+            headers: { 'Content-Type': 'application/json' }
         })
         .success(function (response) {
             result.resolve(response);

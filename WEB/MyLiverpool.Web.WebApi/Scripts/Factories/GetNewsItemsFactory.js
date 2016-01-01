@@ -5,7 +5,7 @@
         $http({
             method: 'GET',
             url: SessionService.apiUrl + '/api/News/List?page=' + $stateParams.page + '&categoryId=' + $stateParams.categoryId,
-            headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + SessionService.getToken() }
+            headers: { 'Content-Type': 'application/json' }
         })
         .success(function (response) {
             result.resolve(response);

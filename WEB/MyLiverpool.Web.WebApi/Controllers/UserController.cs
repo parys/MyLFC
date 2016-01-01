@@ -1,10 +1,11 @@
 ﻿using System.Threading.Tasks;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using MyLiverpool.Controllers;
 using MyLiverpoolSite.Business.Contracts;
 using MyLiverpoolSite.Business.ViewModels.Users;
 
-namespace MyLiverpool.Controllers
+namespace MyLiverpool.Web.WebApi.Controllers
 {
     [Authorize]
     public class UserController : BaseController
@@ -40,6 +41,12 @@ namespace MyLiverpool.Controllers
         }
 
         [Authorize]
+        public ActionResult ReadMessage()
+        {
+            return View();
+        }
+
+        [Authorize]
         [HttpGet]
         public async Task<ActionResult> WriteMessage(int? receiverId, string answerTitle = null)
         {
@@ -63,17 +70,6 @@ namespace MyLiverpool.Controllers
             }
             var result = await _userService.SavePrivateMessageVMAsync(model, User.Identity.GetUserId<int>());
             return View();
-        }
-
-        [Authorize]
-        public async Task<ActionResult> ReadMessage(int? id)
-        {
-            if (!id.HasValue)
-            {
-                return HttpNotFound(); //todo BadRequest();
-            }
-            var model = await _userService.GetPrivateMessageForReadVMAsync(id.Value, User.Identity.GetUserId<int>());
-            return View(model);
         }
 
         [Authorize(Roles = "UsersStart")]

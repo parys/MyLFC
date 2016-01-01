@@ -29,13 +29,9 @@ namespace MyLiverpool.Web.WebApi.Controllers
         [Route("Pms")]
         [HttpGet]
         [Authorize]
-        public async Task<IHttpActionResult> GetPms(int id)
+        public async Task<IHttpActionResult> GetPms()
         {
-            if (User.Identity.GetUserId<int>() != id)
-            {
-                return BadRequest();
-            }
-            var model = await _userService.GetPrivateMessagesDtoAsync(id);
+            var model = await _userService.GetPrivateMessagesDtoAsync(User.Identity.GetUserId<int>());
             return Ok(model);
         }
 

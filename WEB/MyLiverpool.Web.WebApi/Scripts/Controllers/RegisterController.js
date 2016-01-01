@@ -23,27 +23,33 @@
 
 //RegisterController.$inject = ['$scope', '$location', 'RegistrationFactory'];
 
-var RegisterController = function ($scope, LoginFactory, RegisterFactory, SessionService) {
+var RegisterController = function ($scope, LoginFactory, RegisterFactory, Authentication) {
     $scope.registerForm = {
-        username: undefined,
-        password: undefined,
-        confirmPassword: undefined,
-        errorMessage: undefined
+        userName: '',
+        emailAddress: '',
+        password: '',
+        confirmPassword: '',
+        fullName: '',
+        birthDayDate: '',
+        registrationFailure: false
     };
 
     $scope.register = function () {
+       
         RegisterFactory($scope.registerForm.username, $scope.registerForm.password, $scope.registerForm.confirmPassword)
         .then(function () {
-            LoginFactory($scope.registerForm.username, $scope.registerForm.password)
-            .then(function (response) {
-                SessionService.setToken(response.access_token);
-                SessionService.setUserId(response.id);
-            }, function (response) {
-                $scope.registerForm.errorMessage = response;
-            });
-        }, function (response) {
-            $scope.registerForm.errorMessage = response;
+                Authentication.login($scope.registerForm);
+           // LoginFactory($scope.registerForm.username, $scope.registerForm.password)
+          //  .then(function (response) {
+            //    SessionService.setToken(response.access_token);
+                //    SessionService.setUserId(response.id);
+
+          //  }, function (response) {
+          //      $scope.registerForm.errorMessage = response;
+          //  });
+      //  }, function (response) {
+       //     $scope.registerForm.errorMessage = response;
         });
     }
 }
-RegisterController.$inject = ['$scope', 'LoginFactory', 'RegisterFactory', 'SessionService'];
+RegisterController.$inject = ['$scope', 'LoginFactory', 'RegisterFactory', 'Authentication'];

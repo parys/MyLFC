@@ -6,65 +6,57 @@
 
 <div class="container-fluid">
     <ul class="nav nav-tabs">
-        <li class="active"><a  href="#received" data-toggle="tab">@UsersMessages.Received</a></li>
+        <li class="active"><a href="#received" data-toggle="tab">@UsersMessages.Received</a></li>
         <li><a href="#sent" data-toggle="tab">@UsersMessages.Sent</a></li>
     </ul>
-<div class="tab-content">
-    <div class="tab-pane active" id="received">
-        <table class="table">
-            <thead>
-                <tr>
-                    <td>#</td>
-                    <td>@NewsMessages.Title</td>
-                    <td>@NewsMessages.Author</td>
-                    <td>@CommonMessages.ReceivedDate</td>
-                </tr>
-            </thead>
-            <tbody ng-repeat="message in received">
+    <div class="tab-content">
+        <div class="tab-pane active" id="received">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td>#</td>
+                        <td>@ColonsMessages.Title</td>
+                        <td>@ColonsMessages.Sender</td>
+                        <td>@ColonsMessages.ReceivedDate</td>
+                    </tr>
+                </thead>
+                <tbody ng-repeat="message in received">
                     <tr>
                         <td>i</td>
                         <td>
-                           @* <a href="@Url.Action("ReadMessage", "User", new {id = Model.ReceivedMessages[i].Id})">*@
-                                <b ng-if="!message.isRead">{{ message.title }}</b>
-                                    @*</a>*@
+                            <a ui-sref="pm({ id: message.id })">
+                                <b ng-show="!message.isRead">{{ message.title }}</b>
+                                <span ng-show="message.isRead">{{ message.title }}</span>
+                            </a>
                         </td>
-                        <td><a ui-sref="userInfo({id: message.SenderId})">{{message.senderUserName}}</a></td>
+                        <td><a ui-sref="userInfo({id: message.senderId})">{{message.senderUserName}}</a></td>
                         <td>{{ message.sentTime | date:'medium' }}</td>
                     </tr>
-            </tbody>
-        </table>
-    </div>
+                </tbody>
+            </table>
+        </div>
         <div class="tab-pane" id="sent">
             <table class="table">
                 <thead>
-                <tr>
-                    <td>#</td>
-                    <td>@NewsMessages.Title</td>
-                    <td>@NewsMessages.Author</td>
-                    <td>@CommonMessages.SentDate</td>
-                </tr>
+                    <tr>
+                        <td>#</td>
+                        <td>@ColonsMessages.Title</td>
+                        <td>@ColonsMessages.Receiver</td>@*todo*@
+                        <td>@ColonsMessages.SentDate</td>
+                    </tr>
                 </thead>
-                <tbody>
-                @*@for (var i = 0; i < Model.SentMessages.Count(); i++)*@
-                {
+                <tbody ng-repeat="message in sent">
                     <tr>
                         <td>i</td>
                         <td>
-                            @*<a href="@Url.Action("ReadMessage", "User", new {id = Model.SentMessages[i].Id})">
-                                @if (!Model.SentMessages[i].IsRead)
-                                {
-                                    <b>@Model.SentMessages[i].Title</b>
-                                }
-                                else
-                                {
-                                    @Model.SentMessages[i].Title
-                                }
-                            </a>*@
+                            <a ui-sref="pm({ id: message.id })">
+                                <b ng-show="!message.isRead">{{ message.title }}</b>
+                                <span ng-show="message.isRead">{{ message.title }}</span>
+                            </a>
                         </td>
-                        @*<td><a href="@Url.Action("Profile", "User", new {id = Model.SentMessages[i].SenderId})">@Model.SentMessages[i].Sender.UserName</a></td>*@
-                        @*<td>@Model.SentMessages[i].SentTime</td>*@
+                        <td><a ui-sref="userInfo({id: message.receiverId})">{{message.receiverUserName}}</a></td>
+                        <td>{{ message.sentTime | date:'medium' }}</td>
                     </tr>
-                }
                 </tbody>
             </table>
         </div>
