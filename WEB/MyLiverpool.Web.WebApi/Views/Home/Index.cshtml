@@ -38,7 +38,6 @@
         <li class="divider"></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-
         <li>
             <a ui-sref="login" ng-if="!loggedIn()">@CommonMessages.Login</a>
         </li>
@@ -46,13 +45,12 @@
             <a ui-sref="register" ng-if="!loggedIn()">@CommonMessages.Register</a>
         </li>
         <li>
-            <a ui-sref="logout" ng-if="loggedIn()">Logout</a>
+            <a ng-click="logout()" ng-if="loggedIn()">@CommonMessages.Logout</a>
         </li>
         <li>
             <span class="label label-success" ng-if="loggedIn()">Logged In</span>
         </li>
     </ul>
-    @*  @Html.Partial("_LoginPartial")*@
 </div>
 <div class="container-fluid" style="margin-top: 50px">
     <header class="navbar navbar-default navbar-static-top">
@@ -96,8 +94,6 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">@CommonMessages.Users <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li><a ui-sref="users">@CommonMessages.Users</a></li>
-                        @*<li>@Html.ActionLink(CommonMessages.Create, "Index", "User")</li>
-                                <li>@Html.ActionLink("Create", "Create", "Blog")</li>*@
                     </ul>
                 </li>
             </ul>

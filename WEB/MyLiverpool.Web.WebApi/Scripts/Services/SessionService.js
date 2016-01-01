@@ -3,31 +3,31 @@
     this.userId = undefined;
 
     this.getToken = function () {
-        if (!$cookies.awesomeAngularWebAppToken) {
-            if (!this.token) {
+    //    if (!$cookies.awesomeAngularWebAppToken) {
+    //        if (!this.token) {
                 return undefined;
-            }
-            this.setToken(this.token);
+    //        }
+    //        this.setToken(this.token);
         }
-        return $cookies.awesomeAngularWebAppToken;
-    }
+    //    return $cookies.awesomeAngularWebAppToken;
+    //}
 
-    this.setToken = function (token) {
-        this.token = token;
-        $cookies.awesomeAngularWebAppToken = token;
-    }
+    //this.setToken = function (token) {
+    //    this.token = token;
+    //    $cookies.awesomeAngularWebAppToken = token;
+    //}
 
-    this.remove = function() {
-        $cookies.remove("awesomeAngularWebAppToken");
-    }
+    //this.remove = function() {
+    //    $cookies.remove("awesomeAngularWebAppToken");
+    //}
 
-    this.setUserId = function(userId) {
-        this.userId = userId;
-    }
+    //this.setUserId = function(userId) {
+    //    this.userId = userId;
+    //}
 
-    this.getUserId = function() {
-        return this.userId;
-    }
+    //this.getUserId = function() {
+    //    return this.userId;
+    //}
 
 
     this.apiUrl = 'http://localhost:46940';//todo

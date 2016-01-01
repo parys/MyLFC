@@ -15,28 +15,24 @@
             </tr>
         </thead>
         <tbody ng-repeat="user in users">
-        @*    @foreach (var user in Model.List)*@
-            {
                 <tr>
                     <td class="">
-                        {{ user.LastModified | date:'medium' }}
+                        {{ user.lastModified | date:'medium' }}
                     </td>
                     <td class="">
-                        <a ui-sref="users({id: user.Id})">{{ user.UserName }}</a>
+                        <a ui-sref="users({id: user.id})">{{ user.userName }}</a>
                        @* @if (Request.IsAuthenticated && User.Identity.GetUserId<int>() != user.Id)*@
                         {
                             @*<a ui-sref="@Url.Action("WriteMessage", "User", new {receiverId = user.Id})"><span class="glyphicon glyphicon-envelope"></span></a>*@
                         }
                     </td>
                     <td class="">
-                        {{ user.RegistrationDate | date:'medium' }}
+                        {{ user.registrationDate | date:'medium' }}
                     </td>
                     <td class="">
-                        {{ user.RoleGroupName }}
+                        {{ user.roleGroupName }}
                     </td>
                 </tr>
-
-            }
         </tbody>
     </table>
 </div>

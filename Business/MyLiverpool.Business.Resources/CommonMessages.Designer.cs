@@ -189,9 +189,9 @@ namespace MyLiverpool.Business.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Выйти.
         /// </summary>
-        public static string Logoff {
+        public static string Logout {
             get {
-                return ResourceManager.GetString("Logoff", resourceCulture);
+                return ResourceManager.GetString("Logout", resourceCulture);
             }
         }
         

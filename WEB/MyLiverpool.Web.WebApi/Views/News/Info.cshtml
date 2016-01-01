@@ -8,10 +8,10 @@
     <div class="row">
         <h3 class="">
             <span class="col-md-9 alert-danger">
-                {{ item.Title }}
+                {{ item.title }}
             </span>
             <span class="col-md-3">
-                @if (Request.IsAuthenticated)
+                @if (Request.IsAuthenticated && User.IsInRole("NewsFull"))
                 {
                     <span class="small pull-right">
                         @*       @if(Model.Pending)*@
@@ -28,24 +28,24 @@
     <div class="row-fluid">
         @*@Html.HiddenFor(model => model.Id)        
             @Html.Raw(Model.Message)*@
-        {{ item.Message }}
+        {{ item.message }}
         <div class="row-fluid alert-warning">
             <ul class="list-inline">
-                <li><label>Reads:</label> {{ item.Reads }}</li>
-                <li><label>Source:</label> {{ item.Source }}</li>
-                <li><label>AdditionTime:</label> {{ item.AdditionTime | date:'medium' }}</li>
-                <li><label>NewsCategory:</label> <a ui-sref="news({categoryId: item.NewsCategoryId})"> {{ item.NewsCategoryName }} </a></li>
+                <li><label>Reads:</label> {{ item.reads }}</li>
+                <li><label>Source:</label> {{ item.source }}</li>
+                <li><label>AdditionTime:</label> {{ item.additionTime | date:'medium' }}</li>
+                <li><label>NewsCategory:</label> <a ui-sref="news({categoryId: item.NewsCategoryId})"> {{ item.newsCategoryName }} </a></li>
             </ul>
         </div>
     </div>
     <div class="media-list" id="comments">
-        {{item.Comments.length}}
+        {{item.comments.length}}
         @*  @ShowTree(Model.Comments, 0)*@
     </div>
     @* && Model.CanCommentary)*@
-   @if (User.Identity.IsAuthenticated) 
+   @if (Request.IsAuthenticated) //todo edit to angular
     {
-       <div class="col-md-12" ng-if="item.CanCommentary">
+       <div class="col-md-12" ng-if="item.canCommentary">
         <div class="">
             <textarea id="newsCommentMessage" class="col-md-4 editor" rows="6"></textarea>
             <br />

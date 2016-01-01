@@ -6,11 +6,11 @@
 <h2></h2>
 <div class="container-fluid" ng-repeat="section in sections">
     <div class="panel panel-danger">
-        <div class="panel-heading">{{ section.Name }}</div>
+        <div class="panel-heading">{{ section.name }}</div>
         <div class="panel-body"></div>
-        <ul class="list-group" ng-repeat="subsection in section.Subsections">
+        <ul class="list-group" ng-repeat="subsection in section.subsections">
             <li class="list-group-item list">
-                <a ui-sref="subsection({id: subsection.Id})"><span> {{ subsection.Name}}</span></a>
+                <a ui-sref="subsection({id: subsection.id})"><span> {{ subsection.name}}</span></a>
             </li>
         </ul>
     </div>

@@ -25,11 +25,11 @@
                         <td>i</td>
                         <td>
                            @* <a href="@Url.Action("ReadMessage", "User", new {id = Model.ReceivedMessages[i].Id})">*@
-                                <b ng-if="!message.IsRead">{{ message.Title }}</b>
+                                <b ng-if="!message.isRead">{{ message.title }}</b>
                                     @*</a>*@
                         </td>
-                        <td><a ui-sref="userInfo({id: message.SenderId})">{{message.SenderUserName}}</a></td>
-                        <td>{{ message.SentTime | date:'medium' }}</td>
+                        <td><a ui-sref="userInfo({id: message.SenderId})">{{message.senderUserName}}</a></td>
+                        <td>{{ message.sentTime | date:'medium' }}</td>
                     </tr>
             </tbody>
         </table>

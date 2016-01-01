@@ -1,8 +1,8 @@
 ﻿var LoginFactory = function ($http, $q, SessionService) {
-    return function (username, password) {
+    return function (credentials) {
         var result = $q.defer();
 
-        var params = { grant_type: "password", userName: username, password: password };
+        var params = { grant_type: "password", userName: credentials.username, password: credentials.password };
 
         $http({
             method: 'POST',

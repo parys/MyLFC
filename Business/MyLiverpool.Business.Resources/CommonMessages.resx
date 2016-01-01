@@ -156,7 +156,7 @@
   <data name="Login" xml:space="preserve">
     <value>Войти</value>
   </data>
-  <data name="Logoff" xml:space="preserve">
+  <data name="Logout" xml:space="preserve">
     <value>Выйти</value>
   </data>
   <data name="Message" xml:space="preserve">

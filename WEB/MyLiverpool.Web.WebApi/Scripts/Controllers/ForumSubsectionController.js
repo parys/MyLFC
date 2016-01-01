@@ -9,12 +9,12 @@
     var init = function () {
         GetForumSubsectionFactory()
             .then(function (response) {
-                $scope.themes = response.Themes.List;
-                $scope.pageNo = response.Themes.PageNo;
-                $scope.countPage = response.Themes.CountPage;
-                $scope.id = response.Id;
-                $scope.name = response.Name;
-                $scope.description = response.Description;
+                $scope.themes = response.themes.list;
+                $scope.pageNo = response.themes.pageNo;
+                $scope.countPage = response.themes.countPage;
+                $scope.id = response.id;
+                $scope.name = response.name;
+                $scope.description = response.description;
 
             },
                 function (response) {

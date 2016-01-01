@@ -14,6 +14,10 @@ App.controller('ForumSubsectionController', ForumSubsectionController);
 
 App.service('SessionService', SessionService);
 
+App.factory('Authentication', Authentication);
+App.factory('Application', Application);
+App.factory('RouteFilter', RouteFilter);
+
 //App.factory('AuthHttpResponseInterceptor', AuthHttpResponseInterceptor);
 App.factory('LoginFactory', LoginFactory);
 App.factory('RegisterFactory', RegisterFactory);
@@ -163,23 +167,28 @@ configFunction.$inject = ['$stateProvider', '$httpProvider', '$locationProvider'
 
 App.config(configFunction);
 
-App.run(function (Authentication, Application, $rootScope, $location, RouteFilter) {
-    Authentication.requestUser().then(function() {
-        Application.makeReady();
-    });
+App.run(function(Authentication, Application, $rootScope, $location, RouteFilter, $http) {
+    Authentication.requestUser();
+    //    .then(function () {
+   //     Application.makeReady();
+   // });//todo
+
+    $http.defaults.headers.common.Authorization = 'Bearer ' + Authentication.getToken();
 
     $rootScope.$on('$stateChangeStart', function(scope, next, current) {
+        console.log('stateChange');
 
-
-        if ($location.path() === '/loading') return;
+       // if ($location.path() === '/loading') return;
         //todo edit to use STATE
 
         if (! Application.isReady()) {
-            $location.path('loading');
+            //     $location.path('loading');
+            console.log('not ready');
         }
 
 
         RouteFilter.run($location.path());
     });
+});
 
-})
+//App.run().$inject = ['Authentication']

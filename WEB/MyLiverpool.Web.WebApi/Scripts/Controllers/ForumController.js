@@ -4,7 +4,7 @@
     var init = function () {
         GetForumFactory()
             .then(function (response) {
-                $scope.sections = response.Sections;
+                $scope.sections = response.sections;
 
             },
                 function (response) {

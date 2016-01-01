@@ -6,9 +6,9 @@
     var init = function() {
         GetNewsItemsFactory()
             .then(function(response) {
-                    $scope.newsItems = response.List;
-                    $scope.pageNo = response.PageNo;
-                    $scope.countPage = response.CountPage;
+                    $scope.newsItems = response.list;
+                    $scope.pageNo = response.pageNo;
+                    $scope.countPage = response.countPage;
 
                 },
                 function(response) {

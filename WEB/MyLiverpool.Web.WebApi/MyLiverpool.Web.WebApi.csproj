@@ -269,6 +269,7 @@
     <Content Include="Scripts\Controllers\UsersController.js" />
     <Content Include="Scripts\Controllers\ValuesController.js" />
     <Content Include="Scripts\angular\date.js" />
+    <Content Include="Scripts\Factories\Application.js" />
     <Content Include="Scripts\Factories\AuthHttpResponseInterceptor.js" />
     <Content Include="Scripts\Factories\GetForumFactory.js" />
     <Content Include="Scripts\Factories\GetForumSubsectionFactory.js" />

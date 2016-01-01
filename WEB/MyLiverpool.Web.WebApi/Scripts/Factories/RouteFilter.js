@@ -55,5 +55,8 @@ var RouteFilter = function ($location) {
               }
           }
       }
-  };
+};
+
+RouteFilter.$inject = ['$location'];
+
 
