@@ -1,12 +1,12 @@
-﻿var PmsFactory = function($q, $http, SessionService) {
+﻿var ForumFactory = function($q, $http, SessionService, $stateParams) {
 
     return {
-        getMessage: function(id) {
+        getSections: function() {
             var result = $q.defer();
 
             $http({
                 method: 'GET',
-                url: SessionService.apiUrl + '/api/User/Pm?id='+ id,
+                url: SessionService.apiUrl + '/api/Forum',
                 headers: { 'Content-Type': 'application/json' }
             })
             .success(function (response) {
@@ -18,12 +18,12 @@
 
             return result.promise;
         },
-        getMessages: function() {
+        getSubsection: function() {
             var result = $q.defer();
 
             $http({
                 method: 'GET',
-                url: SessionService.apiUrl + '/api/User/Pms', //?id='+ id,
+                url: SessionService.apiUrl + '/api/Forum/subsection?id=' + $stateParams.id + '&page=' + $stateParams.page,
                 headers: { 'Content-Type': 'application/json' }
             })
             .success(function (response) {
@@ -38,4 +38,4 @@
     }
 };
 
-PmsFactory.$inject = ['$q', '$http', 'SessionService']
+ForumFactory.$inject = ['$q', '$http', 'SessionService', '$stateParams']

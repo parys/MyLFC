@@ -20,7 +20,7 @@
                         {{ user.lastModified | date:'medium' }}
                     </td>
                     <td class="">
-                        <a ui-sref="users({id: user.id})">{{ user.userName }}</a>
+                        <a ui-sref="userInfo({id: user.id})">{{ user.userName }}</a>
                        @* @if (Request.IsAuthenticated && User.Identity.GetUserId<int>() != user.Id)*@
                         {
                             @*<a ui-sref="@Url.Action("WriteMessage", "User", new {receiverId = user.Id})"><span class="glyphicon glyphicon-envelope"></span></a>*@

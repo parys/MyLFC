@@ -1,4 +1,4 @@
-﻿var ForumSubsectionController = function ($scope, GetForumSubsectionFactory, SessionState) {
+﻿var ForumSubsectionController = function ($scope, ForumFactory) {
     $scope.themes = [];
     $scope.pageNo = 1;
     $scope.countPage = 1;
@@ -7,7 +7,7 @@
     $scope.description = undefined;
 
     var init = function () {
-        GetForumSubsectionFactory()
+        ForumFactory.getSubsection()
             .then(function (response) {
                 $scope.themes = response.themes.list;
                 $scope.pageNo = response.themes.pageNo;
@@ -25,4 +25,4 @@
     init();
 };
 
-ForumSubsectionController.$inject = ['$scope', 'GetForumSubsectionFactory', 'SessionService'];
+ForumSubsectionController.$inject = ['$scope', 'ForumFactory'];

@@ -1,8 +1,8 @@
-﻿var UserController = function ($scope, $stateParams, GetUserFactory, SessionState) {
+﻿var UserController = function ($scope, $stateParams, UsersFactory) {
     $scope.user = [];
     $scope.id = $stateParams.id;
     var init = function() {
-        GetUserFactory($scope.id)
+        UsersFactory.getUser($scope.id)
             .then(function(response) {
                 $scope.user = response;
             },
@@ -14,4 +14,4 @@
     init();
 };
 
-UserController.$inject = ['$scope', '$stateParams', 'GetUserFactory', 'SessionService'];
+UserController.$inject = ['$scope', '$stateParams', 'UsersFactory'];

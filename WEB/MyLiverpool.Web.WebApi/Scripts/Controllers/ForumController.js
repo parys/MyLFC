@@ -1,8 +1,8 @@
-﻿var ForumController = function ($scope, GetForumFactory, SessionState) {
+﻿var ForumController = function ($scope, ForumFactory) {
     $scope.sections = [];
 
     var init = function () {
-        GetForumFactory()
+        ForumFactory.getSections()
             .then(function (response) {
                 $scope.sections = response.sections;
 
@@ -15,4 +15,4 @@
     init();
 };
 
-ForumController.$inject = ['$scope', 'GetForumFactory', 'SessionService'];
+ForumController.$inject = ['$scope', 'ForumFactory'];

@@ -271,13 +271,9 @@
     <Content Include="Scripts\angular\date.js" />
     <Content Include="Scripts\Factories\Application.js" />
     <Content Include="Scripts\Factories\AuthHttpResponseInterceptor.js" />
-    <Content Include="Scripts\Factories\GetForumFactory.js" />
-    <Content Include="Scripts\Factories\GetForumSubsectionFactory.js" />
-    <Content Include="Scripts\Factories\GetNewsItemFactory.js" />
-    <Content Include="Scripts\Factories\GetNewsItemsFactory.js" />
-    <Content Include="Scripts\Factories\GetUserFactory.js" />
-    <Content Include="Scripts\Factories\GetUsersFactory.js" />
+    <Content Include="Scripts\Factories\ForumFactory.js" />
     <Content Include="Scripts\Factories\LoginFactory.js" />
+    <Content Include="Scripts\Factories\NewsFactory.js" />
     <Content Include="Scripts\Factories\PmsFactory.js" />
     <Content Include="Scripts\Factories\RegisterFactory.js" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -291,6 +287,7 @@
     <Content Include="Scripts\angular\angular.min.js.map" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\Factories\RouteFilter.js" />
+    <Content Include="Scripts\Factories\UsersFactory.js" />
     <Content Include="Scripts\Filters.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
     <Content Include="Scripts\jquery-1.9.1.min.js" />

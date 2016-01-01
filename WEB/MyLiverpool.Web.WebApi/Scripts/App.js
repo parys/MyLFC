@@ -21,13 +21,10 @@ App.factory('RouteFilter', RouteFilter);
 //App.factory('AuthHttpResponseInterceptor', AuthHttpResponseInterceptor);
 App.factory('LoginFactory', LoginFactory);
 App.factory('RegisterFactory', RegisterFactory);
-App.factory('GetNewsItemsFactory', GetNewsItemsFactory);
-App.factory('GetNewsItemFactory', GetNewsItemFactory);
-App.factory('GetUserFactory', GetUserFactory);
-App.factory('GetUsersFactory', GetUsersFactory);
+App.factory('NewsFactory', NewsFactory);
+App.factory('UsersFactory', UsersFactory);
 App.factory('PmsFactory', PmsFactory);
-App.factory('GetForumFactory', GetForumFactory);
-App.factory('GetForumSubsectionFactory', GetForumSubsectionFactory);
+App.factory('ForumFactory', ForumFactory);
 
 var configFunction = function ($stateProvider, $httpProvider, $locationProvider) {
 

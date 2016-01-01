@@ -1,9 +1,9 @@
-﻿var UsersController = function ($scope, $stateParams, GetUsersFactory) {
+﻿var UsersController = function ($scope, $stateParams, UsersFactory) {
     $scope.users = [];
     $scope.pageNo = 1;
     $scope.countPage = 1;
     var init = function () {
-        GetUsersFactory($stateParams.page)
+        UsersFactory.getUsers($stateParams.page)
             .then(function (response) {
                 $scope.users = response.list;
                 $scope.pageNo = response.pageNo;
@@ -17,4 +17,4 @@
     init();
 };
 
-UsersController.$inject = ['$scope', '$stateParams', 'GetUsersFactory'];
+UsersController.$inject = ['$scope', '$stateParams', 'UsersFactory'];

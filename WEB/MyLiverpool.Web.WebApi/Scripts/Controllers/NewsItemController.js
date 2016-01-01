@@ -1,8 +1,8 @@
-﻿var NewsItemController = function ($scope, GetNewsItemFactory, SessionState) {
+﻿var NewsItemController = function ($scope, NewsFactory) {
     $scope.item = [];
 
     var init = function () {
-        GetNewsItemFactory()
+        NewsFactory.getItem()
             .then(function (response) {
                 $scope.item = response;
             },
@@ -14,4 +14,4 @@
     init();
 };
 
-NewsItemController.$inject = ['$scope', 'GetNewsItemFactory', 'SessionService'];
+NewsItemController.$inject = ['$scope', 'NewsFactory'];
