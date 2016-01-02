@@ -257,6 +257,7 @@
     <Content Include="Scripts\angular\min\bootstrap.min.js" />
     <Content Include="Scripts\Controllers\ForumController.js" />
     <Content Include="Scripts\Controllers\ForumSubsectionController.js" />
+    <Content Include="Scripts\Controllers\ForumThemeController.js" />
     <Content Include="Scripts\Controllers\LandingPageController.js" />
     <Content Include="Scripts\Controllers\LoadingCtrl.js" />
     <Content Include="Scripts\Controllers\LoginController.js" />
@@ -331,7 +332,7 @@
     <Content Include="Views\Blog\Index.cshtml" />
     <Content Include="Views\Forum\Index.cshtml" />
     <Content Include="Views\Forum\Subsection.cshtml" />
-    <Content Include="Views\Forum\IndexTheme.cshtml" />
+    <Content Include="Views\Forum\Theme.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />

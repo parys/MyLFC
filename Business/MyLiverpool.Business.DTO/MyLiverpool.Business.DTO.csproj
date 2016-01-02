@@ -70,9 +70,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ForumDto.cs" />
+    <Compile Include="ForumMessageDto.cs" />
     <Compile Include="ForumSectionDto.cs" />
     <Compile Include="ForumSubsectionDto.cs" />
     <Compile Include="ForumSubsectionMiniDto.cs" />
+    <Compile Include="ForumThemeDto.cs" />
     <Compile Include="ForumThemeMiniDto.cs" />
     <Compile Include="IDto.cs" />
     <Compile Include="NewsCommentDto.cs" />

@@ -1,25 +1,10 @@
-﻿using System.Threading.Tasks;
-using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
+﻿using System.Web.Mvc;
 using MyLiverpool.Controllers;
-using MyLiverpoolSite.Business.Contracts;
 
 namespace MyLiverpool.Web.WebApi.Controllers
 {
     public class ForumController : BaseController
     {
-        private readonly IForumService _forumService;
-
-        public ForumController()
-        {
-            
-        }
-
-        public ForumController(IForumService forumService)
-        {
-            _forumService = forumService;
-        }
-
         [AllowAnonymous]
         public ActionResult Index()
         {
@@ -33,22 +18,17 @@ namespace MyLiverpool.Web.WebApi.Controllers
         }
 
         [AllowAnonymous]
-        public async Task<ActionResult> IndexTheme(int? id, int page = 1)
+        public ActionResult Theme()
         {
-            if (!id.HasValue)
-            {
-                return HttpNotFound();
-            }
-            var model = await _forumService.GetTheme(id.Value, page);
-            return View(model);
+            return View();
         }
 
-        [ValidateInput(false)]
-        [HttpPost]
-        public async Task<ActionResult> AddComment(string comment, int themeId)
-        {
-            var model = await _forumService.AddComment(comment, themeId, User.Identity.GetUserId<int>());
-            return Json(model);
-        }
+        //[ValidateInput(false)]
+        //[HttpPost]
+        //public async Task<ActionResult> AddComment(string comment, int themeId)
+        //{
+        //   // var model = await _forumService.AddComment(comment, themeId, User.Identity.GetUserId<int>());
+        //    return Json(12);
+        //}
     }
 }

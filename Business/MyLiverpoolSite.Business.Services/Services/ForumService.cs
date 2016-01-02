@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using MyLiverpool.Business.DTO;
@@ -100,8 +99,22 @@ namespace MyLiverpoolSite.Business.Services.Services
             var model = Mapper.Map<ForumSubsectionDto>(subsection);
             model.Themes = new PageableData<ForumThemeMiniDto>(Mapper.Map<IEnumerable<ForumThemeMiniDto>>(subsectionThemes), page, subsectionThemesCount);
             return model;
-        } 
+        }
 
-#endregion
+        public async Task<ForumThemeDto> GetThemeDtoAsync(int id, int page)
+        {
+            var theme = await _unitOfWork.ForumThemeRepository.GetByIdAsync(id);
+            var themeMessages = await _unitOfWork.ForumMessageRepository.GetOrderedByIdAsync(page, filter: x => x.ThemeId == id);
+            var themeMessagesCount = await _unitOfWork.ForumMessageRepository.GetCountAsync(x => x.ThemeId == id);
+            if (theme == null)
+            {
+                return null;
+            }
+            var model = Mapper.Map<ForumThemeDto>(theme);
+            model.Messages = new PageableData<ForumMessageDto>(Mapper.Map<IEnumerable<ForumMessageDto>>(themeMessages), page, themeMessagesCount);
+            return model;
+        }
+
+        #endregion
     }
 }

@@ -24,6 +24,7 @@ namespace MyLiverpoolSite.Business.Services.Mapping
 
             RegisterUserMapping();
 
+            RegisterForumMessageMapping();
             RegisterForumThemeMapping();
             RegisterForumSubsectionMapping();
             RegisterForumSectionMapping();
@@ -140,6 +141,18 @@ namespace MyLiverpoolSite.Business.Services.Mapping
                 .ForMember(dest => dest.Message, src => src.MapFrom(x => x.Message));
         }
 
+        private static void RegisterForumMessageMapping()
+        {
+            Mapper.CreateMap<ForumMessage, ForumMessageDto>()
+                .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id))
+                .ForMember(dest => dest.AuthorId, src => src.MapFrom(x => x.AuthorId))
+                .ForMember(dest => dest.AuthorUserName, src => src.MapFrom(x => x.Author.UserName))
+                .ForMember(dest => dest.Message, src => src.MapFrom(x => x.Message));
+                //.ForMember(dest => dest.SenderId, src => src.MapFrom(x => x.SenderId))
+                //.ForMember(dest => dest.SenderUserName, src => src.MapFrom(x => x.Sender.UserName))
+                //.ForMember(dest => dest.Title, src => src.MapFrom(x => x.Title));
+        }
+
         private static void RegisterPrivateMessageMapping()
         {
             Mapper.CreateMap<PrivateMessage, PrivateMessageMiniDto>()
@@ -168,6 +181,12 @@ namespace MyLiverpoolSite.Business.Services.Mapping
                .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id))
                .ForMember(dest => dest.Name, src => src.MapFrom(x => x.Name))
                .ForMember(dest => dest.Description, src => src.MapFrom(x => x.Description));
+
+            Mapper.CreateMap<ForumTheme, ForumThemeDto>()
+                .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id))
+                .ForMember(dest => dest.Name, src => src.MapFrom(x => x.Name))
+                .ForMember(dest => dest.Description, src => src.MapFrom(x => x.Description))
+                .ForMember(dest => dest.Messages, src => src.Ignore());
         }
 
         private static void RegisterForumSubsectionMapping()

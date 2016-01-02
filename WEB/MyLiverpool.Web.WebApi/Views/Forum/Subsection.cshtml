@@ -9,12 +9,12 @@
         @*   <div class="panel-body"></div>*@
         <ul class="list-group" ng-repeat="theme in themes">
                 <li class="list-group-item list">
-                    <span><a ui-href="">{{ theme.name }}</a></span>
+                    <span><a ui-sref="theme({id : theme.id })">{{ theme.name }}</a></span>
                     <br>
                     <span>{{ theme.description }}</span>
                     <br>
                 </li>
         </ul>
     </div>
-                    <div class="pagination"> @*@Html.PageLinks(Model.Themes.PageNo, Model.Themes.CountPage, x => Url.Action("IndexSubsection", new { id = Model.Id, page = x }))*@ </div>
+    <div class="pagination"> @*@Html.PageLinks(Model.Themes.PageNo, Model.Themes.CountPage, x => Url.Action("IndexSubsection", new { id = Model.Id, page = x }))*@ </div>
 </div>

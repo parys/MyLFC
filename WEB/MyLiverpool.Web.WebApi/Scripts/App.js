@@ -11,6 +11,7 @@ App.controller('PmController', PmController);
 App.controller('PmsController', PmsController);
 App.controller('ForumController', ForumController);
 App.controller('ForumSubsectionController', ForumSubsectionController);
+App.controller('ForumThemeController', ForumThemeController);
 
 App.service('SessionService', SessionService);
 
@@ -36,7 +37,7 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider)
     $stateProvider
         .state('home', {
             url: '/', //?donunts
-             
+
             views: {
                 "containerMain": {
                     templateUrl: '/news/index',
@@ -53,7 +54,7 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider)
         .state('news', {
             url: '/news?page&categoryId',
             views: {
-                 "containerMain": {
+                "containerMain": {
                     templateUrl: function(params) { return '/news/index?page=' + params.page + '&categoryId=' + params.categoryId },
                     controller: NewsController
                 }
@@ -62,28 +63,26 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider)
         .state('newsInfo', {
             url: '/newsInfo?id',
             views: {
-                 "containerMain": {
+                "containerMain": {
                     templateUrl: function(params) { return '/news/info?id=' + params.id },
                     controller: NewsItemController
                 }
             }
         })
-
         .state('userInfo', {
             url: '/userInfo?id',
             views: {
                 "containerMain": {
-                    templateUrl: function (params) { return '/user/info?id=' + params.id },
+                    templateUrl: function(params) { return '/user/info?id=' + params.id },
                     controller: UserController
                 }
             }
         })
-
         .state('users', {
             url: '/users?page',
             views: {
                 "containerMain": {
-                    templateUrl: function (params) { return '/user/index?page=' + params.page },
+                    templateUrl: function(params) { return '/user/index?page=' + params.page },
                     controller: UsersController
                 }
             }
@@ -109,7 +108,7 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider)
         //    }
         //})
         .state('pms', {
-            url: '/pms',//'?id',
+            url: '/pms', //'?id',
             views: {
                 "containerMain": {
                     templateUrl: '/User/Pms', //function (params) { return '/User/Pms?id=' + params.id },
@@ -121,7 +120,7 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider)
             url: '/pm?id',
             views: {
                 "containerMain": {
-                    templateUrl: function (params) { return '/User/Pm?id=' + params.id },
+                    templateUrl: function(params) { return '/User/Pm?id=' + params.id },
                     controller: PmController
                 }
             }
@@ -158,12 +157,21 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider)
             url: '/subsection?id&page',
             views: {
                 "containerMain": {
-                    templateUrl: function (params) { return '/Forum/Subsection?id=' + params.id + '&page=' + params.page },
+                    templateUrl: function(params) { return '/Forum/Subsection?id=' + params.id + '&page=' + params.page },
                     controller: ForumSubsectionController
                 }
             }
         })
-    ;
+        .state('theme', {
+            url: '/theme?id&page',
+            views: {
+                "containerMain": {
+                    templateUrl: function(params) { return '/Forum/Theme?id=' + params.id + '&page=' + params.page },
+                    controller: ForumThemeController
+                }
+            }
+        });
+    
 
 
 
