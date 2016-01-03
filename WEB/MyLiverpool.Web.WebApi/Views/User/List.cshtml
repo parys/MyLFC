@@ -21,10 +21,7 @@
                     </td>
                     <td class="">
                         <a ui-sref="userInfo({id: user.id})">{{ user.userName }}</a>
-                       @* @if (Request.IsAuthenticated && User.Identity.GetUserId<int>() != user.Id)*@
-                        {
-                            @*<a ui-sref="@Url.Action("WriteMessage", "User", new {receiverId = user.Id})"><span class="glyphicon glyphicon-envelope"></span></a>*@
-                        }
+                        <a ng-show="loggedIn && isNotSelf(user.id, userId())" ui-sref=""><span class="glyphicon glyphicon-envelope"></span></a>
                     </td>
                     <td class="">
                         {{ user.registrationDate | date:'medium' }}

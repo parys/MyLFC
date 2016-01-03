@@ -12,6 +12,7 @@ App.controller('PmsController', PmsController);
 App.controller('ForumController', ForumController);
 App.controller('ForumSubsectionController', ForumSubsectionController);
 App.controller('ForumThemeController', ForumThemeController);
+App.controller('ModalCtrl', ModalCtrl);
 
 App.service('SessionService', SessionService);
 
@@ -39,7 +40,7 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider,
 
             views: {
                 "containerMain": {
-                    templateUrl: '/news/index',
+                    templateUrl: '/news/list',
                     controller: NewsController
                 } //,
                 //"containerTwo": {
@@ -54,7 +55,7 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider,
             url: '/news?page&categoryId',
             views: {
                 "containerMain": {
-                    templateUrl: function(params) { return '/news/index?page=' + params.page + '&categoryId=' + params.categoryId },
+                    templateUrl: function(params) { return '/news/list?page=' + params.page + '&categoryId=' + params.categoryId },
                     controller: NewsController
                 }
             }
@@ -81,7 +82,7 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider,
             url: '/users?page',
             views: {
                 "containerMain": {
-                    templateUrl: function(params) { return '/user/index?page=' + params.page },
+                    templateUrl: function(params) { return '/user/list?page=' + params.page },
                     controller: UsersController
                 }
             }
@@ -171,13 +172,11 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider,
             }
         });
 
-    console.log('1');
     $translateProvider.useStaticFilesLoader({
         prefix: 'Scripts/angular-validation/locales/',
         suffix: '.json'
     });
 
-    console.log('2');
     // define translation maps you want to use on startup
     $translateProvider.preferredLanguage('ru');
 
@@ -191,7 +190,12 @@ App.run(function(Authentication, Application, $rootScope, $location, RouteFilter
     Authentication.requestUser();
     //    .then(function () {
    //     Application.makeReady();
-   // });//todo
+    // });//todo
+    $rootScope.alerts = [];
+
+    $rootScope.closeAlert = function (index) {
+        $rootScope.alerts.splice(index, 1);
+    };
 
     $http.defaults.headers.common.Authorization = 'Bearer ' + Authentication.getToken();
 

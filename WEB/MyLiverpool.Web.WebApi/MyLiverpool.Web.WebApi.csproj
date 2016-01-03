@@ -206,7 +206,6 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
@@ -271,16 +270,14 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Scripts\angular-route.js" />
-    <Content Include="Scripts\angular-route.min.js" />
-    <Content Include="Scripts\angular-translate.js" />
-    <Content Include="Scripts\angular-translate.min.js" />
     <Content Include="Scripts\angular\21angular-route.js" />
     <Content Include="Scripts\angular\min\angular-route.min.js" />
-    <Content Include="Scripts\angular\23angular-translate-loader-static-files.js" />
     <Content Include="Scripts\angular\22angular-translate.js" />
-    <Content Include="Scripts\angular\min\angular-translate-loader-static-files.min.js" />
     <Content Include="Scripts\angular\min\angular-translate.min.js" />
+    <None Include="Scripts\angular\min\angular-route.min.jsOLD" />
+    <Content Include="Scripts\angular\23angular-translate-loader-static-files.js" />
+    <Content Include="Scripts\angular\min\angular-translate-loader-static-files.min.js" />
+    <None Include="Scripts\angular\min\angular-translate.min.jsOLD" />
     <Content Include="Scripts\angular\angular-validation.js" />
     <Content Include="Scripts\angular\angular-cookies.js" />
     <Content Include="Scripts\angular\angular-mocks.js" />
@@ -302,6 +299,7 @@
     <Content Include="Scripts\Controllers\LandingPageController.js" />
     <Content Include="Scripts\Controllers\LoadingCtrl.js" />
     <Content Include="Scripts\Controllers\LoginController.js" />
+    <Content Include="Scripts\Controllers\ModalCtrl.js" />
     <Content Include="Scripts\Controllers\NewsController.js" />
     <Content Include="Scripts\Controllers\NewsItemController.js" />
     <Content Include="Scripts\Controllers\PmController.js" />
@@ -344,7 +342,7 @@
     <Content Include="Areas\HelpPage\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
     <Content Include="Areas\HelpPage\Views\_ViewStart.cshtml" />
-    <Content Include="Scripts\angular\angular-route.min.js.map" />
+    <None Include="Scripts\angular\angular-route.min.js.mapOLD" />
     <Content Include="Scripts\angular-validation\locales\ru.json" />
     <Content Include="Scripts\angular-validation\locales\pt-br.json" />
     <Content Include="Scripts\angular-validation\locales\pl.json" />
@@ -354,17 +352,20 @@
     <Content Include="Scripts\Factories\RouteFilter.js" />
     <Content Include="Scripts\Factories\UsersFactory.js" />
     <Content Include="Scripts\Filters.js" />
-    <Content Include="Scripts\angular-route.min.js.map" />
+    <Content Include="Scripts\angular\angular-route.min.js.map" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
     <Content Include="Scripts\Services\Authentication.js" />
     <Content Include="Scripts\Services\SessionService.js" />
+    <Content Include="template\alert\alert.html" />
     <Content Include="template\datepicker\Datepicker.html" />
     <Content Include="template\datepicker\day.html" />
     <Content Include="template\datepicker\month.html" />
     <Content Include="template\datepicker\popup.html" />
     <Content Include="template\datepicker\year.html" />
+    <Content Include="template\modal\backdrop.html" />
+    <Content Include="template\modal\window.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -417,14 +418,14 @@
     <Content Include="Views\News\Create.cshtml" />
     <Content Include="Views\News\Info.cshtml" />
     <Content Include="Views\News\Edit.cshtml" />
-    <Content Include="Views\News\Index.cshtml" />
+    <Content Include="Views\News\List.cshtml" />
     <Content Include="Views\Role\Index.cshtml" />
     <Content Include="Views\Shared\_LeftSideBar.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_NewsList.cshtml" />
     <Content Include="Views\Shared\_RightSideBar.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\User\List.cshtml" />
     <Content Include="Views\User\PrivateMessages.cshtml" />
     <Content Include="Views\User\Info.cshtml" />
     <Content Include="Views\User\ReadMessage.cshtml" />

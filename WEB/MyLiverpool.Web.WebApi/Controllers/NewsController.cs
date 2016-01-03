@@ -1,11 +1,12 @@
-﻿using System.Threading.Tasks;
-using System.Net;
+﻿using System.Net;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using MyLiverpool.Controllers;
 using MyLiverpoolSite.Business.Contracts;
 using MyLiverpoolSite.Business.ViewModels.News;
 
-namespace MyLiverpool.Controllers
+namespace MyLiverpool.Web.WebApi.Controllers
 {
     public class NewsController : BaseController
     {
@@ -24,7 +25,7 @@ namespace MyLiverpool.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult Index()
+        public ActionResult List()
         {
             return View();
         }
@@ -54,7 +55,7 @@ namespace MyLiverpool.Controllers
             if (ModelState.IsValid)
             {
                 var result = await _newsService.CreateAsync(model, User.Identity.GetUserId<int>());
-                return RedirectToAction("Details", new {id = result});
+                //return RedirectToAction("Details", new {id = result});
             }
             return View(model);
         }
@@ -87,26 +88,9 @@ namespace MyLiverpool.Controllers
             {
                 var result = await _newsService.EditAsync(model);
 
-                return RedirectToAction("Index");
+                return RedirectToAction("List");
             }
             return View(model);
-        }
-
-        // GET: News/Delete/5
-        [Authorize(Roles = "NewsStart")]
-        [HttpPost]
-        public async Task<ActionResult> Delete(int? id)
-        {
-            if (!id.HasValue)
-            {
-                return HttpNotFound();
-            }
-            if (!User.IsInRole("NewsFull"))
-            {
-                return HttpNotFound();
-            }
-            var result = await _newsService.DeleteAsync(id.Value);
-            return Json(result);
         }
 
         protected override void Dispose(bool disposing)
@@ -116,17 +100,6 @@ namespace MyLiverpool.Controllers
                 //db.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        [Authorize(Roles = "NewsStart")]
-        public async Task<ActionResult> Activate(int? id)
-        {
-            if (!id.HasValue)
-            {
-                return HttpNotFound();
-            }
-            var result = await _newsService.ActivateAsync(id.Value);
-            return Json(result);
         }
 
         [Authorize]

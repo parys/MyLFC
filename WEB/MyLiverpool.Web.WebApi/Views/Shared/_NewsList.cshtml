@@ -52,7 +52,7 @@
         <hr/>
     }
 </div>
-<div class="pagination">  @Html.PageLinks(Model.PageNo, Model.CountPage, x => Url.Action("Index", "News", new { page = x, categoryId = Request.QueryString["categoryId"] }))     </div>
+<div class="pagination"> @Html.PageLinks(Model.PageNo, Model.CountPage, x => Url.Action("Index", "News", new { page = x, categoryId = Request.QueryString["categoryId"] })) </div>
 
 <div class="modal fade" id="confirmDelete">
     <div class="modal-dialog">

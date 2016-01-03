@@ -14,6 +14,10 @@
                 });
     };
 
+    $scope.isNotSelf = function (userId, userId2) {
+        return userId != userId2;
+    }
+
     init();
 };
 

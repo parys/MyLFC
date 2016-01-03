@@ -23,7 +23,7 @@ namespace MyLiverpool.Web.WebApi.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult Index()
+        public ActionResult List()
         { 
             return View();
         }

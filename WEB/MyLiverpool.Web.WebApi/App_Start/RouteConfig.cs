@@ -26,11 +26,6 @@ namespace MyLiverpool.Web.WebApi
             //            defaults: new { controller = "RoutesDemo", action = "Three" });
 
             routes.MapRoute(
-                name: "values",
-                url: "Values/Get",
-                defaults: new {controller = "Values", action = "Get"});
-
-            routes.MapRoute(
                 name: "login",
                 url: "Account/Login",
                 defaults: new { controller = "Account", action = "Login" });
@@ -42,13 +37,13 @@ namespace MyLiverpool.Web.WebApi
 
             routes.MapRoute(
                 name: "home",
-                url: "News/Index",
-                defaults: new { controller = "News", action = "Index" });
+                url: "News/List",
+                defaults: new { controller = "News", action = "List" });
 
             routes.MapRoute(
                 name: "news",
-                url: "News/Index",
-                defaults: new { controller = "News", action = "Index" });
+                url: "News/List",
+                defaults: new { controller = "News", action = "List" });
 
             routes.MapRoute(
                 name: "newsInfo",
@@ -62,8 +57,8 @@ namespace MyLiverpool.Web.WebApi
 
             routes.MapRoute(
                 name: "users",
-                url: "User/index",
-                defaults: new { controller = "User", action = "Index" });
+                url: "User/List",
+                defaults: new { controller = "User", action = "List" });
 
             routes.MapRoute(
                 name: "pms",

@@ -1,7 +1,7 @@
 ﻿var LandingPageController = function ($scope, $state, Authentication, RouteFilter, AccountFactory) { //SessionService,
-    //$scope.userId = function() {
-    //    return SessionService.getUserId();
-    //};
+    $scope.userId = function() {
+        return Authentication.getUserId();
+    };
 
     $scope.navbarProperties = {
         isCollapsed: true

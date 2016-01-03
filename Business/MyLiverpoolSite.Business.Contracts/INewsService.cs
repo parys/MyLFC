@@ -23,7 +23,7 @@ namespace MyLiverpoolSite.Business.Contracts
 
         void Delete(NewsItem newsItem);
 
-        Task<bool> DeleteAsync(int id);
+        Task<bool> DeleteAsync(int id, int userId);
 
         Task<CreateEditNewsViewModel> GetCreateEditViewModelAsync(int? id);
 

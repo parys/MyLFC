@@ -41,27 +41,6 @@ namespace MyLiverpoolSite.Business.Services.Services
             return result;
         }
 
-        public async Task<bool> DeleteAsync(int id)
-        {
-            var newsItem = await _unitOfWork.NewsItemRepository.GetByIdAsync(id);
-            try
-            {
-                var comments = newsItem.Comments.ToList();
-                foreach (var comment in comments)
-                {
-                    await _unitOfWork.NewsCommentRepository.DeleteAsync(comment);
-                }
-                await _unitOfWork.NewsItemRepository.DeleteAsync(newsItem);
-                await _unitOfWork.SaveAsync();
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-
-            return true;
-        }
-
         public async Task<CreateEditNewsViewModel> GetCreateEditViewModelAsync(int? id)
         {
             CreateEditNewsViewModel viewModel;
@@ -134,15 +113,6 @@ namespace MyLiverpoolSite.Business.Services.Services
             return result;
         }
 
-        public async Task<bool> ActivateAsync(int id)
-        {
-            var newsItem = await _unitOfWork.NewsItemRepository.GetByIdAsync(id);
-            newsItem.Pending = false;
-            _unitOfWork.NewsItemRepository.Update(newsItem);
-            await _unitOfWork.SaveAsync();
-            return true;
-        }
-
         public async Task<IEnumerable<IndexNewsCategoryVM>> GetCategoriesAsync()
         {
             var categories = await _unitOfWork.NewsCategoryRepository.GetAsync();
@@ -193,8 +163,45 @@ namespace MyLiverpoolSite.Business.Services.Services
             return dto;
         }
 
-        #endregion
+        public async Task<bool> DeleteAsync(int id, int userId)
+        {
+            var newsItem = await _unitOfWork.NewsItemRepository.GetByIdAsync(id);
+            var userRoles = await _unitOfWork.UserManager.GetRolesAsync(userId);
+            if (!userRoles.Contains(RolesEnum.NewsFull.ToString()) && newsItem.AuthorId != userId)
+            {
+                return false;
+            }
+            try
+            {
+                var comments = newsItem.Comments.ToList();
+                foreach (var comment in comments)
+                {
+                    await _unitOfWork.NewsCommentRepository.DeleteAsync(comment);
+                }
+                await _unitOfWork.NewsItemRepository.DeleteAsync(newsItem);
+                await _unitOfWork.SaveAsync();
+            }
+            catch (Exception)
+            {
+                return false;
+            }
 
-       
+            return true;
+        }
+
+        public async Task<bool> ActivateAsync(int id)
+        {
+            var newsItem = await _unitOfWork.NewsItemRepository.GetByIdAsync(id);
+            if (newsItem == null)
+            {
+                return false;
+            }
+            newsItem.Pending = false;
+            _unitOfWork.NewsItemRepository.Update(newsItem);
+            await _unitOfWork.SaveAsync();
+            return true;
+        }
+
+        #endregion
     }
 }
