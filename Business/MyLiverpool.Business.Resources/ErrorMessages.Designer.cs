@@ -86,5 +86,23 @@ namespace MyLiverpool.Business.Resources {
                 return ResourceManager.GetString("Required", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Пользователь с таким емэйлом уже зарегистрирован..
+        /// </summary>
+        public static string UserWithSameEmailExists {
+            get {
+                return ResourceManager.GetString("UserWithSameEmailExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Пользователь с таким именем уже зарегистрирован..
+        /// </summary>
+        public static string UserWithSameUserNameExists {
+            get {
+                return ResourceManager.GetString("UserWithSameUserNameExists", resourceCulture);
+            }
+        }
     }
 }

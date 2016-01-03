@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using Microsoft.AspNet.Identity;
+using MyLiverpool.Business.DTO;
 using MyLiverpoolSite.Business.Contracts;
 using MyLiverpoolSite.Data.DataAccessLayer;
+using MyLiverpoolSite.Data.Entities;
 
 namespace MyLiverpoolSite.Business.Services.Services
 {
@@ -41,6 +45,19 @@ namespace MyLiverpoolSite.Business.Services.Services
         {
             var user = (await _unitOfWork.UserRepository.GetAsync(x => x.UserName == userName)).First();
             return user.LockoutEndDateUtc ?? DateTime.Now;
+        }
+
+        public async Task<IdentityResult> RegisterUserAsync(RegisterUserDto model)
+        {
+            var user = Mapper.Map<User>(model);
+            user.RegistrationDate = DateTime.Now;
+            user.LastModified = DateTime.Now;
+            user.LockoutEnabled = true;
+            user.RoleGroupId = (int)RoleGroupsEnum.Simple;
+
+            IdentityResult result = await _unitOfWork.UserManager.CreateAsync(user, model.Password);
+            await _unitOfWork.UserManager.AddToRoleAsync(user.Id, RolesEnum.Simple.ToString());
+            return result;
         }
 
 

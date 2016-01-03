@@ -48,8 +48,8 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 },
                 new RoleGroup()
                 {
-                    Name = RoleGroupsEnum.Author.ToString(),
-                    RussianName = RolesMessages.Author
+                    Name = RoleGroupsEnum.Simple.ToString(),
+                    RussianName = RolesMessages.Simple
                 },
                 new RoleGroup()
                 {
@@ -90,6 +90,11 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 {
                     Name = RoleGroupsEnum.MainModerator.ToString(),
                     RussianName = RolesMessages.MainModerator
+                },
+                new RoleGroup()
+                {
+                    Name = RoleGroupsEnum.Author.ToString(),
+                    RussianName = RolesMessages.Author
                 },
             };
             roleGroups.ForEach(x => context.RoleGroups.Add(x));

@@ -3,7 +3,7 @@
 //angular.module('App')
 //  var  .service('Authentication', function Authentication($q, $http) {
 
-var Authentication = function ($q, $http, LoginFactory, SessionService, $cookies) {
+var Authentication = function ($q, $http, $state, AccountFactory, SessionService, $cookies) {
 
     var authenticatedUser = null;
     var cookieName = 'abra-kadabra';
@@ -18,14 +18,6 @@ var Authentication = function ($q, $http, LoginFactory, SessionService, $cookies
                 console.log(authenticatedUser);
             }
             return authenticatedUser;
-            //  return undefined; //todo get from cookie
-            //LoginFactory('admin', '123456').
-            //    then(function (response) {
-            //        console.log(response);
-            //        authenticatedUser = response;
-            //    }, function (response) {
-            //        $scope.loginForm.errorMessage = response.error_description;
-            //    });
         },
 
         getUser: function() {
@@ -37,10 +29,11 @@ var Authentication = function ($q, $http, LoginFactory, SessionService, $cookies
         },
 
         login: function(credentials) {
-            LoginFactory(credentials).
+            AccountFactory.login(credentials).
                 then(function(response) {
                     authenticatedUser = response;
                     $cookies.putObject('user', authenticatedUser);
+                    $state.go('home');
                 }, function(response) {
                     authenticatedUser = undefined;
                 });
@@ -51,7 +44,7 @@ var Authentication = function ($q, $http, LoginFactory, SessionService, $cookies
             $cookies.remove('user'); //todo from server
         },
 
-        getToken: function () {
+        getToken: function() {
             if (!authenticatedUser) return undefined;
             console.log(authenticatedUser.access_token);
             return authenticatedUser.access_token;
@@ -62,7 +55,7 @@ var Authentication = function ($q, $http, LoginFactory, SessionService, $cookies
             return authenticatedUser.id;
         }
 
-        }
+    }
 };
 
-Authentication.$inject = ['$q', '$http', 'LoginFactory', 'SessionService', '$cookies']
+Authentication.$inject = ['$q', '$http', '$state', 'AccountFactory', 'SessionService', '$cookies']

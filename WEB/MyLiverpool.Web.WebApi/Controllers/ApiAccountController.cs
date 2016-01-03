@@ -10,13 +10,10 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
-using Microsoft.Owin.Security.OAuth;
-using MyLiverpool.Web.WebApi.Providers;
-using MyLiverpool.Web.WebApi.Results;
+using MyLiverpool.Business.DTO;
 using MyLiverpoolSite.Business.Contracts;
 using MyLiverpoolSite.Business.Services;
 using MyLiverpoolSite.Business.ViewModels;
-using MyLiverpoolSite.Data.Entities;
 
 namespace MyLiverpool.Web.WebApi.Controllers
 {
@@ -26,22 +23,22 @@ namespace MyLiverpool.Web.WebApi.Controllers
     {
         private const string LocalLoginProvider = "Local";
         private ApplicationUserManager _userManager;
-        private readonly IUserService _userService;
+        private readonly IAccountService _accountService;
 
-        public ApiAccountController(IUserService userService)
+        public ApiAccountController(IAccountService accountService)
         {
-            _userService = userService;
+            _accountService = accountService;
         }
 
         public ApiAccountController(ApplicationUserManager userManager,
-            ISecureDataFormat<AuthenticationTicket> accessTokenFormat, IUserService userService)
+            ISecureDataFormat<AuthenticationTicket> accessTokenFormat, IAccountService accountService)
         {
             UserManager = userManager;
             AccessTokenFormat = accessTokenFormat;
-            _userService = userService;
+            _accountService = accountService;
         }
 
-        public ApplicationUserManager UserManager
+        public ApplicationUserManager UserManager //todo move
         {
             get
             {
@@ -71,7 +68,8 @@ namespace MyLiverpool.Web.WebApi.Controllers
         }
 
         // POST api/Account/Logout
-        [System.Web.Mvc.Route("Logout")]
+        [Route("Logout")]
+        [HttpPost]
         public IHttpActionResult Logout()
         {
             Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationType);
@@ -79,47 +77,48 @@ namespace MyLiverpool.Web.WebApi.Controllers
         }
 
         // GET api/Account/ManageInfo?returnUrl=%2F&generateState=true
-        [System.Web.Mvc.Route("ManageInfo")]
-        public async Task<ManageInfoViewModel> GetManageInfo(string returnUrl, bool generateState = false)
-        {
-            User user = await UserManager.FindByIdAsync(User.Identity.GetUserId<int>());
+        //[Route("ManageInfo")]
+        //public async Task<ManageInfoViewModel> GetManageInfo(string returnUrl, bool generateState = false)
+        //{
+        //    User user = await UserManager.FindByIdAsync(User.Identity.GetUserId<int>());
 
-            if (user == null)
-            {
-                return null;
-            }
+        //    if (user == null)
+        //    {
+        //        return null;
+        //    }
 
-            List<UserLoginInfoViewModel> logins = new List<UserLoginInfoViewModel>();
+        //    List<UserLoginInfoViewModel> logins = new List<UserLoginInfoViewModel>();
 
-            foreach (UserLogin linkedAccount in user.Logins)
-            {
-                logins.Add(new UserLoginInfoViewModel
-                {
-                    LoginProvider = linkedAccount.LoginProvider,
-                    ProviderKey = linkedAccount.ProviderKey
-                });
-            }
+        //    foreach (UserLogin linkedAccount in user.Logins)
+        //    {
+        //        logins.Add(new UserLoginInfoViewModel
+        //        {
+        //            LoginProvider = linkedAccount.LoginProvider,
+        //            ProviderKey = linkedAccount.ProviderKey
+        //        });
+        //    }
 
-            if (user.PasswordHash != null)
-            {
-                logins.Add(new UserLoginInfoViewModel
-                {
-                    LoginProvider = LocalLoginProvider,
-                    ProviderKey = user.UserName,
-                });
-            }
+        //    if (user.PasswordHash != null)
+        //    {
+        //        logins.Add(new UserLoginInfoViewModel
+        //        {
+        //            LoginProvider = LocalLoginProvider,
+        //            ProviderKey = user.UserName,
+        //        });
+        //    }
 
-            return new ManageInfoViewModel
-            {
-                LocalLoginProvider = LocalLoginProvider,
-                Email = user.UserName,
-                Logins = logins,
-                ExternalLoginProviders = GetExternalLogins(returnUrl, generateState)
-            };
-        }
+        //    return new ManageInfoViewModel
+        //    {
+        //        LocalLoginProvider = LocalLoginProvider,
+        //        Email = user.UserName,
+        //        Logins = logins,
+        //        ExternalLoginProviders = GetExternalLogins(returnUrl, generateState)
+        //    };
+        //}
 
         // POST api/Account/ChangePassword
-        [System.Web.Mvc.Route("ChangePassword")]
+
+        [Route("ChangePassword")]
         public async Task<IHttpActionResult> ChangePassword(ChangePasswordBindingModel model)
         {
             if (!ModelState.IsValid)
@@ -139,7 +138,7 @@ namespace MyLiverpool.Web.WebApi.Controllers
         }
 
         // POST api/Account/SetPassword
-        [System.Web.Mvc.Route("SetPassword")]
+        [Route("SetPassword")]
         public async Task<IHttpActionResult> SetPassword(SetPasswordBindingModel model)
         {
             if (!ModelState.IsValid)
@@ -158,7 +157,7 @@ namespace MyLiverpool.Web.WebApi.Controllers
         }
 
         // POST api/Account/AddExternalLogin
-        [System.Web.Mvc.Route("AddExternalLogin")]
+        [Route("AddExternalLogin")]
         public async Task<IHttpActionResult> AddExternalLogin(AddExternalLoginBindingModel model)
         {
             if (!ModelState.IsValid)
@@ -196,7 +195,7 @@ namespace MyLiverpool.Web.WebApi.Controllers
         }
 
         // POST api/Account/RemoveLogin
-        [System.Web.Mvc.Route("RemoveLogin")]
+        [Route("RemoveLogin")]
         public async Task<IHttpActionResult> RemoveLogin(RemoveLoginBindingModel model)
         {
             if (!ModelState.IsValid)
@@ -225,67 +224,67 @@ namespace MyLiverpool.Web.WebApi.Controllers
         }
 
         // GET api/Account/ExternalLogin
-        [System.Web.Mvc.OverrideAuthentication]
-        [HostAuthentication(DefaultAuthenticationTypes.ExternalCookie)]
-        [System.Web.Mvc.AllowAnonymous]
-        [System.Web.Mvc.Route("ExternalLogin", Name = "ExternalLogin")]
-        public async Task<IHttpActionResult> GetExternalLogin(string provider, string error = null)
-        {
-            if (error != null)
-            {
-                return Redirect(Url.Content("~/") + "#error=" + Uri.EscapeDataString(error));
-            }
+        //[OverrideAuthentication]
+        //[HostAuthentication(DefaultAuthenticationTypes.ExternalCookie)]
+        //[AllowAnonymous]
+        //[Route("ExternalLogin", Name = "ExternalLogin")]
+        //public async Task<IHttpActionResult> GetExternalLogin(string provider, string error = null)
+        //{
+        //    if (error != null)
+        //    {
+        //        return Redirect(Url.Content("~/") + "#error=" + Uri.EscapeDataString(error));
+        //    }
 
-            if (!User.Identity.IsAuthenticated)
-            {
-                return new ChallengeResult(provider, this);
-            }
+        //    if (!User.Identity.IsAuthenticated)
+        //    {
+        //        return new ChallengeResult(provider, this);
+        //    }
 
-            ExternalLoginData externalLogin = ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);
+        //    ExternalLoginData externalLogin = ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);
 
-            if (externalLogin == null)
-            {
-                return InternalServerError();
-            }
+        //    if (externalLogin == null)
+        //    {
+        //        return InternalServerError();
+        //    }
 
-            if (externalLogin.LoginProvider != provider)
-            {
-                Authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
-                return new ChallengeResult(provider, this);
-            }
+        //    if (externalLogin.LoginProvider != provider)
+        //    {
+        //        Authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
+        //        return new ChallengeResult(provider, this);
+        //    }
 
-            User user = await UserManager.FindAsync(new UserLoginInfo(externalLogin.LoginProvider,
-                externalLogin.ProviderKey));
+        //    User user = await UserManager.FindAsync(new UserLoginInfo(externalLogin.LoginProvider,
+        //        externalLogin.ProviderKey));
 
-            bool hasRegistered = user != null;
+        //    bool hasRegistered = user != null;
 
-            if (hasRegistered)
-            {
-                Authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
+        //    if (hasRegistered)
+        //    {
+        //        Authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
 
-                ClaimsIdentity oAuthIdentity = await _userService.GenerateUserIdentityAsync(user,
-                   OAuthDefaults.AuthenticationType);
-                ClaimsIdentity cookieIdentity = await _userService.GenerateUserIdentityAsync(user,
-                    CookieAuthenticationDefaults.AuthenticationType);
+        //        ClaimsIdentity oAuthIdentity = await _userService.GenerateUserIdentityAsync(user,
+        //           OAuthDefaults.AuthenticationType);
+        //        ClaimsIdentity cookieIdentity = await _userService.GenerateUserIdentityAsync(user,
+        //            CookieAuthenticationDefaults.AuthenticationType);
 
-                var userRoles = await UserManager.GetRolesAsync(user.Id);
+        //        var userRoles = await UserManager.GetRolesAsync(user.Id);
 
-                AuthenticationProperties properties = ApplicationOAuthProvider.CreateProperties(user.UserName, user.Id, userRoles);
-                Authentication.SignIn(properties, oAuthIdentity, cookieIdentity);
-            }
-            else
-            {
-                IEnumerable<Claim> claims = externalLogin.GetClaims();
-                ClaimsIdentity identity = new ClaimsIdentity(claims, OAuthDefaults.AuthenticationType);
-                Authentication.SignIn(identity);
-            }
+        //        AuthenticationProperties properties = ApplicationOAuthProvider.CreateProperties(user.UserName, user.Id, userRoles);
+        //        Authentication.SignIn(properties, oAuthIdentity, cookieIdentity);
+        //    }
+        //    else
+        //    {
+        //        IEnumerable<Claim> claims = externalLogin.GetClaims();
+        //        ClaimsIdentity identity = new ClaimsIdentity(claims, OAuthDefaults.AuthenticationType);
+        //        Authentication.SignIn(identity);
+        //    }
 
-            return Ok();
-        }
+        //    return Ok();
+        //}
 
         // GET api/Account/ExternalLogins?returnUrl=%2F&generateState=true
-        [System.Web.Mvc.AllowAnonymous]
-        [System.Web.Mvc.Route("ExternalLogins")]
+        [AllowAnonymous]
+        [Route("ExternalLogins")]
         public IEnumerable<ExternalLoginViewModel> GetExternalLogins(string returnUrl, bool generateState = false)
         {
             IEnumerable<AuthenticationDescription> descriptions = Authentication.GetExternalAuthenticationTypes();
@@ -325,18 +324,17 @@ namespace MyLiverpool.Web.WebApi.Controllers
         }
 
         // POST api/Account/Register
-        [System.Web.Mvc.AllowAnonymous]
-        [System.Web.Mvc.Route("Register")]
-        public async Task<IHttpActionResult> Register(RegisterBindingModel model)
+        [Route("Register")]
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IHttpActionResult> Register(RegisterUserDto model)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var user = new User() { UserName = model.Email, Email = model.Email };
-
-            IdentityResult result = await UserManager.CreateAsync(user, model.Password);
+            var result = await _accountService.RegisterUserAsync(model);
 
             if (!result.Succeeded)
             {
@@ -347,37 +345,56 @@ namespace MyLiverpool.Web.WebApi.Controllers
         }
 
         // POST api/Account/RegisterExternal
-        [System.Web.Mvc.OverrideAuthentication]
-        [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
-        [System.Web.Mvc.Route("RegisterExternal")]
-        public async Task<IHttpActionResult> RegisterExternal(RegisterExternalBindingModel model)
+        //[OverrideAuthentication]
+        //[HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
+        //[Route("RegisterExternal")]
+        //public async Task<IHttpActionResult> RegisterExternal(RegisterExternalBindingModel model)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
+
+        //    var info = await Authentication.GetExternalLoginInfoAsync();
+        //    if (info == null)
+        //    {
+        //        return InternalServerError();
+        //    }
+
+        //    var user = new User() { UserName = model.Email, Email = model.Email };
+
+        //    IdentityResult result = await UserManager.CreateAsync(user);
+        //    if (!result.Succeeded)
+        //    {
+        //        return GetErrorResult(result);
+        //    }
+
+        //    result = await UserManager.AddLoginAsync(user.Id, info.Login);
+        //    if (!result.Succeeded)
+        //    {
+        //        return GetErrorResult(result);
+        //    }
+        //    return Ok();
+        //}
+
+        [Route("IsUserNameUnique")]
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IHttpActionResult> IsUserNameUnique(string userName)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var info = await Authentication.GetExternalLoginInfoAsync();
-            if (info == null)
-            {
-                return InternalServerError();
-            }
-
-            var user = new User() { UserName = model.Email, Email = model.Email };
-
-            IdentityResult result = await UserManager.CreateAsync(user);
-            if (!result.Succeeded)
-            {
-                return GetErrorResult(result);
-            }
-
-            result = await UserManager.AddLoginAsync(user.Id, info.Login);
-            if (!result.Succeeded)
-            {
-                return GetErrorResult(result);
-            }
-            return Ok();
+            var result = await _accountService.IsUserNameUniqueAsync(userName);
+            return Ok(result);
         }
+
+        [Route("IsEmailUnique")]
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IHttpActionResult> IsEmailUnique(string email)
+        {
+            var result = await _accountService.IsEmailUniqueAsync(email);
+            return Ok(result);
+        }
+
 
         protected override void Dispose(bool disposing)
         {

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Net.NetworkInformation;
 using AutoMapper;
 using MyLiverpool.Business.DTO;
 using MyLiverpoolSite.Business.ViewModels.BlogComments;
@@ -49,6 +50,34 @@ namespace MyLiverpoolSite.Business.Services.Mapping
                 .ForMember(dest => dest.RegistrationDate, src => src.MapFrom(x => x.RegistrationDate))
                 .ForMember(dest => dest.RoleGroupName, src => src.MapFrom(x => x.RoleGroup.RussianName))
                 .ForMember(dest => dest.UserName, src => src.MapFrom(x => x.UserName));
+
+            Mapper.CreateMap<RegisterUserDto, User>()
+                .ForMember(dest => dest.Birthday, src => src.MapFrom(x => x.Birthday))
+                .ForMember(dest => dest.Email, src => src.MapFrom(x => x.Email))
+                .ForMember(dest => dest.FullName, src => src.MapFrom(x => x.FullName))
+                .ForMember(dest => dest.UserName, src => src.MapFrom(x => x.UserName))
+                .ForMember(dest => dest.City, src => src.Ignore()) //MapFrom(x => x.))
+                .ForMember(dest => dest.Country, src => src.Ignore()) //MapFrom(x => x.))
+                .ForMember(dest => dest.Gender, src => src.Ignore()) //MapFrom(x => x.))
+                .ForMember(dest => dest.Homepage, src => src.Ignore()) //MapFrom(x => x.))
+                .ForMember(dest => dest.Ip, src => src.Ignore()) //MapFrom(x => x.))
+                .ForMember(dest => dest.OldId, src => src.Ignore()) //MapFrom(x => x.))
+                .ForMember(dest => dest.LastModified, src => src.Ignore()) //MapFrom(x => x.))
+                .ForMember(dest => dest.PhotoPath, src => src.Ignore()) //MapFrom(x => x.))
+                .ForMember(dest => dest.RegistrationDate, src => src.Ignore()) //MapFrom(x => x.))
+                .ForMember(dest => dest.RoleGroupId, src => src.Ignore()) //MapFrom(x => x.))
+                .ForMember(dest => dest.RoleGroup, src => src.Ignore()) //MapFrom(x => x.))
+                .ForMember(dest => dest.Skype, src => src.Ignore()) //MapFrom(x => x.))
+                .ForMember(dest => dest.Title, src => src.Ignore()) //MapFrom(x => x.))
+                .ForMember(dest => dest.Verify, src => src.Ignore()) //MapFrom(x => x.))
+                .ForMember(dest => dest.TwoFactorEnabled, src => src.Ignore()) //MapFrom(x => x.))
+                .ForMember(dest => dest.AccessFailedCount, src => src.Ignore()) //MapFrom(x => x.))
+                .ForMember(dest => dest.EmailConfirmed, src => src.Ignore()) //MapFrom(x => x.))
+                .ForMember(dest => dest.LockoutEnabled, src => src.Ignore()) //MapFrom(x => x.))
+                .ForMember(dest => dest.LockoutEndDateUtc, src => src.Ignore()) //MapFrom(x => x.))
+                .ForMember(dest => dest.PhoneNumber, src => src.Ignore()) //MapFrom(x => x.))
+                .ForMember(dest => dest.PhoneNumberConfirmed, src => src.Ignore()) //MapFrom(x => x.))
+                .ForMember(dest => dest.SecurityStamp, src => src.Ignore()); //MapFrom(x => x.))
         }
 
         private static void RegisterNewsMapping()

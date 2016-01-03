@@ -14,6 +14,7 @@ namespace MyLiverpool.Web.WebApi
 
             bundles.Add(new ScriptBundle("~/bundles/App")
                 .IncludeDirectory("~/Scripts/angular", "*.js", false)
+            //   .IncludeDirectory("~/Scripts/angular-validation", "*.js")
                 .IncludeDirectory("~/Scripts/Controllers", "*.js")
                 .IncludeDirectory("~/Scripts/Factories", "*.js")
                 .IncludeDirectory("~/Scripts/Services", "*.js")

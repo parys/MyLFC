@@ -127,4 +127,10 @@
   <data name="Required" xml:space="preserve">
     <value>Поле обязательно для заполнения.</value>
   </data>
+  <data name="UserWithSameEmailExists" xml:space="preserve">
+    <value>Пользователь с таким емэйлом уже зарегистрирован.</value>
+  </data>
+  <data name="UserWithSameUserNameExists" xml:space="preserve">
+    <value>Пользователь с таким именем уже зарегистрирован.</value>
+  </data>
 </root>

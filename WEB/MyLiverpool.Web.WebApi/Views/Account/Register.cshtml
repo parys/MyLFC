@@ -5,42 +5,42 @@
 }
 
 <h2>@CommonMessages.Registration</h2>
-<form class="form-horizontal" role="form" ng-submit="register()">
+<form class="form-horizontal" role="form" ng-controller="RegisterController">
     <hr/>
     <div class="form-group">
-        <label class="col-md-2 control-label">@UsersMessages.UserName</label>
+        <label class="col-md-2 control-label">@ColonsMessages.UserName</label>
         <div class="col-md-10">
-            <input type="text" ng-model="registerForm.userName" id="userName" class="form-control"/>
+            <input type="text" name="userName" ng-model="registerForm.userName" id="userName" debounce="5000" validation="remote:userNameUnique(registerForm.userName):alt=@ErrorMessages.UserWithSameUserNameExists|min_len:3|max_len:30|required" class="form-control"/>
         </div>
     </div>
     <div class="form-group">
-        <label class="col-md-2 control-label">@UsersMessages.Email </label>
+        <label class="col-md-2 control-label">@ColonsMessages.Email </label>
         <div class="col-md-10">
-            <input type="email" ng-model="registerForm.emailAddress" id="email" class="form-control" />
+            <input type="email" name="email" ng-model="registerForm.email" id="email" debounce="5000" validation="remote:emailUnique(registerForm.email):alt=@ErrorMessages.UserWithSameEmailExists|email|min_len:6|required" class="form-control" /> 
         </div>
 </div>
     <div class="form-group">
-        <label for="password" class="col-md-2 control-label">password</label>
+        <label for="password" class="col-md-2 control-label">@ColonsMessages.Password</label>
         <div class="col-md-10">
-            <input type="password" id="password" ng-model="registerForm.password" class="form-control"/>
+            <input type="password" name="password" friendly-name="@UsersMessages.Password" id="password" ng-model="registerForm.password" validation="min_len:6|required" class="form-control"/>
         </div>
     </div>
     <div class="form-group">
-        <label for="confirmPassword" class = "col-md-2 control-label">ConfirmPassword</label>
+        <label for="confirmPassword" class = "col-md-2 control-label">@ColonsMessages.PasswordConfirmation</label>
             <div class="col-md-10">
-                <input type="password" id="confirmPassword" ng-model="registerForm.confirmPassword" class="form-control" />
+                <input type="password" name="confirmPassword" id="confirmPassword" ng-model="registerForm.confirmPassword" validation="required|match:registerForm.password|min_len:6" class="form-control" />
             </div>
 </div>
     <div class="form-group">
-        <label class="col-md-2 control-label">@UsersMessages.FullName</label>
+        <label class="col-md-2 control-label">@ColonsMessages.FullName</label>
             <div class="col-md-10">
-                <input type="text" ng-model="registerForm.fullName" class="form-control" />
+                <input type="text" name="fullName" ng-model="registerForm.fullName" validation="required|min_len:2" class="form-control" />
             </div>
 </div>
     <div class="form-group">
-        <label class="col-md-2 control-label">@UsersMessages.BirthDay</label>
+        <label class="col-md-2 control-label">@ColonsMessages.Birthday</label>
         <div class="col-md-10">
-            <input type="date" ng-model="registerForm.birthDayDate" class="form-control" />
+            <input name="birthday" ng-model="registerForm.birthday" validation="required|date_euro_long" class="form-control" />
         </div>
 </div>
     <div class="form-group">
@@ -48,73 +48,16 @@
     </div>
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="@CommonMessages.Register"/>
+            <button type="submit" ng-click="register()" class="btn btn-default">@CommonMessages.Register</button>
         </div>
     </div>
 </form>
 
 
-
-    <script>
+<script>
         //$('.datepicker').datepicker({
         //    format: 'dd/mm/yyyy',
         //    language: 'ru'
         //});
-
-        $('#UserName').on('keyup', function() {
-            var userName = $(this).val();
-            if (userName.length < 3) return;
-            delay(function () {
-                $.ajax({
-                    type: 'post',
-                    url: '@Url.Action("IsUserNameUnique", "Account")',
-                    data: { userName: userName },
-                    beforeSend: function() {
-
-                    },
-                    success: function(response) {
-                        if (response) {
-                            $('#UserName').removeClass('input-validation-error');
-                            console.log('good name');
-                        } else {
-                            $('#UserName').addClass('input-validation-error');
-                            console.log("not good name");
-                        }
-                    }
-                });
-            }, 3000);
-        });
-
-        $('#Email').on('keyup', function () {
-            var email = $(this).val();
-            delay(function()
-            {
-                $.ajax({
-                    type: 'post',
-                    url: '@Url.Action("IsEmailUnique", "Account")',
-                    data: { email: email },
-                    beforeSend: function () {
-
-                    },
-                    success: function (response) {
-                        if (response) {
-                            $('#Email').removeClass('input-validation-error');
-                            console.log('good email');
-                        } else {
-                            $('#Email').addClass('input-validation-error');
-                            console.log("not good email");
-                        }
-                    }
-                });
-            }, 3000);
-        });
-         
-        var delay = (function () {
-            var timer = 0;
-            return function (callback, ms) {
-                clearTimeout(timer);
-                timer = setTimeout(callback, ms);
-            };
-        })();
-    </script>
+</script>
 

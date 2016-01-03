@@ -1,32 +1,14 @@
-﻿var LoginController = function ($scope, $state, LoginFactory, SessionService, Authentication) {
+﻿var LoginController = function ($scope, SessionService, Authentication, validationService) {
     $scope.loginForm = {
-        username: undefined,
+        userName: undefined,
         password: undefined,
         errorMessage: undefined
     };
 
     $scope.login = function () {
-        //  LoginFactory($scope.loginForm.username, $scope.loginForm.password)
-        Authentication.login($scope.loginForm);
-        $state.go('home');
-        //.then(function (response) {
-        // SessionService.setToken(response.access_token);
-        // SessionService.setUserId(response.id); todo
-        //    $location.path('/');
-        // }, function (response) {
-        //     $scope.loginForm.errorMessage = response.error_description;
-        // });
-    }
-
-    $scope.logout = function () {
-        Authentication.logout();
-        //.then(function () {
-          //  SessionService.setToken('');
-          //  SessionService.setUserId('');
-        $state.go('home');
-        //}, function (response) {
-        //    $scope.loginForm.errorMessage = response.error_description;
-        //});
+        if (new validationService().checkFormValidity($scope)) {
+            Authentication.login($scope.loginForm);
+        }
     }
 }
-LoginController.$inject = ['$scope', '$state', 'LoginFactory', 'SessionService', 'Authentication'];
+LoginController.$inject = ['$scope', 'SessionService', 'Authentication', 'validationService'];

@@ -1,4 +1,4 @@
-﻿var App = angular.module('app', ['ui.router', 'ui.bootstrap', 'ngCookies']);
+﻿var App = angular.module('app', ['ui.router', 'ui.bootstrap', 'ngCookies', 'pascalprecht.translate', 'ghiscoding.validation']);
 
 App.controller('LandingPageController', LandingPageController);
 App.controller('LoginController', LoginController);
@@ -20,14 +20,13 @@ App.factory('Application', Application);
 App.factory('RouteFilter', RouteFilter);
 
 //App.factory('AuthHttpResponseInterceptor', AuthHttpResponseInterceptor);
-App.factory('LoginFactory', LoginFactory);
-App.factory('RegisterFactory', RegisterFactory);
+App.factory('AccountFactory', AccountFactory);
 App.factory('NewsFactory', NewsFactory);
 App.factory('UsersFactory', UsersFactory);
 App.factory('PmsFactory', PmsFactory);
 App.factory('ForumFactory', ForumFactory);
 
-var configFunction = function ($stateProvider, $httpProvider, $locationProvider) {
+var configFunction = function ($stateProvider, $httpProvider, $locationProvider, $translateProvider) {
 
     $locationProvider.hashPrefix('!').html5Mode({
         enabled: true,
@@ -171,13 +170,20 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider)
                 }
             }
         });
-    
 
+    console.log('1');
+    $translateProvider.useStaticFilesLoader({
+        prefix: 'Scripts/angular-validation/locales/',
+        suffix: '.json'
+    });
 
+    console.log('2');
+    // define translation maps you want to use on startup
+    $translateProvider.preferredLanguage('ru');
 
     //$httpProvider.interceptors.push('AuthHttpResponseInterceptor');
 }
-configFunction.$inject = ['$stateProvider', '$httpProvider', '$locationProvider'];
+configFunction.$inject = ['$stateProvider', '$httpProvider', '$locationProvider', '$translateProvider'];
 
 App.config(configFunction);
 
@@ -204,5 +210,3 @@ App.run(function(Authentication, Application, $rootScope, $location, RouteFilter
         RouteFilter.run($location.path());
     });
 });
-
-//App.run().$inject = ['Authentication']

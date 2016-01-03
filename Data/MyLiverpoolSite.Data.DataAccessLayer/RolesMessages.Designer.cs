@@ -149,5 +149,14 @@ namespace MyLiverpoolSite.Data.DataAccessLayer {
                 return ResourceManager.GetString("Newsmaker", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Пользователь.
+        /// </summary>
+        public static string Simple {
+            get {
+                return ResourceManager.GetString("Simple", resourceCulture);
+            }
+        }
     }
 }

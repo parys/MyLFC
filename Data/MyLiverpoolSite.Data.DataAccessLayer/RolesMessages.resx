@@ -147,4 +147,7 @@
   <data name="Newsmaker" xml:space="preserve">
     <value>Ньюсмейкер</value>
   </data>
+  <data name="Simple" xml:space="preserve">
+    <value>Пользователь</value>
+  </data>
 </root>

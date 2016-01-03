@@ -10,23 +10,15 @@
             <form class="form-horizontal" role="form" ng-submit="login()">
                 <hr />
                 <div class="form-group">
-                    <label class="col-md-2 control-label" for="emailAddress">Email address</label>
+                    <label class="col-md-2 control-label" for="emailAddress">@ColonsMessages.UserName</label>
                     <div class="col-md-10">
-                        <input type="text" class="form-control" id="emailAddress" placeholder="Enter email" ng-model="loginForm.username">
+                        <input type="text" class="form-control" name="email" id="emailAddress" placeholder="" ng-model="loginForm.userName" validation="required">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-2 control-label" for="password">Password</label>
+                    <label class="col-md-2 control-label" for="password">@ColonsMessages.Password</label>
                     <div class="col-md-10">
-                        <input type="password" class="form-control" id="password" placeholder="Password" ng-model="loginForm.password">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <div class="checkbox">
-                            <input type="checkbox" id="rememberMe" ng-model="loginForm.rememberMe"/>
-                            <label class="control-label" for="rememberMe">rememberMe</label>
-                        </div>
+                        <input type="password" class="form-control" name="password" id="password"  ng-model="loginForm.password" validation="required">
                     </div>
                 </div>
                 <div class="form-group">

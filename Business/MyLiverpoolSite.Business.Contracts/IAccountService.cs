@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
+using MyLiverpool.Business.DTO;
 
 namespace MyLiverpoolSite.Business.Contracts
 {
@@ -14,5 +16,7 @@ namespace MyLiverpoolSite.Business.Contracts
         Task<bool> IsEmailUniqueAsync(string email);
 
         Task<DateTime> GetLockOutEndDateAsync(string userName);
+
+        Task<IdentityResult> RegisterUserAsync(RegisterUserDto model);
     }
 }
