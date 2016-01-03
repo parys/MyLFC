@@ -11,11 +11,11 @@
                 {{ item.title }}
             </span>
             <span class="col-md-3">
-                @if (Request.IsAuthenticated && User.IsInRole("NewsFull"))
+                @if (User.IsInRole("NewsFull"))
                 {
                     <span class="small pull-right">
-                        @*       @if(Model.Pending)*@
-                        {
+                            @*   (item.pending)*@
+                        
                         @*       <a href="@Url.Action("Activate", )"><span class="glyphicon glyphicon-ok"></span></a>*@
                         }
                         @*<a href="@Url.Action("Edit", )"><span class="glyphicon glyphicon-pencil"></span></a>*@

@@ -17,21 +17,21 @@
                 });
         }
 
-        //$scope.emailValidation = function () {
-        //    return AccountFactory.isEmailUnique($scope.registerForm.email);
-        //}
+        $scope.open = function () {
+            console.log('opened');
+            $scope.status.opened = true;
+        };
 
-        // LoginFactory($scope.registerForm.username, $scope.registerForm.password)
-            //  .then(function (response) {
-            //    SessionService.setToken(response.access_token);
-            //    SessionService.setUserId(response.id);
+        $scope.status = {
+            opened: true
+        };
 
-            //  }, function (response) {
-            //      $scope.registerForm.errorMessage = response;
-            //  });
-            //  }, function (response) {
-            //     $scope.registerForm.errorMessage = response;
-        
+        $scope.dateOptions = {
+            formatYear: 'yyyy',
+            startingDay: 1
+        };
+
+
     }
 }
 RegisterController.$inject = ['$scope', 'AccountFactory', 'Authentication', 'validationService', 'SessionService'];
