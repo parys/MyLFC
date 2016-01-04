@@ -18,6 +18,10 @@
         return userId != userId2;
     }
 
+    $scope.pageChanged = function () {
+        console.log('Page changed to: ' + $scope.currentPage);
+    };
+
     init();
 };
 

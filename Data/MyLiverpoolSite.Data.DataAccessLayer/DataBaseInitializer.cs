@@ -622,264 +622,74 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
 
         private void InitializeNews(LiverpoolContext context)
         {
-            var news = new List<NewsItem>()
+            var news = new List<NewsItem>();
+            var randomizer = new Random(44);
+            var counterMax = 100;
+            for (int i = 0; i < counterMax; i++)
             {
-                new NewsItem()
+                news.Add(new NewsItem()
                 {
-                    NewsCategoryId = 1,
-                    AdditionTime = DateTime.Now.AddHours(-24),
+                    NewsCategoryId = i/2==0 ? 1 : 2,
+                    AdditionTime = DateTime.Now.AddHours(randomizer.NextDouble() * -counterMax),
                     AuthorId = 1,
-                    Brief = "brief 1",
-                    CanCommentary = true,
-                    LastModified = DateTime.Now,
-                    Message = "message 1",
-                    OnTop = true,
+                    Brief = "brief" + i,
+                    CanCommentary = i/2 == 0,
+                    LastModified = DateTime.Now.AddDays(randomizer.NextDouble()*-counterMax),
+                    Message = @"У ""Красных"" шансы были немногочисленными в первые 45 минут матча на ""Стадионе Света"". Ближе всех был к успеху Роберто Фирмино, но голкипер ""котов"" Вито Манноне ""потянул"" удар. 
+
+Зато уже через считанные секунды после перерыва,
+                    Кристиан Бентеке отлично отреагировал на пас вперед Натаниэля Клайна и нанес точный удар в нижний угол.
+
+Клопп сказал после матча: 
+
+“Лучше,
+                    если вы решаете игру раньше,
+                    и получаете преимущество,
+                    но мы не живем в стране чудес.Нам пришлось ждать особого момента и работать ради него"".
+
+""Мы сделали нужные выводы после первой половины игры,
+                    и постарались активно начать второй тайм.Мы стали прессинговать с первой минуты на всех участках поля"". 
+
+“Это всегда самая трудная вещь в игре...Если что - то не клеится,
+                    то первое,
+                    что нужно сделать,
+                    это бороться за мяч,
+                    чтобы найти подходящий момент для творческого футбола и неустанно поджимать соперника.Это не так просто"". 
+
+“В первом тайме,
+                    конечно,
+                    мы много владели мячом,
+                    и не оставили ""Сандерленду"" реального шанса диктовать нам свою игру.Они имели пару стандартов и одну контратаку,
+                    и думаю,
+                    что мы свою задачу выполнили"". 
+
+“После перерыва мы забили такой нужный гол и могли забить ещё один,
+                    сняв все вопросы,
+                    но этого сделать не удалось.Так что,
+                    нам пришлось оставаться сосредоточенным до конца.В этом мы не оплошали и это была заслуженная победа”. 
+
+В результате двух побед - в боксинг - дэй над ""Лестером"" и нынешней над ""котами"" с одинаковым результатом,
+                    ""Ливерпуль"" поднялся до седьмого места в Премьер - лиге.
+
+“Мы будем праздновать успех всю дорогу до аэропорта,
+                    хорошенько выспимся дома и начнем готовиться к ""Вест Хэму"",
+                    -продолжил менеджер.
+
+“30 очков гораздо лучше,
+                    чем 27,
+                    и дело даже не в трех очках разницы,
+                    честно говоря.Вы можете видеть,
+                    насколько это важно - лучшие команды Лиги после 19 игр имеют лишь на шесть очков больше,
+                    чем у нас,
+                    так что это не так уж много,
+                    но к сожалению и не мало...",
+                    OnTop = i / counterMax-2 == 0,
                     PhotoPath = "123",
-                    Pending = true,
-                    Reads = 10,
+                    Pending = i / 5 == 0,
+                    Reads = 1110,
                     Source = "123",
-                    Title = "news 1"
-                },
-                new NewsItem()
-                {
-                    NewsCategoryId = 2,
-                    AdditionTime = DateTime.Now.AddHours(-12),
-                    AuthorId = 1,
-                    Brief = "brief 2",
-                    CanCommentary = true,
-                    LastModified = DateTime.Now,
-                    Message = "message 2",
-                    OnTop = true,
-                    PhotoPath = "123",
-                    Pending = false,
-                    Reads = 10,
-                    Source = "123",
-                    Title = "news 2"
-                },
-                new NewsItem()
-                {
-                    NewsCategoryId = 3,
-                    AdditionTime = DateTime.Now.AddHours(-10),
-                    AuthorId = 1,
-                    Brief = "brief 3",
-                    CanCommentary = true,
-                    LastModified = DateTime.Now,
-                    Message = "message 3",
-                    OnTop = false,
-                    PhotoPath = "123",
-                    Pending = false,
-                    Reads = 10,
-                    Source = "123",
-                    Title = "news 3"
-                },
-                new NewsItem()
-                {
-                    NewsCategoryId = 1,
-                    AdditionTime = DateTime.Now.AddHours(-9).AddMinutes(10),
-                    AuthorId = 1,
-                    Brief = "brief 4",
-                    CanCommentary = true,
-                    LastModified = DateTime.Now,
-                    Message = "message 4",
-                    OnTop = false,
-                    PhotoPath = "123",
-                    Pending = false,
-                    Reads = 10,
-                    Source = "123",
-                    Title = "news 4"
-                },
-                new NewsItem()
-                {
-                    NewsCategoryId = 3,
-                    AdditionTime = DateTime.Now.AddHours(-8),
-                    AuthorId = 1,
-                    Brief = "brief 5",
-                    CanCommentary = true,
-                    LastModified = DateTime.Now,
-                    Message = "message 5",
-                    OnTop = false,
-                    PhotoPath = "123",
-                    Pending = false,
-                    Reads = 10,
-                    Source = "123",
-                    Title = "news 5"
-                },
-                new NewsItem()
-                {
-                    NewsCategoryId = 1,
-                    AdditionTime = DateTime.Now.AddHours(-7).AddMinutes(10),
-                    AuthorId = 1,
-                    Brief = "brief 6",
-                    CanCommentary = true,
-                    LastModified = DateTime.Now,
-                    Message = "message 6",
-                    OnTop = false,
-                    PhotoPath = "123",
-                    Pending = false,
-                    Reads = 10,
-                    Source = "123",
-                    Title = "news 6"
-                },
-                new NewsItem()
-                {
-                    NewsCategoryId = 3,
-                    AdditionTime = DateTime.Now.AddHours(-6),
-                    AuthorId = 1,
-                    Brief = "brief 7",
-                    CanCommentary = true,
-                    LastModified = DateTime.Now,
-                    Message = "message 7",
-                    OnTop = false,
-                    PhotoPath = "123",
-                    Pending = false,
-                    Reads = 10,
-                    Source = "123",
-                    Title = "news 7"
-                },
-                new NewsItem()
-                {
-                    NewsCategoryId = 1,
-                    AdditionTime = DateTime.Now.AddHours(-5).AddMinutes(10),
-                    AuthorId = 1,
-                    Brief = "brief 8",
-                    CanCommentary = true,
-                    LastModified = DateTime.Now,
-                    Message = "message 8",
-                    OnTop = false,
-                    PhotoPath = "123",
-                    Pending = false,
-                    Reads = 10,
-                    Source = "123",
-                    Title = "news 8"
-                },
-                new NewsItem()
-                {
-                    NewsCategoryId = 3,
-                    AdditionTime = DateTime.Now.AddHours(-4),
-                    AuthorId = 1,
-                    Brief = "brief 9",
-                    CanCommentary = true,
-                    LastModified = DateTime.Now,
-                    Message = "message 9",
-                    OnTop = false,
-                    PhotoPath = "123",
-                    Pending = false,
-                    Reads = 10,
-                    Source = "123",
-                    Title = "news 9"
-                },
-                new NewsItem()
-                {
-                    NewsCategoryId = 1,
-                    AdditionTime = DateTime.Now.AddHours(-2).AddMinutes(10),
-                    AuthorId = 1,
-                    Brief = "brief 10",
-                    CanCommentary = true,
-                    LastModified = DateTime.Now,
-                    Message = "message 10",
-                    OnTop = false,
-                    PhotoPath = "123",
-                    Pending = false,
-                    Reads = 10,
-                    Source = "123",
-                    Title = "news 10"
-                },
-                new NewsItem()
-                {
-                    NewsCategoryId = 3,
-                    AdditionTime = DateTime.Now.AddHours(-1),
-                    AuthorId = 1,
-                    Brief = "brief 11",
-                    CanCommentary = true,
-                    LastModified = DateTime.Now,
-                    Message = "message 11",
-                    OnTop = false,
-                    PhotoPath = "123",
-                    Pending = false,
-                    Reads = 10,
-                    Source = "123",
-                    Title = "news 11"
-                },
-                new NewsItem()
-                {
-                    NewsCategoryId = 1,
-                    AdditionTime = DateTime.Now,
-                    AuthorId = 1,
-                    Brief = "brief 12",
-                    CanCommentary = true,
-                    LastModified = DateTime.Now,
-                    Message = "message 12",
-                    OnTop = false,
-                    PhotoPath = "123",
-                    Pending = false,
-                    Reads = 10,
-                    Source = "123",
-                    Title = "news 12"
-                },
-                new NewsItem()
-                {
-                    NewsCategoryId = 1,
-                    AdditionTime = DateTime.Now,
-                    AuthorId = 1,
-                    Brief = "brief 13",
-                    CanCommentary = true,
-                    LastModified = DateTime.Now,
-                    Message = "message 13",
-                    OnTop = false,
-                    PhotoPath = "123",
-                    Pending = false,
-                    Reads = 10,
-                    Source = "123",
-                    Title = "news 13"
-                },
-                new NewsItem()
-                {
-                    NewsCategoryId = 1,
-                    AdditionTime = DateTime.Now,
-                    AuthorId = 1,
-                    Brief = "brief 14",
-                    CanCommentary = true,
-                    LastModified = DateTime.Now,
-                    Message = "message 14",
-                    OnTop = false,
-                    PhotoPath = "123",
-                    Pending = false,
-                    Reads = 10,
-                    Source = "123",
-                    Title = "news 14"
-                },
-                new NewsItem()
-                {
-                    NewsCategoryId = 1,
-                    AdditionTime = DateTime.Now,
-                    AuthorId = 1,
-                    Brief = "brief 15",
-                    CanCommentary = true,
-                    LastModified = DateTime.Now,
-                    Message = "message 15",
-                    OnTop = false,
-                    PhotoPath = "123",
-                    Pending = false,
-                    Reads = 10,
-                    Source = "123",
-                    Title = "news 15"
-                },
-                new NewsItem()
-                {
-                    NewsCategoryId = 1,
-                    AdditionTime = DateTime.Now,
-                    AuthorId = 1,
-                    Brief = "brief 16",
-                    CanCommentary = true,
-                    LastModified = DateTime.Now,
-                    Message = "message 16",
-                    OnTop = false,
-                    PhotoPath = "123",
-                    Pending = false,
-                    Reads = 10,
-                    Source = "123",
-                    Title = "news 16"
-                },
+                    Title = "news" + i
+                });
             };
 
             news.ForEach(x => context.NewsItems.Add(x));

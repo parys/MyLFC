@@ -40,7 +40,8 @@
     </div>
     <hr/>
 </div>
-<div class="pagination"> @* @Html.PageLinks(Model.PageNo, Model.CountPage, x => Url.Action("Index", "News", new { page = x  ,categoryId = Request.QueryString["categoryId"]*@     </div>
+<div class="pagination"><uib-pagination total-items="countPage" ng-model="pageNo" ng-change="pageChanged()"></uib-pagination>
+     @* @Html.PageLinks(Model.PageNo, Model.CountPage, x => Url.Action("Index", "News", new { page = x  ,categoryId = Request.QueryString["categoryId"]*@     </div>
 
 <script type="text/ng-template" id="modalDeleteConfirmation.html">
     <div class="modal-header">

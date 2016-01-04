@@ -142,7 +142,7 @@ namespace MyLiverpoolSite.Business.Services.Services
 
             // if (page == GlobalConstants.FirstPage)
             // {
-            var itemPerPage = GlobalConstants.NewsPerPage - topNews.Count;
+            var itemPerPage = GlobalConstants.NewsPerPage - topNews.Count > 0 ? GlobalConstants.NewsPerPage - topNews.Count : 0;
             // }
             var news = await _unitOfWork.NewsItemRepository.GetAsync(page, filter: filter, itemPerPage: itemPerPage);
             var newsForView = (page == GlobalConstants.FirstPage) ? topNews.Concat(news) : news;

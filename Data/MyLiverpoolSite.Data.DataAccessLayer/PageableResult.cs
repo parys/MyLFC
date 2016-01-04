@@ -18,7 +18,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
             }
       //      ItemPerPage = itemPerPage;
             PageNo = page;
-            CountPage = (int)decimal.Remainder(countEntities, itemPerPage) == 0 ? countEntities / itemPerPage : countEntities / itemPerPage + 1;
+            CountPage = countEntities;//(int)decimal.Remainder(countEntities, itemPerPage) == 0 ? countEntities / itemPerPage : countEntities / itemPerPage + 1;
             List = list;
         }
     }
