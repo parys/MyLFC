@@ -70,6 +70,15 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider,
                 }
             }
         })
+        .state('newsCategories', {
+            url: '/newsCategories',
+            views: {
+                "containerMain": {
+                    templateUrl: '/news/Categories',
+                    controller: NewsCategoriesCtrl
+                }
+            }
+        })
         .state('userInfo', {
             url: '/userInfo?id',
             views: {

@@ -300,6 +300,7 @@
     <Content Include="Scripts\Controllers\LoadingCtrl.js" />
     <Content Include="Scripts\Controllers\LoginController.js" />
     <Content Include="Scripts\Controllers\ModalCtrl.js" />
+    <Content Include="Scripts\Controllers\NewsCategoriesCtrl.js" />
     <Content Include="Scripts\Controllers\NewsController.js" />
     <Content Include="Scripts\Controllers\NewsItemController.js" />
     <Content Include="Scripts\Controllers\PmController.js" />

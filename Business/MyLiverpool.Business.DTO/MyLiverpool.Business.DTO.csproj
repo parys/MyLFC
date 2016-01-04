@@ -93,6 +93,7 @@
     <Compile Include="ForumThemeDto.cs" />
     <Compile Include="ForumThemeMiniDto.cs" />
     <Compile Include="IDto.cs" />
+    <Compile Include="NewsCategoryDto.cs" />
     <Compile Include="NewsCommentDto.cs" />
     <Compile Include="NewsItemDto.cs" />
     <Compile Include="NewsMiniDto.cs" />

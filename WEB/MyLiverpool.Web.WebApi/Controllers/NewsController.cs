@@ -8,6 +8,7 @@ using MyLiverpoolSite.Business.ViewModels.News;
 
 namespace MyLiverpool.Web.WebApi.Controllers
 {
+    [Authorize]
     public class NewsController : BaseController
     {
         private readonly INewsService _newsService;
@@ -36,29 +37,12 @@ namespace MyLiverpool.Web.WebApi.Controllers
             return View();
         }
 
-        // GET: News/Create
-        [Authorize]
-        public async Task<ActionResult> Create()
+        [Authorize(Roles = "NewsStart")]
+        public ActionResult Create()
         {
-            var model = await _newsService.GetCreateEditViewModelAsync(null);
-            return View(model);
+            return View();
         }
 
-        // POST: News/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authorize]
-        public async Task<ActionResult> Create(CreateEditNewsViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var result = await _newsService.CreateAsync(model, User.Identity.GetUserId<int>());
-                //return RedirectToAction("Details", new {id = result});
-            }
-            return View(model);
-        }
 
         // GET: News/Edit/5
         [Authorize]
@@ -93,15 +77,6 @@ namespace MyLiverpool.Web.WebApi.Controllers
             return View(model);
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                //db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
         [Authorize]
         [ValidateInput(false)]
         [HttpPost]
@@ -133,10 +108,9 @@ namespace MyLiverpool.Web.WebApi.Controllers
         }
 
         [AllowAnonymous]
-        public async Task<ActionResult> Categories()
+        public ActionResult Categories()
         {
-            var model = await _newsService.GetCategoriesAsync();
-            return View(model);
+            return View();
         }
     }
 }

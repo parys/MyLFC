@@ -20,6 +20,7 @@ namespace MyLiverpoolSite.Business.Services.Mapping
         {
             RegisterNewsCommentMapping();
             RegisterNewsMapping();
+            RegisterNewsCategoriesMapping();
 
             RegisterPrivateMessageMapping();
 
@@ -29,6 +30,8 @@ namespace MyLiverpoolSite.Business.Services.Mapping
             RegisterForumThemeMapping();
             RegisterForumSubsectionMapping();
             RegisterForumSectionMapping();
+
+            
 
         }
 
@@ -153,9 +156,6 @@ namespace MyLiverpoolSite.Business.Services.Mapping
                 .ForMember(dest => dest.Reads, src => src.MapFrom(x => x.Reads))
                 .ForMember(dest => dest.Source, src => src.MapFrom(x => x.Source))
                 .ForMember(dest => dest.Title, src => src.MapFrom(x => x.Title));
-
-
-
         }
 
         private static void RegisterNewsCommentMapping()
@@ -168,6 +168,14 @@ namespace MyLiverpoolSite.Business.Services.Mapping
                 .ForMember(dest => dest.Children, src => src.MapFrom(x => x.Children))
                 .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id))
                 .ForMember(dest => dest.Message, src => src.MapFrom(x => x.Message));
+        }
+        private static void RegisterNewsCategoriesMapping()
+        {
+            Mapper.CreateMap<NewsCategory, NewsCategoryDto>()
+                .ForMember(dest => dest.Description, src => src.MapFrom(x => x.Description))
+                .ForMember(dest => dest.Name, src => src.MapFrom(x => x.Name))
+                .ForMember(dest => dest.ItemsCount, src => src.MapFrom(x => x.NewsItems.Count))
+                .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id));
         }
 
         private static void RegisterForumMessageMapping()

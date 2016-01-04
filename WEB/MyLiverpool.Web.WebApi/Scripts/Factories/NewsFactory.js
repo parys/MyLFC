@@ -68,6 +68,23 @@
                 });
 
             return result.promise;
+        },
+        getCategories: function() {
+            var result = $q.defer();
+
+            $http({
+                    method: 'Get',
+                    url: SessionService.apiUrl + '/api/News/categories',
+                    headers: { 'Content-Type': 'application/json' }
+                })
+                .success(function(response) {
+                    result.resolve(response);
+                })
+                .error(function(response) {
+                    result.reject(response);
+                });
+
+            return result.promise;
         }
 
 

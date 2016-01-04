@@ -51,6 +51,11 @@ namespace MyLiverpool.Web.WebApi
                 defaults: new { controller = "News", action = "Info" });
 
             routes.MapRoute(
+                name: "newsCategories",
+                url: "News/Categories",
+                defaults: new {controller = "News", action = "Categories"});
+
+            routes.MapRoute(
                 name: "userInfo",
                 url: "User/Info",
                 defaults: new { controller = "User", action = "Info" });

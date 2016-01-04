@@ -12,10 +12,12 @@ namespace MyLiverpool.Web.WebApi.Controllers
     public class ApiNewsItemsController : ApiController
     {
         private readonly INewsService _newsService;
+        private readonly INewsCategoryService _newsCategoryService;
 
-        public ApiNewsItemsController(INewsService newsService)
+        public ApiNewsItemsController(INewsService newsService, INewsCategoryService newsCategoryService)
         {
             _newsService = newsService;
+            _newsCategoryService = newsCategoryService;
         }
 
         [Route("List")]
@@ -63,5 +65,13 @@ namespace MyLiverpool.Web.WebApi.Controllers
             return Json(result);
         }
 
+        [Route("Categories")]
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IHttpActionResult> Categories()
+        {
+            var result = await _newsCategoryService.GetCategoriesDtoAsync();
+            return Ok(result);
+        }
     }
 }

@@ -1,14 +1,9 @@
-﻿@using MyLiverpoolSite.Business.ViewModels.Resources
-@model IEnumerable<MyLiverpoolSite.Business.ViewModels.NewsCategories.IndexNewsCategoryVM>
-
+﻿@using MyLiverpool.Business.Resources
 @{
     ViewBag.Title = CommonMessages.Categories;
 }
 <div>
-    <ul>
-        @foreach (var category in Model)
-        {
-            <li><span><a href="@Url.Action("Index","News", new {categoryId = category.Id})"> @category.Name [@category.ItemsCount]</a></span></li>
-        }
+    <ul ng-repeat="category in categories">
+            <li><span><a ui-sref="news({page: 1, categoryId: category.id})"> {{ category.name }} [ {{ category.itemsCount }}]</a></span></li>
     </ul>
 </div>
