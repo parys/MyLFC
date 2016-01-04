@@ -9,6 +9,7 @@ App.controller('UserController', UserController);
 App.controller('UsersController', UsersController);
 App.controller('PmController', PmController);
 App.controller('PmsController', PmsController);
+App.controller('PmWriteCtrl', PmWriteCtrl);
 App.controller('ForumController', ForumController);
 App.controller('ForumSubsectionController', ForumSubsectionController);
 App.controller('ForumThemeController', ForumThemeController);
@@ -125,6 +126,19 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider,
                 }
             }
         })
+        .state('wpm', {
+            url: '/wpm?',
+            views: {
+                "containerMain": {
+                    templateUrl: '/User/WritePm/',
+                    controller: PmWriteCtrl
+                }
+            },
+                params: {
+                    userId: null,
+                    userName: null
+            }
+        })
         .state('register', {
             url: '/register?returnUrl',
             views: {
@@ -186,7 +200,7 @@ configFunction.$inject = ['$stateProvider', '$httpProvider', '$locationProvider'
 
 App.config(configFunction);
 
-App.run(function (Authentication, Application, $rootScope, $location, RouteFilter, $http, uibPaginationConfig) {
+App.run(function (Authentication, Application, $rootScope, $location, RouteFilter, $http, uibPaginationConfig, $state, $stateParams) {
     Authentication.requestUser();
     //    .then(function () {
    //     Application.makeReady();
@@ -216,5 +230,8 @@ App.run(function (Authentication, Application, $rootScope, $location, RouteFilte
         uibPaginationConfig.rotate = false;
 
         RouteFilter.run($location.path());
+
+        $rootScope.$state = $state;
+        $rootScope.$stateParams = $stateParams;
     });
 });

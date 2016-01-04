@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using MyLiverpoolSite.Data.DataAccessLayer.Contracts;
 using MyLiverpoolSite.Data.Entities;
 
 namespace MyLiverpoolSite.Data.DataAccessLayer
@@ -12,7 +13,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
     /// Generic repository.
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
-    public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class,IEntity
+    public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class, IEntity
     {
         private readonly LiverpoolContext _context;
         private readonly DbSet<TEntity> _dbSet;
@@ -41,6 +42,28 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
             if (filter != null)
             {
                 query = query.Where(filter);
+            }
+
+            if (includeProperties != null)
+            {
+                query = includeProperties.Aggregate(query,
+                    (current, includeProperty) => current.Include(includeProperty));
+            }
+            return await query.ToListAsync();
+        }
+
+        public virtual async Task<ICollection<TEntity>> GetOrderedAsync(
+            Expression<Func<TEntity, bool>> filter = null, Expression<Func<TEntity, object>> orderBy = null,
+            params Expression<Func<TEntity, object>>[] includeProperties)
+        {
+            IQueryable<TEntity> query = _dbSet;
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+            if (orderBy != null)
+            {
+                query = query.OrderBy(orderBy);
             }
             if (includeProperties != null)
             {

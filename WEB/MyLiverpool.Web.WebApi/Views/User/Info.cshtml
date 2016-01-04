@@ -1,15 +1,14 @@
-﻿@using Microsoft.AspNet.Identity
-@using MyLiverpool.Business.Resources
+﻿@using MyLiverpool.Business.Resources
 
 @{
 //  ViewBag.Title = @Model.UserName;
 }
 
 <h2>
-    @*  @Model.UserName*@
+    {{ user.userName }}
     @if (Request.IsAuthenticated)// && User.Identity.GetUserId<int>() != Model.Id)
     {
-        <a href="@Url.Action("WriteMessage", "User")"><span class="glyphicon glyphicon-envelope"></span></a>
+        <a ui-sref="wpm({ userId: user.id, userName: user.userName })"><span class="glyphicon glyphicon-envelope"></span></a>
     }
 </h2>
 

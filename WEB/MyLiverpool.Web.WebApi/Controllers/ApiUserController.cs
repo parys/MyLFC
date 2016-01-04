@@ -23,7 +23,7 @@ namespace MyLiverpool.Web.WebApi.Controllers
         [ResponseType(typeof(UserDto))]
         public async Task<IHttpActionResult> Get(int id)
         {
-            return Ok(await _userService.GetUserProfileDto(id));
+            return Ok(await _userService.GetUserProfileDtoAsync(id));
         }
 
         [Route("Pms")]
@@ -50,8 +50,22 @@ namespace MyLiverpool.Web.WebApi.Controllers
         [ResponseType(typeof(PrivateMessageDto))]
         public async Task<IHttpActionResult> Pm(int id)
         {
-            var model = await _userService.GetPrivateMessageDto(id, User.Identity.GetUserId<int>());
+            var model = await _userService.GetPrivateMessageDtoAsync(id, User.Identity.GetUserId<int>());
             return Ok(model);
+        }
+
+        [Route("WritePm")]
+        [HttpPost]
+        [Authorize]
+        public async Task<IHttpActionResult> WritePm(PrivateMessageDto model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            model.SenderId = User.Identity.GetUserId<int>();
+            var result = await _userService.SavePrivateMessageDtoAsync(model);
+            return Ok(result);
         }
     }
 }

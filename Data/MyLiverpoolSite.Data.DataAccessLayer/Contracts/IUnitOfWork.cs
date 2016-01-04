@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
+using MyLiverpoolSite.Data.DataAccessLayer.Contracts;
 using MyLiverpoolSite.Data.Entities;
 
 namespace MyLiverpoolSite.Data.DataAccessLayer

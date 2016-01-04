@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace MyLiverpoolSite.Data.DataAccessLayer
+namespace MyLiverpoolSite.Data.DataAccessLayer.Contracts
 {
     /// <summary>
     /// Mediator interface that acts as an abstraction layer between domain and data layer.
@@ -14,12 +14,16 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
     {
         /// <summary>
         /// Returns all objects of given type.
-        /// </summary>
+        /// </summary> todo need refactoring
         Task<ICollection<TEntity>> GetAsync(
             Expression<Func<TEntity, bool>> filter = null,
             params Expression<Func<TEntity, object>>[] includeProperties);
 
         Task<ICollection<TEntity>> GetAsync(int page, int itemPerPage = 15, Expression<Func<TEntity, bool>> filter = null,
+            params Expression<Func<TEntity, object>>[] includeProperties);
+
+        Task<ICollection<TEntity>> GetOrderedAsync(Expression<Func<TEntity, bool>> filter = null,
+            Expression<Func<TEntity, object>> orderBy = null,
             params Expression<Func<TEntity, object>>[] includeProperties);
 
         Task<ICollection<TEntity>> GetOrderedByIdAsync(int page, int itemPerPage = 15,

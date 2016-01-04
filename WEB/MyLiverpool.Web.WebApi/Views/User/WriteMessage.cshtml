@@ -1,61 +1,36 @@
-﻿@using MyLiverpoolSite.Business.ViewModels.Resources
-@model MyLiverpoolSite.Business.ViewModels.Users.PrivateMessageVM
-
+﻿@using MyLiverpool.Business.Resources
 @{
     ViewBag.Title = @CommonMessages.WriteMessage;
- //   Layout = "_Layout";
 }
-
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-
-    <div class="form-horizontal">
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @*   @Html.LabelFor(model => model.Id, htmlAttributes: new { @class = "control-label col-md-2" })*@
-            <div class="col-md-10">
-                @Html.HiddenFor(model => model.Id, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.HiddenFor(model => model.ReceiverId, new { htmlAttributes = new { @class = "form-control" } })
-                @* @Html.ValidationMessageFor(model => model.OldId, "", new { @class = "text-danger" })*@
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Receiver, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(x => x.Receiver.UserName, new { @class = "form-control", disabled="disabled" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Message, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextAreaFor(model => model.Message, new { @class = "form-control editor", rows = "4" })
-                @Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="@CommonMessages.Send" class="btn btn-default" />
-            </div>
+<h2>@CommonMessages.WriteMessage</h2>
+<form class="form-horizontal" role="form">
+    <div class="form-group">
+        <label class="control-label col-md-2"> @ColonsMessages.Receiver</label>
+        <div class="col-md-10">
+            <input class="form-control" disabled="disabled" value="{{ $stateParams.userName }}" />
         </div>
     </div>
-}
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+    <div class="form-group">
+        <label class="control-label col-md-2"> @ColonsMessages.Title</label>
+        <div class="col-md-10">
+            <input class="form-control" name="title" ng-model="message.title" validation="max_len:30|required"/>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2"> @ColonsMessages.Message</label>
+        <div class="col-md-10">
+            <textarea class="form-control" name="message" rows="4" ng-model="message.message" validation="max_len:500|required"> </textarea>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button type="submit" ng-click="sent()" class="btn btn-default">@CommonMessages.Send</button>
+        </div>
+    </div>
+</form>
 
 
 

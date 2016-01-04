@@ -132,7 +132,7 @@ namespace MyLiverpoolSite.Business.Services.Mapping
                 .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id))
                 .ForMember(dest => dest.NewsCategoryId, src => src.MapFrom(x => x.NewsCategoryId))
                 .ForMember(dest => dest.NewsCategoryName, src => src.MapFrom(x => x.NewsCategory.Name))
-                .ForMember(dest => dest.NumberCommentaries, src => src.MapFrom(x => x.Comments.Count))
+                .ForMember(dest => dest.CommentsCount, src => src.MapFrom(x => x.Comments.Count))
                 .ForMember(dest => dest.Pending, src => src.MapFrom(x => x.Pending))
                 .ForMember(dest => dest.Title, src => src.MapFrom(x => x.Title))
                 .ForMember(dest => dest.PhotoPath, src => src.MapFrom(x => x.PhotoPath))
@@ -144,7 +144,7 @@ namespace MyLiverpoolSite.Business.Services.Mapping
                 .ForMember(dest => dest.AuthorUserName, src => src.MapFrom(x => x.Author.UserName))
                 .ForMember(dest => dest.CanCommentary, src => src.MapFrom(x => x.CanCommentary))
                 .ForMember(dest => dest.Comments,
-                    src => src.MapFrom(x => AutoMapper.Mapper.Map<ICollection<NewsCommentDto>>(x.Comments)))
+                    src => src.MapFrom(x => Mapper.Map<ICollection<NewsCommentDto>>(x.Comments)))
                 .ForMember(dest => dest.Message, src => src.MapFrom(x => x.Message))
                 .ForMember(dest => dest.NewsCategoryId, src => src.MapFrom(x => x.NewsCategoryId))
                 .ForMember(dest => dest.NewsCategoryName, src => src.MapFrom(x => x.NewsCategory.Name))
@@ -191,6 +191,7 @@ namespace MyLiverpoolSite.Business.Services.Mapping
                 .ForMember(dest => dest.ReceiverUserName, src => src.MapFrom(x => x.Receiver.UserName))
                 .ForMember(dest => dest.SenderId, src => src.MapFrom(x => x.SenderId))
                 .ForMember(dest => dest.SenderUserName, src => src.MapFrom(x => x.Sender.UserName))
+                .ForMember(dest => dest.SentTime, src => src.MapFrom(x => x.SentTime))
                 .ForMember(dest => dest.Title, src => src.MapFrom(x => x.Title));
 
             Mapper.CreateMap<PrivateMessage, PrivateMessageDto>()
@@ -201,6 +202,18 @@ namespace MyLiverpoolSite.Business.Services.Mapping
                 .ForMember(dest => dest.ReceiverUserName, src => src.MapFrom(x => x.Receiver.UserName))
                 .ForMember(dest => dest.SenderId, src => src.MapFrom(x => x.SenderId))
                 .ForMember(dest => dest.SenderUserName, src => src.MapFrom(x => x.Sender.UserName))
+                .ForMember(dest => dest.SentTime, src => src.MapFrom(x => x.SentTime))
+                .ForMember(dest => dest.Title, src => src.MapFrom(x => x.Title));
+
+            Mapper.CreateMap<PrivateMessageDto, PrivateMessage>()
+                .ForMember(dest => dest.Id, src => src.Ignore())
+                .ForMember(dest => dest.IsRead, src => src.Ignore())
+                .ForMember(dest => dest.Message, src => src.MapFrom(x => x.Message))
+                .ForMember(dest => dest.ReceiverId, src => src.MapFrom(x => x.ReceiverId))
+                .ForMember(dest => dest.Receiver, src => src.Ignore())
+                .ForMember(dest => dest.SenderId, src => src.MapFrom(x => x.SenderId))
+                .ForMember(dest => dest.Sender, src => src.Ignore())
+                .ForMember(dest => dest.SentTime, src => src.Ignore())
                 .ForMember(dest => dest.Title, src => src.MapFrom(x => x.Title));
         }
 

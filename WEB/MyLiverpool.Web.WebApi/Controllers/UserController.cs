@@ -47,28 +47,8 @@ namespace MyLiverpool.Web.WebApi.Controllers
         }
 
         [Authorize]
-        [HttpGet]
-        public async Task<ActionResult> WriteMessage(int? receiverId, string answerTitle = null)
+        public ActionResult WriteMessage()
         {
-            if (!receiverId.HasValue)
-            {
-                return HttpNotFound(); //todo BadRequest();
-            }
-            var model = await _userService.GetPrivateMessageVMAsync(receiverId.Value, answerTitle);
-
-            return View(model);
-        }
-
-        [Authorize]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> WriteMessage(PrivateMessageVM model)
-        {
-            if (model == null)
-            {
-                return View(); //todo BadRequest();
-            }
-            var result = await _userService.SavePrivateMessageVMAsync(model, User.Identity.GetUserId<int>());
             return View();
         }
 

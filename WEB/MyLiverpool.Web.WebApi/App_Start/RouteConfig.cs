@@ -71,6 +71,11 @@ namespace MyLiverpool.Web.WebApi
                 defaults: new {controller = "User", action = "ReadMessage"});
 
             routes.MapRoute(
+                name: "wpm",
+                url: "User/WritePm",
+                defaults: new {controller = "User", action = "WriteMessage"});
+
+            routes.MapRoute(
                 name: "forum",
                 url: "Forum/Index",
                 defaults: new {controller = "Forum", action = "Index"});

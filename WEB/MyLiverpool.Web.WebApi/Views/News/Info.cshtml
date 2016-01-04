@@ -34,7 +34,7 @@
                 <li><label>Reads:</label> {{ item.reads }}</li>
                 <li><label>Source:</label> {{ item.source }}</li>
                 <li><label>AdditionTime:</label> {{ item.additionTime | date:'medium' }}</li>
-                <li><label>NewsCategory:</label> <a ui-sref="news({categoryId: item.NewsCategoryId})"> {{ item.newsCategoryName }} </a></li>
+                <li><label>NewsCategory:</label> <a ui-sref="news({page: 1, categoryId: item.newsCategoryId})"> {{ item.newsCategoryName }} </a></li>
             </ul>
         </div>
     </div>

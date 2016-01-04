@@ -9,6 +9,7 @@ using MyLiverpool.Business.DTO;
 using MyLiverpoolSite.Business.Contracts;
 using MyLiverpool.Business.Resources;
 using MyLiverpoolSite.Business.ViewModels.Users;
+using MyLiverpoolSite.Common.Utilities;
 using MyLiverpoolSite.Data.DataAccessLayer;
 using MyLiverpoolSite.Data.Entities;
 
@@ -23,6 +24,7 @@ namespace MyLiverpoolSite.Business.Services.Services
             this._unitOfWork = unitOfWork;
         }
 
+        #region vm
         public CreateUserViewModel GetCreateViewModel()
         {
             return new CreateUserViewModel();
@@ -121,7 +123,9 @@ namespace MyLiverpoolSite.Business.Services.Services
             return result == IdentityResult.Success;
         }
 
-        // lalalalala
+        #endregion
+
+        #region Dto
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(User user, string authenticationType)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -129,9 +133,8 @@ namespace MyLiverpoolSite.Business.Services.Services
             // Add custom user claims here
             return userIdentity;
         }
-
-        #region Dto
-        public async Task<UserDto> GetUserProfileDto(int id)
+        
+        public async Task<UserDto> GetUserProfileDtoAsync(int id)
         {
             var user = await _unitOfWork.UserRepository.GetByIdAsync(id);
             var dto = Mapper.Map<UserDto>(user);
@@ -158,7 +161,7 @@ namespace MyLiverpoolSite.Business.Services.Services
             return result;
         }
 
-        public async Task<PrivateMessageDto> GetPrivateMessageDto(int messageId, int userId)
+        public async Task<PrivateMessageDto> GetPrivateMessageDtoAsync(int messageId, int userId)
         {
             var message = await _unitOfWork.PrivateMessageRepository.GetByIdAsync(messageId);
             if (message.ReceiverId != userId && message.SenderId != userId)
@@ -172,6 +175,43 @@ namespace MyLiverpoolSite.Business.Services.Services
                 await _unitOfWork.SaveAsync();
             }
             return Mapper.Map<PrivateMessageDto>(message);
+        }
+
+        public async Task<bool> SavePrivateMessageDtoAsync(PrivateMessageDto model)
+        {
+            await RemoveOldMessages(model.SenderId);
+            await RemoveOldMessages(model.ReceiverId);
+
+            var message = Mapper.Map<PrivateMessage>(model);
+            message.SentTime = DateTime.Now;
+            try
+            {
+                _unitOfWork.PrivateMessageRepository.Add(message);
+                await _unitOfWork.SaveAsync();
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        private async Task RemoveOldMessages(int userId)
+        {
+            var countUserMessages =
+                await
+                    _unitOfWork.PrivateMessageRepository.GetCountAsync(
+                        x => x.ReceiverId == userId || x.SenderId == userId);
+            if (countUserMessages > GlobalConstants.PmsPerUser)
+            {
+                var messages =
+                    await
+                        _unitOfWork.PrivateMessageRepository.GetAsync(
+                            x => x.ReceiverId == userId || x.SenderId == userId);
+                var messages2 = messages.Take(GlobalConstants.PmsPerUser / 2).ToList();
+                messages2.ForEach(x => _unitOfWork.PrivateMessageRepository.DeleteAsync(x));
+                await _unitOfWork.SaveAsync();
+            }
         }
 
         #endregion
