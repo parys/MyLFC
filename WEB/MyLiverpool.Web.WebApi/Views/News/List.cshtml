@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = NewsMessages.News;
 }
+
 <div class="container-fluid" ng-repeat="item in newsItems">
     <div class="container-fluid">
         <div class="row">
@@ -26,7 +27,7 @@
         </div>
         <ul class="list-inline">
             <li class="">@NewsMessages.NewsCategory</li>
-            <li class=""><a ui-sref="news({categoryId: item.newsCategoryId})">{{ item.newsCategoryName}}</a></li>
+            <li class=""><a ui-sref="news({page: 1, categoryId: item.newsCategoryId})">{{ item.newsCategoryName}}</a></li>
             <li class="">|</li>
             <li class="">@NewsMessages.AdditionTime</li>
             <li class="">{{item.additionTime | date:'medium'}}</li>
@@ -40,8 +41,9 @@
     </div>
     <hr/>
 </div>
-<div class="pagination"><uib-pagination total-items="countPage" ng-model="pageNo" ng-change="pageChanged()"></uib-pagination>
-     @* @Html.PageLinks(Model.PageNo, Model.CountPage, x => Url.Action("Index", "News", new { page = x  ,categoryId = Request.QueryString["categoryId"]*@     </div>
+<div class="pagination">
+    <uib-pagination ng-show="countPage > 15" total-items="countPage" ng-model="pageNo" ng-change="goToPage()"></uib-pagination>
+</div>
 
 <script type="text/ng-template" id="modalDeleteConfirmation.html">
     <div class="modal-header">

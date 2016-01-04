@@ -18,17 +18,16 @@ namespace MyLiverpool.Web.WebApi
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-
-
-            Database.SetInitializer(new DatabaseInitializer());
-            LiverpoolContext db = new LiverpoolContext();
-            db.Database.Initialize(true);
         }
 
         protected void Application_BeginRequest()
         {
             Thread.CurrentThread.CurrentCulture = new CultureInfo("ru");
             Thread.CurrentThread.CurrentUICulture = new CultureInfo("ru");
+
+            Database.SetInitializer(new DatabaseInitializer()); //todo remove
+            LiverpoolContext db = new LiverpoolContext();
+            db.Database.Initialize(true);
         }
     }
 }

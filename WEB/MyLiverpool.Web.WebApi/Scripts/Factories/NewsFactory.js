@@ -1,12 +1,12 @@
 ﻿var NewsFactory = function($q, $http, SessionService, $stateParams) {
 
     return {
-        getList: function() {
+        getList: function(page, categoryId) {
             var result = $q.defer();
 
             $http({
                 method: 'GET',
-                url: SessionService.apiUrl + '/api/News/List?page=' + $stateParams.page + '&categoryId=' + $stateParams.categoryId,
+                url: SessionService.apiUrl + '/api/News/List?page=' + page + '&categoryId=' + categoryId,
                 headers: { 'Content-Type': 'application/json' }
             })
             .success(function (response) {

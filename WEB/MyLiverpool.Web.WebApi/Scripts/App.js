@@ -186,7 +186,7 @@ configFunction.$inject = ['$stateProvider', '$httpProvider', '$locationProvider'
 
 App.config(configFunction);
 
-App.run(function(Authentication, Application, $rootScope, $location, RouteFilter, $http) {
+App.run(function (Authentication, Application, $rootScope, $location, RouteFilter, $http, uibPaginationConfig) {
     Authentication.requestUser();
     //    .then(function () {
    //     Application.makeReady();
@@ -210,6 +210,10 @@ App.run(function(Authentication, Application, $rootScope, $location, RouteFilter
             console.log('not ready');
         }
 
+        uibPaginationConfig.itemsPerPage = 15;
+        uibPaginationConfig.directionLinks = false;
+        uibPaginationConfig.maxSize = 5;
+        uibPaginationConfig.rotate = false;
 
         RouteFilter.run($location.path());
     });

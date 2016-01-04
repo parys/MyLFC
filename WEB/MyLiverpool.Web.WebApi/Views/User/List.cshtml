@@ -34,6 +34,5 @@
     </table>
 </div>
 <div class="pagination">
-    <uib-pagination total-items="countPage" ng-model="pageNo" ng-change="pageChanged()"></uib-pagination>
-    @*@Html.PageLinks(Model.PageNo, Model.CountPage, x => Url.Action("Index", new { page = x }))*@
-</div> 
+    <uib-pagination ng-show="countPage > 15" total-items="countPage" ng-model="pageNo" ng-change="goToPage()"></uib-pagination>
+</div>

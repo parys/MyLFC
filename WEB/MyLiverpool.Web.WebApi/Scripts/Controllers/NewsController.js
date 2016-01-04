@@ -1,11 +1,11 @@
-﻿var NewsController = function ($scope, NewsFactory, $uibModal, $rootScope) {
+﻿var NewsController = function ($scope, NewsFactory, $uibModal, $rootScope, $stateParams, $state) {
     $scope.newsItems = [];
-    $scope.pageNo = 1;
-    $scope.countPage = 1;
-    $scope.selectedNewsId = undefined;
+    $scope.pageNo = undefined;
+    $scope.countPage = undefined;
+    //$scope.$modalInstance = undefined;
 
-    var init = function() {
-        NewsFactory.getList()
+    var init = function(page, categoryId) {
+        NewsFactory.getList(page, categoryId)
             .then(function(response) {
                     $scope.newsItems = response.list;
                     $scope.pageNo = response.pageNo;
@@ -32,8 +32,6 @@
     $scope.isUserAuthor = function (userId, newsUserId) {
         return userId == newsUserId;
     }
-
-    $scope.$modalInstance = undefined;
 
     $scope.delete = function(index) {
         var modalInstance = $uibModal.open({
@@ -63,7 +61,11 @@
         
     }
 
-    init();
+    $scope.goToPage = function () {
+        $state.go('news', { page: $scope.pageNo, categoryId: $stateParams.categoryId });
+     }
+
+     init($stateParams.page, $stateParams.categoryId);
 };
 
-NewsController.$inject = ['$scope', 'NewsFactory', '$uibModal', '$rootScope'];
+NewsController.$inject = ['$scope', 'NewsFactory', '$uibModal', '$rootScope', '$stateParams', '$state'];

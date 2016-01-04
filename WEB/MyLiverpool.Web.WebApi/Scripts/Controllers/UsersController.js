@@ -1,9 +1,9 @@
-﻿var UsersController = function ($scope, $stateParams, UsersFactory) {
+﻿var UsersController = function ($scope, $stateParams, $state, UsersFactory) {
     $scope.users = [];
     $scope.pageNo = 1;
     $scope.countPage = 1;
-    var init = function () {
-        UsersFactory.getUsers($stateParams.page)
+    var init = function (page) {
+        UsersFactory.getUsers(page)
             .then(function (response) {
                 $scope.users = response.list;
                 $scope.pageNo = response.pageNo;
@@ -18,11 +18,11 @@
         return userId != userId2;
     }
 
-    $scope.pageChanged = function () {
-        console.log('Page changed to: ' + $scope.currentPage);
-    };
-
-    init();
+    $scope.goToPage = function () {
+        $state.go('users', { page: $scope.pageNo });
+    }
+    
+    init($stateParams.page);
 };
 
-UsersController.$inject = ['$scope', '$stateParams', 'UsersFactory'];
+UsersController.$inject = ['$scope', '$stateParams', '$state', 'UsersFactory'];

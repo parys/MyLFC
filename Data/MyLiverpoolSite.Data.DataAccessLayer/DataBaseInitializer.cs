@@ -629,11 +629,11 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
             {
                 news.Add(new NewsItem()
                 {
-                    NewsCategoryId = i/2==0 ? 1 : 2,
+                    NewsCategoryId = i % 2 == 0 ? 1 : 2,
                     AdditionTime = DateTime.Now.AddHours(randomizer.NextDouble() * -counterMax),
                     AuthorId = 1,
                     Brief = "brief" + i,
-                    CanCommentary = i/2 == 0,
+                    CanCommentary = i % 2 == 0,
                     LastModified = DateTime.Now.AddDays(randomizer.NextDouble()*-counterMax),
                     Message = @"У ""Красных"" шансы были немногочисленными в первые 45 минут матча на ""Стадионе Света"". Ближе всех был к успеху Роберто Фирмино, но голкипер ""котов"" Вито Манноне ""потянул"" удар. 
 
@@ -683,9 +683,9 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                     чем у нас,
                     так что это не так уж много,
                     но к сожалению и не мало...",
-                    OnTop = i / counterMax-2 == 0,
+                    OnTop = i % 48 == 0,
                     PhotoPath = "123",
-                    Pending = i / 5 == 0,
+                    Pending = i % 5 == 0,
                     Reads = 1110,
                     Source = "123",
                     Title = "news" + i
