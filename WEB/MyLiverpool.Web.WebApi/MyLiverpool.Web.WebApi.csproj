@@ -302,6 +302,7 @@
     <Content Include="Scripts\Controllers\ModalCtrl.js" />
     <Content Include="Scripts\Controllers\NewsCategoriesCtrl.js" />
     <Content Include="Scripts\Controllers\NewsController.js" />
+    <Content Include="Scripts\Controllers\NewsEditCtrl.js" />
     <Content Include="Scripts\Controllers\NewsItemController.js" />
     <Content Include="Scripts\Controllers\PmController.js" />
     <Content Include="Scripts\Controllers\PmsController.js" />
@@ -418,7 +419,6 @@
     <Content Include="Views\Manage\SetPassword.cshtml" />
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\News\Categories.cshtml" />
-    <Content Include="Views\News\Create.cshtml" />
     <Content Include="Views\News\Info.cshtml" />
     <Content Include="Views\News\Edit.cshtml" />
     <Content Include="Views\News\List.cshtml" />

@@ -120,6 +120,12 @@
   <data name="Birthday" xml:space="preserve">
     <value>Дата рождения:</value>
   </data>
+  <data name="Brief" xml:space="preserve">
+    <value>Краткое описание:</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Категория:</value>
+  </data>
   <data name="Email" xml:space="preserve">
     <value>Почтовый адрес:</value>
   </data>
@@ -129,11 +135,17 @@
   <data name="Message" xml:space="preserve">
     <value>Сообщение:</value>
   </data>
+  <data name="NewsMessage" xml:space="preserve">
+    <value>Текст новости:</value>
+  </data>
   <data name="Password" xml:space="preserve">
     <value>Пароль:</value>
   </data>
   <data name="PasswordConfirmation" xml:space="preserve">
     <value>Подтверждение пароля:</value>
+  </data>
+  <data name="PhotoPath" xml:space="preserve">
+    <value>Главное фото:</value>
   </data>
   <data name="ReceivedDate" xml:space="preserve">
     <value>Дата получения:</value>
@@ -146,6 +158,9 @@
   </data>
   <data name="SentDate" xml:space="preserve">
     <value>Дата отправки:</value>
+  </data>
+  <data name="Source" xml:space="preserve">
+    <value>Источник:</value>
   </data>
   <data name="Title" xml:space="preserve">
     <value>Заголовок:</value>

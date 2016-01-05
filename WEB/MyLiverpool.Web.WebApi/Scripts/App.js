@@ -5,6 +5,7 @@ App.controller('LoginController', LoginController);
 App.controller('RegisterController', RegisterController);
 App.controller('NewsController', NewsController);
 App.controller('NewsItemController', NewsItemController);
+App.controller('NewsEditCtrl', NewsEditCtrl);
 App.controller('UserController', UserController);
 App.controller('UsersController', UsersController);
 App.controller('PmController', PmController);
@@ -67,6 +68,15 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider,
                 "containerMain": {
                     templateUrl: function(params) { return '/news/info?id=' + params.id },
                     controller: NewsItemController
+                }
+            }
+        })
+        .state('newsEdit', {
+            url: '/newsEdit?id',
+            views: {
+                "containerMain": {
+                    templateUrl: function (params) { return '/news/Edit?id=' + params.id },
+                    controller: NewsEditCtrl
                 }
             }
         })

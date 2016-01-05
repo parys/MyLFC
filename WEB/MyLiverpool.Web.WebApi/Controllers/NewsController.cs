@@ -38,43 +38,9 @@ namespace MyLiverpool.Web.WebApi.Controllers
         }
 
         [Authorize(Roles = "NewsStart")]
-        public ActionResult Create()
+        public ActionResult Edit()
         {
             return View();
-        }
-
-
-        // GET: News/Edit/5
-        [Authorize]
-        public async Task<ActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var model = await _newsService.GetCreateEditViewModelAsync(id);
-            if (model == null)
-            {
-                return HttpNotFound();
-            }
-            return View(model);
-        }
-
-        // POST: News/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authorize]
-        public async Task<ActionResult> Edit(CreateEditNewsViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var result = await _newsService.EditAsync(model);
-
-                return RedirectToAction("List");
-            }
-            return View(model);
         }
 
         [Authorize]

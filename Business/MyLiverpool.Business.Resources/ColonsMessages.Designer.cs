@@ -70,6 +70,24 @@ namespace MyLiverpool.Business.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Краткое описание:.
+        /// </summary>
+        public static string Brief {
+            get {
+                return ResourceManager.GetString("Brief", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Категория:.
+        /// </summary>
+        public static string Category {
+            get {
+                return ResourceManager.GetString("Category", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Почтовый адрес:.
         /// </summary>
         public static string Email {
@@ -97,6 +115,15 @@ namespace MyLiverpool.Business.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Текст новости:.
+        /// </summary>
+        public static string NewsMessage {
+            get {
+                return ResourceManager.GetString("NewsMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Пароль:.
         /// </summary>
         public static string Password {
@@ -111,6 +138,15 @@ namespace MyLiverpool.Business.Resources {
         public static string PasswordConfirmation {
             get {
                 return ResourceManager.GetString("PasswordConfirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Главное фото:.
+        /// </summary>
+        public static string PhotoPath {
+            get {
+                return ResourceManager.GetString("PhotoPath", resourceCulture);
             }
         }
         
@@ -147,6 +183,15 @@ namespace MyLiverpool.Business.Resources {
         public static string SentDate {
             get {
                 return ResourceManager.GetString("SentDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Источник:.
+        /// </summary>
+        public static string Source {
+            get {
+                return ResourceManager.GetString("Source", resourceCulture);
             }
         }
         

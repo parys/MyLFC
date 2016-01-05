@@ -67,7 +67,7 @@
                 <li><a ui-sref="home">@CommonMessages.Home</a></li>
                 @if (User.IsInRole("AdminFull"))
                 {
-                    <li> @Html.ActionLink(CommonMessages.Roles, "Index", "Role") </li>
+                    @*<li> @Html.ActionLink(CommonMessages.Roles, "Index", "Role") </li>*@
                 }
                 <li> <a ui-sref="forum">@CommonMessages.Forum</a></li>
                 <li class="dropdown">
@@ -76,7 +76,7 @@
                         <li><a ui-sref="news">@CommonMessages.News</a></li>
                         @if (User.IsInRole("NewsStart"))
                         {
-                            <li>@Html.ActionLink(CommonMessages.Create, "Create", "News")</li>
+                            <li><a ui-sref="newsEdit()">@CommonMessages.Create</a></li>
                         }
                         <li><a ui-sref="newsCategories()">@CommonMessages.Categories</a></li>
                     </ul>
@@ -87,7 +87,7 @@
                         <li>@Html.ActionLink(CommonMessages.Blogs, "Index", "Blog")</li>
                         @if (User.IsInRole("BlogsStart"))
                         {
-                            <li>@Html.ActionLink(CommonMessages.Create, "Create", "Blog")</li>
+                            <li>@*@Html.ActionLink(CommonMessages.Create, "Create", "Blog")*@</li>
                         }@*       <li>@Html.ActionLink(CommonMessages.Categories, "Categories", "Blog")</li>*@</ul>
                 </li>
                 <li class="dropdown">

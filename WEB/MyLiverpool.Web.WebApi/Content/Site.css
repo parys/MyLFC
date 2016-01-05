@@ -1,4 +1,9 @@
-﻿.mainContent {
+﻿textarea {
+    resize: vertical;
+}
+
+
+.mainContent {
     margin-top: 60px;
 }
 
