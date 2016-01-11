@@ -1,5 +1,5 @@
 ﻿@using Microsoft.AspNet.Identity
-@using MyLiverpoolSite.Business.ViewModels.Resources
+@using MyLiverpool.Business.Resources
 @if (Request.IsAuthenticated)
 {
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
@@ -10,7 +10,7 @@
         <li>
             @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
         </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">@CommonMessages.Logoff</a></li>
+        <li><a href="javascript:document.getElementById('logoutForm').submit()">@CommonMessages.Logout</a></li>
     </ul>
     }
 }

@@ -383,7 +383,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Base\" />
-    <Folder Include="Views\BlogComment\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -423,10 +422,10 @@
     <Content Include="Views\News\Edit.cshtml" />
     <Content Include="Views\News\List.cshtml" />
     <Content Include="Views\Role\Index.cshtml" />
-    <Content Include="Views\Shared\_LeftSideBar.cshtml" />
+    <Content Include="Views\Home\LeftSideBar.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_NewsList.cshtml" />
-    <Content Include="Views\Shared\_RightSideBar.cshtml" />
+    <Content Include="Views\Home\RightSideBar.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\User\List.cshtml" />
     <Content Include="Views\User\PrivateMessages.cshtml" />

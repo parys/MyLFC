@@ -5,6 +5,7 @@ using Microsoft.AspNet.Identity;
 using MyLiverpool.Business.DTO;
 using MyLiverpoolSite.Business.Contracts;
 using MyLiverpoolSite.Data.DataAccessLayer;
+using MyLiverpoolSite.Data.Entities;
 
 namespace MyLiverpool.Web.WebApi.Controllers
 {
@@ -71,6 +72,23 @@ namespace MyLiverpool.Web.WebApi.Controllers
         public async Task<IHttpActionResult> Categories()
         {
             var result = await _newsCategoryService.GetCategoriesDtoAsync();
+            return Ok(result);
+        }
+
+        [Route("Create")]
+        [HttpPost]
+        [Authorize(Roles = "NewsStart")]
+        public async Task<IHttpActionResult> Create(NewsItemDto model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            if (!User.IsInRole(RolesEnum.NewsFull.ToString()))
+            {
+                model.Pending = true;
+            }
+            var result = await _newsService.CreateAsync(model, User.Identity.GetUserId<int>());
             return Ok(result);
         }
     }

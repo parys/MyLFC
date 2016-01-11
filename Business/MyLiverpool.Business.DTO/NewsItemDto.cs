@@ -18,7 +18,7 @@ namespace MyLiverpool.Business.DTO
 
         public bool CanCommentary { get; set; }
 
-        public DateTime AdditionTime { get; set; }
+        public DateTime? AdditionTime { get; set; }
 
    //     public uint NumberCommentaries { get; set; }
 

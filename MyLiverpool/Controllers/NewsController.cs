@@ -114,7 +114,7 @@ namespace MyLiverpool.Controllers
             {
                 return HttpNotFound();
             }
-            var result = await _newsService.DeleteAsync(id.Value);
+            var result = await _newsService.DeleteAsync(id.Value, 1);
             return Json(result);
         }
 

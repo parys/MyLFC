@@ -72,7 +72,7 @@ namespace MyLiverpoolSite.Business.Services.Services
             return newsItem.Id;
         }
 
-        public async Task<int> CreateAsync(CreateEditNewsViewModel model, int userId)
+        public async Task<int> CreateVmAsync(CreateEditNewsViewModel model, int userId)
         {
             var newsItem = Mapper.Map<NewsItem>(model);
             newsItem.AdditionTime = DateTime.Now;
@@ -159,6 +159,7 @@ namespace MyLiverpoolSite.Business.Services.Services
             {
                 return null;
             }
+            //todo newsCounter
             var dto = Mapper.Map<NewsItemDto>(newsItem);
             return dto;
         }
@@ -201,6 +202,27 @@ namespace MyLiverpoolSite.Business.Services.Services
             await _unitOfWork.SaveAsync();
             return true;
         }
+
+        public async Task<bool> CreateAsync(NewsItemDto model, int userId)
+        {
+            if (!model.AdditionTime.HasValue)
+            {
+                model.AdditionTime = DateTime.Now;
+                model.AuthorId = userId;
+            }
+            var newsItem = Mapper.Map<NewsItem>(model);
+            newsItem.LastModified = DateTime.Now;
+            try
+            {
+                _unitOfWork.NewsItemRepository.Add(newsItem);
+                await _unitOfWork.SaveAsync();
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            return true;
+        } 
 
         #endregion
     }

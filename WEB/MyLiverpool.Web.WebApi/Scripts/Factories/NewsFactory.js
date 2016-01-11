@@ -73,7 +73,7 @@
             var result = $q.defer();
 
             $http({
-                    method: 'Get',
+                    method: 'GET',
                     url: SessionService.apiUrl + '/api/News/categories',
                     headers: { 'Content-Type': 'application/json' }
                 })
@@ -85,7 +85,25 @@
                 });
 
             return result.promise;
-        }
+        },
+        create: function(item) {
+            var result = $q.defer();
+
+            $http({
+                    method: 'POST',
+                    url: SessionService.apiUrl + '/api/News/create',
+                    data: item,
+                    headers: { 'Content-Type': 'application/json' }
+                })
+                .success(function(response) {
+                    result.resolve(response);
+                })
+                .error(function(response) {
+                    result.reject(response);
+                });
+
+            return result.promise;
+        },
 
 
     }

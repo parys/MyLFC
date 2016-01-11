@@ -17,7 +17,7 @@ namespace MyLiverpoolSite.Business.Contracts
         /// <returns>Found newsItem or null.</returns>
         Task<IndexNewsViewModel> GetByIdAsync(int id);
 
-        Task<int> CreateAsync(CreateEditNewsViewModel model, int userId);
+        Task<int> CreateVmAsync(CreateEditNewsViewModel model, int userId);
 
         Task<int> EditAsync(CreateEditNewsViewModel newsItem);
 
@@ -31,10 +31,12 @@ namespace MyLiverpoolSite.Business.Contracts
 
         Task<bool> ActivateAsync(int id);
 
-        Task<IEnumerable<IndexNewsCategoryVM>> GetCategoriesAsync();
+       // Task<IEnumerable<IndexNewsCategoryVM>> GetCategoriesAsync();
 
         Task<PageableData<NewsMiniDto>> GetDtoAllAsync(int page, int? categoryId);
 
         Task<NewsItemDto> GetDtoAsync(int id);
+
+        Task<bool> CreateAsync(NewsItemDto dto, int userId);
     }
 }

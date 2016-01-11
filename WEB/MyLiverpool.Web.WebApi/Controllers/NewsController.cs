@@ -1,17 +1,14 @@
-﻿using System.Net;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using MyLiverpool.Controllers;
 using MyLiverpoolSite.Business.Contracts;
-using MyLiverpoolSite.Business.ViewModels.News;
 
 namespace MyLiverpool.Web.WebApi.Controllers
 {
     [Authorize]
     public class NewsController : BaseController
     {
-        private readonly INewsService _newsService;
         private readonly INewsCommentService _newsCommentService;
 
         public NewsController()
@@ -19,9 +16,8 @@ namespace MyLiverpool.Web.WebApi.Controllers
             
         }
 
-        public NewsController(INewsService newsService, INewsCommentService newsCommentService)//todo remove
+        public NewsController(INewsCommentService newsCommentService)//todo remove
         {
-            _newsService = newsService;
             _newsCommentService = newsCommentService;
         }
 
