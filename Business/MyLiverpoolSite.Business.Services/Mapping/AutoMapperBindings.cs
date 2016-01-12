@@ -141,16 +141,18 @@ namespace MyLiverpoolSite.Business.Services.Mapping
                 .ForMember(dest => dest.PhotoPath, src => src.MapFrom(x => x.PhotoPath))
                 .ForMember(dest => dest.Reads, src => src.MapFrom(x => x.Reads));
 
-            Mapper.CreateMap<NewsItem, NewsItemDto>()
+            Mapper.CreateMap<NewsItem, NewsItemDto>() //todo maybe separate for edit model
                 .ForMember(dest => dest.AdditionTime, src => src.MapFrom(x => x.AdditionTime))
                 .ForMember(dest => dest.AuthorId, src => src.MapFrom(x => x.AuthorId))
                 .ForMember(dest => dest.AuthorUserName, src => src.MapFrom(x => x.Author.UserName))
+                .ForMember(dest => dest.Brief, src => src.MapFrom(x => x.Brief))
                 .ForMember(dest => dest.CanCommentary, src => src.MapFrom(x => x.CanCommentary))
                 .ForMember(dest => dest.Comments,
                     src => src.MapFrom(x => Mapper.Map<ICollection<NewsCommentDto>>(x.Comments)))
                 .ForMember(dest => dest.Message, src => src.MapFrom(x => x.Message))
                 .ForMember(dest => dest.NewsCategoryId, src => src.MapFrom(x => x.NewsCategoryId))
                 .ForMember(dest => dest.NewsCategoryName, src => src.MapFrom(x => x.NewsCategory.Name))
+                .ForMember(dest => dest.OnTop, src => src.MapFrom(x => x.OnTop))
                 .ForMember(dest => dest.Pending, src => src.MapFrom(x => x.Pending))
                 .ForMember(dest => dest.Reads, src => src.MapFrom(x => x.Reads))
                 .ForMember(dest => dest.Source, src => src.MapFrom(x => x.Source))
@@ -159,10 +161,12 @@ namespace MyLiverpoolSite.Business.Services.Mapping
             Mapper.CreateMap<NewsItemDto, NewsItem>()
                 .ForMember(dest => dest.AdditionTime, src => src.MapFrom(x => x.AdditionTime.Value))
                 .ForMember(dest => dest.AuthorId, src => src.MapFrom(x => x.AuthorId))
+                .ForMember(dest => dest.Brief, src => src.MapFrom(x => x.Brief))
                 .ForMember(dest => dest.CanCommentary, src => src.MapFrom(x => x.CanCommentary))
                 .ForMember(dest => dest.Comments, src => src.Ignore())
                 .ForMember(dest => dest.Message, src => src.MapFrom(x => x.Message))
                 .ForMember(dest => dest.NewsCategoryId, src => src.MapFrom(x => x.NewsCategoryId))
+                .ForMember(dest => dest.OnTop, src => src.MapFrom(x => x.OnTop))
                 .ForMember(dest => dest.Pending, src => src.MapFrom(x => x.Pending))
                 .ForMember(dest => dest.Reads, src => src.MapFrom(x => x.Reads))
                 .ForMember(dest => dest.Source, src => src.MapFrom(x => x.Source))

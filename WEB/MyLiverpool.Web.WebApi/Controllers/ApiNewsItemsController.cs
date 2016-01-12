@@ -91,5 +91,27 @@ namespace MyLiverpool.Web.WebApi.Controllers
             var result = await _newsService.CreateAsync(model, User.Identity.GetUserId<int>());
             return Ok(result);
         }
+
+        [Route("Edit")]
+        [HttpPut]
+        [Authorize(Roles = "NewsStart")]
+        public async Task<IHttpActionResult> Edit(NewsItemDto model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            
+            if (!User.IsInRole(RolesEnum.NewsFull.ToString()))
+            {
+                if (model.AuthorId != User.Identity.GetUserId<int>())
+                {
+                    return Unauthorized();
+                }
+                model.Pending = true;
+            }
+            var result = await _newsService.EditAsync(model, User.Identity.GetUserId<int>());
+            return Ok(result);
+        }
     }
 }

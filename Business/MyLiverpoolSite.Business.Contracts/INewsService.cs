@@ -38,5 +38,7 @@ namespace MyLiverpoolSite.Business.Contracts
         Task<NewsItemDto> GetDtoAsync(int id);
 
         Task<bool> CreateAsync(NewsItemDto dto, int userId);
+
+        Task<bool> EditAsync(NewsItemDto dto, int userId);
     }
 }

@@ -205,7 +205,7 @@ namespace MyLiverpoolSite.Business.Services.Services
 
         public async Task<bool> CreateAsync(NewsItemDto model, int userId)
         {
-            if (!model.AdditionTime.HasValue)
+            //if (!model.AdditionTime.HasValue)
             {
                 model.AdditionTime = DateTime.Now;
                 model.AuthorId = userId;
@@ -215,6 +215,33 @@ namespace MyLiverpoolSite.Business.Services.Services
             try
             {
                 _unitOfWork.NewsItemRepository.Add(newsItem);
+                await _unitOfWork.SaveAsync();
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            return true;
+        } 
+
+        public async Task<bool> EditAsync(NewsItemDto model, int userId)
+        {
+           // var newsItem = Mapper.Map<NewsItem>(model);
+            var updatingItem = await _unitOfWork.NewsItemRepository.GetByIdAsync(model.Id);
+            updatingItem.LastModified = DateTime.Now;
+            updatingItem.Brief = model.Brief;
+            updatingItem.Title = model.Title;
+            updatingItem.Message = model.Message;
+            updatingItem.CanCommentary = model.CanCommentary;
+            updatingItem.OnTop = model.OnTop;
+            updatingItem.Pending = model.Pending;
+            updatingItem.PhotoPath = model.PhotoPath;
+            updatingItem.Source = model.Source;
+            updatingItem.NewsCategoryId = model.NewsCategoryId;
+
+            try
+            {
+                _unitOfWork.NewsItemRepository.Update(updatingItem);
                 await _unitOfWork.SaveAsync();
             }
             catch (Exception)

@@ -9,18 +9,15 @@
             <a ui-sref="newsInfo({id: item.id})" class="col-md-9"><span>{{ item.title }}</span></a>
             @if (User.IsInRole("NewsStart"))
             {
-                <span class="col-md-3">
-                        @if (User.IsInRole("NewsFull"))
-                        {
-                            <a ng-show="item.pending" ng-click="activate($index)" href=""><span class="glyphicon glyphicon-ok"></span></a>
-                        }
-                  @*todo*@      <a ng-show="isUserAuthor(userId(), item.authorId)" ng-click=""><span class="glyphicon glyphicon-pencil"></span></a>
-                        <a ng-show="isUserAuthor(userId(), item.authorId)" ng-click="delete($index)"><span class="glyphicon glyphicon-trash"></span></a>
-                    </span>
+                <span class="col-md-3" ng-show="isUserAuthor(userId(), item.authorId)">
+                    <a ng-show="item.pending" ng-click="activate($index)"><span class="glyphicon glyphicon-ok"></span></a>
+                    <a ui-sref="newsEdit({id: item.id})"><span class="glyphicon glyphicon-pencil"></span></a>@*todo*@
+                    <a ng-click="delete($index)"><span class="glyphicon glyphicon-trash"></span></a>
+                </span>
             }
         </div>
         <div class="row">
-            <img class="img-thumbnail" alt="" ng-src="{{item.photoPath}}" style="width: 300px; height: 140px;"/>
+            <img class="img-thumbnail" alt="" ng-src="{{item.photoPath}}" style="width: 300px; height: 140px;" />
         </div>
         <div class="row">
             <span><i> {{ item.brief }}</i></span>
@@ -39,7 +36,7 @@
             <li class=""><a ui-sref="userInfo({id: item.authorId })">{{item.authorUserName }}</a></li>
         </ul>
     </div>
-    <hr/>
+    <hr />
 </div>
 <div class="pagination">
     <uib-pagination ng-show="countPage > 15" total-items="countPage" ng-model="pageNo" ng-change="goToPage()"></uib-pagination>
@@ -66,61 +63,61 @@
 
 
 @*<div class="modal fade" id="confirmDelete">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <input hidden id="newsId" value="" />
-                <h4 class="modal-title">@CommonMessages.DeleteConfirmation</h4>
-            </div>
-            <div class="modal-body">
-                <p>@CommonMessages.Delete?</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">@CommonMessages.Cancel</button>
-                <button type="button" class="btn btn-primary" id="delete">@CommonMessages.Delete</button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->*@
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <input hidden id="newsId" value="" />
+                    <h4 class="modal-title">@CommonMessages.DeleteConfirmation</h4>
+                </div>
+                <div class="modal-body">
+                    <p>@CommonMessages.Delete?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">@CommonMessages.Cancel</button>
+                    <button type="button" class="btn btn-primary" id="delete">@CommonMessages.Delete</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->*@
 
 @*<script>
-    $(document).ready(function() {
-        $('#confirmDelete').on('shown.bs.modal', function(e) {
-            console.log($(e.relatedTarget).attr('data-id'));
-            var id = $(e.relatedTarget).attr('data-id');
-            $('#newsId').val(id);
-        });
-
-        $('button#delete').on('click', function() {
-            console.log('delete');
-            deleteNews();
-        });
-
-        function deleteNews() {
-            var newsId = $('#newsId').val();
-            if (!newsId) {
-                console.log("newsId null");
-                return;
-            }
-            $.ajax({
-                type: 'post',
-                url: '@Url.Action("Delete", "News")',
-                data: { id: newsId },
-                beforeSend: function() {
-
-                },
-                success: function(response) {
-                    $('#newsId').val('');
-                    if (response) {
-                        $('#newsId').val('');
-                        console.log('finish');
-                    } else {
-                        console.log("not delete");
-                    }
-                    $('#confirmDelete').modal('hide');
-                }
+        $(document).ready(function() {
+            $('#confirmDelete').on('shown.bs.modal', function(e) {
+                console.log($(e.relatedTarget).attr('data-id'));
+                var id = $(e.relatedTarget).attr('data-id');
+                $('#newsId').val(id);
             });
-        }
-    });
-</script>*@
+
+            $('button#delete').on('click', function() {
+                console.log('delete');
+                deleteNews();
+            });
+
+            function deleteNews() {
+                var newsId = $('#newsId').val();
+                if (!newsId) {
+                    console.log("newsId null");
+                    return;
+                }
+                $.ajax({
+                    type: 'post',
+                    url: '@Url.Action("Delete", "News")',
+                    data: { id: newsId },
+                    beforeSend: function() {
+
+                    },
+                    success: function(response) {
+                        $('#newsId').val('');
+                        if (response) {
+                            $('#newsId').val('');
+                            console.log('finish');
+                        } else {
+                            console.log("not delete");
+                        }
+                        $('#confirmDelete').modal('hide');
+                    }
+                });
+            }
+        });
+    </script>*@

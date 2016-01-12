@@ -104,6 +104,24 @@
 
             return result.promise;
         },
+        edit: function (item) {
+            var result = $q.defer();
+
+            $http({
+                    method: 'PUT',
+                    url: SessionService.apiUrl + '/api/News/edit',
+                    data: item,
+                    headers: { 'Content-Type': 'application/json' }
+                })
+                .success(function(response) {
+                    result.resolve(response);
+                })
+                .error(function(response) {
+                    result.reject(response);
+                });
+
+            return result.promise;
+        },
 
 
     }

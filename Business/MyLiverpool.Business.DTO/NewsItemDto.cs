@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Web.Mvc;
 
 namespace MyLiverpool.Business.DTO
 {
@@ -16,8 +17,6 @@ namespace MyLiverpool.Business.DTO
       
         public string NewsCategoryName { get; set; }
 
-        public bool CanCommentary { get; set; }
-
         public DateTime? AdditionTime { get; set; }
 
    //     public uint NumberCommentaries { get; set; }
@@ -28,20 +27,24 @@ namespace MyLiverpool.Business.DTO
 
         public string Title { get; set; }
 
-     //   [AllowHtml]
-     //   public string Brief { get; set; }
+        [AllowHtml]
+        public string Brief { get; set; }
 
-     //   [AllowHtml]
+        [AllowHtml]
         public string Message { get; set; }
 
         public int Reads { get; set; }
 
         public string Source { get; set; }
 
-      //  public DateTime LastModified { get; set; }
+        public string PhotoPath { get; set; }
 
         public virtual ICollection<NewsCommentDto> Comments { get; set; }
 
         public bool Pending { get; set; }
+
+        public bool OnTop { get; set; }
+
+        public bool CanCommentary { get; set; }
     }
 }

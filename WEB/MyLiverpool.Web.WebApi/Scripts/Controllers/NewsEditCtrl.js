@@ -51,12 +51,12 @@
                 NewsFactory.edit($scope.item)
                     .then(function (response) {
                         if (response) {
-                            $rootScope.alerts.push({ type: 'success', msg: 'Новость успешно создана.' });
-                            $state.go('news');
+                          //  $rootScope.alerts.push({ type: 'success', msg: 'Новость успешно создана.' });
+                            $state.go('newsInfo', { id: $scope.item.id });
                         }
                     },
                         function (response) {
-                            $rootScope.alerts.push({ type: 'danger', msg: 'Новость не была добавлена.' });
+                          //  $rootScope.alerts.push({ type: 'danger', msg: 'Новость не была добавлена.' });
                         });
             }
         }
