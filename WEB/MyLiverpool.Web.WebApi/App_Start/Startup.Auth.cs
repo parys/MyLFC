@@ -94,6 +94,7 @@ namespace MyLiverpool.Web.WebApi
 
         public void ConfigureAuth(IAppBuilder app)
         {
+
             // Configure the db context and user manager to use a single instance per request
             app.CreatePerOwinContext(LiverpoolContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
@@ -111,8 +112,8 @@ namespace MyLiverpool.Web.WebApi
                 Provider = new ApplicationOAuthProvider(PublicClientId),
                 AuthorizeEndpointPath = new PathString("/api/Account/ExternalLogin"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromDays(14),
-                // In production mode set AllowInsecureHttp = false
-                AllowInsecureHttp = true
+                // In production mode set AllowInsecureHttp = false todo
+                AllowInsecureHttp = true,
             };
 
             // Enable the application to use bearer tokens to authenticate users

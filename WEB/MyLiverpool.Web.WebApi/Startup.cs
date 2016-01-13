@@ -38,12 +38,29 @@ namespace MyLiverpool.Web.WebApi
 
             // Register the Autofac middleware FIRST. This also adds
             // Autofac-injected middleware registered with the container.
-         //   app.UseAutofacMiddleware(container);
-         //   app.UseAutofacMvc();
-          //  app
+            //   app.UseAutofacMiddleware(container);
+            //   app.UseAutofacMvc();
+            //  app
 
-         //   app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);//todo
+            app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);//todo
             AutoMapperBindings.Configure();
+
+            //app.Use(async (context, next) =>
+            //{
+            //    context.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*"});
+            //    context.Response.Headers.Add("Access-Control-Allow-Methods", new[] { "GET, POST, PUT, DELETE, OPTIONS"});
+            //    context.Response.Headers.Add("Access-Control-Allow-Headers", new[] {"Content-Type, x-xsrf-token"});
+
+            //    if (context.Request.Method == "OPTIONS")
+            //    {
+            //        context.Response.StatusCode = 200;
+            //    }
+            //    else
+            //    {
+            //        await next();
+            //    }
+            //});
+
         }
 
         private void RegisterServices(ContainerBuilder builder)

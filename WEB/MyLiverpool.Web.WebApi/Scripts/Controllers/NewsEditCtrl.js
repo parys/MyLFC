@@ -1,4 +1,4 @@
-﻿var NewsEditCtrl = function ($scope, NewsFactory, $stateParams, validationService) {//, $uibModal, $rootScope, $state) {
+﻿var NewsEditCtrl = function ($scope, NewsFactory, $stateParams, validationService, $state) {//, $uibModal, $rootScope) {
     $scope.item = {
         id: undefined,
         title: undefined,
@@ -65,4 +65,4 @@
     init();
 };
 
-NewsEditCtrl.$inject = ['$scope', 'NewsFactory', '$stateParams', 'validationService'];
+NewsEditCtrl.$inject = ['$scope', 'NewsFactory', '$stateParams', 'validationService', '$state'];

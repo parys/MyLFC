@@ -82,7 +82,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.8.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -97,6 +97,10 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Cors.5.2.3\lib\net45\System.Web.Http.Cors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
@@ -270,24 +274,32 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\angular\min\angular-translate-loader-static-files.min.js" />
+    <Content Include="Scripts\angular\31ui-bootstrap-tpls.js" />
+    <Content Include="Scripts\angular\min\ui-bootstrap-tpls.min.js" />
+    <Content Include="Scripts\angular\30ui-bootstrap.js" />
+    <Content Include="Scripts\angular\min\ui-bootstrap.min.js" />
+    <Content Include="Scripts\angular\min\angular-validation.min.js" />
     <Content Include="Scripts\angular\21angular-route.js" />
     <Content Include="Scripts\angular\min\angular-route.min.js" />
     <Content Include="Scripts\angular\22angular-translate.js" />
     <Content Include="Scripts\angular\min\angular-translate.min.js" />
+    <None Include="Properties\PublishProfiles\someeFreeQA.pubxml" />
+    <Content Include="Scripts\angular-validation\locales\ru.json" />
+    <Content Include="Scripts\angular-validation\locales\pt-br.json" />
+    <Content Include="Scripts\angular-validation\locales\pl.json" />
+    <Content Include="Scripts\angular-validation\locales\no.json" />
+    <Content Include="Scripts\angular-validation\locales\fr.json" />
+    <Content Include="Scripts\angular-validation\locales\es.json" />
+    <Content Include="Scripts\angular-validation\locales\en.json" />
     <None Include="Scripts\angular\min\angular-route.min.jsOLD" />
     <Content Include="Scripts\angular\23angular-translate-loader-static-files.js" />
-    <Content Include="Scripts\angular\min\angular-translate-loader-static-files.min.js" />
     <None Include="Scripts\angular\min\angular-translate.min.jsOLD" />
     <Content Include="Scripts\angular\angular-validation.js" />
     <Content Include="Scripts\angular\angular-cookies.js" />
     <Content Include="Scripts\angular\angular-mocks.js" />
     <Content Include="Scripts\angular\angular-ui-router.js" />
     <Content Include="Scripts\angular\min\angular-ui-router.min.js" />
-    <Content Include="Scripts\angular\min\angular-validation.min.js" />
-    <Content Include="Scripts\angular\ui-bootstrap-tpls.js" />
-    <Content Include="Scripts\angular\min\ui-bootstrap-tpls.min.js" />
-    <Content Include="Scripts\angular\ui-bootstrap.js" />
-    <Content Include="Scripts\angular\min\ui-bootstrap.min.js" />
     <Content Include="Scripts\angular\1angular.js" />
     <Content Include="Scripts\angular\min\angular.min.js" />
     <Content Include="Scripts\App.js" />
@@ -346,30 +358,24 @@
     <Content Include="Areas\HelpPage\Views\Web.config" />
     <Content Include="Areas\HelpPage\Views\_ViewStart.cshtml" />
     <None Include="Scripts\angular\angular-route.min.js.mapOLD" />
-    <Content Include="Scripts\angular-validation\locales\ru.json" />
-    <Content Include="Scripts\angular-validation\locales\pt-br.json" />
-    <Content Include="Scripts\angular-validation\locales\pl.json" />
-    <Content Include="Scripts\angular-validation\locales\no.json" />
-    <Content Include="Scripts\angular-validation\locales\fr.json" />
-    <Content Include="Scripts\angular-validation\locales\es.json" />
     <Content Include="Scripts\Factories\RouteFilter.js" />
     <Content Include="Scripts\Factories\UsersFactory.js" />
     <Content Include="Scripts\Filters.js" />
     <Content Include="Scripts\angular\angular-route.min.js.map" />
-    <None Include="Scripts\jquery-2.1.4.intellisense.js" />
-    <Content Include="Scripts\jquery-2.1.4.js" />
-    <Content Include="Scripts\jquery-2.1.4.min.js" />
+    <None Include="Scripts\jquery-2.2.0.intellisense.js" />
+    <Content Include="Scripts\jquery-2.2.0.js" />
+    <Content Include="Scripts\jquery-2.2.0.min.js" />
     <Content Include="Scripts\Services\Authentication.js" />
     <Content Include="Scripts\Services\SessionService.js" />
-    <Content Include="template\alert\alert.html" />
-    <Content Include="template\datepicker\Datepicker.html" />
-    <Content Include="template\datepicker\day.html" />
-    <Content Include="template\datepicker\month.html" />
-    <Content Include="template\datepicker\popup.html" />
-    <Content Include="template\datepicker\year.html" />
-    <Content Include="template\modal\backdrop.html" />
-    <Content Include="template\modal\window.html" />
-    <Content Include="template\pagination\pagination.html" />
+    <Content Include="uib\template\alert\alert.html" />
+    <Content Include="uib\template\datepicker\Datepicker.html" />
+    <Content Include="uib\template\datepicker\day.html" />
+    <Content Include="uib\template\datepicker\month.html" />
+    <Content Include="uib\template\datepicker\popup.html" />
+    <Content Include="uib\template\datepicker\year.html" />
+    <Content Include="uib\template\modal\backdrop.html" />
+    <Content Include="uib\template\modal\window.html" />
+    <Content Include="uib\template\pagination\pagination.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -379,9 +385,11 @@
     </Content>
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Scripts\jquery-2.2.0.min.map" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Scripts\angular-ui\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -432,7 +440,6 @@
     <Content Include="Views\User\ReadMessage.cshtml" />
     <Content Include="Views\User\WriteMessage.cshtml" />
     <Content Include="Views\Web.config" />
-    <Content Include="Scripts\jquery-2.1.4.min.map" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Business\MyLiverpool.Business.DTO\MyLiverpool.Business.DTO.csproj">
