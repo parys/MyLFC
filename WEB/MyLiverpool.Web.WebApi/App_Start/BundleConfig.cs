@@ -1,5 +1,4 @@
-﻿using System.Web;
-using System.Web.Optimization;
+﻿using System.Web.Optimization;
 
 namespace MyLiverpool.Web.WebApi
 {
@@ -18,6 +17,7 @@ namespace MyLiverpool.Web.WebApi
                 .IncludeDirectory("~/Scripts/Controllers", "*.js")
                 .IncludeDirectory("~/Scripts/Factories", "*.js")
                 .IncludeDirectory("~/Scripts/Services", "*.js")
+                .IncludeDirectory("~/Scripts/Directives", "*.js")
                 .Include("~/Scripts/jquery-{version}.js")
                 .Include("~/Scripts/App.js"));
 

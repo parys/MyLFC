@@ -22,6 +22,9 @@ App.factory('Authentication', Authentication);
 App.factory('Application', Application);
 App.factory('RouteFilter', RouteFilter);
 
+App.factory('RecursionHelper', RecursionHelper);
+App.directive('tree', tree);
+
 //App.factory('AuthHttpResponseInterceptor', AuthHttpResponseInterceptor);
 App.factory('AccountFactory', AccountFactory);
 App.factory('NewsFactory', NewsFactory);

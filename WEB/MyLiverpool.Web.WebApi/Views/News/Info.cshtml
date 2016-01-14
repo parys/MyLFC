@@ -22,27 +22,27 @@
         {{ item.message }}
         <div class="row-fluid alert-warning">
             <ul class="list-inline">
-                <li><label>Reads:</label> {{ item.reads }}</li>
-                <li><label>Source:</label> {{ item.source }}</li>
-                <li><label>AdditionTime:</label> {{ item.additionTime | date:'medium' }}</li>
-                <li><label>NewsCategory:</label> <a ui-sref="news({page: 1, categoryId: item.newsCategoryId})"> {{ item.newsCategoryName }} </a></li>
+                <li><label>@ColonsMessages.Reads</label> {{ item.reads }}</li>
+                <li><label>@ColonsMessages.Source</label> {{ item.source }}</li>
+                <li><label>@ColonsMessages.AdditionTime</label> {{ item.additionTime | date:'medium' }}</li>
+                <li><label>@ColonsMessages.Category</label> <a ui-sref="news({page: 1, categoryId: item.newsCategoryId})"> {{ item.newsCategoryName }} </a></li>
             </ul>
         </div>
     </div>
-    <div class="media-list" id="comments">
-        {{item.comments.length}}
-        @*  @ShowTree(Model.Comments, 0)*@
+
+    {{item.comments.length}}
+    <div class="" id="comments" ng-repeat="comment in item.comments">
+        <tree comment="comment" deep="0"></tree>
     </div>
-   @if (Request.IsAuthenticated) //todo edit to angular
-    {
-       <div class="col-md-12" ng-if="item.canCommentary">
-        <div class="">
-            <textarea id="newsCommentMessage" class="col-md-4 editor" rows="6"></textarea>
-            <br />
+
+    <div class="col-md-12" ng-if="item.canCommentary" ng-show="loggedIn()">
+        <div class="col-md-12">
+            <textarea id="newsCommentMessage" class="col-md-offset-3 col-md-6" rows="6"></textarea>
+        </div>
+        <div class="row">
             <button class="btn btn-primary center-block" data-toggle="modal" data-target="#myModal" id="addComment"> @CommonMessages.Create</button>
         </div>
     </div>
-    }
 </div>
 @*@helper ShowTree(IEnumerable<IndexNewsCommentVM> comments, int deep)
         {

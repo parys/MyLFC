@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.Entity;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Reflection;
 using Microsoft.AspNet.Identity;
@@ -12,6 +13,9 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
 {
     public class DatabaseInitializer : DropCreateDatabaseIfModelChanges<LiverpoolContext> //todo WARNING ALARM
     {
+        private const int CountNews = 100;
+        private const int CountNewsComments = 100;
+        private const int CountUsers = 3;
 
         protected override void Seed(LiverpoolContext context)
         {
@@ -30,6 +34,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
 
                 InitializeNewsCategories(context);
                 InitializeNews(context);
+                InitializeNewsComments(context);
 
                 InitializePrivateMessages(context);
 
@@ -624,17 +629,17 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
         {
             var news = new List<NewsItem>();
             var randomizer = new Random(44);
-            var counterMax = 100;
-            for (int i = 0; i < counterMax; i++)
+
+            for (int i = 0; i < CountNews; i++)
             {
                 news.Add(new NewsItem()
                 {
                     NewsCategoryId = i % 2 == 0 ? 1 : 2,
-                    AdditionTime = DateTime.Now.AddHours(randomizer.NextDouble() * -counterMax),
+                    AdditionTime = DateTime.Now.AddHours(randomizer.NextDouble() * -CountNews),
                     AuthorId = 1,
                     Brief = "brief" + i,
                     CanCommentary = i % 2 == 0,
-                    LastModified = DateTime.Now.AddDays(randomizer.NextDouble()*-counterMax),
+                    LastModified = DateTime.Now.AddDays(randomizer.NextDouble()*-CountNews),
                     Message = @"У ""Красных"" шансы были немногочисленными в первые 45 минут матча на ""Стадионе Света"". Ближе всех был к успеху Роберто Фирмино, но голкипер ""котов"" Вито Манноне ""потянул"" удар. 
 
 Зато уже через считанные секунды после перерыва,
@@ -693,6 +698,80 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
             };
 
             news.ForEach(x => context.NewsItems.Add(x));
+            context.SaveChanges();
+        }
+
+        private void InitializeNewsComments(LiverpoolContext context)
+        {
+            var newsComments = new List<NewsComment>();
+            var random = new Random((int)DateTime.UtcNow.Ticks);
+            for (int i = 0; i < CountNewsComments; i++)
+            {
+                var comment = new NewsComment()
+                {
+                    NewsItemId = random.Next(1, CountNews),
+                    AdditionTime = DateTime.Now.AddDays(random.NextDouble()*10),
+                    Answer = i % 5 == 0 ? "answer" : string.Empty,
+                    AuthorId = random.Next(1, CountUsers),
+                    Message = "message " + i,
+                    Pending = (i+3)% 5 == 0,
+                };
+                if (i % 3 == 0)
+                {
+                    comment.Children = new List<NewsComment>()
+                    {
+                        new NewsComment()
+                        {
+                            ParentId = i + 1,
+                            Pending = false,
+                            NewsItemId = comment.NewsItemId,
+                            AdditionTime = DateTime.Now,
+                            AuthorId = random.Next(1, CountUsers),
+                            Message = "comment inside"
+                        }
+                    };
+                    i += 1;
+                }
+                newsComments.Add(comment);
+            }
+
+            newsComments.ForEach(x => context.Comments.Add(x));
+            context.SaveChanges();
+
+            var commentFirstNews = new NewsComment()
+            {
+                Pending = false,
+                NewsItemId = 1,
+                AdditionTime = DateTime.Now,
+                AuthorId = 1,
+                Message = "comment first",
+                Children = new List<NewsComment>()
+                {
+                    new NewsComment()
+                    {
+                        ParentId = CountNews + 1,
+                        Pending = false,
+                        NewsItemId = 1,
+                        AdditionTime = DateTime.Now,
+                        AuthorId = 2,
+                        Message = "comment second inside",
+                        Children = new List<NewsComment>()
+                        {
+                            new NewsComment()
+                            {
+                                ParentId = CountNews + 2,
+                                Pending = false,
+                                NewsItemId = 1,
+                                AdditionTime = DateTime.Now,
+                                AuthorId = 3,
+                                Message = "comment three inside",
+                            }
+                        }
+                    }
+                }
+            };
+
+            context.Comments.Add(commentFirstNews);
             context.SaveChanges();
         }
 

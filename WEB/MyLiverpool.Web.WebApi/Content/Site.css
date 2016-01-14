@@ -2,6 +2,10 @@
     resize: vertical;
 }
 
+.comment {
+    background-color: #e5e5e5;
+    border: black inset medium;
+}
 
 .mainContent {
     margin-top: 60px;
@@ -28,3 +32,4 @@
 .validation.text-danger {
     font-style: italic;
 }
+

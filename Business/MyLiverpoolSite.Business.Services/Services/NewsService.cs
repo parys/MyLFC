@@ -160,6 +160,7 @@ namespace MyLiverpoolSite.Business.Services.Services
                 return null;
             }
             //todo newsCounter
+            newsItem.Comments = newsItem.Comments.Where(x => !x.ParentId.HasValue).ToList();
             var dto = Mapper.Map<NewsItemDto>(newsItem);
             return dto;
         }

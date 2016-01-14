@@ -61,6 +61,15 @@ namespace MyLiverpool.Business.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Дата добавления:.
+        /// </summary>
+        public static string AdditionTime {
+            get {
+                return ResourceManager.GetString("AdditionTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Дата рождения:.
         /// </summary>
         public static string Birthday {
@@ -147,6 +156,15 @@ namespace MyLiverpool.Business.Resources {
         public static string PhotoPath {
             get {
                 return ResourceManager.GetString("PhotoPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Просмотры:.
+        /// </summary>
+        public static string Reads {
+            get {
+                return ResourceManager.GetString("Reads", resourceCulture);
             }
         }
         

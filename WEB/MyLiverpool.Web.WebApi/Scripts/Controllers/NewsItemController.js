@@ -1,4 +1,4 @@
-﻿var NewsItemController = function ($scope, NewsFactory, $uibModal) {
+﻿var NewsItemController = function ($scope, NewsFactory, $uibModal){//, $sce) {
     $scope.item = [];
 
     var init = function () {
@@ -55,7 +55,9 @@
 
     }
 
+
+
     init();
 };
 
-NewsItemController.$inject = ['$scope', 'NewsFactory', '$uibModal'];
+NewsItemController.$inject = ['$scope', 'NewsFactory', '$uibModal'];//, '$sce'];

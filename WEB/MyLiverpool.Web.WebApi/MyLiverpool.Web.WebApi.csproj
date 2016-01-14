@@ -322,6 +322,7 @@
     <Content Include="Scripts\Controllers\RegisterController.js" />
     <Content Include="Scripts\Controllers\UserController.js" />
     <Content Include="Scripts\Controllers\UsersController.js" />
+    <Content Include="Scripts\Directives\TreeComment.js" />
     <Content Include="Scripts\Factories\AccountFactory.js" />
     <Content Include="Scripts\Factories\Application.js" />
     <Content Include="Scripts\Factories\AuthHttpResponseInterceptor.js" />
@@ -358,6 +359,7 @@
     <Content Include="Areas\HelpPage\Views\Web.config" />
     <Content Include="Areas\HelpPage\Views\_ViewStart.cshtml" />
     <None Include="Scripts\angular\angular-route.min.js.mapOLD" />
+    <Content Include="Scripts\Factories\RecursionHelper.js" />
     <Content Include="Scripts\Factories\RouteFilter.js" />
     <Content Include="Scripts\Factories\UsersFactory.js" />
     <Content Include="Scripts\Filters.js" />
@@ -389,7 +391,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Scripts\angular-ui\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

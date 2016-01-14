@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AdditionTime" xml:space="preserve">
+    <value>Дата добавления:</value>
+  </data>
   <data name="Birthday" xml:space="preserve">
     <value>Дата рождения:</value>
   </data>
@@ -146,6 +149,9 @@
   </data>
   <data name="PhotoPath" xml:space="preserve">
     <value>Главное фото:</value>
+  </data>
+  <data name="Reads" xml:space="preserve">
+    <value>Просмотры:</value>
   </data>
   <data name="ReceivedDate" xml:space="preserve">
     <value>Дата получения:</value>
