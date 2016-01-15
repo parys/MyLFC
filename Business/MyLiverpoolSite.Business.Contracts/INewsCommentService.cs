@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using MyLiverpool.Business.DTO;
 
 namespace MyLiverpoolSite.Business.Contracts
 {
@@ -9,5 +10,7 @@ namespace MyLiverpoolSite.Business.Contracts
         Task<bool> EditCommentAsync(int commentId, string message, string answer);
 
         Task<bool> DeleteAsync(int id);
+
+        Task<int> AddAsync(NewsCommentEditingDto model);
     }
 }

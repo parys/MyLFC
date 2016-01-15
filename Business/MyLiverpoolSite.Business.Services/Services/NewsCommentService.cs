@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using MyLiverpool.Business.DTO;
 using MyLiverpoolSite.Business.Contracts;
 using MyLiverpoolSite.Data.DataAccessLayer;
 using MyLiverpoolSite.Data.Entities;
@@ -56,6 +58,23 @@ namespace MyLiverpoolSite.Business.Services.Services
             await _unitOfWork.NewsCommentRepository.DeleteAsync(id);
             await _unitOfWork.SaveAsync();
             return true;
+        }
+
+        public async Task<int> AddAsync(NewsCommentEditingDto model)
+        {
+            var comment = Mapper.Map<NewsComment>(model);
+            comment.AdditionTime = DateTime.Now;
+
+            try
+            {
+                _unitOfWork.NewsCommentRepository.Add(comment);
+                await _unitOfWork.SaveAsync();
+            }
+            catch (Exception)
+            {
+                throw new Exception();
+            }
+            return comment.Id;
         }
     }
 }

@@ -9,8 +9,8 @@
         canCommentary: undefined,
         onTop: undefined,
         pending: undefined,
-        newsCategoryId : ''
-};
+        newsCategoryId: ''
+    };
     $scope.categories = [];
 
     //$scope.$modalInstance = undefined;

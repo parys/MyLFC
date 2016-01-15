@@ -95,6 +95,7 @@
     <Compile Include="IDto.cs" />
     <Compile Include="NewsCategoryDto.cs" />
     <Compile Include="NewsCommentDto.cs" />
+    <Compile Include="NewsCommentEditingDto.cs" />
     <Compile Include="NewsItemDto.cs" />
     <Compile Include="NewsMiniDto.cs" />
     <Compile Include="PrivateMessageDto.cs" />

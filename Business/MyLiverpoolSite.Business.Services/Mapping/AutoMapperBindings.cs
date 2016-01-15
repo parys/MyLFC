@@ -31,7 +31,7 @@ namespace MyLiverpoolSite.Business.Services.Mapping
             RegisterForumSubsectionMapping();
             RegisterForumSectionMapping();
 
-            
+
 
         }
 
@@ -183,7 +183,15 @@ namespace MyLiverpoolSite.Business.Services.Mapping
                 .ForMember(dest => dest.Children, src => src.MapFrom(x => x.Children))
                 .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id))
                 .ForMember(dest => dest.Message, src => src.MapFrom(x => x.Message));
+
+            Mapper.CreateMap<NewsCommentEditingDto, NewsComment>()
+                .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id))
+                .ForMember(dest => dest.Answer, src => src.MapFrom(x => x.Answer))
+                .ForMember(dest => dest.AuthorId, src => src.MapFrom(x => x.AuthorId))
+                .ForMember(dest => dest.Message, src => src.MapFrom(x => x.Message))
+                .ForMember(dest => dest.ParentId, src => src.MapFrom(x => x.ParentId));
         }
+
         private static void RegisterNewsCategoriesMapping()
         {
             Mapper.CreateMap<NewsCategory, NewsCategoryDto>()
@@ -200,9 +208,9 @@ namespace MyLiverpoolSite.Business.Services.Mapping
                 .ForMember(dest => dest.AuthorId, src => src.MapFrom(x => x.AuthorId))
                 .ForMember(dest => dest.AuthorUserName, src => src.MapFrom(x => x.Author.UserName))
                 .ForMember(dest => dest.Message, src => src.MapFrom(x => x.Message));
-                //.ForMember(dest => dest.SenderId, src => src.MapFrom(x => x.SenderId))
-                //.ForMember(dest => dest.SenderUserName, src => src.MapFrom(x => x.Sender.UserName))
-                //.ForMember(dest => dest.Title, src => src.MapFrom(x => x.Title));
+            //.ForMember(dest => dest.SenderId, src => src.MapFrom(x => x.SenderId))
+            //.ForMember(dest => dest.SenderUserName, src => src.MapFrom(x => x.Sender.UserName))
+            //.ForMember(dest => dest.Title, src => src.MapFrom(x => x.Title));
         }
 
         private static void RegisterPrivateMessageMapping()

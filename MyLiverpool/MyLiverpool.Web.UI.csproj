@@ -340,6 +340,10 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Business\MyLiverpool.Business.DTO\MyLiverpool.Business.DTO.csproj">
+      <Project>{C70D0192-AB3E-471B-B0D1-081278BE19B8}</Project>
+      <Name>MyLiverpool.Business.DTO</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Business\MyLiverpool.Business.Resources\MyLiverpool.Business.Resources.csproj">
       <Project>{731b35bc-64f3-4766-84da-3597eae72191}</Project>
       <Name>MyLiverpool.Business.Resources</Name>

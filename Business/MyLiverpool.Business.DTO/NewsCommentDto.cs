@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
 namespace MyLiverpool.Business.DTO
@@ -10,6 +11,7 @@ namespace MyLiverpool.Business.DTO
         {
             Children = new HashSet<NewsCommentDto>();
         }
+
         public int Id { get; set; }
 
         //public bool Pending { get; set; }
@@ -18,16 +20,14 @@ namespace MyLiverpool.Business.DTO
 
         public string AuthorUserName { get; set; }
 
-        public string AuthorId { get; set; }
+        public int AuthorId { get; set; }
 
-     //   [AllowHtml]
+        //   [AllowHtml]
         public string Message { get; set; }
 
-      //  [AllowHtml]
+        //  [AllowHtml]
         public string Answer { get; set; }
 
         public virtual ICollection<NewsCommentDto> Children { get; set; }
-
-     //   public virtual NewsComment Parent { get; set; }
     }
 }

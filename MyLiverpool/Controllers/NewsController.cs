@@ -60,12 +60,12 @@ namespace MyLiverpool.Controllers
         [Authorize]
         public async Task<ActionResult> Create(CreateEditNewsViewModel model)
         {
-            if (ModelState.IsValid)
+           // if (ModelState.IsValid)
             {
-                var result = await _newsService.CreateAsync(model, User.Identity.GetUserId<int>());
-                return RedirectToAction("Details", new {id = result});
+               // var result = await _newsService.CreateAsync(model, User.Identity.GetUserId<int>());
+              //  return RedirectToAction("Details", new {id = result});
             }
-            return View(model);
+            return View();
         }
 
         // GET: News/Edit/5
@@ -171,8 +171,8 @@ namespace MyLiverpool.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> Categories()
         {
-            var model = await _newsService.GetCategoriesAsync();
-            return View(model);
+            //var model = await _newsService.GetCategoriesAsync();
+            return View();
         }
     }
 }

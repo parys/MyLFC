@@ -244,6 +244,7 @@
     <Compile Include="Controllers\ApiAccountController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ApiForumController.cs" />
+    <Compile Include="Controllers\ApiNewsCommentController.cs" />
     <Compile Include="Controllers\ApiUserController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BlogCommentController.cs" />
@@ -252,7 +253,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
-    <Compile Include="Controllers\ApiNewsItemsController.cs" />
+    <Compile Include="Controllers\ApiNewsItemController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -327,6 +328,7 @@
     <Content Include="Scripts\Factories\Application.js" />
     <Content Include="Scripts\Factories\AuthHttpResponseInterceptor.js" />
     <Content Include="Scripts\Factories\ForumFactory.js" />
+    <Content Include="Scripts\Factories\NewsCommentsFactory.js" />
     <Content Include="Scripts\Factories\NewsFactory.js" />
     <Content Include="Scripts\Factories\PmsFactory.js" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

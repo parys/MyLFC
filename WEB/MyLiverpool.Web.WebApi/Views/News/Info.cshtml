@@ -35,14 +35,16 @@
         <tree comment="comment" deep="0"></tree>
     </div>
 
-    <div class="col-md-12" ng-if="item.canCommentary" ng-show="loggedIn()">
-        <div class="col-md-12">
-            <textarea id="newsCommentMessage" class="col-md-offset-3 col-md-6" rows="6"></textarea>
+    <form class="form-horizontal" name="commentForm" role="form">
+        <div class="col-md-12" ng-if="item.canCommentary" ng-show="loggedIn()">
+            <div class="col-md-12">
+                <textarea id="newsCommentMessage" class="col-md-offset-3 col-md-6" rows="6" name="message" ng-model="comment.message" validation="required"></textarea>
+            </div>
+            <div class="row">
+                <button class="btn btn-primary center-block" data-toggle="modal" ng-disabled="commentForm.$invalid" ng-click="addComment()" data-target="#myModal" id="addComment"> @CommonMessages.Create</button>
+            </div>
         </div>
-        <div class="row">
-            <button class="btn btn-primary center-block" data-toggle="modal" data-target="#myModal" id="addComment"> @CommonMessages.Create</button>
-        </div>
-    </div>
+    </form>
 </div>
 @*@helper ShowTree(IEnumerable<IndexNewsCommentVM> comments, int deep)
         {
@@ -53,7 +55,7 @@ foreach (var comment in comments)
         deep = 0;
     }
     <li class="media comment col-md-offset-@deep" data-id="@comment.Id">
-        @Html.HiddenFor(c => comment.Id)
+   
         <div class="media-body">
             <div class="row-fluid col-md-12">
                 <span class="col-md-9">@comment.Author.UserName</span>

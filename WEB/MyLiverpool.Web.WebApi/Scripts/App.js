@@ -28,6 +28,7 @@ App.directive('tree', tree);
 //App.factory('AuthHttpResponseInterceptor', AuthHttpResponseInterceptor);
 App.factory('AccountFactory', AccountFactory);
 App.factory('NewsFactory', NewsFactory);
+App.factory('NewsCommentsFactory', NewsCommentsFactory);
 App.factory('UsersFactory', UsersFactory);
 App.factory('PmsFactory', PmsFactory);
 App.factory('ForumFactory', ForumFactory);
