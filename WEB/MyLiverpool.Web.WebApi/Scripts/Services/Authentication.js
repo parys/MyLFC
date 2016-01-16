@@ -8,7 +8,12 @@ var Authentication = function ($q, $http, $state, AccountFactory, SessionService
     var authenticatedUser = null;
     var cookieName = 'abra-kadabra';
 
-      //  var params = { grant_type: "password", userName: 'admin', password: '123456' }; //todo
+    //  var params = { grant_type: "password", userName: 'admin', password: '123456' }; //todo
+
+    function isUserInRole(user, roleName) {
+        if (!user) return false;
+        return user.roles.indexOf(roleName) > 0;
+    };
 
     return {
         requestUser: function() {
@@ -33,7 +38,6 @@ var Authentication = function ($q, $http, $state, AccountFactory, SessionService
                 then(function(response) {
                     authenticatedUser = response;
                     $cookies.putObject('user', authenticatedUser);
-                    $state.go('home');
                 }, function(response) {
                     authenticatedUser = undefined;
                 });
@@ -53,7 +57,28 @@ var Authentication = function ($q, $http, $state, AccountFactory, SessionService
         getUserId: function() {
             if (!authenticatedUser) return undefined;
             return authenticatedUser.id;
-        }
+        },
+
+        //getUserName: function() {
+        //    if (!authenticatedUser) return undefined;
+        //    return authenticatedUser.
+        //}
+
+        isAdmin: function() {
+            return isUserInRole(authenticatedUser, 'AdminFull');
+        },
+
+        isModerator: function() {
+            return isUserInRole(authenticatedUser, 'UsersStart');
+        },
+
+        isNewsmaker: function () {
+            return isUserInRole(authenticatedUser, 'NewsStart');
+        },
+
+        isEditor: function() {
+            return isUserInRole(authenticatedUser, 'NewsFull');
+        },
 
     }
 };

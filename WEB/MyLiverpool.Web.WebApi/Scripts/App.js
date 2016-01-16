@@ -6,6 +6,7 @@ App.controller('RegisterController', RegisterController);
 App.controller('NewsController', NewsController);
 App.controller('NewsItemController', NewsItemController);
 App.controller('NewsEditCtrl', NewsEditCtrl);
+App.controller('NewsCommentCtrl', NewsCommentCtrl);
 App.controller('UserController', UserController);
 App.controller('UsersController', UsersController);
 App.controller('PmController', PmController);
@@ -175,7 +176,7 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider,
             url: '/login?returnUrl',
             views: {
                 "containerMain": {
-                    templateUrl: '/Account/Login',
+                    templateUrl: function(params) { return '/Account/Login?returnUrl=' + params.returnUrl },
                     controller: LoginController
                 }
             }
@@ -237,8 +238,12 @@ App.run(function (Authentication, Application, $rootScope, $location, RouteFilte
     $http.defaults.headers.common.Authorization = 'Bearer ' + Authentication.getToken();
 
     $rootScope.$on('$stateChangeStart', function(scope, next, current) {
-        console.log('stateChange');
+        //console.log('stateChange ');
+        //console.log(next);
 
+        //if (next.name == 'login') {
+            
+        //}
        // if ($location.path() === '/loading') return;
         //todo edit to use STATE
 
@@ -247,14 +252,14 @@ App.run(function (Authentication, Application, $rootScope, $location, RouteFilte
             console.log('not ready');
         }
 
-        uibPaginationConfig.itemsPerPage = 15;
-        uibPaginationConfig.directionLinks = false;
-        uibPaginationConfig.maxSize = 5;
-        uibPaginationConfig.rotate = false;
-
-        RouteFilter.run($location.path());
+        //RouteFilter.run($location.path());
 
         $rootScope.$state = $state;
         $rootScope.$stateParams = $stateParams;
     });
+
+    uibPaginationConfig.itemsPerPage = 15;
+        uibPaginationConfig.directionLinks = false;
+        uibPaginationConfig.maxSize = 5;
+        uibPaginationConfig.rotate = false;
 });

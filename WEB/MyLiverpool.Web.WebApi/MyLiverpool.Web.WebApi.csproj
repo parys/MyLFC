@@ -314,6 +314,7 @@
     <Content Include="Scripts\Controllers\LoginController.js" />
     <Content Include="Scripts\Controllers\ModalCtrl.js" />
     <Content Include="Scripts\Controllers\NewsCategoriesCtrl.js" />
+    <Content Include="Scripts\Controllers\NewsCommentCtrl.js" />
     <Content Include="Scripts\Controllers\NewsController.js" />
     <Content Include="Scripts\Controllers\NewsEditCtrl.js" />
     <Content Include="Scripts\Controllers\NewsItemController.js" />
@@ -379,6 +380,7 @@
     <Content Include="uib\template\datepicker\year.html" />
     <Content Include="uib\template\modal\backdrop.html" />
     <Content Include="uib\template\modal\window.html" />
+    <Content Include="uib\template\my\newsComment.html" />
     <Content Include="uib\template\pagination\pagination.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

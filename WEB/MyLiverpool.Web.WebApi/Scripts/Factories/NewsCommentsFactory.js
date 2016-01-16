@@ -24,7 +24,7 @@
 
             $http({
                 method: 'DELETE',
-                url: SessionService.apiUrl + '/api/News/delete?id=' + id,
+                url: SessionService.apiUrl + '/api/NewsComment/delete?id=' + id,
                 headers: { 'Content-Type': 'application/json' }
             })
             .success(function (response) {

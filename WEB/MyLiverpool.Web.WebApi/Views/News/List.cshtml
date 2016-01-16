@@ -7,14 +7,11 @@
     <div class="container-fluid">
         <div class="row">
             <a ui-sref="newsInfo({id: item.id})" class="col-md-9"><span>{{ item.title }}</span></a>
-            @if (User.IsInRole("NewsStart"))
-            {
-                <span class="col-md-3" ng-show="isUserAuthor(userId(), item.authorId)">
-                    <a ng-show="item.pending" ng-click="activate($index)"><span class="glyphicon glyphicon-ok"></span></a>
-                    <a ui-sref="newsEdit({id: item.id})"><span class="glyphicon glyphicon-pencil"></span></a>@*todo*@
-                    <a ng-click="delete($index)"><span class="glyphicon glyphicon-trash"></span></a>
+                <span class="col-md-3" ng-if="isNewsmaker()">
+                    <a ng-if="isEditor()" ng-show="item.pending" ng-click="activate($index)"><span class="glyphicon glyphicon-ok"></span></a>
+                    <a ng-if="isEditor() || isUserAuthor(userId(), item.authorId)" ui-sref="newsEdit({id: item.id})"><span class="glyphicon glyphicon-pencil"></span></a>
+                    <a ng-if="isEditor() || isUserAuthor(userId(), item.authorId)" ng-click="delete($index)"><span class="glyphicon glyphicon-trash"></span></a>
                 </span>
-            }
         </div>
         <div class="row">
             <img class="img-thumbnail" alt="" ng-src="{{item.photoPath}}" style="width: 300px; height: 140px;" />

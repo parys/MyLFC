@@ -29,6 +29,21 @@ namespace MyLiverpool.Web.WebApi.Controllers
             }
             comment.AuthorId = User.Identity.GetUserId<int>();
             var result = await _newsCommentService.AddAsync(comment);
+            result.AuthorUserName = User.Identity.GetUserName();
+            return Ok(result);
+        } 
+
+        [Route("Delete")]
+        [HttpDelete]
+        [Authorize(Roles = "UsersStart")]
+        public async Task<IHttpActionResult> Delete(int? id)
+        {
+            if (!id.HasValue || id == 0)
+            {
+                return BadRequest();
+            }
+            
+            var result = await _newsCommentService.DeleteAsync(id.Value);
             return Ok(result);
         } 
     }

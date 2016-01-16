@@ -60,7 +60,7 @@ namespace MyLiverpoolSite.Business.Services.Services
             return true;
         }
 
-        public async Task<int> AddAsync(NewsCommentEditingDto model)
+        public async Task<NewsCommentDto> AddAsync(NewsCommentEditingDto model)
         {
             var comment = Mapper.Map<NewsComment>(model);
             comment.AdditionTime = DateTime.Now;
@@ -74,7 +74,8 @@ namespace MyLiverpoolSite.Business.Services.Services
             {
                 throw new Exception();
             }
-            return comment.Id;
+            var result = Mapper.Map<NewsCommentDto>(comment);
+            return result;
         }
     }
 }

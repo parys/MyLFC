@@ -1,4 +1,4 @@
-﻿var LoginController = function ($scope, SessionService, Authentication, validationService) {
+﻿var LoginController = function ($scope, SessionService, Authentication, validationService, $stateParams, $location) {
     $scope.loginForm = {
         userName: undefined,
         password: undefined,
@@ -8,7 +8,10 @@
     $scope.login = function () {
         if (new validationService().checkFormValidity($scope)) {
             Authentication.login($scope.loginForm);
+            console.log('logged in ' + $stateParams.returnUrl);
+            console.log($location);
+            $location.url($stateParams.returnUrl);
         }
     }
 }
-LoginController.$inject = ['$scope', 'SessionService', 'Authentication', 'validationService'];
+LoginController.$inject = ['$scope', 'SessionService', 'Authentication', 'validationService', '$stateParams', '$location'];

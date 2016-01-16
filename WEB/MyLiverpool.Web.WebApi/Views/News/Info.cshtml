@@ -1,20 +1,17 @@
 ﻿@using MyLiverpool.Business.Resources
 
-<div class="row-fluid">
+<div class="row-fluid" ng-init="init()">
     <div class="row">
         <h3 class="">
             <span class="col-md-9 alert-danger">
                 {{ item.title }}
             </span>
-            <span class="col-md-3">
-                @if (User.IsInRole("NewsStart"))
-                {
+            <span class="col-md-3" ng-if="isNewsmaker()">
                     <span class="small pull-right" ng-show="isUserAuthor(userId(), item.authorId)">
-                        <a ng-show="item.pending" ng-click="activate($index)"><span class="glyphicon glyphicon-ok"></span></a>
-                        <a ui-sref="newsEdit({id: item.id})"><span class="glyphicon glyphicon-pencil"></span></a>
-                        <a data-toggle="modal" data-target="#confirmDelete" data-id=""><span class="glyphicon glyphicon-trash"></span></a>
+                        <a ng-if="isEditor()" ng-show="item.pending" ng-click="activate()"><span class="glyphicon glyphicon-ok"></span></a>
+                        <a ng-if="isEditor() || isUserAuthor(userId(), item.authorId)" ui-sref="newsEdit({id: item.id})"><span class="glyphicon glyphicon-pencil"></span></a>
+                        <a ng-if="isEditor() || isUserAuthor(userId(), item.authorId)" ng-click="delete()"><span class="glyphicon glyphicon-trash"></span></a>
                     </span>
-                }
             </span>
         </h3>
     </div>
@@ -32,13 +29,13 @@
 
     {{item.comments.length}}
     <div class="" id="comments" ng-repeat="comment in item.comments">
-        <tree comment="comment" deep="0"></tree>
+        <tree comment="comment" deep="0" index="$index"></tree>
     </div>
 
     <form class="form-horizontal" name="commentForm" role="form">
         <div class="col-md-12" ng-if="item.canCommentary" ng-show="loggedIn()">
             <div class="col-md-12">
-                <textarea id="newsCommentMessage" class="col-md-offset-3 col-md-6" rows="6" name="message" ng-model="comment.message" validation="required"></textarea>
+                <textarea id="newsCommentMessage" class="col-md-offset-3 col-md-6" rows="6" name="message" ng-model="newComment.message" validation="required"></textarea>
             </div>
             <div class="row">
                 <button class="btn btn-primary center-block" data-toggle="modal" ng-disabled="commentForm.$invalid" ng-click="addComment()" data-target="#myModal" id="addComment"> @CommonMessages.Create</button>
@@ -46,63 +43,12 @@
         </div>
     </form>
 </div>
-@*@helper ShowTree(IEnumerable<IndexNewsCommentVM> comments, int deep)
-        {
-foreach (var comment in comments)
-{
-    if (comment.Parent == null)
-    {
-        deep = 0;
-    }
-    <li class="media comment col-md-offset-@deep" data-id="@comment.Id">
-   
-        <div class="media-body">
-            <div class="row-fluid col-md-12">
-                <span class="col-md-9">@comment.Author.UserName</span>
-                <span class="col-md-3">
-                    @if (Request.IsAuthenticated)
-                    {
-                        <span class="pull-right">
-                             <a href="@Url.Action("Activate", new {id = Model.Id})"><span class="glyphicon glyphicon-ok"></span></a>
-                            <a href="#"><span class="glyphicon glyphicon-pencil"></span></a>
-                            <a data-toggle="modal" data-target="#confirmDeleteComment" data-id="@Model.Id"><span class="glyphicon glyphicon-trash"></span></a>
-                        </span>
-                    }
-                </span>
-            </div>
-            <a class="pull-left" href="#">
-                <img class="media-object img-thumbnail img-responsive" src="@comment.Author.PhotoPath" alt="@comment.Author.UserName">
-            </a>
-            @Html.Raw(comment.Message)
-            @if (!comment.Answer.IsEmpty())
-            {
-                <div class="answer">
-                    <span class="row"> @NewsMessages.Answer</span>
-                    <i>@Html.Raw(comment.Answer)</i>
-                </div>
-            }
-        </div>
-        <br />
-        @if (User.Identity.IsAuthenticated && Model.CanCommentary)
-        {
-            <button class="btn reply-button" data-toggle="modal" data-target="#addReply">@CommonMessages.Reply</button>
-        }
-    </li>
-    if (comment.Children.Any())
-    {
-        if (deep < 5)
-        {
-            deep += 1;
-        }
-        @ShowTree(comment.Children, deep)
-    }
-}
-}*@
 
-<div class="modal fade" id="addReply" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+@*<div class="modal fade" id="addReply" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            @* id="add-reply" tabindex="-1" style="width: 350px; margin: auto; margin-top: 300px; z-index: 999"*@
+            @* id="add-reply" tabindex="-1" style="width: 350px; margin: auto; margin-top: 300px; z-index: 999"
             <div class="modal-header">
                 <h3 class="text-info">add reply</h3>
                 <input id="parent-comment-id" value="" hidden="" />
@@ -125,7 +71,7 @@ foreach (var comment in comments)
             </div>
         </div>
     </div>
-</div>
+</div>*@
 
 <div class="modal fade" id="confirmDeleteNews">
     <div class="modal-dialog">
@@ -146,51 +92,19 @@ foreach (var comment in comments)
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
-<div class="modal fade" id="confirmDeleteComment">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <input hidden id="commentId" value="" />
-                <h4 class="modal-title">@CommonMessages.DeleteConfirmation</h4>
-            </div>
-            <div class="modal-body">
-                <p>@CommonMessages.Delete?</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">@CommonMessages.Cancel</button>
-                <button type="button" class="btn btn-primary" id="deleteComment">@CommonMessages.Delete</button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+<script type="text/ng-template" id="modalDeleteConfirmation.html">
+    <div class="modal-header">
+        <h3 class="modal-title">@CommonMessages.DeleteConfirmation</h3>
+    </div>
+    <div class="modal-body">
+        @CommonMessages.Delete?
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()">@CommonMessages.Delete</button>
+        <button class="btn btn-default" type="button" ng-click="cancel()">@CommonMessages.Cancel</button>
+    </div>
+</script>
 @*<script>
-        $('#addComment').click(function() {
-            console.log('add comment');
-            postValues();
-        });
-
-        function postValues() {
-            var comment = $('#newsCommentMessage').htmlcode();
-            console.log(comment);
-            if (!comment) {
-                return;
-            }
-            var newsId = @Model.Id;
-            $.ajax({
-                type: 'post',
-                url: '@Url.Action("AddComment", "News")',
-                data: { comment: comment, newsId: newsId },
-                beforeSend: function() {
-
-                },
-                success: function(response) {
-                    $('#newsCommentMessage').val('');
-                    publishComment(response, comment);
-                }
-            });
-        }
-
         function publishComment(id, comment) {
             console.log(id);
             //"<div class='comment'> <input id='comment_Id' name='comment.Id' type='hidden' value=" + id + "> " + comment + "@User.Identity.Name <br> <button class='reply'>add reply </button></div>");
