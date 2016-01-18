@@ -142,6 +142,15 @@ namespace MyLiverpool.Business.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Редактирование комментария.
+        /// </summary>
+        public static string EditingComment {
+            get {
+                return ResourceManager.GetString("EditingComment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Вход на сайт.
         /// </summary>
         public static string EnterToSite {

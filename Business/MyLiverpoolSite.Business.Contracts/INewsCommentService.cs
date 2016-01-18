@@ -12,5 +12,7 @@ namespace MyLiverpoolSite.Business.Contracts
         Task<bool> DeleteAsync(int id);
 
         Task<NewsCommentDto> AddAsync(NewsCommentEditingDto model);
+
+        Task<bool> EditAsync(NewsCommentEditingDto model);
     }
 }

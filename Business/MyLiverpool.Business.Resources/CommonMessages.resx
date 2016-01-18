@@ -213,4 +213,7 @@
   <data name="Up" xml:space="preserve">
     <value>Наверх</value>
   </data>
+  <data name="EditingComment" xml:space="preserve">
+    <value>Редактирование комментария</value>
+  </data>
 </root>

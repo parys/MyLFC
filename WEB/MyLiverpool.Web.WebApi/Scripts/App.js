@@ -7,6 +7,7 @@ App.controller('NewsController', NewsController);
 App.controller('NewsItemController', NewsItemController);
 App.controller('NewsEditCtrl', NewsEditCtrl);
 App.controller('NewsCommentCtrl', NewsCommentCtrl);
+App.controller('ModalEditCommentCtrl', ModalEditCommentCtrl);
 App.controller('UserController', UserController);
 App.controller('UsersController', UsersController);
 App.controller('PmController', PmController);

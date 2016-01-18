@@ -45,6 +45,23 @@ namespace MyLiverpool.Web.WebApi.Controllers
             
             var result = await _newsCommentService.DeleteAsync(id.Value);
             return Ok(result);
-        } 
+        }
+
+        [Route("Edit")]
+        [HttpPut]
+        [Authorize]
+        public async Task<IHttpActionResult> Edit(NewsCommentEditingDto comment)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            if (comment.AuthorId != User.Identity.GetUserId<int>() && !User.IsInRole("UsersStart"))
+            {
+                return Unauthorized();
+            }
+            var result = await _newsCommentService.EditAsync(comment);
+            return Ok(result);
+        }
     }
 }

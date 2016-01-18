@@ -11,6 +11,7 @@
             newsItemId: undefined,
             authorId: undefined,
             authorUserName: undefined,
+            answer: undefined,
         }
     }
 
@@ -89,16 +90,20 @@
     }
 
     
-    $scope.$on('deleteComment1', function (event, data) {
+    $scope.$on('deleteCommentConfirmed', function (event, data) {
         console.log('del  ' + $scope.item.comments);
         var comments = $scope.item.comments;
         comments.splice(comments.indexOf(data), 1);
     });
 
+    //$scope.$on('editCommentConfirmed', function(event, data) {
+    //    console.log('edit ' + scope.item.comments);
+    //    var comments = $scope.item.comments;
+    //    comments[comments.indexOf(data)] = data;
+    //});
 
-   
 
-   // init();
+    // init();
 };
 
 NewsItemController.$inject = ['$scope', 'NewsFactory', '$uibModal', 'NewsCommentsFactory', '$state'];//, '$sce'];

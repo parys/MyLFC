@@ -313,6 +313,7 @@
     <Content Include="Scripts\Controllers\LoadingCtrl.js" />
     <Content Include="Scripts\Controllers\LoginController.js" />
     <Content Include="Scripts\Controllers\ModalCtrl.js" />
+    <Content Include="Scripts\Controllers\ModalEditCommentCtrl.js" />
     <Content Include="Scripts\Controllers\NewsCategoriesCtrl.js" />
     <Content Include="Scripts\Controllers\NewsCommentCtrl.js" />
     <Content Include="Scripts\Controllers\NewsController.js" />

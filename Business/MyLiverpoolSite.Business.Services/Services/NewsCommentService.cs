@@ -77,5 +77,24 @@ namespace MyLiverpoolSite.Business.Services.Services
             var result = Mapper.Map<NewsCommentDto>(comment);
             return result;
         }
+
+        public async Task<bool> EditAsync(NewsCommentEditingDto model)
+        {
+            var comment = await _unitOfWork.NewsCommentRepository.GetByIdAsync(model.Id);
+           // comment.LastModified = DateTime.Now;
+            comment.Answer = model.Answer;
+            comment.Message = model.Message;
+
+            try
+            {
+                _unitOfWork.NewsCommentRepository.Update(comment);
+                await _unitOfWork.SaveAsync();
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            return true;
+        }
     }
 }

@@ -1,50 +1,23 @@
 ﻿<div class="col-md-offset-{{deep}} comment row">
     <div class="col-md-12">
-        <div class="row col-md-3 col-md-offset-9">
-            <a ng-if="isModerator() || isUserAuthor(getUserId(), comment.authorId)" href="#"><span class="glyphicon glyphicon-pencil"></span></a>
+        <div class="col-md-9">
+            {{comment.authorUserName}}
+        </div>
+        <div class="col-md-3 pull-right">
+            <a ng-if="isModerator() || isUserAuthor(getUserId(), comment.authorId)" ng-click="editComment(comment)"><span class="glyphicon glyphicon-pencil"></span></a>
             <a ng-if="isModerator()" ng-click="deleteComment(comment)"><span class="glyphicon glyphicon-trash"></span></a>
         </div>
-        <div class="col-md-2">{{comment.authorUserName}}</div>
-        <div class="col-md-10">
+        <div class="col-md-12">
             {{comment.message}}
-            {{comment.authorId}}
         </div>
-    </div>
+        <div class="col-md-12" ng-show="comment.answer">
+            <div class="col-md-2">Ответ:</div>
+            <div class="col-md-10">
+                <i> {{comment.answer}} </i>
+            </div>
+        </div>
+        </div>
 </div>
 <div ng-repeat="child in comment.children">
     <tree comment="child" deep="deep+1"></tree>
 </div>
-
-    <!--<li class="media comment col-md-offset-@deep" data-id="@comment.Id">
-
-        <div class="media-body">
-            <div class="row-fluid col-md-12">
-                <span class="col-md-9">@comment.Author.UserName</span>
-                <span class="col-md-3">
-                    @if (Request.IsAuthenticated)
-                    {
-                    <span class="pull-right">
-                        <a href="@Url.Action(" Activate", new {id=Model.Id})"><span class="glyphicon glyphicon-ok"></span></a>
-
-                    </span>
-                    }
-                </span>
-            </div>
-            <a class="pull-left" href="#">
-                <img class="media-object img-thumbnail img-responsive" src="@comment.Author.PhotoPath" alt="@comment.Author.UserName">
-            </a>
-            @Html.Raw(comment.Message)
-            @if (!comment.Answer.IsEmpty())
-            {
-            <div class="answer">
-                <span class="row"> @NewsMessages.Answer</span>
-                <i>@Html.Raw(comment.Answer)</i>
-            </div>
-            }
-        </div>
-        <br />
-        @if (User.Identity.IsAuthenticated && Model.CanCommentary)
-        {
-        <button class="btn reply-button" data-toggle="modal" data-target="#addReply">@CommonMessages.Reply</button>
-        }
-    </li>-->

@@ -42,7 +42,7 @@
 
             $http({
                     method: 'PUT',
-                    url: SessionService.apiUrl + '/api/News/edit',
+                    url: SessionService.apiUrl + '/api/NewsComment/edit',
                     data: item,
                     headers: { 'Content-Type': 'application/json' }
                 })
