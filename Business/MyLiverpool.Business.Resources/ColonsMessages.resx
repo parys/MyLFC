@@ -129,6 +129,9 @@
   <data name="Category" xml:space="preserve">
     <value>Категория:</value>
   </data>
+  <data name="CommentsCount" xml:space="preserve">
+    <value>Количество комментариев:</value>
+  </data>
   <data name="Email" xml:space="preserve">
     <value>Почтовый адрес:</value>
   </data>

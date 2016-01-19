@@ -32,22 +32,22 @@
     }
 
     $scope.getReturnUrl = function () {
-        console.log($location.url());
+      //  console.log($location.url());
         return $location.url();
     }
     
     $scope.isNewsmaker = function () {
-        console.log('isNewsmaker landing ' + Authentication.isNewsmaker());
+     //   console.log('isNewsmaker landing ' + Authentication.isNewsmaker());
         return Authentication.isNewsmaker();
     }
 
     $scope.isEditor = function () {
-        console.log('isEditor landing');
+     //   console.log('isEditor landing');
         return Authentication.isEditor();
     }
 
     $scope.isModerator = function () {
-        console.log('isModerator landing');
+    //    console.log('isModerator landing');
         return Authentication.isModerator();
     }
 }

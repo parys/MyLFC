@@ -25,7 +25,9 @@ App.factory('Application', Application);
 App.factory('RouteFilter', RouteFilter);
 
 App.factory('RecursionHelper', RecursionHelper);
+App.factory('MarkItUpFactory', MarkItUpFactory);
 App.directive('tree', tree);
+App.directive('markItUp', markItUp);
 
 //App.factory('AuthHttpResponseInterceptor', AuthHttpResponseInterceptor);
 App.factory('AccountFactory', AccountFactory);
@@ -224,6 +226,12 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider,
 configFunction.$inject = ['$stateProvider', '$httpProvider', '$locationProvider', '$translateProvider'];
 
 App.config(configFunction);
+
+App.filter('rawHtml', ['$sce', function($sce){
+    return function(val) {
+        return $sce.trustAsHtml(val);
+    };
+}]);
 
 App.run(function (Authentication, Application, $rootScope, $location, RouteFilter, $http, uibPaginationConfig, $state, $stateParams) {
     Authentication.requestUser();

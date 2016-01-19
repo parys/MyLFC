@@ -4,7 +4,8 @@
 
 .comment {
     background-color: #e5e5e5;
-    border: black inset medium;
+    border: gray solid thin;
+    border-radius: 10px;
     min-height: 50px;
     margin-top: 5px;
     margin-bottom: 5px;

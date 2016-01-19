@@ -97,6 +97,15 @@ namespace MyLiverpool.Business.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Количество комментариев:.
+        /// </summary>
+        public static string CommentsCount {
+            get {
+                return ResourceManager.GetString("CommentsCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Почтовый адрес:.
         /// </summary>
         public static string Email {

@@ -12,14 +12,13 @@ namespace MyLiverpool.Business.DTO
         [Required]
         public int NewsItemId { get; set; }
 
- //       [AllowHtml]
         [Required]
+        [AllowHtml]
         public string Message { get; set; }
 
-        //[AllowHtml]
+        [AllowHtml]
         public string Answer { get; set; }
 
-       
         public int? ParentId { get; set; }
     }
 }

@@ -271,10 +271,28 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\markitup\images\bold.png" />
+    <Content Include="Content\markitup\images\clean.png" />
+    <Content Include="Content\markitup\images\image.png" />
+    <Content Include="Content\markitup\images\italic.png" />
+    <Content Include="Content\markitup\images\link.png" />
+    <Content Include="Content\markitup\images\list-bullet.png" />
+    <Content Include="Content\markitup\images\list-numeric.png" />
+    <Content Include="Content\markitup\images\picture.png" />
+    <Content Include="Content\markitup\images\preview.png" />
+    <Content Include="Content\markitup\images\stroke.png" />
+    <Content Include="Content\markitup\styleButtons.css" />
+    <Content Include="Content\markitup\styleTextarea.css" />
     <Content Include="Content\ui-bootstrap-csp.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\angular-translate-loader-static-files.min.js" />
+    <Content Include="Scripts\angular-ui\ui-bootstrap-tpls.js" />
+    <Content Include="Scripts\angular-ui\ui-bootstrap-tpls.min.js" />
+    <Content Include="Scripts\angular-ui\ui-bootstrap.js" />
+    <Content Include="Scripts\angular-ui\ui-bootstrap.min.js" />
+    <Content Include="Scripts\angular-validation\angular-validation.min.js" />
     <Content Include="Scripts\angular\min\angular-translate-loader-static-files.min.js" />
     <Content Include="Scripts\angular\31ui-bootstrap-tpls.js" />
     <Content Include="Scripts\angular\min\ui-bootstrap-tpls.min.js" />
@@ -325,11 +343,13 @@
     <Content Include="Scripts\Controllers\RegisterController.js" />
     <Content Include="Scripts\Controllers\UserController.js" />
     <Content Include="Scripts\Controllers\UsersController.js" />
+    <Content Include="Scripts\Directives\markItUp.js" />
     <Content Include="Scripts\Directives\TreeComment.js" />
     <Content Include="Scripts\Factories\AccountFactory.js" />
     <Content Include="Scripts\Factories\Application.js" />
     <Content Include="Scripts\Factories\AuthHttpResponseInterceptor.js" />
     <Content Include="Scripts\Factories\ForumFactory.js" />
+    <Content Include="Scripts\Factories\MarkItUpFactory.js" />
     <Content Include="Scripts\Factories\NewsCommentsFactory.js" />
     <Content Include="Scripts\Factories\NewsFactory.js" />
     <Content Include="Scripts\Factories\PmsFactory.js" />
@@ -371,6 +391,7 @@
     <None Include="Scripts\jquery-2.2.0.intellisense.js" />
     <Content Include="Scripts\jquery-2.2.0.js" />
     <Content Include="Scripts\jquery-2.2.0.min.js" />
+    <Content Include="Scripts\jquery.markitup.js" />
     <Content Include="Scripts\Services\Authentication.js" />
     <Content Include="Scripts\Services\SessionService.js" />
     <Content Include="uib\template\alert\alert.html" />
@@ -393,6 +414,9 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Scripts\jquery-2.2.0.min.map" />
+    <None Include="Web.someeFreeQA.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

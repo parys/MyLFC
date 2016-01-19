@@ -17,10 +17,10 @@ var Authentication = function ($q, $http, $state, AccountFactory, SessionService
 
     return {
         requestUser: function() {
-            console.log('requested user');
+          //  console.log('requested user');
             if ($cookies.getObject('user')) {
                 authenticatedUser = $cookies.getObject('user');
-                console.log(authenticatedUser);
+          //      console.log(authenticatedUser);
             }
             return authenticatedUser;
         },

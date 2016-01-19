@@ -22,10 +22,10 @@ namespace MyLiverpool.Business.DTO
 
         public int AuthorId { get; set; }
 
-        //   [AllowHtml]
+        [AllowHtml]
         public string Message { get; set; }
 
-        //  [AllowHtml]
+        [AllowHtml]
         public string Answer { get; set; }
 
         public virtual ICollection<NewsCommentDto> Children { get; set; }
