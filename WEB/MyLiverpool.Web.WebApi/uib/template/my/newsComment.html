@@ -18,6 +18,9 @@
                 <i> {{comment.answer}} </i>
             </div>
         </div>
+        <div>
+            <a ng-click="addReplyComment(comment)">Ответить</a>
+        </div>
     </div>
 </div>
 <div ng-repeat="child in comment.children">

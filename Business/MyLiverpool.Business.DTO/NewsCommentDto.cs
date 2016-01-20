@@ -28,6 +28,8 @@ namespace MyLiverpool.Business.DTO
         [AllowHtml]
         public string Answer { get; set; }
 
+        public int NewsItemId { get; set; }
+
         public virtual ICollection<NewsCommentDto> Children { get; set; }
     }
 }

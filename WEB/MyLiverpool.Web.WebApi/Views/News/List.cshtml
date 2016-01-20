@@ -17,7 +17,7 @@
             <img class="img-thumbnail" alt="" ng-src="{{item.photoPath}}" style="width: 300px; height: 140px;" />
         </div>
         <div class="row">
-            <span><i> {{ item.brief }}</i></span>
+            <i> <span ng-bind-html="item.brief | rawHtml"></span></i>
         </div>
         <ul class="list-inline">
             <li class="">@NewsMessages.NewsCategory</li>

@@ -1,4 +1,21 @@
 ﻿var NewsCommentCtrl = function ($scope, $uibModal, NewsCommentsFactory, Authentication, $rootScope) {//, $sce) {
+
+    $scope.newComment = undefined;
+
+    function resetNewComment() {
+        $scope.newComment = {
+            id: undefined,
+            message: undefined,
+            parentId: undefined,
+            newsItemId: undefined,
+            authorId: undefined,
+            authorUserName: undefined,
+            answer: undefined,
+        }
+    }
+
+    resetNewComment();
+
     function findWithAttr(array, attr, value) {
         for (var i = 0; i < array.length; i += 1) {
             if (array[i][attr] === value) {
@@ -7,6 +24,43 @@
         }
         return -1;
     };
+
+    $scope.addReplyComment = function (comment) {
+        console.log(comment);
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: 'modalEditComment.html',
+            controller: 'ModalEditCommentCtrl',
+            resolve: {
+                editingComment: function () {
+                    return $scope.newComment;
+                }
+            }
+        });
+
+        modalInstance.result.then(function () {
+            console.log('editing confirm');
+            
+            $scope.newComment.newsItemId = comment.newsItemId;
+            $scope.newComment.parentId = comment.id;
+            console.log($scope.newComment);
+            NewsCommentsFactory.add($scope.newComment).
+                    then(function (response) {
+                        if (response) {
+                            comment.children.push(response);
+                            //   $scope.$emit('editCommentConfirmed', editedComment);
+                            $rootScope.alerts.push({ type: 'success', msg: 'Комментарий успешно измененен.' });
+                            //    $state.go('home');
+                            resetNewComment();
+
+                        }
+                    },
+                        function (response) {
+                            $rootScope.alerts.push({ type: 'danger', msg: 'Комментарий не был измененен.' });
+                        });
+            }, function () {
+        });
+    }
 
     $scope.editComment = function (comment) {
         console.log('deit 11');
@@ -79,7 +133,6 @@
 
     $scope.isUserAuthor = function (userId, newsUserId) {
      //   console.log('isUserAuthor NewsCommentCtrl ' + userId + ' ' + newsUserId);
-        
         return userId == newsUserId;
     }
 
