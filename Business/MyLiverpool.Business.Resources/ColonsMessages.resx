@@ -120,6 +120,9 @@
   <data name="AdditionTime" xml:space="preserve">
     <value>Дата добавления:</value>
   </data>
+  <data name="Author" xml:space="preserve">
+    <value>Автор:</value>
+  </data>
   <data name="Birthday" xml:space="preserve">
     <value>Дата рождения:</value>
   </data>

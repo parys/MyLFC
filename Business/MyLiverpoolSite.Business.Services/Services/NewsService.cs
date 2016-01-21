@@ -125,10 +125,10 @@ namespace MyLiverpoolSite.Business.Services.Services
         #region Dto 
         public async Task<PageableData<NewsMiniDto>> GetDtoAllAsync(int page, int? categoryId)
         {
-            // itemPerPage = GlobalConstants.NewsPerPage;
+            var itemPerPage = GlobalConstants.NewsPerPage;
             Expression<Func<NewsItem, bool>> filter = x => !x.OnTop;
             Expression<Func<NewsItem, bool>> filterForCount = null;
-            ICollection<NewsItem> topNews = null;
+            ICollection<NewsItem> topNews = new List<NewsItem>();
             if (categoryId.HasValue)
             {
                 filter = x => x.NewsCategoryId == categoryId.Value && !x.OnTop;
@@ -137,15 +137,20 @@ namespace MyLiverpoolSite.Business.Services.Services
             }
             else
             {
-                topNews = await _unitOfWork.NewsItemRepository.GetAsync(x => x.OnTop);
+                if (page == GlobalConstants.FirstPage)
+                {
+                    topNews = await _unitOfWork.NewsItemRepository.GetAsync(x => x.OnTop);
+                }
             }
 
-            // if (page == GlobalConstants.FirstPage)
-            // {
-            var itemPerPage = GlobalConstants.NewsPerPage - topNews.Count > 0 ? GlobalConstants.NewsPerPage - topNews.Count : 0;
-            // }
+            if (page == GlobalConstants.FirstPage)
+            {
+                itemPerPage = GlobalConstants.NewsPerPage - topNews.Count > 0
+                    ? GlobalConstants.NewsPerPage - topNews.Count
+                    : 0;
+            }
             var news = await _unitOfWork.NewsItemRepository.GetAsync(page, filter: filter, itemPerPage: itemPerPage);
-            var newsForView = (page == GlobalConstants.FirstPage) ? topNews.Concat(news) : news;
+            var newsForView = topNews.Concat(news);
             var newsVm = Mapper.Map<IEnumerable<NewsMiniDto>>(newsForView);
             var allNewsCount = await _unitOfWork.NewsItemRepository.GetCountAsync(filterForCount);
             var result = new PageableData<NewsMiniDto>(newsVm, page, allNewsCount);

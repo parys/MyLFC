@@ -19,8 +19,19 @@ var Authentication = function ($q, $http, $state, AccountFactory, SessionService
         requestUser: function() {
           //  console.log('requested user');
             if ($cookies.getObject('user')) {
-                authenticatedUser = $cookies.getObject('user');
-          //      console.log(authenticatedUser);
+                AccountFactory.checkIfUserLoggedIn().
+                    then(function(response) {
+                        console.log('logged at server');
+                        authenticatedUser = $cookies.getObject('user');
+                    }, function(response) {
+                        console.log('NOT logged at server');
+                        authenticatedUser = undefined;
+                        $cookies.remove('user');
+                    });
+                //      console.log(authenticatedUser);
+            }
+            else {
+                authenticatedUser = undefined;
             }
             return authenticatedUser;
         },
@@ -50,7 +61,6 @@ var Authentication = function ($q, $http, $state, AccountFactory, SessionService
 
         getToken: function() {
             if (!authenticatedUser) return undefined;
-            console.log(authenticatedUser.access_token);
             return authenticatedUser.access_token;
         },
 

@@ -8,22 +8,15 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - @CommonMessages.SiteTitleAddress</title>
-    @* <link rel="shortcut icon" type="image/x-icon" href="~/Content/favicon.ico" />*@
+    <link rel="shortcut icon" type="image/x-icon" href="~/favicon.ico" />
 
-
-    @*<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/css/bootstrap.min.css">*@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/App")
     @*<script src="~/Scripts/ru.js"></script>
     <script src="~/Scripts/jquery.wysibb.js"></script>
     <link rel="stylesheet" href="~/Content/theme/default/wbbtheme.css" />
-    <script src="~/Scripts/bootstrap-datepicker.min.js"></script>
-    <link rel="stylesheet" href="~/Content/bootstrap-datepicker3.min.css" />
-
     <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/css/select2.min.css" rel="stylesheet" />
     <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/js/select2.min.js"></script>*@
-
-
     <base href="/"/>
 </head>
 <body>
@@ -65,28 +58,29 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li><a ui-sref="home">@CommonMessages.Home</a></li>
-                @if (User.IsInRole("AdminFull"))
-                {
-                    @*<li> @Html.ActionLink(CommonMessages.Roles, "Index", "Role") </li>*@
-                }
+             @*   @if (User.IsInRole("AdminFull"))
+    {
+       <li> @Html.ActionLink(CommonMessages.Roles, "Index", "Role") </li>
+                }*@
                 <li> <a ui-sref="forum">@CommonMessages.Forum</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">@CommonMessages.News<b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a ui-sref="news">@CommonMessages.News</a></li>
+                        <li><a ></a></li>
                         <li ng-if="isNewsmaker()"><a ui-sref="newsEdit()">@CommonMessages.Create</a></li>
                         <li><a ui-sref="newsCategories()">@CommonMessages.Categories</a></li>
                     </ul>
                 </li>
-                <li class="dropdown">
+
+                @*<li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">@CommonMessages.Blogs<b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li>@Html.ActionLink(CommonMessages.Blogs, "Index", "Blog")</li>
                         @if (User.IsInRole("BlogsStart"))
                         {
-                            <li>@*@Html.ActionLink(CommonMessages.Create, "Create", "Blog")*@</li>
-                        }@*       <li>@Html.ActionLink(CommonMessages.Categories, "Categories", "Blog")</li>*@</ul>
-                </li>
+                            <li>Html.ActionLink(CommonMessages.Create, "Create", "Blog")</li>
+                        }       <li>@Html.ActionLink(CommonMessages.Categories, "Categories", "Blog")</li></ul>
+                </li>*@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">@CommonMessages.Users <b class="caret"></b></a>
                     <ul class="dropdown-menu">

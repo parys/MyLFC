@@ -8,9 +8,13 @@
     $scope.login = function () {
         if (new validationService().checkFormValidity($scope)) {
             Authentication.login($scope.loginForm);
-            console.log('logged in ' + $stateParams.returnUrl);
-            console.log($location);
-            $location.url($stateParams.returnUrl);
+            if (Authentication.authenticatedUser != undefined) {
+                console.log('logged in ' + $stateParams.returnUrl);
+                console.log($location);
+                $location.url($stateParams.returnUrl);
+            } else {
+                
+            }
         }
     }
 }

@@ -4,7 +4,7 @@
 }
 
 <div class="container-fluid" ng-repeat="item in newsItems">
-    <div class="container-fluid">
+    <div class="container">
         <div class="row">
             <a ui-sref="newsInfo({id: item.id})" class="col-md-9"><span>{{ item.title }}</span></a>
                 <span class="col-md-3" ng-if="isNewsmaker()">
@@ -14,29 +14,32 @@
                 </span>
         </div>
         <div class="row">
-            <img class="img-thumbnail" alt="" ng-src="{{item.photoPath}}" style="width: 300px; height: 140px;" />
+            <img class="img-thumbnail news-mini" alt="" ng-src="{{item.photoPath}}" />
         </div>
         <div class="row">
             <i> <span ng-bind-html="item.brief | rawHtml"></span></i>
         </div>
-        <ul class="list-inline">
-            <li class="">@NewsMessages.NewsCategory</li>
+        <ul class="list-inline small small-offset">
+            <li class="">@ColonsMessages.Category</li>
             <li class=""><a ui-sref="news({page: 1, categoryId: item.newsCategoryId})">{{ item.newsCategoryName}}</a></li>
             <li class="">|</li>
-            <li class="">@NewsMessages.AdditionTime</li>
+            <li class="">@ColonsMessages.AdditionTime</li>
             <li class="">{{item.additionTime | date:'medium'}}</li>
             <li class="">|</li>
-            <li class="">@NewsMessages.Reads</li>
+            <li class="">@ColonsMessages.Reads</li>
             <li class="">{{item.reads}}</li>
             <li class="">|</li>
-            <li class="">@NewsMessages.Author</li>
+            <li class="">@ColonsMessages.Author</li>
             <li class=""><a ui-sref="userInfo({id: item.authorId })">{{item.authorUserName }}</a></li>
+            <li class="">|</li>
+            <li class="">@ColonsMessages.CommentsCount</li>
+            <li class="">{{ item.commentsCount }}</li>
         </ul>
     </div>
     <hr />
 </div>
 <div class="pagination">
-    <uib-pagination ng-show="countPage > 15" total-items="countPage" ng-model="pageNo" ng-change="goToPage()"></uib-pagination>
+    <uib-pagination ng-show="totalItems > itemPerPage" total-items="totalItems" ng-model="pageNo" ng-change="goToPage()"></uib-pagination>
 </div>
 
 <script type="text/ng-template" id="modalDeleteConfirmation.html">
@@ -57,64 +60,3 @@
         <div ng-transclude></div>
     </div>
 </script>
-
-
-@*<div class="modal fade" id="confirmDelete">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <input hidden id="newsId" value="" />
-                    <h4 class="modal-title">@CommonMessages.DeleteConfirmation</h4>
-                </div>
-                <div class="modal-body">
-                    <p>@CommonMessages.Delete?</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">@CommonMessages.Cancel</button>
-                    <button type="button" class="btn btn-primary" id="delete">@CommonMessages.Delete</button>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->*@
-
-@*<script>
-        $(document).ready(function() {
-            $('#confirmDelete').on('shown.bs.modal', function(e) {
-                console.log($(e.relatedTarget).attr('data-id'));
-                var id = $(e.relatedTarget).attr('data-id');
-                $('#newsId').val(id);
-            });
-
-            $('button#delete').on('click', function() {
-                console.log('delete');
-                deleteNews();
-            });
-
-            function deleteNews() {
-                var newsId = $('#newsId').val();
-                if (!newsId) {
-                    console.log("newsId null");
-                    return;
-                }
-                $.ajax({
-                    type: 'post',
-                    url: '@Url.Action("Delete", "News")',
-                    data: { id: newsId },
-                    beforeSend: function() {
-
-                    },
-                    success: function(response) {
-                        $('#newsId').val('');
-                        if (response) {
-                            $('#newsId').val('');
-                            console.log('finish');
-                        } else {
-                            console.log("not delete");
-                        }
-                        $('#confirmDelete').modal('hide');
-                    }
-                });
-            }
-        });
-    </script>*@

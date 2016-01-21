@@ -1,15 +1,16 @@
 ﻿var NewsController = function ($scope, NewsFactory, $uibModal, $rootScope, $stateParams, $state) {
     $scope.newsItems = [];
     $scope.pageNo = undefined;
-    $scope.countPage = undefined;
-    //$scope.$modalInstance = undefined;
+    $scope.totalItems = undefined;
+    $scope.itemPerPage = undefined;
 
     var init = function(page, categoryId) {
         NewsFactory.getList(page, categoryId)
             .then(function(response) {
                     $scope.newsItems = response.list;
                     $scope.pageNo = response.pageNo;
-                    $scope.countPage = response.countPage;
+                    $scope.totalItems = response.totalItems;
+                    $scope.itemPerPage = response.itemPerPage;
                 },
                 function(response) {
                     //$scope.f = "";

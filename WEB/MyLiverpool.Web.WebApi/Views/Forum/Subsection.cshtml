@@ -16,5 +16,5 @@
                 </li>
         </ul>
     </div>
-    <div class="pagination"> @*@Html.PageLinks(Model.Themes.PageNo, Model.Themes.CountPage, x => Url.Action("IndexSubsection", new { id = Model.Id, page = x }))*@ </div>
+    <div class="pagination"> @*@Html.PageLinks(Model.Themes.PageNo, Model.Themes.TotalItems, x => Url.Action("IndexSubsection", new { id = Model.Id, page = x }))*@ </div>
 </div>

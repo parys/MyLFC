@@ -87,4 +87,4 @@
     }
 
 </table>
-<div class="pagination">         @Html.PageLinks(Model.PageNo, Model.CountPage, x => Url.Action("Index", new { page = x }))     </div>
+<div class="pagination">         @Html.PageLinks(Model.PageNo, Model.TotalItems, x => Url.Action("Index", new { page = x }))     </div>

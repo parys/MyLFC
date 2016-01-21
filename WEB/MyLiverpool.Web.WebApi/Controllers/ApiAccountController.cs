@@ -25,10 +25,10 @@ namespace MyLiverpool.Web.WebApi.Controllers
         private ApplicationUserManager _userManager;
         private readonly IAccountService _accountService;
 
-        public ApiAccountController(IAccountService accountService)
-        {
-            _accountService = accountService;
-        }
+        //public ApiAccountController(IAccountService accountService)
+        //{
+        //    _accountService = accountService;
+        //}
 
         public ApiAccountController(ApplicationUserManager userManager,
             ISecureDataFormat<AuthenticationTicket> accessTokenFormat, IAccountService accountService)
@@ -51,6 +51,12 @@ namespace MyLiverpool.Web.WebApi.Controllers
         }
 
         public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
+
+        [Route("IsLogined")]
+        public IHttpActionResult IsLogined()
+        {
+            return Ok();
+        }
 
         // GET api/Account/UserInfo
         [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
