@@ -106,7 +106,7 @@ namespace MyLiverpool.Business.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Количество комментариев:.
+        ///   Looks up a localized string similar to Комментарии:.
         /// </summary>
         public static string CommentsCount {
             get {

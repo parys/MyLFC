@@ -19,7 +19,7 @@ namespace MyLiverpool.Business.DTO
 
         public DateTime? AdditionTime { get; set; }
 
-   //     public uint NumberCommentaries { get; set; }
+        public int CommentsCount { get; set; }
 
         public int AuthorId { get; set; }
 

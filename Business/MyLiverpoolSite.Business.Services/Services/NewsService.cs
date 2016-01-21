@@ -165,8 +165,10 @@ namespace MyLiverpoolSite.Business.Services.Services
                 return null;
             }
             //todo newsCounter
+            var commentsCount = newsItem.Comments.Count;
             newsItem.Comments = newsItem.Comments.Where(x => !x.ParentId.HasValue).ToList();
             var dto = Mapper.Map<NewsItemDto>(newsItem);
+            dto.CommentsCount = commentsCount;
             return dto;
         }
 

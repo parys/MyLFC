@@ -5,7 +5,7 @@
 
 var Authentication = function ($q, $http, $state, AccountFactory, SessionService, $cookies) {
 
-    var authenticatedUser = null;
+    var authenticatedUser = undefined;
     var cookieName = 'abra-kadabra';
 
     //  var params = { grant_type: "password", userName: 'admin', password: '123456' }; //todo
@@ -41,27 +41,31 @@ var Authentication = function ($q, $http, $state, AccountFactory, SessionService
         },
 
         exists: function() {
-            return authenticatedUser != null;
+            return authenticatedUser != undefined;
         },
 
-        login: function(credentials) {
+        login: function (credentials) {
             AccountFactory.login(credentials).
-                then(function(response) {
+                then(function (response) {
+                    console.log(response);
                     authenticatedUser = response;
                     $cookies.putObject('user', authenticatedUser);
-                }, function(response) {
+                    return true;
+                }, function (response) {
+                    console.log('non authorized  AccountFactory.login' + response);
                     authenticatedUser = undefined;
                 });
         },
 
         logout: function() {
-            authenticatedUser = null;
+            authenticatedUser = undefined;
             $cookies.remove('user'); //todo from server
         },
 
-        getToken: function() {
-            if (!authenticatedUser) return undefined;
-            return authenticatedUser.access_token;
+        getToken: function () {
+            var cookie = $cookies.getObject('user');
+            if (!cookie) return undefined;
+            return cookie.access_token;
         },
 
         getUserId: function() {

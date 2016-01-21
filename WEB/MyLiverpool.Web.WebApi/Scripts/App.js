@@ -234,6 +234,7 @@ App.filter('rawHtml', ['$sce', function($sce){
 }]);
 
 App.run(function (Authentication, Application, $rootScope, $location, RouteFilter, $http, uibPaginationConfig, $state, $stateParams) {
+    $http.defaults.headers.common.Authorization = 'Bearer ' + Authentication.getToken();
     Authentication.requestUser();
     //    .then(function () {
    //     Application.makeReady();
@@ -244,7 +245,7 @@ App.run(function (Authentication, Application, $rootScope, $location, RouteFilte
         $rootScope.alerts.splice(index, 1);
     };
 
-    $http.defaults.headers.common.Authorization = 'Bearer ' + Authentication.getToken();
+    
 
     $rootScope.$on('$stateChangeStart', function(scope, next, current) {
         //console.log('stateChange ');

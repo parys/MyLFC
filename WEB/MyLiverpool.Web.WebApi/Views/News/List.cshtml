@@ -4,7 +4,7 @@
 }
 
 <div class="container-fluid" ng-repeat="item in newsItems">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <a ui-sref="newsInfo({id: item.id})" class="col-md-9"><span>{{ item.title }}</span></a>
                 <span class="col-md-3" ng-if="isNewsmaker()">

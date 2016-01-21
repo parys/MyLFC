@@ -149,6 +149,7 @@ namespace MyLiverpoolSite.Business.Services.Mapping
                 .ForMember(dest => dest.CanCommentary, src => src.MapFrom(x => x.CanCommentary))
                 .ForMember(dest => dest.Comments,
                     src => src.MapFrom(x => Mapper.Map<ICollection<NewsCommentDto>>(x.Comments)))
+                    .ForMember(dest => dest.CommentsCount, src => src.Ignore() )
                 .ForMember(dest => dest.Message, src => src.MapFrom(x => x.Message))
                 .ForMember(dest => dest.NewsCategoryId, src => src.MapFrom(x => x.NewsCategoryId))
                 .ForMember(dest => dest.NewsCategoryName, src => src.MapFrom(x => x.NewsCategory.Name))
