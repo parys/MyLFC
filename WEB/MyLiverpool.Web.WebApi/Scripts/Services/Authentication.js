@@ -52,6 +52,7 @@ var Authentication = function ($q, $http, $state, AccountFactory, SessionService
                     $cookies.putObject('user', authenticatedUser);
                     return true;
                 }, function (response) {
+                    credentials.errorMessage = 'Неправильный логин или пароль.';
                     console.log('non authorized  AccountFactory.login' + response);
                     authenticatedUser = undefined;
                 });
