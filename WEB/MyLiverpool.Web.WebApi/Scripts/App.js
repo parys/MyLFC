@@ -17,6 +17,8 @@ App.controller('ForumController', ForumController);
 App.controller('ForumSubsectionController', ForumSubsectionController);
 App.controller('ForumThemeController', ForumThemeController);
 App.controller('ModalCtrl', ModalCtrl);
+App.controller('rightContainerCtrl', rightContainerCtrl);
+App.controller('leftContainerCtrl', leftContainerCtrl);
 
 App.service('SessionService', SessionService);
 

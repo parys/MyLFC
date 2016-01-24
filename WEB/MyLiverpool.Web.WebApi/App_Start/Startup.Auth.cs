@@ -120,7 +120,7 @@ namespace MyLiverpool.Web.WebApi
             // Enable the application to use bearer tokens to authenticate users
             app.UseOAuthBearerTokens(OAuthOptions);
 
-            app.UseCors(CorsOptions.AllowAll); //todo
+           // app.UseCors(CorsOptions.AllowAll); //todo
         }
     }
 }

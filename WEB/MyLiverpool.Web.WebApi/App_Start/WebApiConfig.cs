@@ -12,7 +12,7 @@ namespace MyLiverpool.Web.WebApi
         {
             // Web API configuration and services
             // Configure Web API to use only bearer token authentication.
-            config.SuppressDefaultHostAuthentication();//todo?
+            config.SuppressDefaultHostAuthentication();//todo
 
             var cors = new EnableCorsAttribute("http://lfc.somee.com, http://localhost:46940", "*", "*");
             config.EnableCors(cors);

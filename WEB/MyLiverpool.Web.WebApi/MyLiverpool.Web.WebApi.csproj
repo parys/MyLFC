@@ -328,6 +328,7 @@
     <Content Include="Scripts\Controllers\ForumSubsectionController.js" />
     <Content Include="Scripts\Controllers\ForumThemeController.js" />
     <Content Include="Scripts\Controllers\LandingPageController.js" />
+    <Content Include="Scripts\Controllers\leftContainerCtrl.js" />
     <Content Include="Scripts\Controllers\LoadingCtrl.js" />
     <Content Include="Scripts\Controllers\LoginController.js" />
     <Content Include="Scripts\Controllers\ModalCtrl.js" />
@@ -341,6 +342,7 @@
     <Content Include="Scripts\Controllers\PmsController.js" />
     <Content Include="Scripts\Controllers\PmWriteCtrl.js" />
     <Content Include="Scripts\Controllers\RegisterController.js" />
+    <Content Include="Scripts\Controllers\rightContainerCtrl.js" />
     <Content Include="Scripts\Controllers\UserController.js" />
     <Content Include="Scripts\Controllers\UsersController.js" />
     <Content Include="Scripts\Directives\markItUp.js" />
