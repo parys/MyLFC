@@ -2,33 +2,40 @@
 // markItUp!
 // By Jay Salvat - http://markitup.jaysalvat.com/
 // ------------------------------------------------------------------*/
-.markItUp .markItUpButton1 a {
-	background-image:url(images/bold.png);
+
+.markItUp .bold a {
+	background:url(images/iconsBB.png) 0px 0px no-repeat;
 }
-.markItUp .markItUpButton2 a {
-	background-image:url(images/italic.png);
+.markItUp .italic a {
+    background: url(images/iconsBB.png) 0px -40px no-repeat;
+
 }
-.markItUp .markItUpButton3 a {
-	background-image:url(images/stroke.png);
+.markItUp .underline a {
+	background: url(images/iconsBB.png) 0px -20px no-repeat;
+}
+.markItUp .stroke a {
+	background: url(images/iconsBB.png) 0px -120px no-repeat;
 }
 
-.markItUp .markItUpButton4 a {
-	background-image:url(images/list-bullet.png); 
-}
-.markItUp .markItUpButton5 a {
-	background-image:url(images/list-numeric.png);
+.markItUp .bulletedList a {
+    background: url(images/iconsBB.png) -0px -180px no-repeat;
 }
 
-.markItUp .markItUpButton6 a {
-	background-image:url(images/picture.png); 
-}
-.markItUp .markItUpButton7 a {
-	background-image:url(images/link.png);
+.markItUp .numericList a {
+    background: url(images/iconsBB.png) 0px -220px no-repeat;
 }
 
-.markItUp .markItUpButton8 a {
+.markItUp .img a {
+    background: url(images/iconsBB.png) 0px -60px no-repeat;
+}
+.markItUp .link a {
+	background: url(images/iconsBB.png) 0px -80px no-repeat;
+}
+
+.markItUp .markItUpButton11 a {
 	background-image:url(images/clean.png);
 }
 .markItUp .preview a {
 	background-image:url(images/preview.png);
+    width:20px;
 }
