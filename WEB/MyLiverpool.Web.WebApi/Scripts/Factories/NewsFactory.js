@@ -122,6 +122,23 @@
 
             return result.promise;
         },
+        addView: function (id) {
+            var result = $q.defer();
+
+            $http({
+                    method: 'PUT',
+                    url: SessionService.apiUrl + '/api/News/addView?id=' + id,
+                    headers: { 'Content-Type': 'application/json' }
+                })
+                .success(function(response) {
+                    result.resolve(response);
+                })
+                .error(function(response) {
+                    result.reject(response);
+                });
+
+            return result.promise;
+        },
 
 
     }

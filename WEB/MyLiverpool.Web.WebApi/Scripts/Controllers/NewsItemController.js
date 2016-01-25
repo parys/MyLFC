@@ -1,4 +1,4 @@
-﻿var NewsItemController = function ($scope, NewsFactory, $uibModal, NewsCommentsFactory, $state) {//, $sce) {
+﻿var NewsItemController = function ($scope, NewsFactory, $uibModal, NewsCommentsFactory, $state, $cookies) {//, $sce) {
     $scope.item = [];
 
     $scope.newComment = undefined;
@@ -14,15 +14,29 @@
             answer: undefined,
         }
     }
+    
+    function tryAddNewsRead() {
+        var cookieName = 'news' + $scope.item.id;
+        if (!$cookies.get(cookieName)) {
+            NewsFactory.addView($scope.item.id)
+                .then(function(response) {
+                        $cookies.put(cookieName, 0);
+                        $scope.item.reads += 1;
+                    },
+                    function(response) {
 
+                    });
+        }
+    }
 
     $scope.init = function () {
         resetNewComment();
         NewsFactory.getItem()
-            .then(function (response) {
-                $scope.item = response;
-            },
-                function (response) {
+            .then(function(response) {
+                    $scope.item = response;
+                    tryAddNewsRead();
+                },
+                function(response) {
                     //$scope.f = "";
                 });
     };
@@ -106,4 +120,4 @@
     // init();
 };
 
-NewsItemController.$inject = ['$scope', 'NewsFactory', '$uibModal', 'NewsCommentsFactory', '$state'];//, '$sce'];
+NewsItemController.$inject = ['$scope', 'NewsFactory', '$uibModal', 'NewsCommentsFactory', '$state', '$cookies'];//, '$sce'];

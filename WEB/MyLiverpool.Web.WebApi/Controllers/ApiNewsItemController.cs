@@ -113,5 +113,18 @@ namespace MyLiverpool.Web.WebApi.Controllers
             var result = await _newsService.EditAsync(model, User.Identity.GetUserId<int>());
             return Ok(result);
         }
+
+        [Route("AddView")]
+        [HttpPut]
+        [AllowAnonymous]
+        public async Task<IHttpActionResult> AddView(int? id)
+        {
+            if (!id.HasValue)
+            {
+                return BadRequest();
+            }
+            var result = await _newsService.AddViewAsync(id.Value);
+            return Ok(result);
+        }
     }
 }

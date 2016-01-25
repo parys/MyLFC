@@ -257,7 +257,16 @@ namespace MyLiverpoolSite.Business.Services.Services
                 return false;
             }
             return true;
-        } 
+        }
+
+        public async Task<bool> AddViewAsync(int id)
+        {
+            var item = await _unitOfWork.NewsItemRepository.GetByIdAsync(id);
+            item.Reads += 1;
+            _unitOfWork.NewsItemRepository.Update(item);
+            await _unitOfWork.SaveAsync();
+            return true;
+        }
 
         #endregion
     }
