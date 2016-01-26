@@ -55,7 +55,7 @@
     }
 
     $scope.isUserAuthor = function (userId, newsUserId) {
-      //  console.log('isUserAuthor + NewsItemController');
+        console.log('isUserAuthor + NewsItemController');
         return userId == newsUserId;
     }
     
