@@ -1,5 +1,4 @@
 ﻿var RecursionHelper = function($compile) {
-    console.log(1111);
     return {
         /**
 		 * Manually compiles the element, fixing the recursion loop.

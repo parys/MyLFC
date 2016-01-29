@@ -16,10 +16,10 @@ namespace MyLiverpool.Web.WebApi
                 .Include("~/Scripts/jquery-{version}.js")
                 .Include("~/Scripts/jquery.markitup.js")
                 .IncludeDirectory("~/Scripts/angular", "*.js", false)
+                .IncludeDirectory("~/Scripts/objects", "*.js", true)
                 .IncludeDirectory("~/Scripts/Controllers", "*.js")
                 .IncludeDirectory("~/Scripts/Factories", "*.js")
                 .IncludeDirectory("~/Scripts/Services", "*.js")
-                .IncludeDirectory("~/Scripts/Directives", "*.js")
                 .Include("~/Scripts/App.js"));
 
             BundleTable.EnableOptimizations = false;

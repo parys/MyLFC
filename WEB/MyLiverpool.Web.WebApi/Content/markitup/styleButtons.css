@@ -31,8 +31,11 @@
 .markItUp .link a {
 	background: url(images/iconsBB.png) 0px -80px no-repeat;
 }
+.markItUp .video a {
+	background: url(images/iconsBB.png) 0px -500px no-repeat;
+}
 
-.markItUp .markItUpButton11 a {
+.markItUp .clean a {
 	background-image:url(images/clean.png);
 }
 .markItUp .preview a {
