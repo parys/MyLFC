@@ -244,6 +244,7 @@
     <Compile Include="Controllers\ApiAccountController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ApiForumController.cs" />
+    <Compile Include="Controllers\ApiImageController.cs" />
     <Compile Include="Controllers\ApiNewsCommentController.cs" />
     <Compile Include="Controllers\ApiUserController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -333,6 +334,7 @@
     <Content Include="Scripts\Controllers\leftContainerCtrl.js" />
     <Content Include="Scripts\Controllers\LoadingCtrl.js" />
     <Content Include="Scripts\objects\Account\LoginController.js" />
+    <Content Include="Scripts\objects\Images\ImagesFactory.js" />
     <Content Include="Scripts\objects\Modal\ModalCtrl.js" />
     <Content Include="Scripts\objects\Modal\ModalEditCommentCtrl.js" />
     <Content Include="Scripts\objects\News\NewsCategoriesCtrl.js" />

@@ -662,7 +662,7 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
 < span id='scr00Xh1AoPYy'></span><script type='text/javascript'>_uVideoPlayer({'url':'https://www.youtube.com/watch?v=NlR1jJb5I6g','width':'425','height':'355'},'scr00Xh1AoPYy');
 </script><!--/BBvideo--></div> <br /><br /> Фотографии по материалам <i><b>britishpathe.com, lfchistory.net </b></i>",
                     OnTop = i % 48 == 0,
-                    PhotoPath = "~/content/images/default.jpg",
+                    PhotoPath = "content/images/default.jpg",
                     Pending = i % 5 == 0,
                     Reads = 1110,
                     Source = "123",

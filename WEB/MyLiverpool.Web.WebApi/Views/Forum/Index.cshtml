@@ -1,16 +1,11 @@
-﻿@using MyLiverpool.Business.Resources
-@{
-    ViewBag.Title = CommonMessages.Forum;
-}
-
-<h2></h2>
+﻿<h2></h2>
 <div class="container-fluid" ng-repeat="section in sections">
     <div class="panel panel-danger">
         <div class="panel-heading">{{ section.name }}</div>
         <div class="panel-body"></div>
         <ul class="list-group" ng-repeat="subsection in section.subsections">
             <li class="list-group-item list">
-                <a ui-sref="subsection({id: subsection.id})"><span> {{ subsection.name}}</span></a>
+                <a ui-sref="subsection({id: subsection.id})"><span> {{ subsection.name}}</span><span class="small" ng-bind="subsection.description"></span></a>
             </li>
         </ul>
     </div>
