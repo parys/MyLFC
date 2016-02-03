@@ -35,6 +35,16 @@
 	background: url(images/iconsBB.png) 0px -500px no-repeat;
 }
 
+.markItUp .left a {
+    background: url(images/iconsBB.png) 0px -60px no-repeat;
+}
+.markItUp .center a {
+	background: url(images/iconsBB.png) 0px -80px no-repeat;
+}
+.markItUp .right a {
+	background: url(images/iconsBB.png) 0px -500px no-repeat;
+}
+
 .markItUp .clean a {
 	background-image:url(images/clean.png);
 }

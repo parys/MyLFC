@@ -1,13 +1,15 @@
-﻿var ImagesCtrl = function ($scope, ImagesFactory) {
-    $scope.sections = [];
+﻿var ImagesCtrl = function ($scope, ImagesFactory, $stateParams) {
+ //   $scope.path = '';
+    $scope.ob = '';
 
-    var init = function () {
-     //   ForumFactory.getSections()
+    $scope.init = function () {
+        ImagesFactory.getImages($stateParams.path)
             .then(function (response) {
-                $scope.sections = response.sections;
+                    console.log(response);
+                    $scope.ob = response;
 
-            },
-                function (response) {
+                },
+                function(response) {
                     //$scope.f = "";
                 });
     };
@@ -15,4 +17,4 @@
   //  init();
 };
 
-ImagesCtrl.$inject = ['$scope', 'ImagesFactory'];
+ImagesCtrl.$inject = ['$scope', 'ImagesFactory', '$stateParams'];

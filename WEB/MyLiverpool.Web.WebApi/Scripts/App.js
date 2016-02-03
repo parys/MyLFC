@@ -19,6 +19,7 @@ App.controller('ForumThemeController', ForumThemeController);
 App.controller('ModalCtrl', ModalCtrl);
 App.controller('rightContainerCtrl', rightContainerCtrl);
 App.controller('leftContainerCtrl', leftContainerCtrl);
+App.controller('ImagesCtrl', ImagesCtrl);
 
 App.service('SessionService', SessionService);
 
@@ -38,6 +39,7 @@ App.factory('NewsCommentsFactory', NewsCommentsFactory);
 App.factory('UsersFactory', UsersFactory);
 App.factory('PmsFactory', PmsFactory);
 App.factory('ForumFactory', ForumFactory);
+App.factory('ImagesFactory', ImagesFactory);
 
 var configFunction = function ($stateProvider, $httpProvider, $locationProvider, $translateProvider) {
 
@@ -114,6 +116,15 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider,
                 "containerMain": {
                     templateUrl: function(params) { return '/user/list?page=' + params.page },
                     controller: UsersController
+                }
+            }
+        })
+        .state('images', {
+            url: '/images?path',
+            views: {
+                "containerMain": {
+                    templateUrl: function (params) { return '/images/index?path=' + params.path },
+                    controller: ImagesCtrl
                 }
             }
         })

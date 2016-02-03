@@ -664,7 +664,7 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                     OnTop = i % 48 == 0,
                     PhotoPath = "content/images/default.jpg",
                     Pending = i % 5 == 0,
-                    Reads = 1110,
+                    Reads = 0,
                     Source = "123",
                     Title = "news" + i
                 });

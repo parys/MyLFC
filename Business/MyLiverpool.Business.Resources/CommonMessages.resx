@@ -216,4 +216,7 @@
   <data name="EditingComment" xml:space="preserve">
     <value>Редактирование комментария</value>
   </data>
+  <data name="Images" xml:space="preserve">
+    <value>Изображения</value>
+  </data>
 </root>

@@ -1,12 +1,11 @@
 ﻿var ImagesFactory = function($q, $http, SessionService) {
-
     return {
-        getSections: function() {
+        getImages: function(path) {
             var result = $q.defer();
 
             $http({
                 method: 'GET',
-                url: SessionService.apiUrl + '/api/Forum',
+                url: SessionService.apiUrl + '/api/Images?path=' + path,
                 headers: { 'Content-Type': 'application/json' }
             })
             .success(function (response) {
