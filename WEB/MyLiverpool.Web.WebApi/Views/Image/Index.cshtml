@@ -1,3 +1,6 @@
 ﻿<div ng-init="init()">
-123 {{ ob | json}}
+    {{ ob | json}}
+    <div ng-repeat="file in files">
+        <div class="col-md-3 bg-danger">{{file}}</div>
     </div>
+</div>

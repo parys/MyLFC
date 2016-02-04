@@ -1,12 +1,12 @@
 ﻿var ImagesCtrl = function ($scope, ImagesFactory, $stateParams) {
  //   $scope.path = '';
-    $scope.ob = '';
+    $scope.files = '';
 
     $scope.init = function () {
         ImagesFactory.getImages($stateParams.path)
             .then(function (response) {
                     console.log(response);
-                    $scope.ob = response;
+                    $scope.files = response;
 
                 },
                 function(response) {
