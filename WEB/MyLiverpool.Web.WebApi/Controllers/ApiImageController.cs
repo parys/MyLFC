@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -11,28 +13,53 @@ namespace MyLiverpool.Web.WebApi.Controllers
    // [Authorize(Roles = "NewsStart,BlogsStart")]
     public class ApiImageController : ApiController
     {
+        private const string Path = "\\content\\images";
+        private readonly int _pathLength = Path.Length + 1;
 
-        private string _path = "content\\images";
         [Route("")]
         [HttpGet]
   //      [ResponseType(typeof(ForumDto))]
         public async Task<IHttpActionResult> Get(string path)
         {
+            List<ImageDto> files = new List<ImageDto>();
             if (path == "undefined")
             {
-                path = _path;
+                path = Path;
             }
-            if (!path.Contains(_path))
+            if (!path.Contains(Path))
             {
-                path = Path.Combine(_path, path);
+                path = System.IO.Path.Combine(Path, path);
             }
             //CHECK ONLY ALLOWED PATHES
-            _path = HttpContext.Current.Server.MapPath("~") + path;
-            var subdirectoryEntries = Directory.EnumerateFileSystemEntries(_path);
-
-            return Ok(subdirectoryEntries);
+            var fullPath = HttpContext.Current.Server.MapPath("~") + path;
+            var subdirectoryFolders = Directory.EnumerateDirectories(fullPath);
+            var subdirectoryFiles = Directory.EnumerateFiles(fullPath);//, "*.jpeg,*.jpg,*.png");
+            foreach (var entry in subdirectoryFolders)
+            {
+                files.Add(new ImageDto()
+                {
+                    Name = entry.Substring(entry.LastIndexOf('\\')+1),
+                    Path = entry.Substring(entry.LastIndexOf(Path, StringComparison.InvariantCultureIgnoreCase)),
+                    IsFolder = true
+                });
+            }
+            foreach (var entry in subdirectoryFiles)
+            {
+                files.Add(new ImageDto()
+                {
+                    Name = entry.Substring(entry.LastIndexOf('\\')+1),
+                    Path = entry.Substring(entry.LastIndexOf(Path, StringComparison.InvariantCultureIgnoreCase)),
+                    IsFolder = false
+                });
+            }
+            return Ok(files);
         }
     }
 
-   // public class ImageDto
+    public class ImageDto
+    {
+        public string Path { get; set; }
+        public string Name { get; set; }
+        public bool IsFolder { get; set; }
+    }
 }
