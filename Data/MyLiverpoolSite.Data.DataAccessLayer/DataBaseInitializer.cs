@@ -16,6 +16,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
         private const int CountNews = 100;
         private const int CountNewsComments = 100;
         private const int CountUsers = 3;
+        private const MaterialType NewsType = MaterialType.News;
 
         protected override void Seed(LiverpoolContext context)
         {
@@ -335,7 +336,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
         }
         #endregion
 
-
+        #region forum
         private void InitializeForumSections(LiverpoolContext context)
         {
             var forumSection1 = new ForumSection()
@@ -600,45 +601,51 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
             context.ForumThemes.Add(forumThemes2);
             context.SaveChanges();
         }
+        #endregion
 
+        #region news
         private void InitializeNewsCategories(LiverpoolContext context)
         {
-            var categories = new List<NewsCategory>()
+            var categories = new List<MaterialCategory>()
             {
-                new NewsCategory()
+                new MaterialCategory()
                 {
                     Name = "news category 1",
                     Description = "new category description 1",
+                    MaterialType = NewsType,
                 },
-                new NewsCategory()
+                new MaterialCategory()
                 {
                     Name = "news category 2",
                     Description = "new category description 2",
+                    MaterialType = NewsType,
                 },
-                new NewsCategory()
+                new MaterialCategory()
                 {
                     Name = "news category 3",
                     Description = "new category description 3",
+                    MaterialType = NewsType,
                 },
             };
-            categories.ForEach(x => context.NewsCategories.Add(x));
+            categories.ForEach(x => context.MaterialCategories.Add(x));
             context.SaveChanges();
         }
 
         private void InitializeNews(LiverpoolContext context)
         {
-            var news = new List<NewsItem>();
+            var news = new List<Material>();
             var randomizer = new Random(44);
 
             for (int i = 0; i < CountNews; i++)
             {
-                news.Add(new NewsItem()
+                news.Add(new Material()
                 {
-                    NewsCategoryId = i % 2 == 0 ? 1 : 2,
+                    CategoryId = i % 2 == 0 ? 1 : 2,
                     AdditionTime = DateTime.Now.AddHours(randomizer.NextDouble() * -CountNews),
                     AuthorId = 1,
                     Brief = "brief" + i,
                     CanCommentary = i % 2 == 0,
+                    Type = NewsType,
                     LastModified = DateTime.Now.AddDays(randomizer.NextDouble()*-CountNews),
                     Message = @"<div align='center'><img src='http://s4.hostingkartinok.com/uploads/images/2013/07/5513d5a371375d0047370d9727e4ecc2.jpg' border ='0' alt ='/></div>
 <br /><br /> <b>100 дней, которые потрясли Коп</b> - это список моментов из истории ""Ливерпуля"", которые оказали значительное влияние на клуб и его болельщиков составленный самими
@@ -670,37 +677,39 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                 });
             };
 
-            news.ForEach(x => context.NewsItems.Add(x));
+            news.ForEach(x => context.Materials.Add(x));
             context.SaveChanges();
         }
 
         private void InitializeNewsComments(LiverpoolContext context)
         {
-            var newsComments = new List<NewsComment>();
+            var newsComments = new List<MaterialComment>();
             var random = new Random((int)DateTime.UtcNow.Ticks);
             for (int i = 0; i < CountNewsComments; i++)
             {
-                var comment = new NewsComment()
+                var comment = new MaterialComment()
                 {
-                    NewsItemId = random.Next(1, CountNews),
+                    MaterialId = random.Next(1, CountNews),
                     AdditionTime = DateTime.Now.AddDays(random.NextDouble()*10),
                     Answer = i % 5 == 0 ? "answer" : string.Empty,
                     AuthorId = random.Next(1, CountUsers),
                     Message = "message " + i,
                     Pending = (i+3)% 5 == 0,
+                    MaterialType = NewsType,
                 };
                 if (i % 3 == 0)
                 {
-                    comment.Children = new List<NewsComment>()
+                    comment.Children = new List<MaterialComment>()
                     {
-                        new NewsComment()
+                        new MaterialComment()
                         {
                             ParentId = i + 1,
                             Pending = false,
-                            NewsItemId = comment.NewsItemId,
+                            MaterialId = comment.MaterialId,
                             AdditionTime = DateTime.Now,
                             AuthorId = random.Next(1, CountUsers),
-                            Message = "comment inside"
+                            Message = "comment inside",
+                            MaterialType = NewsType,
                         }
                     };
                     i += 1;
@@ -708,45 +717,49 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                 newsComments.Add(comment);
             }
 
-            newsComments.ForEach(x => context.Comments.Add(x));
+            newsComments.ForEach(x => context.MaterialComments.Add(x));
             context.SaveChanges();
 
-            var commentFirstNews = new NewsComment()
+            var commentFirstNews = new MaterialComment()
             {
                 Pending = false,
-                NewsItemId = 1,
+                MaterialId = 1,
                 AdditionTime = DateTime.Now,
                 AuthorId = 1,
                 Message = "comment first",
-                Children = new List<NewsComment>()
+                MaterialType = NewsType,
+                Children = new List<MaterialComment>()
                 {
-                    new NewsComment()
+                    new MaterialComment()
                     {
                         ParentId = CountNews + 1,
                         Pending = false,
-                        NewsItemId = 1,
+                        MaterialId = 1,
                         AdditionTime = DateTime.Now,
                         AuthorId = 2,
                         Message = "comment second inside",
-                        Children = new List<NewsComment>()
+                        MaterialType = NewsType,
+                        Children = new List<MaterialComment>()
                         {
-                            new NewsComment()
+                            new MaterialComment()
                             {
                                 ParentId = CountNews + 2,
                                 Pending = false,
-                                NewsItemId = 1,
+                                MaterialId = 1,
                                 AdditionTime = DateTime.Now,
                                 AuthorId = 3,
                                 Message = "comment three inside",
+                                MaterialType = NewsType,
                             }
                         }
                     }
                 }
             };
 
-            context.Comments.Add(commentFirstNews);
+            context.MaterialComments.Add(commentFirstNews);
             context.SaveChanges();
         }
+        #endregion
 
         private void InitializePrivateMessages(LiverpoolContext context)
         {

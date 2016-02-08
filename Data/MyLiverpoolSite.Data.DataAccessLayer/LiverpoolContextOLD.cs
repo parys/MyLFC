@@ -18,11 +18,11 @@
 
 //        public DbSet<BlogItem> BlogItems { get; set; }
 
-//        public DbSet<NewsItem> NewsItems { get; set; }
+//        public DbSet<Material> Materials { get; set; }
 
 //        public DbSet<BlogCategory> BlogCategories { get; set; }
 
-//        public DbSet<NewsCategory> NewsCategories { get; set; }
+//        public DbSet<NewsCategory> MaterialCategories { get; set; }
 
 //        public DbSet<BlogComment> Children { get; set; }
 

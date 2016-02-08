@@ -11,15 +11,15 @@ namespace MyLiverpoolSite.Business.ViewModels.News
     {
         public CreateEditNewsViewModel()
         {
-            NewsCategories = new HashSet<NewsCategory>();
+            NewsCategories = new HashSet<MaterialCategory>();
         }
-        public ICollection<NewsCategory> NewsCategories { get; set; }
+        public ICollection<MaterialCategory> NewsCategories { get; set; }
 
         public int Id { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Required")]
         [Display(ResourceType = typeof(NewsMessages), Name = "NewsCategory")]
-        public NewsCategory NewsCategory { get; set; }
+        public MaterialCategory NewsCategory { get; set; }
 
         [Display(ResourceType = typeof (NewsMessages), Name = "Pending")]
         public bool Pending { get; set; }

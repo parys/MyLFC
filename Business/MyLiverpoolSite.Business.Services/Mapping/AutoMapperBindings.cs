@@ -1,9 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Net.NetworkInformation;
 using AutoMapper;
 using MyLiverpool.Business.DTO;
-using MyLiverpoolSite.Business.ViewModels.BlogComments;
-using MyLiverpoolSite.Business.ViewModels.Blogs;
 using MyLiverpoolSite.Business.ViewModels.Forum;
 using MyLiverpoolSite.Business.ViewModels.News;
 using MyLiverpoolSite.Business.ViewModels.NewsCategories;
@@ -87,86 +84,86 @@ namespace MyLiverpoolSite.Business.Services.Mapping
         {
             #region mapper for VM
 
-            AutoMapper.Mapper.CreateMap<IndexNewsViewModel, NewsItem>();
-            AutoMapper.Mapper.CreateMap<IndexBlogVM, BlogItem>();
+            Mapper.CreateMap<IndexNewsViewModel, Material>();
+       //     AutoMapper.Mapper.CreateMap<IndexBlogVM, BlogItem>();
 
-            AutoMapper.Mapper.CreateMap<NewsItem, IndexNewsViewModel>();
-            AutoMapper.Mapper.CreateMap<BlogItem, IndexBlogVM>();
+            Mapper.CreateMap<Material, IndexNewsViewModel>();
+        //    AutoMapper.Mapper.CreateMap<BlogItem, IndexBlogVM>();
 
-            AutoMapper.Mapper.CreateMap<NewsItem, CreateEditNewsViewModel>();
-            AutoMapper.Mapper.CreateMap<CreateEditNewsViewModel, NewsItem>();
+            Mapper.CreateMap<Material, CreateEditNewsViewModel>();
+            Mapper.CreateMap<CreateEditNewsViewModel, Material>();
 
-            AutoMapper.Mapper.CreateMap<BlogItem, CreateEditBlogVM>();
-            AutoMapper.Mapper.CreateMap<CreateEditBlogVM, BlogItem>();
+       //     AutoMapper.Mapper.CreateMap<BlogItem, CreateEditBlogVM>();
+       //     AutoMapper.Mapper.CreateMap<CreateEditBlogVM, BlogItem>();
 
-            AutoMapper.Mapper.CreateMap<NewsItem, IndexMiniNewsVM>();
-            AutoMapper.Mapper.CreateMap<BlogItem, IndexMiniBlogVM>();
-            //  Mapper.CreateMap<IndexMiniNewsVM, NewsItem>();
+            Mapper.CreateMap<Material, IndexMiniNewsVM>();
+       //     AutoMapper.Mapper.CreateMap<BlogItem, IndexMiniBlogVM>();
+            //  Mapper.CreateMap<IndexMiniNewsVM, Material>();
 
-            AutoMapper.Mapper.CreateMap<NewsComment, IndexNewsCommentVM>();
-            AutoMapper.Mapper.CreateMap<BlogComment, IndexBlogCommentVM>();
+            Mapper.CreateMap<MaterialComment, IndexNewsCommentVM>();
+       //     AutoMapper.Mapper.CreateMap<BlogComment, IndexBlogCommentVM>();
             //    Mapper.CreateMap<IndexNewsCommentVM, NewsComment>();
 
-            AutoMapper.Mapper.CreateMap<User, UserViewModel>();
+            Mapper.CreateMap<User, UserViewModel>();
             // Mapper.CreateMap<IndexNewsCommentVM, NewsComment>();
 
-            AutoMapper.Mapper.CreateMap<ForumSubsection, ForumSubsectionVM>().ForMember(x => x.Themes, y => y.Ignore());
-            AutoMapper.Mapper.CreateMap<ForumTheme, ForumThemeVM>().ForMember(x => x.Messages, y => y.Ignore());
-            AutoMapper.Mapper.CreateMap<ForumMessage, ForumMessageVM>();
+            Mapper.CreateMap<ForumSubsection, ForumSubsectionVM>().ForMember(x => x.Themes, y => y.Ignore());
+            Mapper.CreateMap<ForumTheme, ForumThemeVM>().ForMember(x => x.Messages, y => y.Ignore());
+            Mapper.CreateMap<ForumMessage, ForumMessageVM>();
 
-            AutoMapper.Mapper.CreateMap<NewsCategory, IndexNewsCategoryVM>();
+            Mapper.CreateMap<MaterialCategory, IndexNewsCategoryVM>();
 
-            AutoMapper.Mapper.CreateMap<RoleGroup, RoleGroupVM>();
-            AutoMapper.Mapper.CreateMap<RoleGroupVM, RoleGroup>();
+            Mapper.CreateMap<RoleGroup, RoleGroupVM>();
+            Mapper.CreateMap<RoleGroupVM, RoleGroup>();
 
-            AutoMapper.Mapper.CreateMap<Role, RoleVM>();
-            AutoMapper.Mapper.CreateMap<RoleVM, Role>();
+            Mapper.CreateMap<Role, RoleVM>();
+            Mapper.CreateMap<RoleVM, Role>();
 
-            AutoMapper.Mapper.CreateMap<PrivateMessage, PrivateMessageVM>();
-            AutoMapper.Mapper.CreateMap<PrivateMessageVM, PrivateMessage>();
+            Mapper.CreateMap<PrivateMessage, PrivateMessageVM>();
+            Mapper.CreateMap<PrivateMessageVM, PrivateMessage>();
 
             #endregion
 
-            Mapper.CreateMap<NewsItem, NewsMiniDto>()
+            Mapper.CreateMap<Material, MaterialMiniDto>()
                 .ForMember(dest => dest.AdditionTime, src => src.MapFrom(x => x.AdditionTime))
                 .ForMember(dest => dest.AuthorId, src => src.MapFrom(x => x.AuthorId))
                 .ForMember(dest => dest.AuthorUserName, src => src.MapFrom(x => x.Author.UserName))
                 .ForMember(dest => dest.Brief, src => src.MapFrom(x => x.Brief))
                 .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id))
-                .ForMember(dest => dest.NewsCategoryId, src => src.MapFrom(x => x.NewsCategoryId))
-                .ForMember(dest => dest.NewsCategoryName, src => src.MapFrom(x => x.NewsCategory.Name))
+                .ForMember(dest => dest.NewsCategoryId, src => src.MapFrom(x => x.CategoryId))
+                .ForMember(dest => dest.NewsCategoryName, src => src.MapFrom(x => x.Category.Name))
                 .ForMember(dest => dest.CommentsCount, src => src.MapFrom(x => x.Comments.Count))
                 .ForMember(dest => dest.Pending, src => src.MapFrom(x => x.Pending))
                 .ForMember(dest => dest.Title, src => src.MapFrom(x => x.Title))
                 .ForMember(dest => dest.PhotoPath, src => src.MapFrom(x => x.PhotoPath))
                 .ForMember(dest => dest.Reads, src => src.MapFrom(x => x.Reads));
 
-            Mapper.CreateMap<NewsItem, NewsItemDto>() //todo maybe separate for edit model
+            Mapper.CreateMap<Material, MaterialDto>() //todo maybe separate for edit model
                 .ForMember(dest => dest.AdditionTime, src => src.MapFrom(x => x.AdditionTime))
                 .ForMember(dest => dest.AuthorId, src => src.MapFrom(x => x.AuthorId))
                 .ForMember(dest => dest.AuthorUserName, src => src.MapFrom(x => x.Author.UserName))
                 .ForMember(dest => dest.Brief, src => src.MapFrom(x => x.Brief))
                 .ForMember(dest => dest.CanCommentary, src => src.MapFrom(x => x.CanCommentary))
                 .ForMember(dest => dest.Comments,
-                    src => src.MapFrom(x => Mapper.Map<ICollection<NewsCommentDto>>(x.Comments)))
+                    src => src.MapFrom(x => Mapper.Map<ICollection<MaterialCommentDto>>(x.Comments)))
                     .ForMember(dest => dest.CommentsCount, src => src.Ignore() )
                 .ForMember(dest => dest.Message, src => src.MapFrom(x => x.Message))
-                .ForMember(dest => dest.NewsCategoryId, src => src.MapFrom(x => x.NewsCategoryId))
-                .ForMember(dest => dest.NewsCategoryName, src => src.MapFrom(x => x.NewsCategory.Name))
+                .ForMember(dest => dest.NewsCategoryId, src => src.MapFrom(x => x.CategoryId))
+                .ForMember(dest => dest.NewsCategoryName, src => src.MapFrom(x => x.Category.Name))
                 .ForMember(dest => dest.OnTop, src => src.MapFrom(x => x.OnTop))
                 .ForMember(dest => dest.Pending, src => src.MapFrom(x => x.Pending))
                 .ForMember(dest => dest.Reads, src => src.MapFrom(x => x.Reads))
                 .ForMember(dest => dest.Source, src => src.MapFrom(x => x.Source))
                 .ForMember(dest => dest.Title, src => src.MapFrom(x => x.Title));
 
-            Mapper.CreateMap<NewsItemDto, NewsItem>()
+            Mapper.CreateMap<MaterialDto, Material>()
                 .ForMember(dest => dest.AdditionTime, src => src.MapFrom(x => x.AdditionTime.Value))
                 .ForMember(dest => dest.AuthorId, src => src.MapFrom(x => x.AuthorId))
                 .ForMember(dest => dest.Brief, src => src.MapFrom(x => x.Brief))
                 .ForMember(dest => dest.CanCommentary, src => src.MapFrom(x => x.CanCommentary))
                 .ForMember(dest => dest.Comments, src => src.Ignore())
                 .ForMember(dest => dest.Message, src => src.MapFrom(x => x.Message))
-                .ForMember(dest => dest.NewsCategoryId, src => src.MapFrom(x => x.NewsCategoryId))
+                .ForMember(dest => dest.CategoryId, src => src.MapFrom(x => x.NewsCategoryId))
                 .ForMember(dest => dest.OnTop, src => src.MapFrom(x => x.OnTop))
                 .ForMember(dest => dest.Pending, src => src.MapFrom(x => x.Pending))
                 .ForMember(dest => dest.Reads, src => src.MapFrom(x => x.Reads))
@@ -176,31 +173,31 @@ namespace MyLiverpoolSite.Business.Services.Mapping
 
         private static void RegisterNewsCommentMapping()
         {
-            Mapper.CreateMap<NewsComment, NewsCommentDto>()
+            Mapper.CreateMap<MaterialComment, MaterialCommentDto>()
                 .ForMember(dest => dest.AdditionTime, src => src.MapFrom(x => x.AdditionTime))
                 .ForMember(dest => dest.Answer, src => src.MapFrom(x => x.Answer))
                 .ForMember(dest => dest.AuthorId, src => src.MapFrom(x => x.AuthorId))
                 .ForMember(dest => dest.AuthorUserName, src => src.MapFrom(x => x.Author.UserName))
                 .ForMember(dest => dest.Children, src => src.MapFrom(x => x.Children))
                 .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id))
-                .ForMember(dest => dest.NewsItemId, src => src.MapFrom(x => x.NewsItemId))
+                .ForMember(dest => dest.NewsItemId, src => src.MapFrom(x => x.MaterialId))
                 .ForMember(dest => dest.Message, src => src.MapFrom(x => x.Message));
 
-            Mapper.CreateMap<NewsCommentEditingDto, NewsComment>()
+            Mapper.CreateMap<NewsCommentEditingDto, MaterialComment>()
                 .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id))
                 .ForMember(dest => dest.Answer, src => src.MapFrom(x => x.Answer))
                 .ForMember(dest => dest.AuthorId, src => src.MapFrom(x => x.AuthorId))
                 .ForMember(dest => dest.Message, src => src.MapFrom(x => x.Message))
-                .ForMember(dest => dest.NewsItemId, src => src.MapFrom(x => x.NewsItemId))
+                .ForMember(dest => dest.MaterialId, src => src.MapFrom(x => x.NewsItemId))
                 .ForMember(dest => dest.ParentId, src => src.MapFrom(x => x.ParentId));
         }
 
         private static void RegisterNewsCategoriesMapping()
         {
-            Mapper.CreateMap<NewsCategory, NewsCategoryDto>()
+            Mapper.CreateMap<MaterialCategory, MaterialCategoryDto>()
                 .ForMember(dest => dest.Description, src => src.MapFrom(x => x.Description))
                 .ForMember(dest => dest.Name, src => src.MapFrom(x => x.Name))
-                .ForMember(dest => dest.ItemsCount, src => src.MapFrom(x => x.NewsItems.Count))
+                .ForMember(dest => dest.ItemsCount, src => src.MapFrom(x => x.Materials.Count))
                 .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id));
         }
 

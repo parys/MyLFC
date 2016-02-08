@@ -1,6 +1,6 @@
 ﻿namespace MyLiverpool.Business.DTO
 {
-    public class NewsCategoryDto : IDto
+    public class MaterialCategoryDto : IDto
     {
         public int Id { get; set; }
 

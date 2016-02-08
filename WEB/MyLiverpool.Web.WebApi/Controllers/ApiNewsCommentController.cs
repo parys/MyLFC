@@ -3,6 +3,7 @@ using System.Web.Http;
 using Microsoft.AspNet.Identity;
 using MyLiverpool.Business.DTO;
 using MyLiverpoolSite.Business.Contracts;
+using MyLiverpoolSite.Data.Entities;
 
 namespace MyLiverpool.Web.WebApi.Controllers
 {
@@ -11,11 +12,12 @@ namespace MyLiverpool.Web.WebApi.Controllers
     [Authorize]
     public class ApiNewsCommentController : ApiController
     {
-        private readonly INewsCommentService _newsCommentService;
+        private readonly IMaterialCommentService _materialCommentService;
+        private const MaterialType Type = MaterialType.News;
 
-        public ApiNewsCommentController(INewsCommentService newsCommentService)
+        public ApiNewsCommentController(IMaterialCommentService materialCommentService)
         {
-            _newsCommentService = newsCommentService;
+            _materialCommentService = materialCommentService;
         }
 
         [Route("Add")]
@@ -28,7 +30,7 @@ namespace MyLiverpool.Web.WebApi.Controllers
                 return BadRequest();
             }
             comment.AuthorId = User.Identity.GetUserId<int>();
-            var result = await _newsCommentService.AddAsync(comment);
+            var result = await _materialCommentService.AddAsync(comment, Type);
             result.AuthorUserName = User.Identity.GetUserName();
             return Ok(result);
         } 
@@ -43,7 +45,7 @@ namespace MyLiverpool.Web.WebApi.Controllers
                 return BadRequest();
             }
             
-            var result = await _newsCommentService.DeleteAsync(id.Value);
+            var result = await _materialCommentService.DeleteAsync(id.Value, Type);
             return Ok(result);
         }
 
@@ -60,7 +62,7 @@ namespace MyLiverpool.Web.WebApi.Controllers
             {
                 return Unauthorized();
             }
-            var result = await _newsCommentService.EditAsync(comment);
+            var result = await _materialCommentService.EditAsync(comment, Type);
             return Ok(result);
         }
     }

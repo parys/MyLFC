@@ -9,12 +9,12 @@ namespace MyLiverpoolSite.Business.ViewModels.News
     {
         public IndexMiniNewsVM()
         {
-            Children = new HashSet<NewsComment>();
+            Children = new HashSet<MaterialComment>();
         }
 
         public int Id { get; set; }
 
-        public virtual NewsCategory NewsCategory { get; set; }
+        public virtual MaterialCategory NewsCategory { get; set; }
 
         //   public bool CanCommentary { get; set; }
 
@@ -39,6 +39,6 @@ namespace MyLiverpoolSite.Business.ViewModels.News
 
      //   public DateTime LastModified { get; set; }
 
-        public virtual ICollection<NewsComment> Children { get; set; }
+        public virtual ICollection<MaterialComment> Children { get; set; }
     }
 }

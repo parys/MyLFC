@@ -3,7 +3,7 @@ using System.Web.Mvc;
 
 namespace MyLiverpool.Business.DTO
 {
-    public class NewsMiniDto : IDto
+    public class MaterialMiniDto : IDto
     {
         public int Id { get; set; }
 

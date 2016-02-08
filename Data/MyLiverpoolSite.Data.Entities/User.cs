@@ -12,9 +12,9 @@ namespace MyLiverpoolSite.Data.Entities
         public User()
         {
             this.ForumMessages = new HashSet<ForumMessage>();
-            this.NewsComments = new HashSet<NewsComment>();
-            this.BlogItems = new HashSet<BlogItem>();
-            this.NewsItems = new HashSet<NewsItem>();
+            this.Comments = new HashSet<MaterialComment>();
+          //  this.BlogItems = new HashSet<BlogItem>();
+            this.Materials = new HashSet<Material>();
             this.SentPrivateMessages = new HashSet<PrivateMessage>();
             this.ReceivedPrivateMessages = new HashSet<PrivateMessage>();
         }
@@ -87,12 +87,12 @@ namespace MyLiverpoolSite.Data.Entities
 
         public virtual ICollection<ForumMessage> ForumMessages { get; set; }
 
-        public virtual ICollection<NewsComment> NewsComments { get; set; }
-        public virtual ICollection<BlogComment> BlogComments { get; set; }
+        public virtual ICollection<MaterialComment> Comments { get; set; }
+  //      public virtual ICollection<BlogComment> BlogComments { get; set; }
 
-        public virtual ICollection<BlogItem> BlogItems { get; set; }
+  //      public virtual ICollection<BlogItem> BlogItems { get; set; }
 
-        public virtual ICollection<NewsItem> NewsItems { get; set; }
+        public virtual ICollection<Material> Materials { get; set; }
 
         public virtual ICollection<PrivateMessage> SentPrivateMessages { get; set; }
         public virtual ICollection<PrivateMessage> ReceivedPrivateMessages { get; set; }

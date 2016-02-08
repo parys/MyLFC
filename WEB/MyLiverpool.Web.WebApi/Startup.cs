@@ -66,12 +66,12 @@ namespace MyLiverpool.Web.WebApi
         private void RegisterServices(ContainerBuilder builder)
         {
             builder.RegisterType<AccountService>().As<IAccountService>();
-            builder.RegisterType<BlogCategoryService>().As<IBlogCategoryService>();
-            builder.RegisterType<BlogCommentService>().As<IBlogCommentService>();
+           // builder.RegisterType<BlogCategoryService>().As<IBlogCategoryService>();
+           // builder.RegisterType<BlogCommentService>().As<IBlogCommentService>();
             builder.RegisterType<ForumService>().As<IForumService>();
-            builder.RegisterType<NewsCategoryService>().As<INewsCategoryService>();
-            builder.RegisterType<NewsCommentService>().As<INewsCommentService>();
-            builder.RegisterType<NewsService>().As<INewsService>();
+            builder.RegisterType<MaterialCategoryService>().As<IMaterialCategoryService>();
+            builder.RegisterType<MaterialCommentService>().As<IMaterialCommentService>();
+            builder.RegisterType<MaterialService>().As<IMaterialService>();
             builder.RegisterType<RoleService>().As<IRoleService>();
             builder.RegisterType<UserService>().As<IUserService>();
         }

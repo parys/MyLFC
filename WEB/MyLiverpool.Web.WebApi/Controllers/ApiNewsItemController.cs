@@ -12,30 +12,31 @@ namespace MyLiverpool.Web.WebApi.Controllers
     [RoutePrefix("api/News")]
     public class ApiNewsItemsController : ApiController
     {
-        private readonly INewsService _newsService;
-        private readonly INewsCategoryService _newsCategoryService;
+        private readonly IMaterialService _materialService;
+        private readonly IMaterialCategoryService _materialCategoryService;
+        private const MaterialType Type = MaterialType.News;
 
-        public ApiNewsItemsController(INewsService newsService, INewsCategoryService newsCategoryService)
+        public ApiNewsItemsController(IMaterialService materialService, IMaterialCategoryService materialCategoryService)
         {
-            _newsService = newsService;
-            _newsCategoryService = newsCategoryService;
+            _materialService = materialService;
+            _materialCategoryService = materialCategoryService;
         }
 
         [Route("List")]
         [HttpGet]
         [AllowAnonymous]
-        public async Task<PageableData<NewsMiniDto>> GetNewsItems(int page = 1, int? categoryId = null)
+        public async Task<PageableData<MaterialMiniDto>> GetNewsItems(int page = 1, int? categoryId = null)
         {
-            return await _newsService.GetDtoAllAsync(page, categoryId);
+            return await _materialService.GetDtoAllAsync(page, categoryId, Type);
         }
 
         [Route("Info")]
         [HttpGet]
         [AllowAnonymous]
-        [ResponseType(typeof(NewsItemDto))]
+        [ResponseType(typeof(MaterialDto))]
         public async Task<IHttpActionResult> GetNewsItem(int id)
         {
-            var model = await _newsService.GetDtoAsync(id);
+            var model = await _materialService.GetDtoAsync(id, Type);
             return Ok(model);
         }
 
@@ -49,7 +50,7 @@ namespace MyLiverpool.Web.WebApi.Controllers
                 return BadRequest();
             }
 
-            var result = await _newsService.DeleteAsync(id.Value, User.Identity.GetUserId<int>());
+            var result = await _materialService.DeleteAsync(id.Value, User.Identity.GetUserId<int>(), Type);
             return Json(result);
         }
 
@@ -62,7 +63,7 @@ namespace MyLiverpool.Web.WebApi.Controllers
             {
                 return BadRequest();
             }
-            var result = await _newsService.ActivateAsync(id.Value);
+            var result = await _materialService.ActivateAsync(id.Value, Type);
             return Json(result);
         }
 
@@ -71,14 +72,14 @@ namespace MyLiverpool.Web.WebApi.Controllers
         [AllowAnonymous]
         public async Task<IHttpActionResult> Categories()
         {
-            var result = await _newsCategoryService.GetCategoriesDtoAsync();
+            var result = await _materialCategoryService.GetCategoriesDtoAsync(Type);
             return Ok(result);
         }
 
         [Route("Create")]
         [HttpPost]
         [Authorize(Roles = "NewsStart")]
-        public async Task<IHttpActionResult> Create(NewsItemDto model)
+        public async Task<IHttpActionResult> Create(MaterialDto model)
         {
             if (!ModelState.IsValid)
             {
@@ -88,14 +89,14 @@ namespace MyLiverpool.Web.WebApi.Controllers
             {
                 model.Pending = true;
             }
-            var result = await _newsService.CreateAsync(model, User.Identity.GetUserId<int>());
+            var result = await _materialService.CreateAsync(model, User.Identity.GetUserId<int>(), Type);
             return Ok(result);
         }
 
         [Route("Edit")]
         [HttpPut]
         [Authorize(Roles = "NewsStart")]
-        public async Task<IHttpActionResult> Edit(NewsItemDto model)
+        public async Task<IHttpActionResult> Edit(MaterialDto model)
         {
             if (!ModelState.IsValid)
             {
@@ -110,7 +111,7 @@ namespace MyLiverpool.Web.WebApi.Controllers
                 }
                 model.Pending = true;
             }
-            var result = await _newsService.EditAsync(model, User.Identity.GetUserId<int>());
+            var result = await _materialService.EditAsync(model, User.Identity.GetUserId<int>(), Type);
             return Ok(result);
         }
 
@@ -123,7 +124,7 @@ namespace MyLiverpool.Web.WebApi.Controllers
             {
                 return BadRequest();
             }
-            var result = await _newsService.AddViewAsync(id.Value);
+            var result = await _materialService.AddViewAsync(id.Value, Type);
             return Ok(result);
         }
     }

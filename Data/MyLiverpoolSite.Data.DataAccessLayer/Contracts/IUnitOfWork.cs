@@ -15,12 +15,12 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
         /// Provides access to user repository.
         /// </summary>
         IGenericRepository<User> UserRepository { get; }
-        IGenericRepository<BlogItem> BlogItemRepository { get; }
-        IGenericRepository<NewsItem> NewsItemRepository { get; }
-        IGenericRepository<BlogCategory> BlogCategoryRepository { get; }
-        IGenericRepository<NewsCategory> NewsCategoryRepository { get; }
-        IGenericRepository<BlogComment> BlogCommentRepository { get; }
-        IGenericRepository<NewsComment> NewsCommentRepository { get; }
+     //   IGenericRepository<BlogItem> BlogItemRepository { get; }
+        IGenericRepository<Material> MaterialRepository { get; }
+     //   IGenericRepository<BlogCategory> BlogCategoryRepository { get; }
+        IGenericRepository<MaterialCategory> MaterialCategoryRepository { get; }
+      //  IGenericRepository<BlogComment> BlogCommentRepository { get; }
+        IGenericRepository<MaterialComment> MaterialCommentRepository { get; }
         IGenericRepository<ForumSection> ForumSectionRepository { get; }
         IGenericRepository<ForumTheme> ForumThemeRepository { get; }
         IGenericRepository<ForumSubsection> ForumSubsectionRepository { get; }

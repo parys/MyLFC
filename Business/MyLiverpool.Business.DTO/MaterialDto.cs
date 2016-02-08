@@ -4,11 +4,11 @@ using System.Web.Mvc;
 
 namespace MyLiverpool.Business.DTO
 {
-    public class NewsItemDto : IDto
+    public class MaterialDto : IDto
     {
-        public NewsItemDto()
+        public MaterialDto()
         {
-            this.Comments = new HashSet<NewsCommentDto>();
+            this.Comments = new HashSet<MaterialCommentDto>();
         }
 
         public int Id { get; set; }
@@ -39,7 +39,7 @@ namespace MyLiverpool.Business.DTO
 
         public string PhotoPath { get; set; }
 
-        public virtual ICollection<NewsCommentDto> Comments { get; set; }
+        public virtual ICollection<MaterialCommentDto> Comments { get; set; }
 
         public bool Pending { get; set; }
 

@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MyLiverpoolSite.Data.Entities
 {
-    public class NewsComment : IEntity
+    public class MaterialComment : IEntity
     {
-        public NewsComment()
+        public MaterialComment()
         {
-            Children = new HashSet<NewsComment>();
+            Children = new HashSet<MaterialComment>();
         }
 
         public int Id { get; set; }
@@ -27,15 +26,16 @@ namespace MyLiverpoolSite.Data.Entities
 
         public string Answer { get; set; }
 
-        public virtual ICollection<NewsComment> Children { get; set; }
+        public virtual ICollection<MaterialComment> Children { get; set; }
 
-    //    [ForeignKey("ParentId")]
-        public virtual NewsComment Parent { get; set; }
+        public virtual MaterialComment Parent { get; set; }
 
         public int? ParentId { get; set; }
 
-        public virtual NewsItem NewsItem { get; set; }
+        public virtual Material Material { get; set; }
 
-        public int NewsItemId { get; set; }
+        public int MaterialId { get; set; }
+
+        public MaterialType MaterialType { get; set; }
     }
 }

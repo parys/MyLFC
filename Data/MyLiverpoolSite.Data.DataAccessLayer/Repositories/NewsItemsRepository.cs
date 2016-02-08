@@ -13,14 +13,14 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
             _context = new LiverpoolContext();
         }
 
-        public async Task<IEnumerable<NewsItem>> Get()
+        public async Task<IEnumerable<Material>> Get()
         {
-            return await _context.NewsItems.ToListAsync();
+            return await _context.Materials.ToListAsync();
         }
 
-        public async Task<NewsItem> GetById(int id)
+        public async Task<Material> GetById(int id)
         {
-            return await _context.NewsItems.Include(x => x.Comments).FirstOrDefaultAsync(x => x.Id == id);
+            return await _context.Materials.Include(x => x.Comments).FirstOrDefaultAsync(x => x.Id == id);
         }
     }
 }

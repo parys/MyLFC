@@ -5,11 +5,11 @@ using System.Web.Mvc;
 
 namespace MyLiverpool.Business.DTO
 {
-    public class NewsCommentDto : IDto
+    public class MaterialCommentDto : IDto
     {
-        public NewsCommentDto()
+        public MaterialCommentDto()
         {
-            Children = new HashSet<NewsCommentDto>();
+            Children = new HashSet<MaterialCommentDto>();
         }
 
         public int Id { get; set; }
@@ -30,6 +30,6 @@ namespace MyLiverpool.Business.DTO
 
         public int NewsItemId { get; set; }
 
-        public virtual ICollection<NewsCommentDto> Children { get; set; }
+        public virtual ICollection<MaterialCommentDto> Children { get; set; }
     }
 }

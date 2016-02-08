@@ -4,11 +4,11 @@ using System.Web.Mvc;
 
 namespace MyLiverpoolSite.Data.Entities
 {
-    public class NewsItem : IEntity
+    public class Material : IEntity
     {
-        public NewsItem()
+        public Material()
         {
-            Comments = new HashSet<NewsComment>();
+            Comments = new HashSet<MaterialComment>();
         }
 
         public int Id { get; set; }
@@ -17,7 +17,7 @@ namespace MyLiverpoolSite.Data.Entities
 
       //  public int CategoryId { get; set; }
 
-        public virtual NewsCategory NewsCategory { get; set; }
+        public virtual MaterialCategory Category { get; set; }
 
         //public int Year { get; set; }
 
@@ -59,9 +59,12 @@ namespace MyLiverpoolSite.Data.Entities
 
         public DateTime LastModified { get; set; }
 
-        public virtual ICollection<NewsComment> Comments { get; set; } 
+        public virtual ICollection<MaterialComment> Comments { get; set; } 
 
-        public int NewsCategoryId { get; set; }
+        public int CategoryId { get; set; }
+
         public int AuthorId { get; set; }
+
+        public MaterialType Type { get; set; }
     }
 }

@@ -2,11 +2,11 @@
 
 namespace MyLiverpoolSite.Data.Entities
 {
-    public class NewsCategory : IEntity
+    public class MaterialCategory : IEntity
     {
-        public NewsCategory()
+        public MaterialCategory()
         {
-            NewsItems = new HashSet<NewsItem>();
+            Materials = new HashSet<Material>();
         }
 
         public int Id { get; set; }
@@ -23,6 +23,8 @@ namespace MyLiverpoolSite.Data.Entities
 
         public string UrlPath { get; set; }
 
-        public virtual ICollection<NewsItem> NewsItems { get; set; } 
+        public virtual ICollection<Material> Materials { get; set; }
+
+        public MaterialType MaterialType { get; set; }
     }
 }

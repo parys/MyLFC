@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using MyLiverpoolSite.Data.DataAccessLayer;
 using MyLiverpoolSite.Data.Entities;
 using MyLiverpoolSite.Common.Utilities;
@@ -404,11 +403,14 @@ namespace Migrator
                     limit = maxChars;
                 }
 
-                var categories = UnitOfWork.BlogCategoryRepository.GetAsync().Result.ToList();
+                var categories = UnitOfWork.MaterialCategoryRepository.GetAsync().Result.Where(x => x.MaterialType == MaterialType.Blog).ToList();
 
                 for (int i = 0; i < limit; i++)
                 {
-                    BlogItem blogItem = new BlogItem();
+                    Material blogItem = new Material()
+                    {
+                         Type = MaterialType.Blog
+                    };
                     // id
                     string id = null;
                     while (chars[i] != '|')
@@ -496,7 +498,8 @@ namespace Migrator
                         i++;
                     }
                     i++;
-                    blogItem.NumberCommentaries = int.Parse(numberCommentary);
+                 //todo   blogItem.NumberCommentaries = int.Parse(numberCommentary);
+
                     //author
                     string userName = null;
                     while (chars[i] != '|')
@@ -693,9 +696,9 @@ namespace Migrator
                     //else
                     //{
                         var category = categories.First(x => x.Id == int.Parse(categoryId));
-                        blogItem.BlogCategoryId = category.Id;
+                        blogItem.CategoryId = category.Id;
                      //   category.BlogItems.Add(blogItem);
-                        UnitOfWork.BlogItemRepository.Add(blogItem);
+                        UnitOfWork.MaterialRepository.Add(blogItem);
                     UnitOfWork.Save();
                     //  }
                     // while (chars[i] != 10)
@@ -722,11 +725,14 @@ namespace Migrator
                     limit = maxChars * 10;
                 }
 
-                var categories = UnitOfWork.NewsCategoryRepository.GetAsync().Result.ToList();
+                var categories = UnitOfWork.MaterialCategoryRepository.GetAsync().Result.Where(x => x.MaterialType == MaterialType.News).ToList();
 
                 for (int i = 0; i < limit; i++)
                 {
-                    NewsItem newsItem = new NewsItem();
+                    Material newsItem = new Material()
+                    {
+                        Type = MaterialType.News
+                    };
                     // id
                     string id = null;
                     while (chars[i] != '|')
@@ -1032,10 +1038,10 @@ namespace Migrator
                     //{
                         var category = categories.FirstOrDefault(x => x.Id == int.Parse(categoryId)) ??
                                        categories.First(x => x.Id == 4);
-                        newsItem.NewsCategoryId = category.Id;
+                        newsItem.CategoryId = category.Id;
                         
-                      //  category.NewsItems.Add(newsItem);
-                        UnitOfWork.NewsItemRepository.Add(newsItem);
+                      //  category.Materials.Add(newsItem);
+                        UnitOfWork.MaterialRepository.Add(newsItem);
                    // }
                     // while (chars[i] != 10)
                     //  {
@@ -1062,7 +1068,10 @@ namespace Migrator
                 }
                 for (int i = 0; i < limit; i++)
                 {
-                    BlogCategory blogCategory = new BlogCategory();
+                    MaterialCategory blogCategory = new MaterialCategory()
+                    {
+                        MaterialType = MaterialType.Blog
+                    };
                     // id
                     string id = null;
                     while (chars[i] != '|')
@@ -1080,7 +1089,7 @@ namespace Migrator
                         i++;
                     }
                     i++;
-                    blogCategory.Position = int.Parse(position);
+                  //  blogCategory.Position = int.Parse(position);
                     // count
                     string count = null;
                     while (chars[i] != '|')
@@ -1111,7 +1120,7 @@ namespace Migrator
                     }
                     i++;
 
-                    UnitOfWork.BlogCategoryRepository.Add(blogCategory);
+                    UnitOfWork.MaterialCategoryRepository.Add(blogCategory);
                 }
                 UnitOfWork.Save();
             }
@@ -1133,7 +1142,10 @@ namespace Migrator
                 }
                 for (int i = 0; i < limit; i++)
                 {
-                    NewsCategory newsCategory = new NewsCategory();
+                    MaterialCategory newsCategory = new MaterialCategory()
+                    {
+                        MaterialType = MaterialType.News
+                    };
                     // id
                     string id = null;
                     while (chars[i] != '|')
@@ -1181,7 +1193,7 @@ namespace Migrator
                         }
                         i++;
                     }
-                    UnitOfWork.NewsCategoryRepository.Add(newsCategory);
+                    UnitOfWork.MaterialCategoryRepository.Add(newsCategory);
 
                 }
                 UnitOfWork.Save();
@@ -1203,8 +1215,8 @@ namespace Migrator
                     limit = maxChars*10;
                 }
 
-                var news = UnitOfWork.NewsItemRepository.GetAsync().Result;//n => n.NumberCommentaries > 0);
-                var blogs = UnitOfWork.BlogItemRepository.GetAsync().Result;//n => n.NumberCommentaries > 0);
+                var news = UnitOfWork.MaterialRepository.GetAsync().Result;//n => n.NumberCommentaries > 0);
+             //   var blogs = UnitOfWork.BlogItemRepository.GetAsync().Result;//n => n.NumberCommentaries > 0);
 
                 for (int i = 0; i < limit; i++)
                 {
@@ -1363,57 +1375,31 @@ namespace Migrator
                 //    }
                 //}
 
+                    var materialType = MaterialType.Error;
                     if (ModuleId == 2)
                     {
-                        NewsComment comment = new NewsComment();
-                        comment.OldId = int.Parse(id);
-                      //  comment.MaterialId = int.Parse(materialId);
-                        comment.NewsItem = news.FirstOrDefault(newsItem => comment.NewsItemId == newsItem.OldId);
-                        if (comment.NewsItem == null)
-                        {
-                            continue;
-                        }
-                        if (comment.NewsItem.Comments == null)
-                        {
-                            comment.NewsItem.Comments = new List<NewsComment>();
-                        }
-                        comment.NewsItem.Comments.Add(comment);
-                        if (pending == '1')
-                            comment.Pending = true;
-                        comment.AdditionTime = DateTimeHelpers.ConvertUtcToLocalTime(long.Parse(additionTime));
-                        comment.Author = UnitOfWork.UserRepository.GetAsync(u => u.UserName == userName).Result.FirstOrDefault();
-                        if (comment.Author == null)
-                        {
-                            comment.AuthorId = Deleted.Id;
-                        }
-                        comment.Answer = answer;
-                        comment.Message = message;
-                        if (int.Parse(parentId) > 0)
-                        {
-                            var parent = UnitOfWork.NewsCommentRepository.GetByIdAsync(parentId).Result;
-
-                            comment.Parent = parent;
-                        }
-                        //comment.ParentId = int.Parse(parentId);
-
-                        UnitOfWork.NewsCommentRepository.Add(comment);
-                        //comment.Type = CommentType.News;
+                        materialType = MaterialType.News;
                     }
                     else if (ModuleId == 1)
                     {
-                        BlogComment comment = new BlogComment(); // { Type = CommentType.Blog };
+                        materialType = MaterialType.Blog;
+                    }
+                    MaterialComment comment = new MaterialComment()
+                        {
+                            MaterialType = materialType
+                    };
                         comment.OldId = int.Parse(id);
-                    //    comment.MaterialId = int.Parse(materialId);
-                        comment.BlogItem = blogs.FirstOrDefault(newsItem => comment.BlogItemId == newsItem.OldId);
-                        if (comment.BlogItem == null)
+                      //  comment.MaterialId = int.Parse(materialId);
+                        comment.Material = news.FirstOrDefault(newsItem => comment.MaterialId == newsItem.OldId && comment.MaterialType == materialType);
+                        if (comment.Material == null)
                         {
                             continue;
                         }
-                        if (comment.BlogItem.Comments == null)
+                        if (comment.Material.Comments == null)
                         {
-                            comment.BlogItem.Comments = new List<BlogComment>();
+                            comment.Material.Comments = new List<MaterialComment>();
                         }
-                        comment.BlogItem.Comments.Add(comment);
+                        comment.Material.Comments.Add(comment);
                         if (pending == '1')
                             comment.Pending = true;
                         comment.AdditionTime = DateTimeHelpers.ConvertUtcToLocalTime(long.Parse(additionTime));
@@ -1424,20 +1410,16 @@ namespace Migrator
                         }
                         comment.Answer = answer;
                         comment.Message = message;
-                        // comment.ParentId = int.Parse(parentId);
                         if (int.Parse(parentId) > 0)
                         {
-                            var parent = UnitOfWork.BlogCommentRepository.GetByIdAsync(parentId).Result;
-                            
+                            var parent = UnitOfWork.MaterialCommentRepository.GetByIdAsync(parentId).Result;
+
                             comment.Parent = parent;
                         }
                         //comment.ParentId = int.Parse(parentId);
-                        //   if (int.Parse(parentId) > 0)
-                        //       comment.ParentId = int.Parse(parentId);
 
-                        UnitOfWork.BlogCommentRepository.Add(comment);
-                        // comment.Type = CommentType.Blog;
-                    }
+                        UnitOfWork.MaterialCommentRepository.Add(comment);
+                    
                 }
                 UnitOfWork.Save();
             }
@@ -1870,18 +1852,18 @@ namespace Migrator
         //public static void UpdateNewsCategoryAndNewsItem()
         //{
         //    Console.WriteLine("Start UpdateNewsCategoryAndNewsItem");
-        //    var newsCategories = UnitOfWork.NewsCategoryRepository.Get().ToList();
-        //    var news = UnitOfWork.NewsItemRepository.Get().ToList();
+        //    var newsCategories = UnitOfWork.MaterialCategoryRepository.Get().ToList();
+        //    var news = UnitOfWork.MaterialRepository.Get().ToList();
         //    foreach (var newsCategory in newsCategories)
         //    {
-        //        if (newsCategory.NewsItems == null)
+        //        if (newsCategory.Materials == null)
         //        {
-        //            newsCategory.NewsItems = new List<NewsItem>();
+        //            newsCategory.Materials = new List<Material>();
         //        }
         //        foreach (var newss in news.Where(newss => newss.CategoryId == newsCategory.Id))
         //        {
         //            newss.NewsCategory = newsCategory;
-        //            newsCategory.NewsItems.Add(newss);
+        //            newsCategory.Materials.Add(newss);
         //        }
         //    }
         //    UnitOfWork.Save();
@@ -1889,7 +1871,7 @@ namespace Migrator
 
         public static void UpdateCommentsLinks()
         {
-            Console.WriteLine("Start UpdateCommentsLinks");
+            //Console.WriteLine("Start UpdateCommentsLinks");
             //var blogComments = UnitOfWork.BlogCommentRepository.Get(c => c.ParentId != 0).Result.ToList();
             //foreach (var comment in blogComments)
             //{
@@ -1904,10 +1886,10 @@ namespace Migrator
             //    comment.ParentId = parentComment.Id;
             //    break;
             //}
-            //var comments = UnitOfWork.NewsCommentRepository.Get(c => c.ParentId != 0).Result.ToList();
+            //var comments = UnitOfWork.MaterialCommentRepository.Get(c => c.ParentId != 0).Result.ToList();
             //foreach (var comment in comments)
             //{
-            //    var parentComment = await UnitOfWork.NewsCommentRepository.GetById(comment.ParentId);
+            //    var parentComment = await UnitOfWork.MaterialCommentRepository.GetById(comment.ParentId);
 
             //    if (parentComment == null) continue;
             //    if (parentComment.Children == null)
@@ -1990,7 +1972,7 @@ namespace Migrator
         {
             //Console.WriteLine("Start UpdateCommentsLinksToNewsAndBlogs");
 
-            ////var newsComments = UnitOfWork.NewsCommentRepository.Get();
+            ////var newsComments = UnitOfWork.MaterialCommentRepository.Get();
            
             ////var blogComments = UnitOfWork.BlogCommentRepository.Get();
             ////var blogs = UnitOfWork.BlogItemRepository.Get(n => n.NumberCommentaries > 0);

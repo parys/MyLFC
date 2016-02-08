@@ -20,7 +20,7 @@ namespace MyLiverpoolSite.Business.ViewModels.News
         public int NewsCategoryId { get; set; }
 
         [Display(Name = "NewsCategory", ResourceType = typeof(NewsMessages))]
-        public virtual NewsCategory NewsCategory { get; set; }
+        public virtual MaterialCategory NewsCategory { get; set; }
 
         public bool CanCommentary { get; set; }
 

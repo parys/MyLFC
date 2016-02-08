@@ -71,9 +71,9 @@
     <Compile Include="IBlogCommentService.cs" />
     <Compile Include="IBlogService.cs" />
     <Compile Include="IForumService.cs" />
-    <Compile Include="INewsCategoryService.cs" />
-    <Compile Include="INewsCommentService.cs" />
-    <Compile Include="INewsService.cs" />
+    <Compile Include="IMaterialCategoryService.cs" />
+    <Compile Include="IMaterialCommentService.cs" />
+    <Compile Include="IMaterialService.cs" />
     <Compile Include="IRoleService.cs" />
     <Compile Include="IUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

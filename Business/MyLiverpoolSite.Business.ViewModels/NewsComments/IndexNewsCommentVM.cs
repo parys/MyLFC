@@ -28,12 +28,12 @@ namespace MyLiverpoolSite.Business.ViewModels.NewsComments
         public virtual ICollection<IndexNewsCommentVM> Children { get; set; }
 
         //    [ForeignKey("ParentId")]
-        public virtual NewsComment Parent { get; set; }
+        public virtual MaterialComment Parent { get; set; }
 
      //   public int? ParentId { get; set; }
 
-      //  public virtual NewsItem NewsItem { get; set; }
+      //  public virtual Material Material { get; set; }
 
-       // public int NewsItemId { get; set; }
+       // public int MaterialId { get; set; }
     }
 }

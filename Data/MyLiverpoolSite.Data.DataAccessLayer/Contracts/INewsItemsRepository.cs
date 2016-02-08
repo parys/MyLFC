@@ -9,8 +9,8 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
 {
     public interface INewsItemsRepository
     {
-        Task<IEnumerable<NewsItem>> Get();
+        Task<IEnumerable<Material>> Get();
 
-        Task<NewsItem> GetById(int id);
+        Task<Material> GetById(int id);
     }
 }
