@@ -449,6 +449,11 @@
     <Content Include="Scripts\App.js" />
     <Content Include="Scripts\angular\bootstrap.js" />
     <Content Include="Scripts\angular\min\bootstrap.min.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\objects\Forum\ForumController.js" />
     <Content Include="Scripts\objects\Forum\ForumSubsectionController.js" />
     <Content Include="Scripts\objects\Forum\ForumThemeController.js" />
@@ -516,6 +521,7 @@
     <Content Include="Scripts\objects\Users\UsersFactory.js" />
     <Content Include="Scripts\Filters.js" />
     <Content Include="Scripts\angular\angular-route.min.js.map" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
     <None Include="Scripts\jquery-2.2.0.intellisense.js" />
     <Content Include="Scripts\objects\Images\ImagesCtrl.js" />
     <Content Include="Scripts\jquery-2.2.0.js" />
@@ -544,6 +550,9 @@
     <Content Include="Scripts\_references.js" />
     <Content Include="Scripts\jquery-2.2.0.min.map" />
     <Content Include="Views\Image\Index.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\AboutClub.cshtml" />
     <None Include="Web.someeFreeQA.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
