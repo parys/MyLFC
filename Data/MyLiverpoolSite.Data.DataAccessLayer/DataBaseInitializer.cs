@@ -665,9 +665,7 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
 <img src='http://s6.hostingkartinok.com/uploads/images/2013/07/e3e724e232b0d518e419a4baf5fbee64.jpg' border='0' alt=''/></div> <br /><br /> <div align='center'>
 <img src='http://s4.hostingkartinok.com/uploads/images/2013/07/78a9a6f0f38b0d8d8641aad4dca62f5e.jpg' border='0' alt=''/></div> <br /><br /> <div align='center'>
 <img src='http://s6.hostingkartinok.com/uploads/images/2013/07/642fbd99157b7b76679362ce838bf151.jpg' border='0' alt=''/></div> <br /><br /> <div align='center'>
-<img src= 'http://s3.hostingkartinok.com/uploads/images/2013/07/fc66688ba1ecc06dfe20bc6688dacc52.jpg' border='0' alt=''/></div> <br /><br /> <div align='center'>
-< span id='scr00Xh1AoPYy'></span><script type='text/javascript'>_uVideoPlayer({'url':'https://www.youtube.com/watch?v=NlR1jJb5I6g','width':'425','height':'355'},'scr00Xh1AoPYy');
-</script><!--/BBvideo--></div> <br /><br /> Фотографии по материалам <i><b>britishpathe.com, lfchistory.net </b></i>",
+<img src= 'http://s3.hostingkartinok.com/uploads/images/2013/07/fc66688ba1ecc06dfe20bc6688dacc52.jpg' border='0' alt=''/></div> <br /><br /> <br /><br /> Фотографии по материалам <i><b>britishpathe.com, lfchistory.net </b></i>",
                     OnTop = i % 48 == 0,
                     PhotoPath = "content/images/default.jpg",
                     Pending = i % 5 == 0,

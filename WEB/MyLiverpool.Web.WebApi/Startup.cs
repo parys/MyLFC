@@ -44,7 +44,7 @@ namespace MyLiverpool.Web.WebApi
             //  app
 
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);//todo
-            AutoMapperBindings.Configure();
+            new AutoMapperBindings().Config();
 
             //app.Use(async (context, next) =>
             //{

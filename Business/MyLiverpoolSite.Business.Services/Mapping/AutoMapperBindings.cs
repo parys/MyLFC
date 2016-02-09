@@ -13,7 +13,12 @@ namespace MyLiverpoolSite.Business.Services.Mapping
 {
     public class AutoMapperBindings : Profile
     {
-        public new static void Configure()
+        public void Config()
+        {
+            Configure();
+        }
+
+        protected override void Configure()
         {
             RegisterNewsCommentMapping();
             RegisterNewsMapping();
