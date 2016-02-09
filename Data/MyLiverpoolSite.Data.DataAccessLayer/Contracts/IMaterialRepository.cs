@@ -7,7 +7,7 @@ using MyLiverpoolSite.Data.Entities;
 
 namespace MyLiverpoolSite.Data.DataAccessLayer
 {
-    public interface INewsItemsRepository
+    public interface IMaterialRepository
     {
         Task<IEnumerable<Material>> Get();
 

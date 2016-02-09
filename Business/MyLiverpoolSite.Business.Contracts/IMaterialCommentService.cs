@@ -12,8 +12,8 @@ namespace MyLiverpoolSite.Business.Contracts
 
         Task<bool> DeleteAsync(int id, MaterialType materialType);
 
-        Task<MaterialCommentDto> AddAsync(NewsCommentEditingDto model, MaterialType materialType);
+        Task<MaterialCommentDto> AddAsync(MaterialCommentEditingDto model, MaterialType materialType);
 
-        Task<bool> EditAsync(NewsCommentEditingDto model, MaterialType materialType);
+        Task<bool> EditAsync(MaterialCommentEditingDto model, MaterialType materialType);
     }
 }

@@ -87,7 +87,7 @@
                         <li><a ui-sref="users">@CommonMessages.Users</a></li>
                     </ul>
                 </li>
-                <li> <a ng-if="isNewsmaker()" ui-sref="images({path: 'content'})">@CommonMessages.Images</a></li>
+                <li> <a ng-if="isNewsmaker() || isAuthor()" ui-sref="images({path: 'content'})">@CommonMessages.Images</a></li>
             </ul>
         </div>
 

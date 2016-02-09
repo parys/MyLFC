@@ -8,6 +8,7 @@ using MyLiverpoolSite.Business.Contracts;
 using MyLiverpoolSite.Business.Services.Mapping;
 using MyLiverpoolSite.Business.Services.Services;
 using MyLiverpoolSite.Data.DataAccessLayer;
+using MyLiverpoolSite.Data.DataAccessLayer.Repositories;
 using Owin;
 
 [assembly: OwinStartup(typeof(Startup))]
@@ -28,7 +29,7 @@ namespace MyLiverpool.Web.WebApi
             builder.RegisterWebApiFilterProvider(config);
 
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>();
-            builder.RegisterType<NewsItemsRepository>().As<INewsItemsRepository>();
+            builder.RegisterType<MaterialRepository>().As<IMaterialRepository>();
 
             // Register dependencies, then...
             RegisterServices(builder);
@@ -66,8 +67,6 @@ namespace MyLiverpool.Web.WebApi
         private void RegisterServices(ContainerBuilder builder)
         {
             builder.RegisterType<AccountService>().As<IAccountService>();
-           // builder.RegisterType<BlogCategoryService>().As<IBlogCategoryService>();
-           // builder.RegisterType<BlogCommentService>().As<IBlogCommentService>();
             builder.RegisterType<ForumService>().As<IForumService>();
             builder.RegisterType<MaterialCategoryService>().As<IMaterialCategoryService>();
             builder.RegisterType<MaterialCommentService>().As<IMaterialCommentService>();

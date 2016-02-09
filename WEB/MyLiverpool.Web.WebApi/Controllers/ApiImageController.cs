@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
-using Microsoft.Ajax.Utilities;
 
 namespace MyLiverpool.Web.WebApi.Controllers
 {
     [RoutePrefix("api/images")]
-   // [Authorize(Roles = "NewsStart,BlogsStart")]
+    [Authorize(Roles = "NewsStart,BlogsStart")]
     public class ApiImageController : ApiController
     {
         private const string Path = "\\content\\images";

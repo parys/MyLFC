@@ -23,7 +23,7 @@ namespace MyLiverpool.Web.WebApi.Controllers
         [Route("Add")]
         [HttpPost]
         [Authorize]
-        public async Task<IHttpActionResult> Add(NewsCommentEditingDto comment)
+        public async Task<IHttpActionResult> Add(MaterialCommentEditingDto comment)
         {
             if (!ModelState.IsValid)
             {
@@ -52,7 +52,7 @@ namespace MyLiverpool.Web.WebApi.Controllers
         [Route("Edit")]
         [HttpPut]
         [Authorize]
-        public async Task<IHttpActionResult> Edit(NewsCommentEditingDto comment)
+        public async Task<IHttpActionResult> Edit(MaterialCommentEditingDto comment)
         {
             if (!ModelState.IsValid)
             {

@@ -183,7 +183,7 @@ namespace MyLiverpoolSite.Business.Services.Mapping
                 .ForMember(dest => dest.NewsItemId, src => src.MapFrom(x => x.MaterialId))
                 .ForMember(dest => dest.Message, src => src.MapFrom(x => x.Message));
 
-            Mapper.CreateMap<NewsCommentEditingDto, MaterialComment>()
+            Mapper.CreateMap<MaterialCommentEditingDto, MaterialComment>()
                 .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id))
                 .ForMember(dest => dest.Answer, src => src.MapFrom(x => x.Answer))
                 .ForMember(dest => dest.AuthorId, src => src.MapFrom(x => x.AuthorId))

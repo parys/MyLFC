@@ -3,7 +3,7 @@
 //angular.module('App')
 //  var  .service('Authentication', function Authentication($q, $http) {
 
-var Authentication = function ($q, $http, $state, AccountFactory, SessionService, $cookies) {
+var Authentication = function ($q, AccountFactory, SessionService, $cookies) {
 
     var authenticatedUser = undefined;
     var cookieName = 'abra-kadabra';
@@ -63,12 +63,6 @@ var Authentication = function ($q, $http, $state, AccountFactory, SessionService
             $cookies.remove('user'); //todo from server
         },
 
-        getToken: function () {
-            var cookie = $cookies.getObject('user');
-            if (!cookie) return undefined;
-            return cookie.access_token;
-        },
-
         getUserId: function() {
             if (!authenticatedUser) return undefined;
             return authenticatedUser.id;
@@ -95,7 +89,11 @@ var Authentication = function ($q, $http, $state, AccountFactory, SessionService
             return isUserInRole(authenticatedUser, 'NewsFull');
         },
 
+        isAuthor: function() {
+            return isUserInRole(authenticatedUser, 'BlogsStart');
+        },
+
     }
 };
 
-Authentication.$inject = ['$q', '$http', '$state', 'AccountFactory', 'SessionService', '$cookies']
+Authentication.$inject = ['$q', 'AccountFactory', 'SessionService', '$cookies']

@@ -3,12 +3,12 @@ using System.Data.Entity;
 using System.Threading.Tasks;
 using MyLiverpoolSite.Data.Entities;
 
-namespace MyLiverpoolSite.Data.DataAccessLayer
+namespace MyLiverpoolSite.Data.DataAccessLayer.Repositories
 {
-    public class NewsItemsRepository : INewsItemsRepository
+    public class MaterialRepository : IMaterialRepository
     {
         private readonly LiverpoolContext _context;
-        public NewsItemsRepository()
+        public MaterialRepository()
         {
             _context = new LiverpoolContext();
         }

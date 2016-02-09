@@ -94,9 +94,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BlogCategory.cs" />
-    <Compile Include="BlogComment.cs" />
-    <Compile Include="BlogItem.cs" />
     <Compile Include="ForumMessage.cs" />
     <Compile Include="ForumSection.cs" />
     <Compile Include="ForumSubsection.cs" />

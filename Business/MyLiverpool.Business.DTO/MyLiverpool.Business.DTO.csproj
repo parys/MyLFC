@@ -95,9 +95,9 @@
     <Compile Include="IDto.cs" />
     <Compile Include="MaterialCategoryDto.cs" />
     <Compile Include="MaterialCommentDto.cs" />
-    <Compile Include="NewsCommentEditingDto.cs" />
+    <Compile Include="MaterialCommentEditingDto.cs" />
     <Compile Include="MaterialDto.cs" />
-    <Compile Include="materialMiniDto.cs" />
+    <Compile Include="MaterialMiniDto.cs" />
     <Compile Include="PrivateMessageDto.cs" />
     <Compile Include="PrivateMessageMiniDto.cs" />
     <Compile Include="PrivateMessagesDto.cs" />

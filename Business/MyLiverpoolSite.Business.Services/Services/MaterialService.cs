@@ -18,13 +18,13 @@ namespace MyLiverpoolSite.Business.Services.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMaterialCategoryService _materialCategoryService;
-        private readonly INewsItemsRepository _newsItemsRepository;
+        private readonly IMaterialRepository _materialRepository;
 
-        public MaterialService(IUnitOfWork unitOfWork, IMaterialCategoryService materialCategoryService, INewsItemsRepository newsItemsRepository)
+        public MaterialService(IUnitOfWork unitOfWork, IMaterialCategoryService materialCategoryService, IMaterialRepository materialRepository)
         {
             _unitOfWork = unitOfWork;
             _materialCategoryService = materialCategoryService;
-            _newsItemsRepository = newsItemsRepository;
+            _materialRepository = materialRepository;
         }
 
         #region VM
@@ -34,7 +34,7 @@ namespace MyLiverpoolSite.Business.Services.Services
             IndexNewsViewModel result = null;
             if (id > 0)
             {
-                var newsItem = await _newsItemsRepository.GetById(id);
+                var newsItem = await _materialRepository.GetById(id);
                 //  result = Mapper.Map<IndexNewsViewModel>(_unitOfWork.MaterialRepository.GetById(id));
                 newsItem.Comments = newsItem.Comments.Where(x => !x.ParentId.HasValue).ToList();
                 result = Mapper.Map<IndexNewsViewModel>(newsItem);

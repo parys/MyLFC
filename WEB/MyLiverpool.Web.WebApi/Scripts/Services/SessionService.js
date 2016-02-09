@@ -2,20 +2,26 @@
     this.token = undefined;
     this.userId = undefined;
 
-    this.getToken = function () {
+  //  this.getToken = function () {
     //    if (!$cookies.awesomeAngularWebAppToken) {
     //        if (!this.token) {
-                return undefined;
+   //             return this.token;
     //        }
     //        this.setToken(this.token);
-        }
-    //    return $cookies.awesomeAngularWebAppToken;
-    //}
+      //  }
+      //  return $cookies.awesomeAngularWebAppToken;
+    
 
-    //this.setToken = function (token) {
-    //    this.token = token;
-    //    $cookies.awesomeAngularWebAppToken = token;
-    //}
+    this.getToken = function() {
+        var cookie = $cookies.getObject('user');
+        if (!cookie) return undefined;
+        return cookie.access_token;
+    }
+
+    //  this.setToken = function (token) {
+  //      this.token = token;
+      //  $cookies.awesomeAngularWebAppToken = token;
+  //  }
 
     //this.remove = function() {
     //    $cookies.remove("awesomeAngularWebAppToken");

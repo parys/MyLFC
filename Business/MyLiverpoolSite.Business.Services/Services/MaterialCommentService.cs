@@ -61,7 +61,7 @@ namespace MyLiverpoolSite.Business.Services.Services
             return true;
         }
 
-        public async Task<MaterialCommentDto> AddAsync(NewsCommentEditingDto model, MaterialType materialType)
+        public async Task<MaterialCommentDto> AddAsync(MaterialCommentEditingDto model, MaterialType materialType)
         {
             var comment = Mapper.Map<MaterialComment>(model);
             comment.MaterialType = materialType;
@@ -80,7 +80,7 @@ namespace MyLiverpoolSite.Business.Services.Services
             return result;
         }
 
-        public async Task<bool> EditAsync(NewsCommentEditingDto model, MaterialType materialType)
+        public async Task<bool> EditAsync(MaterialCommentEditingDto model, MaterialType materialType)
         {
             var comment = await _unitOfWork.MaterialCommentRepository.GetByIdAsync(model.Id);
            // comment.LastModified = DateTime.Now;

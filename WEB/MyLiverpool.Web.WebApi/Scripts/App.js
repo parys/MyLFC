@@ -32,7 +32,7 @@ App.factory('MarkItUpFactory', MarkItUpFactory);
 App.directive('tree', tree);
 App.directive('markItUp', markItUp);
 
-//App.factory('AuthHttpResponseInterceptor', AuthHttpResponseInterceptor);
+App.factory('AuthHttpResponseInterceptor', AuthHttpResponseInterceptor);
 App.factory('AccountFactory', AccountFactory);
 App.factory('NewsFactory', NewsFactory);
 App.factory('NewsCommentsFactory', NewsCommentsFactory);
@@ -234,7 +234,8 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider,
     // define translation maps you want to use on startup
     $translateProvider.preferredLanguage('ru');
 
-    //$httpProvider.interceptors.push('AuthHttpResponseInterceptor');
+    $httpProvider.interceptors.push('AuthHttpResponseInterceptor');
+
 }
 configFunction.$inject = ['$stateProvider', '$httpProvider', '$locationProvider', '$translateProvider'];
 
@@ -246,8 +247,9 @@ App.filter('rawHtml', ['$sce', function($sce){
     };
 }]);
 
-App.run(function (Authentication, Application, $rootScope, $location, RouteFilter, $http, uibPaginationConfig, $state, $stateParams) {
-    $http.defaults.headers.common.Authorization = 'Bearer ' + Authentication.getToken();
+App.run(function (Authentication, Application, $rootScope, $location, RouteFilter, uibPaginationConfig, $state, $stateParams) {
+    
+
     Authentication.requestUser();
     //    .then(function () {
    //     Application.makeReady();
