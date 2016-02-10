@@ -22,7 +22,7 @@
 <body>
 
 <div class="container-fluid navbar navbar-inverse navbar-fixed-top">
-    <ul class="nav navbar-nav col-md-6 list-inline alert-danger">
+    <ul class="nav navbar-nav col-md-6 list-inline">
         <li><a id="back-top" href="#" style="display: none;">@CommonMessages.Up</a></li>
         <li class="divider"></li>
         <li ng-if="loggedIn()">
@@ -322,21 +322,21 @@
                         <td>19</td>
                         <td>Эвертон</td>
                         <td>38</td>
+                        <td>0</td>
                         <td>38</td>
                         <td>0</td>
+                        <td>-100</td>
                         <td>0</td>
-                        <td>+100</td>
-                        <td>114</td>
                     </tr>
                     <tr>
                         <td>20</td>
                         <td>Манчестер Юнайтед</td>
                         <td>38</td>
+                        <td>0</td>
+                        <td>0</td>
                         <td>38</td>
+                        <td>-100</td>
                         <td>0</td>
-                        <td>0</td>
-                        <td>+100</td>
-                        <td>114</td>
                     </tr>
                     </tbody>
                 </table>
@@ -350,16 +350,6 @@
 </div>
 
 <script>
-    //$(document).ready(function () {
-    //    var wbbOpt = {
-    //        lang: "ru",
-    //        traceTextarea: true
-    //        //buttons: "bold,italic,underline,|,img,youtube,link,|,code,quote"
-    //    }
-    //    $(".editor").wysibb(wbbOpt);
-
-    //});
-
     $(document).ready(function () {
         $("#back-top").hide();
         $(function () {
@@ -378,8 +368,6 @@
             });
         });
     });
-
-
 </script>
 </body>
 </html>

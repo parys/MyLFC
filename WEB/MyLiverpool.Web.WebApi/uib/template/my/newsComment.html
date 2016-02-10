@@ -18,7 +18,7 @@
                 <i> {{comment.answer}} </i>
             </div>
         </div>
-        <div class="col-md-12" ng-show="loggedIn()">
+        <div class="col-md-12" ng-show="canAddReply() && !isUserAuthor(getUserId(), comment.authorId)">
             <a ng-click="addReplyComment(comment)">Ответить</a>
         </div>
     </div>

@@ -140,7 +140,9 @@
         return Authentication.getUserId();
     }
 
-   
+    $scope.canAddReply = function() {
+        return Authentication.exists();//todo && !$scope.isUserAuthor();
+    }
 };
 
 NewsCommentCtrl.$inject = ['$scope', '$uibModal', 'NewsCommentsFactory', 'Authentication', '$rootScope'];//, '$sce'];

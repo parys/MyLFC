@@ -9,7 +9,7 @@
 
     
     $scope.loggedIn = function () {
-        return (Authentication.getUser());
+        return Authentication.exists();
     }
 
 
