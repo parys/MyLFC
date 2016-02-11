@@ -28,6 +28,11 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 InitializeAdmin(context);
                 InitializeDeletedUser(context);
                 InitializeSimpleUser(context);
+                InitializeModerator(context);
+                InitializeAuthor(context);
+                InitializeIntern(context);
+                InitializeEditor(context);
+                InitializeNewsmaker(context);
 
                 InitializeForumSections(context);
                 InitializeForumSubsections(context);
@@ -99,7 +104,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 },
                 new RoleGroup()
                 {
-                    Name = RoleGroupsEnum.Author.ToString(),
+                    Name = RoleGroupsEnum.Author.ToString(),//11
                     RussianName = RolesMessages.Author
                 },
             };
@@ -309,30 +314,140 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
             var userManager = new UserManager<User, int>(userStore);
         
         userManager.Create(user, "123456");
-            var adminRoles = context.RoleGroups.First(x => x.Name == RoleGroupsEnum.Admin.ToString()).Roles.ToList();
+            var adminRoles = context.RoleGroups.First(x => x.Id == user.RoleGroupId).Roles.ToList();
             foreach (var role in adminRoles)
             {
                 userManager.AddToRole(user.Id, role.Name);
             }
+        }
 
-            //var result = await manager.CreateAsync(user, password);
-            // context.Users.Add(user);
-            //  context.SaveChanges();
-            //var savedUser = context.Users.First(x => x.UserName == user.UserName);
-            //var adminRole = context.Roles.First(x => x.Name == roleName);
-            //var userRole = new UserRole()
-            //{
-            //    RoleId = adminRole.Id,
-            //    UserId = savedUser.Id
-            //};
+        private void InitializeModerator(LiverpoolContext context)
+        {
+            const string email = "moderator@a.c";
 
-            //await manager.AddToRoleAsync(savedUser.Id, adminRole.Name);
+            var user = new User
+            {
+                UserName = "moderator",
+                Email = email,
+                Verify = true,
+                LastModified = DateTime.Now,
+                RegistrationDate = DateTime.Now,
+                Birthday = DateTime.Now,
+                RoleGroupId = 9
+            };
 
-            //savedUser.Roles.Add(userRole);
-            //adminRole.Users.Add(userRole);
-            //context.Users.AddOrUpdate(savedUser);
-            //context.Roles.AddOrUpdate(adminRole);
-            //context.SaveChanges();
+            var userStore = new UserStore<User, Role, int, UserLogin, UserRole, UserClaim>(context);
+            var userManager = new UserManager<User, int>(userStore);
+        
+        userManager.Create(user, "123456");
+            var adminRoles = context.RoleGroups.First(x => x.Id == user.RoleGroupId).Roles.ToList();
+            foreach (var role in adminRoles)
+            {
+                userManager.AddToRole(user.Id, role.Name);
+            }
+        }
+
+        private void InitializeAuthor(LiverpoolContext context)
+        {
+            const string email = "author@a.c";
+
+            var user = new User
+            {
+                UserName = "author",
+                Email = email,
+                Verify = true,
+                LastModified = DateTime.Now,
+                RegistrationDate = DateTime.Now,
+                Birthday = DateTime.Now,
+                RoleGroupId = 11
+            };
+
+            var userStore = new UserStore<User, Role, int, UserLogin, UserRole, UserClaim>(context);
+            var userManager = new UserManager<User, int>(userStore);
+
+            userManager.Create(user, "123456");
+            var adminRoles = context.RoleGroups.First(x => x.Id == user.RoleGroupId).Roles.ToList();
+            foreach (var role in adminRoles)
+            {
+                userManager.AddToRole(user.Id, role.Name);
+            }
+        }
+
+        private void InitializeIntern(LiverpoolContext context)
+        {
+            const string email = "Intern@a.c";
+
+            var user = new User
+            {
+                UserName = "Intern",
+                Email = email,
+                Verify = true,
+                LastModified = DateTime.Now,
+                RegistrationDate = DateTime.Now,
+                Birthday = DateTime.Now,
+                RoleGroupId = 8
+            };
+
+            var userStore = new UserStore<User, Role, int, UserLogin, UserRole, UserClaim>(context);
+            var userManager = new UserManager<User, int>(userStore);
+
+            userManager.Create(user, "123456");
+            var adminRoles = context.RoleGroups.First(x => x.Id == user.RoleGroupId).Roles.ToList();
+            foreach (var role in adminRoles)
+            {
+                userManager.AddToRole(user.Id, role.Name);
+            }
+        }
+        private void InitializeEditor(LiverpoolContext context)
+        {
+            const string email = "Editor@a.c";
+
+            var user = new User
+            {
+                UserName = "Editor",
+                Email = email,
+                Verify = true,
+                LastModified = DateTime.Now,
+                RegistrationDate = DateTime.Now,
+                Birthday = DateTime.Now,
+                RoleGroupId = 6
+            };
+
+            var userStore = new UserStore<User, Role, int, UserLogin, UserRole, UserClaim>(context);
+            var userManager = new UserManager<User, int>(userStore);
+
+            userManager.Create(user, "123456");
+            var adminRoles = context.RoleGroups.First(x => x.Id == user.RoleGroupId).Roles.ToList();
+            foreach (var role in adminRoles)
+            {
+                userManager.AddToRole(user.Id, role.Name);
+            }
+        }
+
+        private void InitializeNewsmaker(LiverpoolContext context)
+        {
+            const string email = "Newsmaker@a.c";
+
+            var user = new User
+            {
+                UserName = "Newsmaker",
+                Email = email,
+                Verify = true,
+                LastModified = DateTime.Now,
+                RegistrationDate = DateTime.Now,
+                Birthday = DateTime.Now,
+                RoleGroupId = 5
+            };
+
+            var userStore = new UserStore<User, Role, int, UserLogin, UserRole, UserClaim>(context);
+            var userManager = new UserManager<User, int>(userStore);
+
+            userManager.Create(user, "123456");
+            var adminRoles = context.RoleGroups.First(x => x.Id == user.RoleGroupId).Roles.ToList();
+            foreach (var role in adminRoles)
+            {
+                userManager.AddToRole(user.Id, role.Name);
+            }
         }
         #endregion
 
@@ -642,7 +757,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 {
                     CategoryId = i % 2 == 0 ? 1 : 2,
                     AdditionTime = DateTime.Now.AddHours(randomizer.NextDouble() * -CountNews),
-                    AuthorId = 1,
+                    AuthorId = i % 3 + 1,
                     Brief = "brief" + i,
                     CanCommentary = i % 2 == 0,
                     Type = NewsType,
