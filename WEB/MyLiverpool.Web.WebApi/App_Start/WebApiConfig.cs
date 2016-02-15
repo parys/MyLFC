@@ -21,6 +21,8 @@ namespace MyLiverpool.Web.WebApi
 
             config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
 
+          //  config.Filters.Add(new ElmahErrorAttribute());
+
             // Web API routes
             config.MapHttpAttributeRoutes();
 

@@ -11,7 +11,10 @@ namespace MyLiverpool.Web.WebApi.Controllers
     [Authorize(Roles = "NewsStart,BlogsStart")]
     public class ApiImageController : ApiController
     {
+        private const string PathContent = "\\content";
+        private const string PathImages = "\\images";
         private const string Path = "\\content\\images";
+
         private readonly int _pathLength = Path.Length + 1;
 
         [Route("")]
@@ -29,9 +32,21 @@ namespace MyLiverpool.Web.WebApi.Controllers
                 path = System.IO.Path.Combine(Path, path);
             }
             //CHECK ONLY ALLOWED PATHES
+            IEnumerable<string> subdirectoryFolders;
+            IEnumerable<string> subdirectoryFiles;
             var fullPath = HttpContext.Current.Server.MapPath("~") + path;
-            var subdirectoryFolders = Directory.EnumerateDirectories(fullPath);
-            var subdirectoryFiles = Directory.EnumerateFiles(fullPath);//, "*.jpeg,*.jpg,*.png");
+            try
+            {
+                subdirectoryFolders = Directory.EnumerateDirectories(fullPath);
+                subdirectoryFiles = Directory.EnumerateFiles(fullPath); //, "*.jpeg,*.jpg,*.png");
+            }
+            catch (DirectoryNotFoundException)
+            {
+                fullPath = HttpContext.Current.Server.MapPath("~") + Path;
+                subdirectoryFolders = Directory.EnumerateDirectories(fullPath);
+                subdirectoryFiles = Directory.EnumerateFiles(fullPath);
+            }
+
             foreach (var entry in subdirectoryFolders)
             {
                 files.Add(new ImageDto()
