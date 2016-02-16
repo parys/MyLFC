@@ -72,8 +72,8 @@
       <HintPath>..\..\packages\AutoMapper.4.2.0\lib\net45\AutoMapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Elmah, Version=1.2.13605.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\elmah.corelibrary.1.2\lib\Elmah.dll</HintPath>
+    <Reference Include="Elmah, Version=1.2.14706.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Elmah.Mvc, Version=2.1.2.1389, Culture=neutral, processorArchitecture=MSIL">
@@ -425,6 +425,8 @@
     <Content Include="Scripts\angular-route.js" />
     <Content Include="Scripts\angular-route.min.js" />
     <Content Include="Scripts\angular-translate-loader-static-files.min.js" />
+    <Content Include="Scripts\angular-translate.js" />
+    <Content Include="Scripts\angular-translate.min.js" />
     <Content Include="Scripts\angular-ui-router.js" />
     <Content Include="Scripts\angular-ui-router.min.js" />
     <Content Include="Scripts\angular-ui\ui-bootstrap-tpls.js" />
@@ -439,7 +441,6 @@
     <Content Include="Scripts\angular\min\ui-bootstrap.min.js" />
     <Content Include="Scripts\angular\min\angular-validation.min.js" />
     <Content Include="Scripts\angular\min\angular-route.min.js" />
-    <Content Include="Scripts\angular\22angular-translate.js" />
     <Content Include="Scripts\angular\min\angular-translate.min.js" />
     <None Include="Properties\PublishProfiles\someeFreeQA.pubxml" />
     <Content Include="Scripts\angular-validation\locales\ru.json" />
@@ -635,6 +636,10 @@
     <ProjectReference Include="..\..\Business\MyLiverpoolSite.Business.ViewModels\MyLiverpoolSite.Business.ViewModels.csproj">
       <Project>{d2412aae-da9a-4da6-a0dc-e3afbacac734}</Project>
       <Name>MyLiverpoolSite.Business.ViewModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\MyLiverpool.Common.MapperConfigurations\MyLiverpool.Common.MapperConfigurations.csproj">
+      <Project>{4dc5f955-0dfd-40b0-9b3f-1771754c90ce}</Project>
+      <Name>MyLiverpool.Common.MapperConfigurations</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Data\MyLiverpoolSite.Data.DataAccessLayer\MyLiverpoolSite.Data.DataAccessLayer.csproj">
       <Project>{ac10a860-1c0e-4910-9e05-428d09f70981}</Project>

@@ -14,11 +14,13 @@ namespace MyLiverpoolSite.Business.Services.Services
     {
     //    private readonly IUserService _userService;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public AccountService(IUnitOfWork unitOfWork)
+        public AccountService(IUnitOfWork unitOfWork, IMapper mapper)
         {
-         //   _userService = userService;
+            //   _userService = userService;
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
         public Task<int> GetUserIdByLoginAndPassword(string login, string password)
@@ -49,7 +51,7 @@ namespace MyLiverpoolSite.Business.Services.Services
 
         public async Task<IdentityResult> RegisterUserAsync(RegisterUserDto model)
         {
-            var user = Mapper.Map<User>(model);
+            var user = _mapper.Map<User>(model);
             user.RegistrationDate = DateTime.Now;
             user.LastModified = DateTime.Now;
             user.LockoutEnabled = true;

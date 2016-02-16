@@ -18,10 +18,12 @@ namespace MyLiverpoolSite.Business.Services.Services
     public class UserService : IUserService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public UserService(IUnitOfWork unitOfWork)
+        public UserService(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            this._unitOfWork = unitOfWork;
+            _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
         #region vm
@@ -47,7 +49,7 @@ namespace MyLiverpoolSite.Business.Services.Services
         public async Task<PageableData<UserViewModel>> GetAll(int page)
         {
             var users = await _unitOfWork.UserRepository.GetAsync(page);
-            var usersVM = Mapper.Map<IEnumerable<UserViewModel>>(users);
+            var usersVM = _mapper.Map<IEnumerable<UserViewModel>>(users);
             var allUsersCount = await _unitOfWork.UserRepository.GetCountAsync();
             var result = new PageableData<UserViewModel>(usersVM, page, allUsersCount);
             return result;
@@ -56,7 +58,7 @@ namespace MyLiverpoolSite.Business.Services.Services
         public async Task<UserViewModel> GetUserProfile(int id)
         {
             var user = await _unitOfWork.UserRepository.GetByIdAsync(id);
-            var result = Mapper.Map<UserViewModel>(user);
+            var result = _mapper.Map<UserViewModel>(user);
             result.RoleGroups = await _unitOfWork.RoleGroupRepository.GetAsync();
             return result;
         }
@@ -91,12 +93,12 @@ namespace MyLiverpoolSite.Business.Services.Services
                 _unitOfWork.PrivateMessageRepository.Update(message);
                 await _unitOfWork.SaveAsync();
             }
-            return Mapper.Map<PrivateMessageVM>(message);
+            return _mapper.Map<PrivateMessageVM>(message);
         }
 
         public async Task<int> SavePrivateMessageVMAsync(PrivateMessageVM model, int userId)
         {
-            var message = Mapper.Map<PrivateMessage>(model);
+            var message = _mapper.Map<PrivateMessage>(model);
             message.SenderId = userId;
             message.SentTime = DateTime.Now;
             _unitOfWork.PrivateMessageRepository.Add(message);
@@ -108,7 +110,7 @@ namespace MyLiverpoolSite.Business.Services.Services
         {
             var allMessages = await 
                 _unitOfWork.PrivateMessageRepository.GetAsync(x => x.ReceiverId == userId || x.SenderId == userId, x => x.Sender);
-            var allMessagesVm = Mapper.Map<IEnumerable<PrivateMessageVM>>(allMessages);
+            var allMessagesVm = _mapper.Map<IEnumerable<PrivateMessageVM>>(allMessages);
             var model = new AllPrivateMessagesVM()
             {
                 ReceivedMessages = allMessagesVm.Where(x => x.ReceiverId == userId).ToList(),
@@ -137,7 +139,7 @@ namespace MyLiverpoolSite.Business.Services.Services
         public async Task<UserDto> GetUserProfileDtoAsync(int id)
         {
             var user = await _unitOfWork.UserRepository.GetByIdAsync(id);
-            var dto = Mapper.Map<UserDto>(user);
+            var dto = _mapper.Map<UserDto>(user);
             return dto;
         }
 
@@ -146,8 +148,8 @@ namespace MyLiverpoolSite.Business.Services.Services
             var messages = await _unitOfWork.PrivateMessageRepository.GetAsync(x => x.ReceiverId == id || x.SenderId == id);
             var dto = new PrivateMessagesDto()
             {
-                Received = Mapper.Map<ICollection<PrivateMessageMiniDto>>(messages.Where(x => x.ReceiverId == id)),
-                Sent = Mapper.Map<ICollection<PrivateMessageMiniDto>>(messages.Where(x => x.SenderId == id))
+                Received = _mapper.Map<ICollection<PrivateMessageMiniDto>>(messages.Where(x => x.ReceiverId == id)),
+                Sent = _mapper.Map<ICollection<PrivateMessageMiniDto>>(messages.Where(x => x.SenderId == id))
             };
             return dto;
         }
@@ -155,7 +157,7 @@ namespace MyLiverpoolSite.Business.Services.Services
         public async Task<PageableData<UserMiniDto>> GetUsersDtoAsync(int page)
         {
             var users = await _unitOfWork.UserRepository.GetAsync(page);
-            var usersDto = Mapper.Map<IEnumerable<UserMiniDto>>(users);
+            var usersDto = _mapper.Map<IEnumerable<UserMiniDto>>(users);
             var allUsersCount = await _unitOfWork.UserRepository.GetCountAsync();
             var result = new PageableData<UserMiniDto>(usersDto, page, allUsersCount);
             return result;
@@ -174,7 +176,7 @@ namespace MyLiverpoolSite.Business.Services.Services
                 _unitOfWork.PrivateMessageRepository.Update(message);
                 await _unitOfWork.SaveAsync();
             }
-            return Mapper.Map<PrivateMessageDto>(message);
+            return _mapper.Map<PrivateMessageDto>(message);
         }
 
         public async Task<bool> SavePrivateMessageDtoAsync(PrivateMessageDto model)
@@ -182,7 +184,7 @@ namespace MyLiverpoolSite.Business.Services.Services
             await RemoveOldMessages(model.SenderId);
             await RemoveOldMessages(model.ReceiverId);
 
-            var message = Mapper.Map<PrivateMessage>(model);
+            var message = _mapper.Map<PrivateMessage>(model);
             message.SentTime = DateTime.Now;
             try
             {

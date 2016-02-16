@@ -19,12 +19,14 @@ namespace MyLiverpoolSite.Business.Services.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMaterialCategoryService _materialCategoryService;
         private readonly IMaterialRepository _materialRepository;
+        private readonly IMapper _mapper;
 
-        public MaterialService(IUnitOfWork unitOfWork, IMaterialCategoryService materialCategoryService, IMaterialRepository materialRepository)
+        public MaterialService(IUnitOfWork unitOfWork, IMaterialCategoryService materialCategoryService, IMaterialRepository materialRepository, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _materialCategoryService = materialCategoryService;
             _materialRepository = materialRepository;
+            _mapper = mapper;
         }
 
         #region VM
@@ -37,7 +39,7 @@ namespace MyLiverpoolSite.Business.Services.Services
                 var newsItem = await _materialRepository.GetById(id);
                 //  result = Mapper.Map<IndexNewsViewModel>(_unitOfWork.MaterialRepository.GetById(id));
                 newsItem.Comments = newsItem.Comments.Where(x => !x.ParentId.HasValue).ToList();
-                result = Mapper.Map<IndexNewsViewModel>(newsItem);
+                result = _mapper.Map<IndexNewsViewModel>(newsItem);
             }
             return result;
         }
@@ -48,11 +50,11 @@ namespace MyLiverpoolSite.Business.Services.Services
             if (id.HasValue && id != 0)
             {
                 var newsItem = await _unitOfWork.MaterialRepository.GetByIdAsync(id.Value);
-                viewModel = Mapper.Map<CreateEditNewsViewModel>(newsItem);
+                viewModel = _mapper.Map<CreateEditNewsViewModel>(newsItem);
             }
             else
             {
-                viewModel = Mapper.Map<CreateEditNewsViewModel>(new Material());
+                viewModel = _mapper.Map<CreateEditNewsViewModel>(new Material());
             }
             viewModel.NewsCategories = await _materialCategoryService.GetCategoriesAsync(materialType);
 
@@ -66,7 +68,7 @@ namespace MyLiverpoolSite.Business.Services.Services
 
         public async Task<int> EditAsync(CreateEditNewsViewModel model, MaterialType materialType)
         {
-            var newsItem = Mapper.Map<Material>(model);
+            var newsItem = _mapper.Map<Material>(model);
             newsItem.LastModified = DateTime.Now;
             _unitOfWork.MaterialRepository.Update(newsItem);
             await _unitOfWork.SaveAsync();
@@ -75,7 +77,7 @@ namespace MyLiverpoolSite.Business.Services.Services
 
         public async Task<int> CreateVmAsync(CreateEditNewsViewModel model, int userId, MaterialType materialType)
         {
-            var newsItem = Mapper.Map<Material>(model);
+            var newsItem = _mapper.Map<Material>(model);
             newsItem.AdditionTime = DateTime.Now;
             newsItem.LastModified = DateTime.Now;
             newsItem.AuthorId = userId;
@@ -108,7 +110,7 @@ namespace MyLiverpoolSite.Business.Services.Services
            // }
             var news = await _unitOfWork.MaterialRepository.GetAsync(page, filter: filter, itemPerPage: itemPerPage);
             var newsForView = (page == GlobalConstants.FirstPage) ? topNews.Concat(news) : news;
-            var newsVM = Mapper.Map<IEnumerable<IndexMiniNewsVM>>(newsForView);
+            var newsVM = _mapper.Map<IEnumerable<IndexMiniNewsVM>>(newsForView);
             var allNewsCount = await _unitOfWork.MaterialRepository.GetCountAsync(filterForCount);
             var result = new PageableData<IndexMiniNewsVM>(newsVM, page, allNewsCount);
             return result;
@@ -117,7 +119,7 @@ namespace MyLiverpoolSite.Business.Services.Services
         public async Task<IEnumerable<IndexNewsCategoryVM>> GetCategoriesAsync(MaterialType materialType)
         {
             var categories = await _unitOfWork.MaterialCategoryRepository.GetAsync(x => x.MaterialType == materialType);
-            var categoriesVM = Mapper.Map<IEnumerable<IndexNewsCategoryVM>>(categories);
+            var categoriesVM = _mapper.Map<IEnumerable<IndexNewsCategoryVM>>(categories);
 
             return categoriesVM;
         }
@@ -152,7 +154,7 @@ namespace MyLiverpoolSite.Business.Services.Services
             }
             var news = await _unitOfWork.MaterialRepository.GetAsync(page, filter: filter, itemPerPage: itemPerPage);
             var newsForView = topNews.Concat(news);
-            var newsVm = Mapper.Map<IEnumerable<MaterialMiniDto>>(newsForView);
+            var newsVm = _mapper.Map<IEnumerable<MaterialMiniDto>>(newsForView);
             var allNewsCount = await _unitOfWork.MaterialRepository.GetCountAsync(filterForCount);
             var result = new PageableData<MaterialMiniDto>(newsVm, page, allNewsCount);
             return result;
@@ -168,7 +170,7 @@ namespace MyLiverpoolSite.Business.Services.Services
             //todo newsCounter
             var commentsCount = material.Comments.Count;
             material.Comments = material.Comments.Where(x => !x.ParentId.HasValue && x.MaterialType == materialType).ToList();
-            var dto = Mapper.Map<MaterialDto>(material);
+            var dto = _mapper.Map<MaterialDto>(material);
             dto.CommentsCount = commentsCount;
             return dto;
         }
@@ -217,7 +219,7 @@ namespace MyLiverpoolSite.Business.Services.Services
             model.AdditionTime = DateTime.Now;
             model.AuthorId = userId;
             
-            var material = Mapper.Map<Material>(model);
+            var material = _mapper.Map<Material>(model);
             material.LastModified = DateTime.Now;
             material.Type = materialType;
             try

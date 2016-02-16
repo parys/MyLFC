@@ -12,10 +12,12 @@ namespace MyLiverpoolSite.Business.Services.Services
     public class MaterialCommentService : IMaterialCommentService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public MaterialCommentService(IUnitOfWork unitOfWork)
+        public MaterialCommentService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
         public async Task<int> AddCommentAsync(string message, int newsId, int? parentId, int userId, MaterialType materialType)
@@ -63,7 +65,7 @@ namespace MyLiverpoolSite.Business.Services.Services
 
         public async Task<MaterialCommentDto> AddAsync(MaterialCommentEditingDto model, MaterialType materialType)
         {
-            var comment = Mapper.Map<MaterialComment>(model);
+            var comment = _mapper.Map<MaterialComment>(model);
             comment.MaterialType = materialType;
             comment.AdditionTime = DateTime.Now;
 
@@ -76,7 +78,7 @@ namespace MyLiverpoolSite.Business.Services.Services
             {
                 throw new Exception();
             }
-            var result = Mapper.Map<MaterialCommentDto>(comment);
+            var result = _mapper.Map<MaterialCommentDto>(comment);
             return result;
         }
 

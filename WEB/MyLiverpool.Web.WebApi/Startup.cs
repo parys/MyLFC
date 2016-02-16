@@ -2,10 +2,11 @@
 using System.Web.Http;
 using Autofac;
 using Autofac.Integration.WebApi;
+using AutoMapper;
 using Microsoft.Owin;
+using MyLiverpool.Common.MapperConfigurations.Profiles;
 using MyLiverpool.Web.WebApi;
 using MyLiverpoolSite.Business.Contracts;
-using MyLiverpoolSite.Business.Services.Mapping;
 using MyLiverpoolSite.Business.Services.Services;
 using MyLiverpoolSite.Data.DataAccessLayer;
 using MyLiverpoolSite.Data.DataAccessLayer.Repositories;
@@ -16,9 +17,16 @@ namespace MyLiverpool.Web.WebApi
 {
     public partial class Startup
     {
+
+        private static readonly MapperConfiguration Config = new MapperConfiguration(cfg => {
+            cfg.AddProfile(new MaterialMapperProfile(cfg));
+            cfg.AddProfile(new UserMapperProfile(cfg));
+            cfg.AddProfile(new ForumMapperProfile(cfg));
+        });
+
         public void Configuration(IAppBuilder app)
         {
-            ConfigureAuth(app);
+            ConfigureAuth(app, Config.CreateMapper());
 
             var builder = new ContainerBuilder();
 
@@ -42,9 +50,8 @@ namespace MyLiverpool.Web.WebApi
             //   app.UseAutofacMiddleware(container);
             //   app.UseAutofacMvc();
             //  app
-
+            
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);//todo
-            new AutoMapperBindings().Config();
 
             //app.Use(async (context, next) =>
             //{
@@ -73,6 +80,7 @@ namespace MyLiverpool.Web.WebApi
             builder.RegisterType<MaterialService>().As<IMaterialService>();
             builder.RegisterType<RoleService>().As<IRoleService>();
             builder.RegisterType<UserService>().As<IUserService>();
+            builder.RegisterInstance(Config.CreateMapper()).As<IMapper>();
         }
     }
 }

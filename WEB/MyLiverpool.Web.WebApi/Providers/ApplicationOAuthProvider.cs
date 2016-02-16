@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
@@ -22,7 +23,7 @@ namespace MyLiverpool.Web.WebApi.Providers
         private IUserService _userService;
         private IUnitOfWork _unitOfWork = new UnitOfWork(); //todo remove
 
-        public ApplicationOAuthProvider(string publicClientId)
+        public ApplicationOAuthProvider(string publicClientId, IUnitOfWork unitOfWork, IMapper mapper)
         {
             if (publicClientId == null)
             {
@@ -30,7 +31,7 @@ namespace MyLiverpool.Web.WebApi.Providers
             }
 
             _publicClientId = publicClientId;
-            _userService = new UserService(new UnitOfWork());
+            _userService = new UserService(unitOfWork, mapper); //todo move
         }
 
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)

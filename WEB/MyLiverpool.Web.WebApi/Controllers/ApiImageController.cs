@@ -4,6 +4,7 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using AutoMapper;
 
 namespace MyLiverpool.Web.WebApi.Controllers
 {
@@ -11,11 +12,18 @@ namespace MyLiverpool.Web.WebApi.Controllers
     [Authorize(Roles = "NewsStart,BlogsStart")]
     public class ApiImageController : ApiController
     {
+        private readonly IMapper _mapper;
         private const string PathContent = "\\content";
         private const string PathImages = "\\images";
         private const string Path = "\\content\\images";
 
         private readonly int _pathLength = Path.Length + 1;
+
+        public ApiImageController(IMapper mapper)
+        {
+            _mapper = mapper;
+        }
+
 
         [Route("")]
         [HttpGet]

@@ -12,22 +12,24 @@ namespace MyLiverpoolSite.Business.Services.Services
     public class RoleService : IRoleService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public RoleService(IUnitOfWork unitOfWork)
+        public RoleService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
         public async Task<RoleRoleGroupVM> GetAllGroupsAsync(int page)
         {
             var roleGroups = await _unitOfWork.RoleGroupRepository.GetAsync(page);
-            var roleGroupsVM = Mapper.Map<IEnumerable<RoleGroupVM>>(roleGroups.ToList());
+            var roleGroupsVM = _mapper.Map<IEnumerable<RoleGroupVM>>(roleGroups.ToList());
             var allgroupsCount = await _unitOfWork.RoleGroupRepository.GetCountAsync();
             var allRoles = await _unitOfWork.RoleRepository.GetAsync();
             var model = new RoleRoleGroupVM()
             {
                 RoleGroups = new PageableData<RoleGroupVM>(roleGroupsVM, page, allgroupsCount),
-                Roles = Mapper.Map<ICollection<RoleVM>>(allRoles)
+                Roles = _mapper.Map<ICollection<RoleVM>>(allRoles)
             };
 
             return model;

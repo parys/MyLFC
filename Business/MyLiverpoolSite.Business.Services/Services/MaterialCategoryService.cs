@@ -11,10 +11,12 @@ namespace MyLiverpoolSite.Business.Services.Services
     public class MaterialCategoryService : IMaterialCategoryService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public MaterialCategoryService(IUnitOfWork unitOfWork)
+        public MaterialCategoryService(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            this._unitOfWork = unitOfWork;
+            _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
         public async Task<ICollection<MaterialCategory>> GetCategoriesAsync(MaterialType materialType)
@@ -25,7 +27,7 @@ namespace MyLiverpoolSite.Business.Services.Services
         public async Task<ICollection<MaterialCategoryDto>> GetCategoriesDtoAsync(MaterialType materialType)
         {
             var categories = await _unitOfWork.MaterialCategoryRepository.GetAsync(x => x.MaterialType == materialType);
-            var result = Mapper.Map<ICollection<MaterialCategoryDto>>(categories);
+            var result = _mapper.Map<ICollection<MaterialCategoryDto>>(categories);
             return result;
         }
     }

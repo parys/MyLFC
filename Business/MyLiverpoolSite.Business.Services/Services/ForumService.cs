@@ -13,9 +13,12 @@ namespace MyLiverpoolSite.Business.Services.Services
     public class ForumService : IForumService
     {
         private readonly IUnitOfWork _unitOfWork;
-        public ForumService(IUnitOfWork unitOfWork)
+        private readonly IMapper _mapper;
+
+        public ForumService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
         public async Task<ForumVM> Get()
@@ -38,8 +41,8 @@ namespace MyLiverpoolSite.Business.Services.Services
             {
                 return new ForumSubsectionVM();
             }
-            var model = Mapper.Map<ForumSubsectionVM>(subsection);
-            model.Themes = new PageableData<ForumThemeVM>(Mapper.Map<IEnumerable<ForumThemeVM>>(subsectionThemes), page, subsectionThemesCount);
+            var model = _mapper.Map<ForumSubsectionVM>(subsection);
+            model.Themes = new PageableData<ForumThemeVM>(_mapper.Map<IEnumerable<ForumThemeVM>>(subsectionThemes), page, subsectionThemesCount);
             return model;
         }
 
@@ -52,8 +55,8 @@ namespace MyLiverpoolSite.Business.Services.Services
             {
                 return new ForumThemeVM();
             }
-            var model = Mapper.Map<ForumThemeVM>(theme);
-            model.Messages = new PageableData<ForumMessageVM>(Mapper.Map<IEnumerable<ForumMessageVM>>(themeMessages), page, themeMessagesCount);
+            var model = _mapper.Map<ForumThemeVM>(theme);
+            model.Messages = new PageableData<ForumMessageVM>(_mapper.Map<IEnumerable<ForumMessageVM>>(themeMessages), page, themeMessagesCount);
             return model;
         }
 
@@ -81,7 +84,7 @@ namespace MyLiverpoolSite.Business.Services.Services
 
             var model = new ForumDto()
             {
-                Sections = Mapper.Map<ICollection<ForumSectionDto>>(sections)
+                Sections = _mapper.Map<ICollection<ForumSectionDto>>(sections)
             };
             return model;
         }
@@ -96,8 +99,8 @@ namespace MyLiverpoolSite.Business.Services.Services
             {
                 return null;
             }
-            var model = Mapper.Map<ForumSubsectionDto>(subsection);
-            model.Themes = new PageableData<ForumThemeMiniDto>(Mapper.Map<IEnumerable<ForumThemeMiniDto>>(subsectionThemes), page, subsectionThemesCount);
+            var model = _mapper.Map<ForumSubsectionDto>(subsection);
+            model.Themes = new PageableData<ForumThemeMiniDto>(_mapper.Map<IEnumerable<ForumThemeMiniDto>>(subsectionThemes), page, subsectionThemesCount);
             return model;
         }
 
@@ -110,8 +113,8 @@ namespace MyLiverpoolSite.Business.Services.Services
             {
                 return null;
             }
-            var model = Mapper.Map<ForumThemeDto>(theme);
-            model.Messages = new PageableData<ForumMessageDto>(Mapper.Map<IEnumerable<ForumMessageDto>>(themeMessages), page, themeMessagesCount);
+            var model = _mapper.Map<ForumThemeDto>(theme);
+            model.Messages = new PageableData<ForumMessageDto>(_mapper.Map<IEnumerable<ForumMessageDto>>(themeMessages), page, themeMessagesCount);
             return model;
         }
 
