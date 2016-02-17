@@ -18,6 +18,8 @@ namespace MyLiverpool.Business.DTO
 
         public string RoleGroupName { get; set; }
 
+        public int RoleGroupId { get; set; }
+
         public DateTime? LockoutEndDateUtc { get; set; }
     }
 }

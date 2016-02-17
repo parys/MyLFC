@@ -223,6 +223,15 @@ namespace MyLiverpool.Business.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Мой профиль.
+        /// </summary>
+        public static string MyProfile {
+            get {
+                return ResourceManager.GetString("MyProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Новости.
         /// </summary>
         public static string News {

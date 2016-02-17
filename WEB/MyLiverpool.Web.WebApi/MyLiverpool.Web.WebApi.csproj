@@ -437,11 +437,6 @@
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\angular\min\angular-translate-loader-static-files.min.js" />
-    <Content Include="Scripts\angular\min\ui-bootstrap-tpls.min.js" />
-    <Content Include="Scripts\angular\min\ui-bootstrap.min.js" />
-    <Content Include="Scripts\angular\min\angular-validation.min.js" />
-    <Content Include="Scripts\angular\min\angular-route.min.js" />
-    <Content Include="Scripts\angular\min\angular-translate.min.js" />
     <None Include="Properties\PublishProfiles\someeFreeQA.pubxml" />
     <Content Include="Scripts\angular-validation\locales\ru.json" />
     <Content Include="Scripts\angular-validation\locales\pt-br.json" />
@@ -453,15 +448,9 @@
     <Content Include="Scripts\angular-validation\locales\ca.json" />
     <Content Include="Scripts\angular.min.js.map" />
     <Content Include="Scripts\angular-route.min.js.map" />
-    <None Include="Scripts\angular\min\angular-route.min.jsOLD" />
     <Content Include="Scripts\angular\23angular-translate-loader-static-files.js" />
-    <None Include="Scripts\angular\min\angular-translate.min.jsOLD" />
     <Content Include="Scripts\angular\angular-cookies.js" />
-    <Content Include="Scripts\angular\min\angular-ui-router.min.js" />
-    <Content Include="Scripts\angular\min\angular.min.js" />
     <Content Include="Scripts\App.js" />
-    <Content Include="Scripts\angular\bootstrap.js" />
-    <Content Include="Scripts\angular\min\bootstrap.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\objects\Forum\ForumController.js" />

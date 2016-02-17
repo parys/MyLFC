@@ -55,6 +55,11 @@
         //    console.log('isModerator landing');
         return Authentication.isAuthor();
     }
+
+    $scope.isAdmin = function () {
+        //    console.log('isModerator landing');
+        return Authentication.isAdmin();
+    }
 }
 
 LandingPageController.$inject = ['$scope', '$state', 'Authentication', 'RouteFilter', 'AccountFactory', '$location']; //'SessionService',

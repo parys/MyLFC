@@ -38,6 +38,9 @@
             <a ui-sref="register" ng-if="!loggedIn()">@CommonMessages.Register</a>
         </li>
         <li>
+            <a ui-sref="userInfo({id: userId()})" ng-if="loggedIn()">@CommonMessages.MyProfile</a>
+        </li>
+        <li>
             <a ng-click="logout()" ng-if="loggedIn()">@CommonMessages.Logout</a>
         </li>
         <li>

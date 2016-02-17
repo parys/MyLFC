@@ -219,4 +219,7 @@
   <data name="Images" xml:space="preserve">
     <value>Изображения</value>
   </data>
+  <data name="MyProfile" xml:space="preserve">
+    <value>Мой профиль</value>
+  </data>
 </root>
