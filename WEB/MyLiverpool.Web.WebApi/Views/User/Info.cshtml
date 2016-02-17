@@ -7,7 +7,7 @@
     </span>
 </h2>
 
-<form class="form-horizontal" role="form">
+<form class="form-horizontal" role="form" ng-init="init()">
     <div class="form-group">
         <label class="col-sm-2 control-label">@UsersMessages.UserName</label>
         <div class="col-sm-10">
@@ -19,18 +19,11 @@
     <div class="form-group">
         <label class="col-sm-2 control-label">@UsersMessages.Group</label>
         <div class="col-sm-10">
-                <div ng-if="isAdmin()">
-                    <form name="myForm">
-                        <label for="mySelect">Make a choice:</label>
-                        <select name="mySelect" id="mySelect"
-                                ng-options="option.name for option in data.availableOptions track by option.id"
-                                ng-model="data.selectedOption"></select>
-                    </form>
-                    <hr>
-                </div>
-            <div ng-if="!isAdmin()">
-                <span class="form-control">{{ user.roleGroupName }}</span>
-                <select class="form-control" name="newsCategoryId" ng-model="user.roleGroupId" ng-options="category.id as category.name for category in categories" required="" validation="required"></select>
+            <div>
+                <span ng-if="!isAdmin()" class="form-control">{{ user.roleGroupName }}</span>
+                <select ng-if="isAdmin()" class="form-control" name="newsCategoryId"
+                        ng-model="user.roleGroupId"
+                        ng-options="roleGroup.id as roleGroup.name for roleGroup in roleGroups" required="" validation="required"></select>
 
             </div>
         </div>

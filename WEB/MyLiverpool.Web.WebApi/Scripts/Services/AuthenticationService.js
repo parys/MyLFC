@@ -3,7 +3,7 @@
 //angular.module('App')
 //  var  .service('Authentication', function Authentication($q, $http) {
 
-var Authentication = function ($q, AccountFactory, SessionService, $cookies) {
+var Authentication = function ($q, AccountFactory, SessionService, $cookies, $rootScope) {
 
     var authenticatedUser = undefined;
     var cookieName = 'abra-kadabra';
@@ -23,6 +23,7 @@ var Authentication = function ($q, AccountFactory, SessionService, $cookies) {
                     then(function(response) {
                         console.log('logged at server');
                         authenticatedUser = $cookies.getObject('user');
+                       // $rootScope.roles = authenticatedUser.roles; //todo temporary
                     }, function(response) {
                         console.log('NOT logged at server');
                         authenticatedUser = undefined;
@@ -49,6 +50,7 @@ var Authentication = function ($q, AccountFactory, SessionService, $cookies) {
                 then(function (response) {
                     console.log(response);
                     authenticatedUser = response;
+                    //$rootScope.roles = authenticatedUser.roles; //todo temporary
                     $cookies.putObject('user', authenticatedUser);
                     return true;
                 }, function (response) {
@@ -61,6 +63,7 @@ var Authentication = function ($q, AccountFactory, SessionService, $cookies) {
         logout: function() {
             authenticatedUser = undefined;
             $cookies.remove('user'); //todo from server
+           // $rootScope.roles = ""; //todo temporary
         },
 
         getUserId: function() {
@@ -96,4 +99,4 @@ var Authentication = function ($q, AccountFactory, SessionService, $cookies) {
     }
 };
 
-Authentication.$inject = ['$q', 'AccountFactory', 'SessionService', '$cookies']
+Authentication.$inject = ['$q', 'AccountFactory', 'SessionService', '$cookies', '$rootScope']

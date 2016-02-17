@@ -20,6 +20,7 @@ App.controller('ModalCtrl', ModalCtrl);
 App.controller('rightContainerCtrl', rightContainerCtrl);
 App.controller('leftContainerCtrl', leftContainerCtrl);
 App.controller('ImagesCtrl', ImagesCtrl);
+App.controller('RoleGroupsCtrl', RoleGroupsCtrl);
 
 App.service('SessionService', SessionService);
 
@@ -40,6 +41,7 @@ App.factory('UsersFactory', UsersFactory);
 App.factory('PmsFactory', PmsFactory);
 App.factory('ForumFactory', ForumFactory);
 App.factory('ImagesFactory', ImagesFactory);
+App.factory('RoleGroupsFactory', RoleGroupsFactory);//todo sort by name
 
 var configFunction = function ($stateProvider, $httpProvider, $locationProvider, $translateProvider) {
 
@@ -248,9 +250,9 @@ App.filter('rawHtml', ['$sce', function($sce){
 }]);
 
 App.run(function (Authentication, Application, $rootScope, $location, RouteFilter, uibPaginationConfig, $state, $stateParams) {
-    
-
+    //$rootScope.roles = "";
     Authentication.requestUser();
+
     //    .then(function () {
    //     Application.makeReady();
     // });//todo

@@ -6,8 +6,8 @@
     $scope.navbarProperties = {
         isCollapsed: true
     };
-
     
+
     $scope.loggedIn = function () {
         return Authentication.exists();
     }

@@ -17,6 +17,7 @@ namespace MyLiverpool.Common.MapperConfigurations.Profiles
         {
             RegisterUserMapping();
             RegisterPrivateMessageMapping();
+            RegisterRoleGroupsMapping();
         }
 
         private void RegisterUserMapping()
@@ -101,6 +102,12 @@ namespace MyLiverpool.Common.MapperConfigurations.Profiles
                 .ForMember(dest => dest.Sender, src => src.Ignore())
                 .ForMember(dest => dest.SentTime, src => src.Ignore())
                 .ForMember(dest => dest.Title, src => src.MapFrom(x => x.Title));
+        }
+        private void RegisterRoleGroupsMapping()
+        {
+            _cfg.CreateMap<RoleGroup, RoleGroupDto>()
+                .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id))
+                .ForMember(dest => dest.Name, src => src.MapFrom(x => x.RussianName));
         }
 
     }

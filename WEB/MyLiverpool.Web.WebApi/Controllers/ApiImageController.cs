@@ -15,9 +15,9 @@ namespace MyLiverpool.Web.WebApi.Controllers
         private readonly IMapper _mapper;
         private const string PathContent = "\\content";
         private const string PathImages = "\\images";
-        private const string Path = "\\content\\images";
+        private const string PathFull = "\\content\\images";
 
-        private readonly int _pathLength = Path.Length + 1;
+        private readonly int _pathLength = PathFull.Length + 1;
 
         public ApiImageController(IMapper mapper)
         {
@@ -33,11 +33,11 @@ namespace MyLiverpool.Web.WebApi.Controllers
             List<ImageDto> files = new List<ImageDto>();
             if (path == "undefined")
             {
-                path = Path;
+                path = PathFull;
             }
-            if (!path.Contains(Path))
+            if (!path.Contains(PathFull))
             {
-                path = System.IO.Path.Combine(Path, path);
+                path = System.IO.Path.Combine(PathFull, path);
             }
             //CHECK ONLY ALLOWED PATHES
             IEnumerable<string> subdirectoryFolders;
@@ -50,7 +50,7 @@ namespace MyLiverpool.Web.WebApi.Controllers
             }
             catch (DirectoryNotFoundException)
             {
-                fullPath = HttpContext.Current.Server.MapPath("~") + Path;
+                fullPath = HttpContext.Current.Server.MapPath("~") + PathFull;
                 subdirectoryFolders = Directory.EnumerateDirectories(fullPath);
                 subdirectoryFiles = Directory.EnumerateFiles(fullPath);
             }
@@ -60,7 +60,7 @@ namespace MyLiverpool.Web.WebApi.Controllers
                 files.Add(new ImageDto()
                 {
                     Name = entry.Substring(entry.LastIndexOf('\\')+1),
-                    Path = entry.Substring(entry.LastIndexOf(Path, StringComparison.InvariantCultureIgnoreCase)),
+                    Path = entry.Substring(entry.LastIndexOf(PathFull, StringComparison.InvariantCultureIgnoreCase)),
                     IsFolder = true
                 });
             }
@@ -69,7 +69,7 @@ namespace MyLiverpool.Web.WebApi.Controllers
                 files.Add(new ImageDto()
                 {
                     Name = entry.Substring(entry.LastIndexOf('\\')+1),
-                    Path = entry.Substring(entry.LastIndexOf(Path, StringComparison.InvariantCultureIgnoreCase)),
+                    Path = entry.Substring(entry.LastIndexOf(PathFull, StringComparison.InvariantCultureIgnoreCase)),
                     IsFolder = false
                 });
             }

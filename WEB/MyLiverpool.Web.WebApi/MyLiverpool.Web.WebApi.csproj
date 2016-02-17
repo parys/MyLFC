@@ -255,6 +255,7 @@
     <Compile Include="Controllers\ApiForumController.cs" />
     <Compile Include="Controllers\ApiImageController.cs" />
     <Compile Include="Controllers\ApiNewsCommentController.cs" />
+    <Compile Include="Controllers\ApiRoleGroupController.cs" />
     <Compile Include="Controllers\ApiUserController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BlogCommentController.cs" />
@@ -473,6 +474,8 @@
     <Content Include="Scripts\objects\Pms\PmWriteCtrl.js" />
     <Content Include="Scripts\objects\Account\RegisterController.js" />
     <Content Include="Scripts\Controllers\rightContainerCtrl.js" />
+    <Content Include="Scripts\objects\RoleGroups\RoleGroupsCtrl.js" />
+    <Content Include="Scripts\objects\RoleGroups\RoleGroupsFactory.js" />
     <Content Include="Scripts\objects\Users\UserController.js" />
     <Content Include="Scripts\objects\Users\UsersController.js" />
     <Content Include="Scripts\objects\MarkItUp\markItUpDirective.js" />

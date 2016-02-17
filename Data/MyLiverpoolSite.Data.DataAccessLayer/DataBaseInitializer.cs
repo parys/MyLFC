@@ -137,8 +137,6 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                     Name = RolesEnum.Simple.ToString(),
                     RoleGroups = new List<RoleGroup>()
                     {
-                        adminRoleGroup,
-                       
                     }
                 },
                 new Role()
@@ -146,11 +144,9 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                     Name = RolesEnum.NewsFull.ToString(),
                     RoleGroups = new List<RoleGroup>()
                     {
-                        adminRoleGroup,
+                        internRole,
                         newsmakerRole,
                         mainNewsmakeRole,
-                        editorRole,
-                        mainEditorRole,
 
                     }
                 },
@@ -159,12 +155,8 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                     Name = RolesEnum.NewsStart.ToString(),
                     RoleGroups = new List<RoleGroup>()
                     {
-                        adminRoleGroup,
                         internRole,
                         newsmakerRole,
-                        mainNewsmakeRole,
-                        editorRole,
-                        mainEditorRole,
                     }
                 },
                 new Role()
@@ -172,8 +164,8 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                     Name = RolesEnum.BlogsFull.ToString(),
                     RoleGroups = new List<RoleGroup>()
                     {
-                        adminRoleGroup,
-
+                        editorRole,
+                        mainEditorRole
                     }
                 },
                 new Role()//5
@@ -181,7 +173,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                     Name = RolesEnum.BlogsStart.ToString(),
                     RoleGroups = new List<RoleGroup>()
                     {
-                        adminRoleGroup,
+                        editorRole,
 
                     }
                 },
@@ -200,6 +192,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                     RoleGroups = new List<RoleGroup>()
                     {
                         adminRoleGroup,
+                        adminAssistanceRole,
                         moderatorRole,
                         mainModeratorRole,
 
@@ -211,6 +204,9 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                     RoleGroups = new List<RoleGroup>()
                     {
                         adminRoleGroup,
+                        adminAssistanceRole,
+                        moderatorRole,
+                        mainModeratorRole,
 
                     }
                 },
@@ -219,7 +215,8 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                     Name = RolesEnum.ModeratorFull.ToString(),
                     RoleGroups = new List<RoleGroup>()
                     {
-                        adminRoleGroup,
+                        moderatorRole,
+                        mainModeratorRole,
 
                     }
                 },
@@ -228,7 +225,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                     Name = RolesEnum.ModeratorStart.ToString(),
                     RoleGroups = new List<RoleGroup>()
                     {
-                        adminRoleGroup,
+                        moderatorRole,
 
                     }
                 },
@@ -237,8 +234,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                     Name = RolesEnum.Intern.ToString(),
                     RoleGroups = new List<RoleGroup>()
                     {
-                        adminRoleGroup,
-
+                        internRole,
                     }
                 },
 
@@ -263,7 +259,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 Verify = true,
                 LastModified = DateTime.Now,
                 RegistrationDate = DateTime.Now,
-                RoleGroupId = 2 
+                RoleGroupId = 2
             };
 
             var userStore = new UserStore<User, Role, int, UserLogin, UserRole, UserClaim>(context);
@@ -284,7 +280,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 Verify = true,
                 LastModified = DateTime.Now,
                 RegistrationDate = DateTime.Now,
-                RoleGroupId = 2 
+                RoleGroupId = 2
             };
 
             var userStore = new UserStore<User, Role, int, UserLogin, UserRole, UserClaim>(context);
@@ -312,8 +308,8 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
 
             var userStore = new UserStore<User, Role, int, UserLogin, UserRole, UserClaim>(context);
             var userManager = new UserManager<User, int>(userStore);
-        
-        userManager.Create(user, "123456");
+
+            userManager.Create(user, "123456");
             var adminRoles = context.RoleGroups.First(x => x.Id == user.RoleGroupId).Roles.ToList();
             foreach (var role in adminRoles)
             {
@@ -338,8 +334,8 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
 
             var userStore = new UserStore<User, Role, int, UserLogin, UserRole, UserClaim>(context);
             var userManager = new UserManager<User, int>(userStore);
-        
-        userManager.Create(user, "123456");
+
+            userManager.Create(user, "123456");
             var adminRoles = context.RoleGroups.First(x => x.Id == user.RoleGroupId).Roles.ToList();
             foreach (var role in adminRoles)
             {
@@ -474,7 +470,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 Name = "subsection 1",
                 Description = "subsection description 1",
                 SectionId = 1
-                
+
             };
             var forumSubsection2 = new ForumSubsection()
             {
@@ -599,7 +595,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                         ThemeId = 1,
                     }
                 }
-                
+
             };
             var forumThemes2 = new ForumTheme()
             {
@@ -632,7 +628,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                         AuthorId = 2,
                         LastModifiedTime = DateTime.Now,
                         ThemeId = 2,
-                        
+
                     },
                     new ForumMessage()
                     {
@@ -761,7 +757,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                     Brief = "brief" + i,
                     CanCommentary = i % 2 == 0,
                     Type = NewsType,
-                    LastModified = DateTime.Now.AddDays(randomizer.NextDouble()*-CountNews),
+                    LastModified = DateTime.Now.AddDays(randomizer.NextDouble() * -CountNews),
                     Message = @"<div align='center'><img src='http://s4.hostingkartinok.com/uploads/images/2013/07/5513d5a371375d0047370d9727e4ecc2.jpg' border ='0' alt ='/></div>
 <br /><br /> <b>100 дней, которые потрясли Коп</b> - это список моментов из истории ""Ливерпуля"", которые оказали значительное влияние на клуб и его болельщиков составленный самими
 болельщиками клуба. <br /><br /> Фантастическая победа на ""Гудисон Парк"" в Раунде 4, Кубка Англии против ""Эвертона"" - 4:0. ""Ливерпуль"" выступает во втором дивизионе, ""Эвертон""
@@ -803,11 +799,11 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                 var comment = new MaterialComment()
                 {
                     MaterialId = random.Next(1, CountNews),
-                    AdditionTime = DateTime.Now.AddDays(random.NextDouble()*10),
+                    AdditionTime = DateTime.Now.AddDays(random.NextDouble() * 10),
                     Answer = i % 5 == 0 ? "answer" : string.Empty,
                     AuthorId = random.Next(1, CountUsers),
                     Message = "message " + i,
-                    Pending = (i+3)% 5 == 0,
+                    Pending = (i + 3) % 5 == 0,
                     MaterialType = NewsType,
                 };
                 if (i % 3 == 0)

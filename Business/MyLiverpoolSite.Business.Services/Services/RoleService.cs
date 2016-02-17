@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using MyLiverpool.Business.DTO;
 using MyLiverpoolSite.Business.Contracts;
 using MyLiverpoolSite.Business.ViewModels.Roles;
 using MyLiverpoolSite.Data.DataAccessLayer;
@@ -51,6 +52,12 @@ namespace MyLiverpoolSite.Business.Services.Services
             _unitOfWork.UserRepository.Update(user);
             await _unitOfWork.SaveAsync();
             return true;
+        }
+
+        public async Task<IEnumerable<RoleGroupDto>> GetRoleGroupsDtoAsync()
+        {
+            var roleGroups = _unitOfWork.RoleGroupRepository.GetAsync();
+            return _mapper.Map<IEnumerable<RoleGroupDto>>(roleGroups);
         }
 
         private IEnumerable<Role> GetRolesToDelete(IEnumerable<Role> oldRoles, IEnumerable<Role> newRoles)
