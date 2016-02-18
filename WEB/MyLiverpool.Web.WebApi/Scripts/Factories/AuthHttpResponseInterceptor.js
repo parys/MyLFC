@@ -12,7 +12,8 @@
         },
         responseError: function(rejection) {
             if (rejection.status === 401) {
-                $injector.get('$state').go('login', { returnUrl: $location.path() });
+             //   $injector.get('$state').go('login', { returnUrl: $location.path() });
+             //todo redirect to ??
             }
             return $q.reject(rejection);
         }

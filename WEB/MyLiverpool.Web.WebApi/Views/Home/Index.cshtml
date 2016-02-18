@@ -31,9 +31,29 @@
         <li class="divider"></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-        <li>
-            <a ui-sref="login({ returnUrl: getReturnUrl() })" ng-if="!loggedIn()">@CommonMessages.Login</a>
+        <li ng-if="!loggedIn()">
+            <form ng-controller="LoginController" class="form-inline" role="form" ng-submit="login()">
+                <div class="form-group">
+                    <label class="sr-only" for="emailAddress">@ColonsMessages.UserName</label>
+                    <input type="text" class="form-control" name="email" id="emailAddress" placeholder="" ng-model="loginForm.userName" validation="required">
+                </div>
+                <div class="form-group">
+                    <label class="sr-only" for="password">@ColonsMessages.Password</label>
+                    <input type="password" class="form-control" name="password" id="password" ng-model="loginForm.password" validation="required">
+                </div>
+                @*<div class="form-group">
+                    <p class="text-danger col-md-offset-3" ng-if="loginForm.errorMessage">{loginForm.errorMessage}}</p>
+                </div>*@
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="@CommonMessages.Login" class="btn btn-default" />
+                    </div>
+                </div>
+            </form>
         </li>
+        @*<li>
+            <a ui-sref="login({ returnUrl: getReturnUrl() })" ng-if="!loggedIn()">@CommonMessages.Login</a>
+        </li>*@
         <li>
             <a ui-sref="register" ng-if="!loggedIn()">@CommonMessages.Register</a>
         </li>
