@@ -56,7 +56,7 @@ namespace MyLiverpoolSite.Business.Services.Services
 
         public async Task<IEnumerable<RoleGroupDto>> GetRoleGroupsDtoAsync()
         {
-            var roleGroups = _unitOfWork.RoleGroupRepository.GetAsync();
+            var roleGroups = await _unitOfWork.RoleGroupRepository.GetAsync();
             return _mapper.Map<IEnumerable<RoleGroupDto>>(roleGroups);
         }
 
