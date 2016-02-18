@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.Entity;
-using System.Data.SqlTypes;
 using System.Linq;
 using System.Reflection;
 using Microsoft.AspNet.Identity;
@@ -22,8 +21,8 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
         {
             if (!context.PrivateMessages.Any())
             {
-                InitializeRoleGroups(context);
                 InitializeRoles(context);
+                InitializeRoleGroups(context);
 
                 InitializeAdmin(context);
                 InitializeDeletedUser(context);
@@ -50,62 +49,147 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
         #region roles
         private void InitializeRoleGroups(LiverpoolContext context)
         {
+            var adminRole = context.Roles.First(x => x.Name == RolesEnum.AdminFull.ToString()); //1
+            var adminAssistanceRole = context.Roles.First(x => x.Name == RolesEnum.AdminStart.ToString());
+            var moderatorRole = context.Roles.First(x => x.Name == RolesEnum.UsersStart.ToString());//3
+            var mainModeratorRole = context.Roles.First(x => x.Name == RolesEnum.UsersStart.ToString());
+            var authorRole = context.Roles.First(x => x.Name == RolesEnum.BlogsStart.ToString());//5
+            var internRole = context.Roles.First(x => x.Name == RolesEnum.Intern.ToString());
+           // var mainEditorRole = context.Roles.First(x => x.Name == RolesEnum..ToString());//7
+          //  var editorRole = context.Roles.First(x => x.Name == RolesEnum..ToString());
+            var mainNewsmakeRole = context.Roles.First(x => x.Name == RolesEnum.NewsFull.ToString());//9
+            var newsmakerRole = context.Roles.First(x => x.Name == RolesEnum.NewsStart.ToString());
+
             var roleGroups = new List<RoleGroup>()
             {
                 new RoleGroup()
                 {
                     Name = RoleGroupsEnum.Admin.ToString(),//1
-                    RussianName = RolesMessages.Administrator
+                    RussianName = RolesMessages.Administrator,
+                    Roles = new List<Role>()
+                    {
+                        adminRole,
+                        adminAssistanceRole,
+                        moderatorRole,
+                        mainModeratorRole,
+                        authorRole,
+                        internRole,
+                       // mainEditorRole,
+                      //  editorRole,
+                        mainNewsmakeRole,
+                        newsmakerRole
+                    }
                 },
                 new RoleGroup()
                 {
                     Name = RoleGroupsEnum.Simple.ToString(),
-                    RussianName = RolesMessages.Simple
+                    RussianName = RolesMessages.Simple,
+                    Roles = new List<Role>()
+                    {
+
+                    }
                 },
                 new RoleGroup()
                 {
                     Name = RoleGroupsEnum.AdminAssistance.ToString(),//3
-                    RussianName = RolesMessages.AdminAssistance
+                    RussianName = RolesMessages.AdminAssistance,
+                    Roles = new List<Role>()
+                    {
+                        adminAssistanceRole,
+                        moderatorRole,
+                        mainModeratorRole,
+                        authorRole,
+                        internRole,
+                    //    mainEditorRole,
+                     //   editorRole,
+                        mainNewsmakeRole,
+                        newsmakerRole
+                    }
                 },
                 new RoleGroup()
                 {
                     Name = RoleGroupsEnum.MainNewsmaker.ToString(),
-                    RussianName = RolesMessages.MainNewsmaker
+                    RussianName = RolesMessages.MainNewsmaker,
+                    Roles = new List<Role>()
+                    {
+                        internRole,
+                        mainNewsmakeRole,
+                        newsmakerRole
+                    }
                 },
                 new RoleGroup()
                 {
                     Name = RoleGroupsEnum.Newsmaker.ToString(),//5
-                    RussianName = RolesMessages.Newsmaker
+                    RussianName = RolesMessages.Newsmaker,
+                    Roles = new List<Role>()
+                    {
+                        internRole,
+                        newsmakerRole
+                    }
                 },
                 new RoleGroup()
                 {
                     Name = RoleGroupsEnum.Editor.ToString(),
-                    RussianName = RolesMessages.Editor
+                    RussianName = RolesMessages.Editor,
+                    Roles = new List<Role>()
+                    {
+                        authorRole,
+                        internRole,
+                     //   editorRole,
+                        mainNewsmakeRole,
+                        newsmakerRole
+                    }
                 },
                 new RoleGroup()
                 {
                     Name = RoleGroupsEnum.MainEditor.ToString(),//7
-                    RussianName = RolesMessages.MainEditor
+                    RussianName = RolesMessages.MainEditor,
+                    Roles = new List<Role>()
+                    {
+                        authorRole,
+                        internRole,
+                    //    mainEditorRole,
+                    //    editorRole,
+                        mainNewsmakeRole,
+                        newsmakerRole
+                    }
                 },
                 new RoleGroup()
                 {
                     Name = RoleGroupsEnum.Intern.ToString(),
-                    RussianName = RolesMessages.Intern
+                    RussianName = RolesMessages.Intern,
+                    Roles = new List<Role>()
+                    {
+                        internRole,
+                    }
                 },
                 new RoleGroup()
                 {
                     Name = RoleGroupsEnum.Moderator.ToString(),//9
-                    RussianName = RolesMessages.Moderator
+                    RussianName = RolesMessages.Moderator,
+                    Roles = new List<Role>()
+                    {
+                        moderatorRole,
+                    }
                 },
                 new RoleGroup()
                 {
                     Name = RoleGroupsEnum.MainModerator.ToString(),
-                    RussianName = RolesMessages.MainModerator
+                    RussianName = RolesMessages.MainModerator,
+                    Roles = new List<Role>()
+                    {
+                        moderatorRole,
+                        mainModeratorRole,
+                    }
                 },
                 new RoleGroup()
                 {
                     Name = RoleGroupsEnum.Author.ToString(),//11
-                    RussianName = RolesMessages.Author
+                    RussianName = RolesMessages.Author,
+                    Roles = new List<Role>()
+                    {
+                        authorRole,
+                    }
                 },
             };
             roleGroups.ForEach(x => context.RoleGroups.Add(x));
@@ -119,130 +203,61 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
             var roleStore = new RoleStore<Role, int, UserRole>(context);
             var roleManager = new RoleManager<Role, int>(roleStore);
 
-            var adminRoleGroup = context.RoleGroups.First(x => x.Name == RoleGroupsEnum.Admin.ToString()); //1
-            var adminAssistanceRole = context.RoleGroups.First(x => x.Name == RoleGroupsEnum.AdminAssistance.ToString());
-            var moderatorRole = context.RoleGroups.First(x => x.Name == RoleGroupsEnum.Moderator.ToString());//3
-            var mainModeratorRole = context.RoleGroups.First(x => x.Name == RoleGroupsEnum.MainModerator.ToString());
-            var authorRole = context.RoleGroups.First(x => x.Name == RoleGroupsEnum.Author.ToString());//5
-            var internRole = context.RoleGroups.First(x => x.Name == RoleGroupsEnum.Intern.ToString());
-            var mainEditorRole = context.RoleGroups.First(x => x.Name == RoleGroupsEnum.MainEditor.ToString());//7
-            var editorRole = context.RoleGroups.First(x => x.Name == RoleGroupsEnum.Editor.ToString());
-            var mainNewsmakeRole = context.RoleGroups.First(x => x.Name == RoleGroupsEnum.MainNewsmaker.ToString());//9
-            var newsmakerRole = context.RoleGroups.First(x => x.Name == RoleGroupsEnum.Newsmaker.ToString());
-
             var roles = new List<Role>()
             {
                 new Role() //1
                 {
                     Name = RolesEnum.Simple.ToString(),
-                    RoleGroups = new List<RoleGroup>()
-                    {
-                    }
                 },
                 new Role()
                 {
                     Name = RolesEnum.NewsFull.ToString(),
-                    RoleGroups = new List<RoleGroup>()
-                    {
-                        internRole,
-                        newsmakerRole,
-                        mainNewsmakeRole,
-
-                    }
                 },
                 new Role()//3
                 {
                     Name = RolesEnum.NewsStart.ToString(),
-                    RoleGroups = new List<RoleGroup>()
-                    {
-                        internRole,
-                        newsmakerRole,
-                    }
                 },
                 new Role()
                 {
                     Name = RolesEnum.BlogsFull.ToString(),
-                    RoleGroups = new List<RoleGroup>()
-                    {
-                        editorRole,
-                        mainEditorRole
-                    }
                 },
                 new Role()//5
                 {
                     Name = RolesEnum.BlogsStart.ToString(),
-                    RoleGroups = new List<RoleGroup>()
-                    {
-                        editorRole,
-
-                    }
                 },
                 new Role()
                 {
                     Name = RolesEnum.UsersFull.ToString(),
-                    RoleGroups = new List<RoleGroup>()
-                    {
-                        adminRoleGroup,
-
-                    }
                 },
                 new Role()//7
                 {
                     Name = RolesEnum.UsersStart.ToString(),
-                    RoleGroups = new List<RoleGroup>()
-                    {
-                        adminRoleGroup,
-                        adminAssistanceRole,
-                        moderatorRole,
-                        mainModeratorRole,
-
-                    }
                 },
                 new Role()
                 {
                     Name = RolesEnum.AdminFull.ToString(),
-                    RoleGroups = new List<RoleGroup>()
-                    {
-                        adminRoleGroup,
-                        adminAssistanceRole,
-                        moderatorRole,
-                        mainModeratorRole,
-
-                    }
                 },
                 new Role()//9
                 {
-                    Name = RolesEnum.ModeratorFull.ToString(),
-                    RoleGroups = new List<RoleGroup>()
-                    {
-                        moderatorRole,
-                        mainModeratorRole,
-
-                    }
+                    Name = RolesEnum.AdminStart.ToString(),
                 },
                 new Role()
                 {
-                    Name = RolesEnum.ModeratorStart.ToString(),
-                    RoleGroups = new List<RoleGroup>()
-                    {
-                        moderatorRole,
-
-                    }
+                    Name = RolesEnum.ModeratorFull.ToString(),
                 },
                 new Role()//11
                 {
-                    Name = RolesEnum.Intern.ToString(),
-                    RoleGroups = new List<RoleGroup>()
-                    {
-                        internRole,
-                    }
+                    Name = RolesEnum.ModeratorStart.ToString(),
                 },
-
+                new Role()//12
+                {
+                    Name = RolesEnum.Intern.ToString(),
+                },
             };
             //  roles.ForEach(x => context.Roles.Add(x));
             roles.ForEach(x => roleManager.Create(x));
             //roleManager.Create(new Role { Name = RolesEnum.User.ToString() });
-            //   context.SaveChanges();
+               context.SaveChanges();
         }
         #endregion
 
@@ -310,7 +325,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
             var userManager = new UserManager<User, int>(userStore);
 
             userManager.Create(user, "123456");
-            var adminRoles = context.RoleGroups.First(x => x.Id == user.RoleGroupId).Roles.ToList();
+            var adminRoles = context.RoleGroups.First(x => x.Name == RoleGroupsEnum.Admin.ToString()).Roles.ToList();
             foreach (var role in adminRoles)
             {
                 userManager.AddToRole(user.Id, role.Name);

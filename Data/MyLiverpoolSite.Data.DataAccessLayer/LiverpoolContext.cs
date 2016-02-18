@@ -25,16 +25,16 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
 
 
             // Create the database and schema if it doesn't exist
-        //   if (!_created)
-          //  {
-              //  _created = true;
+            //   if (!_created)
+            //  {
+            //  _created = true;
 
-                //      Database.Create();
-                //    Database.AsRelational().ApplyMigrations();
+            //      Database.Create();
+            //    Database.AsRelational().ApplyMigrations();
 
-                // }
+            // }
 
-            }
+        }
 
         public static LiverpoolContext Create()
         {

@@ -23,7 +23,7 @@ var Authentication = function ($q, AccountFactory, SessionService, $cookies, $ro
                     then(function(response) {
                         console.log('logged at server');
                         authenticatedUser = $cookies.getObject('user');
-                       // $rootScope.roles = authenticatedUser.roles; //todo temporary
+                        $rootScope.roles = authenticatedUser.roles; //todo temporary
                     }, function(response) {
                         console.log('NOT logged at server');
                         authenticatedUser = undefined;
@@ -50,7 +50,7 @@ var Authentication = function ($q, AccountFactory, SessionService, $cookies, $ro
                 then(function (response) {
                     console.log(response);
                     authenticatedUser = response;
-                    //$rootScope.roles = authenticatedUser.roles; //todo temporary
+                    $rootScope.roles = authenticatedUser.roles; //todo temporary
                     $cookies.putObject('user', authenticatedUser);
                     return true;
                 }, function (response) {
@@ -63,7 +63,7 @@ var Authentication = function ($q, AccountFactory, SessionService, $cookies, $ro
         logout: function() {
             authenticatedUser = undefined;
             $cookies.remove('user'); //todo from server
-           // $rootScope.roles = ""; //todo temporary
+            $rootScope.roles = ""; //todo temporary
         },
 
         getUserId: function() {

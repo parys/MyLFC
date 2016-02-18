@@ -15,6 +15,7 @@ namespace MyLiverpool.Web.WebApi
             bundles.Add(new ScriptBundle("~/bundles/App")
                 .Include("~/Scripts/jquery-{version}.js")
                 .Include("~/Scripts/jquery.markitup.js")
+                .Include("~/Scripts/bootstrap.js")
                 .Include("~/Scripts/angular.js")
                 .Include("~/Scripts/angular-translate.js")
                 .IncludeDirectory("~/Scripts/angular", "*.js", false) //angular translate + static file loader
