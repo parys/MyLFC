@@ -1,27 +1,11 @@
-﻿using System.Threading.Tasks;
-using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
+﻿using System.Web.Mvc;
 using MyLiverpool.Controllers;
-using MyLiverpoolSite.Business.Contracts;
-using MyLiverpoolSite.Business.ViewModels.Users;
 
 namespace MyLiverpool.Web.WebApi.Controllers
 {
     [Authorize]
     public class UserController : BaseController
     {
-        private readonly IUserService _userService;
-
-        public UserController()
-        {
-            
-        }
-
-        public UserController(IUserService userService) //todo remove
-        {
-            _userService = userService;
-        }
-
         [AllowAnonymous]
         public ActionResult List()
         { 
@@ -52,15 +36,15 @@ namespace MyLiverpool.Web.WebApi.Controllers
             return View();
         }
 
-        [Authorize(Roles = "UsersStart")]
-        public async Task<JsonResult> BanUser( int? banDayCount, int? userId)
-        {
-            if (!userId.HasValue || !banDayCount.HasValue)
-            {
-                return Json(false);
-            }
-            var result = await _userService.BanUser(userId.Value, banDayCount.Value);
-            return Json(result);
-        }
+        //[Authorize(Roles = "UsersStart")]
+        //public async Task<JsonResult> BanUser( int? banDayCount, int? userId)
+        //{
+        //    if (!userId.HasValue || !banDayCount.HasValue)
+        //    {
+        //        return Json(false);
+        //    }
+        //    var result = await _userService.BanUser(userId.Value, banDayCount.Value);
+        //    return Json(result);
+        //}
     }
 }

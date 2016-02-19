@@ -29,6 +29,7 @@ namespace MyLiverpool.Common.MapperConfigurations.Profiles
                 .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id))
                 .ForMember(dest => dest.LockoutEndDateUtc, src => src.MapFrom(x => x.LockoutEndDateUtc))
                 .ForMember(dest => dest.RegistrationDate, src => src.MapFrom(x => x.RegistrationDate))
+                .ForMember(dest => dest.LastModifiedOn, src => src.MapFrom(x => x.LastModified))
                 .ForMember(dest => dest.RoleGroupName, src => src.MapFrom(x => x.RoleGroup.RussianName))
                 .ForMember(dest => dest.RoleGroupId, src => src.MapFrom(x => x.RoleGroupId))
                 .ForMember(dest => dest.UserName, src => src.MapFrom(x => x.UserName));

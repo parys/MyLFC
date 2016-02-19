@@ -34,6 +34,23 @@
             });
 
             return result.promise;
+        },
+        editRole: function (userId, roleGroupId) {
+            var result = $q.defer();
+
+            $http({
+                method: 'PUT',
+                url: SessionService.apiUrl + '/api/User/EditRole?userId=' + userId + '&roleGroupId=' + roleGroupId,
+                headers: { 'Content-Type': 'application/json' }
+            })
+            .success(function (response) {
+                result.resolve(response);
+            })
+            .error(function (response) {
+                result.reject(response);
+            });
+
+            return result.promise;
         }
     }
 };

@@ -41,5 +41,7 @@ namespace MyLiverpoolSite.Business.Contracts
         Task<PrivateMessageDto> GetPrivateMessageDtoAsync(int messageId, int userId);
 
         Task<bool> SavePrivateMessageDtoAsync(PrivateMessageDto model);
+
+        Task<bool> EditRoleGroup(int userId, int roleGroupId);
     }
 }

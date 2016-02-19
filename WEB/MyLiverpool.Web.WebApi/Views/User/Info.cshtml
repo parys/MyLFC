@@ -23,15 +23,14 @@
                 <span ng-if="!isAdmin()" class="form-control">{{ user.roleGroupName }}</span>
                 <select ng-if="isAdmin()" class="form-control" name="newsCategoryId"
                         ng-model="user.roleGroupId"
-                        ng-options="roleGroup.id as roleGroup.name for roleGroup in roleGroups" required="" validation="required"></select>
-
+                        ng-options="roleGroup.id as roleGroup.name for roleGroup in roleGroups" required="" validation="required" ng-change="editRole()"></select>
             </div>
         </div>
     </div>
     <div class="form-group">
         <label class="col-sm-2 control-label">@UsersMessages.LastLogin</label>
         <div class="col-sm-10">
-            <span class="form-control">{{ user.lastModified | date:'medium'}}</span>
+            <span class="form-control">{{ user.lastModifiedOn | date:'medium'}}</span>
         </div>
     </div>
     <div class="form-group">
@@ -62,24 +61,20 @@
 
 </form>
 
-<div class="modal fade" id="confirmChangeRole">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">@CommonMessages.RoleEditing</h4>
-            </div>
-            <div class="modal-body">
-                <p>@CommonMessages.Change?</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal" id="cancelChangeRole">@CommonMessages.Cancel</button>
-                <button type="button" class="btn btn-primary" id="changeRole">@CommonMessages.Change</button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+<script type="text/ng-template" id="changeRoleConfirmation.html">
+    <div class="modal-header">
+        <h3 class="modal-title">@CommonMessages.RoleEditing</h3>
+    </div>
+    <div class="modal-body">
+        @CommonMessages.Change?
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()">@CommonMessages.Change</button>
+        <button class="btn btn-default" type="button" ng-click="cancel()">@CommonMessages.Cancel</button>
+    </div>
+</script>
 
+------------------------------------------------------------------>
 <div class="modal fade" id="confirmBan">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -105,11 +100,6 @@
 </div><!-- /.modal -->
 
 <script>
-    //$('.datepicker').datepicker({
-    //    format: 'dd/mm/yyyy',
-    //    language: 'ru'
-    //});
-
     //var previousId = Model.RoleGroupId;
     $('#RoleGroupId').on('change', function () {
         console.log($('#RoleGroupId').val());

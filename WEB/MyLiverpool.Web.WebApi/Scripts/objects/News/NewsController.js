@@ -59,7 +59,6 @@
                 });
         }, function () {
         });
-        
     }
 
     $scope.goToPage = function () {

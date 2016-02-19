@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -196,6 +197,44 @@ namespace MyLiverpoolSite.Business.Services.Services
                 return false;
             }
             return true;
+        }
+
+        public async Task<bool> EditRoleGroup(int userId, int roleGroupId)
+        {
+            var user = await _unitOfWork.UserManager.FindByIdAsync(userId);
+            var oldRoleGroup = await _unitOfWork.RoleGroupRepository.GetByIdAsync(user.RoleGroupId);
+            var newRoleGroup = await _unitOfWork.RoleGroupRepository.GetByIdAsync(roleGroupId);
+            var rolesToDelete = GetRolesToDelete(oldRoleGroup.Roles, newRoleGroup.Roles);
+            var rolesToAdd = GetRolesToAdd(oldRoleGroup.Roles, newRoleGroup.Roles);
+            user.RoleGroupId = roleGroupId;
+            try
+            {
+                var toDel = string.Join(",", rolesToDelete);
+                var toAdd = string.Join(",", rolesToAdd);
+                if (!string.IsNullOrEmpty(toDel))
+                {
+                    await _unitOfWork.UserManager.RemoveFromRolesAsync(userId, toDel);
+                }
+                if (!string.IsNullOrEmpty(toAdd))
+                {
+                    await _unitOfWork.UserManager.AddToRolesAsync(userId, toAdd);
+                }
+            }
+            catch (Exception ex)
+            {
+                var v = 1;
+            }
+            var result = await _unitOfWork.UserManager.UpdateAsync(user);
+            return result.Succeeded; //todo return identityResult?
+        }
+
+        private IEnumerable<string> GetRolesToDelete(IEnumerable<Role> oldRoles, IEnumerable<Role> newRoles)
+        {
+            return oldRoles.Where(x => newRoles.All(n => n.Id != x.Id)).Select(x => x.Name);
+        }
+        private IEnumerable<string> GetRolesToAdd(IEnumerable<Role> oldRoles, IEnumerable<Role> newRoles)
+        {
+            return newRoles.Where(x => oldRoles.All(n => n.Id != x.Id)).Select(x => x.Name);
         }
 
         private async Task RemoveOldMessages(int userId)

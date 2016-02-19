@@ -14,6 +14,8 @@ namespace MyLiverpool.Business.DTO
 
         public DateTime RegistrationDate { get; set; }
 
+        public DateTime LastModifiedOn{ get; set; }
+
         public DateTime? Birthday { get; set; }
 
         public string RoleGroupName { get; set; }

@@ -67,5 +67,14 @@ namespace MyLiverpool.Web.WebApi.Controllers
             var result = await _userService.SavePrivateMessageDtoAsync(model);
             return Ok(result);
         }
+
+        [Route("EditRole")]
+        [HttpPut]
+        [Authorize(Roles = "AdminStart")]
+        public async Task<IHttpActionResult> EditRole(int userId, int roleGroupId)
+        {
+            var result = await _userService.EditRoleGroup(userId, roleGroupId);
+            return Ok(result);
+        } 
     }
 }
