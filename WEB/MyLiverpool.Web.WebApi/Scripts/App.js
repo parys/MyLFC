@@ -249,7 +249,7 @@ App.filter('rawHtml', ['$sce', function($sce){
     };
 }]);
 
-App.run(function (Authentication, Application, $rootScope, $location, RouteFilter, uibPaginationConfig, $state, $stateParams) {
+App.run(function (Authentication, Application, $rootScope, $location, RouteFilter, uibPaginationConfig, $state, $stateParams, $window) {
     //$rootScope.roles = "";
     Authentication.requestUser();
 
@@ -283,6 +283,11 @@ App.run(function (Authentication, Application, $rootScope, $location, RouteFilte
 
         $rootScope.$state = $state;
         $rootScope.$stateParams = $stateParams;
+    });
+
+    $rootScope.$on("$stateChangeSuccess", function (event, currentState, previousState) {
+        console.log('scroll to top');
+        $window.scrollTo(0, 0); //todo think about it
     });
 
     uibPaginationConfig.itemsPerPage = 15;
