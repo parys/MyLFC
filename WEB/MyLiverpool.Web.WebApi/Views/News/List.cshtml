@@ -4,7 +4,7 @@
 }
 
 <div class="container-fluid" ng-repeat="item in newsItems">
-    <div class="container-fluid">
+    <div class="container-fluid" ng-if="!item.pending || isEditor()">
         <div class="row">
             <a ui-sref="newsInfo({id: item.id})" class="col-md-9"><span>{{ item.title }}</span></a>
                 <span class="col-md-3" ng-if="isNewsmaker()">
@@ -35,8 +35,8 @@
             <li class="">@ColonsMessages.CommentsCount</li>
             <li class="">{{ item.commentsCount }}</li>
         </ul>
+        <hr />
     </div>
-    <hr />
 </div>
 <div class="pagination">
     <uib-pagination ng-show="totalItems > itemPerPage" total-items="totalItems" ng-model="pageNo" ng-change="goToPage()"></uib-pagination>

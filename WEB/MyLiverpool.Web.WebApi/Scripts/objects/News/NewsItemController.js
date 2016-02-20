@@ -1,4 +1,4 @@
-﻿var NewsItemController = function ($scope, NewsFactory, $uibModal, NewsCommentsFactory, $state, $cookies) {//, $sce) {
+﻿var NewsItemController = function ($scope, NewsFactory, $uibModal, NewsCommentsFactory, $state, $cookies, Authentication) {//, $sce) {
     $scope.item = [];
 
     $scope.newComment = undefined;
@@ -33,8 +33,12 @@
         resetNewComment();
         NewsFactory.getItem()
             .then(function(response) {
-                    $scope.item = response;
-                    tryAddNewsRead();
+                    if (response.pending && !Authentication.isEditor()) {
+                        $state.go('home');
+                    } else {
+                        $scope.item = response;
+                        tryAddNewsRead();
+                    }
                 },
                 function(response) {
                     //$scope.f = "";
@@ -120,4 +124,4 @@
     // init();
 };
 
-NewsItemController.$inject = ['$scope', 'NewsFactory', '$uibModal', 'NewsCommentsFactory', '$state', '$cookies'];//, '$sce'];
+NewsItemController.$inject = ['$scope', 'NewsFactory', '$uibModal', 'NewsCommentsFactory', '$state', '$cookies', 'Authentication'];//, '$sce'];
