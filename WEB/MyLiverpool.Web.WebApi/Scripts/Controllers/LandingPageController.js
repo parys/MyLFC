@@ -42,7 +42,7 @@
     }
 
     $scope.isEditor = function () {
-     //   console.log('isEditor landing');
+    //    console.log('isEditor landing');
         return Authentication.isEditor();
     }
 

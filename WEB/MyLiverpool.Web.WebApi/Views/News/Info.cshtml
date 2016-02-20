@@ -5,7 +5,7 @@
         <h3 class="alert-danger container col-md-12">
             {{ item.title }}
             <span class="col-md-3 alert-danger pull-right" ng-if="isNewsmaker()">
-                <span class="small pull-right" ng-show="isUserAuthor(userId(), item.authorId)">
+                <span class="small pull-right">
                     <a ng-if="isEditor()" ng-show="item.pending" ng-click="activate()"><span class="glyphicon glyphicon-ok"></span></a>
                     <a ng-if="isEditor() || isUserAuthor(userId(), item.authorId)" ui-sref="newsEdit({id: item.id})"><span class="glyphicon glyphicon-pencil"></span></a>
                     <a ng-if="isEditor() || isUserAuthor(userId(), item.authorId)" ng-click="delete()"><span class="glyphicon glyphicon-trash"></span></a>

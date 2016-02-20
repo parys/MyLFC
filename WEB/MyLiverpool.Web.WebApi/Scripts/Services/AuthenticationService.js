@@ -12,7 +12,7 @@ var Authentication = function ($q, AccountFactory, SessionService, $cookies, $ro
 
     function isUserInRole(user, roleName) {
         if (!user) return false;
-        return user.roles.indexOf(roleName) > 0;
+        return user.roles.indexOf(roleName) >= 0;
     };
 
     return {

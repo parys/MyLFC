@@ -54,10 +54,10 @@
                 });
     }
 
-    $scope.isUserAuthor = function (userId, newsUserId) {
-        console.log('isUserAuthor + NewsItemController');
-        return userId == newsUserId;
-    }
+    //$scope.isUserAuthor = function (userId, newsUserId) {
+    //    console.log('isUserAuthor + NewsItemController');
+    //    return userId == newsUserId;
+    //}
     
     $scope.delete = function () {
         var modalInstance = $uibModal.open({
