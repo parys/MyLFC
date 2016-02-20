@@ -1,4 +1,4 @@
-﻿var PmWriteCtrl = function ($scope, $stateParams, PmsFactory, validationService, $state) {
+﻿var PmWriteCtrl = function ($scope, $stateParams, PmsFactory, validationService, $state, $rootScope) {
     $scope.message = {
         receiverId: undefined,
         title: undefined,
@@ -23,4 +23,4 @@
 
 };
 
-PmWriteCtrl.$inject = ['$scope', '$stateParams', 'PmsFactory', 'validationService', '$state'];
+PmWriteCtrl.$inject = ['$scope', '$stateParams', 'PmsFactory', 'validationService', '$state', '$rootScope'];
