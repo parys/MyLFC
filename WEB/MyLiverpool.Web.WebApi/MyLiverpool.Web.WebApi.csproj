@@ -283,6 +283,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\images\0\00139.jpg" />
     <Content Include="Content\images\0\02067.jpg" />
     <Content Include="Content\images\0\04168.jpg" />
@@ -438,6 +439,10 @@
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\angular\min\angular-translate-loader-static-files.min.js" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Properties\PublishProfiles\someeFreeQA.pubxml" />
     <Content Include="Scripts\angular-validation\locales\ru.json" />
     <Content Include="Scripts\angular-validation\locales\pt-br.json" />
@@ -598,7 +603,6 @@
     <Content Include="Views\Role\Index.cshtml" />
     <Content Include="Views\Home\LeftSideBar.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Shared\_NewsList.cshtml" />
     <Content Include="Views\Home\RightSideBar.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\User\List.cshtml" />

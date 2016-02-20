@@ -1,7 +1,5 @@
 ﻿@using MyLiverpool.Business.Resources
-@{
-    ViewBag.Title = CommonMessages.Categories;
-}
+
 <div>
     <ul ng-repeat="category in categories">
             <li><span><a ui-sref="news({page: 1, categoryId: category.id})"> {{ category.name }} [ {{ category.itemsCount }}]</a></span></li>

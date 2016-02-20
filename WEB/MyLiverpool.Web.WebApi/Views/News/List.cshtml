@@ -1,7 +1,4 @@
 ﻿@using MyLiverpool.Business.Resources
-@{
-    ViewBag.Title = NewsMessages.News;
-}
 
 <div class="container-fluid" ng-repeat="item in newsItems">
     <div class="container-fluid" ng-if="!item.pending || isEditor()">
