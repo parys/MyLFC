@@ -222,4 +222,7 @@
   <data name="MyProfile" xml:space="preserve">
     <value>Мой профиль</value>
   </data>
+  <data name="Main" xml:space="preserve">
+    <value>Главная</value>
+  </data>
 </root>

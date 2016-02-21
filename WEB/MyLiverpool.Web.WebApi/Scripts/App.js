@@ -1,4 +1,4 @@
-﻿var App = angular.module('app', ['ui.router', 'ui.bootstrap', 'ngCookies', 'pascalprecht.translate', 'ghiscoding.validation']);
+﻿var App = angular.module('app', ['ui.router', 'ui.bootstrap', 'ngCookies', 'pascalprecht.translate', 'ghiscoding.validation', 'ui.router.title']);
 
 App.controller('LandingPageController', LandingPageController);
 App.controller('LoginController', LoginController);
@@ -65,7 +65,12 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider,
                 //"nestedView@stateOne": {
                 //    templateUrl: '/routesDemo/four'
                 //}
+            },
+            resolve: {
+                // Constant title
+                $title: function () { return 'Главная'; }
             }
+            
         })
         .state('news', {
             url: '/news?page&categoryId',
@@ -74,6 +79,9 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider,
                     templateUrl: function(params) { return '/news/list?page=' + params.page + '&categoryId=' + params.categoryId },
                     controller: NewsController
                 }
+            },
+            resolve: {
+                $title: function () { return 'Новости'; }
             }
         })
         .state('newsInfo', {
@@ -83,6 +91,9 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider,
                     templateUrl: function(params) { return '/news/info?id=' + params.id },
                     controller: NewsItemController
                 }
+            },
+            resolve: {
+                $title: function () { return 'Название новости'; } //todo
             }
         })
         .state('newsEdit', {
@@ -92,6 +103,9 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider,
                     templateUrl: function (params) { return '/news/Edit?id=' + params.id },
                     controller: NewsEditCtrl
                 }
+            },
+            resolve: {
+                $title: function () { return 'Редактирование новости'; }
             }
         })
         .state('newsCategories', {
@@ -101,6 +115,9 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider,
                     templateUrl: '/news/Categories',
                     controller: NewsCategoriesCtrl
                 }
+            },
+            resolve: {
+                $title: function () { return 'Категории новостей'; }
             }
         })
         .state('userInfo', {
@@ -110,6 +127,9 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider,
                     templateUrl: function(params) { return '/user/info?id=' + params.id },
                     controller: UserController
                 }
+            },
+            resolve: {
+                $title: function () { return 'Профиль '; } //todo
             }
         })
         .state('users', {
@@ -119,6 +139,9 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider,
                     templateUrl: function(params) { return '/user/list?page=' + params.page },
                     controller: UsersController
                 }
+            },
+            resolve: {
+                $title: function () { return 'Пользователи'; }
             }
         })
         .state('images', {
@@ -128,6 +151,9 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider,
                     templateUrl: function (params) { return '/images/index?path=' + params.path },
                     controller: ImagesCtrl
                 }
+            },
+            resolve: {
+                $title: function () { return 'Изображения '; } //todo
             }
         })
         //.state('sign-out', {
@@ -157,6 +183,9 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider,
                     templateUrl: '/User/Pms', //function (params) { return '/User/Pms?id=' + params.id },
                     controller: PmsController
                 }
+            },
+            resolve: {
+                $title: function () { return 'Личные сообщения'; }
             }
         })
         .state('pm', {
@@ -166,6 +195,9 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider,
                     templateUrl: function(params) { return '/User/Pm?id=' + params.id },
                     controller: PmController
                 }
+            },
+            resolve: {
+                $title: function () { return 'Чтение сообщения'; }
             }
         })
         .state('wpm', {
@@ -176,9 +208,12 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider,
                     controller: PmWriteCtrl
                 }
             },
-                params: {
+            params: {
                     userId: null,
                     userName: null
+            },
+            resolve: {
+                $title: function () { return 'Написание сообщения'; }
             }
         })
         .state('register', {
@@ -188,6 +223,9 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider,
                     templateUrl: '/Account/Register',
                     controller: RegisterController
                 }
+            },
+            resolve: {
+                $title: function () { return 'Регистрация'; }
             }
         })
         .state('login', {
@@ -197,6 +235,9 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider,
                     templateUrl: function(params) { return '/Account/Login?returnUrl=' + params.returnUrl },
                     controller: LoginController
                 }
+            },
+            resolve: {
+                $title: function () { return 'Страница входа'; }
             }
 
         })
@@ -207,6 +248,9 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider,
                     templateUrl: '/Forum/Index',
                     controller: ForumController
                 }
+            },
+            resolve: {
+                $title: function () { return 'Форум'; }
             }
         })
         .state('subsection', {
@@ -216,6 +260,9 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider,
                     templateUrl: function(params) { return '/Forum/Subsection?id=' + params.id + '&page=' + params.page },
                     controller: ForumSubsectionController
                 }
+            },
+            resolve: {
+                $title: function () { return 'Раздел'; } //todo
             }
         })
         .state('theme', {
@@ -225,6 +272,9 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider,
                     templateUrl: function(params) { return '/Forum/Theme?id=' + params.id + '&page=' + params.page },
                     controller: ForumThemeController
                 }
+            },
+            resolve: {
+                $title: function () { return 'Тема'; } //todo
             }
         });
 
