@@ -133,10 +133,10 @@
                 </section>
                 <section></section>
             </div>
-            <div class="col-md-6" style="background-color: #f5deb3">
-                <div class="col-md-12">
+            <div class="col-md-6 container-row" style="background-color: #f5deb3">
+                <div class="col-md-12 container-row">
                     <uib-alert ng-repeat="alert in $root.alerts" dismiss-on-timeout="5000" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
-                    <div class="col-md-12" ui-view="containerMain" autoscroll="false">
+                    <div class="col-md-12 container-row" ui-view="containerMain" autoscroll="false">
                         <div class="col-md-6" ui-view="newsFeed"></div>
                         <div class="col-md-6" ui-view="blogsFeed"></div>
                     </div>
