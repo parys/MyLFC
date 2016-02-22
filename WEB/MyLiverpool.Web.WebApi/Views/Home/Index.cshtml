@@ -22,7 +22,7 @@
             <li><a id="back-top" href="#" style="display: none;">@CommonMessages.Up</a></li>
             <li class="divider"></li>
             <li ng-if="loggedIn()">
-                <a ui-sref="pms()"><span class="glyphicon glyphicon-envelope"></span> @CommonMessages.ReadPM</a>
+                <a ui-sref="pms()"><span class="glyphicon glyphicon-envelope"></span> @CommonMessages.ReadPM ({{unreadPmCount}})</a>
             </li>
             <li class="divider"></li>
         </ul>

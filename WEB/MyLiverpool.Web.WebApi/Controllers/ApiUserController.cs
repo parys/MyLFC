@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Microsoft.AspNet.Identity;
@@ -74,6 +75,15 @@ namespace MyLiverpool.Web.WebApi.Controllers
         public async Task<IHttpActionResult> EditRole(int userId, int roleGroupId)
         {
             var result = await _userService.EditRoleGroup(userId, roleGroupId);
+            return Ok(result);
+        } 
+
+        [Route("GetUnreadPmCount")]
+        [HttpGet]
+        [Authorize]
+        public async Task<IHttpActionResult> GetUnreadPmCount()
+        {
+            var result = await _userService.GetUnreadPmCount(User.Identity.GetUserId<int>());
             return Ok(result);
         } 
     }

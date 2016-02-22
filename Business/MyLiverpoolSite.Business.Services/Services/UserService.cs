@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNet.Identity;
 using MyLiverpool.Business.DTO;
-using MyLiverpoolSite.Business.Contracts;
 using MyLiverpool.Business.Resources;
+using MyLiverpoolSite.Business.Contracts;
 using MyLiverpoolSite.Business.ViewModels.Users;
 using MyLiverpoolSite.Common.Utilities;
 using MyLiverpoolSite.Data.DataAccessLayer;
@@ -222,10 +221,15 @@ namespace MyLiverpoolSite.Business.Services.Services
             }
             catch (Exception ex)
             {
-                var v = 1;
+                
             }
             var result = await _unitOfWork.UserManager.UpdateAsync(user);
             return result.Succeeded; //todo return identityResult?
+        }
+
+        public async Task<int> GetUnreadPmCount(int userId)
+        {
+            return await _unitOfWork.PrivateMessageRepository.GetCountAsync(x => !x.IsRead && x.ReceiverId == userId);
         }
 
         private IEnumerable<string> GetRolesToDelete(IEnumerable<Role> oldRoles, IEnumerable<Role> newRoles)

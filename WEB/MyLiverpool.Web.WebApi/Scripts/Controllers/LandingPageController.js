@@ -1,22 +1,35 @@
-﻿var LandingPageController = function ($scope, $state, Authentication, RouteFilter, AccountFactory, $location) { //SessionService,
-    $scope.userId = function() {
+﻿var LandingPageController = function ($scope, $state, Authentication, RouteFilter, AccountFactory, $location, UsersFactory, $interval) { //SessionService,
+    $scope.unreadPmCount = 0;
+
+    $scope.userId = function () {
         return Authentication.getUserId();
     };
 
     $scope.navbarProperties = {
         isCollapsed: true
     };
-    
 
-    $scope.loggedIn = function () {
+    function getUnreadPmCount() {
+        UsersFactory.getUnreadPmCount().
+            then(function(response) {
+                if (response) {
+                    console.log(response);
+                        $scope.unreadPmCount = response;
+                    }
+                },
+                function(response) {
+                });
+    };
+
+    $interval(getUnreadPmCount, 30000);
+
+    $scope.loggedIn = function() {
         return Authentication.exists();
+    };
+
+    $scope.canAccess = function(route) {
+        return RouteFilter.canAccess(route);
     }
-
-
-    $scope.canAccess = function(route) 
-             { 
-                     return RouteFilter.canAccess(route); 
-                 } 
 
     $scope.logout = function() {
         Authentication.logout();
@@ -62,4 +75,4 @@
     }
 }
 
-LandingPageController.$inject = ['$scope', '$state', 'Authentication', 'RouteFilter', 'AccountFactory', '$location']; //'SessionService',
+LandingPageController.$inject = ['$scope', '$state', 'Authentication', 'RouteFilter', 'AccountFactory', '$location', 'UsersFactory', '$interval']; //'SessionService',
