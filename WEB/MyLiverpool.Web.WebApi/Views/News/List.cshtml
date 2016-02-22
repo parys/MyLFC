@@ -2,8 +2,8 @@
 
 <div class="container-fluid" ng-repeat="item in newsItems">
     <div class="container-fluid" ng-if="!item.pending || isEditor()">
-        <div class="row">
-            <a ui-sref="newsInfo({id: item.id})" class="col-md-9"><span>{{ item.title }}</span></a>
+        <div class="row flex-vertical-center">
+            <a ui-sref="newsInfo({id: item.id})" class="col-md-9"><h4>{{ item.title }}</h4></a>
                 <span class="col-md-3" ng-if="isNewsmaker()">
                     <a ng-if="isEditor()" ng-show="item.pending" ng-click="activate($index)"><span class="glyphicon glyphicon-ok"></span></a>
                     <a ng-if="isEditor() || isUserAuthor(userId(), item.authorId)" ui-sref="newsEdit({id: item.id})"><span class="glyphicon glyphicon-pencil"></span></a>
@@ -32,7 +32,7 @@
             <li class="">@ColonsMessages.CommentsCount</li>
             <li class="">{{ item.commentsCount }}</li>
         </ul>
-        <hr />
+        @*<hr />*@
     </div>
 </div>
 <div class="pagination">

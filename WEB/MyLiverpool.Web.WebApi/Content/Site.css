@@ -48,3 +48,16 @@ textarea {
     font-style: italic;
 }
 
+.flex-vertical-center {
+  min-height: 0%;  /* Fallback for browsers do NOT support vh unit */
+  min-height: 0vh; /* These two lines are counted as one :-)*/       
+
+  display: flex;
+  align-items: center;
+}
+
+.container-row {
+    padding-right: 0px;
+    padding-left: 0px;
+}
+

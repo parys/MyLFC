@@ -1,10 +1,10 @@
 ﻿@using MyLiverpool.Business.Resources
 
-<div class="" ng-init="init()">
-    <div class="row">
-        <h3 class="alert-danger container col-md-12">
+<div class="container-row col-md-12" ng-init="init()">
+    <div class="alert-danger col-md-12 container-row flex-vertical-center">
+        <h3 class="container col-md-12">
             {{ item.title }}
-            <span class="col-md-3 alert-danger pull-right" ng-if="isNewsmaker()">
+            <span class="col-md-3 pull-right" ng-if="isNewsmaker()">
                 <span class="small pull-right">
                     <a ng-if="isEditor()" ng-show="item.pending" ng-click="activate()"><span class="glyphicon glyphicon-ok"></span></a>
                     <a ng-if="isEditor() || isUserAuthor(userId(), item.authorId)" ui-sref="newsEdit({id: item.id})"><span class="glyphicon glyphicon-pencil"></span></a>
@@ -13,9 +13,9 @@
             </span>
         </h3>
     </div>
-    <div class="row-fluid">
+    <div class="row">
         <article ng-bind-html="item.message | rawHtml"></article>
-        <div class="row-fluid alert-warning">
+        <div class="row alert-warning">
             <ul class="list-inline">
                 <li><label>@ColonsMessages.Reads</label> {{ item.reads }}</li>
                 <li><label>@ColonsMessages.Source</label> {{ item.source }}</li>
