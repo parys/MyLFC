@@ -1,9 +1,11 @@
-﻿var PmWriteCtrl = function ($scope, $stateParams, PmsFactory, validationService, $state, $rootScope) {
+﻿var PmWriteCtrl = function ($scope, $stateParams, PmsFactory, validationService, $state, $rootScope, UsersFactory) {
     $scope.message = {
         receiverId: undefined,
         title: undefined,
         message: undefined
-}
+    }
+    $scope.userNames = [];
+
     $scope.sent = function () {
         if (new validationService().checkFormValidity($scope) && $stateParams.userId) {
             $scope.message.receiverId = $stateParams.userId;
@@ -21,6 +23,17 @@
         }
     };
 
+    $scope.updateUserNames = function (typed) {
+        console.log('update ' + typed);
+        UsersFactory.getUserNames(typed)
+            .then(function (response) {
+                console.log(response);
+                    $scope.userNames = response;
+                },
+                function(response) {
+                    $scope.userNames = [];
+                });
+    }
 };
 
-PmWriteCtrl.$inject = ['$scope', '$stateParams', 'PmsFactory', 'validationService', '$state', '$rootScope'];
+PmWriteCtrl.$inject = ['$scope', '$stateParams', 'PmsFactory', 'validationService', '$state', '$rootScope', 'UsersFactory'];

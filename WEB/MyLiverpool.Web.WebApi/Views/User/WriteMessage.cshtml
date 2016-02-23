@@ -1,11 +1,11 @@
 ﻿@using MyLiverpool.Business.Resources
 
-<h2>@CommonMessages.WriteMessage</h2>
-<form class="form-horizontal" role="form">
+<form class="form-horizontal col-md-12" role="form">
+    <h2>@CommonMessages.WriteMessage</h2>
     <div class="form-group">
         <label class="control-label col-md-2"> @ColonsMessages.Receiver</label>
         <div class="col-md-10">
-            <input class="form-control" disabled="disabled" value="{{ $stateParams.userName }}" />
+            <autocomplete ng-model="message.userName" attr-placeholder="Введите логин..." click-activation="true" data="userNames" on-type="updateUserNames"></autocomplete> 
         </div>
     </div>
 

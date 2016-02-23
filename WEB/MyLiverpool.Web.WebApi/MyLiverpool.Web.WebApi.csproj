@@ -279,6 +279,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
+    <Content Include="Content\autocomplete.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -406,6 +407,8 @@
     <Content Include="Content\images\1\s01747.jpg" />
     <Content Include="Content\images\1\s14873.jpg" />
     <Content Include="Content\images\default.jpg" />
+    <Content Include="Content\loading-bar.css" />
+    <Content Include="Content\loading-bar.min.css" />
     <Content Include="Content\markitup\images\iconsBB.png" />
     <Content Include="Content\markitup\images\bold.png" />
     <Content Include="Content\markitup\images\clean.png" />
@@ -439,6 +442,7 @@
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\angular\angular-ui-router-title.js" />
+    <Content Include="Scripts\angular\autocomplete.js" />
     <Content Include="Scripts\angular\min\angular-translate-loader-static-files.min.js" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
@@ -460,6 +464,8 @@
     <Content Include="Scripts\App.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\loading-bar.js" />
+    <Content Include="Scripts\loading-bar.min.js" />
     <Content Include="Scripts\objects\Forum\ForumController.js" />
     <Content Include="Scripts\objects\Forum\ForumSubsectionController.js" />
     <Content Include="Scripts\objects\Forum\ForumThemeController.js" />

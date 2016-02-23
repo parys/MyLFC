@@ -4,6 +4,7 @@ using MyLiverpool.Business.DTO;
 using MyLiverpoolSite.Business.ViewModels.Users;
 using MyLiverpoolSite.Data.DataAccessLayer;
 using MyLiverpoolSite.Data.Entities;
+using System.Collections.Generic;
 
 namespace MyLiverpoolSite.Business.Contracts
 {
@@ -43,6 +44,9 @@ namespace MyLiverpoolSite.Business.Contracts
         Task<bool> SavePrivateMessageDtoAsync(PrivateMessageDto model);
 
         Task<bool> EditRoleGroup(int userId, int roleGroupId);
+
         Task<int> GetUnreadPmCount(int userId);
+
+        Task<IEnumerable<string>> GetUserNames(string typed);
     }
 }

@@ -86,5 +86,14 @@ namespace MyLiverpool.Web.WebApi.Controllers
             var result = await _userService.GetUnreadPmCount(User.Identity.GetUserId<int>());
             return Ok(result);
         } 
+
+        [Route("GetUserNames")]
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IHttpActionResult> GetUserNames(string typed)
+        {
+            var result = await _userService.GetUserNames(typed);
+            return Ok(result);
+        }
     }
 }

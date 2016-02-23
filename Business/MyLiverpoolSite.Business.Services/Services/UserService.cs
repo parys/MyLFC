@@ -232,6 +232,17 @@ namespace MyLiverpoolSite.Business.Services.Services
             return await _unitOfWork.PrivateMessageRepository.GetCountAsync(x => !x.IsRead && x.ReceiverId == userId);
         }
 
+        public async Task<IEnumerable<string>> GetUserNames(string typed)
+        {
+            IEnumerable<string> userNames = new List<string>();
+            if (string.IsNullOrEmpty(typed))
+            {
+                typed = "";
+            }
+            var users = await _unitOfWork.UserRepository.GetAsync(x => x.UserName.Contains(typed));
+            return users.Select(x => x.UserName);
+        }
+
         private IEnumerable<string> GetRolesToDelete(IEnumerable<Role> oldRoles, IEnumerable<Role> newRoles)
         {
             return oldRoles.Where(x => newRoles.All(n => n.Id != x.Id)).Select(x => x.Name);
@@ -240,7 +251,6 @@ namespace MyLiverpoolSite.Business.Services.Services
         {
             return newRoles.Where(x => oldRoles.All(n => n.Id != x.Id)).Select(x => x.Name);
         }
-
         private async Task RemoveOldMessages(int userId)
         {
             var countUserMessages =

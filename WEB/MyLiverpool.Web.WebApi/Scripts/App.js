@@ -1,4 +1,4 @@
-﻿var App = angular.module('app', ['ui.router', 'ui.bootstrap', 'ngCookies', 'pascalprecht.translate', 'ghiscoding.validation', 'ui.router.title']);
+﻿var App = angular.module('app', ['ui.router', 'ui.bootstrap', 'ngCookies', 'pascalprecht.translate', 'ghiscoding.validation', 'ui.router.title', 'angular-loading-bar', 'autocomplete']);
 
 App.controller('LandingPageController', LandingPageController);
 App.controller('LoginController', LoginController);
