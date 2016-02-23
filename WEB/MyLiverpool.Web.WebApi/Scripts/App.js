@@ -68,9 +68,9 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider,
             },
             resolve: {
                 // Constant title
-                $title: function () { return 'Главная'; }
+                $title: function() { return 'Главная'; }
             }
-            
+
         })
         .state('news', {
             url: '/news?page&categoryId',
@@ -81,7 +81,7 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider,
                 }
             },
             resolve: {
-                $title: function () { return 'Новости'; }
+                $title: function() { return 'Новости'; }
             }
         })
         .state('newsInfo', {
@@ -93,19 +93,19 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider,
                 }
             },
             resolve: {
-                $title: function () { return 'Название новости'; } //todo
+                $title: function() { return 'Название новости'; } //todo
             }
         })
         .state('newsEdit', {
             url: '/newsEdit?id',
             views: {
                 "containerMain": {
-                    templateUrl: function (params) { return '/news/Edit?id=' + params.id },
+                    templateUrl: function(params) { return '/news/Edit?id=' + params.id },
                     controller: NewsEditCtrl
                 }
             },
             resolve: {
-                $title: function () { return 'Редактирование новости'; }
+                $title: function() { return 'Редактирование новости'; }
             }
         })
         .state('newsCategories', {
@@ -117,7 +117,7 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider,
                 }
             },
             resolve: {
-                $title: function () { return 'Категории новостей'; }
+                $title: function() { return 'Категории новостей'; }
             }
         })
         .state('userInfo', {
@@ -129,7 +129,7 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider,
                 }
             },
             resolve: {
-                $title: function () { return 'Профиль '; } //todo
+                $title: function() { return 'Профиль '; } //todo
             }
         })
         .state('users', {
@@ -141,19 +141,19 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider,
                 }
             },
             resolve: {
-                $title: function () { return 'Пользователи'; }
+                $title: function() { return 'Пользователи'; }
             }
         })
         .state('images', {
             url: '/images?path',
             views: {
                 "containerMain": {
-                    templateUrl: function (params) { return '/images/index?path=' + params.path },
+                    templateUrl: function(params) { return '/images/index?path=' + params.path },
                     controller: ImagesCtrl
                 }
             },
             resolve: {
-                $title: function () { return 'Изображения '; } //todo
+                $title: function() { return 'Изображения '; } //todo
             }
         })
         //.state('sign-out', {
@@ -185,7 +185,7 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider,
                 }
             },
             resolve: {
-                $title: function () { return 'Личные сообщения'; }
+                $title: function() { return 'Личные сообщения'; }
             }
         })
         .state('pm', {
@@ -197,21 +197,21 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider,
                 }
             },
             resolve: {
-                $title: function () { return 'Чтение сообщения'; }
+                $title: function() { return 'Чтение сообщения'; }
             }
         })
         .state('wpm', {
-            url: '/wpm?',
+            url: '/wpm',
             views: {
                 "containerMain": {
-                    templateUrl: '/User/WritePm/',
+                    templateUrl: '/User/WritePm',
                     controller: PmWriteCtrl
                 }
             },
             params: {
-                    userId: null,
-                    userName: null
-            },
+                title: null,
+                userName: null
+    },
             resolve: {
                 $title: function () { return 'Написание сообщения'; }
             }

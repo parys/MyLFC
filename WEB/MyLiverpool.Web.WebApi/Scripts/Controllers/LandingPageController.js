@@ -1,4 +1,4 @@
-﻿var LandingPageController = function ($scope, $state, Authentication, RouteFilter, AccountFactory, $location, UsersFactory, $interval) { //SessionService,
+﻿var LandingPageController = function ($scope, $state, Authentication, RouteFilter, AccountFactory, $location, UsersFactory, $interval) {
     $scope.unreadPmCount = 0;
 
     $scope.userId = function () {
@@ -12,8 +12,7 @@
     function getUnreadPmCount() {
         UsersFactory.getUnreadPmCount().
             then(function(response) {
-                if (response) {
-                    console.log(response);
+                    if (response) {
                         $scope.unreadPmCount = response;
                     }
                 },
@@ -75,4 +74,4 @@
     }
 }
 
-LandingPageController.$inject = ['$scope', '$state', 'Authentication', 'RouteFilter', 'AccountFactory', '$location', 'UsersFactory', '$interval']; //'SessionService',
+LandingPageController.$inject = ['$scope', '$state', 'Authentication', 'RouteFilter', 'AccountFactory', '$location', 'UsersFactory', '$interval'];

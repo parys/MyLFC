@@ -6,7 +6,7 @@ app.directive('autocomplete', function() {
   var index = -1;
 
   return {
-    restrict: 'AE',
+    restrict: 'E',
     scope: {
       searchParam: '=ngModel',
       suggestions: '=data',
@@ -248,7 +248,7 @@ app.directive('autocomplete', function() {
             placeholder="{{ attrs.placeholder }}"\
             class="{{ attrs.inputclass }} form-control"\
             id="{{ attrs.inputid }}"\
-            name="userName" validation="required" />\
+            name="userName" validation="required" autocomplete="off"/>\
           <ul ng-show="completing && (suggestions | filter:searchFilter).length > 0">\
             <li\
               suggestion\

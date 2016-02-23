@@ -186,6 +186,8 @@ namespace MyLiverpoolSite.Business.Services.Services
 
             var message = _mapper.Map<PrivateMessage>(model);
             message.SentTime = DateTime.Now;
+            var receiver = await _unitOfWork.UserManager.FindByNameAsync(model.ReceiverUserName);
+            message.ReceiverId = receiver.Id;
             try
             {
                 _unitOfWork.PrivateMessageRepository.Add(message);

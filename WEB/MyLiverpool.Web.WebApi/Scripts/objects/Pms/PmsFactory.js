@@ -37,7 +37,6 @@
         },
         sentMessage: function(model) {
             var result = $q.defer();
-
             $http({
                     method: 'POST',
                     url: SessionService.apiUrl + '/api/User/WritePm',

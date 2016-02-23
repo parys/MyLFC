@@ -1,9 +1,9 @@
-﻿//'use strict';
+﻿'use strict';
 
 //angular.module('App')
 //  var  .service('Authentication', function Authentication($q, $http) {
 
-var Authentication = function ($q, AccountFactory, SessionService, $cookies, $rootScope) {
+var Authentication = function ($q, AccountFactory, SessionService, $cookies, $rootScope, $state) {
 
     var authenticatedUser = undefined;
     var cookieName = 'abra-kadabra';
@@ -17,7 +17,6 @@ var Authentication = function ($q, AccountFactory, SessionService, $cookies, $ro
 
     return {
         requestUser: function() {
-          //  console.log('requested user');
             if ($cookies.getObject('user')) {
                 AccountFactory.checkIfUserLoggedIn().
                     then(function(response) {
@@ -29,7 +28,6 @@ var Authentication = function ($q, AccountFactory, SessionService, $cookies, $ro
                         authenticatedUser = undefined;
                         $cookies.remove('user');
                     });
-                //      console.log(authenticatedUser);
             }
             else {
                 authenticatedUser = undefined;
@@ -64,6 +62,7 @@ var Authentication = function ($q, AccountFactory, SessionService, $cookies, $ro
             authenticatedUser = undefined;
             $cookies.remove('user'); //todo from server
             $rootScope.roles = ""; //todo temporary
+            $state.go('home');
         },
 
         getUserId: function() {
@@ -95,8 +94,7 @@ var Authentication = function ($q, AccountFactory, SessionService, $cookies, $ro
         isAuthor: function() {
             return isUserInRole(authenticatedUser, 'BlogsStart');
         },
-
     }
 };
 
-Authentication.$inject = ['$q', 'AccountFactory', 'SessionService', '$cookies', '$rootScope']
+Authentication.$inject = ['$q', 'AccountFactory', 'SessionService', '$cookies', '$rootScope', '$state']

@@ -1,4 +1,6 @@
 ﻿var LoginController = function ($scope, SessionService, Authentication, validationService, $stateParams, $location) {
+
+
     $scope.loginForm = {
         userName: undefined,
         password: undefined,
@@ -18,5 +20,7 @@
             //}
         }
     }
+
+
 }
 LoginController.$inject = ['$scope', 'SessionService', 'Authentication', 'validationService', '$stateParams', '$location'];

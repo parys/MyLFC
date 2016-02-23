@@ -3,7 +3,7 @@
 <h2>
     {{ user.userName }}
     <span ng-show="loggedIn() && !isSelf()">
-        <a ui-sref="wpm({ userId: user.id, userName: user.userName })"><span class="glyphicon glyphicon-envelope"></span></a>
+        <a ui-sref="wpm({ userName: user.userName })"><span class="glyphicon glyphicon-envelope"></span></a>
     </span>
 </h2>
 
