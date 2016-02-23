@@ -1,4 +1,10 @@
-﻿img.news-mini {
+﻿img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+img.news-mini {
     height: 140px;
     width: 300px;
 }
