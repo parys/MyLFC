@@ -121,7 +121,7 @@
     <value>Ответить</value>
   </data>
   <data name="Ban" xml:space="preserve">
-    <value>Забанькать</value>
+    <value>Забанить</value>
   </data>
   <data name="Blogs" xml:space="preserve">
     <value>Блоги</value>
@@ -224,5 +224,8 @@
   </data>
   <data name="Main" xml:space="preserve">
     <value>Главная</value>
+  </data>
+  <data name="DaysCount" xml:space="preserve">
+    <value>Количество дней</value>
   </data>
 </root>

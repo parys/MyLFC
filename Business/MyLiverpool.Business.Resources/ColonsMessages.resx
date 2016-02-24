@@ -123,6 +123,9 @@
   <data name="Author" xml:space="preserve">
     <value>Автор:</value>
   </data>
+  <data name="Ban" xml:space="preserve">
+    <value>Забанить:</value>
+  </data>
   <data name="Birthday" xml:space="preserve">
     <value>Дата рождения:</value>
   </data>

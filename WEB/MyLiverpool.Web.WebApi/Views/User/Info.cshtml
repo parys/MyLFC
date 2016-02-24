@@ -17,10 +17,13 @@
             </div>
         </div>
         <div ng-if="isModerator()" class="form-group">
-            <label class="col-sm-2 control-label">@UsersMessages.UserName</label>
-            <div class="col-sm-10">
-                <input type="number" class="form-control" name="banDaysCount" validation="required" ng-model="banDaysCount" /> <a ng-click="ban()">@CommonMessages.Ban</a>
-                <span class="row" ng-if="user.lockoutEndDateUtc">@UsersMessages.UsersActivityBannedUntil {{ user.lockoutEndDateUtc }}</span>
+            <label class="col-sm-2 control-label">@ColonsMessages.Ban</label>
+            <div class="col-sm-3">
+                <input type="number" placeholder="@CommonMessages.DaysCount" class="form-control" ng-model="banDaysCount"/>
+            </div>
+            <div class="col-sm-3">
+                <button class="btn btn-danger" ng-click="ban()">@CommonMessages.Ban</button>
+                <span class="" ng-if="user.lockoutEndDateUtc">@UsersMessages.UsersActivityBannedUntil {{ user.lockoutEndDateUtc }}</span>
             </div>
         </div>
         <div class="form-group">

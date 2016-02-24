@@ -70,7 +70,7 @@ namespace MyLiverpool.Business.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Забанькать.
+        ///   Looks up a localized string similar to Забанить.
         /// </summary>
         public static string Ban {
             get {
@@ -120,6 +120,15 @@ namespace MyLiverpool.Business.Resources {
         public static string Create {
             get {
                 return ResourceManager.GetString("Create", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Количество дней.
+        /// </summary>
+        public static string DaysCount {
+            get {
+                return ResourceManager.GetString("DaysCount", resourceCulture);
             }
         }
         

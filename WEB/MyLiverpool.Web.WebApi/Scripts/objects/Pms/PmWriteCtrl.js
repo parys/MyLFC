@@ -16,10 +16,8 @@
         } else {
             $scope.errorMessage = undefined;
         }
-        console.log('try ' + !$scope.errorMessage);
-        console.log(new validationService().checkFormValidity($scope));
+
         if (new validationService().checkFormValidity($scope) && !$scope.errorMessage) {
-            console.log('inside');
             PmsFactory.sentMessage($scope.message)
                 .then(function(response) {
                     if (response) {
@@ -55,7 +53,6 @@
     }
 
     $scope.init = function () {
-        console.log(123);
         if ($stateParams.userName) {
             $scope.message.receiverUserName = $stateParams.userName;
             $scope.message.title = getTitle($stateParams.title); //todo update
