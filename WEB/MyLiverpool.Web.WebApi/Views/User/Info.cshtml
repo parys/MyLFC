@@ -1,65 +1,72 @@
 ﻿@using MyLiverpool.Business.Resources
+<div class="col-md-12">
+    <h2>
+        {{ user.userName }}
+        <span ng-show="loggedIn() && !isSelf()">
+            <a ui-sref="wpm({ userName: user.userName })"><span class="glyphicon glyphicon-envelope"></span></a>
+        </span>
+    </h2>
 
-<h2>
-    {{ user.userName }}
-    <span ng-show="loggedIn() && !isSelf()">
-        <a ui-sref="wpm({ userName: user.userName })"><span class="glyphicon glyphicon-envelope"></span></a>
-    </span>
-</h2>
-
-<form class="form-horizontal" role="form" ng-init="init()">
-    <div class="form-group">
-        <label class="col-sm-2 control-label">@UsersMessages.UserName</label>
-        <div class="col-sm-10">
-            <span class="form-control">{{ user.userName }}</span>
-            <a ng-if="isModerator()" data-toggle="modal" data-target="#confirmBan">@CommonMessages.Ban</a>
-            <span class="row" ng-if="user.lockoutEndDateUtc">@UsersMessages.UsersActivityBannedUntil {{ user.lockoutEndDateUtc }}</span>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-2 control-label">@UsersMessages.Group</label>
-        <div class="col-sm-10">
-            <div>
-                <span ng-if="!isAdmin()" class="form-control">{{ user.roleGroupName }}</span>
-                <select ng-if="isAdmin()" class="form-control" name="newsCategoryId"
-                        ng-model="user.roleGroupId"
-                        ng-options="roleGroup.id as roleGroup.name for roleGroup in roleGroups" required="" validation="required" ng-change="editRole()"></select>
+    <form class="form-horizontal" role="form" ng-init="init()">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">@UsersMessages.UserName</label>
+            <div class="col-sm-10">
+                <span class="form-control">{{ user.userName }}</span>
+                
+                <span class="row" ng-if="user.lockoutEndDateUtc">@UsersMessages.UsersActivityBannedUntil {{ user.lockoutEndDateUtc }}</span>
             </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-2 control-label">@UsersMessages.LastLogin</label>
-        <div class="col-sm-10">
-            <span class="form-control">{{ user.lastModifiedOn | date:'medium'}}</span>
+        <div ng-if="isModerator()" class="form-group">
+            <label class="col-sm-2 control-label">@UsersMessages.UserName</label>
+            <div class="col-sm-10">
+                <input type="number" class="form-control" name="banDaysCount" validation="required" ng-model="banDaysCount" /> <a ng-click="ban()">@CommonMessages.Ban</a>
+                <span class="row" ng-if="user.lockoutEndDateUtc">@UsersMessages.UsersActivityBannedUntil {{ user.lockoutEndDateUtc }}</span>
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-2 control-label">@UsersMessages.RegistrationDate</label>
-        <div class="col-sm-10">
-            <span class="form-control">{{ user.registrationDate | date:'medium' }}</span>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">@UsersMessages.Group</label>
+            <div class="col-sm-10">
+                <div>
+                    <span ng-if="!isAdmin()" class="form-control">{{ user.roleGroupName }}</span>
+                    <select ng-if="isAdmin()" class="form-control" name="newsCategoryId"
+                            ng-model="user.roleGroupId"
+                            ng-options="roleGroup.id as roleGroup.name for roleGroup in roleGroups" required="" validation="required" ng-change="editRole()"></select>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="form-group" ng-if="user.fullName">
-        <label class="col-sm-2 control-label">@UsersMessages.FullName</label>
-        <div class="col-sm-10">
-            <span class="form-control">{{ user.fullName }}</span>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">@UsersMessages.LastLogin</label>
+            <div class="col-sm-10">
+                <span class="form-control">{{ user.lastModifiedOn | date:'medium'}}</span>
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-2 control-label">@UsersMessages.BirthDay</label>
-        <div class="col-sm-10">
-            <span class="form-control">{{ user.birthday | date:'medium' }}</span>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">@UsersMessages.RegistrationDate</label>
+            <div class="col-sm-10">
+                <span class="form-control">{{ user.registrationDate | date:'medium' }}</span>
+            </div>
         </div>
-    </div>
-    <div class="form-group" ng-if="user.gender">
-        <label class="col-sm-2 control-label">@UsersMessages.Gender</label>
-        <div class="col-sm-10">
-            <span class="form-control" ng-if="user.gender">@UsersMessages.Women</span>
-            <span class="form-control" ng-if="!user.gender">@UsersMessages.Men</span>
+        <div class="form-group" ng-if="user.fullName">
+            <label class="col-sm-2 control-label">@UsersMessages.FullName</label>
+            <div class="col-sm-10">
+                <span class="form-control">{{ user.fullName }}</span>
+            </div>
         </div>
-    </div>
-
-</form>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">@UsersMessages.BirthDay</label>
+            <div class="col-sm-10">
+                <span class="form-control">{{ user.birthday | date:'medium' }}</span>
+            </div>
+        </div>
+        <div class="form-group" ng-if="user.gender">
+            <label class="col-sm-2 control-label">@UsersMessages.Gender</label>
+            <div class="col-sm-10">
+                <span class="form-control" ng-if="user.gender">@UsersMessages.Women</span>
+                <span class="form-control" ng-if="!user.gender">@UsersMessages.Men</span>
+            </div>
+        </div>
+    </form>
+</div>
 
 <script type="text/ng-template" id="changeRoleConfirmation.html">
     <div class="modal-header">
@@ -74,86 +81,21 @@
     </div>
 </script>
 
------------------------------------------------------------------->
-<div class="modal fade" id="confirmBan">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">@UsersMessages.BanUserQuestion</h4>
+<script type="text/ng-template" id="banConfirmation.html">
+    <div class="modal-header">
+        <h4 class="modal-title">@UsersMessages.BanUserQuestion</h4>
+    </div>
+    <div class="modal-body">
+      @*  <h3>{user.userName}</h3>*@
+        <form role="form" class="form-group">
+            <label class="col-md-12 control-label">@UsersMessages.HowManyDaysWillUserBanned</label>
+            <div class="col-md-9 input-group ">
+                <input type="number" class="form-control" name="banDaysCount" validation="required" ng-model="banDaysCount"/>
             </div>
-            <div class="modal-body">
-                @*   <h3>@Model.UserName</h3>*@
-                <div class="form-group">
-                    <label class="col-md-12 control-label">@UsersMessages.HowManyDaysWillUserBanned</label>
-                    <div class="col-md-9 input-group date">
-                        <input id="banDayCount" class="form-control" required="required" />
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal" id="cancelBan">@CommonMessages.Cancel</button>
-                <button type="button" class="btn btn-primary" id="applyBan">@CommonMessages.Ban</button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-<script>
-    //var previousId = Model.RoleGroupId;
-    $('#RoleGroupId').on('change', function () {
-        console.log($('#RoleGroupId').val());
-        $('#confirmChangeRole').modal();
-    });
-    $('#cancelChangeRole').on('click', function () {
-        $('#RoleGroupId').val(previousId);
-    });
-    $('#changeRole').on('click', function () {
-        var newRoleGroupId = $('#RoleGroupId').val();
-        $.ajax({
-            type: 'post',
-            url: '@Url.Action("EditRoleGroup", "Role")',
-            //data: { newRoleGroupId: newRoleGroupId, userId: Model.Id },
-            beforeSend: function () {
-
-            },
-            success: function (response) {
-                if (response) {
-                    $('#').val('');
-                    $('#confirmChangeRole').modal('hide');
-                    console.log('finish');
-                } else {
-                    console.log("not delete");
-                }
-            }
-        });
-    });
-
-    $('#applyBan').on('click', function () {
-        console.log("ban buuton click");
-        //var userId = Model.Id;
-        var date = $('#banDayCount');
-        if (!date) {
-            date.addClass('input-validation-error');
-            return;
-        } else {
-            date.removeClass('input-validation-error');
-        };
-        $.ajax({
-            type: 'post',
-            url: '@Url.Action("BanUser", "User")',
-            data: { banDayCount: date.val(), userId: userId },
-            beforeSend: function () {
-
-            },
-            success: function (response) {
-                if (response) {
-                    $('#banDayCount').val('');
-                    console.log('finish');
-                } else {
-                    console.log("not delete");
-                }
-            }
-        });
-    });
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click="ok()">@CommonMessages.Ban</button>
+        <button type="button" class="btn btn-primary" ng-click="cancel()">@CommonMessages.Cancel</button>
+    </div>
 </script>

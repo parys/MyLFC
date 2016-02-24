@@ -48,6 +48,33 @@
             $scope.user.roleGroupId = $scope.roleGroupId;
         });
     }
+
+    $scope.ban = function() {
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: 'banConfirmation.html',
+            controller: 'ModalCtrl' //,
+            //resolve: {
+            //    id: function() {
+            //        return $scope.selectedNewsId;
+            //    }
+            //}
+        });
+
+        modalInstance.result.then(function() {
+            NewsFactory.delete().
+                then(function(response) {
+                        if (response) {
+                            $scope.newsItems.splice(index, 1);
+                            $rootScope.alerts.push({ type: 'success', msg: 'Новость успешно удалена.' });
+                        }
+                    },
+                    function(response) {
+                        $rootScope.alerts.push({ type: 'danger', msg: 'Новость не была удалена.' });
+                    });
+        }, function() {
+        });
+    }
 };
 
 UserController.$inject = ['$scope', '$stateParams', 'UsersFactory', 'RoleGroupsFactory', '$uibModal', '$rootScope'];
