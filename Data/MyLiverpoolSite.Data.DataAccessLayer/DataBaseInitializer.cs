@@ -274,7 +274,8 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 Verify = true,
                 LastModified = DateTime.Now,
                 RegistrationDate = DateTime.Now,
-                RoleGroupId = 2
+                RoleGroupId = 2,
+                LockoutEnabled = true,
             };
 
             var userStore = new UserStore<User, Role, int, UserLogin, UserRole, UserClaim>(context);
@@ -295,7 +296,8 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 Verify = true,
                 LastModified = DateTime.Now,
                 RegistrationDate = DateTime.Now,
-                RoleGroupId = 2
+                RoleGroupId = 2,
+                LockoutEnabled = true,
             };
 
             var userStore = new UserStore<User, Role, int, UserLogin, UserRole, UserClaim>(context);
@@ -344,7 +346,8 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 LastModified = DateTime.Now,
                 RegistrationDate = DateTime.Now,
                 Birthday = DateTime.Now,
-                RoleGroupId = 9
+                RoleGroupId = 9,
+                LockoutEnabled = true,
             };
 
             var userStore = new UserStore<User, Role, int, UserLogin, UserRole, UserClaim>(context);
@@ -370,7 +373,8 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 LastModified = DateTime.Now,
                 RegistrationDate = DateTime.Now,
                 Birthday = DateTime.Now,
-                RoleGroupId = 11
+                RoleGroupId = 11,
+                LockoutEnabled = true,
             };
 
             var userStore = new UserStore<User, Role, int, UserLogin, UserRole, UserClaim>(context);
@@ -396,7 +400,8 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 LastModified = DateTime.Now,
                 RegistrationDate = DateTime.Now,
                 Birthday = DateTime.Now,
-                RoleGroupId = 8
+                RoleGroupId = 8,
+                LockoutEnabled = true,
             };
 
             var userStore = new UserStore<User, Role, int, UserLogin, UserRole, UserClaim>(context);
@@ -421,7 +426,8 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 LastModified = DateTime.Now,
                 RegistrationDate = DateTime.Now,
                 Birthday = DateTime.Now,
-                RoleGroupId = 6
+                RoleGroupId = 6,
+                LockoutEnabled = true,
             };
 
             var userStore = new UserStore<User, Role, int, UserLogin, UserRole, UserClaim>(context);
@@ -447,7 +453,8 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 LastModified = DateTime.Now,
                 RegistrationDate = DateTime.Now,
                 Birthday = DateTime.Now,
-                RoleGroupId = 5
+                RoleGroupId = 5,
+                LockoutEnabled = true,
             };
 
             var userStore = new UserStore<User, Role, int, UserLogin, UserRole, UserClaim>(context);

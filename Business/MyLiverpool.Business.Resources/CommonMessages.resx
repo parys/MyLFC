@@ -228,4 +228,7 @@
   <data name="DaysCount" xml:space="preserve">
     <value>Количество дней</value>
   </data>
+  <data name="Unban" xml:space="preserve">
+    <value>Разблокировать</value>
+  </data>
 </root>

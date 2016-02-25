@@ -30,6 +30,8 @@ namespace MyLiverpoolSite.Business.Contracts
 
         Task<bool> BanUser(int userId, int banDayCount);
 
+        Task<bool> UnbanUser(int userId);
+
         Task<ClaimsIdentity> GenerateUserIdentityAsync(User user, string authenticationType);
 
 

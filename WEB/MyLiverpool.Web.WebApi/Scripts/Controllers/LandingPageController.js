@@ -58,6 +58,11 @@
         return Authentication.isEditor();
     }
 
+    $scope.isMainModerator = function () {
+    //    console.log('isModerator landing');
+        return Authentication.isMainModerator();
+    }
+
     $scope.isModerator = function () {
     //    console.log('isModerator landing');
         return Authentication.isModerator();

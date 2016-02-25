@@ -3,20 +3,21 @@
     $scope.roleGroups = [];
     $scope.id = $stateParams.id;
     $scope.roleGroupId = undefined;
-    $scope.init = function() {
+    $scope.banDaysCount = 0;
+    $scope.init = function () {
         UsersFactory.getUser($scope.id)
-            .then(function(response) {
+            .then(function (response) {
                 $scope.user = response;
-                    $scope.roleGroupId = response.roleGroupId;
-                },
-                function(response) {
+                $scope.roleGroupId = response.roleGroupId;
+            },
+                function (response) {
                     //$scope.f = "";
                 });
         RoleGroupsFactory.get()
-            .then(function(response) {
-                    $scope.roleGroups = response;
-                },
-                function(response) {
+            .then(function (response) {
+                $scope.roleGroups = response;
+            },
+                function (response) {
                 });
     };
 
@@ -49,31 +50,49 @@
         });
     }
 
-    $scope.ban = function() {
+    $scope.ban = function () {
+        if ($scope.banDaysCount <= 0) {
+            return;
+        }
         var modalInstance = $uibModal.open({
             animation: true,
             templateUrl: 'banConfirmation.html',
-            controller: 'ModalCtrl' //,
-            //resolve: {
-            //    id: function() {
-            //        return $scope.selectedNewsId;
-            //    }
-            //}
+            controller: 'ModalCtrl'
         });
 
-        modalInstance.result.then(function() {
-            NewsFactory.delete().
-                then(function(response) {
-                        if (response) {
-                            $scope.newsItems.splice(index, 1);
-                            $rootScope.alerts.push({ type: 'success', msg: 'Новость успешно удалена.' });
-                        }
-                    },
-                    function(response) {
-                        $rootScope.alerts.push({ type: 'danger', msg: 'Новость не была удалена.' });
+        modalInstance.result.then(function () {
+            UsersFactory.banUser($scope.id, $scope.banDaysCount).
+                then(function (response) {
+                    if (response) {
+                        var banDate = new Date();
+                        banDate.setDate(banDate.getDate() + $scope.banDaysCount);
+
+                        $scope.user.lockoutEndDateUtc = banDate;
+                        $rootScope.alerts.push({ type: 'success', msg: 'Активность пользователя успешно заблокирована.' });
+                    } else {
+                        $rootScope.alerts.push({ type: 'danger', msg: 'Активность пользователя не была заблокирована.' });
+                    }
+                },
+                    function (response) {
+                        $rootScope.alerts.push({ type: 'danger', msg: 'Активность пользователя не была заблокирована.' });
                     });
-        }, function() {
+        }, function () {
         });
+    }
+
+    $scope.unban = function () {
+        UsersFactory.unbanUser($scope.id).
+                then(function (response) {
+                    if (response) {
+                        $scope.user.lockoutEndDateUtc = null;
+                        $rootScope.alerts.push({ type: 'success', msg: 'Активность пользователя успешно разблокирована.' });
+                    } else {
+                        $rootScope.alerts.push({ type: 'danger', msg: 'Активность пользователя не была разблокирована.' });
+                    }
+                },
+                    function (response) {
+                        $rootScope.alerts.push({ type: 'danger', msg: 'Активность пользователя не была разблокирована.' });
+                    });
     }
 };
 

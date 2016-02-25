@@ -79,6 +79,10 @@ var Authentication = function ($q, AccountFactory, SessionService, $cookies, $ro
             return isUserInRole(authenticatedUser, 'AdminFull');
         },
 
+        isMainModerator: function() {
+            return isUserInRole(authenticatedUser, 'UsersFull');
+        },
+
         isModerator: function() {
             return isUserInRole(authenticatedUser, 'UsersStart');
         },

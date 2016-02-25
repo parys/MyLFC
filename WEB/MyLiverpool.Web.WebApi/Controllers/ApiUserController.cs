@@ -5,6 +5,7 @@ using System.Web.Http.Description;
 using Microsoft.AspNet.Identity;
 using MyLiverpool.Business.DTO;
 using MyLiverpoolSite.Business.Contracts;
+using MyLiverpoolSite.Data.Entities;
 
 namespace MyLiverpool.Web.WebApi.Controllers
 {
@@ -93,6 +94,24 @@ namespace MyLiverpool.Web.WebApi.Controllers
         public async Task<IHttpActionResult> GetUserNames(string typed)
         {
             var result = await _userService.GetUserNames(typed);
+            return Ok(result);
+        }
+
+        [Route("BanUser")]
+        [HttpPut]
+        [Authorize(Roles = "UsersStart")]
+        public async Task<IHttpActionResult> BanUser(int userId, int daysCount)
+        {
+            var result = await _userService.BanUser(userId, daysCount);
+            return Ok(result);
+        }
+
+        [Route("UnbanUser")]
+        [HttpPut]
+      //  [Authorize(Roles = "UsersFull")]
+        public async Task<IHttpActionResult> UnbanUser(int userId)
+        {
+            var result = await _userService.UnbanUser(userId);
             return Ok(result);
         }
     }

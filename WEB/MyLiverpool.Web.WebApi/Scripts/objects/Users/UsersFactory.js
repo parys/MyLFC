@@ -85,6 +85,40 @@
             });
 
             return result.promise;
+        },
+        banUser: function (userId, daysCount) {
+            var result = $q.defer();
+
+            $http({
+                method: 'PUT',
+                url: SessionService.apiUrl + '/api/User/banUser?userId=' + userId + '&daysCount=' + daysCount,
+                headers: { 'Content-Type': 'application/json' }
+            })
+            .success(function (response) {
+                result.resolve(response);
+            })
+            .error(function (response) {
+                result.reject(response);
+            });
+
+            return result.promise;
+        },
+        unbanUser: function (userId) {
+            var result = $q.defer();
+
+            $http({
+                method: 'PUT',
+                url: SessionService.apiUrl + '/api/User/unbanUser?userId=' + userId,
+                headers: { 'Content-Type': 'application/json' }
+            })
+            .success(function (response) {
+                result.resolve(response);
+            })
+            .error(function (response) {
+                result.reject(response);
+            });
+
+            return result.promise;
         }
     }
 };

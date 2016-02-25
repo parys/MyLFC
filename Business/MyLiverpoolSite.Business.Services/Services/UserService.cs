@@ -125,6 +125,12 @@ namespace MyLiverpoolSite.Business.Services.Services
             return result == IdentityResult.Success;
         }
 
+        public async Task<bool> UnbanUser(int userId)
+        {
+            var result = await _unitOfWork.UserManager.SetLockoutEndDateAsync(userId, DateTimeOffset.MinValue);
+            return result == IdentityResult.Success;
+        }
+
         #endregion
 
         #region Dto

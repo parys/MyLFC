@@ -12,18 +12,21 @@
             <label class="col-sm-2 control-label">@UsersMessages.UserName</label>
             <div class="col-sm-10">
                 <span class="form-control">{{ user.userName }}</span>
-                
-                <span class="row" ng-if="user.lockoutEndDateUtc">@UsersMessages.UsersActivityBannedUntil {{ user.lockoutEndDateUtc }}</span>
             </div>
         </div>
         <div ng-if="isModerator()" class="form-group">
             <label class="col-sm-2 control-label">@ColonsMessages.Ban</label>
-            <div class="col-sm-3">
-                <input type="number" placeholder="@CommonMessages.DaysCount" class="form-control" ng-model="banDaysCount"/>
+            <div class="col-sm-10 container-row" ng-show="!$parent.user.lockoutEndDateUtc">
+                <div class="col-sm-3">
+                    <input min="0" type="number" placeholder="@CommonMessages.DaysCount" class="form-control" ng-model="$parent.banDaysCount" />
+                </div>
+                <div class="col-sm-9">
+                    <button class="btn btn-danger" ng-click="ban()" ng-disabled="$parent.banDaysCount <= 0">@CommonMessages.Ban</button>
+                </div>
             </div>
-            <div class="col-sm-3">
-                <button class="btn btn-danger" ng-click="ban()">@CommonMessages.Ban</button>
-                <span class="" ng-if="user.lockoutEndDateUtc">@UsersMessages.UsersActivityBannedUntil {{ user.lockoutEndDateUtc }}</span>
+            <div class="col-sm-10 container-row" ng-show="$parent.user.lockoutEndDateUtc">
+                <span class="col-sm-8 flex-vertical-center" ng-if="user.lockoutEndDateUtc">@UsersMessages.UsersActivityBannedUntil {{ user.lockoutEndDateUtc | date:'medium' }}</span>
+                <button class="btn btn-success" ng-if="isMainModerator()" ng-click="unban()">@CommonMessages.Unban</button>
             </div>
         </div>
         <div class="form-group">
@@ -33,7 +36,7 @@
                     <span ng-if="!isAdmin()" class="form-control">{{ user.roleGroupName }}</span>
                     <select ng-if="isAdmin()" class="form-control" name="newsCategoryId"
                             ng-model="user.roleGroupId"
-                            ng-options="roleGroup.id as roleGroup.name for roleGroup in roleGroups" required="" validation="required" ng-change="editRole()"></select>
+                            ng-options="roleGroup.id as roleGroup.name for roleGroup in roleGroups" validation="required" ng-change="editRole()"></select>
                 </div>
             </div>
         </div>
@@ -86,16 +89,10 @@
 
 <script type="text/ng-template" id="banConfirmation.html">
     <div class="modal-header">
-        <h4 class="modal-title">@UsersMessages.BanUserQuestion</h4>
+        <h3 class="modal-title"></h3>
     </div>
     <div class="modal-body">
-      @*  <h3>{user.userName}</h3>*@
-        <form role="form" class="form-group">
-            <label class="col-md-12 control-label">@UsersMessages.HowManyDaysWillUserBanned</label>
-            <div class="col-md-9 input-group ">
-                <input type="number" class="form-control" name="banDaysCount" validation="required" ng-model="banDaysCount"/>
-            </div>
-        </form>
+        @UsersMessages.BanUserQuestion
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" ng-click="ok()">@CommonMessages.Ban</button>
