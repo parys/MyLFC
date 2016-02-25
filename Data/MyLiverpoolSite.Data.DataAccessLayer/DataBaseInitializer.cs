@@ -52,7 +52,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
             var adminRole = context.Roles.First(x => x.Name == RolesEnum.AdminFull.ToString()); //1
             var adminAssistanceRole = context.Roles.First(x => x.Name == RolesEnum.AdminStart.ToString());
             var moderatorRole = context.Roles.First(x => x.Name == RolesEnum.UsersStart.ToString());//3
-            var mainModeratorRole = context.Roles.First(x => x.Name == RolesEnum.UsersStart.ToString());
+            var mainModeratorRole = context.Roles.First(x => x.Name == RolesEnum.UsersFull.ToString());
             var authorRole = context.Roles.First(x => x.Name == RolesEnum.BlogsStart.ToString());//5
             var internRole = context.Roles.First(x => x.Name == RolesEnum.Intern.ToString());
            // var mainEditorRole = context.Roles.First(x => x.Name == RolesEnum..ToString());//7
