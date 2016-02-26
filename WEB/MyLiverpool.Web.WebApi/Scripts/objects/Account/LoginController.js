@@ -1,6 +1,5 @@
 ﻿var LoginController = function ($scope, SessionService, Authentication, ValidationService, $stateParams, $location) {
 
-
     $scope.loginForm = {
         userName: undefined,
         password: undefined,
@@ -8,7 +7,7 @@
     };
 
     $scope.login = function () {
-        if (new ValidationService().checkFormValidity($scope)) {
+        if (new ValidationService().checkFormValidity($scope.loginForm)) {
             Authentication.login($scope.loginForm);
             //console.log(Authentication.exists());
             //if (Authentication.exists()) {

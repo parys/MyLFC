@@ -37,7 +37,7 @@
                 <textarea mark-it-up class="col-md-offset-2 col-md-8" rows="6" name="message" ng-model="newComment.message" validation="required"></textarea>
             </div>
             <div class="">
-                <button class="btn btn-primary center-block" data-toggle="modal" ng-disabled="commentForm.$invalid" ng-click="addComment()" data-target="#myModal" id="addComment"> @CommonMessages.Create</button>
+                <button class="btn btn-primary center-block" data-toggle="modal" ng-disabled="commentForm.$invalid" ng-click="addComment()" data-target="#myModal" id="addComment">@CommonMessages.Create</button>
             </div>
         </div>
     </form>
@@ -67,7 +67,7 @@
         </form>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary" type="button" ng-disabled="editCommentForm.$invalid" ng-click="ok()">@CommonMessages.Save</button>
+        <button class="btn btn-primary" type="button" ng-disabled="editCommentForm.$invalid" ng-click="ok()">@CommonMessages.Create</button>
         <button class="btn btn-default" type="button" ng-click="cancel()">@CommonMessages.Cancel</button>
     </div>
 </script>
