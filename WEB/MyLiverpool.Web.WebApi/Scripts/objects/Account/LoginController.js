@@ -1,4 +1,4 @@
-﻿var LoginController = function ($scope, SessionService, Authentication, validationService, $stateParams, $location) {
+﻿var LoginController = function ($scope, SessionService, Authentication, ValidationService, $stateParams, $location) {
 
 
     $scope.loginForm = {
@@ -8,7 +8,7 @@
     };
 
     $scope.login = function () {
-        if (new validationService().checkFormValidity($scope)) {
+        if (new ValidationService().checkFormValidity($scope)) {
             Authentication.login($scope.loginForm);
             //console.log(Authentication.exists());
             //if (Authentication.exists()) {
@@ -23,4 +23,4 @@
 
 
 }
-LoginController.$inject = ['$scope', 'SessionService', 'Authentication', 'validationService', '$stateParams', '$location'];
+LoginController.$inject = ['$scope', 'SessionService', 'Authentication', 'ValidationService', '$stateParams', '$location'];

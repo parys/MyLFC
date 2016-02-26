@@ -31,18 +31,19 @@
                 <form ng-controller="LoginController" name="loginForm" class="form-inline" role="form" style="margin-top: 8px;">
                     <div class="form-group">
                         <label class="sr-only" for="emailAddress">@ColonsMessages.UserName</label>
-                        <input type="text" class="form-control" name="email" id="emailAddress" placeholder="" ng-model="loginForm.userName" validation="required">
+                        <input type="text" placeholder="@UsersMessages.UserName" class="form-control" name="email" id="emailAddress" ng-model="loginForm.userName" validation="required" validation-error-to="myError">
                     </div>
                     <div class="form-group">
                         <label class="sr-only" for="password">@ColonsMessages.Password</label>
-                        <input type="password" class="form-control" name="password" id="password" ng-model="loginForm.password" validation="required">
+                        <input type="password" placeholder="@UsersMessages.Password" class="form-control" name="password" id="password" ng-model="loginForm.password" validation="required" validation-error-to="myError">
+                        <span id="myError" style="display: none;"></span>
                     </div>
                     <div class="form-group">
                             <p class="text-danger" ng-if="loginForm.errorMessage">{{loginForm.errorMessage}}</p>
                     </div>
                     <div class="form-group">
                         <div>
-                            <input type="submit" ng-click="login()"  value="@CommonMessages.Login" class="btn btn-default" />
+                            <input type="submit" ng-click="login()" ng-disabled="!loginForm.userName || !loginForm.password" value="@CommonMessages.Login" class="btn btn-default" />
                         </div>
                     </div>
                 </form>

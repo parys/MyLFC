@@ -1,4 +1,4 @@
-﻿var PmWriteCtrl = function ($scope, $stateParams, PmsFactory, validationService, $state, $rootScope, UsersFactory) {
+﻿var PmWriteCtrl = function ($scope, $stateParams, PmsFactory, ValidationService, $state, $rootScope, UsersFactory) {
     $scope.message = {
         title: "",
         message: "",
@@ -17,7 +17,7 @@
             $scope.errorMessage = undefined;
         }
 
-        if (new validationService().checkFormValidity($scope) && !$scope.errorMessage) {
+        if (new ValidationService().checkFormValidity($scope) && !$scope.errorMessage) {
             PmsFactory.sentMessage($scope.message)
                 .then(function(response) {
                     if (response) {
@@ -61,4 +61,4 @@
     }
 };
 
-PmWriteCtrl.$inject = ['$scope', '$stateParams', 'PmsFactory', 'validationService', '$state', '$rootScope', 'UsersFactory'];
+PmWriteCtrl.$inject = ['$scope', '$stateParams', 'PmsFactory', 'ValidationService', '$state', '$rootScope', 'UsersFactory'];

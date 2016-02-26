@@ -68,8 +68,8 @@
       <HintPath>..\..\packages\Autofac.WebApi2.3.4.0\lib\net45\Autofac.Integration.WebApi.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="AutoMapper, Version=4.2.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\AutoMapper.4.2.0\lib\net45\AutoMapper.dll</HintPath>
+    <Reference Include="AutoMapper, Version=4.2.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\AutoMapper.4.2.1\lib\net45\AutoMapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Elmah, Version=1.2.14706.0, Culture=neutral, processorArchitecture=MSIL">
@@ -449,14 +449,6 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Properties\PublishProfiles\someeFreeQA.pubxml" />
-    <Content Include="Scripts\angular-validation\locales\ru.json" />
-    <Content Include="Scripts\angular-validation\locales\pt-br.json" />
-    <Content Include="Scripts\angular-validation\locales\pl.json" />
-    <Content Include="Scripts\angular-validation\locales\no.json" />
-    <Content Include="Scripts\angular-validation\locales\fr.json" />
-    <Content Include="Scripts\angular-validation\locales\es.json" />
-    <Content Include="Scripts\angular-validation\locales\en.json" />
-    <Content Include="Scripts\angular-validation\locales\ca.json" />
     <Content Include="Scripts\angular.min.js.map" />
     <Content Include="Scripts\angular-route.min.js.map" />
     <Content Include="Scripts\angular\23angular-translate-loader-static-files.js" />
@@ -532,6 +524,14 @@
     <Content Include="Scripts\Factories\RouteFilter.js" />
     <Content Include="Scripts\objects\Users\UsersFactory.js" />
     <Content Include="Scripts\Filters.js" />
+    <Content Include="Scripts\angular-validation\locales\ru.json" />
+    <Content Include="Scripts\angular-validation\locales\pt-br.json" />
+    <Content Include="Scripts\angular-validation\locales\pl.json" />
+    <Content Include="Scripts\angular-validation\locales\no.json" />
+    <Content Include="Scripts\angular-validation\locales\fr.json" />
+    <Content Include="Scripts\angular-validation\locales\es.json" />
+    <Content Include="Scripts\angular-validation\locales\en.json" />
+    <Content Include="Scripts\angular-validation\locales\ca.json" />
     <None Include="Scripts\jquery-2.2.0.intellisense.js" />
     <Content Include="Scripts\objects\Images\ImagesCtrl.js" />
     <Content Include="Scripts\jquery-2.2.0.js" />
@@ -572,7 +572,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-    <None Include="Project_Readme.html" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />

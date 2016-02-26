@@ -1,4 +1,4 @@
-﻿var RegisterController = function ($scope, AccountFactory, Authentication, validationService, SessionService) {
+﻿var RegisterController = function ($scope, AccountFactory, Authentication, ValidationService, SessionService) {
     $scope.registerForm = {
         userName: '',
         email: '',
@@ -10,7 +10,7 @@
     };
 
     $scope.register = function () {
-        if (new validationService().checkFormValidity($scope)) {
+        if (new ValidationService().checkFormValidity($scope)) {
             AccountFactory.register($scope.registerForm)
                 .then(function() {
                     Authentication.login($scope.registerForm);
@@ -34,4 +34,4 @@
 
     }
 }
-RegisterController.$inject = ['$scope', 'AccountFactory', 'Authentication', 'validationService', 'SessionService'];
+RegisterController.$inject = ['$scope', 'AccountFactory', 'Authentication', 'ValidationService', 'SessionService'];

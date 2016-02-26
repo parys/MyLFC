@@ -1,4 +1,4 @@
-﻿var NewsEditCtrl = function ($scope, NewsFactory, $stateParams, validationService, $state) {//, $uibModal, $rootScope) {
+﻿var NewsEditCtrl = function ($scope, NewsFactory, $stateParams, ValidationService, $state) {//, $uibModal, $rootScope) {
     $scope.item = {
         id: undefined,
         title: undefined,
@@ -35,7 +35,7 @@
     };
 
     $scope.save = function () {
-        if (new validationService().checkFormValidity($scope)) {
+        if (new ValidationService().checkFormValidity($scope)) {
             if (!$scope.item.id) {
                 NewsFactory.create($scope.item)
                     .then(function(response) {
@@ -65,4 +65,4 @@
     init();
 };
 
-NewsEditCtrl.$inject = ['$scope', 'NewsFactory', '$stateParams', 'validationService', '$state'];
+NewsEditCtrl.$inject = ['$scope', 'NewsFactory', '$stateParams', 'ValidationService', '$state'];

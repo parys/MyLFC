@@ -10,6 +10,9 @@
     };
 
     function getUnreadPmCount() {
+        if (!$scope.loggedIn) {
+            return;
+        }
         UsersFactory.getUnreadPmCount().
             then(function(response) {
                     if (response) {

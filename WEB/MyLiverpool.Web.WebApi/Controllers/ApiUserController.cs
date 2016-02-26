@@ -108,7 +108,7 @@ namespace MyLiverpool.Web.WebApi.Controllers
 
         [Route("UnbanUser")]
         [HttpPut]
-      //  [Authorize(Roles = "UsersFull")]
+        [Authorize(Roles = "UsersFull")]
         public async Task<IHttpActionResult> UnbanUser(int userId)
         {
             var result = await _userService.UnbanUser(userId);
