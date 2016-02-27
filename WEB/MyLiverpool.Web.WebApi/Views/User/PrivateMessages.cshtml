@@ -1,13 +1,8 @@
 ﻿@using MyLiverpool.Business.Resources
 
 <div class="container-fluid">
-    <ul class="nav nav-tabs">
-        <li class="active"><a href="#received" data-toggle="tab">@UsersMessages.Received</a></li>
-        <li><a href="#sent" data-toggle="tab">@UsersMessages.Sent</a></li>
-        <li><a ui-sref="wpm">@CommonMessages.WriteMessage</a></li>
-    </ul>
-    <div class="tab-content">
-        <div class="tab-pane active" id="received">
+    <uib-tabset active="active">
+        <uib-tab index="0" heading="@UsersMessages.Received">
             <table class="table">
                 <thead>
                     <tr>
@@ -19,7 +14,7 @@
                 </thead>
                 <tbody ng-repeat="message in received">
                     <tr>
-                        <td>i</td>
+                        <td>{{$index + 1}}</td>
                         <td>
                             <a ui-sref="pm({ id: message.id })">
                                 <b ng-show="!message.isRead">{{ message.title }}</b>
@@ -31,31 +26,32 @@
                     </tr>
                 </tbody>
             </table>
-        </div>
-        <div class="tab-pane" id="sent">
+        </uib-tab>
+        <uib-tab index="1" heading="@UsersMessages.Sent">
             <table class="table">
                 <thead>
-                    <tr>
-                        <td>#</td>
-                        <td>@ColonsMessages.Title</td>
-                        <td>@ColonsMessages.Receiver</td>@*todo*@
-                        <td>@ColonsMessages.SentDate</td>
-                    </tr>
+                <tr>
+                    <td>#</td>
+                    <td>@ColonsMessages.Title</td>
+                    <td>@ColonsMessages.Receiver</td>@*todo*@
+                    <td>@ColonsMessages.SentDate</td>
+                </tr>
                 </thead>
                 <tbody ng-repeat="message in sent">
-                    <tr>
-                        <td>i</td>
-                        <td>
-                            <a ui-sref="pm({ id: message.id })">
-                                <b ng-show="!message.isRead">{{ message.title }}</b>
-                                <span ng-show="message.isRead">{{ message.title }}</span>
-                            </a>
-                        </td>
-                        <td><a ui-sref="userInfo({id: message.receiverId})">{{message.receiverUserName}}</a></td>
-                        <td>{{ message.sentTime | date:'medium' }}</td>
-                    </tr>
+                <tr>
+                    <td>{{$index + 1}}</td>
+                    <td>
+                        <a ui-sref="pm({ id: message.id })">
+                            <b ng-show="!message.isRead">{{ message.title }}</b>
+                            <span ng-show="message.isRead">{{ message.title }}</span>
+                        </a>
+                    </td>
+                    <td><a ui-sref="userInfo({id: message.receiverId})">{{message.receiverUserName}}</a></td>
+                    <td>{{ message.sentTime | date:'medium' }}</td>
+                </tr>
                 </tbody>
             </table>
-        </div>
-    </div>
+        </uib-tab>
+        <li><a ui-sref="wpm">@CommonMessages.WriteMessage</a></li>
+    </uib-tabset>
 </div>
