@@ -32,6 +32,14 @@ textarea {
     margin-top: 60px;
 }
 
+.top20 {
+    margin-top: 20px;
+}
+
+.top50 {
+    margin-top: 50px;
+}
+
 /* AngularJS Form validation styling */
 .validation.help-block {
     color: #E07676;

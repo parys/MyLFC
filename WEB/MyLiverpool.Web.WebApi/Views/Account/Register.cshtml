@@ -1,67 +1,55 @@
 ﻿@using MyLiverpool.Business.Resources
 
-@{
-    ViewBag.Title = CommonMessages.Registration;
-}
-
-<h2>@CommonMessages.Registration</h2>
-<form class="form-horizontal" role="form">
-    <div class="form-group">
-        <label class="col-md-2 control-label">@ColonsMessages.UserName</label>
-        <div class="col-md-10">
-            <input type="text" name="userName" ng-model="registerForm.userName" id="userName" debounce="5000" validation="remote:userNameUnique(registerForm.userName):alt=@ErrorMessages.UserWithSameUserNameExists|min_len:3|max_len:30|required" class="form-control"/>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-md-2 control-label">@ColonsMessages.Email </label>
-        <div class="col-md-10">
-            <input type="email" name="email" ng-model="registerForm.email" id="email" debounce="5000" validation="remote:emailUnique(registerForm.email):alt=@ErrorMessages.UserWithSameEmailExists|email|min_len:6|required" class="form-control" /> 
-        </div>
-</div>
-    <div class="form-group">
-        <label for="password" class="col-md-2 control-label">@ColonsMessages.Password</label>
-        <div class="col-md-10">
-            <input type="password" name="password" friendly-name="@UsersMessages.Password" id="password" ng-model="registerForm.password" validation="min_len:6|required" class="form-control"/>
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="confirmPassword" class = "col-md-2 control-label">@ColonsMessages.PasswordConfirmation</label>
+<div class="col-md-12 top20">
+    <form class="form-horizontal" role="form">
+        <div class="form-group">
+            <label class="col-md-2  control-label">@ColonsMessages.UserName</label>
             <div class="col-md-10">
-                <input type="password" name="confirmPassword" id="confirmPassword" ng-model="registerForm.confirmPassword" validation="required|match:registerForm.password|min_len:6" class="form-control" />
+                <input type="text" name="userName" ng-model="registerForm.userName" id="userName" debounce="5000" validation="remote:userNameUnique(registerForm.userName):alt=@ErrorMessages.UserWithSameUserNameExists|min_len:3|max_len:30|required" class="form-control"/>
             </div>
-</div>
-    <div class="form-group">
-        <label class="col-md-2 control-label">@ColonsMessages.FullName</label>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">@ColonsMessages.Email </label>
             <div class="col-md-10">
-                <input type="text" name="fullName" ng-model="registerForm.fullName" validation="required|min_len:2" class="form-control" />
+                <input type="email" name="email" ng-model="registerForm.email" id="email" debounce="5000" validation="email|min_len:6|required" class="form-control"/>
             </div>
-</div>
-    <div class="form-group">
-        <label class="col-md-2 control-label">@ColonsMessages.Birthday</label>
-        <div class="col-md-10">
-            @*<input type="text" name="birthday" ng-click="open()" is-open="status.opened" uib-datepicker-popup ng-model="registerForm.birthday" validation="required" datepicker-options="dateOptions" class="form-control" close-text="Close1"/>
+        </div>
+        <div class="form-group">
+            <label for="password" class="col-md-2 control-label">@ColonsMessages.Password</label>
+            <div class="col-md-10">
+                <input type="password" name="password" friendly-name="@UsersMessages.Password" id="password" ng-model="registerForm.password" validation="min_len:6|required" class="form-control"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="confirmPassword" class="col-md-2 control-label">@ColonsMessages.PasswordConfirmation</label>
+            <div class="col-md-10">
+                <input type="password" name="confirmPassword" id="confirmPassword" ng-model="registerForm.confirmPassword" validation="required|match:registerForm.password|min_len:6" class="form-control"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">@ColonsMessages.FullName</label>
+            <div class="col-md-10">
+                <input type="text" name="fullName" ng-model="registerForm.fullName" validation="required|min_len:2" class="form-control"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">@ColonsMessages.Birthday</label>
+            <div class="col-md-10">
+                @*<input type="text" name="birthday" ng-click="open()" is-open="status.opened" uib-datepicker-popup ng-model="registerForm.birthday" validation="required" datepicker-options="dateOptions" class="form-control" close-text="Close1"/>
             <input min-date="minDate" max-date="maxDate"  date-disabled="disabled(date, mode)" />
             <span class="input-group-btn">
                 <button type="button" class="btn btn-default" ng-click="open()"><i class="glyphicon glyphicon-calendar"></i></button>
             </span>*@
-            <input name="birthday" ng-model="registerForm.birthday" validation="required|date_euro_long" class="form-control" />
+                <input name="birthday" ng-model="registerForm.birthday" validation="required|date_euro_long" class="form-control"/>
+            </div>
         </div>
+        <div class="form-group">
+            <p class="help-block" ng-if="registerForm.errorMessage">{{registerForm.errorMessage}}</p>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="submit" ng-click="register()" class="btn btn-default">@CommonMessages.Register</button>
+            </div>
+        </div>
+    </form>
 </div>
-    <div class="form-group">
-        <p class="help-block" ng-if="registerForm.errorMessage">{{registerForm.errorMessage}}</p>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <button type="submit" ng-click="register()" class="btn btn-default">@CommonMessages.Register</button>
-        </div>
-    </div>
-</form>
-
-
-<script>
-        //$('.datepicker').datepicker({
-        //    format: 'dd/mm/yyyy',
-        //    language: 'ru'
-        //});
-</script>
-

@@ -65,7 +65,7 @@
             </li>
         </ul>
     </div>
-    <div class="col-md-12" style="margin-top: 50px">
+    <div class="col-md-12 top50">
         <header class="navbar navbar-default navbar-static-top row">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -112,10 +112,9 @@
             </div>
             <div class="col-md-12">temporary {{ $root.roles}}</div>
         </header>
-
         <div class="body-content row">
-            <div class="col-md-3" ui-view="leftContainer" ng-controller="leftContainerCtrl">
-                <section class="col-md-12 alert-info">
+            <div class="col-md-3 col-lg-3 container-fluid" ui-view="leftContainer" ng-controller="leftContainerCtrl">
+                <section class="col-md- alert-info row">
                     <h2>Эксетер </h2>
                     <div class="col-md-6">
                         <img src="https://upload.wikimedia.org/wikipedia/ru/f/f7/Exeter_City_Logo.png" />
@@ -123,7 +122,7 @@
                     <div class="col-md-6"><span style="text-align: center; font-size: 45pt">3:0</span></div>
 
                 </section>
-                <section class="col-md-12 alert-danger">
+                <section class="col-md- alert-danger row">
                     <div class="col-md-12"> Лучший игрок матча с Эксетером </div>
                     <div styleclass="col-md-12">
                         <img src="http://www.myliverpool.ru/images/Players/Squad12-13/Joe_Allen.png" />
@@ -132,31 +131,30 @@
                         Джо Аллен
                     </div>
                 </section>
-                <section></section>
+                <section class="row"></section>
             </div>
-            <div class="col-md-6 container-row" style="background-color: #f5deb3">
-                <div class="col-md-12 container-row">
+            <div class="col-md-6 col-lg-6 container-fluid" style="background-color: #f5deb3">
+                <div class="row">
                     <uib-alert ng-repeat="alert in $root.alerts" dismiss-on-timeout="5000" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
-                    <div class="col-md-12 container-row" ui-view="containerMain" autoscroll="false">
+                    <div class="col-md-12" ui-view="containerMain" autoscroll="false">
                         <div class="col-md-6" ui-view="newsFeed"></div>
                         <div class="col-md-6" ui-view="blogsFeed"></div>
                     </div>
                 </div>
-
             </div>
-            <div class="col-md-3" ui-view="rightContainer" ng-controller="rightContainerCtrl">
-                <section class="col-md-12">
-                    <table class="table table-responsive col-md-12">
+            <div class="col-sm-3 col-md-3 col-lg-3 container-fluid" ui-view="rightContainer" ng-controller="rightContainerCtrl">
+                <section class="col-md- row">
+                    <table class="table table-condensed table-striped table-responsive col-md-12">
                         <thead>
                             <tr>
                                 <th>#</th>
                                 <th>Команда</th>
-                                <th>Игры</th>
+                                <th>И</th>
                                 <th>В</th>
                                 <th>Н</th>
                                 <th>П</th>
-                                <th>Разница</th>
-                                <th>Очки</th>
+                                <th>+/-</th>
+                                <th>О</th>
                             </tr>
                         </thead>
                         <tbody>
