@@ -63,8 +63,6 @@
     }
 
     $scope.editComment = function (comment) {
-        console.log('deit 11');
-        console.log(comment);
         var modalInstance = $uibModal.open({
             animation: true,
             templateUrl: 'modalEditComment.html',
@@ -127,7 +125,6 @@
     }
 
     $scope.isModerator = function () {
-      //  console.log('isModerator NewsCommentCtrl');
         return Authentication.isModerator();
     }
 

@@ -63,7 +63,7 @@
     <div class="modal-body">
         <form class="form-horizontal" name="editCommentForm" role="form">
             <textarea mark-it-up class="col-md-offset-3 col-md-6" rows="6" name="message" ng-model="editingComment.message" validation="required"></textarea>
-            <textarea mark-it-up ng-if="$parent.isModerator()" class="col-md-offset-3 col-md-6" rows="6" name="answer" ng-model="editingComment.answer"></textarea>
+            <textarea mark-it-up ng-if="isModerator()" class="col-md-offset-3 col-md-6" rows="6" name="answer" ng-model="editingComment.answer"></textarea>
         </form>
     </div>
     <div class="modal-footer">
