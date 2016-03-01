@@ -32,6 +32,7 @@ namespace MyLiverpool.Common.MapperConfigurations.Profiles
                 .ForMember(dest => dest.LastModifiedOn, src => src.MapFrom(x => x.LastModified))
                 .ForMember(dest => dest.RoleGroupName, src => src.MapFrom(x => x.RoleGroup.RussianName))
                 .ForMember(dest => dest.RoleGroupId, src => src.MapFrom(x => x.RoleGroupId))
+                .ForMember(dest => dest.PhotoPath, src => src.MapFrom(x => x.PhotoPath))
                 .ForMember(dest => dest.UserName, src => src.MapFrom(x => x.UserName));
 
             _cfg.CreateMap<User, UserMiniDto>()

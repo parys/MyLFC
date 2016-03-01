@@ -6,6 +6,9 @@
             <a ui-sref="wpm({ userName: user.userName })"><span class="glyphicon glyphicon-envelope"></span></a>
         </span>
     </h2>
+    <div>
+        <img ng-src="{{user.photoPath}}"/>
+    </div>
 
     <form class="form-horizontal" role="form" ng-init="init()">
         <div class="form-group">

@@ -23,5 +23,8 @@ namespace MyLiverpool.Business.DTO
         public int RoleGroupId { get; set; }
 
         public DateTime? LockoutEndDateUtc { get; set; }
+
+        public string PhotoPath { get; set; }
+
     }
 }
