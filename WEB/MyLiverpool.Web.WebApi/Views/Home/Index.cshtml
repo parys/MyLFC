@@ -39,29 +39,38 @@
                         <span id="myError" style="display: none;"></span>
                     </div>
                     <div class="form-group">
-                            <p class="text-danger" ng-if="loginForm.errorMessage">{{loginForm.errorMessage}}</p>
+                        <p class="text-danger" ng-if="loginForm.errorMessage">{{loginForm.errorMessage}}</p>
                     </div>
                     <div class="form-group">
                         <div>
-                            <input type="submit" ng-click="login()" ng-disabled="!loginForm.userName || !loginForm.password" value="@CommonMessages.Login" class="btn btn-default" />
+                            <input type="submit" ng-click="login()" ng-disabled="!loginForm.userName || !loginForm.password" value="@CommonMessages.Login" class="btn btn-default"/>
                         </div>
                     </div>
                 </form>
             </li>
+            <li ng-if="!loggedIn()">
+                <a ui-sref="register">@CommonMessages.Register</a>
+            </li>
             @*<li>
-                    <a ui-sref="login({ returnUrl: getReturnUrl() })" ng-if="!loggedIn()">@CommonMessages.Login</a>
-                </li>*@
+                <a ui-sref="login({ returnUrl: getReturnUrl() })" ng-if="!loggedIn()">@CommonMessages.Login</a>
+            </li>*@
             <li>
-                <a ui-sref="register" ng-if="!loggedIn()">@CommonMessages.Register</a>
-            </li>
-            <li>
-                <a ui-sref="userInfo({id: userId()})" ng-if="loggedIn()">@CommonMessages.MyProfile</a>
-            </li>
-            <li>
-                <a ng-click="logout()" ng-if="loggedIn()">@CommonMessages.Logout</a>
-            </li>
-            <li>
-                <span class="label label-success" ng-if="loggedIn()">Logged In</span>
+                <ul class="nav navbar-nav" ng-if="loggedIn()">
+                    <li>
+                        <a ui-sref="userInfo({id: userId()})" class="padding0">
+                            <img class="nav-avatar" ng-src="{{$root.userImage}}"/>
+                        </a>
+                    </li>
+                    <li>
+                        <a ui-sref="userInfo({id: userId()})">@CommonMessages.MyProfile</a>
+                    </li>
+                    <li>
+                        <a ng-click="logout()">@CommonMessages.Logout</a>
+                    </li>
+                    <li>
+                        <span class="label label-success">Logged In</span>
+                    </li>
+                </ul>
             </li>
         </ul>
     </div>

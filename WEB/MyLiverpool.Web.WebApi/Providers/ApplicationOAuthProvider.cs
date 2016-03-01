@@ -54,7 +54,7 @@ namespace MyLiverpool.Web.WebApi.Providers
 
             var userRoles = await _unitOfWork.UserManager.GetRolesAsync(user.Id);
 
-            AuthenticationProperties properties = CreateProperties(user.UserName, user.Id, userRoles);
+            AuthenticationProperties properties = CreateProperties(user, userRoles);
             AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, properties);
             context.Validated(ticket);
             context.Request.Context.Authentication.SignIn(cookiesIdentity);
@@ -96,13 +96,14 @@ namespace MyLiverpool.Web.WebApi.Providers
             return Task.FromResult<object>(null);
         }
 
-        public static AuthenticationProperties CreateProperties(string userName, int id, IList<string> roles)
+        public static AuthenticationProperties CreateProperties(User user, IList<string> roles)
         {
             IDictionary<string, string> data = new Dictionary<string, string>
             {
-                { "userName", userName },
-                { "id", id.ToString() },
-                { "roles", string.Join(", ", roles) }
+                { "userName", user.UserName },
+                { "id", user.Id.ToString() },
+                { "roles", string.Join(", ", roles) },
+                { "userImage", user.PhotoPath }
             };
             return new AuthenticationProperties(data);
         }
