@@ -19,12 +19,13 @@ namespace MyLiverpool.Web.WebApi
                 .Include("~/Scripts/angular.js")
                 .Include("~/Scripts/angular-translate.js")
                 .Include("~/Scripts/loading-bar.js")
-                .IncludeDirectory("~/Scripts/angular", "*.js", false) //angular translate + static file loader
+                .IncludeDirectory("~/Scripts/angular", "*.js", false) // static file loader
                 .Include("~/Scripts/angular-ui/ui-bootstrap.js")
                 .Include("~/Scripts/angular-ui/ui-bootstrap-tpls.js")
                 .Include("~/Scripts/angular-validation/angular-validation.min.js") //ngroute before?
                 .Include("~/Scripts/angular-mocks.js") //ngroute before?
                 .Include("~/Scripts/angular-ui-router.js")
+                .Include("~/Scripts/ng-file-upload-all.js")
                 .IncludeDirectory("~/Scripts/objects", "*.js", true)
                 .IncludeDirectory("~/Scripts/Controllers", "*.js")
                 .IncludeDirectory("~/Scripts/Factories", "*.js")
