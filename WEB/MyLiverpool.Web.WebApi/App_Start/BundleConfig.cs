@@ -25,7 +25,8 @@ namespace MyLiverpool.Web.WebApi
                 .Include("~/Scripts/angular-validation/angular-validation.min.js") //ngroute before?
                 .Include("~/Scripts/angular-mocks.js") //ngroute before?
                 .Include("~/Scripts/angular-ui-router.js")
-                .Include("~/Scripts/ng-file-upload-all.js")
+                                .Include("~/Scripts/ng-file-upload-shim.js")
+                .Include("~/Scripts/ng-file-upload.js")
                 .IncludeDirectory("~/Scripts/objects", "*.js", true)
                 .IncludeDirectory("~/Scripts/Controllers", "*.js")
                 .IncludeDirectory("~/Scripts/Factories", "*.js")

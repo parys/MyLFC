@@ -256,6 +256,7 @@
     <Compile Include="Controllers\ApiImageController.cs" />
     <Compile Include="Controllers\ApiNewsCommentController.cs" />
     <Compile Include="Controllers\ApiRoleGroupController.cs" />
+    <Compile Include="Controllers\ApiUploadController.cs" />
     <Compile Include="Controllers\ApiUserController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BlogCommentController.cs" />
