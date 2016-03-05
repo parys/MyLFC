@@ -75,7 +75,7 @@ namespace MyLiverpool.Web.WebApi.Controllers
         [Authorize(Roles = "AdminStart")]
         public async Task<IHttpActionResult> EditRole(int userId, int roleGroupId)
         {
-            var result = await _userService.EditRoleGroup(userId, roleGroupId);
+            var result = await _userService.EditRoleGroupAsync(userId, roleGroupId);
             return Ok(result);
         } 
 
@@ -84,7 +84,7 @@ namespace MyLiverpool.Web.WebApi.Controllers
         [Authorize]
         public async Task<IHttpActionResult> GetUnreadPmCount()
         {
-            var result = await _userService.GetUnreadPmCount(User.Identity.GetUserId<int>());
+            var result = await _userService.GetUnreadPmCountAsync(User.Identity.GetUserId<int>());
             return Ok(result);
         } 
 
@@ -93,7 +93,7 @@ namespace MyLiverpool.Web.WebApi.Controllers
         [AllowAnonymous]
         public async Task<IHttpActionResult> GetUserNames(string typed)
         {
-            var result = await _userService.GetUserNames(typed);
+            var result = await _userService.GetUserNamesAsync(typed);
             return Ok(result);
         }
 

@@ -5,6 +5,6 @@ namespace MyLiverpoolSite.Business.Contracts
 {
     public interface IUploadService
     {
-        Task<bool> UpdateAvatar(int userId, HttpPostedFile file);
+        Task<bool> UpdateAvatarAsync(int userId, HttpPostedFile file);
     }
 }

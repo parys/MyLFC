@@ -206,7 +206,7 @@ namespace MyLiverpoolSite.Business.Services.Services
             return true;
         }
 
-        public async Task<bool> EditRoleGroup(int userId, int roleGroupId)
+        public async Task<bool> EditRoleGroupAsync(int userId, int roleGroupId)
         {
             var user = await _unitOfWork.UserManager.FindByIdAsync(userId);
             var oldRoleGroup = await _unitOfWork.RoleGroupRepository.GetByIdAsync(user.RoleGroupId);
@@ -235,12 +235,12 @@ namespace MyLiverpoolSite.Business.Services.Services
             return result.Succeeded; //todo return identityResult?
         }
 
-        public async Task<int> GetUnreadPmCount(int userId)
+        public async Task<int> GetUnreadPmCountAsync(int userId)
         {
             return await _unitOfWork.PrivateMessageRepository.GetCountAsync(x => !x.IsRead && x.ReceiverId == userId);
         }
 
-        public async Task<IEnumerable<string>> GetUserNames(string typed)
+        public async Task<IEnumerable<string>> GetUserNamesAsync(string typed)
         {
             IEnumerable<string> userNames = new List<string>();
             if (string.IsNullOrEmpty(typed))
@@ -250,6 +250,23 @@ namespace MyLiverpoolSite.Business.Services.Services
             var users = await _unitOfWork.UserRepository.GetAsync(x => x.UserName.Contains(typed));
             return users.Select(x => x.UserName);
         }
+
+        public async Task<string> GetPhotoPathAsync(int userId)
+        {
+            var user = await _unitOfWork.UserManager.FindByIdAsync(userId);
+            return user.PhotoPath;
+        }
+
+        public async Task<bool> UpdatePhotoPathAsync(int userId, string photoPath)
+        {
+            var user = await _unitOfWork.UserManager.FindByIdAsync(userId);
+            user.PhotoPath = photoPath;
+            var result = await _unitOfWork.UserManager.UpdateAsync(user);
+            return result.Succeeded;
+        }
+        #endregion
+
+        #region helpers
 
         private IEnumerable<string> GetRolesToDelete(IEnumerable<Role> oldRoles, IEnumerable<Role> newRoles)
         {

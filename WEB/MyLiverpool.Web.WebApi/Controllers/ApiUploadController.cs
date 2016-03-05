@@ -34,7 +34,7 @@ namespace MyLiverpool.Web.WebApi.Controllers
                 if (HttpContext.Current.Request.Files.Count > 0)
                 {
                     var file = HttpContext.Current.Request.Files[0];
-                    var result = await _uploadService.UpdateAvatar(userId, file);
+                    var result = await _uploadService.UpdateAvatarAsync(userId, file);
                   
                     return Ok(result);
                 }

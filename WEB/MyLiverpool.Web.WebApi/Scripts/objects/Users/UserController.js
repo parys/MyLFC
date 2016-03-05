@@ -103,7 +103,7 @@
         $scope.errFile = errFiles && errFiles[0];
         if (file) {
             file.upload = Upload.upload({
-                url: '/api/upload/avatar?id=' + $scope.user.id,
+                url: '/api/upload/avatar?userId=' + $scope.user.id,
                 method: "POST",
                 file: file
             });
