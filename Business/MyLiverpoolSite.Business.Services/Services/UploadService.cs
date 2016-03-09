@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
 using MyLiverpoolSite.Business.Contracts;
@@ -9,7 +10,8 @@ namespace MyLiverpoolSite.Business.Services.Services
 {
     public class UploadService : IUploadService
     {
-        public const string AvatarPath = "~/Content/avatars";
+        public const string AvatarPath = "Content\\avatars";
+        public const int FilesPerFolder = 200;
         private readonly IUserService _userService;
 
         public UploadService(IUserService userService)
@@ -17,28 +19,49 @@ namespace MyLiverpoolSite.Business.Services.Services
             _userService = userService;
         }
 
-        public async Task<bool> UpdateAvatarAsync(int userId, HttpPostedFile file)
+        public async Task<string> UpdateAvatarAsync(int userId, HttpPostedFile file)
         {
-            var oldPath = await _userService.GetPhotoPathAsync(userId);
-            if (string.IsNullOrEmpty(oldPath))
+            var path = await _userService.GetPhotoPathAsync(userId);
+            var relativePath = path;
+            if (string.IsNullOrEmpty(path))
             {
-                oldPath = GetFullPath(GenerateNewPath(AvatarPath), file.FileName);
+                var newName = GenerateNewName() + "." + file.FileName.Split('.').Last();
+                var newPath = GenerateNewPath(AvatarPath);
+                relativePath = Path.Combine(newPath, newName);
+                path = GetFullPath(relativePath);
             }
             else
             {
-                oldPath = GetFullPath(oldPath);
+                path = GetFullPath(path);
             }
 
-            file.SaveAs(oldPath);
-            return true;
+            file.SaveAs(path);
+            relativePath = Regex.Replace(relativePath, "\\\\", "/");
+            await _userService.UpdatePhotoPathAsync(userId, relativePath);
+            return relativePath;
         }
 
         private string GenerateNewPath(string path)
         {
-            //working with folders
-            var directoryInfos = Directory.EnumerateDirectories(path);
-            var lastFolderName = directoryInfos.Select(int.Parse).Max();
-            return "0";
+            var fullPath = GetFullPath(path);
+            string directoryName = String.Empty;
+            try
+            {
+                var directoryInfo = Directory.EnumerateDirectories(fullPath).Last();
+                var lastFolderName = int.Parse(directoryInfo.Split('\\').Last());
+                directoryName = lastFolderName.ToString();
+                if (Directory.GetFiles(directoryInfo).Count() >= FilesPerFolder)
+                {
+                    directoryName = (lastFolderName + 1).ToString();
+                    directoryInfo = Path.Combine(fullPath + directoryName);
+                    Directory.CreateDirectory(directoryInfo);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            return Path.Combine(path, directoryName);
         }
 
         private string GenerateNewName()
@@ -48,18 +71,14 @@ namespace MyLiverpoolSite.Business.Services.Services
             do
             {
                 newName = random.Next(100000, 999999).ToString();
-            } while (!File.Exists(newName));
+            } while (File.Exists(newName));
             return newName;
-        }
-
-        private string GetFullPath(string prefix, string fileName)
-        {
-            return HttpContext.Current.Server.MapPath("~") + prefix + fileName;
         }
 
         private string GetFullPath(string prefix)
         {
-            return GetFullPath(prefix, string.Empty);
+            var path = HttpContext.Current.Server.MapPath("~");
+            return Path.Combine(path, prefix);
         }
     }
 }

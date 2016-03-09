@@ -1,4 +1,4 @@
-﻿var UserController = function ($scope, $stateParams, UsersFactory, RoleGroupsFactory, $uibModal, $rootScope, Upload, $timeout) {
+﻿var UserController = function ($scope, $stateParams, UsersFactory, RoleGroupsFactory, $uibModal, $rootScope, Upload, Authentication) {
     $scope.user = [];
     $scope.roleGroups = [];
     $scope.id = $stateParams.id;
@@ -109,9 +109,11 @@
             });
 
             file.upload.then(function (response) {
-                $timeout(function () {
-                    file.result = response.data;
-                });
+                console.log(response);
+                $scope.user.photoPath = response.data + '?r=' + Math.round();
+                if ($scope.user.id == Authentication.getUserId()) {
+                    $rootScope.userImage = $scope.user.photoPath;
+                }
             }, function (response) {
                 if (response.status > 0)
                     $scope.errorMsg = response.status + ': ' + response.data;
@@ -123,4 +125,4 @@
     }
 };
 
-UserController.$inject = ['$scope', '$stateParams', 'UsersFactory', 'RoleGroupsFactory', '$uibModal', '$rootScope', 'Upload', '$timeout'];
+UserController.$inject = ['$scope', '$stateParams', 'UsersFactory', 'RoleGroupsFactory', '$uibModal', '$rootScope', 'Upload', 'Authentication'];

@@ -1,9 +1,11 @@
 ﻿using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using Microsoft.AspNet.Identity;
 using MyLiverpoolSite.Business.Contracts;
 
 namespace MyLiverpool.Web.WebApi.Controllers
@@ -24,6 +26,10 @@ namespace MyLiverpool.Web.WebApi.Controllers
         [HttpPost]
         public async Task<IHttpActionResult> UploadAvatar(int userId)
         {
+            if (!User.IsInRole("UsersStart") && User.Identity.GetUserId<int>() != userId)
+            {
+                return StatusCode(HttpStatusCode.Forbidden);
+            }
             if (!Request.Content.IsMimeMultipartContent())
             {
                 return BadRequest();

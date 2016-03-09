@@ -321,7 +321,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 RegistrationDate = DateTime.Now,
                 Birthday = DateTime.Now,
                 RoleGroupId = 1,
-                PhotoPath = "content/avatars/00/755939.jpeg"
+                PhotoPath = "content/avatars/0/755939.jpeg"
             };
 
             var userStore = new UserStore<User, Role, int, UserLogin, UserRole, UserClaim>(context);
