@@ -57,7 +57,7 @@ namespace MyLiverpoolSite.Data.Entities
 
      //   public string Password { get; set; }
 
-        public string PhotoPath { get; set; }
+        public string Photo { get; set; }
 
         public string FullName { get; set; }
 

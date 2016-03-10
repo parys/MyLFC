@@ -5,21 +5,25 @@
             <a ui-sref="wpm({ userName: user.userName })"><span class="glyphicon glyphicon-envelope"></span></a>
         </span>
     </h2>
-    <div ng-if="isSelf() || isModerator()">
-        <img style="width: 100px; height: 100px;" ng-src="{{user.photoPath}}"/>
-        <button  ngf-select="uploadFiles($file, $invalidFiles)"
-                accept="image/*" ngf-max-height="1000" ngf-max-size="1MB">
-            Select File
-        </button>
-        <br><br>
-        <div>
-            <span ng-show="errFile.$error" ng-bind="errFile.$error"></span>
-            <span ng-show="errFile.$errorParam" ng-bind="errFile.$errorParam"></span> 
-            <span class="progress" ng-show="f.progress >= 0">
-                <span style="width:{{f.progress}}%"ng-bind="f.progress + '%'"></span>
-            </span>
+    <div ng-if="isSelf() || isModerator()" class="clearfix">
+        <div class="col-md-2">
+            <img class="avatar" ng-src="{{user.photo}}"/>
         </div>
-        {{errorMsg}}
+        <div class="col-md-10">
+            <button class="btn btn-info" ngf-select="uploadFiles($file, $invalidFiles)"
+                    accept="image/*" ngf-max-height="1000" ngf-max-size="1MB">
+                @CommonMessages.UpdateAvatar
+            </button>
+            <br><br>
+            <div>
+                <span ng-show="errFile.$error" ng-bind="errFile.$error"></span>
+                <span ng-show="errFile.$errorParam" ng-bind="errFile.$errorParam"></span>
+                <span class="progress" ng-show="f.progress >= 0">
+                    <span style="width:{{f.progress}}%" ng-bind="f.progress + '%'"></span>
+                </span>
+            </div>
+            {{errorMsg}}
+        </div>
     </div>
 
     <form class="form-horizontal" role="form" ng-init="init()">

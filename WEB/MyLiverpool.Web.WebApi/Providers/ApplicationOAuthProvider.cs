@@ -103,7 +103,7 @@ namespace MyLiverpool.Web.WebApi.Providers
                 { "userName", user.UserName },
                 { "id", user.Id.ToString() },
                 { "roles", string.Join(", ", roles) },
-                { "userImage", user.PhotoPath }
+                { "userImage", user.Photo }
             };
             return new AuthenticationProperties(data);
         }

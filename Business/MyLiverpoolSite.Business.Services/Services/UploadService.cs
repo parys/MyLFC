@@ -10,7 +10,7 @@ namespace MyLiverpoolSite.Business.Services.Services
 {
     public class UploadService : IUploadService
     {
-        public const string AvatarPath = "Content\\avatars";
+        public const string AvatarPath = "Content\\avatars\\";
         public const int FilesPerFolder = 200;
         private readonly IUserService _userService;
 
@@ -41,6 +41,7 @@ namespace MyLiverpoolSite.Business.Services.Services
             return relativePath;
         }
 
+        #region private helpers 
         private string GenerateNewPath(string path)
         {
             var fullPath = GetFullPath(path);
@@ -52,12 +53,12 @@ namespace MyLiverpoolSite.Business.Services.Services
                 directoryName = lastFolderName.ToString();
                 if (Directory.GetFiles(directoryInfo).Count() >= FilesPerFolder)
                 {
-                    directoryName = (lastFolderName + 1).ToString();
+                    directoryName = (lastFolderName + 1) + "\\";
                     directoryInfo = Path.Combine(fullPath + directoryName);
                     Directory.CreateDirectory(directoryInfo);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -80,5 +81,6 @@ namespace MyLiverpoolSite.Business.Services.Services
             var path = HttpContext.Current.Server.MapPath("~");
             return Path.Combine(path, prefix);
         }
+        #endregion
     }
 }

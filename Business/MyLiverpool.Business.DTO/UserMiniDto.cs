@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyLiverpool.Business.DTO
 {
@@ -17,5 +13,7 @@ namespace MyLiverpool.Business.DTO
         public DateTime LastModified { get; set; }
 
         public string RoleGroupName { get; set; }
+
+        public string Photo { get; set; }
     }
 }

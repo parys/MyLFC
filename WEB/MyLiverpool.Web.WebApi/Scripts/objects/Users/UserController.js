@@ -110,9 +110,9 @@
 
             file.upload.then(function (response) {
                 console.log(response);
-                $scope.user.photoPath = response.data + '?r=' + Math.round();
+                $scope.user.photo = response.data + '?r=' + Math.round();
                 if ($scope.user.id == Authentication.getUserId()) {
-                    $rootScope.userImage = $scope.user.photoPath;
+                    $rootScope.userImage = $scope.user.photo;
                 }
             }, function (response) {
                 if (response.status > 0)

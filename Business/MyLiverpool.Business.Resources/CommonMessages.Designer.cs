@@ -385,6 +385,15 @@ namespace MyLiverpool.Business.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Обновить аватар.
+        /// </summary>
+        public static string UpdateAvatar {
+            get {
+                return ResourceManager.GetString("UpdateAvatar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Пользователи.
         /// </summary>
         public static string Users {

@@ -16,7 +16,12 @@
                         {{ user.lastModified | date:'medium' }}
                     </td>
                     <td class="">
-                        <a ui-sref="userInfo({id: user.id})">{{ user.userName }}</a>
+                        <a ui-sref="userInfo({id: user.id})">
+                            <div class="col-md-3">
+                                <img class="mini-avatar" ng-src="{{user.photo}}" />
+                            </div>
+                            {{ user.userName }}
+                        </a>
                         <a ng-show="loggedIn() && isNotSelf(user.id, userId())" ui-sref="wpm({ userName: user.userName })"><span class="glyphicon glyphicon-envelope"></span></a>
                     </td>
                     <td class="">

@@ -24,7 +24,7 @@ namespace MyLiverpool.Business.DTO
 
         public DateTime? LockoutEndDateUtc { get; set; }
 
-        public string PhotoPath { get; set; }
+        public string Photo { get; set; }
 
     }
 }

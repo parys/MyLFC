@@ -53,6 +53,6 @@ namespace MyLiverpoolSite.Business.Contracts
 
         Task<string> GetPhotoPathAsync(int userId);
 
-        Task<bool> UpdatePhotoPathAsync(int userId, string photoPath);
+        Task<bool> UpdatePhotoPathAsync(int userId, string photo);
     }
 }

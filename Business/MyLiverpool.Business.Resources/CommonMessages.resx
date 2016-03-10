@@ -231,4 +231,7 @@
   <data name="Unban" xml:space="preserve">
     <value>Разблокировать</value>
   </data>
+  <data name="UpdateAvatar" xml:space="preserve">
+    <value>Обновить аватар</value>
+  </data>
 </root>

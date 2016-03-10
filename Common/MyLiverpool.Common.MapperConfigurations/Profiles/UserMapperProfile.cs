@@ -32,7 +32,7 @@ namespace MyLiverpool.Common.MapperConfigurations.Profiles
                 .ForMember(dest => dest.LastModifiedOn, src => src.MapFrom(x => x.LastModified))
                 .ForMember(dest => dest.RoleGroupName, src => src.MapFrom(x => x.RoleGroup.RussianName))
                 .ForMember(dest => dest.RoleGroupId, src => src.MapFrom(x => x.RoleGroupId))
-                .ForMember(dest => dest.PhotoPath, src => src.MapFrom(x => x.PhotoPath))
+                .ForMember(dest => dest.Photo, src => src.MapFrom(x => x.Photo))
                 .ForMember(dest => dest.UserName, src => src.MapFrom(x => x.UserName));
 
             _cfg.CreateMap<User, UserMiniDto>()
@@ -40,6 +40,7 @@ namespace MyLiverpool.Common.MapperConfigurations.Profiles
                 .ForMember(dest => dest.LastModified, src => src.MapFrom(x => x.LastModified))
                 .ForMember(dest => dest.RegistrationDate, src => src.MapFrom(x => x.RegistrationDate))
                 .ForMember(dest => dest.RoleGroupName, src => src.MapFrom(x => x.RoleGroup.RussianName))
+                .ForMember(dest => dest.Photo, src => src.MapFrom(x => x.Photo))
                 .ForMember(dest => dest.UserName, src => src.MapFrom(x => x.UserName));
 
             _cfg.CreateMap<RegisterUserDto, User>()
@@ -54,7 +55,7 @@ namespace MyLiverpool.Common.MapperConfigurations.Profiles
                 .ForMember(dest => dest.Ip, src => src.Ignore()) //MapFrom(x => x.))
                 .ForMember(dest => dest.OldId, src => src.Ignore()) //MapFrom(x => x.))
                 .ForMember(dest => dest.LastModified, src => src.Ignore()) //MapFrom(x => x.))
-                .ForMember(dest => dest.PhotoPath, src => src.Ignore()) //MapFrom(x => x.))
+                .ForMember(dest => dest.Photo, src => src.Ignore()) //MapFrom(x => x.))
                 .ForMember(dest => dest.RegistrationDate, src => src.Ignore()) //MapFrom(x => x.))
                 .ForMember(dest => dest.RoleGroupId, src => src.Ignore()) //MapFrom(x => x.))
                 .ForMember(dest => dest.RoleGroup, src => src.Ignore()) //MapFrom(x => x.))

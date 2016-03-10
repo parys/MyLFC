@@ -227,7 +227,7 @@ namespace MyLiverpoolSite.Business.Services.Services
                     await _unitOfWork.UserManager.AddToRolesAsync(userId, toAdd);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 
             }
@@ -254,13 +254,13 @@ namespace MyLiverpoolSite.Business.Services.Services
         public async Task<string> GetPhotoPathAsync(int userId)
         {
             var user = await _unitOfWork.UserManager.FindByIdAsync(userId);
-            return user.PhotoPath;
+            return user.Photo;
         }
 
-        public async Task<bool> UpdatePhotoPathAsync(int userId, string photoPath)
+        public async Task<bool> UpdatePhotoPathAsync(int userId, string photo)
         {
             var user = await _unitOfWork.UserManager.FindByIdAsync(userId);
-            user.PhotoPath = photoPath;
+            user.Photo = photo;
             var result = await _unitOfWork.UserManager.UpdateAsync(user);
             return result.Succeeded;
         }
