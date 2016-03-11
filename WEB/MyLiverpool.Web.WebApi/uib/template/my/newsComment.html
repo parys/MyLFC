@@ -10,7 +10,12 @@
             </span>
         </div>
         <div class="col-md-12">
-            <p ng-bind-html="comment.message | rawHtml"></p>
+            <div class="col-md-2 container-row">
+                <img class="avatar-medium" ng-src="{{comment.photo}}"/>
+            </div>
+            <div class="col-md-10">
+                <p ng-bind-html="comment.message | rawHtml"></p>
+            </div>
         </div>
         <div class="col-md-12" ng-show="comment.answer">
             <div class="col-md-2">Ответ:</div>

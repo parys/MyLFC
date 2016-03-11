@@ -22,6 +22,8 @@ namespace MyLiverpool.Business.DTO
 
         public int AuthorId { get; set; }
 
+        public string Photo { get; set; }
+
         [AllowHtml]
         public string Message { get; set; }
 

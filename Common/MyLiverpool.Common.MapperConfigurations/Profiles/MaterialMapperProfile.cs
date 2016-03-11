@@ -125,6 +125,7 @@ namespace MyLiverpool.Common.MapperConfigurations.Profiles
                 .ForMember(dest => dest.Answer, src => src.MapFrom(x => x.Answer))
                 .ForMember(dest => dest.AuthorId, src => src.MapFrom(x => x.AuthorId))
                 .ForMember(dest => dest.AuthorUserName, src => src.MapFrom(x => x.Author.UserName))
+                .ForMember(dest => dest.Photo, src => src.MapFrom(x => x.Author.Photo))
                 .ForMember(dest => dest.Children, src => src.MapFrom(x => x.Children))
                 .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id))
                 .ForMember(dest => dest.NewsItemId, src => src.MapFrom(x => x.MaterialId))
