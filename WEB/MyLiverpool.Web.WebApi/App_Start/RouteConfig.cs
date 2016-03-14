@@ -106,6 +106,11 @@ namespace MyLiverpool.Web.WebApi
                 defaults: new {controller = "Image", action = "Index"});
 
             routes.MapRoute(
+                name: "rules",
+                url: "home/rules",
+                defaults: new {controller = "Home", action = "Rules"});
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{*url}",
                 defaults: new { controller = "Home", action = "Index" });

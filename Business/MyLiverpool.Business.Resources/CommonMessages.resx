@@ -234,4 +234,7 @@
   <data name="UpdateAvatar" xml:space="preserve">
     <value>Обновить аватар</value>
   </data>
+  <data name="Rules" xml:space="preserve">
+    <value>Правила</value>
+  </data>
 </root>

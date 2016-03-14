@@ -53,6 +53,12 @@ textarea {
     }
 }
 
+@media (max-width: 768px){
+    .navbar-fixed-top {
+        position: relative;
+    } 
+}
+
 .top20 {
     margin-top: 20px;
 }

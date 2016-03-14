@@ -1,4 +1,4 @@
-﻿var App = angular.module('app', ['ui.router', 'ui.bootstrap', 'ngCookies', 'pascalprecht.translate', 'ghiscoding.validation', 'ui.router.title', 'angular-loading-bar', 'autocomplete', 'ngFileUpload']);
+﻿var App = angular.module('liverpoolApp', ['ui.router', 'ui.bootstrap', 'ngCookies', 'pascalprecht.translate', 'ghiscoding.validation', 'ui.router.title', 'angular-loading-bar', 'autocomplete', 'ngFileUpload']);
 
 App.controller('LandingPageController', LandingPageController);
 App.controller('LoginController', LoginController);
@@ -47,7 +47,7 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider,
 
     $locationProvider.hashPrefix('!').html5Mode({
         enabled: true,
-        requireBase : false
+        requireBase: false
     });
 
     $stateProvider
@@ -68,44 +68,55 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider,
             },
             resolve: {
                 // Constant title
-                $title: function() { return 'Главная'; }
+                $title: function () { return 'Главная'; }
             }
-
+        })
+        .state('rules', {
+            url: '/rules',
+            views: {
+                "containerMain": {
+                    templateUrl: '/home/rules',
+                    controller: leftContainerCtrl
+                }
+            },
+            resolve: {
+                $title: function () { return 'Правила'; }
+            }
         })
         .state('news', {
             url: '/news?page&categoryId',
             views: {
                 "containerMain": {
-                    templateUrl: function(params) { return '/news/list?page=' + params.page + '&categoryId=' + params.categoryId },
+                    templateUrl: function (params) { return '/news/list?page=' + params.page + '&categoryId=' + params.categoryId },
                     controller: NewsController
                 }
             },
             resolve: {
-                $title: function() { return 'Новости'; }
+                $title: function () { return 'Новости'; }
             }
         })
         .state('newsInfo', {
             url: '/newsInfo?id',
             views: {
                 "containerMain": {
-                    templateUrl: function(params) { return '/news/info?id=' + params.id },
+                    templateUrl: function (params) { return '/news/info?id=' + params.id },
                     controller: NewsItemController
                 }
             },
             resolve: {
-                $title: function() { return 'Название новости'; } //todo
+                $title: function () { return 'Название новости'; } //todo
             }
         })
         .state('newsEdit', {
             url: '/newsEdit?id',
             views: {
                 "containerMain": {
-                    templateUrl: function(params) { return '/news/Edit?id=' + params.id },
+                    templateUrl: function (params) { return '/news/Edit?id=' + params.id },
                     controller: NewsEditCtrl
                 }
             },
             resolve: {
-                $title: function() { return 'Редактирование новости'; }
+                $title: function () { return 'Редактирование новости'; }
             }
         })
         .state('newsCategories', {
@@ -117,43 +128,43 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider,
                 }
             },
             resolve: {
-                $title: function() { return 'Категории новостей'; }
+                $title: function () { return 'Категории новостей'; }
             }
         })
         .state('userInfo', {
             url: '/userInfo?id',
             views: {
                 "containerMain": {
-                    templateUrl: function(params) { return '/user/info?id=' + params.id },
+                    templateUrl: function (params) { return '/user/info?id=' + params.id },
                     controller: UserController
                 }
             },
             resolve: {
-                $title: function() { return 'Профиль '; } //todo
+                $title: function () { return 'Профиль '; } //todo
             }
         })
         .state('users', {
             url: '/users?page',
             views: {
                 "containerMain": {
-                    templateUrl: function(params) { return '/user/list?page=' + params.page },
+                    templateUrl: function (params) { return '/user/list?page=' + params.page },
                     controller: UsersController
                 }
             },
             resolve: {
-                $title: function() { return 'Пользователи'; }
+                $title: function () { return 'Пользователи'; }
             }
         })
         .state('images', {
             url: '/images?path',
             views: {
                 "containerMain": {
-                    templateUrl: function(params) { return '/images/index?path=' + params.path },
+                    templateUrl: function (params) { return '/images/index?path=' + params.path },
                     controller: ImagesCtrl
                 }
             },
             resolve: {
-                $title: function() { return 'Изображения '; } //todo
+                $title: function () { return 'Изображения '; } //todo
             }
         })
         //.state('sign-out', {
@@ -185,19 +196,19 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider,
                 }
             },
             resolve: {
-                $title: function() { return 'Личные сообщения'; }
+                $title: function () { return 'Личные сообщения'; }
             }
         })
         .state('pm', {
             url: '/pm?id',
             views: {
                 "containerMain": {
-                    templateUrl: function(params) { return '/User/Pm?id=' + params.id },
+                    templateUrl: function (params) { return '/User/Pm?id=' + params.id },
                     controller: PmController
                 }
             },
             resolve: {
-                $title: function() { return 'Чтение сообщения'; }
+                $title: function () { return 'Чтение сообщения'; }
             }
         })
         .state('wpm', {
@@ -211,7 +222,7 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider,
             params: {
                 title: null,
                 userName: null
-    },
+            },
             resolve: {
                 $title: function () { return 'Написание сообщения'; }
             }
@@ -232,7 +243,7 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider,
             url: '/login?returnUrl',
             views: {
                 "containerMain": {
-                    templateUrl: function(params) { return '/Account/Login?returnUrl=' + params.returnUrl },
+                    templateUrl: function (params) { return '/Account/Login?returnUrl=' + params.returnUrl },
                     controller: LoginController
                 }
             },
@@ -257,7 +268,7 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider,
             url: '/subsection?id&page',
             views: {
                 "containerMain": {
-                    templateUrl: function(params) { return '/Forum/Subsection?id=' + params.id + '&page=' + params.page },
+                    templateUrl: function (params) { return '/Forum/Subsection?id=' + params.id + '&page=' + params.page },
                     controller: ForumSubsectionController
                 }
             },
@@ -269,7 +280,7 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider,
             url: '/theme?id&page',
             views: {
                 "containerMain": {
-                    templateUrl: function(params) { return '/Forum/Theme?id=' + params.id + '&page=' + params.page },
+                    templateUrl: function (params) { return '/Forum/Theme?id=' + params.id + '&page=' + params.page },
                     controller: ForumThemeController
                 }
             },
@@ -293,8 +304,8 @@ configFunction.$inject = ['$stateProvider', '$httpProvider', '$locationProvider'
 
 App.config(configFunction);
 
-App.filter('rawHtml', ['$sce', function($sce){
-    return function(val) {
+App.filter('rawHtml', ['$sce', function ($sce) {
+    return function (val) {
         return $sce.trustAsHtml(val);
     };
 }]);
@@ -304,7 +315,7 @@ App.run(function (Authentication, Application, $rootScope, $location, RouteFilte
     Authentication.requestUser();
 
     //    .then(function () {
-   //     Application.makeReady();
+    //     Application.makeReady();
     // });//todo
     $rootScope.alerts = [];
 
@@ -312,19 +323,19 @@ App.run(function (Authentication, Application, $rootScope, $location, RouteFilte
         $rootScope.alerts.splice(index, 1);
     };
 
-    
 
-    $rootScope.$on('$stateChangeStart', function(scope, next, current) {
+
+    $rootScope.$on('$stateChangeStart', function (scope, next, current) {
         //console.log('stateChange ');
         //console.log(next);
 
         //if (next.name == 'login') {
-            
+
         //}
-       // if ($location.path() === '/loading') return;
+        // if ($location.path() === '/loading') return;
         //todo edit to use STATE
 
-        if (! Application.isReady()) {
+        if (!Application.isReady()) {
             //     $location.path('loading');
             console.log('not ready');
         }
@@ -341,7 +352,7 @@ App.run(function (Authentication, Application, $rootScope, $location, RouteFilte
     });
 
     uibPaginationConfig.itemsPerPage = 15;
-        uibPaginationConfig.directionLinks = false;
-        uibPaginationConfig.maxSize = 5;
-        uibPaginationConfig.rotate = false;
+    uibPaginationConfig.directionLinks = false;
+    uibPaginationConfig.maxSize = 5;
+    uibPaginationConfig.rotate = false;
 });

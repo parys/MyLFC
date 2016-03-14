@@ -573,6 +573,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\AboutClub.cshtml" />
     <Content Include="Scripts\jquery-2.2.1.min.map" />
+    <None Include="Views\Home\Rules.cshtml" />
     <None Include="Web.someeFreeQA.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,4 +1,9 @@
-﻿var LandingPageController = function ($scope, $state, Authentication, RouteFilter, AccountFactory, $location, UsersFactory, $interval) {
+﻿'use strict';
+
+//angular.module('liverpoolApp')
+//.controller('Authentication', function Authentication($scope, $state, Authentication, RouteFilter, AccountFactory, $location, UsersFactory, $interval) {
+
+var LandingPageController = function ($scope, $state, Authentication, RouteFilter, AccountFactory, $location, UsersFactory, $interval) {
     $scope.unreadPmCount = 0;
 
     $scope.userId = function () {

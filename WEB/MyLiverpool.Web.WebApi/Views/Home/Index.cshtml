@@ -1,6 +1,6 @@
 ﻿@using MyLiverpool.Business.Resources
 <!DOCTYPE html>
-<html lang="ru" ng-app="app" ng-controller="LandingPageController">
+<html lang="ru" ng-app="liverpoolApp" ng-controller="LandingPageController">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -117,6 +117,7 @@
                         </ul>
                     </li>
                     <li> <a ng-if="isNewsmaker() || isAuthor()" ui-sref="images({path: 'content'})">@CommonMessages.Images</a></li>
+                    <li> <a ui-sref="rules()">@CommonMessages.Rules</a></li>
                 </ul>
             </div>
             <div class="col-md-12">temporary {{ $root.roles}}</div>
