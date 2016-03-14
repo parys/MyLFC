@@ -54,8 +54,9 @@ namespace MyLiverpool.Web.WebApi.Controllers
 
         [Route("IsLogined")]
         [HttpGet]
-        public IHttpActionResult IsLogined()
+        public async Task<IHttpActionResult> IsLogined()
         {
+            await _accountService.UpdateLastModified(User.Identity.GetUserId<int>());
             return Ok();
         }
 

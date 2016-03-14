@@ -62,6 +62,18 @@ namespace MyLiverpoolSite.Business.Services.Services
             return result;
         }
 
+        public async Task<IdentityResult> UpdateLastModified(int userId)
+        {
+            var user = await _unitOfWork.UserManager.FindByIdAsync(userId);
+            user.LastModified = DateTime.Now;
+            var result = await _unitOfWork.UserManager.UpdateAsync(user);
+            if (result.Succeeded)
+            {
+                await _unitOfWork.SaveAsync();
+            }
+            return result;
+        }
+
 
         //public HttpCookie GetCookie(int userId, bool rememberMe)
         //{

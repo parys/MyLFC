@@ -76,7 +76,7 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider,
             views: {
                 "containerMain": {
                     templateUrl: '/home/rules',
-                    controller: leftContainerCtrl
+                    controller: leftContainerCtrl //todo change
                 }
             },
             resolve: {

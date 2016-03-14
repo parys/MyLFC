@@ -18,5 +18,7 @@ namespace MyLiverpoolSite.Business.Contracts
         Task<DateTime> GetLockOutEndDateAsync(string userName);
 
         Task<IdentityResult> RegisterUserAsync(RegisterUserDto model);
+
+        Task<IdentityResult> UpdateLastModified(int userId);
     }
 }
