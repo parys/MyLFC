@@ -1,20 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using AutoMapper;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
-using Microsoft.Owin.Cors;
 using Microsoft.Owin.Security.Cookies;
-using Microsoft.Owin.Security.Google;
 using Microsoft.Owin.Security.OAuth;
 using MyLiverpool.Web.WebApi.Providers;
-using Owin;
 using MyLiverpoolSite.Business.Services;
 using MyLiverpoolSite.Data.DataAccessLayer;
-using MyLiverpoolSite.Data.Entities;
+using Owin;
 
 namespace MyLiverpool.Web.WebApi
 {

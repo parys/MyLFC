@@ -6,7 +6,7 @@ namespace MyLiverpool.Web.WebApi
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
-            filters.Add(new ElmahErrorAttribute());
+            filters.Add(new HandleErrorAttribute());
         }
     }
 }

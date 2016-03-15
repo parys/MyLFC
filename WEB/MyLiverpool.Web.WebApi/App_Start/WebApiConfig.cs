@@ -1,6 +1,8 @@
 ﻿using System.Dynamic;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using System.Web.Http.ExceptionHandling;
+using Elmah.Contrib.WebApi;
 using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Serialization;
 
@@ -21,7 +23,7 @@ namespace MyLiverpool.Web.WebApi
 
             config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
 
-          //  config.Filters.Add(new ElmahErrorAttribute());
+            config.Services.Add(typeof(IExceptionLogger), new ElmahExceptionLogger());
 
             // Web API routes
             config.MapHttpAttributeRoutes();
