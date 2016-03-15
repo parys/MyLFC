@@ -15,12 +15,14 @@ namespace MyLiverpoolSite.Business.Services.Services
     //    private readonly IUserService _userService;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly IIdentityMessageService _messageService;
 
-        public AccountService(IUnitOfWork unitOfWork, IMapper mapper)
+        public AccountService(IUnitOfWork unitOfWork, IMapper mapper, IIdentityMessageService messageService)
         {
             //   _userService = userService;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _messageService = messageService;
         }
 
         public Task<int> GetUserIdByLoginAndPassword(string login, string password)
@@ -59,6 +61,13 @@ namespace MyLiverpoolSite.Business.Services.Services
 
             IdentityResult result = await _unitOfWork.UserManager.CreateAsync(user, model.Password);
             await _unitOfWork.UserManager.AddToRoleAsync(user.Id, RolesEnum.Simple.ToString());
+            var message = new IdentityMessage()
+            {
+                Destination = user.Email,
+                Body = "test",
+                Subject = "test"
+            };
+            await _messageService.SendAsync(message);
             return result;
         }
 
@@ -73,26 +82,5 @@ namespace MyLiverpoolSite.Business.Services.Services
             }
             return result;
         }
-
-
-        //public HttpCookie GetCookie(int userId, bool rememberMe)
-        //{
-        //    var authTicket = new FormsAuthenticationTicket(
-        //                       1,
-        //                       Convert.ToString(userId),
-        //                       DateTime.Now,
-        //                       DateTime.Now.AddDays(20),
-        //                       rememberMe,
-        //                       string.Empty,
-        //                       "/"
-        //                       );
-        //    HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName,
-        //        FormsAuthentication.Encrypt(authTicket));
-        //    if (rememberMe)
-        //    {
-        //        cookie.Expires = DateTime.Now.AddDays(20);
-        //    }
-        //    return cookie;
-        //}
     }
 }

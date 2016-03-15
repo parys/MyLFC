@@ -3,10 +3,12 @@ using System.Web.Http;
 using Autofac;
 using Autofac.Integration.WebApi;
 using AutoMapper;
+using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
 using MyLiverpool.Common.MapperConfigurations.Profiles;
 using MyLiverpool.Web.WebApi;
 using MyLiverpoolSite.Business.Contracts;
+using MyLiverpoolSite.Business.Services;
 using MyLiverpoolSite.Business.Services.Services;
 using MyLiverpoolSite.Data.DataAccessLayer;
 using MyLiverpoolSite.Data.DataAccessLayer.Repositories;
@@ -74,6 +76,7 @@ namespace MyLiverpool.Web.WebApi
         private void RegisterServices(ContainerBuilder builder)
         {
             builder.RegisterType<AccountService>().As<IAccountService>();
+            builder.RegisterType<EmailService>().As<IIdentityMessageService>();
             builder.RegisterType<ForumService>().As<IForumService>();
             builder.RegisterType<MaterialCategoryService>().As<IMaterialCategoryService>();
             builder.RegisterType<MaterialCommentService>().As<IMaterialCommentService>();
