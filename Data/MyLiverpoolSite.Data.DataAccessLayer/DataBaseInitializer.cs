@@ -276,6 +276,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 RegistrationDate = DateTime.Now,
                 RoleGroupId = 2,
                 LockoutEnabled = true,
+                Photo = string.Empty
             };
 
             var userStore = new UserStore<User, Role, int, UserLogin, UserRole, UserClaim>(context);
@@ -298,6 +299,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 RegistrationDate = DateTime.Now,
                 RoleGroupId = 2,
                 LockoutEnabled = true,
+                Photo = string.Empty
             };
 
             var userStore = new UserStore<User, Role, int, UserLogin, UserRole, UserClaim>(context);
@@ -349,6 +351,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 Birthday = DateTime.Now,
                 RoleGroupId = 9,
                 LockoutEnabled = true,
+                Photo = string.Empty
             };
 
             var userStore = new UserStore<User, Role, int, UserLogin, UserRole, UserClaim>(context);
@@ -376,6 +379,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 Birthday = DateTime.Now,
                 RoleGroupId = 11,
                 LockoutEnabled = true,
+                Photo = string.Empty
             };
 
             var userStore = new UserStore<User, Role, int, UserLogin, UserRole, UserClaim>(context);
@@ -403,6 +407,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 Birthday = DateTime.Now,
                 RoleGroupId = 8,
                 LockoutEnabled = true,
+                Photo = string.Empty
             };
 
             var userStore = new UserStore<User, Role, int, UserLogin, UserRole, UserClaim>(context);
@@ -429,6 +434,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 Birthday = DateTime.Now,
                 RoleGroupId = 6,
                 LockoutEnabled = true,
+                Photo = string.Empty
             };
 
             var userStore = new UserStore<User, Role, int, UserLogin, UserRole, UserClaim>(context);
@@ -448,7 +454,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
 
             var user = new User
             {
-                UserName = "Newsmaker",
+                UserName = "newsmaker",
                 Email = email,
                 Verify = true,
                 LastModified = DateTime.Now,
@@ -456,6 +462,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 Birthday = DateTime.Now,
                 RoleGroupId = 5,
                 LockoutEnabled = true,
+                Photo = string.Empty
             };
 
             var userStore = new UserStore<User, Role, int, UserLogin, UserRole, UserClaim>(context);

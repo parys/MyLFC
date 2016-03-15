@@ -33,6 +33,11 @@ namespace MyLiverpool.Web.WebApi.Providers
 
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
+            if (context == null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+            
             User user = await _unitOfWork.UserManager.FindAsync(context.UserName, context.Password);
 
             if (user == null)
@@ -44,18 +49,25 @@ namespace MyLiverpool.Web.WebApi.Providers
             await _unitOfWork.UserManager.UpdateAsync(user);
             await _unitOfWork.SaveAsync();
 
-            //todo
-            ClaimsIdentity oAuthIdentity = await _userService.GenerateUserIdentityAsync(user,
-               OAuthDefaults.AuthenticationType);
-            ClaimsIdentity cookiesIdentity = await _userService.GenerateUserIdentityAsync(user,
-                CookieAuthenticationDefaults.AuthenticationType);
 
-            var userRoles = await _unitOfWork.UserManager.GetRolesAsync(user.Id);
+            try
+            {
+                ClaimsIdentity oAuthIdentity = await _userService.GenerateUserIdentityAsync(user,
+                    OAuthDefaults.AuthenticationType);
+                ClaimsIdentity cookiesIdentity = await _userService.GenerateUserIdentityAsync(user,
+                    CookieAuthenticationDefaults.AuthenticationType);
+                var userRoles = await _unitOfWork.UserManager.GetRolesAsync(user.Id);
 
-            AuthenticationProperties properties = CreateProperties(user, userRoles);
-            AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, properties);
-            context.Validated(ticket);
-            context.Request.Context.Authentication.SignIn(cookiesIdentity);
+                AuthenticationProperties properties = CreateProperties(user, userRoles);
+                AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, properties);
+                context.Validated(ticket);
+                context.Request.Context.Authentication.SignIn(cookiesIdentity);
+            }
+            catch (Exception ex)
+            {
+                throw new AppDomainUnloadedException();
+            }
+            
         }
 
         public override Task TokenEndpoint(OAuthTokenEndpointContext context)
@@ -101,7 +113,7 @@ namespace MyLiverpool.Web.WebApi.Providers
                 { "userName", user.UserName },
                 { "id", user.Id.ToString() },
                 { "roles", string.Join(", ", roles) },
-                { "userImage", user.Photo }
+                { "userImage", user.Photo ?? string.Empty }
             };
             return new AuthenticationProperties(data);
         }
