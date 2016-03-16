@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNet.Identity;
 using MyLiverpool.Business.DTO;
+using MyLiverpool.Business.Resources;
 using MyLiverpoolSite.Business.Contracts;
 using MyLiverpoolSite.Data.DataAccessLayer;
 using MyLiverpoolSite.Data.Entities;
@@ -12,25 +13,22 @@ namespace MyLiverpoolSite.Business.Services.Services
 {
     public class AccountService : IAccountService
     {
-    //    private readonly IUserService _userService;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly IIdentityMessageService _messageService;
 
         public AccountService(IUnitOfWork unitOfWork, IMapper mapper, IIdentityMessageService messageService)
         {
-            //   _userService = userService;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _messageService = messageService;
         }
 
-        public Task<int> GetUserIdByLoginAndPassword(string login, string password)
+        public async Task<bool> ConfirmEmailAsync(int userId, string code)
         {
-            throw new NotImplementedException();
-            //var users = await _unitOfWork.UserRepository.Get();
-            //var user = users.FirstOrDefault(u => u.UserName == login && u.Password == password);
-          //  return user?.Id ?? 0;
+            var result = await _unitOfWork.UserManager.ConfirmEmailAsync(userId, code);
+            await _unitOfWork.SaveAsync();
+            return result.Succeeded;
         }
 
         public async Task<bool> IsUserNameUniqueAsync(string userName)
@@ -61,17 +59,18 @@ namespace MyLiverpoolSite.Business.Services.Services
 
             IdentityResult result = await _unitOfWork.UserManager.CreateAsync(user, model.Password);
             await _unitOfWork.UserManager.AddToRoleAsync(user.Id, RolesEnum.Simple.ToString());
+
             var message = new IdentityMessage()
             {
                 Destination = user.Email,
-                Body = "test",
-                Subject = "test"
+                Body = EmailMessages.RegistrationFinished,
+                Subject = await GetConfirmEmailBody(user.Id)
             };
             await _messageService.SendAsync(message);
             return result;
         }
 
-        public async Task<IdentityResult> UpdateLastModified(int userId)
+        public async Task<IdentityResult> UpdateLastModifiedAsync(int userId)
         {
             var user = await _unitOfWork.UserManager.FindByIdAsync(userId);
             user.LastModified = DateTime.Now;
@@ -81,6 +80,13 @@ namespace MyLiverpoolSite.Business.Services.Services
                 await _unitOfWork.SaveAsync();
             }
             return result;
+        }
+
+        private async Task<string> GetConfirmEmailBody(int userId)
+        {
+            string code = await _unitOfWork.UserManager.GenerateEmailConfirmationTokenAsync(userId);
+            var callbackUrl = $"Api/Account/ConfirmEmail?userId={userId}&code={code}";
+            return string.Format(EmailMessages.EmailConfirmationMessage, callbackUrl);
         }
     }
 }

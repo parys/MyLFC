@@ -1,19 +1,22 @@
 ﻿var RegisterController = function ($scope, AccountFactory, Authentication, ValidationService, $state) {
     $scope.registerForm = {
-        userName: undefined,
-        email: undefined,
-        password: undefined,
-        confirmPassword: undefined,
-        fullName: undefined,
-        birthday: undefined
+        userName: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+        fullName: '',
+        birthday: ''
     };
 
+    $scope.registred = false;
+
     $scope.register = function () {
-        if (new ValidationService().checkFormValidity($scope)) {
+        if (new ValidationService().checkFormValidity($scope.registerForm)) {
             AccountFactory.register($scope.registerForm)
                 .then(function() {
-                    Authentication.login($scope.registerForm);
-                    $state.go('home');
+                   // Authentication.login($scope.registerForm);
+                    // $state.go('home');
+                    $scope.registred = true;
                 });
         }
     }

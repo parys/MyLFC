@@ -20,9 +20,8 @@
                             <div class="col-md-3">
                                 <img class="mini-avatar" ng-src="{{user.photo}}"/>
                             </div>
-                            {{ user.userName }}
-                        </a>
-                        <span class="text-danger" uib-tooltip="@CommonMessages.EmailNotConfirm" ng-show="!user.emailConfirmed">*</span>
+                            {{ user.userName }}</a>
+                        <span class="text-danger" uib-tooltip="@CommonMessages.EmailNotConfirm" ng-show="!user.emailConfirmed"> *</span>
                         <a ng-show="loggedIn() && isNotSelf(user.id, userId())" ui-sref="wpm({ userName: user.userName })"><span class="glyphicon glyphicon-envelope"></span></a>
                     </td>
                     <td class="">

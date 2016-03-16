@@ -7,9 +7,7 @@ namespace MyLiverpoolSite.Business.Contracts
 {
     public interface IAccountService
     {
-        Task<int> GetUserIdByLoginAndPassword(string login, string password);
-
-      //  HttpCookie GetCookie(int userId, bool rememberMe);
+        Task<bool> ConfirmEmailAsync(int userId, string code);
 
         Task<bool> IsUserNameUniqueAsync(string userName);
 
@@ -19,6 +17,6 @@ namespace MyLiverpoolSite.Business.Contracts
 
         Task<IdentityResult> RegisterUserAsync(RegisterUserDto model);
 
-        Task<IdentityResult> UpdateLastModified(int userId);
+        Task<IdentityResult> UpdateLastModifiedAsync(int userId);
     }
 }

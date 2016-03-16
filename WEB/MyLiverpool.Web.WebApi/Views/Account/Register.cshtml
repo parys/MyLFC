@@ -1,7 +1,7 @@
 ﻿@using MyLiverpool.Business.Resources
 
 <div class="col-md-12 top20">
-    <form class="form-horizontal" role="form">
+    <form class="form-horizontal" name="registerForm" ng-if="!registred" role="form">
         <div class="form-group">
             <label class="col-md-2  control-label">@ColonsMessages.UserName</label>
             <div class="col-md-10">
@@ -45,8 +45,11 @@
         </div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <button type="button" ng-disabled="registerForm.$invalid" ng-click="register()" class="btn btn-default">@CommonMessages.Register</button>
+                <button type="button" ng-click="register()" class="btn btn-default">@CommonMessages.Register</button>
             </div>
         </div>
     </form>
+    <div ng-if="registred">
+        @EmailMessages.CheckEmailForConfirmation
+    </div>
 </div>

@@ -20,7 +20,7 @@
                     <span ng-show="errFile.$error" ng-bind="errFile.$error"></span>
                     <span ng-show="errFile.$errorParam" ng-bind="errFile.$errorParam"></span>
                     <span class="progress" ng-show="f.progress >= 0">
-                        <span style="width: { {f.progress}}% " ng-bind="f.progress + '%'"></span>
+                        <span style="width: {{f.progress}}% " ng-bind="f.progress + '%'"></span>
                     </span>
                 </div>
                 {{errorMsg}}
