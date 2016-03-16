@@ -240,4 +240,7 @@
   <data name="Close" xml:space="preserve">
     <value>Закрыть</value>
   </data>
+  <data name="EmailNotConfirm" xml:space="preserve">
+    <value>Email не подтвержден</value>
+  </data>
 </root>

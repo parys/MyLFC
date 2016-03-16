@@ -169,6 +169,15 @@ namespace MyLiverpool.Business.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Email не подтвержден.
+        /// </summary>
+        public static string EmailNotConfirm {
+            get {
+                return ResourceManager.GetString("EmailNotConfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Вход на сайт.
         /// </summary>
         public static string EnterToSite {

@@ -8,6 +8,8 @@ namespace MyLiverpool.Business.DTO
 
         public string UserName { get; set; }
 
+        public bool EmailConfirmed { get; set; }
+
         public DateTime RegistrationDate { get; set; }
 
         public DateTime LastModified { get; set; }

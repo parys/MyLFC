@@ -79,7 +79,7 @@ namespace MyLiverpoolSite.Data.Entities
 
         public DateTime? Birthday { get; set; }
 
-        public bool Verify { get; set; }
+        public bool Verify { get; set; } //todo think about it
 
         public DateTime LastModified { get; set; }
 
