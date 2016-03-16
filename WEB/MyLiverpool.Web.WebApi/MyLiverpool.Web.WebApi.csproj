@@ -443,6 +443,7 @@
     <Content Include="Scripts\angular-validation\angular-validation.min.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
+    <Content Include="Scripts\angular\angular-locale_ru-ru.js" />
     <Content Include="Scripts\angular\angular-ui-router-title.js" />
     <Content Include="Scripts\angular\autocomplete.js" />
     <Content Include="Scripts\angular\min\angular-translate-loader-static-files.min.js" />

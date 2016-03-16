@@ -237,4 +237,7 @@
   <data name="Rules" xml:space="preserve">
     <value>Правила</value>
   </data>
+  <data name="Close" xml:space="preserve">
+    <value>Закрыть</value>
+  </data>
 </root>

@@ -73,6 +73,10 @@ textarea {
     font-style: italic;
 }
 
+.va-top {
+    vertical-align: top;
+}
+
 /* invalid & (dirty or touched) => red -- CSS3 only */
 .ng-invalid.ng-dirty:not(:focus),
 .ng-invalid.ng-touched:not(:focus) {
