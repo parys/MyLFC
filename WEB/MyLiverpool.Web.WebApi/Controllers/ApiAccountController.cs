@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using System.Web.UI.WebControls;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -58,6 +59,80 @@ namespace MyLiverpool.Web.WebApi.Controllers
             await _accountService.UpdateLastModifiedAsync(User.Identity.GetUserId<int>());
             return Ok();
         }
+       
+        [Route("Logout")]
+        [HttpPost]
+        public IHttpActionResult Logout()
+        {
+            Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationType);
+            return Ok();
+        }
+
+        [Route("Register")]
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IHttpActionResult> Register(RegisterUserDto model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var result = await _accountService.RegisterUserAsync(model);
+
+            if (!result.Succeeded)
+            {
+                return GetErrorResult(result);
+            }
+
+            return Ok();
+        }
+
+        [Route("ConfirmEmail")]
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IHttpActionResult> ConfirmEmail(int userId, string code)
+        {
+            if (userId <= 0 || code == null)
+            {
+                return BadRequest();
+            }
+            var result = await _accountService.ConfirmEmailAsync(userId, code);
+            var url = Request.RequestUri.Authority + "/confirmed";
+            var uri = new Uri(url);
+            
+            return Redirect(uri);
+        }
+
+        [Route("IsUserNameUnique")]
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IHttpActionResult> IsUserNameUnique(string userName)
+        {
+            var result = await _accountService.IsUserNameUniqueAsync(userName);
+            return Ok(result);
+        }
+
+        [Route("IsEmailUnique")]
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IHttpActionResult> IsEmailUnique(string email)
+        {
+            var result = await _accountService.IsEmailUniqueAsync(email);
+            return Ok(result);
+        }
+
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && _userManager != null)
+            {
+                _userManager.Dispose();
+                _userManager = null;
+            }
+
+            base.Dispose(disposing);
+        }
 
         // GET api/Account/UserInfo
         //[HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
@@ -75,13 +150,6 @@ namespace MyLiverpool.Web.WebApi.Controllers
         //}
 
         // POST api/Account/Logout
-        [Route("Logout")]
-        [HttpPost]
-        public IHttpActionResult Logout()
-        {
-            Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationType);
-            return Ok();
-        }
 
         // GET api/Account/ManageInfo?returnUrl=%2F&generateState=true
         //[Route("ManageInfo")]
@@ -330,26 +398,6 @@ namespace MyLiverpool.Web.WebApi.Controllers
         //    return logins;
         //}
 
-        [Route("Register")]
-        [AllowAnonymous]
-        [HttpPost]
-        public async Task<IHttpActionResult> Register(RegisterUserDto model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var result = await _accountService.RegisterUserAsync(model);
-
-            if (!result.Succeeded)
-            {
-                return GetErrorResult(result);
-            }
-
-            return Ok();
-        }
-
         // POST api/Account/RegisterExternal
         //[OverrideAuthentication]
         //[HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
@@ -382,49 +430,6 @@ namespace MyLiverpool.Web.WebApi.Controllers
         //    }
         //    return Ok();
         //}
-
-        [Route("ConfirmEmail")]
-        [HttpGet]
-        [AllowAnonymous]
-        public async Task<IHttpActionResult> ConfirmEmail(int userId, string code)
-        {
-            if (userId <= 0 || code == null)
-            {
-                return BadRequest();
-            }
-            var result = await _accountService.ConfirmEmailAsync(userId, code);
-            return Ok(result);
-        }
-
-        [Route("IsUserNameUnique")]
-        [HttpPost]
-        [AllowAnonymous]
-        public async Task<IHttpActionResult> IsUserNameUnique(string userName)
-        {
-            var result = await _accountService.IsUserNameUniqueAsync(userName);
-            return Ok(result);
-        }
-
-        [Route("IsEmailUnique")]
-        [HttpPost]
-        [AllowAnonymous]
-        public async Task<IHttpActionResult> IsEmailUnique(string email)
-        {
-            var result = await _accountService.IsEmailUniqueAsync(email);
-            return Ok(result);
-        }
-
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && _userManager != null)
-            {
-                _userManager.Dispose();
-                _userManager = null;
-            }
-
-            base.Dispose(disposing);
-        }
 
         #region Helpers
 

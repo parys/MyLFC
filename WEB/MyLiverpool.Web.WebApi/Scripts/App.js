@@ -287,6 +287,18 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider,
             resolve: {
                 $title: function () { return 'Тема'; } //todo
             }
+        })
+    .state('confirmed', {
+        url: '/confirmed',
+        views: {
+            "containerMain": {
+                templateUrl: '/Account/Confirmed' ,
+               // controller: 
+            }
+        },
+        resolve: {
+            $title: function () { return 'Ваш аккаунт подтвержден'; }
+        }
         });
 
     $translateProvider.useStaticFilesLoader({

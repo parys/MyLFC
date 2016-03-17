@@ -18,6 +18,12 @@ namespace MyLiverpool.Web.WebApi.Controllers
             return View();
         }
 
+        [AllowAnonymous]
+        public ActionResult EmailConfirmed()
+        {
+            return View();
+        }
+
         //[HttpPost]
         //[AllowAnonymous]
         //[ValidateAntiForgeryToken]
