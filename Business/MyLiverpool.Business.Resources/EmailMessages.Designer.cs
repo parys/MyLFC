@@ -70,7 +70,7 @@ namespace MyLiverpool.Business.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Пожалуйста, подтвердите ваш аккаунт кликнув &lt;a href=\&quot;{0}\&quot;&gt;здесь&lt;/a&gt;..
+        ///   Looks up a localized string similar to Пожалуйста, подтвердите ваш аккаунт кликнув &lt;a href=&quot;{0}&quot;&gt;здесь&lt;/a&gt;..
         /// </summary>
         public static string EmailConfirmationMessage {
             get {

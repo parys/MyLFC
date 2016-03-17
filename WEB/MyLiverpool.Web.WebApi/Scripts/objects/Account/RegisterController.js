@@ -11,14 +11,14 @@
     $scope.registred = false;
 
     $scope.register = function () {
-        if (new ValidationService().checkFormValidity($scope.registerForm)) {
+       // if (new ValidationService().checkFormValidity($scope)) {
             AccountFactory.register($scope.registerForm)
                 .then(function() {
                    // Authentication.login($scope.registerForm);
                     // $state.go('home');
                     $scope.registred = true;
                 });
-        }
+      //  }
     }
     $scope.open = function () {
         $scope.status.opened = true;

@@ -384,7 +384,7 @@ namespace MyLiverpool.Web.WebApi.Controllers
         //}
 
         [Route("ConfirmEmail")]
-        [HttpPost]
+        [HttpGet]
         [AllowAnonymous]
         public async Task<IHttpActionResult> ConfirmEmail(int userId, string code)
         {

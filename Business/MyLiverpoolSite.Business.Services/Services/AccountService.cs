@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web;
 using AutoMapper;
 using Microsoft.AspNet.Identity;
 using MyLiverpool.Business.DTO;
 using MyLiverpool.Business.Resources;
 using MyLiverpoolSite.Business.Contracts;
+using MyLiverpoolSite.Common.Utilities;
 using MyLiverpoolSite.Data.DataAccessLayer;
 using MyLiverpoolSite.Data.Entities;
 
@@ -26,6 +28,7 @@ namespace MyLiverpoolSite.Business.Services.Services
 
         public async Task<bool> ConfirmEmailAsync(int userId, string code)
         {
+            code = code.Base64ForUrlDecode();
             var result = await _unitOfWork.UserManager.ConfirmEmailAsync(userId, code);
             await _unitOfWork.SaveAsync();
             return result.Succeeded;
@@ -63,8 +66,8 @@ namespace MyLiverpoolSite.Business.Services.Services
             var message = new IdentityMessage()
             {
                 Destination = user.Email,
-                Body = EmailMessages.RegistrationFinished,
-                Subject = await GetConfirmEmailBody(user.Id)
+                Subject = EmailMessages.RegistrationFinished,
+                Body = await GetConfirmEmailBody(user.Id)
             };
             await _messageService.SendAsync(message);
             return result;
@@ -84,8 +87,11 @@ namespace MyLiverpoolSite.Business.Services.Services
 
         private async Task<string> GetConfirmEmailBody(int userId)
         {
+            var host = HttpContext.Current.Request.Url.Authority;
             string code = await _unitOfWork.UserManager.GenerateEmailConfirmationTokenAsync(userId);
-            var callbackUrl = $"Api/Account/ConfirmEmail?userId={userId}&code={code}";
+            code = code.Base64ForUrlEncode();
+            
+            var callbackUrl = $"http://{host}/api/account/confirmEmail?userId={userId}&code={code}";
             return string.Format(EmailMessages.EmailConfirmationMessage, callbackUrl);
         }
     }

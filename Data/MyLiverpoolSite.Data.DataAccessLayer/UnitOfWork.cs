@@ -2,6 +2,8 @@
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security.DataProtection;
 using MyLiverpoolSite.Data.DataAccessLayer.Contracts;
 using MyLiverpoolSite.Data.Entities;
 
@@ -36,8 +38,12 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
 
         public UnitOfWork()
         {
+            var provider = new DpapiDataProtectionProvider("MyLiverpool");
             var userStore = new UserStore<User, Role, int, UserLogin, UserRole, UserClaim>(_context);
-            UserManager = new UserManager<User, int>(userStore);
+            UserManager = new UserManager<User, int>(userStore)
+            {
+                UserTokenProvider = new DataProtectorTokenProvider<User, int>(provider.Create("EmailConfirmation"))
+            };
         }
 
         //private readonly UserStore<User, Role, int, UserLogin, UserRole, UserClaim> userStore; 
