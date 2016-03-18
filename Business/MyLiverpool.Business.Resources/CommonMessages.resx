@@ -243,4 +243,13 @@
   <data name="EmailNotConfirm" xml:space="preserve">
     <value>Email не подтвержден</value>
   </data>
+  <data name="ConfirmingEmail" xml:space="preserve">
+    <value>Спасибо за подтверждение адреса почты. Теперь вы можете войти и быть как дома.</value>
+  </data>
+  <data name="Resend" xml:space="preserve">
+    <value>Переслать</value>
+  </data>
+  <data name="UnconfirmEmail" xml:space="preserve">
+    <value>Ваш адрес электронной почты не подтвержден. Возможно письмо находится в папке "Спам". </value>
+  </data>
 </root>

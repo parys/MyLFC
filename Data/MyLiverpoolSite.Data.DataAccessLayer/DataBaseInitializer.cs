@@ -276,7 +276,8 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 RegistrationDate = DateTime.Now,
                 RoleGroupId = 2,
                 LockoutEnabled = true,
-                Photo = string.Empty
+                Photo = string.Empty,
+                EmailConfirmed = true,
             };
 
             var userStore = new UserStore<User, Role, int, UserLogin, UserRole, UserClaim>(context);
@@ -299,7 +300,8 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 RegistrationDate = DateTime.Now,
                 RoleGroupId = 2,
                 LockoutEnabled = true,
-                Photo = string.Empty
+                Photo = string.Empty,
+                EmailConfirmed = true,
             };
 
             var userStore = new UserStore<User, Role, int, UserLogin, UserRole, UserClaim>(context);
@@ -323,7 +325,8 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 RegistrationDate = DateTime.Now,
                 Birthday = DateTime.Now,
                 RoleGroupId = 1,
-                Photo = "content/avatars/0/755939.jpeg"
+                Photo = "content/avatars/0/755939.jpeg",
+                EmailConfirmed = true,
             };
 
             var userStore = new UserStore<User, Role, int, UserLogin, UserRole, UserClaim>(context);
@@ -351,7 +354,8 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 Birthday = DateTime.Now,
                 RoleGroupId = 9,
                 LockoutEnabled = true,
-                Photo = string.Empty
+                Photo = string.Empty,
+                EmailConfirmed = true,
             };
 
             var userStore = new UserStore<User, Role, int, UserLogin, UserRole, UserClaim>(context);
@@ -379,7 +383,8 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 Birthday = DateTime.Now,
                 RoleGroupId = 11,
                 LockoutEnabled = true,
-                Photo = string.Empty
+                Photo = string.Empty,
+                EmailConfirmed = true,
             };
 
             var userStore = new UserStore<User, Role, int, UserLogin, UserRole, UserClaim>(context);
@@ -407,7 +412,8 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 Birthday = DateTime.Now,
                 RoleGroupId = 8,
                 LockoutEnabled = true,
-                Photo = string.Empty
+                Photo = string.Empty,
+                EmailConfirmed = true,
             };
 
             var userStore = new UserStore<User, Role, int, UserLogin, UserRole, UserClaim>(context);
@@ -434,7 +440,8 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 Birthday = DateTime.Now,
                 RoleGroupId = 6,
                 LockoutEnabled = true,
-                Photo = string.Empty
+                Photo = string.Empty,
+                EmailConfirmed = true,
             };
 
             var userStore = new UserStore<User, Role, int, UserLogin, UserRole, UserClaim>(context);
@@ -462,7 +469,8 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 Birthday = DateTime.Now,
                 RoleGroupId = 5,
                 LockoutEnabled = true,
-                Photo = string.Empty
+                Photo = string.Empty,
+                EmailConfirmed = true,
             };
 
             var userStore = new UserStore<User, Role, int, UserLogin, UserRole, UserClaim>(context);

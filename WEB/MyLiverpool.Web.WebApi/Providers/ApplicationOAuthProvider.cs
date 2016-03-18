@@ -42,13 +42,17 @@ namespace MyLiverpool.Web.WebApi.Providers
 
             if (user == null)
             {
-                context.SetError("invalid_grant", "The user name or password is incorrect.");
+                context.SetError("invalid_grant", "Неправильный логин или пароль.");
+                return;
+            }
+            if (!user.EmailConfirmed)
+            {
+                context.SetError("not_confirmed", "Email адрес не подтвержден.");
                 return;
             }
             user.LastModified = DateTime.Now;
             await _unitOfWork.UserManager.UpdateAsync(user);
             await _unitOfWork.SaveAsync();
-
 
             try
             {

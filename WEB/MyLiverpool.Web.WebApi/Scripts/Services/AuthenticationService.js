@@ -52,8 +52,14 @@ var Authentication = function ($q, AccountFactory, SessionService, $cookies, $ro
                     $cookies.putObject('user', authenticatedUser);
                     return true;
                 }, function (response) {
-                    credentials.errorMessage = 'Неправильный логин или пароль.';
-                 //   console.log('non authorized  AccountFactory.login' + response);
+                    if (response.error == "invalid_grant") {
+                        credentials.errorMessage = response.error_description;
+                    } else {
+                        if (response.error == "not_confirmed") {
+                            $state.go('unconfirmed');
+                        }
+                    }
+                    //   console.log('non authorized  AccountFactory.login' + response);
                     authenticatedUser = undefined;
                 });
         },

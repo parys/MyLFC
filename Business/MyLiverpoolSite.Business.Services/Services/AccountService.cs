@@ -63,14 +63,19 @@ namespace MyLiverpoolSite.Business.Services.Services
             IdentityResult result = await _unitOfWork.UserManager.CreateAsync(user, model.Password);
             await _unitOfWork.UserManager.AddToRoleAsync(user.Id, RolesEnum.Simple.ToString());
 
-            var message = new IdentityMessage()
-            {
-                Destination = user.Email,
-                Subject = EmailMessages.RegistrationFinished,
-                Body = await GetConfirmEmailBody(user.Id)
-            };
-            await _messageService.SendAsync(message);
+            await SendConfirmEmailAsync(user.Email, user.Id);
             return result;
+        }
+
+        public async Task<bool> ResendConfirmEmail(string userName)
+        {
+            var user = await _unitOfWork.UserManager.FindByNameAsync(userName);
+            if (user == null || user.EmailConfirmed)
+            {
+                return false;
+            }
+            await SendConfirmEmailAsync(user.Email, user.Id);
+            return true;
         }
 
         public async Task<IdentityResult> UpdateLastModifiedAsync(int userId)
@@ -93,6 +98,17 @@ namespace MyLiverpoolSite.Business.Services.Services
             
             var callbackUrl = $"http://{host}/api/account/confirmEmail?userId={userId}&code={code}";
             return string.Format(EmailMessages.EmailConfirmationMessage, callbackUrl);
+        }
+
+        private async Task SendConfirmEmailAsync(string email, int userId)
+        {
+            var message = new IdentityMessage()
+            {
+                Destination = email,
+                Subject = EmailMessages.RegistrationFinished,
+                Body = await GetConfirmEmailBody(userId)
+            };
+            await _messageService.SendAsync(message);
         }
     }
 }

@@ -1,0 +1,19 @@
+﻿@using MyLiverpool.Business.Resources
+<div>
+    <h1 class="text-center">@CommonMessages.UnconfirmEmail</h1>
+    <div class="col-md-12">
+        <form class="form-horizontal" name="confirmEmail" role="form">
+            <div class="form-group">
+                <label class="col-md-2 control-label" for="userName">@ColonsMessages.UserName</label>
+                <div class="col-md-10">
+                    <input type="text" class="form-control" name="userName" placeholder="" ng-model="userName" validation="required">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <button type="button" ng-disabled="confirmEmail.$invalid" ng-click="resendConfirmLetter()" class="btn btn-default">@CommonMessages.Resend</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -111,6 +111,16 @@ namespace MyLiverpool.Web.WebApi
                 defaults: new {controller = "Home", action = "Rules"});
 
             routes.MapRoute(
+                name: "confirmed",
+                url: "account/confirmEmail",
+                defaults: new {controller = "Account", action = "ConfirmEmail" });
+
+            routes.MapRoute(
+                name: "unconfirmed",
+                url: "account/unconfirmEmail",
+                defaults: new {controller = "Account", action = "UnconfirmEmail" });
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{*url}",
                 defaults: new { controller = "Home", action = "Index" });

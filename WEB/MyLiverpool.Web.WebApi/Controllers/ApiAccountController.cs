@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
-using System.Web.UI.WebControls;
+using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using MyLiverpool.Business.DTO;
@@ -30,27 +30,13 @@ namespace MyLiverpool.Web.WebApi.Controllers
             _accountService = accountService;
         }
 
-        public ApiAccountController(ApplicationUserManager userManager,
-            ISecureDataFormat<AuthenticationTicket> accessTokenFormat, IAccountService accountService)
-        {
-            UserManager = userManager;
-            AccessTokenFormat = accessTokenFormat;
-            _accountService = accountService;
-        }
+        //public ApiAccountController(ISecureDataFormat<AuthenticationTicket> accessTokenFormat, IAccountService accountService)
+        //{
+        // //   AccessTokenFormat = accessTokenFormat;
+        //    _accountService = accountService;
+        //}
 
-        public ApplicationUserManager UserManager //todo move
-        {
-            get
-            {
-                return _userManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
-        }
-
-        public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
+     //   public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
 
         [Route("IsLogined")]
         [HttpGet]
@@ -91,17 +77,21 @@ namespace MyLiverpool.Web.WebApi.Controllers
         [Route("ConfirmEmail")]
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IHttpActionResult> ConfirmEmail(int userId, string code)
+        public async Task<HttpResponseMessage> ConfirmEmail(int userId, string code)
         {
             if (userId <= 0 || code == null)
             {
-                return BadRequest();
+                return new HttpResponseMessage(HttpStatusCode.BadRequest);
             }
             var result = await _accountService.ConfirmEmailAsync(userId, code);
-            var url = Request.RequestUri.Authority + "/confirmed";
-            var uri = new Uri(url);
-            
-            return Redirect(uri);
+            if (result)
+            {
+                var response = Request.CreateResponse(HttpStatusCode.Moved);
+                string fullyQualifiedUrl = Request.RequestUri.GetLeftPart(UriPartial.Authority);
+                response.Headers.Location = new Uri(fullyQualifiedUrl + "/confirmed");
+                return response;
+            }
+            return new HttpResponseMessage(HttpStatusCode.BadRequest);
         }
 
         [Route("IsUserNameUnique")]
@@ -122,6 +112,18 @@ namespace MyLiverpool.Web.WebApi.Controllers
             return Ok(result);
         }
 
+        [Route("ResendConfirmEmail")]
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IHttpActionResult> ResendConfirmEmail(string userName)
+        {
+            if (userName.IsNullOrWhiteSpace())
+            {
+                return BadRequest();
+            }
+            var result = await _accountService.ResendConfirmEmail(userName);
+            return Ok(result);
+        }
 
         protected override void Dispose(bool disposing)
         {

@@ -19,7 +19,13 @@ namespace MyLiverpool.Web.WebApi.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult EmailConfirmed()
+        public ActionResult ConfirmEmail()
+        {
+            return View();
+        }
+
+        [AllowAnonymous]
+        public ActionResult UnconfirmEmail()
         {
             return View();
         }

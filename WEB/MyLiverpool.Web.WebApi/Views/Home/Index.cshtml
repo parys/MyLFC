@@ -39,7 +39,7 @@
                         <span id="myError" style="display: none;"></span>
                     </div>
                     <div class="form-group">
-                        <p class="text-danger" ng-if="loginForm.errorMessage">{{loginForm.errorMessage}}</p>
+                        <span class="text-danger" ng-if="loginForm.errorMessage">{{loginForm.errorMessage}}</span>
                     </div>
                     <div class="form-group">
                         <div>
@@ -49,7 +49,7 @@
                 </form>
             </li>
             <li ng-if="!loggedIn()">
-                <a ui-sref="register">@CommonMessages.Register</a>
+                <a ui-sref="register">@CommonMessages.Registration</a>
             </li>
             @*<li>
                 <a ui-sref="login({ returnUrl: getReturnUrl() })" ng-if="!loggedIn()">@CommonMessages.Login</a>

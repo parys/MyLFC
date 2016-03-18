@@ -17,6 +17,8 @@ namespace MyLiverpoolSite.Business.Contracts
 
         Task<IdentityResult> RegisterUserAsync(RegisterUserDto model);
 
+        Task<bool> ResendConfirmEmail(string userName);
+
         Task<IdentityResult> UpdateLastModifiedAsync(int userId);
     }
 }

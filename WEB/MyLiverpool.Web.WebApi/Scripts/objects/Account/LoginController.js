@@ -20,6 +20,8 @@
         }
     }
 
-
+    $scope.resendConfirmLetter = function() {
+        
+    }
 }
 LoginController.$inject = ['$scope', 'SessionService', 'Authentication', 'ValidationService', '$stateParams', '$location'];

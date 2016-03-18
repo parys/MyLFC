@@ -124,6 +124,15 @@ namespace MyLiverpool.Business.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Спасибо за подтверждение адреса почты. Теперь вы можете войти и быть как дома..
+        /// </summary>
+        public static string ConfirmingEmail {
+            get {
+                return ResourceManager.GetString("ConfirmingEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Добавить.
         /// </summary>
         public static string Create {
@@ -322,6 +331,15 @@ namespace MyLiverpool.Business.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Переслать.
+        /// </summary>
+        public static string Resend {
+            get {
+                return ResourceManager.GetString("Resend", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Изменение роли.
         /// </summary>
         public static string RoleEditing {
@@ -399,6 +417,15 @@ namespace MyLiverpool.Business.Resources {
         public static string Unban {
             get {
                 return ResourceManager.GetString("Unban", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ваш адрес электронной почты не подтвержден. Возможно письмо находится в папке &quot;Спам&quot;. .
+        /// </summary>
+        public static string UnconfirmEmail {
+            get {
+                return ResourceManager.GetString("UnconfirmEmail", resourceCulture);
             }
         }
         
