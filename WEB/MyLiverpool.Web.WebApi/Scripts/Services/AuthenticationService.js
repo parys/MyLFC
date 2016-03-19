@@ -53,9 +53,11 @@ var Authentication = function ($q, AccountFactory, SessionService, $cookies, $ro
                     return true;
                 }, function (response) {
                     if (response.error == "invalid_grant") {
+                        console.log("invalid_grant");
                         credentials.errorMessage = response.error_description;
                     } else {
                         if (response.error == "not_confirmed") {
+                            console.log("not_confirmed");
                             $state.go('unconfirmed');
                         }
                     }

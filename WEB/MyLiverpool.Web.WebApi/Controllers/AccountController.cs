@@ -30,34 +30,6 @@ namespace MyLiverpool.Web.WebApi.Controllers
             return View();
         }
 
-        //[HttpPost]
-        //[AllowAnonymous]
-        //[ValidateAntiForgeryToken]
-        //public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return View(model);
-        //    }
-
-        //    // This doesn't count login failures towards account lockout
-        //    // To enable password failures to trigger account lockout, change to shouldLockout: true
-        //    var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, false);
-        //    switch (result)
-        //    {
-        //        case SignInStatus.Success:
-        //            return RedirectToLocal(returnUrl);
-        //        case SignInStatus.LockedOut:
-        //            return RedirectToAction("Lockout", new { userName = model.UserName });
-        //        case SignInStatus.RequiresVerification:
-        //            return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-        //        case SignInStatus.Failure:
-        //        default:
-        //            ModelState.AddModelError("", CommonMessages.InvalidLoginAttempt);
-        //            return View(model);
-        //    }
-        //}
-
         //[AllowAnonymous]
         //public async Task<ActionResult> Lockout(string userName)
         //{
@@ -311,16 +283,6 @@ namespace MyLiverpool.Web.WebApi.Controllers
 
         //    ViewBag.ReturnUrl = returnUrl;
         //    return View(model);
-        //}
-
-        ////
-        //// POST: /Account/LogOff
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult LogOff()
-        //{
-        //    AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-        //    return RedirectToAction("Index", "Home");
         //}
 
         //    //

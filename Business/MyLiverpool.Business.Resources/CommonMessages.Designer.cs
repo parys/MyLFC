@@ -187,6 +187,15 @@ namespace MyLiverpool.Business.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Письмо успешно отправлено..
+        /// </summary>
+        public static string EmailSuccessfullySent {
+            get {
+                return ResourceManager.GetString("EmailSuccessfullySent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Вход на сайт.
         /// </summary>
         public static string EnterToSite {

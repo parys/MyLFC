@@ -252,4 +252,7 @@
   <data name="UnconfirmEmail" xml:space="preserve">
     <value>Ваш адрес электронной почты не подтвержден. Возможно письмо находится в папке "Спам". </value>
   </data>
+  <data name="EmailSuccessfullySent" xml:space="preserve">
+    <value>Письмо успешно отправлено.</value>
+  </data>
 </root>

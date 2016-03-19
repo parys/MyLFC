@@ -96,6 +96,24 @@
             });
 
             return result.promise;
+        },
+
+        resendConfirmEmail: function (userName) {
+            var result = $q.defer();
+
+            $http({
+                method: 'Post',
+                url: SessionService.apiUrl + '/api/account/resendConfirmEmail?userName=' + userName,
+                headers: { 'Content-Type': 'application/json' }
+            })
+            .success(function (response) {
+                result.resolve(response);
+            })
+            .error(function (response) {
+                result.reject(response);
+            });
+
+            return result.promise;
         }
     }
 };
