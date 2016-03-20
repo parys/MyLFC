@@ -9,6 +9,8 @@ namespace MyLiverpoolSite.Business.Contracts
     {
         Task<bool> ConfirmEmailAsync(int userId, string code);
 
+        Task<bool> ForgotPassword(string email);
+
         Task<bool> IsUserNameUniqueAsync(string userName);
 
         Task<bool> IsEmailUniqueAsync(string email);
@@ -17,7 +19,7 @@ namespace MyLiverpoolSite.Business.Contracts
 
         Task<IdentityResult> RegisterUserAsync(RegisterUserDto model);
 
-        Task<bool> ResendConfirmEmail(string userName);
+        Task<bool> ResendConfirmEmail(string email);
 
         Task<IdentityResult> UpdateLastModifiedAsync(int userId);
     }

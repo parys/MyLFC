@@ -7,6 +7,7 @@ using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using System.Web.UI.WebControls;
 using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
@@ -14,6 +15,7 @@ using Microsoft.Owin.Security.Cookies;
 using MyLiverpool.Business.DTO;
 using MyLiverpoolSite.Business.Contracts;
 using MyLiverpoolSite.Business.Services;
+using MyLiverpoolSite.Business.ViewModels.Account;
 
 namespace MyLiverpool.Web.WebApi.Controllers
 {
@@ -115,13 +117,27 @@ namespace MyLiverpool.Web.WebApi.Controllers
         [Route("ResendConfirmEmail")]
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IHttpActionResult> ResendConfirmEmail(string userName)
+        public async Task<IHttpActionResult> ResendConfirmEmail(string email)
         {
-            if (userName.IsNullOrWhiteSpace())
+            if (email.IsNullOrWhiteSpace())
             {
                 return BadRequest();
             }
-            var result = await _accountService.ResendConfirmEmail(userName);
+            var result = await _accountService.ResendConfirmEmail(email);
+            return Ok(result);
+        }
+
+        [Route("ForgotPassword")]
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IHttpActionResult> ForgotPassword(string email)
+        {
+            if (email.IsNullOrWhiteSpace())
+            {
+                return BadRequest();
+            }
+
+            var result = await _accountService.ForgotPassword(email);
             return Ok(result);
         }
 
@@ -135,6 +151,7 @@ namespace MyLiverpool.Web.WebApi.Controllers
 
             base.Dispose(disposing);
         }
+
 
         // GET api/Account/UserInfo
         //[HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]

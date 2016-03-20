@@ -34,6 +34,17 @@ namespace MyLiverpoolSite.Business.Services.Services
             return result.Succeeded;
         }
 
+        public async Task<bool> ForgotPassword(string email)
+        {
+            var user = await _unitOfWork.UserManager.FindByNameAsync(email);
+            if (user == null || !user.EmailConfirmed)
+            {
+                return true;
+            }
+            await SendForgotPasswordEmailAsync();
+            return true;
+        }
+
         public async Task<bool> IsUserNameUniqueAsync(string userName)
         {
             var foundUser = await _unitOfWork.UserRepository.GetAsync(x => x.UserName == userName);
@@ -67,9 +78,9 @@ namespace MyLiverpoolSite.Business.Services.Services
             return result;
         }
 
-        public async Task<bool> ResendConfirmEmail(string userName)
+        public async Task<bool> ResendConfirmEmail(string email)
         {
-            var user = await _unitOfWork.UserManager.FindByNameAsync(userName);
+            var user = await _unitOfWork.UserManager.FindByEmailAsync(email);
             if (user == null || user.EmailConfirmed)
             {
                 return false;
@@ -109,6 +120,31 @@ namespace MyLiverpoolSite.Business.Services.Services
                 Body = await GetConfirmEmailBody(userId)
             };
             await _messageService.SendAsync(message);
+        }
+
+        private async Task SendForgotPasswordEmailAsync(string email, int userId)
+        {
+            var message = new IdentityMessage()
+            {
+                Destination = email,
+                Subject = EmailMessages.ForgotPassword,
+                Body = await GetForgotPasswordBody(userId)
+            };
+            await _messageService.SendAsync(message);
+        }
+
+        private async Task<string> GetForgotPasswordBody(int userId)
+        {
+            var host = HttpContext.Current.Request.Url.Authority;
+            string code = await _unitOfWork.UserManager.GeneratePasswordResetTokenAsync(userId);
+            code = code.Base64ForUrlEncode();
+
+            var callbackUrl = $"http://{host}/api/account/resetPassword?userId={userId}&code={code}";
+            return string.Format(EmailMessages.ForgotPasswordMessage, callbackUrl);
+
+            //     var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+            //     await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
+            // return RedirectToAction("ForgotPasswordConfirmation", "Account");
         }
     }
 }

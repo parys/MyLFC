@@ -121,7 +121,13 @@
     <value>Пожалуйста, проверьте почтовый ящик и подтвердите аккаунт, чтобы иметь возможность пользоваться системой.</value>
   </data>
   <data name="EmailConfirmationMessage" xml:space="preserve">
-    <value>Пожалуйста, подтвердите ваш аккаунт кликнув &lt;a href="{0}"&gt;здесь&lt;/a&gt;.</value>
+    <value>Пожалуйста, подтвердите ваш аккаунт, кликнув &lt;a href="{0}"&gt;здесь&lt;/a&gt;.</value>
+  </data>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>Восстановление пароля.</value>
+  </data>
+  <data name="ForgotPasswordMessage" xml:space="preserve">
+    <value>Пожалуйста, сбросьте ваш пароль, кликнув &lt;a href="{0}"&gt;здесь&lt;/a&gt;.</value>
   </data>
   <data name="RegistrationFinished" xml:space="preserve">
     <value>Регистрация окончена.</value>

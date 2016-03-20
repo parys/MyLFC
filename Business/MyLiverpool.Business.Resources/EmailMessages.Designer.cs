@@ -70,11 +70,29 @@ namespace MyLiverpool.Business.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Пожалуйста, подтвердите ваш аккаунт кликнув &lt;a href=&quot;{0}&quot;&gt;здесь&lt;/a&gt;..
+        ///   Looks up a localized string similar to Пожалуйста, подтвердите ваш аккаунт, кликнув &lt;a href=&quot;{0}&quot;&gt;здесь&lt;/a&gt;..
         /// </summary>
         public static string EmailConfirmationMessage {
             get {
                 return ResourceManager.GetString("EmailConfirmationMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Восстановление пароля..
+        /// </summary>
+        public static string ForgotPassword {
+            get {
+                return ResourceManager.GetString("ForgotPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Пожалуйста, сбросьте ваш пароль, кликнув &lt;a href=&quot;{0}&quot;&gt;здесь&lt;/a&gt;..
+        /// </summary>
+        public static string ForgotPasswordMessage {
+            get {
+                return ResourceManager.GetString("ForgotPasswordMessage", resourceCulture);
             }
         }
         
