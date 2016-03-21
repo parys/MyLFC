@@ -79,7 +79,6 @@
 
             return result.promise;      
         },
-
         checkIfUserLoggedIn: function() {
             var result = $q.defer();
 
@@ -97,13 +96,29 @@
 
             return result.promise;
         },
-
-        resendConfirmEmail: function (userName) {
+        resendConfirmEmail: function (email) {
             var result = $q.defer();
 
             $http({
                 method: 'Post',
-                url: SessionService.apiUrl + '/api/account/resendConfirmEmail?userName=' + userName,
+                url: SessionService.apiUrl + '/api/account/resendConfirmEmail?email=' + email,
+                headers: { 'Content-Type': 'application/json' }
+            })
+            .success(function (response) {
+                result.resolve(response);
+            })
+            .error(function (response) {
+                result.reject(response);
+            });
+
+            return result.promise;
+        },
+        forgotPassword: function (email) {
+            var result = $q.defer();
+
+            $http({
+                method: 'Post',
+                url: SessionService.apiUrl + '/api/account/forgotPassword?email=' + email,
                 headers: { 'Content-Type': 'application/json' }
             })
             .success(function (response) {

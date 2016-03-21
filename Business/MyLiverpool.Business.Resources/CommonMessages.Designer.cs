@@ -115,6 +115,15 @@ namespace MyLiverpool.Business.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Пожалуйста, проверьте почту..
+        /// </summary>
+        public static string CheckEmail {
+            get {
+                return ResourceManager.GetString("CheckEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Закрыть.
         /// </summary>
         public static string Close {
@@ -187,6 +196,15 @@ namespace MyLiverpool.Business.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Сообщение отправлено..
+        /// </summary>
+        public static string EmailSent {
+            get {
+                return ResourceManager.GetString("EmailSent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Письмо успешно отправлено..
         /// </summary>
         public static string EmailSuccessfullySent {
@@ -201,6 +219,15 @@ namespace MyLiverpool.Business.Resources {
         public static string EnterToSite {
             get {
                 return ResourceManager.GetString("EnterToSite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Забыли пароль?.
+        /// </summary>
+        public static string ForgotPassword {
+            get {
+                return ResourceManager.GetString("ForgotPassword", resourceCulture);
             }
         }
         

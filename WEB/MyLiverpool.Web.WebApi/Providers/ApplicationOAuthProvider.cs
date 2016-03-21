@@ -37,7 +37,7 @@ namespace MyLiverpool.Web.WebApi.Providers
             {
                 throw new ArgumentNullException(nameof(context));
             }
-            
+
             User user = await _unitOfWork.UserManager.FindAsync(context.UserName, context.Password);
 
             if (user == null)
@@ -54,24 +54,16 @@ namespace MyLiverpool.Web.WebApi.Providers
             await _unitOfWork.UserManager.UpdateAsync(user);
             await _unitOfWork.SaveAsync();
 
-            try
-            {
-                ClaimsIdentity oAuthIdentity = await _userService.GenerateUserIdentityAsync(user,
-                    OAuthDefaults.AuthenticationType);
-                ClaimsIdentity cookiesIdentity = await _userService.GenerateUserIdentityAsync(user,
-                    CookieAuthenticationDefaults.AuthenticationType);
-                var userRoles = await _unitOfWork.UserManager.GetRolesAsync(user.Id);
+            ClaimsIdentity oAuthIdentity = await _userService.GenerateUserIdentityAsync(user,
+                OAuthDefaults.AuthenticationType);
+            ClaimsIdentity cookiesIdentity = await _userService.GenerateUserIdentityAsync(user,
+                CookieAuthenticationDefaults.AuthenticationType);
+            var userRoles = await _unitOfWork.UserManager.GetRolesAsync(user.Id);
 
-                AuthenticationProperties properties = CreateProperties(user, userRoles);
-                AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, properties);
-                context.Validated(ticket);
-                context.Request.Context.Authentication.SignIn(cookiesIdentity);
-            }
-            catch (Exception ex)
-            {
-                throw new AppDomainUnloadedException();
-            }
-            
+            AuthenticationProperties properties = CreateProperties(user, userRoles);
+            AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, properties);
+            context.Validated(ticket);
+            context.Request.Context.Authentication.SignIn(cookiesIdentity);
         }
 
         public override Task TokenEndpoint(OAuthTokenEndpointContext context)

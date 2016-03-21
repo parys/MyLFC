@@ -255,4 +255,13 @@
   <data name="EmailSuccessfullySent" xml:space="preserve">
     <value>Письмо успешно отправлено.</value>
   </data>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>Забыли пароль?</value>
+  </data>
+  <data name="CheckEmail" xml:space="preserve">
+    <value>Пожалуйста, проверьте почту.</value>
+  </data>
+  <data name="EmailSent" xml:space="preserve">
+    <value>Сообщение отправлено.</value>
+  </data>
 </root>

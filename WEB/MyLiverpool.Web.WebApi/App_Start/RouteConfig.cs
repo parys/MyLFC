@@ -121,6 +121,16 @@ namespace MyLiverpool.Web.WebApi
                 defaults: new {controller = "Account", action = "UnconfirmEmail" });
 
             routes.MapRoute(
+                name: "forgotPassword",
+                url: "account/forgotPassword",
+                defaults: new {controller = "Account", action = "forgotPassword" });
+
+            routes.MapRoute(
+                name: "emailSent",
+                url: "account/emailSent",
+                defaults: new {controller = "Account", action = "emailSent" });
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{*url}",
                 defaults: new { controller = "Home", action = "Index" });

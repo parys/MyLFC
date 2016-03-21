@@ -1,4 +1,13 @@
-﻿var App = angular.module('liverpoolApp', ['ui.router', 'ui.bootstrap', 'ngCookies', 'pascalprecht.translate', 'ghiscoding.validation', 'ui.router.title', 'angular-loading-bar', 'autocomplete', 'ngFileUpload']);
+﻿var App = angular.module('liverpoolApp',
+    [   'ui.router',
+        'ui.bootstrap',
+        'ngCookies',
+        'pascalprecht.translate',
+        'ghiscoding.validation',
+        'ui.router.title',
+        'angular-loading-bar',
+        'autocomplete', 
+        'ngFileUpload']);
 
 App.controller('LandingPageController', LandingPageController);
 App.controller('LoginController', LoginController);
@@ -308,6 +317,27 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider,
             },
             resolve: {
                 $title: function() { return 'Ваш аккаунт не подтвержден'; }
+            }
+        }).state('forgotPassword', {
+            url: '/forgotPassword',
+            views: {
+                "containerMain": {
+                    templateUrl: '/Account/forgotPassword',
+                    controller: LoginController
+                }
+            },
+            resolve: {
+                $title: function() { return 'Забыли пароль?'; }
+            }
+        }).state('emailSent', {
+            url: '/emailSent',
+            views: {
+                "containerMain": {
+                    templateUrl: '/Account/emailSent'
+                }
+            },
+            resolve: {
+                $title: function() { return 'Забыли пароль?'; }
             }
         });
 

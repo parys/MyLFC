@@ -8,18 +8,13 @@
         birthday: ''
     };
 
-    $scope.registred = false;
-
     $scope.register = function () {
-       // if (new ValidationService().checkFormValidity($scope)) {
-            AccountFactory.register($scope.registerForm)
-                .then(function() {
-                   // Authentication.login($scope.registerForm);
-                    // $state.go('home');
-                    $scope.registred = true;
-                });
-      //  }
+        AccountFactory.register($scope.registerForm)
+            .then(function () {
+                $state.go('emailSent');
+            });
     }
+
     $scope.open = function () {
         $scope.status.opened = true;
     };

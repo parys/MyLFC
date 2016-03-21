@@ -1,4 +1,4 @@
-﻿var LoginController = function ($scope, SessionService, Authentication, ValidationService, AccountFactory) {
+﻿var LoginController = function ($scope, SessionService, Authentication, ValidationService, AccountFactory, $state) {
 
     $scope.loginForm = {
         userName: undefined,
@@ -6,7 +6,7 @@
         errorMessage: undefined
     };
 
-    $scope.userName = undefined;
+    $scope.email = undefined;
 
     $scope.login = function () {
         if (new ValidationService().checkFormValidity($scope.loginForm)) {
@@ -22,14 +22,26 @@
         }
     }
 
-    $scope.resendConfirmLetter = function() {
-        AccountFactory.resendConfirmEmail($scope.userName)
-            .then(function(response) {
+    $scope.resendConfirmLetter = function () {
+        AccountFactory.resendConfirmEmail($scope.email)
+            .then(function (response) {
+                $scope.result = response;
+                $state.go('emailSent');
+            },
+                function (response) {
                     $scope.result = response;
-                },
-                function(response) {
+                });
+    }
+
+    $scope.forgot = function () {
+        AccountFactory.forgotPassword($scope.email)
+            .then(function (response) {
+                $scope.result = response;
+                $state.go('emailSent');
+            },
+                function (response) {
                     $scope.result = response;
                 });
     }
 }
-LoginController.$inject = ['$scope', 'SessionService', 'Authentication', 'ValidationService', 'AccountFactory'];
+LoginController.$inject = ['$scope', 'SessionService', 'Authentication', 'ValidationService', 'AccountFactory', '$state'];

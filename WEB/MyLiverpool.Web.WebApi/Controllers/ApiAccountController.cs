@@ -7,7 +7,6 @@ using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
-using System.Web.UI.WebControls;
 using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
@@ -15,7 +14,6 @@ using Microsoft.Owin.Security.Cookies;
 using MyLiverpool.Business.DTO;
 using MyLiverpoolSite.Business.Contracts;
 using MyLiverpoolSite.Business.Services;
-using MyLiverpoolSite.Business.ViewModels.Account;
 
 namespace MyLiverpool.Web.WebApi.Controllers
 {
@@ -30,50 +28,6 @@ namespace MyLiverpool.Web.WebApi.Controllers
         public ApiAccountController(IAccountService accountService)
         {
             _accountService = accountService;
-        }
-
-        //public ApiAccountController(ISecureDataFormat<AuthenticationTicket> accessTokenFormat, IAccountService accountService)
-        //{
-        // //   AccessTokenFormat = accessTokenFormat;
-        //    _accountService = accountService;
-        //}
-
-     //   public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
-
-        [Route("IsLogined")]
-        [HttpGet]
-        public async Task<IHttpActionResult> IsLogined()
-        {
-            await _accountService.UpdateLastModifiedAsync(User.Identity.GetUserId<int>());
-            return Ok();
-        }
-       
-        [Route("Logout")]
-        [HttpPost]
-        public IHttpActionResult Logout()
-        {
-            Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationType);
-            return Ok();
-        }
-
-        [Route("Register")]
-        [AllowAnonymous]
-        [HttpPost]
-        public async Task<IHttpActionResult> Register(RegisterUserDto model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var result = await _accountService.RegisterUserAsync(model);
-
-            if (!result.Succeeded)
-            {
-                return GetErrorResult(result);
-            }
-
-            return Ok();
         }
 
         [Route("ConfirmEmail")]
@@ -96,12 +50,17 @@ namespace MyLiverpool.Web.WebApi.Controllers
             return new HttpResponseMessage(HttpStatusCode.BadRequest);
         }
 
-        [Route("IsUserNameUnique")]
+        [Route("ForgotPassword")]
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IHttpActionResult> IsUserNameUnique(string userName)
+        public async Task<IHttpActionResult> ForgotPassword(string email)
         {
-            var result = await _accountService.IsUserNameUniqueAsync(userName);
+            if (email.IsNullOrWhiteSpace())
+            {
+                return BadRequest();
+            }
+
+            var result = await _accountService.ForgotPassword(email);
             return Ok(result);
         }
 
@@ -112,6 +71,31 @@ namespace MyLiverpool.Web.WebApi.Controllers
         {
             var result = await _accountService.IsEmailUniqueAsync(email);
             return Ok(result);
+        }
+
+        [Route("IsLogined")]
+        [HttpGet]
+        public async Task<IHttpActionResult> IsLogined()
+        {
+            await _accountService.UpdateLastModifiedAsync(User.Identity.GetUserId<int>());
+            return Ok();
+        }
+
+        [Route("IsUserNameUnique")]
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IHttpActionResult> IsUserNameUnique(string userName)
+        {
+            var result = await _accountService.IsUserNameUniqueAsync(userName);
+            return Ok(result);
+        }
+
+        [Route("Logout")]
+        [HttpPost]
+        public IHttpActionResult Logout()
+        {
+            Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationType);
+            return Ok();
         }
 
         [Route("ResendConfirmEmail")]
@@ -127,19 +111,67 @@ namespace MyLiverpool.Web.WebApi.Controllers
             return Ok(result);
         }
 
-        [Route("ForgotPassword")]
-        [HttpPost]
+        [Route("Register")]
         [AllowAnonymous]
-        public async Task<IHttpActionResult> ForgotPassword(string email)
+        [HttpPost]
+        public async Task<IHttpActionResult> Register(RegisterUserDto model)
         {
-            if (email.IsNullOrWhiteSpace())
+            if (!ModelState.IsValid)
             {
-                return BadRequest();
+                return BadRequest(ModelState);
             }
 
-            var result = await _accountService.ForgotPassword(email);
-            return Ok(result);
+            var result = await _accountService.RegisterUserAsync(model);
+
+            if (!result.Succeeded)
+            {
+                return GetErrorResult(result);
+            }
+
+            return Ok();
         }
+
+        [Route("ResetPassword")]
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<HttpResponseMessage> ResetPassword(int userId, string code)
+        {
+            if (userId <= 0 || code == null)
+            {
+                return new HttpResponseMessage(HttpStatusCode.BadRequest);
+            }
+            //var result = await _accountService.ConfirmEmailAsync(userId, code);
+           // if (result)
+            //{
+                var response = Request.CreateResponse(HttpStatusCode.Moved);
+                string fullyQualifiedUrl = Request.RequestUri.GetLeftPart(UriPartial.Authority);
+                response.Headers.Location = new Uri(fullyQualifiedUrl + "/resetPassword?code=" + code);
+                return response;
+          //  }
+           // return new HttpResponseMessage(HttpStatusCode.BadRequest);
+        }
+            
+        //    string email, string password, string passwordConfirm)
+        //{
+        //    if (email.IsNullOrWhiteSpace() || password.IsNullOrWhiteSpace() || passwordConfirm.IsNullOrWhiteSpace() || password != passwordConfirm)
+        //    {
+        //        return BadRequest();
+        //    }
+
+        //    var user = await UserManager.FindByNameAsync(model.Email);
+        //    if (user == null)
+        //    {
+        //        // Don't reveal that the user does not exist
+        //        return RedirectToAction("ResetPasswordConfirmation", "Account");
+        //    }
+        //    var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
+        //    if (result.Succeeded)
+        //    {
+        //        return RedirectToAction("ResetPasswordConfirmation", "Account");
+        //    }
+        //    AddErrors(result);
+        //    return View();
+        //}
 
         protected override void Dispose(bool disposing)
         {
