@@ -129,6 +129,24 @@
             });
 
             return result.promise;
+        },
+        resetPassword: function (resetForm) {
+            var result = $q.defer();
+
+            $http({
+                method: 'Post',
+                url: SessionService.apiUrl + '/api/account/resetPassword',
+                data: resetForm,
+                headers: { 'Content-Type': 'application/json' }
+            })
+            .success(function (response) {
+                result.resolve(response);
+            })
+            .error(function (response) {
+                result.reject(response);
+            });
+
+            return result.promise;
         }
     }
 };

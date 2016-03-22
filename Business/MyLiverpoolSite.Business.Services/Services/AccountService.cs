@@ -89,6 +89,17 @@ namespace MyLiverpoolSite.Business.Services.Services
             return true;
         }
 
+        public async Task<bool> ResetPassword(ResetPasswordDto dto)
+        {
+            var user = await _unitOfWork.UserManager.FindByEmailAsync(dto.Email);
+            if (user == null)
+            {
+                return false;
+            }
+            var result = await _unitOfWork.UserManager.ResetPasswordAsync(user.Id, dto.Code.Base64ForUrlDecode(), dto.Password);
+            return result.Succeeded;
+        }
+
         public async Task<IdentityResult> UpdateLastModifiedAsync(int userId)
         {
             var user = await _unitOfWork.UserManager.FindByIdAsync(userId);

@@ -339,6 +339,27 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider,
             resolve: {
                 $title: function() { return 'Забыли пароль?'; }
             }
+        }).state('resetPassword', {
+            url: '/resetPassword?code',
+            views: {
+                "containerMain": {
+                    templateUrl: '/Account/resetPassword',
+                    controller: LoginController
+                }
+            },
+            resolve: {
+                $title: function() { return 'Восстановление пароля'; }
+            }
+        }).state('passwordChanged', {
+            url: '/passwordChanged',
+            views: {
+                "containerMain": {
+                    templateUrl: '/Account/passwordChanged'
+                }
+            },
+            resolve: {
+                $title: function() { return 'Пароль успешно изменен'; }
+            }
         });
 
     $translateProvider.useStaticFilesLoader({

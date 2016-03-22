@@ -322,6 +322,15 @@ namespace MyLiverpool.Business.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Пароль успешно изменен..
+        /// </summary>
+        public static string PasswordChanged {
+            get {
+                return ResourceManager.GetString("PasswordChanged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Читать л/с.
         /// </summary>
         public static string ReadPM {
@@ -372,6 +381,15 @@ namespace MyLiverpool.Business.Resources {
         public static string Resend {
             get {
                 return ResourceManager.GetString("Resend", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Сбросить.
+        /// </summary>
+        public static string Reset {
+            get {
+                return ResourceManager.GetString("Reset", resourceCulture);
             }
         }
         

@@ -6,6 +6,13 @@
         errorMessage: undefined
     };
 
+    $scope.resetForm = {
+        email: undefined,
+        password: undefined,
+        confirmPassword: undefined,
+        code: undefined
+    };
+
     $scope.email = undefined;
 
     $scope.login = function () {
@@ -41,6 +48,17 @@
             },
                 function (response) {
                     $scope.result = response;
+                });
+    }
+
+    $scope.reset = function () {
+        $scope.resetForm.code = $state.params.code;
+        AccountFactory.resetPassword($scope.resetForm)
+            .then(function (response) {
+                $state.go('passwordChanged');
+            },
+                function (response) {
+
                 });
     }
 }

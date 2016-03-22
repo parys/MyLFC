@@ -73,7 +73,7 @@ namespace MyLiverpool.Web.WebApi.Controllers
                     IsFolder = false
                 });
             }
-            return Ok(files);
+            return await Task.FromResult(Ok(files));
         }
     }
 

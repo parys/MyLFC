@@ -574,6 +574,7 @@
     <Content Include="Scripts\angular-validation\locales\es.json" />
     <Content Include="Scripts\angular-validation\locales\en.json" />
     <Content Include="Scripts\angular-validation\locales\ca.json" />
+    <None Include="Views\Account\PasswordChanged.cshtml" />
     <None Include="Views\Account\UnconfirmEmail.cshtml" />
     <None Include="Views\Home\Rules.cshtml" />
     <None Include="Web.someeFreeQA.config">

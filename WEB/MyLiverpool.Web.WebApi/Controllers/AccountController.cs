@@ -42,6 +42,17 @@ namespace MyLiverpool.Web.WebApi.Controllers
             return View();
         }
 
+        [AllowAnonymous]
+        public ActionResult ResetPassword()
+        {
+            return View();
+        }
+
+        [AllowAnonymous]
+        public ActionResult PasswordChanged()
+        {
+            return View();
+        }
         //[AllowAnonymous]
         //public async Task<ActionResult> Lockout(string userName)
         //{

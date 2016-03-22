@@ -134,44 +134,31 @@ namespace MyLiverpool.Web.WebApi.Controllers
         [Route("ResetPassword")]
         [HttpGet]
         [AllowAnonymous]
-        public async Task<HttpResponseMessage> ResetPassword(int userId, string code)
+        public async Task<HttpResponseMessage> ResetPassword(string code)
         {
-            if (userId <= 0 || code == null)
+            if (code.IsNullOrWhiteSpace())
             {
                 return new HttpResponseMessage(HttpStatusCode.BadRequest);
             }
-            //var result = await _accountService.ConfirmEmailAsync(userId, code);
-           // if (result)
-            //{
-                var response = Request.CreateResponse(HttpStatusCode.Moved);
-                string fullyQualifiedUrl = Request.RequestUri.GetLeftPart(UriPartial.Authority);
-                response.Headers.Location = new Uri(fullyQualifiedUrl + "/resetPassword?code=" + code);
-                return response;
-          //  }
-           // return new HttpResponseMessage(HttpStatusCode.BadRequest);
+            var response = Request.CreateResponse(HttpStatusCode.Moved);
+            string fullyQualifiedUrl = Request.RequestUri.GetLeftPart(UriPartial.Authority);
+            response.Headers.Location = new Uri(fullyQualifiedUrl + "/resetPassword?code=" + code);
+            return await Task.FromResult(response);
         }
-            
-        //    string email, string password, string passwordConfirm)
-        //{
-        //    if (email.IsNullOrWhiteSpace() || password.IsNullOrWhiteSpace() || passwordConfirm.IsNullOrWhiteSpace() || password != passwordConfirm)
-        //    {
-        //        return BadRequest();
-        //    }
 
-        //    var user = await UserManager.FindByNameAsync(model.Email);
-        //    if (user == null)
-        //    {
-        //        // Don't reveal that the user does not exist
-        //        return RedirectToAction("ResetPasswordConfirmation", "Account");
-        //    }
-        //    var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
-        //    if (result.Succeeded)
-        //    {
-        //        return RedirectToAction("ResetPasswordConfirmation", "Account");
-        //    }
-        //    AddErrors(result);
-        //    return View();
-        //}
+        [Route("ResetPassword")]
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IHttpActionResult> ResetPassword(ResetPasswordDto dto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var result = await _accountService.ResetPassword(dto);
+            return Ok(result);
+        }
 
         protected override void Dispose(bool disposing)
         {

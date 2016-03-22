@@ -264,4 +264,10 @@
   <data name="EmailSent" xml:space="preserve">
     <value>Сообщение отправлено.</value>
   </data>
+  <data name="PasswordChanged" xml:space="preserve">
+    <value>Пароль успешно изменен.</value>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>Сбросить</value>
+  </data>
 </root>

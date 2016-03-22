@@ -21,6 +21,8 @@ namespace MyLiverpoolSite.Business.Contracts
 
         Task<bool> ResendConfirmEmail(string email);
 
+        Task<bool> ResetPassword(ResetPasswordDto dto);
+
         Task<IdentityResult> UpdateLastModifiedAsync(int userId);
     }
 }
