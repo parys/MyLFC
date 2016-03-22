@@ -147,8 +147,14 @@
   <data name="Message" xml:space="preserve">
     <value>Сообщение:</value>
   </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>Новый пароль:</value>
+  </data>
   <data name="NewsMessage" xml:space="preserve">
     <value>Текст новости:</value>
+  </data>
+  <data name="OldPassword" xml:space="preserve">
+    <value>Старый пароль:</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Пароль:</value>

@@ -7,31 +7,13 @@ namespace MyLiverpool.Web.WebApi.Controllers
     public class AccountController : BaseController
     {
         [AllowAnonymous]
-        public ActionResult Login()
-        {
-            return View();
-        }
-
-        [AllowAnonymous]
-        public ActionResult Register()
-        {
-            return View();
-        }
-
-        [AllowAnonymous]
         public ActionResult ConfirmEmail()
         {
             return View();
         }
 
-        [AllowAnonymous]
-        public ActionResult UnconfirmEmail()
-        {
-            return View();
-        }
-
-        [AllowAnonymous]
-        public ActionResult ForgotPassword()
+        [Authorize]
+        public ActionResult ChangePassword()
         {
             return View();
         }
@@ -43,13 +25,36 @@ namespace MyLiverpool.Web.WebApi.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult ResetPassword()
+        public ActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [AllowAnonymous]
+        public ActionResult Login()
         {
             return View();
         }
 
         [AllowAnonymous]
         public ActionResult PasswordChanged()
+        {
+            return View();
+        }
+
+        [AllowAnonymous]
+        public ActionResult Register()
+        {
+            return View();
+        }
+        [AllowAnonymous]
+        public ActionResult ResetPassword()
+        {
+            return View();
+        }
+
+        [AllowAnonymous]
+        public ActionResult UnconfirmEmail()
         {
             return View();
         }
@@ -105,14 +110,6 @@ namespace MyLiverpool.Web.WebApi.Controllers
         //            ModelState.AddModelError("", "Invalid code.");
         //            return View(model);
         //    }
-        //}
-
-        ////
-        //// GET: /Account/ResetPasswordConfirmation
-        //[AllowAnonymous]
-        //public ActionResult ResetPasswordConfirmation()
-        //{
-        //    return View();
         //}
 
         ////

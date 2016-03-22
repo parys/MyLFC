@@ -55,6 +55,12 @@ var LandingPageController = function ($scope, $state, Authentication, RouteFilte
       //  console.log($location.url());
         return $location.url();
     }
+
+    $scope.isSelf = function (userId) {
+        console.log(Authentication.getUserId());
+        console.log(userId);
+        return Authentication.getUserId() == userId;
+    }
     
     $scope.isNewsmaker = function () {
      //   console.log('isNewsmaker landing ');

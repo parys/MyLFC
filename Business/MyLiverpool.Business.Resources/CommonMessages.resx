@@ -270,4 +270,10 @@
   <data name="Reset" xml:space="preserve">
     <value>Сбросить</value>
   </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>Изменить пароль</value>
+  </data>
+  <data name="PasswordsNotMatch" xml:space="preserve">
+    <value>Пароль и подтверждение пароля не совпадают.</value>
+  </data>
 </root>

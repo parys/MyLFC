@@ -350,6 +350,17 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider,
             resolve: {
                 $title: function() { return 'Восстановление пароля'; }
             }
+        }).state('changePassword', {
+            url: '/changePassword',
+            views: {
+                "containerMain": {
+                    templateUrl: '/Account/changePassword',
+                    controller: LoginController
+                }
+            },
+            resolve: {
+                $title: function() { return 'Изменения пароля'; }
+            }
         }).state('passwordChanged', {
             url: '/passwordChanged',
             views: {

@@ -1,7 +1,7 @@
 ﻿@using MyLiverpool.Business.Resources
 <div class="col-md-12">
     <h2 ng-bind="user.userName">
-        <span ng-show="loggedIn() && !isSelf()">
+        <span ng-show="loggedIn() && !isSelf(user.id)">
             <a ui-sref="wpm({ userName: user.userName })"><span class="glyphicon glyphicon-envelope"></span></a>
         </span>
     </h2>
@@ -10,17 +10,18 @@
             <img class="avatar" ng-src="{{user.photo}}"/>
         </div>
         <div class="col-md-10">
-            <div ng-if="isSelf() || isModerator()">
+            <div ng-if="isSelf(user.id) || isModerator()">
                 <button class="btn btn-info" ngf-select="uploadFiles($file, $invalidFiles)"
                         accept="image/*" ngf-max-height="1000" ngf-max-size="1MB">
                     @CommonMessages.UpdateAvatar
                 </button>
+                <button ng-if="isSelf(user.id)" class="btn btn-danger" ui-sref="changePassword()"> @CommonMessages.ChangePassword</button>
                 <br><br>
                 <div>
                     <span ng-show="errFile.$error" ng-bind="errFile.$error"></span>
                     <span ng-show="errFile.$errorParam" ng-bind="errFile.$errorParam"></span>
                     <span class="progress" ng-show="f.progress >= 0">
-                        <span style="width: {{f.progress}}% " ng-bind="f.progress + '%'"></span>
+                        <span style="width:{{f.progress}}%" ng-bind="f.progress + '%'"></span>
                     </span>
                 </div>
                 {{errorMsg}}

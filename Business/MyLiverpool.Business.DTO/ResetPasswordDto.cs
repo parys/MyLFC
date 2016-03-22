@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using MyLiverpool.Business.Resources;
 
 namespace MyLiverpool.Business.DTO
 {
@@ -11,10 +12,12 @@ namespace MyLiverpool.Business.DTO
         [EmailAddress]
         public string Email { get; set; }
 
+        [DataType(DataType.Password)]
         [Required(AllowEmptyStrings = false)]
         public string Password { get; set; }
 
-        [Required(AllowEmptyStrings = false)]
+        [DataType(DataType.Password)]
+        [Compare("Password", ErrorMessageResourceType = typeof (CommonMessages), ErrorMessageResourceName = "PasswordsNotMatch")]
         public string ConfirmPassword { get; set; }
     }
 }
