@@ -248,7 +248,7 @@ namespace MyLiverpoolSite.Business.Services.Services
                 typed = "";
             }
             var users = await _unitOfWork.UserRepository.GetAsync(x => x.UserName.Contains(typed));
-            return users.Select(x => x.UserName);
+            return users.Select(x => x.UserName).Take(GlobalConstants.CountLoginsForAutocomlete);
         }
 
         public async Task<string> GetPhotoPathAsync(int userId)

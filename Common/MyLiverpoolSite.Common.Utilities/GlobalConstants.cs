@@ -7,5 +7,6 @@
         public const int UsersPerPage = 10;
         public const int FirstPage = 1;
         public const int PmsPerUser = 10; //todo to 200
+        public const int CountLoginsForAutocomlete = 10;
     }
 }

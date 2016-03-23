@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -66,6 +67,11 @@ namespace MyLiverpool.Web.WebApi.Controllers
                 return BadRequest();
             }
             model.SenderId = User.Identity.GetUserId<int>();
+            var userName = User.Identity.Name;
+            if (model.ReceiverUserName == userName)
+            {
+                return BadRequest();
+            }
             var result = await _userService.SavePrivateMessageDtoAsync(model);
             return Ok(result);
         }
@@ -94,6 +100,8 @@ namespace MyLiverpool.Web.WebApi.Controllers
         public async Task<IHttpActionResult> GetUserNames(string typed)
         {
             var result = await _userService.GetUserNamesAsync(typed);
+            var userName = User.Identity.Name;
+            result = result.Where(x => x != userName);
             return Ok(result);
         }
 
