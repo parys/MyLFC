@@ -198,4 +198,7 @@
   <data name="YourBanWillEndAt" xml:space="preserve">
     <value>Ваша блокировка закончится</value>
   </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>Новый пароль</value>
+  </data>
 </root>

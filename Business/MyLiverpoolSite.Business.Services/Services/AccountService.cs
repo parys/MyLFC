@@ -26,6 +26,12 @@ namespace MyLiverpoolSite.Business.Services.Services
             _messageService = messageService;
         }
 
+        public async Task<bool> ChangePassword(int userId, ChangePasswordDto dto)
+        {
+            var result = await _unitOfWork.UserManager.ChangePasswordAsync(userId, dto.OldPassword, dto.NewPassword);
+            return result.Succeeded;
+        }
+
         public async Task<bool> ConfirmEmailAsync(int userId, string code)
         {
             code = code.Base64ForUrlDecode();

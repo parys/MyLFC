@@ -136,6 +136,11 @@ namespace MyLiverpool.Web.WebApi
                 defaults: new {controller = "Account", action = "resetPassword" });
 
             routes.MapRoute(
+                name: "changePassword",
+                url: "account/changePassword",
+                defaults: new {controller = "Account", action = "changePassword" });
+
+            routes.MapRoute(
                 name: "passwordChanged",
                 url: "account/passwordChanged",
                 defaults: new {controller = "Account", action = "passwordChanged" });

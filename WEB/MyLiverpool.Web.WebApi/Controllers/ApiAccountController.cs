@@ -30,6 +30,20 @@ namespace MyLiverpool.Web.WebApi.Controllers
             _accountService = accountService;
         }
 
+        [Route("ChangePassword")]
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IHttpActionResult> ChangePassword(ChangePasswordDto dto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var result = await _accountService.ChangePassword(User.Identity.GetUserId<int>(), dto);
+            return Ok(result);
+        }
+
         [Route("ConfirmEmail")]
         [HttpGet]
         [AllowAnonymous]
@@ -75,6 +89,7 @@ namespace MyLiverpool.Web.WebApi.Controllers
 
         [Route("IsLogined")]
         [HttpGet]
+        [Authorize]
         public async Task<IHttpActionResult> IsLogined()
         {
             await _accountService.UpdateLastModifiedAsync(User.Identity.GetUserId<int>());
@@ -92,6 +107,7 @@ namespace MyLiverpool.Web.WebApi.Controllers
 
         [Route("Logout")]
         [HttpPost]
+        [Authorize]
         public IHttpActionResult Logout()
         {
             Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationType);
@@ -112,8 +128,8 @@ namespace MyLiverpool.Web.WebApi.Controllers
         }
 
         [Route("Register")]
-        [AllowAnonymous]
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IHttpActionResult> Register(RegisterUserDto model)
         {
             if (!ModelState.IsValid)
@@ -227,27 +243,6 @@ namespace MyLiverpool.Web.WebApi.Controllers
         //        Logins = logins,
         //        ExternalLoginProviders = GetExternalLogins(returnUrl, generateState)
         //    };
-        //}
-
-        // POST api/Account/ChangePassword
-
-        //[Route("ChangePassword")]
-        //public async Task<IHttpActionResult> ChangePassword(ChangePasswordBindingModel model)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
-
-        //    IdentityResult result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId<int>(), model.OldPassword,
-        //        model.NewPassword);
-
-        //    if (!result.Succeeded)
-        //    {
-        //        return GetErrorResult(result);
-        //    }
-
-        //    return Ok();
         //}
 
         //// POST api/Account/SetPassword

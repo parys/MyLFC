@@ -359,7 +359,7 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider,
                 }
             },
             resolve: {
-                $title: function() { return 'Изменения пароля'; }
+                $title: function() { return 'Изменение пароля'; }
             }
         }).state('passwordChanged', {
             url: '/passwordChanged',

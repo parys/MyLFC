@@ -57,8 +57,6 @@ var LandingPageController = function ($scope, $state, Authentication, RouteFilte
     }
 
     $scope.isSelf = function (userId) {
-        console.log(Authentication.getUserId());
-        console.log(userId);
         return Authentication.getUserId() == userId;
     }
     

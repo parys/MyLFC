@@ -4,6 +4,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security.DataProtection;
+using MyLiverpoolSite.Common.Utilities;
 using MyLiverpoolSite.Data.DataAccessLayer.Contracts;
 using MyLiverpoolSite.Data.Entities;
 
@@ -38,7 +39,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
 
         public UnitOfWork()
         {
-            var provider = new DpapiDataProtectionProvider("MyLiverpool");
+            var provider = new MachineKeyProtectionProvider();
             var userStore = new UserStore<User, Role, int, UserLogin, UserRole, UserClaim>(_context);
             UserManager = new UserManager<User, int>(userStore)
             {

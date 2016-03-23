@@ -1,4 +1,4 @@
-﻿var LoginController = function ($scope, SessionService, Authentication, ValidationService, AccountFactory, $state) {
+﻿var LoginController = function ($scope, SessionService, Authentication, ValidationService, AccountFactory, $state, $rootScope) {
 
     $scope.loginForm = {
         userName: undefined,
@@ -12,6 +12,12 @@
         confirmPassword: undefined,
         code: undefined
     };
+
+    $scope.changeForm = {
+        oldPassword: undefined,
+        newPassword: undefined,
+        confirmPassword: undefined
+    }
 
     $scope.email = undefined;
 
@@ -55,11 +61,27 @@
         $scope.resetForm.code = $state.params.code;
         AccountFactory.resetPassword($scope.resetForm)
             .then(function (response) {
-                $state.go('passwordChanged');
+                $state.go('home');
+                $rootScope.alerts.push({ type: 'success', msg: 'Пароль успешно изменен.' });
             },
                 function (response) {
 
                 });
     }
+
+    $scope.change = function () {
+        AccountFactory.changePassword($scope.changeForm)
+            .then(function (response) {
+                    if (response) {
+                        $state.go('home');
+                        $rootScope.alerts.push({ type: 'success', msg: 'Пароль успешно изменен.' });
+                    } else {
+                        $rootScope.alerts.push({ type: 'danger', msg: 'Пароль не был изменен.' });
+                    }
+                },
+                function (response) {
+
+                });
+    }
 }
-LoginController.$inject = ['$scope', 'SessionService', 'Authentication', 'ValidationService', 'AccountFactory', '$state'];
+LoginController.$inject = ['$scope', 'SessionService', 'Authentication', 'ValidationService', 'AccountFactory', '$state', '$rootScope'];

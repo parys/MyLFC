@@ -160,6 +160,15 @@ namespace MyLiverpool.Business.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Новый пароль.
+        /// </summary>
+        public static string NewPassword {
+            get {
+                return ResourceManager.GetString("NewPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Пароль.
         /// </summary>
         public static string Password {

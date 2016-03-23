@@ -7,6 +7,8 @@ namespace MyLiverpoolSite.Business.Contracts
 {
     public interface IAccountService
     {
+        Task<bool> ChangePassword(int userId, ChangePasswordDto dto);
+
         Task<bool> ConfirmEmailAsync(int userId, string code);
 
         Task<bool> ForgotPassword(string email);
