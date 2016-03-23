@@ -53,20 +53,20 @@ namespace MyLiverpoolSite.Business.Services.Services
 
         public async Task<bool> IsUserNameUniqueAsync(string userName)
         {
-            var foundUser = await _unitOfWork.UserRepository.GetAsync(x => x.UserName == userName);
-            return !foundUser.Any();
+            var foundUser = await _unitOfWork.UserManager.FindByNameAsync(userName);
+            return foundUser != null;
         }
 
         public async Task<bool> IsEmailUniqueAsync(string email)
         {
-            var foundUser = await _unitOfWork.UserRepository.GetAsync(x => x.Email == email);
-            return !foundUser.Any();
+            var foundUser = await _unitOfWork.UserManager.FindByEmailAsync(email);
+            return foundUser != null;
         }
 
-        public async Task<DateTime> GetLockOutEndDateAsync(string userName)
+        public async Task<DateTime> GetLockOutEndDateAsync(int userId)
         {
-            var user = (await _unitOfWork.UserRepository.GetAsync(x => x.UserName == userName)).First();
-            return user.LockoutEndDateUtc ?? DateTime.Now;
+            var dateTime = await _unitOfWork.UserManager.GetLockoutEndDateAsync(userId);
+            return dateTime.DateTime;
         }
 
         public async Task<IdentityResult> RegisterUserAsync(RegisterUserDto model)

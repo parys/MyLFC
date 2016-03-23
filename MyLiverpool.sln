@@ -35,6 +35,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyLiverpool.Business.Resour
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyLiverpool.Common.MapperConfigurations", "Common\MyLiverpool.Common.MapperConfigurations\MyLiverpool.Common.MapperConfigurations.csproj", "{4DC5F955-0DFD-40B0-9B3F-1771754C90CE}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Unit Tests", "Unit Tests", "{0FC3777E-D336-48DC-AA71-28EFFCC54997}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyLiverpoolSite.Business.Service.Tests", "UnitTests\MyLiverpoolSite.Business.Service.Tests\MyLiverpoolSite.Business.Service.Tests.csproj", "{F4C62055-468E-46CF-8479-CAA2D19E6648}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -115,6 +119,12 @@ Global
 		{4DC5F955-0DFD-40B0-9B3F-1771754C90CE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4DC5F955-0DFD-40B0-9B3F-1771754C90CE}.Somee|Any CPU.ActiveCfg = Release|Any CPU
 		{4DC5F955-0DFD-40B0-9B3F-1771754C90CE}.Somee|Any CPU.Build.0 = Release|Any CPU
+		{F4C62055-468E-46CF-8479-CAA2D19E6648}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4C62055-468E-46CF-8479-CAA2D19E6648}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4C62055-468E-46CF-8479-CAA2D19E6648}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4C62055-468E-46CF-8479-CAA2D19E6648}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4C62055-468E-46CF-8479-CAA2D19E6648}.Somee|Any CPU.ActiveCfg = Release|Any CPU
+		{F4C62055-468E-46CF-8479-CAA2D19E6648}.Somee|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -130,5 +140,6 @@ Global
 		{C70D0192-AB3E-471B-B0D1-081278BE19B8} = {55F75FC7-8E75-4FB9-8576-57AF98459383}
 		{731B35BC-64F3-4766-84DA-3597EAE72191} = {55F75FC7-8E75-4FB9-8576-57AF98459383}
 		{4DC5F955-0DFD-40B0-9B3F-1771754C90CE} = {90950E7E-CA58-418A-8336-AA37C980CB53}
+		{F4C62055-468E-46CF-8479-CAA2D19E6648} = {0FC3777E-D336-48DC-AA71-28EFFCC54997}
 	EndGlobalSection
 EndGlobal

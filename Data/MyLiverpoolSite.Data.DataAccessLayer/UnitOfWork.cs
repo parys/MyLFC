@@ -43,7 +43,8 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
             var userStore = new UserStore<User, Role, int, UserLogin, UserRole, UserClaim>(_context);
             UserManager = new UserManager<User, int>(userStore)
             {
-                UserTokenProvider = new DataProtectorTokenProvider<User, int>(provider.Create("EmailConfirmation"))
+                UserTokenProvider = new DataProtectorTokenProvider<User, int>(provider.Create("EmailConfirmation")),
+                UserLockoutEnabledByDefault = true
             };
         }
 
