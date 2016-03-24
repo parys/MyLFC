@@ -77,9 +77,14 @@
   </Choose>
   <ItemGroup>
     <Compile Include="AccountServiceTests.cs" />
+    <Compile Include="FakeUserManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Business\MyLiverpool.Business.DTO\MyLiverpool.Business.DTO.csproj">
+      <Project>{C70D0192-AB3E-471B-B0D1-081278BE19B8}</Project>
+      <Name>MyLiverpool.Business.DTO</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Business\MyLiverpoolSite.Business.Contracts\MyLiverpoolSite.Business.Contracts.csproj">
       <Project>{2B58260E-385F-4F42-ACD7-015FAA8CE4F0}</Project>
       <Name>MyLiverpoolSite.Business.Contracts</Name>

@@ -40,7 +40,7 @@ namespace MyLiverpool.Web.WebApi.Controllers
                 return BadRequest();
             }
 
-            var result = await _accountService.ChangePassword(User.Identity.GetUserId<int>(), dto);
+            var result = await _accountService.ChangePasswordAsync(User.Identity.GetUserId<int>(), dto);
             return Ok(result);
         }
 
@@ -74,7 +74,7 @@ namespace MyLiverpool.Web.WebApi.Controllers
                 return BadRequest();
             }
 
-            var result = await _accountService.ForgotPassword(email);
+            var result = await _accountService.ForgotPasswordAsync(email);
             return Ok(result);
         }
 
@@ -172,7 +172,7 @@ namespace MyLiverpool.Web.WebApi.Controllers
                 return BadRequest();
             }
 
-            var result = await _accountService.ResetPassword(dto);
+            var result = await _accountService.ResetPasswordAsync(dto);
             return Ok(result);
         }
 

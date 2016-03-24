@@ -7,11 +7,11 @@ namespace MyLiverpoolSite.Business.Contracts
 {
     public interface IAccountService
     {
-        Task<bool> ChangePassword(int userId, ChangePasswordDto dto);
+        Task<bool> ChangePasswordAsync(int userId, ChangePasswordDto dto);
 
         Task<bool> ConfirmEmailAsync(int userId, string code);
 
-        Task<bool> ForgotPassword(string email);
+        Task<bool> ForgotPasswordAsync(string email);
 
         Task<bool> IsUserNameUniqueAsync(string userName);
 
@@ -23,7 +23,7 @@ namespace MyLiverpoolSite.Business.Contracts
 
         Task<bool> ResendConfirmEmail(string email);
 
-        Task<bool> ResetPassword(ResetPasswordDto dto);
+        Task<bool> ResetPasswordAsync(ResetPasswordDto dto);
 
         Task<IdentityResult> UpdateLastModifiedAsync(int userId);
     }

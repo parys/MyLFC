@@ -26,7 +26,7 @@ namespace MyLiverpoolSite.Business.Services.Services
             _messageService = messageService;
         }
 
-        public async Task<bool> ChangePassword(int userId, ChangePasswordDto dto)
+        public async Task<bool> ChangePasswordAsync(int userId, ChangePasswordDto dto)
         {
             var result = await _unitOfWork.UserManager.ChangePasswordAsync(userId, dto.OldPassword, dto.NewPassword);
             return result.Succeeded;
@@ -40,7 +40,7 @@ namespace MyLiverpoolSite.Business.Services.Services
             return result.Succeeded;
         }
 
-        public async Task<bool> ForgotPassword(string email)
+        public async Task<bool> ForgotPasswordAsync(string email)
         {
             var user = await _unitOfWork.UserManager.FindByEmailAsync(email);
             if (user == null || !user.EmailConfirmed)
@@ -95,7 +95,7 @@ namespace MyLiverpoolSite.Business.Services.Services
             return true;
         }
 
-        public async Task<bool> ResetPassword(ResetPasswordDto dto)
+        public async Task<bool> ResetPasswordAsync(ResetPasswordDto dto)
         {
             var user = await _unitOfWork.UserManager.FindByEmailAsync(dto.Email);
             if (user == null)
