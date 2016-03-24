@@ -1,9 +1,8 @@
-﻿//'use strict';
+﻿'use strict';
+angular.module('liverpoolApp')
+  .factory('Application', [ function () {
 
-//angular.module('authApp')
-//  .factory('Application', function Application() {
-
-var Application = function () {
+//var Application = function () {
 
     var ready = false, registeredListeners = [];
 
@@ -33,4 +32,4 @@ var Application = function () {
             else      registeredListeners.push(callback);
         }
     }
-  };
+  }]);

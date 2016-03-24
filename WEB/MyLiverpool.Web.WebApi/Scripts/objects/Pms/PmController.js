@@ -1,17 +1,22 @@
-﻿var PmController = function($scope, $stateParams, PmsFactory) {
-    $scope.message = undefined;
+﻿'use strict';
+angular.module('liverpoolApp')
+    .controller('PmController', [
+        '$scope', '$stateParams', 'PmsFactory',
+        function($scope, $stateParams, PmsFactory) {
+            $scope.message = undefined;
 
-    var init = function () {
-        PmsFactory.getMessage($stateParams.id)
-            .then(function (response) {
-                $scope.message = response;
-            },
-                function (response) {
-                    //$scope.f = "";
-                });
-    };
+            var init = function() {
+                PmsFactory.getMessage($stateParams.id)
+                    .then(function(response) {
+                            $scope.message = response;
+                        },
+                        function(response) {
+                            //$scope.f = "";
+                        });
+            };
 
-    init();
-};
+            init();
+        }
+    ]);
 
-PmController.$inject = ['$scope', '$stateParams', 'PmsFactory'];
+//PmController.$inject = ['$scope', '$stateParams', 'PmsFactory'];

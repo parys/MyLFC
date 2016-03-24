@@ -1,43 +1,48 @@
-﻿var SessionService = function ($cookies) {
-    this.token = undefined;
-    this.userId = undefined;
+﻿'use strict';
 
-  //  this.getToken = function () {
-    //    if (!$cookies.awesomeAngularWebAppToken) {
-    //        if (!this.token) {
-   //             return this.token;
-    //        }
-    //        this.setToken(this.token);
-      //  }
-      //  return $cookies.awesomeAngularWebAppToken;
-    
+angular.module('liverpoolApp')
+    .service('SessionService', [
+        '$cookies', function($cookies) {
+            this.token = undefined;
+            this.userId = undefined;
 
-    this.getToken = function() {
-        var cookie = $cookies.getObject('user');
-        if (!cookie) return undefined;
-        return cookie.access_token;
-    }
-
-    //  this.setToken = function (token) {
-  //      this.token = token;
-      //  $cookies.awesomeAngularWebAppToken = token;
-  //  }
-
-    //this.remove = function() {
-    //    $cookies.remove("awesomeAngularWebAppToken");
-    //}
-
-    //this.setUserId = function(userId) {
-    //    this.userId = userId;
-    //}
-
-    //this.getUserId = function() {
-    //    return this.userId;
-    //}
+            //  this.getToken = function () {
+            //    if (!$cookies.awesomeAngularWebAppToken) {
+            //        if (!this.token) {
+            //             return this.token;
+            //        }
+            //        this.setToken(this.token);
+            //  }
+            //  return $cookies.awesomeAngularWebAppToken;
 
 
-    this.apiUrl = 'http://localhost:46940';//todo
-   // this.apiUrl = 'http://lfc.somee.com';//todo
-}
+            this.getToken = function() {
+                var cookie = $cookies.getObject('user');
+                if (!cookie) return undefined;
+                return cookie.access_token;
+            }
 
-SessionService.$inject = ['$cookies'];
+            //  this.setToken = function (token) {
+            //      this.token = token;
+            //  $cookies.awesomeAngularWebAppToken = token;
+            //  }
+
+            //this.remove = function() {
+            //    $cookies.remove("awesomeAngularWebAppToken");
+            //}
+
+            //this.setUserId = function(userId) {
+            //    this.userId = userId;
+            //}
+
+            //this.getUserId = function() {
+            //    return this.userId;
+            //}
+
+
+            this.apiUrl = 'http://localhost:46940'; //todo
+            // this.apiUrl = 'http://lfc.somee.com';//todo
+        }
+    ]);
+
+//SessionService.$inject = ['$cookies'];

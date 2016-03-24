@@ -1,28 +1,33 @@
-﻿var RoleGroupsCtrl = function ($scope, $stateParams, $state, RoleGroupsFactory) {
-    //$scope.users = [];
-    //$scope.pageNo = 1;
-    //$scope.countPage = 1;
-    //var init = function (page) {
-    //    UsersFactory.getUsers(page)
-    //        .then(function (response) {
-    //            $scope.users = response.list;
-    //            $scope.pageNo = response.pageNo;
-    //            $scope.countPage = response.CountPage;
-    //        },
-    //            function (response) {
-    //                //$scope.f = "";
-    //            });
-    //};
+﻿'use strict';
+angular.module('liverpoolApp')
+    .controller('RoleGroupsCtrl', [
+        '$scope', '$stateParams', '$state', 'RoleGroupsFactory',
+        function($scope, $stateParams, $state, RoleGroupsFactory) {
+            //$scope.users = [];
+            //$scope.pageNo = 1;
+            //$scope.countPage = 1;
+            //var init = function (page) {
+            //    UsersFactory.getUsers(page)
+            //        .then(function (response) {
+            //            $scope.users = response.list;
+            //            $scope.pageNo = response.pageNo;
+            //            $scope.countPage = response.CountPage;
+            //        },
+            //            function (response) {
+            //                //$scope.f = "";
+            //            });
+            //};
 
-    //$scope.isNotSelf = function (userId, userId2) {
-    //    return userId != userId2;
-    //}
+            //$scope.isNotSelf = function (userId, userId2) {
+            //    return userId != userId2;
+            //}
 
-    //$scope.goToPage = function () {
-    //    $state.go('users', { page: $scope.pageNo });
-    //}
-    
-    //init($stateParams.page);
-};
+            //$scope.goToPage = function () {
+            //    $state.go('users', { page: $scope.pageNo });
+            //}
 
-RoleGroupsCtrl.$inject = ['$scope', '$stateParams', '$state', 'RoleGroupsFactory'];
+            //init($stateParams.page);
+        }
+    ]);
+
+//RoleGroupsCtrl.$inject = ['$scope', '$stateParams', '$state', 'RoleGroupsFactory'];

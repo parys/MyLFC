@@ -1,6 +1,8 @@
-﻿var leftContainerCtrl = function ($scope) {
-    $scope.title = 'i am left';
+﻿'use strict';
 
-
-}
-leftContainerCtrl.$inject = ['$scope'];
+angular.module('leftContainerCtrl', [
+    '$scope', function($scope) {
+        $scope.title = 'i am left';
+    }
+]);
+//leftContainerCtrl.$inject = ['$scope'];

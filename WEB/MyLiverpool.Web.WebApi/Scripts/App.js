@@ -9,48 +9,48 @@
         'autocomplete', 
         'ngFileUpload']);
 
-App.controller('LandingPageController', LandingPageController);
-App.controller('LoginController', LoginController);
-App.controller('RegisterController', RegisterController);
-App.controller('NewsController', NewsController);
-App.controller('NewsItemController', NewsItemController);
-App.controller('NewsEditCtrl', NewsEditCtrl);
-App.controller('NewsCommentCtrl', NewsCommentCtrl);
-App.controller('ModalEditCommentCtrl', ModalEditCommentCtrl);
-App.controller('UserController', UserController);
-App.controller('UsersController', UsersController);
-App.controller('PmController', PmController);
-App.controller('PmsController', PmsController);
-App.controller('PmWriteCtrl', PmWriteCtrl);
-App.controller('ForumController', ForumController);
-App.controller('ForumSubsectionController', ForumSubsectionController);
-App.controller('ForumThemeController', ForumThemeController);
-App.controller('ModalCtrl', ModalCtrl);
-App.controller('rightContainerCtrl', rightContainerCtrl);
-App.controller('leftContainerCtrl', leftContainerCtrl);
-App.controller('ImagesCtrl', ImagesCtrl);
-App.controller('RoleGroupsCtrl', RoleGroupsCtrl);
+//App.controller('LandingPageController', LandingPageController);
+//App.controller('LoginController', LoginController);
+//App.controller('RegisterController', RegisterController);
+//App.controller('NewsController', NewsController);
+//App.controller('NewsItemController', NewsItemController);
+//App.controller('NewsEditCtrl', NewsEditCtrl);
+//App.controller('NewsCommentCtrl', NewsCommentCtrl);
+//App.controller('ModalEditCommentCtrl', ModalEditCommentCtrl);
+//App.controller('UserController', UserController);
+//App.controller('UsersController', UsersController);
+//App.controller('PmController', PmController);
+//App.controller('PmsController', PmsController);
+//App.controller('PmWriteCtrl', PmWriteCtrl);
+//App.controller('ForumController', ForumController);
+//App.controller('ForumSubsectionController', ForumSubsectionController);
+//App.controller('ForumThemeController', ForumThemeController);
+//App.controller('ModalCtrl', ModalCtrl);
+//App.controller('rightContainerCtrl', rightContainerCtrl);
+//App.controller('leftContainerCtrl', leftContainerCtrl);
+//App.controller('ImagesCtrl', ImagesCtrl);
+//App.controller('RoleGroupsCtrl', RoleGroupsCtrl);
 
-App.service('SessionService', SessionService);
+//App.service('SessionService', SessionService);
 
-App.factory('Authentication', Authentication);
-App.factory('Application', Application);
-App.factory('RouteFilter', RouteFilter);
+//App.factory('Authentication', Authentication);
+//App.factory('Application', Application);
+//App.factory('RouteFilter', RouteFilter);
 
-App.factory('RecursionHelper', RecursionHelper);
-App.factory('MarkItUpFactory', MarkItUpFactory);
-App.directive('tree', tree);
-App.directive('markItUp', markItUp);
+//App.factory('RecursionHelper', RecursionHelper);
+//App.factory('MarkItUpFactory', MarkItUpFactory);
+//App.directive('tree', tree);
+//App.directive('markItUp', markItUp);
 
-App.factory('AuthHttpResponseInterceptor', AuthHttpResponseInterceptor);
-App.factory('AccountFactory', AccountFactory);
-App.factory('NewsFactory', NewsFactory);
-App.factory('NewsCommentsFactory', NewsCommentsFactory);
-App.factory('UsersFactory', UsersFactory);
-App.factory('PmsFactory', PmsFactory);
-App.factory('ForumFactory', ForumFactory);
-App.factory('ImagesFactory', ImagesFactory);
-App.factory('RoleGroupsFactory', RoleGroupsFactory);//todo sort by name
+//App.factory('AuthHttpResponseInterceptor', AuthHttpResponseInterceptor);
+//App.factory('AccountFactory', AccountFactory);
+//App.factory('NewsFactory', NewsFactory);
+//App.factory('NewsCommentsFactory', NewsCommentsFactory);
+//App.factory('UsersFactory', UsersFactory);
+//App.factory('PmsFactory', PmsFactory);
+//App.factory('ForumFactory', ForumFactory);
+//App.factory('ImagesFactory', ImagesFactory);
+//App.factory('RoleGroupsFactory', RoleGroupsFactory);//todo sort by name
 
 var configFunction = function ($stateProvider, $httpProvider, $locationProvider, $translateProvider) {
 
@@ -387,12 +387,6 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider,
 configFunction.$inject = ['$stateProvider', '$httpProvider', '$locationProvider', '$translateProvider'];
 
 App.config(configFunction);
-
-App.filter('rawHtml', ['$sce', function ($sce) {
-    return function (val) {
-        return $sce.trustAsHtml(val);
-    };
-}]);
 
 App.run(function (Authentication, Application, $rootScope, $location, RouteFilter, uibPaginationConfig, $state, $stateParams, $window) {
     //$rootScope.roles = "";

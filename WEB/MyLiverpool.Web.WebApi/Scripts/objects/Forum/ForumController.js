@@ -1,18 +1,23 @@
-﻿var ForumController = function ($scope, ForumFactory) {
-    $scope.sections = [];
+﻿'use strict';
+angular.module('liverpoolApp')
+    .controller('ForumController', [
+        '$scope', 'ForumFactory',
+        function($scope, ForumFactory) {
+            $scope.sections = [];
 
-    var init = function () {
-        ForumFactory.getSections()
-            .then(function (response) {
-                $scope.sections = response.sections;
+            var init = function() {
+                ForumFactory.getSections()
+                    .then(function(response) {
+                            $scope.sections = response.sections;
 
-            },
-                function (response) {
-                    //$scope.f = "";
-                });
-    };
+                        },
+                        function(response) {
+                            //$scope.f = "";
+                        });
+            };
 
-    init();
-};
+            init();
+        }
+    ]);
 
-ForumController.$inject = ['$scope', 'ForumFactory'];
+//ForumController.$inject = ['$scope', 'ForumFactory'];

@@ -1,58 +1,63 @@
-﻿var PmsFactory = function($q, $http, SessionService) {
+﻿'use strict';
+angular.module('liverpoolApp')
+    .factory('PmsFactory', [
+        '$q', '$http', 'SessionService',
+        function($q, $http, SessionService) {
 
-    return {
-        getMessage: function(id) {
-            var result = $q.defer();
+            return {
+                getMessage: function(id) {
+                    var result = $q.defer();
 
-            $http({
-                    method: 'GET',
-                    url: SessionService.apiUrl + '/api/User/Pm?id=' + id,
-                    headers: { 'Content-Type': 'application/json' }
-                })
-                .success(function(response) {
-                    result.resolve(response);
-                })
-                .error(function(response) {
-                    result.reject(response);
-                });
+                    $http({
+                            method: 'GET',
+                            url: SessionService.apiUrl + '/api/User/Pm?id=' + id,
+                            headers: { 'Content-Type': 'application/json' }
+                        })
+                        .success(function(response) {
+                            result.resolve(response);
+                        })
+                        .error(function(response) {
+                            result.reject(response);
+                        });
 
-            return result.promise;
-        },
-        getMessages: function() {
-            var result = $q.defer();
+                    return result.promise;
+                },
+                getMessages: function() {
+                    var result = $q.defer();
 
-            $http({
-                    method: 'GET',
-                    url: SessionService.apiUrl + '/api/User/Pms', //?id='+ id,
-                    headers: { 'Content-Type': 'application/json' }
-                })
-                .success(function(response) {
-                    result.resolve(response);
-                })
-                .error(function(response) {
-                    result.reject(response);
-                });
+                    $http({
+                            method: 'GET',
+                            url: SessionService.apiUrl + '/api/User/Pms', //?id='+ id,
+                            headers: { 'Content-Type': 'application/json' }
+                        })
+                        .success(function(response) {
+                            result.resolve(response);
+                        })
+                        .error(function(response) {
+                            result.reject(response);
+                        });
 
-            return result.promise;
-        },
-        sentMessage: function(model) {
-            var result = $q.defer();
-            $http({
-                    method: 'POST',
-                    url: SessionService.apiUrl + '/api/User/WritePm',
-                    data: model,
-                    headers: { 'Content-Type': 'application/json' }
-                })
-                .success(function(response) {
-                    result.resolve(response);
-                })
-                .error(function(response) {
-                    result.reject(response);
-                });
-            return result.promise;
+                    return result.promise;
+                },
+                sentMessage: function(model) {
+                    var result = $q.defer();
+                    $http({
+                            method: 'POST',
+                            url: SessionService.apiUrl + '/api/User/WritePm',
+                            data: model,
+                            headers: { 'Content-Type': 'application/json' }
+                        })
+                        .success(function(response) {
+                            result.resolve(response);
+                        })
+                        .error(function(response) {
+                            result.reject(response);
+                        });
+                    return result.promise;
+                }
+
+            }
         }
+    ]);
 
-    }
-};
-
-PmsFactory.$inject = ['$q', '$http', 'SessionService']
+//PmsFactory.$inject = ['$q', '$http', 'SessionService']

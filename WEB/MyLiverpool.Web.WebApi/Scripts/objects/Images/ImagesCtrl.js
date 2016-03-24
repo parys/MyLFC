@@ -1,20 +1,25 @@
-﻿var ImagesCtrl = function ($scope, ImagesFactory, $stateParams) {
- //   $scope.path = '';
-    $scope.files = '';
+﻿'use strict';
+angular.module('liverpoolApp')
+    .controller('ImagesCtrl', [
+        '$scope', 'ImagesFactory', '$stateParams',
+        function($scope, ImagesFactory, $stateParams) {
+            //   $scope.path = '';
+            $scope.files = '';
 
-    $scope.init = function () {
-        ImagesFactory.getImages($stateParams.path)
-            .then(function (response) {
-                    console.log(response);
-                    $scope.files = response;
+            $scope.init = function() {
+                ImagesFactory.getImages($stateParams.path)
+                    .then(function(response) {
+                            console.log(response);
+                            $scope.files = response;
 
-                },
-                function(response) {
-                    //$scope.f = "";
-                });
-    };
+                        },
+                        function(response) {
+                            //$scope.f = "";
+                        });
+            };
 
-  //  init();
-};
+            //  init();
+        }
+    ]);
 
-ImagesCtrl.$inject = ['$scope', 'ImagesFactory', '$stateParams'];
+//ImagesCtrl.$inject = ['$scope', 'ImagesFactory', '$stateParams'];

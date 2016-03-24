@@ -1,12 +1,16 @@
-﻿var ModalCtrl = function ($scope, $uibModalInstance) {
+﻿'use strict';
+angular.module('liverpoolApp')
+    .controller('ModalCtrl', [
+        '$scope', '$uibModalInstance', function($scope, $uibModalInstance) {
 
-    $scope.ok = function () {
-        $uibModalInstance.close('ok');
-    };
+            $scope.ok = function() {
+                $uibModalInstance.close('ok');
+            };
 
-    $scope.cancel = function () {
-        $uibModalInstance.dismiss('cancel');
-    };
-};
+            $scope.cancel = function() {
+                $uibModalInstance.dismiss('cancel');
+            };
+        }
+    ]);
 
-ModalCtrl.$inject = ['$scope', '$uibModalInstance'];
+//ModalCtrl.$inject = ['$scope', '$uibModalInstance'];

@@ -1,9 +1,7 @@
 ﻿'use strict';
 
-//angular.module('App')
-//  var  .service('Authentication', function Authentication($q, $http) {
-
-var Authentication = function ($q, AccountFactory, SessionService, $cookies, $rootScope, $state) {
+angular.module('liverpoolApp')
+.factory('Authentication', [ '$q', 'AccountFactory', 'SessionService', '$cookies', '$rootScope', '$state', function ($q, AccountFactory, SessionService, $cookies, $rootScope, $state) {
 
     var authenticatedUser = undefined;
     var cookieName = 'abra-kadabra';
@@ -108,6 +106,6 @@ var Authentication = function ($q, AccountFactory, SessionService, $cookies, $ro
             return isUserInRole(authenticatedUser, 'BlogsStart');
         },
     }
-};
+}]);
 
-Authentication.$inject = ['$q', 'AccountFactory', 'SessionService', '$cookies', '$rootScope', '$state']
+//Authentication.$inject = ['$q', 'AccountFactory', 'SessionService', '$cookies', '$rootScope', '$state']

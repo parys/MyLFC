@@ -1,94 +1,98 @@
 ﻿'use strict';
 
-//angular.module('liverpoolApp')
-//.controller('Authentication', function Authentication($scope, $state, Authentication, RouteFilter, AccountFactory, $location, UsersFactory, $interval) {
+var app = angular.module('liverpoolApp')
+.controller('LandingPageController',
+[
+    '$scope', '$state', 'Authentication', 'RouteFilter', 'AccountFactory', '$location', 'UsersFactory', '$interval',
+    function($scope, $state, Authentication, RouteFilter, AccountFactory, $location, UsersFactory, $interval) {
 
-var LandingPageController = function ($scope, $state, Authentication, RouteFilter, AccountFactory, $location, UsersFactory, $interval) {
-    $scope.unreadPmCount = 0;
 
-    $scope.userId = function () {
-        return Authentication.getUserId();
-    };
+//var LandingPageController = function ($scope, $state, Authentication, RouteFilter, AccountFactory, $location, UsersFactory, $interval) {
+        $scope.unreadPmCount = 0;
 
-    $scope.navbarProperties = {
-        isCollapsed: true
-    };
+        $scope.userId = function() {
+            return Authentication.getUserId();
+        };
 
-    function getUnreadPmCount() {
-        if (!$scope.loggedIn()) {
-            return;
+        $scope.navbarProperties = {
+            isCollapsed: true
+        };
+
+        function getUnreadPmCount() {
+            if (!$scope.loggedIn()) {
+                return;
+            }
+            UsersFactory.getUnreadPmCount().
+                then(function(response) {
+                        if (response) {
+                            $scope.unreadPmCount = response;
+                        }
+                    },
+                    function(response) {
+                    });
+        };
+
+        $interval(getUnreadPmCount, 30000);
+
+        $scope.loggedIn = function() {
+            return Authentication.exists();
+        };
+
+        $scope.canAccess = function(route) {
+            return RouteFilter.canAccess(route);
         }
-        UsersFactory.getUnreadPmCount().
-            then(function(response) {
-                    if (response) {
-                        $scope.unreadPmCount = response;
-                    }
-                },
-                function(response) {
-                });
-    };
 
-    $interval(getUnreadPmCount, 30000);
+        $scope.logout = function() {
+            Authentication.logout();
+            //$state.go('home');
+        }
 
-    $scope.loggedIn = function() {
-        return Authentication.exists();
-    };
+        $scope.emailUnique = function(email) {
+            return AccountFactory.isEmailUnique(email);
+        }
 
-    $scope.canAccess = function(route) {
-        return RouteFilter.canAccess(route);
-    }
+        $scope.userNameUnique = function(userName) {
+            return AccountFactory.isUserNameUnique(userName);
+        }
 
-    $scope.logout = function() {
-        Authentication.logout();
-        //$state.go('home');
-    }
+        $scope.getReturnUrl = function() {
+            //  console.log($location.url());
+            return $location.url();
+        }
 
-    $scope.emailUnique = function (email) {
-        return AccountFactory.isEmailUnique(email);
-    }
+        $scope.isSelf = function(userId) {
+            return Authentication.getUserId() == userId;
+        }
 
-    $scope.userNameUnique = function (userName) {
-        return AccountFactory.isUserNameUnique(userName);
-    }
+        $scope.isNewsmaker = function() {
+            //   console.log('isNewsmaker landing ');
+            return Authentication.isNewsmaker();
+        }
 
-    $scope.getReturnUrl = function () {
-      //  console.log($location.url());
-        return $location.url();
-    }
+        $scope.isEditor = function() {
+            //    console.log('isEditor landing');
+            return Authentication.isEditor();
+        }
 
-    $scope.isSelf = function (userId) {
-        return Authentication.getUserId() == userId;
-    }
-    
-    $scope.isNewsmaker = function () {
-     //   console.log('isNewsmaker landing ');
-        return Authentication.isNewsmaker();
-    }
+        $scope.isMainModerator = function() {
+            //    console.log('isModerator landing');
+            return Authentication.isMainModerator();
+        }
 
-    $scope.isEditor = function () {
-    //    console.log('isEditor landing');
-        return Authentication.isEditor();
-    }
+        $scope.isModerator = function() {
+            //    console.log('isModerator landing');
+            return Authentication.isModerator();
+        }
 
-    $scope.isMainModerator = function () {
-    //    console.log('isModerator landing');
-        return Authentication.isMainModerator();
-    }
+        $scope.isAuthor = function() {
+            //    console.log('isModerator landing');
+            return Authentication.isAuthor();
+        }
 
-    $scope.isModerator = function () {
-    //    console.log('isModerator landing');
-        return Authentication.isModerator();
-    }
+        $scope.isAdmin = function() {
+            //    console.log('isModerator landing');
+            return Authentication.isAdmin();
+        }
+    }]);
 
-    $scope.isAuthor = function () {
-        //    console.log('isModerator landing');
-        return Authentication.isAuthor();
-    }
-
-    $scope.isAdmin = function () {
-        //    console.log('isModerator landing');
-        return Authentication.isAdmin();
-    }
-}
-
-LandingPageController.$inject = ['$scope', '$state', 'Authentication', 'RouteFilter', 'AccountFactory', '$location', 'UsersFactory', '$interval'];
+//LandingPageController.$inject = ['$scope', '$state', 'Authentication', 'RouteFilter', 'AccountFactory', '$location', 'UsersFactory', '$interval'];

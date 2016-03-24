@@ -27,11 +27,11 @@ namespace MyLiverpool.Web.WebApi
                 .Include("~/Scripts/angular-ui-router.js")
                 .Include("~/Scripts/ng-file-upload-shim.js")
                 .Include("~/Scripts/ng-file-upload.js")
-                .IncludeDirectory("~/Scripts/objects", "*.js", true)
+                .Include("~/Scripts/App.js")
                 .IncludeDirectory("~/Scripts/Controllers", "*.js")
                 .IncludeDirectory("~/Scripts/Factories", "*.js")
-                .IncludeDirectory("~/Scripts/Services", "*.js")
-                .Include("~/Scripts/App.js"));
+                .IncludeDirectory("~/Scripts/objects", "*.js", true)
+                .IncludeDirectory("~/Scripts/Services", "*.js"));
 
             BundleTable.EnableOptimizations = false;
         }
