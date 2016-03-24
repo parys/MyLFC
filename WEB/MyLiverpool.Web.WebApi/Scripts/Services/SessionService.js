@@ -1,8 +1,7 @@
 ﻿'use strict';
-
-angular.module('liverpoolApp')
-    .service('SessionService', [
-        '$cookies', function($cookies) {
+var app = angular.module('liverpoolApp');
+    app.service('SessionService', [
+        '$cookies', function ($cookies) {
             this.token = undefined;
             this.userId = undefined;
 

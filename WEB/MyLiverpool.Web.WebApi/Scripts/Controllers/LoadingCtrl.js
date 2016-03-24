@@ -1,5 +1,4 @@
 ﻿'use strict';
-
 angular.module('liverpoolApp')
   .controller('LoadingCtrl', ['$scope', 'Application', '$location', function ($scope, Application, $location) {
 //var LoadingCtrl = function ($scope, Application, $location)

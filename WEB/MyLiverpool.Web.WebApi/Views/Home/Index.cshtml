@@ -8,7 +8,6 @@
     <link rel="shortcut icon" type="image/x-icon" href="~/favicon.ico" />
 
     @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/App")
     @*<script src="~/Scripts/ru.js"></script>
         <script src="~/Scripts/jquery.wysibb.js"></script>
         <link rel="stylesheet" href="~/Content/theme/default/wbbtheme.css" />
@@ -76,34 +75,34 @@
             </li>
         </ul>
     </div>
-    <div class="col-md-12 top50">
-        <header class="navbar navbar-default navbar-static-top row">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a ui-sref="home" class="navbar-brand">@CommonMessages.SiteTitleAddress</a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a ui-sref="home">@CommonMessages.Home</a></li>
-                    @*   @if (User.IsInRole("AdminFull"))
+<div class="col-md-12 top50">
+<header class="navbar navbar-default navbar-static-top row">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a ui-sref="home" class="navbar-brand">@CommonMessages.SiteTitleAddress</a>
+    </div>
+    <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+            <li><a ui-sref="home">@CommonMessages.Home</a></li>
+            @*   @if (User.IsInRole("AdminFull"))
                         {
                            <li> @Html.ActionLink(CommonMessages.Roles, "Index", "Role") </li>
                                     }*@
-                    <li> <a ui-sref="forum">@CommonMessages.Forum</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">@CommonMessages.News<b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li><a></a></li>
-                            <li ng-if="isNewsmaker()"><a ui-sref="newsEdit()">@CommonMessages.Create</a></li>
-                            <li><a ui-sref="newsCategories()">@CommonMessages.Categories</a></li>
-                        </ul>
-                    </li>
+            <li> <a ui-sref="forum">@CommonMessages.Forum</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">@CommonMessages.News<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a></a></li>
+                    <li ng-if="isNewsmaker()"><a ui-sref="newsEdit()">@CommonMessages.Create</a></li>
+                    <li><a ui-sref="newsCategories()">@CommonMessages.Categories</a></li>
+                </ul>
+            </li>
 
-                    @*<li class="dropdown">
+            @*<li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">@CommonMessages.Blogs<b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li>@Html.ActionLink(CommonMessages.Blogs, "Index", "Blog")</li>
@@ -112,273 +111,274 @@
                                     <li>Html.ActionLink(CommonMessages.Create, "Create", "Blog")</li>
                                 }       <li>@Html.ActionLink(CommonMessages.Categories, "Categories", "Blog")</li></ul>
                         </li>*@
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">@CommonMessages.Users <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li><a ui-sref="users">@CommonMessages.Users</a></li>
-                        </ul>
-                    </li>
-                    <li> <a ng-if="isNewsmaker() || isAuthor()" ui-sref="images({path: 'content'})">@CommonMessages.Images</a></li>
-                    <li> <a ui-sref="rules()"><span class="text-danger">@CommonMessages.Rules</span></a></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">@CommonMessages.Users <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a ui-sref="users">@CommonMessages.Users</a></li>
                 </ul>
-            </div>
-            <div class="col-md-12">temporary {{ $root.roles}}</div>
-        </header>
-        <div class="body-content row">
-            <div class="col-md-3 col-lg-3 container-fluid" ui-view="leftContainer" ng-controller="leftContainerCtrl">
-                <section class="col-md- alert-info row">
-                    <h2>Эксетер </h2>
-                    <div class="col-md-6">
-                        <img src="https://upload.wikimedia.org/wikipedia/ru/f/f7/Exeter_City_Logo.png" />
-                    </div>
-                    <div class="col-md-6"><span style="text-align: center; font-size: 45pt">3:0</span></div>
-
-                </section>
-                <section class="col-md- alert-danger row">
-                    <div class="col-md-12"> Лучший игрок матча с Эксетером </div>
-                    <div styleclass="col-md-12">
-                        <img src="http://www.myliverpool.ru/images/Players/Squad12-13/Joe_Allen.png" />
-                    </div>
-                    <div class="col-md-12">
-                        Джо Аллен
-                    </div>
-                </section>
-                <section class="row"></section>
-            </div>
-            <div class="col-md-6 col-lg-6 container-fluid" style="background-color: #f5deb3">
-                <div class="row">
-                    <uib-alert ng-repeat="alert in $root.alerts" dismiss-on-timeout="5000" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
-                    <div class="" ui-view="containerMain" autoscroll="false">
-                        <div class="col-md-6" ui-view="newsFeed"></div>
-                        <div class="col-md-6" ui-view="blogsFeed"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-3 col-md-3 col-lg-3 container-fluid" ui-view="rightContainer" ng-controller="rightContainerCtrl">
-                <section class="col-md- row">
-                    <table class="table table-condensed table-striped table-responsive col-md-12">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Команда</th>
-                                <th>И</th>
-                                <th>В</th>
-                                <th>Н</th>
-                                <th>П</th>
-                                <th>+/-</th>
-                                <th>О</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Ливерпуль</td>
-                                <td>38</td>
-                                <td>38</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>+100</td>
-                                <td>114</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Ливерпуль</td>
-                                <td>38</td>
-                                <td>38</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>+100</td>
-                                <td>114</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Ливерпуль</td>
-                                <td>38</td>
-                                <td>38</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>+100</td>
-                                <td>114</td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>Ливерпуль</td>
-                                <td>38</td>
-                                <td>38</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>+100</td>
-                                <td>114</td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td>Ливерпуль</td>
-                                <td>38</td>
-                                <td>38</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>+100</td>
-                                <td>114</td>
-                            </tr>
-                            <tr>
-                                <td>6</td>
-                                <td>Ливерпуль</td>
-                                <td>38</td>
-                                <td>38</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>+100</td>
-                                <td>114</td>
-                            </tr>
-                            <tr>
-                                <td>7</td>
-                                <td>Ливерпуль</td>
-                                <td>38</td>
-                                <td>38</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>+100</td>
-                                <td>114</td>
-                            </tr>
-                            <tr>
-                                <td>8</td>
-                                <td>Ливерпуль</td>
-                                <td>38</td>
-                                <td>38</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>+100</td>
-                                <td>114</td>
-                            </tr>
-                            <tr>
-                                <td>9</td>
-                                <td>Ливерпуль</td>
-                                <td>38</td>
-                                <td>38</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>+100</td>
-                                <td>114</td>
-                            </tr>
-                            <tr>
-                                <td>10</td>
-                                <td>Ливерпуль</td>
-                                <td>38</td>
-                                <td>38</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>+100</td>
-                                <td>114</td>
-                            </tr>
-                            <tr>
-                                <td>11</td>
-                                <td>Ливерпуль</td>
-                                <td>38</td>
-                                <td>38</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>+100</td>
-                                <td>114</td>
-                            </tr>
-                            <tr>
-                                <td>12</td>
-                                <td>Ливерпуль</td>
-                                <td>38</td>
-                                <td>38</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>+100</td>
-                                <td>114</td>
-                            </tr>
-                            <tr>
-                                <td>13</td>
-                                <td>Ливерпуль</td>
-                                <td>38</td>
-                                <td>38</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>+100</td>
-                                <td>114</td>
-                            </tr>
-                            <tr>
-                                <td>14</td>
-                                <td>Ливерпуль</td>
-                                <td>38</td>
-                                <td>38</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>+100</td>
-                                <td>114</td>
-                            </tr>
-                            <tr>
-                                <td>15</td>
-                                <td>Ливерпуль</td>
-                                <td>38</td>
-                                <td>38</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>+100</td>
-                                <td>114</td>
-                            </tr>
-                            <tr>
-                                <td>16</td>
-                                <td>Ливерпуль</td>
-                                <td>38</td>
-                                <td>38</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>+100</td>
-                                <td>114</td>
-                            </tr>
-                            <tr>
-                                <td>17</td>
-                                <td>Ливерпуль</td>
-                                <td>38</td>
-                                <td>38</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>+100</td>
-                                <td>114</td>
-                            </tr>
-                            <tr>
-                                <td>18</td>
-                                <td>Ливерпуль</td>
-                                <td>38</td>
-                                <td>38</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>+100</td>
-                                <td>114</td>
-                            </tr>
-                            <tr>
-                                <td>19</td>
-                                <td>Эвертон</td>
-                                <td>38</td>
-                                <td>0</td>
-                                <td>38</td>
-                                <td>0</td>
-                                <td>-100</td>
-                                <td>0</td>
-                            </tr>
-                            <tr>
-                                <td>20</td>
-                                <td>Манчестер Юнайтед</td>
-                                <td>38</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>38</td>
-                                <td>-100</td>
-                                <td>0</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </section>
-            </div>
-        </div>
-        <hr />
-        <footer class="bottom container-fluid">
-            <p>&copy; @DateTime.Now.Year - @CommonMessages.SiteTitleAddress</p>
-        </footer>
+            </li>
+            <li> <a ng-if="isNewsmaker() || isAuthor()" ui-sref="images({path: 'content'})">@CommonMessages.Images</a></li>
+            <li> <a ui-sref="rules()"><span class="text-danger">@CommonMessages.Rules</span></a></li>
+        </ul>
     </div>
+    <div class="col-md-12">temporary {{ $root.roles}}</div>
+</header>
+<div class="body-content row">
+<div class="col-md-3 col-lg-3 container-fluid" ui-view="leftContainer" ng-controller="leftContainerCtrl">
+    <section class="col-md- alert-info row">
+        <h2>Эксетер </h2>
+        <div class="col-md-6">
+            <img src="https://upload.wikimedia.org/wikipedia/ru/f/f7/Exeter_City_Logo.png"/>
+        </div>
+        <div class="col-md-6"><span style="text-align: center; font-size: 45pt">3:0</span></div>
+
+    </section>
+    <section class="col-md- alert-danger row">
+        <div class="col-md-12"> Лучший игрок матча с Эксетером </div>
+        <div styleclass="col-md-12">
+            <img src="http://www.myliverpool.ru/images/Players/Squad12-13/Joe_Allen.png"/>
+        </div>
+        <div class="col-md-12">
+            Джо Аллен
+        </div>
+    </section>
+    <section class="row"></section>
+</div>
+<div class="col-md-6 col-lg-6 container-fluid" style="background-color: #f5deb3">
+    <div class="row">
+        <uib-alert ng-repeat="alert in $root.alerts" dismiss-on-timeout="5000" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+        <div class="" ui-view="containerMain" autoscroll="false">
+            <div class="col-md-6" ui-view="newsFeed"></div>
+            <div class="col-md-6" ui-view="blogsFeed"></div>
+        </div>
+    </div>
+</div>
+<div class="col-sm-3 col-md-3 col-lg-3 container-fluid" ui-view="rightContainer" ng-controller="rightContainerCtrl">
+<section class="col-md- row">
+<table class="table table-condensed table-striped table-responsive col-md-12">
+<thead>
+<tr>
+    <th>#</th>
+    <th>Команда</th>
+    <th>И</th>
+    <th>В</th>
+    <th>Н</th>
+    <th>П</th>
+    <th>+/-</th>
+    <th>О</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+    <td>1</td>
+    <td>Ливерпуль</td>
+    <td>38</td>
+    <td>38</td>
+    <td>0</td>
+    <td>0</td>
+    <td>+100</td>
+    <td>114</td>
+</tr>
+<tr>
+    <td>2</td>
+    <td>Ливерпуль</td>
+    <td>38</td>
+    <td>38</td>
+    <td>0</td>
+    <td>0</td>
+    <td>+100</td>
+    <td>114</td>
+</tr>
+<tr>
+    <td>3</td>
+    <td>Ливерпуль</td>
+    <td>38</td>
+    <td>38</td>
+    <td>0</td>
+    <td>0</td>
+    <td>+100</td>
+    <td>114</td>
+</tr>
+<tr>
+    <td>4</td>
+    <td>Ливерпуль</td>
+    <td>38</td>
+    <td>38</td>
+    <td>0</td>
+    <td>0</td>
+    <td>+100</td>
+    <td>114</td>
+</tr>
+<tr>
+    <td>5</td>
+    <td>Ливерпуль</td>
+    <td>38</td>
+    <td>38</td>
+    <td>0</td>
+    <td>0</td>
+    <td>+100</td>
+    <td>114</td>
+</tr>
+<tr>
+    <td>6</td>
+    <td>Ливерпуль</td>
+    <td>38</td>
+    <td>38</td>
+    <td>0</td>
+    <td>0</td>
+    <td>+100</td>
+    <td>114</td>
+</tr>
+<tr>
+    <td>7</td>
+    <td>Ливерпуль</td>
+    <td>38</td>
+    <td>38</td>
+    <td>0</td>
+    <td>0</td>
+    <td>+100</td>
+    <td>114</td>
+</tr>
+<tr>
+    <td>8</td>
+    <td>Ливерпуль</td>
+    <td>38</td>
+    <td>38</td>
+    <td>0</td>
+    <td>0</td>
+    <td>+100</td>
+    <td>114</td>
+</tr>
+<tr>
+    <td>9</td>
+    <td>Ливерпуль</td>
+    <td>38</td>
+    <td>38</td>
+    <td>0</td>
+    <td>0</td>
+    <td>+100</td>
+    <td>114</td>
+</tr>
+<tr>
+    <td>10</td>
+    <td>Ливерпуль</td>
+    <td>38</td>
+    <td>38</td>
+    <td>0</td>
+    <td>0</td>
+    <td>+100</td>
+    <td>114</td>
+</tr>
+<tr>
+    <td>11</td>
+    <td>Ливерпуль</td>
+    <td>38</td>
+    <td>38</td>
+    <td>0</td>
+    <td>0</td>
+    <td>+100</td>
+    <td>114</td>
+</tr>
+<tr>
+    <td>12</td>
+    <td>Ливерпуль</td>
+    <td>38</td>
+    <td>38</td>
+    <td>0</td>
+    <td>0</td>
+    <td>+100</td>
+    <td>114</td>
+</tr>
+<tr>
+    <td>13</td>
+    <td>Ливерпуль</td>
+    <td>38</td>
+    <td>38</td>
+    <td>0</td>
+    <td>0</td>
+    <td>+100</td>
+    <td>114</td>
+</tr>
+<tr>
+    <td>14</td>
+    <td>Ливерпуль</td>
+    <td>38</td>
+    <td>38</td>
+    <td>0</td>
+    <td>0</td>
+    <td>+100</td>
+    <td>114</td>
+</tr>
+<tr>
+    <td>15</td>
+    <td>Ливерпуль</td>
+    <td>38</td>
+    <td>38</td>
+    <td>0</td>
+    <td>0</td>
+    <td>+100</td>
+    <td>114</td>
+</tr>
+<tr>
+    <td>16</td>
+    <td>Ливерпуль</td>
+    <td>38</td>
+    <td>38</td>
+    <td>0</td>
+    <td>0</td>
+    <td>+100</td>
+    <td>114</td>
+</tr>
+<tr>
+    <td>17</td>
+    <td>Ливерпуль</td>
+    <td>38</td>
+    <td>38</td>
+    <td>0</td>
+    <td>0</td>
+    <td>+100</td>
+    <td>114</td>
+</tr>
+<tr>
+    <td>18</td>
+    <td>Ливерпуль</td>
+    <td>38</td>
+    <td>38</td>
+    <td>0</td>
+    <td>0</td>
+    <td>+100</td>
+    <td>114</td>
+</tr>
+<tr>
+    <td>19</td>
+    <td>Эвертон</td>
+    <td>38</td>
+    <td>0</td>
+    <td>38</td>
+    <td>0</td>
+    <td>-100</td>
+    <td>0</td>
+</tr>
+<tr>
+    <td>20</td>
+    <td>Манчестер Юнайтед</td>
+    <td>38</td>
+    <td>0</td>
+    <td>0</td>
+    <td>38</td>
+    <td>-100</td>
+    <td>0</td>
+</tr>
+</tbody>
+</table>
+</section>
+</div>
+</div>
+<hr/>
+<footer class="bottom container-fluid">
+    <p>&copy; @DateTime.Now.Year - @CommonMessages.SiteTitleAddress</p>
+</footer>
+</div>
+    @Scripts.Render("~/bundles/App")
 </body>
 </html>

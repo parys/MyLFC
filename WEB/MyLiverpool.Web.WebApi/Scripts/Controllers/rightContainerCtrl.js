@@ -1,7 +1,6 @@
 ﻿'use strict';
-
-var app = angular.module('liverpoolApp', []);
-app.controller('rightContainerCtrl',
+angular.module('liverpoolApp')
+.controller('rightContainerCtrl',
 [
     '$scope', // '$state', 'Authentication', 'RouteFilter', 'AccountFactory', '$location', 'UsersFactory', '$interval',
     function($scope) { // $state, Authentication, RouteFilter, AccountFactory, $location, UsersFactory, $interval) {

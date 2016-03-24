@@ -27,11 +27,24 @@ namespace MyLiverpool.Web.WebApi
                 .Include("~/Scripts/angular-ui-router.js")
                 .Include("~/Scripts/ng-file-upload-shim.js")
                 .Include("~/Scripts/ng-file-upload.js")
-                .Include("~/Scripts/App.js")
-                .IncludeDirectory("~/Scripts/Controllers", "*.js")
-                .IncludeDirectory("~/Scripts/Factories", "*.js")
-                .IncludeDirectory("~/Scripts/objects", "*.js", true)
-                .IncludeDirectory("~/Scripts/Services", "*.js"));
+                      .Include("~/Scripts/App.js")
+                .Include("~/Scripts/objects/account/accountFactory.js")
+                .Include("~/Scripts/Services/SessionService.js")
+                .Include("~/Scripts/Services/AuthenticationService.js")
+                .Include("~/Scripts/Factories/Application.js")
+                .Include("~/Scripts/Factories/RouteFilter.js")
+               
+                //.IncludeDirectory("~/Scripts/Factories", "*.js")
+                //     .IncludeDirectory("~/Scripts/objects/account", "*.js")
+                //      .IncludeDirectory("~/Scripts/objects", "*.js", true)
+               // .IncludeDirectory("~/Scripts/Services", "*.js")
+              //     .IncludeDirectory("~/Scripts/Controllers", "*.js")
+                   .Include("~/Scripts/Controllers/LandingPageController.js")
+                   .Include("~/Scripts/Controllers/leftContainerCtrl.js")
+                   .Include("~/Scripts/Controllers/rightContainerCtrl.js")
+
+
+                );
 
             BundleTable.EnableOptimizations = false;
         }

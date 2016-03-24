@@ -1,7 +1,8 @@
 ﻿'use strict';
 angular.module('liverpoolApp')
     .factory('RouteFilter', [
-        '$location', function($location) {
+        '$location',
+        function ($location) {
             var filters = [];
 
             var matchRoute = function(filterRoute, route) {

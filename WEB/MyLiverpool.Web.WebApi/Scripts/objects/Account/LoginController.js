@@ -1,7 +1,8 @@
 ﻿'use strict';
 angular.module('liverpoolApp')
     .controller('LoginController', [
-        '$scope', 'SessionService', 'Authentication', 'ValidationService', 'AccountFactory', '$state', '$rootScope', function($scope, SessionService, Authentication, ValidationService, AccountFactory, $state, $rootScope) {
+        '$scope', 'SessionService', 'Authentication', 'ValidationService', 'AccountFactory', '$state', '$rootScope',
+        function ($scope, SessionService, Authentication, ValidationService, AccountFactory, $state, $rootScope) {
 
             $scope.loginForm = {
                 userName: undefined,

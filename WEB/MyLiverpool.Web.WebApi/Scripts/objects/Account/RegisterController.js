@@ -1,7 +1,8 @@
 ﻿'use strict';
 angular.module('liverpoolApp')
     .controller('RegisterController', [
-        '$scope', 'AccountFactory', 'Authentication', 'ValidationService', '$state', function($scope, AccountFactory, Authentication, ValidationService, $state) {
+        '$scope', 'AccountFactory', 'Authentication', 'ValidationService', '$state',
+        function ($scope, AccountFactory, Authentication, ValidationService, $state) {
             $scope.registerForm = {
                 userName: '',
                 email: '',

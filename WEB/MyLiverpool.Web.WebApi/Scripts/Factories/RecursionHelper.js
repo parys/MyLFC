@@ -1,5 +1,4 @@
 ﻿'use strict';
-
 angular.module('liverpoolApp')
     .factory('RecursionHelper', [
         '$compile', function($compile) {
