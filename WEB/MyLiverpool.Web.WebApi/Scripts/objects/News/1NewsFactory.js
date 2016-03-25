@@ -8,7 +8,7 @@ angular.module('liverpoolApp')
 
                     $http({
                             method: 'GET',
-                            url: SessionService.apiUrl + '/api/News/List?page=' + page + '&categoryId=' + categoryId,
+                            url: SessionService.apiUrl + '/api/News/?page=' + page + '&categoryId=' + categoryId,
                             headers: { 'Content-Type': 'application/json' }
                         })
                         .success(function(response) {
@@ -25,7 +25,7 @@ angular.module('liverpoolApp')
 
                     $http({
                             method: 'GET',
-                            url: SessionService.apiUrl + '/api/News/Info?id=' + $stateParams.id,
+                            url: SessionService.apiUrl + '/api/News/?id=' + $stateParams.id,
                             headers: { 'Content-Type': 'application/json' }
                         })
                         .success(function(response) {
@@ -42,7 +42,7 @@ angular.module('liverpoolApp')
 
                     $http({
                             method: 'DELETE',
-                            url: SessionService.apiUrl + '/api/News/delete?id=' + id,
+                            url: SessionService.apiUrl + '/api/News/?id=' + id,
                             headers: { 'Content-Type': 'application/json' }
                         })
                         .success(function(response) {
@@ -93,7 +93,7 @@ angular.module('liverpoolApp')
 
                     $http({
                             method: 'POST',
-                            url: SessionService.apiUrl + '/api/News/create',
+                            url: SessionService.apiUrl + '/api/News/',
                             data: item,
                             headers: { 'Content-Type': 'application/json' }
                         })
@@ -111,7 +111,7 @@ angular.module('liverpoolApp')
 
                     $http({
                             method: 'PUT',
-                            url: SessionService.apiUrl + '/api/News/edit',
+                            url: SessionService.apiUrl + '/api/News/',
                             data: item,
                             headers: { 'Content-Type': 'application/json' }
                         })

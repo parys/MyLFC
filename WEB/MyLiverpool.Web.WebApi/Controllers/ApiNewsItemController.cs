@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using System.Web.Http;
-using System.Web.Http.Description;
 using Microsoft.AspNet.Identity;
 using MyLiverpool.Business.DTO;
 using MyLiverpoolSite.Business.Contracts;
@@ -22,7 +21,7 @@ namespace MyLiverpool.Web.WebApi.Controllers
             _materialCategoryService = materialCategoryService;
         }
 
-        [Route("List")]
+        [Route]
         [HttpGet]
         [AllowAnonymous]
         public async Task<PageableData<MaterialMiniDto>> GetNewsItems(int page = 1, int? categoryId = null)
@@ -30,17 +29,16 @@ namespace MyLiverpool.Web.WebApi.Controllers
             return await _materialService.GetDtoAllAsync(page, categoryId, Type);
         }
 
-        [Route("Info")]
+        [Route]
         [HttpGet]
         [AllowAnonymous]
-        [ResponseType(typeof(MaterialDto))]
         public async Task<IHttpActionResult> GetNewsItem(int id)
         {
             var model = await _materialService.GetDtoAsync(id, Type);
             return Ok(model);
         }
 
-        [Route("Delete")]
+        [Route]
         [HttpDelete]
         [Authorize(Roles = "NewsStart")]
         public async Task<IHttpActionResult> Delete(int? id)
@@ -76,7 +74,7 @@ namespace MyLiverpool.Web.WebApi.Controllers
             return Ok(result);
         }
 
-        [Route("Create")]
+        [Route]
         [HttpPost]
         [Authorize(Roles = "NewsStart")]
         public async Task<IHttpActionResult> Create(MaterialDto model)
@@ -93,10 +91,10 @@ namespace MyLiverpool.Web.WebApi.Controllers
             return Ok(result);
         }
 
-        [Route("Edit")]
+        [Route]
         [HttpPut]
         [Authorize(Roles = "NewsStart")]
-        public async Task<IHttpActionResult> Edit(MaterialDto model)
+        public async Task<IHttpActionResult> Update(MaterialDto model)
         {
             if (!ModelState.IsValid)
             {

@@ -23,7 +23,6 @@ namespace MyLiverpool.Web.WebApi.Controllers
         [Route("Info")]
         [HttpGet]
         [AllowAnonymous]
-        [ResponseType(typeof(UserDto))]
         public async Task<IHttpActionResult> Get(int id)
         {
             return Ok(await _userService.GetUserProfileDtoAsync(id));
@@ -50,7 +49,6 @@ namespace MyLiverpool.Web.WebApi.Controllers
         [Route("Pm")]
         [HttpGet]
         [Authorize]
-        [ResponseType(typeof(PrivateMessageDto))]
         public async Task<IHttpActionResult> Pm(int id)
         {
             var model = await _userService.GetPrivateMessageDtoAsync(id, User.Identity.GetUserId<int>());
@@ -96,7 +94,7 @@ namespace MyLiverpool.Web.WebApi.Controllers
 
         [Route("GetUserNames")]
         [HttpGet]
-        [AllowAnonymous]
+        [Authorize]
         public async Task<IHttpActionResult> GetUserNames(string typed)
         {
             var result = await _userService.GetUserNamesAsync(typed);

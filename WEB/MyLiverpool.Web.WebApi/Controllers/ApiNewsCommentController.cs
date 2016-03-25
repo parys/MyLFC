@@ -20,10 +20,10 @@ namespace MyLiverpool.Web.WebApi.Controllers
             _materialCommentService = materialCommentService;
         }
 
-        [Route("Add")]
+        [Route]
         [HttpPost]
         [Authorize]
-        public async Task<IHttpActionResult> Add(MaterialCommentEditingDto comment)
+        public async Task<IHttpActionResult> Create(MaterialCommentEditingDto comment)
         {
             if (!ModelState.IsValid)
             {
@@ -35,7 +35,7 @@ namespace MyLiverpool.Web.WebApi.Controllers
             return Ok(result);
         } 
 
-        [Route("Delete")]
+        [Route]
         [HttpDelete]
         [Authorize(Roles = "UsersStart")]
         public async Task<IHttpActionResult> Delete(int? id)
@@ -49,10 +49,10 @@ namespace MyLiverpool.Web.WebApi.Controllers
             return Ok(result);
         }
 
-        [Route("Edit")]
+        [Route]
         [HttpPut]
         [Authorize]
-        public async Task<IHttpActionResult> Edit(MaterialCommentEditingDto comment)
+        public async Task<IHttpActionResult> Update(MaterialCommentEditingDto comment)
         {
             if (!ModelState.IsValid)
             {

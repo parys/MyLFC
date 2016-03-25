@@ -9,7 +9,7 @@ angular.module('liverpoolApp')
 
                     $http({
                             method: 'Post',
-                            url: SessionService.apiUrl + '/api/NewsComment/Add',
+                            url: SessionService.apiUrl + '/api/NewsComment/',
                             data: comment,
                             headers: { 'Content-Type': 'application/json' }
                         })
@@ -22,13 +22,12 @@ angular.module('liverpoolApp')
 
                     return result.promise;
                 },
-
                 delete: function(id) {
                     var result = $q.defer();
 
                     $http({
                             method: 'DELETE',
-                            url: SessionService.apiUrl + '/api/NewsComment/delete?id=' + id,
+                            url: SessionService.apiUrl + '/api/NewsComment/?id=' + id,
                             headers: { 'Content-Type': 'application/json' }
                         })
                         .success(function(response) {
@@ -40,13 +39,12 @@ angular.module('liverpoolApp')
 
                     return result.promise;
                 },
-
                 edit: function(item) {
                     var result = $q.defer();
 
                     $http({
                             method: 'PUT',
-                            url: SessionService.apiUrl + '/api/NewsComment/edit',
+                            url: SessionService.apiUrl + '/api/NewsComment/',
                             data: item,
                             headers: { 'Content-Type': 'application/json' }
                         })

@@ -328,6 +328,7 @@ angular.module('liverpoolApp')
 
             // define translation maps you want to use on startup
             $translateProvider.preferredLanguage('ru');
+            $translateProvider.useSanitizeValueStrategy(null);
 
             $httpProvider.interceptors.push('AuthHttpResponseInterceptor');
 
