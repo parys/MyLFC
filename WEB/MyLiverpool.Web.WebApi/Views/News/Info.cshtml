@@ -3,7 +3,7 @@
 <div class="container-row col-md-12" ng-init="init()">
     <div class="alert-danger col-md-12 container-row flex-vertical-center">
         <h3 class="container col-md-12">
-            {{ item.title }}
+            <span ng-bind="item.title"></span>
             <span class="col-md-3 pull-right" ng-if="isNewsmaker()">
                 <span class="small pull-right">
                     <a ng-if="isEditor()" ng-show="item.pending" ng-click="activate()"><span class="glyphicon glyphicon-ok"></span></a>
@@ -17,15 +17,15 @@
         <article ng-bind-html="item.message | rawHtml"></article>
         <div class="alert-warning">
             <ul class="list-inline">
-                <li><label>@ColonsMessages.Reads</label> {{ item.reads }}</li>
-                <li><label>@ColonsMessages.Source</label> {{ item.source }}</li>
-                <li><label>@ColonsMessages.AdditionTime</label> {{ item.additionTime | date:'medium' }}</li>
-                <li><label>@ColonsMessages.Category</label> <a ui-sref="news({page: 1, categoryId: item.newsCategoryId})"> {{ item.newsCategoryName }} </a></li>
+                <li><label>@ColonsMessages.Reads</label> <span ng-bind="item.reads"></span></li>
+                <li><label>@ColonsMessages.Source</label> <span ng-bind="item.source"></span></li>
+                <li><label>@ColonsMessages.AdditionTime</label> <span ng-bind="item.additionTime | date:'medium'"></span></li>
+                <li><label>@ColonsMessages.Category</label> <a ui-sref="news({page: 1, categoryId: item.newsCategoryId})"> <span ng-bind="item.newsCategoryName"></span> </a></li>
             </ul>
         </div>
     </div>
 
-    @ColonsMessages.CommentsCount {{item.commentsCount}}
+    @ColonsMessages.CommentsCount <span ng-bind="item.commentsCount"></span>
 
     <div ng-repeat="comment in item.comments">
         <tree comment="comment" deep="0"></tree>

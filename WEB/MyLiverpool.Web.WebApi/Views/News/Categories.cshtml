@@ -2,6 +2,6 @@
 
 <div>
     <ul ng-repeat="category in categories">
-            <li><span><a ui-sref="news({page: 1, categoryId: category.id})"> {{ category.name }} [{{ category.itemsCount }}]</a></span></li>
+        <li><a ui-sref="news({page: 1, categoryId: category.id})"><span ng-bind="category.name"></span> [<span ng-bind="category.itemsCount"></span>]</a></li>
     </ul>
 </div>

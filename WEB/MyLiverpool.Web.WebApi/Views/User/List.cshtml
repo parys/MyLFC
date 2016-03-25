@@ -12,23 +12,20 @@
         </thead>
         <tbody ng-repeat="user in users">
                 <tr>
-                    <td class="">
-                        {{ user.lastModified | date:'medium' }}
+                    <td class="" ng-bind="user.lastModified | date:'medium'">
                     </td>
                     <td class="">
                         <a ui-sref="userInfo({id: user.id})">
                             <div class="col-md-3">
                                 <img class="mini-avatar" ng-src="{{user.photo}}"/>
                             </div>
-                            {{ user.userName }}</a>
+                            <span ng-bind="user.userName"></span></a>
                         <span class="text-danger" uib-tooltip="@CommonMessages.EmailNotConfirm" ng-show="!user.emailConfirmed"> *</span>
                         <a ng-show="loggedIn() && isNotSelf(user.id, userId())" ui-sref="wpm({ userName: user.userName })"><span class="glyphicon glyphicon-envelope"></span></a>
                     </td>
-                    <td class="">
-                        {{ user.registrationDate | date:'medium' }}
+                    <td class="" ng-bind="user.registrationDate | date:'medium'">
                     </td>
-                    <td class="">
-                        {{ user.roleGroupName }}
+                    <td class="" ng-bind="user.roleGroupName">
                     </td>
                 </tr>
         </tbody>

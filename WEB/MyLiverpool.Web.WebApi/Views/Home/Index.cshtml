@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title ng-bind="($title || '@CommonMessages.Main') + ' -  @CommonMessages.SiteTitleAddress'"></title>
     <link rel="shortcut icon" type="image/x-icon" href="~/favicon.ico" />
-
     @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/App")
     @*<script src="~/Scripts/ru.js"></script>
         <script src="~/Scripts/jquery.wysibb.js"></script>
         <link rel="stylesheet" href="~/Content/theme/default/wbbtheme.css" />
@@ -21,7 +21,7 @@
             <li><a id="back-top" href="#" style="display: none;">@CommonMessages.Up</a></li>
             <li class="divider"></li>
             <li ng-if="loggedIn()">
-                <a ui-sref="pms()"><span class="glyphicon glyphicon-envelope"></span> @CommonMessages.ReadPM ({{unreadPmCount}})</a>
+                <a ui-sref="pms()"><span class="glyphicon glyphicon-envelope"></span> @CommonMessages.ReadPM (<span ng-bind="unreadPmCount"></span>)</a>
             </li>
             <li class="divider"></li>
         </ul>
@@ -29,7 +29,7 @@
             <li ng-if="!loggedIn()">
                 <form ng-controller="LoginController" name="loginForm" class="form-inline" role="form" style="margin-top: 8px;">
                     <div class="form-group">
-                        <label class="sr-only" for="emailAddress">@ColonsMessages.UserName</label>
+                        <label class="sr-only" for="UserName">@ColonsMessages.UserName</label>
                         <input type="text" placeholder="@UsersMessages.UserName" class="form-control" name="UserName" id="UserName" ng-model="loginForm.userName" validation="required" validation-error-to="myError">
                     </div>
                     <div class="form-group">
@@ -38,7 +38,7 @@
                         <span id="myError" style="display: none;"></span>
                     </div>
                     <div class="form-group">
-                        <span class="text-danger" ng-if="loginForm.errorMessage" ng-bind="{{loginForm.errorMessage}}">
+                        <span class="text-danger" ng-if="loginForm.errorMessage" ng-bind="loginForm.errorMessage">
                             <a class="button" ui-sref="forgotPassword">@CommonMessages.ForgotPassword</a>
                         </span>
                     </div>
@@ -121,7 +121,7 @@
             <li> <a ui-sref="rules()"><span class="text-danger">@CommonMessages.Rules</span></a></li>
         </ul>
     </div>
-    <div class="col-md-12">temporary {{ $root.roles}}</div>
+    <div class="col-md-12">temporary <span ng-bind="$root.roles"></span></div>
 </header>
 <div class="body-content row">
 <div class="col-md-3 col-lg-3 container-fluid" ui-view="leftContainer" ng-controller="leftContainerCtrl">
@@ -146,7 +146,7 @@
 </div>
 <div class="col-md-6 col-lg-6 container-fluid" style="background-color: #f5deb3">
     <div class="row">
-        <uib-alert ng-repeat="alert in $root.alerts" dismiss-on-timeout="5000" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+        <uib-alert ng-repeat="alert in $root.alerts" dismiss-on-timeout="5000" type="{{alert.type}}" close="closeAlert($index)" ng-bind="alert.msg"></uib-alert>
         <div class="" ui-view="containerMain" autoscroll="false">
             <div class="col-md-6" ui-view="newsFeed"></div>
             <div class="col-md-6" ui-view="blogsFeed"></div>
@@ -379,6 +379,5 @@
     <p>&copy; @DateTime.Now.Year - @CommonMessages.SiteTitleAddress</p>
 </footer>
 </div>
-    @Scripts.Render("~/bundles/App")
 </body>
 </html>

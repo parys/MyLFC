@@ -3,7 +3,7 @@
 <div class="container-fluid" ng-repeat="item in newsItems">
     <div class="container-fluid" ng-if="!item.pending || isEditor()">
         <div class="row flex-vertical-center">
-            <a ui-sref="newsInfo({id: item.id})" class="col-md-9"><h4>{{ item.title }}</h4></a>
+            <a ui-sref="newsInfo({id: item.id})" class="col-md-9"><h4 ng-bind="item.title"></h4></a>
                 <span class="col-md-3" ng-if="isNewsmaker()">
                     <a ng-if="isEditor()" ng-show="item.pending" ng-click="activate($index)"><span class="glyphicon glyphicon-ok"></span></a>
                     <a ng-if="isEditor() || isUserAuthor(userId(), item.authorId)" ui-sref="newsEdit({id: item.id})"><span class="glyphicon glyphicon-pencil"></span></a>
@@ -18,19 +18,19 @@
         </div>
         <ul class="list-inline small small-offset">
             <li class="">@ColonsMessages.Category</li>
-            <li class=""><a ui-sref="news({page: 1, categoryId: item.newsCategoryId})">{{ item.newsCategoryName}}</a></li>
+            <li class=""><a ui-sref="news({page: 1, categoryId: item.newsCategoryId})" ng-bind="item.newsCategoryName"></a></li>
             <li class="">|</li>
             <li class="">@ColonsMessages.AdditionTime</li>
-            <li class="">{{item.additionTime | date:'medium'}}</li>
+            <li class="" ng-bind="item.additionTime | date:'medium'"></li>
             <li class="">|</li>
             <li class="">@ColonsMessages.Reads</li>
-            <li class="">{{item.reads}}</li>
+            <li class="" ng-bind="item.reads"></li>
             <li class="">|</li>
             <li class="">@ColonsMessages.Author</li>
-            <li class=""><a ui-sref="userInfo({id: item.authorId })">{{item.authorUserName }}</a></li>
+            <li class=""><a ui-sref="userInfo({id: item.authorId })" ng-bind="item.authorUserName"></a></li>
             <li class="">|</li>
             <li class="">@ColonsMessages.CommentsCount</li>
-            <li class="">{{ item.commentsCount }}</li>
+            <li class="" ng-bind="item.commentsCount"></li>
         </ul>
         @*<hr />*@
     </div>

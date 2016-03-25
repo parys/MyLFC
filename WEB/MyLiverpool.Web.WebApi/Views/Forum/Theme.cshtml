@@ -1,15 +1,14 @@
 ﻿@using MyLiverpool.Business.Resources
 
-<h2>{{ name }}</h2>
-<h3>{{ description }}</h3>
+<h2 ng-bind="name"></h2>
+<h3 ng-bind="description"></h3>
 
 <div class="container-fluid" ng-repeat="message in messages">
 
     <div class="panel panel-default">
-        <div class="panel-heading"><a ui-sref="userInfo({id: message.authorId})">{{ message.authorUserName}}</a>
+        <div class="panel-heading"><a ui-sref="userInfo({id: message.authorId})" ng-bind="message.authorUserName"></a>
         </div>
-        <div class="panel-body">
-            {{ message.message}}
+        <div class="panel-body" ng-bind="message.message">
         </div>
     </div>
 </div>
