@@ -6,7 +6,7 @@ angular.module('liverpoolApp')
                 restrict: "E",
                 scope: { comment: '=', deep: '=', authorId: '=' },
                 templateUrl: 'uib/template/my/newsComment.html',
-                controller: NewsCommentCtrl,
+                controller: 'NewsCommentCtrl',
                 transclude: true,
                 compile: function(element) {
                     return RecursionHelper.compile(element, function(scope, iElement, iAttrs, controller, transcludeFn) {
@@ -19,5 +19,3 @@ angular.module('liverpoolApp')
             };
         }
     ]);
-
-//tree.$inject = ['RecursionHelper']

@@ -55,7 +55,3 @@ angular.module('liverpoolApp')
             }
         }
     ]);
-
-//RouteFilter.$inject = ['$location'];
-
-

@@ -33,4 +33,3 @@ angular.module('liverpoolApp')
             };
         }
     ]);
-//RegisterController.$inject = ['$scope', 'AccountFactory', 'Authentication', 'ValidationService', '$state'];

@@ -43,5 +43,3 @@ var app = angular.module('liverpoolApp');
             // this.apiUrl = 'http://lfc.somee.com';//todo
         }
     ]);
-
-//SessionService.$inject = ['$cookies'];

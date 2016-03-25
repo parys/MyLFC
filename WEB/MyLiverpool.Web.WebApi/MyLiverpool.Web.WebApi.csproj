@@ -469,6 +469,7 @@
     <Content Include="Scripts\ng-file-upload-shim.min.js" />
     <Content Include="Scripts\ng-file-upload.js" />
     <Content Include="Scripts\ng-file-upload.min.js" />
+    <Content Include="Scripts\objects\Configuration.js" />
     <Content Include="Scripts\objects\Filters\rawHtmlFilter.js" />
     <Content Include="Scripts\objects\Forum\ForumController.js" />
     <Content Include="Scripts\objects\Forum\ForumSubsectionController.js" />
@@ -477,7 +478,7 @@
     <Content Include="Scripts\Controllers\leftContainerCtrl.js" />
     <Content Include="Scripts\Controllers\LoadingCtrl.js" />
     <Content Include="Scripts\objects\Account\LoginController.js" />
-    <Content Include="Scripts\objects\Images\ImagesFactory.js" />
+    <Content Include="Scripts\objects\Images\1ImagesFactory.js" />
     <Content Include="Scripts\objects\Modal\ModalCtrl.js" />
     <Content Include="Scripts\objects\Modal\ModalEditCommentCtrl.js" />
     <Content Include="Scripts\objects\News\NewsCategoriesCtrl.js" />
@@ -491,7 +492,7 @@
     <Content Include="Scripts\objects\Account\RegisterController.js" />
     <Content Include="Scripts\Controllers\rightContainerCtrl.js" />
     <Content Include="Scripts\objects\RoleGroups\RoleGroupsCtrl.js" />
-    <Content Include="Scripts\objects\RoleGroups\RoleGroupsFactory.js" />
+    <Content Include="Scripts\objects\RoleGroups\1RoleGroupsFactory.js" />
     <Content Include="Scripts\objects\Users\UserController.js" />
     <Content Include="Scripts\objects\Users\UsersController.js" />
     <Content Include="Scripts\objects\MarkItUp\markItUpDirective.js" />
@@ -499,11 +500,11 @@
     <Content Include="Scripts\objects\Account\AccountFactory.js" />
     <Content Include="Scripts\Factories\Application.js" />
     <Content Include="Scripts\Factories\AuthHttpResponseInterceptor.js" />
-    <Content Include="Scripts\objects\Forum\ForumFactory.js" />
-    <Content Include="Scripts\objects\MarkItUp\MarkItUpFactory.js" />
-    <Content Include="Scripts\objects\NewsComment\NewsCommentsFactory.js" />
-    <Content Include="Scripts\objects\News\NewsFactory.js" />
-    <Content Include="Scripts\objects\Pms\PmsFactory.js" />
+    <Content Include="Scripts\objects\Forum\1ForumFactory.js" />
+    <Content Include="Scripts\objects\MarkItUp\1MarkItUpFactory.js" />
+    <Content Include="Scripts\objects\NewsComment\1NewsCommentsFactory.js" />
+    <Content Include="Scripts\objects\News\1NewsFactory.js" />
+    <Content Include="Scripts\objects\Pms\1PmsFactory.js" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -534,7 +535,7 @@
     <Content Include="Areas\HelpPage\Views\_ViewStart.cshtml" />
     <Content Include="Scripts\Factories\RecursionHelper.js" />
     <Content Include="Scripts\Factories\RouteFilter.js" />
-    <Content Include="Scripts\objects\Users\UsersFactory.js" />
+    <Content Include="Scripts\objects\Users\1UsersFactory.js" />
     <Content Include="Scripts\Filters.js" />
     <Content Include="Scripts\objects\Images\ImagesCtrl.js" />
     <Content Include="Scripts\jquery.markitup.js" />

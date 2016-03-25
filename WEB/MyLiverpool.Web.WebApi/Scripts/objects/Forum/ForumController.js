@@ -12,12 +12,10 @@ angular.module('liverpoolApp')
 
                         },
                         function(response) {
-                            //$scope.f = "";
+                            
                         });
             };
 
             init();
         }
     ]);
-
-//ForumController.$inject = ['$scope', 'ForumFactory'];

@@ -172,5 +172,3 @@ angular.module('liverpoolApp')
             }
         }
     ]);
-
-//AccountFactory.$inject = ['$q', '$http', 'SessionService']

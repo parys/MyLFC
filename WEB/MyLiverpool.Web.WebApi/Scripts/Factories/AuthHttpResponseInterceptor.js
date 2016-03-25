@@ -23,5 +23,3 @@ angular.module('liverpoolApp')
             }
         }
     ]);
-
-//AuthHttpResponseInterceptor.$inject = ['$q', '$location', '$injector', 'SessionService'];

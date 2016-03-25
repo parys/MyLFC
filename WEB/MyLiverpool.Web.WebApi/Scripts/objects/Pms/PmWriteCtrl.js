@@ -65,5 +65,3 @@ angular.module('liverpoolApp')
             }
         }
     ]);
-
-//PmWriteCtrl.$inject = ['$scope', '$stateParams', 'PmsFactory', 'ValidationService', '$state', '$rootScope', 'UsersFactory'];

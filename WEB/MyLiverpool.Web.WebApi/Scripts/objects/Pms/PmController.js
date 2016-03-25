@@ -18,5 +18,3 @@ angular.module('liverpoolApp')
             init();
         }
     ]);
-
-//PmController.$inject = ['$scope', '$stateParams', 'PmsFactory'];

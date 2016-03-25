@@ -123,10 +123,5 @@ angular.module('liverpoolApp')
             //    var comments = $scope.item.comments;
             //    comments[comments.indexOf(data)] = data;
             //});
-
-
-            // init();
         }
     ]);
-
-//NewsItemController.$inject = ['$scope', 'NewsFactory', '$uibModal', 'NewsCommentsFactory', '$state', '$cookies', 'Authentication'];//, '$sce'];

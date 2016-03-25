@@ -17,9 +17,5 @@ angular.module('liverpoolApp')
                             //$scope.f = "";
                         });
             };
-
-            //  init();
         }
     ]);
-
-//ImagesCtrl.$inject = ['$scope', 'ImagesFactory', '$stateParams'];

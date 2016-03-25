@@ -12,5 +12,3 @@ angular.module('liverpoolApp')
             };
         }
     ]);
-
-//ModalCtrl.$inject = ['$scope', '$uibModalInstance'];

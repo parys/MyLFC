@@ -1,7 +1,8 @@
 ﻿'use strict';
 angular.module('liverpoolApp')
     .controller('NewsController', [
-        '$scope', 'NewsFactory', '$uibModal', '$rootScope', '$stateParams', '$state', function($scope, NewsFactory, $uibModal, $rootScope, $stateParams, $state) {
+        '$scope', 'NewsFactory', '$uibModal', '$rootScope', '$stateParams', '$state',
+        function($scope, NewsFactory, $uibModal, $rootScope, $stateParams, $state) {
             $scope.newsItems = [];
             $scope.pageNo = undefined;
             $scope.totalItems = undefined;
@@ -71,5 +72,3 @@ angular.module('liverpoolApp')
             init($stateParams.page, $stateParams.categoryId);
         }
     ]);
-
-//NewsController.$inject = ['$scope', 'NewsFactory', '$uibModal', '$rootScope', '$stateParams', '$state'];

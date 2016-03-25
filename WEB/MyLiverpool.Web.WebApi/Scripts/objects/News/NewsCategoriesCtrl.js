@@ -17,5 +17,3 @@ angular.module('liverpoolApp')
             init();
         }
     ]);
-
-//NewsCategoriesCtrl.$inject = ['$scope', 'NewsFactory'];

@@ -1,16 +1,16 @@
 ﻿'use strict';
 angular.module('liverpoolApp')
-    .factory('PmsFactory', [
-        '$q', '$http', 'SessionService',
-        function($q, $http, SessionService) {
-
+    .factory('NewsCommentsFactory', [
+        '$q', '$http', 'SessionService', '$stateParams',
+        function($q, $http, SessionService, $stateParams) {
             return {
-                getMessage: function(id) {
+                add: function(comment) {
                     var result = $q.defer();
 
                     $http({
-                            method: 'GET',
-                            url: SessionService.apiUrl + '/api/User/Pm?id=' + id,
+                            method: 'Post',
+                            url: SessionService.apiUrl + '/api/NewsComment/Add',
+                            data: comment,
                             headers: { 'Content-Type': 'application/json' }
                         })
                         .success(function(response) {
@@ -22,12 +22,13 @@ angular.module('liverpoolApp')
 
                     return result.promise;
                 },
-                getMessages: function() {
+
+                delete: function(id) {
                     var result = $q.defer();
 
                     $http({
-                            method: 'GET',
-                            url: SessionService.apiUrl + '/api/User/Pms', //?id='+ id,
+                            method: 'DELETE',
+                            url: SessionService.apiUrl + '/api/NewsComment/delete?id=' + id,
                             headers: { 'Content-Type': 'application/json' }
                         })
                         .success(function(response) {
@@ -39,12 +40,14 @@ angular.module('liverpoolApp')
 
                     return result.promise;
                 },
-                sentMessage: function(model) {
+
+                edit: function(item) {
                     var result = $q.defer();
+
                     $http({
-                            method: 'POST',
-                            url: SessionService.apiUrl + '/api/User/WritePm',
-                            data: model,
+                            method: 'PUT',
+                            url: SessionService.apiUrl + '/api/NewsComment/edit',
+                            data: item,
                             headers: { 'Content-Type': 'application/json' }
                         })
                         .success(function(response) {
@@ -53,11 +56,11 @@ angular.module('liverpoolApp')
                         .error(function(response) {
                             result.reject(response);
                         });
+
                     return result.promise;
-                }
+                },
+
 
             }
         }
     ]);
-
-//PmsFactory.$inject = ['$q', '$http', 'SessionService']

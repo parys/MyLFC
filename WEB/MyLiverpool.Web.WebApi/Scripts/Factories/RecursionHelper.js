@@ -43,5 +43,3 @@ angular.module('liverpoolApp')
             }
         }
     ]);
-
-//RecursionHelper.$inject = ['$compile'];

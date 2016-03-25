@@ -1,9 +1,8 @@
 ﻿'use strict';
 angular.module('liverpoolApp')
-  .factory('Application', [ function () {
-
-//var Application = function () {
-
+  .factory('Application',
+[ 
+function () {
     var ready = false, registeredListeners = [];
 
     var callListeners = function()

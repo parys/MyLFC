@@ -108,5 +108,3 @@ angular.module('liverpoolApp')
             }
         }
     ]);
-
-//Authentication.$inject = ['$q', 'AccountFactory', 'SessionService', '$cookies', '$rootScope', '$state']

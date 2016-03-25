@@ -59,5 +59,3 @@ angular.module('liverpoolApp')
             }
         }
     ]);
-
-//ForumFactory.$inject = ['$q', '$http', 'SessionService', '$stateParams']

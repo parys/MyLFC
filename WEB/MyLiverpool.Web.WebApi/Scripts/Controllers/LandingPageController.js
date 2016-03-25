@@ -1,7 +1,7 @@
 ﻿'use strict';
 angular.module('liverpoolApp')
     .controller('LandingPageController',
-[
+    [
         '$scope', '$state', 'Authentication', 'RouteFilter', 'AccountFactory', '$location', 'UsersFactory', '$interval',
         function($scope, $state, Authentication, RouteFilter, AccountFactory, $location, UsersFactory, $interval) {
             $scope.unreadPmCount = 0;

@@ -33,5 +33,3 @@ angular.module('liverpoolApp')
             return factory;
         }
     ]);
-
-//MarkItUpFactory.$inject = []

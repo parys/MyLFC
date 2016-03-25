@@ -24,5 +24,3 @@ angular.module('liverpoolApp')
             }
         }
     ]);
-
-//ImagesFactory.$inject = ['$q', '$http', 'SessionService']

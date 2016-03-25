@@ -28,5 +28,3 @@ angular.module('liverpoolApp')
             init($stateParams.page);
         }
     ]);
-
-//UsersController.$inject = ['$scope', '$stateParams', '$state', 'UsersFactory'];

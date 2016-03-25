@@ -126,5 +126,3 @@ angular.module('liverpoolApp')
             }
         }
     ]);
-
-//UsersFactory.$inject = ['$q', '$http', 'SessionService']

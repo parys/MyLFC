@@ -89,4 +89,3 @@ angular.module('liverpoolApp')
             }
         }
     ]);
-//LoginController.$inject = ['$scope', 'SessionService', 'Authentication', 'ValidationService', 'AccountFactory', '$state', '$rootScope'];

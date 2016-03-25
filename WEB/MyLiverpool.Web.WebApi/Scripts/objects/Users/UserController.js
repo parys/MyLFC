@@ -129,5 +129,3 @@ angular.module('liverpoolApp')
             }
         }
     ]);
-
-//UserController.$inject = ['$scope', '$stateParams', 'UsersFactory', 'RoleGroupsFactory', '$uibModal', '$rootScope', 'Upload', 'Authentication'];

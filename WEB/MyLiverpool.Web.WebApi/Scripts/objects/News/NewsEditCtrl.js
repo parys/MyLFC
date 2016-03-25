@@ -68,5 +68,3 @@ angular.module('liverpoolApp')
             init();
         }
     ]);
-
-//NewsEditCtrl.$inject = ['$scope', 'NewsFactory', '$stateParams', 'ValidationService', '$state'];

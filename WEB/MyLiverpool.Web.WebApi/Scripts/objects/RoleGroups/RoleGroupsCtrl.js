@@ -29,5 +29,3 @@ angular.module('liverpoolApp')
             //init($stateParams.page);
         }
     ]);
-
-//RoleGroupsCtrl.$inject = ['$scope', '$stateParams', '$state', 'RoleGroupsFactory'];

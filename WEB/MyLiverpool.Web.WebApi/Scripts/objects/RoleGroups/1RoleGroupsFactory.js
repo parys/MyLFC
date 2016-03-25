@@ -22,5 +22,3 @@ angular.module('liverpoolApp')
             }
         }
     ]);
-
-//RoleGroupsFactory.$inject = ['$q', '$http', 'SessionService']

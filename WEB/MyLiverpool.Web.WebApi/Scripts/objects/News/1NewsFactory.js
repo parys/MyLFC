@@ -146,5 +146,3 @@ angular.module('liverpoolApp')
             }
         }
     ]);
-
-//NewsFactory.$inject = ['$q', '$http', 'SessionService', '$stateParams']

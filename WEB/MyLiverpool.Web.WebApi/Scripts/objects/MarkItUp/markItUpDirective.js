@@ -18,5 +18,3 @@ angular.module('liverpoolApp')
             };
         }
     ]);
-
-//markItUp.$inject = ['MarkItUpFactory'];

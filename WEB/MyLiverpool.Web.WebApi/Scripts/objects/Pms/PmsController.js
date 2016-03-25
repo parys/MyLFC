@@ -19,5 +19,3 @@ angular.module('liverpoolApp')
             init();
         }
     ]);
-
-//PmsController.$inject = ['$scope', 'PmsFactory'];

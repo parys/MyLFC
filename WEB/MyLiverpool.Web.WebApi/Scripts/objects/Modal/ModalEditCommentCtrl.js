@@ -22,5 +22,3 @@ angular.module('liverpoolApp')
             }
         }
     ]);
-
-//ModalEditCommentCtrl.$inject = ['$scope', '$uibModalInstance', 'editingComment', 'Authentication'];

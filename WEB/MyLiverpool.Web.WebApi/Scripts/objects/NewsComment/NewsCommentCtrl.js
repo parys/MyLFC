@@ -146,5 +146,3 @@ angular.module('liverpoolApp')
             }
         }
     ]);
-
-//NewsCommentCtrl.$inject = ['$scope', '$uibModal', 'NewsCommentsFactory', 'Authentication', '$rootScope'];//, '$sce'];

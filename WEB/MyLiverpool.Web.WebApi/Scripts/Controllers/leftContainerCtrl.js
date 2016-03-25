@@ -6,4 +6,3 @@ angular.module('liverpoolApp')
             $scope.title = 'i am left';
         }
     ]);
-//leftContainerCtrl.$inject = ['$scope'];
