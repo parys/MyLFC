@@ -276,4 +276,13 @@
   <data name="PasswordsNotMatch" xml:space="preserve">
     <value>Пароль и подтверждение пароля не совпадают.</value>
   </data>
+  <data name="AboutClub" xml:space="preserve">
+    <value>О клубе</value>
+  </data>
+  <data name="ClubHistory" xml:space="preserve">
+    <value>История клуба</value>
+  </data>
+  <data name="FcLiverpool" xml:space="preserve">
+    <value>ФК Ливерпуль</value>
+  </data>
 </root>

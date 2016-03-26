@@ -45,14 +45,20 @@ namespace MyLiverpool.Web.WebApi.Providers
                 context.SetError("invalid_grant", "Неправильный логин или пароль.");
                 return;
             }
+            user.LastModified = DateTime.Now;
+            await _unitOfWork.UserManager.UpdateAsync(user);
+            await _unitOfWork.SaveAsync();
+
             if (!user.EmailConfirmed)
             {
                 context.SetError("not_confirmed", "Email адрес не подтвержден.");
                 return;
             }
-            user.LastModified = DateTime.Now;
-            await _unitOfWork.UserManager.UpdateAsync(user);
-            await _unitOfWork.SaveAsync();
+            if (user.LockoutEndDateUtc.HasValue && user.LockoutEndDateUtc.Value > DateTime.Now)
+            {
+                context.SetError("access_denied", $"Ваша активность заблокирована до {user.LockoutEndDateUtc.Value}.");
+                return;
+            }
 
             ClaimsIdentity oAuthIdentity = await _userService.GenerateUserIdentityAsync(user,
                 OAuthDefaults.AuthenticationType);

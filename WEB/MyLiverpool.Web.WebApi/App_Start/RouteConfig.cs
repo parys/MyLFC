@@ -10,21 +10,6 @@ namespace MyLiverpool.Web.WebApi
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.LowercaseUrls = true;
 
-            //        routes.MapRoute(
-            //          name: "routeOne",
-            //          url: "routesDemo/One",
-            //       defaults: new { controller = "RoutesDemo", action = "One" });
-
-            //        routes.MapRoute(
-            //            name: "routeTwo",
-            //            url: "routesDemo/Two/{donuts}",
-            //            defaults: new { controller = "RoutesDemo", action = "Two", donuts = UrlParameter.Optional });
-
-            //        routes.MapRoute(
-            //            name: "routeThree",
-            //            url: "routesDemo/Three",
-            //            defaults: new { controller = "RoutesDemo", action = "Three" });
-
             routes.MapRoute(
                 name: "login",
                 url: "Account/Login",
@@ -109,6 +94,11 @@ namespace MyLiverpool.Web.WebApi
                 name: "rules",
                 url: "home/rules",
                 defaults: new {controller = "Home", action = "Rules"});
+
+            routes.MapRoute(
+                name: "clubHistory",
+                url: "home/clubHistory",
+                defaults: new {controller = "Home", action = "clubHistory" });
 
             routes.MapRoute(
                 name: "confirmed",

@@ -3,18 +3,22 @@ using MyLiverpool.Controllers;
 
 namespace MyLiverpool.Web.WebApi.Controllers
 {
+    [Authorize]
     public class HomeController : BaseController
     {
+        [AllowAnonymous]
         public ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult AboutClub()
+        [AllowAnonymous]
+        public ActionResult ClubHistory()
         {
             return View();
         }
 
+        [AllowAnonymous]
         public ActionResult Rules()
         {
             return View();

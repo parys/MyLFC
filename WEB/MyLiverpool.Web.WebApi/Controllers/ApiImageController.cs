@@ -27,7 +27,6 @@ namespace MyLiverpool.Web.WebApi.Controllers
 
         [Route("")]
         [HttpGet]
-  //      [ResponseType(typeof(ForumDto))]
         public async Task<IHttpActionResult> Get(string path)
         {
             List<ImageDto> files = new List<ImageDto>();

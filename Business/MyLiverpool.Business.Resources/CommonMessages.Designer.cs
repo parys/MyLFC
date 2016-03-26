@@ -61,6 +61,15 @@ namespace MyLiverpool.Business.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to О клубе.
+        /// </summary>
+        public static string AboutClub {
+            get {
+                return ResourceManager.GetString("AboutClub", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ответить.
         /// </summary>
         public static string Answer {
@@ -138,6 +147,15 @@ namespace MyLiverpool.Business.Resources {
         public static string Close {
             get {
                 return ResourceManager.GetString("Close", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to История клуба.
+        /// </summary>
+        public static string ClubHistory {
+            get {
+                return ResourceManager.GetString("ClubHistory", resourceCulture);
             }
         }
         
@@ -228,6 +246,15 @@ namespace MyLiverpool.Business.Resources {
         public static string EnterToSite {
             get {
                 return ResourceManager.GetString("EnterToSite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ФК Ливерпуль.
+        /// </summary>
+        public static string FcLiverpool {
+            get {
+                return ResourceManager.GetString("FcLiverpool", resourceCulture);
             }
         }
         

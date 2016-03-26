@@ -40,6 +40,17 @@ angular.module('liverpoolApp')
                         $title: function() { return 'Правила'; }
                     }
                 })
+                .state('clubHistory', {
+                    url: '/clubHistory',
+                    views: {
+                        "containerMain": {
+                            templateUrl: '/home/clubHistory'
+                        }
+                    },
+                    resolve: {
+                        $title: function() { return 'Краткая история ЛФК'; }
+                    }
+                })
                 .state('news', {
                     url: '/news?page&categoryId',
                     views: {
