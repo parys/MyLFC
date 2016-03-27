@@ -114,7 +114,7 @@ angular.module('liverpoolApp')
 
 
             $scope.$on('deleteCommentConfirmed', function(event, data) {
-                console.log('del  ' + $scope.item.comments);
+              //  console.log('del  ' + $scope.item.comments);
                 var comments = $scope.item.comments;
                 comments.splice(comments.indexOf(data), 1);
             });

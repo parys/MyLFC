@@ -97,7 +97,7 @@ angular.module('liverpoolApp')
             }
 
             $scope.deleteComment = function(comment) {
-                console.log("123 " + comment.id);
+              //  console.log("123 " + comment.id);
                 var modalInstance = $uibModal.open({
                     animation: true,
                     templateUrl: 'modalDeleteConfirmation.html',

@@ -232,6 +232,15 @@ namespace MyLiverpool.Business.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Имя секции:.
+        /// </summary>
+        public static string SectionName {
+            get {
+                return ResourceManager.GetString("SectionName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Отправитель:.
         /// </summary>
         public static string Sender {

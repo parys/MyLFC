@@ -94,7 +94,7 @@
                                     }*@
             <li> <a ui-sref="forum">@CommonMessages.Forum</a></li>
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">@CommonMessages.News<b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="">@CommonMessages.News<b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li ng-if="isNewsmaker()"><a ui-sref="newsEdit()">@CommonMessages.Create</a></li>
                     <li><a ui-sref="newsCategories()">@CommonMessages.Categories</a></li>
@@ -111,13 +111,13 @@
                                 }       <li>@Html.ActionLink(CommonMessages.Categories, "Categories", "Blog")</li></ul>
                         </li>*@
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">@CommonMessages.FcLiverpool<b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="">@CommonMessages.FcLiverpool<b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a ui-sref="clubHistory">@CommonMessages.ClubHistory</a></li>
                 </ul>
             </li>
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">@CommonMessages.Users <b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="">@CommonMessages.Users <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a ui-sref="users">@CommonMessages.Users</a></li>
                 </ul>
@@ -126,7 +126,10 @@
             <li> <a ui-sref="rules()"><span class="text-danger">@CommonMessages.Rules</span></a></li>
         </ul>
     </div>
-    <div class="col-md-12">temporary <span ng-bind="$root.roles"></span></div>
+    <div class="col-md-12">
+        temporary
+        <span ng-bind="$root.roles"></span>
+    </div>
 </header>
 <div class="body-content row">
 <div class="col-md-3 col-lg-3 container-fluid" ui-view="leftContainer" ng-controller="leftContainerCtrl">
@@ -135,8 +138,9 @@
         <div class="col-md-6">
             <img src="https://upload.wikimedia.org/wikipedia/ru/f/f7/Exeter_City_Logo.png"/>
         </div>
-        <div class="col-md-6"><span style="text-align: center; font-size: 45pt">3:0</span></div>
-
+        <div class="col-md-6">
+            <span style="text-align: center; font-size: 45pt">3:0</span>
+        </div>
     </section>
     <section class="col-md- alert-danger row">
         <div class="col-md-12"> Лучший игрок матча с Эксетером </div>

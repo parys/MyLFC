@@ -285,4 +285,10 @@
   <data name="FcLiverpool" xml:space="preserve">
     <value>ФК Ливерпуль</value>
   </data>
+  <data name="Add" xml:space="preserve">
+    <value>Добавить</value>
+  </data>
+  <data name="AddSection" xml:space="preserve">
+    <value>Добавить секцию</value>
+  </data>
 </root>
