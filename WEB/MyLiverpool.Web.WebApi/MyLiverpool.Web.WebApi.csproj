@@ -481,6 +481,7 @@
     <Content Include="Scripts\objects\Images\1ImagesFactory.js" />
     <Content Include="Scripts\objects\Modal\ModalCtrl.js" />
     <Content Include="Scripts\objects\Modal\ModalEditCommentCtrl.js" />
+    <Content Include="Scripts\objects\Modal\ModalForumCtrl.js" />
     <Content Include="Scripts\objects\News\NewsCategoriesCtrl.js" />
     <Content Include="Scripts\objects\NewsComment\NewsCommentCtrl.js" />
     <Content Include="Scripts\objects\News\NewsController.js" />

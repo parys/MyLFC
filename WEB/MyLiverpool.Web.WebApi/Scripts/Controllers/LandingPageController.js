@@ -89,5 +89,9 @@ angular.module('liverpoolApp')
                 //    console.log('isModerator landing');
                 return Authentication.isAdmin();
             }
+
+            $scope.isAdminAssistant = function() {
+                return Authentication.isAdminAssistant();
+            }
         }
     ]);

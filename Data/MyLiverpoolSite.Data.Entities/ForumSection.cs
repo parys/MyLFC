@@ -9,6 +9,12 @@ namespace MyLiverpoolSite.Data.Entities
             Subsections = new HashSet<ForumSubsection>();
         }
 
+        public ForumSection(string name)
+        {
+            Name = name;
+            Subsections = new HashSet<ForumSubsection>();
+        }
+
         public int Id { get; set; }
 
         public int IdOld { get; set; }

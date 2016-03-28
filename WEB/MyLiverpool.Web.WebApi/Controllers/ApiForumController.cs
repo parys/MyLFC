@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using System.Web.Http;
-using System.Web.Http.Description;
-using MyLiverpool.Business.DTO;
+using Microsoft.Ajax.Utilities;
 using MyLiverpoolSite.Business.Contracts;
 
 namespace MyLiverpool.Web.WebApi.Controllers
@@ -16,20 +15,32 @@ namespace MyLiverpool.Web.WebApi.Controllers
             _forumService = forumService;
         }
 
-        [Route("")]
+        [Route]
         [HttpGet]
         [AllowAnonymous]
-        [ResponseType(typeof(ForumDto))]
         public async Task<IHttpActionResult> Get()
         {
             var model = await _forumService.GetDtoAsync();
             return Ok(model);
         }
 
+
+        [Route("CreateSection")]
+        [HttpPost]
+        [Authorize(Roles = "AdminStart")]
+        public async Task<IHttpActionResult> CreateSection(string name)
+        {
+            if (name.IsNullOrWhiteSpace())
+            {
+                return BadRequest();
+            }
+            var result = await _forumService.CreateSectionAsync(name);
+            return Ok(result);
+        }
+
         [Route("Subsection")]
         [HttpGet]
         [AllowAnonymous]
-        [ResponseType(typeof(ForumSubsectionDto))]
         public async Task<IHttpActionResult> GetSubsection(int id, int page = 1)
         {
             var model = await _forumService.GetSubsectionDtoAsync(id, page);
@@ -39,7 +50,6 @@ namespace MyLiverpool.Web.WebApi.Controllers
         [Route("Theme")]
         [HttpGet]
         [AllowAnonymous]
-        [ResponseType(typeof(ForumSubsectionDto))]
         public async Task<IHttpActionResult> GetTheme(int id, int page = 1)
         {
             var model = await _forumService.GetThemeDtoAsync(id, page);

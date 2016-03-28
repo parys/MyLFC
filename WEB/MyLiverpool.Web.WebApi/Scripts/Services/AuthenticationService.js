@@ -86,6 +86,10 @@ angular.module('liverpoolApp')
                     return isUserInRole(authenticatedUser, 'AdminFull');
                 },
 
+                isAdminAssistant: function() {
+                    return isUserInRole(authenticatedUser, 'AdminStart');
+                },
+
                 isMainModerator: function() {
                     return isUserInRole(authenticatedUser, 'UsersFull');
                 },

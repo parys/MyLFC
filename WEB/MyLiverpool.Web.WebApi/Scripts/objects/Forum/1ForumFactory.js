@@ -55,6 +55,23 @@ angular.module('liverpoolApp')
                         });
 
                     return result.promise;
+                },
+                createSection: function(name) {
+                    var result = $q.defer();
+
+                    $http({
+                            method: 'POST',
+                            url: SessionService.apiUrl + '/api/Forum/createSection?name=' + name,
+                            headers: { 'Content-Type': 'application/json' }
+                        })
+                        .success(function(response) {
+                            result.resolve(response);
+                        })
+                        .error(function(response) {
+                            result.reject(response);
+                        });
+
+                    return result.promise;
                 }
             }
         }

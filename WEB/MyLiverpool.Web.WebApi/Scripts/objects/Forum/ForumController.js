@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('liverpoolApp')
     .controller('ForumController', [
-        '$scope', 'ForumFactory', '$uibModal',
-        function($scope, ForumFactory, $uibModal) {
+        '$scope', 'ForumFactory', '$uibModal', '$rootScope',
+        function($scope, ForumFactory, $uibModal, $rootScope) {
             $scope.sections = [];
 
             $scope.init = function() {
@@ -22,27 +22,26 @@ angular.module('liverpoolApp')
                 var modalInstance = $uibModal.open({
                     animation: true,
                     templateUrl: 'addSection.html',
-                    controller: 'ModalCtrl',
+                    controller: 'ModalForumCtrl',
                     resolve: {
-                        newSectionName: function () {
+                        sectionName: function () {
                             return $scope.newSectionName;
                         }
                     }
                 });
 
-                modalInstance.result.then(function () {
-                    console.log($scope.newSectionName);
-                //    NewsFactory.delete($scope.item.id).
-                //        then(function (response) {
-                //            if (response) {
-                //                // $rootScope.alerts.push({ type: 'success', msg: 'Новость успешно удалена.' });
-                //              //  $state.go('home');
-                //            }
-                //        },
-                //            function (response) {
-                //                $rootScope.alerts.push({ type: 'danger', msg: 'Новость не была удалена.' });
-                //            });
-                //}, function () {
+                modalInstance.result.then(function (sectionName) {
+                    ForumFactory.createSection(sectionName).
+                        then(function (response) {
+                            if (response) {
+                                $scope.sections.push(response);
+                                $rootScope.alerts.push({ type: 'success', msg: 'Секция ' + sectionName + 'успешно добавлена.' });
+                            }
+                        },
+                            function (response) {
+                                $rootScope.alerts.push({ type: 'danger', msg: 'Секция не была добавлена.' });
+                            });
+                }, function () {
                 });
             }
         }

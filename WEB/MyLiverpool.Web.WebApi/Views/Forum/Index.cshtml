@@ -1,7 +1,7 @@
 ﻿@using MyLiverpool.Business.Resources
 <div class="col-md-12" ng-init="init()">
     <div class="container-fluid" ng-repeat="section in sections">
-        <div class="panel panel-danger" ng-show="section.subsections.length > 0">
+        <div class="panel panel-danger" ng-show="section.subsections.length > 0 || isAdminAssistant()">
             <div class="panel-heading" ng-bind="section.name"></div>
             <!--div class="panel-body"></!--div>-->
             <ul class="list-group" ng-repeat="subsection in section.subsections">
@@ -11,7 +11,7 @@
             </ul>
         </div>
     </div>
-    <a ng-click="addSection()">@CommonMessages.AddSection</a>
+    <a ng-show="isAdminAssistant()" ng-click="addSection()">@CommonMessages.AddSection</a> {{newSectionName}}
 </div>
 
 <script type="text/ng-template" id="addSection.html">
@@ -21,9 +21,9 @@
     <div class="modal-body">
         <form class="form-horizontal" name="addSection" role="form">
             <div class="form-group">
-                <label for="confirmPassword" class="col-md-2 control-label">@ColonsMessages.SectionName</label>
+                <label for="newSectionName" class="col-md-2 control-label">@ColonsMessages.SectionName</label>
                 <div class="col-md-10">
-                    <input type="text" name="newSectionName" ng-model="newSectionName" validation="required" class="form-control" />
+                    <input type="text" name="newSectionName" ng-model="sectionName" validation="required" class="form-control" />
                 </div>
             </div>
         </form>

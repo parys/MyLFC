@@ -77,7 +77,17 @@ namespace MyLiverpoolSite.Business.Services.Services
             return message.Id;
         }
 
-#region Dto
+        #region Dto
+
+        public async Task<ForumSectionDto> CreateSectionAsync(string name)
+        {
+            var model = new ForumSection(name);
+            _unitOfWork.ForumSectionRepository.Add(model);
+            await _unitOfWork.SaveAsync();
+            var result = Mapper.Map<ForumSectionDto>(model);
+            return result;
+        }
+
         public async Task<ForumDto> GetDtoAsync()
         {
             var sections = await _unitOfWork.ForumSectionRepository.GetAsync(includeProperties: x => x.Subsections);

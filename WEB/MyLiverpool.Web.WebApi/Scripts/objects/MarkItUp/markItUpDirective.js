@@ -1,7 +1,8 @@
 ﻿'use strict';
 angular.module('liverpoolApp')
-    .factory('markItUp', [
-        'MarkItUpFactory', function(MarkItUpFactory) {
+    .directive('markItUp', [
+        'MarkItUpFactory', function (MarkItUpFactory) {
+            console.log('directive');
             return {
                 restrict: "A",
                 scope: {
