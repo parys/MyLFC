@@ -79,26 +79,6 @@ namespace MyLiverpoolSite.Business.Services.Services
 
         #region Dto
 
-        public async Task<ForumSectionDto> CreateSectionAsync(string name)
-        {
-            var model = new ForumSection(name);
-            _unitOfWork.ForumSectionRepository.Add(model);
-            await _unitOfWork.SaveAsync();
-            var result = Mapper.Map<ForumSectionDto>(model);
-            return result;
-        }
-
-        public async Task<ForumDto> GetDtoAsync()
-        {
-            var sections = await _unitOfWork.ForumSectionRepository.GetAsync(includeProperties: x => x.Subsections);
-
-            var model = new ForumDto()
-            {
-                Sections = _mapper.Map<ICollection<ForumSectionDto>>(sections)
-            };
-            return model;
-        }
-
         public async Task<ForumSubsectionDto> GetSubsectionDtoAsync(int subsectionId, int page)
         {
             var subsection = await _unitOfWork.ForumSubsectionRepository.GetByIdAsync(subsectionId);

@@ -105,6 +105,7 @@
     <Compile Include="Services\BlogCommentService.cs" />
     <Compile Include="Services\BlogService.cs" />
     <Compile Include="Services\EmailService.cs" />
+    <Compile Include="Services\ForumSectionService.cs" />
     <Compile Include="Services\ForumService.cs" />
     <Compile Include="Services\MaterialCategoryService.cs" />
     <Compile Include="Services\MaterialCommentService.cs" />

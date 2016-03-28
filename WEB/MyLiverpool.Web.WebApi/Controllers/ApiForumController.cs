@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Net;
+using System.Threading.Tasks;
 using System.Web.Http;
 using Microsoft.Ajax.Utilities;
 using MyLiverpoolSite.Business.Contracts;
@@ -13,29 +14,6 @@ namespace MyLiverpool.Web.WebApi.Controllers
         public ApiForumController(IForumService forumService)
         {
             _forumService = forumService;
-        }
-
-        [Route]
-        [HttpGet]
-        [AllowAnonymous]
-        public async Task<IHttpActionResult> Get()
-        {
-            var model = await _forumService.GetDtoAsync();
-            return Ok(model);
-        }
-
-
-        [Route("CreateSection")]
-        [HttpPost]
-        [Authorize(Roles = "AdminStart")]
-        public async Task<IHttpActionResult> CreateSection(string name)
-        {
-            if (name.IsNullOrWhiteSpace())
-            {
-                return BadRequest();
-            }
-            var result = await _forumService.CreateSectionAsync(name);
-            return Ok(result);
         }
 
         [Route("Subsection")]
