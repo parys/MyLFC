@@ -21,12 +21,12 @@ namespace MyLiverpoolSite.Business.Services.Services
 
         public async Task<ForumSectionDto> CreateAsync(string name)
         {
-            var model = new ForumSection(name);
             var found = await _unitOfWork.ForumSectionRepository.GetAsync(x => x.Name == name);
-            if (found != null)
+            if (found.Count > 0)
             {
                 return null;
             }
+            var model = new ForumSection(name);
             _unitOfWork.ForumSectionRepository.Add(model);
             await _unitOfWork.SaveAsync();
             var result = _mapper.Map<ForumSectionDto>(model);

@@ -27,7 +27,7 @@ angular.module('liverpoolApp')
 
                     $http({
                             method: 'GET',
-                            url: SessionService.apiUrl + '/api/Forum/subsection?id=' + $stateParams.id + '&page=' + $stateParams.page,
+                            url: SessionService.apiUrl + '/api/Forumsubsection?id=' + $stateParams.id + '&page=' + $stateParams.page,
                             headers: { 'Content-Type': 'application/json' }
                         })
                         .success(function(response) {
@@ -44,7 +44,7 @@ angular.module('liverpoolApp')
 
                     $http({
                             method: 'GET',
-                            url: SessionService.apiUrl + '/api/Forum/theme?id=' + id + '&page=' + page,
+                            url: SessionService.apiUrl + '/api/ForumTheme?id=' + id + '&page=' + page,
                             headers: { 'Content-Type': 'application/json' }
                         })
                         .success(function(response) {
@@ -61,7 +61,7 @@ angular.module('liverpoolApp')
 
                     $http({
                             method: 'POST',
-                            url: SessionService.apiUrl + '/api/forumSection/?name=' + name,
+                            url: SessionService.apiUrl + '/api/forumSection?name=' + name,
                             headers: { 'Content-Type': 'application/json' }
                         })
                         .success(function(response) {

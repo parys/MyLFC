@@ -251,11 +251,13 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\ApiAccountController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\ApiForumController.cs" />
+    <Compile Include="Controllers\ApiForumSubsectionController.cs" />
+    <Compile Include="Controllers\ApiForumThemeController.cs" />
     <Compile Include="Controllers\ApiForumSectionController.cs" />
     <Compile Include="Controllers\ApiImageController.cs" />
     <Compile Include="Controllers\ApiNewsCommentController.cs" />
     <Compile Include="Controllers\ApiRoleGroupController.cs" />
+    <Compile Include="Controllers\ApiSubsectionController.cs" />
     <Compile Include="Controllers\ApiUploadController.cs" />
     <Compile Include="Controllers\ApiUserController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
