@@ -77,6 +77,7 @@ namespace MyLiverpool.Web.WebApi
         {
             builder.RegisterType<AccountService>().As<IAccountService>();
             builder.RegisterType<EmailService>().As<IIdentityMessageService>();
+            builder.RegisterType<ForumSectionService>().As<IForumSectionService>();
             builder.RegisterType<ForumService>().As<IForumService>();
             builder.RegisterType<MaterialCategoryService>().As<IMaterialCategoryService>();
             builder.RegisterType<MaterialCommentService>().As<IMaterialCommentService>();

@@ -24,8 +24,6 @@ angular.module('liverpoolApp',
         $rootScope.alerts.splice(index, 1);
     };
 
-
-
     $rootScope.$on('$stateChangeStart', function (scope, next, current) {
         //console.log('stateChange ');
         //console.log(next);

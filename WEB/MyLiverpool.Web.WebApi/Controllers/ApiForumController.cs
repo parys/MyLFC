@@ -1,12 +1,11 @@
-﻿using System.Net;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Web.Http;
-using Microsoft.Ajax.Utilities;
 using MyLiverpoolSite.Business.Contracts;
 
 namespace MyLiverpool.Web.WebApi.Controllers
 {
     [RoutePrefix("api/Forum")]
+    [Authorize]
     public class ApiForumController : ApiController
     {
         private readonly IForumService _forumService;

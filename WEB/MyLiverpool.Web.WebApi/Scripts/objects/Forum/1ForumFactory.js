@@ -10,7 +10,7 @@ angular.module('liverpoolApp')
 
                     $http({
                             method: 'GET',
-                            url: SessionService.apiUrl + '/api/Forum',
+                            url: SessionService.apiUrl + '/api/forumSection',
                             headers: { 'Content-Type': 'application/json' }
                         })
                         .success(function(response) {
@@ -61,7 +61,24 @@ angular.module('liverpoolApp')
 
                     $http({
                             method: 'POST',
-                            url: SessionService.apiUrl + '/api/Forum/createSection?name=' + name,
+                            url: SessionService.apiUrl + '/api/forumSection/?name=' + name,
+                            headers: { 'Content-Type': 'application/json' }
+                        })
+                        .success(function(response) {
+                            result.resolve(response);
+                        })
+                        .error(function(response) {
+                            result.reject(response);
+                        });
+
+                    return result.promise;
+                },
+                deleteSection: function(id) {
+                    var result = $q.defer();
+
+                    $http({
+                            method: 'DELETE',
+                            url: SessionService.apiUrl + '/api/forumSection/?id=' + id,
                             headers: { 'Content-Type': 'application/json' }
                         })
                         .success(function(response) {

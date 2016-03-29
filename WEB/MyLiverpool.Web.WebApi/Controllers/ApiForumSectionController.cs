@@ -7,9 +7,10 @@ using MyLiverpoolSite.Business.Contracts;
 namespace MyLiverpool.Web.WebApi.Controllers
 {
     [RoutePrefix("api/ForumSection")]
+    [Authorize]
     public class ApiForumSectionController : ApiController
     {
-        private readonly IForumSectionService _forumSectionService; // todo forumSectionService
+        private readonly IForumSectionService _forumSectionService;
 
         public ApiForumSectionController(IForumSectionService forumSectionService)
         {
@@ -39,6 +40,15 @@ namespace MyLiverpool.Web.WebApi.Controllers
         public async Task<IHttpActionResult> DeleteSection(int id)
         {
             var result = await _forumSectionService.DeleteAsync(id);
+            return Ok(result);
+        }
+
+        [Route]
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IHttpActionResult> Get()
+        {
+            var result = await _forumSectionService.GetAsync();
             return Ok(result);
         }
     }

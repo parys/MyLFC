@@ -17,8 +17,8 @@ using MyLiverpoolSite.Business.Services;
 
 namespace MyLiverpool.Web.WebApi.Controllers
 {
-    [Authorize]
     [RoutePrefix("api/Account")]
+    [Authorize]
     public class ApiAccountController : ApiController
     {
         private const string LocalLoginProvider = "Local";

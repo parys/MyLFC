@@ -18,6 +18,8 @@ namespace MyLiverpool.Web.WebApi
                 .Include("~/Scripts/bootstrap.js")
                 .Include("~/Scripts/angular.js")
                 .Include("~/Scripts/angular-translate.js")
+                .Include("~/Scripts/angular-animate.js")
+                .Include("~/Scripts/angular-touch.js")
                 .Include("~/Scripts/loading-bar.js")
                 .IncludeDirectory("~/Scripts/angular", "*.js", false) // static file loader
                 .Include("~/Scripts/angular-ui/ui-bootstrap.js")

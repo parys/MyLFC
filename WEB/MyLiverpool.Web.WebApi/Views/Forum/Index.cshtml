@@ -2,7 +2,13 @@
 <div class="col-md-12" ng-init="init()">
     <div class="container-fluid" ng-repeat="section in sections">
         <div class="panel panel-danger" ng-show="section.subsections.length > 0 || isAdminAssistant()">
-            <div class="panel-heading" ng-bind="section.name"></div>
+            <div class="panel-heading">
+                <span ng-bind="section.name"></span>
+                <a class="pull-right" ng-show="section.subsections.length == 0" ng-click="removeSection($index)">
+                    <span class="glyphicon glyphicon-remove">
+                    </span>
+                </a>
+            </div>
             <!--div class="panel-body"></!--div>-->
             <ul class="list-group" ng-repeat="subsection in section.subsections">
                 <li class="list-group-item list">
@@ -11,7 +17,7 @@
             </ul>
         </div>
     </div>
-    <a ng-show="isAdminAssistant()" ng-click="addSection()">@CommonMessages.AddSection</a> {{newSectionName}}
+    <a ng-show="isAdminAssistant()" ng-click="addSection()">@CommonMessages.AddSection</a>
 </div>
 
 <script type="text/ng-template" id="addSection.html">
@@ -29,7 +35,20 @@
         </form>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary" ng-disabled="addSection.$invalid"type="button" ng-click="ok()">@CommonMessages.Add</button>
+        <button class="btn btn-primary" ng-disabled="addSection.$invalid" type="button" ng-click="ok()">@CommonMessages.Add</button>
+        <button class="btn btn-default" type="button" ng-click="cancel()">@CommonMessages.Cancel</button>
+    </div>
+</script>
+
+<script type="text/ng-template" id="modalDeleteConfirmation.html">
+    <div class="modal-header">
+        <h3 class="modal-title">@CommonMessages.DeleteConfirmation</h3>
+    </div>
+    <div class="modal-body">
+        @CommonMessages.Delete?
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()">@CommonMessages.Delete</button>
         <button class="btn btn-default" type="button" ng-click="cancel()">@CommonMessages.Cancel</button>
     </div>
 </script>
