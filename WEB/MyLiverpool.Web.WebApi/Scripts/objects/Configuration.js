@@ -26,6 +26,9 @@ angular.module('liverpoolApp')
                     resolve: {
                         // Constant title
                         $title: function() { return 'Главная'; }
+                    },
+                    ncyBreadcrumb: {
+                        label: 'Главная'
                     }
                 })
                 .state('rules', {
@@ -38,6 +41,10 @@ angular.module('liverpoolApp')
                     },
                     resolve: {
                         $title: function() { return 'Правила'; }
+                    },
+                    ncyBreadcrumb: {
+                        label: 'Правила',
+                        parent: 'home'
                     }
                 })
                 .state('clubHistory', {
@@ -49,6 +56,10 @@ angular.module('liverpoolApp')
                     },
                     resolve: {
                         $title: function() { return 'Краткая история ЛФК'; }
+                    },
+                    ncyBreadcrumb: {
+                        label: 'Краткая история ЛФК',
+                        parent: 'home'
                     }
                 })
                 .state('news', {
@@ -61,6 +72,10 @@ angular.module('liverpoolApp')
                     },
                     resolve: {
                         $title: function() { return 'Новости'; }
+                    },
+                    ncyBreadcrumb: {
+                        label: 'Новости',
+                        parent: 'home'
                     }
                 })
                 .state('newsInfo', {
@@ -73,6 +88,13 @@ angular.module('liverpoolApp')
                     },
                     resolve: {
                         $title: function() { return 'Название новости'; } //todo
+                    },
+                    ncyBreadcrumb: {
+                        label:// function($scope) {
+                         //   return $scope.item.title || 
+                         'Название новости',
+                        //},
+                        parent: 'news'
                     }
                 })
                 .state('newsEdit', {
@@ -85,6 +107,12 @@ angular.module('liverpoolApp')
                     },
                     resolve: {
                         $title: function() { return 'Редактирование новости'; }
+                    },
+                    ncyBreadcrumb: {
+                        label: 'Редактирование новости',
+                        parent: function($scope) {
+                            return 'newsInfo({id:' + $scope.item.id + '})';
+                        }
                     }
                 })
                 .state('newsCategories', {
@@ -97,6 +125,10 @@ angular.module('liverpoolApp')
                     },
                     resolve: {
                         $title: function() { return 'Категории новостей'; }
+                    },
+                    ncyBreadcrumb: {
+                        label: 'Категории новостей',
+                        parent: 'news'
                     }
                 })
                 .state('userInfo', {
@@ -109,6 +141,10 @@ angular.module('liverpoolApp')
                     },
                     resolve: {
                         $title: function() { return 'Профиль '; } //todo
+                    },
+                    ncyBreadcrumb: {
+                        label: 'Профиль',
+                        parent: 'users'
                     }
                 })
                 .state('users', {
@@ -121,6 +157,10 @@ angular.module('liverpoolApp')
                     },
                     resolve: {
                         $title: function() { return 'Пользователи'; }
+                    },
+                    ncyBreadcrumb: {
+                        label: 'Пользователи',
+                        parent: 'home'
                     }
                 })
                 .state('images', {
@@ -133,6 +173,10 @@ angular.module('liverpoolApp')
                     },
                     resolve: {
                         $title: function() { return 'Изображения '; } //todo
+                    },
+                    ncyBreadcrumb: {
+                        label: 'Изображения',
+                        parent: 'home'
                     }
                 })
                 //.state('sign-out', {
@@ -165,6 +209,10 @@ angular.module('liverpoolApp')
                     },
                     resolve: {
                         $title: function() { return 'Личные сообщения'; }
+                    },
+                    ncyBreadcrumb: {
+                        label: 'Личные сообщения',
+                        parent: 'home'
                     }
                 })
                 .state('pm', {
@@ -177,6 +225,10 @@ angular.module('liverpoolApp')
                     },
                     resolve: {
                         $title: function() { return 'Чтение сообщения'; }
+                    },
+                    ncyBreadcrumb: {
+                        label: 'Чтение сообщения',
+                        parent: 'pms'
                     }
                 })
                 .state('wpm', {
@@ -193,6 +245,10 @@ angular.module('liverpoolApp')
                     },
                     resolve: {
                         $title: function() { return 'Написание сообщения'; }
+                    },
+                    ncyBreadcrumb: {
+                        label: 'Написание сообщения',
+                        parent: 'pms'
                     }
                 })
                 .state('register', {
@@ -205,6 +261,10 @@ angular.module('liverpoolApp')
                     },
                     resolve: {
                         $title: function() { return 'Регистрация'; }
+                    },
+                    ncyBreadcrumb: {
+                        label: 'Регистрация',
+                        parent: 'home'
                     }
                 })
                 .state('login', {
@@ -217,8 +277,11 @@ angular.module('liverpoolApp')
                     },
                     resolve: {
                         $title: function() { return 'Страница входа'; }
+                    },
+                    ncyBreadcrumb: {
+                        label: 'Страница входа',
+                        parent: 'home'
                     }
-
                 })
                 .state('forum', {
                     url: '/forum',
@@ -230,6 +293,10 @@ angular.module('liverpoolApp')
                     },
                     resolve: {
                         $title: function() { return 'Форум'; }
+                    },
+                    ncyBreadcrumb: {
+                        label: 'Форум',
+                        parent: 'home'
                     }
                 })
                 .state('subsection', {
@@ -242,6 +309,10 @@ angular.module('liverpoolApp')
                     },
                     resolve: {
                         $title: function() { return 'Раздел'; } //todo
+                    },
+                    ncyBreadcrumb: {
+                        label: 'Раздел',
+                        parent: 'forum'
                     }
                 })
                 .state('theme', {
@@ -249,11 +320,18 @@ angular.module('liverpoolApp')
                     views: {
                         "containerMain": {
                             templateUrl: function(params) { return '/Forum/Theme?id=' + params.id + '&page=' + params.page },
-                            controller: 'ForumThemeController'
+                            controller: 'ForumThemeController',
+                           // controllerAs: vm
                         }
                     },
                     resolve: {
                         $title: function() { return 'Тема'; } //todo
+                    },
+                    ncyBreadcrumb: {
+                        label: 'Тема',
+                        parent: function($scope) {
+                            return 'forum'; //'subsection({id:' + $scope.theme ||
+                        }
                     }
                 })
                 .state('confirmed', {
@@ -265,6 +343,10 @@ angular.module('liverpoolApp')
                     },
                     resolve: {
                         $title: function() { return 'Ваш аккаунт подтвержден'; }
+                    },
+                    ncyBreadcrumb: {
+                        label: 'Ваш аккаунт подтвержден',
+                        parent: 'home'
                     }
                 }).state('unconfirmed', {
                     url: '/unconfirmed',
@@ -276,6 +358,10 @@ angular.module('liverpoolApp')
                     },
                     resolve: {
                         $title: function() { return 'Ваш аккаунт не подтвержден'; }
+                    },
+                    ncyBreadcrumb: {
+                        label: 'Ваш аккаунт не подтвержден',
+                        parent: 'home'
                     }
                 }).state('forgotPassword', {
                     url: '/forgotPassword',
@@ -287,6 +373,10 @@ angular.module('liverpoolApp')
                     },
                     resolve: {
                         $title: function() { return 'Забыли пароль?'; }
+                    },
+                    ncyBreadcrumb: {
+                        label: 'Забыли пароль?',
+                        parent: 'home'
                     }
                 }).state('emailSent', {
                     url: '/emailSent',
@@ -296,7 +386,11 @@ angular.module('liverpoolApp')
                         }
                     },
                     resolve: {
-                        $title: function() { return 'Забыли пароль?'; }
+                        $title: function() { return 'Письмо отправлено'; }
+                    },
+                    ncyBreadcrumb: {
+                        label: 'Письмо отправлено',
+                        parent: 'home'
                     }
                 }).state('resetPassword', {
                     url: '/resetPassword?code',
@@ -308,6 +402,10 @@ angular.module('liverpoolApp')
                     },
                     resolve: {
                         $title: function() { return 'Восстановление пароля'; }
+                    },
+                    ncyBreadcrumb: {
+                        label: 'Восстановление пароля',
+                        parent: 'home'
                     }
                 }).state('changePassword', {
                     url: '/changePassword',
@@ -319,6 +417,10 @@ angular.module('liverpoolApp')
                     },
                     resolve: {
                         $title: function() { return 'Изменение пароля'; }
+                    },
+                    ncyBreadcrumb: {
+                        label: 'Изменение пароля',
+                        parent: 'home'//todo user
                     }
                 }).state('passwordChanged', {
                     url: '/passwordChanged',
@@ -329,6 +431,10 @@ angular.module('liverpoolApp')
                     },
                     resolve: {
                         $title: function() { return 'Пароль успешно изменен'; }
+                    },
+                    ncyBreadcrumb: {
+                        label: 'Пароль успешно изменен',
+                        parent: 'home'//todo user
                     }
                 });
 

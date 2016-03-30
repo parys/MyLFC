@@ -432,6 +432,8 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-animate.min.js" />
+    <Content Include="Scripts\angular-breadcrumb.js" />
+    <Content Include="Scripts\angular-breadcrumb.min.js" />
     <Content Include="Scripts\angular-mocks.js" />
     <Content Include="Scripts\angular-route.js" />
     <Content Include="Scripts\angular-route.min.js" />
@@ -466,8 +468,9 @@
     <Content Include="Scripts\FileAPI.flash.swf" />
     <Content Include="Scripts\FileAPI.js" />
     <Content Include="Scripts\FileAPI.min.js" />
-    <Content Include="Scripts\jquery-2.2.1.js" />
-    <Content Include="Scripts\jquery-2.2.1.min.js" />
+    <None Include="Scripts\jquery-2.2.2.intellisense.js" />
+    <Content Include="Scripts\jquery-2.2.2.js" />
+    <Content Include="Scripts\jquery-2.2.2.min.js" />
     <Content Include="Scripts\loading-bar.js" />
     <Content Include="Scripts\loading-bar.min.js" />
     <Content Include="Scripts\ng-file-upload-all.js" />
@@ -572,7 +575,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\ClubHistory.cshtml" />
-    <Content Include="Scripts\jquery-2.2.1.min.map" />
     <Content Include="Scripts\angular-validation\locales\ru.json" />
     <Content Include="Scripts\angular-validation\locales\pt-br.json" />
     <Content Include="Scripts\angular-validation\locales\pl.json" />
@@ -585,6 +587,7 @@
     <Content Include="Scripts\angular-route.min.js.map" />
     <Content Include="Scripts\angular-animate.min.js.map" />
     <Content Include="Scripts\angular-touch.min.js.map" />
+    <Content Include="Scripts\jquery-2.2.2.min.map" />
     <None Include="Views\Account\PasswordChanged.cshtml" />
     <None Include="Views\Account\UnconfirmEmail.cshtml" />
     <None Include="Views\Home\Rules.cshtml" />

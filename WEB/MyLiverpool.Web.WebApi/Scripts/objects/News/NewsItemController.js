@@ -20,7 +20,6 @@ angular.module('liverpoolApp')
             }
 
             function tryAddNewsRead() {
-                console.log($cookies.get('news' + $scope.item.id));
                 var cookieName = 'news' + $scope.item.id;
                 if ($cookies.get(cookieName) == undefined) {
                     NewsFactory.addView($scope.item.id)

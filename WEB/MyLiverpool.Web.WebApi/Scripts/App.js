@@ -9,7 +9,8 @@ angular.module('liverpoolApp',
     'ui.router.title',
     'angular-loading-bar',
     'autocomplete',
-    'ngFileUpload'
+    'ngFileUpload',
+    'ncy-angular-breadcrumb'
 ])
 .run(function (Authentication, Application, $rootScope, $location, uibPaginationConfig, $state, $stateParams, $window) {
     //$rootScope.roles = "";
