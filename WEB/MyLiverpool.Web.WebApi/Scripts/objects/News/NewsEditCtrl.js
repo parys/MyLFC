@@ -18,7 +18,7 @@ angular.module('liverpoolApp')
 
             //$scope.$modalInstance = undefined;
 
-            var init = function() {
+            $scope.init = function() {
                 if ($stateParams.id) {
                     NewsFactory.getItem($stateParams.id)
                         .then(function(response) {
@@ -64,7 +64,5 @@ angular.module('liverpoolApp')
                     }
                 }
             };
-
-            init();
         }
     ]);

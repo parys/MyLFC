@@ -157,7 +157,7 @@
 <div class="col-md-6 col-lg-6 container-fluid" style="background-color: #f5deb3">
     <div class="row">
         <uib-alert ng-repeat="alert in $root.alerts" dismiss-on-timeout="5000" type="{{alert.type}}" close="closeAlert($index)" ng-bind="alert.msg"></uib-alert>
-        <div class="" ui-view="containerMain" autoscroll="false">
+        <div class="" ui-view autoscroll="false">
             <div class="col-md-6" ui-view="newsFeed"></div>
             <div class="col-md-6" ui-view="blogsFeed"></div>
         </div>

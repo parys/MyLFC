@@ -2,7 +2,7 @@
 angular.module('liverpoolApp')
     .config([
         '$stateProvider', '$httpProvider', '$locationProvider', '$translateProvider',
-        function($stateProvider, $httpProvider, $locationProvider, $translateProvider) {
+        function ($stateProvider, $httpProvider, $locationProvider, $translateProvider) {
             $locationProvider.hashPrefix('!').html5Mode({
                 enabled: true,
                 requireBase: false
@@ -11,21 +11,11 @@ angular.module('liverpoolApp')
             $stateProvider
                 .state('home', {
                     url: '/',
-                    views: {
-                        "containerMain": {
-                            templateUrl: '/news/list',
-                            controller: 'NewsController'
-                        } //,
-                        //"containerTwo": {
-                        //    templateUrl: function (params) { return '/routesDemo/two?donuts=' + params.donuts; }
-                        //},
-                        //"nestedView@stateOne": {
-                        //    templateUrl: '/routesDemo/four'
-                        //}
-                    },
+                    templateUrl: '/news/list',
+                    controller: 'NewsController',
                     resolve: {
                         // Constant title
-                        $title: function() { return 'Главная'; }
+                        $title: function () { return 'Главная'; }
                     },
                     ncyBreadcrumb: {
                         label: 'Главная'
@@ -33,14 +23,10 @@ angular.module('liverpoolApp')
                 })
                 .state('rules', {
                     url: '/rules',
-                    views: {
-                        "containerMain": {
-                            templateUrl: '/home/rules',
-                            controller: 'leftContainerCtrl' //todo change
-                        }
-                    },
+                    templateUrl: '/home/rules',
+                    controller: 'leftContainerCtrl', //todo change
                     resolve: {
-                        $title: function() { return 'Правила'; }
+                        $title: function () { return 'Правила'; }
                     },
                     ncyBreadcrumb: {
                         label: 'Правила',
@@ -50,12 +36,12 @@ angular.module('liverpoolApp')
                 .state('clubHistory', {
                     url: '/clubHistory',
                     views: {
-                        "containerMain": {
+                        "@": {
                             templateUrl: '/home/clubHistory'
                         }
                     },
                     resolve: {
-                        $title: function() { return 'Краткая история ЛФК'; }
+                        $title: function () { return 'Краткая история ЛФК'; }
                     },
                     ncyBreadcrumb: {
                         label: 'Краткая история ЛФК',
@@ -64,14 +50,11 @@ angular.module('liverpoolApp')
                 })
                 .state('news', {
                     url: '/news?page&categoryId',
-                    views: {
-                        "containerMain": {
-                            templateUrl: function(params) { return '/news/list?page=' + params.page + '&categoryId=' + params.categoryId },
-                            controller: 'NewsController'
-                        }
-                    },
+                    templateUrl: function (params) { return '/news/list?page=' + params.page + '&categoryId=' + params.categoryId },
+                    controller: 'NewsController',
+
                     resolve: {
-                        $title: function() { return 'Новости'; }
+                        $title: function () { return 'Новости'; }
                     },
                     ncyBreadcrumb: {
                         label: 'Новости',
@@ -81,13 +64,13 @@ angular.module('liverpoolApp')
                 .state('newsInfo', {
                     url: '/newsInfo?id',
                     views: {
-                        "containerMain": {
-                            templateUrl: function(params) { return '/news/info?id=' + params.id },
+                        "@": {
+                            templateUrl: function (params) { return '/news/info?id=' + params.id },
                             controller: 'NewsItemController'
                         }
                     },
                     resolve: {
-                        $title: function() { return 'Название новости'; } //todo
+                        $title: function () { return 'Название новости'; } //todo
                     },
                     ncyBreadcrumb: {
                         label:// function($scope) {
@@ -100,31 +83,27 @@ angular.module('liverpoolApp')
                 .state('newsEdit', {
                     url: '/newsEdit?id',
                     views: {
-                        "containerMain": {
-                            templateUrl: function(params) { return '/news/Edit?id=' + params.id },
+                        "@": {
+                            templateUrl: function (params) { return '/news/Edit?id=' + params.id },
                             controller: 'NewsEditCtrl'
                         }
                     },
                     resolve: {
-                        $title: function() { return 'Редактирование новости'; }
+                        $title: function () { return 'Редактирование новости'; }
                     },
                     ncyBreadcrumb: {
                         label: 'Редактирование новости',
-                        parent: function($scope) {
-                            return 'newsInfo({id:' + $scope.item.id + '})';
-                        }
+                        parent: 'news'//function (params) {
+                        // return 'newsInfo({id:' + params.id + '})';
+                        //  }
                     }
                 })
                 .state('newsCategories', {
                     url: '/newsCategories',
-                    views: {
-                        "containerMain": {
-                            templateUrl: '/news/Categories',
-                            controller: 'NewsCategoriesCtrl'
-                        }
-                    },
+                    templateUrl: '/news/Categories',
+                    controller: 'NewsCategoriesCtrl',
                     resolve: {
-                        $title: function() { return 'Категории новостей'; }
+                        $title: function () { return 'Категории новостей'; }
                     },
                     ncyBreadcrumb: {
                         label: 'Категории новостей',
@@ -133,14 +112,10 @@ angular.module('liverpoolApp')
                 })
                 .state('userInfo', {
                     url: '/userInfo?id',
-                    views: {
-                        "containerMain": {
-                            templateUrl: function(params) { return '/user/info?id=' + params.id },
-                            controller: 'UserController'
-                        }
-                    },
+                    templateUrl: function (params) { return '/user/info?id=' + params.id },
+                    controller: 'UserController',
                     resolve: {
-                        $title: function() { return 'Профиль '; } //todo
+                        $title: function () { return 'Профиль '; } //todo
                     },
                     ncyBreadcrumb: {
                         label: 'Профиль',
@@ -149,14 +124,10 @@ angular.module('liverpoolApp')
                 })
                 .state('users', {
                     url: '/users?page',
-                    views: {
-                        "containerMain": {
-                            templateUrl: function(params) { return '/user/list?page=' + params.page },
-                            controller: 'UsersController'
-                        }
-                    },
+                    templateUrl: function (params) { return '/user/list?page=' + params.page },
+                    controller: 'UsersController',
                     resolve: {
-                        $title: function() { return 'Пользователи'; }
+                        $title: function () { return 'Пользователи'; }
                     },
                     ncyBreadcrumb: {
                         label: 'Пользователи',
@@ -165,14 +136,10 @@ angular.module('liverpoolApp')
                 })
                 .state('images', {
                     url: '/images?path',
-                    views: {
-                        "containerMain": {
-                            templateUrl: function(params) { return '/images/index?path=' + params.path },
-                            controller: 'ImagesCtrl'
-                        }
-                    },
+                    templateUrl: function (params) { return '/images/index?path=' + params.path },
+                    controller: 'ImagesCtrl',
                     resolve: {
-                        $title: function() { return 'Изображения '; } //todo
+                        $title: function () { return 'Изображения '; } //todo
                     },
                     ncyBreadcrumb: {
                         label: 'Изображения',
@@ -208,7 +175,7 @@ angular.module('liverpoolApp')
                         }
                     },
                     resolve: {
-                        $title: function() { return 'Личные сообщения'; }
+                        $title: function () { return 'Личные сообщения'; }
                     },
                     ncyBreadcrumb: {
                         label: 'Личные сообщения',
@@ -219,12 +186,12 @@ angular.module('liverpoolApp')
                     url: '/pm?id',
                     views: {
                         "containerMain": {
-                            templateUrl: function(params) { return '/User/Pm?id=' + params.id },
+                            templateUrl: function (params) { return '/User/Pm?id=' + params.id },
                             controller: 'PmController'
                         }
                     },
                     resolve: {
-                        $title: function() { return 'Чтение сообщения'; }
+                        $title: function () { return 'Чтение сообщения'; }
                     },
                     ncyBreadcrumb: {
                         label: 'Чтение сообщения',
@@ -244,7 +211,7 @@ angular.module('liverpoolApp')
                         userName: null
                     },
                     resolve: {
-                        $title: function() { return 'Написание сообщения'; }
+                        $title: function () { return 'Написание сообщения'; }
                     },
                     ncyBreadcrumb: {
                         label: 'Написание сообщения',
@@ -260,7 +227,7 @@ angular.module('liverpoolApp')
                         }
                     },
                     resolve: {
-                        $title: function() { return 'Регистрация'; }
+                        $title: function () { return 'Регистрация'; }
                     },
                     ncyBreadcrumb: {
                         label: 'Регистрация',
@@ -271,12 +238,12 @@ angular.module('liverpoolApp')
                     url: '/login?returnUrl',
                     views: {
                         "containerMain": {
-                            templateUrl: function(params) { return '/Account/Login?returnUrl=' + params.returnUrl },
+                            templateUrl: function (params) { return '/Account/Login?returnUrl=' + params.returnUrl },
                             controller: 'LoginController'
                         }
                     },
                     resolve: {
-                        $title: function() { return 'Страница входа'; }
+                        $title: function () { return 'Страница входа'; }
                     },
                     ncyBreadcrumb: {
                         label: 'Страница входа',
@@ -285,64 +252,60 @@ angular.module('liverpoolApp')
                 })
                 .state('forum', {
                     url: '/forum',
-                    views: {
-                        "containerMain": {
-                            templateUrl: '/Forum/Index',
-                            controller: 'ForumController'
-                        }
-                    },
+                    //views: {
+                    //    "containerMain": {
+                    templateUrl: '/Forum/Index',
+                    controller: 'ForumController',
+                    // }
+                    // },
                     resolve: {
-                        $title: function() { return 'Форум'; }
+                        $title: function () { return 'Форум'; }
                     },
                     ncyBreadcrumb: {
                         label: 'Форум',
                         parent: 'home'
                     }
                 })
-                .state('subsection', {
+                .state('forum.subsection', {
                     url: '/subsection?id&page',
                     views: {
-                        "containerMain": {
-                            templateUrl: function(params) { return '/Forum/Subsection?id=' + params.id + '&page=' + params.page },
+                        "@": {
+                            templateUrl: function (params) { return '/Forum/Subsection?id=' + params.id + '&page=' + params.page },
                             controller: 'ForumSubsectionController'
                         }
                     },
                     resolve: {
-                        $title: function() { return 'Раздел'; } //todo
+                        $title: function () { return 'Раздел'; } //todo
                     },
                     ncyBreadcrumb: {
                         label: 'Раздел',
-                        parent: 'forum'
+                        // parent: 'forum'
                     }
                 })
-                .state('theme', {
+                .state('forum.subsection.theme', {
                     url: '/theme?id&page',
-                    views: {
-                        "containerMain": {
-                            templateUrl: function(params) { return '/Forum/Theme?id=' + params.id + '&page=' + params.page },
-                            controller: 'ForumThemeController',
-                           // controllerAs: vm
-                        }
+                    "@": {
+                        templateUrl: function (params) { return '/Forum/Theme?id=' + params.id + '&page=' + params.page },
+                        controller: 'ForumSubsectionController'
+                        // controllerAs: vm
                     },
                     resolve: {
-                        $title: function() { return 'Тема'; } //todo
+                        $title: function () { return 'Тема'; } //todo
                     },
                     ncyBreadcrumb: {
                         label: 'Тема',
-                        parent: function($scope) {
-                            return 'forum'; //'subsection({id:' + $scope.theme ||
-                        }
+                        parent: 'forum' //'subsection({id:' + $scope.theme ||
+                        // }
                     }
                 })
                 .state('confirmed', {
                     url: '/confirmed',
-                    views: {
-                        "containerMain": {
-                            templateUrl: '/Account/ConfirmEmail'
-                        }
+                    "@": {
+                        templateUrl: '/Account/ConfirmEmail'
+
                     },
                     resolve: {
-                        $title: function() { return 'Ваш аккаунт подтвержден'; }
+                        $title: function () { return 'Ваш аккаунт подтвержден'; }
                     },
                     ncyBreadcrumb: {
                         label: 'Ваш аккаунт подтвержден',
@@ -350,14 +313,13 @@ angular.module('liverpoolApp')
                     }
                 }).state('unconfirmed', {
                     url: '/unconfirmed',
-                    views: {
-                        "containerMain": {
-                            templateUrl: '/Account/UnconfirmEmail',
-                            controller: 'LoginController'
-                        }
+                    "@": {
+                        templateUrl: '/Account/UnconfirmEmail',
+                        controller: 'LoginController'
+
                     },
                     resolve: {
-                        $title: function() { return 'Ваш аккаунт не подтвержден'; }
+                        $title: function () { return 'Ваш аккаунт не подтвержден'; }
                     },
                     ncyBreadcrumb: {
                         label: 'Ваш аккаунт не подтвержден',
@@ -365,14 +327,14 @@ angular.module('liverpoolApp')
                     }
                 }).state('forgotPassword', {
                     url: '/forgotPassword',
-                    views: {
-                        "containerMain": {
-                            templateUrl: '/Account/forgotPassword',
-                            controller: 'LoginController'
-                        }
+
+                    "@": {
+                        templateUrl: '/Account/forgotPassword',
+                        controller: 'LoginController'
+
                     },
                     resolve: {
-                        $title: function() { return 'Забыли пароль?'; }
+                        $title: function () { return 'Забыли пароль?'; }
                     },
                     ncyBreadcrumb: {
                         label: 'Забыли пароль?',
@@ -380,13 +342,13 @@ angular.module('liverpoolApp')
                     }
                 }).state('emailSent', {
                     url: '/emailSent',
-                    views: {
-                        "containerMain": {
-                            templateUrl: '/Account/emailSent'
-                        }
+
+                    "@": {
+                        templateUrl: '/Account/emailSent'
+
                     },
                     resolve: {
-                        $title: function() { return 'Письмо отправлено'; }
+                        $title: function () { return 'Письмо отправлено'; }
                     },
                     ncyBreadcrumb: {
                         label: 'Письмо отправлено',
@@ -394,14 +356,14 @@ angular.module('liverpoolApp')
                     }
                 }).state('resetPassword', {
                     url: '/resetPassword?code',
-                    views: {
-                        "containerMain": {
-                            templateUrl: '/Account/resetPassword',
-                            controller: 'LoginController'
-                        }
+
+                    "@": {
+                        templateUrl: '/Account/resetPassword',
+                        controller: 'LoginController'
+
                     },
                     resolve: {
-                        $title: function() { return 'Восстановление пароля'; }
+                        $title: function () { return 'Восстановление пароля'; }
                     },
                     ncyBreadcrumb: {
                         label: 'Восстановление пароля',
@@ -409,14 +371,14 @@ angular.module('liverpoolApp')
                     }
                 }).state('changePassword', {
                     url: '/changePassword',
-                    views: {
-                        "containerMain": {
-                            templateUrl: '/Account/changePassword',
-                            controller: 'LoginController'
-                        }
+
+                    "@": {
+                        templateUrl: '/Account/changePassword',
+                        controller: 'LoginController'
+
                     },
                     resolve: {
-                        $title: function() { return 'Изменение пароля'; }
+                        $title: function () { return 'Изменение пароля'; }
                     },
                     ncyBreadcrumb: {
                         label: 'Изменение пароля',
@@ -424,13 +386,13 @@ angular.module('liverpoolApp')
                     }
                 }).state('passwordChanged', {
                     url: '/passwordChanged',
-                    views: {
-                        "containerMain": {
-                            templateUrl: '/Account/passwordChanged'
-                        }
+
+                    "@": {
+                        templateUrl: '/Account/passwordChanged'
+
                     },
                     resolve: {
-                        $title: function() { return 'Пароль успешно изменен'; }
+                        $title: function () { return 'Пароль успешно изменен'; }
                     },
                     ncyBreadcrumb: {
                         label: 'Пароль успешно изменен',

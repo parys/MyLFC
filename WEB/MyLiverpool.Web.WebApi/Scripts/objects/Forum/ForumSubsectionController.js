@@ -10,7 +10,7 @@ angular.module('liverpoolApp')
             $scope.name = undefined;
             $scope.description = undefined;
 
-            var init = function() {
+            $scope.init = function() {
                 ForumFactory.getSubsection()
                     .then(function(response) {
                             $scope.themes = response.themes.list;
@@ -25,7 +25,5 @@ angular.module('liverpoolApp')
                             
                         });
             };
-
-            init();
         }
     ]);

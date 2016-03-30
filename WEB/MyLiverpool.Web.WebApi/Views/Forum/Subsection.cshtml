@@ -1,11 +1,10 @@
-﻿<h2></h2>
-<div class="container-fluid">
+﻿<div class="container-fluid" ng-init="init()">
     <div class="panel panel-danger">
         <div class="panel-heading" ng-bind="name"> <span ng-bind="description"></span></div>
         @*   <div class="panel-body"></div>*@
         <ul class="list-group" ng-repeat="theme in themes">
                 <li class="list-group-item list">
-                    <span><a ui-sref="theme({id : theme.id })" ng-bind="theme.name"></a></span>
+                    <span><a ui-sref=".theme({id : theme.id })" ng-bind="theme.name"></a></span>
                     <br>
                     <span ng-bind="theme.description"></span>
                     <br>
