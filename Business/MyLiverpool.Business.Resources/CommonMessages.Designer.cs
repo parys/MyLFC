@@ -88,6 +88,15 @@ namespace MyLiverpool.Business.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Добавить подсекцию.
+        /// </summary>
+        public static string AddSubsection {
+            get {
+                return ResourceManager.GetString("AddSubsection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ответить.
         /// </summary>
         public static string Answer {

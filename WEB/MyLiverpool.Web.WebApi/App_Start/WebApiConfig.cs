@@ -4,6 +4,7 @@ using System.Web.Http.Cors;
 using System.Web.Http.ExceptionHandling;
 using Elmah.Contrib.WebApi;
 using Microsoft.Owin.Security.OAuth;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
 namespace MyLiverpool.Web.WebApi
@@ -20,6 +21,7 @@ namespace MyLiverpool.Web.WebApi
             config.EnableCors(cors);
 
             config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
 
             config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
 

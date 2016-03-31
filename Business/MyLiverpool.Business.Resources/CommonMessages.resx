@@ -291,4 +291,7 @@
   <data name="AddSection" xml:space="preserve">
     <value>Добавить секцию</value>
   </data>
+  <data name="AddSubsection" xml:space="preserve">
+    <value>Добавить подсекцию</value>
+  </data>
 </root>

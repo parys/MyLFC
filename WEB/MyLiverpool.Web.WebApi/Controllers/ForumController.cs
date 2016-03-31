@@ -23,6 +23,13 @@ namespace MyLiverpool.Web.WebApi.Controllers
             return View();
         }
 
+        [AllowAnonymous]
+        public ActionResult ThemeEdit()
+        {
+            return View();
+        }
+        
+
         //[ValidateInput(false)]
         //[HttpPost]
         //public async Task<ActionResult> AddComment(string comment, int themeId)

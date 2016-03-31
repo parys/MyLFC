@@ -11,7 +11,7 @@ angular.module('liverpoolApp')
             $stateProvider
                 .state('home', {
                     url: '/',
-                    templateUrl: '/news/list',
+                    templateUrl: '/app/news/list',
                     controller: 'NewsController',
                     resolve: {
                         // Constant title
@@ -23,7 +23,7 @@ angular.module('liverpoolApp')
                 })
                 .state('rules', {
                     url: '/rules',
-                    templateUrl: '/home/rules',
+                    templateUrl: '/app/home/rules',
                     controller: 'leftContainerCtrl', //todo change
                     resolve: {
                         $title: function () { return 'Правила'; }
@@ -37,7 +37,7 @@ angular.module('liverpoolApp')
                     url: '/clubHistory',
                     views: {
                         "@": {
-                            templateUrl: '/home/clubHistory'
+                            templateUrl: '/app/home/clubHistory'
                         }
                     },
                     resolve: {
@@ -50,7 +50,7 @@ angular.module('liverpoolApp')
                 })
                 .state('news', {
                     url: '/news?page&categoryId',
-                    templateUrl: function (params) { return '/news/list?page=' + params.page + '&categoryId=' + params.categoryId },
+                    templateUrl: function (params) { return '/app/news/list?page=' + params.page + '&categoryId=' + params.categoryId },
                     controller: 'NewsController',
 
                     resolve: {
@@ -65,7 +65,7 @@ angular.module('liverpoolApp')
                     url: '/newsInfo?id',
                     views: {
                         "@": {
-                            templateUrl: function (params) { return '/news/info?id=' + params.id },
+                            templateUrl: function (params) { return '/app/news/info?id=' + params.id },
                             controller: 'NewsItemController'
                         }
                     },
@@ -84,7 +84,7 @@ angular.module('liverpoolApp')
                     url: '/newsEdit?id',
                     views: {
                         "@": {
-                            templateUrl: function (params) { return '/news/Edit?id=' + params.id },
+                            templateUrl: function (params) { return '/app/news/Edit?id=' + params.id },
                             controller: 'NewsEditCtrl'
                         }
                     },
@@ -100,7 +100,7 @@ angular.module('liverpoolApp')
                 })
                 .state('newsCategories', {
                     url: '/newsCategories',
-                    templateUrl: '/news/Categories',
+                    templateUrl: '/app/news/Categories',
                     controller: 'NewsCategoriesCtrl',
                     resolve: {
                         $title: function () { return 'Категории новостей'; }
@@ -112,7 +112,7 @@ angular.module('liverpoolApp')
                 })
                 .state('userInfo', {
                     url: '/userInfo?id',
-                    templateUrl: function (params) { return '/user/info?id=' + params.id },
+                    templateUrl: function (params) { return '/app/users/info?id=' + params.id },
                     controller: 'UserController',
                     resolve: {
                         $title: function () { return 'Профиль '; } //todo
@@ -124,7 +124,7 @@ angular.module('liverpoolApp')
                 })
                 .state('users', {
                     url: '/users?page',
-                    templateUrl: function (params) { return '/user/list?page=' + params.page },
+                    templateUrl: function (params) { return '/app/users/list?page=' + params.page },
                     controller: 'UsersController',
                     resolve: {
                         $title: function () { return 'Пользователи'; }
@@ -136,7 +136,7 @@ angular.module('liverpoolApp')
                 })
                 .state('images', {
                     url: '/images?path',
-                    templateUrl: function (params) { return '/images/index?path=' + params.path },
+                    templateUrl: function (params) { return '/app/images/index?path=' + params.path },
                     controller: 'ImagesCtrl',
                     resolve: {
                         $title: function () { return 'Изображения '; } //todo
@@ -170,7 +170,7 @@ angular.module('liverpoolApp')
                     url: '/pms', //'?id',
                     views: {
                         "containerMain": {
-                            templateUrl: '/User/Pms', //function (params) { return '/User/Pms?id=' + params.id },
+                            templateUrl: '/app/Users/Pms', //function (params) { return '/User/Pms?id=' + params.id },
                             controller: 'PmsController'
                         }
                     },
@@ -186,7 +186,7 @@ angular.module('liverpoolApp')
                     url: '/pm?id',
                     views: {
                         "containerMain": {
-                            templateUrl: function (params) { return '/User/Pm?id=' + params.id },
+                            templateUrl: function (params) { return '/app/Users/Pm?id=' + params.id },
                             controller: 'PmController'
                         }
                     },
@@ -202,7 +202,7 @@ angular.module('liverpoolApp')
                     url: '/wpm',
                     views: {
                         "containerMain": {
-                            templateUrl: '/User/WritePm',
+                            templateUrl: '/app/Users/WritePm',
                             controller: 'PmWriteCtrl'
                         }
                     },
@@ -222,7 +222,7 @@ angular.module('liverpoolApp')
                     url: '/register?returnUrl',
                     views: {
                         "containerMain": {
-                            templateUrl: '/Account/Register',
+                            templateUrl: '/app/Account/Register',
                             controller: 'RegisterController'
                         }
                     },
@@ -238,7 +238,7 @@ angular.module('liverpoolApp')
                     url: '/login?returnUrl',
                     views: {
                         "containerMain": {
-                            templateUrl: function (params) { return '/Account/Login?returnUrl=' + params.returnUrl },
+                            templateUrl: function (params) { return '/app/Account/Login?returnUrl=' + params.returnUrl },
                             controller: 'LoginController'
                         }
                     },
@@ -254,7 +254,7 @@ angular.module('liverpoolApp')
                     url: '/forum',
                     //views: {
                     //    "containerMain": {
-                    templateUrl: '/Forum/Index',
+                    templateUrl: '/app/Forum/Index',
                     controller: 'ForumController',
                     // }
                     // },
@@ -270,7 +270,7 @@ angular.module('liverpoolApp')
                     url: '/subsection?id&page',
                     views: {
                         "@": {
-                            templateUrl: function (params) { return '/Forum/Subsection?id=' + params.id + '&page=' + params.page },
+                            templateUrl: function (params) { return '/app/Forum/Subsection?id=' + params.id + '&page=' + params.page },
                             controller: 'ForumSubsectionController'
                         }
                     },
@@ -284,10 +284,12 @@ angular.module('liverpoolApp')
                 })
                 .state('forum.subsection.theme', {
                     url: '/theme?id&page',
+                    views: {
                     "@": {
-                        templateUrl: function (params) { return '/Forum/Theme?id=' + params.id + '&page=' + params.page },
-                        controller: 'ForumSubsectionController'
-                        // controllerAs: vm
+                            templateUrl: function(params) { return '/app/Forum/Theme?id=' + params.id + '&page=' + params.page },
+                            controller: 'ForumSubsectionController'
+                            // controllerAs: vm
+                        }
                     },
                     resolve: {
                         $title: function () { return 'Тема'; } //todo
@@ -300,9 +302,10 @@ angular.module('liverpoolApp')
                 })
                 .state('confirmed', {
                     url: '/confirmed',
+                    views: {
                     "@": {
-                        templateUrl: '/Account/ConfirmEmail'
-
+                            templateUrl: '/app/Account/ConfirmEmail'
+                        }
                     },
                     resolve: {
                         $title: function () { return 'Ваш аккаунт подтвержден'; }
@@ -313,10 +316,11 @@ angular.module('liverpoolApp')
                     }
                 }).state('unconfirmed', {
                     url: '/unconfirmed',
+                    views: {
                     "@": {
-                        templateUrl: '/Account/UnconfirmEmail',
-                        controller: 'LoginController'
-
+                            templateUrl: '/app/Account/UnconfirmEmail',
+                            controller: 'LoginController'
+                        }
                     },
                     resolve: {
                         $title: function () { return 'Ваш аккаунт не подтвержден'; }
@@ -327,11 +331,11 @@ angular.module('liverpoolApp')
                     }
                 }).state('forgotPassword', {
                     url: '/forgotPassword',
-
+                    views: {
                     "@": {
-                        templateUrl: '/Account/forgotPassword',
-                        controller: 'LoginController'
-
+                            templateUrl: '/app/Account/forgotPassword',
+                            controller: 'LoginController'
+                        }
                     },
                     resolve: {
                         $title: function () { return 'Забыли пароль?'; }
@@ -342,10 +346,10 @@ angular.module('liverpoolApp')
                     }
                 }).state('emailSent', {
                     url: '/emailSent',
-
+                    views: {
                     "@": {
-                        templateUrl: '/Account/emailSent'
-
+                            templateUrl: '/app/Account/emailSent'
+                        }
                     },
                     resolve: {
                         $title: function () { return 'Письмо отправлено'; }
@@ -356,11 +360,11 @@ angular.module('liverpoolApp')
                     }
                 }).state('resetPassword', {
                     url: '/resetPassword?code',
-
+                    views: {
                     "@": {
-                        templateUrl: '/Account/resetPassword',
-                        controller: 'LoginController'
-
+                            templateUrl: '/app/Account/resetPassword',
+                            controller: 'LoginController'
+                        }
                     },
                     resolve: {
                         $title: function () { return 'Восстановление пароля'; }
@@ -371,11 +375,11 @@ angular.module('liverpoolApp')
                     }
                 }).state('changePassword', {
                     url: '/changePassword',
-
+                    views: {
                     "@": {
-                        templateUrl: '/Account/changePassword',
-                        controller: 'LoginController'
-
+                            templateUrl: '/app/Account/changePassword',
+                            controller: 'LoginController'
+                        }
                     },
                     resolve: {
                         $title: function () { return 'Изменение пароля'; }
@@ -386,10 +390,10 @@ angular.module('liverpoolApp')
                     }
                 }).state('passwordChanged', {
                     url: '/passwordChanged',
-
+                    views: {
                     "@": {
-                        templateUrl: '/Account/passwordChanged'
-
+                            templateUrl: '/app/Account/passwordChanged'
+                        }
                     },
                     resolve: {
                         $title: function () { return 'Пароль успешно изменен'; }

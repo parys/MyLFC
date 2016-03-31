@@ -9,9 +9,7 @@ angular.module('liverpoolApp')
             $scope.init = function() {
                 ImagesFactory.getImages($stateParams.path)
                     .then(function(response) {
-                            console.log(response);
                             $scope.files = response;
-
                         },
                         function(response) {
                             //$scope.f = "";

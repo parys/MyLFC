@@ -1,63 +1,11 @@
-﻿using System.Web.Mvc;
-using MyLiverpool.Controllers;
+﻿//using System.Web.Mvc;
+//using MyLiverpool.Controllers;
 
-namespace MyLiverpool.Web.WebApi.Controllers
-{
-    [Authorize]
-    public class AccountController : BaseController
-    {
-        [AllowAnonymous]
-        public ActionResult ConfirmEmail()
-        {
-            return View();
-        }
-
-        [Authorize]
-        public ActionResult ChangePassword()
-        {
-            return View();
-        }
-
-        [AllowAnonymous]
-        public ActionResult EmailSent()
-        {
-            return View();
-        }
-
-        [AllowAnonymous]
-        public ActionResult ForgotPassword()
-        {
-            return View();
-        }
-
-        [AllowAnonymous]
-        public ActionResult Login()
-        {
-            return View();
-        }
-
-        [AllowAnonymous]
-        public ActionResult PasswordChanged()
-        {
-            return View();
-        }
-
-        [AllowAnonymous]
-        public ActionResult Register()
-        {
-            return View();
-        }
-        [AllowAnonymous]
-        public ActionResult ResetPassword()
-        {
-            return View();
-        }
-
-        [AllowAnonymous]
-        public ActionResult UnconfirmEmail()
-        {
-            return View();
-        }
+//namespace MyLiverpool.Web.WebApi.Controllers
+//{
+//    [Authorize]
+//    public class AccountController : BaseController
+//    {
         //[AllowAnonymous]
         //public async Task<ActionResult> Lockout(string userName)
         //{
@@ -312,5 +260,5 @@ namespace MyLiverpool.Web.WebApi.Controllers
         //        }
         //    }
         //    #endregion
-    }
-}
+//    }
+//}

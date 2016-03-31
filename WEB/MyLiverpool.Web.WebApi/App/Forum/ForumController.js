@@ -77,5 +77,32 @@ angular.module('liverpoolApp')
 
 
             }
+
+            //$scope.addSection = function () {
+            //    var modalInstance = $uibModal.open({
+            //        animation: true,
+            //        templateUrl: 'addSection.html',
+            //        controller: 'ModalForumCtrl',
+            //        resolve: {
+            //            sectionName: function () {
+            //                return $scope.newSectionName;
+            //            }
+            //        }
+            //    });
+
+            //    modalInstance.result.then(function (sectionName) {
+            //        ForumFactory.createSection(sectionName).
+            //            then(function (response) {
+            //                if (response) {
+            //                    $scope.sections.push(response);
+            //                    $rootScope.alerts.push({ type: 'success', msg: 'Секция ' + sectionName + 'успешно добавлена.' });
+            //                }
+            //            },
+            //                function (response) {
+            //                    $rootScope.alerts.push({ type: 'danger', msg: 'Секция не была добавлена.' });
+            //                });
+            //    }, function () {
+            //    });
+            //}
         }
     ]);
