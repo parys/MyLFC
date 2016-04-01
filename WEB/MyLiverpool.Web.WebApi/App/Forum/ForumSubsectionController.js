@@ -1,24 +1,25 @@
 ﻿'use strict';
 angular.module('liverpoolApp')
     .controller('ForumSubsectionController', [
-        '$scope', 'ForumFactory',
-        function($scope, ForumFactory) {
-            $scope.themes = [];
-            $scope.pageNo = 1;
-            $scope.countPage = 1;
-            $scope.id = undefined;
-            $scope.name = undefined;
-            $scope.description = undefined;
+        'ForumFactory',
+        function(ForumFactory) {
+            var vm = this;
+            vm.themes = [];
+            vm.pageNo = 1;
+            vm.countPage = 1;
+            vm.id = undefined;
+            vm.name = undefined;
+            vm.description = undefined;
 
-            $scope.init = function() {
+            vm.init = function() {
                 ForumFactory.getSubsection()
                     .then(function(response) {
-                            $scope.themes = response.themes.list;
-                            $scope.pageNo = response.themes.pageNo;
-                            $scope.countPage = response.themes.countPage;
-                            $scope.id = response.id;
-                            $scope.name = response.name;
-                            $scope.description = response.description;
+                            vm.themes = response.themes.list;
+                            vm.pageNo = response.themes.pageNo;
+                            vm.countPage = response.themes.countPage;
+                            vm.id = response.id;
+                            vm.name = response.name;
+                            vm.description = response.description;
 
                         },
                         function(response) {

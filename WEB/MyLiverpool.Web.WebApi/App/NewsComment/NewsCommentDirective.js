@@ -7,6 +7,7 @@ angular.module('liverpoolApp')
                 scope: { comment: '=', deep: '=', authorId: '=' },
                 templateUrl: 'uib/template/my/newsComment.html',
                 controller: 'NewsCommentCtrl',
+                controllerAs: 'vm',
                 transclude: true,
                 compile: function(element) {
                     return RecursionHelper.compile(element, function(scope, iElement, iAttrs, controller, transcludeFn) {

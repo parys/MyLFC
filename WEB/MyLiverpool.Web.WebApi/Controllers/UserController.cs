@@ -11,11 +11,11 @@ using MyLiverpoolSite.Data.Entities;
 namespace MyLiverpool.Web.WebApi.Controllers
 {
     [RoutePrefix("api/User")]
-    public class ApiUserController : ApiController
+    public class UserController : ApiController
     {
         private readonly IUserService _userService;
 
-        public ApiUserController(IUserService userService)
+        public UserController(IUserService userService)
         {
             _userService = userService;
         }

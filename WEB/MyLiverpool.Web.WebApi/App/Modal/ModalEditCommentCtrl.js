@@ -1,23 +1,24 @@
 ﻿'use strict';
 angular.module('liverpoolApp')
     .controller('ModalEditCommentCtrl', [
-        '$scope', '$uibModalInstance', 'editingComment', 'Authentication',
-        function($scope, $uibModalInstance, editingComment, Authentication) {
-            $scope.editingComment = editingComment;
-            $scope.oldMessage = editingComment.message;
-            $scope.oldAnswer = editingComment.answer;
+        '$uibModalInstance', 'editingComment', 'Authentication',
+        function($uibModalInstance, editingComment, Authentication) {
+            var vm = this;
+            vm.editingComment = editingComment;
+            vm.oldMessage = editingComment.message;
+            vm.oldAnswer = editingComment.answer;
 
-            $scope.ok = function() {
+            vm.ok = function() {
                 $uibModalInstance.close(editingComment);
             };
 
-            $scope.cancel = function() {
-                $scope.editingComment.message = $scope.oldMessage;
-                $scope.editingComment.answer = $scope.oldAnswer;
+            vm.cancel = function() {
+                vm.editingComment.message = $scope.oldMessage;
+                vm.editingComment.answer = $scope.oldAnswer;
                 $uibModalInstance.dismiss('cancel');
             };
 
-            $scope.isModerator = function() {
+            vm.isModerator = function() {
                 return Authentication.isModerator();
             }
         }

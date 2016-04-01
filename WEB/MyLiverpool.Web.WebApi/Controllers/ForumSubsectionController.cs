@@ -6,11 +6,11 @@ namespace MyLiverpool.Web.WebApi.Controllers
 {
     [RoutePrefix("api/forumSubsection")]
     [Authorize]
-    public class ApiForumSubsectionController : ApiController
+    public class ForumSubsectionController : ApiController
     {
         private readonly IForumSubsectionService _forumSubsectionService;
 
-        public ApiForumSubsectionController(IForumSubsectionService forumSubsectionService)
+        public ForumSubsectionController(IForumSubsectionService forumSubsectionService)
         {
             _forumSubsectionService = forumSubsectionService;
         }

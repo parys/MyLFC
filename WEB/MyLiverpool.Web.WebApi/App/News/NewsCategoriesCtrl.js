@@ -1,19 +1,18 @@
 ﻿'use strict';
 angular.module('liverpoolApp')
     .controller('NewsCategoriesCtrl', [
-        '$scope', 'NewsFactory', function($scope, NewsFactory) {
-            $scope.categories = [];
+        'NewsFactory', function(NewsFactory) {
+            var vm = this;
+            vm.categories = [];
 
-            var init = function() {
+            vm.init = function() {
                 NewsFactory.getCategories()
                     .then(function(response) {
-                            $scope.categories = response;
+                            vm.categories = response;
                         },
                         function(response) {
                             //$scope.f = "";
                         });
             };
-
-            init();
         }
     ]);

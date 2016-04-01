@@ -1,8 +1,10 @@
 ﻿'use strict';
 angular.module('liverpoolApp')
     .controller('NewsEditCtrl', [
-        '$scope', 'NewsFactory', '$stateParams', 'ValidationService', '$state', function($scope, NewsFactory, $stateParams, ValidationService, $state) { //, $uibModal, $rootScope) {
-            $scope.item = {
+        'NewsFactory', '$stateParams', 'ValidationService', '$state', 
+        function(NewsFactory, $stateParams, ValidationService, $state) {
+            var vm = this;
+            vm.item = {
                 id: undefined,
                 title: undefined,
                 brief: undefined,
@@ -14,33 +16,33 @@ angular.module('liverpoolApp')
                 pending: undefined,
                 newsCategoryId: ''
             };
-            $scope.categories = [];
+            vm.categories = [];
 
-            //$scope.$modalInstance = undefined;
+            //vm.$modalInstance = undefined;
 
-            $scope.init = function() {
+            vm.init = function () {
                 if ($stateParams.id) {
                     NewsFactory.getItem($stateParams.id)
                         .then(function(response) {
-                                $scope.item = response;
+                            vm.item = response;
                             },
                             function(response) {
-                                //$scope.f = "";
+                                //vm.f = "";
                             });
                 }
                 NewsFactory.getCategories()
                     .then(function(response) {
-                            $scope.categories = response;
+                        vm.categories = response;
                         },
                         function(response) {
-                            //$scope.f = "";
+                            //vm.f = "";
                         });
             };
 
-            $scope.save = function() {
-                if (new ValidationService().checkFormValidity($scope)) {
-                    if (!$scope.item.id) {
-                        NewsFactory.create($scope.item)
+            vm.save = function () {
+                if (new ValidationService().checkFormValidity(vm)) {
+                    if (!vm.item.id) {
+                        NewsFactory.create(vm.item)
                             .then(function(response) {
                                     if (response) {
                                         //  $rootScope.alerts.push({ type: 'success', msg: 'Новость успешно создана.' });
@@ -51,11 +53,11 @@ angular.module('liverpoolApp')
                                     //$rootScope.alerts.push({ type: 'danger', msg: 'Новость не была добавлена.' });
                                 });
                     } else {
-                        NewsFactory.edit($scope.item)
+                        NewsFactory.edit(vm.item)
                             .then(function(response) {
                                     if (response) {
                                         //  $rootScope.alerts.push({ type: 'success', msg: 'Новость успешно создана.' });
-                                        $state.go('newsInfo', { id: $scope.item.id });
+                                        $state.go('newsInfo', { id: vm.item.id });
                                     }
                                 },
                                 function(response) {

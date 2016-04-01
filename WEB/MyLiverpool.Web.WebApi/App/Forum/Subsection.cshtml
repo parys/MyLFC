@@ -1,8 +1,8 @@
-﻿<div class="container-fluid" ng-init="init()">
+﻿<div class="container-fluid" ng-init="vm.init()">
     <div class="panel panel-danger">
-        <div class="panel-heading" ng-bind="name"> <span ng-bind="description"></span></div>
+        <div class="panel-heading" ng-bind="vm.name"> <span ng-bind="vm.description"></span></div>
         @*   <div class="panel-body"></div>*@
-        <ul class="list-group" ng-repeat="theme in themes">
+        <ul class="list-group" ng-repeat="theme in vm.themes">
                 <li class="list-group-item list">
                     <span><a ui-sref=".theme({id : theme.id })" ng-bind="theme.name"></a></span>
                     <br>

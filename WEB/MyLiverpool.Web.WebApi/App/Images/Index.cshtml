@@ -1,5 +1,5 @@
-﻿<div ng-init="init()">
-    <div ng-repeat="file in files">
+﻿<div ng-init="vm.init()">
+    <div ng-repeat="file in vm.files">
         <a ui-sref="images({path: file.path})"><div ng-if="file.isFolder" class="col-md-2 bg-danger" style="height: 50px; margin: 10px" ng-bind="file.name"></div></a>
         <img class="col-md-2" ng-if="!file.isFolder" ng-src="{{file.path}}" style="height: 50px; margin: 10px"/>
     </div>

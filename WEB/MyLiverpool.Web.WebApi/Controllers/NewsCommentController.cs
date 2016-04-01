@@ -10,12 +10,12 @@ namespace MyLiverpool.Web.WebApi.Controllers
 
     [RoutePrefix("api/NewsComment")]
     [Authorize]
-    public class ApiNewsCommentController : ApiController
+    public class NewsCommentController : ApiController
     {
         private readonly IMaterialCommentService _materialCommentService;
         private const MaterialType Type = MaterialType.News;
 
-        public ApiNewsCommentController(IMaterialCommentService materialCommentService)
+        public NewsCommentController(IMaterialCommentService materialCommentService)
         {
             _materialCommentService = materialCommentService;
         }

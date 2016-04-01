@@ -1,28 +1,29 @@
 ﻿'use strict';
 angular.module('liverpoolApp')
     .controller('PmWriteCtrl', [
-        '$scope', '$stateParams', 'PmsFactory', 'ValidationService', '$state', '$rootScope', 'UsersFactory',
-        function($scope, $stateParams, PmsFactory, ValidationService, $state, $rootScope, UsersFactory) {
-            $scope.message = {
+        '$stateParams', 'PmsFactory', 'ValidationService', '$state', '$rootScope', 'UsersFactory',
+        function($stateParams, PmsFactory, ValidationService, $state, $rootScope, UsersFactory) {
+            var vm = this;
+            vm.message = {
                 title: "",
                 message: "",
                 receiverUserName: ""
             }
-            $scope.errorMessage = undefined;
-            $scope.userNames = [];
+            vm.errorMessage = undefined;
+            vm.userNames = [];
 
-            $scope.sent = function() {
-                if ($scope.userNames.indexOf($scope.message.receiverUserName) < 0) {
-                    if ($scope.message.receiverUserName != null && $scope.message.receiverUserName.length > 0) {
-                        $scope.errorMessage = "Пользователя с логином " + $scope.message.receiverUserName + " не существует";
-                        $scope.message.receiverUserName = "";
+            vm.sent = function() {
+                if (vm.userNames.indexOf(vm.message.receiverUserName) < 0) {
+                    if (vm.message.receiverUserName != null && vm.message.receiverUserName.length > 0) {
+                        vm.errorMessage = "Пользователя с логином " + vm.message.receiverUserName + " не существует";
+                        vm.message.receiverUserName = "";
                     }
                 } else {
-                    $scope.errorMessage = undefined;
+                    vm.errorMessage = undefined;
                 }
 
-                if (new ValidationService().checkFormValidity($scope) && !$scope.errorMessage) {
-                    PmsFactory.sentMessage($scope.message)
+                if (new ValidationService().checkFormValidity(vm) && !vm.errorMessage) {
+                    PmsFactory.sentMessage(vm.message)
                         .then(function(response) {
                                 if (response) {
                                     //todo add cookie for 30 seconds
@@ -36,13 +37,13 @@ angular.module('liverpoolApp')
                 }
             };
 
-            $scope.updateUserNames = function(typed) {
+            vm.updateUserNames = function(typed) {
                 UsersFactory.getUserNames(typed)
                     .then(function(response) {
-                            $scope.userNames = response;
+                            vm.userNames = response;
                         },
                         function(response) {
-                            $scope.userNames = [];
+                            vm.userNames = [];
                         });
             }
 
@@ -56,12 +57,12 @@ angular.module('liverpoolApp')
                 }
             }
 
-            $scope.init = function() {
+            vm.init = function() {
                 if ($stateParams.userName) {
-                    $scope.message.receiverUserName = $stateParams.userName;
-                    $scope.message.title = getTitle($stateParams.title); //todo update
+                    vm.message.receiverUserName = $stateParams.userName;
+                    vm.message.title = getTitle($stateParams.title); //todo update
                 }
-                $scope.updateUserNames($scope.message.receiverUserName);
+                vm.updateUserNames(vm.message.receiverUserName);
             }
         }
     ]);

@@ -1,18 +1,19 @@
 ﻿'use strict';
 angular.module('liverpoolApp')
     .controller('ImagesCtrl', [
-        '$scope', 'ImagesFactory', '$stateParams',
-        function($scope, ImagesFactory, $stateParams) {
-            //   $scope.path = '';
-            $scope.files = '';
+        'ImagesFactory', '$stateParams',
+        function(ImagesFactory, $stateParams) {
+            var vm = this;
 
-            $scope.init = function() {
+            vm.files = '';
+
+            vm.init = function() {
                 ImagesFactory.getImages($stateParams.path)
                     .then(function(response) {
-                            $scope.files = response;
+                            vm.files = response;
                         },
                         function(response) {
-                            //$scope.f = "";
+                            //.f = "";
                         });
             };
         }

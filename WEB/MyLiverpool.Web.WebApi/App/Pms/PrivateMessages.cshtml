@@ -1,6 +1,6 @@
 ﻿@using MyLiverpool.Business.Resources
 
-<div class="container-fluid">
+<div class="container-fluid" ng-init="vm.init()">
     <uib-tabset active="active">
         <uib-tab index="0" heading="@UsersMessages.Received">
             <table class="table">
@@ -12,7 +12,7 @@
                         <td>@ColonsMessages.ReceivedDate</td>
                     </tr>
                 </thead>
-                <tbody ng-repeat="message in received">
+                <tbody ng-repeat="message in vm.received">
                     <tr>
                         <td>{{$index + 1}}</td>
                         <td>
@@ -37,7 +37,7 @@
                     <td>@ColonsMessages.SentDate</td>
                 </tr>
                 </thead>
-                <tbody ng-repeat="message in sent">
+                <tbody ng-repeat="message in vm.sent">
                 <tr>
                     <td>{{$index + 1}}</td>
                     <td>

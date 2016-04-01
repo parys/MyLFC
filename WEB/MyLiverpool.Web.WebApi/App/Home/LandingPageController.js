@@ -2,26 +2,27 @@
 angular.module('liverpoolApp')
     .controller('LandingPageController',
     [
-        '$scope', '$state', 'Authentication', 'RouteFilter', 'AccountFactory', '$location', 'UsersFactory', '$interval',
-        function($scope, $state, Authentication, RouteFilter, AccountFactory, $location, UsersFactory, $interval) {
-            $scope.unreadPmCount = 0;
+        '$state', 'Authentication', 'RouteFilter', 'AccountFactory', '$location', 'UsersFactory', '$interval',
+        function($state, Authentication, RouteFilter, AccountFactory, $location, UsersFactory, $interval) {
+            var vm = this;
+            vm.unreadPmCount = 0;
 
-            $scope.userId = function() {
+            vm.userId = function() {
                 return Authentication.getUserId();
             };
 
-            $scope.navbarProperties = {
+            vm.navbarProperties = {
                 isCollapsed: true
             };
 
             function getUnreadPmCount() {
-                if (!$scope.loggedIn()) {
+                if (!vm.loggedIn()) {
                     return;
                 }
                 UsersFactory.getUnreadPmCount().
                     then(function(response) {
                             if (response) {
-                                $scope.unreadPmCount = response;
+                                vm.unreadPmCount = response;
                             }
                         },
                         function(response) {
@@ -30,67 +31,67 @@ angular.module('liverpoolApp')
 
             $interval(getUnreadPmCount, 30000);
 
-            $scope.loggedIn = function() {
+            vm.loggedIn = function() {
                 return Authentication.exists();
             };
 
-            $scope.canAccess = function(route) {
+            vm.canAccess = function(route) {
                 return RouteFilter.canAccess(route);
             }
 
-            $scope.logout = function() {
+            vm.logout = function() {
                 Authentication.logout();
                 //$state.go('home');
             }
 
-            $scope.emailUnique = function(email) {
+            vm.emailUnique = function(email) {
                 return AccountFactory.isEmailUnique(email);
             }
 
-            $scope.userNameUnique = function(userName) {
+            vm.userNameUnique = function(userName) {
                 return AccountFactory.isUserNameUnique(userName);
             }
 
-            $scope.getReturnUrl = function() {
+            vm.getReturnUrl = function() {
                 //  console.log($location.url());
                 return $location.url();
             }
 
-            $scope.isSelf = function(userId) {
+            vm.isSelf = function(userId) {
                 return Authentication.getUserId() == userId;
             }
 
-            $scope.isNewsmaker = function() {
+            vm.isNewsmaker = function() {
                 //   console.log('isNewsmaker landing ');
                 return Authentication.isNewsmaker();
             }
 
-            $scope.isEditor = function() {
+            vm.isEditor = function() {
                 //    console.log('isEditor landing');
                 return Authentication.isEditor();
             }
 
-            $scope.isMainModerator = function() {
+            vm.isMainModerator = function() {
                 //    console.log('isModerator landing');
                 return Authentication.isMainModerator();
             }
 
-            $scope.isModerator = function() {
+            vm.isModerator = function() {
                 //    console.log('isModerator landing');
                 return Authentication.isModerator();
             }
 
-            $scope.isAuthor = function() {
+            vm.isAuthor = function() {
                 //    console.log('isModerator landing');
                 return Authentication.isAuthor();
             }
 
-            $scope.isAdmin = function() {
+            vm.isAdmin = function() {
                 //    console.log('isModerator landing');
                 return Authentication.isAdmin();
             }
 
-            $scope.isAdminAssistant = function() {
+            vm.isAdminAssistant = function() {
                 return Authentication.isAdminAssistant();
             }
         }

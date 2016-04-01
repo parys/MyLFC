@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('liverpoolApp')
     .controller('RoleGroupsCtrl', [
-        '$scope', '$stateParams', '$state', 'RoleGroupsFactory',
-        function($scope, $stateParams, $state, RoleGroupsFactory) {
+        '$stateParams', '$state', 'RoleGroupsFactory',
+        function($stateParams, $state, RoleGroupsFactory) {
             //$scope.users = [];
             //$scope.pageNo = 1;
             //$scope.countPage = 1;

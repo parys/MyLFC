@@ -1,21 +1,21 @@
 ﻿@using MyLiverpool.Business.Resources
-<div class="col-md-12">
-    <h2 ng-bind="user.userName">
+<div class="col-md-12" ng-init="vm.init()">
+    <h2 ng-bind="vm.user.userName">
         <span ng-show="loggedIn() && !isSelf(user.id)">
             <a ui-sref="wpm({ userName: user.userName })"><span class="glyphicon glyphicon-envelope"></span></a>
         </span>
     </h2>
     <div class="clearfix">
         <div class="col-md-2">
-            <img class="avatar" ng-src="{{user.photo}}"/>
+            <img class="avatar" ng-src="{{vm.user.photo}}"/>
         </div>
         <div class="col-md-10">
-            <div ng-if="isSelf(user.id) || isModerator()">
+            <div ng-if="isSelf(vm.user.id) || isModerator()">
                 <button class="btn btn-info" ngf-select="uploadFiles($file, $invalidFiles)"
                         accept="image/*" ngf-max-height="1000" ngf-max-size="1MB">
                     @CommonMessages.UpdateAvatar
                 </button>
-                <button ng-if="isSelf(user.id)" class="btn btn-danger" ui-sref="changePassword()"> @CommonMessages.ChangePassword</button>
+                <button ng-if="isSelf(vm.user.id)" class="btn btn-danger" ui-sref="changePassword()"> @CommonMessages.ChangePassword</button>
                 <br><br>
                 <div>
                     <span ng-show="errFile.$error" ng-bind="errFile.$error"></span>
@@ -29,7 +29,7 @@
         </div>
     </div>
 
-    <form class="form-horizontal" role="form" ng-init="init()">
+    <form class="form-horizontal" role="form">
         <div class="form-group">
             <label class="col-sm-2 control-label">@UsersMessages.UserName</label>
             <div class="col-sm-10">

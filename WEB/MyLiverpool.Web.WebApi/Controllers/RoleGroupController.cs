@@ -6,11 +6,11 @@ namespace MyLiverpool.Web.WebApi.Controllers
 {
     [RoutePrefix("api/RoleGroup")]
     [Authorize(Roles = "AdminFull")]
-    public class ApiRoleGroupController : ApiController
+    public class RoleGroupController : ApiController
     {
         private readonly IRoleService _roleService;
 
-        public ApiRoleGroupController(IRoleService roleService)
+        public RoleGroupController(IRoleService roleService)
         {
             _roleService = roleService;
         }

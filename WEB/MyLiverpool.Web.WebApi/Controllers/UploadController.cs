@@ -12,11 +12,11 @@ namespace MyLiverpool.Web.WebApi.Controllers
 {
     [Authorize]
     [RoutePrefix("api/upload")]
-    public class ApiUploadController : ApiController
+    public class UploadController : ApiController
     {
         private readonly IUploadService _uploadService;
 
-        public ApiUploadController(IUploadService uploadService)
+        public UploadController(IUploadService uploadService)
         {
             _uploadService = uploadService;
         }

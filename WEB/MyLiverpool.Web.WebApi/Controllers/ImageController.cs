@@ -10,7 +10,7 @@ namespace MyLiverpool.Web.WebApi.Controllers
 {
     [RoutePrefix("api/images")]
     [Authorize(Roles = "NewsStart,BlogsStart")]
-    public class ApiImageController : ApiController
+    public class ImageController : ApiController
     {
         private readonly IMapper _mapper;
         private const string PathContent = "\\content";
@@ -19,7 +19,7 @@ namespace MyLiverpool.Web.WebApi.Controllers
 
         private readonly int _pathLength = PathFull.Length + 1;
 
-        public ApiImageController(IMapper mapper)
+        public ImageController(IMapper mapper)
         {
             _mapper = mapper;
         }

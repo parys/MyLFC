@@ -1,7 +1,7 @@
 ﻿@using System.Web.Optimization
 @using MyLiverpool.Business.Resources
 <!DOCTYPE html>
-<html lang="ru" ng-app="liverpoolApp" ng-controller="LandingPageController">
+<html lang="ru" ng-app="liverpoolApp" ng-controller="LandingPageController as vm">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,43 +21,43 @@
         <ul class="nav navbar-nav col-md-6 list-inline">
             <li><a id="back-top" href="#" style="display: none;">@CommonMessages.Up</a></li>
             <li class="divider"></li>
-            <li ng-if="loggedIn()">
-                <a ui-sref="pms()"><span class="glyphicon glyphicon-envelope"></span> @CommonMessages.ReadPM (<span ng-bind="unreadPmCount"></span>)</a>
+            <li ng-if="vm.loggedIn()">
+                <a ui-sref="pms()"><span class="glyphicon glyphicon-envelope"></span> @CommonMessages.ReadPM (<span ng-bind="vm.unreadPmCount"></span>)</a>
             </li>
             <li class="divider"></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            <li ng-if="!loggedIn()">
-                <form ng-controller="LoginController" name="loginForm" class="form-inline" role="form" style="margin-top: 8px;">
+            <li ng-if="!vm.loggedIn()">
+                <form ng-controller="LoginController as ctrl" name="loginForm1" class="form-inline" role="form" style="margin-top: 8px;">
                     <div class="form-group">
                         <label class="sr-only" for="UserName">@ColonsMessages.UserName</label>
-                        <input type="text" placeholder="@UsersMessages.UserName" class="form-control" name="UserName" id="UserName" ng-model="loginForm.userName" validation="required" validation-error-to="myError">
+                        <input type="text" placeholder="@UsersMessages.UserName" class="form-control" name="UserName" id="UserName" ng-model="ctrl.loginForm.userName" validation="required" validation-error-to="myError">
                     </div>
                     <div class="form-group">
                         <label class="sr-only" for="password">@ColonsMessages.Password</label>
-                        <input type="password" placeholder="@UsersMessages.Password" class="form-control" name="password" id="password" ng-model="loginForm.password" validation="required" validation-error-to="myError">
+                        <input type="password" placeholder="@UsersMessages.Password" class="form-control" name="password" id="password" ng-model="ctrl.loginForm.password" validation="required" validation-error-to="myError">
                         <span id="myError" style="display: none;"></span>
                     </div>
                     <div class="form-group">
-                        <span class="text-danger" ng-if="loginForm.errorMessage" ng-bind="loginForm.errorMessage">
+                        <span class="text-danger" ng-if="ctrl.loginForm.errorMessage" ng-bind="ctrl.loginForm.errorMessage">
                             <a class="button" ui-sref="forgotPassword">@CommonMessages.ForgotPassword</a>
                         </span>
                     </div>
                     <div class="form-group">
                         <div>
-                            <input type="submit" ng-click="login()" ng-disabled="!loginForm.userName || !loginForm.password" value="@CommonMessages.Login" class="btn btn-default" />
+                            <input type="submit" ng-click="ctrl.login()" ng-disabled="loginForm1.$invalid" value="@CommonMessages.Login" class="btn btn-default" />
                         </div>
                     </div>
                 </form>
             </li>
-            <li ng-if="!loggedIn()">
+            <li ng-if="!vm.loggedIn()">
                 <a ui-sref="register">@CommonMessages.Registration</a>
             </li>
             @*<li>
                     <a ui-sref="login({ returnUrl: getReturnUrl() })" ng-if="!loggedIn()">@CommonMessages.Login</a>
                 </li>*@
             <li>
-                <ul class="nav navbar-nav" ng-if="loggedIn()">
+                <ul class="nav navbar-nav" ng-if="vm.loggedIn()">
                     <li>
                         <a ui-sref="userInfo({id: userId()})" class="padding0">
                             <img class="nav-avatar" ng-src="{{$root.userImage}}" />
@@ -67,7 +67,7 @@
                         <a ui-sref="userInfo({id: userId()})">@CommonMessages.MyProfile</a>
                     </li>
                     <li>
-                        <a ng-click="logout()">@CommonMessages.Logout</a>
+                        <a ng-click="vm.logout()">@CommonMessages.Logout</a>
                     </li>
                     <li>
                         <span class="label label-success">Logged In</span>
@@ -97,7 +97,7 @@
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="">@CommonMessages.News<b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                    <li ng-if="isNewsmaker()"><a ui-sref="newsEdit()">@CommonMessages.Create</a></li>
+                    <li ng-if="vm.isNewsmaker()"><a ui-sref="newsEdit()">@CommonMessages.Create</a></li>
                     <li><a ui-sref="newsCategories()">@CommonMessages.Categories</a></li>
                 </ul>
             </li>
@@ -123,7 +123,7 @@
                     <li><a ui-sref="users">@CommonMessages.Users</a></li>
                 </ul>
             </li>
-            <li> <a ng-if="isNewsmaker() || isAuthor()" ui-sref="images({path: 'content'})">@CommonMessages.Images</a></li>
+            <li> <a ng-if="vm.isNewsmaker() || vm.isAuthor()" ui-sref="images({path: 'content'})">@CommonMessages.Images</a></li>
             <li> <a ui-sref="rules()"><span class="text-danger">@CommonMessages.Rules</span></a></li>
         </ul>
     </div>

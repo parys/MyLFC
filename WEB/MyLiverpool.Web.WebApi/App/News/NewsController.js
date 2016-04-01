@@ -1,31 +1,32 @@
 ﻿'use strict';
 angular.module('liverpoolApp')
     .controller('NewsController', [
-        '$scope', 'NewsFactory', '$uibModal', '$rootScope', '$stateParams', '$state',
-        function($scope, NewsFactory, $uibModal, $rootScope, $stateParams, $state) {
-            $scope.newsItems = [];
-            $scope.pageNo = undefined;
-            $scope.totalItems = undefined;
-            $scope.itemPerPage = undefined;
+        'NewsFactory', '$uibModal', '$rootScope', '$stateParams', '$state',
+        function(NewsFactory, $uibModal, $rootScope, $stateParams, $state) {
+            var vm = this;
+            vm.newsItems = [];
+            vm.pageNo = undefined;
+            vm.totalItems = undefined;
+            vm.itemPerPage = undefined;
 
-            var init = function(page, categoryId) {
+            vm.init = function (page, categoryId) {
                 NewsFactory.getList(page, categoryId)
                     .then(function(response) {
-                            $scope.newsItems = response.list;
-                            $scope.pageNo = response.pageNo;
-                            $scope.totalItems = response.totalItems;
-                            $scope.itemPerPage = response.itemPerPage;
+                        vm.newsItems = response.list;
+                        vm.pageNo = response.pageNo;
+                        vm.totalItems = response.totalItems;
+                        vm.itemPerPage = response.itemPerPage;
                         },
                         function(response) {
-                            //$scope.f = "";
+                            //.f = "";
                         });
             };
 
-            $scope.activate = function(index) {
-                NewsFactory.activate($scope.newsItems[index].id).
+            vm.activate = function (index) {
+                NewsFactory.activate(vm.newsItems[index].id).
                     then(function(response) {
                             if (response) {
-                                $scope.newsItems[index].pending = false;
+                                vm.newsItems[index].pending = false;
                                 $rootScope.alerts.push({ type: 'success', msg: 'Новость успешно активирована.' });
                             }
                         },
@@ -34,27 +35,28 @@ angular.module('liverpoolApp')
                         });
             }
 
-            $scope.isUserAuthor = function(userId, newsUserId) {
+            vm.isUserAuthor = function (userId, newsUserId) {
                 return userId == newsUserId;
             }
 
-            $scope.delete = function(index) {
+            vm.delete = function (index) {
                 var modalInstance = $uibModal.open({
                     animation: true,
                     templateUrl: 'modalDeleteConfirmation.html',
-                    controller: 'ModalCtrl' //,
-                    //resolve: {
-                    //    id: function() {
-                    //        return $scope.selectedNewsId;
-                    //    }
-                    //}
-                });
+                    controller: 'ModalCtrl',
+                    controllerAs: 'vm'
+                //resolve: {
+                //    id: function() {
+                //        return $scoe.selectedNewsId;
+                //    }
+                //}
+            });
 
                 modalInstance.result.then(function() {
-                    NewsFactory.delete($scope.newsItems[index].id).
+                    NewsFactory.delete(vm.newsItems[index].id).
                         then(function(response) {
                                 if (response) {
-                                    $scope.newsItems.splice(index, 1);
+                                    vm.newsItems.splice(index, 1);
                                     $rootScope.alerts.push({ type: 'success', msg: 'Новость успешно удалена.' });
                                 }
                             },
@@ -65,10 +67,8 @@ angular.module('liverpoolApp')
                 });
             }
 
-            $scope.goToPage = function() {
-                $state.go('news', { page: $scope.pageNo, categoryId: $stateParams.categoryId });
+            vm.goToPage = function () {
+                $state.go('news', { page: vm.pageNo, categoryId: $stateParams.categoryId });
             }
-
-            init($stateParams.page, $stateParams.categoryId);
         }
     ]);

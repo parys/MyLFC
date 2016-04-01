@@ -2,12 +2,13 @@
 angular.module('liverpoolApp')
     .controller('NewsCommentCtrl', [
         '$scope', '$uibModal', 'NewsCommentsFactory', 'Authentication', '$rootScope',
-        function($scope, $uibModal, NewsCommentsFactory, Authentication, $rootScope) { //, $sce) {
+        function($scope, $uibModal, NewsCommentsFactory, Authentication, $rootScope) {
+            var vm = this;
 
-            $scope.newComment = undefined;
+            vm.newComment = undefined;
 
             function resetNewComment() {
-                $scope.newComment = {
+                vm.newComment = {
                     id: undefined,
                     message: undefined,
                     parentId: undefined,
@@ -29,7 +30,7 @@ angular.module('liverpoolApp')
                 return -1;
             };
 
-            $scope.addReplyComment = function(comment) {
+            vm.addReplyComment = function (comment) {
                 console.log(comment);
                 var modalInstance = $uibModal.open({
                     animation: true,
@@ -37,7 +38,7 @@ angular.module('liverpoolApp')
                     controller: 'ModalEditCommentCtrl',
                     resolve: {
                         editingComment: function() {
-                            return $scope.newComment;
+                            return vm.newComment;
                         }
                     }
                 });
@@ -45,10 +46,10 @@ angular.module('liverpoolApp')
                 modalInstance.result.then(function() {
                     console.log('editing confirm');
 
-                    $scope.newComment.newsItemId = comment.newsItemId;
-                    $scope.newComment.parentId = comment.id;
-                    console.log($scope.newComment);
-                    NewsCommentsFactory.add($scope.newComment).
+                    vm.newComment.newsItemId = comment.newsItemId;
+                    vm.newComment.parentId = comment.id;
+                    console.log(vm.newComment);
+                    NewsCommentsFactory.add(vm.newComment).
                         then(function(response) {
                                 if (response) {
                                     comment.children.push(response);
@@ -66,11 +67,12 @@ angular.module('liverpoolApp')
                 });
             }
 
-            $scope.editComment = function(comment) {
+            vm.editComment = function (comment) {
                 var modalInstance = $uibModal.open({
                     animation: true,
                     templateUrl: 'modalEditComment.html',
                     controller: 'ModalEditCommentCtrl',
+                    controllerAs: 'vm',
                     resolve: {
                         editingComment: function() {
                             return comment;
@@ -101,7 +103,8 @@ angular.module('liverpoolApp')
                 var modalInstance = $uibModal.open({
                     animation: true,
                     templateUrl: 'modalDeleteConfirmation.html',
-                    controller: 'ModalCtrl' //,
+                    controller: 'ModalCtrl',
+                    controllerAs: 'vm'
                     //resolve: {
                     //    id: function() {
                     //        return $scope.selectedNewsId;
@@ -114,7 +117,7 @@ angular.module('liverpoolApp')
                         then(function(response) {
                                 if (response) {
                                     // $rootScope.alerts.push({ type: 'success', msg: 'Новость успешно удалена.' });
-                                    $scope.$emit('deleteCommentConfirmed', comment);
+                                    vm.$emit('deleteCommentConfirmed', comment);
                                     //console.log($scope.item.comments);
                                     //var index = findWithAttr($scope.item.comments, 'id', id);
                                     //console.log(index);
@@ -128,21 +131,21 @@ angular.module('liverpoolApp')
                 });
             }
 
-            $scope.isModerator = function() {
+            vm.isModerator = function() {
                 return Authentication.isModerator();
             }
 
-            $scope.isUserAuthor = function(userId, newsUserId) {
+            vm.isUserAuthor = function (userId, newsUserId) {
                 //   console.log('isUserAuthor NewsCommentCtrl ' + userId + ' ' + newsUserId);
                 return userId == newsUserId;
             }
 
-            $scope.getUserId = function() {
+            vm.getUserId = function () {
                 return Authentication.getUserId();
             }
 
-            $scope.canAddReply = function() {
-                return Authentication.exists(); //todo && !$scope.isUserAuthor();
+            vm.canAddReply = function () {
+                return Authentication.exists() //todo && !vm.isUserAuthor();
             }
         }
     ]);

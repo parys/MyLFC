@@ -2,8 +2,9 @@
 angular.module('liverpoolApp')
     .controller('rightContainerCtrl',
     [
-        '$scope',
-        function($scope) {
-            $scope.title = 'i am right';
+        
+        function() {
+            var vm = this;
+            vm.title = 'i am right';
         }
     ]);

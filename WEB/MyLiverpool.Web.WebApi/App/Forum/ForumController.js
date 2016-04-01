@@ -1,14 +1,15 @@
 ﻿'use strict';
 angular.module('liverpoolApp')
     .controller('ForumController', [
-        '$scope', 'ForumFactory', '$uibModal', '$rootScope',
-        function ($scope, ForumFactory, $uibModal, $rootScope) {
-            $scope.sections = [];
+        'ForumFactory', '$uibModal', '$rootScope',
+        function (ForumFactory, $uibModal, $rootScope) {
+            var vm = this;
+            vm.sections = [];
 
-            $scope.init = function () {
+            vm.init = function () {
                 ForumFactory.getSections()
                     .then(function (response) {
-                        $scope.sections = response.sections;
+                        vm.sections = response.sections;
 
                     },
                         function (response) {
@@ -16,13 +17,14 @@ angular.module('liverpoolApp')
                         });
             };
 
-            $scope.newSectionName = undefined;
+            vm.newSectionName = undefined;
 
-            $scope.addSection = function () {
+            vm.addSection = function () {
                 var modalInstance = $uibModal.open({
                     animation: true,
                     templateUrl: 'addSection.html',
                     controller: 'ModalForumCtrl',
+                    controllerAs: 'vm',
                     resolve: {
                         sectionName: function () {
                             return $scope.newSectionName;
@@ -34,7 +36,7 @@ angular.module('liverpoolApp')
                     ForumFactory.createSection(sectionName).
                         then(function (response) {
                             if (response) {
-                                $scope.sections.push(response);
+                                vm.sections.push(response);
                                 $rootScope.alerts.push({ type: 'success', msg: 'Секция ' + sectionName + 'успешно добавлена.' });
                             }
                         },
@@ -45,25 +47,25 @@ angular.module('liverpoolApp')
                 });
             }
 
-            $scope.removeSection = function (index) {
-
+            vm.removeSection = function (index) {
                 var modalInstance = $uibModal.open({
                     animation: true,
                     templateUrl: 'modalDeleteConfirmation.html',
-                    controller: 'ModalCtrl' //,
+                    controller: 'ModalCtrl',
+                    controllerAs: 'vm'
                     //resolve: {
                     //    id: function() {
-                    //        return $scope.selectedNewsId;
+                    //        return .selectedNewsId;
                     //    }
                     //}
                 });
 
                 modalInstance.result.then(function () {
-                    var sectionId = $scope.sections[index].id;
+                    var sectionId = vm.sections[index].id;
                     ForumFactory.deleteSection(sectionId).
                         then(function (response) {
                             if (response) {
-                                $scope.sections.splice(index, 1);
+                                vm.sections.splice(index, 1);
                                 $rootScope.alerts.push({ type: 'success', msg: 'Секция успешно удалена.' });
                             } else {
                                 $rootScope.alerts.push({ type: 'danger', msg: 'Секция не была удалена.' });
@@ -77,32 +79,5 @@ angular.module('liverpoolApp')
 
 
             }
-
-            //$scope.addSection = function () {
-            //    var modalInstance = $uibModal.open({
-            //        animation: true,
-            //        templateUrl: 'addSection.html',
-            //        controller: 'ModalForumCtrl',
-            //        resolve: {
-            //            sectionName: function () {
-            //                return $scope.newSectionName;
-            //            }
-            //        }
-            //    });
-
-            //    modalInstance.result.then(function (sectionName) {
-            //        ForumFactory.createSection(sectionName).
-            //            then(function (response) {
-            //                if (response) {
-            //                    $scope.sections.push(response);
-            //                    $rootScope.alerts.push({ type: 'success', msg: 'Секция ' + sectionName + 'успешно добавлена.' });
-            //                }
-            //            },
-            //                function (response) {
-            //                    $rootScope.alerts.push({ type: 'danger', msg: 'Секция не была добавлена.' });
-            //                });
-            //    }, function () {
-            //    });
-            //}
         }
     ]);

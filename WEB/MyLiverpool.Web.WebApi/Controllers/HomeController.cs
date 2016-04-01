@@ -1,12 +1,9 @@
 ﻿using System.Web.Mvc;
-using MyLiverpool.Controllers;
 
 namespace MyLiverpool.Web.WebApi.Controllers
 {
-    [Authorize]
-    public class HomeController : BaseController
+    public class HomeController : Controller
     {
-        [AllowAnonymous]
         public ActionResult Index()
         {
             return View();

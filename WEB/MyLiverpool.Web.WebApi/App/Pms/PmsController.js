@@ -1,18 +1,19 @@
 ﻿'use strict';
 angular.module('liverpoolApp')
     .controller('PmsController', [
-        '$scope', 'PmsFactory',
-        function($scope, PmsFactory) {
-            $scope.received = [];
-            $scope.sent = [];
+        'PmsFactory',
+        function(PmsFactory) {
+            var vm = this;
+            vm.received = [];
+            vm.sent = [];
             var init = function() {
                 PmsFactory.getMessages()
                     .then(function(response) {
-                            $scope.received = response.received;
-                            $scope.sent = response.sent;
+                            vm.received = response.received;
+                            vm.sent = response.sent;
                         },
                         function(response) {
-                            //$scope.f = "";
+                            //.f = "";
                         });
             };
 

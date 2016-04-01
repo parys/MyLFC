@@ -1,7 +1,8 @@
 ﻿'use strict';
 angular.module('liverpoolApp')
     .factory('AuthHttpResponseInterceptor', [
-        '$q', '$location', '$injector', 'SessionService', function($q, $location, $injector, SessionService) {
+        '$q', '$location', '$injector', 'SessionService',
+        function($q, $location, $injector, SessionService) {
             return {
                 request: function(config) {
                     config.headers['Authorization'] = 'Bearer ' + SessionService.getToken();

@@ -6,11 +6,11 @@ namespace MyLiverpool.Web.WebApi.Controllers
 {
     [RoutePrefix("api/forumTheme")]
     [Authorize]
-    public class ApiForumThemeController : ApiController
+    public class ForumThemeController : ApiController
     {
         private readonly IForumThemeService _forumThemeService;
 
-        public ApiForumThemeController(IForumThemeService forumThemeService)
+        public ForumThemeController(IForumThemeService forumThemeService)
         {
             _forumThemeService = forumThemeService;
         }

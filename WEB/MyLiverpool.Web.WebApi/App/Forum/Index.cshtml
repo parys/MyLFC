@@ -1,10 +1,10 @@
 ﻿@using MyLiverpool.Business.Resources
-<div class="col-md-12" ng-init="init()">
-    <div class="container-fluid" ng-repeat="section in sections">
+<div class="col-md-12" ng-init="vm.init()">
+    <div class="container-fluid" ng-repeat="section in vm.sections">
         <div class="panel panel-danger" ng-show="section.subsections.length > 0 || isAdminAssistant()">
             <div class="panel-heading">
                 <span ng-bind="section.name"></span>
-                <a class="pull-right" ng-show="section.subsections.length == 0" ng-click="removeSection($index)">
+                <a class="pull-right" ng-show="section.subsections.length == 0" ng-click="vm.removeSection($index)">
                     <span class="glyphicon glyphicon-remove">
                     </span>
                 </a>
@@ -17,8 +17,8 @@
             </ul>
         </div>
     </div>
-    <a ng-show="isAdminAssistant()" ng-click="addSection()">@CommonMessages.AddSection</a>
-    <a ng-show="isAdminAssistant()" ng-click="addSubsection()">@CommonMessages.AddSubsection</a>
+    <a ng-show="isAdminAssistant()" ng-click="vm.addSection()">@CommonMessages.AddSection</a>
+    <a ng-show="isAdminAssistant()" ng-click="vm.addSubsection()">@CommonMessages.AddSubsection</a>
 </div>
 
 <script type="text/ng-template" id="addSection.html">
@@ -30,14 +30,14 @@
             <div class="form-group">
                 <label for="newSectionName" class="col-md-2 control-label">@ColonsMessages.SectionName</label>
                 <div class="col-md-10">
-                    <input type="text" name="newSectionName" ng-model="sectionName" validation="required" class="form-control" />
+                    <input type="text" name="newSectionName" ng-model="vm.sectionName" validation="required" class="form-control" />
                 </div>
             </div>
         </form>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary" ng-disabled="addSection.$invalid" type="button" ng-click="ok()">@CommonMessages.Add</button>
-        <button class="btn btn-default" type="button" ng-click="cancel()">@CommonMessages.Cancel</button>
+        <button class="btn btn-primary" ng-disabled="addSection.$invalid" type="button" ng-click="vm.ok()">@CommonMessages.Add</button>
+        <button class="btn btn-default" type="button" ng-click="vm.cancel()">@CommonMessages.Cancel</button>
     </div>
 </script>
 
@@ -49,7 +49,7 @@
         @CommonMessages.Delete?
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary" type="button" ng-click="ok()">@CommonMessages.Delete</button>
-        <button class="btn btn-default" type="button" ng-click="cancel()">@CommonMessages.Cancel</button>
+        <button class="btn btn-primary" type="button" ng-click="vm.ok()">@CommonMessages.Delete</button>
+        <button class="btn btn-default" type="button" ng-click="vm.cancel()">@CommonMessages.Cancel</button>
     </div>
 </script>

@@ -1,42 +1,43 @@
 ﻿@using MyLiverpool.Business.Resources
-
-<div class="container-fluid" ng-repeat="item in newsItems">
-    <div class="container-fluid" ng-if="!item.pending || isEditor()">
-        <div class="row flex-vertical-center">
-            <a ui-sref="newsInfo({id: item.id})" class="col-md-9"><h4 ng-bind="item.title"></h4></a>
+<div class="col-md-12" ng-init="vm.init(undefined,undefined)">
+    <div class="container-fluid" ng-repeat="item in vm.newsItems">
+        <div class="container-fluid" ng-if="!item.pending || isEditor()">
+            <div class="row flex-vertical-center">
+                <a ui-sref="newsInfo({id: item.id})" class="col-md-9"><h4 ng-bind="item.title"></h4></a>
                 <span class="col-md-3" ng-if="isNewsmaker()">
-                    <a ng-if="isEditor()" ng-show="item.pending" ng-click="activate($index)"><span class="glyphicon glyphicon-ok"></span></a>
+                    <a ng-if="isEditor()" ng-show="item.pending" ng-click="vm.activate($index)"><span class="glyphicon glyphicon-ok"></span></a>
                     <a ng-if="isEditor() || isUserAuthor(userId(), item.authorId)" ui-sref="newsEdit({id: item.id})"><span class="glyphicon glyphicon-pencil"></span></a>
-                    <a ng-if="isEditor() || isUserAuthor(userId(), item.authorId)" ng-click="delete($index)"><span class="glyphicon glyphicon-trash"></span></a>
+                    <a ng-if="isEditor() || isUserAuthor(userId(), item.authorId)" ng-click="vm.delete($index)"><span class="glyphicon glyphicon-trash"></span></a>
                 </span>
+            </div>
+            <div class="row">
+                <img class="img-thumbnail news-mini" alt="" ng-src="{{item.photoPath}}"/>
+            </div>
+            <div class="row">
+                <i> <span ng-bind-html="item.brief | rawHtml"></span></i>
+            </div>
+            <ul class="list-inline small small-offset">
+                <li class="">@ColonsMessages.Category</li>
+                <li class=""><a ui-sref="news({page: 1, categoryId: item.newsCategoryId})" ng-bind="item.newsCategoryName"></a></li>
+                <li class="">|</li>
+                <li class="">@ColonsMessages.AdditionTime</li>
+                <li class="" ng-bind="item.additionTime | date:'medium'"></li>
+                <li class="">|</li>
+                <li class="">@ColonsMessages.Reads</li>
+                <li class="" ng-bind="item.reads"></li>
+                <li class="">|</li>
+                <li class="">@ColonsMessages.Author</li>
+                <li class=""><a ui-sref="userInfo({id: item.authorId })" ng-bind="item.authorUserName"></a></li>
+                <li class="">|</li>
+                <li class="">@ColonsMessages.CommentsCount</li>
+                <li class="" ng-bind="item.commentsCount"></li>
+            </ul>
+            @*<hr />*@
         </div>
-        <div class="row">
-            <img class="img-thumbnail news-mini" alt="" ng-src="{{item.photoPath}}" />
-        </div>
-        <div class="row">
-            <i> <span ng-bind-html="item.brief | rawHtml"></span></i>
-        </div>
-        <ul class="list-inline small small-offset">
-            <li class="">@ColonsMessages.Category</li>
-            <li class=""><a ui-sref="news({page: 1, categoryId: item.newsCategoryId})" ng-bind="item.newsCategoryName"></a></li>
-            <li class="">|</li>
-            <li class="">@ColonsMessages.AdditionTime</li>
-            <li class="" ng-bind="item.additionTime | date:'medium'"></li>
-            <li class="">|</li>
-            <li class="">@ColonsMessages.Reads</li>
-            <li class="" ng-bind="item.reads"></li>
-            <li class="">|</li>
-            <li class="">@ColonsMessages.Author</li>
-            <li class=""><a ui-sref="userInfo({id: item.authorId })" ng-bind="item.authorUserName"></a></li>
-            <li class="">|</li>
-            <li class="">@ColonsMessages.CommentsCount</li>
-            <li class="" ng-bind="item.commentsCount"></li>
-        </ul>
-        @*<hr />*@
     </div>
-</div>
-<div class="pagination">
-    <uib-pagination ng-show="totalItems > itemPerPage" total-items="totalItems" ng-model="pageNo" ng-change="goToPage()"></uib-pagination>
+    <div class="pagination">
+        <uib-pagination ng-show="vm.totalItems > vm.itemPerPage" total-items="vm.totalItems" ng-model="vm.pageNo" ng-change="vm.goToPage()"></uib-pagination>
+    </div>
 </div>
 
 <script type="text/ng-template" id="modalDeleteConfirmation.html">

@@ -1,9 +1,9 @@
 ﻿@using MyLiverpool.Business.Resources
 
-<div class="container-row col-md-12" ng-init="init()">
+<div class="container-row col-md-12" ng-init="vm.init()">
     <div class="alert-danger col-md-12 container-row flex-vertical-center">
         <h3 class="container col-md-12">
-            <span ng-bind="item.title"></span>
+            <span class="col-md-9" ng-bind="item.title"></span>
             <span class="col-md-3 pull-right" ng-if="isNewsmaker()">
                 <span class="small pull-right">
                     <a ng-if="isEditor()" ng-show="item.pending" ng-click="activate()"><span class="glyphicon glyphicon-ok"></span></a>

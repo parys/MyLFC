@@ -5,47 +5,51 @@
         <div class="form-group">
             <label class="col-md-2  control-label">@ColonsMessages.UserName</label>
             <div class="col-md-10">
-                <input type="text" name="userName" ng-model="registerForm.userName" id="userName" debounce="5000" validation="remote:userNameUnique(registerForm.userName):alt=@ErrorMessages.UserWithSameUserNameExists|min_len:3|max_len:30|required" class="form-control"/>
+                <input type="text" name="userName" ng-model="vm.registerForm.userName" id="userName" debounce="5000" validation="remote:userNameUnique(registerForm.userName):alt=@ErrorMessages.UserWithSameUserNameExists|min_len:3|max_len:30|required" class="form-control"/>
             </div>
         </div>
         <div class="form-group">
             <label class="col-md-2 control-label">@ColonsMessages.Email </label>
             <div class="col-md-10">
-                <input type="email" name="email" ng-model="registerForm.email" id="email" debounce="5000" validation="required|email|min_len:6" class="form-control"/>
+                <input type="email" name="email" ng-model="vm.registerForm.email" id="email" debounce="5000" validation="required|email|min_len:6" class="form-control"/>
             </div>
         </div>
         <div class="form-group">
             <label for="password" class="col-md-2 control-label">@ColonsMessages.Password</label>
             <div class="col-md-10">
-                <input type="password" name="password" friendly-name="@UsersMessages.Password" id="password" ng-model="registerForm.password" validation="required|min_len:6" class="form-control"/>
+                <input type="password" name="password" friendly-name="@UsersMessages.Password" id="password" ng-model="vm.registerForm.password" validation="required|min_len:6" class="form-control"/>
             </div>
         </div>
         <div class="form-group">
             <label for="confirmPassword" class="col-md-2 control-label">@ColonsMessages.PasswordConfirmation</label>
             <div class="col-md-10">
-                <input type="password" name="confirmPassword" id="confirmPassword" ng-model="registerForm.confirmPassword" validation="required|match:registerForm.password,@UsersMessages.Password|min_len:6" class="form-control"/>
+                <input type="password" name="confirmPassword" id="confirmPassword" ng-model="vm.registerForm.confirmPassword" validation="required|match:registerForm.password,@UsersMessages.Password|min_len:6" class="form-control"/>
             </div>
         </div>
         <div class="form-group">
             <label class="col-md-2 control-label">@ColonsMessages.FullName</label>
             <div class="col-md-10">
-                <input type="text" name="fullName" ng-model="registerForm.fullName" validation="required|min_len:2" class="form-control"/>
+                <input type="text" name="fullName" ng-model="vm.registerForm.fullName" validation="required|min_len:2" class="form-control"/>
             </div>
         </div>
         <div class="form-group">
             <label class="col-md-2 control-label">@ColonsMessages.Birthday</label>
             <div class="col-md-10">
                 <div class="input-group">
-                    <input type="text" class="form-control" validation="required" name="birthday" ng-readonly="true" show-button-bar="false" uib-datepicker-popup="dd/MMMM/yyyy" ng-model="registerForm.birthday" is-open="status.opened" datepicker-options="dateOptions" close-text="@CommonMessages.Close" alt-input-formats="altInputFormats"/>
+                    <input type="text" class="form-control" validation="required" name="birthday"
+                            ng-readonly="true" show-button-bar="false"
+                            uib-datepicker-popup="dd/MMMM/yyyy" ng-model="vm.registerForm.birthday"
+                            is-open="vm.status.opened" datepicker-options="vm.dateOptions" close-text="@CommonMessages.Close" 
+                           alt-input-formats="altInputFormats"/>
                     <span class="input-group-btn va-top">
-                        <button type="button" class="btn btn-default" ng-click="open()"><i class="glyphicon glyphicon-calendar"></i></button>
+                        <button type="button" class="btn btn-default" ng-click="vm.open()"><i class="glyphicon glyphicon-calendar"></i></button>
                     </span>
                 </div>
             </div>
         </div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <button type="button" ng-disabled="registerForm1.$invalid" ng-click="register()" class="btn btn-default">@CommonMessages.Register</button>
+                <button type="button" ng-disabled="registerForm1.$invalid" ng-click="vm.register()" class="btn btn-default">@CommonMessages.Register</button>
             </div>
         </div>
     </form>

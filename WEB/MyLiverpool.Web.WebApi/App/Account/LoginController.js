@@ -1,69 +1,68 @@
 ﻿'use strict';
 angular.module('liverpoolApp')
     .controller('LoginController', [
-        '$scope', 'SessionService', 'Authentication', 'ValidationService', 'AccountFactory', '$state', '$rootScope',
-        function ($scope, SessionService, Authentication, ValidationService, AccountFactory, $state, $rootScope) {
-
-            $scope.loginForm = {
+        'SessionService', 'Authentication', 'ValidationService', 'AccountFactory', '$state', '$rootScope',
+        function (SessionService, Authentication, ValidationService, AccountFactory, $state, $rootScope) {
+            var vm = this;
+            vm.loginForm = {
                 userName: undefined,
                 password: undefined,
                 errorMessage: undefined
             };
 
-            $scope.resetForm = {
+            vm.resetForm = {
                 email: undefined,
                 password: undefined,
                 confirmPassword: undefined,
                 code: undefined
             };
 
-            $scope.changeForm = {
+            vm.changeForm = {
                 oldPassword: undefined,
                 newPassword: undefined,
                 confirmPassword: undefined
             }
 
-            $scope.email = undefined;
+            vm.email = undefined;
 
-            $scope.login = function() {
-                if (new ValidationService().checkFormValidity($scope.loginForm)) {
-                    Authentication.login($scope.loginForm);
-                    //console.log(Authentication.exists());
-                    //if (Authentication.exists()) {
-                    //    if ($stateParams.returnUrl) {
-                    //        $location.url($stateParams.returnUrl);
-                    //    } else {
-                    //        $location.url('/');
-                    //    }
-                    //}
-                }
+            vm.login = function () {
+                Authentication.login(vm.loginForm);
+
+                //if (Authentication.exists()) {
+                //    if ($stateParams.returnUrl) {
+                //        $location.url($stateParams.returnUrl);
+                //    } else {
+                //        $location.url('/');
+                //    }
+                //}
+
             }
 
-            $scope.resendConfirmLetter = function() {
-                AccountFactory.resendConfirmEmail($scope.email)
+            vm.resendConfirmLetter = function () {
+                AccountFactory.resendConfirmEmail(vm.email)
                     .then(function(response) {
-                            $scope.result = response;
+                        vm.result = response;
                             $state.go('emailSent');
                         },
                         function(response) {
-                            $scope.result = response;
+                            vm.result = response;
                         });
             }
 
-            $scope.forgot = function() {
-                AccountFactory.forgotPassword($scope.email)
+            vm.forgot = function () {
+                AccountFactory.forgotPassword(vm.email)
                     .then(function(response) {
-                            $scope.result = response;
+                        vm.result = response;
                             $state.go('emailSent');
                         },
                         function(response) {
-                            $scope.result = response;
+                            vm.result = response;
                         });
             }
 
-            $scope.reset = function() {
-                $scope.resetForm.code = $state.params.code;
-                AccountFactory.resetPassword($scope.resetForm)
+            vm.reset = function () {
+                vm.resetForm.code = $state.params.code;
+                AccountFactory.resetPassword(vm.resetForm)
                     .then(function(response) {
                             $state.go('home');
                             $rootScope.alerts.push({ type: 'success', msg: 'Пароль успешно изменен.' });
@@ -73,8 +72,8 @@ angular.module('liverpoolApp')
                         });
             }
 
-            $scope.change = function() {
-                AccountFactory.changePassword($scope.changeForm)
+            vm.change = function () {
+                AccountFactory.changePassword(vm.changeForm)
                     .then(function(response) {
                             if (response) {
                                 $state.go('home');
@@ -87,5 +86,7 @@ angular.module('liverpoolApp')
 
                         });
             }
+
+            return vm;
         }
     ]);

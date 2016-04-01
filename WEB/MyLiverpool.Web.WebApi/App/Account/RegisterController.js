@@ -1,9 +1,10 @@
 ﻿'use strict';
 angular.module('liverpoolApp')
     .controller('RegisterController', [
-        '$scope', 'AccountFactory', 'Authentication', 'ValidationService', '$state',
-        function ($scope, AccountFactory, Authentication, ValidationService, $state) {
-            $scope.registerForm = {
+        'AccountFactory', 'Authentication', 'ValidationService', '$state',
+        function (AccountFactory, Authentication, ValidationService, $state) {
+            var vm = this;
+            vm.registerForm = {
                 userName: '',
                 email: '',
                 password: '',
@@ -12,22 +13,22 @@ angular.module('liverpoolApp')
                 birthday: ''
             };
 
-            $scope.register = function() {
-                AccountFactory.register($scope.registerForm)
+            vm.register = function() {
+                AccountFactory.register(vm.registerForm)
                     .then(function() {
                         $state.go('emailSent');
                     });
             }
 
-            $scope.open = function() {
-                $scope.status.opened = true;
+            vm.open = function() {
+                vm.status.opened = true;
             };
 
-            $scope.status = {
+            vm.status = {
                 opened: false
             };
 
-            $scope.dateOptions = {
+            vm.dateOptions = {
                 formatYear: 'yyyy',
                 startingDay: 1
             };

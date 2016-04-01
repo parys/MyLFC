@@ -1,28 +1,29 @@
 ﻿'use strict';
 angular.module('liverpoolApp')
     .controller('UsersController', [
-        '$scope', '$stateParams', '$state', 'UsersFactory', function($scope, $stateParams, $state, UsersFactory) {
-            $scope.users = [];
-            $scope.pageNo = 1;
-            $scope.countPage = 1;
+        '$stateParams', '$state', 'UsersFactory',
+        function($stateParams, $state, UsersFactory) {
+            var vm = this;
+            vm.users = [];
+            vm.pageNo = 1;
+            vm.countPage = 1;
             var init = function(page) {
                 UsersFactory.getUsers(page)
                     .then(function(response) {
-                            $scope.users = response.list;
-                            $scope.pageNo = response.pageNo;
-                            $scope.countPage = response.CountPage;
+                        vm.users = response.list;
+                        vm.pageNo = response.pageNo;
+                        vm.countPage = response.CountPage;
                         },
                         function(response) {
-                            //$scope.f = "";
                         });
             };
 
-            $scope.isNotSelf = function(userId, userId2) {
+            vm.isNotSelf = function(userId, userId2) {
                 return userId != userId2;
             }
 
-            $scope.goToPage = function() {
-                $state.go('users', { page: $scope.pageNo });
+            vm.goToPage = function() {
+                $state.go('users', { page: vm.pageNo });
             }
 
             init($stateParams.page);

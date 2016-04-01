@@ -1,15 +1,16 @@
 ﻿'use strict';
 angular.module('liverpoolApp')
     .controller('ModalForumCtrl', [
-        '$scope', '$uibModalInstance', 'sectionName',
-        function ($scope, $uibModalInstance, sectionName) {
-            $scope.sectionName = sectionName;
+        '$uibModalInstance', 'sectionName',
+        function ($uibModalInstance, sectionName) {
+            var vm = this;
+            vm.sectionName = sectionName;
 
-            $scope.ok = function () {
-                $uibModalInstance.close($scope.sectionName);
+            vm.ok = function () {
+                $uibModalInstance.close(vm.sectionName);
             };
 
-            $scope.cancel = function() {
+            vm.cancel = function() {
                 $uibModalInstance.dismiss('cancel');
             };
         }
