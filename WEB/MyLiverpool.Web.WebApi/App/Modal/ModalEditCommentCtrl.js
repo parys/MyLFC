@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('liverpoolApp')
     .controller('ModalEditCommentCtrl', [
-        '$uibModalInstance', 'editingComment', 'Authentication',
-        function($uibModalInstance, editingComment, Authentication) {
+        '$uibModalInstance', 'editingComment',
+        function($uibModalInstance, editingComment) {
             var vm = this;
             vm.editingComment = editingComment;
             vm.oldMessage = editingComment.message;
@@ -13,13 +13,10 @@ angular.module('liverpoolApp')
             };
 
             vm.cancel = function() {
+                console.log(123);
                 vm.editingComment.message = $scope.oldMessage;
                 vm.editingComment.answer = $scope.oldAnswer;
                 $uibModalInstance.dismiss('cancel');
             };
-
-            vm.isModerator = function() {
-                return Authentication.isModerator();
-            }
         }
     ]);

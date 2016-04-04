@@ -5,7 +5,7 @@ angular.module('liverpoolApp')
             return {
                 restrict: "E",
                 scope: { comment: '=', deep: '=', authorId: '=' },
-                templateUrl: 'uib/template/my/newsComment.html',
+                templateUrl: '/app/newsComment/newsComment',
                 controller: 'NewsCommentCtrl',
                 controllerAs: 'vm',
                 transclude: true,

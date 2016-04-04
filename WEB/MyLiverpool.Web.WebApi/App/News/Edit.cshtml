@@ -1,52 +1,52 @@
 ﻿@using MyLiverpool.Business.Resources
 
 <div class="top20" ng-init="vm.init()">
-    <form class="form-horizontal" role="form">
+    <form class="form-horizontal" name="editForm" role="form">
         <div class="form-group">
             <label class="control-label col-md-2"> @ColonsMessages.Category</label>
             <div class="col-md-10">
-                <select class="form-control" name="newsCategoryId" ng-model="item.newsCategoryId" ng-options="category.id as category.name for category in categories" required="" validation="required"></select>
+                <select class="form-control" name="newsCategoryId" ng-model="vm.item.newsCategoryId" ng-options="category.id as category.name for category in vm.categories" required="" validation="required"></select>
             </div>
         </div>
 
         <div class="form-group">
             <label class="control-label col-md-2"> @ColonsMessages.Title</label>
             <div class="col-md-10">
-                <input class="form-control" name="title" ng-model="item.title" validation="required" />
+                <input class="form-control" name="title" ng-model="vm.item.title" validation="required" />
             </div>
         </div>
 
         <div class="form-group">
             <label class="control-label col-md-2"> @ColonsMessages.Brief</label>
             <div class="col-md-10">
-                <textarea mark-it-up class="form-control" name="brief" rows="4" ng-model="item.brief" validation="required"> </textarea>
+                <textarea mark-it-up class="form-control" name="brief" rows="4" ng-model="vm.item.brief" validation="required"> </textarea>
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-md-2"> @ColonsMessages.NewsMessage</label>
             <div class="col-md-10">
-                <textarea mark-it-up class="form-control" name="message" rows="6" ng-model="item.message" validation="required"> </textarea>
+                <textarea mark-it-up class="form-control" name="message" rows="6" ng-model="vm.item.message" validation="required"> </textarea>
             </div>
         </div>
 
         <div class="form-group">
             <label class="control-label col-md-2"> @ColonsMessages.Source</label>
             <div class="col-md-10">
-                <input class="form-control" name="source" ng-model="item.source" validation="required" />
+                <input class="form-control" name="source" ng-model="vm.item.source" validation="required" />
             </div>
         </div>
 
         <div class="form-group">
             <label class="control-label col-md-2"> @ColonsMessages.PhotoPath</label>
             <div class="col-md-10">
-                <input class="form-control" name="photoPath" ng-model="item.photoPath" validation="required" /> @*todo file uploading*@
+                <input class="form-control" name="photoPath" ng-model="vm.item.photoPath" validation="required" /> @*todo file uploading*@
             </div>
         </div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <div class="checkbox">
                     <label class="control-label">
-                        <input class="checkbox" name="canCommentary" ng-model="item.canCommentary" type="checkbox" /> @NewsMessages.CanCommentary
+                        <input class="checkbox" name="canCommentary" ng-model="vm.item.canCommentary" type="checkbox" /> @NewsMessages.CanCommentary
                     </label>
                 </div>
             </div>
@@ -55,7 +55,7 @@
             <div class="col-md-offset-2 col-md-10">
                 <div class="checkbox">
                     <label class="control-label">
-                        <input class="checkbox" name="onTop" ng-model="item.onTop" type="checkbox" /> @NewsMessages.OnTop
+                        <input class="checkbox" name="onTop" ng-model="vm.item.onTop" type="checkbox" /> @NewsMessages.OnTop
                     </label>
                 </div>
             </div>
@@ -64,7 +64,7 @@
             <div class="col-md-offset-2 col-md-10">
                 <div class="checkbox">
                     <label class="control-label">
-                        <input class="checkbox" name="pending" ng-model="item.pending" type="checkbox" /> @NewsMessages.Pending
+                        <input class="checkbox" name="pending" ng-model="vm.item.pending" type="checkbox" /> @NewsMessages.Pending
                     </label>
                 </div>
             </div>
@@ -72,7 +72,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="@CommonMessages.Save" ng-click="save()" class="btn btn-default" />
+                <input type="submit" value="@CommonMessages.Save" ng-disabled="editForm.$invalid" ng-click="vm.save()" class="btn btn-default" />
             </div>
         </div>
     </form>

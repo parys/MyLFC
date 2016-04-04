@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('liverpoolApp')
     .controller('NewsItemController', [
-        'NewsFactory', '$uibModal', 'NewsCommentsFactory', '$state', '$cookies', 'Authentication',
-        function (NewsFactory, $uibModal, NewsCommentsFactory, $state, $cookies, Authentication) {
+        'NewsFactory', '$uibModal', 'NewsCommentsFactory', '$state', '$cookies', 'Authentication', '$scope',
+        function (NewsFactory, $uibModal, NewsCommentsFactory, $state, $cookies, Authentication, $scope) {
             var vm = this;
             vm.item = [];
 
@@ -63,11 +63,6 @@ angular.module('liverpoolApp')
                         });
             }
 
-            //$scope.isUserAuthor = function (userId, newsUserId) {
-            //    console.log('isUserAuthor + NewsItemController');
-            //    return userId == newsUserId;
-            //}
-
             vm.delete = function() {
                 var modalInstance = $uibModal.open({
                     animation: true,
@@ -85,7 +80,7 @@ angular.module('liverpoolApp')
                     NewsFactory.delete(vm.item.id).
                         then(function(response) {
                                 if (response) {
-                                    // $rootScope.alerts.push({ type: 'success', msg: 'Новость успешно удалена.' });
+                                    $rootScope.alerts.push({ type: 'success', msg: 'Новость успешно удалена.' });
                                     $state.go('home');
                                 }
                             },
@@ -101,10 +96,7 @@ angular.module('liverpoolApp')
                 NewsCommentsFactory.add(vm.newComment).
                     then(function(response) {
                             //todo 
-
                             vm.newComment = response;
-                            // .newComment.authorId = 1;
-                            //  .newComment.authorUserName = 'adminka';
                             vm.item.comments.push(vm.newComment);
                             resetNewComment();
                         },
@@ -114,16 +106,14 @@ angular.module('liverpoolApp')
             }
 
 
-            vm.$on('deleteCommentConfirmed', function(event, data) {
-              //  console.log('del  ' + .item.comments);
+            $scope.$on('deleteCommentConfirmed', function(event, data) {
                 var comments = vm.item.comments;
                 comments.splice(comments.indexOf(data), 1);
             });
 
-            //.$on('editCommentConfirmed', function(event, data) {
-            //    console.log('edit ' + .item.comments);
-            //    var comments = .item.comments;
-            //    comments[comments.indexOf(data)] = data;
-            //});
+            $scope.$on('editCommentConfirmed', function(event, data) {
+                var comments = vm.item.comments;
+                comments[comments.indexOf(data)] = data;
+            });
         }
     ]);

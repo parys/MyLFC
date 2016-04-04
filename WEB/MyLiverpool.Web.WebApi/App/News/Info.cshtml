@@ -3,41 +3,41 @@
 <div class="container-row col-md-12" ng-init="vm.init()">
     <div class="alert-danger col-md-12 container-row flex-vertical-center">
         <h3 class="container col-md-12">
-            <span class="col-md-9" ng-bind="item.title"></span>
+            <span class="col-md-9" ng-bind="vm.item.title"></span>
             <span class="col-md-3 pull-right" ng-if="isNewsmaker()">
                 <span class="small pull-right">
-                    <a ng-if="isEditor()" ng-show="item.pending" ng-click="activate()"><span class="glyphicon glyphicon-ok"></span></a>
-                    <a ng-if="isEditor() || isUserAuthor(userId(), item.authorId)" ui-sref="newsEdit({id: item.id})"><span class="glyphicon glyphicon-pencil"></span></a>
-                    <a ng-if="isEditor() || isUserAuthor(userId(), item.authorId)" ng-click="delete()"><span class="glyphicon glyphicon-trash"></span></a>
+                    <a ng-if="isEditor()" ng-show="vm.item.pending" ng-click="vm.activate()"><span class="glyphicon glyphicon-ok"></span></a>
+                    <a ng-if="isEditor() || isUserAuthor(userId(), vm.item.authorId)" ui-sref="newsEdit({id: vm.item.id})"><span class="glyphicon glyphicon-pencil"></span></a>
+                    <a ng-if="isEditor() || isUserAuthor(userId(), vm.item.authorId)" ng-click="vm.delete()"><span class="glyphicon glyphicon-trash"></span></a>
                 </span>
             </span>
         </h3>
     </div>
     <div class="">
-        <article ng-bind-html="item.message | rawHtml"></article>
+        <article ng-bind-html="vm.item.message | rawHtml"></article>
         <div class="alert-warning">
             <ul class="list-inline">
-                <li><label>@ColonsMessages.Reads</label> <span ng-bind="item.reads"></span></li>
-                <li><label>@ColonsMessages.Source</label> <span ng-bind="item.source"></span></li>
-                <li><label>@ColonsMessages.AdditionTime</label> <span ng-bind="item.additionTime | date:'medium'"></span></li>
-                <li><label>@ColonsMessages.Category</label> <a ui-sref="news({page: 1, categoryId: item.newsCategoryId})"> <span ng-bind="item.newsCategoryName"></span> </a></li>
+                <li><label>@ColonsMessages.Reads</label> <span ng-bind="vm.item.reads"></span></li>
+                <li><label>@ColonsMessages.Source</label> <span ng-bind="vm.item.source"></span></li>
+                <li><label>@ColonsMessages.AdditionTime</label> <span ng-bind="vm.item.additionTime | date:'medium'"></span></li>
+                <li><label>@ColonsMessages.Category</label> <a ui-sref="news({page: 1, categoryId: vm.item.newsCategoryId})"> <span ng-bind="vm.item.newsCategoryName"></span> </a></li>
             </ul>
         </div>
     </div>
 
-    @ColonsMessages.CommentsCount <span ng-bind="item.commentsCount"></span>
+    @ColonsMessages.CommentsCount <span ng-bind="vm.item.commentsCount"></span>
 
-    <div ng-repeat="comment in item.comments">
+    <div ng-repeat="comment in vm.item.comments">
         <tree comment="comment" deep="0"></tree>
     </div>
 
     <form class="form-horizontal" name="commentForm" role="form">
-        <div class="col-md-12" ng-if="item.canCommentary" ng-show="loggedIn()">
+        <div class="col-md-12" ng-if="vm.item.canCommentary" ng-show="loggedIn()">
             <div class="col-md-12">
-                <textarea mark-it-up class="col-md-offset-2 col-md-8" rows="6" name="message" ng-model="newComment.message" validation="required"></textarea>
+                <textarea mark-it-up class="col-md-offset-2 col-md-8" rows="6" name="message" ng-model="vm.newComment.message" validation="required"></textarea>
             </div>
             <div class="">
-                <button class="btn btn-primary center-block" data-toggle="modal" ng-disabled="commentForm.$invalid" ng-click="addComment()" id="addComment">@CommonMessages.Create</button>
+                <button class="btn btn-primary center-block" ng-disabled="commentForm.$invalid" ng-click="vm.addComment()">@CommonMessages.Create</button>
             </div>
         </div>
     </form>
@@ -62,12 +62,12 @@
     </div>
     <div class="modal-body">
         <form class="form-horizontal" name="editCommentForm" role="form">
-            <textarea mark-it-up class="col-md-offset-3 col-md-6" rows="6" name="message" ng-model="editingComment.message" validation="required"></textarea>
-            <textarea mark-it-up ng-if="isModerator()" class="col-md-offset-3 col-md-6" rows="6" name="answer" ng-model="editingComment.answer"></textarea>
+            <textarea mark-it-up class="col-md-offset-3 col-md-6" rows="6" name="message" ng-model="vm.editingComment.message" validation="required"></textarea>
+            <textarea mark-it-up ng-if="isModerator()" class="col-md-offset-3 col-md-6" rows="6" name="answer" ng-model="vm.editingComment.answer"></textarea>
         </form>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary" type="button" ng-disabled="editCommentForm.$invalid" ng-click="ok()">@CommonMessages.Create</button>
+        <button class="btn btn-primary" type="button" ng-disabled="editCommentForm.$invalid" ng-click="vm.ok()">@CommonMessages.Create</button>
         <button class="btn btn-default" type="button" ng-click="cancel()">@CommonMessages.Cancel</button>
     </div>
 </script>

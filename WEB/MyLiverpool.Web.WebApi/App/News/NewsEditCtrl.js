@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('liverpoolApp')
     .controller('NewsEditCtrl', [
-        'NewsFactory', '$stateParams', 'ValidationService', '$state', 
-        function(NewsFactory, $stateParams, ValidationService, $state) {
+        'NewsFactory', '$stateParams', 'ValidationService', '$state', '$rootScope',
+        function(NewsFactory, $stateParams, ValidationService, $state, $rootScope) {
             var vm = this;
             vm.item = {
                 id: undefined,
@@ -18,13 +18,11 @@ angular.module('liverpoolApp')
             };
             vm.categories = [];
 
-            //vm.$modalInstance = undefined;
-
-            vm.init = function () {
+            vm.init = function() {
                 if ($stateParams.id) {
                     NewsFactory.getItem($stateParams.id)
                         .then(function(response) {
-                            vm.item = response;
+                                vm.item = response;
                             },
                             function(response) {
                                 //vm.f = "";
@@ -32,38 +30,36 @@ angular.module('liverpoolApp')
                 }
                 NewsFactory.getCategories()
                     .then(function(response) {
-                        vm.categories = response;
+                            vm.categories = response;
                         },
                         function(response) {
                             //vm.f = "";
                         });
             };
 
-            vm.save = function () {
-                if (new ValidationService().checkFormValidity(vm)) {
-                    if (!vm.item.id) {
-                        NewsFactory.create(vm.item)
-                            .then(function(response) {
-                                    if (response) {
-                                        //  $rootScope.alerts.push({ type: 'success', msg: 'Новость успешно создана.' });
-                                        $state.go('news');
-                                    }
-                                },
-                                function(response) {
-                                    //$rootScope.alerts.push({ type: 'danger', msg: 'Новость не была добавлена.' });
-                                });
-                    } else {
-                        NewsFactory.edit(vm.item)
-                            .then(function(response) {
-                                    if (response) {
-                                        //  $rootScope.alerts.push({ type: 'success', msg: 'Новость успешно создана.' });
-                                        $state.go('newsInfo', { id: vm.item.id });
-                                    }
-                                },
-                                function(response) {
-                                    //  $rootScope.alerts.push({ type: 'danger', msg: 'Новость не была добавлена.' });
-                                });
-                    }
+            vm.save = function() {
+                if (!vm.item.id) {
+                    NewsFactory.create(vm.item)
+                        .then(function(response) {
+                                if (response) {
+                                    $rootScope.alerts.push({ type: 'success', msg: 'Новость успешно создана.' });
+                                    $state.go('news');
+                                }
+                            },
+                            function(response) {
+                                $rootScope.alerts.push({ type: 'danger', msg: 'Новость не была добавлена.' });
+                            });
+                } else {
+                    NewsFactory.edit(vm.item)
+                        .then(function(response) {
+                                if (response) {
+                                    $rootScope.alerts.push({ type: 'success', msg: 'Новость успешно создана.' });
+                                    $state.go('newsInfo', { id: vm.item.id });
+                                }
+                            },
+                            function(response) {
+                                $rootScope.alerts.push({ type: 'danger', msg: 'Новость не была добавлена.' });
+                            });
                 }
             };
         }

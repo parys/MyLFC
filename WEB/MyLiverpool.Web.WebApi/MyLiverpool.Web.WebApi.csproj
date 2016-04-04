@@ -551,7 +551,7 @@
     <Content Include="uib\template\datepicker\year.html" />
     <Content Include="uib\template\modal\backdrop.html" />
     <Content Include="uib\template\modal\window.html" />
-    <Content Include="uib\template\my\newsComment.html" />
+    <None Include="App\NewsComment\newsComment.cshtml" />
     <Content Include="uib\template\pagination\pagination.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

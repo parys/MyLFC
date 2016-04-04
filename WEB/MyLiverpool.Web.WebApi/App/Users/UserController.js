@@ -30,13 +30,14 @@ angular.module('liverpoolApp')
                 var modalInstance = $uibModal.open({
                     animation: true,
                     templateUrl: 'changeRoleConfirmation.html',
-                    controller: 'ModalCtrl' //,
-                    //resolve: {
-                    //    id: function() {
-                    //        return $scope.selectedNewsId;
-                    //    }
-                    //}
-                });
+                    controller: 'ModalCtrl',
+                    controllerAs: 'vm'
+                //resolve: {
+                //    id: function() {
+                //        return $scope.selectedNewsId;
+                //    }
+                //}
+            });
 
                 modalInstance.result.then(function() {
                     UsersFactory.editRole(vm.user.id, vm.user.roleGroupId).

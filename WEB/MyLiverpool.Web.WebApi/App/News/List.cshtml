@@ -6,7 +6,7 @@
                 <a ui-sref="newsInfo({id: item.id})" class="col-md-9"><h4 ng-bind="item.title"></h4></a>
                 <span class="col-md-3" ng-if="isNewsmaker()">
                     <a ng-if="isEditor()" ng-show="item.pending" ng-click="vm.activate($index)"><span class="glyphicon glyphicon-ok"></span></a>
-                    <a ng-if="isEditor() || isUserAuthor(userId(), item.authorId)" ui-sref="newsEdit({id: item.id})"><span class="glyphicon glyphicon-pencil"></span></a>
+                    <a ng-if="isEditor() || isUserAuthor(userId(), item.authorId)" ui-sref="newsEdit({id: vm.item.id})"><span class="glyphicon glyphicon-pencil"></span></a>
                     <a ng-if="isEditor() || isUserAuthor(userId(), item.authorId)" ng-click="vm.delete($index)"><span class="glyphicon glyphicon-trash"></span></a>
                 </span>
             </div>
@@ -32,7 +32,6 @@
                 <li class="">@ColonsMessages.CommentsCount</li>
                 <li class="" ng-bind="item.commentsCount"></li>
             </ul>
-            @*<hr />*@
         </div>
     </div>
     <div class="pagination">
@@ -48,8 +47,8 @@
         @CommonMessages.Delete?
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary" type="button" ng-click="ok()">@CommonMessages.Delete</button>
-        <button class="btn btn-default" type="button" ng-click="cancel()">@CommonMessages.Cancel</button>
+        <button class="btn btn-primary" type="button" ng-click="vm.ok()">@CommonMessages.Delete</button>
+        <button class="btn btn-default" type="button" ng-click="vm.cancel()">@CommonMessages.Cancel</button>
     </div>
 </script>
 

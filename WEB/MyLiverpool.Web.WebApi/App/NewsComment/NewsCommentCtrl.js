@@ -44,16 +44,13 @@ angular.module('liverpoolApp')
                 });
 
                 modalInstance.result.then(function() {
-                    console.log('editing confirm');
-
                     vm.newComment.newsItemId = comment.newsItemId;
                     vm.newComment.parentId = comment.id;
-                    console.log(vm.newComment);
                     NewsCommentsFactory.add(vm.newComment).
                         then(function(response) {
                                 if (response) {
                                     comment.children.push(response);
-                                    //   $scope.$emit('editCommentConfirmed', editedComment);
+                                    $scope.$emit('editCommentConfirmed', editedComment);
                                     $rootScope.alerts.push({ type: 'success', msg: 'Комментарий успешно измененен.' });
                                     //    $state.go('home');
                                     resetNewComment();
@@ -81,14 +78,11 @@ angular.module('liverpoolApp')
                 });
 
                 modalInstance.result.then(function() {
-                    console.log('editing confirm');
                     NewsCommentsFactory.edit(comment).
                         then(function(response) {
                                 if (response) {
-                                    //   $scope.$emit('editCommentConfirmed', editedComment);
+                                    $scope.$emit('editCommentConfirmed', editedComment);
                                     $rootScope.alerts.push({ type: 'success', msg: 'Комментарий успешно измененен.' });
-                                    //    $state.go('home');
-
                                 }
                             },
                             function(response) {
@@ -99,7 +93,6 @@ angular.module('liverpoolApp')
             }
 
             $scope.deleteComment = function(comment) {
-              //  console.log("123 " + comment.id);
                 var modalInstance = $uibModal.open({
                     animation: true,
                     templateUrl: 'modalDeleteConfirmation.html',
@@ -116,7 +109,7 @@ angular.module('liverpoolApp')
                     NewsCommentsFactory.delete(comment.id).
                         then(function(response) {
                                 if (response) {
-                                    // $rootScope.alerts.push({ type: 'success', msg: 'Новость успешно удалена.' });
+                                    $rootScope.alerts.push({ type: 'success', msg: 'Новость успешно удалена.' });
                                     vm.$emit('deleteCommentConfirmed', comment);
                                     //console.log($scope.item.comments);
                                     //var index = findWithAttr($scope.item.comments, 'id', id);
@@ -131,21 +124,12 @@ angular.module('liverpoolApp')
                 });
             }
 
-            vm.isModerator = function() {
-                return Authentication.isModerator();
-            }
-
-            vm.isUserAuthor = function (userId, newsUserId) {
-                //   console.log('isUserAuthor NewsCommentCtrl ' + userId + ' ' + newsUserId);
-                return userId == newsUserId;
-            }
-
             vm.getUserId = function () {
                 return Authentication.getUserId();
             }
 
             vm.canAddReply = function () {
-                return Authentication.exists() //todo && !vm.isUserAuthor();
+                return Authentication.exists(); //todo && !vm.isUserAuthor();
             }
         }
     ]);

@@ -86,7 +86,5 @@ angular.module('liverpoolApp')
 
                         });
             }
-
-            return vm;
         }
     ]);

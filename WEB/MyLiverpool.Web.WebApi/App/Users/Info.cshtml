@@ -33,71 +33,71 @@
         <div class="form-group">
             <label class="col-sm-2 control-label">@UsersMessages.UserName</label>
             <div class="col-sm-10">
-                <span class="form-control" ng-bind="user.userName"></span>
+                <span class="form-control" ng-bind="vm.user.userName"></span>
             </div>
         </div>
-        <div ng-if="isModerator()" class="form-group">
+        <div ng-if="isModerator() && !isSelf(vm.user.id)" class="form-group">
             <label class="col-sm-2 control-label">@ColonsMessages.Ban</label>
-            <div class="col-sm-10 container-row" ng-show="!$parent.user.lockoutEndDateUtc">
+            <div class="col-sm-10 container-row" ng-show="!vm.user.lockoutEndDateUtc">
                 <div class="col-sm-3">
-                    <input min="0" type="number" placeholder="@CommonMessages.DaysCount" class="form-control" ng-model="$parent.banDaysCount" />
+                    <input min="0" type="number" placeholder="@CommonMessages.DaysCount" class="form-control" ng-model="vm.banDaysCount" />
                 </div>
                 <div class="col-sm-9">
-                    <button class="btn btn-danger" ng-click="ban()" ng-disabled="$parent.banDaysCount <= 0">@CommonMessages.Ban</button>
+                    <button class="btn btn-danger" ng-click="vm.ban()" ng-disabled="vm.banDaysCount <= 0">@CommonMessages.Ban</button>
                 </div>
             </div>
-            <div class="col-sm-10 container-row" ng-show="$parent.user.lockoutEndDateUtc">
-                <span class="col-sm-8 flex-vertical-center" ng-if="user.lockoutEndDateUtc">@UsersMessages.UsersActivityBannedUntil<span ng-bind="user.lockoutEndDateUtc | date:'medium'"></span></span>
-                <button class="btn btn-success" ng-if="isMainModerator()" ng-click="unban()">@CommonMessages.Unban</button>
+            <div class="col-sm-10 container-row" ng-show="vm.user.lockoutEndDateUtc">
+                <span class="col-sm-8 flex-vertical-center" ng-if="vm.user.lockoutEndDateUtc">@UsersMessages.UsersActivityBannedUntil<span ng-bind="vm.user.lockoutEndDateUtc | date:'medium'"></span></span>
+                <button class="btn btn-success" ng-if="isMainModerator()" ng-click="vm.unban()">@CommonMessages.Unban</button>
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label">@UsersMessages.Group</label>
             <div class="col-sm-10">
                 <div>
-                    <span ng-if="!isAdmin()" class="form-control" ng-bind="user.roleGroupName"></span>
+                    <span ng-if="!isAdmin()" class="form-control" ng-bind="vm.user.roleGroupName"></span>
                     <select ng-if="isAdmin()" class="form-control" name="newsCategoryId"
-                            ng-model="user.roleGroupId"
-                            ng-options="roleGroup.id as roleGroup.name for roleGroup in roleGroups" validation="required" ng-change="editRole()"></select>
+                            ng-model="vm.user.roleGroupId"
+                            ng-options="roleGroup.id as roleGroup.name for roleGroup in vm.roleGroups" validation="required" ng-change="vm.editRole()"></select>
                 </div>
             </div>
         </div>
         <div class="form-group" ng-if="isSelf() || isAdmin()">
-            <label class="col-sm-2 control-label" ng-show="user.emailConfirmed">@UsersMessages.Email</label>
-            <label class="col-sm-2 control-label text-danger" uib-tooltip="@CommonMessages.EmailNotConfirm" ng-show="!user.emailConfirmed">@UsersMessages.Email</label>
+            <label class="col-sm-2 control-label" ng-show="vm.user.emailConfirmed">@UsersMessages.Email</label>
+            <label class="col-sm-2 control-label text-danger" uib-tooltip="@CommonMessages.EmailNotConfirm" ng-show="!vm.user.emailConfirmed">@UsersMessages.Email</label>
             <div class="col-sm-10">
-                <span class="form-control" ng-bind="user.email"></span>
+                <span class="form-control" ng-bind="vm.user.email"></span>
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label">@UsersMessages.LastLogin</label>
             <div class="col-sm-10">
-                <span class="form-control" ng-bind="user.lastModifiedOn | date:'medium'"></span>
+                <span class="form-control" ng-bind="vm.user.lastModifiedOn | date:'medium'"></span>
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label">@UsersMessages.RegistrationDate</label>
             <div class="col-sm-10">
-                <span class="form-control" ng-bind="user.registrationDate | date:'medium'"></span>
+                <span class="form-control" ng-bind="vm.user.registrationDate | date:'medium'"></span>
             </div>
         </div>
-        <div class="form-group" ng-if="user.fullName">
+        <div class="form-group" ng-if="vm.user.fullName">
             <label class="col-sm-2 control-label">@UsersMessages.FullName</label>
             <div class="col-sm-10">
-                <span class="form-control" ng-bind="user.fullName"></span>
+                <span class="form-control" ng-bind="vm.user.fullName"></span>
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label">@UsersMessages.BirthDay</label>
             <div class="col-sm-10">
-                <span class="form-control" ng-bind="user.birthday | date:'medium'"></span>
+                <span class="form-control" ng-bind="vm.user.birthday | date:'medium'"></span>
             </div>
         </div>
-        <div class="form-group" ng-if="user.gender">
+        <div class="form-group" ng-if="vm.user.gender">
             <label class="col-sm-2 control-label">@UsersMessages.Gender</label>
             <div class="col-sm-10">
-                <span class="form-control" ng-if="user.gender">@UsersMessages.Women</span>
-                <span class="form-control" ng-if="!user.gender">@UsersMessages.Men</span>
+                <span class="form-control" ng-if="vm.user.gender">@UsersMessages.Women</span>
+                <span class="form-control" ng-if="!vm.user.gender">@UsersMessages.Men</span>
             </div>
         </div>
     </form>
@@ -111,8 +111,8 @@
         @CommonMessages.Change?
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary" type="button" ng-click="ok()">@CommonMessages.Change</button>
-        <button class="btn btn-default" type="button" ng-click="cancel()">@CommonMessages.Cancel</button>
+        <button class="btn btn-primary" type="button" ng-click="vm.ok()">@CommonMessages.Change</button>
+        <button class="btn btn-default" type="button" ng-click="vm.cancel()">@CommonMessages.Cancel</button>
     </div>
 </script>
 
@@ -124,7 +124,7 @@
         @UsersMessages.BanUserQuestion
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-default" ng-click="ok()">@CommonMessages.Ban</button>
-        <button type="button" class="btn btn-primary" ng-click="cancel()">@CommonMessages.Cancel</button>
+        <button type="button" class="btn btn-default" ng-click="vm.ok()">@CommonMessages.Ban</button>
+        <button type="button" class="btn btn-primary" ng-click="vm.cancel()">@CommonMessages.Cancel</button>
     </div>
 </script>

@@ -9,8 +9,11 @@ angular.module('liverpoolApp')
             vm.totalItems = undefined;
             vm.itemPerPage = undefined;
 
-            vm.init = function (page, categoryId) {
-                NewsFactory.getList(page, categoryId)
+            vm.init = function () {
+                
+                    vm.pageNo = $stateParams.page;
+                
+                NewsFactory.getList(vm.pageNo, $stateParams.categoryId)
                     .then(function(response) {
                         vm.newsItems = response.list;
                         vm.pageNo = response.pageNo;
@@ -33,10 +36,6 @@ angular.module('liverpoolApp')
                         function(response) {
                             $rootScope.alerts.push({ type: 'danger', msg: 'Новость не была активирована.' });
                         });
-            }
-
-            vm.isUserAuthor = function (userId, newsUserId) {
-                return userId == newsUserId;
             }
 
             vm.delete = function (index) {
@@ -68,7 +67,7 @@ angular.module('liverpoolApp')
             }
 
             vm.goToPage = function () {
-                $state.go('news', { page: vm.pageNo, categoryId: $stateParams.categoryId });
+                $state.go('news', { page: vm.pageNo });
             }
         }
     ]);

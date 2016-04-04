@@ -1,11 +1,11 @@
-﻿<div class="col-md-offset-{{deep}} comment clearfix">
+﻿<div class="col-md-offset-{{deep}} col-sm-offset-{{deep}} comment clearfix">
     <div class="col-md-12">
         <div class="col-md-2">
             <a ui-sref="userInfo({id: comment.authorId})">{{comment.authorUserName}}</a>
         </div>
         <div class="col-md-10">
             <span class="pull-right">
-                <a ng-if="isModerator() || isUserAuthor(getUserId(), comment.authorId)" ng-click="editComment(comment)"><span class="glyphicon glyphicon-pencil"></span></a>
+                <a ng-if="isModerator() || isUserAuthor(getUserId(), comment.authorId)" ng-click="vm.editComment(comment)"><span class="glyphicon glyphicon-pencil"></span></a>
                 <a ng-if="isModerator()" ng-click="deleteComment(comment)"><span class="glyphicon glyphicon-trash"></span></a>
             </span>
         </div>
@@ -20,11 +20,11 @@
         <div class="col-md-12" ng-show="comment.answer">
             <div class="col-md-2">Ответ:</div>
             <div class="col-md-10">
-                <i> {{comment.answer}} </i>
+                <i ng-bind="comment.answer"></i>
             </div>
         </div>
-        <div class="col-md-12" ng-show="canAddReply() && !isUserAuthor(getUserId(), comment.authorId)">
-            <a ng-click="addReplyComment(comment)">Ответить</a>
+        <div class="col-md-12" ng-show="vm.canAddReply() && !isUserAuthor(vm.getUserId(), comment.authorId)">
+            <a ng-click="vm.addReplyComment(comment)">Ответить</a>
         </div>
     </div>
 </div>

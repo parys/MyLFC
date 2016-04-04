@@ -56,43 +56,5 @@ angular.module('liverpoolApp')
                 //  console.log($location.url());
                 return $location.url();
             }
-
-            vm.isSelf = function(userId) {
-                return Authentication.getUserId() == userId;
-            }
-
-            vm.isNewsmaker = function() {
-                //   console.log('isNewsmaker landing ');
-                return Authentication.isNewsmaker();
-            }
-
-            vm.isEditor = function() {
-                //    console.log('isEditor landing');
-                return Authentication.isEditor();
-            }
-
-            vm.isMainModerator = function() {
-                //    console.log('isModerator landing');
-                return Authentication.isMainModerator();
-            }
-
-            vm.isModerator = function() {
-                //    console.log('isModerator landing');
-                return Authentication.isModerator();
-            }
-
-            vm.isAuthor = function() {
-                //    console.log('isModerator landing');
-                return Authentication.isAuthor();
-            }
-
-            vm.isAdmin = function() {
-                //    console.log('isModerator landing');
-                return Authentication.isAdmin();
-            }
-
-            vm.isAdminAssistant = function() {
-                return Authentication.isAdminAssistant();
-            }
         }
     ]);
