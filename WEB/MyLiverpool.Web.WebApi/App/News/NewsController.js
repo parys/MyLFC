@@ -41,7 +41,7 @@ angular.module('liverpoolApp')
             vm.delete = function (index) {
                 var modalInstance = $uibModal.open({
                     animation: true,
-                    templateUrl: 'modalDeleteConfirmation.html',
+                    templateUrl: 'app/modal/modalDeleteConfirmation.html',
                     controller: 'ModalCtrl',
                     controllerAs: 'vm'
                 //resolve: {

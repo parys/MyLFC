@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('liverpoolApp')
     .controller('NewsItemController', [
-        'NewsFactory', '$uibModal', 'NewsCommentsFactory', '$state', '$cookies', 'Authentication', '$scope',
-        function (NewsFactory, $uibModal, NewsCommentsFactory, $state, $cookies, Authentication, $scope) {
+        'NewsFactory', '$uibModal', 'NewsCommentsFactory', '$state', '$cookies', 'Authentication', '$scope', '$rootScope',
+        function (NewsFactory, $uibModal, NewsCommentsFactory, $state, $cookies, Authentication, $scope, $rootScope) {
             var vm = this;
             vm.item = [];
 
@@ -42,6 +42,7 @@ angular.module('liverpoolApp')
                                 $state.go('home');
                             } else {
                                 vm.item = response;
+                                $rootScope.$title = vm.item.title;
                                 tryAddNewsRead();
                             }
                         },
@@ -51,10 +52,10 @@ angular.module('liverpoolApp')
             };
 
             vm.activate = function() {
-                NewsFactory.activate(vm.id).
+                NewsFactory.activate(vm.item.id).
                     then(function(response) {
                             if (response) {
-                                vm.newsItems[index].pending = false;
+                                vm.item.pending = false;
                                 $rootScope.alerts.push({ type: 'success', msg: 'Новость успешно активирована.' });
                             }
                         },
@@ -66,7 +67,7 @@ angular.module('liverpoolApp')
             vm.delete = function() {
                 var modalInstance = $uibModal.open({
                     animation: true,
-                    templateUrl: 'modalDeleteConfirmation.html',
+                    templateUrl: '/app/model/modalDeleteConfirmation',
                     controller: 'ModalCtrl',
                     controllerAs: 'vm'
                     //resolve: {
@@ -107,7 +108,10 @@ angular.module('liverpoolApp')
 
 
             $scope.$on('deleteCommentConfirmed', function(event, data) {
+                console.log(data);
                 var comments = vm.item.comments;
+                console.log(comments);
+                console.log(comments.indexOf(data));
                 comments.splice(comments.indexOf(data), 1);
             });
 

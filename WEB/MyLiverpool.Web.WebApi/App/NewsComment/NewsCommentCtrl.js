@@ -31,11 +31,11 @@ angular.module('liverpoolApp')
             };
 
             vm.addReplyComment = function (comment) {
-                console.log(comment);
                 var modalInstance = $uibModal.open({
                     animation: true,
-                    templateUrl: 'modalEditComment.html',
+                    templateUrl: 'app/modal/modalEditComment',
                     controller: 'ModalEditCommentCtrl',
+                    controllerAs: 'vm',
                     resolve: {
                         editingComment: function() {
                             return vm.newComment;
@@ -50,7 +50,7 @@ angular.module('liverpoolApp')
                         then(function(response) {
                                 if (response) {
                                     comment.children.push(response);
-                                    $scope.$emit('editCommentConfirmed', editedComment);
+                                   // $scope.$emit('editCommentConfirmed', editedComment);
                                     $rootScope.alerts.push({ type: 'success', msg: 'Комментарий успешно измененен.' });
                                     //    $state.go('home');
                                     resetNewComment();
@@ -92,10 +92,10 @@ angular.module('liverpoolApp')
                 });
             }
 
-            $scope.deleteComment = function(comment) {
+            vm.deleteComment = function(comment) {
                 var modalInstance = $uibModal.open({
                     animation: true,
-                    templateUrl: 'modalDeleteConfirmation.html',
+                    templateUrl: 'app/modal/modalDeleteConfirmation',
                     controller: 'ModalCtrl',
                     controllerAs: 'vm'
                     //resolve: {
@@ -109,16 +109,14 @@ angular.module('liverpoolApp')
                     NewsCommentsFactory.delete(comment.id).
                         then(function(response) {
                                 if (response) {
-                                    $rootScope.alerts.push({ type: 'success', msg: 'Новость успешно удалена.' });
+                                    $rootScope.alerts.push({ type: 'success', msg: 'Комментарий успешно удален.' });
                                     vm.$emit('deleteCommentConfirmed', comment);
-                                    //console.log($scope.item.comments);
                                     //var index = findWithAttr($scope.item.comments, 'id', id);
-                                    //console.log(index);
                                     //$scope.item.comments.splice(index, 1);
                                 }
                             },
                             function(response) {
-                                $rootScope.alerts.push({ type: 'danger', msg: 'Новость не была удалена.' });
+                                $rootScope.alerts.push({ type: 'danger', msg: 'Комментарий не был удалена.' });
                             });
                 }, function() {
                 });

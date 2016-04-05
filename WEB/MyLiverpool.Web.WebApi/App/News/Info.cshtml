@@ -6,9 +6,9 @@
             <span class="col-md-9" ng-bind="vm.item.title"></span>
             <span class="col-md-3 pull-right" ng-if="isNewsmaker()">
                 <span class="small pull-right">
-                    <a ng-if="isEditor()" ng-show="vm.item.pending" ng-click="vm.activate()"><span class="glyphicon glyphicon-ok"></span></a>
+                    <a ng-if="isEditor()" ng-show="vm.item.pending" href ng-click="vm.activate()"><span class="glyphicon glyphicon-ok"></span></a>
                     <a ng-if="isEditor() || isUserAuthor(userId(), vm.item.authorId)" ui-sref="newsEdit({id: vm.item.id})"><span class="glyphicon glyphicon-pencil"></span></a>
-                    <a ng-if="isEditor() || isUserAuthor(userId(), vm.item.authorId)" ng-click="vm.delete()"><span class="glyphicon glyphicon-trash"></span></a>
+                    <a ng-if="isEditor() || isUserAuthor(userId(), vm.item.authorId)" href ng-click="vm.delete()"><span class="glyphicon glyphicon-trash"></span></a>
                 </span>
             </span>
         </h3>
@@ -42,32 +42,3 @@
         </div>
     </form>
 </div>
-
-<script type="text/ng-template" id="modalDeleteConfirmation.html">
-    <div class="modal-header">
-        <h3 class="modal-title">@CommonMessages.DeleteConfirmation</h3>
-    </div>
-    <div class="modal-body">
-        @CommonMessages.Delete?
-    </div>
-    <div class="modal-footer">
-        <button class="btn btn-primary" type="button" ng-click="ok()">@CommonMessages.Delete</button>
-        <button class="btn btn-default" type="button" ng-click="cancel()">@CommonMessages.Cancel</button>
-    </div>
-</script>
-
-<script type="text/ng-template" id="modalEditComment.html">
-    <div class="modal-header">
-        <h3 class="modal-title">@CommonMessages.EditingComment</h3>
-    </div>
-    <div class="modal-body">
-        <form class="form-horizontal" name="editCommentForm" role="form">
-            <textarea mark-it-up class="col-md-offset-3 col-md-6" rows="6" name="message" ng-model="vm.editingComment.message" validation="required"></textarea>
-            <textarea mark-it-up ng-if="isModerator()" class="col-md-offset-3 col-md-6" rows="6" name="answer" ng-model="vm.editingComment.answer"></textarea>
-        </form>
-    </div>
-    <div class="modal-footer">
-        <button class="btn btn-primary" type="button" ng-disabled="editCommentForm.$invalid" ng-click="vm.ok()">@CommonMessages.Create</button>
-        <button class="btn btn-default" type="button" ng-click="cancel()">@CommonMessages.Cancel</button>
-    </div>
-</script>

@@ -13,9 +13,8 @@ angular.module('liverpoolApp')
             };
 
             vm.cancel = function() {
-                console.log(123);
-                vm.editingComment.message = $scope.oldMessage;
-                vm.editingComment.answer = $scope.oldAnswer;
+                vm.editingComment.message = vm.oldMessage;
+                vm.editingComment.answer = vm.oldAnswer;
                 $uibModalInstance.dismiss('cancel');
             };
         }

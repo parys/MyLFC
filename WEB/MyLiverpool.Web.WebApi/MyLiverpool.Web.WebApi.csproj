@@ -271,6 +271,9 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App\Modal\alert.html" />
+    <Content Include="App\Modal\modalDeleteConfirmation.html" />
+    <Content Include="App\Modal\modalEditComment.html" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="App\Constants.js" />
     <Content Include="Content\autocomplete.css" />

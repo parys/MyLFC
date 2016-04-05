@@ -53,12 +53,12 @@ angular.module('liverpoolApp')
                     NewsFactory.edit(vm.item)
                         .then(function(response) {
                                 if (response) {
-                                    $rootScope.alerts.push({ type: 'success', msg: 'Новость успешно создана.' });
+                                    $rootScope.alerts.push({ type: 'success', msg: 'Новость успешно отредактирована.' });
                                     $state.go('newsInfo', { id: vm.item.id });
                                 }
                             },
                             function(response) {
-                                $rootScope.alerts.push({ type: 'danger', msg: 'Новость не была добавлена.' });
+                                $rootScope.alerts.push({ type: 'danger', msg: 'Новость не была отредактирована.' });
                             });
                 }
             };

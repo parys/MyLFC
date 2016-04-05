@@ -1,13 +1,16 @@
-﻿<div class="col-md-offset-{{deep}} col-sm-offset-{{deep}} comment clearfix">
+﻿<!--<div class="col-md-offset-{{deep}} col-sm-offset-{{deep}} comment clearfix">-->
+<div class="comment clearfix">
     <div class="col-md-12">
-        <div class="col-md-2">
-            <a ui-sref="userInfo({id: comment.authorId})">{{comment.authorUserName}}</a>
-        </div>
-        <div class="col-md-10">
-            <span class="pull-right">
-                <a ng-if="isModerator() || isUserAuthor(getUserId(), comment.authorId)" ng-click="vm.editComment(comment)"><span class="glyphicon glyphicon-pencil"></span></a>
-                <a ng-if="isModerator()" ng-click="deleteComment(comment)"><span class="glyphicon glyphicon-trash"></span></a>
-            </span>
+        <div class="grid-row">
+            <div class="grid-item">
+                <a ui-sref="userInfo({id: comment.authorId})" ng-bind="comment.authorUserName"></a>
+            </div>
+            <div class="grid-item">
+                <span class="pull-right">
+                    <a href ng-if="$root.isModerator() || $root.isUserAuthor(vm.getUserId(), comment.authorId)" ng-click="vm.editComment(comment)"><span class="glyphicon glyphicon-pencil"> </span></a>
+                    <a href ng-if="$root.isModerator()" ng-click="vm.deleteComment(comment)"><span class="glyphicon glyphicon-trash"> </span></a>
+                </span>
+            </div>
         </div>
         <div class="col-md-12">
             <div class="col-md-2 container-row">
@@ -23,8 +26,8 @@
                 <i ng-bind="comment.answer"></i>
             </div>
         </div>
-        <div class="col-md-12" ng-show="vm.canAddReply() && !isUserAuthor(vm.getUserId(), comment.authorId)">
-            <a ng-click="vm.addReplyComment(comment)">Ответить</a>
+        <div class="col-md-12" ng-show="vm.canAddReply() && !$root.isUserAuthor(getUserId(), comment.authorId)">
+            <a href ng-click="vm.addReplyComment(comment)">Ответить</a>
         </div>
     </div>
 </div>

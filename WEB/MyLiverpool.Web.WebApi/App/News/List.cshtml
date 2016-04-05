@@ -38,22 +38,3 @@
         <uib-pagination ng-show="vm.totalItems > vm.itemPerPage" total-items="vm.totalItems" ng-model="vm.pageNo" ng-change="vm.goToPage()"></uib-pagination>
     </div>
 </div>
-
-<script type="text/ng-template" id="modalDeleteConfirmation.html">
-    <div class="modal-header">
-        <h3 class="modal-title">@CommonMessages.DeleteConfirmation</h3>
-    </div>
-    <div class="modal-body">
-        @CommonMessages.Delete?
-    </div>
-    <div class="modal-footer">
-        <button class="btn btn-primary" type="button" ng-click="vm.ok()">@CommonMessages.Delete</button>
-        <button class="btn btn-default" type="button" ng-click="vm.cancel()">@CommonMessages.Cancel</button>
-    </div>
-</script>
-
-<script type="text/ng-template" id="alert.html">
-    <div class="alert" style="background-color:#fa39c3;color:white" role="alert">
-        <div ng-transclude></div>
-    </div>
-</script>
