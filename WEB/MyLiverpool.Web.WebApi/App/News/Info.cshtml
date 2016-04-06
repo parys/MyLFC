@@ -6,9 +6,9 @@
             <span class="col-md-9" ng-bind="vm.item.title"></span>
             <span class="col-md-3 pull-right" ng-if="isNewsmaker()">
                 <span class="small pull-right">
-                    <a ng-if="isEditor()" ng-show="vm.item.pending" href ng-click="vm.activate()"><span class="glyphicon glyphicon-ok"></span></a>
+                    <a ng-if="isEditor()" ng-show="vm.item.pending" href="" ng-click="vm.activate()"><span class="glyphicon glyphicon-ok"></span></a>
                     <a ng-if="isEditor() || isUserAuthor(userId(), vm.item.authorId)" ui-sref="newsEdit({id: vm.item.id})"><span class="glyphicon glyphicon-pencil"></span></a>
-                    <a ng-if="isEditor() || isUserAuthor(userId(), vm.item.authorId)" href ng-click="vm.delete()"><span class="glyphicon glyphicon-trash"></span></a>
+                    <a ng-if="isEditor() || isUserAuthor(userId(), vm.item.authorId)" href="" ng-click="vm.delete()"><span class="glyphicon glyphicon-trash"></span></a>
                 </span>
             </span>
         </h3>

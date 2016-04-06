@@ -1,36 +1,33 @@
-﻿<!--<div class="col-md-offset-{{deep}} col-sm-offset-{{deep}} comment clearfix">-->
-<div class="comment clearfix">
-    <div class="col-md-12">
-        <div class="grid-row">
-            <div class="grid-item">
-                <a ui-sref="userInfo({id: comment.authorId})" ng-bind="comment.authorUserName"></a>
-            </div>
-            <div class="grid-item">
-                <span class="pull-right">
-                    <a href ng-if="$root.isModerator() || $root.isUserAuthor(vm.getUserId(), comment.authorId)" ng-click="vm.editComment(comment)"><span class="glyphicon glyphicon-pencil"> </span></a>
-                    <a href ng-if="$root.isModerator()" ng-click="vm.deleteComment(comment)"><span class="glyphicon glyphicon-trash"> </span></a>
-                </span>
-            </div>
+﻿<div class="col-xs-offset-{{deep}} col-sm-offset-{{deep}} comment container-fluid">
+    <div class="row">
+        <div class="col-xs-9 col-sm-9">
+            <a ui-sref="userInfo({id: comment.authorId})" ng-bind="comment.authorUserName"></a>
         </div>
-        <div class="col-md-12">
-            <div class="col-md-2 container-row">
-                <img class="avatar-medium" ng-src="{{comment.photo}}"/>
-            </div>
-            <div class="col-md-10">
-                <p ng-bind-html="comment.message | rawHtml"></p>
-            </div>
+        <div class="col-xs-3 col-sm-3">
+            <span class="pull-right">
+                <a href="" ng-if="$root.isModerator() || $root.isUserAuthor(vm.getUserId(), comment.authorId)" ng-click="vm.editComment(comment)"><span class="glyphicon glyphicon-pencil"> </span></a>
+                <a href="" ng-if="$root.isModerator()" ng-click="vm.deleteComment(comment)"><span class="glyphicon glyphicon-trash"> </span></a>
+            </span>
         </div>
-        <div class="col-md-12" ng-show="comment.answer">
-            <div class="col-md-2">Ответ:</div>
-            <div class="col-md-10">
-                <i ng-bind="comment.answer"></i>
-            </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-2 col-sm-2">
+            <img class="avatar-medium" ng-src="{{comment.photo}}" />
         </div>
-        <div class="col-md-12" ng-show="vm.canAddReply() && !$root.isUserAuthor(getUserId(), comment.authorId)">
-            <a href ng-click="vm.addReplyComment(comment)">Ответить</a>
+        <div class="col-xs-10 col-sm-10">
+            <p ng-bind-html="comment.message | rawHtml"></p>
         </div>
+    </div>
+    <div class="row" ng-show="comment.answer">
+        <div class="col-xs-3 col-sm-3">Ответ:</div>
+        <div class="col-xs-9 col-sm-9">
+            <i ng-bind="comment.answer"></i>
+        </div>
+    </div>
+    <div class="col-sm-12" ng-show="vm.canAddReply() && !$root.isUserAuthor(getUserId(), comment.authorId)">
+        <a href="" ng-click="vm.addReplyComment(comment)">Ответить</a>
     </div>
 </div>
 <div ng-repeat="child in comment.children">
-    <tree comment="child" deep="deep+1"></tree>
+    <tree comment="child" deep="deep > 7 ? 7 : deep+1"></tree>
 </div>

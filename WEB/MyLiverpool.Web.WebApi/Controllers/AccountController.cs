@@ -464,7 +464,7 @@ namespace MyLiverpool.Web.WebApi.Controllers
         //    return Ok();
         //}
 
-        private ApplicationSignInManager _signInManager;
+       // private ApplicationSignInManager _signInManager;
         //        private ApplicationUserManager _userManager;
 
         //        public ManageController()

@@ -33,7 +33,7 @@ angular.module('liverpoolApp')
             vm.addReplyComment = function (comment) {
                 var modalInstance = $uibModal.open({
                     animation: true,
-                    templateUrl: 'app/modal/modalEditComment',
+                    templateUrl: 'modalEditComment.html',
                     controller: 'ModalEditCommentCtrl',
                     controllerAs: 'vm',
                     resolve: {
@@ -95,7 +95,7 @@ angular.module('liverpoolApp')
             vm.deleteComment = function(comment) {
                 var modalInstance = $uibModal.open({
                     animation: true,
-                    templateUrl: 'app/modal/modalDeleteConfirmation',
+                    templateUrl: 'modalDeleteConfirmation.html',
                     controller: 'ModalCtrl',
                     controllerAs: 'vm'
                     //resolve: {

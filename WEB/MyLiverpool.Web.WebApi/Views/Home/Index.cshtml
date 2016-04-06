@@ -130,16 +130,16 @@
     </div>
 </header>
 <div class="body-content row">
-    <div ncy-breadcrumb></div>
+<div ncy-breadcrumb></div>
 <div class="col-md-3 col-lg-3 container-fluid" ui-view="leftContainer" ng-controller="leftContainerCtrl">
     <!--section class="col-md- alert-info row">
-        <h2>Эксетер </h2>
-        <div class="col-md-6">
-            <img src="https://upload.wikimedia.org/wikipedia/ru/f/f7/Exeter_City_Logo.png"/>
-        </div>
-        <div class="col-md-6">
-            <span style="text-align: center; font-size: 45pt">3:0</span>
-        </div>
+    <h2>Эксетер </h2>
+    <div class="col-md-6">
+        <img src="https://upload.wikimedia.org/wikipedia/ru/f/f7/Exeter_City_Logo.png"/>
+    </div>
+    <div class="col-md-6">
+        <span style="text-align: center; font-size: 45pt">3:0</span>
+    </div>
     </!--section>
     <section class="col-md- alert-danger row">
         <div class="col-md-12"> Лучший игрок матча с Эксетером </div>
@@ -387,5 +387,38 @@
     <p>&copy; @DateTime.Now.Year - @CommonMessages.SiteTitleAddress</p>
 </footer>
 </div>
+    @* todo temporary *@
+<script type="text/ng-template" id="alert.html">
+        <div class="alert" style="background-color:#fa39c3;color:white" role="alert">
+            <div ng-transclude></div>
+        </div>
+    </script>
+<script type="text/ng-template" id="modalEditComment.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Редактирование комментария</h3>
+        </div>
+        <div class="modal-body">
+            <form class="form-horizontal" name="editCommentForm" role="form">
+                <textarea mark-it-up class="col-md-offset-3 col-md-6" rows="6" name="message" ng-model="vm.editingComment.message" validation="required"></textarea>
+                <textarea mark-it-up ng-if="isModerator()" class="col-md-offset-3 col-md-6" rows="6" name="answer" ng-model="vm.editingComment.answer"></textarea>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-disabled="editCommentForm.$invalid" ng-click="vm.ok()">Сохранить</button>
+            <button class="btn btn-default" type="button" ng-click="vm.cancel()">Отмена</button>
+        </div>
+    </script>
+    <script type="text/ng-template" id="modalDeleteConfirmation.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Подтверждение удаления</h3>
+        </div>
+        <div class="modal-body">
+            Удалить?
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="vm.ok()">Удалить</button>
+            <button class="btn btn-default" type="button" ng-click="vm.cancel()">Отмена</button>
+        </div>
+    </script>
 </body>
 </html>

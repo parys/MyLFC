@@ -19,6 +19,7 @@ textarea {
 }
 
 .avatar-medium {
+    min-width: 30px;
     width: 80px;
 }
 
@@ -34,18 +35,6 @@ textarea {
 
 .dropdown-menu {
     min-width: 140px;
-}
-
-.grid {
-    
-}
-
-.grid-item {
-    flex: 1;
-}
-
-.grid-row {
-    display: flex;
 }
 
 .list-inline.small-offset > li {
