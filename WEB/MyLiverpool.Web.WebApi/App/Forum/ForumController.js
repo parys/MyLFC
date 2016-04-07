@@ -27,7 +27,7 @@ angular.module('liverpoolApp')
                     controllerAs: 'vm',
                     resolve: {
                         sectionName: function () {
-                            return $scope.newSectionName;
+                            return vm.newSectionName;
                         }
                     }
                 });

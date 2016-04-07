@@ -24,10 +24,10 @@
             <i ng-bind="comment.answer"></i>
         </div>
     </div>
-    <div class="col-sm-12" ng-show="vm.canAddReply() && !$root.isUserAuthor(getUserId(), comment.authorId)">
+    <div class="col-xs-12 col-sm-12" ng-show="vm.canAddReply() && !$root.isUserAuthor(getUserId(), comment.authorId)">
         <a href="" ng-click="vm.addReplyComment(comment)">Ответить</a>
     </div>
 </div>
 <div ng-repeat="child in comment.children">
-    <tree comment="child" deep="deep > 7 ? 7 : deep+1"></tree>
+  <tree comment="child" deep="deep > 6 ? 7 : deep+1"></tree>
 </div>

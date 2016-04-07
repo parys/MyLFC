@@ -42,7 +42,7 @@ angular.module('liverpoolApp')
                                 $state.go('home');
                             } else {
                                 vm.item = response;
-                                $rootScope.$title = vm.item.title;
+                                $rootScope.$title = response.title;
                                 tryAddNewsRead();
                             }
                         },

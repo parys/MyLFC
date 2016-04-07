@@ -1,15 +1,15 @@
 ﻿@using MyLiverpool.Business.Resources
-<div class="col-md-12" ng-init="vm.init()">
+<div class="container-fluid" ng-init="vm.init()">
     <h2 ng-bind="vm.user.userName">
         <span ng-show="loggedIn() && !isSelf(user.id)">
             <a ui-sref="wpm({ userName: user.userName })"><span class="glyphicon glyphicon-envelope"></span></a>
         </span>
     </h2>
-    <div class="clearfix">
-        <div class="col-md-2">
+    <div class="row">
+        <div class="col-xs-2 col-sm-2">
             <img class="avatar" ng-src="{{vm.user.photo}}"/>
         </div>
-        <div class="col-md-10">
+        <div class="col-xs-10 col-sm-10">
             <div ng-if="isSelf(vm.user.id) || isModerator()">
                 <button class="btn btn-info" ngf-select="uploadFiles($file, $invalidFiles)"
                         accept="image/*" ngf-max-height="1000" ngf-max-size="1MB">
@@ -37,23 +37,23 @@
             </div>
         </div>
         <div ng-if="isModerator() && !isSelf(vm.user.id)" class="form-group">
-            <label class="col-sm-2 control-label">@ColonsMessages.Ban</label>
-            <div class="col-sm-10 container-row" ng-show="!vm.user.lockoutEndDateUtc">
-                <div class="col-sm-3">
+            <label class="col-xs-2 col-sm-2 control-label">@ColonsMessages.Ban</label>
+            <div class="col-xs-10 col-sm-10" ng-show="!vm.user.lockoutEndDateUtc">
+                <div class="col-xs-3 col-sm-3">
                     <input min="0" type="number" placeholder="@CommonMessages.DaysCount" class="form-control" ng-model="vm.banDaysCount" />
                 </div>
-                <div class="col-sm-9">
+                <div class="col-xs-9 col-sm-9">
                     <button class="btn btn-danger" ng-click="vm.ban()" ng-disabled="vm.banDaysCount <= 0">@CommonMessages.Ban</button>
                 </div>
             </div>
-            <div class="col-sm-10 container-row" ng-show="vm.user.lockoutEndDateUtc">
-                <span class="col-sm-8 flex-vertical-center" ng-if="vm.user.lockoutEndDateUtc">@UsersMessages.UsersActivityBannedUntil<span ng-bind="vm.user.lockoutEndDateUtc | date:'medium'"></span></span>
+            <div class="col-xs-10 col-sm-10" ng-show="vm.user.lockoutEndDateUtc">
+                <span class="col-xs-8 col-sm-8 flex-vertical-center" ng-if="vm.user.lockoutEndDateUtc">@UsersMessages.UsersActivityBannedUntil<span ng-bind="vm.user.lockoutEndDateUtc | date:'medium'"></span></span>
                 <button class="btn btn-success" ng-if="isMainModerator()" ng-click="vm.unban()">@CommonMessages.Unban</button>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-2 control-label">@UsersMessages.Group</label>
-            <div class="col-sm-10">
+            <label class="col-xs-2 col-sm-2 control-label">@UsersMessages.Group</label>
+            <div class="col-xs-10 col-sm-10">
                 <div>
                     <span ng-if="!isAdmin()" class="form-control" ng-bind="vm.user.roleGroupName"></span>
                     <select ng-if="isAdmin()" class="form-control" name="newsCategoryId"
@@ -63,39 +63,39 @@
             </div>
         </div>
         <div class="form-group" ng-if="isSelf() || isAdmin()">
-            <label class="col-sm-2 control-label" ng-show="vm.user.emailConfirmed">@UsersMessages.Email</label>
-            <label class="col-sm-2 control-label text-danger" uib-tooltip="@CommonMessages.EmailNotConfirm" ng-show="!vm.user.emailConfirmed">@UsersMessages.Email</label>
-            <div class="col-sm-10">
+            <label class="col-xs-2 col-sm-2 control-label" ng-show="vm.user.emailConfirmed">@UsersMessages.Email</label>
+            <label class="col-xs-2 col-sm-2 control-label text-danger" uib-tooltip="@CommonMessages.EmailNotConfirm" ng-show="!vm.user.emailConfirmed">@UsersMessages.Email</label>
+            <div class="col-xs-10 col-sm-10">
                 <span class="form-control" ng-bind="vm.user.email"></span>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-2 control-label">@UsersMessages.LastLogin</label>
-            <div class="col-sm-10">
+            <label class="col-xs-2 col-sm-2 control-label">@UsersMessages.LastLogin</label>
+            <div class="col-xs-10 col-sm-10">
                 <span class="form-control" ng-bind="vm.user.lastModifiedOn | date:'medium'"></span>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-2 control-label">@UsersMessages.RegistrationDate</label>
-            <div class="col-sm-10">
+            <label class="col-xs-2 col-sm-2 control-label">@UsersMessages.RegistrationDate</label>
+            <div class="col-xs-10 col-sm-10">
                 <span class="form-control" ng-bind="vm.user.registrationDate | date:'medium'"></span>
             </div>
         </div>
         <div class="form-group" ng-if="vm.user.fullName">
-            <label class="col-sm-2 control-label">@UsersMessages.FullName</label>
-            <div class="col-sm-10">
+            <label class="col-xs-2 col-sm-2 control-label">@UsersMessages.FullName</label>
+            <div class="col-xs-10 col-sm-10">
                 <span class="form-control" ng-bind="vm.user.fullName"></span>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-2 control-label">@UsersMessages.BirthDay</label>
-            <div class="col-sm-10">
+            <label class="col-xs-2 col-sm-2 control-label">@UsersMessages.BirthDay</label>
+            <div class="col-xs-10 col-sm-10">
                 <span class="form-control" ng-bind="vm.user.birthday | date:'medium'"></span>
             </div>
         </div>
         <div class="form-group" ng-if="vm.user.gender">
-            <label class="col-sm-2 control-label">@UsersMessages.Gender</label>
-            <div class="col-sm-10">
+            <label class="col-xs-2 col-sm-2 control-label">@UsersMessages.Gender</label>
+            <div class="col-xs-10 col-sm-10">
                 <span class="form-control" ng-if="vm.user.gender">@UsersMessages.Women</span>
                 <span class="form-control" ng-if="!vm.user.gender">@UsersMessages.Men</span>
             </div>

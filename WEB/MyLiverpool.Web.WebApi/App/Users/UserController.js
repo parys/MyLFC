@@ -12,8 +12,10 @@ angular.module('liverpoolApp')
             vm.init = function () {
                 UsersFactory.getUser(vm.id)
                     .then(function(response) {
-                        vm.user = response;
-                        vm.roleGroupId = response.roleGroupId;
+                            vm.user = response;
+                            vm.roleGroupId = response.roleGroupId;
+                        //    $rootScope.$title = response.userName;
+
                         },
                         function(response) {
                             //$scope.f = "";

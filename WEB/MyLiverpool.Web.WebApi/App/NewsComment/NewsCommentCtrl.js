@@ -110,7 +110,7 @@ angular.module('liverpoolApp')
                         then(function(response) {
                                 if (response) {
                                     $rootScope.alerts.push({ type: 'success', msg: 'Комментарий успешно удален.' });
-                                    vm.$emit('deleteCommentConfirmed', comment);
+                                    $scope.$emit('deleteCommentConfirmed', comment);
                                     //var index = findWithAttr($scope.item.comments, 'id', id);
                                     //$scope.item.comments.splice(index, 1);
                                 }

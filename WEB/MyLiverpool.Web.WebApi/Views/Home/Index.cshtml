@@ -18,7 +18,7 @@
 </head>
 <body>
     <div class="container-fluid navbar navbar-inverse navbar-fixed-top ">
-        <ul class="nav navbar-nav col-md-6 list-inline">
+        <ul class="nav navbar-nav col-xs-6 col-sm-6 list-inline">
             <li><a id="back-top" href="#" style="display: none;">@CommonMessages.Up</a></li>
             <li class="divider"></li>
             <li ng-if="vm.loggedIn()">
@@ -59,12 +59,12 @@
             <li>
                 <ul class="nav navbar-nav" ng-if="vm.loggedIn()">
                     <li>
-                        <a ui-sref="userInfo({id: userId()})" class="padding0">
+                        <a ui-sref="userInfo({id: vm.userId()})" class="padding0">
                             <img class="nav-avatar" ng-src="{{$root.userImage}}" />
                         </a>
                     </li>
                     <li>
-                        <a ui-sref="userInfo({id: userId()})">@CommonMessages.MyProfile</a>
+                        <a ui-sref="userInfo({id: vm.userId()})">@CommonMessages.MyProfile</a>
                     </li>
                     <li>
                         <a ng-click="vm.logout()">@CommonMessages.Logout</a>
@@ -73,7 +73,7 @@
             </li>
         </ul>
     </div>
-<div class="col-md-12 top50">
+<div class="col-xs-12 col-sm-12 top50">
 <header class="navbar navbar-default navbar-static-top row">
     <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -124,14 +124,14 @@
             <li> <a ui-sref="rules()"><span class="text-danger">@CommonMessages.Rules</span></a></li>
         </ul>
     </div>
-    <div class="col-md-12">
+    <div class="col-xs-12 col-sm-12">
         temporary
         <span ng-bind="$root.roles"></span>
     </div>
 </header>
 <div class="body-content row">
 <div ncy-breadcrumb></div>
-<div class="col-md-3 col-lg-3 container-fluid" ui-view="leftContainer" ng-controller="leftContainerCtrl">
+<div class="col-xs-3 col-sm-3 container-fluid" ui-view="leftContainer" ng-controller="leftContainerCtrl">
     <!--section class="col-md- alert-info row">
     <h2>Эксетер </h2>
     <div class="col-md-6">
@@ -152,7 +152,7 @@
     </section>
     <section class="row"></section>-->
 </div>
-<div class="col-md-6 col-lg-6 container-fluid" style="background-color: #f5deb3">
+<div class="col-xs-6 col-sm-6 container-fluid" style="background-color: #f5deb3">
     <div class="row">
         <uib-alert ng-repeat="alert in $root.alerts" dismiss-on-timeout="5000" type="{{alert.type}}" close="closeAlert($index)" ng-bind="alert.msg"></uib-alert>
         <div class="" ui-view autoscroll="false">
@@ -161,7 +161,7 @@
         </div>
     </div>
 </div>
-<div class="col-sm-3 col-md-3 col-lg-3 container-fluid" ui-view="rightContainer" ng-controller="rightContainerCtrl">
+<div class="col-xs-3 col-sm-3 container-fluid" ui-view="rightContainer" ng-controller="rightContainerCtrl">
 <section class="col-md- row"><!--
 <table class="table table-condensed table-striped table-responsive col-md-12">
 <thead>
@@ -400,7 +400,7 @@
         <div class="modal-body">
             <form class="form-horizontal" name="editCommentForm" role="form">
                 <textarea mark-it-up class="col-md-offset-3 col-md-6" rows="6" name="message" ng-model="vm.editingComment.message" validation="required"></textarea>
-                <textarea mark-it-up ng-if="isModerator()" class="col-md-offset-3 col-md-6" rows="6" name="answer" ng-model="vm.editingComment.answer"></textarea>
+                <textarea mark-it-up ng-if="$root.isModerator() && vm.editingComment.id" class="col-md-offset-3 col-md-6" rows="6" name="answer" ng-model="vm.editingComment.answer"></textarea>
             </form>
         </div>
         <div class="modal-footer">
@@ -408,7 +408,7 @@
             <button class="btn btn-default" type="button" ng-click="vm.cancel()">Отмена</button>
         </div>
     </script>
-    <script type="text/ng-template" id="modalDeleteConfirmation.html">
+<script type="text/ng-template" id="modalDeleteConfirmation.html">
         <div class="modal-header">
             <h3 class="modal-title">Подтверждение удаления</h3>
         </div>
