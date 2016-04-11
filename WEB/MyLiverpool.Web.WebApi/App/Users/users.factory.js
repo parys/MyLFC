@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('liverpoolApp')
+angular.module('users.factory', [])
     .factory('UsersFactory', [
         '$q', '$http', 'SessionService', function($q, $http, SessionService) {
 

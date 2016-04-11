@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('liverpoolApp')
+angular.module('users.ctrl', [])
     .controller('UserController', [
         '$stateParams', 'UsersFactory', 'RoleGroupsFactory', '$uibModal', '$rootScope', 'Upload', 'Authentication',
         function ($stateParams, UsersFactory, RoleGroupsFactory, $uibModal, $rootScope, Upload, Authentication) {

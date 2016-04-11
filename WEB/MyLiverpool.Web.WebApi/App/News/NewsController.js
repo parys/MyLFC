@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('liverpoolApp')
+angular.module('news.ctrl')
     .controller('NewsController', [
         'NewsFactory', '$uibModal', '$rootScope', '$stateParams', '$state',
         function(NewsFactory, $uibModal, $rootScope, $stateParams, $state) {

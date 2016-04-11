@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('liverpoolApp')
+angular.module('news.ctrl', [])
     .controller('NewsCategoriesCtrl', [
         'NewsFactory', function(NewsFactory) {
             var vm = this;

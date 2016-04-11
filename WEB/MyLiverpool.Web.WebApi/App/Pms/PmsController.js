@@ -6,7 +6,7 @@ angular.module('liverpoolApp')
             var vm = this;
             vm.received = [];
             vm.sent = [];
-            var init = function() {
+            vm.init = function() {
                 PmsFactory.getMessages()
                     .then(function(response) {
                             vm.received = response.received;
@@ -16,7 +16,5 @@ angular.module('liverpoolApp')
                             //.f = "";
                         });
             };
-
-            init();
         }
     ]);

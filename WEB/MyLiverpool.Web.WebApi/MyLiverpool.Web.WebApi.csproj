@@ -272,9 +272,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App\Forum\SubsectionEdit.cshtml" />
+    <Content Include="App\Forum\forum.config.js" />
     <Content Include="App\Modal\alert.html" />
     <Content Include="App\Modal\modalDeleteConfirmation.html" />
     <Content Include="App\Modal\modalEditComment.html" />
+    <Content Include="App\News\news.config.js" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="App\Constants.js" />
     <Content Include="Content\autocomplete.css" />
@@ -454,6 +456,7 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="App\Users\users.config.js" />
     <None Include="Properties\PublishProfiles\someeFreeQA.pubxml" />
     <Content Include="Scripts\angular\23angular-translate-loader-static-files.js" />
     <Content Include="Scripts\angular\angular-cookies.js" />
@@ -503,17 +506,17 @@
     <Content Include="App\Home\rightContainerCtrl.js" />
     <Content Include="App\RoleGroups\RoleGroupsCtrl.js" />
     <Content Include="App\RoleGroups\1RoleGroupsFactory.js" />
-    <Content Include="App\Users\UserController.js" />
+    <Content Include="App\Users\users.ctrl.js" />
     <Content Include="App\Users\UsersController.js" />
     <Content Include="App\MarkItUp\markItUpDirective.js" />
     <Content Include="App\NewsComment\NewsCommentDirective.js" />
     <Content Include="App\Account\AccountFactory.js" />
     <Content Include="App\Factories\Application.js" />
     <Content Include="App\Factories\AuthHttpResponseInterceptor.js" />
-    <Content Include="App\Forum\1ForumFactory.js" />
+    <Content Include="App\Forum\forumFactory.js" />
     <Content Include="App\MarkItUp\1MarkItUpFactory.js" />
     <Content Include="App\NewsComment\1NewsCommentsFactory.js" />
-    <Content Include="App\News\1NewsFactory.js" />
+    <Content Include="App\News\news.factory.js" />
     <Content Include="App\Pms\1PmsFactory.js" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -545,7 +548,7 @@
     <Content Include="Areas\HelpPage\Views\_ViewStart.cshtml" />
     <Content Include="App\Factories\RecursionHelper.js" />
     <Content Include="App\Filters\RouteFilter.js" />
-    <Content Include="App\Users\1UsersFactory.js" />
+    <Content Include="App\Users\users.factory.js" />
     <Content Include="Scripts\Filters.js" />
     <Content Include="App\Images\ImagesCtrl.js" />
     <Content Include="Scripts\jquery.markitup.js" />

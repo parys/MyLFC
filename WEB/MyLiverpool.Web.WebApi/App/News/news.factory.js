@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('liverpoolApp')
+angular.module('news.factory', [])
     .factory('NewsFactory', [
         '$q', '$http', 'SessionService', '$stateParams', function($q, $http, SessionService, $stateParams) {
             return {

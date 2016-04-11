@@ -48,94 +48,6 @@ angular.module('liverpoolApp')
                         parent: 'home'
                     }
                 })
-                .state('news', {
-                    url: '/news?page&categoryId',
-                    templateUrl: function (params) { return '/app/news/list?page=' + params.page + '&categoryId=' + params.categoryId },
-                    controller: 'NewsController',
-                    controllerAs: 'vm',
-                    resolve: {
-                        $title: function () { return 'Новости'; }
-                    },
-                    ncyBreadcrumb: {
-                        label: 'Новости',
-                        parent: 'home'
-                    }
-                })
-                .state('newsInfo', {
-                    url: '/newsInfo?id',
-                    views: {
-                        "@": {
-                            templateUrl: function (params) { return '/app/news/info?id=' + params.id },
-                            controller: 'NewsItemController',
-                            controllerAs: 'vm'
-                        }
-                    },
-                    resolve: {
-                        $title: function () { return 'Название новости'; } //todo
-                    },
-                    ncyBreadcrumb: {
-                        label:  '{{vm.item.title}}',
-                        parent: 'news'
-                    }
-                })
-                .state('newsEdit', {
-                    url: '/newsEdit?id',
-                    views: {
-                        "@": {
-                            templateUrl: function (params) { return '/app/news/Edit?id=' + params.id },
-                            controller: 'NewsEditCtrl',
-                            controllerAs: 'vm'
-                        }
-                    },
-                    resolve: {
-                        $title: function () { return 'Редактирование новости'; }
-                    },
-                    ncyBreadcrumb: {
-                        label: 'Редактирование новости',
-                        parent: 'news'//function (params) {
-                        // return 'newsInfo({id:' + params.id + '})';
-                        //  }
-                    }
-                })
-                .state('newsCategories', {
-                    url: '/newsCategories',
-                    templateUrl: '/app/news/Categories',
-                    controller: 'NewsCategoriesCtrl',
-                    controllerAs: 'vm',
-                    resolve: {
-                        $title: function () { return 'Категории новостей'; }
-                    },
-                    ncyBreadcrumb: {
-                        label: 'Категории новостей',
-                        parent: 'news'
-                    }
-                })
-                .state('userInfo', {
-                    url: '/userInfo?id',
-                    templateUrl: function (params) { return '/app/users/info?id=' + params.id },
-                    controller: 'UserController',
-                    controllerAs: 'vm',
-                    resolve: {
-                        $title: function () { return 'Профиль пользователя'; } //todo
-                    },
-                    ncyBreadcrumb: {
-                        label: '{{vm.user.userName}}',
-                        parent: 'users'
-                    }
-                })
-                .state('users', {
-                    url: '/users?page',
-                    templateUrl: function (params) { return '/app/users/list?page=' + params.page },
-                    controller: 'UsersController',
-                    controllerAs: 'vm',
-                    resolve: {
-                        $title: function () { return 'Пользователи'; }
-                    },
-                    ncyBreadcrumb: {
-                        label: 'Пользователи',
-                        parent: 'home'
-                    }
-                })
                 .state('images', {
                     url: '/images?path',
                     templateUrl: function (params) { return '/app/images/index?path=' + params.path },
@@ -149,24 +61,13 @@ angular.module('liverpoolApp')
                         parent: 'home'
                     }
                 })
-                //.state('stateTwo', {
-                //    url: '/stateTwo',
-                //    views: {
-                //        "containerMain": {
-                //            templateUrl: '/routesDemo/one'
-                //        },
-                //        "containerTwo": {
-                //            templateUrl: '/routesDemo/three'
-                //        }
-                //    }
-                //})
                 .state('pms', {
                     url: '/pms', //'?id',
                     views: {
                         "containerMain": {
                             templateUrl: '/app/Pms/PrivateMessages', //function (params) { return '/User/Pms?id=' + params.id },
                             controller: 'PmsController',
-                            controllerAs: 'vm',
+                            controllerAs: 'vm'
                         }
                     },
                     resolve: {
@@ -249,59 +150,7 @@ angular.module('liverpoolApp')
                         parent: 'home'
                     }
                 })
-                .state('forum', {
-                    url: '/forum',
-                    //views: {
-                    //    "containerMain": {
-                    templateUrl: '/app/Forum/Index',
-                    controller: 'ForumController',
-                    controllerAs: 'vm',
-                    // }
-                    // },
-                    resolve: {
-                        $title: function () { return 'Форум'; }
-                    },
-                    ncyBreadcrumb: {
-                        label: 'Форум',
-                        parent: 'home'
-                    }
-                })
-                .state('forum.subsection', {
-                    url: '/subsection?id&page',
-                    views: {
-                        "@": {
-                            templateUrl: function (params) { return '/app/Forum/Subsection?id=' + params.id + '&page=' + params.page },
-                            controller: 'ForumSubsectionController',
-                            controllerAs: 'vm',
-                        }
-                    },
-                    resolve: {
-                        $title: function () { return 'Раздел'; } //todo
-                    },
-                    ncyBreadcrumb: {
-                        label: 'Раздел',
-                        // parent: 'forum'
-                    }
-                })
-                .state('forum.subsection.theme', {
-                    url: '/theme?id&page',
-                    views: {
-                    "@": {
-                            templateUrl: function(params) { return '/app/Forum/Theme?id=' + params.id + '&page=' + params.page },
-                            controller: 'ForumSubsectionController',
-                            controllerAs: 'vm',
-                            // controllerAs: vm
-                        }
-                    },
-                    resolve: {
-                        $title: function () { return 'Тема'; } //todo
-                    },
-                    ncyBreadcrumb: {
-                        label: 'Тема',
-                        parent: 'forum' //'subsection({id:' + $scope.theme ||
-                        // }
-                    }
-                })
+
                 .state('confirmed', {
                     url: '/confirmed',
                     views: {

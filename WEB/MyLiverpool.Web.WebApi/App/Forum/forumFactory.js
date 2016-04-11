@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('liverpoolApp')
+angular.module('forum.factory', [])
     .factory('ForumFactory', [
         '$q', '$http', 'SessionService', '$stateParams',
         function($q, $http, SessionService, $stateParams) {

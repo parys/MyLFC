@@ -10,7 +10,10 @@ angular.module('liverpoolApp',
         'angular-loading-bar',
         'autocomplete',
         'ngFileUpload',
-        'ncy-angular-breadcrumb'
+        'ncy-angular-breadcrumb',
+        'forum.config',
+        'news.config',
+        'users.config'
     ])
     .run(function(Authentication, Application, $rootScope, $location, uibPaginationConfig, $state, $stateParams, $window) {
         //$rootScope.roles = "";

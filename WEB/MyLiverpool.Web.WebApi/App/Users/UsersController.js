@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('liverpoolApp')
+angular.module('users.ctrl')
     .controller('UsersController', [
         '$stateParams', '$state', 'UsersFactory',
         function($stateParams, $state, UsersFactory) {

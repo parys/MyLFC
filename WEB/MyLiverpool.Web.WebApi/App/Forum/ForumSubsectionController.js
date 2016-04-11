@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('liverpoolApp')
+angular.module('forum.ctrl')
     .controller('ForumSubsectionController', [
         'ForumFactory',
         function(ForumFactory) {
