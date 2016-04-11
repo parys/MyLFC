@@ -13,9 +13,8 @@ angular.module('liverpoolApp')
                 UsersFactory.getUser(vm.id)
                     .then(function(response) {
                             vm.user = response;
+                            $rootScope.$title = response.userName;
                             vm.roleGroupId = response.roleGroupId;
-                        //    $rootScope.$title = response.userName;
-
                         },
                         function(response) {
                             //$scope.f = "";

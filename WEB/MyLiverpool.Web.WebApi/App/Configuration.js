@@ -74,10 +74,7 @@ angular.module('liverpoolApp')
                         $title: function () { return 'Название новости'; } //todo
                     },
                     ncyBreadcrumb: {
-                        label:// function($scope) {
-                         //   return $scope.item.title || 
-                         'Название новости',
-                        //},
+                        label:  '{{vm.item.title}}',
                         parent: 'news'
                     }
                 })
@@ -119,10 +116,10 @@ angular.module('liverpoolApp')
                     controller: 'UserController',
                     controllerAs: 'vm',
                     resolve: {
-                        $title: function () { return 'Профиль '; } //todo
+                        $title: function () { return 'Профиль пользователя'; } //todo
                     },
                     ncyBreadcrumb: {
-                        label: 'Профиль',
+                        label: '{{vm.user.userName}}',
                         parent: 'users'
                     }
                 })

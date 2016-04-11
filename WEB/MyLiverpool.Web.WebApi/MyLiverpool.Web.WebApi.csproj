@@ -271,6 +271,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App\Forum\SubsectionEdit.cshtml" />
     <Content Include="App\Modal\alert.html" />
     <Content Include="App\Modal\modalDeleteConfirmation.html" />
     <Content Include="App\Modal\modalEditComment.html" />
