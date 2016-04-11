@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('liverpoolApp')
+angular.module('pms.factory', [])
     .factory('PmsFactory', [
         '$q', '$http', 'SessionService',
         function($q, $http, SessionService) {

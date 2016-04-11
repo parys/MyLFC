@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('liverpoolApp')
+angular.module('images.ctrl', [])
     .controller('ImagesCtrl', [
         'ImagesFactory', '$stateParams',
         function(ImagesFactory, $stateParams) {

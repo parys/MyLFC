@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('liverpoolApp')
+angular.module('newsComment.ctrl', [])
     .controller('NewsCommentCtrl', [
         '$scope', '$uibModal', 'NewsCommentsFactory', 'Authentication', '$rootScope',
         function($scope, $uibModal, NewsCommentsFactory, Authentication, $rootScope) {

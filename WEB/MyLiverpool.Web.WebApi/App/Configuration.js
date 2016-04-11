@@ -11,7 +11,7 @@ angular.module('liverpoolApp')
             $stateProvider
                 .state('home', {
                     url: '/',
-                    templateUrl: '/app/news/list',
+                    templateUrl: '/app/news/views/list',
                     controller: 'NewsController',
                     controllerAs: 'vm',
                     resolve: {
@@ -48,74 +48,7 @@ angular.module('liverpoolApp')
                         parent: 'home'
                     }
                 })
-                .state('images', {
-                    url: '/images?path',
-                    templateUrl: function (params) { return '/app/images/index?path=' + params.path },
-                    controller: 'ImagesCtrl',
-                    controllerAs: 'vm',
-                    resolve: {
-                        $title: function () { return 'Изображения '; } //todo
-                    },
-                    ncyBreadcrumb: {
-                        label: 'Изображения',
-                        parent: 'home'
-                    }
-                })
-                .state('pms', {
-                    url: '/pms', //'?id',
-                    views: {
-                        "containerMain": {
-                            templateUrl: '/app/Pms/PrivateMessages', //function (params) { return '/User/Pms?id=' + params.id },
-                            controller: 'PmsController',
-                            controllerAs: 'vm'
-                        }
-                    },
-                    resolve: {
-                        $title: function () { return 'Личные сообщения'; }
-                    },
-                    ncyBreadcrumb: {
-                        label: 'Личные сообщения',
-                        parent: 'home'
-                    }
-                })
-                .state('pm', {
-                    url: '/pm?id',
-                    views: {
-                        "containerMain": {
-                            templateUrl: function (params) { return '/app/Pms/Pm?id=' + params.id },
-                            controller: 'PmController',
-                            controllerAs: 'vm',
-                        }
-                    },
-                    resolve: {
-                        $title: function () { return 'Чтение сообщения'; }
-                    },
-                    ncyBreadcrumb: {
-                        label: 'Чтение сообщения',
-                        parent: 'pms'
-                    }
-                })
-                .state('wpm', {
-                    url: '/wpm',
-                    views: {
-                        "containerMain": {
-                            templateUrl: '/app/Pms/WritePm',
-                            controller: 'PmWriteCtrl',
-                            controllerAs: 'vm',
-                        }
-                    },
-                    params: {
-                        title: null,
-                        userName: null
-                    },
-                    resolve: {
-                        $title: function () { return 'Написание сообщения'; }
-                    },
-                    ncyBreadcrumb: {
-                        label: 'Написание сообщения',
-                        parent: 'pms'
-                    }
-                })
+                
                 .state('register', {
                     url: '/register?returnUrl',
                     views: {

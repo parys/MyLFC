@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('forum.ctrl', [])
+angular.module('forum.ctrl', ['forum.factory'])
     .controller('ForumController', [
         'ForumFactory', '$uibModal', '$rootScope',
         function (ForumFactory, $uibModal, $rootScope) {

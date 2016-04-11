@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('liverpoolApp')
+angular.module('filter')
     .factory('RouteFilter', [
         '$location',
         function ($location) {

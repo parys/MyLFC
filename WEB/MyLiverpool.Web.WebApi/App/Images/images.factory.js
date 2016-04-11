@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('liverpoolApp')
+angular.module('images.factory', [])
     .factory('ImagesFactory', [
         '$q', '$http', 'SessionService',
         function($q, $http, SessionService) {

@@ -8,7 +8,7 @@ angular.module('users.config',
             $stateProvider
                 .state('userInfo', {
                     url: '/userInfo?id',
-                    templateUrl: function(params) { return '/app/users/info?id=' + params.id },
+                    templateUrl: function(params) { return '/app/users/views/info?id=' + params.id },
                     controller: 'UserController',
                     controllerAs: 'vm',
                     resolve: {
@@ -21,7 +21,7 @@ angular.module('users.config',
                 })
                 .state('users', {
                     url: '/users?page',
-                    templateUrl: function(params) { return '/app/users/list?page=' + params.page },
+                    templateUrl: function(params) { return '/app/users/views/list?page=' + params.page },
                     controller: 'UsersController',
                     controllerAs: 'vm',
                     resolve: {

@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('liverpoolApp')
+angular.module('newsComment.factory', [])
     .factory('NewsCommentsFactory', [
         '$q', '$http', 'SessionService', '$stateParams',
         function($q, $http, SessionService, $stateParams) {
@@ -57,8 +57,6 @@ angular.module('liverpoolApp')
 
                     return result.promise;
                 },
-
-
             }
         }
     ]);

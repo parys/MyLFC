@@ -1,5 +1,4 @@
 ﻿'use strict';
-
 angular.module('news.config',
     ['news.factory', 'news.ctrl'])
     .config([
@@ -8,7 +7,7 @@ angular.module('news.config',
             $stateProvider
                 .state('news', {
                     url: '/news?page&categoryId',
-                    templateUrl: function (params) { return '/app/news/list?page=' + params.page + '&categoryId=' + params.categoryId },
+                    templateUrl: function (params) { return '/app/news/views/list?page=' + params.page + '&categoryId=' + params.categoryId },
                     controller: 'NewsController',
                     controllerAs: 'vm',
                     resolve: {
@@ -23,13 +22,13 @@ angular.module('news.config',
                     url: '/newsInfo?id',
                     views: {
                         "@": {
-                            templateUrl: function (params) { return '/app/news/info?id=' + params.id },
+                            templateUrl: function (params) { return '/app/news/views/info?id=' + params.id },
                             controller: 'NewsItemController',
                             controllerAs: 'vm'
                         }
                     },
                     resolve: {
-                        $title: function () { return 'Название новости'; } //todo
+                        $title: function () { return 'Название новости'; }
                     },
                     ncyBreadcrumb: {
                         label:  '{{vm.item.title}}',
@@ -40,7 +39,7 @@ angular.module('news.config',
                     url: '/newsEdit?id',
                     views: {
                         "@": {
-                            templateUrl: function (params) { return '/app/news/Edit?id=' + params.id },
+                            templateUrl: function (params) { return '/app/news/views/Edit?id=' + params.id },
                             controller: 'NewsEditCtrl',
                             controllerAs: 'vm'
                         }
@@ -50,14 +49,12 @@ angular.module('news.config',
                     },
                     ncyBreadcrumb: {
                         label: 'Редактирование новости',
-                        parent: 'news'//function (params) {
-                        // return 'newsInfo({id:' + params.id + '})';
-                        //  }
+                        parent: 'news'
                     }
                 })
                 .state('newsCategories', {
                     url: '/newsCategories',
-                    templateUrl: '/app/news/Categories',
+                    templateUrl: '/app/news/views/Categories',
                     controller: 'NewsCategoriesCtrl',
                     controllerAs: 'vm',
                     resolve: {

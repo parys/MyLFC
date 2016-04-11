@@ -1,14 +1,15 @@
 ﻿'use strict';
 angular.module('forum.config',
-    ['forum.factory', 'forum.ctrl'])
+    ['forum.ctrl'])
     .config([
         '$stateProvider',
         function ($stateProvider) {
-            $stateProvider.state('forum', {
+            $stateProvider
+                .state('forum', {
                     url: '/forum',
                     //views: {
                     //    "containerMain": {
-                    templateUrl: '/app/Forum/Index',
+                    templateUrl: '/app/forum/views/index',
                     controller: 'ForumController',
                     controllerAs: 'vm',
                     // }
@@ -25,7 +26,7 @@ angular.module('forum.config',
                     url: '/subsection?id&page',
                     views: {
                         "@": {
-                            templateUrl: function(params) { return '/app/Forum/Subsection?id=' + params.id + '&page=' + params.page },
+                            templateUrl: function(params) { return '/app/forum/views/subsection?id=' + params.id + '&page=' + params.page },
                             controller: 'ForumSubsectionController',
                             controllerAs: 'vm'
                         }
@@ -42,7 +43,7 @@ angular.module('forum.config',
                     url: '/theme?id&page',
                     views: {
                         "@": {
-                            templateUrl: function(params) { return '/app/Forum/Theme?id=' + params.id + '&page=' + params.page },
+                            templateUrl: function(params) { return '/app/forum/views/theme?id=' + params.id + '&page=' + params.page },
                             controller: 'ForumSubsectionController',
                             controllerAs: 'vm'
                         }

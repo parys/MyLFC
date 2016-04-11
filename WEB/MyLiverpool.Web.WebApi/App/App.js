@@ -11,8 +11,12 @@ angular.module('liverpoolApp',
         'autocomplete',
         'ngFileUpload',
         'ncy-angular-breadcrumb',
+        'filter',
         'forum.config',
+        'images.config',
         'news.config',
+        'newsComment.config',
+        'pms.config',
         'users.config'
     ])
     .run(function(Authentication, Application, $rootScope, $location, uibPaginationConfig, $state, $stateParams, $window) {

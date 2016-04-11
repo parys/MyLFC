@@ -271,12 +271,15 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App\Forum\SubsectionEdit.cshtml" />
+    <None Include="App\Forum\views\SubsectionEdit.cshtml" />
     <Content Include="App\Forum\forum.config.js" />
+    <Content Include="App\Images\images.config.js" />
     <Content Include="App\Modal\alert.html" />
     <Content Include="App\Modal\modalDeleteConfirmation.html" />
     <Content Include="App\Modal\modalEditComment.html" />
+    <Content Include="App\NewsComment\newsComment.config.js" />
     <Content Include="App\News\news.config.js" />
+    <Content Include="App\Pms\pms.config.js" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="App\Constants.js" />
     <Content Include="Content\autocomplete.css" />
@@ -490,7 +493,7 @@
     <Content Include="App\Home\leftContainerCtrl.js" />
     <Content Include="App\Home\LoadingCtrl.js" />
     <Content Include="App\Account\LoginController.js" />
-    <Content Include="App\Images\1ImagesFactory.js" />
+    <Content Include="App\Images\images.factory.js" />
     <Content Include="App\Modal\ModalCtrl.js" />
     <Content Include="App\Modal\ModalEditCommentCtrl.js" />
     <Content Include="App\Modal\ModalForumCtrl.js" />
@@ -499,7 +502,7 @@
     <Content Include="App\News\NewsController.js" />
     <Content Include="App\News\NewsEditCtrl.js" />
     <Content Include="App\News\NewsItemController.js" />
-    <Content Include="App\Pms\PmController.js" />
+    <Content Include="App\Pms\pm.ctrl.js" />
     <Content Include="App\Pms\PmsController.js" />
     <Content Include="App\Pms\PmWriteCtrl.js" />
     <Content Include="App\Account\RegisterController.js" />
@@ -515,9 +518,9 @@
     <Content Include="App\Factories\AuthHttpResponseInterceptor.js" />
     <Content Include="App\Forum\forumFactory.js" />
     <Content Include="App\MarkItUp\1MarkItUpFactory.js" />
-    <Content Include="App\NewsComment\1NewsCommentsFactory.js" />
+    <Content Include="App\NewsComment\newsComment.factory.js" />
     <Content Include="App\News\news.factory.js" />
-    <Content Include="App\Pms\1PmsFactory.js" />
+    <Content Include="App\Pms\pms.factory.js" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -550,7 +553,7 @@
     <Content Include="App\Filters\RouteFilter.js" />
     <Content Include="App\Users\users.factory.js" />
     <Content Include="Scripts\Filters.js" />
-    <Content Include="App\Images\ImagesCtrl.js" />
+    <Content Include="App\Images\images.ctrl.js" />
     <Content Include="Scripts\jquery.markitup.js" />
     <Content Include="App\Services\AuthenticationService.js" />
     <Content Include="App\Services\SessionService.js" />
@@ -562,7 +565,7 @@
     <Content Include="uib\template\datepicker\year.html" />
     <Content Include="uib\template\modal\backdrop.html" />
     <Content Include="uib\template\modal\window.html" />
-    <None Include="App\NewsComment\newsComment.cshtml" />
+    <None Include="App\NewsComment\views\newsComment.cshtml" />
     <Content Include="uib\template\pagination\pagination.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -573,7 +576,7 @@
     </Content>
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="App\Images\Index.cshtml" />
+    <Content Include="App\Images\views\Index.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="App\Home\ClubHistory.cshtml" />
@@ -588,7 +591,7 @@
     <Content Include="Scripts\jquery-2.2.2.min.map" />
     <None Include="App\Account\PasswordChanged.cshtml" />
     <None Include="App\Account\UnconfirmEmail.cshtml" />
-    <Content Include="App\Forum\ThemeEdit.cshtml" />
+    <Content Include="App\Forum\views\ThemeEdit.cshtml" />
     <None Include="App\Home\Rules.cshtml" />
     <None Include="Web.someeFreeQA.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -617,27 +620,27 @@
     <Content Include="Views\Blog\Details.cshtml" />
     <Content Include="Views\Blog\Edit.cshtml" />
     <Content Include="Views\Blog\Index.cshtml" />
-    <Content Include="App\Forum\Index.cshtml" />
-    <Content Include="App\Forum\Subsection.cshtml" />
-    <Content Include="App\Forum\Theme.cshtml" />
+    <Content Include="App\Forum\views\Index.cshtml" />
+    <Content Include="App\Forum\views\Subsection.cshtml" />
+    <Content Include="App\Forum\views\Theme.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="App\Account\ChangePassword.cshtml" />
-    <Content Include="App\News\Categories.cshtml" />
-    <Content Include="App\News\Info.cshtml" />
-    <Content Include="App\News\Edit.cshtml" />
-    <Content Include="App\News\List.cshtml" />
+    <Content Include="App\News\views\Categories.cshtml" />
+    <Content Include="App\News\views\Info.cshtml" />
+    <Content Include="App\News\views\Edit.cshtml" />
+    <Content Include="App\News\views\List.cshtml" />
     <Content Include="App\RoleGroups\Index.cshtml" />
     <Content Include="Views\Home\LeftSideBar.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\RightSideBar.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="App\Users\List.cshtml" />
-    <Content Include="App\Pms\PrivateMessages.cshtml" />
-    <Content Include="App\Users\Info.cshtml" />
-    <Content Include="App\Pms\ReadMessage.cshtml" />
-    <Content Include="App\Pms\WriteMessage.cshtml" />
+    <Content Include="App\Users\views\List.cshtml" />
+    <Content Include="App\Pms\views\pms.cshtml" />
+    <Content Include="App\Users\views\Info.cshtml" />
+    <Content Include="App\Pms\views\pm.cshtml" />
+    <Content Include="App\Pms\views\wpm.cshtml" />
     <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>

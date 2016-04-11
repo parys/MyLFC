@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('liverpoolApp')
+angular.module('pms.ctrl')
     .controller('PmWriteCtrl', [
         '$stateParams', 'PmsFactory', 'ValidationService', '$state', '$rootScope', 'UsersFactory',
         function($stateParams, PmsFactory, ValidationService, $state, $rootScope, UsersFactory) {

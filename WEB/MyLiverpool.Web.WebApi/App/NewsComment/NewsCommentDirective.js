@@ -1,11 +1,11 @@
 ﻿'use strict';
-angular.module('liverpoolApp')
+angular.module('newsComment.directive', [])
     .directive('tree', [
         'RecursionHelper', function(RecursionHelper) {
             return {
                 restrict: "E",
                 scope: { comment: '=', deep: '=', authorId: '=' },
-                templateUrl: '/app/newsComment/newsComment',
+                templateUrl: '/app/newsComment/views/newsComment',
                 controller: 'NewsCommentCtrl',
                 controllerAs: 'vm',
                 transclude: true,
