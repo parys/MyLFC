@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using MyLiverpool.Business.DTO;
 
 namespace MyLiverpoolSite.Business.Contracts
@@ -10,5 +11,9 @@ namespace MyLiverpoolSite.Business.Contracts
         Task<bool> DeleteAsync(int id);
 
         Task<ForumDto> GetAsync();
+
+        Task<ForumSectionDto> GetAsync(int id);
+
+        Task<IEnumerable<ForumSectionDto>> GetListAsync();
     }
 }

@@ -51,5 +51,23 @@ namespace MyLiverpool.Web.WebApi.Controllers
             var result = await _forumSectionService.GetAsync();
             return Ok(result);
         }
+
+        [Route]
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IHttpActionResult> Get(int id)
+        {
+            var result = await _forumSectionService.GetAsync(id);
+            return Ok(result);
+        }
+
+        [Route("list")]
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IHttpActionResult> List()
+        {
+            var result = await _forumSectionService.GetListAsync();
+            return Ok(result);
+        }
     }
 }

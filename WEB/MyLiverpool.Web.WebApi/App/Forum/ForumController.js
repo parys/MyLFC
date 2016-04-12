@@ -7,7 +7,7 @@ angular.module('forum.ctrl', ['forum.factory'])
             vm.sections = [];
 
             vm.init = function () {
-                ForumFactory.getSections()
+                ForumFactory.getForum()
                     .then(function (response) {
                         vm.sections = response.sections;
 
@@ -47,7 +47,7 @@ angular.module('forum.ctrl', ['forum.factory'])
                 });
             }
 
-            vm.removeSection = function (index) {
+            vm.removeSection = function(index) {
                 var modalInstance = $uibModal.open({
                     animation: true,
                     templateUrl: 'modalDeleteConfirmation.html',
@@ -60,24 +60,22 @@ angular.module('forum.ctrl', ['forum.factory'])
                     //}
                 });
 
-                modalInstance.result.then(function () {
+                modalInstance.result.then(function() {
                     var sectionId = vm.sections[index].id;
                     ForumFactory.deleteSection(sectionId).
-                        then(function (response) {
-                            if (response) {
-                                vm.sections.splice(index, 1);
-                                $rootScope.alerts.push({ type: 'success', msg: 'Секция успешно удалена.' });
-                            } else {
-                                $rootScope.alerts.push({ type: 'danger', msg: 'Секция не была удалена.' });
-                            }
-                        },
-                            function (response) {
+                        then(function(response) {
+                                if (response) {
+                                    vm.sections.splice(index, 1);
+                                    $rootScope.alerts.push({ type: 'success', msg: 'Секция успешно удалена.' });
+                                } else {
+                                    $rootScope.alerts.push({ type: 'danger', msg: 'Секция не была удалена.' });
+                                }
+                            },
+                            function(response) {
                                 $rootScope.alerts.push({ type: 'danger', msg: 'Секция не была удалена.' });
                             });
-                }, function () {
+                }, function() {
                 });
-
-
             }
         }
     ]);

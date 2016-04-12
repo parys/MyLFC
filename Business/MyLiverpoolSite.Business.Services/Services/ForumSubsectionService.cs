@@ -5,6 +5,7 @@ using AutoMapper;
 using MyLiverpool.Business.DTO;
 using MyLiverpoolSite.Business.Contracts;
 using MyLiverpoolSite.Data.DataAccessLayer;
+using MyLiverpoolSite.Data.Entities;
 
 namespace MyLiverpoolSite.Business.Services.Services
 {
@@ -19,15 +20,28 @@ namespace MyLiverpoolSite.Business.Services.Services
             _mapper = mapper;
         }
 
-        public Task<bool> CreateAsync(ForumSubsectionDto dto)
+        public async Task<ForumSubsectionDto> CreateAsync(ForumSubsectionDto dto)
         {
-            throw new NotImplementedException();
+            var model = _mapper.Map<ForumSubsection>(dto);
+            _unitOfWork.ForumSubsectionRepository.Add(model);
+            await _unitOfWork.SaveAsync();
+            dto = _mapper.Map<ForumSubsectionDto>(model);
+            return dto;
         }
 
         public Task<bool> DeleteAsync(int id)
         {
             throw new NotImplementedException();
         }
+
+        public async Task<ForumSubsectionDto> UpdateAsync(ForumSubsectionDto dto)
+        {
+            var model = _mapper.Map<ForumSubsection>(dto);
+            _unitOfWork.ForumSubsectionRepository.Update(model);
+            await _unitOfWork.SaveAsync();
+            dto = _mapper.Map<ForumSubsectionDto>(model);
+            return dto;
+        } 
 
         public async Task<ForumSubsectionDto> GetAsync(int subsectionId, int page)
         {

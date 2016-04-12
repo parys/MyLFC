@@ -1,32 +1,32 @@
 ﻿@using MyLiverpool.Business.Resources
 
-<h2 ng-bind="vm.name"></h2>
-<h3 ng-bind="vm.description"></h3>
+<div ng-init="vm.init()">
+    <h2 ng-bind="vm.name"></h2>
+    <h3 ng-bind="vm.description"></h3>
+    <div class="container-fluid" ng-repeat="message in vm.messages">
 
-<div class="container-fluid" ng-repeat="message in messages" ng-init="vm.init()">
-
-    <div class="panel panel-default">
-        <div class="panel-heading"><a ui-sref="userInfo({id: message.authorId})" ng-bind="vm.message.authorUserName"></a>
-        </div>
-        <div class="panel-body" ng-bind="vm.message.message">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <a ui-sref="userInfo({id: message.authorId})" ng-bind="message.authorUserName"></a>
+            </div>
+            <div class="panel-body" ng-bind="message.message">
+            </div>
         </div>
     </div>
-</div>
 
 
-<div class="col-md-12 row" ng-show="isAuthorized()">
+    <div class="col-xs-12 col-sm-12" ng-show="$root.loggedIn()">
         <div class="">
-            <textarea id="forumCommentMessage" class="col-md-4 editor" rows="6"></textarea>
-            <br />
-            <button class="btn btn-primary center-block" data-toggle="modal" data-target="#myModal" id="addComment"> @CommonMessages.Create</button>
+            <textarea class="col-md-4 editor" rows="6"></textarea>
+            <button class="btn btn-primary center-block"> @CommonMessages.Create</button>
         </div>
     </div>
 
-<div class="pagination">
-    @*@Html.PageLinks(Model.Messages.PageNo, Model.Messages.TotalItems, x => Url.Action("Theme", new { id = Model.Id, page = x }))*@
+    <div class="pagination">
+        @*@Html.PageLinks(Model.Messages.PageNo, Model.Messages.TotalItems, x => Url.Action("Theme", new { id = Model.Id, page = x }))*@
+    </div>
 </div>
-
-<script>
+@*<script>
     $('#addComment').click(function () {
         console.log('add forum comment');
         postValues();
@@ -60,4 +60,4 @@
         $('#comments').append("<li class='media comment'><a class='pull-left' href='#'><img class='media-object img-thumbnail' src='User.Identity.Name' alt='comment.Author.UserName'></a><div class='media-body'><h4 class='media-heading'>User.Identity.Name</h4><input id='comment_Id' name='comment.Id' type='hidden' value" + id + "> " + comment + "</div><br/><button class='btn' data-toggle='modal' data-target='#addReply'>@CommonMessages.Reply</button></li>");
         
     }
-</script>
+</script>*@

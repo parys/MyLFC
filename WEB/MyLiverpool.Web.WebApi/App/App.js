@@ -17,6 +17,7 @@ angular.module('liverpoolApp',
         'news.config',
         'newsComment.config',
         'pms.config',
+        'roleGroup.config',
         'users.config'
     ])
     .run(function(Authentication, Application, $rootScope, $location, uibPaginationConfig, $state, $stateParams, $window) {

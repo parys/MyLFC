@@ -5,7 +5,9 @@ namespace MyLiverpoolSite.Business.Contracts
 {
     public interface IForumSubsectionService
     {
-        Task<bool> CreateAsync(ForumSubsectionDto dto);
+        Task<ForumSubsectionDto> CreateAsync(ForumSubsectionDto dto);
+
+        Task<ForumSubsectionDto> UpdateAsync(ForumSubsectionDto dto);
 
         Task<bool> DeleteAsync(int id);
 

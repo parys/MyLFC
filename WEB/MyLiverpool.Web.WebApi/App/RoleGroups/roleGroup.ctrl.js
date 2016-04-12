@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('liverpoolApp')
+angular.module('roleGroup.ctrl', [])
     .controller('RoleGroupsCtrl', [
         '$stateParams', '$state', 'RoleGroupsFactory',
         function($stateParams, $state, RoleGroupsFactory) {

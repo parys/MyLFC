@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('liverpoolApp')
+angular.module('roleGroup.factory', [])
     .factory('RoleGroupsFactory', [
         '$q', '$http', 'SessionService', function($q, $http, SessionService) {
             return {

@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('forum.ctrl')
     .controller('ForumThemeController', [
-        'ForumFactory', '$stateParams',
-        function(ForumFactory, $stateParams) {
+        'ForumFactory', '$stateParams', '$rootScope',
+        function(ForumFactory, $stateParams, $rootScope) {
             var vm = this;
             vm.messages = [];
             vm.pageNo = 1;
@@ -20,7 +20,7 @@ angular.module('forum.ctrl')
                             vm.id = response.id;
                             vm.name = response.name;
                             vm.description = response.description;
-
+                            $rootScope.$title = vm.name;
                         },
                         function(response) {
                             

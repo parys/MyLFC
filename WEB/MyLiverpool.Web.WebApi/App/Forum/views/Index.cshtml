@@ -12,13 +12,13 @@
             <!--div class="panel-body"></!--div>-->
             <ul class="list-group" ng-repeat="subsection in section.subsections">
                 <li class="list-group-item list">
-                    <a href="" ui-sref=".subsection({id: subsection.id})"><span ng-bind="subsection.name"></span> <span class="small" ng-bind="subsection.description"></span></a>
+                    <a href="" ui-sref="subsection({id: subsection.id})"><span ng-bind="subsection.name"></span> <span class="small" ng-bind="subsection.description"></span></a>
                 </li>
             </ul>
         </div>
     </div>
     <a href="" ng-show="isAdminAssistant()" ng-click="vm.addSection()">@CommonMessages.AddSection</a>
-    <a href="" ng-show="isAdminAssistant()" ng-click="vm.addSubsection()">@CommonMessages.AddSubsection</a>
+    <a href="" ng-show="isAdminAssistant()" ui-sref="subsectionEdit()">@CommonMessages.AddSubsection</a>
 </div>
 
 <script type="text/ng-template" id="addSection.html">

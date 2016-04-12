@@ -280,6 +280,7 @@
     <Content Include="App\NewsComment\newsComment.config.js" />
     <Content Include="App\News\news.config.js" />
     <Content Include="App\Pms\pms.config.js" />
+    <Content Include="App\RoleGroups\roleGroup.config.js" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="App\Constants.js" />
     <Content Include="Content\autocomplete.css" />
@@ -507,8 +508,8 @@
     <Content Include="App\Pms\PmWriteCtrl.js" />
     <Content Include="App\Account\RegisterController.js" />
     <Content Include="App\Home\rightContainerCtrl.js" />
-    <Content Include="App\RoleGroups\RoleGroupsCtrl.js" />
-    <Content Include="App\RoleGroups\1RoleGroupsFactory.js" />
+    <Content Include="App\RoleGroups\roleGroup.ctrl.js" />
+    <Content Include="App\RoleGroups\roleGroup.factory.js" />
     <Content Include="App\Users\users.ctrl.js" />
     <Content Include="App\Users\UsersController.js" />
     <Content Include="App\MarkItUp\markItUpDirective.js" />
@@ -631,7 +632,7 @@
     <Content Include="App\News\views\Info.cshtml" />
     <Content Include="App\News\views\Edit.cshtml" />
     <Content Include="App\News\views\List.cshtml" />
-    <Content Include="App\RoleGroups\Index.cshtml" />
+    <Content Include="App\RoleGroups\views\Index.cshtml" />
     <Content Include="Views\Home\LeftSideBar.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\RightSideBar.cshtml" />
