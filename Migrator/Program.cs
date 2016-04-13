@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -13,32 +14,34 @@ namespace Migrator
     class Program
     {
         private static readonly IUnitOfWork UnitOfWork;
-        private static string path = @"D:\\example\";
-        private static int maxChars = 20000;
-        private static bool useLimit = true;
+        private const string Path = @"D:\\projects\example\";
+        private static readonly int MaxChars = 20000;
+        private const bool UseLimit = true;
 
         private static readonly List<ForumSubsection> Subsections = new List<ForumSubsection>(); 
         private static readonly List<ForumTheme> Themes = new List<ForumTheme>(); 
 
-        private static User Deleted;
+        private static User _deleted;
 
         static Program()
         {
-            UnitOfWork = new UnitOfWork();
+            Database.SetInitializer(new DatabaseInitializer()); //todo remove
+            LiverpoolContext db = new LiverpoolContext();
+            db.Database.Initialize(true);
+            UnitOfWork = new UnitOfWork(db);
         }
 
         static void Main()
         {
             UpdateFromFiles();
             UpdateDb();
-            Console.WriteLine("END");
           //  Console.ReadKey();
         }
 
         public static void UpdateFromFiles()
         {
             UpdateUsers();
-            Deleted = UnitOfWork.UserRepository.GetAsync().Result.First(x => x.UserName == "deleted");
+            _deleted = UnitOfWork.UserRepository.GetAsync().Result.First(x => x.UserName == "deleted");
             UpdateUsersId();
             UpdateBlogCategory();
             UpdateNewsCategory();
@@ -67,7 +70,7 @@ namespace Migrator
         private static void Example()
         {
             Console.WriteLine("Start ");
-            using (FileStream fs = new FileStream(path + path + ".txt", FileMode.Open))
+            using (FileStream fs = new FileStream(Path + Path + ".txt", FileMode.Open))
             {
                 byte[] data = new byte[fs.Length];
                 fs.Read(data, 0, Convert.ToInt32(fs.Length));
@@ -112,16 +115,16 @@ namespace Migrator
         private static void UpdateUsers()
         {
             Console.WriteLine("Start UpdateUsers");
-            using (FileStream fs = new FileStream(path + @"users.txt", FileMode.Open))
+            using (FileStream fs = new FileStream(Path + @"users.txt", FileMode.Open))
             {
                 byte[] data = new byte[fs.Length];
                 fs.Read(data, 0, Convert.ToInt32(fs.Length));
 
                 char[] chars = Encoding.UTF8.GetString(data).ToCharArray();
                 var limit = chars.Length;
-                if (useLimit && maxChars < chars.Length)
+                if (UseLimit && MaxChars < chars.Length)
                 {
-                    limit = maxChars;
+                    limit = MaxChars;
                 }
                 for (int i = 0; i < limit; i++)
                 {
@@ -300,7 +303,7 @@ namespace Migrator
                         fv += chars[i];
                         if (chars[i] == '0')
                         {
-                            user.Verify = true;
+                            user.EmailConfirmed = true; //todo 
                         }
                         i++;
                     }
@@ -327,7 +330,7 @@ namespace Migrator
                         i++;
                     }
                     user.LastModified = DateTimeHelpers.ConvertUtcToLocalTime(long.Parse(lastDate));
-                    user.RoleGroupId = 2; 
+                    user.RoleGroupId = (int)RoleGroupsEnum.Simple; 
                     UnitOfWork.UserRepository.Add(user);
                     while (chars[i] != 10)
                     {
@@ -341,16 +344,16 @@ namespace Migrator
         private static void UpdateUsersId()
         {
             Console.WriteLine("Start UpdateUsersId");
-            using (FileStream fs = new FileStream(path + "ugen.txt", FileMode.Open))
+            using (FileStream fs = new FileStream(Path + "ugen.txt", FileMode.Open))
             {
                 byte[] data = new byte[fs.Length];
                 fs.Read(data, 0, Convert.ToInt32(fs.Length));
 
                 char[] chars = Encoding.UTF8.GetString(data).ToCharArray();
                 var limit = chars.Length;
-                if (useLimit && maxChars < chars.Length)
+                if (UseLimit && MaxChars < chars.Length)
                 {
-                    limit = maxChars;
+                    limit = MaxChars;
                 }
                 for (int i = 0; i < limit; i++)
                 {
@@ -391,16 +394,16 @@ namespace Migrator
         private static void UpdateBlogItems()
         {
             Console.WriteLine("Start UpdateBlogItems");
-            using (FileStream fs = new FileStream(path + "blog.txt", FileMode.Open))
+            using (FileStream fs = new FileStream(Path + "blog.txt", FileMode.Open))
             {
                 byte[] data = new byte[fs.Length];
                 fs.Read(data, 0, Convert.ToInt32(fs.Length));
 
                 char[] chars = Encoding.UTF8.GetString(data).ToCharArray();
                 var limit = chars.Length;
-                if (useLimit && maxChars < chars.Length)
+                if (UseLimit && MaxChars < chars.Length)
                 {
-                    limit = maxChars;
+                    limit = MaxChars;
                 }
 
                 var categories = UnitOfWork.MaterialCategoryRepository.GetAsync().Result.Where(x => x.MaterialType == MaterialType.Blog).ToList();
@@ -512,7 +515,7 @@ namespace Migrator
                     blogItem.Author = UnitOfWork.UserRepository.GetAsync(u => u.UserName == userName).Result.FirstOrDefault();
                     if (blogItem.Author == null)
                     {
-                        blogItem.AuthorId = Deleted.Id;
+                        blogItem.AuthorId = _deleted.Id;
                     }
                     //title
                     string title = null;
@@ -713,16 +716,16 @@ namespace Migrator
         private static void UpdateNewsItems()
         {
             Console.WriteLine("Start UpdateNewsItems");
-            using (FileStream fs = new FileStream(path + "news.txt", FileMode.Open))
+            using (FileStream fs = new FileStream(Path + "news.txt", FileMode.Open))
             {
                 byte[] data = new byte[fs.Length];
                 fs.Read(data, 0, Convert.ToInt32(fs.Length));
 
                 char[] chars = Encoding.UTF8.GetString(data).ToCharArray();
                 var limit = chars.Length;
-                if (useLimit && maxChars < chars.Length)
+                if (UseLimit && MaxChars < chars.Length)
                 {
-                    limit = maxChars * 10;
+                    limit = MaxChars * 10;
                 }
 
                 var categories = UnitOfWork.MaterialCategoryRepository.GetAsync().Result.Where(x => x.MaterialType == MaterialType.News).ToList();
@@ -743,7 +746,7 @@ namespace Migrator
                     newsItem.OldId = int.Parse(id);
                     i++;
                     // Category id
-                    string categoryId = null;
+                    string categoryId = "";
                     while (chars[i] != '|')
                     {
                         categoryId += chars[i];
@@ -834,7 +837,7 @@ namespace Migrator
                     newsItem.Author = UnitOfWork.UserRepository.GetAsync(u => u.UserName == userName).Result.FirstOrDefault();
                     if (newsItem.Author == null)
                     {
-                        newsItem.AuthorId = Deleted.Id;
+                        newsItem.AuthorId = _deleted.Id;
                     }
                     //title
                     string title = null;
@@ -1036,8 +1039,8 @@ namespace Migrator
                     //}
                     //else
                     //{
-                        var category = categories.FirstOrDefault(x => x.Id == int.Parse(categoryId)) ??
-                                       categories.First(x => x.Id == 4);
+                        var category = categories.FirstOrDefault(x => x.OldId == int.Parse(categoryId)) ??
+                                       categories.First(x => x.OldId == 5);
                         newsItem.CategoryId = category.Id;
                         
                       //  category.Materials.Add(newsItem);
@@ -1055,16 +1058,16 @@ namespace Migrator
         private static void UpdateBlogCategory()
         {
             Console.WriteLine("Start UpdateBlogCategory");
-            using (FileStream fs = new FileStream(path + "bl_bl.txt", FileMode.Open))
+            using (FileStream fs = new FileStream(Path + "bl_bl.txt", FileMode.Open))
             {
                 byte[] data = new byte[fs.Length];
                 fs.Read(data, 0, Convert.ToInt32(fs.Length));
 
                 char[] chars = Encoding.UTF8.GetString(data).ToCharArray();
                 var limit = chars.Length;
-                if (useLimit && maxChars < chars.Length)
+                if (UseLimit && MaxChars < chars.Length)
                 {
-                    limit = maxChars;
+                    limit = MaxChars;
                 }
                 for (int i = 0; i < limit; i++)
                 {
@@ -1129,16 +1132,16 @@ namespace Migrator
         private static void UpdateNewsCategory()
         {
             Console.WriteLine("Start UpdateNewsCategory");
-            using (FileStream fs = new FileStream(path + "nw_nw.txt", FileMode.Open))
+            using (FileStream fs = new FileStream(Path + "nw_nw.txt", FileMode.Open))
             {
                 byte[] data = new byte[fs.Length];
                 fs.Read(data, 0, Convert.ToInt32(fs.Length));
 
                 char[] chars = Encoding.UTF8.GetString(data).ToCharArray();
                 var limit = chars.Length;
-                if (useLimit && maxChars < chars.Length)
+                if (UseLimit && MaxChars < chars.Length)
                 {
-                    limit = maxChars;
+                    limit = MaxChars;
                 }
                 for (int i = 0; i < limit; i++)
                 {
@@ -1147,7 +1150,7 @@ namespace Migrator
                         MaterialType = MaterialType.News
                     };
                     // id
-                    string id = null;
+                    string id = string.Empty;
                     while (chars[i] != '|')
                     {
                         id += chars[i];
@@ -1156,7 +1159,7 @@ namespace Migrator
                     i++;
                     newsCategory.OldId = int.Parse(id);
                     // position
-                    string position = null;
+                    string position = string.Empty;
                     while (chars[i] != '|')
                     {
                         position += chars[i];
@@ -1165,7 +1168,7 @@ namespace Migrator
                     i++;
                  //   newsCategory.Position = int.Parse(position);
                     // count
-                    string count = null;
+                    string count = string.Empty;
                     while (chars[i] != '|')
                     {
                         count += chars[i];
@@ -1203,16 +1206,16 @@ namespace Migrator
         private static void UpdateComments()
         {
             Console.WriteLine("Start UpdateComments");
-            using (FileStream fs = new FileStream(path + "comments.txt", FileMode.Open))
+            using (FileStream fs = new FileStream(Path + "comments.txt", FileMode.Open))
             {
                 byte[] data = new byte[fs.Length];
                 fs.Read(data, 0, Convert.ToInt32(fs.Length));
 
                 char[] chars = Encoding.UTF8.GetString(data).ToCharArray();
                 var limit = chars.Length;
-                if (useLimit && maxChars < chars.Length)
+                if (UseLimit && MaxChars < chars.Length)
                 {
-                    limit = maxChars*10;
+                    limit = MaxChars*10;
                 }
 
                 var news = UnitOfWork.MaterialRepository.GetAsync().Result;//n => n.NumberCommentaries > 0);
@@ -1406,15 +1409,16 @@ namespace Migrator
                         comment.Author = UnitOfWork.UserRepository.GetAsync(u => u.UserName == userName).Result.FirstOrDefault();
                         if (comment.Author == null)
                         {
-                            comment.AuthorId = Deleted.Id;
+                            comment.AuthorId = _deleted.Id;
                         }
                         comment.Answer = answer;
                         comment.Message = message;
-                        if (int.Parse(parentId) > 0)
+                        var parId = int.Parse(parentId);
+                        if (parId > 0)
                         {
-                            var parent = UnitOfWork.MaterialCommentRepository.GetByIdAsync(parentId).Result;
+                            var parent = UnitOfWork.MaterialCommentRepository.GetAsync(x => x.OldId == parId).Result;
 
-                            comment.Parent = parent;
+                            comment.Parent = parent.FirstOrDefault();
                         }
                         //comment.ParentId = int.Parse(parentId);
 
@@ -1428,16 +1432,16 @@ namespace Migrator
         private static void UpdateForumSectionsAndPopulateSubsectionList()
         {
             Console.WriteLine("Start UpdateForumSections");
-            using (FileStream fs = new FileStream(path + "fr_fr.txt", FileMode.Open))
+            using (FileStream fs = new FileStream(Path + "fr_fr.txt", FileMode.Open))
             {
                 byte[] data = new byte[fs.Length];
                 fs.Read(data, 0, Convert.ToInt32(fs.Length));
 
                 char[] chars = Encoding.UTF8.GetString(data).ToCharArray();
                 var limit = chars.Length;
-                if (useLimit && maxChars < chars.Length)
+                if (UseLimit && MaxChars < chars.Length)
                 {
-                    limit = maxChars;
+                    limit = MaxChars;
                 }
                 for (int i = 0; i < limit; i++)
                 {
@@ -1573,16 +1577,16 @@ namespace Migrator
         private static void UpdateForumThemes()
         {
             Console.WriteLine("Start UpdateForumThemes");
-            using (FileStream fs = new FileStream(path + "forum.txt", FileMode.Open))
+            using (FileStream fs = new FileStream(Path + "forum.txt", FileMode.Open))
             {
                 byte[] data = new byte[fs.Length];
                 fs.Read(data, 0, Convert.ToInt32(fs.Length));
 
                 char[] chars = Encoding.UTF8.GetString(data).ToCharArray();
                 var limit = chars.Length;
-                if (useLimit && maxChars < chars.Length)
+                if (UseLimit && MaxChars < chars.Length)
                 {
-                    limit = maxChars;
+                    limit = MaxChars;
                 }
                 for (int i = 0; i < limit; i++)
                 {
@@ -1713,16 +1717,16 @@ namespace Migrator
         private static void UpdateForumComments()
         {
             Console.WriteLine("Start UpdateForumComments");
-            using (FileStream fs = new FileStream(path + "forump.txt", FileMode.Open))
+            using (FileStream fs = new FileStream(Path + "forump.txt", FileMode.Open))
             {
                 byte[] data = new byte[fs.Length];
                 fs.Read(data, 0, Convert.ToInt32(fs.Length));
 
                 char[] chars = Encoding.UTF8.GetString(data).ToCharArray();
                 var limit = chars.Length;
-                if (useLimit && maxChars < chars.Length)
+                if (UseLimit && MaxChars < chars.Length)
                 {
-                    limit = maxChars;
+                    limit = MaxChars;
                 }
                 for (int i = 0; i < limit; i++)
                 {
@@ -1747,7 +1751,7 @@ namespace Migrator
                     i++;
                   //  var theme = UnitOfWork.ForumThemeRepository.GetAsync().Result.FirstOrDefault(x => x.IdOld == int.Parse(moduleId));
                     var theme = Themes.FirstOrDefault(x => x.IdOld == int.Parse(moduleId));
-                    if (useLimit && theme != null)
+                    if (UseLimit && theme != null)
                     {
                        // theme.Messages = 
                         forumMessage.ThemeId = theme.Id;
@@ -1793,20 +1797,13 @@ namespace Migrator
                     }
                     i++;
                     var author = UnitOfWork.UserRepository.GetAsync(u => u.UserName == userName).Result.FirstOrDefault();
-                    if (author != null)
-                    {
-                        forumMessage.AuthorId = author.Id;
-                    }
-                    else
-                    {
-                        forumMessage.AuthorId = Deleted.Id;
-                    }
+                    forumMessage.AuthorId = author?.Id ?? _deleted.Id;
 
                     while (chars[i] != 10)
                     {
                         i++;
                     }
-                    if (useLimit && theme != null)
+                    if (UseLimit && theme != null)
                     {
                         theme.Messages.Add(forumMessage);
                         //  UnitOfWork.ForumMessageRepository.Add(forumMessage);

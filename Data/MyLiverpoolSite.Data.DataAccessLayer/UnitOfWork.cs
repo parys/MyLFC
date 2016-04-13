@@ -48,6 +48,11 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
             };
         }
 
+        public UnitOfWork(LiverpoolContext context)
+        {
+            _context = context;
+        }
+
         //private readonly UserStore<User, Role, int, UserLogin, UserRole, UserClaim> userStore; 
         public UserManager<User, int> UserManager { get; set; } 
 

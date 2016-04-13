@@ -82,16 +82,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 },
                 new RoleGroup()
                 {
-                    Name = RoleGroupsEnum.Simple.ToString(),
-                    RussianName = RolesMessages.Simple,
-                    Roles = new List<Role>()
-                    {
-
-                    }
-                },
-                new RoleGroup()
-                {
-                    Name = RoleGroupsEnum.AdminAssistance.ToString(),//3
+                    Name = RoleGroupsEnum.AdminAssistance.ToString(),//2
                     RussianName = RolesMessages.AdminAssistance,
                     Roles = new List<Role>()
                     {
@@ -106,6 +97,16 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                         newsmakerRole
                     }
                 },
+                new RoleGroup()
+                {
+                    Name = RoleGroupsEnum.Simple.ToString(),
+                    RussianName = RolesMessages.Simple,
+                    Roles = new List<Role>()
+                    {
+
+                    }
+                },
+                
                 new RoleGroup()
                 {
                     Name = RoleGroupsEnum.MainNewsmaker.ToString(),
@@ -129,7 +130,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 },
                 new RoleGroup()
                 {
-                    Name = RoleGroupsEnum.Editor.ToString(),
+                    Name = RoleGroupsEnum.Editor.ToString(),//6
                     RussianName = RolesMessages.Editor,
                     Roles = new List<Role>()
                     {
@@ -156,7 +157,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 },
                 new RoleGroup()
                 {
-                    Name = RoleGroupsEnum.Intern.ToString(),
+                    Name = RoleGroupsEnum.Intern.ToString(),//8
                     RussianName = RolesMessages.Intern,
                     Roles = new List<Role>()
                     {
@@ -274,7 +275,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 Verify = true,
                 LastModified = DateTime.Now,
                 RegistrationDate = DateTime.Now,
-                RoleGroupId = 2,
+                RoleGroupId = (int)RoleGroupsEnum.Simple,
                 LockoutEnabled = true,
                 Photo = string.Empty,
                 EmailConfirmed = true,
@@ -298,7 +299,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 Verify = true,
                 LastModified = DateTime.Now,
                 RegistrationDate = DateTime.Now,
-                RoleGroupId = 2,
+                RoleGroupId = (int)RoleGroupsEnum.Simple,
                 LockoutEnabled = true,
                 Photo = string.Empty,
                 EmailConfirmed = true,
@@ -324,7 +325,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 LastModified = DateTime.Now,
                 RegistrationDate = DateTime.Now,
                 Birthday = DateTime.Now,
-                RoleGroupId = 1,
+                RoleGroupId = (int)RoleGroupsEnum.Admin,
                 Photo = "content/avatars/0/755939.jpeg",
                 EmailConfirmed = true,
             };
@@ -352,7 +353,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 LastModified = DateTime.Now,
                 RegistrationDate = DateTime.Now,
                 Birthday = DateTime.Now,
-                RoleGroupId = 9,
+                RoleGroupId = (int)RoleGroupsEnum.Moderator,
                 LockoutEnabled = true,
                 Photo = string.Empty,
                 EmailConfirmed = true,
@@ -381,7 +382,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 LastModified = DateTime.Now,
                 RegistrationDate = DateTime.Now,
                 Birthday = DateTime.Now,
-                RoleGroupId = 11,
+                RoleGroupId = (int)RoleGroupsEnum.Author,
                 LockoutEnabled = true,
                 Photo = string.Empty,
                 EmailConfirmed = true,
@@ -410,7 +411,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 LastModified = DateTime.Now,
                 RegistrationDate = DateTime.Now,
                 Birthday = DateTime.Now,
-                RoleGroupId = 8,
+                RoleGroupId = (int)RoleGroupsEnum.Intern,
                 LockoutEnabled = true,
                 Photo = string.Empty,
                 EmailConfirmed = true,
@@ -438,7 +439,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 LastModified = DateTime.Now,
                 RegistrationDate = DateTime.Now,
                 Birthday = DateTime.Now,
-                RoleGroupId = 6,
+                RoleGroupId = (int)RoleGroupsEnum.Editor,
                 LockoutEnabled = true,
                 Photo = string.Empty,
                 EmailConfirmed = true,
@@ -467,7 +468,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 LastModified = DateTime.Now,
                 RegistrationDate = DateTime.Now,
                 Birthday = DateTime.Now,
-                RoleGroupId = 5,
+                RoleGroupId = (int)RoleGroupsEnum.Newsmaker,
                 LockoutEnabled = true,
                 Photo = string.Empty,
                 EmailConfirmed = true,

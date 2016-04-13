@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyLiverpool.Web.UI", "MyLiverpool\MyLiverpool.Web.UI.csproj", "{0B38DD74-787D-4E5B-8DE3-7434D4311705}"
 EndProject
@@ -88,9 +88,9 @@ Global
 		{9170EED7-3E97-4D04-9213-ABD33A7D71F0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9170EED7-3E97-4D04-9213-ABD33A7D71F0}.Somee|Any CPU.ActiveCfg = Somee|Any CPU
 		{9170EED7-3E97-4D04-9213-ABD33A7D71F0}.Somee|Any CPU.Build.0 = Somee|Any CPU
-		{90AC141B-80ED-49FB-9411-9DDE85F8FCC4}.Debug|Any CPU.ActiveCfg = Somee|Any CPU
-		{90AC141B-80ED-49FB-9411-9DDE85F8FCC4}.Debug|Any CPU.Build.0 = Somee|Any CPU
-		{90AC141B-80ED-49FB-9411-9DDE85F8FCC4}.Debug|Any CPU.Deploy.0 = Somee|Any CPU
+		{90AC141B-80ED-49FB-9411-9DDE85F8FCC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90AC141B-80ED-49FB-9411-9DDE85F8FCC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90AC141B-80ED-49FB-9411-9DDE85F8FCC4}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
 		{90AC141B-80ED-49FB-9411-9DDE85F8FCC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{90AC141B-80ED-49FB-9411-9DDE85F8FCC4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{90AC141B-80ED-49FB-9411-9DDE85F8FCC4}.Somee|Any CPU.ActiveCfg = Somee|Any CPU

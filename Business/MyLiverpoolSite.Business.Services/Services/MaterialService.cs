@@ -152,7 +152,7 @@ namespace MyLiverpoolSite.Business.Services.Services
                     ? GlobalConstants.NewsPerPage - topNews.Count
                     : 0;
             }
-            var news = await _unitOfWork.MaterialRepository.GetAsync(page, filter: filter, itemPerPage: itemPerPage);
+            var news = await _unitOfWork.MaterialRepository.GetOrderedAsync(filter: filter, orderBy: x => x.AdditionTime);//todo, page itemPerPage: itemPerPage);
             var newsForView = topNews.Concat(news);
             var newsVm = _mapper.Map<IEnumerable<MaterialMiniDto>>(newsForView);
             var allNewsCount = await _unitOfWork.MaterialRepository.GetCountAsync(filterForCount);
