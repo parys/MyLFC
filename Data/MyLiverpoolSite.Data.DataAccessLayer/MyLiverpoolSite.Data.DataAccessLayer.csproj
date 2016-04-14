@@ -112,6 +112,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Attributes\UniqueUserNameAttribute.cs" />
+    <Compile Include="SortExtensions.cs" />
     <Compile Include="UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>

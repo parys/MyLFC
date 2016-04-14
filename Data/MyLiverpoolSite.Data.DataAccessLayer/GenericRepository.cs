@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -85,7 +86,30 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 query = includeProperties.Aggregate(query,
                     (current, includeProperty) => current.Include(includeProperty));
             }
-            query = query.OrderByDescending(x => x.Id).Skip((page - 1) * itemPerPage).Take(itemPerPage);
+            query = query.Skip((page - 1) * itemPerPage).Take(itemPerPage);
+            return await query.ToListAsync();
+        }
+
+        public async Task<ICollection<TEntity>> GetOrderedByAsync(int page, int itemPerPage = 15,
+            SortOrder order = SortOrder.Ascending, Expression<Func<TEntity, bool>> filter = null,
+            Expression<Func<TEntity, object>> orderBy = null,
+            params Expression<Func<TEntity, object>>[] includeProperties)
+        {
+            IQueryable<TEntity> query = _dbSet;
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+            if (orderBy != null)
+            {
+                query = query.ObjectSort(orderBy, order);
+            }
+            if (includeProperties != null)
+            {
+                query = includeProperties.Aggregate(query,
+                    (current, includeProperty) => current.Include(includeProperty));
+            }
+            query = query.Skip((page - 1)*itemPerPage).Take(itemPerPage);
             return await query.ToListAsync();
         }
 

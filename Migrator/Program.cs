@@ -1377,7 +1377,11 @@ namespace Migrator
                 //        comment.MaterialId = item.Id;
                 //    }
                 //}
-
+                    if (ModuleId != 1 && ModuleId != 2)
+                    {
+                        continue;
+                        //moduleID (1=>'blog',2=>'news',3=>'publ',4=>'photo',5=>'load',6=>'dir',7=>'board')
+                    }
                     var materialType = MaterialType.Error;
                     if (ModuleId == 2)
                     {
@@ -1386,13 +1390,14 @@ namespace Migrator
                     else if (ModuleId == 1)
                     {
                         materialType = MaterialType.Blog;
-                    }
+                    } 
                     MaterialComment comment = new MaterialComment()
-                        {
-                            MaterialType = materialType
-                    };
-                        comment.OldId = int.Parse(id);
-                      //  comment.MaterialId = int.Parse(materialId);
+                    {
+                        MaterialType = materialType,
+                        MaterialId = int.Parse(materialId),
+                        OldId = int.Parse(id),
+                };
+                        
                         comment.Material = news.FirstOrDefault(newsItem => comment.MaterialId == newsItem.OldId && comment.MaterialType == materialType);
                         if (comment.Material == null)
                         {

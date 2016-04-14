@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
@@ -24,6 +25,11 @@ namespace MyLiverpoolSite.Data.DataAccessLayer.Contracts
 
         Task<ICollection<TEntity>> GetOrderedAsync(Expression<Func<TEntity, bool>> filter = null,
             Expression<Func<TEntity, object>> orderBy = null,
+            params Expression<Func<TEntity, object>>[] includeProperties);
+
+        Task<ICollection<TEntity>> GetOrderedByAsync(int page, int itemPerPage = 15,
+            SortOrder order = SortOrder.Ascending,
+            Expression<Func<TEntity, bool>> filter = null, Expression<Func<TEntity, object>> orderBy = null,
             params Expression<Func<TEntity, object>>[] includeProperties);
 
         Task<ICollection<TEntity>> GetOrderedByIdAsync(int page, int itemPerPage = 15,

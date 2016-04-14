@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -152,7 +153,7 @@ namespace MyLiverpoolSite.Business.Services.Services
                     ? GlobalConstants.NewsPerPage - topNews.Count
                     : 0;
             }
-            var news = await _unitOfWork.MaterialRepository.GetOrderedAsync(filter: filter, orderBy: x => x.AdditionTime);//todo, page itemPerPage: itemPerPage);
+            var news = await _unitOfWork.MaterialRepository.GetOrderedByAsync(page, itemPerPage, SortOrder.Descending, filter, x => x.AdditionTime);
             var newsForView = topNews.Concat(news);
             var newsVm = _mapper.Map<IEnumerable<MaterialMiniDto>>(newsForView);
             var allNewsCount = await _unitOfWork.MaterialRepository.GetCountAsync(filterForCount);
