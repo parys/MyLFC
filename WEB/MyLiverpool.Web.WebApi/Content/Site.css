@@ -51,6 +51,10 @@ textarea {
     height: 50px;
 }
 
+.overflowable {
+    overflow-y: auto;
+}
+
 @media (min-width: 768px) {
     .dropdown:hover .dropdown-menu {
         display: block;

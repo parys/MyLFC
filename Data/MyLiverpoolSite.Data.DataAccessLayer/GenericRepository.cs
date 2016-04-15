@@ -86,7 +86,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 query = includeProperties.Aggregate(query,
                     (current, includeProperty) => current.Include(includeProperty));
             }
-            query = query.Skip((page - 1) * itemPerPage).Take(itemPerPage);
+            query = query.OrderBy(x => x.Id).Skip((page - 1) * itemPerPage).Take(itemPerPage);
             return await query.ToListAsync();
         }
 

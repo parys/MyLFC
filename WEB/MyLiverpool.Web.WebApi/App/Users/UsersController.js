@@ -1,20 +1,34 @@
 ﻿'use strict';
 angular.module('users.ctrl')
     .controller('UsersController', [
-        '$stateParams', '$state', 'UsersFactory',
-        function($stateParams, $state, UsersFactory) {
+        '$stateParams', '$state', 'UsersFactory', 'RoleGroupsFactory',
+        function ($stateParams, $state, UsersFactory, RoleGroupsFactory) {
             var vm = this;
             vm.users = [];
-            vm.pageNo = 1;
-            vm.countPage = 1;
-            var init = function(page) {
+            vm.pageNo = undefined;
+            vm.totalItems = undefined;
+            vm.itemPerPage = undefined;
+            vm.userRole = undefined;
+            vm.roleGroups = undefined;
+
+            vm.chosenRoleGroupId = undefined;
+
+            vm.init = function () {
+                var page = $stateParams.page;
                 UsersFactory.getUsers(page)
                     .then(function(response) {
                         vm.users = response.list;
                         vm.pageNo = response.pageNo;
-                        vm.countPage = response.CountPage;
+                        vm.totalItems = response.totalItems;
+                        vm.itemPerPage = response.itemPerPage;
                         },
                         function(response) {
+                        });
+                RoleGroupsFactory.get()
+                    .then(function (response) {
+                        vm.roleGroups = response;
+                    },
+                        function (response) {
                         });
             };
 
@@ -26,6 +40,6 @@ angular.module('users.ctrl')
                 $state.go('users', { page: vm.pageNo });
             }
 
-            init($stateParams.page);
+            
         }
     ]);

@@ -131,28 +131,7 @@
 </header>
 <div class="body-content row">
 <div ncy-breadcrumb></div>
-<div class="col-xs-3 col-sm-3 container-fluid" ui-view="leftContainer" ng-controller="leftContainerCtrl">
-    <!--section class="col-md- alert-info row">
-    <h2>Эксетер </h2>
-    <div class="col-md-6">
-        <img src="https://upload.wikimedia.org/wikipedia/ru/f/f7/Exeter_City_Logo.png"/>
-    </div>
-    <div class="col-md-6">
-        <span style="text-align: center; font-size: 45pt">3:0</span>
-    </div>
-    </!--section>
-    <section class="col-md- alert-danger row">
-        <div class="col-md-12"> Лучший игрок матча с Эксетером </div>
-        <div styleclass="col-md-12">
-            <img src="http://www.myliverpool.ru/images/Players/Squad12-13/Joe_Allen.png"/>
-        </div>
-        <div class="col-md-12">
-            Джо Аллен
-        </div>
-    </section>
-    <section class="row"></section>-->
-</div>
-<div class="col-xs-6 col-sm-6 container-fluid" style="background-color: #f5deb3">
+<div class="col-xs-12 col-sm-push-3 col-sm-6 container-fluid" style="background-color: #f5deb3">
     <div class="row">
         <uib-alert ng-repeat="alert in $root.alerts" dismiss-on-timeout="5000" type="{{alert.type}}" close="closeAlert($index)" ng-bind="alert.msg"></uib-alert>
         <div class="" ui-view autoscroll="false">
@@ -161,9 +140,30 @@
         </div>
     </div>
 </div>
-<div class="col-xs-3 col-sm-3 container-fluid" ui-view="rightContainer" ng-controller="rightContainerCtrl">
-<section class="col-md- row"><!--
-<table class="table table-condensed table-striped table-responsive col-md-12">
+    <div class="col-xs-6 col-sm-pull-6 col-sm-3 container-fluid" ui-view="leftContainer" ng-controller="leftContainerCtrl">
+        <section class="col-md- alert-info row">
+            <h2>Эксетер </h2>
+            <div class="col-md-6">
+                <img src="https://upload.wikimedia.org/wikipedia/ru/f/f7/Exeter_City_Logo.png" />
+            </div>
+            <div class="col-md-6">
+                <span style="text-align: center; font-size: 45pt">3:0</span>
+            </div>
+        </section>
+        <section class="col-md- alert-danger row">
+            <div class="col-md-12"> Лучший игрок матча с Эксетером </div>
+            <div styleclass="col-md-12">
+                <img src="http://www.myliverpool.ru/images/Players/Squad12-13/Joe_Allen.png" />
+            </div>
+            <div class="col-md-12">
+                Джо Аллен
+            </div>
+        </section>
+        <section class="row"></section>
+    </div>
+<div class="col-xs-6 col-sm-3 container-fluid" ui-view="rightContainer" ng-controller="rightContainerCtrl">
+<section class=" row">
+<table class="table table-condensed table-striped table-responsive col-xs-12 overflowable">
 <thead>
 <tr>
     <th>#</th>
@@ -378,7 +378,7 @@
     <td>0</td>
 </tr>
 </tbody>
-</table>-->
+</table>
 </section>
 </div>
 </div>
