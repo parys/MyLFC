@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('users.ctrl')
     .controller('UsersController', [
-        '$stateParams', '$state', 'UsersFactory', 'RoleGroupsFactory',
-        function ($stateParams, $state, UsersFactory, RoleGroupsFactory) {
+        '$stateParams', '$state', 'UsersFactory', 'RoleGroupsFactory', '$filter',
+        function ($stateParams, $state, UsersFactory, RoleGroupsFactory, $filter) {
             var vm = this;
             vm.users = [];
             vm.pageNo = undefined;
@@ -14,22 +14,24 @@ angular.module('users.ctrl')
             vm.chosenRoleGroupId = undefined;
 
             vm.init = function () {
-                var page = $stateParams.page;
-                UsersFactory.getUsers(page)
+                UsersFactory.getUsers($stateParams.page, $stateParams.roleGroupId)
                     .then(function(response) {
-                        vm.users = response.list;
-                        vm.pageNo = response.pageNo;
-                        vm.totalItems = response.totalItems;
-                        vm.itemPerPage = response.itemPerPage;
+                            vm.parseResponse(response);
                         },
                         function(response) {
                         });
                 RoleGroupsFactory.get()
                     .then(function (response) {
+                        vm.chosenRoleGroupId = $stateParams.roleGroupId;
                         vm.roleGroups = response;
-                    },
+                        vm.roleGroups.push({ name: 'Все группы', id: undefined });
+                        
+                        },
                         function (response) {
                         });
+                
+                
+                vm.pageNo = $stateParams.page;
             };
 
             vm.isNotSelf = function(userId, userId2) {
@@ -37,9 +39,20 @@ angular.module('users.ctrl')
             }
 
             vm.goToPage = function() {
-                $state.go('users', { page: vm.pageNo });
+                $state.go('users', { page: vm.pageNo, roleGroupId: vm.chosenRoleGroupId }, { reload: true });
             }
 
+            vm.changeRoleId = function () {
+                $stateParams.roleGroupId = vm.chosenRoleGroupId;
+                $state.go('users', { page: vm.pageNo, roleGroupId: vm.chosenRoleGroupId }, { reload: true });
+            }
+
+            vm.parseResponse = function(response) {
+                vm.users = response.list;
+                vm.pageNo = response.pageNo;
+                vm.totalItems = response.totalItems;
+                vm.itemPerPage = response.itemPerPage;
+            }
             
         }
     ]);

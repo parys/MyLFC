@@ -20,8 +20,8 @@ angular.module('users.config',
                     }
                 })
                 .state('users', {
-                    url: '/users?page',
-                    templateUrl: function(params) { return '/app/users/views/list?page=' + params.page },
+                    url: '/users?page&roleGroupId',
+                    templateUrl: function (params) { return '/app/users/views/list?page=' + params.page + '&roleGroupId=' + params.roleGroupId },
                     controller: 'UsersController',
                     controllerAs: 'vm',
                     resolve: {

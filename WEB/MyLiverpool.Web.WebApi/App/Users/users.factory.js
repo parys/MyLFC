@@ -1,15 +1,15 @@
 ﻿'use strict';
 angular.module('users.factory', [])
     .factory('UsersFactory', [
-        '$q', '$http', 'SessionService', function($q, $http, SessionService) {
-
+        '$q', '$http', 'SessionService',
+        function ($q, $http, SessionService) {
             return {
-                getUsers: function(page) {
+                getUsers: function (page, roleGroupId) {
                     var result = $q.defer();
 
                     $http({
                             method: 'GET',
-                            url: SessionService.apiUrl + '/api/User/list?page=' + page,
+                            url: SessionService.apiUrl + '/api/User/list?page=' + page + '&roleGroupId=' + roleGroupId,
                             headers: { 'Content-Type': 'application/json' }
                         })
                         .success(function(response) {

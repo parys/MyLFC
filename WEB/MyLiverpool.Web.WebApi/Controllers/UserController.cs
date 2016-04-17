@@ -40,9 +40,9 @@ namespace MyLiverpool.Web.WebApi.Controllers
         [Route("List")]
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IHttpActionResult> List(int page = 1)
+        public async Task<IHttpActionResult> List(int page = 1, int? roleGroupId = null)
         {
-            var model = await _userService.GetUsersDtoAsync(page);
+            var model = await _userService.GetUsersDtoAsync(page, roleGroupId);
             return Ok(model);
         }
 

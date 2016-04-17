@@ -33,16 +33,15 @@
     <div>
         <form class="form-inline">
             <div class="form-group">
-                <label> Роль</label>
-                <select placeholder="Роль" class="form-control" name="roleGroupId"
+                <label>Группа</label>
+                <select class="form-control" name="roleGroupId"
                         ng-model="vm.chosenRoleGroupId"
-                        ng-options="roleGroup.id as roleGroup.name for roleGroup in vm.roleGroups" ng-change=""></select>
+                        ng-options="roleGroup.id as roleGroup.name for roleGroup in vm.roleGroups track by roleGroup.id" ng-change="vm.changeRoleId()"></select>
             </div>
-            <div class="form-group">
+            <!--div class="form-group">
                 <label for="">Email</label>
                 <input type="email" class="form-control" id="" placeholder="jane.doe@example.com">
-            </div>
-            <button type="submit" class="btn btn-default">Send invitation</button>
+            </div>-->
         </form>
     </div>
 </div>

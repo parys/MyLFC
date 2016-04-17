@@ -636,7 +636,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 }
 
             };
-            var forumThemes2 = new ForumTheme()
+           var forumThemes2 = new ForumTheme()
             {
                 Name = "theme 2",
                 Description = "theme description 2",

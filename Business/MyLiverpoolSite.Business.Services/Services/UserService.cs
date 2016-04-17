@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -160,11 +161,16 @@ namespace MyLiverpoolSite.Business.Services.Services
             return dto;
         }
 
-        public async Task<PageableData<UserMiniDto>> GetUsersDtoAsync(int page)
+        public async Task<PageableData<UserMiniDto>> GetUsersDtoAsync(int page, int? roleGroupId)
         {
-            var users = await _unitOfWork.UserRepository.GetAsync(page);
+            Expression<Func<User, bool>> filter = null;
+            if (roleGroupId.HasValue)
+            {
+                filter = x => x.RoleGroupId == roleGroupId.Value;
+            }
+            var users = await _unitOfWork.UserRepository.GetAsync(page, filter: filter);
             var usersDto = _mapper.Map<IEnumerable<UserMiniDto>>(users);
-            var allUsersCount = await _unitOfWork.UserRepository.GetCountAsync();
+            var allUsersCount = await _unitOfWork.UserRepository.GetCountAsync(filter);
             var result = new PageableData<UserMiniDto>(usersDto, page, allUsersCount);
             return result;
         }
