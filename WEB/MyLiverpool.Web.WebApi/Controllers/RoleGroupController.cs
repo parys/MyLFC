@@ -15,9 +15,9 @@ namespace MyLiverpool.Web.WebApi.Controllers
             _roleService = roleService;
         }
 
-        [Route("")]
+        [Route]
         [HttpGet]
-        [Authorize(Roles = "AdminStart")]
+        [AllowAnonymous]
         public async Task<IHttpActionResult> GetAll()
         {
             var result = await _roleService.GetRoleGroupsDtoAsync();

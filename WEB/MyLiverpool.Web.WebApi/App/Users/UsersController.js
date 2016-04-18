@@ -24,7 +24,9 @@ angular.module('users.ctrl')
                     .then(function (response) {
                         vm.roleGroups = response;
                         vm.roleGroups.push({ name: 'Все группы', id: undefined });
-                        vm.chosenRoleGroupId = Number($stateParams.roleGroupId);
+                            if ($stateParams.roleGroupId) {
+                                vm.chosenRoleGroupId = Number($stateParams.roleGroupId);
+                            }
                         },
                         function (response) {
                         });
