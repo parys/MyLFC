@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('users.ctrl')
     .controller('UsersController', [
-        '$stateParams', '$state', 'UsersFactory', 'RoleGroupsFactory', '$filter',
-        function ($stateParams, $state, UsersFactory, RoleGroupsFactory, $filter) {
+        '$stateParams', '$state', 'UsersFactory', 'RoleGroupsFactory',
+        function ($stateParams, $state, UsersFactory, RoleGroupsFactory) {
             var vm = this;
             vm.users = [];
             vm.pageNo = undefined;
@@ -22,15 +22,12 @@ angular.module('users.ctrl')
                         });
                 RoleGroupsFactory.get()
                     .then(function (response) {
-                        vm.chosenRoleGroupId = $stateParams.roleGroupId;
                         vm.roleGroups = response;
                         vm.roleGroups.push({ name: 'Все группы', id: undefined });
-                        
+                        vm.chosenRoleGroupId = Number($stateParams.roleGroupId);
                         },
                         function (response) {
                         });
-                
-                
                 vm.pageNo = $stateParams.page;
             };
 

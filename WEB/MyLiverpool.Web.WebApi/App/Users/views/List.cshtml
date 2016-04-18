@@ -34,9 +34,9 @@
         <form class="form-inline">
             <div class="form-group">
                 <label>Группа</label>
-                <select class="form-control" name="roleGroupId"
+                <select class="form-control"
                         ng-model="vm.chosenRoleGroupId"
-                        ng-options="roleGroup.id as roleGroup.name for roleGroup in vm.roleGroups track by roleGroup.id" ng-change="vm.changeRoleId()"></select>
+                        ng-options="roleGroup.id as roleGroup.name for roleGroup in vm.roleGroups" ng-change="vm.changeRoleId()"></select>
             </div>
             <!--div class="form-group">
                 <label for="">Email</label>
