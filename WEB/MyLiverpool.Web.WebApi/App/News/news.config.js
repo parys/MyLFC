@@ -14,7 +14,7 @@ angular.module('news.config',
                         $title: function () { return 'Новости'; }
                     },
                     ncyBreadcrumb: {
-                        label: 'Новости',
+                        label: 'Новости {{vm.categoryId ? vm.newsItems[0].newsCategoryName : ""}}',
                         parent: 'home'
                     }
                 })

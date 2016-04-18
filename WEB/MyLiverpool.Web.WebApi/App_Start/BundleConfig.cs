@@ -51,7 +51,8 @@ namespace MyLiverpool.Web.WebApi
 
                 );
 
-            BundleTable.EnableOptimizations = false;
+            BundleTable.EnableOptimizations = true;
+            
         }
     }
 }

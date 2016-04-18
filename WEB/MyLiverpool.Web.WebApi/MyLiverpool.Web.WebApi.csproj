@@ -461,6 +461,7 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="App\Users\users.config.js" />
+    <None Include="Properties\PublishProfiles\package.pubxml" />
     <None Include="Properties\PublishProfiles\someeFreeQA.pubxml" />
     <Content Include="Scripts\angular\23angular-translate-loader-static-files.js" />
     <Content Include="Scripts\angular\angular-cookies.js" />

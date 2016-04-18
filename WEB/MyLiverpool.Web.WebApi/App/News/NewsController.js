@@ -8,12 +8,13 @@ angular.module('news.ctrl')
             vm.pageNo = undefined;
             vm.totalItems = undefined;
             vm.itemPerPage = undefined;
+            vm.categoryId = undefined;
 
             vm.init = function () {
-                
                     vm.pageNo = $stateParams.page;
+                vm.categoryId = $stateParams.categoryId;
                 
-                NewsFactory.getList(vm.pageNo, $stateParams.categoryId)
+                NewsFactory.getList(vm.pageNo, vm.categoryId)
                     .then(function(response) {
                         vm.newsItems = response.list;
                         vm.pageNo = response.pageNo;
