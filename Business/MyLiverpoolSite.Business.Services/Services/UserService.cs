@@ -161,17 +161,31 @@ namespace MyLiverpoolSite.Business.Services.Services
             return dto;
         }
 
-        public async Task<PageableData<UserMiniDto>> GetUsersDtoAsync(int page, int? roleGroupId)
+        public async Task<PageableData<UserMiniDto>> GetUsersDtoAsync(UserFiltersDto dto)
         {
-            Expression<Func<User, bool>> filter = null;
-            if (roleGroupId.HasValue)
+            Expression<Func<User, bool>> filter = x => true;
+            if (dto.RoleGroupId.HasValue)
             {
-                filter = x => x.RoleGroupId == roleGroupId.Value;
+                Expression<Func<User, bool>> roleFilter = x => x.RoleGroupId == dto.RoleGroupId.Value;
+                filter =
+                    Expression.Lambda<Func<User, bool>>(
+                        Expression.AndAlso(
+                            new SwapVisitor(filter.Parameters[0], roleFilter.Parameters[0]).Visit(filter.Body),
+                            roleFilter.Body), roleFilter.Parameters);
             }
-            var users = await _unitOfWork.UserRepository.GetAsync(page, filter: filter);
+            if (!string.IsNullOrWhiteSpace(dto.UserName))
+            {
+                Expression<Func<User, bool>> userNameFilter = x => x.RoleGroupId == dto.RoleGroupId.Value;
+                filter = Expression.Lambda<Func<User, bool>>(
+                        Expression.AndAlso(
+                            new SwapVisitor(filter.Parameters[0], userNameFilter.Parameters[0]).Visit(filter.Body),
+                            userNameFilter.Body), userNameFilter.Parameters);
+            }
+
+            var users = await _unitOfWork.UserRepository.GetAsync(dto.Page, filter: filter);
             var usersDto = _mapper.Map<IEnumerable<UserMiniDto>>(users);
             var allUsersCount = await _unitOfWork.UserRepository.GetCountAsync(filter);
-            var result = new PageableData<UserMiniDto>(usersDto, page, allUsersCount);
+            var result = new PageableData<UserMiniDto>(usersDto, dto.Page, allUsersCount);
             return result;
         }
 
@@ -180,7 +194,7 @@ namespace MyLiverpoolSite.Business.Services.Services
             var message = await _unitOfWork.PrivateMessageRepository.GetByIdAsync(messageId);
             if (message.ReceiverId != userId && message.SenderId != userId)
             {
-                throw new AccessViolationException(); //todo think about it
+                throw new AccessViolationException();
             }
             if (!message.IsRead && message.ReceiverId == userId)
             {

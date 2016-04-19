@@ -107,6 +107,7 @@
     <Compile Include="ResetPasswordDto.cs" />
     <Compile Include="RoleGroupDto.cs" />
     <Compile Include="UserDto.cs" />
+    <Compile Include="UserFiltersDto.cs" />
     <Compile Include="UserMiniDto.cs" />
   </ItemGroup>
   <ItemGroup>

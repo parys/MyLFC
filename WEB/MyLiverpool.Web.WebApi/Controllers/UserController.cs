@@ -1,12 +1,9 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
-using System.Web.Http.Description;
 using Microsoft.AspNet.Identity;
 using MyLiverpool.Business.DTO;
 using MyLiverpoolSite.Business.Contracts;
-using MyLiverpoolSite.Data.Entities;
 
 namespace MyLiverpool.Web.WebApi.Controllers
 {
@@ -37,12 +34,16 @@ namespace MyLiverpool.Web.WebApi.Controllers
             return Ok(model);
         }
 
-        [Route("List")]
+        [Route]
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IHttpActionResult> List(int page = 1, int? roleGroupId = null)
+        public async Task<IHttpActionResult> List(UserFiltersDto dto)
         {
-            var model = await _userService.GetUsersDtoAsync(page, roleGroupId);
+            if (dto == null)
+            {
+                return BadRequest();
+            }
+            var model = await _userService.GetUsersDtoAsync(dto);
             return Ok(model);
         }
 

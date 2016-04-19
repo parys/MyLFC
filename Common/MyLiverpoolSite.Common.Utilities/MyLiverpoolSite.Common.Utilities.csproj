@@ -67,6 +67,7 @@
     <Compile Include="MachineKeyDataProtector.cs" />
     <Compile Include="MachineKeyProtectionProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SwapVisitor.cs" />
     <Compile Include="UrlEncoding.cs" />
   </ItemGroup>
   <ItemGroup>

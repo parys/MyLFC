@@ -4,12 +4,13 @@ angular.module('users.factory', [])
         '$q', '$http', 'SessionService',
         function ($q, $http, SessionService) {
             return {
-                getUsers: function (page, roleGroupId) {
+                getUsers: function (dto) {
                     var result = $q.defer();
-
+                    console.log(dto);
                     $http({
                             method: 'GET',
-                            url: SessionService.apiUrl + '/api/User/list?page=' + page + '&roleGroupId=' + roleGroupId,
+                            url: SessionService.apiUrl + '/api/User',
+                            params: { dto: dto },
                             headers: { 'Content-Type': 'application/json' }
                         })
                         .success(function(response) {

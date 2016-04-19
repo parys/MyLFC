@@ -5,33 +5,36 @@ angular.module('users.ctrl')
         function ($stateParams, $state, UsersFactory, RoleGroupsFactory) {
             var vm = this;
             vm.users = [];
-            vm.pageNo = undefined;
+            vm.pageNo = $stateParams.page;
             vm.totalItems = undefined;
             vm.itemPerPage = undefined;
             vm.userRole = undefined;
             vm.roleGroups = undefined;
 
-            vm.chosenRoleGroupId = undefined;
+            vm.chosenRoleGroupId = Number($stateParams.roleGroupId);
+            vm.filterUserName = undefined;
 
             vm.init = function () {
-                UsersFactory.getUsers($stateParams.page, $stateParams.roleGroupId)
-                    .then(function(response) {
-                            vm.parseResponse(response);
-                        },
-                        function(response) {
-                        });
+                vm.updateUsers();
                 RoleGroupsFactory.get()
                     .then(function (response) {
                         vm.roleGroups = response;
                         vm.roleGroups.push({ name: 'Все группы', id: undefined });
-                            if ($stateParams.roleGroupId) {
-                                vm.chosenRoleGroupId = Number($stateParams.roleGroupId);
-                            }
+                            //if ($stateParams.roleGroupId) {
+                            //    vm.chosenRoleGroupId = ;
+                            //}
                         },
                         function (response) {
                         });
-                vm.pageNo = $stateParams.page;
             };
+
+            vm.getDto = function(){
+                return {
+                    page: vm.pageNo,
+                    roleGroupId: vm.chosenRoleGroupId,
+                    userName: vm.filterUserName
+                }
+            }
 
             vm.isNotSelf = function(userId, userId2) {
                 return userId != userId2;
@@ -51,6 +54,20 @@ angular.module('users.ctrl')
                 vm.pageNo = response.pageNo;
                 vm.totalItems = response.totalItems;
                 vm.itemPerPage = response.itemPerPage;
+            }
+
+            vm.filterByUserName = function () {
+                if (!vm.filterUserName) return;
+                vm.updateUsers();
+            }
+
+            vm.updateUsers = function() {
+                UsersFactory.getUsers(vm.getDto())
+                    .then(function (response) {
+                        vm.parseResponse(response);
+                    },
+                        function (response) {
+                        });
             }
             
         }
