@@ -3,11 +3,21 @@
         <div class="panel-heading" ng-bind="vm.name"> <span ng-bind="vm.description"></span></div>
         @*   <div class="panel-body"></div>*@
         <ul class="list-group" ng-repeat="theme in vm.themes">
-                <li class="list-group-item list">
-                    <span><a ui-sref="theme({id : theme.id })" ng-bind="theme.name"></a></span>
-                    <span ng-bind="theme.description"></span>
-                </li>
+            <li class="list-group-item list">
+                <span><a ui-sref="theme({id : theme.id })" ng-bind="theme.name"></a></span>
+                <span ng-bind="theme.description"></span>
+                <span class="pull-right">
+                    <a ui-sref="themeEdit({id: theme.id})"><span class="glyphicon glyphicon-pencil"></span></a>
+                    @*<a class="pull-right" ng-show="section.subsections.length == 0" ng-click="vm.removeSection($index)">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </a>*@
+                </span>
+            </li>
         </ul>
+
     </div>
-    <div class="pagination"> @*@Html.PageLinks(Model.Themes.PageNo, Model.Themes.TotalItems, x => Url.Action("IndexSubsection", new { id = Model.Id, page = x }))*@ </div>
+    <div>Всего тем:<span ng-bind="vm.totalItems"></span></div>
+    <div class="pagination">
+        <uib-pagination ng-show="vm.totalItems > vm.itemPerPage" total-items="vm.totalItems" ng-model="vm.pageNo" ng-change="vm.goToPage()"></uib-pagination>
+    </div>
 </div>

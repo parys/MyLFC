@@ -55,8 +55,8 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
             var mainModeratorRole = context.Roles.First(x => x.Name == RolesEnum.UsersFull.ToString());
             var authorRole = context.Roles.First(x => x.Name == RolesEnum.BlogsStart.ToString());//5
             var internRole = context.Roles.First(x => x.Name == RolesEnum.Intern.ToString());
-           // var mainEditorRole = context.Roles.First(x => x.Name == RolesEnum..ToString());//7
-          //  var editorRole = context.Roles.First(x => x.Name == RolesEnum..ToString());
+            // var mainEditorRole = context.Roles.First(x => x.Name == RolesEnum..ToString());//7
+            //  var editorRole = context.Roles.First(x => x.Name == RolesEnum..ToString());
             var mainNewsmakeRole = context.Roles.First(x => x.Name == RolesEnum.NewsFull.ToString());//9
             var newsmakerRole = context.Roles.First(x => x.Name == RolesEnum.NewsStart.ToString());
 
@@ -106,7 +106,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
 
                     }
                 },
-                
+
                 new RoleGroup()
                 {
                     Name = RoleGroupsEnum.MainNewsmaker.ToString(),
@@ -258,7 +258,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
             //  roles.ForEach(x => context.Roles.Add(x));
             roles.ForEach(x => roleManager.Create(x));
             //roleManager.Create(new Role { Name = RolesEnum.User.ToString() });
-               context.SaveChanges();
+            context.SaveChanges();
         }
         #endregion
 
@@ -524,231 +524,34 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
 
         private void InitializeForumThemes(LiverpoolContext context)
         {
-            var forumThemes1 = new ForumTheme()
+            var themes = new List<ForumTheme>();
+            for (int i = 0; i < 16; i++)
             {
-                Name = "theme 1",
-                Description = "theme description 1",
-                SubsectionId = 1,
-                LastMessageAdditionTime = DateTime.Today,
-                Messages = new List<ForumMessage>()
+                var messages = new List<ForumMessage>();
+                for (int j = 0; j < 23; j++)
                 {
-                    new ForumMessage()
+                    var message = new ForumMessage()
                     {
-                        Message = "message 1",
-                        AdditionTime = DateTime.Now.AddHours(-5),
-                        AuthorId = 1,
-                        LastModifiedTime = DateTime.Now,
+                        Message = "message" + i,
+                        AdditionTime = DateTime.Now.AddHours(-20 + i),
+                        AuthorId = new Random().Next(1, CountUsers),
+                        LastModifiedTime = DateTime.Now.AddHours(-20 + i),
                         ThemeId = 1,
-                    },
-                    new ForumMessage()
-                    {
-                        Message = "message 2",
-                        AdditionTime = DateTime.Now.AddHours(-2),
-                        AuthorId = 2,
-                        LastModifiedTime = DateTime.Now,
-                        ThemeId = 1,
-                    },
-                    new ForumMessage()
-                    {
-                        Message = "message 3",
-                        AdditionTime = DateTime.Now.AddHours(-5),
-                        AuthorId = 2,
-                        LastModifiedTime = DateTime.Now,
-                        ThemeId = 1,
-
-                    },
-                    new ForumMessage()
-                    {
-                        Message = "message 4",
-                        AdditionTime = DateTime.Now.AddHours(-2),
-                        AuthorId = 1,
-                        LastModifiedTime = DateTime.Now,
-                        ThemeId = 1,
-                    },
-                    new ForumMessage()
-                    {
-                        Message = "message 5",
-                        AdditionTime = DateTime.Now.AddHours(-5),
-                        AuthorId = 2,
-                        LastModifiedTime = DateTime.Now,
-                        ThemeId = 1,
-
-                    },
-                    new ForumMessage()
-                    {
-                        Message = "message 6",
-                        AdditionTime = DateTime.Now.AddHours(-2),
-                        AuthorId = 1,
-                        LastModifiedTime = DateTime.Now,
-                        ThemeId = 1,
-                    },
-                    new ForumMessage()
-                    {
-                        Message = "message 7",
-                        AdditionTime = DateTime.Now.AddHours(-5),
-                        AuthorId = 2,
-                        LastModifiedTime = DateTime.Now,
-                        ThemeId = 1,
-
-                    },
-                    new ForumMessage()
-                    {
-                        Message = "message 8",
-                        AdditionTime = DateTime.Now.AddHours(-2),
-                        AuthorId = 1,
-                        LastModifiedTime = DateTime.Now,
-                        ThemeId = 1,
-                    },
-                    new ForumMessage()
-                    {
-                        Message = "message 9",
-                        AdditionTime = DateTime.Now.AddHours(-5),
-                        AuthorId = 2,
-                        LastModifiedTime = DateTime.Now,
-                        ThemeId = 1,
-
-                    },
-                    new ForumMessage()
-                    {
-                        Message = "message 10",
-                        AdditionTime = DateTime.Now.AddHours(-2),
-                        AuthorId = 1,
-                        LastModifiedTime = DateTime.Now,
-                        ThemeId = 1,
-                    },
-                    new ForumMessage()
-                    {
-                        Message = "message 11",
-                        AdditionTime = DateTime.Now.AddHours(-5),
-                        AuthorId = 2,
-                        LastModifiedTime = DateTime.Now,
-                        ThemeId = 1,
-
-                    },
-                    new ForumMessage()
-                    {
-                        Message = "message 12",
-                        AdditionTime = DateTime.Now.AddHours(-2),
-                        AuthorId = 1,
-                        LastModifiedTime = DateTime.Now,
-                        ThemeId = 1,
-                    }
+                    };
+                    messages.Add(message);
                 }
-
-            };
-           var forumThemes2 = new ForumTheme()
-            {
-                Name = "theme 2",
-                Description = "theme description 2",
-                SubsectionId = 1,
-                LastMessageAdditionTime = DateTime.Today,
-                Messages = new List<ForumMessage>()
+                var forumTheme = new ForumTheme()
                 {
-                    new ForumMessage()
-                    {
-                        Message = "message 1",
-                        AdditionTime = DateTime.Now.AddHours(-5),
-                        AuthorId = 1,
-                        LastModifiedTime = DateTime.Now,
-                        ThemeId = 2,
-                    },
-                    new ForumMessage()
-                    {
-                        Message = "message 2",
-                        AdditionTime = DateTime.Now.AddHours(-2),
-                        AuthorId = 2,
-                        LastModifiedTime = DateTime.Now,
-                        ThemeId = 2,
-                    },
-                    new ForumMessage()
-                    {
-                        Message = "message 3",
-                        AdditionTime = DateTime.Now.AddHours(-5),
-                        AuthorId = 2,
-                        LastModifiedTime = DateTime.Now,
-                        ThemeId = 2,
-
-                    },
-                    new ForumMessage()
-                    {
-                        Message = "message 4",
-                        AdditionTime = DateTime.Now.AddHours(-2),
-                        AuthorId = 1,
-                        LastModifiedTime = DateTime.Now,
-                        ThemeId = 2,
-                    },
-                    new ForumMessage()
-                    {
-                        Message = "message 5",
-                        AdditionTime = DateTime.Now.AddHours(-5),
-                        AuthorId = 2,
-                        LastModifiedTime = DateTime.Now,
-                        ThemeId = 2,
-
-                    },
-                    new ForumMessage()
-                    {
-                        Message = "message 6",
-                        AdditionTime = DateTime.Now.AddHours(-2),
-                        AuthorId = 1,
-                        LastModifiedTime = DateTime.Now,
-                        ThemeId = 2,
-                    },
-                    new ForumMessage()
-                    {
-                        Message = "message 7",
-                        AdditionTime = DateTime.Now.AddHours(-5),
-                        AuthorId = 2,
-                        LastModifiedTime = DateTime.Now,
-                        ThemeId = 2,
-
-                    },
-                    new ForumMessage()
-                    {
-                        Message = "message 8",
-                        AdditionTime = DateTime.Now.AddHours(-2),
-                        AuthorId = 1,
-                        LastModifiedTime = DateTime.Now,
-                        ThemeId = 2,
-                    },
-                    new ForumMessage()
-                    {
-                        Message = "message 9",
-                        AdditionTime = DateTime.Now.AddHours(-5),
-                        AuthorId = 2,
-                        LastModifiedTime = DateTime.Now,
-                        ThemeId = 2,
-
-                    },
-                    new ForumMessage()
-                    {
-                        Message = "message 10",
-                        AdditionTime = DateTime.Now.AddHours(-2),
-                        AuthorId = 1,
-                        LastModifiedTime = DateTime.Now,
-                        ThemeId = 2,
-                    },
-                    new ForumMessage()
-                    {
-                        Message = "message 11",
-                        AdditionTime = DateTime.Now.AddHours(-5),
-                        AuthorId = 2,
-                        LastModifiedTime = DateTime.Now,
-                        ThemeId = 2,
-
-                    },
-                    new ForumMessage()
-                    {
-                        Message = "message 12",
-                        AdditionTime = DateTime.Now.AddHours(-2),
-                        AuthorId = 1,
-                        LastModifiedTime = DateTime.Now,
-                        ThemeId = 2,
-                    }
-                }
-            };
-            context.ForumThemes.Add(forumThemes1);
-            context.ForumThemes.Add(forumThemes2);
+                    Name = "theme " + i,
+                    Description = "theme description " + i,
+                    SubsectionId = 1,
+                    LastMessageAdditionTime = DateTime.Today,
+                    Messages = messages,
+                };
+                themes.Add(forumTheme);
+            }
+        
+            themes.ForEach(x => context.ForumThemes.Add(x));
             context.SaveChanges();
         }
         #endregion

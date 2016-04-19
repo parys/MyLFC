@@ -72,6 +72,23 @@ angular.module('forum.config',
                         label: '{{vm.name}}',
                         parent: 'forum'
                     }
+                })
+            .state('themeEdit', {
+                url: '/themeEdit?id',
+                views: {
+                    "@": {
+                        templateUrl: function (params) { return '/app/forum/views/themeEdit?id=' + params.id },
+                        controller: 'ForumThemeController',
+                        controllerAs: 'vm'
+                    }
+                },
+                resolve: {
+                    $title: function () { return 'Редактирование темы'; }
+                },
+                ncyBreadcrumb: {
+                    label: '{{vm.name}}',
+                    parent: 'forum'
+                }
                 });
         }
     ]);
