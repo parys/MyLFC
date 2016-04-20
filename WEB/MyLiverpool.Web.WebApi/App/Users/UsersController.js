@@ -12,7 +12,7 @@ angular.module('users.ctrl')
             vm.roleGroups = undefined;
 
             vm.chosenRoleGroupId = Number($stateParams.roleGroupId);
-            vm.filterUserName = undefined;
+            vm.filterUserName = $stateParams.userName;
 
             vm.init = function () {
                 vm.updateUsers();
@@ -29,11 +29,12 @@ angular.module('users.ctrl')
             };
 
             vm.getDto = function(){
-                return {
+                var dto = {
                     page: vm.pageNo,
                     roleGroupId: vm.chosenRoleGroupId,
                     userName: vm.filterUserName
                 }
+                return dto;
             }
 
             vm.isNotSelf = function(userId, userId2) {
@@ -46,7 +47,7 @@ angular.module('users.ctrl')
 
             vm.changeRoleId = function () {
                 $stateParams.roleGroupId = vm.chosenRoleGroupId;
-                $state.go('users', { page: vm.pageNo, roleGroupId: vm.chosenRoleGroupId }, { reload: true });
+                vm.filter();
             }
 
             vm.parseResponse = function(response) {
@@ -57,8 +58,8 @@ angular.module('users.ctrl')
             }
 
             vm.filterByUserName = function () {
-                if (!vm.filterUserName) return;
-                vm.updateUsers();
+                $stateParams.userName = vm.filterUserName;
+                vm.filter();
             }
 
             vm.updateUsers = function() {
@@ -68,6 +69,10 @@ angular.module('users.ctrl')
                     },
                         function (response) {
                         });
+            }
+
+            vm.filter = function() {
+                $state.go('users', { page: vm.pageNo, roleGroupId: vm.chosenRoleGroupId, userName: vm.filterUserName }, { reload: true });
             }
             
         }

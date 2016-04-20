@@ -175,7 +175,7 @@ namespace MyLiverpoolSite.Business.Services.Services
             }
             if (!string.IsNullOrWhiteSpace(dto.UserName))
             {
-                Expression<Func<User, bool>> userNameFilter = x => x.RoleGroupId == dto.RoleGroupId.Value;
+                Expression<Func<User, bool>> userNameFilter = x => x.UserName.Contains(dto.UserName);
                 filter = Expression.Lambda<Func<User, bool>>(
                         Expression.AndAlso(
                             new SwapVisitor(filter.Parameters[0], userNameFilter.Parameters[0]).Visit(filter.Body),

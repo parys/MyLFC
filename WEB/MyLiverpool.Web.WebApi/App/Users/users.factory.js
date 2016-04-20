@@ -6,11 +6,11 @@ angular.module('users.factory', [])
             return {
                 getUsers: function (dto) {
                     var result = $q.defer();
-                    console.log(dto);
+
                     $http({
                             method: 'GET',
                             url: SessionService.apiUrl + '/api/User',
-                            params: { dto: dto },
+                            params: { dto },
                             headers: { 'Content-Type': 'application/json' }
                         })
                         .success(function(response) {

@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Script.Serialization;
 using Microsoft.AspNet.Identity;
 using MyLiverpool.Business.DTO;
 using MyLiverpoolSite.Business.Contracts;
@@ -37,13 +38,14 @@ namespace MyLiverpool.Web.WebApi.Controllers
         [Route]
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IHttpActionResult> List(UserFiltersDto dto)
+        public async Task<IHttpActionResult> List(string dto)
         {
             if (dto == null)
             {
                 return BadRequest();
             }
-            var model = await _userService.GetUsersDtoAsync(dto);
+            UserFiltersDto obj = new JavaScriptSerializer().Deserialize<UserFiltersDto>(dto);
+            var model = await _userService.GetUsersDtoAsync(obj);
             return Ok(model);
         }
 
