@@ -255,6 +255,7 @@
     <Compile Include="Controllers\ForumThemeController.cs" />
     <Compile Include="Controllers\ForumSectionController.cs" />
     <Compile Include="Controllers\ImageController.cs" />
+    <Compile Include="Controllers\NewsCategoryController.cs" />
     <Compile Include="Controllers\NewsCommentController.cs" />
     <Compile Include="Controllers\RoleGroupController.cs" />
     <Compile Include="Controllers\SubsectionController.cs" />

@@ -15,7 +15,7 @@ namespace MyLiverpoolSite.Data.Entities
 
    //     public int Position { get; set; }
 
-        public int ItemsCount { get; set; }
+        public int ItemsCount { get; set; } //todo think not need? materials.Count
 
         public string Name { get; set; }
 

@@ -76,7 +76,7 @@ angular.module('news.factory', [])
 
                     $http({
                             method: 'GET',
-                            url: SessionService.apiUrl + '/api/News/categories',
+                            url: SessionService.apiUrl + '/api/NewsCategory',
                             headers: { 'Content-Type': 'application/json' }
                         })
                         .success(function(response) {

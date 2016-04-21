@@ -65,15 +65,6 @@ namespace MyLiverpool.Web.WebApi.Controllers
             return Json(result);
         }
 
-        [Route("Categories")]
-        [HttpGet]
-        [AllowAnonymous]
-        public async Task<IHttpActionResult> Categories()
-        {
-            var result = await _materialCategoryService.GetCategoriesDtoAsync(Type);
-            return Ok(result);
-        }
-
         [Route]
         [HttpPost]
         [Authorize(Roles = "NewsStart")]

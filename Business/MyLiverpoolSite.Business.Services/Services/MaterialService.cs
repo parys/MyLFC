@@ -45,23 +45,6 @@ namespace MyLiverpoolSite.Business.Services.Services
             return result;
         }
 
-        public async Task<CreateEditNewsViewModel> GetCreateEditViewModelAsync(int? id, MaterialType materialType)
-        {
-            CreateEditNewsViewModel viewModel;
-            if (id.HasValue && id != 0)
-            {
-                var newsItem = await _unitOfWork.MaterialRepository.GetByIdAsync(id.Value);
-                viewModel = _mapper.Map<CreateEditNewsViewModel>(newsItem);
-            }
-            else
-            {
-                viewModel = _mapper.Map<CreateEditNewsViewModel>(new Material());
-            }
-            viewModel.NewsCategories = await _materialCategoryService.GetCategoriesAsync(materialType);
-
-            return viewModel;
-        }
-
         public void Delete(Material newsItem, MaterialType materialType)
         {
             throw new System.NotImplementedException();

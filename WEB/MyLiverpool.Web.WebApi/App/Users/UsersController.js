@@ -19,12 +19,10 @@ angular.module('users.ctrl')
                 RoleGroupsFactory.get()
                     .then(function (response) {
                         vm.roleGroups = response;
-                        vm.roleGroups.push({ name: 'Все группы', id: undefined });
-                            //if ($stateParams.roleGroupId) {
-                            //    vm.chosenRoleGroupId = ;
-                            //}
+                        vm.roleGroups.push({ name: 'Все группы', id: NaN });
                         },
                         function (response) {
+                            console.log(response);
                         });
             };
 
@@ -38,7 +36,7 @@ angular.module('users.ctrl')
             }
 
             vm.isNotSelf = function(userId, userId2) {
-                return userId != userId2;
+                return Number(userId) !== Number(userId2);
             }
 
             vm.goToPage = function() {
@@ -68,12 +66,12 @@ angular.module('users.ctrl')
                         vm.parseResponse(response);
                     },
                         function (response) {
+                            console.log(response);
                         });
             }
 
             vm.filter = function() {
                 $state.go('users', { page: vm.pageNo, roleGroupId: vm.chosenRoleGroupId, userName: vm.filterUserName }, { reload: true });
             }
-            
         }
     ]);

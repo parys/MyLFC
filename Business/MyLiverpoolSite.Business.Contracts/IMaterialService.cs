@@ -18,13 +18,10 @@ namespace MyLiverpoolSite.Business.Contracts
 
         Task<bool> DeleteAsync(int id, int userId, MaterialType materialType);
 
-        Task<CreateEditNewsViewModel> GetCreateEditViewModelAsync(int? id, MaterialType materialType);
 
         Task<PageableData<IndexMiniNewsVM>> GetAllAsync(int page, int? categoryId, MaterialType materialType);
 
         Task<bool> ActivateAsync(int id, MaterialType materialType);
-
-       // Task<IEnumerable<IndexNewsCategoryVM>> GetCategoriesAsync();
 
         Task<PageableData<MaterialMiniDto>> GetDtoAllAsync(int page, int? categoryId, MaterialType materialType);
 

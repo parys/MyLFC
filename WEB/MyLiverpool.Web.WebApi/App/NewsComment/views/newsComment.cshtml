@@ -25,7 +25,7 @@
             <i ng-bind="comment.answer"></i>
         </div>
     </div>
-    <div class="col-xs-12 col-sm-12" ng-show="vm.canAddReply() && !$root.isUserAuthor(getUserId(), comment.authorId)">
+    <div class="col-xs-12 col-sm-12" ng-show="vm.canAddReply() && !$root.isUserAuthor(vm.getUserId(), comment.authorId)">
         <a href="" ng-click="vm.addReplyComment(comment)">Ответить</a>
     </div>
 </div>
