@@ -119,6 +119,10 @@
       <Project>{ac10a860-1c0e-4910-9e05-428d09f70981}</Project>
       <Name>MyLiverpoolSite.Data.DataAccessLayer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Data\MyLiverpoolSite.Data.Entities\MyLiverpoolSite.Data.Entities.csproj">
+      <Project>{996C9442-54C1-4F0A-BC05-AD1C0E09E20B}</Project>
+      <Name>MyLiverpoolSite.Data.Entities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MyLiverpool.Business.Resources\MyLiverpool.Business.Resources.csproj">
       <Project>{731b35bc-64f3-4766-84da-3597eae72191}</Project>
       <Name>MyLiverpool.Business.Resources</Name>

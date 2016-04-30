@@ -1,4 +1,6 @@
-﻿namespace MyLiverpool.Business.DTO
+﻿using MyLiverpoolSite.Data.Entities;
+
+namespace MyLiverpool.Business.DTO
 {
     public class MaterialCategoryDto : IDto
     {
@@ -9,5 +11,7 @@
         public string Name { get; set; }
 
         public string Description { get; set; }
+
+        public MaterialType MaterialType { get; set; }
     }
 }

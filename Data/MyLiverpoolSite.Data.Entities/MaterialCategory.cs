@@ -21,7 +21,7 @@ namespace MyLiverpoolSite.Data.Entities
 
         public string Description { get; set; }
 
-        public string UrlPath { get; set; }
+        public string UrlPath { get; set; } //todo think about
 
         public virtual ICollection<Material> Materials { get; set; }
 

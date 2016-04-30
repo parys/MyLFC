@@ -1,7 +1,8 @@
 ﻿'use strict';
 angular.module('news.factory', [])
     .factory('NewsFactory', [
-        '$q', '$http', 'SessionService', '$stateParams', function($q, $http, SessionService, $stateParams) {
+        '$q', '$http', 'SessionService', '$stateParams',
+        function($q, $http, SessionService, $stateParams) {
             return {
                 getList: function(page, categoryId) {
                     var result = $q.defer();

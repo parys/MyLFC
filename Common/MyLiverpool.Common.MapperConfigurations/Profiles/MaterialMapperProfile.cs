@@ -147,6 +147,10 @@ namespace MyLiverpool.Common.MapperConfigurations.Profiles
                 .ForMember(dest => dest.Name, src => src.MapFrom(x => x.Name))
                 .ForMember(dest => dest.ItemsCount, src => src.MapFrom(x => x.Materials.Count))
                 .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id));
+
+            _cfg.CreateMap<MaterialCategoryDto, MaterialCategory>()
+                .ForMember(dest => dest.Description, src => src.MapFrom(x => x.Description))
+                .ForMember(dest => dest.Name, src => src.MapFrom(x => x.Name));
         }
     }
 }

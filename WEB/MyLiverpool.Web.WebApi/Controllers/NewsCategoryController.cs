@@ -45,6 +45,7 @@ namespace MyLiverpool.Web.WebApi.Controllers
             {
                 return BadRequest();
             }
+            dto.MaterialType = _materialType;
             var result = await _materialCategoryService.CreateAsync(dto);
             return Ok(result);
         }
@@ -52,13 +53,22 @@ namespace MyLiverpool.Web.WebApi.Controllers
         [Route]
         [HttpPut]
         [Authorize(Roles = "NewsFull")]
-        public async Task<IHttpActionResult> Update(MaterialCategoryDto dto)
+        public async Task<IHttpActionResult> Update(int id, MaterialCategoryDto dto)
         {
-            if (!ModelState.IsValid)
+            if (!ModelState.IsValid || id != dto.Id)
             {
                 return BadRequest();
             }
             var result = await _materialCategoryService.UpdateAsync(dto);
+            return Ok(result);
+        }
+
+        [Route]
+        [HttpDelete]
+        [Authorize(Roles = "NewsFull")]
+        public async Task<IHttpActionResult> Delete(int id)
+        {
+            var result = await _materialCategoryService.DeleteAsync(id);
             return Ok(result);
         }
     }

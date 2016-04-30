@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('news.ctrl')
+angular.module('news.ctrl', [])
     .controller('NewsController', [
         'NewsFactory', '$uibModal', '$rootScope', '$stateParams', '$state',
         function(NewsFactory, $uibModal, $rootScope, $stateParams, $state) {
@@ -42,7 +42,7 @@ angular.module('news.ctrl')
             vm.delete = function (index) {
                 var modalInstance = $uibModal.open({
                     animation: true,
-                    templateUrl: 'app/modal/modalDeleteConfirmation.html',
+                    templateUrl: 'modalDeleteConfirmation.html',
                     controller: 'ModalCtrl',
                     controllerAs: 'vm'
                 //resolve: {

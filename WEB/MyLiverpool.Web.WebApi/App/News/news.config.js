@@ -51,19 +51,6 @@ angular.module('news.config',
                         label: 'Редактирование новости',
                         parent: 'news'
                     }
-                })
-                .state('newsCategories', {
-                    url: '/newsCategories',
-                    templateUrl: '/app/news/views/Categories',
-                    controller: 'NewsCategoriesCtrl',
-                    controllerAs: 'vm',
-                    resolve: {
-                        $title: function () { return 'Категории новостей'; }
-                    },
-                    ncyBreadcrumb: {
-                        label: 'Категории новостей',
-                        parent: 'news'
-                    }
                 });
         }
     ]);

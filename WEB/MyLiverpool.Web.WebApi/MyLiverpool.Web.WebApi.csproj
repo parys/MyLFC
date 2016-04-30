@@ -279,6 +279,9 @@
     <Content Include="App\Modal\alert.html" />
     <Content Include="App\Modal\modalDeleteConfirmation.html" />
     <Content Include="App\Modal\modalEditComment.html" />
+    <Content Include="App\NewsCategory\newsCategory.config.js" />
+    <Content Include="App\NewsCategory\newsCategory.ctrl.js" />
+    <Content Include="App\NewsCategory\newsCategory.factory.js" />
     <Content Include="App\NewsComment\newsComment.config.js" />
     <Content Include="App\News\news.config.js" />
     <Content Include="App\Pms\pms.config.js" />
@@ -463,6 +466,7 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="App\Users\users.config.js" />
+    <Content Include="App\NewsCategory\views\edit.cshtml" />
     <None Include="Properties\PublishProfiles\package.pubxml" />
     <None Include="Properties\PublishProfiles\someeFreeQA.pubxml" />
     <Content Include="Scripts\angular\23angular-translate-loader-static-files.js" />
@@ -501,7 +505,6 @@
     <Content Include="App\Modal\ModalCtrl.js" />
     <Content Include="App\Modal\ModalEditCommentCtrl.js" />
     <Content Include="App\Modal\ModalForumCtrl.js" />
-    <Content Include="App\News\NewsCategoriesCtrl.js" />
     <Content Include="App\NewsComment\NewsCommentCtrl.js" />
     <Content Include="App\News\NewsController.js" />
     <Content Include="App\News\NewsEditCtrl.js" />
@@ -631,7 +634,7 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="App\Account\ChangePassword.cshtml" />
-    <Content Include="App\News\views\Categories.cshtml" />
+    <Content Include="App\NewsCategory\views\list.cshtml" />
     <Content Include="App\News\views\Info.cshtml" />
     <Content Include="App\News\views\Edit.cshtml" />
     <Content Include="App\News\views\List.cshtml" />

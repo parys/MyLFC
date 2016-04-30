@@ -38,12 +38,22 @@ namespace MyLiverpoolSite.Business.Services.Services
 
         public async Task<MaterialCategoryDto> CreateAsync(MaterialCategoryDto dto)
         {
-            throw new System.NotImplementedException();
+            var model = _mapper.Map<MaterialCategory>(dto);
+            _unitOfWork.MaterialCategoryRepository.Add(model);
+            await _unitOfWork.SaveAsync();
+            var result = _mapper.Map<MaterialCategoryDto>(model);
+            return result;
         }
 
         public async Task<MaterialCategoryDto> UpdateAsync(MaterialCategoryDto dto)
         {
-            throw new System.NotImplementedException();
+            var model = await _unitOfWork.MaterialCategoryRepository.GetByIdAsync(dto.Id);
+            model.Name = dto.Name;
+            model.Description = dto.Description;
+            _unitOfWork.MaterialCategoryRepository.Update(model);
+            await _unitOfWork.SaveAsync();
+            var result = _mapper.Map<MaterialCategoryDto>(model);
+            return result;
         }
 
         public async Task<bool> DeleteAsync(int id)
