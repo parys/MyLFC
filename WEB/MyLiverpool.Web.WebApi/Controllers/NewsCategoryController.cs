@@ -29,7 +29,7 @@ namespace MyLiverpool.Web.WebApi.Controllers
 
         [Route]
         [HttpGet]
-        [Authorize]
+        [AllowAnonymous]
         public async Task<IHttpActionResult> Get()
         {
             var result = await _materialCategoryService.GetListAsync(_materialType);
