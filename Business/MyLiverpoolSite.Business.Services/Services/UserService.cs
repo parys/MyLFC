@@ -150,17 +150,6 @@ namespace MyLiverpoolSite.Business.Services.Services
             return dto;
         }
 
-        public async Task<PrivateMessagesDto> GetPrivateMessagesDtoAsync(int id)
-        {
-            var messages = await _unitOfWork.PrivateMessageRepository.GetAsync(x => x.ReceiverId == id || x.SenderId == id);
-            var dto = new PrivateMessagesDto()
-            {
-                Received = _mapper.Map<ICollection<PrivateMessageMiniDto>>(messages.Where(x => x.ReceiverId == id)),
-                Sent = _mapper.Map<ICollection<PrivateMessageMiniDto>>(messages.Where(x => x.SenderId == id))
-            };
-            return dto;
-        }
-
         public async Task<PageableData<UserMiniDto>> GetUsersDtoAsync(UserFiltersDto dto)
         {
             Expression<Func<User, bool>> filter = x => true;
@@ -189,42 +178,7 @@ namespace MyLiverpoolSite.Business.Services.Services
             return result;
         }
 
-        public async Task<PrivateMessageDto> GetPrivateMessageDtoAsync(int messageId, int userId)
-        {
-            var message = await _unitOfWork.PrivateMessageRepository.GetByIdAsync(messageId);
-            if (message.ReceiverId != userId && message.SenderId != userId)
-            {
-                throw new AccessViolationException();
-            }
-            if (!message.IsRead && message.ReceiverId == userId)
-            {
-                message.IsRead = true;
-                _unitOfWork.PrivateMessageRepository.Update(message);
-                await _unitOfWork.SaveAsync();
-            }
-            return _mapper.Map<PrivateMessageDto>(message);
-        }
-
-        public async Task<bool> SavePrivateMessageDtoAsync(PrivateMessageDto model)
-        {
-            await RemoveOldMessages(model.SenderId);
-            await RemoveOldMessages(model.ReceiverId);
-
-            var message = _mapper.Map<PrivateMessage>(model);
-            message.SentTime = DateTime.Now;
-            var receiver = await _unitOfWork.UserManager.FindByNameAsync(model.ReceiverUserName);
-            message.ReceiverId = receiver.Id;
-            try
-            {
-                _unitOfWork.PrivateMessageRepository.Add(message);
-                await _unitOfWork.SaveAsync();
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-            return true;
-        }
+      
 
         public async Task<bool> EditRoleGroupAsync(int userId, int roleGroupId)
         {
@@ -284,6 +238,26 @@ namespace MyLiverpoolSite.Business.Services.Services
             var result = await _unitOfWork.UserManager.UpdateAsync(user);
             return result.Succeeded;
         }
+
+        public async Task<User> FindAsync(string userName, string password)
+        {
+            var result = await _unitOfWork.UserManager.FindAsync(userName, password);
+            return result;
+        }
+
+        public async Task<IdentityResult> UpdateAsync(User user)
+        {
+            var result = await _unitOfWork.UserManager.UpdateAsync(user);
+            await _unitOfWork.SaveAsync();
+            return result;
+        }
+
+        public async Task<IList<string>> GetRolesAsync(int id)
+        {
+            var result = await _unitOfWork.UserManager.GetRolesAsync(id);
+            return result;
+        }
+
         #endregion
 
         #region helpers
@@ -295,23 +269,6 @@ namespace MyLiverpoolSite.Business.Services.Services
         private IEnumerable<string> GetRolesToAdd(IEnumerable<Role> oldRoles, IEnumerable<Role> newRoles)
         {
             return newRoles.Where(x => oldRoles.All(n => n.Id != x.Id)).Select(x => x.Name);
-        }
-        private async Task RemoveOldMessages(int userId)
-        {
-            var countUserMessages =
-                await
-                    _unitOfWork.PrivateMessageRepository.GetCountAsync(
-                        x => x.ReceiverId == userId || x.SenderId == userId);
-            if (countUserMessages > GlobalConstants.PmsPerUser)
-            {
-                var messages =
-                    await
-                        _unitOfWork.PrivateMessageRepository.GetAsync(
-                            x => x.ReceiverId == userId || x.SenderId == userId);
-                var messages2 = messages.Take(GlobalConstants.PmsPerUser / 2).ToList();
-                messages2.ForEach(x => _unitOfWork.PrivateMessageRepository.DeleteAsync(x));
-                await _unitOfWork.SaveAsync();
-            }
         }
 
         #endregion

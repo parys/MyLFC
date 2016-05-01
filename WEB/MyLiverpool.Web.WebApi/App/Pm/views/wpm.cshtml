@@ -1,6 +1,6 @@
 ﻿@using MyLiverpool.Business.Resources
 
-<form class="form-horizontal col-md-12" role="form" ng-init="vm.init()">
+<form class="form-horizontal col-md-12" role="form" name="writePm" ng-init="vm.init()">
     <h2>@CommonMessages.WriteMessage</h2>
     <div class="form-group">
         <label class="control-label col-md-2"> @ColonsMessages.Receiver</label>
@@ -29,7 +29,7 @@
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <button type="submit" ng-click="vm.sent()" class="btn btn-default">@CommonMessages.Send</button>
+            <button ng-disabled="writePm.$invalid" type="submit" ng-click="vm.sent()" class="btn btn-default">@CommonMessages.Send</button>
         </div>
     </div>
 </form>

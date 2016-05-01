@@ -16,9 +16,7 @@ namespace MyLiverpool.Web.WebApi.Providers
     public class ApplicationOAuthProvider : OAuthAuthorizationServerProvider
     {
         private readonly string _publicClientId;
-
-        private IUserService _userService;
-        private IUnitOfWork _unitOfWork = new UnitOfWork(); //todo remove
+        private readonly IUserService _userService;
 
         public ApplicationOAuthProvider(string publicClientId, IUnitOfWork unitOfWork, IMapper mapper)
         {
@@ -38,7 +36,7 @@ namespace MyLiverpool.Web.WebApi.Providers
                 throw new ArgumentNullException(nameof(context));
             }
 
-            User user = await _unitOfWork.UserManager.FindAsync(context.UserName, context.Password);
+            User user = await _userService.FindAsync(context.UserName, context.Password);
 
             if (user == null)
             {
@@ -46,8 +44,7 @@ namespace MyLiverpool.Web.WebApi.Providers
                 return;
             }
             user.LastModified = DateTime.Now;
-            await _unitOfWork.UserManager.UpdateAsync(user);
-            await _unitOfWork.SaveAsync();
+            await _userService.UpdateAsync(user);
 
             if (!user.EmailConfirmed)
             {
@@ -64,7 +61,7 @@ namespace MyLiverpool.Web.WebApi.Providers
                 OAuthDefaults.AuthenticationType);
             ClaimsIdentity cookiesIdentity = await _userService.GenerateUserIdentityAsync(user,
                 CookieAuthenticationDefaults.AuthenticationType);
-            var userRoles = await _unitOfWork.UserManager.GetRolesAsync(user.Id);
+            var userRoles = await _userService.GetRolesAsync(user.Id);
 
             AuthenticationProperties properties = CreateProperties(user, userRoles);
             AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, properties);

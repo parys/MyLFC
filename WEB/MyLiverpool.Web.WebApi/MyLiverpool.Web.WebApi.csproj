@@ -209,6 +209,7 @@
     <Compile Include="Controllers\ImageController.cs" />
     <Compile Include="Controllers\NewsCategoryController.cs" />
     <Compile Include="Controllers\NewsCommentController.cs" />
+    <Compile Include="Controllers\PmController.cs" />
     <Compile Include="Controllers\RoleGroupController.cs" />
     <Compile Include="Controllers\SubsectionController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
@@ -235,7 +236,7 @@
     <Content Include="App\NewsCategory\newsCategory.factory.js" />
     <Content Include="App\NewsComment\newsComment.config.js" />
     <Content Include="App\News\news.config.js" />
-    <Content Include="App\Pms\pms.config.js" />
+    <Content Include="App\Pm\pms.config.js" />
     <Content Include="App\RoleGroups\roleGroup.config.js" />
     <Content Include="App\Constants.js" />
     <Content Include="Content\autocomplete.css" />
@@ -459,9 +460,9 @@
     <Content Include="App\News\NewsController.js" />
     <Content Include="App\News\NewsEditCtrl.js" />
     <Content Include="App\News\NewsItemController.js" />
-    <Content Include="App\Pms\pm.ctrl.js" />
-    <Content Include="App\Pms\PmsController.js" />
-    <Content Include="App\Pms\PmWriteCtrl.js" />
+    <Content Include="App\Pm\pm.ctrl.js" />
+    <Content Include="App\Pm\PmsController.js" />
+    <Content Include="App\Pm\PmWriteCtrl.js" />
     <Content Include="App\Account\RegisterController.js" />
     <Content Include="App\Home\rightContainerCtrl.js" />
     <Content Include="App\RoleGroups\roleGroup.ctrl.js" />
@@ -477,7 +478,7 @@
     <Content Include="App\MarkItUp\1MarkItUpFactory.js" />
     <Content Include="App\NewsComment\newsComment.factory.js" />
     <Content Include="App\News\news.factory.js" />
-    <Content Include="App\Pms\pms.factory.js" />
+    <Content Include="App\Pm\pms.factory.js" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -567,10 +568,10 @@
     <Content Include="App\RoleGroups\views\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="App\Users\views\List.cshtml" />
-    <Content Include="App\Pms\views\pms.cshtml" />
+    <Content Include="App\Pm\views\pms.cshtml" />
     <Content Include="App\Users\views\Info.cshtml" />
-    <Content Include="App\Pms\views\pm.cshtml" />
-    <Content Include="App\Pms\views\wpm.cshtml" />
+    <Content Include="App\Pm\views\pm.cshtml" />
+    <Content Include="App\Pm\views\wpm.cshtml" />
     <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>

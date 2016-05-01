@@ -83,6 +83,7 @@ namespace MyLiverpool.Web.WebApi
             builder.RegisterType<MaterialCategoryService>().As<IMaterialCategoryService>();
             builder.RegisterType<MaterialCommentService>().As<IMaterialCommentService>();
             builder.RegisterType<MaterialService>().As<IMaterialService>();
+            builder.RegisterType<PmService>().As<IPmService>();
             builder.RegisterType<RoleService>().As<IRoleService>();
             builder.RegisterType<UploadService>().As<IUploadService>();
             builder.RegisterType<UserService>().As<IUserService>();

@@ -26,15 +26,6 @@ namespace MyLiverpool.Web.WebApi.Controllers
             return Ok(await _userService.GetUserProfileDtoAsync(id));
         }
 
-        [Route("Pms")]
-        [HttpGet]
-        [Authorize]
-        public async Task<IHttpActionResult> GetPms()
-        {
-            var model = await _userService.GetPrivateMessagesDtoAsync(User.Identity.GetUserId<int>());
-            return Ok(model);
-        }
-
         [Route]
         [HttpGet]
         [AllowAnonymous]
@@ -47,34 +38,6 @@ namespace MyLiverpool.Web.WebApi.Controllers
             UserFiltersDto obj = new JavaScriptSerializer().Deserialize<UserFiltersDto>(dto);
             var model = await _userService.GetUsersDtoAsync(obj);
             return Ok(model);
-        }
-
-        [Route("Pm")]
-        [HttpGet]
-        [Authorize]
-        public async Task<IHttpActionResult> Pm(int id)
-        {
-            var model = await _userService.GetPrivateMessageDtoAsync(id, User.Identity.GetUserId<int>());
-            return Ok(model);
-        }
-
-        [Route("WritePm")]
-        [HttpPost]
-        [Authorize]
-        public async Task<IHttpActionResult> WritePm(PrivateMessageDto model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
-            model.SenderId = User.Identity.GetUserId<int>();
-            var userName = User.Identity.Name;
-            if (model.ReceiverUserName == userName)
-            {
-                return BadRequest();
-            }
-            var result = await _userService.SavePrivateMessageDtoAsync(model);
-            return Ok(result);
         }
 
         [Route("EditRole")]

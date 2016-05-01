@@ -10,7 +10,7 @@ angular.module('pms.config',
                     url: '/pms',
                     views: {
                         "@": {
-                            templateUrl: '/app/pms/views/pms',
+                            templateUrl: '/app/pm/views/pms',
                             controller: 'PmsController',
                             controllerAs: 'vm'
                         }
@@ -27,7 +27,7 @@ angular.module('pms.config',
                     url: '/pm?id',
                     views: {
                         "@": {
-                            templateUrl: function(params) { return '/app/pms/views/Pm?id=' + params.id },
+                            templateUrl: function(params) { return '/app/pm/views/Pm?id=' + params.id },
                             controller: 'PmController',
                             controllerAs: 'vm'
                         }
@@ -44,7 +44,7 @@ angular.module('pms.config',
                     url: '/wpm',
                     views: {
                         "@": {
-                            templateUrl: '/app/Pms/views/wpm',
+                            templateUrl: '/app/Pm/views/wpm',
                             controller: 'PmWriteCtrl',
                             controllerAs: 'vm'
                         }

@@ -10,7 +10,7 @@ angular.module('pms.factory', [])
 
                     $http({
                             method: 'GET',
-                            url: SessionService.apiUrl + '/api/User/Pm?id=' + id,
+                            url: SessionService.apiUrl + '/api/Pm?id=' + id,
                             headers: { 'Content-Type': 'application/json' }
                         })
                         .success(function(response) {
@@ -27,7 +27,7 @@ angular.module('pms.factory', [])
 
                     $http({
                             method: 'GET',
-                            url: SessionService.apiUrl + '/api/User/Pms', //?id='+ id,
+                            url: SessionService.apiUrl + '/api/Pm',
                             headers: { 'Content-Type': 'application/json' }
                         })
                         .success(function(response) {
@@ -43,7 +43,7 @@ angular.module('pms.factory', [])
                     var result = $q.defer();
                     $http({
                             method: 'POST',
-                            url: SessionService.apiUrl + '/api/User/WritePm',
+                            url: SessionService.apiUrl + '/api/Pm',
                             data: model,
                             headers: { 'Content-Type': 'application/json' }
                         })

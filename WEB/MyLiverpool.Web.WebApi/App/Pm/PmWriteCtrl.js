@@ -22,19 +22,17 @@ angular.module('pms.ctrl')
                     vm.errorMessage = undefined;
                 }
 
-                if (new ValidationService().checkFormValidity(vm) && !vm.errorMessage) {
-                    PmsFactory.sentMessage(vm.message)
-                        .then(function(response) {
-                                if (response) {
-                                    //todo add cookie for 30 seconds
-                                    $rootScope.alerts.push({ type: 'success', msg: 'Сообщение успешно отправлено.' });
-                                    $state.go('pms');
-                                }
-                            },
-                            function(response) {
-                                $rootScope.alerts.push({ type: 'danger', msg: 'Сообщение не было отправлено.' });
-                            });
-                }
+                PmsFactory.sentMessage(vm.message)
+                    .then(function(response) {
+                            if (response) {
+                                //todo add cookie for 30 seconds
+                                $rootScope.alerts.push({ type: 'success', msg: 'Сообщение успешно отправлено.' });
+                                $state.go('pms');
+                            }
+                        },
+                        function(response) {
+                            $rootScope.alerts.push({ type: 'danger', msg: 'Сообщение не было отправлено.' });
+                        });
             };
 
             vm.updateUserNames = function(typed) {

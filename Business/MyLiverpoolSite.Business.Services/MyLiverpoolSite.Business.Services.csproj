@@ -112,6 +112,7 @@
     <Compile Include="Services\MaterialCommentService.cs" />
     <Compile Include="Services\MaterialService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\PmService.cs" />
     <Compile Include="Services\RoleService.cs" />
     <Compile Include="Services\SmsService.cs" />
     <Compile Include="Services\UploadService.cs" />

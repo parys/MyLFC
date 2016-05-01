@@ -5,6 +5,7 @@ using MyLiverpoolSite.Business.ViewModels.Users;
 using MyLiverpoolSite.Data.DataAccessLayer;
 using MyLiverpoolSite.Data.Entities;
 using System.Collections.Generic;
+using Microsoft.AspNet.Identity;
 
 namespace MyLiverpoolSite.Business.Contracts
 {
@@ -33,17 +34,10 @@ namespace MyLiverpoolSite.Business.Contracts
         Task<bool> UnbanUser(int userId);
 
         Task<ClaimsIdentity> GenerateUserIdentityAsync(User user, string authenticationType);
-
-
+        
         Task<UserDto> GetUserProfileDtoAsync(int id);
 
-        Task<PrivateMessagesDto> GetPrivateMessagesDtoAsync(int id);
-
         Task<PageableData<UserMiniDto>> GetUsersDtoAsync(UserFiltersDto dto);
-
-        Task<PrivateMessageDto> GetPrivateMessageDtoAsync(int messageId, int userId);
-
-        Task<bool> SavePrivateMessageDtoAsync(PrivateMessageDto model);
 
         Task<bool> EditRoleGroupAsync(int userId, int roleGroupId);
 
@@ -54,5 +48,11 @@ namespace MyLiverpoolSite.Business.Contracts
         Task<string> GetPhotoPathAsync(int userId);
 
         Task<bool> UpdatePhotoPathAsync(int userId, string photo);
+
+        Task<User> FindAsync(string userName, string password);
+
+        Task<IdentityResult> UpdateAsync(User user);
+
+        Task<IList<string>> GetRolesAsync(int id);
     }
 }
