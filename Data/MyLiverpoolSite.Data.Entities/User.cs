@@ -47,23 +47,13 @@ namespace MyLiverpoolSite.Data.Entities
         // public virtual ICollection<UserLogin> Logins { get; set; }
         // public virtual ICollection<Role> Roles { get; set; }
 
-
-
-        //// public int Id { get; set; }
-
         public int OldId { get; set; }
-
-      //  public string Login { get; set; }
-
-     //   public string Password { get; set; }
 
         public string Photo { get; set; }
 
         public string FullName { get; set; }
 
         public bool Gender { get; set; }
-
-        // public string Email { get; set; }
 
         public string Homepage { get; set; }
 
@@ -79,8 +69,6 @@ namespace MyLiverpoolSite.Data.Entities
 
         public DateTime? Birthday { get; set; }
 
-        public bool Verify { get; set; } //todo think about it
-
         public DateTime LastModified { get; set; }
 
         public string Title { get; set; }
@@ -88,9 +76,6 @@ namespace MyLiverpoolSite.Data.Entities
         public virtual ICollection<ForumMessage> ForumMessages { get; set; }
 
         public virtual ICollection<MaterialComment> Comments { get; set; }
-  //      public virtual ICollection<BlogComment> BlogComments { get; set; }
-
-  //      public virtual ICollection<BlogItem> BlogItems { get; set; }
 
         public virtual ICollection<Material> Materials { get; set; }
 
@@ -100,7 +85,5 @@ namespace MyLiverpoolSite.Data.Entities
         public virtual RoleGroup RoleGroup { get; set; }
 
         public int RoleGroupId { get; set; }
-
-        //  public int Id { get; set; }
     }
 }

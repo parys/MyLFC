@@ -75,12 +75,11 @@ namespace MyLiverpool.Common.MapperConfigurations.Profiles
             _cfg.CreateMap<ForumSection, ForumSectionDto>()
                 .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id))
                 .ForMember(dest => dest.Name, src => src.MapFrom(x => x.Name))
-                .ForMember(dest => dest.Subsections, src => src.MapFrom(x => x.Subsections));//todo   
+                .ForMember(dest => dest.Subsections, src => src.MapFrom(x => x.Subsections));  
 
             _cfg.CreateMap<ForumSectionDto, ForumSection>()
                 .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id))
                 .ForMember(dest => dest.Name, src => src.MapFrom(x => x.Name));
-            //.ForMember(dest => dest.Subsections, src => src.MapFrom(x => x.Subsections));//todo
         }
     }
 }

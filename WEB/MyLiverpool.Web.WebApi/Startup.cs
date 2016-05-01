@@ -53,7 +53,7 @@ namespace MyLiverpool.Web.WebApi
             //   app.UseAutofacMvc();
             //  app
             
-            app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);//todo
+            app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
 
             //app.Use(async (context, next) =>
             //{

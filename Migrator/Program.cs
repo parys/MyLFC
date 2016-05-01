@@ -25,7 +25,7 @@ namespace Migrator
 
         static Program()
         {
-            Database.SetInitializer(new DatabaseInitializer()); //todo remove
+            Database.SetInitializer(new DatabaseInitializer());
             LiverpoolContext db = new LiverpoolContext();
             db.Database.Initialize(true);
             UnitOfWork = new UnitOfWork(db);
@@ -303,7 +303,7 @@ namespace Migrator
                         fv += chars[i];
                         if (chars[i] == '0')
                         {
-                            user.EmailConfirmed = true; //todo 
+                            user.EmailConfirmed = true; 
                         }
                         i++;
                     }
@@ -501,7 +501,7 @@ namespace Migrator
                         i++;
                     }
                     i++;
-                 //todo   blogItem.NumberCommentaries = int.Parse(numberCommentary);
+                 //   blogItem.NumberCommentaries = int.Parse(numberCommentary);
 
                     //author
                     string userName = null;
@@ -1101,7 +1101,7 @@ namespace Migrator
                         i++;
                     }
                     i++;
-                    blogCategory.ItemsCount = int.Parse(count);
+                 //   blogCategory.ItemsCount = int.Parse(count);
 
                     // name
                     while (chars[i] != '|')
@@ -1113,11 +1113,12 @@ namespace Migrator
                     // description
                     i++;
                     // url
+                    var urlPath = "";
                     if (chars[i] != '|')
                     {
                         while (chars[i] != '|')
                         {
-                            blogCategory.UrlPath += chars[i];
+                            urlPath += chars[i];
                             i++;
                         }
                     }
@@ -1175,7 +1176,7 @@ namespace Migrator
                         i++;
                     }
                     i++;
-                    newsCategory.ItemsCount = int.Parse(count);
+                   // newsCategory.ItemsCount = int.Parse(count);
 
                     // name
                     while (chars[i] != '|')
@@ -1186,12 +1187,13 @@ namespace Migrator
                     i++;
 
                     // url
+                    var urlPath = "";
                     if (chars[i] == '|')
                     {
                         i++;
                         while (chars[i] != '|')
                         {
-                            newsCategory.UrlPath += chars[i];
+                            urlPath += chars[i];
                             i++;
                         }
                         i++;

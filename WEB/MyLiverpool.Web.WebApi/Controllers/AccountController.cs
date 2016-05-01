@@ -7,7 +7,6 @@ using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
-using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
@@ -69,7 +68,7 @@ namespace MyLiverpool.Web.WebApi.Controllers
         [AllowAnonymous]
         public async Task<IHttpActionResult> ForgotPassword(string email)
         {
-            if (email.IsNullOrWhiteSpace())
+            if (string.IsNullOrWhiteSpace(email))
             {
                 return BadRequest();
             }
@@ -119,7 +118,7 @@ namespace MyLiverpool.Web.WebApi.Controllers
         [AllowAnonymous]
         public async Task<IHttpActionResult> ResendConfirmEmail(string email)
         {
-            if (email.IsNullOrWhiteSpace())
+            if (string.IsNullOrEmpty(email))
             {
                 return BadRequest();
             }
@@ -152,7 +151,7 @@ namespace MyLiverpool.Web.WebApi.Controllers
         [AllowAnonymous]
         public async Task<HttpResponseMessage> ResetPassword(string code)
         {
-            if (code.IsNullOrWhiteSpace())
+            if (string.IsNullOrEmpty(code))
             {
                 return new HttpResponseMessage(HttpStatusCode.BadRequest);
             }

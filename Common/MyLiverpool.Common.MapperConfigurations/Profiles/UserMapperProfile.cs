@@ -64,7 +64,6 @@ namespace MyLiverpool.Common.MapperConfigurations.Profiles
                 .ForMember(dest => dest.RoleGroup, src => src.Ignore()) //MapFrom(x => x.))
                 .ForMember(dest => dest.Skype, src => src.Ignore()) //MapFrom(x => x.))
                 .ForMember(dest => dest.Title, src => src.Ignore()) //MapFrom(x => x.))
-                .ForMember(dest => dest.Verify, src => src.Ignore()) //MapFrom(x => x.))
                 .ForMember(dest => dest.TwoFactorEnabled, src => src.Ignore()) //MapFrom(x => x.))
                 .ForMember(dest => dest.AccessFailedCount, src => src.Ignore()) //MapFrom(x => x.))
                 .ForMember(dest => dest.EmailConfirmed, src => src.Ignore()) //MapFrom(x => x.))

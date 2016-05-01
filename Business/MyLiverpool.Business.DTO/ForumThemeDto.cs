@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using MyLiverpoolSite.Data.DataAccessLayer;
+﻿using MyLiverpoolSite.Data.DataAccessLayer;
 
 namespace MyLiverpool.Business.DTO
 {

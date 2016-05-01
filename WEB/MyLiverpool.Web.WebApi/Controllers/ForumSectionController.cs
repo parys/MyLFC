@@ -1,7 +1,6 @@
 ﻿using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
-using Microsoft.Ajax.Utilities;
 using MyLiverpoolSite.Business.Contracts;
 
 namespace MyLiverpool.Web.WebApi.Controllers
@@ -22,7 +21,7 @@ namespace MyLiverpool.Web.WebApi.Controllers
         [Authorize(Roles = "AdminStart")]
         public async Task<IHttpActionResult> CreateSection(string name)
         {
-            if (name.IsNullOrWhiteSpace())
+            if (string.IsNullOrEmpty(name))
             {
                 return BadRequest();
             }

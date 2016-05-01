@@ -103,7 +103,6 @@
     <Compile Include="Contracts\IMaterialRepository.cs" />
     <Compile Include="Contracts\IUnitOfWork.cs" />
     <Compile Include="LiverpoolContext.cs" />
-    <Compile Include="PageableResult.cs" />
     <Compile Include="Repositories\MaterialRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RolesMessages.Designer.cs">

@@ -107,14 +107,14 @@ namespace MyLiverpool.Web.WebApi
                 Provider = new ApplicationOAuthProvider(PublicClientId, new UnitOfWork(), mapper),
                 AuthorizeEndpointPath = new PathString("/api/Account/ExternalLogin"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromDays(14),
-                // In production mode set AllowInsecureHttp = false todo
+                // In production mode set AllowInsecureHttp = false 
                 AllowInsecureHttp = true,
             };
 
             // Enable the application to use bearer tokens to authenticate users
             app.UseOAuthBearerTokens(OAuthOptions);
 
-           // app.UseCors(CorsOptions.AllowAll); //todo
+           // app.UseCors(CorsOptions.AllowAll); 
         }
     }
 }

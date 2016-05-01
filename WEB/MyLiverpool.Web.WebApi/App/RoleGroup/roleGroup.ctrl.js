@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('roleGroup.ctrl', [])
-    .controller('RoleGroupsCtrl', [
-        '$stateParams', '$state', 'RoleGroupsFactory',
-        function($stateParams, $state, RoleGroupsFactory) {
+    .controller('RoleGroupCtrl', [
+        '$stateParams', '$state', 'RoleGroupFactory',
+        function($stateParams, $state, RoleGroupFactory) {
             //$scope.users = [];
             //$scope.pageNo = 1;
             //$scope.countPage = 1;

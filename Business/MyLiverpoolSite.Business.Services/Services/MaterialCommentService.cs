@@ -68,7 +68,8 @@ namespace MyLiverpoolSite.Business.Services.Services
             var comment = _mapper.Map<MaterialComment>(model);
             comment.MaterialType = materialType;
             comment.AdditionTime = DateTime.Now;
-
+            comment.LastModified = DateTime.Now;
+            
             try
             {
                 _unitOfWork.MaterialCommentRepository.Add(comment);
@@ -85,10 +86,9 @@ namespace MyLiverpoolSite.Business.Services.Services
         public async Task<bool> EditAsync(MaterialCommentEditingDto model, MaterialType materialType)
         {
             var comment = await _unitOfWork.MaterialCommentRepository.GetByIdAsync(model.Id);
-           // comment.LastModified = DateTime.Now;
+            comment.LastModified = DateTime.Now;
             comment.Answer = model.Answer;
             comment.Message = model.Message;
-         //todo   comment.MaterialType = materialType;
 
             try
             {

@@ -84,6 +84,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Common\MyLiverpoolSite.Common.Utilities\MyLiverpoolSite.Common.Utilities.csproj">
+      <Project>{9170EED7-3E97-4D04-9213-ABD33A7D71F0}</Project>
+      <Name>MyLiverpoolSite.Common.Utilities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Data\MyLiverpoolSite.Data.DataAccessLayer\MyLiverpoolSite.Data.DataAccessLayer.csproj">
       <Project>{AC10A860-1C0E-4910-9E05-428D09F70981}</Project>
       <Name>MyLiverpoolSite.Data.DataAccessLayer</Name>

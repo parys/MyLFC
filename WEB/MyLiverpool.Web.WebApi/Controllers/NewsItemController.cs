@@ -26,7 +26,8 @@ namespace MyLiverpool.Web.WebApi.Controllers
         [AllowAnonymous]
         public async Task<PageableData<MaterialMiniDto>> GetNewsItems(int page = 1, int? categoryId = null)
         {
-            return await _materialService.GetDtoAllAsync(page, categoryId, Type);
+            var result = await _materialService.GetDtoAllAsync(page, categoryId, Type);
+            return result;
         }
 
         [Route]

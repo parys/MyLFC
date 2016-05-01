@@ -1,7 +1,8 @@
 ﻿'use strict';
 angular.module('roleGroup.factory', [])
-    .factory('RoleGroupsFactory', [
-        '$q', '$http', 'SessionService', function($q, $http, SessionService) {
+    .factory('RoleGroupFactory', [
+        '$q', '$http', 'SessionService',
+        function($q, $http, SessionService) {
             return {
                 get: function() {
                     var result = $q.defer();

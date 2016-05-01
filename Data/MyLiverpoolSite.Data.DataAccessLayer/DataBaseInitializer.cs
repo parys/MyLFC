@@ -272,7 +272,6 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 Id = -1,
                 UserName = "deleted",
                 Email = email,
-                Verify = true,
                 LastModified = DateTime.Now,
                 RegistrationDate = DateTime.Now,
                 RoleGroupId = (int)RoleGroupsEnum.Simple,
@@ -296,7 +295,6 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
             {
                 UserName = "user",
                 Email = email,
-                Verify = true,
                 LastModified = DateTime.Now,
                 RegistrationDate = DateTime.Now,
                 RoleGroupId = (int)RoleGroupsEnum.Simple,
@@ -321,7 +319,6 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
             {
                 UserName = "admin",
                 Email = email,
-                Verify = true,
                 LastModified = DateTime.Now,
                 RegistrationDate = DateTime.Now,
                 Birthday = DateTime.Now,
@@ -349,7 +346,6 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
             {
                 UserName = "moderator",
                 Email = email,
-                Verify = true,
                 LastModified = DateTime.Now,
                 RegistrationDate = DateTime.Now,
                 Birthday = DateTime.Now,
@@ -378,7 +374,6 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
             {
                 UserName = "author",
                 Email = email,
-                Verify = true,
                 LastModified = DateTime.Now,
                 RegistrationDate = DateTime.Now,
                 Birthday = DateTime.Now,
@@ -407,7 +402,6 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
             {
                 UserName = "Intern",
                 Email = email,
-                Verify = true,
                 LastModified = DateTime.Now,
                 RegistrationDate = DateTime.Now,
                 Birthday = DateTime.Now,
@@ -435,7 +429,6 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
             {
                 UserName = "Editor",
                 Email = email,
-                Verify = true,
                 LastModified = DateTime.Now,
                 RegistrationDate = DateTime.Now,
                 Birthday = DateTime.Now,
@@ -464,7 +457,6 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
             {
                 UserName = "newsmaker",
                 Email = email,
-                Verify = true,
                 LastModified = DateTime.Now,
                 RegistrationDate = DateTime.Now,
                 Birthday = DateTime.Now,

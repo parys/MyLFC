@@ -28,24 +28,6 @@ namespace MyLiverpoolSite.Business.Services.Services
         }
 
         #region vm
-        public CreateUserViewModel GetCreateViewModel()
-        {
-            return new CreateUserViewModel();
-        }
-
-        public bool IsModelValid(CreateUserViewModel model)
-        {
-            //todo make this checking model
-            return true;
-        }
-
-        public void Create(CreateUserViewModel model)
-        {
-            //todo
-           // var user = Mapper.Map<CreateUserViewModel, User>(model);
-           // _unitOfWork.UserRepository.Add(user);
-           // _unitOfWork.Save();
-        }
 
         public async Task<PageableData<UserViewModel>> GetAll(int page)
         {
@@ -71,7 +53,7 @@ namespace MyLiverpoolSite.Business.Services.Services
             if (!string.IsNullOrWhiteSpace(answerTitle))
             {
                 const int answerNumber = 1;
-                title = string.Format(UsersMessages.Annex, answerNumber) + answerTitle; //todo and add counter
+                title = string.Format(UsersMessages.Annex, answerNumber) + answerTitle;
             }
             return new PrivateMessageVM()
             {
@@ -86,7 +68,7 @@ namespace MyLiverpoolSite.Business.Services.Services
             var message = await _unitOfWork.PrivateMessageRepository.GetByIdAsync(messageId);
             if (message.ReceiverId != receiverId && message.SenderId != receiverId)
             {
-                throw new AccessViolationException(); //todo think about it
+                throw new AccessViolationException(); 
             }
             if (!message.IsRead && message.ReceiverId == receiverId)
             {

@@ -66,6 +66,7 @@
     <Compile Include="GlobalConstants.cs" />
     <Compile Include="MachineKeyDataProtector.cs" />
     <Compile Include="MachineKeyProtectionProvider.cs" />
+    <Compile Include="PageableResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SwapVisitor.cs" />
     <Compile Include="UrlEncoding.cs" />

@@ -52,10 +52,6 @@
       <HintPath>..\..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Autofac.Integration.Mvc, Version=3.3.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Autofac.Mvc5.3.3.4\lib\net45\Autofac.Integration.Mvc.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Autofac.Integration.WebApi, Version=3.4.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Autofac.WebApi2.3.4.0\lib\net45\Autofac.Integration.WebApi.dll</HintPath>
       <Private>True</Private>
@@ -237,7 +233,7 @@
     <Content Include="App\NewsComment\newsComment.config.js" />
     <Content Include="App\News\news.config.js" />
     <Content Include="App\Pm\pms.config.js" />
-    <Content Include="App\RoleGroups\roleGroup.config.js" />
+    <Content Include="App\RoleGroup\roleGroup.config.js" />
     <Content Include="App\Constants.js" />
     <Content Include="Content\autocomplete.css" />
     <Content Include="Content\avatars\0\755939.jpeg" />
@@ -465,8 +461,8 @@
     <Content Include="App\Pm\PmWriteCtrl.js" />
     <Content Include="App\Account\RegisterController.js" />
     <Content Include="App\Home\rightContainerCtrl.js" />
-    <Content Include="App\RoleGroups\roleGroup.ctrl.js" />
-    <Content Include="App\RoleGroups\roleGroup.factory.js" />
+    <Content Include="App\RoleGroup\roleGroup.ctrl.js" />
+    <Content Include="App\RoleGroup\roleGroup.factory.js" />
     <Content Include="App\Users\users.ctrl.js" />
     <Content Include="App\Users\UsersController.js" />
     <Content Include="App\MarkItUp\markItUpDirective.js" />
@@ -516,7 +512,6 @@
     <Content Include="Scripts\_references.js" />
     <Content Include="App\Images\views\Index.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="App\Home\ClubHistory.cshtml" />
     <Content Include="Scripts\angular-validation\locales\ru.json" />
     <Content Include="Scripts\angular-validation\locales\pt-br.json" />
@@ -540,22 +535,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="App\Account\ConfirmEmail.cshtml" />
-    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
-    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
     <Content Include="App\Account\ForgotPassword.cshtml" />
     <Content Include="App\Account\EmailSent.cshtml" />
     <Content Include="App\Account\Login.cshtml" />
     <Content Include="App\Account\Register.cshtml" />
     <Content Include="App\Account\ResetPassword.cshtml" />
-    <Content Include="Views\Account\SendCode.cshtml" />
-    <Content Include="Views\Account\VerifyCode.cshtml" />
-    <Content Include="Views\Blog\Categories.cshtml" />
-    <Content Include="Views\Blog\Create.cshtml" />
-    <Content Include="Views\Blog\Details.cshtml" />
-    <Content Include="Views\Blog\Edit.cshtml" />
-    <Content Include="Views\Blog\Index.cshtml" />
     <Content Include="App\Forum\views\Index.cshtml" />
     <Content Include="App\Forum\views\Subsection.cshtml" />
     <Content Include="App\Forum\views\Theme.cshtml" />
@@ -565,8 +550,7 @@
     <Content Include="App\News\views\Info.cshtml" />
     <Content Include="App\News\views\Edit.cshtml" />
     <Content Include="App\News\views\List.cshtml" />
-    <Content Include="App\RoleGroups\views\Index.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="App\RoleGroup\views\Index.cshtml" />
     <Content Include="App\Users\views\List.cshtml" />
     <Content Include="App\Pm\views\pms.cshtml" />
     <Content Include="App\Users\views\Info.cshtml" />
@@ -598,6 +582,10 @@
     <ProjectReference Include="..\..\Common\MyLiverpool.Common.MapperConfigurations\MyLiverpool.Common.MapperConfigurations.csproj">
       <Project>{4dc5f955-0dfd-40b0-9b3f-1771754c90ce}</Project>
       <Name>MyLiverpool.Common.MapperConfigurations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\MyLiverpoolSite.Common.Utilities\MyLiverpoolSite.Common.Utilities.csproj">
+      <Project>{9170EED7-3E97-4D04-9213-ABD33A7D71F0}</Project>
+      <Name>MyLiverpoolSite.Common.Utilities</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Data\MyLiverpoolSite.Data.DataAccessLayer\MyLiverpoolSite.Data.DataAccessLayer.csproj">
       <Project>{ac10a860-1c0e-4910-9e05-428d09f70981}</Project>

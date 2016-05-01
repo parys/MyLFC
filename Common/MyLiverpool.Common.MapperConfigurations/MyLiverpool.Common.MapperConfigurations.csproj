@@ -83,6 +83,10 @@
       <Project>{996c9442-54c1-4f0a-bc05-ad1c0e09e20b}</Project>
       <Name>MyLiverpoolSite.Data.Entities</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MyLiverpoolSite.Common.Utilities\MyLiverpoolSite.Common.Utilities.csproj">
+      <Project>{9170EED7-3E97-4D04-9213-ABD33A7D71F0}</Project>
+      <Name>MyLiverpoolSite.Common.Utilities</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
