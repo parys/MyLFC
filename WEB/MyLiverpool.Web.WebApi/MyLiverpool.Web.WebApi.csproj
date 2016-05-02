@@ -223,7 +223,7 @@
   <ItemGroup>
     <None Include="App\Forum\views\SubsectionEdit.cshtml" />
     <Content Include="App\Forum\forum.config.js" />
-    <Content Include="App\Images\images.config.js" />
+    <Content Include="App\Image\image.config.js" />
     <Content Include="App\Modal\alert.html" />
     <Content Include="App\Modal\modalDeleteConfirmation.html" />
     <Content Include="App\Modal\modalEditComment.html" />
@@ -448,7 +448,7 @@
     <Content Include="App\Home\leftContainerCtrl.js" />
     <Content Include="App\Home\LoadingCtrl.js" />
     <Content Include="App\Account\LoginController.js" />
-    <Content Include="App\Images\images.factory.js" />
+    <Content Include="App\Image\image.factory.js" />
     <Content Include="App\Modal\ModalCtrl.js" />
     <Content Include="App\Modal\ModalEditCommentCtrl.js" />
     <Content Include="App\Modal\ModalForumCtrl.js" />
@@ -471,7 +471,7 @@
     <Content Include="App\Factories\Application.js" />
     <Content Include="App\Factories\AuthHttpResponseInterceptor.js" />
     <Content Include="App\Forum\forumFactory.js" />
-    <Content Include="App\MarkItUp\1MarkItUpFactory.js" />
+    <Content Include="App\MarkItUp\MarkItUpFactory.js" />
     <Content Include="App\NewsComment\newsComment.factory.js" />
     <Content Include="App\News\news.factory.js" />
     <Content Include="App\Pm\pms.factory.js" />
@@ -487,7 +487,7 @@
     <Content Include="App\Filters\RouteFilter.js" />
     <Content Include="App\Users\users.factory.js" />
     <Content Include="Scripts\Filters.js" />
-    <Content Include="App\Images\images.ctrl.js" />
+    <Content Include="App\Image\image.ctrl.js" />
     <Content Include="Scripts\jquery.markitup.js" />
     <Content Include="App\Services\AuthenticationService.js" />
     <Content Include="App\Services\SessionService.js" />
@@ -510,7 +510,7 @@
     </Content>
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="App\Images\views\Index.cshtml" />
+    <Content Include="App\Image\views\Index.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="App\Home\ClubHistory.cshtml" />
     <Content Include="Scripts\angular-validation\locales\ru.json" />

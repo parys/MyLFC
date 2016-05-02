@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('newsComment.ctrl', [])
     .controller('NewsCommentCtrl', [
-        '$scope', '$uibModal', 'NewsCommentsFactory', 'Authentication', '$rootScope',
-        function($scope, $uibModal, NewsCommentsFactory, Authentication, $rootScope) {
+        '$scope', '$uibModal', 'NewsCommentFactory', 'Authentication', '$rootScope',
+        function($scope, $uibModal, NewsCommentFactory, Authentication, $rootScope) {
             var vm = this;
 
             vm.newComment = undefined;

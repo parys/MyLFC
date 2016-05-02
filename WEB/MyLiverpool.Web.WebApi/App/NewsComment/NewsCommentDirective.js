@@ -1,7 +1,8 @@
 ﻿'use strict';
 angular.module('newsComment.directive', [])
     .directive('tree', [
-        'RecursionHelper', function(RecursionHelper) {
+        'RecursionHelper',
+        function(RecursionHelper) {
             return {
                 restrict: "E",
                 scope: { comment: '=', deep: '=', authorId: '=' },

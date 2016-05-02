@@ -1,14 +1,14 @@
 ﻿'use strict';
 angular.module('images.ctrl', [])
     .controller('ImagesCtrl', [
-        'ImagesFactory', '$stateParams',
-        function(ImagesFactory, $stateParams) {
+        'ImageFactory', '$stateParams',
+        function(ImageFactory, $stateParams) {
             var vm = this;
 
             vm.files = '';
 
             vm.init = function() {
-                ImagesFactory.getImages($stateParams.path)
+                ImageFactory.getImages($stateParams.path)
                     .then(function(response) {
                             vm.files = response;
                         },

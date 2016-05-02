@@ -1,14 +1,14 @@
 ﻿'use strict';
-angular.module('images.config',
-    ['images.factory', 'images.ctrl'])
+angular.module('image.config',
+    ['image.factory', 'image.ctrl'])
     .config([
         '$stateProvider',
         function ($stateProvider) {
             $stateProvider
                 .state('images', {
                     url: '/images?path',
-                    templateUrl: function(params) { return '/app/images/views/index?path=' + params.path },
-                    controller: 'ImagesCtrl',
+                    templateUrl: function(params) { return '/app/image/views/index?path=' + params.path },
+                    controller: 'ImageCtrl',
                     controllerAs: 'vm',
                     resolve: {
                         $title: function() { return 'Изображения'; }

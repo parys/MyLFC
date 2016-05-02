@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('newsComment.factory', [])
-    .factory('NewsCommentsFactory', [
-        '$q', '$http', 'SessionService', '$stateParams',
-        function($q, $http, SessionService, $stateParams) {
+    .factory('NewsCommentFactory', [
+        '$q', '$http', 'SessionService',
+        function($q, $http, SessionService) {
             return {
                 add: function(comment) {
                     var result = $q.defer();
