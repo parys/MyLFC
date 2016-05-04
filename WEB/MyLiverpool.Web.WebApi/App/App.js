@@ -13,11 +13,11 @@ angular.module('liverpoolApp',
         'ncy-angular-breadcrumb',
         'filter',
         'forum.config',
-        'images.config',
+        'image.config',
         'news.config',
         'newsCategory.config',
         'newsComment.config',
-        'pms.config',
+        'pm.config',
         'roleGroup.config',
         'users.config'
     ])

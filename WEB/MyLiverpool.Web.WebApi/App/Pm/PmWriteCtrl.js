@@ -1,8 +1,8 @@
 ﻿'use strict';
-angular.module('pms.ctrl')
+angular.module('pm.ctrl')
     .controller('PmWriteCtrl', [
-        '$stateParams', 'PmsFactory', 'ValidationService', '$state', '$rootScope', 'UsersFactory',
-        function($stateParams, PmsFactory, ValidationService, $state, $rootScope, UsersFactory) {
+        '$stateParams', 'PmFactory', 'ValidationService', '$state', '$rootScope', 'UsersFactory',
+        function($stateParams, PmFactory, ValidationService, $state, $rootScope, UsersFactory) {
             var vm = this;
             vm.message = {
                 title: "",
@@ -22,7 +22,7 @@ angular.module('pms.ctrl')
                     vm.errorMessage = undefined;
                 }
 
-                PmsFactory.sentMessage(vm.message)
+                PmFactory.sentMessage(vm.message)
                     .then(function(response) {
                             if (response) {
                                 //todo add cookie for 30 seconds

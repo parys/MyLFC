@@ -10,6 +10,8 @@ namespace MyLiverpool.Business.DTO
 
         public string Description { get; set; }
 
+        public int SubsectionId { get; set; }
+
         public PageableData<ForumMessageDto> Messages { get;set; }
     }
 }

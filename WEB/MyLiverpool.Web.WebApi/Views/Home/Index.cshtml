@@ -28,12 +28,12 @@
             <li ng-if="!vm.loggedIn()">
                 <form ng-controller="LoginController as ctrl" name="loginForm1" class="form-inline" role="form" style="margin-top: 8px;">
                     <div class="form-group">
-                        <label class="sr-only" for="UserName">@ColonsMessages.UserName</label>
-                        <input type="text" placeholder="@UsersMessages.UserName" class="form-control" name="UserName" id="UserName" ng-model="ctrl.loginForm.userName" validation="required" validation-error-to="myError">
+                        <label class="sr-only">@ColonsMessages.UserName</label>
+                        <input type="text" placeholder="@UsersMessages.UserName" class="form-control" name="UserName" ng-model="ctrl.loginForm.userName" validation="required" validation-error-to="myError">
                     </div>
                     <div class="form-group">
-                        <label class="sr-only" for="password">@ColonsMessages.Password</label>
-                        <input type="password" placeholder="@UsersMessages.Password" class="form-control" name="password" id="password" ng-model="ctrl.loginForm.password" validation="required" validation-error-to="myError">
+                        <label class="sr-only">@ColonsMessages.Password</label>
+                        <input type="password" placeholder="@UsersMessages.Password" class="form-control" name="password" ng-model="ctrl.loginForm.password" validation="required" validation-error-to="myError">
                         <span id="myError" style="display: none;"></span>
                     </div>
                     <div class="form-group">

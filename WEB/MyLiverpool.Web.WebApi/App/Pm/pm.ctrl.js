@@ -1,13 +1,13 @@
 ﻿'use strict';
-angular.module('pms.ctrl', [])
+angular.module('pm.ctrl', [])
     .controller('PmController', [
-        '$stateParams', 'PmsFactory',
-        function($stateParams, PmsFactory) {
+        '$stateParams', 'PmFactory',
+        function($stateParams, PmFactory) {
             var vm = this;
             vm.message = undefined;
 
             vm.init = function() {
-                PmsFactory.getMessage($stateParams.id)
+                PmFactory.getMessage($stateParams.id)
                     .then(function(response) {
                             vm.message = response;
                         },

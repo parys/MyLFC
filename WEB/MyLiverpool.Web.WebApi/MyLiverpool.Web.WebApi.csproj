@@ -232,7 +232,7 @@
     <Content Include="App\NewsCategory\newsCategory.factory.js" />
     <Content Include="App\NewsComment\newsComment.config.js" />
     <Content Include="App\News\news.config.js" />
-    <Content Include="App\Pm\pms.config.js" />
+    <Content Include="App\Pm\pm.config.js" />
     <Content Include="App\RoleGroup\roleGroup.config.js" />
     <Content Include="App\Constants.js" />
     <Content Include="Content\autocomplete.css" />
@@ -457,7 +457,7 @@
     <Content Include="App\News\NewsEditCtrl.js" />
     <Content Include="App\News\NewsItemController.js" />
     <Content Include="App\Pm\pm.ctrl.js" />
-    <Content Include="App\Pm\PmsController.js" />
+    <Content Include="App\Pm\PmController.js" />
     <Content Include="App\Pm\PmWriteCtrl.js" />
     <Content Include="App\Account\RegisterController.js" />
     <Content Include="App\Home\rightContainerCtrl.js" />
@@ -474,7 +474,7 @@
     <Content Include="App\MarkItUp\MarkItUpFactory.js" />
     <Content Include="App\NewsComment\newsComment.factory.js" />
     <Content Include="App\News\news.factory.js" />
-    <Content Include="App\Pm\pms.factory.js" />
+    <Content Include="App\Pm\pm.factory.js" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />

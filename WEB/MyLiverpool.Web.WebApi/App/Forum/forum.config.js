@@ -36,7 +36,7 @@ angular.module('forum.config',
                     },
                     ncyBreadcrumb: {
                         label: '{{vm.name}}',
-                         parent: 'forum'
+                        parent: 'forum'
                     }
                 })
                 .state('subsectionEdit', {
@@ -48,12 +48,15 @@ angular.module('forum.config',
                             controllerAs: 'vm'
                         }
                     },
+                    params: {
+                        sectionId: null
+                    },
                     resolve: {
                         $title: function() { return 'Редактирование подсекции'; }
                     },
                     ncyBreadcrumb: {
                         label: 'Редактирование подсекции',
-                         parent: 'forum'
+                        parent: 'forum'
                     }
                 })
                 .state('theme', {
@@ -73,15 +76,18 @@ angular.module('forum.config',
                         parent: 'forum'
                     }
                 })
-            .state('themeEdit', {
-                url: '/themeEdit?id',
-                views: {
-                    "@": {
-                        templateUrl: function (params) { return '/app/forum/views/themeEdit?id=' + params.id },
-                        controller: 'ForumThemeController',
-                        controllerAs: 'vm'
-                    }
-                },
+                .state('themeEdit', {
+                    url: '/themeEdit?id',
+                    views: {
+                        "@": {
+                            templateUrl: function(params) { return '/app/forum/views/themeEdit?id=' + params.id },
+                            controller: 'ForumThemeController',
+                            controllerAs: 'vm'
+                        }
+                    },
+                    params: {
+                        subsectionId: null
+        },
                 resolve: {
                     $title: function () { return 'Редактирование темы'; }
                 },

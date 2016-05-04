@@ -12,7 +12,7 @@ angular.module('forum.ctrl')
             vm.name = undefined;
             vm.description = undefined;
             vm.sections = undefined;
-            vm.item = undefined;
+            vm.item = {};
            
 
             vm.init = function() {
@@ -48,6 +48,8 @@ angular.module('forum.ctrl')
                             function(response) {
 
                             });
+                } else {
+                    vm.item.sectionId = $stateParams.sectionId;
                 }
             }
 
@@ -55,7 +57,7 @@ angular.module('forum.ctrl')
                 if (vm.item.id) {
                     ForumFactory.updateSubsection(vm.item)
                         .then(function (response) {
-                            
+                            $state.go('forum');
                         },
                             function (response) {
 
@@ -63,8 +65,8 @@ angular.module('forum.ctrl')
                 } else {
                     ForumFactory.createSubsection(vm.item)
                         .then(function (response) {
-                            
-                        },
+                                $state.go('forum');
+                            },
                             function (response) {
 
                             });

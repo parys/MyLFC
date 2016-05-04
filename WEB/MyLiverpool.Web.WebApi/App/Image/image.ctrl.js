@@ -1,6 +1,6 @@
 ﻿'use strict';
-angular.module('images.ctrl', [])
-    .controller('ImagesCtrl', [
+angular.module('image.ctrl', [])
+    .controller('ImageCtrl', [
         'ImageFactory', '$stateParams',
         function(ImageFactory, $stateParams) {
             var vm = this;

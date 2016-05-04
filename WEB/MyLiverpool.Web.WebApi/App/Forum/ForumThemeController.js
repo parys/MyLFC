@@ -13,7 +13,8 @@ angular.module('forum.ctrl')
 
             vm.init = function() {
                 ForumFactory.getTheme($stateParams.id, $stateParams.page)
-                    .then(function(response) {
+                    .then(function (response) {
+                            console.log(response);
                             vm.messages = response.messages.list;
                             vm.pageNo = response.messages.pageNo;
                             vm.countPage = response.messages.countPage;
@@ -25,6 +26,10 @@ angular.module('forum.ctrl')
                         function(response) {
                             
                         });
+            };
+
+            vm.initEdit = function() {
+
             };
         }
     ]);

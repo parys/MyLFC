@@ -1,14 +1,13 @@
 ﻿'use strict';
-angular.module('pms.ctrl')
-    .controller('PmsController', [
-        'PmsFactory',
-        function(PmsFactory) {
+angular.module('pm.ctrl')
+    .controller('PmController', [
+        'PmFactory',
+        function(PmFactory) {
             var vm = this;
             vm.received = [];
             vm.sent = [];
             vm.init = function () {
-                console.log(123);
-                PmsFactory.getMessages()
+                PmFactory.getMessages()
                     .then(function(response) {
                             vm.received = response.received;
                             vm.sent = response.sent;

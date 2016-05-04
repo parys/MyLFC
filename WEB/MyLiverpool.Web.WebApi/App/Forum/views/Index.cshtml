@@ -4,6 +4,7 @@
         <div class="panel panel-danger" ng-show="section.subsections.length > 0 || isAdminAssistant()">
             <div class="panel-heading">
                 <span ng-bind="section.name"></span>
+                <a href="" ng-show="isAdminAssistant()" ui-sref="subsectionEdit({sectionId: section.id})">@CommonMessages.AddSubsection</a>
                 <a class="pull-right" ng-show="section.subsections.length == 0" ng-click="vm.removeSection($index)">
                     <span class="glyphicon glyphicon-remove">
                     </span>
@@ -12,13 +13,16 @@
             <!--div class="panel-body"></!--div>-->
             <ul class="list-group" ng-repeat="subsection in section.subsections">
                 <li class="list-group-item list">
-                    <a href="" ui-sref="subsection({id: subsection.id})"><span ng-bind="subsection.name"></span> <span class="small" ng-bind="subsection.description"></span></a>
+                    <a href="" ui-sref="subsection({id: subsection.id})">
+                        <span ng-bind="subsection.name"></span>
+                        <span class="small" ng-bind="subsection.description"></span>
+                    </a>
                 </li>
             </ul>
         </div>
     </div>
     <a href="" ng-show="isAdminAssistant()" ng-click="vm.addSection()">@CommonMessages.AddSection</a>
-    <a href="" ng-show="isAdminAssistant()" ui-sref="subsectionEdit()">@CommonMessages.AddSubsection</a>
+    
 </div>
 
 <script type="text/ng-template" id="addSection.html">

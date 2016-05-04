@@ -1,6 +1,6 @@
 ﻿'use strict';
-angular.module('pms.factory', [])
-    .factory('PmsFactory', [
+angular.module('pm.factory', [])
+    .factory('PmFactory', [
         '$q', '$http', 'SessionService',
         function($q, $http, SessionService) {
 

@@ -1,6 +1,6 @@
 ﻿'use strict';
-angular.module('images.factory', [])
-    .factory('ImagesFactory', [
+angular.module('image.factory', [])
+    .factory('ImageFactory', [
         '$q', '$http', 'SessionService',
         function($q, $http, SessionService) {
             return {

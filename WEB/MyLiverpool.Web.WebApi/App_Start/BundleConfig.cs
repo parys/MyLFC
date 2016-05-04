@@ -22,11 +22,11 @@ namespace MyLiverpool.Web.WebApi
                 .Include("~/Scripts/angular-breadcrumb.js")
                 .Include("~/Scripts/angular-touch.js")
                 .Include("~/Scripts/loading-bar.js")
-                .IncludeDirectory("~/Scripts/angular", "*.js", false) // static file loader
+                .IncludeDirectory("~/Scripts/angular", "*.js", false) 
                 .Include("~/Scripts/angular-ui/ui-bootstrap.js")
                 .Include("~/Scripts/angular-ui/ui-bootstrap-tpls.js")
-                .Include("~/Scripts/angular-validation/angular-validation.min.js") //ngroute before?
-                .Include("~/Scripts/angular-mocks.js") //ngroute before?
+                .Include("~/Scripts/angular-validation/angular-validation.min.js") 
+                .Include("~/Scripts/angular-mocks.js") 
                 .Include("~/Scripts/angular-ui-router.js")
                 .Include("~/Scripts/ng-file-upload-shim.js")
                 .Include("~/Scripts/ng-file-upload.js")
@@ -39,7 +39,7 @@ namespace MyLiverpool.Web.WebApi
                 .IncludeDirectory("~/App/account", "*.js")
                 .IncludeDirectory("~/App/filters", "*.js")
                 .IncludeDirectory("~/App/forum", "*.js")
-                .IncludeDirectory("~/App/images", "*.js")
+                .IncludeDirectory("~/App/image", "*.js")
                 .IncludeDirectory("~/App/markitup", "*.js")
                 .IncludeDirectory("~/App/modal", "*.js")
                 .IncludeDirectory("~/App/News/", "*.js")

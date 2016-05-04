@@ -1,7 +1,7 @@
 ﻿'use strict';
 
-angular.module('pms.config',
-    ['pms.factory', 'pms.ctrl'])
+angular.module('pm.config',
+    ['pm.factory', 'pm.ctrl'])
     .config([
         '$stateProvider',
         function($stateProvider) {
@@ -11,7 +11,7 @@ angular.module('pms.config',
                     views: {
                         "@": {
                             templateUrl: '/app/pm/views/pms',
-                            controller: 'PmsController',
+                            controller: 'PmController',
                             controllerAs: 'vm'
                         }
                     },

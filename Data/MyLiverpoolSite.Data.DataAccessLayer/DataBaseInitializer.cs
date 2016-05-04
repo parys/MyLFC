@@ -639,6 +639,7 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                     Message = "message " + i,
                     Pending = (i + 3) % 5 == 0,
                     MaterialType = NewsType,
+                    LastModified = DateTime.Now,
                 };
                 if (i % 3 == 0)
                 {
@@ -653,6 +654,7 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                             AuthorId = random.Next(1, CountUsers),
                             Message = "comment inside",
                             MaterialType = NewsType,
+                            LastModified = DateTime.Now,
                         }
                     };
                     i += 1;
@@ -671,6 +673,7 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                 AuthorId = 1,
                 Message = "comment first",
                 MaterialType = NewsType,
+                LastModified = DateTime.Now,
                 Children = new List<MaterialComment>()
                 {
                     new MaterialComment()
@@ -682,6 +685,7 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                         AuthorId = 2,
                         Message = "comment second inside",
                         MaterialType = NewsType,
+                        LastModified = DateTime.Now,
                         Children = new List<MaterialComment>()
                         {
                             new MaterialComment()
@@ -693,6 +697,7 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                                 AuthorId = 3,
                                 Message = "comment three inside",
                                 MaterialType = NewsType,
+                                LastModified = DateTime.Now,
                             }
                         }
                     }
