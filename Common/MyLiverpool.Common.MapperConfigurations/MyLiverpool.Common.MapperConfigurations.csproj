@@ -56,8 +56,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Profiles\ForumMapperProfile.cs" />
+    <Compile Include="Profiles\ForumSectionMapperProfile.cs" />
+    <Compile Include="Profiles\ForumSubsectionMapperProfile.cs" />
+    <Compile Include="Profiles\ForumThemeMapperProfile.cs" />
+    <Compile Include="Profiles\ForumMessageMapperProfile.cs" />
+    <Compile Include="Profiles\MaterialCategoryMapperProfile.cs" />
+    <Compile Include="Profiles\MaterialCommentMapperProfile.cs" />
     <Compile Include="Profiles\MaterialMapperProfile.cs" />
+    <Compile Include="Profiles\PmMapperProfile.cs" />
+    <Compile Include="Profiles\RoleGroupsMapperProfile.cs" />
     <Compile Include="Profiles\UserMapperProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

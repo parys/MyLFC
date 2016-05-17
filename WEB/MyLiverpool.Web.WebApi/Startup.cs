@@ -19,11 +19,17 @@ namespace MyLiverpool.Web.WebApi
 {
     public partial class Startup
     {
-
         private static readonly MapperConfiguration Config = new MapperConfiguration(cfg => {
+            cfg.AddProfile(new ForumMessageMapperProfile(cfg));
+            cfg.AddProfile(new ForumSectionMapperProfile(cfg));
+            cfg.AddProfile(new ForumSubsectionMapperProfile(cfg));
+            cfg.AddProfile(new ForumThemeMapperProfile(cfg));
             cfg.AddProfile(new MaterialMapperProfile(cfg));
+            cfg.AddProfile(new MaterialCategoryMapperProfile(cfg));
+            cfg.AddProfile(new MaterialCommentMapperProfile(cfg));
+            cfg.AddProfile(new PmMapperProfile(cfg));
+            cfg.AddProfile(new RoleGroupsMapperProfile(cfg));
             cfg.AddProfile(new UserMapperProfile(cfg));
-            cfg.AddProfile(new ForumMapperProfile(cfg));
         });
 
         public void Configuration(IAppBuilder app)

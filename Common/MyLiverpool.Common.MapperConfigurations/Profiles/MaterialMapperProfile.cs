@@ -1,12 +1,5 @@
-﻿using System.Collections.Generic;
-using AutoMapper;
+﻿using AutoMapper;
 using MyLiverpool.Business.DTO;
-using MyLiverpoolSite.Business.ViewModels.Forum;
-using MyLiverpoolSite.Business.ViewModels.News;
-using MyLiverpoolSite.Business.ViewModels.NewsCategories;
-using MyLiverpoolSite.Business.ViewModels.NewsComments;
-using MyLiverpoolSite.Business.ViewModels.Roles;
-using MyLiverpoolSite.Business.ViewModels.Users;
 using MyLiverpoolSite.Data.Entities;
 
 namespace MyLiverpool.Common.MapperConfigurations.Profiles
@@ -22,55 +15,11 @@ namespace MyLiverpool.Common.MapperConfigurations.Profiles
 
         protected override void Configure()
         {
-            RegisterMaterialCommentMapping();
             RegisterMaterialMapping();
-            RegisterMaterialCategoriesMapping();
         }
 
         private void RegisterMaterialMapping()
         {
-            #region mapper for VM
-
-            _cfg.CreateMap<IndexNewsViewModel, Material>();
-            //     AutoMapper.Mapper.CreateMap<IndexBlogVM, BlogItem>();
-
-            _cfg.CreateMap<Material, IndexNewsViewModel>();
-            //    AutoMapper.Mapper.CreateMap<BlogItem, IndexBlogVM>();
-
-            _cfg.CreateMap<Material, CreateEditNewsViewModel>();
-            _cfg.CreateMap<CreateEditNewsViewModel, Material>();
-
-            //     AutoMapper.Mapper.CreateMap<BlogItem, CreateEditBlogVM>();
-            //     AutoMapper.Mapper.CreateMap<CreateEditBlogVM, BlogItem>();
-
-            _cfg.CreateMap<Material, IndexMiniNewsVM>();
-            //     AutoMapper.Mapper.CreateMap<BlogItem, IndexMiniBlogVM>();
-            //  Mapper.CreateMap<IndexMiniNewsVM, Material>();
-
-            _cfg.CreateMap<MaterialComment, IndexNewsCommentVM>();
-            //     AutoMapper.Mapper.CreateMap<BlogComment, IndexBlogCommentVM>();
-            //    Mapper.CreateMap<IndexNewsCommentVM, NewsComment>();
-
-            _cfg.CreateMap<User, UserViewModel>();
-            // Mapper.CreateMap<IndexNewsCommentVM, NewsComment>();
-
-            _cfg.CreateMap<ForumSubsection, ForumSubsectionVM>().ForMember(x => x.Themes, y => y.Ignore());
-            _cfg.CreateMap<ForumTheme, ForumThemeVM>().ForMember(x => x.Messages, y => y.Ignore());
-            _cfg.CreateMap<ForumMessage, ForumMessageVM>();
-
-            _cfg.CreateMap<MaterialCategory, IndexNewsCategoryVM>();
-
-            _cfg.CreateMap<RoleGroup, RoleGroupVM>();
-            _cfg.CreateMap<RoleGroupVM, RoleGroup>();
-
-            _cfg.CreateMap<Role, RoleVM>();
-            _cfg.CreateMap<RoleVM, Role>();
-
-            _cfg.CreateMap<PrivateMessage, PrivateMessageVM>();
-            _cfg.CreateMap<PrivateMessageVM, PrivateMessage>();
-
-            #endregion
-
             _cfg.CreateMap<Material, MaterialMiniDto>()
                 .ForMember(dest => dest.AdditionTime, src => src.MapFrom(x => x.AdditionTime))
                 .ForMember(dest => dest.AuthorId, src => src.MapFrom(x => x.AuthorId))
@@ -116,41 +65,6 @@ namespace MyLiverpool.Common.MapperConfigurations.Profiles
                 .ForMember(dest => dest.Reads, src => src.MapFrom(x => x.Reads))
                 .ForMember(dest => dest.Source, src => src.MapFrom(x => x.Source))
                 .ForMember(dest => dest.Title, src => src.MapFrom(x => x.Title));
-        }
-
-        private void RegisterMaterialCommentMapping()
-        {
-            _cfg.CreateMap<MaterialComment, MaterialCommentDto>()
-                .ForMember(dest => dest.AdditionTime, src => src.MapFrom(x => x.AdditionTime))
-                .ForMember(dest => dest.Answer, src => src.MapFrom(x => x.Answer))
-                .ForMember(dest => dest.AuthorId, src => src.MapFrom(x => x.AuthorId))
-                .ForMember(dest => dest.AuthorUserName, src => src.MapFrom(x => x.Author.UserName))
-                .ForMember(dest => dest.Photo, src => src.MapFrom(x => x.Author.Photo))
-                .ForMember(dest => dest.Children, src => src.MapFrom(x => x.Children))
-                .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id))
-                .ForMember(dest => dest.NewsItemId, src => src.MapFrom(x => x.MaterialId))
-                .ForMember(dest => dest.Message, src => src.MapFrom(x => x.Message));
-
-            _cfg.CreateMap<MaterialCommentEditingDto, MaterialComment>()
-                .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id))
-                .ForMember(dest => dest.Answer, src => src.MapFrom(x => x.Answer))
-                .ForMember(dest => dest.AuthorId, src => src.MapFrom(x => x.AuthorId))
-                .ForMember(dest => dest.Message, src => src.MapFrom(x => x.Message))
-                .ForMember(dest => dest.MaterialId, src => src.MapFrom(x => x.NewsItemId))
-                .ForMember(dest => dest.ParentId, src => src.MapFrom(x => x.ParentId));
-        }
-
-        private void RegisterMaterialCategoriesMapping()
-        {
-            _cfg.CreateMap<MaterialCategory, MaterialCategoryDto>()
-                .ForMember(dest => dest.Description, src => src.MapFrom(x => x.Description))
-                .ForMember(dest => dest.Name, src => src.MapFrom(x => x.Name))
-                .ForMember(dest => dest.ItemsCount, src => src.MapFrom(x => x.Materials.Count))
-                .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id));
-
-            _cfg.CreateMap<MaterialCategoryDto, MaterialCategory>()
-                .ForMember(dest => dest.Description, src => src.MapFrom(x => x.Description))
-                .ForMember(dest => dest.Name, src => src.MapFrom(x => x.Name));
         }
     }
 }
