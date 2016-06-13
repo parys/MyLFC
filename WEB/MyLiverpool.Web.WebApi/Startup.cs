@@ -28,6 +28,7 @@ namespace MyLiverpool.Web.WebApi
             cfg.AddProfile(new MaterialCategoryMapperProfile(cfg));
             cfg.AddProfile(new MaterialCommentMapperProfile(cfg));
             cfg.AddProfile(new PmMapperProfile(cfg));
+            cfg.AddProfile(new RequestMapperProfile(cfg));
             cfg.AddProfile(new RoleGroupsMapperProfile(cfg));
             cfg.AddProfile(new UserMapperProfile(cfg));
         });
@@ -90,6 +91,7 @@ namespace MyLiverpool.Web.WebApi
             builder.RegisterType<MaterialCommentService>().As<IMaterialCommentService>();
             builder.RegisterType<MaterialService>().As<IMaterialService>();
             builder.RegisterType<PmService>().As<IPmService>();
+            builder.RegisterType<RequestService>().As<IRequestService>();
             builder.RegisterType<RoleService>().As<IRoleService>();
             builder.RegisterType<UploadService>().As<IUploadService>();
             builder.RegisterType<UserService>().As<IUserService>();

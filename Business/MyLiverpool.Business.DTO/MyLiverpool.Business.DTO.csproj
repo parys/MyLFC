@@ -96,6 +96,7 @@
     <Compile Include="PrivateMessagesDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegisterUserDto.cs" />
+    <Compile Include="RequestDto.cs" />
     <Compile Include="ResetPasswordDto.cs" />
     <Compile Include="RoleGroupDto.cs" />
     <Compile Include="UserDto.cs" />

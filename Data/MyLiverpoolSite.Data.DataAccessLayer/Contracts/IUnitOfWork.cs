@@ -27,7 +27,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
         IGenericRepository<ForumMessage> ForumMessageRepository { get; }
         IGenericRepository<UserClaim> UserClaimRepository { get; }
     //    IGenericRepository<UserLogin> UserLoginRepository { get; }
-     //   IGenericRepository<UserRole> UserRoleRepository { get; }
+        IGenericRepository<Request> RequestRepository { get; }
         IGenericRepository<Role> RoleRepository { get; }
         IGenericRepository<RoleGroup> RoleGroupRepository { get; }
         IGenericRepository<PrivateMessage> PrivateMessageRepository { get; }

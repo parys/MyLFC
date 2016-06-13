@@ -25,9 +25,9 @@ namespace MyLiverpool.Web.WebApi
             Thread.CurrentThread.CurrentCulture = new CultureInfo("ru");
             Thread.CurrentThread.CurrentUICulture = new CultureInfo("ru");
 
-            Database.SetInitializer(new DatabaseInitializer()); //todo remove
-            LiverpoolContext db = new LiverpoolContext();
-            db.Database.Initialize(true);
+            //Database.SetInitializer(new DatabaseInitializer()); //todo remove
+            //LiverpoolContext db = new LiverpoolContext();
+            //db.Database.Initialize(true);
         }
     }
 }

@@ -19,7 +19,6 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
         private readonly LiverpoolContext _context = new LiverpoolContext();
 
         private IGenericRepository<User> _userRepository;
-     //   private IGenericRepository<BlogItem> _blogItemRepository;
         private IGenericRepository<Material> _materialRepository;
     //    private IGenericRepository<BlogCategory> _blogCategoryRepository;
         private IGenericRepository<MaterialCategory> _materialCategoryRepository;
@@ -31,7 +30,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
         private IGenericRepository<ForumMessage> _forumMessageRepository;
         private IGenericRepository<UserClaim> _userClaimRepository;
        //  private IGenericRepository<UserRole> _userRoleRepository;
-       // private IGenericRepository<UserLogin> _userLoginRepository;
+        private IGenericRepository<Request> _requestRepository;
         private IGenericRepository<Role> _roleRepository;
         private IGenericRepository<RoleGroup> _roleGroupRepository;
         private IGenericRepository<PrivateMessage> _privateMessageRepository;
@@ -61,13 +60,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
         /// Return userRepository.
         /// </summary>
         public IGenericRepository<User> UserRepository => _userRepository ?? (_userRepository = new GenericRepository<User>(_context));
-
-        // <summary>
-        // Return qualificationRepository.
-        // </summary>
-        //public IGenericRepository<BlogItem> BlogItemRepository => _blogItemRepository ??
-        //                                                          (_blogItemRepository = new GenericRepository<BlogItem>(_context));
-
+        
         //public IGenericRepository<BlogCategory> BlogCategoryRepository => _blogCategoryRepository ??
         //                                                                  (_blogCategoryRepository = new GenericRepository<BlogCategory>(_context));
 
@@ -86,7 +79,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
         public IGenericRepository<ForumMessage> ForumMessageRepository => _forumMessageRepository ?? (_forumMessageRepository = new GenericRepository<ForumMessage>(_context));
        // public IGenericRepository<UserLogin> UserLoginRepository => _userLoginRepository ?? (_userLoginRepository = new GenericRepository<UserLogin>(_context));
         public IGenericRepository<UserClaim> UserClaimRepository => _userClaimRepository ?? (_userClaimRepository = new GenericRepository<UserClaim>(_context));
-      //   public IGenericRepository<UserRole> UserRoleRepository => UserRoleRepository ?? (_userRoleRepository = new GenericRepository<UserRole>(_context));
+         public IGenericRepository<Request> RequestRepository => _requestRepository ?? (_requestRepository = new GenericRepository<Request>(_context));
         public IGenericRepository<Role> RoleRepository => _roleRepository ?? (_roleRepository = new GenericRepository<Role>(_context));
         public IGenericRepository<RoleGroup> RoleGroupRepository => _roleGroupRepository ?? (_roleGroupRepository = new GenericRepository<RoleGroup>(_context));
 

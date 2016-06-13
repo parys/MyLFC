@@ -1,7 +1,5 @@
-﻿using System;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
-using System.Security.Cryptography.X509Certificates;
 using Microsoft.AspNet.Identity.EntityFramework;
 using MyLiverpoolSite.Data.Entities;
 
@@ -44,7 +42,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
       //  public DbSet<User> Users { get; set; }
        // public DbSet<Role> Roles { get; set; }
 
-    //    public DbSet<BlogItem> BlogItems { get; set; }
+        public DbSet<Request> Requests { get; set; }
         public DbSet<Material> Materials { get; set; }
        // public DbSet<BlogCategory> BlogCategories { get; set; }
         public DbSet<MaterialCategory> MaterialCategories { get; set; }

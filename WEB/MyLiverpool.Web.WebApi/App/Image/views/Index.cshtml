@@ -1,6 +1,18 @@
 ﻿<div ng-init="vm.init()">
     <div ng-repeat="file in vm.files">
-        <a ui-sref="images({path: file.path})"><div ng-if="file.isFolder" class="col-md-2 bg-danger" style="height: 50px; margin: 10px" ng-bind="file.name"></div></a>
-        <img class="col-md-2" ng-if="!file.isFolder" ng-src="{{file.path}}" style="height: 50px; margin: 10px"/>
+        <a ui-sref="images({path: file.path})">
+            <div ng-if="file.isFolder" class="col-xs-2 bg-danger" style="height: 50px; margin: 10px" ng-bind="file.name"></div>
+        </a>
+        <a ng-click="vm.showBigImage($index)" href="">
+            <img class="col-xs-2" ng-if="!file.isFolder" ng-src="{{file.path}}" style="height: 50px; margin: 10px" />
+        </a>
     </div>
 </div>
+
+<script type="text/ng-template" id="imageModal.html">
+    <div class="clearfix">
+        <img class="center-block" ng-src="{{vm.image.path}}" style="" />
+        <br/>
+        <input class="col-xs-offset-1 col-xs-10" readonly value="{{vm.image.path}}"/>
+    </div>
+</script>

@@ -41,7 +41,6 @@ angular.module('liverpoolApp')
 
             vm.logout = function() {
                 Authentication.logout();
-                //$state.go('home');
             }
 
             vm.emailUnique = function(email) {
@@ -53,8 +52,40 @@ angular.module('liverpoolApp')
             }
 
             vm.getReturnUrl = function() {
-                //  console.log($location.url());
                 return $location.url();
+            }
+
+
+            vm.isSelf = function (userId) {
+                return Authentication.getUserId() == userId;
+            }
+
+            vm.isNewsmaker = function () {
+                return Authentication.isNewsmaker();
+            }
+
+            vm.isEditor = function () {
+                return Authentication.isEditor();
+            }
+
+            vm.isMainModerator = function () {
+                return Authentication.isMainModerator();
+            }
+
+            vm.isModerator = function () {
+                return Authentication.isModerator();
+            }
+
+            vm.isAuthor = function () {
+                return Authentication.isAuthor();
+            }
+
+            vm.isAdmin = function () {
+                return Authentication.isAdmin();
+            }
+
+            vm.isAdminAssistant = function () {
+                return Authentication.isAdminAssistant();
             }
         }
     ]);

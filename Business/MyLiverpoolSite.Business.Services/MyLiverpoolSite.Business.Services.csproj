@@ -72,7 +72,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Services\AccountService.cs" />
-    <Compile Include="ApplicationSignInManager.cs" />
     <Compile Include="Services\BlogCategoryService.cs" />
     <Compile Include="Services\BlogCommentService.cs" />
     <Compile Include="Services\BlogService.cs" />
@@ -85,6 +84,7 @@
     <Compile Include="Services\MaterialService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\PmService.cs" />
+    <Compile Include="Services\RequestService.cs" />
     <Compile Include="Services\RoleService.cs" />
     <Compile Include="Services\SmsService.cs" />
     <Compile Include="Services\UploadService.cs" />

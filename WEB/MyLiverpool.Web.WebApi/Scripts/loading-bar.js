@@ -1,7 +1,7 @@
 /*! 
- * angular-loading-bar v0.8.0
+ * angular-loading-bar v0.9.0
  * https://chieffancypants.github.io/angular-loading-bar
- * Copyright (c) 2015 Wes Cruver
+ * Copyright (c) 2016 Wes Cruver
  * License: MIT
  */
 /*
@@ -120,8 +120,8 @@ angular.module('cfp.loadingBarInterceptor', ['cfp.loadingBar'])
 
           if (!response.config.ignoreLoadingBar && !isCached(response.config)) {
             reqsCompleted++;
-            $rootScope.$broadcast('cfpLoadingBar:loaded', {url: response.config.url, result: response});
             if (reqsCompleted >= reqsTotal) {
+              $rootScope.$broadcast('cfpLoadingBar:loaded', {url: response.config.url, result: response});
               setComplete();
             } else {
               cfpLoadingBar.set(reqsCompleted / reqsTotal);
@@ -138,8 +138,8 @@ angular.module('cfp.loadingBarInterceptor', ['cfp.loadingBar'])
 
           if (!rejection.config.ignoreLoadingBar && !isCached(rejection.config)) {
             reqsCompleted++;
-            $rootScope.$broadcast('cfpLoadingBar:loaded', {url: rejection.config.url, result: rejection});
             if (reqsCompleted >= reqsTotal) {
+              $rootScope.$broadcast('cfpLoadingBar:loaded', {url: rejection.config.url, result: rejection});
               setComplete();
             } else {
               cfpLoadingBar.set(reqsCompleted / reqsTotal);
@@ -200,7 +200,6 @@ angular.module('cfp.loadingBar', [])
           $animate = $injector.get('$animate');
         }
 
-        var $parent = $document.find($parentSelector).eq(0);
         $timeout.cancel(completeTimeout);
 
         // do not continually broadcast the started event:
@@ -208,15 +207,28 @@ angular.module('cfp.loadingBar', [])
           return;
         }
 
+        var document = $document[0];
+        var parent = document.querySelector ?
+          document.querySelector($parentSelector)
+          : $document.find($parentSelector)[0]
+        ;
+
+        if (! parent) {
+          parent = document.getElementsByTagName('body')[0];
+        }
+
+        var $parent = angular.element(parent);
+        var $after = parent.lastChild && angular.element(parent.lastChild);
+
         $rootScope.$broadcast('cfpLoadingBar:started');
         started = true;
 
         if (includeBar) {
-          $animate.enter(loadingBarContainer, $parent, angular.element($parent[0].lastChild));
+          $animate.enter(loadingBarContainer, $parent, $after);
         }
 
         if (includeSpinner) {
-          $animate.enter(spinner, $parent, angular.element($parent[0].lastChild));
+          $animate.enter(spinner, $parent, loadingBarContainer);
         }
 
         _set(startSize);
@@ -295,9 +307,7 @@ angular.module('cfp.loadingBar', [])
           $animate = $injector.get('$animate');
         }
 
-        $rootScope.$broadcast('cfpLoadingBar:completed');
         _set(1);
-
         $timeout.cancel(completeTimeout);
 
         // Attempt to aggregate any start/complete calls within 500ms:
@@ -307,6 +317,7 @@ angular.module('cfp.loadingBar', [])
             promise.then(_completeAnimation);
           }
           $animate.leave(spinner);
+          $rootScope.$broadcast('cfpLoadingBar:completed');
         }, 500);
       }
 

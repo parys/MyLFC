@@ -206,6 +206,7 @@
     <Compile Include="Controllers\NewsCategoryController.cs" />
     <Compile Include="Controllers\NewsCommentController.cs" />
     <Compile Include="Controllers\PmController.cs" />
+    <Compile Include="Controllers\RequestController.cs" />
     <Compile Include="Controllers\RoleGroupController.cs" />
     <Compile Include="Controllers\SubsectionController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
@@ -227,6 +228,7 @@
     <Content Include="App\Modal\alert.html" />
     <Content Include="App\Modal\modalDeleteConfirmation.html" />
     <Content Include="App\Modal\modalEditComment.html" />
+    <Content Include="App\Modal\ModalShowBigImageCtrl.js" />
     <Content Include="App\NewsCategory\newsCategory.config.js" />
     <Content Include="App\NewsCategory\newsCategory.ctrl.js" />
     <Content Include="App\NewsCategory\newsCategory.factory.js" />

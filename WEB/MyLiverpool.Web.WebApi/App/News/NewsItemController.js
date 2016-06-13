@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('news.ctrl')
     .controller('NewsItemController', [
-        'NewsFactory', '$uibModal', 'NewsCommentsFactory', '$state', '$cookies', 'Authentication', '$scope', '$rootScope',
-        function (NewsFactory, $uibModal, NewsCommentsFactory, $state, $cookies, Authentication, $scope, $rootScope) {
+        'NewsFactory', '$uibModal', 'NewsCommentFactory', '$state', '$cookies', 'Authentication', '$scope', '$rootScope',
+        function (NewsFactory, $uibModal, NewsCommentFactory, $state, $cookies, Authentication, $scope, $rootScope) {
             var vm = this;
             vm.item = [];
 
@@ -94,7 +94,7 @@ angular.module('news.ctrl')
 
             vm.addComment = function() {
                 vm.newComment.newsItemId = vm.item.id;
-                NewsCommentsFactory.add(vm.newComment).
+                NewsCommentFactory.add(vm.newComment).
                     then(function(response) {
                             //todo 
                             vm.newComment = response;
