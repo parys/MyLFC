@@ -1,7 +1,7 @@
 ﻿
 namespace MyLiverpool.Business.DTO
 {
-    public class RequestDto : IDto
+    public class WishDto : IDto
     {
         public int Id { get; set; }
 

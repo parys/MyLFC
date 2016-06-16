@@ -1,16 +1,15 @@
 ﻿'use strict';
-angular.module('pm.factory', [])
-    .factory('PmFactory', [
+angular.module('wish.factory', [])
+    .factory('WishFactory', [
         '$q', '$http', 'SessionService',
         function($q, $http, SessionService) {
-
             return {
-                getMessage: function(id) {
+                getList: function(page) {
                     var result = $q.defer();
 
                     $http({
                             method: 'GET',
-                            url: SessionService.apiUrl + '/api/Pm?id=' + id,
+                            url: SessionService.apiUrl + '/api/Wish/list?page=' + page,
                             headers: { 'Content-Type': 'application/json' }
                         })
                         .success(function(response) {
@@ -19,32 +18,14 @@ angular.module('pm.factory', [])
                         .error(function(response) {
                             result.reject(response);
                         });
-
                     return result.promise;
                 },
-                getMessages: function() {
+                get: function() {
                     var result = $q.defer();
 
                     $http({
                             method: 'GET',
-                            url: SessionService.apiUrl + '/api/Pm',
-                            headers: { 'Content-Type': 'application/json' }
-                        })
-                        .success(function(response) {
-                            result.resolve(response);
-                        })
-                        .error(function(response) {
-                            result.reject(response);
-                        });
-
-                    return result.promise;
-                },
-                sentMessage: function(model) {
-                    var result = $q.defer();
-                    $http({
-                            method: 'POST',
-                            url: SessionService.apiUrl + '/api/Pm',
-                            data: model,
+                            url: SessionService.apiUrl + '/api/Wish',
                             headers: { 'Content-Type': 'application/json' }
                         })
                         .success(function(response) {
@@ -55,7 +36,6 @@ angular.module('pm.factory', [])
                         });
                     return result.promise;
                 }
-
             };
         }
     ]);

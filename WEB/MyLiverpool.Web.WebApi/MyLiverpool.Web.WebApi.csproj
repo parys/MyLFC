@@ -206,7 +206,7 @@
     <Compile Include="Controllers\NewsCategoryController.cs" />
     <Compile Include="Controllers\NewsCommentController.cs" />
     <Compile Include="Controllers\PmController.cs" />
-    <Compile Include="Controllers\RequestController.cs" />
+    <Compile Include="Controllers\WishController.cs" />
     <Compile Include="Controllers\RoleGroupController.cs" />
     <Compile Include="Controllers\SubsectionController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
@@ -237,6 +237,8 @@
     <Content Include="App\Pm\pm.config.js" />
     <Content Include="App\RoleGroup\roleGroup.config.js" />
     <Content Include="App\Constants.js" />
+    <Content Include="App\Wish\wish.config.js" />
+    <Content Include="App\Wish\wish.ctrl.js" />
     <Content Include="Content\autocomplete.css" />
     <Content Include="Content\avatars\0\755939.jpeg" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -414,8 +416,11 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="App\Users\users.config.js" />
+    <Content Include="App\User\users.config.js" />
     <Content Include="App\NewsCategory\views\edit.cshtml" />
+    <Content Include="App\Wish\wish.factory.js" />
+    <Content Include="App\Wish\views\list.cshtml" />
+    <Content Include="App\Wish\views\edit.cshtml" />
     <None Include="Properties\PublishProfiles\package.pubxml" />
     <None Include="Properties\PublishProfiles\someeFreeQA.pubxml" />
     <Content Include="Scripts\angular\23angular-translate-loader-static-files.js" />
@@ -465,8 +470,8 @@
     <Content Include="App\Home\rightContainerCtrl.js" />
     <Content Include="App\RoleGroup\roleGroup.ctrl.js" />
     <Content Include="App\RoleGroup\roleGroup.factory.js" />
-    <Content Include="App\Users\users.ctrl.js" />
-    <Content Include="App\Users\UsersController.js" />
+    <Content Include="App\User\users.ctrl.js" />
+    <Content Include="App\User\UsersController.js" />
     <Content Include="App\MarkItUp\markItUpDirective.js" />
     <Content Include="App\NewsComment\NewsCommentDirective.js" />
     <Content Include="App\Account\AccountFactory.js" />
@@ -487,7 +492,7 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="App\Factories\RecursionHelper.js" />
     <Content Include="App\Filters\RouteFilter.js" />
-    <Content Include="App\Users\users.factory.js" />
+    <Content Include="App\User\users.factory.js" />
     <Content Include="Scripts\Filters.js" />
     <Content Include="App\Image\image.ctrl.js" />
     <Content Include="Scripts\jquery.markitup.js" />
@@ -553,9 +558,9 @@
     <Content Include="App\News\views\Edit.cshtml" />
     <Content Include="App\News\views\List.cshtml" />
     <Content Include="App\RoleGroup\views\Index.cshtml" />
-    <Content Include="App\Users\views\List.cshtml" />
+    <Content Include="App\User\views\List.cshtml" />
     <Content Include="App\Pm\views\pms.cshtml" />
-    <Content Include="App\Users\views\Info.cshtml" />
+    <Content Include="App\User\views\Info.cshtml" />
     <Content Include="App\Pm\views\pm.cshtml" />
     <Content Include="App\Pm\views\wpm.cshtml" />
     <Content Include="Views\Web.config" />

@@ -19,7 +19,8 @@ angular.module('liverpoolApp',
         'newsComment.config',
         'pm.config',
         'roleGroup.config',
-        'users.config'
+        'user.config',
+        'wish.config'
     ])
     .run(function(Authentication, Application, $rootScope, $location, uibPaginationConfig, $state, $stateParams, $window) {
         //$rootScope.roles = "";
@@ -67,38 +68,39 @@ angular.module('liverpoolApp',
 
 
         $rootScope.isSelf = function(userId) {
-            return Authentication.getUserId() == userId;
-        }
+            return Authentication.getUserId() === userId;
+        };
 
         $rootScope.isNewsmaker = function() {
             return Authentication.isNewsmaker();
-        }
+        };
 
         $rootScope.isEditor = function() {
             return Authentication.isEditor();
-        }
+        };
 
         $rootScope.isMainModerator = function() {
             return Authentication.isMainModerator();
-        }
+        };
 
         $rootScope.isModerator = function() {
             return Authentication.isModerator();
-        }
+        };
 
         $rootScope.isAuthor = function() {
             return Authentication.isAuthor();
-        }
+        };
 
         $rootScope.isAdmin = function() {
             return Authentication.isAdmin();
-        }
+        };
 
         $rootScope.isAdminAssistant = function() {
             return Authentication.isAdminAssistant();
-        }
+        };
 
-        $rootScope.isUserAuthor = function (userId, newsUserId) {
-            return userId == newsUserId;
-        }
+        $rootScope.isUserAuthor = function(userId, newsUserId) {
+            console.log("app root isUserAuthor " + userId === newsUserId);
+            return userId === newsUserId;
+        };
     });

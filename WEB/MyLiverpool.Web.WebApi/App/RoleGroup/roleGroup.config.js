@@ -5,6 +5,6 @@ angular.module('roleGroup.config',
     .config([
         '$stateProvider',
         function($stateProvider) {
-            ;
+            
         }
     ]);

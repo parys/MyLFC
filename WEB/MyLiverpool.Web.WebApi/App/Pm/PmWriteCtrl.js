@@ -8,13 +8,13 @@ angular.module('pm.ctrl')
                 title: "",
                 message: "",
                 receiverUserName: ""
-            }
+            };
             vm.errorMessage = undefined;
             vm.userNames = [];
 
             vm.sent = function() {
                 if (vm.userNames.indexOf(vm.message.receiverUserName) < 0) {
-                    if (vm.message.receiverUserName != null && vm.message.receiverUserName.length > 0) {
+                    if (vm.message.receiverUserName !== null && vm.message.receiverUserName.length > 0) {
                         vm.errorMessage = "Пользователя с логином " + vm.message.receiverUserName + " не существует";
                         vm.message.receiverUserName = "";
                     }
@@ -43,7 +43,7 @@ angular.module('pm.ctrl')
                         function(response) {
                             vm.userNames = [];
                         });
-            }
+            };
 
             function getTitle(title) {
                 var match = title.match(/\[.*]/);
@@ -61,6 +61,6 @@ angular.module('pm.ctrl')
                     vm.message.title = getTitle($stateParams.title); //todo update
                 }
                 vm.updateUserNames(vm.message.receiverUserName);
-            }
+            };
         }
     ]);

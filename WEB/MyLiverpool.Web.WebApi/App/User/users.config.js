@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module('users.config',
+angular.module('user.config',
     ['users.factory', 'users.ctrl'])
     .config([
         '$stateProvider',
@@ -8,7 +8,7 @@ angular.module('users.config',
             $stateProvider
                 .state('userInfo', {
                     url: '/userInfo?id',
-                    templateUrl: function(params) { return '/app/users/views/info?id=' + params.id },
+                    templateUrl: function(params) { return '/app/user/views/info?id=' + params.id; },
                     controller: 'UserController',
                     controllerAs: 'vm',
                     resolve: {
@@ -21,7 +21,7 @@ angular.module('users.config',
                 })
                 .state('users', {
                     url: '/users?page&roleGroupId&userName',
-                    templateUrl: function (params) { return '/app/users/views/list?page=' + params.page + '&roleGroupId=' + params.roleGroupId + '&userName=' + params.userName },
+                    templateUrl: function (params) { return '/app/user/views/list?page=' + params.page + '&roleGroupId=' + params.roleGroupId + '&userName=' + params.userName; },
                     controller: 'UsersController',
                     controllerAs: 'vm',
                     resolve: {

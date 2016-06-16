@@ -47,7 +47,8 @@ namespace MyLiverpool.Web.WebApi
                 .IncludeDirectory("~/App/NewsComment/", "*.js")
                 .IncludeDirectory("~/App/Pm/", "*.js")
                 .IncludeDirectory("~/App/RoleGroup/", "*.js")
-                .IncludeDirectory("~/App/Users/", "*.js")
+                .IncludeDirectory("~/App/User/", "*.js")
+                .IncludeDirectory("~/App/Wish/", "*.js")
                 .Include("~/App/Configuration.js")
 
                 );

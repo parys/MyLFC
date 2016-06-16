@@ -20,6 +20,6 @@ angular.module('roleGroup.factory', [])
                         });
                     return result.promise;
                 }
-            }
+            };
         }
     ]);

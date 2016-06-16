@@ -78,7 +78,7 @@
     <Compile Include="IMaterialCommentService.cs" />
     <Compile Include="IMaterialService.cs" />
     <Compile Include="IPmService.cs" />
-    <Compile Include="IRequestService.cs" />
+    <Compile Include="IWishService.cs" />
     <Compile Include="IRoleService.cs" />
     <Compile Include="IUploadService.cs" />
     <Compile Include="IUserService.cs" />
