@@ -42,7 +42,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
       //  public DbSet<User> Users { get; set; }
        // public DbSet<Role> Roles { get; set; }
 
-        public DbSet<Request> Requests { get; set; }
+        public DbSet<Wish> Wishs { get; set; }
         public DbSet<Material> Materials { get; set; }
        // public DbSet<BlogCategory> BlogCategories { get; set; }
         public DbSet<MaterialCategory> MaterialCategories { get; set; }

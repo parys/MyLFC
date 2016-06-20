@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using System.Web.Http;
 using MyLiverpoolSite.Business.Contracts;
+using MyLiverpoolSite.Data.Entities;
 
 namespace MyLiverpool.Web.WebApi.Controllers
 {
@@ -34,6 +35,22 @@ namespace MyLiverpool.Web.WebApi.Controllers
                 return BadRequest();
             }
             var model = await _wishService.GetAsync(wishId.Value);
+            return Ok(model);
+        }
+
+        [Route("types")]
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IHttpActionResult> GetTypes()
+        {
+            var model = new[]
+            {
+                new {id = WishType.Bug, name = WishType.Bug.ToString()},
+                new {id = WishType.BugUi, name = WishType.BugUi.ToString()},
+                new {id = WishType.Feature, name = WishType.Feature.ToString()},
+                new {id = WishType.FeatureUi, name = WishType.FeatureUi.ToString()}
+            };
+            
             return Ok(model);
         }
     }

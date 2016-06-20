@@ -19,7 +19,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
 
         protected override void Seed(LiverpoolContext context)
         {
-            if (!context.PrivateMessages.Any())
+            if (!context.Users.Any())
             {
                 InitializeRoles(context);
                 InitializeRoleGroups(context);

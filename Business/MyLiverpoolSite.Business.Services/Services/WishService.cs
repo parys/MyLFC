@@ -20,13 +20,13 @@ namespace MyLiverpoolSite.Business.Services.Services
 
         public async Task<List<WishDto>> GetListAsync(int page = 1)
         {
-            var wishes = await _unitOfWork.RequestRepository.GetAsync(page);
+            var wishes = await _unitOfWork.WishRepository.GetAsync(page);
             return _mapper.Map<List<WishDto>>(wishes);
         }
 
         public async Task<WishDto> GetAsync(int wishId)
         {
-            var wish = await _unitOfWork.RequestRepository.GetByIdAsync(wishId);
+            var wish = await _unitOfWork.WishRepository.GetByIdAsync(wishId);
             return _mapper.Map<WishDto>(wish);
         }
     }

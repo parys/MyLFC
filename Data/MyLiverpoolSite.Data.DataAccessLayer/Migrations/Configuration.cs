@@ -1,13 +1,16 @@
 namespace MyLiverpoolSite.Data.DataAccessLayer.Migrations
 {
+    using System;
+    using System.Data.Entity;
     using System.Data.Entity.Migrations;
+    using System.Linq;
 
     internal sealed class Configuration : DbMigrationsConfiguration<MyLiverpoolSite.Data.DataAccessLayer.LiverpoolContext>
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
-            ContextKey = "MyLiverpoolSite.Data.DataAccessLayer.LiverpoolContext";
+            AutomaticMigrationsEnabled = true;
+            
         }
 
         protected override void Seed(MyLiverpoolSite.Data.DataAccessLayer.LiverpoolContext context)
@@ -16,8 +19,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer.Migrations
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data. E.g.
-            // 
-            
+            //
             //    context.People.AddOrUpdate(
             //      p => p.FullName,
             //      new Person { FullName = "Andrew Peters" },

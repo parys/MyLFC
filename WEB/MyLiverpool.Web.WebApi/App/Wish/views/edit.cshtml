@@ -1,10 +1,21 @@
 ﻿@using MyLiverpool.Business.Resources
-<form class="form-horizontal col-md-12" role="form" name="editWish" ng-init="vm.init()">
+<form class="form-horizontal col-md-12" role="form" name="editWish" ng-controller="WishCtrl" ng-init="vm.initEdit()">
     <div class="form-group">
         <label class="control-label col-md-2"> @ColonsMessages.Title</label>
         <div class="col-md-10">
-            <input class="form-control" name="title" ng-model="vm.wish.title" validation="max_len:30|required" />
+            <input class="form-control" name="title" ng-model="vm.wish.title" validation="max_len:30|required"/>
         </div>
     </div>
-
+    <div class="form-group">
+        <label class="control-label col-md-2"> @ColonsMessages.Title</label>
+        <div class="col-md-10">
+            <textarea class="form-control" name="title" ng-model="vm.wish.message" validation="max_len:300|required"></textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-2 col-sm-2">Тип:</label>
+        <div class="col-xs-10 col-sm-10">
+            <select class="form-control" name="newsCategoryId" ng-model="vm.wish.typeId" ng-options="type.id as type.name for type in vm.types" required="" validation="required"></select>
+        </div>
+    </div>
 </form>

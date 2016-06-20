@@ -77,8 +77,8 @@
       <HintPath>..\..\packages\Microsoft.Owin.Cors.3.0.1\lib\net45\Microsoft.Owin.Cors.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -435,6 +435,14 @@
     <Content Include="Scripts\angular-animate.min.js.map" />
     <Content Include="Scripts\angular-route.min.js.map" />
     <Content Include="Scripts\angular-touch.min.js.map" />
+    <Content Include="Scripts\angular-validation\locales\ru.json" />
+    <Content Include="Scripts\angular-validation\locales\pt-br.json" />
+    <Content Include="Scripts\angular-validation\locales\pl.json" />
+    <Content Include="Scripts\angular-validation\locales\no.json" />
+    <Content Include="Scripts\angular-validation\locales\fr.json" />
+    <Content Include="Scripts\angular-validation\locales\es.json" />
+    <Content Include="Scripts\angular-validation\locales\en.json" />
+    <Content Include="Scripts\angular-validation\locales\ca.json" />
     <None Include="Scripts\jquery-2.2.3.intellisense.js" />
     <Content Include="Scripts\jquery-2.2.3.js" />
     <Content Include="Scripts\jquery-2.2.3.min.js" />
@@ -520,14 +528,6 @@
     <Content Include="App\Image\views\Index.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="App\Home\ClubHistory.cshtml" />
-    <Content Include="Scripts\angular-validation\locales\ru.json" />
-    <Content Include="Scripts\angular-validation\locales\pt-br.json" />
-    <Content Include="Scripts\angular-validation\locales\pl.json" />
-    <Content Include="Scripts\angular-validation\locales\no.json" />
-    <Content Include="Scripts\angular-validation\locales\fr.json" />
-    <Content Include="Scripts\angular-validation\locales\es.json" />
-    <Content Include="Scripts\angular-validation\locales\en.json" />
-    <Content Include="Scripts\angular-validation\locales\ca.json" />
     <None Include="App\Account\PasswordChanged.cshtml" />
     <None Include="App\Account\UnconfirmEmail.cshtml" />
     <Content Include="App\Forum\views\ThemeEdit.cshtml" />

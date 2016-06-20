@@ -20,7 +20,7 @@ namespace MyLiverpool.Common.MapperConfigurations.Profiles
 
         private void RegisterRequestMapping()
         {
-            _cfg.CreateMap<Request, WishDto>()
+            _cfg.CreateMap<Wish, WishDto>()
                 .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id))
                 .ForMember(dest => dest.Message, src => src.MapFrom(x => x.Message))
                 .ForMember(dest => dest.Title, src => src.MapFrom(x => x.Title))

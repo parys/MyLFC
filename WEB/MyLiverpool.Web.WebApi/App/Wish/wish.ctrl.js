@@ -1,15 +1,15 @@
 ﻿'use strict';
 angular.module('wish.ctrl', [])
     .controller('WishCtrl', [
-         'WishFactory',
-        function(WishFactory) {
+         '$stateParams', 'WishFactory',
+        function($stateParams, WishFactory) {
             var vm = this;
             vm.wish = undefined;
             vm.pageNo = 1;
             //$scope.users = [];
             //$scope.pageNo = 1;
             vm.countPage = 1;
-            var initList = function (page) {
+            vm.initList = function (page) {
                 WishFactory.getList(page)
                     .then(function (response) {
                         vm.wish = response.list;
@@ -21,13 +21,22 @@ angular.module('wish.ctrl', [])
                         });
             };
 
-            var init = function () {
-                WishFactory.getList($stateParams.id)
-                    .then(function (response) {
-                        vm.wish = response;
-                    },
-                        function (response) {
-                            //$scope.f = "";
+            vm.initEdit = function () {
+                if ($stateParams.id) {
+                    WishFactory.get($stateParams.id)
+                        .then(function(response) {
+                                vm.wish = response;
+                            },
+                            function(response) {
+                                //$scope.f = "";
+                            });
+                }
+                WishFactory.getTypes()
+                    .then(function(response) {
+                            vm.types = response;
+                        },
+                        function(response) {
+
                         });
             };
             //$scope.isNotSelf = function (userId, userId2) {

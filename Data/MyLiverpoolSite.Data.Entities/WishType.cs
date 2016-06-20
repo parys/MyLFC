@@ -6,13 +6,12 @@ using System.Threading.Tasks;
 
 namespace MyLiverpoolSite.Data.Entities
 {
-    public enum RequestType
+    public enum WishType
     {
         Default = 0,
         Bug = 1,
         BugUi = 2,
         Feature = 3,
         FeatureUi = 4,
-
     }
 }

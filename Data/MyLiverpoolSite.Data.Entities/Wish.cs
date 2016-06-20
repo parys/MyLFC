@@ -2,7 +2,7 @@
 
 namespace MyLiverpoolSite.Data.Entities
 {
-    public class Request : IEntity
+    public class Wish : IEntity
     {
         public int Id { get; set; }
 
@@ -12,6 +12,6 @@ namespace MyLiverpoolSite.Data.Entities
         [MaxLength(300)]
         public string Message { get; set; }
 
-        public RequestType Type { get; set; }
+        public WishType Type { get; set; }
     }
 }

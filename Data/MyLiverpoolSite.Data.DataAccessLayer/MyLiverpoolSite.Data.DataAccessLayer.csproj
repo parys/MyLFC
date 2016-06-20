@@ -75,8 +75,8 @@
       <HintPath>..\..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
@@ -103,14 +103,6 @@
     <Compile Include="Contracts\IMaterialRepository.cs" />
     <Compile Include="Contracts\IUnitOfWork.cs" />
     <Compile Include="LiverpoolContext.cs" />
-    <Compile Include="Migrations\201605022100536_InitialCreate.cs" />
-    <Compile Include="Migrations\201605022100536_InitialCreate.Designer.cs">
-      <DependentUpon>201605022100536_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201606131915175_AddRequestTable.cs" />
-    <Compile Include="Migrations\201606131915175_AddRequestTable.Designer.cs">
-      <DependentUpon>201606131915175_AddRequestTable.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Repositories\MaterialRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -138,17 +130,12 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201605022100536_InitialCreate.resx">
-      <DependentUpon>201605022100536_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201606131915175_AddRequestTable.resx">
-      <DependentUpon>201606131915175_AddRequestTable.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="RolesMessages.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>RolesMessages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
