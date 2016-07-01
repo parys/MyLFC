@@ -15,7 +15,12 @@
     <div class="form-group">
         <label class="control-label col-xs-2 col-sm-2">Тип:</label>
         <div class="col-xs-10 col-sm-10">
-            <select class="form-control" name="newsCategoryId" ng-model="vm.wish.typeId" ng-options="type.id as type.name for type in vm.types" required="" validation="required"></select>
+            <select class="form-control" name="newsCategoryId" ng-model="vm.wish.type" ng-options="type.id as type.name for type in vm.types" required="" validation="required"></select>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button ng-disabled="editWish.$invalid" type="submit" ng-click="vm.send()" class="btn btn-default">@CommonMessages.Send</button>
         </div>
     </div>
 </form>

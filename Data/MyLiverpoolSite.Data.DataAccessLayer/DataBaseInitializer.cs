@@ -10,7 +10,7 @@ using MyLiverpoolSite.Data.Entities;
 
 namespace MyLiverpoolSite.Data.DataAccessLayer
 {
-    public class DatabaseInitializer : DropCreateDatabaseIfModelChanges<LiverpoolContext> //todo WARNING ALARM
+    public class DatabaseInitializer : CreateDatabaseIfNotExists<LiverpoolContext> //todo WARNING ALARM
     {
         private const int CountNews = 100;
         private const int CountNewsComments = 100;

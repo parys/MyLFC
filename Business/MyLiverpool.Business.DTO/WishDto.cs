@@ -1,4 +1,5 @@
-﻿
+﻿using MyLiverpoolSite.Data.Entities;
+
 namespace MyLiverpool.Business.DTO
 {
     public class WishDto : IDto
@@ -9,6 +10,8 @@ namespace MyLiverpool.Business.DTO
 
         public string Message { get; set; }
 
-        public string Type { get; set; }
+        public int Type { get; set; }
+
+        public string TypeName { get; set; }
     }
 }

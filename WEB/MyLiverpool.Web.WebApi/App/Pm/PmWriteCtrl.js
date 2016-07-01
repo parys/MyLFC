@@ -12,7 +12,7 @@ angular.module('pm.ctrl')
             vm.errorMessage = undefined;
             vm.userNames = [];
 
-            vm.sent = function() {
+            vm.send = function() {
                 if (vm.userNames.indexOf(vm.message.receiverUserName) < 0) {
                     if (vm.message.receiverUserName !== null && vm.message.receiverUserName.length > 0) {
                         vm.errorMessage = "Пользователя с логином " + vm.message.receiverUserName + " не существует";

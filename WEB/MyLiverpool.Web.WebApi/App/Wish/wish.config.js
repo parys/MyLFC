@@ -19,6 +19,19 @@ angular.module('wish.config',
                         parent: 'home'
                     }
                 })
+                .state('wish', {
+                    url: '/wish?id',
+                    templateUrl: function(params) { return '/app/wish/views/wish?id=' + params.id; },
+                    controller: 'WishCtrl',
+                    controllerAs: 'vm',
+                    resolve: {
+                        $title: function() { return 'wish'; }//'vm.wish.title'; }
+                    },
+                    ncyBreadcrumb: {
+                        label: '{{vm.wish.title}}',
+                        parent: 'home'
+                    }
+                })
                 .state('wishEdit', {
                     url: '/wishEdit?id',
                     templateUrl: function(params) { return '/app/wish/views/edit?id=' + params.id; },

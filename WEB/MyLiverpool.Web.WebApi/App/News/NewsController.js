@@ -26,7 +26,7 @@ angular.module('news.ctrl', [])
                         });
             };
 
-            vm.activate = function (index) {
+            vm.activate = function(index) {
                 NewsFactory.activate(vm.newsItems[index].id).
                     then(function(response) {
                             if (response) {
@@ -37,20 +37,20 @@ angular.module('news.ctrl', [])
                         function(response) {
                             $rootScope.alerts.push({ type: 'danger', msg: 'Новость не была активирована.' });
                         });
-            }
+            };
 
-            vm.delete = function (index) {
+            vm.delete = function(index) {
                 var modalInstance = $uibModal.open({
                     animation: true,
                     templateUrl: 'modalDeleteConfirmation.html',
                     controller: 'ModalCtrl',
                     controllerAs: 'vm'
-                //resolve: {
-                //    id: function() {
-                //        return $scoe.selectedNewsId;
-                //    }
-                //}
-            });
+                    //resolve: {
+                    //    id: function() {
+                    //        return $scoe.selectedNewsId;
+                    //    }
+                    //}
+                });
 
                 modalInstance.result.then(function() {
                     NewsFactory.delete(vm.newsItems[index].id).
@@ -65,10 +65,10 @@ angular.module('news.ctrl', [])
                             });
                 }, function() {
                 });
-            }
+            };
 
-            vm.goToPage = function () {
+            vm.goToPage = function() {
                 $state.go('news', { page: vm.pageNo });
-            }
+            };
         }
     ]);

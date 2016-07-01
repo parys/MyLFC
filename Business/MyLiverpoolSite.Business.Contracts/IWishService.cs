@@ -6,10 +6,12 @@ namespace MyLiverpoolSite.Business.Contracts
 {
     public interface IWishService
     {
+        Task<WishDto> CreateAsync(WishDto dto);
+
         Task<List<WishDto>> GetListAsync(int page);
 
         Task<WishDto> GetAsync(int wishId);
 
-       // Task<bool> SaveAsync(WishDto model);
+        Task<bool> DeleteAsync(int id);
     }
 }

@@ -28,7 +28,7 @@ namespace MyLiverpool.Web.WebApi
             cfg.AddProfile(new MaterialCategoryMapperProfile(cfg));
             cfg.AddProfile(new MaterialCommentMapperProfile(cfg));
             cfg.AddProfile(new PmMapperProfile(cfg));
-            cfg.AddProfile(new RequestMapperProfile(cfg));
+            cfg.AddProfile(new WishMapperProfile(cfg));
             cfg.AddProfile(new RoleGroupsMapperProfile(cfg));
             cfg.AddProfile(new UserMapperProfile(cfg));
         });
@@ -82,6 +82,7 @@ namespace MyLiverpool.Web.WebApi
 
         private void RegisterServices(ContainerBuilder builder)
         {
+           // builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsImplementedInterfaces();
             builder.RegisterType<AccountService>().As<IAccountService>();
             builder.RegisterType<EmailService>().As<IIdentityMessageService>();
             builder.RegisterType<ForumSectionService>().As<IForumSectionService>();
