@@ -6,21 +6,14 @@ namespace MyLiverpool.Common.MapperConfigurations.Profiles
 {
     public class UserMapperProfile : Profile
     {
-        private readonly IMapperConfiguration _cfg;
-
-        public UserMapperProfile(IMapperConfiguration cfg)
-        {
-            _cfg = cfg;
-        }
-
-        protected override void Configure()
+        public UserMapperProfile()
         {
             RegisterUserMapping();
         }
-
+        
         private void RegisterUserMapping()
         {
-            _cfg.CreateMap<User, UserDto>()
+            CreateMap<User, UserDto>()
                 .ForMember(dest => dest.Birthday, src => src.MapFrom(x => x.Birthday))
                 .ForMember(dest => dest.Email, src => src.MapFrom(x => x.Email))
                 .ForMember(dest => dest.EmailConfirmed, src => src.MapFrom(x => x.EmailConfirmed))
@@ -35,7 +28,7 @@ namespace MyLiverpool.Common.MapperConfigurations.Profiles
                 .ForMember(dest => dest.RoleGroupId, src => src.MapFrom(x => x.RoleGroupId))
                 .ForMember(dest => dest.UserName, src => src.MapFrom(x => x.UserName));
 
-            _cfg.CreateMap<User, UserMiniDto>()
+            CreateMap<User, UserMiniDto>()
                 .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id))
                 .ForMember(dest => dest.EmailConfirmed, src => src.MapFrom(x => x.EmailConfirmed))
                 .ForMember(dest => dest.LastModified, src => src.MapFrom(x => x.LastModified))
@@ -44,7 +37,7 @@ namespace MyLiverpool.Common.MapperConfigurations.Profiles
                 .ForMember(dest => dest.Photo, src => src.MapFrom(x => x.Photo))
                 .ForMember(dest => dest.UserName, src => src.MapFrom(x => x.UserName));
 
-            _cfg.CreateMap<RegisterUserDto, User>()
+            CreateMap<RegisterUserDto, User>()
                 .ForMember(dest => dest.Birthday, src => src.MapFrom(x => x.Birthday))
                 .ForMember(dest => dest.Email, src => src.MapFrom(x => x.Email))
                 .ForMember(dest => dest.FullName, src => src.MapFrom(x => x.FullName))

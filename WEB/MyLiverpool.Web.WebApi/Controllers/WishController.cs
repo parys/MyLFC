@@ -20,7 +20,7 @@ namespace MyLiverpool.Web.WebApi.Controllers
         [Route]
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IHttpActionResult> Create(WishDto dto)
+        public async Task<IHttpActionResult> CreateAsync(WishDto dto)
         {
             if (!ModelState.IsValid)
             {
@@ -33,7 +33,7 @@ namespace MyLiverpool.Web.WebApi.Controllers
         [Route]
         [HttpDelete]
         [Authorize(Roles = "AdminStart")]
-        public async Task<IHttpActionResult> Delete(int? id)
+        public async Task<IHttpActionResult> DeleteAsync(int? id)
         {
             if (!id.HasValue)
             {
@@ -47,7 +47,7 @@ namespace MyLiverpool.Web.WebApi.Controllers
         [Route("List")]
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IHttpActionResult> GetList(int page = 1)
+        public async Task<IHttpActionResult> GetListAsync(int page = 1)
         {
             var model = await _wishService.GetListAsync(page);
             return Ok(model);
@@ -56,7 +56,7 @@ namespace MyLiverpool.Web.WebApi.Controllers
         [Route]
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IHttpActionResult> Get(int? wishId)
+        public async Task<IHttpActionResult> GetAsync(int? wishId)
         {
             if (!wishId.HasValue)
             {

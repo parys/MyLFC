@@ -6,21 +6,14 @@ namespace MyLiverpool.Common.MapperConfigurations.Profiles
 {
     public class MaterialCommentMapperProfile : Profile
     {
-        private readonly IMapperConfiguration _cfg;
-
-        public MaterialCommentMapperProfile(IMapperConfiguration cfg)
-        {
-            _cfg = cfg;
-        }
-
-        protected override void Configure()
+        public MaterialCommentMapperProfile()
         {
             RegisterMaterialCommentMapping();
         }
-
+        
         private void RegisterMaterialCommentMapping()
         {
-            _cfg.CreateMap<MaterialComment, MaterialCommentDto>()
+            CreateMap<MaterialComment, MaterialCommentDto>()
                 .ForMember(dest => dest.AdditionTime, src => src.MapFrom(x => x.AdditionTime))
                 .ForMember(dest => dest.Answer, src => src.MapFrom(x => x.Answer))
                 .ForMember(dest => dest.AuthorId, src => src.MapFrom(x => x.AuthorId))
@@ -31,7 +24,7 @@ namespace MyLiverpool.Common.MapperConfigurations.Profiles
                 .ForMember(dest => dest.NewsItemId, src => src.MapFrom(x => x.MaterialId))
                 .ForMember(dest => dest.Message, src => src.MapFrom(x => x.Message));
 
-            _cfg.CreateMap<MaterialCommentEditingDto, MaterialComment>()
+            CreateMap<MaterialCommentEditingDto, MaterialComment>()
                 .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id))
                 .ForMember(dest => dest.Answer, src => src.MapFrom(x => x.Answer))
                 .ForMember(dest => dest.AuthorId, src => src.MapFrom(x => x.AuthorId))

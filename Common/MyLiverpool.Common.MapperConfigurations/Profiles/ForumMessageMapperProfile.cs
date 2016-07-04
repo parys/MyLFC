@@ -6,21 +6,14 @@ namespace MyLiverpool.Common.MapperConfigurations.Profiles
 {
     public class ForumMessageMapperProfile : Profile
     {
-        private readonly IMapperConfiguration _cfg;
-
-        public ForumMessageMapperProfile(IMapperConfiguration cfg)
-        {
-            _cfg = cfg;
-        }
-
-        protected override void Configure()
+        public ForumMessageMapperProfile()
         {
             RegisterForumMessageMapping();
         }
-
+        
         private void RegisterForumMessageMapping()
         {
-            _cfg.CreateMap<ForumMessage, ForumMessageDto>()
+            CreateMap<ForumMessage, ForumMessageDto>()
                 .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id))
                 .ForMember(dest => dest.AuthorId, src => src.MapFrom(x => x.AuthorId))
                 .ForMember(dest => dest.AuthorUserName, src => src.MapFrom(x => x.Author.UserName))

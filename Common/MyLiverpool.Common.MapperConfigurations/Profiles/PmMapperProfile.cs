@@ -6,20 +6,14 @@ namespace MyLiverpool.Common.MapperConfigurations.Profiles
 {
     public class PmMapperProfile : Profile
     {
-        private readonly IMapperConfiguration _cfg;
-
-        public PmMapperProfile(IMapperConfiguration cfg)
-        {
-            _cfg = cfg;
-        }
-        protected override void Configure()
+        public PmMapperProfile()
         {
             RegisterPrivateMessageMapping();
         }
 
         private void RegisterPrivateMessageMapping()
         {
-            _cfg.CreateMap<PrivateMessage, PrivateMessageMiniDto>()
+            CreateMap<PrivateMessage, PrivateMessageMiniDto>()
                 .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id))
                 .ForMember(dest => dest.IsRead, src => src.MapFrom(x => x.IsRead))
                 .ForMember(dest => dest.ReceiverId, src => src.MapFrom(x => x.ReceiverId))
@@ -29,7 +23,7 @@ namespace MyLiverpool.Common.MapperConfigurations.Profiles
                 .ForMember(dest => dest.SentTime, src => src.MapFrom(x => x.SentTime))
                 .ForMember(dest => dest.Title, src => src.MapFrom(x => x.Title));
 
-            _cfg.CreateMap<PrivateMessage, PrivateMessageDto>()
+            CreateMap<PrivateMessage, PrivateMessageDto>()
                 .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id))
                 .ForMember(dest => dest.IsRead, src => src.MapFrom(x => x.IsRead))
                 .ForMember(dest => dest.Message, src => src.MapFrom(x => x.Message))
@@ -40,7 +34,7 @@ namespace MyLiverpool.Common.MapperConfigurations.Profiles
                 .ForMember(dest => dest.SentTime, src => src.MapFrom(x => x.SentTime))
                 .ForMember(dest => dest.Title, src => src.MapFrom(x => x.Title));
 
-            _cfg.CreateMap<PrivateMessageDto, PrivateMessage>()
+            CreateMap<PrivateMessageDto, PrivateMessage>()
                 .ForMember(dest => dest.Id, src => src.Ignore())
                 .ForMember(dest => dest.IsRead, src => src.Ignore())
                 .ForMember(dest => dest.Message, src => src.MapFrom(x => x.Message))

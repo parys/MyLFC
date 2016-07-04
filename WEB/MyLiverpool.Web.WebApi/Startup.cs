@@ -19,18 +19,18 @@ namespace MyLiverpool.Web.WebApi
 {
     public partial class Startup
     {
-        private static readonly MapperConfiguration Config = new MapperConfiguration(cfg => {
-            cfg.AddProfile(new ForumMessageMapperProfile(cfg));
-            cfg.AddProfile(new ForumSectionMapperProfile(cfg));
-            cfg.AddProfile(new ForumSubsectionMapperProfile(cfg));
-            cfg.AddProfile(new ForumThemeMapperProfile(cfg));
-            cfg.AddProfile(new MaterialMapperProfile(cfg));
-            cfg.AddProfile(new MaterialCategoryMapperProfile(cfg));
-            cfg.AddProfile(new MaterialCommentMapperProfile(cfg));
-            cfg.AddProfile(new PmMapperProfile(cfg));
-            cfg.AddProfile(new WishMapperProfile(cfg));
-            cfg.AddProfile(new RoleGroupsMapperProfile(cfg));
-            cfg.AddProfile(new UserMapperProfile(cfg));
+        private static readonly IConfigurationProvider Config = new MapperConfiguration(cfg => {
+            cfg.AddProfile(new ForumMessageMapperProfile());
+            cfg.AddProfile(new ForumSectionMapperProfile());
+            cfg.AddProfile(new ForumSubsectionMapperProfile());
+            cfg.AddProfile(new ForumThemeMapperProfile());
+            cfg.AddProfile(new MaterialMapperProfile());
+            cfg.AddProfile(new MaterialCategoryMapperProfile());
+            cfg.AddProfile(new MaterialCommentMapperProfile());
+            cfg.AddProfile(new PmMapperProfile());
+            cfg.AddProfile(new WishMapperProfile());
+            cfg.AddProfile(new RoleGroupsMapperProfile());
+            cfg.AddProfile(new UserMapperProfile());
         });
 
         public void Configuration(IAppBuilder app)

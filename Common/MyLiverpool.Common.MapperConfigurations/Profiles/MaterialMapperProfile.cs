@@ -6,21 +6,14 @@ namespace MyLiverpool.Common.MapperConfigurations.Profiles
 {
     public class MaterialMapperProfile : Profile
     {
-        private readonly IMapperConfiguration _cfg;
-
-        public MaterialMapperProfile(IMapperConfiguration cfg)
-        {
-            _cfg = cfg;
-        }
-
-        protected override void Configure()
+        public MaterialMapperProfile()
         {
             RegisterMaterialMapping();
         }
-
+        
         private void RegisterMaterialMapping()
         {
-            _cfg.CreateMap<Material, MaterialMiniDto>()
+            CreateMap<Material, MaterialMiniDto>()
                 .ForMember(dest => dest.AdditionTime, src => src.MapFrom(x => x.AdditionTime))
                 .ForMember(dest => dest.AuthorId, src => src.MapFrom(x => x.AuthorId))
                 .ForMember(dest => dest.AuthorUserName, src => src.MapFrom(x => x.Author.UserName))
@@ -34,7 +27,7 @@ namespace MyLiverpool.Common.MapperConfigurations.Profiles
                 .ForMember(dest => dest.PhotoPath, src => src.MapFrom(x => x.PhotoPath))
                 .ForMember(dest => dest.Reads, src => src.MapFrom(x => x.Reads));
 
-            _cfg.CreateMap<Material, MaterialDto>() //todo maybe separate for edit model
+            CreateMap<Material, MaterialDto>() //todo maybe separate for edit model
                 .ForMember(dest => dest.AdditionTime, src => src.MapFrom(x => x.AdditionTime))
                 .ForMember(dest => dest.AuthorId, src => src.MapFrom(x => x.AuthorId))
                 .ForMember(dest => dest.AuthorUserName, src => src.MapFrom(x => x.Author.UserName))
@@ -52,7 +45,7 @@ namespace MyLiverpool.Common.MapperConfigurations.Profiles
                 .ForMember(dest => dest.Source, src => src.MapFrom(x => x.Source))
                 .ForMember(dest => dest.Title, src => src.MapFrom(x => x.Title));
 
-            _cfg.CreateMap<MaterialDto, Material>()
+            CreateMap<MaterialDto, Material>()
                 .ForMember(dest => dest.AdditionTime, src => src.MapFrom(x => x.AdditionTime.Value))
                 .ForMember(dest => dest.AuthorId, src => src.MapFrom(x => x.AuthorId))
                 .ForMember(dest => dest.Brief, src => src.MapFrom(x => x.Brief))
