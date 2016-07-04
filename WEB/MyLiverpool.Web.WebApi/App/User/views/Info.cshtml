@@ -18,13 +18,13 @@
                 <button ng-if="isSelf(vm.user.id)" class="btn btn-danger" ui-sref="changePassword()"> @CommonMessages.ChangePassword</button>
                 <br><br>
                 <div>
-                    <span ng-show="errFile.$error" ng-bind="errFile.$error"></span>
-                    <span ng-show="errFile.$errorParam" ng-bind="errFile.$errorParam"></span>
+                    <span ng-show="vm.errFile.$error" ng-bind="vm.errFile.$error"></span>
+                    <span ng-show="vm.errFile.$errorParam" ng-bind="vm.errFile.$errorParam"></span>
                     <span class="progress" ng-show="f.progress >= 0">
                         <span style="width:{{f.progress}}%" ng-bind="f.progress + '%'"></span>
                     </span>
                 </div>
-                {{errorMsg}}
+                {{vm.errorMsg}}
             </div>
         </div>
     </div>

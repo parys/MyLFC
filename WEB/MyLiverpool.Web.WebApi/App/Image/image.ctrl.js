@@ -1,8 +1,8 @@
 ﻿'use strict';
-angular.module('image.ctrl', [])
+angular.module('image.ctrl', ['ngFileUpload'])
     .controller('ImageCtrl', [
-        'ImageFactory', '$stateParams', '$uibModal',
-        function (ImageFactory, $stateParams, $uibModal) {
+        'ImageFactory', '$stateParams', '$uibModal', 'Upload', '$timeout',
+        function (ImageFactory, $stateParams, $uibModal, Upload, $timeout) {
             var vm = this;
 
             vm.files = '';
@@ -16,20 +16,20 @@ angular.module('image.ctrl', [])
                         });
             };
 
-            vm.showBigImage = function (index) {
+            vm.showBigImage = function(index) {
                 var modalInstance = $uibModal.open({
                     animation: true,
                     templateUrl: 'imageModal.html',
                     controller: 'ModalShowBigImageCtrl',
                     controllerAs: 'vm',
                     resolve: {
-                        image: function () {
+                        image: function() {
                             return vm.files[index];
                         }
                     }
                 });
 
-                modalInstance.result.then(function () {
+                modalInstance.result.then(function() {
                     //NewsFactory.delete(vm.newsItems[index].id).
                     //    then(function (response) {
                     //        if (response) {
@@ -40,8 +40,37 @@ angular.module('image.ctrl', [])
                     //        function (response) {
                     //            $rootScope.alerts.push({ type: 'danger', msg: 'Новость не была удалена.' });
                     //        });
-                }, function () {
+                }, function() {
                 });
+            };
+
+            vm.one = function() {
+                console.log(123);
             }
+
+            vm.uploadFiles = function (files) {
+                console.log(files);
+                vm.files = files;
+                if (files && files.length) {
+                    Upload.upload({
+                        url: '/api/upload/upload',
+                        method: 'POST',
+                        data: {
+                            files: files
+                        }
+                    }).then(function (response) {
+                        $timeout(function () {
+                            vm.result = response.data;
+                        });
+                    }, function (response) {
+                        if (response.status > 0) {
+                            vm.errorMsg = response.status + ': ' + response.data;
+                        }
+                    }, function (evt) {
+                        vm.progress =
+                            Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+                    });
+                }
+            };
         }
     ]);

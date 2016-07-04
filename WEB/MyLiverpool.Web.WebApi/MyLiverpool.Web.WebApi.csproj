@@ -237,6 +237,7 @@
     <Content Include="App\Pm\pm.config.js" />
     <Content Include="App\RoleGroup\roleGroup.config.js" />
     <Content Include="App\Constants.js" />
+    <Content Include="App\Image\views\Add.cshtml" />
     <None Include="App\Wish\views\wish.cshtml" />
     <Content Include="App\Wish\wish.config.js" />
     <Content Include="App\Wish\wish.ctrl.js" />

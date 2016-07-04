@@ -47,5 +47,28 @@ namespace MyLiverpool.Web.WebApi.Controllers
             }
             return BadRequest();
         }
+
+        [Authorize(Roles="NewsStart,BlogStart")]
+        [Route("Upload")]
+        [HttpPost]
+        public async Task<IHttpActionResult> UploadImages()
+        {
+            if (!Request.Content.IsMimeMultipartContent())
+            {
+                return BadRequest();
+            }
+
+            if (HttpContext.Current.Request.Files.AllKeys.Any())
+            {
+                if (HttpContext.Current.Request.Files.Count > 0)
+                {
+                    var files = HttpContext.Current.Request.Files;
+                    var result = await _uploadService.UploadAsync(files);
+
+                    return Ok(result);
+                }
+            }
+            return BadRequest();
+        }
     }
 }

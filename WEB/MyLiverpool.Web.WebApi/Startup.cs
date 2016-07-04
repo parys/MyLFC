@@ -56,7 +56,7 @@ namespace MyLiverpool.Web.WebApi
 
             // Register the Autofac middleware FIRST. This also adds
             // Autofac-injected middleware registered with the container.
-            //   app.UseAutofacMiddleware(container);
+             //  app.UseAutofacMiddleware(container);
             //   app.UseAutofacMvc();
             //  app
             

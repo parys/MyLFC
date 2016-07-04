@@ -34,7 +34,7 @@ namespace MyLiverpool.Web.WebApi.Controllers
             {
                 path = PathFull;
             }
-            if (!path.Contains(PathFull))
+            if (!path.Contains(PathContent))
             {
                 path = System.IO.Path.Combine(PathFull, path);
             }

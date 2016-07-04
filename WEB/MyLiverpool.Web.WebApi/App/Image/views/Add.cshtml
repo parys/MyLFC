@@ -1,0 +1,24 @@
+﻿<div>
+    <div class="row">
+        <div class="col-xs-10 col-sm-10">
+            <div>
+                <h4>Upload on file select</h4>
+                <a ng-click="vm.one()">123</a>
+                <button ngf-select="vm.uploadFiles($files)" multiple accept="image/*">
+                    Select Files
+                </button>
+                <br>
+                <br>Files:
+                <ul>
+                    <li ng-repeat="f in vm.files">
+                        {{f.name}}
+                    </li>
+                </ul>
+                <span class="progress" ng-show="vm.progress >= 0">
+                    <div style="width:{{vm.progress}}%" ng-bind="vm.progress + '%'"></div>
+                </span>
+                {{vm.errorMsg}}
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,10 +1,11 @@
 ﻿<div ng-init="vm.init()">
+    <a ui-sref="imagesAdd({})">add</a>
     <div ng-repeat="file in vm.files">
         <a ui-sref="images({path: file.path})">
             <div ng-if="file.isFolder" class="col-xs-2 bg-danger" style="height: 50px; margin: 10px" ng-bind="file.name"></div>
         </a>
         <a ng-click="vm.showBigImage($index)" href="">
-            <img class="col-xs-2" ng-if="!file.isFolder" ng-src="{{file.path}}" style="height: 50px; margin: 10px" />
+            <img class="col-xs-2" ng-if="!file.isFolder" ng-src="{{file.path}}" style="height: 50px; margin: 10px"/>
         </a>
     </div>
 </div>

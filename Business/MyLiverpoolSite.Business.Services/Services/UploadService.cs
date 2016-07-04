@@ -11,6 +11,7 @@ namespace MyLiverpoolSite.Business.Services.Services
     public class UploadService : IUploadService
     {
         public const string AvatarPath = "Content\\avatars\\";
+        public const string ImagesPath = "Content\\images\\";
         public const int FilesPerFolder = 200;
         private readonly IUserService _userService;
 
@@ -39,6 +40,22 @@ namespace MyLiverpoolSite.Business.Services.Services
             relativePath = Regex.Replace(relativePath, "\\\\", "/");
             await _userService.UpdatePhotoPathAsync(userId, relativePath);
             return relativePath;
+        }
+
+        public async Task<bool> UploadAsync(HttpFileCollection files)
+        {
+            foreach (var fileName in files.AllKeys)
+            {
+                var file = files[fileName];
+                var newName = GenerateNewName() + "." + file.FileName.Split('.').Last();
+                var newPath = GenerateNewPath(ImagesPath);
+                var relativePath = Path.Combine(newPath, newName);
+                var    path = GetFullPath(relativePath);
+                
+                file.SaveAs(path);
+               // relativePath = Regex.Replace(relativePath, "\\\\", "/");
+            }
+            return true;
         }
 
         #region private helpers 

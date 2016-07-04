@@ -111,7 +111,7 @@ angular.module('users.ctrl', [])
                 if (file) {
                     file.upload = Upload.upload({
                         url: '/api/upload/avatar?userId=' + vm.user.id,
-                        method: "POST",
+                        method: 'POST',
                         file: file
                     });
 
