@@ -19,9 +19,7 @@ angular.module('pm.ctrl', [])
                 PmFactory.getMessage($stateParams.id)
                     .then(function(response) {
                             vm.message = response;
-                            vm.replyTo = response.receiverId == Authentication.getUserId() ? response.senderUserName : response.receiverUserName;
-                            console.log(vm.replyTo);
-                            console.log(response);
+                            vm.replyTo = response.receiverId === Authentication.getUserId() ? response.senderUserName : response.receiverUserName;
                         },
                         function(response) {
                             //.f = "";

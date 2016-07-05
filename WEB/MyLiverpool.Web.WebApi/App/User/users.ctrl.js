@@ -118,7 +118,7 @@ angular.module('users.ctrl', [])
                     file.upload.then(function(response) {
                         console.log(response);
                         vm.user.photo = response.data + '?r=' + Math.round();
-                        if (vm.user.id == Authentication.getUserId()) {
+                        if (vm.user.id === Authentication.getUserId()) {
                             $rootScope.userImage = vm.user.photo;
                         }
                     }, function(response) {

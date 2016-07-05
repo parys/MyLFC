@@ -44,16 +44,12 @@ angular.module('image.ctrl', ['ngFileUpload'])
                 });
             };
 
-            vm.one = function() {
-                console.log(123);
-            }
-
             vm.uploadFiles = function (files) {
                 console.log(files);
                 vm.files = files;
                 if (files && files.length) {
                     Upload.upload({
-                        url: '/api/upload/upload',
+                        url: '/api/upload/images',
                         method: 'POST',
                         data: {
                             files: files

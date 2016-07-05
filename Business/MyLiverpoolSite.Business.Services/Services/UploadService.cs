@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -42,20 +43,21 @@ namespace MyLiverpoolSite.Business.Services.Services
             return relativePath;
         }
 
-        public async Task<bool> UploadAsync(HttpFileCollection files)
+        public async Task<IEnumerable<string>> UploadAsync(HttpFileCollection files)
         {
+            var result = new List<string>();
             foreach (var fileName in files.AllKeys)
             {
                 var file = files[fileName];
                 var newName = GenerateNewName() + "." + file.FileName.Split('.').Last();
                 var newPath = GenerateNewPath(ImagesPath);
                 var relativePath = Path.Combine(newPath, newName);
-                var    path = GetFullPath(relativePath);
+                var path = GetFullPath(relativePath);
                 
                 file.SaveAs(path);
-               // relativePath = Regex.Replace(relativePath, "\\\\", "/");
+                result.Add(relativePath);
             }
-            return true;
+            return result;
         }
 
         #region private helpers 

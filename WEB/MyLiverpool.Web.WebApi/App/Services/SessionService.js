@@ -20,7 +20,7 @@ app.service('SessionService', [
             var cookie = $cookies.getObject('user');
             if (!cookie) return undefined;
             return cookie.access_token;
-        }
+        };
 
         //  this.setToken = function (token) {
         //      this.token = token;

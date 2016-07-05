@@ -73,8 +73,8 @@ angular.module('liverpoolApp')
                 },
 
                 getUserId: function() {
-                    if (!authenticatedUser) return undefined;
-                    return authenticatedUser.id;
+                    if (!authenticatedUser) return 0;
+                    return parseInt(authenticatedUser.id);
                 },
 
                 //getUserName: function() {

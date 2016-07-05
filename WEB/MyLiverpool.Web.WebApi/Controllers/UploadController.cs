@@ -49,7 +49,7 @@ namespace MyLiverpool.Web.WebApi.Controllers
         }
 
         [Authorize(Roles="NewsStart,BlogStart")]
-        [Route("Upload")]
+        [Route("Images")]
         [HttpPost]
         public async Task<IHttpActionResult> UploadImages()
         {

@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace MyLiverpoolSite.Business.Contracts
@@ -7,6 +9,6 @@ namespace MyLiverpoolSite.Business.Contracts
     {
         Task<string> UpdateAvatarAsync(int userId, HttpPostedFile file);
 
-        Task<bool> UploadAsync(HttpFileCollection files);
+        Task<IEnumerable<string>> UploadAsync(HttpFileCollection files);
     }
 }

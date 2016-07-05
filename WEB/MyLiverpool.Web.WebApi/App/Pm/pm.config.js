@@ -27,7 +27,7 @@ angular.module('pm.config',
                     url: '/pm?id',
                     views: {
                         "@": {
-                            templateUrl: function(params) { return '/app/pm/views/Pm?id=' + params.id },
+                            templateUrl: function(params) { return '/app/pm/views/Pm?id=' + params.id; },
                             controller: 'PmController',
                             controllerAs: 'vm'
                         }
