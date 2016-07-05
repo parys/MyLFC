@@ -474,8 +474,6 @@
     <Content Include="App\News\NewsEditCtrl.js" />
     <Content Include="App\News\NewsItemController.js" />
     <Content Include="App\Pm\pm.ctrl.js" />
-    <Content Include="App\Pm\PmController.js" />
-    <Content Include="App\Pm\PmWriteCtrl.js" />
     <Content Include="App\Account\RegisterController.js" />
     <Content Include="App\Home\rightContainerCtrl.js" />
     <Content Include="App\RoleGroup\roleGroup.ctrl.js" />

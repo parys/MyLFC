@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('users.ctrl', [])
     .controller('UserController', [
-        '$stateParams', 'UsersFactory', 'RoleGroupsFactory', '$uibModal', '$rootScope', 'Upload', 'Authentication',
-        function ($stateParams, UsersFactory, RoleGroupsFactory, $uibModal, $rootScope, Upload, Authentication) {
+        '$stateParams', 'UsersFactory', 'RoleGroupFactory', '$uibModal', '$rootScope', 'Upload', 'Authentication',
+        function ($stateParams, UsersFactory, RoleGroupFactory, $uibModal, $rootScope, Upload, Authentication) {
             var vm = this;
             vm.user = [];
             vm.roleGroups = [];
@@ -19,7 +19,7 @@ angular.module('users.ctrl', [])
                         function(response) {
                             //$scope.f = "";
                         });
-                RoleGroupsFactory.get()
+                RoleGroupFactory.get()
                     .then(function(response) {
                         vm.roleGroups = response;
                         },

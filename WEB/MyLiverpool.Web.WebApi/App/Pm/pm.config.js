@@ -45,7 +45,7 @@ angular.module('pm.config',
                     views: {
                         "@": {
                             templateUrl: '/app/Pm/views/wpm',
-                            controller: 'PmWriteCtrl',
+                            controller: 'PmController',
                             controllerAs: 'vm'
                         }
                     },
