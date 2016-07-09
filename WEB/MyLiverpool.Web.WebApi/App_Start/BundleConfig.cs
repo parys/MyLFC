@@ -30,6 +30,7 @@ namespace MyLiverpool.Web.WebApi
                 .Include("~/Scripts/angular-ui-router.js")
                 .Include("~/Scripts/ng-file-upload-shim.js")
                 .Include("~/Scripts/ng-file-upload.js")
+                .Include("~/Scripts/3rd/clipboard.min.js")
                 .Include("~/App/App.js")
                 .Include("~/App/account/accountFactory.js")
                 .Include("~/App/Services/SessionService.js")
@@ -50,7 +51,6 @@ namespace MyLiverpool.Web.WebApi
                 .IncludeDirectory("~/App/User/", "*.js")
                 .IncludeDirectory("~/App/Wish/", "*.js")
                 .Include("~/App/Configuration.js")
-
                 );
 
             BundleTable.EnableOptimizations = false;

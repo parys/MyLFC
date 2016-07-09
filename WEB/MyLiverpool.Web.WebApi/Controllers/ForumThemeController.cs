@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using System.Web.Http;
+using MyLiverpool.Business.DTO;
 using MyLiverpoolSite.Business.Contracts;
 
 namespace MyLiverpool.Web.WebApi.Controllers
@@ -18,9 +19,44 @@ namespace MyLiverpool.Web.WebApi.Controllers
         [Route]
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IHttpActionResult> GetTheme(int id, int page = 1)
+        public async Task<IHttpActionResult> GetTheme(int id, int? page)
         {
-            var model = await _forumThemeService.GetAsync(id, page);
+            if (!page.HasValue)
+            {
+                page = 1;
+            }
+            var model = await _forumThemeService.GetAsync(id, page.Value );
+            return Ok(model);
+        }
+
+        [Route]
+        [HttpGet]
+        [Authorize]
+        public async Task<IHttpActionResult> GetTheme(int id)
+        {
+            var model = await _forumThemeService.GetAsync(id);
+            return Ok(model);
+        }
+
+        [Route]
+        [HttpPost]
+        [Authorize]
+        public async Task<IHttpActionResult> Create(ForumThemeDto dto)
+        {
+            var model = await _forumThemeService.CreateAsync(dto);
+            return Ok(model);
+        }
+
+        [Route]
+        [HttpPut]
+        [Authorize]
+        public async Task<IHttpActionResult> Update(int id, ForumThemeDto dto) //todo all update need ID
+        {
+            if (id != dto.Id)
+            {
+                return BadRequest();
+            }
+            var model = await _forumThemeService.UpdateAsync(dto);
             return Ok(model);
         }
     }

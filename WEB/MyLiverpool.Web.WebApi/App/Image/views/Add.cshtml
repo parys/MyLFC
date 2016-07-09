@@ -19,8 +19,11 @@
                 {{vm.errorMsg}}
             </div>
             <div ng-repeat="f in vm.result">
-                <img style="width: 100px;" ng-src="{{f}}"/>
-                <input value="{{f}}"/>
+                <img style="width: 200px;" ng-src="{{f}}"/>
+                <input id="photo{{$index}}" value="{{f}}"/>
+                <button class="btn" ngclipboard data-clipboard-target="#photo{{$index}}">
+                    <span class="glyphicon glyphicon-file"></span>
+                </button>
             </div>
         </div>
     </div>

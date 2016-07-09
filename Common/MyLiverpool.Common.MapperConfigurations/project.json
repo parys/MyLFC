@@ -1,6 +1,6 @@
 ﻿{
   "dependencies": {
-    "AutoMapper": "5.0.0"
+    "AutoMapper": "5.0.2"
   },
   "frameworks": {
     "net452": {}

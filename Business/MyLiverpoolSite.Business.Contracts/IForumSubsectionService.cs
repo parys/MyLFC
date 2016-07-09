@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using MyLiverpool.Business.DTO;
 
 namespace MyLiverpoolSite.Business.Contracts
@@ -12,5 +13,7 @@ namespace MyLiverpoolSite.Business.Contracts
         Task<bool> DeleteAsync(int id);
 
         Task<ForumSubsectionDto> GetAsync(int subsectionId, int page);
+
+        Task<IEnumerable<ForumSubsectionMiniDto>> GetListAsync();
     }
 }

@@ -42,5 +42,14 @@ namespace MyLiverpool.Web.WebApi.Controllers
             var model = await _forumSubsectionService.UpdateAsync(dto);
             return Ok(model);
         }
+
+        [Route]
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IHttpActionResult> GetListAsync()
+        {
+            var model = await _forumSubsectionService.GetListAsync();
+            return Ok(model);
+        }
     }
 }

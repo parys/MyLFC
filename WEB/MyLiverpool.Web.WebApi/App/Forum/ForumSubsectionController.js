@@ -51,30 +51,30 @@ angular.module('forum.ctrl')
                 } else {
                     vm.item.sectionId = $stateParams.sectionId;
                 }
-            }
+            };
 
             vm.save = function() {
                 if (vm.item.id) {
                     ForumFactory.updateSubsection(vm.item)
-                        .then(function (response) {
-                            $state.go('forum');
-                        },
-                            function (response) {
+                        .then(function(response) {
+                                $state.go('forum');
+                            },
+                            function(response) {
 
                             });
                 } else {
                     ForumFactory.createSubsection(vm.item)
-                        .then(function (response) {
+                        .then(function(response) {
                                 $state.go('forum');
                             },
-                            function (response) {
+                            function(response) {
 
                             });
                 }
-            }
+            };
 
-            vm.goToPage = function () {
+            vm.goToPage = function() {
                 $state.go('subsection', { id: vm.id, page: vm.pageNo });
-            }
+            };
         }
     ]);

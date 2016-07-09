@@ -11,6 +11,7 @@ angular.module('liverpoolApp',
         'autocomplete',
         'ngFileUpload',
         'ncy-angular-breadcrumb',
+        'ngclipboard',
         'filter',
         'forum.config',
         'image.config',
@@ -21,6 +22,7 @@ angular.module('liverpoolApp',
         'roleGroup.config',
         'user.config',
         'wish.config'
+        
     ])
     .run(function(Authentication, Application, $rootScope, $location, uibPaginationConfig, $state, $stateParams, $window) {
         //$rootScope.roles = "";

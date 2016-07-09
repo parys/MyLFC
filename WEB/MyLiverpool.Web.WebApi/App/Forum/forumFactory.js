@@ -20,41 +20,41 @@ angular.module('forum.factory', [])
                             result.reject(response);
                         });
 
-                    return result.promise;;
+                    return result.promise;
                 },
                 getSections: function() {
                     var result = $q.defer();
 
                     $http({
-                        method: 'GET',
-                        url: SessionService.apiUrl + '/api/forumSection/list',
-                        headers: { 'Content-Type': 'application/json' }
-                    })
-                        .success(function (response) {
+                            method: 'GET',
+                            url: SessionService.apiUrl + '/api/forumSection/list',
+                            headers: { 'Content-Type': 'application/json' }
+                        })
+                        .success(function(response) {
                             result.resolve(response);
                         })
-                        .error(function (response) {
+                        .error(function(response) {
                             result.reject(response);
                         });
 
-                    return result.promise;;
+                    return result.promise;
                 },
-                getSection: function (id) {
+                getSection: function(id) {
                     var result = $q.defer();
 
                     $http({
-                        method: 'GET',
-                        url: SessionService.apiUrl + '/api/forumSection?id=' + id,
-                        headers: { 'Content-Type': 'application/json' }
-                    })
-                        .success(function (response) {
+                            method: 'GET',
+                            url: SessionService.apiUrl + '/api/forumSection?id=' + id,
+                            headers: { 'Content-Type': 'application/json' }
+                        })
+                        .success(function(response) {
                             result.resolve(response);
                         })
-                        .error(function (response) {
+                        .error(function(response) {
                             result.reject(response);
                         });
 
-                    return result.promise;;
+                    return result.promise;
                 },
                 getSubsection: function() {
                     var result = $q.defer();
@@ -77,33 +77,50 @@ angular.module('forum.factory', [])
                     var result = $q.defer();
 
                     $http({
-                        method: 'POST',
-                        url: SessionService.apiUrl + '/api/ForumSubsection',
-                        data : data,
-                        headers: { 'Content-Type': 'application/json' }
-                    })
-                        .success(function (response) {
+                            method: 'POST',
+                            url: SessionService.apiUrl + '/api/ForumSubsection',
+                            data: data,
+                            headers: { 'Content-Type': 'application/json' }
+                        })
+                        .success(function(response) {
                             result.resolve(response);
                         })
-                        .error(function (response) {
+                        .error(function(response) {
                             result.reject(response);
                         });
 
                     return result.promise;
                 },
-                updateSubsection: function (data) {
+                updateSubsection: function(data) {
                     var result = $q.defer();
 
                     $http({
-                        method: 'PUT',
-                        url: SessionService.apiUrl + '/api/ForumSubsection',
-                        data : data,
-                        headers: { 'Content-Type': 'application/json' }
-                    })
-                        .success(function (response) {
+                            method: 'PUT',
+                            url: SessionService.apiUrl + '/api/ForumSubsection',
+                            data: data,
+                            headers: { 'Content-Type': 'application/json' }
+                        })
+                        .success(function(response) {
                             result.resolve(response);
                         })
-                        .error(function (response) {
+                        .error(function(response) {
+                            result.reject(response);
+                        });
+
+                    return result.promise;
+                },
+                getSubsections: function() {
+                    var result = $q.defer();
+
+                    $http({
+                            method: 'GET',
+                            url: SessionService.apiUrl + '/api/ForumSubsection',
+                            headers: { 'Content-Type': 'application/json' }
+                        })
+                        .success(function(response) {
+                            result.resolve(response);
+                        })
+                        .error(function(response) {
                             result.reject(response);
                         });
 
@@ -116,6 +133,59 @@ angular.module('forum.factory', [])
                     $http({
                             method: 'GET',
                             url: SessionService.apiUrl + '/api/ForumTheme?id=' + id + '&page=' + page,
+                            headers: { 'Content-Type': 'application/json' }
+                        })
+                        .success(function(response) {
+                            result.resolve(response);
+                        })
+                        .error(function(response) {
+                            result.reject(response);
+                        });
+
+                    return result.promise;
+                },
+                createTheme: function (data) {
+                    var result = $q.defer();
+
+                    $http({
+                        method: 'POST',
+                        url: SessionService.apiUrl + '/api/ForumTheme',
+                        data: data,
+                        headers: { 'Content-Type': 'application/json' }
+                    })
+                        .success(function (response) {
+                            result.resolve(response);
+                        })
+                        .error(function (response) {
+                            result.reject(response);
+                        });
+
+                    return result.promise;
+                },
+                updateTheme: function (id, data) {
+                    var result = $q.defer();
+
+                    $http({
+                        method: 'PUT',
+                        url: SessionService.apiUrl + '/api/ForumTheme',
+                        data: { id: id, dto: data },
+                        headers: { 'Content-Type': 'application/json' }
+                    })
+                        .success(function (response) {
+                            result.resolve(response);
+                        })
+                        .error(function (response) {
+                            result.reject(response);
+                        });
+
+                    return result.promise;
+                },
+                getThemeForEdit: function(id) {
+                    var result = $q.defer();
+
+                    $http({
+                            method: 'GET',
+                            url: SessionService.apiUrl + '/api/ForumTheme?id=' + id,
                             headers: { 'Content-Type': 'application/json' }
                         })
                         .success(function(response) {
@@ -161,6 +231,6 @@ angular.module('forum.factory', [])
 
                     return result.promise;
                 }
-            }
+            };
         }
     ]);

@@ -10,7 +10,7 @@ namespace MyLiverpool.Business.DTO
 
         public string Description { get; set; }
 
-        public int SectionId { get; set; }
+        public int SubsectionId { get; set; }
 
         public virtual PageableData<ForumThemeMiniDto> Themes { get; set; } 
     }

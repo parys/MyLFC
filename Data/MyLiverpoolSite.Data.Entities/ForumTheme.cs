@@ -14,8 +14,6 @@ namespace MyLiverpoolSite.Data.Entities
 
         public int IdOld { get; set; }
 
-     //   public int SectionId { get; set; }
-
         public int SubsectionId { get; set; }
 
         public virtual ForumSubsection Subsection { get; set; }
@@ -24,7 +22,7 @@ namespace MyLiverpoolSite.Data.Entities
 
         public bool OnTop { get; set; }
 
-        public DateTime LastMessageAdditionTime { get; set; }
+        public DateTime? LastMessageAdditionTime { get; set; }
 
         public bool IsClosed { get; set; }
 
@@ -38,7 +36,11 @@ namespace MyLiverpoolSite.Data.Entities
 
         public virtual User Author { get; set; }
 
+        public int AuthorId { get; set; }
+
         public virtual User LastAnswerUser { get; set; }
+
+        public int LastAnswerUserId { get; set; }
 
         public virtual ICollection<ForumMessage> Messages { get; set; }
     }

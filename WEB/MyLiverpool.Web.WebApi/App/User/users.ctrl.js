@@ -27,18 +27,18 @@ angular.module('users.ctrl', [])
                         });
             };
 
-            vm.editRole = function () {
+            vm.editRole = function() {
                 var modalInstance = $uibModal.open({
                     animation: true,
                     templateUrl: 'changeRoleConfirmation.html',
                     controller: 'ModalCtrl',
                     controllerAs: 'vm'
-                //resolve: {
-                //    id: function() {
-                //        return $scope.selectedNewsId;
-                //    }
-                //}
-            });
+                    //resolve: {
+                    //    id: function() {
+                    //        return $scope.selectedNewsId;
+                    //    }
+                    //}
+                });
 
                 modalInstance.result.then(function() {
                     UsersFactory.editRole(vm.user.id, vm.user.roleGroupId).
@@ -55,9 +55,9 @@ angular.module('users.ctrl', [])
                 }, function() {
                     vm.user.roleGroupId = vm.roleGroupId;
                 });
-            }
+            };
 
-            vm.ban = function () {
+            vm.ban = function() {
                 if (vm.banDaysCount <= 0) {
                     return;
                 }
@@ -85,9 +85,9 @@ angular.module('users.ctrl', [])
                             });
                 }, function() {
                 });
-            }
+            };
 
-            vm.unban = function () {
+            vm.unban = function() {
                 UsersFactory.unbanUser(vm.id).
                     then(function(response) {
                             if (response) {
@@ -100,12 +100,12 @@ angular.module('users.ctrl', [])
                         function(response) {
                             $rootScope.alerts.push({ type: 'danger', msg: 'Активность пользователя не была разблокирована.' });
                         });
-            }
+            };
 
 
             vm.f = undefined;
             vm.errFile = undefined;
-            vm.uploadFiles = function (file, errFiles) {
+            vm.uploadFiles = function(file, errFiles) {
                 vm.f = file;
                 vm.errFile = errFiles && errFiles[0];
                 if (file) {
@@ -129,6 +129,6 @@ angular.module('users.ctrl', [])
                             evt.loaded / evt.total));
                     });
                 }
-            }
+            };
         }
     ]);

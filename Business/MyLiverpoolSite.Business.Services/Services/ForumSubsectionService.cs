@@ -57,5 +57,12 @@ namespace MyLiverpoolSite.Business.Services.Services
             model.Themes = new PageableData<ForumThemeMiniDto>(_mapper.Map<IEnumerable<ForumThemeMiniDto>>(subsectionThemes), page, subsectionThemesCount);
             return model;
         }
+
+        public async Task<IEnumerable<ForumSubsectionMiniDto>> GetListAsync()
+        {
+            var subsections = await _unitOfWork.ForumSubsectionRepository.GetAsync();
+            var model = _mapper.Map<IEnumerable<ForumSubsectionMiniDto>>(subsections);
+            return model;
+        }
     }
 }
