@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using System.Web.Http;
+using Microsoft.AspNet.Identity;
 using MyLiverpool.Business.DTO;
 using MyLiverpoolSite.Business.Contracts;
 
@@ -43,18 +44,20 @@ namespace MyLiverpool.Web.WebApi.Controllers
         [Authorize]
         public async Task<IHttpActionResult> Create(ForumThemeDto dto)
         {
+            dto.AuthorId = User.Identity.GetUserId<int>();
             var model = await _forumThemeService.CreateAsync(dto);
+            
             return Ok(model);
         }
 
         [Route]
         [HttpPut]
         [Authorize]
-        public async Task<IHttpActionResult> Update(int id, ForumThemeDto dto) //todo all update need ID
+        public async Task<IHttpActionResult> Update(ForumThemeDto dto) //todo all update need ID
         {
-            if (id != dto.Id)
+           // if (id != dto.Id)
             {
-                return BadRequest();
+            //    return BadRequest();
             }
             var model = await _forumThemeService.UpdateAsync(dto);
             return Ok(model);

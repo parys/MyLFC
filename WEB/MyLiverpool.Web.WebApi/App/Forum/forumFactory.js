@@ -167,8 +167,8 @@ angular.module('forum.factory', [])
 
                     $http({
                         method: 'PUT',
-                        url: SessionService.apiUrl + '/api/ForumTheme',
-                        data: { id: id, dto: data },
+                        url: SessionService.apiUrl + '/api/ForumTheme?id=' + id,
+                        data: data,
                         headers: { 'Content-Type': 'application/json' }
                     })
                         .success(function (response) {
@@ -226,6 +226,24 @@ angular.module('forum.factory', [])
                             result.resolve(response);
                         })
                         .error(function(response) {
+                            result.reject(response);
+                        });
+
+                    return result.promise;
+                },
+                createMessage: function (data) {
+                    var result = $q.defer();
+
+                    $http({
+                        method: 'POST',
+                        url: SessionService.apiUrl + '/api/ForumMessage',
+                        data: data,
+                        headers: { 'Content-Type': 'application/json' }
+                    })
+                        .success(function (response) {
+                            result.resolve(response);
+                        })
+                        .error(function (response) {
                             result.reject(response);
                         });
 

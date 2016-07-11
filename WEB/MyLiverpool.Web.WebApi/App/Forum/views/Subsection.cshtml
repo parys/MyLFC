@@ -1,9 +1,9 @@
 ﻿<div class="container-fluid" ng-init="vm.init()">
     <div class="panel panel-danger">
         <div class="panel-heading">
-            <span ng-bind="vm.name"></span>
-            <span ng-bind="vm.description"></span>
-            <a ui-sref="themeEdit({subsectionId: vm.subsectionId})">Добавить тему</a>
+            <span ng-bind="vm.theme.name"></span>
+            <span ng-bind="vm.theme.description"></span>
+            <a ui-sref="themeEdit({subsectionId: vm.subsection.id})">Добавить тему</a>
         </div>
         @*   <div class="panel-body"></div>*@
         <ul class="list-group" ng-repeat="theme in vm.themes">

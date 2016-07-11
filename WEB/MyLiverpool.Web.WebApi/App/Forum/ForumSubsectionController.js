@@ -8,9 +8,7 @@ angular.module('forum.ctrl')
             vm.pageNo = undefined;
             vm.totalItems = undefined;
             vm.itemPerPage = undefined;
-            vm.id = undefined;
-            vm.name = undefined;
-            vm.description = undefined;
+            vm.subsection = undefined;
             vm.sections = undefined;
             vm.item = {};
            
@@ -22,11 +20,9 @@ angular.module('forum.ctrl')
                             vm.pageNo = response.themes.pageNo;
                             vm.totalItems = response.themes.totalItems;
                             vm.itemPerPage = response.themes.itemPerPage;
-                            vm.id = response.id;
-                            vm.name = response.name;
-                            vm.description = response.description;      
+                            vm.subsection = response;   
 
-                            $rootScope.$title = vm.name;
+                            $rootScope.$title = vm.subsection.name;
                         },
                         function(response) {
 
@@ -74,7 +70,7 @@ angular.module('forum.ctrl')
             };
 
             vm.goToPage = function() {
-                $state.go('subsection', { id: vm.id, page: vm.pageNo });
+                $state.go('subsection', { id: vm.subsection.id, page: vm.pageNo });
             };
         }
     ]);

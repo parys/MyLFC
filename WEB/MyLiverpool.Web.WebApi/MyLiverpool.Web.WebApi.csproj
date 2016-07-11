@@ -199,6 +199,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ForumMessageController.cs" />
     <Compile Include="Controllers\ForumSubsectionController.cs" />
     <Compile Include="Controllers\ForumThemeController.cs" />
     <Compile Include="Controllers\ForumSectionController.cs" />
@@ -224,6 +225,7 @@
   <ItemGroup>
     <None Include="App\Forum\views\SubsectionEdit.cshtml" />
     <Content Include="App\Forum\forum.config.js" />
+    <Content Include="App\Forum\ForumMessageCtrl.js" />
     <Content Include="App\Image\image.config.js" />
     <Content Include="App\Modal\alert.html" />
     <Content Include="App\Modal\modalDeleteConfirmation.html" />

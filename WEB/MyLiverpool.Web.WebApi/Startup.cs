@@ -28,9 +28,9 @@ namespace MyLiverpool.Web.WebApi
             cfg.AddProfile(new MaterialCategoryMapperProfile());
             cfg.AddProfile(new MaterialCommentMapperProfile());
             cfg.AddProfile(new PmMapperProfile());
-            cfg.AddProfile(new WishMapperProfile());
             cfg.AddProfile(new RoleGroupsMapperProfile());
             cfg.AddProfile(new UserMapperProfile());
+            cfg.AddProfile(new WishMapperProfile());
         });
 
         public void Configuration(IAppBuilder app)
@@ -85,6 +85,7 @@ namespace MyLiverpool.Web.WebApi
            // builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsImplementedInterfaces();
             builder.RegisterType<AccountService>().As<IAccountService>();
             builder.RegisterType<EmailService>().As<IIdentityMessageService>();
+            builder.RegisterType<ForumMessageService>().As<IForumMessageService>();
             builder.RegisterType<ForumSectionService>().As<IForumSectionService>();
             builder.RegisterType<ForumSubsectionService>().As<IForumSubsectionService>();
             builder.RegisterType<ForumThemeService>().As<IForumThemeService>();

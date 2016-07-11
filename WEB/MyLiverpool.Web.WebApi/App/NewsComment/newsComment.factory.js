@@ -56,7 +56,7 @@ angular.module('newsComment.factory', [])
                         });
 
                     return result.promise;
-                },
-            }
+                }
+            };
         }
     ]);

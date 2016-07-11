@@ -1,16 +1,19 @@
 ﻿'use strict';
 angular.module('forum.ctrl')
     .controller('ForumThemeController', [
-        'ForumFactory', '$stateParams', '$rootScope',
-        function(ForumFactory, $stateParams, $rootScope) {
+        'ForumFactory', '$stateParams', '$rootScope', '$state',
+        function (ForumFactory, $stateParams, $rootScope, $state) {
             var vm = this;
             vm.messages = [];
             vm.pageNo = 1;
             vm.countPage = 1;
-            vm.id = undefined;
-            vm.name = undefined;
-            vm.description = undefined;
-            vm.theme = undefined;
+            vm.totalItems = undefined;
+            vm.itemPerPage = undefined;
+            vm.theme = {};
+            vm.newComment = {
+                message: undefined,
+                themeId: undefined
+        };
 
             vm.init = function() {
                 ForumFactory.getTheme($stateParams.id, $stateParams.page)
@@ -18,10 +21,11 @@ angular.module('forum.ctrl')
                             vm.messages = response.messages.list;
                             vm.pageNo = response.messages.pageNo;
                             vm.countPage = response.messages.countPage;
-                            vm.id = response.id;
-                            vm.name = response.name;
-                            vm.description = response.description;
-                            $rootScope.$title = vm.name;
+                            vm.totalItems = response.messages.totalItems;
+                            vm.itemPerPage = response.messages.itemPerPage;
+                            vm.theme = response;
+
+                            $rootScope.$title = vm.theme.name;
                         },
                         function(response) {
 
@@ -38,6 +42,9 @@ angular.module('forum.ctrl')
                             function(response) {
 
                             });
+                } else {
+                    console.log($stateParams.subsectionId);
+                    vm.theme.subsectionId = $stateParams.subsectionId;
                 }
                 ForumFactory.getSubsections()
                     .then(function(response) {
@@ -50,21 +57,37 @@ angular.module('forum.ctrl')
             vm.save = function() {
                 if (vm.theme.id) {
                     ForumFactory.updateTheme(vm.theme.id, vm.theme)
-                        .then(function(response) {
-                                $state.go('forum');
+                        .then(function (response) {
+                            $state.go('subsection', { id: response.subsectionId, page: 1 });
                             },
                             function(response) {
 
                             });
                 } else {
                     ForumFactory.createTheme(vm.theme)
-                        .then(function(response) {
-                                $state.go('forum');
+                        .then(function (response) {
+                            $state.go('subsection', { id: response.subsectionId, page: 1 });
                             },
                             function(response) {
 
                             });
                 }
+            };
+
+            vm.addComment = function () {
+                vm.newComment.themeId = vm.theme.id;
+                ForumFactory.createMessage(vm.newComment)
+                    .then(function(response) {
+                            vm.messages.push(response);
+                            vm.newComment.message = undefined;
+                        },
+                        function(response) {
+
+                        });
+            };
+
+            vm.goToPage = function () {
+                $state.go('theme', { id: vm.theme.id, page: vm.pageNo });
             };
         }
     ]);

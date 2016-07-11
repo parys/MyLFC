@@ -1,6 +1,6 @@
 ﻿'use strict';
 angular.module('forum.config',
-    ['forum.ctrl'])
+    ['forum.ctrl', 'forumMessage.ctrl'])
     .config([
         '$stateProvider',
         function ($stateProvider) {
@@ -26,7 +26,7 @@ angular.module('forum.config',
                     url: '/subsection?id&page',
                     views: {
                         "@": {
-                            templateUrl: function(params) { return '/app/forum/views/subsection?id=' + params.id + '&page=' + params.page },
+                            templateUrl: function(params) { return '/app/forum/views/subsection?id=' + params.id + '&page=' + params.page; },
                             controller: 'ForumSubsectionController',
                             controllerAs: 'vm'
                         }
@@ -43,7 +43,7 @@ angular.module('forum.config',
                     url: '/subsectionEdit?id',
                     views: {
                         "@": {
-                            templateUrl: function(params) { return '/app/forum/views/subsectionEdit?id=' + params.id },
+                            templateUrl: function(params) { return '/app/forum/views/subsectionEdit?id=' + params.id; },
                             controller: 'ForumSubsectionController',
                             controllerAs: 'vm'
                         }
@@ -63,10 +63,13 @@ angular.module('forum.config',
                     url: '/theme?id&page',
                     views: {
                         "@": {
-                            templateUrl: function(params) { return '/app/forum/views/theme?id=' + params.id + '&page=' + params.page },
+                            templateUrl: function(params) { return '/app/forum/views/theme?id=' + params.id + '&page=' + params.page; },
                             controller: 'ForumThemeController',
                             controllerAs: 'vm'
                         }
+                    },
+                    params: {
+                        subsectionId: null
                     },
                     resolve: {
                         $title: function() { return 'Тема'; }
@@ -80,7 +83,7 @@ angular.module('forum.config',
                     url: '/themeEdit?id',
                     views: {
                         "@": {
-                            templateUrl: function(params) { return '/app/forum/views/themeEdit?id=' + params.id },
+                            templateUrl: function(params) { return '/app/forum/views/themeEdit?id=' + params.id; },
                             controller: 'ForumThemeController',
                             controllerAs: 'vm'
                         }
@@ -92,7 +95,7 @@ angular.module('forum.config',
                     $title: function () { return 'Редактирование темы'; }
                 },
                 ncyBreadcrumb: {
-                    label: '{{vm.name}}',
+                    label: 'Редактирование темы',
                     parent: 'forum'
                 }
                 });

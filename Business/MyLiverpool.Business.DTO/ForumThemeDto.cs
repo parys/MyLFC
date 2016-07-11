@@ -12,6 +12,8 @@ namespace MyLiverpool.Business.DTO
 
         public int SubsectionId { get; set; }
 
+        public int AuthorId { get; set; }
+
         public PageableData<ForumMessageDto> Messages { get;set; }
     }
 }

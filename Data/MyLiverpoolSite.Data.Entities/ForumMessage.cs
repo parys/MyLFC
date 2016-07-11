@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web.Mvc;
 
 namespace MyLiverpoolSite.Data.Entities
 {
@@ -16,15 +17,14 @@ namespace MyLiverpoolSite.Data.Entities
 
         public bool IsFirstMessage { get; set; }
 
+        [AllowHtml]
         public string Message { get; set; }
 
         public virtual User Author { get; set; }
         public int AuthorId { get; set; }
 
-     //   public string Ip { get; set; }
+        //   public string Ip { get; set; }
 
         public DateTime LastModifiedTime { get; set; }
-
-
     }
 }

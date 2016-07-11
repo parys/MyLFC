@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Web.Mvc;
 
 namespace MyLiverpoolSite.Data.Entities
 {
@@ -24,8 +25,10 @@ namespace MyLiverpoolSite.Data.Entities
 
         public int AuthorId { get; set; }
 
+        [AllowHtml]
         public string Message { get; set; }
-
+        
+        [AllowHtml]
         public string Answer { get; set; }
 
         public virtual ICollection<MaterialComment> Children { get; set; }

@@ -1,63 +1,35 @@
 ﻿@using MyLiverpool.Business.Resources
 
 <div ng-init="vm.init()">
-    <h2 ng-bind="vm.name"></h2>
-    <h3 ng-bind="vm.description"></h3>
+    <h2 ng-bind="vm.theme.name"></h2>
+    <h3 ng-bind="vm.theme.description"></h3>
     <div class="container-fluid" ng-repeat="message in vm.messages">
 
         <div class="panel panel-default">
             <div class="panel-heading">
                 <a ui-sref="userInfo({id: message.authorId})" ng-bind="message.authorUserName"></a>
+                <span class="pull-right" ng-bind="message.additionTime | date:'medium'"></span>
             </div>
-            <div class="panel-body" ng-bind="message.message">
+            <div class="panel-body" ng-bind-html="message.message | rawHtml">
             </div>
         </div>
     </div>
 
 
-    <div class="col-xs-12 col-sm-12" ng-show="$root.loggedIn()">
-        <div class="">
-            <textarea class="col-md-4 editor" rows="6"></textarea>
-            <button class="btn btn-primary center-block"> @CommonMessages.Create</button>
-        </div>
+    <div class="col-xs-12 col-sm-12"> <!--ng-show="loggedIn()">-->
+        <form class="form-horizontal" name="commentForm" role="form">
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    <textarea mark-it-up class="col-md-offset-2 col-md-8" rows="6" name="message" ng-model="vm.newComment.message" validation="required"></textarea>
+                </div>
+                <div class="">
+                    <button class="btn btn-primary center-block" ng-disabled="commentForm.$invalid" ng-click="vm.addComment()">@CommonMessages.Create</button>
+                </div>
+            </div>
+        </form>
     </div>
 
     <div class="pagination">
-        @*@Html.PageLinks(Model.Messages.PageNo, Model.Messages.TotalItems, x => Url.Action("Theme", new { id = Model.Id, page = x }))*@
+        <uib-pagination ng-show="vm.totalItems > vm.itemPerPage" total-items="vm.totalItems" ng-model="vm.pageNo" ng-change="vm.goToPage()"></uib-pagination>
     </div>
 </div>
-@*<script>
-    $('#addComment').click(function () {
-        console.log('add forum comment');
-        postValues();
-    });
-
-    function postValues() {
-        var comment = $('#forumCommentMessage').htmlcode();
-        console.log(comment);
-        if (!comment) {
-            return;
-        }
-        //var themeId = Model.Id;
-        $.ajax({
-            type: 'post',
-            //url: 'Url.Action("AddComment", "Forum")',
-            data: { comment: comment, themeId: themeId },
-            beforeSend: function() {
-
-            },
-            success: function(response) {
-                $('#forumCommentMessage').val('');
-                publishComment(response, comment);
-            }
-        });
-    }
-
-    function publishComment(id, comment) {
-        console.log(id);
-        //"<div class='comment'> <input id='comment_Id' name='comment.Id' type='hidden' value=" + id + "> " + comment + User.Identity.Name <br> <button class='reply'>add reply </button></div>");
-
-        $('#comments').append("<li class='media comment'><a class='pull-left' href='#'><img class='media-object img-thumbnail' src='User.Identity.Name' alt='comment.Author.UserName'></a><div class='media-body'><h4 class='media-heading'>User.Identity.Name</h4><input id='comment_Id' name='comment.Id' type='hidden' value" + id + "> " + comment + "</div><br/><button class='btn' data-toggle='modal' data-target='#addReply'>@CommonMessages.Reply</button></li>");
-        
-    }
-</script>*@

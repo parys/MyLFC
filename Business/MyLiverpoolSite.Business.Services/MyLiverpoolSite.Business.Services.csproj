@@ -76,6 +76,7 @@
     <Compile Include="Services\BlogCommentService.cs" />
     <Compile Include="Services\BlogService.cs" />
     <Compile Include="Services\EmailService.cs" />
+    <Compile Include="Services\ForumMessageService.cs" />
     <Compile Include="Services\ForumSectionService.cs" />
     <Compile Include="Services\ForumThemeService.cs" />
     <Compile Include="Services\ForumSubsectionService.cs" />

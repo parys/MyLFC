@@ -539,6 +539,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                     SubsectionId = 1,
                     LastMessageAdditionTime = DateTime.Today,
                     Messages = messages,
+                    AuthorId = new Random().Next(1, CountUsers)
                 };
                 themes.Add(forumTheme);
             }

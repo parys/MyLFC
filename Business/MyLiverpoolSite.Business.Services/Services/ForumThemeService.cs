@@ -65,6 +65,7 @@ namespace MyLiverpoolSite.Business.Services.Services
            var model = _mapper.Map<ForumTheme>(dto);
 
             model.LastMessageAdditionTime = DateTime.Now;
+            model.LastAnswerUserId = model.AuthorId;
          //   model.
             _unitOfWork.ForumThemeRepository.Add(model);
             await _unitOfWork.SaveAsync();

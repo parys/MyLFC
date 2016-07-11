@@ -71,6 +71,7 @@
     <Compile Include="IBlogCategoryService.cs" />
     <Compile Include="IBlogCommentService.cs" />
     <Compile Include="IBlogService.cs" />
+    <Compile Include="IForumMessageService.cs" />
     <Compile Include="IForumSectionService.cs" />
     <Compile Include="IForumThemeService.cs" />
     <Compile Include="IForumSubsectionService.cs" />

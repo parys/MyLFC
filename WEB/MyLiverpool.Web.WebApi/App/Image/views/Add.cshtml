@@ -2,12 +2,12 @@
     <div class="row">
         <div class="col-xs-10 col-sm-10">
             <div>
-                <h4>Upload on file select</h4>
+                <h4>Загрузка файлов</h4>
                 <button ngf-select="vm.uploadFiles($files)" multiple accept="image/*">
-                    Select Files
+                    Выберите файлы
                 </button>
                 <br>
-                <br>Files:
+                <br>Файлы:
                 <ul>
                     <li ng-repeat="f in vm.files">
                         {{f.name}}

@@ -1,4 +1,5 @@
 ﻿using MyLiverpoolSite.Data.DataAccessLayer;
+using MyLiverpoolSite.Data.Entities;
 
 namespace MyLiverpool.Business.DTO
 {
@@ -10,7 +11,7 @@ namespace MyLiverpool.Business.DTO
 
         public string Description { get; set; }
 
-        public int SubsectionId { get; set; }
+        public int SectionId { get; set; }
 
         public virtual PageableData<ForumThemeMiniDto> Themes { get; set; } 
     }

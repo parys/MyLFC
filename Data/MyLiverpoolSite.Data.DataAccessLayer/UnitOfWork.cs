@@ -128,7 +128,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
             catch (Exception ex)
             {
                 var e = ex;
-
+                var message = ex.Message;
                 throw;
             }
         }
