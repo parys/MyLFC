@@ -482,7 +482,6 @@
     <Content Include="App\RoleGroup\roleGroup.ctrl.js" />
     <Content Include="App\RoleGroup\roleGroup.factory.js" />
     <Content Include="App\User\users.ctrl.js" />
-    <Content Include="App\User\UsersController.js" />
     <Content Include="App\MarkItUp\markItUpDirective.js" />
     <Content Include="App\NewsComment\NewsCommentDirective.js" />
     <Content Include="App\Account\AccountFactory.js" />
@@ -561,9 +560,9 @@
     <Content Include="App\News\views\Edit.html" />
     <Content Include="App\News\views\List.cshtml" />
     <Content Include="App\RoleGroup\views\Index.cshtml" />
-    <Content Include="App\User\views\List.cshtml" />
+    <Content Include="App\User\views\List.html" />
     <Content Include="App\Pm\views\pms.cshtml" />
-    <Content Include="App\User\views\Info.cshtml" />
+    <Content Include="App\User\views\Info.html" />
     <Content Include="App\Pm\views\pm.cshtml" />
     <Content Include="App\Pm\views\wpm.cshtml" />
     <Content Include="Views\Web.config" />

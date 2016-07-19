@@ -8,7 +8,7 @@ angular.module('user.config',
             $stateProvider
                 .state('userInfo', {
                     url: '/userInfo?id',
-                    templateUrl: function(params) { return '/app/user/views/info?id=' + params.id; },
+                    templateUrl: function(params) { return '/app/user/views/info.html?id=' + params.id; },
                     controller: 'UserController',
                     controllerAs: 'vm',
                     resolve: {
@@ -21,8 +21,8 @@ angular.module('user.config',
                 })
                 .state('users', {
                     url: '/users?page&roleGroupId&userName',
-                    templateUrl: function (params) { return '/app/user/views/list?page=' + params.page + '&roleGroupId=' + params.roleGroupId + '&userName=' + params.userName; },
-                    controller: 'UsersController',
+                    templateUrl: function (params) { return '/app/user/views/list.html?page=' + params.page + '&roleGroupId=' + params.roleGroupId + '&userName=' + params.userName; },
+                    controller: 'UserController',
                     controllerAs: 'vm',
                     resolve: {
                         $title: function() { return 'Пользователи'; }

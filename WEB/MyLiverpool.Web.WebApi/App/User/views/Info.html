@@ -1,5 +1,4 @@
-﻿@using MyLiverpool.Business.Resources
-<div class="container-fluid" ng-init="vm.init()">
+﻿<div class="container-fluid" ng-init="vm.initUser()">
     <h2 ng-bind="vm.user.userName">
         <span ng-show="loggedIn() && !isSelf(user.id)">
             <a ui-sref="wpm({ userName: user.userName })"><span class="glyphicon glyphicon-envelope"></span></a>
@@ -13,9 +12,9 @@
             <div ng-if="isSelf(vm.user.id) || isModerator()">
                 <button class="btn btn-info" ngf-select="uploadFiles($file, $invalidFiles)"
                         accept="image/*" ngf-max-height="1000" ngf-max-size="1MB">
-                    @CommonMessages.UpdateAvatar
+                    Обновить аватар
                 </button>
-                <button ng-if="isSelf(vm.user.id)" class="btn btn-danger" ui-sref="changePassword()"> @CommonMessages.ChangePassword</button>
+                <button ng-if="isSelf(vm.user.id)" class="btn btn-danger" ui-sref="changePassword()"> Изменить пароль</button>
                 <br><br>
                 <div>
                     <span ng-show="vm.errFile.$error" ng-bind="vm.errFile.$error"></span>
@@ -31,28 +30,28 @@
 
     <form class="form-horizontal" role="form">
         <div class="form-group">
-            <label class="col-sm-2 control-label">@UsersMessages.UserName</label>
+            <label class="col-sm-2 control-label">Логин</label>
             <div class="col-sm-10">
                 <span class="form-control" ng-bind="vm.user.userName"></span>
             </div>
         </div>
         <div ng-if="isModerator() && !isSelf(vm.user.id)" class="form-group">
-            <label class="col-xs-2 col-sm-2 control-label">@ColonsMessages.Ban</label>
+            <label class="col-xs-2 col-sm-2 control-label">Забанить</label>
             <div class="" ng-show="!vm.user.lockoutEndDateUtc">
                 <div class="col-xs-2 col-sm-2">
-                    <input min="0" type="number" placeholder="@CommonMessages.DaysCount" class="form-control" ng-model="vm.banDaysCount" />
+                    <input min="0" type="number" placeholder="Количество дней" class="form-control" ng-model="vm.banDaysCount" />
                 </div>
                 <div class="col-xs-8 col-sm-8">
-                    <button class="btn btn-danger" ng-click="vm.ban()" ng-disabled="vm.banDaysCount <= 0">@CommonMessages.Ban</button>
+                    <button class="btn btn-danger" ng-click="vm.ban()" ng-disabled="vm.banDaysCount <= 0">Забанить</button>
                 </div>
             </div>
             <div class="col-xs-10 col-sm-10" ng-show="vm.user.lockoutEndDateUtc">
-                <span class="col-xs-8 col-sm-8 flex-vertical-center" ng-if="vm.user.lockoutEndDateUtc">@UsersMessages.UsersActivityBannedUntil<span ng-bind="vm.user.lockoutEndDateUtc | date:'medium'"></span></span>
-                <button class="btn btn-success" ng-if="isMainModerator()" ng-click="vm.unban()">@CommonMessages.Unban</button>
+                <span class="col-xs-8 col-sm-8 flex-vertical-center" ng-if="vm.user.lockoutEndDateUtc">Активность заблокирована до <span ng-bind="vm.user.lockoutEndDateUtc | date:'medium'"></span></span>
+                <button class="btn btn-success" ng-if="isMainModerator()" ng-click="vm.unban()">Снять бан</button>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-xs-2 col-sm-2 control-label">@UsersMessages.Group</label>
+            <label class="col-xs-2 col-sm-2 control-label">Группа:</label>
             <div class="col-xs-10 col-sm-10">
                 <div>
                     <span ng-if="!isAdmin()" class="form-control" ng-bind="vm.user.roleGroupName"></span>
@@ -63,56 +62,63 @@
             </div>
         </div>
         <div class="form-group" ng-if="isSelf() || isAdmin()">
-            <label class="col-xs-2 col-sm-2 control-label" ng-show="vm.user.emailConfirmed">@UsersMessages.Email</label>
-            <label class="col-xs-2 col-sm-2 control-label text-danger" uib-tooltip="@CommonMessages.EmailNotConfirm" ng-show="!vm.user.emailConfirmed">@UsersMessages.Email</label>
+            <label class="col-xs-2 col-sm-2 control-label" ng-show="vm.user.emailConfirmed">Почта</label>
+            <label class="col-xs-2 col-sm-2 control-label text-danger" uib-tooltip="Почта не подтверждена" ng-show="!vm.user.emailConfirmed">Почта</label>
             <div class="col-xs-10 col-sm-10">
                 <span class="form-control" ng-bind="vm.user.email"></span>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-xs-2 col-sm-2 control-label">@UsersMessages.LastLogin</label>
+            <label class="col-xs-2 col-sm-2 control-label">Последний вход </label>
             <div class="col-xs-10 col-sm-10">
                 <span class="form-control" ng-bind="vm.user.lastModifiedOn | date:'medium'"></span>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-xs-2 col-sm-2 control-label">@UsersMessages.RegistrationDate</label>
+            <label class="col-xs-2 col-sm-2 control-label">Дата регистрации</label>
             <div class="col-xs-10 col-sm-10">
                 <span class="form-control" ng-bind="vm.user.registrationDate | date:'medium'"></span>
             </div>
         </div>
         <div class="form-group" ng-if="vm.user.fullName">
-            <label class="col-xs-2 col-sm-2 control-label">@UsersMessages.FullName</label>
+            <label class="col-xs-2 col-sm-2 control-label">Полное имя</label>
             <div class="col-xs-10 col-sm-10">
                 <span class="form-control" ng-bind="vm.user.fullName"></span>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-xs-2 col-sm-2 control-label">@UsersMessages.BirthDay</label>
+            <label class="col-xs-2 col-sm-2 control-label">День рождения</label>
             <div class="col-xs-10 col-sm-10">
                 <span class="form-control" ng-bind="vm.user.birthday | date:'longDate'"></span>
             </div>
         </div>
         <div class="form-group" ng-if="vm.user.gender">
-            <label class="col-xs-2 col-sm-2 control-label">@UsersMessages.Gender</label>
+            <label class="col-xs-2 col-sm-2 control-label">Пол</label>
             <div class="col-xs-10 col-sm-10">
-                <span class="form-control" ng-if="vm.user.gender">@UsersMessages.Women</span>
-                <span class="form-control" ng-if="!vm.user.gender">@UsersMessages.Men</span>
+                <span class="form-control" ng-if="vm.user.gender">Девушка</span>
+                <span class="form-control" ng-if="!vm.user.gender">Парень</span>
             </div>
+        </div>
+        <div>
+            <ul class="list-inline">
+                <li ng-if="vm.user.newsCount > 0"><a ui-sref="newsInfo({})">Новости(<span ng-bind="vm.user.newsCount"></span>)</a></li> <!--todo-->
+                <li>|</li>
+                <li ng-if="vm.user.blogsCount > 0"><a ui-sref="blogsInfo({})">Блоги(<span ng-bind="vm.user.blogsCount"></span>)</a></li><!--todo-->
+            </ul>
         </div>
     </form>
 </div>
 
 <script type="text/ng-template" id="changeRoleConfirmation.html">
     <div class="modal-header">
-        <h3 class="modal-title">@CommonMessages.RoleEditing</h3>
+        <h3 class="modal-title">Редактирование роли</h3>
     </div>
     <div class="modal-body">
-        @CommonMessages.Change?
+        Изменить?
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary" type="button" ng-click="vm.ok()">@CommonMessages.Change</button>
-        <button class="btn btn-default" type="button" ng-click="vm.cancel()">@CommonMessages.Cancel</button>
+        <button class="btn btn-primary" type="button" ng-click="vm.ok()">Изменить</button>
+        <button class="btn btn-default" type="button" ng-click="vm.cancel()">Отмена</button>
     </div>
 </script>
 
@@ -121,10 +127,10 @@
         <h3 class="modal-title"></h3>
     </div>
     <div class="modal-body">
-        @UsersMessages.BanUserQuestion
+        Забанить?
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-default" ng-click="vm.ok()">@CommonMessages.Ban</button>
-        <button type="button" class="btn btn-primary" ng-click="vm.cancel()">@CommonMessages.Cancel</button>
+        <button type="button" class="btn btn-default" ng-click="vm.ok()">Забанить</button>
+        <button type="button" class="btn btn-primary" ng-click="vm.cancel()">Отмена</button>
     </div>
 </script>
