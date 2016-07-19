@@ -7,7 +7,7 @@ angular.module('image.config',
             $stateProvider
                 .state('images', {
                     url: '/images?path',
-                    templateUrl: function(params) { return '/app/image/views/index?path=' + params.path },
+                    templateUrl: function(params) { return '/app/image/views/index?path=' + params.path; },
                     controller: 'ImageCtrl',
                     controllerAs: 'vm',
                     resolve: {
@@ -20,7 +20,7 @@ angular.module('image.config',
                 })
                 .state('imagesAdd', {
                     url: '/imagesAdd',
-                    templateUrl: function(params) { return '/app/image/views/add' },
+                    templateUrl: function(params) { return '/app/image/views/add'; },
                     controller: 'ImageCtrl',
                     controllerAs: 'vm',
                     resolve: {

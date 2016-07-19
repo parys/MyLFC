@@ -63,7 +63,7 @@ angular.module('forum.config',
                     url: '/theme?id&page',
                     views: {
                         "@": {
-                            templateUrl: function(params) { return '/app/forum/views/theme?id=' + params.id + '&page=' + params.page; },
+                            templateUrl: function(params) { return '/app/forum/views/theme.html?id=' + params.id + '&page=' + params.page; },
                             controller: 'ForumThemeController',
                             controllerAs: 'vm'
                         }

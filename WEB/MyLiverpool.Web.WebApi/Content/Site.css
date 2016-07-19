@@ -4,7 +4,7 @@
     display: block;
 }
 
-    img.news-mini {
+    .news-mini {
         height: 140px;
         width: 300px;
     }
@@ -34,6 +34,10 @@ textarea {
 
 .dropdown-menu {
     min-width: 140px;
+}
+
+.forum-message {
+    min-height: 120px;
 }
 
 .list-inline.small-offset > li {
@@ -104,6 +108,10 @@ textarea {
 /* error display font italic, text-danger is red in BS */
 .validation.text-danger {
     font-style: italic;
+}
+
+.width50p {
+    width: 50%;
 }
 
 .flex-vertical-center {

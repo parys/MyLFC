@@ -16,5 +16,7 @@ namespace MyLiverpool.Business.DTO
         public DateTime AdditionTime { get; set; }
 
         public int ThemeId { get; set; }
+
+        public string Photo { get; set; }
     }
 }

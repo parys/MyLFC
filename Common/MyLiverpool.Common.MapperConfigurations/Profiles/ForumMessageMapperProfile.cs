@@ -20,7 +20,8 @@ namespace MyLiverpool.Common.MapperConfigurations.Profiles
                 .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id))
                 .ForMember(dest => dest.LastModifiedTime, src => src.MapFrom(x => x.LastModifiedTime))
                 .ForMember(dest => dest.Message, src => src.MapFrom(x => x.Message))
-                .ForMember(dest => dest.ThemeId, src => src.MapFrom(x => x.ThemeId));
+                .ForMember(dest => dest.ThemeId, src => src.MapFrom(x => x.ThemeId))
+                .ForMember(dest => dest.Photo, src => src.MapFrom(x => x.Author.Photo));
             //.ForMember(dest => dest.SenderUserName, src => src.MapFrom(x => x.Sender.UserName))
             //.ForMember(dest => dest.Title, src => src.MapFrom(x => x.Title));
 

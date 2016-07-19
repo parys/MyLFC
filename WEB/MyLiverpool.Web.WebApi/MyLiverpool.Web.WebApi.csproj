@@ -239,7 +239,7 @@
     <Content Include="App\Pm\pm.config.js" />
     <Content Include="App\RoleGroup\roleGroup.config.js" />
     <Content Include="App\Constants.js" />
-    <Content Include="App\Image\views\Add.cshtml" />
+    <Content Include="App\Image\views\Add.html" />
     <None Include="App\Wish\views\wish.cshtml" />
     <Content Include="App\Wish\wish.config.js" />
     <Content Include="App\Wish\wish.ctrl.js" />
@@ -553,12 +553,12 @@
     <Content Include="App\Account\ResetPassword.cshtml" />
     <Content Include="App\Forum\views\Index.cshtml" />
     <Content Include="App\Forum\views\Subsection.cshtml" />
-    <Content Include="App\Forum\views\Theme.cshtml" />
+    <Content Include="App\Forum\views\Theme.html" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="App\Account\ChangePassword.cshtml" />
     <Content Include="App\NewsCategory\views\list.cshtml" />
     <Content Include="App\News\views\Info.cshtml" />
-    <Content Include="App\News\views\Edit.cshtml" />
+    <Content Include="App\News\views\Edit.html" />
     <Content Include="App\News\views\List.cshtml" />
     <Content Include="App\RoleGroup\views\Index.cshtml" />
     <Content Include="App\User\views\List.cshtml" />
