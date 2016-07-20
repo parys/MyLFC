@@ -8,13 +8,13 @@ using MyLiverpoolSite.Data.Entities;
 
 namespace MyLiverpool.Web.WebApi.Controllers
 {
-    [RoutePrefix("api/News")]
-    public class NewsItemsController : ApiController
+    [RoutePrefix("api/Blog")]
+    public class BlogController : ApiController
     {
         private readonly IMaterialService _materialService;
-        private const MaterialType Type = MaterialType.News;
+        private const MaterialType Type = MaterialType.Blog;
 
-        public NewsItemsController(IMaterialService materialService)
+        public BlogController(IMaterialService materialService)
         {
             _materialService = materialService;
         }
@@ -22,7 +22,8 @@ namespace MyLiverpool.Web.WebApi.Controllers
         [Route]
         [HttpGet]
         [AllowAnonymous]
-        public async Task<PageableData<MaterialMiniDto>> GetNewsItems(int page = 1, int? categoryId = null, string authorUserName = null)
+        public async Task<PageableData<MaterialMiniDto>> GetItems(int page = 1, int? categoryId = null,
+            string authorUserName = null)
         {
             if (page < 1)
             {
@@ -35,7 +36,7 @@ namespace MyLiverpool.Web.WebApi.Controllers
         [Route]
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IHttpActionResult> GetNewsItem(int id)
+        public async Task<IHttpActionResult> GetItem(int id)
         {
             var model = await _materialService.GetDtoAsync(id, Type);
             return Ok(model);
@@ -43,7 +44,7 @@ namespace MyLiverpool.Web.WebApi.Controllers
 
         [Route]
         [HttpDelete]
-        [Authorize(Roles = "NewsStart")]
+        [Authorize(Roles = "BlogStart")]
         public async Task<IHttpActionResult> Delete(int? id)
         {
             if (!id.HasValue)
@@ -57,7 +58,7 @@ namespace MyLiverpool.Web.WebApi.Controllers
 
         [Route("Activate")]
         [HttpPut]
-        [Authorize(Roles = "NewsFull")]
+        [Authorize(Roles = "BlogFull")]
         public async Task<IHttpActionResult> Activate(int? id)
         {
             if (!id.HasValue)
@@ -70,7 +71,7 @@ namespace MyLiverpool.Web.WebApi.Controllers
 
         [Route]
         [HttpPost]
-        [Authorize(Roles = "NewsStart")]
+        [Authorize(Roles = "BlogStart")]
         public async Task<IHttpActionResult> Create(MaterialDto model)
         {
             if (!ModelState.IsValid)
@@ -87,15 +88,15 @@ namespace MyLiverpool.Web.WebApi.Controllers
 
         [Route]
         [HttpPut]
-        [Authorize(Roles = "NewsStart")]
+        [Authorize(Roles = "BlogStart")]
         public async Task<IHttpActionResult> Update(MaterialDto model)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            
-            if (!User.IsInRole(RolesEnum.NewsFull.ToString()))
+
+            if (!User.IsInRole(RolesEnum.BlogFull.ToString()))
             {
                 if (model.AuthorId != User.Identity.GetUserId<int>())
                 {

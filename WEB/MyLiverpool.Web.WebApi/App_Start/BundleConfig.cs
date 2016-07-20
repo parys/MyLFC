@@ -38,6 +38,7 @@ namespace MyLiverpool.Web.WebApi
                 .Include("~/App/Services/AuthenticationService.js")
                 .IncludeDirectory("~/App/home", "*.js")
                 .IncludeDirectory("~/App/account", "*.js")
+                .IncludeDirectory("~/App/blog", "*.js")
                 .IncludeDirectory("~/App/filters", "*.js")
                 .IncludeDirectory("~/App/forum", "*.js")
                 .IncludeDirectory("~/App/image", "*.js")

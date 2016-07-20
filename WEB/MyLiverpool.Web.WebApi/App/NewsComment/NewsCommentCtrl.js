@@ -16,8 +16,8 @@ angular.module('newsComment.ctrl', [])
                     authorId: undefined,
                     authorUserName: undefined,
                     answer: undefined
-                }
-            };
+                };
+            }
 
             resetNewComment();
 
@@ -28,9 +28,9 @@ angular.module('newsComment.ctrl', [])
                     }
                 }
                 return -1;
-            };
+            }
 
-            vm.addReplyComment = function (comment) {
+            vm.addReplyComment = function(comment) {
                 var modalInstance = $uibModal.open({
                     animation: true,
                     templateUrl: 'modalEditComment.html',
@@ -50,7 +50,7 @@ angular.module('newsComment.ctrl', [])
                         then(function(response) {
                                 if (response) {
                                     comment.children.push(response);
-                                   // $scope.$emit('editCommentConfirmed', editedComment);
+                                    // $scope.$emit('editCommentConfirmed', editedComment);
                                     $rootScope.alerts.push({ type: 'success', msg: 'Комментарий успешно измененен.' });
                                     //    $state.go('home');
                                     resetNewComment();
@@ -62,9 +62,9 @@ angular.module('newsComment.ctrl', [])
                             });
                 }, function() {
                 });
-            }
+            };
 
-            vm.editComment = function (comment) {
+            vm.editComment = function(comment) {
                 var modalInstance = $uibModal.open({
                     animation: true,
                     templateUrl: 'modalEditComment.html',
@@ -90,7 +90,7 @@ angular.module('newsComment.ctrl', [])
                             });
                 }, function() {
                 });
-            }
+            };
 
             vm.deleteComment = function(comment) {
                 var modalInstance = $uibModal.open({
@@ -120,14 +120,14 @@ angular.module('newsComment.ctrl', [])
                             });
                 }, function() {
                 });
-            }
+            };
 
-            vm.getUserId = function () {
+            vm.getUserId = function() {
                 return Authentication.getUserId();
-            }
+            };
 
-            vm.canAddReply = function () {
+            vm.canAddReply = function() {
                 return Authentication.exists(); //todo && !vm.isUserAuthor();
-            }
+            };
         }
     ]);

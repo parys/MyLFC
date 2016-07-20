@@ -51,9 +51,9 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
         {
             var adminRole = context.Roles.First(x => x.Name == RolesEnum.AdminFull.ToString()); //1
             var adminAssistanceRole = context.Roles.First(x => x.Name == RolesEnum.AdminStart.ToString());
-            var moderatorRole = context.Roles.First(x => x.Name == RolesEnum.UsersStart.ToString());//3
-            var mainModeratorRole = context.Roles.First(x => x.Name == RolesEnum.UsersFull.ToString());
-            var authorRole = context.Roles.First(x => x.Name == RolesEnum.BlogsStart.ToString());//5
+            var moderatorRole = context.Roles.First(x => x.Name == RolesEnum.UserStart.ToString());//3
+            var mainModeratorRole = context.Roles.First(x => x.Name == RolesEnum.UserFull.ToString());
+            var authorRole = context.Roles.First(x => x.Name == RolesEnum.BlogStart.ToString());//5
             var internRole = context.Roles.First(x => x.Name == RolesEnum.Intern.ToString());
             // var mainEditorRole = context.Roles.First(x => x.Name == RolesEnum..ToString());//7
             //  var editorRole = context.Roles.First(x => x.Name == RolesEnum..ToString());
@@ -220,19 +220,19 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 },
                 new Role()
                 {
-                    Name = RolesEnum.BlogsFull.ToString(),
+                    Name = RolesEnum.BlogFull.ToString(),
                 },
                 new Role()//5
                 {
-                    Name = RolesEnum.BlogsStart.ToString(),
+                    Name = RolesEnum.BlogStart.ToString(),
                 },
                 new Role()
                 {
-                    Name = RolesEnum.UsersFull.ToString(),
+                    Name = RolesEnum.UserFull.ToString(),
                 },
                 new Role()//7
                 {
-                    Name = RolesEnum.UsersStart.ToString(),
+                    Name = RolesEnum.UserStart.ToString(),
                 },
                 new Role()
                 {

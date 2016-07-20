@@ -2,10 +2,10 @@
     <div class="alert-danger flex-vertical-center">
         <h3 class="col-xs-12 col-sm-12">
             <span class="col-xs-9 col-sm-9" ng-bind="vm.item.title"></span>
-            <span class="col-xs-3 col-sm-3 pull-right" ng-if="isNewsmaker()">
+            <span class="col-xs-3 col-sm-3 pull-right" ng-if="isAuthor()">
                 <span class="small pull-right">
                     <a ng-if="isEditor()" ng-show="vm.item.pending" href="" ng-click="vm.activate()"><span class="glyphicon glyphicon-ok"></span></a>
-                    <a ng-if="isEditor() || isUserAuthor(userId(), vm.item.authorId)" ui-sref="newsEdit({id: vm.item.id})"><span class="glyphicon glyphicon-pencil"></span></a>
+                    <a ng-if="isEditor() || isUserAuthor(userId(), vm.item.authorId)" ui-sref="blogEdit({id: vm.item.id})"><span class="glyphicon glyphicon-pencil"></span></a>
                     <a ng-if="isEditor() || isUserAuthor(userId(), vm.item.authorId)" href="" ng-click="vm.delete()"><span class="glyphicon glyphicon-trash"></span></a>
                 </span>
             </span>
@@ -18,7 +18,7 @@
                 <li><label>Просмотры:</label> <span ng-bind="vm.item.reads"></span></li>
                 <li><label>Источник:</label> <span ng-bind="vm.item.source"></span></li>
                 <li><label>Дата добавления:</label> <span ng-bind="vm.item.additionTime | date:'medium'"></span></li>
-                <li><label>Категория:</label> <a ui-sref="news({page: 1, categoryId: vm.item.categoryId})"> <span ng-bind="vm.item.categoryName"></span> </a></li>
+                <li><label>Категория:</label> <a ui-sref="blog({page: 1, categoryId: vm.item.categoryId})"> <span ng-bind="vm.item.categoryName"></span> </a></li>
             </ul>
         </div>
     </div>

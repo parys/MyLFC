@@ -1,8 +1,8 @@
 ﻿'use strict';
-angular.module('news.ctrl', [])
-    .controller('NewsController', [
-        'NewsFactory', '$uibModal', '$rootScope', '$stateParams', '$state', 'NewsCategoryFactory', 'NewsCommentFactory', '$cookies', 'Authentication', '$scope',
-        function (NewsFactory, $uibModal, $rootScope, $stateParams, $state, NewsCategoryFactory, NewsCommentFactory, $cookies, Authentication, $scope) {
+angular.module('blog.ctrl', [])
+    .controller('BlogCtrl', [
+        'BlogFactory', '$uibModal', '$rootScope', '$stateParams', '$state', 'BlogCategoryFactory', 'NewsCommentFactory', '$cookies', 'Authentication', '$scope',
+        function (BlogFactory, $uibModal, $rootScope, $stateParams, $state, BlogCategoryFactory, NewsCommentFactory, $cookies, Authentication, $scope) {
             var vm = this;
             vm.items = [];
             vm.page = $stateParams.page;
@@ -38,14 +38,14 @@ angular.module('news.ctrl', [])
             }
 
             vm.initList = function () {
-                NewsFactory.getList(vm.page, vm.categoryId, vm.userName)
-                    .then(function(response) {
+                BlogFactory.getList(vm.page, vm.categoryId, vm.userName)
+                    .then(function (response) {
                         vm.items = response.list;
                         vm.pageNo = response.pageNo;
                         vm.totalItems = response.totalItems;
                         vm.itemPerPage = response.itemPerPage;
-                        },
-                        function(response) {
+                    },
+                        function (response) {
                             //.f = "";
                         });
                 if (vm.page !== undefined) {
@@ -62,25 +62,25 @@ angular.module('news.ctrl', [])
                 $stateParams.categoryId = vm.categoryId;
                 vm.filter();
             };
-            
+
             vm.filter = function () {
-                $state.go('news', { page: vm.page, categoryId: vm.categoryId, userName: vm.userName }, { reload: true });
+                $state.go('blog', { page: vm.page, categoryId: vm.categoryId, userName: vm.userName }, { reload: true });
             };
 
-            vm.activate = function(index) {
-                NewsFactory.activate(vm.items[index].id).
-                    then(function(response) {
-                            if (response) {
-                                vm.items[index].pending = false;
-                                $rootScope.alerts.push({ type: 'success', msg: 'Новость успешно активирована.' });
-                            }
-                        },
-                        function(response) {
-                            $rootScope.alerts.push({ type: 'danger', msg: 'Новость не была активирована.' });
+            vm.activate = function (index) {
+                BlogFactory.activate(vm.items[index].id).
+                    then(function (response) {
+                        if (response) {
+                            vm.items[index].pending = false;
+                            $rootScope.alerts.push({ type: 'success', msg: 'Blog успешно активирована.' });
+                        }
+                    },
+                        function (response) {
+                            $rootScope.alerts.push({ type: 'danger', msg: 'Blog не была активирована.' });
                         });
             };
 
-            vm.delete = function(index) {
+            vm.delete = function (index) {
                 var modalInstance = $uibModal.open({
                     animation: true,
                     templateUrl: 'modalDeleteConfirmation.html',
@@ -93,28 +93,28 @@ angular.module('news.ctrl', [])
                     //}
                 });
 
-                modalInstance.result.then(function() {
-                    NewsFactory.delete(vm.items[index].id).
-                        then(function(response) {
-                                if (response) {
-                                    vm.items.splice(index, 1);
-                                    $rootScope.alerts.push({ type: 'success', msg: 'Новость успешно удалена.' });
-                                }
-                            },
-                            function(response) {
-                                $rootScope.alerts.push({ type: 'danger', msg: 'Новость не была удалена.' });
+                modalInstance.result.then(function () {
+                    BlogFactory.delete(vm.items[index].id).
+                        then(function (response) {
+                            if (response) {
+                                vm.items.splice(index, 1);
+                                $rootScope.alerts.push({ type: 'success', msg: 'Blog успешно удалена.' });
+                            }
+                        },
+                            function (response) {
+                                $rootScope.alerts.push({ type: 'danger', msg: 'Blog не была удалена.' });
                             });
-                }, function() {
+                }, function () {
                 });
             };
 
-            vm.goToPage = function() {
+            vm.goToPage = function () {
                 $state.go('news', { page: vm.page });
             };
 
             vm.initEdit = function () {
                 if ($stateParams.id) {
-                    NewsFactory.getItem($stateParams.id)
+                    BlogFactory.getItem($stateParams.id)
                         .then(function (response) {
                             vm.item = response;
                         },
@@ -125,49 +125,49 @@ angular.module('news.ctrl', [])
                 vm.updateCategories(true);
             };
 
-            vm.updateCategories = function(isEdit) {
-                NewsCategoryFactory.getList()
-                    .then(function(response) {
-                            vm.categories = response;
-                            if (!isEdit) {
-                                vm.categories.push({ name: 'Все категории', id: NaN });
-                            }
-                        },
-                        function(response) {
+            vm.updateCategories = function (isEdit) {
+                BlogCategoryFactory.getList()
+                    .then(function (response) {
+                        vm.categories = response;
+                        if (!isEdit) {
+                            vm.categories.push({ name: 'Все категории', id: NaN });
+                        }
+                    },
+                        function (response) {
                             //vm.f = "";
                         });
             };
 
             vm.save = function () {
                 if (!vm.item.id) {
-                    NewsFactory.create(vm.item)
+                    BlogFactory.create(vm.item)
                         .then(function (response) {
                             if (response) {
-                                $rootScope.alerts.push({ type: 'success', msg: 'Новость успешно создана.' });
+                                $rootScope.alerts.push({ type: 'success', msg: 'Blog успешно создана.' });
                                 $state.go('news');
                             }
                         },
                             function (response) {
-                                $rootScope.alerts.push({ type: 'danger', msg: 'Новость не была добавлена.' });
+                                $rootScope.alerts.push({ type: 'danger', msg: 'Blog не была добавлена.' });
                             });
                 } else {
-                    NewsFactory.edit(vm.item)
+                    BlogFactory.edit(vm.item)
                         .then(function (response) {
                             if (response) {
-                                $rootScope.alerts.push({ type: 'success', msg: 'Новость успешно отредактирована.' });
+                                $rootScope.alerts.push({ type: 'success', msg: 'Blog успешно отредактирована.' });
                                 $state.go('newsInfo', { id: vm.item.id });
                             }
                         },
                             function (response) {
-                                $rootScope.alerts.push({ type: 'danger', msg: 'Новость не была отредактирована.' });
+                                $rootScope.alerts.push({ type: 'danger', msg: 'Blog не была отредактирована.' });
                             });
                 }
             };
 
             function tryAddNewsRead() {
-                var cookieName = 'news' + vm.item.id;
+                var cookieName = 'Blog' + vm.item.id;
                 if ($cookies.get(cookieName) === undefined) {
-                    NewsFactory.addView(vm.item.id)
+                    BlogFactory.addView(vm.item.id)
                         .then(function (response) {
                             $cookies.put(cookieName, 0);
                             vm.item.reads += 1;
@@ -180,9 +180,9 @@ angular.module('news.ctrl', [])
 
             vm.init = function () {
                 resetNewComment();
-                NewsFactory.getItem()
+                BlogFactory.getItem()
                     .then(function (response) {
-                        if (response.pending && !Authentication.isEditor()) { //todo author?
+                        if (response.pending && !Authentication.isEditor()) { //todo author??
                             $state.go('home');
                         } else {
                             vm.item = response;
@@ -196,15 +196,15 @@ angular.module('news.ctrl', [])
             };
 
             vm.activate = function () {
-                NewsFactory.activate(vm.item.id).
+                BlogFactory.activate(vm.item.id).
                     then(function (response) {
                         if (response) {
                             vm.item.pending = false;
-                            $rootScope.alerts.push({ type: 'success', msg: 'Новость успешно активирована.' });
+                            $rootScope.alerts.push({ type: 'success', msg: 'Blog успешно активирована.' });
                         }
                     },
                         function (response) {
-                            $rootScope.alerts.push({ type: 'danger', msg: 'Новость не была активирована.' });
+                            $rootScope.alerts.push({ type: 'danger', msg: 'Blog не была активирована.' });
                         });
             };
 
@@ -222,15 +222,15 @@ angular.module('news.ctrl', [])
                 });
 
                 modalInstance.result.then(function () {
-                    NewsFactory.delete(vm.item.id).
+                    BlogFactory.delete(vm.item.id).
                         then(function (response) {
                             if (response) {
-                                $rootScope.alerts.push({ type: 'success', msg: 'Новость успешно удалена.' });
+                                $rootScope.alerts.push({ type: 'success', msg: 'Blog успешно удалена.' });
                                 $state.go('home');
                             }
                         },
                             function (response) {
-                                $rootScope.alerts.push({ type: 'danger', msg: 'Новость не была удалена.' });
+                                $rootScope.alerts.push({ type: 'danger', msg: 'Blog не была удалена.' });
                             });
                 }, function () {
                 });

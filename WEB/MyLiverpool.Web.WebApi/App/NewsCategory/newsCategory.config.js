@@ -20,7 +20,7 @@ angular.module('newsCategory.config',
                 })
                 .state('newsCategoriesEdit', {
                     url: '/newsCategoriesEdit?id',
-                    templateUrl: function(params) { return '/app/newsCategory/views/edit?id=' + params.id },
+                    templateUrl: function(params) { return '/app/newsCategory/views/edit?id=' + params.id; },
                     controller: 'NewsCategoryCtrl',
                     controllerAs: 'vm',
                     resolve: {

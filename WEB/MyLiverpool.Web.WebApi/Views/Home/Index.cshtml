@@ -92,16 +92,13 @@
                     <li><a ui-sref="newsCategories()">@CommonMessages.Categories</a></li>
                 </ul>
             </li>
-
-            @*<li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">@CommonMessages.Blogs<b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li>@Html.ActionLink(CommonMessages.Blogs, "Index", "Blog")</li>
-                                @if (User.IsInRole("BlogsStart"))
-                                {
-                                    <li>Html.ActionLink(CommonMessages.Create, "Create", "Blog")</li>
-                                }       <li>@Html.ActionLink(CommonMessages.Categories, "Categories", "Blog")</li></ul>
-                        </li>*@
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="">Блоги<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li ng-if="vm.isAuthor()"><a ui-sref="blogEdit()">Добавить</a></li>
+                    <li><a ui-sref="blogCategories()">@CommonMessages.Categories</a></li>
+                </ul>
+            </li>
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="">@CommonMessages.FcLiverpool<b class="caret"></b></a>
                 <ul class="dropdown-menu">

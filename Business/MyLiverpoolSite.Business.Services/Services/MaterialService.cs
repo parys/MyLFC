@@ -175,7 +175,9 @@ namespace MyLiverpoolSite.Business.Services.Services
         {
             var newsItem = await _unitOfWork.MaterialRepository.GetByIdAsync(id);
             var userRoles = await _unitOfWork.UserManager.GetRolesAsync(userId);
-            if (!userRoles.Contains(RolesEnum.NewsFull.ToString()) && newsItem.AuthorId != userId)
+            if (!userRoles.Contains(RolesEnum.NewsFull.ToString()) &&
+                !userRoles.Contains(RolesEnum.BlogFull.ToString()) &&
+                newsItem.AuthorId != userId)
             {
                 return false;
             }
@@ -243,7 +245,7 @@ namespace MyLiverpoolSite.Business.Services.Services
             updatingItem.Pending = model.Pending;
             updatingItem.PhotoPath = model.PhotoPath;
             updatingItem.Source = model.Source;
-            updatingItem.CategoryId = model.NewsCategoryId;
+            updatingItem.CategoryId = model.CategoryId;
 
             try
             {

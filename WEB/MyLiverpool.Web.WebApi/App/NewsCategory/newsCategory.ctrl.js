@@ -18,39 +18,39 @@ angular.module('newsCategory.ctrl', [])
                         });
             };
 
-            vm.initEdit = function () {
+            vm.initEdit = function() {
                 if (!$stateParams.id) return;
                 NewsCategoryFactory.get($stateParams.id)
-                    .then(function (response) {
-                        vm.category = response;
+                    .then(function(response) {
+                            vm.category = response;
 
-                    },
-                        function (response) {
+                        },
+                        function(response) {
                             //.f = "";
                         });
-            }
+            };
 
-            vm.save = function () {
+            vm.save = function() {
                 if ($stateParams.id) {
                     NewsCategoryFactory.edit($stateParams.id, vm.category)
-                        .then(function (response) {
-                            $rootScope.alerts.push({ type: 'success', msg: 'Категория успешно изменена.' });
-                        },
-                        function (response) {
-                            $rootScope.alerts.push({ type: 'danger', msg: 'Категория не была изменена.' });
-                        });
+                        .then(function(response) {
+                                $rootScope.alerts.push({ type: 'success', msg: 'Категория успешно изменена.' });
+                            },
+                            function(response) {
+                                $rootScope.alerts.push({ type: 'danger', msg: 'Категория не была изменена.' });
+                            });
                 } else {
                     NewsCategoryFactory.create(vm.category)
-                        .then(function (response) {
-                            $rootScope.alerts.push({ type: 'success', msg: 'Категория успешно создана.' });
-                        },
-                        function (response) {
-                            $rootScope.alerts.push({ type: 'danger', msg: 'Категория не была создана.' });
-                        });
+                        .then(function(response) {
+                                $rootScope.alerts.push({ type: 'success', msg: 'Категория успешно создана.' });
+                            },
+                            function(response) {
+                                $rootScope.alerts.push({ type: 'danger', msg: 'Категория не была создана.' });
+                            });
                 }
-            }
+            };
 
-            vm.delete = function (index) {
+            vm.delete = function(index) {
                 var modalInstance = $uibModal.open({
                     animation: true,
                     templateUrl: 'modalDeleteConfirmation.html',
@@ -63,19 +63,19 @@ angular.module('newsCategory.ctrl', [])
                     //}
                 });
 
-                modalInstance.result.then(function () {
+                modalInstance.result.then(function() {
                     NewsCategoryFactory.delete(vm.categories[index].id).
-                        then(function (response) {
-                            if (response) {
-                                vm.categories.splice(index, 1);
-                                $rootScope.alerts.push({ type: 'success', msg: 'Категория успешно удалена.' });
-                            }
-                        },
-                            function (response) {
+                        then(function(response) {
+                                if (response) {
+                                    vm.categories.splice(index, 1);
+                                    $rootScope.alerts.push({ type: 'success', msg: 'Категория успешно удалена.' });
+                                }
+                            },
+                            function(response) {
                                 $rootScope.alerts.push({ type: 'danger', msg: 'Категория не была удалена.' });
                             });
-                }, function () {
+                }, function() {
                 });
-            }
+            };
         }
     ]);
