@@ -11,6 +11,7 @@ using MyLiverpool.Business.Resources;
 using MyLiverpoolSite.Business.Contracts;
 using MyLiverpoolSite.Business.ViewModels.Users;
 using MyLiverpoolSite.Common.Utilities;
+using MyLiverpoolSite.Common.Utilities.Extensions;
 using MyLiverpoolSite.Data.DataAccessLayer;
 using MyLiverpoolSite.Data.Entities;
 
@@ -137,20 +138,11 @@ namespace MyLiverpoolSite.Business.Services.Services
             Expression<Func<User, bool>> filter = x => true;
             if (dto.RoleGroupId.HasValue)
             {
-                Expression<Func<User, bool>> roleFilter = x => x.RoleGroupId == dto.RoleGroupId.Value;
-                filter =
-                    Expression.Lambda<Func<User, bool>>(
-                        Expression.AndAlso(
-                            new SwapVisitor(filter.Parameters[0], roleFilter.Parameters[0]).Visit(filter.Body),
-                            roleFilter.Body), roleFilter.Parameters);
+                filter = filter.And(x => x.RoleGroupId == dto.RoleGroupId.Value);
             }
             if (!string.IsNullOrWhiteSpace(dto.UserName))
             {
-                Expression<Func<User, bool>> userNameFilter = x => x.UserName.Contains(dto.UserName);
-                filter = Expression.Lambda<Func<User, bool>>(
-                        Expression.AndAlso(
-                            new SwapVisitor(filter.Parameters[0], userNameFilter.Parameters[0]).Visit(filter.Body),
-                            userNameFilter.Body), userNameFilter.Parameters);
+                filter = filter.And(x => x.UserName.Contains(dto.UserName));
             }
 
             var users = await _unitOfWork.UserRepository.GetAsync(dto.Page, filter: filter);

@@ -474,8 +474,6 @@
     <Content Include="App\Modal\ModalForumCtrl.js" />
     <Content Include="App\NewsComment\NewsCommentCtrl.js" />
     <Content Include="App\News\NewsController.js" />
-    <Content Include="App\News\NewsEditCtrl.js" />
-    <Content Include="App\News\NewsItemController.js" />
     <Content Include="App\Pm\pm.ctrl.js" />
     <Content Include="App\Account\RegisterController.js" />
     <Content Include="App\Home\rightContainerCtrl.js" />
@@ -516,7 +514,7 @@
     <Content Include="uib\template\datepicker\year.html" />
     <Content Include="uib\template\modal\backdrop.html" />
     <Content Include="uib\template\modal\window.html" />
-    <None Include="App\NewsComment\views\newsComment.cshtml" />
+    <Content Include="App\NewsComment\views\newsComment.html" />
     <Content Include="uib\template\pagination\pagination.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -556,9 +554,9 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="App\Account\ChangePassword.cshtml" />
     <Content Include="App\NewsCategory\views\list.cshtml" />
-    <Content Include="App\News\views\Info.cshtml" />
-    <Content Include="App\News\views\Edit.html" />
-    <Content Include="App\News\views\List.cshtml" />
+    <Content Include="App\News\views\info.html" />
+    <Content Include="App\News\views\edit.html" />
+    <Content Include="App\News\views\list.html" />
     <Content Include="App\RoleGroup\views\Index.cshtml" />
     <Content Include="App\User\views\List.html" />
     <Content Include="App\Pm\views\pms.cshtml" />

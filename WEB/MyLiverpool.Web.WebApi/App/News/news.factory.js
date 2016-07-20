@@ -4,12 +4,12 @@ angular.module('news.factory', [])
         '$q', '$http', 'SessionService', '$stateParams',
         function($q, $http, SessionService, $stateParams) {
             return {
-                getList: function(page, categoryId) {
+                getList: function(page, categoryId, authorUserName) {
                     var result = $q.defer();
 
                     $http({
                             method: 'GET',
-                            url: SessionService.apiUrl + '/api/News/?page=' + page + '&categoryId=' + categoryId,
+                            url: SessionService.apiUrl + '/api/News/?page=' + page + '&categoryId=' + categoryId + '&authorUserName=' + authorUserName,
                             headers: { 'Content-Type': 'application/json' }
                         })
                         .success(function(response) {
@@ -141,9 +141,7 @@ angular.module('news.factory', [])
                         });
 
                     return result.promise;
-                },
-
-
-            }
+                }
+            };
         }
     ]);

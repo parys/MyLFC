@@ -1,6 +1,4 @@
-﻿@using MyLiverpool.Business.Resources
-
-<div class="" ng-init="vm.init()">
+﻿<div class="" ng-init="vm.init()">
     <div class="alert-danger flex-vertical-center">
         <h3 class="col-xs-12 col-sm-12">
             <span class="col-xs-9 col-sm-9" ng-bind="vm.item.title"></span>
@@ -17,15 +15,15 @@
         <article ng-bind-html="vm.item.message | rawHtml"></article>
         <div class="alert-warning">
             <ul class="list-inline">
-                <li><label>@ColonsMessages.Reads</label> <span ng-bind="vm.item.reads"></span></li>
-                <li><label>@ColonsMessages.Source</label> <span ng-bind="vm.item.source"></span></li>
-                <li><label>@ColonsMessages.AdditionTime</label> <span ng-bind="vm.item.additionTime | date:'medium'"></span></li>
-                <li><label>@ColonsMessages.Category</label> <a ui-sref="news({page: 1, categoryId: vm.item.newsCategoryId})"> <span ng-bind="vm.item.newsCategoryName"></span> </a></li>
+                <li><label>Просмотры:</label> <span ng-bind="vm.item.reads"></span></li>
+                <li><label>Источник:</label> <span ng-bind="vm.item.source"></span></li>
+                <li><label>Дата добавления:</label> <span ng-bind="vm.item.additionTime | date:'medium'"></span></li>
+                <li><label>Категория:</label> <a ui-sref="news({page: 1, categoryId: vm.item.newsCategoryId})"> <span ng-bind="vm.item.newsCategoryName"></span> </a></li>
             </ul>
         </div>
     </div>
 
-    @ColonsMessages.CommentsCount <span ng-bind="vm.item.commentsCount"></span>
+    Комментарии: <span ng-bind="vm.item.commentsCount"></span>
 
     <div class="" ng-repeat="comment in vm.item.comments">
         <tree comment="comment" deep="0"></tree>
@@ -37,7 +35,7 @@
                 <textarea mark-it-up class="col-md-offset-2 col-md-8" rows="6" name="message" ng-model="vm.newComment.message" validation="required"></textarea>
             </div>
             <div class="">
-                <button class="btn btn-primary center-block" ng-disabled="commentForm.$invalid" ng-click="vm.addComment()">@CommonMessages.Create</button>
+                <button class="btn btn-primary center-block" ng-disabled="commentForm.$invalid" ng-click="vm.addComment()">Добавить</button>
             </div>
         </div>
     </form>

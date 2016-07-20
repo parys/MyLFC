@@ -11,7 +11,7 @@ angular.module('liverpoolApp')
             $stateProvider
                 .state('home', {
                     url: '/',
-                    templateUrl: '/app/news/views/list',
+                    templateUrl: '/app/news/views/list.html',
                     controller: 'NewsController',
                     controllerAs: 'vm',
                     resolve: {
@@ -55,7 +55,7 @@ angular.module('liverpoolApp')
                         "containerMain": {
                             templateUrl: '/app/Account/Register',
                             controller: 'RegisterController',
-                            controllerAs: 'vm',
+                            controllerAs: 'vm'
                         }
                     },
                     resolve: {
@@ -70,9 +70,9 @@ angular.module('liverpoolApp')
                     url: '/login?returnUrl',
                     views: {
                         "containerMain": {
-                            templateUrl: function (params) { return '/app/Account/Login?returnUrl=' + params.returnUrl },
+                            templateUrl: function (params) { return '/app/Account/Login?returnUrl=' + params.returnUrl; },
                             controller: 'LoginController',
-                            controllerAs: 'vm',
+                            controllerAs: 'vm'
                         }
                     },
                     resolve: {
@@ -104,7 +104,7 @@ angular.module('liverpoolApp')
                     "@": {
                             templateUrl: '/app/Account/UnconfirmEmail',
                             controller: 'LoginController',
-                            controllerAs: 'vm',
+                            controllerAs: 'vm'
 
                         }
                     },
@@ -121,7 +121,7 @@ angular.module('liverpoolApp')
                     "@": {
                             templateUrl: '/app/Account/forgotPassword',
                             controller: 'LoginController',
-                            controllerAs: 'vm',
+                            controllerAs: 'vm'
                         }
                     },
                     resolve: {
@@ -151,7 +151,7 @@ angular.module('liverpoolApp')
                     "@": {
                             templateUrl: '/app/Account/resetPassword',
                             controller: 'LoginController',
-                            controllerAs: 'vm',
+                            controllerAs: 'vm'
                         }
                     },
                     resolve: {
@@ -167,7 +167,7 @@ angular.module('liverpoolApp')
                     "@": {
                             templateUrl: '/app/Account/changePassword',
                             controller: 'LoginController',
-                            controllerAs: 'vm',
+                            controllerAs: 'vm'
                         }
                     },
                     resolve: {

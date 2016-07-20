@@ -12,21 +12,23 @@ namespace MyLiverpool.Web.WebApi.Controllers
     public class ApiNewsItemsController : ApiController
     {
         private readonly IMaterialService _materialService;
-        private readonly IMaterialCategoryService _materialCategoryService;
         private const MaterialType Type = MaterialType.News;
 
-        public ApiNewsItemsController(IMaterialService materialService, IMaterialCategoryService materialCategoryService)
+        public ApiNewsItemsController(IMaterialService materialService)
         {
             _materialService = materialService;
-            _materialCategoryService = materialCategoryService;
         }
 
         [Route]
         [HttpGet]
         [AllowAnonymous]
-        public async Task<PageableData<MaterialMiniDto>> GetNewsItems(int page = 1, int? categoryId = null)
+        public async Task<PageableData<MaterialMiniDto>> GetNewsItems(int page = 1, int? categoryId = null, string authorUserName = null)
         {
-            var result = await _materialService.GetDtoAllAsync(page, categoryId, Type);
+            if (page < 1)
+            {
+                page = 1;
+            }
+            var result = await _materialService.GetDtoAllAsync(page, categoryId, authorUserName, Type);
             return result;
         }
 

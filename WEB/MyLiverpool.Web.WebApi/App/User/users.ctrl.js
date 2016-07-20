@@ -154,52 +154,52 @@ angular.module('users.ctrl', [])
                         });
             };
 
-            vm.getDto = function () {
+            vm.getDto = function() {
                 var dto = {
                     page: vm.pageNo,
                     roleGroupId: vm.chosenRoleGroupId,
                     userName: vm.filterUserName
-                }
+                };
                 return dto;
-            }
+            };
 
-            vm.isNotSelf = function (userId, userId2) {
+            vm.isNotSelf = function(userId, userId2) {
                 return Number(userId) !== Number(userId2);
-            }
+            };
 
-            vm.goToPage = function () {
+            vm.goToPage = function() {
                 $state.go('users', { page: vm.pageNo, roleGroupId: vm.chosenRoleGroupId }, { reload: true });
-            }
+            };
 
-            vm.changeRoleId = function () {
+            vm.changeRoleId = function() {
                 $stateParams.roleGroupId = vm.chosenRoleGroupId;
                 vm.filter();
-            }
+            };
 
-            vm.parseResponse = function (response) {
+            vm.parseResponse = function(response) {
                 vm.users = response.list;
                 vm.pageNo = response.pageNo;
                 vm.totalItems = response.totalItems;
                 vm.itemPerPage = response.itemPerPage;
-            }
+            };
 
-            vm.filterByUserName = function () {
+            vm.filterByUserName = function() {
                 $stateParams.userName = vm.filterUserName;
                 vm.filter();
-            }
+            };
 
-            vm.updateUsers = function () {
+            vm.updateUsers = function() {
                 UsersFactory.getUsers(vm.getDto())
-                    .then(function (response) {
-                        vm.parseResponse(response);
-                    },
-                        function (response) {
+                    .then(function(response) {
+                            vm.parseResponse(response);
+                        },
+                        function(response) {
                             console.log(response);
                         });
-            }
+            };
 
-            vm.filter = function () {
+            vm.filter = function() {
                 $state.go('users', { page: vm.pageNo, roleGroupId: vm.chosenRoleGroupId, userName: vm.filterUserName }, { reload: true });
-            }
+            };
         }
     ]);

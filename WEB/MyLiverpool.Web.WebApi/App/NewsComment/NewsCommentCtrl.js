@@ -2,7 +2,7 @@
 angular.module('newsComment.ctrl', [])
     .controller('NewsCommentCtrl', [
         '$scope', '$uibModal', 'NewsCommentFactory', 'Authentication', '$rootScope',
-        function($scope, $uibModal, NewsCommentFactory, Authentication, $rootScope) {
+        function ($scope, $uibModal, NewsCommentFactory, Authentication, $rootScope) {
             var vm = this;
 
             vm.newComment = undefined;
@@ -15,9 +15,9 @@ angular.module('newsComment.ctrl', [])
                     newsItemId: undefined,
                     authorId: undefined,
                     authorUserName: undefined,
-                    answer: undefined,
+                    answer: undefined
                 }
-            }
+            };
 
             resetNewComment();
 
@@ -46,7 +46,7 @@ angular.module('newsComment.ctrl', [])
                 modalInstance.result.then(function() {
                     vm.newComment.newsItemId = comment.newsItemId;
                     vm.newComment.parentId = comment.id;
-                    NewsCommentsFactory.add(vm.newComment).
+                    NewsCommentFactory.add(vm.newComment).
                         then(function(response) {
                                 if (response) {
                                     comment.children.push(response);
@@ -78,10 +78,10 @@ angular.module('newsComment.ctrl', [])
                 });
 
                 modalInstance.result.then(function() {
-                    NewsCommentsFactory.edit(comment).
+                    NewsCommentFactory.edit(comment).
                         then(function(response) {
                                 if (response) {
-                                    $scope.$emit('editCommentConfirmed', editedComment);
+                                    $scope.$emit('editCommentConfirmed', comment);
                                     $rootScope.alerts.push({ type: 'success', msg: 'Комментарий успешно измененен.' });
                                 }
                             },
@@ -106,7 +106,7 @@ angular.module('newsComment.ctrl', [])
                 });
 
                 modalInstance.result.then(function() {
-                    NewsCommentsFactory.delete(comment.id).
+                    NewsCommentFactory.delete(comment.id).
                         then(function(response) {
                                 if (response) {
                                     $rootScope.alerts.push({ type: 'success', msg: 'Комментарий успешно удален.' });

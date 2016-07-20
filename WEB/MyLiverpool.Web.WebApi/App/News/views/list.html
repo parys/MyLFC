@@ -1,5 +1,16 @@
-﻿@using MyLiverpool.Business.Resources
-<div class="container-fluid" ng-init="vm.init(undefined,undefined)">
+﻿<div class="container-fluid" ng-init="vm.initList()">
+    <div ng-if="vm.page > 0">
+        <form class="form-inline">
+            <div class="form-group">
+                <select class="form-control"
+                        ng-model="vm.categoryId"
+                        ng-options="category.id as category.name for category in vm.categories" ng-change="vm.changeCategoryId()"></select>
+            </div>
+            <div class="form-group">
+                <input class="form-control" ng-model="vm.userName" ng-model-options="{debounce: 1000}" ng-change="vm.filterByUserName()" placeholder="Логин" /> <!--todo magic number-->
+            </div>
+        </form>
+    </div>
     <div class="row" ng-repeat="item in vm.newsItems">
         <div class="" ng-if="!item.pending || isEditor()">
             <div class="flex-vertical-center">
@@ -18,25 +29,25 @@
             </div>
             <div class="col-sx-12 col-sm-12">
                 <ul class="list-inline small small-offset">
-                    <li class="">@ColonsMessages.Category</li>
+                    <li class="">Категория:</li>
                     <li class=""><a ui-sref="news({page: 1, categoryId: item.newsCategoryId})" ng-bind="item.newsCategoryName"></a></li>
                     <li class="">|</li>
-                    <li class="">@ColonsMessages.AdditionTime</li>
+                    <li class="">Время добавления:</li>
                     <li class="" ng-bind="item.additionTime | date:'medium'"></li>
                     <li class="">|</li>
-                    <li class="">@ColonsMessages.Reads</li>
+                    <li class="">Просмотры</li>
                     <li class="" ng-bind="item.reads"></li>
                     <li class="">|</li>
-                    <li class="">@ColonsMessages.Author</li>
+                    <li class="">Автор:</li>
                     <li class=""><a ui-sref="userInfo({id: item.authorId })" ng-bind="item.authorUserName"></a></li>
                     <li class="">|</li>
-                    <li class="">@ColonsMessages.CommentsCount</li>
+                    <li class="">Комментарии:</li>
                     <li class="" ng-bind="item.commentsCount"></li>
                 </ul>
             </div>
         </div>
     </div>
     <div class="pagination">
-        <uib-pagination ng-show="vm.totalItems > vm.itemPerPage" total-items="vm.totalItems" ng-model="vm.pageNo" ng-change="vm.goToPage()"></uib-pagination>
+        <uib-pagination ng-show="vm.totalItems > vm.itemPerPage" total-items="vm.totalItems" ng-model="vm.page" ng-change="vm.goToPage()"></uib-pagination>
     </div>
 </div>

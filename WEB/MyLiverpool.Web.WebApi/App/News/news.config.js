@@ -6,8 +6,10 @@ angular.module('news.config',
         function($stateProvider) {
             $stateProvider
                 .state('news', {
-                    url: '/news?page&categoryId',
-                    templateUrl: function (params) { return '/app/news/views/list?page=' + params.page + '&categoryId=' + params.categoryId; },
+                    url: '/news?page&categoryId&userName',
+                    templateUrl: function(params) {
+                         return '/app/news/views/list.html?page=' + params.page + '&categoryId=' + params.categoryId + '&userName=' + params.userName;
+                    },
                     controller: 'NewsController',
                     controllerAs: 'vm',
                     resolve: {
@@ -22,8 +24,8 @@ angular.module('news.config',
                     url: '/newsInfo?id',
                     views: {
                         "@": {
-                            templateUrl: function (params) { return '/app/news/views/info?id=' + params.id; },
-                            controller: 'NewsItemController',
+                            templateUrl: function (params) { return '/app/news/views/info.html?id=' + params.id; },
+                            controller: 'NewsController',
                             controllerAs: 'vm'
                         }
                     },
@@ -40,7 +42,7 @@ angular.module('news.config',
                     views: {
                         '': {
                             templateUrl: function (params) { return '/app/news/views/Edit.html?id=' + params.id; },
-                            controller: 'NewsEditCtrl',
+                            controller: 'NewsController',
                             controllerAs: 'vm'
                         },
                         'files@newsEdit': {

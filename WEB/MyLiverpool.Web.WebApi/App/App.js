@@ -102,7 +102,6 @@ angular.module('liverpoolApp',
         };
 
         $rootScope.isUserAuthor = function(userId, newsUserId) {
-            console.log("app root isUserAuthor " + userId === newsUserId);
             return userId === newsUserId;
         };
     });

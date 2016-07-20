@@ -6,7 +6,7 @@ angular.module('newsComment.directive', [])
             return {
                 restrict: "E",
                 scope: { comment: '=', deep: '=', authorId: '=' },
-                templateUrl: '/app/newsComment/views/newsComment',
+                templateUrl: '/app/newsComment/views/newsComment.html',
                 controller: 'NewsCommentCtrl',
                 controllerAs: 'vm',
                 transclude: true,

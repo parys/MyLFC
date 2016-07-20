@@ -12,25 +12,25 @@ using MyLiverpoolSite.Business.ViewModels.NewsCategories;
 using MyLiverpoolSite.Common.Utilities;
 using MyLiverpoolSite.Data.DataAccessLayer;
 using MyLiverpoolSite.Data.Entities;
+using MyLiverpoolSite.Common.Utilities.Extensions;
 
 namespace MyLiverpoolSite.Business.Services.Services
 {
     public class MaterialService : IMaterialService
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IMaterialCategoryService _materialCategoryService;
         private readonly IMaterialRepository _materialRepository;
         private readonly IMapper _mapper;
 
-        public MaterialService(IUnitOfWork unitOfWork, IMaterialCategoryService materialCategoryService, IMaterialRepository materialRepository, IMapper mapper)
+        public MaterialService(IUnitOfWork unitOfWork, IMaterialRepository materialRepository, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
-            _materialCategoryService = materialCategoryService;
             _materialRepository = materialRepository;
             _mapper = mapper;
         }
 
         #region VM
+
         //todo for vm , MaterialType materialType edit
         public async Task<IndexNewsViewModel> GetByIdAsync(int id, MaterialType materialType)
         {
@@ -71,7 +71,8 @@ namespace MyLiverpoolSite.Business.Services.Services
             return newsItem.Id;
         }
 
-        public async Task<PageableData<IndexMiniNewsVM>> GetAllAsync(int page, int? categoryId, MaterialType materialType)
+        public async Task<PageableData<IndexMiniNewsVM>> GetAllAsync(int page, int? categoryId,
+            MaterialType materialType)
         {
             // itemPerPage = GlobalConstants.NewsPerPage;
             Expression<Func<Material, bool>> filter = x => !x.OnTop;
@@ -81,17 +82,18 @@ namespace MyLiverpoolSite.Business.Services.Services
             {
                 filter = x => x.CategoryId == categoryId.Value && !x.OnTop;
                 filterForCount = x => x.CategoryId == categoryId.Value;
-                topNews = await _unitOfWork.MaterialRepository.GetAsync(x => x.OnTop && x.CategoryId == categoryId.Value);
+                topNews =
+                    await _unitOfWork.MaterialRepository.GetAsync(x => x.OnTop && x.CategoryId == categoryId.Value);
             }
             else
             {
                 topNews = await _unitOfWork.MaterialRepository.GetAsync(x => x.OnTop);
             }
-             
-           // if (page == GlobalConstants.FirstPage)
-           // {
-                var itemPerPage = GlobalConstants.NewsPerPage - topNews.Count;
-           // }
+
+            // if (page == GlobalConstants.FirstPage)
+            // {
+            var itemPerPage = GlobalConstants.NewsPerPage - topNews.Count;
+            // }
             var news = await _unitOfWork.MaterialRepository.GetAsync(page, filter: filter, itemPerPage: itemPerPage);
             var newsForView = (page == GlobalConstants.FirstPage) ? topNews.Concat(news) : news;
             var newsVM = _mapper.Map<IEnumerable<IndexMiniNewsVM>>(newsForView);
@@ -107,28 +109,32 @@ namespace MyLiverpoolSite.Business.Services.Services
 
             return categoriesVM;
         }
+
         #endregion
 
         #region Dto 
-        public async Task<PageableData<MaterialMiniDto>> GetDtoAllAsync(int page, int? categoryId, MaterialType materialType)
+
+        public async Task<PageableData<MaterialMiniDto>> GetDtoAllAsync(int page, int? categoryId, string userName,
+            MaterialType materialType)
         {
             var itemPerPage = GlobalConstants.NewsPerPage;
-            Expression<Func<Material, bool>> filter = x => !x.OnTop && x.Type == materialType;
-            Expression<Func<Material, bool>> filterForCount = x => x.Type == materialType;
+            Expression<Func<Material, bool>> filter = x =>  x.Type == materialType;
             ICollection<Material> topNews = new List<Material>();
             if (categoryId.HasValue)
             {
-                filter = x => x.CategoryId == categoryId.Value && !x.OnTop && x.Type == materialType;
-                filterForCount = x => x.CategoryId == categoryId.Value && x.Type == materialType;
-                topNews = await _unitOfWork.MaterialRepository.GetAsync(x => x.OnTop && x.CategoryId == categoryId.Value && x.Type == materialType);
+                filter = filter.And(x => x.CategoryId == categoryId.Value);
             }
-            else
+
+            if (!string.IsNullOrWhiteSpace(userName))
             {
-                if (page == GlobalConstants.FirstPage)
-                {
-                    topNews = await _unitOfWork.MaterialRepository.GetAsync(x => x.OnTop && x.Type == materialType);
-                }
+                Expression<Func<Material, bool>> newFilter = x => x.Author.UserName.Contains(userName);
+                filter = filter.And(newFilter);
             }
+
+            var filterForTop = filter.And(x => x.OnTop);
+            topNews =
+                await
+                    _unitOfWork.MaterialRepository.GetAsync(filterForTop);
 
             if (page == GlobalConstants.FirstPage)
             {
@@ -136,11 +142,16 @@ namespace MyLiverpoolSite.Business.Services.Services
                     ? GlobalConstants.NewsPerPage - topNews.Count
                     : 0;
             }
-            var news = await _unitOfWork.MaterialRepository.GetOrderedByAsync(page, itemPerPage, SortOrder.Descending, filter, x => x.AdditionTime);
+
+            var allNewsCount = await _unitOfWork.MaterialRepository.GetCountAsync(filter);
+            filter = filter.And(x => !x.OnTop);
+            var news =
+                await
+                    _unitOfWork.MaterialRepository.GetOrderedByAsync(page, itemPerPage, SortOrder.Descending, filter,
+                        x => x.AdditionTime);
             var newsForView = topNews.Concat(news);
-            var newsVm = _mapper.Map<IEnumerable<MaterialMiniDto>>(newsForView);
-            var allNewsCount = await _unitOfWork.MaterialRepository.GetCountAsync(filterForCount);
-            var result = new PageableData<MaterialMiniDto>(newsVm, page, allNewsCount);
+            var newsDtos = _mapper.Map<IEnumerable<MaterialMiniDto>>(newsForView);
+            var result = new PageableData<MaterialMiniDto>(newsDtos, page, allNewsCount);
             return result;
         }
 
@@ -153,7 +164,8 @@ namespace MyLiverpoolSite.Business.Services.Services
             }
             //todo newsCounter
             var commentsCount = material.Comments.Count;
-            material.Comments = material.Comments.Where(x => !x.ParentId.HasValue && x.MaterialType == materialType).ToList();
+            material.Comments =
+                material.Comments.Where(x => !x.ParentId.HasValue && x.MaterialType == materialType).ToList();
             var dto = _mapper.Map<MaterialDto>(material);
             dto.CommentsCount = commentsCount;
             return dto;
@@ -202,7 +214,7 @@ namespace MyLiverpoolSite.Business.Services.Services
         {
             model.AdditionTime = DateTime.Now;
             model.AuthorId = userId;
-            
+
             var material = _mapper.Map<Material>(model);
             material.LastModified = DateTime.Now;
             material.Type = materialType;
@@ -216,11 +228,11 @@ namespace MyLiverpoolSite.Business.Services.Services
                 return false;
             }
             return true;
-        } 
+        }
 
         public async Task<bool> EditAsync(MaterialDto model, int userId, MaterialType materialType)
         {
-           // var newsItem = Mapper.Map<Material>(model);
+            // var newsItem = Mapper.Map<Material>(model);
             var updatingItem = await _unitOfWork.MaterialRepository.GetByIdAsync(model.Id);
             updatingItem.LastModified = DateTime.Now;
             updatingItem.Brief = model.Brief;
@@ -257,3 +269,4 @@ namespace MyLiverpoolSite.Business.Services.Services
         #endregion
     }
 }
+
