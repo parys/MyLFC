@@ -101,7 +101,7 @@
         </div>
         <div>
             <ul class="list-inline">
-                <li ng-if="vm.user.newsCount > 0"><a ui-sref="newsInfo({})">Новости(<span ng-bind="vm.user.newsCount"></span>)</a></li> <!--todo-->
+                <li ng-if="vm.user.newsCount > 0"><a ui-sref="news({ page: 1, userName: vm.user.userName})">Новости(<span ng-bind="vm.user.newsCount"></span>)</a></li> <!--todo-->
                 <li>|</li>
                 <li ng-if="vm.user.blogsCount > 0"><a ui-sref="blogsInfo({})">Блоги(<span ng-bind="vm.user.blogsCount"></span>)</a></li><!--todo-->
             </ul>
