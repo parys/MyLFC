@@ -95,6 +95,20 @@ angular.module('wish.ctrl', [])
                         });
             };
 
+            vm.getType = function($index) {
+                switch (vm.wishes[$index].type) {
+                case 1:
+                    return 'bg-danger';
+                case 2:
+                    return 'bg-warning';
+                case 3:
+                    return 'bg-info';
+                case 4:
+                    return 'bg-primary';
+                default:
+                }
+            }
+
             //$scope.goToPage = function () {
             //    $state.go('users', { page: $scope.pageNo });
             //}

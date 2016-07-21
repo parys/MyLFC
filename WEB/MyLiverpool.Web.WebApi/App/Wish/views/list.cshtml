@@ -1,12 +1,14 @@
 ﻿<div ng-init="vm.initList()">
     <a ui-sref="wishEdit()">Добавить</a>
     <div ng-repeat="wish in vm.wishes">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title"><a><span ng-bind="wish.title"></span></a><span class="col-xs-1 col-sm-1 pull-right" ng-if="isAdmin()">
-    <a ng-if="isEditor()" ng-click="vm.delete($index)"><span class="glyphicon glyphicon-trash"></span></a>
-</span></h3>
-
+        <div class="panel panel-default" >
+            <div class="panel-heading" >
+                <h3 class="panel-title">
+                    <a><span ng-bind="wish.title" ng-class="vm.getType($index)"></span></a>
+                        <span class="col-xs-1 col-sm-1 pull-right" ng-if="isAdmin()">
+                        <a ng-click="vm.delete($index)"><span class="glyphicon glyphicon-trash"></span></a>
+                    </span>
+                </h3>
             </div>
             <div class="panel-body">
                 <div ng-bind="wish.message"></div>

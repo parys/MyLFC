@@ -73,13 +73,33 @@ namespace MyLiverpool.Web.WebApi.Controllers
         {
             var model = new[]
             {
-                new {id = WishType.Bug, name = WishType.Bug.ToString()},
-                new {id = WishType.BugUi, name = WishType.BugUi.ToString()},
-                new {id = WishType.Feature, name = WishType.Feature.ToString()},
-                new {id = WishType.FeatureUi, name = WishType.FeatureUi.ToString()}
+                new {id = WishType.Bug, name = GetRussianName(WishType.Bug)},
+                new {id = WishType.BugUi, name = GetRussianName(WishType.BugUi)},
+                new {id = WishType.Feature, name = GetRussianName(WishType.Feature)},
+                new {id = WishType.FeatureUi, name = GetRussianName(WishType.FeatureUi)}
             };
             
             return Ok(model);
+        }
+
+        private string GetRussianName(WishType type)
+        {
+            switch (type)
+            {
+                case WishType.Bug:
+                    return "Bug";
+                    break;
+                case WishType.BugUi:
+                    return "Bug";
+                    break;
+                case WishType.Feature:
+                    return "Bug";
+                    break;
+                case WishType.FeatureUi:
+                    return "Bug";
+                    break;
+            }
+            return string.Empty;
         }
     }
 }
