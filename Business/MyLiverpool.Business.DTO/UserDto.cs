@@ -31,7 +31,7 @@ namespace MyLiverpool.Business.DTO
         public string Photo { get; set; }
 
         public int NewsCount { get; set; }
-        public int BlogsCount { get; set; }
 
+        public int BlogsCount { get; set; }
     }
 }
