@@ -199,6 +199,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BlogCategoryController.cs" />
     <Compile Include="Controllers\BlogController.cs" />
     <Compile Include="Controllers\ForumMessageController.cs" />
     <Compile Include="Controllers\ForumSubsectionController.cs" />
@@ -225,6 +226,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App\Forum\views\SubsectionEdit.cshtml" />
+    <Content Include="App\BlogCategory\blogCategory.config.js" />
+    <Content Include="App\BlogCategory\blogCategory.ctrl.js" />
+    <Content Include="App\BlogCategory\blogCategory.factory.js" />
+    <Content Include="App\BlogCategory\views\edit.html" />
+    <Content Include="App\BlogCategory\views\list.html" />
     <Content Include="App\Blog\blog.config.js" />
     <Content Include="App\Blog\blog.ctrl.js" />
     <Content Include="App\Blog\blog.factory.js" />

@@ -107,7 +107,7 @@ angular.module('liverpoolApp')
                 },
 
                 isAuthor: function() {
-                    return isUserInRole(authenticatedUser, 'BlogsStart');
+                    return isUserInRole(authenticatedUser, 'BlogStart');
                 },
             }
         }

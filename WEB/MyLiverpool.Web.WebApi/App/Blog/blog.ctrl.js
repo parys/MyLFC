@@ -109,7 +109,7 @@ angular.module('blog.ctrl', [])
             };
 
             vm.goToPage = function () {
-                $state.go('news', { page: vm.page });
+                $state.go('blog', { page: vm.page });
             };
 
             vm.initEdit = function () {
@@ -144,7 +144,7 @@ angular.module('blog.ctrl', [])
                         .then(function (response) {
                             if (response) {
                                 $rootScope.alerts.push({ type: 'success', msg: 'Blog успешно создана.' });
-                                $state.go('news');
+                                $state.go('blog');
                             }
                         },
                             function (response) {
@@ -155,7 +155,7 @@ angular.module('blog.ctrl', [])
                         .then(function (response) {
                             if (response) {
                                 $rootScope.alerts.push({ type: 'success', msg: 'Blog успешно отредактирована.' });
-                                $state.go('newsInfo', { id: vm.item.id });
+                                $state.go('blogInfo', { id: vm.item.id });
                             }
                         },
                             function (response) {

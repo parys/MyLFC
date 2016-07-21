@@ -18,10 +18,6 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                                                                //Data Source=ANDREW-PC;Initial Catalog=NewDbTest;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False")
         {
 
-            //Database.SetInitializer<LiverpoolContext>(null);
-
-
-
             // Create the database and schema if it doesn't exist
             //   if (!_created)
             //  {

@@ -54,6 +54,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
             var moderatorRole = context.Roles.First(x => x.Name == RolesEnum.UserStart.ToString());//3
             var mainModeratorRole = context.Roles.First(x => x.Name == RolesEnum.UserFull.ToString());
             var authorRole = context.Roles.First(x => x.Name == RolesEnum.BlogStart.ToString());//5
+            var mainAuthorRole = context.Roles.First(x => x.Name == RolesEnum.BlogFull.ToString());
             var internRole = context.Roles.First(x => x.Name == RolesEnum.Intern.ToString());
             // var mainEditorRole = context.Roles.First(x => x.Name == RolesEnum..ToString());//7
             //  var editorRole = context.Roles.First(x => x.Name == RolesEnum..ToString());
@@ -74,7 +75,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                         mainModeratorRole,
                         authorRole,
                         internRole,
-                       // mainEditorRole,
+                        mainAuthorRole,
                       //  editorRole,
                         mainNewsmakeRole,
                         newsmakerRole
@@ -91,6 +92,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                         mainModeratorRole,
                         authorRole,
                         internRole,
+                        mainAuthorRole,
                     //    mainEditorRole,
                      //   editorRole,
                         mainNewsmakeRole,

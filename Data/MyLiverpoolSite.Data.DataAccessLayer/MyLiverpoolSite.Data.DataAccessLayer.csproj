@@ -103,10 +103,6 @@
     <Compile Include="Contracts\IMaterialRepository.cs" />
     <Compile Include="Contracts\IUnitOfWork.cs" />
     <Compile Include="LiverpoolContext.cs" />
-    <Compile Include="Migrations\201607072219073_updateForumThemeTable.cs" />
-    <Compile Include="Migrations\201607072219073_updateForumThemeTable.Designer.cs">
-      <DependentUpon>201607072219073_updateForumThemeTable.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Repositories\MaterialRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -134,9 +130,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201607072219073_updateForumThemeTable.resx">
-      <DependentUpon>201607072219073_updateForumThemeTable.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="RolesMessages.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>RolesMessages.Designer.cs</LastGenOutput>
