@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using MyLiverpool.Business.DTO;
+using MyLiverpoolSite.Data.DataAccessLayer;
 
 namespace MyLiverpoolSite.Business.Contracts
 {
@@ -8,7 +9,7 @@ namespace MyLiverpoolSite.Business.Contracts
     {
         Task<WishDto> CreateAsync(WishDto dto);
 
-        Task<List<WishDto>> GetListAsync(int page);
+        Task<PageableData<WishDto>> GetListAsync(int page, int? typeId = null);
 
         Task<WishDto> GetAsync(int wishId);
 

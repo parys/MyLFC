@@ -1,8 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
 using MyLiverpool.Business.DTO;
 using MyLiverpoolSite.Business.Contracts;
+using MyLiverpoolSite.Common.Utilities.Extensions;
 using MyLiverpoolSite.Data.DataAccessLayer;
 using MyLiverpoolSite.Data.Entities;
 
@@ -27,10 +30,17 @@ namespace MyLiverpoolSite.Business.Services.Services
             return _mapper.Map<WishDto>(wish);
         }
 
-        public async Task<List<WishDto>> GetListAsync(int page = 1)
+        public async Task<PageableData<WishDto>> GetListAsync(int page, int? typeId)
         {
-            var wishes = await _unitOfWork.WishRepository.GetAsync(page);
-            return _mapper.Map<List<WishDto>>(wishes);
+            Expression<Func<Wish, bool>> filter = x => true;
+            if (typeId.HasValue)
+            {
+                filter = filter.And(x => (int)x.Type == typeId.Value);
+            }
+            var wishes = await _unitOfWork.WishRepository.GetAsync(page, filter : filter);
+            var wishesDto = _mapper.Map<IEnumerable<WishDto>>(wishes);
+            var wishesCount = await _unitOfWork.WishRepository.GetCountAsync(filter);
+            return new PageableData<WishDto>(wishesDto, page, wishesCount);
         }
 
         public async Task<WishDto> GetAsync(int wishId)

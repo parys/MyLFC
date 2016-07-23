@@ -5,12 +5,12 @@ angular.module('wish.ctrl', [])
         function ($state, $stateParams, $uibModal, WishFactory) {
             var vm = this;
             vm.wish = undefined;
-            vm.pageNo = 1;
+            vm.page = Number($stateParams.page);
             vm.wishes = [];
-            //$scope.users = [];
-            //$scope.pageNo = 1;
             vm.countPage = 1;
-
+            vm.typeId = Number($stateParams.typeId);
+            vm.types = [];
+        
             vm.init = function() {
                 if ($stateParams.id) {
                     WishFactory.get($stateParams.id)
@@ -35,24 +35,32 @@ angular.module('wish.ctrl', [])
                                 //$scope.f = "";
                             });
                 }
-                WishFactory.getTypes()
-                    .then(function (response) {
-                        vm.types = response;
-                    },
-                        function (response) {
-
-                        });
+                vm.updateTypes();
             };
 
-            vm.initList = function (page) {
-                WishFactory.getList(page)
+            vm.initList = function () {
+                WishFactory.getList(vm.page, vm.typeId)
                     .then(function (response) {
-                        vm.wishes = response;
-                      //  vm.pageNo = response.pageNo;
-                      //  vm.countPage = response.CountPage;
+                        vm.wishes = response.list;
+                        vm.pageNo = response.pageNo;
+                        vm.totalItems = response.totalItems;
+                        vm.itemPerPage = response.itemPerPage;
                     },
                         function (response) {
                             //$scope.f = "";
+                        });
+
+                vm.updateTypes();
+            };
+
+            vm.updateTypes = function() {
+                WishFactory.getTypes()
+                    .then(function(response) {
+                        vm.types = response;
+                        vm.types.push({ name: 'Все типы', id: NaN });
+                        },
+                        function(response) {
+
                         });
             };
 
@@ -98,20 +106,29 @@ angular.module('wish.ctrl', [])
             vm.getType = function($index) {
                 switch (vm.wishes[$index].type) {
                 case 1:
-                    return 'bg-danger';
+                    return 'panel-danger';
                 case 2:
-                    return 'bg-warning';
+                    return 'panel-warning';
                 case 3:
-                    return 'bg-info';
+                    return 'panel-info';
                 case 4:
-                    return 'bg-primary';
-                default:
+                    return 'panel-primary';
+                    default:
+                        return '';
                 }
+            };
+
+            vm.goToPage = function () {
+                vm.filter();
             }
 
-            //$scope.goToPage = function () {
-            //    $state.go('users', { page: $scope.pageNo });
-            //}
+            vm.changeTypeId = function () {
+                $stateParams.typeId = vm.typeId;
+                vm.filter();
+            };
 
+            vm.filter = function () {
+                $state.go('wishes', { page: vm.pageNo, typeId: vm.typeId }, { reload: true });
+            };
         }
     ]);

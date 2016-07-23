@@ -47,9 +47,9 @@ namespace MyLiverpool.Web.WebApi.Controllers
         [Route("List")]
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IHttpActionResult> GetListAsync(int page = 1)
+        public async Task<IHttpActionResult> GetListAsync(int page = 1, int? typeId = null)
         {
-            var model = await _wishService.GetListAsync(page);
+            var model = await _wishService.GetListAsync(page, typeId);
             return Ok(model);
         }
 
@@ -87,17 +87,13 @@ namespace MyLiverpool.Web.WebApi.Controllers
             switch (type)
             {
                 case WishType.Bug:
-                    return "Bug";
-                    break;
+                    return "Баг";
                 case WishType.BugUi:
-                    return "Bug";
-                    break;
+                    return "Баг оформления";
                 case WishType.Feature:
-                    return "Bug";
-                    break;
+                    return "Пожелание";
                 case WishType.FeatureUi:
-                    return "Bug";
-                    break;
+                    return "Пожелание оформления";
             }
             return string.Empty;
         }

@@ -1,11 +1,23 @@
 ﻿<div ng-init="vm.initList()">
     <a ui-sref="wishEdit()">Добавить</a>
+    <div>
+        <form class="form-inline">
+            <div class="form-group">
+                <select class="form-control"
+                        ng-model="vm.typeId"
+                        ng-options="type.id as type.name for type in vm.types" ng-change="vm.changeTypeId()"></select>
+            </div>
+            <div class="form-group">
+                <input class="form-control" ng-model="vm.filterUserName" ng-model-options="{debounce: 1000}" ng-change="vm.filterByUserName()" placeholder="Логин" /> <!--todo magic number-->
+            </div>
+        </form>
+    </div>
     <div ng-repeat="wish in vm.wishes">
-        <div class="panel panel-default" >
-            <div class="panel-heading" >
+        <div class="panel" ng-class="vm.getType($index)">
+            <div class="panel-heading">
                 <h3 class="panel-title">
-                    <a><span ng-bind="wish.title" ng-class="vm.getType($index)"></span></a>
-                        <span class="col-xs-1 col-sm-1 pull-right" ng-if="isAdmin()">
+                    <a><span ng-bind="wish.title" ></span></a>
+                    <span class="col-xs-1 col-sm-1 pull-right" ng-if="isAdmin()">
                         <a ng-click="vm.delete($index)"><span class="glyphicon glyphicon-trash"></span></a>
                     </span>
                 </h3>
@@ -18,4 +30,7 @@
             </div>
         </div>
     </div>
+</div>
+<div class="pagination">
+    <uib-pagination ng-show="vm.totalItems > vm.itemPerPage" total-items="vm.totalItems" ng-model="vm.page" ng-change="vm.goToPage()"></uib-pagination>
 </div>
