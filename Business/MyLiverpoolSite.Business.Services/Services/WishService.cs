@@ -30,12 +30,16 @@ namespace MyLiverpoolSite.Business.Services.Services
             return _mapper.Map<WishDto>(wish);
         }
 
-        public async Task<PageableData<WishDto>> GetListAsync(int page, int? typeId)
+        public async Task<PageableData<WishDto>> GetListAsync(int page, int? typeId, string filterText)
         {
             Expression<Func<Wish, bool>> filter = x => true;
             if (typeId.HasValue)
             {
                 filter = filter.And(x => (int)x.Type == typeId.Value);
+            }
+            if (!string.IsNullOrWhiteSpace(filterText) && filterText != "undefined")
+            {
+                filter = filter.And(x => x.Title.Contains(filterText) || x.Message.Contains(filterText));
             }
             var wishes = await _unitOfWork.WishRepository.GetAsync(page, filter : filter);
             var wishesDto = _mapper.Map<IEnumerable<WishDto>>(wishes);

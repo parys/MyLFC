@@ -39,7 +39,7 @@
                     </div>
                     <div class="form-group">
                         <div>
-                            <input type="submit" ng-click="ctrl.login()" ng-disabled="loginForm1.$invalid" value="@CommonMessages.Login" class="btn btn-default" />
+                            <input type="submit" ng-click="ctrl.login()" ng-disabled="ctrl.loginForm1.userName && ctrl.loginForm1.password" value="@CommonMessages.Login" class="btn btn-default" />
                         </div>
                     </div>
                 </form>
@@ -86,14 +86,14 @@
                                     }*@
             <li> <a ui-sref="forum">@CommonMessages.Forum</a></li>
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="">@CommonMessages.News<b class="caret"></b></a>
+                <a ui-sref="news()" href="#" class="dropdown-toggle" data-toggle="">@CommonMessages.News<b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li ng-if="vm.isNewsmaker()"><a ui-sref="newsEdit()">@CommonMessages.Create</a></li>
                     <li><a ui-sref="newsCategories()">@CommonMessages.Categories</a></li>
                 </ul>
             </li>
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="">Блоги<b class="caret"></b></a>
+                <a ui-sref="blog()" href="#" class="dropdown-toggle" data-toggle="">Блоги<b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li ng-if="vm.isAuthor()"><a ui-sref="blogEdit()">Добавить</a></li>
                     <li><a ui-sref="blogCategories()">@CommonMessages.Categories</a></li>
@@ -113,7 +113,7 @@
             </li>
             <li> <a ng-if="vm.isNewsmaker() || vm.isAuthor()" ui-sref="images({path: 'content'})">@CommonMessages.Images</a></li>
             <li> <a ui-sref="rules()"><span class="text-danger">@CommonMessages.Rules</span></a></li>
-            <li> <a ui-sref="wishes()"><span class="text-info">Пожелания</span></a></li>
+            <li class="bg-success"> <a ui-sref="wishes()"><span class=" text-info">Пожелания</span></a></li>
         </ul>
     </div>
     <div class="col-xs-12 col-sm-12">

@@ -10,6 +10,7 @@ angular.module('wish.ctrl', [])
             vm.countPage = 1;
             vm.typeId = Number($stateParams.typeId);
             vm.types = [];
+            vm.filterText = $stateParams.filterText;
         
             vm.init = function() {
                 if ($stateParams.id) {
@@ -39,7 +40,7 @@ angular.module('wish.ctrl', [])
             };
 
             vm.initList = function () {
-                WishFactory.getList(vm.page, vm.typeId)
+                WishFactory.getList(vm.page, vm.typeId, vm.filterText)
                     .then(function (response) {
                         vm.wishes = response.list;
                         vm.pageNo = response.pageNo;
@@ -118,9 +119,9 @@ angular.module('wish.ctrl', [])
                 }
             };
 
-            vm.goToPage = function () {
+            vm.goToPage = function() {
                 vm.filter();
-            }
+            };
 
             vm.changeTypeId = function () {
                 $stateParams.typeId = vm.typeId;
@@ -128,7 +129,12 @@ angular.module('wish.ctrl', [])
             };
 
             vm.filter = function () {
-                $state.go('wishes', { page: vm.pageNo, typeId: vm.typeId }, { reload: true });
+                $state.go('wish', { page: vm.pageNo, typeId: vm.typeId, filterText: vm.filterText }, { reload: true });
+            };
+
+            vm.filterByText = function() {
+                $stateParams.filterText = vm.filterText;
+                vm.filter();
             };
         }
     ]);

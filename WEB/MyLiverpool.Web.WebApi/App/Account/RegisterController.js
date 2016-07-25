@@ -32,5 +32,15 @@ angular.module('liverpoolApp')
                 formatYear: 'yyyy',
                 startingDay: 1
             };
+
+            vm.emailUnique = function () {
+                var email = vm.registerForm.email;
+                return AccountFactory.isEmailUnique(email);
+            }
+
+            vm.userNameUnique = function () {
+                var userName = vm.registerForm.userName;
+                return AccountFactory.isUserNameUnique(userName);
+            }
         }
     ]);

@@ -339,7 +339,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
             var userStore = new UserStore<User, Role, int, UserLogin, UserRole, UserClaim>(context);
             var userManager = new UserManager<User, int>(userStore);
 
-            userManager.Create(user, "123456");
+            userManager.Create(user, "123qwe");
             var adminRoles = context.RoleGroups.First(x => x.Name == RoleGroupsEnum.Admin.ToString()).Roles.ToList();
             foreach (var role in adminRoles)
             {
@@ -430,6 +430,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
                 userManager.AddToRole(user.Id, role.Name);
             }
         }
+
         private void InitializeEditor(LiverpoolContext context)
         {
             const string email = "Editor@a.c";

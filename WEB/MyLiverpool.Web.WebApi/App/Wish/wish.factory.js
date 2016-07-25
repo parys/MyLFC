@@ -37,12 +37,12 @@ angular.module('wish.factory', [])
                         });
                     return result.promise;
                 },
-                getList: function(page, typeId) {
+                getList: function (page, typeId, filterText) {
                     var result = $q.defer();
 
                     $http({
                             method: 'GET',
-                            url: SessionService.apiUrl + '/api/Wish/list?page=' + page + '&typeId=' + typeId,
+                            url: SessionService.apiUrl + '/api/Wish/list?page=' + page + '&typeId=' + typeId + '&filterText=' + filterText,
                             headers: { 'Content-Type': 'application/json' }
                         })
                         .success(function(response) {

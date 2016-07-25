@@ -36,6 +36,9 @@ namespace MyLiverpoolSite.Business.Services.Services
         {
             code = code.Base64ForUrlDecode();
             var result = await _unitOfWork.UserManager.ConfirmEmailAsync(userId, code);
+            var user = await _unitOfWork.UserManager.FindByIdAsync(userId); //todo WHY
+            user.EmailConfirmed = true;
+            _unitOfWork.UserRepository.Update(user);
             await _unitOfWork.SaveAsync();
             return result.Succeeded;
         }
@@ -54,13 +57,13 @@ namespace MyLiverpoolSite.Business.Services.Services
         public async Task<bool> IsUserNameUniqueAsync(string userName)
         {
             var foundUser = await _unitOfWork.UserManager.FindByNameAsync(userName);
-            return foundUser != null;
+            return foundUser == null;
         }
 
         public async Task<bool> IsEmailUniqueAsync(string email)
         {
             var foundUser = await _unitOfWork.UserManager.FindByEmailAsync(email);
-            return foundUser != null;
+            return foundUser == null;
         }
 
         public async Task<DateTime> GetLockOutEndDateAsync(int userId)
@@ -78,9 +81,12 @@ namespace MyLiverpoolSite.Business.Services.Services
             user.RoleGroupId = (int)RoleGroupsEnum.Simple;
 
             IdentityResult result = await _unitOfWork.UserManager.CreateAsync(user, model.Password);
-            await _unitOfWork.UserManager.AddToRoleAsync(user.Id, RolesEnum.Simple.ToString());
+            if (result.Succeeded)
+            {
+                await _unitOfWork.UserManager.AddToRoleAsync(user.Id, RolesEnum.Simple.ToString());
 
-            await SendConfirmEmailAsync(user.Email, user.Id);
+                await SendConfirmEmailAsync(user.Email, user.Id);
+            }
             return result;
         }
 

@@ -52,8 +52,8 @@ angular.module('liverpoolApp')
                 .state('register', {
                     url: '/register?returnUrl',
                     views: {
-                        "containerMain": {
-                            templateUrl: '/app/Account/Register',
+                        "@": {
+                            templateUrl: '/app/Account/views/register.html',
                             controller: 'RegisterController',
                             controllerAs: 'vm'
                         }

@@ -7,8 +7,8 @@ angular.module('wish.config',
         function($stateProvider) {
             $stateProvider
                 .state('wishes', {
-                    url: '/wishes?page&typeId',
-                    templateUrl: function(params) { return '/app/wish/views/list?page=' + params.page + '&typeId=' + params.typeId; },
+                    url: '/wishes?page&typeId&filterText',
+                    templateUrl: function (params) { return '/app/wish/views/list?page=' + params.page + '&typeId=' + params.typeId + '&filterText=' + params.filterText; },
                     controller: 'WishCtrl',
                     controllerAs: 'vm',
                     resolve: {

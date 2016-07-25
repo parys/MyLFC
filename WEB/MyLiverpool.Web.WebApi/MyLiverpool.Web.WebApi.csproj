@@ -449,6 +449,10 @@
     <Content Include="Scripts\FileAPI.flash.swf" />
     <Content Include="Scripts\FileAPI.js" />
     <Content Include="Scripts\FileAPI.min.js" />
+    <Content Include="Scripts\angular.min.js.map" />
+    <Content Include="Scripts\angular-animate.min.js.map" />
+    <Content Include="Scripts\angular-route.min.js.map" />
+    <Content Include="Scripts\angular-touch.min.js.map" />
     <Content Include="Scripts\angular-validation\locales\ru.json" />
     <Content Include="Scripts\angular-validation\locales\pt-br.json" />
     <Content Include="Scripts\angular-validation\locales\pl.json" />
@@ -457,10 +461,6 @@
     <Content Include="Scripts\angular-validation\locales\es.json" />
     <Content Include="Scripts\angular-validation\locales\en.json" />
     <Content Include="Scripts\angular-validation\locales\ca.json" />
-    <Content Include="Scripts\angular.min.js.map" />
-    <Content Include="Scripts\angular-animate.min.js.map" />
-    <Content Include="Scripts\angular-route.min.js.map" />
-    <Content Include="Scripts\angular-touch.min.js.map" />
     <None Include="Scripts\jquery-2.2.3.intellisense.js" />
     <Content Include="Scripts\jquery-2.2.3.js" />
     <Content Include="Scripts\jquery-2.2.3.min.js" />
@@ -554,12 +554,14 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="App\Account\ConfirmEmail.cshtml" />
     <Content Include="App\Account\ForgotPassword.cshtml" />
     <Content Include="App\Account\EmailSent.cshtml" />
     <Content Include="App\Account\Login.cshtml" />
-    <Content Include="App\Account\Register.cshtml" />
+    <Content Include="App\Account\views\register.html" />
     <Content Include="App\Account\ResetPassword.cshtml" />
     <Content Include="App\Forum\views\Index.cshtml" />
     <Content Include="App\Forum\views\Subsection.cshtml" />

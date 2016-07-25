@@ -47,9 +47,13 @@ namespace MyLiverpool.Web.WebApi.Controllers
         [Route("List")]
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IHttpActionResult> GetListAsync(int page = 1, int? typeId = null)
+        public async Task<IHttpActionResult> GetListAsync(int page = 1, int? typeId = null, string filterText = null)
         {
-            var model = await _wishService.GetListAsync(page, typeId);
+            if (page < 1)
+            {
+                page = 1;
+            }
+            var model = await _wishService.GetListAsync(page, typeId, filterText);
             return Ok(model);
         }
 
