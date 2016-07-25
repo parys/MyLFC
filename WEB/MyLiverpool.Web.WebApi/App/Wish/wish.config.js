@@ -34,7 +34,7 @@ angular.module('wish.config',
                 })
                 .state('wishEdit', {
                     url: '/wishEdit?id',
-                    templateUrl: function(params) { return '/app/wish/views/edit?id=' + params.id; },
+                    templateUrl: function(params) { return '/app/wish/views/edit.html?id=' + params.id; },
                     controller: 'WishCtrl',
                     controllerAs: 'vm',
                     resolve: {

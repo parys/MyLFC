@@ -438,7 +438,14 @@
     <Content Include="App\NewsCategory\views\edit.cshtml" />
     <Content Include="App\Wish\wish.factory.js" />
     <Content Include="App\Wish\views\list.cshtml" />
-    <Content Include="App\Wish\views\edit.cshtml" />
+    <Content Include="App\Wish\views\edit.html" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="Properties\PublishProfiles\package.pubxml" />
     <None Include="Properties\PublishProfiles\someeFreeQA.pubxml" />
     <Content Include="Scripts\angular\23angular-translate-loader-static-files.js" />
@@ -461,9 +468,11 @@
     <Content Include="Scripts\angular-validation\locales\es.json" />
     <Content Include="Scripts\angular-validation\locales\en.json" />
     <Content Include="Scripts\angular-validation\locales\ca.json" />
-    <None Include="Scripts\jquery-2.2.3.intellisense.js" />
-    <Content Include="Scripts\jquery-2.2.3.js" />
-    <Content Include="Scripts\jquery-2.2.3.min.js" />
+    <None Include="Scripts\jquery-3.1.0.intellisense.js" />
+    <Content Include="Scripts\jquery-3.1.0.js" />
+    <Content Include="Scripts\jquery-3.1.0.min.js" />
+    <Content Include="Scripts\jquery-3.1.0.slim.js" />
+    <Content Include="Scripts\jquery-3.1.0.slim.min.js" />
     <Content Include="Scripts\loading-bar.js" />
     <Content Include="Scripts\loading-bar.min.js" />
     <Content Include="Scripts\ng-file-upload-all.js" />
@@ -503,14 +512,7 @@
     <Content Include="App\NewsComment\newsComment.factory.js" />
     <Content Include="App\News\news.factory.js" />
     <Content Include="App\Pm\pm.factory.js" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap-theme.min.css.map" />
-    <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="App\Factories\RecursionHelper.js" />
     <Content Include="App\Filters\RouteFilter.js" />
     <Content Include="App\User\users.factory.js" />
@@ -545,7 +547,8 @@
     <None Include="App\Account\UnconfirmEmail.cshtml" />
     <Content Include="App\Forum\views\ThemeEdit.cshtml" />
     <None Include="App\Home\Rules.cshtml" />
-    <Content Include="Scripts\jquery-2.2.3.min.map" />
+    <Content Include="Scripts\jquery-3.1.0.slim.min.map" />
+    <Content Include="Scripts\jquery-3.1.0.min.map" />
     <None Include="Web.someeFreeQA.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -2,6 +2,7 @@
 using System.Web.Http;
 using MyLiverpool.Business.DTO;
 using MyLiverpoolSite.Business.Contracts;
+using MyLiverpoolSite.Common.Utilities;
 using MyLiverpoolSite.Data.Entities;
 
 namespace MyLiverpool.Web.WebApi.Controllers
@@ -60,13 +61,13 @@ namespace MyLiverpool.Web.WebApi.Controllers
         [Route]
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IHttpActionResult> GetAsync(int? wishId)
+        public async Task<IHttpActionResult> GetAsync(int id)
         {
-            if (!wishId.HasValue)
+            if (id < 1)
             {
                 return BadRequest();
             }
-            var model = await _wishService.GetAsync(wishId.Value);
+            var model = await _wishService.GetAsync(id);
             return Ok(model);
         }
 
@@ -77,29 +78,13 @@ namespace MyLiverpool.Web.WebApi.Controllers
         {
             var model = new[]
             {
-                new {id = WishType.Bug, name = GetRussianName(WishType.Bug)},
-                new {id = WishType.BugUi, name = GetRussianName(WishType.BugUi)},
-                new {id = WishType.Feature, name = GetRussianName(WishType.Feature)},
-                new {id = WishType.FeatureUi, name = GetRussianName(WishType.FeatureUi)}
+                new {id = WishType.Bug, name = WishType.Bug.GetRussianName()},
+                new {id = WishType.BugUi, name = WishType.BugUi.GetRussianName()},
+                new {id = WishType.Feature, name = WishType.Feature.GetRussianName()},
+                new {id = WishType.FeatureUi, name = WishType.FeatureUi.GetRussianName()}
             };
             
             return Ok(model);
-        }
-
-        private string GetRussianName(WishType type)
-        {
-            switch (type)
-            {
-                case WishType.Bug:
-                    return "Баг";
-                case WishType.BugUi:
-                    return "Баг оформления";
-                case WishType.Feature:
-                    return "Пожелание";
-                case WishType.FeatureUi:
-                    return "Пожелание оформления";
-            }
-            return string.Empty;
         }
     }
 }

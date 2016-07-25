@@ -63,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DateTimeHelpers.cs" />
+    <Compile Include="EnumExtensions.cs" />
     <Compile Include="Extensions\ExpressionExtensions.cs" />
     <Compile Include="GlobalConstants.cs" />
     <Compile Include="MachineKeyDataProtector.cs" />
@@ -74,6 +75,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Data\MyLiverpoolSite.Data.Entities\MyLiverpoolSite.Data.Entities.csproj">
+      <Project>{996C9442-54C1-4F0A-BC05-AD1C0E09E20B}</Project>
+      <Name>MyLiverpoolSite.Data.Entities</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

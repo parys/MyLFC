@@ -53,12 +53,12 @@ angular.module('wish.factory', [])
                         });
                     return result.promise;
                 },
-                get: function() {
+                get: function(id) {
                     var result = $q.defer();
 
                     $http({
                             method: 'GET',
-                            url: SessionService.apiUrl + '/api/Wish',
+                            url: SessionService.apiUrl + '/api/Wish?id=' + id,
                             headers: { 'Content-Type': 'application/json' }
                         })
                         .success(function(response) {

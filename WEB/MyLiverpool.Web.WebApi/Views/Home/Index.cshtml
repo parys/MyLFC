@@ -124,9 +124,9 @@
 <div class="body-content row">
 <div ncy-breadcrumb></div>
 <div class="col-xs-12 col-sm-push-3 col-sm-6 container-fluid" style="background-color: #f5deb3">
-    <div class="row">
-        <uib-alert ng-repeat="alert in $root.alerts" dismiss-on-timeout="5000" type="{{alert.type}}" close="closeAlert($index)" ng-bind="alert.msg"></uib-alert>
-        <div class="" ui-view autoscroll="false">
+    <div class="">
+        <uib-alert class="row" ng-repeat="alert in $root.alerts" dismiss-on-timeout="5000" type="{{alert.type}}" close="closeAlert($index)" ng-bind="alert.msg"></uib-alert>
+        <div class="top20" ui-view autoscroll="false">
             <div class="col-md-6" ui-view="newsFeed"></div>
             <div class="col-md-6" ui-view="blogsFeed"></div>
         </div>
