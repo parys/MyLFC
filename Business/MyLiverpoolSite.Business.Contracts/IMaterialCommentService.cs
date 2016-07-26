@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using MyLiverpool.Business.DTO;
+using MyLiverpoolSite.Data.DataAccessLayer;
 using MyLiverpoolSite.Data.Entities;
 
 namespace MyLiverpoolSite.Business.Contracts
@@ -15,5 +16,9 @@ namespace MyLiverpoolSite.Business.Contracts
         Task<MaterialCommentDto> AddAsync(MaterialCommentEditingDto model, MaterialType materialType);
 
         Task<bool> EditAsync(MaterialCommentEditingDto model, MaterialType materialType);
+
+        Task<PageableData<MaterialCommentDto>> GetListAsync(int page, bool onlyUnverified);
+
+        Task<bool> VerifyAsync(int id);
     }
 }

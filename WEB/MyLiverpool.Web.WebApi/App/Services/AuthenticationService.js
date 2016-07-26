@@ -91,11 +91,11 @@ angular.module('liverpoolApp')
                 },
 
                 isMainModerator: function() {
-                    return isUserInRole(authenticatedUser, 'UsersFull');
+                    return isUserInRole(authenticatedUser, 'UserFull');
                 },
 
                 isModerator: function() {
-                    return isUserInRole(authenticatedUser, 'UsersStart');
+                    return isUserInRole(authenticatedUser, 'UserStart');
                 },
 
                 isNewsmaker: function() {

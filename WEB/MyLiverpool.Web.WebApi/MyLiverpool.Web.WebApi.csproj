@@ -206,6 +206,7 @@
     <Compile Include="Controllers\ForumThemeController.cs" />
     <Compile Include="Controllers\ForumSectionController.cs" />
     <Compile Include="Controllers\ImageController.cs" />
+    <Compile Include="Controllers\MaterialCommentController.cs" />
     <Compile Include="Controllers\NewsCategoryController.cs" />
     <Compile Include="Controllers\NewsCommentController.cs" />
     <Compile Include="Controllers\PmController.cs" />
@@ -240,6 +241,10 @@
     <Content Include="App\Forum\forum.config.js" />
     <Content Include="App\Forum\ForumMessageCtrl.js" />
     <Content Include="App\Image\image.config.js" />
+    <Content Include="App\MaterialComment\materialComment.config.js" />
+    <Content Include="App\MaterialComment\materialComment.ctrl.js" />
+    <Content Include="App\MaterialComment\materialComment.factory.js" />
+    <Content Include="App\MaterialComment\views\list.html" />
     <Content Include="App\Modal\alert.html" />
     <Content Include="App\Modal\modalDeleteConfirmation.html" />
     <Content Include="App\Modal\modalEditComment.html" />

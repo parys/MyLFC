@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
 using MyLiverpool.Business.DTO;
 using MyLiverpoolSite.Business.Contracts;
+using MyLiverpoolSite.Common.Utilities.Extensions;
 using MyLiverpoolSite.Data.DataAccessLayer;
 using MyLiverpoolSite.Data.Entities;
 
@@ -13,6 +16,8 @@ namespace MyLiverpoolSite.Business.Services.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+
+        private const int ItemPerPage = 15; // todo move away
 
         public MaterialCommentService(IUnitOfWork unitOfWork, IMapper mapper)
         {
@@ -69,7 +74,7 @@ namespace MyLiverpoolSite.Business.Services.Services
             comment.MaterialType = materialType;
             comment.AdditionTime = DateTime.Now;
             comment.LastModified = DateTime.Now;
-            
+            comment.IsVerified = false;
             try
             {
                 _unitOfWork.MaterialCommentRepository.Add(comment);
@@ -89,7 +94,7 @@ namespace MyLiverpoolSite.Business.Services.Services
             comment.LastModified = DateTime.Now;
             comment.Answer = model.Answer;
             comment.Message = model.Message;
-
+            comment.IsVerified = false;
             try
             {
                 _unitOfWork.MaterialCommentRepository.Update(comment);
@@ -99,6 +104,29 @@ namespace MyLiverpoolSite.Business.Services.Services
             {
                 return false;
             }
+            return true;
+        }
+
+        public async Task<PageableData<MaterialCommentDto>> GetListAsync(int page, bool onlyUnverified)
+        {
+            Expression<Func<MaterialComment, bool>> filter = x => true;
+            if (onlyUnverified)
+            {
+                filter = filter.And(x => !x.IsVerified);
+            }
+            var comments = await _unitOfWork.MaterialCommentRepository.GetAsync(page, ItemPerPage, filter);
+            var commentDtos = _mapper.Map<IEnumerable<MaterialCommentDto>>(comments);
+            var commentsCount = await _unitOfWork.MaterialCommentRepository.GetCountAsync(filter);
+            return new PageableData<MaterialCommentDto>(commentDtos, page, commentsCount);
+        }
+
+        public async Task<bool> VerifyAsync(int id)
+        {
+            var comment = await _unitOfWork.MaterialCommentRepository.GetByIdAsync(id);
+            comment.IsVerified = true;
+            comment.LastModified = DateTime.Now;
+            _unitOfWork.MaterialCommentRepository.Update(comment);
+            await _unitOfWork.SaveAsync();
             return true;
         }
     }

@@ -1,17 +1,21 @@
-﻿using System.Net;
+﻿using System.Configuration;
+using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 
-namespace MyLiverpoolSite.Business.Services
+namespace MyLiverpoolSite.Business.Services.Services
 {
     public class EmailService : IIdentityMessageService
     {
-        public readonly MailAddress fromAddress = new MailAddress("myliverpoolru@gmail.com", "My Liverpool");
-        string fromPassword = "123rfgbnfy5";
+        private readonly string _mailAddress = ConfigurationManager.AppSettings["emailAddress"];
+        private readonly string _senderName = ConfigurationManager.AppSettings["emailAuthor"];
+        private readonly string _fromPassword = ConfigurationManager.AppSettings["emailPassword"];
+        private MailAddress _fromAddress;
 
         public Task SendAsync(IdentityMessage message)
         {
+            _fromAddress = new MailAddress(_mailAddress, _senderName);
             // Plug in your email service here to send an email.
             SendByGmail(message);
             return Task.FromResult(0);
@@ -28,9 +32,9 @@ namespace MyLiverpoolSite.Business.Services
                 EnableSsl = true,
                 DeliveryMethod = SmtpDeliveryMethod.Network,
                 UseDefaultCredentials = false,
-                Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
+                Credentials = new NetworkCredential(_fromAddress.Address, _fromPassword)
             };
-            using (var messageToSend = new MailMessage(fromAddress, toAddress)
+            using (var messageToSend = new MailMessage(_fromAddress, toAddress)
             {
                 Subject = message.Subject,
                 Body = message.Body

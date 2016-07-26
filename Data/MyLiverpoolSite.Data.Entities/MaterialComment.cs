@@ -42,5 +42,7 @@ namespace MyLiverpoolSite.Data.Entities
         public int MaterialId { get; set; }
 
         public MaterialType MaterialType { get; set; }
+
+        public bool IsVerified { get; set; }
     }
 }

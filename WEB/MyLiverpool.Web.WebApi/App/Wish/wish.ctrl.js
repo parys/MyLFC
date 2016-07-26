@@ -96,7 +96,7 @@ angular.module('wish.ctrl', [])
             vm.send = function() {
                 WishFactory.create(vm.wish)
                     .then(function (response) {
-                            $state.go('wish');
+                            $state.go('wishes');
                             vm.wish = response;
                         },
                         function(response) {
@@ -129,7 +129,7 @@ angular.module('wish.ctrl', [])
             };
 
             vm.filter = function () {
-                $state.go('wish', { page: vm.pageNo, typeId: vm.typeId, filterText: vm.filterText }, { reload: true });
+                $state.go('wishes', { page: vm.pageNo, typeId: vm.typeId, filterText: vm.filterText }, { reload: true });
             };
 
             vm.filterByText = function() {
