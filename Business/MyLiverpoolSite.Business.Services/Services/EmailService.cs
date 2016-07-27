@@ -16,7 +16,6 @@ namespace MyLiverpoolSite.Business.Services.Services
         public Task SendAsync(IdentityMessage message)
         {
             _fromAddress = new MailAddress(_mailAddress, _senderName);
-            // Plug in your email service here to send an email.
             SendByGmail(message);
             return Task.FromResult(0);
         }
@@ -24,7 +23,7 @@ namespace MyLiverpoolSite.Business.Services.Services
         private void SendByGmail(IdentityMessage message)
         {
             var toAddress = new MailAddress(message.Destination, "");
-            
+
             var smtp = new SmtpClient
             {
                 Host = "smtp.gmail.com",
@@ -37,7 +36,8 @@ namespace MyLiverpoolSite.Business.Services.Services
             using (var messageToSend = new MailMessage(_fromAddress, toAddress)
             {
                 Subject = message.Subject,
-                Body = message.Body
+                Body = message.Body,
+                IsBodyHtml = true
             })
             {
                 smtp.Send(messageToSend);
