@@ -40,7 +40,6 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
 
         public DbSet<Wish> Wishs { get; set; }
         public DbSet<Material> Materials { get; set; }
-       // public DbSet<BlogCategory> BlogCategories { get; set; }
         public DbSet<MaterialCategory> MaterialCategories { get; set; }
         public DbSet<MaterialComment> MaterialComments { get; set; }
         public DbSet<ForumSection> ForumSections { get; set; }
@@ -52,6 +51,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
         public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<RoleGroup> RoleGroups { get; set; }
         public DbSet<PrivateMessage> PrivateMessages { get; set; }
+        public DbSet<Club> Clubs { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -102,8 +102,6 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>(); 
             base.OnModelCreating(modelBuilder);
         }
-
-        //    public System.Data.Entity.DbSet<MyLiverpoolSite.Business.ViewModels.News.IndexNewsViewModel> IndexNewsViewModels { get; set; }
 
         //    public DbSet<RoleClaim> RoleClaims { get; set; }
 

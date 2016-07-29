@@ -10,7 +10,7 @@ angular.module('liverpoolApp')
             function isUserInRole(user, roleName) {
                 if (!user) return false;
                 return user.roles.indexOf(roleName) >= 0;
-            };
+            }
 
             return {
                 requestUser: function() {
@@ -37,7 +37,7 @@ angular.module('liverpoolApp')
                 },
 
                 exists: function() {
-                    return authenticatedUser != undefined;
+                    return authenticatedUser !== undefined;
                 },
 
                 login: function(credentials) {
@@ -50,11 +50,11 @@ angular.module('liverpoolApp')
                             $cookies.putObject('user', authenticatedUser);
                             return true;
                         }, function(response) {
-                            if (response.error == "invalid_grant") {
+                            if (response.error === "invalid_grant") {
                                 console.log("invalid_grant");
                                 credentials.errorMessage = response.error_description;
                             } else {
-                                if (response.error == "not_confirmed") {
+                                if (response.error === "not_confirmed") {
                                     console.log("not_confirmed");
                                     $state.go('unconfirmed');
                                 }
@@ -108,7 +108,7 @@ angular.module('liverpoolApp')
 
                 isAuthor: function() {
                     return isUserInRole(authenticatedUser, 'BlogStart');
-                },
-            }
+                }
+            };
         }
     ]);

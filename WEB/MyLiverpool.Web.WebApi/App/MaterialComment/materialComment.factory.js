@@ -3,7 +3,7 @@ angular.module('materialComment.factory', [])
     .factory('MaterialCommentFactory', [
         '$q', '$http', 'SessionService',
         function ($q, $http, SessionService) {
-            var controllerUrl = SessionService.apiUrl + '/api/materialComment/';
+            var controllerUrl = SessionService.apiUrl + '/api/materialComment';
             return {
                 //create: function (wish) {
                 //    var result = $q.defer();
@@ -43,7 +43,7 @@ angular.module('materialComment.factory', [])
 
                     $http({
                         method: 'GET',
-                        url: controllerUrl + 'list?page=' + page + '&onlyUnverified=' + onlyUnverified,
+                        url: controllerUrl + '/list?page=' + page + '&onlyUnverified=' + onlyUnverified,
                         headers: { 'Content-Type': 'application/json' }
                     })
                         .success(function (response) {
@@ -90,7 +90,7 @@ angular.module('materialComment.factory', [])
 
                     $http({
                         method: 'GET',
-                        url: controllerUrl + 'verify?id=' + id,
+                        url: controllerUrl + '/verify?id=' + id,
                         headers: { 'Content-Type': 'application/json' }
                     })
                         .success(function (response) {

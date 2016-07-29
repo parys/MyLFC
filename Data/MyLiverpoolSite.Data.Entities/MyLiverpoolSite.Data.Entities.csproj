@@ -94,6 +94,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Club.cs" />
     <Compile Include="ForumMessage.cs" />
     <Compile Include="ForumSection.cs" />
     <Compile Include="ForumSubsection.cs" />

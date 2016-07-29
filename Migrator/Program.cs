@@ -8,6 +8,7 @@ using System.Text.RegularExpressions;
 using MyLiverpoolSite.Data.DataAccessLayer;
 using MyLiverpoolSite.Data.Entities;
 using MyLiverpoolSite.Common.Utilities;
+using MyLiverpoolSite.Data.DataAccessLayer.Contracts;
 
 namespace Migrator
 {

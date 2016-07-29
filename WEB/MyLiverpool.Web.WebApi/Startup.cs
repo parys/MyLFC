@@ -8,9 +8,9 @@ using Microsoft.Owin;
 using MyLiverpool.Common.MapperConfigurations.Profiles;
 using MyLiverpool.Web.WebApi;
 using MyLiverpoolSite.Business.Contracts;
-using MyLiverpoolSite.Business.Services;
 using MyLiverpoolSite.Business.Services.Services;
 using MyLiverpoolSite.Data.DataAccessLayer;
+using MyLiverpoolSite.Data.DataAccessLayer.Contracts;
 using MyLiverpoolSite.Data.DataAccessLayer.Repositories;
 using Owin;
 
@@ -20,6 +20,7 @@ namespace MyLiverpool.Web.WebApi
     public partial class Startup
     {
         private static readonly IConfigurationProvider Config = new MapperConfiguration(cfg => {
+            cfg.AddProfile(new ClubMapperProfile());
             cfg.AddProfile(new ForumMessageMapperProfile());
             cfg.AddProfile(new ForumSectionMapperProfile());
             cfg.AddProfile(new ForumSubsectionMapperProfile());
@@ -84,6 +85,7 @@ namespace MyLiverpool.Web.WebApi
         {
            // builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsImplementedInterfaces();
             builder.RegisterType<AccountService>().As<IAccountService>();
+            builder.RegisterType<ClubService>().As<IClubService>();
             builder.RegisterType<EmailService>().As<IIdentityMessageService>();
             builder.RegisterType<ForumMessageService>().As<IForumMessageService>();
             builder.RegisterType<ForumSectionService>().As<IForumSectionService>();

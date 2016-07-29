@@ -1,9 +1,8 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
-using MyLiverpoolSite.Data.DataAccessLayer.Contracts;
 using MyLiverpoolSite.Data.Entities;
 
-namespace MyLiverpoolSite.Data.DataAccessLayer
+namespace MyLiverpoolSite.Data.DataAccessLayer.Contracts
 {
     /// <summary>
     /// Maintains a list of repositories affected by a business transaction and coordinates 
@@ -15,11 +14,8 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
         /// Provides access to user repository.
         /// </summary>
         IGenericRepository<User> UserRepository { get; }
-     //   IGenericRepository<BlogItem> BlogItemRepository { get; }
         IGenericRepository<Material> MaterialRepository { get; }
-     //   IGenericRepository<BlogCategory> BlogCategoryRepository { get; }
         IGenericRepository<MaterialCategory> MaterialCategoryRepository { get; }
-      //  IGenericRepository<BlogComment> BlogCommentRepository { get; }
         IGenericRepository<MaterialComment> MaterialCommentRepository { get; }
         IGenericRepository<ForumSection> ForumSectionRepository { get; }
         IGenericRepository<ForumTheme> ForumThemeRepository { get; }
@@ -31,7 +27,8 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
         IGenericRepository<Role> RoleRepository { get; }
         IGenericRepository<RoleGroup> RoleGroupRepository { get; }
         IGenericRepository<PrivateMessage> PrivateMessageRepository { get; }
-        //IGenericRepository<RoleClaim> RoleClaimRepository { get; }
+        
+        IGenericRepository<Club> ClubRepository { get; }
 
 
         UserManager<User, int> UserManager { get; set; }

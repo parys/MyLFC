@@ -7,11 +7,12 @@ using System.Web;
 using System.Web.Http;
 using Microsoft.AspNet.Identity;
 using MyLiverpoolSite.Business.Contracts;
+using MyLiverpoolSite.Data.Entities;
 
 namespace MyLiverpool.Web.WebApi.Controllers
 {
-    [Authorize]
     [RoutePrefix("api/upload")]
+    [Authorize]
     public class UploadController : ApiController
     {
         private readonly IUploadService _uploadService;
@@ -21,12 +22,13 @@ namespace MyLiverpool.Web.WebApi.Controllers
             _uploadService = uploadService;
         }
 
-        [Authorize]
+
         [Route("avatar")]
         [HttpPost]
+        [Authorize]
         public async Task<IHttpActionResult> UploadAvatar(int userId)
         {
-            if (!User.IsInRole("UsersStart") && User.Identity.GetUserId<int>() != userId)
+            if (!User.IsInRole(nameof(RolesEnum.UserStart)) && User.Identity.GetUserId<int>() != userId)
             {
                 return StatusCode(HttpStatusCode.Forbidden);
             }
@@ -41,6 +43,29 @@ namespace MyLiverpool.Web.WebApi.Controllers
                 {
                     var file = HttpContext.Current.Request.Files[0];
                     var result = await _uploadService.UpdateAvatarAsync(userId, file);
+                  
+                    return Ok(result);
+                }
+            }
+            return BadRequest();
+        }
+
+        [Route("clubLogo")]
+        [HttpPost]
+        [Authorize(Roles = "AdminStart")]
+        public async Task<IHttpActionResult> ClubLogo(int? clubId)
+        {
+            if (!Request.Content.IsMimeMultipartContent())
+            {
+                return BadRequest();
+            }
+
+            if (HttpContext.Current.Request.Files.AllKeys.Any())
+            {
+                if (HttpContext.Current.Request.Files.Count > 0)
+                {
+                    var file = HttpContext.Current.Request.Files[0];
+                    var result = await _uploadService.UpdateLogoAsync(clubId, file);
                   
                     return Ok(result);
                 }

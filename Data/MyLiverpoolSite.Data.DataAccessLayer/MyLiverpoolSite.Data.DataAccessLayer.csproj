@@ -103,6 +103,14 @@
     <Compile Include="Contracts\IMaterialRepository.cs" />
     <Compile Include="Contracts\IUnitOfWork.cs" />
     <Compile Include="LiverpoolContext.cs" />
+    <Compile Include="Migrations\201607272023307_addClub.cs" />
+    <Compile Include="Migrations\201607272023307_addClub.Designer.cs">
+      <DependentUpon>201607272023307_addClub.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607282101206_addClubColumnEngName.cs" />
+    <Compile Include="Migrations\201607282101206_addClubColumnEngName.Designer.cs">
+      <DependentUpon>201607282101206_addClubColumnEngName.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Repositories\MaterialRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -130,6 +138,12 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Migrations\201607272023307_addClub.resx">
+      <DependentUpon>201607272023307_addClub.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607282101206_addClubColumnEngName.resx">
+      <DependentUpon>201607282101206_addClubColumnEngName.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="RolesMessages.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>RolesMessages.Designer.cs</LastGenOutput>

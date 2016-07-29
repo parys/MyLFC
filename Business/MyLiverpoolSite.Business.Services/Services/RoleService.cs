@@ -6,6 +6,7 @@ using MyLiverpool.Business.DTO;
 using MyLiverpoolSite.Business.Contracts;
 using MyLiverpoolSite.Business.ViewModels.Roles;
 using MyLiverpoolSite.Data.DataAccessLayer;
+using MyLiverpoolSite.Data.DataAccessLayer.Contracts;
 using MyLiverpoolSite.Data.Entities;
 
 namespace MyLiverpoolSite.Business.Services.Services

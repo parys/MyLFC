@@ -12,13 +12,16 @@ namespace MyLiverpoolSite.Business.Services.Services
     public class UploadService : IUploadService
     {
         public const string AvatarPath = "Content\\avatars\\";
+        public const string LogoPath = "Content\\logos\\";
         public const string ImagesPath = "Content\\images\\";
         public const int FilesPerFolder = 200;
         private readonly IUserService _userService;
+        private readonly IClubService _clubService;
 
-        public UploadService(IUserService userService)
+        public UploadService(IUserService userService, IClubService clubService)
         {
             _userService = userService;
+            _clubService = clubService;
         }
 
         public async Task<string> UpdateAvatarAsync(int userId, HttpPostedFile file)
@@ -43,6 +46,35 @@ namespace MyLiverpoolSite.Business.Services.Services
             return relativePath;
         }
 
+        public async Task<string> UpdateLogoAsync(int? clubId, HttpPostedFile file)
+        {
+            string path = string.Empty;
+            if (clubId.HasValue)
+            {
+                path = await _clubService.GetNameAsync(clubId.Value);
+            }
+            var relativePath = path;
+            if (string.IsNullOrEmpty(path) || !path.Contains(LogoPath))
+            {
+                var newName = (string.IsNullOrWhiteSpace(path) ? GenerateNewName() : path) + "." + file.FileName.Split('.').Last();
+                var newPath = GenerateNewPath(LogoPath);
+                relativePath = Path.Combine(newPath, newName);
+                path = GetFullPath(relativePath);
+            }
+            else
+            {
+                path = GetFullPath(path);
+            }
+
+            file.SaveAs(path);
+            relativePath = Regex.Replace(relativePath, "\\\\", "/");
+            if (clubId.HasValue)
+            {
+                await _clubService.UpdateLogoAsync(clubId.Value, relativePath);
+            }
+            return relativePath;
+        }
+
         public async Task<IEnumerable<string>> UploadAsync(HttpFileCollection files)
         {
             var result = new List<string>();
@@ -64,10 +96,15 @@ namespace MyLiverpoolSite.Business.Services.Services
         private string GenerateNewPath(string path)
         {
             var fullPath = GetFullPath(path);
-            string directoryName = String.Empty;
+            string directoryName;
             try
             {
-                var directoryInfo = Directory.EnumerateDirectories(fullPath).Last();
+                var directoryInfo = Directory.EnumerateDirectories(fullPath).LastOrDefault();
+                if (directoryInfo == null)
+                {
+                    directoryInfo = "0";
+                    Directory.CreateDirectory(fullPath + "\\0\\");
+                };
                 var lastFolderName = int.Parse(directoryInfo.Split('\\').Last());
                 directoryName = lastFolderName.ToString();
                 if (Directory.GetFiles(directoryInfo).Count() >= FilesPerFolder)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -7,6 +8,7 @@ using MyLiverpool.Business.DTO;
 using MyLiverpoolSite.Business.Contracts;
 using MyLiverpoolSite.Common.Utilities.Extensions;
 using MyLiverpoolSite.Data.DataAccessLayer;
+using MyLiverpoolSite.Data.DataAccessLayer.Contracts;
 using MyLiverpoolSite.Data.Entities;
 
 namespace MyLiverpoolSite.Business.Services.Services
@@ -41,7 +43,7 @@ namespace MyLiverpoolSite.Business.Services.Services
             {
                 filter = filter.And(x => x.Title.Contains(filterText) || x.Message.Contains(filterText));
             }
-            var wishes = await _unitOfWork.WishRepository.GetAsync(page, filter : filter);
+            var wishes = await _unitOfWork.WishRepository.GetOrderedByAsync(page, filter : filter, order: SortOrder.Descending, orderBy: x => x.Id);
             var wishesDto = _mapper.Map<IEnumerable<WishDto>>(wishes);
             var wishesCount = await _unitOfWork.WishRepository.GetCountAsync(filter);
             return new PageableData<WishDto>(wishesDto, page, wishesCount);

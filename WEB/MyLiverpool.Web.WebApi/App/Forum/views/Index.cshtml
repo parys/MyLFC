@@ -4,7 +4,7 @@
         <div class="panel panel-danger" ng-show="section.subsections.length > 0 || isAdminAssistant()">
             <div class="panel-heading">
                 <span ng-bind="section.name"></span>
-                <a href="" ng-show="isAdminAssistant()" ui-sref="subsectionEdit({sectionId: section.id})">@CommonMessages.AddSubsection</a>
+                <a href="" ui-sref="subsectionEdit({sectionId: section.id})">@CommonMessages.AddSubsection</a><!--ng-show="isAdminAssistant()"--> 
                 <a class="pull-right" ng-show="section.subsections.length == 0" ng-click="vm.removeSection($index)">
                     <span class="glyphicon glyphicon-remove">
                     </span>
@@ -21,7 +21,7 @@
             </ul>
         </div>
     </div>
-    <a href="" ng-show="isAdminAssistant()" ng-click="vm.addSection()">@CommonMessages.AddSection</a>
+    <a href="" ng-click="vm.addSection()">@CommonMessages.AddSection</a>
     
 </div>
 

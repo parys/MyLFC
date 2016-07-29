@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using AutoMapper;
 using Microsoft.AspNet.Identity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -6,7 +7,7 @@ using Moq;
 using MyLiverpool.Business.DTO;
 using MyLiverpoolSite.Business.Contracts;
 using MyLiverpoolSite.Business.Services.Services;
-using MyLiverpoolSite.Data.DataAccessLayer;
+using MyLiverpoolSite.Data.DataAccessLayer.Contracts;
 using MyLiverpoolSite.Data.Entities;
 
 namespace MyLiverpoolSite.Business.Service.Tests
@@ -14,12 +15,12 @@ namespace MyLiverpoolSite.Business.Service.Tests
     [TestClass]
     public class AccountServiceTests
     {
-        private IAccountService _service;
-        private Mock<IUnitOfWork> _unitOfWork;
-        private Mock<IMapper> _mapper;
+        private readonly IAccountService _service;
+        private readonly Mock<IUnitOfWork> _unitOfWork;
+        private readonly Mock<IMapper> _mapper;
         private Mock<IIdentityMessageService> _emailService;
 
-        private UserManager<User, int> userManager;
+        private UserManager<User, int> _userManager;
 
         private Mock<IUserStore<User,int>> _userStore;
         private Mock<IUserEmailStore<User, int>> _userEmailStore;
@@ -67,7 +68,7 @@ namespace MyLiverpoolSite.Business.Service.Tests
                 ConfirmPassword = "1234567"
             };
             SetManager(_userPasswordStore.Object);
-
+            var u = _userManager.Users.ToList();
             var result = _service.ChangePasswordAsync(userId, dto).Result;
 
             Assert.IsTrue(result);
@@ -81,7 +82,7 @@ namespace MyLiverpoolSite.Business.Service.Tests
 
             var result = _service.IsEmailUniqueAsync(email).Result;
 
-            Assert.IsFalse(result);
+            Assert.IsTrue(result);
         }
 
         [TestMethod]
@@ -91,7 +92,7 @@ namespace MyLiverpoolSite.Business.Service.Tests
 
             var result = _service.IsEmailUniqueAsync(_dummyUser.Email).Result;
 
-            Assert.IsTrue(result);
+            Assert.IsFalse(result);
         }
 
         [TestMethod]
@@ -102,7 +103,7 @@ namespace MyLiverpoolSite.Business.Service.Tests
 
             var result = _service.IsUserNameUniqueAsync(userName).Result;
 
-            Assert.IsFalse(result);
+            Assert.IsTrue(result);
         }
 
         [TestMethod]
@@ -112,7 +113,7 @@ namespace MyLiverpoolSite.Business.Service.Tests
 
             var result = _service.IsUserNameUniqueAsync(_dummyUser.UserName).Result;
 
-            Assert.IsTrue(result);
+            Assert.IsFalse(result);
         }
 
         [TestMethod]
@@ -146,8 +147,9 @@ namespace MyLiverpoolSite.Business.Service.Tests
 
         private void SetManager(IUserStore<User, int> store)
         {
-            userManager = new UserManager<User, int>(store);
-            _unitOfWork.SetupProperty(x => x.UserManager, userManager);
+            _userManager = new UserManager<User, int>(store);
+         //   _us
+            _unitOfWork.SetupProperty(x => x.UserManager, _userManager);
         }
     }
 }

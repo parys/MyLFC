@@ -73,6 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Services\AccountService.cs" />
+    <Compile Include="Services\ClubService.cs" />
     <Compile Include="Services\EmailService.cs" />
     <Compile Include="Services\ForumMessageService.cs" />
     <Compile Include="Services\ForumSectionService.cs" />

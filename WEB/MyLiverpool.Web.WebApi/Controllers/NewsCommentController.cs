@@ -37,7 +37,7 @@ namespace MyLiverpool.Web.WebApi.Controllers
 
         [Route]
         [HttpDelete]
-        [Authorize(Roles = "UsersStart")]
+        [Authorize(Roles = nameof(RolesEnum.UserStart))]
         public async Task<IHttpActionResult> Delete(int? id)
         {
             if (!id.HasValue || id == 0)
@@ -58,7 +58,7 @@ namespace MyLiverpool.Web.WebApi.Controllers
             {
                 return BadRequest();
             }
-            if (comment.AuthorId != User.Identity.GetUserId<int>() && !User.IsInRole("UsersStart"))
+            if (comment.AuthorId != User.Identity.GetUserId<int>() && !User.IsInRole(nameof(RolesEnum.UserStart)))
             {
                 return Unauthorized();
             }

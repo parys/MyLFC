@@ -201,6 +201,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BlogCategoryController.cs" />
     <Compile Include="Controllers\BlogController.cs" />
+    <Compile Include="Controllers\ClubController.cs" />
     <Compile Include="Controllers\ForumMessageController.cs" />
     <Compile Include="Controllers\ForumSubsectionController.cs" />
     <Compile Include="Controllers\ForumThemeController.cs" />
@@ -238,6 +239,12 @@
     <Content Include="App\Blog\Views\edit.html" />
     <Content Include="App\Blog\Views\info.html" />
     <Content Include="App\Blog\Views\list.html" />
+    <Content Include="App\Club\club.config.js" />
+    <Content Include="App\Club\club.ctrl.js" />
+    <Content Include="App\Club\club.factory.js" />
+    <Content Include="App\Club\views\edit.html" />
+    <Content Include="App\Club\views\info.html" />
+    <Content Include="App\Club\views\list.html" />
     <Content Include="App\Forum\forum.config.js" />
     <Content Include="App\Forum\ForumMessageCtrl.js" />
     <Content Include="App\Image\image.config.js" />
@@ -392,6 +399,7 @@
     <Content Include="Content\images\default.jpg" />
     <Content Include="Content\loading-bar.css" />
     <Content Include="Content\loading-bar.min.css" />
+    <Content Include="Content\logos\0\734179.png" />
     <Content Include="Content\markitup\images\iconsBB.png" />
     <Content Include="Content\markitup\images\bold.png" />
     <Content Include="Content\markitup\images\clean.png" />

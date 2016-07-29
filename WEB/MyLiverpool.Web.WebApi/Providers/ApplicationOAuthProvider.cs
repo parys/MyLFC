@@ -9,6 +9,7 @@ using Microsoft.Owin.Security.OAuth;
 using MyLiverpoolSite.Business.Contracts;
 using MyLiverpoolSite.Business.Services.Services;
 using MyLiverpoolSite.Data.DataAccessLayer;
+using MyLiverpoolSite.Data.DataAccessLayer.Contracts;
 using MyLiverpoolSite.Data.Entities;
 
 namespace MyLiverpool.Web.WebApi.Providers

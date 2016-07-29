@@ -13,6 +13,7 @@ using MyLiverpoolSite.Business.ViewModels.Users;
 using MyLiverpoolSite.Common.Utilities;
 using MyLiverpoolSite.Common.Utilities.Extensions;
 using MyLiverpoolSite.Data.DataAccessLayer;
+using MyLiverpoolSite.Data.DataAccessLayer.Contracts;
 using MyLiverpoolSite.Data.Entities;
 
 namespace MyLiverpoolSite.Business.Services.Services

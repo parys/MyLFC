@@ -19,33 +19,33 @@ angular.module('forum.ctrl', ['forum.factory'])
 
             vm.newSectionName = undefined;
 
-            vm.addSection = function () {
+            vm.addSection = function() {
                 var modalInstance = $uibModal.open({
                     animation: true,
                     templateUrl: 'addSection.html',
                     controller: 'ModalForumCtrl',
                     controllerAs: 'vm',
                     resolve: {
-                        sectionName: function () {
+                        sectionName: function() {
                             return vm.newSectionName;
                         }
                     }
                 });
 
-                modalInstance.result.then(function (sectionName) {
+                modalInstance.result.then(function(sectionName) {
                     ForumFactory.createSection(sectionName).
-                        then(function (response) {
-                            if (response) {
-                                vm.sections.push(response);
-                                $rootScope.alerts.push({ type: 'success', msg: 'Секция ' + sectionName + 'успешно добавлена.' });
-                            }
-                        },
-                            function (response) {
+                        then(function(response) {
+                                if (response) {
+                                    vm.sections.push(response);
+                                    $rootScope.alerts.push({ type: 'success', msg: 'Секция ' + sectionName + 'успешно добавлена.' });
+                                }
+                            },
+                            function(response) {
                                 $rootScope.alerts.push({ type: 'danger', msg: 'Секция не была добавлена.' });
                             });
-                }, function () {
+                }, function() {
                 });
-            }
+            };
 
             vm.removeSection = function(index) {
                 var modalInstance = $uibModal.open({
@@ -76,6 +76,6 @@ angular.module('forum.ctrl', ['forum.factory'])
                             });
                 }, function() {
                 });
-            }
+            };
         }
     ]);

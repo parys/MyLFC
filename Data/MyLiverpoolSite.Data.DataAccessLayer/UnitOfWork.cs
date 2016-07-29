@@ -34,7 +34,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
         private IGenericRepository<Role> _roleRepository;
         private IGenericRepository<RoleGroup> _roleGroupRepository;
         private IGenericRepository<PrivateMessage> _privateMessageRepository;
-        //private IGenericRepository<RoleClaim> _roleClaimRepository;
+        private IGenericRepository<Club> _clubRepository;
 
         public UnitOfWork()
         {
@@ -71,7 +71,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
         /// Return roleRepository.
         /// </summary>
         public IGenericRepository<Material> MaterialRepository => _materialRepository ?? (_materialRepository = new GenericRepository<Material>(_context));
-        //public IGenericRepository<BlogComment> BlogCommentRepository => _blogCommentRepository ?? (_blogCommentRepository = new GenericRepository<BlogComment>(_context));
+        public IGenericRepository<Club> ClubRepository => _clubRepository ?? (_clubRepository = new GenericRepository<Club>(_context));
         public IGenericRepository<MaterialComment> MaterialCommentRepository => _materialCommentRepository ?? (_materialCommentRepository = new GenericRepository<MaterialComment>(_context));
         public IGenericRepository<ForumSection> ForumSectionRepository => _forumSectionRepository ?? (_forumSectionRepository = new GenericRepository<ForumSection>(_context));
         public IGenericRepository<ForumTheme> ForumThemeRepository => _forumThemeRepository ?? (_forumThemeRepository = new GenericRepository<ForumTheme>(_context));

@@ -5,6 +5,7 @@ using System.Web.Script.Serialization;
 using Microsoft.AspNet.Identity;
 using MyLiverpool.Business.DTO;
 using MyLiverpoolSite.Business.Contracts;
+using MyLiverpoolSite.Data.Entities;
 
 namespace MyLiverpool.Web.WebApi.Controllers
 {
@@ -42,7 +43,7 @@ namespace MyLiverpool.Web.WebApi.Controllers
 
         [Route("EditRole")]
         [HttpPut]
-        [Authorize(Roles = "AdminStart")]
+        [Authorize(Roles = nameof(RolesEnum.AdminStart))]
         public async Task<IHttpActionResult> EditRole(int userId, int roleGroupId)
         {
             var result = await _userService.EditRoleGroupAsync(userId, roleGroupId);
@@ -71,7 +72,7 @@ namespace MyLiverpool.Web.WebApi.Controllers
 
         [Route("BanUser")]
         [HttpPut]
-        [Authorize(Roles = "UsersStart")]
+        [Authorize(Roles = nameof(RolesEnum.UserStart))]
         public async Task<IHttpActionResult> BanUser(int userId, int daysCount)
         {
             var result = await _userService.BanUser(userId, daysCount);
@@ -80,7 +81,7 @@ namespace MyLiverpool.Web.WebApi.Controllers
 
         [Route("UnbanUser")]
         [HttpPut]
-        [Authorize(Roles = "UsersFull")]
+        [Authorize(Roles = nameof(RolesEnum.UserFull))]
         public async Task<IHttpActionResult> UnbanUser(int userId)
         {
             var result = await _userService.UnbanUser(userId);

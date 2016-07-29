@@ -27,7 +27,7 @@ angular.module('liverpoolApp')
                         },
                         function(response) {
                         });
-            };
+            }
 
             $interval(getUnreadPmCount, 30000);
 
@@ -37,55 +37,55 @@ angular.module('liverpoolApp')
 
             vm.canAccess = function(route) {
                 return RouteFilter.canAccess(route);
-            }
+            };
 
             vm.logout = function() {
                 Authentication.logout();
-            }
+            };
 
             vm.emailUnique = function(email) {
                 return AccountFactory.isEmailUnique(email);
-            }
+            };
 
             vm.userNameUnique = function(userName) {
                 return AccountFactory.isUserNameUnique(userName);
-            }
+            };
 
             vm.getReturnUrl = function() {
                 return $location.url();
-            }
+            };
 
 
-            vm.isSelf = function (userId) {
+            vm.isSelf = function(userId) {
                 return Authentication.getUserId() == userId;
-            }
+            };
 
-            vm.isNewsmaker = function () {
+            vm.isNewsmaker = function() {
                 return Authentication.isNewsmaker();
-            }
+            };
 
-            vm.isEditor = function () {
+            vm.isEditor = function() {
                 return Authentication.isEditor();
-            }
+            };
 
-            vm.isMainModerator = function () {
+            vm.isMainModerator = function() {
                 return Authentication.isMainModerator();
-            }
+            };
 
-            vm.isModerator = function () {
+            vm.isModerator = function() {
                 return Authentication.isModerator();
-            }
+            };
 
-            vm.isAuthor = function () {
+            vm.isAuthor = function() {
                 return Authentication.isAuthor();
-            }
+            };
 
-            vm.isAdmin = function () {
+            vm.isAdmin = function() {
                 return Authentication.isAdmin();
-            }
+            };
 
-            vm.isAdminAssistant = function () {
+            vm.isAdminAssistant = function() {
                 return Authentication.isAdminAssistant();
-            }
+            };
         }
     ]);

@@ -78,6 +78,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChangePasswordDto.cs" />
+    <Compile Include="ClubDto.cs" />
     <Compile Include="ForumDto.cs" />
     <Compile Include="ForumMessageDto.cs" />
     <Compile Include="ForumSectionDto.cs" />
