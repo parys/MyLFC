@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNet.Identity;
 using MyLiverpool.Business.DTO;
 using MyLiverpoolSite.Business.Contracts;
 using MyLiverpoolSite.Common.Utilities.Extensions;
@@ -17,11 +19,13 @@ namespace MyLiverpoolSite.Business.Services.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly IIdentityMessageService _emailService;
 
-        public WishService(IUnitOfWork unitOfWork, IMapper mapper)
+        public WishService(IUnitOfWork unitOfWork, IMapper mapper, IIdentityMessageService emailService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _emailService = emailService;
         }
 
         public async Task<WishDto> CreateAsync(WishDto dto)
@@ -29,6 +33,7 @@ namespace MyLiverpoolSite.Business.Services.Services
             var wish = _mapper.Map<Wish>(dto);
             _unitOfWork.WishRepository.Add(wish);
             await _unitOfWork.SaveAsync();
+            await SendAlertAsync();
             return _mapper.Map<WishDto>(wish);
         }
 
@@ -60,6 +65,16 @@ namespace MyLiverpoolSite.Business.Services.Services
             await _unitOfWork.WishRepository.DeleteAsync(id);
             await _unitOfWork.SaveAsync();
             return true;
+        }
+
+        private async Task SendAlertAsync()
+        {
+            await _emailService.SendAsync(new IdentityMessage()
+            {
+                Destination = ConfigurationManager.AppSettings["emailWishCreation"],
+                Body = "Создано новое пожелание",
+                Subject = "Новое пожелание"
+            });
         }
     }
 }

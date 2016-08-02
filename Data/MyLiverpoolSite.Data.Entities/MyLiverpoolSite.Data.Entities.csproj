@@ -100,6 +100,8 @@
     <Compile Include="ForumSubsection.cs" />
     <Compile Include="ForumTheme.cs" />
     <Compile Include="IEntity.cs" />
+    <Compile Include="Match.cs" />
+    <Compile Include="MatchTypeEnum.cs" />
     <Compile Include="MaterialType.cs" />
     <Compile Include="MaterialCategory.cs" />
     <Compile Include="MaterialComment.cs" />

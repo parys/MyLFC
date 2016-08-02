@@ -111,6 +111,14 @@
     <Compile Include="Migrations\201607282101206_addClubColumnEngName.Designer.cs">
       <DependentUpon>201607282101206_addClubColumnEngName.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201607311050285_addMatches.cs" />
+    <Compile Include="Migrations\201607311050285_addMatches.Designer.cs">
+      <DependentUpon>201607311050285_addMatches.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608021838593_addMatchesScore.cs" />
+    <Compile Include="Migrations\201608021838593_addMatchesScore.Designer.cs">
+      <DependentUpon>201608021838593_addMatchesScore.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Repositories\MaterialRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -143,6 +151,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201607282101206_addClubColumnEngName.resx">
       <DependentUpon>201607282101206_addClubColumnEngName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607311050285_addMatches.resx">
+      <DependentUpon>201607311050285_addMatches.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608021838593_addMatchesScore.resx">
+      <DependentUpon>201608021838593_addMatchesScore.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RolesMessages.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

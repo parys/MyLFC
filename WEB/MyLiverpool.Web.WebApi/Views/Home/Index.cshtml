@@ -116,6 +116,7 @@
             <li> <a ui-sref="comment()">Комментарии</a></li>
             <li> <a ng-if="vm.isNewsmaker() || vm.isAuthor()" ui-sref="images({path: 'content'})">@CommonMessages.Images</a></li>
             <li> <a ng-if="vm.isAdminAssistant()" ui-sref="clubs()">Клубы</a></li>
+            <li> <a ng-if="vm.isAdminAssistant()" ui-sref="matches()">Матчи</a></li>
             <li> <a ui-sref="rules()"><span class="text-danger">@CommonMessages.Rules</span></a></li>
             <li class="bg-success"> <a ui-sref="wishes()"><span class="text-info">Пожелания</span></a></li>
         </ul>

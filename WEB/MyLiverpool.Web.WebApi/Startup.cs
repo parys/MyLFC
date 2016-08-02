@@ -25,6 +25,7 @@ namespace MyLiverpool.Web.WebApi
             cfg.AddProfile(new ForumSectionMapperProfile());
             cfg.AddProfile(new ForumSubsectionMapperProfile());
             cfg.AddProfile(new ForumThemeMapperProfile());
+            cfg.AddProfile(new MatchMapperProfile());
             cfg.AddProfile(new MaterialMapperProfile());
             cfg.AddProfile(new MaterialCategoryMapperProfile());
             cfg.AddProfile(new MaterialCommentMapperProfile());
@@ -91,6 +92,7 @@ namespace MyLiverpool.Web.WebApi
             builder.RegisterType<ForumSectionService>().As<IForumSectionService>();
             builder.RegisterType<ForumSubsectionService>().As<IForumSubsectionService>();
             builder.RegisterType<ForumThemeService>().As<IForumThemeService>();
+            builder.RegisterType<MatchService>().As<IMatchService>();
             builder.RegisterType<MaterialCategoryService>().As<IMaterialCategoryService>();
             builder.RegisterType<MaterialCommentService>().As<IMaterialCommentService>();
             builder.RegisterType<MaterialService>().As<IMaterialService>();

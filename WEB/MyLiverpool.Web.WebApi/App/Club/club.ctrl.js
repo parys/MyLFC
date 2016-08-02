@@ -152,18 +152,18 @@ angular.module('club.ctrl', [])
                 vm.filter();
             };
 
-            vm.changeTypeId = function () {
-                $stateParams.typeId = vm.typeId;
-                vm.filter();
-            };
+            //vm.changeTypeId = function () {
+            //    $stateParams.typeId = vm.typeId;
+            //    vm.filter();
+            //};
 
             vm.filter = function () {
-                $state.go('comment', { page: vm.pageNo, typeId: vm.typeId, filterText: vm.filterText }, { reload: true });
+                $state.go('clubs', { page: vm.pageNo }, { reload: true });
             };
 
-            vm.filterByText = function () {
-                $stateParams.filterText = vm.filterText;
-                vm.filter();
-            };
+            //vm.filterByText = function () {
+            //    $stateParams.filterText = vm.filterText;
+            //    vm.filter();
+            //};
         }
     ]);

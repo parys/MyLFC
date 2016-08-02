@@ -1,8 +1,11 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Web.Http;
 using MyLiverpool.Business.DTO;
 using MyLiverpoolSite.Business.Contracts;
 using MyLiverpoolSite.Common.Utilities;
+using MyLiverpoolSite.Common.Utilities.Extensions;
 using MyLiverpoolSite.Data.Entities;
 
 namespace MyLiverpool.Web.WebApi.Controllers
@@ -76,15 +79,13 @@ namespace MyLiverpool.Web.WebApi.Controllers
         [AllowAnonymous]
         public async Task<IHttpActionResult> GetTypes()
         {
-            var model = new[]
+            var list = new List<object>();
+            foreach (WishType type in Enum.GetValues(typeof(WishType)))
             {
-                new {id = WishType.Bug, name = WishType.Bug.GetRussianName()},
-                new {id = WishType.BugUi, name = WishType.BugUi.GetRussianName()},
-                new {id = WishType.Feature, name = WishType.Feature.GetRussianName()},
-                new {id = WishType.FeatureUi, name = WishType.FeatureUi.GetRussianName()}
-            };
+                list.Add(new { id = type, name = type.GetNameAttribute() });
+            }
             
-            return Ok(model);
+            return Ok(list);
         }
     }
 }

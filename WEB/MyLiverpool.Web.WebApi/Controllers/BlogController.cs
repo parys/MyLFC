@@ -3,7 +3,6 @@ using System.Web.Http;
 using Microsoft.AspNet.Identity;
 using MyLiverpool.Business.DTO;
 using MyLiverpoolSite.Business.Contracts;
-using MyLiverpoolSite.Data.DataAccessLayer;
 using MyLiverpoolSite.Data.Entities;
 
 namespace MyLiverpool.Web.WebApi.Controllers
@@ -22,7 +21,7 @@ namespace MyLiverpool.Web.WebApi.Controllers
         [Route]
         [HttpGet]
         [AllowAnonymous]
-        public async Task<PageableData<MaterialMiniDto>> GetItems(int page = 1, int? categoryId = null,
+        public async Task<IHttpActionResult> GetItems(int page = 1, int? categoryId = null,
             string authorUserName = null)
         {
             if (page < 1)
@@ -30,7 +29,7 @@ namespace MyLiverpool.Web.WebApi.Controllers
                 page = 1;
             }
             var result = await _materialService.GetDtoAllAsync(page, categoryId, authorUserName, Type);
-            return result;
+            return Ok(result);
         }
 
         [Route]

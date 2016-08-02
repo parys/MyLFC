@@ -73,12 +73,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Services\AccountService.cs" />
+    <Compile Include="Services\BaseService.cs" />
     <Compile Include="Services\ClubService.cs" />
     <Compile Include="Services\EmailService.cs" />
     <Compile Include="Services\ForumMessageService.cs" />
     <Compile Include="Services\ForumSectionService.cs" />
     <Compile Include="Services\ForumThemeService.cs" />
     <Compile Include="Services\ForumSubsectionService.cs" />
+    <Compile Include="Services\MatchService.cs" />
     <Compile Include="Services\MaterialCategoryService.cs" />
     <Compile Include="Services\MaterialCommentService.cs" />
     <Compile Include="Services\MaterialService.cs" />
@@ -114,10 +116,6 @@
     <ProjectReference Include="..\MyLiverpoolSite.Business.Contracts\MyLiverpoolSite.Business.Contracts.csproj">
       <Project>{2b58260e-385f-4f42-acd7-015faa8ce4f0}</Project>
       <Name>MyLiverpoolSite.Business.Contracts</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MyLiverpoolSite.Business.ViewModels\MyLiverpoolSite.Business.ViewModels.csproj">
-      <Project>{d2412aae-da9a-4da6-a0dc-e3afbacac734}</Project>
-      <Name>MyLiverpoolSite.Business.ViewModels</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

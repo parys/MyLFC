@@ -7,13 +7,9 @@ angular.module('club.config',
             $stateProvider
                 .state('clubs', {
                     url: '/clubs',
-                    //views: {
-                    //    "containerMain": {
                     templateUrl: '/app/club/views/list.html',
                     controller: 'ClubCtrl',
                     controllerAs: 'vm',
-                    // }
-                    // },
                     resolve: {
                         $title: function () { return 'Клубы'; }
                     },

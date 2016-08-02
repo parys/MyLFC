@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using MyLiverpool.Business.DTO;
 using MyLiverpoolSite.Data.DataAccessLayer;
 
@@ -11,5 +12,9 @@ namespace MyLiverpoolSite.Business.Contracts
         Task UpdateLogoAsync(int clubId, string relativePath);
 
         Task<PageableData<ClubDto>> GetListAsync(int page);
+
+        Task<IEnumerable<string>> GetClubsByNameAsync(string typed);
+
+        Task<int> GetIdByNameAsync(string name);
     }
 }

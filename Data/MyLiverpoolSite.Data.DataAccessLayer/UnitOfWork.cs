@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security.DataProtection;
 using MyLiverpoolSite.Common.Utilities;
 using MyLiverpoolSite.Data.DataAccessLayer.Contracts;
 using MyLiverpoolSite.Data.Entities;
@@ -18,23 +17,22 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
     {
         private readonly LiverpoolContext _context = new LiverpoolContext();
 
-        private IGenericRepository<User> _userRepository;
-        private IGenericRepository<Material> _materialRepository;
-    //    private IGenericRepository<BlogCategory> _blogCategoryRepository;
-        private IGenericRepository<MaterialCategory> _materialCategoryRepository;
-   //     private IGenericRepository<BlogComment> _blogCommentRepository;
-        private IGenericRepository<MaterialComment> _materialCommentRepository;
-        private IGenericRepository<ForumSection> _forumSectionRepository;
+
+        private IGenericRepository<Club> _clubRepository;
         private IGenericRepository<ForumTheme> _forumThemeRepository;
         private IGenericRepository<ForumSubsection> _forumSubsectionRepository;
         private IGenericRepository<ForumMessage> _forumMessageRepository;
-        private IGenericRepository<UserClaim> _userClaimRepository;
-       //  private IGenericRepository<UserRole> _userRoleRepository;
-        private IGenericRepository<Wish> _wishRepository;
+        private IGenericRepository<Match> _matchRepository;
+        private IGenericRepository<Material> _materialRepository;
+        private IGenericRepository<MaterialCategory> _materialCategoryRepository;
+        private IGenericRepository<MaterialComment> _materialCommentRepository;
+        private IGenericRepository<ForumSection> _forumSectionRepository;
+        private IGenericRepository<PrivateMessage> _privateMessageRepository;
         private IGenericRepository<Role> _roleRepository;
         private IGenericRepository<RoleGroup> _roleGroupRepository;
-        private IGenericRepository<PrivateMessage> _privateMessageRepository;
-        private IGenericRepository<Club> _clubRepository;
+        private IGenericRepository<User> _userRepository;
+        private IGenericRepository<UserClaim> _userClaimRepository;
+        private IGenericRepository<Wish> _wishRepository;
 
         public UnitOfWork()
         {
@@ -77,7 +75,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
         public IGenericRepository<ForumTheme> ForumThemeRepository => _forumThemeRepository ?? (_forumThemeRepository = new GenericRepository<ForumTheme>(_context));
         public IGenericRepository<ForumSubsection> ForumSubsectionRepository => _forumSubsectionRepository ?? (_forumSubsectionRepository = new GenericRepository<ForumSubsection>(_context));
         public IGenericRepository<ForumMessage> ForumMessageRepository => _forumMessageRepository ?? (_forumMessageRepository = new GenericRepository<ForumMessage>(_context));
-       // public IGenericRepository<UserLogin> UserLoginRepository => _userLoginRepository ?? (_userLoginRepository = new GenericRepository<UserLogin>(_context));
+        public IGenericRepository<Match> MatchRepository => _matchRepository ?? (_matchRepository = new GenericRepository<Match>(_context));
         public IGenericRepository<UserClaim> UserClaimRepository => _userClaimRepository ?? (_userClaimRepository = new GenericRepository<UserClaim>(_context));
          public IGenericRepository<Wish> WishRepository => _wishRepository ?? (_wishRepository = new GenericRepository<Wish>(_context));
         public IGenericRepository<Role> RoleRepository => _roleRepository ?? (_roleRepository = new GenericRepository<Role>(_context));

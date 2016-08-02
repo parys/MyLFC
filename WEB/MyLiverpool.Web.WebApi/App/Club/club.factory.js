@@ -85,6 +85,21 @@ angular.module('club.factory', [])
                             result.reject(response);
                         });
                     return result.promise;
+                },
+                getClubs: function (typed) {
+                    var result = $q.defer();
+                    $http({
+                        method: 'GET',
+                        url: controllerUrl + '/getClubsByName?typed=' + typed,
+                        headers: { 'Content-Type': 'application/json' }
+                    })
+                        .success(function (response) {
+                            result.resolve(response);
+                        })
+                        .error(function (response) {
+                            result.reject(response);
+                        });
+                    return result.promise;
                 }
 
             };

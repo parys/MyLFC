@@ -87,6 +87,7 @@
     <Compile Include="ForumThemeDto.cs" />
     <Compile Include="ForumThemeMiniDto.cs" />
     <Compile Include="IDto.cs" />
+    <Compile Include="MatchDto.cs" />
     <Compile Include="MaterialCategoryDto.cs" />
     <Compile Include="MaterialCommentDto.cs" />
     <Compile Include="MaterialCommentEditingDto.cs" />

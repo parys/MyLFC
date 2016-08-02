@@ -7,9 +7,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNet.Identity;
 using MyLiverpool.Business.DTO;
-using MyLiverpool.Business.Resources;
 using MyLiverpoolSite.Business.Contracts;
-using MyLiverpoolSite.Business.ViewModels.Users;
 using MyLiverpoolSite.Common.Utilities;
 using MyLiverpoolSite.Common.Utilities.Extensions;
 using MyLiverpoolSite.Data.DataAccessLayer;
@@ -29,81 +27,6 @@ namespace MyLiverpoolSite.Business.Services.Services
             _mapper = mapper;
         }
 
-        #region vm
-
-        public async Task<PageableData<UserViewModel>> GetAll(int page)
-        {
-            var users = await _unitOfWork.UserRepository.GetAsync(page);
-            var usersVM = _mapper.Map<IEnumerable<UserViewModel>>(users);
-            var allUsersCount = await _unitOfWork.UserRepository.GetCountAsync();
-            var result = new PageableData<UserViewModel>(usersVM, page, allUsersCount);
-            return result;
-        }
-
-        public async Task<UserViewModel> GetUserProfile(int id)
-        {
-            var user = await _unitOfWork.UserRepository.GetByIdAsync(id);
-            var result = _mapper.Map<UserViewModel>(user);
-            result.RoleGroups = await _unitOfWork.RoleGroupRepository.GetAsync();
-            return result;
-        }
-
-        public async Task<PrivateMessageVM> GetPrivateMessageVMAsync(int receiverId, string answerTitle = null)
-        {
-            var receiver = await _unitOfWork.UserRepository.GetByIdAsync(receiverId);
-            string title = string.Empty;
-            if (!string.IsNullOrWhiteSpace(answerTitle))
-            {
-                const int answerNumber = 1;
-                title = string.Format(UsersMessages.Annex, answerNumber) + answerTitle;
-            }
-            return new PrivateMessageVM()
-            {
-                Receiver = receiver,
-                ReceiverId = receiverId,
-                Title = title
-            };
-        }
-
-        public async Task<PrivateMessageVM> GetPrivateMessageForReadVMAsync(int messageId, int receiverId)
-        {
-            var message = await _unitOfWork.PrivateMessageRepository.GetByIdAsync(messageId);
-            if (message.ReceiverId != receiverId && message.SenderId != receiverId)
-            {
-                throw new AccessViolationException(); 
-            }
-            if (!message.IsRead && message.ReceiverId == receiverId)
-            {
-                message.IsRead = true;
-                _unitOfWork.PrivateMessageRepository.Update(message);
-                await _unitOfWork.SaveAsync();
-            }
-            return _mapper.Map<PrivateMessageVM>(message);
-        }
-
-        public async Task<int> SavePrivateMessageVMAsync(PrivateMessageVM model, int userId)
-        {
-            var message = _mapper.Map<PrivateMessage>(model);
-            message.SenderId = userId;
-            message.SentTime = DateTime.Now;
-            _unitOfWork.PrivateMessageRepository.Add(message);
-            await _unitOfWork.SaveAsync();
-            return message.Id;
-        }
-
-        public async Task<AllPrivateMessagesVM> GetPrivateMessagesForUser(int userId)
-        {
-            var allMessages = await 
-                _unitOfWork.PrivateMessageRepository.GetAsync(x => x.ReceiverId == userId || x.SenderId == userId, x => x.Sender);
-            var allMessagesVm = _mapper.Map<IEnumerable<PrivateMessageVM>>(allMessages);
-            var model = new AllPrivateMessagesVM()
-            {
-                ReceivedMessages = allMessagesVm.Where(x => x.ReceiverId == userId).ToList(),
-                SentMessages = allMessagesVm.Where(x => x.SenderId == userId).ToList()
-            };
-            return model;
-        }
-
         public async Task<bool> BanUser(int userId, int banDayCount)
         {
             var result = await _unitOfWork.UserManager.SetLockoutEndDateAsync(userId, new DateTimeOffset(DateTime.Now.AddDays(banDayCount)));
@@ -116,9 +39,6 @@ namespace MyLiverpoolSite.Business.Services.Services
             return result == IdentityResult.Success;
         }
 
-        #endregion
-
-        #region Dto
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(User user, string authenticationType)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -233,9 +153,7 @@ namespace MyLiverpoolSite.Business.Services.Services
             return result;
         }
 
-        #endregion
-
-        #region helpers
+        #region private
 
         private IEnumerable<string> GetRolesToDelete(IEnumerable<Role> oldRoles, IEnumerable<Role> newRoles)
         {

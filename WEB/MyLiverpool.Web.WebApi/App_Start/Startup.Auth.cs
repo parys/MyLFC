@@ -6,7 +6,7 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using MyLiverpool.Web.WebApi.Providers;
 using MyLiverpoolSite.Business.Services;
-using MyLiverpoolSite.Data.DataAccessLayer;
+using MyLiverpoolSite.Data.DataAccessLayer; //todo remove
 using Owin;
 
 namespace MyLiverpool.Web.WebApi

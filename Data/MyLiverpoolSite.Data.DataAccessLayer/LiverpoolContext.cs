@@ -34,10 +34,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
         {
             return new LiverpoolContext();
         }
-
-      //  public DbSet<User> Users { get; set; }
-       // public DbSet<Role> Roles { get; set; }
-
+        
         public DbSet<Wish> Wishs { get; set; }
         public DbSet<Material> Materials { get; set; }
         public DbSet<MaterialCategory> MaterialCategories { get; set; }
@@ -52,6 +49,7 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
         public DbSet<RoleGroup> RoleGroups { get; set; }
         public DbSet<PrivateMessage> PrivateMessages { get; set; }
         public DbSet<Club> Clubs { get; set; }
+        public DbSet<Match> Matches { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -60,44 +58,29 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
             modelBuilder.Entity<UserClaim>().ToTable("UserClaims");
             modelBuilder.Entity<UserLogin>().ToTable("UserLogins");
             modelBuilder.Entity<UserRole>().ToTable("UserRoles");
-
-          //  modelBuilder.Entity<User>().HasMany(u => u.MaterialComments).WithOptional().HasForeignKey(x => x.AuthorId);
-          //  modelBuilder.Entity<User>().HasMany(u => u.BlogComments).WithOptional().HasForeignKey(x => x.AuthorId);
+            
             modelBuilder.Entity<MaterialComment>().HasRequired(x => x.Author).WithMany(x => x.Comments).HasForeignKey(x => x.AuthorId);
-          //  modelBuilder.Entity<BlogComment>().HasRequired(x => x.Author).WithMany(x => x.BlogComments).HasForeignKey(x => x.AuthorId);
             modelBuilder.Entity<User>().HasMany(u => u.ForumMessages).WithOptional().HasForeignKey(x => x.AuthorId);
-           // modelBuilder.Entity<User>().HasMany(u => u.Roles).WithMany(x => x.)WithOptional();
-
-        //    modelBuilder.Entity<User>().HasMany(u => u.BlogItems).WithOptional();
-        //    modelBuilder.Entity<User>().HasMany(u => u.Materials).WithOptional();
+           
 
             modelBuilder.Entity<Material>().HasRequired(x => x.Author).WithMany(x => x.Materials).HasForeignKey(x => x.AuthorId);
-         //   modelBuilder.Entity<BlogItem>().HasRequired(x => x.Author).WithMany(x => x.BlogItems).HasForeignKey(x => x.AuthorId);
             modelBuilder.Entity<Material>().HasRequired(x => x.Category).WithMany(x => x.Materials).HasForeignKey(x => x.CategoryId);
-          //  modelBuilder.Entity<BlogItem>().HasRequired(x => x.BlogCategory).WithMany(x => x.BlogItems).HasForeignKey(x => x.BlogCategoryId);
-           // modelBuilder.Entity<NewsCategory>().HasMany(u => u.Materials);
-          //  modelBuilder.Entity<BlogCategory>().HasMany(u => u.BlogItems);
-          //  modelBuilder.Entity<Material>().HasMany(u => u.MaterialComments).WithRequired(x => x.Material).HasForeignKey(x => x.MaterialId);
-          //  modelBuilder.Entity<BlogItem>().HasMany(u => u.MaterialComments).WithRequired(x => x.BlogItem).HasForeignKey(x => x.BlogItemId);
-        //    modelBuilder.Entity<NewsComment>().HasRequired(u => u.Material).WithRequiredPrincipal();//.HasForeignKey(x => x.MaterialId);
-        //    modelBuilder.Entity<BlogComment>().HasRequired(u => u.BlogItem).WithRequiredPrincipal();//.HasForeignKey(x => x.MaterialId);
-            //  modelBuilder.Entity<BlogComment>().HasRequired(u => u.BlogItem).WithMany(x => x.Comments).HasForeignKey(x => x.BlogItemId);
-              modelBuilder.Entity<MaterialComment>().HasRequired(u => u.Material).WithMany(x => x.Comments).HasForeignKey(x => x.MaterialId);
-            //   modelBuilder.Entity<NewsComment>().HasRequired(u => u.Author).WithMany(x => x.MaterialComments).HasForeignKey(x => x.AuthorId);
+            modelBuilder.Entity<MaterialComment>().HasRequired(u => u.Material).WithMany(x => x.Comments).HasForeignKey(x => x.MaterialId);
 
             modelBuilder.Entity<MaterialComment>().HasOptional(x => x.Parent).WithMany(x => x.Children).HasForeignKey(x => x.ParentId);
-       //     modelBuilder.Entity<BlogComment>().HasOptional(x => x.Parent).WithMany(x => x.Children).HasForeignKey(x => x.ParentId);
 
             modelBuilder.Entity<ForumSubsection>().HasRequired(x => x.Section).WithMany(x => x.Subsections).HasForeignKey(x => x.SectionId);
             modelBuilder.Entity<ForumTheme>().HasRequired(x => x.Subsection).WithMany(x => x.Themes).HasForeignKey(x => x.SubsectionId);
             modelBuilder.Entity<ForumMessage>().HasRequired(x => x.Theme).WithMany(x => x.Messages).HasForeignKey(x => x.ThemeId);
 
             modelBuilder.Entity<User>().HasRequired(x => x.RoleGroup).WithMany(x => x.Users).HasForeignKey(x => x.RoleGroupId);
-            modelBuilder.Entity<Role>().HasMany(x => x.RoleGroups).WithMany(x => x.Roles);//.HasForeignKey(x => x.RoleGroupId);
+            modelBuilder.Entity<Role>().HasMany(x => x.RoleGroups).WithMany(x => x.Roles);
 
             modelBuilder.Entity<PrivateMessage>().HasRequired(x => x.Sender).WithMany(x => x.SentPrivateMessages).HasForeignKey(x => x.SenderId);
             modelBuilder.Entity<PrivateMessage>().HasRequired(x => x.Receiver).WithMany(x => x.ReceivedPrivateMessages).HasForeignKey(x => x.ReceiverId);
-           // modelBuilder.Entity<User>().HasMany(u => u.Children).
+
+            modelBuilder.Entity<Match>().HasRequired(x => x.Club).WithMany(x => x.Matches).HasForeignKey(x => x.ClubId);
+
             // использование Fluent API
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>(); 
             base.OnModelCreating(modelBuilder);

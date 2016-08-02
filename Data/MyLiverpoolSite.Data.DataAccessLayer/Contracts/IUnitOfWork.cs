@@ -30,6 +30,8 @@ namespace MyLiverpoolSite.Data.DataAccessLayer.Contracts
         
         IGenericRepository<Club> ClubRepository { get; }
 
+        IGenericRepository<Match> MatchRepository { get; }
+
 
         UserManager<User, int> UserManager { get; set; }
         /// <summary>

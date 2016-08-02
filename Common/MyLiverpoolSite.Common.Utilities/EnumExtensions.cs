@@ -4,7 +4,7 @@ namespace MyLiverpoolSite.Common.Utilities
 {
     public static class EnumExtensions
     {
-        public static string GetRussianName(this WishType type)
+        public static string GetRussianName(this WishType type) //todo remove
         {
             switch (type)
             {

@@ -4,8 +4,6 @@ using System.Threading.Tasks;
 using AutoMapper;
 using MyLiverpool.Business.DTO;
 using MyLiverpoolSite.Business.Contracts;
-using MyLiverpoolSite.Business.ViewModels.Roles;
-using MyLiverpoolSite.Data.DataAccessLayer;
 using MyLiverpoolSite.Data.DataAccessLayer.Contracts;
 using MyLiverpoolSite.Data.Entities;
 
@@ -20,21 +18,6 @@ namespace MyLiverpoolSite.Business.Services.Services
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
-        }
-
-        public async Task<RoleRoleGroupVM> GetAllGroupsAsync(int page)
-        {
-            var roleGroups = await _unitOfWork.RoleGroupRepository.GetAsync(page);
-            var roleGroupsVM = _mapper.Map<IEnumerable<RoleGroupVM>>(roleGroups.ToList());
-            var allgroupsCount = await _unitOfWork.RoleGroupRepository.GetCountAsync();
-            var allRoles = await _unitOfWork.RoleRepository.GetAsync();
-            var model = new RoleRoleGroupVM()
-            {
-                RoleGroups = new PageableData<RoleGroupVM>(roleGroupsVM, page, allgroupsCount),
-                Roles = _mapper.Map<ICollection<RoleVM>>(allRoles)
-            };
-
-            return model;
         }
 
         public async Task<bool> EditRoleGroupAsync(int newRoleGroupId, int userId)

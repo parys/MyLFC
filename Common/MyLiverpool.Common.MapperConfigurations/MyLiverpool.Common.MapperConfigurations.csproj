@@ -61,6 +61,7 @@
     <Compile Include="Profiles\ForumSubsectionMapperProfile.cs" />
     <Compile Include="Profiles\ForumThemeMapperProfile.cs" />
     <Compile Include="Profiles\ForumMessageMapperProfile.cs" />
+    <Compile Include="Profiles\MatchMapperProfile.cs" />
     <Compile Include="Profiles\MaterialCategoryMapperProfile.cs" />
     <Compile Include="Profiles\MaterialCommentMapperProfile.cs" />
     <Compile Include="Profiles\MaterialMapperProfile.cs" />
@@ -79,10 +80,6 @@
     <ProjectReference Include="..\..\Business\MyLiverpool.Business.DTO\MyLiverpool.Business.DTO.csproj">
       <Project>{c70d0192-ab3e-471b-b0d1-081278be19b8}</Project>
       <Name>MyLiverpool.Business.DTO</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Business\MyLiverpoolSite.Business.ViewModels\MyLiverpoolSite.Business.ViewModels.csproj">
-      <Project>{d2412aae-da9a-4da6-a0dc-e3afbacac734}</Project>
-      <Name>MyLiverpoolSite.Business.ViewModels</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Data\MyLiverpoolSite.Data.DataAccessLayer\MyLiverpoolSite.Data.DataAccessLayer.csproj">
       <Project>{AC10A860-1C0E-4910-9E05-428D09F70981}</Project>

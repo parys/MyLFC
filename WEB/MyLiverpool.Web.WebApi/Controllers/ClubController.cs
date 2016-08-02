@@ -22,7 +22,7 @@ namespace MyLiverpool.Web.WebApi.Controllers
         [Authorize]
         public async Task<IHttpActionResult> CreateAsync(ClubDto dto)
         {
-            if (!ModelState.IsValid)
+            if (dto == null || !ModelState.IsValid)
             {
                 return BadRequest();
             }
@@ -71,6 +71,15 @@ namespace MyLiverpool.Web.WebApi.Controllers
         public async Task<IHttpActionResult> DeleteAsync(int id)
         {
             var result = await _clubService.DeleteAsync(id);
+            return Ok(result);
+        }
+
+        [Route("getClubsByName")]
+        [HttpGet]
+        [Authorize]
+        public async Task<IHttpActionResult> GetClubsByNameAsync(string typed)
+        {
+            var result = await _clubService.GetClubsByNameAsync(typed);
             return Ok(result);
         }
     }

@@ -1,25 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.AspNet.Identity;
 using MyLiverpool.Business.DTO;
 using MyLiverpoolSite.Business.Contracts;
+using MyLiverpoolSite.Common.Utilities.Extensions;
 using MyLiverpoolSite.Data.DataAccessLayer;
 using MyLiverpoolSite.Data.DataAccessLayer.Contracts;
 using MyLiverpoolSite.Data.Entities;
 
 namespace MyLiverpoolSite.Business.Services.Services
 {
-    public class ClubService : IClubService
+    public class ClubService : BaseService, IClubService
     {
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
-
-        public ClubService(IUnitOfWork unitOfWork, IMapper mapper)
+        public ClubService(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
         {
-            _unitOfWork = unitOfWork;
-            _mapper = mapper;
         }
 
         public async Task<ClubDto> CreateAsync(ClubDto dto)
@@ -77,6 +74,23 @@ namespace MyLiverpoolSite.Business.Services.Services
             var dtos =  _mapper.Map<ICollection<ClubDto>>(clubs);
             var count = await _unitOfWork.ClubRepository.GetCountAsync();
             return new PageableData<ClubDto>(dtos, page, count);
+        }
+
+        public async Task<IEnumerable<string>> GetClubsByNameAsync(string typed)
+        {
+            Expression<Func<Club, bool>> filter = x => true;
+            if (!string.IsNullOrWhiteSpace(typed))
+            {
+                filter = filter.And(x => x.Name.Contains(typed));
+            }
+            var clubs = await _unitOfWork.ClubRepository.GetAsync(1, filter: filter);
+            return clubs.Select(x => x.Name);
+        }
+
+        public async Task<int> GetIdByNameAsync(string name)
+        {
+            var clubs = await _unitOfWork.ClubRepository.GetAsync(x => x.Name.Equals(name));
+            return clubs.First().Id;
         }
     }
 }

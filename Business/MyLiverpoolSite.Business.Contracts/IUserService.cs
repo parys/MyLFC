@@ -1,7 +1,6 @@
 ﻿using System.Security.Claims;
 using System.Threading.Tasks;
 using MyLiverpool.Business.DTO;
-using MyLiverpoolSite.Business.ViewModels.Users;
 using MyLiverpoolSite.Data.DataAccessLayer;
 using MyLiverpoolSite.Data.Entities;
 using System.Collections.Generic;
@@ -11,18 +10,6 @@ namespace MyLiverpoolSite.Business.Contracts
 {
     public interface IUserService
     {
-        Task<PageableData<UserViewModel>> GetAll(int page);
-
-        Task<UserViewModel> GetUserProfile(int id);
-
-        Task<PrivateMessageVM> GetPrivateMessageVMAsync( int receiverId, string answerTitle = null);
-
-        Task<PrivateMessageVM> GetPrivateMessageForReadVMAsync(int messageId, int receiverId);
-
-        Task<int> SavePrivateMessageVMAsync(PrivateMessageVM model, int userId);
-
-        Task<AllPrivateMessagesVM> GetPrivateMessagesForUser(int userId);
-
         Task<bool> BanUser(int userId, int banDayCount);
 
         Task<bool> UnbanUser(int userId);

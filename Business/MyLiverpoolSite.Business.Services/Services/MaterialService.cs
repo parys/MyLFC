@@ -7,8 +7,6 @@ using System.Threading.Tasks;
 using AutoMapper;
 using MyLiverpool.Business.DTO;
 using MyLiverpoolSite.Business.Contracts;
-using MyLiverpoolSite.Business.ViewModels.News;
-using MyLiverpoolSite.Business.ViewModels.NewsCategories;
 using MyLiverpoolSite.Common.Utilities;
 using MyLiverpoolSite.Data.DataAccessLayer;
 using MyLiverpoolSite.Data.Entities;
@@ -29,89 +27,6 @@ namespace MyLiverpoolSite.Business.Services.Services
             _materialRepository = materialRepository;
             _mapper = mapper;
         }
-
-        #region VM
-
-        //todo for vm , MaterialType materialType edit
-        public async Task<IndexNewsViewModel> GetByIdAsync(int id, MaterialType materialType)
-        {
-            IndexNewsViewModel result = null;
-            if (id > 0)
-            {
-                var newsItem = await _materialRepository.GetById(id);
-                //  result = Mapper.Map<IndexNewsViewModel>(_unitOfWork.MaterialRepository.GetById(id));
-                newsItem.Comments = newsItem.Comments.Where(x => !x.ParentId.HasValue).ToList();
-                result = _mapper.Map<IndexNewsViewModel>(newsItem);
-            }
-            return result;
-        }
-
-        public void Delete(Material newsItem, MaterialType materialType)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public async Task<int> EditAsync(CreateEditNewsViewModel model, MaterialType materialType)
-        {
-            var newsItem = _mapper.Map<Material>(model);
-            newsItem.LastModified = DateTime.Now;
-            _unitOfWork.MaterialRepository.Update(newsItem);
-            await _unitOfWork.SaveAsync();
-            return newsItem.Id;
-        }
-
-        public async Task<int> CreateVmAsync(CreateEditNewsViewModel model, int userId, MaterialType materialType)
-        {
-            var newsItem = _mapper.Map<Material>(model);
-            newsItem.AdditionTime = DateTime.Now;
-            newsItem.LastModified = DateTime.Now;
-            newsItem.AuthorId = userId;
-            _unitOfWork.MaterialRepository.Add(newsItem);
-            await _unitOfWork.SaveAsync();
-
-            return newsItem.Id;
-        }
-
-        public async Task<PageableData<IndexMiniNewsVM>> GetAllAsync(int page, int? categoryId,
-            MaterialType materialType)
-        {
-            // itemPerPage = GlobalConstants.NewsPerPage;
-            Expression<Func<Material, bool>> filter = x => !x.OnTop;
-            Expression<Func<Material, bool>> filterForCount = null;
-            ICollection<Material> topNews = null;
-            if (categoryId.HasValue)
-            {
-                filter = x => x.CategoryId == categoryId.Value && !x.OnTop;
-                filterForCount = x => x.CategoryId == categoryId.Value;
-                topNews =
-                    await _unitOfWork.MaterialRepository.GetAsync(x => x.OnTop && x.CategoryId == categoryId.Value);
-            }
-            else
-            {
-                topNews = await _unitOfWork.MaterialRepository.GetAsync(x => x.OnTop);
-            }
-
-            // if (page == GlobalConstants.FirstPage)
-            // {
-            var itemPerPage = GlobalConstants.NewsPerPage - topNews.Count;
-            // }
-            var news = await _unitOfWork.MaterialRepository.GetAsync(page, filter: filter, itemPerPage: itemPerPage);
-            var newsForView = (page == GlobalConstants.FirstPage) ? topNews.Concat(news) : news;
-            var newsVM = _mapper.Map<IEnumerable<IndexMiniNewsVM>>(newsForView);
-            var allNewsCount = await _unitOfWork.MaterialRepository.GetCountAsync(filterForCount);
-            var result = new PageableData<IndexMiniNewsVM>(newsVM, page, allNewsCount);
-            return result;
-        }
-
-        public async Task<IEnumerable<IndexNewsCategoryVM>> GetCategoriesAsync(MaterialType materialType)
-        {
-            var categories = await _unitOfWork.MaterialCategoryRepository.GetAsync(x => x.MaterialType == materialType);
-            var categoriesVM = _mapper.Map<IEnumerable<IndexNewsCategoryVM>>(categories);
-
-            return categoriesVM;
-        }
-
-        #endregion
 
         #region Dto 
 

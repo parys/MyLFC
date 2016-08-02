@@ -207,6 +207,7 @@
     <Compile Include="Controllers\ForumThemeController.cs" />
     <Compile Include="Controllers\ForumSectionController.cs" />
     <Compile Include="Controllers\ImageController.cs" />
+    <Compile Include="Controllers\MatchController.cs" />
     <Compile Include="Controllers\MaterialCommentController.cs" />
     <Compile Include="Controllers\NewsCategoryController.cs" />
     <Compile Include="Controllers\NewsCommentController.cs" />
@@ -248,6 +249,12 @@
     <Content Include="App\Forum\forum.config.js" />
     <Content Include="App\Forum\ForumMessageCtrl.js" />
     <Content Include="App\Image\image.config.js" />
+    <Content Include="App\Match\match.config.js" />
+    <Content Include="App\Match\match.ctrl.js" />
+    <Content Include="App\Match\match.factory.js" />
+    <Content Include="App\Match\views\edit.html" />
+    <Content Include="App\Match\views\info.html" />
+    <Content Include="App\Match\views\list.html" />
     <Content Include="App\MaterialComment\materialComment.config.js" />
     <Content Include="App\MaterialComment\materialComment.ctrl.js" />
     <Content Include="App\MaterialComment\materialComment.factory.js" />
@@ -469,10 +476,6 @@
     <Content Include="Scripts\FileAPI.flash.swf" />
     <Content Include="Scripts\FileAPI.js" />
     <Content Include="Scripts\FileAPI.min.js" />
-    <Content Include="Scripts\angular.min.js.map" />
-    <Content Include="Scripts\angular-animate.min.js.map" />
-    <Content Include="Scripts\angular-route.min.js.map" />
-    <Content Include="Scripts\angular-touch.min.js.map" />
     <Content Include="Scripts\angular-validation\locales\ru.json" />
     <Content Include="Scripts\angular-validation\locales\pt-br.json" />
     <Content Include="Scripts\angular-validation\locales\pl.json" />
@@ -481,6 +484,10 @@
     <Content Include="Scripts\angular-validation\locales\es.json" />
     <Content Include="Scripts\angular-validation\locales\en.json" />
     <Content Include="Scripts\angular-validation\locales\ca.json" />
+    <Content Include="Scripts\angular.min.js.map" />
+    <Content Include="Scripts\angular-animate.min.js.map" />
+    <Content Include="Scripts\angular-route.min.js.map" />
+    <Content Include="Scripts\angular-touch.min.js.map" />
     <None Include="Scripts\jquery-3.1.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.1.0.js" />
     <Content Include="Scripts\jquery-3.1.0.min.js" />
@@ -612,10 +619,6 @@
     <ProjectReference Include="..\..\Business\MyLiverpoolSite.Business.Services\MyLiverpoolSite.Business.Services.csproj">
       <Project>{2fffee2f-50ee-4eca-adf4-49f0cd327a88}</Project>
       <Name>MyLiverpoolSite.Business.Services</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Business\MyLiverpoolSite.Business.ViewModels\MyLiverpoolSite.Business.ViewModels.csproj">
-      <Project>{d2412aae-da9a-4da6-a0dc-e3afbacac734}</Project>
-      <Name>MyLiverpoolSite.Business.ViewModels</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Common\MyLiverpool.Common.MapperConfigurations\MyLiverpool.Common.MapperConfigurations.csproj">
       <Project>{4dc5f955-0dfd-40b0-9b3f-1771754c90ce}</Project>

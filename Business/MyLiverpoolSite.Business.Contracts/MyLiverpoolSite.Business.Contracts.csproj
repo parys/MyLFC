@@ -77,6 +77,7 @@
     <Compile Include="IForumSectionService.cs" />
     <Compile Include="IForumThemeService.cs" />
     <Compile Include="IForumSubsectionService.cs" />
+    <Compile Include="IMatchService.cs" />
     <Compile Include="IMaterialCategoryService.cs" />
     <Compile Include="IMaterialCommentService.cs" />
     <Compile Include="IMaterialService.cs" />
@@ -103,10 +104,6 @@
     <ProjectReference Include="..\MyLiverpool.Business.DTO\MyLiverpool.Business.DTO.csproj">
       <Project>{c70d0192-ab3e-471b-b0d1-081278be19b8}</Project>
       <Name>MyLiverpool.Business.DTO</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MyLiverpoolSite.Business.ViewModels\MyLiverpoolSite.Business.ViewModels.csproj">
-      <Project>{d2412aae-da9a-4da6-a0dc-e3afbacac734}</Project>
-      <Name>MyLiverpoolSite.Business.ViewModels</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
