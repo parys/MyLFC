@@ -3,7 +3,7 @@ angular.module('liverpoolApp')
     .controller('LandingPageController',
     [
         '$state', 'Authentication', 'RouteFilter', 'AccountFactory', '$location', 'UsersFactory', '$interval',
-        function($state, Authentication, RouteFilter, AccountFactory, $location, UsersFactory, $interval) {
+        function ($state, Authentication, RouteFilter, AccountFactory, $location, UsersFactory, $interval) {
             var vm = this;
             vm.unreadPmCount = 0;
 
@@ -30,6 +30,14 @@ angular.module('liverpoolApp')
             }
 
             $interval(getUnreadPmCount, 30000);
+
+            vm.updateTable = function() {
+                UsersFactory.updateTable()
+                    .then(function(response) {
+                         //todo use another factore and remove $scope
+                        },
+                        function(response) {});
+            };
 
             vm.loggedIn = function() {
                 return Authentication.exists();

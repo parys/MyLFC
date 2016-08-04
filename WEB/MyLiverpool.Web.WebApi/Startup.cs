@@ -86,6 +86,7 @@ namespace MyLiverpool.Web.WebApi
         {
            // builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsImplementedInterfaces();
             builder.RegisterType<AccountService>().As<IAccountService>();
+            builder.RegisterType<AdminService>().As<IAdminService>();
             builder.RegisterType<ClubService>().As<IClubService>();
             builder.RegisterType<EmailService>().As<IIdentityMessageService>();
             builder.RegisterType<ForumMessageService>().As<IForumMessageService>();

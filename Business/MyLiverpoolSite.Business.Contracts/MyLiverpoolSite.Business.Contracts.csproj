@@ -68,9 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IAccountService.cs" />
-    <Compile Include="IBlogCategoryService.cs" />
-    <Compile Include="IBlogCommentService.cs" />
-    <Compile Include="IBlogService.cs" />
+    <Compile Include="IAdminService.cs" />
     <Compile Include="IClubService.cs" />
     <Compile Include="IEntityService.cs" />
     <Compile Include="IForumMessageService.cs" />
