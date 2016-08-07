@@ -72,7 +72,7 @@ namespace MyLiverpoolSite.Business.Services.Services
         private async Task<HtmlNodeCollection> GetHtmlRowsAsync()
         {
             HttpClient http = new HttpClient();
-            var response = http.GetByteArrayAsync(address).Result;
+            var response = await http.GetByteArrayAsync(address);
             String source = Encoding.GetEncoding("utf-8").GetString(response, 0, response.Length - 1);
             source = WebUtility.HtmlDecode(source);
             HtmlDocument resultat = new HtmlDocument();

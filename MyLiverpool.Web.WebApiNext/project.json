@@ -43,6 +43,7 @@
       "version": "1.0.0-preview2-final",
       "type": "build"
     }
+
   },
 
   "tools": {
@@ -81,9 +82,7 @@
 
   "publishOptions": {
     "include": [
-      "wwwroot",
-      "Views",
-      "Areas/**/Views",
+      "wwwroot",           
       "appsettings.json",
       "web.config"
     ]
