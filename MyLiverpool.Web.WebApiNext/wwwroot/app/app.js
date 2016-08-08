@@ -19,8 +19,7 @@ AppComponent = __decorate([
     core_1.Component({
         selector: 'my-app',
         templateUrl: 'app/app.component.html',
-        directives: [router_1.ROUTER_DIRECTIVES],
-        styleUrls: ['app/app.component.css']
+        directives: [router_1.ROUTER_DIRECTIVES] //,
     }), 
     __metadata('design:paramtypes', [router_1.Router])
 ], AppComponent);

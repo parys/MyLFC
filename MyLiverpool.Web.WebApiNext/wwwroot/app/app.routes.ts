@@ -1,5 +1,5 @@
 ﻿import { provideRouter, RouterConfig } from '@angular/router';
-import { NewsComponent } from './news/news.component';
+import { NewsComponent } from './news/news/news.component';
 //import { AboutComponent } from './about/about.component';
 
 export const routes: RouterConfig = [

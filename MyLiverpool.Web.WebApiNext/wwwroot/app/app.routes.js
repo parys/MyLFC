@@ -1,6 +1,6 @@
 "use strict";
 const router_1 = require('@angular/router');
-const news_component_1 = require('./news/news.component');
+const news_component_1 = require('./news/news/news.component');
 //import { AboutComponent } from './about/about.component';
 exports.routes = [
     { path: '', component: news_component_1.NewsComponent },

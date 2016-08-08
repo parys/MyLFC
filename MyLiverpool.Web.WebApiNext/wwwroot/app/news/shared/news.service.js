@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 const core_1 = require('@angular/core');
 const http_1 = require('@angular/http');
 require('rxjs/add/operator/map');
-const app_constants_1 = require('../app.constants');
+const app_constants_1 = require('../../app.constants');
 let DataService = class DataService {
     constructor(_http, _configuration) {
         this._http = _http;
@@ -22,8 +22,8 @@ let DataService = class DataService {
         this.GetSingle = (id) => {
             return this._http.get(this.actionUrl + id).map(res => res.json());
         };
-        this.Add = (itemName) => {
-            var toAdd = JSON.stringify({ ItemName: itemName });
+        this.Add = (item) => {
+            var toAdd = JSON.stringify({ ItemName: item });
             return this._http.post(this.actionUrl, toAdd, { headers: this.headers }).map(res => res.json());
         };
         this.Update = (id, itemToUpdate) => {
@@ -34,7 +34,7 @@ let DataService = class DataService {
         this.Delete = (id) => {
             return this._http.delete(this.actionUrl + id);
         };
-        this.actionUrl = _configuration.ServerWithApiUrl + 'values/';
+        this.actionUrl = _configuration.ServerWithApiUrl + 'news/';
         this.headers = new http_1.Headers();
         this.headers.append('Content-Type', 'application/json');
         this.headers.append('Accept', 'application/json');
@@ -45,4 +45,4 @@ DataService = __decorate([
     __metadata('design:paramtypes', [http_1.Http, app_constants_1.Configuration])
 ], DataService);
 exports.DataService = DataService;
-//# sourceMappingURL=DataService.js.map
+//# sourceMappingURL=news.service.js.map
