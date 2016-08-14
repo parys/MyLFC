@@ -1,15 +1,15 @@
 ﻿import { Component } from '@angular/core';
-import { Router, ROUTER_DIRECTIVES } from '@angular/router';
-import { NewsComponent } from './news/news/news.component';
+import { ROUTER_DIRECTIVES } from '@angular/router';
+//import { NewsDetailComponent } from './news/news-detail/news-detail.component';
 
 @Component({
     selector: 'my-app',
-    templateUrl: 'app/app.component.html',
-    directives: [ROUTER_DIRECTIVES]//,
+    template: `<router-outlet> </router-outlet>`,
+    directives: [ROUTER_DIRECTIVES]
  //   styleUrls: ['app/app.component.css']
 })
 
 export class AppComponent {
-    constructor(private router: Router) {
-    }
+    //constructor(private router: Router) {
+    //}
 }

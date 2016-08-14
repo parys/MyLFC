@@ -1,4 +1,4 @@
-﻿{
+{
   "userSecretsId": "aspnet-MyLiverpool.Web.WebApiNext-c05b72c3-6c36-4fb4-b552-b0bedfd1553d",
 
   "dependencies": {
@@ -43,7 +43,8 @@
       "version": "1.0.0-preview2-final",
       "type": "build"
     },
-    "BundlerMinifier.Core": "2.1.258"
+    "BundlerMinifier.Core": "2.2.281",
+    "bootstrap": "3.3.7"
   },
 
   "tools": {

@@ -8,17 +8,18 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-const core_1 = require('@angular/core');
-let Configuration = class Configuration {
-    constructor() {
-        this.Server = "http://localhost:5000/";
+var core_1 = require('@angular/core');
+var Configuration = (function () {
+    function Configuration() {
+        this.Server = "http://localhost:46940/";
         this.ApiUrl = "api/";
         this.ServerWithApiUrl = this.Server + this.ApiUrl;
     }
-};
-Configuration = __decorate([
-    core_1.Injectable(), 
-    __metadata('design:paramtypes', [])
-], Configuration);
+    Configuration = __decorate([
+        core_1.Injectable(), 
+        __metadata('design:paramtypes', [])
+    ], Configuration);
+    return Configuration;
+}());
 exports.Configuration = Configuration;
 //# sourceMappingURL=app.constants.js.map

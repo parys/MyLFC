@@ -2,6 +2,8 @@
 
 module.exports = {
     rootJsFolder: "./wwwroot/js/",
+    rootCssFolder: "./wwwroot/css/",
+    rootFontsFolder: "./wwwroot/fonts/",
     sources: {
         jsFilesInclSourcePaths: [
             "node_modules/core-js/client/shim.min.js",
@@ -13,6 +15,7 @@ module.exports = {
         ],
 
         angularRC: "node_modules/@angular/**/*.js",
-        Rxjs: "node_modules/rxjs/**/*.js"
+        Rxjs: "node_modules/rxjs/**/*.js",
+        fonts: "node_modules/bootstrap/fonts/*.{ttf,woff,eot,svg,woff2}"
     }
 };

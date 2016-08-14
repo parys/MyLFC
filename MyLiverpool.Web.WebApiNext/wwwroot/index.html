@@ -1,14 +1,177 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
-    <base href="." />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="."/>
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
     <title>ASP.NET Core 1.0 Angular 2 Demo</title>
     <!-- inject:css -->
     <link rel="stylesheet" href="css/bootstrap.css">
     <!-- endinject -->
 </head>
 <body>
-    <my-app>Loading...</my-app>
+    <div class="container-fluid navbar navbar-inverse navbar-fixed-top ">
+        <ul class="nav navbar-nav col-xs-3 col-sm-3 list-inline">
+            <li><a id="back-top" href="#" style="display: none;">Вверх</a></li>
+            <li class="divider"></li>
+            <li ng-if="vm.loggedIn()">
+                <a ui-sref="pms()"><span class="glyphicon glyphicon-envelope"></span> Читать л/с (<span ng-bind="vm.unreadPmCount"></span>)</a>
+            </li>
+            <li class="divider"></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li ng-if="!vm.loggedIn()">
+                <form ng-controller="LoginController as ctrl" name="loginForm1" class="form-inline" role="form" style="margin-top: 8px;">
+                    <div class="form-group">
+                        <label class="sr-only">Логин</label>
+                        <input type="text" placeholder="Логин" class="form-control" name="UserName" ng-model="ctrl.loginForm.userName" validation="required" validation-error-to="myError">
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only">Пароль</label>
+                        <input type="password" placeholder="Пароль" class="form-control" name="password" ng-model="ctrl.loginForm.password" validation="required" validation-error-to="myError">
+                        <span id="myError" style="display: none;"></span>
+                    </div>
+                    <div class="form-group">
+                        <span class="text-danger" ng-if="ctrl.loginForm.errorMessage" ng-bind="ctrl.loginForm.errorMessage">
+                            <a class="button" ui-sref="forgotPassword">Забыли пароль?</a>
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <div>
+                            <input type="submit" ng-click="ctrl.login()" ng-disabled="ctrl.loginForm1.userName && ctrl.loginForm1.password" value="Войти" class="btn btn-default" />
+                        </div>
+                    </div>
+                </form>
+            </li>
+            <li ng-if="!vm.loggedIn()">
+                <a ui-sref="register">Регистрация</a>
+            </li>
+            
+            <li>
+                <a ui-sref="login({ returnUrl: getReturnUrl() })" ng-if="!loggedIn()">Войти</a>
+            </li>
+            <li>
+                <ul class="nav navbar-nav" ng-if="vm.loggedIn()">
+                    <li>
+                        <a ui-sref="userInfo({id: vm.userId()})" class="padding0">
+                            <img class="nav-avatar" ng-src="{{$root.userImage}}" />
+                        </a>
+                    </li>
+                    <li>
+                        <a ui-sref="userInfo({id: vm.userId()})">Мой профиль</a>
+                    </li>
+                    <li>
+                        <a ng-click="vm.logout()">Выйти</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div class="col-xs-12 col-sm-12 top50">
+        <header class="navbar navbar-default navbar-static-top row">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a ui-sref="home" class="navbar-brand">Название сайта</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a ui-sref="home">Главная</a></li>
+                    <!--   @if (User.IsInRole("AdminFull"))
+                    {
+                    <li> @Html.ActionLink(CommonMessages.Roles, "Index", "Role") </li>
+                    }*@-->
+                    <li> <a ui-sref="forum">Форум</a></li>
+                    <li class="dropdown">
+                        <a ui-sref="news()" href="#" class="dropdown-toggle" data-toggle="">Новости<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li ng-if="vm.isNewsmaker()"><a ui-sref="newsEdit()">Добавить</a></li>
+                            <li><a ui-sref="newsCategories()">Категории</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a ui-sref="blog()" href="#" class="dropdown-toggle" data-toggle="">Блоги<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li ng-if="vm.isAuthor()"><a ui-sref="blogEdit()">Добавить</a></li>
+                            <li><a ui-sref="blogCategories()">Категории</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="">@CommonMessages.FcLiverpool<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a ui-sref="clubHistory">История</a></li>
+                        </ul>
+                    </li>
+                   
+                    <li class="dropdown">
+                   <!--     <a href="#" class="dropdown-toggle" data-toggle="">Пользователи <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+                            <li-->
+                                <a ui-sref="users">@CommonMessages.Users</a>
+                            <!--/li>
+                        </ul-->
+                    </li>
+                    <li> <a ui-sref="comment()">Комментарии</a></li>
+                    <li> <a ng-if="vm.isNewsmaker() || vm.isAuthor()" ui-sref="images({path: 'content'})">Изображения</a></li>
+                    <li> <a ng-if="vm.isAdminAssistant()" ui-sref="clubs()">Клубы</a></li>
+                    <li> <a ng-if="vm.isAdminAssistant()" ui-sref="matches()">Матчи</a></li>
+                    <li> <a ui-sref="rules()"><span class="text-danger">Правила</span></a></li>
+                    <li class="bg-success"> <a ui-sref="wishes()"><span class="text-info">Пожелания</span></a></li>
+                </ul>
+            </div>
+            <div class="col-xs-12 col-sm-12">
+                temporary
+                <span ng-bind="$root.roles"></span>
+            </div>
+        </header>
+        <div class="body-content row">
+            <div ncy-breadcrumb></div>
+            <div class="col-xs-12 col-sm-push-3 col-sm-6 container-fluid" style="background-color: #f5deb3">
+                <div class="">
+                    <uib-alert class="row" ng-repeat="alert in $root.alerts" dismiss-on-timeout="5000" type="{{alert.type}}" close="closeAlert($index)" ng-bind="alert.msg"></uib-alert>
+                    <div class="top20" ui-view autoscroll="false">
+                        <my-app></my-app>
+                        <!--div class="col-md-6" ui-view="newsFeed"></div>
+                        <div class="col-md-6" ui-view="blogsFeed"></div>-->
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-pull-6 col-sm-3 container-fluid" ui-view="leftContainer" ng-controller="leftContainerCtrl">
+                <section class="col-md- alert-info row">
+                    <h2>Эксетер </h2>
+                    <div class="col-md-6">
+                        <img src="https://upload.wikimedia.org/wikipedia/ru/f/f7/Exeter_City_Logo.png" />
+                    </div>
+                    <div class="col-md-6">
+                        <span style="text-align: center; font-size: 45pt">3:0</span>
+                    </div>
+                </section>
+                <section class="col-md- alert-danger row">
+                    <div class="col-md-12"> Лучший игрок матча с Эксетером </div>
+                    <div styleclass="col-md-12">
+                        <img src="http://www.myliverpool.ru/images/Players/Squad12-13/Joe_Allen.png" />
+                    </div>
+                    <div class="col-md-12">
+                        Джо Аллен
+                    </div>
+                </section>
+                <section class="row"></section>
+            </div>
+            <div class="col-xs-6 col-sm-3 container-fluid" ui-view="rightContainer">
+                <span class="col-sx-12" ng-if="vm.isAdminAssistant()"><a href="#" ng-click="vm.updateTable()">Обновить таблицу</a></span>
+                <section ng-include="'app/home/views/rightSidebar.html'" class="row"></section>
+            </div>
+        </div>
+        <hr />
+        <footer class="bottom container-fluid">
+            <p>&copy; @DateTime.Now.Year - @CommonMessages.SiteTitleAddress</p>
+        </footer>
+    </div>
     <!-- 1. Load libraries -->
     <script src="js/shim.min.js"></script>
     <script src="js/zone.js"></script>

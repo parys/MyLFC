@@ -1,9 +1,11 @@
 ﻿import { provideRouter, RouterConfig } from '@angular/router';
-import { NewsComponent } from './news/news/news.component';
+import { NewsDetailComponent } from './news/news-detail/news-detail.component';
+import { NewsListComponent } from './news/news-list/news-list.component';
 //import { AboutComponent } from './about/about.component';
 
 export const routes: RouterConfig = [
-    { path: '', component: NewsComponent },
+    { path: '', component: NewsListComponent },
+    { path: 'news', component: NewsDetailComponent }
     // { path: 'about', component: AboutComponent },
 ];
 

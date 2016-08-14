@@ -9,7 +9,7 @@
     "outDir": "./wwwroot/app",
     "removeComments": false,
     "sourceMap": true,
-    "target": "es6"
+    "target": "es5"
   },
   "compileOnSave": true,
   "exclude": [
