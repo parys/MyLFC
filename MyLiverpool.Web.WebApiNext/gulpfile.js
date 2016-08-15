@@ -85,4 +85,9 @@ gulp.task('copy-allOther', function () {
 gulp.task('copy-fonts', function() {
     return gulp.src(buildConfig.sources.fonts)
         .pipe(gulp.dest(buildConfig.rootFontsFolder));
-})
+});
+
+gulp.task('copy-css', function() {
+    return gulp.src(buildConfig.sources.bootstrapPath)
+        .pipe(gulp.dest(buildConfig.rootCssFolder));
+});

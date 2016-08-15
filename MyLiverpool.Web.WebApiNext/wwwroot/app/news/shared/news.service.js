@@ -8,48 +8,46 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var http_1 = require('@angular/http');
+const core_1 = require('@angular/core');
+const http_1 = require('@angular/http');
 require('rxjs/add/operator/map');
-var app_constants_1 = require('../../app.constants');
-var NewsService = (function () {
-    function NewsService(http, configuration) {
-        var _this = this;
+const app_constants_1 = require('../../app.constants');
+let NewsService = class NewsService {
+    constructor(http, configuration) {
         this.http = http;
         this.configuration = configuration;
-        this.GetAll = function () {
-            return _this.http.get(_this.actionUrl).map(function (res) { return res.json(); });
+        this.GetAll = () => {
+            return this.http.get(this.actionUrl).map(res => res.json());
         };
-        this.GetSingle = function (id) {
-            return _this.http.get(_this.actionUrl + id).map(function (res) { return res.json(); });
+        this.GetSingle = (id) => {
+            return this.http.get(this.actionUrl + id).map(res => res.json());
         };
-        this.Add = function (item) {
+        this.Add = (item) => {
             var toAdd = JSON.stringify({ ItemName: item });
-            return _this.http.post(_this.actionUrl, JSON.stringify(item), { headers: _this.headers }).map(function (res) { return res.json(); });
+            return this.http.post(this.actionUrl, JSON.stringify(item), { headers: this.headers }).map(res => res.json());
         };
-        this.Update = function (id, itemToUpdate) {
+        this.Update = (id, itemToUpdate) => {
             // var toUpdate = 
-            return _this.http
-                .put(_this.actionUrl + id, JSON.stringify(itemToUpdate), { headers: _this.headers })
-                .map(function (res) { return res.json(); });
+            return this.http
+                .put(this.actionUrl + id, JSON.stringify(itemToUpdate), { headers: this.headers })
+                .map(res => res.json());
         };
-        this.Delete = function (id) {
-            return _this.http.delete(_this.actionUrl + id).map(function (response) { return response.json(); });
+        this.Delete = (id) => {
+            return this.http.delete(this.actionUrl + id).map(response => response.json());
         };
         this.actionUrl = configuration.ServerWithApiUrl + 'news/';
         this.headers = new http_1.Headers();
         this.headers.append('Content-Type', 'application/json');
         this.headers.append('Accept', 'application/json');
     }
-    NewsService.prototype.extractData = function (res) {
-        var body = res.json();
+    extractData(res) {
+        let body = res.json();
         return body.data || {};
-    };
-    NewsService = __decorate([
-        core_1.Injectable(), 
-        __metadata('design:paramtypes', [http_1.Http, app_constants_1.Configuration])
-    ], NewsService);
-    return NewsService;
-}());
+    }
+};
+NewsService = __decorate([
+    core_1.Injectable(), 
+    __metadata('design:paramtypes', [http_1.Http, app_constants_1.Configuration])
+], NewsService);
 exports.NewsService = NewsService;
 //# sourceMappingURL=news.service.js.map

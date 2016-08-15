@@ -8,32 +8,30 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var common_1 = require('@angular/common');
-var news_service_1 = require('../shared/news.service');
-var NewsListComponent = (function () {
-    function NewsListComponent(newsService) {
+const core_1 = require('@angular/core');
+const common_1 = require('@angular/common');
+const news_service_1 = require('../shared/news.service');
+let NewsListComponent = class NewsListComponent {
+    constructor(newsService) {
         this.newsService = newsService;
     }
-    NewsListComponent.prototype.ngOnInit = function () {
-        var _this = this;
+    ngOnInit() {
         this.newsService
             .GetAll()
-            .subscribe(function (data) { return _this.parsePageable(data); }, function (error) { return console.log(error); }, function () { return console.log(_this.items); });
-    };
-    NewsListComponent.prototype.parsePageable = function (pageable) {
+            .subscribe(data => this.parsePageable(data), error => console.log(error), () => console.log("success load list news"));
+    }
+    parsePageable(pageable) {
         this.items = pageable.list; //todo parse others
-    };
-    NewsListComponent = __decorate([
-        core_1.Component({
-            selector: 'news-list',
-            templateUrl: 'app/news/news-list/news-list.component.html',
-            directives: [common_1.CORE_DIRECTIVES],
-            providers: [news_service_1.NewsService]
-        }), 
-        __metadata('design:paramtypes', [news_service_1.NewsService])
-    ], NewsListComponent);
-    return NewsListComponent;
-}());
+    }
+};
+NewsListComponent = __decorate([
+    core_1.Component({
+        selector: 'news-list',
+        templateUrl: 'app/news/news-list/news-list.component.html',
+        directives: [common_1.CORE_DIRECTIVES],
+        providers: [news_service_1.NewsService]
+    }), 
+    __metadata('design:paramtypes', [news_service_1.NewsService])
+], NewsListComponent);
 exports.NewsListComponent = NewsListComponent;
 //# sourceMappingURL=news-list.component.js.map

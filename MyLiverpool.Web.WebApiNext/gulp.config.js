@@ -16,6 +16,7 @@ module.exports = {
 
         angularRC: "node_modules/@angular/**/*.js",
         Rxjs: "node_modules/rxjs/**/*.js",
-        fonts: "node_modules/bootstrap/fonts/*.{ttf,woff,eot,svg,woff2}"
+        fonts: "node_modules/bootstrap/fonts/*.{ttf,woff,eot,svg,woff2}",
+        bootstrapPath: "node_modules/bootstrap/dist/css/*.{css,map}"
     }
 };

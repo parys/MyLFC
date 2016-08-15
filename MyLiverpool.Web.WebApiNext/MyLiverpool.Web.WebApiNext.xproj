@@ -16,8 +16,6 @@
     <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <ItemGroup>
-  </ItemGroup>
-  <ItemGroup>
     <DnxInvisibleFolder Include="Controllers\" />
     <DnxInvisibleFolder Include="Views\" />
   </ItemGroup>

@@ -7,8 +7,9 @@ namespace MyLiverpool.Business.DTO
     {
         public int Id { get; set; }
 
-        public int NewsCategoryId { get; set; }
-        public string NewsCategoryName { get; set; }
+        public int CategoryId { get; set; }
+
+        public string CategoryName { get; set; }
 
         //   public bool CanCommentary { get; set; }
 

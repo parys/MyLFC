@@ -24,7 +24,7 @@ export class NewsListComponent implements OnInit {
                 .GetAll()
                 .subscribe(data => this.parsePageable(data),
                 error => console.log(error),
-                () => console.log(this.items));
+                () => console.log("success load list news"));
         }
 
     private parsePageable(pageable: Pageable<News>): void {
