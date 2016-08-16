@@ -11,27 +11,40 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 const core_1 = require('@angular/core');
 const common_1 = require('@angular/common');
 const news_service_1 = require('../shared/news.service');
+const router_1 = require('@angular/router');
 let NewsDetailComponent = class NewsDetailComponent {
-    constructor(_newsService) {
+    constructor(_newsService, route) {
         this._newsService = _newsService;
+        this.route = route;
         this.message = "Hello from HomeComponent constructor";
     }
+    //   constructor(
+    //     private ,
+    //     private router: Router,
+    //   private service: HeroService) { }
     ngOnInit() {
+        //  let id = +this.route.params['id'];
+        //  console.log(id);
+        //= +params['id'];
         //    this._dataService
         //        .GetAll()
         //        .subscribe(data => this.values = data,
         //        error => console.log(error),
         //        () => console.log('Get all complete'));
+        //this.route.params
+        //    .map(params => params['id'])
+        //    .switchMap(id => this.contactsService.getContact(id))
+        //    .subscribe(contact => this.contact = contact);
     }
 };
 NewsDetailComponent = __decorate([
     core_1.Component({
         selector: 'news-detail',
         templateUrl: 'app/news/news-detail/news-detail.component.html',
-        directives: [common_1.CORE_DIRECTIVES],
+        directives: [common_1.CORE_DIRECTIVES, router_1.ROUTER_DIRECTIVES],
         providers: [news_service_1.NewsService]
     }), 
-    __metadata('design:paramtypes', [news_service_1.NewsService])
+    __metadata('design:paramtypes', [news_service_1.NewsService, router_1.ActivatedRoute])
 ], NewsDetailComponent);
 exports.NewsDetailComponent = NewsDetailComponent;
 //# sourceMappingURL=news-detail.component.js.map

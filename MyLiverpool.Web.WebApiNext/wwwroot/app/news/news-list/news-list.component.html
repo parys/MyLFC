@@ -1,27 +1,25 @@
-﻿<div class="container-fluid"> 
+﻿<div class="container-fluid">
     <div> <!--ng-if="vm.page > 0">-->
         <!--form class="form-inline">
-            <div class="form-group">
-                <select class="form-control"
-                        ng-model="vm.categoryId"
-                        ng-options="category.id as category.name for category in vm.categories" ng-change="vm.changeCategoryId()"></select>
-            </div>
-            <div class="form-group">
-                <input class="form-control" ng-model="vm.userName" ng-model-options="{debounce: 1000}" ng-change="vm.filterByUserName()" placeholder="Логин" /> <!--todo magic number--
-            </div>
+        <div class="form-group">
+            <select class="form-control"
+                    ng-model="vm.categoryId"
+                    ng-options="category.id as category.name for category in vm.categories" ng-change="vm.changeCategoryId()"></select>
+        </div>
+        <div class="form-group">
+        <input class="form-control" ng-model="vm.userName" ng-model-options="{debounce: 1000}" ng-change="vm.filterByUserName()" placeholder="Логин"/> <!--todo magic number--
+        </div>
         </form-->
     </div>
     <div class="row" *ngFor="let item of items">
-        {{item | json}}
-        <!--div class="" *ngIf="!item.pending"> < || isEditor()">
-        <div class="flex-vertical-center"-->
-        <a ui-sref="newsInfo({id: item.id})" class="col-xs-9 col-sm-9"><h4 [textContent]="item.title"></h4></a>
-        <!--span class="col-xs-3 col-sm-3 pull-right" ng-if="isNewsmaker()">
-        <a ng-if="isEditor()" ng-show="item.pending" ng-click="vm.activate($index)"><span class="glyphicon glyphicon-ok"></span></a>
-        <a ng-if="isEditor() || isUserAuthor(userId(), item.authorId)" ui-sref="newsEdit({id: item.id})"><span class="glyphicon glyphicon-pencil"></span></a>
-        <a ng-if="isEditor() || isUserAuthor(userId(), item.authorId)" ng-click="vm.delete($index)"><span class="glyphicon glyphicon-trash"></span></a>
-        </span>
-        </div-->
+        <!--div class="" *ngIf="!item.pending"> < || isEditor()"-->
+        <div class="flex-vertical-center"><a [routerLink]="['/news', item.id]" class="col-xs-9 col-sm-9"><h4 [textContent]="item.title"></h4></a>
+            <!--span class="col-xs-3 col-sm-3 pull-right" ng-if="isNewsmaker()">
+            <a ng-if="isEditor()" ng-show="item.pending" ng-click="vm.activate($index)"><span class="glyphicon glyphicon-ok"></span></a>
+            <a ng-if="isEditor() || isUserAuthor(userId(), item.authorId)" ui-sref="newsEdit({id: item.id})"><span class="glyphicon glyphicon-pencil"></span></a>
+            <a ng-if="isEditor() || isUserAuthor(userId(), item.authorId)" ng-click="vm.delete($index)"><span class="glyphicon glyphicon-trash"></span></a>
+            </span-->
+        </div>
         <div class="">
             <img class="img-thumbnail news-mini center-block" alt="" [src]="item.photoPath"/>
         </div>

@@ -4,11 +4,12 @@ import { NewsService } from '../shared/news.service';
 import { News } from "../shared/news.model";
 import { Observable } from 'rxjs/Observable';
 import { Pageable } from '../../shared/pageable.model';
+import { ROUTER_DIRECTIVES } from '@angular/router';
 
 @Component({
     selector: 'news-list',
     templateUrl: 'app/news/news-list/news-list.component.html',
-    directives: [CORE_DIRECTIVES],
+    directives: [CORE_DIRECTIVES, ROUTER_DIRECTIVES],
     providers: [NewsService]
 })
 

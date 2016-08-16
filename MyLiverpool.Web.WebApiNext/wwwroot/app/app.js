@@ -10,8 +10,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 const core_1 = require('@angular/core');
 const router_1 = require('@angular/router');
-//import { NewsDetailComponent } from './news/news-detail/news-detail.component';
 let AppComponent = class AppComponent {
+    constructor(router) {
+        this.router = router;
+    }
 };
 AppComponent = __decorate([
     core_1.Component({
@@ -19,7 +21,7 @@ AppComponent = __decorate([
         template: `<router-outlet> </router-outlet>`,
         directives: [router_1.ROUTER_DIRECTIVES]
     }), 
-    __metadata('design:paramtypes', [])
+    __metadata('design:paramtypes', [router_1.Router])
 ], AppComponent);
 exports.AppComponent = AppComponent;
 //# sourceMappingURL=app.js.map

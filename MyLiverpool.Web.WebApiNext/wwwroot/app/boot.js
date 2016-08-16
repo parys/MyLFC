@@ -1,4 +1,5 @@
 "use strict";
+///<reference path="../../node_modules/@angular/platform-browser/src/facade/browser.d.ts"/> 
 const platform_browser_dynamic_1 = require('@angular/platform-browser-dynamic');
 const http_1 = require('@angular/http');
 const app_constants_1 = require('./app.constants');
