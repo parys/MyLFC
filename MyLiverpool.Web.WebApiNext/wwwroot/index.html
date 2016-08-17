@@ -46,8 +46,8 @@
                     </div>
                 </form>
             </li>
-            <li ng-if="!vm.loggedIn()">
-                <a ui-sref="register">Регистрация</a>
+            <li> <!--ng-if="!vm.loggedIn()">-->
+                <a [routerLink]="['/signup']">Регистрация</a>
             </li>
             
             <li>
