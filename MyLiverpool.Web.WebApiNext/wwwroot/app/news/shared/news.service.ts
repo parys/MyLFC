@@ -25,7 +25,7 @@ export class NewsService {
         return this.http.get(this.actionUrl).map(res => res.json());
     };
 
-    public GetSingle = (id: number): Observable<News>  => {
+    public GetSingle = (id: number): Observable<News> => {
         return this.http.get(this.actionUrl + id).map(res => res.json());
     };
 
@@ -36,7 +36,7 @@ export class NewsService {
     };
 
     public Update = (id: number, itemToUpdate: News): Observable<News> => {
-       // var toUpdate = 
+        // var toUpdate = 
         return this.http
             .put(this.actionUrl + id, JSON.stringify(itemToUpdate), { headers: this.headers })
             .map(res => res.json());

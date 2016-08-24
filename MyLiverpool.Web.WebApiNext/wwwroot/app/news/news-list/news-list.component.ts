@@ -17,7 +17,7 @@ export class NewsListComponent implements OnInit {
 
     items: News[];
 
-    constructor(private newsService: NewsService) {
+    constructor(private newsService: NewsService) { //todo NEED CONFIGURation
     }
 
     ngOnInit() {
