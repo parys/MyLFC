@@ -1,1 +1,42 @@
-﻿11 
+﻿<div class="" *ngIf="item">
+    <div class="alert-danger flex-vertical-center">
+        <h3 class="col-xs-12 col-sm-12">
+            <span class="col-xs-9 col-sm-9" [textContent]="item.title"></span>
+            <span class="col-xs-3 col-sm-3 pull-right"> <!-- todo ng-if="isNewsmaker()">-->
+                <!--span class="small pull-right">
+                    <->a ng-if="isEditor()" ng-show="vm.item.pending" href="" ng-click="vm.activate()"><span class="glyphicon glyphicon-ok"></span></!--a>
+                    <a ng-if="isEditor() || isUserAuthor(userId(), vm.item.authorId)" ui-sref="newsEdit({id: vm.item.id})"><span class="glyphicon glyphicon-pencil"></span></a>
+                    <a ng-if="isEditor() || isUserAuthor(userId(), vm.item.authorId)" href="" ng-click="vm.delete()"><span class="glyphicon glyphicon-trash"></span></a>
+                </span-->
+            </span>
+        </h3>
+    </div>
+    <div class="">
+        <article [innerHTML]="item.message"></article>
+        <div class="alert-warning">
+            <ul class="list-inline">
+                <li><label>Просмотры:</label> <span [textContent]="item.reads"></span></li>
+                <li><label>Источник:</label> <span [textContent]="item.source"></span></li>
+                <li><label>Дата добавления:</label> <span [textContent]="item.additionTime | date:'medium'"></span></li>
+                <li><label>Категория:</label> <a ui-sref="news({page: 1, categoryId: vm.item.categoryId})"> <span [textContent]="item.categoryName"></span> </a></li>
+            </ul>
+        </div>
+    </div>
+
+    Комментарии: <span [textContent]="item.commentsCount"></span>
+
+    <div class="" ng-repeat="comment in vm.item.comments">
+        <tree comment="comment" deep="0"></tree>
+    </div>
+
+    <form class="form-horizontal" name="commentForm" role="form">
+        <div class="col-md-12" ng-if="vm.item.canCommentary" ng-show="loggedIn()">
+            <div class="col-md-12">
+                <textarea mark-it-up class="col-md-offset-2 col-md-8" rows="6" name="message" ng-model="vm.newComment.message" validation="required"></textarea>
+            </div>
+            <div class="">
+                <button class="btn btn-primary center-block" ng-disabled="commentForm.$invalid" ng-click="vm.addComment()">Добавить</button>
+            </div>
+        </div>
+    </form>
+</div>

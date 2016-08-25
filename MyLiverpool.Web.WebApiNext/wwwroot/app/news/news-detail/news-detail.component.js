@@ -13,28 +13,22 @@ const common_1 = require('@angular/common');
 const news_service_1 = require('../shared/news.service');
 const router_1 = require('@angular/router');
 let NewsDetailComponent = class NewsDetailComponent {
-    constructor(_newsService, route) {
-        this._newsService = _newsService;
+    constructor(newsService, route) {
+        this.newsService = newsService;
         this.route = route;
-        this.message = "Hello from HomeComponent constructor";
     }
-    //   constructor(
-    //     private ,
-    //     private router: Router,
-    //   private service: HeroService) { }
     ngOnInit() {
-        //  let id = +this.route.params['id'];
-        //  console.log(id);
-        //= +params['id'];
-        //    this._dataService
-        //        .GetAll()
-        //        .subscribe(data => this.values = data,
-        //        error => console.log(error),
-        //        () => console.log('Get all complete'));
-        //this.route.params
-        //    .map(params => params['id'])
-        //    .switchMap(id => this.contactsService.getContact(id))
-        //    .subscribe(contact => this.contact = contact);
+        this.sub = this.route.params.subscribe(params => {
+            let id = +params['id'];
+            this.newsService.GetSingle(id)
+                .subscribe(data => this.parse(data), error => console.log(error), () => console.log("success load detail news"));
+        });
+    }
+    ngOnDestroy() {
+        this.sub.unsubscribe();
+    }
+    parse(item) {
+        this.item = item; //todo parse others
     }
 };
 NewsDetailComponent = __decorate([

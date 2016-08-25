@@ -40,6 +40,15 @@ namespace MyLiverpool.Web.WebApi.Controllers
             return Ok(model);
         }
 
+        [Route("{id}")]
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IHttpActionResult> GetNewsItem2(int id)
+        {
+            var model = await _materialService.GetDtoAsync(id, Type);
+            return Ok(model);
+        }
+
         [Route]
         [HttpDelete]
         [Authorize(Roles = "NewsStart")]

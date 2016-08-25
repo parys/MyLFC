@@ -1,7 +1,9 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CORE_DIRECTIVES } from '@angular/common';
 import { NewsService } from '../shared/news.service';
 import { Router, ActivatedRoute, ROUTER_DIRECTIVES } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
+import { News } from "../shared/news.model";
 
 @Component({
     selector: 'news-detail',
@@ -10,33 +12,28 @@ import { Router, ActivatedRoute, ROUTER_DIRECTIVES } from '@angular/router';
     providers: [NewsService]
 })
 
-export class NewsDetailComponent implements OnInit {
+export class NewsDetailComponent implements OnInit, OnDestroy {
+    
+    private sub: Subscription;
+    item: News;
 
-    public message: string;
-    public values: any[];
-
-    constructor(private _newsService: NewsService, private route: ActivatedRoute) {
-        this.message = "Hello from HomeComponent constructor";
-    }
-
- //   constructor(
-   //     private ,
-   //     private router: Router,
-     //   private service: HeroService) { }
+    constructor(private newsService: NewsService, private route: ActivatedRoute) {}
 
     ngOnInit() {
-      //  let id = +this.route.params['id'];
-      //  console.log(id);
-        //= +params['id'];
-        //    this._dataService
-        //        .GetAll()
-        //        .subscribe(data => this.values = data,
-        //        error => console.log(error),
-        //        () => console.log('Get all complete'));
+        this.sub = this.route.params.subscribe(params => {
+            let id = +params['id'];
+            this.newsService.GetSingle(id)
+                .subscribe(data => this.parse(data),
+                error => console.log(error),
+                () => console.log("success load detail news"));
+        });
+    }
 
-        //this.route.params
-        //    .map(params => params['id'])
-        //    .switchMap(id => this.contactsService.getContact(id))
-        //    .subscribe(contact => this.contact = contact);
+    ngOnDestroy() {
+        this.sub.unsubscribe();
+    }
+
+    private parse(item: News): void {
+        this.item = item; //todo parse others
     }
 }

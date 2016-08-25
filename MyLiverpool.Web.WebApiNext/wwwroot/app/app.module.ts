@@ -11,10 +11,11 @@ import { Configuration } from "./app.constants";
 import { NewsDetailComponent } from "./news/news-detail/news-detail.component";
 import { AccountSignupComponent } from "./account/account-signup/account-signup.component";
 import { NewsService } from "./news/shared/news.service";
+import { TranslateModule } from 'ng2-translate';
 
 @NgModule({
-    imports: [BrowserModule, routing, FormsModule, HttpModule ],       // module dependencies
-    declarations: [AppComponent, NewsListComponent, NewsDetailComponent, AccountSignupComponent],   // components and directives
+    imports: [BrowserModule, FormsModule, HttpModule, routing, TranslateModule.forRoot()],       // module dependencies
+    declarations: [AccountSignupComponent, AppComponent, NewsListComponent, NewsDetailComponent],   // components and directives
     bootstrap: [AppComponent],     // root component
     providers: [NewsService, Configuration]                    // services
 })
