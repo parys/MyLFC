@@ -17,6 +17,7 @@
 /// <reference path="app/news/shared/index.js" />
 /// <reference path="app/news/shared/news.model.js" />
 /// <reference path="app/news/shared/news.service.js" />
+/// <reference path="app/shared/index.js" />
 /// <reference path="app/shared/pageable.model.js" />
 /// <reference path="app/tslint.js" />
 /// <reference path="js/@angular/common/bundles/common.umd.js" />

@@ -27,7 +27,7 @@ AppModule = __decorate([
         imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, http_1.HttpModule, app_routes_1.routing, ng2_translate_1.TranslateModule.forRoot()],
         declarations: [account_signup_component_1.AccountSignupComponent, app_component_1.AppComponent, news_list_component_1.NewsListComponent, news_detail_component_1.NewsDetailComponent],
         bootstrap: [app_component_1.AppComponent],
-        providers: [news_service_1.NewsService, app_constants_1.Configuration] // services
+        providers: [news_service_1.NewsService, app_constants_1.Configuration, app_routes_1.appRoutingProviders] // services
     }), 
     __metadata('design:paramtypes', [])
 ], AppModule);

@@ -18,7 +18,7 @@ let AppComponent = class AppComponent {
 AppComponent = __decorate([
     core_1.Component({
         selector: 'my-app',
-        template: `<router-outlet> </router-outlet>`,
+        templateUrl: 'app/app.component.html',
         directives: [router_1.ROUTER_DIRECTIVES]
     }), 
     __metadata('design:paramtypes', [router_1.Router])

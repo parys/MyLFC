@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent }  from './app.component';
-import { routing } from "./app.routes";
+import { routing, appRoutingProviders } from "./app.routes";
 import { NewsListComponent } from "./news/news-list/news-list.component";
 import { Configuration } from "./app.constants";
 
@@ -17,6 +17,6 @@ import { TranslateModule } from 'ng2-translate';
     imports: [BrowserModule, FormsModule, HttpModule, routing, TranslateModule.forRoot()],       // module dependencies
     declarations: [AccountSignupComponent, AppComponent, NewsListComponent, NewsDetailComponent],   // components and directives
     bootstrap: [AppComponent],     // root component
-    providers: [NewsService, Configuration]                    // services
+    providers: [NewsService, Configuration, appRoutingProviders]                    // services
 })
 export class AppModule { }
