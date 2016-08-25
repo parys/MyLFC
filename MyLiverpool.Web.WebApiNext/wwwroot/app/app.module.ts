@@ -12,10 +12,11 @@ import { NewsDetailComponent } from "./news/news-detail/news-detail.component";
 import { AccountSignupComponent } from "./account/account-signup/account-signup.component";
 import { NewsService } from "./news/shared/news.service";
 import { TranslateModule } from 'ng2-translate';
+import {NewsEditComponent} from "./news/news-edit/news-edit.component";
 
 @NgModule({
-    imports: [BrowserModule, FormsModule, HttpModule, routing, TranslateModule.forRoot()],       // module dependencies
-    declarations: [AccountSignupComponent, AppComponent, NewsListComponent, NewsDetailComponent],   // components and directives
+    imports: [BrowserModule, FormsModule, HttpModule, routing, TranslateModule.forRoot()],       // module dependencies RouterModule.forRoot(routes, { useHash: true })  // .../#/crisis-center/
+    declarations: [AccountSignupComponent, AppComponent, NewsListComponent, NewsDetailComponent, NewsEditComponent],   // components and directives
     bootstrap: [AppComponent],     // root component
     providers: [NewsService, Configuration, appRoutingProviders]                    // services
 })

@@ -12,6 +12,7 @@
 /// <reference path="app/news/index.js" />
 /// <reference path="app/news/news-detail/index.js" />
 /// <reference path="app/news/news-detail/news-detail.component.js" />
+/// <reference path="app/news/news-edit/news-edit.component.js" />
 /// <reference path="app/news/news-list/index.js" />
 /// <reference path="app/news/news-list/news-list.component.js" />
 /// <reference path="app/news/shared/index.js" />

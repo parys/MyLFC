@@ -12,7 +12,7 @@ const core_1 = require('@angular/core');
 const common_1 = require('@angular/common');
 const news_service_1 = require('../shared/news.service');
 const router_1 = require('@angular/router');
-let NewsDetailComponent = class NewsDetailComponent {
+let NewsEditComponent = class NewsEditComponent {
     constructor(newsService, route) {
         this.newsService = newsService;
         this.route = route;
@@ -20,8 +20,10 @@ let NewsDetailComponent = class NewsDetailComponent {
     ngOnInit() {
         this.sub = this.route.params.subscribe(params => {
             let id = +params['id'];
-            this.newsService.GetSingle(id)
-                .subscribe(data => this.parse(data), error => console.log(error), () => console.log("success load edit news"));
+            if (id > 0) {
+                this.newsService.GetSingle(id)
+                    .subscribe(data => this.parse(data), error => console.log(error), () => console.log("success load detail news"));
+            }
         });
     }
     ngOnDestroy() {
@@ -31,14 +33,14 @@ let NewsDetailComponent = class NewsDetailComponent {
         this.item = item;
     }
 };
-NewsDetailComponent = __decorate([
+NewsEditComponent = __decorate([
     core_1.Component({
-        selector: 'news-detail',
-        templateUrl: 'app/news/news-detail/news-detail.component.html',
+        selector: 'news-edit',
+        templateUrl: 'app/news/news-edit/news-edit.component.html',
         directives: [common_1.CORE_DIRECTIVES, router_1.ROUTER_DIRECTIVES],
         providers: [news_service_1.NewsService]
     }), 
     __metadata('design:paramtypes', [news_service_1.NewsService, router_1.ActivatedRoute])
-], NewsDetailComponent);
-exports.NewsDetailComponent = NewsDetailComponent;
-//# sourceMappingURL=news-detail.component.js.map
+], NewsEditComponent);
+exports.NewsEditComponent = NewsEditComponent;
+//# sourceMappingURL=news-edit.component.js.map

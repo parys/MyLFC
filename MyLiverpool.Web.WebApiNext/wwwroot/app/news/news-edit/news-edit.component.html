@@ -1,0 +1,79 @@
+﻿<div class="top20" *ngIf="item">
+    <form class="form-horizontal" name="editForm" role="form">
+        <div class="form-group">
+            <label class="control-label col-xs-2 col-sm-2"> Категория:</label>
+            <div class="col-xs-10 col-sm-10">
+                <!--<select class="form-control" name="categoryId" [(ngModel)]="vm.item.categoryId" ng-options="category.id as category.name for category in vm.categories" validation="required"></select>-->
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-xs-2 col-sm-2"> Название:</label>
+            <div class="col-xs-10 col-sm-10">
+                <input class="form-control" name="title" [(ngModel)]="item.title" validation="required" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-xs-2 col-sm-2"> Краткое описание:</label>
+            <div class="col-xs-10 col-sm-10">
+                <textarea mark-it-up class="form-control" name="brief" rows="4" [(ngModel)]="item.brief" validation="required"> </textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-xs-2 col-sm-2"> Текст новости:</label>
+            <div class="col-xs-10 col-sm-10">
+                <textarea mark-it-up class="form-control" name="message" rows="6" [(ngModel)]="item.message" validation="required"> </textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-xs-2 col-sm-2"> Источник:</label>
+            <div class="col-xs-10 col-sm-10">
+                <input class="form-control" name="source" [(ngModel)]="item.source" validation="required" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-xs-2 col-sm-2"> Главное фото:</label>
+            <div class="col-xs-10 col-sm-10">
+                <input class="form-control" name="photoPath" [(ngModel)]="item.photoPath" validation="required" />
+            </div>
+        </div>
+        <div class="" ui-view="files" autoscroll="false"></div>
+
+        <div class="form-group">
+            <div class="col-xs-offset-2 col-sm-offset-2 col-xs-10 col-sm-10">
+                <div class="checkbox">
+                    <label class="control-label">
+                        <input class="checkbox" name="canCommentary" [(ngModel)]="item.canCommentary" type="checkbox" checked /> Разрешить комментарии
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-xs-offset-2 col-sm-offset-2 col-xs-10 col-sm-10">
+                <div class="checkbox">
+                    <label class="control-label">
+                        <input class="checkbox" name="onTop" [(ngModel)]="item.onTop" type="checkbox" /> Наверху
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-xs-offset-2 col-sm-offset-2 col-xs-10 col-sm-10">
+                <div class="checkbox">
+                    <label class="control-label">
+                        <input class="checkbox" name="pending" [(ngModel)]="item.pending" type="checkbox" /> Отложена
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-xs-offset-2 col-sm-offset-2 col-xs-10 col-sm-10">
+                <input type="submit" value="Сохранить"  (click)="save()" class="btn btn-default" /> <!--ng-disabled="editForm.$invalid"-->
+            </div>
+        </div>
+    </form>
+</div>

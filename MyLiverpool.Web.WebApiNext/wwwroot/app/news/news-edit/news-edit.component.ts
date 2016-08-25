@@ -6,26 +6,28 @@ import { Subscription } from 'rxjs/Subscription';
 import { News } from "../shared/news.model";
 
 @Component({
-    selector: 'news-detail',
-    templateUrl: 'app/news/news-detail/news-detail.component.html',
+    selector: 'news-edit',
+    templateUrl: 'app/news/news-edit/news-edit.component.html',
     directives: [CORE_DIRECTIVES, ROUTER_DIRECTIVES],
     providers: [NewsService]
 })
 
-export class NewsDetailComponent implements OnInit, OnDestroy {
-    
+export class NewsEditComponent implements OnInit, OnDestroy {
+
     private sub: Subscription;
     item: News;
 
-    constructor(private newsService: NewsService, private route: ActivatedRoute) {}
+    constructor(private newsService: NewsService, private route: ActivatedRoute) { }
 
     ngOnInit() {
         this.sub = this.route.params.subscribe(params => {
             let id = +params['id'];
-            this.newsService.GetSingle(id)
-                .subscribe(data => this.parse(data),
-                error => console.log(error),
-                () => console.log("success load edit news"));
+            if (id > 0) {
+                this.newsService.GetSingle(id)
+                    .subscribe(data => this.parse(data),
+                        error => console.log(error),
+                        () => console.log("success load detail news"));
+            }
         });
     }
 

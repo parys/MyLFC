@@ -3,11 +3,12 @@ const router_1 = require('@angular/router');
 const news_detail_component_1 = require('./news/news-detail/news-detail.component');
 const news_list_component_1 = require('./news/news-list/news-list.component');
 const account_signup_component_1 = require("./account/account-signup/account-signup.component");
+const news_edit_component_1 = require("./news/news-edit/news-edit.component");
 const routes = [
     { path: 'signup', component: account_signup_component_1.AccountSignupComponent },
     { path: 'news', component: news_list_component_1.NewsListComponent },
     { path: 'news/:id', component: news_detail_component_1.NewsDetailComponent },
-    // { path: '/edit', component: NewsEditComponent }
+    { path: 'news/:id/edit', component: news_edit_component_1.NewsEditComponent },
     { path: '', component: news_list_component_1.NewsListComponent }
 ];
 exports.appRoutingProviders = [];
