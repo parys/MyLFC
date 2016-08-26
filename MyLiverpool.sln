@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyLiverpool.Web.UI", "MyLiverpool\MyLiverpool.Web.UI.csproj", "{0B38DD74-787D-4E5B-8DE3-7434D4311705}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{3540D30E-6F85-4604-B001-5F0DA7D44EA8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyLiverpoolSite.Data.Entities", "Data\MyLiverpoolSite.Data.Entities\MyLiverpoolSite.Data.Entities.csproj", "{996C9442-54C1-4F0A-BC05-AD1C0E09E20B}"
@@ -48,12 +46,6 @@ Global
 		Somee|Any CPU = Somee|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0B38DD74-787D-4E5B-8DE3-7434D4311705}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0B38DD74-787D-4E5B-8DE3-7434D4311705}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0B38DD74-787D-4E5B-8DE3-7434D4311705}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0B38DD74-787D-4E5B-8DE3-7434D4311705}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0B38DD74-787D-4E5B-8DE3-7434D4311705}.Somee|Any CPU.ActiveCfg = Somee|Any CPU
-		{0B38DD74-787D-4E5B-8DE3-7434D4311705}.Somee|Any CPU.Build.0 = Somee|Any CPU
 		{996C9442-54C1-4F0A-BC05-AD1C0E09E20B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{996C9442-54C1-4F0A-BC05-AD1C0E09E20B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{996C9442-54C1-4F0A-BC05-AD1C0E09E20B}.Release|Any CPU.ActiveCfg = Release|Any CPU

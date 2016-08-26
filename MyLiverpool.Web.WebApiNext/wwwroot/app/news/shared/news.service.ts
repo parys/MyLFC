@@ -22,7 +22,7 @@ export class NewsService {
     }
 
     public GetAll = (): Observable<Pageable<News>> => {
-        return this.http.get(this.actionUrl).map(res => res.json());
+        return this.http.get(this.actionUrl + "/list").map(res => res.json());
     };
 
     public GetSingle = (id: number): Observable<News> => {

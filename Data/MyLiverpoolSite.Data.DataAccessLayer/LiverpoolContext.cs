@@ -14,7 +14,8 @@ namespace MyLiverpoolSite.Data.DataAccessLayer
       //  private static bool _created;
 
         public LiverpoolContext()
-            : base("DefaultConnection")//, throwIfV1Schema: false)//@"Data Source=Andrew-PC;Initial Catalog=MyLiverpoolDB;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False") 
+          //  : base("DefaultConnection")//, throwIfV1Schema: false)//@"Data Source=Andrew-PC;Initial Catalog=MyLiverpoolDB;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False") 
+            : base("Server=.;Initial Catalog=MyLiverpool1;Trusted_Connection=True;MultipleActiveResultSets=true")//, throwIfV1Schema: false)//@"Data Source=Andrew-PC;Initial Catalog=MyLiverpoolDB;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False") 
                                                                //Data Source=ANDREW-PC;Initial Catalog=NewDbTest;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False")
         {
 

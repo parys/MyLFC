@@ -2,22 +2,48 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using MyLiverpool.Common.MapperConfigurations.Profiles;
 using MyLiverpool.Web.WebApiNext.Data;
 using MyLiverpool.Web.WebApiNext.Models;
 using MyLiverpool.Web.WebApiNext.Services;
+using MyLiverpoolSite.Business.Contracts;
+using MyLiverpoolSite.Business.Services.Services;
+using MyLiverpoolSite.Data.DataAccessLayer;
+using MyLiverpoolSite.Data.DataAccessLayer.Contracts;
+using MyLiverpoolSite.Data.DataAccessLayer.Repositories;
+using IConfigurationProvider = AutoMapper.IConfigurationProvider;
 
 namespace MyLiverpool.Web.WebApiNext
 {
     public class Startup
     {
+        private static readonly IConfigurationProvider Config = new MapperConfiguration(cfg => {
+            cfg.AddProfile(new ClubMapperProfile());
+            cfg.AddProfile(new ForumMessageMapperProfile());
+            cfg.AddProfile(new ForumSectionMapperProfile());
+            cfg.AddProfile(new ForumSubsectionMapperProfile());
+            cfg.AddProfile(new ForumThemeMapperProfile());
+            cfg.AddProfile(new MatchMapperProfile());
+            cfg.AddProfile(new MaterialMapperProfile());
+            cfg.AddProfile(new MaterialCategoryMapperProfile());
+            cfg.AddProfile(new MaterialCommentMapperProfile());
+            cfg.AddProfile(new PmMapperProfile());
+            cfg.AddProfile(new RoleGroupsMapperProfile());
+            cfg.AddProfile(new UserMapperProfile());
+            cfg.AddProfile(new WishMapperProfile());
+        });
+
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -53,6 +79,9 @@ namespace MyLiverpool.Web.WebApiNext
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
+            RegisterServices(services);
+            //--- from old proj
+            services.AddCors(options => options.AddPolicy("AllowAll", p => p.AllowAnyOrigin())); //fro sof
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -93,10 +122,38 @@ namespace MyLiverpool.Web.WebApiNext
             //app.UseMvc(routes =>
             //{
             //    routes.MapRoute(
-            //        name: "default",
+            //        name: "default",services.AddTransient
             //        template: "{controller=Home}/{action=Index}/{id?}");
             //});
-            
+
+            //----------------------------------------------from OLD PROJECT
+            app.UseCors("AllowAll");
+
+        }
+
+        private void RegisterServices(IServiceCollection services)
+        {
+            // builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsImplementedInterfaces();
+            services.AddTransient<IAccountService, AccountService>();
+            services.AddTransient<IAdminService, AdminService>();
+            services.AddTransient<IClubService, ClubService>();
+          //  services.AddTransient<IIdentityMessageService, EmailService>();
+            services.AddTransient<IForumMessageService, ForumMessageService>();
+            services.AddTransient<IForumSectionService, ForumSectionService>();
+            services.AddTransient<IForumSubsectionService, ForumSubsectionService>();
+            services.AddTransient<IForumThemeService, ForumThemeService>();
+            services.AddTransient<IMatchService, MatchService>();
+            services.AddTransient<IMaterialCategoryService, MaterialCategoryService>();
+            services.AddTransient<IMaterialCommentService, MaterialCommentService>();
+            services.AddTransient<IMaterialService, MaterialService>();
+            services.AddTransient<IPmService, PmService>();
+            services.AddTransient<IWishService, WishService>();
+            services.AddTransient<IRoleService, RoleService>();
+            services.AddTransient<IUploadService, UploadService>();
+            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddTransient<IMaterialRepository, MaterialRepository>();
+            services.AddSingleton<IMapper>(Config.CreateMapper());
         }
     }
 }

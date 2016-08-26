@@ -19,5 +19,11 @@
     <DnxInvisibleFolder Include="Controllers\" />
     <DnxInvisibleFolder Include="Views\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Business\MyLiverpool.Business.DTO\MyLiverpool.Business.DTO.csproj" />
+    <ProjectReference Include="..\Business\MyLiverpoolSite.Business.Contracts\MyLiverpoolSite.Business.Contracts.csproj" />
+    <ProjectReference Include="..\Business\MyLiverpoolSite.Business.Services\MyLiverpoolSite.Business.Services.csproj" />
+    <ProjectReference Include="..\Common\MyLiverpool.Common.MapperConfigurations\MyLiverpool.Common.MapperConfigurations.csproj" />
+  </ItemGroup>
   <Import Project="$(VSToolsPath)\DotNet.Web\Microsoft.DotNet.Web.targets" Condition="'$(VSToolsPath)' != ''" />
 </Project>
