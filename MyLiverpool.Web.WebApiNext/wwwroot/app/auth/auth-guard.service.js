@@ -9,27 +9,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 const core_1 = require('@angular/core');
-const common_1 = require('@angular/common');
 const router_1 = require('@angular/router');
-let AccountSignupComponent = class AccountSignupComponent {
-    //   items: News[];
-    constructor() {
+const auth_service_1 = require('./auth.service');
+let AuthGuard = class AuthGuard {
+    constructor(authService, router) {
+        this.authService = authService;
+        this.router = router;
     }
-    ngOnInit() {
-        //this.newsService
-        //    .GetAll()
-        //    .subscribe(data => this.parsePageable(data),
-        //    error => console.log(error),
-        //    () => console.log("success load list news"));
+    canActivate(route, state) {
+        if (this.authService.isLoggedIn) {
+            return true;
+        }
+        // Store the attempted URL for redirecting
+        this.authService.redirectUrl = state.url;
+        // Navigate to the login page
+        this.router.navigate(['/login']);
+        return false;
     }
 };
-AccountSignupComponent = __decorate([
-    core_1.Component({
-        selector: 'account-signup',
-        templateUrl: 'app/account/account-signup/account-signup.component.html',
-        directives: [common_1.CORE_DIRECTIVES, router_1.ROUTER_DIRECTIVES] //,
-    }), 
-    __metadata('design:paramtypes', [])
-], AccountSignupComponent);
-exports.AccountSignupComponent = AccountSignupComponent;
-//# sourceMappingURL=account-signup.component.js.map
+AuthGuard = __decorate([
+    core_1.Injectable(), 
+    __metadata('design:paramtypes', [auth_service_1.AuthService, router_1.Router])
+], AuthGuard);
+exports.AuthGuard = AuthGuard;
+//# sourceMappingURL=auth-guard.service.js.map

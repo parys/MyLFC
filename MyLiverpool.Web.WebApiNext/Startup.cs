@@ -1,13 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
+using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
+using AspNet.Security.OpenIdConnect.Extensions;
+using AspNet.Security.OpenIdConnect.Server;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http.Authentication;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -81,7 +83,11 @@ namespace MyLiverpool.Web.WebApiNext
             services.AddTransient<ISmsSender, AuthMessageSender>();
             RegisterServices(services);
             //--- from old proj
-            services.AddCors(options => options.AddPolicy("AllowAll", p => p.AllowAnyOrigin())); //fro sof
+            services.AddCors(options => options.AddPolicy("AllowAll", p => p.AllowAnyOrigin())); //from sof
+
+            services.AddAuthentication(options => {
+                options.SignInScheme = "ServerCookie";
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -117,7 +123,126 @@ namespace MyLiverpool.Web.WebApiNext
 
             app.UseIdentity();
             app.UseMvcWithDefaultRoute();
+
+            // secretKey contains a secret passphrase only your server knows
+            //todo simple auth remove
+            //var secretKey = "mysupersecret_se321cretkey!123";
+            //var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(secretKey));
+            //var tokenValidationParameters = new TokenValidationParameters
+            //{
+            //    // The signing key must match!
+            //    ValidateIssuerSigningKey = true,
+            //    IssuerSigningKey = signingKey,
+
+            //    // Validate the JWT Issuer (iss) claim
+            //    ValidateIssuer = true,
+            //    ValidIssuer = "ExampleIssuer3",
+
+            //    // Validate the JWT Audience (aud) claim
+            //    ValidateAudience = true,
+            //    ValidAudience = "ExampleAudience33",
+
+            //    // Validate the token expiry
+            //    ValidateLifetime = true,
+
+            //    // If you want to allow a certain amount of clock drift, set that here:
+            //    ClockSkew = TimeSpan.Zero
+            //};
+            //app.UseJwtBearerAuthentication(new JwtBearerOptions
+            //{
+            //    AutomaticAuthenticate = true,
+            //    AutomaticChallenge = true,
+            //    TokenValidationParameters = tokenValidationParameters
+            //});
             // Add external authentication middleware below. To configure them please see http://go.microsoft.com/fwlink/?LinkID=532715
+            app.UseOpenIdConnectServer(options => {
+                options.TokenEndpointPath = "/connect/token";
+                options.AutomaticAuthenticate = true; //todo change my
+                options.AllowInsecureHttp = true;
+                options.Provider = new OpenIdConnectServerProvider
+                {
+                    // Implement OnValidateTokenRequest to support flows using the token endpoint.
+                    OnValidateTokenRequest = context => {
+                        // Reject token requests that don't use grant_type=password or grant_type=refresh_token.
+                        if (!context.Request.IsPasswordGrantType() && !context.Request.IsRefreshTokenGrantType())
+                        {
+                            context.Reject(
+                                error: OpenIdConnectConstants.Errors.UnsupportedGrantType,
+                                description: "Only grant_type=password and refresh_token " +
+                                             "requests are accepted by this server.");
+
+                            return Task.FromResult(0);
+                        }
+
+                        // Note: you can skip the request validation when the client_id
+                        // parameter is missing to support unauthenticated token requests.
+                        // if (string.IsNullOrEmpty(context.ClientId)) {
+                        //     context.Skip();
+                        // 
+                        //     return Task.FromResult(0);
+                        // }
+
+                        // Note: to mitigate brute force attacks, you SHOULD strongly consider applying
+                        // a key derivation function like PBKDF2 to slow down the secret validation process.
+                        // You SHOULD also consider using a time-constant comparer to prevent timing attacks.
+                        if (string.Equals(context.ClientId, "client_id3", StringComparison.Ordinal) &&
+                            string.Equals(context.ClientSecret, "client_secret44", StringComparison.Ordinal))
+                        {
+                            context.Validate();
+                        }
+
+                        // Note: if Validate() is not explicitly called,
+                        // the request is automatically rejected.
+                        return Task.FromResult(0);
+                    },
+
+                    // Implement OnHandleTokenRequest to support token requests.
+                    OnHandleTokenRequest = context => {
+                        // Only handle grant_type=password token requests and let the
+                        // OpenID Connect server middleware handle the other grant types.
+                        if (context.Request.IsPasswordGrantType())
+                        {
+                            // Implement context.Request.Username/context.Request.Password validation here.
+                            // Note: you can call context Reject() to indicate that authentication failed.
+                            // Using password derivation and time-constant comparer is STRONGLY recommended.
+                            if (!string.Equals(context.Request.Username, "Bob", StringComparison.Ordinal) &&
+                                !string.Equals(context.Request.Password, "123", StringComparison.Ordinal))
+                            {
+                                context.Reject(
+                                    error: OpenIdConnectConstants.Errors.InvalidGrant,
+                                    description: "Invalid user credentials.");
+
+                                return Task.FromResult(0);
+                            }
+
+                            var identity = new ClaimsIdentity(context.Options.AuthenticationScheme);
+                            identity.AddClaim(ClaimTypes.NameIdentifier, "[unique id]");
+
+                            // By default, claims are not serialized in the access/identity tokens.
+                            // Use the overload taking a "destinations" parameter to make sure
+                            // your claims are correctly inserted in the appropriate tokens.
+                            identity.AddClaim("urn:customclaim", "value",
+                                OpenIdConnectConstants.Destinations.AccessToken,
+                                OpenIdConnectConstants.Destinations.IdentityToken);
+
+                            var ticket = new AuthenticationTicket(
+                                new ClaimsPrincipal(identity),
+                                new AuthenticationProperties(),
+                                context.Options.AuthenticationScheme);
+
+                            // Call SetScopes with the list of scopes you want to grant
+                            // (specify offline_access to issue a refresh token).
+                            ticket.SetScopes(
+                                OpenIdConnectConstants.Scopes.Profile,
+                                OpenIdConnectConstants.Scopes.OfflineAccess);
+
+                            context.Validate(ticket);
+                        }
+
+                        return Task.FromResult(0);
+                    }
+                };
+            });
 
             //app.UseMvc(routes =>
             //{

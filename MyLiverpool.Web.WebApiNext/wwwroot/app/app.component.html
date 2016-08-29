@@ -9,28 +9,7 @@
     </ul>
     <ul class="nav navbar-nav navbar-right">
         <li>
-            <!--ng-if="!vm.loggedIn()">-->
-            <!--<form ng-controller="LoginController as ctrl" name="loginForm1" class="form-inline" role="form" style="margin-top: 8px;">
-                <div class="form-group">
-                    <label class="sr-only">Логин</label>
-                    <input type="text" placeholder="Логин" class="form-control" name="UserName" ng-model="ctrl.loginForm.userName" validation="required" validation-error-to="myError">
-                </div>
-                <div class="form-group">
-                    <label class="sr-only">Пароль</label>
-                    <input type="password" placeholder="Пароль" class="form-control" name="password" ng-model="ctrl.loginForm.password" validation="required" validation-error-to="myError">
-                    <span id="myError" style="display: none;"></span>
-                </div>
-                <div class="form-group">
-                    <span class="text-danger" ng-if="ctrl.loginForm.errorMessage" ng-bind="ctrl.loginForm.errorMessage">
-                            <a class="button" ui-sref="forgotPassword">Забыли пароль?</a>
-                        </span>
-                </div>
-                <div class="form-group">
-                    <div>
-                        <input type="submit" ng-click="ctrl.login()" ng-disabled="ctrl.loginForm1.userName && ctrl.loginForm1.password" value="Войти" class="btn btn-default"/>
-                    </div>
-                </div>
-            </form>-->
+            <account-signin></account-signin>
         </li>
         <li>
             <!--ng-if="!vm.loggedIn()">-->
@@ -77,9 +56,9 @@
                 }*@-->
                 <li> <a ui-sref="forum">Форум</a></li>
                 <li class="dropdown">
-                    <a ui-sref="news()" href="#" class="dropdown-toggle" data-toggle="">Новости<b class="caret"></b></a>
+                    <a [routerLink]="['/news']" class="dropdown-toggle" data-toggle="">Новости<b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <!--<li ng-if="vm.isNewsmaker()"><a ui-sref="newsEdit()">Добавить</a></li>-->
+                        <li><a [secured]="'newsmaker1'" [routerLink]="['/news', 0, 'edit']">Добавить</a></li>
                         <li><a ui-sref="newsCategories()">Категории</a></li>
                     </ul>
                 </li>

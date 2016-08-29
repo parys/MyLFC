@@ -1,5 +1,5 @@
 ﻿export class News {
-    private id: number;
+    id: number;
     private title: string;
     private categoryId: number;
     private categoryName: string;

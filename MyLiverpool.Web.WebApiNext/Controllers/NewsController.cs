@@ -11,13 +11,6 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     [Route("api/[controller]")]
     public class NewsController : Controller
     {
-//using System.Threading.Tasks;
-//using System.Web.Http;
-//using Microsoft.AspNet.Identity;
-//using MyLiverpool.Business.DTO;
-//using MyLiverpoolSite.Business.Contracts;
-//using MyLiverpoolSite.Data.Entities;
-
         private readonly IMaterialService _materialService;
         private const MaterialType Type = MaterialType.News;
 
@@ -29,7 +22,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Route("list")]
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> GetNewsItems(int page = 1, int? categoryId = null, string authorUserName = null)
+        public async Task<IActionResult> GetNewsItems(int page = 1, int? categoryId = null, string authorUserName = null) //todo not all checked
         {
             if (page < 1)
             {
@@ -51,7 +44,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Route("{id:int}")]
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> GetNewsItem(int id)
+        public async Task<IActionResult> GetNewsItem(int id) //todo not all checked
         {
             var model = await _materialService.GetDtoAsync(id, Type);
             return Ok(model);
@@ -59,8 +52,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
 
         [Route("{id:int}")]
         [HttpDelete]
-        [Authorize(Roles = "NewsStart")]
-        public async Task<IActionResult> Delete(int? id)
+        [Authorize(Roles = nameof(RolesEnum.NewsStart))]
+        public async Task<IActionResult> Delete(int? id) //todo not all checked
         {
             if (!id.HasValue)
             {
@@ -74,7 +67,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Route("Activate/{id:int}")]
         [HttpPut]
         [Authorize(Roles = nameof(RolesEnum.NewsStart))]
-        public async Task<IActionResult> Activate(int? id)
+        public async Task<IActionResult> Activate(int? id) //todo not all checked
         {
             if (!id.HasValue)
             {
@@ -87,7 +80,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Route("")]
         [HttpPost]
         [Authorize(Roles = nameof(RolesEnum.NewsStart))]
-        public async Task<IActionResult> Create(MaterialDto model)
+        public async Task<IActionResult> Create(MaterialDto model) //todo not all checked
         {
             if (!ModelState.IsValid)
             {
@@ -101,11 +94,15 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return Ok(result);
         }
 
-        [Route("")]
+        [Route("{id:int}")]
         [HttpPut]
         [Authorize(Roles = nameof(RolesEnum.NewsStart))]
-        public async Task<IActionResult> Update(MaterialDto model)
+        public async Task<IActionResult> Update(int id, MaterialDto model) //todo not all checked
         {
+            if (id != model.Id)
+            {
+                return BadRequest(ModelState);
+            }
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -126,7 +123,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Route("AddView/{id:int}")]
         [HttpPut]
         [AllowAnonymous]
-        public async Task<IActionResult> AddView(int? id)
+        public async Task<IActionResult> AddView(int? id) //todo not all checked
         {
             if (!id.HasValue)
             {

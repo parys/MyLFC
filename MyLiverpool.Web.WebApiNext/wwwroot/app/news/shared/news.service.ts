@@ -22,14 +22,14 @@ export class NewsService {
     }
 
     public GetAll = (): Observable<Pageable<News>> => {
-        return this.http.get(this.actionUrl + "/list").map(res => res.json());
+        return this.http.get(this.actionUrl + "list/").map(res => res.json());
     };
 
     public GetSingle = (id: number): Observable<News> => {
         return this.http.get(this.actionUrl + id).map(res => res.json());
     };
 
-    public Add = (item: News): Observable<News> => {
+    public Create = (item: News): Observable<News> => {
         var toAdd = JSON.stringify({ ItemName: item });
 
         return this.http.post(this.actionUrl, JSON.stringify(item), { headers: this.headers }).map(res => res.json());

@@ -22,7 +22,7 @@ let NewsService = class NewsService {
         this.GetSingle = (id) => {
             return this.http.get(this.actionUrl + id).map(res => res.json());
         };
-        this.Add = (item) => {
+        this.Create = (item) => {
             var toAdd = JSON.stringify({ ItemName: item });
             return this.http.post(this.actionUrl, JSON.stringify(item), { headers: this.headers }).map(res => res.json());
         };

@@ -3,41 +3,43 @@
         <div class="form-group">
             <label class="control-label col-xs-2 col-sm-2"> Категория:</label>
             <div class="col-xs-10 col-sm-10">
-                <!--<select class="form-control" name="categoryId" [(ngModel)]="vm.item.categoryId" ng-options="category.id as category.name for category in vm.categories" validation="required"></select>-->
+                <select class="form-control" name="categoryId" [(ngModel)]="item.categoryId" required validation="required">
+                    <option *ngFor="let category of categories" value="{{category.id}}">{{category.name}}</option>
+                </select>
             </div>
         </div>
 
         <div class="form-group">
             <label class="control-label col-xs-2 col-sm-2"> Название:</label>
             <div class="col-xs-10 col-sm-10">
-                <input class="form-control" name="title" [(ngModel)]="item.title" validation="required" />
+                <input class="form-control" name="title" [(ngModel)]="item.title" required validation="required" />
             </div>
         </div>
 
         <div class="form-group">
             <label class="control-label col-xs-2 col-sm-2"> Краткое описание:</label>
             <div class="col-xs-10 col-sm-10">
-                <textarea mark-it-up class="form-control" name="brief" rows="4" [(ngModel)]="item.brief" validation="required"> </textarea>
+                <textarea mark-it-up class="form-control" name="brief" rows="4" [(ngModel)]="item.brief" required validation="required"> </textarea>
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-xs-2 col-sm-2"> Текст новости:</label>
             <div class="col-xs-10 col-sm-10">
-                <textarea mark-it-up class="form-control" name="message" rows="6" [(ngModel)]="item.message" validation="required"> </textarea>
+                <textarea mark-it-up class="form-control" name="message" rows="6" [(ngModel)]="item.message" required validation="required"> </textarea>
             </div>
         </div>
 
         <div class="form-group">
             <label class="control-label col-xs-2 col-sm-2"> Источник:</label>
             <div class="col-xs-10 col-sm-10">
-                <input class="form-control" name="source" [(ngModel)]="item.source" validation="required" />
+                <input class="form-control" name="source" [(ngModel)]="item.source" required validation="required" />
             </div>
         </div>
 
         <div class="form-group">
             <label class="control-label col-xs-2 col-sm-2"> Главное фото:</label>
             <div class="col-xs-10 col-sm-10">
-                <input class="form-control" name="photoPath" [(ngModel)]="item.photoPath" validation="required" />
+                <input class="form-control" name="photoPath" [(ngModel)]="item.photoPath" required validation="required" />
             </div>
         </div>
         <div class="" ui-view="files" autoscroll="false"></div>

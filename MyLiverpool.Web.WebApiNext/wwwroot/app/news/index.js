@@ -4,5 +4,6 @@ function __export(m) {
 }
 __export(require("./news-detail"));
 __export(require("./news-list"));
+__export(require("./news-edit"));
 __export(require("./shared"));
 //# sourceMappingURL=index.js.map

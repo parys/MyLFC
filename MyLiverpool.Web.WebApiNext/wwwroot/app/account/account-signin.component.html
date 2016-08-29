@@ -1,0 +1,21 @@
+﻿<form name="loginForm1" class="form-inline" role="form" style="margin-top: 8px;">
+    <div class="form-group">
+        <label class="sr-only">Логин</label>
+        <input type="text" placeholder="Логин" class="form-control" name="UserName" [(ngModel)]="username" required validation="required" validation-error-to="myError">
+    </div>
+    <div class="form-group">
+        <label class="sr-only">Пароль</label>
+        <input type="password" placeholder="Пароль" class="form-control" name="password" [(ngModel)]="password" required validation="required" validation-error-to="myError">
+        <span id="myError" style="display: none;"></span>
+    </div>
+    <div class="form-group">
+        <span class="text-danger" ng-if="loginForm.errorMessage" ng-bind="ctrl.loginForm.errorMessage">
+            <a class="button" ui-sref="forgotPassword">Забыли пароль?</a>
+        </span>
+    </div>
+    <div class="form-group">
+        <div>
+            <input type="submit" (click)="login()" value="Войти" class="btn btn-default" />
+        </div>
+    </div>
+</form>

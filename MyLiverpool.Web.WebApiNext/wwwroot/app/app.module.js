@@ -17,18 +17,26 @@ const app_routes_1 = require("./app.routes");
 const news_list_component_1 = require("./news/news-list/news-list.component");
 const app_constants_1 = require("./app.constants");
 const news_detail_component_1 = require("./news/news-detail/news-detail.component");
-const account_signup_component_1 = require("./account/account-signup/account-signup.component");
+const account_signup_component_1 = require("./account/account-signup.component");
 const news_service_1 = require("./news/shared/news.service");
 const ng2_translate_1 = require('ng2-translate');
 const news_edit_component_1 = require("./news/news-edit/news-edit.component");
+const newsCategory_service_1 = require("./newsCategory/shared/newsCategory.service");
+const account_signin_component_1 = require("./account/account-signin.component");
+const httpWrapper_1 = require("./shared/httpWrapper");
+const auth_guard_service_1 = require("./auth/auth-guard.service");
+const auth_service_1 = require("./auth/auth.service");
+const localStorage_1 = require("./shared/localStorage");
+const secured_directive_1 = require("./shared/secured.directive");
+//import {SecuredLinkComponent} from "./shared/securedLink.component";
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
     core_1.NgModule({
         imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, http_1.HttpModule, app_routes_1.routing, ng2_translate_1.TranslateModule.forRoot()],
-        declarations: [account_signup_component_1.AccountSignupComponent, app_component_1.AppComponent, news_list_component_1.NewsListComponent, news_detail_component_1.NewsDetailComponent, news_edit_component_1.NewsEditComponent],
+        declarations: [account_signin_component_1.AccountSigninComponent, account_signup_component_1.AccountSignupComponent, app_component_1.AppComponent, news_list_component_1.NewsListComponent, news_detail_component_1.NewsDetailComponent, news_edit_component_1.NewsEditComponent, secured_directive_1.SecuredDirective],
         bootstrap: [app_component_1.AppComponent],
-        providers: [news_service_1.NewsService, app_constants_1.Configuration, app_routes_1.appRoutingProviders] // services
+        providers: [news_service_1.NewsService, app_constants_1.Configuration, app_routes_1.appRoutingProviders, newsCategory_service_1.NewsCategoryService, auth_service_1.AuthService, auth_guard_service_1.AuthGuard, httpWrapper_1.HttpWrapper, localStorage_1.LocalStorage] // services
     }), 
     __metadata('design:paramtypes', [])
 ], AppModule);

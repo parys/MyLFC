@@ -15,6 +15,7 @@
     "Microsoft.AspNetCore.Server.Kestrel": "1.0.0",
     "Microsoft.AspNetCore.StaticFiles": "1.0.0",
     "Microsoft.EntityFrameworkCore.SqlServer": "1.0.0",
+    "AspNet.Security.OpenIdConnect.Server": "1.0.0-beta6-final",
     "Microsoft.EntityFrameworkCore.SqlServer.Design": {
       "version": "1.0.0",
       "type": "build"
@@ -40,7 +41,8 @@
       "type": "build"
     },
     "bootstrap": "3.3.7",
-    "AutoMapper": "5.0.2"
+    "AutoMapper": "5.0.2",
+    "Microsoft.AspNetCore.Authentication.JwtBearer": "1.0.0"
   },
 
   "tools": {
