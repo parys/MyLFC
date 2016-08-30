@@ -2,9 +2,9 @@
     <ul class="nav navbar-nav col-xs-3 col-sm-3 list-inline">
         <li><a id="back-top" href="#" style="display: none;">Вверх</a></li>
         <li class="divider"></li>
-        <!-- <li ng-if="vm.loggedIn()">
-            <<a ui-sref="pms()"><span class="glyphicon glyphicon-envelope"></span> Читать л/с (<span ng-bind="vm.unreadPmCount"></span>)</a>
-        </li>-->
+        <li [secured]>
+            <a ui-sref="pms()"><span class="glyphicon glyphicon-envelope"></span> Читать л/с (<span ng-bind="vm.unreadPmCount"></span>)</a>
+        </li>
         <li class="divider"></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">

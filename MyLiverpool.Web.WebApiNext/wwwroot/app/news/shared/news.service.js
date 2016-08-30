@@ -9,9 +9,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 const core_1 = require('@angular/core');
-const http_1 = require('@angular/http');
 require('rxjs/add/operator/map');
 const app_constants_1 = require('../../app.constants');
+const httpWrapper_1 = require("../../shared/httpWrapper");
 let NewsService = class NewsService {
     constructor(http, configuration) {
         this.http = http;
@@ -24,21 +24,18 @@ let NewsService = class NewsService {
         };
         this.Create = (item) => {
             var toAdd = JSON.stringify({ ItemName: item });
-            return this.http.post(this.actionUrl, JSON.stringify(item), { headers: this.headers }).map(res => res.json());
+            return this.http.post(this.actionUrl, JSON.stringify(item)).map(res => res.json());
         };
         this.Update = (id, itemToUpdate) => {
             // var toUpdate = 
             return this.http
-                .put(this.actionUrl + id, JSON.stringify(itemToUpdate), { headers: this.headers })
+                .put(this.actionUrl + id, JSON.stringify(itemToUpdate))
                 .map(res => res.json());
         };
         this.Delete = (id) => {
             return this.http.delete(this.actionUrl + id).map(response => response.json());
         };
         this.actionUrl = configuration.ServerWithApiUrl + 'news/';
-        this.headers = new http_1.Headers();
-        this.headers.append('Content-Type', 'application/json');
-        this.headers.append('Accept', 'application/json');
     }
     extractData(res) {
         let body = res.json();
@@ -47,7 +44,7 @@ let NewsService = class NewsService {
 };
 NewsService = __decorate([
     core_1.Injectable(), 
-    __metadata('design:paramtypes', [http_1.Http, app_constants_1.Configuration])
+    __metadata('design:paramtypes', [httpWrapper_1.HttpWrapper, app_constants_1.Configuration])
 ], NewsService);
 exports.NewsService = NewsService;
 //# sourceMappingURL=news.service.js.map

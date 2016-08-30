@@ -17,32 +17,43 @@ let HttpWrapper = class HttpWrapper {
         this.localStorage = localStorage;
     }
     updateHeaders() {
-        this.headers = new http_1.Headers();
-        this.headers.append('Content-type', 'application/json');
-        this.headers.append('Authorization', localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token'));
+        let headers = new http_1.Headers();
+        headers.append('Content-type', 'application/json');
+        // this.headers.append('Accept', 'application/json');
+        headers.append('Authorization', this.localStorage.getObject('token_type') + ' ' + this.localStorage.getObject('access_token'));
+        console.log("update headers");
+        console.log(headers);
+        return headers;
     }
     get(url) {
-        this.updateHeaders();
-        return this.http.get(url, {
-            headers: this.headers
+        console.log("httpWrapper get");
+        let result = this.http.get(url, {
+            headers: this.updateHeaders(),
+            body: ""
         });
+        console.log(result);
+        return result;
     }
     post(url, data) {
+        console.log("httpWrapper post");
         this.updateHeaders();
         return this.http.post(url, data, {
-            headers: this.headers
+            headers: this.updateHeaders()
         });
     }
     put(url, data) {
+        console.log("httpWrapper put");
         this.updateHeaders();
         return this.http.put(url, data, {
-            headers: this.headers
+            headers: this.updateHeaders()
         });
     }
     delete(url) {
+        console.log("httpWrapper delete");
         this.updateHeaders();
         return this.http.delete(url, {
-            headers: this.headers
+            headers: this.updateHeaders(),
+            body: ""
         });
     }
 };

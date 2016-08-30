@@ -42,11 +42,11 @@ let AuthService = class AuthService {
         this.isLoggedIn = false;
     }
     parseLoginAnswer(item) {
-        console.log(item);
-        localStorage.setItem('token_type', item.token_type);
-        localStorage.setItem('access_token', item.token_type);
-        localStorage.setItem('expires_in', item.expires_in);
-        localStorage.setItem('refresh_token', item.refresh_token);
+        let response = JSON.parse(item._body); //todo migrate to es6 storage
+        this.localStorage.setObject('token_type', response.token_type);
+        this.localStorage.setObject('access_token', response.access_token);
+        this.localStorage.setObject('expires_in', response.expires_in);
+        this.localStorage.setObject('refresh_token', response.refresh_token);
         this.isLoggedIn = true;
     }
     isUserInRole(role) {

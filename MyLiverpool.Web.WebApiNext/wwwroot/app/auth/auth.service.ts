@@ -27,6 +27,7 @@ export class AuthService {
      //   this.createAuthorizationHeader(headers);
       //  let perams = { grant_type: "password", userName: username, password: password };
         let perams = `grant_type=password&username=${username}&password=${password}&client_id=client_id3&client_secret=client_secret44`;
+
         var result = this.http1.post('connect/token', perams, {
             headers: headers
         });
@@ -41,11 +42,11 @@ export class AuthService {
     }
 
     private parseLoginAnswer(item: any) {
-        console.log(item);
-        localStorage.setItem('token_type', item.token_type);
-        localStorage.setItem('access_token', item.token_type);
-        localStorage.setItem('expires_in', item.expires_in);
-        localStorage.setItem('refresh_token', item.refresh_token);
+        let response = JSON.parse(item._body); //todo migrate to es6 storage
+        this.localStorage.setObject('token_type', response.token_type);
+        this.localStorage.setObject('access_token', response.access_token);
+        this.localStorage.setObject('expires_in', response.expires_in);
+        this.localStorage.setObject('refresh_token', response.refresh_token);
         this.isLoggedIn = true;
     }
 

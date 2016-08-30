@@ -1,23 +1,18 @@
 ﻿import { Injectable } from '@angular/core';
-import { Http, Response, Headers } from '@angular/http';
+import { Response } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 import { Configuration } from '../../app.constants';
 import { NewsCategory } from './NewsCategory.model';
+import {HttpWrapper} from "../../shared/httpWrapper";
 
 @Injectable()
 export class NewsCategoryService {
 
     private actionUrl: string;
-    private headers: Headers;
 
-    constructor(private http: Http, private configuration: Configuration) {
-
+    constructor(private http: HttpWrapper, private configuration: Configuration) {
         this.actionUrl = configuration.ServerWithApiUrl + 'newsCategory/';
-
-        this.headers = new Headers();
-        this.headers.append('Content-Type', 'application/json');
-        this.headers.append('Accept', 'application/json');
     }
 
     public GetAll = (): Observable<NewsCategory[]> => {
@@ -31,13 +26,12 @@ export class NewsCategoryService {
     public Add = (item: NewsCategory): Observable<NewsCategory> => {
         var toAdd = JSON.stringify({ ItemName: item });
 
-        return this.http.post(this.actionUrl, JSON.stringify(item), { headers: this.headers }).map(res => res.json());
+        return this.http.post(this.actionUrl, JSON.stringify(item)).map(res => res.json());
     };
 
     public Update = (id: number, itemToUpdate: NewsCategory): Observable<NewsCategory> => {
         // var toUpdate = 
-        return this.http
-            .put(this.actionUrl + id, JSON.stringify(itemToUpdate), { headers: this.headers })
+        return this.http.put(this.actionUrl + id, JSON.stringify(itemToUpdate))
             .map(res => res.json());
     };
 
