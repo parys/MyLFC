@@ -6,6 +6,7 @@ using AspNet.Security.OpenIdConnect.Extensions;
 using AspNet.Security.OpenIdConnect.Server;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -89,22 +90,22 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             });
         }
 
-        [Authorize, HttpGet, Route("~/connect/authorize")]
-        public async Task<IActionResult> Authorize()
-        {
+      //  [Authorize, HttpGet, Route("~/connect/authorize")]
+       // public async Task<IActionResult> Authorize()
+       // {
             // Extract the authorization request from the ASP.NET environment.
             //var request = HttpContext.GetOpenIdConnectRequest();
 
             // Retrieve the application details from the database.
           //  var application = await _applicationManager.FindByClientIdAsync(request.ClientId);
            // if (application == null)
-            {
+          //  {
                 //return View("Error", new ErrorViewModel
                 //{
                 //    Error = OpenIdConnectConstants.Errors.InvalidClient,
                 //    ErrorDescription = "Details concerning the calling client application cannot be found in the database"
                 //});
-            }
+          //  }
 
             // Flow the request_id to allow OpenIddict to restore
             // the original authorization request from the cache.
@@ -114,12 +115,12 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             //    RequestId = request.RequestId,
             //    Scope = request.Scope
            // });
-            return null;
-        }
+      //      return null;
+      //  }
 
-        [Authorize, HttpPost("~/connect/authorize/accept"), ValidateAntiForgeryToken]
-        public async Task<IActionResult> Accept()
-        {
+    //    [Authorize, HttpPost("~/connect/authorize/accept"), ValidateAntiForgeryToken]
+     //   public async Task<IActionResult> Accept()
+     //   {
             // Extract the authorization request from the ASP.NET environment.
          //   var request = HttpContext.GetOpenIdConnectRequest();
 
@@ -149,16 +150,16 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
 
             // Returning a SignInResult will ask OpenIddict to issue the appropriate access/identity tokens.
         //    return SignIn(ticket.Principal, ticket.Properties, ticket.AuthenticationScheme);
-            return null;
-        }
+        //    return null;
+      //  }
 
-        [Authorize, HttpPost("~/connect/authorize/deny"), ValidateAntiForgeryToken]
-        public IActionResult Deny()
-        {
+    //    [Authorize, HttpPost("~/connect/authorize/deny"), ValidateAntiForgeryToken]
+   //     public IActionResult Deny()
+   //     {
             // Notify OpenIddict that the authorization grant has been denied by the resource owner
             // to redirect the user agent to the client application using the appropriate response_mode.
-            return Forbid(OpenIdConnectServerDefaults.AuthenticationScheme);
-        }
+    //        return Forbid(OpenIdConnectServerDefaults.AuthenticationScheme);
+   //     }
 
         [HttpGet("~/connect/logout")]
         public IActionResult Logout()

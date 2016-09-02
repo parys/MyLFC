@@ -67,9 +67,9 @@ namespace MyLiverpool.Web.WebApiNext
 
 
             services.AddIdentity<User, Role>()
-                .AddEntityFrameworkStores<LiverpoolContext>()
+                .AddEntityFrameworkStores<LiverpoolContext, int>()
                 .AddDefaultTokenProviders();
-             //   .AddOpenIddict();
+  
 
             services.AddMvc();
 
@@ -119,16 +119,16 @@ namespace MyLiverpool.Web.WebApiNext
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            app.Use(async (context, next) =>
-            {
-                await next();
+            //app.Use(async (context, next) =>
+            //{
+            //    await next();
 
-                if (context.Response.StatusCode == 404 && !Path.HasExtension(context.Request.Path.Value))
-                {
-                    context.Request.Path = "/index.html"; //todo Put your Angular root page here 
-                    await next();
-                }
-            });
+            //    if (context.Response.StatusCode == 404 && !Path.HasExtension(context.Request.Path.Value))
+            //    {
+            //        context.Request.Path = "/index.html"; //todo Put your Angular root page here 
+            //        await next();
+            //    }
+            //});
 
             app.UseDefaultFiles();
             app.UseStaticFiles();
@@ -156,35 +156,35 @@ namespace MyLiverpool.Web.WebApiNext
             //----------------------------------------------from OLD PROJECT
             app.UseCors("AllowAll");
 
-            using (var context = new LiverpoolContext())
-            {
-                context.Database.EnsureCreated();
+        //    using (var context = new LiverpoolContext())
+        //    {
+        //        context.Database.EnsureCreated();
 
-                if (!context.Applications.Any())
-                {
-                    context.Applications.Add(new OpenIddictApplication
-                    {
-                        // Assign a unique identifier to your client app:
-                        Id = "48BF1BC3-CE01-4787-BBF2-0426EAD21342",
+        //        if (!context.Applications.Any())
+        //        {
+        //            context.Applications.Add(new OpenIddictApplication
+        //            {
+        //                // Assign a unique identifier to your client app:
+        //                Id = "48BF1BC3-CE01-4787-BBF2-0426EAD21342",
 
-                        // Assign a display named used in the consent form page:
-                        DisplayName = "MVC Core client application",
+        //                // Assign a display named used in the consent form page:
+        //                DisplayName = "MVC Core client application",
 
-                        // Register the appropriate redirect_uri and post_logout_redirect_uri:
-                        RedirectUri = "http://localhost:53507/signin-oidc",
-                        LogoutRedirectUri = "http://localhost:53507/",
+        //                // Register the appropriate redirect_uri and post_logout_redirect_uri:
+        //                RedirectUri = "http://localhost:53507/signin-oidc",
+        //                LogoutRedirectUri = "http://localhost:53507/",
 
-                        // Generate a new derived key from the client secret:
-                        ClientSecret = Crypto.HashPassword("secret_secret_secret"),
+        //                // Generate a new derived key from the client secret:
+        //                ClientSecret = Crypto.HashPassword("secret_secret_secret"),
 
-                        // Note: use "public" for JS/mobile/desktop applications
-                        // and "confidential" for server-side applications.
-                        Type = OpenIddictConstants.ClientTypes.Public
-                    });
+        //                // Note: use "public" for JS/mobile/desktop applications
+        //                // and "confidential" for server-side applications.
+        //                Type = OpenIddictConstants.ClientTypes.Public
+        //            });
 
-                    context.SaveChanges();
-                }
-            }
+        //            context.SaveChanges();
+        //        }
+        //    }
         }
 
         //private void RegisterServices(IServiceCollection services)

@@ -2,6 +2,10 @@
   "userSecretsId": "aspnet-MyLiverpool.Web.WebApiNext-c05b72c3-6c36-4fb4-b552-b0bedfd1553d",
 
   "dependencies": {
+    "Microsoft.NETCore.App": {
+      "version": "1.0.0",
+      "type": "platform"
+    },
     "AspNet.Security.OAuth.Validation": "1.0.0-alpha2-final",
     "AutoMapper": "5.0.2",
     "bootstrap": "3.3.7",
@@ -43,8 +47,6 @@
       "version": "1.0.0-preview2-final",
       "type": "build"
     },
-    "MyLiverpool.Data.Entities": "1.0.0-*",
-    "MyLiverpool.Data.ResourceAccess": "1.0.0-*",
     "OpenIddict": "1.0.0-*",
     "System.Linq": "4.1.0"
   },
@@ -65,10 +67,23 @@
 
   "frameworks": {
     "netcoreapp1.0": {
+      "buildOptions": {
+        "platform": "x64",
+        "languageVersion": "csharp6"
+      },
       "imports": [
         "dotnet5.6",
         "portable-net45+win8"
-      ]
+      ],
+
+      "dependencies": {
+        "MyLiverpool.Data.Entities": {
+          "target": "project"
+        },
+        "MyLiverpool.Data.ResourceAccess": {
+          "target": "project"
+        }
+      }
     }
   },
 
@@ -92,7 +107,7 @@
   },
 
   "scripts": {
-    "prepublish": [ "bower install", "dotnet bundle" ],
+    "prepublish": [ "dotnet bundle" ],
     "postpublish": [ "dotnet publish-iis --publish-folder %publish:OutputPath% --framework %publish:FullTargetFramework%" ]
   }
 }
