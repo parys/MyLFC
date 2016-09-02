@@ -8,7 +8,7 @@ using OpenIddict;
 namespace MyLiverpool.Data.ResourceAccess
 {
 
-    public class LiverpoolContext : IdentityDbContext<User, Role, int>//, UserLogin, UserRole, UserClaim>
+    public class LiverpoolContext : OpenIddictDbContext<User, Role, int>//, UserLogin, UserRole, UserClaim>
     //<User, Role, int>
     {
         private static bool _created;
@@ -51,10 +51,10 @@ namespace MyLiverpool.Data.ResourceAccess
         public DbSet<Club> Clubs { get; set; }
         public DbSet<Match> Matches { get; set; }
 
-        public DbSet<OpenIddictApplication> Applications { get; set; }
-        public DbSet<OpenIddictAuthorization> Authorizations { get; set; }
-        public DbSet<OpenIddictScope> Scopes { get; set; }
-        public DbSet<OpenIddictToken> Tokens { get; set; }
+        //public DbSet<OpenIddictApplication> Applications { get; set; }
+        //public DbSet<OpenIddictAuthorization> Authorizations { get; set; }
+        //public DbSet<OpenIddictScope> Scopes { get; set; }
+        //public DbSet<OpenIddictToken> Tokens { get; set; }
 
 
 
@@ -66,10 +66,10 @@ namespace MyLiverpool.Data.ResourceAccess
          //   modelBuilder.Entity<UserLogin>().ToTable("UserLogins");
         //    modelBuilder.Entity<UserRole>().ToTable("UserRoles");
 
-            modelBuilder.Entity<OpenIddictApplication>().ToTable("Applications");
-            modelBuilder.Entity<OpenIddictAuthorization>().ToTable("Authorizations");
-            modelBuilder.Entity<OpenIddictScope>().ToTable("Scopes");
-            modelBuilder.Entity<OpenIddictToken>().ToTable("Tokens");
+        //    modelBuilder.Entity<OpenIddictApplication>().ToTable("Applications");
+       //     modelBuilder.Entity<OpenIddictAuthorization>().ToTable("Authorizations");
+        //    modelBuilder.Entity<OpenIddictScope>().ToTable("Scopes");
+          //  modelBuilder.Entity<OpenIddictToken>().ToTable("Tokens");
             
             modelBuilder.Entity<MaterialComment>().HasOne(x => x.Author).WithMany(x => x.Comments).HasForeignKey(x => x.AuthorId);
             modelBuilder.Entity<ForumMessage>().HasOne(x => x.Author).WithMany(u => u.ForumMessages);

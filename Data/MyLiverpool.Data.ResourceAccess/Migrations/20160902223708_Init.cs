@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace MyLiverpool.Data.ResourceAccess.Migrations
 {
-    public partial class initialNext : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -82,6 +82,37 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Wishs", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OpenIddictApplications",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ClientId = table.Column<string>(nullable: true),
+                    ClientSecret = table.Column<string>(nullable: true),
+                    DisplayName = table.Column<string>(nullable: true),
+                    LogoutRedirectUri = table.Column<string>(nullable: true),
+                    RedirectUri = table.Column<string>(nullable: true),
+                    Type = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OpenIddictApplications", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OpenIddictScopes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Description = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OpenIddictScopes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -434,7 +465,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "OpenIddictAuthorization<int>",
+                name: "OpenIddictAuthorizations",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -444,9 +475,9 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OpenIddictAuthorization<int>", x => x.Id);
+                    table.PrimaryKey("PK_OpenIddictAuthorizations", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_OpenIddictAuthorization<int>_AspNetUsers_UserId",
+                        name: "FK_OpenIddictAuthorizations_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -454,26 +485,33 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "OpenIddictToken<int>",
+                name: "OpenIddictTokens",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    OpenIddictAuthorizationintId = table.Column<int>(name: "OpenIddictAuthorization<int>Id", nullable: true),
+                    ApplicationId = table.Column<int>(nullable: true),
+                    AuthorizationId = table.Column<int>(nullable: true),
                     Type = table.Column<string>(nullable: true),
                     UserId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OpenIddictToken<int>", x => x.Id);
+                    table.PrimaryKey("PK_OpenIddictTokens", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_OpenIddictToken<int>_OpenIddictAuthorization<int>_OpenIddictAuthorization<int>Id",
-                        column: x => x.OpenIddictAuthorizationintId,
-                        principalTable: "OpenIddictAuthorization<int>",
+                        name: "FK_OpenIddictTokens_OpenIddictApplications_ApplicationId",
+                        column: x => x.ApplicationId,
+                        principalTable: "OpenIddictApplications",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_OpenIddictToken<int>_AspNetUsers_UserId",
+                        name: "FK_OpenIddictTokens_OpenIddictAuthorizations_AuthorizationId",
+                        column: x => x.AuthorizationId,
+                        principalTable: "OpenIddictAuthorizations",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_OpenIddictTokens_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -607,18 +645,29 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                 column: "RoleGroupId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OpenIddictAuthorization<int>_UserId",
-                table: "OpenIddictAuthorization<int>",
+                name: "IX_OpenIddictApplications_ClientId",
+                table: "OpenIddictApplications",
+                column: "ClientId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OpenIddictAuthorizations_UserId",
+                table: "OpenIddictAuthorizations",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OpenIddictToken<int>_OpenIddictAuthorization<int>Id",
-                table: "OpenIddictToken<int>",
-                column: "OpenIddictAuthorization<int>Id");
+                name: "IX_OpenIddictTokens_ApplicationId",
+                table: "OpenIddictTokens",
+                column: "ApplicationId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OpenIddictToken<int>_UserId",
-                table: "OpenIddictToken<int>",
+                name: "IX_OpenIddictTokens_AuthorizationId",
+                table: "OpenIddictTokens",
+                column: "AuthorizationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OpenIddictTokens_UserId",
+                table: "OpenIddictTokens",
                 column: "UserId");
 
             migrationBuilder.AddForeignKey(
@@ -739,7 +788,10 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                 name: "Wishs");
 
             migrationBuilder.DropTable(
-                name: "OpenIddictToken<int>");
+                name: "OpenIddictScopes");
+
+            migrationBuilder.DropTable(
+                name: "OpenIddictTokens");
 
             migrationBuilder.DropTable(
                 name: "ForumThemes");
@@ -751,7 +803,10 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                 name: "Materials");
 
             migrationBuilder.DropTable(
-                name: "OpenIddictAuthorization<int>");
+                name: "OpenIddictApplications");
+
+            migrationBuilder.DropTable(
+                name: "OpenIddictAuthorizations");
 
             migrationBuilder.DropTable(
                 name: "ForumSubsections");

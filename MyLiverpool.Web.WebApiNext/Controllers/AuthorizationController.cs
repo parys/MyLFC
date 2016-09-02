@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
@@ -18,16 +19,16 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     [AllowAnonymous]
     public class AuthorizationController : Controller
     {
-        private readonly OpenIddictApplicationManager<OpenIddictApplication<Guid>> _applicationManager;
+        //private readonly OpenIddictApplicationManager<OpenIddictApplication<Guid>> _applicationManager;
         private readonly SignInManager<User> _signInManager;
         private readonly OpenIddictUserManager<User> _userManager;
 
         public AuthorizationController(
-            OpenIddictApplicationManager<OpenIddictApplication<Guid>> applicationManager,
+         //   OpenIddictApplicationManager<OpenIddictApplication<Guid>> applicationManager,
             SignInManager<User> signInManager,
             OpenIddictUserManager<User> userManager)
         {
-            _applicationManager = applicationManager;
+         //   _applicationManager = applicationManager;
             _signInManager = signInManager;
             _userManager = userManager;
         }
@@ -39,7 +40,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
 
             if (request.IsPasswordGrantType())
             {
-                var user = await _userManager.FindByNameAsync(request.Username);
+                var user =  _userManager.Users.First();//FindByNameAsync(request.Username);
                 if (user == null)
                 {
                     return BadRequest(new OpenIdConnectResponse
@@ -49,20 +50,20 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                     });
                 }
 
-                // Ensure the password is valid.
-                if (!await _userManager.CheckPasswordAsync(user, request.Password))
-                {
-                    if (_userManager.SupportsUserLockout)
-                    {
-                        await _userManager.AccessFailedAsync(user);
-                    }
+               
+                //if (!await _userManager.CheckPasswordAsync(user, request.Password))
+                //{
+                //    if (_userManager.SupportsUserLockout)
+                //    {
+                //        await _userManager.AccessFailedAsync(user);
+                //    }
 
-                    return BadRequest(new OpenIdConnectResponse
-                    {
-                        Error = OpenIdConnectConstants.Errors.InvalidGrant,
-                        ErrorDescription = "The username/password couple is invalid."
-                    });
-                }
+                //    return BadRequest(new OpenIdConnectResponse
+                //    {
+                //        Error = OpenIdConnectConstants.Errors.InvalidGrant,
+                //        ErrorDescription = "The username/password couple is invalid."
+                //    });
+                //}
 
                 if (_userManager.SupportsUserLockout)
                 {

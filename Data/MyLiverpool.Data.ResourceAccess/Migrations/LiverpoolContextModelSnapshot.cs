@@ -523,9 +523,10 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.ToTable("Wishs");
                 });
 
-            modelBuilder.Entity("OpenIddict.OpenIddictApplication", b =>
+            modelBuilder.Entity("OpenIddict.OpenIddictApplication<int>", b =>
                 {
-                    b.Property<string>("Id");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("ClientId");
 
@@ -541,18 +542,10 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Applications");
-                });
+                    b.HasIndex("ClientId")
+                        .IsUnique();
 
-            modelBuilder.Entity("OpenIddict.OpenIddictAuthorization", b =>
-                {
-                    b.Property<string>("Id");
-
-                    b.Property<string>("Scope");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Authorizations");
+                    b.ToTable("OpenIddictApplications");
                 });
 
             modelBuilder.Entity("OpenIddict.OpenIddictAuthorization<int>", b =>
@@ -568,37 +561,19 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("OpenIddictAuthorization<int>");
+                    b.ToTable("OpenIddictAuthorizations");
                 });
 
-            modelBuilder.Entity("OpenIddict.OpenIddictScope", b =>
+            modelBuilder.Entity("OpenIddict.OpenIddictScope<int>", b =>
                 {
-                    b.Property<string>("Id");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Description");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Scopes");
-                });
-
-            modelBuilder.Entity("OpenIddict.OpenIddictToken", b =>
-                {
-                    b.Property<string>("Id");
-
-                    b.Property<string>("OpenIddictApplicationId");
-
-                    b.Property<string>("OpenIddictAuthorizationId");
-
-                    b.Property<string>("Type");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OpenIddictApplicationId");
-
-                    b.HasIndex("OpenIddictAuthorizationId");
-
-                    b.ToTable("Tokens");
+                    b.ToTable("OpenIddictScopes");
                 });
 
             modelBuilder.Entity("OpenIddict.OpenIddictToken<int>", b =>
@@ -606,7 +581,9 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("OpenIddictAuthorization<int>Id");
+                    b.Property<int?>("ApplicationId");
+
+                    b.Property<int?>("AuthorizationId");
 
                     b.Property<string>("Type");
 
@@ -614,11 +591,13 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OpenIddictAuthorization<int>Id");
+                    b.HasIndex("ApplicationId");
+
+                    b.HasIndex("AuthorizationId");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("OpenIddictToken<int>");
+                    b.ToTable("OpenIddictTokens");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<int>", b =>
@@ -777,22 +756,15 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                         .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("OpenIddict.OpenIddictToken", b =>
-                {
-                    b.HasOne("OpenIddict.OpenIddictApplication")
-                        .WithMany("Tokens")
-                        .HasForeignKey("OpenIddictApplicationId");
-
-                    b.HasOne("OpenIddict.OpenIddictAuthorization")
-                        .WithMany("Tokens")
-                        .HasForeignKey("OpenIddictAuthorizationId");
-                });
-
             modelBuilder.Entity("OpenIddict.OpenIddictToken<int>", b =>
                 {
+                    b.HasOne("OpenIddict.OpenIddictApplication<int>")
+                        .WithMany("Tokens")
+                        .HasForeignKey("ApplicationId");
+
                     b.HasOne("OpenIddict.OpenIddictAuthorization<int>")
                         .WithMany("Tokens")
-                        .HasForeignKey("OpenIddictAuthorization<int>Id");
+                        .HasForeignKey("AuthorizationId");
 
                     b.HasOne("MyLiverpool.Data.Entities.User")
                         .WithMany("Tokens")
