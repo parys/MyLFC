@@ -8,8 +8,8 @@ using MyLiverpool.Data.ResourceAccess;
 namespace MyLiverpool.Data.ResourceAccess.Migrations
 {
     [DbContext(typeof(LiverpoolContext))]
-    [Migration("20160902223708_Init")]
-    partial class Init
+    [Migration("20160905213759_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

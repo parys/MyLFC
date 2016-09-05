@@ -28,24 +28,25 @@ namespace MyLiverpool.Business.Services.Services
 
         public async Task<bool> BanUser(int userId, int banDayCount)
         {
-            var user = await _unitOfWork.UserManager.FindByIdAsync(userId);
+            var user = await _unitOfWork.UserManager.FindByIdAsync(userId.ToString());
             var result = await _unitOfWork.UserManager.SetLockoutEndDateAsync(user, new DateTimeOffset(DateTime.Now.AddDays(banDayCount)));
             return result == IdentityResult.Success;
         }
 
         public async Task<bool> UnbanUser(int userId)
         {
-            var user = await _unitOfWork.UserManager.FindByIdAsync(userId);
+            var user = await _unitOfWork.UserManager.FindByIdAsync(userId.ToString());
             var result = await _unitOfWork.UserManager.SetLockoutEndDateAsync(user, DateTimeOffset.MinValue);
             return result == IdentityResult.Success;
         }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(User user, string authenticationType)
         {
+            throw new NotImplementedException();
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
-            var userIdentity = await _unitOfWork.UserManager.CreateIdentityAsync(user, authenticationType);
+            // var userIdentity = await _unitOfWork.UserManager.Ge(user, authenticationType);
             // Add custom user claims here
-            return userIdentity;
+            //   return userIdentity;
         }
         
         public async Task<UserDto> GetUserProfileDtoAsync(int id)
@@ -78,7 +79,7 @@ namespace MyLiverpool.Business.Services.Services
 
         public async Task<bool> EditRoleGroupAsync(int userId, int roleGroupId)
         {
-            var user = await _unitOfWork.UserManager.FindByIdAsync(userId);
+            var user = await _unitOfWork.UserManager.FindByIdAsync(userId.ToString());
             var oldRoleGroup = await _unitOfWork.RoleGroupRepository.GetByIdAsync(user.RoleGroupId);
             var newRoleGroup = await _unitOfWork.RoleGroupRepository.GetByIdAsync(roleGroupId);
             var rolesToDelete = GetRolesToDelete(oldRoleGroup.Roles, newRoleGroup.Roles);
@@ -86,15 +87,13 @@ namespace MyLiverpool.Business.Services.Services
             user.RoleGroupId = roleGroupId;
             try
             {
-                var toDel = string.Join(",", rolesToDelete);
-                var toAdd = string.Join(",", rolesToAdd);
-                if (!string.IsNullOrEmpty(toDel))
+                if (rolesToDelete.Any())
                 {
-                    await _unitOfWork.UserManager.RemoveFromRolesAsync(user, toDel);
+                    await _unitOfWork.UserManager.RemoveFromRolesAsync(user, rolesToDelete);
                 }
-                if (!string.IsNullOrEmpty(toAdd))
+                if (rolesToAdd.Any())
                 {
-                    await _unitOfWork.UserManager.AddToRolesAsync(user, toAdd);
+                    await _unitOfWork.UserManager.AddToRolesAsync(user, rolesToAdd);
                 }
             }
             catch (Exception)
@@ -123,13 +122,13 @@ namespace MyLiverpool.Business.Services.Services
 
         public async Task<string> GetPhotoPathAsync(int userId)
         {
-            var user = await _unitOfWork.UserManager.FindByIdAsync(userId);
+            var user = await _unitOfWork.UserManager.FindByIdAsync(userId.ToString());
             return user.Photo;
         }
 
         public async Task<bool> UpdatePhotoPathAsync(int userId, string photo)
         {
-            var user = await _unitOfWork.UserManager.FindByIdAsync(userId);
+            var user = await _unitOfWork.UserManager.FindByIdAsync(userId.ToString());
             user.Photo = photo;
             var result = await _unitOfWork.UserManager.UpdateAsync(user);
             return result.Succeeded;
@@ -154,7 +153,7 @@ namespace MyLiverpool.Business.Services.Services
 
         public async Task<IList<string>> GetRolesAsync(int id)
         {
-            var user = await _unitOfWork.UserManager.FindByIdAsync(id);
+            var user = await _unitOfWork.UserManager.FindByIdAsync(id.ToString());
             var result = await _unitOfWork.UserManager.GetRolesAsync(user);
             return result;
         }

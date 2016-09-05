@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.DtoNext;
@@ -26,7 +27,7 @@ namespace MyLiverpool.Business.Services.Services
 
         public async Task<bool> ChangePasswordAsync(int userId, ChangePasswordDto dto)
         {
-            var user = await _unitOfWork.UserManager.FindByIdAsync(userId);
+            var user = await _unitOfWork.UserManager.FindByIdAsync(userId.ToString());
             var result = await _unitOfWork.UserManager.ChangePasswordAsync(user, dto.OldPassword, dto.NewPassword);
             return result.Succeeded;
         }
@@ -34,7 +35,7 @@ namespace MyLiverpool.Business.Services.Services
         public async Task<bool> ConfirmEmailAsync(int userId, string code)
         {
             code = code.Base64ForUrlDecode();
-            var user = await _unitOfWork.UserManager.FindByIdAsync(userId); //todo WHY
+            var user = await _unitOfWork.UserManager.FindByIdAsync(userId.ToString()); //todo WHY
             var result = await _unitOfWork.UserManager.ConfirmEmailAsync(user, code);
             user.EmailConfirmed = true;
             _unitOfWork.UserRepository.Update(user);
@@ -67,9 +68,9 @@ namespace MyLiverpool.Business.Services.Services
 
         public async Task<DateTime> GetLockOutEndDateAsync(int userId)
         {
-            var user = await _unitOfWork.UserManager.FindByIdAsync(userId);
+            var user = await _unitOfWork.UserManager.FindByIdAsync(userId.ToString());
             var dateTime = await _unitOfWork.UserManager.GetLockoutEndDateAsync(user);
-            return dateTime.DateTime;
+            return dateTime.Value.DateTime;
         }
 
         public async Task<IdentityResult> RegisterUserAsync(RegisterUserDto model)
@@ -114,7 +115,8 @@ namespace MyLiverpool.Business.Services.Services
 
         public async Task<IdentityResult> UpdateLastModifiedAsync(int userId)
         {
-            var user = await _unitOfWork.UserManager.FindByIdAsync(userId);
+           // var c = HttpContext.User;
+            var user = await _unitOfWork.UserManager.FindByIdAsync(userId.ToString());
             user.LastModified = DateTime.Now;
             var result = await _unitOfWork.UserManager.UpdateAsync(user);
             if (result.Succeeded)

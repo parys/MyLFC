@@ -1,43 +1,40 @@
-﻿using System.IO;
-using System.Linq;
-using CryptoHelper;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using MyLiverpool.Business.Contracts;
+using MyLiverpool.Business.Services.Services;
+//using MyLiverpool.Common.MapperConfigs;
 using MyLiverpool.Data.Entities;
 using MyLiverpool.Data.ResourceAccess;
-//using MyLiverpool.Common.MapperConfigurations.Profiles;
+using MyLiverpool.Data.ResourceAccess.Contracts;
+using MyLiverpool.Data.ResourceAccess.Repositories;
 using MyLiverpool.Web.WebApiNext.Services;
-using OpenIddict;
-//using MyLiverpoolSite.Business.Contracts;
-//using MyLiverpoolSite.Business.Services.Services;
-//using MyLiverpoolSite.Data.DataAccessLayer;
-//using MyLiverpoolSite.Data.DataAccessLayer.Contracts;
-//using MyLiverpoolSite.Data.DataAccessLayer.Repositories;
 using IConfigurationProvider = AutoMapper.IConfigurationProvider;
 
 namespace MyLiverpool.Web.WebApiNext
 {
     public class Startup
     {
-        //private static readonly IConfigurationProvider Config = new MapperConfiguration(cfg => {
-        //    cfg.AddProfile(new ClubMapperProfile());
-        //    cfg.AddProfile(new ForumMessageMapperProfile());
-        //    cfg.AddProfile(new ForumSectionMapperProfile());
-        //    cfg.AddProfile(new ForumSubsectionMapperProfile());
-        //    cfg.AddProfile(new ForumThemeMapperProfile());
-        //    cfg.AddProfile(new MatchMapperProfile());
-        //    cfg.AddProfile(new MaterialMapperProfile());
-        //    cfg.AddProfile(new MaterialCategoryMapperProfile());
-        //    cfg.AddProfile(new MaterialCommentMapperProfile());
-        //    cfg.AddProfile(new PmMapperProfile());
-        //    cfg.AddProfile(new RoleGroupsMapperProfile());
-        //    cfg.AddProfile(new UserMapperProfile());
-        //    cfg.AddProfile(new WishMapperProfile());
-        //});
+        private static readonly IConfigurationProvider Config = new MapperConfiguration(cfg =>
+        {
+            //cfg.AddProfile(new ClubMapperProfile());
+            //cfg.AddProfile(new ForumMessageMapperProfile());
+            //cfg.AddProfile(new ForumSectionMapperProfile());
+            //cfg.AddProfile(new ForumSubsectionMapperProfile());
+            //cfg.AddProfile(new ForumThemeMapperProfile());
+            //cfg.AddProfile(new MatchMapperProfile());
+            //cfg.AddProfile(new MaterialMapperProfile());
+            //cfg.AddProfile(new MaterialCategoryMapperProfile());
+            //cfg.AddProfile(new MaterialCommentMapperProfile());
+            //cfg.AddProfile(new PmMapperProfile());
+            //cfg.AddProfile(new RoleGroupsMapperProfile());
+            //cfg.AddProfile(new UserMapperProfile());
+            //cfg.AddProfile(new WishMapperProfile());
+        });
 
         public Startup(IHostingEnvironment env)
         {
@@ -76,7 +73,8 @@ namespace MyLiverpool.Web.WebApiNext
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
-            services.AddTransient<OpenIddictDbContext<User, Role, int>, LiverpoolContext>();
+            RegisterServices(services);
+          //  services.AddTransient<OpenIddictDbContext<User, Role, int>, LiverpoolContext>();
             // RegisterServices(services);
             //--- from old proj
             services.AddCors(options => options.AddPolicy("AllowAll", p => p.AllowAnyOrigin())); //from sof
@@ -178,29 +176,29 @@ namespace MyLiverpool.Web.WebApiNext
         //    }
         }
 
-        //private void RegisterServices(IServiceCollection services)
-        //{
-        //    // builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsImplementedInterfaces();
-        //    services.AddTransient<IAccountService, AccountService>();
-        //    services.AddTransient<IAdminService, AdminService>();
-        //    services.AddTransient<IClubService, ClubService>();
-        //  //  services.AddTransient<IIdentityMessageService, EmailService>();
-        //    services.AddTransient<IForumMessageService, ForumMessageService>();
-        //    services.AddTransient<IForumSectionService, ForumSectionService>();
-        //    services.AddTransient<IForumSubsectionService, ForumSubsectionService>();
-        //    services.AddTransient<IForumThemeService, ForumThemeService>();
-        //    services.AddTransient<IMatchService, MatchService>();
-        //    services.AddTransient<IMaterialCategoryService, MaterialCategoryService>();
-        //    services.AddTransient<IMaterialCommentService, MaterialCommentService>();
-        //    services.AddTransient<IMaterialService, MaterialService>();
-        //    services.AddTransient<IPmService, PmService>();
-        //    services.AddTransient<IWishService, WishService>();
-        //    services.AddTransient<IRoleService, RoleService>();
-        //    services.AddTransient<IUploadService, UploadService>();
-        //    services.AddTransient<IUserService, UserService>();
-        //    services.AddTransient<IUnitOfWork, UnitOfWork>();
-        //    services.AddTransient<IMaterialRepository, MaterialRepository>();
-        //    services.AddSingleton<IMapper>(Config.CreateMapper());
-        //}
+        private void RegisterServices(IServiceCollection services)
+        {
+                // builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsImplementedInterfaces();
+                services.AddTransient<IAccountService, AccountService>();
+                services.AddTransient<IAdminService, AdminService>();
+                services.AddTransient<IClubService, ClubService>();
+              //  services.AddTransient<IIdentityMessageService, EmailService>();
+            services.AddTransient<IForumMessageService, ForumMessageService>();
+            services.AddTransient<IForumSectionService, ForumSectionService>();
+            services.AddTransient<IForumSubsectionService, ForumSubsectionService>();
+            services.AddTransient<IForumThemeService, ForumThemeService>();
+            services.AddTransient<IMatchService, MatchService>();
+            services.AddTransient<IMaterialCategoryService, MaterialCategoryService>();
+            services.AddTransient<IMaterialCommentService, MaterialCommentService>();
+            services.AddTransient<IMaterialService, MaterialService>();
+            services.AddTransient<IPmService, PmService>();
+            services.AddTransient<IWishService, WishService>();
+            services.AddTransient<IRoleService, RoleService>();
+            services.AddTransient<IUploadService, UploadService>();
+            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddTransient<IMaterialRepository, MaterialRepository>();
+            services.AddSingleton<IMapper>(Config.CreateMapper());
+        }
     }
 }

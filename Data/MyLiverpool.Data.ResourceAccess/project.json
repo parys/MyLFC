@@ -2,7 +2,6 @@
   "version": "1.0.0-*",
 
   "dependencies": {
-    //"Microsoft.AspNet.Identity": "3.0.0-rc1-final",
     "Microsoft.AspNetCore.Identity": "1.0.0",
     "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.0.0",
     "Microsoft.EntityFrameworkCore.SqlServer": "1.0.0",
@@ -16,7 +15,7 @@
 
   "frameworks": {
     "netstandard1.6": {
-      "imports": "dnxcore50"
+      "imports": "dnxcore50" 
     }
   }
 }

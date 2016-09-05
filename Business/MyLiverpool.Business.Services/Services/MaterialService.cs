@@ -89,7 +89,7 @@ namespace MyLiverpool.Business.Services.Services
 
         public async Task<bool> DeleteAsync(int id, int userId, MaterialType materialType)
         {
-            var user = await _unitOfWork.UserManager.FindByIdAsync(userId);
+            var user = await _unitOfWork.UserManager.FindByIdAsync(userId.ToString());
             var newsItem = await _unitOfWork.MaterialRepository.GetByIdAsync(id);
             var userRoles = await _unitOfWork.UserManager.GetRolesAsync(user);
             if (!userRoles.Contains(RolesEnum.NewsFull.ToString()) &&
