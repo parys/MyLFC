@@ -1,0 +1,16 @@
+{
+  "version": "1.0.0-*",
+
+  "dependencies": {
+    "MyLiverpool.Business.DtoNext": "1.0.0-*",
+    "MyLiverpool.Common.Utilities": "1.0.0-*",
+    "MyLiverpool.Data.ResourceAccess": "1.0.0-*",
+    "NETStandard.Library": "1.6.0"
+  },
+
+  "frameworks": {
+    "netstandard1.6": {
+      "imports": "dnxcore50"
+    }
+  }
+}

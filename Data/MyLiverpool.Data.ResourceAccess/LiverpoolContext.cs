@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using MyLiverpool.Data.Entities;
+﻿using MyLiverpool.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using OpenIddict;
 
@@ -24,9 +23,12 @@ namespace MyLiverpool.Data.ResourceAccess
 
             //     Database.Create();
             //   Database.AsRelational().ApplyMigrations();
-
              }
+        }
 
+        public LiverpoolContext(): base() //todo call with params
+        {
+            
         }
 
         //public static LiverpoolContext Create()

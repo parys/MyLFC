@@ -76,7 +76,8 @@ namespace MyLiverpool.Web.WebApiNext
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
-           // RegisterServices(services);
+            services.AddTransient<OpenIddictDbContext<User, Role, int>, LiverpoolContext>();
+            // RegisterServices(services);
             //--- from old proj
             services.AddCors(options => options.AddPolicy("AllowAll", p => p.AllowAnyOrigin())); //from sof
 
@@ -140,18 +141,8 @@ namespace MyLiverpool.Web.WebApiNext
             app.UseOpenIddict();
 
             app.UseMvcWithDefaultRoute();
-            
-         
 
             // Add external authentication middleware below. To configure them please see http://go.microsoft.com/fwlink/?LinkID=532715
-
-
-            //app.UseMvc(routes =>
-            //{
-            //    routes.MapRoute(
-            //        name: "default",services.AddTransient
-            //        template: "{controller=Home}/{action=Index}/{id?}");
-            //});
 
             //----------------------------------------------from OLD PROJECT
             app.UseCors("AllowAll");

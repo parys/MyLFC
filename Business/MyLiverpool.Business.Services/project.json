@@ -1,0 +1,19 @@
+{
+  "version": "1.0.0-*",
+
+  "dependencies": {
+    "AutoMapper": "5.1.1",
+    "Microsoft.AspNetCore.Http.Abstractions": "1.0.0",
+    "MyLiverpool.Business.Contracts": "1.0.0-*",
+    "MyLiverpool.Business.DtoNext": "1.0.0-*",
+    "MyLiverpool.Common.Utilities": "1.0.0-*",
+    "NETStandard.Library": "1.6.0",
+    "System.Linq": "4.1.0"
+  },
+
+  "frameworks": {
+    "netstandard1.6": {
+      "imports": "dnxcore50"
+    }
+  }
+}
