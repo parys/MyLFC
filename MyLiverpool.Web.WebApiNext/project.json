@@ -7,7 +7,6 @@
       "type": "platform"
     },
     "AspNet.Security.OAuth.Validation": "1.0.0-alpha2-final",
-    "AutoMapper": "5.1.1",
     "bootstrap": "3.3.7",
     "Microsoft.AspNetCore.Authentication.Cookies": "1.0.0",
     "Microsoft.AspNetCore.Diagnostics": "1.0.0",
@@ -39,7 +38,8 @@
     "Microsoft.Extensions.Options.ConfigurationExtensions": "1.0.0",
     "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0",
     "OpenIddict": "1.0.0-*",
-    "System.Linq": "4.1.0"
+    "System.Linq": "4.1.0",
+    "MyLiverpool.Common.Mappings": "1.0.0-*"
   },
 
   "tools": {

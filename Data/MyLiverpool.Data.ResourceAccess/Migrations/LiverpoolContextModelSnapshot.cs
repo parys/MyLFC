@@ -604,110 +604,94 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                 {
                     b.HasOne("MyLiverpool.Data.Entities.Role")
                         .WithMany("Claims")
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("RoleId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserClaim<int>", b =>
                 {
                     b.HasOne("MyLiverpool.Data.Entities.User")
                         .WithMany("Claims")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserLogin<int>", b =>
                 {
                     b.HasOne("MyLiverpool.Data.Entities.User")
                         .WithMany("Logins")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserRole<int>", b =>
                 {
                     b.HasOne("MyLiverpool.Data.Entities.Role")
                         .WithMany("Users")
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("RoleId");
 
                     b.HasOne("MyLiverpool.Data.Entities.User")
                         .WithMany("Roles")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("MyLiverpool.Data.Entities.ForumMessage", b =>
                 {
                     b.HasOne("MyLiverpool.Data.Entities.User", "Author")
                         .WithMany("ForumMessages")
-                        .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("AuthorId");
 
                     b.HasOne("MyLiverpool.Data.Entities.ForumTheme", "Theme")
                         .WithMany("Messages")
-                        .HasForeignKey("ThemeId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ThemeId");
                 });
 
             modelBuilder.Entity("MyLiverpool.Data.Entities.ForumSubsection", b =>
                 {
                     b.HasOne("MyLiverpool.Data.Entities.ForumSection", "Section")
                         .WithMany("Subsections")
-                        .HasForeignKey("SectionId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("SectionId");
                 });
 
             modelBuilder.Entity("MyLiverpool.Data.Entities.ForumTheme", b =>
                 {
                     b.HasOne("MyLiverpool.Data.Entities.User", "Author")
                         .WithMany()
-                        .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("AuthorId");
 
                     b.HasOne("MyLiverpool.Data.Entities.User", "LastAnswerUser")
                         .WithMany()
-                        .HasForeignKey("LastAnswerUserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("LastAnswerUserId");
 
                     b.HasOne("MyLiverpool.Data.Entities.ForumSubsection", "Subsection")
                         .WithMany("Themes")
-                        .HasForeignKey("SubsectionId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("SubsectionId");
                 });
 
             modelBuilder.Entity("MyLiverpool.Data.Entities.Match", b =>
                 {
                     b.HasOne("MyLiverpool.Data.Entities.Club", "Club")
                         .WithMany("Matches")
-                        .HasForeignKey("ClubId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ClubId");
                 });
 
             modelBuilder.Entity("MyLiverpool.Data.Entities.Material", b =>
                 {
                     b.HasOne("MyLiverpool.Data.Entities.User", "Author")
                         .WithMany("Materials")
-                        .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("AuthorId");
 
                     b.HasOne("MyLiverpool.Data.Entities.MaterialCategory", "Category")
                         .WithMany("Materials")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("CategoryId");
                 });
 
             modelBuilder.Entity("MyLiverpool.Data.Entities.MaterialComment", b =>
                 {
                     b.HasOne("MyLiverpool.Data.Entities.User", "Author")
                         .WithMany("Comments")
-                        .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("AuthorId");
 
                     b.HasOne("MyLiverpool.Data.Entities.Material", "Material")
                         .WithMany("Comments")
-                        .HasForeignKey("MaterialId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("MaterialId");
 
                     b.HasOne("MyLiverpool.Data.Entities.MaterialComment", "Parent")
                         .WithMany("Children")
@@ -718,13 +702,11 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                 {
                     b.HasOne("MyLiverpool.Data.Entities.User", "Receiver")
                         .WithMany("ReceivedPrivateMessages")
-                        .HasForeignKey("ReceiverId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ReceiverId");
 
                     b.HasOne("MyLiverpool.Data.Entities.User", "Sender")
                         .WithMany("SentPrivateMessages")
-                        .HasForeignKey("SenderId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("SenderId");
                 });
 
             modelBuilder.Entity("MyLiverpool.Data.Entities.Role", b =>
@@ -745,8 +727,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                 {
                     b.HasOne("MyLiverpool.Data.Entities.RoleGroup", "RoleGroup")
                         .WithMany("Users")
-                        .HasForeignKey("RoleGroupId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("RoleGroupId");
                 });
 
             modelBuilder.Entity("OpenIddict.OpenIddictAuthorization<int>", b =>

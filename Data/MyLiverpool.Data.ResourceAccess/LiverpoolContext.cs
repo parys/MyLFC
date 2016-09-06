@@ -1,5 +1,7 @@
-﻿using MyLiverpool.Data.Entities;
+﻿using System.Linq;
+using MyLiverpool.Data.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using OpenIddict;
 
 //using MyLiverpoolSite.Data.Entities;
@@ -21,9 +23,10 @@ namespace MyLiverpool.Data.ResourceAccess
               {
               _created = true;
 
-            //     Database.Create();
-            //   Database.AsRelational().ApplyMigrations();
-             }
+
+                //     Database.Create();
+                //   Database.AsRelational().ApplyMigrations();
+            }
         }
 
         public LiverpoolContext(): base() //todo call with params
@@ -97,7 +100,11 @@ namespace MyLiverpool.Data.ResourceAccess
             modelBuilder.Entity<Match>().HasOne(x => x.Club).WithMany(x => x.Matches).HasForeignKey(x => x.ClubId);
 
             //// использование Fluent API
-            //modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>(); 
+            //   modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>(); 
+            foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))            {
+                relationship.DeleteBehavior = DeleteBehavior.Restrict;
+            }
+
             base.OnModelCreating(modelBuilder);
         }
 

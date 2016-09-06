@@ -12,9 +12,9 @@ MERCHANTABLITY OR NON-INFRINGEMENT.
 See the Apache Version 2.0 License for specific language governing permissions
 and limitations under the License.
 ***************************************************************************** */
+"use strict";
 var Reflect;
 (function (Reflect) {
-    "use strict";
     // Load global or shim versions of Map, Set, and WeakMap
     var functionPrototype = Object.getPrototypeOf(Function);
     var _Map = typeof Map === "function" ? Map : CreateMapPolyfill();
@@ -152,7 +152,7 @@ var Reflect;
                 if (!IsConstructor(target)) {
                     throw new TypeError();
                 }
-                OrdinaryDefineOwnMetadata(metadataKey, metadataValue, target, /*targetKey*/ undefined);
+                OrdinaryDefineOwnMetadata(metadataKey, metadataValue, target, undefined);
             }
         }
         return decorator;
@@ -511,7 +511,7 @@ var Reflect;
             targetKey = ToPropertyKey(targetKey);
         }
         // https://github.com/jonathandturner/decorators/blob/master/specs/metadata.md#deletemetadata-metadatakey-p-
-        var metadataMap = GetOrCreateMetadataMap(target, targetKey, /*create*/ false);
+        var metadataMap = GetOrCreateMetadataMap(target, targetKey, false);
         if (IsUndefined(metadataMap)) {
             return false;
         }
@@ -596,7 +596,7 @@ var Reflect;
     }
     // https://github.com/jonathandturner/decorators/blob/master/specs/metadata.md#ordinaryhasownmetadata--metadatakey-o-p-
     function OrdinaryHasOwnMetadata(MetadataKey, O, P) {
-        var metadataMap = GetOrCreateMetadataMap(O, P, /*create*/ false);
+        var metadataMap = GetOrCreateMetadataMap(O, P, false);
         if (metadataMap === undefined) {
             return false;
         }
@@ -616,7 +616,7 @@ var Reflect;
     }
     // https://github.com/jonathandturner/decorators/blob/master/specs/metadata.md#ordinarygetownmetadata--metadatakey-o-p-
     function OrdinaryGetOwnMetadata(MetadataKey, O, P) {
-        var metadataMap = GetOrCreateMetadataMap(O, P, /*create*/ false);
+        var metadataMap = GetOrCreateMetadataMap(O, P, false);
         if (metadataMap === undefined) {
             return undefined;
         }
@@ -624,7 +624,7 @@ var Reflect;
     }
     // https://github.com/jonathandturner/decorators/blob/master/specs/metadata.md#ordinarydefineownmetadata--metadatakey-metadatavalue-o-p-
     function OrdinaryDefineOwnMetadata(MetadataKey, MetadataValue, O, P) {
-        var metadataMap = GetOrCreateMetadataMap(O, P, /*create*/ true);
+        var metadataMap = GetOrCreateMetadataMap(O, P, true);
         metadataMap.set(MetadataKey, MetadataValue);
     }
     // https://github.com/jonathandturner/decorators/blob/master/specs/metadata.md#ordinarymetadatakeys--o-p-
@@ -643,16 +643,16 @@ var Reflect;
         }
         var set = new _Set();
         var keys = [];
-        for (var _i = 0, ownKeys_1 = ownKeys; _i < ownKeys_1.length; _i++) {
-            var key = ownKeys_1[_i];
+        for (var _i = 0; _i < ownKeys.length; _i++) {
+            var key = ownKeys[_i];
             var hasKey = set.has(key);
             if (!hasKey) {
                 set.add(key);
                 keys.push(key);
             }
         }
-        for (var _a = 0, parentKeys_1 = parentKeys; _a < parentKeys_1.length; _a++) {
-            var key = parentKeys_1[_a];
+        for (var _a = 0; _a < parentKeys.length; _a++) {
+            var key = parentKeys[_a];
             var hasKey = set.has(key);
             if (!hasKey) {
                 set.add(key);
@@ -663,7 +663,7 @@ var Reflect;
     }
     // https://github.com/jonathandturner/decorators/blob/master/specs/metadata.md#ordinaryownmetadatakeys--o-p-
     function OrdinaryOwnMetadataKeys(target, targetKey) {
-        var metadataMap = GetOrCreateMetadataMap(target, targetKey, /*create*/ false);
+        var metadataMap = GetOrCreateMetadataMap(target, targetKey, false);
         var keys = [];
         if (metadataMap) {
             metadataMap.forEach(function (_, key) { return keys.push(key); });
@@ -702,7 +702,7 @@ var Reflect;
         if (typeof O !== "function" || O === functionPrototype) {
             return proto;
         }
-        // TypeScript doesn't set __proto__ in ES5, as it's non-standard.
+        // TypeScript doesn't set __proto__ in ES5, as it's non-standard. 
         // Try to determine the superclass constructor. Compatible implementations
         // must either set __proto__ on a subclass constructor to the superclass constructor,
         // or ensure each class has a valid `constructor` property on its prototype that
@@ -714,7 +714,7 @@ var Reflect;
         }
         // If the super prototype is Object.prototype, null, or undefined, then we cannot determine the heritage.
         var prototype = O.prototype;
-        var prototypeProto = prototype && Object.getPrototypeOf(prototype);
+        var prototypeProto = Object.getPrototypeOf(prototype);
         if (prototypeProto == null || prototypeProto === Object.prototype) {
             return proto;
         }
@@ -837,10 +837,7 @@ var Reflect;
     function CreateWeakMapPolyfill() {
         var UUID_SIZE = 16;
         var isNode = typeof global !== "undefined" && Object.prototype.toString.call(global.process) === '[object process]';
-        var nodeCrypto = isNode && function () { try {
-            return (void 0, require)("crypto");
-        }
-        catch (e) { } }();
+        var nodeCrypto = isNode && require("crypto");
         var hasOwn = Object.prototype.hasOwnProperty;
         var keys = {};
         var rootKey = CreateUniqueKey();
@@ -849,26 +846,26 @@ var Reflect;
         }
         WeakMap.prototype = {
             has: function (target) {
-                var table = GetOrCreateWeakMapTable(target, /*create*/ false);
+                var table = GetOrCreateWeakMapTable(target, false);
                 if (table) {
                     return this._key in table;
                 }
                 return false;
             },
             get: function (target) {
-                var table = GetOrCreateWeakMapTable(target, /*create*/ false);
+                var table = GetOrCreateWeakMapTable(target, false);
                 if (table) {
                     return table[this._key];
                 }
                 return undefined;
             },
             set: function (target, value) {
-                var table = GetOrCreateWeakMapTable(target, /*create*/ true);
+                var table = GetOrCreateWeakMapTable(target, true);
                 table[this._key] = value;
                 return this;
             },
             delete: function (target) {
-                var table = GetOrCreateWeakMapTable(target, /*create*/ false);
+                var table = GetOrCreateWeakMapTable(target, false);
                 if (table && this._key in table) {
                     return delete table[this._key];
                 }

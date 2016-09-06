@@ -42,10 +42,10 @@ namespace MyLiverpool.Data.ResourceAccess
             IQueryable<TEntity> query = _dbSet;
             if (filter != null)
             {
-                query = query.Where(filter);
+              //  query = query.Where(filter);
             }
 
-            if (includeProperties != null)
+            if (includeProperties != null && includeProperties.Any())
             {
                 query = includeProperties.Aggregate(query,
                     (current, includeProperty) => current.Include(includeProperty));
@@ -66,7 +66,7 @@ namespace MyLiverpool.Data.ResourceAccess
             {
                 query = query.OrderBy(orderBy);
             }
-            if (includeProperties != null)
+            if (includeProperties != null && includeProperties.Any())
             {
                 query = includeProperties.Aggregate(query,
                     (current, includeProperty) => current.Include(includeProperty));
@@ -81,7 +81,7 @@ namespace MyLiverpool.Data.ResourceAccess
             {
                 query = query.Where(filter);
             }
-            if (includeProperties != null)
+            if (includeProperties != null && includeProperties.Any())
             {
                 query = includeProperties.Aggregate(query,
                     (current, includeProperty) => current.Include(includeProperty));
@@ -98,13 +98,13 @@ namespace MyLiverpool.Data.ResourceAccess
             IQueryable<TEntity> query = _dbSet;
             if (filter != null)
             {
-                query = query.Where(filter);
+             //   query = query.Where(filter);
             }
             if (orderBy != null)
             {
-                query = query.ObjectSort(orderBy, order);
+              //  query = query.ObjectSort(orderBy, order);
             }
-            if (includeProperties != null)
+            if (includeProperties != null && includeProperties.Any())
             {
                 query = includeProperties.Aggregate(query,
                     (current, includeProperty) => current.Include(includeProperty));
@@ -120,7 +120,7 @@ namespace MyLiverpool.Data.ResourceAccess
             {
                 query = query.Where(filter);
             }
-            if (includeProperties != null)
+            if (includeProperties != null && includeProperties.Any())
             {
                 query = includeProperties.Aggregate(query,
                     (current, includeProperty) => current.Include(includeProperty));

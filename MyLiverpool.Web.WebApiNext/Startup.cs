@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Services.Services;
-//using MyLiverpool.Common.MapperConfigs;
+using MyLiverpool.Common.MapperConfigs;
 using MyLiverpool.Data.Entities;
 using MyLiverpool.Data.ResourceAccess;
 using MyLiverpool.Data.ResourceAccess.Contracts;
@@ -21,19 +21,19 @@ namespace MyLiverpool.Web.WebApiNext
     {
         private static readonly IConfigurationProvider Config = new MapperConfiguration(cfg =>
         {
-            //cfg.AddProfile(new ClubMapperProfile());
-            //cfg.AddProfile(new ForumMessageMapperProfile());
-            //cfg.AddProfile(new ForumSectionMapperProfile());
-            //cfg.AddProfile(new ForumSubsectionMapperProfile());
-            //cfg.AddProfile(new ForumThemeMapperProfile());
-            //cfg.AddProfile(new MatchMapperProfile());
-            //cfg.AddProfile(new MaterialMapperProfile());
-            //cfg.AddProfile(new MaterialCategoryMapperProfile());
-            //cfg.AddProfile(new MaterialCommentMapperProfile());
-            //cfg.AddProfile(new PmMapperProfile());
-            //cfg.AddProfile(new RoleGroupsMapperProfile());
-            //cfg.AddProfile(new UserMapperProfile());
-            //cfg.AddProfile(new WishMapperProfile());
+            cfg.AddProfile(new ClubMapperProfile());
+            cfg.AddProfile(new ForumMessageMapperProfile());
+            cfg.AddProfile(new ForumSectionMapperProfile());
+            cfg.AddProfile(new ForumSubsectionMapperProfile());
+            cfg.AddProfile(new ForumThemeMapperProfile());
+            cfg.AddProfile(new MatchMapperProfile());
+            cfg.AddProfile(new MaterialMapperProfile());
+            cfg.AddProfile(new MaterialCategoryMapperProfile());
+            cfg.AddProfile(new MaterialCommentMapperProfile());
+            cfg.AddProfile(new PmMapperProfile());
+            cfg.AddProfile(new RoleGroupsMapperProfile());
+            cfg.AddProfile(new UserMapperProfile());
+            cfg.AddProfile(new WishMapperProfile());
         });
 
         public Startup(IHostingEnvironment env)
@@ -60,7 +60,7 @@ namespace MyLiverpool.Web.WebApiNext
         {
             // Add framework services.
             services.AddDbContext<LiverpoolContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), o => o.UseRowNumberForPaging()));
 
 
             services.AddIdentity<User, Role>()

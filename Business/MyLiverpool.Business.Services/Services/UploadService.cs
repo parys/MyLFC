@@ -18,11 +18,11 @@ namespace MyLiverpool.Business.Services.Services
         private readonly IUserService _userService;
         private readonly IClubService _clubService;
 
-        //public UploadService(IUserService userService, IClubService clubService)
-        //{
-        //    _userService = userService;
-        //    _clubService = clubService;
-        //}
+        public UploadService(IUserService userService, IClubService clubService)
+        {
+            _userService = userService;
+            _clubService = clubService;
+        }
 
         //public async Task<string> UpdateAvatarAsync(int userId, HttpPostedFile file)
         //{
