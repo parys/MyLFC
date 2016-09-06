@@ -520,7 +520,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Wishs");
+                    b.ToTable("Wishes");
                 });
 
             modelBuilder.Entity("OpenIddict.OpenIddictApplication<int>", b =>

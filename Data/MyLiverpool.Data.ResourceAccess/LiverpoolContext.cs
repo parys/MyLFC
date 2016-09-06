@@ -99,9 +99,8 @@ namespace MyLiverpool.Data.ResourceAccess
 
             modelBuilder.Entity<Match>().HasOne(x => x.Club).WithMany(x => x.Matches).HasForeignKey(x => x.ClubId);
 
-            //// использование Fluent API
-            //   modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>(); 
-            foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))            {
+            foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
+            {
                 relationship.DeleteBehavior = DeleteBehavior.Restrict;
             }
 

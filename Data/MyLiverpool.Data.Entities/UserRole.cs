@@ -7,6 +7,6 @@
 //    //    [Key]
 //    //    public string UserId { get; set; }
 //    //    public string RoleId { get; set; }
-//        public int Id { get; set; }
+//    
 //    }
 //}

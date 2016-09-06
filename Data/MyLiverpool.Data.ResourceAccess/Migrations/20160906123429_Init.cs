@@ -70,7 +70,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Wishs",
+                name: "Wishes",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -81,7 +81,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Wishs", x => x.Id);
+                    table.PrimaryKey("PK_Wishes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -785,7 +785,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                 name: "PrivateMessages");
 
             migrationBuilder.DropTable(
-                name: "Wishs");
+                name: "Wishes");
 
             migrationBuilder.DropTable(
                 name: "OpenIddictScopes");

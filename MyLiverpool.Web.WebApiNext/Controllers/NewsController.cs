@@ -32,15 +32,6 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return Ok(result);
         }
 
-        //[Route("{id:int}")]
-        //[HttpGet]
-        //[AllowAnonymous]
-        //public async Task<IActionResult> GetNewsItem(int id)
-        //{
-        //    var model = await _materialService.GetDtoAsync(id, Type);
-        //    return Ok(model);
-        //}
-
         [Route("{id:int}")]
         [HttpGet]
         [AllowAnonymous]
