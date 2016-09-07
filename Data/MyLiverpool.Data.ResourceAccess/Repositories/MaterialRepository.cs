@@ -11,7 +11,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
         private readonly LiverpoolContext _context;
         public MaterialRepository()
         {
-            _context = new LiverpoolContext();
+            _context = LiverpoolContext.Create();
         }
 
         public async Task<IEnumerable<Material>> Get()

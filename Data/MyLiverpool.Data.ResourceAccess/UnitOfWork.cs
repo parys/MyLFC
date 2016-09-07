@@ -16,7 +16,7 @@ namespace MyLiverpool.Data.ResourceAccess
     /// </summary>
     public class UnitOfWork : IUnitOfWork, IDisposable
     {
-        private readonly LiverpoolContext _context = new LiverpoolContext();
+        private readonly LiverpoolContext _context = LiverpoolContext.Create();
 
 
         private IGenericRepository<Club> _clubRepository;

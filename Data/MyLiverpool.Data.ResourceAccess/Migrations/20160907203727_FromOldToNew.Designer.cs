@@ -8,8 +8,8 @@ using MyLiverpool.Data.ResourceAccess;
 namespace MyLiverpool.Data.ResourceAccess.Migrations
 {
     [DbContext(typeof(LiverpoolContext))]
-    [Migration("20160906123429_Init")]
-    partial class Init
+    [Migration("20160907203727_FromOldToNew")]
+    partial class FromOldToNew
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -521,7 +521,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Wishs");
+                    b.ToTable("Wishes");
                 });
 
             modelBuilder.Entity("OpenIddict.OpenIddictApplication<int>", b =>

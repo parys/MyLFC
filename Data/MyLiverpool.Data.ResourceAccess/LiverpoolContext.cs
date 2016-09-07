@@ -18,6 +18,7 @@ namespace MyLiverpool.Data.ResourceAccess
 //"Server=.;Initial Catalog=MyLiverpool1;Trusted_Connection=True;MultipleActiveResultSets=true")//, throwIfV1Schema: false)//@"Data Source=Andrew-PC;Initial Catalog=MyLiverpoolDB;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False") 
                                                                //Data Source=ANDREW-PC;Initial Catalog=NewDbTest;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False")
         {
+           
             // Create the database and schema if it doesn't exist
                if (!_created)
               {
@@ -29,15 +30,17 @@ namespace MyLiverpool.Data.ResourceAccess
             }
         }
 
-        public LiverpoolContext(): base() //todo call with params
-        {
-            
-        }
-
-        //public static LiverpoolContext Create()
+        //public LiverpoolContext(): base() //todo call with params
         //{
-        //    return new LiverpoolContext();
+            
         //}
+
+        public static LiverpoolContext Create()
+        {
+            var builder = new DbContextOptionsBuilder<LiverpoolContext>();
+            builder.UseSqlServer("Server=.;Initial Catalog=MyLiverpool1123;Trusted_Connection=True;MultipleActiveResultSets=true");
+            return new LiverpoolContext(builder.Options);
+        }
         //   public DbSet<UserClaim> UserClaims { get; set; }
         //    public DbSet<UserLogin> UserLogins { get; set; }
         //     public DbSet<UserRole> UserRoles { get; set; }
@@ -75,6 +78,8 @@ namespace MyLiverpool.Data.ResourceAccess
        //     modelBuilder.Entity<OpenIddictAuthorization>().ToTable("Authorizations");
         //    modelBuilder.Entity<OpenIddictScope>().ToTable("Scopes");
           //  modelBuilder.Entity<OpenIddictToken>().ToTable("Tokens");
+
+            modelBuilder.Entity<Wish>().ToTable("Wishes");
             
             modelBuilder.Entity<MaterialComment>().HasOne(x => x.Author).WithMany(x => x.Comments).HasForeignKey(x => x.AuthorId);
             modelBuilder.Entity<ForumMessage>().HasOne(x => x.Author).WithMany(u => u.ForumMessages);

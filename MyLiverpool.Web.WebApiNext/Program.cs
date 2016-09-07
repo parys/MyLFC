@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
+using MyLiverpool.Data.ResourceAccess;
 
 namespace MyLiverpool.Web.WebApiNext
 {
@@ -17,7 +19,7 @@ namespace MyLiverpool.Web.WebApiNext
                 .UseIISIntegration()
                 .UseStartup<Startup>()
                 .Build();
-
+            new DatabaseInitializer().Seed();
             host.Run();
         }
     }
