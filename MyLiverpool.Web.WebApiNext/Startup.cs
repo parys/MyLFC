@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.IO;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +14,7 @@ using MyLiverpool.Data.ResourceAccess;
 using MyLiverpool.Data.ResourceAccess.Contracts;
 using MyLiverpool.Data.ResourceAccess.Repositories;
 using MyLiverpool.Web.WebApiNext.Services;
+using Newtonsoft.Json.Serialization;
 using IConfigurationProvider = AutoMapper.IConfigurationProvider;
 
 namespace MyLiverpool.Web.WebApiNext
@@ -66,9 +68,12 @@ namespace MyLiverpool.Web.WebApiNext
             services.AddIdentity<User, Role>()
                 .AddEntityFrameworkStores<LiverpoolContext, int>()
                 .AddDefaultTokenProviders();
-  
 
-            services.AddMvc();
+
+            services.AddMvc().AddJsonOptions(options =>
+            {
+                options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            });
 
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
@@ -118,16 +123,16 @@ namespace MyLiverpool.Web.WebApiNext
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            //app.Use(async (context, next) =>
-            //{
-            //    await next();
+            app.Use(async (context, next) =>
+            {
+                await next();
 
-            //    if (context.Response.StatusCode == 404 && !Path.HasExtension(context.Request.Path.Value))
-            //    {
-            //        context.Request.Path = "/index.html"; //todo Put your Angular root page here 
-            //        await next();
-            //    }
-            //});
+                if (context.Response.StatusCode == 404 && !Path.HasExtension(context.Request.Path.Value))
+                {
+                    context.Request.Path = "/index.html"; //todo Put your Angular root page here 
+                    await next();
+                }
+            });
 
             app.UseDefaultFiles();
             app.UseStaticFiles();
@@ -138,7 +143,12 @@ namespace MyLiverpool.Web.WebApiNext
 
             app.UseOpenIddict();
 
-            app.UseMvcWithDefaultRoute();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
+            });
 
             // Add external authentication middleware below. To configure them please see http://go.microsoft.com/fwlink/?LinkID=532715
 

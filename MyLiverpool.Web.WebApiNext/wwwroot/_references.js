@@ -4,6 +4,7 @@
 /// <reference path="app/account/account-signin.component.js" />
 /// <reference path="app/account/account-signup.component.js" />
 /// <reference path="app/account/index.js" />
+/// <reference path="app/account/signup.model.js" />
 /// <reference path="app/app.component.js" />
 /// <reference path="app/app.constants.js" />
 /// <reference path="app/app.module.js" />

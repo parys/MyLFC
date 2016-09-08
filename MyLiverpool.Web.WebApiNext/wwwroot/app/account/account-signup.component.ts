@@ -1,7 +1,10 @@
 ﻿import { Component, OnInit } from '@angular/core';
+//import { NgControl } from '@angular/forms';
 import { CORE_DIRECTIVES } from '@angular/common';
 import { Observable } from 'rxjs/Observable';
 import { ROUTER_DIRECTIVES } from '@angular/router';
+import {AuthService} from "../auth/auth.service";
+import {Signup} from "./signup.model";
 
 @Component({
     selector: 'account-signup',
@@ -11,13 +14,15 @@ import { ROUTER_DIRECTIVES } from '@angular/router';
 })
 
 export class AccountSignupComponent implements OnInit {
+    
+  //  username: NgControl;
+    item: Signup;
 
- //   items: News[];
-
-    constructor(){//private newsService: NewsService) {
+    constructor(private authService: AuthService) {
     }
 
     ngOnInit() {
+        this.item = new Signup();
         //this.newsService
         //    .GetAll()
         //    .subscribe(data => this.parsePageable(data),
@@ -25,6 +30,10 @@ export class AccountSignupComponent implements OnInit {
         //    () => console.log("success load list news"));
     }
 
+    register(): void {
+        console.log(this.item);
+        console.log(this.item.username);
+    }
     //private parsePageable(pageable: Pageable<News>): void {
     //    this.items = pageable.list; //todo parse others
     //}

@@ -9,18 +9,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 const core_1 = require('@angular/core');
+//import { NgControl } from '@angular/forms';
 const common_1 = require('@angular/common');
 const router_1 = require('@angular/router');
+const auth_service_1 = require("../auth/auth.service");
+const signup_model_1 = require("./signup.model");
 let AccountSignupComponent = class AccountSignupComponent {
-    //   items: News[];
-    constructor() {
+    constructor(authService) {
+        this.authService = authService;
     }
     ngOnInit() {
+        this.item = new signup_model_1.Signup();
         //this.newsService
         //    .GetAll()
         //    .subscribe(data => this.parsePageable(data),
         //    error => console.log(error),
         //    () => console.log("success load list news"));
+    }
+    register() {
+        console.log(this.item);
+        console.log(this.item.username);
     }
 };
 AccountSignupComponent = __decorate([
@@ -29,7 +37,7 @@ AccountSignupComponent = __decorate([
         templateUrl: 'app/account/account-signup.component.html',
         directives: [common_1.CORE_DIRECTIVES, router_1.ROUTER_DIRECTIVES] //,
     }), 
-    __metadata('design:paramtypes', [])
+    __metadata('design:paramtypes', [auth_service_1.AuthService])
 ], AccountSignupComponent);
 exports.AccountSignupComponent = AccountSignupComponent;
 //# sourceMappingURL=account-signup.component.js.map
