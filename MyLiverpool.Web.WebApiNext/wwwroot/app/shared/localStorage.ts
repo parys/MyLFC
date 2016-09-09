@@ -1,6 +1,4 @@
-﻿import {provide} from '@angular/core';
-
-export class LocalStorage {
+﻿export class LocalStorageMine {
     public localStorage: any;
 
     constructor() {
@@ -30,7 +28,3 @@ export class LocalStorage {
         this.localStorage.removeItem(key);
     }
 }
-
-export const LOCAL_STORAGE_PROVIDERS: any[] = [
-    provide(LocalStorage, { useClass: LocalStorage })
-];

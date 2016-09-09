@@ -1,12 +1,9 @@
 ﻿import { Component, OnInit, Input } from '@angular/core';
-import { CORE_DIRECTIVES } from '@angular/common';
 import { Observable } from 'rxjs/Observable';
-import { ROUTER_DIRECTIVES } from '@angular/router';
 
 @Component({
     selector: 'secured-link',
     templateUrl: 'app/shared/securedLink.component.html',
-    directives: [CORE_DIRECTIVES],
     inputs: ['link', 'name']
     // providers: [NewsService]
 })

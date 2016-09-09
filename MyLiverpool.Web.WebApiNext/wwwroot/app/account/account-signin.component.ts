@@ -1,12 +1,10 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { CORE_DIRECTIVES } from '@angular/common';
 import { Observable } from 'rxjs/Observable';
 import {AuthService} from "../auth/auth.service";
 
 @Component({
     selector: 'account-signin',
     templateUrl: 'app/account/account-signin.component.html',
-    directives: [CORE_DIRECTIVES]//,
     // providers: [NewsService]
 })
 

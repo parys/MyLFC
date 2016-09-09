@@ -1,12 +1,12 @@
 ﻿import {Injectable} from '@angular/core';
 import {Http, Headers} from '@angular/http';
 import {AuthService} from "../auth/auth.service";
-import {LocalStorage} from "./localStorage";
+import { LocalStorageMine } from "./localStorage";
 
 @Injectable()
 export class HttpWrapper {
 
-    constructor(private http: Http, private localStorage: LocalStorage) {}
+    constructor(private http: Http, private localStorage: LocalStorageMine) {}
 
     updateHeaders(): Headers {
         let headers = new Headers();

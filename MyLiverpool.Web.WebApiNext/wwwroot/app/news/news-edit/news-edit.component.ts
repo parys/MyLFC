@@ -1,7 +1,6 @@
 ﻿import { Component, OnInit, OnDestroy } from '@angular/core';
-import { CORE_DIRECTIVES } from '@angular/common';
 import { NewsService } from '../shared/news.service';
-import { Router, ActivatedRoute, ROUTER_DIRECTIVES } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { News } from "../shared/news.model";
 import {NewsCategoryService} from "../../newsCategory/shared/newsCategory.service";
@@ -10,7 +9,6 @@ import {NewsCategory} from "../../newsCategory/shared/newsCategory.model";
 @Component({
     selector: 'news-edit',
     templateUrl: 'app/news/news-edit/news-edit.component.html',
-    directives: [CORE_DIRECTIVES, ROUTER_DIRECTIVES],
     providers: [NewsService, NewsCategoryService]
 })
 

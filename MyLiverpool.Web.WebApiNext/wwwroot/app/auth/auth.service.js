@@ -58,7 +58,7 @@ let AuthService = class AuthService {
 };
 AuthService = __decorate([
     core_1.Injectable(), 
-    __metadata('design:paramtypes', [httpWrapper_1.HttpWrapper, http_1.Http, localStorage_1.LocalStorage])
+    __metadata('design:paramtypes', [httpWrapper_1.HttpWrapper, http_1.Http, localStorage_1.LocalStorageMine])
 ], AuthService);
 exports.AuthService = AuthService;
 //# sourceMappingURL=auth.service.js.map

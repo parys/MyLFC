@@ -59,7 +59,7 @@ let HttpWrapper = class HttpWrapper {
 };
 HttpWrapper = __decorate([
     core_1.Injectable(), 
-    __metadata('design:paramtypes', [http_1.Http, localStorage_1.LocalStorage])
+    __metadata('design:paramtypes', [http_1.Http, localStorage_1.LocalStorageMine])
 ], HttpWrapper);
 exports.HttpWrapper = HttpWrapper;
 //# sourceMappingURL=httpWrapper.js.map

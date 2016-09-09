@@ -9,7 +9,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 const core_1 = require('@angular/core');
-const common_1 = require('@angular/common');
 const news_service_1 = require('../shared/news.service');
 const router_1 = require('@angular/router');
 let NewsDetailComponent = class NewsDetailComponent {
@@ -35,7 +34,6 @@ NewsDetailComponent = __decorate([
     core_1.Component({
         selector: 'news-detail',
         templateUrl: 'app/news/news-detail/news-detail.component.html',
-        directives: [common_1.CORE_DIRECTIVES, router_1.ROUTER_DIRECTIVES],
         providers: [news_service_1.NewsService]
     }), 
     __metadata('design:paramtypes', [news_service_1.NewsService, router_1.ActivatedRoute])

@@ -1,11 +1,9 @@
 ﻿import { Component } from '@angular/core';
-import { Router, ROUTER_DIRECTIVES } from '@angular/router';
-import {SecuredDirective } from "./shared/secured.directive";
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'my-app',
-    templateUrl: 'app/app.component.html',
-    directives: [ROUTER_DIRECTIVES, SecuredDirective]
+    templateUrl: 'app/app.component.html'
 })
 
 export class AppComponent {

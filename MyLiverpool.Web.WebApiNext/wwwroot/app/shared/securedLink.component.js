@@ -9,7 +9,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 const core_1 = require('@angular/core');
-const common_1 = require('@angular/common');
 let SecuredLinkComponent = class SecuredLinkComponent {
     constructor() {
     }
@@ -29,7 +28,6 @@ SecuredLinkComponent = __decorate([
     core_1.Component({
         selector: 'secured-link',
         templateUrl: 'app/shared/securedLink.component.html',
-        directives: [common_1.CORE_DIRECTIVES],
         inputs: ['link', 'name']
     }), 
     __metadata('design:paramtypes', [])

@@ -1,28 +1,48 @@
 ﻿import { Component, OnInit } from '@angular/core';
-//import { NgControl } from '@angular/forms';
-import { CORE_DIRECTIVES } from '@angular/common';
+import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
-import { ROUTER_DIRECTIVES } from '@angular/router';
 import {AuthService} from "../auth/auth.service";
 import {Signup} from "./signup.model";
 
 @Component({
     selector: 'account-signup',
     templateUrl: 'app/account/account-signup.component.html',
-    directives: [CORE_DIRECTIVES, ROUTER_DIRECTIVES]//,
    // providers: [NewsService]
 })
 
 export class AccountSignupComponent implements OnInit {
     
-  //  username: NgControl;
-    item: Signup;
+   // item: Signup;
 
-    constructor(private authService: AuthService) {
+    registerForm: FormGroup;// = new FormGroup({
+    //    username: new FormControl(),
+    //    email: new FormControl(),
+    //    password: new FormControl(),
+    //    confirmPassword: new FormControl(),
+    //    fullName: new FormControl(),
+    //    birthday: new FormControl()
+    //});
+
+
+    constructor(private authService: AuthService, private formBuilder: FormBuilder) {
     }
 
     ngOnInit() {
-        this.item = new Signup();
+       // this.item = new Signup();
+        this.registerForm = this.formBuilder.group({
+            'username': ['', Validators.compose([
+                Validators.required, ])],
+            'email': ['', Validators.compose([
+                Validators.required,])],
+            'password': ['', Validators.compose([
+                Validators.required,])],
+            'confirmPassword': ['', Validators.compose([
+                Validators.required,])],
+            'fullName': ['', Validators.compose([
+                Validators.required,])],
+            'birthday': ['', Validators.compose([
+                Validators.required,])]
+        });
         //this.newsService
         //    .GetAll()
         //    .subscribe(data => this.parsePageable(data),
@@ -30,11 +50,12 @@ export class AccountSignupComponent implements OnInit {
         //    () => console.log("success load list news"));
     }
 
-    register(): void {
-        console.log(this.item);
-        console.log(this.item.username);
+    onSubmit(value: any): void {
+        console.log('you submitted value: ', value);
     }
-    //private parsePageable(pageable: Pageable<News>): void {
-    //    this.items = pageable.list; //todo parse others
-    //}
+
+    register(): void {
+      //  console.log(this.item);
+      //  console.log(this.item.username);
+    }
 }

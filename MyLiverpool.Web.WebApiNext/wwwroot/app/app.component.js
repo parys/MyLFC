@@ -10,7 +10,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 const core_1 = require('@angular/core');
 const router_1 = require('@angular/router');
-const secured_directive_1 = require("./shared/secured.directive");
 let AppComponent = class AppComponent {
     constructor(router) {
         this.router = router;
@@ -19,8 +18,7 @@ let AppComponent = class AppComponent {
 AppComponent = __decorate([
     core_1.Component({
         selector: 'my-app',
-        templateUrl: 'app/app.component.html',
-        directives: [router_1.ROUTER_DIRECTIVES, secured_directive_1.SecuredDirective]
+        templateUrl: 'app/app.component.html'
     }), 
     __metadata('design:paramtypes', [router_1.Router])
 ], AppComponent);

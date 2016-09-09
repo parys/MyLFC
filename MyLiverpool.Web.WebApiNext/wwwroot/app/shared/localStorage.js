@@ -1,6 +1,5 @@
 "use strict";
-const core_1 = require('@angular/core');
-class LocalStorage {
+class LocalStorageMine {
     constructor() {
         if (!localStorage) {
             throw new Error('Current browser does not support Local Storage');
@@ -23,8 +22,5 @@ class LocalStorage {
         this.localStorage.removeItem(key);
     }
 }
-exports.LocalStorage = LocalStorage;
-exports.LOCAL_STORAGE_PROVIDERS = [
-    core_1.provide(LocalStorage, { useClass: LocalStorage })
-];
+exports.LocalStorageMine = LocalStorageMine;
 //# sourceMappingURL=localStorage.js.map

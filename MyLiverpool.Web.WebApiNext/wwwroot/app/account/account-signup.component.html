@@ -1,54 +1,59 @@
 ﻿<div class="col-md-12 top20">
-    <form class="form-horizontal" name="registerForm1" role="form">
+    <form class="form-horizontal" [formGroup]="registerForm" (ngSubmit)="onSubmit(registerForm.value)" role="form">
         <div class="form-group">
-            <label class="col-md-2  control-label">Логин</label>
+            <label class="col-md-2 control-label">Логин</label>
             <div class="col-md-10">
-              <input type="text" name="userName" [(ngModel)]="item.username" id="userName" debounce="5000" validation="remote:vm.userNameUnique():alt=Пользователь с таким логином уже существует|min_len:3|max_len:30|required" class="form-control" />
-               <!--   <input required type="text" ngControl="username" />-->
+            <!--    <input type="text" name="userName" [(ngModel)]="item.username" id="userName" debounce="5000" validation="remote:vm.userNameUnique():alt=Пользователь с таким логином уже существует|min_len:3|max_len:30|required" />
+                -->  <input class="form-control" [formControl]="registerForm.controls['username']" type="text" />
             </div>
         </div>
         <div class="form-group">
-            <label class="col-md-2 control-label">Почтовый адрес </label>
+            <label class="col-md-2 control-label">Почтовый адрес</label>
             <div class="col-md-10">
-                <input type="email" name="email" [(ngModel)]="item.email" id="email" debounce="5000" validation="remote:vm.emailUnique():alt=Пользователь с таким адресом уже существуетrequired|email|min_len:6" class="form-control" />
+               <!-- <input type="email" name="email" [(ngModel)]="item.email" id="email" debounce="5000" validation="remote:vm.emailUnique():alt=Пользователь с таким адресом уже существуетrequired|email|min_len:6" />
+               -->  <input class="form-control" [formControl]="registerForm.controls['email']" type="text"/>
             </div>
         </div>
         <div class="form-group">
             <label for="password" class="col-md-2 control-label">Пароль</label>
             <div class="col-md-10">
-                <input type="password" name="vm.registerForm.password" friendly-name="Пароль" id="password" [(ngModel)]="item.password" validation="required|min_len:6" class="form-control" />
-            </div>
+               <!-- <input type="password" name="vm.registerForm.password" friendly-name="Пароль" id="password" [(ngModel)]="item.password" validation="required|min_len:6" />
+             -->    <input class="form-control" [formControl]="registerForm.controls['password']" type="text" />
+             </div>
         </div>
         <div class="form-group">
             <label for="confirmPassword" class="col-md-2 control-label">Подтверждение пароля</label>
             <div class="col-md-10">
-                <input type="password" name="confirmPassword" id="confirmPassword" [(ngModel)]="item.confirmPassword" validation="required|match:vm.registerForm.password,Password2|min_len:6" class="form-control" />
-            </div>
+             <!--   <input type="password" name="confirmPassword" id="confirmPassword" [(ngModel)]="item.confirmPassword" validation="required|match:vm.registerForm.password,Password2|min_len:6" />
+              -->   <input class="form-control" [formControl]="registerForm.controls['confirmPassword']" type="text" /> 
+              </div>
         </div>
         <div class="form-group">
             <label class="col-md-2 control-label">Полное имя</label>
             <div class="col-md-10">
-                <input type="text" name="fullName" [(ngModel)]="item.fullName" validation="required|min_len:2" class="form-control" />
+               <!-- <input type="text" name="fullName" [(ngModel)]="item.fullName" validation="required|min_len:2"/>
+           -->      <input class="form-control" [formControl]="registerForm.controls['fullName']"  type="text" />
             </div>
         </div>
         <div class="form-group">
             <label class="col-md-2 control-label">Дата рождения</label>
             <div class="col-md-10">
-                <div class="input-group">
+             <!--   <div class="input-group">
                     <input type="text" class="form-control" validation="required" name="birthday"
                            ng-readonly="true" show-button-bar="false"
                            uib-datepicker-popup="dd/MMMM/yyyy" [(ngModel)]="item.birthday"
                            is-open="vm.status.opened" datepicker-options="vm.dateOptions" close-text="Закрыть"
                            alt-input-formats="altInputFormats" />
-                    <!--span class="input-group-btn va-top">
-                        <button type="button" class="btn btn-default" ng-click="vm.open()"><i class="glyphicon glyphicon-calendar"></i></button>
-                    </span-->
-                </div>
+                    span class="input-group-btn va-top">
+                    <button type="button" class="btn btn-default" ng-click="vm.open()"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span
+                </div>   -->             
+            <input class="form-control" [formControl]="registerForm.controls['birthday']" type="text" />
             </div>
         </div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <button type="button" ng-disabled="registerForm1.$invalid" (click)="register()" class="btn btn-default">Зарегистрироваться</button>
+                <button class="btn btn-default" [disabled]="!registerForm.valid" type="submit">Зарегистрироваться</button>
             </div>
         </div>
     </form>

@@ -5,14 +5,14 @@ import {Http, Headers} from '@angular/http';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/delay';
-import {LocalStorage} from "../shared/localStorage";
+import { LocalStorageMine } from "../shared/localStorage";
 
 @Injectable()
 export class AuthService {
     isLoggedIn: boolean = false;
     roles: string[] = [ 'newsmaker', 'user'];
 
-    constructor(private http: HttpWrapper, private http1: Http, private localStorage: LocalStorage) {
+    constructor(private http: HttpWrapper, private http1: Http, private localStorage: LocalStorageMine) {
        // this.roles =   'newsmaker',  }
     }
 
