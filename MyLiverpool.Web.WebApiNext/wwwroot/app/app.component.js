@@ -10,9 +10,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 const core_1 = require('@angular/core');
 const router_1 = require('@angular/router');
+const auth_service_1 = require("./auth/auth.service");
 let AppComponent = class AppComponent {
-    constructor(router) {
+    constructor(router, auth) {
         this.router = router;
+        this.auth = auth;
     }
 };
 AppComponent = __decorate([
@@ -20,7 +22,7 @@ AppComponent = __decorate([
         selector: 'my-app',
         templateUrl: 'app/app.component.html'
     }), 
-    __metadata('design:paramtypes', [router_1.Router])
+    __metadata('design:paramtypes', [router_1.Router, auth_service_1.AuthService])
 ], AppComponent);
 exports.AppComponent = AppComponent;
 //# sourceMappingURL=app.component.js.map

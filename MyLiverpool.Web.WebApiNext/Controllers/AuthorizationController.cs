@@ -40,7 +40,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
 
             if (request.IsPasswordGrantType())
             {
-                var user =  _userManager.Users.First();//FindByNameAsync(request.Username);
+                var user =  await _userManager.FindByNameAsync(request.Username);
                 if (user == null)
                 {
                     return BadRequest(new OpenIdConnectResponse
@@ -50,20 +50,20 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                     });
                 }
 
-               
-                //if (!await _userManager.CheckPasswordAsync(user, request.Password))
-                //{
-                //    if (_userManager.SupportsUserLockout)
-                //    {
-                //        await _userManager.AccessFailedAsync(user);
-                //    }
 
-                //    return BadRequest(new OpenIdConnectResponse
-                //    {
-                //        Error = OpenIdConnectConstants.Errors.InvalidGrant,
-                //        ErrorDescription = "The username/password couple is invalid."
-                //    });
-                //}
+                if (!await _userManager.CheckPasswordAsync(user, request.Password))
+                {
+                    if (_userManager.SupportsUserLockout)
+                    {
+                        await _userManager.AccessFailedAsync(user);
+                    }
+
+                    return BadRequest(new OpenIdConnectResponse
+                    {
+                        Error = OpenIdConnectConstants.Errors.InvalidGrant,
+                        ErrorDescription = "The username/password couple is invalid."
+                    });
+                }
 
                 if (_userManager.SupportsUserLockout)
                 {
