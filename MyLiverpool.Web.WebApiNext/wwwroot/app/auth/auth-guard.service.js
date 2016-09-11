@@ -23,7 +23,7 @@ let AuthGuard = class AuthGuard {
         // Store the attempted URL for redirecting
         this.authService.redirectUrl = state.url;
         // Navigate to the login page
-        this.router.navigate(['/signup']);
+        //  this.router.navigate(['/signup']);
         return false;
     }
 };

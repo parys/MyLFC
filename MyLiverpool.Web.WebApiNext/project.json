@@ -6,7 +6,7 @@
       "version": "1.0.0",
       "type": "platform"
     },
-    "AspNet.Security.OAuth.Validation": "1.0.0-alpha2-final",
+    "AspNet.Security.OAuth.Validation": "1.0.0-alpha3-0187",
     "bootstrap": "3.3.7",
     "Microsoft.AspNetCore.Authentication.Cookies": "1.0.0",
     "Microsoft.AspNetCore.Diagnostics": "1.0.0",

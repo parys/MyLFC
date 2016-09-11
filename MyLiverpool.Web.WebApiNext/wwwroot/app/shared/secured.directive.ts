@@ -21,7 +21,7 @@ export class SecuredDirective {
     //    var data = instruction.component.routeData.data;
     //    this.hideRouterLink = this.shouldBeHidden(data);
   //      console.log(this.secured);
-    //    console.log(1);
+    //    console.log(1);f
     }
 
     ngOnInit() {

@@ -9,19 +9,31 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 const core_1 = require('@angular/core');
+const forms_1 = require('@angular/forms');
 const auth_service_1 = require("../auth/auth.service");
 let AccountSigninComponent = class AccountSigninComponent {
-    constructor(authService) {
+    constructor(authService, formBuilder) {
         this.authService = authService;
+        this.formBuilder = formBuilder;
     }
     ngOnInit() {
+        this.loginForm = this.formBuilder.group({
+            'username': ['', forms_1.Validators.compose([
+                    forms_1.Validators.required])],
+            'password': ['', forms_1.Validators.compose([
+                    forms_1.Validators.required])]
+        });
         //this.newsService
         //    .GetAll()
         //    .subscribe(data => this.parsePageable(data),
         //    error => console.log(error),
         //    () => console.log("success load list news"));
     }
-    login() {
+    onSubmit(ra) {
+        console.log("1" + ra);
+        console.log(this.loginForm.controls["username"].value);
+        this.username = this.loginForm.controls["username"].value;
+        this.password = this.loginForm.controls["password"].value;
         console.log(this.username + " " + this.password);
         let result = this.authService.login(this.username, this.password);
         //  if(result)
@@ -30,9 +42,9 @@ let AccountSigninComponent = class AccountSigninComponent {
 AccountSigninComponent = __decorate([
     core_1.Component({
         selector: 'account-signin',
-        templateUrl: 'app/account/account-signin.component.html',
+        templateUrl: 'app/account/account-signin.component.html'
     }), 
-    __metadata('design:paramtypes', [auth_service_1.AuthService])
+    __metadata('design:paramtypes', [auth_service_1.AuthService, forms_1.FormBuilder])
 ], AccountSigninComponent);
 exports.AccountSigninComponent = AccountSigninComponent;
 //# sourceMappingURL=account-signin.component.js.map

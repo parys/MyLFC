@@ -42,7 +42,7 @@ namespace MyLiverpool.Data.ResourceAccess
             IQueryable<TEntity> query = _dbSet;
             if (filter != null)
             {
-              //  query = query.Where(filter);
+           //     query = query.Where(filter);
             }
 
             if (includeProperties != null && includeProperties.Any())
@@ -60,7 +60,7 @@ namespace MyLiverpool.Data.ResourceAccess
             IQueryable<TEntity> query = _dbSet;
             if (filter != null)
             {
-                query = query.Where(filter);
+                //query = query.Where(filter);
             }
             if (orderBy != null)
             {
@@ -79,7 +79,7 @@ namespace MyLiverpool.Data.ResourceAccess
             IQueryable<TEntity> query = _dbSet;
             if (filter != null)
             {
-                query = query.Where(filter);
+               // query = query.Where(filter);
             }
             if (includeProperties != null && includeProperties.Any())
             {
@@ -98,11 +98,11 @@ namespace MyLiverpool.Data.ResourceAccess
             IQueryable<TEntity> query = _dbSet;
             if (filter != null)
             {
-             //   query = query.Where(filter);
+                //query = query.Where(filter);
             }
             if (orderBy != null)
             {
-              //  query = query.ObjectSort(orderBy, order);
+                query = query.ObjectSort(orderBy, order);
             }
             if (includeProperties != null && includeProperties.Any())
             {
@@ -118,7 +118,7 @@ namespace MyLiverpool.Data.ResourceAccess
             IQueryable<TEntity> query = _dbSet;
             if (filter != null)
             {
-                query = query.Where(filter);
+               // query = query.Where(filter);
             }
             if (includeProperties != null && includeProperties.Any())
             {

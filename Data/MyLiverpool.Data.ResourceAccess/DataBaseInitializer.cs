@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using MyLiverpool.Data.Entities;
+using OpenIddict;
 
 namespace MyLiverpool.Data.ResourceAccess
 {
@@ -43,7 +44,8 @@ namespace MyLiverpool.Data.ResourceAccess
             await InitializeForumSections();
             await InitializeForumSubsections();
             await InitializeForumThemes();
-            
+
+            await AddApplication();
         }
 
         #region roles
@@ -933,6 +935,24 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
             };
 
             pms.ForEach(x => context.PrivateMessages.Add(x));
+            await context.SaveChangesAsync();
+        }
+
+        private async Task AddApplication()
+        {
+            if (context.Applications.Any()) return;
+
+            var app = new OpenIddictApplication<int>()
+            {
+                ClientId = "client_id3",
+                ClientSecret = "client_secret44",
+                Type = OpenIddictConstants.ClientTypes.Public,
+              //  Id = 1,
+                DisplayName = "MVC Core client application",
+                RedirectUri = "http://localhost:1669/",
+                LogoutRedirectUri = "http://localhost:1669/",
+            };
+            context.Applications.Add(app);
             await context.SaveChangesAsync();
         }
 

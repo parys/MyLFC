@@ -38,7 +38,11 @@ namespace MyLiverpool.Data.ResourceAccess
         public static LiverpoolContext Create()
         {
             var builder = new DbContextOptionsBuilder<LiverpoolContext>();
-            builder.UseSqlServer("Server=.;Initial Catalog=MyLiverpool1123;Trusted_Connection=True;MultipleActiveResultSets=true");
+            builder.UseSqlServer("Server=.;Initial Catalog=MyLiverpool1123;Trusted_Connection=True;MultipleActiveResultSets=true",
+                options =>
+                {
+                    //options.UseRowNumberForPaging();
+                });
             return new LiverpoolContext(builder.Options);
         }
         //   public DbSet<UserClaim> UserClaims { get; set; }

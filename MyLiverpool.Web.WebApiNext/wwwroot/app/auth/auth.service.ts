@@ -14,6 +14,10 @@ export class AuthService {
 
     constructor(private http: HttpWrapper, private http1: Http, private localStorage: LocalStorageMine) {
        // this.roles =   'newsmaker',  }
+        if (this.localStorage.getObject('access_token')) {
+            console.log("auth at start");
+            this.isLoggedIn = true;
+        }
     }
 
     // store the URL so we can redirect after logging in
@@ -26,7 +30,7 @@ export class AuthService {
        // headers.append('client_secret', 'client_secret44');
      //   this.createAuthorizationHeader(headers);
       //  let perams = { grant_type: "password", userName: username, password: password };
-        let perams = `grant_type=password&username=${username}&password=${password}&client_id=client_id3&client_secret=client_secret44`;
+        let perams = `grant_type=password&username=${username}&password=${password}&client_id=client_id3`;
 
         var result = this.http1.post('connect/token', perams, {
             headers: headers
