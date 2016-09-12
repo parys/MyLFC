@@ -24,73 +24,73 @@ namespace MyLiverpool.Business.Services.Services
             _clubService = clubService;
         }
 
-        //public async Task<string> UpdateAvatarAsync(int userId, HttpPostedFile file)
-        //{
-        //    var path = await _userService.GetPhotoPathAsync(userId);
-        //    var relativePath = path;
-        //    if (string.IsNullOrEmpty(path))
-        //    {
-        //        var newName = GenerateNewName() + "." + file.FileName.Split('.').Last();
-        //        var newPath = GenerateNewPath(AvatarPath);
-        //        relativePath = Path.Combine(newPath, newName);
-        //        path = GetFullPath(relativePath);
-        //    }
-        //    else
-        //    {
-        //        path = GetFullPath(path);
-        //    }
+        public async Task<string> UpdateAvatarAsync(int userId, IFormFile file)
+        {
+            var path = await _userService.GetPhotoPathAsync(userId);
+            var relativePath = path;
+            if (string.IsNullOrEmpty(path))
+            {
+                var newName = GenerateNewName() + "." + file.FileName.Split('.').Last();
+                var newPath = GenerateNewPath(AvatarPath);
+                relativePath = Path.Combine(newPath, newName);
+                path = GetFullPath(relativePath);
+            }
+            else
+            {
+                path = GetFullPath(path);
+            }
 
-        //    file.SaveAs(path);
-        //    relativePath = Regex.Replace(relativePath, "\\\\", "/");
-        //    await _userService.UpdatePhotoPathAsync(userId, relativePath);
-        //    return relativePath;
-        //}
+            file.CopyTo(new FileStream(path, FileMode.Create));
+            relativePath = Regex.Replace(relativePath, "\\\\", "/");
+            await _userService.UpdatePhotoPathAsync(userId, relativePath);
+            return relativePath;
+        }
 
-        //public async Task<string> UpdateLogoAsync(int? clubId, HttpPostedFile file)
-        //{
-        //    string path = string.Empty;
-        //    if (clubId.HasValue)
-        //    {
-        //        path = await _clubService.GetNameAsync(clubId.Value);
-        //    }
-        //    var relativePath = path;
-        //    if (string.IsNullOrEmpty(path) || !path.Contains(LogoPath))
-        //    {
-        //        var newName = (string.IsNullOrWhiteSpace(path) ? GenerateNewName() : path) + "." + file.FileName.Split('.').Last();
-        //        var newPath = GenerateNewPath(LogoPath);
-        //        relativePath = Path.Combine(newPath, newName);
-        //        path = GetFullPath(relativePath);
-        //    }
-        //    else
-        //    {
-        //        path = GetFullPath(path);
-        //    }
+        public async Task<string> UpdateLogoAsync(int? clubId, IFormFile file)
+        {
+            string path = string.Empty;
+            if (clubId.HasValue)
+            {
+                path = await _clubService.GetNameAsync(clubId.Value);
+            }
+            var relativePath = path;
+            if (string.IsNullOrEmpty(path) || !path.Contains(LogoPath))
+            {
+                var newName = (string.IsNullOrWhiteSpace(path) ? GenerateNewName() : path) + "." + file.FileName.Split('.').Last();
+                var newPath = GenerateNewPath(LogoPath);
+                relativePath = Path.Combine(newPath, newName);
+                path = GetFullPath(relativePath);
+            }
+            else
+            {
+                path = GetFullPath(path);
+            }
+            
+            file.CopyTo(new FileStream(path, FileMode.Create));
+            relativePath = Regex.Replace(relativePath, "\\\\", "/");
+            if (clubId.HasValue)
+            {
+                await _clubService.UpdateLogoAsync(clubId.Value, relativePath);
+            }
+            return relativePath;
+        }
 
-        //    file.SaveAs(path);
-        //    relativePath = Regex.Replace(relativePath, "\\\\", "/");
-        //    if (clubId.HasValue)
-        //    {
-        //        await _clubService.UpdateLogoAsync(clubId.Value, relativePath);
-        //    }
-        //    return relativePath;
-        //}
+        public async Task<IEnumerable<string>> UploadAsync(IFormFileCollection files)
+        {
+            var result = new List<string>();
+            foreach (var fileName in files)
+            {
+               //todo var file = files[fileName];
+                //var newName = GenerateNewName() + "." + file.FileName.Split('.').Last();
+                //var newPath = GenerateNewPath(ImagesPath);
+                //var relativePath = Path.Combine(newPath, newName);
+                //var path = GetFullPath(relativePath);
 
-        //public async Task<IEnumerable<string>> UploadAsync(HttpFileCollection files)
-        //{
-        //    var result = new List<string>();
-        //    foreach (var fileName in files.AllKeys)
-        //    {
-        //        var file = files[fileName];
-        //        var newName = GenerateNewName() + "." + file.FileName.Split('.').Last();
-        //        var newPath = GenerateNewPath(ImagesPath);
-        //        var relativePath = Path.Combine(newPath, newName);
-        //        var path = GetFullPath(relativePath);
-                
-        //        file.SaveAs(path);
-        //        result.Add(relativePath);
-        //    }
-        //    return result;
-        //}
+                //file.SaveAs(path);
+                //result.Add(relativePath);
+            }
+            return result;
+        }
 
         #region private helpers 
         private string GenerateNewPath(string path)

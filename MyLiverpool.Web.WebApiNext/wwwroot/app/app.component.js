@@ -15,6 +15,8 @@ let AppComponent = class AppComponent {
     constructor(router, auth) {
         this.router = router;
         this.auth = auth;
+        console.log("AppComponent ctor");
+        console.log(auth);
     }
 };
 AppComponent = __decorate([

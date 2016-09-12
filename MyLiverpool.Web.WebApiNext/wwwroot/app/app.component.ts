@@ -9,5 +9,7 @@ import {AuthService} from "./auth/auth.service";
 
 export class AppComponent {
     constructor(private router: Router, public auth: AuthService) { //todo need to more elegant decision
+        console.log("AppComponent ctor");
+        console.log(auth);
     }
 }

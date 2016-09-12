@@ -9,7 +9,7 @@ import { LocalStorageMine } from "../shared/localStorage";
 
 @Injectable()
 export class AuthService {
-    isLoggedIn: boolean = false;
+    public isLoggedIn: boolean = false;
     roles: string[] = [ 'newsmaker', 'user'];
 
     constructor(private http: HttpWrapper, private http1: Http, private localStorage: LocalStorageMine) {

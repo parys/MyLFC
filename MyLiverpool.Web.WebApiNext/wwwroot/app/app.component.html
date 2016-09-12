@@ -8,10 +8,10 @@
         <li class="divider"></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-        <li *ngIf="auth.isLoggedIn">
+        <li *ngIf="!auth.isLoggedIn">
             <account-signin></account-signin>
         </li>
-        <li>
+        <li *ngIf="!auth.isLoggedIn">
             <!--ng-if="!vm.loggedIn()">-->
             <!--<a [routerLink]="['/signup']">Регистрация</a>-->
             <a routerLink="/signup">Регистрация</a>
@@ -58,8 +58,8 @@
                 <li class="dropdown">
                     <a [routerLink]="['/news']" class="dropdown-toggle" data-toggle="">Новости<b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a [secured]="'newsmaker1'" [routerLink]="['/news', 0, 'edit']">Добавить</a></li>
-                        <li><a ui-sref="newsCategories()">Категории</a></li>
+                        <li><a [secured]="'newsmaker'" [routerLink]="['/news', 0, 'edit']">Добавить</a></li>
+                        <li><a [routerLink]="['/newsCategories']">Категории</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
