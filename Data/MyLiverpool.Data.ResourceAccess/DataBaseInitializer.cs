@@ -309,6 +309,7 @@ namespace MyLiverpool.Data.ResourceAccess
 
             await userManager.CreateAsync(user, "123456");
             await userManager.AddToRoleAsync(user, RolesEnum.Simple.ToString());
+            await context.SaveChangesAsync();
         }
 
         private async Task InitializeSimpleUser()
@@ -331,6 +332,7 @@ namespace MyLiverpool.Data.ResourceAccess
 
             await userManager.CreateAsync(user, "123456");
             await userManager.AddToRoleAsync(user, RolesEnum.Simple.ToString());
+            await context.SaveChangesAsync();
         }
 
         private async Task InitializeAdmin()
@@ -356,6 +358,7 @@ namespace MyLiverpool.Data.ResourceAccess
             var adminRoles = await context.RoleGroups.FirstAsync(x => x.Name == RoleGroupsEnum.Admin.ToString());
 
             await userManager.AddToRolesAsync(user, adminRoles.Roles.Select(x => x.Name));
+            await context.SaveChangesAsync();
 
         }
 
@@ -382,6 +385,7 @@ namespace MyLiverpool.Data.ResourceAccess
             var adminRoles = context.RoleGroups.First(x => x.Id == user.RoleGroupId).Roles.Select(r => r.Name).ToList();
 
             await userManager.AddToRolesAsync(user, adminRoles);
+            await context.SaveChangesAsync();
 
         }
 
@@ -407,6 +411,7 @@ namespace MyLiverpool.Data.ResourceAccess
             await userManager.CreateAsync(user, "123456");
             var adminRoles = context.RoleGroups.First(x => x.Id == user.RoleGroupId).Roles.Select(r => r.Name).ToList();
             await userManager.AddToRolesAsync(user, adminRoles);
+            await context.SaveChangesAsync();
         }
 
         private async Task InitializeIntern()
@@ -432,7 +437,8 @@ namespace MyLiverpool.Data.ResourceAccess
             var adminRoles = context.RoleGroups.First(x => x.Id == user.RoleGroupId).Roles.Select(r=> r.Name).ToList();
 
             await userManager.AddToRolesAsync(user, adminRoles);
-            
+            await context.SaveChangesAsync();
+
         }
 
         private async Task InitializeEditor()
@@ -457,7 +463,8 @@ namespace MyLiverpool.Data.ResourceAccess
             await userManager.CreateAsync(user, "123456");
             var adminRoles = context.RoleGroups.First(x => x.Id == user.RoleGroupId).Roles.Select(r => r.Name).ToList();
             await userManager.AddToRolesAsync(user, adminRoles);
-            
+            await context.SaveChangesAsync();
+
         }
 
         private async Task InitializeNewsmaker()
@@ -482,7 +489,8 @@ namespace MyLiverpool.Data.ResourceAccess
             await userManager.CreateAsync(user, "123456");
             var adminRoles = context.RoleGroups.First(x => x.Id == user.RoleGroupId).Roles.Select(r => r.Name).ToList();
             await userManager.AddToRolesAsync(user, adminRoles);
-            
+            await context.SaveChangesAsync();
+
         }
         #endregion
 

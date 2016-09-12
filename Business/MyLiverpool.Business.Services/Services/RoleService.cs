@@ -44,6 +44,13 @@ namespace MyLiverpool.Business.Services.Services
             return _mapper.Map<IEnumerable<RoleGroupDto>>(roleGroups);
         }
 
+        public async Task<string> GetUserRolesAsync(int id)
+        {
+            var user = await _unitOfWork.UserManager.FindByIdAsync(id.ToString());
+            var roles = await _unitOfWork.UserManager.GetRolesAsync(user);
+            return string.Join(", ", roles);
+        }
+
         private IEnumerable<Role> GetRolesToDelete(IEnumerable<Role> oldRoles, IEnumerable<Role> newRoles)
         {
             return oldRoles.Except(newRoles);

@@ -19,6 +19,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             _userService = userService;
         }
 
+        
         [Route("Info")]
         [HttpGet]
         [AllowAnonymous]

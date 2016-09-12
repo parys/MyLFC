@@ -3,12 +3,13 @@ using MyLiverpool.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using OpenIddict;
+using Microsoft.Extensions.Configuration;
 
 //using MyLiverpoolSite.Data.Entities;
 
 namespace MyLiverpool.Data.ResourceAccess
 {
-
+    //private readonly IHostingEnvironment _hostingEnvironment;
     public class LiverpoolContext : OpenIddictDbContext<User, Role, int>//, UserLogin, UserRole, UserClaim>
     //<User, Role, int>
     {
@@ -37,8 +38,14 @@ namespace MyLiverpool.Data.ResourceAccess
 
         public static LiverpoolContext Create()
         {
+            var configBuilder = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+
+          //  configBuilder.AddEnvironmentVariables();
+            var configuration = configBuilder.Build();
+         //   var connectionString = configuration.GetConnectionString("DefaultConnection");
+            var connectionString = "Server=.;Initial Catalog=MyLiverpool1123;Trusted_Connection=True;MultipleActiveResultSets=true";
             var builder = new DbContextOptionsBuilder<LiverpoolContext>();
-            builder.UseSqlServer("Server=.;Initial Catalog=MyLiverpool1123;Trusted_Connection=True;MultipleActiveResultSets=true",
+            builder.UseSqlServer(connectionString,
                 options =>
                 {
                     //options.UseRowNumberForPaging();

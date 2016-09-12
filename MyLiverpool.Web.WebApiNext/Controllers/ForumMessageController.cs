@@ -6,7 +6,7 @@ using MyLiverpool.Business.DTO;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
-    [Route("api/[controller")]
+    [Route("api/[controller]")]
     [Authorize]
     public class ForumMessageController : Controller
     {

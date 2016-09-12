@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading;
@@ -70,7 +71,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                     await _userManager.ResetAccessFailedCountAsync(user);
                 }
 
-                var identity = await _userManager.CreateIdentityAsync(user, request.GetScopes());
+              //  var identity = await _userManager.CreateIdentityAsync(user, request.GetScopes());
+                var identity = await _userManager.CreateIdentityAsync(user, new List<string>(){ OpenIdConnectConstants.Scopes.Address, OpenIddictConstants.Scopes.Roles});
 
                 // Create a new authentication ticket holding the user identity.
                 var ticket = new AuthenticationTicket(
@@ -79,8 +81,9 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                     OpenIdConnectServerDefaults.AuthenticationScheme);
 
                 ticket.SetResources(request.GetResources());
-                ticket.SetScopes(request.GetScopes());
-
+               // ticket.SetScopes(request.GetScopes());
+                ticket.SetScopes(OpenIddictConstants.Scopes.Roles);
+              //  ticket.Properties.
                 return SignIn(ticket.Principal, ticket.Properties, ticket.AuthenticationScheme);
             }
 

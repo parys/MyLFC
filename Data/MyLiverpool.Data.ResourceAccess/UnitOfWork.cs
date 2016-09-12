@@ -37,7 +37,19 @@ namespace MyLiverpool.Data.ResourceAccess
 
         public UnitOfWork()
         {
-            var store = new UserStore<User,Role, LiverpoolContext, int>(_context);
+            InitUserManager();
+        }
+
+        public UnitOfWork(LiverpoolContext context)
+        {
+            _context = context;
+
+            InitUserManager();
+        }
+
+        private void InitUserManager()
+        {
+            var store = new UserStore<User, Role, LiverpoolContext, int>(_context);
             //var provider = new MachineKeyProtectionProvider();
             //var userStore = new UserStore<User, Role, int, UserLogin, UserRole, UserClaim>(_context);
             UserManager = new UserManager<User>(store, null, null, null, null, null, null, null, null);
@@ -45,11 +57,6 @@ namespace MyLiverpool.Data.ResourceAccess
             //    UserTokenProvider = new DataProtectorTokenProvider<User>(provider.Create("EmailConfirmation", )),
             //    UserLockoutEnabledByDefault = true
             //};
-        }
-
-        public UnitOfWork(LiverpoolContext context)
-        {
-            _context = context;
         }
 
         //private readonly UserStore<User, Role, int, UserLogin, UserRole, UserClaim> userStore; 

@@ -9,5 +9,8 @@ namespace MyLiverpool.Business.Contracts
         Task<bool> EditRoleGroupAsync(int newRoleGroupId, int userId);
 
         Task<IEnumerable<RoleGroupDto>> GetRoleGroupsDtoAsync();
+
+        Task<string> GetUserRolesAsync(int id);
+
     }
 }
