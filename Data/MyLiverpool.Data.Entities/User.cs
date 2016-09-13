@@ -43,7 +43,7 @@ namespace MyLiverpool.Data.Entities
 
         // public virtual ICollection<UserClaim> Claims { get; set; }
         // public virtual ICollection<UserLogin> Logins { get; set; }
-        // public virtual ICollection<Role> Roles { get; set; }
+        // public virtual ICollection<Role> RoleGroups { get; set; }
 
         public int OldId { get; set; }
 

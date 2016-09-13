@@ -43,7 +43,7 @@ namespace MyLiverpool.Data.ResourceAccess
           //  configBuilder.AddEnvironmentVariables();
             var configuration = configBuilder.Build();
          //   var connectionString = configuration.GetConnectionString("DefaultConnection");
-            var connectionString = "Server=.;Initial Catalog=MyLiverpool1123;Trusted_Connection=True;MultipleActiveResultSets=true";
+            var connectionString = "Server=AKAPITANCHIK-09\\Andrew;Initial Catalog=MyLiverpool1123;Trusted_Connection=True;MultipleActiveResultSets=true";
             var builder = new DbContextOptionsBuilder<LiverpoolContext>();
             builder.UseSqlServer(connectionString,
                 options =>
@@ -66,6 +66,7 @@ namespace MyLiverpool.Data.ResourceAccess
         public DbSet<ForumMessage> ForumMessages { get; set; }
 
         public DbSet<RoleGroup> RoleGroups { get; set; }
+        public DbSet<RoleRoleGroup> RoleRoleGroups { get; set; }
         public DbSet<PrivateMessage> PrivateMessages { get; set; }
         public DbSet<Club> Clubs { get; set; }
         public DbSet<Match> Matches { get; set; }
@@ -80,7 +81,7 @@ namespace MyLiverpool.Data.ResourceAccess
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
           //  modelBuilder.Entity<User>().ToTable("Users");
-          //  modelBuilder.Entity<Role>().ToTable("Roles");
+          //  modelBuilder.Entity<Role>().ToTable("RoleGroups");
          //   modelBuilder.Entity<UserClaim>().ToTable("UserClaims");
          //   modelBuilder.Entity<UserLogin>().ToTable("UserLogins");
         //    modelBuilder.Entity<UserRole>().ToTable("UserRoles");
@@ -107,8 +108,18 @@ namespace MyLiverpool.Data.ResourceAccess
             modelBuilder.Entity<ForumMessage>().HasOne(x => x.Theme).WithMany(x => x.Messages).HasForeignKey(x => x.ThemeId);
 
             modelBuilder.Entity<User>().HasOne(x => x.RoleGroup).WithMany(x => x.Users).HasForeignKey(x => x.RoleGroupId);
-            modelBuilder.Entity<Role>().HasMany(x => x.RoleGroups);
-            modelBuilder.Entity<RoleGroup>().HasMany(x => x.Roles);
+          //  modelBuilder.Entity<Role>().HasMany(x => x.RoleRoleGroups);
+         //   modelBuilder.Entity<RoleGroup>().HasMany(x => x.RoleGroups);
+            modelBuilder.Entity<RoleRoleGroup>().HasKey(t => new { t.RoleId, t.RoleGroupId });
+            modelBuilder.Entity<RoleRoleGroup>()
+               .HasOne(pt => pt.Role)
+               .WithMany(p => p.RoleRoleGroups)
+               .HasForeignKey(pt => pt.RoleId);
+
+            modelBuilder.Entity<RoleRoleGroup>()
+                .HasOne(pt => pt.RoleGroup)
+                .WithMany(t => t.RoleGroups)
+                .HasForeignKey(pt => pt.RoleGroupId);
 
             modelBuilder.Entity<PrivateMessage>().HasOne(x => x.Sender).WithMany(x => x.SentPrivateMessages).HasForeignKey(x => x.SenderId);
             modelBuilder.Entity<PrivateMessage>().HasOne(x => x.Receiver).WithMany(x => x.ReceivedPrivateMessages).HasForeignKey(x => x.ReceiverId);
@@ -143,7 +154,7 @@ namespace MyLiverpool.Data.ResourceAccess
         {
             base.OnConfiguring(modelBuilder);
         //    modelBuilder.Entity<User>().ToTable("Users");
-        //    modelBuilder.Entity<Role>().ToTable("Roles");
+        //    modelBuilder.Entity<Role>().ToTable("RoleGroups");
         //    modelBuilder.Entity<UserClaim>().ToTable("UserClaims");
         //    modelBuilder.Entity<UserLogin>().ToTable("UserLogins");
         //    modelBuilder.Entity<UserRole>().ToTable("UserRoles");
@@ -163,7 +174,7 @@ namespace MyLiverpool.Data.ResourceAccess
         //    modelBuilder.Entity<ForumMessage>().HasRequired(x => x.Theme).WithMany(x => x.Messages).HasForeignKey(x => x.ThemeId);
 
         //    modelBuilder.Entity<User>().HasRequired(x => x.RoleGroup).WithMany(x => x.Users).HasForeignKey(x => x.RoleGroupId);
-        //    modelBuilder.Entity<Role>().HasMany(x => x.RoleGroups).WithMany(x => x.Roles);
+        //    modelBuilder.Entity<Role>().HasMany(x => x.RoleRoleGroups).WithMany(x => x.RoleGroups);
 
         //    modelBuilder.Entity<PrivateMessage>().HasRequired(x => x.Sender).WithMany(x => x.SentPrivateMessages).HasForeignKey(x => x.SenderId);
         //    modelBuilder.Entity<PrivateMessage>().HasRequired(x => x.Receiver).WithMany(x => x.ReceivedPrivateMessages).HasForeignKey(x => x.ReceiverId);
@@ -174,6 +185,5 @@ namespace MyLiverpool.Data.ResourceAccess
         //    modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
         //    base.OnModelCreating(modelBuilder);
         }
-
     }
 }

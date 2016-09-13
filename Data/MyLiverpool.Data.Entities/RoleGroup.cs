@@ -6,7 +6,7 @@ namespace MyLiverpool.Data.Entities
     {
         public RoleGroup()
         {
-            Roles = new HashSet<Role>();
+            RoleGroups = new HashSet<RoleRoleGroup>();
             Users = new HashSet<User>();
         }
         public int Id { get; set; }
@@ -15,7 +15,7 @@ namespace MyLiverpool.Data.Entities
 
         public string RussianName { get; set; }
 
-        public virtual ICollection<Role> Roles { get; set; } 
+        public virtual ICollection<RoleRoleGroup> RoleGroups { get; set; } 
 
         public virtual ICollection<User> Users { get; set; } 
     }

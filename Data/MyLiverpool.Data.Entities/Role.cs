@@ -9,7 +9,7 @@ namespace MyLiverpool.Data.Entities
         {
         //    this.Users = new HashSet<User>();
         //    this.Claims = new HashSet<RoleClaim>();
-              RoleGroups = new HashSet<RoleGroup>();
+              RoleRoleGroups = new HashSet<RoleRoleGroup>();
         }
 
         //public int Id { get; set; }
@@ -20,7 +20,7 @@ namespace MyLiverpool.Data.Entities
         //public virtual ICollection<User> Users { get; set; }
         //public virtual ICollection<RoleClaim> Claims { get; set; }
 
-        public virtual ICollection<RoleGroup> RoleGroups {get; set; }
+        public virtual ICollection<RoleRoleGroup> RoleRoleGroups {get; set; }
 
         //public int RoleGroupId { get; set; }
     }

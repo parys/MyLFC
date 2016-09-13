@@ -8,8 +8,8 @@ using MyLiverpool.Data.ResourceAccess;
 namespace MyLiverpool.Data.ResourceAccess.Migrations
 {
     [DbContext(typeof(LiverpoolContext))]
-    [Migration("20160907203727_FromOldToNew")]
-    partial class FromOldToNew
+    [Migration("20160913140636_AddedRoleRoleGroupTable")]
+    partial class AddedRoleRoleGroupTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -396,14 +396,10 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.Property<string>("NormalizedName")
                         .HasAnnotation("MaxLength", 256);
 
-                    b.Property<int?>("RoleGroupId");
-
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedName")
                         .HasName("RoleNameIndex");
-
-                    b.HasIndex("RoleGroupId");
 
                     b.ToTable("AspNetRoles");
                 });
@@ -415,15 +411,26 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<int?>("RoleId");
-
                     b.Property<string>("RussianName");
 
                     b.HasKey("Id");
 
+                    b.ToTable("RoleGroups");
+                });
+
+            modelBuilder.Entity("MyLiverpool.Data.Entities.RoleRoleGroup", b =>
+                {
+                    b.Property<int>("RoleId");
+
+                    b.Property<int>("RoleGroupId");
+
+                    b.HasKey("RoleId", "RoleGroupId");
+
+                    b.HasIndex("RoleGroupId");
+
                     b.HasIndex("RoleId");
 
-                    b.ToTable("RoleGroups");
+                    b.ToTable("RoleRoleGroups");
                 });
 
             modelBuilder.Entity("MyLiverpool.Data.Entities.User", b =>
@@ -629,7 +636,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                         .HasForeignKey("RoleId");
 
                     b.HasOne("MyLiverpool.Data.Entities.User")
-                        .WithMany("RoleGroups")
+                        .WithMany("Roles")
                         .HasForeignKey("UserId");
                 });
 
@@ -710,17 +717,14 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                         .HasForeignKey("SenderId");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.Role", b =>
+            modelBuilder.Entity("MyLiverpool.Data.Entities.RoleRoleGroup", b =>
                 {
-                    b.HasOne("MyLiverpool.Data.Entities.RoleGroup")
+                    b.HasOne("MyLiverpool.Data.Entities.RoleGroup", "RoleGroup")
                         .WithMany("RoleGroups")
                         .HasForeignKey("RoleGroupId");
-                });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.RoleGroup", b =>
-                {
-                    b.HasOne("MyLiverpool.Data.Entities.Role")
-                        .WithMany("RoleGroups")
+                    b.HasOne("MyLiverpool.Data.Entities.Role", "Role")
+                        .WithMany("RoleRoleGroups")
                         .HasForeignKey("RoleId");
                 });
 
