@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.DTO;
 using MyLiverpool.Data.Entities;
+using MyLiverpool.Web.WebApiNext.Extensions;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
@@ -28,7 +29,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             {
                 return BadRequest();
             }
-            comment.AuthorId = int.Parse(User.Identity.Name);//todo GetUserId<int>());
+            comment.AuthorId = User.GetUserId();//todo GetUserId<int>());
             var result = await _materialCommentService.AddAsync(comment, Type);
             result.AuthorUserName = "";//todo User.Identity.GetUserName();
             return Ok(result);
@@ -57,7 +58,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             {
                 return BadRequest();
             }
-            if (comment.AuthorId != int.Parse(User.Identity.Name) && !User.IsInRole(nameof(RolesEnum.UserStart)))
+            if (comment.AuthorId != User.GetUserId() && !User.IsInRole(nameof(RolesEnum.UserStart)))
             {
                 return Unauthorized();
             }

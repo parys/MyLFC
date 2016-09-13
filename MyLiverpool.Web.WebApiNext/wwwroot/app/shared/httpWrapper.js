@@ -19,10 +19,12 @@ let HttpWrapper = class HttpWrapper {
     updateHeaders() {
         let headers = new http_1.Headers();
         headers.append('Content-type', 'application/json');
-        // this.headers.append('Accept', 'application/json');
-        headers.append('Authorization', this.localStorage.getObject('token_type') + ' ' + this.localStorage.getObject('access_token'));
-        console.log("update headers");
-        console.log(headers);
+        console.log("upd hdrs" + this.localStorage.get('token_type'));
+        if (this.localStorage.get('token_type')) {
+            headers.append('Authorization', this.localStorage.getObject('token_type') + ' ' + this.localStorage.getObject('access_token'));
+        }
+        //console.log("update headers");
+        //console.log(headers);
         return headers;
     }
     get(url) {
@@ -31,7 +33,7 @@ let HttpWrapper = class HttpWrapper {
             headers: this.updateHeaders(),
             body: ""
         });
-        console.log(result);
+        //console.log(result);
         return result;
     }
     post(url, data) {

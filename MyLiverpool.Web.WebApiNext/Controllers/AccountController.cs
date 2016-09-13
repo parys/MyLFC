@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.DtoNext;
 using MyLiverpool.Business.DTO;
+using MyLiverpool.Web.WebApiNext.Extensions;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
@@ -30,7 +31,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 return BadRequest();
             }
 
-            var result = await _accountService.ChangePasswordAsync(int.Parse(User.Identity.Name), dto);//todo?
+            var result = await _accountService.ChangePasswordAsync(User.GetUserId(), dto);
             return Ok(result);
         }
 
@@ -82,7 +83,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Authorize]
         public async Task<IActionResult> IsLogined()
         {
-            await _accountService.UpdateLastModifiedAsync(int.Parse(User.Identity.Name));//todo ?
+            await _accountService.UpdateLastModifiedAsync(User.GetUserId());
             return Ok();
         }
 

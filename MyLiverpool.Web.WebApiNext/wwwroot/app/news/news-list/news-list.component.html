@@ -14,9 +14,9 @@
     <div class="row" *ngFor="let item of items">
         <!--div class="" *ngIf="!item.pending"> < || isEditor()"-->
         <div class="flex-vertical-center"><a [routerLink]="['/news', item.id]" class="col-xs-9 col-sm-9"><h4 [textContent]="item.title"></h4></a>
-            <span class="col-xs-3 col-sm-3 pull-right" ng-if="isNewsmaker()">
+            <span class="col-xs-3 col-sm-3 pull-right" [secured]="'newsStart'">
             <!--<a ng-if="isEditor()" ng-show="item.pending" ng-click="vm.activate($index)"><span class="glyphicon glyphicon-ok"></span></a>-->
-            <a ng-if="isEditor() || isUserAuthor(userId(), item.authorId)" [routerLink]="['/news', item.id, 'edit']"><span class="glyphicon glyphicon-pencil"></span></a>
+            <a [secured]="'newsFull'" ng-if="isUserAuthor(userId(), item.authorId)" [routerLink]="['/news', item.id, 'edit']"><span class="glyphicon glyphicon-pencil"></span></a>
             <!--<a ng-if="isEditor() || isUserAuthor(userId(), item.authorId)" ng-click="vm.delete($index)"><span class="glyphicon glyphicon-trash"></span></a>-->
             </span>
         </div>

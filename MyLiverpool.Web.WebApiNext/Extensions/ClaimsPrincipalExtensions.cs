@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Security.Claims;
+using MyLiverpool.Data.Entities;
 
 namespace MyLiverpool.Web.WebApiNext.Extensions
 {
@@ -16,5 +17,10 @@ namespace MyLiverpool.Web.WebApiNext.Extensions
             }
             throw new UnauthorizedAccessException("problem with getUserId");
         }
+
+        //public static int GetUserId(this ClaimsPrincipal principal)
+        //{
+        //    User.GetClaim(ClaimTypes.NameIdentifier)
+        //}
     }
 }

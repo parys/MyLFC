@@ -25,8 +25,8 @@ let SecuredDirective = class SecuredDirective {
         //    console.log(1);f
     }
     ngOnInit() {
-        // console.log(this.secured);
-        //  console.log(3);
+        console.log(this.secured);
+        console.log(3);
         //how to get access to this private variable?
         //   console.log(this.routerLink._navigationInstruction.component.routeData.data);
         let result = false;

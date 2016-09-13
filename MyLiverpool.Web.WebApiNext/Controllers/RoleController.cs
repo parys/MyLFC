@@ -1,7 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System.Security.Claims;
+using System.Threading.Tasks;
+using AspNet.Security.OpenIdConnect.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using MyLiverpool.Business.Contracts;
+using MyLiverpool.Web.WebApiNext.Extensions;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
@@ -18,15 +21,10 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
 
         [Route("")]
         [HttpGet]
-        [AllowAnonymous]
-        public async Task<IActionResult> GetUserRoles(int userId)
+        [Authorize]
+        public async Task<IActionResult> GetUserRoles()
         {
-            if (userId < 1)
-            {
-                return BadRequest();
-            }
-            var idd = User.Identity;
-            var result = await _roleService.GetUserRolesAsync(userId);
+            var result = await _roleService.GetUserRolesAsync(User.GetUserId());
             return Ok(result);
         }
     }

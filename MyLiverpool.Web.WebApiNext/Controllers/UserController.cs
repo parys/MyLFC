@@ -5,6 +5,7 @@ using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.DTO;
 using MyLiverpool.Data.Entities;
 using System.Linq;
+using MyLiverpool.Web.WebApiNext.Extensions;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
@@ -56,7 +57,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Authorize]
         public async Task<IActionResult> GetUnreadPmCount()
         {
-            var result = await _userService.GetUnreadPmCountAsync(int.Parse(User.Identity.Name));
+            var result = await _userService.GetUnreadPmCountAsync(User.GetUserId());
             return Ok(result);
         }
 

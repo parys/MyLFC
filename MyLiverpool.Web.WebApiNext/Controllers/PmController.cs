@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.DTO;
+using MyLiverpool.Web.WebApiNext.Extensions;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
@@ -22,7 +23,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Authorize]
         public async Task<IActionResult> GetPms()
         {
-            var model = await _pmService.GetListAsync(int.Parse(User.Identity.Name));
+            var model = await _pmService.GetListAsync(User.GetUserId());
             return Ok(model);
         }
 
@@ -31,7 +32,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Authorize]
         public async Task<IActionResult> Pm(int id)
         {
-            var model = await _pmService.GetAsync(id, int.Parse(User.Identity.Name));
+            var model = await _pmService.GetAsync(id, User.GetUserId());
             return Ok(model);
         }
 
@@ -44,7 +45,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             {
                 return BadRequest();
             }
-            model.SenderId = int.Parse(User.Identity.Name);
+            model.SenderId = User.GetUserId();
             var userName = User.Identity.Name;
             if (model.ReceiverUserName == userName)
             {

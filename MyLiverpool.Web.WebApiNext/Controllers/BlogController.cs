@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.DTO;
 using MyLiverpool.Data.Entities;
+using MyLiverpool.Web.WebApiNext.Extensions;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
@@ -51,7 +52,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 return BadRequest();
             }
 
-            var result = await _materialService.DeleteAsync(id.Value, int.Parse(User.Identity.Name), Type);//todo ?
+            var result = await _materialService.DeleteAsync(id.Value, User.GetUserId(), Type);
             return Json(result);
         }
 
@@ -81,7 +82,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             {
                 model.Pending = true;
             }
-            var result = await _materialService.CreateAsync(model, int.Parse(User.Identity.Name), Type);//todo ?
+            var result = await _materialService.CreateAsync(model, User.GetUserId(), Type);
             return Ok(result);
         }
 
@@ -97,13 +98,13 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
 
             if (!User.IsInRole(RolesEnum.BlogFull.ToString()))
             {
-                if (model.AuthorId != int.Parse(User.Identity.Name))//todo ?
+                if (model.AuthorId != User.GetUserId())
                 {
                     return Unauthorized();
                 }
                 model.Pending = true;
             }
-            var result = await _materialService.EditAsync(model, int.Parse(User.Identity.Name), Type);//todo ?
+            var result = await _materialService.EditAsync(model, User.GetUserId(), Type);
             return Ok(result);
         }
 

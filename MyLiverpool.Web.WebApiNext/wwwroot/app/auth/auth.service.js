@@ -21,11 +21,13 @@ let AuthService = class AuthService {
         this.http1 = http1;
         this.localStorage = localStorage;
         this.isLoggedIn = false;
-        this.roles = ['newsmaker', 'user'];
-        // this.roles =   'newsmaker',  }
-        if (this.localStorage.getObject('access_token')) {
+        this.roles = [];
+        console.log(this.localStorage.get('access_token'));
+        if (this.localStorage.get('access_token')) {
             console.log("auth at start");
             this.isLoggedIn = true;
+            console.log(this.localStorage.getObject('roles'));
+            this.roles = this.localStorage.getObject('roles');
         }
     }
     login(username, password) {
@@ -39,10 +41,18 @@ let AuthService = class AuthService {
         var result = this.http1.post('connect/token', perams, {
             headers: headers
         });
-        result.subscribe(data => this.parseLoginAnswer(data), error => console.log(error), () => console.log("success login"));
+        result.subscribe(data => this.parseLoginAnswer(data), error => console.log(error), () => this.getRoles());
         return true;
     }
+    getRoles() {
+        this.http.get('api/role')
+            .subscribe(data => this.parseRoles(data), error => console.log(error), () => console.log("success get roles"));
+    }
     logout() {
+        this.localStorage.remove('token_type');
+        this.localStorage.remove('access_token');
+        this.localStorage.remove('expires_in');
+        this.localStorage.remove('refresh_token');
         this.isLoggedIn = false;
     }
     parseLoginAnswer(item) {
@@ -53,8 +63,13 @@ let AuthService = class AuthService {
         this.localStorage.setObject('refresh_token', response.refresh_token);
         this.isLoggedIn = true;
     }
+    parseRoles(item) {
+        console.log();
+        this.roles = item._body.split(', ');
+        this.localStorage.setObject('roles', this.roles);
+    }
     isUserInRole(role) {
-        if (this.roles.find(x => x === role)) {
+        if (this.roles.find(x => x.toLowerCase() === role.toLowerCase())) {
             return true;
         }
         return false;

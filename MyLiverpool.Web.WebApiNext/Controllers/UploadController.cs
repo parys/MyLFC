@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Data.Entities;
+using MyLiverpool.Web.WebApiNext.Extensions;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
@@ -24,7 +25,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Authorize]
         public async Task<ActionResult> UploadAvatar(int userId)
         {
-            if (!User.IsInRole(nameof(RolesEnum.UserStart)) && int.Parse(User.Identity.Name) != userId)
+            if (!User.IsInRole(nameof(RolesEnum.UserStart)) && User.GetUserId() != userId)
             {
                 return StatusCode((int) HttpStatusCode.Forbidden);
             }

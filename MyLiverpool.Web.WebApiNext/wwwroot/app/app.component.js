@@ -18,6 +18,9 @@ let AppComponent = class AppComponent {
         console.log("AppComponent ctor");
         console.log(auth);
     }
+    logout() {
+        this.auth.logout();
+    }
 };
 AppComponent = __decorate([
     core_1.Component({

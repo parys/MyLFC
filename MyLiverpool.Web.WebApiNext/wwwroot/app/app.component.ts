@@ -12,4 +12,8 @@ export class AppComponent {
         console.log("AppComponent ctor");
         console.log(auth);
     }
+
+    public logout() {
+        this.auth.logout();
+    }
 }

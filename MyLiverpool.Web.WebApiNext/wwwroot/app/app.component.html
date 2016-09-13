@@ -20,21 +20,21 @@
         <li>
             <!--<a ui-sref="login({ returnUrl: getReturnUrl() })" ng-if="!loggedIn()">Войти</a>-->
         </li>
-        <!--<li>
-            <ul class="nav navbar-nav" ng-if="vm.loggedIn()">
-                <li>
+        <li *ngIf="auth.isLoggedIn">
+            <ul class="nav navbar-nav">
+                <!--<li>
                     <a ui-sref="userInfo({id: vm.userId()})" class="padding0">
                         <img class="nav-avatar" ng-src="{$root.userImage}}"/>
                     </a>
                 </li>
                 <li>
                     <a ui-sref="userInfo({id: vm.userId()})">Мой профиль</a>
-                </li>
+                </li>-->
                 <li>
-                    <a ng-click="vm.logout()">Выйти</a>
+                    <a (click)="logout()">Выйти</a>
                 </li>
             </ul>
-        </li>-->
+        </li>
     </ul>
 </div>
 <div class="col-xs-12 col-sm-12 top50">
@@ -58,7 +58,7 @@
                 <li class="dropdown">
                     <a [routerLink]="['/news']" class="dropdown-toggle" data-toggle="">Новости<b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a [secured]="'newsmaker'" [routerLink]="['/news', 0, 'edit']">Добавить</a></li>
+                        <li><a [secured]="'newsStart'" [routerLink]="['/news', 0, 'edit']">Добавить</a></li>
                         <li><a [routerLink]="['/newsCategories']">Категории</a></li>
                     </ul>
                 </li>
@@ -70,7 +70,7 @@
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="">@CommonMessages.FcLiverpool<b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="">ФК Ливерпуль<b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li><a ui-sref="clubHistory">История</a></li>
                     </ul>

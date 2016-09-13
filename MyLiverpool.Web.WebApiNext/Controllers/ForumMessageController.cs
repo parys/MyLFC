@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.DTO;
+using MyLiverpool.Web.WebApiNext.Extensions;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
@@ -26,7 +27,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             {
                 return BadRequest();
             }
-            dto.AuthorId = int.Parse(User.Identity.Name);//todo?
+            dto.AuthorId = User.GetUserId();
             var result = await _forumMessageService.CreateAsync(dto);
             result.AuthorUserName = User.Identity.Name;
             return Ok(result);

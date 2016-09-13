@@ -43,7 +43,7 @@ namespace MyLiverpool.Data.ResourceAccess
           //  configBuilder.AddEnvironmentVariables();
             var configuration = configBuilder.Build();
          //   var connectionString = configuration.GetConnectionString("DefaultConnection");
-            var connectionString = "Server=AKAPITANCHIK-09\\Andrew;Initial Catalog=MyLiverpool1123;Trusted_Connection=True;MultipleActiveResultSets=true";
+            var connectionString = "Server=.;Initial Catalog=MyLiverpool1123;Trusted_Connection=True;MultipleActiveResultSets=true";
             var builder = new DbContextOptionsBuilder<LiverpoolContext>();
             builder.UseSqlServer(connectionString,
                 options =>
