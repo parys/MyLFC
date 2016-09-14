@@ -1,6 +1,7 @@
 ﻿/// <autosync enabled="true" />
 /// <reference path="../gulp.config.js" />
 /// <reference path="../gulpfile.js" />
+/// <reference path="app/account/account.service.js" />
 /// <reference path="app/account/account-signin.component.js" />
 /// <reference path="app/account/account-signup.component.js" />
 /// <reference path="app/account/index.js" />

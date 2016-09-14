@@ -1,6 +1,6 @@
 ﻿<form name="loginForm1" class="form-inline" role="form" style="margin-top: 8px;" [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
     <div class="form-group">
-        <input class="form-control" [formControl]="loginForm.controls['username']" placeholder="Логин" type="text" />
+        <input class="form-control" [formControl]="loginForm.controls['userName']" placeholder="Логин" type="text" />
       </div>
     <div class="form-group">
         <input class="form-control" [formControl]="loginForm.controls['password']" placeholder="Пароль" type="password" />

@@ -136,9 +136,9 @@ textarea {
 }
 
 /*todo fixed*/
-.ng-valid[required], .ng-valid.required  {
+.ng-valid[required].ng-touched, .ng-valid.required.ng-touched  {
   border-left: 5px solid #42A948; /* green */
 }
-.ng-invalid:not(form)  {
+.ng-touched:not(:focus).ng-invalid:not(form)  {
   border-left: 5px solid #a94442; /* red */
 }

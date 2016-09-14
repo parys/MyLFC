@@ -121,14 +121,14 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Route("Register")]
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Register(RegisterUserDto model)
+        public async Task<IActionResult> Register([FromBody] RegisterUserDto dto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var result = await _accountService.RegisterUserAsync(model);
+            var result = await _accountService.RegisterUserAsync(dto);
 
             if (!result.Succeeded)
             {

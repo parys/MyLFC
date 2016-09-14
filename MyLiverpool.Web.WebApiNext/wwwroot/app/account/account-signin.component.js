@@ -18,7 +18,7 @@ let AccountSigninComponent = class AccountSigninComponent {
     }
     ngOnInit() {
         this.loginForm = this.formBuilder.group({
-            'username': ['', forms_1.Validators.compose([
+            'userName': ['', forms_1.Validators.compose([
                     forms_1.Validators.required])],
             'password': ['', forms_1.Validators.compose([
                     forms_1.Validators.required])]
@@ -30,9 +30,9 @@ let AccountSigninComponent = class AccountSigninComponent {
         //    () => console.log("success load list news"));
     }
     onSubmit(ra) {
-        this.username = this.loginForm.controls["username"].value;
+        this.userName = this.loginForm.controls["userName"].value;
         this.password = this.loginForm.controls["password"].value;
-        let result = this.authService.login(this.username, this.password);
+        let result = this.authService.login(this.userName, this.password);
         //  if(result)
     }
 };

@@ -1,8 +1,8 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
-import {AuthService} from "../auth/auth.service";
 import {Signup} from "./signup.model";
+import {AccountService} from "./account.service";
 
 @Component({
     selector: 'account-signup',
@@ -24,13 +24,13 @@ export class AccountSignupComponent implements OnInit {
     //});
 
 
-    constructor(private authService: AuthService, private formBuilder: FormBuilder) {
+    constructor(private accountService: AccountService, private formBuilder: FormBuilder) {
     }
 
     ngOnInit() {
        // this.item = new Signup();
         this.registerForm = this.formBuilder.group({
-            'username': ['', Validators.compose([
+            'userName': ['', Validators.compose([
                 Validators.required, ])],
             'email': ['', Validators.compose([
                 Validators.required,])],
@@ -43,15 +43,24 @@ export class AccountSignupComponent implements OnInit {
             'birthday': ['', Validators.compose([
                 Validators.required,])]
         });
-        //this.newsService
-        //    .GetAll()
-        //    .subscribe(data => this.parsePageable(data),
-        //    error => console.log(error),
-        //    () => console.log("success load list news"));
+        
     }
 
     onSubmit(value: any): void {
         console.log('you submitted value: ', value);
+        var signup = new Signup();
+        signup.userName = this.registerForm.controls["userName"].value;
+        signup.email = this.registerForm.controls["email"].value;
+        signup.password = this.registerForm.controls["password"].value;
+        signup.confirmPassword = this.registerForm.controls["confirmPassword"].value;
+        signup.fullName = this.registerForm.controls["fullName"].value;
+        signup.birthday = this.registerForm.controls["birthday"].value;
+
+        this.accountService
+            .Create(signup)
+            .subscribe(data => { },
+            error => console.log(error),
+            () => console.log("user created"));
     }
 
     register(): void {

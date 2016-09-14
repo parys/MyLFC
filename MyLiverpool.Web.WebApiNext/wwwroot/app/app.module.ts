@@ -20,12 +20,30 @@ import {AuthGuard} from "./auth/auth-guard.service";
 import {AuthService} from "./auth/auth.service";
 import { LocalStorageMine } from "./shared/localStorage";
 import {SecuredDirective} from "./shared/secured.directive";
+import {AccountService} from "./account/account.service";
 //import {SecuredLinkComponent} from "./shared/securedLink.component";
 
 @NgModule({
-    imports: [BrowserModule, FormsModule, ReactiveFormsModule, HttpModule, routing],       // module dependencies RouterModule.forRoot(routes, { useHash: true })  // .../#/crisis-center/
-    declarations: [AccountSigninComponent, AccountSignupComponent, AppComponent, NewsListComponent, NewsDetailComponent, NewsEditComponent, SecuredDirective],   // components and directives
+    imports: [BrowserModule, FormsModule, ReactiveFormsModule, HttpModule, routing],       // module dependencies RouterModule.forRoot(routes, { useHash: true })
+    declarations: [
+        AccountSigninComponent,
+        AccountSignupComponent,
+        AppComponent,
+        NewsListComponent,
+        NewsDetailComponent,
+        NewsEditComponent,
+        SecuredDirective],   // components and directives
     bootstrap: [AppComponent],     // root component
-    providers: [NewsService, Configuration, appRoutingProviders, NewsCategoryService, AuthService, AuthGuard, HttpWrapper, { provide: LocalStorageMine, useClass: LocalStorageMine }]                    // services
+    providers: [ // services
+        AccountService,
+        appRoutingProviders,
+        AuthGuard,
+        AuthService,
+        Configuration,
+        HttpWrapper,
+        { provide: LocalStorageMine, useClass: LocalStorageMine },
+        NewsService,
+        NewsCategoryService
+        ]               
 })
 export class AppModule { }

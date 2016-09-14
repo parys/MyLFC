@@ -11,7 +11,7 @@ import {AuthService} from "../auth/auth.service";
 export class AccountSigninComponent implements OnInit {
 
     loginForm: FormGroup;
-    username: string;
+    userName: string;
     password: string;
 
     constructor(private authService: AuthService, private formBuilder: FormBuilder) {
@@ -19,7 +19,7 @@ export class AccountSigninComponent implements OnInit {
 
     ngOnInit() {
         this.loginForm = this.formBuilder.group({
-            'username': ['', Validators.compose([
+            'userName': ['', Validators.compose([
                 Validators.required])],
             'password': ['', Validators.compose([
                 Validators.required])]
@@ -32,9 +32,9 @@ export class AccountSigninComponent implements OnInit {
     }
 
     onSubmit(ra: any): void {
-        this.username = this.loginForm.controls["username"].value;
+        this.userName = this.loginForm.controls["userName"].value;
         this.password = this.loginForm.controls["password"].value;
-        let result = this.authService.login(this.username, this.password);
+        let result = this.authService.login(this.userName, this.password);
         //  if(result)
     }
 }

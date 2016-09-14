@@ -16,7 +16,7 @@ let SecuredDirective = class SecuredDirective {
         this.router = router;
         this.elementRef = elementRef;
         this.authService = authService;
-        this.authService.userSignup$.subscribe(item => this.checkRights());
+        //   this.authService.userSignup$.subscribe(item => this.checkRights());
         // this.authService.userSignup$.subscribe(item => this.checkRights(item));
     }
     ngAfterViewInit() {
@@ -27,8 +27,6 @@ let SecuredDirective = class SecuredDirective {
         //    console.log(1);f
     }
     ngOnInit() {
-        // console.log(this.secured);
-        // console.log(3);
         //how to get access to this private variable?
         //   console.log(this.routerLink._navigationInstruction.component.routeData.data);
         this.checkRights();

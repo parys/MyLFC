@@ -10,7 +10,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 const core_1 = require('@angular/core');
 const forms_1 = require('@angular/forms');
-const auth_service_1 = require("../auth/auth.service");
+const signup_model_1 = require("./signup.model");
+const account_service_1 = require("./account.service");
 let AccountSignupComponent = class AccountSignupComponent {
     //    username: new FormControl(),
     //    email: new FormControl(),
@@ -19,14 +20,14 @@ let AccountSignupComponent = class AccountSignupComponent {
     //    fullName: new FormControl(),
     //    birthday: new FormControl()
     //});
-    constructor(authService, formBuilder) {
-        this.authService = authService;
+    constructor(accountService, formBuilder) {
+        this.accountService = accountService;
         this.formBuilder = formBuilder;
     }
     ngOnInit() {
         // this.item = new Signup();
         this.registerForm = this.formBuilder.group({
-            'username': ['', forms_1.Validators.compose([
+            'userName': ['', forms_1.Validators.compose([
                     forms_1.Validators.required,])],
             'email': ['', forms_1.Validators.compose([
                     forms_1.Validators.required,])],
@@ -39,14 +40,19 @@ let AccountSignupComponent = class AccountSignupComponent {
             'birthday': ['', forms_1.Validators.compose([
                     forms_1.Validators.required,])]
         });
-        //this.newsService
-        //    .GetAll()
-        //    .subscribe(data => this.parsePageable(data),
-        //    error => console.log(error),
-        //    () => console.log("success load list news"));
     }
     onSubmit(value) {
         console.log('you submitted value: ', value);
+        var signup = new signup_model_1.Signup();
+        signup.userName = this.registerForm.controls["userName"].value;
+        signup.email = this.registerForm.controls["email"].value;
+        signup.password = this.registerForm.controls["password"].value;
+        signup.confirmPassword = this.registerForm.controls["confirmPassword"].value;
+        signup.fullName = this.registerForm.controls["fullName"].value;
+        signup.birthday = this.registerForm.controls["birthday"].value;
+        this.accountService
+            .Create(signup)
+            .subscribe(data => { }, error => console.log(error), () => console.log("user created"));
     }
     register() {
         //  console.log(this.item);
@@ -58,7 +64,7 @@ AccountSignupComponent = __decorate([
         selector: 'account-signup',
         templateUrl: 'app/account/account-signup.component.html',
     }), 
-    __metadata('design:paramtypes', [auth_service_1.AuthService, forms_1.FormBuilder])
+    __metadata('design:paramtypes', [account_service_1.AccountService, forms_1.FormBuilder])
 ], AccountSignupComponent);
 exports.AccountSignupComponent = AccountSignupComponent;
 //# sourceMappingURL=account-signup.component.js.map
