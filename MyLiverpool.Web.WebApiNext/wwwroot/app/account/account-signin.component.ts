@@ -32,11 +32,8 @@ export class AccountSigninComponent implements OnInit {
     }
 
     onSubmit(ra: any): void {
-        console.log("1" + ra);
-        console.log(this.loginForm.controls["username"].value);
         this.username = this.loginForm.controls["username"].value;
         this.password = this.loginForm.controls["password"].value;
-        console.log(this.username + " " + this.password);
         let result = this.authService.login(this.username, this.password);
         //  if(result)
     }

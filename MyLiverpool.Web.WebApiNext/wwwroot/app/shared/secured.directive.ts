@@ -14,6 +14,8 @@ export class SecuredDirective {
     routeParams: string;
 
     constructor(private router: Router, private elementRef: ElementRef, private authService: AuthService) {
+     //   this.authService.userSignup$.subscribe(item => this.checkRights());
+       // this.authService.userSignup$.subscribe(item => this.checkRights(item));
     }
 
     ngAfterViewInit() {
@@ -25,10 +27,12 @@ export class SecuredDirective {
     }
 
     ngOnInit() {
-        console.log(this.secured);
-        console.log(3);
         //how to get access to this private variable?
      //   console.log(this.routerLink._navigationInstruction.component.routeData.data);
+        this.checkRights();
+    }
+
+    private checkRights() {
         let result = false;
         if (!this.secured) {
             result = this.authService.isLoggedIn;
