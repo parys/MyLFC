@@ -6,44 +6,31 @@ import {AccountService} from "./account.service";
 
 @Component({
     selector: 'account-signup',
-    templateUrl: 'app/account/account-signup.component.html',
-   // providers: [NewsService]
+    templateUrl: 'app/account/account-signup.component.html'
 })
 
 export class AccountSignupComponent implements OnInit {
-    
-   // item: Signup;
 
-    registerForm: FormGroup;// = new FormGroup({
-    //    username: new FormControl(),
-    //    email: new FormControl(),
-    //    password: new FormControl(),
-    //    confirmPassword: new FormControl(),
-    //    fullName: new FormControl(),
-    //    birthday: new FormControl()
-    //});
-
+    registerForm: FormGroup;
 
     constructor(private accountService: AccountService, private formBuilder: FormBuilder) {
     }
 
     ngOnInit() {
-       // this.item = new Signup();
         this.registerForm = this.formBuilder.group({
-            'userName': ['', Validators.compose([
-                Validators.required, ])],
-            'email': ['', Validators.compose([
-                Validators.required,])],
+            'userName': ['123', Validators.compose([ //todo composeASync??
+                Validators.required, Validators.minLength(3)])],
+            'email': ['22', Validators.compose([
+                Validators.required, Validators.minLength(6)])],
             'password': ['', Validators.compose([
-                Validators.required,])],
+                Validators.required, Validators.minLength(6)])],
             'confirmPassword': ['', Validators.compose([
-                Validators.required,])],
+                Validators.required, Validators.minLength(6)])],
             'fullName': ['', Validators.compose([
                 Validators.required,])],
             'birthday': ['', Validators.compose([
                 Validators.required,])]
         });
-        
     }
 
     onSubmit(value: any): void {
@@ -61,10 +48,5 @@ export class AccountSignupComponent implements OnInit {
             .subscribe(data => { },
             error => console.log(error),
             () => console.log("user created"));
-    }
-
-    register(): void {
-      //  console.log(this.item);
-      //  console.log(this.item.username);
     }
 }

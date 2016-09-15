@@ -13,28 +13,20 @@ const forms_1 = require('@angular/forms');
 const signup_model_1 = require("./signup.model");
 const account_service_1 = require("./account.service");
 let AccountSignupComponent = class AccountSignupComponent {
-    //    username: new FormControl(),
-    //    email: new FormControl(),
-    //    password: new FormControl(),
-    //    confirmPassword: new FormControl(),
-    //    fullName: new FormControl(),
-    //    birthday: new FormControl()
-    //});
     constructor(accountService, formBuilder) {
         this.accountService = accountService;
         this.formBuilder = formBuilder;
     }
     ngOnInit() {
-        // this.item = new Signup();
         this.registerForm = this.formBuilder.group({
-            'userName': ['', forms_1.Validators.compose([
-                    forms_1.Validators.required,])],
-            'email': ['', forms_1.Validators.compose([
-                    forms_1.Validators.required,])],
+            'userName': ['123', forms_1.Validators.compose([
+                    forms_1.Validators.required, forms_1.Validators.minLength(3)])],
+            'email': ['22', forms_1.Validators.compose([
+                    forms_1.Validators.required, forms_1.Validators.minLength(6)])],
             'password': ['', forms_1.Validators.compose([
-                    forms_1.Validators.required,])],
+                    forms_1.Validators.required, forms_1.Validators.minLength(6)])],
             'confirmPassword': ['', forms_1.Validators.compose([
-                    forms_1.Validators.required,])],
+                    forms_1.Validators.required, forms_1.Validators.minLength(6)])],
             'fullName': ['', forms_1.Validators.compose([
                     forms_1.Validators.required,])],
             'birthday': ['', forms_1.Validators.compose([
@@ -54,15 +46,11 @@ let AccountSignupComponent = class AccountSignupComponent {
             .Create(signup)
             .subscribe(data => { }, error => console.log(error), () => console.log("user created"));
     }
-    register() {
-        //  console.log(this.item);
-        //  console.log(this.item.username);
-    }
 };
 AccountSignupComponent = __decorate([
     core_1.Component({
         selector: 'account-signup',
-        templateUrl: 'app/account/account-signup.component.html',
+        templateUrl: 'app/account/account-signup.component.html'
     }), 
     __metadata('design:paramtypes', [account_service_1.AccountService, forms_1.FormBuilder])
 ], AccountSignupComponent);
