@@ -6,14 +6,15 @@ import { AccountSignupComponent } from "./account/account-signup.component";
 import { NewsEditComponent } from "./news/news-edit/news-edit.component";
 import { authRoutes, authProviders } from "./auth/auth.routing";
 import {AuthGuard} from "./auth/auth-guard.service";
-
+import {newsCategoryRoutes} from "./newsCategory/newsCategory.routing";
 const routes: Routes  = [
    // { path: 'signup', component: AccountSignupComponent, canActivate: [AuthGuard] },
     { path: 'news', component: NewsListComponent },
     { path: 'news/:id', component: NewsDetailComponent },
     { path: 'news/:id/edit', component: NewsEditComponent },
     { path: '', component: NewsListComponent },
-    ... authRoutes
+    ...authRoutes,
+    ...newsCategoryRoutes
 ];
 
 export const appRoutingProviders: any[] = [

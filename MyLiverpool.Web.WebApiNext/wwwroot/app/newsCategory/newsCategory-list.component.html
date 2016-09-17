@@ -1,0 +1,10 @@
+﻿<div>
+    <a ng-show="isEditor()" ui-sref="newsCategoriesEdit">Создать категорию</a>
+    <ul *ngFor="let category of items">
+        <li>
+            <a ng-show="isNewsmaker() || category.itemsCount > 0" ui-sref="news({page: 1, categoryId: category.id})"><span [textContent]="category.name"></span> [<span [textContent]="category.itemsCount"></span>]</a>
+            <a class="" ui-sref="newsCategoriesEdit({id:category.id})"> <span class="glyphicon glyphicon-pencil"></span></a>
+            <a class="" ng-show="category.itemsCount == 0" ng-click="vm.delete($index)"> <span class="glyphicon glyphicon-trash"></span></a>
+        </li>
+    </ul>
+</div>

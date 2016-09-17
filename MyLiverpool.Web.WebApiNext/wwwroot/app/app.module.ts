@@ -21,6 +21,7 @@ import {AuthService} from "./auth/auth.service";
 import { LocalStorageMine } from "./shared/localStorage";
 import {SecuredDirective} from "./shared/secured.directive";
 import {AccountService} from "./account/account.service";
+import {NewsCategoryListComponent} from "./newsCategory/newsCategory-list.component";
 //import {SecuredLinkComponent} from "./shared/securedLink.component";
 
 @NgModule({
@@ -29,6 +30,7 @@ import {AccountService} from "./account/account.service";
         AccountSigninComponent,
         AccountSignupComponent,
         AppComponent,
+        NewsCategoryListComponent,
         NewsListComponent,
         NewsDetailComponent,
         NewsEditComponent,
