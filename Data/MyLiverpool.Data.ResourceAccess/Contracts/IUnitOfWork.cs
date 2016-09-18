@@ -14,7 +14,7 @@ namespace MyLiverpool.Data.ResourceAccess.Contracts
         /// Provides access to user repository.
         /// </summary>
         IGenericRepository<User> UserRepository { get; }
-        IGenericRepository<Material> MaterialRepository { get; }
+   //     IGenericRepository<Material> MaterialRepository { get; }
         IGenericRepository<MaterialCategory> MaterialCategoryRepository { get; }
         IGenericRepository<MaterialComment> MaterialCommentRepository { get; }
         IGenericRepository<ForumSection> ForumSectionRepository { get; }

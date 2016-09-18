@@ -24,7 +24,7 @@ namespace MyLiverpool.Data.ResourceAccess
         private IGenericRepository<ForumSubsection> _forumSubsectionRepository;
         private IGenericRepository<ForumMessage> _forumMessageRepository;
         private IGenericRepository<Match> _matchRepository;
-        private IGenericRepository<Material> _materialRepository;
+     //   private IGenericRepository<Material> _materialRepository;
         private IGenericRepository<MaterialCategory> _materialCategoryRepository;
         private IGenericRepository<MaterialComment> _materialCommentRepository;
         private IGenericRepository<ForumSection> _forumSectionRepository;
@@ -77,7 +77,7 @@ namespace MyLiverpool.Data.ResourceAccess
         /// <summary>
         /// Return roleRepository.
         /// </summary>
-        public IGenericRepository<Material> MaterialRepository => _materialRepository ?? (_materialRepository = new GenericRepository<Material>(_context));
+       // public IGenericRepository<Material> MaterialRepository => _materialRepository ?? (_materialRepository = new GenericRepository<Material>(_context));
         public IGenericRepository<Club> ClubRepository => _clubRepository ?? (_clubRepository = new GenericRepository<Club>(_context));
         public IGenericRepository<MaterialComment> MaterialCommentRepository => _materialCommentRepository ?? (_materialCommentRepository = new GenericRepository<MaterialComment>(_context));
         public IGenericRepository<ForumSection> ForumSectionRepository => _forumSectionRepository ?? (_forumSectionRepository = new GenericRepository<ForumSection>(_context));

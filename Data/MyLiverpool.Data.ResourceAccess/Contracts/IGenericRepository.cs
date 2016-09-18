@@ -11,7 +11,7 @@ namespace MyLiverpool.Data.ResourceAccess.Contracts
     /// Maintains a list of domain model objects of given type.
     /// Provides CRUD (create, read, update, delete) operations on given type of objects.
     /// </summary>
-    public interface IGenericRepository<TEntity>
+    public interface IGenericRepository<TEntity> : ICrudRepository<TEntity>
     {
         /// <summary>
         /// Returns all objects of given type.
@@ -34,31 +34,6 @@ namespace MyLiverpool.Data.ResourceAccess.Contracts
 
         Task<ICollection<TEntity>> GetOrderedByIdAsync(int page, int itemPerPage = 15,
             Expression<Func<TEntity, bool>> filter = null, params Expression<Func<TEntity, object>>[] includeProperties);
-
-        /// <summary>
-        /// Returns element by id
-        /// </summary>
-        Task<TEntity> GetByIdAsync(int id);
-
-        /// <summary>
-        /// Adds object to repository.
-        /// </summary>
-        void Add(TEntity entity);
-
-        /// <summary>
-        /// Deletes object from repository by id.
-        /// </summary>
-        Task DeleteAsync(int id);
-
-        /// <summary>
-        /// Deletes object from repository by entity.
-        /// </summary>
-        Task DeleteAsync(TEntity entity);
-
-        /// <summary>
-        /// Updates object in repository.
-        /// </summary>
-        void Update(TEntity entity);
 
         Task<int> GetCountAsync(Expression<Func<TEntity, bool>> filter = null);
     }

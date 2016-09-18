@@ -75,9 +75,6 @@ namespace MyLiverpool.Web.WebApiNext
                 options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             });
 
-            // Add application services.
-            services.AddTransient<IEmailSender, AuthMessageSender>();
-            services.AddTransient<ISmsSender, AuthMessageSender>();
             RegisterServices(services);
           //  services.AddTransient<OpenIddictDbContext<User, Role, int>, LiverpoolContext>();
             // RegisterServices(services);
@@ -188,11 +185,12 @@ namespace MyLiverpool.Web.WebApiNext
 
         private void RegisterServices(IServiceCollection services)
         {
-                // builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsImplementedInterfaces();
-                services.AddTransient<IAccountService, AccountService>();
-                services.AddTransient<IAdminService, AdminService>();
-                services.AddTransient<IClubService, ClubService>();
-              //  services.AddTransient<IIdentityMessageService, EmailService>();
+            // builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsImplementedInterfaces();
+            services.AddTransient<IAccountService, AccountService>();
+            services.AddTransient<IAdminService, AdminService>();
+            services.AddTransient<IClubService, ClubService>();
+            services.AddTransient<IEmailSender, AuthMessageSender>();
+            //  services.AddTransient<IIdentityMessageService, EmailService>();
             services.AddTransient<IForumMessageService, ForumMessageService>();
             services.AddTransient<IForumSectionService, ForumSectionService>();
             services.AddTransient<IForumSubsectionService, ForumSubsectionService>();
@@ -200,14 +198,15 @@ namespace MyLiverpool.Web.WebApiNext
             services.AddTransient<IMatchService, MatchService>();
             services.AddTransient<IMaterialCategoryService, MaterialCategoryService>();
             services.AddTransient<IMaterialCommentService, MaterialCommentService>();
+            services.AddScoped<IMaterialRepository, MaterialRepository>();
             services.AddTransient<IMaterialService, MaterialService>();
             services.AddTransient<IPmService, PmService>();
-            services.AddTransient<IWishService, WishService>();
             services.AddTransient<IRoleService, RoleService>();
+            services.AddTransient<ISmsSender, AuthMessageSender>();
             services.AddTransient<IUploadService, UploadService>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
-            services.AddTransient<IMaterialRepository, MaterialRepository>();
+            services.AddTransient<IWishService, WishService>();
             services.AddSingleton<IMapper>(Config.CreateMapper());
         }
     }
