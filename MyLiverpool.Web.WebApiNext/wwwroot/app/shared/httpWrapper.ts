@@ -30,16 +30,16 @@ export class HttpWrapper {
     }
 
     post(url, data) {
-        this.updateHeaders();
+        let headers = this.updateHeaders();
         return this.http.post(url, data, {
-            headers: this.updateHeaders()
+            headers: headers
         });
     }
 
     put(url, data) {
-        this.updateHeaders();
+        let headers = this.updateHeaders();
         return this.http.put(url, data, {
-            headers: this.updateHeaders()
+            headers: headers
         });
     }
 

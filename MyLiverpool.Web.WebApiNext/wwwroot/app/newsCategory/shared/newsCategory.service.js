@@ -27,8 +27,8 @@ let NewsCategoryService = class NewsCategoryService {
             return this.http.post(this.actionUrl, JSON.stringify(item)).map(res => res.json());
         };
         this.Update = (id, itemToUpdate) => {
-            // var toUpdate = 
-            return this.http.put(this.actionUrl + id, JSON.stringify(itemToUpdate))
+            var toUpdate = JSON.stringify(itemToUpdate);
+            return this.http.put(this.actionUrl + id, toUpdate)
                 .map(res => res.json());
         };
         this.Delete = (id) => {

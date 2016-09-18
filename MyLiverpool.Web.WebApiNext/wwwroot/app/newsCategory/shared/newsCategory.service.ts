@@ -30,8 +30,8 @@ export class NewsCategoryService {
     };
 
     public Update = (id: number, itemToUpdate: NewsCategory): Observable<NewsCategory> => {
-        // var toUpdate = 
-        return this.http.put(this.actionUrl + id, JSON.stringify(itemToUpdate))
+        var toUpdate = JSON.stringify(itemToUpdate);
+        return this.http.put(this.actionUrl + id, toUpdate)
             .map(res => res.json());
     };
 

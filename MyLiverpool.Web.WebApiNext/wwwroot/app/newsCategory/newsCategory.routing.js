@@ -1,6 +1,8 @@
 "use strict";
 const newsCategory_list_component_1 = require("./newsCategory-list.component");
+const newsCategory_edit_component_1 = require("./newsCategory-edit.component");
 exports.newsCategoryRoutes = [
-    { path: 'newsCategory', component: newsCategory_list_component_1.NewsCategoryListComponent } //todo, canActivate: [AuthGuard]  }
+    { path: 'newsCategory', component: newsCategory_list_component_1.NewsCategoryListComponent },
+    { path: 'newsCategory/:id/edit', component: newsCategory_edit_component_1.NewsCategoryEditComponent }
 ];
 //# sourceMappingURL=newsCategory.routing.js.map

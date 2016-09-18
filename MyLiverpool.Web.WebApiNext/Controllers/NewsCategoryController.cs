@@ -38,8 +38,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
 
         [Route("")]
         [HttpPost]
-        [Authorize(Roles = nameof(RolesEnum.NewsFull))]
-        public async Task<IActionResult> Create(MaterialCategoryDto dto) //todo not all checked
+      //  [Authorize(Roles = nameof(RolesEnum.NewsFull))]
+        public async Task<IActionResult> Create([FromBody] MaterialCategoryDto dto) //todo not all checked
         {
             if (!ModelState.IsValid)
             {
@@ -50,10 +50,10 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return Ok(result);
         }
 
-        [Route("")]
+        [Route("{id:int}")]
         [HttpPut]
-        [Authorize(Roles = nameof(RolesEnum.NewsFull))]
-        public async Task<IActionResult> Update(int id, MaterialCategoryDto dto) //todo not all checked
+      //  [Authorize(Roles = nameof(RolesEnum.NewsFull))]
+        public async Task<IActionResult> Update(int id, [FromBody] MaterialCategoryDto dto) //todo not all checked
         {
             if (!ModelState.IsValid || id != dto.Id)
             {

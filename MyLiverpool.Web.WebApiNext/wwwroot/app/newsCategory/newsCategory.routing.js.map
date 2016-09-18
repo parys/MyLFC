@@ -1,1 +1,1 @@
-{"version":3,"file":"newsCategory.routing.js","sourceRoot":"","sources":["newsCategory.routing.ts"],"names":[],"mappings":";AAEA,8CAAwC,+BAA+B,CAAC,CAAA;AAE3D,0BAAkB,GAAW;IACtC,EAAE,IAAI,EAAE,cAAc,EAAE,SAAS,EAAE,uDAAyB,EAAE,CAAC,mCAAmC;CACrG,CAAC"}
+{"version":3,"file":"newsCategory.routing.js","sourceRoot":"","sources":["newsCategory.routing.ts"],"names":[],"mappings":";AAEA,8CAAwC,+BAA+B,CAAC,CAAA;AACxE,8CAAwC,+BAA+B,CAAC,CAAA;AAC3D,0BAAkB,GAAW;IACtC,EAAE,IAAI,EAAE,cAAc,EAAE,SAAS,EAAE,uDAAyB,EAAE;IAC9D,EAAE,IAAI,EAAE,uBAAuB,EAAE,SAAS,EAAE,uDAAyB,EAAE;CAC1E,CAAC"}

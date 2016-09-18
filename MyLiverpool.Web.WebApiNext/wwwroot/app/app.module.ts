@@ -13,15 +13,16 @@ import { AccountSignupComponent } from "./account/account-signup.component";
 import { NewsService } from "./news/shared/news.service";
 //import { TranslateModule } from 'ng2-translate';
 import {NewsEditComponent} from "./news/news-edit/news-edit.component";
-import {NewsCategoryService} from "./newsCategory/shared/newsCategory.service";
-import {AccountSigninComponent} from "./account/account-signin.component";
-import {HttpWrapper} from "./shared/httpWrapper";
-import {AuthGuard} from "./auth/auth-guard.service";
-import {AuthService} from "./auth/auth.service";
+import { NewsCategoryService } from "./newsCategory/shared/newsCategory.service";
+import { AccountSigninComponent } from "./account/account-signin.component";
+import { HttpWrapper } from "./shared/httpWrapper";
+import { AuthGuard } from "./auth/auth-guard.service";
+import { AuthService } from "./auth/auth.service";
 import { LocalStorageMine } from "./shared/localStorage";
-import {SecuredDirective} from "./shared/secured.directive";
-import {AccountService} from "./account/account.service";
-import {NewsCategoryListComponent} from "./newsCategory/newsCategory-list.component";
+import { SecuredDirective } from "./shared/secured.directive";
+import { AccountService } from "./account/account.service";
+import { NewsCategoryListComponent } from "./newsCategory/newsCategory-list.component";
+import { NewsCategoryEditComponent } from "./newsCategory/newsCategory-edit.component";
 //import {SecuredLinkComponent} from "./shared/securedLink.component";
 
 @NgModule({
@@ -30,6 +31,7 @@ import {NewsCategoryListComponent} from "./newsCategory/newsCategory-list.compon
         AccountSigninComponent,
         AccountSignupComponent,
         AppComponent,
+        NewsCategoryEditComponent,
         NewsCategoryListComponent,
         NewsListComponent,
         NewsDetailComponent,

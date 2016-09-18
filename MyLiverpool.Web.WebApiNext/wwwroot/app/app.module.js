@@ -30,6 +30,7 @@ const localStorage_1 = require("./shared/localStorage");
 const secured_directive_1 = require("./shared/secured.directive");
 const account_service_1 = require("./account/account.service");
 const newsCategory_list_component_1 = require("./newsCategory/newsCategory-list.component");
+const newsCategory_edit_component_1 = require("./newsCategory/newsCategory-edit.component");
 //import {SecuredLinkComponent} from "./shared/securedLink.component";
 let AppModule = class AppModule {
 };
@@ -40,6 +41,7 @@ AppModule = __decorate([
             account_signin_component_1.AccountSigninComponent,
             account_signup_component_1.AccountSignupComponent,
             app_component_1.AppComponent,
+            newsCategory_edit_component_1.NewsCategoryEditComponent,
             newsCategory_list_component_1.NewsCategoryListComponent,
             news_list_component_1.NewsListComponent,
             news_detail_component_1.NewsDetailComponent,
