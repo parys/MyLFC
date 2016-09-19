@@ -29,28 +29,27 @@ namespace MyLiverpool.Business.Services.Services
 
         #region Dto 
 
-        public async Task<PageableData<MaterialMiniDto>> GetDtoAllAsync(int page, int? categoryId, string userName,
-            MaterialType materialType)
+        public async Task<PageableData<MaterialMiniDto>> GetDtoAllAsync(MaterialFiltersDto filters)
         {
             var itemPerPage = GlobalConstants.NewsPerPage;
-            Expression<Func<Material, bool>> filter = x =>  x.Type == materialType;
+            Expression<Func<Material, bool>> filter = x =>  true;
             ICollection<Material> topNews = new List<Material>();
-            if (categoryId.HasValue)
+            if (filters.CategoryId.HasValue)
             {
-                filter = filter.And(x => x.CategoryId == categoryId.Value);
+                filter = filter.And(x => x.CategoryId == filters.CategoryId.Value);
             }
 
-            if (!string.IsNullOrWhiteSpace(userName))
+            if (!string.IsNullOrWhiteSpace(filters.UserName))
             {
-                Expression<Func<Material, bool>> newFilter = x => x.Author.UserName.Contains(userName);
+                Expression<Func<Material, bool>> newFilter = x => x.Author.UserName.Contains(filters.UserName);
                 filter = filter.And(newFilter);
             }
             
             topNews =
                 await
-                    _materialRepository.GetTopMaterials(materialType);
+                    _materialRepository.GetTopMaterials(filters.MaterialType);
 
-            if (page == GlobalConstants.FirstPage)
+            if (filters.Page == GlobalConstants.FirstPage)
             {
                 itemPerPage = GlobalConstants.NewsPerPage - topNews.Count > 0
                     ? GlobalConstants.NewsPerPage - topNews.Count
@@ -61,11 +60,11 @@ namespace MyLiverpool.Business.Services.Services
             
             var news =
                 await
-                    _materialRepository.GetOrderedByDescAndNotTopAsync(page, MaterialType.News, itemPerPage,
+                    _materialRepository.GetOrderedByDescAndNotTopAsync(filters.Page, MaterialType.News, itemPerPage, filter,
                         x => x.AdditionTime);
             var newsForView = topNews.Concat(news);
             var newsDtos = _mapper.Map<IEnumerable<MaterialMiniDto>>(newsForView);
-            var result = new PageableData<MaterialMiniDto>(newsDtos, page, allNewsCount);
+            var result = new PageableData<MaterialMiniDto>(newsDtos, filters.Page, allNewsCount);
             return result;
         }
 

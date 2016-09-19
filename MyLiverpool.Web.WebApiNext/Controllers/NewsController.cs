@@ -5,6 +5,7 @@ using MyLiverpool.Business.DTO;
 using MyLiverpool.Data.Entities;
 using MyLiverpool.Web.WebApiNext.Extensions;
 using MyLiverpool.Business.Contracts;
+using MyLiverpool.Business.DtoNext;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
@@ -22,13 +23,9 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Route("list")]
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> GetNewsItems(int page = 1, int? categoryId = null, string authorUserName = null) //todo not all checked
+        public async Task<IActionResult> GetNewsItems([FromQuery] MaterialFiltersDto filters) //todo not all checked
         {
-            if (page < 1)
-            {
-                page = 1;
-            }
-            var result = await _materialService.GetDtoAllAsync(page, categoryId, authorUserName, Type);
+            var result = await _materialService.GetDtoAllAsync(filters);
             return Ok(result);
         }
 

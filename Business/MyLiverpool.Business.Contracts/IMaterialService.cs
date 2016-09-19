@@ -12,7 +12,7 @@ namespace MyLiverpool.Business.Contracts
 
         Task<bool> ActivateAsync(int id, MaterialType materialType);
 
-        Task<PageableData<MaterialMiniDto>> GetDtoAllAsync(int page, int? categoryId, string userName, MaterialType materialType);
+        Task<PageableData<MaterialMiniDto>> GetDtoAllAsync(MaterialFiltersDto filters);
 
         Task<MaterialDto> GetDtoAsync(int id, MaterialType materialType);
 

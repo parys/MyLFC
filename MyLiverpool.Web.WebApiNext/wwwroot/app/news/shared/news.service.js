@@ -16,8 +16,8 @@ let NewsService = class NewsService {
     constructor(http, configuration) {
         this.http = http;
         this.configuration = configuration;
-        this.GetAll = () => {
-            return this.http.get(this.actionUrl + "list/").map(res => res.json());
+        this.GetAll = (filters) => {
+            return this.http.get(this.actionUrl + "list/" + encodeURIComponent(JSON.stringify(filters))).map(res => res.json());
         };
         this.GetSingle = (id) => {
             return this.http.get(this.actionUrl + id).map(res => res.json());

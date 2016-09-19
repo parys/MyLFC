@@ -20,7 +20,7 @@ namespace MyLiverpool.Data.ResourceAccess.Contracts
             Expression<Func<Material, bool>> filter = null, Expression<Func<Material, object>> orderBy = null,
             params Expression<Func<Material, object>>[] includeProperties);
 
-        Task<ICollection<Material>> GetOrderedByDescAndNotTopAsync(int page, MaterialType type, int itemPerPage = 15,
+        Task<ICollection<Material>> GetOrderedByDescAndNotTopAsync(int page, MaterialType type, int itemPerPage = 15, Expression<Func<Material, bool>> filter = null,
             Expression<Func<Material, object>> orderBy = null,
             params Expression<Func<Material, object>>[] includeProperties);
     }

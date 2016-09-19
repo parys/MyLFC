@@ -10,24 +10,37 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 const core_1 = require('@angular/core');
 const news_service_1 = require('../shared/news.service');
+const newsFilters_model_1 = require("../newsFilters.model");
 let NewsListComponent = class NewsListComponent {
     constructor(newsService) {
         this.newsService = newsService;
+        this.page = 1;
+        this.itemsPerPage = 15;
     }
     ngOnInit() {
-        this.newsService
-            .GetAll()
-            .subscribe(data => this.parsePageable(data), error => console.log(error), () => console.log("success load list news"));
+        this.update();
     }
     parsePageable(pageable) {
-        this.items = pageable.list; //todo parse others
+        this.items = pageable.list;
+        this.page = pageable.pageNo;
+        this.itemsPerPage = pageable.itemPerPage;
+        this.totalItems = pageable.totalItems;
+    }
+    update() {
+        let filters = new newsFilters_model_1.MaterialFilters();
+        filters.categoryId = this.categoryId;
+        filters.materialType = 1;
+        filters.userName = this.userName;
+        filters.page = this.page;
+        this.newsService
+            .GetAll(filters)
+            .subscribe(data => this.parsePageable(data), error => console.log(error), () => console.log("success load list news"));
     }
 };
 NewsListComponent = __decorate([
     core_1.Component({
         selector: 'news-list',
-        templateUrl: 'app/news/news-list/news-list.component.html',
-        providers: [news_service_1.NewsService]
+        templateUrl: 'app/news/news-list/news-list.component.html'
     }), 
     __metadata('design:paramtypes', [news_service_1.NewsService])
 ], NewsListComponent);

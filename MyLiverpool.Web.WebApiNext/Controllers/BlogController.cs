@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyLiverpool.Business.Contracts;
+using MyLiverpool.Business.DtoNext;
 using MyLiverpool.Business.DTO;
 using MyLiverpool.Data.Entities;
 using MyLiverpool.Web.WebApiNext.Extensions;
@@ -22,14 +23,10 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Route("")]
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> GetItems(int page = 1, int? categoryId = null,
-            string authorUserName = null)
+        public async Task<IActionResult> GetItems(MaterialFiltersDto filters)
         {
-            if (page < 1)
-            {
-                page = 1;
-            }
-            var result = await _materialService.GetDtoAllAsync(page, categoryId, authorUserName, Type);
+
+            var result = await _materialService.GetDtoAllAsync(filters);
             return Ok(result);
         }
 

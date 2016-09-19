@@ -6,6 +6,7 @@ import { Configuration } from '../../app.constants';
 import { News } from './news.model';
 import { Pageable } from '../../shared/pageable.model';
 import {HttpWrapper} from "../../shared/httpWrapper";
+import {MaterialFilters} from "../newsFilters.model";
 
 @Injectable()
 export class NewsService {
@@ -16,8 +17,8 @@ export class NewsService {
         this.actionUrl = configuration.ServerWithApiUrl + 'news/';
     }
 
-    public GetAll = (): Observable<Pageable<News>> => {
-        return this.http.get(this.actionUrl + "list/").map(res => res.json());
+    public GetAll = (filters:MaterialFilters): Observable<Pageable<News>> => {
+        return this.http.get(this.actionUrl + "list/").map(res => res.json());// + encodeURIComponent(JSON.stringify(filters))).map(res => res.json());
     };
 
     public GetSingle = (id: number): Observable<News> => {
