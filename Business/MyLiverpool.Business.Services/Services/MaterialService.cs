@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -59,10 +58,10 @@ namespace MyLiverpool.Business.Services.Services
             }
 
             var allNewsCount = await _materialRepository.GetCountAsync(filter);
-            filter = filter.And(x => !x.OnTop);
+            
             var news =
                 await
-                    _materialRepository.GetOrderedByAsync(page, itemPerPage, SortOrder.Descending, filter,
+                    _materialRepository.GetOrderedByDescAndNotTopAsync(page, MaterialType.News, itemPerPage,
                         x => x.AdditionTime);
             var newsForView = topNews.Concat(news);
             var newsDtos = _mapper.Map<IEnumerable<MaterialMiniDto>>(newsForView);

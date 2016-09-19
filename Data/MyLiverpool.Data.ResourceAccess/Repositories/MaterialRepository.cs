@@ -83,11 +83,29 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             IQueryable<Material> query = _context.Materials;
             if (filter != null)
             {
-               // query = query.Where(filter); //bug
+                query = query.Where(filter); //bug
             }
             if (orderBy != null)
             {
                 query = query.ObjectSort(orderBy, order);
+            }
+            if (includeProperties != null && includeProperties.Any())
+            {
+                query = includeProperties.Aggregate(query,
+                    (current, includeProperty) => current.Include(includeProperty));
+            }
+            query = query.Skip((page - 1) * itemPerPage).Take(itemPerPage);
+            return await query.ToListAsync();
+        }
+        public async Task<ICollection<Material>> GetOrderedByDescAndNotTopAsync(int page, MaterialType type, int itemPerPage = 15, 
+            Expression<Func<Material, object>> orderBy = null, params Expression<Func<Material, object>>[] includeProperties)
+        {
+            IQueryable<Material> query = _context.Materials;
+            query = query.Where(x => !x.OnTop && x.Type == type);
+            
+            if (orderBy != null)
+            {
+                query = query.ObjectSort(orderBy, SortOrder.Descending);
             }
             if (includeProperties != null && includeProperties.Any())
             {
