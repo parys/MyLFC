@@ -29,7 +29,7 @@ let NewsListComponent = class NewsListComponent {
     update() {
         let filters = new newsFilters_model_1.MaterialFilters();
         filters.categoryId = this.categoryId;
-        filters.materialType = 1;
+        filters.materialType = "News";
         filters.userName = this.userName;
         filters.page = this.page;
         this.newsService

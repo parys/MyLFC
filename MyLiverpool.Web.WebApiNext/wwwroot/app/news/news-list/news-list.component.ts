@@ -37,7 +37,7 @@ export class NewsListComponent implements OnInit {
     update() {
         let filters = new MaterialFilters();
         filters.categoryId = this.categoryId;
-        filters.materialType = 1;
+        filters.materialType = "News";
         filters.userName = this.userName;
         filters.page = this.page;
 

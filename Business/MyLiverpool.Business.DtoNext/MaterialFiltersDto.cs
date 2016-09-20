@@ -1,4 +1,6 @@
 ﻿using MyLiverpool.Data.Entities;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace MyLiverpool.Business.DtoNext
 {
@@ -10,6 +12,7 @@ namespace MyLiverpool.Business.DtoNext
 
         public string UserName { get; set; }
 
+        [JsonConverter(typeof(StringEnumConverter))]
         public MaterialType MaterialType { get; set; }
     }
 }

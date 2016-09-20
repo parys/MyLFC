@@ -20,7 +20,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             _materialService = materialService;
         }
 
-        [Route("list")]
+        [Route("list/{filters}")]
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> GetNewsItems([FromQuery] MaterialFiltersDto filters) //todo not all checked
