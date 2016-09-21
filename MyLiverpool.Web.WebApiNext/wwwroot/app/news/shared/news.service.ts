@@ -18,7 +18,7 @@ export class NewsService {
     }
 
     public GetAll = (filters:MaterialFilters): Observable<Pageable<News>> => {
-        return this.http.get(this.actionUrl + "News/list/" + JSON.stringify(filters)).map(res => res.json());
+        return this.http.get(this.actionUrl + "News/list/" + encodeURIComponent(JSON.stringify(filters))).map(res => res.json());
     };
 
     public GetSingle = (id: number): Observable<News> => {

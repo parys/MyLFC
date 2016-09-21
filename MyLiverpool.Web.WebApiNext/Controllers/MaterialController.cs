@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using System.Web.Http;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyLiverpool.Business.DTO;
@@ -23,7 +24,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Route("{type}/list/{filters}")]
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> GetNewsItems(string type, [FromQuery] MaterialFiltersDto filters) //todo not all checked
+        public async Task<IActionResult> GetNewsItems(string type, [FromUri] MaterialFiltersDto filters) //todo not all checked
         {
             MaterialType materialType;
             if (!Enum.TryParse(type, true, out materialType))

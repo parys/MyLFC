@@ -1,17 +1,20 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NewsService } from '../shared/news.service';
 import { News } from "../shared/news.model";
 import { Observable } from 'rxjs/Observable';
 import { Pageable } from '../../shared/pageable.model';
 import {MaterialFilters} from "../newsFilters.model";
+import { Router, ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
     selector: 'news-list',
     templateUrl: 'app/news/news-list/news-list.component.html'
 })
 
-export class NewsListComponent implements OnInit {
+export class NewsListComponent implements OnInit, OnDestroy {
 
+    private sub: Subscription;
     items: News[];
     page: number = 1;
     itemsPerPage: number = 15;
@@ -19,12 +22,20 @@ export class NewsListComponent implements OnInit {
     categoryId: number;
     userName: string;
 
-    constructor(private newsService: NewsService) { //todo NEED CONFIGURation
-
+    constructor(private newsService: NewsService, private route: ActivatedRoute) {
     }
 
     ngOnInit() {
-        this.update();
+        this.sub = this.route.params.subscribe(params => {
+            this.page = +params['page'];
+            this.categoryId = +params['categoryId'];
+            this.userName = params['userName'];
+            this.update();
+        });
+    }
+
+    ngOnDestroy() {
+        this.sub.unsubscribe();
     }
 
     private parsePageable(pageable: Pageable<News>): void {

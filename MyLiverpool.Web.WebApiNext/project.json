@@ -41,7 +41,8 @@
     "MyLiverpool.Common.Utilities": "1.0.0-*",
     "MyLiverpool.Business.DtoNext": "1.0.0-*",
     "MyLiverpool.Business.Contracts": "1.0.0-*",
-    "MyLiverpool.Business.Services": "1.0.0-*"
+    "MyLiverpool.Business.Services": "1.0.0-*",
+    "Microsoft.AspNetCore.Mvc.WebApiCompatShim": "1.0.1"
   },
 
   "tools": {

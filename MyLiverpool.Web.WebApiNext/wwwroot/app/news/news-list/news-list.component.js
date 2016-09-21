@@ -11,14 +11,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 const core_1 = require('@angular/core');
 const news_service_1 = require('../shared/news.service');
 const newsFilters_model_1 = require("../newsFilters.model");
+const router_1 = require('@angular/router');
 let NewsListComponent = class NewsListComponent {
-    constructor(newsService) {
+    constructor(newsService, route) {
         this.newsService = newsService;
+        this.route = route;
         this.page = 1;
         this.itemsPerPage = 15;
     }
     ngOnInit() {
-        this.update();
+        this.sub = this.route.params.subscribe(params => {
+            this.page = +params['page'];
+            this.categoryId = +params['categoryId'];
+            this.userName = params['userName'];
+            this.update();
+        });
+    }
+    ngOnDestroy() {
+        this.sub.unsubscribe();
     }
     parsePageable(pageable) {
         this.items = pageable.list;
@@ -42,7 +52,7 @@ NewsListComponent = __decorate([
         selector: 'news-list',
         templateUrl: 'app/news/news-list/news-list.component.html'
     }), 
-    __metadata('design:paramtypes', [news_service_1.NewsService])
+    __metadata('design:paramtypes', [news_service_1.NewsService, router_1.ActivatedRoute])
 ], NewsListComponent);
 exports.NewsListComponent = NewsListComponent;
 //# sourceMappingURL=news-list.component.js.map

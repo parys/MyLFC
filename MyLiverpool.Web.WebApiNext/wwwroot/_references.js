@@ -15,6 +15,7 @@
 /// <reference path="app/auth/auth-guard.service.js" />
 /// <reference path="app/boot.js" />
 /// <reference path="app/news/index.js" />
+/// <reference path="app/news/news.routing.js" />
 /// <reference path="app/news/news-detail/index.js" />
 /// <reference path="app/news/news-detail/news-detail.component.js" />
 /// <reference path="app/news/news-edit/index.js" />
