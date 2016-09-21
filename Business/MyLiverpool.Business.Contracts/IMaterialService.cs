@@ -8,18 +8,18 @@ namespace MyLiverpool.Business.Contracts
 {
     public interface IMaterialService
     {
-        Task<bool> DeleteAsync(int id, int userId, MaterialType materialType);
+        Task<bool> DeleteAsync(int id, int userId);
 
-        Task<bool> ActivateAsync(int id, MaterialType materialType);
+        Task<bool> ActivateAsync(int id);
 
         Task<PageableData<MaterialMiniDto>> GetDtoAllAsync(MaterialFiltersDto filters);
 
-        Task<MaterialDto> GetDtoAsync(int id, MaterialType materialType);
+        Task<MaterialDto> GetDtoAsync(int id);
 
         Task<bool> CreateAsync(MaterialDto dto, int userId, MaterialType materialType);
 
-        Task<bool> EditAsync(MaterialDto dto, int userId, MaterialType materialType);
+        Task<bool> EditAsync(MaterialDto dto, int userId);
 
-        Task<bool> AddViewAsync( int id, MaterialType materialType);
+        Task<bool> AddViewAsync(int id);
     }
 }

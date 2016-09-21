@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyLiverpool.Business.DTO;
@@ -10,21 +11,26 @@ using MyLiverpool.Business.DtoNext;
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
     [Route("api/[controller]")]
-    public class NewsController : Controller
+    public class MaterialController : Controller
     {
         private readonly IMaterialService _materialService;
-        private const MaterialType Type = MaterialType.News;
 
-        public NewsController(IMaterialService materialService)
+        public MaterialController(IMaterialService materialService)
         {
             _materialService = materialService;
         }
 
-        [Route("list/{filters}")]
+        [Route("{type}/list/{filters}")]
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> GetNewsItems([FromQuery] MaterialFiltersDto filters) //todo not all checked
+        public async Task<IActionResult> GetNewsItems(string type, [FromQuery] MaterialFiltersDto filters) //todo not all checked
         {
+            MaterialType materialType;
+            if (!Enum.TryParse(type, true, out materialType))
+            {
+                return BadRequest(type);
+            }
+            filters.MaterialType = materialType;
             var result = await _materialService.GetDtoAllAsync(filters);
             return Ok(result);
         }
@@ -34,7 +40,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> GetNewsItem(int id) //todo not all checked
         {
-            var model = await _materialService.GetDtoAsync(id, Type);
+            var model = await _materialService.GetDtoAsync(id);
             return Ok(model);
         }
 
@@ -48,7 +54,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 return BadRequest();
             }
 
-            var result = await _materialService.DeleteAsync(id.Value, User.GetUserId(), Type);
+            var result = await _materialService.DeleteAsync(id.Value, User.GetUserId());
             return Json(result);
         }
 
@@ -61,16 +67,17 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             {
                 return BadRequest();
             }
-            var result = await _materialService.ActivateAsync(id.Value, Type);
+            var result = await _materialService.ActivateAsync(id.Value);
             return Ok(result);
         }
 
-        [Route("")]
+        [Route("{type}")]
         [HttpPost]
         [Authorize(Roles = nameof(RolesEnum.NewsStart))]
-        public async Task<IActionResult> Create(MaterialDto model) //todo not all checked
+        public async Task<IActionResult> Create(string type, MaterialDto model) //todo not all checked
         {
-            if (!ModelState.IsValid)
+            MaterialType materialType;
+            if (!ModelState.IsValid || !Enum.TryParse(type, true, out materialType))
             {
                 return BadRequest(ModelState);
             }
@@ -78,7 +85,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             {
                 model.Pending = true;
             }
-            var result = await _materialService.CreateAsync(model, User.GetUserId(), Type);
+            var result = await _materialService.CreateAsync(model, User.GetUserId(), materialType);
             return Ok(result);
         }
 
@@ -104,7 +111,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 }
                 model.Pending = true;
             }
-            var result = await _materialService.EditAsync(model, User.GetUserId(), Type);
+            var result = await _materialService.EditAsync(model, User.GetUserId());
             return Ok(result);
         }
 
@@ -117,7 +124,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             {
                 return BadRequest();
             }
-            var result = await _materialService.AddViewAsync(id.Value, Type);
+            var result = await _materialService.AddViewAsync(id.Value);
             return Ok(result);
         }
     }

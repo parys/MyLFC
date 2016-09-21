@@ -33,7 +33,6 @@ namespace MyLiverpool.Business.Services.Services
         {
             var itemPerPage = GlobalConstants.NewsPerPage;
             Expression<Func<Material, bool>> filter = x =>  true;
-            ICollection<Material> topNews = new List<Material>();
             if (filters.CategoryId.HasValue)
             {
                 filter = filter.And(x => x.CategoryId == filters.CategoryId.Value);
@@ -45,9 +44,8 @@ namespace MyLiverpool.Business.Services.Services
                 filter = filter.And(newFilter);
             }
             
-            topNews =
-                await
-                    _materialRepository.GetTopMaterials(filters.MaterialType);
+            var topNews = await
+                _materialRepository.GetTopMaterials(filters.MaterialType);
 
             if (filters.Page == GlobalConstants.FirstPage)
             {
@@ -68,23 +66,23 @@ namespace MyLiverpool.Business.Services.Services
             return result;
         }
 
-        public async Task<MaterialDto> GetDtoAsync(int id, MaterialType materialType)
+        public async Task<MaterialDto> GetDtoAsync(int id)
         {
             var material = await _materialRepository.GetByIdAsync(id);
             if (material == null)
             {
                 return null;
             }
-            //todo newsCounter
-            var commentsCount = material.Comments.Count;
-            material.Comments =
-                material.Comments.Where(x => !x.ParentId.HasValue && x.MaterialType == materialType).ToList();
+            
+         //   var commentsCount = material.Comments.Count;
+         //   material.Comments =
+         //       material.Comments.Where(x => !x.ParentId.HasValue).ToList(); todo move comments to another directive
             var dto = _mapper.Map<MaterialDto>(material);
-            dto.CommentsCount = commentsCount;
+         //   dto.CommentsCount = commentsCount;
             return dto;
         }
 
-        public async Task<bool> DeleteAsync(int id, int userId, MaterialType materialType)
+        public async Task<bool> DeleteAsync(int id, int userId)
         {
             var user = await _unitOfWork.UserManager.FindByIdAsync(userId.ToString());
             var newsItem = await _materialRepository.GetByIdAsync(id);
@@ -113,7 +111,7 @@ namespace MyLiverpool.Business.Services.Services
             return true;
         }
 
-        public async Task<bool> ActivateAsync(int id, MaterialType materialType)
+        public async Task<bool> ActivateAsync(int id)
         {
             var material = await _materialRepository.GetByIdAsync(id);
             if (material == null)
@@ -146,7 +144,7 @@ namespace MyLiverpool.Business.Services.Services
             return true;
         }
 
-        public async Task<bool> EditAsync(MaterialDto model, int userId, MaterialType materialType)
+        public async Task<bool> EditAsync(MaterialDto model, int userId)
         {
             // var newsItem = Mapper.Map<Material>(model);
             var updatingItem = await _materialRepository.GetByIdAsync(model.Id);
@@ -173,7 +171,7 @@ namespace MyLiverpool.Business.Services.Services
             return true;
         }
 
-        public async Task<bool> AddViewAsync(int id, MaterialType materialType)
+        public async Task<bool> AddViewAsync(int id)
         {
             var item = await _materialRepository.GetByIdAsync(id);
             item.Reads += 1;

@@ -14,11 +14,11 @@ export class NewsService {
     private actionUrl: string;
 
     constructor(private http: HttpWrapper, private configuration: Configuration) {
-        this.actionUrl = configuration.ServerWithApiUrl + 'news/';
+        this.actionUrl = configuration.ServerWithApiUrl + 'material/';
     }
 
     public GetAll = (filters:MaterialFilters): Observable<Pageable<News>> => {
-        return this.http.get(this.actionUrl + "list/" + JSON.stringify(filters)).map(res => res.json());
+        return this.http.get(this.actionUrl + "News/list/" + JSON.stringify(filters)).map(res => res.json());
     };
 
     public GetSingle = (id: number): Observable<News> => {
@@ -27,12 +27,10 @@ export class NewsService {
 
     public Create = (item: News): Observable<News> => {
         var toAdd = JSON.stringify({ ItemName: item });
-
-        return this.http.post(this.actionUrl, JSON.stringify(item)).map(res => res.json());
+        return this.http.post(this.actionUrl + 'News/', JSON.stringify(item)).map(res => res.json());
     };
 
     public Update = (id: number, itemToUpdate: News): Observable<News> => {
-        // var toUpdate = 
         return this.http
             .put(this.actionUrl + id, JSON.stringify(itemToUpdate))
             .map(res => res.json());
@@ -40,6 +38,10 @@ export class NewsService {
 
     public Delete = (id: number): Observable<boolean> => {
         return this.http.delete(this.actionUrl + id).map(response => response.json());
+    };
+
+    public AddView = (id: number): Observable<News> => {
+        return this.http.get(this.actionUrl + 'AddView/' + id).map(res => res.json());
     };
 
     private extractData(res: Response) {

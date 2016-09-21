@@ -17,17 +17,16 @@ let NewsService = class NewsService {
         this.http = http;
         this.configuration = configuration;
         this.GetAll = (filters) => {
-            return this.http.get(this.actionUrl + "list/" + JSON.stringify(filters)).map(res => res.json());
+            return this.http.get(this.actionUrl + "News/list/" + JSON.stringify(filters)).map(res => res.json());
         };
         this.GetSingle = (id) => {
             return this.http.get(this.actionUrl + id).map(res => res.json());
         };
         this.Create = (item) => {
             var toAdd = JSON.stringify({ ItemName: item });
-            return this.http.post(this.actionUrl, JSON.stringify(item)).map(res => res.json());
+            return this.http.post(this.actionUrl + 'News/', JSON.stringify(item)).map(res => res.json());
         };
         this.Update = (id, itemToUpdate) => {
-            // var toUpdate = 
             return this.http
                 .put(this.actionUrl + id, JSON.stringify(itemToUpdate))
                 .map(res => res.json());
@@ -35,7 +34,10 @@ let NewsService = class NewsService {
         this.Delete = (id) => {
             return this.http.delete(this.actionUrl + id).map(response => response.json());
         };
-        this.actionUrl = configuration.ServerWithApiUrl + 'news/';
+        this.AddView = (id) => {
+            return this.http.get(this.actionUrl + 'AddView/' + id).map(res => res.json());
+        };
+        this.actionUrl = configuration.ServerWithApiUrl + 'material/';
     }
     extractData(res) {
         let body = res.json();

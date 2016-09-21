@@ -5,9 +5,9 @@ namespace MyLiverpool.Data.Entities
     public enum MaterialType
     {
         Error = 0,
-        [EnumMember(Value = "News")]
+     //   [EnumMember(Value = "News")]
         News = 1,
-        [EnumMember(Value = "Blog")]
+      //  [EnumMember(Value = "Blog")]
         Blog = 2
     }
 }

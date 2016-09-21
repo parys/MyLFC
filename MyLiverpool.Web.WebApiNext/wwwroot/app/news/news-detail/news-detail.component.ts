@@ -3,11 +3,11 @@ import { NewsService } from '../shared/news.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { News } from "../shared/news.model";
+import { LocalStorageMine } from "../../shared/localStorage";
 
 @Component({
     selector: 'news-detail',
-    templateUrl: 'app/news/news-detail/news-detail.component.html',
-    providers: [NewsService]
+    templateUrl: 'app/news/news-detail/news-detail.component.html'
 })
 
 export class NewsDetailComponent implements OnInit, OnDestroy {
@@ -15,7 +15,7 @@ export class NewsDetailComponent implements OnInit, OnDestroy {
     private sub: Subscription;
     item: News;
 
-    constructor(private newsService: NewsService, private route: ActivatedRoute) {}
+    constructor(private newsService: NewsService, private route: ActivatedRoute, private localStorage: LocalStorageMine) {}
 
     ngOnInit() {
         this.sub = this.route.params.subscribe(params => {
@@ -33,5 +33,14 @@ export class NewsDetailComponent implements OnInit, OnDestroy {
 
     private parse(item: News): void {
         this.item = item;
+        this.addView();
+    }
+
+    private addView() {
+        let id = this.item.id;
+        if (!this.localStorage.get('material' + id)) {
+            this.localStorage.set('material' + id, "");
+            this.newsService.AddView(id).subscribe(data => data);
+        }
     }
 }
