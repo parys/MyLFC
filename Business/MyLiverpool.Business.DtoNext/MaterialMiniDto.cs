@@ -19,9 +19,9 @@ namespace MyLiverpool.Business.DtoNext
 
         public int CommentsCount { get; set; }
 
-        public string AuthorUserName { get; set; }
+        public string UserName { get; set; }
 
-        public int AuthorId { get; set; }
+        public int UserId { get; set; }
 
         public string Title { get; set; }
 

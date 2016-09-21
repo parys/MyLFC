@@ -5,8 +5,8 @@
     private categoryName: string;
     private additionTime: Date;
     private commentsCount: number;
-    private authorId: number;
-    private authorUserName: string;
+    private userId: number;
+    private userName: string;
     private brief: string;
     private message: string;
     private reads: number;

@@ -31,11 +31,6 @@ namespace MyLiverpool.Data.ResourceAccess
             }
         }
 
-        //public LiverpoolContext(): base() //todo call with params
-        //{
-            
-        //}
-
         public static LiverpoolContext Create()
         {
             var configBuilder = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
@@ -43,7 +38,7 @@ namespace MyLiverpool.Data.ResourceAccess
           //  configBuilder.AddEnvironmentVariables();
             var configuration = configBuilder.Build();
          //   var connectionString = configuration.GetConnectionString("DefaultConnection");
-            var connectionString = "Server=akapitanchik-09\\andrew;Initial Catalog=MyLiverpool1123;Trusted_Connection=True;MultipleActiveResultSets=true";
+            var connectionString = "Server=.;Initial Catalog=MyLiverpool1123;Trusted_Connection=True;MultipleActiveResultSets=true";
             var builder = new DbContextOptionsBuilder<LiverpoolContext>();
             builder.UseSqlServer(connectionString,
                 options =>

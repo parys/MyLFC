@@ -29,7 +29,7 @@
         <div class="col-sx-12 col-sm-12">
             <ul class="list-inline small small-offset">
                 <li class="">Категория:</li>
-                <li class=""><a ui-sref="news({page: 1, categoryId: item.categoryId})" [textContent]="item.categoryName"></a></li>
+                <li class=""><a [textContent]="item.categoryName"></a></li>
                 <li class="">|</li>
                 <li class="">Время добавления:</li>
                 <li class="" [textContent]="item.additionTime"></li>
@@ -38,7 +38,7 @@
                 <li class="" [textContent]="item.reads"></li>
                 <li class="">|</li>
                 <li class="">Автор:</li>
-                <li class=""><a ui-sref="userInfo({id: item.authorId })" [textContent]="item.authorUserName"></a></li>
+                <li class=""><a ui-sref="userInfo({id: item.userId })" [textContent]="item.userName"></a></li>
                 <li class="">|</li>
                 <li class="">Комментарии:</li>
                 <li class="" [textContent]="item.commentsCount"></li>

@@ -16,8 +16,8 @@ namespace MyLiverpool.Common.MapperConfigs
         {
             CreateMap<Material, MaterialMiniDto>()
                 .ForMember(dest => dest.AdditionTime, src => src.MapFrom(x => x.AdditionTime))
-                .ForMember(dest => dest.AuthorId, src => src.MapFrom(x => x.AuthorId))
-                .ForMember(dest => dest.AuthorUserName, src => src.MapFrom(x => x.Author.UserName))
+                .ForMember(dest => dest.UserId, src => src.MapFrom(x => x.AuthorId))
+                .ForMember(dest => dest.UserName, src => src.MapFrom(x => x.Author.UserName))
                 .ForMember(dest => dest.Brief, src => src.MapFrom(x => x.Brief))
                 .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id))
                 .ForMember(dest => dest.CategoryId, src => src.MapFrom(x => x.CategoryId))

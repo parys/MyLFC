@@ -63,7 +63,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
 
         public async Task<ICollection<Material>> GetTopMaterials(MaterialType type)
         {
-            return await _context.Materials.Where(x => x.OnTop && x.Type == type).ToListAsync();
+            return await _context.Materials.Include(x => x.Category).Include(x => x.Author).Where(x => x.OnTop && x.Type == type).ToListAsync();
         }
 
         public async Task<int> GetCountAsync(Expression<Func<Material, bool>> filter = null)
@@ -80,7 +80,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
         public async Task<ICollection<Material>> GetOrderedByAsync(int page, int itemPerPage = 15, SortOrder order = SortOrder.Ascending, Expression<Func<Material, bool>> filter = null,
             Expression<Func<Material, object>> orderBy = null, params Expression<Func<Material, object>>[] includeProperties)
         {
-            IQueryable<Material> query = _context.Materials;
+            IQueryable<Material> query = _context.Materials.Include(x => x.Category).Include(x => x.Author);
             if (filter != null)
             {
                 query = query.Where(filter); //bug
@@ -100,7 +100,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
         public async Task<ICollection<Material>> GetOrderedByDescAndNotTopAsync(int page, MaterialType type, int itemPerPage = 15, Expression<Func<Material, bool>> filter = null,
             Expression<Func<Material, object>> orderBy = null, params Expression<Func<Material, object>>[] includeProperties)
         {
-            IQueryable<Material> query = _context.Materials;
+            IQueryable<Material> query = _context.Materials.Include(x => x.Category).Include(x => x.Author);
             query = query.Where(x => !x.OnTop && x.Type == type);
 
             if (filter != null)
