@@ -68,7 +68,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
 
         public async Task<int> GetCountAsync(Expression<Func<Material, bool>> filter = null)
         {
-            IQueryable<Material> query = _context.Materials;
+            IQueryable<Material> query = _context.Materials.Include(x => x.Category).Include(x => x.Author);
             if (filter != null)
             {
                 query = query.Where(filter);

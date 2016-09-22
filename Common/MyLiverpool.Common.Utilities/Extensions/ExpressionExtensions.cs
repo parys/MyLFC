@@ -1,36 +1,46 @@
 ﻿using System;
-using System.Linq;
+using System.Collections.Generic;
 using System.Linq.Expressions;
-using MyLiverpoolSite.Common.Utilities;
 
 namespace MyLiverpool.Common.Utilities.Extensions
 {
-    public static class ExpressionExtensions
+    public static class PredicateBuilder
     {
-        public static Expression<T> Compose<T>(this Expression<T> first, Expression<T> second,
-            Func<Expression, Expression, Expression> merge)
+        public static Expression<Func<T, bool>> And<T>(this Expression<Func<T, bool>> a, Expression<Func<T, bool>> b)
         {
-            // build parameter map (from parameters of second to parameters of first)
-            var map = first.Parameters.Select((f, i) => new { f, s = second.Parameters[i] })
-                .ToDictionary(p => p.s, p => p.f);
-            
-            // replace parameters in the second lambda expression with parameters from the first
-            var secondBody = ParameterRebinder.ReplaceParameters(map, second.Body);
-            
-            // apply composition of lambda expression bodies to parameters from the first expression 
-            return Expression.Lambda<T>(merge(first.Body, secondBody), first.Parameters);
+
+            ParameterExpression p = a.Parameters[0];
+
+            SubstExpressionVisitor visitor = new SubstExpressionVisitor {subst = {[b.Parameters[0]] = p}};
+
+            Expression body = Expression.AndAlso(a.Body, visitor.Visit(b.Body));
+            return Expression.Lambda<Func<T, bool>>(body, p);
         }
 
-        public static Expression<Func<T, bool>> And<T>(this Expression<Func<T, bool>> first,
-            Expression<Func<T, bool>> second)
+        public static Expression<Func<T, bool>> Or<T>(this Expression<Func<T, bool>> a, Expression<Func<T, bool>> b)
         {
-            return first.Compose(second, Expression.And);
+
+            ParameterExpression p = a.Parameters[0];
+
+            SubstExpressionVisitor visitor = new SubstExpressionVisitor {subst = {[b.Parameters[0]] = p}};
+
+            Expression body = Expression.OrElse(a.Body, visitor.Visit(b.Body));
+            return Expression.Lambda<Func<T, bool>>(body, p);
         }
-        
-        public static Expression<Func<T, bool>> Or<T>(this Expression<Func<T, bool>> first,
-            Expression<Func<T, bool>> second)
+
+        internal class SubstExpressionVisitor : ExpressionVisitor
         {
-            return first.Compose(second, Expression.Or);
+            public Dictionary<Expression, Expression> subst = new Dictionary<Expression, Expression>();
+
+            protected override Expression VisitParameter(ParameterExpression node)
+            {
+                Expression newValue;
+                if (subst.TryGetValue(node, out newValue))
+                {
+                    return newValue;
+                }
+                return node;
+            }
         }
     }
 }
