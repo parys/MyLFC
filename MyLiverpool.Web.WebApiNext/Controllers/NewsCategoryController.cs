@@ -65,7 +65,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
 
         [Route("{id:int}")]
         [HttpDelete]
-        [Authorize(Roles = nameof(RolesEnum.NewsFull))]
+       // [Authorize(Roles = nameof(RolesEnum.NewsFull))]
         public async Task<IActionResult> Delete(int id) //todo not all checked
         {
             var result = await _materialCategoryService.DeleteAsync(id);

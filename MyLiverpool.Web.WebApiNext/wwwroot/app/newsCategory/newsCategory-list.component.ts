@@ -25,6 +25,14 @@ export class NewsCategoryListComponent implements OnInit {
     }
 
     private parsePageable(model: NewsCategory[]): void {
-        this.items = model; //todo parse others
+        this.items = model; 
+    }
+
+    delete(index: number) {
+        console.log("delete");
+        this.newsCategoryService.Delete(this.items[index].id).subscribe(data => data,
+            error => console.log(error),
+            () => console.log("success remove categoryu"));
+        this.items.splice(index, 1);
     }
 }

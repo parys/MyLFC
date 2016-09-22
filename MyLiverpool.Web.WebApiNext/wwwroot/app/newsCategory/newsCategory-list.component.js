@@ -20,7 +20,12 @@ let NewsCategoryListComponent = class NewsCategoryListComponent {
             .subscribe(data => this.parsePageable(data), error => console.log(error), () => console.log("success load categoryu lits news"));
     }
     parsePageable(model) {
-        this.items = model; //todo parse others
+        this.items = model;
+    }
+    delete(index) {
+        console.log("delete");
+        this.newsCategoryService.Delete(this.items[index].id).subscribe(data => data, error => console.log(error), () => console.log("success remove categoryu"));
+        this.items.splice(index, 1);
     }
 };
 NewsCategoryListComponent = __decorate([

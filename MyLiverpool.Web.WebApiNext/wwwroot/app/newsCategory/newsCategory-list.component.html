@@ -1,15 +1,15 @@
 ﻿<div>
     <a secured="newsFull" [routerLink]="['/newsCategory', 0, 'edit']">Создать категорию</a>
     <ul>
-        <li *ngFor="let category of items">
-            <a *ngIf="category.itemsCount > 0" ui-sref="news({page: 1, categoryId: category.id})">
+        <li *ngFor="let category of items; let i = index;">
+            <a [routerLink]="['/news/list', 1, category.id ]">
                 <span [textContent]="category.name"></span> [<span [textContent]="category.itemsCount"></span>]
             </a>
-            <a secured="newsStart" ui-sref="news({page: 1, categoryId: category.id})">
+            <!--->a secured="newsStart" [routerLink]="['/news/list', page, item.categoryId ]">
                 <span [textContent]="category.name"></span> [<span [textContent]="category.itemsCount"></span>]
-            </a>
+            </!--a-->
             <a class="" secured="newsStart" [routerLink]="['/newsCategory', category.id, 'edit']"> <span class="glyphicon glyphicon-pencil"></span></a>
-            <a class="" secured="newsFull" *ngIf="category.itemsCount == 0" ng-click="vm.delete($index)"> <span class="glyphicon glyphicon-trash"></span></a>
+            <a class="" secured="newsFull" *ngIf="category.itemsCount == 0" (click)="delete(i)"> <span class="glyphicon glyphicon-trash"></span></a>
         </li>
     </ul>
 </div>
