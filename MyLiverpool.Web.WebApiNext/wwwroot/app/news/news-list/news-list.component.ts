@@ -27,7 +27,9 @@ export class NewsListComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.sub = this.route.params.subscribe(params => {
-            this.page = +params['page'];
+            if (params['page']) {
+                this.page = +params['page'];
+            }
             this.categoryId = +params['categoryId'];
             this.userName = params['userName'];
             this.update();

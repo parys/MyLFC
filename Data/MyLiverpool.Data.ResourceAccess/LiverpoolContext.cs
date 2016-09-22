@@ -5,19 +5,14 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using OpenIddict;
 using Microsoft.Extensions.Configuration;
 
-//using MyLiverpoolSite.Data.Entities;
-
 namespace MyLiverpool.Data.ResourceAccess
 {
     //private readonly IHostingEnvironment _hostingEnvironment;
     public class LiverpoolContext : OpenIddictDbContext<User, Role, int>//, UserLogin, UserRole, UserClaim>
-    //<User, Role, int>
     {
         private static bool _created;
 
         public LiverpoolContext(DbContextOptions<LiverpoolContext> options) : base(options)
-//"Server=.;Initial Catalog=MyLiverpool1;Trusted_Connection=True;MultipleActiveResultSets=true")//, throwIfV1Schema: false)//@"Data Source=Andrew-PC;Initial Catalog=MyLiverpoolDB;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False") 
-                                                               //Data Source=ANDREW-PC;Initial Catalog=NewDbTest;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False")
         {
            
             // Create the database and schema if it doesn't exist
@@ -148,37 +143,6 @@ namespace MyLiverpool.Data.ResourceAccess
         protected override void OnConfiguring(DbContextOptionsBuilder modelBuilder)
         {
             base.OnConfiguring(modelBuilder);
-        //    modelBuilder.Entity<User>().ToTable("Users");
-        //    modelBuilder.Entity<Role>().ToTable("RoleGroups");
-        //    modelBuilder.Entity<UserClaim>().ToTable("UserClaims");
-        //    modelBuilder.Entity<UserLogin>().ToTable("UserLogins");
-        //    modelBuilder.Entity<UserRole>().ToTable("UserRoles");
-
-        //    modelBuilder.Entity<MaterialComment>().HasRequired(x => x.Author).WithMany(x => x.Comments).HasForeignKey(x => x.AuthorId);
-        //    modelBuilder.Entity<User>().HasMany(u => u.ForumMessages).WithOptional().HasForeignKey(x => x.AuthorId);
-
-
-        //    modelBuilder.Entity<Material>().HasRequired(x => x.Author).WithMany(x => x.Materials).HasForeignKey(x => x.AuthorId);
-        //    modelBuilder.Entity<Material>().HasRequired(x => x.Category).WithMany(x => x.Materials).HasForeignKey(x => x.CategoryId);
-        //    modelBuilder.Entity<MaterialComment>().HasRequired(u => u.Material).WithMany(x => x.Comments).HasForeignKey(x => x.MaterialId);
-
-        //    modelBuilder.Entity<MaterialComment>().HasOptional(x => x.Parent).WithMany(x => x.Children).HasForeignKey(x => x.ParentId);
-
-        //    modelBuilder.Entity<ForumSubsection>().HasRequired(x => x.Section).WithMany(x => x.Subsections).HasForeignKey(x => x.SectionId);
-        //    modelBuilder.Entity<ForumTheme>().HasRequired(x => x.Subsection).WithMany(x => x.Themes).HasForeignKey(x => x.SubsectionId);
-        //    modelBuilder.Entity<ForumMessage>().HasRequired(x => x.Theme).WithMany(x => x.Messages).HasForeignKey(x => x.ThemeId);
-
-        //    modelBuilder.Entity<User>().HasRequired(x => x.RoleGroup).WithMany(x => x.Users).HasForeignKey(x => x.RoleGroupId);
-        //    modelBuilder.Entity<Role>().HasMany(x => x.RoleRoleGroups).WithMany(x => x.RoleGroups);
-
-        //    modelBuilder.Entity<PrivateMessage>().HasRequired(x => x.Sender).WithMany(x => x.SentPrivateMessages).HasForeignKey(x => x.SenderId);
-        //    modelBuilder.Entity<PrivateMessage>().HasRequired(x => x.Receiver).WithMany(x => x.ReceivedPrivateMessages).HasForeignKey(x => x.ReceiverId);
-
-        //    modelBuilder.Entity<Match>().HasRequired(x => x.Club).WithMany(x => x.Matches).HasForeignKey(x => x.ClubId);
-
-        //    // использование Fluent API
-        //    modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
-        //    base.OnModelCreating(modelBuilder);
         }
     }
 }

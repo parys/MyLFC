@@ -13,9 +13,7 @@ namespace MyLiverpool.Data.Entities
         public int Id { get; set; }
 
         public int OldId { get; set; }
-
-      //  public int CategoryId { get; set; }
-
+        
         public virtual MaterialCategory Category { get; set; }
 
         //public int Year { get; set; }

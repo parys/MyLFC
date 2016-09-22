@@ -8,6 +8,7 @@ using MyLiverpool.Data.Entities;
 using MyLiverpool.Web.WebApiNext.Extensions;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.DtoNext;
+using Newtonsoft.Json;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
@@ -21,17 +22,29 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             _materialService = materialService;
         }
 
-        [Route("{type}/list/{filters}")]
+        [Route("list/{filtersObj}")]
+       // [Route("{type}/list/{filtersObj}")]
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> GetNewsItems(string type, [FromUri] MaterialFiltersDto filters) //todo not all checked
+        public async Task<IActionResult> GetNewsItems([FromRoute] string filtersObj) //todo not all checked
+      //  public async Task<IActionResult> GetNewsItems(string type, [FromRoute] string filtersObj) //todo not all checked
         {
-            MaterialType materialType;
-            if (!Enum.TryParse(type, true, out materialType))
+            MaterialFiltersDto filters;
+            if (filtersObj == null)
             {
-                return BadRequest(type);
+                filters = new MaterialFiltersDto{Page = 1};
             }
-            filters.MaterialType = materialType;
+            else
+            {
+                filters = (MaterialFiltersDto) JsonConvert.DeserializeObject(filtersObj, typeof(MaterialFiltersDto));
+            }
+
+          //  MaterialType materialType;
+          //  if (!Enum.TryParse(type, true, out materialType))
+          //  {
+          //      return BadRequest(type);
+          //  }
+         //   filters.MaterialType = materialType;
             var result = await _materialService.GetDtoAllAsync(filters);
             return Ok(result);
         }
