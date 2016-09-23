@@ -31,7 +31,8 @@ const secured_directive_1 = require("./shared/secured.directive");
 const account_service_1 = require("./account/account.service");
 const newsCategory_list_component_1 = require("./newsCategory/newsCategory-list.component");
 const newsCategory_edit_component_1 = require("./newsCategory/newsCategory-edit.component");
-//import {SecuredLinkComponent} from "./shared/securedLink.component";
+const user_detail_component_1 = require("./user/user-detail.component");
+const user_service_1 = require("./user/user.service");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -46,7 +47,8 @@ AppModule = __decorate([
             news_list_component_1.NewsListComponent,
             news_detail_component_1.NewsDetailComponent,
             news_edit_component_1.NewsEditComponent,
-            secured_directive_1.SecuredDirective],
+            secured_directive_1.SecuredDirective,
+            user_detail_component_1.UserDetailComponent],
         bootstrap: [app_component_1.AppComponent],
         providers: [
             account_service_1.AccountService,
@@ -57,7 +59,8 @@ AppModule = __decorate([
             httpWrapper_1.HttpWrapper,
             { provide: localStorage_1.LocalStorageMine, useClass: localStorage_1.LocalStorageMine },
             news_service_1.NewsService,
-            newsCategory_service_1.NewsCategoryService
+            newsCategory_service_1.NewsCategoryService,
+            user_service_1.UserService
         ]
     }), 
     __metadata('design:paramtypes', [])

@@ -21,7 +21,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         }
 
         
-        [Route("Info")]
+        [Route("{id:int}")]
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> Get(int id)
@@ -29,7 +29,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return Ok(await _userService.GetUserProfileDtoAsync(id));
         }
 
-        [Route("")]
+        [Route("list")]
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> List(string dto)

@@ -23,10 +23,11 @@ import { SecuredDirective } from "./shared/secured.directive";
 import { AccountService } from "./account/account.service";
 import { NewsCategoryListComponent } from "./newsCategory/newsCategory-list.component";
 import { NewsCategoryEditComponent } from "./newsCategory/newsCategory-edit.component";
-//import {SecuredLinkComponent} from "./shared/securedLink.component";
+import {UserDetailComponent} from "./user/user-detail.component";
+import {UserService} from "./user/user.service";
 
 @NgModule({
-    imports: [BrowserModule, FormsModule, ReactiveFormsModule, HttpModule, routing],       // module dependencies RouterModule.forRoot(routes, { useHash: true })
+    imports: [BrowserModule, FormsModule, ReactiveFormsModule, HttpModule, routing],
     declarations: [
         AccountSigninComponent,
         AccountSignupComponent,
@@ -36,7 +37,8 @@ import { NewsCategoryEditComponent } from "./newsCategory/newsCategory-edit.comp
         NewsListComponent,
         NewsDetailComponent,
         NewsEditComponent,
-        SecuredDirective],   // components and directives
+        SecuredDirective,
+        UserDetailComponent ],   // components and directives
     bootstrap: [AppComponent],     // root component
     providers: [ // services
         AccountService,
@@ -47,7 +49,8 @@ import { NewsCategoryEditComponent } from "./newsCategory/newsCategory-edit.comp
         HttpWrapper,
         { provide: LocalStorageMine, useClass: LocalStorageMine },
         NewsService,
-        NewsCategoryService
+        NewsCategoryService,
+        UserService
         ]               
 })
 export class AppModule { }

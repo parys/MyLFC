@@ -38,7 +38,7 @@
                 <li class="" [textContent]="item.reads"></li>
                 <li class="">|</li>
                 <li class="">Автор:</li>
-                <li class=""><a ui-sref="userInfo({id: item.userId })" [textContent]="item.userName"></a></li>
+                <li class=""><a [routerLink]="['/user', item.userId ]" [textContent]="item.userName"></a></li>
                 <li class="">|</li>
                 <li class="">Комментарии:</li>
                 <li class="" [textContent]="item.commentsCount"></li>

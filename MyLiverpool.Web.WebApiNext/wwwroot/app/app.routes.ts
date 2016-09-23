@@ -8,12 +8,13 @@ import { authRoutes, authProviders } from "./auth/auth.routing";
 import { AuthGuard } from "./auth/auth-guard.service";
 import { newsCategoryRoutes } from "./newsCategory/newsCategory.routing";
 import { newsRoutes } from "./news/news.routing";
-
+import {userRoutes} from "./user/user.routing";
 const routes: Routes  = [
    // { path: 'signup', component: AccountSignupComponent, canActivate: [AuthGuard] },
     ...authRoutes,
     ...newsCategoryRoutes,
     ...newsRoutes,
+    ...userRoutes,
     { path: '', component: NewsListComponent }
 ];
 
