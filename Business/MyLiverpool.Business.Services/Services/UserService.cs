@@ -18,12 +18,14 @@ namespace MyLiverpool.Business.Services.Services
     public class UserService : IUserService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
 
-        public UserService(IUnitOfWork unitOfWork, IMapper mapper)
+        public UserService(IUnitOfWork unitOfWork, IMapper mapper, IUserRepository userRepository)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _userRepository = userRepository;
         }
 
         public async Task<bool> BanUser(int userId, int banDayCount)
@@ -156,6 +158,11 @@ namespace MyLiverpool.Business.Services.Services
             var user = await _unitOfWork.UserManager.FindByIdAsync(id.ToString());
             var result = await _unitOfWork.UserManager.GetRolesAsync(user);
             return result;
+        }
+
+        public async Task<UserDto> GetUserAsync(int id)
+        {
+            return await _userRepository.GetUserAsync(id);
         }
 
         #region private

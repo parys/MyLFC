@@ -205,6 +205,7 @@ namespace MyLiverpool.Web.WebApiNext
             services.AddTransient<ISmsSender, AuthMessageSender>();
             services.AddTransient<IUploadService, UploadService>();
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddTransient<IWishService, WishService>();
             services.AddSingleton<IMapper>(Config.CreateMapper());

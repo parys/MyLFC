@@ -26,7 +26,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Get(int id)
         {
-            return Ok(await _userService.GetUserProfileDtoAsync(id));
+            return Ok(await _userService.GetUserAsync(id));
         }
 
         [Route("list")]
