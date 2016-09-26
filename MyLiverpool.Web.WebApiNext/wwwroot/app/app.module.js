@@ -32,6 +32,7 @@ const account_service_1 = require("./account/account.service");
 const newsCategory_list_component_1 = require("./newsCategory/newsCategory-list.component");
 const newsCategory_edit_component_1 = require("./newsCategory/newsCategory-edit.component");
 const user_detail_component_1 = require("./user/user-detail.component");
+const user_list_component_1 = require("./user/user-list.component");
 const user_service_1 = require("./user/user.service");
 let AppModule = class AppModule {
 };
@@ -48,7 +49,9 @@ AppModule = __decorate([
             news_detail_component_1.NewsDetailComponent,
             news_edit_component_1.NewsEditComponent,
             secured_directive_1.SecuredDirective,
-            user_detail_component_1.UserDetailComponent],
+            user_detail_component_1.UserDetailComponent,
+            user_list_component_1.UserListComponent
+        ],
         bootstrap: [app_component_1.AppComponent],
         providers: [
             account_service_1.AccountService,

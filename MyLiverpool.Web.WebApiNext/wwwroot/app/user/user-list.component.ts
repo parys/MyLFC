@@ -12,7 +12,7 @@ import {UserFilters} from "./userFilters.model";
     templateUrl: 'app/user/user-list.component.html'
 })
 
-export class NewsListComponent implements OnInit, OnDestroy {
+export class UserListComponent implements OnInit, OnDestroy {
 
     private sub: Subscription;
     items: User[];

@@ -9,10 +9,16 @@
     "outDir": "./wwwroot/app",
     "removeComments": false,
     "sourceMap": true,
-    "target": "es6"
+    "target": "es5"
   },
   "compileOnSave": true,
+  "typeRoots": [
+    "node_modules/@types"
+  ],
   "exclude": [
+    "core-js",
+    "jasmine",
+    "node",
     "node_modules",
     "typings/main",
     "typings/main.d.ts"

@@ -25,6 +25,7 @@ import { NewsCategoryListComponent } from "./newsCategory/newsCategory-list.comp
 import { NewsCategoryEditComponent } from "./newsCategory/newsCategory-edit.component";
 import {UserDetailComponent} from "./user/user-detail.component";
 import {UserService} from "./user/user.service";
+import {UserListComponent} from "./user/user-list.component";
 
 @NgModule({
     imports: [BrowserModule, FormsModule, ReactiveFormsModule, HttpModule, routing],
@@ -38,7 +39,8 @@ import {UserService} from "./user/user.service";
         NewsDetailComponent,
         NewsEditComponent,
         SecuredDirective,
-        UserDetailComponent ],   // components and directives
+        UserDetailComponent,
+        UserListComponent],   // components and directives
     bootstrap: [AppComponent],     // root component
     providers: [ // services
         AccountService,

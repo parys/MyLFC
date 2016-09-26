@@ -426,6 +426,7 @@
 /// <reference path="js/@angular/router/testing/index.js" />
 /// <reference path="js/@angular/router/testing/private_import_router.js" />
 /// <reference path="js/@angular/router/testing/router_testing_module.js" />
+/// <reference path="js/@angular/router-deprecated/src/route_definition.js" />
 /// <reference path="js/@angular/upgrade/bundles/upgrade.umd.js" />
 /// <reference path="js/@angular/upgrade/index.js" />
 /// <reference path="js/@angular/upgrade/src/angular_js.js" />

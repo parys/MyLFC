@@ -29,7 +29,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return Ok(await _userService.GetUserAsync(id));
         }
 
-        [Route("list")]
+        [Route("list/{dto}")]
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> List(string dto)

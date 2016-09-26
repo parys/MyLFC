@@ -12,7 +12,7 @@ const core_1 = require('@angular/core');
 const router_1 = require('@angular/router');
 const user_service_1 = require("./user.service");
 const userFilters_model_1 = require("./userFilters.model");
-let NewsListComponent = class NewsListComponent {
+let UserListComponent = class UserListComponent {
     constructor(userService, route) {
         this.userService = userService;
         this.route = route;
@@ -49,12 +49,12 @@ let NewsListComponent = class NewsListComponent {
             .subscribe(data => this.parsePageable(data), error => console.log(error), () => console.log("success load list news"));
     }
 };
-NewsListComponent = __decorate([
+UserListComponent = __decorate([
     core_1.Component({
         selector: 'user-list',
         templateUrl: 'app/user/user-list.component.html'
     }), 
     __metadata('design:paramtypes', [user_service_1.UserService, router_1.ActivatedRoute])
-], NewsListComponent);
-exports.NewsListComponent = NewsListComponent;
+], UserListComponent);
+exports.UserListComponent = UserListComponent;
 //# sourceMappingURL=user-list.component.js.map
