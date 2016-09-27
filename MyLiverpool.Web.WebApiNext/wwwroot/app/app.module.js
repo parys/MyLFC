@@ -19,7 +19,6 @@ const app_constants_1 = require("./app.constants");
 const news_detail_component_1 = require("./news/news-detail/news-detail.component");
 const account_signup_component_1 = require("./account/account-signup.component");
 const news_service_1 = require("./news/shared/news.service");
-//import { TranslateModule } from 'ng2-translate';
 const news_edit_component_1 = require("./news/news-edit/news-edit.component");
 const newsCategory_service_1 = require("./newsCategory/shared/newsCategory.service");
 const account_signin_component_1 = require("./account/account-signin.component");
@@ -32,8 +31,8 @@ const account_service_1 = require("./account/account.service");
 const newsCategory_list_component_1 = require("./newsCategory/newsCategory-list.component");
 const newsCategory_edit_component_1 = require("./newsCategory/newsCategory-edit.component");
 const user_detail_component_1 = require("./user/user-detail.component");
-const user_list_component_1 = require("./user/user-list.component");
 const user_service_1 = require("./user/user.service");
+const user_list_component_1 = require("./user/user-list.component");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -50,8 +49,7 @@ AppModule = __decorate([
             news_edit_component_1.NewsEditComponent,
             secured_directive_1.SecuredDirective,
             user_detail_component_1.UserDetailComponent,
-            user_list_component_1.UserListComponent
-        ],
+            user_list_component_1.UserListComponent],
         bootstrap: [app_component_1.AppComponent],
         providers: [
             account_service_1.AccountService,

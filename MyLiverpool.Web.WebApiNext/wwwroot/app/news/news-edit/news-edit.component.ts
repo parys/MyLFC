@@ -8,8 +8,7 @@ import {NewsCategory} from "../../newsCategory/shared/newsCategory.model";
 
 @Component({
     selector: 'news-edit',
-    templateUrl: 'app/news/news-edit/news-edit.component.html',
-    providers: [NewsService, NewsCategoryService]
+    templateUrl: 'app/news/news-edit/news-edit.component.html'
 })
 
 export class NewsEditComponent implements OnInit, OnDestroy {

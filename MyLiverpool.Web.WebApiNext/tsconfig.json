@@ -9,18 +9,26 @@
     "outDir": "./wwwroot/app",
     "removeComments": false,
     "sourceMap": true,
+    "suppressImplicitAnyIndexErrors": true,
     "target": "es6",
     "typeRoots": [
       "node_modules/@types"
+    ],
+    "types": [
     ]
   },
   "compileOnSave": true,
   "exclude": [
-    "core-js",
-    "jasmine",
-    "node",
-    "node_modules",
-    "typings/main",
-    "typings/main.d.ts"
+    "node_modules", 
+    "wwwroot",
+    "**/*.spec.ts"
+  ],
+  "files": [
+    "wwwroot/app/boot.ts",
+    "node_modules/@angular/common/index.d.ts",
+    "node_modules/@angular/core/index.d.ts",
+    "node_modules/@angular/compiler/index.d.ts",
+    "node_modules/@angular/http/index.d.ts",
+    "node_modules/rxjs/Observable.d.ts"
   ]
 }

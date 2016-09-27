@@ -1,17 +1,13 @@
 {
   "name": "asp.net",
   "version": "1.0.0",
-  "engines": {
-    "node": ">= 4.4.7",
-    "npm": ">= 3"
-  },
   "scripts": {
     "start": "tsc && concurrently \"npm run tsc:w\" \"npm run lite\" ",
     "lite": "lite-server",
     "postinstall": "typings install",
     "tsc": "tsc",
     "tsc:w": "tsc -w",
-    "typings": "\"typings\"."
+    "typings": "typings"
   },
   "private": true,
   "dependencies": {
@@ -24,18 +20,14 @@
     "@angular/platform-browser-dynamic": "2.0.1",
     "@angular/router": "3.0.1",
     "@angular/upgrade": "2.0.1",
-    "ng2-translate": "2.5.0",
     "bootstrap": "3.3.7",
     "core-js": "2.4.1",
-    "es6-promise": "3.3.1",
-    "es6-shim": "0.35.1",
     "jquery": "2.2.4",
     "reflect-metadata": "0.1.8",
     "rxjs": "5.0.0-beta.12",
     "systemjs": "0.19.38",
-    "zone.js": "0.6.25",
-    "@types/angular2": "0.0.2",
-    "typescript": "2.0.3"
+    "typescript": "2.0.3",
+    "zone.js": "0.6.25"
   },
   "devDependencies": {
     "concurrently": "^2.2.0",
@@ -47,10 +39,6 @@
     "lite-server": "^2.2.2",
     "rimraf": "^2.5.4",
     "run-sequence": "^1.2.2",
-    "typings": "1.4.0",
-    "@types/core-js": "0.9.28",
-    "@types/node": "^4.0.29",
-    "@types/source-map": "0.1.26",
-    "@types/uglify-js": "2.0.27"
+    "typings": "1.4.0"
   }
 }

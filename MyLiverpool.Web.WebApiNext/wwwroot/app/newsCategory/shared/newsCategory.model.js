@@ -2,4 +2,4 @@
 class NewsCategory {
 }
 exports.NewsCategory = NewsCategory;
-//# sourceMappingURL=NewsCategory.model.js.map
+//# sourceMappingURL=newsCategory.model.js.map

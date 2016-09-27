@@ -23,7 +23,7 @@ let AccountService = class AccountService {
         //    return this.http.get(this.actionUrl + id).map(res => res.json());
         //};
         this.Create = (item) => {
-            var toAdd = JSON.stringify({ item: item });
+            var toAdd = JSON.stringify({ item });
             return this.http.post(this.actionUrl + 'register/', toAdd).map(res => res.json());
         };
         this.actionUrl = configuration.ServerWithApiUrl + 'account/';

@@ -53,8 +53,7 @@ let NewsEditComponent = class NewsEditComponent {
 NewsEditComponent = __decorate([
     core_1.Component({
         selector: 'news-edit',
-        templateUrl: 'app/news/news-edit/news-edit.component.html',
-        providers: [news_service_1.NewsService, newsCategory_service_1.NewsCategoryService]
+        templateUrl: 'app/news/news-edit/news-edit.component.html'
     }), 
     __metadata('design:paramtypes', [news_service_1.NewsService, newsCategory_service_1.NewsCategoryService, router_1.ActivatedRoute, router_1.Router])
 ], NewsEditComponent);
