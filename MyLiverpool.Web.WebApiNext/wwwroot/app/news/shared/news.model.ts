@@ -13,9 +13,9 @@
         private reads: number;
         private source: string;
         private photoPath: string;
-        //private virtual ICollection< MaterialCommentDto > Comments { get; set; }
+        //private virtual ICollection< MaterialCommentDto > Comments { get; set; }ggggggg
         private pending: boolean;
         private onTop: boolean;
         private canCommentary: boolean;
     }
-//}
+// }

@@ -2,33 +2,21 @@
   "compilerOptions": {
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "module": "commonjs",
+    "module": "system",
     "moduleResolution": "node",
     "noEmitOnError": true,
     "noImplicitAny": false,
     "outDir": "./wwwroot/app",
     "removeComments": false,
     "sourceMap": true,
-    "suppressImplicitAnyIndexErrors": true,
-    "target": "es6",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "types": [
-    ]
+    "target": "es5"
   },
   "compileOnSave": true,
   "exclude": [
-    "node_modules", 
-    "wwwroot",
-    "**/*.spec.ts"
+    "node_modules"
+   // "wwwroot/js"
   ],
-  "files": [
-    "wwwroot/app/boot.ts",
-    "node_modules/@angular/common/index.d.ts",
-    "node_modules/@angular/core/index.d.ts",
-    "node_modules/@angular/compiler/index.d.ts",
-    "node_modules/@angular/http/index.d.ts",
-    "node_modules/rxjs/Observable.d.ts"
-  ]
+  "atom": {
+    "rewriteTsconfig": false
+  }
 }

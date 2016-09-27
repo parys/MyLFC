@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace MyLiverpool.Web.WebApiNext.Services
+namespace MyLiverpool.Business.Services.Services
 {
     public interface ISmsSender
     {

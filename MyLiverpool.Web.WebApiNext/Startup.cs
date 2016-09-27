@@ -13,7 +13,6 @@ using MyLiverpool.Data.Entities;
 using MyLiverpool.Data.ResourceAccess;
 using MyLiverpool.Data.ResourceAccess.Contracts;
 using MyLiverpool.Data.ResourceAccess.Repositories;
-using MyLiverpool.Web.WebApiNext.Services;
 using Newtonsoft.Json.Serialization;
 using IConfigurationProvider = AutoMapper.IConfigurationProvider;
 
