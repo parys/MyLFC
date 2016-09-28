@@ -3,7 +3,7 @@
         <li><a id="back-top" href="#" style="display: none;">Вверх</a></li>
         <li class="divider"></li>
         <li [secured]>
-            <a ui-sref="pms()"><span class="glyphicon glyphicon-envelope"></span> Читать л/с (<span ng-bind="vm.unreadPmCount"></span>)</a>
+            <a [routerLink]="['/pm']"><span class="glyphicon glyphicon-envelope"></span> Читать л/с (<span ng-bind="vm.unreadPmCount"></span>)</a>
         </li>
         <li class="divider"></li>
     </ul>
@@ -14,7 +14,7 @@
         <li *ngIf="!auth.isLoggedIn">
             <!--ng-if="!vm.loggedIn()">-->
             <!--<a [routerLink]="['/signup']">Регистрация</a>-->
-            <a routerLink="/signup">Регистрация</a>
+            <a [routerLink]="['/signup']">Регистрация</a>
         </li>
 
         <li>

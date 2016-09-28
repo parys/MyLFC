@@ -33,6 +33,8 @@ var newsCategory_edit_component_1 = require("./newsCategory/newsCategory-edit.co
 var user_detail_component_1 = require("./user/user-detail.component");
 var user_service_1 = require("./user/user.service");
 var user_list_component_1 = require("./user/user-list.component");
+var pm_list_component_1 = require("./pm/pm-list.component");
+var pm_service_1 = require("./pm/pm.service");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -48,6 +50,7 @@ var AppModule = (function () {
                 news_list_component_1.NewsListComponent,
                 news_detail_component_1.NewsDetailComponent,
                 news_edit_component_1.NewsEditComponent,
+                pm_list_component_1.PmListComponent,
                 secured_directive_1.SecuredDirective,
                 user_detail_component_1.UserDetailComponent,
                 user_list_component_1.UserListComponent],
@@ -62,6 +65,7 @@ var AppModule = (function () {
                 { provide: localStorage_1.LocalStorageMine, useClass: localStorage_1.LocalStorageMine },
                 news_service_1.NewsService,
                 newsCategory_service_1.NewsCategoryService,
+                pm_service_1.PmService,
                 user_service_1.UserService
             ]
         }), 

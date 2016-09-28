@@ -34,6 +34,7 @@
 /// <reference path="app/newscategory/shared/newscategory.service.js" />
 /// <reference path="app/pm/index.js" />
 /// <reference path="app/pm/pm.model.js" />
+/// <reference path="app/pm/pm.routing.js" />
 /// <reference path="app/pm/pm.service.js" />
 /// <reference path="app/pm/pm-list.component.js" />
 /// <reference path="app/shared/findarray.interface.js" />

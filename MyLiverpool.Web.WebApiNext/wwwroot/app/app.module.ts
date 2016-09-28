@@ -25,6 +25,8 @@ import { NewsCategoryEditComponent } from "./newsCategory/newsCategory-edit.comp
 import {UserDetailComponent} from "./user/user-detail.component";
 import {UserService} from "./user/user.service";
 import {UserListComponent} from "./user/user-list.component";
+import { PmListComponent } from "./pm/pm-list.component";
+import { PmService } from "./pm/pm.service";
 
 @NgModule({
     imports: [BrowserModule, FormsModule, ReactiveFormsModule, HttpModule, routing],
@@ -37,6 +39,7 @@ import {UserListComponent} from "./user/user-list.component";
         NewsListComponent,
         NewsDetailComponent,
         NewsEditComponent,
+        PmListComponent,
         SecuredDirective,
         UserDetailComponent,
         UserListComponent],   // components and directives
@@ -51,6 +54,7 @@ import {UserListComponent} from "./user/user-list.component";
         { provide: LocalStorageMine, useClass: LocalStorageMine },
         NewsService,
         NewsCategoryService,
+        PmService,
         UserService
         ]               
 })

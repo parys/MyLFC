@@ -27,7 +27,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return Ok(model);
         }
 
-        [Route("")]
+        [Route("{id:int}")]
         [HttpGet]
         [Authorize]
         public async Task<IActionResult> Pm(int id)
