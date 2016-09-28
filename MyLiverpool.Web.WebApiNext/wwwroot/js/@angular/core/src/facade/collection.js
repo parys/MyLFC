@@ -5,7 +5,9 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { getSymbolIterator, isArray, isBlank, isJsObject, isPresent } from './lang';
+import { getSymbolIterator, global, isArray, isBlank, isJsObject, isPresent } from './lang';
+export var Map = global.Map;
+export var Set = global.Set;
 // Safari and Internet Explorer do not support the iterable parameter to the
 // Map constructor.  We work around that by manually adding the items.
 var createMapFromPairs = (function () {
@@ -68,7 +70,7 @@ var _arrayFromMap = (function () {
     catch (e) {
     }
     return function createArrayFromMapWithForeach(m, getValues) {
-        var res = new Array(m.size), i = 0;
+        var res = ListWrapper.createFixedSize(m.size), i = 0;
         m.forEach(function (v, k) {
             res[i] = getValues ? v : k;
             i++;
@@ -79,6 +81,7 @@ var _arrayFromMap = (function () {
 export var MapWrapper = (function () {
     function MapWrapper() {
     }
+    MapWrapper.clone = function (m) { return createMapFromMap(m); };
     MapWrapper.createFromStringMap = function (stringMap) {
         var result = new Map();
         for (var prop in stringMap) {
@@ -92,6 +95,7 @@ export var MapWrapper = (function () {
         return r;
     };
     MapWrapper.createFromPairs = function (pairs) { return createMapFromPairs(pairs); };
+    MapWrapper.clearValues = function (m) { _clearValues(m); };
     MapWrapper.iterable = function (m) { return m; };
     MapWrapper.keys = function (m) { return _arrayFromMap(m, false); };
     MapWrapper.values = function (m) { return _arrayFromMap(m, true); };
@@ -103,6 +107,15 @@ export var MapWrapper = (function () {
 export var StringMapWrapper = (function () {
     function StringMapWrapper() {
     }
+    StringMapWrapper.create = function () {
+        // Note: We are not using Object.create(null) here due to
+        // performance!
+        // http://jsperf.com/ng2-object-create-null
+        return {};
+    };
+    StringMapWrapper.contains = function (map, key) {
+        return map.hasOwnProperty(key);
+    };
     StringMapWrapper.get = function (map, key) {
         return map.hasOwnProperty(key) ? map[key] : undefined;
     };
@@ -117,6 +130,7 @@ export var StringMapWrapper = (function () {
         }
         return true;
     };
+    StringMapWrapper.delete = function (map, key) { delete map[key]; };
     StringMapWrapper.forEach = function (map, callback) {
         for (var _i = 0, _a = Object.keys(map); _i < _a.length; _i++) {
             var k = _a[_i];

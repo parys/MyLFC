@@ -10,7 +10,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-import { MapWrapper, SetWrapper, StringMapWrapper } from '../facade/collection';
+import { Map, MapWrapper, Set, SetWrapper, StringMapWrapper } from '../facade/collection';
 import { isPresent } from '../facade/lang';
 import { ReflectorReader } from './reflector_reader';
 /**
@@ -34,7 +34,6 @@ export var Reflector = (function (_super) {
     __extends(Reflector, _super);
     function Reflector(reflectionCapabilities) {
         _super.call(this);
-        this.reflectionCapabilities = reflectionCapabilities;
         /** @internal */
         this._injectableInfo = new Map();
         /** @internal */
@@ -43,8 +42,8 @@ export var Reflector = (function (_super) {
         this._setters = new Map();
         /** @internal */
         this._methods = new Map();
-        /** @internal */
         this._usedKeys = null;
+        this.reflectionCapabilities = reflectionCapabilities;
     }
     Reflector.prototype.updateCapabilities = function (caps) { this.reflectionCapabilities = caps; };
     Reflector.prototype.isReflectionEnabled = function () { return this.reflectionCapabilities.isReflectionEnabled(); };

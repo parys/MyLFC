@@ -61,7 +61,7 @@ export var KeyEventsPlugin = (function (_super) {
             // returning null instead of throwing to let another plugin process the event
             return null;
         }
-        var result = {};
+        var result = StringMapWrapper.create();
         StringMapWrapper.set(result, 'domEventName', domEventName);
         StringMapWrapper.set(result, 'fullKey', fullKey);
         return result;

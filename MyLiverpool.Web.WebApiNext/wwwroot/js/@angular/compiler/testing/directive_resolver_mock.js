@@ -5,7 +5,8 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 import { DirectiveResolver } from '@angular/compiler';
 import { Compiler, Component, Directive, Injectable, Injector, resolveForwardRef } from '@angular/core';
-import { isPresent } from './facade/lang';
+import { Map } from './facade/collection';
+import { isArray, isPresent } from './facade/lang';
 /**
  * An implementation of {@link DirectiveResolver} that allows overriding
  * various properties of directives.
@@ -145,7 +146,7 @@ function flattenArray(tree, out) {
         return;
     for (var i = 0; i < tree.length; i++) {
         var item = resolveForwardRef(tree[i]);
-        if (Array.isArray(item)) {
+        if (isArray(item)) {
             flattenArray(item, out);
         }
         else {

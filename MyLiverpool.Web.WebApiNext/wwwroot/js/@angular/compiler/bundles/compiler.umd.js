@@ -1,5 +1,5 @@
 /**
- * @license Angular v2.0.1
+ * @license Angular v2.0.0
  * (c) 2010-2016 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -484,18 +484,20 @@
       return result;
   }
 
+  var Map$1 = global$1.Map;
+  var Set$1 = global$1.Set;
   // Safari and Internet Explorer do not support the iterable parameter to the
   // Map constructor.  We work around that by manually adding the items.
   var createMapFromPairs = (function () {
       try {
-          if (new Map([[1, 2]]).size === 1) {
-              return function createMapFromPairs(pairs) { return new Map(pairs); };
+          if (new Map$1([[1, 2]]).size === 1) {
+              return function createMapFromPairs(pairs) { return new Map$1(pairs); };
           }
       }
       catch (e) {
       }
       return function createMapAndPopulateFromPairs(pairs) {
-          var map = new Map();
+          var map = new Map$1();
           for (var i = 0; i < pairs.length; i++) {
               var pair = pairs[i];
               map.set(pair[0], pair[1]);
@@ -503,8 +505,22 @@
           return map;
       };
   })();
+  var createMapFromMap = (function () {
+      try {
+          if (new Map$1(new Map$1())) {
+              return function createMapFromMap(m) { return new Map$1(m); };
+          }
+      }
+      catch (e) {
+      }
+      return function createMapAndPopulateFromMap(m) {
+          var map = new Map$1();
+          m.forEach(function (v, k) { map.set(k, v); });
+          return map;
+      };
+  })();
   var _clearValues = (function () {
-      if ((new Map()).keys().next) {
+      if ((new Map$1()).keys().next) {
           return function _clearValues(m) {
               var keyIterator = m.keys();
               var k;
@@ -523,7 +539,7 @@
   // TODO(mlaval): remove the work around once we have a working polyfill of Array.from
   var _arrayFromMap = (function () {
       try {
-          if ((new Map()).values().next) {
+          if ((new Map$1()).values().next) {
               return function createArrayFromMap(m, getValues) {
                   return getValues ? Array.from(m.values()) : Array.from(m.keys());
               };
@@ -532,7 +548,7 @@
       catch (e) {
       }
       return function createArrayFromMapWithForeach(m, getValues) {
-          var res = new Array(m.size), i = 0;
+          var res = ListWrapper.createFixedSize(m.size), i = 0;
           m.forEach(function (v, k) {
               res[i] = getValues ? v : k;
               i++;
@@ -543,8 +559,9 @@
   var MapWrapper = (function () {
       function MapWrapper() {
       }
+      MapWrapper.clone = function (m) { return createMapFromMap(m); };
       MapWrapper.createFromStringMap = function (stringMap) {
-          var result = new Map();
+          var result = new Map$1();
           for (var prop in stringMap) {
               result.set(prop, stringMap[prop]);
           }
@@ -556,6 +573,7 @@
           return r;
       };
       MapWrapper.createFromPairs = function (pairs) { return createMapFromPairs(pairs); };
+      MapWrapper.clearValues = function (m) { _clearValues(m); };
       MapWrapper.iterable = function (m) { return m; };
       MapWrapper.keys = function (m) { return _arrayFromMap(m, false); };
       MapWrapper.values = function (m) { return _arrayFromMap(m, true); };
@@ -567,6 +585,15 @@
   var StringMapWrapper = (function () {
       function StringMapWrapper() {
       }
+      StringMapWrapper.create = function () {
+          // Note: We are not using Object.create(null) here due to
+          // performance!
+          // http://jsperf.com/ng2-object-create-null
+          return {};
+      };
+      StringMapWrapper.contains = function (map, key) {
+          return map.hasOwnProperty(key);
+      };
       StringMapWrapper.get = function (map, key) {
           return map.hasOwnProperty(key) ? map[key] : undefined;
       };
@@ -581,6 +608,7 @@
           }
           return true;
       };
+      StringMapWrapper.delete = function (map, key) { delete map[key]; };
       StringMapWrapper.forEach = function (map, callback) {
           for (var _i = 0, _a = Object.keys(map); _i < _a.length; _i++) {
               var k = _a[_i];
@@ -748,13 +776,13 @@
   // Safari and Internet Explorer do not support the iterable parameter to the
   // Set constructor.  We work around that by manually adding the items.
   var createSetFromList = (function () {
-      var test = new Set([1, 2, 3]);
+      var test = new Set$1([1, 2, 3]);
       if (test.size === 3) {
-          return function createSetFromList(lst) { return new Set(lst); };
+          return function createSetFromList(lst) { return new Set$1(lst); };
       }
       else {
           return function createSetAndPopulateFromList(lst) {
-              var res = new Set(lst);
+              var res = new Set$1(lst);
               if (res.size !== lst.length) {
                   for (var i = 0; i < lst.length; i++) {
                       res.add(lst[i]);
@@ -9081,13 +9109,13 @@
                   boundPropertyName = this._schemaRegistry.getMappedPropName(partValue);
                   securityContext = this._schemaRegistry.securityContext(elementName, boundPropertyName);
                   bindingType = exports.PropertyBindingType.Property;
-                  this._assertNoEventBinding(boundPropertyName, sourceSpan, false);
+                  this._assertNoEventBinding(boundPropertyName, sourceSpan);
                   if (!this._schemaRegistry.hasProperty(elementName, boundPropertyName, this._schemas)) {
                       var errorMsg = "Can't bind to '" + boundPropertyName + "' since it isn't a known property of '" + elementName + "'.";
                       if (elementName.indexOf('-') > -1) {
                           errorMsg +=
                               ("\n1. If '" + elementName + "' is an Angular component and it has '" + boundPropertyName + "' input, then verify that it is part of this module.") +
-                                  ("\n2. If '" + elementName + "' is a Web Component then add \"CUSTOM_ELEMENTS_SCHEMA\" to the '@NgModule.schemas' of this component to suppress this message.\n");
+                                  ("\n2. If '" + elementName + "' is a Web Component then add \"CUSTOM_ELEMENTS_SCHEMA\" to the '@NgModule.schema' of this component to suppress this message.\n");
                       }
                       this._reportError(errorMsg, sourceSpan);
                   }
@@ -9096,7 +9124,7 @@
           else {
               if (parts[0] == ATTRIBUTE_PREFIX) {
                   boundPropertyName = parts[1];
-                  this._assertNoEventBinding(boundPropertyName, sourceSpan, true);
+                  this._assertNoEventBinding(boundPropertyName, sourceSpan);
                   // NB: For security purposes, use the mapped property name, not the attribute name.
                   var mapPropName = this._schemaRegistry.getMappedPropName(boundPropertyName);
                   securityContext = this._schemaRegistry.securityContext(elementName, mapPropName);
@@ -9127,22 +9155,10 @@
           }
           return new BoundElementPropertyAst(boundPropertyName, bindingType, securityContext, ast, unit, sourceSpan);
       };
-      /**
-       * @param propName the name of the property / attribute
-       * @param sourceSpan
-       * @param isAttr true when binding to an attribute
-       * @private
-       */
-      TemplateParseVisitor.prototype._assertNoEventBinding = function (propName, sourceSpan, isAttr) {
+      TemplateParseVisitor.prototype._assertNoEventBinding = function (propName, sourceSpan) {
           if (propName.toLowerCase().startsWith('on')) {
-              var msg = ("Binding to event attribute '" + propName + "' is disallowed for security reasons, ") +
-                  ("please use (" + propName.slice(2) + ")=...");
-              if (!isAttr) {
-                  msg +=
-                      ("\nIf '" + propName + "' is a directive input, make sure the directive is imported by the") +
-                          " current module.";
-              }
-              this._reportError(msg, sourceSpan, ParseErrorLevel.FATAL);
+              this._reportError(("Binding to event attribute '" + propName + "' is disallowed ") +
+                  ("for security reasons, please use (" + propName.slice(2) + ")=..."), sourceSpan, ParseErrorLevel.FATAL);
           }
       };
       TemplateParseVisitor.prototype._findComponentDirectiveNames = function (directives) {
@@ -9175,7 +9191,7 @@
           if (!matchElement && !this._schemaRegistry.hasElement(elName, this._schemas)) {
               var errorMsg = ("'" + elName + "' is not a known element:\n") +
                   ("1. If '" + elName + "' is an Angular component, then verify that it is part of this module.\n") +
-                  ("2. If '" + elName + "' is a Web Component then add \"CUSTOM_ELEMENTS_SCHEMA\" to the '@NgModule.schemas' of this component to suppress this message.");
+                  ("2. If '" + elName + "' is a Web Component then add \"CUSTOM_ELEMENTS_SCHEMA\" to the '@NgModule.schema' of this component to suppress this message.");
               this._reportError(errorMsg, element.sourceSpan);
           }
       };
@@ -10932,7 +10948,7 @@
       CompileElement.prototype.setComponentView = function (compViewExpr) {
           this._compViewExpr = compViewExpr;
           this.contentNodesByNgContentIndex =
-              new Array(this.component.template.ngContentSelectors.length);
+              ListWrapper.createFixedSize(this.component.template.ngContentSelectors.length);
           for (var i = 0; i < this.contentNodesByNgContentIndex.length; i++) {
               this.contentNodesByNgContentIndex[i] = [];
           }
@@ -11727,7 +11743,7 @@
           //
           // Notice that the first guard condition is the left hand of the left most safe access node
           // which comes in as leftMostSafe to this routine.
-          var guardedExpression = this.visit(leftMostSafe.receiver, _Mode.Expression);
+          var guardedExpression = this.visit(leftMostSafe.receiver, mode);
           var temporary;
           if (this.needsTemporary(leftMostSafe.receiver)) {
               // If the expression has method calls or pipes then we need to save the result into a
@@ -11748,7 +11764,7 @@
               this._nodeMap.set(leftMostSafe, new PropertyRead(leftMostSafe.span, leftMostSafe.receiver, leftMostSafe.name));
           }
           // Recursively convert the node now without the guarded member access.
-          var access = this.visit(ast, _Mode.Expression);
+          var access = this.visit(ast, mode);
           // Remove the mapping. This is not strictly required as the converter only traverses each node
           // once but is safer if the conversion is changed to traverse the nodes more than once.
           this._nodeMap.delete(leftMostSafe);
@@ -11757,7 +11773,7 @@
               this.releaseTemporary(temporary);
           }
           // Produce the conditional
-          return convertToStatementIfNeeded(mode, condition.conditional(literal(null), access));
+          return condition.conditional(literal(null), access);
       };
       // Given a expression of the form a?.b.c?.d.e the the left most safe node is
       // the (a?.b). The . and ?. are left associative thus can be rewritten as:
@@ -12965,7 +12981,8 @@
               return Promise
                   .all([compMeta].concat(ngModule.transitiveModule.directives).map(function (dirMeta) { return _this._directiveNormalizer.normalizeDirective(dirMeta).asyncResult; }))
                   .then(function (normalizedCompWithDirectives) {
-                  var compMeta = normalizedCompWithDirectives[0], dirMetas = normalizedCompWithDirectives.slice(1);
+                  var compMeta = normalizedCompWithDirectives[0];
+                  var dirMetas = normalizedCompWithDirectives.slice(1);
                   _assertComponent(compMeta);
                   // compile styles
                   var stylesCompileResults = _this._styleCompiler.compileComponent(compMeta);
@@ -12973,7 +12990,8 @@
                       outputSourceModules.push(_this._codgenStyles(compiledStyleSheet, fileSuffix));
                   });
                   // compile components
-                  exportedVars.push(_this._compileComponentFactory(compMeta, fileSuffix, statements), _this._compileComponent(compMeta, dirMetas, ngModule.transitiveModule.pipes, ngModule.schemas, stylesCompileResults.componentStylesheet, fileSuffix, statements));
+                  exportedVars.push(_this._compileComponentFactory(compMeta, fileSuffix, statements));
+                  exportedVars.push(_this._compileComponent(compMeta, dirMetas, ngModule.transitiveModule.pipes, ngModule.schemas, stylesCompileResults.componentStylesheet, fileSuffix, statements));
               });
           }))
               .then(function () {
@@ -12985,20 +13003,13 @@
       };
       OfflineCompiler.prototype._compileModule = function (ngModuleType, targetStatements) {
           var ngModule = this._metadataResolver.getNgModuleMetadata(ngModuleType);
-          var providers = [];
-          if (this._localeId) {
-              providers.push(new CompileProviderMetadata({
-                  token: resolveIdentifierToken(Identifiers.LOCALE_ID),
-                  useValue: this._localeId,
-              }));
-          }
-          if (this._translationFormat) {
-              providers.push(new CompileProviderMetadata({
+          var appCompileResult = this._ngModuleCompiler.compile(ngModule, [
+              new CompileProviderMetadata({ token: resolveIdentifierToken(Identifiers.LOCALE_ID), useValue: this._localeId }),
+              new CompileProviderMetadata({
                   token: resolveIdentifierToken(Identifiers.TRANSLATIONS_FORMAT),
                   useValue: this._translationFormat
-              }));
-          }
-          var appCompileResult = this._ngModuleCompiler.compile(ngModule, providers);
+              })
+          ]);
           appCompileResult.dependencies.forEach(function (dep) {
               dep.placeholder.name = _componentFactoryName(dep.comp);
               dep.placeholder.moduleUrl = _ngfactoryModuleUrl(dep.comp.moduleUrl);
@@ -13013,9 +13024,8 @@
           targetStatements.push(variable(compFactoryVar)
               .set(importExpr(resolveIdentifier(Identifiers.ComponentFactory), [importType(compMeta.type)])
               .instantiate([
-              literal(compMeta.selector),
-              variable(hostViewFactoryVar),
-              importExpr(compMeta.type),
+              literal(compMeta.selector), variable(hostViewFactoryVar),
+              importExpr(compMeta.type)
           ], importType(resolveIdentifier(Identifiers.ComponentFactory), [importType(compMeta.type)], [TypeModifier.Const])))
               .toDeclStmt(null, [StmtModifier.Final]));
           return compFactoryVar;
@@ -13025,9 +13035,9 @@
           var stylesExpr = componentStyles ? variable(componentStyles.stylesVar) : literalArr([]);
           var viewResult = this._viewCompiler.compileComponent(compMeta, parsedTemplate, stylesExpr, pipes);
           if (componentStyles) {
-              targetStatements.push.apply(targetStatements, _resolveStyleStatements(componentStyles, fileSuffix));
+              ListWrapper.addAll(targetStatements, _resolveStyleStatements(componentStyles, fileSuffix));
           }
-          targetStatements.push.apply(targetStatements, _resolveViewStatements(viewResult));
+          ListWrapper.addAll(targetStatements, _resolveViewStatements(viewResult));
           return viewResult.viewFactoryVar;
       };
       OfflineCompiler.prototype._codgenStyles = function (stylesCompileResult, fileSuffix) {
@@ -13075,14 +13085,16 @@
       }
   }
   function _splitTypescriptSuffix(path) {
-      if (path.endsWith('.d.ts')) {
-          return [path.slice(0, -5), '.ts'];
+      if (/\.d\.ts$/.test(path)) {
+          return [path.substring(0, path.length - 5), '.ts'];
       }
       var lastDot = path.lastIndexOf('.');
       if (lastDot !== -1) {
           return [path.substring(0, lastDot), path.substring(lastDot)];
       }
-      return [path, ''];
+      else {
+          return [path, ''];
+      }
   }
 
   /**
@@ -13501,24 +13513,26 @@
           var visitor = new TemplatePreparseVisitor();
           visitAll(visitor, rootNodesAndErrors.rootNodes);
           var templateStyles = this.normalizeStylesheet(new CompileStylesheetMetadata({ styles: visitor.styles, styleUrls: visitor.styleUrls, moduleUrl: templateAbsUrl }));
+          var allStyles = templateMetadataStyles.styles.concat(templateStyles.styles);
+          var allStyleUrls = templateMetadataStyles.styleUrls.concat(templateStyles.styleUrls);
           var encapsulation = templateMeta.encapsulation;
           if (isBlank(encapsulation)) {
               encapsulation = this._config.defaultEncapsulation;
           }
-          var styles = templateMetadataStyles.styles.concat(templateStyles.styles);
-          var styleUrls = templateMetadataStyles.styleUrls.concat(templateStyles.styleUrls);
-          if (encapsulation === _angular_core.ViewEncapsulation.Emulated && styles.length === 0 &&
-              styleUrls.length === 0) {
+          if (encapsulation === _angular_core.ViewEncapsulation.Emulated && allStyles.length === 0 &&
+              allStyleUrls.length === 0) {
               encapsulation = _angular_core.ViewEncapsulation.None;
           }
           return new CompileTemplateMetadata({
               encapsulation: encapsulation,
               template: template,
-              templateUrl: templateAbsUrl, styles: styles, styleUrls: styleUrls,
+              templateUrl: templateAbsUrl,
+              styles: allStyles,
+              styleUrls: allStyleUrls,
               externalStylesheets: templateMeta.externalStylesheets,
               ngContentSelectors: visitor.ngContentSelectors,
               animations: templateMeta.animations,
-              interpolation: templateMeta.interpolation,
+              interpolation: templateMeta.interpolation
           });
       };
       DirectiveNormalizer.prototype.normalizeExternalStylesheets = function (templateMeta) {
@@ -13632,7 +13646,8 @@
           viewProviders: directive.viewProviders,
           queries: directive.queries,
           viewQueries: directive.viewQueries,
-          entryComponents: directive.entryComponents, template: template,
+          entryComponents: directive.entryComponents,
+          template: template
       });
   }
 
@@ -13925,7 +13940,7 @@
           if (identifier.indexOf('(') >= 0) {
               // case: anonymous functions!
               var found = this._anonymousTypes.get(token);
-              if (!found) {
+              if (isBlank(found)) {
                   this._anonymousTypes.set(token, this._anonymousTypeIndex++);
                   found = this._anonymousTypes.get(token);
               }
@@ -13956,7 +13971,7 @@
               var styles = this.getAnimationStyleMetadata(value.styles);
               return new CompileAnimationStateDeclarationMetadata(value.stateNameExpr, styles);
           }
-          if (value instanceof _angular_core.AnimationStateTransitionMetadata) {
+          else if (value instanceof _angular_core.AnimationStateTransitionMetadata) {
               return new CompileAnimationStateTransitionMetadata(value.stateChangeExpr, this.getAnimationMetadata(value.steps));
           }
           return null;
@@ -13969,20 +13984,22 @@
           if (value instanceof _angular_core.AnimationStyleMetadata) {
               return this.getAnimationStyleMetadata(value);
           }
-          if (value instanceof _angular_core.AnimationKeyframesSequenceMetadata) {
+          else if (value instanceof _angular_core.AnimationKeyframesSequenceMetadata) {
               return new CompileAnimationKeyframesSequenceMetadata(value.steps.map(function (entry) { return _this.getAnimationStyleMetadata(entry); }));
           }
-          if (value instanceof _angular_core.AnimationAnimateMetadata) {
+          else if (value instanceof _angular_core.AnimationAnimateMetadata) {
               var animateData = this
                   .getAnimationMetadata(value.styles);
               return new CompileAnimationAnimateMetadata(value.timings, animateData);
           }
-          if (value instanceof _angular_core.AnimationWithStepsMetadata) {
+          else if (value instanceof _angular_core.AnimationWithStepsMetadata) {
               var steps = value.steps.map(function (step) { return _this.getAnimationMetadata(step); });
               if (value instanceof _angular_core.AnimationGroupMetadata) {
                   return new CompileAnimationGroupMetadata(steps);
               }
-              return new CompileAnimationSequenceMetadata(steps);
+              else {
+                  return new CompileAnimationSequenceMetadata(steps);
+              }
           }
           return null;
       };
@@ -13991,7 +14008,7 @@
           if (throwIfNotFound === void 0) { throwIfNotFound = true; }
           directiveType = _angular_core.resolveForwardRef(directiveType);
           var meta = this._directiveCache.get(directiveType);
-          if (!meta) {
+          if (isBlank(meta)) {
               var dirMeta = this._directiveResolver.resolve(directiveType, throwIfNotFound);
               if (!dirMeta) {
                   return null;
@@ -14003,30 +14020,31 @@
               var entryComponentMetadata = [];
               var selector = dirMeta.selector;
               if (dirMeta instanceof _angular_core.Component) {
-                  // Component
-                  assertArrayOfStrings('styles', dirMeta.styles);
-                  assertArrayOfStrings('styleUrls', dirMeta.styleUrls);
-                  assertInterpolationSymbols('interpolation', dirMeta.interpolation);
-                  var animations = dirMeta.animations ?
-                      dirMeta.animations.map(function (e) { return _this.getAnimationEntryMetadata(e); }) :
+                  var cmpMeta = dirMeta;
+                  assertArrayOfStrings('styles', cmpMeta.styles);
+                  assertInterpolationSymbols('interpolation', cmpMeta.interpolation);
+                  var animations = isPresent(cmpMeta.animations) ?
+                      cmpMeta.animations.map(function (e) { return _this.getAnimationEntryMetadata(e); }) :
                       null;
+                  assertArrayOfStrings('styles', cmpMeta.styles);
+                  assertArrayOfStrings('styleUrls', cmpMeta.styleUrls);
                   templateMeta = new CompileTemplateMetadata({
-                      encapsulation: dirMeta.encapsulation,
-                      template: dirMeta.template,
-                      templateUrl: dirMeta.templateUrl,
-                      styles: dirMeta.styles,
-                      styleUrls: dirMeta.styleUrls,
+                      encapsulation: cmpMeta.encapsulation,
+                      template: cmpMeta.template,
+                      templateUrl: cmpMeta.templateUrl,
+                      styles: cmpMeta.styles,
+                      styleUrls: cmpMeta.styleUrls,
                       animations: animations,
-                      interpolation: dirMeta.interpolation
+                      interpolation: cmpMeta.interpolation
                   });
-                  changeDetectionStrategy = dirMeta.changeDetection;
-                  if (dirMeta.viewProviders) {
+                  changeDetectionStrategy = cmpMeta.changeDetection;
+                  if (isPresent(dirMeta.viewProviders)) {
                       viewProviders = this.getProvidersMetadata(dirMeta.viewProviders, entryComponentMetadata, "viewProviders for \"" + stringify(directiveType) + "\"");
                   }
-                  moduleUrl = componentModuleUrl(this._reflector, directiveType, dirMeta);
-                  if (dirMeta.entryComponents) {
+                  moduleUrl = componentModuleUrl(this._reflector, directiveType, cmpMeta);
+                  if (cmpMeta.entryComponents) {
                       entryComponentMetadata =
-                          flattenArray(dirMeta.entryComponents)
+                          flattenArray(cmpMeta.entryComponents)
                               .map(function (type) { return _this.getTypeMetadata(type, staticTypeModuleUrl(type)); })
                               .concat(entryComponentMetadata);
                   }
@@ -14035,7 +14053,6 @@
                   }
               }
               else {
-                  // Directive
                   if (!selector) {
                       throw new Error("Directive " + stringify(directiveType) + " has no selector, please add it!");
                   }
@@ -14053,7 +14070,7 @@
               meta = CompileDirectiveMetadata.create({
                   selector: selector,
                   exportAs: dirMeta.exportAs,
-                  isComponent: !!templateMeta,
+                  isComponent: isPresent(templateMeta),
                   type: this.getTypeMetadata(directiveType, moduleUrl),
                   template: templateMeta,
                   changeDetection: changeDetectionStrategy,
@@ -14220,16 +14237,18 @@
           if (this._directiveResolver.resolve(type, false) !== null) {
               return 'directive';
           }
-          if (this._pipeResolver.resolve(type, false) !== null) {
+          else if (this._pipeResolver.resolve(type, false) !== null) {
               return 'pipe';
           }
-          if (this._ngModuleResolver.resolve(type, false) !== null) {
+          else if (this._ngModuleResolver.resolve(type, false) !== null) {
               return 'module';
           }
-          if (type.provide) {
+          else if (type.provide) {
               return 'provider';
           }
-          return 'value';
+          else {
+              return 'value';
+          }
       };
       CompileMetadataResolver.prototype._addTypeToModule = function (type, moduleType) {
           var oldModule = this._ngModuleOfTypes.get(type);
@@ -14297,7 +14316,7 @@
           if (throwIfNotFound === void 0) { throwIfNotFound = true; }
           pipeType = _angular_core.resolveForwardRef(pipeType);
           var meta = this._pipeCache.get(pipeType);
-          if (!meta) {
+          if (isBlank(meta)) {
               var pipeMeta = this._pipeResolver.resolve(pipeType, throwIfNotFound);
               if (!pipeMeta) {
                   return null;
@@ -14314,7 +14333,10 @@
       CompileMetadataResolver.prototype.getDependenciesMetadata = function (typeOrFunc, dependencies) {
           var _this = this;
           var hasUnknownDeps = false;
-          var params = dependencies || this._reflector.parameters(typeOrFunc) || [];
+          var params = isPresent(dependencies) ? dependencies : this._reflector.parameters(typeOrFunc);
+          if (isBlank(params)) {
+              params = [];
+          }
           var dependenciesMetadata = params.map(function (param) {
               var isAttribute = false;
               var isHost = false;
@@ -14324,7 +14346,7 @@
               var query = null;
               var viewQuery = null;
               var token = null;
-              if (Array.isArray(param)) {
+              if (isArray(param)) {
                   param.forEach(function (paramEntry) {
                       if (paramEntry instanceof _angular_core.Host) {
                           isHost = true;
@@ -14371,13 +14393,14 @@
                   isSelf: isSelf,
                   isSkipSelf: isSkipSelf,
                   isOptional: isOptional,
-                  query: query ? _this.getQueryMetadata(query, null, typeOrFunc) : null,
-                  viewQuery: viewQuery ? _this.getQueryMetadata(viewQuery, null, typeOrFunc) : null,
+                  query: isPresent(query) ? _this.getQueryMetadata(query, null, typeOrFunc) : null,
+                  viewQuery: isPresent(viewQuery) ? _this.getQueryMetadata(viewQuery, null, typeOrFunc) : null,
                   token: _this.getTokenMetadata(token)
               });
           });
           if (hasUnknownDeps) {
-              var depsTokens = dependenciesMetadata.map(function (dep) { return dep ? stringify(dep.token) : '?'; }).join(', ');
+              var depsTokens = dependenciesMetadata.map(function (dep) { return dep ? stringify(dep.token) : '?'; })
+                  .join(', ');
               throw new Error("Can't resolve all parameters for " + stringify(typeOrFunc) + ": (" + depsTokens + ").");
           }
           return dependenciesMetadata;
@@ -14408,7 +14431,7 @@
                   provider = new ProviderMeta(provider.provide, provider);
               }
               var compileProvider;
-              if (Array.isArray(provider)) {
+              if (isArray(provider)) {
                   compileProvider = _this.getProvidersMetadata(provider, targetEntryComponents, debugInfo);
               }
               else if (provider instanceof ProviderMeta) {
@@ -14469,11 +14492,11 @@
           var compileDeps;
           var compileTypeMetadata = null;
           var compileFactoryMetadata = null;
-          if (provider.useClass) {
+          if (isPresent(provider.useClass)) {
               compileTypeMetadata = this.getTypeMetadata(provider.useClass, staticTypeModuleUrl(provider.useClass), provider.dependencies);
               compileDeps = compileTypeMetadata.diDeps;
           }
-          else if (provider.useFactory) {
+          else if (isPresent(provider.useFactory)) {
               compileFactoryMetadata = this.getFactoryMetadata(provider.useFactory, staticTypeModuleUrl(provider.useFactory), provider.dependencies);
               compileDeps = compileFactoryMetadata.diDeps;
           }
@@ -14482,7 +14505,8 @@
               useClass: compileTypeMetadata,
               useValue: convertToCompileValue(provider.useValue, []),
               useFactory: compileFactoryMetadata,
-              useExisting: provider.useExisting ? this.getTokenMetadata(provider.useExisting) : null,
+              useExisting: isPresent(provider.useExisting) ? this.getTokenMetadata(provider.useExisting) :
+                  null,
               deps: compileDeps,
               multi: provider.multi
           });
@@ -14490,23 +14514,24 @@
       CompileMetadataResolver.prototype.getQueriesMetadata = function (queries, isViewQuery, directiveType) {
           var _this = this;
           var res = [];
-          Object.keys(queries).forEach(function (propertyName) {
-              var query = queries[propertyName];
+          StringMapWrapper.forEach(queries, function (query, propertyName) {
               if (query.isViewQuery === isViewQuery) {
                   res.push(_this.getQueryMetadata(query, propertyName, directiveType));
               }
           });
           return res;
       };
-      CompileMetadataResolver.prototype._queryVarBindings = function (selector) { return selector.split(/\s*,\s*/); };
+      CompileMetadataResolver.prototype._queryVarBindings = function (selector) {
+          return StringWrapper.split(selector, /\s*,\s*/g);
+      };
       CompileMetadataResolver.prototype.getQueryMetadata = function (q, propertyName, typeOrFunc) {
           var _this = this;
           var selectors;
-          if (typeof q.selector === 'string') {
+          if (isString(q.selector)) {
               selectors = this._queryVarBindings(q.selector).map(function (varName) { return _this.getTokenMetadata(varName); });
           }
           else {
-              if (!q.selector) {
+              if (!isPresent(q.selector)) {
                   throw new Error("Can't construct a query for the property \"" + propertyName + "\" of \"" + stringify(typeOrFunc) + "\" since the query selector wasn't defined.");
               }
               selectors = [this.getTokenMetadata(q.selector)];
@@ -14514,8 +14539,9 @@
           return new CompileQueryMetadata({
               selectors: selectors,
               first: q.first,
-              descendants: q.descendants, propertyName: propertyName,
-              read: q.read ? this.getTokenMetadata(q.read) : null
+              descendants: q.descendants,
+              propertyName: propertyName,
+              read: isPresent(q.read) ? this.getTokenMetadata(q.read) : null
           });
       };
       CompileMetadataResolver.decorators = [
@@ -14553,7 +14579,7 @@
       if (tree) {
           for (var i = 0; i < tree.length; i++) {
               var item = _angular_core.resolveForwardRef(tree[i]);
-              if (Array.isArray(item)) {
+              if (isArray(item)) {
                   flattenArray(item, out);
               }
               else {
@@ -14573,14 +14599,11 @@
       if (isStaticSymbol(type)) {
           return staticTypeModuleUrl(type);
       }
-      var moduleId = cmpMetadata.moduleId;
-      if (typeof moduleId === 'string') {
+      if (isPresent(cmpMetadata.moduleId)) {
+          var moduleId = cmpMetadata.moduleId;
           var scheme = getUrlScheme(moduleId);
-          return scheme ? moduleId : "package:" + moduleId + MODULE_SUFFIX;
-      }
-      else if (moduleId !== null && moduleId !== void 0) {
-          throw new Error(("moduleId should be a string in \"" + stringify(type) + "\". See https://goo.gl/wIDDiL for more information.\n") +
-              "If you're using Webpack you should inline the template and the styles, see https://goo.gl/X2J8zc.");
+          return isPresent(scheme) && scheme.length > 0 ? moduleId :
+              "package:" + moduleId + MODULE_SUFFIX;
       }
       return reflector.importUri(type);
   }
@@ -16464,7 +16487,7 @@
               }
               return scopedP;
           };
-          var sep = /( |>|\+|~(?!=))\s*/g;
+          var sep = /( |>|\+|~)\s*/g;
           var scopeAfter = selector.indexOf(_polyfillHostNoCombinator);
           var scoped = '';
           var startIndex = 0;

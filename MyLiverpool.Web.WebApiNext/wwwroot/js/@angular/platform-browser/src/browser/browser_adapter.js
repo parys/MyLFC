@@ -11,6 +11,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 import { setRootDomAdapter } from '../dom/dom_adapter';
+import { ListWrapper } from '../facade/collection';
 import { DateWrapper, global, isBlank, isFunction, isPresent, setValueOnPath } from '../facade/lang';
 import { GenericBrowserDomAdapter } from './generic_browser_adapter';
 var _attrToPropMap = {
@@ -164,7 +165,7 @@ export var BrowserDomAdapter = (function (_super) {
     BrowserDomAdapter.prototype.childNodes = function (el /** TODO #9100 */) { return el.childNodes; };
     BrowserDomAdapter.prototype.childNodesAsList = function (el /** TODO #9100 */) {
         var childNodes = el.childNodes;
-        var res = new Array(childNodes.length);
+        var res = ListWrapper.createFixedSize(childNodes.length);
         for (var i = 0; i < childNodes.length; i++) {
             res[i] = childNodes[i];
         }

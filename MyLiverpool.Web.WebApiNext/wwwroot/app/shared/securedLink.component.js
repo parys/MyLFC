@@ -8,29 +8,30 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-const core_1 = require('@angular/core');
-let SecuredLinkComponent = class SecuredLinkComponent {
-    constructor() {
+var core_1 = require('@angular/core');
+var SecuredLinkComponent = (function () {
+    function SecuredLinkComponent() {
     }
-    ngOnInit() {
+    SecuredLinkComponent.prototype.ngOnInit = function () {
         //this.newsService
         //    .GetAll()
         //    .subscribe(data => this.parsePageable(data),
         //    error => console.log(error),
         //    () => console.log("success load list news"));
-    }
-};
-__decorate([
-    core_1.Input(), 
-    __metadata('design:type', String)
-], SecuredLinkComponent.prototype, "role", void 0);
-SecuredLinkComponent = __decorate([
-    core_1.Component({
-        selector: 'secured-link',
-        templateUrl: 'app/shared/securedLink.component.html',
-        inputs: ['link', 'name']
-    }), 
-    __metadata('design:paramtypes', [])
-], SecuredLinkComponent);
+    };
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', String)
+    ], SecuredLinkComponent.prototype, "role", void 0);
+    SecuredLinkComponent = __decorate([
+        core_1.Component({
+            selector: 'secured-link',
+            templateUrl: 'app/shared/securedLink.component.html',
+            inputs: ['link', 'name']
+        }), 
+        __metadata('design:paramtypes', [])
+    ], SecuredLinkComponent);
+    return SecuredLinkComponent;
+}());
 exports.SecuredLinkComponent = SecuredLinkComponent;
 //# sourceMappingURL=securedLink.component.js.map

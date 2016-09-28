@@ -99,7 +99,7 @@ export var CompileElement = (function (_super) {
     CompileElement.prototype.setComponentView = function (compViewExpr) {
         this._compViewExpr = compViewExpr;
         this.contentNodesByNgContentIndex =
-            new Array(this.component.template.ngContentSelectors.length);
+            ListWrapper.createFixedSize(this.component.template.ngContentSelectors.length);
         for (var i = 0; i < this.contentNodesByNgContentIndex.length; i++) {
             this.contentNodesByNgContentIndex[i] = [];
         }

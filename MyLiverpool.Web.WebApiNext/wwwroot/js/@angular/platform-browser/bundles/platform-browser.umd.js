@@ -1,5 +1,5 @@
 /**
- * @license Angular v2.0.1
+ * @license Angular v2.0.0
  * (c) 2010-2016 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -252,8 +252,43 @@
         obj[parts.shift()] = value;
     }
 
+    var Map$1 = global$1.Map;
+    var Set$1 = global$1.Set;
+    // Safari and Internet Explorer do not support the iterable parameter to the
+    // Map constructor.  We work around that by manually adding the items.
+    var createMapFromPairs = (function () {
+        try {
+            if (new Map$1([[1, 2]]).size === 1) {
+                return function createMapFromPairs(pairs) { return new Map$1(pairs); };
+            }
+        }
+        catch (e) {
+        }
+        return function createMapAndPopulateFromPairs(pairs) {
+            var map = new Map$1();
+            for (var i = 0; i < pairs.length; i++) {
+                var pair = pairs[i];
+                map.set(pair[0], pair[1]);
+            }
+            return map;
+        };
+    })();
+    var createMapFromMap = (function () {
+        try {
+            if (new Map$1(new Map$1())) {
+                return function createMapFromMap(m) { return new Map$1(m); };
+            }
+        }
+        catch (e) {
+        }
+        return function createMapAndPopulateFromMap(m) {
+            var map = new Map$1();
+            m.forEach(function (v, k) { map.set(k, v); });
+            return map;
+        };
+    })();
     var _clearValues = (function () {
-        if ((new Map()).keys().next) {
+        if ((new Map$1()).keys().next) {
             return function _clearValues(m) {
                 var keyIterator = m.keys();
                 var k;
@@ -272,7 +307,7 @@
     // TODO(mlaval): remove the work around once we have a working polyfill of Array.from
     var _arrayFromMap = (function () {
         try {
-            if ((new Map()).values().next) {
+            if ((new Map$1()).values().next) {
                 return function createArrayFromMap(m, getValues) {
                     return getValues ? Array.from(m.values()) : Array.from(m.keys());
                 };
@@ -281,7 +316,7 @@
         catch (e) {
         }
         return function createArrayFromMapWithForeach(m, getValues) {
-            var res = new Array(m.size), i = 0;
+            var res = ListWrapper.createFixedSize(m.size), i = 0;
             m.forEach(function (v, k) {
                 res[i] = getValues ? v : k;
                 i++;
@@ -295,6 +330,15 @@
     var StringMapWrapper = (function () {
         function StringMapWrapper() {
         }
+        StringMapWrapper.create = function () {
+            // Note: We are not using Object.create(null) here due to
+            // performance!
+            // http://jsperf.com/ng2-object-create-null
+            return {};
+        };
+        StringMapWrapper.contains = function (map, key) {
+            return map.hasOwnProperty(key);
+        };
         StringMapWrapper.get = function (map, key) {
             return map.hasOwnProperty(key) ? map[key] : undefined;
         };
@@ -309,6 +353,7 @@
             }
             return true;
         };
+        StringMapWrapper.delete = function (map, key) { delete map[key]; };
         StringMapWrapper.forEach = function (map, callback) {
             for (var _i = 0, _a = Object.keys(map); _i < _a.length; _i++) {
                 var k = _a[_i];
@@ -473,6 +518,25 @@
         }
         return target;
     }
+    // Safari and Internet Explorer do not support the iterable parameter to the
+    // Set constructor.  We work around that by manually adding the items.
+    var createSetFromList = (function () {
+        var test = new Set$1([1, 2, 3]);
+        if (test.size === 3) {
+            return function createSetFromList(lst) { return new Set$1(lst); };
+        }
+        else {
+            return function createSetAndPopulateFromList(lst) {
+                var res = new Set$1(lst);
+                if (res.size !== lst.length) {
+                    for (var i = 0; i < lst.length; i++) {
+                        res.add(lst[i]);
+                    }
+                }
+                return res;
+            };
+        }
+    })();
 
     var CAMEL_CASE_REGEXP = /([A-Z])/g;
     var DASH_CASE_REGEXP = /-([a-z])/g;
@@ -957,7 +1021,7 @@
         BrowserDomAdapter.prototype.childNodes = function (el /** TODO #9100 */) { return el.childNodes; };
         BrowserDomAdapter.prototype.childNodesAsList = function (el /** TODO #9100 */) {
             var childNodes = el.childNodes;
-            var res = new Array(childNodes.length);
+            var res = ListWrapper.createFixedSize(childNodes.length);
             for (var i = 0; i < childNodes.length; i++) {
                 res[i] = childNodes[i];
             }
@@ -1995,7 +2059,8 @@
             _super.call(this);
         }
         HammerGesturesPluginCommon.prototype.supports = function (eventName) {
-            return _eventNames.hasOwnProperty(eventName.toLowerCase());
+            eventName = eventName.toLowerCase();
+            return StringMapWrapper.contains(_eventNames, eventName);
         };
         return HammerGesturesPluginCommon;
     }(EventManagerPlugin));
@@ -2140,7 +2205,7 @@
                 // returning null instead of throwing to let another plugin process the event
                 return null;
             }
-            var result = {};
+            var result = StringMapWrapper.create();
             StringMapWrapper.set(result, 'domEventName', domEventName);
             StringMapWrapper.set(result, 'fullKey', fullKey);
             return result;
