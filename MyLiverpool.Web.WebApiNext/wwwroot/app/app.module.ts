@@ -1,9 +1,9 @@
-import { NgModule }      from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule, ReactiveFormsModule   } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { NgModule }      from "@angular/core";
+import { BrowserModule } from "@angular/platform-browser";
+import { FormsModule, ReactiveFormsModule   } from "@angular/forms";
+import { HttpModule } from "@angular/http";
 
-import { AppComponent }  from './app.component';
+import { AppComponent }  from "./app.component";
 import { routing, appRoutingProviders } from "./app.routes";
 import { NewsListComponent } from "./news/news-list/news-list.component";
 import { Configuration } from "./app.constants";
@@ -27,7 +27,7 @@ import {UserService} from "./user/user.service";
 import {UserListComponent} from "./user/user-list.component";
 import { PmListComponent } from "./pm/pm-list.component";
 import { PmService } from "./pm/pm.service";
-import { MaterialModule } from '@angular/material';
+import { MaterialModule } from "@angular/material";
 
 @NgModule({
     imports: [
@@ -63,6 +63,6 @@ import { MaterialModule } from '@angular/material';
         NewsCategoryService,
         PmService,
         UserService
-        ]               
+    ]
 })
 export class AppModule { }

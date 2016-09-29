@@ -30,12 +30,15 @@ namespace MyLiverpoolSite.Business.Services.Services
 
         public async Task<MatchDto> UpdateAsync(MatchDto dto)
         {
+            var match = await _unitOfWork.MatchRepository.GetByIdAsync(dto.Id);
             throw new NotImplementedException();
+            //  match.
         }
 
         public async Task<bool> DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            await _unitOfWork.MatchRepository.DeleteAsync(id);
+            return true;
         }
 
         public async Task<MatchDto> GetAsync(int id)

@@ -89,7 +89,7 @@ namespace MyLiverpoolSite.Business.Services.Services
                 file.SaveAs(path);
                 result.Add(relativePath);
             }
-            return result;
+            return await Task.FromResult(result);
         }
 
         #region private helpers 

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.DtoNext;
@@ -16,13 +15,13 @@ namespace MyLiverpool.Business.Services.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-      //  private readonly IIdentityMessageService _messageService;
+        private readonly IEmailSender _messageService;
 
-        public AccountService(IUnitOfWork unitOfWork, IMapper mapper)//, IIdentityMessageService messageService)
+        public AccountService(IUnitOfWork unitOfWork, IMapper mapper, IEmailSender messageService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
-         //   _messageService = messageService;
+            _messageService = messageService;
         }
 
         public async Task<bool> ChangePasswordAsync(int userId, ChangePasswordDto dto)
@@ -149,24 +148,14 @@ namespace MyLiverpool.Business.Services.Services
 
         private async Task SendConfirmEmailAsync(string email, int userId)
         {
-            //var message = new IdentityMessage()
-            //{
-            //    Destination = email,
-            //    Subject = EmailMessages.RegistrationFinished,
-            //    Body = await GetConfirmEmailBody(userId)
-            //};
-            //await _messageService.SendAsync(message);
+            const string registerFinished = "Завершение регистрации";
+            await _messageService.SendEmailAsync(email, registerFinished, await GetConfirmEmailBody(userId));
         }
 
         private async Task SendForgotPasswordEmailAsync(string email, int userId)
         {
-            //var message = new IdentityMessage()
-            //{
-            //    Destination = email,
-            //    Subject = EmailMessages.ForgotPassword,
-            //    Body = await GetForgotPasswordBody(userId)
-            //};
-            //await _messageService.SendAsync(message);
+            const string forgotPassword = "Восстановление забытого пароля";
+            await _messageService.SendEmailAsync(email, forgotPassword, await GetForgotPasswordBody(userId));
         }
         #endregion
     }

@@ -8,7 +8,7 @@ namespace MyLiverpool.Common.Utilities
         public static string Base64ForUrlEncode(this string str)
         {
             throw new NotImplementedException();
-            byte[] buffer = Encoding.UTF8.GetBytes(str);
+          //  byte[] buffer = Encoding.UTF8.GetBytes(str);
          //   return HttpServerUtility.UrlTokenEncode(buffer);
         }
 

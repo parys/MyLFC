@@ -85,7 +85,7 @@ namespace MyLiverpool.Web.WebApi.Controllers
                 list.Add(new { id = type, name = type.GetNameAttribute() });
             }
             
-            return Ok(list);
+            return Ok(await Task.FromResult(list));
         }
     }
 }
