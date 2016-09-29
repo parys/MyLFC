@@ -14,17 +14,19 @@ namespace MyLiverpool.Business.Services.Services
     public class PmService : IPmService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IPmRepository _pmRepository;
         private readonly IMapper _mapper;
 
-        public PmService(IUnitOfWork unitOfWork, IMapper mapper)
+        public PmService(IPmRepository pmRepository, IMapper mapper, IUnitOfWork unitOfWork)
         {
-            _unitOfWork = unitOfWork;
+            _pmRepository = pmRepository;
             _mapper = mapper;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<PrivateMessagesDto> GetListAsync(int id)
         {
-            var messages = await _unitOfWork.PrivateMessageRepository.GetAsync(x => x.ReceiverId == id || x.SenderId == id);
+            var messages = await _pmRepository.GetAsync(x => x.ReceiverId == id || x.SenderId == id);
             var dto = new PrivateMessagesDto()
             {
                 Received = _mapper.Map<ICollection<PrivateMessageMiniDto>>(messages.Where(x => x.ReceiverId == id)),
@@ -35,7 +37,7 @@ namespace MyLiverpool.Business.Services.Services
 
         public async Task<PrivateMessageDto> GetAsync(int messageId, int userId)
         {
-            var message = await _unitOfWork.PrivateMessageRepository.GetByIdAsync(messageId);
+            var message = await _pmRepository.GetByIdAsync(messageId);
             if (message.ReceiverId != userId && message.SenderId != userId)
             {
                 throw new UnauthorizedAccessException();
@@ -43,8 +45,8 @@ namespace MyLiverpool.Business.Services.Services
             if (!message.IsRead && message.ReceiverId == userId)
             {
                 message.IsRead = true;
-                _unitOfWork.PrivateMessageRepository.Update(message);
-                await _unitOfWork.SaveAsync();
+                _pmRepository.Update(message);
+                await _pmRepository.SaveChangesAsync();
             }
             return _mapper.Map<PrivateMessageDto>(message);
         }
@@ -60,8 +62,8 @@ namespace MyLiverpool.Business.Services.Services
             message.ReceiverId = receiver.Id;
             try
             {
-                _unitOfWork.PrivateMessageRepository.Add(message);
-                await _unitOfWork.SaveAsync();
+                _pmRepository.Add(message);
+                await _pmRepository.SaveChangesAsync();
             }
             catch (Exception)
             {
@@ -74,17 +76,17 @@ namespace MyLiverpool.Business.Services.Services
         {
             var countUserMessages =
                 await
-                    _unitOfWork.PrivateMessageRepository.GetCountAsync(
+                    _pmRepository.GetCountAsync(
                         x => x.ReceiverId == userId || x.SenderId == userId);
             if (countUserMessages > GlobalConstants.PmsPerUser)
             {
                 var messages =
                     await
-                        _unitOfWork.PrivateMessageRepository.GetAsync(
+                        _pmRepository.GetAsync(
                             x => x.ReceiverId == userId || x.SenderId == userId);
                 var messages2 = messages.Take(GlobalConstants.PmsPerUser / 2).ToList();
-                messages2.ForEach(x => _unitOfWork.PrivateMessageRepository.DeleteAsync(x));
-                await _unitOfWork.SaveAsync();
+                messages2.ForEach(x =>_pmRepository.DeleteAsync(x));
+                await _pmRepository.SaveChangesAsync();
             }
         }
     }

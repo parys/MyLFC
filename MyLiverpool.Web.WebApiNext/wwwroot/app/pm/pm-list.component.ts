@@ -25,6 +25,7 @@ export class PmListComponent implements OnInit {
     }
 
     private parse(model: any): void {
+        console.log(model);
         this.received = model.received;
         this.sent = model.sent;
     }

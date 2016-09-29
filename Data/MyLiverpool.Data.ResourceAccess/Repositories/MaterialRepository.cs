@@ -37,7 +37,10 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
         public async Task DeleteAsync(int id)
         {
             var entity = await _context.Materials.FirstOrDefaultAsync(x => x.Id == id);
-            _context.Materials.Remove(entity);
+            if (entity != null)
+            {
+                await DeleteAsync(entity);
+            }
         }
 
         public async Task DeleteAsync(Material entity)

@@ -190,6 +190,11 @@ namespace MyLiverpool.Data.ResourceAccess
             _context.Entry(entityToUpdate).State = EntityState.Modified;
         }
 
+        public Task SaveChangesAsync()
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<int> GetCountAsync(Expression<Func<TEntity, bool>> filter = null)
         {
             IQueryable<TEntity> query = _dbSet;

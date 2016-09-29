@@ -28,7 +28,7 @@ namespace MyLiverpool.Data.ResourceAccess
         private IGenericRepository<MaterialCategory> _materialCategoryRepository;
         private IGenericRepository<MaterialComment> _materialCommentRepository;
         private IGenericRepository<ForumSection> _forumSectionRepository;
-        private IGenericRepository<PrivateMessage> _privateMessageRepository;
+      //  private IGenericRepository<PrivateMessage> _privateMessageRepository;
         private IGenericRepository<Role> _roleRepository;
         private IGenericRepository<RoleGroup> _roleGroupRepository;
         private IGenericRepository<User> _userRepository;
@@ -90,7 +90,7 @@ namespace MyLiverpool.Data.ResourceAccess
         public IGenericRepository<Role> RoleRepository => _roleRepository ?? (_roleRepository = new GenericRepository<Role>(_context));
         public IGenericRepository<RoleGroup> RoleGroupRepository => _roleGroupRepository ?? (_roleGroupRepository = new GenericRepository<RoleGroup>(_context));
 
-        public IGenericRepository<PrivateMessage> PrivateMessageRepository => _privateMessageRepository ?? (_privateMessageRepository = new GenericRepository<PrivateMessage>(_context));
+      //  public IGenericRepository<PrivateMessage> PrivateMessageRepository => _privateMessageRepository ?? (_privateMessageRepository = new GenericRepository<PrivateMessage>(_context));
 
         //public IGenericRepository<RoleClaim> RoleClaimRepository
         //{

@@ -1,6 +1,6 @@
-﻿import { ModuleWithProviders }   from '@angular/core';
-import { RouterModule, Routes  } from '@angular/router';
-import { NewsListComponent } from './news/news-list/news-list.component';
+﻿import { ModuleWithProviders } from "@angular/core";
+import { RouterModule, Routes } from "@angular/router";
+import { NewsListComponent } from "./news/news-list/news-list.component";
 import { authRoutes, authProviders } from "./auth/auth.routing";
 import { newsCategoryRoutes } from "./newsCategory/newsCategory.routing";
 import { newsRoutes } from "./news/news.routing";
@@ -14,7 +14,7 @@ const routes: Routes  = [
     ...newsRoutes,
     ...pmRoutes,
     ...userRoutes,
-    { path: '', component: NewsListComponent }
+    { path: "", component: NewsListComponent }
 ];
 
 export const appRoutingProviders: any[] = [

@@ -26,7 +26,7 @@ namespace MyLiverpool.Data.ResourceAccess.Contracts
         IGenericRepository<Wish> WishRepository { get; }
         IGenericRepository<Role> RoleRepository { get; }
         IGenericRepository<RoleGroup> RoleGroupRepository { get; }
-        IGenericRepository<PrivateMessage> PrivateMessageRepository { get; }
+     //   IGenericRepository<PrivateMessage> PrivateMessageRepository { get; }
         
         IGenericRepository<Club> ClubRepository { get; }
 

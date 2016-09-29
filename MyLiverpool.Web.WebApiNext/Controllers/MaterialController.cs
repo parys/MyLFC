@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using System.Web.Http;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyLiverpool.Business.DTO;
@@ -23,11 +22,9 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         }
 
         [Route("list/{filtersObj}")]
-       // [Route("{type}/list/{filtersObj}")]
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> GetNewsItems([FromRoute] string filtersObj) //todo not all checked
-      //  public async Task<IActionResult> GetNewsItems(string type, [FromRoute] string filtersObj) //todo not all checked
+        public async Task<IActionResult> GetNewsItems([FromRoute] string filtersObj)
         {
             MaterialFiltersDto filters;
             if (filtersObj == null)
@@ -52,7 +49,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Route("{id:int}")]
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> GetNewsItem(int id) //todo not all checked
+        public async Task<IActionResult> GetNewsItem(int id)
         {
             var model = await _materialService.GetDtoAsync(id);
             return Ok(model);

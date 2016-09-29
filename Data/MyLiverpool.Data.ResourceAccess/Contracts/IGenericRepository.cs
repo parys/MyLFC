@@ -35,7 +35,7 @@ namespace MyLiverpool.Data.ResourceAccess.Contracts
         Task<ICollection<TEntity>> GetOrderedByIdAsync(int page, int itemPerPage = 15,
             Expression<Func<TEntity, bool>> filter = null, params Expression<Func<TEntity, object>>[] includeProperties);
 
-        Task<int> GetCountAsync(Expression<Func<TEntity, bool>> filter = null);
+        //Task<int> GetCountAsync(Expression<Func<TEntity, bool>> filter = null);
     }
 }
 

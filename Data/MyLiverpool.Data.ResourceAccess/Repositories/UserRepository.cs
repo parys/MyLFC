@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using MyLiverpool.Business.DTO;
@@ -63,6 +64,16 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
         }
 
         public void Update(User entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task SaveChangesAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<int> GetCountAsync(Expression<Func<User, bool>> filter = null)
         {
             throw new NotImplementedException();
         }

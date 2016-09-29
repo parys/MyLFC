@@ -3,6 +3,7 @@
 
   "dependencies": {
     "AutoMapper": "5.1.1",
+    "HtmlAgilityPack.NetCore": "1.5.0.1",
     "Microsoft.AspNetCore.Http.Abstractions": "1.0.0",
     "MyLiverpool.Business.Contracts": "1.0.0-*",
     "MyLiverpool.Business.DtoNext": "1.0.0-*",

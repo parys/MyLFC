@@ -8,7 +8,7 @@ using MyLiverpool.Web.WebApiNext.Extensions;
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
     [Route("api/[controller]")]
-   // [Authorize]
+    [Authorize]
     public class PmController : Controller
     {
         private readonly IPmService _pmService;
@@ -20,7 +20,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
 
         [Route("")]
         [HttpGet]
-     //   [Authorize]
+        [Authorize]
         public async Task<IActionResult> GetPms()
         {
             var model = await _pmService.GetListAsync(User.GetUserId());

@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace MyLiverpool.Data.ResourceAccess.Contracts
 {
@@ -28,5 +30,9 @@ namespace MyLiverpool.Data.ResourceAccess.Contracts
         /// Updates object in repository.
         /// </summary>
         void Update(TEntity entity);
+
+        Task SaveChangesAsync();
+
+        Task<int> GetCountAsync(Expression<Func<TEntity, bool>> filter = null);
     }
 }

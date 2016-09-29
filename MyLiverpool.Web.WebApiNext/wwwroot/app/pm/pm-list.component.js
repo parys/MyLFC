@@ -21,6 +21,7 @@ var PmListComponent = (function () {
             .subscribe(function (data) { return _this.parse(data); }, function (error) { return console.log(error); }, function () { return console.log("success load categoryu lits news"); });
     };
     PmListComponent.prototype.parse = function (model) {
+        console.log(model);
         this.received = model.received;
         this.sent = model.sent;
     };

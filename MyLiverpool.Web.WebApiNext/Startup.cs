@@ -52,9 +52,12 @@ namespace MyLiverpool.Web.WebApiNext
 
             builder.AddEnvironmentVariables();
             Configuration = builder.Build();
+            Env = env;
         }
 
         public IConfigurationRoot Configuration { get; }
+
+        private IHostingEnvironment Env { get; set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -194,6 +197,7 @@ namespace MyLiverpool.Web.WebApiNext
             services.AddTransient<IForumSectionService, ForumSectionService>();
             services.AddTransient<IForumSubsectionService, ForumSubsectionService>();
             services.AddTransient<IForumThemeService, ForumThemeService>();
+            services.AddSingleton<IHostingEnvironment>(Env);
             services.AddTransient<IMatchService, MatchService>();
             services.AddTransient<IMaterialCategoryService, MaterialCategoryService>();
             services.AddTransient<IMaterialCommentService, MaterialCommentService>();
