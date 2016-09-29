@@ -52,15 +52,6 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return Ok(result);
         }
 
-        [Route("GetUnreadPmCount")]
-        [HttpGet]
-        [Authorize]
-        public async Task<IActionResult> GetUnreadPmCount()
-        {
-            var result = await _userService.GetUnreadPmCountAsync(User.GetUserId());
-            return Ok(result);
-        }
-
         [Route("GetUserNames")]
         [HttpGet]
         [Authorize]

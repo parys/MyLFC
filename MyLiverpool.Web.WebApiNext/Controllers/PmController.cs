@@ -54,5 +54,14 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             var result = await _pmService.SaveAsync(model);
             return Ok(result);
         }
+
+        [Route("GetUnreadPmCount")]
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> GetUnreadPmCount()
+        {
+            var result = await _pmService.GetUnreadPmCountAsync(User.GetUserId());
+            return Ok(result);
+        }
     }
 }

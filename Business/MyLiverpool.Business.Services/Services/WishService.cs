@@ -4,7 +4,6 @@ using System.Data.SqlClient;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.IdentityModel.Protocols;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.DTO;
 using MyLiverpool.Common.Utilities;

@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using MyLiverpool.Business.Contracts;
 
@@ -17,11 +18,13 @@ namespace MyLiverpool.Business.Services.Services
         public const int FilesPerFolder = 200;
         private readonly IUserService _userService;
         private readonly IClubService _clubService;
+        private readonly IHostingEnvironment _appEnvironment;
 
-        public UploadService(IUserService userService, IClubService clubService)
+        public UploadService(IUserService userService, IClubService clubService, IHostingEnvironment appEnvironment)
         {
             _userService = userService;
             _clubService = clubService;
+            _appEnvironment = appEnvironment;
         }
 
         public async Task<string> UpdateAvatarAsync(int userId, IFormFile file)
@@ -78,16 +81,19 @@ namespace MyLiverpool.Business.Services.Services
         public async Task<IEnumerable<string>> UploadAsync(IFormFileCollection files)
         {
             var result = new List<string>();
-            foreach (var fileName in files)
+            foreach (var file in files)
             {
-               //todo var file = files[fileName];
-                //var newName = GenerateNewName() + "." + file.FileName.Split('.').Last();
-                //var newPath = GenerateNewPath(ImagesPath);
-                //var relativePath = Path.Combine(newPath, newName);
-                //var path = GetFullPath(relativePath);
+               //bug !!!not checked!!! var file = files[fileName];
+                var newName = GenerateNewName() + "." + file.FileName.Split('.').Last();
+                var newPath = GenerateNewPath(ImagesPath);
+                var relativePath = Path.Combine(newPath, newName);
+                var path = GetFullPath(relativePath);
 
-                //file.SaveAs(path);
-                //result.Add(relativePath);
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    await file.CopyToAsync(fileStream);
+                }
+                result.Add(relativePath);
             }
             return result;
         }
@@ -104,10 +110,10 @@ namespace MyLiverpool.Business.Services.Services
                 {
                     directoryInfo = "0";
                     Directory.CreateDirectory(fullPath + "\\0\\");
-                };
+                }
                 var lastFolderName = int.Parse(directoryInfo.Split('\\').Last());
                 directoryName = lastFolderName.ToString();
-                if (Directory.GetFiles(directoryInfo).Count() >= FilesPerFolder)
+                if (Directory.GetFiles(directoryInfo).Length >= FilesPerFolder)
                 {
                     directoryName = (lastFolderName + 1) + "\\";
                     directoryInfo = Path.Combine(fullPath + directoryName);
@@ -134,8 +140,8 @@ namespace MyLiverpool.Business.Services.Services
 
         private string GetFullPath(string prefix)
         {
-            //var path = HttpContext.Current.Server.MapPath("~");
-            return "";//Path.Combine(path, prefix);
+            var path = _appEnvironment.WebRootPath;
+            return Path.Combine(path, prefix);
         }
         #endregion
     }

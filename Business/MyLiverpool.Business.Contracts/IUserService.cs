@@ -22,8 +22,6 @@ namespace MyLiverpool.Business.Contracts
 
         Task<bool> EditRoleGroupAsync(int userId, int roleGroupId);
 
-        Task<int> GetUnreadPmCountAsync(int userId);
-
         Task<IEnumerable<string>> GetUserNamesAsync(string typed);
 
         Task<string> GetPhotoPathAsync(int userId);

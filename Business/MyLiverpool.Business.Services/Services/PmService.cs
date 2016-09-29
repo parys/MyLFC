@@ -71,13 +71,14 @@ namespace MyLiverpool.Business.Services.Services
             }
             return true;
         }
+        public async Task<int> GetUnreadPmCountAsync(int userId)
+        {
+             return await _pmRepository.GetCountAsync(x => !x.IsRead && x.ReceiverId == userId);
+        }
 
         private async Task RemoveOldMessages(int userId)
         {
-            var countUserMessages =
-                await
-                    _pmRepository.GetCountAsync(
-                        x => x.ReceiverId == userId || x.SenderId == userId);
+            var countUserMessages = await _pmRepository.GetCountAsync(x => x.ReceiverId == userId || x.SenderId == userId);
             if (countUserMessages > GlobalConstants.PmsPerUser)
             {
                 var messages =

@@ -106,12 +106,6 @@ namespace MyLiverpool.Business.Services.Services
             return result.Succeeded; //todo return identityResult?
         }
 
-        public async Task<int> GetUnreadPmCountAsync(int userId)
-        {
-            throw new NotImplementedException(); //todo move to pmService
-           // return await _unitOfWork.PrivateMessageRepository.GetCountAsync(x => !x.IsRead && x.ReceiverId == userId);
-        }
-
         public async Task<IEnumerable<string>> GetUserNamesAsync(string typed)
         {
             IEnumerable<string> userNames = new List<string>();
