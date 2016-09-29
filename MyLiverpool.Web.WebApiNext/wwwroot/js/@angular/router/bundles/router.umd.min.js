@@ -1,5 +1,5 @@
 /**
- * @license @angular/router v3.0.0
+ * @license Angular v3.0.1
  * (c) 2010-2016 Google, Inc. https://angular.io/
  * License: MIT
  */

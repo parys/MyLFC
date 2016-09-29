@@ -35,12 +35,19 @@ var user_service_1 = require("./user/user.service");
 var user_list_component_1 = require("./user/user-list.component");
 var pm_list_component_1 = require("./pm/pm-list.component");
 var pm_service_1 = require("./pm/pm.service");
+var material_1 = require('@angular/material');
 var AppModule = (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         core_1.NgModule({
-            imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, forms_1.ReactiveFormsModule, http_1.HttpModule, app_routes_1.routing],
+            imports: [
+                platform_browser_1.BrowserModule,
+                forms_1.FormsModule,
+                http_1.HttpModule,
+                material_1.MaterialModule.forRoot(),
+                forms_1.ReactiveFormsModule,
+                app_routes_1.routing],
             declarations: [
                 account_signin_component_1.AccountSigninComponent,
                 account_signup_component_1.AccountSignupComponent,

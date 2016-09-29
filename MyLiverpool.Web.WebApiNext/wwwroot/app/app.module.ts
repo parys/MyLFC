@@ -27,9 +27,16 @@ import {UserService} from "./user/user.service";
 import {UserListComponent} from "./user/user-list.component";
 import { PmListComponent } from "./pm/pm-list.component";
 import { PmService } from "./pm/pm.service";
+import { MaterialModule } from '@angular/material';
 
 @NgModule({
-    imports: [BrowserModule, FormsModule, ReactiveFormsModule, HttpModule, routing],
+    imports: [
+        BrowserModule,
+        FormsModule,
+        HttpModule,
+        MaterialModule.forRoot(),
+        ReactiveFormsModule,
+        routing],
     declarations: [
         AccountSigninComponent,
         AccountSignupComponent,

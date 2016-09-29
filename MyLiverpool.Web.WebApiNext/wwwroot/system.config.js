@@ -22,7 +22,11 @@
       '@angular/platform-browser-dynamic': 'npm:@angular/platform-browser-dynamic/bundles/platform-browser-dynamic.umd.js',
       '@angular/http': 'npm:@angular/http/bundles/http.umd.js',
       '@angular/router': 'npm:@angular/router/bundles/router.umd.js',
-      '@angular/forms': 'npm:@angular/forms/bundles/forms.umd.js'
+      '@angular/forms': 'npm:@angular/forms/bundles/forms.umd.js',
+      '@angular/material': {
+            format: 'cjs',
+            main: 'material.umd.js'
+        }
 
         //'ng2-localstorage': { defaultExtension: 'js'}
     };
