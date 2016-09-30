@@ -19,7 +19,7 @@ var PmDetailComponent = (function () {
     PmDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.sub = this.route.params.subscribe(function (params) {
-            var id = +params['id'];
+            var id = +params["id"];
             _this.pmService.GetSingle(id)
                 .subscribe(function (data) { return _this.parse(data); }, function (error) { return console.log(error); }, function () { return console.log("success load edit news"); });
         });
@@ -32,8 +32,8 @@ var PmDetailComponent = (function () {
     };
     PmDetailComponent = __decorate([
         core_1.Component({
-            selector: 'pm-detail',
-            templateUrl: 'app/pm/pm-detail.component.html'
+            selector: "pm-detail",
+            templateUrl: "app/pm/pm-detail.component.html"
         }), 
         __metadata('design:paramtypes', [pm_service_1.PmService, router_1.ActivatedRoute])
     ], PmDetailComponent);

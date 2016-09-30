@@ -5,5 +5,6 @@ function __export(m) {
 __export(require("./pm.model"));
 __export(require("./pm-list.component"));
 __export(require("./pm-detail.component"));
+__export(require("./pm-edit.component"));
 __export(require("./pm.service"));
 //# sourceMappingURL=index.js.map

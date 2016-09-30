@@ -8,8 +8,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var router_1 = require('@angular/router');
+var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
 var auth_service_1 = require("../auth/auth.service");
 var SecuredDirective = (function () {
     function SecuredDirective(router, elementRef, authService) {
@@ -27,7 +27,7 @@ var SecuredDirective = (function () {
         //    console.log(1);f
     };
     SecuredDirective.prototype.ngOnInit = function () {
-        //how to get access to this private variable?
+        // how to get access to this private variable?
         //   console.log(this.routerLink._navigationInstruction.component.routeData.data);
         this.checkRights();
     };
@@ -45,7 +45,7 @@ var SecuredDirective = (function () {
         }
     };
     __decorate([
-        core_1.HostBinding('hidden'), 
+        core_1.HostBinding("hidden"), 
         __metadata('design:type', Boolean)
     ], SecuredDirective.prototype, "hideRouterLink", void 0);
     __decorate([
@@ -54,7 +54,7 @@ var SecuredDirective = (function () {
     ], SecuredDirective.prototype, "secured", void 0);
     SecuredDirective = __decorate([
         core_1.Directive({
-            selector: '[secured]'
+            selector: "[secured]"
         }), 
         __metadata('design:paramtypes', [router_1.Router, core_1.ElementRef, auth_service_1.AuthService])
     ], SecuredDirective);

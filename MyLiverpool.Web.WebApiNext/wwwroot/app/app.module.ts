@@ -16,17 +16,15 @@ import { NewsEditComponent } from "./news/news-edit/news-edit.component";
 import { NewsCategoryService } from "./newsCategory/shared/newsCategory.service";
 import { AccountSigninComponent } from "./account/account-signin.component";
 import { HttpWrapper } from "./shared/httpWrapper";
-import { AuthGuard } from "./auth/auth-guard.service";
-import { AuthService } from "./auth/auth.service";
-import { LocalStorageMine } from "./shared/localStorage";
-import { SecuredDirective } from "./shared/secured.directive";
+import { AuthGuard, AuthService } from "./auth/index";
+import { LocalStorageMine, SecuredDirective } from "./shared/index";
 import { AccountService } from "./account/account.service";
 import { NewsCategoryListComponent } from "./newsCategory/newsCategory-list.component";
 import { NewsCategoryEditComponent } from "./newsCategory/newsCategory-edit.component";
 import { UserDetailComponent } from "./user/user-detail.component";
 import { UserService } from "./user/user.service";
 import { UserListComponent } from "./user/user-list.component";
-import { PmListComponent, PmDetailComponent, PmService } from "./pm/index";
+import { PmListComponent, PmDetailComponent, PmEditComponent, PmService } from "./pm/index";
 
 @NgModule({
     imports: [
@@ -46,6 +44,7 @@ import { PmListComponent, PmDetailComponent, PmService } from "./pm/index";
         NewsDetailComponent,
         NewsEditComponent,
         PmDetailComponent,
+        PmEditComponent,
         PmListComponent,
         SecuredDirective,
         UserDetailComponent,

@@ -8,8 +8,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var http_1 = require('@angular/http');
+var core_1 = require("@angular/core");
+var http_1 = require("@angular/http");
 var localStorage_1 = require("./localStorage");
 var HttpWrapper = (function () {
     function HttpWrapper(http, localStorage) {
@@ -18,12 +18,10 @@ var HttpWrapper = (function () {
     }
     HttpWrapper.prototype.updateHeaders = function () {
         var headers = new http_1.Headers();
-        headers.append('Content-type', 'application/json');
-        if (this.localStorage.get('token_type')) {
-            headers.append('Authorization', this.localStorage.getObject('token_type') + ' ' + this.localStorage.getObject('access_token'));
+        headers.append("Content-type", "application/json");
+        if (this.localStorage.get("token_type")) {
+            headers.append("Authorization", this.localStorage.getObject("token_type") + " " + this.localStorage.getObject("access_token"));
         }
-        //console.log("update headers");
-        //console.log(headers);
         return headers;
     };
     HttpWrapper.prototype.get = function (url) {
@@ -31,7 +29,6 @@ var HttpWrapper = (function () {
             headers: this.updateHeaders(),
             body: ""
         });
-        //console.log(result);
         return result;
     };
     HttpWrapper.prototype.post = function (url, data) {

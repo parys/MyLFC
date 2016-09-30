@@ -8,9 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-require('rxjs/add/operator/map');
-var app_constants_1 = require('../app.constants');
+var core_1 = require("@angular/core");
+require("rxjs/add/operator/map");
+var app_constants_1 = require("../app.constants");
 var httpWrapper_1 = require("../shared/httpWrapper");
 var PmService = (function () {
     function PmService(http, configuration) {
@@ -35,7 +35,7 @@ var PmService = (function () {
         this.Delete = function (id) {
             return _this.http.delete(_this.actionUrl + id).map(function (response) { return response.json(); });
         };
-        this.actionUrl = configuration.ServerWithApiUrl + 'pm/';
+        this.actionUrl = configuration.ServerWithApiUrl + "pm/";
     }
     PmService.prototype.extractData = function (res) {
         var body = res.json();

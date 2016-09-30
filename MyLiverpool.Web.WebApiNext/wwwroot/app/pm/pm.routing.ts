@@ -1,8 +1,9 @@
 ﻿import { Routes } from "@angular/router";
-import { PmListComponent } from "./pm-list.component";
-import { PmDetailComponent } from "./pm-detail.component";
+import { PmListComponent, PmDetailComponent, PmEditComponent } from "./index";
+import {  } from "./pm-detail.component";
 
 export const pmRoutes: Routes = [
     { path: "pm", component: PmListComponent },
-    { path: "pm/:id", component: PmDetailComponent }
+    { path: "pm/:id", component: PmDetailComponent },
+    { path: "pm/:id/edit", component: PmEditComponent }
 ];

@@ -1,6 +1,5 @@
-﻿import {Injectable} from '@angular/core';
-import {Http, Headers} from '@angular/http';
-import {AuthService} from "../auth/auth.service";
+﻿import { Injectable } from "@angular/core";
+import { Http, Headers } from "@angular/http";
 import { LocalStorageMine } from "./localStorage";
 
 @Injectable()
@@ -10,13 +9,11 @@ export class HttpWrapper {
 
     updateHeaders(): Headers {
         let headers = new Headers();
-        headers.append('Content-type', 'application/json');
-        if (this.localStorage.get('token_type')) {
-            headers.append('Authorization',
-                this.localStorage.getObject('token_type') + ' ' + this.localStorage.getObject('access_token'));
+        headers.append("Content-type", "application/json");
+        if (this.localStorage.get("token_type")) {
+            headers.append("Authorization",
+                this.localStorage.getObject("token_type") + " " + this.localStorage.getObject("access_token"));
         }
-        //console.log("update headers");
-        //console.log(headers);
         return headers;
     }
 
@@ -25,7 +22,6 @@ export class HttpWrapper {
             headers: this.updateHeaders(),
             body: ""
         });
-        //console.log(result);
         return result;
     }
 

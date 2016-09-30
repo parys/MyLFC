@@ -24,17 +24,15 @@ var news_edit_component_1 = require("./news/news-edit/news-edit.component");
 var newsCategory_service_1 = require("./newsCategory/shared/newsCategory.service");
 var account_signin_component_1 = require("./account/account-signin.component");
 var httpWrapper_1 = require("./shared/httpWrapper");
-var auth_guard_service_1 = require("./auth/auth-guard.service");
-var auth_service_1 = require("./auth/auth.service");
-var localStorage_1 = require("./shared/localStorage");
-var secured_directive_1 = require("./shared/secured.directive");
+var index_1 = require("./auth/index");
+var index_2 = require("./shared/index");
 var account_service_1 = require("./account/account.service");
 var newsCategory_list_component_1 = require("./newsCategory/newsCategory-list.component");
 var newsCategory_edit_component_1 = require("./newsCategory/newsCategory-edit.component");
 var user_detail_component_1 = require("./user/user-detail.component");
 var user_service_1 = require("./user/user.service");
 var user_list_component_1 = require("./user/user-list.component");
-var index_1 = require("./pm/index");
+var index_3 = require("./pm/index");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -56,23 +54,24 @@ var AppModule = (function () {
                 news_list_component_1.NewsListComponent,
                 news_detail_component_1.NewsDetailComponent,
                 news_edit_component_1.NewsEditComponent,
-                index_1.PmDetailComponent,
-                index_1.PmListComponent,
-                secured_directive_1.SecuredDirective,
+                index_3.PmDetailComponent,
+                index_3.PmEditComponent,
+                index_3.PmListComponent,
+                index_2.SecuredDirective,
                 user_detail_component_1.UserDetailComponent,
                 user_list_component_1.UserListComponent],
             bootstrap: [app_component_1.AppComponent],
             providers: [
                 account_service_1.AccountService,
                 app_routes_1.appRoutingProviders,
-                auth_guard_service_1.AuthGuard,
-                auth_service_1.AuthService,
+                index_1.AuthGuard,
+                index_1.AuthService,
                 app_constants_1.Configuration,
                 httpWrapper_1.HttpWrapper,
-                { provide: localStorage_1.LocalStorageMine, useClass: localStorage_1.LocalStorageMine },
+                { provide: index_2.LocalStorageMine, useClass: index_2.LocalStorageMine },
                 news_service_1.NewsService,
                 newsCategory_service_1.NewsCategoryService,
-                index_1.PmService,
+                index_3.PmService,
                 user_service_1.UserService
             ]
         }), 

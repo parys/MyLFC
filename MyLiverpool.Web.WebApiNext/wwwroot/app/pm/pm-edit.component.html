@@ -1,1 +1,38 @@
-﻿
+﻿<form class="form-horizontal col-md-12" role="form" name="writePm"  [formGroup]="editForm" (ngSubmit)="onSubmit()">
+    <h2>Написать сообщение</h2>
+    <div class="form-group">
+        <label class="control-label col-md-2">Получатель</label>
+        <div class="col-md-10">
+            <p class="text-danger col-md-offset-2" ng-if="vm.errorMessage">
+                <i ng-bind="vm.errorMessage"></i>
+            </p>
+           <!-- <autocomplete ng-model="vm.message.receiverUserName" attr-placeholder="Введите логин..." click-activation="true" data="vm.userNames" on-type="vm.updateUserNames"></autocomplete>-->
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2">Заголовок</label>
+        <div class="col-md-10">
+            <input class="form-control" name="title" ng-model="vm.message.title" validation="max_len:30|required" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2">Сообщение</label>
+        <div class="col-md-10">
+            <textarea class="form-control" name="message" rows="4" ng-model="vm.message.message" validation="max_len:500|required"> </textarea>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button ng-disabled="writePm.$invalid" type="submit" ng-click="vm.send()" class="btn btn-default">Отправить</button>
+        </div>
+    </div>
+</form>
+
+
+
+
+
+

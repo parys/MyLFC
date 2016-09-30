@@ -5,8 +5,8 @@ import { Pm } from "./pm.model";
 import { PmService } from "./pm.service";
 
 @Component({
-    selector: 'pm-detail',
-    templateUrl: 'app/pm/pm-detail.component.html'
+    selector: "pm-detail",
+    templateUrl: "app/pm/pm-detail.component.html"
 })
 
 export class PmDetailComponent implements OnInit, OnDestroy {
@@ -18,7 +18,7 @@ export class PmDetailComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.sub = this.route.params.subscribe(params => {
-            let id = +params['id'];
+            let id = +params["id"];
             this.pmService.GetSingle(id)
                 .subscribe(data => this.parse(data),
                 error => console.log(error),

@@ -2,6 +2,7 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -197,7 +198,6 @@ namespace MyLiverpool.Web.WebApiNext
             services.AddTransient<IForumSectionService, ForumSectionService>();
             services.AddTransient<IForumSubsectionService, ForumSubsectionService>();
             services.AddTransient<IForumThemeService, ForumThemeService>();
-            services.AddSingleton<IHostingEnvironment>(Env);
             services.AddTransient<IMatchService, MatchService>();
             services.AddTransient<IMaterialCategoryService, MaterialCategoryService>();
             services.AddTransient<IMaterialCommentService, MaterialCommentService>();
@@ -211,6 +211,7 @@ namespace MyLiverpool.Web.WebApiNext
             services.AddTransient<IWishService, WishService>();
             services.AddSingleton<IMapper>(Config.CreateMapper());
             RegisterRepositories(services);
+            RegisterCoreHelpers(services);
         }
 
         private void RegisterRepositories(IServiceCollection services)
@@ -218,6 +219,13 @@ namespace MyLiverpool.Web.WebApiNext
             services.AddTransient<IPmRepository, PmRepository>();
             services.AddScoped<IMaterialRepository, MaterialRepository>();
             services.AddTransient<IUserRepository, UserRepository>();
+        }
+
+
+        private void RegisterCoreHelpers(IServiceCollection services)
+        {
+            services.AddSingleton<IHostingEnvironment>(Env);
+            services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
         }
     }
 }

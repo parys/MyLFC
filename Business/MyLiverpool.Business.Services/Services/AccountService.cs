@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.DtoNext;
@@ -16,12 +17,14 @@ namespace MyLiverpool.Business.Services.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly IEmailSender _messageService;
+        private readonly IHttpContextAccessor _accessor;
 
-        public AccountService(IUnitOfWork unitOfWork, IMapper mapper, IEmailSender messageService)
+        public AccountService(IUnitOfWork unitOfWork, IMapper mapper, IEmailSender messageService, IHttpContextAccessor accessor)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _messageService = messageService;
+            _accessor = accessor;
         }
 
         public async Task<bool> ChangePasswordAsync(int userId, ChangePasswordDto dto)
@@ -114,7 +117,6 @@ namespace MyLiverpool.Business.Services.Services
 
         public async Task<IdentityResult> UpdateLastModifiedAsync(int userId)
         {
-           // var c = HttpContext.User;
             var user = await _unitOfWork.UserManager.FindByIdAsync(userId.ToString());
             user.LastModified = DateTime.Now;
             var result = await _unitOfWork.UserManager.UpdateAsync(user);
@@ -128,22 +130,24 @@ namespace MyLiverpool.Business.Services.Services
         #region private
         private async Task<string> GetConfirmEmailBody(int userId)
         {
-           // var host = HttpContext.Current.Request.Url.Authority;
-           // string code = await _unitOfWork.UserManager.GenerateEmailConfirmationTokenAsync(userId);
-           // code = code.Base64ForUrlEncode();
+            var host = _accessor.HttpContext.Request.Host;
+            var user = await _unitOfWork.UserManager.FindByIdAsync(userId.ToString());
+            string code = await _unitOfWork.UserManager.GenerateEmailConfirmationTokenAsync(user);
+            code = code.Base64ForUrlEncode();
             
-          //  var callbackUrl = $"http://{host}/api/account/confirmEmail?userId={userId}&code={code}";
-            return "";//string.Format(EmailMessages.EmailConfirmationMessage, callbackUrl);
+            var callbackUrl = $"http://{host}/api/account/confirmEmail?userId={userId}&code={code}";
+            return $"Пожалуйста, подтвердите ваш аккаунт, кликнув <a href=\"{callbackUrl}\">здесь</a>.";
         }
 
         private async Task<string> GetForgotPasswordBody(int userId)
         {
-           // var host = HttpContext.Current.Request.Url.Authority;
-         //   string code = await _unitOfWork.UserManager.GeneratePasswordResetTokenAsync(userId);
-         //   code = code.Base64ForUrlEncode();
+            var host = _accessor.HttpContext.Request.Host;
+            var user = await _unitOfWork.UserManager.FindByIdAsync(userId.ToString());
+            string code = await _unitOfWork.UserManager.GeneratePasswordResetTokenAsync(user);
+            code = code.Base64ForUrlEncode();
 
-         //   var callbackUrl = $"http://{host}/api/account/resetPassword?userId={userId}&code={code}";
-            return "";//string.Format(EmailMessages.ForgotPasswordMessage, callbackUrl);
+            var callbackUrl = $"http://{host}/api/account/resetPassword?userId={userId}&code={code}";
+            return $"Пожалуйста, сбросьте ваш пароль, кликнув <a href = \"{callbackUrl}\"> здесь </a>.";
         }
 
         private async Task SendConfirmEmailAsync(string email, int userId)

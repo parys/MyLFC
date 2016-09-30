@@ -1,10 +1,10 @@
-﻿import { Injectable } from '@angular/core';
-import { Response } from '@angular/http';
-import 'rxjs/add/operator/map';
-import { Observable } from 'rxjs/Observable';
-import { Configuration } from '../app.constants';
+﻿import { Injectable } from "@angular/core";
+import { Response } from "@angular/http";
+import "rxjs/add/operator/map";
+import { Observable } from "rxjs/Observable";
+import { Configuration } from "../app.constants";
 import { HttpWrapper } from "../shared/httpWrapper";
-import { Pm } from "./pm.model";
+import { Pm } from "./index";
 
 
 @Injectable()
@@ -13,7 +13,7 @@ export class PmService {
     private actionUrl: string;
 
     constructor(private http: HttpWrapper, private configuration: Configuration) {
-        this.actionUrl = configuration.ServerWithApiUrl + 'pm/';
+        this.actionUrl = configuration.ServerWithApiUrl + "pm/";
     }
 
     public GetAll = (): Observable<Pm[]> => {

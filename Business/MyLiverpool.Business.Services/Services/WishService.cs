@@ -17,13 +17,13 @@ namespace MyLiverpool.Business.Services.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-      //  private readonly IIdentityMessageService _emailService;
+        private readonly IEmailSender _emailService;
 
-        public WishService(IUnitOfWork unitOfWork, IMapper mapper)//, IIdentityMessageService emailService)
+        public WishService(IUnitOfWork unitOfWork, IMapper mapper, IEmailSender emailService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
-          //  _emailService = emailService;
+            _emailService = emailService;
         }
 
         public async Task<WishDto> CreateAsync(WishDto dto)
@@ -67,12 +67,8 @@ namespace MyLiverpool.Business.Services.Services
 
         private async Task SendAlertAsync()
         {
-            //await _emailService.SendAsync(new IdentityMessage()
-            //{
-            //    Destination = ConfigurationManager<>.AppSettings["emailWishCreation"],
-            //    Body = "Создано новое пожелание",
-            //    Subject = "Новое пожелание"
-            //});
+            var addressMine = "";
+            await _emailService.SendEmailAsync(addressMine, "Новое пожелание", "Создано новое пожелание");
         }
     }
 }

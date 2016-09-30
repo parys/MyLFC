@@ -1,16 +1,16 @@
-﻿import {Directive, HostBinding, ElementRef, OnInit, Input} from '@angular/core';
-import { Router } from '@angular/router';
+﻿import {Directive, HostBinding, ElementRef, Input} from "@angular/core";
+import { Router } from "@angular/router";
 import { AuthService } from "../auth/auth.service";
 
 @Directive({
-    selector: '[secured]'
+    selector: "[secured]"
 })
 export class SecuredDirective {
-    @HostBinding('hidden')
+    @HostBinding("hidden")
     hideRouterLink: boolean;
     routerLink: any;
     @Input() secured: any;
-    
+
     routeParams: string;
 
     constructor(private router: Router, private elementRef: ElementRef, private authService: AuthService) {
@@ -27,7 +27,7 @@ export class SecuredDirective {
     }
 
     ngOnInit() {
-        //how to get access to this private variable?
+        // how to get access to this private variable?
      //   console.log(this.routerLink._navigationInstruction.component.routeData.data);
         this.checkRights();
     }
