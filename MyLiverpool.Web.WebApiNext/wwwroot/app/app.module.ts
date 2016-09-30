@@ -1,7 +1,8 @@
-import { NgModule }      from "@angular/core";
-import { BrowserModule } from "@angular/platform-browser";
-import { FormsModule, ReactiveFormsModule   } from "@angular/forms";
+import { NgModule } from "@angular/core";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpModule } from "@angular/http";
+import { MaterialModule } from "@angular/material";
+import { BrowserModule } from "@angular/platform-browser";
 
 import { AppComponent }  from "./app.component";
 import { routing, appRoutingProviders } from "./app.routes";
@@ -11,7 +12,7 @@ import { Configuration } from "./app.constants";
 import { NewsDetailComponent } from "./news/news-detail/news-detail.component";
 import { AccountSignupComponent } from "./account/account-signup.component";
 import { NewsService } from "./news/shared/news.service";
-import {NewsEditComponent} from "./news/news-edit/news-edit.component";
+import { NewsEditComponent } from "./news/news-edit/news-edit.component";
 import { NewsCategoryService } from "./newsCategory/shared/newsCategory.service";
 import { AccountSigninComponent } from "./account/account-signin.component";
 import { HttpWrapper } from "./shared/httpWrapper";
@@ -22,12 +23,10 @@ import { SecuredDirective } from "./shared/secured.directive";
 import { AccountService } from "./account/account.service";
 import { NewsCategoryListComponent } from "./newsCategory/newsCategory-list.component";
 import { NewsCategoryEditComponent } from "./newsCategory/newsCategory-edit.component";
-import {UserDetailComponent} from "./user/user-detail.component";
-import {UserService} from "./user/user.service";
-import {UserListComponent} from "./user/user-list.component";
-import { PmListComponent } from "./pm/pm-list.component";
-import { PmService } from "./pm/pm.service";
-import { MaterialModule } from "@angular/material";
+import { UserDetailComponent } from "./user/user-detail.component";
+import { UserService } from "./user/user.service";
+import { UserListComponent } from "./user/user-list.component";
+import { PmListComponent, PmDetailComponent, PmService } from "./pm/index";
 
 @NgModule({
     imports: [
@@ -46,6 +45,7 @@ import { MaterialModule } from "@angular/material";
         NewsListComponent,
         NewsDetailComponent,
         NewsEditComponent,
+        PmDetailComponent,
         PmListComponent,
         SecuredDirective,
         UserDetailComponent,

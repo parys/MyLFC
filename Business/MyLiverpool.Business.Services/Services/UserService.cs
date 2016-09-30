@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
@@ -40,15 +39,6 @@ namespace MyLiverpool.Business.Services.Services
             var user = await _unitOfWork.UserManager.FindByIdAsync(userId.ToString());
             var result = await _unitOfWork.UserManager.SetLockoutEndDateAsync(user, DateTimeOffset.MinValue);
             return result == IdentityResult.Success;
-        }
-
-        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(User user, string authenticationType)
-        {
-            throw new NotImplementedException();
-            // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
-            // var userIdentity = await _unitOfWork.UserManager.Ge(user, authenticationType);
-            // Add custom user claims here
-            //   return userIdentity;
         }
         
         public async Task<UserDto> GetUserProfileDtoAsync(int id)

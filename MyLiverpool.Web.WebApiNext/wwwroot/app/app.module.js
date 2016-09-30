@@ -9,9 +9,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var platform_browser_1 = require("@angular/platform-browser");
 var forms_1 = require("@angular/forms");
 var http_1 = require("@angular/http");
+var material_1 = require("@angular/material");
+var platform_browser_1 = require("@angular/platform-browser");
 var app_component_1 = require("./app.component");
 var app_routes_1 = require("./app.routes");
 var news_list_component_1 = require("./news/news-list/news-list.component");
@@ -33,9 +34,7 @@ var newsCategory_edit_component_1 = require("./newsCategory/newsCategory-edit.co
 var user_detail_component_1 = require("./user/user-detail.component");
 var user_service_1 = require("./user/user.service");
 var user_list_component_1 = require("./user/user-list.component");
-var pm_list_component_1 = require("./pm/pm-list.component");
-var pm_service_1 = require("./pm/pm.service");
-var material_1 = require("@angular/material");
+var index_1 = require("./pm/index");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -57,7 +56,8 @@ var AppModule = (function () {
                 news_list_component_1.NewsListComponent,
                 news_detail_component_1.NewsDetailComponent,
                 news_edit_component_1.NewsEditComponent,
-                pm_list_component_1.PmListComponent,
+                index_1.PmDetailComponent,
+                index_1.PmListComponent,
                 secured_directive_1.SecuredDirective,
                 user_detail_component_1.UserDetailComponent,
                 user_list_component_1.UserListComponent],
@@ -72,7 +72,7 @@ var AppModule = (function () {
                 { provide: localStorage_1.LocalStorageMine, useClass: localStorage_1.LocalStorageMine },
                 news_service_1.NewsService,
                 newsCategory_service_1.NewsCategoryService,
-                pm_service_1.PmService,
+                index_1.PmService,
                 user_service_1.UserService
             ]
         }), 

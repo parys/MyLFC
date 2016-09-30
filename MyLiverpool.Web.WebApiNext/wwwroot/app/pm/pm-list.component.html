@@ -14,16 +14,16 @@
                             <td>Дата получения</td>
                         </tr>
                     </thead>
-                    <tbody *ngFor="let message of received">
+                    <tbody *ngFor="let message of received; let i = index">
                         <tr>
-                            <td ng-bind="$index + 1"></td>
+                            <td [textContent]="i + 1"></td>
                             <td>
-                                <a ui-sref="pm({ id: message.id })">
+                                <a [routerLink]="['/pm', message.id]">
                                     <b *ngIf="!message.isRead" [textContent]="message.title"></b>
                                     <span *ngIf="message.isRead" [textContent]="message.title"></span>
                                 </a>
                             </td>
-                            <td><a ui-sref="userInfo({id: message.senderId})" [textContent]="message.senderUserName"></a></td>
+                            <td><a [routerLink]="['/user', message.senderId]" [textContent]="message.senderUserName"></a></td>
                             <td [textContent]="message.sentTime | date:'medium'"></td>
                         </tr>
                     </tbody>
@@ -44,16 +44,16 @@
                             <td>Дата отправки</td>
                         </tr>
                     </thead>
-                    <tbody *ngFor="let message of sent">
+                    <tbody *ngFor="let message of sent; let i = index">
                         <tr>
-                            <td ng-bind="$index + 1"></td>
+                            <td [textContent]="i + 1"></td>
                             <td>
-                                <a ui-sref="pm({ id: message.id })">
+                                <a [routerLink]="['/pm', message.id]">
                                     <b *ngIf="!message.isRead" [textContent]="message.title"></b>
                                     <span *ngIf="message.isRead" [textContent]="message.title"></span>
                                 </a>
                             </td>
-                            <td><a ui-sref="userInfo({id: message.receiverId})" [textContent]="message.receiverUserName"></a></td>
+                            <td><a [routerLink]="['/user', message.receiverId]" [textContent]="message.receiverUserName"></a></td>
                             <td [textContent]="message.sentTime | date:'medium'"></td>
                         </tr>
                     </tbody>

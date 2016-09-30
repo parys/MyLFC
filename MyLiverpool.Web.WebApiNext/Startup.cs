@@ -201,17 +201,23 @@ namespace MyLiverpool.Web.WebApiNext
             services.AddTransient<IMatchService, MatchService>();
             services.AddTransient<IMaterialCategoryService, MaterialCategoryService>();
             services.AddTransient<IMaterialCommentService, MaterialCommentService>();
-            services.AddScoped<IMaterialRepository, MaterialRepository>();
             services.AddTransient<IMaterialService, MaterialService>();
             services.AddTransient<IPmService, PmService>();
             services.AddTransient<IRoleService, RoleService>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
             services.AddTransient<IUploadService, UploadService>();
             services.AddTransient<IUserService, UserService>();
-            services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddTransient<IWishService, WishService>();
             services.AddSingleton<IMapper>(Config.CreateMapper());
+            RegisterRepositories(services);
+        }
+
+        private void RegisterRepositories(IServiceCollection services)
+        {
+            services.AddTransient<IPmRepository, PmRepository>();
+            services.AddScoped<IMaterialRepository, MaterialRepository>();
+            services.AddTransient<IUserRepository, UserRepository>();
         }
     }
 }

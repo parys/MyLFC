@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using MyLiverpool.Business.DTO;
@@ -13,8 +12,6 @@ namespace MyLiverpool.Business.Contracts
         Task<bool> BanUser(int userId, int banDayCount);
 
         Task<bool> UnbanUser(int userId);
-
-        Task<ClaimsIdentity> GenerateUserIdentityAsync(User user, string authenticationType);
         
         Task<UserDto> GetUserProfileDtoAsync(int id);
 

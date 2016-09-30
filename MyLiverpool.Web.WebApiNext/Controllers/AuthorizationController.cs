@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
@@ -72,17 +70,20 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 }
 
                 var identity = await _userManager.CreateIdentityAsync(user, request.GetScopes());
-              //  var identity = await _userManager.CreateIdentityAsync(user, new List<string>(){ OpenIdConnectConstants.Scopes.Address, OpenIddictConstants.Scopes.Roles});
 
                 // Create a new authentication ticket holding the user identity.
                 var ticket = new AuthenticationTicket(
                     new ClaimsPrincipal(identity),
-                    new AuthenticationProperties(),
+                    new AuthenticationProperties()
+                    {
+                        AllowRefresh = true,
+                        ExpiresUtc = DateTimeOffset.Now.AddDays(14),
+                        IsPersistent = true
+                    },
                     OpenIdConnectServerDefaults.AuthenticationScheme);
 
                 ticket.SetResources(request.GetResources());
                 ticket.SetScopes(request.GetScopes());
-               // ticket.SetScopes(OpenIddictConstants.Scopes.Roles);
 
                 return SignIn(ticket.Principal, ticket.Properties, ticket.AuthenticationScheme);
             }
