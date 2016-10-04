@@ -33,6 +33,7 @@ var user_detail_component_1 = require("./user/user-detail.component");
 var user_service_1 = require("./user/user.service");
 var user_list_component_1 = require("./user/user-list.component");
 var index_3 = require("./pm/index");
+var ng2_auto_complete_1 = require("ng2-auto-complete");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -43,6 +44,7 @@ var AppModule = (function () {
                 forms_1.FormsModule,
                 http_1.HttpModule,
                 material_1.MaterialModule.forRoot(),
+                ng2_auto_complete_1.Ng2AutoCompleteModule,
                 forms_1.ReactiveFormsModule,
                 app_routes_1.routing],
             declarations: [

@@ -1,4 +1,4 @@
-﻿'use strict';
+﻿"use strict";
 
 module.exports = {
     rootJsFolder: "./wwwroot/js/",
@@ -12,7 +12,8 @@ module.exports = {
             "node_modules/systemjs/dist/system.src.js",
             "node_modules/jquery/dist/jquery.js",
             "node_modules/bootstrap/dist/js/bootstrap.js",
-            "node_modules/ng2-translate/bundles/ng2-translate.js"
+            "node_modules/ng2-translate/bundles/ng2-translate.js",
+            "node_modules/ng2-auto-complete/dist/ng2-auto-complete.umd.js"
         ],
 
         angularRC: "node_modules/@angular/**/*.js",

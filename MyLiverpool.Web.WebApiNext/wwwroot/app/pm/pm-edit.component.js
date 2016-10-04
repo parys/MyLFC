@@ -19,18 +19,26 @@ var PmEditComponent = (function () {
         this.formBuilder = formBuilder;
         this.route = route;
         this.id = 0;
+        this.mySource = ["ar1", "ar2", "3dsa"];
     }
     PmEditComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.editForm = this.formBuilder.group({
-            'title': [
+            'receiver': [
                 "", forms_1.Validators.compose([
                     forms_1.Validators.required
                 ])
             ],
+            'title': [
+                "", forms_1.Validators.compose([
+                    forms_1.Validators.required,
+                    forms_1.Validators.maxLength(30)
+                ])
+            ],
             'message': [
                 "", forms_1.Validators.compose([
-                    forms_1.Validators.required
+                    forms_1.Validators.required,
+                    forms_1.Validators.maxLength(500)
                 ])
             ]
         });
@@ -48,7 +56,7 @@ var PmEditComponent = (function () {
     };
     PmEditComponent.prototype.onSubmit = function () {
         var model = new pm_model_1.Pm();
-        model.receiverUserName = "admin"; // todo bagg
+        model.receiverUserName = this.editForm.controls["receiver"].value; // todo bagg
         model.title = this.editForm.controls["title"].value;
         model.message = this.editForm.controls["message"].value;
         var res;

@@ -25,6 +25,7 @@ import { UserDetailComponent } from "./user/user-detail.component";
 import { UserService } from "./user/user.service";
 import { UserListComponent } from "./user/user-list.component";
 import { PmListComponent, PmDetailComponent, PmEditComponent, PmService } from "./pm/index";
+import { Ng2AutoCompleteModule } from "ng2-auto-complete";
 
 @NgModule({
     imports: [
@@ -32,6 +33,7 @@ import { PmListComponent, PmDetailComponent, PmEditComponent, PmService } from "
         FormsModule,
         HttpModule,
         MaterialModule.forRoot(),
+        Ng2AutoCompleteModule,
         ReactiveFormsModule,
         routing],
     declarations: [

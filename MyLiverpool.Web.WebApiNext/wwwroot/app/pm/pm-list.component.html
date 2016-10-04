@@ -7,25 +7,25 @@
             <template md-tab-content>
                 <table class="table">
                     <thead>
-                        <tr>
-                            <td>#</td>
-                            <td>Заголовок</td>
-                            <td>Отправитель</td>
-                            <td>Дата получения</td>
-                        </tr>
+                    <tr>
+                        <td>#</td>
+                        <td>Заголовок</td>
+                        <td>Отправитель</td>
+                        <td>Дата получения</td>
+                    </tr>
                     </thead>
                     <tbody *ngFor="let message of received; let i = index">
-                        <tr>
-                            <td [textContent]="i + 1"></td>
-                            <td>
-                                <a [routerLink]="['/pm', message.id]">
-                                    <b *ngIf="!message.isRead" [textContent]="message.title"></b>
-                                    <span *ngIf="message.isRead" [textContent]="message.title"></span>
-                                </a>
-                            </td>
-                            <td><a [routerLink]="['/user', message.senderId]" [textContent]="message.senderUserName"></a></td>
-                            <td [textContent]="message.sentTime | date:'medium'"></td>
-                        </tr>
+                    <tr>
+                        <td [textContent]="i + 1"></td>
+                        <td>
+                            <a [routerLink]="['/pm', message.id]">
+                                <b *ngIf="!message.isRead" [textContent]="message.title"></b>
+                                <span *ngIf="message.isRead" [textContent]="message.title"></span>
+                            </a>
+                        </td>
+                        <td><a [routerLink]="['/user', message.senderId]" [textContent]="message.senderUserName"></a></td>
+                        <td [textContent]="message.sentTime | date:'medium'"></td>
+                    </tr>
                     </tbody>
                 </table>
             </template>
@@ -37,35 +37,35 @@
             <template md-tab-content>
                 <table class="table">
                     <thead>
-                        <tr>
-                            <td>#</td>
-                            <td>Заголовок</td>
-                            <td>Получатель</td>
-                            <td>Дата отправки</td>
-                        </tr>
+                    <tr>
+                        <td>#</td>
+                        <td>Заголовок</td>
+                        <td>Получатель</td>
+                        <td>Дата отправки</td>
+                    </tr>
                     </thead>
                     <tbody *ngFor="let message of sent; let i = index">
-                        <tr>
-                            <td [textContent]="i + 1"></td>
-                            <td>
-                                <a [routerLink]="['/pm', message.id]">
-                                    <b *ngIf="!message.isRead" [textContent]="message.title"></b>
-                                    <span *ngIf="message.isRead" [textContent]="message.title"></span>
-                                </a>
-                            </td>
-                            <td><a [routerLink]="['/user', message.receiverId]" [textContent]="message.receiverUserName"></a></td>
-                            <td [textContent]="message.sentTime | date:'medium'"></td>
-                        </tr>
+                    <tr>
+                        <td [textContent]="i + 1"></td>
+                        <td>
+                            <a [routerLink]="['/pm', message.id]">
+                                <b *ngIf="!message.isRead" [textContent]="message.title"></b>
+                                <span *ngIf="message.isRead" [textContent]="message.title"></span>
+                            </a>
+                        </td>
+                        <td><a [routerLink]="['/user', message.receiverId]" [textContent]="message.receiverUserName"></a></td>
+                        <td [textContent]="message.sentTime | date:'medium'"></td>
+                    </tr>
                     </tbody>
                 </table>
             </template>
         </md-tab>
-        <md-tab>
-            <a ui-sref="wpm">
-                <template md-tab-label>
+        <<md-tab>
+            <template md-tab-label>
+                <a [routerLink]="['/pm', 0, 'edit']">
                     Написать сообщеньку
-                </template>
-            </a>
+                </a>
+            </template>
         </md-tab>
     </md-tab-group>
 </div>

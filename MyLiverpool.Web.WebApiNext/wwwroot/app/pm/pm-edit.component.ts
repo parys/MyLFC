@@ -15,20 +15,28 @@ export class PmEditComponent implements OnInit, OnDestroy {
     editForm: FormGroup;
     id: number = 0;
     private sub: Subscription;
+    mySource = [ "ar1", "ar2", "3dsa"];
 
     constructor(private service: PmService, private formBuilder: FormBuilder, private route: ActivatedRoute) {
     }
 
     ngOnInit() {
         this.editForm = this.formBuilder.group({
-            'title': [
+            'receiver': [
                 "", Validators.compose([
                     Validators.required
                 ])
             ],
+            'title': [
+                "", Validators.compose([
+                    Validators.required,
+                    Validators.maxLength(30)
+                ])
+            ],
             'message': [
                 "", Validators.compose([
-                    Validators.required
+                    Validators.required,
+                    Validators.maxLength(500)
                 ])
             ]
         });
@@ -50,7 +58,7 @@ export class PmEditComponent implements OnInit, OnDestroy {
 
     onSubmit(): void {
         let model = new Pm();
-        model.receiverUserName = "admin";                      // todo bagg
+        model.receiverUserName = this.editForm.controls["receiver"].value;                      // todo bagg
         model.title = this.editForm.controls["title"].value;
         model.message = this.editForm.controls["message"].value;
 
