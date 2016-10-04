@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using MyLiverpool.Business.Contracts;
+using MyLiverpool.Business.DtoNext;
 using MyLiverpool.Business.DTO;
 using MyLiverpool.Common.Utilities;
 using MyLiverpool.Data.Entities;
@@ -98,13 +100,21 @@ namespace MyLiverpool.Business.Services.Services
 
         public async Task<IEnumerable<string>> GetUserNamesAsync(string typed)
         {
-            IEnumerable<string> userNames = new List<string>();
             if (string.IsNullOrEmpty(typed))
             {
                 typed = "";
             }
             var users = await _unitOfWork.UserRepository.GetAsync(x => x.UserName.Contains(typed));
             return users.Select(x => x.UserName).Take(GlobalConstants.CountLoginsForAutocomlete);
+        }
+        public async Task<IEnumerable<UsernameDto>> GetUserNamesAsync1(string typed)
+        {
+            if (string.IsNullOrEmpty(typed))
+            {
+                typed = "";
+            }
+            var users = await _unitOfWork.UserRepository.GetAsync(x => x.UserName.Contains(typed));
+            return users.Select(x => new UsernameDto() { Id = x.Id, Username = x.UserName} ).Take(GlobalConstants.CountLoginsForAutocomlete);
         }
 
         public async Task<string> GetPhotoPathAsync(int userId)

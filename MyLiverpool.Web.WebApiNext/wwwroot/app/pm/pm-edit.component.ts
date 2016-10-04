@@ -15,7 +15,8 @@ export class PmEditComponent implements OnInit, OnDestroy {
     editForm: FormGroup;
     id: number = 0;
     private sub: Subscription;
-    mySource = [ "ar1", "ar2", "3dsa"];
+    mySource = ["ar1", "ar2", "3dsa"];
+    users = `/api/user/GetUserNames?typed=:keyword`;
 
     constructor(private service: PmService, private formBuilder: FormBuilder, private route: ActivatedRoute) {
     }
@@ -54,6 +55,10 @@ export class PmEditComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         this.sub.unsubscribe();
+    }
+
+    myCallback(pm: any) {
+        console.log(pm);
     }
 
     onSubmit(): void {

@@ -20,6 +20,7 @@ var PmEditComponent = (function () {
         this.route = route;
         this.id = 0;
         this.mySource = ["ar1", "ar2", "3dsa"];
+        this.users = "/api/user/GetUserNames?typed=:keyword";
     }
     PmEditComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -53,6 +54,9 @@ var PmEditComponent = (function () {
     };
     PmEditComponent.prototype.ngOnDestroy = function () {
         this.sub.unsubscribe();
+    };
+    PmEditComponent.prototype.myCallback = function (pm) {
+        console.log(pm);
     };
     PmEditComponent.prototype.onSubmit = function () {
         var model = new pm_model_1.Pm();

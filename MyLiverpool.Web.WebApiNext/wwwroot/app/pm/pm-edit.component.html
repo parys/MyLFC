@@ -4,11 +4,11 @@
         <label class="control-label col-md-2">Получатель</label>
         <div class="col-md-10">
             <!--p class="text-danger col-md-offset-2" ng-if="vm.errorMessage">
-                <i ng-bind="vm.errorMessage"></i>
+            <i ng-bind="vm.errorMessage"></i>
             </!p-->
-            <input class="form-control" auto-complete name="receiver" [formControl]="editForm.controls['receiver']" [source]="mySource" min-chars="2"/>
-           <!-- <autocomplete ng-model="vm.message.receiverUserName" attr-placeholder="Введите логин..." click-activation="true" data="vm.userNames" on-type="vm.updateUserNames"></autocomplete>-->
+            <input type="text" class="form-control" (value-changed)="myCallback($event)" auto-complete name="receiver" [formControl]="editForm.controls['receiver']" [source]="users" min-chars="2" attr-placeholder="Введите логин..."/>
         </div>
+        {{editForm ? editForm.controls['receiver'].value : "" | json}}
     </div>
 
     <div class="form-group">

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using MyLiverpool.Business.DtoNext;
 using MyLiverpool.Business.DTO;
 using MyLiverpool.Common.Utilities;
 using MyLiverpool.Data.Entities;
@@ -20,6 +21,8 @@ namespace MyLiverpool.Business.Contracts
         Task<bool> EditRoleGroupAsync(int userId, int roleGroupId);
 
         Task<IEnumerable<string>> GetUserNamesAsync(string typed);
+
+        Task<IEnumerable<UsernameDto>> GetUserNamesAsync1(string typed);
 
         Task<string> GetPhotoPathAsync(int userId);
 

@@ -558,6 +558,7 @@
 /// <reference path="js/@angular/router/testing/router_testing_module.js" />
 /// <reference path="js/bootstrap.js" />
 /// <reference path="js/jquery.js" />
+/// <reference path="js/ng2-auto-complete.umd.js" />
 /// <reference path="js/Reflect.js" />
 /// <reference path="js/rxjs/add/observable/bindCallback.js" />
 /// <reference path="js/rxjs/add/observable/bindNodeCallback.js" />

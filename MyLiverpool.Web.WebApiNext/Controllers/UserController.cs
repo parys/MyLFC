@@ -54,12 +54,13 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
 
         [Route("GetUserNames")]
         [HttpGet]
-        [Authorize]
+        [AllowAnonymous]
         public async Task<IActionResult> GetUserNames(string typed)
         {
-            var result = await _userService.GetUserNamesAsync(typed);
+          //  var result = await _userService.GetUserNamesAsync(typed);
+            var result = await _userService.GetUserNamesAsync1(typed);
             var userName = User.Identity.Name;
-            result = result.Where(x => x != userName);
+            result = result.Where(x => x.Username != userName);
             return Ok(result);
         }
 
