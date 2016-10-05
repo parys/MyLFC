@@ -16,9 +16,9 @@ export class PmEditComponent implements OnInit, OnDestroy {
     id: number = 0;
     private sub: Subscription;
     mySource = ["ar1", "ar2", "3dsa"];
-    users = `/api/user/GetUserNames?typed=:keyword`;
+    users = "/api/user/GetUserNames?typed=:keyword";
 
-    constructor(private service: PmService, private formBuilder: FormBuilder, private route: ActivatedRoute) {
+    constructor(private service: PmService, private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router) {
     }
 
     ngOnInit() {
@@ -57,25 +57,22 @@ export class PmEditComponent implements OnInit, OnDestroy {
         this.sub.unsubscribe();
     }
 
-    myCallback(pm: any) {
-        console.log(pm);
+    updateUsername(user: any) {
+        if (user) {
+            this.editForm.patchValue({ receiver: user.id });
+        }
     }
 
     onSubmit(): void {
         let model = new Pm();
-        model.receiverUserName = this.editForm.controls["receiver"].value;                      // todo bagg
+        model.receiverId = this.editForm.controls["receiver"].value;
         model.title = this.editForm.controls["title"].value;
         model.message = this.editForm.controls["message"].value;
 
         let res;
-        if (this.id > 0) {
-            let result = this.service.Update(this.id, model).subscribe(data => res = data);
-        } else {
-            let result = this.service.Create(model).subscribe(data => res = data);
-        }
-        if (res !== null) {
+        let result = this.service.Create(model).subscribe(data => res = data);
 
-        }
+        this.router.navigate(["/pm"]);
 
     }
 }

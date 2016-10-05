@@ -1,5 +1,4 @@
 ﻿import { Injectable } from "@angular/core";
-import { Response } from "@angular/http";
 import "rxjs/add/operator/map";
 import { Observable } from "rxjs/Observable";
 import { Configuration } from "../app.constants";
@@ -25,7 +24,7 @@ export class PmService {
     };
 
     public Create = (item: Pm): Observable<Pm> => {
-        var toAdd = JSON.stringify({ ItemName: item });
+       // var toAdd = JSON.stringify({ ItemName: item });
         return this.http.post(this.actionUrl, JSON.stringify(item)).map(res => res.json());
     };
 
@@ -38,9 +37,4 @@ export class PmService {
     public Delete = (id: number): Observable<boolean> => {
         return this.http.delete(this.actionUrl + id).map(response => response.json());
     };
-
-    private extractData(res: Response) {
-        let body = res.json();
-        return body.data || {};
-    }
 }

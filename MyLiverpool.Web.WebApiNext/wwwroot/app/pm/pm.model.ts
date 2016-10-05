@@ -1,9 +1,9 @@
 ﻿export class Pm {
     id: number;
     senderId: number;
-    senderUserName: string;
+    sender: string;
     receiverId: number;
-    receiverUserName: string;
+    receiver: string;
     title: string;
     message: string;
     sentTime: Date;

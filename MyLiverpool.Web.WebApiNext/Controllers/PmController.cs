@@ -39,15 +39,14 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Route("")]
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> WritePm(PrivateMessageDto model)
+        public async Task<IActionResult> WritePm([FromBody]PrivateMessageDto model)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
             model.SenderId = User.GetUserId();
-            var userName = User.Identity.Name;
-            if (model.ReceiverUserName == userName)
+            if (model.ReceiverId == model.SenderId)
             {
                 return BadRequest();
             }

@@ -24,7 +24,7 @@ var PmService = (function () {
             return _this.http.get(_this.actionUrl + id).map(function (res) { return res.json(); });
         };
         this.Create = function (item) {
-            var toAdd = JSON.stringify({ ItemName: item });
+            // var toAdd = JSON.stringify({ ItemName: item });
             return _this.http.post(_this.actionUrl, JSON.stringify(item)).map(function (res) { return res.json(); });
         };
         this.Update = function (id, itemToUpdate) {
@@ -37,10 +37,6 @@ var PmService = (function () {
         };
         this.actionUrl = configuration.ServerWithApiUrl + "pm/";
     }
-    PmService.prototype.extractData = function (res) {
-        var body = res.json();
-        return body.data || {};
-    };
     PmService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [httpWrapper_1.HttpWrapper, app_constants_1.Configuration])
