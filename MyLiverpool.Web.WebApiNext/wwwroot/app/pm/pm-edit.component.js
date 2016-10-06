@@ -24,7 +24,6 @@ var PmEditComponent = (function () {
         this.users = "/api/user/GetUserNames?typed=:keyword";
     }
     PmEditComponent.prototype.ngOnInit = function () {
-        var _this = this;
         this.editForm = this.formBuilder.group({
             'receiver': [
                 "", forms_1.Validators.compose([
@@ -44,21 +43,30 @@ var PmEditComponent = (function () {
                 ])
             ]
         });
-        this.sub = this.route.params.subscribe(function (params) {
-            _this.id = +params["id"];
-            if (_this.id > 0) {
-                _this.service
-                    .GetSingle(_this.id)
-                    .subscribe(function (data) { return _this.editForm.patchValue(data); }, function (error) { return console.log(error); }, function () { return console.log("success get  news"); });
-            }
-        });
+        //this.sub = this.route.params.subscribe(params => {
+        //this.id = +params["id"];
+        //if (this.id > 0) {
+        //    this.service
+        //        .GetSingle(this.id)
+        //        .subscribe(data => this.editForm.patchValue(data),
+        //        error => console.log(error),
+        //        () => console.log("success get  news"));
+        //}
+        //});
+        this.getUsername();
     };
     PmEditComponent.prototype.ngOnDestroy = function () {
-        this.sub.unsubscribe();
+        //  this.sub.unsubscribe();
     };
     PmEditComponent.prototype.updateUsername = function (user) {
         if (user) {
             this.editForm.patchValue({ receiver: user.id });
+        }
+    };
+    PmEditComponent.prototype.getUsername = function () {
+        console.log(this.route);
+        if (this.route.data["username"]) {
+            console.log(this.route.data["username"]);
         }
     };
     PmEditComponent.prototype.onSubmit = function () {
@@ -66,8 +74,7 @@ var PmEditComponent = (function () {
         model.receiverId = this.editForm.controls["receiver"].value;
         model.title = this.editForm.controls["title"].value;
         model.message = this.editForm.controls["message"].value;
-        var res;
-        var result = this.service.Create(model).subscribe(function (data) { return res = data; });
+        var res = this.service.Create(model).subscribe(function (data) { return data; });
         this.router.navigate(["/pm"]);
     };
     PmEditComponent = __decorate([

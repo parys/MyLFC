@@ -6,10 +6,12 @@ import { newsCategoryRoutes } from "./newsCategory/newsCategory.routing";
 import { newsRoutes } from "./news/news.routing";
 import { userRoutes } from "./user/user.routing";
 import { pmRoutes } from "./pm/pm.routing";
+import { homeRoutes } from "./home/home.routing";
 
 const routes: Routes  = [
    // { path: 'signup', component: AccountSignupComponent, canActivate: [AuthGuard] },
     ...authRoutes,
+    ...homeRoutes,
     ...newsCategoryRoutes,
     ...newsRoutes,
     ...pmRoutes,

@@ -25,6 +25,7 @@ import { UserDetailComponent } from "./user/user-detail.component";
 import { UserService } from "./user/user.service";
 import { UserListComponent } from "./user/user-list.component";
 import { PmListComponent, PmDetailComponent, PmEditComponent, PmService } from "./pm/index";
+import { ClubHistoryComponent } from "./home/index";
 import { Ng2AutoCompleteModule } from "ng2-auto-complete";
 
 @NgModule({
@@ -40,6 +41,7 @@ import { Ng2AutoCompleteModule } from "ng2-auto-complete";
         AccountSigninComponent,
         AccountSignupComponent,
         AppComponent,
+        ClubHistoryComponent,
         NewsCategoryEditComponent,
         NewsCategoryListComponent,
         NewsListComponent,

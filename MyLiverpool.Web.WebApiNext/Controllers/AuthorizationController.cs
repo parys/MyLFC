@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MyLiverpool.Data.Entities;
 using OpenIddict;
+using System.Linq;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
@@ -68,22 +70,28 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 {
                     await _userManager.ResetAccessFailedCountAsync(user);
                 }
-
-                var identity = await _userManager.CreateIdentityAsync(user, request.GetScopes());
+                var scopes = new List<string>()
+                {
+                    OpenIddictConstants.Scopes.Roles,
+                    OpenIdConnectConstants.Scopes.Profile
+                };
+                var identity = await _userManager.CreateIdentityAsync(user, scopes);
 
                 // Create a new authentication ticket holding the user identity.
+                List<Claim> roles = identity.Claims.Where(c => c.Type == ClaimTypes.Role).ToList();
                 var ticket = new AuthenticationTicket(
                     new ClaimsPrincipal(identity),
                     new AuthenticationProperties()
                     {
                         AllowRefresh = true,
                         ExpiresUtc = DateTimeOffset.Now.AddDays(14),
-                        IsPersistent = true
+                       // IsPersistent = true,
+                        Items = { new KeyValuePair<string, string>(".roles", string.Join(", ", roles.Select(r => r.Value)))}
                     },
                     OpenIdConnectServerDefaults.AuthenticationScheme);
 
                 ticket.SetResources(request.GetResources());
-                ticket.SetScopes(request.GetScopes());
+                ticket.SetScopes(scopes);
 
                 return SignIn(ticket.Principal, ticket.Properties, ticket.AuthenticationScheme);
             }
@@ -193,59 +201,5 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             // to the post_logout_redirect_uri specified by the client application.
             return SignOut(OpenIdConnectServerDefaults.AuthenticationScheme);
         }
-
-        // Note: to support the password grant type, you must provide your own token endpoint action:
-
-        // [HttpPost("~/connect/token")]
-        // [Produces("application/json")]
-        // public async Task<IActionResult> Exchange() {
-        //     var request = HttpContext.GetOpenIdConnectRequest();
-        // 
-        //     if (request.IsPasswordGrantType()) {
-        //         var user = await _userManager.FindByNameAsync(request.Username);
-        //         if (user == null) {
-        //             return BadRequest(new OpenIdConnectResponse {
-        //                 Error = OpenIdConnectConstants.Errors.InvalidGrant,
-        //                 ErrorDescription = "The username/password couple is invalid."
-        //             });
-        //         }
-        // 
-        //         // Ensure the password is valid.
-        //         if (!await _userManager.CheckPasswordAsync(user, request.Password)) {
-        //             if (_userManager.SupportsUserLockout) {
-        //                 await _userManager.AccessFailedAsync(user);
-        //             }
-        // 
-        //             return BadRequest(new OpenIdConnectResponse {
-        //                 Error = OpenIdConnectConstants.Errors.InvalidGrant,
-        //                 ErrorDescription = "The username/password couple is invalid."
-        //             });
-        //         }
-        // 
-        //         if (_userManager.SupportsUserLockout) {
-        //             await _userManager.ResetAccessFailedCountAsync(user);
-        //         }
-        // 
-        //         var identity = await _userManager.CreateIdentityAsync(user, request.GetScopes());
-        // 
-        //         // Create a new authentication ticket holding the user identity.
-        //         var ticket = new AuthenticationTicket(
-        //             new ClaimsPrincipal(identity),
-        //             new AuthenticationProperties(),
-        //             OpenIdConnectServerDefaults.AuthenticationScheme);
-        // 
-        //         ticket.SetResources(request.GetResources());
-        //         ticket.SetScopes(request.GetScopes());
-        // 
-        //         return SignIn(ticket.Principal, ticket.Properties, ticket.AuthenticationScheme);
-        //     }
-        // 
-        //     return BadRequest(new OpenIdConnectResponse {
-        //         Error = OpenIdConnectConstants.Errors.UnsupportedGrantType,
-        //         ErrorDescription = "The specified grant type is not supported."
-        //     });
-        // }
-
-
     }
 }

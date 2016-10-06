@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using AspNet.Security.OAuth.Validation;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -65,7 +66,8 @@ namespace MyLiverpool.Web.WebApiNext
         {
             // Add framework services.
             services.AddDbContext<LiverpoolContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), o => o.UseRowNumberForPaging()));
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
+                    o => o.UseRowNumberForPaging()));
 
 
             services.AddIdentity<User, Role>()
@@ -79,31 +81,31 @@ namespace MyLiverpool.Web.WebApiNext
             });
 
             RegisterServices(services);
-          //  services.AddTransient<OpenIddictDbContext<User, Role, int>, LiverpoolContext>();
+            //  services.AddTransient<OpenIddictDbContext<User, Role, int>, LiverpoolContext>();
             // RegisterServices(services);
             //--- from old proj
             services.AddCors(options => options.AddPolicy("AllowAll", p => p.AllowAnyOrigin())); //from sof
 
             services.AddOpenIddict<User, Role, LiverpoolContext, int>()
                 // Enable the authorization and token endpoints (required to use the code flow).
-        .EnableAuthorizationEndpoint("/connect/authorize")
-       // Enable the token endpoint (required to use the password flow).
-       .EnableTokenEndpoint("/connect/token")
+                .EnableAuthorizationEndpoint("/connect/authorize")
+                .EnableLogoutEndpoint("/connect/logout")
+                // Enable the token endpoint (required to use the password flow).
+                .EnableTokenEndpoint("/connect/token")
 
-       // Allow client applications to use the grant_type=password flow.
-       .AllowPasswordFlow()
+                // Allow client applications to use the grant_type=password flow.
+                .AllowPasswordFlow()
+                //.AllowAuthorizationCodeFlow()
+                .AllowRefreshTokenFlow()
 
-       // During development, you can disable the HTTPS requirement.
-       .DisableHttpsRequirement()
+                // During development, you can disable the HTTPS requirement.
+                .DisableHttpsRequirement()
 
-       // Register a new ephemeral key, that is discarded when the application
-       // shuts down. Tokens signed using this key are automatically invalidated.
-       // This method should only be used during development.
-       .AddEphemeralSigningKey();
+                // Register a new ephemeral key, that is discarded when the application
+                // shuts down. Tokens signed using this key are automatically invalidated.
+                // This method should only be used during development.
+                .AddEphemeralSigningKey();
 
-            //  services.AddAuthentication(options => {
-            //      options.SignInScheme = "ServerCookie";
-            //    });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -140,7 +142,7 @@ namespace MyLiverpool.Web.WebApiNext
             app.UseIdentity();
 
             app.UseOAuthValidation();
-
+            
             app.UseOpenIddict();
 
             app.UseMvc(routes =>

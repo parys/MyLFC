@@ -1,0 +1,1 @@
+﻿export * from "./club-history.component";

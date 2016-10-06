@@ -41,25 +41,33 @@ export class PmEditComponent implements OnInit, OnDestroy {
                 ])
             ]
         });
-        this.sub = this.route.params.subscribe(params => {
-            this.id = +params["id"];
-            if (this.id > 0) {
-                this.service
-                    .GetSingle(this.id)
-                    .subscribe(data => this.editForm.patchValue(data),
-                    error => console.log(error),
-                    () => console.log("success get  news"));
-            }
-        });
+        //this.sub = this.route.params.subscribe(params => {
+            //this.id = +params["id"];
+            //if (this.id > 0) {
+            //    this.service
+            //        .GetSingle(this.id)
+            //        .subscribe(data => this.editForm.patchValue(data),
+            //        error => console.log(error),
+            //        () => console.log("success get  news"));
+            //}
+        //});
+        this.getUsername();
     }
 
     ngOnDestroy() {
-        this.sub.unsubscribe();
+      //  this.sub.unsubscribe();
     }
 
     updateUsername(user: any) {
         if (user) {
             this.editForm.patchValue({ receiver: user.id });
+        }
+    }
+
+    getUsername(): void {
+        console.log(this.route);
+        if (this.route.data["username"]) {
+            console.log(this.route.data["username"]);
         }
     }
 
@@ -69,8 +77,7 @@ export class PmEditComponent implements OnInit, OnDestroy {
         model.title = this.editForm.controls["title"].value;
         model.message = this.editForm.controls["message"].value;
 
-        let res;
-        let result = this.service.Create(model).subscribe(data => res = data);
+        let res = this.service.Create(model).subscribe(data => data);
 
         this.router.navigate(["/pm"]);
 

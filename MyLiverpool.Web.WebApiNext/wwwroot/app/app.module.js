@@ -33,6 +33,7 @@ var user_detail_component_1 = require("./user/user-detail.component");
 var user_service_1 = require("./user/user.service");
 var user_list_component_1 = require("./user/user-list.component");
 var index_3 = require("./pm/index");
+var index_4 = require("./home/index");
 var ng2_auto_complete_1 = require("ng2-auto-complete");
 var AppModule = (function () {
     function AppModule() {
@@ -51,6 +52,7 @@ var AppModule = (function () {
                 account_signin_component_1.AccountSigninComponent,
                 account_signup_component_1.AccountSignupComponent,
                 app_component_1.AppComponent,
+                index_4.ClubHistoryComponent,
                 newsCategory_edit_component_1.NewsCategoryEditComponent,
                 newsCategory_list_component_1.NewsCategoryListComponent,
                 news_list_component_1.NewsListComponent,
