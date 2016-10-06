@@ -7,7 +7,8 @@ var news_routing_1 = require("./news/news.routing");
 var user_routing_1 = require("./user/user.routing");
 var pm_routing_1 = require("./pm/pm.routing");
 var home_routing_1 = require("./home/home.routing");
-var routes = auth_routing_1.authRoutes.concat(home_routing_1.homeRoutes, newsCategory_routing_1.newsCategoryRoutes, news_routing_1.newsRoutes, pm_routing_1.pmRoutes, user_routing_1.userRoutes, [
+var wish_routing_1 = require("./wish/wish.routing");
+var routes = auth_routing_1.authRoutes.concat(home_routing_1.homeRoutes, newsCategory_routing_1.newsCategoryRoutes, news_routing_1.newsRoutes, pm_routing_1.pmRoutes, user_routing_1.userRoutes, wish_routing_1.wishRoutes, [
     { path: "", component: news_list_component_1.NewsListComponent }
 ]);
 exports.appRoutingProviders = [

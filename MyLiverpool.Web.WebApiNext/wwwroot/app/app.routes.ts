@@ -7,6 +7,7 @@ import { newsRoutes } from "./news/news.routing";
 import { userRoutes } from "./user/user.routing";
 import { pmRoutes } from "./pm/pm.routing";
 import { homeRoutes } from "./home/home.routing";
+import { wishRoutes } from "./wish/wish.routing";
 
 const routes: Routes  = [
    // { path: 'signup', component: AccountSignupComponent, canActivate: [AuthGuard] },
@@ -16,6 +17,7 @@ const routes: Routes  = [
     ...newsRoutes,
     ...pmRoutes,
     ...userRoutes,
+    ...wishRoutes,
     { path: "", component: NewsListComponent }
 ];
 

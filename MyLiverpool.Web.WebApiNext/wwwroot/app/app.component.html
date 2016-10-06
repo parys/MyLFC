@@ -90,7 +90,7 @@
                 <!--<li> <a ng-if="vm.isAdminAssistant()" ui-sref="clubs()">Клубы</a></li>-->
                 <!--<li> <a ng-if="vm.isAdminAssistant()" ui-sref="matches()">Матчи</a></li>-->
                 <li> <a ui-sref="rules()"><span class="text-danger">Правила</span></a></li>
-                <li class="bg-success"> <a ui-sref="wishes()"><span class="text-info">Пожелания</span></a></li>
+                <li class="bg-success"> <a [routerLink]="['/wish']"><span class="text-info">Пожелания</span></a></li>
             </ul>
         </div>
         <!--<div class="col-xs-12 col-sm-12">

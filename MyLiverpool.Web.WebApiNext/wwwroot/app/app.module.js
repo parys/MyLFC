@@ -34,6 +34,7 @@ var user_service_1 = require("./user/user.service");
 var user_list_component_1 = require("./user/user-list.component");
 var index_3 = require("./pm/index");
 var index_4 = require("./home/index");
+var index_5 = require("./wish/index");
 var ng2_auto_complete_1 = require("ng2-auto-complete");
 var AppModule = (function () {
     function AppModule() {
@@ -63,7 +64,8 @@ var AppModule = (function () {
                 index_3.PmListComponent,
                 index_2.SecuredDirective,
                 user_detail_component_1.UserDetailComponent,
-                user_list_component_1.UserListComponent],
+                user_list_component_1.UserListComponent,
+                index_5.WishListComponent],
             bootstrap: [app_component_1.AppComponent],
             providers: [
                 account_service_1.AccountService,
@@ -76,7 +78,8 @@ var AppModule = (function () {
                 news_service_1.NewsService,
                 newsCategory_service_1.NewsCategoryService,
                 index_3.PmService,
-                user_service_1.UserService
+                user_service_1.UserService,
+                index_5.WishService
             ]
         }), 
         __metadata('design:paramtypes', [])
