@@ -18,7 +18,7 @@ var WishService = (function () {
         this.http = http;
         this.configuration = configuration;
         this.GetAll = function () {
-            return _this.http.get(_this.actionUrl + "list").map(function (res) { return res.json(); });
+            return _this.http.get(_this.actionUrl + "list/").map(function (res) { return res.json(); });
         };
         this.GetSingle = function (id) {
             return _this.http.get(_this.actionUrl + id).map(function (res) { return res.json(); });
@@ -34,6 +34,9 @@ var WishService = (function () {
         };
         this.Delete = function (id) {
             return _this.http.delete(_this.actionUrl + id).map(function (response) { return response.json(); });
+        };
+        this.GetTypes = function () {
+            return _this.http.get(_this.actionUrl + "types/").map(function (res) { return res.json(); });
         };
         this.actionUrl = configuration.ServerWithApiUrl + "wish/";
     }

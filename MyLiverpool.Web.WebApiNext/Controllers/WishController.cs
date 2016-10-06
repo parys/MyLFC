@@ -24,7 +24,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Route("")]
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> CreateAsync(WishDto dto)
+        public async Task<IActionResult> CreateAsync([FromBody]WishDto dto)
         {
             if (!ModelState.IsValid)
             {

@@ -1,0 +1,28 @@
+﻿<form class="form-horizontal col-md-12" role="form" name="editWish" [formGroup]="editForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+        <label class="control-label col-md-2">Заголовок</label>
+        <div class="col-md-10">
+            <input class="form-control" name="title" [formControl]="editForm.controls['title']"/>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2">Сообщение</label>
+        <div class="col-md-10">
+            <textarea class="form-control" name="title" [formControl]="editForm.controls['message']"></textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-2 col-sm-2">Тип:</label>
+        <div class="col-xs-10 col-sm-10">
+            <!--<select class="form-control" name="newsCategoryId" [formControl]="editForm.controls['type']"></select>-->
+            <select [formControl]="editForm.controls['type']">
+                <option [value]="type.id" *ngFor="let type of types" [textContent]="type.name"></option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button [disabled]="!editForm.valid" type="submit" class="btn btn-default">Создать</button>
+        </div>
+    </div>
+</form>

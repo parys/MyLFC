@@ -65,6 +65,7 @@ var AppModule = (function () {
                 index_2.SecuredDirective,
                 user_detail_component_1.UserDetailComponent,
                 user_list_component_1.UserListComponent,
+                index_5.WishEditComponent,
                 index_5.WishListComponent],
             bootstrap: [app_component_1.AppComponent],
             providers: [

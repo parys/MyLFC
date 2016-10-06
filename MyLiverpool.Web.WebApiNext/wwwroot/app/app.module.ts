@@ -26,7 +26,7 @@ import { UserService } from "./user/user.service";
 import { UserListComponent } from "./user/user-list.component";
 import { PmListComponent, PmDetailComponent, PmEditComponent, PmService } from "./pm/index";
 import { ClubHistoryComponent } from "./home/index";
-import { WishListComponent, WishService } from "./wish/index";
+import { WishListComponent, WishService, WishEditComponent } from "./wish/index";
 import { Ng2AutoCompleteModule } from "ng2-auto-complete";
 
 @NgModule({
@@ -54,6 +54,7 @@ import { Ng2AutoCompleteModule } from "ng2-auto-complete";
         SecuredDirective,
         UserDetailComponent,
         UserListComponent,
+        WishEditComponent,
         WishListComponent],   // components and directives
     bootstrap: [AppComponent],     // root component
     providers: [ // services
