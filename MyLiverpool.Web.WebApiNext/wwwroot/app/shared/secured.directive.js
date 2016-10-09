@@ -10,12 +10,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
-var auth_service_1 = require("../auth/auth.service");
 var SecuredDirective = (function () {
-    function SecuredDirective(router, elementRef, authService) {
+    function SecuredDirective(router, elementRef) {
         this.router = router;
         this.elementRef = elementRef;
-        this.authService = authService;
         //   this.authService.userSignup$.subscribe(item => this.checkRights());
         // this.authService.userSignup$.subscribe(item => this.checkRights(item));
     }
@@ -34,10 +32,8 @@ var SecuredDirective = (function () {
     SecuredDirective.prototype.checkRights = function () {
         var result = false;
         if (!this.secured) {
-            result = this.authService.isLoggedIn;
         }
         else {
-            result = this.authService.isUserInRole(this.secured);
         }
         if (!result) {
             var el = this.elementRef.nativeElement;
@@ -56,7 +52,7 @@ var SecuredDirective = (function () {
         core_1.Directive({
             selector: "[secured]"
         }), 
-        __metadata('design:paramtypes', [router_1.Router, core_1.ElementRef, auth_service_1.AuthService])
+        __metadata('design:paramtypes', [router_1.Router, core_1.ElementRef])
     ], SecuredDirective);
     return SecuredDirective;
 }());

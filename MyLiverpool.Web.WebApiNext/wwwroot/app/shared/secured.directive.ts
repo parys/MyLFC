@@ -13,7 +13,7 @@ export class SecuredDirective {
 
     routeParams: string;
 
-    constructor(private router: Router, private elementRef: ElementRef, private authService: AuthService) {
+    constructor(private router: Router, private elementRef: ElementRef) {
      //   this.authService.userSignup$.subscribe(item => this.checkRights());
        // this.authService.userSignup$.subscribe(item => this.checkRights(item));
     }
@@ -35,9 +35,9 @@ export class SecuredDirective {
     private checkRights() {
         let result = false;
         if (!this.secured) {
-            result = this.authService.isLoggedIn;
+           // result = this.authService.isLoggedIn;
         } else {
-            result = this.authService.isUserInRole(this.secured);
+           // result = this.authService.isUserInRole(this.secured);
         }
         if (!result) {
             let el: HTMLElement = this.elementRef.nativeElement;

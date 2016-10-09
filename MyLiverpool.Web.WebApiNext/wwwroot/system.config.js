@@ -9,6 +9,7 @@
         '@angular': "js/@angular",
         'rxjs': "js/rxjs",
         'ng2-auto-complete': "js/"
+    //    'ng2-pagination': "js/"
     };
     // packages tells the System loader how to load when no filename and/or no extension
     var packages = {
@@ -29,6 +30,7 @@
             main: "material.umd.js"
         },
       'ng2-auto-complete': { main: "ng2-auto-complete.umd.js", defaultExtension: "js" }
+     // 'ng2-pagination': { main: "ng2-pagination-bundle.js", defaultExtension: "js" }
 
         //'ng2-localstorage': { defaultExtension: 'js'}
     };

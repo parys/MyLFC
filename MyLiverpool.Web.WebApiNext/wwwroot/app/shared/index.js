@@ -6,4 +6,5 @@ __export(require("./pageable.model"));
 __export(require("./httpWrapper"));
 __export(require("./localStorage"));
 __export(require("./secured.directive"));
+__export(require("./roles-checked.service"));
 //# sourceMappingURL=index.js.map

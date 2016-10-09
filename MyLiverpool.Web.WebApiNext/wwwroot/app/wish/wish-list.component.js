@@ -49,6 +49,21 @@ var WishListComponent = (function () {
             .GetAll() //bug
             .subscribe(function (data) { return _this.parsePageable(data); }, function (error) { return console.log(error); }, function () { return console.log("success load list wish"); });
     };
+    WishListComponent.prototype.getTypeClass = function (i) {
+        switch (i) {
+            case 1:
+                return "panel-danger";
+            case 2:
+                return "panel-warning";
+            case 3:
+                return "panel-info";
+            case 4:
+                return "panel-primary";
+            default:
+                return "";
+        }
+    };
+    ;
     WishListComponent = __decorate([
         core_1.Component({
             selector: "wish-list",

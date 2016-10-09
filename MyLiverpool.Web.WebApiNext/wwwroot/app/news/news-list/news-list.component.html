@@ -11,42 +11,43 @@
         </div>
         </form-->
     </div>
-    <div class="row" *ngFor="let item of items">
-        <!--div class="" *ngIf="!item.pending"> < || isEditor()"-->
-        <div class="flex-vertical-center"><a [routerLink]="['/news', item.id]" class="col-xs-9 col-sm-9"><h4 [textContent]="item.title"></h4></a>
-            <span class="col-xs-3 col-sm-3 pull-right" [secured]="'newsStart'">
-            <!--<a ng-if="isEditor()" ng-show="item.pending" ng-click="vm.activate($index)"><span class="glyphicon glyphicon-ok"></span></a>-->
-            <a [secured]="'newsFull'" ng-if="isUserAuthor(userId(), item.authorId)" [routerLink]="['/news', item.id, 'edit']"><span class="glyphicon glyphicon-pencil"></span></a>
-            <!--<a ng-if="isEditor() || isUserAuthor(userId(), item.authorId)" ng-click="vm.delete($index)"><span class="glyphicon glyphicon-trash"></span></a>-->
+    <div class="row" *ngFor="let item of items1 | async | paginate: { id: 'server', itemsPerPage: itemsPerPage, currentPage: page, totalItems: totalItems }">
+        <div class="" *ngIf="!item.pending || roles.isEditor">
+            <div class="flex-vertical-center"><a [routerLink]="['/news', item.id]" class="col-xs-9 col-sm-9"><h4 [textContent]="item.title"></h4></a>
+                <span class="col-xs-3 col-sm-3 pull-right" *ngIf="roles.isNewsmaker">
+            <a [hidden]="!item.pending || !roles.isEditor" ng-click="vm.activate($index)"><span class="glyphicon glyphicon-ok"></span></a>
+            <a *ngIf="roles.isEditor" ng-if="isUserAuthor(userId(), item.authorId)" [routerLink]="['/news', item.id, 'edit']"><span class="glyphicon glyphicon-pencil"></span></a>
+            <a *ngIf="roles.isEditor" ng-click="vm.delete($index)"><span class="glyphicon glyphicon-trash"></span></a>
+                    <!-- || isUserAuthor(userId(), item.authorId)-->
             </span>
-        </div>
-        <div class="">
-            <img class="img-thumbnail news-mini center-block" alt="" [src]="item.photoPath"/>
-        </div>
-        <div class="">
-            <i> <span [innerHTML]="item.brief"></span></i>
-        </div>
-        <div class="col-sx-12 col-sm-12">
-            <ul class="list-inline small small-offset">
-                <li class="">Категория:</li>
-                <li class=""><a [routerLink]="['/news/list', page, item.categoryId ]" [textContent]="item.categoryName"></a></li>
-                <li class="">|</li>
-                <li class="">Время добавления:</li>
-                <li class="" [textContent]="item.additionTime"></li>
-                <li class="">|</li>
-                <li class="">Просмотры</li>
-                <li class="" [textContent]="item.reads"></li>
-                <li class="">|</li>
-                <li class="">Автор:</li>
-                <li class=""><a [routerLink]="['/user', item.userId ]" [textContent]="item.userName"></a></li>
-                <li class="">|</li>
-                <li class="">Комментарии:</li>
-                <li class="" [textContent]="item.commentsCount"></li>
-            </ul>
+            </div>
+            <div class="">
+                <img class="img-thumbnail news-mini center-block" alt="" [src]="item.photoPath"/>
+            </div>
+            <div class="">
+                <i> <span [innerHTML]="item.brief"></span></i>
+            </div>
+            <div class="col-sx-12 col-sm-12">
+                <ul class="list-inline small small-offset">
+                    <li class="">Категория:</li>
+                    <li class=""><a [routerLink]="['/news/list', page, item.categoryId ]" [textContent]="item.categoryName"></a></li>
+                    <li class="">|</li>
+                    <li class="">Время добавления:</li>
+                    <li class="" [textContent]="item.additionTime"></li>
+                    <li class="">|</li>
+                    <li class="">Просмотры</li>
+                    <li class="" [textContent]="item.reads"></li>
+                    <li class="">|</li>
+                    <li class="">Автор:</li>
+                    <li class=""><a [routerLink]="['/user', item.userId ]" [textContent]="item.userName"></a></li>
+                    <li class="">|</li>
+                    <li class="">Комментарии:</li>
+                    <li class="" [textContent]="item.commentsCount"></li>
+                </ul>
+            </div>
         </div>
     </div>
-    <!--/div-->
     <div class="pagination">
-        <!--<uib-pagination ng-show="vm.totalItems > vm.itemPerPage" total-items="vm.totalItems" ng-model="vm.page" ng-change="vm.goToPage()"></uib-pagination>-->
+        <pagination-controls (pageChange)="getPage($event)" id="server" directionLinks="false" autoHide="true"></pagination-controls>
     </div>
 </div>

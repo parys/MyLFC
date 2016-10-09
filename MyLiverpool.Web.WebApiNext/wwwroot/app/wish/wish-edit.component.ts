@@ -80,19 +80,4 @@ export class WishEditComponent implements OnInit, OnDestroy {
             .GetTypes()
             .subscribe(data => this.types = data);
     }
-
-    getTypeClass(i) {
-        switch (i) {
-            case 1:
-                return "panel-danger";
-            case 2:
-                return "panel-warning";
-            case 3:
-                return "panel-info";
-            case 4:
-                return "panel-primary";
-            default:
-                return "";
-        }
-    };
 }

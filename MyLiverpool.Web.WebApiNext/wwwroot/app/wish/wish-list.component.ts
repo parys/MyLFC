@@ -58,4 +58,19 @@ export class WishListComponent implements OnInit, OnDestroy {
             error => console.log(error),
             () => console.log("success load list wish"));
     }
+
+    getTypeClass(i) {
+        switch (i) {
+            case 1:
+                return "panel-danger";
+            case 2:
+                return "panel-warning";
+            case 3:
+                return "panel-info";
+            case 4:
+                return "panel-primary";
+            default:
+                return "";
+        }
+    };
 }

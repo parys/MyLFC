@@ -8,31 +8,45 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var news_service_1 = require('../shared/news.service');
+var core_1 = require("@angular/core");
+var common_1 = require("@angular/common");
+var news_service_1 = require("../shared/news.service");
 var newsFilters_model_1 = require("../newsFilters.model");
-var router_1 = require('@angular/router');
-//module News {
+var router_1 = require("@angular/router");
+var index_1 = require("../../shared/index");
 var NewsListComponent = (function () {
-    function NewsListComponent(newsService, route) {
+    function NewsListComponent(newsService, route, location, rolesChecked) {
         this.newsService = newsService;
         this.route = route;
+        this.location = location;
+        this.rolesChecked = rolesChecked;
         this.page = 1;
         this.itemsPerPage = 15;
     }
     NewsListComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.roles = this.rolesChecked.checkedRoles;
+        console.log(this.roles);
         this.sub = this.route.params.subscribe(function (params) {
-            if (params['page']) {
-                _this.page = +params['page'];
+            if (params["page"]) {
+                _this.page = +params["page"];
             }
-            _this.categoryId = +params['categoryId'];
-            _this.userName = params['userName'];
+            _this.categoryId = +params["categoryId"];
+            _this.userName = params["userName"];
             _this.update();
         });
     };
     NewsListComponent.prototype.ngOnDestroy = function () {
         this.sub.unsubscribe();
+    };
+    NewsListComponent.prototype.getPage = function (page) {
+        this.page = page;
+        this.update();
+        var newUrl = "news/list/" + this.page;
+        if (this.categoryId) {
+            newUrl = newUrl + "/" + this.categoryId;
+        }
+        this.location.replaceState(newUrl);
     };
     NewsListComponent.prototype.parsePageable = function (pageable) {
         this.items = pageable.list;
@@ -47,19 +61,35 @@ var NewsListComponent = (function () {
         filters.materialType = "News";
         filters.userName = this.userName;
         filters.page = this.page;
-        this.newsService
+        this.items1 = this.newsService
             .GetAll(filters)
-            .subscribe(function (data) { return _this.parsePageable(data); }, function (error) { return console.log(error); }, function () { return console.log("success load list news"); });
+            .do(function (res) {
+            _this.parsePageable(res);
+        })
+            .map(function (res) { return res.list; });
+        //     .subscribe(data => this.parsePageable(data),
+        //         error => console.log(error),
+        //          () => console.log("success load list news"));
+        /*
+         this.asyncMeals = serverCall(this.meals, page)
+        .do(res => {
+            this.total = res.total;
+            this.p = page;
+            this.loading = false;
+        })
+        .map(res => res.items);
+}
+        */
     };
     NewsListComponent = __decorate([
         core_1.Component({
-            selector: 'news-list',
-            templateUrl: 'app/news/news-list/news-list.component.html'
+            selector: "news-list",
+            templateUrl: "app/news/news-list/news-list.component.html",
+            changeDetection: core_1.ChangeDetectionStrategy.OnPush
         }), 
-        __metadata('design:paramtypes', [news_service_1.NewsService, router_1.ActivatedRoute])
+        __metadata('design:paramtypes', [news_service_1.NewsService, router_1.ActivatedRoute, common_1.Location, index_1.RolesCheckedService])
     ], NewsListComponent);
     return NewsListComponent;
 }());
 exports.NewsListComponent = NewsListComponent;
-//} 
 //# sourceMappingURL=news-list.component.js.map

@@ -13,7 +13,8 @@ module.exports = {
             "node_modules/jquery/dist/jquery.js",
             "node_modules/bootstrap/dist/js/bootstrap.js",
             "node_modules/ng2-translate/bundles/ng2-translate.js",
-            "node_modules/ng2-auto-complete/dist/ng2-auto-complete.umd.js"
+            "node_modules/ng2-auto-complete/dist/ng2-auto-complete.umd.js",
+            "node_modules/ng2-pagination/dist/ng2-pagination-bundle.js"
         ],
 
         angularRC: "node_modules/@angular/**/*.js",

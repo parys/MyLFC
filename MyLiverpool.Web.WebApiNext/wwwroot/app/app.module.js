@@ -36,6 +36,8 @@ var index_3 = require("./pm/index");
 var index_4 = require("./home/index");
 var index_5 = require("./wish/index");
 var ng2_auto_complete_1 = require("ng2-auto-complete");
+var ng2_pagination_1 = require("ng2-pagination");
+var index_6 = require("./shared/index");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -47,6 +49,7 @@ var AppModule = (function () {
                 http_1.HttpModule,
                 material_1.MaterialModule.forRoot(),
                 ng2_auto_complete_1.Ng2AutoCompleteModule,
+                ng2_pagination_1.Ng2PaginationModule,
                 forms_1.ReactiveFormsModule,
                 app_routes_1.routing],
             declarations: [
@@ -79,6 +82,7 @@ var AppModule = (function () {
                 news_service_1.NewsService,
                 newsCategory_service_1.NewsCategoryService,
                 index_3.PmService,
+                index_6.RolesCheckedService,
                 user_service_1.UserService,
                 index_5.WishService
             ]

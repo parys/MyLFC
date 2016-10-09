@@ -16,7 +16,10 @@ var LocalStorageMine = (function () {
         this.localStorage[key] = JSON.stringify(value);
     };
     LocalStorageMine.prototype.getObject = function (key) {
-        return JSON.parse(this.localStorage[key] || '{}');
+        if (this.localStorage[key]) {
+            return JSON.parse(this.localStorage[key]);
+        }
+        return null;
     };
     LocalStorageMine.prototype.remove = function (key) {
         this.localStorage.removeItem(key);

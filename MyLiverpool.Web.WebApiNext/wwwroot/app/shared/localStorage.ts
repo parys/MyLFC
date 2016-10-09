@@ -21,7 +21,10 @@
     }
 
     public getObject(key: string): any {
-        return JSON.parse(this.localStorage[key] || '{}');
+        if (this.localStorage[key]) {
+            return JSON.parse(this.localStorage[key]);
+        }
+        return null;
     }
 
     public remove(key: string): any {

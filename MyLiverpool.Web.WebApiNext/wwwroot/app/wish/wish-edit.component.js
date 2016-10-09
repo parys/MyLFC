@@ -76,21 +76,6 @@ var WishEditComponent = (function () {
             .GetTypes()
             .subscribe(function (data) { return _this.types = data; });
     };
-    WishEditComponent.prototype.getTypeClass = function (i) {
-        switch (i) {
-            case 1:
-                return "panel-danger";
-            case 2:
-                return "panel-warning";
-            case 3:
-                return "panel-info";
-            case 4:
-                return "panel-primary";
-            default:
-                return "";
-        }
-    };
-    ;
     WishEditComponent = __decorate([
         core_1.Component({
             selector: "wish-edit",
