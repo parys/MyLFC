@@ -11,11 +11,11 @@
         </div>
         </form-->
     </div>
-    <div class="row" *ngFor="let item of items1 | async | paginate: { id: 'server', itemsPerPage: itemsPerPage, currentPage: page, totalItems: totalItems }">
+    <div class="row" *ngFor="let item of items1 | async | paginate: { id: 'server', itemsPerPage: itemsPerPage, currentPage: page, totalItems: totalItems }; let i = index;">
         <div class="" *ngIf="!item.pending || roles.isEditor">
             <div class="flex-vertical-center"><a [routerLink]="['/news', item.id]" class="col-xs-9 col-sm-9"><h4 [textContent]="item.title"></h4></a>
                 <span class="col-xs-3 col-sm-3 pull-right" *ngIf="roles.isNewsmaker">
-            <a [hidden]="!item.pending || !roles.isEditor" ng-click="vm.activate($index)"><span class="glyphicon glyphicon-ok"></span></a>
+            <a [hidden]="!item.pending || !roles.isEditor" (click)="activate(i)"><span class="glyphicon glyphicon-ok"></span></a>
             <a *ngIf="roles.isEditor" ng-if="isUserAuthor(userId(), item.authorId)" [routerLink]="['/news', item.id, 'edit']"><span class="glyphicon glyphicon-pencil"></span></a>
             <a *ngIf="roles.isEditor" ng-click="vm.delete($index)"><span class="glyphicon glyphicon-trash"></span></a>
                     <!-- || isUserAuthor(userId(), item.authorId)-->

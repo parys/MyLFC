@@ -36,12 +36,6 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 filters = (MaterialFiltersDto) JsonConvert.DeserializeObject(filtersObj, typeof(MaterialFiltersDto));
             }
 
-          //  MaterialType materialType;
-          //  if (!Enum.TryParse(type, true, out materialType))
-          //  {
-          //      return BadRequest(type);
-          //  }
-         //   filters.MaterialType = materialType;
             var result = await _materialService.GetDtoAllAsync(filters);
             return Ok(result);
         }
@@ -58,7 +52,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Route("{id:int}")]
         [HttpDelete]
         [Authorize(Roles = nameof(RolesEnum.NewsStart))]
-        public async Task<IActionResult> Delete(int? id) //todo not all checked
+        public async Task<IActionResult> Delete(int? id)
         {
             if (!id.HasValue)
             {
@@ -72,7 +66,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Route("Activate/{id:int}")]
         [HttpPut]
         [Authorize(Roles = nameof(RolesEnum.NewsStart))]
-        public async Task<IActionResult> Activate(int? id) //todo not all checked
+        public async Task<IActionResult> Activate(int? id)
         {
             if (!id.HasValue)
             {
@@ -85,7 +79,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Route("{type}")]
         [HttpPost]
         [Authorize(Roles = nameof(RolesEnum.NewsStart))]
-        public async Task<IActionResult> Create(string type, MaterialDto model) //todo not all checked
+        public async Task<IActionResult> Create(string type, MaterialDto model)
         {
             MaterialType materialType;
             if (!ModelState.IsValid || !Enum.TryParse(type, true, out materialType))
@@ -103,7 +97,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Route("{id:int}")]
         [HttpPut]
         [Authorize(Roles = nameof(RolesEnum.NewsStart))]
-        public async Task<IActionResult> Update(int id, MaterialDto model) //todo not all checked
+        public async Task<IActionResult> Update(int id, MaterialDto model)
         {
             if (id != model.Id)
             {
@@ -129,7 +123,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Route("AddView/{id:int}")]
         [HttpPut]
         [AllowAnonymous]
-        public async Task<IActionResult> AddView(int? id) //todo not all checked
+        public async Task<IActionResult> AddView(int? id)
         {
             if (!id.HasValue)
             {

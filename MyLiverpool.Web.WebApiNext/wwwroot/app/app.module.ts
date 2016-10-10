@@ -29,6 +29,7 @@ import { ClubHistoryComponent } from "./home/index";
 import { WishListComponent, WishService, WishEditComponent } from "./wish/index";
 import { Ng2AutoCompleteModule } from "ng2-auto-complete";
 import { Ng2PaginationModule } from "ng2-pagination";
+import { ModalModule } from "ng2-modal";
 import { RolesCheckedService } from "./shared/index";
 
 @NgModule({
@@ -37,6 +38,7 @@ import { RolesCheckedService } from "./shared/index";
         FormsModule,
         HttpModule,
         MaterialModule.forRoot(),
+        ModalModule,
         Ng2AutoCompleteModule,
         Ng2PaginationModule,
         ReactiveFormsModule,

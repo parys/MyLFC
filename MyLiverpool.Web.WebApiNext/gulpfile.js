@@ -4,14 +4,14 @@ Click here to learn more. http://go.microsoft.com/fwlink/?LinkId=518007
 */
 /// <binding BeforeBuild='get:started' />
 
-var gulp = require('gulp');
-var runSeq = require('run-sequence');
-var del = require('del');
+var gulp = require("gulp");
+var runSeq = require("run-sequence");
+var del = require("del");
 
-var buildConfig = require('./gulp.config');
+var buildConfig = require("./gulp.config");
 
 
-gulp.task('default', function () {
+gulp.task("default", function () {
     // place code for your default task here
 });
 
@@ -48,46 +48,52 @@ gulp.task('default', function () {
 //gulp.task("copy-deps", ["copy-deps:rxjs", 'copy-deps:angular2', 'copy-deps:systemjs', 'copy-deps:es6-shim', 'copy-deps:es6-promise']);
 
 
-gulp.task('get:started', function (done) {
+gulp.task("get:started", function (done) {
     runSeq(
-        'clean-Vendor-Js-In-Root',
-        'copy-Vendor-Js-To-Wwwroot-Internal',
+        "clean-Vendor-Js-In-Root",
+        "copy-Vendor-Js-To-Wwwroot-Internal",
         done);
 });
 
-gulp.task('clean-Vendor-Js-In-Root', function () {
+gulp.task("clean-Vendor-Js-In-Root", function () {
     return del(buildConfig.rootJsFolder);
 });
 
-gulp.task('copy-Vendor-Js-To-Wwwroot-Internal', function (done) {
+gulp.task("copy-Vendor-Js-To-Wwwroot-Internal", function (done) {
     runSeq(
-          'copy-angular',
-          'copy-rxjs',
-          'copy-allOther',
+          "copy-angular",
+          "copy-rxjs",
+          "copy-ng2modal",
+          "copy-allOther",
           done);
 });
 
-gulp.task('copy-angular', function () {
+gulp.task("copy-angular", function () {
     return gulp.src(buildConfig.sources.angularRC)
         .pipe(gulp.dest(buildConfig.rootJsFolder + "@angular/"));
 });
 
-gulp.task('copy-rxjs', function () {
+gulp.task("copy-rxjs", function () {
     return gulp.src(buildConfig.sources.Rxjs)
         .pipe(gulp.dest(buildConfig.rootJsFolder + "rxjs/"));
 });
 
-gulp.task('copy-allOther', function () {
+gulp.task("copy-ng2modal", function () {
+    return gulp.src(buildConfig.sources.ng2modal)
+        .pipe(gulp.dest(buildConfig.rootJsFolder + "ng2-modal/"));
+});
+
+gulp.task("copy-allOther", function () {
     return gulp.src(buildConfig.sources.jsFilesInclSourcePaths)
         .pipe(gulp.dest(buildConfig.rootJsFolder));
 });
 
-gulp.task('copy-fonts', function() {
+gulp.task("copy-fonts", function() {
     return gulp.src(buildConfig.sources.fonts)
         .pipe(gulp.dest(buildConfig.rootFontsFolder));
 });
 
-gulp.task('copy-css', function() {
+gulp.task("copy-css", function() {
     return gulp.src(buildConfig.sources.bootstrapPath)
         .pipe(gulp.dest(buildConfig.rootCssFolder));
 });
