@@ -14,6 +14,7 @@ var news_service_1 = require("../shared/news.service");
 var newsFilters_model_1 = require("../newsFilters.model");
 var router_1 = require("@angular/router");
 var index_1 = require("../../shared/index");
+var ng2_modal_1 = require("ng2-modal");
 var NewsListComponent = (function () {
     function NewsListComponent(newsService, route, location, rolesChecked) {
         this.newsService = newsService;
@@ -22,7 +23,33 @@ var NewsListComponent = (function () {
         this.rolesChecked = rolesChecked;
         this.page = 1;
         this.itemsPerPage = 15;
+        this.selectedItemIndex = undefined;
     }
+    NewsListComponent.prototype.showActivateModal = function (index) {
+        this.selectedItemIndex = index;
+        this.activateModal.open();
+    };
+    NewsListComponent.prototype.hideActivateModal = function () {
+        this.selectedItemIndex = undefined;
+        this.activateModal.close();
+    };
+    NewsListComponent.prototype.activate = function () {
+        var _this = this;
+        console.log(this.selectedItemIndex);
+        var newsItem;
+        this.items1.do(function (data) { return newsItem = data[_this.selectedItemIndex]; });
+        console.log(newsItem);
+        // => {
+        //    this.newsService.activate(
+        //        data[this.selectedItemIndex].id).subscribe(answer => {
+        //        if (answer) {
+        //            data[this.selectedItemIndex].pending = false;
+        //            this.selectedItemIndex = undefined;
+        //            this.activateModal.close();
+        //        }
+        //    });
+        //});
+    };
     NewsListComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.roles = this.rolesChecked.checkedRoles;
@@ -49,7 +76,7 @@ var NewsListComponent = (function () {
         this.location.replaceState(newUrl);
     };
     NewsListComponent.prototype.parsePageable = function (pageable) {
-        this.items = pageable.list;
+        //this.items = pageable.list;
         this.page = pageable.pageNo;
         this.itemsPerPage = pageable.itemPerPage;
         this.totalItems = pageable.totalItems;
@@ -81,6 +108,10 @@ var NewsListComponent = (function () {
 }
         */
     };
+    __decorate([
+        core_1.ViewChild("activateModal"), 
+        __metadata('design:type', ng2_modal_1.Modal)
+    ], NewsListComponent.prototype, "activateModal", void 0);
     NewsListComponent = __decorate([
         core_1.Component({
             selector: "news-list",

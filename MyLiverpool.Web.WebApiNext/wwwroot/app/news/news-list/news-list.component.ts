@@ -1,13 +1,14 @@
-﻿import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from "@angular/core";
+﻿import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ViewChild } from "@angular/core";
 import { Location  } from "@angular/common";
 import { NewsService } from "../shared/news.service";
 import { News } from "../shared/news.model";
 import { Observable } from "rxjs/Observable";
 import { Pageable } from "../../shared/pageable.model";
-import {MaterialFilters} from "../newsFilters.model";
+import { MaterialFilters } from "../newsFilters.model";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
 import { RolesCheckedService, IRoles } from "../../shared/index";
+import { Modal } from "ng2-modal";
 
 @Component({
     selector: "news-list",
@@ -17,7 +18,7 @@ import { RolesCheckedService, IRoles } from "../../shared/index";
 export class NewsListComponent implements OnInit, OnDestroy {
 
     private sub: Subscription;
-    items: News[];
+  //  items: News[];
     items1: Observable<News[]>;
     page = 1;
     itemsPerPage = 15;
@@ -25,8 +26,39 @@ export class NewsListComponent implements OnInit, OnDestroy {
     categoryId: number;
     userName: string;
     roles: IRoles;
+    selectedItemIndex: number = undefined;
+
+    @ViewChild("activateModal") activateModal: Modal;
 
     constructor(private newsService: NewsService, private route: ActivatedRoute, private location: Location, private rolesChecked: RolesCheckedService ) {
+    }
+
+    showActivateModal(index: number): void {
+        this.selectedItemIndex = index;
+        this.activateModal.open();
+    }
+
+    hideActivateModal(): void {
+        this.selectedItemIndex = undefined;
+        this.activateModal.close();
+    }
+
+    activate() {
+        console.log(this.selectedItemIndex);
+        let newsItem;
+        this.items1.do(data => newsItem = data[this.selectedItemIndex]);
+
+        console.log(newsItem);
+        // => {
+        //    this.newsService.activate(
+        //        data[this.selectedItemIndex].id).subscribe(answer => {
+        //        if (answer) {
+        //            data[this.selectedItemIndex].pending = false;
+        //            this.selectedItemIndex = undefined;
+        //            this.activateModal.close();
+        //        }
+        //    });
+        //});
     }
 
     ngOnInit() {
@@ -57,7 +89,7 @@ export class NewsListComponent implements OnInit, OnDestroy {
     }
 
     private parsePageable(pageable: Pageable<News>): void {
-        this.items = pageable.list;
+        //this.items = pageable.list;
         this.page = pageable.pageNo;
         this.itemsPerPage = pageable.itemPerPage;
         this.totalItems = pageable.totalItems;

@@ -14,7 +14,7 @@
         private source: string;
         private photoPath: string;
         //private virtual ICollection< MaterialCommentDto > Comments { get; set; }ggggggg
-        private pending: boolean;
+        pending: boolean;
         private onTop: boolean;
         private canCommentary: boolean;
     }

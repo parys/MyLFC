@@ -8,9 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-require('rxjs/add/operator/map');
-var app_constants_1 = require('../../app.constants');
+var core_1 = require("@angular/core");
+require("rxjs/add/operator/map");
+var app_constants_1 = require("../../app.constants");
 var httpWrapper_1 = require("../../shared/httpWrapper");
 var NewsService = (function () {
     function NewsService(http, configuration) {
@@ -24,8 +24,8 @@ var NewsService = (function () {
             return _this.http.get(_this.actionUrl + id).map(function (res) { return res.json(); });
         };
         this.Create = function (item) {
-            var toAdd = JSON.stringify({ ItemName: item });
-            return _this.http.post(_this.actionUrl + 'News/', JSON.stringify(item)).map(function (res) { return res.json(); });
+            // var toAdd = JSON.stringify({ ItemName: item });
+            return _this.http.post(_this.actionUrl + "News/", JSON.stringify(item)).map(function (res) { return res.json(); });
         };
         this.Update = function (id, itemToUpdate) {
             return _this.http
@@ -36,9 +36,12 @@ var NewsService = (function () {
             return _this.http.delete(_this.actionUrl + id).map(function (response) { return response.json(); });
         };
         this.AddView = function (id) {
-            return _this.http.get(_this.actionUrl + 'AddView/' + id).map(function (res) { return res.json(); });
+            return _this.http.get(_this.actionUrl + "AddView/" + id).map(function (res) { return res.json(); });
         };
-        this.actionUrl = configuration.ServerWithApiUrl + 'material/';
+        this.activate = function (id) {
+            return _this.http.get(_this.actionUrl + "Activate/" + id).map(function (res) { return res.json(); });
+        };
+        this.actionUrl = configuration.ServerWithApiUrl + "material/";
     }
     NewsService.prototype.extractData = function (res) {
         var body = res.json();
