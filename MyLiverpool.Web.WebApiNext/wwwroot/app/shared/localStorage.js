@@ -2,7 +2,7 @@
 var LocalStorageMine = (function () {
     function LocalStorageMine() {
         if (!localStorage) {
-            throw new Error('Current browser does not support Local Storage');
+            throw new Error("Current browser does not support Local Storage");
         }
         this.localStorage = localStorage;
     }

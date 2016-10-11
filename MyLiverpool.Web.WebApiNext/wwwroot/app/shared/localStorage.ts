@@ -1,33 +1,33 @@
 ﻿export class LocalStorageMine {
-    public localStorage: any;
+    private localStorage: any;
 
     constructor() {
         if (!localStorage) {
-            throw new Error('Current browser does not support Local Storage');
+            throw new Error("Current browser does not support Local Storage");
         }
         this.localStorage = localStorage;
     }
 
-    public set(key: string, value: string): void {
+    set(key: string, value: string): void {
         this.localStorage[key] = value;
     }
 
-    public get(key: string): string {
+    get(key: string): string {
         return this.localStorage[key] || false;
     }
 
-    public setObject(key: string, value: any): void {
+    setObject(key: string, value: any): void {
         this.localStorage[key] = JSON.stringify(value);
     }
 
-    public getObject(key: string): any {
+    getObject(key: string): any {
         if (this.localStorage[key]) {
             return JSON.parse(this.localStorage[key]);
         }
         return null;
     }
 
-    public remove(key: string): any {
+    remove(key: string): any {
         this.localStorage.removeItem(key);
     }
 }
