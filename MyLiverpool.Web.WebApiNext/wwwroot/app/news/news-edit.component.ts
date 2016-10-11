@@ -1,14 +1,14 @@
-﻿import { Component, OnInit, OnDestroy } from '@angular/core';
-import { NewsService } from '../shared/news.service';
-import { Router, ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs/Subscription';
-import { News } from "../shared/news.model";
-import {NewsCategoryService} from "../../newsCategory/shared/newsCategory.service";
-import {NewsCategory} from "../../newsCategory/shared/newsCategory.model";
+﻿import { Component, OnInit, OnDestroy } from "@angular/core";
+import { NewsService } from "./news.service";
+import { Router, ActivatedRoute } from "@angular/router";
+import { Subscription } from "rxjs/Subscription";
+import { News } from "./news.model";
+import { NewsCategoryService } from "../newsCategory/shared/newsCategory.service";
+import { NewsCategory } from "../newsCategory/shared/newsCategory.model";
 
 @Component({
-    selector: 'news-edit',
-    templateUrl: 'app/news/news-edit/news-edit.component.html'
+    selector: "news-edit",
+    templateUrl: "app/news/news-edit.component.html"
 })
 
 export class NewsEditComponent implements OnInit, OnDestroy {
@@ -21,7 +21,7 @@ export class NewsEditComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.sub = this.route.params.subscribe(params => {
-            let id = +params['id'];
+            let id = +params["id"];
             if (id > 0) {
                 this.newsService.GetSingle(id)
                     .subscribe(data => this.parse(data),
@@ -39,15 +39,15 @@ export class NewsEditComponent implements OnInit, OnDestroy {
         this.sub.unsubscribe();
     }
 
-    public save() {
+    save() {
         if (this.item.id > 0) {
             this.newsService.Update(this.item.id, this.item)
-                .subscribe(data => this.router.navigate(['/news', data.id]),
+                .subscribe(data => this.router.navigate(["/news", data.id]),
                 error => console.log(error),
                 () => console.log("success update edit news"));
         } else {
             this.newsService.Create(this.item)
-                .subscribe(data => this.router.navigate(['/news', data.id]),
+                .subscribe(data => this.router.navigate(["/news", data.id]),
                 error => console.log(error),
                 () => console.log("success Create edit news"));
         }

@@ -1,18 +1,18 @@
 ﻿import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ViewChild } from "@angular/core";
 import { Location  } from "@angular/common";
-import { NewsService } from "../shared/news.service";
-import { News } from "../shared/news.model";
+import { NewsService } from "./news.service";
+import { News } from "./news.model";
 import { Observable } from "rxjs/Observable";
-import { Pageable } from "../../shared/pageable.model";
-import { MaterialFilters } from "../newsFilters.model";
+import { Pageable } from "../shared/pageable.model";
+import { MaterialFilters } from "./newsFilters.model";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
-import { RolesCheckedService, IRoles } from "../../shared/index";
+import { RolesCheckedService, IRoles } from "../shared/index";
 import { Modal } from "ng2-modal";
 
 @Component({
     selector: "news-list",
-    templateUrl: "app/news/news-list/news-list.component.html",
+    templateUrl: "app/news/news-list.component.html",
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NewsListComponent implements OnInit, OnDestroy {
@@ -45,7 +45,7 @@ export class NewsListComponent implements OnInit, OnDestroy {
 
     activate() {
         console.log(this.selectedItemIndex);
-        let newsItem;
+        let newsItem: News;
         this.items1.do(data => newsItem = data[this.selectedItemIndex]);
 
         console.log(newsItem);
@@ -63,7 +63,7 @@ export class NewsListComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.roles = this.rolesChecked.checkedRoles;
-        console.log(this.roles);
+
         this.sub = this.route.params.subscribe(params => {
             if (params["page"]) {
                 this.page = +params["page"];

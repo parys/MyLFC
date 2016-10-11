@@ -6,13 +6,10 @@ import { BrowserModule } from "@angular/platform-browser";
 
 import { AppComponent }  from "./app.component";
 import { routing, appRoutingProviders } from "./app.routes";
-import { NewsListComponent } from "./news/news-list/news-list.component";
 import { Configuration } from "./app.constants";
 
-import { NewsDetailComponent } from "./news/news-detail/news-detail.component";
 import { AccountSignupComponent } from "./account/account-signup.component";
-import { NewsService } from "./news/shared/news.service";
-import { NewsEditComponent } from "./news/news-edit/news-edit.component";
+import { NewsEditComponent, NewsDetailComponent, NewsListComponent, NewsService } from "./news/index";
 import { NewsCategoryService } from "./newsCategory/shared/newsCategory.service";
 import { AccountSigninComponent } from "./account/account-signin.component";
 import { HttpWrapper } from "./shared/httpWrapper";

@@ -10,8 +10,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 require("rxjs/add/operator/map");
-var app_constants_1 = require("../../app.constants");
-var httpWrapper_1 = require("../../shared/httpWrapper");
+var app_constants_1 = require("../app.constants");
+var httpWrapper_1 = require("../shared/httpWrapper");
 var NewsService = (function () {
     function NewsService(http, configuration) {
         var _this = this;
@@ -35,18 +35,14 @@ var NewsService = (function () {
         this.Delete = function (id) {
             return _this.http.delete(_this.actionUrl + id).map(function (response) { return response.json(); });
         };
-        this.AddView = function (id) {
-            return _this.http.get(_this.actionUrl + "AddView/" + id).map(function (res) { return res.json(); });
+        this.addView = function (id) {
+            return _this.http.get(_this.actionUrl + "addView/" + id).map(function (res) { return res.json(); });
         };
         this.activate = function (id) {
-            return _this.http.get(_this.actionUrl + "Activate/" + id).map(function (res) { return res.json(); });
+            return _this.http.get(_this.actionUrl + "activate/" + id).map(function (res) { return res.json(); });
         };
         this.actionUrl = configuration.ServerWithApiUrl + "material/";
     }
-    NewsService.prototype.extractData = function (res) {
-        var body = res.json();
-        return body.data || {};
-    };
     NewsService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [httpWrapper_1.HttpWrapper, app_constants_1.Configuration])

@@ -1,7 +1,5 @@
 ﻿import { Routes }         from "@angular/router";
-import {NewsListComponent} from "./news-list/news-list.component";
-import {NewsDetailComponent} from "./news-detail/news-detail.component";
-import { NewsEditComponent } from "./news-edit/news-edit.component";
+import { NewsListComponent, NewsDetailComponent, NewsEditComponent } from "./index";
 
 export const newsRoutes: Routes = [
     { path: "news", component: NewsListComponent },

@@ -10,10 +10,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var common_1 = require("@angular/common");
-var news_service_1 = require("../shared/news.service");
-var newsFilters_model_1 = require("../newsFilters.model");
+var news_service_1 = require("./news.service");
+var newsFilters_model_1 = require("./newsFilters.model");
 var router_1 = require("@angular/router");
-var index_1 = require("../../shared/index");
+var index_1 = require("../shared/index");
 var ng2_modal_1 = require("ng2-modal");
 var NewsListComponent = (function () {
     function NewsListComponent(newsService, route, location, rolesChecked) {
@@ -53,7 +53,6 @@ var NewsListComponent = (function () {
     NewsListComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.roles = this.rolesChecked.checkedRoles;
-        console.log(this.roles);
         this.sub = this.route.params.subscribe(function (params) {
             if (params["page"]) {
                 _this.page = +params["page"];
@@ -115,7 +114,7 @@ var NewsListComponent = (function () {
     NewsListComponent = __decorate([
         core_1.Component({
             selector: "news-list",
-            templateUrl: "app/news/news-list/news-list.component.html",
+            templateUrl: "app/news/news-list.component.html",
             changeDetection: core_1.ChangeDetectionStrategy.OnPush
         }), 
         __metadata('design:paramtypes', [news_service_1.NewsService, router_1.ActivatedRoute, common_1.Location, index_1.RolesCheckedService])

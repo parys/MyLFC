@@ -8,10 +8,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var news_service_1 = require('../shared/news.service');
-var router_1 = require('@angular/router');
-var localStorage_1 = require("../../shared/localStorage");
+var core_1 = require("@angular/core");
+var news_service_1 = require("./news.service");
+var router_1 = require("@angular/router");
+var localStorage_1 = require("../shared/localStorage");
 var NewsDetailComponent = (function () {
     function NewsDetailComponent(newsService, route, localStorage) {
         this.newsService = newsService;
@@ -21,7 +21,7 @@ var NewsDetailComponent = (function () {
     NewsDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.sub = this.route.params.subscribe(function (params) {
-            var id = +params['id'];
+            var id = +params["id"];
             _this.newsService.GetSingle(id)
                 .subscribe(function (data) { return _this.parse(data); }, function (error) { return console.log(error); }, function () { return console.log("success load edit news"); });
         });
@@ -35,15 +35,15 @@ var NewsDetailComponent = (function () {
     };
     NewsDetailComponent.prototype.addView = function () {
         var id = this.item.id;
-        if (!this.localStorage.get('material' + id)) {
-            this.localStorage.set('material' + id, "");
-            this.newsService.AddView(id).subscribe(function (data) { return data; });
+        if (!this.localStorage.get("material" + id)) {
+            this.localStorage.set("material" + id, "1");
+            this.newsService.addView(id).subscribe(function (data) { return data; });
         }
     };
     NewsDetailComponent = __decorate([
         core_1.Component({
-            selector: 'news-detail',
-            templateUrl: 'app/news/news-detail/news-detail.component.html'
+            selector: "news-detail",
+            templateUrl: "app/news/news-detail.component.html"
         }), 
         __metadata('design:paramtypes', [news_service_1.NewsService, router_1.ActivatedRoute, localStorage_1.LocalStorageMine])
     ], NewsDetailComponent);

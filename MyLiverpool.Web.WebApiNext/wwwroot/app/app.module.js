@@ -15,30 +15,27 @@ var material_1 = require("@angular/material");
 var platform_browser_1 = require("@angular/platform-browser");
 var app_component_1 = require("./app.component");
 var app_routes_1 = require("./app.routes");
-var news_list_component_1 = require("./news/news-list/news-list.component");
 var app_constants_1 = require("./app.constants");
-var news_detail_component_1 = require("./news/news-detail/news-detail.component");
 var account_signup_component_1 = require("./account/account-signup.component");
-var news_service_1 = require("./news/shared/news.service");
-var news_edit_component_1 = require("./news/news-edit/news-edit.component");
+var index_1 = require("./news/index");
 var newsCategory_service_1 = require("./newsCategory/shared/newsCategory.service");
 var account_signin_component_1 = require("./account/account-signin.component");
 var httpWrapper_1 = require("./shared/httpWrapper");
-var index_1 = require("./auth/index");
-var index_2 = require("./shared/index");
+var index_2 = require("./auth/index");
+var index_3 = require("./shared/index");
 var account_service_1 = require("./account/account.service");
 var newsCategory_list_component_1 = require("./newsCategory/newsCategory-list.component");
 var newsCategory_edit_component_1 = require("./newsCategory/newsCategory-edit.component");
 var user_detail_component_1 = require("./user/user-detail.component");
 var user_service_1 = require("./user/user.service");
 var user_list_component_1 = require("./user/user-list.component");
-var index_3 = require("./pm/index");
-var index_4 = require("./home/index");
-var index_5 = require("./wish/index");
+var index_4 = require("./pm/index");
+var index_5 = require("./home/index");
+var index_6 = require("./wish/index");
 var ng2_auto_complete_1 = require("ng2-auto-complete");
 var ng2_pagination_1 = require("ng2-pagination");
 var ng2_modal_1 = require("ng2-modal");
-var index_6 = require("./shared/index");
+var index_7 = require("./shared/index");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -58,35 +55,35 @@ var AppModule = (function () {
                 account_signin_component_1.AccountSigninComponent,
                 account_signup_component_1.AccountSignupComponent,
                 app_component_1.AppComponent,
-                index_4.ClubHistoryComponent,
+                index_5.ClubHistoryComponent,
                 newsCategory_edit_component_1.NewsCategoryEditComponent,
                 newsCategory_list_component_1.NewsCategoryListComponent,
-                news_list_component_1.NewsListComponent,
-                news_detail_component_1.NewsDetailComponent,
-                news_edit_component_1.NewsEditComponent,
-                index_3.PmDetailComponent,
-                index_3.PmEditComponent,
-                index_3.PmListComponent,
-                index_2.SecuredDirective,
+                index_1.NewsListComponent,
+                index_1.NewsDetailComponent,
+                index_1.NewsEditComponent,
+                index_4.PmDetailComponent,
+                index_4.PmEditComponent,
+                index_4.PmListComponent,
+                index_3.SecuredDirective,
                 user_detail_component_1.UserDetailComponent,
                 user_list_component_1.UserListComponent,
-                index_5.WishEditComponent,
-                index_5.WishListComponent],
+                index_6.WishEditComponent,
+                index_6.WishListComponent],
             bootstrap: [app_component_1.AppComponent],
             providers: [
                 account_service_1.AccountService,
                 app_routes_1.appRoutingProviders,
-                index_1.AuthGuard,
-                index_1.AuthService,
+                index_2.AuthGuard,
+                index_2.AuthService,
                 app_constants_1.Configuration,
                 httpWrapper_1.HttpWrapper,
-                { provide: index_2.LocalStorageMine, useClass: index_2.LocalStorageMine },
-                news_service_1.NewsService,
+                { provide: index_3.LocalStorageMine, useClass: index_3.LocalStorageMine },
+                index_1.NewsService,
                 newsCategory_service_1.NewsCategoryService,
-                index_3.PmService,
-                index_6.RolesCheckedService,
+                index_4.PmService,
+                index_7.RolesCheckedService,
                 user_service_1.UserService,
-                index_5.WishService
+                index_6.WishService
             ]
         }), 
         __metadata('design:paramtypes', [])

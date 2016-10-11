@@ -14,7 +14,7 @@
                 <td class="">
                     <a [routerLink]="['/user', user.id ]">
                         <div class="col-md-3">
-                            <img class="mini-avatar" src="{{user.photo}}" alt="user.userName"/>
+                            <img class="mini-avatar" src="{{user.photo}}" alt="{{user.userName}}"/>
                         </div>
                         <span [textContent]="user.userName"></span>
                     </a>

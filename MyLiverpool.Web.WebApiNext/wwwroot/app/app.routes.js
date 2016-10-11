@@ -1,6 +1,6 @@
 "use strict";
 var router_1 = require("@angular/router");
-var news_list_component_1 = require("./news/news-list/news-list.component");
+var index_1 = require("./news/index");
 var auth_routing_1 = require("./auth/auth.routing");
 var newsCategory_routing_1 = require("./newsCategory/newsCategory.routing");
 var news_routing_1 = require("./news/news.routing");
@@ -9,7 +9,7 @@ var pm_routing_1 = require("./pm/pm.routing");
 var home_routing_1 = require("./home/home.routing");
 var wish_routing_1 = require("./wish/wish.routing");
 var routes = auth_routing_1.authRoutes.concat(home_routing_1.homeRoutes, newsCategory_routing_1.newsCategoryRoutes, news_routing_1.newsRoutes, pm_routing_1.pmRoutes, user_routing_1.userRoutes, wish_routing_1.wishRoutes, [
-    { path: "", component: news_list_component_1.NewsListComponent }
+    { path: "", component: index_1.NewsListComponent }
 ]);
 exports.appRoutingProviders = [
     auth_routing_1.authProviders

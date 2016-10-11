@@ -2,7 +2,7 @@
     <ul class="nav navbar-nav col-xs-3 col-sm-3 list-inline">
         <li><a id="back-top" href="#" style="display: none;">Вверх</a></li>
         <li class="divider"></li>
-        <li [secured]>
+        <li *ngIf="auth.isLoggedIn">
             <a [routerLink]="['/pm']"><span class="glyphicon glyphicon-envelope"></span> Читать л/с (<span ng-bind="vm.unreadPmCount"></span>)</a>
         </li>
         <li class="divider"></li>
@@ -58,7 +58,7 @@
                 <li class="dropdown">
                     <a [routerLink]="['/news/list', 1]" class="dropdown-toggle" data-toggle="">Новости<b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a [secured]="'newsStart'" [routerLink]="['/news', 0, 'edit']">Добавить</a></li>
+                        <li><a *ngIf="roles.isNewsmaker" [routerLink]="['/news', 0, 'edit']">Добавить</a></li>
                         <li><a [routerLink]="['/newsCategory']">Категории</a></li>
                     </ul>
                 </li>

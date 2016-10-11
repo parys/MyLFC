@@ -8,23 +8,26 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var router_1 = require('@angular/router');
+var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
 var auth_service_1 = require("./auth/auth.service");
+var roles_checked_service_1 = require("./shared/roles-checked.service");
 var AppComponent = (function () {
-    function AppComponent(router, auth) {
+    function AppComponent(router, auth, rolesChecked) {
         this.router = router;
         this.auth = auth;
+        this.rolesChecked = rolesChecked;
+        this.roles = this.rolesChecked.checkedRoles;
     }
     AppComponent.prototype.logout = function () {
         this.auth.logout();
     };
     AppComponent = __decorate([
         core_1.Component({
-            selector: 'my-app',
-            templateUrl: 'app/app.component.html'
+            selector: "my-app",
+            templateUrl: "app/app.component.html"
         }), 
-        __metadata('design:paramtypes', [router_1.Router, auth_service_1.AuthService])
+        __metadata('design:paramtypes', [router_1.Router, auth_service_1.AuthService, roles_checked_service_1.RolesCheckedService])
     ], AppComponent);
     return AppComponent;
 }());

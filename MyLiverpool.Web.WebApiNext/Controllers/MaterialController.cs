@@ -121,7 +121,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         }
 
         [Route("AddView/{id:int}")]
-        [HttpPut]
+        [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> AddView(int? id)
         {

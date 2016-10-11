@@ -8,10 +8,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var news_service_1 = require('../shared/news.service');
-var router_1 = require('@angular/router');
-var newsCategory_service_1 = require("../../newsCategory/shared/newsCategory.service");
+var core_1 = require("@angular/core");
+var news_service_1 = require("./news.service");
+var router_1 = require("@angular/router");
+var newsCategory_service_1 = require("../newsCategory/shared/newsCategory.service");
 var NewsEditComponent = (function () {
     function NewsEditComponent(newsService, newsCategoryService, route, router) {
         this.newsService = newsService;
@@ -22,7 +22,7 @@ var NewsEditComponent = (function () {
     NewsEditComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.sub = this.route.params.subscribe(function (params) {
-            var id = +params['id'];
+            var id = +params["id"];
             if (id > 0) {
                 _this.newsService.GetSingle(id)
                     .subscribe(function (data) { return _this.parse(data); }, function (error) { return console.log(error); }, function () { return console.log("success load edit news"); });
@@ -38,11 +38,11 @@ var NewsEditComponent = (function () {
         var _this = this;
         if (this.item.id > 0) {
             this.newsService.Update(this.item.id, this.item)
-                .subscribe(function (data) { return _this.router.navigate(['/news', data.id]); }, function (error) { return console.log(error); }, function () { return console.log("success update edit news"); });
+                .subscribe(function (data) { return _this.router.navigate(["/news", data.id]); }, function (error) { return console.log(error); }, function () { return console.log("success update edit news"); });
         }
         else {
             this.newsService.Create(this.item)
-                .subscribe(function (data) { return _this.router.navigate(['/news', data.id]); }, function (error) { return console.log(error); }, function () { return console.log("success Create edit news"); });
+                .subscribe(function (data) { return _this.router.navigate(["/news", data.id]); }, function (error) { return console.log(error); }, function () { return console.log("success Create edit news"); });
         }
     };
     NewsEditComponent.prototype.parse = function (item) {
@@ -53,8 +53,8 @@ var NewsEditComponent = (function () {
     };
     NewsEditComponent = __decorate([
         core_1.Component({
-            selector: 'news-edit',
-            templateUrl: 'app/news/news-edit/news-edit.component.html'
+            selector: "news-edit",
+            templateUrl: "app/news/news-edit.component.html"
         }), 
         __metadata('design:paramtypes', [news_service_1.NewsService, newsCategory_service_1.NewsCategoryService, router_1.ActivatedRoute, router_1.Router])
     ], NewsEditComponent);
