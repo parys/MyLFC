@@ -35,14 +35,17 @@ var NewsEditComponent = (function () {
         this.sub.unsubscribe();
     };
     NewsEditComponent.prototype.save = function () {
-        var _this = this;
         if (this.item.id > 0) {
             this.newsService.Update(this.item.id, this.item)
-                .subscribe(function (data) { return _this.router.navigate(["/news", data.id]); }, function (error) { return console.log(error); }, function () { return console.log("success update edit news"); });
+                .subscribe(function (data) { return console.log(data); }, //this.router.navigate(["/news", data.id]),
+            function (//this.router.navigate(["/news", data.id]),
+                error) { return console.log(error); }, function () { return console.log("success update edit news"); });
         }
         else {
             this.newsService.Create(this.item)
-                .subscribe(function (data) { return _this.router.navigate(["/news", data.id]); }, function (error) { return console.log(error); }, function () { return console.log("success Create edit news"); });
+                .subscribe(function (data) { return console.log(data); }, //this.router.navigate(["/news", data.id]),
+            function (//this.router.navigate(["/news", data.id]),
+                error) { return console.log(error); }, function () { return console.log("success Create edit news"); });
         }
     };
     NewsEditComponent.prototype.parse = function (item) {

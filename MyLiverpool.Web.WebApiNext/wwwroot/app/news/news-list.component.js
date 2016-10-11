@@ -35,10 +35,23 @@ var NewsListComponent = (function () {
     };
     NewsListComponent.prototype.activate = function () {
         var _this = this;
-        console.log(this.selectedItemIndex);
-        var newsItem;
-        this.items1.do(function (data) { return newsItem = data[_this.selectedItemIndex]; });
-        console.log(newsItem);
+        // console.log(this.selectedItemIndex);
+        // console.log(this.items1);
+        // let newsItem: News;
+        // this.items1.subscribe(data => newsItem = data[this.selectedItemIndex].id);
+        this.items1.subscribe(function (data) { return _this.newsService.activate(data[_this.selectedItemIndex].id).subscribe(function (data1) {
+            // console.log(data1);
+            if (data1) {
+                _this.items1.subscribe(function (list) {
+                    console.log(list[_this.selectedItemIndex]);
+                    console.log(data);
+                    console.log(list);
+                    list[_this.selectedItemIndex].pending = false;
+                });
+                _this.hideActivateModal();
+            }
+        }); });
+        //console.log(newsItem);
         // => {
         //    this.newsService.activate(
         //        data[this.selectedItemIndex].id).subscribe(answer => {

@@ -63,8 +63,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return Json(result);
         }
 
-        [Route("Activate/{id:int}")]
-        [HttpPut]
+        [Route("activate/{id:int}")]
+        [HttpGet]
         [Authorize(Roles = nameof(RolesEnum.NewsStart))]
         public async Task<IActionResult> Activate(int? id)
         {
@@ -72,7 +72,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             {
                 return BadRequest();
             }
-            var result = await _materialService.ActivateAsync(id.Value);
+            var result = true;//await _materialService.ActivateAsync(id.Value);
             return Ok(result);
         }
 
@@ -97,7 +97,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Route("{id:int}")]
         [HttpPut]
         [Authorize(Roles = nameof(RolesEnum.NewsStart))]
-        public async Task<IActionResult> Update(int id, MaterialDto model)
+        public async Task<IActionResult> Update(int id, [FromBody]MaterialDto model)
         {
             if (id != model.Id)
             {

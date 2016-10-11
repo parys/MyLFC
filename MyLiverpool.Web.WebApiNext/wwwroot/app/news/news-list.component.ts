@@ -44,11 +44,25 @@ export class NewsListComponent implements OnInit, OnDestroy {
     }
 
     activate() {
-        console.log(this.selectedItemIndex);
-        let newsItem: News;
-        this.items1.do(data => newsItem = data[this.selectedItemIndex]);
+       // console.log(this.selectedItemIndex);
+       // console.log(this.items1);
+       // let newsItem: News;
+       // this.items1.subscribe(data => newsItem = data[this.selectedItemIndex].id);
+        this.items1.subscribe(data => this.newsService.activate(data[this.selectedItemIndex].id).subscribe(data1 => {
+           // console.log(data1);
+            if (data1) {
+                this.items1.subscribe(list => {
+                    console.log(list[this.selectedItemIndex]);
+                    console.log(data);
+                    console.log(list);
+                        list[this.selectedItemIndex].pending = false;
+                    }
+                );
+                this.hideActivateModal();
+            }
+        }));
 
-        console.log(newsItem);
+        //console.log(newsItem);
         // => {
         //    this.newsService.activate(
         //        data[this.selectedItemIndex].id).subscribe(answer => {
