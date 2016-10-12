@@ -11,7 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var common_1 = require("@angular/common");
 var news_service_1 = require("./news.service");
-var Observable_1 = require("rxjs/Observable");
 var newsFilters_model_1 = require("./newsFilters.model");
 var router_1 = require("@angular/router");
 var index_1 = require("../shared/index");
@@ -46,24 +45,55 @@ var NewsListComponent = (function () {
         var _this = this;
         //   this.newsService.activate(
         var id;
+        var news;
         var result;
-        //     this.items1.subscribe(data => console.log(data[this.selectedItemIndex].pending));
-        //     this.items1.subscribe(data => data[this.selectedItemIndex].pending = false);
-        //    this.items1.subscribe(data => id = data[this.selectedItemIndex].id);
-        //     this.items1.subscribe(data => console.log(data[this.selectedItemIndex]));
+        //     this.items.subscribe(data => console.log(data[this.selectedItemIndex].pending));
+        //     this.items.subscribe(data => data[this.selectedItemIndex].pending = false);
+        //    this.items.subscribe(data => id = data[this.selectedItemIndex].id);
+        //     this.items.subscribe(data => console.log(data[this.selectedItemIndex]));
         //    console.log(id);
         //   this.items1.subscribe(data => console.log(data[this.selectedItemIndex].pending));
-        this.items1.subscribe(function (data) { return id = data[_this.selectedItemIndex].id; }, function (e) { return console.log(e); }, function () {
-            _this.newsService.activate(id)
-                .subscribe(function (res) { return result = res; }, function (e) { return console.log(e); }, function () {
-                if (result) {
-                    _this.items1.subscribe(function (list) { return list[_this.selectedItemIndex].pending = false; }, function (e) { return console.log(e); }, function () {
-                        _this.cd.markForCheck();
-                        _this.hideActivateModal();
-                    });
-                }
-            });
+        //  this.items.subscribe(data =>
+        news = this.items[this.selectedItemIndex];
+        //  e => console.log(e),
+        //   () => {
+        this.newsService.activate(news.id)
+            .subscribe(function (res) { return result = res; }, function (e) { return console.log(e); }, function () {
+            if (result) {
+                news.pending = false;
+                //   this.items.subscribe(list => list[this.selectedItemIndex].pending = false,
+                //       e => console.log(e),
+                //       () => {
+                //  this.items.subscribe(list => list);
+                console.log(news);
+                console.log(_this.items[_this.selectedItemIndex]);
+            }
         });
+        //  });
+        /*
+          this.items.subscribe(data => news = data[this.selectedItemIndex],
+              e => console.log(e),
+              () => {
+                  this.newsService.activate(news.id)
+                      .subscribe(res => result = res,
+                          e => console.log(e),                                                                      ------
+                          () => {
+                              if (result) {
+                                  news.pending = false;
+  
+                                   this.items.subscribe(list => list[this.selectedItemIndex].pending = false,
+                                       e => console.log(e),
+                                        () => {
+                                   //  this.items.subscribe(list => list);
+                                  console.log(news);
+                                            this.items.subscribe(list => console.log(list[this.selectedItemIndex]));
+                                  // this.cd.markForCheck();
+                                  //this.hideActivateModal();
+                                        });
+                              }
+                          }
+                      );
+              }); */
         //  result.subscribe()
         //   console.log(result);
         //  if (data1) {
@@ -115,10 +145,11 @@ var NewsListComponent = (function () {
         this.location.replaceState(newUrl);
     };
     NewsListComponent.prototype.parsePageable = function (pageable) {
-        //this.items = pageable.list;
+        this.items = pageable.list;
         this.page = pageable.pageNo;
         this.itemsPerPage = pageable.itemPerPage;
         this.totalItems = pageable.totalItems;
+        console.log(this.items);
     };
     NewsListComponent.prototype.update = function () {
         var _this = this;
@@ -127,15 +158,10 @@ var NewsListComponent = (function () {
         filters.materialType = "News";
         filters.userName = this.userName;
         filters.page = this.page;
-        this.items1 = this.newsService
+        // this.items =
+        this.newsService
             .GetAll(filters)
-            .do(function (res) {
-            _this.parsePageable(res);
-        })
-            .map(function (res) { return res.list; });
-        //     .subscribe(data => this.parsePageable(data),
-        //         error => console.log(error),
-        //          () => console.log("success load list news"));
+            .subscribe(function (data) { return _this.parsePageable(data); }, function (error) { return console.log(error); }, function () { return console.log("success load list news"); });
         /*
          this.asyncMeals = serverCall(this.meals, page)
         .do(res => {
@@ -148,10 +174,6 @@ var NewsListComponent = (function () {
         */
     };
     __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Observable_1.Observable)
-    ], NewsListComponent.prototype, "items1", void 0);
-    __decorate([
         core_1.ViewChild("activateModal"), 
         __metadata('design:type', ng2_modal_1.Modal)
     ], NewsListComponent.prototype, "activateModal", void 0);
@@ -159,7 +181,7 @@ var NewsListComponent = (function () {
         core_1.Component({
             selector: "news-list",
             templateUrl: "app/news/news-list.component.html",
-            changeDetection: core_1.ChangeDetectionStrategy.OnPush
+            changeDetection: core_1.ChangeDetectionStrategy.Default
         }), 
         __metadata('design:paramtypes', [news_service_1.NewsService, router_1.ActivatedRoute, common_1.Location, index_1.RolesCheckedService, core_1.ChangeDetectorRef])
     ], NewsListComponent);

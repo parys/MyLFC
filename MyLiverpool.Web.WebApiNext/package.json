@@ -60,7 +60,8 @@
     "zone.js": "0.6.25",
     "ng2-auto-complete": "0.7.0",
     "ng2-pagination": "0.5.1",
-    "ng2-modal": "0.0.21" 
+    "ng2-modal": "0.0.21",
+    "ng2-bootstrap": "1.0.14"
   },
   "devDependencies": {
     "@types/hammerjs": "^2.0.33",

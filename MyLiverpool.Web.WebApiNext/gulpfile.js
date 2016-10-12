@@ -64,6 +64,7 @@ gulp.task("copy-Vendor-Js-To-Wwwroot-Internal", function (done) {
           "copy-angular",
           "copy-rxjs",
           "copy-ng2modal",
+          "copy-ng2bootstrap",
           "copy-allOther",
           done);
 });
@@ -81,6 +82,11 @@ gulp.task("copy-rxjs", function () {
 gulp.task("copy-ng2modal", function () {
     return gulp.src(buildConfig.sources.ng2modal)
         .pipe(gulp.dest(buildConfig.rootJsFolder + "ng2-modal/"));
+});
+
+gulp.task("copy-ng2bootstrap", function () {
+    return gulp.src(buildConfig.sources.ng2bootstrap)
+        .pipe(gulp.dest(buildConfig.rootJsFolder + "ng2-bootstrap/"));
 });
 
 gulp.task("copy-allOther", function () {

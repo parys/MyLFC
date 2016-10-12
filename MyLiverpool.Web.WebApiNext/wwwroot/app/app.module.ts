@@ -28,6 +28,8 @@ import { Ng2AutoCompleteModule } from "ng2-auto-complete";
 import { Ng2PaginationModule } from "ng2-pagination";
 import { ModalModule } from "ng2-modal";
 import { RolesCheckedService } from "./shared/index";
+import { Pagination } from "ng2-bootstrap";
+// import { Pagination } from "ng2-bootstrap/ng2-bootstrap";
 
 @NgModule({
     imports: [
@@ -37,7 +39,7 @@ import { RolesCheckedService } from "./shared/index";
         MaterialModule.forRoot(),
         ModalModule,
         Ng2AutoCompleteModule,
-        Ng2PaginationModule,
+   //     Ng2PaginationModule,
         ReactiveFormsModule,
         routing],
     declarations: [
@@ -50,6 +52,7 @@ import { RolesCheckedService } from "./shared/index";
         NewsListComponent,
         NewsDetailComponent,
         NewsEditComponent,
+    //    Pagination,
         PmDetailComponent,
         PmEditComponent,
         PmListComponent,

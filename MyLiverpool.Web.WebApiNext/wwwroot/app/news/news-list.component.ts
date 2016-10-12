@@ -13,13 +13,13 @@ import { Modal } from "ng2-modal";
 @Component({
     selector: "news-list",
     templateUrl: "app/news/news-list.component.html",
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class NewsListComponent implements OnInit, OnDestroy {
 
     private sub: Subscription;
-  //  items: News[];
-    @Input() items1: Observable<News[]>;
+   // @Input()
+    items: News[];
     page = 1;
     itemsPerPage = 15;
     totalItems: number;
@@ -55,33 +55,67 @@ export class NewsListComponent implements OnInit, OnDestroy {
         
      //   this.newsService.activate(
         let id;
+        let news: News;
         let result;
-   //     this.items1.subscribe(data => console.log(data[this.selectedItemIndex].pending));
-   //     this.items1.subscribe(data => data[this.selectedItemIndex].pending = false);
-    //    this.items1.subscribe(data => id = data[this.selectedItemIndex].id);
-   //     this.items1.subscribe(data => console.log(data[this.selectedItemIndex]));
+   //     this.items.subscribe(data => console.log(data[this.selectedItemIndex].pending));
+   //     this.items.subscribe(data => data[this.selectedItemIndex].pending = false);
+    //    this.items.subscribe(data => id = data[this.selectedItemIndex].id);
+   //     this.items.subscribe(data => console.log(data[this.selectedItemIndex]));
         
     //    console.log(id);
      //   this.items1.subscribe(data => console.log(data[this.selectedItemIndex].pending));
-
-        this.items1.subscribe(data => id = data[this.selectedItemIndex].id,
-            e => console.log(e),
-            () => {
-                this.newsService.activate(id)
+      //  this.items.subscribe(data =>
+        news = this.items[this.selectedItemIndex];
+          //  e => console.log(e),
+         //   () => {
+                this.newsService.activate(news.id)
                     .subscribe(res => result = res,
-                        e => console.log(e),
+                    e => console.log(e),
                         () => {
                             if (result) {
-                                this.items1.subscribe(list => list[this.selectedItemIndex].pending = false,
-                                    e => console.log(e),
-                                    () => {
-                                        this.cd.markForCheck();
-                                        this.hideActivateModal();
-                                    });
+                                news.pending = false;
+
+                                //   this.items.subscribe(list => list[this.selectedItemIndex].pending = false,
+                                //       e => console.log(e),
+                                //       () => {
+                                //  this.items.subscribe(list => list);
+                                console.log(news);
+                                console.log(this.items[this.selectedItemIndex]);
+                                //      this.items.subscribe(list => console.log(list[this.selectedItemIndex]));
+                                // this.cd.markForCheck();
+                                //this.hideActivateModal();
+                                //      });
+                                //}
                             }
                         }
                     );
-            });
+          //  });
+
+      /*
+        this.items.subscribe(data => news = data[this.selectedItemIndex],
+            e => console.log(e),
+            () => {
+                this.newsService.activate(news.id)
+                    .subscribe(res => result = res,
+                        e => console.log(e),                                                                      ------
+                        () => {
+                            if (result) {
+                                news.pending = false;
+
+                                 this.items.subscribe(list => list[this.selectedItemIndex].pending = false,
+                                     e => console.log(e),
+                                      () => {
+                                 //  this.items.subscribe(list => list);
+                                console.log(news);
+                                          this.items.subscribe(list => console.log(list[this.selectedItemIndex]));
+                                // this.cd.markForCheck();
+                                //this.hideActivateModal();
+                                      });
+                            }
+                        }
+                    );
+            }); */
+
 
         //  result.subscribe()
         //   console.log(result);
@@ -140,10 +174,11 @@ export class NewsListComponent implements OnInit, OnDestroy {
     }
 
     private parsePageable(pageable: Pageable<News>): void {
-        //this.items = pageable.list;
+        this.items = pageable.list;
         this.page = pageable.pageNo;
         this.itemsPerPage = pageable.itemPerPage;
         this.totalItems = pageable.totalItems;
+        console.log(this.items);
     }
 
     update() {
@@ -153,16 +188,17 @@ export class NewsListComponent implements OnInit, OnDestroy {
         filters.userName = this.userName;
         filters.page = this.page;
 
-        this.items1 = this.newsService
+       // this.items =
+            this.newsService
             .GetAll(filters)
-            .do(res => {
-                this.parsePageable(res);
-            })
-            .map(res => res.list);
+            //.do(res => {
+            //    this.parsePageable(res);
+            //})
+            //.map(res => res.list);
 
-        //     .subscribe(data => this.parsePageable(data),
-        //         error => console.log(error),
-        //          () => console.log("success load list news"));
+             .subscribe(data => this.parsePageable(data),
+                 error => console.log(error),
+                  () => console.log("success load list news"));
 
         /*
          this.asyncMeals = serverCall(this.meals, page)

@@ -22,6 +22,7 @@ module.exports = {
         Rxjs: "node_modules/rxjs/**/*.js",
         fonts: "node_modules/bootstrap/fonts/*.{ttf,woff,eot,svg,woff2}",
         bootstrapPath: "node_modules/bootstrap/dist/css/*.{css,map}",
-        ng2modal: "node_modules/ng2-modal/*.js"
+        ng2modal: "node_modules/ng2-modal/*.js",
+        ng2bootstrap: "node_modules/ng2-modal/*.js"
     }
 };
