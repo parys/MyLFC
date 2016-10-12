@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ViewChild } from "@angular/core";
+﻿import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ViewChild, ChangeDetectorRef, Input  } from "@angular/core";
 import { Location  } from "@angular/common";
 import { NewsService } from "./news.service";
 import { News } from "./news.model";
@@ -19,7 +19,7 @@ export class NewsListComponent implements OnInit, OnDestroy {
 
     private sub: Subscription;
   //  items: News[];
-    items1: Observable<News[]>;
+    @Input() items1: Observable<News[]>;
     page = 1;
     itemsPerPage = 15;
     totalItems: number;
@@ -30,7 +30,8 @@ export class NewsListComponent implements OnInit, OnDestroy {
 
     @ViewChild("activateModal") activateModal: Modal;
 
-    constructor(private newsService: NewsService, private route: ActivatedRoute, private location: Location, private rolesChecked: RolesCheckedService ) {
+    constructor(private newsService: NewsService, private route: ActivatedRoute, private location: Location,
+        private rolesChecked: RolesCheckedService, private cd: ChangeDetectorRef) {
     }
 
     showActivateModal(index: number): void {
@@ -48,19 +49,55 @@ export class NewsListComponent implements OnInit, OnDestroy {
        // console.log(this.items1);
        // let newsItem: News;
        // this.items1.subscribe(data => newsItem = data[this.selectedItemIndex].id);
-        this.items1.subscribe(data => this.newsService.activate(data[this.selectedItemIndex].id).subscribe(data1 => {
-           // console.log(data1);
-            if (data1) {
-                this.items1.subscribe(list => {
-                    console.log(list[this.selectedItemIndex]);
-                    console.log(data);
-                    console.log(list);
-                        list[this.selectedItemIndex].pending = false;
-                    }
-                );
-                this.hideActivateModal();
-            }
-        }));
+       // var result: Observable<boolean> =
+     //   this.newsService.activate(());//[this.selectedItemIndex]).id);// => result = );//.subscribe(data1 => {
+      //  this.items1.elementAt(data => console.log(data));
+        
+     //   this.newsService.activate(
+        let id;
+        let result;
+   //     this.items1.subscribe(data => console.log(data[this.selectedItemIndex].pending));
+   //     this.items1.subscribe(data => data[this.selectedItemIndex].pending = false);
+    //    this.items1.subscribe(data => id = data[this.selectedItemIndex].id);
+   //     this.items1.subscribe(data => console.log(data[this.selectedItemIndex]));
+        
+    //    console.log(id);
+     //   this.items1.subscribe(data => console.log(data[this.selectedItemIndex].pending));
+
+        this.items1.subscribe(data => id = data[this.selectedItemIndex].id,
+            e => console.log(e),
+            () => {
+                this.newsService.activate(id)
+                    .subscribe(res => result = res,
+                        e => console.log(e),
+                        () => {
+                            if (result) {
+                                this.items1.subscribe(list => list[this.selectedItemIndex].pending = false,
+                                    e => console.log(e),
+                                    () => {
+                                        this.cd.markForCheck();
+                                        this.hideActivateModal();
+                                    });
+                            }
+                        }
+                    );
+            });
+
+        //  result.subscribe()
+        //   console.log(result);
+        //  if (data1) {
+        //        this.items1.subscribe(list => {
+        //            console.log(list[this.selectedItemIndex]);
+
+        //             list[this.selectedItemIndex].pending = false;
+//
+        //             console.log(list[this.selectedItemIndex]);
+        //             this.hideActivateModal();
+        //             this.cd.markForCheck();
+        //              }
+        //         );
+        //      }
+        //   }));
 
         //console.log(newsItem);
         // => {
