@@ -20,7 +20,7 @@ export class NewsDetailComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.sub = this.route.params.subscribe(params => {
             let id = +params["id"];
-            this.newsService.GetSingle(id)
+            this.newsService.getSingle(id)
                 .subscribe(data => this.parse(data),
                 error => console.log(error),
                 () => console.log("success load edit news"));

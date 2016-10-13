@@ -30,9 +30,14 @@ var NewsListComponent = (function () {
         this.selectedItemIndex = index;
         this.activateModal.show();
     };
-    NewsListComponent.prototype.hideActivateModal = function () {
+    NewsListComponent.prototype.showDeleteModal = function (index) {
+        this.selectedItemIndex = index;
+        this.deleteModal.show();
+    };
+    NewsListComponent.prototype.hideModal = function () {
         this.selectedItemIndex = undefined;
         this.activateModal.hide();
+        this.deleteModal.hide();
     };
     NewsListComponent.prototype.activate = function () {
         var _this = this;
@@ -42,7 +47,18 @@ var NewsListComponent = (function () {
             .subscribe(function (res) { return result = res; }, function (e) { return console.log(e); }, function () {
             if (result) {
                 news.pending = false;
-                _this.hideActivateModal();
+                _this.hideModal();
+            }
+        });
+    };
+    NewsListComponent.prototype.delete = function () {
+        var _this = this;
+        var result;
+        this.newsService.delete(this.items[this.selectedItemIndex].id)
+            .subscribe(function (res) { return result = res; }, function (e) { return console.log(e); }, function () {
+            if (result) {
+                _this.items.splice(_this.selectedItemIndex, 1);
+                _this.hideModal();
             }
         });
     };
@@ -85,7 +101,7 @@ var NewsListComponent = (function () {
         filters.userName = this.userName;
         filters.page = this.page;
         this.newsService
-            .GetAll(filters)
+            .getAll(filters)
             .subscribe(function (data) { return _this.parsePageable(data); }, function (error) { return console.log(error); }, function () { return console.log("success load list news"); });
         //  this.cd.markForCheck();
     };
@@ -93,6 +109,10 @@ var NewsListComponent = (function () {
         core_1.ViewChild("activateModal"), 
         __metadata('design:type', ng2_bootstrap_1.ModalDirective)
     ], NewsListComponent.prototype, "activateModal", void 0);
+    __decorate([
+        core_1.ViewChild("deleteModal"), 
+        __metadata('design:type', ng2_bootstrap_1.ModalDirective)
+    ], NewsListComponent.prototype, "deleteModal", void 0);
     NewsListComponent = __decorate([
         core_1.Component({
             selector: "news-list",

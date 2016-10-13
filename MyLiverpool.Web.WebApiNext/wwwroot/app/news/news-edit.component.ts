@@ -23,7 +23,7 @@ export class NewsEditComponent implements OnInit, OnDestroy {
         this.sub = this.route.params.subscribe(params => {
             let id = +params["id"];
             if (id > 0) {
-                this.newsService.GetSingle(id)
+                this.newsService.getSingle(id)
                     .subscribe(data => this.parse(data),
                         error => console.log(error),
                         () => console.log("success load edit news"));
@@ -41,12 +41,12 @@ export class NewsEditComponent implements OnInit, OnDestroy {
 
     save() {
         if (this.item.id > 0) {
-            this.newsService.Update(this.item.id, this.item)
+            this.newsService.update(this.item.id, this.item)
                 .subscribe(data => console.log(data),//this.router.navigate(["/news", data.id]),
                 error => console.log(error),
                 () => console.log("success update edit news"));
         } else {
-            this.newsService.Create(this.item)
+            this.newsService.create(this.item)
                 .subscribe(data => console.log(data),//this.router.navigate(["/news", data.id]),
                 error => console.log(error),
                 () => console.log("success Create edit news"));

@@ -28,6 +28,7 @@ export class NewsListComponent implements OnInit, OnDestroy {
     selectedItemIndex: number = undefined;
 
     @ViewChild("activateModal") activateModal: ModalDirective;
+    @ViewChild("deleteModal") deleteModal: ModalDirective;
 
     constructor(private newsService: NewsService, private route: ActivatedRoute, private location: Location,
         private rolesChecked: RolesCheckedService, private cd: ChangeDetectorRef) {
@@ -38,9 +39,15 @@ export class NewsListComponent implements OnInit, OnDestroy {
         this.activateModal.show();
     }
 
-    hideActivateModal(): void {
+    showDeleteModal(index: number): void {
+        this.selectedItemIndex = index;
+        this.deleteModal.show();
+    }
+
+    hideModal(): void {
         this.selectedItemIndex = undefined;
         this.activateModal.hide();
+        this.deleteModal.hide();
     }
 
     activate() {
@@ -53,7 +60,21 @@ export class NewsListComponent implements OnInit, OnDestroy {
                 () => {
                     if (result) {
                         news.pending = false;
-                        this.hideActivateModal();
+                        this.hideModal();
+                    }
+                }
+            );
+    }
+
+    delete() {
+        let result;
+        this.newsService.delete(this.items[this.selectedItemIndex].id)
+            .subscribe(res => result = res,
+                e => console.log(e),
+                () => {
+                    if (result) {
+                        this.items.splice(this.selectedItemIndex, 1);
+                        this.hideModal();
                     }
                 }
             );
@@ -101,7 +122,7 @@ export class NewsListComponent implements OnInit, OnDestroy {
         filters.page = this.page;
 
         this.newsService
-            .GetAll(filters)
+            .getAll(filters)
             .subscribe(data => this.parsePageable(data),
                 error => console.log(error),
                 () => console.log("success load list news"));

@@ -16,26 +16,26 @@ export class NewsService {
         this.actionUrl = configuration.ServerWithApiUrl + "material/";
     }
 
-    GetAll = (filters:MaterialFilters): Observable<Pageable<News>> => {
+    getAll = (filters:MaterialFilters): Observable<Pageable<News>> => {
         return this.http.get(this.actionUrl + "list/" + encodeURIComponent(JSON.stringify(filters))).map(res => res.json());
     };
 
-    GetSingle = (id: number): Observable<News> => {
+    getSingle = (id: number): Observable<News> => {
         return this.http.get(this.actionUrl + id).map(res => res.json());
     };
 
-    Create = (item: News): Observable<News> => {
+    create = (item: News): Observable<News> => {
        // var toAdd = JSON.stringify({ ItemName: item });
         return this.http.post(this.actionUrl + "News/", JSON.stringify(item)).map(res => res.json());
     };
 
-    Update = (id: number, itemToUpdate: News): Observable<News> => {
+    update = (id: number, itemToUpdate: News): Observable<News> => {
         return this.http
             .put(this.actionUrl + id, JSON.stringify(itemToUpdate))
             .map(res => res.json());
     };
 
-    Delete = (id: number): Observable<boolean> => {
+    delete = (id: number): Observable<boolean> => {
         return this.http.delete(this.actionUrl + id).map(response => response.json());
     };
 

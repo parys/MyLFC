@@ -24,7 +24,7 @@ var NewsEditComponent = (function () {
         this.sub = this.route.params.subscribe(function (params) {
             var id = +params["id"];
             if (id > 0) {
-                _this.newsService.GetSingle(id)
+                _this.newsService.getSingle(id)
                     .subscribe(function (data) { return _this.parse(data); }, function (error) { return console.log(error); }, function () { return console.log("success load edit news"); });
             }
         });
@@ -36,13 +36,13 @@ var NewsEditComponent = (function () {
     };
     NewsEditComponent.prototype.save = function () {
         if (this.item.id > 0) {
-            this.newsService.Update(this.item.id, this.item)
+            this.newsService.update(this.item.id, this.item)
                 .subscribe(function (data) { return console.log(data); }, //this.router.navigate(["/news", data.id]),
             function (//this.router.navigate(["/news", data.id]),
                 error) { return console.log(error); }, function () { return console.log("success update edit news"); });
         }
         else {
-            this.newsService.Create(this.item)
+            this.newsService.create(this.item)
                 .subscribe(function (data) { return console.log(data); }, //this.router.navigate(["/news", data.id]),
             function (//this.router.navigate(["/news", data.id]),
                 error) { return console.log(error); }, function () { return console.log("success Create edit news"); });

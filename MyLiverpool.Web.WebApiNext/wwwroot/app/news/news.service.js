@@ -17,22 +17,22 @@ var NewsService = (function () {
         var _this = this;
         this.http = http;
         this.configuration = configuration;
-        this.GetAll = function (filters) {
+        this.getAll = function (filters) {
             return _this.http.get(_this.actionUrl + "list/" + encodeURIComponent(JSON.stringify(filters))).map(function (res) { return res.json(); });
         };
-        this.GetSingle = function (id) {
+        this.getSingle = function (id) {
             return _this.http.get(_this.actionUrl + id).map(function (res) { return res.json(); });
         };
-        this.Create = function (item) {
+        this.create = function (item) {
             // var toAdd = JSON.stringify({ ItemName: item });
             return _this.http.post(_this.actionUrl + "News/", JSON.stringify(item)).map(function (res) { return res.json(); });
         };
-        this.Update = function (id, itemToUpdate) {
+        this.update = function (id, itemToUpdate) {
             return _this.http
                 .put(_this.actionUrl + id, JSON.stringify(itemToUpdate))
                 .map(function (res) { return res.json(); });
         };
-        this.Delete = function (id) {
+        this.delete = function (id) {
             return _this.http.delete(_this.actionUrl + id).map(function (response) { return response.json(); });
         };
         this.addView = function (id) {

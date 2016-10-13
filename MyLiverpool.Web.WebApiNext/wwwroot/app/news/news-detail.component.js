@@ -22,7 +22,7 @@ var NewsDetailComponent = (function () {
         var _this = this;
         this.sub = this.route.params.subscribe(function (params) {
             var id = +params["id"];
-            _this.newsService.GetSingle(id)
+            _this.newsService.getSingle(id)
                 .subscribe(function (data) { return _this.parse(data); }, function (error) { return console.log(error); }, function () { return console.log("success load edit news"); });
         });
     };
