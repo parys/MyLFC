@@ -63,7 +63,6 @@ gulp.task("copy-Vendor-Js-To-Wwwroot-Internal", function (done) {
     runSeq(
           "copy-angular",
           "copy-rxjs",
-          "copy-ng2modal",
           "copy-ng2bootstrap",
           "copy-allOther",
           done);
@@ -77,11 +76,6 @@ gulp.task("copy-angular", function () {
 gulp.task("copy-rxjs", function () {
     return gulp.src(buildConfig.sources.Rxjs)
         .pipe(gulp.dest(buildConfig.rootJsFolder + "rxjs/"));
-});
-
-gulp.task("copy-ng2modal", function () {
-    return gulp.src(buildConfig.sources.ng2modal)
-        .pipe(gulp.dest(buildConfig.rootJsFolder + "ng2-modal/"));
 });
 
 gulp.task("copy-ng2bootstrap", function () {

@@ -33,7 +33,6 @@ var index_4 = require("./pm/index");
 var index_5 = require("./home/index");
 var index_6 = require("./wish/index");
 var ng2_auto_complete_1 = require("ng2-auto-complete");
-//import { ModalModule } from "ng2-modal";
 var index_7 = require("./shared/index");
 var ng2_bootstrap_1 = require("ng2-bootstrap/ng2-bootstrap");
 var AppModule = (function () {

@@ -25,7 +25,6 @@ import { PmListComponent, PmDetailComponent, PmEditComponent, PmService } from "
 import { ClubHistoryComponent } from "./home/index";
 import { WishListComponent, WishService, WishEditComponent } from "./wish/index";
 import { Ng2AutoCompleteModule } from "ng2-auto-complete";
-//import { ModalModule } from "ng2-modal";
 import { RolesCheckedService } from "./shared/index";
 import { ModalModule, PaginationModule } from "ng2-bootstrap/ng2-bootstrap";
 
