@@ -72,7 +72,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             {
                 return BadRequest();
             }
-            var result = true;//await _materialService.ActivateAsync(id.Value);
+            var result = await _materialService.ActivateAsync(id.Value);
             return Ok(result);
         }
 

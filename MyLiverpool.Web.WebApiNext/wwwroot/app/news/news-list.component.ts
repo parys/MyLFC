@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ViewChild, ChangeDetectorRef, Input  } from "@angular/core";
+﻿import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ViewChild, } from "@angular/core";
 import { Location  } from "@angular/common";
 import { NewsService } from "./news.service";
 import { News } from "./news.model";
@@ -18,7 +18,6 @@ import { Modal } from "ng2-modal";
 export class NewsListComponent implements OnInit, OnDestroy {
 
     private sub: Subscription;
-   // @Input()
     items: News[];
     page = 1;
     itemsPerPage = 15;
@@ -31,7 +30,7 @@ export class NewsListComponent implements OnInit, OnDestroy {
     @ViewChild("activateModal") activateModal: Modal;
 
     constructor(private newsService: NewsService, private route: ActivatedRoute, private location: Location,
-        private rolesChecked: RolesCheckedService, private cd: ChangeDetectorRef) {
+        private rolesChecked: RolesCheckedService) {
     }
 
     showActivateModal(index: number): void {
@@ -45,105 +44,19 @@ export class NewsListComponent implements OnInit, OnDestroy {
     }
 
     activate() {
-       // console.log(this.selectedItemIndex);
-       // console.log(this.items1);
-       // let newsItem: News;
-       // this.items1.subscribe(data => newsItem = data[this.selectedItemIndex].id);
-       // var result: Observable<boolean> =
-     //   this.newsService.activate(());//[this.selectedItemIndex]).id);// => result = );//.subscribe(data1 => {
-      //  this.items1.elementAt(data => console.log(data));
-        
-     //   this.newsService.activate(
-        let id;
-        let news: News;
         let result;
-   //     this.items.subscribe(data => console.log(data[this.selectedItemIndex].pending));
-   //     this.items.subscribe(data => data[this.selectedItemIndex].pending = false);
-    //    this.items.subscribe(data => id = data[this.selectedItemIndex].id);
-   //     this.items.subscribe(data => console.log(data[this.selectedItemIndex]));
-        
-    //    console.log(id);
-     //   this.items1.subscribe(data => console.log(data[this.selectedItemIndex].pending));
-      //  this.items.subscribe(data =>
-        news = this.items[this.selectedItemIndex];
-          //  e => console.log(e),
-         //   () => {
-                this.newsService.activate(news.id)
-                    .subscribe(res => result = res,
-                    e => console.log(e),
-                        () => {
-                            if (result) {
-                                news.pending = false;
 
-                                //   this.items.subscribe(list => list[this.selectedItemIndex].pending = false,
-                                //       e => console.log(e),
-                                //       () => {
-                                //  this.items.subscribe(list => list);
-                                console.log(news);
-                                console.log(this.items[this.selectedItemIndex]);
-                                //      this.items.subscribe(list => console.log(list[this.selectedItemIndex]));
-                                // this.cd.markForCheck();
-                                //this.hideActivateModal();
-                                //      });
-                                //}
-                            }
-                        }
-                    );
-          //  });
-
-      /*
-        this.items.subscribe(data => news = data[this.selectedItemIndex],
-            e => console.log(e),
-            () => {
-                this.newsService.activate(news.id)
-                    .subscribe(res => result = res,
-                        e => console.log(e),                                                                      ------
-                        () => {
-                            if (result) {
-                                news.pending = false;
-
-                                 this.items.subscribe(list => list[this.selectedItemIndex].pending = false,
-                                     e => console.log(e),
-                                      () => {
-                                 //  this.items.subscribe(list => list);
-                                console.log(news);
-                                          this.items.subscribe(list => console.log(list[this.selectedItemIndex]));
-                                // this.cd.markForCheck();
-                                //this.hideActivateModal();
-                                      });
-                            }
-                        }
-                    );
-            }); */
-
-
-        //  result.subscribe()
-        //   console.log(result);
-        //  if (data1) {
-        //        this.items1.subscribe(list => {
-        //            console.log(list[this.selectedItemIndex]);
-
-        //             list[this.selectedItemIndex].pending = false;
-//
-        //             console.log(list[this.selectedItemIndex]);
-        //             this.hideActivateModal();
-        //             this.cd.markForCheck();
-        //              }
-        //         );
-        //      }
-        //   }));
-
-        //console.log(newsItem);
-        // => {
-        //    this.newsService.activate(
-        //        data[this.selectedItemIndex].id).subscribe(answer => {
-        //        if (answer) {
-        //            data[this.selectedItemIndex].pending = false;
-        //            this.selectedItemIndex = undefined;
-        //            this.activateModal.close();
-        //        }
-        //    });
-        //});
+        let news = this.items[this.selectedItemIndex];
+        this.newsService.activate(news.id)
+            .subscribe(res => result = res,
+                e => console.log(e),
+                () => {
+                    if (result) {
+                        news.pending = false;
+                        this.hideActivateModal();
+                    }
+                }
+            );
     }
 
     ngOnInit() {
@@ -181,34 +94,17 @@ export class NewsListComponent implements OnInit, OnDestroy {
         console.log(this.items);
     }
 
-    update() {
+    private update() {
         let filters = new MaterialFilters();
         filters.categoryId = this.categoryId;
         filters.materialType = "News";
         filters.userName = this.userName;
         filters.page = this.page;
 
-       // this.items =
-            this.newsService
+        this.newsService
             .GetAll(filters)
-            //.do(res => {
-            //    this.parsePageable(res);
-            //})
-            //.map(res => res.list);
-
-             .subscribe(data => this.parsePageable(data),
-                 error => console.log(error),
-                  () => console.log("success load list news"));
-
-        /*
-         this.asyncMeals = serverCall(this.meals, page)
-        .do(res => {
-            this.total = res.total;
-            this.p = page;
-            this.loading = false;
-        })
-        .map(res => res.items);
-}
-        */
+            .subscribe(data => this.parsePageable(data),
+                error => console.log(error),
+                () => console.log("success load list news"));
     }
 }
