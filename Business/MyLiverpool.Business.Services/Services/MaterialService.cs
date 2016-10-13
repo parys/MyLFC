@@ -34,7 +34,7 @@ namespace MyLiverpool.Business.Services.Services
         public async Task<PageableData<MaterialMiniDto>> GetDtoAllAsync(MaterialFiltersDto filters)
         {
             var itemPerPage = GlobalConstants.NewsPerPage;
-            Expression<Func<Material, bool>> filter = x =>  true;
+            Expression<Func<Material, bool>> filter = x => x.Type == filters.MaterialType;
             if (filters.CategoryId.HasValue)
             {
                 filter = filter.And(x => x.CategoryId == filters.CategoryId.Value);
@@ -45,10 +45,12 @@ namespace MyLiverpool.Business.Services.Services
                 Expression<Func<Material, bool>> newFilter = x => x.Author.UserName.Contains(filters.UserName);
                 filter = filter.And(newFilter);
             }
-            
-            var topNews = await
-                _materialRepository.GetTopMaterials(filters.MaterialType);
 
+            ICollection<Material> topNews = new List<Material>();
+            if (filters.Page == GlobalConstants.FirstPage)
+            {
+                topNews = await _materialRepository.GetTopMaterials(filters.MaterialType);
+            }
             if (filters.Page == GlobalConstants.FirstPage)
             {
                 itemPerPage = GlobalConstants.NewsPerPage - topNews.Count > 0
@@ -60,7 +62,7 @@ namespace MyLiverpool.Business.Services.Services
             
             var news =
                 await
-                    _materialRepository.GetOrderedByDescAndNotTopAsync(filters.Page, MaterialType.News, itemPerPage, filter,
+                    _materialRepository.GetOrderedByDescAndNotTopAsync(filters.Page, itemPerPage, filter,
                         x => x.AdditionTime);
             var newsForView = topNews.Concat(news);
             var newsDtos = _mapper.Map<IEnumerable<MaterialMiniDto>>(newsForView);

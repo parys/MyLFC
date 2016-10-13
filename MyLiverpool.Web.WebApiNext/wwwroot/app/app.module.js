@@ -33,9 +33,11 @@ var index_4 = require("./pm/index");
 var index_5 = require("./home/index");
 var index_6 = require("./wish/index");
 var ng2_auto_complete_1 = require("ng2-auto-complete");
+//import { Ng2PaginationModule } from "ng2-pagination";
 var ng2_modal_1 = require("ng2-modal");
 var index_7 = require("./shared/index");
-// import { Pagination } from "ng2-bootstrap/ng2-bootstrap";
+//import { Pagination } from "ng2-bootstrap";
+var ng2_bootstrap_1 = require("ng2-bootstrap/ng2-bootstrap");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -48,7 +50,7 @@ var AppModule = (function () {
                 material_1.MaterialModule.forRoot(),
                 ng2_modal_1.ModalModule,
                 ng2_auto_complete_1.Ng2AutoCompleteModule,
-                //     Ng2PaginationModule,
+                ng2_bootstrap_1.PaginationModule,
                 forms_1.ReactiveFormsModule,
                 app_routes_1.routing],
             declarations: [
@@ -61,7 +63,6 @@ var AppModule = (function () {
                 index_1.NewsListComponent,
                 index_1.NewsDetailComponent,
                 index_1.NewsEditComponent,
-                //    Pagination,
                 index_4.PmDetailComponent,
                 index_4.PmEditComponent,
                 index_4.PmListComponent,

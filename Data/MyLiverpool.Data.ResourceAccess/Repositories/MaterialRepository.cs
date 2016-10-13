@@ -100,11 +100,11 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             query = query.Skip((page - 1) * itemPerPage).Take(itemPerPage);
             return await query.ToListAsync();
         }
-        public async Task<ICollection<Material>> GetOrderedByDescAndNotTopAsync(int page, MaterialType type, int itemPerPage = 15, Expression<Func<Material, bool>> filter = null,
+        public async Task<ICollection<Material>> GetOrderedByDescAndNotTopAsync(int page, int itemPerPage = 15, Expression<Func<Material, bool>> filter = null,
             Expression<Func<Material, object>> orderBy = null, params Expression<Func<Material, object>>[] includeProperties)
         {
             IQueryable<Material> query = _context.Materials.Include(x => x.Category).Include(x => x.Author);
-            query = query.Where(x => !x.OnTop && x.Type == type);
+            query = query.Where(x => !x.OnTop);
 
             if (filter != null)
             {

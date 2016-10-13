@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ViewChild, } from "@angular/core";
+﻿import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ViewChild, ChangeDetectorRef } from "@angular/core";
 import { Location  } from "@angular/common";
 import { NewsService } from "./news.service";
 import { News } from "./news.model";
@@ -19,7 +19,7 @@ export class NewsListComponent implements OnInit, OnDestroy {
 
     private sub: Subscription;
     items: News[];
-    page = 1;
+    page: number = 1;
     itemsPerPage = 15;
     totalItems: number;
     categoryId: number;
@@ -30,7 +30,7 @@ export class NewsListComponent implements OnInit, OnDestroy {
     @ViewChild("activateModal") activateModal: Modal;
 
     constructor(private newsService: NewsService, private route: ActivatedRoute, private location: Location,
-        private rolesChecked: RolesCheckedService) {
+        private rolesChecked: RolesCheckedService, private cd: ChangeDetectorRef) {
     }
 
     showActivateModal(index: number): void {
@@ -76,22 +76,21 @@ export class NewsListComponent implements OnInit, OnDestroy {
         this.sub.unsubscribe();
     }
 
-    getPage(page: number) {
-        this.page = page;
+    pageChanged(event: any): void {
+        this.page = event.page;
         this.update();
         let newUrl = `news/list/${this.page}`;
         if (this.categoryId) {
             newUrl = `${newUrl}/${this.categoryId}`;
         }
         this.location.replaceState(newUrl);
-    }
+    };
 
     private parsePageable(pageable: Pageable<News>): void {
         this.items = pageable.list;
         this.page = pageable.pageNo;
         this.itemsPerPage = pageable.itemPerPage;
         this.totalItems = pageable.totalItems;
-        console.log(this.items);
     }
 
     private update() {
@@ -106,5 +105,6 @@ export class NewsListComponent implements OnInit, OnDestroy {
             .subscribe(data => this.parsePageable(data),
                 error => console.log(error),
                 () => console.log("success load list news"));
+      //  this.cd.markForCheck();
     }
 }

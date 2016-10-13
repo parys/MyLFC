@@ -25,11 +25,11 @@ import { PmListComponent, PmDetailComponent, PmEditComponent, PmService } from "
 import { ClubHistoryComponent } from "./home/index";
 import { WishListComponent, WishService, WishEditComponent } from "./wish/index";
 import { Ng2AutoCompleteModule } from "ng2-auto-complete";
-import { Ng2PaginationModule } from "ng2-pagination";
+//import { Ng2PaginationModule } from "ng2-pagination";
 import { ModalModule } from "ng2-modal";
 import { RolesCheckedService } from "./shared/index";
-import { Pagination } from "ng2-bootstrap";
-// import { Pagination } from "ng2-bootstrap/ng2-bootstrap";
+//import { Pagination } from "ng2-bootstrap";
+import { PaginationModule } from "ng2-bootstrap/ng2-bootstrap";
 
 @NgModule({
     imports: [
@@ -39,7 +39,7 @@ import { Pagination } from "ng2-bootstrap";
         MaterialModule.forRoot(),
         ModalModule,
         Ng2AutoCompleteModule,
-   //     Ng2PaginationModule,
+        PaginationModule,
         ReactiveFormsModule,
         routing],
     declarations: [
@@ -52,7 +52,6 @@ import { Pagination } from "ng2-bootstrap";
         NewsListComponent,
         NewsDetailComponent,
         NewsEditComponent,
-    //    Pagination,
         PmDetailComponent,
         PmEditComponent,
         PmListComponent,

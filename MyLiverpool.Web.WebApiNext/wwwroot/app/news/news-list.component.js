@@ -16,11 +16,12 @@ var router_1 = require("@angular/router");
 var index_1 = require("../shared/index");
 var ng2_modal_1 = require("ng2-modal");
 var NewsListComponent = (function () {
-    function NewsListComponent(newsService, route, location, rolesChecked) {
+    function NewsListComponent(newsService, route, location, rolesChecked, cd) {
         this.newsService = newsService;
         this.route = route;
         this.location = location;
         this.rolesChecked = rolesChecked;
+        this.cd = cd;
         this.page = 1;
         this.itemsPerPage = 15;
         this.selectedItemIndex = undefined;
@@ -60,8 +61,8 @@ var NewsListComponent = (function () {
     NewsListComponent.prototype.ngOnDestroy = function () {
         this.sub.unsubscribe();
     };
-    NewsListComponent.prototype.getPage = function (page) {
-        this.page = page;
+    NewsListComponent.prototype.pageChanged = function (event) {
+        this.page = event.page;
         this.update();
         var newUrl = "news/list/" + this.page;
         if (this.categoryId) {
@@ -69,12 +70,12 @@ var NewsListComponent = (function () {
         }
         this.location.replaceState(newUrl);
     };
+    ;
     NewsListComponent.prototype.parsePageable = function (pageable) {
         this.items = pageable.list;
         this.page = pageable.pageNo;
         this.itemsPerPage = pageable.itemPerPage;
         this.totalItems = pageable.totalItems;
-        console.log(this.items);
     };
     NewsListComponent.prototype.update = function () {
         var _this = this;
@@ -86,6 +87,7 @@ var NewsListComponent = (function () {
         this.newsService
             .GetAll(filters)
             .subscribe(function (data) { return _this.parsePageable(data); }, function (error) { return console.log(error); }, function () { return console.log("success load list news"); });
+        //  this.cd.markForCheck();
     };
     __decorate([
         core_1.ViewChild("activateModal"), 
@@ -97,7 +99,7 @@ var NewsListComponent = (function () {
             templateUrl: "app/news/news-list.component.html",
             changeDetection: core_1.ChangeDetectionStrategy.Default
         }), 
-        __metadata('design:paramtypes', [news_service_1.NewsService, router_1.ActivatedRoute, common_1.Location, index_1.RolesCheckedService])
+        __metadata('design:paramtypes', [news_service_1.NewsService, router_1.ActivatedRoute, common_1.Location, index_1.RolesCheckedService, core_1.ChangeDetectorRef])
     ], NewsListComponent);
     return NewsListComponent;
 }());

@@ -50,6 +50,8 @@
     </div>
     <div class="pagination">
         <!--<pagination-controls (pageChange)="getPage($event)" id="server" directionLinks="false" autoHide="true"></pagination-controls>-->
+        <pagination  *ngIf="items" [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" [(ngModel)]="page" [maxSize]="7" (pageChanged)="pageChanged($event)"
+                   previousText="&lsaquo;" nextText="&rsaquo;" firstText="1" lastText="totalItems/itemsPerPage" ></pagination>
     </div>
 </div>
 

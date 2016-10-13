@@ -15,7 +15,8 @@ module.exports = {
             "node_modules/ng2-translate/bundles/ng2-translate.js",
             "node_modules/ng2-auto-complete/dist/ng2-auto-complete.umd.js",
             "node_modules/ng2-pagination/dist/ng2-pagination-bundle.js",
-            "node_modules/ng2-modal/modal.js"
+            "node_modules/ng2-modal/modal.js",
+            "node_modules/moment/moment.js"
         ],
 
         angularRC: "node_modules/@angular/**/*.js",
@@ -23,6 +24,6 @@ module.exports = {
         fonts: "node_modules/bootstrap/fonts/*.{ttf,woff,eot,svg,woff2}",
         bootstrapPath: "node_modules/bootstrap/dist/css/*.{css,map}",
         ng2modal: "node_modules/ng2-modal/*.js",
-        ng2bootstrap: "node_modules/ng2-modal/*.js"
+        ng2bootstrap: "node_modules/ng2-bootstrap/**/*.js"
     }
 };
