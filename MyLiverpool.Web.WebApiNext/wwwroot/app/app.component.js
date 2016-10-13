@@ -13,11 +13,13 @@ var router_1 = require("@angular/router");
 var auth_service_1 = require("./auth/auth.service");
 var roles_checked_service_1 = require("./shared/roles-checked.service");
 var AppComponent = (function () {
-    function AppComponent(router, auth, rolesChecked) {
+    function AppComponent(router, auth, rolesChecked, viewContainerRef) {
         this.router = router;
         this.auth = auth;
         this.rolesChecked = rolesChecked;
         this.roles = this.rolesChecked.checkedRoles;
+        // You need this small hack in order to catch application root view container ref
+        this.viewContainerRef = viewContainerRef;
     }
     AppComponent.prototype.logout = function () {
         this.auth.logout();
@@ -27,7 +29,7 @@ var AppComponent = (function () {
             selector: "my-app",
             templateUrl: "app/app.component.html"
         }), 
-        __metadata('design:paramtypes', [router_1.Router, auth_service_1.AuthService, roles_checked_service_1.RolesCheckedService])
+        __metadata('design:paramtypes', [router_1.Router, auth_service_1.AuthService, roles_checked_service_1.RolesCheckedService, core_1.ViewContainerRef])
     ], AppComponent);
     return AppComponent;
 }());

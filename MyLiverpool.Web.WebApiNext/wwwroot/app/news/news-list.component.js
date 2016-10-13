@@ -14,7 +14,7 @@ var news_service_1 = require("./news.service");
 var newsFilters_model_1 = require("./newsFilters.model");
 var router_1 = require("@angular/router");
 var index_1 = require("../shared/index");
-var ng2_modal_1 = require("ng2-modal");
+var ng2_bootstrap_1 = require("ng2-bootstrap/ng2-bootstrap");
 var NewsListComponent = (function () {
     function NewsListComponent(newsService, route, location, rolesChecked, cd) {
         this.newsService = newsService;
@@ -28,11 +28,11 @@ var NewsListComponent = (function () {
     }
     NewsListComponent.prototype.showActivateModal = function (index) {
         this.selectedItemIndex = index;
-        this.activateModal.open();
+        this.activateModal.show();
     };
     NewsListComponent.prototype.hideActivateModal = function () {
         this.selectedItemIndex = undefined;
-        this.activateModal.close();
+        this.activateModal.hide();
     };
     NewsListComponent.prototype.activate = function () {
         var _this = this;
@@ -91,7 +91,7 @@ var NewsListComponent = (function () {
     };
     __decorate([
         core_1.ViewChild("activateModal"), 
-        __metadata('design:type', ng2_modal_1.Modal)
+        __metadata('design:type', ng2_bootstrap_1.ModalDirective)
     ], NewsListComponent.prototype, "activateModal", void 0);
     NewsListComponent = __decorate([
         core_1.Component({

@@ -49,35 +49,25 @@
         </div>
     </div>
     <div class="pagination">
-        <!--<pagination-controls (pageChange)="getPage($event)" id="server" directionLinks="false" autoHide="true"></pagination-controls>-->
         <pagination  *ngIf="items" [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" [(ngModel)]="page" [maxSize]="7" (pageChanged)="pageChanged($event)"
                    previousText="&lsaquo;" nextText="&rsaquo;" firstText="1" lastText="totalItems/itemsPerPage" ></pagination>
     </div>
 </div>
 
-<modal #activateModal
-       title="Modal title"
-       cancelButtonLabel="Отмена"
-       submitButtonLabel="Активировать"
-       modalClass="modal-lg modal-sm any-other-css-class"
-       [hideCloseButton]="true"
-       [closeOnEscape]="true"
-       [closeOnOutsideClick]="false"
-       (onClose)="hideActivateModal()"
-       (onSubmit)="activate()">
-
-    <modal-header>
-        Modal header content goes there.
-    </modal-header>
-
-    <modal-content>
-        Modal body content goes there.
-    </modal-content>
-
-    <modal-footer>
-        Modal footer content goes there.
-    </modal-footer>
-
-</modal>
-
-       <!--(onOpen)="actionOnOpen()"-->
+<div class="modal fade" bsModal #activateModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" aria-label="Close" (click)="hideActivateModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Static modal</h4>
+            </div>
+            <div class="modal-body">
+                <button class="btn btn-default" data-dismiss="modal" (click)="hideActivateModal()" type="button">Отмена</button>
+                <button class="btn btn-primary" type="button" (click)="activate()">Активировать</button>
+            </div>
+        </div>
+    </div>
+</div>

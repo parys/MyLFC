@@ -1,4 +1,4 @@
-﻿import { Component } from "@angular/core";
+﻿import { Component, ViewContainerRef } from "@angular/core";
 import { Router } from "@angular/router";
 import { AuthService } from "./auth/auth.service";
 import { RolesCheckedService } from "./shared/roles-checked.service";
@@ -11,8 +11,12 @@ import { IRoles } from "./shared/roles.interface";
 
 export class AppComponent {
     roles: IRoles;
-    constructor(private router: Router, public auth: AuthService, private rolesChecked: RolesCheckedService) { //todo need to more elegant decision
+    private viewContainerRef: ViewContainerRef;
+
+    constructor(private router: Router, public auth: AuthService, private rolesChecked: RolesCheckedService, viewContainerRef: ViewContainerRef) { //todo need to more elegant decision
         this.roles = this.rolesChecked.checkedRoles;
+        // You need this small hack in order to catch application root view container ref
+        this.viewContainerRef = viewContainerRef;
     }
 
     logout() {

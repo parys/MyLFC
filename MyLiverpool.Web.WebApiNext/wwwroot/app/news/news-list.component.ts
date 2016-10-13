@@ -8,7 +8,7 @@ import { MaterialFilters } from "./newsFilters.model";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
 import { RolesCheckedService, IRoles } from "../shared/index";
-import { Modal } from "ng2-modal";
+import { ModalDirective } from "ng2-bootstrap/ng2-bootstrap";
 
 @Component({
     selector: "news-list",
@@ -27,7 +27,7 @@ export class NewsListComponent implements OnInit, OnDestroy {
     roles: IRoles;
     selectedItemIndex: number = undefined;
 
-    @ViewChild("activateModal") activateModal: Modal;
+    @ViewChild("activateModal") activateModal: ModalDirective;
 
     constructor(private newsService: NewsService, private route: ActivatedRoute, private location: Location,
         private rolesChecked: RolesCheckedService, private cd: ChangeDetectorRef) {
@@ -35,12 +35,12 @@ export class NewsListComponent implements OnInit, OnDestroy {
 
     showActivateModal(index: number): void {
         this.selectedItemIndex = index;
-        this.activateModal.open();
+        this.activateModal.show();
     }
 
     hideActivateModal(): void {
         this.selectedItemIndex = undefined;
-        this.activateModal.close();
+        this.activateModal.hide();
     }
 
     activate() {

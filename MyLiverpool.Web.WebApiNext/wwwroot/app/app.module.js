@@ -33,10 +33,8 @@ var index_4 = require("./pm/index");
 var index_5 = require("./home/index");
 var index_6 = require("./wish/index");
 var ng2_auto_complete_1 = require("ng2-auto-complete");
-//import { Ng2PaginationModule } from "ng2-pagination";
-var ng2_modal_1 = require("ng2-modal");
+//import { ModalModule } from "ng2-modal";
 var index_7 = require("./shared/index");
-//import { Pagination } from "ng2-bootstrap";
 var ng2_bootstrap_1 = require("ng2-bootstrap/ng2-bootstrap");
 var AppModule = (function () {
     function AppModule() {
@@ -48,7 +46,7 @@ var AppModule = (function () {
                 forms_1.FormsModule,
                 http_1.HttpModule,
                 material_1.MaterialModule.forRoot(),
-                ng2_modal_1.ModalModule,
+                ng2_bootstrap_1.ModalModule,
                 ng2_auto_complete_1.Ng2AutoCompleteModule,
                 ng2_bootstrap_1.PaginationModule,
                 forms_1.ReactiveFormsModule,
