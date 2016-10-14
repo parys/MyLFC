@@ -26,11 +26,12 @@ import { ClubHistoryComponent } from "./home/index";
 import { WishListComponent, WishService, WishEditComponent } from "./wish/index";
 import { Ng2AutoCompleteModule } from "ng2-auto-complete";
 import { RolesCheckedService } from "./shared/index";
-import { ModalModule, PaginationModule } from "ng2-bootstrap/ng2-bootstrap";
+import { DatepickerModule, ModalModule, PaginationModule } from "ng2-bootstrap/ng2-bootstrap";
 
 @NgModule({
     imports: [
         BrowserModule,
+        DatepickerModule,
         FormsModule,
         HttpModule,
         MaterialModule.forRoot(),

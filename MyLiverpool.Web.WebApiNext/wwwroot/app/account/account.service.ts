@@ -22,9 +22,8 @@ export class AccountService {
     //    return this.http.get(this.actionUrl + id).map(res => res.json());
     // };
 
-    Create = (item: Signup): Observable<Signup> => {
-        var toAdd = JSON.stringify({ item });
-        return this.http.post(this.actionUrl + "register/", toAdd).map(res => res.json());
+    create = (item: Signup): Observable<Signup> => {
+        return this.http.post(this.actionUrl + "register/", JSON.stringify(item)).map(res => res.json());
     };
 
     // public Update = (id: number, itemToUpdate: News): Observable<News> => {

@@ -79,7 +79,7 @@ var AuthService = (function () {
     AuthService.prototype.getUserId = function () {
         var _this = this;
         this.http.get("api/user/getId")
-            .subscribe(function (data) { return _this.id = +JSON.parse(data._body); }, function (error) { return console.log(error); }, function () {
+            .subscribe(function (data) { return _this.id = +JSON.parse(data.text()); }, function (error) { return console.log(error); }, function () {
             _this.localStorage.set("userId", _this.id.toString());
             _this.getRoles();
         });

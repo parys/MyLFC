@@ -1,40 +1,41 @@
-﻿import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Observable } from 'rxjs/Observable';
-import {Signup} from "./signup.model";
-import {AccountService} from "./account.service";
+﻿import { Component, OnInit } from "@angular/core";
+import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { Observable } from "rxjs/Observable";
+import { Signup } from "./signup.model";
+import { AccountService } from "./account.service";
 
 @Component({
-    selector: 'account-signup',
-    templateUrl: 'app/account/account-signup.component.html'
+    selector: "account-signup",
+    templateUrl: "app/account/account-signup.component.html"
 })
 
 export class AccountSignupComponent implements OnInit {
 
     registerForm: FormGroup;
+    id: number;
 
     constructor(private accountService: AccountService, private formBuilder: FormBuilder) {
     }
 
     ngOnInit() {
         this.registerForm = this.formBuilder.group({
-            'userName': ['123', Validators.compose([ //todo composeASync??
+            'userName': ["123", Validators.compose([ //todo composeASync??
                 Validators.required, Validators.minLength(3)])],
-            'email': ['22', Validators.compose([
+            'email': ["andrew_parys@tut.by", Validators.compose([
                 Validators.required, Validators.minLength(6)])],
-            'password': ['', Validators.compose([
+            'password': ["123qwe", Validators.compose([
                 Validators.required, Validators.minLength(6)])],
-            'confirmPassword': ['', Validators.compose([
+            'confirmPassword': ["123qwe", Validators.compose([
                 Validators.required, Validators.minLength(6)])],
-            'fullName': ['', Validators.compose([
+            'fullName': ["123", Validators.compose([
                 Validators.required,])],
-            'birthday': ['', Validators.compose([
+            'birthday': ["10/10/2015", Validators.compose([
                 Validators.required,])]
         });
     }
 
     onSubmit(value: any): void {
-        console.log('you submitted value: ', value);
+        console.log("you submitted value: ", value);
         var signup = new Signup();
         signup.userName = this.registerForm.controls["userName"].value;
         signup.email = this.registerForm.controls["email"].value;
@@ -44,8 +45,8 @@ export class AccountSignupComponent implements OnInit {
         signup.birthday = this.registerForm.controls["birthday"].value;
 
         this.accountService
-            .Create(signup)
-            .subscribe(data => { },
+            .create(signup)
+            .subscribe(data => {},//todo this.id = data.id},
             error => console.log(error),
             () => console.log("user created"));
     }

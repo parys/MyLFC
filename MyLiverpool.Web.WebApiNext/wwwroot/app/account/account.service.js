@@ -23,9 +23,8 @@ var AccountService = (function () {
         // public GetSingle = (id: number): Observable<News> => {
         //    return this.http.get(this.actionUrl + id).map(res => res.json());
         // };
-        this.Create = function (item) {
-            var toAdd = JSON.stringify({ item: item });
-            return _this.http.post(_this.actionUrl + "register/", toAdd).map(function (res) { return res.json(); });
+        this.create = function (item) {
+            return _this.http.post(_this.actionUrl + "register/", JSON.stringify(item)).map(function (res) { return res.json(); });
         };
         this.actionUrl = configuration.ServerWithApiUrl + "account/";
     }

@@ -8,8 +8,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var forms_1 = require('@angular/forms');
+var core_1 = require("@angular/core");
+var forms_1 = require("@angular/forms");
 var signup_model_1 = require("./signup.model");
 var account_service_1 = require("./account.service");
 var AccountSignupComponent = (function () {
@@ -19,22 +19,22 @@ var AccountSignupComponent = (function () {
     }
     AccountSignupComponent.prototype.ngOnInit = function () {
         this.registerForm = this.formBuilder.group({
-            'userName': ['123', forms_1.Validators.compose([
+            'userName': ["123", forms_1.Validators.compose([
                     forms_1.Validators.required, forms_1.Validators.minLength(3)])],
-            'email': ['22', forms_1.Validators.compose([
+            'email': ["andrew_parys@tut.by", forms_1.Validators.compose([
                     forms_1.Validators.required, forms_1.Validators.minLength(6)])],
-            'password': ['', forms_1.Validators.compose([
+            'password': ["123qwe", forms_1.Validators.compose([
                     forms_1.Validators.required, forms_1.Validators.minLength(6)])],
-            'confirmPassword': ['', forms_1.Validators.compose([
+            'confirmPassword': ["123qwe", forms_1.Validators.compose([
                     forms_1.Validators.required, forms_1.Validators.minLength(6)])],
-            'fullName': ['', forms_1.Validators.compose([
+            'fullName': ["123", forms_1.Validators.compose([
                     forms_1.Validators.required,])],
-            'birthday': ['', forms_1.Validators.compose([
+            'birthday': ["10/10/2015", forms_1.Validators.compose([
                     forms_1.Validators.required,])]
         });
     };
     AccountSignupComponent.prototype.onSubmit = function (value) {
-        console.log('you submitted value: ', value);
+        console.log("you submitted value: ", value);
         var signup = new signup_model_1.Signup();
         signup.userName = this.registerForm.controls["userName"].value;
         signup.email = this.registerForm.controls["email"].value;
@@ -43,13 +43,15 @@ var AccountSignupComponent = (function () {
         signup.fullName = this.registerForm.controls["fullName"].value;
         signup.birthday = this.registerForm.controls["birthday"].value;
         this.accountService
-            .Create(signup)
-            .subscribe(function (data) { }, function (error) { return console.log(error); }, function () { return console.log("user created"); });
+            .create(signup)
+            .subscribe(function (data) { }, //todo this.id = data.id},
+        function (//todo this.id = data.id},
+            error) { return console.log(error); }, function () { return console.log("user created"); });
     };
     AccountSignupComponent = __decorate([
         core_1.Component({
-            selector: 'account-signup',
-            templateUrl: 'app/account/account-signup.component.html'
+            selector: "account-signup",
+            templateUrl: "app/account/account-signup.component.html"
         }), 
         __metadata('design:paramtypes', [account_service_1.AccountService, forms_1.FormBuilder])
     ], AccountSignupComponent);

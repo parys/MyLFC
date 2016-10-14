@@ -80,7 +80,7 @@ export class AuthService {
 
     private getUserId() {
         this.http.get("api/user/getId")
-            .subscribe(data => this.id = +JSON.parse(data._body),
+            .subscribe(data => this.id = +JSON.parse(data.text()),
             error => console.log(error),
             () => {
                 this.localStorage.set("userId", this.id.toString());

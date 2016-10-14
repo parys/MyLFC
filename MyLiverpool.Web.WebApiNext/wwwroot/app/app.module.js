@@ -42,6 +42,7 @@ var AppModule = (function () {
         core_1.NgModule({
             imports: [
                 platform_browser_1.BrowserModule,
+                ng2_bootstrap_1.DatepickerModule,
                 forms_1.FormsModule,
                 http_1.HttpModule,
                 material_1.MaterialModule.forRoot(),
