@@ -2,12 +2,10 @@
     <div class="alert-danger flex-vertical-center">
         <h3 class="col-xs-12 col-sm-12">
             <span class="col-xs-9 col-sm-9" [textContent]="item.title"></span>
-            <span class="col-xs-3 col-sm-3 pull-right"> <!-- todo ng-if="isNewsmaker()">-->
-                <!--span class="small pull-right">
-                    <->a ng-if="isEditor()" ng-show="vm.item.pending" href="" ng-click="vm.activate()"><span class="glyphicon glyphicon-ok"></span></!--a>
-                    <a ng-if="isEditor() || isUserAuthor(userId(), vm.item.authorId)" ui-sref="newsEdit({id: vm.item.id})"><span class="glyphicon glyphicon-pencil"></span></a>
-                    <a ng-if="isEditor() || isUserAuthor(userId(), vm.item.authorId)" href="" ng-click="vm.delete()"><span class="glyphicon glyphicon-trash"></span></a>
-                </span-->
+            <span class="col-xs-3 col-sm-3 pull-right" *ngIf="roles.isEditor || roles.isUserAuthor(item.userId)">
+                <a [hidden]="!item.pending || !roles.isEditor" (click)="showActivateModal(i)"><span class="glyphicon glyphicon-ok"></span></a>
+                <a [routerLink]="['/news', item.id, 'edit']"><span class="glyphicon glyphicon-pencil"></span></a>
+                <a (click)="showDeleteModal(i)"><span class="glyphicon glyphicon-trash"></span></a>
             </span>
         </h3>
     </div>
@@ -26,7 +24,7 @@
     Комментарии: <span [textContent]="item.commentsCount"></span>
 
     <div class="" ng-repeat="comment in vm.item.comments">
-       <!-- <tree comment="comment" deep="0"></tree>-->
+        <!-- <tree comment="comment" deep="0"></tree>-->
     </div>
 
     <form class="form-horizontal" name="commentForm" role="form">
@@ -39,4 +37,40 @@
             </div>
         </div>
     </form>
+</div>
+
+<div class="modal fade" bsModal #activateModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" aria-label="Close" (click)="hideModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Активировать?</h4>
+            </div>
+            <div class="modal-body">
+                <button class="btn btn-default" data-dismiss="modal" (click)="hideModal()" type="button">Отмена</button>
+                <button class="btn btn-primary" type="button" (click)="activate()">Активировать</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #deleteModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" aria-label="Close" (click)="hideModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Удалить?</h4>
+            </div>
+            <div class="modal-body">
+                <button class="btn btn-default" data-dismiss="modal" (click)="hideModal()" type="button">Отмена</button>
+                <button class="btn btn-primary" type="button" (click)="delete()">Удалить</button>
+            </div>
+        </div>
+    </div>
 </div>

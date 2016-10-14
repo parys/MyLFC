@@ -1,5 +1,4 @@
 ﻿import { Injectable } from "@angular/core";
-import { Observable } from "rxjs/Observable";
 import {Http, Headers} from "@angular/http";
 import "rxjs/add/observable/of";
 import "rxjs/add/operator/do";
@@ -8,8 +7,9 @@ import { LocalStorageMine, RolesCheckedService, HttpWrapper } from "../shared/in
 
 @Injectable()
 export class AuthService {
-    public isLoggedIn: boolean = false;
+    isLoggedIn: boolean = false;
     roles: string[] = [];
+    id: number;
 
     constructor(private http: HttpWrapper, private http1: Http, private localStorage: LocalStorageMine,
         private rolesCheckedService: RolesCheckedService) {
@@ -17,8 +17,9 @@ export class AuthService {
         if (this.localStorage.get("access_token")) {
             console.log("auth at start");
             this.isLoggedIn = true;
-            console.log(this.localStorage.getObject("roles"));
+         //   console.log(this.localStorage.getObject("roles"));
             this.roles = this.localStorage.getObject("roles");
+            this.id = +this.localStorage.get("userId");
         } else {
             this.localStorage.remove("roles");
         }
@@ -27,7 +28,7 @@ export class AuthService {
     // store the URL so we can redirect after logging in
     redirectUrl: string;
 
-    login(username: string, password: string) {
+    login(username: string, password: string): boolean {
         let headers = new Headers();
         headers.append("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8;");
        // headers.append('client_id', 'client_id3');
@@ -41,11 +42,11 @@ export class AuthService {
         });
         result.subscribe(data => this.parseLoginAnswer(data),
             error => console.log(error),
-            () => this.getRoles());
+            () => this.getUserId());
         return true;
     }
 
-    getRoles() {
+    private getRoles() {
         this.http.get("api/role")
             .subscribe(data => this.parseRoles(data),
             error => console.log(error),
@@ -58,6 +59,7 @@ export class AuthService {
         this.localStorage.remove("expires_in");
         this.localStorage.remove("refresh_token");
         this.localStorage.remove("roles");
+        this.localStorage.remove("userId");
         this.isLoggedIn = false;
         this.rolesCheckedService.checkRoles();
     }
@@ -72,9 +74,18 @@ export class AuthService {
     }
 
     private parseRoles(item: any) {
-        console.log();
         this.roles = item._body.split(", ");
         this.localStorage.setObject("roles", this.roles);
+    }
+
+    private getUserId() {
+        this.http.get("api/user/getId")
+            .subscribe(data => this.id = +JSON.parse(data._body),
+            error => console.log(error),
+            () => {
+                this.localStorage.set("userId", this.id.toString());
+                this.getRoles();
+            });
     }
 
     isUserInRole(role: string) {

@@ -1,5 +1,6 @@
 ﻿<div class="container-fluid">
-    <div> <!--ng-if="vm.page > 0">-->
+    <div>
+        <!--ng-if="vm.page > 0">-->
         <!--form class="form-inline">
         <div class="form-group">
             <select class="form-control"
@@ -11,19 +12,18 @@
         </div>
         </form-->
     </div>
-    <!--<div class="row" *ngFor="let item of items | paginate: { id: 'server', itemsPerPage: itemsPerPage, currentPage: page, totalItems: totalItems }; let i = index;"-->
     <div class="row" *ngFor="let item of items; let i = index;">
         <div class="" *ngIf="!item.pending || roles.isEditor">
-            <div class="flex-vertical-center"><a [routerLink]="['/news', item.id]" class="col-xs-9 col-sm-9"><h4 [textContent]="item.title"></h4></a>
-                <span class="col-xs-3 col-sm-3 pull-right" *ngIf="roles.isNewsmaker">
-            <a [hidden]="!item.pending || !roles.isEditor" (click)="showActivateModal(i)"><span class="glyphicon glyphicon-ok"></span></a>
-            <a *ngIf="roles.isEditor" ng-if="isUserAuthor(userId(), item.authorId)" [routerLink]="['/news', item.id, 'edit']"><span class="glyphicon glyphicon-pencil"></span></a>
-            <a *ngIf="roles.isEditor" (click)="showDeleteModal(i)"><span class="glyphicon glyphicon-trash"></span></a>
-                    <!-- || isUserAuthor(userId(), item.authorId)-->
-            </span>
-            </div>i
+            <div class="flex-vertical-center">
+                <a [routerLink]="['/news', item.id]" class="col-xs-9 col-sm-9"><h4 [textContent]="item.title"></h4></a>
+                <span class="col-xs-3 col-sm-3 pull-right" *ngIf="roles.isEditor || roles.isUserAuthor(item.userId)">
+                    <a [hidden]="!item.pending || !roles.isEditor" (click)="showActivateModal(i)"><span class="glyphicon glyphicon-ok"></span></a>
+                    <a [routerLink]="['/news', item.id, 'edit']"><span class="glyphicon glyphicon-pencil"></span></a>
+                    <a (click)="showDeleteModal(i)"><span class="glyphicon glyphicon-trash"></span></a>
+                </span>
+            </div>
             <div class="">
-                <img class="img-thumbnail news-mini center-block" alt="" [src]="item.photoPath"/>
+                <img class="img-thumbnail news-mini center-block" alt="" [src]="item.photoPath" />
             </div>
             <div class="">
                 <i> <span [innerHTML]="item.brief"></span></i>
@@ -49,8 +49,8 @@
         </div>
     </div>
     <div class="pagination">
-        <pagination  *ngIf="items" [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" [(ngModel)]="page" [maxSize]="7" (pageChanged)="pageChanged($event)"
-                   previousText="&lsaquo;" nextText="&rsaquo;" firstText="1" lastText="totalItems/itemsPerPage" ></pagination>
+        <pagination *ngIf="items" [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" [(ngModel)]="page" [maxSize]="7" (pageChanged)="pageChanged($event)"
+                    previousText="&lsaquo;" nextText="&rsaquo;" firstText="1" lastText="totalItems/itemsPerPage"></pagination>
     </div>
 </div>
 

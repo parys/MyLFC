@@ -12,15 +12,17 @@ var core_1 = require("@angular/core");
 var index_1 = require("../shared/index");
 var RolesCheckedService = (function () {
     function RolesCheckedService(localStorage) {
+        var _this = this;
         this.localStorage = localStorage;
         this.checkedRoles = {
             isEditor: false,
-            isNewsmaker: false
+            isNewsmaker: false,
+            isUserAuthor: function (userId) { return _this.isUserAuthor(userId); }
         };
         this.checkRoles();
     }
     RolesCheckedService.prototype.checkRoles = function () {
-        console.log("CHECK");
+        // console.log("CHECK");
         this.roles = this.localStorage.getObject("roles");
         if (!this.roles) {
             return;
@@ -44,6 +46,10 @@ var RolesCheckedService = (function () {
             return true;
         }
         return false;
+    };
+    RolesCheckedService.prototype.isUserAuthor = function (userId) {
+        var userId1 = +this.localStorage.get("userId");
+        return (userId1 === userId);
     };
     RolesCheckedService = __decorate([
         core_1.Injectable(), 

@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.DTO;
 using MyLiverpool.Data.Entities;
-using System.Linq;
 using MyLiverpool.Web.WebApiNext.Extensions;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
@@ -18,6 +17,14 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         public UserController(IUserService userService)
         {
             _userService = userService;
+        }
+        
+        [Route("GetId")]
+        [HttpGet]
+        [Authorize]
+        public IActionResult GetId()
+        {
+            return Ok(User.GetUserId());
         }
 
         

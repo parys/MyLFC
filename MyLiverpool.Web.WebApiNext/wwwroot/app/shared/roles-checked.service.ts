@@ -6,7 +6,8 @@ export class RolesCheckedService {
 
     checkedRoles: IRoles = {
         isEditor: false,
-        isNewsmaker: false
+        isNewsmaker: false,
+        isUserAuthor: userId => this.isUserAuthor(userId)
     };
     private roles: string[];
 
@@ -15,7 +16,7 @@ export class RolesCheckedService {
     }
 
     checkRoles(): void {
-        console.log("CHECK");
+       // console.log("CHECK");
         this.roles = this.localStorage.getObject("roles");
         if (!this.roles) {
             return;
@@ -41,5 +42,10 @@ export class RolesCheckedService {
             return true;
         }
         return false;
+    }
+
+    isUserAuthor(userId: number): boolean {
+        let userId1 = +this.localStorage.get("userId");
+        return(userId1 === userId);
     }
 }

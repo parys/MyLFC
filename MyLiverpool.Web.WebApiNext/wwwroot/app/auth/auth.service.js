@@ -26,8 +26,9 @@ var AuthService = (function () {
         if (this.localStorage.get("access_token")) {
             console.log("auth at start");
             this.isLoggedIn = true;
-            console.log(this.localStorage.getObject("roles"));
+            //   console.log(this.localStorage.getObject("roles"));
             this.roles = this.localStorage.getObject("roles");
+            this.id = +this.localStorage.get("userId");
         }
         else {
             this.localStorage.remove("roles");
@@ -45,7 +46,7 @@ var AuthService = (function () {
         var result = this.http1.post("connect/token", perams, {
             headers: headers
         });
-        result.subscribe(function (data) { return _this.parseLoginAnswer(data); }, function (error) { return console.log(error); }, function () { return _this.getRoles(); });
+        result.subscribe(function (data) { return _this.parseLoginAnswer(data); }, function (error) { return console.log(error); }, function () { return _this.getUserId(); });
         return true;
     };
     AuthService.prototype.getRoles = function () {
@@ -59,6 +60,7 @@ var AuthService = (function () {
         this.localStorage.remove("expires_in");
         this.localStorage.remove("refresh_token");
         this.localStorage.remove("roles");
+        this.localStorage.remove("userId");
         this.isLoggedIn = false;
         this.rolesCheckedService.checkRoles();
     };
@@ -71,9 +73,16 @@ var AuthService = (function () {
         this.isLoggedIn = true;
     };
     AuthService.prototype.parseRoles = function (item) {
-        console.log();
         this.roles = item._body.split(", ");
         this.localStorage.setObject("roles", this.roles);
+    };
+    AuthService.prototype.getUserId = function () {
+        var _this = this;
+        this.http.get("api/user/getId")
+            .subscribe(function (data) { return _this.id = +JSON.parse(data._body); }, function (error) { return console.log(error); }, function () {
+            _this.localStorage.set("userId", _this.id.toString());
+            _this.getRoles();
+        });
     };
     AuthService.prototype.isUserInRole = function (role) {
         if (this.roles.find(function (x) { return x.toLowerCase() === role.toLowerCase(); })) {
