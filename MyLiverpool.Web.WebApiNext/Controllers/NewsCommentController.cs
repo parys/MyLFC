@@ -23,7 +23,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Route("")]
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Create(MaterialCommentEditingDto comment)
+        public async Task<IActionResult> Create(MaterialCommentDto comment)
         {
             if (!ModelState.IsValid)
             {
@@ -36,23 +36,9 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         }
 
         [Route("")]
-        [HttpDelete]
-        [Authorize(Roles = nameof(RolesEnum.UserStart))]
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (!id.HasValue || id == 0)
-            {
-                return BadRequest();
-            }
-
-            var result = await _materialCommentService.DeleteAsync(id.Value, Type);
-            return Ok(result);
-        }
-
-        [Route("")]
         [HttpPut]
         [Authorize]
-        public async Task<IActionResult> Update(MaterialCommentEditingDto comment)
+        public async Task<IActionResult> Update(MaterialCommentDto comment)
         {
             if (!ModelState.IsValid)
             {

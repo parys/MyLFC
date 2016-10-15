@@ -8,11 +8,12 @@ import { userRoutes } from "./user/user.routing";
 import { pmRoutes } from "./pm/pm.routing";
 import { homeRoutes } from "./home/home.routing";
 import { wishRoutes } from "./wish/wish.routing";
+import { materialCommentRoutes } from "./materialComment/materialComment.routing";
 
 const routes: Routes  = [
-   // { path: 'signup', component: AccountSignupComponent, canActivate: [AuthGuard] },
     ...authRoutes,
     ...homeRoutes,
+    ...materialCommentRoutes,
     ...newsCategoryRoutes,
     ...newsRoutes,
     ...pmRoutes,

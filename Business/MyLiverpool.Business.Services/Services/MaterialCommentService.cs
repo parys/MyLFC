@@ -15,61 +15,34 @@ namespace MyLiverpool.Business.Services.Services
 {
     public class MaterialCommentService : IMaterialCommentService
     {
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IMaterialCommentRepository _commentService;
         private readonly IMapper _mapper;
 
-        private const int ItemPerPage = 15; // todo move away
+        private const int ItemPerPage = GlobalConstants.CommentsPerPageList;
 
-        public MaterialCommentService(IUnitOfWork unitOfWork, IMapper mapper)
+        public MaterialCommentService(IMapper mapper, IMaterialCommentRepository commentService)
         {
-            _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _commentService = commentService;
         }
 
-        public async Task<int> AddCommentAsync(string message, int newsId, int? parentId, int userId, MaterialType materialType)
+        public async Task<bool> DeleteAsync(int id)
         {
-            var comment = new MaterialComment()
-            {
-                MaterialId = newsId,
-                AdditionTime = DateTime.Now,
-                AuthorId = userId,
-                Message = message,
-                Pending = false,
-                ParentId = parentId,
-                MaterialType = materialType
-            };
-            _unitOfWork.MaterialCommentRepository.Add(comment);
-            await _unitOfWork.SaveAsync();
-            return comment.Id;
-        }
-
-        public async Task<bool> EditCommentAsync(int commentId, string message, string answer, MaterialType materialType)
-        {
-            var comment = await _unitOfWork.MaterialCommentRepository.GetByIdAsync(commentId);
-            comment.Message = message;
-            comment.Answer = answer;
-            _unitOfWork.MaterialCommentRepository.Update(comment);
-            await _unitOfWork.SaveAsync();
-            return true;
-        }
-
-        public async Task<bool> DeleteAsync(int id, MaterialType materialType)
-        {
-            var comment = await _unitOfWork.MaterialCommentRepository.GetByIdAsync(id);
+            var comment = await _commentService.GetByIdAsync(id);
             if (comment.Children.Any())
             {
                 foreach (var item in comment.Children)
                 {
                     item.Parent = comment.Parent;
                 }
-                comment.Children.ToList().ForEach(x => _unitOfWork.MaterialCommentRepository.Update(x));
+                comment.Children.ToList().ForEach(x => _commentService.Update(x));
             }
-            await _unitOfWork.MaterialCommentRepository.DeleteAsync(id);
-            await _unitOfWork.SaveAsync();
+            await _commentService.DeleteAsync(id);
+            await _commentService.SaveChangesAsync();
             return true;
         }
 
-        public async Task<MaterialCommentDto> AddAsync(MaterialCommentEditingDto model, MaterialType materialType)
+        public async Task<MaterialCommentDto> AddAsync(MaterialCommentDto model, MaterialType materialType)
         {
             var comment = _mapper.Map<MaterialComment>(model);
             comment.MaterialType = materialType;
@@ -78,8 +51,8 @@ namespace MyLiverpool.Business.Services.Services
             comment.IsVerified = false;
             try
             {
-                _unitOfWork.MaterialCommentRepository.Add(comment);
-                await _unitOfWork.SaveAsync();
+                _commentService.Add(comment);
+                await _commentService.SaveChangesAsync();
             }
             catch (Exception)
             {
@@ -89,17 +62,17 @@ namespace MyLiverpool.Business.Services.Services
             return result;
         }
 
-        public async Task<bool> EditAsync(MaterialCommentEditingDto model, MaterialType materialType)
+        public async Task<bool> EditAsync(MaterialCommentDto model, MaterialType materialType)
         {
-            var comment = await _unitOfWork.MaterialCommentRepository.GetByIdAsync(model.Id);
+            var comment = await _commentService.GetByIdAsync(model.Id);
             comment.LastModified = DateTime.Now;
             comment.Answer = model.Answer;
             comment.Message = model.Message;
             comment.IsVerified = false;
             try
             {
-                _unitOfWork.MaterialCommentRepository.Update(comment);
-                await _unitOfWork.SaveAsync();
+                _commentService.Update(comment);
+                await _commentService.SaveChangesAsync();
             }
             catch (Exception)
             {
@@ -115,19 +88,19 @@ namespace MyLiverpool.Business.Services.Services
             {
                 filter = filter.And(x => !x.IsVerified);
             }
-            var comments = await _unitOfWork.MaterialCommentRepository.GetAsync(page, ItemPerPage, filter);
+            var comments = await _commentService.GetOrderedByAsync(page, ItemPerPage, filter);
             var commentDtos = _mapper.Map<IEnumerable<MaterialCommentDto>>(comments);
-            var commentsCount = await _unitOfWork.MaterialCommentRepository.GetCountAsync(filter);
+            var commentsCount = await _commentService.GetCountAsync(filter);
             return new PageableData<MaterialCommentDto>(commentDtos, page, commentsCount);
         }
 
         public async Task<bool> VerifyAsync(int id)
         {
-            var comment = await _unitOfWork.MaterialCommentRepository.GetByIdAsync(id);
+            var comment = await _commentService.GetByIdAsync(id);
             comment.IsVerified = true;
             comment.LastModified = DateTime.Now;
-            _unitOfWork.MaterialCommentRepository.Update(comment);
-            await _unitOfWork.SaveAsync();
+            _commentService.Update(comment);
+            await _commentService.SaveChangesAsync();
             return true;
         }
     }

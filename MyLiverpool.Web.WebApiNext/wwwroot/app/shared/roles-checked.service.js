@@ -17,6 +17,7 @@ var RolesCheckedService = (function () {
         this.checkedRoles = {
             isEditor: false,
             isNewsmaker: false,
+            isModerator: false,
             isUserAuthor: function (userId) { return _this.isUserAuthor(userId); }
         };
         this.checkRoles();
@@ -30,6 +31,7 @@ var RolesCheckedService = (function () {
         ;
         this.checkEditor();
         this.checkNewsmaker();
+        this.checkModerator();
     };
     RolesCheckedService.prototype.checkEditor = function () {
         if (this.checkRole("NewsFull")) {
@@ -41,15 +43,20 @@ var RolesCheckedService = (function () {
             this.checkedRoles.isNewsmaker = true;
         }
     };
+    RolesCheckedService.prototype.checkModerator = function () {
+        if (this.checkRole("UserStart")) {
+            this.checkedRoles.isModerator = true;
+        }
+    };
     RolesCheckedService.prototype.checkRole = function (role) {
         if (this.roles.find(function (x) { return x.toLowerCase() === role.toLowerCase(); })) {
             return true;
         }
         return false;
     };
-    RolesCheckedService.prototype.isUserAuthor = function (userId) {
-        var userId1 = +this.localStorage.get("userId");
-        return (userId1 === userId);
+    RolesCheckedService.prototype.isUserAuthor = function (authorId) {
+        var userId = +this.localStorage.get("userId");
+        return (userId === authorId);
     };
     RolesCheckedService = __decorate([
         core_1.Injectable(), 

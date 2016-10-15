@@ -7,6 +7,7 @@ export class RolesCheckedService {
     checkedRoles: IRoles = {
         isEditor: false,
         isNewsmaker: false,
+        isModerator: false,
         isUserAuthor: userId => this.isUserAuthor(userId)
     };
     private roles: string[];
@@ -23,6 +24,7 @@ export class RolesCheckedService {
         };
         this.checkEditor();
         this.checkNewsmaker();
+        this.checkModerator();
     }
 
     private checkEditor():void {
@@ -37,6 +39,12 @@ export class RolesCheckedService {
         }
     }
 
+    private checkModerator():void {
+        if (this.checkRole("UserStart")) {
+            this.checkedRoles.isModerator = true;
+        }
+    }
+
     private checkRole(role: string): boolean {
         if (this.roles.find(x => x.toLowerCase() === role.toLowerCase())) {
             return true;
@@ -44,8 +52,8 @@ export class RolesCheckedService {
         return false;
     }
 
-    isUserAuthor(userId: number): boolean {
-        let userId1 = +this.localStorage.get("userId");
-        return(userId1 === userId);
+    isUserAuthor(authorId: number): boolean {
+        let userId = +this.localStorage.get("userId");
+        return (userId === authorId);
     }
 }

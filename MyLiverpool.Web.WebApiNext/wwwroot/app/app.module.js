@@ -32,8 +32,9 @@ var user_list_component_1 = require("./user/user-list.component");
 var index_4 = require("./pm/index");
 var index_5 = require("./home/index");
 var index_6 = require("./wish/index");
+var index_7 = require("./materialComment/index");
 var ng2_auto_complete_1 = require("ng2-auto-complete");
-var index_7 = require("./shared/index");
+var index_8 = require("./shared/index");
 var ng2_bootstrap_1 = require("ng2-bootstrap/ng2-bootstrap");
 var AppModule = (function () {
     function AppModule() {
@@ -56,6 +57,7 @@ var AppModule = (function () {
                 account_signup_component_1.AccountSignupComponent,
                 app_component_1.AppComponent,
                 index_5.ClubHistoryComponent,
+                index_7.MaterialCommentListComponent,
                 newsCategory_edit_component_1.NewsCategoryEditComponent,
                 newsCategory_list_component_1.NewsCategoryListComponent,
                 index_1.NewsListComponent,
@@ -78,10 +80,11 @@ var AppModule = (function () {
                 app_constants_1.Configuration,
                 httpWrapper_1.HttpWrapper,
                 { provide: index_3.LocalStorageMine, useClass: index_3.LocalStorageMine },
+                index_7.MaterialCommentService,
                 index_1.NewsService,
                 newsCategory_service_1.NewsCategoryService,
                 index_4.PmService,
-                index_7.RolesCheckedService,
+                index_8.RolesCheckedService,
                 user_service_1.UserService,
                 index_6.WishService
             ]

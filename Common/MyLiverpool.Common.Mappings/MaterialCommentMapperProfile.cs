@@ -21,15 +21,15 @@ namespace MyLiverpool.Common.MapperConfigs
                 .ForMember(dest => dest.Photo, src => src.MapFrom(x => x.Author.Photo))
                 .ForMember(dest => dest.Children, src => src.MapFrom(x => x.Children))
                 .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id))
-                .ForMember(dest => dest.NewsItemId, src => src.MapFrom(x => x.MaterialId))
+                .ForMember(dest => dest.MaterialId, src => src.MapFrom(x => x.MaterialId))
                 .ForMember(dest => dest.Message, src => src.MapFrom(x => x.Message));
 
-            CreateMap<MaterialCommentEditingDto, MaterialComment>()
+            CreateMap<MaterialCommentDto, MaterialComment>()
                 .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id))
                 .ForMember(dest => dest.Answer, src => src.MapFrom(x => x.Answer))
                 .ForMember(dest => dest.AuthorId, src => src.MapFrom(x => x.AuthorId))
                 .ForMember(dest => dest.Message, src => src.MapFrom(x => x.Message))
-                .ForMember(dest => dest.MaterialId, src => src.MapFrom(x => x.NewsItemId))
+                .ForMember(dest => dest.MaterialId, src => src.MapFrom(x => x.MaterialId))
                 .ForMember(dest => dest.ParentId, src => src.MapFrom(x => x.ParentId));
         }
     }

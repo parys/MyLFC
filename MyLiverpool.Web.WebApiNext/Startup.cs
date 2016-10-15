@@ -220,6 +220,7 @@ namespace MyLiverpool.Web.WebApiNext
         {
             services.AddTransient<IPmRepository, PmRepository>();
             services.AddScoped<IMaterialRepository, MaterialRepository>();
+            services.AddScoped<IMaterialCommentRepository, MaterialCommentRepository>();
             services.AddTransient<IUserRepository, UserRepository>();
         }
 

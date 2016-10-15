@@ -1,7 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyLiverpool.Business.Contracts;
+using MyLiverpool.Business.DTO;
+using MyLiverpool.Data.Entities;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
@@ -15,7 +18,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             _commentService = commentService;
         }
 
-        [Route("list")]
+        [Route("list/{page:int}")]
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> GetList(int page = 1, bool onlyUnverified = true)
@@ -28,16 +31,41 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return Ok(result);
         }
 
-        [Route("verify")]
+        [Route("verify/{id:int}")]
         [HttpGet]
-        [AllowAnonymous]
-        public async Task<IActionResult> VerifyAsync(int? id)
+        [Authorize(Roles = nameof(RolesEnum.UserStart))]
+        public async Task<IActionResult> VerifyAsync(int id)
         {
-            if (!id.HasValue)
+            var result = await _commentService.VerifyAsync(id);
+            return Ok(result);
+        }
+
+        [Route("{type}")]
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> CreateAsync(string type, [FromBody] MaterialCommentDto dto)
+        {
+            MaterialType materialType;
+            if (!ModelState.IsValid || !Enum.TryParse(type, true, out materialType))
+            {
+                return BadRequest(ModelState);
+            }
+            var result = await _commentService.AddAsync(dto, materialType);
+            return Ok(result);
+        }
+
+
+        [Route("{id:int}")]
+        [HttpDelete]
+        [Authorize(Roles = nameof(RolesEnum.UserStart))]
+        public async Task<IActionResult> Delete(int id)
+        {
+            if (id <= 0)
             {
                 return BadRequest();
             }
-            var result = await _commentService.VerifyAsync(id.Value);
+
+            var result = await _commentService.DeleteAsync(id);
             return Ok(result);
         }
     }

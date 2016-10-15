@@ -28,8 +28,12 @@ namespace MyLiverpool.Business.DTO
     //    [AllowHtml]
         public string Answer { get; set; }
 
-        public int NewsItemId { get; set; }
+        public int MaterialId { get; set; }
+
+        public int? ParentId { get; set; }
 
         public virtual ICollection<MaterialCommentDto> Children { get; set; }
+
+        public bool IsVerified { get; set; }
     }
 }
