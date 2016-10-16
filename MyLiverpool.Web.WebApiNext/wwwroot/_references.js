@@ -24,6 +24,7 @@
 /// <reference path="app/materialcomment/materialcomment.routing.js" />
 /// <reference path="app/materialcomment/materialcomment.service.js" />
 /// <reference path="app/materialcomment/materialcomment-list.component.js" />
+/// <reference path="app/materialcomment/materialcomment-section.component.js" />
 /// <reference path="app/news/index.js" />
 /// <reference path="app/news/news.model.js" />
 /// <reference path="app/news/news.routing.js" />

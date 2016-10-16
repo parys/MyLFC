@@ -1,0 +1,16 @@
+﻿Комментарии: <span [textContent]="items.count"></span>
+
+<div class="" ng-repeat="comment in vm.item.comments">
+    <!-- <tree comment="comment" deep="0"></tree>-->
+</div>
+
+<form class="form-horizontal" name="commentForm" role="form">
+    <div class="col-md-12" ng-if="vm.item.canCommentary" ng-show="loggedIn()">
+        <div class="col-md-12">
+            <textarea mark-it-up class="col-md-offset-2 col-md-8" rows="6" name="message" ng-model="vm.newComment.message" validation="required"></textarea>
+        </div>
+        <div class="">
+            <button class="btn btn-primary center-block" ng-disabled="commentForm.$invalid" ng-click="vm.addComment()">Добавить</button>
+        </div>
+    </div>
+</form>

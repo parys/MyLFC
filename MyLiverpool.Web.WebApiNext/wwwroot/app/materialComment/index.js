@@ -5,4 +5,5 @@ function __export(m) {
 __export(require("./materialComment.model"));
 __export(require("./materialComment-list.component"));
 __export(require("./materialComment.service"));
+__export(require("./materialComment-section.component"));
 //# sourceMappingURL=index.js.map
