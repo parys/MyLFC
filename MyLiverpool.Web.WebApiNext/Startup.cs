@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using AspNet.Security.OAuth.Validation;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -11,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Services.Services;
 using MyLiverpool.Common.MapperConfigs;
+using MyLiverpool.Common.Utilities;
 using MyLiverpool.Data.Entities;
 using MyLiverpool.Data.ResourceAccess;
 using MyLiverpool.Data.ResourceAccess.Contracts;
@@ -69,20 +69,19 @@ namespace MyLiverpool.Web.WebApiNext
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
                     o => o.UseRowNumberForPaging()));
 
-
             services.AddIdentity<User, Role>()
                 .AddEntityFrameworkStores<LiverpoolContext, int>()
                 .AddDefaultTokenProviders();
-
 
             services.AddMvc().AddJsonOptions(options =>
             {
                 options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             });
 
+            services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
+
             RegisterServices(services);
-            //  services.AddTransient<OpenIddictDbContext<User, Role, int>, LiverpoolContext>();
-            // RegisterServices(services);
+
             //--- from old proj
             services.AddCors(options => options.AddPolicy("AllowAll", p => p.AllowAnyOrigin())); //from sof
 
