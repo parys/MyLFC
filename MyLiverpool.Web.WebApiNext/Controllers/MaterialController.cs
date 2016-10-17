@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using MyLiverpool.Business.DTO;
 using MyLiverpool.Data.Entities;
 using MyLiverpool.Web.WebApiNext.Extensions;
@@ -15,10 +16,12 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     public class MaterialController : Controller
     {
         private readonly IMaterialService _materialService;
+        private readonly ILogger<MaterialController> _logger;
 
-        public MaterialController(IMaterialService materialService)
+        public MaterialController(IMaterialService materialService, ILogger<MaterialController> logger)
         {
             _materialService = materialService;
+            _logger = logger;
         }
 
         [Route("list/{filtersObj}")]
@@ -26,6 +29,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> GetNewsItems([FromRoute] string filtersObj)
         {
+            _logger.LogInformation( "Listing all items1111111111111");
             MaterialFiltersDto filters;
             if (filtersObj == null)
             {
