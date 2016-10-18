@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Services.Services;
@@ -91,7 +92,7 @@ namespace MyLiverpool.Web.WebApiNext
                 .EnableLogoutEndpoint("/connect/logout")
                 // Enable the token endpoint (required to use the password flow).
                 .EnableTokenEndpoint("/connect/token")
-
+                
                 // Allow client applications to use the grant_type=password flow.
                 .AllowPasswordFlow()
                 //.AllowAuthorizationCodeFlow()
@@ -227,7 +228,7 @@ namespace MyLiverpool.Web.WebApiNext
         private void RegisterCoreHelpers(IServiceCollection services)
         {
             services.AddSingleton<IHostingEnvironment>(Env);
-            services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
+            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
     }
 }

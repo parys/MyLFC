@@ -48,6 +48,11 @@ namespace MyLiverpool.Business.Services.Services
            
         }
 
+        public async Task SendEmailAsync(string subject, string message)
+        {
+            await SendEmailAsync(_settings.Value.EmailForWishCreationNotification, subject, message);
+        }
+
         public Task SendSmsAsync(string number, string message)
         {
             return Task.FromResult(0);

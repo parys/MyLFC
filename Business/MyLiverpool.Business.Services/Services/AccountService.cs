@@ -14,40 +14,43 @@ namespace MyLiverpool.Business.Services.Services
 {
     public class AccountService : IAccountService
     {
-        private readonly IUnitOfWork _unitOfWork;
+      //  private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly IEmailSender _messageService;
         private readonly IHttpContextAccessor _accessor;
+        private UserManager<User> _userManager { get; set; }
 
-        public AccountService(IUnitOfWork unitOfWork, IMapper mapper, IEmailSender messageService, IHttpContextAccessor accessor)
+        public AccountService(IUnitOfWork unitOfWork, IMapper mapper, IEmailSender messageService, IHttpContextAccessor accessor, UserManager<User> userManager)
         {
-            _unitOfWork = unitOfWork;
+          //  _unitOfWork = unitOfWork;
             _mapper = mapper;
             _messageService = messageService;
             _accessor = accessor;
+            _userManager = userManager;
         }
 
         public async Task<bool> ChangePasswordAsync(int userId, ChangePasswordDto dto)
         {
-            var user = await _unitOfWork.UserManager.FindByIdAsync(userId.ToString());
-            var result = await _unitOfWork.UserManager.ChangePasswordAsync(user, dto.OldPassword, dto.NewPassword);
+            var user = await _userManager.FindByIdAsync(userId.ToString());
+            var result = await _userManager.ChangePasswordAsync(user, dto.OldPassword, dto.NewPassword);
             return result.Succeeded;
         }
 
         public async Task<bool> ConfirmEmailAsync(int userId, string code)
         {
             code = code.Base64ForUrlDecode();
-            var user = await _unitOfWork.UserManager.FindByIdAsync(userId.ToString()); //todo WHY
-            var result = await _unitOfWork.UserManager.ConfirmEmailAsync(user, code);
+            var user = await _userManager.FindByIdAsync(userId.ToString()); //todo WHY
+            var result = await _userManager.ConfirmEmailAsync(user, code);
             user.EmailConfirmed = true;
-            _unitOfWork.UserRepository.Update(user);
-            await _unitOfWork.SaveAsync();
+         //   _unitOfWork.UserRepository.Update(user);
+            await _userManager.UpdateAsync(user);
+          //  await _unitOfWork.SaveAsync(); //need?
             return result.Succeeded;
         }
 
         public async Task<bool> ForgotPasswordAsync(string email)
         {
-            var user = await _unitOfWork.UserManager.FindByEmailAsync(email);
+            var user = await _userManager.FindByEmailAsync(email);
             if (user == null || !user.EmailConfirmed)
             {
                 return true;
@@ -58,20 +61,20 @@ namespace MyLiverpool.Business.Services.Services
 
         public async Task<bool> IsUserNameUniqueAsync(string userName)
         {
-            var foundUser = await _unitOfWork.UserManager.FindByNameAsync(userName);
+            var foundUser = await _userManager.FindByNameAsync(userName);
             return foundUser == null;
         }
 
         public async Task<bool> IsEmailUniqueAsync(string email)
         {
-            var foundUser = await _unitOfWork.UserManager.FindByEmailAsync(email);
+            var foundUser = await _userManager.FindByEmailAsync(email);
             return foundUser == null;
         }
 
         public async Task<DateTime> GetLockOutEndDateAsync(int userId)
         {
-            var user = await _unitOfWork.UserManager.FindByIdAsync(userId.ToString());
-            var dateTime = await _unitOfWork.UserManager.GetLockoutEndDateAsync(user);
+            var user = await _userManager.FindByIdAsync(userId.ToString());
+            var dateTime = await _userManager.GetLockoutEndDateAsync(user);
             return dateTime.Value.DateTime;
         }
 
@@ -83,10 +86,10 @@ namespace MyLiverpool.Business.Services.Services
             user.LockoutEnabled = true;
             user.RoleGroupId = (int)RoleGroupsEnum.Simple;
 
-            IdentityResult result = await _unitOfWork.UserManager.CreateAsync(user, model.Password);
+            IdentityResult result = await _userManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {
-                await _unitOfWork.UserManager.AddToRoleAsync(user, RolesEnum.Simple.ToString());
+                await _userManager.AddToRoleAsync(user, RolesEnum.Simple.ToString());
 
                 await SendConfirmEmailAsync(user.Email, user.Id);
             }
@@ -95,7 +98,7 @@ namespace MyLiverpool.Business.Services.Services
 
         public async Task<bool> ResendConfirmEmail(string email)
         {
-            var user = await _unitOfWork.UserManager.FindByEmailAsync(email);
+            var user = await _userManager.FindByEmailAsync(email);
             if (user == null || user.EmailConfirmed)
             {
                 return false;
@@ -106,23 +109,23 @@ namespace MyLiverpool.Business.Services.Services
 
         public async Task<bool> ResetPasswordAsync(ResetPasswordDto dto)
         {
-            var user = await _unitOfWork.UserManager.FindByEmailAsync(dto.Email);
+            var user = await _userManager.FindByEmailAsync(dto.Email);
             if (user == null)
             {
                 return false;
             }
-            var result = await _unitOfWork.UserManager.ResetPasswordAsync(user, dto.Code.Base64ForUrlDecode(), dto.Password);
+            var result = await _userManager.ResetPasswordAsync(user, dto.Code.Base64ForUrlDecode(), dto.Password);
             return result.Succeeded;
         }
 
         public async Task<IdentityResult> UpdateLastModifiedAsync(int userId)
         {
-            var user = await _unitOfWork.UserManager.FindByIdAsync(userId.ToString());
+            var user = await _userManager.FindByIdAsync(userId.ToString());
             user.LastModified = DateTime.Now;
-            var result = await _unitOfWork.UserManager.UpdateAsync(user);
+            var result = await _userManager.UpdateAsync(user);
             if (result.Succeeded)
             {
-                await _unitOfWork.SaveAsync();
+             //   await _unitOfWork.SaveAsync(); ?
             }
             return result;
         }
@@ -131,19 +134,19 @@ namespace MyLiverpool.Business.Services.Services
         private async Task<string> GetConfirmEmailBody(int userId)
         {
             var host = _accessor.HttpContext.Request.Host;
-            var user = await _unitOfWork.UserManager.FindByIdAsync(userId.ToString());
-            string code = await _unitOfWork.UserManager.GenerateEmailConfirmationTokenAsync(user);
+            var user = await _userManager.FindByIdAsync(userId.ToString());
+            string code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
             code = code.Base64ForUrlEncode();
             
-            var callbackUrl = $"http://{host}/api/account/confirmEmail?userId={userId}&code={code}";
+            var callbackUrl = $"http://{host}/api/account/confirmEmail/{userId}/{code}";
             return $"Пожалуйста, подтвердите ваш аккаунт, кликнув <a href=\"{callbackUrl}\">здесь</a>.";
         }
 
         private async Task<string> GetForgotPasswordBody(int userId)
         {
             var host = _accessor.HttpContext.Request.Host;
-            var user = await _unitOfWork.UserManager.FindByIdAsync(userId.ToString());
-            string code = await _unitOfWork.UserManager.GeneratePasswordResetTokenAsync(user);
+            var user = await _userManager.FindByIdAsync(userId.ToString());
+            string code = await _userManager.GeneratePasswordResetTokenAsync(user);
             code = code.Base64ForUrlEncode();
 
             var callbackUrl = $"http://{host}/api/account/resetPassword?userId={userId}&code={code}";

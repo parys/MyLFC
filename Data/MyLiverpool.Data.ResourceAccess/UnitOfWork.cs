@@ -51,13 +51,13 @@ namespace MyLiverpool.Data.ResourceAccess
         {
             var store = new UserStore<User, Role, LiverpoolContext, int>(_context);
             IPasswordHasher<User> hasher = new PasswordHasher<User>();
+            //IUserT
+           // IServiceProvider sp = new Servi
                 //var provider = new MachineKeyProtectionProvider();
             //var userStore = new UserStore<User, Role, int, UserLogin, UserRole, UserClaim>(_context);
             UserManager = new UserManager<User>(store, null, hasher, null, null, null, null, null, null);
-            //{
-            //    UserTokenProvider = new DataProtectorTokenProvider<User>(provider.Create("EmailConfirmation", )),
-            //    UserLockoutEnabledByDefault = true
-            //};
+      //      UserManager.UserTokenProvider = new DataProtectorTokenProvider<ApplicationUser>(
+  //  provider.Create("EmailConfirmation"));
         }
 
         //private readonly UserStore<User, Role, int, UserLogin, UserRole, UserClaim> userStore; 

@@ -1,4 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -35,25 +38,18 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return Ok(result);
         }
 
-        //[Route("ConfirmEmail")] //todo
-        //[HttpGet]
-        //[AllowAnonymous]
-        //public async Task<HttpResponseMessage> ConfirmEmail(int userId, string code)
-        //{
-        //    if (userId <= 0 || code == null)
-        //    {
-        //        return new HttpResponseMessage(HttpStatusCode.BadRequest);
-        //    }
-        //    var result = await _accountService.ConfirmEmailAsync(userId, code);
-        //    if (result)
-        //    {
-        //        var response = Request.CreateResponse(HttpStatusCode.Moved);
-        //        string fullyQualifiedUrl = Request.RequestUri.GetLeftPart(UriPartial.Authority);
-        //        response.Headers.Location = new Uri(fullyQualifiedUrl + "/confirmed");
-        //        return response;
-        //    }
-        //    return new HttpResponseMessage(HttpStatusCode.BadRequest);
-        //}
+        [Route("ConfirmEmail/{id:int}/{code}")]
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> ConfirmEmail(int userId, string code)
+        {
+            if (userId <= 0 || code == null)
+            {
+                return new BadRequestResult();
+            }
+            var result = await _accountService.ConfirmEmailAsync(userId, code);
+            return Ok(result);
+        }
 
         [Route("ForgotPassword")]
         [HttpPost]
