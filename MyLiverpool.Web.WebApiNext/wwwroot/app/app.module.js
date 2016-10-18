@@ -16,25 +16,23 @@ var platform_browser_1 = require("@angular/platform-browser");
 var app_component_1 = require("./app.component");
 var app_routes_1 = require("./app.routes");
 var app_constants_1 = require("./app.constants");
-var account_signup_component_1 = require("./account/account-signup.component");
 var index_1 = require("./news/index");
 var newsCategory_service_1 = require("./newsCategory/shared/newsCategory.service");
-var account_signin_component_1 = require("./account/account-signin.component");
 var httpWrapper_1 = require("./shared/httpWrapper");
 var index_2 = require("./auth/index");
 var index_3 = require("./shared/index");
-var account_service_1 = require("./account/account.service");
+var index_4 = require("./account/index");
 var newsCategory_list_component_1 = require("./newsCategory/newsCategory-list.component");
 var newsCategory_edit_component_1 = require("./newsCategory/newsCategory-edit.component");
 var user_detail_component_1 = require("./user/user-detail.component");
 var user_service_1 = require("./user/user.service");
 var user_list_component_1 = require("./user/user-list.component");
-var index_4 = require("./pm/index");
-var index_5 = require("./home/index");
-var index_6 = require("./wish/index");
-var index_7 = require("./materialComment/index");
+var index_5 = require("./pm/index");
+var index_6 = require("./home/index");
+var index_7 = require("./wish/index");
+var index_8 = require("./materialComment/index");
 var ng2_auto_complete_1 = require("ng2-auto-complete");
-var index_8 = require("./shared/index");
+var index_9 = require("./shared/index");
 var ng2_bootstrap_1 = require("ng2-bootstrap/ng2-bootstrap");
 var AppModule = (function () {
     function AppModule() {
@@ -53,41 +51,42 @@ var AppModule = (function () {
                 forms_1.ReactiveFormsModule,
                 app_routes_1.routing],
             declarations: [
-                account_signin_component_1.AccountSigninComponent,
-                account_signup_component_1.AccountSignupComponent,
+                index_4.AccountSigninComponent,
+                index_4.AccountSignupComponent,
                 app_component_1.AppComponent,
-                index_5.ClubHistoryComponent,
-                index_7.MaterialCommentListComponent,
-                index_7.MaterialCommentSectionComponent,
+                index_4.ConfirmEmailComponent,
+                index_6.ClubHistoryComponent,
+                index_8.MaterialCommentListComponent,
+                index_8.MaterialCommentSectionComponent,
                 newsCategory_edit_component_1.NewsCategoryEditComponent,
                 newsCategory_list_component_1.NewsCategoryListComponent,
                 index_1.NewsListComponent,
                 index_1.NewsDetailComponent,
                 index_1.NewsEditComponent,
-                index_4.PmDetailComponent,
-                index_4.PmEditComponent,
-                index_4.PmListComponent,
+                index_5.PmDetailComponent,
+                index_5.PmEditComponent,
+                index_5.PmListComponent,
                 index_3.SecuredDirective,
                 user_detail_component_1.UserDetailComponent,
                 user_list_component_1.UserListComponent,
-                index_6.WishEditComponent,
-                index_6.WishListComponent],
+                index_7.WishEditComponent,
+                index_7.WishListComponent],
             bootstrap: [app_component_1.AppComponent],
             providers: [
-                account_service_1.AccountService,
+                index_4.AccountService,
                 app_routes_1.appRoutingProviders,
                 index_2.AuthGuard,
                 index_2.AuthService,
                 app_constants_1.Configuration,
                 httpWrapper_1.HttpWrapper,
                 { provide: index_3.LocalStorageMine, useClass: index_3.LocalStorageMine },
-                index_7.MaterialCommentService,
+                index_8.MaterialCommentService,
                 index_1.NewsService,
                 newsCategory_service_1.NewsCategoryService,
-                index_4.PmService,
-                index_8.RolesCheckedService,
+                index_5.PmService,
+                index_9.RolesCheckedService,
                 user_service_1.UserService,
-                index_6.WishService
+                index_7.WishService
             ]
         }), 
         __metadata('design:paramtypes', [])

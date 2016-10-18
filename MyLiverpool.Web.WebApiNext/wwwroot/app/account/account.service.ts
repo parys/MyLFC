@@ -26,10 +26,7 @@ export class AccountService {
         return this.http.post(this.actionUrl + "register/", JSON.stringify(item)).map(res => res.json());
     };
 
-    // public Update = (id: number, itemToUpdate: News): Observable<News> => {
-    //    // var toUpdate = 
-    //    return this.http
-    //        .put(this.actionUrl + id, JSON.stringify(itemToUpdate))
-    //        .map(res => res.json());
-    // };
+    confirmEmail = (userId: number, code: string): Observable<boolean> => {
+        return this.http.get(this.actionUrl + `confirmEmail/${userId}/${code}`).map(res => res.json());
+    };
 }

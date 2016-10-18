@@ -6,16 +6,14 @@ import { BrowserModule } from "@angular/platform-browser";
 
 import { AppComponent }  from "./app.component";
 import { routing, appRoutingProviders } from "./app.routes";
-import { Configuration } from "./app.constants";
+import { Configuration } from "./app.constants";                                                                                                                          
 
-import { AccountSignupComponent } from "./account/account-signup.component";
 import { NewsEditComponent, NewsDetailComponent, NewsListComponent, NewsService } from "./news/index";
 import { NewsCategoryService } from "./newsCategory/shared/newsCategory.service";
-import { AccountSigninComponent } from "./account/account-signin.component";
 import { HttpWrapper } from "./shared/httpWrapper";
 import { AuthGuard, AuthService } from "./auth/index";
 import { LocalStorageMine, SecuredDirective } from "./shared/index";
-import { AccountService } from "./account/account.service";
+import { AccountSigninComponent, AccountSignupComponent, AccountService, ConfirmEmailComponent } from "./account/index";
 import { NewsCategoryListComponent } from "./newsCategory/newsCategory-list.component";
 import { NewsCategoryEditComponent } from "./newsCategory/newsCategory-edit.component";
 import { UserDetailComponent } from "./user/user-detail.component";
@@ -45,6 +43,7 @@ import { DatepickerModule, ModalModule, PaginationModule } from "ng2-bootstrap/n
         AccountSigninComponent,
         AccountSignupComponent,
         AppComponent,
+        ConfirmEmailComponent,
         ClubHistoryComponent,
         MaterialCommentListComponent,
         MaterialCommentSectionComponent,

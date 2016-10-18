@@ -26,6 +26,9 @@ var AccountService = (function () {
         this.create = function (item) {
             return _this.http.post(_this.actionUrl + "register/", JSON.stringify(item)).map(function (res) { return res.json(); });
         };
+        this.confirmEmail = function (userId, code) {
+            return _this.http.get(_this.actionUrl + ("confirmEmail/" + userId + "/" + code)).map(function (res) { return res.json(); });
+        };
         this.actionUrl = configuration.ServerWithApiUrl + "account/";
     }
     AccountService = __decorate([
