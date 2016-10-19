@@ -7,22 +7,19 @@ using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.DtoNext;
 using MyLiverpool.Business.DTO;
 using MyLiverpool.Data.Entities;
-using MyLiverpool.Data.ResourceAccess.Contracts;
 using MyLiverpool.Common.Utilities;
 
 namespace MyLiverpool.Business.Services.Services
 {
     public class AccountService : IAccountService
     {
-      //  private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly IEmailSender _messageService;
         private readonly IHttpContextAccessor _accessor;
-        private UserManager<User> _userManager { get; set; }
+        private readonly UserManager<User> _userManager;
 
-        public AccountService(IUnitOfWork unitOfWork, IMapper mapper, IEmailSender messageService, IHttpContextAccessor accessor, UserManager<User> userManager)
+        public AccountService(IMapper mapper, IEmailSender messageService, IHttpContextAccessor accessor, UserManager<User> userManager)
         {
-          //  _unitOfWork = unitOfWork;
             _mapper = mapper;
             _messageService = messageService;
             _accessor = accessor;
@@ -39,12 +36,10 @@ namespace MyLiverpool.Business.Services.Services
         public async Task<bool> ConfirmEmailAsync(int userId, string code)
         {
             code = code.Base64ForUrlDecode();
-            var user = await _userManager.FindByIdAsync(userId.ToString()); //todo WHY
+            var user = await _userManager.FindByIdAsync(userId.ToString());
             var result = await _userManager.ConfirmEmailAsync(user, code);
             user.EmailConfirmed = true;
-         //   _unitOfWork.UserRepository.Update(user);
             await _userManager.UpdateAsync(user);
-          //  await _unitOfWork.SaveAsync(); //need?
             return result.Succeeded;
         }
 
@@ -138,7 +133,7 @@ namespace MyLiverpool.Business.Services.Services
             string code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
             code = code.Base64ForUrlEncode();
             
-            var callbackUrl = $"http://{host}/api/account/confirmEmail/{userId}/{code}";
+            var callbackUrl = $"http://{host}/confirmEmail?userId={userId}&code={code}";
             return $"Пожалуйста, подтвердите ваш аккаунт, кликнув <a href=\"{callbackUrl}\">здесь</a>.";
         }
 
@@ -149,7 +144,7 @@ namespace MyLiverpool.Business.Services.Services
             string code = await _userManager.GeneratePasswordResetTokenAsync(user);
             code = code.Base64ForUrlEncode();
 
-            var callbackUrl = $"http://{host}/api/account/resetPassword?userId={userId}&code={code}";
+            var callbackUrl = $"http://{host}/account/resetPassword?userId={userId}&code={code}";
             return $"Пожалуйста, сбросьте ваш пароль, кликнув <a href = \"{callbackUrl}\"> здесь </a>.";
         }
 

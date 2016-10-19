@@ -38,7 +38,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return Ok(result);
         }
 
-        [Route("ConfirmEmail/{id:int}/{code}")]
+        [Route("ConfirmEmail")]
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> ConfirmEmail(int userId, string code)

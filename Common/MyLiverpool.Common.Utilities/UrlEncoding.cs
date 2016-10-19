@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Text;
+using Microsoft.AspNetCore.WebUtilities;
 
 namespace MyLiverpool.Common.Utilities
 {
@@ -6,16 +7,14 @@ namespace MyLiverpool.Common.Utilities
     {
         public static string Base64ForUrlEncode(this string str)
         {
-            return str;
-            //  byte[] buffer = Encoding.UTF8.GetBytes(str);
-            //   return HttpServerUtility.UrlTokenEncode(buffer);
+            byte[] tokenGeneratedBytes = Encoding.UTF8.GetBytes(str);
+            return WebEncoders.Base64UrlEncode(tokenGeneratedBytes);
         }
 
         public static string Base64ForUrlDecode(this string str)
         {
-            return str;
-            // byte[] buffer = HttpServerUtility.UrlTokenDecode(str);
-            // return Encoding.UTF8.GetString(buffer);
+            var codeDecodedBytes = WebEncoders.Base64UrlDecode(str);
+            return Encoding.UTF8.GetString(codeDecodedBytes);
         }
     }
 }

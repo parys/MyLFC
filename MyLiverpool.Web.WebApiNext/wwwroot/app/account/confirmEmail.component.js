@@ -21,8 +21,23 @@ var ConfirmEmailComponent = (function () {
         var _this = this;
         console.log(123);
         var result;
-        this.sub = this.route.params.subscribe(function (params) {
-            var id = +params["id"];
+        //this.sub = this.route.params.subscribe(params => {
+        //    let id = +params["userId"];
+        //    let code = params["code"];
+        //    this.accountService.confirmEmail(id, code)
+        //        .subscribe(data => result = data,                         
+        //        error => console.log(error),
+        //        () => {
+        //            if (result) {
+        //                this.router.navigate(["/news"]);
+        //            }
+        //        });
+        //});
+        this.sub = this.route.queryParams.subscribe(function (params) {
+            console.log(params);
+            console.log(params["userId"]);
+            console.log(params["code"]);
+            var id = +params["userId"];
             var code = params["code"];
             _this.accountService.confirmEmail(id, code)
                 .subscribe(function (data) { return result = data; }, function (error) { return console.log(error); }, function () {

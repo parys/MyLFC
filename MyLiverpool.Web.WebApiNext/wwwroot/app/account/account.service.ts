@@ -27,6 +27,6 @@ export class AccountService {
     };
 
     confirmEmail = (userId: number, code: string): Observable<boolean> => {
-        return this.http.get(this.actionUrl + `confirmEmail/${userId}/${code}`).map(res => res.json());
+        return this.http.get(this.actionUrl + `confirmEmail?userId=${userId}&code=${code}`).map(res => res.json());
     };
 }
