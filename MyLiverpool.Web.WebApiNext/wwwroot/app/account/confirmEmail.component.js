@@ -16,33 +16,16 @@ var ConfirmEmailComponent = (function () {
         this.accountService = accountService;
         this.route = route;
         this.router = router;
+        this.result = false;
     }
     ConfirmEmailComponent.prototype.ngOnInit = function () {
         var _this = this;
-        console.log(123);
-        var result;
-        //this.sub = this.route.params.subscribe(params => {
-        //    let id = +params["userId"];
-        //    let code = params["code"];
-        //    this.accountService.confirmEmail(id, code)
-        //        .subscribe(data => result = data,                         
-        //        error => console.log(error),
-        //        () => {
-        //            if (result) {
-        //                this.router.navigate(["/news"]);
-        //            }
-        //        });
-        //});
         this.sub = this.route.queryParams.subscribe(function (params) {
-            console.log(params);
-            console.log(params["userId"]);
-            console.log(params["code"]);
             var id = +params["userId"];
             var code = params["code"];
             _this.accountService.confirmEmail(id, code)
-                .subscribe(function (data) { return result = data; }, function (error) { return console.log(error); }, function () {
-                if (result) {
-                    _this.router.navigate(["/news"]);
+                .subscribe(function (data) { return _this.result = data; }, function (error) { return console.log(error); }, function () {
+                if (_this.result) {
                 }
             });
         });
@@ -52,8 +35,8 @@ var ConfirmEmailComponent = (function () {
     };
     ConfirmEmailComponent = __decorate([
         core_1.Component({
-            //   selector: "account-signin",
-            template: ""
+            selector: "email-confirmation",
+            template: "<span [hidden]='!result'>Ваш адрес электронной почты успешно подтвержден. Можете войти и быть как дома.</span>"
         }), 
         __metadata('design:paramtypes', [account_service_1.AccountService, router_1.ActivatedRoute, router_1.Router])
     ], ConfirmEmailComponent);

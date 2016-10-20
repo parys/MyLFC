@@ -1,7 +1,8 @@
 ﻿Комментарии: <span [textContent]="items.count"></span>
 
-<div class="" ng-repeat="comment in vm.item.comments">
+<div class="" *ngFor="let comment of items">
     <!-- <tree comment="comment" deep="0"></tree>-->
+    <materialComment-detail [item]="comment"></materialComment-detail>
 </div>
 
 <form class="form-horizontal" name="commentForm" role="form">

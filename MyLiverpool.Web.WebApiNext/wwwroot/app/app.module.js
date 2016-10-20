@@ -56,6 +56,7 @@ var AppModule = (function () {
                 app_component_1.AppComponent,
                 index_4.ConfirmEmailComponent,
                 index_6.ClubHistoryComponent,
+                index_8.MaterialCommentDetailComponent,
                 index_8.MaterialCommentListComponent,
                 index_8.MaterialCommentSectionComponent,
                 newsCategory_edit_component_1.NewsCategoryEditComponent,

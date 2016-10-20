@@ -22,7 +22,7 @@ import { UserListComponent } from "./user/user-list.component";
 import { PmListComponent, PmDetailComponent, PmEditComponent, PmService } from "./pm/index";
 import { ClubHistoryComponent } from "./home/index";
 import { WishListComponent, WishService, WishEditComponent } from "./wish/index";
-import { MaterialCommentListComponent, MaterialCommentService, MaterialCommentSectionComponent } from "./materialComment/index";
+import { MaterialCommentListComponent, MaterialCommentService, MaterialCommentSectionComponent, MaterialCommentDetailComponent } from "./materialComment/index";
 import { Ng2AutoCompleteModule } from "ng2-auto-complete";
 import { RolesCheckedService } from "./shared/index";
 import { DatepickerModule, ModalModule, PaginationModule } from "ng2-bootstrap/ng2-bootstrap";
@@ -45,6 +45,7 @@ import { DatepickerModule, ModalModule, PaginationModule } from "ng2-bootstrap/n
         AppComponent,
         ConfirmEmailComponent,
         ClubHistoryComponent,
+        MaterialCommentDetailComponent,
         MaterialCommentListComponent,
         MaterialCommentSectionComponent,
         NewsCategoryEditComponent,

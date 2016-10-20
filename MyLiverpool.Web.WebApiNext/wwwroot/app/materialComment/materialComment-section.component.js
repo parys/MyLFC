@@ -25,6 +25,7 @@ var MaterialCommentSectionComponent = (function () {
     }
     MaterialCommentSectionComponent.prototype.ngOnInit = function () {
         this.roles = this.rolesChecked.checkedRoles;
+        this.update();
     };
     MaterialCommentSectionComponent.prototype.pageChanged = function (event) {
         this.page = event.page;
