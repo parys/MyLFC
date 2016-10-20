@@ -20,6 +20,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
         }
         public async Task<MaterialComment> GetByIdAsync(int id)
         {
+            var vv = _context.MaterialComments.Include(x => x.Children).Where(x => x.ParentId != null);
             return await _context.MaterialComments.Include(x => x.Children).FirstOrDefaultAsync(x => x.Id == id);
         }
 
@@ -68,7 +69,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
         public async Task<ICollection<MaterialComment>> GetOrderedByAsync(int page, int itemPerPage = 15, Expression<Func<MaterialComment, bool>> filter = null,
              SortOrder order = SortOrder.Ascending, Expression<Func<MaterialComment, object>> orderBy = null)
         {
-            IQueryable<MaterialComment> query = _context.MaterialComments.Include(x => x.Author);
+            IQueryable<MaterialComment> query = _context.MaterialComments.Include(x => x.Children).Include(x => x.Author);
 
             if (filter != null)
             {

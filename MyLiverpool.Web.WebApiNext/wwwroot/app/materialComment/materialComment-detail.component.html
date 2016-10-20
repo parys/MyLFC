@@ -1,35 +1,34 @@
 ﻿<div class="col-xs-offset-{{deep}} col-sm-offset-{{deep}} comment container-fluid">
     <div class="row">
-        <div class="col-xs-5 col-sm-5">
-            <a ui-sref="userInfo({id: comment.authorId})" ng-bind="comment.authorUserName"></a>
-            <span class="small" ng-bind="comment.additionTime | date:'medium'"></span>
+        <div class="col-xs-9 col-sm-9">
+            <a [routerLink]="['/user', item.authorId]" [textContent]="item.authorUserName"></a>
+            <span class="small" [textContent]="item.additionTime | date:'medium'"></span>
         </div>
-        {{item | json}}
         <div class="col-xs-3 col-sm-3">
             <span class="pull-right">
-                <a href="" ng-if="$root.isModerator() || $root.isUserAuthor(vm.getUserId(), comment.authorId)" ng-click="vm.editComment(comment)"><span class="glyphicon glyphicon-pencil"> </span></a>
-                <a href="" ng-if="$root.isModerator()" ng-click="vm.deleteComment(comment)"><span class="glyphicon glyphicon-trash"> </span></a>
-            </span>
+                    <a href="" *ngIf="roles.isModerator || roles.isUserAuthor(item.authorId)" (click)="editComment()"><span class="glyphicon glyphicon-pencil"> </span></a>
+                    <a href="" *ngIf="roles.isModerator" (click)="deleteComment()"><span class="glyphicon glyphicon-trash"> </span></a>
+                </span>
         </div>
     </div>
     <div class="row">
         <div class="col-xs-2 col-sm-2">
-            <!--<img class="avatar-medium" ng-src="{comment.photo}}" />-->
+            <img class="avatar-medium" src="{{item.photo}}" alt="item.authorUserName"/>
         </div>
         <div class="col-xs-10 col-sm-10">
-            <p ng-bind-html="comment.message | rawHtml"></p>
+            <p [textContent]="item.message"></p>
         </div>
     </div>
-    <div class="row" ng-show="comment.answer">
+    <div class="row" *ngIf="item.answer">
         <div class="col-xs-3 col-sm-3">Ответ:</div>
         <div class="col-xs-9 col-sm-9">
-            <i ng-bind="comment.answer"></i>
+            <i [textContent]="item.answer"></i>
         </div>
     </div>
-    <div class="col-xs-12 col-sm-12" ng-show="vm.canAddReply() && !$root.isUserAuthor(vm.getUserId(), comment.authorId)">
+    <div class="col-xs-12 col-sm-12" [hidden]="roles.isUserAuthor(item.authorId)">
         <a href="" ng-click="vm.addReplyComment(comment)">Ответить</a>
     </div>
 </div>
-<div ng-repeat="child in comment.children">
-   <!-- <tree comment="child" deep="deep > 6 ? 7 : deep+1"></tree>-->
+<div *ngFor="let child of item.children">
+    <materialComment-detail [item]="child" [deep]="deep > 6 ? 7 : deep+1"></materialComment-detail>
 </div>

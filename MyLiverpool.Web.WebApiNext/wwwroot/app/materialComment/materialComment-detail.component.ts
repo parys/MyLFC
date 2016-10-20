@@ -14,6 +14,7 @@ import { ModalDirective } from "ng2-bootstrap/ng2-bootstrap";
 export class MaterialCommentDetailComponent implements OnInit {
 
     @Input() item: MaterialComment;
+    @Input() deep: number;
    // page: number = 1;
    // itemsPerPage = 15;
    // totalItems: number;
@@ -22,7 +23,9 @@ export class MaterialCommentDetailComponent implements OnInit {
 
   //  @ViewChild("deleteModal") deleteModal: ModalDirective;
 
-    constructor(private materialCommentService: MaterialCommentService, private location: Location, private rolesChecked: RolesCheckedService) {
+    constructor(private materialCommentService: MaterialCommentService,
+        private location: Location,
+        private rolesChecked: RolesCheckedService) {
     }
 
     ngOnInit() {

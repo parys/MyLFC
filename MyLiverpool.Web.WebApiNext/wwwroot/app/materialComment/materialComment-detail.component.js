@@ -29,6 +29,10 @@ var MaterialCommentDetailComponent = (function () {
         core_1.Input(), 
         __metadata('design:type', materialComment_model_1.MaterialComment)
     ], MaterialCommentDetailComponent.prototype, "item", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Number)
+    ], MaterialCommentDetailComponent.prototype, "deep", void 0);
     MaterialCommentDetailComponent = __decorate([
         core_1.Component({
             selector: "materialComment-detail",
