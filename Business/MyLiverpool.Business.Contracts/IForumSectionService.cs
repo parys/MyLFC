@@ -10,7 +10,7 @@ namespace MyLiverpool.Business.Contracts
 
         Task<bool> DeleteAsync(int id);
 
-        Task<ForumDto> GetAsync();
+     //   Task<ForumDto> GetAsync();
 
         Task<ForumSectionDto> GetAsync(int id);
 

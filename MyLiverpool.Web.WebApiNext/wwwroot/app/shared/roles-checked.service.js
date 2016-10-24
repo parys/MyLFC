@@ -19,6 +19,7 @@ var RolesCheckedService = (function () {
             isEditor: false,
             isNewsmaker: false,
             isModerator: false,
+            isMainModerator: false,
             isAdminAssistant: false,
             isSelf: function (userId) { return _this.isSelf(userId); }
         };
@@ -34,6 +35,7 @@ var RolesCheckedService = (function () {
         this.checkEditor();
         this.checkNewsmaker();
         this.checkModerator();
+        this.checkMainModerator();
         this.checkAdminAssistant();
     };
     RolesCheckedService.prototype.checkEditor = function () {
@@ -49,6 +51,11 @@ var RolesCheckedService = (function () {
     RolesCheckedService.prototype.checkModerator = function () {
         if (this.checkRole("UserStart")) {
             this.checkedRoles.isModerator = true;
+        }
+    };
+    RolesCheckedService.prototype.checkMainModerator = function () {
+        if (this.checkRole("UserFull")) {
+            this.checkedRoles.isMainModerator = true;
         }
     };
     RolesCheckedService.prototype.checkAdminAssistant = function () {

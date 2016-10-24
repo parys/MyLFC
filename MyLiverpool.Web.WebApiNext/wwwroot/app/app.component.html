@@ -54,11 +54,11 @@
                 {
                 <li> @Html.ActionLink(CommonMessages.Roles, "Index", "Role") </li>
                 }*@-->
-                <li> <a ui-sref="forum">Форум</a></li>
+                <li> <a [routerLink]="['/forum']">Форум</a></li>
                 <li class="dropdown">
                     <a [routerLink]="['/news/list', 1]" class="dropdown-toggle" data-toggle="">Новости<b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a *ngIf="roles.isNewsmaker" [routerLink]="['/news', 0, 'edit']">Добавить</a></li>
+                        <li *ngIf="roles.isNewsmaker"><a [routerLink]="['/news', 0, 'edit']">Добавить</a></li>
                         <li><a [routerLink]="['/newsCategory']">Категории</a></li>
                     </ul>
                 </li>

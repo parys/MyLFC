@@ -13,6 +13,7 @@ import { NewsCategoryService } from "./newsCategory/shared/newsCategory.service"
 import { HttpWrapper } from "./shared/httpWrapper";
 import { AuthGuard, AuthService } from "./auth/index";
 import { LocalStorageMine, SecuredDirective } from "./shared/index";
+import { ForumSectionListComponent, ForumSectionService } from "./forumSection/index";
 import { AccountSigninComponent, AccountSignupComponent, AccountService, ConfirmEmailComponent } from "./account/index";
 import { NewsCategoryListComponent } from "./newsCategory/newsCategory-list.component";
 import { NewsCategoryEditComponent } from "./newsCategory/newsCategory-edit.component";
@@ -45,6 +46,7 @@ import { DatepickerModule, ModalModule, PaginationModule } from "ng2-bootstrap/n
         AppComponent,
         ConfirmEmailComponent,
         ClubHistoryComponent,
+        ForumSectionListComponent,
         MaterialCommentDetailComponent,
         MaterialCommentListComponent,
         MaterialCommentSectionComponent,
@@ -68,6 +70,7 @@ import { DatepickerModule, ModalModule, PaginationModule } from "ng2-bootstrap/n
         AuthGuard,
         AuthService,
         Configuration,
+        ForumSectionService,
         HttpWrapper,
         { provide: LocalStorageMine, useClass: LocalStorageMine },
         MaterialCommentService,

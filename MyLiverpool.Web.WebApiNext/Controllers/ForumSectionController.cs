@@ -43,14 +43,14 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return Ok(result);
         }
 
-        [Route("")]
-        [HttpGet]
-        [AllowAnonymous]
-        public async Task<IActionResult> Get()
-        {
-            var result = await _forumSectionService.GetAsync();
-            return Ok(result);
-        }
+        //[Route("")]
+        //[HttpGet]
+        //[AllowAnonymous]
+        //public async Task<IActionResult> Get()
+        //{
+        //    var result = await _forumSectionService.GetAsync();
+        //    return Ok(result);
+        //}
 
         [Route("")]
         [HttpGet]

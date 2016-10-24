@@ -2,12 +2,12 @@
     <h2>
         <span [textContent]="item.userName"></span>
         <span [hidden]="!roles.isLogined || roles.isSelf(item.id)">
-            <a ui-sref="wpm({ userName: user.userName })"><span class="glyphicon glyphicon-envelope"></span></a>
+            <a ui-sref="wpm({ userName: item.userName })"><span class="glyphicon glyphicon-envelope"></span></a>
         </span>
     </h2>
     <div class="row">
         <div class="col-xs-2 col-sm-2">
-            <img class="avatar" src="{{item.photo}}" />
+            <img class="avatar" src="{{item.photo}}" alt="{{item.userName}}"/>
         </div>
         <!--div class="col-xs-10 col-sm-10">
             <div ng-if="isSelf(vm.user.id) || isModerator()">
@@ -36,7 +36,7 @@
                 <span class="form-control" [textContent]="item.userName"></span>
             </div>
         </div>
-        <div secured="'UsersFull'" class="form-group"> <!-- && !isSelf(item.id)"-->
+        <div *ngIf="roles.isModerator || roles.isSelf(item.id)" class="form-group">
             <label class="col-xs-2 col-sm-2 control-label">Забанить</label>
             <div class="" ng-show="!item.lockoutEndDateUtc">
                 <div class="col-xs-2 col-sm-2">

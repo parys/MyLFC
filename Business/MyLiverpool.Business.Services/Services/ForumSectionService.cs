@@ -12,11 +12,13 @@ namespace MyLiverpool.Business.Services.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly IForumSectionRepository _forumSectionRepository;
 
-        public ForumSectionService(IUnitOfWork unitOfWork, IMapper mapper)
+        public ForumSectionService(IUnitOfWork unitOfWork, IMapper mapper, IForumSectionRepository forumSectionRepository)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _forumSectionRepository = forumSectionRepository;
         }
 
         public async Task<ForumSectionDto> CreateAsync(string name)
@@ -46,16 +48,16 @@ namespace MyLiverpool.Business.Services.Services
             return true;
         }
 
-        public async Task<ForumDto> GetAsync()
-        {
-            var sections = await _unitOfWork.ForumSectionRepository.GetAsync(includeProperties: x => x.Subsections);
+        //public async Task<ForumDto> GetAsync()
+        //{
+        //    var sections = await _forumSectionRepository.GetListAsync();
 
-            var model = new ForumDto()
-            {
-                Sections = _mapper.Map<ICollection<ForumSectionDto>>(sections)
-            };
-            return model;
-        }
+        //    var model = new ForumDto()
+        //    {
+        //        Sections = _mapper.Map<ICollection<ForumSectionDto>>(sections)
+        //    };
+        //    return model;
+        //}
 
         public async Task<ForumSectionDto> GetAsync(int id)
         {
@@ -65,7 +67,7 @@ namespace MyLiverpool.Business.Services.Services
 
         public async Task<IEnumerable<ForumSectionDto>> GetListAsync()
         {
-            var sections = await _unitOfWork.ForumSectionRepository.GetAsync();
+            var sections = await _forumSectionRepository.GetListAsync();
             return _mapper.Map<IEnumerable<ForumSectionDto>>(sections);
         }
     }

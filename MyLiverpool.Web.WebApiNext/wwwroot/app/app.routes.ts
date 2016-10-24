@@ -8,12 +8,14 @@ import { newsRoutes } from "./news/news.routing";
 import { userRoutes } from "./user/user.routing";
 import { pmRoutes } from "./pm/pm.routing";
 import { homeRoutes } from "./home/home.routing";
+import { forumSectionRoutes } from "./forumSection/forumSection.routing";
 import { wishRoutes } from "./wish/wish.routing";
 import { materialCommentRoutes } from "./materialComment/materialComment.routing";
 
 const routes: Routes = [
     ...accountRoutes,
     ...authRoutes,
+    ...forumSectionRoutes,
     ...homeRoutes,
     ...materialCommentRoutes,
     ...newsCategoryRoutes,
