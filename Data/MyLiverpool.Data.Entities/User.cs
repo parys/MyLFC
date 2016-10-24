@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using OpenIddict;
 
 namespace MyLiverpool.Data.Entities
 {
-    public class User : OpenIddictUser<int>,/* UserLogin, UserRole, UserClaim>, */IEntity
+    public class User : IdentityUser<int>,/* UserLogin, UserRole, UserClaim>, */IEntity
     {
         public User()
         {

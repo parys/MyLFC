@@ -41,7 +41,7 @@
     "MyLiverpool.Data.Entities": "1.0.0-*",
     "MyLiverpool.Data.ResourceAccess": "1.0.0-*",
     "OpenIddict": "1.0.0-*",
-    "System.Linq": "4.1.0"
+    "System.Linq": "4.3.0-preview1-24530-04"
   },
 
   "tools": {

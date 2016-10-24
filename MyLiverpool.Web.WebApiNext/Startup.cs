@@ -86,7 +86,7 @@ namespace MyLiverpool.Web.WebApiNext
             //--- from old proj
             services.AddCors(options => options.AddPolicy("AllowAll", p => p.AllowAnyOrigin())); //from sof
 
-            services.AddOpenIddict<User, Role, LiverpoolContext, int>()
+            services.AddOpenIddict<LiverpoolContext, int>()
                 // Enable the authorization and token endpoints (required to use the code flow).
                 .EnableAuthorizationEndpoint("/connect/authorize")
                 .EnableLogoutEndpoint("/connect/logout")
@@ -218,7 +218,7 @@ namespace MyLiverpool.Web.WebApiNext
 
         private void RegisterRepositories(IServiceCollection services)
         {
-            services.AddTransient<IForumSectionRepository, ForumSectionRepository>();
+            services.AddTransient<IForumSectionService, ForumSectionService>();
             services.AddScoped<IMaterialCommentRepository, MaterialCommentRepository>();
             services.AddScoped<IMaterialRepository, MaterialRepository>();
             services.AddTransient<IPmRepository, PmRepository>();
