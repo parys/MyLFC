@@ -5,10 +5,12 @@ import { IRoles, LocalStorageMine } from "../shared/index";
 export class RolesCheckedService {
 
     checkedRoles: IRoles = {
+        isLogined: false,
         isEditor: false,
         isNewsmaker: false,
         isModerator: false,
-        isUserAuthor: userId => this.isUserAuthor(userId)
+        isAdminAssistant: false,
+        isSelf: userId => this.isSelf(userId)
     };
     private roles: string[];
 
@@ -17,14 +19,15 @@ export class RolesCheckedService {
     }
 
     checkRoles(): void {
-       // console.log("CHECK");
         this.roles = this.localStorage.getObject("roles");
         if (!this.roles) {
             return;
         };
+        this.checkedRoles.isLogined = true;
         this.checkEditor();
         this.checkNewsmaker();
         this.checkModerator();
+        this.checkAdminAssistant();
     }
 
     private checkEditor():void {
@@ -45,6 +48,12 @@ export class RolesCheckedService {
         }
     }
 
+    private checkAdminAssistant():void {
+        if (this.checkRole("AdminStart")) {
+            this.checkedRoles.isAdminAssistant = true;
+        }
+    }
+
     private checkRole(role: string): boolean {
         if (this.roles.find(x => x.toLowerCase() === role.toLowerCase())) {
             return true;
@@ -52,7 +61,7 @@ export class RolesCheckedService {
         return false;
     }
 
-    isUserAuthor(authorId: number): boolean {
+    isSelf(authorId: number): boolean {
         let userId = +this.localStorage.get("userId");
         return (userId === authorId);
     }

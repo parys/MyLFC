@@ -15,23 +15,26 @@ var RolesCheckedService = (function () {
         var _this = this;
         this.localStorage = localStorage;
         this.checkedRoles = {
+            isLogined: false,
             isEditor: false,
             isNewsmaker: false,
             isModerator: false,
-            isUserAuthor: function (userId) { return _this.isUserAuthor(userId); }
+            isAdminAssistant: false,
+            isSelf: function (userId) { return _this.isSelf(userId); }
         };
         this.checkRoles();
     }
     RolesCheckedService.prototype.checkRoles = function () {
-        // console.log("CHECK");
         this.roles = this.localStorage.getObject("roles");
         if (!this.roles) {
             return;
         }
         ;
+        this.checkedRoles.isLogined = true;
         this.checkEditor();
         this.checkNewsmaker();
         this.checkModerator();
+        this.checkAdminAssistant();
     };
     RolesCheckedService.prototype.checkEditor = function () {
         if (this.checkRole("NewsFull")) {
@@ -48,13 +51,18 @@ var RolesCheckedService = (function () {
             this.checkedRoles.isModerator = true;
         }
     };
+    RolesCheckedService.prototype.checkAdminAssistant = function () {
+        if (this.checkRole("AdminStart")) {
+            this.checkedRoles.isAdminAssistant = true;
+        }
+    };
     RolesCheckedService.prototype.checkRole = function (role) {
         if (this.roles.find(function (x) { return x.toLowerCase() === role.toLowerCase(); })) {
             return true;
         }
         return false;
     };
-    RolesCheckedService.prototype.isUserAuthor = function (authorId) {
+    RolesCheckedService.prototype.isSelf = function (authorId) {
         var userId = +this.localStorage.get("userId");
         return (userId === authorId);
     };

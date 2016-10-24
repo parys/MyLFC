@@ -82,25 +82,26 @@ export class MaterialCommentDetailComponent implements OnInit {
     //    this.deleteModal.show();
     //}
 
-    //delete() {
-    //    let result;
-    //    this.materialCommentService.delete(this.items[this.selectedItemIndex].id)
-    //        .subscribe(res => result = res,
-    //        e => console.log(e),
-    //        () => {
-    //            if (result) {
-    //                this.items.splice(this.selectedItemIndex, 1);
-    //                this.hideModal();
-    //            }
-    //        }
-    //        );
-    //}
+    delete() {
+        let result;
+        this.materialCommentService.delete(this.item.id)
+            .subscribe(res => result = res,
+            e => console.log(e),
+            () => {
+                if (result) {
+                    this.item = undefined;
+                    // this.items.splice(this.selectedItemIndex, 1);
+                    // this.hideModal();
+                }
+            }
+            );
+    }
 
-    // delete(index: number) {
-    //    console.log("delete");
-    //    this.materialCommentService.delete(this.items[index].id).subscribe(data => data,
-    //        error => console.log(error),
-    //        () => console.log("success remove categoryu"));
-    //    this.items.splice(index, 1);
-    // }
+    edit() {
+        console.log("edit");
+      //  this.materialCommentService.delete(this.items[index].id).subscribe(data => data,
+      //      error => console.log(error),
+        //    () => console.log("success remove categoryu"));
+        //this.items.splice(index, 1);
+     }
 }

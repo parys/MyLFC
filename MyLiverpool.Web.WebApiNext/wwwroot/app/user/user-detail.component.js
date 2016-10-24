@@ -8,16 +8,19 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var router_1 = require('@angular/router');
+var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
 var user_service_1 = require("./user.service");
+var index_1 = require("../shared/index");
 var UserDetailComponent = (function () {
-    function UserDetailComponent(userService, route) {
+    function UserDetailComponent(userService, route, rolesChecked) {
         this.userService = userService;
         this.route = route;
+        this.rolesChecked = rolesChecked;
     }
     UserDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.roles = this.rolesChecked.checkedRoles;
         this.sub = this.route.params.subscribe(function (params) {
             var id = +params['id'];
             _this.userService.GetSingle(id)
@@ -32,10 +35,10 @@ var UserDetailComponent = (function () {
     };
     UserDetailComponent = __decorate([
         core_1.Component({
-            selector: 'user-detail',
-            templateUrl: 'app/user/user-detail.component.html'
+            selector: "user-detail",
+            templateUrl: "app/user/user-detail.component.html"
         }), 
-        __metadata('design:paramtypes', [user_service_1.UserService, router_1.ActivatedRoute])
+        __metadata('design:paramtypes', [user_service_1.UserService, router_1.ActivatedRoute, index_1.RolesCheckedService])
     ], UserDetailComponent);
     return UserDetailComponent;
 }());

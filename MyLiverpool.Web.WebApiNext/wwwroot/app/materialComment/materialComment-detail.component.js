@@ -25,6 +25,66 @@ var MaterialCommentDetailComponent = (function () {
         this.roles = this.rolesChecked.checkedRoles;
         //this.update();
     };
+    //pageChanged(event: any): void {
+    //    this.page = event.page;
+    //    this.update();
+    //    let newUrl = `materialComment/list/${this.page}`;
+    //    //   if (this.categoryId) {
+    //    //        newUrl = `${newUrl}/${this.categoryId}`;
+    //    //    }
+    //    this.location.replaceState(newUrl);
+    //};
+    //private update(): void {
+    //    this.materialCommentService
+    //        .getAll(this.page)
+    //        .subscribe(data => this.parsePageable(data),
+    //        error => console.log(error),
+    //        () => console.log("success load comment lits"));
+    //}
+    //private parsePageable(pageable: Pageable<MaterialComment>): void {
+    //    this.items = pageable.list;
+    //    this.page = pageable.pageNo;
+    //    this.itemsPerPage = pageable.itemPerPage;
+    //    this.totalItems = pageable.totalItems;
+    //}
+    //hideModal(): void {
+    //    this.selectedItemIndex = undefined;
+    //    this.deleteModal.hide();
+    //}
+    //verify(index: number): void {
+    //    let result;
+    //    this.materialCommentService
+    //        .verify(this.items[index].id)
+    //        .subscribe(data => result = data,
+    //        error => console.log(error),
+    //        () => {
+    //            if (result) {
+    //                this.items[index].isVerified = true;
+    //            }
+    //        }
+    //        );
+    //}
+    //showDeleteModal(index: number): void {
+    //    this.selectedItemIndex = index;
+    //    this.deleteModal.show();
+    //}
+    MaterialCommentDetailComponent.prototype.delete = function () {
+        var _this = this;
+        var result;
+        this.materialCommentService.delete(this.item.id)
+            .subscribe(function (res) { return result = res; }, function (e) { return console.log(e); }, function () {
+            if (result) {
+                _this.item = undefined;
+            }
+        });
+    };
+    MaterialCommentDetailComponent.prototype.edit = function () {
+        console.log("edit");
+        //  this.materialCommentService.delete(this.items[index].id).subscribe(data => data,
+        //      error => console.log(error),
+        //    () => console.log("success remove categoryu"));
+        //this.items.splice(index, 1);
+    };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', materialComment_model_1.MaterialComment)

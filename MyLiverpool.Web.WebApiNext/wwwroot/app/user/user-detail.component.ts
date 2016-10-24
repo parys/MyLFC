@@ -1,23 +1,27 @@
-﻿import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs/Subscription';
+﻿import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Router, ActivatedRoute } from "@angular/router";
+import { Subscription } from "rxjs/Subscription";
 import {User} from "./user.model";
 import {LocalStorageMine} from "../shared/localStorage";
-import {UserService} from "./user.service";
+import { UserService } from "./user.service";
+import { RolesCheckedService, IRoles } from "../shared/index";
 
 @Component({
-    selector: 'user-detail',
-    templateUrl: 'app/user/user-detail.component.html'
+    selector: "user-detail",
+    templateUrl: "app/user/user-detail.component.html"
 })
 
 export class UserDetailComponent implements OnInit, OnDestroy {
 
     private sub: Subscription;
     item: User;
+    roles: IRoles;
 
-    constructor(private userService: UserService, private route: ActivatedRoute) { }
+    constructor(private userService: UserService, private route: ActivatedRoute,
+        private rolesChecked: RolesCheckedService) { }
 
     ngOnInit() {
+        this.roles = this.rolesChecked.checkedRoles;
         this.sub = this.route.params.subscribe(params => {
             let id = +params['id'];
             this.userService.GetSingle(id)

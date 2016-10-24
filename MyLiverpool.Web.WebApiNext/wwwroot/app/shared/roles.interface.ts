@@ -1,6 +1,8 @@
 ﻿export interface IRoles {
+    isLogined: boolean;
     isEditor: boolean;
     isNewsmaker: boolean;
     isModerator: boolean;
-    isUserAuthor(userId:number): boolean;
+    isAdminAssistant: boolean;
+    isSelf(userId: number): boolean;
 }

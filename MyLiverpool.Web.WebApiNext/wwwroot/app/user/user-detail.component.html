@@ -1,7 +1,7 @@
 ﻿<div class="container-fluid" *ngIf="item">
     <h2>
         <span [textContent]="item.userName"></span>
-        <span ng-show="loggedIn() && !isSelf(user.id)">
+        <span [hidden]="!roles.isLogined || roles.isSelf(item.id)">
             <a ui-sref="wpm({ userName: user.userName })"><span class="glyphicon glyphicon-envelope"></span></a>
         </span>
     </h2>
@@ -62,7 +62,7 @@
                 </div>
             </div>
         </div>
-        <div class="form-group" ng-if="isSelf() || isAdmin()">
+        <div class="form-group" [hidden]="!roles.isSelf || !roles.isAdminAssistant">
             <label class="col-xs-2 col-sm-2 control-label" [hidden]="!item.emailConfirmed">Почта</label>
             <label class="col-xs-2 col-sm-2 control-label text-danger" uib-tooltip="Почта не подтверждена" [hidden]="item.emailConfirmed">Почта</label>
             <div class="col-xs-10 col-sm-10">
@@ -93,7 +93,7 @@
                 <span class="form-control" [textContent]="item.birthday | date:'longDate'"></span>
             </div>
         </div>
-        <div class="form-group" ng-if="item.gender">
+        <div class="form-group" *ngIf="item.gender">
             <label class="col-xs-2 col-sm-2 control-label">Пол</label>
             <div class="col-xs-10 col-sm-10">
                 <span class="form-control" *ngIf="item.gender">Девушка</span>
@@ -110,7 +110,7 @@
     </form>
 </div>
 
-<script type="text/ng-template" id="changeRoleConfirmation.html">
+<!--script type="text/ng-template" id="changeRoleConfirmation.html">
     <div class="modal-header">
         <h3 class="modal-title">Редактирование роли</h3>
     </div>
@@ -121,7 +121,7 @@
         <button class="btn btn-primary" type="button" ng-click="vm.ok()">Изменить</button>
         <button class="btn btn-default" type="button" ng-click="vm.cancel()">Отмена</button>
     </div>
-</script>
+</!--script>
 
 <script type="text/ng-template" id="banConfirmation.html">
     <div class="modal-header">
@@ -134,4 +134,4 @@
         <button type="button" class="btn btn-default" ng-click="vm.ok()">Забанить</button>
         <button type="button" class="btn btn-primary" ng-click="vm.cancel()">Отмена</button>
     </div>
-</script>
+</script>-->

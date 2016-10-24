@@ -16,7 +16,7 @@
         <div class="" *ngIf="!item.pending || roles.isEditor">
             <div class="flex-vertical-center">
                 <a [routerLink]="['/news', item.id]" class="col-xs-9 col-sm-9"><h4 [textContent]="item.title"></h4></a>
-                <span class="col-xs-3 col-sm-3 pull-right" *ngIf="roles.isEditor || roles.isUserAuthor(item.userId)">
+                <span class="col-xs-3 col-sm-3 pull-right" *ngIf="roles.isEditor || roles.isSelf(item.userId)">
                     <a [hidden]="!item.pending || !roles.isEditor" (click)="showActivateModal(i)"><span class="glyphicon glyphicon-ok"></span></a>
                     <a [routerLink]="['/news', item.id, 'edit']"><span class="glyphicon glyphicon-pencil"></span></a>
                     <a (click)="showDeleteModal(i)"><span class="glyphicon glyphicon-trash"></span></a>
