@@ -9,15 +9,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var forms_1 = require("@angular/forms");
 var forumSection_service_1 = require("./forumSection.service");
+var index_1 = require("../shared/index");
 var ForumSectionListComponent = (function () {
-    function ForumSectionListComponent(service, formBuilder) {
+    function ForumSectionListComponent(service, rolesChecked) {
         this.service = service;
-        this.formBuilder = formBuilder;
+        this.rolesChecked = rolesChecked;
     }
     ForumSectionListComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.roles = this.rolesChecked.checkedRoles;
         this.service
             .getAll()
             .subscribe(function (data) { return _this.items = data; }, function (error) { return console.log(error); }, function () { return console.log(""); });
@@ -27,7 +28,7 @@ var ForumSectionListComponent = (function () {
             selector: "forumSection-list",
             templateUrl: "app/forumSection/forumSection-list.component.html"
         }), 
-        __metadata('design:paramtypes', [forumSection_service_1.ForumSectionService, forms_1.FormBuilder])
+        __metadata('design:paramtypes', [forumSection_service_1.ForumSectionService, index_1.RolesCheckedService])
     ], ForumSectionListComponent);
     return ForumSectionListComponent;
 }());

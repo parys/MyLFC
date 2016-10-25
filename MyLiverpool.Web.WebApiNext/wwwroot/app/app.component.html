@@ -12,13 +12,7 @@
             <account-signin></account-signin>
         </li>
         <li *ngIf="!auth.isLoggedIn">
-            <!--ng-if="!vm.loggedIn()">-->
-            <!--<a [routerLink]="['/signup']">Регистрация</a>-->
             <a [routerLink]="['/signup']">Регистрация</a>
-        </li>
-
-        <li>
-            <!--<a ui-sref="login({ returnUrl: getReturnUrl() })" ng-if="!loggedIn()">Войти</a>-->
         </li>
         <li *ngIf="auth.isLoggedIn">
             <ul class="nav navbar-nav">
@@ -89,7 +83,7 @@
                 <!--<li> <a ng-if="vm.isNewsmaker() || vm.isAuthor()" ui-sref="images({path: 'content'})">Изображения</a></li>-->
                 <!--<li> <a ng-if="vm.isAdminAssistant()" ui-sref="clubs()">Клубы</a></li>-->
                 <!--<li> <a ng-if="vm.isAdminAssistant()" ui-sref="matches()">Матчи</a></li>-->
-                <li> <a ui-sref="rules()"><span class="text-danger">Правила</span></a></li>
+                <li> <a [routerLink]="['/rules']"><span class="text-danger">Правила</span></a></li>
                 <li class="bg-success"> <a [routerLink]="['/wish']"><span class="text-info">Пожелания</span></a></li>
             </ul>
         </div>

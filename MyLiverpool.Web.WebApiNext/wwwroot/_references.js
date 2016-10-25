@@ -29,6 +29,7 @@
 /// <reference path="app/home/club-history.component.js" />
 /// <reference path="app/home/home.routing.js" />
 /// <reference path="app/home/index.js" />
+/// <reference path="app/home/rules.component.js" />
 /// <reference path="app/materialcomment/index.js" />
 /// <reference path="app/materialcomment/materialcomment.model.js" />
 /// <reference path="app/materialcomment/materialcomment.routing.js" />

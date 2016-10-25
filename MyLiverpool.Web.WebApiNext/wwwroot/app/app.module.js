@@ -69,6 +69,7 @@ var AppModule = (function () {
                 index_6.PmDetailComponent,
                 index_6.PmEditComponent,
                 index_6.PmListComponent,
+                index_7.RulesComponent,
                 index_3.SecuredDirective,
                 user_detail_component_1.UserDetailComponent,
                 user_list_component_1.UserListComponent,

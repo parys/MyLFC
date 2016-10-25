@@ -1,6 +1,7 @@
 ﻿import { Routes } from "@angular/router";
-import { ClubHistoryComponent } from "./index";
+import { ClubHistoryComponent, RulesComponent } from "./index";
 
 export const homeRoutes: Routes = [
-    { path: "clubHistory", component: ClubHistoryComponent }
+    { path: "clubHistory", component: ClubHistoryComponent },
+    { path: "rules", component: RulesComponent }
 ];

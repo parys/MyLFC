@@ -1,19 +1,20 @@
-﻿@using MyLiverpool.Business.Resources
-<div class="col-md-12">
+﻿<div class="col-md-12">
     <div class="container-fluid" *ngFor="let section of items">
-        <div class="panel panel-danger" ng-show="section.subsections.length > 0 || isAdminAssistant()">
+        <div class="panel panel-danger" *ngIf="section.subsections.length > 0 || roles.isAdminAssistant">
             <div class="panel-heading">
                 <span [textContent]="section.name"></span>
-                <a href="" ui-sref="subsectionEdit({sectionId: section.id})">@CommonMessages.AddSubsection</a><!--ng-show="isAdminAssistant()"-->
-                <a class="pull-right" ng-show="section.subsections.length == 0" ng-click="vm.removeSection($index)">
-                    <span class="glyphicon glyphicon-remove">
-                    </span>
-                </a>
+                <span *ngIf="roles.isAdminAssistant">
+                    <a href="" ui-sref="subsectionEdit({sectionId: section.id})">Добавить подсекцию</a>
+                    <a class="pull-right" [hidden]="section.subsections.length != 0" ng-click="vm.removeSection($index)">
+                        <span class="glyphicon glyphicon-remove">
+                        </span>
+                    </a>
+                </span>
             </div>
             <!--div class="panel-body"></!--div>-->
             <ul class="list-group" *ngFor="let subsection of section.subsections">
                 <li class="list-group-item list">
-                    <a href="" ui-sref="subsection({id: subsection.id})">
+                    <a ui-sref="subsection({id: subsection.id})">
                         <span [textContent]="subsection.name"></span>
                         <span class="small" [textContent]="subsection.description"></span>
                     </a>
@@ -21,7 +22,7 @@
             </ul>
         </div>
     </div>
-    <a href="" ng-click="vm.addSection()">@CommonMessages.AddSection</a>
+    <a ng-click="vm.addSection()">Добавить секцию</a>
 
 </div>
 

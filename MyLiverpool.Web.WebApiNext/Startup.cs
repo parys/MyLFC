@@ -218,7 +218,7 @@ namespace MyLiverpool.Web.WebApiNext
 
         private void RegisterRepositories(IServiceCollection services)
         {
-            services.AddTransient<IForumSectionService, ForumSectionService>();
+            services.AddTransient<IForumSectionRepository, ForumSectionRepository>();
             services.AddScoped<IMaterialCommentRepository, MaterialCommentRepository>();
             services.AddScoped<IMaterialRepository, MaterialRepository>();
             services.AddTransient<IPmRepository, PmRepository>();
