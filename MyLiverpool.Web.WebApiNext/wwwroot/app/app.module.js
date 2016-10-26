@@ -34,6 +34,7 @@ var index_8 = require("./wish/index");
 var index_9 = require("./materialComment/index");
 var ng2_auto_complete_1 = require("ng2-auto-complete");
 var index_10 = require("./shared/index");
+var index_11 = require("./admin/index");
 var ng2_bootstrap_1 = require("ng2-bootstrap/ng2-bootstrap");
 var AppModule = (function () {
     function AppModule() {
@@ -57,6 +58,7 @@ var AppModule = (function () {
                 app_component_1.AppComponent,
                 index_5.ConfirmEmailComponent,
                 index_7.ClubHistoryComponent,
+                index_11.EplTableComponent,
                 index_4.ForumSectionListComponent,
                 index_9.MaterialCommentDetailComponent,
                 index_9.MaterialCommentListComponent,
@@ -78,6 +80,7 @@ var AppModule = (function () {
             bootstrap: [app_component_1.AppComponent],
             providers: [
                 index_5.AccountService,
+                index_11.AdminService,
                 app_routes_1.appRoutingProviders,
                 index_2.AuthGuard,
                 index_2.AuthService,

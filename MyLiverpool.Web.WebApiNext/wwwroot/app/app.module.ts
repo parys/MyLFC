@@ -26,6 +26,7 @@ import { WishListComponent, WishService, WishEditComponent } from "./wish/index"
 import { MaterialCommentListComponent, MaterialCommentService, MaterialCommentSectionComponent, MaterialCommentDetailComponent } from "./materialComment/index";
 import { Ng2AutoCompleteModule } from "ng2-auto-complete";
 import { RolesCheckedService } from "./shared/index";
+import { AdminService, EplTableComponent } from "./admin/index";
 import { DatepickerModule, ModalModule, PaginationModule } from "ng2-bootstrap/ng2-bootstrap";
 
 @NgModule({
@@ -46,6 +47,7 @@ import { DatepickerModule, ModalModule, PaginationModule } from "ng2-bootstrap/n
         AppComponent,
         ConfirmEmailComponent,
         ClubHistoryComponent,
+        EplTableComponent,
         ForumSectionListComponent,
         MaterialCommentDetailComponent,
         MaterialCommentListComponent,
@@ -67,6 +69,7 @@ import { DatepickerModule, ModalModule, PaginationModule } from "ng2-bootstrap/n
     bootstrap: [AppComponent],     // root component
     providers: [ // services
         AccountService,
+        AdminService,
         appRoutingProviders,
         AuthGuard,
         AuthService,

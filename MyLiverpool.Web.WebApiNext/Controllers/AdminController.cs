@@ -20,7 +20,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Route("updateTable")]
         [HttpGet]
         [Authorize]
-        public async Task<IActionResult> UpdateAplTable() //todo not all checked
+        public async Task<IActionResult> UpdateAplTable()
         {
             var result = await _adminService.UpdateTableAsync();
             return Ok(result);
