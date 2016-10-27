@@ -33,6 +33,7 @@
 /// <reference path="app/home/epltable.component.js" />
 /// <reference path="app/home/home.routing.js" />
 /// <reference path="app/home/index.js" />
+/// <reference path="app/home/rightsidebar.component.js" />
 /// <reference path="app/home/rules.component.js" />
 /// <reference path="app/materialcomment/index.js" />
 /// <reference path="app/materialcomment/materialcomment.model.js" />

@@ -11,9 +11,7 @@ import { RolesCheckedService, IRoles } from "../shared/index";
 
 export class EplTableComponent implements OnInit {
 
-    roles: IRoles;
-
-    constructor(private service: AdminService, private rolesChecked: RolesCheckedService) {
+    constructor() {
     }
 
     ngOnInit() {

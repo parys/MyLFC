@@ -131,7 +131,7 @@ namespace MyLiverpool.Web.WebApiNext
 
                 if (context.Response.StatusCode == 404 && !Path.HasExtension(context.Request.Path.Value))
                 {
-                    context.Request.Path = "/index.html"; //todo Put your Angular root page here 
+                    context.Request.Path = "/index.html"; // Put your Angular root page here 
                     await next();
                 }
             });

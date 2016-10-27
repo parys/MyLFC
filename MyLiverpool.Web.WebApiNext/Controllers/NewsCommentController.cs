@@ -29,7 +29,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             {
                 return BadRequest();
             }
-            comment.AuthorId = User.GetUserId();//todo GetUserId<int>());
+            comment.AuthorId = User.GetUserId();
             var result = await _materialCommentService.AddAsync(comment, Type);
             result.AuthorUserName = "";//todo User.Identity.GetUserName();
             return Ok(result);

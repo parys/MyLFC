@@ -7,7 +7,7 @@ using MyLiverpool.Data.Entities;
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
     [Route("api/[controller]")]
-    [Authorize(Roles = nameof(RolesEnum.AdminStart))]
+    [Authorize]
     public class AdminController : Controller
     {
         private readonly IAdminService _adminService;
@@ -19,7 +19,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
 
         [Route("updateTable")]
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = nameof(RolesEnum.AdminStart))]
         public async Task<IActionResult> UpdateAplTable()
         {
             var result = await _adminService.UpdateTableAsync();

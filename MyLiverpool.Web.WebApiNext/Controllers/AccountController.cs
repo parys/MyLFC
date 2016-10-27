@@ -92,15 +92,6 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return Ok(result);
         }
 
-        //[Route("Logout")] //todo
-        //[HttpPost]
-        //[Authorize]
-        //public IActionResult Logout()
-        //{
-        //    Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationType);
-        //    return Ok();
-        //}
-
         [Route("ResendConfirmEmail")]
         [HttpPost]
         [AllowAnonymous]

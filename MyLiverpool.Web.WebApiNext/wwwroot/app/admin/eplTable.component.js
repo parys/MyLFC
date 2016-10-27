@@ -9,12 +9,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var admin_service_1 = require("./admin.service");
-var index_1 = require("../shared/index");
 var EplTableComponent = (function () {
-    function EplTableComponent(service, rolesChecked) {
-        this.service = service;
-        this.rolesChecked = rolesChecked;
+    function EplTableComponent() {
     }
     EplTableComponent.prototype.ngOnInit = function () {
         //    this.roles = this.rolesChecked.checkedRoles;
@@ -31,7 +27,7 @@ var EplTableComponent = (function () {
             selector: "epl-table",
             templateUrl: "app/admin/eplTable.component.html"
         }), 
-        __metadata('design:paramtypes', [admin_service_1.AdminService, index_1.RolesCheckedService])
+        __metadata('design:paramtypes', [])
     ], EplTableComponent);
     return EplTableComponent;
 }());

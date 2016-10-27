@@ -92,8 +92,9 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 OpenIdConnectConstants.Scopes.OpenId,
                 OpenIdConnectConstants.Scopes.Email,
                 OpenIdConnectConstants.Scopes.Profile,
-                OpenIdConnectConstants.Scopes.OfflineAccess
-            };//todo .Intersect(request.GetScopes());
+                OpenIdConnectConstants.Scopes.OfflineAccess,
+                OpenIddictConstants.Scopes.Roles
+            };// .Intersect(request.GetScopes());
 
             // Create a new ClaimsPrincipal containing the claims that
             // will be used to create an id_token, a token or a code.

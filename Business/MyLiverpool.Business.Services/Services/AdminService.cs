@@ -14,8 +14,8 @@ namespace MyLiverpool.Business.Services.Services
     {
         private string address = "http://www.sports.ru/epl/table/";
         private string xpathTableRows = "/html/body/div/div/div/div/div/div/div/table/tbody//tr";
-        private string pathToRightSideBar = "app\\home\\views\\rightSidebar.html";
-        private string pathToRightSideBar2 = "app\\home\\views\\rightSidebar1.html";
+        private string pathToRightSideBar = "app\\admin\\eplTable.component.html";
+        private string pathToRightSideBar2 = "app\\admin\\eplTable.component2.html";
         private readonly IHostingEnvironment _appEnvironment;
 
         public AdminService(IHostingEnvironment appEnvironment)

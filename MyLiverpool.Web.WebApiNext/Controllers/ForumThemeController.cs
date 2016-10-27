@@ -54,7 +54,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Route("")]
         [HttpPut]
         [Authorize]
-        public async Task<IActionResult> Update(ForumThemeDto dto) //todo all update need ID
+        public async Task<IActionResult> Update(ForumThemeDto dto)
         {
             // if (id != dto.Id)
             {

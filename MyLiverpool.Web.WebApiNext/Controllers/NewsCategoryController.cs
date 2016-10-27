@@ -21,7 +21,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Route("{id:int}")]
         [HttpGet]
         [Authorize]
-        public async Task<IActionResult> Get(int id) //todo not all checked
+        public async Task<IActionResult> Get(int id)
         {
             var result = await _materialCategoryService.GetAsync(id, _materialType);
             return Ok(result);
@@ -30,7 +30,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Route("")]
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> Get() //todo not all checked
+        public async Task<IActionResult> Get()
         {
             var result = await _materialCategoryService.GetListAsync(_materialType);
             return Ok(result);
@@ -38,8 +38,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
 
         [Route("")]
         [HttpPost]
-      //  [Authorize(Roles = nameof(RolesEnum.NewsFull))]
-        public async Task<IActionResult> Create([FromBody] MaterialCategoryDto dto) //todo not all checked
+        [Authorize(Roles = nameof(RolesEnum.NewsFull))]
+        public async Task<IActionResult> Create([FromBody] MaterialCategoryDto dto)
         {
             if (!ModelState.IsValid)
             {
@@ -52,8 +52,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
 
         [Route("{id:int}")]
         [HttpPut]
-      //  [Authorize(Roles = nameof(RolesEnum.NewsFull))]
-        public async Task<IActionResult> Update(int id, [FromBody] MaterialCategoryDto dto) //todo not all checked
+        [Authorize(Roles = nameof(RolesEnum.NewsFull))]
+        public async Task<IActionResult> Update(int id, [FromBody] MaterialCategoryDto dto)
         {
             if (!ModelState.IsValid || id != dto.Id)
             {
@@ -65,8 +65,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
 
         [Route("{id:int}")]
         [HttpDelete]
-       // [Authorize(Roles = nameof(RolesEnum.NewsFull))]
-        public async Task<IActionResult> Delete(int id) //todo not all checked
+        [Authorize(Roles = nameof(RolesEnum.NewsFull))]
+        public async Task<IActionResult> Delete(int id)
         {
             var result = await _materialCategoryService.DeleteAsync(id);
             return Ok(result);

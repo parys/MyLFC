@@ -21,7 +21,7 @@ import { UserDetailComponent } from "./user/user-detail.component";
 import { UserService } from "./user/user.service";
 import { UserListComponent } from "./user/user-list.component";
 import { PmListComponent, PmDetailComponent, PmEditComponent, PmService } from "./pm/index";
-import { ClubHistoryComponent, RulesComponent } from "./home/index";
+import { ClubHistoryComponent, RulesComponent, RightSidebarComponent } from "./home/index";
 import { WishListComponent, WishService, WishEditComponent } from "./wish/index";
 import { MaterialCommentListComponent, MaterialCommentService, MaterialCommentSectionComponent, MaterialCommentDetailComponent } from "./materialComment/index";
 import { Ng2AutoCompleteModule } from "ng2-auto-complete";
@@ -60,6 +60,7 @@ import { DatepickerModule, ModalModule, PaginationModule } from "ng2-bootstrap/n
         PmDetailComponent,
         PmEditComponent,
         PmListComponent,
+        RightSidebarComponent,
         RulesComponent,
         SecuredDirective,
         UserDetailComponent,

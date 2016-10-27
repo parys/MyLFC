@@ -7,7 +7,6 @@ namespace MyLiverpool.Web.WebApiNext.Extensions
     {
         public static int GetUserId(this ClaimsPrincipal principal)
         {
-          //  return 1;//todo
             if (principal == null)
                 throw new ArgumentNullException(nameof(principal));
             var claim = principal.FindFirst(ClaimTypes.NameIdentifier);

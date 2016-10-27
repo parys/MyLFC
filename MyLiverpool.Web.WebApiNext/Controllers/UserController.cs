@@ -59,7 +59,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return Ok(result);
         }
 
-        [Route("GetUserNames")]
+        [Route("GetUsernames")]
         [HttpGet]
         [AllowAnonymous] //bug
         public async Task<IActionResult> GetUserNames(string typed)
