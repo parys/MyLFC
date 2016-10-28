@@ -1078,7 +1078,7 @@ $__System.registerDynamic('15', ['45', '49', '47'], true, function ($__require, 
         };
         DatePickerComponent.decorators = [{ type: core_1.Component, args: [{
                 selector: 'datepicker[ngModel]',
-                template: "\n    <datepicker-inner [activeDate]=\"activeDate\"\n                      (update)=\"onUpdate($event)\"\n                      [datepickerMode]=\"datepickerMode\"\n                      [initDate]=\"initDate\"\n                      [minDate]=\"minDate\"\n                      [maxDate]=\"maxDate\"\n                      [minMode]=\"minMode\"\n                      [maxMode]=\"maxMode\"\n                      [showWeeks]=\"showWeeks\"\n                      [formatDay]=\"formatDay\"\n                      [formatMonth]=\"formatMonth\"\n                      [formatYear]=\"formatYear\"\n                      [formatDayHeader]=\"formatDayHeader\"\n                      [formatDayTitle]=\"formatDayTitle\"\n                      [formatMonthTitle]=\"formatMonthTitle\"\n                      [startingDay]=\"startingDay\"\n                      [yearRange]=\"yearRange\"\n                      [customClass]=\"customClass\"\n                      [dateDisabled]=\"dateDisabled\"\n                      [onlyCurrentMonth]=\"onlyCurrentMonth\"\n                      [shortcutPropagation]=\"shortcutPropagation\"\n                      (selectionDone)=\"onSelectionDone($event)\">\n      <daypicker tabindex=\"0\"></daypicker>\n      <monthpicker tabindex=\"0\"></monthpicker>\n      <yearpicker tabindex=\"0\"></yearpicker>\n    </datepicker-inner>\n    ",
+                template: "\n    <datepicker-inner [activeDate]=\"activeDate\"\n                      (update)=\"onUpdate($event)\"\n                      [datepickerMode]=\"datepickerMode\"\n                      [initDate]=\"initDate\"\n                      [minDate]=\"minDate\"\n                      [maxDate]=\"maxDate\"\n                      [minMode]=\"minMode\"\n                      [maxMode]=\"maxMode\"\n                      [showWeeks]=\"showWeeks\"\n                      [formatDay]=\"formatDay\"\n                      [formatMonth]=\"formatMonth\"\n                      [formatYear]=\"formatYear\"\n                      [formatDayHeader]=\"formatDayHeader\"\n                      [formatDayTitle]=\"formatDayTitle\"\n                      [formatMonthTitle]=\"formatMonthTitle\"\n                      [startingDay]=\"startingDay\"\n                      [yearRange]=\"yearRange\"\n                      [customClass]=\"customClass\"\n                      [dateDisabled]=\"dateDisabled\"\n                      [onlyCurrentMonth]=\"onlyCurrentMonth\"\n                      [shortcutPropagation]=\"shortcutPropagation\"\n                      [monthColLimit]=\"monthColLimit\"\n                      [yearColLimit]=\"yearColLimit\"\n                      (selectionDone)=\"onSelectionDone($event)\">\n      <daypicker tabindex=\"0\"></daypicker>\n      <monthpicker tabindex=\"0\"></monthpicker>\n      <yearpicker tabindex=\"0\"></yearpicker>\n    </datepicker-inner>\n    ",
                 providers: [forms_1.NgModel]
             }] }];
         /** @nocollapse */
@@ -1102,6 +1102,8 @@ $__System.registerDynamic('15', ['45', '49', '47'], true, function ($__require, 
             'onlyCurrentMonth': [{ type: core_1.Input }],
             'shortcutPropagation': [{ type: core_1.Input }],
             'customClass': [{ type: core_1.Input }],
+            'monthColLimit': [{ type: core_1.Input }],
+            'yearColLimit': [{ type: core_1.Input }],
             'dateDisabled': [{ type: core_1.Input }],
             'selectionDone': [{ type: core_1.Output }],
             '_datePicker': [{ type: core_1.ViewChild, args: [datepicker_inner_component_1.DatePickerInnerComponent] }],
@@ -1265,7 +1267,7 @@ $__System.registerDynamic('18', ['45', '48', '49'], true, function ($__require, 
                     months[i].uid = this.uniqueId + '-' + i;
                 }
                 self.title = this.dateFilter(this.activeDate, this.formatMonthTitle);
-                self.rows = this.split(months, 3);
+                self.rows = this.split(months, self.datePicker.monthColLimit);
             }, 'month');
             this.datePicker.setCompareHandler(function (date1, date2) {
                 var d1 = new Date(date1.getFullYear(), date1.getMonth());
@@ -1277,7 +1279,7 @@ $__System.registerDynamic('18', ['45', '48', '49'], true, function ($__require, 
         // todo: key events implementation
         MonthPickerComponent.decorators = [{ type: core_1.Component, args: [{
                 selector: 'monthpicker',
-                template: "\n<table *ngIf=\"datePicker.datepickerMode==='month'\" role=\"grid\">\n  <thead>\n    <tr>\n      <th>\n        <button type=\"button\" class=\"btn btn-default btn-sm pull-left\"\n                (click)=\"datePicker.move(-1)\" tabindex=\"-1\">\n          <i class=\"glyphicon glyphicon-chevron-left\"></i>\n        </button></th>\n      <th>\n        <button [id]=\"datePicker.uniqueId + '-title'\"\n                type=\"button\" class=\"btn btn-default btn-sm\"\n                (click)=\"datePicker.toggleMode()\"\n                [disabled]=\"datePicker.datepickerMode === maxMode\"\n                [ngClass]=\"{disabled: datePicker.datepickerMode === maxMode}\" tabindex=\"-1\" style=\"width:100%;\">\n          <strong>{{title}}</strong>\n        </button>\n      </th>\n      <th>\n        <button type=\"button\" class=\"btn btn-default btn-sm pull-right\"\n                (click)=\"datePicker.move(1)\" tabindex=\"-1\">\n          <i class=\"glyphicon glyphicon-chevron-right\"></i>\n        </button>\n      </th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr *ngFor=\"let rowz of rows\">\n      <td *ngFor=\"let dtz of rowz\" class=\"text-center\" role=\"gridcell\" id=\"{{dtz.uid}}\" [ngClass]=\"dtz.customClass\">\n        <button type=\"button\" style=\"min-width:100%;\" class=\"btn btn-default\"\n                [ngClass]=\"{'btn-link': isBS4 && !dtz.selected && !datePicker.isActive(dtz), 'btn-info': dtz.selected || (isBS4 && !dtz.selected && datePicker.isActive(dtz)), disabled: dtz.disabled, active: !isBS4 && datePicker.isActive(dtz)}\"\n                [disabled]=\"dtz.disabled\"\n                (click)=\"datePicker.select(dtz.date)\" tabindex=\"-1\">\n          <span [ngClass]=\"{'text-success': isBS4 && dtz.current, 'text-info': !isBS4 && dtz.current}\">{{dtz.label}}</span>\n        </button>\n      </td>\n    </tr>\n  </tbody>\n</table>\n  "
+                template: "\n<table *ngIf=\"datePicker.datepickerMode==='month'\" role=\"grid\">\n  <thead>\n    <tr>\n      <th>\n        <button type=\"button\" class=\"btn btn-default btn-sm pull-left\"\n                (click)=\"datePicker.move(-1)\" tabindex=\"-1\">\n          <i class=\"glyphicon glyphicon-chevron-left\"></i>\n        </button></th>\n      <th [attr.colspan]=\"((datePicker.monthColLimit - 2) <= 0) ? 1 : datePicker.monthColLimit - 2\">\n        <button [id]=\"datePicker.uniqueId + '-title'\"\n                type=\"button\" class=\"btn btn-default btn-sm\"\n                (click)=\"datePicker.toggleMode()\"\n                [disabled]=\"datePicker.datepickerMode === maxMode\"\n                [ngClass]=\"{disabled: datePicker.datepickerMode === maxMode}\" tabindex=\"-1\" style=\"width:100%;\">\n          <strong>{{title}}</strong>\n        </button>\n      </th>\n      <th>\n        <button type=\"button\" class=\"btn btn-default btn-sm pull-right\"\n                (click)=\"datePicker.move(1)\" tabindex=\"-1\">\n          <i class=\"glyphicon glyphicon-chevron-right\"></i>\n        </button>\n      </th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr *ngFor=\"let rowz of rows\">\n      <td *ngFor=\"let dtz of rowz\" class=\"text-center\" role=\"gridcell\" id=\"{{dtz.uid}}\" [ngClass]=\"dtz.customClass\">\n        <button type=\"button\" style=\"min-width:100%;\" class=\"btn btn-default\"\n                [ngClass]=\"{'btn-link': isBS4 && !dtz.selected && !datePicker.isActive(dtz), 'btn-info': dtz.selected || (isBS4 && !dtz.selected && datePicker.isActive(dtz)), disabled: dtz.disabled, active: !isBS4 && datePicker.isActive(dtz)}\"\n                [disabled]=\"dtz.disabled\"\n                (click)=\"datePicker.select(dtz.date)\" tabindex=\"-1\">\n          <span [ngClass]=\"{'text-success': isBS4 && dtz.current, 'text-info': !isBS4 && dtz.current}\">{{dtz.label}}</span>\n        </button>\n      </td>\n    </tr>\n  </tbody>\n</table>\n  "
             }] }];
         /** @nocollapse */
         MonthPickerComponent.ctorParameters = [{ type: datepicker_inner_component_1.DatePickerInnerComponent }];
@@ -1324,6 +1326,8 @@ $__System.registerDynamic('49', ['45', '1a'], true, function ($__require, export
     var ONLY_CURRENT_MONTH = false;
     var STARTING_DAY = 0;
     var YEAR_RANGE = 20;
+    var MONTH_COL_LIMIT = 3;
+    var YEAR_COL_LIMIT = 5;
     // const MIN_DATE:Date = void 0;
     // const MAX_DATE:Date = void 0;
     var SHORTCUT_PROPAGATION = false;
@@ -1378,6 +1382,8 @@ $__System.registerDynamic('49', ['45', '1a'], true, function ($__require, export
             this.datepickerMode = this.datepickerMode || DATEPICKER_MODE;
             this.minMode = this.minMode || MIN_MODE;
             this.maxMode = this.maxMode || MAX_MODE;
+            this.monthColLimit = this.monthColLimit || MONTH_COL_LIMIT;
+            this.yearColLimit = this.yearColLimit || YEAR_COL_LIMIT;
             // todo: use date for unique value
             this.uniqueId = 'datepicker-' + '-' + Math.floor(Math.random() * 10000);
             if (this.initDate) {
@@ -1563,6 +1569,8 @@ $__System.registerDynamic('49', ['45', '1a'], true, function ($__require, export
             'onlyCurrentMonth': [{ type: core_1.Input }],
             'shortcutPropagation': [{ type: core_1.Input }],
             'customClass': [{ type: core_1.Input }],
+            'monthColLimit': [{ type: core_1.Input }],
+            'yearColLimit': [{ type: core_1.Input }],
             'dateDisabled': [{ type: core_1.Input }],
             'initDate': [{ type: core_1.Input }],
             'selectionDone': [{ type: core_1.Output }],
@@ -1609,7 +1617,7 @@ $__System.registerDynamic('19', ['45', '48', '49'], true, function ($__require, 
                     years[i].uid = this.uniqueId + '-' + i;
                 }
                 self.title = [years[0].label, years[this.yearRange - 1].label].join(' - ');
-                self.rows = this.split(years, 5);
+                self.rows = this.split(years, self.datePicker.yearColLimit);
             }, 'year');
             this.datePicker.setCompareHandler(function (date1, date2) {
                 return date1.getFullYear() - date2.getFullYear();
@@ -1622,7 +1630,7 @@ $__System.registerDynamic('19', ['45', '48', '49'], true, function ($__require, 
         };
         YearPickerComponent.decorators = [{ type: core_1.Component, args: [{
                 selector: 'yearpicker',
-                template: "\n<table *ngIf=\"datePicker.datepickerMode==='year'\" role=\"grid\">\n  <thead>\n    <tr>\n      <th>\n        <button type=\"button\" class=\"btn btn-default btn-sm pull-left\"\n                (click)=\"datePicker.move(-1)\" tabindex=\"-1\">\n          <i class=\"glyphicon glyphicon-chevron-left\"></i>\n        </button>\n      </th>\n      <th colspan=\"3\">\n        <button [id]=\"datePicker.uniqueId + '-title'\" role=\"heading\"\n                type=\"button\" class=\"btn btn-default btn-sm\"\n                (click)=\"datePicker.toggleMode()\"\n                [disabled]=\"datePicker.datepickerMode === datePicker.maxMode\"\n                [ngClass]=\"{disabled: datePicker.datepickerMode === datePicker.maxMode}\" tabindex=\"-1\" style=\"width:100%;\">\n          <strong>{{title}}</strong>\n        </button>\n      </th>\n      <th>\n        <button type=\"button\" class=\"btn btn-default btn-sm pull-right\"\n                (click)=\"datePicker.move(1)\" tabindex=\"-1\">\n          <i class=\"glyphicon glyphicon-chevron-right\"></i>\n        </button>\n      </th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr *ngFor=\"let rowz of rows\">\n      <td *ngFor=\"let dtz of rowz\" class=\"text-center\" role=\"gridcell\">\n        <button type=\"button\" style=\"min-width:100%;\" class=\"btn btn-default\"\n                [ngClass]=\"{'btn-link': isBS4 && !dtz.selected && !datePicker.isActive(dtz), 'btn-info': dtz.selected || (isBS4 && !dtz.selected && datePicker.isActive(dtz)), disabled: dtz.disabled, active: !isBS4 && datePicker.isActive(dtz)}\"\n                [disabled]=\"dtz.disabled\"\n                (click)=\"datePicker.select(dtz.date)\" tabindex=\"-1\">\n          <span [ngClass]=\"{'text-success': isBS4 && dtz.current, 'text-info': !isBS4 && dtz.current}\">{{dtz.label}}</span>\n        </button>\n      </td>\n    </tr>\n  </tbody>\n</table>\n  "
+                template: "\n<table *ngIf=\"datePicker.datepickerMode==='year'\" role=\"grid\">\n  <thead>\n    <tr>\n      <th>\n        <button type=\"button\" class=\"btn btn-default btn-sm pull-left\"\n                (click)=\"datePicker.move(-1)\" tabindex=\"-1\">\n          <i class=\"glyphicon glyphicon-chevron-left\"></i>\n        </button>\n      </th>\n      <th [attr.colspan]=\"((datePicker.yearColLimit - 2) <= 0) ? 1 : datePicker.yearColLimit - 2\">\n        <button [id]=\"datePicker.uniqueId + '-title'\" role=\"heading\"\n                type=\"button\" class=\"btn btn-default btn-sm\"\n                (click)=\"datePicker.toggleMode()\"\n                [disabled]=\"datePicker.datepickerMode === datePicker.maxMode\"\n                [ngClass]=\"{disabled: datePicker.datepickerMode === datePicker.maxMode}\" tabindex=\"-1\" style=\"width:100%;\">\n          <strong>{{title}}</strong>\n        </button>\n      </th>\n      <th>\n        <button type=\"button\" class=\"btn btn-default btn-sm pull-right\"\n                (click)=\"datePicker.move(1)\" tabindex=\"-1\">\n          <i class=\"glyphicon glyphicon-chevron-right\"></i>\n        </button>\n      </th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr *ngFor=\"let rowz of rows\">\n      <td *ngFor=\"let dtz of rowz\" class=\"text-center\" role=\"gridcell\">\n        <button type=\"button\" style=\"min-width:100%;\" class=\"btn btn-default\"\n                [ngClass]=\"{'btn-link': isBS4 && !dtz.selected && !datePicker.isActive(dtz), 'btn-info': dtz.selected || (isBS4 && !dtz.selected && datePicker.isActive(dtz)), disabled: dtz.disabled, active: !isBS4 && datePicker.isActive(dtz)}\"\n                [disabled]=\"dtz.disabled\"\n                (click)=\"datePicker.select(dtz.date)\" tabindex=\"-1\">\n          <span [ngClass]=\"{'text-success': isBS4 && dtz.current, 'text-info': !isBS4 && dtz.current}\">{{dtz.label}}</span>\n        </button>\n      </td>\n    </tr>\n  </tbody>\n</table>\n  "
             }] }];
         /** @nocollapse */
         YearPickerComponent.ctorParameters = [{ type: datepicker_inner_component_1.DatePickerInnerComponent }];
@@ -2130,6 +2138,8 @@ $__System.registerDynamic('1e', ['45', '4b', '4c', '1c', '1d', '4d'], true, func
             this.isBodyOverflowing = false;
             this.originalBodyPadding = 0;
             this.scrollbarWidth = 0;
+            this.timerHideModal = 0;
+            this.timerRmBackDrop = 0;
         }
         Object.defineProperty(ModalDirective.prototype, "config", {
             get: function () {
@@ -2184,6 +2194,8 @@ $__System.registerDynamic('1e', ['45', '4b', '4c', '1c', '1d', '4d'], true, func
             this.isBodyOverflowing = void 0;
             this.originalBodyPadding = void 0;
             this.scrollbarWidth = void 0;
+            this.timerHideModal = void 0;
+            this.timerRmBackDrop = void 0;
         };
         ModalDirective.prototype.ngAfterViewInit = function () {
             this._config = this._config || this.getConfig();
@@ -2198,6 +2210,8 @@ $__System.registerDynamic('1e', ['45', '4b', '4c', '1c', '1d', '4d'], true, func
             if (this._isShown) {
                 return;
             }
+            clearTimeout(this.timerHideModal);
+            clearTimeout(this.timerRmBackDrop);
             this._isShown = true;
             this.checkScrollbar();
             this.setScrollbar();
@@ -2218,11 +2232,13 @@ $__System.registerDynamic('1e', ['45', '4b', '4c', '1c', '1d', '4d'], true, func
             if (!this._isShown) {
                 return;
             }
+            clearTimeout(this.timerHideModal);
+            clearTimeout(this.timerRmBackDrop);
             this._isShown = false;
             this.renderer.setElementClass(this.element.nativeElement, modal_options_class_1.ClassName.IN, false);
             // this._addClassIn = false;
             if (this.isAnimated) {
-                setTimeout(function () {
+                this.timerHideModal = setTimeout(function () {
                     return _this.hideModal();
                 }, TRANSITION_DURATION);
             } else {
@@ -2253,7 +2269,6 @@ $__System.registerDynamic('1e', ['45', '4b', '4c', '1c', '1d', '4d'], true, func
             }
             // this._addClassIn = true;
             this.renderer.setElementClass(this.element.nativeElement, modal_options_class_1.ClassName.IN, true);
-            this.onShown.emit(this);
             var transitionComplete = function () {
                 if (_this._config.focus) {
                     _this.element.nativeElement.focus();
@@ -2282,7 +2297,8 @@ $__System.registerDynamic('1e', ['45', '4b', '4c', '1c', '1d', '4d'], true, func
         // todo: original show was calling a callback when done, but we can use promise
         ModalDirective.prototype.showBackdrop = function (callback) {
             var _this = this;
-            if (this._isShown && this.config.backdrop) {
+            if (this._isShown && this.config.backdrop && (!this.backdrop || !this.backdrop.instance.isShown)) {
+                this.removeBackdrop();
                 this.backdrop = this.componentsHelper.appendNextToRoot(modal_backdrop_component_1.ModalBackdropComponent, modal_backdrop_component_1.ModalBackdropOptions, new modal_backdrop_component_1.ModalBackdropOptions({ animate: false }));
                 if (this.isAnimated) {
                     this.backdrop.instance.isAnimated = this.isAnimated;
@@ -2306,7 +2322,7 @@ $__System.registerDynamic('1e', ['45', '4b', '4c', '1c', '1d', '4d'], true, func
                     }
                 };
                 if (this.backdrop.instance.isAnimated) {
-                    setTimeout(callbackRemove, BACKDROP_TRANSITION_DURATION);
+                    this.timerRmBackDrop = setTimeout(callbackRemove, BACKDROP_TRANSITION_DURATION);
                 } else {
                     callbackRemove();
                 }
@@ -2441,9 +2457,10 @@ $__System.registerDynamic('27', ['45', '47', '28'], true, function ($__require, 
         itemsPerPage: 10,
         previousText: '« Previous',
         nextText: 'Next »',
+        pageBtnClass: '',
         align: true
     };
-    var PAGER_TEMPLATE = "\n    <ul class=\"pager\">\n      <li [class.disabled]=\"noPrevious()\" [class.previous]=\"align\" [ngClass]=\"{'pull-right': align}\">\n        <a href (click)=\"selectPage(page - 1, $event)\">{{getText('previous')}}</a>\n      </li>\n      <li [class.disabled]=\"noNext()\" [class.next]=\"align\" [ngClass]=\"{'pull-right': align}\">\n        <a href (click)=\"selectPage(page + 1, $event)\">{{getText('next')}}</a>\n      </li>\n  </ul>\n";
+    var PAGER_TEMPLATE = "\n    <ul class=\"pager\">\n      <li [class.disabled]=\"noPrevious()\" [class.previous]=\"align\" [ngClass]=\"{'pull-right': align}\" class=\"{{ pageBtnClass }}\">\n        <a href (click)=\"selectPage(page - 1, $event)\">{{getText('previous')}}</a>\n      </li>\n      <li [class.disabled]=\"noNext()\" [class.next]=\"align\" [ngClass]=\"{'pull-right': align}\" class=\"{{ pageBtnClass }}\">\n        <a href (click)=\"selectPage(page + 1, $event)\">{{getText('next')}}</a>\n      </li>\n  </ul>\n";
     /* tslint:disable */
     /* tslint:enable */
     var PagerComponent = function (_super) {
@@ -2483,6 +2500,7 @@ $__System.registerDynamic('28', ['45', '47'], true, function ($__require, export
         previousText: 'Previous',
         nextText: 'Next',
         lastText: 'Last',
+        pageBtnClass: '',
         rotate: true
     };
     var PAGINATION_TEMPLATE = "\n  <ul class=\"pagination\" [ngClass]=\"classMap\">\n    <li class=\"pagination-first page-item\"\n        *ngIf=\"boundaryLinks\"\n        [class.disabled]=\"noPrevious()||disabled\">\n      <a class=\"page-link\" href (click)=\"selectPage(1, $event)\" [innerHTML]=\"getText('first')\"></a>\n    </li>\n\n    <li class=\"pagination-prev page-item\"\n        *ngIf=\"directionLinks\"\n        [class.disabled]=\"noPrevious()||disabled\">\n      <a class=\"page-link\" href (click)=\"selectPage(page - 1, $event)\" [innerHTML]=\"getText('previous')\"></a>\n      </li>\n\n    <li *ngFor=\"let pg of pages\"\n        [class.active]=\"pg.active\"\n        [class.disabled]=\"disabled&&!pg.active\"\n        class=\"pagination-page page-item\">\n      <a class=\"page-link\" href (click)=\"selectPage(pg.number, $event)\" [innerHTML]=\"pg.text\"></a>\n    </li>\n\n    <li class=\"pagination-next page-item\"\n        *ngIf=\"directionLinks\"\n        [class.disabled]=\"noNext()||disabled\">\n      <a class=\"page-link\" href (click)=\"selectPage(page + 1, $event)\" [innerHTML]=\"getText('next')\"></a></li>\n\n    <li class=\"pagination-last page-item\"\n        *ngIf=\"boundaryLinks\"\n        [class.disabled]=\"noNext()||disabled\">\n      <a class=\"page-link\" href (click)=\"selectPage(totalPages, $event)\" [innerHTML]=\"getText('last')\"></a></li>\n  </ul>\n  ";
@@ -2562,6 +2580,7 @@ $__System.registerDynamic('28', ['45', '47'], true, function ($__require, export
             this.rotate = typeof this.rotate !== 'undefined' ? this.rotate : paginationConfig.rotate;
             this.boundaryLinks = typeof this.boundaryLinks !== 'undefined' ? this.boundaryLinks : paginationConfig.boundaryLinks;
             this.directionLinks = typeof this.directionLinks !== 'undefined' ? this.directionLinks : paginationConfig.directionLinks;
+            this.pageBtnClass = typeof this.pageBtnClass !== 'undefined' ? this.pageBtnClass : paginationConfig.pageBtnClass;
             // base class
             this.itemsPerPage = typeof this.itemsPerPage !== 'undefined' ? this.itemsPerPage : paginationConfig.itemsPerPage;
             this.totalPages = this.calculateTotalPages();
@@ -2674,6 +2693,7 @@ $__System.registerDynamic('28', ['45', '47'], true, function ($__require, export
             'nextText': [{ type: core_1.Input }],
             'lastText': [{ type: core_1.Input }],
             'rotate': [{ type: core_1.Input }],
+            'pageBtnClass': [{ type: core_1.Input }],
             'disabled': [{ type: core_1.Input }],
             'numPages': [{ type: core_1.Output }],
             'pageChanged': [{ type: core_1.Output }],
@@ -3708,38 +3728,61 @@ $__System.registerDynamic('3c', ['45', '3b', '50', '4b'], true, function ($__req
     /* tslint:disable */
     /* tslint:enable */
     var TooltipDirective = function () {
-        function TooltipDirective(viewContainerRef, componentsHelper) {
+        function TooltipDirective(viewContainerRef, componentsHelper, changeDetectorRef) {
             this.placement = 'top';
             this.enable = true;
             this.animation = true;
+            this.appendToBody = false;
+            this.delay = 0;
             /* tslint:enable */
             this.tooltipStateChanged = new core_1.EventEmitter();
             this.visible = false;
             this.viewContainerRef = viewContainerRef;
             this.componentsHelper = componentsHelper;
+            this.changeDetectorRef = changeDetectorRef;
         }
         // todo: filter triggers
         // params: event, target
         TooltipDirective.prototype.show = function () {
-            if (this.visible || !this.enable) {
+            var _this = this;
+            if (this.visible || !this.enable || this.delayTimeoutId) {
                 return;
             }
-            this.visible = true;
-            var options = new tooltip_options_class_1.TooltipOptions({
-                content: this.content,
-                htmlContent: this.htmlContent,
-                placement: this.placement,
-                animation: this.animation,
-                hostEl: this.viewContainerRef.element,
-                popupClass: this.popupClass,
-                context: this.tooltipContext
-            });
-            var binding = core_1.ReflectiveInjector.resolve([{ provide: tooltip_options_class_1.TooltipOptions, useValue: options }]);
-            this.tooltip = this.componentsHelper.appendNextToLocation(tooltip_container_component_1.TooltipContainerComponent, this.viewContainerRef, binding);
-            this.triggerStateChanged();
+            var showTooltip = function () {
+                _this.visible = true;
+                var options = new tooltip_options_class_1.TooltipOptions({
+                    content: _this.content,
+                    htmlContent: _this.htmlContent,
+                    placement: _this.placement,
+                    animation: _this.animation,
+                    appendToBody: _this.appendToBody,
+                    hostEl: _this.viewContainerRef.element,
+                    popupClass: _this.popupClass,
+                    context: _this.tooltipContext
+                });
+                if (_this.appendToBody) {
+                    _this.tooltip = _this.componentsHelper.appendNextToRoot(tooltip_container_component_1.TooltipContainerComponent, tooltip_options_class_1.TooltipOptions, options);
+                } else {
+                    var binding = core_1.ReflectiveInjector.resolve([{ provide: tooltip_options_class_1.TooltipOptions, useValue: options }]);
+                    _this.tooltip = _this.componentsHelper.appendNextToLocation(tooltip_container_component_1.TooltipContainerComponent, _this.viewContainerRef, binding);
+                }
+                _this.changeDetectorRef.markForCheck();
+                _this.triggerStateChanged();
+            };
+            if (this.delay) {
+                this.delayTimeoutId = setTimeout(function () {
+                    showTooltip();
+                }, this.delay);
+            } else {
+                showTooltip();
+            }
         };
         // params event, target
         TooltipDirective.prototype.hide = function () {
+            if (this.delayTimeoutId) {
+                clearTimeout(this.delayTimeoutId);
+                this.delayTimeoutId = undefined;
+            }
             if (!this.visible) {
                 return;
             }
@@ -3755,7 +3798,7 @@ $__System.registerDynamic('3c', ['45', '3b', '50', '4b'], true, function ($__req
                 exportAs: 'bs-tooltip'
             }] }];
         /** @nocollapse */
-        TooltipDirective.ctorParameters = [{ type: core_1.ViewContainerRef }, { type: components_helper_service_1.ComponentsHelper }];
+        TooltipDirective.ctorParameters = [{ type: core_1.ViewContainerRef }, { type: components_helper_service_1.ComponentsHelper }, { type: core_1.ChangeDetectorRef }];
         TooltipDirective.propDecorators = {
             'content': [{ type: core_1.Input, args: ['tooltip'] }],
             'htmlContent': [{ type: core_1.Input, args: ['tooltipHtml'] }],
@@ -3766,6 +3809,7 @@ $__System.registerDynamic('3c', ['45', '3b', '50', '4b'], true, function ($__req
             'appendToBody': [{ type: core_1.Input, args: ['tooltipAppendToBody'] }],
             'popupClass': [{ type: core_1.Input, args: ['tooltipClass'] }],
             'tooltipContext': [{ type: core_1.Input, args: ['tooltipContext'] }],
+            'delay': [{ type: core_1.Input, args: ['tooltipPopupDelay'] }],
             'tooltipStateChanged': [{ type: core_1.Output }],
             'show': [{ type: core_1.HostListener, args: ['focusin'] }, { type: core_1.HostListener, args: ['mouseenter'] }],
             'hide': [{ type: core_1.HostListener, args: ['focusout'] }, { type: core_1.HostListener, args: ['mouseleave'] }]

@@ -25,6 +25,8 @@ var ModalDirective = (function () {
         this.isBodyOverflowing = false;
         this.originalBodyPadding = 0;
         this.scrollbarWidth = 0;
+        this.timerHideModal = 0;
+        this.timerRmBackDrop = 0;
     }
     Object.defineProperty(ModalDirective.prototype, "config", {
         get: function () {
@@ -79,6 +81,8 @@ var ModalDirective = (function () {
         this.isBodyOverflowing = void 0;
         this.originalBodyPadding = void 0;
         this.scrollbarWidth = void 0;
+        this.timerHideModal = void 0;
+        this.timerRmBackDrop = void 0;
     };
     ModalDirective.prototype.ngAfterViewInit = function () {
         this._config = this._config || this.getConfig();
@@ -93,6 +97,8 @@ var ModalDirective = (function () {
         if (this._isShown) {
             return;
         }
+        clearTimeout(this.timerHideModal);
+        clearTimeout(this.timerRmBackDrop);
         this._isShown = true;
         this.checkScrollbar();
         this.setScrollbar();
@@ -113,11 +119,13 @@ var ModalDirective = (function () {
         if (!this._isShown) {
             return;
         }
+        clearTimeout(this.timerHideModal);
+        clearTimeout(this.timerRmBackDrop);
         this._isShown = false;
         this.renderer.setElementClass(this.element.nativeElement, modal_options_class_1.ClassName.IN, false);
         // this._addClassIn = false;
         if (this.isAnimated) {
-            setTimeout(function () { return _this.hideModal(); }, TRANSITION_DURATION);
+            this.timerHideModal = setTimeout(function () { return _this.hideModal(); }, TRANSITION_DURATION);
         }
         else {
             this.hideModal();
@@ -148,7 +156,6 @@ var ModalDirective = (function () {
         }
         // this._addClassIn = true;
         this.renderer.setElementClass(this.element.nativeElement, modal_options_class_1.ClassName.IN, true);
-        this.onShown.emit(this);
         var transitionComplete = function () {
             if (_this._config.focus) {
                 _this.element.nativeElement.focus();
@@ -178,7 +185,8 @@ var ModalDirective = (function () {
     // todo: original show was calling a callback when done, but we can use promise
     ModalDirective.prototype.showBackdrop = function (callback) {
         var _this = this;
-        if (this._isShown && this.config.backdrop) {
+        if (this._isShown && this.config.backdrop && (!this.backdrop || !this.backdrop.instance.isShown)) {
+            this.removeBackdrop();
             this.backdrop = this.componentsHelper
                 .appendNextToRoot(modal_backdrop_component_1.ModalBackdropComponent, modal_backdrop_component_1.ModalBackdropOptions, new modal_backdrop_component_1.ModalBackdropOptions({ animate: false }));
             if (this.isAnimated) {
@@ -204,7 +212,7 @@ var ModalDirective = (function () {
                 }
             };
             if (this.backdrop.instance.isAnimated) {
-                setTimeout(callbackRemove, BACKDROP_TRANSITION_DURATION);
+                this.timerRmBackDrop = setTimeout(callbackRemove, BACKDROP_TRANSITION_DURATION);
             }
             else {
                 callbackRemove();

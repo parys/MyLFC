@@ -12,6 +12,7 @@ var paginationConfig = {
     previousText: 'Previous',
     nextText: 'Next',
     lastText: 'Last',
+    pageBtnClass: '',
     rotate: true
 };
 var PAGINATION_TEMPLATE = "\n  <ul class=\"pagination\" [ngClass]=\"classMap\">\n    <li class=\"pagination-first page-item\"\n        *ngIf=\"boundaryLinks\"\n        [class.disabled]=\"noPrevious()||disabled\">\n      <a class=\"page-link\" href (click)=\"selectPage(1, $event)\" [innerHTML]=\"getText('first')\"></a>\n    </li>\n\n    <li class=\"pagination-prev page-item\"\n        *ngIf=\"directionLinks\"\n        [class.disabled]=\"noPrevious()||disabled\">\n      <a class=\"page-link\" href (click)=\"selectPage(page - 1, $event)\" [innerHTML]=\"getText('previous')\"></a>\n      </li>\n\n    <li *ngFor=\"let pg of pages\"\n        [class.active]=\"pg.active\"\n        [class.disabled]=\"disabled&&!pg.active\"\n        class=\"pagination-page page-item\">\n      <a class=\"page-link\" href (click)=\"selectPage(pg.number, $event)\" [innerHTML]=\"pg.text\"></a>\n    </li>\n\n    <li class=\"pagination-next page-item\"\n        *ngIf=\"directionLinks\"\n        [class.disabled]=\"noNext()||disabled\">\n      <a class=\"page-link\" href (click)=\"selectPage(page + 1, $event)\" [innerHTML]=\"getText('next')\"></a></li>\n\n    <li class=\"pagination-last page-item\"\n        *ngIf=\"boundaryLinks\"\n        [class.disabled]=\"noNext()||disabled\">\n      <a class=\"page-link\" href (click)=\"selectPage(totalPages, $event)\" [innerHTML]=\"getText('last')\"></a></li>\n  </ul>\n  ";
@@ -99,6 +100,9 @@ var PaginationComponent = (function () {
         this.directionLinks = typeof this.directionLinks !== 'undefined'
             ? this.directionLinks
             : paginationConfig.directionLinks;
+        this.pageBtnClass = typeof this.pageBtnClass !== 'undefined'
+            ? this.pageBtnClass
+            : paginationConfig.pageBtnClass;
         // base class
         this.itemsPerPage = typeof this.itemsPerPage !== 'undefined'
             ? this.itemsPerPage
@@ -222,6 +226,7 @@ var PaginationComponent = (function () {
         'nextText': [{ type: core_1.Input },],
         'lastText': [{ type: core_1.Input },],
         'rotate': [{ type: core_1.Input },],
+        'pageBtnClass': [{ type: core_1.Input },],
         'disabled': [{ type: core_1.Input },],
         'numPages': [{ type: core_1.Output },],
         'pageChanged': [{ type: core_1.Output },],

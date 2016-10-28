@@ -14,6 +14,8 @@ var SHOW_WEEKS = true;
 var ONLY_CURRENT_MONTH = false;
 var STARTING_DAY = 0;
 var YEAR_RANGE = 20;
+var MONTH_COL_LIMIT = 3;
+var YEAR_COL_LIMIT = 5;
 // const MIN_DATE:Date = void 0;
 // const MAX_DATE:Date = void 0;
 var SHORTCUT_PROPAGATION = false;
@@ -72,6 +74,8 @@ var DatePickerInnerComponent = (function () {
         this.datepickerMode = this.datepickerMode || DATEPICKER_MODE;
         this.minMode = this.minMode || MIN_MODE;
         this.maxMode = this.maxMode || MAX_MODE;
+        this.monthColLimit = this.monthColLimit || MONTH_COL_LIMIT;
+        this.yearColLimit = this.yearColLimit || YEAR_COL_LIMIT;
         // todo: use date for unique value
         this.uniqueId = 'datepicker-' + '-' + Math.floor(Math.random() * 10000);
         if (this.initDate) {
@@ -263,6 +267,8 @@ var DatePickerInnerComponent = (function () {
         'onlyCurrentMonth': [{ type: core_1.Input },],
         'shortcutPropagation': [{ type: core_1.Input },],
         'customClass': [{ type: core_1.Input },],
+        'monthColLimit': [{ type: core_1.Input },],
+        'yearColLimit': [{ type: core_1.Input },],
         'dateDisabled': [{ type: core_1.Input },],
         'initDate': [{ type: core_1.Input },],
         'selectionDone': [{ type: core_1.Output },],
