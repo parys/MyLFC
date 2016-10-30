@@ -1,0 +1,115 @@
+﻿<div ng-init="vm.init()">
+    <h2 ng-bind="vm.theme.name"></h2>
+    <h3 ng-bind="vm.theme.description"></h3>
+    <div class="container-fluid forum-message col-sm-12" ng-repeat="message in vm.messages">
+        <div class="panel panel-default">
+            <div class="panel-heading col-sm-12">
+                <span class="col-sm-3"><a ui-sref="userInfo({id: message.authorId})" ng-bind="message.authorUserName"></a></span>
+                <span class="col-sm-9 pull-right" ng-bind="message.additionTime | date:'medium'"></span>
+            </div>
+            <div class="panel-body">
+                <div class="col-sm-3"> <img class="flex-vertical-center width50p" ng-src="{{message.photo}}"/></div>
+                <div class="col-sm-9" ng-bind-html="message.message | rawHtml">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--style>
+          .flex-container-row {
+              display: flex;
+              flex-direction: row;
+              flex-wrap: nowrap;
+              justify-content: flex-start;
+              align-content: flex-start;
+              align-items: flex-start;
+              background-color: #000080;
+               min-height: 100px;
+               margin-bottom: 10px;
+              }
+          .flex-container-column {
+              display: flex;
+              flex-direction: column;
+              flex-wrap: nowrap;
+              justify-content: flex-start;
+              align-content: stretch;
+              align-items: center;
+              background-color: #ffff00;
+              }
+
+
+          .flex-item-1 {
+              background-color: #2f4f4f;
+              order: 0;
+              flex: 3 0 auto;
+              flex-direction: column;
+              align-self: stretch;
+          }
+          .flex-item-2 {
+              background-color: #9400d3;
+              order: 0;
+              flex: 10 0 auto;
+              flex-direction: column;
+              align-self: stretch;
+          }
+          .flex-item {
+               order: 0;
+              flex: 0 1 auto;
+              flex-direction: column;
+          }
+          .flex-item.name {
+               order: 0;
+              flex: 1 1 auto;
+              flex-direction: column;
+          }
+          .flex-item.photo {
+               order: 0;
+              flex: 5 1 auto;
+              flex-direction: row;
+                background-color: #008080;
+            }
+          .flex-item.date {
+              order: 0;
+              flex: 1 1 auto;
+              flex-direction: row;
+           }
+          .flex-item.message {
+              order: 0;
+              flex: 5 1 auto;
+              flex-direction: row;
+                 align-self: flex-start;
+                 background-color: #00bfff;
+             }
+      </style>
+    <div class="flex-container-row message" ng-repeat="message in vm.messages">
+          <div class="flex-container-column flex-item-1">
+              <div class="flex-item name">
+                  <a ui-sref="userInfo({id: message.authorId})" ng-bind="message.authorUserName"></a>
+              </div>
+              <div class="flex-item photo">
+                  <img ng-src="message.photo}}"/>
+              </div>
+          </div>
+          <div class="flex-container-column flex-item-2 ">
+              <span class="flex-item date" ng-bind="message.additionTime | date:'medium'"></span>
+              <div class="flex-item message" ng-bind-html="message.message | rawHtml">
+              </div>
+          </div>
+      </div-->
+
+    <div class="col-xs-12 col-sm-12"> <!-- todo ng-show="loggedIn()"-->
+        <form class="form-horizontal" name="commentForm" role="form">
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    <textarea mark-it-up class="col-md-offset-2 col-md-8" rows="6" name="message" ng-model="vm.newComment.message" validation="required"></textarea>
+                </div>
+                <div class="">
+                    <button class="btn btn-primary center-block" ng-disabled="commentForm.$invalid" ng-click="vm.addComment()">Добавить</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="pagination">
+        <uib-pagination ng-show="vm.totalItems > vm.itemPerPage" total-items="vm.totalItems" ng-model="vm.pageNo" ng-change="vm.goToPage()"></uib-pagination>
+    </div>
+</div>

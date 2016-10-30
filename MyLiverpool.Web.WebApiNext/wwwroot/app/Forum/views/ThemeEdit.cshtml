@@ -1,0 +1,30 @@
+﻿@using MyLiverpool.Business.Resources
+<div class="col-sx-12 col-sm-12" ng-init="vm.initEdit()">
+    <form class="form-horizontal" name="editForm" role="form">
+        <div class="form-group">
+            <label class="control-label col-xs-2 col-sm-2">Подсекция:</label>
+            <div class="col-xs-10 col-sm-10">
+                <select class="form-control" name="sectionId" ng-model="vm.theme.subsectionId" ng-options="subsection.id as subsection.name for subsection in vm.subsections" validation="required"></select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-xs-2 col-sm-2">Имя:</label>
+            <div class="col-xs-10 col-sm-10">
+                <input class="form-control" name="name" ng-model="vm.theme.name" validation="required" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-xs-2 col-sm-2">Описание:</label>
+            <div class="col-xs-10 col-sm-10">
+                <input class="form-control" name="description" ng-model="vm.theme.description" validation="required" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-xs-offset-2 col-sm-offset-2 col-xs-10 col-sm-10">
+                <input type="submit" value="@CommonMessages.Save" ng-disabled="editForm.$invalid" ng-click="vm.save()" class="btn btn-default" />
+            </div>
+        </div>
+    </form>
+</div>

@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var news_service_1 = require("./news.service");
 var router_1 = require("@angular/router");
+var news_model_1 = require("./news.model");
 var newsCategory_service_1 = require("../newsCategory/shared/newsCategory.service");
 var NewsEditComponent = (function () {
     function NewsEditComponent(newsService, newsCategoryService, route, router) {
@@ -18,6 +19,7 @@ var NewsEditComponent = (function () {
         this.newsCategoryService = newsCategoryService;
         this.route = route;
         this.router = router;
+        this.item = new news_model_1.News();
     }
     NewsEditComponent.prototype.ngOnInit = function () {
         var _this = this;

@@ -17,7 +17,12 @@ export class NewsEditComponent implements OnInit, OnDestroy {
     item: News;
     categories: NewsCategory[];
 
-    constructor(private newsService: NewsService, private newsCategoryService: NewsCategoryService, private route: ActivatedRoute, private router: Router) { }
+    constructor(private newsService: NewsService,
+        private newsCategoryService: NewsCategoryService,
+        private route: ActivatedRoute,
+        private router: Router) {
+        this.item = new News();
+    }
 
     ngOnInit() {
         this.sub = this.route.params.subscribe(params => {

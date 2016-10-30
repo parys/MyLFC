@@ -76,20 +76,6 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Common\MyLiverpoolSite.Common.Utilities\MyLiverpoolSite.Common.Utilities.csproj">
-      <Project>{9170eed7-3e97-4d04-9213-abd33a7d71f0}</Project>
-      <Name>MyLiverpoolSite.Common.Utilities</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Data\MyLiverpoolSite.Data.DataAccessLayer\MyLiverpoolSite.Data.DataAccessLayer.csproj">
-      <Project>{ac10a860-1c0e-4910-9e05-428d09f70981}</Project>
-      <Name>MyLiverpoolSite.Data.DataAccessLayer</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Data\MyLiverpoolSite.Data.Entities\MyLiverpoolSite.Data.Entities.csproj">
-      <Project>{996c9442-54c1-4f0a-bc05-ad1c0e09e20b}</Project>
-      <Name>MyLiverpoolSite.Data.Entities</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
