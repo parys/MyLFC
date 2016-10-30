@@ -3,7 +3,6 @@ using MyLiverpool.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using OpenIddict;
-using Microsoft.Extensions.Configuration;
 
 namespace MyLiverpool.Data.ResourceAccess
 {
@@ -14,34 +13,12 @@ namespace MyLiverpool.Data.ResourceAccess
 
         public LiverpoolContext(DbContextOptions<LiverpoolContext> options) : base(options)
         {
-           
-            // Create the database and schema if it doesn't exist
-               if (!_created)
-              {
-              _created = true;
-
-
-                //     Database.Create();
-                //   Database.AsRelational().ApplyMigrations();
+            if (!_created)
+            {
+                _created = true;
             }
         }
 
-        public static LiverpoolContext Create()
-        {
-            var configBuilder = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
-
-          //  configBuilder.AddEnvironmentVariables();
-            var configuration = configBuilder.Build();
-         //   var connectionString = configuration.GetConnectionString("DefaultConnection");
-            var connectionString = "Server=.;Initial Catalog=MyLiverpool1123;Trusted_Connection=True;MultipleActiveResultSets=true";
-            var builder = new DbContextOptionsBuilder<LiverpoolContext>();
-            builder.UseSqlServer(connectionString,
-                options =>
-                {
-                    //options.UseRowNumberForPaging();
-                });
-            return new LiverpoolContext(builder.Options);
-        }
         //   public DbSet<UserClaim> UserClaims { get; set; }
         //    public DbSet<UserLogin> UserLogins { get; set; }
         //     public DbSet<UserRole> UserRoles { get; set; }

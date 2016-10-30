@@ -16,7 +16,7 @@ namespace MyLiverpool.Data.ResourceAccess
     /// </summary>
     public class UnitOfWork : IUnitOfWork, IDisposable
     {
-        private readonly LiverpoolContext _context = LiverpoolContext.Create();
+        private readonly LiverpoolContext _context;
 
 
         private IGenericRepository<Club> _clubRepository;
@@ -34,11 +34,6 @@ namespace MyLiverpool.Data.ResourceAccess
         private IGenericRepository<User> _userRepository;
        // private IGenericRepository<UserClaim> _userClaimRepository;
         private IGenericRepository<Wish> _wishRepository;
-
-        public UnitOfWork()
-        {
-            InitUserManager();
-        }
 
         public UnitOfWork(LiverpoolContext context)
         {

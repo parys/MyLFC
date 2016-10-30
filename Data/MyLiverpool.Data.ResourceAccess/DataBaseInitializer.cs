@@ -15,7 +15,7 @@ namespace MyLiverpool.Data.ResourceAccess
 {
     public class DatabaseInitializer
     {
-        private static readonly LiverpoolContext context = LiverpoolContext.Create();
+        private readonly LiverpoolContext _context;
         private const int CountNews = 100;
         private const int CountBlog = 100;
         private const int CountNewsComments = 100;
@@ -24,9 +24,14 @@ namespace MyLiverpool.Data.ResourceAccess
         private const MaterialType NewsType = MaterialType.News;
         private const MaterialType BlogType = MaterialType.Blog;
 
+        public DatabaseInitializer(LiverpoolContext context)
+        {
+            this._context = context;
+        }
+
         public async void Seed()
         {
-            //context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+            //_context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
             await InitializeRoles();
             await InitializeRoleGroups();
             await InitRoleRoleGroups();
@@ -53,7 +58,7 @@ namespace MyLiverpool.Data.ResourceAccess
         #region roles
         private async Task InitializeRoleGroups()
         {
-            if(context.RoleGroups.Any()) return;
+            if(_context.RoleGroups.Any()) return;
            
             var roleGroups = new List<RoleGroup>()
             {
@@ -114,16 +119,16 @@ namespace MyLiverpool.Data.ResourceAccess
                     RussianName = "Автор"
                 },
             };
-            roleGroups.ForEach(x => context.RoleGroups.Add(x));
+            roleGroups.ForEach(x => _context.RoleGroups.Add(x));
             // roles.ForEach(x => roleManager.Create(x));
             //roleManager.Create(new Role { Name = RolesEnum.User.ToString() });
-            await context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
 
         private async Task InitializeRoles()
         {
-            if (context.Roles.Any()) return;
-            var roleStore = new RoleStore<Role, LiverpoolContext, int>(context);
+            if (_context.Roles.Any()) return;
+            var roleStore = new RoleStore<Role, LiverpoolContext, int>(_context);
             var roleManager = new RoleManager<Role>(roleStore, null, null, null, null, new HttpContextAccessor());
 
             var roles = new List<Role>()
@@ -177,42 +182,42 @@ namespace MyLiverpool.Data.ResourceAccess
                     Name = RolesEnum.Intern.ToString(),
                 },
             };
-            //  roles.ForEach(x => context.RoleGroups.Add(x));
+            //  roles.ForEach(x => _context.RoleGroups.Add(x));
             foreach (var role in roles)
             {
                 await roleManager.CreateAsync(role);
             }
            // roles.ForEach(x => new Task(() => roleManager.CreateAsync(x)));
             //roleManager.Create(new Role { Name = RolesEnum.User.ToString() });
-                await  context.SaveChangesAsync();
+                await  _context.SaveChangesAsync();
         }
 
         private async Task InitRoleRoleGroups()
         {
-            if (context.RoleRoleGroups.Any()) return;
+            if (_context.RoleRoleGroups.Any()) return;
 
-            var adminRole = context.Roles.First(x => x.Name == RolesEnum.AdminFull.ToString()); //1
-            var adminAssistanceRole = context.Roles.First(x => x.Name == RolesEnum.AdminStart.ToString());
-            var moderatorRole = context.Roles.First(x => x.Name == RolesEnum.UserStart.ToString());//3
-            var mainModeratorRole = context.Roles.First(x => x.Name == RolesEnum.UserFull.ToString());
-            var authorRole = context.Roles.First(x => x.Name == RolesEnum.BlogStart.ToString());//5
-            var mainAuthorRole = context.Roles.First(x => x.Name == RolesEnum.BlogFull.ToString());
-            var internRole = context.Roles.First(x => x.Name == RolesEnum.Intern.ToString());
-            // var mainEditorRole = context.RoleGroups.First(x => x.Name == RolesEnum..ToString());//7
-            //  var editorRole = context.RoleGroups.First(x => x.Name == RolesEnum..ToString());
-            var mainNewsmakeRole = context.Roles.First(x => x.Name == RolesEnum.NewsFull.ToString());//9
-            var newsmakerRole = context.Roles.First(x => x.Name == RolesEnum.NewsStart.ToString());
+            var adminRole = _context.Roles.First(x => x.Name == RolesEnum.AdminFull.ToString()); //1
+            var adminAssistanceRole = _context.Roles.First(x => x.Name == RolesEnum.AdminStart.ToString());
+            var moderatorRole = _context.Roles.First(x => x.Name == RolesEnum.UserStart.ToString());//3
+            var mainModeratorRole = _context.Roles.First(x => x.Name == RolesEnum.UserFull.ToString());
+            var authorRole = _context.Roles.First(x => x.Name == RolesEnum.BlogStart.ToString());//5
+            var mainAuthorRole = _context.Roles.First(x => x.Name == RolesEnum.BlogFull.ToString());
+            var internRole = _context.Roles.First(x => x.Name == RolesEnum.Intern.ToString());
+            // var mainEditorRole = _context.RoleGroups.First(x => x.Name == RolesEnum..ToString());//7
+            //  var editorRole = _context.RoleGroups.First(x => x.Name == RolesEnum..ToString());
+            var mainNewsmakeRole = _context.Roles.First(x => x.Name == RolesEnum.NewsFull.ToString());//9
+            var newsmakerRole = _context.Roles.First(x => x.Name == RolesEnum.NewsStart.ToString());
 
-            var adminGroup = context.RoleGroups.First(x => x.Name == RoleGroupsEnum.Admin.ToString()); //1
-            var adminAssistGroup = context.RoleGroups.First(x => x.Name == RoleGroupsEnum.AdminAssistance.ToString()); 
-            var mainNewsGroup = context.RoleGroups.First(x => x.Name == RoleGroupsEnum.MainNewsmaker.ToString()); 
-            var newsGroup = context.RoleGroups.First(x => x.Name == RoleGroupsEnum.Newsmaker.ToString()); 
-            var editorGroup = context.RoleGroups.First(x => x.Name == RoleGroupsEnum.Editor.ToString()); 
-            var internGroup = context.RoleGroups.First(x => x.Name == RoleGroupsEnum.Intern.ToString()); 
-            var moderatorGroup = context.RoleGroups.First(x => x.Name == RoleGroupsEnum.Moderator.ToString()); 
-            var mainModeratorGroup = context.RoleGroups.First(x => x.Name == RoleGroupsEnum.MainModerator.ToString()); 
-            var authorGroup = context.RoleGroups.First(x => x.Name == RoleGroupsEnum.Author.ToString()); 
-            var mainEditorGroup = context.RoleGroups.First(x => x.Name == RoleGroupsEnum.MainEditor.ToString()); 
+            var adminGroup = _context.RoleGroups.First(x => x.Name == RoleGroupsEnum.Admin.ToString()); //1
+            var adminAssistGroup = _context.RoleGroups.First(x => x.Name == RoleGroupsEnum.AdminAssistance.ToString()); 
+            var mainNewsGroup = _context.RoleGroups.First(x => x.Name == RoleGroupsEnum.MainNewsmaker.ToString()); 
+            var newsGroup = _context.RoleGroups.First(x => x.Name == RoleGroupsEnum.Newsmaker.ToString()); 
+            var editorGroup = _context.RoleGroups.First(x => x.Name == RoleGroupsEnum.Editor.ToString()); 
+            var internGroup = _context.RoleGroups.First(x => x.Name == RoleGroupsEnum.Intern.ToString()); 
+            var moderatorGroup = _context.RoleGroups.First(x => x.Name == RoleGroupsEnum.Moderator.ToString()); 
+            var mainModeratorGroup = _context.RoleGroups.First(x => x.Name == RoleGroupsEnum.MainModerator.ToString()); 
+            var authorGroup = _context.RoleGroups.First(x => x.Name == RoleGroupsEnum.Author.ToString()); 
+            var mainEditorGroup = _context.RoleGroups.First(x => x.Name == RoleGroupsEnum.MainEditor.ToString()); 
             
 
             #region adminRoleRoleGroups
@@ -264,7 +269,7 @@ namespace MyLiverpool.Data.ResourceAccess
                     RoleId = newsmakerRole.Id
                 },
             };
-            adminRoleGroups.ForEach(x => context.RoleRoleGroups.Add(x));
+            adminRoleGroups.ForEach(x => _context.RoleRoleGroups.Add(x));
             #endregion
 
             #region AdminAssistance
@@ -312,7 +317,7 @@ namespace MyLiverpool.Data.ResourceAccess
                     RoleId = newsmakerRole.Id
                 }
             };
-            adminAssistanceRoleGroups.ForEach(x => context.RoleRoleGroups.Add(x));
+            adminAssistanceRoleGroups.ForEach(x => _context.RoleRoleGroups.Add(x));
             #endregion
 
             #region mainNewsRoleGroups
@@ -335,7 +340,7 @@ namespace MyLiverpool.Data.ResourceAccess
                     RoleId = newsmakerRole.Id
                 }
             };
-            mainNewsRoleGroups.ForEach(x => context.RoleRoleGroups.Add(x));
+            mainNewsRoleGroups.ForEach(x => _context.RoleRoleGroups.Add(x));
             #endregion
 
             #region newsRoleGroups
@@ -353,7 +358,7 @@ namespace MyLiverpool.Data.ResourceAccess
                     RoleId = newsmakerRole.Id
                 }
             };
-            newsRoleGroups.ForEach(x => context.RoleRoleGroups.Add(x));
+            newsRoleGroups.ForEach(x => _context.RoleRoleGroups.Add(x));
             #endregion
 
             #region editorRoleGroups
@@ -381,7 +386,7 @@ namespace MyLiverpool.Data.ResourceAccess
                     RoleId = mainNewsmakeRole.Id
                 }
             };
-            editorRoleGroups.ForEach(x => context.RoleRoleGroups.Add(x));
+            editorRoleGroups.ForEach(x => _context.RoleRoleGroups.Add(x));
             #endregion
 
             #region mainEditorRoleGroups
@@ -409,7 +414,7 @@ namespace MyLiverpool.Data.ResourceAccess
                     RoleId = mainNewsmakeRole.Id
                 }
             };
-            mainEditorRoleGroups.ForEach(x => context.RoleRoleGroups.Add(x));
+            mainEditorRoleGroups.ForEach(x => _context.RoleRoleGroups.Add(x));
             #endregion
 
             #region internRoleGroups
@@ -422,7 +427,7 @@ namespace MyLiverpool.Data.ResourceAccess
                     RoleId = internRole.Id
                 }
             };
-            internRoleGroups.ForEach(x => context.RoleRoleGroups.Add(x));
+            internRoleGroups.ForEach(x => _context.RoleRoleGroups.Add(x));
             #endregion
 
             #region moderatorRoleGroups
@@ -435,7 +440,7 @@ namespace MyLiverpool.Data.ResourceAccess
                     RoleId = moderatorRole.Id
                 }
             };
-            moderatorRoleGroups.ForEach(x => context.RoleRoleGroups.Add(x));
+            moderatorRoleGroups.ForEach(x => _context.RoleRoleGroups.Add(x));
             #endregion
 
             #region mainModeratorRoleGroups
@@ -453,7 +458,7 @@ namespace MyLiverpool.Data.ResourceAccess
                     RoleId = mainModeratorRole.Id
                 }
             };
-            mainModeratorRoleGroups.ForEach(x => context.RoleRoleGroups.Add(x));
+            mainModeratorRoleGroups.ForEach(x => _context.RoleRoleGroups.Add(x));
             #endregion
 
             #region authorRoleGroups
@@ -466,16 +471,16 @@ namespace MyLiverpool.Data.ResourceAccess
                     RoleId = authorRole.Id
                 }
             };
-            authorRoleGroups.ForEach(x => context.RoleRoleGroups.Add(x));
+            authorRoleGroups.ForEach(x => _context.RoleRoleGroups.Add(x));
             #endregion
 
-            await context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
         #endregion
 
         private async Task InitUsers()
         {
-            if (context.Users.Any()) return ;
+            if (_context.Users.Any()) return ;
 
             await InitializeAdmin();
             await InitializeDeletedUser();
@@ -509,7 +514,7 @@ namespace MyLiverpool.Data.ResourceAccess
 
             await userManager.CreateAsync(user, "123456");
             await userManager.AddToRoleAsync(user, RolesEnum.Simple.ToString());
-            await context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
 
         private async Task InitializeSimpleUser()
@@ -532,7 +537,7 @@ namespace MyLiverpool.Data.ResourceAccess
 
             await userManager.CreateAsync(user, "123456");
             await userManager.AddToRoleAsync(user, RolesEnum.Simple.ToString());
-            await context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
 
         private async Task InitializeAdmin()
@@ -547,7 +552,7 @@ namespace MyLiverpool.Data.ResourceAccess
                 RegistrationDate = DateTime.Now,
                 Birthday = DateTime.Now,
                 RoleGroupId = (int)RoleGroupsEnum.Admin,
-              //  RoleGroup = context.RoleGroups.First(x => x.Id == (int)RoleGroupsEnum.Admin),
+              //  RoleGroup = _context.RoleGroups.First(x => x.Id == (int)RoleGroupsEnum.Admin),
                 Photo = "content/avatars/0/755939.jpeg",
                 EmailConfirmed = true,
             };
@@ -555,10 +560,10 @@ namespace MyLiverpool.Data.ResourceAccess
             var userManager = GetUserManager();
 
             await userManager.CreateAsync(user, "123qwe");
-            var adminRoles = await context.RoleGroups.FirstAsync(x => x.Name == RoleGroupsEnum.Admin.ToString());
+            var adminRoles = await _context.RoleGroups.FirstAsync(x => x.Name == RoleGroupsEnum.Admin.ToString());
 
             await userManager.AddToRolesAsync(user, adminRoles.RoleGroups.Select(x => x.Role.Name));
-            await context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
 
         }
 
@@ -582,10 +587,10 @@ namespace MyLiverpool.Data.ResourceAccess
             var userManager = GetUserManager();
 
             await userManager.CreateAsync(user, "123456");
-            var adminRoles = context.RoleGroups.First(x => x.Id == user.RoleGroupId).RoleGroups.Select(r => r.Role.Name).ToList();
+            var adminRoles = _context.RoleGroups.First(x => x.Id == user.RoleGroupId).RoleGroups.Select(r => r.Role.Name).ToList();
 
             await userManager.AddToRolesAsync(user, adminRoles);
-            await context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
 
         }
 
@@ -609,9 +614,9 @@ namespace MyLiverpool.Data.ResourceAccess
             var userManager = GetUserManager();
 
             await userManager.CreateAsync(user, "123456");
-            var adminRoles = context.RoleGroups.First(x => x.Id == user.RoleGroupId).RoleGroups.Select(r => r.Role.Name).ToList();
+            var adminRoles = _context.RoleGroups.First(x => x.Id == user.RoleGroupId).RoleGroups.Select(r => r.Role.Name).ToList();
             await userManager.AddToRolesAsync(user, adminRoles);
-            await context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
 
         private async Task InitializeIntern()
@@ -634,10 +639,10 @@ namespace MyLiverpool.Data.ResourceAccess
             var userManager = GetUserManager();
 
             await userManager.CreateAsync(user, "123456");
-            var adminRoles = context.RoleGroups.First(x => x.Id == user.RoleGroupId).RoleGroups.Select(r=> r.Role.Name).ToList();
+            var adminRoles = _context.RoleGroups.First(x => x.Id == user.RoleGroupId).RoleGroups.Select(r=> r.Role.Name).ToList();
 
             await userManager.AddToRolesAsync(user, adminRoles);
-            await context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
 
         }
 
@@ -661,9 +666,9 @@ namespace MyLiverpool.Data.ResourceAccess
             var userManager = GetUserManager();
 
             await userManager.CreateAsync(user, "123456");
-            var adminRoles = context.RoleGroups.First(x => x.Id == user.RoleGroupId).RoleGroups.Select(r => r.Role.Name).ToList();
+            var adminRoles = _context.RoleGroups.First(x => x.Id == user.RoleGroupId).RoleGroups.Select(r => r.Role.Name).ToList();
             await userManager.AddToRolesAsync(user, adminRoles);
-            await context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
 
         }
 
@@ -687,9 +692,9 @@ namespace MyLiverpool.Data.ResourceAccess
             var userManager = GetUserManager();
 
             await userManager.CreateAsync(user, "123456");
-            var adminRoles = context.RoleGroups.First(x => x.Id == user.RoleGroupId).RoleGroups.Select(r => r.Role.Name).ToList();
+            var adminRoles = _context.RoleGroups.First(x => x.Id == user.RoleGroupId).RoleGroups.Select(r => r.Role.Name).ToList();
             await userManager.AddToRolesAsync(user, adminRoles);
-            await context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
 
         }
         #endregion
@@ -697,7 +702,7 @@ namespace MyLiverpool.Data.ResourceAccess
         #region forum
         private async Task InitializeForumSections()
         {
-            if (context.ForumSections.Any()) return;
+            if (_context.ForumSections.Any()) return;
             var forumSection1 = new ForumSection()
             {
                 Name = "section 1"
@@ -706,14 +711,14 @@ namespace MyLiverpool.Data.ResourceAccess
             {
                 Name = "section 2"
             };
-            context.ForumSections.Add(forumSection1);
-            context.ForumSections.Add(forumSection2);
-            await context.SaveChangesAsync();
+            _context.ForumSections.Add(forumSection1);
+            _context.ForumSections.Add(forumSection2);
+            await _context.SaveChangesAsync();
         }
 
         private async Task InitializeForumSubsections()
         {
-            if (context.ForumSubsections.Any()) return;
+            if (_context.ForumSubsections.Any()) return;
             var forumSubsection1 = new ForumSubsection()
             {
                 Name = "subsection 1",
@@ -727,14 +732,14 @@ namespace MyLiverpool.Data.ResourceAccess
                 Description = "subsection description 2",
                 SectionId = 1
             };
-            context.ForumSubsections.Add(forumSubsection1);
-            context.ForumSubsections.Add(forumSubsection2);
-            await context.SaveChangesAsync();
+            _context.ForumSubsections.Add(forumSubsection1);
+            _context.ForumSubsections.Add(forumSubsection2);
+            await _context.SaveChangesAsync();
         }
 
         private async Task InitializeForumThemes()
         {
-            if (context.ForumThemes.Any()) return;
+            if (_context.ForumThemes.Any()) return;
             var themes = new List<ForumTheme>();
             for (int i = 0; i < 16; i++)
             {
@@ -745,13 +750,13 @@ namespace MyLiverpool.Data.ResourceAccess
                     {
                         Message = "message" + i,
                         AdditionTime = DateTime.Now.AddHours(-20 + i),
-                        AuthorId = new Random().Next(context.Users.First().Id, context.Users.Last().Id),
+                        AuthorId = new Random().Next(_context.Users.First().Id, _context.Users.Last().Id),
                         LastModifiedTime = DateTime.Now.AddHours(-20 + i),
                         ThemeId = 1,
                     };
                     messages.Add(message);
                 }
-                var userId = new Random().Next(context.Users.First().Id, context.Users.Last().Id);
+                var userId = new Random().Next(_context.Users.First().Id, _context.Users.Last().Id);
                 var forumTheme = new ForumTheme()
                 {
                     Name = "theme " + i,
@@ -765,15 +770,15 @@ namespace MyLiverpool.Data.ResourceAccess
                 themes.Add(forumTheme);
             }
         
-            themes.ForEach(x => context.ForumThemes.Add(x));
-            await context.SaveChangesAsync();
+            themes.ForEach(x => _context.ForumThemes.Add(x));
+            await _context.SaveChangesAsync();
         }
         #endregion
 
         #region news
         private async Task InitializeNewsCategories()
         {
-            if (context.MaterialCategories.Any()) return;
+            if (_context.MaterialCategories.Any()) return;
             var categories = new List<MaterialCategory>()
             {
                 new MaterialCategory()
@@ -795,13 +800,13 @@ namespace MyLiverpool.Data.ResourceAccess
                     MaterialType = NewsType,
                 },
             };
-            categories.ForEach(x => context.MaterialCategories.Add(x));
-            await context.SaveChangesAsync();
+            categories.ForEach(x => _context.MaterialCategories.Add(x));
+            await _context.SaveChangesAsync();
         }
 
         private async Task InitializeNews()
         {
-            if (context.Materials.Any()) return;
+            if (_context.Materials.Any()) return;
             var news = new List<Material>();
             var randomizer = new Random(44);
 
@@ -811,7 +816,7 @@ namespace MyLiverpool.Data.ResourceAccess
                 {
                     CategoryId = i % 2 == 0 ? 1 : 2,
                     AdditionTime = DateTime.Now.AddHours(randomizer.NextDouble() * -CountNews),
-                    AuthorId = new Random().Next(context.Users.First().Id, context.Users.Last().Id),
+                    AuthorId = new Random().Next(_context.Users.First().Id, _context.Users.Last().Id),
                     Brief = "brief" + i,
                     CanCommentary = i % 2 == 0,
                     Type = NewsType,
@@ -844,23 +849,23 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                 });
             }
 
-            news.ForEach(x => context.Materials.Add(x));
-            await context.SaveChangesAsync();
+            news.ForEach(x => _context.Materials.Add(x));
+            await _context.SaveChangesAsync();
         }
 
         private async Task InitializeNewsComments()
         {
-            if (context.MaterialComments.Any()) return;
+            if (_context.MaterialComments.Any()) return;
             var newsComments = new List<MaterialComment>();
             var random = new Random((int)DateTime.UtcNow.Ticks);
             for (int i = 0; i < CountNewsComments; i++)
             {
                 var comment = new MaterialComment()
                 {
-                    MaterialId = new Random().Next(context.Materials.First(x => x.Type == NewsType).Id, context.Materials.Last(x => x.Type == NewsType).Id),
+                    MaterialId = new Random().Next(_context.Materials.First(x => x.Type == NewsType).Id, _context.Materials.Last(x => x.Type == NewsType).Id),
                     AdditionTime = DateTime.Now.AddDays(random.NextDouble() * 10),
                     Answer = i % 5 == 0 ? "answer" : string.Empty,
-                    AuthorId = new Random().Next(context.Users.First().Id, context.Users.Last().Id),
+                    AuthorId = new Random().Next(_context.Users.First().Id, _context.Users.Last().Id),
                     Message = "message " + i,
                     Pending = (i + 3) % 5 == 0,
                     MaterialType = NewsType,
@@ -876,7 +881,7 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                             Pending = false,
                             MaterialId = comment.MaterialId,
                             AdditionTime = DateTime.Now,
-                    AuthorId = new Random().Next(context.Users.First().Id, context.Users.Last().Id),
+                    AuthorId = new Random().Next(_context.Users.First().Id, _context.Users.Last().Id),
                             Message = "comment inside",
                             MaterialType = NewsType,
                             LastModified = DateTime.Now,
@@ -887,15 +892,15 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                 newsComments.Add(comment);
             }
 
-            newsComments.ForEach(x => context.MaterialComments.Add(x));
-            await context.SaveChangesAsync();
+            newsComments.ForEach(x => _context.MaterialComments.Add(x));
+            await _context.SaveChangesAsync();
 
             var commentFirstNews = new MaterialComment()
             {
                 Pending = false,
-                MaterialId = context.Materials.First(x => x.Type == NewsType).Id,
+                MaterialId = _context.Materials.First(x => x.Type == NewsType).Id,
                 AdditionTime = DateTime.Now,
-                AuthorId = new Random().Next(context.Users.First().Id, context.Users.Last().Id),
+                AuthorId = new Random().Next(_context.Users.First().Id, _context.Users.Last().Id),
                 Message = "comment first",
                 MaterialType = NewsType,
                 LastModified = DateTime.Now,
@@ -905,9 +910,9 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                     {
                         ParentId = CountNews + 1,
                         Pending = false,
-                                MaterialId = context.Materials.First(x => x.Type == NewsType).Id,
+                                MaterialId = _context.Materials.First(x => x.Type == NewsType).Id,
                         AdditionTime = DateTime.Now,
-                    AuthorId = new Random().Next(context.Users.First().Id, context.Users.Last().Id),
+                    AuthorId = new Random().Next(_context.Users.First().Id, _context.Users.Last().Id),
                         Message = "comment second inside",
                         MaterialType = NewsType,
                         LastModified = DateTime.Now,
@@ -917,9 +922,9 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                             {
                                 ParentId = CountNews + 2,
                                 Pending = false,
-                                MaterialId = context.Materials.First(x => x.Type == NewsType).Id,
+                                MaterialId = _context.Materials.First(x => x.Type == NewsType).Id,
                                 AdditionTime = DateTime.Now,
-                    AuthorId = new Random().Next(context.Users.First().Id, context.Users.Last().Id),
+                    AuthorId = new Random().Next(_context.Users.First().Id, _context.Users.Last().Id),
                                 Message = "comment three inside",
                                 MaterialType = NewsType,
                                 LastModified = DateTime.Now,
@@ -929,8 +934,8 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                 }
             };
 
-            context.MaterialComments.Add(commentFirstNews);
-            await context.SaveChangesAsync();
+            _context.MaterialComments.Add(commentFirstNews);
+            await _context.SaveChangesAsync();
         }
         #endregion
 
@@ -960,8 +965,8 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                     MaterialType = type,
                 },
             };
-            categories.ForEach(x => context.MaterialCategories.Add(x));
-            await context.SaveChangesAsync();
+            categories.ForEach(x => _context.MaterialCategories.Add(x));
+            await _context.SaveChangesAsync();
         }
 
         private async Task InitializeBlog()
@@ -1009,8 +1014,8 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                 });
             }
 
-            news.ForEach(x => context.Materials.Add(x));
-            await context.SaveChangesAsync();
+            news.ForEach(x => _context.Materials.Add(x));
+            await _context.SaveChangesAsync();
         }
 
         private async Task InitializeBlogComments()
@@ -1022,7 +1027,7 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
             {
                 var comment = new MaterialComment()
                 {
-                    MaterialId = context.Materials.First(x => x.Type == NewsType).Id,
+                    MaterialId = _context.Materials.First(x => x.Type == NewsType).Id,
                     AdditionTime = DateTime.Now.AddDays(random.NextDouble() * 10),
                     Answer = i % 5 == 0 ? "answer" : string.Empty,
                     AuthorId = random.Next(1, CountUsers),
@@ -1052,13 +1057,13 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                 newsComments.Add(comment);
             }
 
-            newsComments.ForEach(x => context.MaterialComments.Add(x));
-            await context.SaveChangesAsync();
+            newsComments.ForEach(x => _context.MaterialComments.Add(x));
+            await _context.SaveChangesAsync();
 
             var commentFirstNews = new MaterialComment()
             {
                 Pending = false,
-                MaterialId = context.Materials.First(x => x.Type == NewsType).Id,
+                MaterialId = _context.Materials.First(x => x.Type == NewsType).Id,
                 AdditionTime = DateTime.Now,
                 AuthorId = 1,
                 Message = "comment first",
@@ -1070,7 +1075,7 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                     {
                         ParentId = CountNews + 1,
                         Pending = false,
-                                MaterialId = context.Materials.First(x => x.Type == NewsType).Id,
+                                MaterialId = _context.Materials.First(x => x.Type == NewsType).Id,
                         AdditionTime = DateTime.Now,
                         AuthorId = 2,
                         Message = "comment second inside",
@@ -1082,7 +1087,7 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                             {
                                 ParentId = CountNews + 2,
                                 Pending = false,
-                                MaterialId = context.Materials.First(x => x.Type == NewsType).Id,
+                                MaterialId = _context.Materials.First(x => x.Type == NewsType).Id,
                                 AdditionTime = DateTime.Now,
                                 AuthorId = 3,
                                 Message = "comment three inside",
@@ -1094,20 +1099,20 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                 }
             };
 
-            context.MaterialComments.Add(commentFirstNews);
-            await context.SaveChangesAsync();
+            _context.MaterialComments.Add(commentFirstNews);
+            await _context.SaveChangesAsync();
         }
         #endregion // not inititng
 
         private async Task InitializePrivateMessages()
         {
-            if (context.PrivateMessages.Any()) return;
+            if (_context.PrivateMessages.Any()) return;
             var pms = new List<PrivateMessage>()
             {
                 new PrivateMessage()
                 {
-                    SenderId = new Random().Next(context.Users.First().Id, context.Users.Last().Id),
-                    ReceiverId = new Random().Next(context.Users.First().Id, context.Users.Last().Id),
+                    SenderId = new Random().Next(_context.Users.First().Id, _context.Users.Last().Id),
+                    ReceiverId = new Random().Next(_context.Users.First().Id, _context.Users.Last().Id),
                     IsRead = false,
                     SentTime = DateTime.Now.AddDays(-5),
                     Title = "title 1",
@@ -1115,8 +1120,8 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                 },
                 new PrivateMessage()
                 {
-                    SenderId = new Random().Next(context.Users.First().Id, context.Users.Last().Id),
-                    ReceiverId = new Random().Next(context.Users.First().Id, context.Users.Last().Id),
+                    SenderId = new Random().Next(_context.Users.First().Id, _context.Users.Last().Id),
+                    ReceiverId = new Random().Next(_context.Users.First().Id, _context.Users.Last().Id),
                     IsRead = true,
                     SentTime = DateTime.Now.AddDays(-3),
                     Title = "title 2",
@@ -1124,8 +1129,8 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                 },
                 new PrivateMessage()
                 {
-                    SenderId = new Random().Next(context.Users.First().Id, context.Users.Last().Id),
-                    ReceiverId =new Random().Next(context.Users.First().Id, context.Users.Last().Id),
+                    SenderId = new Random().Next(_context.Users.First().Id, _context.Users.Last().Id),
+                    ReceiverId =new Random().Next(_context.Users.First().Id, _context.Users.Last().Id),
                     IsRead = false,
                     SentTime = DateTime.Now.AddDays(-5),
                     Title = "title 3",
@@ -1133,8 +1138,8 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                 },
                 new PrivateMessage()
                 {
-                    SenderId = new Random().Next(context.Users.First().Id, context.Users.Last().Id),
-                    ReceiverId = new Random().Next(context.Users.First().Id, context.Users.Last().Id),
+                    SenderId = new Random().Next(_context.Users.First().Id, _context.Users.Last().Id),
+                    ReceiverId = new Random().Next(_context.Users.First().Id, _context.Users.Last().Id),
                     IsRead = true,
                     SentTime = DateTime.Now.AddDays(-3),
                     Title = "title 4",
@@ -1142,13 +1147,13 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                 },
             };
 
-            pms.ForEach(x => context.PrivateMessages.Add(x));
-            await context.SaveChangesAsync();
+            pms.ForEach(x => _context.PrivateMessages.Add(x));
+            await _context.SaveChangesAsync();
         }
 
         private async Task AddApplication()
         {
-            if (context.Applications.Any()) return;
+            if (_context.Applications.Any()) return;
 
             var app = new OpenIddictApplication<int>()
             {
@@ -1160,8 +1165,8 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                 RedirectUri = "http://localhost:1669/",
                 LogoutRedirectUri = "http://localhost:1669/",
             };
-            context.Applications.Add(app);
-            await context.SaveChangesAsync();
+            _context.Applications.Add(app);
+            await _context.SaveChangesAsync();
         }
 
 
@@ -1181,9 +1186,9 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                 return value.ToString();
         }
 
-        private static UserManager<User> GetUserManager()
+        private UserManager<User> GetUserManager()
         {
-            var userStore = new UserStore<User, Role, LiverpoolContext, int>(context);
+            var userStore = new UserStore<User, Role, LiverpoolContext, int>(_context);
             return new UserManager<User>(userStore, null, new PasswordHasher<User>(), null, null, null, null, null, null);
         }
 

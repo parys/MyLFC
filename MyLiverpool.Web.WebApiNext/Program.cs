@@ -19,7 +19,6 @@ namespace MyLiverpool.Web.WebApiNext
                 .UseIISIntegration()
                 .UseStartup<Startup>()
                 .Build();
-            new DatabaseInitializer().Seed();
             host.Run();
         }
     }

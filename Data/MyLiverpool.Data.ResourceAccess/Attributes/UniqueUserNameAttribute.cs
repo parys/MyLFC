@@ -9,11 +9,12 @@ namespace MyLiverpool.Data.ResourceAccess.Attributes
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            using (var db = LiverpoolContext.Create())
-            {
-                var user = db.Users.FirstOrDefault(x => x.UserName == (string)value);
-                return user == null ? ValidationResult.Success : new ValidationResult("User with same userName already exists.");
-            }
+            throw new NotImplementedException();
+            //todo using (var db = LiverpoolContext.Create())
+            //{
+            //    var user = db.Users.FirstOrDefault(x => x.UserName == (string)value);
+            //    return user == null ? ValidationResult.Success : new ValidationResult("User with same userName already exists.");
+            //}
         }
     }
 }

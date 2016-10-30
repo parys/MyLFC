@@ -12,6 +12,7 @@ var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var auth_service_1 = require("./auth/auth.service");
 var roles_checked_service_1 = require("./shared/roles-checked.service");
+//enableProdMode();
 var AppComponent = (function () {
     function AppComponent(router, auth, rolesChecked, viewContainerRef) {
         this.router = router;

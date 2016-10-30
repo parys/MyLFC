@@ -3,7 +3,6 @@ using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -59,9 +58,9 @@ namespace MyLiverpool.Web.WebApiNext
             Env = env;
         }
 
-        public IConfigurationRoot Configuration { get; }
+        private IConfigurationRoot Configuration { get; }
 
-        private IHostingEnvironment Env { get; set; }
+        private IHostingEnvironment Env { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -106,6 +105,9 @@ namespace MyLiverpool.Web.WebApiNext
                 // shuts down. Tokens signed using this key are automatically invalidated.
                 // This method should only be used during development.
                 .AddEphemeralSigningKey();
+
+
+            new DatabaseInitializer((LiverpoolContext)services.BuildServiceProvider().GetService(typeof(LiverpoolContext))).Seed();
 
         }
 
@@ -162,35 +164,35 @@ namespace MyLiverpool.Web.WebApiNext
             //----------------------------------------------from OLD PROJECT
             app.UseCors("AllowAll");
 
-        //    using (var context = new LiverpoolContext())
-        //    {
-        //        context.Database.EnsureCreated();
+            //    using (var context = new LiverpoolContext())
+            //    {
+            //        context.Database.EnsureCreated();
 
-        //        if (!context.Applications.Any())
-        //        {
-        //            context.Applications.Add(new OpenIddictApplication
-        //            {
-        //                // Assign a unique identifier to your client app:
-        //                Id = "48BF1BC3-CE01-4787-BBF2-0426EAD21342",
+            //        if (!context.Applications.Any())
+            //        {
+            //            context.Applications.Add(new OpenIddictApplication
+            //            {
+            //                // Assign a unique identifier to your client app:
+            //                Id = "48BF1BC3-CE01-4787-BBF2-0426EAD21342",
 
-        //                // Assign a display named used in the consent form page:
-        //                DisplayName = "MVC Core client application",
+            //                // Assign a display named used in the consent form page:
+            //                DisplayName = "MVC Core client application",
 
-        //                // Register the appropriate redirect_uri and post_logout_redirect_uri:
-        //                RedirectUri = "http://localhost:53507/signin-oidc",
-        //                LogoutRedirectUri = "http://localhost:53507/",
+            //                // Register the appropriate redirect_uri and post_logout_redirect_uri:
+            //                RedirectUri = "http://localhost:53507/signin-oidc",
+            //                LogoutRedirectUri = "http://localhost:53507/",
 
-        //                // Generate a new derived key from the client secret:
-        //                ClientSecret = Crypto.HashPassword("secret_secret_secret"),
+            //                // Generate a new derived key from the client secret:
+            //                ClientSecret = Crypto.HashPassword("secret_secret_secret"),
 
-        //                // Note: use "public" for JS/mobile/desktop applications
-        //                // and "confidential" for server-side applications.
-        //                Type = OpenIddictConstants.ClientTypes.Public
-        //            });
+            //                // Note: use "public" for JS/mobile/desktop applications
+            //                // and "confidential" for server-side applications.
+            //                Type = OpenIddictConstants.ClientTypes.Public
+            //            });
 
-        //            context.SaveChanges();
-        //        }
-        //    }
+            //            context.SaveChanges();
+            //        }
+            //    }
         }
 
         private void RegisterServices(IServiceCollection services)
@@ -234,6 +236,7 @@ namespace MyLiverpool.Web.WebApiNext
         private void RegisterCoreHelpers(IServiceCollection services)
         {
             services.AddSingleton<IHostingEnvironment>(Env);
+            services.AddSingleton<IConfigurationRoot>(Configuration);
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
     }

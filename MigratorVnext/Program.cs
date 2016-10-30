@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using Microsoft.EntityFrameworkCore;
 using MyLiverpool.Common.Utilities;
 using MyLiverpool.Data.Entities;
 using MyLiverpool.Data.ResourceAccess;
@@ -28,7 +29,7 @@ namespace MigratorVnext
         static Program()
         {
           //  Database.SetInitializer(new DatabaseInitializer());
-            LiverpoolContext db = LiverpoolContext.Create();
+            LiverpoolContext db = new LiverpoolContext(new DbContextOptions<LiverpoolContext>());
          //   db.Database.Initialize(true);
             UnitOfWork = new UnitOfWork(db);
             MaterialRepository = new MaterialRepository(db);
