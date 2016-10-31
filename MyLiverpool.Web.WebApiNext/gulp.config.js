@@ -16,10 +16,10 @@ module.exports = {
             "node_modules/moment/moment.js"
         ],
 
-        angularRC: "node_modules/@angular/**/*.js",
+        angularRC: "node_modules/@angular/**/*.umd.js",
         Rxjs: "node_modules/rxjs/**/*.js",
         fonts: "node_modules/bootstrap/fonts/*.{ttf,woff,eot,svg,woff2}",
         bootstrapPath: "node_modules/bootstrap/dist/css/*.{css,map}",
-        ng2bootstrap: "node_modules/ng2-bootstrap/**/*.js"
+        ng2bootstrap: "node_modules/ng2-bootstrap/**/*.umd.js"
     }
 };

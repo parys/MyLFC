@@ -1,5 +1,6 @@
 ﻿import { Component, OnInit, ViewChild, Input } from "@angular/core";
 import { Pageable } from "../shared/pageable.model";
+import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { MaterialComment } from "./materialComment.model";
 import { MaterialCommentService } from "./materialComment.service";
 import { Location } from "@angular/common";
@@ -17,17 +18,26 @@ export class MaterialCommentSectionComponent implements OnInit {
     itemsPerPage = 15;
     totalItems: number;
     roles: IRoles;
-    selectedItemIndex: number = undefined;
+    commentForm: FormGroup;
+    //selectedItemIndex: number = undefined;
     @Input() newsId: number;
-                                                               
-    @ViewChild("deleteModal") deleteModal: ModalDirective;       
+    @Input() canCommentary: boolean = true;
 
-    constructor(private materialCommentService: MaterialCommentService, private location: Location, private rolesChecked: RolesCheckedService) {   
+                                                               
+    //@ViewChild("deleteModal") deleteModal: ModalDirective;       
+
+    constructor(private materialCommentService: MaterialCommentService, private location: Location, private rolesChecked: RolesCheckedService
+        , private formBuilder: FormBuilder) {   
     }   
 
     ngOnInit() {
         this.roles = this.rolesChecked.checkedRoles;     
-        this.update();     
+        this.update(); 
+
+        this.commentForm = this.formBuilder.group({
+            'message': ["", Validators.compose([ //todo composeASync??
+                Validators.required, Validators.minLength(3)])]
+        });    
     }
 
 
@@ -54,43 +64,58 @@ export class MaterialCommentSectionComponent implements OnInit {
         this.page = pageable.pageNo;
         this.itemsPerPage = pageable.itemPerPage;
         this.totalItems = pageable.totalItems;
-    }
+    }                                 
 
-    hideModal(): void {
-        this.selectedItemIndex = undefined;
-        this.deleteModal.hide();
-    }
-
-    verify(index: number): void {
-        let result;
-        this.materialCommentService
-            .verify(this.items[index].id)
-            .subscribe(data => result = data,
-            error => console.log(error),
-            () => {
-                if (result) {
-                    this.items[index].isVerified = true;
-                }
-            }
+    onSubmit(value: any): void {
+        var comment = new MaterialComment();
+        comment.message = this.commentForm.controls["message"].value;
+        comment.materialId = this.newsId;
+        this.materialCommentService.create(comment)
+            .subscribe(data => {
+                this.items.push(data);
+                this.commentForm.controls["message"].patchValue("");
+                },
+                error => console.log(error),
+                () => console.log("success load comment lits")
             );
+
     }
 
-    showDeleteModal(index: number): void {
-        this.selectedItemIndex = index;
-        this.deleteModal.show();
-    }
+    //hideModal(): void {
+    //    this.selectedItemIndex = undefined;
+    //    this.deleteModal.hide();
+    //}
 
-    delete() {
-        let result;
-        this.materialCommentService.delete(this.items[this.selectedItemIndex].id)
-            .subscribe(res => result = res,
-            e => console.log(e),
-            () => {
-                if (result) {
-                    this.items.splice(this.selectedItemIndex, 1);
-                    this.hideModal();
-                }
-            }
-            );
-    }
+    //verify(index: number): void {
+    //    let result;
+    //    this.materialCommentService
+    //        .verify(this.items[index].id)
+    //        .subscribe(data => result = data,
+    //        error => console.log(error),
+    //        () => {
+    //            if (result) {
+    //                this.items[index].isVerified = true;
+    //            }
+    //        }
+    //        );
+    //}
+
+    //showDeleteModal(index: number): void {
+    //    this.selectedItemIndex = index;
+    //    this.deleteModal.show();
+    //}
+
+    //delete() {
+    //    let result;
+    //    this.materialCommentService.delete(this.items[this.selectedItemIndex].id)
+    //        .subscribe(res => result = res,
+    //        e => console.log(e),
+    //        () => {
+    //            if (result) {
+    //                this.items.splice(this.selectedItemIndex, 1);
+    //                this.hideModal();
+    //            }
+    //        }
+    //        );
+    //}
 }

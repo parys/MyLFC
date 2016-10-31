@@ -35,5 +35,7 @@ namespace MyLiverpool.Business.Contracts
         Task<IList<string>> GetRolesAsync(int id);
 
         Task<UserDto> GetUserAsync(int id);
+
+        Task<string> GetUsernameAsync(int id);
     }
 }

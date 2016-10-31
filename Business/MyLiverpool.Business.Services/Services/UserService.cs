@@ -160,6 +160,11 @@ namespace MyLiverpool.Business.Services.Services
             return await _userRepository.GetUserAsync(id);
         }
 
+        public async Task<string> GetUsernameAsync(int id)
+        {
+            return await _userRepository.GetUsername(id);
+        }
+
         #region private
 
         private IEnumerable<string> GetRolesToDelete(IEnumerable<Role> oldRoles, IEnumerable<Role> newRoles)

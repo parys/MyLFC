@@ -17,6 +17,8 @@
   </PropertyGroup>
   <ItemGroup>
     <DnxInvisibleFolder Include="Controllers\" />
+    <DnxInvisibleFolder Include="wwwroot\js\@angular\platform-browser\src\" />
+    <DnxInvisibleFolder Include="wwwroot\js\@angular\platform-browser\testing\" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\DotNet.Web\Microsoft.DotNet.Web.targets" Condition="'$(VSToolsPath)' != ''" />
   <ProjectExtensions>

@@ -21,8 +21,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
 
         public async Task<UserDto> GetUserAsync(int id)
         {
-            IQueryable<User> dbset = _context.Users;
-            var user = await dbset.Where(x => x.Id == id).Select(x => new UserDto
+            var user = await _context.Users.Where(x => x.Id == id).Select(x => new UserDto
             {
                 Id = x.Id,
                 Birthday = x.Birthday,
@@ -41,6 +40,11 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
                 UserName = x.UserName
             }).FirstOrDefaultAsync();
             return user;
+        }
+
+        public async Task<string> GetUsername(int id)
+        {
+            return await _context.Users.Where(x => x.Id == id).Select(x => x.UserName).FirstOrDefaultAsync();
         }
 
         public Task<User> GetByIdAsync(int id)

@@ -9,23 +9,30 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
+var forms_1 = require("@angular/forms");
+var materialComment_model_1 = require("./materialComment.model");
 var materialComment_service_1 = require("./materialComment.service");
 var common_1 = require("@angular/common");
 var index_1 = require("../shared/index");
-var ng2_bootstrap_1 = require("ng2-bootstrap/ng2-bootstrap");
 var MaterialCommentSectionComponent = (function () {
-    function MaterialCommentSectionComponent(materialCommentService, location, rolesChecked) {
+    //@ViewChild("deleteModal") deleteModal: ModalDirective;       
+    function MaterialCommentSectionComponent(materialCommentService, location, rolesChecked, formBuilder) {
         this.materialCommentService = materialCommentService;
         this.location = location;
         this.rolesChecked = rolesChecked;
+        this.formBuilder = formBuilder;
         this.items = [];
         this.page = 1;
         this.itemsPerPage = 15;
-        this.selectedItemIndex = undefined;
+        this.canCommentary = true;
     }
     MaterialCommentSectionComponent.prototype.ngOnInit = function () {
         this.roles = this.rolesChecked.checkedRoles;
         this.update();
+        this.commentForm = this.formBuilder.group({
+            'message': ["", forms_1.Validators.compose([
+                    forms_1.Validators.required, forms_1.Validators.minLength(3)])]
+        });
     };
     MaterialCommentSectionComponent.prototype.pageChanged = function (event) {
         this.page = event.page;
@@ -49,50 +56,31 @@ var MaterialCommentSectionComponent = (function () {
         this.itemsPerPage = pageable.itemPerPage;
         this.totalItems = pageable.totalItems;
     };
-    MaterialCommentSectionComponent.prototype.hideModal = function () {
-        this.selectedItemIndex = undefined;
-        this.deleteModal.hide();
-    };
-    MaterialCommentSectionComponent.prototype.verify = function (index) {
+    MaterialCommentSectionComponent.prototype.onSubmit = function (value) {
         var _this = this;
-        var result;
-        this.materialCommentService
-            .verify(this.items[index].id)
-            .subscribe(function (data) { return result = data; }, function (error) { return console.log(error); }, function () {
-            if (result) {
-                _this.items[index].isVerified = true;
-            }
-        });
-    };
-    MaterialCommentSectionComponent.prototype.showDeleteModal = function (index) {
-        this.selectedItemIndex = index;
-        this.deleteModal.show();
-    };
-    MaterialCommentSectionComponent.prototype.delete = function () {
-        var _this = this;
-        var result;
-        this.materialCommentService.delete(this.items[this.selectedItemIndex].id)
-            .subscribe(function (res) { return result = res; }, function (e) { return console.log(e); }, function () {
-            if (result) {
-                _this.items.splice(_this.selectedItemIndex, 1);
-                _this.hideModal();
-            }
-        });
+        var comment = new materialComment_model_1.MaterialComment();
+        comment.message = this.commentForm.controls["message"].value;
+        comment.materialId = this.newsId;
+        this.materialCommentService.create(comment)
+            .subscribe(function (data) {
+            _this.items.push(data);
+            _this.commentForm.controls["message"].patchValue("");
+        }, function (error) { return console.log(error); }, function () { return console.log("success load comment lits"); });
     };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Number)
     ], MaterialCommentSectionComponent.prototype, "newsId", void 0);
     __decorate([
-        core_1.ViewChild("deleteModal"), 
-        __metadata('design:type', ng2_bootstrap_1.ModalDirective)
-    ], MaterialCommentSectionComponent.prototype, "deleteModal", void 0);
+        core_1.Input(), 
+        __metadata('design:type', Boolean)
+    ], MaterialCommentSectionComponent.prototype, "canCommentary", void 0);
     MaterialCommentSectionComponent = __decorate([
         core_1.Component({
             selector: "comments",
             templateUrl: "app/materialComment/materialComment-section.component.html"
         }), 
-        __metadata('design:paramtypes', [materialComment_service_1.MaterialCommentService, common_1.Location, index_1.RolesCheckedService])
+        __metadata('design:paramtypes', [materialComment_service_1.MaterialCommentService, common_1.Location, index_1.RolesCheckedService, forms_1.FormBuilder])
     ], MaterialCommentSectionComponent);
     return MaterialCommentSectionComponent;
 }());

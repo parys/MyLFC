@@ -34,7 +34,6 @@ var AccountSignupComponent = (function () {
         });
     };
     AccountSignupComponent.prototype.onSubmit = function (value) {
-        console.log("you submitted value: ", value);
         var signup = new signup_model_1.Signup();
         signup.userName = this.registerForm.controls["userName"].value;
         signup.email = this.registerForm.controls["email"].value;

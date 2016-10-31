@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.DTO;
 using MyLiverpool.Data.Entities;
+using MyLiverpool.Web.WebApiNext.Extensions;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
@@ -21,7 +22,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Route("list/{page:int}")]
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> GetList(int page = 1, bool onlyUnverified = true)
+        public async Task<IActionResult> GetList(int page = 1, bool onlyUnverified = false)
         {
             if (page < 1)
             {
@@ -50,6 +51,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             {
                 return BadRequest(ModelState);
             }
+            dto.AuthorId = User.GetUserId();
             var result = await _commentService.AddAsync(dto, materialType);
             return Ok(result);
         }

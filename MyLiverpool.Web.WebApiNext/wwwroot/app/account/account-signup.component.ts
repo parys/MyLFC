@@ -35,7 +35,6 @@ export class AccountSignupComponent implements OnInit {
     }
 
     onSubmit(value: any): void {
-        console.log("you submitted value: ", value);
         var signup = new Signup();
         signup.userName = this.registerForm.controls["userName"].value;
         signup.email = this.registerForm.controls["email"].value;

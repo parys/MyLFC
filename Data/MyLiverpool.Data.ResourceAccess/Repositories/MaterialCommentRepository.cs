@@ -77,7 +77,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             }
             if (orderBy != null)
             {
-                query = query.ObjectSort(orderBy, SortOrder.Descending);
+                query = query.ObjectSort(orderBy, order);
             }
             query = query.Skip((page - 1) * itemPerPage).Take(itemPerPage);
             return await query.ToListAsync();

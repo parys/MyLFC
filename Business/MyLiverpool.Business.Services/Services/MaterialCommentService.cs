@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -17,13 +18,15 @@ namespace MyLiverpool.Business.Services.Services
     {
         private readonly IMaterialCommentRepository _commentService;
         private readonly IMapper _mapper;
+        private readonly IUserService _userService;
 
         private const int ItemPerPage = GlobalConstants.CommentsPerPageList;
 
-        public MaterialCommentService(IMapper mapper, IMaterialCommentRepository commentService)
+        public MaterialCommentService(IMapper mapper, IMaterialCommentRepository commentService, IUserService userService)
         {
             _mapper = mapper;
             _commentService = commentService;
+            _userService = userService;
         }
 
         public async Task<bool> DeleteAsync(int id)
@@ -59,6 +62,8 @@ namespace MyLiverpool.Business.Services.Services
                 throw new Exception();
             }
             var result = _mapper.Map<MaterialCommentDto>(comment);
+            result.AuthorUserName = await _userService.GetUsernameAsync(comment.AuthorId);
+            result.Photo = await _userService.GetPhotoPathAsync(comment.AuthorId);
             return result;
         }
 
@@ -88,7 +93,7 @@ namespace MyLiverpool.Business.Services.Services
             {
                 filter = filter.And(x => !x.IsVerified);
             }
-            var comments = await _commentService.GetOrderedByAsync(page, ItemPerPage, filter);
+            var comments = await _commentService.GetOrderedByAsync(page, ItemPerPage, filter, SortOrder.Ascending, m => m.AdditionTime);
             var commentDtos = _mapper.Map<IEnumerable<MaterialCommentDto>>(comments);
             var commentsCount = await _commentService.GetCountAsync(filter);
             return new PageableData<MaterialCommentDto>(commentDtos, page, commentsCount);
