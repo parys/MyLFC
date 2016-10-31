@@ -20,11 +20,9 @@ export class MaterialCommentSectionComponent implements OnInit {
     roles: IRoles;
     commentForm: FormGroup;
     //selectedItemIndex: number = undefined;
-    @Input() newsId: number;
-    @Input() canCommentary: boolean = true;
-
-                                                               
-    //@ViewChild("deleteModal") deleteModal: ModalDirective;       
+    @Input() materialId: number;
+    @Input() canCommentary: boolean = false;
+                            
 
     constructor(private materialCommentService: MaterialCommentService, private location: Location, private rolesChecked: RolesCheckedService
         , private formBuilder: FormBuilder) {   
@@ -53,10 +51,10 @@ export class MaterialCommentSectionComponent implements OnInit {
 
     private update(): void {
         this.materialCommentService
-            .getAll(this.page)
+            .getAllByMaterial(this.page, this.materialId)
             .subscribe(data => this.parsePageable(data),
             error => console.log(error),
-            () => console.log("success load comment lits"));
+            () => {});
     }
 
     private parsePageable(pageable: Pageable<MaterialComment>): void {
@@ -69,14 +67,14 @@ export class MaterialCommentSectionComponent implements OnInit {
     onSubmit(value: any): void {
         var comment = new MaterialComment();
         comment.message = this.commentForm.controls["message"].value;
-        comment.materialId = this.newsId;
+        comment.materialId = this.materialId;
         this.materialCommentService.create(comment)
             .subscribe(data => {
                 this.items.push(data);
                 this.commentForm.controls["message"].patchValue("");
                 },
                 error => console.log(error),
-                () => console.log("success load comment lits")
+                () => {}
             );
 
     }

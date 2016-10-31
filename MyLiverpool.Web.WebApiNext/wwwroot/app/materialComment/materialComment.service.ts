@@ -19,6 +19,10 @@ export class MaterialCommentService {
         return this.http.get(this.actionUrl + "list/" + page).map(res => res.json());  //  encodeURIComponent(JSON.stringify("")
     };
 
+    getAllByMaterial = (page: number, id: number): Observable<Pageable<MaterialComment>> => {
+        return this.http.get(this.actionUrl + "material/" + id + "/list/" + page).map(res => res.json());  //  encodeURIComponent(JSON.stringify("")
+    };
+
     getSingle = (id: number): Observable<MaterialComment> => {
         return this.http.get(this.actionUrl + id).map(res => res.json());
     };

@@ -20,6 +20,9 @@ var MaterialCommentService = (function () {
         this.getAll = function (page) {
             return _this.http.get(_this.actionUrl + "list/" + page).map(function (res) { return res.json(); }); //  encodeURIComponent(JSON.stringify("")
         };
+        this.getAllByMaterial = function (page, id) {
+            return _this.http.get(_this.actionUrl + "material/" + id + "/list/" + page).map(function (res) { return res.json(); }); //  encodeURIComponent(JSON.stringify("")
+        };
         this.getSingle = function (id) {
             return _this.http.get(_this.actionUrl + id).map(function (res) { return res.json(); });
         };

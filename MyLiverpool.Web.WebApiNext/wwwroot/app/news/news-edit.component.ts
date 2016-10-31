@@ -23,7 +23,7 @@ export class NewsEditComponent implements OnInit, OnDestroy {
         private router: Router) {
         this.item = new News();
     }
-
+                                                                                                         //todo need to use FormBuilder
     ngOnInit() {
         this.sub = this.route.params.subscribe(params => {
             let id = +params["id"];
@@ -31,13 +31,13 @@ export class NewsEditComponent implements OnInit, OnDestroy {
                 this.newsService.getSingle(id)
                     .subscribe(data => this.parse(data),
                         error => console.log(error),
-                        () => console.log("success load edit news"));
+                        () => {});
             }
         });
         this.newsCategoryService.GetAll()
             .subscribe(data => this.parseCategories(data),
             error => console.log(error),
-            () => console.log("success load categoiris edit news"));
+                () => {});
     }
 
     ngOnDestroy() {
@@ -49,12 +49,12 @@ export class NewsEditComponent implements OnInit, OnDestroy {
             this.newsService.update(this.item.id, this.item)
                 .subscribe(data => console.log(data),//this.router.navigate(["/news", data.id]),
                 error => console.log(error),
-                () => console.log("success update edit news"));
+                    () => {});
         } else {
             this.newsService.create(this.item)
                 .subscribe(data => console.log(data),//this.router.navigate(["/news", data.id]),
                 error => console.log(error),
-                () => console.log("success Create edit news"));
+                    () => {});
         }
     }
 

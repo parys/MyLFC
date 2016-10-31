@@ -32,6 +32,19 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return Ok(result);
         }
 
+        [Route("material/{id:int}/list/{page:int}")]
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetList(int id, int page = 1)
+        {
+            if (page < 1)
+            {
+                page = 1;
+            }
+            var result = await _commentService.GetListByMaterialIdAsync(id, page);
+            return Ok(result);
+        }
+
         [Route("verify/{id:int}")]
         [HttpGet]
         [Authorize(Roles = nameof(RolesEnum.UserStart))]

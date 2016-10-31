@@ -99,6 +99,16 @@ namespace MyLiverpool.Business.Services.Services
             return new PageableData<MaterialCommentDto>(commentDtos, page, commentsCount);
         }
 
+        public async Task<PageableData<MaterialCommentDto>> GetListByMaterialIdAsync(int materialId, int page)
+        {
+            Expression<Func<MaterialComment, bool>> filter = x => x.MaterialId == materialId && x.ParentId == null;
+
+            var comments = await _commentService.GetOrderedByAsync(page, ItemPerPage, filter, SortOrder.Ascending, m => m.AdditionTime);
+            var commentDtos = _mapper.Map<IEnumerable<MaterialCommentDto>>(comments);
+            var commentsCount = await _commentService.GetCountAsync(filter);
+            return new PageableData<MaterialCommentDto>(commentDtos, page, commentsCount);
+        }
+
         public async Task<bool> VerifyAsync(int id)
         {
             var comment = await _commentService.GetByIdAsync(id);

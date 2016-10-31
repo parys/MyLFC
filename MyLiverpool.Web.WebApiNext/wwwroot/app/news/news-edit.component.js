@@ -21,17 +21,18 @@ var NewsEditComponent = (function () {
         this.router = router;
         this.item = new news_model_1.News();
     }
+    //todo need to use FormBuilder
     NewsEditComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.sub = this.route.params.subscribe(function (params) {
             var id = +params["id"];
             if (id > 0) {
                 _this.newsService.getSingle(id)
-                    .subscribe(function (data) { return _this.parse(data); }, function (error) { return console.log(error); }, function () { return console.log("success load edit news"); });
+                    .subscribe(function (data) { return _this.parse(data); }, function (error) { return console.log(error); }, function () { });
             }
         });
         this.newsCategoryService.GetAll()
-            .subscribe(function (data) { return _this.parseCategories(data); }, function (error) { return console.log(error); }, function () { return console.log("success load categoiris edit news"); });
+            .subscribe(function (data) { return _this.parseCategories(data); }, function (error) { return console.log(error); }, function () { });
     };
     NewsEditComponent.prototype.ngOnDestroy = function () {
         this.sub.unsubscribe();
@@ -41,13 +42,13 @@ var NewsEditComponent = (function () {
             this.newsService.update(this.item.id, this.item)
                 .subscribe(function (data) { return console.log(data); }, //this.router.navigate(["/news", data.id]),
             function (//this.router.navigate(["/news", data.id]),
-                error) { return console.log(error); }, function () { return console.log("success update edit news"); });
+                error) { return console.log(error); }, function () { });
         }
         else {
             this.newsService.create(this.item)
                 .subscribe(function (data) { return console.log(data); }, //this.router.navigate(["/news", data.id]),
             function (//this.router.navigate(["/news", data.id]),
-                error) { return console.log(error); }, function () { return console.log("success Create edit news"); });
+                error) { return console.log(error); }, function () { });
         }
     };
     NewsEditComponent.prototype.parse = function (item) {

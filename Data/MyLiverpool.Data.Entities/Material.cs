@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MyLiverpool.Data.Entities
 {
@@ -30,7 +31,8 @@ namespace MyLiverpool.Data.Entities
 
         public DateTime AdditionTime { get; set; }
 
-   //     public int NumberCommentaries { get; set; }
+        [NotMapped]
+        public int CommentsCount { get; set; }
 
         public virtual User Author { get; set; }
 

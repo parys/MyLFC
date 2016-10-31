@@ -1,10 +1,10 @@
-﻿Комментарии: <span [textContent]="items.count"></span>
+﻿<div>Комментарии: <span [textContent]="items.length"></span></div>
 
 <div class="" *ngFor="let comment of items">
-    <materialComment-detail [item]="comment" [deep]="0"></materialComment-detail>
+    <materialComment-detail [item]="comment" [deep]="0" [materialId]="materialId" [canCommentary]="canCommentary"></materialComment-detail>
 </div>
 
-<form class="form-horizontal" role="form" [formGroup]="commentForm"  (ngSubmit)="onSubmit(commentForm.value)">
+<form class="form-horizontal" role="form" [formGroup]="commentForm" (ngSubmit)="onSubmit(commentForm.value)">
     <div class="col-md-12" *ngIf="canCommentary && roles.isLogined">
         <div class="col-md-12">
             <textarea mark-it-up class="col-md-offset-2 col-md-8" rows="6" name="message" [formControl]="commentForm.controls['message']"></textarea>
@@ -16,6 +16,6 @@
 </form>
 
 <div class="pagination">
-    <pagination *ngIf="items" [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" [(ngModel)]="page" [maxSize]="7" (pageChanged)="pageChanged($event)"
+    <pagination *ngIf="items && totalItems > itemsPerPage" [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" [(ngModel)]="page" [maxSize]="7" (pageChanged)="pageChanged($event)"
                 previousText="&lsaquo;" nextText="&rsaquo;" firstText="1" lastText="totalItems/itemsPerPage"></pagination>
 </div>

@@ -1,8 +1,9 @@
 ﻿import { Component, OnInit, ViewChild, Input } from "@angular/core";
+import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { Location } from "@angular/common";
 import { Pageable } from "../shared/pageable.model";
 import { MaterialComment } from "./materialComment.model";
 import { MaterialCommentService } from "./materialComment.service";
-import { Location } from "@angular/common";
 import { RolesCheckedService, IRoles } from "../shared/index";
 import { ModalDirective } from "ng2-bootstrap/ng2-bootstrap";
 
@@ -15,6 +16,11 @@ export class MaterialCommentDetailComponent implements OnInit {
 
     @Input() item: MaterialComment;
     @Input() deep: number;
+    @Input() canCommentary: boolean = false;
+    @Input() materialId: number;
+    commentForm: FormGroup;
+
+    @ViewChild("addCommentModal") addCommentModal: ModalDirective;
    // page: number = 1;
    // itemsPerPage = 15;
    // totalItems: number;
@@ -25,12 +31,42 @@ export class MaterialCommentDetailComponent implements OnInit {
 
     constructor(private materialCommentService: MaterialCommentService,
         private location: Location,
-        private rolesChecked: RolesCheckedService) {
+        private rolesChecked: RolesCheckedService,
+        private formBuilder: FormBuilder) {
     }
 
     ngOnInit() {
         this.roles = this.rolesChecked.checkedRoles;
-        //this.update();
+        this.commentForm = this.formBuilder.group({
+            'message': ["", Validators.compose([
+                Validators.required])]
+        });
+    }
+
+    showAddCommentModal(index: number): void {
+        this.addCommentModal.show();
+    }
+
+    hideModal(): void {
+        console.log(this.commentForm.controls["message"].value);
+        this.addCommentModal.hide(); 
+    }
+
+    addComment(value: any): void {
+        var comment = new MaterialComment();
+        comment.message = this.commentForm.controls["message"].value;
+        comment.materialId = this.materialId;
+        comment.parentId = this.item.id;
+        this.materialCommentService.create(comment)
+            .subscribe(data => {
+                this.item.children.push(data);
+                this.commentForm.controls["message"].patchValue("");
+                this.commentForm.controls["message"].updateValueAndValidity();
+                this.addCommentModal.hide();   
+            },
+            error => console.log(error),
+            () => {});
+
     }
 
     //pageChanged(event: any): void {
@@ -51,17 +87,6 @@ export class MaterialCommentDetailComponent implements OnInit {
     //        () => console.log("success load comment lits"));
     //}
 
-    //private parsePageable(pageable: Pageable<MaterialComment>): void {
-    //    this.items = pageable.list;
-    //    this.page = pageable.pageNo;
-    //    this.itemsPerPage = pageable.itemPerPage;
-    //    this.totalItems = pageable.totalItems;
-    //}
-
-    //hideModal(): void {
-    //    this.selectedItemIndex = undefined;
-    //    this.deleteModal.hide();
-    //}
 
     //verify(index: number): void {
     //    let result;
@@ -97,8 +122,7 @@ export class MaterialCommentDetailComponent implements OnInit {
             );
     }
 
-    edit() {
-        console.log("edit");
+    edit() { 
       //  this.materialCommentService.delete(this.items[index].id).subscribe(data => data,
       //      error => console.log(error),
         //    () => console.log("success remove categoryu"));

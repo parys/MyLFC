@@ -8,8 +8,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var forms_1 = require('@angular/forms');
+var core_1 = require("@angular/core");
+var forms_1 = require("@angular/forms");
 var auth_service_1 = require("../auth/auth.service");
 var AccountSigninComponent = (function () {
     function AccountSigninComponent(authService, formBuilder) {
@@ -18,27 +18,21 @@ var AccountSigninComponent = (function () {
     }
     AccountSigninComponent.prototype.ngOnInit = function () {
         this.loginForm = this.formBuilder.group({
-            'userName': ['', forms_1.Validators.compose([
+            'userName': ["", forms_1.Validators.compose([
                     forms_1.Validators.required])],
-            'password': ['', forms_1.Validators.compose([
+            'password': ["", forms_1.Validators.compose([
                     forms_1.Validators.required])]
         });
-        //this.newsService
-        //    .GetAll()
-        //    .subscribe(data => this.parsePageable(data),
-        //    error => console.log(error),
-        //    () => console.log("success load list news"));
     };
     AccountSigninComponent.prototype.onSubmit = function (ra) {
         this.userName = this.loginForm.controls["userName"].value;
         this.password = this.loginForm.controls["password"].value;
         var result = this.authService.login(this.userName, this.password);
-        //  if(result)
     };
     AccountSigninComponent = __decorate([
         core_1.Component({
-            selector: 'account-signin',
-            templateUrl: 'app/account/account-signin.component.html'
+            selector: "account-signin",
+            templateUrl: "app/account/account-signin.component.html"
         }), 
         __metadata('design:paramtypes', [auth_service_1.AuthService, forms_1.FormBuilder])
     ], AccountSigninComponent);

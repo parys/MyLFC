@@ -15,7 +15,6 @@ var materialComment_service_1 = require("./materialComment.service");
 var common_1 = require("@angular/common");
 var index_1 = require("../shared/index");
 var MaterialCommentSectionComponent = (function () {
-    //@ViewChild("deleteModal") deleteModal: ModalDirective;       
     function MaterialCommentSectionComponent(materialCommentService, location, rolesChecked, formBuilder) {
         this.materialCommentService = materialCommentService;
         this.location = location;
@@ -24,7 +23,7 @@ var MaterialCommentSectionComponent = (function () {
         this.items = [];
         this.page = 1;
         this.itemsPerPage = 15;
-        this.canCommentary = true;
+        this.canCommentary = false;
     }
     MaterialCommentSectionComponent.prototype.ngOnInit = function () {
         this.roles = this.rolesChecked.checkedRoles;
@@ -47,8 +46,8 @@ var MaterialCommentSectionComponent = (function () {
     MaterialCommentSectionComponent.prototype.update = function () {
         var _this = this;
         this.materialCommentService
-            .getAll(this.page)
-            .subscribe(function (data) { return _this.parsePageable(data); }, function (error) { return console.log(error); }, function () { return console.log("success load comment lits"); });
+            .getAllByMaterial(this.page, this.materialId)
+            .subscribe(function (data) { return _this.parsePageable(data); }, function (error) { return console.log(error); }, function () { });
     };
     MaterialCommentSectionComponent.prototype.parsePageable = function (pageable) {
         this.items = pageable.list;
@@ -60,17 +59,17 @@ var MaterialCommentSectionComponent = (function () {
         var _this = this;
         var comment = new materialComment_model_1.MaterialComment();
         comment.message = this.commentForm.controls["message"].value;
-        comment.materialId = this.newsId;
+        comment.materialId = this.materialId;
         this.materialCommentService.create(comment)
             .subscribe(function (data) {
             _this.items.push(data);
             _this.commentForm.controls["message"].patchValue("");
-        }, function (error) { return console.log(error); }, function () { return console.log("success load comment lits"); });
+        }, function (error) { return console.log(error); }, function () { });
     };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Number)
-    ], MaterialCommentSectionComponent.prototype, "newsId", void 0);
+    ], MaterialCommentSectionComponent.prototype, "materialId", void 0);
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Boolean)

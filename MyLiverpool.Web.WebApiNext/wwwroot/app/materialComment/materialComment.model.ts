@@ -9,4 +9,5 @@
     materialId: number;
     children: MaterialComment[];
     isVerified: boolean;
+    parentId: number;
 }

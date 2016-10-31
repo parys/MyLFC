@@ -66,7 +66,31 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
 
         public async Task<ICollection<Material>> GetTopMaterialsAsync(MaterialType type)
         {
-            return await _context.Materials.Include(x => x.Category).Include(x => x.Author).Where(x => x.OnTop && x.Type == type).ToListAsync();
+            return await _context.Materials.Include(x => x.Category).Include(x => x.Author).Where(x => x.OnTop && x.Type == type).Select(x => new Material()
+            {
+                Type = x.Type,
+                Id = x.Id,
+                OnTop = x.OnTop,
+                LastModified = x.LastModified,
+                Author = x.Author,
+                AdditionTime = x.AdditionTime,
+                AuthorId = x.AuthorId,
+                Brief = x.Brief,
+                CanCommentary = x.CanCommentary,
+                Category = x.Category,
+                CategoryId = x.CategoryId,
+                Message = x.Message,
+                CommentsCount = x.Comments.Count,
+                OldId = x.OldId,
+                Pending = x.Pending,
+                PhotoPath = x.PhotoPath,
+                Rating = x.Rating,
+                RatingNumbers = x.RatingNumbers,
+                RatingSumm = x.RatingSumm,
+                Reads = x.Reads,
+                Source = x.Source,
+                Title = x.Title
+            }).ToListAsync();
         }
 
         public async Task<int> GetCountAsync(Expression<Func<Material, bool>> filter = null)
@@ -120,7 +144,31 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
                     (current, includeProperty) => current.Include(includeProperty));
             }
             query = query.Skip((page - 1) * itemPerPage).Take(itemPerPage);
-            return await query.ToListAsync();
+            return await query.Select(x => new Material()
+            {
+                Type = x.Type,
+                Id = x.Id,
+                OnTop = x.OnTop,
+                LastModified = x.LastModified,
+                Author = x.Author,
+                AdditionTime = x.AdditionTime,
+                AuthorId = x.AuthorId,
+                Brief = x.Brief,
+                CanCommentary = x.CanCommentary,
+                Category = x.Category,
+                CategoryId = x.CategoryId,
+                Message = x.Message,
+                CommentsCount = x.Comments.Count,
+                OldId = x.OldId,
+                Pending = x.Pending,
+                PhotoPath = x.PhotoPath,
+                Rating = x.Rating,
+                RatingNumbers = x.RatingNumbers,
+                RatingSumm = x.RatingSumm,
+                Reads = x.Reads,
+                Source = x.Source,
+                Title = x.Title
+            }).ToListAsync();
         }
     }
 }

@@ -15,6 +15,8 @@ namespace MyLiverpool.Business.Contracts
         
         Task<PageableData<MaterialCommentDto>> GetListAsync(int page, bool onlyUnverified);
 
+        Task<PageableData<MaterialCommentDto>> GetListByMaterialIdAsync(int materialId, int page);
+
         Task<bool> VerifyAsync(int id);
     }
 }
