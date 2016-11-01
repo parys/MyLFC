@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using AspNet.Security.OAuth.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyLiverpool.Business.Contracts;
@@ -7,7 +8,6 @@ using MyLiverpool.Data.Entities;
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
     [Route("api/[controller]")]
-    [Authorize]
     public class AdminController : Controller
     {
         private readonly IAdminService _adminService;

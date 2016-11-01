@@ -16,11 +16,14 @@ export class MaterialCommentDetailComponent implements OnInit {
 
     @Input() item: MaterialComment;
     @Input() deep: number;
-    @Input() canCommentary: boolean = false;
+    @Input() canCommentary: boolean;
     @Input() materialId: number;
+    @Input() parent: MaterialComment;
+
     commentForm: FormGroup;
 
     @ViewChild("addCommentModal") addCommentModal: ModalDirective;
+    @ViewChild("deleteModal") deleteModal: ModalDirective;
    // page: number = 1;
    // itemsPerPage = 15;
    // totalItems: number;
@@ -49,7 +52,12 @@ export class MaterialCommentDetailComponent implements OnInit {
 
     hideModal(): void {
         console.log(this.commentForm.controls["message"].value);
-        this.addCommentModal.hide(); 
+        this.addCommentModal.hide();
+        this.deleteModal.hide();
+    }
+
+    showDeleteModal(index: number): void {
+        this.deleteModal.show();
     }
 
     addComment(value: any): void {
@@ -69,56 +77,28 @@ export class MaterialCommentDetailComponent implements OnInit {
 
     }
 
-    //pageChanged(event: any): void {
-    //    this.page = event.page;
-    //    this.update();
-    //    let newUrl = `materialComment/list/${this.page}`;
-    //    //   if (this.categoryId) {
-    //    //        newUrl = `${newUrl}/${this.categoryId}`;
-    //    //    }
-    //    this.location.replaceState(newUrl);
-    //};
-
-    //private update(): void {
-    //    this.materialCommentService
-    //        .getAll(this.page)
-    //        .subscribe(data => this.parsePageable(data),
-    //        error => console.log(error),
-    //        () => console.log("success load comment lits"));
-    //}
-
-
-    //verify(index: number): void {
-    //    let result;
-    //    this.materialCommentService
-    //        .verify(this.items[index].id)
-    //        .subscribe(data => result = data,
-    //        error => console.log(error),
-    //        () => {
-    //            if (result) {
-    //                this.items[index].isVerified = true;
-    //            }
-    //        }
-    //        );
-    //}
-
-    //showDeleteModal(index: number): void {
-    //    this.selectedItemIndex = index;
-    //    this.deleteModal.show();
-    //}
 
     delete() {
         let result;
         this.materialCommentService.delete(this.item.id)
             .subscribe(res => result = res,
-            e => console.log(e),
-            () => {
-                if (result) {
-                    this.item = undefined;
-                    // this.items.splice(this.selectedItemIndex, 1);
-                    // this.hideModal();
+                e => console.log(e),
+                () => {
+                    if (result) {
+                        this.item.children.forEach(x => {
+                            if (this.parent) {
+                                x.parentId = this.parent.id;
+                                this.parent.children.push(x);
+                            } else {
+                                x.parentId = undefined;
+                            }
+                        });
+                        this.item = undefined;
+
+                        // this.items.splice(this.selectedItemIndex, 1);
+                        this.hideModal();
+                    }
                 }
-            }
             );
     }
 

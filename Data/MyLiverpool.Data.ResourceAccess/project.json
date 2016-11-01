@@ -10,7 +10,7 @@
     "Microsoft.Extensions.Configuration.Json": "1.1.0-*",
     "MyLiverpool.Data.Entities": "1.0.0-*",
     "MyLiverpool.Business.DtoNext": "1.0.0-*",
-    "NETStandard.Library": "1.6.1-preview1-24530-04"
+    "NETStandard.Library": "1.6.1"
   },
 
   "tools": {

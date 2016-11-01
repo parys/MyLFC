@@ -31,7 +31,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return Ok(model);
         }
 
-        [Route("")]
+        [Route("{id}")]
         [HttpGet]
         [Authorize]
         public async Task<IActionResult> GetTheme(int id)

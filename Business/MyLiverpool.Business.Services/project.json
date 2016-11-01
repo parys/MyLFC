@@ -9,8 +9,8 @@
     "MyLiverpool.Business.Contracts": "1.0.0-*",
     "MyLiverpool.Business.DtoNext": "1.0.0-*",
     "MyLiverpool.Common.Utilities": "1.0.0-*",
-    "NETStandard.Library": "1.6.1-preview1-24530-04",
-    "System.Linq": "4.3.0-preview1-24530-04"
+    "NETStandard.Library": "1.6.1",
+    "System.Linq": "4.3.0"
   },
 
   "frameworks": {

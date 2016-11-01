@@ -3,10 +3,10 @@
 
   "dependencies": {
     "MyLiverpool.Data.Entities": "1.0.0-*",
-    "NETStandard.Library": "1.6.1-preview1-24530-04",
-    "System.ComponentModel.Annotations": "4.1.0",
-    "System.Linq": "4.3.0-preview1-24530-04",
-    "System.Reflection.TypeExtensions": "4.3.0-preview1-24530-04"
+    "NETStandard.Library": "1.6.1",
+    "System.ComponentModel.Annotations": "4.3.0",
+    "System.Linq": "4.3.0",
+    "System.Reflection.TypeExtensions": "4.3.0"
   },
 
   "frameworks": {

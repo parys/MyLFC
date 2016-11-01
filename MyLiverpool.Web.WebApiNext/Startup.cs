@@ -106,6 +106,9 @@ namespace MyLiverpool.Web.WebApiNext
                 // This method should only be used during development.
                 .AddEphemeralSigningKey();
 
+           // services.AddE();
+            services.AddSwaggerGen();
+
 
             new DatabaseInitializer((LiverpoolContext)services.BuildServiceProvider().GetService(typeof(LiverpoolContext))).Seed();
 
@@ -163,6 +166,9 @@ namespace MyLiverpool.Web.WebApiNext
 
             //----------------------------------------------from OLD PROJECT
             app.UseCors("AllowAll");
+
+            app.UseSwagger();
+            app.UseSwaggerUi();
 
             //    using (var context = new LiverpoolContext())
             //    {

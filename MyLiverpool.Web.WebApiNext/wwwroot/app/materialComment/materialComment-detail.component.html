@@ -30,7 +30,7 @@
     </div>
 </div>
 <div *ngFor="let child of item.children">
-    <materialComment-detail [item]="child" [deep]="deep > 6 ? 7 : deep+1" [materialId]="materialId"></materialComment-detail>
+    <materialComment-detail [item]="child" [deep]="deep > 6 ? 7 : deep+1" [materialId]="materialId" [canCommentary]="canCommentary" [parent]="item"></materialComment-detail>
 </div>
 
 <div class="modal fade" bsModal #addCommentModal="bs-modal" [config]="{backdrop: 'static'}"
@@ -46,9 +46,27 @@
             <div class="modal-body">
                 <textarea [formControl]="commentForm.controls['message']"></textarea>
             </div>    
-                    <div class="modal-footer">
+            <div class="modal-footer">
                 <button class="btn btn-default" data-dismiss="modal" (click)="hideModal()" type="button">Отмена</button>
                 <button class="btn btn-primary" type="button" (click)="addComment()">Добавить</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #deleteModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" aria-label="Close" (click)="hideModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Удалить?</h4>
+            </div>
+            <div class="modal-body">
+                <button class="btn btn-default" data-dismiss="modal" (click)="hideModal()" type="button">Отмена</button>
+                <button class="btn btn-primary" type="button" (click)="delete()">Удалить</button>
             </div>
         </div>
     </div>

@@ -23,7 +23,6 @@ var MaterialCommentDetailComponent = (function () {
         this.location = location;
         this.rolesChecked = rolesChecked;
         this.formBuilder = formBuilder;
-        this.canCommentary = false;
     }
     MaterialCommentDetailComponent.prototype.ngOnInit = function () {
         this.roles = this.rolesChecked.checkedRoles;
@@ -38,6 +37,10 @@ var MaterialCommentDetailComponent = (function () {
     MaterialCommentDetailComponent.prototype.hideModal = function () {
         console.log(this.commentForm.controls["message"].value);
         this.addCommentModal.hide();
+        this.deleteModal.hide();
+    };
+    MaterialCommentDetailComponent.prototype.showDeleteModal = function (index) {
+        this.deleteModal.show();
     };
     MaterialCommentDetailComponent.prototype.addComment = function (value) {
         var _this = this;
@@ -53,46 +56,24 @@ var MaterialCommentDetailComponent = (function () {
             _this.addCommentModal.hide();
         }, function (error) { return console.log(error); }, function () { });
     };
-    //pageChanged(event: any): void {
-    //    this.page = event.page;
-    //    this.update();
-    //    let newUrl = `materialComment/list/${this.page}`;
-    //    //   if (this.categoryId) {
-    //    //        newUrl = `${newUrl}/${this.categoryId}`;
-    //    //    }
-    //    this.location.replaceState(newUrl);
-    //};
-    //private update(): void {
-    //    this.materialCommentService
-    //        .getAll(this.page)
-    //        .subscribe(data => this.parsePageable(data),
-    //        error => console.log(error),
-    //        () => console.log("success load comment lits"));
-    //}
-    //verify(index: number): void {
-    //    let result;
-    //    this.materialCommentService
-    //        .verify(this.items[index].id)
-    //        .subscribe(data => result = data,
-    //        error => console.log(error),
-    //        () => {
-    //            if (result) {
-    //                this.items[index].isVerified = true;
-    //            }
-    //        }
-    //        );
-    //}
-    //showDeleteModal(index: number): void {
-    //    this.selectedItemIndex = index;
-    //    this.deleteModal.show();
-    //}
     MaterialCommentDetailComponent.prototype.delete = function () {
         var _this = this;
         var result;
         this.materialCommentService.delete(this.item.id)
             .subscribe(function (res) { return result = res; }, function (e) { return console.log(e); }, function () {
             if (result) {
+                _this.item.children.forEach(function (x) {
+                    if (_this.parent) {
+                        x.parentId = _this.parent.id;
+                        _this.parent.children.push(x);
+                    }
+                    else {
+                        x.parentId = undefined;
+                    }
+                });
                 _this.item = undefined;
+                // this.items.splice(this.selectedItemIndex, 1);
+                _this.hideModal();
             }
         });
     };
@@ -119,9 +100,17 @@ var MaterialCommentDetailComponent = (function () {
         __metadata('design:type', Number)
     ], MaterialCommentDetailComponent.prototype, "materialId", void 0);
     __decorate([
+        core_1.Input(), 
+        __metadata('design:type', materialComment_model_1.MaterialComment)
+    ], MaterialCommentDetailComponent.prototype, "parent", void 0);
+    __decorate([
         core_1.ViewChild("addCommentModal"), 
         __metadata('design:type', ng2_bootstrap_1.ModalDirective)
     ], MaterialCommentDetailComponent.prototype, "addCommentModal", void 0);
+    __decorate([
+        core_1.ViewChild("deleteModal"), 
+        __metadata('design:type', ng2_bootstrap_1.ModalDirective)
+    ], MaterialCommentDetailComponent.prototype, "deleteModal", void 0);
     MaterialCommentDetailComponent = __decorate([
         core_1.Component({
             selector: "materialComment-detail",

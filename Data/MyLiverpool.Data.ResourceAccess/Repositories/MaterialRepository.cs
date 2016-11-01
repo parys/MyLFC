@@ -26,7 +26,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
 
         public async Task<Material> GetByIdAsync(int id)
         {
-            return await _context.Materials.Include(x => x.Comments).FirstOrDefaultAsync(x => x.Id == id);
+            return await _context.Materials.FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public void Add(Material entity)

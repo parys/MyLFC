@@ -17,7 +17,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             _forumSubsectionService = forumSubsectionService;
         }
 
-        [Route("")]
+        [Route("{id}")]
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> GetSubsection(int id, int page = 1)
@@ -44,7 +44,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return Ok(model);
         }
 
-        [Route("")]
+        [Route("list")]
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> GetListAsync()
