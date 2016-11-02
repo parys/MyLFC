@@ -17,8 +17,10 @@ using MyLiverpool.Data.Entities;
 using MyLiverpool.Data.ResourceAccess;
 using MyLiverpool.Data.ResourceAccess.Contracts;
 using MyLiverpool.Data.ResourceAccess.Repositories;
+using MyLiverpool.Web.WebApiNext.Extensions;
 using Newtonsoft.Json.Serialization;
 using Swashbuckle.Swagger.Model;
+using Swashbuckle.SwaggerGen.Generator;
 using IConfigurationProvider = AutoMapper.IConfigurationProvider;
 
 namespace MyLiverpool.Web.WebApiNext
@@ -130,8 +132,9 @@ namespace MyLiverpool.Web.WebApiNext
                         {"roles", "roles scope"},
                         {"openid", "openid scope"}
                     }
-
                 });
+
+                options.OperationFilter<AssignSecurityRequirements>();
             });
 
 
@@ -175,9 +178,11 @@ namespace MyLiverpool.Web.WebApiNext
             app.UseStaticFiles();
 
             app.UseSwagger();
-            app.UseSwaggerUi(//c => {
-               // c.SwaggerEndpoint("/swagger/v1/swagger.json", "V1 Docs");
-               // c.ConfigureOAuth2("test-client-id", "test-client-secret", "test-realm", "test-app") }
+            app.UseSwaggerUi(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "V1 Docs");
+                c.ConfigureOAuth2("test-client-id123", "test-client-secr43et", "test-rea32lm", "test-a11pp");
+            }
                );
 
             app.UseIdentity();
