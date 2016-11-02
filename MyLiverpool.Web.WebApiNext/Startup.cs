@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -17,6 +18,7 @@ using MyLiverpool.Data.ResourceAccess;
 using MyLiverpool.Data.ResourceAccess.Contracts;
 using MyLiverpool.Data.ResourceAccess.Repositories;
 using Newtonsoft.Json.Serialization;
+using Swashbuckle.Swagger.Model;
 using IConfigurationProvider = AutoMapper.IConfigurationProvider;
 
 namespace MyLiverpool.Web.WebApiNext
@@ -94,6 +96,7 @@ namespace MyLiverpool.Web.WebApiNext
                 .EnableTokenEndpoint("/connect/token")
                 
                 // Allow client applications to use the grant_type=password flow.
+                .AllowImplicitFlow()
                 .AllowPasswordFlow()
                 //.AllowAuthorizationCodeFlow()
                 .AllowRefreshTokenFlow()
@@ -107,7 +110,29 @@ namespace MyLiverpool.Web.WebApiNext
                 .AddEphemeralSigningKey();
 
            // services.AddE();
-            services.AddSwaggerGen();
+            services.AddSwaggerGen(options =>
+            {
+                options.SingleApiVersion(new Info
+                {
+                    Version = "v1",
+                    Title = "Swagger Sample API",
+                    Description = "API Sample made",
+                    TermsOfService = "None"
+                });
+                options.AddSecurityDefinition("oauth2", new OAuth2Scheme()
+                {
+                    Type = "oauth2",
+                    Flow = "implicit",
+                    AuthorizationUrl = "/connect/authorize",
+                   // TokenUrl = "connect/token",
+                    Scopes = new Dictionary<string, string>
+                    {
+                        {"roles", "roles scope"},
+                        {"openid", "openid scope"}
+                    }
+
+                });
+            });
 
 
             new DatabaseInitializer((LiverpoolContext)services.BuildServiceProvider().GetService(typeof(LiverpoolContext))).Seed();
@@ -149,6 +174,12 @@ namespace MyLiverpool.Web.WebApiNext
             app.UseDefaultFiles();
             app.UseStaticFiles();
 
+            app.UseSwagger();
+            app.UseSwaggerUi(//c => {
+               // c.SwaggerEndpoint("/swagger/v1/swagger.json", "V1 Docs");
+               // c.ConfigureOAuth2("test-client-id", "test-client-secret", "test-realm", "test-app") }
+               );
+
             app.UseIdentity();
 
             app.UseOAuthValidation();
@@ -163,42 +194,7 @@ namespace MyLiverpool.Web.WebApiNext
             });
 
             // Add external authentication middleware below. To configure them please see http://go.microsoft.com/fwlink/?LinkID=532715
-
-            //----------------------------------------------from OLD PROJECT
             app.UseCors("AllowAll");
-
-            app.UseSwagger();
-            app.UseSwaggerUi();
-
-            //    using (var context = new LiverpoolContext())
-            //    {
-            //        context.Database.EnsureCreated();
-
-            //        if (!context.Applications.Any())
-            //        {
-            //            context.Applications.Add(new OpenIddictApplication
-            //            {
-            //                // Assign a unique identifier to your client app:
-            //                Id = "48BF1BC3-CE01-4787-BBF2-0426EAD21342",
-
-            //                // Assign a display named used in the consent form page:
-            //                DisplayName = "MVC Core client application",
-
-            //                // Register the appropriate redirect_uri and post_logout_redirect_uri:
-            //                RedirectUri = "http://localhost:53507/signin-oidc",
-            //                LogoutRedirectUri = "http://localhost:53507/",
-
-            //                // Generate a new derived key from the client secret:
-            //                ClientSecret = Crypto.HashPassword("secret_secret_secret"),
-
-            //                // Note: use "public" for JS/mobile/desktop applications
-            //                // and "confidential" for server-side applications.
-            //                Type = OpenIddictConstants.ClientTypes.Public
-            //            });
-
-            //            context.SaveChanges();
-            //        }
-            //    }
         }
 
         private void RegisterServices(IServiceCollection services)
