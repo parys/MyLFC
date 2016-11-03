@@ -20,7 +20,6 @@ using MyLiverpool.Data.ResourceAccess.Repositories;
 using MyLiverpool.Web.WebApiNext.Extensions;
 using Newtonsoft.Json.Serialization;
 using Swashbuckle.Swagger.Model;
-using Swashbuckle.SwaggerGen.Generator;
 using IConfigurationProvider = AutoMapper.IConfigurationProvider;
 
 namespace MyLiverpool.Web.WebApiNext
@@ -111,22 +110,25 @@ namespace MyLiverpool.Web.WebApiNext
                 // This method should only be used during development.
                 .AddEphemeralSigningKey();
 
-           // services.AddE();
-            services.AddSwaggerGen(options =>
+            // services.AddE();
+            services.AddSwaggerGen();//options =>
+            services.ConfigureSwaggerGen(options =>
             {
-                options.SingleApiVersion(new Info
+                options.SwaggerDoc("v1", new Info
                 {
                     Version = "v1",
                     Title = "Swagger Sample API",
                     Description = "API Sample made",
                     TermsOfService = "None"
                 });
+                
                 options.AddSecurityDefinition("oauth2", new OAuth2Scheme()
                 {
                     Type = "oauth2",
                     Flow = "implicit",
                     AuthorizationUrl = "/connect/authorize",
-                   // TokenUrl = "connect/token",
+                 //   Extensions = { {"123", new object()}},
+                    TokenUrl = "connect/token",
                     Scopes = new Dictionary<string, string>
                     {
                         {"roles", "roles scope"},
@@ -136,7 +138,6 @@ namespace MyLiverpool.Web.WebApiNext
 
                 options.OperationFilter<AssignSecurityRequirements>();
             });
-
 
             new DatabaseInitializer((LiverpoolContext)services.BuildServiceProvider().GetService(typeof(LiverpoolContext))).Seed();
 
@@ -179,11 +180,11 @@ namespace MyLiverpool.Web.WebApiNext
 
             app.UseSwagger();
             app.UseSwaggerUi(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "V1 Docs");
-                c.ConfigureOAuth2("test-client-id123", "test-client-secr43et", "test-rea32lm", "test-a11pp");
-            }
-               );
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "V1 Docs");
+                    c.ConfigureOAuth2("test-client-id123", "test-client-secr43et", "test-rea32lm", "test-a11pp");
+                }
+            );
 
             app.UseIdentity();
 
