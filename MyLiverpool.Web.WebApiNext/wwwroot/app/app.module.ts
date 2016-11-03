@@ -2,7 +2,7 @@ import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpModule } from "@angular/http";
 import { MaterialModule } from "@angular/material";
-import { BrowserModule } from "@angular/platform-browser";
+import { BrowserModule, Title } from "@angular/platform-browser";
 
 import { AppComponent }  from "./app.component";
 import { routing, appRoutingProviders } from "./app.routes";
@@ -10,9 +10,8 @@ import { Configuration } from "./app.constants";
 
 import { NewsEditComponent, NewsDetailComponent, NewsListComponent, NewsService } from "./news/index";
 import { NewsCategoryService } from "./newsCategory/shared/newsCategory.service";
-import { HttpWrapper } from "./shared/httpWrapper";
 import { AuthGuard, AuthService } from "./auth/index";
-import { LocalStorageMine, SecuredDirective } from "./shared/index";
+import { HttpWrapper, LocalStorageMine, SecuredDirective } from "./shared/index";
 import { ForumSectionListComponent, ForumSectionService } from "./forumSection/index";
 import { AccountSigninComponent, AccountSignupComponent, AccountService, ConfirmEmailComponent } from "./account/index";
 import { NewsCategoryListComponent } from "./newsCategory/newsCategory-list.component";
@@ -83,6 +82,7 @@ import { DatepickerModule, ModalModule, PaginationModule } from "ng2-bootstrap/n
         NewsCategoryService,
         PmService,
         RolesCheckedService,
+        Title,
         UserService,
         WishService
     ]

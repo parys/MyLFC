@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.PlatformAbstractions;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Services.Services;
 using MyLiverpool.Common.MapperConfigs;
@@ -111,8 +112,7 @@ namespace MyLiverpool.Web.WebApiNext
                 .AddEphemeralSigningKey();
 
             // services.AddE();
-            services.AddSwaggerGen();//options =>
-            services.ConfigureSwaggerGen(options =>
+            services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc("v1", new Info
                 {
@@ -158,6 +158,7 @@ namespace MyLiverpool.Web.WebApiNext
                 //{
                 //    HotModuleReplacement = true
                 //});
+
             }
             else
             {
@@ -178,7 +179,11 @@ namespace MyLiverpool.Web.WebApiNext
             app.UseDefaultFiles();
             app.UseStaticFiles();
 
-            app.UseSwagger();
+            app.UseSwagger(documentFilter: (swaggerDoc, httpRequest) =>
+            {
+                swaggerDoc.Host = httpRequest.Host.Value;
+            });
+
             app.UseSwaggerUi(c =>
                 {
                     c.SwaggerEndpoint("/swagger/v1/swagger.json", "V1 Docs");
@@ -246,6 +251,10 @@ namespace MyLiverpool.Web.WebApiNext
             services.AddSingleton<IHostingEnvironment>(Env);
             services.AddSingleton<IConfigurationRoot>(Configuration);
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+        }
+        private string GetXmlCommentsPath(ApplicationEnvironment appEnvironment)
+        {
+            return Path.Combine(appEnvironment.ApplicationBasePath, "Basic.xml");
         }
     }
 }

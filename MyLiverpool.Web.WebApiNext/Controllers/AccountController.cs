@@ -12,6 +12,9 @@ using MyLiverpool.Web.WebApiNext.Extensions;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
+    /// <summary>
+    /// Controller for manage user accounts.
+    /// </summary>
     [Route("api/[controller]")]
     [Authorize]
     public class AccountController : Controller
@@ -19,6 +22,10 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         private const string LocalLoginProvider = "Local";
         private readonly IAccountService _accountService;
 
+        /// <summary>
+        /// Controller.
+        /// </summary>
+        /// <param name="accountService">Injecting accountService.</param>
         public AccountController(IAccountService accountService)
         {
             _accountService = accountService;

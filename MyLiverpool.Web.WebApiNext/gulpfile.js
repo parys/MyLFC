@@ -65,6 +65,7 @@ gulp.task("copy-Vendor-Js-To-Wwwroot-Internal", function (done) {
           "copy-rxjs",
           "copy-ng2bootstrap",
           "copy-allOther",
+          "copy-swagger",
           done);
 });
 
@@ -76,6 +77,11 @@ gulp.task("copy-angular", function () {
 gulp.task("copy-rxjs", function () {
     return gulp.src(buildConfig.sources.Rxjs)
         .pipe(gulp.dest(buildConfig.rootJsFolder + "rxjs/"));
+});
+
+gulp.task("copy-swagger", function () {
+    return gulp.src(buildConfig.sources.swagger)
+        .pipe(gulp.dest("./wwwroot/swagger/"));
 });
 
 gulp.task("copy-ng2bootstrap", function () {

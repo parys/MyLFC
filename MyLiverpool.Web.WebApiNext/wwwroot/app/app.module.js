@@ -18,7 +18,6 @@ var app_routes_1 = require("./app.routes");
 var app_constants_1 = require("./app.constants");
 var index_1 = require("./news/index");
 var newsCategory_service_1 = require("./newsCategory/shared/newsCategory.service");
-var httpWrapper_1 = require("./shared/httpWrapper");
 var index_2 = require("./auth/index");
 var index_3 = require("./shared/index");
 var index_4 = require("./forumSection/index");
@@ -87,13 +86,14 @@ var AppModule = (function () {
                 index_2.AuthService,
                 app_constants_1.Configuration,
                 index_4.ForumSectionService,
-                httpWrapper_1.HttpWrapper,
+                index_3.HttpWrapper,
                 { provide: index_3.LocalStorageMine, useClass: index_3.LocalStorageMine },
                 index_9.MaterialCommentService,
                 index_1.NewsService,
                 newsCategory_service_1.NewsCategoryService,
                 index_6.PmService,
                 index_10.RolesCheckedService,
+                platform_browser_1.Title,
                 user_service_1.UserService,
                 index_8.WishService
             ]
