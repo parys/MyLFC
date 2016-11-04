@@ -86,9 +86,8 @@ namespace MyLiverpool.Web.WebApiNext
             services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
 
             RegisterServices(services);
-
-            //--- from old proj
-            services.AddCors(options => options.AddPolicy("AllowAll", p => p.AllowAnyOrigin())); //from sof
+            
+            services.AddCors();
 
             services.AddOpenIddict<LiverpoolContext, int>()
                 // Enable the authorization and token endpoints (required to use the code flow).
@@ -205,7 +204,11 @@ namespace MyLiverpool.Web.WebApiNext
             });
 
             // Add external authentication middleware below. To configure them please see http://go.microsoft.com/fwlink/?LinkID=532715
-            app.UseCors("AllowAll");
+            app.UseCors(builder =>
+            {
+                builder.WithOrigins("localhost:1669")
+                    .AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
+            });
         }
 
         private void RegisterServices(IServiceCollection services)

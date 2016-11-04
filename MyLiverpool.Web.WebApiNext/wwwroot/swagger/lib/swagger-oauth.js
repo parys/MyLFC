@@ -168,6 +168,8 @@ function handleLogin() {
     url += '&client_id=' + encodeURIComponent(clientId);
     url += '&scope=' + encodeURIComponent(scopes.join(scopeSeparator));
     url += '&state=' + encodeURIComponent(state);
+    url += '&nonce=' + encodeURIComponent(Math.random() + Date.now());
+     
     for (var key in additionalQueryStringParams) {
         url += '&' + key + '=' + encodeURIComponent(additionalQueryStringParams[key]);
     }

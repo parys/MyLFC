@@ -55,11 +55,11 @@
         onComplete: function(swaggerApi, swaggerUi){
           if(typeof initOAuth == "function") {
             initOAuth({
-              clientId: "your-client-id",
-              clientSecret: "your-client-secret-if-required",
+                clientId: "client_id3",
+                clientSecret: "client_secret44",
               realm: "your-realms",
-              appName: "your-app-name",
-              scopeSeparator: " ",
+              appName: "MVC Core client application",
+              scopeSeparator: "adminStart ",
               additionalQueryStringParams: {}
             });
           }
@@ -74,7 +74,7 @@
         docExpansion: "none",
         jsonEditor: false,
         defaultModelRendering: 'schema',
-        showRequestHeaders: false
+        showRequestHeaders: true
       });
 
       window.swaggerUi.load();
