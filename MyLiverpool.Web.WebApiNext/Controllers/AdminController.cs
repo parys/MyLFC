@@ -1,5 +1,4 @@
 using System.Threading.Tasks;
-using AspNet.Security.OAuth.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyLiverpool.Business.Contracts;
@@ -7,16 +6,27 @@ using MyLiverpool.Data.Entities;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
+    /// <summary>
+    /// Controller for manage admin functions.
+    /// </summary>
     [Route("api/[controller]")]
     public class AdminController : Controller
     {
         private readonly IAdminService _adminService;
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="adminService"></param>
         public AdminController(IAdminService adminService)
         {
             _adminService = adminService;
         }
 
+        /// <summary>
+        /// Updates epl table.
+        /// </summary>
+        /// <returns>Result of update.</returns>
         [Route("updateTable")]
         [HttpGet]
         [Authorize(Roles = nameof(RolesEnum.AdminStart))]

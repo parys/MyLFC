@@ -29,4 +29,12 @@ export class AccountService {
     confirmEmail = (userId: number, code: string): Observable<boolean> => {
         return this.http.get(this.actionUrl + `confirmEmail?userId=${userId}&code=${code}`).map(res => res.json());
     };
+
+    forgotPassword = (email: string): Observable<boolean> => {
+        return this.http.get(this.actionUrl + `forgotPassword?email=${email}`).map(res => res.json());
+    };
+
+    resendConfirmEmail = (email: string): Observable<boolean> => {
+        return this.http.get(this.actionUrl + `resendConfirmEmail?email=${email}`).map(res => res.json());
+    };
 }

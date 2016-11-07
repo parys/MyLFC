@@ -12,6 +12,9 @@
             <account-signin></account-signin>
         </li>
         <li *ngIf="!auth.isLoggedIn">
+            <a [routerLink]="['/forgotPassword']"><span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="bottom" title="Забыли пароль?"></span></a>
+        </li>
+        <li *ngIf="!auth.isLoggedIn">
             <a [routerLink]="['/signup']">Регистрация</a>
         </li>
         <li *ngIf="auth.isLoggedIn">

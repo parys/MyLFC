@@ -1,5 +1,6 @@
 ﻿import { Injectable } from "@angular/core";
-import {Http, Headers} from "@angular/http";
+import { Http, Headers } from "@angular/http";
+import { Router } from "@angular/router";
 import "rxjs/add/observable/of";
 import "rxjs/add/operator/do";
 import "rxjs/add/operator/delay";
@@ -12,12 +13,9 @@ export class AuthService {
     id: number;
 
     constructor(private http: HttpWrapper, private http1: Http, private localStorage: LocalStorageMine,
-        private rolesCheckedService: RolesCheckedService) {
-       // console.log(this.localStorage.get('access_token'));
-        if (this.localStorage.get("access_token")) {
-            console.log("auth at start");
-            this.isLoggedIn = true;
-         //   console.log(this.localStorage.getObject("roles"));
+        private rolesCheckedService: RolesCheckedService, private router: Router) {  
+        if (this.localStorage.get("access_token")) { 
+            this.isLoggedIn = true;                              
             this.roles = this.localStorage.getObject("roles");
             this.id = +this.localStorage.get("userId");
         } else {
@@ -31,27 +29,22 @@ export class AuthService {
     login(username: string, password: string): boolean {
         let headers = new Headers();
         headers.append("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8;");
-       // headers.append('client_id', 'client_id3');
-       // headers.append('client_secret', 'client_secret44');
-     //   this.createAuthorizationHeader(headers);
-      //  let perams = { grant_type: "password", userName: username, password: password };
         let perams = `grant_type=password&username=${username}&password=${password}&client_id=client_id3`;
 
         var result = this.http1.post("connect/token", perams, {
             headers: headers
         });
         result.subscribe(data => this.parseLoginAnswer(data),
-            error => console.log(error),
+            error => {
+                if(error._body === "unconfirmed_email") {
+                    this.router.navigate(["/unconfirmedEmail"]);
+                    return;
+                }
+                console.log(error);
+            },
             () => this.getUserId());
         return true;
-    }
-
-    private getRoles() {
-        this.http.get("api/role")
-            .subscribe(data => this.parseRoles(data),
-            error => console.log(error),
-            () => this.rolesCheckedService.checkRoles());
-    }
+    }      
 
     logout() {
         this.localStorage.remove("token_type");
@@ -62,6 +55,13 @@ export class AuthService {
         this.localStorage.remove("userId");
         this.isLoggedIn = false;
         this.rolesCheckedService.checkRoles();
+    }
+
+    isUserInRole(role: string) {
+        if (this.roles.find(x => x.toLowerCase() === role.toLowerCase())) {
+            return true;
+        }
+        return false;
     }
 
     private parseLoginAnswer(item: any) {
@@ -78,6 +78,13 @@ export class AuthService {
         this.localStorage.setObject("roles", this.roles);
     }
 
+    private getRoles() {
+        this.http.get("api/role")
+            .subscribe(data => this.parseRoles(data),
+            error => console.log(error),
+            () => this.rolesCheckedService.checkRoles());
+    }
+
     private getUserId() {
         this.http.get("api/user/getId")
             .subscribe(data => this.id = +JSON.parse(data.text()),
@@ -86,12 +93,5 @@ export class AuthService {
                 this.localStorage.set("userId", this.id.toString());
                 this.getRoles();
             });
-    }
-
-    isUserInRole(role: string) {
-        if (this.roles.find(x => x.toLowerCase() === role.toLowerCase())) {
-            return true;
-        }
-        return false;
     }
 }

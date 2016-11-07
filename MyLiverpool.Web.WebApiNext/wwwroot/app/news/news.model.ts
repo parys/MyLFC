@@ -1,7 +1,7 @@
 ﻿//module News {
     export class News {
         id: number;
-        private title: string;
+        title: string;
         private categoryId: number;
         private categoryName: string;
         private additionTime: Date;

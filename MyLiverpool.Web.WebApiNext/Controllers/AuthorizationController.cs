@@ -73,6 +73,11 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                     });
                 }
 
+                if (!user.EmailConfirmed)
+                {
+                    return BadRequest("unconfirmed_email");
+                }
+
                 if (_userManager.SupportsUserLockout)
                 {
                     await _userManager.ResetAccessFailedCountAsync(user);
@@ -94,14 +99,13 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         public async Task<IActionResult> Authorize()
         {
             var request = HttpContext.GetOpenIdConnectRequest();
-
-            // Retrieve the application details from the database.
+            
             var application = await _applicationManager.FindByClientIdAsync(request.ClientId);
             if (application == null)
             {
                 return BadRequest(OpenIdConnectConstants.Errors.InvalidClient);
             }
-
+            
             // Retrieve the profile of the logged in user.
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
@@ -109,7 +113,12 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 return BadRequest(OpenIdConnectConstants.Errors.ServerError);
             }
 
-            // Create a new authentication ticket.
+            if (!user.EmailConfirmed)
+            {
+                return BadRequest("unconfirmed_email");
+            }
+
+
             var ticket = await CreateTicketAsync(request, user);
 
             // Returning a SignInResult will ask OpenIddict to issue the appropriate access/identity tokens.

@@ -12,6 +12,7 @@ var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var signup_model_1 = require("./signup.model");
 var account_service_1 = require("./account.service");
+var index_1 = require("../shared/index");
 var AccountSignupComponent = (function () {
     function AccountSignupComponent(accountService, formBuilder) {
         this.accountService = accountService;
@@ -22,10 +23,10 @@ var AccountSignupComponent = (function () {
             'userName': ["123", forms_1.Validators.compose([
                     forms_1.Validators.required, forms_1.Validators.minLength(3)])],
             'email': ["andrew_parys@tut.by", forms_1.Validators.compose([
+                    forms_1.Validators.required, forms_1.Validators.minLength(6), , index_1.GlobalValidators.mailFormat])],
+            'password': ["123qwe!Q", forms_1.Validators.compose([
                     forms_1.Validators.required, forms_1.Validators.minLength(6)])],
-            'password': ["123qwe", forms_1.Validators.compose([
-                    forms_1.Validators.required, forms_1.Validators.minLength(6)])],
-            'confirmPassword': ["123qwe", forms_1.Validators.compose([
+            'confirmPassword': ["123qwe!Q", forms_1.Validators.compose([
                     forms_1.Validators.required, forms_1.Validators.minLength(6)])],
             'fullName': ["123", forms_1.Validators.compose([
                     forms_1.Validators.required,])],
@@ -45,7 +46,7 @@ var AccountSignupComponent = (function () {
             .create(signup)
             .subscribe(function (data) { }, //todo this.id = data.id},
         function (//todo this.id = data.id},
-            error) { return console.log(error); }, function () { return console.log("user created"); });
+            error) { return console.log(error); }, function () { });
     };
     AccountSignupComponent = __decorate([
         core_1.Component({

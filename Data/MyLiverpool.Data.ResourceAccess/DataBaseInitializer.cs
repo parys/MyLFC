@@ -1166,6 +1166,18 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                 LogoutRedirectUri = "http://localhost:1669/",
             };
             _context.Applications.Add(app);
+
+            app = new OpenIddictApplication<int>()
+            {
+                ClientId = "client_id_swagger",
+                ClientSecret = "client_secret_swagger",
+                Type = OpenIddictConstants.ClientTypes.Public,
+              //  Id = 1,
+                DisplayName = "Swagger client application",
+                RedirectUri = "http://localhost:1669/swagger/o2c.html",
+                LogoutRedirectUri = "http://localhost:1669/swagger/index.html",
+            };
+            _context.Applications.Add(app);
             await _context.SaveChangesAsync();
         }
 

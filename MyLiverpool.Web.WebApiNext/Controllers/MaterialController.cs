@@ -12,22 +12,35 @@ using Newtonsoft.Json;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
+    /// <summary>
+    /// Controller for manage materials.
+    /// </summary>
     [Route("api/[controller]")]
     public class MaterialController : Controller
     {
         private readonly IMaterialService _materialService;
         private readonly ILogger<MaterialController> _logger;
 
+        /// <summary>
+        /// Controller.
+        /// </summary>
+        /// <param name="materialService">Injecting materialService.</param>
+        /// <param name="logger">Injecting logger.</param>
         public MaterialController(IMaterialService materialService, ILogger<MaterialController> logger)
         {
             _materialService = materialService;
             _logger = logger;
         }
 
+        /// <summary>
+        /// Returns list of filtered materials.  
+        /// </summary>
+        /// <param name="filtersObj">Contains filters.</param>
+        /// <returns>List of materials.</returns>
         [Route("list/{filtersObj}")]
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> GetNewsItems([FromRoute] string filtersObj)
+        public async Task<IActionResult> GetListItems([FromRoute] string filtersObj)
         {
             _logger.LogInformation( "Listing all items1111111111111");
             MaterialFiltersDto filters;
@@ -44,10 +57,15 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// Gets material by id.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>Found material.</returns>
         [Route("{id:int}")]
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> GetNewsItem(int id)
+        public async Task<IActionResult> GetItem(int id)
         {
             var model = await _materialService.GetDtoAsync(id);
             return Ok(model);

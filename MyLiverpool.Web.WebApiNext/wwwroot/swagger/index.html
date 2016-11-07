@@ -55,11 +55,14 @@
         onComplete: function(swaggerApi, swaggerUi){
           if(typeof initOAuth == "function") {
             initOAuth({
-                clientId: "client_id3",
-                clientSecret: "client_secret44",
+              clientId: "client_id_swagger",
+              clientSecret: "client_secret_swagger",
               realm: "your-realms",
-              appName: "MVC Core client application",
-              scopeSeparator: "adminStart ",
+              appName: "Swagger client application",
+              //  clientId: "Aurelia.OpenIdConnect",
+              //realm: "your-realms",
+              //appName: "Swagger client application",
+              scopeSeparator: " ",
               additionalQueryStringParams: {}
             });
           }

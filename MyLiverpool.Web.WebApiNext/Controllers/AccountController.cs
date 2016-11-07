@@ -1,7 +1,4 @@
-﻿using System;
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -45,6 +42,12 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// Confirms email.
+        /// </summary>
+        /// <param name="userId">User id.</param>
+        /// <param name="code">Secret code.</param>
+        /// <returns>Returns confirmation result.</returns>
         [Route("ConfirmEmail")]
         [HttpGet]
         [AllowAnonymous]
@@ -58,8 +61,13 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// Sends recovery mail to email.
+        /// </summary>
+        /// <param name="email">Forgetable email.</param>
+        /// <returns>Always returns true result.</returns>
         [Route("ForgotPassword")]
-        [HttpPost]
+        [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> ForgotPassword(string email)
         {
@@ -69,7 +77,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             }
 
             var result = await _accountService.ForgotPasswordAsync(email);
-            return Ok(result);
+            return Ok(true);
         }
 
         [Route("IsEmailUnique")]
@@ -100,7 +108,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         }
 
         [Route("ResendConfirmEmail")]
-        [HttpPost]
+        [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> ResendConfirmEmail(string email)
         {
@@ -161,18 +169,6 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return Ok(result);
         }
 
-        protected override void Dispose(bool disposing)
-        {
-           // if (disposing && _userManager != null)
-            {
-           //     _userManager.Dispose();
-              //  _userManager = null;
-            }
-
-            base.Dispose(disposing);
-        }
-
-
         // GET api/Account/UserInfo
         //[HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
         //[Route("UserInfo")]
@@ -187,8 +183,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         //        LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null
         //    };
         //}
-
-        // POST api/Account/Logout
+        
 
         // GET api/Account/ManageInfo?returnUrl=%2F&generateState=true
         //[Route("ManageInfo")]
@@ -448,43 +443,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         //    }
         //    return Ok();
         //}
-
-        // private ApplicationSignInManager _signInManager;
-        //        private ApplicationUserManager _userManager;
-
-        //        public ManageController()
-        //        {
-        //        }
-
-        //        public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
-        //        {
-        //            UserManager = userManager;
-        //            SignInManager = signInManager;
-        //        }
-
-        //        public ApplicationSignInManager SignInManager
-        //        {
-        //            get
-        //            {
-        //                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
-        //            }
-        //            private set 
-        //            { 
-        //                _signInManager = value; 
-        //            }
-        //        }
-
-        //        public ApplicationUserManager UserManager
-        //        {
-        //            get
-        //            {
-        //                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-        //            }
-        //            private set
-        //            {
-        //                _userManager = value;
-        //            }
-        //        }
+        
 
         //        //
         //        // GET: /Manage/Index
@@ -1045,11 +1004,6 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         //    }
 
         #region Helpers
-
-      //  private IAuthenticationManager Authentication
-      //  {
-       //     get { return Request.GetOwinContext().Authentication; }
-       // }
 
         private IActionResult GetErrorResult(IdentityResult result)
         {

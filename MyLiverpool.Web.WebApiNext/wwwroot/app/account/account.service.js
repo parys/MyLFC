@@ -29,6 +29,12 @@ var AccountService = (function () {
         this.confirmEmail = function (userId, code) {
             return _this.http.get(_this.actionUrl + ("confirmEmail?userId=" + userId + "&code=" + code)).map(function (res) { return res.json(); });
         };
+        this.forgotPassword = function (email) {
+            return _this.http.get(_this.actionUrl + ("forgotPassword?email=" + email)).map(function (res) { return res.json(); });
+        };
+        this.resendConfirmEmail = function (email) {
+            return _this.http.get(_this.actionUrl + ("resendConfirmEmail?email=" + email)).map(function (res) { return res.json(); });
+        };
         this.actionUrl = configuration.ServerWithApiUrl + "account/";
     }
     AccountService = __decorate([

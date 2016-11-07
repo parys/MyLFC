@@ -13,7 +13,7 @@ import { NewsCategoryService } from "./newsCategory/shared/newsCategory.service"
 import { AuthGuard, AuthService } from "./auth/index";
 import { HttpWrapper, LocalStorageMine, SecuredDirective } from "./shared/index";
 import { ForumSectionListComponent, ForumSectionService } from "./forumSection/index";
-import { AccountSigninComponent, AccountSignupComponent, AccountService, ConfirmEmailComponent } from "./account/index";
+import { AccountSigninComponent, AccountSignupComponent, AccountService, ConfirmEmailComponent, ForgotPasswordComponent, UnconfirmedEmailComponent } from "./account/index";
 import { NewsCategoryListComponent } from "./newsCategory/newsCategory-list.component";
 import { NewsCategoryEditComponent } from "./newsCategory/newsCategory-edit.component";
 import { UserDetailComponent } from "./user/user-detail.component";
@@ -24,7 +24,7 @@ import { ClubHistoryComponent, RulesComponent, RightSidebarComponent } from "./h
 import { WishListComponent, WishService, WishEditComponent } from "./wish/index";
 import { MaterialCommentListComponent, MaterialCommentService, MaterialCommentSectionComponent, MaterialCommentDetailComponent } from "./materialComment/index";
 import { Ng2AutoCompleteModule } from "ng2-auto-complete";
-import { RolesCheckedService } from "./shared/index";
+import { RolesCheckedService, GlobalValidators } from "./shared/index";
 import { AdminService, EplTableComponent } from "./admin/index";
 import { DatepickerModule, ModalModule, PaginationModule } from "ng2-bootstrap/ng2-bootstrap";
 
@@ -47,6 +47,7 @@ import { DatepickerModule, ModalModule, PaginationModule } from "ng2-bootstrap/n
         ConfirmEmailComponent,
         ClubHistoryComponent,
         EplTableComponent,
+        ForgotPasswordComponent,
         ForumSectionListComponent,
         MaterialCommentDetailComponent,
         MaterialCommentListComponent,
@@ -62,6 +63,7 @@ import { DatepickerModule, ModalModule, PaginationModule } from "ng2-bootstrap/n
         RightSidebarComponent,
         RulesComponent,
         SecuredDirective,
+        UnconfirmedEmailComponent,
         UserDetailComponent,
         UserListComponent,
         WishEditComponent,
@@ -76,6 +78,7 @@ import { DatepickerModule, ModalModule, PaginationModule } from "ng2-bootstrap/n
         Configuration,
         ForumSectionService,
         HttpWrapper,
+        GlobalValidators,
         { provide: LocalStorageMine, useClass: LocalStorageMine },
         MaterialCommentService,
         NewsService,

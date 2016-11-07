@@ -1,4 +1,5 @@
 ﻿import { Component, OnInit, OnDestroy, ViewChild } from "@angular/core";
+import { Title } from "@angular/platform-browser";
 import { NewsService } from "./news.service";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
@@ -17,6 +18,7 @@ export class NewsDetailComponent implements OnInit, OnDestroy {
     private sub: Subscription;
     item: News;
     roles: IRoles;
+    private title: Title;
     @ViewChild("activateModal") activateModal: ModalDirective;
     @ViewChild("deleteModal") deleteModal: ModalDirective;
 
@@ -24,7 +26,10 @@ export class NewsDetailComponent implements OnInit, OnDestroy {
         private route: ActivatedRoute,
         private localStorage: LocalStorageMine,
         private rolesChecked: RolesCheckedService,
-        private router: Router) { }
+        private router: Router,
+        private titleService: Title) {
+       // this.title = t
+    }
 
     ngOnInit() {
         this.roles = this.rolesChecked.checkedRoles;
@@ -87,6 +92,7 @@ export class NewsDetailComponent implements OnInit, OnDestroy {
 
     private parse(item: News): void {
         this.item = item;
+        this.titleService.setTitle(item.title);
         this.addView();
     }
 

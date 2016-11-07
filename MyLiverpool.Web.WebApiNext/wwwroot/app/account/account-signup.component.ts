@@ -3,6 +3,7 @@ import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms"
 import { Observable } from "rxjs/Observable";
 import { Signup } from "./signup.model";
 import { AccountService } from "./account.service";
+import { GlobalValidators } from "../shared/index";
 
 @Component({
     selector: "account-signup",
@@ -22,10 +23,10 @@ export class AccountSignupComponent implements OnInit {
             'userName': ["123", Validators.compose([ //todo composeASync??
                 Validators.required, Validators.minLength(3)])],
             'email': ["andrew_parys@tut.by", Validators.compose([
+                Validators.required, Validators.minLength(6), , GlobalValidators.mailFormat])],
+            'password': ["123qwe!Q", Validators.compose([
                 Validators.required, Validators.minLength(6)])],
-            'password': ["123qwe", Validators.compose([
-                Validators.required, Validators.minLength(6)])],
-            'confirmPassword': ["123qwe", Validators.compose([
+            'confirmPassword': ["123qwe!Q", Validators.compose([
                 Validators.required, Validators.minLength(6)])],
             'fullName': ["123", Validators.compose([
                 Validators.required,])],
@@ -47,6 +48,6 @@ export class AccountSignupComponent implements OnInit {
             .create(signup)
             .subscribe(data => {},//todo this.id = data.id},
             error => console.log(error),
-            () => console.log("user created"));
+            () => {});
     }
 }

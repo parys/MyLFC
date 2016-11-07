@@ -10,23 +10,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
+var router_1 = require("@angular/router");
 require("rxjs/add/observable/of");
 require("rxjs/add/operator/do");
 require("rxjs/add/operator/delay");
 var index_1 = require("../shared/index");
 var AuthService = (function () {
-    function AuthService(http, http1, localStorage, rolesCheckedService) {
+    function AuthService(http, http1, localStorage, rolesCheckedService, router) {
         this.http = http;
         this.http1 = http1;
         this.localStorage = localStorage;
         this.rolesCheckedService = rolesCheckedService;
+        this.router = router;
         this.isLoggedIn = false;
         this.roles = [];
-        // console.log(this.localStorage.get('access_token'));
         if (this.localStorage.get("access_token")) {
-            console.log("auth at start");
             this.isLoggedIn = true;
-            //   console.log(this.localStorage.getObject("roles"));
             this.roles = this.localStorage.getObject("roles");
             this.id = +this.localStorage.get("userId");
         }
@@ -38,21 +37,18 @@ var AuthService = (function () {
         var _this = this;
         var headers = new http_1.Headers();
         headers.append("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8;");
-        // headers.append('client_id', 'client_id3');
-        // headers.append('client_secret', 'client_secret44');
-        //   this.createAuthorizationHeader(headers);
-        //  let perams = { grant_type: "password", userName: username, password: password };
         var perams = "grant_type=password&username=" + username + "&password=" + password + "&client_id=client_id3";
         var result = this.http1.post("connect/token", perams, {
             headers: headers
         });
-        result.subscribe(function (data) { return _this.parseLoginAnswer(data); }, function (error) { return console.log(error); }, function () { return _this.getUserId(); });
+        result.subscribe(function (data) { return _this.parseLoginAnswer(data); }, function (error) {
+            if (error._body === "unconfirmed_email") {
+                _this.router.navigate(["/unconfirmedEmail"]);
+                return;
+            }
+            console.log(error);
+        }, function () { return _this.getUserId(); });
         return true;
-    };
-    AuthService.prototype.getRoles = function () {
-        var _this = this;
-        this.http.get("api/role")
-            .subscribe(function (data) { return _this.parseRoles(data); }, function (error) { return console.log(error); }, function () { return _this.rolesCheckedService.checkRoles(); });
     };
     AuthService.prototype.logout = function () {
         this.localStorage.remove("token_type");
@@ -63,6 +59,12 @@ var AuthService = (function () {
         this.localStorage.remove("userId");
         this.isLoggedIn = false;
         this.rolesCheckedService.checkRoles();
+    };
+    AuthService.prototype.isUserInRole = function (role) {
+        if (this.roles.find(function (x) { return x.toLowerCase() === role.toLowerCase(); })) {
+            return true;
+        }
+        return false;
     };
     AuthService.prototype.parseLoginAnswer = function (item) {
         var response = JSON.parse(item._body); // todo migrate to es6 storage
@@ -76,6 +78,11 @@ var AuthService = (function () {
         this.roles = item._body.split(", ");
         this.localStorage.setObject("roles", this.roles);
     };
+    AuthService.prototype.getRoles = function () {
+        var _this = this;
+        this.http.get("api/role")
+            .subscribe(function (data) { return _this.parseRoles(data); }, function (error) { return console.log(error); }, function () { return _this.rolesCheckedService.checkRoles(); });
+    };
     AuthService.prototype.getUserId = function () {
         var _this = this;
         this.http.get("api/user/getId")
@@ -84,15 +91,9 @@ var AuthService = (function () {
             _this.getRoles();
         });
     };
-    AuthService.prototype.isUserInRole = function (role) {
-        if (this.roles.find(function (x) { return x.toLowerCase() === role.toLowerCase(); })) {
-            return true;
-        }
-        return false;
-    };
     AuthService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [index_1.HttpWrapper, http_1.Http, index_1.LocalStorageMine, index_1.RolesCheckedService])
+        __metadata('design:paramtypes', [index_1.HttpWrapper, http_1.Http, index_1.LocalStorageMine, index_1.RolesCheckedService, router_1.Router])
     ], AuthService);
     return AuthService;
 }());

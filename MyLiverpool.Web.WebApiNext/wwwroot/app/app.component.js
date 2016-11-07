@@ -10,17 +10,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
+var platform_browser_1 = require("@angular/platform-browser");
 var auth_service_1 = require("./auth/auth.service");
 var roles_checked_service_1 = require("./shared/roles-checked.service");
 //enableProdMode();
 var AppComponent = (function () {
-    function AppComponent(router, auth, rolesChecked, viewContainerRef) {
+    function AppComponent(router, auth, rolesChecked, viewContainerRef, titleService) {
         this.router = router;
         this.auth = auth;
         this.rolesChecked = rolesChecked;
         this.roles = this.rolesChecked.checkedRoles;
         // You need this small hack in order to catch application root view container ref
         this.viewContainerRef = viewContainerRef;
+        titleService.setTitle("Главная");
     }
     AppComponent.prototype.logout = function () {
         this.auth.logout();
@@ -30,7 +32,7 @@ var AppComponent = (function () {
             selector: "my-app",
             templateUrl: "app/app.component.html"
         }), 
-        __metadata('design:paramtypes', [router_1.Router, auth_service_1.AuthService, roles_checked_service_1.RolesCheckedService, core_1.ViewContainerRef])
+        __metadata('design:paramtypes', [router_1.Router, auth_service_1.AuthService, roles_checked_service_1.RolesCheckedService, core_1.ViewContainerRef, platform_browser_1.Title])
     ], AppComponent);
     return AppComponent;
 }());

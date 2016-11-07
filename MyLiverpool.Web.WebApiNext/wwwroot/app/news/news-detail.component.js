@@ -9,18 +9,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
+var platform_browser_1 = require("@angular/platform-browser");
 var news_service_1 = require("./news.service");
 var router_1 = require("@angular/router");
 var localStorage_1 = require("../shared/localStorage");
 var index_1 = require("../shared/index");
 var ng2_bootstrap_1 = require("ng2-bootstrap/ng2-bootstrap");
 var NewsDetailComponent = (function () {
-    function NewsDetailComponent(newsService, route, localStorage, rolesChecked, router) {
+    function NewsDetailComponent(newsService, route, localStorage, rolesChecked, router, titleService) {
         this.newsService = newsService;
         this.route = route;
         this.localStorage = localStorage;
         this.rolesChecked = rolesChecked;
         this.router = router;
+        this.titleService = titleService;
+        // this.title = t
     }
     NewsDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -68,6 +71,7 @@ var NewsDetailComponent = (function () {
     };
     NewsDetailComponent.prototype.parse = function (item) {
         this.item = item;
+        this.titleService.setTitle(item.title);
         this.addView();
     };
     NewsDetailComponent.prototype.addView = function () {
@@ -90,7 +94,7 @@ var NewsDetailComponent = (function () {
             selector: "news-detail",
             templateUrl: "app/news/news-detail.component.html"
         }), 
-        __metadata('design:paramtypes', [news_service_1.NewsService, router_1.ActivatedRoute, localStorage_1.LocalStorageMine, index_1.RolesCheckedService, router_1.Router])
+        __metadata('design:paramtypes', [news_service_1.NewsService, router_1.ActivatedRoute, localStorage_1.LocalStorageMine, index_1.RolesCheckedService, router_1.Router, platform_browser_1.Title])
     ], NewsDetailComponent);
     return NewsDetailComponent;
 }());

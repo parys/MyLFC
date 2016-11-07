@@ -7,4 +7,5 @@ __export(require("./httpWrapper"));
 __export(require("./localStorage"));
 __export(require("./secured.directive"));
 __export(require("./roles-checked.service"));
+__export(require("./globalValidators"));
 //# sourceMappingURL=index.js.map

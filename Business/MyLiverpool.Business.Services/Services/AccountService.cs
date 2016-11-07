@@ -38,8 +38,6 @@ namespace MyLiverpool.Business.Services.Services
             code = code.Base64ForUrlDecode();
             var user = await _userManager.FindByIdAsync(userId.ToString());
             var result = await _userManager.ConfirmEmailAsync(user, code);
-            user.EmailConfirmed = true;
-            await _userManager.UpdateAsync(user);
             return result.Succeeded;
         }
 

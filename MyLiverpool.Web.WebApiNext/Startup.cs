@@ -71,8 +71,7 @@ namespace MyLiverpool.Web.WebApiNext
         {
             // Add framework services.
             services.AddDbContext<LiverpoolContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
-                    o => o.UseRowNumberForPaging()));
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("MyLiverpool.Data.ResourceAccess")));
 
             services.AddIdentity<User, Role>()
                 .AddEntityFrameworkStores<LiverpoolContext, int>()
