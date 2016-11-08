@@ -48,9 +48,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <param name="userId">User id.</param>
         /// <param name="code">Secret code.</param>
         /// <returns>Returns confirmation result.</returns>
-        [Route("ConfirmEmail")]
-        [HttpGet]
-        [AllowAnonymous]
+        [AllowAnonymous, HttpGet("ConfirmEmail")]
         public async Task<IActionResult> ConfirmEmail(int userId, string code)
         {
             if (userId <= 0 || code == null)
@@ -64,11 +62,9 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <summary>
         /// Sends recovery mail to email.
         /// </summary>
-        /// <param name="email">Forgetable email.</param>
+        /// <param name="email">Forgotten email.</param>
         /// <returns>Always returns true result.</returns>
-        [Route("ForgotPassword")]
-        [HttpGet]
-        [AllowAnonymous]
+        [AllowAnonymous, HttpGet("ForgotPassword")]
         public async Task<IActionResult> ForgotPassword(string email)
         {
             if (string.IsNullOrWhiteSpace(email))
@@ -107,9 +103,12 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return Ok(result);
         }
 
-        [Route("ResendConfirmEmail")]
-        [HttpGet]
-        [AllowAnonymous]
+        /// <summary>
+        /// Resends confirmation email.
+        /// </summary>
+        /// <param name="email">User email.</param>
+        /// <returns>Result of resend.</returns>
+        [AllowAnonymous, HttpGet("ResendConfirmEmail")]
         public async Task<IActionResult> ResendConfirmEmail(string email)
         {
             if (string.IsNullOrEmpty(email))
@@ -120,9 +119,12 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return Ok(result);
         }
 
-        [Route("Register")]
-        [HttpPost]
-        [AllowAnonymous]
+        /// <summary>
+        /// Registers new user local account.
+        /// </summary>
+        /// <param name="dto">Register user model.</param>
+        /// <returns>Result of registration.</returns>
+        [AllowAnonymous, HttpPost("Register")]
         public async Task<IActionResult> Register([FromBody] RegisterUserDto dto)
         {
             if (!ModelState.IsValid)
@@ -140,25 +142,13 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return Ok();
         }
 
-        //[Route("ResetPassword")] //todo
-        //[HttpGet]
-        //[AllowAnonymous]
-        //public async Task<HttpResponseMessage> ResetPassword(string code)
-        //{
-        //    if (string.IsNullOrEmpty(code))
-        //    {
-        //        return new HttpResponseMessage(HttpStatusCode.BadRequest);
-        //    }
-        //    var response = Request.CreateResponse(HttpStatusCode.Moved);
-        //    string fullyQualifiedUrl = Request.RequestUri.GetLeftPart(UriPartial.Authority);
-        //    response.Headers.Location = new Uri(fullyQualifiedUrl + "/resetPassword?code=" + code);
-        //    return await Task.FromResult(response);
-        //}
-
-        [Route("ResetPassword")]
-        [HttpPost]
-        [AllowAnonymous]
-        public async Task<IActionResult> ResetPassword(ResetPasswordDto dto)
+        /// <summary>
+        /// Resets password by code.
+        /// </summary>
+        /// <param name="dto">Reset password model.</param>
+        /// <returns>Result of reseting password.</returns>
+        [AllowAnonymous, HttpPut("ResetPassword")]
+        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDto dto)
         {
             if (!ModelState.IsValid)
             {

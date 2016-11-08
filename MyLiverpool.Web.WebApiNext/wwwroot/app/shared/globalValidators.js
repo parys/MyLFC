@@ -19,6 +19,17 @@ var GlobalValidators = (function () {
         }
         return null;
     };
+    GlobalValidators.matchingPasswords = function (passwordKey, confirmPasswordKey) {
+        return function (group) {
+            var password = group.controls[passwordKey];
+            var confirmPassword = group.controls[confirmPasswordKey];
+            if (password.value !== confirmPassword.value) {
+                return {
+                    mismatchedPasswords: true
+                };
+            }
+        };
+    };
     GlobalValidators = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [])

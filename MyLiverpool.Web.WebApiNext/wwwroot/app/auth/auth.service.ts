@@ -22,8 +22,7 @@ export class AuthService {
             this.localStorage.remove("roles");
         }
     }
-
-    // store the URL so we can redirect after logging in
+                                                         
     redirectUrl: string;
 
     login(username: string, password: string): boolean {
@@ -46,7 +45,7 @@ export class AuthService {
         return true;
     }      
 
-    logout() {
+    logout(): void {
         this.localStorage.remove("token_type");
         this.localStorage.remove("access_token");
         this.localStorage.remove("expires_in");
@@ -57,14 +56,14 @@ export class AuthService {
         this.rolesCheckedService.checkRoles();
     }
 
-    isUserInRole(role: string) {
+    isUserInRole(role: string): boolean {
         if (this.roles.find(x => x.toLowerCase() === role.toLowerCase())) {
             return true;
         }
         return false;
     }
 
-    private parseLoginAnswer(item: any) {
+    private parseLoginAnswer(item: any): void {
         let response = JSON.parse(item._body); // todo migrate to es6 storage
         this.localStorage.setObject("token_type", response.token_type);
         this.localStorage.setObject("access_token", response.access_token);
@@ -73,19 +72,19 @@ export class AuthService {
         this.isLoggedIn = true;
     }
 
-    private parseRoles(item: any) {
+    private parseRoles(item: any): void {
         this.roles = item._body.split(", ");
         this.localStorage.setObject("roles", this.roles);
     }
 
-    private getRoles() {
+    private getRoles(): void {
         this.http.get("api/role")
             .subscribe(data => this.parseRoles(data),
             error => console.log(error),
             () => this.rolesCheckedService.checkRoles());
     }
 
-    private getUserId() {
+    private getUserId(): void {
         this.http.get("api/user/getId")
             .subscribe(data => this.id = +JSON.parse(data.text()),
             error => console.log(error),

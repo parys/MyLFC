@@ -4,6 +4,7 @@ import { Observable } from "rxjs/Observable";
 import { Configuration } from "../app.constants";
 import { HttpWrapper } from "../shared/index";
 import { Signup } from "./signup.model";
+import { ResetPassword } from "./resetPassword.model";
 
 @Injectable()
 export class AccountService {
@@ -36,5 +37,9 @@ export class AccountService {
 
     resendConfirmEmail = (email: string): Observable<boolean> => {
         return this.http.get(this.actionUrl + `resendConfirmEmail?email=${email}`).map(res => res.json());
+    };
+
+    resetPassword = (model: ResetPassword): Observable<boolean> => {
+        return this.http.put(this.actionUrl + `resetPassword`, model).map(res => res.json());
     };
 }

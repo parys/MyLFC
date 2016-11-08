@@ -35,6 +35,9 @@ var AccountService = (function () {
         this.resendConfirmEmail = function (email) {
             return _this.http.get(_this.actionUrl + ("resendConfirmEmail?email=" + email)).map(function (res) { return res.json(); });
         };
+        this.resetPassword = function (model) {
+            return _this.http.put(_this.actionUrl + "resetPassword", model).map(function (res) { return res.json(); });
+        };
         this.actionUrl = configuration.ServerWithApiUrl + "account/";
     }
     AccountService = __decorate([

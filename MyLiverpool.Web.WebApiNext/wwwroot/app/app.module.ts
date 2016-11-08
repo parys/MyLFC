@@ -12,8 +12,8 @@ import { NewsEditComponent, NewsDetailComponent, NewsListComponent, NewsService 
 import { NewsCategoryService } from "./newsCategory/shared/newsCategory.service";
 import { AuthGuard, AuthService } from "./auth/index";
 import { HttpWrapper, LocalStorageMine, SecuredDirective } from "./shared/index";
-import { ForumSectionListComponent, ForumSectionService } from "./forumSection/index";
-import { AccountSigninComponent, AccountSignupComponent, AccountService, ConfirmEmailComponent, ForgotPasswordComponent, UnconfirmedEmailComponent } from "./account/index";
+import { ForumSectionListComponent, ForumSectionService } from "./forumSection/index"; 
+import * as account from "./account/index";
 import { NewsCategoryListComponent } from "./newsCategory/newsCategory-list.component";
 import { NewsCategoryEditComponent } from "./newsCategory/newsCategory-edit.component";
 import { UserDetailComponent } from "./user/user-detail.component";
@@ -41,13 +41,15 @@ import { DatepickerModule, ModalModule, PaginationModule } from "ng2-bootstrap/n
         ReactiveFormsModule,
         routing],
     declarations: [
-        AccountSigninComponent,
-        AccountSignupComponent,
+        account.AccountSigninComponent,
+        account.AccountSignupComponent,
+        account.ConfirmEmailComponent,
+        account.ForgotPasswordComponent,
+        account.ResetPasswordComponent,
+        account.UnconfirmedEmailComponent,
         AppComponent,
-        ConfirmEmailComponent,
         ClubHistoryComponent,
         EplTableComponent,
-        ForgotPasswordComponent,
         ForumSectionListComponent,
         MaterialCommentDetailComponent,
         MaterialCommentListComponent,
@@ -63,14 +65,13 @@ import { DatepickerModule, ModalModule, PaginationModule } from "ng2-bootstrap/n
         RightSidebarComponent,
         RulesComponent,
         SecuredDirective,
-        UnconfirmedEmailComponent,
         UserDetailComponent,
         UserListComponent,
         WishEditComponent,
         WishListComponent],   // components and directives
     bootstrap: [AppComponent],     // root component
     providers: [ // services
-        AccountService,
+        account.AccountService,
         AdminService,
         appRoutingProviders,
         AuthGuard,

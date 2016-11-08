@@ -142,8 +142,8 @@ namespace MyLiverpool.Business.Services.Services
             string code = await _userManager.GeneratePasswordResetTokenAsync(user);
             code = code.Base64ForUrlEncode();
 
-            var callbackUrl = $"http://{host}/account/resetPassword?userId={userId}&code={code}";
-            return $"Пожалуйста, сбросьте ваш пароль, кликнув <a href = \"{callbackUrl}\"> здесь </a>.";
+            var callbackUrl = $"http://{host}/resetPassword?code={code}";
+            return $"Пожалуйста, сбросьте ваш пароль, кликнув <a href=\"{callbackUrl}\"> здесь </a>.";
         }
 
         private async Task SendConfirmEmailAsync(string email, int userId)

@@ -1,4 +1,4 @@
-﻿import { FormControl } from "@angular/forms";
+﻿import { FormControl, FormGroup } from "@angular/forms";
 import { Injectable } from "@angular/core";
 
 @Injectable()
@@ -11,6 +11,19 @@ export class GlobalValidators {
             return { "incorrectMailFormat": true };
         }
         return null;
+    }
+
+    static matchingPasswords(passwordKey: string, confirmPasswordKey: string) {
+        return (group: FormGroup): { [key: string]: any } => {
+            let password = group.controls[passwordKey];
+            let confirmPassword = group.controls[confirmPasswordKey];
+
+            if (password.value !== confirmPassword.value) {
+                return {
+                    mismatchedPasswords: true
+                };
+            }
+        }
     }
 }
 
