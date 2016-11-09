@@ -1,27 +1,30 @@
-﻿import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+﻿import { Component, OnInit } from "@angular/core";
+import { Title } from "@angular/platform-browser";
+import { Observable } from "rxjs/Observable";
 import { Pageable } from "../shared/pageable.model";
 import { NewsCategory } from "./shared/newsCategory.model";
 import { NewsCategoryService } from "./shared/newsCategory.service";
 
 @Component({
-    selector: 'newsCategory-list',
-    templateUrl: 'app/newsCategory/newsCategory-list.component.html'
+    selector: "newsCategory-list",
+    templateUrl: "app/newsCategory/newsCategory-list.component.html"
 })
 
 export class NewsCategoryListComponent implements OnInit {
 
     items: NewsCategory[];
 
-    constructor(private newsCategoryService: NewsCategoryService) {
+    constructor(private newsCategoryService: NewsCategoryService,
+        private titleService: Title) {
     }
 
     ngOnInit() {
+        this.titleService.setTitle("Категории");
         this.newsCategoryService
             .GetAll()
             .subscribe(data => this.parsePageable(data),
             error => console.log(error),
-            () => console.log("success load categoryu lits news"));
+            () => {});
     }
 
     private parsePageable(model: NewsCategory[]): void {
@@ -29,10 +32,9 @@ export class NewsCategoryListComponent implements OnInit {
     }
 
     delete(index: number) {
-        console.log("delete");
         this.newsCategoryService.Delete(this.items[index].id).subscribe(data => data,
             error => console.log(error),
-            () => console.log("success remove categoryu"));
+            () => {});
         this.items.splice(index, 1);
     }
 }

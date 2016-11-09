@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MyLiverpool.Data.Entities
 {
@@ -20,5 +21,8 @@ namespace MyLiverpool.Data.Entities
         public virtual ICollection<Material> Materials { get; set; }
 
         public MaterialType MaterialType { get; set; }
+
+        [NotMapped]
+        public int ItemsCount { get; set; }
     }
 }

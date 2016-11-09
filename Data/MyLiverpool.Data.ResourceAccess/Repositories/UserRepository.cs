@@ -4,7 +4,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using MyLiverpool.Business.DTO;
 using MyLiverpool.Data.Entities;
 using MyLiverpool.Data.ResourceAccess.Contracts;
 
@@ -19,9 +18,9 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             _context = context;
         }
 
-        public async Task<UserDto> GetUserAsync(int id)
+        public async Task<User> GetUserAsync(int id)
         {
-            var user = await _context.Users.Where(x => x.Id == id).Select(x => new UserDto
+            var user = await _context.Users.Where(x => x.Id == id).Select(x => new User
             {
                 Id = x.Id,
                 Birthday = x.Birthday,
@@ -31,12 +30,12 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
                 EmailConfirmed = x.EmailConfirmed,
                 FullName = x.FullName,
                 Gender = x.Gender,
-                LastModifiedOn = x.LastModified,
-                LockoutEndDateUtc = x.LockoutEnd.HasValue ? x.LockoutEnd.Value.DateTime : (DateTime?)null,
+                LastModified = x.LastModified,
+                LockoutEnd = x.LockoutEnd,
                 Photo = x.Photo,
                 RegistrationDate = x.RegistrationDate,
                 RoleGroupId = x.RoleGroupId,
-                RoleGroupName = x.RoleGroup.RussianName,
+                RoleGroup = x.RoleGroup,
                 UserName = x.UserName
             }).FirstOrDefaultAsync();
             return user;
@@ -78,11 +77,6 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
         }
 
         public Task<int> GetCountAsync(Expression<Func<User, bool>> filter = null)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<UserDto> GetUsersAsync(int id)
         {
             throw new NotImplementedException();
         }

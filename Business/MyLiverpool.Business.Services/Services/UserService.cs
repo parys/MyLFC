@@ -157,7 +157,8 @@ namespace MyLiverpool.Business.Services.Services
 
         public async Task<UserDto> GetUserAsync(int id)
         {
-            return await _userRepository.GetUserAsync(id);
+            var user = await _userRepository.GetUserAsync(id);
+            return _mapper.Map<UserDto>(user);
         }
 
         public async Task<string> GetUsernameAsync(int id)

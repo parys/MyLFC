@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace MyLiverpool.Data.Entities
@@ -82,5 +83,11 @@ namespace MyLiverpool.Data.Entities
         public virtual RoleGroup RoleGroup { get; set; }
 
         public int RoleGroupId { get; set; }
+
+        [NotMapped]
+        public int NewsCount { get; set; }
+
+        [NotMapped]
+        public int BlogsCount { get; set; }
     }
 }

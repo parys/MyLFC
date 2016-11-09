@@ -17,6 +17,7 @@ namespace MigratorVnext
     {
         private static readonly IUnitOfWork UnitOfWork;
         private static readonly IMaterialRepository MaterialRepository;
+        private static readonly IMaterialCategoryRepository MaterialCategoryRepository;
         private const string Path = @"D:\\projects\example\";
         private static readonly int MaxChars = 20000;
         private const bool UseLimit = true;
@@ -33,6 +34,7 @@ namespace MigratorVnext
          //   db.Database.Initialize(true);
             UnitOfWork = new UnitOfWork(db);
             MaterialRepository = new MaterialRepository(db);
+            MaterialCategoryRepository = new MaterialCategoryRepository(db);
         }
 
         static void Main()
@@ -410,7 +412,7 @@ namespace MigratorVnext
                     limit = MaxChars;
                 }
 
-                var categories = UnitOfWork.MaterialCategoryRepository.GetAsync().Result.Where(x => x.MaterialType == MaterialType.Blog).ToList();
+                var categories = MaterialCategoryRepository.GetAsync().Result.Where(x => x.MaterialType == MaterialType.Blog).ToList();
 
                 for (int i = 0; i < limit; i++)
                 {
@@ -732,7 +734,7 @@ namespace MigratorVnext
                     limit = MaxChars * 10;
                 }
 
-                var categories = UnitOfWork.MaterialCategoryRepository.GetAsync().Result.Where(x => x.MaterialType == MaterialType.News).ToList();
+                var categories = MaterialCategoryRepository.GetAsync().Result.Where(x => x.MaterialType == MaterialType.News).ToList();
 
                 for (int i = 0; i < limit; i++)
                 {
@@ -1128,7 +1130,7 @@ namespace MigratorVnext
                     }
                     i++;
 
-                    UnitOfWork.MaterialCategoryRepository.Add(blogCategory);
+                    MaterialCategoryRepository.Add(blogCategory);
                 }
                 UnitOfWork.Save();
             }
@@ -1202,7 +1204,7 @@ namespace MigratorVnext
                         }
                         i++;
                     }
-                    UnitOfWork.MaterialCategoryRepository.Add(newsCategory);
+                    MaterialCategoryRepository.Add(newsCategory);
 
                 }
                 UnitOfWork.Save();

@@ -9,7 +9,6 @@
     "Microsoft.EntityFrameworkCore.SqlServer.Design": "1.0.1",
     "Microsoft.Extensions.Configuration.Json": "1.1.0-*",
     "MyLiverpool.Data.Entities": "1.0.0-*",
-    "MyLiverpool.Business.DtoNext": "1.0.0-*",
     "NETStandard.Library": "1.6.1"
   },
 
