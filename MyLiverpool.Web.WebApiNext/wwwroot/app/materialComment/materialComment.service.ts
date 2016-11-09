@@ -16,19 +16,18 @@ export class MaterialCommentService {
     }
 
     getAll = (page: number): Observable<Pageable<MaterialComment>> => {
-        return this.http.get(this.actionUrl + "list/" + page).map(res => res.json());  //  encodeURIComponent(JSON.stringify("")
+        return this.http.get(this.actionUrl + "list/" + page).map(res => res.json());
     };
 
     getAllByMaterial = (page: number, id: number): Observable<Pageable<MaterialComment>> => {
-        return this.http.get(this.actionUrl + "material/" + id + "/list/" + page).map(res => res.json());  //  encodeURIComponent(JSON.stringify("")
+        return this.http.get(this.actionUrl + "material/" + id + "/list/" + page).map(res => res.json());
     };
 
     getSingle = (id: number): Observable<MaterialComment> => {
         return this.http.get(this.actionUrl + id).map(res => res.json());
     };
 
-    create = (item: MaterialComment): Observable<MaterialComment> => {
-        // var toAdd = JSON.stringify({ ItemName: item });
+    create = (item: MaterialComment): Observable<MaterialComment> => {  
         return this.http.post(this.actionUrl + "News/", JSON.stringify(item)).map(res => res.json());
     };
 

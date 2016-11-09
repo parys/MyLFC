@@ -11,7 +11,7 @@ namespace MyLiverpool.Business.Contracts
 
         Task<MaterialCommentDto> AddAsync(MaterialCommentDto model, MaterialType materialType);
 
-        Task<bool> EditAsync(MaterialCommentDto model, MaterialType materialType);
+        Task<bool> UpdateAsync(MaterialCommentDto model);
         
         Task<PageableData<MaterialCommentDto>> GetListAsync(int page, bool onlyUnverified);
 

@@ -21,8 +21,10 @@ export class MaterialCommentDetailComponent implements OnInit {
     @Input() parent: MaterialComment;
 
     commentForm: FormGroup;
+    private oldCopy : MaterialComment;
 
     @ViewChild("addCommentModal") addCommentModal: ModalDirective;
+    @ViewChild("editCommentModal") editCommentModal: ModalDirective;
     @ViewChild("deleteModal") deleteModal: ModalDirective;
    // page: number = 1;
    // itemsPerPage = 15;
@@ -38,10 +40,12 @@ export class MaterialCommentDetailComponent implements OnInit {
         private formBuilder: FormBuilder) {
     }
 
-    ngOnInit() {
+    ngOnInit(): void{
         this.roles = this.rolesChecked.checkedRoles;
         this.commentForm = this.formBuilder.group({
             'message': ["", Validators.compose([
+                Validators.required])],
+            'answer': ["", Validators.compose([
                 Validators.required])]
         });
     }
@@ -50,9 +54,9 @@ export class MaterialCommentDetailComponent implements OnInit {
         this.addCommentModal.show();
     }
 
-    hideModal(): void {
-        console.log(this.commentForm.controls["message"].value);
+    hideModal(): void {                                          
         this.addCommentModal.hide();
+        this.hideEditModal();
         this.deleteModal.hide();
     }
 
@@ -60,25 +64,25 @@ export class MaterialCommentDetailComponent implements OnInit {
         this.deleteModal.show();
     }
 
+    hideEditModal() {  
+        this.editCommentModal.hide();
+        this.cleanControls();
+    }
+
     addComment(value: any): void {
-        var comment = new MaterialComment();
-        comment.message = this.commentForm.controls["message"].value;
-        comment.materialId = this.materialId;
-        comment.parentId = this.item.id;
+        let comment = this.getComment();
         this.materialCommentService.create(comment)
             .subscribe(data => {
                 this.item.children.push(data);
-                this.commentForm.controls["message"].patchValue("");
-                this.commentForm.controls["message"].updateValueAndValidity();
+                this.cleanControls();
                 this.addCommentModal.hide();   
             },
             error => console.log(error),
             () => {});
-
     }
 
 
-    delete() {
+    delete(): void {
         let result;
         this.materialCommentService.delete(this.item.id)
             .subscribe(res => result = res,
@@ -102,10 +106,33 @@ export class MaterialCommentDetailComponent implements OnInit {
             );
     }
 
-    edit() { 
-      //  this.materialCommentService.delete(this.items[index].id).subscribe(data => data,
-      //      error => console.log(error),
-        //    () => console.log("success remove categoryu"));
-        //this.items.splice(index, 1);
-     }
+    showEditModal(): void {
+        this.commentForm.patchValue(this.item);
+        this.editCommentModal.show();
+    }
+
+    edit(): void {
+        let comment = this.getComment();
+        comment.answer = this.commentForm.controls["answer"].value;
+        this.materialCommentService.update(this.item.id, comment)
+            .subscribe(data => {
+                this.item = comment;
+                this.hideEditModal();
+                },
+            error => console.log(error),
+            () => { });
+    }
+
+    private getComment(): MaterialComment {
+        let comment = this.item;
+        comment.message = this.commentForm.controls["message"].value;
+        return comment;
+    }
+
+    private cleanControls(): void {    
+        this.commentForm.controls["message"].patchValue("");
+        this.commentForm.controls["message"].updateValueAndValidity();
+        this.commentForm.controls["answer"].patchValue("");
+        this.commentForm.controls["answer"].updateValueAndValidity();
+    }
 }

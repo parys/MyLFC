@@ -39,7 +39,7 @@ export class NewsDetailComponent implements OnInit, OnDestroy {
             this.newsService.getSingle(id)
                 .subscribe(data => this.parse(data),
                 error => console.log(error),
-                () => console.log("success load edit news"));
+                () => {});
         });
     }
 

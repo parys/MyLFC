@@ -28,6 +28,8 @@ var MaterialCommentDetailComponent = (function () {
         this.roles = this.rolesChecked.checkedRoles;
         this.commentForm = this.formBuilder.group({
             'message': ["", forms_1.Validators.compose([
+                    forms_1.Validators.required])],
+            'answer': ["", forms_1.Validators.compose([
                     forms_1.Validators.required])]
         });
     };
@@ -35,24 +37,24 @@ var MaterialCommentDetailComponent = (function () {
         this.addCommentModal.show();
     };
     MaterialCommentDetailComponent.prototype.hideModal = function () {
-        console.log(this.commentForm.controls["message"].value);
         this.addCommentModal.hide();
+        this.hideEditModal();
         this.deleteModal.hide();
     };
     MaterialCommentDetailComponent.prototype.showDeleteModal = function (index) {
         this.deleteModal.show();
     };
+    MaterialCommentDetailComponent.prototype.hideEditModal = function () {
+        this.editCommentModal.hide();
+        this.cleanControls();
+    };
     MaterialCommentDetailComponent.prototype.addComment = function (value) {
         var _this = this;
-        var comment = new materialComment_model_1.MaterialComment();
-        comment.message = this.commentForm.controls["message"].value;
-        comment.materialId = this.materialId;
-        comment.parentId = this.item.id;
+        var comment = this.getComment();
         this.materialCommentService.create(comment)
             .subscribe(function (data) {
             _this.item.children.push(data);
-            _this.commentForm.controls["message"].patchValue("");
-            _this.commentForm.controls["message"].updateValueAndValidity();
+            _this.cleanControls();
             _this.addCommentModal.hide();
         }, function (error) { return console.log(error); }, function () { });
     };
@@ -77,11 +79,30 @@ var MaterialCommentDetailComponent = (function () {
             }
         });
     };
+    MaterialCommentDetailComponent.prototype.showEditModal = function () {
+        this.commentForm.patchValue(this.item);
+        this.editCommentModal.show();
+    };
     MaterialCommentDetailComponent.prototype.edit = function () {
-        //  this.materialCommentService.delete(this.items[index].id).subscribe(data => data,
-        //      error => console.log(error),
-        //    () => console.log("success remove categoryu"));
-        //this.items.splice(index, 1);
+        var _this = this;
+        var comment = this.getComment();
+        comment.answer = this.commentForm.controls["answer"].value;
+        this.materialCommentService.update(this.item.id, comment)
+            .subscribe(function (data) {
+            _this.item = comment;
+            _this.hideEditModal();
+        }, function (error) { return console.log(error); }, function () { });
+    };
+    MaterialCommentDetailComponent.prototype.getComment = function () {
+        var comment = this.item;
+        comment.message = this.commentForm.controls["message"].value;
+        return comment;
+    };
+    MaterialCommentDetailComponent.prototype.cleanControls = function () {
+        this.commentForm.controls["message"].patchValue("");
+        this.commentForm.controls["message"].updateValueAndValidity();
+        this.commentForm.controls["answer"].patchValue("");
+        this.commentForm.controls["answer"].updateValueAndValidity();
     };
     __decorate([
         core_1.Input(), 
@@ -107,6 +128,10 @@ var MaterialCommentDetailComponent = (function () {
         core_1.ViewChild("addCommentModal"), 
         __metadata('design:type', ng2_bootstrap_1.ModalDirective)
     ], MaterialCommentDetailComponent.prototype, "addCommentModal", void 0);
+    __decorate([
+        core_1.ViewChild("editCommentModal"), 
+        __metadata('design:type', ng2_bootstrap_1.ModalDirective)
+    ], MaterialCommentDetailComponent.prototype, "editCommentModal", void 0);
     __decorate([
         core_1.ViewChild("deleteModal"), 
         __metadata('design:type', ng2_bootstrap_1.ModalDirective)

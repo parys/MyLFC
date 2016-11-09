@@ -102,7 +102,7 @@ var NewsListComponent = (function () {
         filters.page = this.page;
         this.newsService
             .getAll(filters)
-            .subscribe(function (data) { return _this.parsePageable(data); }, function (error) { return console.log(error); }, function () { return console.log("success load list news"); });
+            .subscribe(function (data) { return _this.parsePageable(data); }, function (error) { return console.log(error); }, function () { });
         //  this.cd.markForCheck();
     };
     __decorate([

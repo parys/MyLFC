@@ -18,16 +18,15 @@ var MaterialCommentService = (function () {
         this.http = http;
         this.configuration = configuration;
         this.getAll = function (page) {
-            return _this.http.get(_this.actionUrl + "list/" + page).map(function (res) { return res.json(); }); //  encodeURIComponent(JSON.stringify("")
+            return _this.http.get(_this.actionUrl + "list/" + page).map(function (res) { return res.json(); });
         };
         this.getAllByMaterial = function (page, id) {
-            return _this.http.get(_this.actionUrl + "material/" + id + "/list/" + page).map(function (res) { return res.json(); }); //  encodeURIComponent(JSON.stringify("")
+            return _this.http.get(_this.actionUrl + "material/" + id + "/list/" + page).map(function (res) { return res.json(); });
         };
         this.getSingle = function (id) {
             return _this.http.get(_this.actionUrl + id).map(function (res) { return res.json(); });
         };
         this.create = function (item) {
-            // var toAdd = JSON.stringify({ ItemName: item });
             return _this.http.post(_this.actionUrl + "News/", JSON.stringify(item)).map(function (res) { return res.json(); });
         };
         this.update = function (id, itemToUpdate) {

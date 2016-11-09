@@ -50,7 +50,7 @@ export class NewsListComponent implements OnInit, OnDestroy {
         this.deleteModal.hide();
     }
 
-    activate() {
+    activate(): void {
         let result;
 
         let news = this.items[this.selectedItemIndex];
@@ -66,7 +66,7 @@ export class NewsListComponent implements OnInit, OnDestroy {
             );
     }
 
-    delete() {
+    delete(): void {
         let result;
         this.newsService.delete(this.items[this.selectedItemIndex].id)
             .subscribe(res => result = res,
@@ -80,7 +80,7 @@ export class NewsListComponent implements OnInit, OnDestroy {
             );
     }
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.roles = this.rolesChecked.checkedRoles;
 
         this.sub = this.route.params.subscribe(params => {
@@ -93,7 +93,7 @@ export class NewsListComponent implements OnInit, OnDestroy {
         });
     }
 
-    ngOnDestroy() {
+    ngOnDestroy(): void {
         this.sub.unsubscribe();
     }
 
@@ -114,7 +114,7 @@ export class NewsListComponent implements OnInit, OnDestroy {
         this.totalItems = pageable.totalItems;
     }
 
-    private update() {
+    private update(): void {
         let filters = new MaterialFilters();
         filters.categoryId = this.categoryId;
         filters.materialType = "News";
@@ -125,7 +125,7 @@ export class NewsListComponent implements OnInit, OnDestroy {
             .getAll(filters)
             .subscribe(data => this.parsePageable(data),
                 error => console.log(error),
-                () => console.log("success load list news"));
+                () => {});
       //  this.cd.markForCheck();
     }
 }

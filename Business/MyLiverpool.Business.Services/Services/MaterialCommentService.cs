@@ -67,7 +67,7 @@ namespace MyLiverpool.Business.Services.Services
             return result;
         }
 
-        public async Task<bool> EditAsync(MaterialCommentDto model, MaterialType materialType)
+        public async Task<bool> UpdateAsync(MaterialCommentDto model)
         {
             var comment = await _commentService.GetByIdAsync(model.Id);
             comment.LastModified = DateTime.Now;

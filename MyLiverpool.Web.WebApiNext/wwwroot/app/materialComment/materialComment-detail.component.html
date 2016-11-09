@@ -6,7 +6,7 @@
         </div>
         <div class="col-xs-3 col-sm-3">
             <span class="pull-right">
-                    <a *ngIf="roles.isModerator || roles.isSelf(item.authorId)" (click)="edit()"><span class="glyphicon glyphicon-pencil"> </span></a>
+                    <a *ngIf="roles.isModerator || roles.isSelf(item.authorId)" (click)="showEditModal()"><span class="glyphicon glyphicon-pencil"> </span></a>
                     <a *ngIf="roles.isModerator" (click)="delete()"><span class="glyphicon glyphicon-trash"> </span></a>
                 </span>
         </div>
@@ -49,6 +49,32 @@
             <div class="modal-footer">
                 <button class="btn btn-default" data-dismiss="modal" (click)="hideModal()" type="button">Отмена</button>
                 <button class="btn btn-primary" type="button" (click)="addComment()">Добавить</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #editCommentModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" aria-label="Close" (click)="hideModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Редактировать комментарий</h4>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <textarea [formControl]="commentForm.controls['message']"></textarea>
+                </div>
+                <div *ngIf="roles.isEditor">
+                    <textarea [formControl]="commentForm.controls['answer']"></textarea>
+                </div>
+            </div>    
+            <div class="modal-footer">
+                <button class="btn btn-default" data-dismiss="modal" (click)="hideModal()" type="button">Отмена</button>
+                <button class="btn btn-primary" type="button" (click)="edit()">Обновить</button>
             </div>
         </div>
     </div>
