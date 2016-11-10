@@ -6,11 +6,13 @@
       "emitDecoratorMetadata": true,
       "experimentalDecorators": true,
       "allowSyntheticDefaultImports": true,
+      "removeComments": true,
       "sourceMap": true,
       "strictNullChecks": false,
+      "skipLibCheck": true,
       "lib": [
         "dom",
-        "es6"
+        "es2015"
       ],
       "types": [
         "hammerjs",
@@ -27,7 +29,7 @@
       "forkChecker": true,
       "useWebpackText": true
     },
-    "compileOnSave": true,
+    "compileOnSave": false,
     "buildOnSave": false,
     "atom": { "rewriteTsconfig": false }
   }

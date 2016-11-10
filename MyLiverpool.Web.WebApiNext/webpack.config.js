@@ -1,34 +1,12 @@
-﻿"use strict";
+/// <binding ProjectOpened='Run - Development' />
+"use strict";
 
-/// <binding ProjectOpened='Watch - Development' /> 
+/// <binding ProjectOpened='Run - Development' />
 
-var WebpackNotifierPlugin = require("webpack-notifier");
+var isProd = (process.env.NODE_ENV === "production");
 
-module.exports = {
-    entry: {
-        file1: "./wwwroot/app/boot.js"
-    },
-
-    output: {
-        path: path.join(__dirname, "./dist"),
-        filename: "[name].js"
-    },
-
-    devServer: {
-        contentBase: ".",
-        host: "localhost",
-        port: 1669
-    },
-
-    module: {
-        loaders: [
-            {
-                test: /\.ts?$/,
-                loader: "babel-loader"
-            }
-        ]
-    },
-    plugins: [
-      //new WebpackNotifierPlugin()
-    ]
-};
+if (!isProd) {
+    module.exports = require("./webpack.dev.js");
+} else {
+    module.exports = require("./webpack.prod.js");
+}
