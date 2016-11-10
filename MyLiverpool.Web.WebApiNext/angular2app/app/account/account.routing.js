@@ -1,10 +1,9 @@
-"use strict";
-var index_1 = require("./index");
-exports.accountRoutes = [
-    { path: "signup", component: index_1.AccountSignupComponent },
-    { path: "confirmEmail", component: index_1.ConfirmEmailComponent },
-    { path: "forgotPassword", component: index_1.ForgotPasswordComponent },
-    { path: "unconfirmedEmail", component: index_1.UnconfirmedEmailComponent },
-    { path: "resetPassword", component: index_1.ResetPasswordComponent }
+import { AccountSignupComponent, ConfirmEmailComponent, ForgotPasswordComponent, UnconfirmedEmailComponent, ResetPasswordComponent } from "./index";
+export var accountRoutes = [
+    { path: "signup", component: AccountSignupComponent },
+    { path: "confirmEmail", component: ConfirmEmailComponent },
+    { path: "forgotPassword", component: ForgotPasswordComponent },
+    { path: "unconfirmedEmail", component: UnconfirmedEmailComponent },
+    { path: "resetPassword", component: ResetPasswordComponent }
 ];
 //# sourceMappingURL=account.routing.js.map

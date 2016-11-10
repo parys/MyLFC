@@ -1,9 +1,8 @@
-"use strict";
-var index_1 = require("./index");
-exports.materialCommentRoutes = [
-    { path: "materialComment", component: index_1.MaterialCommentListComponent },
-    { path: "materialComment/list", component: index_1.MaterialCommentListComponent },
-    { path: "materialComment/list/:page", component: index_1.MaterialCommentListComponent },
-    { path: "materialComment/list/:page/:categoryId", component: index_1.MaterialCommentListComponent },
+import { MaterialCommentListComponent } from "./index";
+export var materialCommentRoutes = [
+    { path: "materialComment", component: MaterialCommentListComponent },
+    { path: "materialComment/list", component: MaterialCommentListComponent },
+    { path: "materialComment/list/:page", component: MaterialCommentListComponent },
+    { path: "materialComment/list/:page/:categoryId", component: MaterialCommentListComponent },
 ];
 //# sourceMappingURL=materialComment.routing.js.map

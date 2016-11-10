@@ -1,4 +1,3 @@
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,19 +7,19 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require("@angular/core");
-var forms_1 = require("@angular/forms");
-var account_service_1 = require("./account.service");
-var index_1 = require("../shared/index");
-var UnconfirmedEmailComponent = (function () {
+import { Component } from "@angular/core";
+import { FormBuilder, Validators } from "@angular/forms";
+import { AccountService } from "./account.service";
+import { GlobalValidators } from "../shared/index";
+export var UnconfirmedEmailComponent = (function () {
     function UnconfirmedEmailComponent(service, formBuilder) {
         this.service = service;
         this.formBuilder = formBuilder;
     }
     UnconfirmedEmailComponent.prototype.ngOnInit = function () {
         this.unconfirmedForm = this.formBuilder.group({
-            'email': ["", forms_1.Validators.compose([
-                    forms_1.Validators.required, index_1.GlobalValidators.mailFormat])]
+            'email': ["", Validators.compose([
+                    Validators.required, GlobalValidators.mailFormat])]
         });
     };
     UnconfirmedEmailComponent.prototype.onSubmit = function () {
@@ -34,13 +33,12 @@ var UnconfirmedEmailComponent = (function () {
         }, function (error) { return console.log(error); }, function () { });
     };
     UnconfirmedEmailComponent = __decorate([
-        core_1.Component({
+        Component({
             selector: "unconfirmedEmail",
             template: require("./unconfirmedEmail.component.html")
         }), 
-        __metadata('design:paramtypes', [account_service_1.AccountService, forms_1.FormBuilder])
+        __metadata('design:paramtypes', [AccountService, FormBuilder])
     ], UnconfirmedEmailComponent);
     return UnconfirmedEmailComponent;
 }());
-exports.UnconfirmedEmailComponent = UnconfirmedEmailComponent;
 //# sourceMappingURL=unconfirmedEmail.component.js.map

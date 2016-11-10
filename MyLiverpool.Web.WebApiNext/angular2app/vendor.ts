@@ -10,7 +10,7 @@ import "@angular/platform-browser-dynamic";
 import "@angular/router";
 
 
-// import "reflect-metadata";
+import "reflect-metadata";
 
 
 import "jquery";

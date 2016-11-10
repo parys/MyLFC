@@ -21,7 +21,7 @@ module.exports = {
     },
 
     output: {
-        path: "./wwwroot/",
+        path: path.join(__dirname, "wwwroot/"),
         filename: "dist/[name].bundle.js",
         publicPath: "/"
     },
@@ -33,10 +33,7 @@ module.exports = {
     devServer: {
         historyApiFallback: true,
         stats: "minimal",
-        outputPath: path.join(__dirname, "wwwroot/"),
-        contentBase: ".",
-        host: "localhost",
-        port: 1669
+        outputPath: path.join(__dirname, "wwwroot/")
     },
 
     module: {
@@ -92,7 +89,7 @@ module.exports = {
             name: ["vendor", "polyfills"]
         }),
         new HtmlWebpackPlugin({
-            filename: "dist/index.html",
+            filename: "index.html",
             inject: "body",
             chunksSortMode: helpers.packageSort(["polyfills", "vendor", "app"]),
             template: "angular2App/index.html"

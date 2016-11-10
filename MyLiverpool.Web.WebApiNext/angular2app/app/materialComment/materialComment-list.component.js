@@ -1,4 +1,3 @@
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,12 +7,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require("@angular/core");
-var materialComment_service_1 = require("./materialComment.service");
-var common_1 = require("@angular/common");
-var index_1 = require("../shared/index");
-var ng2_bootstrap_1 = require("ng2-bootstrap/ng2-bootstrap");
-var MaterialCommentListComponent = (function () {
+import { Component, ViewChild } from "@angular/core";
+import { MaterialCommentService } from "./materialComment.service";
+import { Location } from "@angular/common";
+import { RolesCheckedService } from "../shared/index";
+import { ModalDirective } from "ng2-bootstrap/ng2-bootstrap";
+export var MaterialCommentListComponent = (function () {
     function MaterialCommentListComponent(materialCommentService, location, rolesChecked) {
         this.materialCommentService = materialCommentService;
         this.location = location;
@@ -76,17 +75,16 @@ var MaterialCommentListComponent = (function () {
         });
     };
     __decorate([
-        core_1.ViewChild("deleteModal"), 
-        __metadata('design:type', ng2_bootstrap_1.ModalDirective)
+        ViewChild("deleteModal"), 
+        __metadata('design:type', ModalDirective)
     ], MaterialCommentListComponent.prototype, "deleteModal", void 0);
     MaterialCommentListComponent = __decorate([
-        core_1.Component({
+        Component({
             selector: "materialComment-list",
             template: require("./materialComment-list.component.html")
         }), 
-        __metadata('design:paramtypes', [materialComment_service_1.MaterialCommentService, common_1.Location, index_1.RolesCheckedService])
+        __metadata('design:paramtypes', [MaterialCommentService, Location, RolesCheckedService])
     ], MaterialCommentListComponent);
     return MaterialCommentListComponent;
 }());
-exports.MaterialCommentListComponent = MaterialCommentListComponent;
 //# sourceMappingURL=materialComment-list.component.js.map

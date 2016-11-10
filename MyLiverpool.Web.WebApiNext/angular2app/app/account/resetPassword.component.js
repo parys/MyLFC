@@ -1,4 +1,3 @@
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,13 +7,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require("@angular/core");
-var forms_1 = require("@angular/forms");
-var router_1 = require("@angular/router");
-var account_service_1 = require("./account.service");
-var index_1 = require("../shared/index");
-var resetPassword_model_1 = require("./resetPassword.model");
-var ResetPasswordComponent = (function () {
+import { Component } from "@angular/core";
+import { FormBuilder, Validators } from "@angular/forms";
+import { Router, ActivatedRoute } from "@angular/router";
+import { AccountService } from "./account.service";
+import { GlobalValidators } from "../shared/index";
+import { ResetPassword } from "./resetPassword.model";
+export var ResetPasswordComponent = (function () {
     function ResetPasswordComponent(service, route, router, formBuilder) {
         this.service = service;
         this.route = route;
@@ -27,19 +26,19 @@ var ResetPasswordComponent = (function () {
             _this.code = params["code"];
         });
         this.resetForm = this.formBuilder.group({
-            'email': ["", forms_1.Validators.compose([
-                    forms_1.Validators.required, index_1.GlobalValidators.mailFormat])],
-            'password': ["", forms_1.Validators.compose([
-                    forms_1.Validators.required, forms_1.Validators.minLength(6)])],
-            'confirmPassword': ["", forms_1.Validators.compose([
-                    forms_1.Validators.required, forms_1.Validators.minLength(6)])],
-        }, { validator: index_1.GlobalValidators.matchingPasswords("password", "confirmPassword") });
+            'email': ["", Validators.compose([
+                    Validators.required, GlobalValidators.mailFormat])],
+            'password': ["", Validators.compose([
+                    Validators.required, Validators.minLength(6)])],
+            'confirmPassword': ["", Validators.compose([
+                    Validators.required, Validators.minLength(6)])],
+        }, { validator: GlobalValidators.matchingPasswords("password", "confirmPassword") });
     };
     ResetPasswordComponent.prototype.ngOnDestroy = function () {
         this.sub.unsubscribe();
     };
     ResetPasswordComponent.prototype.onSubmit = function (ra) {
-        var resetPassword = new resetPassword_model_1.ResetPassword();
+        var resetPassword = new ResetPassword();
         resetPassword.code = this.code;
         resetPassword.email = this.resetForm.controls["email"].value;
         resetPassword.password = this.resetForm.controls["password"].value;
@@ -48,13 +47,12 @@ var ResetPasswordComponent = (function () {
         this.finish = true;
     };
     ResetPasswordComponent = __decorate([
-        core_1.Component({
+        Component({
             selector: "reset-password",
             template: require("./resetPassword.component.html")
         }), 
-        __metadata('design:paramtypes', [account_service_1.AccountService, router_1.ActivatedRoute, router_1.Router, forms_1.FormBuilder])
+        __metadata('design:paramtypes', [AccountService, ActivatedRoute, Router, FormBuilder])
     ], ResetPasswordComponent);
     return ResetPasswordComponent;
 }());
-exports.ResetPasswordComponent = ResetPasswordComponent;
 //# sourceMappingURL=resetPassword.component.js.map

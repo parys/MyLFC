@@ -1,35 +1,39 @@
 {
-    "compilerOptions": {
-      "target": "es5",
-      "module": "commonjs",
-      "moduleResolution": "node",
-      "emitDecoratorMetadata": true,
-      "experimentalDecorators": true,
-      "allowSyntheticDefaultImports": true,
-      "removeComments": true,
-      "sourceMap": true,
-      "strictNullChecks": false,
-      "skipLibCheck": true,
-      "lib": [
-        "dom",
-        "es2015"
-      ],
-      "types": [
-        "hammerjs",
-        "node",
-        "source-map",
-        "uglify-js",
-        "webpack"
-      ]
-    },
-    "exclude": [
-      "node_modules"
+  "compilerOptions": {
+    "target": "es5",
+    "module": "es2015",
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "removeComments": true,
+    "sourceMap": true,
+    "strictNullChecks": false,
+    "skipLibCheck": true,
+    "lib": [
+      "dom",
+      "es2015"
     ],
-    "awesomeTypescriptLoaderOptions": {
-      "forkChecker": true,
-      "useWebpackText": true
-    },
-    "compileOnSave": false,
-    "buildOnSave": false,
-    "atom": { "rewriteTsconfig": false }
-  }
+    "types": [
+      "hammerjs",
+      "node",
+      "source-map",
+      "uglify-js",
+      "webpack"
+    ]
+  },
+  "exclude": [
+    "node_modules"
+  ],
+  "files": [
+    "angular2App/app/app.module.ts",
+    "angular2App/app/boot.ts"
+  ],
+  "awesomeTypescriptLoaderOptions": {
+    "forkChecker": true,
+    "useWebpackText": true
+  },
+  "compileOnSave": false,
+  "buildOnSave": false,
+  "atom": { "rewriteTsconfig": false }
+}

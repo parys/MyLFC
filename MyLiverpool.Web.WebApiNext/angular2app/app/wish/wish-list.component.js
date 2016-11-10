@@ -1,4 +1,3 @@
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,10 +7,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require("@angular/core");
-var wish_service_1 = require("./wish.service");
-var router_1 = require("@angular/router");
-var WishListComponent = (function () {
+import { Component } from "@angular/core";
+import { WishService } from "./wish.service";
+import { ActivatedRoute } from "@angular/router";
+export var WishListComponent = (function () {
     function WishListComponent(service, route) {
         this.service = service;
         this.route = route;
@@ -59,13 +58,12 @@ var WishListComponent = (function () {
     };
     ;
     WishListComponent = __decorate([
-        core_1.Component({
+        Component({
             selector: "wish-list",
             template: require("./wish-list.component.html")
         }), 
-        __metadata('design:paramtypes', [wish_service_1.WishService, router_1.ActivatedRoute])
+        __metadata('design:paramtypes', [WishService, ActivatedRoute])
     ], WishListComponent);
     return WishListComponent;
 }());
-exports.WishListComponent = WishListComponent;
 //# sourceMappingURL=wish-list.component.js.map

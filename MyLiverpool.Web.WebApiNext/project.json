@@ -75,19 +75,20 @@
   "buildOptions": {
     "emitEntryPoint": true,
     "preserveCompilationContext": true,
-    "xmlDoc": true
+    "xmlDoc": true,
+    "compile": {
+      "exclude": [ "node_modules" ]
+    }
   },
 
   "runtimeOptions": {
-    "configProperties": {
-      "System.GC.Server": true
-    }
+    "gcServer": true
   },
 
   "publishOptions": {
     "include": [
       "wwwroot",
-      "appsettings.json",
+    //  "appsettings.json",
       "web.config"
     ]
   },

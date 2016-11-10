@@ -31,6 +31,7 @@ namespace MyLiverpool.Data.ResourceAccess
 
         public async void Seed()
         {
+            if (_context.Roles.Any()) return;
             //_context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
             await InitializeRoles();
             await InitializeRoleGroups();

@@ -1,1 +1,1 @@
-{"version":3,"file":"forumSection.routing.js","sourceRoot":"","sources":["forumSection.routing.ts"],"names":[],"mappings":";AACA,sBAA0C,SAAS,CAAC,CAAA;AAEvC,0BAAkB,GAAW;IACtC,EAAE,IAAI,EAAE,OAAO,EAAE,SAAS,EAAE,iCAAyB,EAAE;CAE1D,CAAC"}
+{"version":3,"file":"forumSection.routing.js","sourceRoot":"","sources":["forumSection.routing.ts"],"names":[],"mappings":"OACO,EAAE,yBAAyB,EAAE,MAAM,SAAS;AAEnD,OAAO,IAAM,kBAAkB,GAAW;IACtC,EAAE,IAAI,EAAE,OAAO,EAAE,SAAS,EAAE,yBAAyB,EAAE;CAE1D,CAAC"}

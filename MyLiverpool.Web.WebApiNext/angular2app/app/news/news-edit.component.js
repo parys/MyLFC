@@ -1,4 +1,3 @@
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,18 +7,18 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require("@angular/core");
-var news_service_1 = require("./news.service");
-var router_1 = require("@angular/router");
-var news_model_1 = require("./news.model");
-var newsCategory_service_1 = require("../newsCategory/shared/newsCategory.service");
-var NewsEditComponent = (function () {
+import { Component } from "@angular/core";
+import { NewsService } from "./news.service";
+import { Router, ActivatedRoute } from "@angular/router";
+import { News } from "./news.model";
+import { NewsCategoryService } from "../newsCategory/shared/newsCategory.service";
+export var NewsEditComponent = (function () {
     function NewsEditComponent(newsService, newsCategoryService, route, router) {
         this.newsService = newsService;
         this.newsCategoryService = newsCategoryService;
         this.route = route;
         this.router = router;
-        this.item = new news_model_1.News();
+        this.item = new News();
     }
     NewsEditComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -53,13 +52,12 @@ var NewsEditComponent = (function () {
         this.categories = items;
     };
     NewsEditComponent = __decorate([
-        core_1.Component({
+        Component({
             selector: "news-edit",
             template: require("./news-edit.component.html")
         }), 
-        __metadata('design:paramtypes', [news_service_1.NewsService, newsCategory_service_1.NewsCategoryService, router_1.ActivatedRoute, router_1.Router])
+        __metadata('design:paramtypes', [NewsService, NewsCategoryService, ActivatedRoute, Router])
     ], NewsEditComponent);
     return NewsEditComponent;
 }());
-exports.NewsEditComponent = NewsEditComponent;
 //# sourceMappingURL=news-edit.component.js.map

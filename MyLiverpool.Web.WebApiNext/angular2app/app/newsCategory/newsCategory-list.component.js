@@ -1,4 +1,3 @@
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,10 +7,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require("@angular/core");
-var platform_browser_1 = require("@angular/platform-browser");
-var newsCategory_service_1 = require("./shared/newsCategory.service");
-var NewsCategoryListComponent = (function () {
+import { Component } from "@angular/core";
+import { Title } from "@angular/platform-browser";
+import { NewsCategoryService } from "./shared/newsCategory.service";
+export var NewsCategoryListComponent = (function () {
     function NewsCategoryListComponent(newsCategoryService, titleService) {
         this.newsCategoryService = newsCategoryService;
         this.titleService = titleService;
@@ -31,13 +30,12 @@ var NewsCategoryListComponent = (function () {
         this.items.splice(index, 1);
     };
     NewsCategoryListComponent = __decorate([
-        core_1.Component({
+        Component({
             selector: "newsCategory-list",
             template: require("./newsCategory-list.component.html")
         }), 
-        __metadata('design:paramtypes', [newsCategory_service_1.NewsCategoryService, platform_browser_1.Title])
+        __metadata('design:paramtypes', [NewsCategoryService, Title])
     ], NewsCategoryListComponent);
     return NewsCategoryListComponent;
 }());
-exports.NewsCategoryListComponent = NewsCategoryListComponent;
 //# sourceMappingURL=newsCategory-list.component.js.map

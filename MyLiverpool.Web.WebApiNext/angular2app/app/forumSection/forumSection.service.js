@@ -1,4 +1,3 @@
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,11 +7,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require("@angular/core");
-require("rxjs/add/operator/map");
-var app_constants_1 = require("../app.constants");
-var index_1 = require("../shared/index");
-var ForumSectionService = (function () {
+import { Injectable } from "@angular/core";
+import "rxjs/add/operator/map";
+import { Configuration } from "../app.constants";
+import { HttpWrapper } from "../shared/index";
+export var ForumSectionService = (function () {
     function ForumSectionService(http, configuration) {
         var _this = this;
         this.http = http;
@@ -23,10 +22,9 @@ var ForumSectionService = (function () {
         this.actionUrl = configuration.ServerWithApiUrl + "forumSection/";
     }
     ForumSectionService = __decorate([
-        core_1.Injectable(), 
-        __metadata('design:paramtypes', [index_1.HttpWrapper, app_constants_1.Configuration])
+        Injectable(), 
+        __metadata('design:paramtypes', [HttpWrapper, Configuration])
     ], ForumSectionService);
     return ForumSectionService;
 }());
-exports.ForumSectionService = ForumSectionService;
 //# sourceMappingURL=forumSection.service.js.map

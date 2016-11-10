@@ -1,4 +1,3 @@
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,14 +7,14 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require("@angular/core");
-var http_1 = require("@angular/http");
-var router_1 = require("@angular/router");
-require("rxjs/add/observable/of");
-require("rxjs/add/operator/do");
-require("rxjs/add/operator/delay");
-var index_1 = require("../shared/index");
-var AuthService = (function () {
+import { Injectable } from "@angular/core";
+import { Http, Headers } from "@angular/http";
+import { Router } from "@angular/router";
+import "rxjs/add/observable/of";
+import "rxjs/add/operator/do";
+import "rxjs/add/operator/delay";
+import { LocalStorageMine, RolesCheckedService, HttpWrapper } from "../shared/index";
+export var AuthService = (function () {
     function AuthService(http, http1, localStorage, rolesCheckedService, router) {
         this.http = http;
         this.http1 = http1;
@@ -35,7 +34,7 @@ var AuthService = (function () {
     }
     AuthService.prototype.login = function (username, password) {
         var _this = this;
-        var headers = new http_1.Headers();
+        var headers = new Headers();
         headers.append("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8;");
         var perams = "grant_type=password&username=" + username + "&password=" + password + "&client_id=client_id3";
         var result = this.http1.post("connect/token", perams, {
@@ -92,10 +91,9 @@ var AuthService = (function () {
         });
     };
     AuthService = __decorate([
-        core_1.Injectable(), 
-        __metadata('design:paramtypes', [index_1.HttpWrapper, http_1.Http, index_1.LocalStorageMine, index_1.RolesCheckedService, router_1.Router])
+        Injectable(), 
+        __metadata('design:paramtypes', [HttpWrapper, Http, LocalStorageMine, RolesCheckedService, Router])
     ], AuthService);
     return AuthService;
 }());
-exports.AuthService = AuthService;
 //# sourceMappingURL=auth.service.js.map

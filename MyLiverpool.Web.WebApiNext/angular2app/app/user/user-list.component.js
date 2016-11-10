@@ -1,4 +1,3 @@
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,11 +7,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require("@angular/core");
-var router_1 = require("@angular/router");
-var user_service_1 = require("./user.service");
-var userFilters_model_1 = require("./userFilters.model");
-var UserListComponent = (function () {
+import { Component } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
+import { UserService } from "./user.service";
+import { UserFilters } from "./userFilters.model";
+export var UserListComponent = (function () {
     function UserListComponent(userService, route) {
         this.userService = userService;
         this.route = route;
@@ -39,7 +38,7 @@ var UserListComponent = (function () {
     };
     UserListComponent.prototype.update = function () {
         var _this = this;
-        var filters = new userFilters_model_1.UserFilters();
+        var filters = new UserFilters();
         filters.userName = this.userName;
         filters.page = this.page;
         this.userService
@@ -47,13 +46,12 @@ var UserListComponent = (function () {
             .subscribe(function (data) { return _this.parsePageable(data); }, function (error) { return console.log(error); }, function () { });
     };
     UserListComponent = __decorate([
-        core_1.Component({
+        Component({
             selector: "user-list",
             template: require("./user-list.component.html")
         }), 
-        __metadata('design:paramtypes', [user_service_1.UserService, router_1.ActivatedRoute])
+        __metadata('design:paramtypes', [UserService, ActivatedRoute])
     ], UserListComponent);
     return UserListComponent;
 }());
-exports.UserListComponent = UserListComponent;
 //# sourceMappingURL=user-list.component.js.map

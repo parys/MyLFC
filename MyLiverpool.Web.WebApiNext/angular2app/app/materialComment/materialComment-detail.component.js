@@ -1,4 +1,3 @@
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,14 +7,14 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require("@angular/core");
-var forms_1 = require("@angular/forms");
-var common_1 = require("@angular/common");
-var materialComment_model_1 = require("./materialComment.model");
-var materialComment_service_1 = require("./materialComment.service");
-var index_1 = require("../shared/index");
-var ng2_bootstrap_1 = require("ng2-bootstrap/ng2-bootstrap");
-var MaterialCommentDetailComponent = (function () {
+import { Component, ViewChild, Input } from "@angular/core";
+import { FormBuilder, Validators } from "@angular/forms";
+import { Location } from "@angular/common";
+import { MaterialComment } from "./materialComment.model";
+import { MaterialCommentService } from "./materialComment.service";
+import { RolesCheckedService } from "../shared/index";
+import { ModalDirective } from "ng2-bootstrap/ng2-bootstrap";
+export var MaterialCommentDetailComponent = (function () {
     function MaterialCommentDetailComponent(materialCommentService, location, rolesChecked, formBuilder) {
         this.materialCommentService = materialCommentService;
         this.location = location;
@@ -25,10 +24,10 @@ var MaterialCommentDetailComponent = (function () {
     MaterialCommentDetailComponent.prototype.ngOnInit = function () {
         this.roles = this.rolesChecked.checkedRoles;
         this.commentForm = this.formBuilder.group({
-            'message': ["", forms_1.Validators.compose([
-                    forms_1.Validators.required])],
-            'answer': ["", forms_1.Validators.compose([
-                    forms_1.Validators.required])]
+            'message': ["", Validators.compose([
+                    Validators.required])],
+            'answer': ["", Validators.compose([
+                    Validators.required])]
         });
     };
     MaterialCommentDetailComponent.prototype.showAddCommentModal = function (index) {
@@ -102,45 +101,44 @@ var MaterialCommentDetailComponent = (function () {
         this.commentForm.controls["answer"].updateValueAndValidity();
     };
     __decorate([
-        core_1.Input(), 
-        __metadata('design:type', materialComment_model_1.MaterialComment)
+        Input(), 
+        __metadata('design:type', MaterialComment)
     ], MaterialCommentDetailComponent.prototype, "item", void 0);
     __decorate([
-        core_1.Input(), 
+        Input(), 
         __metadata('design:type', Number)
     ], MaterialCommentDetailComponent.prototype, "deep", void 0);
     __decorate([
-        core_1.Input(), 
+        Input(), 
         __metadata('design:type', Boolean)
     ], MaterialCommentDetailComponent.prototype, "canCommentary", void 0);
     __decorate([
-        core_1.Input(), 
+        Input(), 
         __metadata('design:type', Number)
     ], MaterialCommentDetailComponent.prototype, "materialId", void 0);
     __decorate([
-        core_1.Input(), 
-        __metadata('design:type', materialComment_model_1.MaterialComment)
+        Input(), 
+        __metadata('design:type', MaterialComment)
     ], MaterialCommentDetailComponent.prototype, "parent", void 0);
     __decorate([
-        core_1.ViewChild("addCommentModal"), 
-        __metadata('design:type', ng2_bootstrap_1.ModalDirective)
+        ViewChild("addCommentModal"), 
+        __metadata('design:type', ModalDirective)
     ], MaterialCommentDetailComponent.prototype, "addCommentModal", void 0);
     __decorate([
-        core_1.ViewChild("editCommentModal"), 
-        __metadata('design:type', ng2_bootstrap_1.ModalDirective)
+        ViewChild("editCommentModal"), 
+        __metadata('design:type', ModalDirective)
     ], MaterialCommentDetailComponent.prototype, "editCommentModal", void 0);
     __decorate([
-        core_1.ViewChild("deleteModal"), 
-        __metadata('design:type', ng2_bootstrap_1.ModalDirective)
+        ViewChild("deleteModal"), 
+        __metadata('design:type', ModalDirective)
     ], MaterialCommentDetailComponent.prototype, "deleteModal", void 0);
     MaterialCommentDetailComponent = __decorate([
-        core_1.Component({
+        Component({
             selector: "materialComment-detail",
             template: require("./materialComment-detail.component.html")
         }), 
-        __metadata('design:paramtypes', [materialComment_service_1.MaterialCommentService, common_1.Location, index_1.RolesCheckedService, forms_1.FormBuilder])
+        __metadata('design:paramtypes', [MaterialCommentService, Location, RolesCheckedService, FormBuilder])
     ], MaterialCommentDetailComponent);
     return MaterialCommentDetailComponent;
 }());
-exports.MaterialCommentDetailComponent = MaterialCommentDetailComponent;
 //# sourceMappingURL=materialComment-detail.component.js.map

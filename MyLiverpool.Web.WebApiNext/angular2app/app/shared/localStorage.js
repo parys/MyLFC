@@ -1,5 +1,4 @@
-"use strict";
-var LocalStorageMine = (function () {
+export var LocalStorageMine = (function () {
     function LocalStorageMine() {
         if (!localStorage) {
             throw new Error("Current browser does not support Local Storage");
@@ -26,5 +25,4 @@ var LocalStorageMine = (function () {
     };
     return LocalStorageMine;
 }());
-exports.LocalStorageMine = LocalStorageMine;
 //# sourceMappingURL=localStorage.js.map

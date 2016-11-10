@@ -1,8 +1,7 @@
-"use strict";
-var newsCategory_list_component_1 = require("./newsCategory-list.component");
-var newsCategory_edit_component_1 = require("./newsCategory-edit.component");
-exports.newsCategoryRoutes = [
-    { path: 'newsCategory', component: newsCategory_list_component_1.NewsCategoryListComponent },
-    { path: 'newsCategory/:id/edit', component: newsCategory_edit_component_1.NewsCategoryEditComponent }
+import { NewsCategoryListComponent } from "./newsCategory-list.component";
+import { NewsCategoryEditComponent } from "./newsCategory-edit.component";
+export var newsCategoryRoutes = [
+    { path: 'newsCategory', component: NewsCategoryListComponent },
+    { path: 'newsCategory/:id/edit', component: NewsCategoryEditComponent }
 ];
 //# sourceMappingURL=newsCategory.routing.js.map

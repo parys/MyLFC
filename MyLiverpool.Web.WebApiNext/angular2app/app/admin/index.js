@@ -1,7 +1,3 @@
-"use strict";
-function __export(m) {
-    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
-}
-__export(require("./admin.service"));
-__export(require("./eplTable.component"));
+export * from "./admin.service";
+export * from "./eplTable.component";
 //# sourceMappingURL=index.js.map

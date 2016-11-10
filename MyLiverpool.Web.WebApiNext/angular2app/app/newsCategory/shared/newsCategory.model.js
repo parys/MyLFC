@@ -1,8 +1,6 @@
-"use strict";
-var NewsCategory = (function () {
+export var NewsCategory = (function () {
     function NewsCategory() {
     }
     return NewsCategory;
 }());
-exports.NewsCategory = NewsCategory;
 //# sourceMappingURL=newsCategory.model.js.map
