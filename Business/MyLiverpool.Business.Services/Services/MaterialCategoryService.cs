@@ -10,25 +10,25 @@ namespace MyLiverpool.Business.Services.Services
 {
     public class MaterialCategoryService : IMaterialCategoryService
     {
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IMaterialCategoryRepository _categoryRepository;
         private readonly IMapper _mapper;
 
-        public MaterialCategoryService(IUnitOfWork unitOfWork, IMapper mapper)
+        public MaterialCategoryService(IMaterialCategoryRepository categoryRepository, IMapper mapper)
         {
-            _unitOfWork = unitOfWork;
+            _categoryRepository = categoryRepository;
             _mapper = mapper;
         }
 
         public async Task<ICollection<MaterialCategoryDto>> GetListAsync(MaterialType materialType)
         {
-            var categories = await _unitOfWork.MaterialCategoryRepository.GetAsync(x => x.MaterialType == materialType);
+            var categories = await _categoryRepository.GetAsync(x => x.MaterialType == materialType);
             var result = _mapper.Map<ICollection<MaterialCategoryDto>>(categories);
             return result;
         }
 
         public async Task<MaterialCategoryDto> GetAsync(int id, MaterialType materialType)
         {
-            var result = await _unitOfWork.MaterialCategoryRepository.GetByIdAsync(id);
+            var result = await _categoryRepository.GetByIdAsync(id);
             if (result.MaterialType != materialType)
             {
                 return null;
@@ -39,32 +39,32 @@ namespace MyLiverpool.Business.Services.Services
         public async Task<MaterialCategoryDto> CreateAsync(MaterialCategoryDto dto)
         {
             var model = _mapper.Map<MaterialCategory>(dto);
-            _unitOfWork.MaterialCategoryRepository.Add(model);
-            await _unitOfWork.SaveAsync();
+            _categoryRepository.Add(model);
+            await _categoryRepository.SaveChangesAsync();
             var result = _mapper.Map<MaterialCategoryDto>(model);
             return result;
         }
 
         public async Task<MaterialCategoryDto> UpdateAsync(MaterialCategoryDto dto)
         {
-            var model = await _unitOfWork.MaterialCategoryRepository.GetByIdAsync(dto.Id);
+            var model = await _categoryRepository.GetByIdAsync(dto.Id);
             model.Name = dto.Name;
             model.Description = dto.Description;
-            _unitOfWork.MaterialCategoryRepository.Update(model);
-            await _unitOfWork.SaveAsync();
+            _categoryRepository.Update(model);
+            await _categoryRepository.SaveChangesAsync();
             var result = _mapper.Map<MaterialCategoryDto>(model);
             return result;
         }
 
         public async Task<bool> DeleteAsync(int id)
         {
-            var category = await _unitOfWork.MaterialCategoryRepository.GetByIdAsync(id);
+            var category = await _categoryRepository.GetByIdAsync(id);
             if (category.Materials.Count > 0)
             {
                 return false;
             }
-            await _unitOfWork.MaterialCategoryRepository.DeleteAsync(id);
-            await _unitOfWork.SaveAsync();
+            await _categoryRepository.DeleteAsync(id);
+            await _categoryRepository.SaveChangesAsync();
             return true;
         }
     }

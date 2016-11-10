@@ -19,7 +19,7 @@ namespace MyLiverpool.Common.MapperConfigs
                 .ForMember(dest => dest.Birthday, src => src.MapFrom(x => x.Birthday))
 
                 .ForMember(dest => dest.LastModifiedOn, src => src.MapFrom(x => x.LastModified))
-                .ForMember(dest => dest.BlogsCount, src => src.MapFrom(x => x.Materials.Count(y => y.Type == MaterialType.Blog)))
+                .ForMember(dest => dest.BlogsCount, src => src.MapFrom(x => x.BlogsCount))
                 .ForMember(dest => dest.Email, src => src.MapFrom(x => x.Email))
                 .ForMember(dest => dest.EmailConfirmed, src => src.MapFrom(x => x.EmailConfirmed))
                 .ForMember(dest => dest.FullName, src => src.MapFrom(x => x.FullName))
@@ -27,7 +27,7 @@ namespace MyLiverpool.Common.MapperConfigs
                 .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id))
                 .ForMember(dest => dest.LastModifiedOn, src => src.MapFrom(x => x.LastModified))
                 .ForMember(dest => dest.LockoutEndDateUtc, src => src.MapFrom(x => x.LockoutEnd))
-                .ForMember(dest => dest.NewsCount, src => src.MapFrom(x => x.Materials.Count(y => y.Type == MaterialType.News)))
+                .ForMember(dest => dest.NewsCount, src => src.MapFrom(x => x.NewsCount))
                 .ForMember(dest => dest.Photo, src => src.MapFrom(x => x.Photo))
                 .ForMember(dest => dest.RegistrationDate, src => src.MapFrom(x => x.RegistrationDate))
                 .ForMember(dest => dest.RoleGroupName, src => src.MapFrom(x => x.RoleGroup.RussianName))

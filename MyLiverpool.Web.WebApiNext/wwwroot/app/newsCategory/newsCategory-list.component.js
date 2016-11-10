@@ -8,32 +8,34 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
+var core_1 = require("@angular/core");
+var platform_browser_1 = require("@angular/platform-browser");
 var newsCategory_service_1 = require("./shared/newsCategory.service");
 var NewsCategoryListComponent = (function () {
-    function NewsCategoryListComponent(newsCategoryService) {
+    function NewsCategoryListComponent(newsCategoryService, titleService) {
         this.newsCategoryService = newsCategoryService;
+        this.titleService = titleService;
     }
     NewsCategoryListComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.titleService.setTitle("Категории");
         this.newsCategoryService
             .GetAll()
-            .subscribe(function (data) { return _this.parsePageable(data); }, function (error) { return console.log(error); }, function () { return console.log("success load categoryu lits news"); });
+            .subscribe(function (data) { return _this.parsePageable(data); }, function (error) { return console.log(error); }, function () { });
     };
     NewsCategoryListComponent.prototype.parsePageable = function (model) {
         this.items = model;
     };
     NewsCategoryListComponent.prototype.delete = function (index) {
-        console.log("delete");
-        this.newsCategoryService.Delete(this.items[index].id).subscribe(function (data) { return data; }, function (error) { return console.log(error); }, function () { return console.log("success remove categoryu"); });
+        this.newsCategoryService.Delete(this.items[index].id).subscribe(function (data) { return data; }, function (error) { return console.log(error); }, function () { });
         this.items.splice(index, 1);
     };
     NewsCategoryListComponent = __decorate([
         core_1.Component({
-            selector: 'newsCategory-list',
-            templateUrl: 'app/newsCategory/newsCategory-list.component.html'
+            selector: "newsCategory-list",
+            templateUrl: "app/newsCategory/newsCategory-list.component.html"
         }), 
-        __metadata('design:paramtypes', [newsCategory_service_1.NewsCategoryService])
+        __metadata('design:paramtypes', [newsCategory_service_1.NewsCategoryService, platform_browser_1.Title])
     ], NewsCategoryListComponent);
     return NewsCategoryListComponent;
 }());

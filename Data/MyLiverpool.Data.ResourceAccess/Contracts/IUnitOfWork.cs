@@ -15,7 +15,6 @@ namespace MyLiverpool.Data.ResourceAccess.Contracts
         /// </summary>
         IGenericRepository<User> UserRepository { get; }
    //     IGenericRepository<Material> MaterialRepository { get; }
-        IGenericRepository<MaterialCategory> MaterialCategoryRepository { get; }
         IGenericRepository<MaterialComment> MaterialCommentRepository { get; }
         IGenericRepository<ForumSection> ForumSectionRepository { get; }
         IGenericRepository<ForumTheme> ForumThemeRepository { get; }
