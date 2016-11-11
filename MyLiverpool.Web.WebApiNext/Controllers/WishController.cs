@@ -10,17 +10,29 @@ using MyLiverpool.Common.Utilities.Extensions;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
+    /// <summary>
+    /// Manages wishes.
+    /// </summary>
     [Route("api/[controller]")]
     [Authorize]
     public class WishController : Controller
     {
         private readonly IWishService _wishService;
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="wishService"></param>
         public WishController(IWishService wishService)
         {
             _wishService = wishService;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
         [Route("")]
         [HttpPost]
         [AllowAnonymous]
@@ -34,6 +46,11 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return Ok(model);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Route("")]
         [HttpDelete]
         [Authorize(Roles = "AdminStart")]
@@ -48,6 +65,13 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         }
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="page"></param>
+        /// <param name="typeId"></param>
+        /// <param name="filterText"></param>
+        /// <returns></returns>
         [Route("List")]
         [HttpGet]
         [AllowAnonymous]
@@ -61,6 +85,11 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return Ok(model);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Route("")]
         [HttpGet]
         [AllowAnonymous]
@@ -74,6 +103,10 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return Ok(model);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [Route("types")]
         [HttpGet]
         [AllowAnonymous]

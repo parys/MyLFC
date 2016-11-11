@@ -8,6 +8,9 @@ using MyLiverpool.Business.DtoNext;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
+    /// <summary>
+    /// Manages images.
+    /// </summary>
     [Route("api/[controller]")]
     [Authorize(Roles = "NewsStart,BlogsStart")]
     public class ImageController : Controller
@@ -18,10 +21,18 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
 
         private readonly int _pathLength = PathFull.Length + 1;
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
         public ImageController()
         {
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
         [Route("")]
         [HttpGet]
         public async Task<IActionResult> Get(string path)

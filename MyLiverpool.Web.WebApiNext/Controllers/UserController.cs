@@ -8,17 +8,28 @@ using MyLiverpool.Web.WebApiNext.Extensions;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
+    /// <summary>
+    /// Manages users.
+    /// </summary>
     [Route("api/[controller]")]
     [Authorize]
     public class UserController : Controller
     {
         private readonly IUserService _userService;
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="userService"></param>
         public UserController(IUserService userService)
         {
             _userService = userService;
         }
         
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [Route("GetId")]
         [HttpGet]
         [Authorize]
@@ -28,6 +39,11 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         }
 
         
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Route("{id:int}")]
         [HttpGet]
         [AllowAnonymous]
@@ -36,6 +52,11 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return Ok(await _userService.GetUserAsync(id));
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
         [Route("list/{dto}")]
         [HttpGet]
         [AllowAnonymous]
@@ -50,6 +71,12 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return Ok(model);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="roleGroupId"></param>
+        /// <returns></returns>
         [Route("EditRole")]
         [HttpPut]
         [Authorize(Roles = nameof(RolesEnum.AdminStart))]
@@ -59,6 +86,11 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="typed"></param>
+        /// <returns></returns>
         [Route("GetUsernames")]
         [HttpGet]
         [AllowAnonymous] //bug
@@ -70,6 +102,12 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="daysCount"></param>
+        /// <returns></returns>
         [Route("BanUser")]
         [HttpPut]
         [Authorize(Roles = nameof(RolesEnum.UserStart))]
@@ -79,6 +117,11 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         [Route("UnbanUser")]
         [HttpPut]
         [Authorize(Roles = nameof(RolesEnum.UserFull))]

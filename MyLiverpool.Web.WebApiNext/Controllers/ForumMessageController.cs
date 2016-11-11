@@ -7,17 +7,29 @@ using MyLiverpool.Web.WebApiNext.Extensions;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
+    /// <summary>
+    /// Manages forum messages.
+    /// </summary>
     [Route("api/[controller]")]
     [Authorize]
     public class ForumMessageController : Controller
     {
         private readonly IForumMessageService _forumMessageService;
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="forumMessageService"></param>
         public ForumMessageController(IForumMessageService forumMessageService)
         {
             _forumMessageService = forumMessageService;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
         [Route("")]
         [HttpPost]
         [Authorize]

@@ -3,8 +3,18 @@ using System.Security.Claims;
 
 namespace MyLiverpool.Web.WebApiNext.Extensions
 {
+    /// <summary>
+    /// Contains claim extensions.
+    /// </summary>
     public static class ClaimsPrincipalExtensions
     {
+        /// <summary>
+        /// Returns user id.
+        /// </summary>
+        /// <param name="principal">Claims principal</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="UnauthorizedAccessException"></exception>
         public static int GetUserId(this ClaimsPrincipal principal)
         {
             if (principal == null)

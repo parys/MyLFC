@@ -6,17 +6,30 @@ using MyLiverpool.Business.DTO;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
+    /// <summary>
+    /// Manages forum subsections.
+    /// </summary>
     [Route("api/[controller]")]
     [Authorize]
     public class ForumSubsectionController : Controller
     {
         private readonly IForumSubsectionService _forumSubsectionService;
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="forumSubsectionService"></param>
         public ForumSubsectionController(IForumSubsectionService forumSubsectionService)
         {
             _forumSubsectionService = forumSubsectionService;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="page"></param>
+        /// <returns></returns>
         [Route("{id}")]
         [HttpGet]
         [AllowAnonymous]
@@ -26,6 +39,11 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return Ok(model);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
         [Route("")]
         [HttpPost]
         [Authorize]
@@ -35,6 +53,11 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return Ok(model);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
         [Route("")]
         [HttpPut]
         [Authorize]
@@ -44,6 +67,10 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return Ok(model);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [Route("list")]
         [HttpGet]
         [AllowAnonymous]

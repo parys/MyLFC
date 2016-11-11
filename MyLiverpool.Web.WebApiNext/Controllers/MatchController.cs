@@ -10,17 +10,29 @@ using MyLiverpool.Data.Entities;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
+    /// <summary>
+    /// Manages matches.
+    /// </summary>
     [Route("api/[controller]")]
     [Authorize]
     public class MatchController : Controller
     {
         private readonly IMatchService _matchService;
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="matchService"></param>
         public MatchController(IMatchService matchService)
         {
             _matchService = matchService;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
         [Route("")]
         [HttpPost]
         [Authorize(Roles = nameof(RolesEnum.AdminStart))]
@@ -34,6 +46,11 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Route("")]
         [HttpGet]
         [Authorize]
@@ -47,6 +64,11 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="page"></param>
+        /// <returns></returns>
         [Route("list")]
         [HttpGet]
         [Authorize]
@@ -60,6 +82,10 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [Route("getTypes")]
         [HttpGet]
         [Authorize]

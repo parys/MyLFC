@@ -42,6 +42,10 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             _userManager = userManager;
         }
 
+        /// <summary>
+        /// Authorizes user by password grant type.
+        /// </summary>
+        /// <returns>Result of authentification.</returns>
         [HttpPost("~/connect/token")]
         public async Task<IActionResult> Exchange()
         {
@@ -95,6 +99,10 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             });
         }
 
+        /// <summary>
+        /// Authorizes user by implicit flow.
+        /// </summary>
+        /// <returns></returns>
         [Authorize, HttpGet, Route("~/connect/authorize")]
         public async Task<IActionResult> Authorize()
         {
@@ -125,7 +133,11 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return SignIn(ticket.Principal, ticket.Properties, ticket.AuthenticationScheme);
         }
 
-        [HttpGet("~/connect/logout")]
+        /// <summary>
+        /// Logouts user.
+        /// </summary>
+        /// <returns>Result of signOut.</returns>
+        [Authorize, HttpGet("~/connect/logout")]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();

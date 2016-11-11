@@ -19,7 +19,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         private readonly IMaterialCommentService _commentService;
 
         /// <summary>
-        /// Controller.
+        /// Constructor.
         /// </summary>
         /// <param name="commentService"></param>
         public MaterialCommentController(IMaterialCommentService commentService)

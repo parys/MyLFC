@@ -7,17 +7,30 @@ using MyLiverpool.Web.WebApiNext.Extensions;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
+    /// <summary>
+    /// Manages forum themes.
+    /// </summary>
     [Route("api/[controller]")]
     [Authorize]
     public class ForumThemeController : Controller
     {
         private readonly IForumThemeService _forumThemeService;
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="forumThemeService"></param>
         public ForumThemeController(IForumThemeService forumThemeService)
         {
             _forumThemeService = forumThemeService;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="page"></param>
+        /// <returns></returns>
         [Route("")]
         [HttpGet]
         [AllowAnonymous]
@@ -31,6 +44,11 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return Ok(model);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Route("{id}")]
         [HttpGet]
         [Authorize]
@@ -40,6 +58,11 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return Ok(model);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
         [Route("")]
         [HttpPost]
         [Authorize]
@@ -51,6 +74,11 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return Ok(model);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
         [Route("")]
         [HttpPut]
         [Authorize]

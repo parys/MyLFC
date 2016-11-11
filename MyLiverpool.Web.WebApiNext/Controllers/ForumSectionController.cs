@@ -6,17 +6,29 @@ using MyLiverpool.Business.Contracts;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
+    /// <summary>
+    /// Manages forum sections.
+    /// </summary>
     [Route("api/[controller]")]
     [Authorize]
     public class ForumSectionController : Controller
     {
         private readonly IForumSectionService _forumSectionService;
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="forumSectionService"></param>
         public ForumSectionController(IForumSectionService forumSectionService)
         {
             _forumSectionService = forumSectionService;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         [Route("")]
         [HttpPost]
         [Authorize(Roles = "AdminStart")]
@@ -34,6 +46,11 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Route("")]
         [HttpDelete]
         [Authorize(Roles = "AdminStart")]
@@ -52,6 +69,11 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         //    return Ok(result);
         //}
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Route("")]
         [HttpGet]
         [AllowAnonymous]
@@ -61,6 +83,10 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [Route("list")]
         [HttpGet]
         [AllowAnonymous]

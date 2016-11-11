@@ -20,7 +20,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         private readonly IAccountService _accountService;
 
         /// <summary>
-        /// Controller.
+        /// Constructor.
         /// </summary>
         /// <param name="accountService">Injecting accountService.</param>
         public AccountController(IAccountService accountService)
@@ -28,9 +28,12 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             _accountService = accountService;
         }
 
-        [Route("ChangePassword")]
-        [HttpPost]
-        [AllowAnonymous]
+        /// <summary>
+        /// Changes user password.
+        /// </summary>
+        /// <param name="dto">Contains new and old passwords.</param>
+        /// <returns></returns>
+        [AllowAnonymous, HttpPost("ChangePassword")]
         public async Task<IActionResult> ChangePassword(ChangePasswordDto dto)
         {
             if (!ModelState.IsValid)
@@ -76,30 +79,40 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return Ok(true);
         }
 
-        [Route("IsEmailUnique")]
-        [HttpPost]
-        [AllowAnonymous]
+        /// <summary>
+        /// Checks if email isn't already used.
+        /// </summary>
+        /// <param name="email">Checking email.</param>
+        /// <returns>Result of checking.</returns>
+        [AllowAnonymous, HttpPost("IsEmailUnique")]
         public async Task<IActionResult> IsEmailUnique(string email)
         {
             var result = await _accountService.IsEmailUniqueAsync(email);
             return Ok(result);
         }
 
-        [Route("IsLogined")]
-        [HttpGet]
-        [Authorize]
-        public async Task<IActionResult> IsLogined()
+        /// <summary>
+        /// Checks if user has already signed in.
+        /// </summary>
+        /// <returns>Result of checking.</returns>
+        [Authorize, HttpGet("IsSignedIn")]
+        public async Task<IActionResult> IsSignedIn()
         {
             await _accountService.UpdateLastModifiedAsync(User.GetUserId());
             return Ok();
         }
 
-        [Route("IsUserNameUnique")]
+        /// <summary>
+        /// Checks if username isn't already used.
+        /// </summary>
+        /// <param name="username">Checking email.</param>
+        /// <returns>Result of checking.</returns>
+        [Route("IsUsernameUnique")]
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> IsUserNameUnique(string userName)
+        public async Task<IActionResult> IsUsernameUnique(string username)
         {
-            var result = await _accountService.IsUserNameUniqueAsync(userName);
+            var result = await _accountService.IsUserNameUniqueAsync(username);
             return Ok(result);
         }
 

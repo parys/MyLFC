@@ -8,18 +8,30 @@ using MyLiverpool.Web.WebApiNext.Extensions;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
+    /// <summary>
+    /// Manages for uploads.
+    /// </summary>
     [Route("api/[controller]")]
     [Authorize]
     public class UploadController : Controller
     {
         private readonly IUploadService _uploadService;
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="uploadService"></param>
         public UploadController(IUploadService uploadService)
         {
             _uploadService = uploadService;
         }
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         [Route("avatar")]
         [HttpPost]
         [Authorize]
@@ -47,6 +59,11 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return BadRequest();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="clubId"></param>
+        /// <returns></returns>
         [Route("clubLogo")]
         [HttpPost]
         [Authorize(Roles = "AdminStart")]
@@ -70,6 +87,10 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return BadRequest();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [Authorize(Roles = "NewsStart,BlogStart")]
         [Route("Images")]
         [HttpPost]

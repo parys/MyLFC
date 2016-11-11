@@ -7,17 +7,29 @@ using MyLiverpool.Data.Entities;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
+    /// <summary>
+    /// Manages club entity.
+    /// </summary>
     [Route("api/[controller]")]
     [Authorize(Roles = nameof(RolesEnum.AdminStart))]
     public class ClubController : Controller
     {
         private readonly IClubService _clubService;
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="clubService"></param>
         public ClubController(IClubService clubService)
         {
             _clubService = clubService;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
         [Route("")]
         [HttpPost]
         [Authorize]
@@ -31,6 +43,11 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="page"></param>
+        /// <returns></returns>
         [Route("list")]
         [HttpGet]
         [Authorize]
@@ -44,6 +61,11 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Route("")]
         [HttpGet]
         [Authorize]
@@ -53,6 +75,11 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
         [Route("")]
         [HttpPut]
         [Authorize]
@@ -66,6 +93,11 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Route("")]
         [HttpDelete]
         [Authorize]
@@ -75,6 +107,11 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="typed"></param>
+        /// <returns></returns>
         [Route("getClubsByName")]
         [HttpGet]
         [Authorize]

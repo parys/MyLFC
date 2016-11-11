@@ -7,17 +7,28 @@ using MyLiverpool.Web.WebApiNext.Extensions;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
+    /// <summary>
+    /// Manages private messages.
+    /// </summary>
     [Route("api/[controller]")]
     [Authorize]
     public class PmController : Controller
     {
         private readonly IPmService _pmService;
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="pmService"></param>
         public PmController(IPmService pmService)
         {
             _pmService = pmService;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [Route("")]
         [HttpGet]
         [Authorize]
@@ -27,6 +38,11 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return Ok(model);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Route("{id:int}")]
         [HttpGet]
         [Authorize]
@@ -36,6 +52,11 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return Ok(model);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [Route("")]
         [HttpPost]
         [Authorize]
@@ -54,6 +75,10 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [Route("GetUnreadPmCount")]
         [HttpGet]
         [Authorize]

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
@@ -19,14 +18,15 @@ using MyLiverpool.Data.Entities;
 using MyLiverpool.Data.ResourceAccess;
 using MyLiverpool.Data.ResourceAccess.Contracts;
 using MyLiverpool.Data.ResourceAccess.Repositories;
-using MyLiverpool.Web.WebApiNext.Extensions;
 using Newtonsoft.Json.Serialization;
 using Swashbuckle.Swagger.Model;
 using IConfigurationProvider = AutoMapper.IConfigurationProvider;
-using System.Linq;
 
 namespace MyLiverpool.Web.WebApiNext
 {
+    /// <summary>
+    /// Startup class.
+    /// </summary>
     public class Startup
     {
         private static readonly IConfigurationProvider Config = new MapperConfiguration(cfg =>
@@ -46,6 +46,10 @@ namespace MyLiverpool.Web.WebApiNext
             cfg.AddProfile(new WishMapperProfile());
         });
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="env"></param>
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -68,7 +72,10 @@ namespace MyLiverpool.Web.WebApiNext
 
         private IHostingEnvironment Env { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        /// <summary>
+        /// This method gets called by the runtime. Use this method to add services to the container.
+        /// </summary>
+        /// <param name="services">IServiceCollection.</param>
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
@@ -136,14 +143,19 @@ namespace MyLiverpool.Web.WebApiNext
                     }
                 });
 
-                options.OperationFilter<AssignSecurityRequirements>();
+             //   options.OperationFilter<AssignSecurityRequirements>();
             });
 
             new DatabaseInitializer((LiverpoolContext)services.BuildServiceProvider().GetService(typeof(LiverpoolContext))).Seed();
 
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// <summary>
+        /// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// </summary>
+        /// <param name="app"></param>
+        /// <param name="env"></param>
+        /// <param name="loggerFactory"></param>
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
@@ -159,6 +171,17 @@ namespace MyLiverpool.Web.WebApiNext
                 //    HotModuleReplacement = true
                 //});
 
+                app.UseSwagger(documentFilter: (swaggerDoc, httpRequest) =>
+                {
+                    swaggerDoc.Host = httpRequest.Host.Value;
+                });
+
+                app.UseSwaggerUi(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "V1 Docs");
+                    c.ConfigureOAuth2("test-client-id123", "test-client-secr43et", "test-rea32lm", "test-a11pp");
+                }
+                );
             }
             else
             {
@@ -194,18 +217,6 @@ namespace MyLiverpool.Web.WebApiNext
 
             app.UseDefaultFiles();
             app.UseStaticFiles();
-
-            app.UseSwagger(documentFilter: (swaggerDoc, httpRequest) =>
-            {
-                swaggerDoc.Host = httpRequest.Host.Value;
-            });
-
-            app.UseSwaggerUi(c =>
-                {
-                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "V1 Docs");
-                    c.ConfigureOAuth2("test-client-id123", "test-client-secr43et", "test-rea32lm", "test-a11pp");
-                }
-            );
 
             app.UseIdentity();
 

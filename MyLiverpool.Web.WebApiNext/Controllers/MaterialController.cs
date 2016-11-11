@@ -13,16 +13,16 @@ using Newtonsoft.Json;
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
     /// <summary>
-    /// Controller for manage materials.
+    /// Manages materials.
     /// </summary>
-    [Route("api/[controller]")]
+    [AllowAnonymous, Route("api/[controller]")]
     public class MaterialController : Controller
     {
         private readonly IMaterialService _materialService;
         private readonly ILogger<MaterialController> _logger;
 
         /// <summary>
-        /// Controller.
+        /// Constructor.
         /// </summary>
         /// <param name="materialService">Injecting materialService.</param>
         /// <param name="logger">Injecting logger.</param>
@@ -37,9 +37,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <param name="filtersObj">Contains filters.</param>
         /// <returns>List of materials.</returns>
-        [Route("list/{filtersObj}")]
-        [HttpGet]
-        [AllowAnonymous]
+        [AllowAnonymous, HttpGet("list/{filtersObj}")]
         public async Task<IActionResult> GetListItems([FromRoute] string filtersObj)
         {
             _logger.LogInformation( "Listing all items1111111111111");
@@ -60,20 +58,21 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <summary>
         /// Gets material by id.
         /// </summary>
-        /// <param name="id">The identifier.</param>
+        /// <param name="id">Material identifier.</param>
         /// <returns>Found material.</returns>
-        [Route("{id:int}")]
-        [HttpGet]
-        [AllowAnonymous]
+        [AllowAnonymous, HttpGet("{id:int}")]
         public async Task<IActionResult> GetItem(int id)
         {
             var model = await _materialService.GetDtoAsync(id);
             return Ok(model);
         }
 
-        [Route("{id:int}")]
-        [HttpDelete]
-        [Authorize(Roles = nameof(RolesEnum.NewsStart))]
+        /// <summary>
+        /// Removes material.
+        /// </summary>
+        /// <param name="id">Material identifier.</param>
+        /// <returns>Result of removing.</returns>
+        [Authorize(Roles = nameof(RolesEnum.NewsStart)), HttpDelete("{id:int}")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (!id.HasValue)
@@ -85,10 +84,13 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return Json(result);
         }
 
-        [Route("activate/{id:int}")]
-        [HttpGet]
-        [Authorize(Roles = nameof(RolesEnum.NewsStart))]
-        public async Task<IActionResult> Activate(int? id)
+        /// <summary>
+        /// Activates material.
+        /// </summary>
+        /// <param name="id">Material identifier.</param>
+        /// <returns>Result of activation.</returns>
+        [Authorize(Roles = nameof(RolesEnum.NewsStart)), HttpGet("activate/{id:int}")]
+        public async Task<IActionResult> ActivateAsync(int? id)
         {
             if (!id.HasValue)
             {
@@ -98,10 +100,14 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return Ok(result);
         }
 
-        [Route("{type}")]
-        [HttpPost]
-        [Authorize(Roles = nameof(RolesEnum.NewsStart))]
-        public async Task<IActionResult> Create(string type, MaterialDto model)
+        /// <summary>
+        /// Creates new material.
+        /// </summary>
+        /// <param name="type">Material type.</param>
+        /// <param name="model">Contains material model.</param>
+        /// <returns>Result of creation.</returns>
+        [Authorize(Roles = nameof(RolesEnum.NewsStart)), HttpPost("{type}")]
+        public async Task<IActionResult> CreateAsync(string type, MaterialDto model)
         {
             MaterialType materialType;
             if (!ModelState.IsValid || !Enum.TryParse(type, true, out materialType))
@@ -116,10 +122,15 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return Ok(result);
         }
 
-        [Route("{id:int}")]
-        [HttpPut]
-        [Authorize(Roles = nameof(RolesEnum.NewsStart))]
-        public async Task<IActionResult> Update(int id, [FromBody]MaterialDto model)
+
+        /// <summary>
+        /// Updates material.
+        /// </summary>
+        /// <param name="id">Material identifier.</param>
+        /// <param name="model">Contains material model.</param>
+        /// <returns>Result of updation.</returns>
+        [Authorize(Roles = nameof(RolesEnum.NewsStart)), HttpPut("{id:int}")]
+        public async Task<IActionResult> UpdateAsync(int id, [FromBody]MaterialDto model)
         {
             if (id != model.Id)
             {
@@ -142,9 +153,13 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return Ok(result);
         }
 
-        [Route("AddView/{id:int}")]
-        [HttpGet]
-        [AllowAnonymous]
+
+        /// <summary>
+        /// Adds view to material.
+        /// </summary>
+        /// <param name="id">Material identifier.</param>
+        /// <returns>Result of addition view.</returns>
+        [AllowAnonymous, HttpGet("AddView/{id:int}")]
         public async Task<IActionResult> AddView(int? id)
         {
             if (!id.HasValue)
