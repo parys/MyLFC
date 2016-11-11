@@ -10,9 +10,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Injectable } from "@angular/core";
 import { LocalStorageMine } from "../shared/index";
 export var RolesCheckedService = (function () {
-    function RolesCheckedService(localStorage) {
+    function RolesCheckedService() {
         var _this = this;
-        this.localStorage = localStorage;
         this.checkedRoles = {
             isLogined: false,
             isEditor: false,
@@ -22,6 +21,7 @@ export var RolesCheckedService = (function () {
             isAdminAssistant: false,
             isSelf: function (userId) { return _this.isSelf(userId); }
         };
+        this.localStorage = new LocalStorageMine();
         this.checkRoles();
     }
     RolesCheckedService.prototype.checkRoles = function () {
@@ -74,7 +74,7 @@ export var RolesCheckedService = (function () {
     };
     RolesCheckedService = __decorate([
         Injectable(), 
-        __metadata('design:paramtypes', [LocalStorageMine])
+        __metadata('design:paramtypes', [])
     ], RolesCheckedService);
     return RolesCheckedService;
 }());

@@ -5,10 +5,13 @@
   "scripts": {
     "ngc": "ngc -p ./tsconfig-prod.json",
     "start": "concurrently \"webpack-dev-server --inline --progress --port 1669\" \"dotnet run\" ",
+    "startWebpackDevServer": "webpack-dev-server --inline --progress --port 1669",
     "webpack-dev": "set NODE_ENV=development&& webpack",
     "webpack-prod": "set NODE_ENV=production&& webpack",
     "build": "npm run webpack-dev",
-    "buildProduction": "npm run ngc && npm run webpack-prod"
+    "buildProduction": "npm run ngc && npm run webpack-prod",
+    "lint": "tslint ./angular2app/**/*.ts -t verbose",
+    "rebuilt": "npm rebuild node-sass"
   },
   "dependencies": {
     "@angular/common": "2.1.2",
@@ -69,6 +72,7 @@
     "style-loader": "^0.13.1",
     "to-string-loader": "^1.1.4",
     "ts-helpers": "1.1.1",
+    "ts-loader": "1.2.0",
     "ts-node": "^1.3.0",
     "tslint": "3.15.1",
     "tslint-loader": "^2.1.3",

@@ -14,8 +14,10 @@ export class RolesCheckedService {
         isSelf: userId => this.isSelf(userId)
     };
     private roles: string[];
+    localStorage: LocalStorageMine;
 
-    constructor(private localStorage: LocalStorageMine) {
+    constructor() {
+        this.localStorage = new LocalStorageMine();
         this.checkRoles();
     }
 

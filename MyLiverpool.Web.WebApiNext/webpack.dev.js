@@ -3,6 +3,7 @@
 var Webpack = require("webpack");
 
 var CommonsChunkPlugin = Webpack.optimize.CommonsChunkPlugin;
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var HtmlWebpackPlugin = require("html-webpack-plugin");
 var CopyWebpackPlugin = require("copy-webpack-plugin");
 var CleanWebpackPlugin = require("clean-webpack-plugin");
@@ -22,8 +23,7 @@ module.exports = {
 
     output: {
         path: path.join(__dirname, "wwwroot/"),
-        filename: "dist/[name].bundle.js",
-        publicPath: "/"
+        filename: "js/[name].bundle.js"
     },
 
     resolve: {
@@ -32,29 +32,24 @@ module.exports = {
 
     devServer: {
         historyApiFallback: true,
-        stats: "minimal",
-        outputPath: path.join(__dirname, "wwwroot/")
+        stats: "minimal"
     },
 
     module: {
         loaders: [
             {
                 test: /\.ts$/,
-                loaders: [
-                    "awesome-typescript-loader",
-                    "angular2-template-loader",
-                    "source-map-loader"
-                ]
+                loader: "ts"
             },
             {
                 test: /\.(png|jpg|gif|ico)$/,
                 exclude: /node_modules/,
                 loader: "file?name=assets/[name]-[hash:6].[ext]"
             },
-            {
-                test: /\.css$/,
-                exclude: /node_modules/,
-                loader: "style-loader!css-loader"
+            { test: /\.css$/, loader: ExtractTextPlugin.extract({
+                    fallbackLoader: "style-loader",
+                    loader: "css-loader"
+                })
             },
             {
                 test: /\.html$/,
@@ -78,18 +73,20 @@ module.exports = {
     },
 
     plugins: [
+        new ExtractTextPlugin("css/styles.css"),
         new CleanWebpackPlugin(
             [
                 "./wwwroot/dist",
+                "./wwwroot/css/",
                 "./wwwroot/fonts",
-                "./wwwroot/assets"
+                "./wwwroot/assets",
+                "./wwwroot/index.html"
             ]
         ),
         new CommonsChunkPlugin({
             name: ["vendor", "polyfills"]
         }),
         new HtmlWebpackPlugin({
-            filename: "index.html",
             inject: "body",
             chunksSortMode: helpers.packageSort(["polyfills", "vendor", "app"]),
             template: "angular2App/index.html"

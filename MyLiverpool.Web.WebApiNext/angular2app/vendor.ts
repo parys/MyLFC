@@ -1,17 +1,19 @@
 ﻿import "rxjs";
 
-
-import "@angular/common";
-import "@angular/compiler";
-import "@angular/core";
-import "@angular/http";
 import "@angular/platform-browser";
 import "@angular/platform-browser-dynamic";
+import "@angular/core";
+import "@angular/common";
+import "@angular/forms";
+import "@angular/http";
 import "@angular/router";
 
+import "@angularclass/hmr";
 
-import "reflect-metadata";
 
+import "ng2-auto-complete";
+import "moment";
+import "ng2-bootstrap/ng2-bootstrap";
 
 import "jquery";
 import "bootstrap-loader";

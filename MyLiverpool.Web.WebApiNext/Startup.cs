@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
@@ -22,6 +23,7 @@ using MyLiverpool.Web.WebApiNext.Extensions;
 using Newtonsoft.Json.Serialization;
 using Swashbuckle.Swagger.Model;
 using IConfigurationProvider = AutoMapper.IConfigurationProvider;
+using System.Linq;
 
 namespace MyLiverpool.Web.WebApiNext
 {
@@ -173,6 +175,22 @@ namespace MyLiverpool.Web.WebApiNext
                     await next();
                 }
             });
+
+            var angularRoutes = new[] {
+                 "/api",
+                 "/connect"
+             };
+
+            //app.Use(async (context, next) =>
+            //{
+            //    if (context.Request.Path.HasValue && null == angularRoutes.FirstOrDefault(
+            //        (ar) => context.Request.Path.Value.StartsWith(ar, StringComparison.OrdinalIgnoreCase)))
+            //    {
+            //        context.Request.Path = new PathString("/");
+            //    }
+
+            //    await next();
+            //});
 
             app.UseDefaultFiles();
             app.UseStaticFiles();
