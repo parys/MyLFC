@@ -4,6 +4,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -95,7 +96,15 @@ namespace MyLiverpool.Web.WebApiNext
 
             RegisterServices(services);
             
-            services.AddCors();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("MyPolicy", builder =>
+                {
+                    builder.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader().Build();
+                });
+            });
 
             services.AddOpenIddict<LiverpoolContext, int>()
                 // Enable the authorization and token endpoints (required to use the code flow).
@@ -147,7 +156,6 @@ namespace MyLiverpool.Web.WebApiNext
             });
 
             new DatabaseInitializer((LiverpoolContext)services.BuildServiceProvider().GetService(typeof(LiverpoolContext))).Seed();
-
         }
 
         /// <summary>
@@ -168,14 +176,14 @@ namespace MyLiverpool.Web.WebApiNext
                 app.UseBrowserLink();
                 //app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions()
                 //{
-                //    HotModuleReplacement = true
+                //    HotModuleReplacement = true,
+                    
                 //});
 
                 app.UseSwagger(documentFilter: (swaggerDoc, httpRequest) =>
                 {
                     swaggerDoc.Host = httpRequest.Host.Value;
                 });
-
                 app.UseSwaggerUi(c =>
                 {
                     c.SwaggerEndpoint("/swagger/v1/swagger.json", "V1 Docs");
@@ -187,6 +195,7 @@ namespace MyLiverpool.Web.WebApiNext
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+            app.UseCors("MyPolicy");
 
             app.Use(async (context, next) =>
             {
@@ -231,12 +240,10 @@ namespace MyLiverpool.Web.WebApiNext
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            // Add external authentication middleware below. To configure them please see http://go.microsoft.com/fwlink/?LinkID=532715
-            app.UseCors(builder =>
-            {
-                builder.WithOrigins("localhost:1669")
-                    .AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
-            });
+            //builder =>
+            //{
+                //builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
+            //});
         }
 
         private void RegisterServices(IServiceCollection services)
@@ -276,7 +283,6 @@ namespace MyLiverpool.Web.WebApiNext
             services.AddTransient<IPmRepository, PmRepository>();
             services.AddTransient<IUserRepository, UserRepository>();
         }
-
 
         private void RegisterCoreHelpers(IServiceCollection services)
         {

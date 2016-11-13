@@ -4,8 +4,8 @@
   "main": "wwwroot/index.html",
   "scripts": {
     "ngc": "ngc -p ./tsconfig-prod.json",
-    "start": "concurrently \"webpack-dev-server --inline --progress --port 1669\" \"dotnet run\" ",
-    "startWebpackDevServer": "webpack-dev-server --inline --progress --port 1669",
+    "startWebpackDevServer": "concurrently \"webpack-dev-server --inline --progress --port 1669\" \"dotnet run\" ",
+    "start": "webpack-dev-server --inline --progress --port 1669",
     "webpack-dev": "set NODE_ENV=development&& webpack",
     "webpack-prod": "set NODE_ENV=production&& webpack",
     "build": "npm run webpack-dev",

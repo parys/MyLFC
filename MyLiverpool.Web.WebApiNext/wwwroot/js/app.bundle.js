@@ -431,7 +431,7 @@ var AccountSignupComponent = (function () {
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__index__ = __webpack_require__(682);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__index__ = __webpack_require__(683);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return accountRoutes; });
 
 var accountRoutes = [
@@ -745,7 +745,7 @@ var EplTableComponent = (function () {
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__admin_service__ = __webpack_require__(683);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__admin_service__ = __webpack_require__(684);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__eplTable_component__ = __webpack_require__(1339);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "b", function() { return __WEBPACK_IMPORTED_MODULE_0__admin_service__["a"]; });
 /* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "a", function() { return __WEBPACK_IMPORTED_MODULE_1__eplTable_component__["a"]; });
@@ -763,7 +763,7 @@ var EplTableComponent = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_platform_browser__ = __webpack_require__(46);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__auth_auth_service__ = __webpack_require__(198);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__shared_roles_checked_service__ = __webpack_require__(694);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__shared_roles_checked_service__ = __webpack_require__(695);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return AppComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -891,7 +891,7 @@ var AuthGuard = (function () {
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__index__ = __webpack_require__(684);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__index__ = __webpack_require__(685);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return authRoutes; });
 /* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return authProviders; });
 
@@ -909,7 +909,7 @@ var authProviders = [
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__forumSection_service__ = __webpack_require__(685);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__forumSection_service__ = __webpack_require__(686);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__shared_index__ = __webpack_require__(22);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return ForumSectionListComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -967,7 +967,7 @@ var ForumSection = (function () {
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__index__ = __webpack_require__(686);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__index__ = __webpack_require__(687);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return forumSectionRoutes; });
 
 var forumSectionRoutes = [
@@ -1013,7 +1013,7 @@ var ClubHistoryComponent = (function () {
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__index__ = __webpack_require__(687);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__index__ = __webpack_require__(688);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return homeRoutes; });
 
 var homeRoutes = [
@@ -1029,7 +1029,7 @@ var homeRoutes = [
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__admin_admin_service__ = __webpack_require__(683);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__admin_admin_service__ = __webpack_require__(684);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__shared_index__ = __webpack_require__(22);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return RightSidebarComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -1467,7 +1467,7 @@ var MaterialCommentSectionComponent = (function () {
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__index__ = __webpack_require__(688);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__index__ = __webpack_require__(689);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return materialCommentRoutes; });
 
 var materialCommentRoutes = [
@@ -1484,8 +1484,8 @@ var materialCommentRoutes = [
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__newsCategory_list_component__ = __webpack_require__(690);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__newsCategory_edit_component__ = __webpack_require__(689);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__newsCategory_list_component__ = __webpack_require__(691);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__newsCategory_edit_component__ = __webpack_require__(690);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return newsCategoryRoutes; });
 
 
@@ -1633,7 +1633,7 @@ var NewsDetailComponent = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__news_service__ = __webpack_require__(201);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__news_model__ = __webpack_require__(691);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__news_model__ = __webpack_require__(692);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__newsCategory_shared_newsCategory_service__ = __webpack_require__(200);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return NewsEditComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -1935,7 +1935,7 @@ var PmDetailComponent = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pm_model__ = __webpack_require__(693);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pm_model__ = __webpack_require__(694);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pm_service__ = __webpack_require__(202);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return PmEditComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -2070,7 +2070,7 @@ var PmListComponent = (function () {
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__index__ = __webpack_require__(692);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__index__ = __webpack_require__(693);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return pmRoutes; });
 
 var pmRoutes = [
@@ -2213,8 +2213,8 @@ var SecuredDirective = (function () {
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__user_detail_component__ = __webpack_require__(695);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__user_list_component__ = __webpack_require__(696);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__user_detail_component__ = __webpack_require__(696);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__user_list_component__ = __webpack_require__(697);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return userRoutes; });
 
 
@@ -2250,7 +2250,7 @@ var UserFilters = (function () {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__wish_model__ = __webpack_require__(698);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__wish_model__ = __webpack_require__(699);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__wish_service__ = __webpack_require__(344);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_router__ = __webpack_require__(23);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return WishEditComponent; });
@@ -2428,7 +2428,7 @@ var WishListComponent = (function () {
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__index__ = __webpack_require__(697);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__index__ = __webpack_require__(698);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return wishRoutes; });
 
 var wishRoutes = [
@@ -2731,7 +2731,7 @@ var MdDialogRef = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_observable_of___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_observable_of__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_do__ = __webpack_require__(325);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_do___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_do__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_delay__ = __webpack_require__(650);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_delay__ = __webpack_require__(651);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_delay___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_delay__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__shared_index__ = __webpack_require__(22);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return AuthService; });
@@ -3092,7 +3092,7 @@ var PmService = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__secured_directive__ = __webpack_require__(1370);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__roles_interface__ = __webpack_require__(1369);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__roles_interface___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__roles_interface__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__roles_checked_service__ = __webpack_require__(694);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__roles_checked_service__ = __webpack_require__(695);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__globalValidators__ = __webpack_require__(1367);
 /* unused harmony namespace reexport */
 /* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "HttpWrapper", function() { return __WEBPACK_IMPORTED_MODULE_1__httpWrapper__["a"]; });
@@ -4148,7 +4148,7 @@ var MaterialComment = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__news_detail_component__ = __webpack_require__(1358);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__news_list_component__ = __webpack_require__(1360);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__news_edit_component__ = __webpack_require__(1359);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__news_model__ = __webpack_require__(691);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__news_model__ = __webpack_require__(692);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__news_service__ = __webpack_require__(201);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "b", function() { return __WEBPACK_IMPORTED_MODULE_0__news_detail_component__["a"]; });
 /* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "a", function() { return __WEBPACK_IMPORTED_MODULE_1__news_list_component__["a"]; });
@@ -5652,7 +5652,7 @@ function extendObject(dest) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__core__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__dialog_errors__ = __webpack_require__(817);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__core_a11y_focus_trap__ = __webpack_require__(253);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_first__ = __webpack_require__(652);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_first__ = __webpack_require__(653);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_first___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_first__);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MdDialogContainer; });
 var __extends = (this && this.__extends) || function (d, b) {
@@ -5818,7 +5818,7 @@ function coerceToNumber(value) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__core__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_observable_forkJoin__ = __webpack_require__(646);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_observable_forkJoin__ = __webpack_require__(647);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_observable_forkJoin___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_add_observable_forkJoin__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_observable_of__ = __webpack_require__(324);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_observable_of___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_rxjs_add_observable_of__);
@@ -5828,11 +5828,11 @@ function coerceToNumber(value) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_add_operator_filter___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_rxjs_add_operator_filter__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_rxjs_add_operator_do__ = __webpack_require__(325);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_rxjs_add_operator_do___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_rxjs_add_operator_do__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_rxjs_add_operator_share__ = __webpack_require__(654);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_rxjs_add_operator_share__ = __webpack_require__(655);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_rxjs_add_operator_share___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_rxjs_add_operator_share__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_rxjs_add_operator_finally__ = __webpack_require__(651);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_rxjs_add_operator_finally__ = __webpack_require__(652);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_rxjs_add_operator_finally___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10_rxjs_add_operator_finally__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_rxjs_add_operator_catch__ = __webpack_require__(648);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_rxjs_add_operator_catch__ = __webpack_require__(649);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_rxjs_add_operator_catch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11_rxjs_add_operator_catch__);
 /* unused harmony export MdIconNameNotFoundError */
 /* unused harmony export MdIconSvgTagNotFoundError */
@@ -7298,7 +7298,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 var Configuration = (function () {
     function Configuration() {
-        this.Server = "http://localhost:1669/";
+        this.Server = "http://localhost:5000/";
         this.ApiUrl = "api/";
         this.ServerWithApiUrl = this.Server + this.ApiUrl;
     }
@@ -7312,7 +7312,7 @@ var Configuration = (function () {
 
 /***/ },
 
-/***/ 682:
+/***/ 683:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7341,7 +7341,7 @@ var Configuration = (function () {
 
 /***/ },
 
-/***/ 683:
+/***/ 684:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7384,7 +7384,7 @@ var AdminService = (function () {
 
 /***/ },
 
-/***/ 684:
+/***/ 685:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7398,7 +7398,7 @@ var AdminService = (function () {
 
 /***/ },
 
-/***/ 685:
+/***/ 686:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7441,12 +7441,12 @@ var ForumSectionService = (function () {
 
 /***/ },
 
-/***/ 686:
+/***/ 687:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__forumSection_model__ = __webpack_require__(1346);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__forumSection_service__ = __webpack_require__(685);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__forumSection_service__ = __webpack_require__(686);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__forumSection_list_component__ = __webpack_require__(1345);
 /* unused harmony namespace reexport */
 /* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "b", function() { return __WEBPACK_IMPORTED_MODULE_1__forumSection_service__["a"]; });
@@ -7458,7 +7458,7 @@ var ForumSectionService = (function () {
 
 /***/ },
 
-/***/ 687:
+/***/ 688:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7475,7 +7475,7 @@ var ForumSectionService = (function () {
 
 /***/ },
 
-/***/ 688:
+/***/ 689:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7498,7 +7498,7 @@ var ForumSectionService = (function () {
 
 /***/ },
 
-/***/ 689:
+/***/ 690:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7583,7 +7583,7 @@ var NewsCategoryEditComponent = (function () {
 
 /***/ },
 
-/***/ 690:
+/***/ 691:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7635,7 +7635,7 @@ var NewsCategoryListComponent = (function () {
 
 /***/ },
 
-/***/ 691:
+/***/ 692:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7649,11 +7649,11 @@ var News = (function () {
 
 /***/ },
 
-/***/ 692:
+/***/ 693:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pm_model__ = __webpack_require__(693);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pm_model__ = __webpack_require__(694);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pm_list_component__ = __webpack_require__(1365);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pm_detail_component__ = __webpack_require__(1363);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pm_edit_component__ = __webpack_require__(1364);
@@ -7672,7 +7672,7 @@ var News = (function () {
 
 /***/ },
 
-/***/ 693:
+/***/ 694:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7686,7 +7686,7 @@ var Pm = (function () {
 
 /***/ },
 
-/***/ 694:
+/***/ 695:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7777,7 +7777,7 @@ var RolesCheckedService = (function () {
 
 /***/ },
 
-/***/ 695:
+/***/ 696:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7833,7 +7833,7 @@ var UserDetailComponent = (function () {
 
 /***/ },
 
-/***/ 696:
+/***/ 697:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7902,11 +7902,11 @@ var UserListComponent = (function () {
 
 /***/ },
 
-/***/ 697:
+/***/ 698:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__wish_model__ = __webpack_require__(698);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__wish_model__ = __webpack_require__(699);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__wishType_model__ = __webpack_require__(1376);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__wish_list_component__ = __webpack_require__(1374);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__wish_edit_component__ = __webpack_require__(1373);
@@ -7925,7 +7925,7 @@ var UserListComponent = (function () {
 
 /***/ },
 
-/***/ 698:
+/***/ 699:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7953,19 +7953,19 @@ var Wish = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__app_constants__ = __webpack_require__(60);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__news_index__ = __webpack_require__(341);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__newsCategory_shared_newsCategory_service__ = __webpack_require__(200);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__auth_index__ = __webpack_require__(684);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__auth_index__ = __webpack_require__(685);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__shared_index__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__forumSection_index__ = __webpack_require__(686);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__account_index__ = __webpack_require__(682);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__newsCategory_newsCategory_list_component__ = __webpack_require__(690);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__newsCategory_newsCategory_edit_component__ = __webpack_require__(689);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__user_user_detail_component__ = __webpack_require__(695);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__forumSection_index__ = __webpack_require__(687);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__account_index__ = __webpack_require__(683);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__newsCategory_newsCategory_list_component__ = __webpack_require__(691);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__newsCategory_newsCategory_edit_component__ = __webpack_require__(690);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__user_user_detail_component__ = __webpack_require__(696);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__user_user_service__ = __webpack_require__(343);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__user_user_list_component__ = __webpack_require__(696);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__pm_index__ = __webpack_require__(692);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__home_index__ = __webpack_require__(687);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__wish_index__ = __webpack_require__(697);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__materialComment_index__ = __webpack_require__(688);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__user_user_list_component__ = __webpack_require__(697);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__pm_index__ = __webpack_require__(693);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__home_index__ = __webpack_require__(688);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__wish_index__ = __webpack_require__(698);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__materialComment_index__ = __webpack_require__(689);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_23_ng2_auto_complete__ = __webpack_require__(345);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_23_ng2_auto_complete___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_23_ng2_auto_complete__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__admin_index__ = __webpack_require__(1340);
