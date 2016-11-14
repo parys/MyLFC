@@ -1,0 +1,54 @@
+/* -------------------------------------------------------------------
+// markItUp!
+// By Jay Salvat - http://markitup.jaysalvat.com/
+// ------------------------------------------------------------------*/
+
+.markItUp .bold a {
+	background:url(images/iconsBB.png) 0px 0px no-repeat;
+}
+.markItUp .italic a {
+    background: url(images/iconsBB.png) 0px -40px no-repeat;
+
+}
+.markItUp .underline a {
+	background: url(images/iconsBB.png) 0px -20px no-repeat;
+}
+.markItUp .stroke a {
+	background: url(images/iconsBB.png) 0px -120px no-repeat;
+}
+
+.markItUp .bulletedList a {
+    background: url(images/iconsBB.png) -0px -180px no-repeat;
+}
+
+.markItUp .numericList a {
+    background: url(images/iconsBB.png) 0px -220px no-repeat;
+}
+
+.markItUp .img a {
+    background: url(images/iconsBB.png) 0px -60px no-repeat;
+}
+.markItUp .link a {
+	background: url(images/iconsBB.png) 0px -80px no-repeat;
+}
+.markItUp .video a {
+	background: url(images/iconsBB.png) 0px -500px no-repeat;
+}
+
+.markItUp .left a {
+    background: url(images/iconsBB.png) 0px -60px no-repeat;
+}
+.markItUp .center a {
+	background: url(images/iconsBB.png) 0px -80px no-repeat;
+}
+.markItUp .right a {
+	background: url(images/iconsBB.png) 0px -500px no-repeat;
+}
+
+.markItUp .clean a {
+	background-image:url(images/clean.png);
+}
+.markItUp .preview a {
+	background-image:url(images/preview.png);
+    width:20px;
+}

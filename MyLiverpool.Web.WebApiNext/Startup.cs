@@ -208,10 +208,10 @@ namespace MyLiverpool.Web.WebApiNext
                 }
             });
 
-            var angularRoutes = new[] {
-                 "/api",
-                 "/connect"
-             };
+            //var angularRoutes = new[] {
+            //     "/api",
+            //     "/connect"
+            // };
 
             //app.Use(async (context, next) =>
             //{
