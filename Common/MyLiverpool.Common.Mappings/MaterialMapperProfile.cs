@@ -28,21 +28,20 @@ namespace MyLiverpool.Common.MapperConfigs
                 .ForMember(dest => dest.PhotoPath, src => src.MapFrom(x => x.PhotoPath))
                 .ForMember(dest => dest.Reads, src => src.MapFrom(x => x.Reads));
 
-            CreateMap<Material, MaterialDto>() //todo maybe separate for edit model
+            CreateMap<Material, MaterialDto>()
                 .ForMember(dest => dest.AdditionTime, src => src.MapFrom(x => x.AdditionTime))
                 .ForMember(dest => dest.AuthorId, src => src.MapFrom(x => x.AuthorId))
-                .ForMember(dest => dest.AuthorUserName, src => src.MapFrom(x => x.Author.UserName))
+                .ForMember(dest => dest.Username, src => src.MapFrom(x => x.Author.UserName))
                 .ForMember(dest => dest.Brief, src => src.MapFrom(x => x.Brief))
                 .ForMember(dest => dest.CanCommentary, src => src.MapFrom(x => x.CanCommentary))
-                .ForMember(dest => dest.Comments,
-                    src => src.MapFrom(x => x.Comments))//todo
-                    .ForMember(dest => dest.CommentsCount, src => src.Ignore())
+                .ForMember(dest => dest.CommentsCount, src => src.Ignore())
                 .ForMember(dest => dest.Message, src => src.MapFrom(x => x.Message))
                 .ForMember(dest => dest.CategoryId, src => src.MapFrom(x => x.CategoryId))
                 .ForMember(dest => dest.CategoryName, src => src.MapFrom(x => x.Category.Name))
                 .ForMember(dest => dest.OnTop, src => src.MapFrom(x => x.OnTop))
                 .ForMember(dest => dest.Pending, src => src.MapFrom(x => x.Pending))
                 .ForMember(dest => dest.Reads, src => src.MapFrom(x => x.Reads))
+                .ForMember(dest => dest.Photo, src => src.MapFrom(x => x.PhotoPath))
                 .ForMember(dest => dest.Source, src => src.MapFrom(x => x.Source))
                 .ForMember(dest => dest.Title, src => src.MapFrom(x => x.Title));
 

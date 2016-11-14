@@ -1,21 +1,18 @@
-﻿//module News {
-    export class News {
-        id: number;
-        title: string;
-        private categoryId: number;
-        private categoryName: string;
-        private additionTime: Date;
-        private commentsCount: number;
-        private userId: number;
-        private userName: string;
-        private brief: string;
-        private message: string;
-        private reads: number;
-        private source: string;
-        private photoPath: string;
-        //private virtual ICollection< MaterialCommentDto > Comments { get; set; }ggggggg
-        pending: boolean;
-        private onTop: boolean;
-        private canCommentary: boolean;
-    }
-// }
+﻿export class News {
+    id: number;
+    title: string;
+    categoryId: number;
+    private categoryName: string;
+    private additionTime: Date;
+    private commentsCount: number;
+    private userId: number;
+    private username: string;
+    brief: string;
+    message: string;
+    private reads: number;
+    source: string;
+    photo: string;                                                                      
+    pending: boolean;
+    onTop: boolean;
+    canCommentary: boolean;
+}

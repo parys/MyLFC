@@ -134,7 +134,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         {
             if (id != model.Id)
             {
-                return BadRequest(ModelState);
+                return BadRequest();
             }
             if (!ModelState.IsValid)
             {
@@ -149,7 +149,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 }
                 model.Pending = true;
             }
-            var result = await _materialService.EditAsync(model, User.GetUserId());
+            var result = await _materialService.EditAsync(model, User.GetUserId()); //todo return result entity
             return Ok(result);
         }
 

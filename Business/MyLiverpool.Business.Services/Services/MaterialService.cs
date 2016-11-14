@@ -157,7 +157,7 @@ namespace MyLiverpool.Business.Services.Services
             updatingItem.CanCommentary = model.CanCommentary;
             updatingItem.OnTop = model.OnTop;
             updatingItem.Pending = model.Pending;
-            updatingItem.PhotoPath = model.PhotoPath;
+            updatingItem.PhotoPath = model.Photo;
             updatingItem.Source = model.Source;
             updatingItem.CategoryId = model.CategoryId;
 

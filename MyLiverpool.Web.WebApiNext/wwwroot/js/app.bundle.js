@@ -246,7 +246,7 @@ module.exports = "<div class=\"\" *ngIf=\"item\">\r\n    <div class=\"alert-dang
 /***/ 1162:
 /***/ function(module, exports) {
 
-module.exports = "<div class=\"top20\">\r\n    <form class=\"form-horizontal\" name=\"editForm\" role=\"form\">\r\n        <div class=\"form-group\">\r\n            <label class=\"control-label col-xs-2 col-sm-2\"> Категория:</label>\r\n            <div class=\"col-xs-10 col-sm-10\">\r\n                <select class=\"form-control\" name=\"categoryId\" [(ngModel)]=\"item.categoryId\" required validation=\"required\">\r\n                    <option *ngFor=\"let category of categories\" value=\"{{category.id}}\">{{category.name}}</option>\r\n                </select>\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"form-group\">\r\n            <label class=\"control-label col-xs-2 col-sm-2\"> Название:</label>\r\n            <div class=\"col-xs-10 col-sm-10\">\r\n                <input class=\"form-control\" name=\"title\" [(ngModel)]=\"item.title\" required validation=\"required\" />\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"form-group\">\r\n            <label class=\"control-label col-xs-2 col-sm-2\"> Краткое описание:</label>\r\n            <div class=\"col-xs-10 col-sm-10\">\r\n                <textarea mark-it-up class=\"form-control\" name=\"brief\" rows=\"4\" [(ngModel)]=\"item.brief\" required validation=\"required\"> </textarea>\r\n            </div>\r\n        </div>\r\n        <div class=\"form-group\">\r\n            <label class=\"control-label col-xs-2 col-sm-2\"> Текст новости:</label>\r\n            <div class=\"col-xs-10 col-sm-10\">\r\n                <textarea mark-it-up class=\"form-control\" name=\"message\" rows=\"6\" [(ngModel)]=\"item.message\" required validation=\"required\"> </textarea>\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"form-group\">\r\n            <label class=\"control-label col-xs-2 col-sm-2\"> Источник:</label>\r\n            <div class=\"col-xs-10 col-sm-10\">\r\n                <input class=\"form-control\" name=\"source\" [(ngModel)]=\"item.source\" required validation=\"required\" />\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"form-group\">\r\n            <label class=\"control-label col-xs-2 col-sm-2\"> Главное фото:</label>\r\n            <div class=\"col-xs-10 col-sm-10\">\r\n                <input class=\"form-control\" name=\"photoPath\" [(ngModel)]=\"item.photoPath\" required validation=\"required\" />\r\n            </div>\r\n        </div>\r\n        <div class=\"\" ui-view=\"files\" autoscroll=\"false\"></div>\r\n\r\n        <div class=\"form-group\">\r\n            <div class=\"col-xs-offset-2 col-sm-offset-2 col-xs-10 col-sm-10\">\r\n                <div class=\"checkbox\">\r\n                    <label class=\"control-label\">\r\n                        <input class=\"checkbox\" name=\"canCommentary\" [(ngModel)]=\"item.canCommentary\" type=\"checkbox\" checked /> Разрешить комментарии\r\n                    </label>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <div class=\"form-group\">\r\n            <div class=\"col-xs-offset-2 col-sm-offset-2 col-xs-10 col-sm-10\">\r\n                <div class=\"checkbox\">\r\n                    <label class=\"control-label\">\r\n                        <input class=\"checkbox\" name=\"onTop\" [(ngModel)]=\"item.onTop\" type=\"checkbox\" /> Наверху\r\n                    </label>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <div class=\"form-group\">\r\n            <div class=\"col-xs-offset-2 col-sm-offset-2 col-xs-10 col-sm-10\">\r\n                <div class=\"checkbox\">\r\n                    <label class=\"control-label\">\r\n                        <input class=\"checkbox\" name=\"pending\" [(ngModel)]=\"item.pending\" type=\"checkbox\" /> Отложена\r\n                    </label>\r\n                </div>\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"form-group\">\r\n            <div class=\"col-xs-offset-2 col-sm-offset-2 col-xs-10 col-sm-10\">\r\n                <input type=\"submit\" value=\"Сохранить\"  (click)=\"save()\" class=\"btn btn-default\" /> <!--ng-disabled=\"editForm.$invalid\"-->\r\n            </div>\r\n        </div>\r\n    </form>\r\n</div>\r\n"
+module.exports = "<div class=\"top20\">\r\n    <form class=\"form-horizontal\" name=\"editForm\" role=\"form\" [formGroup]=\"editForm\" (ngSubmit)=\"onSubmit(editForm.value)\">\r\n        <div class=\"form-group\">\r\n            <label class=\"control-label col-xs-2 col-sm-2\"> Категория:</label>\r\n            <div class=\"col-xs-10 col-sm-10\">\r\n                <select class=\"form-control\" name=\"categoryId\" [formControl]=\"editForm.controls['categoryId']\">\r\n                    <option *ngFor=\"let category of categories\" value=\"{{category.id}}\">{{category.name}}</option>\r\n                </select>\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"form-group\">\r\n            <label class=\"control-label col-xs-2 col-sm-2\"> Название:</label>\r\n            <div class=\"col-xs-10 col-sm-10\">\r\n                <input class=\"form-control\" name=\"title\" [formControl]=\"editForm.controls['title']\" />\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"form-group\">\r\n            <label class=\"control-label col-xs-2 col-sm-2\"> Краткое описание:</label>\r\n            <div class=\"col-xs-10 col-sm-10\">\r\n                <textarea mark-it-up class=\"form-control\" name=\"brief\" rows=\"4\" [formControl]=\"editForm.controls['brief']\"> </textarea>\r\n            </div>\r\n        </div>\r\n        <div class=\"form-group\">\r\n            <label class=\"control-label col-xs-2 col-sm-2\"> Текст новости:</label>\r\n            <div class=\"col-xs-10 col-sm-10\">\r\n                <textarea mark-it-up class=\"form-control\" name=\"message\" rows=\"6\" [formControl]=\"editForm.controls['message']\"> </textarea>\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"form-group\">\r\n            <label class=\"control-label col-xs-2 col-sm-2\"> Источник:</label>\r\n            <div class=\"col-xs-10 col-sm-10\">\r\n                <input class=\"form-control\" name=\"source\" [formControl]=\"editForm.controls['source']\"/>\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"form-group\">\r\n            <label class=\"control-label col-xs-2 col-sm-2\"> Главное фото:</label>\r\n            <div class=\"col-xs-10 col-sm-10\">\r\n                <input class=\"form-control\" name=\"photoPath\" [formControl]=\"editForm.controls['photo']\" />\r\n            </div>\r\n        </div>\r\n        <div class=\"\" ui-view=\"files\" autoscroll=\"false\"></div>\r\n\r\n        <div class=\"form-group\">\r\n            <div class=\"col-xs-offset-2 col-sm-offset-2 col-xs-10 col-sm-10\">\r\n                <div class=\"checkbox\">\r\n                    <label class=\"control-label\">\r\n                        <input class=\"checkbox\" name=\"canCommentary\" [formControl]=\"editForm.controls['canCommentary']\" type=\"checkbox\" checked /> Разрешить комментарии\r\n                    </label>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <div class=\"form-group\">\r\n            <div class=\"col-xs-offset-2 col-sm-offset-2 col-xs-10 col-sm-10\">\r\n                <div class=\"checkbox\">\r\n                    <label class=\"control-label\">\r\n                        <input class=\"checkbox\" name=\"onTop\" [formControl]=\"editForm.controls['onTop']\" type=\"checkbox\" /> Наверху\r\n                    </label>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <div class=\"form-group\">\r\n            <div class=\"col-xs-offset-2 col-sm-offset-2 col-xs-10 col-sm-10\">\r\n                <div class=\"checkbox\">\r\n                    <label class=\"control-label\">\r\n                        <input class=\"checkbox\" name=\"pending\" [formControl]=\"editForm.controls['pending']\" type=\"checkbox\" /> Отложена\r\n                    </label>\r\n                </div>\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"form-group\">\r\n            <div class=\"col-xs-offset-2 col-sm-offset-2 col-xs-10 col-sm-10\">\r\n                <button type=\"submit\" [disabled]=\"!editForm.valid\" class=\"btn btn-default\">Сохранить</button>\r\n            </div>\r\n        </div>\r\n    </form>\r\n</div>\r\n"
 
 /***/ },
 
@@ -311,7 +311,7 @@ module.exports = "<div>\r\n    <div class=\"btn-group\">\r\n        <form class=
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__auth_auth_service__ = __webpack_require__(199);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return AccountSigninComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -362,7 +362,7 @@ var AccountSigninComponent = (function () {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__signup_model__ = __webpack_require__(1429);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__account_service__ = __webpack_require__(113);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__shared_index__ = __webpack_require__(23);
@@ -505,7 +505,7 @@ var ConfirmEmailComponent = (function () {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__account_service__ = __webpack_require__(113);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__shared_index__ = __webpack_require__(23);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return ForgotPasswordComponent; });
@@ -556,7 +556,7 @@ var ForgotPasswordComponent = (function () {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__(24);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__account_service__ = __webpack_require__(113);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__shared_index__ = __webpack_require__(23);
@@ -656,7 +656,7 @@ var Signup = (function () {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__account_service__ = __webpack_require__(113);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__shared_index__ = __webpack_require__(23);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return UnconfirmedEmailComponent; });
@@ -1110,7 +1110,7 @@ var RulesComponent = (function () {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_common__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__materialComment_model__ = __webpack_require__(340);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__materialComment_service__ = __webpack_require__(200);
@@ -1374,7 +1374,7 @@ var MaterialCommentListComponent = (function () {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__materialComment_model__ = __webpack_require__(340);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__materialComment_service__ = __webpack_require__(200);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_common__ = __webpack_require__(12);
@@ -1631,10 +1631,11 @@ var NewsDetailComponent = (function () {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__news_service__ = __webpack_require__(202);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__news_model__ = __webpack_require__(800);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__newsCategory_shared_newsCategory_service__ = __webpack_require__(201);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__news_service__ = __webpack_require__(202);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__news_model__ = __webpack_require__(800);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__newsCategory_shared_newsCategory_service__ = __webpack_require__(201);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return NewsEditComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1650,16 +1651,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var NewsEditComponent = (function () {
-    function NewsEditComponent(newsService, newsCategoryService, route, router) {
+    function NewsEditComponent(newsService, newsCategoryService, route, router, formBuilder) {
         this.newsService = newsService;
         this.newsCategoryService = newsCategoryService;
         this.route = route;
         this.router = router;
-        this.item = new __WEBPACK_IMPORTED_MODULE_3__news_model__["a" /* News */]();
+        this.formBuilder = formBuilder;
     }
     NewsEditComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.initForm();
         this.sub = this.route.params.subscribe(function (params) {
             var id = +params["id"];
             if (id > 0) {
@@ -1673,18 +1676,56 @@ var NewsEditComponent = (function () {
     NewsEditComponent.prototype.ngOnDestroy = function () {
         this.sub.unsubscribe();
     };
-    NewsEditComponent.prototype.save = function () {
-        if (this.item.id > 0) {
-            this.newsService.update(this.item.id, this.item)
-                .subscribe(function (data) { return console.log(data); }, function (error) { return console.log(error); }, function () { });
+    NewsEditComponent.prototype.onSubmit = function () {
+        var _this = this;
+        var newsItem = this.parseForm();
+        if (this.id > 0) {
+            this.newsService.update(this.id, newsItem)
+                .subscribe(function (data) { return _this.router.navigate(["/news", data.id]); }, function (error) { return console.log(error); }, function () { });
         }
         else {
-            this.newsService.create(this.item)
-                .subscribe(function (data) { return console.log(data); }, function (error) { return console.log(error); }, function () { });
+            this.newsService.create(newsItem)
+                .subscribe(function (data) { return _this.router.navigate(["/news", data.id]); }, function (error) { return console.log(error); }, function () { });
         }
     };
-    NewsEditComponent.prototype.parse = function (item) {
-        this.item = item;
+    NewsEditComponent.prototype.parse = function (data) {
+        this.id = data.id;
+        this.editForm.patchValue(data);
+    };
+    NewsEditComponent.prototype.parseForm = function () {
+        var item = new __WEBPACK_IMPORTED_MODULE_4__news_model__["a" /* News */]();
+        item.id = this.id;
+        item.categoryId = this.editForm.controls["categoryId"].value;
+        item.title = this.editForm.controls["title"].value;
+        item.brief = this.editForm.controls["brief"].value;
+        item.message = this.editForm.controls["message"].value;
+        item.source = this.editForm.controls["source"].value;
+        item.photo = this.editForm.controls["photo"].value;
+        item.pending = this.editForm.controls["pending"].value;
+        item.canCommentary = this.editForm.controls["canCommentary"].value;
+        item.onTop = this.editForm.controls["onTop"].value;
+        return item;
+    };
+    NewsEditComponent.prototype.initForm = function () {
+        this.editForm = this.formBuilder.group({
+            'categoryId': ["", __WEBPACK_IMPORTED_MODULE_1__angular_forms__["Validators"].compose([
+                    __WEBPACK_IMPORTED_MODULE_1__angular_forms__["Validators"].required])],
+            'title': ["", __WEBPACK_IMPORTED_MODULE_1__angular_forms__["Validators"].compose([
+                    __WEBPACK_IMPORTED_MODULE_1__angular_forms__["Validators"].required])],
+            'brief': ["", __WEBPACK_IMPORTED_MODULE_1__angular_forms__["Validators"].compose([
+                    __WEBPACK_IMPORTED_MODULE_1__angular_forms__["Validators"].required])],
+            'message': ["", __WEBPACK_IMPORTED_MODULE_1__angular_forms__["Validators"].compose([
+                    __WEBPACK_IMPORTED_MODULE_1__angular_forms__["Validators"].required])],
+            'source': ["", __WEBPACK_IMPORTED_MODULE_1__angular_forms__["Validators"].compose([])],
+            'photo': ["", __WEBPACK_IMPORTED_MODULE_1__angular_forms__["Validators"].compose([
+                    __WEBPACK_IMPORTED_MODULE_1__angular_forms__["Validators"].required])],
+            'canCommentary': ["", __WEBPACK_IMPORTED_MODULE_1__angular_forms__["Validators"].compose([
+                    __WEBPACK_IMPORTED_MODULE_1__angular_forms__["Validators"].required])],
+            'onTop': ["", __WEBPACK_IMPORTED_MODULE_1__angular_forms__["Validators"].compose([
+                    __WEBPACK_IMPORTED_MODULE_1__angular_forms__["Validators"].required])],
+            'pending': ["", __WEBPACK_IMPORTED_MODULE_1__angular_forms__["Validators"].compose([
+                    __WEBPACK_IMPORTED_MODULE_1__angular_forms__["Validators"].required])]
+        });
     };
     NewsEditComponent.prototype.parseCategories = function (items) {
         this.categories = items;
@@ -1694,7 +1735,7 @@ var NewsEditComponent = (function () {
             selector: "news-edit",
             template: __webpack_require__(1162)
         }), 
-        __metadata('design:paramtypes', [__WEBPACK_IMPORTED_MODULE_1__news_service__["a" /* NewsService */], __WEBPACK_IMPORTED_MODULE_4__newsCategory_shared_newsCategory_service__["a" /* NewsCategoryService */], __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* ActivatedRoute */], __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* Router */]])
+        __metadata('design:paramtypes', [__WEBPACK_IMPORTED_MODULE_3__news_service__["a" /* NewsService */], __WEBPACK_IMPORTED_MODULE_5__newsCategory_shared_newsCategory_service__["a" /* NewsCategoryService */], __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* ActivatedRoute */], __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* Router */], __WEBPACK_IMPORTED_MODULE_1__angular_forms__["FormBuilder"]])
     ], NewsEditComponent);
     return NewsEditComponent;
 }());
@@ -1933,7 +1974,7 @@ var PmDetailComponent = (function () {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__(24);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pm_model__ = __webpack_require__(802);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pm_service__ = __webpack_require__(203);
@@ -2249,7 +2290,7 @@ var UserFilters = (function () {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__wish_model__ = __webpack_require__(807);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__wish_service__ = __webpack_require__(344);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_router__ = __webpack_require__(24);
@@ -7503,7 +7544,7 @@ var ForumSectionService = (function () {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__(24);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__shared_newsCategory_model__ = __webpack_require__(1449);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__shared_newsCategory_service__ = __webpack_require__(201);
@@ -7944,7 +7985,7 @@ var Wish = (function () {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_http__ = __webpack_require__(85);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_material__ = __webpack_require__(935);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_platform_browser__ = __webpack_require__(46);
@@ -8088,7 +8129,7 @@ var AppModule = (function () {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__core__ = __webpack_require__(15);
@@ -8966,7 +9007,7 @@ var MdCardModule = (function () {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__core_coersion_boolean_property__ = __webpack_require__(256);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__core__ = __webpack_require__(15);
 /* unused harmony export MD_CHECKBOX_CONTROL_VALUE_ACCESSOR */
@@ -11347,7 +11388,7 @@ var MdIconModule = (function () {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_common__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__core__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__ = __webpack_require__(1);
@@ -12762,7 +12803,7 @@ var MdProgressCircleModule = (function () {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__core__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__core_coersion_boolean_property__ = __webpack_require__(256);
 /* unused harmony export MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR */
@@ -13797,7 +13838,7 @@ var MdSidenavModule = (function () {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__ = __webpack_require__(46);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__core__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__);
@@ -14148,7 +14189,7 @@ var MdSlideToggleModule = (function () {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_platform_browser__ = __webpack_require__(46);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__core__ = __webpack_require__(15);
 /* unused harmony export MD_SLIDER_VALUE_ACCESSOR */

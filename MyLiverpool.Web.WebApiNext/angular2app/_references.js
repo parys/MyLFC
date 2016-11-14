@@ -131,3 +131,6 @@
 /// <reference path="../webpack.config.js" />
 /// <reference path="../webpack.config.prod.js" />
 /// <reference path="../webpack.helpers.js" />
+/// <reference path="../wwwroot/js/app.bundle.js" />
+/// <reference path="../wwwroot/js/polyfills.bundle.js" />
+/// <reference path="../wwwroot/js/vendor.bundle.js" />

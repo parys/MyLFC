@@ -7,7 +7,6 @@ namespace MyLiverpool.Business.DTO
     {
         public MaterialDto()
         {
-            this.Comments = new HashSet<MaterialCommentDto>();
         }
 
         public int Id { get; set; }
@@ -22,7 +21,7 @@ namespace MyLiverpool.Business.DTO
 
         public int AuthorId { get; set; }
 
-        public string AuthorUserName { get; set; }
+        public string Username { get; set; }
 
         public string Title { get; set; }
 
@@ -36,10 +35,8 @@ namespace MyLiverpool.Business.DTO
 
         public string Source { get; set; }
 
-        public string PhotoPath { get; set; }
-
-        public virtual ICollection<MaterialCommentDto> Comments { get; set; }
-
+        public string Photo { get; set; }
+        
         public bool Pending { get; set; }
 
         public bool OnTop { get; set; }
