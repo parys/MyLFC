@@ -9,24 +9,23 @@
         <div class="col-xs-2 col-sm-2">
             <img class="avatar" src="{{item.photo}}" alt="{{item.userName}}"/>
         </div>
-        <!--div class="col-xs-10 col-sm-10">
-            <div ng-if="isSelf(vm.user.id) || isModerator()">
+        <div class="col-xs-10 col-sm-10">
+            <div *ngIf="roles.isSelf(item.id) || roles.isModerator">
                 <button class="btn btn-info" ngf-select="vm.uploadFiles($file, $invalidFiles)"
                         accept="image/*" ngf-max-height="1000" ngf-max-size="1MB">
                     Обновить аватар
                 </button>
-                <button ng-if="isSelf(vm.user.id)" class="btn btn-danger" ui-sref="changePassword()"> Изменить пароль</button>
+                <button *ngIf="roles.isSelf(item.id)" class="btn btn-danger" [routerLink]="['/changePassword']">Изменить пароль</button>
                 <br><br>
-                <div>
+                <!--div>
                     <span ng-show="vm.errFile.$error" ng-bind="vm.errFile.$error"></span>
                     <span ng-show="vm.errFile.$errorParam" ng-bind="vm.errFile.$errorParam"></span>
                     <span class="progress" ng-show="f.progress >= 0">
-                        <span style="width:{{f.progress}}%" ng-bind="f.progress + '%'"></span>
+                        <span style="width:{{f.progress}}%" ng-bind="f.progress + '%'"></!--span>
                     </span>
-                </div>
-                {{vm.errorMsg}}
+                </div>-->
             </div>
-        </!div-->
+        </div>
     </div>
 
     <form class="form-horizontal" role="form">

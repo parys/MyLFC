@@ -5,6 +5,7 @@ import { Configuration } from "../app.constants";
 import { HttpWrapper } from "../shared/index";
 import { Signup } from "./signup.model";
 import { ResetPassword } from "./resetPassword.model";
+import { ChangePassword } from "./changePassword.model";
 
 @Injectable()
 export class AccountService {
@@ -14,14 +15,6 @@ export class AccountService {
     constructor(private http: HttpWrapper, private configuration: Configuration) {
         this.actionUrl = configuration.ServerWithApiUrl + "account/";
     }
-
-    // public GetAll = (): Observable<Pageable<News>> => {
-    //    return this.http.get(this.actionUrl + "list/").map(res => res.json());
-    // };
-
-    // public GetSingle = (id: number): Observable<News> => {
-    //    return this.http.get(this.actionUrl + id).map(res => res.json());
-    // };
 
     create = (item: Signup): Observable<Signup> => {
         return this.http.post(this.actionUrl + "register/", JSON.stringify(item)).map(res => res.json());
@@ -41,5 +34,9 @@ export class AccountService {
 
     resetPassword = (model: ResetPassword): Observable<boolean> => {
         return this.http.put(this.actionUrl + `resetPassword`, model).map(res => res.json());
+    };
+
+    changePassword = (model: ChangePassword): Observable<boolean> => {
+        return this.http.put(this.actionUrl + `changePassword`, model).map(res => res.json());
     };
 }

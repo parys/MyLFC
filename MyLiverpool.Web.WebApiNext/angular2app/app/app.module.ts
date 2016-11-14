@@ -43,6 +43,7 @@ import { DatepickerModule, ModalModule, PaginationModule } from "ng2-bootstrap/n
     declarations: [
         account.AccountSigninComponent,
         account.AccountSignupComponent,
+        account.ChangePasswordComponent,
         account.ConfirmEmailComponent,
         account.ForgotPasswordComponent,
         account.ResetPasswordComponent,

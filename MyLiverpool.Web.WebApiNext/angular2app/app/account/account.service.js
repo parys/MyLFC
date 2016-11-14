@@ -31,6 +31,9 @@ export var AccountService = (function () {
         this.resetPassword = function (model) {
             return _this.http.put(_this.actionUrl + "resetPassword", model).map(function (res) { return res.json(); });
         };
+        this.changePassword = function (model) {
+            return _this.http.put(_this.actionUrl + "changePassword", model).map(function (res) { return res.json(); });
+        };
         this.actionUrl = configuration.ServerWithApiUrl + "account/";
     }
     AccountService = __decorate([

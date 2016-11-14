@@ -53,6 +53,7 @@ export var AppModule = (function () {
             declarations: [
                 account.AccountSigninComponent,
                 account.AccountSignupComponent,
+                account.ChangePasswordComponent,
                 account.ConfirmEmailComponent,
                 account.ForgotPasswordComponent,
                 account.ResetPasswordComponent,

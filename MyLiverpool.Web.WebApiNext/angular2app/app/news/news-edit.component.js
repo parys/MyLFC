@@ -38,15 +38,14 @@ export var NewsEditComponent = (function () {
         this.sub.unsubscribe();
     };
     NewsEditComponent.prototype.onSubmit = function () {
-        var _this = this;
         var newsItem = this.parseForm();
         if (this.id > 0) {
             this.newsService.update(this.id, newsItem)
-                .subscribe(function (data) { return _this.router.navigate(["/news", data.id]); }, function (error) { return console.log(error); }, function () { });
+                .subscribe(function (data) { return console.log(data.id); }, function (error) { return console.log(error); }, function () { });
         }
         else {
             this.newsService.create(newsItem)
-                .subscribe(function (data) { return _this.router.navigate(["/news", data.id]); }, function (error) { return console.log(error); }, function () { });
+                .subscribe(function (data) { return console.log(data.id); }, function (error) { return console.log(error); }, function () { });
         }
     };
     NewsEditComponent.prototype.parse = function (data) {

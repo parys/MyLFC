@@ -33,8 +33,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <param name="dto">Contains new and old passwords.</param>
         /// <returns></returns>
-        [AllowAnonymous, HttpPost("ChangePassword")]
-        public async Task<IActionResult> ChangePassword(ChangePasswordDto dto)
+        [AllowAnonymous, HttpPut("ChangePassword")]
+        public async Task<IActionResult> ChangePassword([FromBody]ChangePasswordDto dto)
         {
             if (!ModelState.IsValid)
             {

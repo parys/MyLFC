@@ -41,7 +41,7 @@ module.exports = {
             {
                 test: /\.(png|jpg|gif|ico|woff|woff2|ttf|svg|eot)$/,
                 exclude: /node_modules/,
-                loader: "file?name=assets/[name]-[hash:6].[ext]",
+                loader: "file?name=assets/[name]-[hash:6].[ext]"
             },
             {
                 test: /\.css$/,
