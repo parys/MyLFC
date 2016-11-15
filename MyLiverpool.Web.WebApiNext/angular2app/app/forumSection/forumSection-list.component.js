@@ -1,3 +1,4 @@
+"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -7,10 +8,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component } from "@angular/core";
-import { ForumSectionService } from "./forumSection.service";
-import { RolesCheckedService } from "../shared/index";
-export var ForumSectionListComponent = (function () {
+var core_1 = require("@angular/core");
+var forumSection_service_1 = require("./forumSection.service");
+var index_1 = require("../shared/index");
+var ForumSectionListComponent = (function () {
     function ForumSectionListComponent(service, rolesChecked) {
         this.service = service;
         this.rolesChecked = rolesChecked;
@@ -23,12 +24,13 @@ export var ForumSectionListComponent = (function () {
             .subscribe(function (data) { return _this.items = data; }, function (error) { return console.log(error); }, function () { return console.log(""); });
     };
     ForumSectionListComponent = __decorate([
-        Component({
+        core_1.Component({
             selector: "forumSection-list",
             template: require("./forumSection-list.component.html")
         }), 
-        __metadata('design:paramtypes', [ForumSectionService, RolesCheckedService])
+        __metadata('design:paramtypes', [forumSection_service_1.ForumSectionService, index_1.RolesCheckedService])
     ], ForumSectionListComponent);
     return ForumSectionListComponent;
 }());
+exports.ForumSectionListComponent = ForumSectionListComponent;
 //# sourceMappingURL=forumSection-list.component.js.map

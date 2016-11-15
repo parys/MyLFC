@@ -1,3 +1,4 @@
+"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -7,10 +8,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
-import { PmService } from "./pm.service";
-export var PmDetailComponent = (function () {
+var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
+var pm_service_1 = require("./pm.service");
+var PmDetailComponent = (function () {
     function PmDetailComponent(pmService, route) {
         this.pmService = pmService;
         this.route = route;
@@ -30,12 +31,13 @@ export var PmDetailComponent = (function () {
         this.item = item;
     };
     PmDetailComponent = __decorate([
-        Component({
+        core_1.Component({
             selector: "pm-detail",
             template: require("./pm-detail.component.html")
         }), 
-        __metadata('design:paramtypes', [PmService, ActivatedRoute])
+        __metadata('design:paramtypes', [pm_service_1.PmService, router_1.ActivatedRoute])
     ], PmDetailComponent);
     return PmDetailComponent;
 }());
+exports.PmDetailComponent = PmDetailComponent;
 //# sourceMappingURL=pm-detail.component.js.map

@@ -1,3 +1,4 @@
+"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -7,13 +8,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component, Input } from "@angular/core";
-import { FormBuilder, Validators } from "@angular/forms";
-import { MaterialComment } from "./materialComment.model";
-import { MaterialCommentService } from "./materialComment.service";
-import { Location } from "@angular/common";
-import { RolesCheckedService } from "../shared/index";
-export var MaterialCommentSectionComponent = (function () {
+var core_1 = require("@angular/core");
+var forms_1 = require("@angular/forms");
+var materialComment_model_1 = require("./materialComment.model");
+var materialComment_service_1 = require("./materialComment.service");
+var common_1 = require("@angular/common");
+var index_1 = require("../shared/index");
+var MaterialCommentSectionComponent = (function () {
     function MaterialCommentSectionComponent(materialCommentService, location, rolesChecked, formBuilder) {
         this.materialCommentService = materialCommentService;
         this.location = location;
@@ -28,8 +29,8 @@ export var MaterialCommentSectionComponent = (function () {
         this.roles = this.rolesChecked.checkedRoles;
         this.update();
         this.commentForm = this.formBuilder.group({
-            'message': ["", Validators.compose([
-                    Validators.required, Validators.minLength(3)])]
+            'message': ["", forms_1.Validators.compose([
+                    forms_1.Validators.required, forms_1.Validators.minLength(3)])]
         });
     };
     MaterialCommentSectionComponent.prototype.pageChanged = function (event) {
@@ -51,7 +52,7 @@ export var MaterialCommentSectionComponent = (function () {
     };
     MaterialCommentSectionComponent.prototype.onSubmit = function (value) {
         var _this = this;
-        var comment = new MaterialComment();
+        var comment = new materialComment_model_1.MaterialComment();
         comment.message = this.commentForm.controls["message"].value;
         comment.materialId = this.materialId;
         this.materialCommentService.create(comment)
@@ -61,20 +62,21 @@ export var MaterialCommentSectionComponent = (function () {
         }, function (error) { return console.log(error); }, function () { });
     };
     __decorate([
-        Input(), 
+        core_1.Input(), 
         __metadata('design:type', Number)
     ], MaterialCommentSectionComponent.prototype, "materialId", void 0);
     __decorate([
-        Input(), 
+        core_1.Input(), 
         __metadata('design:type', Boolean)
     ], MaterialCommentSectionComponent.prototype, "canCommentary", void 0);
     MaterialCommentSectionComponent = __decorate([
-        Component({
+        core_1.Component({
             selector: "comments",
             template: require("./materialComment-section.component.html")
         }), 
-        __metadata('design:paramtypes', [MaterialCommentService, Location, RolesCheckedService, FormBuilder])
+        __metadata('design:paramtypes', [materialComment_service_1.MaterialCommentService, common_1.Location, index_1.RolesCheckedService, forms_1.FormBuilder])
     ], MaterialCommentSectionComponent);
     return MaterialCommentSectionComponent;
 }());
+exports.MaterialCommentSectionComponent = MaterialCommentSectionComponent;
 //# sourceMappingURL=materialComment-section.component.js.map

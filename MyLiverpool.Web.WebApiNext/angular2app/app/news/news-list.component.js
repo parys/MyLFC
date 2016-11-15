@@ -1,3 +1,4 @@
+"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -7,14 +8,14 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component, ChangeDetectionStrategy, ViewChild, ChangeDetectorRef } from "@angular/core";
-import { Location } from "@angular/common";
-import { NewsService } from "./news.service";
-import { MaterialFilters } from "./newsFilters.model";
-import { ActivatedRoute } from "@angular/router";
-import { RolesCheckedService } from "../shared/index";
-import { ModalDirective } from "ng2-bootstrap/ng2-bootstrap";
-export var NewsListComponent = (function () {
+var core_1 = require("@angular/core");
+var common_1 = require("@angular/common");
+var news_service_1 = require("./news.service");
+var newsFilters_model_1 = require("./newsFilters.model");
+var router_1 = require("@angular/router");
+var index_1 = require("../shared/index");
+var ng2_bootstrap_1 = require("ng2-bootstrap/ng2-bootstrap");
+var NewsListComponent = (function () {
     function NewsListComponent(newsService, route, location, rolesChecked, cd) {
         this.newsService = newsService;
         this.route = route;
@@ -94,7 +95,7 @@ export var NewsListComponent = (function () {
     };
     NewsListComponent.prototype.update = function () {
         var _this = this;
-        var filters = new MaterialFilters();
+        var filters = new newsFilters_model_1.MaterialFilters();
         filters.categoryId = this.categoryId;
         filters.materialType = "News";
         filters.userName = this.userName;
@@ -104,21 +105,22 @@ export var NewsListComponent = (function () {
             .subscribe(function (data) { return _this.parsePageable(data); }, function (error) { return console.log(error); }, function () { });
     };
     __decorate([
-        ViewChild("activateModal"), 
-        __metadata('design:type', ModalDirective)
+        core_1.ViewChild("activateModal"), 
+        __metadata('design:type', ng2_bootstrap_1.ModalDirective)
     ], NewsListComponent.prototype, "activateModal", void 0);
     __decorate([
-        ViewChild("deleteModal"), 
-        __metadata('design:type', ModalDirective)
+        core_1.ViewChild("deleteModal"), 
+        __metadata('design:type', ng2_bootstrap_1.ModalDirective)
     ], NewsListComponent.prototype, "deleteModal", void 0);
     NewsListComponent = __decorate([
-        Component({
+        core_1.Component({
             selector: "news-list",
             template: require("./news-list.component.html"),
-            changeDetection: ChangeDetectionStrategy.Default
+            changeDetection: core_1.ChangeDetectionStrategy.Default
         }), 
-        __metadata('design:paramtypes', [NewsService, ActivatedRoute, Location, RolesCheckedService, ChangeDetectorRef])
+        __metadata('design:paramtypes', [news_service_1.NewsService, router_1.ActivatedRoute, common_1.Location, index_1.RolesCheckedService, core_1.ChangeDetectorRef])
     ], NewsListComponent);
     return NewsListComponent;
 }());
+exports.NewsListComponent = NewsListComponent;
 //# sourceMappingURL=news-list.component.js.map

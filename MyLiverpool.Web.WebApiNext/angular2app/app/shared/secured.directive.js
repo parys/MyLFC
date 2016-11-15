@@ -1,3 +1,4 @@
+"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -7,9 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Directive, HostBinding, ElementRef, Input } from "@angular/core";
-import { Router } from "@angular/router";
-export var SecuredDirective = (function () {
+var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
+var SecuredDirective = (function () {
     function SecuredDirective(router, elementRef) {
         this.router = router;
         this.elementRef = elementRef;
@@ -31,19 +32,20 @@ export var SecuredDirective = (function () {
         }
     };
     __decorate([
-        HostBinding("hidden"), 
+        core_1.HostBinding("hidden"), 
         __metadata('design:type', Boolean)
     ], SecuredDirective.prototype, "hideRouterLink", void 0);
     __decorate([
-        Input(), 
+        core_1.Input(), 
         __metadata('design:type', Object)
     ], SecuredDirective.prototype, "secured", void 0);
     SecuredDirective = __decorate([
-        Directive({
+        core_1.Directive({
             selector: "[secured]"
         }), 
-        __metadata('design:paramtypes', [Router, ElementRef])
+        __metadata('design:paramtypes', [router_1.Router, core_1.ElementRef])
     ], SecuredDirective);
     return SecuredDirective;
 }());
+exports.SecuredDirective = SecuredDirective;
 //# sourceMappingURL=secured.directive.js.map

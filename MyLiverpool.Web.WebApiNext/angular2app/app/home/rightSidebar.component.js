@@ -1,3 +1,4 @@
+"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -7,10 +8,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component } from "@angular/core";
-import { AdminService } from "../admin/admin.service";
-import { RolesCheckedService } from "../shared/index";
-export var RightSidebarComponent = (function () {
+var core_1 = require("@angular/core");
+var admin_service_1 = require("../admin/admin.service");
+var index_1 = require("../shared/index");
+var RightSidebarComponent = (function () {
     function RightSidebarComponent(service, rolesChecked) {
         this.service = service;
         this.rolesChecked = rolesChecked;
@@ -27,12 +28,13 @@ export var RightSidebarComponent = (function () {
         }, function (error) { return console.log(error); }, function () { return console.log(""); });
     };
     RightSidebarComponent = __decorate([
-        Component({
+        core_1.Component({
             selector: "right-sidebar",
             template: require("./rightSidebar.component.html")
         }), 
-        __metadata('design:paramtypes', [AdminService, RolesCheckedService])
+        __metadata('design:paramtypes', [admin_service_1.AdminService, index_1.RolesCheckedService])
     ], RightSidebarComponent);
     return RightSidebarComponent;
 }());
+exports.RightSidebarComponent = RightSidebarComponent;
 //# sourceMappingURL=rightSidebar.component.js.map

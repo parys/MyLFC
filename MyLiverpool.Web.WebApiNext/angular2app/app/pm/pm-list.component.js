@@ -1,3 +1,4 @@
+"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -7,9 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component } from "@angular/core";
-import { PmService } from "./pm.service";
-export var PmListComponent = (function () {
+var core_1 = require("@angular/core");
+var pm_service_1 = require("./pm.service");
+var PmListComponent = (function () {
     function PmListComponent(pmService) {
         this.pmService = pmService;
     }
@@ -27,12 +28,13 @@ export var PmListComponent = (function () {
     PmListComponent.prototype.delete = function (index) {
     };
     PmListComponent = __decorate([
-        Component({
+        core_1.Component({
             selector: "pm-list",
             template: require("./pm-list.component.html")
         }), 
-        __metadata('design:paramtypes', [PmService])
+        __metadata('design:paramtypes', [pm_service_1.PmService])
     ], PmListComponent);
     return PmListComponent;
 }());
+exports.PmListComponent = PmListComponent;
 //# sourceMappingURL=pm-list.component.js.map

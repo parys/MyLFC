@@ -1,3 +1,4 @@
+"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -7,11 +8,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Injectable } from '@angular/core';
-import 'rxjs/add/operator/map';
-import { Configuration } from '../../app.constants';
-import { HttpWrapper } from "../../shared/httpWrapper";
-export var NewsCategoryService = (function () {
+var core_1 = require('@angular/core');
+require('rxjs/add/operator/map');
+var app_constants_1 = require('../../app.constants');
+var httpWrapper_1 = require("../../shared/httpWrapper");
+var NewsCategoryService = (function () {
     function NewsCategoryService(http, configuration) {
         var _this = this;
         this.http = http;
@@ -41,9 +42,10 @@ export var NewsCategoryService = (function () {
         return body.data || {};
     };
     NewsCategoryService = __decorate([
-        Injectable(), 
-        __metadata('design:paramtypes', [HttpWrapper, Configuration])
+        core_1.Injectable(), 
+        __metadata('design:paramtypes', [httpWrapper_1.HttpWrapper, app_constants_1.Configuration])
     ], NewsCategoryService);
     return NewsCategoryService;
 }());
+exports.NewsCategoryService = NewsCategoryService;
 //# sourceMappingURL=newsCategory.service.js.map

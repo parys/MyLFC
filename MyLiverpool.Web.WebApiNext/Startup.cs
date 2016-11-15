@@ -83,7 +83,14 @@ namespace MyLiverpool.Web.WebApiNext
             services.AddDbContext<LiverpoolContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("MyLiverpool.Data.ResourceAccess")));
 
-            services.AddIdentity<User, Role>()
+            services.AddIdentity<User, Role>(options =>
+            {
+                options.Password.RequireDigit = false;
+                options.Password.RequiredLength = 2;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+            })
                 .AddEntityFrameworkStores<LiverpoolContext, int>()
                 .AddDefaultTokenProviders();
 

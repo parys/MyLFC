@@ -1,3 +1,4 @@
+"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -7,12 +8,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component } from "@angular/core";
-import { FormBuilder, Validators } from "@angular/forms";
-import { Wish } from "./wish.model";
-import { WishService } from "./wish.service";
-import { Router, ActivatedRoute } from "@angular/router";
-export var WishEditComponent = (function () {
+var core_1 = require("@angular/core");
+var forms_1 = require("@angular/forms");
+var wish_model_1 = require("./wish.model");
+var wish_service_1 = require("./wish.service");
+var router_1 = require("@angular/router");
+var WishEditComponent = (function () {
     function WishEditComponent(service, formBuilder, route, router) {
         this.service = service;
         this.formBuilder = formBuilder;
@@ -24,20 +25,20 @@ export var WishEditComponent = (function () {
         var _this = this;
         this.editForm = this.formBuilder.group({
             'message': [
-                "", Validators.compose([
-                    Validators.required,
-                    Validators.maxLength(30)
+                "", forms_1.Validators.compose([
+                    forms_1.Validators.required,
+                    forms_1.Validators.maxLength(30)
                 ])
             ],
             'title': [
-                "", Validators.compose([
-                    Validators.required,
-                    Validators.maxLength(300)
+                "", forms_1.Validators.compose([
+                    forms_1.Validators.required,
+                    forms_1.Validators.maxLength(300)
                 ])
             ],
             'type': [
-                "", Validators.compose([
-                    Validators.required
+                "", forms_1.Validators.compose([
+                    forms_1.Validators.required
                 ])
             ]
         });
@@ -55,7 +56,7 @@ export var WishEditComponent = (function () {
         this.sub.unsubscribe();
     };
     WishEditComponent.prototype.onSubmit = function () {
-        var model = new Wish();
+        var model = new wish_model_1.Wish();
         model.id = this.id;
         model.message = this.editForm.controls["message"].value;
         model.title = this.editForm.controls["title"].value;
@@ -76,12 +77,13 @@ export var WishEditComponent = (function () {
             .subscribe(function (data) { return _this.types = data; });
     };
     WishEditComponent = __decorate([
-        Component({
+        core_1.Component({
             selector: "wish-edit",
             template: require("./wish-edit.component.html")
         }), 
-        __metadata('design:paramtypes', [WishService, FormBuilder, ActivatedRoute, Router])
+        __metadata('design:paramtypes', [wish_service_1.WishService, forms_1.FormBuilder, router_1.ActivatedRoute, router_1.Router])
     ], WishEditComponent);
     return WishEditComponent;
 }());
+exports.WishEditComponent = WishEditComponent;
 //# sourceMappingURL=wish-edit.component.js.map

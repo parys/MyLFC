@@ -1,3 +1,4 @@
+"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -7,34 +8,34 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component } from "@angular/core";
-import { FormBuilder, Validators } from "@angular/forms";
-import { Signup } from "./signup.model";
-import { AccountService } from "./account.service";
-import { GlobalValidators } from "../shared/index";
-export var AccountSignupComponent = (function () {
+var core_1 = require("@angular/core");
+var forms_1 = require("@angular/forms");
+var signup_model_1 = require("./signup.model");
+var account_service_1 = require("./account.service");
+var index_1 = require("../shared/index");
+var AccountSignupComponent = (function () {
     function AccountSignupComponent(accountService, formBuilder) {
         this.accountService = accountService;
         this.formBuilder = formBuilder;
     }
     AccountSignupComponent.prototype.ngOnInit = function () {
         this.registerForm = this.formBuilder.group({
-            'userName': ["123", Validators.compose([
-                    Validators.required, Validators.minLength(3)])],
-            'email': ["andrew_parys@tut.by", Validators.compose([
-                    Validators.required, Validators.minLength(6), , GlobalValidators.mailFormat])],
-            'password': ["123qwe!Q", Validators.compose([
-                    Validators.required, Validators.minLength(6)])],
-            'confirmPassword': ["123qwe!Q", Validators.compose([
-                    Validators.required, Validators.minLength(6)])],
-            'fullName': ["123", Validators.compose([
-                    Validators.required,])],
-            'birthday': ["10/10/2015", Validators.compose([
-                    Validators.required,])]
+            'userName': ["123", forms_1.Validators.compose([
+                    forms_1.Validators.required, forms_1.Validators.minLength(3)])],
+            'email': ["andrew_parys@tut.by", forms_1.Validators.compose([
+                    forms_1.Validators.required, forms_1.Validators.minLength(6), , index_1.GlobalValidators.mailFormat])],
+            'password': ["123qwe!Q", forms_1.Validators.compose([
+                    forms_1.Validators.required, forms_1.Validators.minLength(6)])],
+            'confirmPassword': ["123qwe!Q", forms_1.Validators.compose([
+                    forms_1.Validators.required, forms_1.Validators.minLength(6)])],
+            'fullName': ["123", forms_1.Validators.compose([
+                    forms_1.Validators.required,])],
+            'birthday': ["10/10/2015", forms_1.Validators.compose([
+                    forms_1.Validators.required,])]
         });
     };
     AccountSignupComponent.prototype.onSubmit = function (value) {
-        var signup = new Signup();
+        var signup = new signup_model_1.Signup();
         signup.userName = this.registerForm.controls["userName"].value;
         signup.email = this.registerForm.controls["email"].value;
         signup.password = this.registerForm.controls["password"].value;
@@ -46,12 +47,13 @@ export var AccountSignupComponent = (function () {
             .subscribe(function (data) { }, function (error) { return console.log(error); }, function () { });
     };
     AccountSignupComponent = __decorate([
-        Component({
+        core_1.Component({
             selector: "account-signup",
             template: require("./account-signup.component.html")
         }), 
-        __metadata('design:paramtypes', [AccountService, FormBuilder])
+        __metadata('design:paramtypes', [account_service_1.AccountService, forms_1.FormBuilder])
     ], AccountSignupComponent);
     return AccountSignupComponent;
 }());
+exports.AccountSignupComponent = AccountSignupComponent;
 //# sourceMappingURL=account-signup.component.js.map

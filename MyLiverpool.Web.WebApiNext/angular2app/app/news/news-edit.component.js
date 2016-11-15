@@ -1,3 +1,4 @@
+"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -7,13 +8,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component } from "@angular/core";
-import { FormBuilder, Validators } from "@angular/forms";
-import { Router, ActivatedRoute } from "@angular/router";
-import { NewsService } from "./news.service";
-import { News } from "./news.model";
-import { NewsCategoryService } from "../newsCategory/shared/newsCategory.service";
-export var NewsEditComponent = (function () {
+var core_1 = require("@angular/core");
+var forms_1 = require("@angular/forms");
+var router_1 = require("@angular/router");
+var news_service_1 = require("./news.service");
+var news_model_1 = require("./news.model");
+var newsCategory_service_1 = require("../newsCategory/shared/newsCategory.service");
+var NewsEditComponent = (function () {
     function NewsEditComponent(newsService, newsCategoryService, route, router, formBuilder) {
         this.newsService = newsService;
         this.newsCategoryService = newsCategoryService;
@@ -53,7 +54,7 @@ export var NewsEditComponent = (function () {
         this.editForm.patchValue(data);
     };
     NewsEditComponent.prototype.parseForm = function () {
-        var item = new News();
+        var item = new news_model_1.News();
         item.id = this.id;
         item.categoryId = this.editForm.controls["categoryId"].value;
         item.title = this.editForm.controls["title"].value;
@@ -68,35 +69,36 @@ export var NewsEditComponent = (function () {
     };
     NewsEditComponent.prototype.initForm = function () {
         this.editForm = this.formBuilder.group({
-            'categoryId': ["", Validators.compose([
-                    Validators.required])],
-            'title': ["", Validators.compose([
-                    Validators.required])],
-            'brief': ["", Validators.compose([
-                    Validators.required])],
-            'message': ["", Validators.compose([
-                    Validators.required])],
-            'source': ["", Validators.compose([])],
-            'photo': ["", Validators.compose([
-                    Validators.required])],
-            'canCommentary': ["", Validators.compose([
-                    Validators.required])],
-            'onTop': ["", Validators.compose([
-                    Validators.required])],
-            'pending': ["", Validators.compose([
-                    Validators.required])]
+            'categoryId': ["", forms_1.Validators.compose([
+                    forms_1.Validators.required])],
+            'title': ["", forms_1.Validators.compose([
+                    forms_1.Validators.required])],
+            'brief': ["", forms_1.Validators.compose([
+                    forms_1.Validators.required])],
+            'message': ["", forms_1.Validators.compose([
+                    forms_1.Validators.required])],
+            'source': ["", forms_1.Validators.compose([])],
+            'photo': ["", forms_1.Validators.compose([
+                    forms_1.Validators.required])],
+            'canCommentary': ["", forms_1.Validators.compose([
+                    forms_1.Validators.required])],
+            'onTop': ["", forms_1.Validators.compose([
+                    forms_1.Validators.required])],
+            'pending': ["", forms_1.Validators.compose([
+                    forms_1.Validators.required])]
         });
     };
     NewsEditComponent.prototype.parseCategories = function (items) {
         this.categories = items;
     };
     NewsEditComponent = __decorate([
-        Component({
+        core_1.Component({
             selector: "news-edit",
             template: require("./news-edit.component.html")
         }), 
-        __metadata('design:paramtypes', [NewsService, NewsCategoryService, ActivatedRoute, Router, FormBuilder])
+        __metadata('design:paramtypes', [news_service_1.NewsService, newsCategory_service_1.NewsCategoryService, router_1.ActivatedRoute, router_1.Router, forms_1.FormBuilder])
     ], NewsEditComponent);
     return NewsEditComponent;
 }());
+exports.NewsEditComponent = NewsEditComponent;
 //# sourceMappingURL=news-edit.component.js.map
