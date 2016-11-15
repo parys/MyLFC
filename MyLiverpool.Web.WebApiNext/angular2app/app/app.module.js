@@ -22,6 +22,7 @@ var index_2 = require("./auth/index");
 var index_3 = require("./shared/index");
 var index_4 = require("./forumSection/index");
 var account = require("./account/index");
+var match = require("./match/index");
 var newsCategory_list_component_1 = require("./newsCategory/newsCategory-list.component");
 var newsCategory_edit_component_1 = require("./newsCategory/newsCategory-edit.component");
 var user_detail_component_1 = require("./user/user-detail.component");
@@ -63,6 +64,7 @@ var AppModule = (function () {
                 index_6.ClubHistoryComponent,
                 index_10.EplTableComponent,
                 index_4.ForumSectionListComponent,
+                match.MatchListComponent,
                 index_8.MaterialCommentDetailComponent,
                 index_8.MaterialCommentListComponent,
                 index_8.MaterialCommentSectionComponent,
@@ -93,6 +95,7 @@ var AppModule = (function () {
                 index_3.HttpWrapper,
                 index_9.GlobalValidators,
                 { provide: index_3.LocalStorageMine, useClass: index_3.LocalStorageMine },
+                match.MatchService,
                 index_8.MaterialCommentService,
                 index_1.NewsService,
                 newsCategory_service_1.NewsCategoryService,

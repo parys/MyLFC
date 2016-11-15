@@ -15,7 +15,7 @@ namespace MyLiverpool.Data.ResourceAccess.Contracts
     {
         /// <summary>
         /// Returns all objects of given type.
-        /// </summary> todo need refactoring
+        /// </summary> 
         Task<ICollection<TEntity>> GetAsync(
             Expression<Func<TEntity, bool>> filter = null,
             params Expression<Func<TEntity, object>>[] includeProperties);

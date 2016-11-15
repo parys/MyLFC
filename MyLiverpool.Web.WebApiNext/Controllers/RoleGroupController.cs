@@ -8,7 +8,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// <summary>
     /// Manages role groups.
     /// </summary>
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [Authorize(Roles = "AdminFull")]
     public class RoleGroupController : Controller
     {

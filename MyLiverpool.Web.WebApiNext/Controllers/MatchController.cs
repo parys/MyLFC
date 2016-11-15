@@ -13,7 +13,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// <summary>
     /// Manages matches.
     /// </summary>
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [Authorize]
     public class MatchController : Controller
     {

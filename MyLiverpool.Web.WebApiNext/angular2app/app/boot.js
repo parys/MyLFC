@@ -11,10 +11,10 @@ else {
 }
 var platform = platform_browser_dynamic_1.platformBrowserDynamic();
 var bootApplication = function () { platform.bootstrapModule(app_module_1.AppModule); };
-if (document.readyState === 'complete') {
+if (document.readyState === "complete") {
     bootApplication();
 }
 else {
-    document.addEventListener('DOMContentLoaded', bootApplication);
+    document.addEventListener("DOMContentLoaded", bootApplication);
 }
 //# sourceMappingURL=boot.js.map

@@ -11,12 +11,14 @@ import { homeRoutes } from "./home/home.routing";
 import { forumSectionRoutes } from "./forumSection/forumSection.routing";
 import { wishRoutes } from "./wish/wish.routing";
 import { materialCommentRoutes } from "./materialComment/materialComment.routing";
+import { matchRoutes } from "./match/match.routing";
 
 const routes: Routes = [
     ...accountRoutes,
     ...authRoutes,
     ...forumSectionRoutes,
     ...homeRoutes,
+    ...matchRoutes,
     ...materialCommentRoutes,
     ...newsCategoryRoutes,
     ...newsRoutes,

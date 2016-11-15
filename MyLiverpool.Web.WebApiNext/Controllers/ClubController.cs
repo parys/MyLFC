@@ -10,7 +10,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// <summary>
     /// Manages club entity.
     /// </summary>
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [Authorize(Roles = nameof(RolesEnum.AdminStart))]
     public class ClubController : Controller
     {

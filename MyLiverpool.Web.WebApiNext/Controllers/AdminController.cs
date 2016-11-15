@@ -9,7 +9,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// <summary>
     /// Controller for manage admin functions.
     /// </summary>
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     public class AdminController : Controller
     {
         private readonly IAdminService _adminService;

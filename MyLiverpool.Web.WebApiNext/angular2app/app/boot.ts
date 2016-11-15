@@ -13,9 +13,9 @@ if (module["hot"]) {
 // Boot the application, either now or when the DOM content is loaded
 const platform = platformBrowserDynamic();
 const bootApplication = () => { platform.bootstrapModule(AppModule); };
-if (document.readyState === 'complete') {
+if (document.readyState === "complete") {
     bootApplication();
 } else {
-    document.addEventListener('DOMContentLoaded', bootApplication);
+    document.addEventListener("DOMContentLoaded", bootApplication);
 }
 //platformBrowserDynamic().bootstrapModule(AppModule);

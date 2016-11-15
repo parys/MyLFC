@@ -28,9 +28,7 @@ namespace MyLiverpool.Data.ResourceAccess.Contracts
      //   IGenericRepository<PrivateMessage> PrivateMessageRepository { get; }
         
         IGenericRepository<Club> ClubRepository { get; }
-
-        IGenericRepository<Match> MatchRepository { get; }
-
+        
 
         UserManager<User> UserManager { get; set; }
         /// <summary>

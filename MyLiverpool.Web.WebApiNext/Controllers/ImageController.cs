@@ -11,7 +11,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// <summary>
     /// Manages images.
     /// </summary>
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [Authorize(Roles = "NewsStart,BlogsStart")]
     public class ImageController : Controller
     {

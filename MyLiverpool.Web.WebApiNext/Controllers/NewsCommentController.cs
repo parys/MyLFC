@@ -8,7 +8,7 @@
 
 //namespace MyLiverpool.Web.WebApiNext.Controllers
 //{
-//    [Route("api/[controller]")]
+//    [Route("api/v1/[controller]")]
 //    [Authorize]
 //    public class NewsCommentController : Controller
 //    {

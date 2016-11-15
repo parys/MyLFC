@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using MyLiverpool.Data.Entities;
 using MyLiverpool.Data.ResourceAccess.Contracts;
 
@@ -23,7 +20,6 @@ namespace MyLiverpool.Data.ResourceAccess
         private IGenericRepository<ForumTheme> _forumThemeRepository;
         private IGenericRepository<ForumSubsection> _forumSubsectionRepository;
         private IGenericRepository<ForumMessage> _forumMessageRepository;
-        private IGenericRepository<Match> _matchRepository;
      //   private IGenericRepository<Material> _materialRepository;
         private IGenericRepository<MaterialComment> _materialCommentRepository;
         private IGenericRepository<ForumSection> _forumSectionRepository;
@@ -76,7 +72,6 @@ namespace MyLiverpool.Data.ResourceAccess
         public IGenericRepository<ForumTheme> ForumThemeRepository => _forumThemeRepository ?? (_forumThemeRepository = new GenericRepository<ForumTheme>(_context));
         public IGenericRepository<ForumSubsection> ForumSubsectionRepository => _forumSubsectionRepository ?? (_forumSubsectionRepository = new GenericRepository<ForumSubsection>(_context));
         public IGenericRepository<ForumMessage> ForumMessageRepository => _forumMessageRepository ?? (_forumMessageRepository = new GenericRepository<ForumMessage>(_context));
-        public IGenericRepository<Match> MatchRepository => _matchRepository ?? (_matchRepository = new GenericRepository<Match>(_context));
       //  public IGenericRepository<UserClaim> UserClaimRepository => _userClaimRepository ?? (_userClaimRepository = new GenericRepository<UserClaim>(_context));
          public IGenericRepository<Wish> WishRepository => _wishRepository ?? (_wishRepository = new GenericRepository<Wish>(_context));
         public IGenericRepository<Role> RoleRepository => _roleRepository ?? (_roleRepository = new GenericRepository<Role>(_context));

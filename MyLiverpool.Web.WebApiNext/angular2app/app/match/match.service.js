@@ -9,17 +9,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var Configuration = (function () {
-    function Configuration() {
-        this.Server = "http://localhost:1669/";
-        this.ApiUrl = "api/v1/";
-        this.ServerWithApiUrl = this.Server + this.ApiUrl;
+require("rxjs/add/operator/map");
+var app_constants_1 = require("../app.constants");
+var httpWrapper_1 = require("../shared/httpWrapper");
+var MatchService = (function () {
+    function MatchService(http, configuration) {
+        this.http = http;
+        this.configuration = configuration;
+        this.actionUrl = configuration.ServerWithApiUrl + "match/";
     }
-    Configuration = __decorate([
+    MatchService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [])
-    ], Configuration);
-    return Configuration;
+        __metadata('design:paramtypes', [httpWrapper_1.HttpWrapper, app_constants_1.Configuration])
+    ], MatchService);
+    return MatchService;
 }());
-exports.Configuration = Configuration;
-//# sourceMappingURL=app.constants.js.map
+exports.MatchService = MatchService;
+//# sourceMappingURL=match.service.js.map

@@ -10,7 +10,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// <summary>
     /// Manages news categories.
     /// </summary>
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     public class NewsCategoryController : Controller
     {
         private readonly IMaterialCategoryService _materialCategoryService;

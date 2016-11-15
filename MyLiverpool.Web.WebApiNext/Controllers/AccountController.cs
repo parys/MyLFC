@@ -12,7 +12,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// <summary>
     /// Controller for manage user accounts.
     /// </summary>
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [Authorize]
     public class AccountController : Controller
     {

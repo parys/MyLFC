@@ -7,7 +7,7 @@
 
 //namespace MyLiverpool.Web.WebApiNext.Controllers
 //{
-//    [Route("api/[controller]")]
+//    [Route("api/v1/[controller]")]
 //    public class BlogCategoryController : Controller
 //    {
 //        private readonly IMaterialCategoryService _materialCategoryService;

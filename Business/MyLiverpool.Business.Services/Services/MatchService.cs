@@ -10,48 +10,53 @@ using MyLiverpool.Data.ResourceAccess.Contracts;
 
 namespace MyLiverpool.Business.Services.Services
 {
-    public class MatchService : BaseService, IMatchService
+    public class MatchService : IMatchService
     {
         private readonly IClubService _clubService;
-        public MatchService(IUnitOfWork unitOfWork, IMapper mapper, IClubService clubService) : base(unitOfWork, mapper)
+        private readonly IMapper _mapper;
+        private readonly IMatchRepository _matchRepository;
+
+        public MatchService(IMatchRepository matchRepository, IMapper mapper, IClubService clubService)
         {
             _clubService = clubService;
+            _mapper = mapper;
+            _matchRepository = matchRepository;
         }
 
         public async Task<MatchDto> CreateAsync(MatchDto dto)
         {
             var match = _mapper.Map<Match>(dto);
             match.ClubId = await _clubService.GetIdByNameAsync(dto.ClubName);
-            _unitOfWork.MatchRepository.Add(match);
-            await _unitOfWork.SaveAsync();
+            _matchRepository.Add(match);
+            await _matchRepository.SaveChangesAsync();
             dto = _mapper.Map<MatchDto>(match);
             return dto;
         }
 
         public async Task<MatchDto> UpdateAsync(MatchDto dto)
         {
-            var match = await _unitOfWork.MatchRepository.GetByIdAsync(dto.Id);
+            var match = await _matchRepository.GetByIdAsync(dto.Id);
             throw new NotImplementedException();
         }
 
         public async Task<bool> DeleteAsync(int id)
         {
-            await _unitOfWork.MatchRepository.DeleteAsync(id);
+            await _matchRepository.DeleteAsync(id);
             return true;
         }
 
         public async Task<MatchDto> GetAsync(int id)
         {
-            var match = await _unitOfWork.MatchRepository.GetByIdAsync(id);
+            var match = await _matchRepository.GetByIdAsync(id);
             var dto = _mapper.Map<MatchDto>(match);
             return dto;
         }
 
         public async Task<PageableData<MatchDto>> GetListAsync(int page)
         {
-            var clubs = await _unitOfWork.MatchRepository.GetAsync(page);
+            var clubs = await _matchRepository.GetListAsync(page);
             var dtos = _mapper.Map<ICollection<MatchDto>>(clubs);
-            var count = await _unitOfWork.MatchRepository.GetCountAsync();
+            var count = await _matchRepository.GetCountAsync();//todo unite two requests
             return new PageableData<MatchDto>(dtos, page, count);
         }
     }

@@ -15,7 +15,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// <summary>
     /// Manages materials.
     /// </summary>
-    [AllowAnonymous, Route("api/[controller]")]
+    [AllowAnonymous, Route("api/v1/[controller]")]
     public class MaterialController : Controller
     {
         private readonly IMaterialService _materialService;

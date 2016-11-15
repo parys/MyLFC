@@ -13,7 +13,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// <summary>
     /// Controller for manage material comments.
     /// </summary>
-    [Authorize, Route("api/[controller]")]
+    [Authorize, Route("api/v1/[controller]")]
     public class MaterialCommentController : Controller
     {
         private readonly IMaterialCommentService _commentService;
