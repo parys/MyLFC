@@ -22,8 +22,9 @@ module.exports = {
     },
 
     output: {
-        path: path.join(__dirname, "wwwroot/"),
-        filename: "js/[name].bundle.js"
+        path: path.join(__dirname, "../wwwroot/"),
+        filename: "js/[name].bundle.js",
+        publicPath: "/"
     },
 
     resolve: {

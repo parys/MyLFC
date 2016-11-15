@@ -51,6 +51,8 @@
     "angular2-template-loader": "0.6.0",
     "assets-webpack-plugin": "3.5.0",
     "awesome-typescript-loader": "2.2.4",
+    "aspnet-webpack": "1.0.24",
+    "webpack-hot-middleware": "2.13.2",
     "bootstrap": "3.3.7",
     "bootstrap-webpack": "0.0.5",
     "clean-webpack-plugin": "0.1.14",

@@ -5,6 +5,7 @@ import "rxjs/add/observable/of";
 import "rxjs/add/operator/do";
 import "rxjs/add/operator/delay";
 import { LocalStorageMine, RolesCheckedService, HttpWrapper } from "../shared/index";
+import { Configuration } from "../app.constants";
 
 @Injectable()
 export class AuthService {
@@ -13,7 +14,7 @@ export class AuthService {
     id: number;
 
     constructor(private http: HttpWrapper, private http1: Http, private localStorage: LocalStorageMine,
-        private rolesCheckedService: RolesCheckedService, private router: Router) {  
+        private rolesCheckedService: RolesCheckedService, private router: Router, private configuration: Configuration) {  
         if (this.localStorage.get("access_token")) { 
             this.isLoggedIn = true;                              
             this.roles = this.localStorage.getObject("roles");
@@ -30,7 +31,7 @@ export class AuthService {
         headers.append("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8;");
         let perams = `grant_type=password&username=${username}&password=${password}&client_id=client_id3`;
 
-        var result = this.http1.post("connect/token", perams, {
+        var result = this.http1.post(this.configuration.Server + "connect/token", perams, {
             headers: headers
         });
         result.subscribe(data => this.parseLoginAnswer(data),
@@ -78,14 +79,14 @@ export class AuthService {
     }
 
     private getRoles(): void {
-        this.http.get("api/role")
+        this.http.get(this.configuration.ServerWithApiUrl + "role")
             .subscribe(data => this.parseRoles(data),
             error => console.log(error),
             () => this.rolesCheckedService.checkRoles());
     }
 
     private getUserId(): void {
-        this.http.get("api/user/getId")
+        this.http.get(this.configuration.ServerWithApiUrl + "user/getId")
             .subscribe(data => this.id = +JSON.parse(data.text()),
             error => console.log(error),
             () => {

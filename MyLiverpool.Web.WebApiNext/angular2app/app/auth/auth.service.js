@@ -15,13 +15,15 @@ require("rxjs/add/observable/of");
 require("rxjs/add/operator/do");
 require("rxjs/add/operator/delay");
 var index_1 = require("../shared/index");
+var app_constants_1 = require("../app.constants");
 var AuthService = (function () {
-    function AuthService(http, http1, localStorage, rolesCheckedService, router) {
+    function AuthService(http, http1, localStorage, rolesCheckedService, router, configuration) {
         this.http = http;
         this.http1 = http1;
         this.localStorage = localStorage;
         this.rolesCheckedService = rolesCheckedService;
         this.router = router;
+        this.configuration = configuration;
         this.isLoggedIn = false;
         this.roles = [];
         if (this.localStorage.get("access_token")) {
@@ -38,7 +40,7 @@ var AuthService = (function () {
         var headers = new http_1.Headers();
         headers.append("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8;");
         var perams = "grant_type=password&username=" + username + "&password=" + password + "&client_id=client_id3";
-        var result = this.http1.post("connect/token", perams, {
+        var result = this.http1.post(this.configuration.Server + "connect/token", perams, {
             headers: headers
         });
         result.subscribe(function (data) { return _this.parseLoginAnswer(data); }, function (error) {
@@ -80,12 +82,12 @@ var AuthService = (function () {
     };
     AuthService.prototype.getRoles = function () {
         var _this = this;
-        this.http.get("api/role")
+        this.http.get(this.configuration.ServerWithApiUrl + "role")
             .subscribe(function (data) { return _this.parseRoles(data); }, function (error) { return console.log(error); }, function () { return _this.rolesCheckedService.checkRoles(); });
     };
     AuthService.prototype.getUserId = function () {
         var _this = this;
-        this.http.get("api/user/getId")
+        this.http.get(this.configuration.ServerWithApiUrl + "user/getId")
             .subscribe(function (data) { return _this.id = +JSON.parse(data.text()); }, function (error) { return console.log(error); }, function () {
             _this.localStorage.set("userId", _this.id.toString());
             _this.getRoles();
@@ -93,7 +95,7 @@ var AuthService = (function () {
     };
     AuthService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [index_1.HttpWrapper, http_1.Http, index_1.LocalStorageMine, index_1.RolesCheckedService, router_1.Router])
+        __metadata('design:paramtypes', [index_1.HttpWrapper, http_1.Http, index_1.LocalStorageMine, index_1.RolesCheckedService, router_1.Router, app_constants_1.Configuration])
     ], AuthService);
     return AuthService;
 }());
