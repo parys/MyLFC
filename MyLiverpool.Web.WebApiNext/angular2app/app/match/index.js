@@ -4,4 +4,5 @@ function __export(m) {
 }
 __export(require("./match.service"));
 __export(require("./match-list.component"));
+__export(require("./match-edit.component"));
 //# sourceMappingURL=index.js.map

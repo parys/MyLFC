@@ -106,8 +106,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <param name="type">Material type.</param>
         /// <param name="model">Contains material model.</param>
         /// <returns>Result of creation.</returns>
-        [Authorize(Roles = nameof(RolesEnum.NewsStart)), HttpPost("{type}")]
-        public async Task<IActionResult> CreateAsync(string type, MaterialDto model)
+        [Authorize(Roles = nameof(RolesEnum.NewsStart)), HttpPost("{type}")] //todo not works
+        public async Task<IActionResult> CreateAsync(string type, [FromBody] MaterialDto model)
         {
             MaterialType materialType;
             if (!ModelState.IsValid || !Enum.TryParse(type, true, out materialType))

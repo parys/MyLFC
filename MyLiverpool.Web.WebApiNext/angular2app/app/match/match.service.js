@@ -14,8 +14,20 @@ var app_constants_1 = require("../app.constants");
 var httpWrapper_1 = require("../shared/httpWrapper");
 var MatchService = (function () {
     function MatchService(http, configuration) {
+        var _this = this;
         this.http = http;
         this.configuration = configuration;
+        this.getSingle = function (id) {
+            return _this.http.get(_this.actionUrl + id).map(function (res) { return res.json(); });
+        };
+        this.create = function (item) {
+            return _this.http.post(_this.actionUrl, JSON.stringify(item)).map(function (res) { return res.json(); });
+        };
+        this.update = function (id, itemToUpdate) {
+            return _this.http
+                .put(_this.actionUrl + id, JSON.stringify(itemToUpdate))
+                .map(function (res) { return res.json(); });
+        };
         this.actionUrl = configuration.ServerWithApiUrl + "match/";
     }
     MatchService = __decorate([

@@ -5,10 +5,10 @@
                 <select class="form-control"
                         ng-model="vm.typeId"
                         ng-options="type.id as type.name for type in vm.types" ng-change="vm.changeTypeId()"></select>
-            </div>-->
+            </div>--
             <div class="form-group">
-                <input class="form-control" ng-model="vm.filterText" ng-model-options="{debounce: 1000}" ng-change="vm.filterByText()" placeholder="Поиск в тексте пожеланий" /> <!--todo magic number-->
-            </div>
+                <input class="form-control" ng-model="vm.filterText" ng-model-options="{debounce: 1000}" ng-change="vm.filterByText()" placeholder="Поиск в тексте пожеланий" /> <!--todo magic number
+            </div>-->
             <button class="btn btn-success" [routerLink]="['/club', 0, 'edit' ]">Добавить</button>
         </form>
     </div>

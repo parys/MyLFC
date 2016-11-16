@@ -22,6 +22,7 @@ var index_2 = require("./auth/index");
 var index_3 = require("./shared/index");
 var index_4 = require("./forumSection/index");
 var account = require("./account/index");
+var club = require("./club/index");
 var match = require("./match/index");
 var newsCategory_list_component_1 = require("./newsCategory/newsCategory-list.component");
 var newsCategory_edit_component_1 = require("./newsCategory/newsCategory-edit.component");
@@ -60,10 +61,13 @@ var AppModule = (function () {
                 account.ForgotPasswordComponent,
                 account.ResetPasswordComponent,
                 account.UnconfirmedEmailComponent,
+                club.ClubEditComponent,
+                club.ClubListComponent,
                 app_component_1.AppComponent,
                 index_6.ClubHistoryComponent,
                 index_10.EplTableComponent,
                 index_4.ForumSectionListComponent,
+                match.MatchEditComponent,
                 match.MatchListComponent,
                 index_8.MaterialCommentDetailComponent,
                 index_8.MaterialCommentListComponent,
@@ -86,6 +90,7 @@ var AppModule = (function () {
             bootstrap: [app_component_1.AppComponent],
             providers: [
                 account.AccountService,
+                club.ClubService,
                 index_10.AdminService,
                 app_routes_1.appRoutingProviders,
                 index_2.AuthGuard,
