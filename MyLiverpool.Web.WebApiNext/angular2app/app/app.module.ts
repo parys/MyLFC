@@ -14,6 +14,7 @@ import { AuthGuard, AuthService } from "./auth/index";
 import { HttpWrapper, LocalStorageMine, SecuredDirective } from "./shared/index";
 import { ForumSectionListComponent, ForumSectionService } from "./forumSection/index"; 
 import * as account from "./account/index";
+import * as club from "./club/index";
 import * as match from "./match/index";
 import { NewsCategoryListComponent } from "./newsCategory/newsCategory-list.component";
 import { NewsCategoryEditComponent } from "./newsCategory/newsCategory-edit.component";
@@ -49,10 +50,13 @@ import { DatepickerModule, ModalModule, PaginationModule } from "ng2-bootstrap/n
         account.ForgotPasswordComponent,
         account.ResetPasswordComponent,
         account.UnconfirmedEmailComponent,
+        club.ClubEditComponent,
+        club.ClubListComponent,
         AppComponent,
         ClubHistoryComponent,
         EplTableComponent,
         ForumSectionListComponent,
+        match.MatchEditComponent,
         match.MatchListComponent,
         MaterialCommentDetailComponent,
         MaterialCommentListComponent,
@@ -74,7 +78,8 @@ import { DatepickerModule, ModalModule, PaginationModule } from "ng2-bootstrap/n
         WishListComponent],   // components and directives
     bootstrap: [AppComponent],     // root component
     providers: [ // services
-        account.AccountService,
+        account.AccountService, 
+        club.ClubService,
         AdminService,
         appRoutingProviders,
         AuthGuard,

@@ -3,6 +3,7 @@ import { RouterModule, Routes } from "@angular/router";
 import { NewsListComponent } from "./news/index";
 import { authRoutes, authProviders } from "./auth/auth.routing";
 import { accountRoutes } from "./account/account.routing";
+import { clubRoutes } from "./club/club.routing";
 import { newsCategoryRoutes } from "./newsCategory/newsCategory.routing";
 import { newsRoutes } from "./news/news.routing";
 import { userRoutes } from "./user/user.routing";
@@ -16,6 +17,7 @@ import { matchRoutes } from "./match/match.routing";
 const routes: Routes = [
     ...accountRoutes,
     ...authRoutes,
+    ...clubRoutes,
     ...forumSectionRoutes,
     ...homeRoutes,
     ...matchRoutes,

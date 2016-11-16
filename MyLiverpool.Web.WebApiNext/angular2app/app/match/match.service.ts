@@ -19,20 +19,20 @@ export class MatchService {
     //    return this.http.get(this.actionUrl + "list/" + encodeURIComponent(JSON.stringify(filters))).map(res => res.json());
     //};
 
-    //getSingle = (id: number): Observable<News> => {
-    //    return this.http.get(this.actionUrl + id).map(res => res.json());
-    //};
+    getSingle = (id: number): Observable<Match> => {
+        return this.http.get(this.actionUrl + id).map(res => res.json());
+    };
 
-    //create = (item: News): Observable<News> => {
-    //    // var toAdd = JSON.stringify({ ItemName: item });
-    //    return this.http.post(this.actionUrl + "News/", JSON.stringify(item)).map(res => res.json());
-    //};
+    create = (item: Match): Observable<Match> => {
+        // var toAdd = JSON.stringify({ ItemName: item });
+        return this.http.post(this.actionUrl, JSON.stringify(item)).map(res => res.json());
+    };
 
-    //update = (id: number, itemToUpdate: News): Observable<News> => {
-    //    return this.http
-    //        .put(this.actionUrl + id, JSON.stringify(itemToUpdate))
-    //        .map(res => res.json());
-    //};
+    update = (id: number, itemToUpdate: Match): Observable<Match> => {
+        return this.http
+            .put(this.actionUrl + id, JSON.stringify(itemToUpdate))
+            .map(res => res.json());
+    };
 
     //delete = (id: number): Observable<boolean> => {
     //    return this.http.delete(this.actionUrl + id).map(response => response.json());
