@@ -17,3 +17,4 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "ng2-auto-complete";
 import "moment";
 import "ng2-bootstrap/ng2-bootstrap";
+import "ng2-file-upload/ng2-file-upload";

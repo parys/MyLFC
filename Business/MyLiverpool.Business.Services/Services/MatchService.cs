@@ -6,7 +6,7 @@ using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.DTO;
 using MyLiverpool.Common.Utilities;
 using MyLiverpool.Data.Entities;
-using MyLiverpool.Data.ResourceAccess.Contracts;
+using MyLiverpool.Data.ResourceAccess.Interfaces;
 
 namespace MyLiverpool.Business.Services.Services
 {
@@ -27,7 +27,7 @@ namespace MyLiverpool.Business.Services.Services
         {
             var match = _mapper.Map<Match>(dto);
             match.ClubId = await _clubService.GetIdByNameAsync(dto.ClubName);
-            _matchRepository.Add(match);
+            match = await _matchRepository.AddAsync(match);
             await _matchRepository.SaveChangesAsync();
             dto = _mapper.Map<MatchDto>(match);
             return dto;

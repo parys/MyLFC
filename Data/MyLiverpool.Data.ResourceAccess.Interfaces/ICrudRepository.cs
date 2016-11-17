@@ -2,7 +2,7 @@
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace MyLiverpool.Data.ResourceAccess.Contracts
+namespace MyLiverpool.Data.ResourceAccess.Interfaces
 {
     public interface ICrudRepository<TEntity>
     {
@@ -14,7 +14,7 @@ namespace MyLiverpool.Data.ResourceAccess.Contracts
         /// <summary>
         /// Adds object to repository.
         /// </summary>
-        void Add(TEntity entity);
+        Task<TEntity> AddAsync(TEntity entity);
 
         /// <summary>
         /// Deletes object from repository by id.

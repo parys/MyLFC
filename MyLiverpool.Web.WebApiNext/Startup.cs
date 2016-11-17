@@ -17,7 +17,7 @@ using MyLiverpool.Common.MapperConfigs;
 using MyLiverpool.Common.Utilities;
 using MyLiverpool.Data.Entities;
 using MyLiverpool.Data.ResourceAccess;
-using MyLiverpool.Data.ResourceAccess.Contracts;
+using MyLiverpool.Data.ResourceAccess.Interfaces;
 using MyLiverpool.Data.ResourceAccess.Repositories;
 using Newtonsoft.Json.Serialization;
 using Swashbuckle.Swagger.Model;
@@ -283,6 +283,7 @@ namespace MyLiverpool.Web.WebApiNext
 
         private void RegisterRepositories(IServiceCollection services)
         {
+            services.AddScoped<IClubRepository, ClubRepository>();
             services.AddScoped<IForumSectionRepository, ForumSectionRepository>();
             services.AddScoped<IMatchRepository, MatchRepository>();
             services.AddScoped<IMaterialCategoryRepository, MaterialCategoryRepository>();

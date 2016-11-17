@@ -6,8 +6,8 @@ using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.DTO;
 using MyLiverpool.Common.Utilities;
 using MyLiverpool.Data.Entities;
-using MyLiverpool.Data.ResourceAccess.Contracts;
 using System.Linq;
+using MyLiverpool.Data.ResourceAccess.Interfaces;
 
 namespace MyLiverpool.Business.Services.Services
 {
@@ -60,7 +60,7 @@ namespace MyLiverpool.Business.Services.Services
             message.SentTime = DateTime.Now;
             try
             {
-                _pmRepository.Add(message);
+                message = await _pmRepository.AddAsync(message);
                 await _pmRepository.SaveChangesAsync();
             }
             catch (Exception)

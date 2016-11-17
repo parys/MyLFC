@@ -4,7 +4,7 @@ using AutoMapper;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.DTO;
 using MyLiverpool.Data.Entities;
-using MyLiverpool.Data.ResourceAccess.Contracts;
+using MyLiverpool.Data.ResourceAccess.Interfaces;
 
 namespace MyLiverpool.Business.Services.Services
 {
@@ -29,7 +29,7 @@ namespace MyLiverpool.Business.Services.Services
                 return null;
             }
             var model = new ForumSection(name);
-            _unitOfWork.ForumSectionRepository.Add(model);
+            model = await _unitOfWork.ForumSectionRepository.AddAsync(model);
             await _unitOfWork.SaveAsync();
             var result = _mapper.Map<ForumSectionDto>(model);
             return result;

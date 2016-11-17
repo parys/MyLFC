@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using MyLiverpool.Data.Entities;
-using MyLiverpool.Data.ResourceAccess.Contracts;
+using MyLiverpool.Data.ResourceAccess.Interfaces;
 
 namespace MyLiverpool.Data.ResourceAccess
 {
@@ -137,6 +137,11 @@ namespace MyLiverpool.Data.ResourceAccess
         public virtual async Task<TEntity> GetByIdAsync(int id)
         {
             return await _dbSet.SingleAsync(x => x.Id == id);
+        }
+
+        public Task<TEntity> AddAsync(TEntity entity)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>

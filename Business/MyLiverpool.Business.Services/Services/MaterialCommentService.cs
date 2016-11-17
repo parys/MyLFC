@@ -9,8 +9,8 @@ using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.DTO;
 using MyLiverpool.Common.Utilities;
 using MyLiverpool.Data.Entities;
-using MyLiverpool.Data.ResourceAccess.Contracts;
 using MyLiverpool.Common.Utilities.Extensions;
+using MyLiverpool.Data.ResourceAccess.Interfaces;
 
 namespace MyLiverpool.Business.Services.Services
 {
@@ -54,7 +54,7 @@ namespace MyLiverpool.Business.Services.Services
             comment.IsVerified = false;
             try
             {
-                _commentService.Add(comment);
+                comment = await _commentService.AddAsync(comment);
                 await _commentService.SaveChangesAsync();
             }
             catch (Exception)

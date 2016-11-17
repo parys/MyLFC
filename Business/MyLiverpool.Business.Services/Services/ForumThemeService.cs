@@ -6,7 +6,7 @@ using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.DTO;
 using MyLiverpool.Common.Utilities;
 using MyLiverpool.Data.Entities;
-using MyLiverpool.Data.ResourceAccess.Contracts;
+using MyLiverpool.Data.ResourceAccess.Interfaces;
 
 namespace MyLiverpool.Business.Services.Services
 {
@@ -32,7 +32,7 @@ namespace MyLiverpool.Business.Services.Services
         //        ThemeId = themeId
         //    };
 
-        //    _unitOfWork.ForumMessageRepository.Add(message);
+        //    _unitOfWork.ForumMessageRepository.AddAsync(message);
         //    await _unitOfWork.SaveAsync();
 
         //    return message.Id;
@@ -68,7 +68,7 @@ namespace MyLiverpool.Business.Services.Services
             model.LastMessageAdditionTime = DateTime.Now;
             model.LastAnswerUserId = model.AuthorId;
          //   model.
-            _unitOfWork.ForumThemeRepository.Add(model);
+            model = await _unitOfWork.ForumThemeRepository.AddAsync(model);
             await _unitOfWork.SaveAsync();
 
             return _mapper.Map<ForumThemeDto>(model);

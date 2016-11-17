@@ -5,8 +5,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using MyLiverpool.Data.Entities;
-using MyLiverpool.Data.ResourceAccess.Contracts;
 using Microsoft.EntityFrameworkCore;
+using MyLiverpool.Data.ResourceAccess.Interfaces;
 
 namespace MyLiverpool.Data.ResourceAccess.Repositories
 {
@@ -21,17 +21,18 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
 
         public async Task<Match> GetByIdAsync(int id)
         {
-            return await _context.Matches.FirstOrDefaultAsync(x => x.Id == id);
+            return await _context.Matches.FindAsync(id);
         }
 
-        public void Add(Match entity)
+        public async Task<Match> AddAsync(Match entity)
         {
-            _context.Matches.Add(entity);
+            var addedEntity = await _context.Matches.AddAsync(entity);
+            return addedEntity.Entity;
         }
 
         public async Task DeleteAsync(int id)
         {
-            var pm = await _context.Matches.FirstOrDefaultAsync(x => x.Id == id);
+            var pm = await _context.Matches.FindAsync(id);
             if (pm != null)
             {
                 await DeleteAsync(pm);

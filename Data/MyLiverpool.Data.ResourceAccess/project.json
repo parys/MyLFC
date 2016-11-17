@@ -7,8 +7,10 @@
     "Microsoft.EntityFrameworkCore": "1.1.0",
     "Microsoft.EntityFrameworkCore.SqlServer": "1.1.0",
     "Microsoft.EntityFrameworkCore.SqlServer.Design": "1.1.0",
+    "Microsoft.EntityFrameworkCore.Tools": "1.1.0-preview4-final",
     "Microsoft.Extensions.Configuration.Json": "1.1.0-*",
     "MyLiverpool.Data.Entities": "1.0.0-*",
+    "MyLiverpool.Data.ResourceAccess.Interfaces": "1.0.0-*",
     "NETStandard.Library": "1.6.1"
   },
 

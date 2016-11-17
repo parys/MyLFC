@@ -4,7 +4,7 @@ using AutoMapper;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.DTO;
 using MyLiverpool.Data.Entities;
-using MyLiverpool.Data.ResourceAccess.Contracts;
+using MyLiverpool.Data.ResourceAccess.Interfaces;
 
 namespace MyLiverpool.Business.Services.Services
 {
@@ -24,7 +24,7 @@ namespace MyLiverpool.Business.Services.Services
             var model = _mapper.Map<ForumMessage>(dto);
             model.AdditionTime = DateTime.Now;
             model.LastModifiedTime = DateTime.Now;
-            _unitOfWork.ForumMessageRepository.Add(model);
+            model = await _unitOfWork.ForumMessageRepository.AddAsync(model);
             await _unitOfWork.SaveAsync();
             return _mapper.Map<ForumMessageDto>(model);
         }

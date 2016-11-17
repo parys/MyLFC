@@ -4,8 +4,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using MyLiverpool.Data.Entities;
-using MyLiverpool.Data.ResourceAccess.Contracts;
 using Microsoft.EntityFrameworkCore;
+using MyLiverpool.Data.ResourceAccess.Interfaces;
 
 namespace MyLiverpool.Data.ResourceAccess.Repositories
 {
@@ -19,17 +19,18 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
         }
         public async Task<PrivateMessage> GetByIdAsync(int id)
         {
-            return await _context.PrivateMessages.Include(x => x.Receiver).Include(x => x.Sender).FirstOrDefaultAsync();
+            return await _context.PrivateMessages.Include(x => x.Receiver).Include(x => x.Sender).FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public void Add(PrivateMessage entity)
+        public async Task<PrivateMessage> AddAsync(PrivateMessage entity)
         {
-            _context.PrivateMessages.Add(entity);
+            var addedEntity = await _context.PrivateMessages.AddAsync(entity);
+            return addedEntity.Entity;
         }
 
         public async Task DeleteAsync(int id)
         {
-            var pm = await _context.PrivateMessages.FirstOrDefaultAsync(x => x.Id == id);
+            var pm = await _context.PrivateMessages.FindAsync(id);
             if (pm != null)
             {
                 await DeleteAsync(pm);

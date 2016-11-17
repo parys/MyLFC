@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using MyLiverpool.Data.Entities;
-using MyLiverpool.Data.ResourceAccess.Contracts;
+using MyLiverpool.Data.ResourceAccess.Interfaces;
 
 namespace MyLiverpool.Data.ResourceAccess.Repositories
 {
@@ -51,7 +51,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             throw new NotImplementedException();
         }
 
-        public void Add(User entity)
+        public Task<User> AddAsync(User entity)
         {
             throw new NotImplementedException();
         }

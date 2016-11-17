@@ -8,8 +8,8 @@ using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.DTO;
 using MyLiverpool.Common.Utilities;
 using MyLiverpool.Data.Entities;
-using MyLiverpool.Data.ResourceAccess.Contracts;
 using MyLiverpool.Common.Utilities.Extensions;
+using MyLiverpool.Data.ResourceAccess.Interfaces;
 
 namespace MyLiverpool.Business.Services.Services
 {
@@ -29,7 +29,7 @@ namespace MyLiverpool.Business.Services.Services
         public async Task<WishDto> CreateAsync(WishDto dto)
         {
             var wish = _mapper.Map<Wish>(dto);
-            _unitOfWork.WishRepository.Add(wish);
+            wish = await _unitOfWork.WishRepository.AddAsync(wish);
             await _unitOfWork.SaveAsync();
             await SendAlertAsync();
             return _mapper.Map<WishDto>(wish);

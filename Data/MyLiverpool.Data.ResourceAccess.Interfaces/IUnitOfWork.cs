@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using MyLiverpool.Data.Entities;
 
-namespace MyLiverpool.Data.ResourceAccess.Contracts
+namespace MyLiverpool.Data.ResourceAccess.Interfaces
 {
     /// <summary>
     /// Maintains a list of repositories affected by a business transaction and coordinates 
@@ -14,21 +14,14 @@ namespace MyLiverpool.Data.ResourceAccess.Contracts
         /// Provides access to user repository.
         /// </summary>
         IGenericRepository<User> UserRepository { get; }
-   //     IGenericRepository<Material> MaterialRepository { get; }
         IGenericRepository<MaterialComment> MaterialCommentRepository { get; }
         IGenericRepository<ForumSection> ForumSectionRepository { get; }
         IGenericRepository<ForumTheme> ForumThemeRepository { get; }
         IGenericRepository<ForumSubsection> ForumSubsectionRepository { get; }
         IGenericRepository<ForumMessage> ForumMessageRepository { get; }
-      //  IGenericRepository<UserClaim> UserClaimRepository { get; }
-    //    IGenericRepository<UserLogin> UserLoginRepository { get; }
         IGenericRepository<Wish> WishRepository { get; }
         IGenericRepository<Role> RoleRepository { get; }
         IGenericRepository<RoleGroup> RoleGroupRepository { get; }
-     //   IGenericRepository<PrivateMessage> PrivateMessageRepository { get; }
-        
-        IGenericRepository<Club> ClubRepository { get; }
-        
 
         UserManager<User> UserManager { get; set; }
         /// <summary>

@@ -78,6 +78,31 @@ namespace MyLiverpool.Business.Services.Services
             return relativePath;
         }
 
+        public async Task<string> UpdateLogoAsync(string clubName, IFormFile file)
+        {
+            string path = clubName;
+
+            var relativePath = path;
+            if (string.IsNullOrEmpty(path) || !path.Contains(LogoPath))
+            {
+                var newName = (string.IsNullOrWhiteSpace(path) ? GenerateNewName() : path) + "." + file.FileName.Split('.').Last();
+                var newPath = GenerateNewPath(LogoPath);
+                relativePath = Path.Combine(newPath, newName);
+                path = GetFullPath(relativePath);
+            }
+            else
+            {
+                path = GetFullPath(path);
+            }
+
+            file.CopyTo(new FileStream(path, FileMode.Create));
+            relativePath = Regex.Replace(relativePath, "\\\\", "/");
+
+            await _clubService.UpdateLogoAsync(clubName, relativePath);
+            
+            return relativePath;
+        }
+
         public async Task<IEnumerable<string>> UploadAsync(IFormFileCollection files)
         {
             var result = new List<string>();

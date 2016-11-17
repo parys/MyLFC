@@ -29,6 +29,7 @@ import { Ng2AutoCompleteModule } from "ng2-auto-complete";
 import { RolesCheckedService, GlobalValidators } from "./shared/index";
 import { AdminService, EplTableComponent } from "./admin/index";
 import { DatepickerModule, ModalModule, PaginationModule } from "ng2-bootstrap/ng2-bootstrap";
+import { UPLOAD_DIRECTIVES } from "ng2-uploader/ng2-uploader";
 
 @NgModule({
     imports: [
@@ -72,6 +73,7 @@ import { DatepickerModule, ModalModule, PaginationModule } from "ng2-bootstrap/n
         RightSidebarComponent,
         RulesComponent,
         SecuredDirective,
+        UPLOAD_DIRECTIVES,
         UserDetailComponent,
         UserListComponent,
         WishEditComponent,

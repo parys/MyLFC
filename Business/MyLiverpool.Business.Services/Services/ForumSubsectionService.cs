@@ -6,7 +6,7 @@ using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.DTO;
 using MyLiverpool.Common.Utilities;
 using MyLiverpool.Data.Entities;
-using MyLiverpool.Data.ResourceAccess.Contracts;
+using MyLiverpool.Data.ResourceAccess.Interfaces;
 
 namespace MyLiverpool.Business.Services.Services
 {
@@ -24,7 +24,7 @@ namespace MyLiverpool.Business.Services.Services
         public async Task<ForumSubsectionDto> CreateAsync(ForumSubsectionDto dto)
         {
             var model = _mapper.Map<ForumSubsection>(dto);
-            _unitOfWork.ForumSubsectionRepository.Add(model);
+            model = await _unitOfWork.ForumSubsectionRepository.AddAsync(model);
             await _unitOfWork.SaveAsync();
             dto = _mapper.Map<ForumSubsectionDto>(model);
             return dto;

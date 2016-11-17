@@ -11,6 +11,8 @@ namespace MyLiverpool.Business.Contracts
 
         Task UpdateLogoAsync(int clubId, string relativePath);
 
+        Task UpdateLogoAsync(string clubName, string relativePath);
+
         Task<PageableData<ClubDto>> GetListAsync(int page);
 
         Task<IEnumerable<string>> GetClubsByNameAsync(string typed);

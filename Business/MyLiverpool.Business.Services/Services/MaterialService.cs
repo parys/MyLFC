@@ -9,8 +9,8 @@ using MyLiverpool.Business.DtoNext;
 using MyLiverpool.Business.DTO;
 using MyLiverpool.Common.Utilities;
 using MyLiverpool.Data.Entities;
-using MyLiverpool.Data.ResourceAccess.Contracts;
 using MyLiverpool.Common.Utilities.Extensions;
+using MyLiverpool.Data.ResourceAccess.Interfaces;
 
 namespace MyLiverpool.Business.Services.Services
 {
@@ -136,7 +136,7 @@ namespace MyLiverpool.Business.Services.Services
             material.Type = materialType;
             try
             {
-                _materialRepository.Add(material);
+                material = await _materialRepository.AddAsync(material);
                 await _materialRepository.SaveChangesAsync();
             }
             catch (Exception)

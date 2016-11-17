@@ -60,14 +60,12 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Uploads logo for club with given name.
         /// </summary>
-        /// <param name="clubId"></param>
-        /// <returns></returns>
-        [Route("clubLogo")]
-        [HttpPost]
-        [Authorize(Roles = "AdminStart")]
-        public async Task<IActionResult> ClubLogo(int? clubId)
+        /// <param name="clubEnglishName">Club english name.</param>
+        /// <returns>Result of uploading.</returns>
+        [Authorize(Roles = nameof(RolesEnum.AdminStart)), HttpPost("clubLogo/{clubEnglishName}")]
+        public async Task<IActionResult> ClubLogo(string clubEnglishName)
         {
             //if (!Request.Content.IsMimeMultipartContent())
             //{
@@ -76,13 +74,10 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
 
             if (Request.Form.Files != null && Request.Form.Files.Count > 0)
             {
-            //    if (HttpContext.Current.Request.Files.Count > 0)
-                {
-                    var file = Request.Form.Files[0];
-                    var result = await _uploadService.UpdateLogoAsync(clubId, file);
+                var file = Request.Form.Files[0];
+                var result = await _uploadService.UpdateLogoAsync(clubEnglishName, file);
 
-                    return Ok(result);
-                }
+                return Ok(result);
             }
             return BadRequest();
         }

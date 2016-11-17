@@ -3,7 +3,8 @@ import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms"
 import { Router, ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
 import { ClubService } from "./club.service";
-import { Club } from "./club.model";                                          
+import { Club } from "./club.model";
+import { LocalStorageMine, RolesCheckedService } from "../shared/index";                                       
 
 @Component({
     selector: "club-edit",
@@ -12,17 +13,22 @@ import { Club } from "./club.model";
 
 export class ClubEditComponent implements OnInit, OnDestroy {
     editForm: FormGroup;
-
+                                                  
     private sub: Subscription;
     id: number;
     item: Club;
+    uploadFile: any;
+    hasBaseDropZoneOver: boolean = false;
+    options: Object;
    // categories: NewsCategory[];
 
     constructor(private clubService: ClubService,
         private route: ActivatedRoute,
         private router: Router,
+        private localStorage: LocalStorageMine,
         private formBuilder: FormBuilder) {
-        this.item = new Club();
+        this.item = new Club(); 
+        this.updateOptions("default");
     }
 
     ngOnInit() {
@@ -40,7 +46,7 @@ export class ClubEditComponent implements OnInit, OnDestroy {
         //    .subscribe(data => this.parseCategories(data),
         //    error => console.log(error),
         //    () => { });
-
+        this.editForm.controls["logo"].valueChanges.subscribe(data => this.updateOptions(data));
     }
 
     ngOnDestroy() {
@@ -62,6 +68,13 @@ export class ClubEditComponent implements OnInit, OnDestroy {
         }
     }
 
+    handleUpload(data): void {
+        if (data && data.response) {
+            data = JSON.parse(data.response);
+            this.editForm.controls["logo"].patchValue(data);
+        }
+    }
+
     private parse(data: Club): void {
         this.id = data.id;
         this.editForm.patchValue(data);
@@ -80,15 +93,25 @@ export class ClubEditComponent implements OnInit, OnDestroy {
 
     private initForm(): void {
         this.editForm = this.formBuilder.group({
-            'englishName': ["", Validators.compose([
+            'englishName': ["123", Validators.compose([
                 Validators.required])],
             'logo': ["", Validators.compose([
                 Validators.required])],
-            'name': ["", Validators.compose([
+            'name': ["12", Validators.compose([
                 Validators.required])],
             'stadium': ["", Validators.compose([
                 Validators.required])]
         });
+    }
+
+    private updateOptions(name: string): void {
+        this.options = {
+          //  filterExtensions: true,
+            allowedExtensions: ["image/png", "image/jpg"],
+            url: `/api/v1/upload/clubLogo/${name}`,
+            authToken: this.localStorage.getObject("access_token"),
+            authTokenPrefix: "Bearer"
+        }
     }
 
     //private parseCategories(items: NewsCategory[]) {

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -8,71 +7,85 @@ using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.DTO;
 using MyLiverpool.Common.Utilities;
 using MyLiverpool.Data.Entities;
-using MyLiverpool.Data.ResourceAccess.Contracts;
 using MyLiverpool.Common.Utilities.Extensions;
+using MyLiverpool.Data.ResourceAccess.Interfaces;
+using System.Linq;
 
 namespace MyLiverpool.Business.Services.Services
 {
-    public class ClubService : BaseService, IClubService
+    public class ClubService : IClubService
     {
-        public ClubService(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
+        private readonly IClubRepository _clubRepository;
+        private readonly IMapper _mapper;
+
+        public ClubService(IClubRepository clubRepository, IMapper mapper)
         {
+            _clubRepository = clubRepository;
+            _mapper = mapper;
         }
 
         public async Task<ClubDto> CreateAsync(ClubDto dto)
         {
             var club = _mapper.Map<Club>(dto);
-            _unitOfWork.ClubRepository.Add(club);
-            await _unitOfWork.SaveAsync();
+            await _clubRepository.AddAsync(club);
+            await _clubRepository.SaveChangesAsync();
             dto = _mapper.Map<ClubDto>(club);
             return dto;
         }
 
         public async Task<ClubDto> UpdateAsync(ClubDto dto)
         {
-            var club = await _unitOfWork.ClubRepository.GetByIdAsync(dto.Id);
+            var club = await _clubRepository.GetByIdAsync(dto.Id);
             club.Name = dto.Name;
             club.EnglishName = dto.EnglishName;
             club.Stadium = dto.Stadium;
-            _unitOfWork.ClubRepository.Update(club);
-            await _unitOfWork.SaveAsync();
+            _clubRepository.Update(club);
+            await _clubRepository.SaveChangesAsync();
             dto = _mapper.Map<ClubDto>(club);
             return dto;
         }
 
         public async Task<bool> DeleteAsync(int id)
         {
-            await _unitOfWork.ClubRepository.DeleteAsync(id);
-            await _unitOfWork.SaveAsync();
+            await _clubRepository.DeleteAsync(id);
+            await _clubRepository.SaveChangesAsync();
             return true;
         }
 
         public async Task<ClubDto> GetAsync(int id)
         {
-            var model = await _unitOfWork.ClubRepository.GetByIdAsync(id);
+            var model = await _clubRepository.GetByIdAsync(id);
             var dto = _mapper.Map<ClubDto>(model);
             return dto;
         }
 
         public async Task<string> GetNameAsync(int clubId)
         {
-            var club = await _unitOfWork.ClubRepository.GetByIdAsync(clubId);
+            var club = await _clubRepository.GetByIdAsync(clubId);
             return club?.EnglishName.Trim() ?? string.Empty;
         }
 
         public async Task UpdateLogoAsync(int clubId, string relativePath)
         {
-            var club = await _unitOfWork.ClubRepository.GetByIdAsync(clubId);
+            var club = await _clubRepository.GetByIdAsync(clubId);
             club.Logo = relativePath;
-            _unitOfWork.ClubRepository.Update(club);
-            await _unitOfWork.SaveAsync();
+            _clubRepository.Update(club);
+            await _clubRepository.SaveChangesAsync();
+        }
+
+        public async Task UpdateLogoAsync(string clubName, string relativePath)
+        {
+            var club = await _clubRepository.GetByEnglishName(clubName);
+            club.Logo = relativePath;
+            _clubRepository.Update(club);
+            await _clubRepository.SaveChangesAsync();
         }
 
         public async Task<PageableData<ClubDto>> GetListAsync(int page)
         {
-            var clubs = await _unitOfWork.ClubRepository.GetAsync(page);
+            var clubs = await _clubRepository.GetListAsync(page);
             var dtos =  _mapper.Map<ICollection<ClubDto>>(clubs);
-            var count = await _unitOfWork.ClubRepository.GetCountAsync();
+            var count = await _clubRepository.GetCountAsync();
             return new PageableData<ClubDto>(dtos, page, count);
         }
 
@@ -83,14 +96,18 @@ namespace MyLiverpool.Business.Services.Services
             {
                 filter = filter.And(x => x.Name.Contains(typed));
             }
-            var clubs = await _unitOfWork.ClubRepository.GetAsync(1, filter: filter);
+            var clubs = await _clubRepository.GetListAsync(1, filter: filter);
             return clubs.Select(x => x.Name);
         }
 
         public async Task<int> GetIdByNameAsync(string name)
         {
-            var clubs = await _unitOfWork.ClubRepository.GetAsync(x => x.Name.Equals(name));
-            return clubs.First().Id;
+            var club = await _clubRepository.GetByEnglishName(name);
+            if (club != null)
+            {
+                return club.Id;
+            }
+            throw new NullReferenceException("GetIdByNameAsync");
         }
     }
 }

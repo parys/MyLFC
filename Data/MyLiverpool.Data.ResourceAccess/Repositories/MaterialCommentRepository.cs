@@ -5,8 +5,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using MyLiverpool.Data.Entities;
-using MyLiverpool.Data.ResourceAccess.Contracts;
 using Microsoft.EntityFrameworkCore;
+using MyLiverpool.Data.ResourceAccess.Interfaces;
 
 namespace MyLiverpool.Data.ResourceAccess.Repositories
 {
@@ -23,14 +23,15 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             return await _context.MaterialComments.Include(x => x.Children).FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public void Add(MaterialComment entity)
+        public async Task<MaterialComment> AddAsync(MaterialComment entity)
         {
-            _context.MaterialComments.Add(entity);
+            var addedEntity = await _context.MaterialComments.AddAsync(entity);
+            return addedEntity.Entity;
         }
 
         public async Task DeleteAsync(int id)
         {
-            var comment = await _context.MaterialComments.FirstOrDefaultAsync(x => x.Id == id);
+            var comment = await _context.MaterialComments.FindAsync(id);
             if (comment != null)
             {
                 await DeleteAsync(comment);

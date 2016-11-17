@@ -9,7 +9,9 @@
     "MyLiverpool.Business.Contracts": "1.0.0-*",
     "MyLiverpool.Business.DtoNext": "1.0.0-*",
     "MyLiverpool.Common.Utilities": "1.0.0-*",
+    "MyLiverpool.Data.ResourceAccess.Interfaces": "1.0.0-*",
     "NETStandard.Library": "1.6.1",
+    "System.Data.SqlClient": "4.3.0",
     "System.Linq": "4.3.0"
   },
 

@@ -4,7 +4,7 @@ using System.Data.SqlClient;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace MyLiverpool.Data.ResourceAccess.Contracts
+namespace MyLiverpool.Data.ResourceAccess.Interfaces
 {
     /// <summary>
     /// Mediator interface that acts as an abstraction layer between domain and data layer.

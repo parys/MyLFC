@@ -16,7 +16,6 @@
     <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <ItemGroup>
-    <DnxInvisibleFolder Include="Controllers\" />
     <DnxInvisibleFolder Include="wwwroot\js\@angular\platform-browser\src\" />
     <DnxInvisibleFolder Include="wwwroot\js\@angular\platform-browser\testing\" />
   </ItemGroup>

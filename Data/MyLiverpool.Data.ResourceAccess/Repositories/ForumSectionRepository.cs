@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using MyLiverpool.Data.Entities;
-using MyLiverpool.Data.ResourceAccess.Contracts;
 using Microsoft.EntityFrameworkCore;
+using MyLiverpool.Data.ResourceAccess.Interfaces;
 
 namespace MyLiverpool.Data.ResourceAccess.Repositories
 {
@@ -22,7 +22,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             throw new NotImplementedException();
         }
 
-        public void Add(ForumSection entity)
+        public Task<ForumSection> AddAsync(ForumSection entity)
         {
             throw new NotImplementedException();
         }

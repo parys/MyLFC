@@ -1,5 +1,4 @@
-﻿using MyLiverpool.Data.ResourceAccess.Contracts;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -9,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using MyLiverpool.Common.Utilities;
 using MyLiverpool.Data.Entities;
 using MyLiverpool.Data.ResourceAccess;
+using MyLiverpool.Data.ResourceAccess.Interfaces;
 using MyLiverpool.Data.ResourceAccess.Repositories;
 
 namespace MigratorVnext
@@ -107,7 +107,7 @@ namespace MigratorVnext
                         i++;
                     }
                     user.LastModified = DateTimeHelpers.ConvertUtcToLocalTime(long.Parse(lastDate));
-                    UnitOfWork.UserRepository.Add(user);
+                    UnitOfWork.UserRepository.AddAsync(user);
                     while (chars[i] != 10)
                     {
                         i++;
@@ -337,7 +337,7 @@ namespace MigratorVnext
                     }
                     user.LastModified = DateTimeHelpers.ConvertUtcToLocalTime(long.Parse(lastDate));
                     user.RoleGroupId = (int)RoleGroupsEnum.Simple;
-                    UnitOfWork.UserRepository.Add(user);
+                    UnitOfWork.UserRepository.AddAsync(user);
                     while (chars[i] != 10)
                     {
                         i++;
@@ -707,7 +707,7 @@ namespace MigratorVnext
                     var category = categories.First(x => x.Id == int.Parse(categoryId));
                     blogItem.CategoryId = category.Id;
                     //   category.BlogItems.Add(blogItem);
-                    MaterialRepository.Add(blogItem);
+                    MaterialRepository.AddAsync(blogItem);
                     UnitOfWork.Save();
                     //  }
                     // while (chars[i] != 10)
@@ -1050,7 +1050,7 @@ namespace MigratorVnext
                     newsItem.CategoryId = category.Id;
 
                     //  category.Materials.Add(newsItem);
-                    MaterialRepository.Add(newsItem);
+                    MaterialRepository.AddAsync(newsItem);
                     // }
                     // while (chars[i] != 10)
                     //  {
@@ -1130,7 +1130,7 @@ namespace MigratorVnext
                     }
                     i++;
 
-                    MaterialCategoryRepository.Add(blogCategory);
+                    MaterialCategoryRepository.AddAsync(blogCategory);
                 }
                 UnitOfWork.Save();
             }
@@ -1204,7 +1204,7 @@ namespace MigratorVnext
                         }
                         i++;
                     }
-                    MaterialCategoryRepository.Add(newsCategory);
+                    MaterialCategoryRepository.AddAsync(newsCategory);
 
                 }
                 UnitOfWork.Save();
@@ -1435,7 +1435,7 @@ namespace MigratorVnext
                     }
                     //comment.ParentId = int.Parse(parentId);
 
-                    UnitOfWork.MaterialCommentRepository.Add(comment);
+                    UnitOfWork.MaterialCommentRepository.AddAsync(comment);
 
                 }
                 UnitOfWork.Save();
@@ -1499,7 +1499,7 @@ namespace MigratorVnext
                             forumSection.Name += chars[i];
                             i++;
                         }
-                        UnitOfWork.ForumSectionRepository.Add(forumSection);
+                        UnitOfWork.ForumSectionRepository.AddAsync(forumSection);
                         while (chars[i] != 10)
                         {
                             i++;
@@ -1583,7 +1583,7 @@ namespace MigratorVnext
                 subsection.SectionId = sectionId;
             }
 
-            Subsections.ForEach(x => UnitOfWork.ForumSubsectionRepository.Add(x));
+            Subsections.ForEach(x => UnitOfWork.ForumSubsectionRepository.AddAsync(x));
             UnitOfWork.Save();
         }
 
@@ -1828,7 +1828,7 @@ namespace MigratorVnext
                 {
                     if (item.Messages.Any())
                     {
-                        UnitOfWork.ForumThemeRepository.Add(item);
+                        UnitOfWork.ForumThemeRepository.AddAsync(item);
                     }
                 }
                 UnitOfWork.Save();
