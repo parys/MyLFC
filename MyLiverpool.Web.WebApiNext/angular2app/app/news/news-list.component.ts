@@ -25,7 +25,7 @@ export class NewsListComponent implements OnInit, OnDestroy {
     categoryId: number;
     userName: string;
     roles: IRoles;
-    selectedItemIndex: number = undefined;
+    selectedItemIndex: number = null;
 
     @ViewChild("activateModal") activateModal: ModalDirective;
     @ViewChild("deleteModal") deleteModal: ModalDirective;
@@ -45,7 +45,7 @@ export class NewsListComponent implements OnInit, OnDestroy {
     }
 
     hideModal(): void {
-        this.selectedItemIndex = undefined;
+        this.selectedItemIndex = null;
         this.activateModal.hide();
         this.deleteModal.hide();
     }

@@ -184,6 +184,7 @@ namespace MyLiverpool.Web.WebApiNext
                 app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions()
                 {
                     HotModuleReplacement = true,
+                   // HotModuleReplacementServerPort = 3000
                  //   ConfigFile = "./config/"
                 });
 

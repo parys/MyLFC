@@ -24,7 +24,7 @@ var NewsListComponent = (function () {
         this.cd = cd;
         this.page = 1;
         this.itemsPerPage = 15;
-        this.selectedItemIndex = undefined;
+        this.selectedItemIndex = null;
     }
     NewsListComponent.prototype.showActivateModal = function (index) {
         this.selectedItemIndex = index;
@@ -35,7 +35,7 @@ var NewsListComponent = (function () {
         this.deleteModal.show();
     };
     NewsListComponent.prototype.hideModal = function () {
-        this.selectedItemIndex = undefined;
+        this.selectedItemIndex = null;
         this.activateModal.hide();
         this.deleteModal.hide();
     };

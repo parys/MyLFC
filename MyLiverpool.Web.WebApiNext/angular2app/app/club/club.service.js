@@ -17,6 +17,9 @@ var ClubService = (function () {
         var _this = this;
         this.http = http;
         this.configuration = configuration;
+        this.getAll = function (page) {
+            return _this.http.get(_this.actionUrl + ("list/" + page)).map(function (res) { return res.json(); });
+        };
         this.getSingle = function (id) {
             return _this.http.get(_this.actionUrl + id).map(function (res) { return res.json(); });
         };
@@ -27,6 +30,9 @@ var ClubService = (function () {
             return _this.http
                 .put(_this.actionUrl + id, JSON.stringify(itemToUpdate))
                 .map(function (res) { return res.json(); });
+        };
+        this.delete = function (id) {
+            return _this.http.delete(_this.actionUrl + id).map(function (response) { return response.json(); });
         };
         this.actionUrl = configuration.ServerWithApiUrl + "club/";
     }

@@ -92,7 +92,7 @@
     "webpack-md5-hash": "^0.0.5",
     "webpack-merge": "0.16.0",
     "webpack-notifier": "1.4.1",
-    "ng2-uploader": "1.4.1"
+    "ng2-file-upload": "1.1.4-2"
   },
   "engines": {
     "node": ">= 4.2.1",

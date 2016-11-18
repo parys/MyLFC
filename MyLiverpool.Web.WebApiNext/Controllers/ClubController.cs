@@ -26,14 +26,12 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Creates new club item.
         /// </summary>
-        /// <param name="dto"></param>
+        /// <param name="dto">New club model.</param>
         /// <returns></returns>
-        [Route("")]
-        [HttpPost]
-        [Authorize]
-        public async Task<IActionResult> CreateAsync(ClubDto dto)
+        [Authorize, HttpPost("")]
+        public async Task<IActionResult> CreateAsync([FromBody]ClubDto dto)
         {
             if (dto == null || !ModelState.IsValid)
             {
@@ -44,13 +42,11 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Returns pageable club list.
         /// </summary>
-        /// <param name="page"></param>
-        /// <returns></returns>
-        [Route("list")]
-        [HttpGet]
-        [Authorize]
+        /// <param name="page">Current page.</param>
+        /// <returns>Clubs list.</returns>
+        [Authorize, HttpGet("list/{page}")]
         public async Task<IActionResult> GetListAsync(int page = 1)
         {
             if (page < 1)
@@ -62,13 +58,11 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Returns club by id.
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        [Route("")]
-        [HttpGet]
-        [Authorize]
+        /// <param name="id">The identifier of club.</param>
+        /// <returns>Club.</returns>
+        [Authorize, HttpGet("{id:int}")]
         public async Task<IActionResult> GetAsync(int id)
         {
             var result = await _clubService.GetAsync(id);
@@ -76,16 +70,15 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Updates club.
         /// </summary>
-        /// <param name="dto"></param>
-        /// <returns></returns>
-        [Route("")]
-        [HttpPut]
-        [Authorize]
-        public async Task<IActionResult> EditAsync(ClubDto dto)
+        /// <param name="id">The identifier.</param>
+        /// <param name="dto">Modified club entity.</param>
+        /// <returns>Returns of editing.</returns>
+        [Authorize, HttpPut("{id:int}")]
+        public async Task<IActionResult> EditAsync(int id, [FromBody]ClubDto dto)
         {
-            if (!ModelState.IsValid)
+            if ( id != dto.Id || !ModelState.IsValid)
             {
                 return BadRequest();
             }
@@ -94,13 +87,11 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Deletes club.
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        [Route("")]
-        [HttpDelete]
-        [Authorize]
+        /// <param name="id">The identifier of deleting club.</param>
+        /// <returns>Result of deleting.</returns>
+        [Authorize, HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteAsync(int id)
         {
             var result = await _clubService.DeleteAsync(id);

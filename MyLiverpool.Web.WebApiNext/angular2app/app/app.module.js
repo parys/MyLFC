@@ -37,7 +37,7 @@ var ng2_auto_complete_1 = require("ng2-auto-complete");
 var index_9 = require("./shared/index");
 var index_10 = require("./admin/index");
 var ng2_bootstrap_1 = require("ng2-bootstrap/ng2-bootstrap");
-var ng2_uploader_1 = require("ng2-uploader/ng2-uploader");
+var ng2_file_upload_1 = require("ng2-file-upload/ng2-file-upload");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -46,6 +46,7 @@ var AppModule = (function () {
             imports: [
                 platform_browser_1.BrowserModule,
                 ng2_bootstrap_1.DatepickerModule,
+                ng2_file_upload_1.FileUploadModule,
                 forms_1.FormsModule,
                 http_1.HttpModule,
                 material_1.MaterialModule.forRoot(),
@@ -84,7 +85,6 @@ var AppModule = (function () {
                 index_6.RightSidebarComponent,
                 index_6.RulesComponent,
                 index_3.SecuredDirective,
-                ng2_uploader_1.UPLOAD_DIRECTIVES,
                 user_detail_component_1.UserDetailComponent,
                 user_list_component_1.UserListComponent,
                 index_7.WishEditComponent,
