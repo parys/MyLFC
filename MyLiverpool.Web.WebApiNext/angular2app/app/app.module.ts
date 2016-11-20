@@ -6,18 +6,15 @@ import { BrowserModule, Title } from "@angular/platform-browser";
 
 import { AppComponent }  from "./app.component";
 import { routing, appRoutingProviders } from "./app.routes";
-import { Configuration } from "./app.constants";     
-
-import { NewsEditComponent, NewsDetailComponent, NewsListComponent, NewsService } from "./news/index";
-import { NewsCategoryService } from "./newsCategory/shared/newsCategory.service";
+import { Configuration } from "./app.constants";
+import { NewsEditComponent, NewsDetailComponent, NewsListComponent, NewsService } from "./news/index";             
+import * as newsCategory from "./newsCategory/index";
 import { AuthGuard, AuthService } from "./auth/index";
-import { HttpWrapper, LocalStorageMine, SecuredDirective } from "./shared/index";
+import { HttpWrapper, LocalStorageMine, SecuredDirective, RolesCheckedService, GlobalValidators } from "./shared/index";
 import { ForumSectionListComponent, ForumSectionService } from "./forumSection/index"; 
 import * as account from "./account/index";
 import * as club from "./club/index";
-import * as match from "./match/index";
-import { NewsCategoryListComponent } from "./newsCategory/newsCategory-list.component";
-import { NewsCategoryEditComponent } from "./newsCategory/newsCategory-edit.component";
+import * as match from "./match/index";                       
 import { UserDetailComponent } from "./user/user-detail.component";
 import { UserService } from "./user/user.service";
 import { UserListComponent } from "./user/user-list.component";
@@ -26,11 +23,9 @@ import { ClubHistoryComponent, RulesComponent, RightSidebarComponent } from "./h
 import { WishListComponent, WishService, WishEditComponent } from "./wish/index";
 import { MaterialCommentListComponent, MaterialCommentService, MaterialCommentSectionComponent, MaterialCommentDetailComponent } from "./materialComment/index";
 import { Ng2AutoCompleteModule } from "ng2-auto-complete";
-import { RolesCheckedService, GlobalValidators } from "./shared/index";
 import { AdminService, EplTableComponent } from "./admin/index";
 import { DatepickerModule, ModalModule, PaginationModule } from "ng2-bootstrap/ng2-bootstrap";
 import { FileUploadModule } from "ng2-file-upload/ng2-file-upload";
-
 
 @NgModule({
     imports: [
@@ -55,6 +50,8 @@ import { FileUploadModule } from "ng2-file-upload/ng2-file-upload";
         account.UnconfirmedEmailComponent,
         club.ClubEditComponent,
         club.ClubListComponent,
+        newsCategory.NewsCategoryEditComponent,
+        newsCategory.NewsCategoryListComponent,
         AppComponent,
         ClubHistoryComponent,
         EplTableComponent,
@@ -64,8 +61,6 @@ import { FileUploadModule } from "ng2-file-upload/ng2-file-upload";
         MaterialCommentDetailComponent,
         MaterialCommentListComponent,
         MaterialCommentSectionComponent,
-        NewsCategoryEditComponent,
-        NewsCategoryListComponent,
         NewsListComponent,
         NewsDetailComponent,
         NewsEditComponent,
@@ -83,6 +78,8 @@ import { FileUploadModule } from "ng2-file-upload/ng2-file-upload";
     providers: [ // services
         account.AccountService, 
         club.ClubService,
+        match.MatchService,
+        newsCategory.NewsCategoryService,
         AdminService,
         appRoutingProviders,
         AuthGuard,
@@ -92,10 +89,8 @@ import { FileUploadModule } from "ng2-file-upload/ng2-file-upload";
         HttpWrapper,
         GlobalValidators,
         { provide: LocalStorageMine, useClass: LocalStorageMine },
-        match.MatchService,
         MaterialCommentService,
         NewsService,
-        NewsCategoryService,
         PmService,
         RolesCheckedService,
         Title,

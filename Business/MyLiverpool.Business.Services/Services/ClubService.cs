@@ -89,7 +89,7 @@ namespace MyLiverpool.Business.Services.Services
             return new PageableData<ClubDto>(dtos, page, count);
         }
 
-        public async Task<IEnumerable<string>> GetClubsByNameAsync(string typed)
+        public async Task<IEnumerable<KeyValuePair<int, string>>> GetClubsByNameAsync(string typed)
         {
             Expression<Func<Club, bool>> filter = x => true;
             if (!string.IsNullOrWhiteSpace(typed))
@@ -97,7 +97,7 @@ namespace MyLiverpool.Business.Services.Services
                 filter = filter.And(x => x.Name.Contains(typed));
             }
             var clubs = await _clubRepository.GetListAsync(1, filter: filter);
-            return clubs.Select(x => x.Name);
+            return clubs.Select(x => new KeyValuePair<int, string>(x.Id, x.Name));
         }
 
         public async Task<int> GetIdByNameAsync(string name)

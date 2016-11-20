@@ -95,7 +95,7 @@ namespace MyLiverpool.Business.Services.Services
                 path = GetFullPath(path);
             }
 
-            file.CopyTo(new FileStream(path, FileMode.Create));
+            await file.CopyToAsync(new FileStream(path, FileMode.Create));
             relativePath = Regex.Replace(relativePath, "\\\\", "/");
 
          //   await _clubService.UpdateLogoAsync(clubName, relativePath);

@@ -89,13 +89,13 @@ var ClubEditComponent = (function () {
     ClubEditComponent.prototype.initForm = function () {
         this.editForm = this.formBuilder.group({
             'englishName': ["", forms_1.Validators.compose([
-                    forms_1.Validators.required])],
+                    forms_1.Validators.required, forms_1.Validators.maxLength(30)])],
             'logo': ["", forms_1.Validators.compose([
                     forms_1.Validators.required])],
             'name': ["", forms_1.Validators.compose([
-                    forms_1.Validators.required])],
+                    forms_1.Validators.required, forms_1.Validators.maxLength(30)])],
             'stadium': ["", forms_1.Validators.compose([
-                    forms_1.Validators.required])]
+                    forms_1.Validators.required, forms_1.Validators.maxLength(30)])]
         });
     };
     ClubEditComponent = __decorate([

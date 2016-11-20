@@ -23,7 +23,6 @@ export class ClubService {
     };
 
     create = (item: Club): Observable<Club> => {
-        // var toAdd = JSON.stringify({ ItemName: item });
         return this.http.post(this.actionUrl, JSON.stringify(item)).map(res => res.json());
     };
 
@@ -35,5 +34,9 @@ export class ClubService {
 
     delete = (id: number): Observable<boolean> => {
         return this.http.delete(this.actionUrl + id).map(response => response.json());
+    };
+
+    getByName = (typed: string): Observable<Club[]> => {
+        return this.http.get(this.actionUrl + `/getClubsByName/${typed}`).map(response => response.json());
     };
 }

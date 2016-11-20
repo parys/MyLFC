@@ -34,6 +34,9 @@ var ClubService = (function () {
         this.delete = function (id) {
             return _this.http.delete(_this.actionUrl + id).map(function (response) { return response.json(); });
         };
+        this.getByName = function (typed) {
+            return _this.http.get(_this.actionUrl + ("/getClubsByName/" + typed)).map(function (response) { return response.json(); });
+        };
         this.actionUrl = configuration.ServerWithApiUrl + "club/";
     }
     ClubService = __decorate([

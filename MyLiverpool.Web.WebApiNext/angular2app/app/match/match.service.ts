@@ -3,6 +3,7 @@ import "rxjs/add/operator/map";
 import { Observable } from "rxjs/Observable";
 import { Configuration } from "../app.constants";
 import { Match } from "./match.model";
+import { MatchType } from "./matchType.model";
 import { Pageable } from "../shared/pageable.model";
 import { HttpWrapper } from "../shared/httpWrapper";     
 
@@ -24,7 +25,6 @@ export class MatchService {
     };
 
     create = (item: Match): Observable<Match> => {
-        // var toAdd = JSON.stringify({ ItemName: item });
         return this.http.post(this.actionUrl, JSON.stringify(item)).map(res => res.json());
     };
 
@@ -34,7 +34,12 @@ export class MatchService {
             .map(res => res.json());
     };
 
-    //delete = (id: number): Observable<boolean> => {
-    //    return this.http.delete(this.actionUrl + id).map(response => response.json());
-    //};
+     getTypes = (): Observable<MatchType> => {
+        return this.http.get(this.actionUrl + "/getTypes")
+             .map(res => res.json());
+    };
+
+    delete = (id: number): Observable<boolean> => {
+        return this.http.delete(this.actionUrl + id).map(response => response.json());
+    };
 }

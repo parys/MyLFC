@@ -15,7 +15,7 @@ namespace MyLiverpool.Business.Contracts
 
         Task<PageableData<ClubDto>> GetListAsync(int page);
 
-        Task<IEnumerable<string>> GetClubsByNameAsync(string typed);
+        Task<IEnumerable<KeyValuePair<int, string>>> GetClubsByNameAsync(string typed);
 
         Task<int> GetIdByNameAsync(string name);
     }

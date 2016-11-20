@@ -83,12 +83,10 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Returns all types of matches.
         /// </summary>
-        /// <returns></returns>
-        [Route("getTypes")]
-        [HttpGet]
-        [Authorize]
+        /// <returns>List of types.</returns>
+        [Authorize, HttpGet("getTypes")]
         public async Task<IActionResult> GetTypes()
         {
             var list = new List<object>();

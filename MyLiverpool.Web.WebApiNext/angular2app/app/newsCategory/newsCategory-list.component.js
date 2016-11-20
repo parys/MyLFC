@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
-var newsCategory_service_1 = require("./shared/newsCategory.service");
+var newsCategory_service_1 = require("./newsCategory.service");
 var NewsCategoryListComponent = (function () {
     function NewsCategoryListComponent(newsCategoryService, titleService) {
         this.newsCategoryService = newsCategoryService;
@@ -20,14 +20,14 @@ var NewsCategoryListComponent = (function () {
         var _this = this;
         this.titleService.setTitle("Категории");
         this.newsCategoryService
-            .GetAll()
+            .getAll()
             .subscribe(function (data) { return _this.parsePageable(data); }, function (error) { return console.log(error); }, function () { });
     };
     NewsCategoryListComponent.prototype.parsePageable = function (model) {
         this.items = model;
     };
     NewsCategoryListComponent.prototype.delete = function (index) {
-        this.newsCategoryService.Delete(this.items[index].id).subscribe(function (data) { return data; }, function (error) { return console.log(error); }, function () { });
+        this.newsCategoryService.delete(this.items[index].id).subscribe(function (data) { return data; }, function (error) { return console.log(error); }, function () { });
         this.items.splice(index, 1);
     };
     NewsCategoryListComponent = __decorate([

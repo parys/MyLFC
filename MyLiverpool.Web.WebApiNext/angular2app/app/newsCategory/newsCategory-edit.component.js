@@ -11,8 +11,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var router_1 = require("@angular/router");
-var newsCategory_model_1 = require("./shared/newsCategory.model");
-var newsCategory_service_1 = require("./shared/newsCategory.service");
+var newsCategory_model_1 = require("./newsCategory.model");
+var newsCategory_service_1 = require("./newsCategory.service");
 var NewsCategoryEditComponent = (function () {
     function NewsCategoryEditComponent(service, formBuilder, route) {
         this.service = service;
@@ -38,7 +38,7 @@ var NewsCategoryEditComponent = (function () {
             _this.id = +params["id"];
             if (_this.id > 0) {
                 _this.service
-                    .GetSingle(_this.id)
+                    .getSingle(_this.id)
                     .subscribe(function (data) { return _this.editForm.patchValue(data); }, function (error) { return console.log(error); }, function () { });
             }
         });
@@ -53,10 +53,10 @@ var NewsCategoryEditComponent = (function () {
         model.description = this.editForm.controls["description"].value;
         var res;
         if (this.id > 0) {
-            var result = this.service.Update(this.id, model).subscribe(function (data) { return res = data; });
+            var result = this.service.update(this.id, model).subscribe(function (data) { return res = data; });
         }
         else {
-            var result = this.service.Add(model).subscribe(function (data) { return res = data; });
+            var result = this.service.create(model).subscribe(function (data) { return res = data; });
         }
         if (res !== null) {
         }

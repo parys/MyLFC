@@ -28,6 +28,13 @@ var MatchService = (function () {
                 .put(_this.actionUrl + id, JSON.stringify(itemToUpdate))
                 .map(function (res) { return res.json(); });
         };
+        this.getTypes = function () {
+            return _this.http.get(_this.actionUrl + "/getTypes")
+                .map(function (res) { return res.json(); });
+        };
+        this.delete = function (id) {
+            return _this.http.delete(_this.actionUrl + id).map(function (response) { return response.json(); });
+        };
         this.actionUrl = configuration.ServerWithApiUrl + "match/";
     }
     MatchService = __decorate([

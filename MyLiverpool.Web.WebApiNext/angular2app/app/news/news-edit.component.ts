@@ -4,8 +4,8 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
 import { NewsService } from "./news.service";
 import { News } from "./news.model";
-import { NewsCategoryService } from "../newsCategory/shared/newsCategory.service";
-import { NewsCategory } from "../newsCategory/shared/newsCategory.model";
+import { NewsCategoryService } from "../newsCategory/index";
+import { NewsCategory } from "../newsCategory/newsCategory.model";
 
 @Component({
     selector: "news-edit",
@@ -37,7 +37,7 @@ export class NewsEditComponent implements OnInit, OnDestroy {
                         () => {});
             }
         });
-        this.newsCategoryService.GetAll()
+        this.newsCategoryService.getAll()
             .subscribe(data => this.parseCategories(data),
             error => console.log(error),
             () => { });

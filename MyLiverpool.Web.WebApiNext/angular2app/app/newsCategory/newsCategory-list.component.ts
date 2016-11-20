@@ -2,8 +2,8 @@
 import { Title } from "@angular/platform-browser";
 import { Observable } from "rxjs/Observable";
 import { Pageable } from "../shared/pageable.model";
-import { NewsCategory } from "./shared/newsCategory.model";
-import { NewsCategoryService } from "./shared/newsCategory.service";
+import { NewsCategory } from "./newsCategory.model";
+import { NewsCategoryService } from "./newsCategory.service";
 
 @Component({
     selector: "newsCategory-list",
@@ -21,7 +21,7 @@ export class NewsCategoryListComponent implements OnInit {
     ngOnInit() {
         this.titleService.setTitle("Категории");
         this.newsCategoryService
-            .GetAll()
+            .getAll()
             .subscribe(data => this.parsePageable(data),
             error => console.log(error),
             () => {});
@@ -32,7 +32,7 @@ export class NewsCategoryListComponent implements OnInit {
     }
 
     delete(index: number) {
-        this.newsCategoryService.Delete(this.items[index].id).subscribe(data => data,
+        this.newsCategoryService.delete(this.items[index].id).subscribe(data => data,
             error => console.log(error),
             () => {});
         this.items.splice(index, 1);

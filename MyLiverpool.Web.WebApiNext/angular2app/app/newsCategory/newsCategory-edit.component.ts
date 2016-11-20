@@ -3,8 +3,8 @@ import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms"
 import { Router, ActivatedRoute } from "@angular/router";
 import { Observable } from "rxjs/Observable";
 import { Subscription } from "rxjs/Subscription";
-import { NewsCategory } from "./shared/newsCategory.model";
-import { NewsCategoryService } from "./shared/newsCategory.service";
+import { NewsCategory } from "./newsCategory.model";
+import { NewsCategoryService } from "./newsCategory.service";
 
 @Component({
     selector: "newsCategory-edit",
@@ -36,7 +36,7 @@ export class NewsCategoryEditComponent implements OnInit, OnDestroy {
             this.id = +params["id"];
             if (this.id > 0) {
                 this.service
-                    .GetSingle(this.id)
+                    .getSingle(this.id)
                     .subscribe(data => this.editForm.patchValue(data),
                         error => console.log(error),
                         () => {});
@@ -56,9 +56,9 @@ export class NewsCategoryEditComponent implements OnInit, OnDestroy {
 
         let res;
         if (this.id > 0) {
-            let result = this.service.Update(this.id, model).subscribe(data => res = data);
+            let result = this.service.update(this.id, model).subscribe(data => res = data);
         } else {
-            let result = this.service.Add(model).subscribe(data => res = data);
+            let result = this.service.create(model).subscribe(data => res = data);
         }
         if (res !== null) {
             

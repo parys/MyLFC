@@ -20,10 +20,8 @@ export class ClubEditComponent implements OnInit, OnDestroy {
     id: number;
     item: Club;
     uploadFile: any;
-    hasBaseDropZoneOver: boolean = false;
-  //  options: Object;
-    // categories: NewsCategory[];  
-    uploader: FileUploader;// = new FileUploader({ url: URL  });
+    hasBaseDropZoneOver: boolean = false; 
+    uploader: FileUploader;
 
     constructor(private clubService: ClubService,
         private route: ActivatedRoute,
@@ -33,8 +31,6 @@ export class ClubEditComponent implements OnInit, OnDestroy {
         titleService: Title) {
         this.item = new Club();
         titleService.setTitle("Редактирование клуба");
-        //this.updateOptions("default");   
-        //this.uploader.
     }
 
     ngOnInit() {
@@ -48,14 +44,9 @@ export class ClubEditComponent implements OnInit, OnDestroy {
                     () => { });
             }
         });
-        //this.matchService.GetAll()
-        //    .subscribe(data => this.parseCategories(data),
-        //    error => console.log(error),
-        //    () => { });
-     //   this.editForm.controls["logo"].valueChanges.subscribe(data => this.updateOptions(data));
+
         this.editForm.controls["englishName"].valueChanges.subscribe(data => {
             this.updateOptions(data);
-
         });
     }
     upload() {           
@@ -95,11 +86,9 @@ export class ClubEditComponent implements OnInit, OnDestroy {
             authToken: `Bearer ${this.localStorage.getObject("access_token")}`,
             //  allowedFileType: ["jpg", "jpeg", "png"],
             autoUpload: false
-
-            //      //  filterExtensions: true,
+                                                 
             //        allowedExtensions: ["image/png", "image/jpg"],
-            //        url: ,
-            //        authToken: this.localStorage.getObject("access_token"),
+                                               
         });
     }
 
@@ -122,27 +111,13 @@ export class ClubEditComponent implements OnInit, OnDestroy {
     private initForm(): void {
         this.editForm = this.formBuilder.group({
             'englishName': ["", Validators.compose([
-                Validators.required])],
+                Validators.required, Validators.maxLength(30)])],
             'logo': ["", Validators.compose([
                 Validators.required])],
             'name': ["", Validators.compose([
-                Validators.required])],
+                Validators.required, Validators.maxLength(30)])],
             'stadium': ["", Validators.compose([
-                Validators.required])]
+                Validators.required, Validators.maxLength(30)])]
         });
     }
-
-    //private updateOptions(name: string): void {
-    //    this.options = {
-    //      //  filterExtensions: true,
-    //        allowedExtensions: ["image/png", "image/jpg"],
-    //        url: `/api/v1/upload/clubLogo/${name}`,
-    //        authToken: this.localStorage.getObject("access_token"),
-    //        authTokenPrefix: "Bearer"
-    //    }
-    //}
-
-    //private parseCategories(items: NewsCategory[]) {
-    //    this.categories = items;
-    //}
 }

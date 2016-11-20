@@ -99,13 +99,11 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Returns clubs which names contain types string.
         /// </summary>
-        /// <param name="typed"></param>
-        /// <returns></returns>
-        [Route("getClubsByName")]
-        [HttpGet]
-        [Authorize]
+        /// <param name="typed">Part of club name for search.</param>
+        /// <returns>List of keyValuePair of club with identifiers.</returns>
+        [Authorize, HttpGet("getClubsByName/{typed?}")]
         public async Task<IActionResult> GetClubsByNameAsync(string typed)
         {
             var result = await _clubService.GetClubsByNameAsync(typed);

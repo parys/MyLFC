@@ -11,11 +11,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var router_1 = require("@angular/router");
-var match_service_1 = require("./match.service");
+var index_1 = require("./index");
+var index_2 = require("../club/index");
 var match_model_1 = require("./match.model");
 var MatchEditComponent = (function () {
-    function MatchEditComponent(matchService, route, router, formBuilder) {
+    function MatchEditComponent(matchService, clubService, route, router, formBuilder) {
         this.matchService = matchService;
+        this.clubService = clubService;
         this.route = route;
         this.router = router;
         this.formBuilder = formBuilder;
@@ -30,6 +32,8 @@ var MatchEditComponent = (function () {
                     .subscribe(function (data) { return _this.parse(data); }, function (error) { return console.log(error); }, function () { });
             }
         });
+        this.clubService.getByName("")
+            .subscribe(function (data) { return _this.parseClubs(data); }, function (error) { return console.log(error); }, function () { });
     };
     MatchEditComponent.prototype.ngOnDestroy = function () {
         this.sub.unsubscribe();
@@ -70,15 +74,15 @@ var MatchEditComponent = (function () {
                     forms_1.Validators.required])]
         });
     };
-    MatchEditComponent.prototype.parseCategories = function (items) {
-        this.categories = items;
+    MatchEditComponent.prototype.parseClubs = function (items) {
+        this.clubs = items;
     };
     MatchEditComponent = __decorate([
         core_1.Component({
             selector: "match-edit",
             template: require("./match-edit.component.html")
         }), 
-        __metadata('design:paramtypes', [match_service_1.MatchService, router_1.ActivatedRoute, router_1.Router, forms_1.FormBuilder])
+        __metadata('design:paramtypes', [index_1.MatchService, index_2.ClubService, router_1.ActivatedRoute, router_1.Router, forms_1.FormBuilder])
     ], MatchEditComponent);
     return MatchEditComponent;
 }());

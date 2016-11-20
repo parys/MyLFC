@@ -2,10 +2,10 @@
 import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
-import { MatchService } from "./match.service";
-import { Match } from "./match.model";
-import { NewsCategoryService } from "../newsCategory/shared/newsCategory.service";
-import { NewsCategory } from "../newsCategory/shared/newsCategory.model";
+import { MatchService } from "./index";
+import { ClubService } from "../club/index";
+import { Match } from "./match.model";                        
+import { Club } from "../club/club.model";
 
 @Component({
     selector: "match-edit",
@@ -17,9 +17,10 @@ export class MatchEditComponent implements OnInit, OnDestroy {
 
     private sub: Subscription;
     id: number;
-    categories: NewsCategory[];
+    clubs: Club[];
 
     constructor(private matchService: MatchService,      
+        private clubService: ClubService,      
         private route: ActivatedRoute,
         private router: Router,
         private formBuilder: FormBuilder) {
@@ -36,10 +37,10 @@ export class MatchEditComponent implements OnInit, OnDestroy {
                     () => { });
             }
         });
-        //this.matchService.GetAll()
-        //    .subscribe(data => this.parseCategories(data),
-        //    error => console.log(error),
-        //    () => { });
+        this.clubService.getByName("")
+            .subscribe(data => this.parseClubs(data),
+            error => console.log(error),
+            () => { });
 
     }
 
@@ -91,7 +92,7 @@ export class MatchEditComponent implements OnInit, OnDestroy {
         });
     }
 
-    private parseCategories(items: NewsCategory[]) {
-        this.categories = items;
+    private parseClubs(items: Club[]) {
+        this.clubs = items;
     }
 }

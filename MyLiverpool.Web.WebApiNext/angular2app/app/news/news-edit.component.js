@@ -13,7 +13,7 @@ var forms_1 = require("@angular/forms");
 var router_1 = require("@angular/router");
 var news_service_1 = require("./news.service");
 var news_model_1 = require("./news.model");
-var newsCategory_service_1 = require("../newsCategory/shared/newsCategory.service");
+var index_1 = require("../newsCategory/index");
 var NewsEditComponent = (function () {
     function NewsEditComponent(newsService, newsCategoryService, route, router, formBuilder) {
         this.newsService = newsService;
@@ -32,7 +32,7 @@ var NewsEditComponent = (function () {
                     .subscribe(function (data) { return _this.parse(data); }, function (error) { return console.log(error); }, function () { });
             }
         });
-        this.newsCategoryService.GetAll()
+        this.newsCategoryService.getAll()
             .subscribe(function (data) { return _this.parseCategories(data); }, function (error) { return console.log(error); }, function () { });
     };
     NewsEditComponent.prototype.ngOnDestroy = function () {
@@ -96,7 +96,7 @@ var NewsEditComponent = (function () {
             selector: "news-edit",
             template: require("./news-edit.component.html")
         }), 
-        __metadata('design:paramtypes', [news_service_1.NewsService, newsCategory_service_1.NewsCategoryService, router_1.ActivatedRoute, router_1.Router, forms_1.FormBuilder])
+        __metadata('design:paramtypes', [news_service_1.NewsService, index_1.NewsCategoryService, router_1.ActivatedRoute, router_1.Router, forms_1.FormBuilder])
     ], NewsEditComponent);
     return NewsEditComponent;
 }());
