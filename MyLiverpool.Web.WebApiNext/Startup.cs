@@ -11,7 +11,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.PlatformAbstractions;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Services.Services;
 using MyLiverpool.Common.MapperConfigs;
@@ -165,7 +164,7 @@ namespace MyLiverpool.Web.WebApiNext
 
             services.AddNodeServices(options =>
             {
-                options.HostingModel = NodeHostingModel.Socket;
+                options.HostingModel = NodeHostingModel.Http;//todo change Socket;
             });
 
             new DatabaseInitializer((LiverpoolContext)services.BuildServiceProvider().GetService(typeof(LiverpoolContext))).Seed();
@@ -209,16 +208,16 @@ namespace MyLiverpool.Web.WebApiNext
             }
             app.UseCors("MyPolicy");
 
-            app.Use(async (context, next) =>
-            {
-                await next();
+            //app.Use(async (context, next) =>
+            //{
+            //    await next();
 
-                if (context.Response.StatusCode == 404 && !Path.HasExtension(context.Request.Path.Value))
-                {
-                    context.Request.Path = "/index.html"; // Put your Angular root page here 
-                    await next();
-                }
-            });
+            //    if (context.Response.StatusCode == 404 && !Path.HasExtension(context.Request.Path.Value))
+            //    {
+            //        context.Request.Path = "/index.html"; // Put your Angular root page here 
+            //        await next();
+            //    }
+            //});
 
             //var angularRoutes = new[] {
             //     "/api",

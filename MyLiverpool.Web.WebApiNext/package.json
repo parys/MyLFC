@@ -1,32 +1,22 @@
 {
   "name": "asp.net",
   "version": "1.0.0",
-  "main": "wwwroot/index.html",
   "scripts": {
-    "ngc": "ngc -p ./tsconfig-prod.json",
-    "startWebpackDevServer": "concurrently \"webpack-dev-server --inline --progress --port 1669\" \"dotnet run\" ",
-    "start": "webpack-dev-server --inline --progress --port 1669",
-    "before": "webpack --config config/webpack.config.vendor.js",
-    "webpack-dev": "set NODE_ENV=development&& webpack",
-    "webpack-prod": "set NODE_ENV=production&& webpack",
-    "build": "npm run webpack-dev",
-    "buildProduction": "npm run ngc && npm run webpack-prod",
-    "lint": "tslint ./angular2app/**/*.ts -t verbose",
-    "rebuilt": "npm rebuild node-sass",
-    "devserver:jit": "cross-env NODE_ENV=development webpack-dev-server --config config/webpack.config.dev.js  --profile --progress --inline --hot --compress --content-base wwwroot"
+    "vendor": "webpack --config webpack.config.vendor.js",
+    "client-server": "webpack --config webpack.config.dev.js"
   },
   "dependencies": {
-    "@angular/common": "2.2.1",
-    "@angular/compiler": "2.2.1",
-    "@angular/compiler-cli": "2.2.1",
-    "@angular/core": "2.2.1",
-    "@angular/forms": "2.2.1",
-    "@angular/http": "2.2.1",
+    "@angular/common": "2.1.1",
+    "@angular/compiler": "2.1.1",
+    "@angular/compiler-cli": "2.1.1",
+    "@angular/core": "2.1.1",
+    "@angular/forms": "2.1.1",
+    "@angular/http": "2.1.1",
     "@angular/material": "2.0.0-alpha.10",
-    "@angular/platform-browser": "2.2.1",
-    "@angular/platform-browser-dynamic": "2.2.1",
-    "@angular/platform-server": "2.2.1",
-    "@angular/router": "3.2.1",
+    "@angular/platform-browser": "2.1.1",
+    "@angular/platform-browser-dynamic": "2.1.1",
+    "@angular/platform-server": "2.1.1",
+    "@angular/router": "3.1.1",
     "core-js": "2.4.1",
     "ie-shim": "0.1.0",
     "jquery": "2.2.4",
@@ -57,7 +47,6 @@
     "aspnet-webpack": "^1.0.24",
     "awesome-typescript-loader": "2.2.4",
     "bootstrap": "3.3.7",
-    "codelyzer": "0.0.28",
     "css": "^2.2.1",
     "css-loader": "0.26.0",
     "es6-shim": "^0.35.1",
@@ -67,6 +56,7 @@
     "extract-text-webpack-plugin": "2.0.0-beta.4",
     "file-loader": "0.9.0",
     "html-loader": "0.4.4",
+    "json-loader" : "0.5.4",
     "isomorphic-fetch": "2.2.1",
     "preboot": "^4.5.2",
     "raw-loader": "0.5.1",
@@ -87,3 +77,4 @@
     "npm": ">= 3"
   }
 }
+

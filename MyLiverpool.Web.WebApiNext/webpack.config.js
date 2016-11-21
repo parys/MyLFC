@@ -5,8 +5,8 @@
 
 var environment = (process.env.NODE_ENV || "development").trim();
 
-if (environment === "development") {
-    module.exports = require("./config/webpack.config.dev.js");
-} else {
-    module.exports = require("./config/webpack.config.prod.js");
-}
+//if (environment === "development") {
+    module.exports = require("./webpack.config.dev.js");
+//} else {
+//   module.exports = require("./config/webpack.config.prod.js");
+//}
