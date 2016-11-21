@@ -27,10 +27,6 @@
     "node_modules",
     "./wwwroot"
   ],
-  "files": [
-    "angular2App/app/app.module.ts",
-    "angular2App/app/boot.ts"
-  ],
   "awesomeTypescriptLoaderOptions": {
     "forkChecker": true,
     "useWebpackText": true

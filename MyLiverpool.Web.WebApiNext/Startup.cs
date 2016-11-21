@@ -4,6 +4,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.NodeServices;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -162,6 +163,11 @@ namespace MyLiverpool.Web.WebApiNext
              //   options.OperationFilter<AssignSecurityRequirements>();
             });
 
+            services.AddNodeServices(options =>
+            {
+                options.HostingModel = NodeHostingModel.Socket;
+            });
+
             new DatabaseInitializer((LiverpoolContext)services.BuildServiceProvider().GetService(typeof(LiverpoolContext))).Seed();
         }
 
@@ -183,9 +189,7 @@ namespace MyLiverpool.Web.WebApiNext
                 app.UseBrowserLink();
                 app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions()
                 {
-                    HotModuleReplacement = true,
-                   // HotModuleReplacementServerPort = 3000
-                 //   ConfigFile = "./config/"
+                    HotModuleReplacement = true
                 });
 
                 app.UseSwagger(documentFilter: (swaggerDoc, httpRequest) =>
@@ -246,6 +250,10 @@ namespace MyLiverpool.Web.WebApiNext
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+
+                routes.MapSpaFallbackRoute(
+                    name: "spa-fallback",
+                    defaults: new {controller = "Home", action = "Index"});
             });
 
             //builder =>
@@ -299,10 +307,6 @@ namespace MyLiverpool.Web.WebApiNext
             services.AddSingleton<IHostingEnvironment>(Env);
             services.AddSingleton<IConfigurationRoot>(Configuration);
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-        }
-        private string GetXmlCommentsPath(ApplicationEnvironment appEnvironment)
-        {
-            return Path.Combine(appEnvironment.ApplicationBasePath, "Basic.xml");
         }
     }
 }
