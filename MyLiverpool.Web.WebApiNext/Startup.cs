@@ -164,7 +164,7 @@ namespace MyLiverpool.Web.WebApiNext
 
             services.AddNodeServices(options =>
             {
-                options.HostingModel = NodeHostingModel.Http;//todo change Socket;
+                options.HostingModel = NodeHostingModel.Socket;
             });
 
             new DatabaseInitializer((LiverpoolContext)services.BuildServiceProvider().GetService(typeof(LiverpoolContext))).Seed();

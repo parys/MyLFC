@@ -69,7 +69,7 @@ var ClubEditComponent = (function () {
     ClubEditComponent.prototype.updateOptions = function (name) {
         this.uploader = new ng2_file_upload_1.FileUploader({
             url: "/api/v1/upload/clubLogo/" + name,
-            authToken: "Bearer " + this.localStorage.getObject("access_token"),
+            authToken: this.localStorage.getAccessTokenWithType(),
             autoUpload: false
         });
     };
@@ -103,7 +103,7 @@ var ClubEditComponent = (function () {
             selector: "club-edit",
             template: require("./club-edit.component.html")
         }), 
-        __metadata('design:paramtypes', [club_service_1.ClubService, router_1.ActivatedRoute, router_1.Router, index_1.LocalStorageMine, forms_1.FormBuilder, platform_browser_1.Title])
+        __metadata('design:paramtypes', [club_service_1.ClubService, router_1.ActivatedRoute, router_1.Router, index_1.LocalStorageService, forms_1.FormBuilder, platform_browser_1.Title])
     ], ClubEditComponent);
     return ClubEditComponent;
 }());

@@ -17,7 +17,7 @@ function default_1(params) {
                 requestUrl: params.url,
                 originUrl: params.origin,
                 preboot: false,
-                document: doc
+                document: "<my-app></my-app>"
             },
             onHandleError: function (parentZone, currentZone, targetZone, error) {
                 reject(error);

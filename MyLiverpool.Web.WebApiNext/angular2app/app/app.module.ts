@@ -1,8 +1,10 @@
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { HttpModule } from "@angular/http";
 import { MaterialModule } from "@angular/material";
-import { BrowserModule, Title } from "@angular/platform-browser";
+import { Title, BrowserModule, } from "@angular/platform-browser";
+import { UniversalModule } from "angular2-universal";
+import { HttpModule } from "@angular/http";
+import { LocalStorage } from "./shared/local-storage";     
 
 import { AppComponent }  from "./app.component";
 import { routing, appRoutingProviders } from "./app.routes";
@@ -10,11 +12,11 @@ import { Configuration } from "./app.constants";
 import { NewsEditComponent, NewsDetailComponent, NewsListComponent, NewsService } from "./news/index";             
 import * as newsCategory from "./newsCategory/index";
 import { AuthGuard, AuthService } from "./auth/index";
-import { HttpWrapper, LocalStorageMine, SecuredDirective, RolesCheckedService, GlobalValidators } from "./shared/index";
 import { ForumSectionListComponent, ForumSectionService } from "./forumSection/index"; 
 import * as account from "./account/index";
 import * as club from "./club/index";
-import * as match from "./match/index";                       
+import * as match from "./match/index";
+import * as shared from "./shared/index";                     
 import { UserDetailComponent } from "./user/user-detail.component";
 import { UserService } from "./user/user.service";
 import { UserListComponent } from "./user/user-list.component";
@@ -29,17 +31,19 @@ import { FileUploadModule } from "ng2-file-upload/ng2-file-upload";
 
 @NgModule({
     imports: [
+        UniversalModule,     // Must be first import. This automatically imports NgModule, BrowserModule, HttpModule, and JsonpModule too.],
         BrowserModule,
+        HttpModule,
         DatepickerModule,
         FileUploadModule,
         FormsModule,
-        HttpModule,
         MaterialModule.forRoot(),
         ModalModule,
         Ng2AutoCompleteModule,
         PaginationModule,
         ReactiveFormsModule,
-        routing],
+        routing
+    ], 
     declarations: [
         account.AccountSigninComponent,
         account.AccountSignupComponent,
@@ -52,6 +56,7 @@ import { FileUploadModule } from "ng2-file-upload/ng2-file-upload";
         club.ClubListComponent,
         newsCategory.NewsCategoryEditComponent,
         newsCategory.NewsCategoryListComponent,
+        shared.SecuredDirective,
         AppComponent,
         ClubHistoryComponent,
         EplTableComponent,
@@ -69,7 +74,6 @@ import { FileUploadModule } from "ng2-file-upload/ng2-file-upload";
         PmListComponent,
         RightSidebarComponent,
         RulesComponent,
-        SecuredDirective,
         UserDetailComponent,
         UserListComponent,
         WishEditComponent,
@@ -80,19 +84,20 @@ import { FileUploadModule } from "ng2-file-upload/ng2-file-upload";
         club.ClubService,
         match.MatchService,
         newsCategory.NewsCategoryService,
+        shared.HttpWrapper,
+        shared.GlobalValidators,
+        shared.LocalStorageService,
+        shared.RolesCheckedService,
         AdminService,
         appRoutingProviders,
         AuthGuard,
         AuthService,
         Configuration,
         ForumSectionService,
-        HttpWrapper,
-        GlobalValidators,
-        { provide: LocalStorageMine, useClass: LocalStorageMine },
+        { provide: LocalStorage, useFactory: () => (window) ? window.localStorage : {}},
         MaterialCommentService,
         NewsService,
         PmService,
-        RolesCheckedService,
         Title,
         UserService,
         WishService

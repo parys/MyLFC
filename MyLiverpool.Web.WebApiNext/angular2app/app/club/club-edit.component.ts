@@ -5,7 +5,7 @@ import { Title } from "@angular/platform-browser";
 import { Subscription } from "rxjs/Subscription";
 import { ClubService } from "./club.service";
 import { Club } from "./club.model";
-import { LocalStorageMine, RolesCheckedService } from "../shared/index";
+import { LocalStorageService, RolesCheckedService } from "../shared/index";
 import { FileUploader } from "ng2-file-upload/ng2-file-upload";                                    
 
 @Component({
@@ -26,7 +26,7 @@ export class ClubEditComponent implements OnInit, OnDestroy {
     constructor(private clubService: ClubService,
         private route: ActivatedRoute,
         private router: Router,
-        private localStorage: LocalStorageMine,
+        private localStorage: LocalStorageService,
         private formBuilder: FormBuilder,
         titleService: Title) {
         this.item = new Club();
@@ -83,12 +83,12 @@ export class ClubEditComponent implements OnInit, OnDestroy {
     private updateOptions(name: string): void {
         this.uploader = new FileUploader({
             url: `/api/v1/upload/clubLogo/${name}`,
-            authToken: `Bearer ${this.localStorage.getObject("access_token")}`,
+            authToken: this.localStorage.getAccessTokenWithType(),
             //  allowedFileType: ["jpg", "jpeg", "png"],
             autoUpload: false
-                                                 
+
             //        allowedExtensions: ["image/png", "image/jpg"],
-                                               
+
         });
     }
 

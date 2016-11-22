@@ -1,8 +1,7 @@
 ﻿import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
-import { User } from "./user.model";
-import { LocalStorageMine } from "../shared/localStorage";
+import { User } from "./user.model";                          
 import { UserService } from "./user.service";
 import { RolesCheckedService, IRoles } from "../shared/index";
 

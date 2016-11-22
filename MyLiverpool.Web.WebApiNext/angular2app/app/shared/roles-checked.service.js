@@ -9,10 +9,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var index_1 = require("../shared/index");
+var localStorage_service_1 = require("./localStorage.service");
 var RolesCheckedService = (function () {
-    function RolesCheckedService() {
+    function RolesCheckedService(localStorage) {
         var _this = this;
+        this.localStorage = localStorage;
         this.checkedRoles = {
             isLogined: false,
             isEditor: false,
@@ -22,11 +23,10 @@ var RolesCheckedService = (function () {
             isAdminAssistant: false,
             isSelf: function (userId) { return _this.isSelf(userId); }
         };
-        this.localStorage = new index_1.LocalStorageMine();
         this.checkRoles();
     }
     RolesCheckedService.prototype.checkRoles = function () {
-        this.roles = this.localStorage.getObject("roles");
+        this.roles = this.localStorage.getRoles();
         if (!this.roles) {
             return;
         }
@@ -70,12 +70,12 @@ var RolesCheckedService = (function () {
         return false;
     };
     RolesCheckedService.prototype.isSelf = function (authorId) {
-        var userId = +this.localStorage.get("userId");
+        var userId = this.localStorage.getUserId();
         return (userId === authorId);
     };
     RolesCheckedService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [localStorage_service_1.LocalStorageService])
     ], RolesCheckedService);
     return RolesCheckedService;
 }());

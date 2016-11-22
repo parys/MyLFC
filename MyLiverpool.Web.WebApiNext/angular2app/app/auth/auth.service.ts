@@ -1,10 +1,7 @@
 ﻿import { Injectable } from "@angular/core";
 import { Http, Headers } from "@angular/http";
-import { Router } from "@angular/router";
-import "rxjs/add/observable/of";
-import "rxjs/add/operator/do";
-import "rxjs/add/operator/delay";
-import { LocalStorageMine, RolesCheckedService, HttpWrapper } from "../shared/index";
+import { Router } from "@angular/router"; 
+import { RolesCheckedService, HttpWrapper, LocalStorageService } from "../shared/index"; 
 import { Configuration } from "../app.constants";
 
 @Injectable()
@@ -13,14 +10,14 @@ export class AuthService {
     roles: string[] = [];
     id: number;
 
-    constructor(private http: HttpWrapper, private http1: Http, private localStorage: LocalStorageMine,
+    constructor(private http: HttpWrapper, private http1: Http, private localStorage: LocalStorageService,
         private rolesCheckedService: RolesCheckedService, private router: Router, private configuration: Configuration) {  
-        if (this.localStorage.get("access_token")) { 
+        if (localStorage.hasAccessToken()) { 
             this.isLoggedIn = true;                              
-            this.roles = this.localStorage.getObject("roles");
-            this.id = +this.localStorage.get("userId");
+            this.roles = localStorage.getRoles();
+            this.id = localStorage.getUserId();
         } else {
-            this.localStorage.remove("roles");
+            localStorage.removeRoles();
         }
     }
                                                          
@@ -31,28 +28,25 @@ export class AuthService {
         headers.append("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8;");
         let perams = `grant_type=password&username=${username}&password=${password}&client_id=client_id3`;
 
-        var result = this.http1.post(this.configuration.Server + "connect/token", perams, {
-            headers: headers
-        });
-        result.subscribe(data => this.parseLoginAnswer(data),
-            error => {
-                if(error._body === "unconfirmed_email") {
-                    this.router.navigate(["/unconfirmedEmail"]);
-                    return;
-                }
-                console.log(error);
-            },
-            () => this.getUserId());
+        this.http1.post(this.configuration.Server + "connect/token",
+                perams,
+                {
+                    headers: headers
+                })
+            .subscribe(data => this.parseLoginAnswer(data),
+                error => {
+                    if (error._body === "unconfirmed_email") {
+                        this.router.navigate(["/unconfirmedEmail"]);
+                        return;
+                    }
+                    console.log(error);
+                },
+                () => this.getUserId());
         return true;
     }      
 
     logout(): void {
-        this.localStorage.remove("token_type");
-        this.localStorage.remove("access_token");
-        this.localStorage.remove("expires_in");
-        this.localStorage.remove("refresh_token");
-        this.localStorage.remove("roles");
-        this.localStorage.remove("userId");
+        this.localStorage.removeAuthTokens();
         this.isLoggedIn = false;
         this.rolesCheckedService.checkRoles();
     }
@@ -65,17 +59,16 @@ export class AuthService {
     }
 
     private parseLoginAnswer(item: any): void {
-        let response = JSON.parse(item._body); // todo migrate to es6 storage
-        this.localStorage.setObject("token_type", response.token_type);
-        this.localStorage.setObject("access_token", response.access_token);
-        this.localStorage.setObject("expires_in", response.expires_in);
-        this.localStorage.setObject("refresh_token", response.refresh_token);
-        this.isLoggedIn = true;
+        console.log(item);
+        if (this.localStorage.setAuthTokens(item)) {
+            this.isLoggedIn = true;
+        }
     }
 
     private parseRoles(item: any): void {
+        console.log(item);
         this.roles = item._body.split(", ");
-        this.localStorage.setObject("roles", this.roles);
+        this.localStorage.setRoles(this.roles);
     }
 
     private getRoles(): void {
@@ -90,7 +83,7 @@ export class AuthService {
             .subscribe(data => this.id = +JSON.parse(data.text()),
             error => console.log(error),
             () => {
-                this.localStorage.set("userId", this.id.toString());
+                this.localStorage.setUserId(this.id.toString());
                 this.getRoles();
             });
     }

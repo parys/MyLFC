@@ -3,7 +3,7 @@ import "angular2-universal-polyfills/node";
 import "zone.js";
 import { enableProdMode } from "@angular/core";
 import { platformNodeDynamic } from "angular2-universal";
-import { AppModule } from "./app/app.module";
+import { AppModule } from "./app/app.module"; 
 
 enableProdMode();
 const platform = platformNodeDynamic();
@@ -26,7 +26,7 @@ export default function (params: any): Promise<{ html: string, globals?: any }> 
                 requestUrl: params.url,
                 originUrl: params.origin,
                 preboot: false,
-                document: doc
+                document: "<my-app></my-app>"
             },
             onHandleError: (parentZone, currentZone, targetZone, error) => {
                 // if any error occurs while rendering the module, reject the whole operation

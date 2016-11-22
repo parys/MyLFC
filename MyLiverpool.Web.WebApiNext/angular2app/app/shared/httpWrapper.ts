@@ -1,18 +1,20 @@
 ﻿import { Injectable } from "@angular/core";
 import { Http, Headers } from "@angular/http";
-import { LocalStorageMine } from "./localStorage";
+import { LocalStorageService } from "./localStorage.service";
 
 @Injectable()
 export class HttpWrapper {
 
-    constructor(private http: Http, private localStorage: LocalStorageMine) {}
+    constructor(private http: Http
+        , private localStorage: LocalStorageService
+    ) { }
 
     updateHeaders(): Headers {
         let headers = new Headers();
         headers.append("Content-type", "application/json");
-        if (this.localStorage.get("token_type")) {
+        if (this.localStorage.hasAccessToken()) {
             headers.append("Authorization",
-                this.localStorage.getObject("token_type") + " " + this.localStorage.getObject("access_token"));
+                this.localStorage.getAccessTokenWithType());
         }
         return headers;
     }

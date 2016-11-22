@@ -3,9 +3,8 @@ import { Title } from "@angular/platform-browser";
 import { NewsService } from "./news.service";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
-import { News } from "./news.model";
-import { LocalStorageMine } from "../shared/localStorage";
-import { RolesCheckedService, IRoles } from "../shared/index";
+import { News } from "./news.model";                
+import { RolesCheckedService, IRoles, LocalStorageService } from "../shared/index";
 import { ModalDirective } from "ng2-bootstrap/ng2-bootstrap";
 
 @Component({
@@ -24,7 +23,7 @@ export class NewsDetailComponent implements OnInit, OnDestroy {
 
     constructor(private newsService: NewsService,
         private route: ActivatedRoute,
-        private localStorage: LocalStorageMine,
+        private localStorage: LocalStorageService,        
         private rolesChecked: RolesCheckedService,
         private router: Router,
         private titleService: Title) {
@@ -98,8 +97,7 @@ export class NewsDetailComponent implements OnInit, OnDestroy {
 
     private addView() {
         let id = this.item.id;
-        if (!this.localStorage.get(`material${id}`)) {
-            this.localStorage.set(`material${id}`, "1");
+        if (!this.localStorage.tryAddViewForNews(id)) {
             this.newsService.addView(id).subscribe(data => data);
         }
     }

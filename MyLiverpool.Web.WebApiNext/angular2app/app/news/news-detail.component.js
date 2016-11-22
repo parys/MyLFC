@@ -12,7 +12,6 @@ var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
 var news_service_1 = require("./news.service");
 var router_1 = require("@angular/router");
-var localStorage_1 = require("../shared/localStorage");
 var index_1 = require("../shared/index");
 var ng2_bootstrap_1 = require("ng2-bootstrap/ng2-bootstrap");
 var NewsDetailComponent = (function () {
@@ -75,8 +74,7 @@ var NewsDetailComponent = (function () {
     };
     NewsDetailComponent.prototype.addView = function () {
         var id = this.item.id;
-        if (!this.localStorage.get("material" + id)) {
-            this.localStorage.set("material" + id, "1");
+        if (!this.localStorage.tryAddViewForNews(id)) {
             this.newsService.addView(id).subscribe(function (data) { return data; });
         }
     };
@@ -93,7 +91,7 @@ var NewsDetailComponent = (function () {
             selector: "news-detail",
             template: require("./news-detail.component.html")
         }), 
-        __metadata('design:paramtypes', [news_service_1.NewsService, router_1.ActivatedRoute, localStorage_1.LocalStorageMine, index_1.RolesCheckedService, router_1.Router, platform_browser_1.Title])
+        __metadata('design:paramtypes', [news_service_1.NewsService, router_1.ActivatedRoute, index_1.LocalStorageService, index_1.RolesCheckedService, router_1.Router, platform_browser_1.Title])
     ], NewsDetailComponent);
     return NewsDetailComponent;
 }());

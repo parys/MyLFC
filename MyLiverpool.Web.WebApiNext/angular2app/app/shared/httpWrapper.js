@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
-var localStorage_1 = require("./localStorage");
+var localStorage_service_1 = require("./localStorage.service");
 var HttpWrapper = (function () {
     function HttpWrapper(http, localStorage) {
         this.http = http;
@@ -19,8 +19,8 @@ var HttpWrapper = (function () {
     HttpWrapper.prototype.updateHeaders = function () {
         var headers = new http_1.Headers();
         headers.append("Content-type", "application/json");
-        if (this.localStorage.get("token_type")) {
-            headers.append("Authorization", this.localStorage.getObject("token_type") + " " + this.localStorage.getObject("access_token"));
+        if (this.localStorage.hasAccessToken()) {
+            headers.append("Authorization", this.localStorage.getAccessTokenWithType());
         }
         return headers;
     };
@@ -52,7 +52,7 @@ var HttpWrapper = (function () {
     };
     HttpWrapper = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [http_1.Http, localStorage_1.LocalStorageMine])
+        __metadata('design:paramtypes', [http_1.Http, localStorage_service_1.LocalStorageService])
     ], HttpWrapper);
     return HttpWrapper;
 }());
