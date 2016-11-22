@@ -162,10 +162,10 @@ namespace MyLiverpool.Web.WebApiNext
              //   options.OperationFilter<AssignSecurityRequirements>();
             });
 
-            services.AddNodeServices(options =>
-            {
-                options.HostingModel = NodeHostingModel.Socket;
-            });
+            //services.AddNodeServices(options =>
+            //{
+            //    options.HostingModel = NodeHostingModel.Socket;
+            //});
 
             new DatabaseInitializer((LiverpoolContext)services.BuildServiceProvider().GetService(typeof(LiverpoolContext))).Seed();
         }

@@ -4,32 +4,21 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true,
     "removeComments": true,
     "sourceMap": true,
-    "strictNullChecks": false,
-    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
     "lib": [
-      "dom",
-      "es2015"
+      "es6",
+      "dom"
     ],
     "types": [
       "hammerjs",
-      "node",
-      "source-map",
-      "uglify-js",
-      "webpack"
+      "node"
     ]
   },
   "exclude": [
-    "node_modules",
-    "./wwwroot"
+    "bin",
+    "node_modules"
   ],
-  "awesomeTypescriptLoaderOptions": {
-    "forkChecker": true,
-    "useWebpackText": true
-  },
-  "compileOnSave": false,
-  "buildOnSave": false,
   "atom": { "rewriteTsconfig": false }
 }

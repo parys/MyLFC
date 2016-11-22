@@ -1,11 +1,16 @@
-﻿import { Injectable } from "@angular/core";           
+﻿import { Injectable } from "@angular/core";
+import { isBrowser, isNode } from "angular2-universal";           
 
 @Injectable()
 export class LocalStorageService { 
-
+    private localStorage: Storage;
     constructor() {
-        if (!localStorage) {
+        if (isBrowser && !localStorage) {
             throw new Error("Current browser does not support Local Storage");
+        } else if (isNode) {
+            this.localStorage = null;
+        }else{
+            this.localStorage = localStorage;
         }
     }
 
@@ -48,14 +53,17 @@ export class LocalStorageService {
     }
 
     setRoles(roles: string[]): void {
+        if (!this.localStorage) return;
         this.setObject("roles", roles);
     }
 
     setUserId(id: string): void {
+        if (!this.localStorage) return;
         this.setObject("userId", id);
     }
 
     tryAddViewForNews(id: number): boolean {
+        if (!this.localStorage) return false;
         if (!this.get(`material${id}`)) {
             this.set(`material${id}`, "1");
             return true;
@@ -64,18 +72,22 @@ export class LocalStorageService {
     }
 
     private set(key: string, value: string): void {
+        if (!this.localStorage) return;
         localStorage[key] = value;
     }
 
     private get(key: string): string {
+        if (!this.localStorage) return "";
         return localStorage[key] || false;
     }
 
     private setObject(key: string, value: any): void {
+        if (!this.localStorage) return;
         localStorage[key] = JSON.stringify(value);
     }
 
     private getObject(key: string): any {
+        if (!this.localStorage) return null;
         if (localStorage[key]) {
             return JSON.parse(localStorage[key]);
         }

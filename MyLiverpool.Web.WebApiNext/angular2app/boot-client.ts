@@ -1,11 +1,9 @@
-﻿import "./__2.1.1.workaround.ts";
-import "angular2-universal-polyfills/browser";
+﻿import "angular2-universal-polyfills/browser";
 import { platformUniversalDynamic } from "angular2-universal";
 import { enableProdMode } from "@angular/core";
 import { AppModule } from "./app/app.module";
 import "bootstrap";
-    
-const platform = platformUniversalDynamic();                                                                     
+                                                                         
 // Enable either Hot Module Reloading or production mode
 if (module["hot"]) {
     module["hot"].accept();
@@ -16,6 +14,7 @@ if (module["hot"]) {
 
 // Boot the application, either now or when the DOM content is loaded
 
+const platform = platformUniversalDynamic();
 const bootApplication = () => { platform.bootstrapModule(AppModule); };
 if (document.readyState === "complete") {
     bootApplication();

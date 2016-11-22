@@ -1,5 +1,4 @@
-﻿import "./__2.1.1.workaround.ts";
-import "angular2-universal-polyfills/node";
+﻿import "angular2-universal-polyfills";
 import "zone.js";
 import { enableProdMode } from "@angular/core";
 import { platformNodeDynamic } from "angular2-universal";
@@ -9,15 +8,6 @@ enableProdMode();
 const platform = platformNodeDynamic();
 
 export default function (params: any): Promise<{ html: string, globals?: any }> {
-    const doc = `
-        <!DOCTYPE html>\n
-        <html>
-            <head></head>
-            <body>
-                <my-app></my-app>
-            </body>
-        </html>
-    `;
     return new Promise((resolve, reject) => {
         const requestZone = Zone.current.fork({
             name: "angular-universal request",
@@ -26,7 +16,7 @@ export default function (params: any): Promise<{ html: string, globals?: any }> 
                 requestUrl: params.url,
                 originUrl: params.origin,
                 preboot: false,
-                document: "<my-app></my-app>"
+                document: "<app></app>"
             },
             onHandleError: (parentZone, currentZone, targetZone, error) => {
                 // if any error occurs while rendering the module, reject the whole operation

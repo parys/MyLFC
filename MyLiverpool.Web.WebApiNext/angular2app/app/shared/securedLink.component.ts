@@ -25,6 +25,6 @@ export class SecuredLinkComponent implements OnInit {
     }
 
     //private parsePageable(pageable: Pageable<News>): void {
-    //    this.items = pageable.list; //todo parse others
+    //    this.items = pageable.list; //tod parse others
     //}
 }

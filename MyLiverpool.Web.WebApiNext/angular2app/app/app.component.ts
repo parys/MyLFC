@@ -6,7 +6,7 @@ import { RolesCheckedService } from "./shared/roles-checked.service";
 import { IRoles } from "./shared/roles.interface";
 
 @Component({
-    selector: "my-app",
+    selector: "app",
     template: require("./app.component.html")
 })
 

@@ -1,9 +1,8 @@
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { MaterialModule } from "@angular/material";
+//import { MaterialModule } from "@angular/material";
 import { Title, BrowserModule, } from "@angular/platform-browser";
-import { UniversalModule } from "angular2-universal";
-import { HttpModule } from "@angular/http";
+import { UniversalModule, NODE_HTTP_PROVIDERS } from "angular2-universal";
 import { LocalStorage } from "./shared/local-storage";     
 
 import { AppComponent }  from "./app.component";
@@ -32,12 +31,10 @@ import { FileUploadModule } from "ng2-file-upload/ng2-file-upload";
 @NgModule({
     imports: [
         UniversalModule,     // Must be first import. This automatically imports NgModule, BrowserModule, HttpModule, and JsonpModule too.],
-        BrowserModule,
-        HttpModule,
         DatepickerModule,
         FileUploadModule,
         FormsModule,
-        MaterialModule.forRoot(),
+     //   MaterialModule.forRoot(),
         ModalModule,
         Ng2AutoCompleteModule,
         PaginationModule,
