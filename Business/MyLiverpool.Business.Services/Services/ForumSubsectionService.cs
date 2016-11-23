@@ -12,20 +12,20 @@ namespace MyLiverpool.Business.Services.Services
 {
     public class ForumSubsectionService : IForumSubsectionService
     {
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IForumSubsectionRepository _forumSubsectionRepository;
         private readonly IMapper _mapper;
 
-        public ForumSubsectionService(IUnitOfWork unitOfWork, IMapper mapper)
+        public ForumSubsectionService(IForumSubsectionRepository forumSubsectionRepository, IMapper mapper)
         {
-            _unitOfWork = unitOfWork;
+            _forumSubsectionRepository = forumSubsectionRepository;
             _mapper = mapper;
         }
 
         public async Task<ForumSubsectionDto> CreateAsync(ForumSubsectionDto dto)
         {
             var model = _mapper.Map<ForumSubsection>(dto);
-            model = await _unitOfWork.ForumSubsectionRepository.AddAsync(model);
-            await _unitOfWork.SaveAsync();
+            model = await _forumSubsectionRepository.AddAsync(model);
+            await _forumSubsectionRepository.SaveChangesAsync();
             dto = _mapper.Map<ForumSubsectionDto>(model);
             return dto;
         }
@@ -38,30 +38,31 @@ namespace MyLiverpool.Business.Services.Services
         public async Task<ForumSubsectionDto> UpdateAsync(ForumSubsectionDto dto)
         {
             var model = _mapper.Map<ForumSubsection>(dto);
-            _unitOfWork.ForumSubsectionRepository.Update(model);
-            await _unitOfWork.SaveAsync();
+            _forumSubsectionRepository.Update(model);
+            await _forumSubsectionRepository.SaveChangesAsync();
             dto = _mapper.Map<ForumSubsectionDto>(model);
             return dto;
         } 
 
         public async Task<ForumSubsectionDto> GetAsync(int subsectionId, int page)
         {
-            var subsection = await _unitOfWork.ForumSubsectionRepository.GetByIdAsync(subsectionId);
-            var subsectionThemes =
-                await _unitOfWork.ForumThemeRepository.GetAsync(page, filter: x => x.SubsectionId == subsectionId);
-            var subsectionThemesCount = await _unitOfWork.ForumThemeRepository.GetCountAsync(x => x.SubsectionId == subsectionId);
-            if (subsection == null)
-            {
-                return null;
-            }
-            var model = _mapper.Map<ForumSubsectionDto>(subsection);
-            model.Themes = new PageableData<ForumThemeMiniDto>(_mapper.Map<IEnumerable<ForumThemeMiniDto>>(subsectionThemes), page, subsectionThemesCount);
-            return model;
+            //var subsection = await _forumSubsectionRepository.GetByIdAsync(subsectionId);
+            //var subsectionThemes =
+            //    await _forumSubsectionRepository.GetListAsync(page, filter: x => x.SubsectionId == subsectionId);
+            //var subsectionThemesCount = await _unitOfWork.ForumThemeRepository.GetCountAsync(x => x.SubsectionId == subsectionId);
+            //if (subsection == null)
+            //{
+            //    return null;
+            //}
+            //var model = _mapper.Map<ForumSubsectionDto>(subsection);
+            //model.Themes = new PageableData<ForumThemeMiniDto>(_mapper.Map<IEnumerable<ForumThemeMiniDto>>(subsectionThemes), page, subsectionThemesCount);
+            //return model;
+            throw new NotImplementedException(); //todo dodo
         }
 
         public async Task<IEnumerable<ForumSubsectionMiniDto>> GetListAsync()
         {
-            var subsections = await _unitOfWork.ForumSubsectionRepository.GetAsync();
+            var subsections = await _forumSubsectionRepository.GetListAsync();
             var model = _mapper.Map<IEnumerable<ForumSubsectionMiniDto>>(subsections);
             return model;
         }

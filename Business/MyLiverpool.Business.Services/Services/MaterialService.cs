@@ -18,13 +18,15 @@ namespace MyLiverpool.Business.Services.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMaterialRepository _materialRepository;
+        private readonly IMaterialCommentRepository _materialCommentRepository;
         private readonly IMapper _mapper;
 
-        public MaterialService(IUnitOfWork unitOfWork, IMaterialRepository materialRepository, IMapper mapper)
+        public MaterialService(IUnitOfWork unitOfWork, IMaterialRepository materialRepository, IMapper mapper, IMaterialCommentRepository materialCommentRepository)
         {
             _unitOfWork = unitOfWork;
             _materialRepository = materialRepository;
             _mapper = mapper;
+            _materialCommentRepository = materialCommentRepository;
         }
 
         #region Dto 
@@ -76,11 +78,7 @@ namespace MyLiverpool.Business.Services.Services
                 return null;
             }
             
-         //   var commentsCount = material.Comments.Count;
-         //   material.Comments =
-         //       material.Comments.Where(x => !x.ParentId.HasValue).ToList(); todo move comments to another directive
             var dto = _mapper.Map<MaterialDto>(material);
-         //   dto.CommentsCount = commentsCount;
             return dto;
         }
 
@@ -100,7 +98,7 @@ namespace MyLiverpool.Business.Services.Services
                 var comments = newsItem.Comments.ToList();
                 foreach (var comment in comments)
                 {
-                    await _unitOfWork.MaterialCommentRepository.DeleteAsync(comment);
+                    await _materialCommentRepository.DeleteAsync(comment);
                 }
                 await _materialRepository.DeleteAsync(newsItem);
                 await _materialRepository.SaveChangesAsync();

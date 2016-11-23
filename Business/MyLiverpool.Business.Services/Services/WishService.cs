@@ -15,22 +15,22 @@ namespace MyLiverpool.Business.Services.Services
 {
     public class WishService : IWishService
     {
-        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly IEmailSender _emailService;
+        private readonly IWishRepository _wishRepository;
 
-        public WishService(IUnitOfWork unitOfWork, IMapper mapper, IEmailSender emailService)
+        public WishService(IMapper mapper, IEmailSender emailService, IWishRepository wishRepository)
         {
-            _unitOfWork = unitOfWork;
             _mapper = mapper;
             _emailService = emailService;
+            _wishRepository = wishRepository;
         }
 
         public async Task<WishDto> CreateAsync(WishDto dto)
         {
             var wish = _mapper.Map<Wish>(dto);
-            wish = await _unitOfWork.WishRepository.AddAsync(wish);
-            await _unitOfWork.SaveAsync();
+            wish = await _wishRepository.AddAsync(wish);
+            await _wishRepository.SaveChangesAsync();
             await SendAlertAsync();
             return _mapper.Map<WishDto>(wish);
         }
@@ -46,22 +46,22 @@ namespace MyLiverpool.Business.Services.Services
             {
                 filter = filter.And(x => x.Title.Contains(filterText) || x.Message.Contains(filterText));
             }
-            var wishes = await _unitOfWork.WishRepository.GetOrderedByAsync(page, filter : filter, order: SortOrder.Descending, orderBy: x => x.Id);
+            var wishes = await _wishRepository.GetOrderedByAsync(page, filter : filter, order: SortOrder.Descending, orderBy: x => x.Id);
             var wishesDto = _mapper.Map<IEnumerable<WishDto>>(wishes);
-            var wishesCount = await _unitOfWork.WishRepository.GetCountAsync(filter);
+            var wishesCount = await _wishRepository.GetCountAsync(filter);
             return new PageableData<WishDto>(wishesDto, page, wishesCount);
         }
 
         public async Task<WishDto> GetAsync(int wishId)
         {
-            var wish = await _unitOfWork.WishRepository.GetByIdAsync(wishId);
+            var wish = await _wishRepository.GetByIdAsync(wishId);
             return _mapper.Map<WishDto>(wish);
         }
 
         public async Task<bool> DeleteAsync(int id)
         {
-            await _unitOfWork.WishRepository.DeleteAsync(id);
-            await _unitOfWork.SaveAsync();
+            await _wishRepository.DeleteAsync(id);
+            await _wishRepository.SaveChangesAsync();
             return true;
         }
 

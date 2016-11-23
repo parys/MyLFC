@@ -63,7 +63,7 @@
 /******/ 	}
 /******/
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "18fd9739538c64b0ede4"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "271ea6e8f0d402bc38a2"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/
@@ -590,13 +590,13 @@
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = (__webpack_require__(2))(86);
+	module.exports = (__webpack_require__(2))(87);
 
 /***/ },
 /* 2 */
 /***/ function(module, exports) {
 
-	module.exports = vendor_e7718c59bae512135e30;
+	module.exports = vendor_2f98658db13e9d909fd2;
 
 /***/ },
 /* 3 */
@@ -775,13 +775,13 @@
 	  };
 	}
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, "?path=http%3A%2F%2Flocalhost%3A1606%2F__webpack_hmr", __webpack_require__(4)(module)))
+	/* WEBPACK VAR INJECTION */}.call(exports, "?path=http%3A%2F%2Flocalhost%3A63254%2F__webpack_hmr", __webpack_require__(4)(module)))
 
 /***/ },
 /* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = (__webpack_require__(2))(145);
+	module.exports = (__webpack_require__(2))(140);
 
 /***/ },
 /* 5 */
@@ -1928,7 +1928,7 @@
 /* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = (__webpack_require__(2))(59);
+	module.exports = (__webpack_require__(2))(58);
 
 /***/ },
 /* 19 */
@@ -1986,82 +1986,83 @@
 	var AppModule = (function () {
 	    function AppModule() {
 	    }
-	    AppModule = __decorate([
-	        core_1.NgModule({
-	            imports: [
-	                angular2_universal_1.UniversalModule,
-	                ng2_bootstrap_1.DatepickerModule,
-	                ng2_file_upload_1.FileUploadModule,
-	                forms_1.FormsModule,
-	                ng2_bootstrap_1.ModalModule,
-	                ng2_auto_complete_1.Ng2AutoCompleteModule,
-	                ng2_bootstrap_1.PaginationModule,
-	                forms_1.ReactiveFormsModule,
-	                app_routes_1.routing
-	            ],
-	            declarations: [
-	                account.AccountSigninComponent,
-	                account.AccountSignupComponent,
-	                account.ChangePasswordComponent,
-	                account.ConfirmEmailComponent,
-	                account.ForgotPasswordComponent,
-	                account.ResetPasswordComponent,
-	                account.UnconfirmedEmailComponent,
-	                club.ClubEditComponent,
-	                club.ClubListComponent,
-	                newsCategory.NewsCategoryEditComponent,
-	                newsCategory.NewsCategoryListComponent,
-	                shared.SecuredDirective,
-	                app_component_1.AppComponent,
-	                index_5.ClubHistoryComponent,
-	                index_8.EplTableComponent,
-	                index_3.ForumSectionListComponent,
-	                match.MatchEditComponent,
-	                match.MatchListComponent,
-	                index_7.MaterialCommentDetailComponent,
-	                index_7.MaterialCommentListComponent,
-	                index_7.MaterialCommentSectionComponent,
-	                index_1.NewsListComponent,
-	                index_1.NewsDetailComponent,
-	                index_1.NewsEditComponent,
-	                index_4.PmDetailComponent,
-	                index_4.PmEditComponent,
-	                index_4.PmListComponent,
-	                index_5.RightSidebarComponent,
-	                index_5.RulesComponent,
-	                user_detail_component_1.UserDetailComponent,
-	                user_list_component_1.UserListComponent,
-	                index_6.WishEditComponent,
-	                index_6.WishListComponent],
-	            bootstrap: [app_component_1.AppComponent],
-	            providers: [
-	                account.AccountService,
-	                club.ClubService,
-	                match.MatchService,
-	                newsCategory.NewsCategoryService,
-	                shared.HttpWrapper,
-	                shared.GlobalValidators,
-	                shared.LocalStorageService,
-	                shared.RolesCheckedService,
-	                index_8.AdminService,
-	                app_routes_1.appRoutingProviders,
-	                index_2.AuthGuard,
-	                index_2.AuthService,
-	                app_constants_1.Configuration,
-	                index_3.ForumSectionService,
-	                { provide: local_storage_1.LocalStorage, useFactory: function () { return (window) ? window.localStorage : {}; } },
-	                index_7.MaterialCommentService,
-	                index_1.NewsService,
-	                index_4.PmService,
-	                platform_browser_1.Title,
-	                user_service_1.UserService,
-	                index_6.WishService
-	            ]
-	        }), 
-	        __metadata('design:paramtypes', [])
-	    ], AppModule);
 	    return AppModule;
 	}());
+	AppModule = __decorate([
+	    core_1.NgModule({
+	        imports: [
+	            angular2_universal_1.UniversalModule,
+	            ng2_bootstrap_1.DatepickerModule,
+	            ng2_file_upload_1.FileUploadModule,
+	            forms_1.FormsModule,
+	            ng2_bootstrap_1.ModalModule,
+	            ng2_auto_complete_1.Ng2AutoCompleteModule,
+	            ng2_bootstrap_1.PaginationModule,
+	            forms_1.ReactiveFormsModule,
+	            app_routes_1.routing
+	        ],
+	        declarations: [
+	            account.AccountSigninComponent,
+	            account.AccountSignupComponent,
+	            account.ChangePasswordComponent,
+	            account.ConfirmEmailComponent,
+	            account.ForgotPasswordComponent,
+	            account.ResetPasswordComponent,
+	            account.UnconfirmedEmailComponent,
+	            club.ClubEditComponent,
+	            club.ClubListComponent,
+	            newsCategory.NewsCategoryEditComponent,
+	            newsCategory.NewsCategoryListComponent,
+	            shared.SecuredDirective,
+	            app_component_1.AppComponent,
+	            index_5.ClubHistoryComponent,
+	            index_8.EplTableComponent,
+	            index_3.ForumSectionListComponent,
+	            match.MatchEditComponent,
+	            match.MatchListComponent,
+	            index_7.MaterialCommentDetailComponent,
+	            index_7.MaterialCommentListComponent,
+	            index_7.MaterialCommentSectionComponent,
+	            index_1.NewsListComponent,
+	            index_1.NewsDetailComponent,
+	            index_1.NewsEditComponent,
+	            index_4.PmDetailComponent,
+	            index_4.PmEditComponent,
+	            index_4.PmListComponent,
+	            index_5.RightSidebarComponent,
+	            index_5.RulesComponent,
+	            user_detail_component_1.UserDetailComponent,
+	            user_list_component_1.UserListComponent,
+	            index_6.WishEditComponent,
+	            index_6.WishListComponent
+	        ],
+	        bootstrap: [app_component_1.AppComponent],
+	        providers: [
+	            account.AccountService,
+	            club.ClubService,
+	            match.MatchService,
+	            newsCategory.NewsCategoryService,
+	            shared.HttpWrapper,
+	            shared.GlobalValidators,
+	            shared.LocalStorageService,
+	            shared.RolesCheckedService,
+	            index_8.AdminService,
+	            app_routes_1.appRoutingProviders,
+	            index_2.AuthGuard,
+	            index_2.AuthService,
+	            app_constants_1.Configuration,
+	            index_3.ForumSectionService,
+	            { provide: local_storage_1.LocalStorage, useFactory: function () { return (window) ? window.localStorage : {}; } },
+	            index_7.MaterialCommentService,
+	            index_1.NewsService,
+	            index_4.PmService,
+	            platform_browser_1.Title,
+	            user_service_1.UserService,
+	            index_6.WishService
+	        ]
+	    }),
+	    __metadata("design:paramtypes", [])
+	], AppModule);
 	exports.AppModule = AppModule;
 
 
@@ -6800,7 +6801,7 @@
 /* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = (__webpack_require__(2))(115);
+	module.exports = (__webpack_require__(2))(116);
 
 /***/ },
 /* 28 */
@@ -6848,15 +6849,19 @@
 	    AppComponent.prototype.logout = function () {
 	        this.auth.logout();
 	    };
-	    AppComponent = __decorate([
-	        core_1.Component({
-	            selector: "app",
-	            template: __webpack_require__(42)
-	        }), 
-	        __metadata('design:paramtypes', [router_1.Router, auth_service_1.AuthService, roles_checked_service_1.RolesCheckedService, core_1.ViewContainerRef, platform_browser_1.Title])
-	    ], AppComponent);
 	    return AppComponent;
 	}());
+	AppComponent = __decorate([
+	    core_1.Component({
+	        selector: "app",
+	        template: __webpack_require__(42)
+	    }),
+	    __metadata("design:paramtypes", [router_1.Router,
+	        auth_service_1.AuthService,
+	        roles_checked_service_1.RolesCheckedService,
+	        core_1.ViewContainerRef,
+	        platform_browser_1.Title])
+	], AppComponent);
 	exports.AppComponent = AppComponent;
 
 
@@ -6864,7 +6869,7 @@
 /* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = (__webpack_require__(2))(58);
+	module.exports = (__webpack_require__(2))(57);
 
 /***/ },
 /* 32 */
@@ -6956,12 +6961,13 @@
 	            _this.getRoles();
 	        });
 	    };
-	    AuthService = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [index_1.HttpWrapper, http_1.Http, index_1.LocalStorageService, index_1.RolesCheckedService, router_1.Router, app_constants_1.Configuration])
-	    ], AuthService);
 	    return AuthService;
 	}());
+	AuthService = __decorate([
+	    core_1.Injectable(),
+	    __metadata("design:paramtypes", [index_1.HttpWrapper, http_1.Http, index_1.LocalStorageService,
+	        index_1.RolesCheckedService, router_1.Router, app_constants_1.Configuration])
+	], AuthService);
 	exports.AuthService = AuthService;
 
 
@@ -7056,12 +7062,13 @@
 	            body: ""
 	        });
 	    };
-	    HttpWrapper = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [http_1.Http, localStorage_service_1.LocalStorageService])
-	    ], HttpWrapper);
 	    return HttpWrapper;
 	}());
+	HttpWrapper = __decorate([
+	    core_1.Injectable(),
+	    __metadata("design:paramtypes", [http_1.Http,
+	        localStorage_service_1.LocalStorageService])
+	], HttpWrapper);
 	exports.HttpWrapper = HttpWrapper;
 
 
@@ -7169,12 +7176,12 @@
 	    LocalStorageService.prototype.remove = function (key) {
 	        localStorage.removeItem(key);
 	    };
-	    LocalStorageService = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [])
-	    ], LocalStorageService);
 	    return LocalStorageService;
 	}());
+	LocalStorageService = __decorate([
+	    core_1.Injectable(),
+	    __metadata("design:paramtypes", [])
+	], LocalStorageService);
 	exports.LocalStorageService = LocalStorageService;
 
 
@@ -7215,22 +7222,22 @@
 	            el.parentNode.removeChild(el);
 	        }
 	    };
-	    __decorate([
-	        core_1.HostBinding("hidden"), 
-	        __metadata('design:type', Boolean)
-	    ], SecuredDirective.prototype, "hideRouterLink", void 0);
-	    __decorate([
-	        core_1.Input(), 
-	        __metadata('design:type', Object)
-	    ], SecuredDirective.prototype, "secured", void 0);
-	    SecuredDirective = __decorate([
-	        core_1.Directive({
-	            selector: "[secured]"
-	        }), 
-	        __metadata('design:paramtypes', [router_1.Router, core_1.ElementRef])
-	    ], SecuredDirective);
 	    return SecuredDirective;
 	}());
+	__decorate([
+	    core_1.HostBinding("hidden"),
+	    __metadata("design:type", Boolean)
+	], SecuredDirective.prototype, "hideRouterLink", void 0);
+	__decorate([
+	    core_1.Input(),
+	    __metadata("design:type", Object)
+	], SecuredDirective.prototype, "secured", void 0);
+	SecuredDirective = __decorate([
+	    core_1.Directive({
+	        selector: "[secured]"
+	    }),
+	    __metadata("design:paramtypes", [router_1.Router, core_1.ElementRef])
+	], SecuredDirective);
 	exports.SecuredDirective = SecuredDirective;
 
 
@@ -7313,12 +7320,12 @@
 	        var userId = this.localStorage.getUserId();
 	        return (userId === authorId);
 	    };
-	    RolesCheckedService = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [localStorage_service_1.LocalStorageService])
-	    ], RolesCheckedService);
 	    return RolesCheckedService;
 	}());
+	RolesCheckedService = __decorate([
+	    core_1.Injectable(),
+	    __metadata("design:paramtypes", [localStorage_service_1.LocalStorageService])
+	], RolesCheckedService);
 	exports.RolesCheckedService = RolesCheckedService;
 
 
@@ -7358,12 +7365,12 @@
 	            }
 	        };
 	    };
-	    GlobalValidators = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [])
-	    ], GlobalValidators);
 	    return GlobalValidators;
 	}());
+	GlobalValidators = __decorate([
+	    core_1.Injectable(),
+	    __metadata("design:paramtypes", [])
+	], GlobalValidators);
 	exports.GlobalValidators = GlobalValidators;
 
 
@@ -7388,12 +7395,12 @@
 	        this.ApiUrl = "api/v1/";
 	        this.ServerWithApiUrl = this.Server + this.ApiUrl;
 	    }
-	    Configuration = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [])
-	    ], Configuration);
 	    return Configuration;
 	}());
+	Configuration = __decorate([
+	    core_1.Injectable(),
+	    __metadata("design:paramtypes", [])
+	], Configuration);
 	exports.Configuration = Configuration;
 
 
@@ -7530,23 +7537,28 @@
 	            this.newsService.addView(id).subscribe(function (data) { return data; });
 	        }
 	    };
-	    __decorate([
-	        core_1.ViewChild("activateModal"), 
-	        __metadata('design:type', ng2_bootstrap_1.ModalDirective)
-	    ], NewsDetailComponent.prototype, "activateModal", void 0);
-	    __decorate([
-	        core_1.ViewChild("deleteModal"), 
-	        __metadata('design:type', ng2_bootstrap_1.ModalDirective)
-	    ], NewsDetailComponent.prototype, "deleteModal", void 0);
-	    NewsDetailComponent = __decorate([
-	        core_1.Component({
-	            selector: "news-detail",
-	            template: __webpack_require__(251)
-	        }), 
-	        __metadata('design:paramtypes', [news_service_1.NewsService, router_1.ActivatedRoute, index_1.LocalStorageService, index_1.RolesCheckedService, router_1.Router, platform_browser_1.Title])
-	    ], NewsDetailComponent);
 	    return NewsDetailComponent;
 	}());
+	__decorate([
+	    core_1.ViewChild("activateModal"),
+	    __metadata("design:type", ng2_bootstrap_1.ModalDirective)
+	], NewsDetailComponent.prototype, "activateModal", void 0);
+	__decorate([
+	    core_1.ViewChild("deleteModal"),
+	    __metadata("design:type", ng2_bootstrap_1.ModalDirective)
+	], NewsDetailComponent.prototype, "deleteModal", void 0);
+	NewsDetailComponent = __decorate([
+	    core_1.Component({
+	        selector: "news-detail",
+	        template: __webpack_require__(251)
+	    }),
+	    __metadata("design:paramtypes", [news_service_1.NewsService,
+	        router_1.ActivatedRoute,
+	        index_1.LocalStorageService,
+	        index_1.RolesCheckedService,
+	        router_1.Router,
+	        platform_browser_1.Title])
+	], NewsDetailComponent);
 	exports.NewsDetailComponent = NewsDetailComponent;
 
 
@@ -7598,12 +7610,12 @@
 	        };
 	        this.actionUrl = configuration.ServerWithApiUrl + "material/";
 	    }
-	    NewsService = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [httpWrapper_1.HttpWrapper, app_constants_1.Configuration])
-	    ], NewsService);
 	    return NewsService;
 	}());
+	NewsService = __decorate([
+	    core_1.Injectable(),
+	    __metadata("design:paramtypes", [httpWrapper_1.HttpWrapper, app_constants_1.Configuration])
+	], NewsService);
 	exports.NewsService = NewsService;
 
 
@@ -7621,7 +7633,7 @@
 /* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = (__webpack_require__(2))(122);
+	module.exports = (__webpack_require__(2))(123);
 
 /***/ },
 /* 49 */
@@ -27881,7 +27893,7 @@
 /* 233 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = (__webpack_require__(2))(114);
+	module.exports = (__webpack_require__(2))(115);
 
 /***/ },
 /* 234 */
@@ -28465,7 +28477,7 @@
 /* 246 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = (__webpack_require__(2))(123);
+	module.exports = (__webpack_require__(2))(124);
 
 /***/ },
 /* 247 */
@@ -28717,24 +28729,25 @@
 	            .getAll(filters)
 	            .subscribe(function (data) { return _this.parsePageable(data); }, function (error) { return console.log(error); }, function () { });
 	    };
-	    __decorate([
-	        core_1.ViewChild("activateModal"), 
-	        __metadata('design:type', ng2_bootstrap_1.ModalDirective)
-	    ], NewsListComponent.prototype, "activateModal", void 0);
-	    __decorate([
-	        core_1.ViewChild("deleteModal"), 
-	        __metadata('design:type', ng2_bootstrap_1.ModalDirective)
-	    ], NewsListComponent.prototype, "deleteModal", void 0);
-	    NewsListComponent = __decorate([
-	        core_1.Component({
-	            selector: "news-list",
-	            template: __webpack_require__(254),
-	            changeDetection: core_1.ChangeDetectionStrategy.Default
-	        }), 
-	        __metadata('design:paramtypes', [news_service_1.NewsService, router_1.ActivatedRoute, common_1.Location, index_1.RolesCheckedService, core_1.ChangeDetectorRef])
-	    ], NewsListComponent);
 	    return NewsListComponent;
 	}());
+	__decorate([
+	    core_1.ViewChild("activateModal"),
+	    __metadata("design:type", ng2_bootstrap_1.ModalDirective)
+	], NewsListComponent.prototype, "activateModal", void 0);
+	__decorate([
+	    core_1.ViewChild("deleteModal"),
+	    __metadata("design:type", ng2_bootstrap_1.ModalDirective)
+	], NewsListComponent.prototype, "deleteModal", void 0);
+	NewsListComponent = __decorate([
+	    core_1.Component({
+	        selector: "news-list",
+	        template: __webpack_require__(254),
+	        changeDetection: core_1.ChangeDetectionStrategy.Default
+	    }),
+	    __metadata("design:paramtypes", [news_service_1.NewsService, router_1.ActivatedRoute, common_1.Location,
+	        index_1.RolesCheckedService, core_1.ChangeDetectorRef])
+	], NewsListComponent);
 	exports.NewsListComponent = NewsListComponent;
 
 
@@ -28756,7 +28769,7 @@
 /* 254 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"container-fluid\">\r\n    <div>\r\n        <!--ng-if=\"vm.page > 0\">-->\r\n        <!--form class=\"form-inline\">\r\n        <div class=\"form-group\">\r\n            <select class=\"form-control\"\r\n                    ng-model=\"vm.categoryId\"\r\n                    ng-options=\"category.id as category.name for category in vm.categories\" ng-change=\"vm.changeCategoryId()\"></select>\r\n        </div>\r\n        <div class=\"form-group\">\r\n        <input class=\"form-control\" ng-model=\"vm.userName\" ng-model-options=\"{debounce: 1000}\" ng-change=\"vm.filterByUserName()\" placeholder=\"Логин\"/> <!--todo magic number--\r\n        </div>\r\n        </form-->\r\n    </div>\r\n    <div class=\"row\" *ngFor=\"let item of items; let i = index;\">\r\n        <div class=\"\" *ngIf=\"!item.pending || roles.isEditor\">\r\n            <div class=\"flex-vertical-center\">\r\n                <a [routerLink]=\"['/news', item.id]\" class=\"col-xs-9 col-sm-9\"><h4 [textContent]=\"item.title\"></h4></a>\r\n                <span class=\"col-xs-3 col-sm-3 pull-right\" *ngIf=\"roles.isEditor || roles.isSelf(item.userId)\">\r\n                    <a [hidden]=\"!item.pending || !roles.isEditor\" (click)=\"showActivateModal(i)\"><span class=\"glyphicon glyphicon-ok\"></span></a>\r\n                    <a [routerLink]=\"['/news', item.id, 'edit']\"><span class=\"glyphicon glyphicon-pencil\"></span></a>\r\n                    <a (click)=\"showDeleteModal(i)\"><span class=\"glyphicon glyphicon-trash\"></span></a>\r\n                </span>\r\n            </div>\r\n            <div class=\"\">\r\n                <img class=\"img-thumbnail news-mini center-block\" alt=\"\" [src]=\"item.photoPath\" />\r\n            </div>\r\n            <div class=\"\">\r\n                <i> <span [innerHTML]=\"item.brief\"></span></i>\r\n            </div>\r\n            <div class=\"col-sx-12 col-sm-12\">\r\n                <ul class=\"list-inline small small-offset\">\r\n                    <li class=\"\">Категория:</li>\r\n                    <li class=\"\"><a [routerLink]=\"['/news/list', page, item.categoryId ]\" [textContent]=\"item.categoryName\"></a></li>\r\n                    <li class=\"\">|</li>\r\n                    <li class=\"\">Время добавления:</li>\r\n                    <li class=\"\" [textContent]=\"item.additionTime\"></li>\r\n                    <li class=\"\">|</li>\r\n                    <li class=\"\">Просмотры</li>\r\n                    <li class=\"\" [textContent]=\"item.reads\"></li>\r\n                    <li class=\"\">|</li>\r\n                    <li class=\"\">Автор:</li>\r\n                    <li class=\"\"><a [routerLink]=\"['/user', item.userId ]\" [textContent]=\"item.userName\"></a></li>\r\n                    <li class=\"\">|</li>\r\n                    <li class=\"\">Комментарии:</li>\r\n                    <li class=\"\" [textContent]=\"item.commentsCount\"></li>\r\n                </ul>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <div class=\"pagination\">\r\n       <!-- <pagination *ngIf=\"items\" [totalItems]=\"totalItems\" [itemsPerPage]=\"itemsPerPage\" [(ngModel)]=\"page\" [maxSize]=\"7\" (pageChanged)=\"pageChanged($event)\"\r\n                    previousText=\"&lsaquo;\" nextText=\"&rsaquo;\" firstText=\"1\" lastText=\"totalItems/itemsPerPage\"></pagination>-->\r\n    </div>\r\n</div>\r\n\r\n<div class=\"modal fade\" bsModal #activateModal=\"bs-modal\" [config]=\"{backdrop: 'static'}\"\r\n     tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"mySmallModalLabel\" aria-hidden=\"true\">\r\n    <div class=\"modal-dialog modal-sm\">\r\n        <div class=\"modal-content\">\r\n            <div class=\"modal-header\">\r\n                <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"hideModal()\">\r\n                    <span aria-hidden=\"true\">&times;</span>\r\n                </button>\r\n                <h4 class=\"modal-title\">Активировать?</h4>\r\n            </div>\r\n            <div class=\"modal-body\">\r\n                <button class=\"btn btn-default\" data-dismiss=\"modal\" (click)=\"hideModal()\" type=\"button\">Отмена</button>\r\n                <button class=\"btn btn-primary\" type=\"button\" (click)=\"activate()\">Активировать</button>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n<div class=\"modal fade\" bsModal #deleteModal=\"bs-modal\" [config]=\"{backdrop: 'static'}\"\r\n     tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"mySmallModalLabel\" aria-hidden=\"true\">\r\n    <div class=\"modal-dialog modal-sm\">\r\n        <div class=\"modal-content\">\r\n            <div class=\"modal-header\">\r\n                <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"hideModal()\">\r\n                    <span aria-hidden=\"true\">&times;</span>\r\n                </button>\r\n                <h4 class=\"modal-title\">Удалить?</h4>\r\n            </div>\r\n            <div class=\"modal-body\">\r\n                <button class=\"btn btn-default\" data-dismiss=\"modal\" (click)=\"hideModal()\" type=\"button\">Отмена</button>\r\n                <button class=\"btn btn-primary\" type=\"button\" (click)=\"delete()\">Удалить</button>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>";
+	module.exports = "<div class=\"container-fluid\">\r\n    <div>\r\n        <!--ng-if=\"vm.page > 0\">-->\r\n        <!--form class=\"form-inline\">\r\n        <div class=\"form-group\">\r\n            <select class=\"form-control\"\r\n                    ng-model=\"vm.categoryId\"\r\n                    ng-options=\"category.id as category.name for category in vm.categories\" ng-change=\"vm.changeCategoryId()\"></select>\r\n        </div>\r\n        <div class=\"form-group\">\r\n        <input class=\"form-control\" ng-model=\"vm.userName\" ng-model-options=\"{debounce: 1000}\" ng-change=\"vm.filterByUserName()\" placeholder=\"Логин\"/> <!--todo magic number--\r\n        </div>\r\n        </form-->\r\n    </div>\r\n    <div class=\"row\" *ngFor=\"let item of items; let i = index;\">\r\n        <div class=\"\" *ngIf=\"!item.pending || roles.isEditor\">\r\n            <div class=\"flex-vertical-center\">\r\n                <a [routerLink]=\"['/news', item.id]\" class=\"col-xs-9 col-sm-9\"><h4 [textContent]=\"item.title\"></h4></a>\r\n                <span class=\"col-xs-3 col-sm-3 pull-right\" *ngIf=\"roles.isEditor || roles.isSelf(item.userId)\">\r\n                    <a [hidden]=\"!item.pending || !roles.isEditor\" (click)=\"showActivateModal(i)\"><span class=\"glyphicon glyphicon-ok\"></span></a>\r\n                    <a [routerLink]=\"['/news', item.id, 'edit']\"><span class=\"glyphicon glyphicon-pencil\"></span></a>\r\n                    <a (click)=\"showDeleteModal(i)\"><span class=\"glyphicon glyphicon-trash\"></span></a>\r\n                </span>\r\n            </div>\r\n            <div class=\"\">\r\n                <img class=\"img-thumbnail news-mini center-block\" alt=\"\" [src]=\"item.photoPath\" />\r\n            </div>\r\n            <div class=\"\">\r\n                <i> <span [innerHTML]=\"item.brief\"></span></i>\r\n            </div>\r\n            <div class=\"col-sx-12 col-sm-12\">\r\n                <ul class=\"list-inline small small-offset\">\r\n                    <li class=\"\">Категория:</li>\r\n                    <li class=\"\"><a [routerLink]=\"['/news/list', page, item.categoryId ]\" [textContent]=\"item.categoryName\"></a></li>\r\n                    <li class=\"\">|</li>\r\n                    <li class=\"\">Время добавления:</li>\r\n                    <li class=\"\" [textContent]=\"item.additionTime\"></li>\r\n                    <li class=\"\">|</li>\r\n                    <li class=\"\">Просмотры</li>\r\n                    <li class=\"\" [textContent]=\"item.reads\"></li>\r\n                    <li class=\"\">|</li>\r\n                    <li class=\"\">Автор:</li>\r\n                    <li class=\"\"><a [routerLink]=\"['/user', item.userId ]\" [textContent]=\"item.userName\"></a></li>\r\n                    <li class=\"\">|</li>\r\n                    <li class=\"\">Комментарии:</li>\r\n                    <li class=\"\" [textContent]=\"item.commentsCount\"></li>\r\n                </ul>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <div class=\"pagination\">\r\n        <!--<pagination *ngIf=\"items\" [totalItems]=\"totalItems\" [itemsPerPage]=\"itemsPerPage\" [(ngModel)]=\"page\" [maxSize]=\"7\" (pageChanged)=\"pageChanged($event)\"\r\n                    previousText=\"&lsaquo;\" nextText=\"&rsaquo;\" firstText=\"1\" lastText=\"totalItems/itemsPerPage\"></pagination>-->\r\n    </div>\r\n</div>\r\n\r\n<div class=\"modal fade\" bsModal #activateModal=\"bs-modal\" [config]=\"{backdrop: 'static'}\"\r\n     tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"mySmallModalLabel\" aria-hidden=\"true\">\r\n    <div class=\"modal-dialog modal-sm\">\r\n        <div class=\"modal-content\">\r\n            <div class=\"modal-header\">\r\n                <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"hideModal()\">\r\n                    <span aria-hidden=\"true\">&times;</span>\r\n                </button>\r\n                <h4 class=\"modal-title\">Активировать?</h4>\r\n            </div>\r\n            <div class=\"modal-body\">\r\n                <button class=\"btn btn-default\" data-dismiss=\"modal\" (click)=\"hideModal()\" type=\"button\">Отмена</button>\r\n                <button class=\"btn btn-primary\" type=\"button\" (click)=\"activate()\">Активировать</button>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n<div class=\"modal fade\" bsModal #deleteModal=\"bs-modal\" [config]=\"{backdrop: 'static'}\"\r\n     tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"mySmallModalLabel\" aria-hidden=\"true\">\r\n    <div class=\"modal-dialog modal-sm\">\r\n        <div class=\"modal-content\">\r\n            <div class=\"modal-header\">\r\n                <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"hideModal()\">\r\n                    <span aria-hidden=\"true\">&times;</span>\r\n                </button>\r\n                <h4 class=\"modal-title\">Удалить?</h4>\r\n            </div>\r\n            <div class=\"modal-body\">\r\n                <button class=\"btn btn-default\" data-dismiss=\"modal\" (click)=\"hideModal()\" type=\"button\">Отмена</button>\r\n                <button class=\"btn btn-primary\" type=\"button\" (click)=\"delete()\">Удалить</button>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>";
 
 /***/ },
 /* 255 */
@@ -28834,36 +28847,48 @@
 	    NewsEditComponent.prototype.initForm = function () {
 	        this.editForm = this.formBuilder.group({
 	            'categoryId': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required])],
+	                    forms_1.Validators.required
+	                ])],
 	            'title': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required])],
+	                    forms_1.Validators.required
+	                ])],
 	            'brief': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required])],
+	                    forms_1.Validators.required
+	                ])],
 	            'message': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required])],
+	                    forms_1.Validators.required
+	                ])],
 	            'source': ["", forms_1.Validators.compose([])],
 	            'photo': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required])],
+	                    forms_1.Validators.required
+	                ])],
 	            'canCommentary': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required])],
+	                    forms_1.Validators.required
+	                ])],
 	            'onTop': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required])],
+	                    forms_1.Validators.required
+	                ])],
 	            'pending': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required])]
+	                    forms_1.Validators.required
+	                ])]
 	        });
 	    };
 	    NewsEditComponent.prototype.parseCategories = function (items) {
 	        this.categories = items;
 	    };
-	    NewsEditComponent = __decorate([
-	        core_1.Component({
-	            selector: "news-edit",
-	            template: __webpack_require__(264)
-	        }), 
-	        __metadata('design:paramtypes', [news_service_1.NewsService, index_1.NewsCategoryService, router_1.ActivatedRoute, router_1.Router, forms_1.FormBuilder])
-	    ], NewsEditComponent);
 	    return NewsEditComponent;
 	}());
+	NewsEditComponent = __decorate([
+	    core_1.Component({
+	        selector: "news-edit",
+	        template: __webpack_require__(264)
+	    }),
+	    __metadata("design:paramtypes", [news_service_1.NewsService,
+	        index_1.NewsCategoryService,
+	        router_1.ActivatedRoute,
+	        router_1.Router,
+	        forms_1.FormBuilder])
+	], NewsEditComponent);
 	exports.NewsEditComponent = NewsEditComponent;
 
 
@@ -28934,12 +28959,12 @@
 	        };
 	        this.actionUrl = configuration.ServerWithApiUrl + "newsCategory/";
 	    }
-	    NewsCategoryService = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [httpWrapper_1.HttpWrapper, app_constants_1.Configuration])
-	    ], NewsCategoryService);
 	    return NewsCategoryService;
 	}());
+	NewsCategoryService = __decorate([
+	    core_1.Injectable(),
+	    __metadata("design:paramtypes", [httpWrapper_1.HttpWrapper, app_constants_1.Configuration])
+	], NewsCategoryService);
 	exports.NewsCategoryService = NewsCategoryService;
 
 
@@ -29010,15 +29035,15 @@
 	        if (res !== null) {
 	        }
 	    };
-	    NewsCategoryEditComponent = __decorate([
-	        core_1.Component({
-	            selector: "newsCategory-edit",
-	            template: __webpack_require__(261)
-	        }), 
-	        __metadata('design:paramtypes', [newsCategory_service_1.NewsCategoryService, forms_1.FormBuilder, router_1.ActivatedRoute])
-	    ], NewsCategoryEditComponent);
 	    return NewsCategoryEditComponent;
 	}());
+	NewsCategoryEditComponent = __decorate([
+	    core_1.Component({
+	        selector: "newsCategory-edit",
+	        template: __webpack_require__(261)
+	    }),
+	    __metadata("design:paramtypes", [newsCategory_service_1.NewsCategoryService, forms_1.FormBuilder, router_1.ActivatedRoute])
+	], NewsCategoryEditComponent);
 	exports.NewsCategoryEditComponent = NewsCategoryEditComponent;
 
 
@@ -29077,15 +29102,16 @@
 	        this.newsCategoryService.delete(this.items[index].id).subscribe(function (data) { return data; }, function (error) { return console.log(error); }, function () { });
 	        this.items.splice(index, 1);
 	    };
-	    NewsCategoryListComponent = __decorate([
-	        core_1.Component({
-	            selector: "newsCategory-list",
-	            template: __webpack_require__(263)
-	        }), 
-	        __metadata('design:paramtypes', [newsCategory_service_1.NewsCategoryService, platform_browser_1.Title])
-	    ], NewsCategoryListComponent);
 	    return NewsCategoryListComponent;
 	}());
+	NewsCategoryListComponent = __decorate([
+	    core_1.Component({
+	        selector: "newsCategory-list",
+	        template: __webpack_require__(263)
+	    }),
+	    __metadata("design:paramtypes", [newsCategory_service_1.NewsCategoryService,
+	        platform_browser_1.Title])
+	], NewsCategoryListComponent);
 	exports.NewsCategoryListComponent = NewsCategoryListComponent;
 
 
@@ -29093,7 +29119,7 @@
 /* 263 */
 /***/ function(module, exports) {
 
-	module.exports = "<div>\r\n    <a secured=\"newsFull\" [routerLink]=\"['/newsCategory', 0, 'edit']\">Создать категорию</a>\r\n    <ul>\r\n        <li *ngFor=\"let category of items; let i = index;\">\r\n            <a [routerLink]=\"['/news/list', 1, category.id ]\">\r\n                <span [textContent]=\"category.name\"></span> [<span [textContent]=\"category.itemsCount\"></span>]\r\n            </a>\r\n            <!--->a secured=\"newsStart\" [routerLink]=\"['/news/list', page, item.categoryId ]\">\r\n                <span [textContent]=\"category.name\"></span> [<span [textContent]=\"category.itemsCount\"></span>]\r\n            </!--a-->\r\n            <a class=\"\" [routerLink]=\"['/newsCategory', category.id, 'edit']\"> <span class=\"glyphicon glyphicon-pencil\"></span>newsStart</a>\r\n            <a class=\"\" *ngIf=\"category.itemsCount == 0\" (click)=\"delete(i)\"> <span class=\"glyphicon glyphicon-trash\"></span>newsFull</a>\r\n        </li>\r\n    </ul>\r\n</div>";
+	module.exports = "<div>\r\n    <a secured=\"newsFull\" [routerLink]=\"['/newsCategory', 0, 'edit']\">Создать категорию</a>\r\n    <ul>\r\n        <li *ngFor=\"let category of items; let i = index;\">\r\n            <a [routerLink]=\"['/news/list', 1, category.id ]\">\r\n                <span [textContent]=\"category.name\"></span> [<span [textContent]=\"category.itemsCount\"></span>]\r\n            </a>\r\n            <!--->a secured=\"newsStart\" [routerLink]=\"['/news/list', page, item.categoryId ]\">\r\n                <span [textContent]=\"category.name\"></span> [<span [textContent]=\"category.itemsCount\"></span>]\r\n            </!--a-->\r\n            <a [routerLink]=\"['/newsCategory', category.id, 'edit']\"> <span class=\"glyphicon glyphicon-pencil\">newsStart</span></a>\r\n            <a *ngIf=\"category.itemsCount == 0\" (click)=\"delete(i)\"> <span class=\"glyphicon glyphicon-trash\">newsFull</span></a>\r\n        </li>\r\n    </ul>\r\n</div>";
 
 /***/ },
 /* 264 */
@@ -29155,12 +29181,12 @@
 	        this.authService.redirectUrl = state.url;
 	        return false;
 	    };
-	    AuthGuard = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [auth_service_1.AuthService, router_1.Router])
-	    ], AuthGuard);
 	    return AuthGuard;
 	}());
+	AuthGuard = __decorate([
+	    core_1.Injectable(),
+	    __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router])
+	], AuthGuard);
 	exports.AuthGuard = AuthGuard;
 
 
@@ -29223,9 +29249,11 @@
 	    AccountSigninComponent.prototype.ngOnInit = function () {
 	        this.loginForm = this.formBuilder.group({
 	            'userName': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required])],
+	                    forms_1.Validators.required
+	                ])],
 	            'password': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required])]
+	                    forms_1.Validators.required
+	                ])]
 	        });
 	    };
 	    AccountSigninComponent.prototype.onSubmit = function (ra) {
@@ -29233,15 +29261,15 @@
 	        this.password = this.loginForm.controls["password"].value;
 	        var result = this.authService.login(this.userName, this.password);
 	    };
-	    AccountSigninComponent = __decorate([
-	        core_1.Component({
-	            selector: "account-signin",
-	            template: __webpack_require__(271)
-	        }), 
-	        __metadata('design:paramtypes', [auth_service_1.AuthService, forms_1.FormBuilder])
-	    ], AccountSigninComponent);
 	    return AccountSigninComponent;
 	}());
+	AccountSigninComponent = __decorate([
+	    core_1.Component({
+	        selector: "account-signin",
+	        template: __webpack_require__(271)
+	    }),
+	    __metadata("design:paramtypes", [auth_service_1.AuthService, forms_1.FormBuilder])
+	], AccountSigninComponent);
 	exports.AccountSigninComponent = AccountSigninComponent;
 
 
@@ -29278,17 +29306,23 @@
 	    AccountSignupComponent.prototype.ngOnInit = function () {
 	        this.registerForm = this.formBuilder.group({
 	            'userName': ["123", forms_1.Validators.compose([
-	                    forms_1.Validators.required, forms_1.Validators.minLength(3)])],
+	                    forms_1.Validators.required, forms_1.Validators.minLength(3)
+	                ])],
 	            'email': ["andrew_parys@tut.by", forms_1.Validators.compose([
-	                    forms_1.Validators.required, forms_1.Validators.minLength(6), , index_1.GlobalValidators.mailFormat])],
+	                    forms_1.Validators.required, forms_1.Validators.minLength(6), , index_1.GlobalValidators.mailFormat
+	                ])],
 	            'password': ["123qwe!Q", forms_1.Validators.compose([
-	                    forms_1.Validators.required, forms_1.Validators.minLength(6)])],
+	                    forms_1.Validators.required, forms_1.Validators.minLength(6)
+	                ])],
 	            'confirmPassword': ["123qwe!Q", forms_1.Validators.compose([
-	                    forms_1.Validators.required, forms_1.Validators.minLength(6)])],
+	                    forms_1.Validators.required, forms_1.Validators.minLength(6)
+	                ])],
 	            'fullName': ["123", forms_1.Validators.compose([
-	                    forms_1.Validators.required,])],
+	                    forms_1.Validators.required,
+	                ])],
 	            'birthday': ["10/10/2015", forms_1.Validators.compose([
-	                    forms_1.Validators.required,])]
+	                    forms_1.Validators.required,
+	                ])]
 	        });
 	    };
 	    AccountSignupComponent.prototype.onSubmit = function (value) {
@@ -29303,15 +29337,15 @@
 	            .create(signup)
 	            .subscribe(function (data) { }, function (error) { return console.log(error); }, function () { });
 	    };
-	    AccountSignupComponent = __decorate([
-	        core_1.Component({
-	            selector: "account-signup",
-	            template: __webpack_require__(275)
-	        }), 
-	        __metadata('design:paramtypes', [account_service_1.AccountService, forms_1.FormBuilder])
-	    ], AccountSignupComponent);
 	    return AccountSignupComponent;
 	}());
+	AccountSignupComponent = __decorate([
+	    core_1.Component({
+	        selector: "account-signup",
+	        template: __webpack_require__(275)
+	    }),
+	    __metadata("design:paramtypes", [account_service_1.AccountService, forms_1.FormBuilder])
+	], AccountSignupComponent);
 	exports.AccountSignupComponent = AccountSignupComponent;
 
 
@@ -29371,12 +29405,12 @@
 	        };
 	        this.actionUrl = configuration.ServerWithApiUrl + "account/";
 	    }
-	    AccountService = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [index_1.HttpWrapper, app_constants_1.Configuration])
-	    ], AccountService);
 	    return AccountService;
 	}());
+	AccountService = __decorate([
+	    core_1.Injectable(),
+	    __metadata("design:paramtypes", [index_1.HttpWrapper, app_constants_1.Configuration])
+	], AccountService);
 	exports.AccountService = AccountService;
 
 
@@ -29425,15 +29459,15 @@
 	    ConfirmEmailComponent.prototype.ngOnDestroy = function () {
 	        this.sub.unsubscribe();
 	    };
-	    ConfirmEmailComponent = __decorate([
-	        core_1.Component({
-	            selector: "email-confirmation",
-	            template: "<span [hidden]='!result'>Ваш адрес электронной почты успешно подтвержден. Можете войти и быть как дома.</span>"
-	        }), 
-	        __metadata('design:paramtypes', [account_service_1.AccountService, router_1.ActivatedRoute, router_1.Router])
-	    ], ConfirmEmailComponent);
 	    return ConfirmEmailComponent;
 	}());
+	ConfirmEmailComponent = __decorate([
+	    core_1.Component({
+	        selector: "email-confirmation",
+	        template: "<span [hidden]='!result'>Ваш адрес электронной почты успешно подтвержден. Можете войти и быть как дома.</span>"
+	    }),
+	    __metadata("design:paramtypes", [account_service_1.AccountService, router_1.ActivatedRoute, router_1.Router])
+	], ConfirmEmailComponent);
 	exports.ConfirmEmailComponent = ConfirmEmailComponent;
 
 
@@ -29463,7 +29497,8 @@
 	    ForgotPasswordComponent.prototype.ngOnInit = function () {
 	        this.forgotForm = this.formBuilder.group({
 	            'email': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required, index_1.GlobalValidators.mailFormat])]
+	                    forms_1.Validators.required, index_1.GlobalValidators.mailFormat
+	                ])]
 	        });
 	    };
 	    ForgotPasswordComponent.prototype.onSubmit = function (ra) {
@@ -29471,15 +29506,15 @@
 	        this.service.forgotPassword(this.email).subscribe(function (data) { return data; }, function (error) { return console.log(error); }, function () { });
 	        this.finish = true;
 	    };
-	    ForgotPasswordComponent = __decorate([
-	        core_1.Component({
-	            selector: "forgot-password",
-	            template: __webpack_require__(278)
-	        }), 
-	        __metadata('design:paramtypes', [account_service_1.AccountService, forms_1.FormBuilder])
-	    ], ForgotPasswordComponent);
 	    return ForgotPasswordComponent;
 	}());
+	ForgotPasswordComponent = __decorate([
+	    core_1.Component({
+	        selector: "forgot-password",
+	        template: __webpack_require__(278)
+	    }),
+	    __metadata("design:paramtypes", [account_service_1.AccountService, forms_1.FormBuilder])
+	], ForgotPasswordComponent);
 	exports.ForgotPasswordComponent = ForgotPasswordComponent;
 
 
@@ -29523,11 +29558,14 @@
 	        });
 	        this.resetForm = this.formBuilder.group({
 	            'email': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required, index_1.GlobalValidators.mailFormat])],
+	                    forms_1.Validators.required, index_1.GlobalValidators.mailFormat
+	                ])],
 	            'password': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required, forms_1.Validators.minLength(6)])],
+	                    forms_1.Validators.required, forms_1.Validators.minLength(6)
+	                ])],
 	            'confirmPassword': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required, forms_1.Validators.minLength(6)])],
+	                    forms_1.Validators.required, forms_1.Validators.minLength(6)
+	                ])],
 	        }, { validator: index_1.GlobalValidators.matchingPasswords("password", "confirmPassword") });
 	    };
 	    ResetPasswordComponent.prototype.ngOnDestroy = function () {
@@ -29542,15 +29580,15 @@
 	        this.service.resetPassword(resetPassword).subscribe(function (data) { return data; }, function (error) { return console.log(error); }, function () { });
 	        this.finish = true;
 	    };
-	    ResetPasswordComponent = __decorate([
-	        core_1.Component({
-	            selector: "reset-password",
-	            template: __webpack_require__(281)
-	        }), 
-	        __metadata('design:paramtypes', [account_service_1.AccountService, router_1.ActivatedRoute, router_1.Router, forms_1.FormBuilder])
-	    ], ResetPasswordComponent);
 	    return ResetPasswordComponent;
 	}());
+	ResetPasswordComponent = __decorate([
+	    core_1.Component({
+	        selector: "reset-password",
+	        template: __webpack_require__(281)
+	    }),
+	    __metadata("design:paramtypes", [account_service_1.AccountService, router_1.ActivatedRoute, router_1.Router, forms_1.FormBuilder])
+	], ResetPasswordComponent);
 	exports.ResetPasswordComponent = ResetPasswordComponent;
 
 
@@ -29600,11 +29638,14 @@
 	    ChangePasswordComponent.prototype.ngOnInit = function () {
 	        this.passwordForm = this.formBuilder.group({
 	            'oldPassword': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required, forms_1.Validators.minLength(6)])],
+	                    forms_1.Validators.required, forms_1.Validators.minLength(6)
+	                ])],
 	            'newPassword': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required, forms_1.Validators.minLength(6)])],
+	                    forms_1.Validators.required, forms_1.Validators.minLength(6)
+	                ])],
 	            'confirmPassword': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required, forms_1.Validators.minLength(6)])]
+	                    forms_1.Validators.required, forms_1.Validators.minLength(6)
+	                ])]
 	        }, { validator: index_1.GlobalValidators.matchingPasswords("newPassword", "confirmPassword") });
 	    };
 	    ChangePasswordComponent.prototype.onSubmit = function (ra) {
@@ -29618,15 +29659,15 @@
 	            }
 	        }, function (error) { return console.log(error); }, function () { });
 	    };
-	    ChangePasswordComponent = __decorate([
-	        core_1.Component({
-	            selector: "change-password",
-	            template: __webpack_require__(284)
-	        }), 
-	        __metadata('design:paramtypes', [account_service_1.AccountService, forms_1.FormBuilder])
-	    ], ChangePasswordComponent);
 	    return ChangePasswordComponent;
 	}());
+	ChangePasswordComponent = __decorate([
+	    core_1.Component({
+	        selector: "change-password",
+	        template: __webpack_require__(284)
+	    }),
+	    __metadata("design:paramtypes", [account_service_1.AccountService, forms_1.FormBuilder])
+	], ChangePasswordComponent);
 	exports.ChangePasswordComponent = ChangePasswordComponent;
 
 
@@ -29675,7 +29716,8 @@
 	    UnconfirmedEmailComponent.prototype.ngOnInit = function () {
 	        this.unconfirmedForm = this.formBuilder.group({
 	            'email': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required, index_1.GlobalValidators.mailFormat])]
+	                    forms_1.Validators.required, index_1.GlobalValidators.mailFormat
+	                ])]
 	        });
 	    };
 	    UnconfirmedEmailComponent.prototype.onSubmit = function () {
@@ -29688,15 +29730,15 @@
 	            }
 	        }, function (error) { return console.log(error); }, function () { });
 	    };
-	    UnconfirmedEmailComponent = __decorate([
-	        core_1.Component({
-	            selector: "unconfirmedEmail",
-	            template: __webpack_require__(286)
-	        }), 
-	        __metadata('design:paramtypes', [account_service_1.AccountService, forms_1.FormBuilder])
-	    ], UnconfirmedEmailComponent);
 	    return UnconfirmedEmailComponent;
 	}());
+	UnconfirmedEmailComponent = __decorate([
+	    core_1.Component({
+	        selector: "unconfirmedEmail",
+	        template: __webpack_require__(286)
+	    }),
+	    __metadata("design:paramtypes", [account_service_1.AccountService, forms_1.FormBuilder])
+	], UnconfirmedEmailComponent);
 	exports.UnconfirmedEmailComponent = UnconfirmedEmailComponent;
 
 
@@ -29776,12 +29818,12 @@
 	        };
 	        this.actionUrl = configuration.ServerWithApiUrl + "club/";
 	    }
-	    ClubService = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [index_1.HttpWrapper, app_constants_1.Configuration])
-	    ], ClubService);
 	    return ClubService;
 	}());
+	ClubService = __decorate([
+	    core_1.Injectable(),
+	    __metadata("design:paramtypes", [index_1.HttpWrapper, app_constants_1.Configuration])
+	], ClubService);
 	exports.ClubService = ClubService;
 
 
@@ -29865,19 +29907,20 @@
 	        this.itemsPerPage = pageable.itemPerPage;
 	        this.totalItems = pageable.totalItems;
 	    };
-	    __decorate([
-	        core_1.ViewChild("deleteModal"), 
-	        __metadata('design:type', ng2_bootstrap_1.ModalDirective)
-	    ], ClubListComponent.prototype, "deleteModal", void 0);
-	    ClubListComponent = __decorate([
-	        core_1.Component({
-	            selector: "club-list",
-	            template: __webpack_require__(291)
-	        }), 
-	        __metadata('design:paramtypes', [club_service_1.ClubService, router_1.ActivatedRoute, common_1.Location, platform_browser_1.Title])
-	    ], ClubListComponent);
 	    return ClubListComponent;
 	}());
+	__decorate([
+	    core_1.ViewChild("deleteModal"),
+	    __metadata("design:type", ng2_bootstrap_1.ModalDirective)
+	], ClubListComponent.prototype, "deleteModal", void 0);
+	ClubListComponent = __decorate([
+	    core_1.Component({
+	        selector: "club-list",
+	        template: __webpack_require__(291)
+	    }),
+	    __metadata("design:paramtypes", [club_service_1.ClubService, router_1.ActivatedRoute, common_1.Location,
+	        platform_browser_1.Title])
+	], ClubListComponent);
 	exports.ClubListComponent = ClubListComponent;
 
 
@@ -29982,24 +30025,33 @@
 	    ClubEditComponent.prototype.initForm = function () {
 	        this.editForm = this.formBuilder.group({
 	            'englishName': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required, forms_1.Validators.maxLength(30)])],
+	                    forms_1.Validators.required, forms_1.Validators.maxLength(30)
+	                ])],
 	            'logo': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required])],
+	                    forms_1.Validators.required
+	                ])],
 	            'name': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required, forms_1.Validators.maxLength(30)])],
+	                    forms_1.Validators.required, forms_1.Validators.maxLength(30)
+	                ])],
 	            'stadium': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required, forms_1.Validators.maxLength(30)])]
+	                    forms_1.Validators.required, forms_1.Validators.maxLength(30)
+	                ])]
 	        });
 	    };
-	    ClubEditComponent = __decorate([
-	        core_1.Component({
-	            selector: "club-edit",
-	            template: __webpack_require__(302)
-	        }), 
-	        __metadata('design:paramtypes', [club_service_1.ClubService, router_1.ActivatedRoute, router_1.Router, index_1.LocalStorageService, forms_1.FormBuilder, platform_browser_1.Title])
-	    ], ClubEditComponent);
 	    return ClubEditComponent;
 	}());
+	ClubEditComponent = __decorate([
+	    core_1.Component({
+	        selector: "club-edit",
+	        template: __webpack_require__(302)
+	    }),
+	    __metadata("design:paramtypes", [club_service_1.ClubService,
+	        router_1.ActivatedRoute,
+	        router_1.Router,
+	        index_1.LocalStorageService,
+	        forms_1.FormBuilder,
+	        platform_browser_1.Title])
+	], ClubEditComponent);
 	exports.ClubEditComponent = ClubEditComponent;
 
 
@@ -31025,15 +31077,16 @@
 	    UserDetailComponent.prototype.parse = function (item) {
 	        this.item = item;
 	    };
-	    UserDetailComponent = __decorate([
-	        core_1.Component({
-	            selector: "user-detail",
-	            template: __webpack_require__(308)
-	        }), 
-	        __metadata('design:paramtypes', [user_service_1.UserService, router_1.ActivatedRoute, index_1.RolesCheckedService])
-	    ], UserDetailComponent);
 	    return UserDetailComponent;
 	}());
+	UserDetailComponent = __decorate([
+	    core_1.Component({
+	        selector: "user-detail",
+	        template: __webpack_require__(308)
+	    }),
+	    __metadata("design:paramtypes", [user_service_1.UserService, router_1.ActivatedRoute,
+	        index_1.RolesCheckedService])
+	], UserDetailComponent);
 	exports.UserDetailComponent = UserDetailComponent;
 
 
@@ -31084,12 +31137,12 @@
 	        var body = res.json();
 	        return body.data || {};
 	    };
-	    UserService = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [httpWrapper_1.HttpWrapper, app_constants_1.Configuration])
-	    ], UserService);
 	    return UserService;
 	}());
+	UserService = __decorate([
+	    core_1.Injectable(),
+	    __metadata("design:paramtypes", [httpWrapper_1.HttpWrapper, app_constants_1.Configuration])
+	], UserService);
 	exports.UserService = UserService;
 
 
@@ -31151,15 +31204,15 @@
 	            .GetAll(filters)
 	            .subscribe(function (data) { return _this.parsePageable(data); }, function (error) { return console.log(error); }, function () { });
 	    };
-	    UserListComponent = __decorate([
-	        core_1.Component({
-	            selector: "user-list",
-	            template: __webpack_require__(311)
-	        }), 
-	        __metadata('design:paramtypes', [user_service_1.UserService, router_1.ActivatedRoute])
-	    ], UserListComponent);
 	    return UserListComponent;
 	}());
+	UserListComponent = __decorate([
+	    core_1.Component({
+	        selector: "user-list",
+	        template: __webpack_require__(311)
+	    }),
+	    __metadata("design:paramtypes", [user_service_1.UserService, router_1.ActivatedRoute])
+	], UserListComponent);
 	exports.UserListComponent = UserListComponent;
 
 
@@ -31257,15 +31310,15 @@
 	    };
 	    PmListComponent.prototype.delete = function (index) {
 	    };
-	    PmListComponent = __decorate([
-	        core_1.Component({
-	            selector: "pm-list",
-	            template: __webpack_require__(317)
-	        }), 
-	        __metadata('design:paramtypes', [pm_service_1.PmService])
-	    ], PmListComponent);
 	    return PmListComponent;
 	}());
+	PmListComponent = __decorate([
+	    core_1.Component({
+	        selector: "pm-list",
+	        template: __webpack_require__(317)
+	    }),
+	    __metadata("design:paramtypes", [pm_service_1.PmService])
+	], PmListComponent);
 	exports.PmListComponent = PmListComponent;
 
 
@@ -31311,12 +31364,12 @@
 	        };
 	        this.actionUrl = configuration.ServerWithApiUrl + "pm/";
 	    }
-	    PmService = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [httpWrapper_1.HttpWrapper, app_constants_1.Configuration])
-	    ], PmService);
 	    return PmService;
 	}());
+	PmService = __decorate([
+	    core_1.Injectable(),
+	    __metadata("design:paramtypes", [httpWrapper_1.HttpWrapper, app_constants_1.Configuration])
+	], PmService);
 	exports.PmService = PmService;
 
 
@@ -31362,15 +31415,15 @@
 	    PmDetailComponent.prototype.parse = function (item) {
 	        this.item = item;
 	    };
-	    PmDetailComponent = __decorate([
-	        core_1.Component({
-	            selector: "pm-detail",
-	            template: __webpack_require__(319)
-	        }), 
-	        __metadata('design:paramtypes', [pm_service_1.PmService, router_1.ActivatedRoute])
-	    ], PmDetailComponent);
 	    return PmDetailComponent;
 	}());
+	PmDetailComponent = __decorate([
+	    core_1.Component({
+	        selector: "pm-detail",
+	        template: __webpack_require__(319)
+	    }),
+	    __metadata("design:paramtypes", [pm_service_1.PmService, router_1.ActivatedRoute])
+	], PmDetailComponent);
 	exports.PmDetailComponent = PmDetailComponent;
 
 
@@ -31452,15 +31505,15 @@
 	        var res = this.service.Create(model).subscribe(function (data) { return data; });
 	        this.router.navigate(["/pm"]);
 	    };
-	    PmEditComponent = __decorate([
-	        core_1.Component({
-	            selector: "pm-edit",
-	            template: __webpack_require__(321)
-	        }), 
-	        __metadata('design:paramtypes', [pm_service_1.PmService, forms_1.FormBuilder, router_1.ActivatedRoute, router_1.Router])
-	    ], PmEditComponent);
 	    return PmEditComponent;
 	}());
+	PmEditComponent = __decorate([
+	    core_1.Component({
+	        selector: "pm-edit",
+	        template: __webpack_require__(321)
+	    }),
+	    __metadata("design:paramtypes", [pm_service_1.PmService, forms_1.FormBuilder, router_1.ActivatedRoute, router_1.Router])
+	], PmEditComponent);
 	exports.PmEditComponent = PmEditComponent;
 
 
@@ -31513,15 +31566,15 @@
 	var ClubHistoryComponent = (function () {
 	    function ClubHistoryComponent() {
 	    }
-	    ClubHistoryComponent = __decorate([
-	        core_1.Component({
-	            selector: "<club-history>",
-	            template: __webpack_require__(325)
-	        }), 
-	        __metadata('design:paramtypes', [])
-	    ], ClubHistoryComponent);
 	    return ClubHistoryComponent;
 	}());
+	ClubHistoryComponent = __decorate([
+	    core_1.Component({
+	        selector: "<club-history>",
+	        template: __webpack_require__(325)
+	    }),
+	    __metadata("design:paramtypes", [])
+	], ClubHistoryComponent);
 	exports.ClubHistoryComponent = ClubHistoryComponent;
 
 
@@ -31549,15 +31602,15 @@
 	var RulesComponent = (function () {
 	    function RulesComponent() {
 	    }
-	    RulesComponent = __decorate([
-	        core_1.Component({
-	            selector: "<rules>",
-	            template: __webpack_require__(327)
-	        }), 
-	        __metadata('design:paramtypes', [])
-	    ], RulesComponent);
 	    return RulesComponent;
 	}());
+	RulesComponent = __decorate([
+	    core_1.Component({
+	        selector: "<rules>",
+	        template: __webpack_require__(327)
+	    }),
+	    __metadata("design:paramtypes", [])
+	], RulesComponent);
 	exports.RulesComponent = RulesComponent;
 
 
@@ -31600,15 +31653,15 @@
 	            }
 	        }, function (error) { return console.log(error); }, function () { return console.log(""); });
 	    };
-	    RightSidebarComponent = __decorate([
-	        core_1.Component({
-	            selector: "right-sidebar",
-	            template: __webpack_require__(330)
-	        }), 
-	        __metadata('design:paramtypes', [admin_service_1.AdminService, index_1.RolesCheckedService])
-	    ], RightSidebarComponent);
 	    return RightSidebarComponent;
 	}());
+	RightSidebarComponent = __decorate([
+	    core_1.Component({
+	        selector: "right-sidebar",
+	        template: __webpack_require__(330)
+	    }),
+	    __metadata("design:paramtypes", [admin_service_1.AdminService, index_1.RolesCheckedService])
+	], RightSidebarComponent);
 	exports.RightSidebarComponent = RightSidebarComponent;
 
 
@@ -31640,12 +31693,12 @@
 	        };
 	        this.actionUrl = configuration.ServerWithApiUrl + "admin/";
 	    }
-	    AdminService = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [index_1.HttpWrapper, app_constants_1.Configuration])
-	    ], AdminService);
 	    return AdminService;
 	}());
+	AdminService = __decorate([
+	    core_1.Injectable(),
+	    __metadata("design:paramtypes", [index_1.HttpWrapper, app_constants_1.Configuration])
+	], AdminService);
 	exports.AdminService = AdminService;
 
 
@@ -31720,12 +31773,12 @@
 	        };
 	        this.actionUrl = configuration.ServerWithApiUrl + "forumSection/";
 	    }
-	    ForumSectionService = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [index_1.HttpWrapper, app_constants_1.Configuration])
-	    ], ForumSectionService);
 	    return ForumSectionService;
 	}());
+	ForumSectionService = __decorate([
+	    core_1.Injectable(),
+	    __metadata("design:paramtypes", [index_1.HttpWrapper, app_constants_1.Configuration])
+	], ForumSectionService);
 	exports.ForumSectionService = ForumSectionService;
 
 
@@ -31758,15 +31811,15 @@
 	            .getAll()
 	            .subscribe(function (data) { return _this.items = data; }, function (error) { return console.log(error); }, function () { return console.log(""); });
 	    };
-	    ForumSectionListComponent = __decorate([
-	        core_1.Component({
-	            selector: "forumSection-list",
-	            template: __webpack_require__(336)
-	        }), 
-	        __metadata('design:paramtypes', [forumSection_service_1.ForumSectionService, index_1.RolesCheckedService])
-	    ], ForumSectionListComponent);
 	    return ForumSectionListComponent;
 	}());
+	ForumSectionListComponent = __decorate([
+	    core_1.Component({
+	        selector: "forumSection-list",
+	        template: __webpack_require__(336)
+	    }),
+	    __metadata("design:paramtypes", [forumSection_service_1.ForumSectionService, index_1.RolesCheckedService])
+	], ForumSectionListComponent);
 	exports.ForumSectionListComponent = ForumSectionListComponent;
 
 
@@ -31893,15 +31946,15 @@
 	        }
 	    };
 	    ;
-	    WishListComponent = __decorate([
-	        core_1.Component({
-	            selector: "wish-list",
-	            template: __webpack_require__(343)
-	        }), 
-	        __metadata('design:paramtypes', [wish_service_1.WishService, router_1.ActivatedRoute])
-	    ], WishListComponent);
 	    return WishListComponent;
 	}());
+	WishListComponent = __decorate([
+	    core_1.Component({
+	        selector: "wish-list",
+	        template: __webpack_require__(343)
+	    }),
+	    __metadata("design:paramtypes", [wish_service_1.WishService, router_1.ActivatedRoute])
+	], WishListComponent);
 	exports.WishListComponent = WishListComponent;
 
 
@@ -31950,12 +32003,12 @@
 	        };
 	        this.actionUrl = configuration.ServerWithApiUrl + "wish/";
 	    }
-	    WishService = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [httpWrapper_1.HttpWrapper, app_constants_1.Configuration])
-	    ], WishService);
 	    return WishService;
 	}());
+	WishService = __decorate([
+	    core_1.Injectable(),
+	    __metadata("design:paramtypes", [httpWrapper_1.HttpWrapper, app_constants_1.Configuration])
+	], WishService);
 	exports.WishService = WishService;
 
 
@@ -32047,15 +32100,15 @@
 	            .GetTypes()
 	            .subscribe(function (data) { return _this.types = data; });
 	    };
-	    WishEditComponent = __decorate([
-	        core_1.Component({
-	            selector: "wish-edit",
-	            template: __webpack_require__(345)
-	        }), 
-	        __metadata('design:paramtypes', [wish_service_1.WishService, forms_1.FormBuilder, router_1.ActivatedRoute, router_1.Router])
-	    ], WishEditComponent);
 	    return WishEditComponent;
 	}());
+	WishEditComponent = __decorate([
+	    core_1.Component({
+	        selector: "wish-edit",
+	        template: __webpack_require__(345)
+	    }),
+	    __metadata("design:paramtypes", [wish_service_1.WishService, forms_1.FormBuilder, router_1.ActivatedRoute, router_1.Router])
+	], WishEditComponent);
 	exports.WishEditComponent = WishEditComponent;
 
 
@@ -32188,19 +32241,19 @@
 	            }
 	        });
 	    };
-	    __decorate([
-	        core_1.ViewChild("deleteModal"), 
-	        __metadata('design:type', ng2_bootstrap_1.ModalDirective)
-	    ], MaterialCommentListComponent.prototype, "deleteModal", void 0);
-	    MaterialCommentListComponent = __decorate([
-	        core_1.Component({
-	            selector: "materialComment-list",
-	            template: __webpack_require__(351)
-	        }), 
-	        __metadata('design:paramtypes', [materialComment_service_1.MaterialCommentService, common_1.Location, index_1.RolesCheckedService])
-	    ], MaterialCommentListComponent);
 	    return MaterialCommentListComponent;
 	}());
+	__decorate([
+	    core_1.ViewChild("deleteModal"),
+	    __metadata("design:type", ng2_bootstrap_1.ModalDirective)
+	], MaterialCommentListComponent.prototype, "deleteModal", void 0);
+	MaterialCommentListComponent = __decorate([
+	    core_1.Component({
+	        selector: "materialComment-list",
+	        template: __webpack_require__(351)
+	    }),
+	    __metadata("design:paramtypes", [materialComment_service_1.MaterialCommentService, common_1.Location, index_1.RolesCheckedService])
+	], MaterialCommentListComponent);
 	exports.MaterialCommentListComponent = MaterialCommentListComponent;
 
 
@@ -32252,12 +32305,12 @@
 	        };
 	        this.actionUrl = configuration.ServerWithApiUrl + "materialComment/";
 	    }
-	    MaterialCommentService = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [httpWrapper_1.HttpWrapper, app_constants_1.Configuration])
-	    ], MaterialCommentService);
 	    return MaterialCommentService;
 	}());
+	MaterialCommentService = __decorate([
+	    core_1.Injectable(),
+	    __metadata("design:paramtypes", [httpWrapper_1.HttpWrapper, app_constants_1.Configuration])
+	], MaterialCommentService);
 	exports.MaterialCommentService = MaterialCommentService;
 
 
@@ -32303,7 +32356,8 @@
 	        this.update();
 	        this.commentForm = this.formBuilder.group({
 	            'message': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required, forms_1.Validators.minLength(3)])]
+	                    forms_1.Validators.required, forms_1.Validators.minLength(3)
+	                ])]
 	        });
 	    };
 	    MaterialCommentSectionComponent.prototype.pageChanged = function (event) {
@@ -32334,23 +32388,24 @@
 	            _this.commentForm.controls["message"].patchValue("");
 	        }, function (error) { return console.log(error); }, function () { });
 	    };
-	    __decorate([
-	        core_1.Input(), 
-	        __metadata('design:type', Number)
-	    ], MaterialCommentSectionComponent.prototype, "materialId", void 0);
-	    __decorate([
-	        core_1.Input(), 
-	        __metadata('design:type', Boolean)
-	    ], MaterialCommentSectionComponent.prototype, "canCommentary", void 0);
-	    MaterialCommentSectionComponent = __decorate([
-	        core_1.Component({
-	            selector: "comments",
-	            template: __webpack_require__(353)
-	        }), 
-	        __metadata('design:paramtypes', [materialComment_service_1.MaterialCommentService, common_1.Location, index_1.RolesCheckedService, forms_1.FormBuilder])
-	    ], MaterialCommentSectionComponent);
 	    return MaterialCommentSectionComponent;
 	}());
+	__decorate([
+	    core_1.Input(),
+	    __metadata("design:type", Number)
+	], MaterialCommentSectionComponent.prototype, "materialId", void 0);
+	__decorate([
+	    core_1.Input(),
+	    __metadata("design:type", Boolean)
+	], MaterialCommentSectionComponent.prototype, "canCommentary", void 0);
+	MaterialCommentSectionComponent = __decorate([
+	    core_1.Component({
+	        selector: "comments",
+	        template: __webpack_require__(353)
+	    }),
+	    __metadata("design:paramtypes", [materialComment_service_1.MaterialCommentService, common_1.Location, index_1.RolesCheckedService,
+	        forms_1.FormBuilder])
+	], MaterialCommentSectionComponent);
 	exports.MaterialCommentSectionComponent = MaterialCommentSectionComponent;
 
 
@@ -32392,9 +32447,11 @@
 	        this.roles = this.rolesChecked.checkedRoles;
 	        this.commentForm = this.formBuilder.group({
 	            'message': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required])],
+	                    forms_1.Validators.required
+	                ])],
 	            'answer': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required])]
+	                    forms_1.Validators.required
+	                ])]
 	        });
 	    };
 	    MaterialCommentDetailComponent.prototype.showAddCommentModal = function (index) {
@@ -32467,47 +32524,50 @@
 	        this.commentForm.controls["answer"].patchValue("");
 	        this.commentForm.controls["answer"].updateValueAndValidity();
 	    };
-	    __decorate([
-	        core_1.Input(), 
-	        __metadata('design:type', materialComment_model_1.MaterialComment)
-	    ], MaterialCommentDetailComponent.prototype, "item", void 0);
-	    __decorate([
-	        core_1.Input(), 
-	        __metadata('design:type', Number)
-	    ], MaterialCommentDetailComponent.prototype, "deep", void 0);
-	    __decorate([
-	        core_1.Input(), 
-	        __metadata('design:type', Boolean)
-	    ], MaterialCommentDetailComponent.prototype, "canCommentary", void 0);
-	    __decorate([
-	        core_1.Input(), 
-	        __metadata('design:type', Number)
-	    ], MaterialCommentDetailComponent.prototype, "materialId", void 0);
-	    __decorate([
-	        core_1.Input(), 
-	        __metadata('design:type', materialComment_model_1.MaterialComment)
-	    ], MaterialCommentDetailComponent.prototype, "parent", void 0);
-	    __decorate([
-	        core_1.ViewChild("addCommentModal"), 
-	        __metadata('design:type', ng2_bootstrap_1.ModalDirective)
-	    ], MaterialCommentDetailComponent.prototype, "addCommentModal", void 0);
-	    __decorate([
-	        core_1.ViewChild("editCommentModal"), 
-	        __metadata('design:type', ng2_bootstrap_1.ModalDirective)
-	    ], MaterialCommentDetailComponent.prototype, "editCommentModal", void 0);
-	    __decorate([
-	        core_1.ViewChild("deleteModal"), 
-	        __metadata('design:type', ng2_bootstrap_1.ModalDirective)
-	    ], MaterialCommentDetailComponent.prototype, "deleteModal", void 0);
-	    MaterialCommentDetailComponent = __decorate([
-	        core_1.Component({
-	            selector: "materialComment-detail",
-	            template: __webpack_require__(355)
-	        }), 
-	        __metadata('design:paramtypes', [materialComment_service_1.MaterialCommentService, common_1.Location, index_1.RolesCheckedService, forms_1.FormBuilder])
-	    ], MaterialCommentDetailComponent);
 	    return MaterialCommentDetailComponent;
 	}());
+	__decorate([
+	    core_1.Input(),
+	    __metadata("design:type", materialComment_model_1.MaterialComment)
+	], MaterialCommentDetailComponent.prototype, "item", void 0);
+	__decorate([
+	    core_1.Input(),
+	    __metadata("design:type", Number)
+	], MaterialCommentDetailComponent.prototype, "deep", void 0);
+	__decorate([
+	    core_1.Input(),
+	    __metadata("design:type", Boolean)
+	], MaterialCommentDetailComponent.prototype, "canCommentary", void 0);
+	__decorate([
+	    core_1.Input(),
+	    __metadata("design:type", Number)
+	], MaterialCommentDetailComponent.prototype, "materialId", void 0);
+	__decorate([
+	    core_1.Input(),
+	    __metadata("design:type", materialComment_model_1.MaterialComment)
+	], MaterialCommentDetailComponent.prototype, "parent", void 0);
+	__decorate([
+	    core_1.ViewChild("addCommentModal"),
+	    __metadata("design:type", ng2_bootstrap_1.ModalDirective)
+	], MaterialCommentDetailComponent.prototype, "addCommentModal", void 0);
+	__decorate([
+	    core_1.ViewChild("editCommentModal"),
+	    __metadata("design:type", ng2_bootstrap_1.ModalDirective)
+	], MaterialCommentDetailComponent.prototype, "editCommentModal", void 0);
+	__decorate([
+	    core_1.ViewChild("deleteModal"),
+	    __metadata("design:type", ng2_bootstrap_1.ModalDirective)
+	], MaterialCommentDetailComponent.prototype, "deleteModal", void 0);
+	MaterialCommentDetailComponent = __decorate([
+	    core_1.Component({
+	        selector: "materialComment-detail",
+	        template: __webpack_require__(355)
+	    }),
+	    __metadata("design:paramtypes", [materialComment_service_1.MaterialCommentService,
+	        common_1.Location,
+	        index_1.RolesCheckedService,
+	        forms_1.FormBuilder])
+	], MaterialCommentDetailComponent);
 	exports.MaterialCommentDetailComponent = MaterialCommentDetailComponent;
 
 
@@ -32585,12 +32645,12 @@
 	        };
 	        this.actionUrl = configuration.ServerWithApiUrl + "match/";
 	    }
-	    MatchService = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [httpWrapper_1.HttpWrapper, app_constants_1.Configuration])
-	    ], MatchService);
 	    return MatchService;
 	}());
+	MatchService = __decorate([
+	    core_1.Injectable(),
+	    __metadata("design:paramtypes", [httpWrapper_1.HttpWrapper, app_constants_1.Configuration])
+	], MatchService);
 	exports.MatchService = MatchService;
 
 
@@ -32638,15 +32698,15 @@
 	    };
 	    MatchListComponent.prototype.update = function () {
 	    };
-	    MatchListComponent = __decorate([
-	        core_1.Component({
-	            selector: "match-list",
-	            template: __webpack_require__(360)
-	        }), 
-	        __metadata('design:paramtypes', [match_service_1.MatchService, router_1.ActivatedRoute])
-	    ], MatchListComponent);
 	    return MatchListComponent;
 	}());
+	MatchListComponent = __decorate([
+	    core_1.Component({
+	        selector: "match-list",
+	        template: __webpack_require__(360)
+	    }),
+	    __metadata("design:paramtypes", [match_service_1.MatchService, router_1.ActivatedRoute])
+	], MatchListComponent);
 	exports.MatchListComponent = MatchListComponent;
 
 
@@ -32727,27 +32787,35 @@
 	    MatchEditComponent.prototype.initForm = function () {
 	        this.editForm = this.formBuilder.group({
 	            'clubId': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required])],
+	                    forms_1.Validators.required
+	                ])],
 	            'isHome': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required])],
+	                    forms_1.Validators.required
+	                ])],
 	            'dateTime': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required])],
+	                    forms_1.Validators.required
+	                ])],
 	            'typeId': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required])]
+	                    forms_1.Validators.required
+	                ])]
 	        });
 	    };
 	    MatchEditComponent.prototype.parseClubs = function (items) {
 	        this.clubs = items;
 	    };
-	    MatchEditComponent = __decorate([
-	        core_1.Component({
-	            selector: "match-edit",
-	            template: __webpack_require__(363)
-	        }), 
-	        __metadata('design:paramtypes', [index_1.MatchService, index_2.ClubService, router_1.ActivatedRoute, router_1.Router, forms_1.FormBuilder])
-	    ], MatchEditComponent);
 	    return MatchEditComponent;
 	}());
+	MatchEditComponent = __decorate([
+	    core_1.Component({
+	        selector: "match-edit",
+	        template: __webpack_require__(363)
+	    }),
+	    __metadata("design:paramtypes", [index_1.MatchService,
+	        index_2.ClubService,
+	        router_1.ActivatedRoute,
+	        router_1.Router,
+	        forms_1.FormBuilder])
+	], MatchEditComponent);
 	exports.MatchEditComponent = MatchEditComponent;
 
 
@@ -33809,13 +33877,13 @@
 /* 369 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = (__webpack_require__(2))(130);
+	module.exports = (__webpack_require__(2))(131);
 
 /***/ },
 /* 370 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = (__webpack_require__(2))(50);
+	module.exports = (__webpack_require__(2))(49);
 
 /***/ },
 /* 371 */
@@ -34160,7 +34228,7 @@
 /* 377 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = (__webpack_require__(2))(128);
+	module.exports = (__webpack_require__(2))(129);
 
 /***/ },
 /* 378 */
@@ -34172,7 +34240,7 @@
 /* 379 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = (__webpack_require__(2))(44);
+	module.exports = (__webpack_require__(2))(43);
 
 /***/ },
 /* 380 */
@@ -34474,7 +34542,7 @@
 /* 386 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = (__webpack_require__(2))(48);
+	module.exports = (__webpack_require__(2))(47);
 
 /***/ },
 /* 387 */
@@ -34616,7 +34684,7 @@
 /* 392 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = (__webpack_require__(2))(45);
+	module.exports = (__webpack_require__(2))(44);
 
 /***/ },
 /* 393 */
@@ -34914,7 +34982,7 @@
 /* 399 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = (__webpack_require__(2))(51);
+	module.exports = (__webpack_require__(2))(50);
 
 /***/ },
 /* 400 */
@@ -35809,7 +35877,7 @@
 /* 423 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = (__webpack_require__(2))(116);
+	module.exports = (__webpack_require__(2))(117);
 
 /***/ },
 /* 424 */
@@ -35905,7 +35973,7 @@
 /* 426 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = (__webpack_require__(2))(112);
+	module.exports = (__webpack_require__(2))(113);
 
 /***/ },
 /* 427 */
@@ -37570,7 +37638,7 @@
 /* 457 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = (__webpack_require__(2))(124);
+	module.exports = (__webpack_require__(2))(125);
 
 /***/ },
 /* 458 */
@@ -38424,7 +38492,7 @@
 /* 472 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = (__webpack_require__(2))(117);
+	module.exports = (__webpack_require__(2))(118);
 
 /***/ },
 /* 473 */
@@ -38522,7 +38590,7 @@
 /* 478 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = (__webpack_require__(2))(118);
+	module.exports = (__webpack_require__(2))(119);
 
 /***/ },
 /* 479 */
@@ -39428,7 +39496,7 @@
 /* 494 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = (__webpack_require__(2))(108);
+	module.exports = (__webpack_require__(2))(109);
 
 /***/ },
 /* 495 */
@@ -40841,7 +40909,7 @@
 /* 523 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = (__webpack_require__(2))(120);
+	module.exports = (__webpack_require__(2))(121);
 
 /***/ },
 /* 524 */
@@ -41575,7 +41643,7 @@
 /* 538 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = (__webpack_require__(2))(121);
+	module.exports = (__webpack_require__(2))(122);
 
 /***/ },
 /* 539 */
@@ -41619,7 +41687,7 @@
 /* 542 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = (__webpack_require__(2))(119);
+	module.exports = (__webpack_require__(2))(120);
 
 /***/ },
 /* 543 */
@@ -41838,7 +41906,7 @@
 /* 549 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = (__webpack_require__(2))(125);
+	module.exports = (__webpack_require__(2))(126);
 
 /***/ },
 /* 550 */
@@ -42610,7 +42678,7 @@
 /* 574 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = (__webpack_require__(2))(106);
+	module.exports = (__webpack_require__(2))(107);
 
 /***/ },
 /* 575 */
@@ -44068,7 +44136,7 @@
 /* 610 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = (__webpack_require__(2))(47);
+	module.exports = (__webpack_require__(2))(46);
 
 /***/ },
 /* 611 */
@@ -47017,13 +47085,13 @@
 /* 662 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = (__webpack_require__(2))(49);
+	module.exports = (__webpack_require__(2))(48);
 
 /***/ },
 /* 663 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = (__webpack_require__(2))(126);
+	module.exports = (__webpack_require__(2))(127);
 
 /***/ },
 /* 664 */
@@ -47711,15 +47779,15 @@
 	    }
 	    EplTableComponent.prototype.ngOnInit = function () {
 	    };
-	    EplTableComponent = __decorate([
-	        core_1.Component({
-	            selector: "epl-table",
-	            template: __webpack_require__(679)
-	        }), 
-	        __metadata('design:paramtypes', [])
-	    ], EplTableComponent);
 	    return EplTableComponent;
 	}());
+	EplTableComponent = __decorate([
+	    core_1.Component({
+	        selector: "epl-table",
+	        template: __webpack_require__(679)
+	    }),
+	    __metadata("design:paramtypes", [])
+	], EplTableComponent);
 	exports.EplTableComponent = EplTableComponent;
 
 
@@ -47727,7 +47795,7 @@
 /* 679 */
 /***/ function(module, exports) {
 
-	module.exports = "<table class=\"table table-condensed table-striped table-responsive col-xs-12 overflowable\">\r\n    <thead>\r\n        <tr>\r\n            <th>#</th>\r\n            <th>Команда</th>\r\n            <th>И</th>\r\n            <th>В</th>\r\n            <th>Н</th>\r\n            <th>П</th>\r\n            <th>+/-</th>\r\n            <th>О</th>\r\n        </tr>\r\n    </thead>\r\n    <tbody><tr><td>1</td><td>Ливерпуль\r\n</td><td>11</td><td>8</td><td>2</td><td>1</td><td>16</td><td>26</td></tr>\r\n<tr><td>2</td><td>Челси\r\n</td><td>11</td><td>8</td><td>1</td><td>2</td><td>17</td><td>25</td></tr>\r\n<tr><td>3</td><td>Манчестер Сити\r\n</td><td>11</td><td>7</td><td>3</td><td>1</td><td>15</td><td>24</td></tr>\r\n<tr><td>4</td><td>Арсенал\r\n</td><td>11</td><td>7</td><td>3</td><td>1</td><td>13</td><td>24</td></tr>\r\n<tr><td>5</td><td>Тоттенхэм\r\n</td><td>11</td><td>5</td><td>6</td><td>0</td><td>9</td><td>21</td></tr>\r\n<tr><td>6</td><td>Манчестер Юнайтед\r\n</td><td>11</td><td>5</td><td>3</td><td>3</td><td>3</td><td>18</td></tr>\r\n<tr><td>7</td><td>Эвертон\r\n</td><td>11</td><td>5</td><td>3</td><td>3</td><td>2</td><td>18</td></tr>\r\n<tr><td>8</td><td>Уотфорд\r\n</td><td>11</td><td>4</td><td>3</td><td>4</td><td>-4</td><td>15</td></tr>\r\n<tr><td>9</td><td>Бернли\r\n</td><td>11</td><td>4</td><td>2</td><td>5</td><td>-4</td><td>14</td></tr>\r\n<tr><td>10</td><td>Саутгемптон\r\n</td><td>11</td><td>3</td><td>4</td><td>4</td><td>0</td><td>13</td></tr>\r\n<tr><td>11</td><td>Вест Бромвич\r\n</td><td>11</td><td>3</td><td>4</td><td>4</td><td>-3</td><td>13</td></tr>\r\n<tr><td>12</td><td>Сток Сити\r\n</td><td>11</td><td>3</td><td>4</td><td>4</td><td>-5</td><td>13</td></tr>\r\n<tr><td>13</td><td>Борнмут\r\n</td><td>11</td><td>3</td><td>3</td><td>5</td><td>-3</td><td>12</td></tr>\r\n<tr><td>14</td><td>Лестер\r\n</td><td>11</td><td>3</td><td>3</td><td>5</td><td>-5</td><td>12</td></tr>\r\n<tr><td>15</td><td>Мидлсбро\r\n</td><td>11</td><td>2</td><td>5</td><td>4</td><td>-2</td><td>11</td></tr>\r\n<tr><td>16</td><td>Кристал Пэлас\r\n</td><td>11</td><td>3</td><td>2</td><td>6</td><td>-3</td><td>11</td></tr>\r\n<tr><td>17</td><td>Вест Хэм\r\n</td><td>11</td><td>3</td><td>2</td><td>6</td><td>-9</td><td>11</td></tr>\r\n<tr><td>18</td><td>Халл\r\n</td><td>11</td><td>3</td><td>1</td><td>7</td><td>-14</td><td>10</td></tr>\r\n<tr><td>19</td><td>Суонси\r\n</td><td>11</td><td>1</td><td>2</td><td>8</td><td>-11</td><td>5</td></tr>\r\n<tr><td>20</td><td>Сандерленд\r\n</td><td>11</td><td>1</td><td>2</td><td>8</td><td>-12</td><td>5</td></tr>\r\n</tbody></table>";
+	module.exports = "<table class=\"table table-condensed table-striped table-responsive col-xs-12 overflowable\">\r\n    <thead>\r\n        <tr>\r\n            <th>#</th>\r\n            <th>Команда</th>\r\n            <th>И</th>\r\n            <th>В</th>\r\n            <th>Н</th>\r\n            <th>П</th>\r\n            <th>+/-</th>\r\n            <th>О</th>\r\n        </tr>\r\n    </thead>\r\n    <tbody><tr><td>1</td><td>Ливерпуль\n</td><td>11</td><td>8</td><td>2</td><td>1</td><td>16</td><td>26</td></tr>\r\n<tr><td>2</td><td>Челси\n</td><td>11</td><td>8</td><td>1</td><td>2</td><td>17</td><td>25</td></tr>\r\n<tr><td>3</td><td>Манчестер Сити\n</td><td>11</td><td>7</td><td>3</td><td>1</td><td>15</td><td>24</td></tr>\r\n<tr><td>4</td><td>Арсенал\n</td><td>11</td><td>7</td><td>3</td><td>1</td><td>13</td><td>24</td></tr>\r\n<tr><td>5</td><td>Тоттенхэм\n</td><td>11</td><td>5</td><td>6</td><td>0</td><td>9</td><td>21</td></tr>\r\n<tr><td>6</td><td>Манчестер Юнайтед\n</td><td>11</td><td>5</td><td>3</td><td>3</td><td>3</td><td>18</td></tr>\r\n<tr><td>7</td><td>Эвертон\n</td><td>11</td><td>5</td><td>3</td><td>3</td><td>2</td><td>18</td></tr>\r\n<tr><td>8</td><td>Уотфорд\n</td><td>11</td><td>4</td><td>3</td><td>4</td><td>-4</td><td>15</td></tr>\r\n<tr><td>9</td><td>Бернли\n</td><td>11</td><td>4</td><td>2</td><td>5</td><td>-4</td><td>14</td></tr>\r\n<tr><td>10</td><td>Саутгемптон\n</td><td>11</td><td>3</td><td>4</td><td>4</td><td>0</td><td>13</td></tr>\r\n<tr><td>11</td><td>Вест Бромвич\n</td><td>11</td><td>3</td><td>4</td><td>4</td><td>-3</td><td>13</td></tr>\r\n<tr><td>12</td><td>Сток Сити\n</td><td>11</td><td>3</td><td>4</td><td>4</td><td>-5</td><td>13</td></tr>\r\n<tr><td>13</td><td>Борнмут\n</td><td>11</td><td>3</td><td>3</td><td>5</td><td>-3</td><td>12</td></tr>\r\n<tr><td>14</td><td>Лестер\n</td><td>11</td><td>3</td><td>3</td><td>5</td><td>-5</td><td>12</td></tr>\r\n<tr><td>15</td><td>Мидлсбро\n</td><td>11</td><td>2</td><td>5</td><td>4</td><td>-2</td><td>11</td></tr>\r\n<tr><td>16</td><td>Кристал Пэлас\n</td><td>11</td><td>3</td><td>2</td><td>6</td><td>-3</td><td>11</td></tr>\r\n<tr><td>17</td><td>Вест Хэм\n</td><td>11</td><td>3</td><td>2</td><td>6</td><td>-9</td><td>11</td></tr>\r\n<tr><td>18</td><td>Халл\n</td><td>11</td><td>3</td><td>1</td><td>7</td><td>-14</td><td>10</td></tr>\r\n<tr><td>19</td><td>Суонси\n</td><td>11</td><td>1</td><td>2</td><td>8</td><td>-11</td><td>5</td></tr>\r\n<tr><td>20</td><td>Сандерленд\n</td><td>11</td><td>1</td><td>2</td><td>8</td><td>-12</td><td>5</td></tr>\r\n</tbody></table>";
 
 /***/ },
 /* 680 */

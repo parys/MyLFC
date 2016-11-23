@@ -56,7 +56,11 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
 
         public async Task<int> GetCountAsync(Expression<Func<Club, bool>> filter = null)
         {
-            return await _context.Clubs.CountAsync();
+            if (filter == null)
+            {
+                filter = club => true;
+            }
+            return await _context.Clubs.CountAsync(filter);
         }
 
         public async Task<Club> GetByEnglishName(string name)

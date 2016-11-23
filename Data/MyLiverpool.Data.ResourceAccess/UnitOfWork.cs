@@ -16,14 +16,10 @@ namespace MyLiverpool.Data.ResourceAccess
         private readonly LiverpoolContext _context;
 
         private IGenericRepository<ForumTheme> _forumThemeRepository;
-        private IGenericRepository<ForumSubsection> _forumSubsectionRepository;
         private IGenericRepository<ForumMessage> _forumMessageRepository;
-        private IGenericRepository<MaterialComment> _materialCommentRepository;
-        private IGenericRepository<ForumSection> _forumSectionRepository;
         private IGenericRepository<Role> _roleRepository;
         private IGenericRepository<RoleGroup> _roleGroupRepository;
         private IGenericRepository<User> _userRepository;
-        private IGenericRepository<Wish> _wishRepository;
 
         public UnitOfWork(LiverpoolContext context)
         {
@@ -52,35 +48,13 @@ namespace MyLiverpool.Data.ResourceAccess
         /// <summary>
         /// Return userRepository.
         /// </summary>
-        public IGenericRepository<User> UserRepository => _userRepository ?? (_userRepository = new GenericRepository<User>(_context));
+        public IGenericRepository<User> UserRepository => _userRepository ?? (_userRepository = new GenericRepository<User>(_context));        
         
-
-        public IGenericRepository<MaterialComment> MaterialCommentRepository => _materialCommentRepository ?? (_materialCommentRepository = new GenericRepository<MaterialComment>(_context));
-        public IGenericRepository<ForumSection> ForumSectionRepository => _forumSectionRepository ?? (_forumSectionRepository = new GenericRepository<ForumSection>(_context));
         public IGenericRepository<ForumTheme> ForumThemeRepository => _forumThemeRepository ?? (_forumThemeRepository = new GenericRepository<ForumTheme>(_context));
-        public IGenericRepository<ForumSubsection> ForumSubsectionRepository => _forumSubsectionRepository ?? (_forumSubsectionRepository = new GenericRepository<ForumSubsection>(_context));
         public IGenericRepository<ForumMessage> ForumMessageRepository => _forumMessageRepository ?? (_forumMessageRepository = new GenericRepository<ForumMessage>(_context));
-         public IGenericRepository<Wish> WishRepository => _wishRepository ?? (_wishRepository = new GenericRepository<Wish>(_context));
         public IGenericRepository<Role> RoleRepository => _roleRepository ?? (_roleRepository = new GenericRepository<Role>(_context));
         public IGenericRepository<RoleGroup> RoleGroupRepository => _roleGroupRepository ?? (_roleGroupRepository = new GenericRepository<RoleGroup>(_context));
-
-        //public IGenericRepository<RoleClaim> RoleClaimRepository
-        //{
-        //    get { return _roleClaimRepository ?? (_roleClaimRepository = new GenericRepository<RoleClaim>(_context)); }
-        //}
-
-        //public IGenericRepository<UserRole> UserRoleRepository
-        //{
-        //    get
-        //    {
-        //        return _userRoleRepository;
-        //    }
-
-        //    set
-        //    {
-        //        _userRoleRepository = value;
-        //    }
-        //}
+        
 
         /// <summary>
         /// Saves changes to shared data source.

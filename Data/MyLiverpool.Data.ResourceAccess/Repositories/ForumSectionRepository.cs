@@ -17,39 +17,49 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             _context = context;
         }
 
-        public Task<ForumSection> GetByIdAsync(int id)
+        public async Task<ForumSection> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _context.ForumSections.FindAsync(id);
         }
 
-        public Task<ForumSection> AddAsync(ForumSection entity)
+        public async Task<ForumSection> AddAsync(ForumSection entity)
         {
-            throw new NotImplementedException();
+            var addedEntity = await _context.ForumSections.AddAsync(entity);
+            return addedEntity.Entity;
         }
 
-        public Task DeleteAsync(int id)
+        public async Task DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            var pm = await _context.ForumSections.FindAsync(id);
+            if (pm != null)
+            {
+                await DeleteAsync(pm);
+            }
         }
 
-        public Task DeleteAsync(ForumSection entity)
+        public async Task DeleteAsync(ForumSection entity)
         {
-            throw new NotImplementedException();
+            await Task.FromResult(_context.ForumSections.Remove(entity));
         }
 
         public void Update(ForumSection entity)
         {
-            throw new NotImplementedException();
+            _context.ForumSections.Attach(entity);
+            _context.Entry(entity).State = EntityState.Modified;
         }
 
-        public Task SaveChangesAsync()
+        public async Task SaveChangesAsync()
         {
-            throw new NotImplementedException();
+            await _context.SaveChangesAsync();
         }
 
-        public Task<int> GetCountAsync(Expression<Func<ForumSection, bool>> filter = null)
+        public async Task<int> GetCountAsync(Expression<Func<ForumSection, bool>> filter = null)
         {
-            throw new NotImplementedException();
+            if (filter == null)
+            {
+                filter = section => true;
+            }
+            return await _context.ForumSections.CountAsync(filter);
         }
 
         public async Task<IEnumerable<ForumSection>> GetListAsync()

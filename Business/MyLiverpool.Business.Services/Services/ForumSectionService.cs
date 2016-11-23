@@ -10,27 +10,25 @@ namespace MyLiverpool.Business.Services.Services
 {
     public class ForumSectionService : IForumSectionService
     {
-        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly IForumSectionRepository _forumSectionRepository;
 
-        public ForumSectionService(IUnitOfWork unitOfWork, IMapper mapper, IForumSectionRepository forumSectionRepository)
+        public ForumSectionService(IMapper mapper, IForumSectionRepository forumSectionRepository)
         {
-            _unitOfWork = unitOfWork;
             _mapper = mapper;
             _forumSectionRepository = forumSectionRepository;
         }
 
         public async Task<ForumSectionDto> CreateAsync(string name)
         {
-            var found = await _unitOfWork.ForumSectionRepository.GetAsync(x => x.Name == name);
-            if (found.Count > 0)
+            var foundCount = await _forumSectionRepository.GetCountAsync(x => x.Name == name);
+            if (foundCount > 0)
             {
                 return null;
             }
             var model = new ForumSection(name);
-            model = await _unitOfWork.ForumSectionRepository.AddAsync(model);
-            await _unitOfWork.SaveAsync();
+            model = await _forumSectionRepository.AddAsync(model);
+            await _forumSectionRepository.SaveChangesAsync();
             var result = _mapper.Map<ForumSectionDto>(model);
             return result;
         
@@ -38,13 +36,13 @@ namespace MyLiverpool.Business.Services.Services
 
         public async Task<bool> DeleteAsync(int id)
         {
-            var section = await _unitOfWork.ForumSectionRepository.GetByIdAsync(id);
+            var section = await _forumSectionRepository.GetByIdAsync(id);
             if (section.Subsections.Count > 0)
             {
                 return false;
             }
-            await _unitOfWork.ForumSectionRepository.DeleteAsync(section);
-            await _unitOfWork.SaveAsync();
+            await _forumSectionRepository.DeleteAsync(section);
+            await _forumSectionRepository.SaveChangesAsync();
             return true;
         }
 
@@ -61,7 +59,7 @@ namespace MyLiverpool.Business.Services.Services
 
         public async Task<ForumSectionDto> GetAsync(int id)
         {
-            var section = await _unitOfWork.ForumSectionRepository.GetByIdAsync(id);
+            var section = await _forumSectionRepository.GetByIdAsync(id);
             return _mapper.Map<ForumSectionDto>(section);
         }
 
