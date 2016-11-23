@@ -14,10 +14,6 @@ namespace MyLiverpool.Data.ResourceAccess.Interfaces
         /// Provides access to user repository.
         /// </summary>
         IGenericRepository<User> UserRepository { get; }
-        IGenericRepository<ForumTheme> ForumThemeRepository { get; }
-        IGenericRepository<ForumMessage> ForumMessageRepository { get; }
-        IGenericRepository<Role> RoleRepository { get; }
-        IGenericRepository<RoleGroup> RoleGroupRepository { get; }
 
         UserManager<User> UserManager { get; set; }
         /// <summary>

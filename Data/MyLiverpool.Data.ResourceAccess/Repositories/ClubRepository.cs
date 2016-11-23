@@ -63,6 +63,11 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             return await _context.Clubs.CountAsync(filter);
         }
 
+        public Task<IEnumerable<Club>> GetListAsync()
+        {
+            throw new NotImplementedException("not need to implement");
+        }
+
         public async Task<Club> GetByEnglishName(string name)
         {
             return await _context.Clubs.FirstOrDefaultAsync(x => x.EnglishName == name);

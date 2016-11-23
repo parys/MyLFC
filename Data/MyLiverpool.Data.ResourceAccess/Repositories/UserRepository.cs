@@ -80,5 +80,10 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
         {
             throw new NotImplementedException();
         }
+
+        public Task<IEnumerable<User>> GetListAsync()
+        {
+            throw new NotImplementedException("Not need to implement");
+        }
     }
 }

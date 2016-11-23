@@ -10,12 +10,12 @@ namespace MyLiverpool.Business.Services.Services
 {
     public class ForumMessageService : IForumMessageService
     {
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IForumMessageRepository _forumMessageRepository;
         private readonly IMapper _mapper;
 
-        public ForumMessageService(IUnitOfWork unitOfWork, IMapper mapper)
+        public ForumMessageService(IForumMessageRepository forumMessageRepository, IMapper mapper)
         {
-            _unitOfWork = unitOfWork;
+            _forumMessageRepository = forumMessageRepository;
             _mapper = mapper;
         }
 
@@ -24,8 +24,8 @@ namespace MyLiverpool.Business.Services.Services
             var model = _mapper.Map<ForumMessage>(dto);
             model.AdditionTime = DateTime.Now;
             model.LastModifiedTime = DateTime.Now;
-            model = await _unitOfWork.ForumMessageRepository.AddAsync(model);
-            await _unitOfWork.SaveAsync();
+            model = await _forumMessageRepository.AddAsync(model);
+            await _forumMessageRepository.SaveChangesAsync();
             return _mapper.Map<ForumMessageDto>(model);
         }
     }

@@ -16,8 +16,10 @@ namespace MigratorVnext
     public class Program
     {
         private static readonly IUnitOfWork UnitOfWork;
+        private static readonly IForumMessageRepository ForumMessageRepository;
         private static readonly IForumSectionRepository ForumSectionRepository;
         private static readonly IForumSubsectionRepository ForumSubsectionRepository;
+        private static readonly IForumThemeRepository ForumThemeRepository;
         private static readonly IMaterialRepository MaterialRepository;
         private static readonly IMaterialCategoryRepository MaterialCategoryRepository;
         private static readonly IMaterialCommentRepository MaterialCommentRepository;
@@ -36,8 +38,10 @@ namespace MigratorVnext
             LiverpoolContext db = new LiverpoolContext(new DbContextOptions<LiverpoolContext>());
          //   db.Database.Initialize(true);
             UnitOfWork = new UnitOfWork(db);
+            ForumMessageRepository = new ForumMessageRepository(db);
             ForumSectionRepository = new ForumSectionRepository(db);
             ForumSubsectionRepository = new ForumSubsectionRepository(db);
+            ForumThemeRepository = new ForumThemeRepository(db);
             MaterialRepository = new MaterialRepository(db);
             MaterialCategoryRepository = new MaterialCategoryRepository(db);
             MaterialCommentRepository = new MaterialCommentRepository(db);
@@ -54,7 +58,7 @@ namespace MigratorVnext
         public static void UpdateFromFiles()
         {
             UpdateUsers();
-            _deleted = UnitOfWork.UserRepository.GetAsync().Result.First(x => x.UserName == "deleted");
+            _deleted = UnitOfWork.UserManager.FindByNameAsync("deleted").Result;
             UpdateUsersId();
             UpdateBlogCategory();
             UpdateNewsCategory();
@@ -114,7 +118,7 @@ namespace MigratorVnext
                         i++;
                     }
                     user.LastModified = DateTimeHelpers.ConvertUtcToLocalTime(long.Parse(lastDate));
-                    UnitOfWork.UserRepository.AddAsync(user);
+                    UnitOfWork.UserManager.CreateAsync(user).RunSynchronously();
                     while (chars[i] != 10)
                     {
                         i++;
@@ -122,7 +126,6 @@ namespace MigratorVnext
                 }
                 UnitOfWork.Save();
             }
-
         }
 
         private static void UpdateUsers()
@@ -344,7 +347,7 @@ namespace MigratorVnext
                     }
                     user.LastModified = DateTimeHelpers.ConvertUtcToLocalTime(long.Parse(lastDate));
                     user.RoleGroupId = (int)RoleGroupsEnum.Simple;
-                    UnitOfWork.UserRepository.AddAsync(user);
+                    UnitOfWork.UserManager.CreateAsync(user).RunSynchronously();
                     while (chars[i] != 10)
                     {
                         i++;
@@ -387,11 +390,11 @@ namespace MigratorVnext
                         i++;
                     }
                     i++;
-                    User user = UnitOfWork.UserRepository.GetAsync(u => u.UserName == userLogin).Result.FirstOrDefault();
+                    User user = UnitOfWork.UserManager.FindByNameAsync(userLogin).Result;
                     if (user != null)
                     {
                         user.OldId = int.Parse(id);
-                        UnitOfWork.UserRepository.Update(user);
+                        UnitOfWork.UserManager.UpdateAsync(user).RunSynchronously();
                     }
 
                     while (chars[i] != 10)
@@ -525,7 +528,7 @@ namespace MigratorVnext
                     }
                     i++;
 
-                    blogItem.Author = UnitOfWork.UserRepository.GetAsync(u => u.UserName == userName).Result.FirstOrDefault();
+                    blogItem.Author = UnitOfWork.UserManager.FindByNameAsync(userName).Result;
                     if (blogItem.Author == null)
                     {
                         blogItem.AuthorId = _deleted.Id;
@@ -847,7 +850,7 @@ namespace MigratorVnext
                     }
                     i++;
 
-                    newsItem.Author = UnitOfWork.UserRepository.GetAsync(u => u.UserName == userName).Result.FirstOrDefault();
+                    newsItem.Author = UnitOfWork.UserManager.FindByNameAsync(userName).Result;
                     if (newsItem.Author == null)
                     {
                         newsItem.AuthorId = _deleted.Id;
@@ -1426,7 +1429,7 @@ namespace MigratorVnext
                     if (pending == '1')
                         comment.Pending = true;
                     comment.AdditionTime = DateTimeHelpers.ConvertUtcToLocalTime(long.Parse(additionTime));
-                    comment.Author = UnitOfWork.UserRepository.GetAsync(u => u.UserName == userName).Result.FirstOrDefault();
+                    comment.Author = UnitOfWork.UserManager.FindByNameAsync(userName).Result;
                     if (comment.Author == null)
                     {
                         comment.AuthorId = _deleted.Id;
@@ -1704,7 +1707,7 @@ namespace MigratorVnext
                         i++;
                     }
                     i++;
-                    forumTheme.Author = UnitOfWork.UserRepository.GetAsync(u => u.UserName == author).Result.FirstOrDefault();
+                    forumTheme.Author = UnitOfWork.UserManager.FindByNameAsync(author).Result;
                     // user reg????
                     while (chars[i] != '|')
                     {
@@ -1720,7 +1723,7 @@ namespace MigratorVnext
                         i++;
                     }
                     i++;
-                    forumTheme.LastAnswerUser = UnitOfWork.UserRepository.GetAsync(u => u.UserName == authorLastMessage).Result.FirstOrDefault();
+                    forumTheme.LastAnswerUser = UnitOfWork.UserManager.FindByNameAsync(authorLastMessage).Result;
 
 
                     Themes.Add(forumTheme);
@@ -1816,16 +1819,16 @@ namespace MigratorVnext
                         i++;
                     }
                     i++;
-                    var author = UnitOfWork.UserRepository.GetAsync(u => u.UserName == userName).Result.FirstOrDefault();
+                    var author = UnitOfWork.UserManager.FindByNameAsync(userName).Result;
                     forumMessage.AuthorId = author?.Id ?? _deleted.Id;
 
                     while (chars[i] != 10)
                     {
                         i++;
                     }
-                    if (UseLimit && theme != null)
+                    if (UseLimit)
                     {
-                        theme.Messages.Add(forumMessage);
+                        theme?.Messages.Add(forumMessage);
                         //  UnitOfWork.ForumMessageRepository.Add(forumMessage);
                     }
 
@@ -1835,10 +1838,10 @@ namespace MigratorVnext
                 {
                     if (item.Messages.Any())
                     {
-                        UnitOfWork.ForumThemeRepository.AddAsync(item);
+                        ForumThemeRepository.AddAsync(item).RunSynchronously();
                     }
                 }
-                UnitOfWork.Save();
+                ForumThemeRepository.SaveChangesAsync().RunSynchronously();
             }
             Console.WriteLine("End UpdateForumComments");
         }
@@ -1923,8 +1926,8 @@ namespace MigratorVnext
         {
             Console.WriteLine("Start UpdateCommentsForum");
 
-            var posts = UnitOfWork.ForumMessageRepository.GetAsync().Result;
-            var themes = UnitOfWork.ForumThemeRepository.GetAsync().Result;
+            var posts = ForumMessageRepository.GetListAsync().Result;
+            var themes = ForumThemeRepository.GetListAsync().Result;
             foreach (var theme in themes)
             {
                 foreach (var post in posts.Where(post => theme.Id == post.ThemeId))
@@ -1960,14 +1963,14 @@ namespace MigratorVnext
                     }
                 }
             }
-            UnitOfWork.Save();
+            ForumSubsectionRepository.SaveChangesAsync(); //todo above not duplicating?
 
         }
 
         public static void UpdateForumSubSectionAndTheme()
         {
             Console.WriteLine("Start UpdateForumSubSectionAndTheme");
-            var themes = UnitOfWork.ForumThemeRepository.GetAsync().Result;
+            var themes = ForumThemeRepository.GetListAsync().Result;
             var subSections = ForumSubsectionRepository.GetListAsync().Result;
 
             foreach (var subSection in subSections)
@@ -1982,7 +1985,7 @@ namespace MigratorVnext
                     subSection.Themes.Add(theme);
                 }
             }
-            ForumSubsectionRepository.SaveChangesAsync().RunSynchronously();
+            ForumSubsectionRepository.SaveChangesAsync().RunSynchronously(); //todo above not duplicating?
         }
 
         public static void UpdateCommentsLinksToNewsAndBlogs()

@@ -37,7 +37,8 @@ module.exports = {
             "es6-promise",
             "event-source-polyfill",
             "jquery",
-            "zone.js"
+            "zone.js",
+            "ng2-auto-complete"
         ]
     },
     output: {

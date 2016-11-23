@@ -4,7 +4,8 @@ using MyLiverpool.Data.Entities;
 
 namespace MyLiverpool.Data.ResourceAccess.Interfaces
 {
-    public interface IForumSectionRepository: ICrudRepository<ForumSection>
+    public interface IForumThemeRepository : ICrudRepository<ForumTheme>
     {
+        Task<IEnumerable<ForumTheme>> GetListAsync();
     }
 }

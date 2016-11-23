@@ -210,5 +210,10 @@ namespace MyLiverpool.Data.ResourceAccess
 
             return await query.CountAsync();
         }
+
+        public Task<IEnumerable<TEntity>> GetListAsync()
+        {
+            throw new NotImplementedException("not need to implement");
+        }
     }
 }

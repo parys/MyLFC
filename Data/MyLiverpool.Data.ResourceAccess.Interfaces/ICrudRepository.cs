@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
@@ -34,5 +35,7 @@ namespace MyLiverpool.Data.ResourceAccess.Interfaces
         Task SaveChangesAsync();
 
         Task<int> GetCountAsync(Expression<Func<TEntity, bool>> filter = null);
+
+        Task<IEnumerable<TEntity>> GetListAsync();
     }
 }

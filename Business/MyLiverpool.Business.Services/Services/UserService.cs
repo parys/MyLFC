@@ -19,13 +19,15 @@ namespace MyLiverpool.Business.Services.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IUserRepository _userRepository;
+        private readonly IRoleGroupRepository _roleGroupRepository;
         private readonly IMapper _mapper;
 
-        public UserService(IUnitOfWork unitOfWork, IMapper mapper, IUserRepository userRepository)
+        public UserService(IUnitOfWork unitOfWork, IMapper mapper, IUserRepository userRepository, IRoleGroupRepository roleGroupRepository)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _userRepository = userRepository;
+            _roleGroupRepository = roleGroupRepository;
         }
 
         public async Task<bool> BanUser(int userId, int banDayCount)
@@ -44,7 +46,7 @@ namespace MyLiverpool.Business.Services.Services
         
         public async Task<UserDto> GetUserProfileDtoAsync(int id)
         {
-            var user = await _unitOfWork.UserRepository.GetByIdAsync(id);
+            var user = await _unitOfWork.UserManager.FindByIdAsync(id.ToString());
             var dto = _mapper.Map<UserDto>(user);
             return dto;
         }
@@ -73,8 +75,8 @@ namespace MyLiverpool.Business.Services.Services
         public async Task<bool> EditRoleGroupAsync(int userId, int roleGroupId)
         {
             var user = await _unitOfWork.UserManager.FindByIdAsync(userId.ToString());
-            var oldRoleGroup = await _unitOfWork.RoleGroupRepository.GetByIdAsync(user.RoleGroupId);
-            var newRoleGroup = await _unitOfWork.RoleGroupRepository.GetByIdAsync(roleGroupId);
+            var oldRoleGroup = await _roleGroupRepository.GetByIdAsync(user.RoleGroupId);
+            var newRoleGroup = await _roleGroupRepository.GetByIdAsync(roleGroupId);
             var rolesToDelete = GetRolesToDelete(oldRoleGroup.RoleGroups.Select(x => x.Role), newRoleGroup.RoleGroups.Select(x => x.Role));
             var rolesToAdd = GetRolesToAdd(oldRoleGroup.RoleGroups.Select(x => x.Role), newRoleGroup.RoleGroups.Select(x => x.Role));
             user.RoleGroupId = roleGroupId;
@@ -97,16 +99,7 @@ namespace MyLiverpool.Business.Services.Services
             return result.Succeeded; //todo return identityResult?
         }
 
-        public async Task<IEnumerable<string>> GetUserNamesAsync(string typed)
-        {
-            if (string.IsNullOrEmpty(typed))
-            {
-                typed = "";
-            }
-            var users = await _unitOfWork.UserRepository.GetAsync(x => x.UserName.Contains(typed));
-            return users.Select(x => x.UserName).Take(GlobalConstants.CountLoginsForAutocomlete);
-        }
-        public async Task<IEnumerable<UsernameDto>> GetUserNamesAsync1(string typed)
+        public async Task<IEnumerable<UsernameDto>> GetUserNamesAsync(string typed)
         {
             if (string.IsNullOrEmpty(typed))
             {
@@ -136,7 +129,7 @@ namespace MyLiverpool.Business.Services.Services
             if (await _unitOfWork.UserManager.CheckPasswordAsync(user, password))
             {
                 return user;
-            };
+            }
             return null;
         }
 

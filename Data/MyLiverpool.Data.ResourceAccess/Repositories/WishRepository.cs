@@ -64,6 +64,11 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             return await _context.Wishs.CountAsync(filter);
         }
 
+        public Task<IEnumerable<Wish>> GetListAsync()
+        {
+            throw new NotImplementedException("Not need to implement");
+        }
+
         public async Task<ICollection<Wish>> GetOrderedByAsync(int page, int itemPerPage = 15, Expression<Func<Wish, bool>> filter = null, SortOrder order = SortOrder.Ascending,
             Expression<Func<Wish, object>> orderBy = null)
         {

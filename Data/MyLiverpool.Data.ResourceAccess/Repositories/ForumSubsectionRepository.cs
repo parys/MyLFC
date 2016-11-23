@@ -16,6 +16,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
         {
             _context = context;
         }
+
         public async Task<ForumSubsection> GetByIdAsync(int id)
         {
             return await _context.ForumSubsections.FindAsync(id);
@@ -29,10 +30,10 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
 
         public async Task DeleteAsync(int id)
         {
-            var pm = await _context.ForumSubsections.FindAsync(id);
-            if (pm != null)
+            var fs = await _context.ForumSubsections.FindAsync(id);
+            if (fs != null)
             {
-                await DeleteAsync(pm);
+                await DeleteAsync(fs);
             }
         }
 

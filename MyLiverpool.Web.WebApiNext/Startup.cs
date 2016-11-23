@@ -162,10 +162,10 @@ namespace MyLiverpool.Web.WebApiNext
              //   options.OperationFilter<AssignSecurityRequirements>();
             });
 
-            //services.AddNodeServices(options =>
-            //{
-            //    options.HostingModel = NodeHostingModel.Socket;
-            //});
+            services.AddNodeServices(options =>
+            {
+                options.HostingModel = NodeHostingModel.Socket;
+            });
 
             new DatabaseInitializer((LiverpoolContext)services.BuildServiceProvider().GetService(typeof(LiverpoolContext))).Seed();
         }
@@ -292,13 +292,16 @@ namespace MyLiverpool.Web.WebApiNext
         private void RegisterRepositories(IServiceCollection services)
         {
             services.AddScoped<IClubRepository, ClubRepository>();
+            services.AddScoped<IForumMessageRepository, ForumMessageRepository>();
             services.AddScoped<IForumSectionRepository, ForumSectionRepository>();
             services.AddScoped<IForumSubsectionRepository, ForumSubsectionRepository>();
+            services.AddScoped<IForumThemeRepository, ForumThemeRepository>();
             services.AddScoped<IMatchRepository, MatchRepository>();
             services.AddScoped<IMaterialCategoryRepository, MaterialCategoryRepository>();
             services.AddScoped<IMaterialCommentRepository, MaterialCommentRepository>();
             services.AddScoped<IMaterialRepository, MaterialRepository>();
             services.AddScoped<IPmRepository, PmRepository>();
+            services.AddScoped<IRoleGroupRepository, RoleGroupRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IWishRepository, WishRepository>();
         }

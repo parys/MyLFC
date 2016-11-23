@@ -46,9 +46,9 @@ namespace MyLiverpool.Business.Services.Services
 
         public async Task<ForumSubsectionDto> GetAsync(int subsectionId, int page)
         {
-            //var subsection = await _forumSubsectionRepository.GetByIdAsync(subsectionId);
-            //var subsectionThemes =
-            //    await _forumSubsectionRepository.GetListAsync(page, filter: x => x.SubsectionId == subsectionId);
+            var subsection = await _forumSubsectionRepository.GetByIdAsync(subsectionId);
+         //   var subsectionThemes =
+        //        await _forumThemeRepository.GetListAsync(page, filter: x => x.SubsectionId == subsectionId); todo to one request
             //var subsectionThemesCount = await _unitOfWork.ForumThemeRepository.GetCountAsync(x => x.SubsectionId == subsectionId);
             //if (subsection == null)
             //{

@@ -14,11 +14,7 @@ namespace MyLiverpool.Data.ResourceAccess
     public class UnitOfWork : IUnitOfWork, IDisposable
     {
         private readonly LiverpoolContext _context;
-
-        private IGenericRepository<ForumTheme> _forumThemeRepository;
-        private IGenericRepository<ForumMessage> _forumMessageRepository;
-        private IGenericRepository<Role> _roleRepository;
-        private IGenericRepository<RoleGroup> _roleGroupRepository;
+        
         private IGenericRepository<User> _userRepository;
 
         public UnitOfWork(LiverpoolContext context)
@@ -32,8 +28,6 @@ namespace MyLiverpool.Data.ResourceAccess
         {
             var store = new UserStore<User, Role, LiverpoolContext, int>(_context);
             IPasswordHasher<User> hasher = new PasswordHasher<User>();
-            //IUserT
-           // IServiceProvider sp = new Servi
                 //var provider = new MachineKeyProtectionProvider();
             //var userStore = new UserStore<User, Role, int, UserLogin, UserRole, UserClaim>(_context);
             UserManager = new UserManager<User>(store, null, hasher, null, null, null, null, null, null);
@@ -48,13 +42,7 @@ namespace MyLiverpool.Data.ResourceAccess
         /// <summary>
         /// Return userRepository.
         /// </summary>
-        public IGenericRepository<User> UserRepository => _userRepository ?? (_userRepository = new GenericRepository<User>(_context));        
-        
-        public IGenericRepository<ForumTheme> ForumThemeRepository => _forumThemeRepository ?? (_forumThemeRepository = new GenericRepository<ForumTheme>(_context));
-        public IGenericRepository<ForumMessage> ForumMessageRepository => _forumMessageRepository ?? (_forumMessageRepository = new GenericRepository<ForumMessage>(_context));
-        public IGenericRepository<Role> RoleRepository => _roleRepository ?? (_roleRepository = new GenericRepository<Role>(_context));
-        public IGenericRepository<RoleGroup> RoleGroupRepository => _roleGroupRepository ?? (_roleGroupRepository = new GenericRepository<RoleGroup>(_context));
-        
+        public IGenericRepository<User> UserRepository => _userRepository ?? (_userRepository = new GenericRepository<User>(_context));
 
         /// <summary>
         /// Saves changes to shared data source.

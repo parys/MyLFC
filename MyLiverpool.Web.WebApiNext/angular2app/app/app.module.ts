@@ -1,8 +1,8 @@
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 //import { MaterialModule } from "@angular/material";
-import { Title, BrowserModule, } from "@angular/platform-browser";
-import { UniversalModule, NODE_HTTP_PROVIDERS } from "angular2-universal";
+import { Title } from "@angular/platform-browser";
+import { UniversalModule } from "angular2-universal";
 import { LocalStorage } from "./shared/local-storage";     
 
 import { AppComponent }  from "./app.component";

@@ -96,7 +96,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [AllowAnonymous] //bug
         public async Task<IActionResult> GetUserNames(string typed)
         {
-            var result = await _userService.GetUserNamesAsync1(typed);
+            var result = await _userService.GetUserNamesAsync(typed);
          //   var userId = User.GetUserId();
          //   result = result.Where(x => x.Id != userId);
             return Ok(result);

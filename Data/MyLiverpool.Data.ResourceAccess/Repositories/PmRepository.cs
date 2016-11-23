@@ -30,10 +30,10 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
 
         public async Task DeleteAsync(int id)
         {
-            var pm = await _context.PrivateMessages.FindAsync(id);
-            if (pm != null)
+            var entity = await _context.PrivateMessages.FindAsync(id);
+            if (entity != null)
             {
-                await DeleteAsync(pm);
+                await DeleteAsync(entity);
             }
         }
 
@@ -45,6 +45,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
         public void Update(PrivateMessage entity)
         {
             _context.PrivateMessages.Update(entity);
+            _context.Entry(entity).State = EntityState.Modified;
         }
 
         public async Task SaveChangesAsync()
@@ -60,6 +61,11 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
                 query = query.Where(filter);
             }
             return await query.CountAsync();
+        }
+
+        public Task<IEnumerable<PrivateMessage>> GetListAsync()
+        {
+            throw new NotImplementedException("Not need to implement");
         }
 
         public async Task<IEnumerable<PrivateMessage>> GetAsync(Expression<Func<PrivateMessage, bool>> filter = null)
