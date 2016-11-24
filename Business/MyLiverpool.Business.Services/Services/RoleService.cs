@@ -12,19 +12,19 @@ namespace MyLiverpool.Business.Services.Services
     public class RoleService : IRoleService
     {
         private readonly IRoleGroupRepository _roleGroupRepository;
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
 
-        public RoleService(IRoleGroupRepository roleGroupRepository, IMapper mapper, IUnitOfWork unitOfWork)
+        public RoleService(IRoleGroupRepository roleGroupRepository, IMapper mapper, IUserRepository userRepository)
         {
             _roleGroupRepository = roleGroupRepository;
             _mapper = mapper;
-            _unitOfWork = unitOfWork;
+            _userRepository = userRepository;
         }
 
         public async Task<bool> EditRoleGroupAsync(int newRoleGroupId, int userId)
         {
-            var user = await _unitOfWork.UserManager.FindByIdAsync(userId.ToString());
+            var user = await _userRepository.GetByIdAsync(userId);
             var oldRoleGroup = await _roleGroupRepository.GetByIdAsync(user.RoleGroupId);
             var newRoleGroup = await _roleGroupRepository.GetByIdAsync(newRoleGroupId);
 
@@ -32,11 +32,10 @@ namespace MyLiverpool.Business.Services.Services
             var rolesToAdd = GetRolesToAdd(oldRoleGroup.RoleGroups.Select(x => x.Role), newRoleGroup.RoleGroups.Select(x => x.Role));
 
             user.RoleGroupId = newRoleGroupId;
-            await _unitOfWork.UserManager.RemoveFromRolesAsync(user, rolesToDelete.Select(x => x.Name).ToArray());
-            await _unitOfWork.UserManager.AddToRolesAsync(user, rolesToAdd.Select(x => x.Name).ToArray());
+            await _userRepository.RemoveFromRolesAsync(user, rolesToDelete.Select(x => x.Name).ToArray());
+            await _userRepository.AddToRolesAsync(user, rolesToAdd.Select(x => x.Name).ToArray());
             
-            await _unitOfWork.UserManager.UpdateAsync(user);
-            await _unitOfWork.SaveAsync();
+            await _userRepository.UpdateAsync(user);
             return true;
         }
 
@@ -48,8 +47,7 @@ namespace MyLiverpool.Business.Services.Services
 
         public async Task<string> GetUserRolesAsync(int id)
         {
-            var user = await _unitOfWork.UserManager.FindByIdAsync(id.ToString());
-            var roles = await _unitOfWork.UserManager.GetRolesAsync(user);
+            var roles = await _userRepository.GetRolesAsync(id);
             return string.Join(", ", roles);
         }
 

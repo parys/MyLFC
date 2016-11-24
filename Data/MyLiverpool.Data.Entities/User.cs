@@ -17,6 +17,17 @@ namespace MyLiverpool.Data.Entities
             this.ReceivedPrivateMessages = new HashSet<PrivateMessage>();
         }
 
+        public User(int id)
+        {
+            Id = id;
+            this.ForumMessages = new HashSet<ForumMessage>();
+            this.Comments = new HashSet<MaterialComment>();
+            //  this.BlogItems = new HashSet<BlogItem>();
+            this.Materials = new HashSet<Material>();
+            this.SentPrivateMessages = new HashSet<PrivateMessage>();
+            this.ReceivedPrivateMessages = new HashSet<PrivateMessage>();
+        }
+
       //  public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User, int> manager)
      //   {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType

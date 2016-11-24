@@ -263,12 +263,10 @@ namespace MyLiverpool.Web.WebApiNext
 
         private void RegisterServices(IServiceCollection services)
         {
-            // builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsImplementedInterfaces();
             services.AddTransient<IAccountService, AccountService>();
             services.AddTransient<IAdminService, AdminService>();
             services.AddTransient<IClubService, ClubService>();
             services.AddTransient<IEmailSender, AuthMessageSender>();
-            //  services.AddTransient<IIdentityMessageService, EmailService>();
             services.AddTransient<IForumMessageService, ForumMessageService>();
             services.AddTransient<IForumSectionService, ForumSectionService>();
             services.AddTransient<IForumSubsectionService, ForumSubsectionService>();
@@ -282,7 +280,6 @@ namespace MyLiverpool.Web.WebApiNext
             services.AddTransient<ISmsSender, AuthMessageSender>();
             services.AddTransient<IUploadService, UploadService>();
             services.AddTransient<IUserService, UserService>();
-            services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddTransient<IWishService, WishService>();
             services.AddSingleton<IMapper>(Config.CreateMapper());
             RegisterRepositories(services);

@@ -26,6 +26,6 @@ namespace MyLiverpool.Business.Contracts
 
         Task<bool> ResetPasswordAsync(ResetPasswordDto dto);
 
-        Task<IdentityResult> UpdateLastModifiedAsync(int userId);
+        Task<bool> UpdateLastModifiedAsync(int userId);
     }
 }

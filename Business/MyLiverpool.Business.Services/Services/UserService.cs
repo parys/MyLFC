@@ -17,14 +17,12 @@ namespace MyLiverpool.Business.Services.Services
 {
     public class UserService : IUserService
     {
-        private readonly IUnitOfWork _unitOfWork;
         private readonly IUserRepository _userRepository;
         private readonly IRoleGroupRepository _roleGroupRepository;
         private readonly IMapper _mapper;
 
-        public UserService(IUnitOfWork unitOfWork, IMapper mapper, IUserRepository userRepository, IRoleGroupRepository roleGroupRepository)
+        public UserService(IMapper mapper, IUserRepository userRepository, IRoleGroupRepository roleGroupRepository)
         {
-            _unitOfWork = unitOfWork;
             _mapper = mapper;
             _userRepository = userRepository;
             _roleGroupRepository = roleGroupRepository;
@@ -32,21 +30,21 @@ namespace MyLiverpool.Business.Services.Services
 
         public async Task<bool> BanUser(int userId, int banDayCount)
         {
-            var user = await _unitOfWork.UserManager.FindByIdAsync(userId.ToString());
-            var result = await _unitOfWork.UserManager.SetLockoutEndDateAsync(user, new DateTimeOffset(DateTime.Now.AddDays(banDayCount)));
+            var user = await _userRepository.GetByIdAsync(userId);
+            var result = await _userRepository.SetLockoutEndDateAsync(user, new DateTimeOffset(DateTime.Now.AddDays(banDayCount)));
             return result == IdentityResult.Success;
         }
 
         public async Task<bool> UnbanUser(int userId)
         {
-            var user = await _unitOfWork.UserManager.FindByIdAsync(userId.ToString());
-            var result = await _unitOfWork.UserManager.SetLockoutEndDateAsync(user, DateTimeOffset.MinValue);
+            var user = await _userRepository.GetByIdAsync(userId);
+            var result = await _userRepository.SetLockoutEndDateAsync(user, DateTimeOffset.MinValue);
             return result == IdentityResult.Success;
         }
         
         public async Task<UserDto> GetUserProfileDtoAsync(int id)
         {
-            var user = await _unitOfWork.UserManager.FindByIdAsync(id.ToString());
+            var user = await _userRepository.GetByIdAsync(id);
             var dto = _mapper.Map<UserDto>(user);
             return dto;
         }
@@ -63,18 +61,16 @@ namespace MyLiverpool.Business.Services.Services
                 filter = filter.And(x => x.UserName.Contains(dto.UserName));
             }
 
-            var users = await _unitOfWork.UserRepository.GetAsync(dto.Page, filter: filter);
+            var users = await _userRepository.GetListAsync(dto.Page, filter: filter);
             var usersDto = _mapper.Map<IEnumerable<UserMiniDto>>(users);
-            var allUsersCount = await _unitOfWork.UserRepository.GetCountAsync(filter);
+            var allUsersCount = await _userRepository.GetCountAsync(filter);
             var result = new PageableData<UserMiniDto>(usersDto, dto.Page, allUsersCount);
             return result;
         }
 
-      
-
         public async Task<bool> EditRoleGroupAsync(int userId, int roleGroupId)
         {
-            var user = await _unitOfWork.UserManager.FindByIdAsync(userId.ToString());
+            var user = await _userRepository.GetByIdAsync(userId);
             var oldRoleGroup = await _roleGroupRepository.GetByIdAsync(user.RoleGroupId);
             var newRoleGroup = await _roleGroupRepository.GetByIdAsync(roleGroupId);
             var rolesToDelete = GetRolesToDelete(oldRoleGroup.RoleGroups.Select(x => x.Role), newRoleGroup.RoleGroups.Select(x => x.Role));
@@ -84,19 +80,19 @@ namespace MyLiverpool.Business.Services.Services
             {
                 if (rolesToDelete.Any())
                 {
-                    await _unitOfWork.UserManager.RemoveFromRolesAsync(user, rolesToDelete);
+                    await _userRepository.RemoveFromRolesAsync(user, rolesToDelete);
                 }
                 if (rolesToAdd.Any())
                 {
-                    await _unitOfWork.UserManager.AddToRolesAsync(user, rolesToAdd);
+                    await _userRepository.AddToRolesAsync(user, rolesToAdd);
                 }
             }
             catch (Exception)
             {
                 
             }
-            var result = await _unitOfWork.UserManager.UpdateAsync(user);
-            return result.Succeeded; //todo return identityResult?
+            var result = await _userRepository.UpdateAsync(user);
+            return true;
         }
 
         public async Task<IEnumerable<UsernameDto>> GetUserNamesAsync(string typed)
@@ -105,51 +101,50 @@ namespace MyLiverpool.Business.Services.Services
             {
                 typed = "";
             }
-            var users = await _unitOfWork.UserRepository.GetAsync(x => x.UserName.Contains(typed));
-            return users.Select(x => new UsernameDto() { Id = x.Id, Username = x.UserName} ).Take(GlobalConstants.CountLoginsForAutocomlete);
+            var users = await _userRepository.GetListAsync(1, GlobalConstants.CountLoginsForAutocomlete, x => x.UserName.Contains(typed));
+            return users.Select(x => new UsernameDto() { Id = x.Id, Username = x.UserName} );
         }
 
         public async Task<string> GetPhotoPathAsync(int userId)
         {
-            var user = await _unitOfWork.UserManager.FindByIdAsync(userId.ToString());
+            var user = await _userRepository.GetByIdAsync(userId); //todo get photo
             return user.Photo;
         }
 
         public async Task<bool> UpdatePhotoPathAsync(int userId, string photo)
         {
-            var user = await _unitOfWork.UserManager.FindByIdAsync(userId.ToString());
+            var user = await _userRepository.GetByIdAsync(userId);
             user.Photo = photo;
-            var result = await _unitOfWork.UserManager.UpdateAsync(user);
-            return result.Succeeded;
+            var result = await _userRepository.UpdateAsync(user);
+            return true;
         }
 
         public async Task<User> FindAsync(string userName, string password)
         {
-            var user = await _unitOfWork.UserManager.FindByNameAsync(userName);
-            if (await _unitOfWork.UserManager.CheckPasswordAsync(user, password))
+            var user = await _userRepository.FindByNameAsync(userName);
+            if (await _userRepository.CheckPasswordAsync(user, password))
             {
                 return user;
             }
             return null;
         }
 
-        public async Task<IdentityResult> UpdateAsync(User user)
+        public async Task<User> UpdateAsync(User user)
         {
-            var result = await _unitOfWork.UserManager.UpdateAsync(user);
-            await _unitOfWork.SaveAsync();
+            var result = await _userRepository.UpdateAsync(user);
+           // await _unitOfWork.SaveAsync();
             return result;
         }
 
         public async Task<IList<string>> GetRolesAsync(int id)
         {
-            var user = await _unitOfWork.UserManager.FindByIdAsync(id.ToString());
-            var result = await _unitOfWork.UserManager.GetRolesAsync(user);
+            var result = await _userRepository.GetRolesAsync(id);
             return result;
         }
 
         public async Task<UserDto> GetUserAsync(int id)
         {
-            var user = await _userRepository.GetUserAsync(id);
+            var user = await _userRepository.GetByIdAsync(id);
             return _mapper.Map<UserDto>(user);
         }
 

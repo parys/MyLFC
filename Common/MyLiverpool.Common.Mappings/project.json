@@ -6,7 +6,7 @@
     "MyLiverpool.Business.DtoNext": "1.0.0-*",
     "MyLiverpool.Data.Entities": "1.0.0-*",
     "MyLiverpool.Common.Utilities": "1.0.0-*",
-    "AutoMapper": "5.1.1"
+    "AutoMapper": "5.2.0"
   },
 
   "frameworks": {

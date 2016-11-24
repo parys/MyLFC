@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MyLiverpool.Data.Entities;
 using MyLiverpool.Data.ResourceAccess.Interfaces;
@@ -12,13 +14,15 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
     public class UserRepository: IUserRepository
     {
         private readonly LiverpoolContext _context;
+        private readonly UserManager<User> _userManager;
 
-        public UserRepository(LiverpoolContext context)
+        public UserRepository(LiverpoolContext context, UserManager<User> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
-        public async Task<User> GetUserAsync(int id)
+        public async Task<User> GetByIdAsync(int id)
         {
             var user = await _context.Users.Where(x => x.Id == id).Select(x => new User
             {
@@ -43,12 +47,106 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
 
         public async Task<string> GetUsername(int id)
         {
-            return await _context.Users.Where(x => x.Id == id).Select(x => x.UserName).FirstOrDefaultAsync();
+            var user = await _context.Users.FindAsync(id);
+            return user.UserName;
         }
 
-        public Task<User> GetByIdAsync(int id)
+        public async Task<IEnumerable<User>> GetListAsync(int page, int itemPerPage = 15, Expression<Func<User, bool>> filter = null, SortOrder order = SortOrder.Ascending,
+            Expression<Func<User, object>> orderBy = null)
         {
-            throw new NotImplementedException();
+            IQueryable<User> query = _context.Users;
+
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+            if (orderBy != null)
+            {
+                query = query.ObjectSort(orderBy, order);
+            }
+            query = query.Skip((page - 1) * itemPerPage).Take(itemPerPage);
+            return await query.ToListAsync();
+        }
+
+        public async Task<User> UpdateAsync(User user)
+        {
+            await _userManager.UpdateAsync(user);
+            return user;
+        }
+
+        public async Task<IdentityResult> SetLockoutEndDateAsync(User user, DateTimeOffset dateTimeOffset)
+        {
+            return await _userManager.SetLockoutEndDateAsync(user, dateTimeOffset);
+        }
+
+        public async Task<DateTimeOffset?> GetLockoutEndDateAsync(int userId)
+        {
+            return await _userManager.GetLockoutEndDateAsync(new User(userId));
+        }
+
+        public async Task<IdentityResult> RemoveFromRolesAsync(User user, IEnumerable<string> roles)
+        {
+            return await _userManager.RemoveFromRolesAsync(user, roles);
+        }
+
+        public async Task<IdentityResult> AddToRoleAsync(User user, string role)
+        {
+            return await _userManager.AddToRoleAsync(user, role);
+        }
+
+        public async Task<IdentityResult> AddToRolesAsync(User user, IEnumerable<string> roles)
+        {
+            return await _userManager.AddToRolesAsync(user, roles);
+        }
+
+        public async Task<User> FindByNameAsync(string username)
+        {
+            return await _userManager.FindByNameAsync(username);
+        }
+
+        public async Task<User> FindByEmailAsync(string email)
+        {
+            return await _userManager.FindByEmailAsync(email);
+        }
+
+        public async Task<bool> CheckPasswordAsync(User user, string password)
+        {
+            return await _userManager.CheckPasswordAsync(user, password);
+        }
+
+        public async Task<IList<string>> GetRolesAsync(int id)
+        {
+            return await _userManager.GetRolesAsync(new User(id));
+        }
+
+        public async Task<IdentityResult> ChangePasswordAsync(int userId, string oldPassword, string newPassword)
+        {
+            return await _userManager.ChangePasswordAsync(new User(userId), oldPassword, newPassword);
+        }
+
+        public async Task<IdentityResult> ConfirmEmailAsync(int userId, string code)
+        {
+            return await _userManager.ConfirmEmailAsync(new User(userId), code);
+        }
+
+        public async Task<IdentityResult> ResetPasswordAsync(User user, string token, string password)
+        {
+            return await _userManager.ResetPasswordAsync(user, token, password);
+        }
+
+        public async Task<string> GenerateEmailConfirmationTokenAsync(int userId)
+        {
+            return await _userManager.GenerateEmailConfirmationTokenAsync(new User(userId));
+        }
+
+        public async Task<string> GeneratePasswordResetTokenAsync(int userId)
+        {
+            return await _userManager.GeneratePasswordResetTokenAsync(new User(userId));
+        }
+
+        public async Task<IdentityResult> CreateAsync(User user, string password)
+        {
+            return await _userManager.CreateAsync(user, password);
         }
 
         public Task<User> AddAsync(User entity)
@@ -66,9 +164,9 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             throw new NotImplementedException();
         }
 
-        public void Update(User entity)
+        public async void Update(User entity)
         {
-            throw new NotImplementedException();
+            await _userManager.UpdateAsync(entity);
         }
 
         public Task SaveChangesAsync()
@@ -76,9 +174,14 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<int> GetCountAsync(Expression<Func<User, bool>> filter = null)
+        public async Task<int> GetCountAsync(Expression<Func<User, bool>> filter = null)
         {
-            throw new NotImplementedException();
+            IQueryable<User> query = _context.Users;
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+            return await query.CountAsync();
         }
 
         public Task<IEnumerable<User>> GetListAsync()

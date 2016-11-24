@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
 using MyLiverpool.Business.DtoNext;
 using MyLiverpool.Business.DTO;
 using MyLiverpool.Common.Utilities;
@@ -28,12 +27,13 @@ namespace MyLiverpool.Business.Contracts
 
         Task<User> FindAsync(string userName, string password);
 
-        Task<IdentityResult> UpdateAsync(User user);
+        Task<User> UpdateAsync(User user);
 
         Task<IList<string>> GetRolesAsync(int id);
 
         Task<UserDto> GetUserAsync(int id);
 
         Task<string> GetUsernameAsync(int id);
+        
     }
 }

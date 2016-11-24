@@ -13,15 +13,13 @@ namespace MyLiverpool.Business.Services.Services
 {
     public class PmService : IPmService
     {
-        private readonly IUnitOfWork _unitOfWork;
         private readonly IPmRepository _pmRepository;
         private readonly IMapper _mapper;
 
-        public PmService(IPmRepository pmRepository, IMapper mapper, IUnitOfWork unitOfWork)
+        public PmService(IPmRepository pmRepository, IMapper mapper)
         {
             _pmRepository = pmRepository;
             _mapper = mapper;
-            _unitOfWork = unitOfWork;
         }
 
         public async Task<PrivateMessagesDto> GetListAsync(int id)

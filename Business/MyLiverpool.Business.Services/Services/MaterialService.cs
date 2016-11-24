@@ -16,17 +16,17 @@ namespace MyLiverpool.Business.Services.Services
 {
     public class MaterialService : IMaterialService
     {
-        private readonly IUnitOfWork _unitOfWork;
         private readonly IMaterialRepository _materialRepository;
         private readonly IMaterialCommentRepository _materialCommentRepository;
+        private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
 
-        public MaterialService(IUnitOfWork unitOfWork, IMaterialRepository materialRepository, IMapper mapper, IMaterialCommentRepository materialCommentRepository)
+        public MaterialService(IMaterialRepository materialRepository, IMapper mapper, IMaterialCommentRepository materialCommentRepository, IUserRepository userRepository)
         {
-            _unitOfWork = unitOfWork;
             _materialRepository = materialRepository;
             _mapper = mapper;
             _materialCommentRepository = materialCommentRepository;
+            _userRepository = userRepository;
         }
 
         #region Dto 
@@ -84,9 +84,8 @@ namespace MyLiverpool.Business.Services.Services
 
         public async Task<bool> DeleteAsync(int id, int userId)
         {
-            var user = await _unitOfWork.UserManager.FindByIdAsync(userId.ToString());
             var newsItem = await _materialRepository.GetByIdAsync(id);
-            var userRoles = await _unitOfWork.UserManager.GetRolesAsync(user);
+            var userRoles = await _userRepository.GetRolesAsync(userId);
             if (!userRoles.Contains(RolesEnum.NewsFull.ToString()) &&
                 !userRoles.Contains(RolesEnum.BlogFull.ToString()) &&
                 newsItem.AuthorId != userId)

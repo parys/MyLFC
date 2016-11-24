@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 using MyLiverpool.Data.Entities;
 using OpenIddict;
 using System.Linq;
+using AspNet.Security.OpenIdConnect.Primitives;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
