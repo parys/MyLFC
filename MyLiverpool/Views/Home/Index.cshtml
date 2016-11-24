@@ -1,8 +1,0 @@
-﻿@using MyLiverpool.Helpers
-@using MyLiverpool.Business.Resources
-@model MyLiverpoolSite.Data.DataAccessLayer.PageableData<MyLiverpoolSite.Business.ViewModels.News.IndexMiniNewsVM>
-@{
-   ViewBag.Title = CommonMessages.Home;
-}
-
-@Html.Partial("_NewsList", Model)
