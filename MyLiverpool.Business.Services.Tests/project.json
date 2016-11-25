@@ -7,7 +7,9 @@
     "MyLiverpool.Business.Services": "1.0.0-*",
     "MyLiverpool.Business.Contracts": "1.0.0-*",
     "dotnet-test-xunit": "2.2.0-preview2-build1029",
-    "Microsoft.EntityFrameworkCore.InMemory": "1.1.0"
+    "Microsoft.EntityFrameworkCore.InMemory": "1.1.0",
+    "MyLiverpool.Common.Mappings": "1.0.0-*",
+    "MyLiverpool.Data.ResourceAccess": "1.0.0-*"
   },
   "frameworks": {
     "netcoreapp1.1": {

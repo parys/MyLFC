@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -13,7 +12,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Services.Services;
-using MyLiverpool.Common.MapperConfigs;
+using MyLiverpool.Common.Mappings;
 using MyLiverpool.Common.Utilities;
 using MyLiverpool.Data.Entities;
 using MyLiverpool.Data.ResourceAccess;
@@ -21,7 +20,6 @@ using MyLiverpool.Data.ResourceAccess.Interfaces;
 using MyLiverpool.Data.ResourceAccess.Repositories;
 using Newtonsoft.Json.Serialization;
 using Swashbuckle.Swagger.Model;
-using IConfigurationProvider = AutoMapper.IConfigurationProvider;
 
 namespace MyLiverpool.Web.WebApiNext
 {
@@ -30,23 +28,6 @@ namespace MyLiverpool.Web.WebApiNext
     /// </summary>
     public class Startup
     {
-        private static readonly IConfigurationProvider Config = new MapperConfiguration(cfg =>
-        {
-            cfg.AddProfile(new ClubMapperProfile());
-            cfg.AddProfile(new ForumMessageMapperProfile());
-            cfg.AddProfile(new ForumSectionMapperProfile());
-            cfg.AddProfile(new ForumSubsectionMapperProfile());
-            cfg.AddProfile(new ForumThemeMapperProfile());
-            cfg.AddProfile(new MatchMapperProfile());
-            cfg.AddProfile(new MaterialMapperProfile());
-            cfg.AddProfile(new MaterialCategoryMapperProfile());
-            cfg.AddProfile(new MaterialCommentMapperProfile());
-            cfg.AddProfile(new PmMapperProfile());
-            cfg.AddProfile(new RoleGroupsMapperProfile());
-            cfg.AddProfile(new UserMapperProfile());
-            cfg.AddProfile(new WishMapperProfile());
-        });
-
         /// <summary>
         /// Constructor.
         /// </summary>
@@ -281,7 +262,7 @@ namespace MyLiverpool.Web.WebApiNext
             services.AddTransient<IUploadService, UploadService>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IWishService, WishService>();
-            services.AddSingleton<IMapper>(Config.CreateMapper());
+            services.AddSingleton<IMapper>(MapperConfig.GetConfiration.CreateMapper());
             RegisterRepositories(services);
             RegisterCoreHelpers(services);
         }
