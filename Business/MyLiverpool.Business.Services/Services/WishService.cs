@@ -35,7 +35,7 @@ namespace MyLiverpool.Business.Services.Services
             return _mapper.Map<WishDto>(wish);
         }
 
-        public async Task<PageableData<WishDto>> GetListAsync(int page, int? typeId, string filterText)
+        public async Task<PageableData<WishDto>> GetListAsync(int page, int? typeId = null, string filterText = null)
         {
             Expression<Func<Wish, bool>> filter = x => true;
             if (typeId.HasValue)

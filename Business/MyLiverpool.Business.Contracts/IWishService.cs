@@ -8,7 +8,7 @@ namespace MyLiverpool.Business.Contracts
     {
         Task<WishDto> CreateAsync(WishDto dto);
 
-        Task<PageableData<WishDto>> GetListAsync(int page, int? typeId, string filterText);
+        Task<PageableData<WishDto>> GetListAsync(int page, int? typeId = null, string filterText = null);
 
         Task<WishDto> GetAsync(int wishId);
 
