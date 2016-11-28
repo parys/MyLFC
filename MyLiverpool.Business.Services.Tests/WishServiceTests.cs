@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.DTO;
 using MyLiverpool.Business.Services.Services;
+using MyLiverpool.Business.Services.Tests.Helpers;
 using MyLiverpool.Common.Mappings;
-using MyLiverpool.Common.Utilities.Extensions;
-using MyLiverpool.Data.Entities;
 using MyLiverpool.Data.ResourceAccess;
 using MyLiverpool.Data.ResourceAccess.Repositories;
 using Xunit;
@@ -30,7 +30,7 @@ namespace MyLiverpool.Business.Services.Tests
             
             Assert.True(result.Id > 0);
 		    expected.Id = result.Id;
-			expected.ShouldBeEquivalentTo(result);
+			result.ShouldBeEquivalentTo(expected);
 		}
 
 		[Theory, ClassData(typeof(WishGetTestData))]
@@ -38,54 +38,41 @@ namespace MyLiverpool.Business.Services.Tests
 		{
 		    var result = await _wishService.GetAsync(wishId);
 
-			expected.ShouldBeEquivalentTo(result);
+            result.ShouldBeEquivalentTo(expected);
 		}
 
-		//[Theory, ClassData(typeof(WishGetListTestData))]
-  //      public async void GetListTest(int wishId, WishDto expected)
-		//{
-		//    var result = await _wishService.GetListAsync(1);
+		[Theory, ClassData(typeof(WishGetListTestData))]
+        public async void GetListTest(int page, List<WishDto> expected)
+		{
+		    var result = await _wishService.GetListAsync(page);
 
-		//	expected.ShouldBeEquivalentTo(result);
-		//}
+            Assert.Equal(3, result.TotalItems);
+            Assert.Equal(page, result.PageNo);
+
+            result.List.ShouldBeEquivalentTo(expected);
+		}
 
 		[Theory, ClassData(typeof(WishDeleteTestData))]
         public async void DeleteTest(int wishId, bool expected)
 		{
 		    var result = await _wishService.DeleteAsync(wishId);
 
-			expected.ShouldBeEquivalentTo(result);
+            result.ShouldBeEquivalentTo(expected);
 		}
 
         public void Dispose()
         {
-            // TestFixture Teardown attributes
             Console.WriteLine("WishServiceTests.Dispose()");
         }
 
         private LiverpoolContext GetFakeContextWithWishes()
         {
             var context = new FakeContext(new DbContextOptions<LiverpoolContext>());
-            context.Wishs.AddRange(
-                new Wish()
-                {
-                    Type = WishType.Bug,
-                    Message = "mes 1",
-                    Title = "title 1"
-                },
-                new Wish()
-                {
-                    Type = WishType.BugUi,
-                    Message = "mes 2",
-                    Title = "title 2"
-                },
-                new Wish()
-                {
-                    Type = WishType.Feature,
-                    Message = "mes 3",
-                    Title = "title 3"
-                });
-            context.SaveChanges();
+         //   if (context.Wishs.Any())
+            {
+                context.Wishs.AddRange(WishDataGenerator.Get3Wish());
+                context.SaveChanges();
+            }
             return context;
         }
     }
@@ -114,26 +101,12 @@ namespace MyLiverpool.Business.Services.Tests
             new object[]
             {
                 2,
-                new WishDto()
-                {
-                    Id = 2,
-                    Type = (int)WishType.BugUi,
-                    TypeName = WishType.BugUi.GetNameAttribute(),
-                    Message = "mes 2",
-                    Title = "title 2"
-                }
+                WishDataGenerator.Get3WishDto()[1]
             },
             new object[]
             {
                 3,
-                new WishDto()
-                {
-                    Id = 3,
-                    Type = (int)WishType.Feature,
-                    TypeName = WishType.Feature.GetNameAttribute(),
-                    Message = "mes 3",
-                    Title = "title 3"
-                }
+                WishDataGenerator.Get3WishDto()[2]
             },
             new object[]
             {
@@ -148,27 +121,13 @@ namespace MyLiverpool.Business.Services.Tests
         {
             new object[]
             {
-                2,
-                new WishDto()
-                {
-                    Id = 2,
-                    Type = (int)WishType.BugUi,
-                    TypeName = WishType.BugUi.GetNameAttribute(),
-                    Message = "mes 2",
-                    Title = "title 2"
-                }
+                1,
+                WishDataGenerator.Get3WishDto()
             },
             new object[]
             {
-                3,
-                new WishDto()
-                {
-                    Id = 3,
-                    Type = (int)WishType.Feature,
-                    TypeName = WishType.Feature.GetNameAttribute(),
-                    Message = "mes 3",
-                    Title = "title 3"
-                }
+                5,
+                new List<WishDto>()
             },
             new object[]
             {
