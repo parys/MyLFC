@@ -12,7 +12,7 @@ var SharedConfig = {
     resolve: { extensions: ["", ".js", ".ts"] },
     output: {
         filename: "[name].js",
-        publicPath: "/js" // Webpack dev middleware, if enabled, handles requests for this URL prefix
+        publicPath: "/js/" // Webpack dev middleware, if enabled, handles requests for this URL prefix
     },
     module: {
         loaders: [
@@ -28,7 +28,7 @@ var SharedConfig = {
 };
 
 // Configuration for client-side bundle suitable for running in browsers
-var ClientBundleOutputDir = "./wwwroot/js";
+var ClientBundleOutputDir = "./wwwroot/js/";
 var ClientBundleConfig = Merge(SharedConfig, {
     entry: { 'main-client': "./angular2app/boot-client.ts" },
     output: { path: Path.join(__dirname, ClientBundleOutputDir) },

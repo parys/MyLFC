@@ -59,14 +59,12 @@ export class AuthService {
     }
 
     private parseLoginAnswer(item: any): void {
-        console.log(item);
         if (this.localStorage.setAuthTokens(item)) {
             this.isLoggedIn = true;
         }
     }
 
-    private parseRoles(item: any): void {
-        console.log(item);
+    private parseRoles(item: any): void { 
         this.roles = item._body.split(", ");
         this.localStorage.setRoles(this.roles);
     }
