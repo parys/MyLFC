@@ -20,12 +20,12 @@ import { UserDetailComponent } from "./user/user-detail.component";
 import { UserService } from "./user/user.service";
 import { UserListComponent } from "./user/user-list.component";
 import { PmListComponent, PmDetailComponent, PmEditComponent, PmService } from "./pm/index";
-import { ClubHistoryComponent, RulesComponent, RightSidebarComponent } from "./home/index";
+import * as home from "./home/index";
 import { WishListComponent, WishService, WishEditComponent } from "./wish/index";
 import { MaterialCommentListComponent, MaterialCommentService, MaterialCommentSectionComponent, MaterialCommentDetailComponent } from "./materialComment/index";
 import { Ng2AutoCompleteModule } from "ng2-auto-complete";
 import { AdminService, EplTableComponent } from "./admin/index";
-import { DatepickerModule, ModalModule, PaginationModule } from "ng2-bootstrap/ng2-bootstrap";
+import { DatepickerModule, ModalModule, PaginationModule, TabsModule } from "ng2-bootstrap/ng2-bootstrap";
 import { FileUploadModule } from "ng2-file-upload/ng2-file-upload";
 
 @NgModule({
@@ -39,6 +39,7 @@ import { FileUploadModule } from "ng2-file-upload/ng2-file-upload";
         Ng2AutoCompleteModule,
         PaginationModule,
         ReactiveFormsModule,
+        TabsModule,
         routing
     ], 
     declarations: [
@@ -51,11 +52,16 @@ import { FileUploadModule } from "ng2-file-upload/ng2-file-upload";
         account.UnconfirmedEmailComponent,
         club.ClubEditComponent,
         club.ClubListComponent,
+        home.AboutClubComponent,
+        home.CoachTeamComponent,
+        home.ClubHistoryComponent,
+        home.RightSidebarComponent,
+        home.RulesComponent,
+        home.SquadComponent,
         newsCategory.NewsCategoryEditComponent,
         newsCategory.NewsCategoryListComponent,
         shared.SecuredDirective,
         AppComponent,
-        ClubHistoryComponent,
         EplTableComponent,
         ForumSectionListComponent,
         match.MatchEditComponent,
@@ -69,8 +75,6 @@ import { FileUploadModule } from "ng2-file-upload/ng2-file-upload";
         PmDetailComponent,
         PmEditComponent,
         PmListComponent,
-        RightSidebarComponent,
-        RulesComponent,
         UserDetailComponent,
         UserListComponent,
         WishEditComponent,

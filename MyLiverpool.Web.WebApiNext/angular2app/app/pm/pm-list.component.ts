@@ -1,4 +1,5 @@
 ﻿import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 import { Observable } from "rxjs/Observable";
 import { Pm } from "./pm.model";
 import { PmService } from "./pm.service";
@@ -13,7 +14,7 @@ export class PmListComponent implements OnInit {
     received: Pm[];
     sent: Pm[];
 
-    constructor(private pmService: PmService) {
+    constructor(private pmService: PmService, private router: Router) {
     }
 
     ngOnInit() {
@@ -36,5 +37,9 @@ export class PmListComponent implements OnInit {
         //    error => console.log(error),
         //    () => console.log("success remove categoryu"));
         //this.items.splice(index, 1);
+    }
+
+    writePm() {           
+        this.router.navigate(["/pm", 0, "edit"]);  
     }
 }

@@ -1,71 +1,55 @@
-﻿<!--<div class="container-fluid">
-    <md-tab-group [selectedIndex]="0">
-        <md-tab>
-            <template md-tab-label>
-                Полученные
-            </template>
-            <template md-tab-content>
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <td>#</td>
-                        <td>Заголовок</td>
-                        <td>Отправитель</td>
-                        <td>Дата получения</td>
-                    </tr>
-                    </thead>
-                    <tbody *ngFor="let message of received; let i = index">
-                    <tr>
-                        <td [textContent]="i + 1"></td>
-                        <td>
-                            <a [routerLink]="['/pm', message.id]">
-                                <b *ngIf="!message.isRead" [textContent]="message.title"></b>
-                                <span *ngIf="message.isRead" [textContent]="message.title"></span>
-                            </a>
-                        </td>
-                        <td><a [routerLink]="['/user', message.senderId]" [textContent]="message.senderUserName"></a></td>
-                        <td [textContent]="message.sentTime | date:'medium'"></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </template>
-        </md-tab>
-        <md-tab>
-            <template md-tab-label>
-                Отправленные
-            </template>
-            <template md-tab-content>
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <td>#</td>
-                        <td>Заголовок</td>
-                        <td>Получатель</td>
-                        <td>Дата отправки</td>
-                    </tr>
-                    </thead>
-                    <tbody *ngFor="let message of sent; let i = index">
-                    <tr>
-                        <td [textContent]="i + 1"></td>
-                        <td>
-                            <a [routerLink]="['/pm', message.id]">
-                                <b *ngIf="!message.isRead" [textContent]="message.title"></b>
-                                <span *ngIf="message.isRead" [textContent]="message.title"></span>
-                            </a>
-                        </td>
-                        <td><a [routerLink]="['/user', message.receiverId]" [textContent]="message.receiverUserName"></a></td>
-                        <td [textContent]="message.sentTime | date:'medium'"></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </template>
-        </md-tab>
-        <<md-tab>
-            <template md-tab-label>
-                <a [routerLink]="['/pm', 0, 'edit']">
-                    Написать сообщеньку
-                </a>
-            </template>
-        </md-tab>
-    </md-tab-group>
-</div>-->
+﻿<div class="container-fluid">
+    <tabset>
+        <tab heading="Полученные">
+            <table class="table">
+                <thead>
+                <tr>
+                    <td>#</td>
+                    <td>Заголовок</td>
+                    <td>Отправитель</td>
+                    <td>Дата получения</td>
+                </tr>
+                </thead>
+                <tbody *ngFor="let message of received; let i = index">
+                <tr>
+                    <td [textContent]="i + 1"></td>
+                    <td>
+                        <a [routerLink]="['/pm', message.id]">
+                            <b *ngIf="!message.isRead" [textContent]="message.title"></b>
+                            <span *ngIf="message.isRead" [textContent]="message.title"></span>
+                        </a>
+                    </td>
+                    <td><a [routerLink]="['/user', message.senderId]" [textContent]="message.senderUserName"></a></td>
+                    <td [textContent]="message.sentTime | date:'medium'"></td>
+                </tr>
+                </tbody>
+            </table>
+        </tab>
+        <tab heading="Отправленные">
+            <table class="table">
+                <thead>
+                <tr>
+                    <td>#</td>
+                    <td>Заголовок</td>
+                    <td>Получатель</td>
+                    <td>Дата отправки</td>
+                </tr>
+                </thead>
+                <tbody *ngFor="let message of sent; let i = index">
+                <tr>
+                    <td [textContent]="i + 1"></td>
+                    <td>
+                        <a [routerLink]="['/pm', message.id]">
+                            <b *ngIf="!message.isRead" [textContent]="message.title"></b>
+                            <span *ngIf="message.isRead" [textContent]="message.title"></span>
+                        </a>
+                    </td>
+                    <td><a [routerLink]="['/user', message.receiverId]" [textContent]="message.receiverUserName"></a></td>
+                    <td [textContent]="message.sentTime | date:'medium'"></td>
+                </tr>
+                </tbody>
+            </table>
+        </tab>
+        <tab heading="Написать сообщеньку" (select)="writePm()"></tab>
+    </tabset>
+</div>

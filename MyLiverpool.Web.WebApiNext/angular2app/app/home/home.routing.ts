@@ -1,7 +1,10 @@
 ﻿import { Routes } from "@angular/router";
-import { ClubHistoryComponent, RulesComponent } from "./index";
+import { ClubHistoryComponent, RulesComponent, AboutClubComponent, CoachTeamComponent, SquadComponent } from "./index";
 
 export const homeRoutes: Routes = [
     { path: "clubHistory", component: ClubHistoryComponent },
-    { path: "rules", component: RulesComponent }
+    { path: "coachTeam", component: CoachTeamComponent },
+    { path: "rules", component: RulesComponent },
+    { path: "aboutClub", component: AboutClubComponent },
+    { path: "squad", component: SquadComponent }
 ];
