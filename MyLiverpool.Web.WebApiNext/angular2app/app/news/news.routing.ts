@@ -5,7 +5,6 @@ export const newsRoutes: Routes = [
     { path: "news", component: NewsListComponent },
     { path: "news/list", component: NewsListComponent },
     { path: "news/list/:page", component: NewsListComponent },
-    { path: "news/list/:page/:categoryId", component: NewsListComponent },
     { path: "news/:id", component: NewsDetailComponent },
     { path: "news/:id/edit", component: NewsEditComponent }
 ];

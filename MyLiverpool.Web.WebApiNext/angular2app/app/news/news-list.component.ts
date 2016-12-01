@@ -1,5 +1,6 @@
 ﻿import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ViewChild, ChangeDetectorRef } from "@angular/core";
-import { Location  } from "@angular/common";
+import { Location } from "@angular/common";
+import "rxjs/add/operator/map";
 import { NewsService } from "./news.service";
 import { News } from "./news.model";
 import { Observable } from "rxjs/Observable";
@@ -18,6 +19,7 @@ import { ModalDirective } from "ng2-bootstrap/ng2-bootstrap";
 export class NewsListComponent implements OnInit, OnDestroy {
 
     private sub: Subscription;
+    private sub2: Subscription;
     items: News[];
     page: number = 1;
     itemsPerPage = 15;
@@ -30,7 +32,7 @@ export class NewsListComponent implements OnInit, OnDestroy {
     @ViewChild("activateModal") activateModal: ModalDirective;
     @ViewChild("deleteModal") deleteModal: ModalDirective;
 
-    constructor(private newsService: NewsService, private route: ActivatedRoute, private location: Location,
+    constructor(private router: Router, private newsService: NewsService, private route: ActivatedRoute, private location: Location,
         private rolesChecked: RolesCheckedService, private cd: ChangeDetectorRef) {
     }
 
@@ -87,24 +89,30 @@ export class NewsListComponent implements OnInit, OnDestroy {
             if (params["page"]) {
                 this.page = +params["page"];
             }
-            this.categoryId = +params["categoryId"];
-            this.userName = params["userName"];
-            this.update();
         });
+                                                                                                    
+        this.sub2 = this.route.queryParams.subscribe(qParams => {
+            this.categoryId = qParams["categoryId"];
+            this.userName = qParams["userName"];
+
+        });
+                this.update();  
+        
     }
 
     ngOnDestroy(): void {
         this.sub.unsubscribe();
+        this.sub2.unsubscribe();
     }
 
     pageChanged(event: any): void {
-        this.page = event.page;
-        this.update();
-        let newUrl = `news/list/${this.page}`;
-        if (this.categoryId) {
-            newUrl = `${newUrl}/${this.categoryId}`;
-        }
-        this.location.replaceState(newUrl);
+        //this.page = event.page;
+        //this.update();
+        //let newUrl = `news/list/${this.page}`;
+        //if (this.categoryId) {
+        //    newUrl = `${newUrl}/${this.categoryId}`;
+        //}
+        //this.location.replaceState(newUrl);
     };
 
     private parsePageable(pageable: Pageable<News>): void {
