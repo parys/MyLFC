@@ -9,7 +9,7 @@ namespace MyLiverpool.Data.ResourceAccess.Interfaces
 {
     public interface IMaterialRepository: ICrudRepository<Material>
     {
-        Task<ICollection<Material>> GetTopMaterialsAsync(MaterialType type);
+        Task<ICollection<Material>> GetTopMaterialsAsync(Expression<Func<Material, bool>> filter = null);
 
         Task<ICollection<Material>> GetOrderedByAsync(int page, int itemPerPage = 15,
             SortOrder order = SortOrder.Ascending,

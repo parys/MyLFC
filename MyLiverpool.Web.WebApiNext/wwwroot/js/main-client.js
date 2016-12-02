@@ -63,7 +63,7 @@
 /******/ 	}
 /******/
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "9e3124c9fa3c87c02995"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "42c9590df89ce3a5809c"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/
@@ -568,7 +568,7 @@
 /******/ 	__webpack_require__.c = installedModules;
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "/js";
+/******/ 	__webpack_require__.p = "/js/";
 /******/
 /******/ 	// __webpack_hash__
 /******/ 	__webpack_require__.h = function() { return hotCurrentHash; };
@@ -775,7 +775,7 @@
 	  };
 	}
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, "?path=http%3A%2F%2Flocalhost%3A1634%2F__webpack_hmr", __webpack_require__(4)(module)))
+	/* WEBPACK VAR INJECTION */}.call(exports, "?path=http%3A%2F%2Flocalhost%3A60327%2F__webpack_hmr", __webpack_require__(4)(module)))
 
 /***/ },
 /* 4 */
@@ -1905,7 +1905,7 @@
 	var angular2_universal_1 = __webpack_require__(19);
 	var core_1 = __webpack_require__(20);
 	var app_module_1 = __webpack_require__(21);
-	__webpack_require__(351);
+	__webpack_require__(357);
 	if (module["hot"]) {
 	    module["hot"].accept();
 	    module["hot"].dispose(function () { platform.destroy(); });
@@ -1967,101 +1967,106 @@
 	var index_1 = __webpack_require__(39);
 	var newsCategory = __webpack_require__(240);
 	var index_2 = __webpack_require__(249);
-	var index_3 = __webpack_require__(315);
+	var index_3 = __webpack_require__(321);
 	var account = __webpack_require__(252);
 	var club = __webpack_require__(271);
-	var match = __webpack_require__(340);
+	var match = __webpack_require__(346);
 	var shared = __webpack_require__(29);
 	var user_detail_component_1 = __webpack_require__(289);
 	var user_service_1 = __webpack_require__(290);
 	var user_list_component_1 = __webpack_require__(292);
 	var index_4 = __webpack_require__(296);
-	var index_5 = __webpack_require__(306);
-	var index_6 = __webpack_require__(321);
-	var index_7 = __webpack_require__(330);
-	var ng2_auto_complete_1 = __webpack_require__(347);
-	var index_8 = __webpack_require__(348);
+	var home = __webpack_require__(306);
+	var index_5 = __webpack_require__(327);
+	var index_6 = __webpack_require__(336);
+	var ng2_auto_complete_1 = __webpack_require__(353);
+	var index_7 = __webpack_require__(354);
 	var ng2_bootstrap_1 = __webpack_require__(43);
 	var ng2_file_upload_1 = __webpack_require__(277);
 	var AppModule = (function () {
 	    function AppModule() {
 	    }
-	    AppModule = __decorate([
-	        core_1.NgModule({
-	            imports: [
-	                angular2_universal_1.UniversalModule,
-	                ng2_bootstrap_1.DatepickerModule,
-	                ng2_file_upload_1.FileUploadModule,
-	                forms_1.FormsModule,
-	                ng2_bootstrap_1.ModalModule,
-	                ng2_auto_complete_1.Ng2AutoCompleteModule,
-	                ng2_bootstrap_1.PaginationModule,
-	                forms_1.ReactiveFormsModule,
-	                app_routes_1.routing
-	            ],
-	            declarations: [
-	                account.AccountSigninComponent,
-	                account.AccountSignupComponent,
-	                account.ChangePasswordComponent,
-	                account.ConfirmEmailComponent,
-	                account.ForgotPasswordComponent,
-	                account.ResetPasswordComponent,
-	                account.UnconfirmedEmailComponent,
-	                club.ClubEditComponent,
-	                club.ClubListComponent,
-	                newsCategory.NewsCategoryEditComponent,
-	                newsCategory.NewsCategoryListComponent,
-	                shared.SecuredDirective,
-	                app_component_1.AppComponent,
-	                index_5.ClubHistoryComponent,
-	                index_8.EplTableComponent,
-	                index_3.ForumSectionListComponent,
-	                match.MatchEditComponent,
-	                match.MatchListComponent,
-	                index_7.MaterialCommentDetailComponent,
-	                index_7.MaterialCommentListComponent,
-	                index_7.MaterialCommentSectionComponent,
-	                index_1.NewsListComponent,
-	                index_1.NewsDetailComponent,
-	                index_1.NewsEditComponent,
-	                index_4.PmDetailComponent,
-	                index_4.PmEditComponent,
-	                index_4.PmListComponent,
-	                index_5.RightSidebarComponent,
-	                index_5.RulesComponent,
-	                user_detail_component_1.UserDetailComponent,
-	                user_list_component_1.UserListComponent,
-	                index_6.WishEditComponent,
-	                index_6.WishListComponent],
-	            bootstrap: [app_component_1.AppComponent],
-	            providers: [
-	                account.AccountService,
-	                club.ClubService,
-	                match.MatchService,
-	                newsCategory.NewsCategoryService,
-	                shared.HttpWrapper,
-	                shared.GlobalValidators,
-	                shared.LocalStorageService,
-	                shared.RolesCheckedService,
-	                index_8.AdminService,
-	                app_routes_1.appRoutingProviders,
-	                index_2.AuthGuard,
-	                index_2.AuthService,
-	                app_constants_1.Configuration,
-	                index_3.ForumSectionService,
-	                { provide: local_storage_1.LocalStorage, useFactory: function () { return (window) ? window.localStorage : {}; } },
-	                index_7.MaterialCommentService,
-	                index_1.NewsService,
-	                index_4.PmService,
-	                platform_browser_1.Title,
-	                user_service_1.UserService,
-	                index_6.WishService
-	            ]
-	        }), 
-	        __metadata('design:paramtypes', [])
-	    ], AppModule);
 	    return AppModule;
 	}());
+	AppModule = __decorate([
+	    core_1.NgModule({
+	        imports: [
+	            angular2_universal_1.UniversalModule,
+	            ng2_bootstrap_1.DatepickerModule,
+	            ng2_file_upload_1.FileUploadModule,
+	            forms_1.FormsModule,
+	            ng2_bootstrap_1.ModalModule,
+	            ng2_auto_complete_1.Ng2AutoCompleteModule,
+	            ng2_bootstrap_1.PaginationModule,
+	            forms_1.ReactiveFormsModule,
+	            ng2_bootstrap_1.TabsModule,
+	            app_routes_1.routing
+	        ],
+	        declarations: [
+	            account.AccountSigninComponent,
+	            account.AccountSignupComponent,
+	            account.ChangePasswordComponent,
+	            account.ConfirmEmailComponent,
+	            account.ForgotPasswordComponent,
+	            account.ResetPasswordComponent,
+	            account.UnconfirmedEmailComponent,
+	            club.ClubEditComponent,
+	            club.ClubListComponent,
+	            home.AboutClubComponent,
+	            home.CoachTeamComponent,
+	            home.ClubHistoryComponent,
+	            home.RightSidebarComponent,
+	            home.RulesComponent,
+	            home.SquadComponent,
+	            newsCategory.NewsCategoryEditComponent,
+	            newsCategory.NewsCategoryListComponent,
+	            shared.SecuredDirective,
+	            app_component_1.AppComponent,
+	            index_7.EplTableComponent,
+	            index_3.ForumSectionListComponent,
+	            match.MatchEditComponent,
+	            match.MatchListComponent,
+	            index_6.MaterialCommentDetailComponent,
+	            index_6.MaterialCommentListComponent,
+	            index_6.MaterialCommentSectionComponent,
+	            index_1.NewsListComponent,
+	            index_1.NewsDetailComponent,
+	            index_1.NewsEditComponent,
+	            index_4.PmDetailComponent,
+	            index_4.PmEditComponent,
+	            index_4.PmListComponent,
+	            user_detail_component_1.UserDetailComponent,
+	            user_list_component_1.UserListComponent,
+	            index_5.WishEditComponent,
+	            index_5.WishListComponent
+	        ],
+	        bootstrap: [app_component_1.AppComponent],
+	        providers: [
+	            account.AccountService,
+	            club.ClubService,
+	            match.MatchService,
+	            newsCategory.NewsCategoryService,
+	            shared.HttpWrapper,
+	            shared.GlobalValidators,
+	            shared.LocalStorageService,
+	            shared.RolesCheckedService,
+	            index_7.AdminService,
+	            app_routes_1.appRoutingProviders,
+	            index_2.AuthGuard,
+	            index_2.AuthService,
+	            app_constants_1.Configuration,
+	            index_3.ForumSectionService,
+	            { provide: local_storage_1.LocalStorage, useFactory: function () { return (window) ? window.localStorage : {}; } },
+	            index_6.MaterialCommentService,
+	            index_1.NewsService,
+	            index_4.PmService,
+	            platform_browser_1.Title,
+	            user_service_1.UserService,
+	            index_5.WishService
+	        ]
+	    }),
+	    __metadata("design:paramtypes", [])
+	], AppModule);
 	exports.AppModule = AppModule;
 
 
@@ -2117,15 +2122,19 @@
 	    AppComponent.prototype.logout = function () {
 	        this.auth.logout();
 	    };
-	    AppComponent = __decorate([
-	        core_1.Component({
-	            selector: "app",
-	            template: __webpack_require__(37)
-	        }), 
-	        __metadata('design:paramtypes', [router_1.Router, auth_service_1.AuthService, roles_checked_service_1.RolesCheckedService, core_1.ViewContainerRef, platform_browser_1.Title])
-	    ], AppComponent);
 	    return AppComponent;
 	}());
+	AppComponent = __decorate([
+	    core_1.Component({
+	        selector: "app",
+	        template: __webpack_require__(37)
+	    }),
+	    __metadata("design:paramtypes", [router_1.Router,
+	        auth_service_1.AuthService,
+	        roles_checked_service_1.RolesCheckedService,
+	        core_1.ViewContainerRef,
+	        platform_browser_1.Title])
+	], AppComponent);
 	exports.AppComponent = AppComponent;
 
 
@@ -2202,13 +2211,11 @@
 	        return false;
 	    };
 	    AuthService.prototype.parseLoginAnswer = function (item) {
-	        console.log(item);
 	        if (this.localStorage.setAuthTokens(item)) {
 	            this.isLoggedIn = true;
 	        }
 	    };
 	    AuthService.prototype.parseRoles = function (item) {
-	        console.log(item);
 	        this.roles = item._body.split(", ");
 	        this.localStorage.setRoles(this.roles);
 	    };
@@ -2225,12 +2232,13 @@
 	            _this.getRoles();
 	        });
 	    };
-	    AuthService = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [index_1.HttpWrapper, http_1.Http, index_1.LocalStorageService, index_1.RolesCheckedService, router_1.Router, app_constants_1.Configuration])
-	    ], AuthService);
 	    return AuthService;
 	}());
+	AuthService = __decorate([
+	    core_1.Injectable(),
+	    __metadata("design:paramtypes", [index_1.HttpWrapper, http_1.Http, index_1.LocalStorageService,
+	        index_1.RolesCheckedService, router_1.Router, app_constants_1.Configuration])
+	], AuthService);
 	exports.AuthService = AuthService;
 
 
@@ -2325,12 +2333,13 @@
 	            body: ""
 	        });
 	    };
-	    HttpWrapper = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [http_1.Http, localStorage_service_1.LocalStorageService])
-	    ], HttpWrapper);
 	    return HttpWrapper;
 	}());
+	HttpWrapper = __decorate([
+	    core_1.Injectable(),
+	    __metadata("design:paramtypes", [http_1.Http,
+	        localStorage_service_1.LocalStorageService])
+	], HttpWrapper);
 	exports.HttpWrapper = HttpWrapper;
 
 
@@ -2438,12 +2447,12 @@
 	    LocalStorageService.prototype.remove = function (key) {
 	        localStorage.removeItem(key);
 	    };
-	    LocalStorageService = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [])
-	    ], LocalStorageService);
 	    return LocalStorageService;
 	}());
+	LocalStorageService = __decorate([
+	    core_1.Injectable(),
+	    __metadata("design:paramtypes", [])
+	], LocalStorageService);
 	exports.LocalStorageService = LocalStorageService;
 
 
@@ -2484,22 +2493,22 @@
 	            el.parentNode.removeChild(el);
 	        }
 	    };
-	    __decorate([
-	        core_1.HostBinding("hidden"), 
-	        __metadata('design:type', Boolean)
-	    ], SecuredDirective.prototype, "hideRouterLink", void 0);
-	    __decorate([
-	        core_1.Input(), 
-	        __metadata('design:type', Object)
-	    ], SecuredDirective.prototype, "secured", void 0);
-	    SecuredDirective = __decorate([
-	        core_1.Directive({
-	            selector: "[secured]"
-	        }), 
-	        __metadata('design:paramtypes', [router_1.Router, core_1.ElementRef])
-	    ], SecuredDirective);
 	    return SecuredDirective;
 	}());
+	__decorate([
+	    core_1.HostBinding("hidden"),
+	    __metadata("design:type", Boolean)
+	], SecuredDirective.prototype, "hideRouterLink", void 0);
+	__decorate([
+	    core_1.Input(),
+	    __metadata("design:type", Object)
+	], SecuredDirective.prototype, "secured", void 0);
+	SecuredDirective = __decorate([
+	    core_1.Directive({
+	        selector: "[secured]"
+	    }),
+	    __metadata("design:paramtypes", [router_1.Router, core_1.ElementRef])
+	], SecuredDirective);
 	exports.SecuredDirective = SecuredDirective;
 
 
@@ -2582,12 +2591,12 @@
 	        var userId = this.localStorage.getUserId();
 	        return (userId === authorId);
 	    };
-	    RolesCheckedService = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [localStorage_service_1.LocalStorageService])
-	    ], RolesCheckedService);
 	    return RolesCheckedService;
 	}());
+	RolesCheckedService = __decorate([
+	    core_1.Injectable(),
+	    __metadata("design:paramtypes", [localStorage_service_1.LocalStorageService])
+	], RolesCheckedService);
 	exports.RolesCheckedService = RolesCheckedService;
 
 
@@ -2627,12 +2636,12 @@
 	            }
 	        };
 	    };
-	    GlobalValidators = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [])
-	    ], GlobalValidators);
 	    return GlobalValidators;
 	}());
+	GlobalValidators = __decorate([
+	    core_1.Injectable(),
+	    __metadata("design:paramtypes", [])
+	], GlobalValidators);
 	exports.GlobalValidators = GlobalValidators;
 
 
@@ -2657,12 +2666,12 @@
 	        this.ApiUrl = "api/v1/";
 	        this.ServerWithApiUrl = this.Server + this.ApiUrl;
 	    }
-	    Configuration = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [])
-	    ], Configuration);
 	    return Configuration;
 	}());
+	Configuration = __decorate([
+	    core_1.Injectable(),
+	    __metadata("design:paramtypes", [])
+	], Configuration);
 	exports.Configuration = Configuration;
 
 
@@ -2670,7 +2679,7 @@
 /* 37 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"container-fluid navbar navbar-inverse navbar-fixed-top \">\r\n    <ul class=\"nav navbar-nav col-xs-3 col-sm-3 list-inline\">\r\n        <li><a id=\"back-top\" href=\"#\" style=\"display: none;\">Вверх</a></li>\r\n        <li class=\"divider\"></li>\r\n        <li *ngIf=\"auth.isLoggedIn\">\r\n            <a [routerLink]=\"['/pm']\"><span class=\"glyphicon glyphicon-envelope\"></span> Читать л/с <!--(<span ng-bind=\"vm.unreadPmCount\"></span>)--></a>\r\n        </li>\r\n        <li class=\"divider\"></li>\r\n    </ul>\r\n    <ul class=\"nav navbar-nav navbar-right\">\r\n        <li *ngIf=\"!auth.isLoggedIn\">\r\n            <account-signin></account-signin>\r\n        </li>\r\n        <li *ngIf=\"!auth.isLoggedIn\">\r\n            <a [routerLink]=\"['/forgotPassword']\"><span class=\"glyphicon glyphicon-question-sign\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"Забыли пароль?\"></span></a>\r\n        </li>\r\n        <li *ngIf=\"!auth.isLoggedIn\">\r\n            <a [routerLink]=\"['/signup']\">Регистрация</a>\r\n        </li>\r\n        <li *ngIf=\"auth.isLoggedIn\">\r\n            <ul class=\"nav navbar-nav\">\r\n                <!--<li>\r\n                    <a ui-sref=\"userInfo({id: vm.userId()})\" class=\"padding0\">\r\n                        <img class=\"nav-avatar\" ng-src=\"{$root.userImage}}\"/>\r\n                    </a>\r\n                </li>\r\n                <li>\r\n                    <a ui-sref=\"userInfo({id: vm.userId()})\">Мой профиль</a>\r\n                </li>-->\r\n                <li>\r\n                    <a (click)=\"logout()\">Выйти</a>\r\n                </li>\r\n            </ul>\r\n        </li>\r\n    </ul>\r\n</div>\r\n<div class=\"col-xs-12 col-sm-12 top50\">\r\n    <header class=\"navbar navbar-default navbar-static-top row\">\r\n        <div class=\"navbar-header\">\r\n            <button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\".navbar-collapse\">\r\n                <span class=\"icon-bar\"></span>\r\n                <span class=\"icon-bar\"></span>\r\n                <span class=\"icon-bar\"></span>\r\n            </button>\r\n            <a [routerLink]=\"['/']\" class=\"navbar-brand\">Название сайта</a>\r\n        </div>\r\n        <div class=\"navbar-collapse collapse\">\r\n            <ul class=\"nav navbar-nav\">\r\n                <li><a [routerLink]=\"['/']\">Главная</a></li>\r\n                <!-- @if (User.IsInRole(\"AdminFull\"))\r\n                {\r\n                <li> @Html.ActionLink(CommonMessages.Roles, \"Index\", \"Role\") </li>\r\n                }*@-->\r\n                <li> <a [routerLink]=\"['/forum']\">Форум</a></li>\r\n                <li class=\"dropdown\">\r\n                    <a [routerLink]=\"['/news/list', 1]\" class=\"dropdown-toggle\" data-toggle=\"\">Новости<b class=\"caret\"></b></a>\r\n                    <ul class=\"dropdown-menu\">\r\n                        <li *ngIf=\"roles.isNewsmaker\"><a [routerLink]=\"['/news', 0, 'edit']\">Добавить</a></li>\r\n                        <li><a [routerLink]=\"['/newsCategory']\">Категории</a></li>\r\n                    </ul>\r\n                </li>\r\n                <li class=\"dropdown\">\r\n                    <a ui-sref=\"blog()\" href=\"#\" class=\"dropdown-toggle\" data-toggle=\"\">Блоги<b class=\"caret\"></b></a>\r\n                    <ul class=\"dropdown-menu\">\r\n                        <!--<li ng-if=\"vm.isAuthor()\"><a ui-sref=\"blogEdit()\">Добавить</a></li>-->\r\n                        <li><a ui-sref=\"blogCategories()\">Категории</a></li>\r\n                    </ul>\r\n                </li>\r\n                <li class=\"dropdown\">\r\n                    <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"\">ФК Ливерпуль<b class=\"caret\"></b></a>\r\n                    <ul class=\"dropdown-menu\">\r\n                        <li><a [routerLink]=\"['/clubHistory']\">История</a></li>\r\n                    </ul>\r\n                </li>\r\n\r\n                <li class=\"dropdown\">\r\n                    <!-- <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"\">Пользователи <b class=\"caret\"></b></a>\r\n                    <ul class=\"dropdown-menu\">\r\n\r\n                    <li-->\r\n                    <a [routerLink]=\"['/user/list', 1]\">Пользователи</a>\r\n                    <!--/li>\r\n                    </ul-->\r\n                </li>\r\n                <li> <a [routerLink]=\"['/materialComment']\">Комментарии</a></li>\r\n                <!--<li> <a ng-if=\"vm.isNewsmaker() || vm.isAuthor()\" ui-sref=\"images({path: 'content'})\">Изображения</a></li>-->\r\n                <li> <a [routerLink]=\"['/club']\">Клубы</a></li>\r\n                <li> <a [routerLink]=\"['/match']\">Матчи</a></li>\r\n                <li> <a [routerLink]=\"['/rules']\"><span class=\"text-danger\">Правила</span></a></li>\r\n                <li class=\"bg-success\"> <a [routerLink]=\"['/wish']\"><span class=\"text-info\">Пожелания</span></a></li>\r\n            </ul>\r\n        </div>\r\n        <!--<div class=\"col-xs-12 col-sm-12\">\r\n            temporary\r\n            <span ng-bind=\"$root.roles\"></span>\r\n        </div>-->\r\n    </header>\r\n    <div class=\"body-content row\">\r\n        <div ncy-breadcrumb></div>\r\n        <div class=\"col-xs-12 col-sm-push-3 col-sm-6 container-fluid\" style=\"background-color: #f5deb3\">\r\n            <div class=\"\">\r\n                <!--<uib-alert class=\"row\" ng-repeat=\"alert in $root.alerts\" dismiss-on-timeout=\"5000\" type=\"{alert.type}}\" close=\"closeAlert($index)\" ng-bind=\"alert.msg\"></uib-alert>-->\r\n                <div class=\"top20\" ui-view autoscroll=\"false\">\r\n                    <router-outlet></router-outlet>\r\n                    <!--div class=\"col-md-6\" ui-view=\"newsFeed\"></div>\r\n                    <div class=\"col-md-6\" ui-view=\"blogsFeed\"></div>-->\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-6 col-sm-pull-6 col-sm-3 container-fluid\">\r\n            <section class=\"col-md- alert-info row\">\r\n                <h2>Эксетер </h2>\r\n                <div class=\"col-md-6\">\r\n                    <img src=\"https://upload.wikimedia.org/wikipedia/ru/f/f7/Exeter_City_Logo.png\" />\r\n                </div>\r\n                <div class=\"col-md-6\">\r\n                    <span style=\"text-align: center; font-size: 45pt\">3:0</span>\r\n                </div>\r\n            </section>\r\n            <section class=\"col-md- alert-danger row\">\r\n                <div class=\"col-md-12\"> Лучший игрок матча с Эксетером </div>\r\n                <div styleclass=\"col-md-12\">\r\n                    <img src=\"http://www.myliverpool.ru/images/Players/Squad12-13/Joe_Allen.png\" />\r\n                </div>\r\n                <div class=\"col-md-12\">\r\n                    Джо Аллен\r\n                </div>\r\n            </section>\r\n            <section class=\"row\"></section>\r\n        </div>\r\n        <right-sidebar></right-sidebar>\r\n    </div>\r\n    <hr />\r\n    <footer class=\"bottom container-fluid\">\r\n        <p>&copy; @DateTime.Now.Year - @CommonMessages.SiteTitleAddress</p>\r\n    </footer>\r\n</div>";
+	module.exports = "<div class=\"container-fluid navbar navbar-inverse navbar-fixed-top \">\r\n    <ul class=\"nav navbar-nav col-xs-3 col-sm-3 list-inline\">\r\n        <li><a id=\"back-top\" href=\"#\" style=\"display: none;\">Вверх</a></li>\r\n        <li class=\"divider\"></li>\r\n        <li *ngIf=\"auth.isLoggedIn\">\r\n            <a [routerLink]=\"['/pm']\"><span class=\"glyphicon glyphicon-envelope\"></span> Читать л/с <!--(<span ng-bind=\"vm.unreadPmCount\"></span>)--></a>\r\n        </li>\r\n        <li class=\"divider\"></li>\r\n    </ul>\r\n    <ul class=\"nav navbar-nav navbar-right\">\r\n        <li *ngIf=\"!auth.isLoggedIn\">\r\n            <account-signin></account-signin>\r\n        </li>\r\n        <li *ngIf=\"!auth.isLoggedIn\">\r\n            <a [routerLink]=\"['/forgotPassword']\"><span class=\"glyphicon glyphicon-question-sign\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"Забыли пароль?\"></span></a>\r\n        </li>\r\n        <li *ngIf=\"!auth.isLoggedIn\">\r\n            <a [routerLink]=\"['/signup']\">Регистрация</a>\r\n        </li>\r\n        <li *ngIf=\"auth.isLoggedIn\">\r\n            <ul class=\"nav navbar-nav\">\r\n                <!--<li>\r\n                    <a ui-sref=\"userInfo({id: vm.userId()})\" class=\"padding0\">\r\n                        <img class=\"nav-avatar\" ng-src=\"{$root.userImage}}\"/>\r\n                    </a>\r\n                </li>\r\n                <li>\r\n                    <a ui-sref=\"userInfo({id: vm.userId()})\">Мой профиль</a>\r\n                </li>-->\r\n                <li>\r\n                    <a (click)=\"logout()\">Выйти</a>\r\n                </li>\r\n            </ul>\r\n        </li>\r\n    </ul>\r\n</div>\r\n<div class=\"col-xs-12 col-sm-12 top50\">\r\n    <header class=\"navbar navbar-default navbar-static-top row\">\r\n        <div class=\"navbar-header\">\r\n            <button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\".navbar-collapse\">\r\n                <span class=\"icon-bar\"></span>\r\n                <span class=\"icon-bar\"></span>\r\n                <span class=\"icon-bar\"></span>\r\n            </button>\r\n            <a [routerLink]=\"['/']\" class=\"navbar-brand\">Название сайта</a>\r\n        </div>\r\n        <div class=\"navbar-collapse collapse\">\r\n            <ul class=\"nav navbar-nav\">\r\n                <li><a [routerLink]=\"['/']\">Главная</a></li>\r\n                <!-- @if (User.IsInRole(\"AdminFull\"))\r\n                {\r\n                <li> @Html.ActionLink(CommonMessages.Roles, \"Index\", \"Role\") </li>\r\n                }*@-->\r\n                <li> <a [routerLink]=\"['/forum']\">Форум</a></li>\r\n                <li class=\"dropdown\">\r\n                    <a [routerLink]=\"['/news/list', 1]\" class=\"dropdown-toggle\" data-toggle=\"\">Новости<b class=\"caret\"></b></a>\r\n                    <ul class=\"dropdown-menu\">\r\n                        <li *ngIf=\"roles.isNewsmaker\"><a [routerLink]=\"['/news', 0, 'edit']\">Добавить</a></li>\r\n                        <li><a [routerLink]=\"['/newsCategory']\">Категории</a></li>\r\n                    </ul>\r\n                </li>\r\n                <li class=\"dropdown\">\r\n                    <a ui-sref=\"blog()\" href=\"#\" class=\"dropdown-toggle\" data-toggle=\"\">Блоги<b class=\"caret\"></b></a>\r\n                    <ul class=\"dropdown-menu\">\r\n                        <!--<li ng-if=\"vm.isAuthor()\"><a ui-sref=\"blogEdit()\">Добавить</a></li>-->\r\n                        <li><a ui-sref=\"blogCategories()\">Категории</a></li>\r\n                    </ul>\r\n                </li>\r\n                <li class=\"dropdown\">\r\n                    <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"\">ФК Ливерпуль<b class=\"caret\"></b></a>\r\n                    <ul class=\"dropdown-menu\">\r\n                        <li><a [routerLink]=\"['/clubHistory']\">История</a></li>\r\n                        <li><a [routerLink]=\"['/aboutClub']\">О Клубе</a></li>\r\n                        <li><a [routerLink]=\"['/coachTeam']\">Тренерский штаб</a></li>\r\n                        <li><a [routerLink]=\"['/squad']\">Cостав</a></li>\r\n                    </ul>\r\n                </li>\r\n\r\n                <li class=\"dropdown\">\r\n                    <!-- <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"\">Пользователи <b class=\"caret\"></b></a>\r\n                    <ul class=\"dropdown-menu\">\r\n\r\n                    <li-->\r\n                    <a [routerLink]=\"['/user/list', 1]\">Пользователи</a>\r\n                    <!--/li>\r\n                    </ul-->\r\n                </li>\r\n                <li> <a [routerLink]=\"['/materialComment']\">Комментарии</a></li>\r\n                <!--<li> <a ng-if=\"vm.isNewsmaker() || vm.isAuthor()\" ui-sref=\"images({path: 'content'})\">Изображения</a></li>-->\r\n                <li> <a [routerLink]=\"['/club']\">Клубы</a></li>\r\n                <li> <a [routerLink]=\"['/match']\">Матчи</a></li>\r\n                <li> <a [routerLink]=\"['/rules']\"><span class=\"text-danger\">Правила</span></a></li>\r\n                <li class=\"bg-success\"> <a [routerLink]=\"['/wish']\"><span class=\"text-info\">Пожелания</span></a></li>\r\n            </ul>\r\n        </div>\r\n        <!--<div class=\"col-xs-12 col-sm-12\">\r\n            temporary\r\n            <span ng-bind=\"$root.roles\"></span>\r\n        </div>-->\r\n    </header>\r\n    <div class=\"body-content row\">\r\n        <div ncy-breadcrumb></div>\r\n        <div class=\"col-xs-12 col-sm-push-3 col-sm-6 container-fluid\" style=\"background-color: #f5deb3\">\r\n            <div class=\"\">\r\n                <!--<uib-alert class=\"row\" ng-repeat=\"alert in $root.alerts\" dismiss-on-timeout=\"5000\" type=\"{alert.type}}\" close=\"closeAlert($index)\" ng-bind=\"alert.msg\"></uib-alert>-->\r\n                <div class=\"top20\" ui-view autoscroll=\"false\">\r\n                    <router-outlet></router-outlet>\r\n                    <!--div class=\"col-md-6\" ui-view=\"newsFeed\"></div>\r\n                    <div class=\"col-md-6\" ui-view=\"blogsFeed\"></div>-->\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-6 col-sm-pull-6 col-sm-3 container-fluid\">\r\n            <section class=\"col-md- alert-info row\">\r\n                <h2>Эксетер </h2>\r\n                <div class=\"col-md-6\">\r\n                    <img src=\"https://upload.wikimedia.org/wikipedia/ru/f/f7/Exeter_City_Logo.png\" />\r\n                </div>\r\n                <div class=\"col-md-6\">\r\n                    <span style=\"text-align: center; font-size: 45pt\">3:0</span>\r\n                </div>\r\n            </section>\r\n            <section class=\"col-md- alert-danger row\">\r\n                <div class=\"col-md-12\"> Лучший игрок матча с Эксетером </div>\r\n                <div styleclass=\"col-md-12\">\r\n                    <img src=\"http://www.myliverpool.ru/images/Players/Squad12-13/Joe_Allen.png\" />\r\n                </div>\r\n                <div class=\"col-md-12\">\r\n                    Джо Аллен\r\n                </div>\r\n            </section>\r\n            <section class=\"row\"></section>\r\n        </div>\r\n        <right-sidebar></right-sidebar>\r\n    </div>\r\n    <hr />\r\n    <footer class=\"bottom container-fluid\">\r\n        <p>&copy; @DateTime.Now.Year - @CommonMessages.SiteTitleAddress</p>\r\n    </footer>\r\n</div>";
 
 /***/ },
 /* 38 */
@@ -2687,10 +2696,10 @@
 	var user_routing_1 = __webpack_require__(288);
 	var pm_routing_1 = __webpack_require__(295);
 	var home_routing_1 = __webpack_require__(305);
-	var forumSection_routing_1 = __webpack_require__(314);
-	var wish_routing_1 = __webpack_require__(320);
-	var materialComment_routing_1 = __webpack_require__(329);
-	var match_routing_1 = __webpack_require__(339);
+	var forumSection_routing_1 = __webpack_require__(320);
+	var wish_routing_1 = __webpack_require__(326);
+	var materialComment_routing_1 = __webpack_require__(335);
+	var match_routing_1 = __webpack_require__(345);
 	var routes = account_routing_1.accountRoutes.concat(auth_routing_1.authRoutes, club_routing_1.clubRoutes, forumSection_routing_1.forumSectionRoutes, home_routing_1.homeRoutes, match_routing_1.matchRoutes, materialComment_routing_1.materialCommentRoutes, newsCategory_routing_1.newsCategoryRoutes, news_routing_1.newsRoutes, pm_routing_1.pmRoutes, user_routing_1.userRoutes, wish_routing_1.wishRoutes, [
 	    { path: "", component: index_1.NewsListComponent }
 	]);
@@ -2799,23 +2808,28 @@
 	            this.newsService.addView(id).subscribe(function (data) { return data; });
 	        }
 	    };
-	    __decorate([
-	        core_1.ViewChild("activateModal"), 
-	        __metadata('design:type', ng2_bootstrap_1.ModalDirective)
-	    ], NewsDetailComponent.prototype, "activateModal", void 0);
-	    __decorate([
-	        core_1.ViewChild("deleteModal"), 
-	        __metadata('design:type', ng2_bootstrap_1.ModalDirective)
-	    ], NewsDetailComponent.prototype, "deleteModal", void 0);
-	    NewsDetailComponent = __decorate([
-	        core_1.Component({
-	            selector: "news-detail",
-	            template: __webpack_require__(234)
-	        }), 
-	        __metadata('design:paramtypes', [news_service_1.NewsService, router_1.ActivatedRoute, index_1.LocalStorageService, index_1.RolesCheckedService, router_1.Router, platform_browser_1.Title])
-	    ], NewsDetailComponent);
 	    return NewsDetailComponent;
 	}());
+	__decorate([
+	    core_1.ViewChild("activateModal"),
+	    __metadata("design:type", ng2_bootstrap_1.ModalDirective)
+	], NewsDetailComponent.prototype, "activateModal", void 0);
+	__decorate([
+	    core_1.ViewChild("deleteModal"),
+	    __metadata("design:type", ng2_bootstrap_1.ModalDirective)
+	], NewsDetailComponent.prototype, "deleteModal", void 0);
+	NewsDetailComponent = __decorate([
+	    core_1.Component({
+	        selector: "news-detail",
+	        template: __webpack_require__(234)
+	    }),
+	    __metadata("design:paramtypes", [news_service_1.NewsService,
+	        router_1.ActivatedRoute,
+	        index_1.LocalStorageService,
+	        index_1.RolesCheckedService,
+	        router_1.Router,
+	        platform_browser_1.Title])
+	], NewsDetailComponent);
 	exports.NewsDetailComponent = NewsDetailComponent;
 
 
@@ -2867,12 +2881,12 @@
 	        };
 	        this.actionUrl = configuration.ServerWithApiUrl + "material/";
 	    }
-	    NewsService = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [httpWrapper_1.HttpWrapper, app_constants_1.Configuration])
-	    ], NewsService);
 	    return NewsService;
 	}());
+	NewsService = __decorate([
+	    core_1.Injectable(),
+	    __metadata("design:paramtypes", [httpWrapper_1.HttpWrapper, app_constants_1.Configuration])
+	], NewsService);
 	exports.NewsService = NewsService;
 
 
@@ -23258,13 +23272,15 @@
 	};
 	var core_1 = __webpack_require__(20);
 	var common_1 = __webpack_require__(48);
+	__webpack_require__(42);
 	var news_service_1 = __webpack_require__(41);
 	var newsFilters_model_1 = __webpack_require__(236);
 	var router_1 = __webpack_require__(26);
 	var index_1 = __webpack_require__(29);
 	var ng2_bootstrap_1 = __webpack_require__(43);
 	var NewsListComponent = (function () {
-	    function NewsListComponent(newsService, route, location, rolesChecked, cd) {
+	    function NewsListComponent(router, newsService, route, location, rolesChecked, cd) {
+	        this.router = router;
 	        this.newsService = newsService;
 	        this.route = route;
 	        this.location = location;
@@ -23317,20 +23333,22 @@
 	            if (params["page"]) {
 	                _this.page = +params["page"];
 	            }
-	            _this.categoryId = +params["categoryId"];
-	            _this.userName = params["userName"];
-	            _this.update();
 	        });
+	        this.parseQueryParamsAndUpdate();
 	    };
 	    NewsListComponent.prototype.ngOnDestroy = function () {
 	        this.sub.unsubscribe();
+	        this.sub2.unsubscribe();
 	    };
 	    NewsListComponent.prototype.pageChanged = function (event) {
 	        this.page = event.page;
 	        this.update();
-	        var newUrl = "news/list/" + this.page;
+	        var newUrl = "news/list/" + this.page + "?";
 	        if (this.categoryId) {
-	            newUrl = newUrl + "/" + this.categoryId;
+	            newUrl = newUrl + "?categoryId=" + this.categoryId;
+	        }
+	        if (this.userName) {
+	            newUrl = "" + newUrl + (this.categoryId ? "&" : "?") + "userName=" + this.userName;
 	        }
 	        this.location.replaceState(newUrl);
 	    };
@@ -23344,32 +23362,41 @@
 	    NewsListComponent.prototype.update = function () {
 	        var _this = this;
 	        var filters = new newsFilters_model_1.MaterialFilters();
-	        filters.categoryId = this.categoryId;
+	        filters.categoryId = this.categoryId || null;
 	        filters.materialType = "News";
-	        filters.userName = this.userName;
+	        filters.userName = this.userName || null;
 	        filters.page = this.page;
 	        this.newsService
 	            .getAll(filters)
 	            .subscribe(function (data) { return _this.parsePageable(data); }, function (error) { return console.log(error); }, function () { });
 	    };
-	    __decorate([
-	        core_1.ViewChild("activateModal"), 
-	        __metadata('design:type', ng2_bootstrap_1.ModalDirective)
-	    ], NewsListComponent.prototype, "activateModal", void 0);
-	    __decorate([
-	        core_1.ViewChild("deleteModal"), 
-	        __metadata('design:type', ng2_bootstrap_1.ModalDirective)
-	    ], NewsListComponent.prototype, "deleteModal", void 0);
-	    NewsListComponent = __decorate([
-	        core_1.Component({
-	            selector: "news-list",
-	            template: __webpack_require__(237),
-	            changeDetection: core_1.ChangeDetectionStrategy.Default
-	        }), 
-	        __metadata('design:paramtypes', [news_service_1.NewsService, router_1.ActivatedRoute, common_1.Location, index_1.RolesCheckedService, core_1.ChangeDetectorRef])
-	    ], NewsListComponent);
+	    NewsListComponent.prototype.parseQueryParamsAndUpdate = function () {
+	        var _this = this;
+	        this.sub2 = this.route.queryParams.subscribe(function (qParams) {
+	            _this.categoryId = qParams["categoryId"] || "";
+	            _this.userName = qParams["userName"] || "";
+	            _this.update();
+	        });
+	    };
 	    return NewsListComponent;
 	}());
+	__decorate([
+	    core_1.ViewChild("activateModal"),
+	    __metadata("design:type", ng2_bootstrap_1.ModalDirective)
+	], NewsListComponent.prototype, "activateModal", void 0);
+	__decorate([
+	    core_1.ViewChild("deleteModal"),
+	    __metadata("design:type", ng2_bootstrap_1.ModalDirective)
+	], NewsListComponent.prototype, "deleteModal", void 0);
+	NewsListComponent = __decorate([
+	    core_1.Component({
+	        selector: "news-list",
+	        template: __webpack_require__(237),
+	        changeDetection: core_1.ChangeDetectionStrategy.Default
+	    }),
+	    __metadata("design:paramtypes", [router_1.Router, news_service_1.NewsService, router_1.ActivatedRoute, common_1.Location,
+	        index_1.RolesCheckedService, core_1.ChangeDetectorRef])
+	], NewsListComponent);
 	exports.NewsListComponent = NewsListComponent;
 
 
@@ -23391,7 +23418,7 @@
 /* 237 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"container-fluid\">\r\n    <div>\r\n        <!--ng-if=\"vm.page > 0\">-->\r\n        <!--form class=\"form-inline\">\r\n        <div class=\"form-group\">\r\n            <select class=\"form-control\"\r\n                    ng-model=\"vm.categoryId\"\r\n                    ng-options=\"category.id as category.name for category in vm.categories\" ng-change=\"vm.changeCategoryId()\"></select>\r\n        </div>\r\n        <div class=\"form-group\">\r\n        <input class=\"form-control\" ng-model=\"vm.userName\" ng-model-options=\"{debounce: 1000}\" ng-change=\"vm.filterByUserName()\" placeholder=\"Логин\"/> <!--todo magic number--\r\n        </div>\r\n        </form-->\r\n    </div>\r\n    <div class=\"row\" *ngFor=\"let item of items; let i = index;\">\r\n        <div class=\"\" *ngIf=\"!item.pending || roles.isEditor\">\r\n            <div class=\"flex-vertical-center\">\r\n                <a [routerLink]=\"['/news', item.id]\" class=\"col-xs-9 col-sm-9\"><h4 [textContent]=\"item.title\"></h4></a>\r\n                <span class=\"col-xs-3 col-sm-3 pull-right\" *ngIf=\"roles.isEditor || roles.isSelf(item.userId)\">\r\n                    <a [hidden]=\"!item.pending || !roles.isEditor\" (click)=\"showActivateModal(i)\"><span class=\"glyphicon glyphicon-ok\"></span></a>\r\n                    <a [routerLink]=\"['/news', item.id, 'edit']\"><span class=\"glyphicon glyphicon-pencil\"></span></a>\r\n                    <a (click)=\"showDeleteModal(i)\"><span class=\"glyphicon glyphicon-trash\"></span></a>\r\n                </span>\r\n            </div>\r\n            <div class=\"\">\r\n                <img class=\"img-thumbnail news-mini center-block\" alt=\"\" [src]=\"item.photoPath\" />\r\n            </div>\r\n            <div class=\"\">\r\n                <i> <span [innerHTML]=\"item.brief\"></span></i>\r\n            </div>\r\n            <div class=\"col-sx-12 col-sm-12\">\r\n                <ul class=\"list-inline small small-offset\">\r\n                    <li class=\"\">Категория:</li>\r\n                    <li class=\"\"><a [routerLink]=\"['/news/list', page, item.categoryId ]\" [textContent]=\"item.categoryName\"></a></li>\r\n                    <li class=\"\">|</li>\r\n                    <li class=\"\">Время добавления:</li>\r\n                    <li class=\"\" [textContent]=\"item.additionTime\"></li>\r\n                    <li class=\"\">|</li>\r\n                    <li class=\"\">Просмотры</li>\r\n                    <li class=\"\" [textContent]=\"item.reads\"></li>\r\n                    <li class=\"\">|</li>\r\n                    <li class=\"\">Автор:</li>\r\n                    <li class=\"\"><a [routerLink]=\"['/user', item.userId ]\" [textContent]=\"item.userName\"></a></li>\r\n                    <li class=\"\">|</li>\r\n                    <li class=\"\">Комментарии:</li>\r\n                    <li class=\"\" [textContent]=\"item.commentsCount\"></li>\r\n                </ul>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <div class=\"pagination\">\r\n        <!--<pagination *ngIf=\"items\" [totalItems]=\"totalItems\" [itemsPerPage]=\"itemsPerPage\" [(ngModel)]=\"page\" [maxSize]=\"7\" (pageChanged)=\"pageChanged($event)\"\r\n                    previousText=\"&lsaquo;\" nextText=\"&rsaquo;\" firstText=\"1\" lastText=\"totalItems/itemsPerPage\"></pagination>-->\r\n    </div>\r\n</div>\r\n\r\n<div class=\"modal fade\" bsModal #activateModal=\"bs-modal\" [config]=\"{backdrop: 'static'}\"\r\n     tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"mySmallModalLabel\" aria-hidden=\"true\">\r\n    <div class=\"modal-dialog modal-sm\">\r\n        <div class=\"modal-content\">\r\n            <div class=\"modal-header\">\r\n                <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"hideModal()\">\r\n                    <span aria-hidden=\"true\">&times;</span>\r\n                </button>\r\n                <h4 class=\"modal-title\">Активировать?</h4>\r\n            </div>\r\n            <div class=\"modal-body\">\r\n                <button class=\"btn btn-default\" data-dismiss=\"modal\" (click)=\"hideModal()\" type=\"button\">Отмена</button>\r\n                <button class=\"btn btn-primary\" type=\"button\" (click)=\"activate()\">Активировать</button>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n<div class=\"modal fade\" bsModal #deleteModal=\"bs-modal\" [config]=\"{backdrop: 'static'}\"\r\n     tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"mySmallModalLabel\" aria-hidden=\"true\">\r\n    <div class=\"modal-dialog modal-sm\">\r\n        <div class=\"modal-content\">\r\n            <div class=\"modal-header\">\r\n                <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"hideModal()\">\r\n                    <span aria-hidden=\"true\">&times;</span>\r\n                </button>\r\n                <h4 class=\"modal-title\">Удалить?</h4>\r\n            </div>\r\n            <div class=\"modal-body\">\r\n                <button class=\"btn btn-default\" data-dismiss=\"modal\" (click)=\"hideModal()\" type=\"button\">Отмена</button>\r\n                <button class=\"btn btn-primary\" type=\"button\" (click)=\"delete()\">Удалить</button>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>";
+	module.exports = "<div class=\"container-fluid\">\r\n    <div>\r\n        <!--ng-if=\"vm.page > 0\">-->\r\n        <!--form class=\"form-inline\">\r\n        <div class=\"form-group\">\r\n            <select class=\"form-control\"\r\n                    ng-model=\"vm.categoryId\"\r\n                    ng-options=\"category.id as category.name for category in vm.categories\" ng-change=\"vm.changeCategoryId()\"></select>\r\n        </div>\r\n        <div class=\"form-group\">\r\n        <input class=\"form-control\" ng-model=\"vm.userName\" ng-model-options=\"{debounce: 1000}\" ng-change=\"vm.filterByUserName()\" placeholder=\"Логин\"/> <!--todo magic number--\r\n        </div>\r\n        </form-->\r\n    </div>\r\n    <div class=\"row\" *ngFor=\"let item of items; let i = index;\">\r\n        <div class=\"\" *ngIf=\"!item.pending || roles.isEditor\">\r\n            <div class=\"flex-vertical-center\">\r\n                <a [routerLink]=\"['/news', item.id]\" class=\"col-xs-9 col-sm-9\"><h4 [textContent]=\"item.title\"></h4></a>\r\n                <span class=\"col-xs-3 col-sm-3 pull-right\" *ngIf=\"roles.isEditor || roles.isSelf(item.userId)\">\r\n                    <a [hidden]=\"!item.pending || !roles.isEditor\" (click)=\"showActivateModal(i)\"><span class=\"glyphicon glyphicon-ok\"></span></a>\r\n                    <a [routerLink]=\"['/news', item.id, 'edit']\"><span class=\"glyphicon glyphicon-pencil\"></span></a>\r\n                    <a (click)=\"showDeleteModal(i)\"><span class=\"glyphicon glyphicon-trash\"></span></a>\r\n                </span>\r\n            </div>\r\n            <div class=\"\">\r\n                <img class=\"img-thumbnail news-mini center-block\" alt=\"\" [src]=\"item.photoPath\" />\r\n            </div>\r\n            <div class=\"\">\r\n                <i> <span [innerHTML]=\"item.brief\"></span></i>\r\n            </div>\r\n            <div class=\"col-sx-12 col-sm-12\">\r\n                <ul class=\"list-inline small small-offset\">\r\n                    <li class=\"\">Категория:</li>\r\n                    <li class=\"\"><a [routerLink]=\"['/news/list', page]\" [queryParams]=\"{categoryId: item.categoryId, userName: userName}\" [textContent]=\"item.categoryName\"></a></li>\r\n                    <li class=\"\">|</li>\r\n                    <li class=\"\">Время добавления:</li> \r\n                    <li class=\"\" [textContent]=\"item.additionTime | date:'dd/MM/yyyy'\"></li>\r\n                    <li class=\"\">|</li>\r\n                    <li class=\"\">Просмотры</li>\r\n                    <li class=\"\" [textContent]=\"item.reads\"></li>\r\n                    <li class=\"\">|</li>\r\n                    <li class=\"\">Автор:</li>\r\n                    <li class=\"\"><a [routerLink]=\"['/user', item.userId ]\" [textContent]=\"item.userName\"></a></li>\r\n                    <li class=\"\">|</li>\r\n                    <li class=\"\">Комментарии:</li>\r\n                    <li class=\"\" [textContent]=\"item.commentsCount\"></li>\r\n                </ul>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <div class=\"pagination\">\r\n        <pagination *ngIf=\"items\" [totalItems]=\"totalItems\" [itemsPerPage]=\"itemsPerPage\" [(ngModel)]=\"page\" [maxSize]=\"7\" (pageChanged)=\"pageChanged($event)\"\r\n                    previousText=\"&lsaquo;\" nextText=\"&rsaquo;\" firstText=\"1\" lastText=\"totalItems/itemsPerPage\"></pagination>\r\n    </div>\r\n</div>\r\n\r\n<div class=\"modal fade\" bsModal #activateModal=\"bs-modal\" [config]=\"{backdrop: 'static'}\"\r\n     tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"mySmallModalLabel\" aria-hidden=\"true\">\r\n    <div class=\"modal-dialog modal-sm\">\r\n        <div class=\"modal-content\">\r\n            <div class=\"modal-header\">\r\n                <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"hideModal()\">\r\n                    <span aria-hidden=\"true\">&times;</span>\r\n                </button>\r\n                <h4 class=\"modal-title\">Активировать?</h4>\r\n            </div>\r\n            <div class=\"modal-body\">\r\n                <button class=\"btn btn-default\" data-dismiss=\"modal\" (click)=\"hideModal()\" type=\"button\">Отмена</button>\r\n                <button class=\"btn btn-primary\" type=\"button\" (click)=\"activate()\">Активировать</button>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n<div class=\"modal fade\" bsModal #deleteModal=\"bs-modal\" [config]=\"{backdrop: 'static'}\"\r\n     tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"mySmallModalLabel\" aria-hidden=\"true\">\r\n    <div class=\"modal-dialog modal-sm\">\r\n        <div class=\"modal-content\">\r\n            <div class=\"modal-header\">\r\n                <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"hideModal()\">\r\n                    <span aria-hidden=\"true\">&times;</span>\r\n                </button>\r\n                <h4 class=\"modal-title\">Удалить?</h4>\r\n            </div>\r\n            <div class=\"modal-body\">\r\n                <button class=\"btn btn-default\" data-dismiss=\"modal\" (click)=\"hideModal()\" type=\"button\">Отмена</button>\r\n                <button class=\"btn btn-primary\" type=\"button\" (click)=\"delete()\">Удалить</button>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>";
 
 /***/ },
 /* 238 */
@@ -23469,36 +23496,48 @@
 	    NewsEditComponent.prototype.initForm = function () {
 	        this.editForm = this.formBuilder.group({
 	            'categoryId': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required])],
+	                    forms_1.Validators.required
+	                ])],
 	            'title': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required])],
+	                    forms_1.Validators.required
+	                ])],
 	            'brief': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required])],
+	                    forms_1.Validators.required
+	                ])],
 	            'message': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required])],
+	                    forms_1.Validators.required
+	                ])],
 	            'source': ["", forms_1.Validators.compose([])],
 	            'photo': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required])],
+	                    forms_1.Validators.required
+	                ])],
 	            'canCommentary': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required])],
+	                    forms_1.Validators.required
+	                ])],
 	            'onTop': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required])],
+	                    forms_1.Validators.required
+	                ])],
 	            'pending': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required])]
+	                    forms_1.Validators.required
+	                ])]
 	        });
 	    };
 	    NewsEditComponent.prototype.parseCategories = function (items) {
 	        this.categories = items;
 	    };
-	    NewsEditComponent = __decorate([
-	        core_1.Component({
-	            selector: "news-edit",
-	            template: __webpack_require__(247)
-	        }), 
-	        __metadata('design:paramtypes', [news_service_1.NewsService, index_1.NewsCategoryService, router_1.ActivatedRoute, router_1.Router, forms_1.FormBuilder])
-	    ], NewsEditComponent);
 	    return NewsEditComponent;
 	}());
+	NewsEditComponent = __decorate([
+	    core_1.Component({
+	        selector: "news-edit",
+	        template: __webpack_require__(247)
+	    }),
+	    __metadata("design:paramtypes", [news_service_1.NewsService,
+	        index_1.NewsCategoryService,
+	        router_1.ActivatedRoute,
+	        router_1.Router,
+	        forms_1.FormBuilder])
+	], NewsEditComponent);
 	exports.NewsEditComponent = NewsEditComponent;
 
 
@@ -23569,12 +23608,12 @@
 	        };
 	        this.actionUrl = configuration.ServerWithApiUrl + "newsCategory/";
 	    }
-	    NewsCategoryService = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [httpWrapper_1.HttpWrapper, app_constants_1.Configuration])
-	    ], NewsCategoryService);
 	    return NewsCategoryService;
 	}());
+	NewsCategoryService = __decorate([
+	    core_1.Injectable(),
+	    __metadata("design:paramtypes", [httpWrapper_1.HttpWrapper, app_constants_1.Configuration])
+	], NewsCategoryService);
 	exports.NewsCategoryService = NewsCategoryService;
 
 
@@ -23645,15 +23684,15 @@
 	        if (res !== null) {
 	        }
 	    };
-	    NewsCategoryEditComponent = __decorate([
-	        core_1.Component({
-	            selector: "newsCategory-edit",
-	            template: __webpack_require__(244)
-	        }), 
-	        __metadata('design:paramtypes', [newsCategory_service_1.NewsCategoryService, forms_1.FormBuilder, router_1.ActivatedRoute])
-	    ], NewsCategoryEditComponent);
 	    return NewsCategoryEditComponent;
 	}());
+	NewsCategoryEditComponent = __decorate([
+	    core_1.Component({
+	        selector: "newsCategory-edit",
+	        template: __webpack_require__(244)
+	    }),
+	    __metadata("design:paramtypes", [newsCategory_service_1.NewsCategoryService, forms_1.FormBuilder, router_1.ActivatedRoute])
+	], NewsCategoryEditComponent);
 	exports.NewsCategoryEditComponent = NewsCategoryEditComponent;
 
 
@@ -23712,15 +23751,16 @@
 	        this.newsCategoryService.delete(this.items[index].id).subscribe(function (data) { return data; }, function (error) { return console.log(error); }, function () { });
 	        this.items.splice(index, 1);
 	    };
-	    NewsCategoryListComponent = __decorate([
-	        core_1.Component({
-	            selector: "newsCategory-list",
-	            template: __webpack_require__(246)
-	        }), 
-	        __metadata('design:paramtypes', [newsCategory_service_1.NewsCategoryService, platform_browser_1.Title])
-	    ], NewsCategoryListComponent);
 	    return NewsCategoryListComponent;
 	}());
+	NewsCategoryListComponent = __decorate([
+	    core_1.Component({
+	        selector: "newsCategory-list",
+	        template: __webpack_require__(246)
+	    }),
+	    __metadata("design:paramtypes", [newsCategory_service_1.NewsCategoryService,
+	        platform_browser_1.Title])
+	], NewsCategoryListComponent);
 	exports.NewsCategoryListComponent = NewsCategoryListComponent;
 
 
@@ -23790,12 +23830,12 @@
 	        this.authService.redirectUrl = state.url;
 	        return false;
 	    };
-	    AuthGuard = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [auth_service_1.AuthService, router_1.Router])
-	    ], AuthGuard);
 	    return AuthGuard;
 	}());
+	AuthGuard = __decorate([
+	    core_1.Injectable(),
+	    __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router])
+	], AuthGuard);
 	exports.AuthGuard = AuthGuard;
 
 
@@ -23858,9 +23898,11 @@
 	    AccountSigninComponent.prototype.ngOnInit = function () {
 	        this.loginForm = this.formBuilder.group({
 	            'userName': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required])],
+	                    forms_1.Validators.required
+	                ])],
 	            'password': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required])]
+	                    forms_1.Validators.required
+	                ])]
 	        });
 	    };
 	    AccountSigninComponent.prototype.onSubmit = function (ra) {
@@ -23868,15 +23910,15 @@
 	        this.password = this.loginForm.controls["password"].value;
 	        var result = this.authService.login(this.userName, this.password);
 	    };
-	    AccountSigninComponent = __decorate([
-	        core_1.Component({
-	            selector: "account-signin",
-	            template: __webpack_require__(254)
-	        }), 
-	        __metadata('design:paramtypes', [auth_service_1.AuthService, forms_1.FormBuilder])
-	    ], AccountSigninComponent);
 	    return AccountSigninComponent;
 	}());
+	AccountSigninComponent = __decorate([
+	    core_1.Component({
+	        selector: "account-signin",
+	        template: __webpack_require__(254)
+	    }),
+	    __metadata("design:paramtypes", [auth_service_1.AuthService, forms_1.FormBuilder])
+	], AccountSigninComponent);
 	exports.AccountSigninComponent = AccountSigninComponent;
 
 
@@ -23913,17 +23955,23 @@
 	    AccountSignupComponent.prototype.ngOnInit = function () {
 	        this.registerForm = this.formBuilder.group({
 	            'userName': ["123", forms_1.Validators.compose([
-	                    forms_1.Validators.required, forms_1.Validators.minLength(3)])],
+	                    forms_1.Validators.required, forms_1.Validators.minLength(3)
+	                ])],
 	            'email': ["andrew_parys@tut.by", forms_1.Validators.compose([
-	                    forms_1.Validators.required, forms_1.Validators.minLength(6), , index_1.GlobalValidators.mailFormat])],
+	                    forms_1.Validators.required, forms_1.Validators.minLength(6), , index_1.GlobalValidators.mailFormat
+	                ])],
 	            'password': ["123qwe!Q", forms_1.Validators.compose([
-	                    forms_1.Validators.required, forms_1.Validators.minLength(6)])],
+	                    forms_1.Validators.required, forms_1.Validators.minLength(6)
+	                ])],
 	            'confirmPassword': ["123qwe!Q", forms_1.Validators.compose([
-	                    forms_1.Validators.required, forms_1.Validators.minLength(6)])],
+	                    forms_1.Validators.required, forms_1.Validators.minLength(6)
+	                ])],
 	            'fullName': ["123", forms_1.Validators.compose([
-	                    forms_1.Validators.required,])],
+	                    forms_1.Validators.required,
+	                ])],
 	            'birthday': ["10/10/2015", forms_1.Validators.compose([
-	                    forms_1.Validators.required,])]
+	                    forms_1.Validators.required,
+	                ])]
 	        });
 	    };
 	    AccountSignupComponent.prototype.onSubmit = function (value) {
@@ -23938,15 +23986,15 @@
 	            .create(signup)
 	            .subscribe(function (data) { }, function (error) { return console.log(error); }, function () { });
 	    };
-	    AccountSignupComponent = __decorate([
-	        core_1.Component({
-	            selector: "account-signup",
-	            template: __webpack_require__(258)
-	        }), 
-	        __metadata('design:paramtypes', [account_service_1.AccountService, forms_1.FormBuilder])
-	    ], AccountSignupComponent);
 	    return AccountSignupComponent;
 	}());
+	AccountSignupComponent = __decorate([
+	    core_1.Component({
+	        selector: "account-signup",
+	        template: __webpack_require__(258)
+	    }),
+	    __metadata("design:paramtypes", [account_service_1.AccountService, forms_1.FormBuilder])
+	], AccountSignupComponent);
 	exports.AccountSignupComponent = AccountSignupComponent;
 
 
@@ -24006,12 +24054,12 @@
 	        };
 	        this.actionUrl = configuration.ServerWithApiUrl + "account/";
 	    }
-	    AccountService = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [index_1.HttpWrapper, app_constants_1.Configuration])
-	    ], AccountService);
 	    return AccountService;
 	}());
+	AccountService = __decorate([
+	    core_1.Injectable(),
+	    __metadata("design:paramtypes", [index_1.HttpWrapper, app_constants_1.Configuration])
+	], AccountService);
 	exports.AccountService = AccountService;
 
 
@@ -24060,15 +24108,15 @@
 	    ConfirmEmailComponent.prototype.ngOnDestroy = function () {
 	        this.sub.unsubscribe();
 	    };
-	    ConfirmEmailComponent = __decorate([
-	        core_1.Component({
-	            selector: "email-confirmation",
-	            template: "<span [hidden]='!result'>Ваш адрес электронной почты успешно подтвержден. Можете войти и быть как дома.</span>"
-	        }), 
-	        __metadata('design:paramtypes', [account_service_1.AccountService, router_1.ActivatedRoute, router_1.Router])
-	    ], ConfirmEmailComponent);
 	    return ConfirmEmailComponent;
 	}());
+	ConfirmEmailComponent = __decorate([
+	    core_1.Component({
+	        selector: "email-confirmation",
+	        template: "<span [hidden]='!result'>Ваш адрес электронной почты успешно подтвержден. Можете войти и быть как дома.</span>"
+	    }),
+	    __metadata("design:paramtypes", [account_service_1.AccountService, router_1.ActivatedRoute, router_1.Router])
+	], ConfirmEmailComponent);
 	exports.ConfirmEmailComponent = ConfirmEmailComponent;
 
 
@@ -24098,7 +24146,8 @@
 	    ForgotPasswordComponent.prototype.ngOnInit = function () {
 	        this.forgotForm = this.formBuilder.group({
 	            'email': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required, index_1.GlobalValidators.mailFormat])]
+	                    forms_1.Validators.required, index_1.GlobalValidators.mailFormat
+	                ])]
 	        });
 	    };
 	    ForgotPasswordComponent.prototype.onSubmit = function (ra) {
@@ -24106,15 +24155,15 @@
 	        this.service.forgotPassword(this.email).subscribe(function (data) { return data; }, function (error) { return console.log(error); }, function () { });
 	        this.finish = true;
 	    };
-	    ForgotPasswordComponent = __decorate([
-	        core_1.Component({
-	            selector: "forgot-password",
-	            template: __webpack_require__(261)
-	        }), 
-	        __metadata('design:paramtypes', [account_service_1.AccountService, forms_1.FormBuilder])
-	    ], ForgotPasswordComponent);
 	    return ForgotPasswordComponent;
 	}());
+	ForgotPasswordComponent = __decorate([
+	    core_1.Component({
+	        selector: "forgot-password",
+	        template: __webpack_require__(261)
+	    }),
+	    __metadata("design:paramtypes", [account_service_1.AccountService, forms_1.FormBuilder])
+	], ForgotPasswordComponent);
 	exports.ForgotPasswordComponent = ForgotPasswordComponent;
 
 
@@ -24158,11 +24207,14 @@
 	        });
 	        this.resetForm = this.formBuilder.group({
 	            'email': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required, index_1.GlobalValidators.mailFormat])],
+	                    forms_1.Validators.required, index_1.GlobalValidators.mailFormat
+	                ])],
 	            'password': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required, forms_1.Validators.minLength(6)])],
+	                    forms_1.Validators.required, forms_1.Validators.minLength(6)
+	                ])],
 	            'confirmPassword': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required, forms_1.Validators.minLength(6)])],
+	                    forms_1.Validators.required, forms_1.Validators.minLength(6)
+	                ])],
 	        }, { validator: index_1.GlobalValidators.matchingPasswords("password", "confirmPassword") });
 	    };
 	    ResetPasswordComponent.prototype.ngOnDestroy = function () {
@@ -24177,15 +24229,15 @@
 	        this.service.resetPassword(resetPassword).subscribe(function (data) { return data; }, function (error) { return console.log(error); }, function () { });
 	        this.finish = true;
 	    };
-	    ResetPasswordComponent = __decorate([
-	        core_1.Component({
-	            selector: "reset-password",
-	            template: __webpack_require__(264)
-	        }), 
-	        __metadata('design:paramtypes', [account_service_1.AccountService, router_1.ActivatedRoute, router_1.Router, forms_1.FormBuilder])
-	    ], ResetPasswordComponent);
 	    return ResetPasswordComponent;
 	}());
+	ResetPasswordComponent = __decorate([
+	    core_1.Component({
+	        selector: "reset-password",
+	        template: __webpack_require__(264)
+	    }),
+	    __metadata("design:paramtypes", [account_service_1.AccountService, router_1.ActivatedRoute, router_1.Router, forms_1.FormBuilder])
+	], ResetPasswordComponent);
 	exports.ResetPasswordComponent = ResetPasswordComponent;
 
 
@@ -24235,11 +24287,14 @@
 	    ChangePasswordComponent.prototype.ngOnInit = function () {
 	        this.passwordForm = this.formBuilder.group({
 	            'oldPassword': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required, forms_1.Validators.minLength(6)])],
+	                    forms_1.Validators.required, forms_1.Validators.minLength(6)
+	                ])],
 	            'newPassword': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required, forms_1.Validators.minLength(6)])],
+	                    forms_1.Validators.required, forms_1.Validators.minLength(6)
+	                ])],
 	            'confirmPassword': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required, forms_1.Validators.minLength(6)])]
+	                    forms_1.Validators.required, forms_1.Validators.minLength(6)
+	                ])]
 	        }, { validator: index_1.GlobalValidators.matchingPasswords("newPassword", "confirmPassword") });
 	    };
 	    ChangePasswordComponent.prototype.onSubmit = function (ra) {
@@ -24253,15 +24308,15 @@
 	            }
 	        }, function (error) { return console.log(error); }, function () { });
 	    };
-	    ChangePasswordComponent = __decorate([
-	        core_1.Component({
-	            selector: "change-password",
-	            template: __webpack_require__(267)
-	        }), 
-	        __metadata('design:paramtypes', [account_service_1.AccountService, forms_1.FormBuilder])
-	    ], ChangePasswordComponent);
 	    return ChangePasswordComponent;
 	}());
+	ChangePasswordComponent = __decorate([
+	    core_1.Component({
+	        selector: "change-password",
+	        template: __webpack_require__(267)
+	    }),
+	    __metadata("design:paramtypes", [account_service_1.AccountService, forms_1.FormBuilder])
+	], ChangePasswordComponent);
 	exports.ChangePasswordComponent = ChangePasswordComponent;
 
 
@@ -24310,7 +24365,8 @@
 	    UnconfirmedEmailComponent.prototype.ngOnInit = function () {
 	        this.unconfirmedForm = this.formBuilder.group({
 	            'email': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required, index_1.GlobalValidators.mailFormat])]
+	                    forms_1.Validators.required, index_1.GlobalValidators.mailFormat
+	                ])]
 	        });
 	    };
 	    UnconfirmedEmailComponent.prototype.onSubmit = function () {
@@ -24323,15 +24379,15 @@
 	            }
 	        }, function (error) { return console.log(error); }, function () { });
 	    };
-	    UnconfirmedEmailComponent = __decorate([
-	        core_1.Component({
-	            selector: "unconfirmedEmail",
-	            template: __webpack_require__(269)
-	        }), 
-	        __metadata('design:paramtypes', [account_service_1.AccountService, forms_1.FormBuilder])
-	    ], UnconfirmedEmailComponent);
 	    return UnconfirmedEmailComponent;
 	}());
+	UnconfirmedEmailComponent = __decorate([
+	    core_1.Component({
+	        selector: "unconfirmedEmail",
+	        template: __webpack_require__(269)
+	    }),
+	    __metadata("design:paramtypes", [account_service_1.AccountService, forms_1.FormBuilder])
+	], UnconfirmedEmailComponent);
 	exports.UnconfirmedEmailComponent = UnconfirmedEmailComponent;
 
 
@@ -24411,12 +24467,12 @@
 	        };
 	        this.actionUrl = configuration.ServerWithApiUrl + "club/";
 	    }
-	    ClubService = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [index_1.HttpWrapper, app_constants_1.Configuration])
-	    ], ClubService);
 	    return ClubService;
 	}());
+	ClubService = __decorate([
+	    core_1.Injectable(),
+	    __metadata("design:paramtypes", [index_1.HttpWrapper, app_constants_1.Configuration])
+	], ClubService);
 	exports.ClubService = ClubService;
 
 
@@ -24500,19 +24556,20 @@
 	        this.itemsPerPage = pageable.itemPerPage;
 	        this.totalItems = pageable.totalItems;
 	    };
-	    __decorate([
-	        core_1.ViewChild("deleteModal"), 
-	        __metadata('design:type', ng2_bootstrap_1.ModalDirective)
-	    ], ClubListComponent.prototype, "deleteModal", void 0);
-	    ClubListComponent = __decorate([
-	        core_1.Component({
-	            selector: "club-list",
-	            template: __webpack_require__(274)
-	        }), 
-	        __metadata('design:paramtypes', [club_service_1.ClubService, router_1.ActivatedRoute, common_1.Location, platform_browser_1.Title])
-	    ], ClubListComponent);
 	    return ClubListComponent;
 	}());
+	__decorate([
+	    core_1.ViewChild("deleteModal"),
+	    __metadata("design:type", ng2_bootstrap_1.ModalDirective)
+	], ClubListComponent.prototype, "deleteModal", void 0);
+	ClubListComponent = __decorate([
+	    core_1.Component({
+	        selector: "club-list",
+	        template: __webpack_require__(274)
+	    }),
+	    __metadata("design:paramtypes", [club_service_1.ClubService, router_1.ActivatedRoute, common_1.Location,
+	        platform_browser_1.Title])
+	], ClubListComponent);
 	exports.ClubListComponent = ClubListComponent;
 
 
@@ -24617,24 +24674,33 @@
 	    ClubEditComponent.prototype.initForm = function () {
 	        this.editForm = this.formBuilder.group({
 	            'englishName': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required, forms_1.Validators.maxLength(30)])],
+	                    forms_1.Validators.required, forms_1.Validators.maxLength(30)
+	                ])],
 	            'logo': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required])],
+	                    forms_1.Validators.required
+	                ])],
 	            'name': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required, forms_1.Validators.maxLength(30)])],
+	                    forms_1.Validators.required, forms_1.Validators.maxLength(30)
+	                ])],
 	            'stadium': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required, forms_1.Validators.maxLength(30)])]
+	                    forms_1.Validators.required, forms_1.Validators.maxLength(30)
+	                ])]
 	        });
 	    };
-	    ClubEditComponent = __decorate([
-	        core_1.Component({
-	            selector: "club-edit",
-	            template: __webpack_require__(285)
-	        }), 
-	        __metadata('design:paramtypes', [club_service_1.ClubService, router_1.ActivatedRoute, router_1.Router, index_1.LocalStorageService, forms_1.FormBuilder, platform_browser_1.Title])
-	    ], ClubEditComponent);
 	    return ClubEditComponent;
 	}());
+	ClubEditComponent = __decorate([
+	    core_1.Component({
+	        selector: "club-edit",
+	        template: __webpack_require__(285)
+	    }),
+	    __metadata("design:paramtypes", [club_service_1.ClubService,
+	        router_1.ActivatedRoute,
+	        router_1.Router,
+	        index_1.LocalStorageService,
+	        forms_1.FormBuilder,
+	        platform_browser_1.Title])
+	], ClubEditComponent);
 	exports.ClubEditComponent = ClubEditComponent;
 
 
@@ -25599,7 +25665,6 @@
 	    { path: "news", component: index_1.NewsListComponent },
 	    { path: "news/list", component: index_1.NewsListComponent },
 	    { path: "news/list/:page", component: index_1.NewsListComponent },
-	    { path: "news/list/:page/:categoryId", component: index_1.NewsListComponent },
 	    { path: "news/:id", component: index_1.NewsDetailComponent },
 	    { path: "news/:id/edit", component: index_1.NewsEditComponent }
 	];
@@ -25660,15 +25725,16 @@
 	    UserDetailComponent.prototype.parse = function (item) {
 	        this.item = item;
 	    };
-	    UserDetailComponent = __decorate([
-	        core_1.Component({
-	            selector: "user-detail",
-	            template: __webpack_require__(291)
-	        }), 
-	        __metadata('design:paramtypes', [user_service_1.UserService, router_1.ActivatedRoute, index_1.RolesCheckedService])
-	    ], UserDetailComponent);
 	    return UserDetailComponent;
 	}());
+	UserDetailComponent = __decorate([
+	    core_1.Component({
+	        selector: "user-detail",
+	        template: __webpack_require__(291)
+	    }),
+	    __metadata("design:paramtypes", [user_service_1.UserService, router_1.ActivatedRoute,
+	        index_1.RolesCheckedService])
+	], UserDetailComponent);
 	exports.UserDetailComponent = UserDetailComponent;
 
 
@@ -25719,12 +25785,12 @@
 	        var body = res.json();
 	        return body.data || {};
 	    };
-	    UserService = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [httpWrapper_1.HttpWrapper, app_constants_1.Configuration])
-	    ], UserService);
 	    return UserService;
 	}());
+	UserService = __decorate([
+	    core_1.Injectable(),
+	    __metadata("design:paramtypes", [httpWrapper_1.HttpWrapper, app_constants_1.Configuration])
+	], UserService);
 	exports.UserService = UserService;
 
 
@@ -25732,7 +25798,7 @@
 /* 291 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"container-fluid\" *ngIf=\"item\">\r\n    <h2>\r\n        <span [textContent]=\"item.userName\"></span>\r\n        <span [hidden]=\"!roles.isLogined || roles.isSelf(item.id)\">\r\n            <a ui-sref=\"wpm({ userName: item.userName })\"><span class=\"glyphicon glyphicon-envelope\"></span></a>\r\n        </span>\r\n    </h2>\r\n    <div class=\"row\">\r\n        <div class=\"col-xs-2 col-sm-2\">\r\n            <img class=\"avatar\" src=\"{{item.photo}}\" alt=\"{{item.userName}}\"/>\r\n        </div>\r\n        <div class=\"col-xs-10 col-sm-10\">\r\n            <div *ngIf=\"roles.isSelf(item.id) || roles.isModerator\">\r\n                <button class=\"btn btn-info\" ngf-select=\"vm.uploadFiles($file, $invalidFiles)\"\r\n                        accept=\"image/*\" ngf-max-height=\"1000\" ngf-max-size=\"1MB\">\r\n                    Обновить аватар\r\n                </button>\r\n                <button *ngIf=\"roles.isSelf(item.id)\" class=\"btn btn-danger\" [routerLink]=\"['/changePassword']\">Изменить пароль</button>\r\n                <br><br>\r\n                <!--div>\r\n                    <span ng-show=\"vm.errFile.$error\" ng-bind=\"vm.errFile.$error\"></span>\r\n                    <span ng-show=\"vm.errFile.$errorParam\" ng-bind=\"vm.errFile.$errorParam\"></span>\r\n                    <span class=\"progress\" ng-show=\"f.progress >= 0\">\r\n                        <span style=\"width:{{f.progress}}%\" ng-bind=\"f.progress + '%'\"></!--span>\r\n                    </span>\r\n                </div>-->\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <form class=\"form-horizontal\" role=\"form\">\r\n        <div class=\"form-group\">\r\n            <label class=\"col-sm-2 control-label\">Логин</label>\r\n            <div class=\"col-sm-10\">\r\n                <span class=\"form-control\" [textContent]=\"item.userName\"></span>\r\n            </div>\r\n        </div>\r\n        <div *ngIf=\"roles.isModerator || roles.isSelf(item.id)\" class=\"form-group\">\r\n            <label class=\"col-xs-2 col-sm-2 control-label\">Забанить</label>\r\n            <div class=\"\" ng-show=\"!item.lockoutEndDateUtc\">\r\n                <div class=\"col-xs-2 col-sm-2\">\r\n                    <input min=\"0\" type=\"number\" placeholder=\"Количество дней\" class=\"form-control\" ng-model=\"item.banDaysCount\" />\r\n                </div>\r\n                <div class=\"col-xs-8 col-sm-8\">\r\n                    <button class=\"btn btn-danger\" ng-click=\"vm.ban()\" ngDisabled=\"item.banDaysCount <= 0\">Забанить</button>\r\n                </div>\r\n            </div>\r\n            <div class=\"col-xs-10 col-sm-10\" [hidden]=\"item.lockoutEndDateUtc\">\r\n                <span class=\"col-xs-8 col-sm-8 flex-vertical-center\" *ngIf=\"item.lockoutEndDateUtc\">Активность заблокирована до <span [textContent]=\"item.lockoutEndDateUtc | date:'medium'\"></span></span>\r\n                <button class=\"btn btn-success\" secured=\"'UsersFull'\" ng-click=\"vm.unban()\">Снять бан</button>\r\n            </div>\r\n        </div>\r\n        <div class=\"form-group\">\r\n            <label class=\"col-xs-2 col-sm-2 control-label\">Группа:</label>\r\n            <div class=\"col-xs-10 col-sm-10\">\r\n                <div>\r\n                    <span class=\"form-control\" [textContent]=\"item.roleGroupName\"></span>\r\n                    <select secured=\"'AdminStart'\" class=\"form-control\" name=\"newsCategoryId\"\r\n                            ng-model=\"item.roleGroupId\"\r\n                            ng-options=\"roleGroup.id as roleGroup.name for roleGroup in vm.roleGroups\" validation=\"required\" ng-change=\"vm.editRole()\"></select>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <div class=\"form-group\" [hidden]=\"!roles.isSelf || !roles.isAdminAssistant\">\r\n            <label class=\"col-xs-2 col-sm-2 control-label\" [hidden]=\"!item.emailConfirmed\">Почта</label>\r\n            <label class=\"col-xs-2 col-sm-2 control-label text-danger\" uib-tooltip=\"Почта не подтверждена\" [hidden]=\"item.emailConfirmed\">Почта</label>\r\n            <div class=\"col-xs-10 col-sm-10\">\r\n                <span class=\"form-control\" [textContent]=\"item.email\"></span>\r\n            </div>\r\n        </div>\r\n        <div class=\"form-group\">\r\n            <label class=\"col-xs-2 col-sm-2 control-label\">Последний вход </label>\r\n            <div class=\"col-xs-10 col-sm-10\">\r\n                <span class=\"form-control\" [textContent]=\"item.lastModifiedOn | date:'medium'\"></span>\r\n            </div>\r\n        </div>\r\n        <div class=\"form-group\">\r\n            <label class=\"col-xs-2 col-sm-2 control-label\">Дата регистрации</label>\r\n            <div class=\"col-xs-10 col-sm-10\">\r\n                <span class=\"form-control\" [textContent]=\"item.registrationDate | date:'medium'\"></span>\r\n            </div>\r\n        </div>\r\n        <div class=\"form-group\" *ngIf=\"item.fullName\">\r\n            <label class=\"col-xs-2 col-sm-2 control-label\">Полное имя</label>\r\n            <div class=\"col-xs-10 col-sm-10\">\r\n                <span class=\"form-control\" [textContent]=\"item.fullName\"></span>\r\n            </div>\r\n        </div>\r\n        <div class=\"form-group\" *ngIf=\"item.birthday\">\r\n            <label class=\"col-xs-2 col-sm-2 control-label\">День рождения</label>\r\n            <div class=\"col-xs-10 col-sm-10\">\r\n                <span class=\"form-control\" [textContent]=\"item.birthday | date:'longDate'\"></span>\r\n            </div>\r\n        </div>\r\n        <div class=\"form-group\" *ngIf=\"item.gender\">\r\n            <label class=\"col-xs-2 col-sm-2 control-label\">Пол</label>\r\n            <div class=\"col-xs-10 col-sm-10\">\r\n                <span class=\"form-control\" *ngIf=\"item.gender\">Девушка</span>\r\n                <span class=\"form-control\" *ngIf=\"!item.gender\">Парень</span>\r\n            </div>\r\n        </div>\r\n        <div>\r\n            <ul class=\"list-inline\">\r\n                <li *ngIf=\"item.newsCount > 0\"><a ui-sref=\"news({ page: 1, userName: item.userName})\">Новости(<span [textContent]=\"item.newsCount\"></span>)</a></li>\r\n                <li>|</li>\r\n                <li *ngIf=\"item.blogsCount > 0\"><a ui-sref=\"blog({page: 1, userName: item.userName})\">Блоги(<span [textContent]=\"item.blogsCount\"></span>)</a></li>\r\n            </ul>\r\n        </div>\r\n    </form>\r\n</div>\r\n\r\n<!--script type=\"text/ng-template\" id=\"changeRoleConfirmation.html\">\r\n    <div class=\"modal-header\">\r\n        <h3 class=\"modal-title\">Редактирование роли</h3>\r\n    </div>\r\n    <div class=\"modal-body\">\r\n        Изменить?\r\n    </div>\r\n    <div class=\"modal-footer\">\r\n        <button class=\"btn btn-primary\" type=\"button\" ng-click=\"vm.ok()\">Изменить</button>\r\n        <button class=\"btn btn-default\" type=\"button\" ng-click=\"vm.cancel()\">Отмена</button>\r\n    </div>\r\n</!--script>\r\n\r\n<script type=\"text/ng-template\" id=\"banConfirmation.html\">\r\n    <div class=\"modal-header\">\r\n        <h3 class=\"modal-title\"></h3>\r\n    </div>\r\n    <div class=\"modal-body\">\r\n        Забанить?\r\n    </div>\r\n    <div class=\"modal-footer\">\r\n        <button type=\"button\" class=\"btn btn-default\" ng-click=\"vm.ok()\">Забанить</button>\r\n        <button type=\"button\" class=\"btn btn-primary\" ng-click=\"vm.cancel()\">Отмена</button>\r\n    </div>\r\n</script>-->";
+	module.exports = "<div class=\"container-fluid\" *ngIf=\"item\">\r\n    <h2>\r\n        <span [textContent]=\"item.userName\"></span>\r\n        <span [hidden]=\"!roles.isLogined || roles.isSelf(item.id)\">\r\n            <a ui-sref=\"wpm({ userName: item.userName })\"><span class=\"glyphicon glyphicon-envelope\"></span></a>\r\n        </span>\r\n    </h2>\r\n    <div class=\"row\">\r\n        <div class=\"col-xs-2 col-sm-2\">\r\n            <img class=\"avatar\" src=\"{{item.photo}}\" alt=\"{{item.userName}}\"/>\r\n        </div>\r\n        <div class=\"col-xs-10 col-sm-10\">\r\n            <div *ngIf=\"roles.isSelf(item.id) || roles.isModerator\">\r\n                <button class=\"btn btn-info\" ngf-select=\"vm.uploadFiles($file, $invalidFiles)\"\r\n                        accept=\"image/*\" ngf-max-height=\"1000\" ngf-max-size=\"1MB\">\r\n                    Обновить аватар\r\n                </button>\r\n                <button *ngIf=\"roles.isSelf(item.id)\" class=\"btn btn-danger\" [routerLink]=\"['/changePassword']\">Изменить пароль</button>\r\n                <br><br>\r\n                <!--div>\r\n                    <span ng-show=\"vm.errFile.$error\" ng-bind=\"vm.errFile.$error\"></span>\r\n                    <span ng-show=\"vm.errFile.$errorParam\" ng-bind=\"vm.errFile.$errorParam\"></span>\r\n                    <span class=\"progress\" ng-show=\"f.progress >= 0\">\r\n                        <span style=\"width:{{f.progress}}%\" ng-bind=\"f.progress + '%'\"></!--span>\r\n                    </span>\r\n                </div>-->\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <form class=\"form-horizontal\" role=\"form\">\r\n        <div class=\"form-group\">\r\n            <label class=\"col-sm-2 control-label\">Логин</label>\r\n            <div class=\"col-sm-10\">\r\n                <span class=\"form-control\" [textContent]=\"item.userName\"></span>\r\n            </div>\r\n        </div>\r\n        <div *ngIf=\"roles.isModerator || roles.isSelf(item.id)\" class=\"form-group\">\r\n            <label class=\"col-xs-2 col-sm-2 control-label\">Забанить</label>\r\n            <div class=\"\" ng-show=\"!item.lockoutEndDateUtc\">\r\n                <div class=\"col-xs-2 col-sm-2\">\r\n                    <input min=\"0\" type=\"number\" placeholder=\"Количество дней\" class=\"form-control\" ng-model=\"item.banDaysCount\" />\r\n                </div>\r\n                <div class=\"col-xs-8 col-sm-8\">\r\n                    <button class=\"btn btn-danger\" ng-click=\"vm.ban()\" ngDisabled=\"item.banDaysCount <= 0\">Забанить</button>\r\n                </div>\r\n            </div>\r\n            <div class=\"col-xs-10 col-sm-10\" [hidden]=\"item.lockoutEndDateUtc\">\r\n                <span class=\"col-xs-8 col-sm-8 flex-vertical-center\" *ngIf=\"item.lockoutEndDateUtc\">Активность заблокирована до <span [textContent]=\"item.lockoutEndDateUtc | date:'medium'\"></span></span>\r\n                <button class=\"btn btn-success\" secured=\"'UsersFull'\" ng-click=\"vm.unban()\">Снять бан</button>\r\n            </div>\r\n        </div>\r\n        <div class=\"form-group\">\r\n            <label class=\"col-xs-2 col-sm-2 control-label\">Группа:</label>\r\n            <div class=\"col-xs-10 col-sm-10\">\r\n                <div>\r\n                    <span class=\"form-control\" [textContent]=\"item.roleGroupName\"></span>\r\n                    <select secured=\"'AdminStart'\" class=\"form-control\" name=\"newsCategoryId\"\r\n                            ng-model=\"item.roleGroupId\"\r\n                            ng-options=\"roleGroup.id as roleGroup.name for roleGroup in vm.roleGroups\" validation=\"required\" ng-change=\"vm.editRole()\"></select>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <div class=\"form-group\" [hidden]=\"!roles.isSelf || !roles.isAdminAssistant\">\r\n            <label class=\"col-xs-2 col-sm-2 control-label\" [hidden]=\"!item.emailConfirmed\">Почта</label>\r\n            <label class=\"col-xs-2 col-sm-2 control-label text-danger\" uib-tooltip=\"Почта не подтверждена\" [hidden]=\"item.emailConfirmed\">Почта</label>\r\n            <div class=\"col-xs-10 col-sm-10\">\r\n                <span class=\"form-control\" [textContent]=\"item.email\"></span>\r\n            </div>\r\n        </div>\r\n        <div class=\"form-group\">\r\n            <label class=\"col-xs-2 col-sm-2 control-label\">Последний вход </label>\r\n            <div class=\"col-xs-10 col-sm-10\">\r\n                <span class=\"form-control\" [textContent]=\"item.lastModifiedOn | date:'medium'\"></span>\r\n            </div>\r\n        </div>\r\n        <div class=\"form-group\">\r\n            <label class=\"col-xs-2 col-sm-2 control-label\">Дата регистрации</label>\r\n            <div class=\"col-xs-10 col-sm-10\">\r\n                <span class=\"form-control\" [textContent]=\"item.registrationDate | date:'medium'\"></span>\r\n            </div>\r\n        </div>\r\n        <div class=\"form-group\" *ngIf=\"item.fullName\">\r\n            <label class=\"col-xs-2 col-sm-2 control-label\">Полное имя</label>\r\n            <div class=\"col-xs-10 col-sm-10\">\r\n                <span class=\"form-control\" [textContent]=\"item.fullName\"></span>\r\n            </div>\r\n        </div>\r\n        <div class=\"form-group\" *ngIf=\"item.birthday\">\r\n            <label class=\"col-xs-2 col-sm-2 control-label\">День рождения</label>\r\n            <div class=\"col-xs-10 col-sm-10\">\r\n                <span class=\"form-control\" [textContent]=\"item.birthday | date:'longDate'\"></span>\r\n            </div>\r\n        </div>\r\n        <div class=\"form-group\" *ngIf=\"item.gender\">\r\n            <label class=\"col-xs-2 col-sm-2 control-label\">Пол</label>\r\n            <div class=\"col-xs-10 col-sm-10\">\r\n                <span class=\"form-control\" *ngIf=\"item.gender\">Девушка</span>\r\n                <span class=\"form-control\" *ngIf=\"!item.gender\">Парень</span>\r\n            </div>\r\n        </div>\r\n        <div>\r\n            <ul class=\"list-inline\">\r\n                <li *ngIf=\"item.newsCount > 0\"><a [routerLink]=\"['/news/list', 1]\" [queryParams]=\"{userName: item.userName}\">Новости(<span [textContent]=\"item.newsCount\"></span>)</a></li>\r\n                <li>|</li>\r\n                <li *ngIf=\"item.blogsCount > 0\"><a ui-sref=\"blog({page: 1, userName: item.userName})\">Блоги(<span [textContent]=\"item.blogsCount\"></span>)</a></li>\r\n            </ul>\r\n        </div>\r\n    </form>\r\n</div>\r\n\r\n<!--script type=\"text/ng-template\" id=\"changeRoleConfirmation.html\">\r\n    <div class=\"modal-header\">\r\n        <h3 class=\"modal-title\">Редактирование роли</h3>\r\n    </div>\r\n    <div class=\"modal-body\">\r\n        Изменить?\r\n    </div>\r\n    <div class=\"modal-footer\">\r\n        <button class=\"btn btn-primary\" type=\"button\" ng-click=\"vm.ok()\">Изменить</button>\r\n        <button class=\"btn btn-default\" type=\"button\" ng-click=\"vm.cancel()\">Отмена</button>\r\n    </div>\r\n</!--script>\r\n\r\n<script type=\"text/ng-template\" id=\"banConfirmation.html\">\r\n    <div class=\"modal-header\">\r\n        <h3 class=\"modal-title\"></h3>\r\n    </div>\r\n    <div class=\"modal-body\">\r\n        Забанить?\r\n    </div>\r\n    <div class=\"modal-footer\">\r\n        <button type=\"button\" class=\"btn btn-default\" ng-click=\"vm.ok()\">Забанить</button>\r\n        <button type=\"button\" class=\"btn btn-primary\" ng-click=\"vm.cancel()\">Отмена</button>\r\n    </div>\r\n</script>-->";
 
 /***/ },
 /* 292 */
@@ -25786,15 +25852,15 @@
 	            .GetAll(filters)
 	            .subscribe(function (data) { return _this.parsePageable(data); }, function (error) { return console.log(error); }, function () { });
 	    };
-	    UserListComponent = __decorate([
-	        core_1.Component({
-	            selector: "user-list",
-	            template: __webpack_require__(294)
-	        }), 
-	        __metadata('design:paramtypes', [user_service_1.UserService, router_1.ActivatedRoute])
-	    ], UserListComponent);
 	    return UserListComponent;
 	}());
+	UserListComponent = __decorate([
+	    core_1.Component({
+	        selector: "user-list",
+	        template: __webpack_require__(294)
+	    }),
+	    __metadata("design:paramtypes", [user_service_1.UserService, router_1.ActivatedRoute])
+	], UserListComponent);
 	exports.UserListComponent = UserListComponent;
 
 
@@ -25874,10 +25940,12 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(20);
+	var router_1 = __webpack_require__(26);
 	var pm_service_1 = __webpack_require__(299);
 	var PmListComponent = (function () {
-	    function PmListComponent(pmService) {
+	    function PmListComponent(pmService, router) {
 	        this.pmService = pmService;
+	        this.router = router;
 	    }
 	    PmListComponent.prototype.ngOnInit = function () {
 	        var _this = this;
@@ -25892,15 +25960,18 @@
 	    };
 	    PmListComponent.prototype.delete = function (index) {
 	    };
-	    PmListComponent = __decorate([
-	        core_1.Component({
-	            selector: "pm-list",
-	            template: __webpack_require__(300)
-	        }), 
-	        __metadata('design:paramtypes', [pm_service_1.PmService])
-	    ], PmListComponent);
+	    PmListComponent.prototype.writePm = function () {
+	        this.router.navigate(["/pm", 0, "edit"]);
+	    };
 	    return PmListComponent;
 	}());
+	PmListComponent = __decorate([
+	    core_1.Component({
+	        selector: "pm-list",
+	        template: __webpack_require__(300)
+	    }),
+	    __metadata("design:paramtypes", [pm_service_1.PmService, router_1.Router])
+	], PmListComponent);
 	exports.PmListComponent = PmListComponent;
 
 
@@ -25946,12 +26017,12 @@
 	        };
 	        this.actionUrl = configuration.ServerWithApiUrl + "pm/";
 	    }
-	    PmService = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [httpWrapper_1.HttpWrapper, app_constants_1.Configuration])
-	    ], PmService);
 	    return PmService;
 	}());
+	PmService = __decorate([
+	    core_1.Injectable(),
+	    __metadata("design:paramtypes", [httpWrapper_1.HttpWrapper, app_constants_1.Configuration])
+	], PmService);
 	exports.PmService = PmService;
 
 
@@ -25959,7 +26030,7 @@
 /* 300 */
 /***/ function(module, exports) {
 
-	module.exports = "<!--<div class=\"container-fluid\">\r\n    <md-tab-group [selectedIndex]=\"0\">\r\n        <md-tab>\r\n            <template md-tab-label>\r\n                Полученные\r\n            </template>\r\n            <template md-tab-content>\r\n                <table class=\"table\">\r\n                    <thead>\r\n                    <tr>\r\n                        <td>#</td>\r\n                        <td>Заголовок</td>\r\n                        <td>Отправитель</td>\r\n                        <td>Дата получения</td>\r\n                    </tr>\r\n                    </thead>\r\n                    <tbody *ngFor=\"let message of received; let i = index\">\r\n                    <tr>\r\n                        <td [textContent]=\"i + 1\"></td>\r\n                        <td>\r\n                            <a [routerLink]=\"['/pm', message.id]\">\r\n                                <b *ngIf=\"!message.isRead\" [textContent]=\"message.title\"></b>\r\n                                <span *ngIf=\"message.isRead\" [textContent]=\"message.title\"></span>\r\n                            </a>\r\n                        </td>\r\n                        <td><a [routerLink]=\"['/user', message.senderId]\" [textContent]=\"message.senderUserName\"></a></td>\r\n                        <td [textContent]=\"message.sentTime | date:'medium'\"></td>\r\n                    </tr>\r\n                    </tbody>\r\n                </table>\r\n            </template>\r\n        </md-tab>\r\n        <md-tab>\r\n            <template md-tab-label>\r\n                Отправленные\r\n            </template>\r\n            <template md-tab-content>\r\n                <table class=\"table\">\r\n                    <thead>\r\n                    <tr>\r\n                        <td>#</td>\r\n                        <td>Заголовок</td>\r\n                        <td>Получатель</td>\r\n                        <td>Дата отправки</td>\r\n                    </tr>\r\n                    </thead>\r\n                    <tbody *ngFor=\"let message of sent; let i = index\">\r\n                    <tr>\r\n                        <td [textContent]=\"i + 1\"></td>\r\n                        <td>\r\n                            <a [routerLink]=\"['/pm', message.id]\">\r\n                                <b *ngIf=\"!message.isRead\" [textContent]=\"message.title\"></b>\r\n                                <span *ngIf=\"message.isRead\" [textContent]=\"message.title\"></span>\r\n                            </a>\r\n                        </td>\r\n                        <td><a [routerLink]=\"['/user', message.receiverId]\" [textContent]=\"message.receiverUserName\"></a></td>\r\n                        <td [textContent]=\"message.sentTime | date:'medium'\"></td>\r\n                    </tr>\r\n                    </tbody>\r\n                </table>\r\n            </template>\r\n        </md-tab>\r\n        <<md-tab>\r\n            <template md-tab-label>\r\n                <a [routerLink]=\"['/pm', 0, 'edit']\">\r\n                    Написать сообщеньку\r\n                </a>\r\n            </template>\r\n        </md-tab>\r\n    </md-tab-group>\r\n</div>-->";
+	module.exports = "<div class=\"container-fluid\">\r\n    <tabset>\r\n        <tab heading=\"Полученные\">\r\n            <table class=\"table\">\r\n                <thead>\r\n                <tr>\r\n                    <td>#</td>\r\n                    <td>Заголовок</td>\r\n                    <td>Отправитель</td>\r\n                    <td>Дата получения</td>\r\n                </tr>\r\n                </thead>\r\n                <tbody *ngFor=\"let message of received; let i = index\">\r\n                <tr>\r\n                    <td [textContent]=\"i + 1\"></td>\r\n                    <td>\r\n                        <a [routerLink]=\"['/pm', message.id]\">\r\n                            <b *ngIf=\"!message.isRead\" [textContent]=\"message.title\"></b>\r\n                            <span *ngIf=\"message.isRead\" [textContent]=\"message.title\"></span>\r\n                        </a>\r\n                    </td>\r\n                    <td><a [routerLink]=\"['/user', message.senderId]\" [textContent]=\"message.senderUserName\"></a></td>\r\n                    <td [textContent]=\"message.sentTime | date:'medium'\"></td>\r\n                </tr>\r\n                </tbody>\r\n            </table>\r\n        </tab>\r\n        <tab heading=\"Отправленные\">\r\n            <table class=\"table\">\r\n                <thead>\r\n                <tr>\r\n                    <td>#</td>\r\n                    <td>Заголовок</td>\r\n                    <td>Получатель</td>\r\n                    <td>Дата отправки</td>\r\n                </tr>\r\n                </thead>\r\n                <tbody *ngFor=\"let message of sent; let i = index\">\r\n                <tr>\r\n                    <td [textContent]=\"i + 1\"></td>\r\n                    <td>\r\n                        <a [routerLink]=\"['/pm', message.id]\">\r\n                            <b *ngIf=\"!message.isRead\" [textContent]=\"message.title\"></b>\r\n                            <span *ngIf=\"message.isRead\" [textContent]=\"message.title\"></span>\r\n                        </a>\r\n                    </td>\r\n                    <td><a [routerLink]=\"['/user', message.receiverId]\" [textContent]=\"message.receiverUserName\"></a></td>\r\n                    <td [textContent]=\"message.sentTime | date:'medium'\"></td>\r\n                </tr>\r\n                </tbody>\r\n            </table>\r\n        </tab>\r\n        <tab heading=\"Написать сообщеньку\" (select)=\"writePm()\"></tab>\r\n    </tabset>\r\n</div>";
 
 /***/ },
 /* 301 */
@@ -25997,15 +26068,15 @@
 	    PmDetailComponent.prototype.parse = function (item) {
 	        this.item = item;
 	    };
-	    PmDetailComponent = __decorate([
-	        core_1.Component({
-	            selector: "pm-detail",
-	            template: __webpack_require__(302)
-	        }), 
-	        __metadata('design:paramtypes', [pm_service_1.PmService, router_1.ActivatedRoute])
-	    ], PmDetailComponent);
 	    return PmDetailComponent;
 	}());
+	PmDetailComponent = __decorate([
+	    core_1.Component({
+	        selector: "pm-detail",
+	        template: __webpack_require__(302)
+	    }),
+	    __metadata("design:paramtypes", [pm_service_1.PmService, router_1.ActivatedRoute])
+	], PmDetailComponent);
 	exports.PmDetailComponent = PmDetailComponent;
 
 
@@ -26087,15 +26158,15 @@
 	        var res = this.service.Create(model).subscribe(function (data) { return data; });
 	        this.router.navigate(["/pm"]);
 	    };
-	    PmEditComponent = __decorate([
-	        core_1.Component({
-	            selector: "pm-edit",
-	            template: __webpack_require__(304)
-	        }), 
-	        __metadata('design:paramtypes', [pm_service_1.PmService, forms_1.FormBuilder, router_1.ActivatedRoute, router_1.Router])
-	    ], PmEditComponent);
 	    return PmEditComponent;
 	}());
+	PmEditComponent = __decorate([
+	    core_1.Component({
+	        selector: "pm-edit",
+	        template: __webpack_require__(304)
+	    }),
+	    __metadata("design:paramtypes", [pm_service_1.PmService, forms_1.FormBuilder, router_1.ActivatedRoute, router_1.Router])
+	], PmEditComponent);
 	exports.PmEditComponent = PmEditComponent;
 
 
@@ -26113,7 +26184,10 @@
 	var index_1 = __webpack_require__(306);
 	exports.homeRoutes = [
 	    { path: "clubHistory", component: index_1.ClubHistoryComponent },
-	    { path: "rules", component: index_1.RulesComponent }
+	    { path: "coachTeam", component: index_1.CoachTeamComponent },
+	    { path: "rules", component: index_1.RulesComponent },
+	    { path: "aboutClub", component: index_1.AboutClubComponent },
+	    { path: "squad", component: index_1.SquadComponent }
 	];
 
 
@@ -26128,6 +26202,9 @@
 	__export(__webpack_require__(307));
 	__export(__webpack_require__(309));
 	__export(__webpack_require__(311));
+	__export(__webpack_require__(314));
+	__export(__webpack_require__(316));
+	__export(__webpack_require__(318));
 
 
 /***/ },
@@ -26148,15 +26225,15 @@
 	var ClubHistoryComponent = (function () {
 	    function ClubHistoryComponent() {
 	    }
-	    ClubHistoryComponent = __decorate([
-	        core_1.Component({
-	            selector: "<club-history>",
-	            template: __webpack_require__(308)
-	        }), 
-	        __metadata('design:paramtypes', [])
-	    ], ClubHistoryComponent);
 	    return ClubHistoryComponent;
 	}());
+	ClubHistoryComponent = __decorate([
+	    core_1.Component({
+	        selector: "<club-history>",
+	        template: __webpack_require__(308)
+	    }),
+	    __metadata("design:paramtypes", [])
+	], ClubHistoryComponent);
 	exports.ClubHistoryComponent = ClubHistoryComponent;
 
 
@@ -26184,15 +26261,15 @@
 	var RulesComponent = (function () {
 	    function RulesComponent() {
 	    }
-	    RulesComponent = __decorate([
-	        core_1.Component({
-	            selector: "<rules>",
-	            template: __webpack_require__(310)
-	        }), 
-	        __metadata('design:paramtypes', [])
-	    ], RulesComponent);
 	    return RulesComponent;
 	}());
+	RulesComponent = __decorate([
+	    core_1.Component({
+	        selector: "<rules>",
+	        template: __webpack_require__(310)
+	    }),
+	    __metadata("design:paramtypes", [])
+	], RulesComponent);
 	exports.RulesComponent = RulesComponent;
 
 
@@ -26235,15 +26312,15 @@
 	            }
 	        }, function (error) { return console.log(error); }, function () { return console.log(""); });
 	    };
-	    RightSidebarComponent = __decorate([
-	        core_1.Component({
-	            selector: "right-sidebar",
-	            template: __webpack_require__(313)
-	        }), 
-	        __metadata('design:paramtypes', [admin_service_1.AdminService, index_1.RolesCheckedService])
-	    ], RightSidebarComponent);
 	    return RightSidebarComponent;
 	}());
+	RightSidebarComponent = __decorate([
+	    core_1.Component({
+	        selector: "right-sidebar",
+	        template: __webpack_require__(313)
+	    }),
+	    __metadata("design:paramtypes", [admin_service_1.AdminService, index_1.RolesCheckedService])
+	], RightSidebarComponent);
 	exports.RightSidebarComponent = RightSidebarComponent;
 
 
@@ -26275,12 +26352,12 @@
 	        };
 	        this.actionUrl = configuration.ServerWithApiUrl + "admin/";
 	    }
-	    AdminService = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [index_1.HttpWrapper, app_constants_1.Configuration])
-	    ], AdminService);
 	    return AdminService;
 	}());
+	AdminService = __decorate([
+	    core_1.Injectable(),
+	    __metadata("design:paramtypes", [index_1.HttpWrapper, app_constants_1.Configuration])
+	], AdminService);
 	exports.AdminService = AdminService;
 
 
@@ -26295,27 +26372,135 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var index_1 = __webpack_require__(315);
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(20);
+	var AboutClubComponent = (function () {
+	    function AboutClubComponent() {
+	    }
+	    return AboutClubComponent;
+	}());
+	AboutClubComponent = __decorate([
+	    core_1.Component({
+	        selector: "<about-club>",
+	        template: __webpack_require__(315)
+	    }),
+	    __metadata("design:paramtypes", [])
+	], AboutClubComponent);
+	exports.AboutClubComponent = AboutClubComponent;
+
+
+/***/ },
+/* 315 */
+/***/ function(module, exports) {
+
+	module.exports = "<table align=\"center\" celpadding=\"20px\" style=\"border: 2px double #EFF0F2; box-shadow: 0 0 10px rgba(0,0,0,0.5);\" >\r\n    <tbody>\r\n        <tr>\r\n            <td><img padding=\"20px\" src=\"http://www.myliverpool.ru/images/history/Liverpool_FC-n_logo.png\" td=\"\" /></td>\r\n            <td>\r\n                <table >\r\n                    <tbody>\r\n                        <tr class=\"CldrOdd\">\r\n                            <td class=\"TextStatTab\"><b>Название:</b></td>\r\n                            <td class=\"TextStatTab\">Футбольный Клуб &quot;Ливерпуль&quot;</td>\r\n                        </tr>\r\n                        <tr class=\"CldrEven\">\r\n                            <td class=\"TextStatTab\"><b>Прозвище:</b></td>\r\n                            <td class=\"TextStatTab\">&quot;Красные&quot; (The Reds)</td>\r\n                        </tr>\r\n                        <tr class=\"CldrOdd\">\r\n                            <td class=\"TextStatTab\"><b>Год основания:</b></td>\r\n                            <td class=\"TextStatTab\">1892</td>\r\n                        </tr>\r\n                        <tr class=\"CldrEven\">\r\n                            <td class=\"TextStatTab\"><b>Основатель:</b></td>\r\n                            <td class=\"TextStatTab\">Джон Холдинг</td>\r\n                        </tr>\r\n                        <tr class=\"CldrOdd\">\r\n                            <td class=\"TextStatTab\"><b>Домашний стадион:</b></td>\r\n                            <td class=\"TextStatTab\">&quot;Энфилд&quot;</td>\r\n                        </tr>\r\n                        <tr class=\"CldrEven\">\r\n                            <td class=\"TextStatTab\"><b>Владелец:</b></td>\r\n                            <td class=\"TextStatTab\">Fenway Sports Group</td>\r\n                        </tr>\r\n                        <tr class=\"CldrOdd\">\r\n                            <td class=\"TextStatTab\"><b>Директорский состав:</b></td>\r\n                            <td class=\"TextStatTab\">\r\n                                Дж. Генри (основной владелец),<br />\r\n                                Т. Вернер (президент),<br />\r\n                                Д. Гинзберг (вицепрезидент),<br />\r\n                                И. Эйр (управляющий директор),<br />\r\n                                М. Гордон\r\n                            </td>\r\n                        </tr>\r\n                        <tr class=\"CldrEven\">\r\n                            <td class=\"TextStatTab\"><b>Главный тренер:</b></td>\r\n                            <td class=\"TextStatTab\">Юрген Клопп</td>\r\n                        </tr>\r\n                        <tr class=\"CldrOdd\">\r\n                            <td class=\"TextStatTab\"><b>Официальный сайт:</b></td>\r\n                            <td class=\"TextStatTab\">liverpoolfc.com</td>\r\n                        </tr>\r\n                    </tbody>\r\n                </table>\r\n            </td>\r\n        </tr>\r\n    </tbody>\r\n</table>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<div class=\"eMessage\">\r\n    Футбольный клуб &quot;Ливерпуль&quot; может похвастаться красочным и прославленным прошлым. Это одна из самых уважаемых и признанных команд английского спорта. Если вернуться к моменту возникновения клуба, окажется, что свою роль в этом событии сыграл главный соперник &quot;красных&quot; - &quot;Эвертон&quot;.<br />\r\n    <br />\r\n    В 1878 году у &quot;Эвертона&quot; возникли разногласия по арендной плате с Джоном Холдингом, владельцем поля. В 1892 году они окончательно покинули &quot;Энфилд&quot;, а Холдинг основал новый футбольный клуб - &quot;Ливерпуль&quot;.<br />\r\n    <br />\r\n    Холдинг назначил главным тренером своего друга Джона Маккену, который сразу отправился в Шотландию на поиски новых талантов. К сожалению, появление новой команды не впечатлило местных жителей, они продолжали поддерживать &quot;Эвертон&quot;. Это огорчало Холдинга, не никак не умерило его амбиции, и уже через год можно было наблюдать первые успехи новоиспеченного клуба. &quot;Ливерпуль&quot; был принят в Футбольную Лигу.<br />\r\n    <br />\r\n    Это стало началом настоящего &quot;Ливерпуля&quot;. Никто не мог предсказать, что после всех взлетов и падений, клуб превратится в один из самых престижных в английском футболе, что за время своего существования он выиграет восемь Кубков Лиги, семь Кубков Англии, три кубка УЕФА, пять Кубов Европейских чемпионов (Лиги Чемпионов) и восемнадцать раз станет чемпионом своей страны.\r\n</div>\r\n\r\n<hr />\r\n\r\n<div align=\"right\"><i>Источник: lfcnews.co.uk</i></div>";
+
+/***/ },
+/* 316 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(20);
+	var CoachTeamComponent = (function () {
+	    function CoachTeamComponent() {
+	    }
+	    return CoachTeamComponent;
+	}());
+	CoachTeamComponent = __decorate([
+	    core_1.Component({
+	        selector: "<coach-team>",
+	        template: __webpack_require__(317)
+	    }),
+	    __metadata("design:paramtypes", [])
+	], CoachTeamComponent);
+	exports.CoachTeamComponent = CoachTeamComponent;
+
+
+/***/ },
+/* 317 */
+/***/ function(module, exports) {
+
+	module.exports = "<!-- FIRST TEAM -->\r\n<div align=\"left\">\r\n    <table align=\"left\" class=\"SquadList1\">\r\n        <tbody>\r\n            <tr class=\"squadEvenTab\">\r\n                <th class=\"StaffTab\" colspan=\"2\">Первая команда</th>\r\n            </tr>\r\n        </tbody>\r\n        <tbody>\r\n            <tr class=\"squadOdd\">\r\n                <td class=\"SquadPhoto\"><img alt=\"Jurgen Klopp\" class=\"SquadPhoto\" src=\"http://www.myliverpool.ru/images/staff/firstteam/Jurgen_Klopp.jpg\" title=\"Jurgen Klopp\" /></td>\r\n                <td class=\"StaffTable\">\r\n                    <p class=\"StaffName\">Юрген Клопп</p>\r\n\r\n                    <p class=\"JobTitle\">Главный тренер</p>\r\n                </td>\r\n            </tr>\r\n            <!--tr class=\"squadEven\">\r\n            <td class=\"SquadPhoto\"><img alt=\"Sean O'Driscoll\" class=\"SquadPhoto\" src=\"http://www.myliverpool.ru/images/staff/firstteam/Sean_ODriscoll.jpg\" title=\"Sean O'Driscoll\" /></td>\r\n            <td class=\"StaffTable\">\r\n            <p class=\"StaffName\">Шон О&#39;Дрисколл</p>\r\n\r\n            <p class=\"JobTitle\">Ассистент главного тренера</p>\r\n            </td>\r\n            </tr>\r\n            <tr class=\"squadOdd\">\r\n            <td class=\"SquadPhoto\"><img alt=\"Gary McAllister\" class=\"SquadPhoto\" src=\"http://www.myliverpool.ru/images/staff/firstteam/Gary_McAllister.jpg\" title=\"Gary McAllister\" /></td>\r\n            <td class=\"StaffTable\">\r\n            <p class=\"StaffName\">Гари МакАллистер</p>\r\n\r\n            <p class=\"JobTitle\">Тренер первой команды</p>\r\n            </td>\r\n            </tr>\r\n            <tr class=\"squadEven\">\r\n            <td class=\"SquadPhoto\"><img alt=\"Glen Driscoll\" class=\"SquadPhoto\" src=\"http://www.myliverpool.ru/images/staff/firstteam/Glen_Driscoll.png\" title=\"Glen Driscoll\" /></td>\r\n            <td class=\"StaffTable\">\r\n            <p class=\"StaffName\">Глен Дрисколл</p>\r\n\r\n            <p class=\"JobTitle\">Глава отдела спортивной медицины и науки</p>\r\n            </td>\r\n            </tr>\r\n            <tr class=\"squadOdd\">\r\n            <td class=\"SquadPhoto\"><img alt=\"Ryland Morgans\" class=\"SquadPhoto\" src=\"http://www.myliverpool.ru/images/staff/firstteam/Ryland_Morgans.png\" title=\"Ryland Morgans\" /></td>\r\n            <td class=\"StaffTable\">\r\n            <p class=\"StaffName\">Риланд Морганс</p>\r\n\r\n            <p class=\"JobTitle\">Глава отдела физической подготовки</p>\r\n            </td>\r\n            </tr>\r\n            <tr class=\"squadEven\">\r\n            <td class=\"SquadPhoto\"><img alt=\"Chris Davies\" class=\"SquadPhoto\" src=\"http://www.myliverpool.ru/images/staff/firstteam/Chris_Davies.jpg\" title=\"Chris Davies\" /></td>\r\n            <td class=\"StaffTable\">\r\n            <p class=\"StaffName\">Крис Дэвис</p>\r\n\r\n            <p class=\"JobTitle\">Глава аналитического отдела</p>\r\n            </td>\r\n            </tr>\r\n            <tr class=\"squadOdd\">\r\n            <td class=\"SquadPhoto\"><img alt=\"John Achterberg\" class=\"SquadPhoto\" src=\"http://www.myliverpool.ru/images/staff/firstteam/John_Achterberg.png\" title=\"John Achterberg\" /></td>\r\n            <td class=\"StaffTable\">\r\n            <p class=\"StaffName\">Джон Ахтерберг</p>\r\n\r\n            <p class=\"JobTitle\">Тренер вратарей</p>\r\n            </td>\r\n            </tr>\r\n            <tr class=\"squadEven\">\r\n            <td class=\"SquadPhoto\"><img alt=\"Zafar Iqbal\" class=\"SquadPhoto\" src=\"http://www.myliverpool.ru/images/staff/firstteam/Dr-Zafar_Iqbal.jpg\" title=\"Zafar Iqbal\" /></td>\r\n            <td class=\"StaffTable\">\r\n            <p class=\"StaffName\">Заф Икбал</p>\r\n\r\n            <p class=\"JobTitle\">врач</p>\r\n            </td>\r\n            </tr-->\r\n            <tr class=\"squadOdd\">\r\n                <td class=\"SquadPhoto\"><img alt=\"Chris Morgan\" class=\"SquadPhoto\" src=\"http://www.myliverpool.ru/images/staff/firstteam/Chris_Morgan.png\" title=\"Chris Morgan\" /></td>\r\n                <td class=\"StaffTable\">\r\n                    <p class=\"StaffName\">Крис Морган</p>\r\n\r\n                    <p class=\"JobTitle\">Глава физиотерапии</p>\r\n                </td>\r\n            </tr>\r\n            <tr class=\"squadEven\">\r\n                <td class=\"SquadPhoto\"><img alt=\"Jordan Milsom\" class=\"SquadPhoto\" src=\"http://www.myliverpool.ru/images/staff/firstteam/Jordan_Milsom.png\" title=\"Jordan Milsom\" /></td>\r\n                <td class=\"StaffTable\">\r\n                    <p class=\"StaffName\">Джордан Милсом</p>\r\n\r\n                    <p class=\"JobTitle\">Тренер по реабилитации</p>\r\n                </td>\r\n            </tr>\r\n            <tr class=\"squadOdd\">\r\n                <td class=\"SquadPhoto\"><img alt=\"Paul Small\" class=\"SquadPhoto\" src=\"http://www.myliverpool.ru/images/staff/firstteam/Paul_Small.png\" title=\"Paul Small\" /></td>\r\n                <td class=\"StaffTable\">\r\n                    <p class=\"StaffName\">Пол Смол</p>\r\n\r\n                    <p class=\"JobTitle\">Массажист</p>\r\n                </td>\r\n            </tr>\r\n            <tr class=\"squadEven\">\r\n                <td class=\"SquadPhoto\"><img alt=\"Sylvan Richardson\" class=\"SquadPhoto\" src=\"http://www.myliverpool.ru/images/staff/firstteam/Sylvan_Richardson.jpg\" title=\"Sylvan Richardson\" /></td>\r\n                <td class=\"StaffTable\">\r\n                    <p class=\"StaffName\">Силван Ричардсон</p>\r\n\r\n                    <p class=\"JobTitle\">Массажист</p>\r\n                </td>\r\n            </tr>\r\n            <tr class=\"squadOdd\">\r\n                <td class=\"SquadPhoto\"><img alt=\"Lee Radcliffe\" class=\"SquadPhoto\" src=\"http://www.myliverpool.ru/images/staff/firstteam/Lee_Radcliffe.png\" title=\"Lee Radcliffe\" /></td>\r\n                <td class=\"StaffTable\">\r\n                    <p class=\"StaffName\">Ли Рэдклиф</p>\r\n\r\n                    <p class=\"JobTitle\">Администратор</p>\r\n                </td>\r\n            </tr>\r\n            <tr class=\"squadEven\">\r\n                <td class=\"SquadPhoto\"><img alt=\"Graham Carter\" class=\"SquadPhoto\" src=\"http://www.myliverpool.ru/images/staff/firstteam/Graham_Carter.png\" title=\"Graham Carter\" /></td>\r\n                <td class=\"StaffTable\">\r\n                    <p class=\"StaffName\">Грэм Картер</p>\r\n\r\n                    <p class=\"JobTitle\">Администратор</p>\r\n                </td>\r\n            </tr>\r\n            <tr class=\"squadOdd\">\r\n                <td class=\"SquadPhoto\"><img alt=\"Barry Drust\" class=\"SquadPhoto\" src=\"http://www.myliverpool.ru/images/staff/firstteam/Barry_Drust.jpg\" title=\"Barry Drust\" /></td>\r\n                <td class=\"StaffTable\">\r\n                    <p class=\"StaffName\">Барри Драст</p>\r\n\r\n                    <p class=\"JobTitle\">Консультант отдела спортивной науки</p>\r\n                </td>\r\n            </tr>\r\n            <tr class=\"squadEven\">\r\n                <td class=\"SquadPhoto\"><img alt=\"James Morton\" class=\"SquadPhoto\" src=\"http://www.myliverpool.ru/images/staff/firstteam/James_Morton.jpg\" title=\"James Morton\" /></td>\r\n                <td class=\"StaffTable\">\r\n                    <p class=\"StaffName\">Джеймс Мортон</p>\r\n\r\n                    <p class=\"JobTitle\">Диетолог</p>\r\n                </td>\r\n            </tr>\r\n            <tr class=\"squadOdd\">\r\n                <td class=\"SquadPhoto\"><img alt=\"Alec Scott\" class=\"SquadPhoto\" src=\"http://www.myliverpool.ru/images/staff/firstteam/Alec_Scott.png\" title=\"Alec Scott\" /></td>\r\n                <td class=\"StaffTable\">\r\n                    <p class=\"StaffName\">Алек Скотт</p>\r\n\r\n                    <p class=\"JobTitle\">Ассистент-аналитик</p>\r\n                </td>\r\n            </tr>\r\n            <tr class=\"squadEven\">\r\n                <td class=\"SquadPhoto\"><img alt=\"David Rydings\" class=\"SquadPhoto\" src=\"http://www.myliverpool.ru/images/staff/firstteam/David_Rydings.png\" title=\"David Rydings\" /></td>\r\n                <td class=\"StaffTable\">\r\n                    <p class=\"StaffName\">Дэвид Ридингз</p>\r\n\r\n                    <p class=\"JobTitle\">Ассистент по реабилитации</p>\r\n                </td>\r\n            </tr>\r\n            <tr class=\"squadOdd\">\r\n                <td class=\"SquadPhoto\"><img alt=\"Paulo Barreira\" class=\"SquadPhoto\" src=\"http://www.myliverpool.ru/images/staff/firstteam/Paulo_Barreira.png\" title=\"Paulo Barreira\" /></td>\r\n                <td class=\"StaffTable\">\r\n                    <p class=\"StaffName\">Пауло Баррейра</p>\r\n\r\n                    <p class=\"JobTitle\">Физиотерапевт</p>\r\n                </td>\r\n            </tr>\r\n            <tr class=\"squadEven\">\r\n                <td class=\"SquadPhoto\"><img alt=\"Matt Konopinski\" class=\"SquadPhoto\" src=\"http://www.myliverpool.ru/images/staff/firstteam/Matt_Konopinski.png\" title=\"Matt Konopinski\" /></td>\r\n                <td class=\"StaffTable\">\r\n                    <p class=\"StaffName\">Мэтт Конопински</p>\r\n\r\n                    <p class=\"JobTitle\">Физиотерапевт</p>\r\n                </td>\r\n            </tr>\r\n            <tr class=\"squadOdd\">\r\n                <td class=\"SquadPhoto\"><img alt=\"Pedro Philippou\" class=\"SquadPhoto\" src=\"http://www.myliverpool.ru/images/staff/firstteam/Pedro_Philippou.png\" title=\"Pedro Philippou\" /></td>\r\n                <td class=\"StaffTable\">\r\n                    <p class=\"StaffName\">Педро Филлиппо</p>\r\n\r\n                    <p class=\"JobTitle\">Спортивный терапевт</p>\r\n                </td>\r\n            </tr>\r\n        </tbody>\r\n    </table>\r\n</div>\r\n<!-- ACADEMY -->\r\n\r\n<div align=\"right\">\r\n    <table align=\"right\" class=\"SquadList1\">\r\n        <tbody>\r\n            <tr class=\"squadEvenTab\">\r\n                <th class=\"StaffTab\" colspan=\"2\">Резерв и Академия</th>\r\n            </tr>\r\n        </tbody>\r\n        <tbody>\r\n            <tr class=\"squadOdd\">\r\n                <td class=\"SquadPhoto\"><img alt=\"Frank McParland\" class=\"SquadPhoto\" src=\"http://www.myliverpool.ru/images/staff/academy/Frank_McParland.png\" title=\"Frank McParland\" /></td>\r\n                <td class=\"StaffTable\">\r\n                    <p class=\"StaffName\">Фрэнк Макпарлэнд</p>\r\n\r\n                    <p class=\"JobTitle\">Директор Академии</p>\r\n                </td>\r\n            </tr>\r\n            <tr class=\"squadEven\">\r\n                <td class=\"SquadPhoto\"><img alt=\"Rodolfo Borrell\" class=\"SquadPhoto\" src=\"http://www.myliverpool.ru/images/staff/academy/Rodolfo_Borrell.png\" title=\"Rodolfo Borrell\" /></td>\r\n                <td class=\"StaffTable\">\r\n                    <p class=\"StaffName\">Родолфо Боррелл</p>\r\n\r\n                    <p class=\"JobTitle\">Технический директор Академии</p>\r\n                </td>\r\n            </tr>\r\n            <tr class=\"squadOdd\">\r\n                <td class=\"SquadPhoto\"><img alt=\"Alex Inglethorpe\" class=\"SquadPhoto\" src=\"http://www.myliverpool.ru/images/staff/academy/Alex_Inglethorpe.png\" title=\"Alex Inglethorpe\" /></td>\r\n                <td class=\"StaffTable\">\r\n                    <p class=\"StaffName\">Алекс Инглторп</p>\r\n\r\n                    <p class=\"JobTitle\">Тренер резервной команды</p>\r\n                </td>\r\n            </tr>\r\n            <tr class=\"squadEven\">\r\n                <td class=\"SquadPhoto\"><img alt=\"Phil Roscoe\" class=\"SquadPhoto\" src=\"http://www.myliverpool.ru/images/staff/academy/Phil_Roscoe.png\" title=\"Phil Roscoe\" /></td>\r\n                <td class=\"StaffTable\">\r\n                    <p class=\"StaffName\">Фил Роско</p>\r\n\r\n                    <p class=\"JobTitle\">Глава отдела образования и социального обеспечения</p>\r\n                </td>\r\n            </tr>\r\n            <tr class=\"squadOdd\">\r\n                <td class=\"SquadPhoto\"><img alt=\"Andy O'Boyle\" class=\"SquadPhoto\" src=\"http://www.myliverpool.ru/images/staff/academy/Andy_O-Boyle.png\" title=\"Andy O'Boyle\" /></td>\r\n                <td class=\"StaffTable\">\r\n                    <p class=\"StaffName\">Энди О&#39;Бойл</p>\r\n\r\n                    <p class=\"JobTitle\">Глава отдела физической подготовки/ тренер по физподготовке команды U21</p>\r\n                </td>\r\n            </tr>\r\n            <tr class=\"squadEven\">\r\n                <td class=\"SquadPhoto\"><img alt=\"Andy Renshaw\" class=\"SquadPhoto\" src=\"http://www.myliverpool.ru/images/staff/academy/Andy_Renshaw.png\" title=\"Andy Renshaw\" /></td>\r\n                <td class=\"StaffTable\">\r\n                    <p class=\"StaffName\">Энди Реншоу</p>\r\n\r\n                    <p class=\"JobTitle\">Глава отдела физиотерапии/ физиотерапевт команды U21</p>\r\n                </td>\r\n            </tr>\r\n            <tr class=\"squadOdd\">\r\n                <td class=\"SquadPhoto\"><img alt=\"Mark Morris\" class=\"SquadPhoto\" src=\"http://www.myliverpool.ru/images/staff/academy/Mark_Morris.png\" title=\"Mark Morris\" /></td>\r\n                <td class=\"StaffTable\">\r\n                    <p class=\"StaffName\">Марк Моррис</p>\r\n\r\n                    <p class=\"JobTitle\">Тренер вратарей команды U21</p>\r\n                </td>\r\n            </tr>\r\n            <tr class=\"squadEven\">\r\n                <td class=\"SquadPhoto\"><img alt=\"Tim Jenkins\" class=\"SquadPhoto\" src=\"http://www.myliverpool.ru/images/staff/academy/Tim_Jenkins.png\" title=\"Tim Jenkins\" /></td>\r\n                <td class=\"StaffTable\">\r\n                    <p class=\"StaffName\">Тим Дженкинс</p>\r\n\r\n                    <p class=\"JobTitle\">Глава отдела анализа развития</p>\r\n                </td>\r\n            </tr>\r\n            <tr class=\"squadOdd\">\r\n                <td class=\"SquadPhoto\"><img alt=\"Richie Partridge \" class=\"SquadPhoto\" src=\"http://www.myliverpool.ru/images/staff/academy/Richie_Partridge.png\" title=\"Richie Partridge \" /></td>\r\n                <td class=\"StaffTable\">\r\n                    <p class=\"StaffName\">Ричи Партридж</p>\r\n\r\n                    <p class=\"JobTitle\">Физиотерапевт команды U21</p>\r\n                </td>\r\n            </tr>\r\n            <tr class=\"squadEven\">\r\n                <td class=\"SquadPhoto\"><img alt=\"Dave Moss\" class=\"SquadPhoto\" src=\"http://www.myliverpool.ru/images/staff/academy/Dave_Moss.png\" title=\"Dave Moss\" /></td>\r\n                <td class=\"StaffTable\">\r\n                    <p class=\"StaffName\">Дэйв Мосс</p>\r\n\r\n                    <p class=\"JobTitle\">Главный скаут Академии</p>\r\n                </td>\r\n            </tr>\r\n            <tr class=\"squadOdd\">\r\n                <td class=\"SquadPhoto\"><img alt=\"Matthew Newberry\" class=\"SquadPhoto\" src=\"http://www.myliverpool.ru/images/staff/academy/Matthew_Newberry.png\" title=\"Matthew Newberry\" /></td>\r\n                <td class=\"StaffTable\">\r\n                    <p class=\"StaffName\">Мэтью Ньюберри</p>\r\n\r\n                    <p class=\"JobTitle\">Скаут</p>\r\n                </td>\r\n            </tr>\r\n            <tr class=\"squadEven\">\r\n                <td class=\"SquadPhoto\"><img alt=\"Neil Critchley\" class=\"SquadPhoto\" src=\"http://www.myliverpool.ru/images/staff/academy/Neil_Critchley.png\" title=\"Neil Critchley\" /></td>\r\n                <td class=\"StaffTable\">\r\n                    <p class=\"StaffName\">Нил Критчли</p>\r\n\r\n                    <p class=\"JobTitle\">Тренер команды U18</p>\r\n                </td>\r\n            </tr>\r\n            <tr class=\"squadOdd\">\r\n                <td class=\"SquadPhoto\"><img alt=\"Remy Tang\" class=\"SquadPhoto\" src=\"http://www.myliverpool.ru/images/staff/academy/Remy_Tang.png\" title=\"Remy Tang\" /></td>\r\n                <td class=\"StaffTable\">\r\n                    <p class=\"StaffName\">Реми Тан</p>\r\n\r\n                    <p class=\"JobTitle\">Тренер по физической подготовке команды U18</p>\r\n                </td>\r\n            </tr>\r\n            <tr class=\"squadEven\">\r\n                <td class=\"SquadPhoto\"><img alt=\"Liam Kershaw\" class=\"SquadPhoto\" src=\"http://www.myliverpool.ru/images/staff/academy/Liam_Kershaw.png\" title=\"Liam Kershaw\" /></td>\r\n                <td class=\"StaffTable\">\r\n                    <p class=\"StaffName\">Лиам Кершоу</p>\r\n\r\n                    <p class=\"JobTitle\">Физиотерапевт команды U18</p>\r\n                </td>\r\n            </tr>\r\n            <tr class=\"squadOdd\">\r\n                <td class=\"SquadPhoto\"><img alt=\"Mike Garrity\" class=\"SquadPhoto\" src=\"http://www.myliverpool.ru/images/staff/academy/Mike_Garrity.png\" title=\"Mike Garrity\" /></td>\r\n                <td class=\"StaffTable\">\r\n                    <p class=\"StaffName\">Майк Гаррити</p>\r\n\r\n                    <p class=\"JobTitle\">Тренер команд U6-U11</p>\r\n                </td>\r\n            </tr>\r\n            <tr class=\"squadEven\">\r\n                <td class=\"SquadPhoto\"><img alt=\"Neil Edwards\" class=\"SquadPhoto\" src=\"http://www.myliverpool.ru/images/staff/academy/Neil_Edwards.png\" title=\"Neil Edwards\" /></td>\r\n                <td class=\"StaffTable\">\r\n                    <p class=\"StaffName\">Нил Эдвардс</p>\r\n\r\n                    <p class=\"JobTitle\">Тренер вратарей команды U18</p>\r\n                </td>\r\n            </tr>\r\n            <tr class=\"squadOdd\">\r\n                <td class=\"SquadPhoto\"><img alt=\"Gary Lewis\" class=\"SquadPhoto\" src=\"http://www.myliverpool.ru/images/staff/academy/Gary_Lewis.png\" title=\"Gary Lewis\" /></td>\r\n                <td class=\"StaffTable\">\r\n                    <p class=\"StaffName\">Гэри Льюис</p>\r\n\r\n                    <p class=\"JobTitle\">Тренер команд U12-U14</p>\r\n                </td>\r\n            </tr>\r\n            <tr class=\"squadEven\">\r\n                <td class=\"SquadPhoto\"><img alt=\"Stephen Torpey\" class=\"SquadPhoto\" src=\"http://www.myliverpool.ru/images/staff/academy/Stephen_Torpey.png\" title=\"Stephen Torpey\" /></td>\r\n                <td class=\"StaffTable\">\r\n                    <p class=\"StaffName\">Стивен Торпи</p>\r\n\r\n                    <p class=\"JobTitle\">Тренер команды U9-11</p>\r\n                </td>\r\n            </tr>\r\n            <tr class=\"squadOdd\">\r\n                <td class=\"SquadPhoto\"><img alt=\"Michael Beale\" class=\"SquadPhoto\" src=\"http://www.myliverpool.ru/images/staff/academy/Michael_Beale.png\" title=\"Michael Beale\" /></td>\r\n                <td class=\"StaffTable\">\r\n                    <p class=\"StaffName\">Майкл Бил</p>\r\n\r\n                    <p class=\"JobTitle\">Тренер команд U15-U16</p>\r\n                </td>\r\n            </tr>\r\n            <tr class=\"squadEven\">\r\n                <td class=\"SquadPhoto\"><img alt=\"Joe Lewis\" class=\"SquadPhoto\" src=\"http://www.myliverpool.ru/images/staff/academy/Joe_Lewis.png\" title=\"Joe Lewis\" /></td>\r\n                <td class=\"StaffTable\">\r\n                    <p class=\"StaffName\">Джо Льюис</p>\r\n\r\n                    <p class=\"JobTitle\">Спортивный терапевт</p>\r\n                </td>\r\n            </tr>\r\n            <tr class=\"squadOdd\">\r\n                <td class=\"SquadPhoto\"><img alt=\"Clive Cook\" class=\"SquadPhoto\" src=\"http://www.myliverpool.ru/images/staff/academy/Clive_Cook.png\" title=\"Clive Cook\" /></td>\r\n                <td class=\"StaffTable\">\r\n                    <p class=\"StaffName\">Клайв Кук</p>\r\n\r\n                    <p class=\"JobTitle\">Сотрудник отдела образования и соц. обеспечения</p>\r\n                </td>\r\n            </tr>\r\n            <tr class=\"squadEven\">\r\n                <td class=\"SquadPhoto\"><img alt=\"Oliver Morgan\" class=\"SquadPhoto\" src=\"http://www.myliverpool.ru/images/staff/academy/Oliver_Morgan.png\" title=\"Oliver Morgan\" /></td>\r\n                <td class=\"StaffTable\">\r\n                    <p class=\"StaffName\">Оливер Морган</p>\r\n\r\n                    <p class=\"JobTitle\">Ассистент отдела спортивной науки</p>\r\n                </td>\r\n            </tr>\r\n            <tr class=\"squadOdd\">\r\n                <td class=\"SquadPhoto\"><img alt=\"Ian Barrigan\" class=\"SquadPhoto\" src=\"http://www.myliverpool.ru/images/staff/academy/Ian_Barrigan.png\" title=\"Ian Barrigan\" /></td>\r\n                <td class=\"StaffTable\">\r\n                    <p class=\"StaffName\">Иан Барригэн</p>\r\n\r\n                    <p class=\"JobTitle\">Глава местной скаутской службы</p>\r\n                </td>\r\n            </tr>\r\n            <tr class=\"squadEven\">\r\n                <td class=\"SquadPhoto\"><img alt=\"Scott Redwood\" class=\"SquadPhoto\" src=\"http://www.myliverpool.ru/images/staff/academy/Scott_Redwood.png\" title=\"Scott Redwood\" /></td>\r\n                <td class=\"StaffTable\">\r\n                    <p class=\"StaffName\">Скотт Рэдвуд</p>\r\n\r\n                    <p class=\"JobTitle\">Администратор</p>\r\n                </td>\r\n            </tr>\r\n            <tr class=\"squadOdd\">\r\n                <td class=\"SquadPhoto\"><img alt=\"Kyle Wiffen\" class=\"SquadPhoto\" src=\"http://www.myliverpool.ru/images/staff/academy/Kyle_Wiffen.png\" title=\"Kyle Wiffen\" /></td>\r\n                <td class=\"StaffTable\">\r\n                    <p class=\"StaffName\">Кайл Уиффен</p>\r\n\r\n                    <p class=\"JobTitle\">Аналитик команды U18</p>\r\n                </td>\r\n            </tr>\r\n            <tr class=\"squadEven\">\r\n                <td class=\"SquadPhoto\"><img alt=\"Scott Mason\" class=\"SquadPhoto\" src=\"http://www.myliverpool.ru/images/staff/academy/Scott_Mason.png\" title=\"Scott Mason\" /></td>\r\n                <td class=\"StaffTable\">\r\n                    <p class=\"StaffName\">Скотт Рэдвуд</p>\r\n\r\n                    <p class=\"JobTitle\">Аналитик команд U15-U16</p>\r\n                </td>\r\n            </tr>\r\n        </tbody>\r\n    </table>\r\n</div>\r\n";
+
+/***/ },
+/* 318 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(20);
+	var SquadComponent = (function () {
+	    function SquadComponent() {
+	    }
+	    return SquadComponent;
+	}());
+	SquadComponent = __decorate([
+	    core_1.Component({
+	        selector: "<squad>",
+	        template: __webpack_require__(319)
+	    }),
+	    __metadata("design:paramtypes", [])
+	], SquadComponent);
+	exports.SquadComponent = SquadComponent;
+
+
+/***/ },
+/* 319 */
+/***/ function(module, exports) {
+
+	module.exports = "<div align=\"center\">\r\n    &nbsp;\r\n    <table class=\"SquadList\">\r\n        <tbody>\r\n            <tr>\r\n                <th class=\"SquadFirst\">№</th>\r\n                <th class=\"SquadFirst\">Фото</th>\r\n                <th class=\"SquadFirst\">Имя</th>\r\n                <th class=\"SquadFirst\">Гражданство</th>\r\n                <th class=\"SquadFirst\">Аренда</th>\r\n                <th class=\"SquadFirst\">Дата рождения</th>\r\n            </tr>\r\n            <tr>\r\n                <td class=\"playerPossition\" colspan=\"6\">Голкиперы:</td>\r\n            </tr>\r\n            <tr class=\"squadOdd\">\r\n                <td class=\"PlayerNum\">1</td>\r\n                <td class=\"SquadPhoto\"><img class=\"SquadPhoto\" src=\"http://assets.lfcimages.com/v2/uploads/media/misc/0001/24/88bd9693f8b41b25edff902642d34ac9d7c8ba6a.jpeg\" style=\"height:90px\" title=\"\" /></td>\r\n                <td class=\"squadName\">Лорис Карриус&nbsp;</td>\r\n                <td class=\"countryName\"><img alt=\"Германия\" src=\"http://www.myliverpool.ru/Team/Germany.png\" style=\"cursor: default; color: rgb(51, 51, 51); font-family: sans-serif, Arial, Verdana; font-size: 13px; line-height: 20.8px; background-color: rgb(255, 255, 255);\" title=\"Германия\" /></td>\r\n                <td class=\"bplPlayer\">&nbsp;</td>\r\n                <td class=\"PlayerDOB\">22.06.1993</td>\r\n            </tr>\r\n            <tr class=\"squadEven\">\r\n                <td class=\"PlayerNum\">13</td>\r\n                <td class=\"SquadPhoto\"><img class=\"SquadPhoto\" src=\"http://assets.lfcimages.com/v2/uploads/media/misc/0001/26/87e90bac4a6cc490713aba58df7474d6f2cc9a23.jpeg\" style=\"height:90px\" title=\"\" /></td>\r\n                <td class=\"squadName\">Алекс Маннингер&nbsp;</td>\r\n                <td class=\"countryName\"><img alt=\"Австрия\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Flag_of_Austria.svg/20px-Flag_of_Austria.svg.png\" title=\"Австрия\" /></td>\r\n                <td class=\"bplPlayer\">&nbsp;</td>\r\n                <td class=\"PlayerDOB\">04.06.1977</td>\r\n            </tr>\r\n            <tr class=\"squadOdd\">\r\n                <td class=\"PlayerNum\">22</td>\r\n                <td class=\"SquadPhoto\"><img class=\"SquadPhoto\" src=\"http://assets.lfcimages.com/v2/uploads/media/misc/0001/26/86b2c7ab6039e2b716a37168dbca51b2f3b2016f.jpeg\" style=\"height:90px\" title=\"\" /></td>\r\n                <td class=\"squadName\">Симон Миньоле&nbsp;</td>\r\n                <td class=\"countryName\"><img alt=\"Бельгия\" src=\"http://www.myliverpool.ru/Team/Belgium-30.png\" style=\"cursor: default; color: rgb(51, 51, 51); font-family: sans-serif, Arial, Verdana; font-size: 13px; line-height: 20.8px; background-color: rgb(255, 255, 255);\" title=\"Бельгия\" /></td>\r\n                <td class=\"bplPlayer\">&nbsp;</td>\r\n                <td class=\"PlayerDOB\">06.03.1988</td>\r\n            </tr>\r\n            <tr class=\"squadEven\">\r\n                <td class=\"PlayerNum\">34</td>\r\n                <td class=\"SquadPhoto\"><img alt=\"Adam Bogdan\" class=\"SquadPhoto\" src=\"http://www.myliverpool.ru/images/Players/Squad/Adam_Bogdan.jpg\" style=\"height:90px\" title=\"Adam Bogdan\" /></td>\r\n                <td class=\"squadName\">Адам Богдан&nbsp;&nbsp;</td>\r\n                <td class=\"countryName\"><img alt=\"Венгрия\" src=\"http://www.myliverpool.ru/Team/Hungary.png\" title=\"Венгрия\" /></td>\r\n                <td class=\"bplPlayer\">Отдан в аренду &nbsp;&quot;Уиган&quot;&nbsp;</td>\r\n                <td class=\"PlayerDOB\">27.09.1987</td>\r\n            </tr>\r\n            <tr class=\"squadOdd\">\r\n                <td class=\"PlayerNum\">39</td>\r\n                <td class=\"SquadPhoto\"><img class=\"SquadPhoto\" src=\"http://assets.lfcimages.com/v2/uploads/media/default/0001/19/f87e94c7b91170f1f172815a60f543be05cfb217.jpeg\" style=\"height:90px\" title=\"\" /></td>\r\n                <td class=\"squadName\">Райан Фултон&nbsp;</td>\r\n                <td class=\"countryName\"><img alt=\"Англия\" src=\"http://www.myliverpool.ru/Team/England.png\" style=\"cursor: default; color: rgb(51, 51, 51); font-family: sans-serif, Arial, Verdana; font-size: 13px; line-height: 20.8px; background-color: rgb(255, 255, 255);\" title=\"Англия\" /></td>\r\n                <td class=\"bplPlayer\">Отдан в аренду &quot;Честерфилд&quot;</td>\r\n                <td class=\"PlayerDOB\">23.05.1996</td>\r\n            </tr>\r\n            <tr class=\"squadEven\">\r\n                <td class=\"PlayerNum\">52</td>\r\n                <td class=\"SquadPhoto\"><img class=\"SquadPhoto\" src=\"http://assets.lfcstage.com/symfony2/uploads/media/default/0001/10/85279f28ecf888652f0855e511bd9b2db117cf97.jpeg\" style=\"height:90px\" title=\"\" /></td>\r\n                <td class=\"squadName\">Дэни Уорд&nbsp;&nbsp;</td>\r\n                <td class=\"countryName\"><img alt=\"Уэльс\" src=\"http://www.myliverpool.ru/Team/Wales.png\" style=\"cursor: default; color: rgb(51, 51, 51); font-family: sans-serif, Arial, Verdana; font-size: 13px; line-height: 20.8px; background-color: rgb(255, 255, 255);\" title=\"Уэльс\" /></td>\r\n                <td class=\"bplPlayer\">Отдан в аренду &nbsp;&quot;Хаддерсфилд Таун&quot;</td>\r\n                <td class=\"PlayerDOB\">22.06.1993</td>\r\n            </tr>\r\n            <tr>\r\n                <td class=\"playerPossition\" colspan=\"6\">Защитники:</td>\r\n            </tr>\r\n            <tr class=\"squadOdd\">\r\n                <td class=\"PlayerNum\">2</td>\r\n                <td class=\"SquadPhoto\"><img alt=\"Nathaniel Clyne\" class=\"SquadPhoto\" src=\"http://www.myliverpool.ru/images/Players/Squad/Nathaniel_Clyne.jpg\" style=\"height:90px\" title=\"Nathaniel Clyne\" /></td>\r\n                <td class=\"squadName\">Натаниэль Клайн&nbsp;&nbsp;</td>\r\n                <td class=\"countryName\"><img alt=\"Англия\" src=\"http://www.myliverpool.ru/Team/England.png\" title=\"Англия\" /></td>\r\n                <td class=\"bplPlayer\">&nbsp;</td>\r\n                <td class=\"PlayerDOB\">05.04.1991</td>\r\n            </tr>\r\n            <tr class=\"squadEven\">\r\n                <td class=\"PlayerNum\">3</td>\r\n                <td class=\"SquadPhoto\"><img class=\"SquadPhoto\" src=\"http://assets.lfcimages.com/v2/uploads/media/default/0001/26/01121a0b101ced203c7c7041656c18e3ae769d7b.jpeg\" style=\"height:90px\" title=\"\" /></td>\r\n                <td class=\"squadName\">Мамаду Сако&nbsp;</td>\r\n                <td class=\"countryName\"><img alt=\"Франция\" src=\"http://www.myliverpool.ru/Team/France-30.png\" title=\"Франция\" /></td>\r\n                <td class=\"bplPlayer\">&nbsp;</td>\r\n                <td class=\"PlayerDOB\">13.02.1990</td>\r\n            </tr>\r\n            <tr class=\"squadOdd\">\r\n                <td class=\"PlayerNum\">6</td>\r\n                <td class=\"SquadPhoto\"><img class=\"SquadPhoto\" src=\"http://assets.lfcimages.com/v2/uploads/media/misc/0001/26/9248f114ab7be3f8678205fb7b8c37e959b16bbf.jpeg\" style=\"height:90px\" title=\"\" /></td>\r\n                <td class=\"squadName\">Деян Ловрен&nbsp;</td>\r\n                <td class=\"countryName\"><img alt=\"Хорватия\" src=\"http://abali.ru/wp-content/uploads/2011/09/croatia_round_icon_512.png\" style=\"width:30px\" title=\"Хорватия\" /></td>\r\n                <td class=\"bplPlayer\">&nbsp;</td>\r\n                <td class=\"PlayerDOB\">05.07.1989</td>\r\n            </tr>\r\n            <tr class=\"squadEven\">\r\n                <td class=\"PlayerNum\">12</td>\r\n                <td class=\"SquadPhoto\"><img class=\"SquadPhoto\" src=\"http://assets.lfcimages.com/v2/uploads/media/default/0001/26/5c3fd775b9f52d93c908ef7faa4d14366471ef0f.jpeg\" style=\"height:90px\" title=\"\" /></td>\r\n                <td class=\"squadName\">Джо Гомез&nbsp;</td>\r\n                <td class=\"countryName\"><img alt=\"Англия\" src=\"http://www.myliverpool.ru/Team/England.png\" style=\"cursor: default; color: rgb(51, 51, 51); font-family: sans-serif, Arial, Verdana; font-size: 13px; line-height: 20.8px; background-color: rgb(255, 255, 255);\" title=\"Англия\" /></td>\r\n                <td class=\"bplPlayer\">&nbsp;</td>\r\n                <td class=\"PlayerDOB\">23.05.1997</td>\r\n            </tr>\r\n            <tr class=\"squadOdd\">\r\n                <td class=\"PlayerNum\">17</td>\r\n                <td class=\"SquadPhoto\"><img class=\"SquadPhoto\" src=\"http://assets.lfcimages.com/v2/uploads/media/default/0001/26/6a78d3740fcbe2687784bb6bdd148714a9810089.jpeg\" style=\"height:90px\" title=\"\" /></td>\r\n                <td class=\"squadName\">Рагнар Клаван&nbsp;</td>\r\n                <td class=\"countryName\"><img alt=\"Эстония\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Flag_of_Estonia.svg/20px-Flag_of_Estonia.svg.png\" title=\"Эстония\" /></td>\r\n                <td class=\"bplPlayer\">&nbsp;</td>\r\n                <td class=\"PlayerDOB\">30.10.1985</td>\r\n            </tr>\r\n            <tr class=\"squadEven\">\r\n                <td class=\"PlayerNum\">18</td>\r\n                <td class=\"SquadPhoto\"><img class=\"SquadPhoto\" src=\"http://assets.lfcimages.com/v2/uploads/media/misc/0001/26/3fb69ebb21a3cb6771eb7d0c1eacd487854edf2f.jpeg\" style=\"height:90px\" title=\"\" /></td>\r\n                <td class=\"squadName\">Альберто Морено&nbsp;</td>\r\n                <td class=\"countryName\"><img alt=\"Испания\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Flag_of_Spain.svg/20px-Flag_of_Spain.svg.png\" title=\"Испания\" /></td>\r\n                <td class=\"bplPlayer\">&nbsp;</td>\r\n                <td class=\"PlayerDOB\">05.07.1992</td>\r\n            </tr>\r\n            <tr class=\"squadOdd\">\r\n                <td class=\"PlayerNum\">26</td>\r\n                <td class=\"SquadPhoto\"><img class=\"SquadPhoto\" src=\"http://assets.lfcstage.com/symfony2/uploads/media/default/0001/10/67bb9344583806a1013fa564bce9032d87146529.jpeg\" style=\"height:90px\" title=\"\" /></td>\r\n                <td class=\"squadName\">Тиагу Илори&nbsp;</td>\r\n                <td class=\"countryName\"><img alt=\"Португалия\" src=\"http://www.myliverpool.ru/Team/portugal.png\" style=\"cursor: default; color: rgb(51, 51, 51); font-family: sans-serif, Arial, Verdana; font-size: 13px; line-height: 20.8px; background-color: rgb(255, 255, 255);\" title=\"Португалия\" /></td>\r\n                <td class=\"bplPlayer\">&nbsp;</td>\r\n                <td class=\"PlayerDOB\">26.02.1993</td>\r\n            </tr>\r\n            <tr class=\"squadEven\">\r\n                <td class=\"PlayerNum\">32</td>\r\n                <td class=\"SquadPhoto\"><img class=\"SquadPhoto\" src=\"http://assets.lfcimages.com/v2/uploads/media/misc/0001/26/f0071a2b740266e8391950a0001e19ab2d7432bc.jpeg\" style=\"height:90px\" title=\"\" /></td>\r\n                <td class=\"squadName\">Жоэль Матип&nbsp;</td>\r\n                <td class=\"countryName\"><img alt=\"Камерун\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Flag_of_Cameroon.svg/20px-Flag_of_Cameroon.svg.png\" title=\"Камерун\" /></td>\r\n                <td class=\"bplPlayer\">&nbsp;</td>\r\n                <td class=\"PlayerDOB\">08.08.1991</td>\r\n            </tr>\r\n            <tr class=\"squadOdd\">\r\n                <td class=\"PlayerNum\">38</td>\r\n                <td class=\"SquadPhoto\"><img class=\"SquadPhoto\" src=\"http://assets.lfcimages.com/v2/uploads/media/misc/0001/24/0ced040215067709125ff8c13b7719cafd6c4576.jpeg\" style=\"height:90px\" title=\"\" /></td>\r\n                <td class=\"squadName\">Джон Флэнаган&nbsp;</td>\r\n                <td class=\"countryName\"><img alt=\"Англия\" src=\"http://www.myliverpool.ru/Team/England.png\" style=\"cursor: default; color: rgb(51, 51, 51); font-family: sans-serif, Arial, Verdana; font-size: 13px; line-height: 20.8px; background-color: rgb(255, 255, 255);\" title=\"Англия\" /></td>\r\n                <td class=\"bplPlayer\">Отдан в аренду &nbsp;&quot;Бернли&quot;</td>\r\n                <td class=\"PlayerDOB\">01.01.1993</td>\r\n            </tr>\r\n            <tr class=\"squadEven\">\r\n                <td class=\"PlayerNum\">47</td>\r\n                <td class=\"SquadPhoto\"><img class=\"SquadPhoto\" src=\"http://assets.lfcimages.com/v2/uploads/media/misc/0001/26/25f745066101943a9d126ec4095f24e327dbffcb.jpeg\" style=\"height:90px\" title=\"\" /></td>\r\n                <td class=\"squadName\">Андре Уиздом&nbsp;</td>\r\n                <td class=\"countryName\"><img alt=\"Англия\" src=\"http://www.myliverpool.ru/Team/England.png\" title=\"Англия\" /></td>\r\n                <td class=\"bplPlayer\">Отдан в аренду &quot;Зальцбург&quot;</td>\r\n                <td class=\"PlayerDOB\">09.05.1993</td>\r\n            </tr>\r\n            <tr class=\"squadOdd\">\r\n                <td class=\"PlayerNum\">51</td>\r\n                <td class=\"SquadPhoto\"><img class=\"SquadPhoto\" src=\"http://assets.lfcimages.com/v2/uploads/media/misc/0001/26/eb1e9427f9248f306d2097c7bf94087f0f0f56a4.jpeg\" style=\"height:90px\" title=\"\" /></td>\r\n                <td class=\"squadName\">Ллойд Джонс&nbsp;</td>\r\n                <td class=\"countryName\"><img alt=\"Англия\" src=\"http://www.myliverpool.ru/Team/England.png\" style=\"cursor: default; color: rgb(51, 51, 51); font-family: sans-serif, Arial, Verdana; font-size: 13px; line-height: 20.8px; background-color: rgb(255, 255, 255);\" title=\"Англия\" /></td>\r\n                <td class=\"bplPlayer\">Отдан в аренду &nbsp;&quot;Суиндон Таун&quot;</td>\r\n                <td class=\"PlayerDOB\">07.10.1995</td>\r\n            </tr>\r\n            <tr class=\"squadEven\">\r\n                <td class=\"PlayerNum\">56</td>\r\n                <td class=\"SquadPhoto\"><img class=\"SquadPhoto\" src=\"http://assets.lfcimages.com/v2/uploads/media/misc/0001/26/e308134162726dfe5868954125aaea53c21e30cd.jpeg\" style=\"height:90px\" title=\"\" /></td>\r\n                <td class=\"squadName\">Коннор Рэндалл&nbsp;</td>\r\n                <td class=\"countryName\"><img alt=\"Англия\" src=\"http://www.myliverpool.ru/Team/England.png\" style=\"cursor: default; color: rgb(51, 51, 51); font-family: sans-serif, Arial, Verdana; font-size: 13px; line-height: 20.8px; background-color: rgb(255, 255, 255);\" title=\"Англия\" /></td>\r\n                <td class=\"bplPlayer\">&nbsp;</td>\r\n                <td class=\"PlayerDOB\">21.10.1995</td>\r\n            </tr>\r\n            <tr class=\"squadOdd\">\r\n                <td class=\"PlayerNum\">57</td>\r\n                <td class=\"SquadPhoto\"><img class=\"SquadPhoto\" src=\"http://assets.lfcimages.com/v2/uploads/media/misc/0001/26/90a68dbca0710f112b79ea3c69ca57bdb76cb183.jpeg\" style=\"height:90px\" title=\"\" /></td>\r\n                <td class=\"squadName\">Джо Магуайр&nbsp;</td>\r\n                <td class=\"countryName\"><img alt=\"Англия\" src=\"http://www.myliverpool.ru/Team/England.png\" style=\"cursor: default; color: rgb(51, 51, 51); font-family: sans-serif, Arial, Verdana; font-size: 13px; line-height: 20.8px; background-color: rgb(255, 255, 255);\" title=\"Англия\" /></td>\r\n                <td class=\"bplPlayer\">&nbsp;</td>\r\n                <td class=\"PlayerDOB\">18.01.1996</td>\r\n            </tr>\r\n            <!--tr class=\"squadEven\">\r\n            <td class=\"PlayerNum\">58</td>\r\n            <td class=\"squadName\">&nbsp;</td>\r\n            <td class=\"squadName\"><span style=\"color: rgb(51, 51, 51); font-family: sans-serif, Arial, Verdana; font-size: 13px; line-height: 20.8px; background-color: rgb(255, 255, 255);\">Дэниел Клири&nbsp;</span></td>\r\n            <td class=\"countryName\"><img alt=\"Ирландия\" src=\"http://ncse.com/files/images/irish%20flag_0.thumbnail.png\" title=\"Ирландия\" /></td>\r\n            <td class=\"bplPlayer\">&nbsp;</td>\r\n            <td class=\"PlayerDOB\">09.03.1996</td>\r\n            </tr-->\r\n            <tr>\r\n                <td class=\"playerPossition\" colspan=\"6\">Полузащитники:</td>\r\n            </tr>\r\n            <tr class=\"squadOdd\">\r\n                <td class=\"PlayerNum\">5</td>\r\n                <td class=\"SquadPhoto\"><img class=\"SquadPhoto\" src=\"http://assets.lfcimages.com/v2/uploads/media/default/0001/26/b0150d2a1e5ec953e6fda3f83bb16aaa1b0aded0.jpeg\" style=\"height:90px\" title=\"\" /></td>\r\n                <td class=\"squadName\">Джорджиньо Вейналдум&nbsp;</td>\r\n                <td class=\"countryName\"><img alt=\"Нидерланды\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Flag_of_the_Netherlands.svg/20px-Flag_of_the_Netherlands.svg.png\" title=\"Нидерланды\" /></td>\r\n                <td class=\"bplPlayer\">&nbsp;</td>\r\n                <td class=\"PlayerDOB\">11.11.1990</td>\r\n            </tr>\r\n            <tr class=\"squadEven\">\r\n                <td class=\"PlayerNum\">7</td>\r\n                <td class=\"SquadPhoto\"><img class=\"SquadPhoto\" src=\"http://assets.lfcimages.com/v2/uploads/media/misc/0001/26/fad573aa50c8cb36a6620018373f647d75a8c910.jpeg\" style=\"height:90px\" title=\"\" /></td>\r\n                <td class=\"squadName\">Джеймс Милнер&nbsp;</td>\r\n                <td class=\"countryName\"><img alt=\"Англия\" src=\"http://www.myliverpool.ru/Team/England.png\" style=\"cursor: default; color: rgb(51, 51, 51); font-family: sans-serif, Arial, Verdana; font-size: 13px; line-height: 20.8px; background-color: rgb(255, 255, 255);\" title=\"Англия\" /></td>\r\n                <td class=\"bplPlayer\">&nbsp;</td>\r\n                <td class=\"PlayerDOB\">04.01.1986</td>\r\n            </tr>\r\n            <tr class=\"squadOdd\">\r\n                <td class=\"PlayerNum\">10</td>\r\n                <td class=\"SquadPhoto\"><img class=\"SquadPhoto\" src=\"http://assets.lfcimages.com/v2/uploads/media/misc/0001/26/63e88372ffcfacf66c2608cd48b32ef91ccb064d.jpeg\" style=\"height:90px\" title=\"\" /></td>\r\n                <td class=\"squadName\">Филиппе Коутиньо&nbsp;</td>\r\n                <td class=\"countryName\"><img alt=\"Бразилия\" src=\"http://www.myliverpool.ru/Team/brazil.png\" style=\"cursor: default; color: rgb(51, 51, 51); font-family: sans-serif, Arial, Verdana; font-size: 13px; line-height: 20.8px; background-color: rgb(255, 255, 255);\" title=\"Бразилия\" /></td>\r\n                <td class=\"bplPlayer\">&nbsp;</td>\r\n                <td class=\"PlayerDOB\">12.06.1992</td>\r\n            </tr>\r\n            <tr class=\"squadEven\">\r\n                <td class=\"PlayerNum\">14</td>\r\n                <td class=\"SquadPhoto\"><img class=\"SquadPhoto\" src=\"http://assets.lfcimages.com/v2/uploads/media/misc/0001/26/43562c981f4a157cea535c2c0e96dd7f824f0b3c.jpeg\" style=\"height:90px\" title=\"\" /></td>\r\n                <td class=\"squadName\">Джордан Хендерсон&nbsp;</td>\r\n                <td class=\"countryName\"><img alt=\"Англия\" src=\"http://www.myliverpool.ru/Team/England.png\" style=\"cursor: default; color: rgb(51, 51, 51); font-family: sans-serif, Arial, Verdana; font-size: 13px; line-height: 20.8px; background-color: rgb(255, 255, 255);\" title=\"Англия\" /></td>\r\n                <td class=\"bplPlayer\">&nbsp;</td>\r\n                <td class=\"PlayerDOB\">17.23.1990</td>\r\n            </tr>\r\n            <tr class=\"squadOdd\">\r\n                <td class=\"PlayerNum\">16</td>\r\n                <td class=\"SquadPhoto\"><img class=\"SquadPhoto\" src=\"http://assets.lfcimages.com/v2/uploads/media/misc/0001/26/b4a06b0b5b2e49adb97ad422b545c0c2343481b0.jpeg\" style=\"height:90px\" title=\"\" /></td>\r\n                <td class=\"squadName\">Марко Груич&nbsp;</td>\r\n                <td class=\"countryName\"><img alt=\"Сербия\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Flag_of_Serbia.svg/20px-Flag_of_Serbia.svg.png\" title=\"Сербия\" /></td>\r\n                <td class=\"bplPlayer\">&nbsp;</td>\r\n                <td class=\"PlayerDOB\">13.04.1996</td>\r\n            </tr>\r\n            <tr class=\"squadEven\">\r\n                <td class=\"PlayerNum\">20</td>\r\n                <td class=\"SquadPhoto\"><img class=\"SquadPhoto\" src=\"http://assets.lfcimages.com/v2/uploads/media/misc/0001/26/97aebf125e7fc0fd5ee2ff017856cf18c9c776ac.jpeg\" style=\"height:90px\" title=\"\" /></td>\r\n                <td class=\"squadName\">Адам Лаллана&nbsp;</td>\r\n                <td class=\"countryName\"><img alt=\"Англия\" src=\"http://www.myliverpool.ru/Team/England.png\" style=\"cursor: default; color: rgb(51, 51, 51); font-family: sans-serif, Arial, Verdana; font-size: 13px; line-height: 20.8px; background-color: rgb(255, 255, 255);\" title=\"Англия\" /></td>\r\n                <td class=\"bplPlayer\">&nbsp;</td>\r\n                <td class=\"PlayerDOB\">10.05.1988</td>\r\n            </tr>\r\n            <tr class=\"squadOdd\">\r\n                <td class=\"PlayerNum\">21</td>\r\n                <td class=\"SquadPhoto\"><img class=\"SquadPhoto\" src=\"http://assets.lfcimages.com/v2/uploads/media/misc/0001/26/b2200276a740480ca610e4c9b00f99f79dc292d9.jpeg\" style=\"height:90px\" title=\"\" /></td>\r\n                <td class=\"squadName\">Лукас Лейва&nbsp;</td>\r\n                <td class=\"countryName\"><img alt=\"Бразилия\" src=\"http://www.myliverpool.ru/Team/brazil.png\" style=\"cursor: default; color: rgb(51, 51, 51); font-family: sans-serif, Arial, Verdana; font-size: 13px; line-height: 20.8px; background-color: rgb(255, 255, 255);\" title=\"Бразилия\" /></td>\r\n                <td class=\"bplPlayer\">&nbsp;</td>\r\n                <td class=\"PlayerDOB\">09.01.1987</td>\r\n            </tr>\r\n            <tr class=\"squadEven\">\r\n                <td class=\"PlayerNum\">23</td>\r\n                <td class=\"SquadPhoto\"><img class=\"SquadPhoto\" src=\"http://assets.lfcstage.com/symfony2/uploads/media/default/0001/10/4fda272e97430aa4abdea7a449c5df3c97c68f39.jpeg\" style=\"height:90px\" title=\"\" /></td>\r\n                <td class=\"squadName\">Эмре Джан&nbsp;</td>\r\n                <td class=\"countryName\"><img alt=\"Германия\" src=\"http://www.myliverpool.ru/Team/Germany.png\" style=\"cursor: default; color: rgb(51, 51, 51); font-family: sans-serif, Arial, Verdana; font-size: 13px; line-height: 20.8px; background-color: rgb(255, 255, 255);\" title=\"Германия\" /></td>\r\n                <td class=\"bplPlayer\">&nbsp;</td>\r\n                <td class=\"PlayerDOB\">12.01.1994</td>\r\n            </tr>\r\n            <tr class=\"squadOdd\">\r\n                <td class=\"PlayerNum\">32</td>\r\n                <td class=\"SquadPhoto\"><img class=\"SquadPhoto\" src=\"http://assets.lfcimages.com/v2/uploads/media/misc/0001/26/f91e6358f9737e3ee520a892ad74c9a48714bf0f.jpeg\" style=\"height:90px\" title=\"\" /></td>\r\n                <td class=\"squadName\">Кэмерон Брэннаган&nbsp;</td>\r\n                <td class=\"countryName\"><img alt=\"Англия\" src=\"http://www.myliverpool.ru/Team/England.png\" title=\"Англия\" /></td>\r\n                <td class=\"bplPlayer\">&nbsp;</td>\r\n                <td class=\"PlayerDOB\">09.05.1996</td>\r\n            </tr>\r\n            <tr class=\"squadEven\">\r\n                <td class=\"PlayerNum\">35</td>\r\n                <td class=\"SquadPhoto\"><img class=\"SquadPhoto\" src=\"http://assets.lfcimages.com/v2/uploads/media/misc/0001/26/d67d9e510017fa0f35553073b4472effbb7f7004.jpeg\" style=\"height:90px\" title=\"\" /></td>\r\n                <td class=\"squadName\">Кевин Стюарт&nbsp;</td>\r\n                <td class=\"countryName\"><img alt=\"Англия\" src=\"http://www.myliverpool.ru/Team/England.png\" title=\"Англия\" /></td>\r\n                <td class=\"bplPlayer\">&nbsp;</td>\r\n                <td class=\"PlayerDOB\">07.09.1993</td>\r\n            </tr>\r\n            <tr class=\"squadOdd\">\r\n                <td class=\"PlayerNum\">40</td>\r\n                <td class=\"SquadPhoto\"><img class=\"SquadPhoto\" src=\"http://assets.lfcimages.com/v2/uploads/media/misc/0001/24/cca9fae7db7d093998770c99161742bedd4c17bc.jpeg\" style=\"height:90px\" title=\"\" /></td>\r\n                <td class=\"squadName\">Райан Кент&nbsp;</td>\r\n                <td class=\"countryName\"><img alt=\"Англия\" src=\"http://www.myliverpool.ru/Team/England.png\" title=\"Англия\" /></td>\r\n                <td class=\"bplPlayer\">Отдан в аренду &quot;Барнсли&quot;</td>\r\n                <td class=\"PlayerDOB\">11.11.1996</td>\r\n            </tr>\r\n            <tr class=\"squadEven\">\r\n                <td class=\"PlayerNum\">41</td>\r\n                <td class=\"SquadPhoto\"><img class=\"SquadPhoto\" src=\"http://assets.lfcimages.com/v2/uploads/media/misc/0001/26/67ddf6e407850f6d964cf2294e08f0e8e0c7b4bc.jpeg\" style=\"height:90px\" title=\"\" /></td>\r\n                <td class=\"squadName\">Джек Данн&nbsp;</td>\r\n                <td class=\"countryName\"><img alt=\"Англия\" src=\"http://www.myliverpool.ru/Team/England.png\" style=\"cursor: default; color: rgb(51, 51, 51); font-family: sans-serif, Arial, Verdana; font-size: 13px; line-height: 20.8px; background-color: rgb(255, 255, 255);\" title=\"Англия\" /></td>\r\n                <td class=\"bplPlayer\">&nbsp;</td>\r\n                <td class=\"PlayerDOB\">19.11.1994</td>\r\n            </tr>\r\n            <tr class=\"squadOdd\">\r\n                <td class=\"PlayerNum\">49</td>\r\n                <td class=\"SquadPhoto\"><img class=\"SquadPhoto\" src=\"http://assets.lfcimages.com/v2/uploads/media/misc/0001/26/647621fc6db3bd0c98f4aa3599a80af45ea69a4e.jpeg\" style=\"height:90px\" title=\"\" /></td>\r\n                <td class=\"squadName\">Джордан Уильямс&nbsp;</td>\r\n                <td class=\"countryName\"><img alt=\"Уэльс\" src=\"http://www.myliverpool.ru/Team/Wales.png\" style=\"cursor: default; color: rgb(51, 51, 51); font-family: sans-serif, Arial, Verdana; font-size: 13px; line-height: 20.8px; background-color: rgb(255, 255, 255);\" title=\"Уэльс\" /></td>\r\n                <td class=\"bplPlayer\">&nbsp;</td>\r\n                <td class=\"PlayerDOB\">06.11.1995</td>\r\n            </tr>\r\n            <tr class=\"squadEven\">\r\n                <td class=\"PlayerNum\">50</td>\r\n                <td class=\"SquadPhoto\"><img class=\"SquadPhoto\" src=\"http://assets.lfcimages.com/v2/uploads/media/misc/0001/26/70fe631537b8d346aa0f8299b84bcf85073a6066.jpeg\" style=\"height:90px\" title=\"\" /></td>\r\n                <td class=\"squadName\">Лазар Маркович&nbsp;</td>\r\n                <td class=\"countryName\"><img alt=\"Сербия\" src=\"http://www.myliverpool.ru/Team/serbia.png\" style=\"cursor: default; color: rgb(51, 51, 51); font-family: sans-serif, Arial, Verdana; font-size: 13px; line-height: 20.8px; background-color: rgb(255, 255, 255);\" title=\"Сербия\" /></td>\r\n                <td class=\"bplPlayer\">Отдан в аренду &quot;Спортинг&quot;</td>\r\n                <td class=\"PlayerDOB\">02.03.1994</td>\r\n            </tr>\r\n            <tr class=\"squadOdd\">\r\n                <td class=\"PlayerNum\">54</td>\r\n                <td class=\"SquadPhoto\"><img class=\"SquadPhoto\" src=\"http://assets.lfcimages.com/v2/uploads/media/default/0001/26/d9f75915be0bcaad011e588a59f503bd1ad6e91d.jpeg\" style=\"height:90px\" title=\"\" /></td>\r\n                <td class=\"squadName\">Шейи Оджо</td>\r\n                <td class=\"countryName\">&nbsp;<img alt=\"Англия\" src=\"http://www.myliverpool.ru/Team/England.png\" style=\"cursor: default; color: rgb(51, 51, 51); font-family: sans-serif, Arial, Verdana; font-size: 13px; line-height: 20.8px; background-color: rgb(255, 255, 255);\" title=\"Англия\" /></td>\r\n                <td class=\"bplPlayer\">&nbsp;</td>\r\n                <td class=\"PlayerDOB\">19.06.1997</td>\r\n            </tr>\r\n            <tr class=\"squadEven\">\r\n                <td class=\"PlayerNum\">68</td>\r\n                <td class=\"SquadPhoto\"><img class=\"SquadPhoto\" src=\"http://assets.lfcimages.com/v2/uploads/media/misc/0001/26/a7f3ec8f87e0b32770837c930138b5bcdb121b4f.jpeg\" style=\"height:90px\" title=\"\" /></td>\r\n                <td class=\"squadName\">Педро Чиривелла&nbsp;</td>\r\n                <td class=\"countryName\"><img alt=\"Испания\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Flag_of_Spain.svg/20px-Flag_of_Spain.svg.png\" title=\"Испания\" /></td>\r\n                <td class=\"bplPlayer\">&nbsp;</td>\r\n                <td class=\"PlayerDOB\">23.05.1997</td>\r\n            </tr>\r\n            <tr class=\"squadOdd\">\r\n                <td class=\"PlayerNum\">&nbsp;</td>\r\n                <td class=\"SquadPhoto\"><img class=\"SquadPhoto\" src=\"https://pp.vk.me/c637117/v637117668/ad2c/JR0ncg4qDIM.jpg\" style=\"height:90px\" title=\"\" /></td>\r\n                <td class=\"squadName\">Аллан де Соуза&nbsp;</td>\r\n                <td class=\"countryName\"><img alt=\"Бразилия\" src=\"http://www.myliverpool.ru/Team/brazil.png\" style=\"cursor: default; color: rgb(51, 51, 51); font-family: sans-serif, Arial, Verdana; font-size: 13px; line-height: 20.8px; background-color: rgb(255, 255, 255);\" title=\"Бразилия\" /></td>\r\n                <td class=\"bplPlayer\">Отдан в аренду &nbsp;&quot;Герта&quot;</td>\r\n                <td class=\"PlayerDOB\">03.03.1997</td>\r\n            </tr>\r\n            <tr class=\"squadEven\">\r\n                <td class=\"PlayerNum\">&nbsp;</td>\r\n                <td class=\"SquadPhoto\"><img class=\"SquadPhoto\" src=\"http://assets.lfcimages.com/v2/uploads/media/misc/0001/26/97613797e93937bd617a3e8d2303450ba1c14c40.jpeg\" style=\"height:90px\" title=\"\" /></td>\r\n                <td class=\"squadName\">Харри Уилсон&nbsp;</td>\r\n                <td class=\"countryName\"><img alt=\"Уэльс\" src=\"http://www.myliverpool.ru/Team/Wales.png\" style=\"cursor: default; color: rgb(51, 51, 51); font-family: sans-serif, Arial, Verdana; font-size: 13px; line-height: 20.8px; background-color: rgb(255, 255, 255);\" title=\"Уэльс\" /></td>\r\n                <td class=\"bplPlayer\">&nbsp;</td>\r\n                <td class=\"PlayerDOB\">22.03.1997</td>\r\n            </tr>\r\n            <tr class=\"squadOdd\">\r\n                <td class=\"PlayerNum\">&nbsp;</td>\r\n                <td class=\"SquadPhoto\"><img class=\"SquadPhoto\" src=\"http://assets.lfcimages.com/v2/uploads/media/misc/0001/26/5547de4201197e0301ef4b2ae89d3a7f00fc5261.jpeg\" style=\"height:90px\" title=\"\" /></td>\r\n                <td class=\"squadName\">Бобби Адеканье&nbsp;</td>\r\n                <td class=\"countryName\"><img alt=\"Нигерия\" src=\"http://cdn.modernghana.com/images/content/drapeau_nigeria1300x150.jpg\" style=\"width:30px\" title=\"Нигерия\" /></td>\r\n                <td class=\"bplPlayer\">&nbsp;</td>\r\n                <td class=\"PlayerDOB\">16.02.1999</td>\r\n            </tr>\r\n            <tr class=\"squadEven\">\r\n                <td class=\"PlayerNum\">&nbsp;</td>\r\n                <td class=\"SquadPhoto\"><img class=\"SquadPhoto\" src=\"http://assets.lfcimages.com/v2/uploads/media/misc/0001/26/33a666bd19cc17d0d99e7d441782ba94cf18bd36.jpeg\" style=\"height:90px\" title=\"\" /></td>\r\n                <td class=\"squadName\">Трент Александр-Арнольд&nbsp;</td>\r\n                <td class=\"countryName\"><img alt=\"Англия\" src=\"http://www.myliverpool.ru/Team/England.png\" style=\"cursor: default; color: rgb(51, 51, 51); font-family: sans-serif, Arial, Verdana; font-size: 13px; line-height: 20.8px; background-color: rgb(255, 255, 255);\" title=\"Англия\" /></td>\r\n                <td class=\"bplPlayer\">&nbsp;</td>\r\n                <td class=\"PlayerDOB\">07.10.1998</td>\r\n            </tr>\r\n            <tr>\r\n                <td class=\"playerPossition\" colspan=\"6\">Нападающие:</td>\r\n            </tr>\r\n            <tr class=\"squadEven\">\r\n                <td class=\"PlayerNum\">11</td>\r\n                <td class=\"SquadPhoto\"><img class=\"SquadPhoto\" src=\"http://assets.lfcimages.com/v2/uploads/media/misc/0001/26/c01e344a5c6e6ff629d86142efa1fa5c8b6c1104.jpeg\" style=\"height:90px\" title=\"\" /></td>\r\n                <td class=\"squadName\">Роберто Фирмино&nbsp;</td>\r\n                <td class=\"countryName\"><img alt=\"Бразилия\" src=\"http://www.myliverpool.ru/Team/brazil.png\" style=\"cursor: default; color: rgb(51, 51, 51); font-family: sans-serif, Arial, Verdana; font-size: 13px; line-height: 20.8px; background-color: rgb(255, 255, 255);\" title=\"Бразилия\" /></td>\r\n                <td class=\"bplPlayer\">&nbsp;</td>\r\n                <td class=\"PlayerDOB\">02.10.1991</td>\r\n            </tr>\r\n            <tr class=\"squadOdd\">\r\n                <td class=\"PlayerNum\">15</td>\r\n                <td class=\"SquadPhoto\"><img class=\"SquadPhoto\" src=\"http://assets.lfcimages.com/v2/uploads/media/misc/0001/26/028b8e230d9de467d9251e3e582633344c1dd5b1.jpeg\" style=\"height:90px\" title=\"\" /></td>\r\n                <td class=\"squadName\">Дэниел Старридж&nbsp;</td>\r\n                <td class=\"countryName\"><img alt=\"Англия\" src=\"http://www.myliverpool.ru/Team/England.png\" style=\"cursor: default; color: rgb(51, 51, 51); font-family: sans-serif, Arial, Verdana; font-size: 13px; line-height: 20.8px; background-color: rgb(255, 255, 255);\" title=\"Англия\" /></td>\r\n                <td class=\"bplPlayer\">&nbsp;</td>\r\n                <td class=\"PlayerDOB\">01.09.1989</td>\r\n            </tr>\r\n            <tr class=\"squadEven\">\r\n                <td class=\"PlayerNum\">19</td>\r\n                <td class=\"SquadPhoto\"><img class=\"SquadPhoto\" src=\"http://assets.lfcimages.com/v2/uploads/media/misc/0001/26/a9b8791397ba21c49fa02106f5ae2c9ca4c1d28e.jpeg\" style=\"height:90px\" title=\"\" /></td>\r\n                <td class=\"squadName\">Садио Мане&nbsp;</td>\r\n                <td class=\"countryName\"><img alt=\"Сенегал\" src=\"http://www.worldstatesmen.org/sn.gif\" style=\"width:30px\" title=\"Сенегал\" /></td>\r\n                <td class=\"bplPlayer\">&nbsp;</td>\r\n                <td class=\"PlayerDOB\">10.04.1992</td>\r\n            </tr>\r\n            <tr class=\"squadEven\">\r\n                <td class=\"PlayerNum\">27</td>\r\n                <td class=\"SquadPhoto\"><img alt=\"Divock Origi\" class=\"SquadPhoto\" src=\"http://www.myliverpool.ru/images/Players/Squad/Divock_Origi.jpg\" style=\"height:90px\" title=\"Divock Origi\" /></td>\r\n                <td class=\"squadName\">Дивок Ориги&nbsp;</td>\r\n                <td class=\"countryName\"><img alt=\"Бельгия\" src=\"http://www.myliverpool.ru/Team/Belgium-30.png\" style=\"cursor: default; color: rgb(51, 51, 51); font-family: sans-serif, Arial, Verdana; font-size: 13px; line-height: 20.8px; background-color: rgb(255, 255, 255);\" title=\"Бельгия\" /></td>\r\n                <td class=\"bplPlayer\">&nbsp;</td>\r\n                <td class=\"PlayerDOB\">18.04.1995</td>\r\n            </tr>\r\n            <tr class=\"squadOdd\">\r\n                <td class=\"PlayerNum\">28</td>\r\n                <td class=\"SquadPhoto\"><img alt=\"Danny Ings\" class=\"SquadPhoto\" src=\"http://www.myliverpool.ru/images/Players/Squad/Danny_Ings.jpg\" style=\"height:90px\" title=\"Danny Ings\" /></td>\r\n                <td class=\"squadName\">Дэнни Ингс&nbsp;</td>\r\n                <td class=\"countryName\"><img alt=\"Англия\" src=\"http://www.myliverpool.ru/Team/England.png\" title=\"Англия\" /></td>\r\n                <td class=\"bplPlayer\">&nbsp;</td>\r\n                <td class=\"PlayerDOB\">23.07.1992</td>\r\n            </tr>\r\n            <tr class=\"squadEven\">\r\n                <td class=\"PlayerNum\">&nbsp;</td>\r\n                <td class=\"SquadPhoto\">&nbsp;</td>\r\n                <td class=\"squadName\">&nbsp;</td>\r\n                <td class=\"countryName\">&nbsp;</td>\r\n                <td class=\"bplPlayer\">&nbsp;</td>\r\n                <td class=\"PlayerDOB\">&nbsp;</td>\r\n            </tr>\r\n            <tr class=\"squadOdd\">\r\n                <td class=\"PlayerNum\">&nbsp;</td>\r\n                <td class=\"SquadPhoto\"><img class=\"SquadPhoto\" src=\"http://assets.lfcimages.com/v2/uploads/media/default/0001/19/1ff0ad889717c7243970122389a8666698eeffa5.jpeg\" style=\"height:90px\" title=\"\" /></td>\r\n                <td class=\"squadName\">Тайво Авонийи&nbsp;</td>\r\n                <td class=\"countryName\"><img alt=\"Нигерия\" src=\"http://cdn.modernghana.com/images/content/drapeau_nigeria1300x150.jpg\" style=\"width:30px\" title=\"Нигерия\" /></td>\r\n                <td class=\"bplPlayer\">Отдан в аренду &quot;НЕК&quot;</td>\r\n                <td class=\"PlayerDOB\">12.08.1997</td>\r\n            </tr>\r\n        </tbody>\r\n    </table>\r\n</div>";
+
+/***/ },
+/* 320 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var index_1 = __webpack_require__(321);
 	exports.forumSectionRoutes = [
 	    { path: "forum", component: index_1.ForumSectionListComponent },
 	];
 
 
 /***/ },
-/* 315 */
+/* 321 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	function __export(m) {
 	    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 	}
-	__export(__webpack_require__(316));
-	__export(__webpack_require__(317));
-	__export(__webpack_require__(318));
+	__export(__webpack_require__(322));
+	__export(__webpack_require__(323));
+	__export(__webpack_require__(324));
 
 
 /***/ },
-/* 316 */
+/* 322 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -26328,7 +26513,7 @@
 
 
 /***/ },
-/* 317 */
+/* 323 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -26355,113 +26540,13 @@
 	        };
 	        this.actionUrl = configuration.ServerWithApiUrl + "forumSection/";
 	    }
-	    ForumSectionService = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [index_1.HttpWrapper, app_constants_1.Configuration])
-	    ], ForumSectionService);
 	    return ForumSectionService;
 	}());
+	ForumSectionService = __decorate([
+	    core_1.Injectable(),
+	    __metadata("design:paramtypes", [index_1.HttpWrapper, app_constants_1.Configuration])
+	], ForumSectionService);
 	exports.ForumSectionService = ForumSectionService;
-
-
-/***/ },
-/* 318 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(20);
-	var forumSection_service_1 = __webpack_require__(317);
-	var index_1 = __webpack_require__(29);
-	var ForumSectionListComponent = (function () {
-	    function ForumSectionListComponent(service, rolesChecked) {
-	        this.service = service;
-	        this.rolesChecked = rolesChecked;
-	    }
-	    ForumSectionListComponent.prototype.ngOnInit = function () {
-	        var _this = this;
-	        this.roles = this.rolesChecked.checkedRoles;
-	        this.service
-	            .getAll()
-	            .subscribe(function (data) { return _this.items = data; }, function (error) { return console.log(error); }, function () { return console.log(""); });
-	    };
-	    ForumSectionListComponent = __decorate([
-	        core_1.Component({
-	            selector: "forumSection-list",
-	            template: __webpack_require__(319)
-	        }), 
-	        __metadata('design:paramtypes', [forumSection_service_1.ForumSectionService, index_1.RolesCheckedService])
-	    ], ForumSectionListComponent);
-	    return ForumSectionListComponent;
-	}());
-	exports.ForumSectionListComponent = ForumSectionListComponent;
-
-
-/***/ },
-/* 319 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"col-md-12\">\r\n    <div class=\"container-fluid\" *ngFor=\"let section of items\">\r\n        <div class=\"panel panel-danger\" *ngIf=\"section.subsections.length > 0 || roles.isAdminAssistant\">\r\n            <div class=\"panel-heading\">\r\n                <span [textContent]=\"section.name\"></span>\r\n                <span *ngIf=\"roles.isAdminAssistant\">\r\n                    <a href=\"\" ui-sref=\"subsectionEdit({sectionId: section.id})\">Добавить подсекцию</a>\r\n                    <a class=\"pull-right\" [hidden]=\"section.subsections.length != 0\" ng-click=\"vm.removeSection($index)\">\r\n                        <span class=\"glyphicon glyphicon-remove\">\r\n                        </span>\r\n                    </a>\r\n                </span>\r\n            </div>\r\n            <!--div class=\"panel-body\"></!--div>-->\r\n            <ul class=\"list-group\" *ngFor=\"let subsection of section.subsections\">\r\n                <li class=\"list-group-item list\">\r\n                    <a ui-sref=\"subsection({id: subsection.id})\">\r\n                        <span [textContent]=\"subsection.name\"></span>\r\n                        <span class=\"small\" [textContent]=\"subsection.description\"></span>\r\n                    </a>\r\n                </li>\r\n            </ul>\r\n        </div>\r\n    </div>\r\n    <a ng-click=\"vm.addSection()\">Добавить секцию</a>\r\n\r\n</div>\r\n\r\n<script type=\"text/ng-template\" id=\"addSection.html\">\r\n    <div class=\"modal-header\">\r\n        <h3 class=\"modal-title\">@CommonMessages.AddSection</h3>\r\n    </div>\r\n    <div class=\"modal-body\">\r\n        <form class=\"form-horizontal\" name=\"addSection\" role=\"form\">\r\n            <div class=\"form-group\">\r\n                <label for=\"newSectionName\" class=\"col-md-2 control-label\">@ColonsMessages.SectionName</label>\r\n                <div class=\"col-md-10\">\r\n                    <input type=\"text\" name=\"newSectionName\" ng-model=\"vm.sectionName\" validation=\"required\" class=\"form-control\" />\r\n                </div>\r\n            </div>\r\n        </form>\r\n    </div>\r\n    <div class=\"modal-footer\">\r\n        <button class=\"btn btn-primary\" ng-disabled=\"addSection.$invalid\" type=\"button\" ng-click=\"vm.ok()\">@CommonMessages.Add</button>\r\n        <button class=\"btn btn-default\" type=\"button\" ng-click=\"vm.cancel()\">@CommonMessages.Cancel</button>\r\n    </div>\r\n</script>\r\n\r\n<script type=\"text/ng-template\" id=\"modalDeleteConfirmation.html\">\r\n    <div class=\"modal-header\">\r\n        <h3 class=\"modal-title\">@CommonMessages.DeleteConfirmation</h3>\r\n    </div>\r\n    <div class=\"modal-body\">\r\n        @CommonMessages.Delete?\r\n    </div>\r\n    <div class=\"modal-footer\">\r\n        <button class=\"btn btn-primary\" type=\"button\" ng-click=\"vm.ok()\">@CommonMessages.Delete</button>\r\n        <button class=\"btn btn-default\" type=\"button\" ng-click=\"vm.cancel()\">@CommonMessages.Cancel</button>\r\n    </div>\r\n</script>\r\n";
-
-/***/ },
-/* 320 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var index_1 = __webpack_require__(321);
-	exports.wishRoutes = [
-	    { path: "wish", component: index_1.WishListComponent },
-	    { path: "wish/:id/edit", component: index_1.WishEditComponent }
-	];
-
-
-/***/ },
-/* 321 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	function __export(m) {
-	    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
-	}
-	__export(__webpack_require__(322));
-	__export(__webpack_require__(323));
-	__export(__webpack_require__(324));
-	__export(__webpack_require__(327));
-	__export(__webpack_require__(325));
-
-
-/***/ },
-/* 322 */
-/***/ function(module, exports) {
-
-	"use strict";
-	var Wish = (function () {
-	    function Wish() {
-	    }
-	    return Wish;
-	}());
-	exports.Wish = Wish;
-
-
-/***/ },
-/* 323 */
-/***/ function(module, exports) {
-
-	"use strict";
-	var WishType = (function () {
-	    function WishType() {
-	    }
-	    return WishType;
-	}());
-	exports.WishType = WishType;
 
 
 /***/ },
@@ -26479,7 +26564,107 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(20);
-	var wish_service_1 = __webpack_require__(325);
+	var forumSection_service_1 = __webpack_require__(323);
+	var index_1 = __webpack_require__(29);
+	var ForumSectionListComponent = (function () {
+	    function ForumSectionListComponent(service, rolesChecked) {
+	        this.service = service;
+	        this.rolesChecked = rolesChecked;
+	    }
+	    ForumSectionListComponent.prototype.ngOnInit = function () {
+	        var _this = this;
+	        this.roles = this.rolesChecked.checkedRoles;
+	        this.service
+	            .getAll()
+	            .subscribe(function (data) { return _this.items = data; }, function (error) { return console.log(error); }, function () { return console.log(""); });
+	    };
+	    return ForumSectionListComponent;
+	}());
+	ForumSectionListComponent = __decorate([
+	    core_1.Component({
+	        selector: "forumSection-list",
+	        template: __webpack_require__(325)
+	    }),
+	    __metadata("design:paramtypes", [forumSection_service_1.ForumSectionService, index_1.RolesCheckedService])
+	], ForumSectionListComponent);
+	exports.ForumSectionListComponent = ForumSectionListComponent;
+
+
+/***/ },
+/* 325 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"col-md-12\">\r\n    <div class=\"container-fluid\" *ngFor=\"let section of items\">\r\n        <div class=\"panel panel-danger\" *ngIf=\"section.subsections.length > 0 || roles.isAdminAssistant\">\r\n            <div class=\"panel-heading\">\r\n                <span [textContent]=\"section.name\"></span>\r\n                <span *ngIf=\"roles.isAdminAssistant\">\r\n                    <a href=\"\" ui-sref=\"subsectionEdit({sectionId: section.id})\">Добавить подсекцию</a>\r\n                    <a class=\"pull-right\" [hidden]=\"section.subsections.length != 0\" ng-click=\"vm.removeSection($index)\">\r\n                        <span class=\"glyphicon glyphicon-remove\">\r\n                        </span>\r\n                    </a>\r\n                </span>\r\n            </div>\r\n            <!--div class=\"panel-body\"></!--div>-->\r\n            <ul class=\"list-group\" *ngFor=\"let subsection of section.subsections\">\r\n                <li class=\"list-group-item list\">\r\n                    <a ui-sref=\"subsection({id: subsection.id})\">\r\n                        <span [textContent]=\"subsection.name\"></span>\r\n                        <span class=\"small\" [textContent]=\"subsection.description\"></span>\r\n                    </a>\r\n                </li>\r\n            </ul>\r\n        </div>\r\n    </div>\r\n    <a ng-click=\"vm.addSection()\">Добавить секцию</a>\r\n\r\n</div>\r\n\r\n<script type=\"text/ng-template\" id=\"addSection.html\">\r\n    <div class=\"modal-header\">\r\n        <h3 class=\"modal-title\">@CommonMessages.AddSection</h3>\r\n    </div>\r\n    <div class=\"modal-body\">\r\n        <form class=\"form-horizontal\" name=\"addSection\" role=\"form\">\r\n            <div class=\"form-group\">\r\n                <label for=\"newSectionName\" class=\"col-md-2 control-label\">@ColonsMessages.SectionName</label>\r\n                <div class=\"col-md-10\">\r\n                    <input type=\"text\" name=\"newSectionName\" ng-model=\"vm.sectionName\" validation=\"required\" class=\"form-control\" />\r\n                </div>\r\n            </div>\r\n        </form>\r\n    </div>\r\n    <div class=\"modal-footer\">\r\n        <button class=\"btn btn-primary\" ng-disabled=\"addSection.$invalid\" type=\"button\" ng-click=\"vm.ok()\">@CommonMessages.Add</button>\r\n        <button class=\"btn btn-default\" type=\"button\" ng-click=\"vm.cancel()\">@CommonMessages.Cancel</button>\r\n    </div>\r\n</script>\r\n\r\n<script type=\"text/ng-template\" id=\"modalDeleteConfirmation.html\">\r\n    <div class=\"modal-header\">\r\n        <h3 class=\"modal-title\">@CommonMessages.DeleteConfirmation</h3>\r\n    </div>\r\n    <div class=\"modal-body\">\r\n        @CommonMessages.Delete?\r\n    </div>\r\n    <div class=\"modal-footer\">\r\n        <button class=\"btn btn-primary\" type=\"button\" ng-click=\"vm.ok()\">@CommonMessages.Delete</button>\r\n        <button class=\"btn btn-default\" type=\"button\" ng-click=\"vm.cancel()\">@CommonMessages.Cancel</button>\r\n    </div>\r\n</script>\r\n";
+
+/***/ },
+/* 326 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var index_1 = __webpack_require__(327);
+	exports.wishRoutes = [
+	    { path: "wish", component: index_1.WishListComponent },
+	    { path: "wish/:id/edit", component: index_1.WishEditComponent }
+	];
+
+
+/***/ },
+/* 327 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	function __export(m) {
+	    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+	}
+	__export(__webpack_require__(328));
+	__export(__webpack_require__(329));
+	__export(__webpack_require__(330));
+	__export(__webpack_require__(333));
+	__export(__webpack_require__(331));
+
+
+/***/ },
+/* 328 */
+/***/ function(module, exports) {
+
+	"use strict";
+	var Wish = (function () {
+	    function Wish() {
+	    }
+	    return Wish;
+	}());
+	exports.Wish = Wish;
+
+
+/***/ },
+/* 329 */
+/***/ function(module, exports) {
+
+	"use strict";
+	var WishType = (function () {
+	    function WishType() {
+	    }
+	    return WishType;
+	}());
+	exports.WishType = WishType;
+
+
+/***/ },
+/* 330 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(20);
+	var wish_service_1 = __webpack_require__(331);
 	var router_1 = __webpack_require__(26);
 	var WishListComponent = (function () {
 	    function WishListComponent(service, route) {
@@ -26528,20 +26713,20 @@
 	        }
 	    };
 	    ;
-	    WishListComponent = __decorate([
-	        core_1.Component({
-	            selector: "wish-list",
-	            template: __webpack_require__(326)
-	        }), 
-	        __metadata('design:paramtypes', [wish_service_1.WishService, router_1.ActivatedRoute])
-	    ], WishListComponent);
 	    return WishListComponent;
 	}());
+	WishListComponent = __decorate([
+	    core_1.Component({
+	        selector: "wish-list",
+	        template: __webpack_require__(332)
+	    }),
+	    __metadata("design:paramtypes", [wish_service_1.WishService, router_1.ActivatedRoute])
+	], WishListComponent);
 	exports.WishListComponent = WishListComponent;
 
 
 /***/ },
-/* 325 */
+/* 331 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -26585,23 +26770,23 @@
 	        };
 	        this.actionUrl = configuration.ServerWithApiUrl + "wish/";
 	    }
-	    WishService = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [httpWrapper_1.HttpWrapper, app_constants_1.Configuration])
-	    ], WishService);
 	    return WishService;
 	}());
+	WishService = __decorate([
+	    core_1.Injectable(),
+	    __metadata("design:paramtypes", [httpWrapper_1.HttpWrapper, app_constants_1.Configuration])
+	], WishService);
 	exports.WishService = WishService;
 
 
 /***/ },
-/* 326 */
+/* 332 */
 /***/ function(module, exports) {
 
 	module.exports = "<div>\r\n    <div class=\"btn-group\">\r\n        <form class=\"form-inline btn-block\">\r\n            <!--<div class=\"form-group\">\r\n                <select class=\"form-control\"\r\n                        ng-model=\"vm.typeId\"\r\n                        ng-options=\"type.id as type.name for type in vm.types\" ng-change=\"vm.changeTypeId()\"></select>\r\n            </div>-->\r\n            <div class=\"form-group\">\r\n                <!--<input class=\"form-control\" ng-model=\"vm.filterText\" ng-model-options=\"{debounce: 1000}\" ng-change=\"vm.filterByText()\" placeholder=\"Поиск в тексте пожеланий\" />--> <!--todo magic number-->\r\n            </div>\r\n            <button class=\"btn btn-success\" [routerLink]=\"['/wish', 0, 'edit']\">Добавить</button>\r\n        </form>\r\n    </div>\r\n    <div class=\"top20\" *ngFor=\"let wish of items; let i = index;\">\r\n        <div class=\"panel\" [ngClass]=\"getTypeClass(wish.type)\">\r\n            <div class=\"panel-heading\">\r\n                <h3 class=\"panel-title\">\r\n                    <a [routerLink]=\"['/wish', wish.id, 'edit']\">\r\n                        <span [textContent]=\"wish.title\"></span>\r\n                    </a>\r\n                    <span class=\"col-xs-1 col-sm-1 pull-right\" secured=\"AdminFull\">\r\n                        <a ng-click=\"vm.delete(i)\"><span class=\"glyphicon glyphicon-trash\"></span></a>\r\n                    </span>\r\n                </h3>\r\n            </div>\r\n            <div class=\"panel-body\">\r\n                <div [textContent]=\"wish.message\"></div>\r\n            </div>\r\n            <div class=\"panel-footer\">\r\n                <div [textContent]=\"wish.typeName\"></div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n<div class=\"pagination\">\r\n    <!--uib-pagination ng-show=\"vm.totalItems > vm.itemPerPage\" total-items=\"vm.totalItems\" ng-model=\"vm.page\" ng-change=\"vm.goToPage()\"></!--uib-pagination-->\r\n</div>";
 
 /***/ },
-/* 327 */
+/* 333 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -26616,8 +26801,8 @@
 	};
 	var core_1 = __webpack_require__(20);
 	var forms_1 = __webpack_require__(22);
-	var wish_model_1 = __webpack_require__(322);
-	var wish_service_1 = __webpack_require__(325);
+	var wish_model_1 = __webpack_require__(328);
+	var wish_service_1 = __webpack_require__(331);
 	var router_1 = __webpack_require__(26);
 	var WishEditComponent = (function () {
 	    function WishEditComponent(service, formBuilder, route, router) {
@@ -26682,30 +26867,30 @@
 	            .GetTypes()
 	            .subscribe(function (data) { return _this.types = data; });
 	    };
-	    WishEditComponent = __decorate([
-	        core_1.Component({
-	            selector: "wish-edit",
-	            template: __webpack_require__(328)
-	        }), 
-	        __metadata('design:paramtypes', [wish_service_1.WishService, forms_1.FormBuilder, router_1.ActivatedRoute, router_1.Router])
-	    ], WishEditComponent);
 	    return WishEditComponent;
 	}());
+	WishEditComponent = __decorate([
+	    core_1.Component({
+	        selector: "wish-edit",
+	        template: __webpack_require__(334)
+	    }),
+	    __metadata("design:paramtypes", [wish_service_1.WishService, forms_1.FormBuilder, router_1.ActivatedRoute, router_1.Router])
+	], WishEditComponent);
 	exports.WishEditComponent = WishEditComponent;
 
 
 /***/ },
-/* 328 */
+/* 334 */
 /***/ function(module, exports) {
 
 	module.exports = "<form class=\"form-horizontal col-md-12\" role=\"form\" name=\"editWish\" [formGroup]=\"editForm\" (ngSubmit)=\"onSubmit()\">\r\n    <div class=\"form-group\">\r\n        <label class=\"control-label col-md-2\">Заголовок</label>\r\n        <div class=\"col-md-10\">\r\n            <input class=\"form-control\" name=\"title\" [formControl]=\"editForm.controls['title']\"/>\r\n        </div>\r\n    </div>\r\n    <div class=\"form-group\">\r\n        <label class=\"control-label col-md-2\">Сообщение</label>\r\n        <div class=\"col-md-10\">\r\n            <textarea class=\"form-control\" name=\"title\" [formControl]=\"editForm.controls['message']\"></textarea>\r\n        </div>\r\n    </div>\r\n    <div class=\"form-group\">\r\n        <label class=\"control-label col-xs-2 col-sm-2\">Тип:</label>\r\n        <div class=\"col-xs-10 col-sm-10\">\r\n            <!--<select class=\"form-control\" name=\"newsCategoryId\" [formControl]=\"editForm.controls['type']\"></select>-->\r\n            <select [formControl]=\"editForm.controls['type']\">\r\n                <option [value]=\"type.id\" *ngFor=\"let type of types\" [textContent]=\"type.name\"></option>\r\n            </select>\r\n        </div>\r\n    </div>\r\n    <div class=\"form-group\">\r\n        <div class=\"col-md-offset-2 col-md-10\">\r\n            <button [disabled]=\"!editForm.valid\" type=\"submit\" class=\"btn btn-default\">Создать</button>\r\n        </div>\r\n    </div>\r\n</form>\r\n";
 
 /***/ },
-/* 329 */
+/* 335 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var index_1 = __webpack_require__(330);
+	var index_1 = __webpack_require__(336);
 	exports.materialCommentRoutes = [
 	    { path: "materialComment", component: index_1.MaterialCommentListComponent },
 	    { path: "materialComment/list", component: index_1.MaterialCommentListComponent },
@@ -26715,22 +26900,22 @@
 
 
 /***/ },
-/* 330 */
+/* 336 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	function __export(m) {
 	    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 	}
-	__export(__webpack_require__(331));
-	__export(__webpack_require__(332));
-	__export(__webpack_require__(333));
-	__export(__webpack_require__(335));
 	__export(__webpack_require__(337));
+	__export(__webpack_require__(338));
+	__export(__webpack_require__(339));
+	__export(__webpack_require__(341));
+	__export(__webpack_require__(343));
 
 
 /***/ },
-/* 331 */
+/* 337 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -26743,7 +26928,7 @@
 
 
 /***/ },
-/* 332 */
+/* 338 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -26757,7 +26942,7 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(20);
-	var materialComment_service_1 = __webpack_require__(333);
+	var materialComment_service_1 = __webpack_require__(339);
 	var common_1 = __webpack_require__(48);
 	var index_1 = __webpack_require__(29);
 	var ng2_bootstrap_1 = __webpack_require__(43);
@@ -26823,24 +27008,24 @@
 	            }
 	        });
 	    };
-	    __decorate([
-	        core_1.ViewChild("deleteModal"), 
-	        __metadata('design:type', ng2_bootstrap_1.ModalDirective)
-	    ], MaterialCommentListComponent.prototype, "deleteModal", void 0);
-	    MaterialCommentListComponent = __decorate([
-	        core_1.Component({
-	            selector: "materialComment-list",
-	            template: __webpack_require__(334)
-	        }), 
-	        __metadata('design:paramtypes', [materialComment_service_1.MaterialCommentService, common_1.Location, index_1.RolesCheckedService])
-	    ], MaterialCommentListComponent);
 	    return MaterialCommentListComponent;
 	}());
+	__decorate([
+	    core_1.ViewChild("deleteModal"),
+	    __metadata("design:type", ng2_bootstrap_1.ModalDirective)
+	], MaterialCommentListComponent.prototype, "deleteModal", void 0);
+	MaterialCommentListComponent = __decorate([
+	    core_1.Component({
+	        selector: "materialComment-list",
+	        template: __webpack_require__(340)
+	    }),
+	    __metadata("design:paramtypes", [materialComment_service_1.MaterialCommentService, common_1.Location, index_1.RolesCheckedService])
+	], MaterialCommentListComponent);
 	exports.MaterialCommentListComponent = MaterialCommentListComponent;
 
 
 /***/ },
-/* 333 */
+/* 339 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -26887,23 +27072,23 @@
 	        };
 	        this.actionUrl = configuration.ServerWithApiUrl + "materialComment/";
 	    }
-	    MaterialCommentService = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [httpWrapper_1.HttpWrapper, app_constants_1.Configuration])
-	    ], MaterialCommentService);
 	    return MaterialCommentService;
 	}());
+	MaterialCommentService = __decorate([
+	    core_1.Injectable(),
+	    __metadata("design:paramtypes", [httpWrapper_1.HttpWrapper, app_constants_1.Configuration])
+	], MaterialCommentService);
 	exports.MaterialCommentService = MaterialCommentService;
 
 
 /***/ },
-/* 334 */
+/* 340 */
 /***/ function(module, exports) {
 
 	module.exports = "<div>\r\n    <!--div class=\"btn-group\">\r\n        <form class=\"form-inline btn-block\">\r\n            <div class=\"form-group\">\r\n                <select class=\"form-control\"\r\n                        ng-model=\"vm.typeId\"\r\n                        ng-options=\"type.id as type.name for type in vm.types\" ng-change=\"vm.changeTypeId()\"></select>\r\n            </div>\r\n            <div class=\"form-group\">\r\n                <input class=\"form-control\" ng-model=\"vm.filterText\" ng-model-options=\"{debounce: 1000}\" ng-change=\"vm.filterByText()\" placeholder=\"Поиск в тексте пожеланий\" /> <!--todo magic number->\r\n            </div>\r\n            <button class=\"btn btn-success\" ui-sref=\"wishEdit()\">Добавить</button>\r\n        </form>\r\n    </div-->\r\n    <div class=\"top20\" *ngFor=\"let comment of items; let i = index;\">\r\n        <div class=\"panel\" ng-class=\"\">\r\n            <div class=\"panel-heading panel-default\">\r\n                <h3 class=\"panel-title\">\r\n                    <a [routerLink]=\"['/user', comment.authorId]\"><span [textContent]=\"comment.authorUserName\"></span></a>\r\n                    <span class=\"col-xs-1 col-sm-1 pull-right\" *ngIf=\"roles.isModerator\">\r\n                        <a [hidden]=\"comment.isVerified\" (click)=\"verify(i)\"><span class=\"glyphicon glyphicon-ok\"></span></a>\r\n                        <a (click)=\"showDeleteModal(i)\"><span class=\"glyphicon glyphicon-trash\"></span></a>\r\n                    </span>\r\n                </h3>\r\n            </div>\r\n            <div class=\"panel-body\">\r\n                <div [textContent]=\"comment.message\"></div>\r\n            </div>\r\n            <div class=\"panel-footer\">\r\n                <div [textContent]=\"comment.additionTime | date:'medium'\"></div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n<div class=\"pagination\">\r\n    <pagination *ngIf=\"items\" [totalItems]=\"totalItems\" [itemsPerPage]=\"itemsPerPage\" [(ngModel)]=\"page\" [maxSize]=\"7\" (pageChanged)=\"pageChanged($event)\"\r\n                previousText=\"&lsaquo;\" nextText=\"&rsaquo;\" firstText=\"1\" lastText=\"totalItems/itemsPerPage\"></pagination>\r\n</div>\r\n\r\n<div class=\"modal fade\" bsModal #deleteModal=\"bs-modal\" [config]=\"{backdrop: 'static'}\"\r\n     tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"mySmallModalLabel\" aria-hidden=\"true\">\r\n    <div class=\"modal-dialog modal-sm\">\r\n        <div class=\"modal-content\">\r\n            <div class=\"modal-header\">\r\n                <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"hideModal()\">\r\n                    <span aria-hidden=\"true\">&times;</span>\r\n                </button>\r\n                <h4 class=\"modal-title\">Удалить?</h4>\r\n            </div>\r\n            <div class=\"modal-body\">\r\n                <button class=\"btn btn-default\" data-dismiss=\"modal\" (click)=\"hideModal()\" type=\"button\">Отмена</button>\r\n                <button class=\"btn btn-primary\" type=\"button\" (click)=\"delete()\">Удалить</button>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>";
 
 /***/ },
-/* 335 */
+/* 341 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -26918,8 +27103,8 @@
 	};
 	var core_1 = __webpack_require__(20);
 	var forms_1 = __webpack_require__(22);
-	var materialComment_model_1 = __webpack_require__(331);
-	var materialComment_service_1 = __webpack_require__(333);
+	var materialComment_model_1 = __webpack_require__(337);
+	var materialComment_service_1 = __webpack_require__(339);
 	var common_1 = __webpack_require__(48);
 	var index_1 = __webpack_require__(29);
 	var MaterialCommentSectionComponent = (function () {
@@ -26938,7 +27123,8 @@
 	        this.update();
 	        this.commentForm = this.formBuilder.group({
 	            'message': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required, forms_1.Validators.minLength(3)])]
+	                    forms_1.Validators.required, forms_1.Validators.minLength(3)
+	                ])]
 	        });
 	    };
 	    MaterialCommentSectionComponent.prototype.pageChanged = function (event) {
@@ -26969,34 +27155,35 @@
 	            _this.commentForm.controls["message"].patchValue("");
 	        }, function (error) { return console.log(error); }, function () { });
 	    };
-	    __decorate([
-	        core_1.Input(), 
-	        __metadata('design:type', Number)
-	    ], MaterialCommentSectionComponent.prototype, "materialId", void 0);
-	    __decorate([
-	        core_1.Input(), 
-	        __metadata('design:type', Boolean)
-	    ], MaterialCommentSectionComponent.prototype, "canCommentary", void 0);
-	    MaterialCommentSectionComponent = __decorate([
-	        core_1.Component({
-	            selector: "comments",
-	            template: __webpack_require__(336)
-	        }), 
-	        __metadata('design:paramtypes', [materialComment_service_1.MaterialCommentService, common_1.Location, index_1.RolesCheckedService, forms_1.FormBuilder])
-	    ], MaterialCommentSectionComponent);
 	    return MaterialCommentSectionComponent;
 	}());
+	__decorate([
+	    core_1.Input(),
+	    __metadata("design:type", Number)
+	], MaterialCommentSectionComponent.prototype, "materialId", void 0);
+	__decorate([
+	    core_1.Input(),
+	    __metadata("design:type", Boolean)
+	], MaterialCommentSectionComponent.prototype, "canCommentary", void 0);
+	MaterialCommentSectionComponent = __decorate([
+	    core_1.Component({
+	        selector: "comments",
+	        template: __webpack_require__(342)
+	    }),
+	    __metadata("design:paramtypes", [materialComment_service_1.MaterialCommentService, common_1.Location, index_1.RolesCheckedService,
+	        forms_1.FormBuilder])
+	], MaterialCommentSectionComponent);
 	exports.MaterialCommentSectionComponent = MaterialCommentSectionComponent;
 
 
 /***/ },
-/* 336 */
+/* 342 */
 /***/ function(module, exports) {
 
 	module.exports = "<div>Комментарии: <span [textContent]=\"items.length\"></span></div>\r\n\r\n<div class=\"\" *ngFor=\"let comment of items\">\r\n    <materialComment-detail [item]=\"comment\" [deep]=\"0\" [materialId]=\"materialId\" [canCommentary]=\"canCommentary\"></materialComment-detail>\r\n</div>\r\n\r\n<form class=\"form-horizontal\" role=\"form\" [formGroup]=\"commentForm\" (ngSubmit)=\"onSubmit(commentForm.value)\">\r\n    <div class=\"col-md-12\" *ngIf=\"canCommentary && roles.isLogined\">\r\n        <div class=\"col-md-12\">\r\n            <textarea mark-it-up class=\"col-md-offset-2 col-md-8\" rows=\"6\" name=\"message\" [formControl]=\"commentForm.controls['message']\"></textarea>\r\n        </div>\r\n        <div class=\"\">\r\n            <button class=\"btn btn-primary center-block\" [disabled]=\"!commentForm.valid\" type=\"submit\">Добавить</button>\r\n        </div>\r\n    </div>\r\n</form>\r\n\r\n<div class=\"pagination\">\r\n    <pagination *ngIf=\"items && totalItems > itemsPerPage\" [totalItems]=\"totalItems\" [itemsPerPage]=\"itemsPerPage\" [(ngModel)]=\"page\" [maxSize]=\"7\" (pageChanged)=\"pageChanged($event)\"\r\n                previousText=\"&lsaquo;\" nextText=\"&rsaquo;\" firstText=\"1\" lastText=\"totalItems/itemsPerPage\"></pagination>\r\n</div>";
 
 /***/ },
-/* 337 */
+/* 343 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -27012,8 +27199,8 @@
 	var core_1 = __webpack_require__(20);
 	var forms_1 = __webpack_require__(22);
 	var common_1 = __webpack_require__(48);
-	var materialComment_model_1 = __webpack_require__(331);
-	var materialComment_service_1 = __webpack_require__(333);
+	var materialComment_model_1 = __webpack_require__(337);
+	var materialComment_service_1 = __webpack_require__(339);
 	var index_1 = __webpack_require__(29);
 	var ng2_bootstrap_1 = __webpack_require__(43);
 	var MaterialCommentDetailComponent = (function () {
@@ -27027,9 +27214,11 @@
 	        this.roles = this.rolesChecked.checkedRoles;
 	        this.commentForm = this.formBuilder.group({
 	            'message': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required])],
+	                    forms_1.Validators.required
+	                ])],
 	            'answer': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required])]
+	                    forms_1.Validators.required
+	                ])]
 	        });
 	    };
 	    MaterialCommentDetailComponent.prototype.showAddCommentModal = function (index) {
@@ -27102,62 +27291,65 @@
 	        this.commentForm.controls["answer"].patchValue("");
 	        this.commentForm.controls["answer"].updateValueAndValidity();
 	    };
-	    __decorate([
-	        core_1.Input(), 
-	        __metadata('design:type', materialComment_model_1.MaterialComment)
-	    ], MaterialCommentDetailComponent.prototype, "item", void 0);
-	    __decorate([
-	        core_1.Input(), 
-	        __metadata('design:type', Number)
-	    ], MaterialCommentDetailComponent.prototype, "deep", void 0);
-	    __decorate([
-	        core_1.Input(), 
-	        __metadata('design:type', Boolean)
-	    ], MaterialCommentDetailComponent.prototype, "canCommentary", void 0);
-	    __decorate([
-	        core_1.Input(), 
-	        __metadata('design:type', Number)
-	    ], MaterialCommentDetailComponent.prototype, "materialId", void 0);
-	    __decorate([
-	        core_1.Input(), 
-	        __metadata('design:type', materialComment_model_1.MaterialComment)
-	    ], MaterialCommentDetailComponent.prototype, "parent", void 0);
-	    __decorate([
-	        core_1.ViewChild("addCommentModal"), 
-	        __metadata('design:type', ng2_bootstrap_1.ModalDirective)
-	    ], MaterialCommentDetailComponent.prototype, "addCommentModal", void 0);
-	    __decorate([
-	        core_1.ViewChild("editCommentModal"), 
-	        __metadata('design:type', ng2_bootstrap_1.ModalDirective)
-	    ], MaterialCommentDetailComponent.prototype, "editCommentModal", void 0);
-	    __decorate([
-	        core_1.ViewChild("deleteModal"), 
-	        __metadata('design:type', ng2_bootstrap_1.ModalDirective)
-	    ], MaterialCommentDetailComponent.prototype, "deleteModal", void 0);
-	    MaterialCommentDetailComponent = __decorate([
-	        core_1.Component({
-	            selector: "materialComment-detail",
-	            template: __webpack_require__(338)
-	        }), 
-	        __metadata('design:paramtypes', [materialComment_service_1.MaterialCommentService, common_1.Location, index_1.RolesCheckedService, forms_1.FormBuilder])
-	    ], MaterialCommentDetailComponent);
 	    return MaterialCommentDetailComponent;
 	}());
+	__decorate([
+	    core_1.Input(),
+	    __metadata("design:type", materialComment_model_1.MaterialComment)
+	], MaterialCommentDetailComponent.prototype, "item", void 0);
+	__decorate([
+	    core_1.Input(),
+	    __metadata("design:type", Number)
+	], MaterialCommentDetailComponent.prototype, "deep", void 0);
+	__decorate([
+	    core_1.Input(),
+	    __metadata("design:type", Boolean)
+	], MaterialCommentDetailComponent.prototype, "canCommentary", void 0);
+	__decorate([
+	    core_1.Input(),
+	    __metadata("design:type", Number)
+	], MaterialCommentDetailComponent.prototype, "materialId", void 0);
+	__decorate([
+	    core_1.Input(),
+	    __metadata("design:type", materialComment_model_1.MaterialComment)
+	], MaterialCommentDetailComponent.prototype, "parent", void 0);
+	__decorate([
+	    core_1.ViewChild("addCommentModal"),
+	    __metadata("design:type", ng2_bootstrap_1.ModalDirective)
+	], MaterialCommentDetailComponent.prototype, "addCommentModal", void 0);
+	__decorate([
+	    core_1.ViewChild("editCommentModal"),
+	    __metadata("design:type", ng2_bootstrap_1.ModalDirective)
+	], MaterialCommentDetailComponent.prototype, "editCommentModal", void 0);
+	__decorate([
+	    core_1.ViewChild("deleteModal"),
+	    __metadata("design:type", ng2_bootstrap_1.ModalDirective)
+	], MaterialCommentDetailComponent.prototype, "deleteModal", void 0);
+	MaterialCommentDetailComponent = __decorate([
+	    core_1.Component({
+	        selector: "materialComment-detail",
+	        template: __webpack_require__(344)
+	    }),
+	    __metadata("design:paramtypes", [materialComment_service_1.MaterialCommentService,
+	        common_1.Location,
+	        index_1.RolesCheckedService,
+	        forms_1.FormBuilder])
+	], MaterialCommentDetailComponent);
 	exports.MaterialCommentDetailComponent = MaterialCommentDetailComponent;
 
 
 /***/ },
-/* 338 */
+/* 344 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"col-xs-offset-{{deep}} col-sm-offset-{{deep}} comment container-fluid\">\r\n    <div class=\"row\">\r\n        <div class=\"col-xs-9 col-sm-9\">\r\n            <a [routerLink]=\"['/user', item.authorId]\" [textContent]=\"item.authorUserName\"></a>\r\n            <span class=\"small\" [textContent]=\"item.additionTime | date:'medium'\"></span>\r\n        </div>\r\n        <div class=\"col-xs-3 col-sm-3\">\r\n            <span class=\"pull-right\">\r\n                    <a *ngIf=\"roles.isModerator || roles.isSelf(item.authorId)\" (click)=\"showEditModal()\"><span class=\"glyphicon glyphicon-pencil\"> </span></a>\r\n                    <a *ngIf=\"roles.isModerator\" (click)=\"delete()\"><span class=\"glyphicon glyphicon-trash\"> </span></a>\r\n                </span>\r\n        </div>\r\n    </div>\r\n    <div class=\"row\">\r\n        <div class=\"col-xs-2 col-sm-2\">\r\n            <img class=\"avatar-medium\" src=\"{{item.photo}}\" alt=\"{{item.authorUserName}}\"/>\r\n        </div>\r\n        <div class=\"col-xs-10 col-sm-10\">\r\n            <p [textContent]=\"item.message\"></p>\r\n        </div>\r\n    </div>\r\n    <div class=\"row\" *ngIf=\"item.answer\">\r\n        <div class=\"col-xs-3 col-sm-3\">Ответ:</div>\r\n        <div class=\"col-xs-9 col-sm-9\">\r\n            <i [textContent]=\"item.answer\"></i>\r\n        </div>\r\n    </div>\r\n    <div class=\"col-xs-12 col-sm-12\" *ngIf=\"!roles.isSelf(item.authorId) && canCommentary\">\r\n        <a (click)=\"showAddCommentModal()\">Ответить</a>\r\n    </div>\r\n</div>\r\n<div *ngFor=\"let child of item.children\">\r\n    <materialComment-detail [item]=\"child\" [deep]=\"deep > 6 ? 7 : deep+1\" [materialId]=\"materialId\" [canCommentary]=\"canCommentary\" [parent]=\"item\"></materialComment-detail>\r\n</div>\r\n\r\n<div class=\"modal fade\" bsModal #addCommentModal=\"bs-modal\" [config]=\"{backdrop: 'static'}\"\r\n     tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"mySmallModalLabel\" aria-hidden=\"true\">\r\n    <div class=\"modal-dialog modal-sm\">\r\n        <div class=\"modal-content\">\r\n            <div class=\"modal-header\">\r\n                <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"hideModal()\">\r\n                    <span aria-hidden=\"true\">&times;</span>\r\n                </button>\r\n                <h4 class=\"modal-title\">Добавить комментарий</h4>\r\n            </div>\r\n            <div class=\"modal-body\">\r\n                <textarea [formControl]=\"commentForm.controls['message']\"></textarea>\r\n            </div>    \r\n            <div class=\"modal-footer\">\r\n                <button class=\"btn btn-default\" data-dismiss=\"modal\" (click)=\"hideModal()\" type=\"button\">Отмена</button>\r\n                <button class=\"btn btn-primary\" type=\"button\" (click)=\"addComment()\">Добавить</button>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n<div class=\"modal fade\" bsModal #editCommentModal=\"bs-modal\" [config]=\"{backdrop: 'static'}\"\r\n     tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"mySmallModalLabel\" aria-hidden=\"true\">\r\n    <div class=\"modal-dialog modal-sm\">\r\n        <div class=\"modal-content\">\r\n            <div class=\"modal-header\">\r\n                <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"hideModal()\">\r\n                    <span aria-hidden=\"true\">&times;</span>\r\n                </button>\r\n                <h4 class=\"modal-title\">Редактировать комментарий</h4>\r\n            </div>\r\n            <div class=\"modal-body\">\r\n                <div>\r\n                    <textarea [formControl]=\"commentForm.controls['message']\"></textarea>\r\n                </div>\r\n                <div *ngIf=\"roles.isEditor\">\r\n                    <textarea [formControl]=\"commentForm.controls['answer']\"></textarea>\r\n                </div>\r\n            </div>    \r\n            <div class=\"modal-footer\">\r\n                <button class=\"btn btn-default\" data-dismiss=\"modal\" (click)=\"hideModal()\" type=\"button\">Отмена</button>\r\n                <button class=\"btn btn-primary\" type=\"button\" (click)=\"edit()\">Обновить</button>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n<div class=\"modal fade\" bsModal #deleteModal=\"bs-modal\" [config]=\"{backdrop: 'static'}\"\r\n     tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"mySmallModalLabel\" aria-hidden=\"true\">\r\n    <div class=\"modal-dialog modal-sm\">\r\n        <div class=\"modal-content\">\r\n            <div class=\"modal-header\">\r\n                <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"hideModal()\">\r\n                    <span aria-hidden=\"true\">&times;</span>\r\n                </button>\r\n                <h4 class=\"modal-title\">Удалить?</h4>\r\n            </div>\r\n            <div class=\"modal-body\">\r\n                <button class=\"btn btn-default\" data-dismiss=\"modal\" (click)=\"hideModal()\" type=\"button\">Отмена</button>\r\n                <button class=\"btn btn-primary\" type=\"button\" (click)=\"delete()\">Удалить</button>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>";
 
 /***/ },
-/* 339 */
+/* 345 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var index_1 = __webpack_require__(340);
+	var index_1 = __webpack_require__(346);
 	exports.matchRoutes = [
 	    { path: "match/:id/edit", component: index_1.MatchEditComponent },
 	    { path: "match", component: index_1.MatchListComponent }
@@ -27165,20 +27357,20 @@
 
 
 /***/ },
-/* 340 */
+/* 346 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	function __export(m) {
 	    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 	}
-	__export(__webpack_require__(341));
-	__export(__webpack_require__(342));
-	__export(__webpack_require__(344));
+	__export(__webpack_require__(347));
+	__export(__webpack_require__(348));
+	__export(__webpack_require__(350));
 
 
 /***/ },
-/* 341 */
+/* 347 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -27220,17 +27412,17 @@
 	        };
 	        this.actionUrl = configuration.ServerWithApiUrl + "match/";
 	    }
-	    MatchService = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [httpWrapper_1.HttpWrapper, app_constants_1.Configuration])
-	    ], MatchService);
 	    return MatchService;
 	}());
+	MatchService = __decorate([
+	    core_1.Injectable(),
+	    __metadata("design:paramtypes", [httpWrapper_1.HttpWrapper, app_constants_1.Configuration])
+	], MatchService);
 	exports.MatchService = MatchService;
 
 
 /***/ },
-/* 342 */
+/* 348 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -27245,7 +27437,7 @@
 	};
 	var core_1 = __webpack_require__(20);
 	var router_1 = __webpack_require__(26);
-	var match_service_1 = __webpack_require__(341);
+	var match_service_1 = __webpack_require__(347);
 	var MatchListComponent = (function () {
 	    function MatchListComponent(matchService, route) {
 	        this.matchService = matchService;
@@ -27273,26 +27465,26 @@
 	    };
 	    MatchListComponent.prototype.update = function () {
 	    };
-	    MatchListComponent = __decorate([
-	        core_1.Component({
-	            selector: "match-list",
-	            template: __webpack_require__(343)
-	        }), 
-	        __metadata('design:paramtypes', [match_service_1.MatchService, router_1.ActivatedRoute])
-	    ], MatchListComponent);
 	    return MatchListComponent;
 	}());
+	MatchListComponent = __decorate([
+	    core_1.Component({
+	        selector: "match-list",
+	        template: __webpack_require__(349)
+	    }),
+	    __metadata("design:paramtypes", [match_service_1.MatchService, router_1.ActivatedRoute])
+	], MatchListComponent);
 	exports.MatchListComponent = MatchListComponent;
 
 
 /***/ },
-/* 343 */
+/* 349 */
 /***/ function(module, exports) {
 
 	module.exports = "<div>\r\n    <div class=\"btn-group\">\r\n        <form class=\"form-inline btn-block\">\r\n            <!--<div class=\"form-group\">\r\n                <select class=\"form-control\"\r\n                        ng-model=\"vm.typeId\"\r\n                        ng-options=\"type.id as type.name for type in vm.types\" ng-change=\"vm.changeTypeId()\"></select>\r\n            </div>\r\n            <div class=\"form-group\">\r\n                <input class=\"form-control\" ng-model=\"vm.filterText\" ng-model-options=\"{debounce: 1000}\" ng-change=\"vm.filterByText()\" placeholder=\"Поиск в тексте пожеланий\" /> <!-todo magic number->\r\n            </div>-->\r\n            <button class=\"btn btn-success\" type=\"button\" [routerLink]=\"['/match', 0, 'edit' ]\">Добавить</button>\r\n        </form>\r\n    </div>\r\n    <div class=\"top20\" *ngFor=\"let item of items\">\r\n        <div class=\"panel panel-default\">\r\n            <div class=\"panel-heading\">\r\n                <h3 class=\"panel-title\">\r\n                    <a ui-sref=\"clubEdit({id: item.id})\"><span [textContent]=\"item.name\"></span></a>\r\n                    <span class=\"col-xs-1 col-sm-1 pull-right\">\r\n                        <a ng-click=\"vm.delete($index)\"><span class=\"glyphicon glyphicon-trash\"></span></a>\r\n                    </span>\r\n                </h3>\r\n            </div>\r\n            <div class=\"panel-body\">\r\n                <div [textContent]=\"item.englishName\"></div>\r\n            </div>\r\n            <div class=\"panel-footer\">\r\n                <img src=\"{{item.logo}}\" />\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n<div class=\"pagination\">\r\n    <!--<uib-pagination ng-show=\"vm.totalItems > vm.itemPerPage\" total-items=\"vm.totalItems\" ng-model=\"vm.page\" ng-change=\"vm.goToPage()\"></uib-pagination>-->\r\n</div>";
 
 /***/ },
-/* 344 */
+/* 350 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -27308,9 +27500,9 @@
 	var core_1 = __webpack_require__(20);
 	var forms_1 = __webpack_require__(22);
 	var router_1 = __webpack_require__(26);
-	var index_1 = __webpack_require__(340);
+	var index_1 = __webpack_require__(346);
 	var index_2 = __webpack_require__(271);
-	var match_model_1 = __webpack_require__(345);
+	var match_model_1 = __webpack_require__(351);
 	var MatchEditComponent = (function () {
 	    function MatchEditComponent(matchService, clubService, route, router, formBuilder) {
 	        this.matchService = matchService;
@@ -27362,32 +27554,40 @@
 	    MatchEditComponent.prototype.initForm = function () {
 	        this.editForm = this.formBuilder.group({
 	            'clubId': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required])],
+	                    forms_1.Validators.required
+	                ])],
 	            'isHome': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required])],
+	                    forms_1.Validators.required
+	                ])],
 	            'dateTime': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required])],
+	                    forms_1.Validators.required
+	                ])],
 	            'typeId': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required])]
+	                    forms_1.Validators.required
+	                ])]
 	        });
 	    };
 	    MatchEditComponent.prototype.parseClubs = function (items) {
 	        this.clubs = items;
 	    };
-	    MatchEditComponent = __decorate([
-	        core_1.Component({
-	            selector: "match-edit",
-	            template: __webpack_require__(346)
-	        }), 
-	        __metadata('design:paramtypes', [index_1.MatchService, index_2.ClubService, router_1.ActivatedRoute, router_1.Router, forms_1.FormBuilder])
-	    ], MatchEditComponent);
 	    return MatchEditComponent;
 	}());
+	MatchEditComponent = __decorate([
+	    core_1.Component({
+	        selector: "match-edit",
+	        template: __webpack_require__(352)
+	    }),
+	    __metadata("design:paramtypes", [index_1.MatchService,
+	        index_2.ClubService,
+	        router_1.ActivatedRoute,
+	        router_1.Router,
+	        forms_1.FormBuilder])
+	], MatchEditComponent);
 	exports.MatchEditComponent = MatchEditComponent;
 
 
 /***/ },
-/* 345 */
+/* 351 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -27400,19 +27600,19 @@
 
 
 /***/ },
-/* 346 */
+/* 352 */
 /***/ function(module, exports) {
 
 	module.exports = "<form class=\"form-horizontal\" name=\"editForm\" role=\"form\" [formGroup]=\"editForm\" (ngSubmit)=\"onSubmit(editForm.value)\">\r\n        <div class=\"form-group\">\r\n            <label class=\"control-label col-md-2\">Cоперник</label>\r\n            <div class=\"col-md-10\">\r\n                <!--<autocomplete ng-model=\"vm.item.clubName\" name=\"clubName\" attr-placeholder=\"Введите клуб...\" click-activation=\"true\" data=\"vm.clubs\"\r\n                                  on-type=\"vm.updateClubs\" validation=\"max_len:30|required\"></autocomplete>-->\r\n            </div>\r\n        </div>\r\n        <div class=\"form-group\">\r\n            <label class=\"control-label col-xs-2 col-sm-2\"> Категория:</label>\r\n            <div class=\"col-xs-10 col-sm-10\">\r\n                <select class=\"form-control\" name=\"categoryId\" ng-model=\"vm.item.typeId\" ng-options=\"type.id as type.name for type in vm.types\" validation=\"required\"></select>\r\n            </div>\r\n        </div>\r\n        <div class=\"form-group\">\r\n            <div class=\"col-xs-offset-2 col-sm-offset-2 col-xs-10 col-sm-10\">\r\n                <div class=\"checkbox\">\r\n                    <label class=\"control-label\">\r\n                        <input class=\"checkbox\" name=\"onTop\" formControlName=\"isHome\" type=\"checkbox\" /> Дома <!--todo add switcher--> \r\n                    </label>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <div class=\"form-group\">\r\n            <label class=\"col-md-2 control-label\">Дата</label>\r\n            <div class=\"col-md-5\">\r\n                <div class=\"input-group\">\r\n                    <!--<input type=\"text\" class=\"form-control\" validation=\"required\" name=\"date\"\r\n                           ng-readonly=\"true\" show-button-bar=\"false\"\r\n                           uib-datepicker-popup=\"dd/MMMM/yyyy\" ng-model=\"vm.item.date\"\r\n                           is-open=\"vm.status.opened\" datepicker-options=\"vm.dateOptions\" close-text=\"Закрыть\"\r\n                           alt-input-formats=\"altInputFormats\" ng-click=\"vm.open()\">-->\r\n                    <span class=\"input-group-btn va-top\">\r\n                        <button type=\"button\" class=\"btn btn-default\" ng-click=\"vm.open()\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\r\n                    </span>\r\n                </div>\r\n            </div>\r\n            <div class=\"col-md-5\">\r\n                <div class=\"input-group\">\r\n                    <!--<div uib-timepicker ng-model=\"vm.item.time\" ng-change=\"vm.timeChanged()\"\r\n                         hour-step=\"1\" minute-step=\"1\" show-meridian=\"false\" show-spinners=\"false\" ng-disabled=\"!vm.item.date\"></div>-->\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <div class=\"form-group\">\r\n            <div class=\"col-md-offset-2 col-md-10\">\r\n                <button type=\"submit\" [disabled]=\"!editForm.valid\" class=\"btn btn-default\">Сохранить</button>\r\n            </div>\r\n        </div>\r\n    </form>\r\n";
 
 /***/ },
-/* 347 */
+/* 353 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = (__webpack_require__(2))(144);
 
 /***/ },
-/* 348 */
+/* 354 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -27420,11 +27620,11 @@
 	    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 	}
 	__export(__webpack_require__(312));
-	__export(__webpack_require__(349));
+	__export(__webpack_require__(355));
 
 
 /***/ },
-/* 349 */
+/* 355 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -27443,26 +27643,26 @@
 	    }
 	    EplTableComponent.prototype.ngOnInit = function () {
 	    };
-	    EplTableComponent = __decorate([
-	        core_1.Component({
-	            selector: "epl-table",
-	            template: __webpack_require__(350)
-	        }), 
-	        __metadata('design:paramtypes', [])
-	    ], EplTableComponent);
 	    return EplTableComponent;
 	}());
+	EplTableComponent = __decorate([
+	    core_1.Component({
+	        selector: "epl-table",
+	        template: __webpack_require__(356)
+	    }),
+	    __metadata("design:paramtypes", [])
+	], EplTableComponent);
 	exports.EplTableComponent = EplTableComponent;
 
 
 /***/ },
-/* 350 */
+/* 356 */
 /***/ function(module, exports) {
 
-	module.exports = "<table class=\"table table-condensed table-striped table-responsive col-xs-12 overflowable\">\r\n    <thead>\r\n        <tr>\r\n            <th>#</th>\r\n            <th>Команда</th>\r\n            <th>И</th>\r\n            <th>В</th>\r\n            <th>Н</th>\r\n            <th>П</th>\r\n            <th>+/-</th>\r\n            <th>О</th>\r\n        </tr>\r\n    </thead>\r\n    <tbody><tr><td>1</td><td>Ливерпуль\r\n</td><td>11</td><td>8</td><td>2</td><td>1</td><td>16</td><td>26</td></tr>\r\n<tr><td>2</td><td>Челси\r\n</td><td>11</td><td>8</td><td>1</td><td>2</td><td>17</td><td>25</td></tr>\r\n<tr><td>3</td><td>Манчестер Сити\r\n</td><td>11</td><td>7</td><td>3</td><td>1</td><td>15</td><td>24</td></tr>\r\n<tr><td>4</td><td>Арсенал\r\n</td><td>11</td><td>7</td><td>3</td><td>1</td><td>13</td><td>24</td></tr>\r\n<tr><td>5</td><td>Тоттенхэм\r\n</td><td>11</td><td>5</td><td>6</td><td>0</td><td>9</td><td>21</td></tr>\r\n<tr><td>6</td><td>Манчестер Юнайтед\r\n</td><td>11</td><td>5</td><td>3</td><td>3</td><td>3</td><td>18</td></tr>\r\n<tr><td>7</td><td>Эвертон\r\n</td><td>11</td><td>5</td><td>3</td><td>3</td><td>2</td><td>18</td></tr>\r\n<tr><td>8</td><td>Уотфорд\r\n</td><td>11</td><td>4</td><td>3</td><td>4</td><td>-4</td><td>15</td></tr>\r\n<tr><td>9</td><td>Бернли\r\n</td><td>11</td><td>4</td><td>2</td><td>5</td><td>-4</td><td>14</td></tr>\r\n<tr><td>10</td><td>Саутгемптон\r\n</td><td>11</td><td>3</td><td>4</td><td>4</td><td>0</td><td>13</td></tr>\r\n<tr><td>11</td><td>Вест Бромвич\r\n</td><td>11</td><td>3</td><td>4</td><td>4</td><td>-3</td><td>13</td></tr>\r\n<tr><td>12</td><td>Сток Сити\r\n</td><td>11</td><td>3</td><td>4</td><td>4</td><td>-5</td><td>13</td></tr>\r\n<tr><td>13</td><td>Борнмут\r\n</td><td>11</td><td>3</td><td>3</td><td>5</td><td>-3</td><td>12</td></tr>\r\n<tr><td>14</td><td>Лестер\r\n</td><td>11</td><td>3</td><td>3</td><td>5</td><td>-5</td><td>12</td></tr>\r\n<tr><td>15</td><td>Мидлсбро\r\n</td><td>11</td><td>2</td><td>5</td><td>4</td><td>-2</td><td>11</td></tr>\r\n<tr><td>16</td><td>Кристал Пэлас\r\n</td><td>11</td><td>3</td><td>2</td><td>6</td><td>-3</td><td>11</td></tr>\r\n<tr><td>17</td><td>Вест Хэм\r\n</td><td>11</td><td>3</td><td>2</td><td>6</td><td>-9</td><td>11</td></tr>\r\n<tr><td>18</td><td>Халл\r\n</td><td>11</td><td>3</td><td>1</td><td>7</td><td>-14</td><td>10</td></tr>\r\n<tr><td>19</td><td>Суонси\r\n</td><td>11</td><td>1</td><td>2</td><td>8</td><td>-11</td><td>5</td></tr>\r\n<tr><td>20</td><td>Сандерленд\r\n</td><td>11</td><td>1</td><td>2</td><td>8</td><td>-12</td><td>5</td></tr>\r\n</tbody></table>";
+	module.exports = "<table class=\"table table-condensed table-striped table-responsive col-xs-12 overflowable\">\r\n    <thead>\r\n        <tr>\r\n            <th>#</th>\r\n            <th>Команда</th>\r\n            <th>И</th>\r\n            <th>В</th>\r\n            <th>Н</th>\r\n            <th>П</th>\r\n            <th>+/-</th>\r\n            <th>О</th>\r\n        </tr>\r\n    </thead>\r\n    <tbody><tr><td>1</td><td>Ливерпуль\n</td><td>11</td><td>8</td><td>2</td><td>1</td><td>16</td><td>26</td></tr>\r\n<tr><td>2</td><td>Челси\n</td><td>11</td><td>8</td><td>1</td><td>2</td><td>17</td><td>25</td></tr>\r\n<tr><td>3</td><td>Манчестер Сити\n</td><td>11</td><td>7</td><td>3</td><td>1</td><td>15</td><td>24</td></tr>\r\n<tr><td>4</td><td>Арсенал\n</td><td>11</td><td>7</td><td>3</td><td>1</td><td>13</td><td>24</td></tr>\r\n<tr><td>5</td><td>Тоттенхэм\n</td><td>11</td><td>5</td><td>6</td><td>0</td><td>9</td><td>21</td></tr>\r\n<tr><td>6</td><td>Манчестер Юнайтед\n</td><td>11</td><td>5</td><td>3</td><td>3</td><td>3</td><td>18</td></tr>\r\n<tr><td>7</td><td>Эвертон\n</td><td>11</td><td>5</td><td>3</td><td>3</td><td>2</td><td>18</td></tr>\r\n<tr><td>8</td><td>Уотфорд\n</td><td>11</td><td>4</td><td>3</td><td>4</td><td>-4</td><td>15</td></tr>\r\n<tr><td>9</td><td>Бернли\n</td><td>11</td><td>4</td><td>2</td><td>5</td><td>-4</td><td>14</td></tr>\r\n<tr><td>10</td><td>Саутгемптон\n</td><td>11</td><td>3</td><td>4</td><td>4</td><td>0</td><td>13</td></tr>\r\n<tr><td>11</td><td>Вест Бромвич\n</td><td>11</td><td>3</td><td>4</td><td>4</td><td>-3</td><td>13</td></tr>\r\n<tr><td>12</td><td>Сток Сити\n</td><td>11</td><td>3</td><td>4</td><td>4</td><td>-5</td><td>13</td></tr>\r\n<tr><td>13</td><td>Борнмут\n</td><td>11</td><td>3</td><td>3</td><td>5</td><td>-3</td><td>12</td></tr>\r\n<tr><td>14</td><td>Лестер\n</td><td>11</td><td>3</td><td>3</td><td>5</td><td>-5</td><td>12</td></tr>\r\n<tr><td>15</td><td>Мидлсбро\n</td><td>11</td><td>2</td><td>5</td><td>4</td><td>-2</td><td>11</td></tr>\r\n<tr><td>16</td><td>Кристал Пэлас\n</td><td>11</td><td>3</td><td>2</td><td>6</td><td>-3</td><td>11</td></tr>\r\n<tr><td>17</td><td>Вест Хэм\n</td><td>11</td><td>3</td><td>2</td><td>6</td><td>-9</td><td>11</td></tr>\r\n<tr><td>18</td><td>Халл\n</td><td>11</td><td>3</td><td>1</td><td>7</td><td>-14</td><td>10</td></tr>\r\n<tr><td>19</td><td>Суонси\n</td><td>11</td><td>1</td><td>2</td><td>8</td><td>-11</td><td>5</td></tr>\r\n<tr><td>20</td><td>Сандерленд\n</td><td>11</td><td>1</td><td>2</td><td>8</td><td>-12</td><td>5</td></tr>\r\n</tbody></table>";
 
 /***/ },
-/* 351 */
+/* 357 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = (__webpack_require__(2))(120);

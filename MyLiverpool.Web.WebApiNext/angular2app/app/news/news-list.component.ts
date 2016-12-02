@@ -91,13 +91,7 @@ export class NewsListComponent implements OnInit, OnDestroy {
             }
         });
                                                                                                     
-        this.sub2 = this.route.queryParams.subscribe(qParams => {
-            this.categoryId = qParams["categoryId"];
-            this.userName = qParams["userName"];
-
-        });
-                this.update();  
-        
+        this.parseQueryParamsAndUpdate();
     }
 
     ngOnDestroy(): void {
@@ -106,13 +100,17 @@ export class NewsListComponent implements OnInit, OnDestroy {
     }
 
     pageChanged(event: any): void {
-        //this.page = event.page;
-        //this.update();
-        //let newUrl = `news/list/${this.page}`;
-        //if (this.categoryId) {
-        //    newUrl = `${newUrl}/${this.categoryId}`;
-        //}
-        //this.location.replaceState(newUrl);
+        this.page = event.page;
+        this.update();
+        let newUrl = `news/list/${this.page}?`;
+        if (this.categoryId) {
+            newUrl = `${newUrl}?categoryId=${this.categoryId}`;
+        }
+        if (this.userName) {
+            newUrl = `${newUrl}${this.categoryId ? "&" : "?"}userName=${this.userName}`;
+        }
+
+        this.location.replaceState(newUrl);
     };
 
     private parsePageable(pageable: Pageable<News>): void {
@@ -124,16 +122,24 @@ export class NewsListComponent implements OnInit, OnDestroy {
 
     private update(): void {
         let filters = new MaterialFilters();
-        filters.categoryId = this.categoryId;
+        filters.categoryId = this.categoryId || null;
         filters.materialType = "News";
-        filters.userName = this.userName;
+        filters.userName = this.userName || null;
         filters.page = this.page;
 
         this.newsService
             .getAll(filters)
             .subscribe(data => this.parsePageable(data),
                 error => console.log(error),
-                () => {});
-      //  this.cd.markForCheck();
+                () => {});        
+    }
+
+    private parseQueryParamsAndUpdate(): void {
+        this.sub2 = this.route.queryParams.subscribe(qParams => {
+            this.categoryId = qParams["categoryId"] || "";
+            this.userName = qParams["userName"] || "";
+
+            this.update();  
+        });
     }
 }

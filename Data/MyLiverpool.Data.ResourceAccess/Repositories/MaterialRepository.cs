@@ -65,9 +65,9 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<ICollection<Material>> GetTopMaterialsAsync(MaterialType type)
+        public async Task<ICollection<Material>> GetTopMaterialsAsync(Expression<Func<Material, bool>> filter = null)
         {
-            return await _context.Materials.Include(x => x.Category).Include(x => x.Author).Where(x => x.OnTop && x.Type == type).Select(x => new Material()
+            return await _context.Materials.Include(x => x.Category).Include(x => x.Author).Where(filter).Where(x => x.OnTop).Select(x => new Material()
             {
                 Type = x.Type,
                 Id = x.Id,

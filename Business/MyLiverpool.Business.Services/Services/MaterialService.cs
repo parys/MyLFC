@@ -49,10 +49,8 @@ namespace MyLiverpool.Business.Services.Services
             ICollection<Material> topNews = new List<Material>();
             if (filters.Page == GlobalConstants.FirstPage)
             {
-                topNews = await _materialRepository.GetTopMaterialsAsync(filters.MaterialType);
-            }
-            if (filters.Page == GlobalConstants.FirstPage)
-            {
+                topNews = await _materialRepository.GetTopMaterialsAsync(filter);
+
                 itemPerPage = GlobalConstants.NewsPerPage - topNews.Count > 0
                     ? GlobalConstants.NewsPerPage - topNews.Count
                     : 0;

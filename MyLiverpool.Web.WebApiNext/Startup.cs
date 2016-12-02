@@ -145,7 +145,7 @@ namespace MyLiverpool.Web.WebApiNext
 
             services.AddNodeServices(options =>
             {
-                options.HostingModel = NodeHostingModel.Socket;
+               // options.HostingModel = NodeHostingModel.Socket;
                 options.InvocationTimeoutMilliseconds = 1000000; //todo
             });
 
