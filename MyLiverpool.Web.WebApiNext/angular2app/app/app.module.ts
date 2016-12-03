@@ -60,7 +60,6 @@ import { FileUploadModule } from "ng2-file-upload/ng2-file-upload";
         home.SquadComponent,
         newsCategory.NewsCategoryEditComponent,
         newsCategory.NewsCategoryListComponent,
-        shared.SecuredDirective,
         AppComponent,
         EplTableComponent,
         ForumSectionListComponent,

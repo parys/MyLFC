@@ -16,7 +16,8 @@ var SharedConfig = {
     },
     module: {
         loaders: [
-            { test: /\.ts$/, include: /angular2app/, loaders: ["ts-loader?silent=true", "angular2-template-loader"] },
+         //   { test: /\.ts$/, include: /angular2app/, loaders: ["ts-loader?silent=true", "angular2-template-loader"] },
+            { test: /\.ts$/, include: /angular2app/, loaders: ["awesome-typescript-loader", "angular2-template-loader"] },
             { test: /\.html$/, loader: "html-loader" },
             { test: /\.css$/, loader: "to-string-loader!css-loader" },
             { test: /\.(png|jpg|jpeg|gif|svg)$/, loader: "url-loader", query: { limit: 25000 } }
@@ -53,6 +54,7 @@ var ClientBundleConfig = Merge(SharedConfig, {
 
 // Configuration for server-side (prerendering) bundle suitable for running in Node
 var ServerBundleConfig = Merge(SharedConfig, {
+    resolve: { packageMains: ["main"] },
     entry: { 'main-server': "./angular2app/boot-server.ts" },
     output: {
         libraryTarget: "commonjs",
@@ -62,7 +64,13 @@ var ServerBundleConfig = Merge(SharedConfig, {
     devtool: "inline-source-map",
     externals: [NodeExternals({ whitelist: [AllFilenamesExceptJavaScript] })], // Don't bundle .js files from node_modules
     plugins: [
-        new WebpackNotifierPlugin({ title: "serverBuild", alwaysNotify: true })
+        new WebpackNotifierPlugin({ title: "serverBuild", alwaysNotify: true }),
+                new Webpack.DllReferencePlugin({
+                    context: __dirname,
+                    manifest: require("./angular2app/js/vendor-manifest.json"),
+                    sourceType: "commonjs2",
+                    name: "./vendor"
+                })
     ]
 });
 

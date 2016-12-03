@@ -1,14 +1,25 @@
-﻿import "angular2-universal-polyfills";
+﻿import "./__2.1.1.workaround.ts"; // temporary until 2.1.1 things are patched in Core   bug
+import "angular2-universal-polyfills/node";
 import "zone.js";
+import { createServerRenderer, RenderResult } from "aspnet-prerendering";
 import { enableProdMode } from "@angular/core";
 import { platformNodeDynamic } from "angular2-universal";
-import { AppModule } from "./app/app.module"; 
+import { AppModule } from "./app/app.module";
 
 enableProdMode();
 const platform = platformNodeDynamic();
+const doc = `
+        <!DOCTYPE html>\n
+        <html>
+            <head></head>
+            <body>
+                <app></app>
+            </body>
+        </html>
+    `;
 
-export default function (params: any): Promise<{ html: string, globals?: any }> {
-    return new Promise((resolve, reject) => {
+export default createServerRenderer(params => {  
+    return new Promise<RenderResult>((resolve, reject) => {
         const requestZone = Zone.current.fork({
             name: "angular-universal request",
             properties: {
@@ -19,7 +30,7 @@ export default function (params: any): Promise<{ html: string, globals?: any }> 
                 document: "<app></app>"
             },
             onHandleError: (parentZone, currentZone, targetZone, error) => {
-                // if any error occurs while rendering the module, reject the whole operation
+                // If any error occurs while rendering the module, reject the whole operation
                 reject(error);
                 return true;
             }
@@ -29,4 +40,4 @@ export default function (params: any): Promise<{ html: string, globals?: any }> 
             resolve({ html: html });
         }, reject);
     });
-}
+});
