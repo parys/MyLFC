@@ -1,5 +1,5 @@
 ﻿import { Component, ViewContainerRef, enableProdMode } from "@angular/core";
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute, NavigationEnd } from "@angular/router";
 import { Title } from "@angular/platform-browser";
 import { AuthService } from "./auth/auth.service";
 import { RolesCheckedService } from "./shared/roles-checked.service";
@@ -18,11 +18,30 @@ export class AppComponent {
         public auth: AuthService,
         private rolesChecked: RolesCheckedService,
         viewContainerRef: ViewContainerRef,
-        titleService: Title) { //todo need to more elegant decision
+        private activatedRoute: ActivatedRoute,
+        private titleService: Title) { //todo need to more elegant decision
         this.roles = this.rolesChecked.checkedRoles;
         // You need this small hack in order to catch application root view container ref
         this.viewContainerRef = viewContainerRef; 
-        titleService.setTitle("Главная");
+      //  titleService.setTitle("Главная");
+        this.initTitleSubscriber();
+    }
+
+    setTitle(newTitle: string) {
+        this.titleService.setTitle(newTitle);
+    }
+
+    private initTitleSubscriber() {
+        this.router.events
+            .filter(event => event instanceof NavigationEnd)
+            .map(() => this.activatedRoute)
+            .map(route => {
+                while (route.firstChild) route = route.firstChild;
+                return route;
+            })
+            .filter(route => route.outlet === "primary")
+            .mergeMap(route => route.data)
+            .subscribe((event) => this.titleService.setTitle(event["title"]));
     }
 
     logout() {

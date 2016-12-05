@@ -81,7 +81,7 @@ export class AuthService {
             .subscribe(data => this.id = +JSON.parse(data.text()),
             error => console.log(error),
             () => {
-                this.localStorage.setUserId(this.id.toString());
+                this.localStorage.setUserId(this.id);
                 this.getRoles();
             });
     }

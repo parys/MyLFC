@@ -12,7 +12,7 @@ export class RolesCheckedService {
         isModerator: false,
         isMainModerator: false,
         isAdminAssistant: false,
-        isSelf: userId => this.isSelf(userId)
+        isSelf: (userId : number) => this.isSelf(userId)
     };
     private roles: string[];         
 

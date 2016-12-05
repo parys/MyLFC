@@ -54,7 +54,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
         public async Task<IEnumerable<User>> GetListAsync(int page, int itemPerPage = 15, Expression<Func<User, bool>> filter = null, SortOrder order = SortOrder.Ascending,
             Expression<Func<User, object>> orderBy = null)
         {
-            IQueryable<User> query = _context.Users;
+            IQueryable<User> query = _context.Users.Include(x => x.RoleGroup);
 
             if (filter != null)
             {
@@ -169,9 +169,9 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             await _userManager.UpdateAsync(entity);
         }
 
-        public Task SaveChangesAsync()
+        public async Task SaveChangesAsync()
         {
-            throw new NotImplementedException();
+            await _context.SaveChangesAsync();
         }
 
         public async Task<int> GetCountAsync(Expression<Func<User, bool>> filter = null)

@@ -27,7 +27,7 @@ const routes: Routes = [
     ...pmRoutes,
     ...userRoutes,
     ...wishRoutes,
-    { path: "", component: NewsListComponent }
+    { path: "", component: NewsListComponent, data: { title: "Главная" } }
 ];
 
 export const appRoutingProviders: any[] = [
