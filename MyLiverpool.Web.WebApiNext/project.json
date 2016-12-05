@@ -30,7 +30,7 @@
     "MyLiverpool.Common.Utilities": "1.0.0-*",
     "MyLiverpool.Data.Entities": "1.0.0-*",
     "MyLiverpool.Data.ResourceAccess": "1.0.0-*",
-    "Swashbuckle": "6.0.0-preview-9"
+    "Swashbuckle": "6.0.0-preview-0035"
   },
 
   "tools": {
@@ -50,12 +50,12 @@
       "buildOptions": {
         "languageVersion": "csharp6"
       },
-    "dependencies": {
-      "Microsoft.NETCore.App": {
-        "type": "platform",
-        "version": "1.1.0"
-      }
-    },
+      "dependencies": {
+        "Microsoft.NETCore.App": {
+          "type": "platform",
+          "version": "1.1.0"
+        }
+      },
       "imports": [
         "portable-net45+win8",
         "netstandard1.6",
@@ -64,41 +64,38 @@
     }
   },
 
-    "buildOptions": {
-      "emitEntryPoint": true,
-      "preserveCompilationContext": true,
-      "xmlDoc": true,
-      "compile": {
-        "exclude": [ "node_modules" ]
-      }
-    },
+  "buildOptions": {
+    "emitEntryPoint": true,
+    "preserveCompilationContext": true,
+    "xmlDoc": true,
+    "compile": {
+      "exclude": [ "node_modules" ]
+    }
+  },
 
-    "runtimeOptions": {
-      "configProperties": {
-        "System.GC.Server": true
-      }
-    },
+  "runtimeOptions": {
+    "configProperties": {
+      "System.GC.Server": true
+    }
+  },
 
   "publishOptions": {
     "include": [
-      "appsettings.json",
       "angular2app/js",
-      "node_modules",
       "Views",
-      "web.config",
       "wwwroot"
     ],
     "exclude": [
-      "wwwroot/js/*.map"
+      "wwwroot/js/*.map",
+      "node_modules"
     ]
   },
 
-   "scripts": {
-      "prepublish": [
-        "npm install",
-        "node node_modules/webpack/bin/webpack.js --config webpack.config.vendor.js --env.prod",
-        "node node_modules/webpack/bin/webpack.js --env.prod"
-      ],
-      "postpublish": [ "dotnet publish-iis --publish-folder %publish:OutputPath% --framework %publish:FullTargetFramework%" ]
-    }
+  "scripts": {
+    "prepublish": [
+      "node node_modules/webpack/bin/webpack.js --config webpack.config.vendor.js --env.prod",
+      "node node_modules/webpack/bin/webpack.js --env.prod"
+    ],
+    "postpublish": [ "dotnet publish-iis --publish-folder %publish:OutputPath% --framework %publish:FullTargetFramework%" ]
   }
+}
