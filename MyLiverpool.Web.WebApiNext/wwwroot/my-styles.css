@@ -131,8 +131,7 @@ textarea {
 }
 
 .mini-avatar {
-    /*max-width: 20%;*/
-    width: 20px;
+    height: 20px;
 }
 
 /*todo fixed*/

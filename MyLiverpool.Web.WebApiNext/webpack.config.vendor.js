@@ -58,23 +58,33 @@ var SharedConfig = {
     ]
 };
 
-var ClientBundleConfig = Merge(SharedConfig, {    
+var ClientBundleConfig = Merge(SharedConfig,
+{
     output: { path: Path.join(__dirname, "wwwroot", "js") },
     module: {
         loaders: [
             { test: /\.css(\?|$)/, loader: ExtractCss.extract(["css-loader"]) }
         ]
-    },    
+    },
     plugins: [
         ExtractCss,
         new Webpack.DllPlugin({
             path: Path.join(__dirname, "wwwroot", "js", "[name]-manifest.json"),
             name: "[name]_[hash]"
-        },
-        new WebpackNotifierPlugin({title: "vendorBuild-client", alwaysNotify: true }))
-    ].concat(IsDevBuild ? [] : [
-        new Webpack.optimize.OccurrenceOrderPlugin(),
-            new Webpack.optimize.UglifyJsPlugin({ compress: { warnings: false } })
+        })
+    ].concat(IsDevBuild
+        ? [
+            new WebpackNotifierPlugin({ title: "vendorBuild-client", alwaysNotify: true })
+        ]
+        : [
+            new Webpack.optimize.OccurrenceOrderPlugin(),
+            new Webpack.optimize.UglifyJsPlugin({
+                compress: { warnings: false },
+                output: {
+                    comments: false
+                },
+                minimize: true
+            })
         ])
 });
 

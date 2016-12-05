@@ -43,7 +43,7 @@ export class LocalStorageService {
         this.remove("userId");
     }
 
-    setAuthTokens(item: any): boolean {    //todo set type here and below
+    setAuthTokens(item: any): boolean {
         let response = JSON.parse(item._body);
         this.set("token_type", response.token_type);
         this.set("access_token", response.access_token);
@@ -57,7 +57,7 @@ export class LocalStorageService {
         this.setObject("roles", roles);
     }
 
-    setUserId(id: string): void {
+    setUserId(id: number): void {
         if (!this.localStorage) return;
         this.setObject("userId", id);
     }
