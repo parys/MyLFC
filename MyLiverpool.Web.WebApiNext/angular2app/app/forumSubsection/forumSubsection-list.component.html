@@ -1,0 +1,27 @@
+﻿<div class="container-fluid">
+    <div class="panel panel-danger">
+        <div class="panel-heading">
+            <span ng-bind="vm.theme.name"></span>
+            <span ng-bind="vm.theme.description"></span>
+            <a ui-sref="themeEdit({subsectionId: vm.subsection.id})">Добавить тему</a>
+        </div>
+        <!--  <div class="panel-body"></div>-->
+        <ul class="list-group" *ngFor="let theme of items">
+            <li class="list-group-item list">
+                <span><a ui-sref="theme({id : theme.id })" [textContent]="theme.name"></a></span>
+                <span [textContent]="theme.description"></span>
+                <span class="pull-right">
+                    <a ui-sref="themeEdit({id: theme.id})"><span class="glyphicon glyphicon-pencil"></span></a>
+                    <a class="pull-right" ng-show="section.subsections.length == 0" ng-click="vm.removeSection($index)">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </a>
+                </span>
+            </li>
+        </ul>
+
+    </div>
+    <div>Всего тем:<span [textContent]="totalItems"></span></div>
+    <div class="pagination">
+        <!--<uib-pagination ng-show="vm.totalItems > vm.itemPerPage" total-items="vm.totalItems" ng-model="vm.pageNo" ng-change="vm.goToPage()"></uib-pagination>-->
+    </div>
+</div>

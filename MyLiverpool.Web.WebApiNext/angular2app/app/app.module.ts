@@ -1,6 +1,5 @@
 import { NgModule } from "@angular/core";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-//import { MaterialModule } from "@angular/material";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms"; 
 import { Title } from "@angular/platform-browser";
 import { UniversalModule } from "angular2-universal";
 import { LocalStorage } from "./shared/local-storage";     
@@ -14,13 +13,14 @@ import { AuthGuard, AuthService } from "./auth/index";
 import { ForumSectionListComponent, ForumSectionService } from "./forumSection/index"; 
 import * as account from "./account/index";
 import * as club from "./club/index";
+import * as forumSubsection from "./forumSubsection/index";
+import * as home from "./home/index";
 import * as match from "./match/index";
 import * as shared from "./shared/index";                     
 import { UserDetailComponent } from "./user/user-detail.component";
 import { UserService } from "./user/user.service";
 import { UserListComponent } from "./user/user-list.component";
 import { PmListComponent, PmDetailComponent, PmEditComponent, PmService } from "./pm/index";
-import * as home from "./home/index";
 import { WishListComponent, WishService, WishEditComponent } from "./wish/index";
 import { MaterialCommentListComponent, MaterialCommentService, MaterialCommentSectionComponent, MaterialCommentDetailComponent } from "./materialComment/index";
 import { Ng2AutoCompleteModule } from "ng2-auto-complete";
@@ -52,6 +52,7 @@ import { FileUploadModule } from "ng2-file-upload/ng2-file-upload";
         account.UnconfirmedEmailComponent,
         club.ClubEditComponent,
         club.ClubListComponent,
+        forumSubsection.ForumSubsectionListComponent,
         home.AboutClubComponent,
         home.CoachTeamComponent,
         home.ClubHistoryComponent,
@@ -82,6 +83,7 @@ import { FileUploadModule } from "ng2-file-upload/ng2-file-upload";
     providers: [ // services
         account.AccountService, 
         club.ClubService,
+        forumSubsection.ForumSubsectionService,
         match.MatchService,
         newsCategory.NewsCategoryService,
         shared.HttpWrapper,

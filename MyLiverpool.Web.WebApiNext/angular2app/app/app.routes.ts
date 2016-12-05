@@ -10,6 +10,7 @@ import { userRoutes } from "./user/user.routing";
 import { pmRoutes } from "./pm/pm.routing";
 import { homeRoutes } from "./home/home.routing";
 import { forumSectionRoutes } from "./forumSection/forumSection.routing";
+import { forumSubsectionRoutes } from "./forumSubsection/forumSubsection.routing";
 import { wishRoutes } from "./wish/wish.routing";
 import { materialCommentRoutes } from "./materialComment/materialComment.routing";
 import { matchRoutes } from "./match/match.routing";
@@ -19,6 +20,7 @@ const routes: Routes = [
     ...authRoutes,
     ...clubRoutes,
     ...forumSectionRoutes,
+    ...forumSubsectionRoutes,
     ...homeRoutes,
     ...matchRoutes,
     ...materialCommentRoutes,

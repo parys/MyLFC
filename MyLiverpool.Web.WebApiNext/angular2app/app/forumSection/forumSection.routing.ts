@@ -2,6 +2,5 @@
 import { ForumSectionListComponent } from "./index";
 
 export const forumSectionRoutes: Routes = [
-    { path: "forum", component: ForumSectionListComponent }, 
-   // { path: "confirmEmail", component: ConfirmEmailComponent }
+    { path: "forum", component: ForumSectionListComponent, data: { title: "Форум" } }
 ];

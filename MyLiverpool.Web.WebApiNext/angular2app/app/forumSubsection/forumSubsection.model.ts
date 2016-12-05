@@ -3,5 +3,5 @@
     name: string;
     description: string;
     sectionId: number;
-   //     public virtual PageableData< ForumThemeMiniDto > Themes { get; set; } 
+    //PageableData< ForumThemeMiniDto > Themes { get; set; } 
 }

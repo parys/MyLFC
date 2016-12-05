@@ -14,7 +14,7 @@
             <!--div class="panel-body"></!--div>-->
             <ul class="list-group" *ngFor="let subsection of section.subsections">
                 <li class="list-group-item list">
-                    <a ui-sref="subsection({id: subsection.id})">
+                    <a [routerLink]="['/forum', subsection.id]">
                         <span [textContent]="subsection.name"></span>
                         <span class="small" [textContent]="subsection.description"></span>
                     </a>
