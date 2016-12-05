@@ -1,4 +1,4 @@
-﻿<div>Комментарии: <span [textContent]="items.length"></span></div>
+﻿<div>Комментарии: <span [textContent]="totalItems"></span></div>
 
 <div class="" *ngFor="let comment of items">
     <materialComment-detail [item]="comment" [deep]="0" [materialId]="materialId" [canCommentary]="canCommentary"></materialComment-detail>
