@@ -1,12 +1,12 @@
-﻿<div class="container-fluid">
+﻿<div class="container-fluid" *ngIf="item">
     <div class="panel panel-danger">
         <div class="panel-heading">
-            <span ng-bind="vm.theme.name"></span>
-            <span ng-bind="vm.theme.description"></span>
+            <span [textContent]="item.name"></span>
+            <span [textContent]="item.description"></span>
             <a ui-sref="themeEdit({subsectionId: vm.subsection.id})">Добавить тему</a>
         </div>
         <!--  <div class="panel-body"></div>-->
-        <ul class="list-group" *ngFor="let theme of items">
+        <ul class="list-group" *ngFor="let theme of item.themes">
             <li class="list-group-item list">
                 <span><a ui-sref="theme({id : theme.id })" [textContent]="theme.name"></a></span>
                 <span [textContent]="theme.description"></span>

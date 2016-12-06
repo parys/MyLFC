@@ -14,6 +14,8 @@ namespace MyLiverpool.Business.Contracts
 
         Task<ForumSubsectionDto> GetAsync(int subsectionId, int page);
 
+        Task<ForumSubsectionDto> GetAsync(int subsectionId);
+
         Task<IEnumerable<ForumSubsectionMiniDto>> GetListAsync();
     }
 }

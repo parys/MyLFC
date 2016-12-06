@@ -1,4 +1,5 @@
-﻿using MyLiverpool.Common.Utilities;
+﻿using System.ComponentModel.DataAnnotations;
+using MyLiverpool.Common.Utilities;
 
 namespace MyLiverpool.Business.DTO
 {
@@ -6,10 +7,13 @@ namespace MyLiverpool.Business.DTO
     {
         public int Id { get; set; }
 
+        [Required]
         public string Name { get; set; }
 
+        [Required]
         public string Description { get; set; }
 
+        [Required]
         public int SectionId { get; set; }
 
         public virtual PageableData<ForumThemeMiniDto> Themes { get; set; } 

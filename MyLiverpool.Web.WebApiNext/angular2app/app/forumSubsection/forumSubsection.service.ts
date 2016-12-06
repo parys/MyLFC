@@ -1,5 +1,4 @@
-﻿import { Injectable } from "@angular/core";
-import "rxjs/add/operator/map";
+﻿import { Injectable } from "@angular/core";  
 import { Observable } from "rxjs/Observable";
 import { Configuration } from "../app.constants";
 import { HttpWrapper } from "../shared/index";
@@ -18,15 +17,21 @@ export class ForumSubsectionService {
         return this.http.get(this.actionUrl + "list/").map(res => res.json());
     };
 
-    // public GetSingle = (id: number): Observable<News> => {
-    //    return this.http.get(this.actionUrl + id).map(res => res.json());
-    // };
+    getSingle = (id: number): Observable<ForumSubsection> => {
+        return this.http.get(this.actionUrl + id).map(res => res.json());
+    };
 
-    //  create = (item: ForumSection): Observable<Signup> => {
-    //      return this.http.post(this.actionUrl + "register/", JSON.stringify(item)).map(res => res.json());
-    //   };
+    getSingleWithThemes = (id: number, page: number): Observable<ForumSubsection> => {
+        return this.http.get(`${this.actionUrl}/${id}/${page})`).map(res => res.json());
+    };
 
-    // confirmEmail = (userId: number, code: string): Observable<boolean> => {
-    //    return this.http.get(this.actionUrl + `confirmEmail?userId=${userId}&code=${code}`).map(res => res.json());
-    // };
+    create = (item: ForumSubsection): Observable<ForumSubsection> => {
+          return this.http.post(this.actionUrl, JSON.stringify(item)).map(res => res.json());
+    };
+
+    update = (id: number, itemToUpdate: ForumSubsection): Observable<ForumSubsection> => {
+        return this.http
+            .put(this.actionUrl + id, JSON.stringify(itemToUpdate))
+            .map(res => res.json());
+    };
 }

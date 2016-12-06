@@ -4,7 +4,7 @@
             <div class="panel-heading">
                 <span [textContent]="section.name"></span>
                 <span *ngIf="roles.isAdminAssistant">
-                    <a href="" ui-sref="subsectionEdit({sectionId: section.id})">Добавить подсекцию</a>
+                    <a [routerLink]="['/forum', 0, 'edit']">Добавить подсекцию</a>
                     <a class="pull-right" [hidden]="section.subsections.length != 0" ng-click="vm.removeSection($index)">
                         <span class="glyphicon glyphicon-remove">
                         </span>
@@ -18,6 +18,9 @@
                         <span [textContent]="subsection.name"></span>
                         <span class="small" [textContent]="subsection.description"></span>
                     </a>
+                    <span class="pull-right">
+                        <a [routerLink]="['/forum', subsection.id, 'edit']"><span class="glyphicon glyphicon-pencil"></span></a>
+                    </span>
                 </li>
             </ul>
         </div>
@@ -31,7 +34,7 @@
         <h3 class="modal-title">@CommonMessages.AddSection</h3>
     </div>
     <div class="modal-body">
-        <form class="form-horizontal" name="addSection" role="form">
+        <form class="form-horizontal" name="addSection" role="form">    
             <div class="form-group">
                 <label for="newSectionName" class="col-md-2 control-label">@ColonsMessages.SectionName</label>
                 <div class="col-md-10">

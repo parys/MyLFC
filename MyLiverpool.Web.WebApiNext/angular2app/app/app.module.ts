@@ -52,6 +52,7 @@ import { FileUploadModule } from "ng2-file-upload/ng2-file-upload";
         account.UnconfirmedEmailComponent,
         club.ClubEditComponent,
         club.ClubListComponent,
+        forumSubsection.ForumSubsectionEditComponent,
         forumSubsection.ForumSubsectionListComponent,
         home.AboutClubComponent,
         home.CoachTeamComponent,

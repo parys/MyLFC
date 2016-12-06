@@ -66,5 +66,11 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
         {
             return await _context.ForumSubsections.ToListAsync();
         }
+
+        public Task<ForumSubsection> GetByIdWithThemesAsync(int subsectionId, int page)
+        {
+            throw  new NotImplementedException(); //todo
+          //  var section = _context.ForumSubsections.Include(x => x.Themes).FirstOrDefaultAsync()
+        }
     }
 }
