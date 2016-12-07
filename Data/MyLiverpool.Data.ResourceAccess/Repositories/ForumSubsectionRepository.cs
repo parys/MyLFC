@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using MyLiverpool.Data.Entities;
 using MyLiverpool.Data.ResourceAccess.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace MyLiverpool.Data.ResourceAccess.Repositories
 {
@@ -67,10 +68,24 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             return await _context.ForumSubsections.ToListAsync();
         }
 
-        public Task<ForumSubsection> GetByIdWithThemesAsync(int subsectionId, int page)
+        public async Task<ForumSubsection> GetByIdWithThemesAsync(int subsectionId, int page, int itemPerPage = 15)
         {
-            throw  new NotImplementedException(); //todo
-          //  var section = _context.ForumSubsections.Include(x => x.Themes).FirstOrDefaultAsync()
+            return
+                await
+                    _context.ForumSubsections.Where(x => x.Id == subsectionId).Select(x =>
+                        new ForumSubsection()
+                        {
+                            Name = x.Name,
+                            Id = x.Id,
+                            Description = x.Description,
+                            ThemesCount = x.Themes.Count,
+                            Themes = x.Themes.Skip((page - 1)*itemPerPage).Take(itemPerPage).ToList(),
+                            Section = x.Section,
+                            SectionId = x.SectionId,
+                            IdOld = x.IdOld,
+                            AnswersCount = x.AnswersCount,
+                            Views = x.Views
+                        }).FirstOrDefaultAsync();
         }
     }
 }

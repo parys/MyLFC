@@ -1,7 +1,10 @@
-﻿export class ForumSubsection {
+﻿import { ForumTheme }  from "../forumTheme/index";
+import { Pageable }  from "../shared/index";
+
+export class ForumSubsection {
     id: number;
     name: string;
     description: string;
     sectionId: number;
-    //PageableData< ForumThemeMiniDto > Themes { get; set; } 
+    themes: Pageable<ForumTheme>;
 }

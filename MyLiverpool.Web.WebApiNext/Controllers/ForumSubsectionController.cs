@@ -49,10 +49,10 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Creates new forum subsesction.
         /// </summary>
-        /// <param name="dto"></param>
-        /// <returns></returns>
+        /// <param name="dto">Entity with filled fiels.</param>
+        /// <returns>Created entity.</returns>
         [Authorize, HttpPost("")]
         public async Task<IActionResult> Create([FromBody] ForumSubsectionDto dto)
         {
@@ -78,9 +78,9 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Returns forum subsections.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Forum subsection list.</returns>
         [AllowAnonymous, HttpGet("list")]
         public async Task<IActionResult> GetListAsync()
         {

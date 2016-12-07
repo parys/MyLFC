@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MyLiverpool.Data.Entities
 {
@@ -21,6 +22,7 @@ namespace MyLiverpool.Data.Entities
 
         public string Description { get; set; }
 
+        [NotMapped]
         public int ThemesCount { get; set; }
 
         public int AnswersCount { get; set; }

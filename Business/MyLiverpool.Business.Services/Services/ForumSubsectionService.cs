@@ -47,17 +47,12 @@ namespace MyLiverpool.Business.Services.Services
         public async Task<ForumSubsectionDto> GetAsync(int subsectionId, int page)
         {
             var subsection = await _forumSubsectionRepository.GetByIdWithThemesAsync(subsectionId, page);
-         //   var subsectionThemes =
-        //        await _forumThemeRepository.GetListAsync(page, filter: x => x.SubsectionId == subsectionId); todo to one request
-            //var subsectionThemesCount = await _unitOfWork.ForumThemeRepository.GetCountAsync(x => x.SubsectionId == subsectionId);
-            //if (subsection == null)
-            //{
-            //    return null;
-            //}
-            //var model = _mapper.Map<ForumSubsectionDto>(subsection);
-            //model.Themes = new PageableData<ForumThemeMiniDto>(_mapper.Map<IEnumerable<ForumThemeMiniDto>>(subsectionThemes), page, subsectionThemesCount);
-            //return model;
-            throw new NotImplementedException(); //todo dodo
+
+            var model = _mapper.Map<ForumSubsectionDto>(subsection);
+            model.Themes =
+                new PageableData<ForumThemeMiniDto>(_mapper.Map<IEnumerable<ForumThemeMiniDto>>(subsection.Themes), page,
+                    subsection.ThemesCount);
+            return model;
         } 
 
         public async Task<ForumSubsectionDto> GetAsync(int subsectionId)

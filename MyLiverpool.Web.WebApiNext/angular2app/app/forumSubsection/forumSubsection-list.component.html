@@ -6,7 +6,7 @@
             <a ui-sref="themeEdit({subsectionId: vm.subsection.id})">Добавить тему</a>
         </div>
         <!--  <div class="panel-body"></div>-->
-        <ul class="list-group" *ngFor="let theme of item.themes">
+        <ul class="list-group" *ngFor="let theme of item.themes.list">
             <li class="list-group-item list">
                 <span><a ui-sref="theme({id : theme.id })" [textContent]="theme.name"></a></span>
                 <span [textContent]="theme.description"></span>
@@ -20,8 +20,9 @@
         </ul>
 
     </div>
-    <div>Всего тем:<span [textContent]="totalItems"></span></div>
+    <div>Всего тем:<span [textContent]="item.themes.totalItems"></span></div>
     <div class="pagination">
-        <!--<uib-pagination ng-show="vm.totalItems > vm.itemPerPage" total-items="vm.totalItems" ng-model="vm.pageNo" ng-change="vm.goToPage()"></uib-pagination>-->
+        <pagination *ngIf="items" [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" [(ngModel)]="page" [maxSize]="7" (pageChanged)="pageChanged($event)"
+                    previousText="&lsaquo;" nextText="&rsaquo;" firstText="1" lastText="totalItems/itemsPerPage"></pagination>
     </div>
 </div>

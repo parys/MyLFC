@@ -1,4 +1,4 @@
-﻿import { Injectable } from "@angular/core";  
+﻿import { Injectable } from "@angular/core"; 
 import { Observable } from "rxjs/Observable";
 import { Configuration } from "../app.constants";
 import { HttpWrapper } from "../shared/index";
@@ -22,7 +22,7 @@ export class ForumSubsectionService {
     };
 
     getSingleWithThemes = (id: number, page: number): Observable<ForumSubsection> => {
-        return this.http.get(`${this.actionUrl}/${id}/${page})`).map(res => res.json());
+        return this.http.get(`${this.actionUrl}${id}/${page}`).map(res => res.json());
     };
 
     create = (item: ForumSubsection): Observable<ForumSubsection> => {
