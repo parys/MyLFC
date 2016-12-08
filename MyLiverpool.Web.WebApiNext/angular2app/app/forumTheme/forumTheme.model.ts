@@ -1,35 +1,21 @@
-﻿export class ForumTheme {
+﻿import { ForumMessage } from "../forumMessage/index";
+import { Pageable } from "../shared/index";
 
-    id: number;
-
-    //   IdOld: number;
-
-    subsectionId: number;
-
-    //   virtual ForumSubsection Subsection: F;
-
-    isPool: boolean;
-
-    onTop: boolean;
-
-    lastMessageAdditionTime: Date;
-
-    isClosed: boolean;
-
+export class ForumTheme { 
+    id: number;  
+    subsectionId: number;    
+    //   virtual ForumSubsection Subsection: F;  
+    isPool: boolean;       
+    onTop: boolean;             
+    lastMessageAdditionTime: Date;     
+    isClosed: boolean; 
     answers: number;
-
-    views: number;
-
+    views: number; 
     name: string;
-
     description: string;
-    //   virtual User Author: ;
-
-    authorId: number;
-
-    //    virtual User LastAnswerUser: ;
-
+    //   virtual User Author: ;     
+    authorId: number;      
+    //    virtual User LastAnswerUser: ; 
     lastAnswerUserId: number;
-
-    //     virtual ICollection< ForumMessage > Messages: ;
+    messages: Pageable<ForumMessage>;
 }

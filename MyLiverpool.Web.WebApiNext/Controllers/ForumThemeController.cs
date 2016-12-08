@@ -10,8 +10,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// <summary>
     /// Manages forum themes.
     /// </summary>
-    [Route("api/v1/[controller]")]
-    [Authorize]
+    [Authorize, Route("api/v1/[controller]")]
     public class ForumThemeController : Controller
     {
         private readonly IForumThemeService _forumThemeService;
@@ -26,21 +25,15 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Gets theme with messages on requested page.
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="page"></param>
-        /// <returns></returns>
-        [Route("")]
-        [HttpGet]
-        [AllowAnonymous]
-        public async Task<IActionResult> GetTheme(int id, int? page)
+        /// <param name="id">The identifier of forum theme.</param>
+        /// <param name="page">The page of forum message list.</param>
+        /// <returns>Forum theme with message list.</returns>
+        [AllowAnonymous, HttpGet("{id:int}/{page:int}")]
+        public async Task<IActionResult> GetTheme(int id, int page)
         {
-            if (!page.HasValue)
-            {
-                page = 1;
-            }
-            var model = await _forumThemeService.GetAsync(id, page.Value);
+            var model = await _forumThemeService.GetAsync(id, page);
             return Ok(model);
         }
 
@@ -49,9 +42,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [Route("{id}")]
-        [HttpGet]
-        [Authorize]
+        [Authorize, HttpGet("{id:int}")]
         public async Task<IActionResult> GetTheme(int id)
         {
             var model = await _forumThemeService.GetAsync(id);
@@ -63,9 +54,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <param name="dto"></param>
         /// <returns></returns>
-        [Route("")]
-        [HttpPost]
-        [Authorize]
+        [Authorize, HttpPost("")]
         public async Task<IActionResult> Create(ForumThemeDto dto)
         {
             dto.AuthorId = User.GetUserId();
@@ -79,9 +68,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <param name="dto"></param>
         /// <returns></returns>
-        [Route("")]
-        [HttpPut]
-        [Authorize]
+        [Authorize, HttpPut("")]
         public async Task<IActionResult> Update(ForumThemeDto dto)
         {
             // if (id != dto.Id)

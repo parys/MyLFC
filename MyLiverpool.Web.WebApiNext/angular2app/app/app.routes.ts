@@ -11,6 +11,7 @@ import { pmRoutes } from "./pm/pm.routing";
 import { homeRoutes } from "./home/home.routing";
 import { forumSectionRoutes } from "./forumSection/forumSection.routing";
 import { forumSubsectionRoutes } from "./forumSubsection/forumSubsection.routing";
+import { forumThemeRoutes } from "./forumTheme/forumTheme.routing";
 import { wishRoutes } from "./wish/wish.routing";
 import { materialCommentRoutes } from "./materialComment/materialComment.routing";
 import { matchRoutes } from "./match/match.routing";
@@ -21,6 +22,7 @@ const routes: Routes = [
     ...clubRoutes,
     ...forumSectionRoutes,
     ...forumSubsectionRoutes,
+    ...forumThemeRoutes,
     ...homeRoutes,
     ...matchRoutes,
     ...materialCommentRoutes,

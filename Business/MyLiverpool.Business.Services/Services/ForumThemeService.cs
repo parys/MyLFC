@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.DTO;
+using MyLiverpool.Common.Utilities;
 using MyLiverpool.Data.Entities;
 using MyLiverpool.Data.ResourceAccess.Interfaces;
 
@@ -40,15 +42,9 @@ namespace MyLiverpool.Business.Services.Services
 
         public async Task<ForumThemeDto> GetAsync(int id, int page)
         {
-            var theme = await _forumThemeRepository.GetByIdAsync(id);
-         //todo make to 1 request   var themeMessages = await _unitOfWork.ForumMessageRepository.GetOrderedByIdAsync(page, filter: x => x.ThemeId == id);
-        //    var themeMessagesCount = await _unitOfWork.ForumMessageRepository.GetCountAsync(x => x.ThemeId == id);
-            if (theme == null)
-            {
-                return null;
-            }
+            var theme = await _forumThemeRepository.GetByIdWithMessagesAsync(id, page);
             var model = _mapper.Map<ForumThemeDto>(theme);
-          //  model.Messages = new PageableData<ForumMessageDto>(_mapper.Map<IEnumerable<ForumMessageDto>>(themeMessages), page, themeMessagesCount);
+            model.Messages = new PageableData<ForumMessageDto>(_mapper.Map<IEnumerable<ForumMessageDto>>(theme.Messages), page, theme.MessagesCount);
             return model;
         }
 

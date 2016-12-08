@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -64,6 +65,31 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
         public async Task<IEnumerable<ForumTheme>> GetListAsync()
         {
             return await _context.ForumThemes.ToListAsync();
+        }
+
+        public async Task<ForumTheme> GetByIdWithMessagesAsync(int id, int page, int itemPerPage = 15)
+        {
+            return await _context.ForumThemes.Include(y => y.Messages).ThenInclude(m => m.Author).Select(x => new ForumTheme()
+            {
+                Id = x.Id,
+                AuthorId = x.AuthorId,
+                Author = x.Author,
+                Name = x.Name,
+                Description = x.Description,
+                Messages = x.Messages.Skip((page - 1) * itemPerPage).Take(itemPerPage)//.Select(y => new ForumMessage()
+                //{
+                //    Id = y.Id,
+                //    OldId = y.OldId,
+                //    AdditionTime = y.AdditionTime,
+                //    AuthorId = y.AuthorId,
+                //    Author = y.Author,
+                //    Message = y.Message,
+                //    IsFirstMessage = y.IsFirstMessage,
+                //    LastModifiedTime = y.LastModifiedTime,
+               // })
+                .ToList(),
+                MessagesCount = x.Messages.Count,
+            }).FirstOrDefaultAsync(x => x.Id == id);
         }
     }
 }

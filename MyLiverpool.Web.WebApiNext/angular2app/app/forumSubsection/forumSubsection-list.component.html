@@ -8,7 +8,7 @@
         <!--  <div class="panel-body"></div>-->
         <ul class="list-group" *ngFor="let theme of item.themes.list">
             <li class="list-group-item list">
-                <span><a ui-sref="theme({id : theme.id })" [textContent]="theme.name"></a></span>
+                <span><a [routerLink]="['/forum/theme', theme.id]" [textContent]="theme.name"></a></span>
                 <span [textContent]="theme.description"></span>
                 <span class="pull-right">
                     <a ui-sref="themeEdit({id: theme.id})"><span class="glyphicon glyphicon-pencil"></span></a>

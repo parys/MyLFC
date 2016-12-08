@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MyLiverpool.Data.Entities
 {
@@ -43,5 +44,8 @@ namespace MyLiverpool.Data.Entities
         public int LastAnswerUserId { get; set; }
 
         public virtual ICollection<ForumMessage> Messages { get; set; }
+
+        [NotMapped]
+        public int MessagesCount { get; set; }
     }
 }

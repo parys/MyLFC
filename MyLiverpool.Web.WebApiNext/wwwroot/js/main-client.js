@@ -63,7 +63,7 @@
 /******/ 	}
 /******/
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "2fb2420a2dfa85acd643"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "84f1f76c5d91b25d791b"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/
@@ -1906,7 +1906,7 @@
 	var angular2_universal_1 = __webpack_require__(24);
 	var core_1 = __webpack_require__(20);
 	var app_module_1 = __webpack_require__(25);
-	__webpack_require__(171);
+	__webpack_require__(185);
 	if (module["hot"]) {
 	    module["hot"].accept();
 	    module["hot"].dispose(function () { platform.destroy(); });
@@ -2042,101 +2042,109 @@
 	var index_3 = __webpack_require__(135);
 	var account = __webpack_require__(66);
 	var club = __webpack_require__(85);
-	var match = __webpack_require__(160);
+	var forumSubsection = __webpack_require__(141);
+	var forumTheme = __webpack_require__(149);
+	var home = __webpack_require__(120);
+	var match = __webpack_require__(174);
 	var shared = __webpack_require__(32);
 	var user_detail_component_1 = __webpack_require__(103);
 	var user_service_1 = __webpack_require__(104);
 	var user_list_component_1 = __webpack_require__(106);
 	var index_4 = __webpack_require__(110);
-	var home = __webpack_require__(120);
-	var index_5 = __webpack_require__(141);
-	var index_6 = __webpack_require__(150);
-	var ng2_auto_complete_1 = __webpack_require__(167);
-	var index_7 = __webpack_require__(168);
+	var index_5 = __webpack_require__(155);
+	var index_6 = __webpack_require__(164);
+	var ng2_auto_complete_1 = __webpack_require__(181);
+	var index_7 = __webpack_require__(182);
 	var ng2_bootstrap_1 = __webpack_require__(46);
 	var ng2_file_upload_1 = __webpack_require__(91);
 	var AppModule = (function () {
 	    function AppModule() {
 	    }
-	    AppModule = __decorate([
-	        core_1.NgModule({
-	            imports: [
-	                angular2_universal_1.UniversalModule,
-	                ng2_bootstrap_1.DatepickerModule,
-	                ng2_file_upload_1.FileUploadModule,
-	                forms_1.FormsModule,
-	                ng2_bootstrap_1.ModalModule,
-	                ng2_auto_complete_1.Ng2AutoCompleteModule,
-	                ng2_bootstrap_1.PaginationModule,
-	                forms_1.ReactiveFormsModule,
-	                ng2_bootstrap_1.TabsModule,
-	                app_routes_1.routing
-	            ],
-	            declarations: [
-	                account.AccountSigninComponent,
-	                account.AccountSignupComponent,
-	                account.ChangePasswordComponent,
-	                account.ConfirmEmailComponent,
-	                account.ForgotPasswordComponent,
-	                account.ResetPasswordComponent,
-	                account.UnconfirmedEmailComponent,
-	                club.ClubEditComponent,
-	                club.ClubListComponent,
-	                home.AboutClubComponent,
-	                home.CoachTeamComponent,
-	                home.ClubHistoryComponent,
-	                home.RightSidebarComponent,
-	                home.RulesComponent,
-	                home.SquadComponent,
-	                newsCategory.NewsCategoryEditComponent,
-	                newsCategory.NewsCategoryListComponent,
-	                app_component_1.AppComponent,
-	                index_7.EplTableComponent,
-	                index_3.ForumSectionListComponent,
-	                match.MatchEditComponent,
-	                match.MatchListComponent,
-	                index_6.MaterialCommentDetailComponent,
-	                index_6.MaterialCommentListComponent,
-	                index_6.MaterialCommentSectionComponent,
-	                index_1.NewsListComponent,
-	                index_1.NewsDetailComponent,
-	                index_1.NewsEditComponent,
-	                index_4.PmDetailComponent,
-	                index_4.PmEditComponent,
-	                index_4.PmListComponent,
-	                user_detail_component_1.UserDetailComponent,
-	                user_list_component_1.UserListComponent,
-	                index_5.WishEditComponent,
-	                index_5.WishListComponent],
-	            bootstrap: [app_component_1.AppComponent],
-	            providers: [
-	                account.AccountService,
-	                club.ClubService,
-	                match.MatchService,
-	                newsCategory.NewsCategoryService,
-	                shared.HttpWrapper,
-	                shared.GlobalValidators,
-	                shared.LocalStorageService,
-	                shared.RolesCheckedService,
-	                index_7.AdminService,
-	                app_routes_1.appRoutingProviders,
-	                index_2.AuthGuard,
-	                index_2.AuthService,
-	                app_constants_1.Configuration,
-	                index_3.ForumSectionService,
-	                { provide: local_storage_1.LocalStorage, useFactory: function () { return (window) ? window.localStorage : {}; } },
-	                index_6.MaterialCommentService,
-	                index_1.NewsService,
-	                index_4.PmService,
-	                platform_browser_1.Title,
-	                user_service_1.UserService,
-	                index_5.WishService
-	            ]
-	        }), 
-	        __metadata('design:paramtypes', [])
-	    ], AppModule);
 	    return AppModule;
 	}());
+	AppModule = __decorate([
+	    core_1.NgModule({
+	        imports: [
+	            angular2_universal_1.UniversalModule,
+	            ng2_bootstrap_1.DatepickerModule,
+	            ng2_file_upload_1.FileUploadModule,
+	            forms_1.FormsModule,
+	            ng2_bootstrap_1.ModalModule,
+	            ng2_auto_complete_1.Ng2AutoCompleteModule,
+	            ng2_bootstrap_1.PaginationModule,
+	            forms_1.ReactiveFormsModule,
+	            ng2_bootstrap_1.TabsModule,
+	            app_routes_1.routing
+	        ],
+	        declarations: [
+	            account.AccountSigninComponent,
+	            account.AccountSignupComponent,
+	            account.ChangePasswordComponent,
+	            account.ConfirmEmailComponent,
+	            account.ForgotPasswordComponent,
+	            account.ResetPasswordComponent,
+	            account.UnconfirmedEmailComponent,
+	            club.ClubEditComponent,
+	            club.ClubListComponent,
+	            forumSubsection.ForumSubsectionEditComponent,
+	            forumSubsection.ForumSubsectionListComponent,
+	            forumTheme.ForumThemeListComponent,
+	            home.AboutClubComponent,
+	            home.CoachTeamComponent,
+	            home.ClubHistoryComponent,
+	            home.RightSidebarComponent,
+	            home.RulesComponent,
+	            home.SquadComponent,
+	            newsCategory.NewsCategoryEditComponent,
+	            newsCategory.NewsCategoryListComponent,
+	            app_component_1.AppComponent,
+	            index_7.EplTableComponent,
+	            index_3.ForumSectionListComponent,
+	            match.MatchEditComponent,
+	            match.MatchListComponent,
+	            index_6.MaterialCommentDetailComponent,
+	            index_6.MaterialCommentListComponent,
+	            index_6.MaterialCommentSectionComponent,
+	            index_1.NewsListComponent,
+	            index_1.NewsDetailComponent,
+	            index_1.NewsEditComponent,
+	            index_4.PmDetailComponent,
+	            index_4.PmEditComponent,
+	            index_4.PmListComponent,
+	            user_detail_component_1.UserDetailComponent,
+	            user_list_component_1.UserListComponent,
+	            index_5.WishEditComponent,
+	            index_5.WishListComponent
+	        ],
+	        bootstrap: [app_component_1.AppComponent],
+	        providers: [
+	            account.AccountService,
+	            club.ClubService,
+	            forumSubsection.ForumSubsectionService,
+	            forumTheme.ForumThemeService,
+	            match.MatchService,
+	            newsCategory.NewsCategoryService,
+	            shared.HttpWrapper,
+	            shared.GlobalValidators,
+	            shared.LocalStorageService,
+	            shared.RolesCheckedService,
+	            index_7.AdminService,
+	            app_routes_1.appRoutingProviders,
+	            index_2.AuthGuard,
+	            index_2.AuthService,
+	            app_constants_1.Configuration,
+	            index_3.ForumSectionService,
+	            { provide: local_storage_1.LocalStorage, useFactory: function () { return (window) ? window.localStorage : {}; } },
+	            index_6.MaterialCommentService,
+	            index_1.NewsService,
+	            index_4.PmService,
+	            platform_browser_1.Title,
+	            user_service_1.UserService,
+	            index_5.WishService
+	        ]
+	    }),
+	    __metadata("design:paramtypes", [])
+	], AppModule);
 	exports.AppModule = AppModule;
 
 
@@ -2175,28 +2183,47 @@
 	var auth_service_1 = __webpack_require__(30);
 	var roles_checked_service_1 = __webpack_require__(37);
 	var AppComponent = (function () {
-	    function AppComponent(router, auth, rolesChecked, viewContainerRef, titleService) {
+	    function AppComponent(router, auth, rolesChecked, viewContainerRef, activatedRoute, titleService) {
 	        this.router = router;
 	        this.auth = auth;
 	        this.rolesChecked = rolesChecked;
+	        this.activatedRoute = activatedRoute;
+	        this.titleService = titleService;
 	        this.roles = this.rolesChecked.checkedRoles;
 	        this.viewContainerRef = viewContainerRef;
-	        titleService.setTitle("Главная");
+	        this.initTitleSubscriber();
 	    }
+	    AppComponent.prototype.setTitle = function (newTitle) {
+	        this.titleService.setTitle(newTitle);
+	    };
+	    AppComponent.prototype.initTitleSubscriber = function () {
+	        var _this = this;
+	        this.router.events
+	            .filter(function (event) { return event instanceof router_1.NavigationEnd; })
+	            .map(function () { return _this.activatedRoute; })
+	            .map(function (route) {
+	            while (route.firstChild)
+	                route = route.firstChild;
+	            return route;
+	        })
+	            .filter(function (route) { return route.outlet === "primary"; })
+	            .mergeMap(function (route) { return route.data; })
+	            .subscribe(function (event) { return _this.titleService.setTitle(event["title"]); });
+	    };
 	    AppComponent.prototype.logout = function () {
 	        this.auth.logout();
 	    };
-	    AppComponent = __decorate([
-	        core_1.Component({
-	            selector: "app",
-	            template: __webpack_require__(40)
-	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof router_1.Router !== 'undefined' && router_1.Router) === 'function' && _a) || Object, (typeof (_b = typeof auth_service_1.AuthService !== 'undefined' && auth_service_1.AuthService) === 'function' && _b) || Object, (typeof (_c = typeof roles_checked_service_1.RolesCheckedService !== 'undefined' && roles_checked_service_1.RolesCheckedService) === 'function' && _c) || Object, (typeof (_d = typeof core_1.ViewContainerRef !== 'undefined' && core_1.ViewContainerRef) === 'function' && _d) || Object, (typeof (_e = typeof platform_browser_1.Title !== 'undefined' && platform_browser_1.Title) === 'function' && _e) || Object])
-	    ], AppComponent);
 	    return AppComponent;
-	    var _a, _b, _c, _d, _e;
 	}());
+	AppComponent = __decorate([
+	    core_1.Component({
+	        selector: "app",
+	        template: __webpack_require__(40)
+	    }),
+	    __metadata("design:paramtypes", [typeof (_a = typeof router_1.Router !== "undefined" && router_1.Router) === "function" && _a || Object, typeof (_b = typeof auth_service_1.AuthService !== "undefined" && auth_service_1.AuthService) === "function" && _b || Object, typeof (_c = typeof roles_checked_service_1.RolesCheckedService !== "undefined" && roles_checked_service_1.RolesCheckedService) === "function" && _c || Object, typeof (_d = typeof core_1.ViewContainerRef !== "undefined" && core_1.ViewContainerRef) === "function" && _d || Object, typeof (_e = typeof router_1.ActivatedRoute !== "undefined" && router_1.ActivatedRoute) === "function" && _e || Object, typeof (_f = typeof platform_browser_1.Title !== "undefined" && platform_browser_1.Title) === "function" && _f || Object])
+	], AppComponent);
 	exports.AppComponent = AppComponent;
+	var _a, _b, _c, _d, _e, _f;
 
 
 /***/ },
@@ -2289,18 +2316,18 @@
 	        var _this = this;
 	        this.http.get(this.configuration.ServerWithApiUrl + "user/getId")
 	            .subscribe(function (data) { return _this.id = +JSON.parse(data.text()); }, function (error) { return console.log(error); }, function () {
-	            _this.localStorage.setUserId(_this.id.toString());
+	            _this.localStorage.setUserId(_this.id);
 	            _this.getRoles();
 	        });
 	    };
-	    AuthService = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof index_1.HttpWrapper !== 'undefined' && index_1.HttpWrapper) === 'function' && _a) || Object, (typeof (_b = typeof http_1.Http !== 'undefined' && http_1.Http) === 'function' && _b) || Object, (typeof (_c = typeof index_1.LocalStorageService !== 'undefined' && index_1.LocalStorageService) === 'function' && _c) || Object, (typeof (_d = typeof index_1.RolesCheckedService !== 'undefined' && index_1.RolesCheckedService) === 'function' && _d) || Object, (typeof (_e = typeof router_1.Router !== 'undefined' && router_1.Router) === 'function' && _e) || Object, (typeof (_f = typeof app_constants_1.Configuration !== 'undefined' && app_constants_1.Configuration) === 'function' && _f) || Object])
-	    ], AuthService);
 	    return AuthService;
-	    var _a, _b, _c, _d, _e, _f;
 	}());
+	AuthService = __decorate([
+	    core_1.Injectable(),
+	    __metadata("design:paramtypes", [typeof (_a = typeof index_1.HttpWrapper !== "undefined" && index_1.HttpWrapper) === "function" && _a || Object, typeof (_b = typeof http_1.Http !== "undefined" && http_1.Http) === "function" && _b || Object, typeof (_c = typeof index_1.LocalStorageService !== "undefined" && index_1.LocalStorageService) === "function" && _c || Object, typeof (_d = typeof index_1.RolesCheckedService !== "undefined" && index_1.RolesCheckedService) === "function" && _d || Object, typeof (_e = typeof router_1.Router !== "undefined" && router_1.Router) === "function" && _e || Object, typeof (_f = typeof app_constants_1.Configuration !== "undefined" && app_constants_1.Configuration) === "function" && _f || Object])
+	], AuthService);
 	exports.AuthService = AuthService;
+	var _a, _b, _c, _d, _e, _f;
 
 
 /***/ },
@@ -2394,14 +2421,14 @@
 	            body: ""
 	        });
 	    };
-	    HttpWrapper = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof http_1.Http !== 'undefined' && http_1.Http) === 'function' && _a) || Object, (typeof (_b = typeof localStorage_service_1.LocalStorageService !== 'undefined' && localStorage_service_1.LocalStorageService) === 'function' && _b) || Object])
-	    ], HttpWrapper);
 	    return HttpWrapper;
-	    var _a, _b;
 	}());
+	HttpWrapper = __decorate([
+	    core_1.Injectable(),
+	    __metadata("design:paramtypes", [typeof (_a = typeof http_1.Http !== "undefined" && http_1.Http) === "function" && _a || Object, typeof (_b = typeof localStorage_service_1.LocalStorageService !== "undefined" && localStorage_service_1.LocalStorageService) === "function" && _b || Object])
+	], HttpWrapper);
 	exports.HttpWrapper = HttpWrapper;
+	var _a, _b;
 
 
 /***/ },
@@ -2508,12 +2535,12 @@
 	    LocalStorageService.prototype.remove = function (key) {
 	        localStorage.removeItem(key);
 	    };
-	    LocalStorageService = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [])
-	    ], LocalStorageService);
 	    return LocalStorageService;
 	}());
+	LocalStorageService = __decorate([
+	    core_1.Injectable(),
+	    __metadata("design:paramtypes", [])
+	], LocalStorageService);
 	exports.LocalStorageService = LocalStorageService;
 
 
@@ -2603,14 +2630,14 @@
 	        var userId = this.localStorage.getUserId();
 	        return (userId === authorId);
 	    };
-	    RolesCheckedService = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof localStorage_service_1.LocalStorageService !== 'undefined' && localStorage_service_1.LocalStorageService) === 'function' && _a) || Object])
-	    ], RolesCheckedService);
 	    return RolesCheckedService;
-	    var _a;
 	}());
+	RolesCheckedService = __decorate([
+	    core_1.Injectable(),
+	    __metadata("design:paramtypes", [typeof (_a = typeof localStorage_service_1.LocalStorageService !== "undefined" && localStorage_service_1.LocalStorageService) === "function" && _a || Object])
+	], RolesCheckedService);
 	exports.RolesCheckedService = RolesCheckedService;
+	var _a;
 
 
 /***/ },
@@ -2649,12 +2676,12 @@
 	            }
 	        };
 	    };
-	    GlobalValidators = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [])
-	    ], GlobalValidators);
 	    return GlobalValidators;
 	}());
+	GlobalValidators = __decorate([
+	    core_1.Injectable(),
+	    __metadata("design:paramtypes", [])
+	], GlobalValidators);
 	exports.GlobalValidators = GlobalValidators;
 
 
@@ -2679,12 +2706,12 @@
 	        this.ApiUrl = "api/v1/";
 	        this.ServerWithApiUrl = this.Server + this.ApiUrl;
 	    }
-	    Configuration = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [])
-	    ], Configuration);
 	    return Configuration;
 	}());
+	Configuration = __decorate([
+	    core_1.Injectable(),
+	    __metadata("design:paramtypes", [])
+	], Configuration);
 	exports.Configuration = Configuration;
 
 
@@ -2710,11 +2737,13 @@
 	var pm_routing_1 = __webpack_require__(109);
 	var home_routing_1 = __webpack_require__(119);
 	var forumSection_routing_1 = __webpack_require__(134);
-	var wish_routing_1 = __webpack_require__(140);
-	var materialComment_routing_1 = __webpack_require__(149);
-	var match_routing_1 = __webpack_require__(159);
-	var routes = account_routing_1.accountRoutes.concat(auth_routing_1.authRoutes, club_routing_1.clubRoutes, forumSection_routing_1.forumSectionRoutes, home_routing_1.homeRoutes, match_routing_1.matchRoutes, materialComment_routing_1.materialCommentRoutes, newsCategory_routing_1.newsCategoryRoutes, news_routing_1.newsRoutes, pm_routing_1.pmRoutes, user_routing_1.userRoutes, wish_routing_1.wishRoutes, [
-	    { path: "", component: index_1.NewsListComponent }
+	var forumSubsection_routing_1 = __webpack_require__(140);
+	var forumTheme_routing_1 = __webpack_require__(148);
+	var wish_routing_1 = __webpack_require__(154);
+	var materialComment_routing_1 = __webpack_require__(163);
+	var match_routing_1 = __webpack_require__(173);
+	var routes = account_routing_1.accountRoutes.concat(auth_routing_1.authRoutes, club_routing_1.clubRoutes, forumSection_routing_1.forumSectionRoutes, forumSubsection_routing_1.forumSubsectionRoutes, forumTheme_routing_1.forumThemeRoutes, home_routing_1.homeRoutes, match_routing_1.matchRoutes, materialComment_routing_1.materialCommentRoutes, newsCategory_routing_1.newsCategoryRoutes, news_routing_1.newsRoutes, pm_routing_1.pmRoutes, user_routing_1.userRoutes, wish_routing_1.wishRoutes, [
+	    { path: "", component: index_1.NewsListComponent, data: { title: "Главная" } }
 	]);
 	exports.appRoutingProviders = [
 	    auth_routing_1.authProviders
@@ -2821,25 +2850,25 @@
 	            this.newsService.addView(id).subscribe(function (data) { return data; });
 	        }
 	    };
-	    __decorate([
-	        core_1.ViewChild("activateModal"), 
-	        __metadata('design:type', (typeof (_a = typeof ng2_bootstrap_1.ModalDirective !== 'undefined' && ng2_bootstrap_1.ModalDirective) === 'function' && _a) || Object)
-	    ], NewsDetailComponent.prototype, "activateModal", void 0);
-	    __decorate([
-	        core_1.ViewChild("deleteModal"), 
-	        __metadata('design:type', (typeof (_b = typeof ng2_bootstrap_1.ModalDirective !== 'undefined' && ng2_bootstrap_1.ModalDirective) === 'function' && _b) || Object)
-	    ], NewsDetailComponent.prototype, "deleteModal", void 0);
-	    NewsDetailComponent = __decorate([
-	        core_1.Component({
-	            selector: "news-detail",
-	            template: __webpack_require__(47)
-	        }), 
-	        __metadata('design:paramtypes', [(typeof (_c = typeof news_service_1.NewsService !== 'undefined' && news_service_1.NewsService) === 'function' && _c) || Object, (typeof (_d = typeof router_1.ActivatedRoute !== 'undefined' && router_1.ActivatedRoute) === 'function' && _d) || Object, (typeof (_e = typeof index_1.LocalStorageService !== 'undefined' && index_1.LocalStorageService) === 'function' && _e) || Object, (typeof (_f = typeof index_1.RolesCheckedService !== 'undefined' && index_1.RolesCheckedService) === 'function' && _f) || Object, (typeof (_g = typeof router_1.Router !== 'undefined' && router_1.Router) === 'function' && _g) || Object, (typeof (_h = typeof platform_browser_1.Title !== 'undefined' && platform_browser_1.Title) === 'function' && _h) || Object])
-	    ], NewsDetailComponent);
 	    return NewsDetailComponent;
-	    var _a, _b, _c, _d, _e, _f, _g, _h;
 	}());
+	__decorate([
+	    core_1.ViewChild("activateModal"),
+	    __metadata("design:type", typeof (_a = typeof ng2_bootstrap_1.ModalDirective !== "undefined" && ng2_bootstrap_1.ModalDirective) === "function" && _a || Object)
+	], NewsDetailComponent.prototype, "activateModal", void 0);
+	__decorate([
+	    core_1.ViewChild("deleteModal"),
+	    __metadata("design:type", typeof (_b = typeof ng2_bootstrap_1.ModalDirective !== "undefined" && ng2_bootstrap_1.ModalDirective) === "function" && _b || Object)
+	], NewsDetailComponent.prototype, "deleteModal", void 0);
+	NewsDetailComponent = __decorate([
+	    core_1.Component({
+	        selector: "news-detail",
+	        template: __webpack_require__(47)
+	    }),
+	    __metadata("design:paramtypes", [typeof (_c = typeof news_service_1.NewsService !== "undefined" && news_service_1.NewsService) === "function" && _c || Object, typeof (_d = typeof router_1.ActivatedRoute !== "undefined" && router_1.ActivatedRoute) === "function" && _d || Object, typeof (_e = typeof index_1.LocalStorageService !== "undefined" && index_1.LocalStorageService) === "function" && _e || Object, typeof (_f = typeof index_1.RolesCheckedService !== "undefined" && index_1.RolesCheckedService) === "function" && _f || Object, typeof (_g = typeof router_1.Router !== "undefined" && router_1.Router) === "function" && _g || Object, typeof (_h = typeof platform_browser_1.Title !== "undefined" && platform_browser_1.Title) === "function" && _h || Object])
+	], NewsDetailComponent);
 	exports.NewsDetailComponent = NewsDetailComponent;
+	var _a, _b, _c, _d, _e, _f, _g, _h;
 
 
 /***/ },
@@ -2890,14 +2919,14 @@
 	        };
 	        this.actionUrl = configuration.ServerWithApiUrl + "material/";
 	    }
-	    NewsService = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof httpWrapper_1.HttpWrapper !== 'undefined' && httpWrapper_1.HttpWrapper) === 'function' && _a) || Object, (typeof (_b = typeof app_constants_1.Configuration !== 'undefined' && app_constants_1.Configuration) === 'function' && _b) || Object])
-	    ], NewsService);
 	    return NewsService;
-	    var _a, _b;
 	}());
+	NewsService = __decorate([
+	    core_1.Injectable(),
+	    __metadata("design:paramtypes", [typeof (_a = typeof httpWrapper_1.HttpWrapper !== "undefined" && httpWrapper_1.HttpWrapper) === "function" && _a || Object, typeof (_b = typeof app_constants_1.Configuration !== "undefined" && app_constants_1.Configuration) === "function" && _b || Object])
+	], NewsService);
 	exports.NewsService = NewsService;
+	var _a, _b;
 
 
 /***/ },
@@ -3040,26 +3069,26 @@
 	            _this.update();
 	        });
 	    };
-	    __decorate([
-	        core_1.ViewChild("activateModal"), 
-	        __metadata('design:type', (typeof (_a = typeof ng2_bootstrap_1.ModalDirective !== 'undefined' && ng2_bootstrap_1.ModalDirective) === 'function' && _a) || Object)
-	    ], NewsListComponent.prototype, "activateModal", void 0);
-	    __decorate([
-	        core_1.ViewChild("deleteModal"), 
-	        __metadata('design:type', (typeof (_b = typeof ng2_bootstrap_1.ModalDirective !== 'undefined' && ng2_bootstrap_1.ModalDirective) === 'function' && _b) || Object)
-	    ], NewsListComponent.prototype, "deleteModal", void 0);
-	    NewsListComponent = __decorate([
-	        core_1.Component({
-	            selector: "news-list",
-	            template: __webpack_require__(51),
-	            changeDetection: core_1.ChangeDetectionStrategy.Default
-	        }), 
-	        __metadata('design:paramtypes', [(typeof (_c = typeof router_1.Router !== 'undefined' && router_1.Router) === 'function' && _c) || Object, (typeof (_d = typeof news_service_1.NewsService !== 'undefined' && news_service_1.NewsService) === 'function' && _d) || Object, (typeof (_e = typeof router_1.ActivatedRoute !== 'undefined' && router_1.ActivatedRoute) === 'function' && _e) || Object, (typeof (_f = typeof common_1.Location !== 'undefined' && common_1.Location) === 'function' && _f) || Object, (typeof (_g = typeof index_1.RolesCheckedService !== 'undefined' && index_1.RolesCheckedService) === 'function' && _g) || Object, (typeof (_h = typeof core_1.ChangeDetectorRef !== 'undefined' && core_1.ChangeDetectorRef) === 'function' && _h) || Object])
-	    ], NewsListComponent);
 	    return NewsListComponent;
-	    var _a, _b, _c, _d, _e, _f, _g, _h;
 	}());
+	__decorate([
+	    core_1.ViewChild("activateModal"),
+	    __metadata("design:type", typeof (_a = typeof ng2_bootstrap_1.ModalDirective !== "undefined" && ng2_bootstrap_1.ModalDirective) === "function" && _a || Object)
+	], NewsListComponent.prototype, "activateModal", void 0);
+	__decorate([
+	    core_1.ViewChild("deleteModal"),
+	    __metadata("design:type", typeof (_b = typeof ng2_bootstrap_1.ModalDirective !== "undefined" && ng2_bootstrap_1.ModalDirective) === "function" && _b || Object)
+	], NewsListComponent.prototype, "deleteModal", void 0);
+	NewsListComponent = __decorate([
+	    core_1.Component({
+	        selector: "news-list",
+	        template: __webpack_require__(51),
+	        changeDetection: core_1.ChangeDetectionStrategy.Default
+	    }),
+	    __metadata("design:paramtypes", [typeof (_c = typeof router_1.Router !== "undefined" && router_1.Router) === "function" && _c || Object, typeof (_d = typeof news_service_1.NewsService !== "undefined" && news_service_1.NewsService) === "function" && _d || Object, typeof (_e = typeof router_1.ActivatedRoute !== "undefined" && router_1.ActivatedRoute) === "function" && _e || Object, typeof (_f = typeof common_1.Location !== "undefined" && common_1.Location) === "function" && _f || Object, typeof (_g = typeof index_1.RolesCheckedService !== "undefined" && index_1.RolesCheckedService) === "function" && _g || Object, typeof (_h = typeof core_1.ChangeDetectorRef !== "undefined" && core_1.ChangeDetectorRef) === "function" && _h || Object])
+	], NewsListComponent);
 	exports.NewsListComponent = NewsListComponent;
+	var _a, _b, _c, _d, _e, _f, _g, _h;
 
 
 /***/ },
@@ -3164,38 +3193,46 @@
 	    NewsEditComponent.prototype.initForm = function () {
 	        this.editForm = this.formBuilder.group({
 	            'categoryId': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required])],
+	                    forms_1.Validators.required
+	                ])],
 	            'title': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required])],
+	                    forms_1.Validators.required
+	                ])],
 	            'brief': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required])],
+	                    forms_1.Validators.required
+	                ])],
 	            'message': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required])],
+	                    forms_1.Validators.required
+	                ])],
 	            'source': ["", forms_1.Validators.compose([])],
 	            'photo': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required])],
+	                    forms_1.Validators.required
+	                ])],
 	            'canCommentary': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required])],
+	                    forms_1.Validators.required
+	                ])],
 	            'onTop': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required])],
+	                    forms_1.Validators.required
+	                ])],
 	            'pending': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required])]
+	                    forms_1.Validators.required
+	                ])]
 	        });
 	    };
 	    NewsEditComponent.prototype.parseCategories = function (items) {
 	        this.categories = items;
 	    };
-	    NewsEditComponent = __decorate([
-	        core_1.Component({
-	            selector: "news-edit",
-	            template: __webpack_require__(61)
-	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof news_service_1.NewsService !== 'undefined' && news_service_1.NewsService) === 'function' && _a) || Object, (typeof (_b = typeof index_1.NewsCategoryService !== 'undefined' && index_1.NewsCategoryService) === 'function' && _b) || Object, (typeof (_c = typeof router_1.ActivatedRoute !== 'undefined' && router_1.ActivatedRoute) === 'function' && _c) || Object, (typeof (_d = typeof router_1.Router !== 'undefined' && router_1.Router) === 'function' && _d) || Object, (typeof (_e = typeof forms_1.FormBuilder !== 'undefined' && forms_1.FormBuilder) === 'function' && _e) || Object])
-	    ], NewsEditComponent);
 	    return NewsEditComponent;
-	    var _a, _b, _c, _d, _e;
 	}());
+	NewsEditComponent = __decorate([
+	    core_1.Component({
+	        selector: "news-edit",
+	        template: __webpack_require__(61)
+	    }),
+	    __metadata("design:paramtypes", [typeof (_a = typeof news_service_1.NewsService !== "undefined" && news_service_1.NewsService) === "function" && _a || Object, typeof (_b = typeof index_1.NewsCategoryService !== "undefined" && index_1.NewsCategoryService) === "function" && _b || Object, typeof (_c = typeof router_1.ActivatedRoute !== "undefined" && router_1.ActivatedRoute) === "function" && _c || Object, typeof (_d = typeof router_1.Router !== "undefined" && router_1.Router) === "function" && _d || Object, typeof (_e = typeof forms_1.FormBuilder !== "undefined" && forms_1.FormBuilder) === "function" && _e || Object])
+	], NewsEditComponent);
 	exports.NewsEditComponent = NewsEditComponent;
+	var _a, _b, _c, _d, _e;
 
 
 /***/ },
@@ -3265,14 +3302,14 @@
 	        };
 	        this.actionUrl = configuration.ServerWithApiUrl + "newsCategory/";
 	    }
-	    NewsCategoryService = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof httpWrapper_1.HttpWrapper !== 'undefined' && httpWrapper_1.HttpWrapper) === 'function' && _a) || Object, (typeof (_b = typeof app_constants_1.Configuration !== 'undefined' && app_constants_1.Configuration) === 'function' && _b) || Object])
-	    ], NewsCategoryService);
 	    return NewsCategoryService;
-	    var _a, _b;
 	}());
+	NewsCategoryService = __decorate([
+	    core_1.Injectable(),
+	    __metadata("design:paramtypes", [typeof (_a = typeof httpWrapper_1.HttpWrapper !== "undefined" && httpWrapper_1.HttpWrapper) === "function" && _a || Object, typeof (_b = typeof app_constants_1.Configuration !== "undefined" && app_constants_1.Configuration) === "function" && _b || Object])
+	], NewsCategoryService);
 	exports.NewsCategoryService = NewsCategoryService;
+	var _a, _b;
 
 
 /***/ },
@@ -3342,17 +3379,17 @@
 	        if (res !== null) {
 	        }
 	    };
-	    NewsCategoryEditComponent = __decorate([
-	        core_1.Component({
-	            selector: "newsCategory-edit",
-	            template: __webpack_require__(58)
-	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof newsCategory_service_1.NewsCategoryService !== 'undefined' && newsCategory_service_1.NewsCategoryService) === 'function' && _a) || Object, (typeof (_b = typeof forms_1.FormBuilder !== 'undefined' && forms_1.FormBuilder) === 'function' && _b) || Object, (typeof (_c = typeof router_1.ActivatedRoute !== 'undefined' && router_1.ActivatedRoute) === 'function' && _c) || Object])
-	    ], NewsCategoryEditComponent);
 	    return NewsCategoryEditComponent;
-	    var _a, _b, _c;
 	}());
+	NewsCategoryEditComponent = __decorate([
+	    core_1.Component({
+	        selector: "newsCategory-edit",
+	        template: __webpack_require__(58)
+	    }),
+	    __metadata("design:paramtypes", [typeof (_a = typeof newsCategory_service_1.NewsCategoryService !== "undefined" && newsCategory_service_1.NewsCategoryService) === "function" && _a || Object, typeof (_b = typeof forms_1.FormBuilder !== "undefined" && forms_1.FormBuilder) === "function" && _b || Object, typeof (_c = typeof router_1.ActivatedRoute !== "undefined" && router_1.ActivatedRoute) === "function" && _c || Object])
+	], NewsCategoryEditComponent);
 	exports.NewsCategoryEditComponent = NewsCategoryEditComponent;
+	var _a, _b, _c;
 
 
 /***/ },
@@ -3410,24 +3447,24 @@
 	        this.newsCategoryService.delete(this.items[index].id).subscribe(function (data) { return data; }, function (error) { return console.log(error); }, function () { });
 	        this.items.splice(index, 1);
 	    };
-	    NewsCategoryListComponent = __decorate([
-	        core_1.Component({
-	            selector: "newsCategory-list",
-	            template: __webpack_require__(60)
-	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof newsCategory_service_1.NewsCategoryService !== 'undefined' && newsCategory_service_1.NewsCategoryService) === 'function' && _a) || Object, (typeof (_b = typeof platform_browser_1.Title !== 'undefined' && platform_browser_1.Title) === 'function' && _b) || Object])
-	    ], NewsCategoryListComponent);
 	    return NewsCategoryListComponent;
-	    var _a, _b;
 	}());
+	NewsCategoryListComponent = __decorate([
+	    core_1.Component({
+	        selector: "newsCategory-list",
+	        template: __webpack_require__(60)
+	    }),
+	    __metadata("design:paramtypes", [typeof (_a = typeof newsCategory_service_1.NewsCategoryService !== "undefined" && newsCategory_service_1.NewsCategoryService) === "function" && _a || Object, typeof (_b = typeof platform_browser_1.Title !== "undefined" && platform_browser_1.Title) === "function" && _b || Object])
+	], NewsCategoryListComponent);
 	exports.NewsCategoryListComponent = NewsCategoryListComponent;
+	var _a, _b;
 
 
 /***/ },
 /* 60 */
 /***/ function(module, exports) {
 
-	module.exports = "<div>\r\n    <a secured=\"newsFull\" [routerLink]=\"['/newsCategory', 0, 'edit']\">Создать категорию</a>\r\n    <ul>\r\n        <li *ngFor=\"let category of items; let i = index;\">\r\n            <a [routerLink]=\"['/news/list', 1, category.id ]\">\r\n                <span [textContent]=\"category.name\"></span> [<span [textContent]=\"category.itemsCount\"></span>]\r\n            </a>\r\n            <!--->a secured=\"newsStart\" [routerLink]=\"['/news/list', page, item.categoryId ]\">\r\n                <span [textContent]=\"category.name\"></span> [<span [textContent]=\"category.itemsCount\"></span>]\r\n            </!--a-->\r\n            <a [routerLink]=\"['/newsCategory', category.id, 'edit']\"> <span class=\"glyphicon glyphicon-pencil\">newsStart</span></a>\r\n            <a *ngIf=\"category.itemsCount == 0\" (click)=\"delete(i)\"> <span class=\"glyphicon glyphicon-trash\">newsFull</span></a>\r\n        </li>\r\n    </ul>\r\n</div>";
+	module.exports = "<div>\r\n    <a secured=\"newsFull\" [routerLink]=\"['/newsCategory', 0, 'edit']\">Создать категорию</a>\r\n    <ul>\r\n        <li *ngFor=\"let category of items; let i = index;\">\r\n            <a [routerLink]=\"['/news/list', 1, category.id ]\">\r\n                <span [textContent]=\"category.name\"></span> [<span [textContent]=\"category.itemsCount\"></span>]\r\n            </a>\r\n            <a [routerLink]=\"['/newsCategory', category.id, 'edit']\"> <span class=\"glyphicon glyphicon-pencil\">newsStart</span></a>\r\n            <a *ngIf=\"category.itemsCount == 0\" (click)=\"delete(i)\"> <span class=\"glyphicon glyphicon-trash\">newsFull</span></a>\r\n        </li>\r\n    </ul>\r\n</div>";
 
 /***/ },
 /* 61 */
@@ -3489,14 +3526,14 @@
 	        this.authService.redirectUrl = state.url;
 	        return false;
 	    };
-	    AuthGuard = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof auth_service_1.AuthService !== 'undefined' && auth_service_1.AuthService) === 'function' && _a) || Object, (typeof (_b = typeof router_1.Router !== 'undefined' && router_1.Router) === 'function' && _b) || Object])
-	    ], AuthGuard);
 	    return AuthGuard;
-	    var _a, _b;
 	}());
+	AuthGuard = __decorate([
+	    core_1.Injectable(),
+	    __metadata("design:paramtypes", [typeof (_a = typeof auth_service_1.AuthService !== "undefined" && auth_service_1.AuthService) === "function" && _a || Object, typeof (_b = typeof router_1.Router !== "undefined" && router_1.Router) === "function" && _b || Object])
+	], AuthGuard);
 	exports.AuthGuard = AuthGuard;
+	var _a, _b;
 
 
 /***/ },
@@ -3558,9 +3595,11 @@
 	    AccountSigninComponent.prototype.ngOnInit = function () {
 	        this.loginForm = this.formBuilder.group({
 	            'userName': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required])],
+	                    forms_1.Validators.required
+	                ])],
 	            'password': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required])]
+	                    forms_1.Validators.required
+	                ])]
 	        });
 	    };
 	    AccountSigninComponent.prototype.onSubmit = function (ra) {
@@ -3568,17 +3607,17 @@
 	        this.password = this.loginForm.controls["password"].value;
 	        var result = this.authService.login(this.userName, this.password);
 	    };
-	    AccountSigninComponent = __decorate([
-	        core_1.Component({
-	            selector: "account-signin",
-	            template: __webpack_require__(68)
-	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof auth_service_1.AuthService !== 'undefined' && auth_service_1.AuthService) === 'function' && _a) || Object, (typeof (_b = typeof forms_1.FormBuilder !== 'undefined' && forms_1.FormBuilder) === 'function' && _b) || Object])
-	    ], AccountSigninComponent);
 	    return AccountSigninComponent;
-	    var _a, _b;
 	}());
+	AccountSigninComponent = __decorate([
+	    core_1.Component({
+	        selector: "account-signin",
+	        template: __webpack_require__(68)
+	    }),
+	    __metadata("design:paramtypes", [typeof (_a = typeof auth_service_1.AuthService !== "undefined" && auth_service_1.AuthService) === "function" && _a || Object, typeof (_b = typeof forms_1.FormBuilder !== "undefined" && forms_1.FormBuilder) === "function" && _b || Object])
+	], AccountSigninComponent);
 	exports.AccountSigninComponent = AccountSigninComponent;
+	var _a, _b;
 
 
 /***/ },
@@ -3614,17 +3653,23 @@
 	    AccountSignupComponent.prototype.ngOnInit = function () {
 	        this.registerForm = this.formBuilder.group({
 	            'userName': ["123", forms_1.Validators.compose([
-	                    forms_1.Validators.required, forms_1.Validators.minLength(3)])],
+	                    forms_1.Validators.required, forms_1.Validators.minLength(3)
+	                ])],
 	            'email': ["andrew_parys@tut.by", forms_1.Validators.compose([
-	                    forms_1.Validators.required, forms_1.Validators.minLength(6), , index_1.GlobalValidators.mailFormat])],
+	                    forms_1.Validators.required, forms_1.Validators.minLength(6), , index_1.GlobalValidators.mailFormat
+	                ])],
 	            'password': ["123qwe!Q", forms_1.Validators.compose([
-	                    forms_1.Validators.required, forms_1.Validators.minLength(6)])],
+	                    forms_1.Validators.required, forms_1.Validators.minLength(6)
+	                ])],
 	            'confirmPassword': ["123qwe!Q", forms_1.Validators.compose([
-	                    forms_1.Validators.required, forms_1.Validators.minLength(6)])],
+	                    forms_1.Validators.required, forms_1.Validators.minLength(6)
+	                ])],
 	            'fullName': ["123", forms_1.Validators.compose([
-	                    forms_1.Validators.required,])],
+	                    forms_1.Validators.required,
+	                ])],
 	            'birthday': ["10/10/2015", forms_1.Validators.compose([
-	                    forms_1.Validators.required,])]
+	                    forms_1.Validators.required,
+	                ])]
 	        });
 	    };
 	    AccountSignupComponent.prototype.onSubmit = function (value) {
@@ -3639,17 +3684,17 @@
 	            .create(signup)
 	            .subscribe(function (data) { }, function (error) { return console.log(error); }, function () { });
 	    };
-	    AccountSignupComponent = __decorate([
-	        core_1.Component({
-	            selector: "account-signup",
-	            template: __webpack_require__(72)
-	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof account_service_1.AccountService !== 'undefined' && account_service_1.AccountService) === 'function' && _a) || Object, (typeof (_b = typeof forms_1.FormBuilder !== 'undefined' && forms_1.FormBuilder) === 'function' && _b) || Object])
-	    ], AccountSignupComponent);
 	    return AccountSignupComponent;
-	    var _a, _b;
 	}());
+	AccountSignupComponent = __decorate([
+	    core_1.Component({
+	        selector: "account-signup",
+	        template: __webpack_require__(72)
+	    }),
+	    __metadata("design:paramtypes", [typeof (_a = typeof account_service_1.AccountService !== "undefined" && account_service_1.AccountService) === "function" && _a || Object, typeof (_b = typeof forms_1.FormBuilder !== "undefined" && forms_1.FormBuilder) === "function" && _b || Object])
+	], AccountSignupComponent);
 	exports.AccountSignupComponent = AccountSignupComponent;
+	var _a, _b;
 
 
 /***/ },
@@ -3708,14 +3753,14 @@
 	        };
 	        this.actionUrl = configuration.ServerWithApiUrl + "account/";
 	    }
-	    AccountService = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof index_1.HttpWrapper !== 'undefined' && index_1.HttpWrapper) === 'function' && _a) || Object, (typeof (_b = typeof app_constants_1.Configuration !== 'undefined' && app_constants_1.Configuration) === 'function' && _b) || Object])
-	    ], AccountService);
 	    return AccountService;
-	    var _a, _b;
 	}());
+	AccountService = __decorate([
+	    core_1.Injectable(),
+	    __metadata("design:paramtypes", [typeof (_a = typeof index_1.HttpWrapper !== "undefined" && index_1.HttpWrapper) === "function" && _a || Object, typeof (_b = typeof app_constants_1.Configuration !== "undefined" && app_constants_1.Configuration) === "function" && _b || Object])
+	], AccountService);
 	exports.AccountService = AccountService;
+	var _a, _b;
 
 
 /***/ },
@@ -3763,17 +3808,17 @@
 	    ConfirmEmailComponent.prototype.ngOnDestroy = function () {
 	        this.sub.unsubscribe();
 	    };
-	    ConfirmEmailComponent = __decorate([
-	        core_1.Component({
-	            selector: "email-confirmation",
-	            template: "<span [hidden]='!result'>Ваш адрес электронной почты успешно подтвержден. Можете войти и быть как дома.</span>"
-	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof account_service_1.AccountService !== 'undefined' && account_service_1.AccountService) === 'function' && _a) || Object, (typeof (_b = typeof router_1.ActivatedRoute !== 'undefined' && router_1.ActivatedRoute) === 'function' && _b) || Object, (typeof (_c = typeof router_1.Router !== 'undefined' && router_1.Router) === 'function' && _c) || Object])
-	    ], ConfirmEmailComponent);
 	    return ConfirmEmailComponent;
-	    var _a, _b, _c;
 	}());
+	ConfirmEmailComponent = __decorate([
+	    core_1.Component({
+	        selector: "email-confirmation",
+	        template: "<span [hidden]='!result'>Ваш адрес электронной почты успешно подтвержден. Можете войти и быть как дома.</span>"
+	    }),
+	    __metadata("design:paramtypes", [typeof (_a = typeof account_service_1.AccountService !== "undefined" && account_service_1.AccountService) === "function" && _a || Object, typeof (_b = typeof router_1.ActivatedRoute !== "undefined" && router_1.ActivatedRoute) === "function" && _b || Object, typeof (_c = typeof router_1.Router !== "undefined" && router_1.Router) === "function" && _c || Object])
+	], ConfirmEmailComponent);
 	exports.ConfirmEmailComponent = ConfirmEmailComponent;
+	var _a, _b, _c;
 
 
 /***/ },
@@ -3802,7 +3847,8 @@
 	    ForgotPasswordComponent.prototype.ngOnInit = function () {
 	        this.forgotForm = this.formBuilder.group({
 	            'email': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required, index_1.GlobalValidators.mailFormat])]
+	                    forms_1.Validators.required, index_1.GlobalValidators.mailFormat
+	                ])]
 	        });
 	    };
 	    ForgotPasswordComponent.prototype.onSubmit = function (ra) {
@@ -3810,17 +3856,17 @@
 	        this.service.forgotPassword(this.email).subscribe(function (data) { return data; }, function (error) { return console.log(error); }, function () { });
 	        this.finish = true;
 	    };
-	    ForgotPasswordComponent = __decorate([
-	        core_1.Component({
-	            selector: "forgot-password",
-	            template: __webpack_require__(75)
-	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof account_service_1.AccountService !== 'undefined' && account_service_1.AccountService) === 'function' && _a) || Object, (typeof (_b = typeof forms_1.FormBuilder !== 'undefined' && forms_1.FormBuilder) === 'function' && _b) || Object])
-	    ], ForgotPasswordComponent);
 	    return ForgotPasswordComponent;
-	    var _a, _b;
 	}());
+	ForgotPasswordComponent = __decorate([
+	    core_1.Component({
+	        selector: "forgot-password",
+	        template: __webpack_require__(75)
+	    }),
+	    __metadata("design:paramtypes", [typeof (_a = typeof account_service_1.AccountService !== "undefined" && account_service_1.AccountService) === "function" && _a || Object, typeof (_b = typeof forms_1.FormBuilder !== "undefined" && forms_1.FormBuilder) === "function" && _b || Object])
+	], ForgotPasswordComponent);
 	exports.ForgotPasswordComponent = ForgotPasswordComponent;
+	var _a, _b;
 
 
 /***/ },
@@ -3863,11 +3909,14 @@
 	        });
 	        this.resetForm = this.formBuilder.group({
 	            'email': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required, index_1.GlobalValidators.mailFormat])],
+	                    forms_1.Validators.required, index_1.GlobalValidators.mailFormat
+	                ])],
 	            'password': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required, forms_1.Validators.minLength(6)])],
+	                    forms_1.Validators.required, forms_1.Validators.minLength(6)
+	                ])],
 	            'confirmPassword': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required, forms_1.Validators.minLength(6)])],
+	                    forms_1.Validators.required, forms_1.Validators.minLength(6)
+	                ])],
 	        }, { validator: index_1.GlobalValidators.matchingPasswords("password", "confirmPassword") });
 	    };
 	    ResetPasswordComponent.prototype.ngOnDestroy = function () {
@@ -3882,17 +3931,17 @@
 	        this.service.resetPassword(resetPassword).subscribe(function (data) { return data; }, function (error) { return console.log(error); }, function () { });
 	        this.finish = true;
 	    };
-	    ResetPasswordComponent = __decorate([
-	        core_1.Component({
-	            selector: "reset-password",
-	            template: __webpack_require__(78)
-	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof account_service_1.AccountService !== 'undefined' && account_service_1.AccountService) === 'function' && _a) || Object, (typeof (_b = typeof router_1.ActivatedRoute !== 'undefined' && router_1.ActivatedRoute) === 'function' && _b) || Object, (typeof (_c = typeof router_1.Router !== 'undefined' && router_1.Router) === 'function' && _c) || Object, (typeof (_d = typeof forms_1.FormBuilder !== 'undefined' && forms_1.FormBuilder) === 'function' && _d) || Object])
-	    ], ResetPasswordComponent);
 	    return ResetPasswordComponent;
-	    var _a, _b, _c, _d;
 	}());
+	ResetPasswordComponent = __decorate([
+	    core_1.Component({
+	        selector: "reset-password",
+	        template: __webpack_require__(78)
+	    }),
+	    __metadata("design:paramtypes", [typeof (_a = typeof account_service_1.AccountService !== "undefined" && account_service_1.AccountService) === "function" && _a || Object, typeof (_b = typeof router_1.ActivatedRoute !== "undefined" && router_1.ActivatedRoute) === "function" && _b || Object, typeof (_c = typeof router_1.Router !== "undefined" && router_1.Router) === "function" && _c || Object, typeof (_d = typeof forms_1.FormBuilder !== "undefined" && forms_1.FormBuilder) === "function" && _d || Object])
+	], ResetPasswordComponent);
 	exports.ResetPasswordComponent = ResetPasswordComponent;
+	var _a, _b, _c, _d;
 
 
 /***/ },
@@ -3941,11 +3990,14 @@
 	    ChangePasswordComponent.prototype.ngOnInit = function () {
 	        this.passwordForm = this.formBuilder.group({
 	            'oldPassword': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required, forms_1.Validators.minLength(6)])],
+	                    forms_1.Validators.required, forms_1.Validators.minLength(6)
+	                ])],
 	            'newPassword': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required, forms_1.Validators.minLength(6)])],
+	                    forms_1.Validators.required, forms_1.Validators.minLength(6)
+	                ])],
 	            'confirmPassword': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required, forms_1.Validators.minLength(6)])]
+	                    forms_1.Validators.required, forms_1.Validators.minLength(6)
+	                ])]
 	        }, { validator: index_1.GlobalValidators.matchingPasswords("newPassword", "confirmPassword") });
 	    };
 	    ChangePasswordComponent.prototype.onSubmit = function (ra) {
@@ -3959,17 +4011,17 @@
 	            }
 	        }, function (error) { return console.log(error); }, function () { });
 	    };
-	    ChangePasswordComponent = __decorate([
-	        core_1.Component({
-	            selector: "change-password",
-	            template: __webpack_require__(81)
-	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof account_service_1.AccountService !== 'undefined' && account_service_1.AccountService) === 'function' && _a) || Object, (typeof (_b = typeof forms_1.FormBuilder !== 'undefined' && forms_1.FormBuilder) === 'function' && _b) || Object])
-	    ], ChangePasswordComponent);
 	    return ChangePasswordComponent;
-	    var _a, _b;
 	}());
+	ChangePasswordComponent = __decorate([
+	    core_1.Component({
+	        selector: "change-password",
+	        template: __webpack_require__(81)
+	    }),
+	    __metadata("design:paramtypes", [typeof (_a = typeof account_service_1.AccountService !== "undefined" && account_service_1.AccountService) === "function" && _a || Object, typeof (_b = typeof forms_1.FormBuilder !== "undefined" && forms_1.FormBuilder) === "function" && _b || Object])
+	], ChangePasswordComponent);
 	exports.ChangePasswordComponent = ChangePasswordComponent;
+	var _a, _b;
 
 
 /***/ },
@@ -4017,7 +4069,8 @@
 	    UnconfirmedEmailComponent.prototype.ngOnInit = function () {
 	        this.unconfirmedForm = this.formBuilder.group({
 	            'email': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required, index_1.GlobalValidators.mailFormat])]
+	                    forms_1.Validators.required, index_1.GlobalValidators.mailFormat
+	                ])]
 	        });
 	    };
 	    UnconfirmedEmailComponent.prototype.onSubmit = function () {
@@ -4030,17 +4083,17 @@
 	            }
 	        }, function (error) { return console.log(error); }, function () { });
 	    };
-	    UnconfirmedEmailComponent = __decorate([
-	        core_1.Component({
-	            selector: "unconfirmedEmail",
-	            template: __webpack_require__(83)
-	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof account_service_1.AccountService !== 'undefined' && account_service_1.AccountService) === 'function' && _a) || Object, (typeof (_b = typeof forms_1.FormBuilder !== 'undefined' && forms_1.FormBuilder) === 'function' && _b) || Object])
-	    ], UnconfirmedEmailComponent);
 	    return UnconfirmedEmailComponent;
-	    var _a, _b;
 	}());
+	UnconfirmedEmailComponent = __decorate([
+	    core_1.Component({
+	        selector: "unconfirmedEmail",
+	        template: __webpack_require__(83)
+	    }),
+	    __metadata("design:paramtypes", [typeof (_a = typeof account_service_1.AccountService !== "undefined" && account_service_1.AccountService) === "function" && _a || Object, typeof (_b = typeof forms_1.FormBuilder !== "undefined" && forms_1.FormBuilder) === "function" && _b || Object])
+	], UnconfirmedEmailComponent);
 	exports.UnconfirmedEmailComponent = UnconfirmedEmailComponent;
+	var _a, _b;
 
 
 /***/ },
@@ -4119,14 +4172,14 @@
 	        };
 	        this.actionUrl = configuration.ServerWithApiUrl + "club/";
 	    }
-	    ClubService = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof index_1.HttpWrapper !== 'undefined' && index_1.HttpWrapper) === 'function' && _a) || Object, (typeof (_b = typeof app_constants_1.Configuration !== 'undefined' && app_constants_1.Configuration) === 'function' && _b) || Object])
-	    ], ClubService);
 	    return ClubService;
-	    var _a, _b;
 	}());
+	ClubService = __decorate([
+	    core_1.Injectable(),
+	    __metadata("design:paramtypes", [typeof (_a = typeof index_1.HttpWrapper !== "undefined" && index_1.HttpWrapper) === "function" && _a || Object, typeof (_b = typeof app_constants_1.Configuration !== "undefined" && app_constants_1.Configuration) === "function" && _b || Object])
+	], ClubService);
 	exports.ClubService = ClubService;
+	var _a, _b;
 
 
 /***/ },
@@ -4209,21 +4262,21 @@
 	        this.itemsPerPage = pageable.itemPerPage;
 	        this.totalItems = pageable.totalItems;
 	    };
-	    __decorate([
-	        core_1.ViewChild("deleteModal"), 
-	        __metadata('design:type', (typeof (_a = typeof ng2_bootstrap_1.ModalDirective !== 'undefined' && ng2_bootstrap_1.ModalDirective) === 'function' && _a) || Object)
-	    ], ClubListComponent.prototype, "deleteModal", void 0);
-	    ClubListComponent = __decorate([
-	        core_1.Component({
-	            selector: "club-list",
-	            template: __webpack_require__(88)
-	        }), 
-	        __metadata('design:paramtypes', [(typeof (_b = typeof club_service_1.ClubService !== 'undefined' && club_service_1.ClubService) === 'function' && _b) || Object, (typeof (_c = typeof router_1.ActivatedRoute !== 'undefined' && router_1.ActivatedRoute) === 'function' && _c) || Object, (typeof (_d = typeof common_1.Location !== 'undefined' && common_1.Location) === 'function' && _d) || Object, (typeof (_e = typeof platform_browser_1.Title !== 'undefined' && platform_browser_1.Title) === 'function' && _e) || Object])
-	    ], ClubListComponent);
 	    return ClubListComponent;
-	    var _a, _b, _c, _d, _e;
 	}());
+	__decorate([
+	    core_1.ViewChild("deleteModal"),
+	    __metadata("design:type", typeof (_a = typeof ng2_bootstrap_1.ModalDirective !== "undefined" && ng2_bootstrap_1.ModalDirective) === "function" && _a || Object)
+	], ClubListComponent.prototype, "deleteModal", void 0);
+	ClubListComponent = __decorate([
+	    core_1.Component({
+	        selector: "club-list",
+	        template: __webpack_require__(88)
+	    }),
+	    __metadata("design:paramtypes", [typeof (_b = typeof club_service_1.ClubService !== "undefined" && club_service_1.ClubService) === "function" && _b || Object, typeof (_c = typeof router_1.ActivatedRoute !== "undefined" && router_1.ActivatedRoute) === "function" && _c || Object, typeof (_d = typeof common_1.Location !== "undefined" && common_1.Location) === "function" && _d || Object, typeof (_e = typeof platform_browser_1.Title !== "undefined" && platform_browser_1.Title) === "function" && _e || Object])
+	], ClubListComponent);
 	exports.ClubListComponent = ClubListComponent;
+	var _a, _b, _c, _d, _e;
 
 
 /***/ },
@@ -4327,26 +4380,30 @@
 	    ClubEditComponent.prototype.initForm = function () {
 	        this.editForm = this.formBuilder.group({
 	            'englishName': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required, forms_1.Validators.maxLength(30)])],
+	                    forms_1.Validators.required, forms_1.Validators.maxLength(30)
+	                ])],
 	            'logo': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required])],
+	                    forms_1.Validators.required
+	                ])],
 	            'name': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required, forms_1.Validators.maxLength(30)])],
+	                    forms_1.Validators.required, forms_1.Validators.maxLength(30)
+	                ])],
 	            'stadium': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required, forms_1.Validators.maxLength(30)])]
+	                    forms_1.Validators.required, forms_1.Validators.maxLength(30)
+	                ])]
 	        });
 	    };
-	    ClubEditComponent = __decorate([
-	        core_1.Component({
-	            selector: "club-edit",
-	            template: __webpack_require__(99)
-	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof club_service_1.ClubService !== 'undefined' && club_service_1.ClubService) === 'function' && _a) || Object, (typeof (_b = typeof router_1.ActivatedRoute !== 'undefined' && router_1.ActivatedRoute) === 'function' && _b) || Object, (typeof (_c = typeof router_1.Router !== 'undefined' && router_1.Router) === 'function' && _c) || Object, (typeof (_d = typeof index_1.LocalStorageService !== 'undefined' && index_1.LocalStorageService) === 'function' && _d) || Object, (typeof (_e = typeof forms_1.FormBuilder !== 'undefined' && forms_1.FormBuilder) === 'function' && _e) || Object, (typeof (_f = typeof platform_browser_1.Title !== 'undefined' && platform_browser_1.Title) === 'function' && _f) || Object])
-	    ], ClubEditComponent);
 	    return ClubEditComponent;
-	    var _a, _b, _c, _d, _e, _f;
 	}());
+	ClubEditComponent = __decorate([
+	    core_1.Component({
+	        selector: "club-edit",
+	        template: __webpack_require__(99)
+	    }),
+	    __metadata("design:paramtypes", [typeof (_a = typeof club_service_1.ClubService !== "undefined" && club_service_1.ClubService) === "function" && _a || Object, typeof (_b = typeof router_1.ActivatedRoute !== "undefined" && router_1.ActivatedRoute) === "function" && _b || Object, typeof (_c = typeof router_1.Router !== "undefined" && router_1.Router) === "function" && _c || Object, typeof (_d = typeof index_1.LocalStorageService !== "undefined" && index_1.LocalStorageService) === "function" && _d || Object, typeof (_e = typeof forms_1.FormBuilder !== "undefined" && forms_1.FormBuilder) === "function" && _e || Object, typeof (_f = typeof platform_browser_1.Title !== "undefined" && platform_browser_1.Title) === "function" && _f || Object])
+	], ClubEditComponent);
 	exports.ClubEditComponent = ClubEditComponent;
+	var _a, _b, _c, _d, _e, _f;
 
 
 /***/ },
@@ -5323,11 +5380,11 @@
 	var user_detail_component_1 = __webpack_require__(103);
 	var user_list_component_1 = __webpack_require__(106);
 	exports.userRoutes = [
-	    { path: 'user', component: user_list_component_1.UserListComponent },
-	    { path: 'user/list', component: user_list_component_1.UserListComponent },
-	    { path: 'user/list/:page', component: user_list_component_1.UserListComponent },
-	    { path: 'user/list/:page/:userName', component: user_list_component_1.UserListComponent },
-	    { path: 'user/:id', component: user_detail_component_1.UserDetailComponent }
+	    { path: "user", component: user_list_component_1.UserListComponent, data: { title: "Пользователи" } },
+	    { path: "user/list", component: user_list_component_1.UserListComponent, data: { title: "Пользователи" } },
+	    { path: "user/list/:page", component: user_list_component_1.UserListComponent, data: { title: "Пользователи" } },
+	    { path: "user/list/:page/:userName", component: user_list_component_1.UserListComponent, data: { title: "Пользователи" } },
+	    { path: "user/:id", component: user_detail_component_1.UserDetailComponent, data: { title: "Пользователь" } }
 	];
 
 
@@ -5370,17 +5427,17 @@
 	    UserDetailComponent.prototype.parse = function (item) {
 	        this.item = item;
 	    };
-	    UserDetailComponent = __decorate([
-	        core_1.Component({
-	            selector: "user-detail",
-	            template: __webpack_require__(105)
-	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof user_service_1.UserService !== 'undefined' && user_service_1.UserService) === 'function' && _a) || Object, (typeof (_b = typeof router_1.ActivatedRoute !== 'undefined' && router_1.ActivatedRoute) === 'function' && _b) || Object, (typeof (_c = typeof index_1.RolesCheckedService !== 'undefined' && index_1.RolesCheckedService) === 'function' && _c) || Object])
-	    ], UserDetailComponent);
 	    return UserDetailComponent;
-	    var _a, _b, _c;
 	}());
+	UserDetailComponent = __decorate([
+	    core_1.Component({
+	        selector: "user-detail",
+	        template: __webpack_require__(105)
+	    }),
+	    __metadata("design:paramtypes", [typeof (_a = typeof user_service_1.UserService !== "undefined" && user_service_1.UserService) === "function" && _a || Object, typeof (_b = typeof router_1.ActivatedRoute !== "undefined" && router_1.ActivatedRoute) === "function" && _b || Object, typeof (_c = typeof index_1.RolesCheckedService !== "undefined" && index_1.RolesCheckedService) === "function" && _c || Object])
+	], UserDetailComponent);
 	exports.UserDetailComponent = UserDetailComponent;
+	var _a, _b, _c;
 
 
 /***/ },
@@ -5430,14 +5487,14 @@
 	        var body = res.json();
 	        return body.data || {};
 	    };
-	    UserService = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof httpWrapper_1.HttpWrapper !== 'undefined' && httpWrapper_1.HttpWrapper) === 'function' && _a) || Object, (typeof (_b = typeof app_constants_1.Configuration !== 'undefined' && app_constants_1.Configuration) === 'function' && _b) || Object])
-	    ], UserService);
 	    return UserService;
-	    var _a, _b;
 	}());
+	UserService = __decorate([
+	    core_1.Injectable(),
+	    __metadata("design:paramtypes", [typeof (_a = typeof httpWrapper_1.HttpWrapper !== "undefined" && httpWrapper_1.HttpWrapper) === "function" && _a || Object, typeof (_b = typeof app_constants_1.Configuration !== "undefined" && app_constants_1.Configuration) === "function" && _b || Object])
+	], UserService);
 	exports.UserService = UserService;
+	var _a, _b;
 
 
 /***/ },
@@ -5498,17 +5555,17 @@
 	            .GetAll(filters)
 	            .subscribe(function (data) { return _this.parsePageable(data); }, function (error) { return console.log(error); }, function () { });
 	    };
-	    UserListComponent = __decorate([
-	        core_1.Component({
-	            selector: "user-list",
-	            template: __webpack_require__(108)
-	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof user_service_1.UserService !== 'undefined' && user_service_1.UserService) === 'function' && _a) || Object, (typeof (_b = typeof router_1.ActivatedRoute !== 'undefined' && router_1.ActivatedRoute) === 'function' && _b) || Object])
-	    ], UserListComponent);
 	    return UserListComponent;
-	    var _a, _b;
 	}());
+	UserListComponent = __decorate([
+	    core_1.Component({
+	        selector: "user-list",
+	        template: __webpack_require__(108)
+	    }),
+	    __metadata("design:paramtypes", [typeof (_a = typeof user_service_1.UserService !== "undefined" && user_service_1.UserService) === "function" && _a || Object, typeof (_b = typeof router_1.ActivatedRoute !== "undefined" && router_1.ActivatedRoute) === "function" && _b || Object])
+	], UserListComponent);
 	exports.UserListComponent = UserListComponent;
+	var _a, _b;
 
 
 /***/ },
@@ -5529,7 +5586,7 @@
 /* 108 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"table-responsive\">\r\n    <table class=\"table table-striped table-condensed\">\r\n        <thead>\r\n            <tr>\r\n                <th>Последний вход</th>\r\n                <th>Логин</th>\r\n                <th>Дата регистрации</th>\r\n                <th>Группа</th>\r\n            </tr>\r\n        </thead>\r\n        <tbody *ngFor=\"let user of items\">\r\n            <tr>\r\n                <td class=\"\" [textContent]=\"user.lastModified | date:'medium'\"></td>\r\n                <td class=\"\">\r\n                    <a [routerLink]=\"['/user', user.id ]\">\r\n                        <div class=\"col-md-3\">\r\n                            <img class=\"mini-avatar\" src=\"{{user.photo}}\" alt=\"{{user.userName}}\"/>\r\n                        </div>\r\n                        <span [textContent]=\"user.userName\"></span>\r\n                    </a>\r\n                    <span class=\"text-danger\" uib-tooltip=\"Почта не подтверждена\" [hidden]=\"user.emailConfirmed\"> *</span>\r\n                    <a ng-show=\"loggedIn() && vm.isNotSelf(user.id, userId())\" ui-sref=\"wpm({ userName: user.userName })\"><span class=\"glyphicon glyphicon-envelope\"></span></a>\r\n                </td>\r\n                <td class=\"\" [textContent]=\"user.registrationDate | date:'medium'\"></td>\r\n                <td class=\"\" [textContent]=\"user.roleGroupName\"></td>\r\n            </tr>\r\n        </tbody>\r\n    </table>\r\n    <div>\r\n        <form class=\"form-inline\">\r\n            <div class=\"form-group\">\r\n                <select class=\"form-control\"\r\n                        ng-model=\"vm.chosenRoleGroupId\"\r\n                        ng-options=\"roleGroup.id as roleGroup.name for roleGroup in vm.roleGroups\" ng-change=\"vm.changeRoleId()\"></select>\r\n            </div>\r\n            <div class=\"form-group\">\r\n                <input class=\"form-control\" ng-model=\"vm.filterUserName\" ng-model-options=\"{debounce: 1000}\" ng-change=\"vm.filterByUserName()\" placeholder=\"Логин\" /> <!--todo magic number-->\r\n            </div>\r\n        </form>\r\n    </div>\r\n</div>\r\n<div class=\"pagination\">\r\n    <!-->uib-pagination ng-show=\"vm.totalItems > vm.itemPerPage\" total-items=\"vm.totalItems\" ng-model=\"vm.pageNo\" ng-change=\"vm.goToPage()\"></!--uib-pagination--->\r\n</div>";
+	module.exports = "<div class=\"table-responsive\">\r\n    <table class=\"table table-striped table-condensed\">\r\n        <thead>\r\n            <tr>\r\n                <th>Последний вход</th>\r\n                <th>Логин</th>\r\n                <th>Дата регистрации</th>\r\n                <th>Группа</th>\r\n            </tr>\r\n        </thead>\r\n        <tbody *ngFor=\"let user of items\">\r\n            <tr>\r\n                <td class=\"\" [textContent]=\"user.lastModified | date:'medium'\"></td>\r\n                <td class=\"\">\r\n                    <a [routerLink]=\"['/user', user.id ]\">\r\n                        <div class=\"col-md-3\">\r\n                            <img class=\"mini-avatar\" src=\"{{user.photo}}\" alt=\"{{user.userName}}\"/>\r\n                        </div>\r\n                        <span [textContent]=\"user.userName\"></span>\r\n                    </a>\r\n                    <span class=\"text-danger\" uib-tooltip=\"Почта не подтверждена\" [hidden]=\"user.emailConfirmed\"> *</span>\r\n                    <a ng-show=\"loggedIn() && vm.isNotSelf(user.id, userId())\" ui-sref=\"wpm({ userName: user.userName })\"><span class=\"glyphicon glyphicon-envelope\"></span></a>\r\n                </td>\r\n                <td class=\"\" [textContent]=\"user.registrationDate | date:'medium'\"></td>\r\n                <td class=\"\" [textContent]=\"user.roleGroupName\"></td>\r\n            </tr>\r\n        </tbody>\r\n    </table>\r\n    <div>\r\n        <!--form class=\"form-inline\">\r\n            <div class=\"form-group\">\r\n                <select class=\"form-control\"\r\n                        ng-model=\"vm.chosenRoleGroupId\"\r\n                        ng-options=\"roleGroup.id as roleGroup.name for roleGroup in vm.roleGroups\" ng-change=\"vm.changeRoleId()\"></select>\r\n            </div>\r\n            <div class=\"form-group\">\r\n                <input class=\"form-control\" ng-model=\"vm.filterUserName\" ng-model-options=\"{debounce: 1000}\" ng-change=\"vm.filterByUserName()\" placeholder=\"Логин\" /> <!--todo magic number--\r\n            </div>\r\n        </form-->\r\n    </div>\r\n</div>\r\n<div class=\"pagination\">\r\n    <!-->uib-pagination ng-show=\"vm.totalItems > vm.itemPerPage\" total-items=\"vm.totalItems\" ng-model=\"vm.pageNo\" ng-change=\"vm.goToPage()\"></!--uib-pagination--->\r\n</div>";
 
 /***/ },
 /* 109 */
@@ -5610,17 +5667,17 @@
 	    PmListComponent.prototype.writePm = function () {
 	        this.router.navigate(["/pm", 0, "edit"]);
 	    };
-	    PmListComponent = __decorate([
-	        core_1.Component({
-	            selector: "pm-list",
-	            template: __webpack_require__(114)
-	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof pm_service_1.PmService !== 'undefined' && pm_service_1.PmService) === 'function' && _a) || Object, (typeof (_b = typeof router_1.Router !== 'undefined' && router_1.Router) === 'function' && _b) || Object])
-	    ], PmListComponent);
 	    return PmListComponent;
-	    var _a, _b;
 	}());
+	PmListComponent = __decorate([
+	    core_1.Component({
+	        selector: "pm-list",
+	        template: __webpack_require__(114)
+	    }),
+	    __metadata("design:paramtypes", [typeof (_a = typeof pm_service_1.PmService !== "undefined" && pm_service_1.PmService) === "function" && _a || Object, typeof (_b = typeof router_1.Router !== "undefined" && router_1.Router) === "function" && _b || Object])
+	], PmListComponent);
 	exports.PmListComponent = PmListComponent;
+	var _a, _b;
 
 
 /***/ },
@@ -5665,14 +5722,14 @@
 	        };
 	        this.actionUrl = configuration.ServerWithApiUrl + "pm/";
 	    }
-	    PmService = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof httpWrapper_1.HttpWrapper !== 'undefined' && httpWrapper_1.HttpWrapper) === 'function' && _a) || Object, (typeof (_b = typeof app_constants_1.Configuration !== 'undefined' && app_constants_1.Configuration) === 'function' && _b) || Object])
-	    ], PmService);
 	    return PmService;
-	    var _a, _b;
 	}());
+	PmService = __decorate([
+	    core_1.Injectable(),
+	    __metadata("design:paramtypes", [typeof (_a = typeof httpWrapper_1.HttpWrapper !== "undefined" && httpWrapper_1.HttpWrapper) === "function" && _a || Object, typeof (_b = typeof app_constants_1.Configuration !== "undefined" && app_constants_1.Configuration) === "function" && _b || Object])
+	], PmService);
 	exports.PmService = PmService;
+	var _a, _b;
 
 
 /***/ },
@@ -5717,17 +5774,17 @@
 	    PmDetailComponent.prototype.parse = function (item) {
 	        this.item = item;
 	    };
-	    PmDetailComponent = __decorate([
-	        core_1.Component({
-	            selector: "pm-detail",
-	            template: __webpack_require__(116)
-	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof pm_service_1.PmService !== 'undefined' && pm_service_1.PmService) === 'function' && _a) || Object, (typeof (_b = typeof router_1.ActivatedRoute !== 'undefined' && router_1.ActivatedRoute) === 'function' && _b) || Object])
-	    ], PmDetailComponent);
 	    return PmDetailComponent;
-	    var _a, _b;
 	}());
+	PmDetailComponent = __decorate([
+	    core_1.Component({
+	        selector: "pm-detail",
+	        template: __webpack_require__(116)
+	    }),
+	    __metadata("design:paramtypes", [typeof (_a = typeof pm_service_1.PmService !== "undefined" && pm_service_1.PmService) === "function" && _a || Object, typeof (_b = typeof router_1.ActivatedRoute !== "undefined" && router_1.ActivatedRoute) === "function" && _b || Object])
+	], PmDetailComponent);
 	exports.PmDetailComponent = PmDetailComponent;
+	var _a, _b;
 
 
 /***/ },
@@ -5808,17 +5865,17 @@
 	        var res = this.service.Create(model).subscribe(function (data) { return data; });
 	        this.router.navigate(["/pm"]);
 	    };
-	    PmEditComponent = __decorate([
-	        core_1.Component({
-	            selector: "pm-edit",
-	            template: __webpack_require__(118)
-	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof pm_service_1.PmService !== 'undefined' && pm_service_1.PmService) === 'function' && _a) || Object, (typeof (_b = typeof forms_1.FormBuilder !== 'undefined' && forms_1.FormBuilder) === 'function' && _b) || Object, (typeof (_c = typeof router_1.ActivatedRoute !== 'undefined' && router_1.ActivatedRoute) === 'function' && _c) || Object, (typeof (_d = typeof router_1.Router !== 'undefined' && router_1.Router) === 'function' && _d) || Object])
-	    ], PmEditComponent);
 	    return PmEditComponent;
-	    var _a, _b, _c, _d;
 	}());
+	PmEditComponent = __decorate([
+	    core_1.Component({
+	        selector: "pm-edit",
+	        template: __webpack_require__(118)
+	    }),
+	    __metadata("design:paramtypes", [typeof (_a = typeof pm_service_1.PmService !== "undefined" && pm_service_1.PmService) === "function" && _a || Object, typeof (_b = typeof forms_1.FormBuilder !== "undefined" && forms_1.FormBuilder) === "function" && _b || Object, typeof (_c = typeof router_1.ActivatedRoute !== "undefined" && router_1.ActivatedRoute) === "function" && _c || Object, typeof (_d = typeof router_1.Router !== "undefined" && router_1.Router) === "function" && _d || Object])
+	], PmEditComponent);
 	exports.PmEditComponent = PmEditComponent;
+	var _a, _b, _c, _d;
 
 
 /***/ },
@@ -5876,15 +5933,15 @@
 	var ClubHistoryComponent = (function () {
 	    function ClubHistoryComponent() {
 	    }
-	    ClubHistoryComponent = __decorate([
-	        core_1.Component({
-	            selector: "<club-history>",
-	            template: __webpack_require__(122)
-	        }), 
-	        __metadata('design:paramtypes', [])
-	    ], ClubHistoryComponent);
 	    return ClubHistoryComponent;
 	}());
+	ClubHistoryComponent = __decorate([
+	    core_1.Component({
+	        selector: "<club-history>",
+	        template: __webpack_require__(122)
+	    }),
+	    __metadata("design:paramtypes", [])
+	], ClubHistoryComponent);
 	exports.ClubHistoryComponent = ClubHistoryComponent;
 
 
@@ -5912,15 +5969,15 @@
 	var RulesComponent = (function () {
 	    function RulesComponent() {
 	    }
-	    RulesComponent = __decorate([
-	        core_1.Component({
-	            selector: "<rules>",
-	            template: __webpack_require__(124)
-	        }), 
-	        __metadata('design:paramtypes', [])
-	    ], RulesComponent);
 	    return RulesComponent;
 	}());
+	RulesComponent = __decorate([
+	    core_1.Component({
+	        selector: "<rules>",
+	        template: __webpack_require__(124)
+	    }),
+	    __metadata("design:paramtypes", [])
+	], RulesComponent);
 	exports.RulesComponent = RulesComponent;
 
 
@@ -5963,17 +6020,17 @@
 	            }
 	        }, function (error) { return console.log(error); }, function () { return console.log(""); });
 	    };
-	    RightSidebarComponent = __decorate([
-	        core_1.Component({
-	            selector: "right-sidebar",
-	            template: __webpack_require__(127)
-	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof admin_service_1.AdminService !== 'undefined' && admin_service_1.AdminService) === 'function' && _a) || Object, (typeof (_b = typeof index_1.RolesCheckedService !== 'undefined' && index_1.RolesCheckedService) === 'function' && _b) || Object])
-	    ], RightSidebarComponent);
 	    return RightSidebarComponent;
-	    var _a, _b;
 	}());
+	RightSidebarComponent = __decorate([
+	    core_1.Component({
+	        selector: "right-sidebar",
+	        template: __webpack_require__(127)
+	    }),
+	    __metadata("design:paramtypes", [typeof (_a = typeof admin_service_1.AdminService !== "undefined" && admin_service_1.AdminService) === "function" && _a || Object, typeof (_b = typeof index_1.RolesCheckedService !== "undefined" && index_1.RolesCheckedService) === "function" && _b || Object])
+	], RightSidebarComponent);
 	exports.RightSidebarComponent = RightSidebarComponent;
+	var _a, _b;
 
 
 /***/ },
@@ -6004,14 +6061,14 @@
 	        };
 	        this.actionUrl = configuration.ServerWithApiUrl + "admin/";
 	    }
-	    AdminService = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof index_1.HttpWrapper !== 'undefined' && index_1.HttpWrapper) === 'function' && _a) || Object, (typeof (_b = typeof app_constants_1.Configuration !== 'undefined' && app_constants_1.Configuration) === 'function' && _b) || Object])
-	    ], AdminService);
 	    return AdminService;
-	    var _a, _b;
 	}());
+	AdminService = __decorate([
+	    core_1.Injectable(),
+	    __metadata("design:paramtypes", [typeof (_a = typeof index_1.HttpWrapper !== "undefined" && index_1.HttpWrapper) === "function" && _a || Object, typeof (_b = typeof app_constants_1.Configuration !== "undefined" && app_constants_1.Configuration) === "function" && _b || Object])
+	], AdminService);
 	exports.AdminService = AdminService;
+	var _a, _b;
 
 
 /***/ },
@@ -6038,15 +6095,15 @@
 	var AboutClubComponent = (function () {
 	    function AboutClubComponent() {
 	    }
-	    AboutClubComponent = __decorate([
-	        core_1.Component({
-	            selector: "<about-club>",
-	            template: __webpack_require__(129)
-	        }), 
-	        __metadata('design:paramtypes', [])
-	    ], AboutClubComponent);
 	    return AboutClubComponent;
 	}());
+	AboutClubComponent = __decorate([
+	    core_1.Component({
+	        selector: "<about-club>",
+	        template: __webpack_require__(129)
+	    }),
+	    __metadata("design:paramtypes", [])
+	], AboutClubComponent);
 	exports.AboutClubComponent = AboutClubComponent;
 
 
@@ -6074,15 +6131,15 @@
 	var CoachTeamComponent = (function () {
 	    function CoachTeamComponent() {
 	    }
-	    CoachTeamComponent = __decorate([
-	        core_1.Component({
-	            selector: "<coach-team>",
-	            template: __webpack_require__(131)
-	        }), 
-	        __metadata('design:paramtypes', [])
-	    ], CoachTeamComponent);
 	    return CoachTeamComponent;
 	}());
+	CoachTeamComponent = __decorate([
+	    core_1.Component({
+	        selector: "<coach-team>",
+	        template: __webpack_require__(131)
+	    }),
+	    __metadata("design:paramtypes", [])
+	], CoachTeamComponent);
 	exports.CoachTeamComponent = CoachTeamComponent;
 
 
@@ -6110,15 +6167,15 @@
 	var SquadComponent = (function () {
 	    function SquadComponent() {
 	    }
-	    SquadComponent = __decorate([
-	        core_1.Component({
-	            selector: "<squad>",
-	            template: __webpack_require__(133)
-	        }), 
-	        __metadata('design:paramtypes', [])
-	    ], SquadComponent);
 	    return SquadComponent;
 	}());
+	SquadComponent = __decorate([
+	    core_1.Component({
+	        selector: "<squad>",
+	        template: __webpack_require__(133)
+	    }),
+	    __metadata("design:paramtypes", [])
+	], SquadComponent);
 	exports.SquadComponent = SquadComponent;
 
 
@@ -6135,7 +6192,7 @@
 	"use strict";
 	var index_1 = __webpack_require__(135);
 	exports.forumSectionRoutes = [
-	    { path: "forum", component: index_1.ForumSectionListComponent },
+	    { path: "forum", component: index_1.ForumSectionListComponent, data: { title: "Форум" } }
 	];
 
 
@@ -6193,14 +6250,14 @@
 	        };
 	        this.actionUrl = configuration.ServerWithApiUrl + "forumSection/";
 	    }
-	    ForumSectionService = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof index_1.HttpWrapper !== 'undefined' && index_1.HttpWrapper) === 'function' && _a) || Object, (typeof (_b = typeof app_constants_1.Configuration !== 'undefined' && app_constants_1.Configuration) === 'function' && _b) || Object])
-	    ], ForumSectionService);
 	    return ForumSectionService;
-	    var _a, _b;
 	}());
+	ForumSectionService = __decorate([
+	    core_1.Injectable(),
+	    __metadata("design:paramtypes", [typeof (_a = typeof index_1.HttpWrapper !== "undefined" && index_1.HttpWrapper) === "function" && _a || Object, typeof (_b = typeof app_constants_1.Configuration !== "undefined" && app_constants_1.Configuration) === "function" && _b || Object])
+	], ForumSectionService);
 	exports.ForumSectionService = ForumSectionService;
+	var _a, _b;
 
 
 /***/ },
@@ -6232,24 +6289,24 @@
 	            .getAll()
 	            .subscribe(function (data) { return _this.items = data; }, function (error) { return console.log(error); }, function () { return console.log(""); });
 	    };
-	    ForumSectionListComponent = __decorate([
-	        core_1.Component({
-	            selector: "forumSection-list",
-	            template: __webpack_require__(139)
-	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof forumSection_service_1.ForumSectionService !== 'undefined' && forumSection_service_1.ForumSectionService) === 'function' && _a) || Object, (typeof (_b = typeof index_1.RolesCheckedService !== 'undefined' && index_1.RolesCheckedService) === 'function' && _b) || Object])
-	    ], ForumSectionListComponent);
 	    return ForumSectionListComponent;
-	    var _a, _b;
 	}());
+	ForumSectionListComponent = __decorate([
+	    core_1.Component({
+	        selector: "forumSection-list",
+	        template: __webpack_require__(139)
+	    }),
+	    __metadata("design:paramtypes", [typeof (_a = typeof forumSection_service_1.ForumSectionService !== "undefined" && forumSection_service_1.ForumSectionService) === "function" && _a || Object, typeof (_b = typeof index_1.RolesCheckedService !== "undefined" && index_1.RolesCheckedService) === "function" && _b || Object])
+	], ForumSectionListComponent);
 	exports.ForumSectionListComponent = ForumSectionListComponent;
+	var _a, _b;
 
 
 /***/ },
 /* 139 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"col-md-12\">\r\n    <div class=\"container-fluid\" *ngFor=\"let section of items\">\r\n        <div class=\"panel panel-danger\" *ngIf=\"section.subsections.length > 0 || roles.isAdminAssistant\">\r\n            <div class=\"panel-heading\">\r\n                <span [textContent]=\"section.name\"></span>\r\n                <span *ngIf=\"roles.isAdminAssistant\">\r\n                    <a href=\"\" ui-sref=\"subsectionEdit({sectionId: section.id})\">Добавить подсекцию</a>\r\n                    <a class=\"pull-right\" [hidden]=\"section.subsections.length != 0\" ng-click=\"vm.removeSection($index)\">\r\n                        <span class=\"glyphicon glyphicon-remove\">\r\n                        </span>\r\n                    </a>\r\n                </span>\r\n            </div>\r\n            <!--div class=\"panel-body\"></!--div>-->\r\n            <ul class=\"list-group\" *ngFor=\"let subsection of section.subsections\">\r\n                <li class=\"list-group-item list\">\r\n                    <a ui-sref=\"subsection({id: subsection.id})\">\r\n                        <span [textContent]=\"subsection.name\"></span>\r\n                        <span class=\"small\" [textContent]=\"subsection.description\"></span>\r\n                    </a>\r\n                </li>\r\n            </ul>\r\n        </div>\r\n    </div>\r\n    <a ng-click=\"vm.addSection()\">Добавить секцию</a>\r\n\r\n</div>\r\n\r\n<script type=\"text/ng-template\" id=\"addSection.html\">\r\n    <div class=\"modal-header\">\r\n        <h3 class=\"modal-title\">@CommonMessages.AddSection</h3>\r\n    </div>\r\n    <div class=\"modal-body\">\r\n        <form class=\"form-horizontal\" name=\"addSection\" role=\"form\">\r\n            <div class=\"form-group\">\r\n                <label for=\"newSectionName\" class=\"col-md-2 control-label\">@ColonsMessages.SectionName</label>\r\n                <div class=\"col-md-10\">\r\n                    <input type=\"text\" name=\"newSectionName\" ng-model=\"vm.sectionName\" validation=\"required\" class=\"form-control\" />\r\n                </div>\r\n            </div>\r\n        </form>\r\n    </div>\r\n    <div class=\"modal-footer\">\r\n        <button class=\"btn btn-primary\" ng-disabled=\"addSection.$invalid\" type=\"button\" ng-click=\"vm.ok()\">@CommonMessages.Add</button>\r\n        <button class=\"btn btn-default\" type=\"button\" ng-click=\"vm.cancel()\">@CommonMessages.Cancel</button>\r\n    </div>\r\n</script>\r\n\r\n<script type=\"text/ng-template\" id=\"modalDeleteConfirmation.html\">\r\n    <div class=\"modal-header\">\r\n        <h3 class=\"modal-title\">@CommonMessages.DeleteConfirmation</h3>\r\n    </div>\r\n    <div class=\"modal-body\">\r\n        @CommonMessages.Delete?\r\n    </div>\r\n    <div class=\"modal-footer\">\r\n        <button class=\"btn btn-primary\" type=\"button\" ng-click=\"vm.ok()\">@CommonMessages.Delete</button>\r\n        <button class=\"btn btn-default\" type=\"button\" ng-click=\"vm.cancel()\">@CommonMessages.Cancel</button>\r\n    </div>\r\n</script>\r\n";
+	module.exports = "<div class=\"col-md-12\">\r\n    <div class=\"container-fluid\" *ngFor=\"let section of items\">\r\n        <div class=\"panel panel-danger\" *ngIf=\"section.subsections.length > 0 || roles.isAdminAssistant\">\r\n            <div class=\"panel-heading\">\r\n                <span [textContent]=\"section.name\"></span>\r\n                <span *ngIf=\"roles.isAdminAssistant\">\r\n                    <a [routerLink]=\"['/forum', 0, 'edit']\">Добавить подсекцию</a>\r\n                    <a class=\"pull-right\" [hidden]=\"section.subsections.length != 0\" ng-click=\"vm.removeSection($index)\">\r\n                        <span class=\"glyphicon glyphicon-remove\">\r\n                        </span>\r\n                    </a>\r\n                </span>\r\n            </div>\r\n            <!--div class=\"panel-body\"></!--div>-->\r\n            <ul class=\"list-group\" *ngFor=\"let subsection of section.subsections\">\r\n                <li class=\"list-group-item list\">\r\n                    <a [routerLink]=\"['/forum', subsection.id]\">\r\n                        <span [textContent]=\"subsection.name\"></span>\r\n                        <span class=\"small\" [textContent]=\"subsection.description\"></span>\r\n                    </a>\r\n                    <span class=\"pull-right\">\r\n                        <a [routerLink]=\"['/forum', subsection.id, 'edit']\"><span class=\"glyphicon glyphicon-pencil\"></span></a>\r\n                    </span>\r\n                </li>\r\n            </ul>\r\n        </div>\r\n    </div>\r\n    <a ng-click=\"vm.addSection()\">Добавить секцию</a>\r\n\r\n</div>\r\n\r\n<script type=\"text/ng-template\" id=\"addSection.html\">\r\n    <div class=\"modal-header\">\r\n        <h3 class=\"modal-title\">@CommonMessages.AddSection</h3>\r\n    </div>\r\n    <div class=\"modal-body\">\r\n        <form class=\"form-horizontal\" name=\"addSection\" role=\"form\">    \r\n            <div class=\"form-group\">\r\n                <label for=\"newSectionName\" class=\"col-md-2 control-label\">@ColonsMessages.SectionName</label>\r\n                <div class=\"col-md-10\">\r\n                    <input type=\"text\" name=\"newSectionName\" ng-model=\"vm.sectionName\" validation=\"required\" class=\"form-control\" />\r\n                </div>\r\n            </div>\r\n        </form>\r\n    </div>\r\n    <div class=\"modal-footer\">\r\n        <button class=\"btn btn-primary\" ng-disabled=\"addSection.$invalid\" type=\"button\" ng-click=\"vm.ok()\">@CommonMessages.Add</button>\r\n        <button class=\"btn btn-default\" type=\"button\" ng-click=\"vm.cancel()\">@CommonMessages.Cancel</button>\r\n    </div>\r\n</script>\r\n\r\n<script type=\"text/ng-template\" id=\"modalDeleteConfirmation.html\">\r\n    <div class=\"modal-header\">\r\n        <h3 class=\"modal-title\">@CommonMessages.DeleteConfirmation</h3>\r\n    </div>\r\n    <div class=\"modal-body\">\r\n        @CommonMessages.Delete?\r\n    </div>\r\n    <div class=\"modal-footer\">\r\n        <button class=\"btn btn-primary\" type=\"button\" ng-click=\"vm.ok()\">@CommonMessages.Delete</button>\r\n        <button class=\"btn btn-default\" type=\"button\" ng-click=\"vm.cancel()\">@CommonMessages.Cancel</button>\r\n    </div>\r\n</script>\r\n";
 
 /***/ },
 /* 140 */
@@ -6257,9 +6314,9 @@
 
 	"use strict";
 	var index_1 = __webpack_require__(141);
-	exports.wishRoutes = [
-	    { path: "wish", component: index_1.WishListComponent },
-	    { path: "wish/:id/edit", component: index_1.WishEditComponent }
+	exports.forumSubsectionRoutes = [
+	    { path: "forum/:id", component: index_1.ForumSubsectionListComponent, data: { title: "Раздел форума" } },
+	    { path: "forum/:id/edit", component: index_1.ForumSubsectionEditComponent, data: { title: "Создание подраздела" } }
 	];
 
 
@@ -6274,8 +6331,7 @@
 	__export(__webpack_require__(142));
 	__export(__webpack_require__(143));
 	__export(__webpack_require__(144));
-	__export(__webpack_require__(147));
-	__export(__webpack_require__(145));
+	__export(__webpack_require__(146));
 
 
 /***/ },
@@ -6283,25 +6339,63 @@
 /***/ function(module, exports) {
 
 	"use strict";
-	var Wish = (function () {
-	    function Wish() {
+	var ForumSubsection = (function () {
+	    function ForumSubsection() {
 	    }
-	    return Wish;
+	    return ForumSubsection;
 	}());
-	exports.Wish = Wish;
+	exports.ForumSubsection = ForumSubsection;
 
 
 /***/ },
 /* 143 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var WishType = (function () {
-	    function WishType() {
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(20);
+	var app_constants_1 = __webpack_require__(39);
+	var index_1 = __webpack_require__(32);
+	var ForumSubsectionService = (function () {
+	    function ForumSubsectionService(http, configuration) {
+	        var _this = this;
+	        this.http = http;
+	        this.configuration = configuration;
+	        this.getAll = function () {
+	            return _this.http.get(_this.actionUrl + "list/").map(function (res) { return res.json(); });
+	        };
+	        this.getSingle = function (id) {
+	            return _this.http.get(_this.actionUrl + id).map(function (res) { return res.json(); });
+	        };
+	        this.getSingleWithThemes = function (id, page) {
+	            return _this.http.get("" + _this.actionUrl + id + "/" + page).map(function (res) { return res.json(); });
+	        };
+	        this.create = function (item) {
+	            return _this.http.post(_this.actionUrl, JSON.stringify(item)).map(function (res) { return res.json(); });
+	        };
+	        this.update = function (id, itemToUpdate) {
+	            return _this.http
+	                .put(_this.actionUrl + id, JSON.stringify(itemToUpdate))
+	                .map(function (res) { return res.json(); });
+	        };
+	        this.actionUrl = configuration.ServerWithApiUrl + "forumSubsection/";
 	    }
-	    return WishType;
+	    return ForumSubsectionService;
 	}());
-	exports.WishType = WishType;
+	ForumSubsectionService = __decorate([
+	    core_1.Injectable(),
+	    __metadata("design:paramtypes", [typeof (_a = typeof index_1.HttpWrapper !== "undefined" && index_1.HttpWrapper) === "function" && _a || Object, typeof (_b = typeof app_constants_1.Configuration !== "undefined" && app_constants_1.Configuration) === "function" && _b || Object])
+	], ForumSubsectionService);
+	exports.ForumSubsectionService = ForumSubsectionService;
+	var _a, _b;
 
 
 /***/ },
@@ -6319,7 +6413,398 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(20);
-	var wish_service_1 = __webpack_require__(145);
+	var router_1 = __webpack_require__(29);
+	var common_1 = __webpack_require__(49);
+	var forumSubsection_service_1 = __webpack_require__(143);
+	var index_1 = __webpack_require__(32);
+	var ForumSubsectionListComponent = (function () {
+	    function ForumSubsectionListComponent(service, rolesChecked, route, location) {
+	        this.service = service;
+	        this.rolesChecked = rolesChecked;
+	        this.route = route;
+	        this.location = location;
+	        this.page = 1;
+	        this.itemsPerPage = 15;
+	    }
+	    ForumSubsectionListComponent.prototype.ngOnInit = function () {
+	        var _this = this;
+	        this.roles = this.rolesChecked.checkedRoles;
+	        this.sub2 = this.route.queryParams.subscribe(function (params) {
+	            if (params["page"]) {
+	                _this.page = +params["page"];
+	            }
+	        });
+	        this.sub = this.route.params.subscribe(function (params) {
+	            var id = +params["id"];
+	            _this.update(id);
+	        });
+	    };
+	    ;
+	    ForumSubsectionListComponent.prototype.ngOnDestroy = function () {
+	        this.sub.unsubscribe();
+	        this.sub2.unsubscribe();
+	    };
+	    ForumSubsectionListComponent.prototype.pageChanged = function (event) {
+	        this.page = event.page;
+	        this.update(this.item.id);
+	        var newUrl = "forum/" + this.item.id + "?page=" + this.page;
+	        this.location.replaceState(newUrl);
+	    };
+	    ;
+	    ForumSubsectionListComponent.prototype.update = function (id) {
+	        var _this = this;
+	        this.service.getSingleWithThemes(id, this.page)
+	            .subscribe(function (data) {
+	            _this.item = data;
+	            _this.itemsPerPage = data.themes.itemPerPage;
+	            _this.items = data.themes.list;
+	            _this.totalItems = data.themes.totalItems;
+	        }, function (error) { return console.log(error); }, function () { });
+	    };
+	    return ForumSubsectionListComponent;
+	}());
+	ForumSubsectionListComponent = __decorate([
+	    core_1.Component({
+	        selector: "forumSubsection-list",
+	        template: __webpack_require__(145)
+	    }),
+	    __metadata("design:paramtypes", [typeof (_a = typeof forumSubsection_service_1.ForumSubsectionService !== "undefined" && forumSubsection_service_1.ForumSubsectionService) === "function" && _a || Object, typeof (_b = typeof index_1.RolesCheckedService !== "undefined" && index_1.RolesCheckedService) === "function" && _b || Object, typeof (_c = typeof router_1.ActivatedRoute !== "undefined" && router_1.ActivatedRoute) === "function" && _c || Object, typeof (_d = typeof common_1.Location !== "undefined" && common_1.Location) === "function" && _d || Object])
+	], ForumSubsectionListComponent);
+	exports.ForumSubsectionListComponent = ForumSubsectionListComponent;
+	var _a, _b, _c, _d;
+
+
+/***/ },
+/* 145 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"container-fluid\" *ngIf=\"item\">\r\n    <div class=\"panel panel-danger\">\r\n        <div class=\"panel-heading\">\r\n            <span [textContent]=\"item.name\"></span>\r\n            <span [textContent]=\"item.description\"></span>\r\n            <a ui-sref=\"themeEdit({subsectionId: vm.subsection.id})\">Добавить тему</a>\r\n        </div>\r\n        <!--  <div class=\"panel-body\"></div>-->\r\n        <ul class=\"list-group\" *ngFor=\"let theme of item.themes.list\">\r\n            <li class=\"list-group-item list\">\r\n                <span><a [routerLink]=\"['/forum/theme', theme.id]\" [textContent]=\"theme.name\"></a></span>\r\n                <span [textContent]=\"theme.description\"></span>\r\n                <span class=\"pull-right\">\r\n                    <a ui-sref=\"themeEdit({id: theme.id})\"><span class=\"glyphicon glyphicon-pencil\"></span></a>\r\n                    <a class=\"pull-right\" ng-show=\"section.subsections.length == 0\" ng-click=\"vm.removeSection($index)\">\r\n                        <span class=\"glyphicon glyphicon-remove\"></span>\r\n                    </a>\r\n                </span>\r\n            </li>\r\n        </ul>\r\n\r\n    </div>\r\n    <div>Всего тем:<span [textContent]=\"item.themes.totalItems\"></span></div>\r\n    <div class=\"pagination\">\r\n        <pagination *ngIf=\"items\" [totalItems]=\"totalItems\" [itemsPerPage]=\"itemsPerPage\" [(ngModel)]=\"page\" [maxSize]=\"7\" (pageChanged)=\"pageChanged($event)\"\r\n                    previousText=\"&lsaquo;\" nextText=\"&rsaquo;\" firstText=\"1\" lastText=\"totalItems/itemsPerPage\"></pagination>\r\n    </div>\r\n</div>\r\n";
+
+/***/ },
+/* 146 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(20);
+	var forms_1 = __webpack_require__(26);
+	var router_1 = __webpack_require__(29);
+	var forumSubsection_model_1 = __webpack_require__(142);
+	var forumSubsection_service_1 = __webpack_require__(143);
+	var index_1 = __webpack_require__(135);
+	var ForumSubsectionEditComponent = (function () {
+	    function ForumSubsectionEditComponent(service, formBuilder, route, subsectionService) {
+	        this.service = service;
+	        this.formBuilder = formBuilder;
+	        this.route = route;
+	        this.subsectionService = subsectionService;
+	        this.id = 0;
+	    }
+	    ForumSubsectionEditComponent.prototype.ngOnInit = function () {
+	        var _this = this;
+	        this.editForm = this.formBuilder.group({
+	            'sectionId': [
+	                "", forms_1.Validators.compose([
+	                    forms_1.Validators.required
+	                ])
+	            ],
+	            'name': [
+	                "", forms_1.Validators.compose([
+	                    forms_1.Validators.required
+	                ])
+	            ],
+	            'description': [
+	                "", forms_1.Validators.compose([
+	                    forms_1.Validators.required
+	                ])
+	            ]
+	        });
+	        this.sub = this.route.params.subscribe(function (params) {
+	            _this.id = +params["id"];
+	            if (_this.id > 0) {
+	                _this.service
+	                    .getSingle(_this.id)
+	                    .subscribe(function (data) { return _this.editForm.patchValue(data); }, function (error) { return console.log(error); }, function () { });
+	            }
+	        });
+	        this.subsectionService.getAll()
+	            .subscribe(function (data) { return _this.forumSections = data; }, function (error) { return console.log(error); }, function () { });
+	    };
+	    ForumSubsectionEditComponent.prototype.ngOnDestroy = function () {
+	        this.sub.unsubscribe();
+	    };
+	    ForumSubsectionEditComponent.prototype.onSubmit = function () {
+	        var model = new forumSubsection_model_1.ForumSubsection();
+	        model.id = this.id;
+	        model.sectionId = this.editForm.controls["sectionId"].value;
+	        model.name = this.editForm.controls["name"].value;
+	        model.description = this.editForm.controls["description"].value;
+	        var res;
+	        if (this.id > 0) {
+	            var result = this.service.update(this.id, model).subscribe(function (data) { return res = data; });
+	        }
+	        else {
+	            var result = this.service.create(model).subscribe(function (data) { return res = data; });
+	        }
+	        if (res !== null) {
+	        }
+	    };
+	    return ForumSubsectionEditComponent;
+	}());
+	ForumSubsectionEditComponent = __decorate([
+	    core_1.Component({
+	        selector: "forumSubsection-edit",
+	        template: __webpack_require__(147)
+	    }),
+	    __metadata("design:paramtypes", [typeof (_a = typeof forumSubsection_service_1.ForumSubsectionService !== "undefined" && forumSubsection_service_1.ForumSubsectionService) === "function" && _a || Object, typeof (_b = typeof forms_1.FormBuilder !== "undefined" && forms_1.FormBuilder) === "function" && _b || Object, typeof (_c = typeof router_1.ActivatedRoute !== "undefined" && router_1.ActivatedRoute) === "function" && _c || Object, typeof (_d = typeof index_1.ForumSectionService !== "undefined" && index_1.ForumSectionService) === "function" && _d || Object])
+	], ForumSubsectionEditComponent);
+	exports.ForumSubsectionEditComponent = ForumSubsectionEditComponent;
+	var _a, _b, _c, _d;
+
+
+/***/ },
+/* 147 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"col-xs-12 col-sm-12\">\r\n    <form class=\"form-horizontal\" name=\"editForm\" role=\"form\" [formGroup]=\"editForm\" (ngSubmit)=\"onSubmit(editForm.value)\">\r\n        <div class=\"form-group\">\r\n            <label class=\"control-label col-xs-2 col-sm-2\">Секция:</label>\r\n            <div class=\"col-xs-10 col-sm-10\">\r\n                <select class=\"form-control\" name=\"categoryId\" formControlName=\"sectionId\">\r\n                    <option *ngFor=\"let section of forumSections\" value=\"{{section.id}}\">{{section.name}}</option>\r\n                </select>\r\n            </div>\r\n        </div>\r\n        <div class=\"form-group\">\r\n            <label class=\"control-label col-xs-2 col-sm-2\">Имя:</label>\r\n            <div class=\"col-xs-10 col-sm-10\">\r\n                <input class=\"form-control\" name=\"name\" formControlName=\"name\" />\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"form-group\">\r\n            <label class=\"control-label col-xs-2 col-sm-2\">Описание:</label>\r\n            <div class=\"col-xs-10 col-sm-10\">\r\n                <input class=\"form-control\" name=\"description\" formControlName=\"description\" />\r\n            </div>\r\n        </div>\r\n        <div class=\"form-group\">\r\n            <div class=\"col-xs-offset-2 col-sm-offset-2 col-xs-10 col-sm-10\">\r\n                <button type=\"submit\" [disabled]=\"!editForm.valid\" class=\"btn btn-default\">Сохранить</button>\r\n            </div>\r\n        </div>\r\n    </form>\r\n</div>\r\n";
+
+/***/ },
+/* 148 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var index_1 = __webpack_require__(149);
+	exports.forumThemeRoutes = [
+	    { path: "forum/theme/:id", component: index_1.ForumThemeListComponent, data: { title: "Тема форума" } },
+	];
+
+
+/***/ },
+/* 149 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	function __export(m) {
+	    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+	}
+	__export(__webpack_require__(150));
+	__export(__webpack_require__(151));
+	__export(__webpack_require__(152));
+
+
+/***/ },
+/* 150 */
+/***/ function(module, exports) {
+
+	"use strict";
+	var ForumTheme = (function () {
+	    function ForumTheme() {
+	    }
+	    return ForumTheme;
+	}());
+	exports.ForumTheme = ForumTheme;
+
+
+/***/ },
+/* 151 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(20);
+	__webpack_require__(45);
+	var app_constants_1 = __webpack_require__(39);
+	var index_1 = __webpack_require__(32);
+	var ForumThemeService = (function () {
+	    function ForumThemeService(http, configuration) {
+	        var _this = this;
+	        this.http = http;
+	        this.configuration = configuration;
+	        this.getAll = function () {
+	            return _this.http.get(_this.actionUrl + "list/").map(function (res) { return res.json(); });
+	        };
+	        this.getSingleWithMessages = function (id, page) {
+	            return _this.http.get("" + _this.actionUrl + id + "/" + page).map(function (res) { return res.json(); });
+	        };
+	        this.actionUrl = configuration.ServerWithApiUrl + "forumTheme/";
+	    }
+	    return ForumThemeService;
+	}());
+	ForumThemeService = __decorate([
+	    core_1.Injectable(),
+	    __metadata("design:paramtypes", [typeof (_a = typeof index_1.HttpWrapper !== "undefined" && index_1.HttpWrapper) === "function" && _a || Object, typeof (_b = typeof app_constants_1.Configuration !== "undefined" && app_constants_1.Configuration) === "function" && _b || Object])
+	], ForumThemeService);
+	exports.ForumThemeService = ForumThemeService;
+	var _a, _b;
+
+
+/***/ },
+/* 152 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(20);
+	var router_1 = __webpack_require__(29);
+	var common_1 = __webpack_require__(49);
+	var forumTheme_service_1 = __webpack_require__(151);
+	var index_1 = __webpack_require__(32);
+	var ForumThemeListComponent = (function () {
+	    function ForumThemeListComponent(service, rolesChecked, route, location) {
+	        this.service = service;
+	        this.rolesChecked = rolesChecked;
+	        this.route = route;
+	        this.location = location;
+	        this.page = 1;
+	        this.itemsPerPage = 15;
+	    }
+	    ForumThemeListComponent.prototype.ngOnInit = function () {
+	        var _this = this;
+	        this.roles = this.rolesChecked.checkedRoles;
+	        this.sub2 = this.route.queryParams.subscribe(function (params) {
+	            if (params["page"]) {
+	                _this.page = +params["page"];
+	            }
+	        });
+	        this.sub = this.route.params.subscribe(function (params) {
+	            var id = +params["id"];
+	            _this.update(id);
+	        });
+	    };
+	    ;
+	    ForumThemeListComponent.prototype.ngOnDestroy = function () {
+	        this.sub.unsubscribe();
+	        this.sub2.unsubscribe();
+	    };
+	    ForumThemeListComponent.prototype.pageChanged = function (event) {
+	        this.page = event.page;
+	        this.update(this.item.id);
+	        var newUrl = "forum/theme/" + this.item.id + "?page=" + this.page;
+	        this.location.replaceState(newUrl);
+	    };
+	    ;
+	    ForumThemeListComponent.prototype.update = function (id) {
+	        var _this = this;
+	        this.service.getSingleWithMessages(id, this.page)
+	            .subscribe(function (data) {
+	            _this.item = data;
+	            _this.itemsPerPage = data.messages.itemPerPage;
+	            _this.items = data.messages.list;
+	            _this.totalItems = data.messages.totalItems;
+	        }, function (error) { return console.log(error); }, function () { });
+	    };
+	    return ForumThemeListComponent;
+	}());
+	ForumThemeListComponent = __decorate([
+	    core_1.Component({
+	        selector: "forumTheme-list",
+	        template: __webpack_require__(153)
+	    }),
+	    __metadata("design:paramtypes", [typeof (_a = typeof forumTheme_service_1.ForumThemeService !== "undefined" && forumTheme_service_1.ForumThemeService) === "function" && _a || Object, typeof (_b = typeof index_1.RolesCheckedService !== "undefined" && index_1.RolesCheckedService) === "function" && _b || Object, typeof (_c = typeof router_1.ActivatedRoute !== "undefined" && router_1.ActivatedRoute) === "function" && _c || Object, typeof (_d = typeof common_1.Location !== "undefined" && common_1.Location) === "function" && _d || Object])
+	], ForumThemeListComponent);
+	exports.ForumThemeListComponent = ForumThemeListComponent;
+	var _a, _b, _c, _d;
+
+
+/***/ },
+/* 153 */
+/***/ function(module, exports) {
+
+	module.exports = "<div *ngIf=\"item\">\r\n    <h2 [textContent]=\"item.name\"></h2>\r\n    <h3 [textContent]=\"item.description\"></h3>\r\n    <div class=\"container-fluid forum-message col-sm-12\" *ngFor=\"let message of items\">\r\n        <div class=\"panel panel-default\">\r\n            <div class=\"panel-heading col-sm-12\">\r\n                <span class=\"col-sm-3\"><a ui-sref=\"userInfo({id: message.authorId})\" [textContent]=\"message.authorUserName\"></a></span>\r\n                <span class=\"col-sm-9 pull-right\" [textContent]=\"message.additionTime | date:'medium'\"></span>\r\n            </div>\r\n            <div class=\"panel-body\">\r\n                <div class=\"col-sm-3\"> <img class=\"flex-vertical-center width50p\" src=\"{{message.photo}}\" /></div>\r\n                <div class=\"col-sm-9\" ng-bind-html=\"message.message | rawHtml\">\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <!--style>\r\n          .flex-container-row {\r\n              display: flex;\r\n              flex-direction: row;\r\n              flex-wrap: nowrap;\r\n              justify-content: flex-start;\r\n              align-content: flex-start;\r\n              align-items: flex-start;\r\n              background-color: #000080;\r\n               min-height: 100px;\r\n               margin-bottom: 10px;\r\n              }\r\n          .flex-container-column {\r\n              display: flex;\r\n              flex-direction: column;\r\n              flex-wrap: nowrap;\r\n              justify-content: flex-start;\r\n              align-content: stretch;\r\n              align-items: center;\r\n              background-color: #ffff00;\r\n              }\r\n\r\n\r\n          .flex-item-1 {\r\n              background-color: #2f4f4f;\r\n              order: 0;\r\n              flex: 3 0 auto;\r\n              flex-direction: column;\r\n              align-self: stretch;\r\n          }\r\n          .flex-item-2 {\r\n              background-color: #9400d3;\r\n              order: 0;\r\n              flex: 10 0 auto;\r\n              flex-direction: column;\r\n              align-self: stretch;\r\n          }\r\n          .flex-item {\r\n               order: 0;\r\n              flex: 0 1 auto;\r\n              flex-direction: column;\r\n          }\r\n          .flex-item.name {\r\n               order: 0;\r\n              flex: 1 1 auto;\r\n              flex-direction: column;\r\n          }\r\n          .flex-item.photo {\r\n               order: 0;\r\n              flex: 5 1 auto;\r\n              flex-direction: row;\r\n                background-color: #008080;\r\n            }\r\n          .flex-item.date {\r\n              order: 0;\r\n              flex: 1 1 auto;\r\n              flex-direction: row;\r\n           }\r\n          .flex-item.message {\r\n              order: 0;\r\n              flex: 5 1 auto;\r\n              flex-direction: row;\r\n                 align-self: flex-start;\r\n                 background-color: #00bfff;\r\n             }\r\n      </style>\r\n    <div class=\"flex-container-row message\" ng-repeat=\"message in vm.messages\">\r\n          <div class=\"flex-container-column flex-item-1\">\r\n              <div class=\"flex-item name\">\r\n                  <a ui-sref=\"userInfo({id: message.authorId})\" ng-bind=\"message.authorUserName\"></a>\r\n              </div>\r\n              <div class=\"flex-item photo\">\r\n                  <img ng-src=\"message.photo}}\"/>\r\n              </div>\r\n          </div>\r\n          <div class=\"flex-container-column flex-item-2 \">\r\n              <span class=\"flex-item date\" ng-bind=\"message.additionTime | date:'medium'\"></span>\r\n              <div class=\"flex-item message\" ng-bind-html=\"message.message | rawHtml\">\r\n              </div>\r\n          </div>\r\n      </div-->\r\n\r\n    <div class=\"col-xs-12 col-sm-12\">\r\n        <!-- todo ng-show=\"loggedIn()\"-->\r\n        <form class=\"form-horizontal\" name=\"commentForm\" role=\"form\">\r\n            <div class=\"col-md-12\">\r\n                <div class=\"col-md-12\">\r\n                    <textarea mark-it-up class=\"col-md-offset-2 col-md-8\" rows=\"6\" name=\"message\" ng-model=\"vm.newComment.message\" validation=\"required\"></textarea>\r\n                </div>\r\n                <div class=\"\">\r\n                    <button class=\"btn btn-primary center-block\" ng-disabled=\"commentForm.$invalid\" ng-click=\"vm.addComment()\">Добавить</button>\r\n                </div>\r\n            </div>\r\n        </form>\r\n    </div>\r\n\r\n    <div class=\"pagination\">\r\n        <pagination *ngIf=\"items\" [totalItems]=\"totalItems\" [itemsPerPage]=\"itemsPerPage\" [(ngModel)]=\"page\" [maxSize]=\"7\" (pageChanged)=\"pageChanged($event)\"\r\n                    previousText=\"&lsaquo;\" nextText=\"&rsaquo;\" firstText=\"1\" lastText=\"totalItems/itemsPerPage\"></pagination>\r\n    </div>\r\n</div>\r\n";
+
+/***/ },
+/* 154 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var index_1 = __webpack_require__(155);
+	exports.wishRoutes = [
+	    { path: "wish", component: index_1.WishListComponent },
+	    { path: "wish/:id/edit", component: index_1.WishEditComponent }
+	];
+
+
+/***/ },
+/* 155 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	function __export(m) {
+	    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+	}
+	__export(__webpack_require__(156));
+	__export(__webpack_require__(157));
+	__export(__webpack_require__(158));
+	__export(__webpack_require__(161));
+	__export(__webpack_require__(159));
+
+
+/***/ },
+/* 156 */
+/***/ function(module, exports) {
+
+	"use strict";
+	var Wish = (function () {
+	    function Wish() {
+	    }
+	    return Wish;
+	}());
+	exports.Wish = Wish;
+
+
+/***/ },
+/* 157 */
+/***/ function(module, exports) {
+
+	"use strict";
+	var WishType = (function () {
+	    function WishType() {
+	    }
+	    return WishType;
+	}());
+	exports.WishType = WishType;
+
+
+/***/ },
+/* 158 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(20);
+	var wish_service_1 = __webpack_require__(159);
 	var router_1 = __webpack_require__(29);
 	var WishListComponent = (function () {
 	    function WishListComponent(service, route) {
@@ -6368,21 +6853,21 @@
 	        }
 	    };
 	    ;
-	    WishListComponent = __decorate([
-	        core_1.Component({
-	            selector: "wish-list",
-	            template: __webpack_require__(146)
-	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof wish_service_1.WishService !== 'undefined' && wish_service_1.WishService) === 'function' && _a) || Object, (typeof (_b = typeof router_1.ActivatedRoute !== 'undefined' && router_1.ActivatedRoute) === 'function' && _b) || Object])
-	    ], WishListComponent);
 	    return WishListComponent;
-	    var _a, _b;
 	}());
+	WishListComponent = __decorate([
+	    core_1.Component({
+	        selector: "wish-list",
+	        template: __webpack_require__(160)
+	    }),
+	    __metadata("design:paramtypes", [typeof (_a = typeof wish_service_1.WishService !== "undefined" && wish_service_1.WishService) === "function" && _a || Object, typeof (_b = typeof router_1.ActivatedRoute !== "undefined" && router_1.ActivatedRoute) === "function" && _b || Object])
+	], WishListComponent);
 	exports.WishListComponent = WishListComponent;
+	var _a, _b;
 
 
 /***/ },
-/* 145 */
+/* 159 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6426,24 +6911,24 @@
 	        };
 	        this.actionUrl = configuration.ServerWithApiUrl + "wish/";
 	    }
-	    WishService = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof httpWrapper_1.HttpWrapper !== 'undefined' && httpWrapper_1.HttpWrapper) === 'function' && _a) || Object, (typeof (_b = typeof app_constants_1.Configuration !== 'undefined' && app_constants_1.Configuration) === 'function' && _b) || Object])
-	    ], WishService);
 	    return WishService;
-	    var _a, _b;
 	}());
+	WishService = __decorate([
+	    core_1.Injectable(),
+	    __metadata("design:paramtypes", [typeof (_a = typeof httpWrapper_1.HttpWrapper !== "undefined" && httpWrapper_1.HttpWrapper) === "function" && _a || Object, typeof (_b = typeof app_constants_1.Configuration !== "undefined" && app_constants_1.Configuration) === "function" && _b || Object])
+	], WishService);
 	exports.WishService = WishService;
+	var _a, _b;
 
 
 /***/ },
-/* 146 */
+/* 160 */
 /***/ function(module, exports) {
 
 	module.exports = "<div>\r\n    <div class=\"btn-group\">\r\n        <form class=\"form-inline btn-block\">\r\n            <!--<div class=\"form-group\">\r\n                <select class=\"form-control\"\r\n                        ng-model=\"vm.typeId\"\r\n                        ng-options=\"type.id as type.name for type in vm.types\" ng-change=\"vm.changeTypeId()\"></select>\r\n            </div>-->\r\n            <div class=\"form-group\">\r\n                <!--<input class=\"form-control\" ng-model=\"vm.filterText\" ng-model-options=\"{debounce: 1000}\" ng-change=\"vm.filterByText()\" placeholder=\"Поиск в тексте пожеланий\" />--> <!--todo magic number-->\r\n            </div>\r\n            <button class=\"btn btn-success\" [routerLink]=\"['/wish', 0, 'edit']\">Добавить</button>\r\n        </form>\r\n    </div>\r\n    <div class=\"top20\" *ngFor=\"let wish of items; let i = index;\">\r\n        <div class=\"panel\" [ngClass]=\"getTypeClass(wish.type)\">\r\n            <div class=\"panel-heading\">\r\n                <h3 class=\"panel-title\">\r\n                    <a [routerLink]=\"['/wish', wish.id, 'edit']\">\r\n                        <span [textContent]=\"wish.title\"></span>\r\n                    </a>\r\n                    <span class=\"col-xs-1 col-sm-1 pull-right\" secured=\"AdminFull\">\r\n                        <a ng-click=\"vm.delete(i)\"><span class=\"glyphicon glyphicon-trash\"></span></a>\r\n                    </span>\r\n                </h3>\r\n            </div>\r\n            <div class=\"panel-body\">\r\n                <div [textContent]=\"wish.message\"></div>\r\n            </div>\r\n            <div class=\"panel-footer\">\r\n                <div [textContent]=\"wish.typeName\"></div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n<div class=\"pagination\">\r\n    <!--uib-pagination ng-show=\"vm.totalItems > vm.itemPerPage\" total-items=\"vm.totalItems\" ng-model=\"vm.page\" ng-change=\"vm.goToPage()\"></!--uib-pagination-->\r\n</div>";
 
 /***/ },
-/* 147 */
+/* 161 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6458,8 +6943,8 @@
 	};
 	var core_1 = __webpack_require__(20);
 	var forms_1 = __webpack_require__(26);
-	var wish_model_1 = __webpack_require__(142);
-	var wish_service_1 = __webpack_require__(145);
+	var wish_model_1 = __webpack_require__(156);
+	var wish_service_1 = __webpack_require__(159);
 	var router_1 = __webpack_require__(29);
 	var WishEditComponent = (function () {
 	    function WishEditComponent(service, formBuilder, route, router) {
@@ -6524,31 +7009,31 @@
 	            .GetTypes()
 	            .subscribe(function (data) { return _this.types = data; });
 	    };
-	    WishEditComponent = __decorate([
-	        core_1.Component({
-	            selector: "wish-edit",
-	            template: __webpack_require__(148)
-	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof wish_service_1.WishService !== 'undefined' && wish_service_1.WishService) === 'function' && _a) || Object, (typeof (_b = typeof forms_1.FormBuilder !== 'undefined' && forms_1.FormBuilder) === 'function' && _b) || Object, (typeof (_c = typeof router_1.ActivatedRoute !== 'undefined' && router_1.ActivatedRoute) === 'function' && _c) || Object, (typeof (_d = typeof router_1.Router !== 'undefined' && router_1.Router) === 'function' && _d) || Object])
-	    ], WishEditComponent);
 	    return WishEditComponent;
-	    var _a, _b, _c, _d;
 	}());
+	WishEditComponent = __decorate([
+	    core_1.Component({
+	        selector: "wish-edit",
+	        template: __webpack_require__(162)
+	    }),
+	    __metadata("design:paramtypes", [typeof (_a = typeof wish_service_1.WishService !== "undefined" && wish_service_1.WishService) === "function" && _a || Object, typeof (_b = typeof forms_1.FormBuilder !== "undefined" && forms_1.FormBuilder) === "function" && _b || Object, typeof (_c = typeof router_1.ActivatedRoute !== "undefined" && router_1.ActivatedRoute) === "function" && _c || Object, typeof (_d = typeof router_1.Router !== "undefined" && router_1.Router) === "function" && _d || Object])
+	], WishEditComponent);
 	exports.WishEditComponent = WishEditComponent;
+	var _a, _b, _c, _d;
 
 
 /***/ },
-/* 148 */
+/* 162 */
 /***/ function(module, exports) {
 
 	module.exports = "<form class=\"form-horizontal col-md-12\" role=\"form\" name=\"editWish\" [formGroup]=\"editForm\" (ngSubmit)=\"onSubmit()\">\r\n    <div class=\"form-group\">\r\n        <label class=\"control-label col-md-2\">Заголовок</label>\r\n        <div class=\"col-md-10\">\r\n            <input class=\"form-control\" name=\"title\" [formControl]=\"editForm.controls['title']\"/>\r\n        </div>\r\n    </div>\r\n    <div class=\"form-group\">\r\n        <label class=\"control-label col-md-2\">Сообщение</label>\r\n        <div class=\"col-md-10\">\r\n            <textarea class=\"form-control\" name=\"title\" [formControl]=\"editForm.controls['message']\"></textarea>\r\n        </div>\r\n    </div>\r\n    <div class=\"form-group\">\r\n        <label class=\"control-label col-xs-2 col-sm-2\">Тип:</label>\r\n        <div class=\"col-xs-10 col-sm-10\">\r\n            <!--<select class=\"form-control\" name=\"newsCategoryId\" [formControl]=\"editForm.controls['type']\"></select>-->\r\n            <select [formControl]=\"editForm.controls['type']\">\r\n                <option [value]=\"type.id\" *ngFor=\"let type of types\" [textContent]=\"type.name\"></option>\r\n            </select>\r\n        </div>\r\n    </div>\r\n    <div class=\"form-group\">\r\n        <div class=\"col-md-offset-2 col-md-10\">\r\n            <button [disabled]=\"!editForm.valid\" type=\"submit\" class=\"btn btn-default\">Создать</button>\r\n        </div>\r\n    </div>\r\n</form>\r\n";
 
 /***/ },
-/* 149 */
+/* 163 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var index_1 = __webpack_require__(150);
+	var index_1 = __webpack_require__(164);
 	exports.materialCommentRoutes = [
 	    { path: "materialComment", component: index_1.MaterialCommentListComponent },
 	    { path: "materialComment/list", component: index_1.MaterialCommentListComponent },
@@ -6558,22 +7043,22 @@
 
 
 /***/ },
-/* 150 */
+/* 164 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	function __export(m) {
 	    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 	}
-	__export(__webpack_require__(151));
-	__export(__webpack_require__(152));
-	__export(__webpack_require__(153));
-	__export(__webpack_require__(155));
-	__export(__webpack_require__(157));
+	__export(__webpack_require__(165));
+	__export(__webpack_require__(166));
+	__export(__webpack_require__(167));
+	__export(__webpack_require__(169));
+	__export(__webpack_require__(171));
 
 
 /***/ },
-/* 151 */
+/* 165 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -6586,7 +7071,7 @@
 
 
 /***/ },
-/* 152 */
+/* 166 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6600,7 +7085,7 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(20);
-	var materialComment_service_1 = __webpack_require__(153);
+	var materialComment_service_1 = __webpack_require__(167);
 	var common_1 = __webpack_require__(49);
 	var index_1 = __webpack_require__(32);
 	var ng2_bootstrap_1 = __webpack_require__(46);
@@ -6666,25 +7151,25 @@
 	            }
 	        });
 	    };
-	    __decorate([
-	        core_1.ViewChild("deleteModal"), 
-	        __metadata('design:type', (typeof (_a = typeof ng2_bootstrap_1.ModalDirective !== 'undefined' && ng2_bootstrap_1.ModalDirective) === 'function' && _a) || Object)
-	    ], MaterialCommentListComponent.prototype, "deleteModal", void 0);
-	    MaterialCommentListComponent = __decorate([
-	        core_1.Component({
-	            selector: "materialComment-list",
-	            template: __webpack_require__(154)
-	        }), 
-	        __metadata('design:paramtypes', [(typeof (_b = typeof materialComment_service_1.MaterialCommentService !== 'undefined' && materialComment_service_1.MaterialCommentService) === 'function' && _b) || Object, (typeof (_c = typeof common_1.Location !== 'undefined' && common_1.Location) === 'function' && _c) || Object, (typeof (_d = typeof index_1.RolesCheckedService !== 'undefined' && index_1.RolesCheckedService) === 'function' && _d) || Object])
-	    ], MaterialCommentListComponent);
 	    return MaterialCommentListComponent;
-	    var _a, _b, _c, _d;
 	}());
+	__decorate([
+	    core_1.ViewChild("deleteModal"),
+	    __metadata("design:type", typeof (_a = typeof ng2_bootstrap_1.ModalDirective !== "undefined" && ng2_bootstrap_1.ModalDirective) === "function" && _a || Object)
+	], MaterialCommentListComponent.prototype, "deleteModal", void 0);
+	MaterialCommentListComponent = __decorate([
+	    core_1.Component({
+	        selector: "materialComment-list",
+	        template: __webpack_require__(168)
+	    }),
+	    __metadata("design:paramtypes", [typeof (_b = typeof materialComment_service_1.MaterialCommentService !== "undefined" && materialComment_service_1.MaterialCommentService) === "function" && _b || Object, typeof (_c = typeof common_1.Location !== "undefined" && common_1.Location) === "function" && _c || Object, typeof (_d = typeof index_1.RolesCheckedService !== "undefined" && index_1.RolesCheckedService) === "function" && _d || Object])
+	], MaterialCommentListComponent);
 	exports.MaterialCommentListComponent = MaterialCommentListComponent;
+	var _a, _b, _c, _d;
 
 
 /***/ },
-/* 153 */
+/* 167 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6731,24 +7216,24 @@
 	        };
 	        this.actionUrl = configuration.ServerWithApiUrl + "materialComment/";
 	    }
-	    MaterialCommentService = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof httpWrapper_1.HttpWrapper !== 'undefined' && httpWrapper_1.HttpWrapper) === 'function' && _a) || Object, (typeof (_b = typeof app_constants_1.Configuration !== 'undefined' && app_constants_1.Configuration) === 'function' && _b) || Object])
-	    ], MaterialCommentService);
 	    return MaterialCommentService;
-	    var _a, _b;
 	}());
+	MaterialCommentService = __decorate([
+	    core_1.Injectable(),
+	    __metadata("design:paramtypes", [typeof (_a = typeof httpWrapper_1.HttpWrapper !== "undefined" && httpWrapper_1.HttpWrapper) === "function" && _a || Object, typeof (_b = typeof app_constants_1.Configuration !== "undefined" && app_constants_1.Configuration) === "function" && _b || Object])
+	], MaterialCommentService);
 	exports.MaterialCommentService = MaterialCommentService;
+	var _a, _b;
 
 
 /***/ },
-/* 154 */
+/* 168 */
 /***/ function(module, exports) {
 
 	module.exports = "<div>\r\n    <!--div class=\"btn-group\">\r\n        <form class=\"form-inline btn-block\">\r\n            <div class=\"form-group\">\r\n                <select class=\"form-control\"\r\n                        ng-model=\"vm.typeId\"\r\n                        ng-options=\"type.id as type.name for type in vm.types\" ng-change=\"vm.changeTypeId()\"></select>\r\n            </div>\r\n            <div class=\"form-group\">\r\n                <input class=\"form-control\" ng-model=\"vm.filterText\" ng-model-options=\"{debounce: 1000}\" ng-change=\"vm.filterByText()\" placeholder=\"Поиск в тексте пожеланий\" /> <!--todo magic number->\r\n            </div>\r\n            <button class=\"btn btn-success\" ui-sref=\"wishEdit()\">Добавить</button>\r\n        </form>\r\n    </div-->\r\n    <div class=\"top20\" *ngFor=\"let comment of items; let i = index;\">\r\n        <div class=\"panel\" ng-class=\"\">\r\n            <div class=\"panel-heading panel-default\">\r\n                <h3 class=\"panel-title\">\r\n                    <a [routerLink]=\"['/user', comment.authorId]\"><span [textContent]=\"comment.authorUserName\"></span></a>\r\n                    <span class=\"col-xs-1 col-sm-1 pull-right\" *ngIf=\"roles.isModerator\">\r\n                        <a [hidden]=\"comment.isVerified\" (click)=\"verify(i)\"><span class=\"glyphicon glyphicon-ok\"></span></a>\r\n                        <a (click)=\"showDeleteModal(i)\"><span class=\"glyphicon glyphicon-trash\"></span></a>\r\n                    </span>\r\n                </h3>\r\n            </div>\r\n            <div class=\"panel-body\">\r\n                <div [textContent]=\"comment.message\"></div>\r\n            </div>\r\n            <div class=\"panel-footer\">\r\n                <div [textContent]=\"comment.additionTime | date:'medium'\"></div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n<div class=\"pagination\">\r\n    <pagination *ngIf=\"items\" [totalItems]=\"totalItems\" [itemsPerPage]=\"itemsPerPage\" [(ngModel)]=\"page\" [maxSize]=\"7\" (pageChanged)=\"pageChanged($event)\"\r\n                previousText=\"&lsaquo;\" nextText=\"&rsaquo;\" firstText=\"1\" lastText=\"totalItems/itemsPerPage\"></pagination>\r\n</div>\r\n\r\n<div class=\"modal fade\" bsModal #deleteModal=\"bs-modal\" [config]=\"{backdrop: 'static'}\"\r\n     tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"mySmallModalLabel\" aria-hidden=\"true\">\r\n    <div class=\"modal-dialog modal-sm\">\r\n        <div class=\"modal-content\">\r\n            <div class=\"modal-header\">\r\n                <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"hideModal()\">\r\n                    <span aria-hidden=\"true\">&times;</span>\r\n                </button>\r\n                <h4 class=\"modal-title\">Удалить?</h4>\r\n            </div>\r\n            <div class=\"modal-body\">\r\n                <button class=\"btn btn-default\" data-dismiss=\"modal\" (click)=\"hideModal()\" type=\"button\">Отмена</button>\r\n                <button class=\"btn btn-primary\" type=\"button\" (click)=\"delete()\">Удалить</button>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>";
 
 /***/ },
-/* 155 */
+/* 169 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6763,8 +7248,8 @@
 	};
 	var core_1 = __webpack_require__(20);
 	var forms_1 = __webpack_require__(26);
-	var materialComment_model_1 = __webpack_require__(151);
-	var materialComment_service_1 = __webpack_require__(153);
+	var materialComment_model_1 = __webpack_require__(165);
+	var materialComment_service_1 = __webpack_require__(167);
 	var common_1 = __webpack_require__(49);
 	var index_1 = __webpack_require__(32);
 	var MaterialCommentSectionComponent = (function () {
@@ -6783,7 +7268,8 @@
 	        this.update();
 	        this.commentForm = this.formBuilder.group({
 	            'message': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required, forms_1.Validators.minLength(3)])]
+	                    forms_1.Validators.required, forms_1.Validators.minLength(3)
+	                ])]
 	        });
 	    };
 	    MaterialCommentSectionComponent.prototype.pageChanged = function (event) {
@@ -6814,35 +7300,35 @@
 	            _this.commentForm.controls["message"].patchValue("");
 	        }, function (error) { return console.log(error); }, function () { });
 	    };
-	    __decorate([
-	        core_1.Input(), 
-	        __metadata('design:type', Number)
-	    ], MaterialCommentSectionComponent.prototype, "materialId", void 0);
-	    __decorate([
-	        core_1.Input(), 
-	        __metadata('design:type', Boolean)
-	    ], MaterialCommentSectionComponent.prototype, "canCommentary", void 0);
-	    MaterialCommentSectionComponent = __decorate([
-	        core_1.Component({
-	            selector: "comments",
-	            template: __webpack_require__(156)
-	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof materialComment_service_1.MaterialCommentService !== 'undefined' && materialComment_service_1.MaterialCommentService) === 'function' && _a) || Object, (typeof (_b = typeof common_1.Location !== 'undefined' && common_1.Location) === 'function' && _b) || Object, (typeof (_c = typeof index_1.RolesCheckedService !== 'undefined' && index_1.RolesCheckedService) === 'function' && _c) || Object, (typeof (_d = typeof forms_1.FormBuilder !== 'undefined' && forms_1.FormBuilder) === 'function' && _d) || Object])
-	    ], MaterialCommentSectionComponent);
 	    return MaterialCommentSectionComponent;
-	    var _a, _b, _c, _d;
 	}());
+	__decorate([
+	    core_1.Input(),
+	    __metadata("design:type", Number)
+	], MaterialCommentSectionComponent.prototype, "materialId", void 0);
+	__decorate([
+	    core_1.Input(),
+	    __metadata("design:type", Boolean)
+	], MaterialCommentSectionComponent.prototype, "canCommentary", void 0);
+	MaterialCommentSectionComponent = __decorate([
+	    core_1.Component({
+	        selector: "comments",
+	        template: __webpack_require__(170)
+	    }),
+	    __metadata("design:paramtypes", [typeof (_a = typeof materialComment_service_1.MaterialCommentService !== "undefined" && materialComment_service_1.MaterialCommentService) === "function" && _a || Object, typeof (_b = typeof common_1.Location !== "undefined" && common_1.Location) === "function" && _b || Object, typeof (_c = typeof index_1.RolesCheckedService !== "undefined" && index_1.RolesCheckedService) === "function" && _c || Object, typeof (_d = typeof forms_1.FormBuilder !== "undefined" && forms_1.FormBuilder) === "function" && _d || Object])
+	], MaterialCommentSectionComponent);
 	exports.MaterialCommentSectionComponent = MaterialCommentSectionComponent;
+	var _a, _b, _c, _d;
 
 
 /***/ },
-/* 156 */
+/* 170 */
 /***/ function(module, exports) {
 
-	module.exports = "<div>Комментарии: <span [textContent]=\"items.length\"></span></div>\r\n\r\n<div class=\"\" *ngFor=\"let comment of items\">\r\n    <materialComment-detail [item]=\"comment\" [deep]=\"0\" [materialId]=\"materialId\" [canCommentary]=\"canCommentary\"></materialComment-detail>\r\n</div>\r\n\r\n<form class=\"form-horizontal\" role=\"form\" [formGroup]=\"commentForm\" (ngSubmit)=\"onSubmit(commentForm.value)\">\r\n    <div class=\"col-md-12\" *ngIf=\"canCommentary && roles.isLogined\">\r\n        <div class=\"col-md-12\">\r\n            <textarea mark-it-up class=\"col-md-offset-2 col-md-8\" rows=\"6\" name=\"message\" [formControl]=\"commentForm.controls['message']\"></textarea>\r\n        </div>\r\n        <div class=\"\">\r\n            <button class=\"btn btn-primary center-block\" [disabled]=\"!commentForm.valid\" type=\"submit\">Добавить</button>\r\n        </div>\r\n    </div>\r\n</form>\r\n\r\n<div class=\"pagination\">\r\n    <pagination *ngIf=\"items && totalItems > itemsPerPage\" [totalItems]=\"totalItems\" [itemsPerPage]=\"itemsPerPage\" [(ngModel)]=\"page\" [maxSize]=\"7\" (pageChanged)=\"pageChanged($event)\"\r\n                previousText=\"&lsaquo;\" nextText=\"&rsaquo;\" firstText=\"1\" lastText=\"totalItems/itemsPerPage\"></pagination>\r\n</div>";
+	module.exports = "<div>Комментарии: <span [textContent]=\"totalItems\"></span></div>\r\n\r\n<div class=\"\" *ngFor=\"let comment of items\">\r\n    <materialComment-detail [item]=\"comment\" [deep]=\"0\" [materialId]=\"materialId\" [canCommentary]=\"canCommentary\"></materialComment-detail>\r\n</div>\r\n\r\n<form class=\"form-horizontal\" role=\"form\" [formGroup]=\"commentForm\" (ngSubmit)=\"onSubmit(commentForm.value)\">\r\n    <div class=\"col-md-12\" *ngIf=\"canCommentary && roles.isLogined\">\r\n        <div class=\"col-md-12\">\r\n            <textarea mark-it-up class=\"col-md-offset-2 col-md-8\" rows=\"6\" name=\"message\" [formControl]=\"commentForm.controls['message']\"></textarea>\r\n        </div>\r\n        <div class=\"\">\r\n            <button class=\"btn btn-primary center-block\" [disabled]=\"!commentForm.valid\" type=\"submit\">Добавить</button>\r\n        </div>\r\n    </div>\r\n</form>\r\n\r\n<div class=\"pagination\">\r\n    <pagination *ngIf=\"items && totalItems > itemsPerPage\" [totalItems]=\"totalItems\" [itemsPerPage]=\"itemsPerPage\" [(ngModel)]=\"page\" [maxSize]=\"7\" (pageChanged)=\"pageChanged($event)\"\r\n                previousText=\"&lsaquo;\" nextText=\"&rsaquo;\" firstText=\"1\" lastText=\"totalItems/itemsPerPage\"></pagination>\r\n</div>";
 
 /***/ },
-/* 157 */
+/* 171 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6858,8 +7344,8 @@
 	var core_1 = __webpack_require__(20);
 	var forms_1 = __webpack_require__(26);
 	var common_1 = __webpack_require__(49);
-	var materialComment_model_1 = __webpack_require__(151);
-	var materialComment_service_1 = __webpack_require__(153);
+	var materialComment_model_1 = __webpack_require__(165);
+	var materialComment_service_1 = __webpack_require__(167);
 	var index_1 = __webpack_require__(32);
 	var ng2_bootstrap_1 = __webpack_require__(46);
 	var MaterialCommentDetailComponent = (function () {
@@ -6873,9 +7359,11 @@
 	        this.roles = this.rolesChecked.checkedRoles;
 	        this.commentForm = this.formBuilder.group({
 	            'message': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required])],
+	                    forms_1.Validators.required
+	                ])],
 	            'answer': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required])]
+	                    forms_1.Validators.required
+	                ])]
 	        });
 	    };
 	    MaterialCommentDetailComponent.prototype.showAddCommentModal = function (index) {
@@ -6948,63 +7436,63 @@
 	        this.commentForm.controls["answer"].patchValue("");
 	        this.commentForm.controls["answer"].updateValueAndValidity();
 	    };
-	    __decorate([
-	        core_1.Input(), 
-	        __metadata('design:type', (typeof (_a = typeof materialComment_model_1.MaterialComment !== 'undefined' && materialComment_model_1.MaterialComment) === 'function' && _a) || Object)
-	    ], MaterialCommentDetailComponent.prototype, "item", void 0);
-	    __decorate([
-	        core_1.Input(), 
-	        __metadata('design:type', Number)
-	    ], MaterialCommentDetailComponent.prototype, "deep", void 0);
-	    __decorate([
-	        core_1.Input(), 
-	        __metadata('design:type', Boolean)
-	    ], MaterialCommentDetailComponent.prototype, "canCommentary", void 0);
-	    __decorate([
-	        core_1.Input(), 
-	        __metadata('design:type', Number)
-	    ], MaterialCommentDetailComponent.prototype, "materialId", void 0);
-	    __decorate([
-	        core_1.Input(), 
-	        __metadata('design:type', (typeof (_b = typeof materialComment_model_1.MaterialComment !== 'undefined' && materialComment_model_1.MaterialComment) === 'function' && _b) || Object)
-	    ], MaterialCommentDetailComponent.prototype, "parent", void 0);
-	    __decorate([
-	        core_1.ViewChild("addCommentModal"), 
-	        __metadata('design:type', (typeof (_c = typeof ng2_bootstrap_1.ModalDirective !== 'undefined' && ng2_bootstrap_1.ModalDirective) === 'function' && _c) || Object)
-	    ], MaterialCommentDetailComponent.prototype, "addCommentModal", void 0);
-	    __decorate([
-	        core_1.ViewChild("editCommentModal"), 
-	        __metadata('design:type', (typeof (_d = typeof ng2_bootstrap_1.ModalDirective !== 'undefined' && ng2_bootstrap_1.ModalDirective) === 'function' && _d) || Object)
-	    ], MaterialCommentDetailComponent.prototype, "editCommentModal", void 0);
-	    __decorate([
-	        core_1.ViewChild("deleteModal"), 
-	        __metadata('design:type', (typeof (_e = typeof ng2_bootstrap_1.ModalDirective !== 'undefined' && ng2_bootstrap_1.ModalDirective) === 'function' && _e) || Object)
-	    ], MaterialCommentDetailComponent.prototype, "deleteModal", void 0);
-	    MaterialCommentDetailComponent = __decorate([
-	        core_1.Component({
-	            selector: "materialComment-detail",
-	            template: __webpack_require__(158)
-	        }), 
-	        __metadata('design:paramtypes', [(typeof (_f = typeof materialComment_service_1.MaterialCommentService !== 'undefined' && materialComment_service_1.MaterialCommentService) === 'function' && _f) || Object, (typeof (_g = typeof common_1.Location !== 'undefined' && common_1.Location) === 'function' && _g) || Object, (typeof (_h = typeof index_1.RolesCheckedService !== 'undefined' && index_1.RolesCheckedService) === 'function' && _h) || Object, (typeof (_j = typeof forms_1.FormBuilder !== 'undefined' && forms_1.FormBuilder) === 'function' && _j) || Object])
-	    ], MaterialCommentDetailComponent);
 	    return MaterialCommentDetailComponent;
-	    var _a, _b, _c, _d, _e, _f, _g, _h, _j;
 	}());
+	__decorate([
+	    core_1.Input(),
+	    __metadata("design:type", typeof (_a = typeof materialComment_model_1.MaterialComment !== "undefined" && materialComment_model_1.MaterialComment) === "function" && _a || Object)
+	], MaterialCommentDetailComponent.prototype, "item", void 0);
+	__decorate([
+	    core_1.Input(),
+	    __metadata("design:type", Number)
+	], MaterialCommentDetailComponent.prototype, "deep", void 0);
+	__decorate([
+	    core_1.Input(),
+	    __metadata("design:type", Boolean)
+	], MaterialCommentDetailComponent.prototype, "canCommentary", void 0);
+	__decorate([
+	    core_1.Input(),
+	    __metadata("design:type", Number)
+	], MaterialCommentDetailComponent.prototype, "materialId", void 0);
+	__decorate([
+	    core_1.Input(),
+	    __metadata("design:type", typeof (_b = typeof materialComment_model_1.MaterialComment !== "undefined" && materialComment_model_1.MaterialComment) === "function" && _b || Object)
+	], MaterialCommentDetailComponent.prototype, "parent", void 0);
+	__decorate([
+	    core_1.ViewChild("addCommentModal"),
+	    __metadata("design:type", typeof (_c = typeof ng2_bootstrap_1.ModalDirective !== "undefined" && ng2_bootstrap_1.ModalDirective) === "function" && _c || Object)
+	], MaterialCommentDetailComponent.prototype, "addCommentModal", void 0);
+	__decorate([
+	    core_1.ViewChild("editCommentModal"),
+	    __metadata("design:type", typeof (_d = typeof ng2_bootstrap_1.ModalDirective !== "undefined" && ng2_bootstrap_1.ModalDirective) === "function" && _d || Object)
+	], MaterialCommentDetailComponent.prototype, "editCommentModal", void 0);
+	__decorate([
+	    core_1.ViewChild("deleteModal"),
+	    __metadata("design:type", typeof (_e = typeof ng2_bootstrap_1.ModalDirective !== "undefined" && ng2_bootstrap_1.ModalDirective) === "function" && _e || Object)
+	], MaterialCommentDetailComponent.prototype, "deleteModal", void 0);
+	MaterialCommentDetailComponent = __decorate([
+	    core_1.Component({
+	        selector: "materialComment-detail",
+	        template: __webpack_require__(172)
+	    }),
+	    __metadata("design:paramtypes", [typeof (_f = typeof materialComment_service_1.MaterialCommentService !== "undefined" && materialComment_service_1.MaterialCommentService) === "function" && _f || Object, typeof (_g = typeof common_1.Location !== "undefined" && common_1.Location) === "function" && _g || Object, typeof (_h = typeof index_1.RolesCheckedService !== "undefined" && index_1.RolesCheckedService) === "function" && _h || Object, typeof (_j = typeof forms_1.FormBuilder !== "undefined" && forms_1.FormBuilder) === "function" && _j || Object])
+	], MaterialCommentDetailComponent);
 	exports.MaterialCommentDetailComponent = MaterialCommentDetailComponent;
+	var _a, _b, _c, _d, _e, _f, _g, _h, _j;
 
 
 /***/ },
-/* 158 */
+/* 172 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"col-xs-offset-{{deep}} col-sm-offset-{{deep}} comment container-fluid\">\r\n    <div class=\"row\">\r\n        <div class=\"col-xs-9 col-sm-9\">\r\n            <a [routerLink]=\"['/user', item.authorId]\" [textContent]=\"item.authorUserName\"></a>\r\n            <span class=\"small\" [textContent]=\"item.additionTime | date:'medium'\"></span>\r\n        </div>\r\n        <div class=\"col-xs-3 col-sm-3\">\r\n            <span class=\"pull-right\">\r\n                    <a *ngIf=\"roles.isModerator || roles.isSelf(item.authorId)\" (click)=\"showEditModal()\"><span class=\"glyphicon glyphicon-pencil\"> </span></a>\r\n                    <a *ngIf=\"roles.isModerator\" (click)=\"delete()\"><span class=\"glyphicon glyphicon-trash\"> </span></a>\r\n                </span>\r\n        </div>\r\n    </div>\r\n    <div class=\"row\">\r\n        <div class=\"col-xs-2 col-sm-2\">\r\n            <img class=\"avatar-medium\" src=\"{{item.photo}}\" alt=\"{{item.authorUserName}}\"/>\r\n        </div>\r\n        <div class=\"col-xs-10 col-sm-10\">\r\n            <p [textContent]=\"item.message\"></p>\r\n        </div>\r\n    </div>\r\n    <div class=\"row\" *ngIf=\"item.answer\">\r\n        <div class=\"col-xs-3 col-sm-3\">Ответ:</div>\r\n        <div class=\"col-xs-9 col-sm-9\">\r\n            <i [textContent]=\"item.answer\"></i>\r\n        </div>\r\n    </div>\r\n    <div class=\"col-xs-12 col-sm-12\" *ngIf=\"!roles.isSelf(item.authorId) && canCommentary\">\r\n        <a (click)=\"showAddCommentModal()\">Ответить</a>\r\n    </div>\r\n</div>\r\n<div *ngFor=\"let child of item.children\">\r\n    <materialComment-detail [item]=\"child\" [deep]=\"deep > 6 ? 7 : deep+1\" [materialId]=\"materialId\" [canCommentary]=\"canCommentary\" [parent]=\"item\"></materialComment-detail>\r\n</div>\r\n\r\n<div class=\"modal fade\" bsModal #addCommentModal=\"bs-modal\" [config]=\"{backdrop: 'static'}\"\r\n     tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"mySmallModalLabel\" aria-hidden=\"true\">\r\n    <div class=\"modal-dialog modal-sm\">\r\n        <div class=\"modal-content\">\r\n            <div class=\"modal-header\">\r\n                <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"hideModal()\">\r\n                    <span aria-hidden=\"true\">&times;</span>\r\n                </button>\r\n                <h4 class=\"modal-title\">Добавить комментарий</h4>\r\n            </div>\r\n            <div class=\"modal-body\">\r\n                <textarea [formControl]=\"commentForm.controls['message']\"></textarea>\r\n            </div>    \r\n            <div class=\"modal-footer\">\r\n                <button class=\"btn btn-default\" data-dismiss=\"modal\" (click)=\"hideModal()\" type=\"button\">Отмена</button>\r\n                <button class=\"btn btn-primary\" type=\"button\" (click)=\"addComment()\">Добавить</button>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n<div class=\"modal fade\" bsModal #editCommentModal=\"bs-modal\" [config]=\"{backdrop: 'static'}\"\r\n     tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"mySmallModalLabel\" aria-hidden=\"true\">\r\n    <div class=\"modal-dialog modal-sm\">\r\n        <div class=\"modal-content\">\r\n            <div class=\"modal-header\">\r\n                <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"hideModal()\">\r\n                    <span aria-hidden=\"true\">&times;</span>\r\n                </button>\r\n                <h4 class=\"modal-title\">Редактировать комментарий</h4>\r\n            </div>\r\n            <div class=\"modal-body\">\r\n                <div>\r\n                    <textarea [formControl]=\"commentForm.controls['message']\"></textarea>\r\n                </div>\r\n                <div *ngIf=\"roles.isEditor\">\r\n                    <textarea [formControl]=\"commentForm.controls['answer']\"></textarea>\r\n                </div>\r\n            </div>    \r\n            <div class=\"modal-footer\">\r\n                <button class=\"btn btn-default\" data-dismiss=\"modal\" (click)=\"hideModal()\" type=\"button\">Отмена</button>\r\n                <button class=\"btn btn-primary\" type=\"button\" (click)=\"edit()\">Обновить</button>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n<div class=\"modal fade\" bsModal #deleteModal=\"bs-modal\" [config]=\"{backdrop: 'static'}\"\r\n     tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"mySmallModalLabel\" aria-hidden=\"true\">\r\n    <div class=\"modal-dialog modal-sm\">\r\n        <div class=\"modal-content\">\r\n            <div class=\"modal-header\">\r\n                <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"hideModal()\">\r\n                    <span aria-hidden=\"true\">&times;</span>\r\n                </button>\r\n                <h4 class=\"modal-title\">Удалить?</h4>\r\n            </div>\r\n            <div class=\"modal-body\">\r\n                <button class=\"btn btn-default\" data-dismiss=\"modal\" (click)=\"hideModal()\" type=\"button\">Отмена</button>\r\n                <button class=\"btn btn-primary\" type=\"button\" (click)=\"delete()\">Удалить</button>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>";
 
 /***/ },
-/* 159 */
+/* 173 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var index_1 = __webpack_require__(160);
+	var index_1 = __webpack_require__(174);
 	exports.matchRoutes = [
 	    { path: "match/:id/edit", component: index_1.MatchEditComponent },
 	    { path: "match", component: index_1.MatchListComponent }
@@ -7012,20 +7500,20 @@
 
 
 /***/ },
-/* 160 */
+/* 174 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	function __export(m) {
 	    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 	}
-	__export(__webpack_require__(161));
-	__export(__webpack_require__(162));
-	__export(__webpack_require__(164));
+	__export(__webpack_require__(175));
+	__export(__webpack_require__(176));
+	__export(__webpack_require__(178));
 
 
 /***/ },
-/* 161 */
+/* 175 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7067,18 +7555,18 @@
 	        };
 	        this.actionUrl = configuration.ServerWithApiUrl + "match/";
 	    }
-	    MatchService = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof httpWrapper_1.HttpWrapper !== 'undefined' && httpWrapper_1.HttpWrapper) === 'function' && _a) || Object, (typeof (_b = typeof app_constants_1.Configuration !== 'undefined' && app_constants_1.Configuration) === 'function' && _b) || Object])
-	    ], MatchService);
 	    return MatchService;
-	    var _a, _b;
 	}());
+	MatchService = __decorate([
+	    core_1.Injectable(),
+	    __metadata("design:paramtypes", [typeof (_a = typeof httpWrapper_1.HttpWrapper !== "undefined" && httpWrapper_1.HttpWrapper) === "function" && _a || Object, typeof (_b = typeof app_constants_1.Configuration !== "undefined" && app_constants_1.Configuration) === "function" && _b || Object])
+	], MatchService);
 	exports.MatchService = MatchService;
+	var _a, _b;
 
 
 /***/ },
-/* 162 */
+/* 176 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7093,7 +7581,7 @@
 	};
 	var core_1 = __webpack_require__(20);
 	var router_1 = __webpack_require__(29);
-	var match_service_1 = __webpack_require__(161);
+	var match_service_1 = __webpack_require__(175);
 	var MatchListComponent = (function () {
 	    function MatchListComponent(matchService, route) {
 	        this.matchService = matchService;
@@ -7121,27 +7609,27 @@
 	    };
 	    MatchListComponent.prototype.update = function () {
 	    };
-	    MatchListComponent = __decorate([
-	        core_1.Component({
-	            selector: "match-list",
-	            template: __webpack_require__(163)
-	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof match_service_1.MatchService !== 'undefined' && match_service_1.MatchService) === 'function' && _a) || Object, (typeof (_b = typeof router_1.ActivatedRoute !== 'undefined' && router_1.ActivatedRoute) === 'function' && _b) || Object])
-	    ], MatchListComponent);
 	    return MatchListComponent;
-	    var _a, _b;
 	}());
+	MatchListComponent = __decorate([
+	    core_1.Component({
+	        selector: "match-list",
+	        template: __webpack_require__(177)
+	    }),
+	    __metadata("design:paramtypes", [typeof (_a = typeof match_service_1.MatchService !== "undefined" && match_service_1.MatchService) === "function" && _a || Object, typeof (_b = typeof router_1.ActivatedRoute !== "undefined" && router_1.ActivatedRoute) === "function" && _b || Object])
+	], MatchListComponent);
 	exports.MatchListComponent = MatchListComponent;
+	var _a, _b;
 
 
 /***/ },
-/* 163 */
+/* 177 */
 /***/ function(module, exports) {
 
 	module.exports = "<div>\r\n    <div class=\"btn-group\">\r\n        <form class=\"form-inline btn-block\">\r\n            <!--<div class=\"form-group\">\r\n                <select class=\"form-control\"\r\n                        ng-model=\"vm.typeId\"\r\n                        ng-options=\"type.id as type.name for type in vm.types\" ng-change=\"vm.changeTypeId()\"></select>\r\n            </div>\r\n            <div class=\"form-group\">\r\n                <input class=\"form-control\" ng-model=\"vm.filterText\" ng-model-options=\"{debounce: 1000}\" ng-change=\"vm.filterByText()\" placeholder=\"Поиск в тексте пожеланий\" /> <!-todo magic number->\r\n            </div>-->\r\n            <button class=\"btn btn-success\" type=\"button\" [routerLink]=\"['/match', 0, 'edit' ]\">Добавить</button>\r\n        </form>\r\n    </div>\r\n    <div class=\"top20\" *ngFor=\"let item of items\">\r\n        <div class=\"panel panel-default\">\r\n            <div class=\"panel-heading\">\r\n                <h3 class=\"panel-title\">\r\n                    <a ui-sref=\"clubEdit({id: item.id})\"><span [textContent]=\"item.name\"></span></a>\r\n                    <span class=\"col-xs-1 col-sm-1 pull-right\">\r\n                        <a ng-click=\"vm.delete($index)\"><span class=\"glyphicon glyphicon-trash\"></span></a>\r\n                    </span>\r\n                </h3>\r\n            </div>\r\n            <div class=\"panel-body\">\r\n                <div [textContent]=\"item.englishName\"></div>\r\n            </div>\r\n            <div class=\"panel-footer\">\r\n                <img src=\"{{item.logo}}\" />\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n<div class=\"pagination\">\r\n    <!--<uib-pagination ng-show=\"vm.totalItems > vm.itemPerPage\" total-items=\"vm.totalItems\" ng-model=\"vm.page\" ng-change=\"vm.goToPage()\"></uib-pagination>-->\r\n</div>";
 
 /***/ },
-/* 164 */
+/* 178 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7157,9 +7645,9 @@
 	var core_1 = __webpack_require__(20);
 	var forms_1 = __webpack_require__(26);
 	var router_1 = __webpack_require__(29);
-	var index_1 = __webpack_require__(160);
+	var index_1 = __webpack_require__(174);
 	var index_2 = __webpack_require__(85);
-	var match_model_1 = __webpack_require__(165);
+	var match_model_1 = __webpack_require__(179);
 	var MatchEditComponent = (function () {
 	    function MatchEditComponent(matchService, clubService, route, router, formBuilder) {
 	        this.matchService = matchService;
@@ -7211,33 +7699,37 @@
 	    MatchEditComponent.prototype.initForm = function () {
 	        this.editForm = this.formBuilder.group({
 	            'clubId': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required])],
+	                    forms_1.Validators.required
+	                ])],
 	            'isHome': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required])],
+	                    forms_1.Validators.required
+	                ])],
 	            'dateTime': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required])],
+	                    forms_1.Validators.required
+	                ])],
 	            'typeId': ["", forms_1.Validators.compose([
-	                    forms_1.Validators.required])]
+	                    forms_1.Validators.required
+	                ])]
 	        });
 	    };
 	    MatchEditComponent.prototype.parseClubs = function (items) {
 	        this.clubs = items;
 	    };
-	    MatchEditComponent = __decorate([
-	        core_1.Component({
-	            selector: "match-edit",
-	            template: __webpack_require__(166)
-	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof index_1.MatchService !== 'undefined' && index_1.MatchService) === 'function' && _a) || Object, (typeof (_b = typeof index_2.ClubService !== 'undefined' && index_2.ClubService) === 'function' && _b) || Object, (typeof (_c = typeof router_1.ActivatedRoute !== 'undefined' && router_1.ActivatedRoute) === 'function' && _c) || Object, (typeof (_d = typeof router_1.Router !== 'undefined' && router_1.Router) === 'function' && _d) || Object, (typeof (_e = typeof forms_1.FormBuilder !== 'undefined' && forms_1.FormBuilder) === 'function' && _e) || Object])
-	    ], MatchEditComponent);
 	    return MatchEditComponent;
-	    var _a, _b, _c, _d, _e;
 	}());
+	MatchEditComponent = __decorate([
+	    core_1.Component({
+	        selector: "match-edit",
+	        template: __webpack_require__(180)
+	    }),
+	    __metadata("design:paramtypes", [typeof (_a = typeof index_1.MatchService !== "undefined" && index_1.MatchService) === "function" && _a || Object, typeof (_b = typeof index_2.ClubService !== "undefined" && index_2.ClubService) === "function" && _b || Object, typeof (_c = typeof router_1.ActivatedRoute !== "undefined" && router_1.ActivatedRoute) === "function" && _c || Object, typeof (_d = typeof router_1.Router !== "undefined" && router_1.Router) === "function" && _d || Object, typeof (_e = typeof forms_1.FormBuilder !== "undefined" && forms_1.FormBuilder) === "function" && _e || Object])
+	], MatchEditComponent);
 	exports.MatchEditComponent = MatchEditComponent;
+	var _a, _b, _c, _d, _e;
 
 
 /***/ },
-/* 165 */
+/* 179 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -7250,19 +7742,19 @@
 
 
 /***/ },
-/* 166 */
+/* 180 */
 /***/ function(module, exports) {
 
 	module.exports = "<form class=\"form-horizontal\" name=\"editForm\" role=\"form\" [formGroup]=\"editForm\" (ngSubmit)=\"onSubmit(editForm.value)\">\r\n        <div class=\"form-group\">\r\n            <label class=\"control-label col-md-2\">Cоперник</label>\r\n            <div class=\"col-md-10\">\r\n                <!--<autocomplete ng-model=\"vm.item.clubName\" name=\"clubName\" attr-placeholder=\"Введите клуб...\" click-activation=\"true\" data=\"vm.clubs\"\r\n                                  on-type=\"vm.updateClubs\" validation=\"max_len:30|required\"></autocomplete>-->\r\n            </div>\r\n        </div>\r\n        <div class=\"form-group\">\r\n            <label class=\"control-label col-xs-2 col-sm-2\"> Категория:</label>\r\n            <div class=\"col-xs-10 col-sm-10\">\r\n                <select class=\"form-control\" name=\"categoryId\" ng-model=\"vm.item.typeId\" ng-options=\"type.id as type.name for type in vm.types\" validation=\"required\"></select>\r\n            </div>\r\n        </div>\r\n        <div class=\"form-group\">\r\n            <div class=\"col-xs-offset-2 col-sm-offset-2 col-xs-10 col-sm-10\">\r\n                <div class=\"checkbox\">\r\n                    <label class=\"control-label\">\r\n                        <input class=\"checkbox\" name=\"onTop\" formControlName=\"isHome\" type=\"checkbox\" /> Дома <!--todo add switcher--> \r\n                    </label>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <div class=\"form-group\">\r\n            <label class=\"col-md-2 control-label\">Дата</label>\r\n            <div class=\"col-md-5\">\r\n                <div class=\"input-group\">\r\n                    <!--<input type=\"text\" class=\"form-control\" validation=\"required\" name=\"date\"\r\n                           ng-readonly=\"true\" show-button-bar=\"false\"\r\n                           uib-datepicker-popup=\"dd/MMMM/yyyy\" ng-model=\"vm.item.date\"\r\n                           is-open=\"vm.status.opened\" datepicker-options=\"vm.dateOptions\" close-text=\"Закрыть\"\r\n                           alt-input-formats=\"altInputFormats\" ng-click=\"vm.open()\">-->\r\n                    <span class=\"input-group-btn va-top\">\r\n                        <button type=\"button\" class=\"btn btn-default\" ng-click=\"vm.open()\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\r\n                    </span>\r\n                </div>\r\n            </div>\r\n            <div class=\"col-md-5\">\r\n                <div class=\"input-group\">\r\n                    <!--<div uib-timepicker ng-model=\"vm.item.time\" ng-change=\"vm.timeChanged()\"\r\n                         hour-step=\"1\" minute-step=\"1\" show-meridian=\"false\" show-spinners=\"false\" ng-disabled=\"!vm.item.date\"></div>-->\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <div class=\"form-group\">\r\n            <div class=\"col-md-offset-2 col-md-10\">\r\n                <button type=\"submit\" [disabled]=\"!editForm.valid\" class=\"btn btn-default\">Сохранить</button>\r\n            </div>\r\n        </div>\r\n    </form>\r\n";
 
 /***/ },
-/* 167 */
+/* 181 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = (__webpack_require__(2))(49);
 
 /***/ },
-/* 168 */
+/* 182 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7270,11 +7762,11 @@
 	    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 	}
 	__export(__webpack_require__(126));
-	__export(__webpack_require__(169));
+	__export(__webpack_require__(183));
 
 
 /***/ },
-/* 169 */
+/* 183 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7293,26 +7785,26 @@
 	    }
 	    EplTableComponent.prototype.ngOnInit = function () {
 	    };
-	    EplTableComponent = __decorate([
-	        core_1.Component({
-	            selector: "epl-table",
-	            template: __webpack_require__(170)
-	        }), 
-	        __metadata('design:paramtypes', [])
-	    ], EplTableComponent);
 	    return EplTableComponent;
 	}());
+	EplTableComponent = __decorate([
+	    core_1.Component({
+	        selector: "epl-table",
+	        template: __webpack_require__(184)
+	    }),
+	    __metadata("design:paramtypes", [])
+	], EplTableComponent);
 	exports.EplTableComponent = EplTableComponent;
 
 
 /***/ },
-/* 170 */
+/* 184 */
 /***/ function(module, exports) {
 
-	module.exports = "<table class=\"table table-condensed table-striped table-responsive col-xs-12 overflowable\">\r\n    <thead>\r\n        <tr>\r\n            <th>#</th>\r\n            <th>Команда</th>\r\n            <th>И</th>\r\n            <th>В</th>\r\n            <th>Н</th>\r\n            <th>П</th>\r\n            <th>+/-</th>\r\n            <th>О</th>\r\n        </tr>\r\n    </thead>\r\n    <tbody><tr><td>1</td><td>Ливерпуль\r\n</td><td>11</td><td>8</td><td>2</td><td>1</td><td>16</td><td>26</td></tr>\r\n<tr><td>2</td><td>Челси\r\n</td><td>11</td><td>8</td><td>1</td><td>2</td><td>17</td><td>25</td></tr>\r\n<tr><td>3</td><td>Манчестер Сити\r\n</td><td>11</td><td>7</td><td>3</td><td>1</td><td>15</td><td>24</td></tr>\r\n<tr><td>4</td><td>Арсенал\r\n</td><td>11</td><td>7</td><td>3</td><td>1</td><td>13</td><td>24</td></tr>\r\n<tr><td>5</td><td>Тоттенхэм\r\n</td><td>11</td><td>5</td><td>6</td><td>0</td><td>9</td><td>21</td></tr>\r\n<tr><td>6</td><td>Манчестер Юнайтед\r\n</td><td>11</td><td>5</td><td>3</td><td>3</td><td>3</td><td>18</td></tr>\r\n<tr><td>7</td><td>Эвертон\r\n</td><td>11</td><td>5</td><td>3</td><td>3</td><td>2</td><td>18</td></tr>\r\n<tr><td>8</td><td>Уотфорд\r\n</td><td>11</td><td>4</td><td>3</td><td>4</td><td>-4</td><td>15</td></tr>\r\n<tr><td>9</td><td>Бернли\r\n</td><td>11</td><td>4</td><td>2</td><td>5</td><td>-4</td><td>14</td></tr>\r\n<tr><td>10</td><td>Саутгемптон\r\n</td><td>11</td><td>3</td><td>4</td><td>4</td><td>0</td><td>13</td></tr>\r\n<tr><td>11</td><td>Вест Бромвич\r\n</td><td>11</td><td>3</td><td>4</td><td>4</td><td>-3</td><td>13</td></tr>\r\n<tr><td>12</td><td>Сток Сити\r\n</td><td>11</td><td>3</td><td>4</td><td>4</td><td>-5</td><td>13</td></tr>\r\n<tr><td>13</td><td>Борнмут\r\n</td><td>11</td><td>3</td><td>3</td><td>5</td><td>-3</td><td>12</td></tr>\r\n<tr><td>14</td><td>Лестер\r\n</td><td>11</td><td>3</td><td>3</td><td>5</td><td>-5</td><td>12</td></tr>\r\n<tr><td>15</td><td>Мидлсбро\r\n</td><td>11</td><td>2</td><td>5</td><td>4</td><td>-2</td><td>11</td></tr>\r\n<tr><td>16</td><td>Кристал Пэлас\r\n</td><td>11</td><td>3</td><td>2</td><td>6</td><td>-3</td><td>11</td></tr>\r\n<tr><td>17</td><td>Вест Хэм\r\n</td><td>11</td><td>3</td><td>2</td><td>6</td><td>-9</td><td>11</td></tr>\r\n<tr><td>18</td><td>Халл\r\n</td><td>11</td><td>3</td><td>1</td><td>7</td><td>-14</td><td>10</td></tr>\r\n<tr><td>19</td><td>Суонси\r\n</td><td>11</td><td>1</td><td>2</td><td>8</td><td>-11</td><td>5</td></tr>\r\n<tr><td>20</td><td>Сандерленд\r\n</td><td>11</td><td>1</td><td>2</td><td>8</td><td>-12</td><td>5</td></tr>\r\n</tbody></table>";
+	module.exports = "<table class=\"table table-condensed table-striped table-responsive col-xs-12 overflowable\">\r\n    <thead>\r\n        <tr>\r\n            <th>#</th>\r\n            <th>Команда</th>\r\n            <th>И</th>\r\n            <th>В</th>\r\n            <th>Н</th>\r\n            <th>П</th>\r\n            <th>+/-</th>\r\n            <th>О</th>\r\n        </tr>\r\n    </thead>\r\n    <tbody><tr><td>1</td><td>Ливерпуль\n</td><td>11</td><td>8</td><td>2</td><td>1</td><td>16</td><td>26</td></tr>\r\n<tr><td>2</td><td>Челси\n</td><td>11</td><td>8</td><td>1</td><td>2</td><td>17</td><td>25</td></tr>\r\n<tr><td>3</td><td>Манчестер Сити\n</td><td>11</td><td>7</td><td>3</td><td>1</td><td>15</td><td>24</td></tr>\r\n<tr><td>4</td><td>Арсенал\n</td><td>11</td><td>7</td><td>3</td><td>1</td><td>13</td><td>24</td></tr>\r\n<tr><td>5</td><td>Тоттенхэм\n</td><td>11</td><td>5</td><td>6</td><td>0</td><td>9</td><td>21</td></tr>\r\n<tr><td>6</td><td>Манчестер Юнайтед\n</td><td>11</td><td>5</td><td>3</td><td>3</td><td>3</td><td>18</td></tr>\r\n<tr><td>7</td><td>Эвертон\n</td><td>11</td><td>5</td><td>3</td><td>3</td><td>2</td><td>18</td></tr>\r\n<tr><td>8</td><td>Уотфорд\n</td><td>11</td><td>4</td><td>3</td><td>4</td><td>-4</td><td>15</td></tr>\r\n<tr><td>9</td><td>Бернли\n</td><td>11</td><td>4</td><td>2</td><td>5</td><td>-4</td><td>14</td></tr>\r\n<tr><td>10</td><td>Саутгемптон\n</td><td>11</td><td>3</td><td>4</td><td>4</td><td>0</td><td>13</td></tr>\r\n<tr><td>11</td><td>Вест Бромвич\n</td><td>11</td><td>3</td><td>4</td><td>4</td><td>-3</td><td>13</td></tr>\r\n<tr><td>12</td><td>Сток Сити\n</td><td>11</td><td>3</td><td>4</td><td>4</td><td>-5</td><td>13</td></tr>\r\n<tr><td>13</td><td>Борнмут\n</td><td>11</td><td>3</td><td>3</td><td>5</td><td>-3</td><td>12</td></tr>\r\n<tr><td>14</td><td>Лестер\n</td><td>11</td><td>3</td><td>3</td><td>5</td><td>-5</td><td>12</td></tr>\r\n<tr><td>15</td><td>Мидлсбро\n</td><td>11</td><td>2</td><td>5</td><td>4</td><td>-2</td><td>11</td></tr>\r\n<tr><td>16</td><td>Кристал Пэлас\n</td><td>11</td><td>3</td><td>2</td><td>6</td><td>-3</td><td>11</td></tr>\r\n<tr><td>17</td><td>Вест Хэм\n</td><td>11</td><td>3</td><td>2</td><td>6</td><td>-9</td><td>11</td></tr>\r\n<tr><td>18</td><td>Халл\n</td><td>11</td><td>3</td><td>1</td><td>7</td><td>-14</td><td>10</td></tr>\r\n<tr><td>19</td><td>Суонси\n</td><td>11</td><td>1</td><td>2</td><td>8</td><td>-11</td><td>5</td></tr>\r\n<tr><td>20</td><td>Сандерленд\n</td><td>11</td><td>1</td><td>2</td><td>8</td><td>-12</td><td>5</td></tr>\r\n</tbody></table>";
 
 /***/ },
-/* 171 */
+/* 185 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = (__webpack_require__(2))(21);

@@ -14,6 +14,7 @@ import { ForumSectionListComponent, ForumSectionService } from "./forumSection/i
 import * as account from "./account/index";
 import * as club from "./club/index";
 import * as forumSubsection from "./forumSubsection/index";
+import * as forumTheme from "./forumTheme/index";
 import * as home from "./home/index";
 import * as match from "./match/index";
 import * as shared from "./shared/index";                     
@@ -54,6 +55,7 @@ import { FileUploadModule } from "ng2-file-upload/ng2-file-upload";
         club.ClubListComponent,
         forumSubsection.ForumSubsectionEditComponent,
         forumSubsection.ForumSubsectionListComponent,
+        forumTheme.ForumThemeListComponent,
         home.AboutClubComponent,
         home.CoachTeamComponent,
         home.ClubHistoryComponent,
@@ -85,6 +87,7 @@ import { FileUploadModule } from "ng2-file-upload/ng2-file-upload";
         account.AccountService, 
         club.ClubService,
         forumSubsection.ForumSubsectionService,
+        forumTheme.ForumThemeService,
         match.MatchService,
         newsCategory.NewsCategoryService,
         shared.HttpWrapper,
