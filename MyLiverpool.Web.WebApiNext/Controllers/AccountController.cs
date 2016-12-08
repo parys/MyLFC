@@ -52,7 +52,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <param name="code">Secret code.</param>
         /// <returns>Returns confirmation result.</returns>
         [AllowAnonymous, HttpGet("ConfirmEmail")]
-        public async Task<IActionResult> ConfirmEmail(int userId, string code)
+        public async Task<IActionResult> ConfirmEmail([FromQuery]int userId, [FromQuery]string code)
         {
             if (userId <= 0 || code == null)
             {
@@ -68,7 +68,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <param name="email">Forgotten email.</param>
         /// <returns>Always returns true result.</returns>
         [AllowAnonymous, HttpGet("ForgotPassword")]
-        public async Task<IActionResult> ForgotPassword(string email)
+        public async Task<IActionResult> ForgotPassword([FromQuery]string email)
         {
             if (string.IsNullOrWhiteSpace(email))
             {
@@ -85,7 +85,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <param name="email">Checking email.</param>
         /// <returns>Result of checking.</returns>
         [AllowAnonymous, HttpPost("IsEmailUnique")]
-        public async Task<IActionResult> IsEmailUnique(string email)
+        public async Task<IActionResult> IsEmailUnique([FromQuery]string email)
         {
             var result = await _accountService.IsEmailUniqueAsync(email);
             return Ok(result);
@@ -110,7 +110,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Route("IsUsernameUnique")]
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> IsUsernameUnique(string username)
+        public async Task<IActionResult> IsUsernameUnique([FromQuery]string username)
         {
             var result = await _accountService.IsUserNameUniqueAsync(username);
             return Ok(result);
@@ -122,7 +122,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <param name="email">User email.</param>
         /// <returns>Result of resend.</returns>
         [AllowAnonymous, HttpGet("ResendConfirmEmail")]
-        public async Task<IActionResult> ResendConfirmEmail(string email)
+        public async Task<IActionResult> ResendConfirmEmail([FromQuery]string email)
         {
             if (string.IsNullOrEmpty(email))
             {

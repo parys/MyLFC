@@ -3,7 +3,7 @@
         <div class="panel-heading">
             <span [textContent]="item.name"></span>
             <span [textContent]="item.description"></span>
-            <a ui-sref="themeEdit({subsectionId: vm.subsection.id})">Добавить тему</a>
+            <a [routerLink]="['/forum/theme', 0, 'edit']">Добавить тему</a>
         </div>
         <!--  <div class="panel-body"></div>-->
         <ul class="list-group" *ngFor="let theme of item.themes.list">
@@ -11,7 +11,7 @@
                 <span><a [routerLink]="['/forum/theme', theme.id]" [textContent]="theme.name"></a></span>
                 <span [textContent]="theme.description"></span>
                 <span class="pull-right">
-                    <a ui-sref="themeEdit({id: theme.id})"><span class="glyphicon glyphicon-pencil"></span></a>
+                    <a [routerLink]="['/forum/theme', theme.id, 'edit']"><span class="glyphicon glyphicon-pencil"></span></a>
                     <a class="pull-right" ng-show="section.subsections.length == 0" ng-click="vm.removeSection($index)">
                         <span class="glyphicon glyphicon-remove"></span>
                     </a>

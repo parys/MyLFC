@@ -33,7 +33,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Route("")]
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> CreateAsync(ForumMessageDto dto)
+        public async Task<IActionResult> CreateAsync([FromBody]ForumMessageDto dto)
         {
             if (!ModelState.IsValid)
             {

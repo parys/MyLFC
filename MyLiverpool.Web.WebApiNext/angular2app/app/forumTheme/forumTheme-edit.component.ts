@@ -3,27 +3,27 @@ import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms"
 import { Router, ActivatedRoute } from "@angular/router";
 import { Observable } from "rxjs/Observable";
 import { Subscription } from "rxjs/Subscription";
-import { ForumSubsection } from "./forumSubsection.model";
-import { ForumSubsectionService } from "./forumSubsection.service";
-import { ForumSectionService, ForumSection } from "../forumSection/index";
+import { ForumTheme } from "./forumTheme.model";
+import { ForumSubsectionService, ForumSubsection } from "../forumSubsection/index";
+import { ForumThemeService } from "./forumTheme.service";
 
 @Component({
-    selector: "forumSubsection-edit",
-    template: require("./forumSubsection-edit.component.html")
+    selector: "forumTheme-edit",
+    template: require("./forumTheme-edit.component.html")
 })
-export class ForumSubsectionEditComponent implements OnInit, OnDestroy {
+export class ForumThemeEditComponent implements OnInit, OnDestroy {
 
     editForm: FormGroup;
     id: number = 0;
     private sub: Subscription;
-    forumSections: ForumSection[];
+    forumSubsections: ForumSubsection[];
 
-    constructor(private service: ForumSubsectionService, private formBuilder: FormBuilder, private route: ActivatedRoute, private sectionService: ForumSectionService) {
+    constructor(private service: ForumThemeService, private formBuilder: FormBuilder, private route: ActivatedRoute, private subsectionService: ForumSubsectionService) {
     }
 
     ngOnInit() {
         this.editForm = this.formBuilder.group({
-            'sectionId': [
+            'subsectionId': [
                 "", Validators.compose([
                     Validators.required
                 ])
@@ -49,10 +49,10 @@ export class ForumSubsectionEditComponent implements OnInit, OnDestroy {
                     () => { });
             }
         });
-        this.sectionService.getAll()
-            .subscribe(data => this.forumSections = data,
-                error => console.log(error),
-                () => {});
+        this.subsectionService.getAll()
+            .subscribe(data => this.forumSubsections = data,
+            error => console.log(error),
+            () => { });
     }
 
     ngOnDestroy() {
@@ -60,9 +60,9 @@ export class ForumSubsectionEditComponent implements OnInit, OnDestroy {
     }
 
     onSubmit(): void {
-        let model = new ForumSubsection();
+        let model = new ForumTheme();
         model.id = this.id;
-        model.sectionId = this.editForm.controls["sectionId"].value;
+        model.subsectionId = this.editForm.controls["subsectionId"].value;
         model.name = this.editForm.controls["name"].value;
         model.description = this.editForm.controls["description"].value;
 
@@ -74,6 +74,7 @@ export class ForumSubsectionEditComponent implements OnInit, OnDestroy {
         }
         if (res !== null) {
 
-        } 
+        }
+
     }
 }

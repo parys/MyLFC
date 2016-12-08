@@ -35,7 +35,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <returns></returns>
         [Route("")]
         [HttpGet]
-        public async Task<IActionResult> Get(string path)
+        public async Task<IActionResult> Get([FromQuery]string path)
         {
             List<ImageDto> files = new List<ImageDto>();
             if (path == "undefined")

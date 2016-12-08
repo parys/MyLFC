@@ -3,7 +3,6 @@ using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.NodeServices;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -18,6 +17,7 @@ using MyLiverpool.Data.Entities;
 using MyLiverpool.Data.ResourceAccess;
 using MyLiverpool.Data.ResourceAccess.Interfaces;
 using MyLiverpool.Data.ResourceAccess.Repositories;
+using MyLiverpool.Web.WebApiNext.Extensions;
 using Newtonsoft.Json.Serialization;
 using Swashbuckle.Swagger.Model;
 
@@ -125,6 +125,7 @@ namespace MyLiverpool.Web.WebApiNext
                     Description = "API Sample made",
                     TermsOfService = "None"
                 });
+                options.OperationFilter<HandleModelbinding>();
                 
                 options.AddSecurityDefinition("oauth2", new OAuth2Scheme()
                 {

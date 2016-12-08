@@ -54,7 +54,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Route("")]
         [HttpDelete]
         [Authorize(Roles = "AdminStart")]
-        public async Task<IActionResult> DeleteAsync(int? id)
+        public async Task<IActionResult> DeleteAsync([FromQuery]int? id)
         {
             if (!id.HasValue)
             {
@@ -75,7 +75,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Route("List")]
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> GetListAsync(int page = 1, int? typeId = null, string filterText = null)
+        public async Task<IActionResult> GetListAsync([FromQuery]int page = 1, [FromQuery]int? typeId = null, [FromQuery]string filterText = null)
         {
             if (page < 1)
             {
@@ -93,7 +93,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Route("")]
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> GetAsync(int id)
+        public async Task<IActionResult> GetAsync([FromQuery]int id)
         {
             if (id < 1)
             {

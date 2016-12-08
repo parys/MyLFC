@@ -36,7 +36,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Route("")]
         [HttpPost]
         [Authorize(Roles = nameof(RolesEnum.AdminStart))]
-        public async Task<IActionResult> CreateAsync(MatchDto dto)
+        public async Task<IActionResult> CreateAsync([FromBody]MatchDto dto)
         {
             if (dto == null || !ModelState.IsValid)
             {
@@ -54,7 +54,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Route("")]
         [HttpGet]
         [Authorize]
-        public async Task<IActionResult> GetAsync(int id)
+        public async Task<IActionResult> GetAsync([FromQuery]int id)
         {
             if (id < 1)
             {
@@ -72,7 +72,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Route("list")]
         [HttpGet]
         [Authorize]
-        public async Task<IActionResult> GetListAsync(int page = 1)
+        public async Task<IActionResult> GetListAsync([FromQuery]int page = 1)
         {
             if (page < 1)
             {

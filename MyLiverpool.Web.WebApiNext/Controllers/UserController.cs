@@ -80,7 +80,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Route("EditRole")]
         [HttpPut]
         [Authorize(Roles = nameof(RolesEnum.AdminStart))]
-        public async Task<IActionResult> EditRole(int userId, int roleGroupId)
+        public async Task<IActionResult> EditRole([FromQuery]int userId, [FromQuery]int roleGroupId)
         {
             var result = await _userService.EditRoleGroupAsync(userId, roleGroupId);
             return Ok(result);
@@ -94,7 +94,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Route("GetUsernames")]
         [HttpGet]
         [AllowAnonymous] //bug
-        public async Task<IActionResult> GetUserNames(string typed)
+        public async Task<IActionResult> GetUserNames([FromQuery]string typed)
         {
             var result = await _userService.GetUserNamesAsync(typed);
          //   var userId = User.GetUserId();
@@ -111,7 +111,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Route("BanUser")]
         [HttpPut]
         [Authorize(Roles = nameof(RolesEnum.UserStart))]
-        public async Task<IActionResult> BanUser(int userId, int daysCount)
+        public async Task<IActionResult> BanUser([FromQuery]int userId, [FromQuery]int daysCount)
         {
             var result = await _userService.BanUser(userId, daysCount);
             return Ok(result);
@@ -125,7 +125,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Route("UnbanUser")]
         [HttpPut]
         [Authorize(Roles = nameof(RolesEnum.UserFull))]
-        public async Task<IActionResult> UnbanUser(int userId)
+        public async Task<IActionResult> UnbanUser([FromQuery]int userId)
         {
             var result = await _userService.UnbanUser(userId);
             return Ok(result);

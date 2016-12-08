@@ -34,7 +34,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <param name="onlyUnverified">Option if returns only unverified comments.</param>
         /// <returns>Selected page comments list.</returns>
         [AllowAnonymous, HttpGet("list/{page:int}")]
-        public async Task<IActionResult> GetList(int page = 1, bool onlyUnverified = false)
+        public async Task<IActionResult> GetList(int page = 1, [FromQuery]bool onlyUnverified = false)
         {
             if (page < 1)
             {

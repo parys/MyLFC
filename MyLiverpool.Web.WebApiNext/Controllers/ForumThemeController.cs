@@ -55,7 +55,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <param name="dto"></param>
         /// <returns></returns>
         [Authorize, HttpPost("")]
-        public async Task<IActionResult> Create(ForumThemeDto dto)
+        public async Task<IActionResult> Create([FromBody]ForumThemeDto dto)
         {
             dto.AuthorId = User.GetUserId();
             var model = await _forumThemeService.CreateAsync(dto);
@@ -66,10 +66,11 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="id"></param>
         /// <param name="dto"></param>
         /// <returns></returns>
-        [Authorize, HttpPut("")]
-        public async Task<IActionResult> Update(ForumThemeDto dto)
+        [Authorize, HttpPut("{id:int}")]
+        public async Task<IActionResult> Update(int id, [FromBody]ForumThemeDto dto)
         {
             // if (id != dto.Id)
             {

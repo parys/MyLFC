@@ -32,7 +32,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Route("")]
         [HttpPost]
         [Authorize(Roles = "AdminStart")]
-        public async Task<IActionResult> CreateSection(string name)
+        public async Task<IActionResult> CreateSection([FromBody]string name)
         {
             if (string.IsNullOrEmpty(name))
             {
@@ -51,7 +51,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [Route("")]
+        [Route("{id:int}")]
         [HttpDelete]
         [Authorize(Roles = "AdminStart")]
         public async Task<IActionResult> DeleteSection(int id)
@@ -77,7 +77,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Route("")]
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> Get(int id)
+        public async Task<IActionResult> Get([FromQuery]int id)
         {
             var result = await _forumSectionService.GetAsync(id);
             return Ok(result);

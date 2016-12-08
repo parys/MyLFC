@@ -35,7 +35,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Route("avatar")]
         [HttpPost]
         [Authorize]
-        public async Task<ActionResult> UploadAvatar(int userId)
+        public async Task<ActionResult> UploadAvatar([FromQuery]int userId)
         {
             if (!User.IsInRole(nameof(RolesEnum.UserStart)) && User.GetUserId() != userId)
             {
