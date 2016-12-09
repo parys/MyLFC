@@ -72,16 +72,18 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Updates user group.
         /// </summary>
-        /// <param name="userId"></param>
-        /// <param name="roleGroupId"></param>
-        /// <returns></returns>
-        [Route("EditRole")]
-        [HttpPut]
-        [Authorize(Roles = nameof(RolesEnum.AdminStart))]
-        public async Task<IActionResult> EditRole([FromQuery]int userId, [FromQuery]int roleGroupId)
+        /// <param name="userId">The identifier of updatable user.</param>
+        /// <param name="roleGroupId">New role group id.</param>
+        /// <returns>Result of updating role group.</returns>
+        [Authorize(Roles = nameof(RolesEnum.AdminStart)), HttpPut("updateRoleGroup/{userId:int}/{roleGroupId:int}")]
+        public async Task<IActionResult> UpdateRole(int userId, int roleGroupId)
         {
+            if (userId == User.GetUserId())
+            {
+                return BadRequest("Cannot update role by self.");
+            }
             var result = await _userService.EditRoleGroupAsync(userId, roleGroupId);
             return Ok(result);
         }

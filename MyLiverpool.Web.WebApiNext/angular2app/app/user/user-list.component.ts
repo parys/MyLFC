@@ -55,7 +55,7 @@ export class UserListComponent implements OnInit, OnDestroy {
         filters.page = this.page;
 
         this.userService
-            .GetAll(filters)
+            .getAll(filters)
             .subscribe(data => this.parsePageable(data),
             error => console.log(error),
             () => {});

@@ -38,27 +38,31 @@
         <div *ngIf="roles.isModerator || roles.isSelf(item.id)" class="form-group">
             <label class="col-xs-2 col-sm-2 control-label">Забанить</label>
             <div class="" *ngIf="!item.lockoutEndDateUtc">
-                <div class="col-xs-2 col-sm-2">
-                    <input min="0" type="number" placeholder="Количество дней" class="form-control" ng-model="item.banDaysCount" />
+                <div>
+                    <div class="col-xs-2 col-sm-2">
+                        <input min="0" type="number" placeholder="Количество дней" class="form-control" ng-model="item.banDaysCount" />
+                    </div>
+                    <div class="col-xs-8 col-sm-8">
+                        <button class="btn btn-danger" ng-click="vm.ban()" ngDisabled="item.banDaysCount <= 0">Забанить</button>
+                    </div>
                 </div>
-                <div class="col-xs-8 col-sm-8">
-                    <button class="btn btn-danger" ng-click="vm.ban()" ngDisabled="item.banDaysCount <= 0">Забанить</button>
+                <div class="col-xs-10 col-sm-10" *ngIf="item.lockoutEndDateUtc">
+                    <span class="col-xs-8 col-sm-8 flex-vertical-center" *ngIf="item.lockoutEndDateUtc">Активность заблокирована до <span [textContent]="item.lockoutEndDateUtc | date:'medium'"></span></span>
+                    <button class="btn btn-success" *ngIf="roles.isMainModerator" ng-click="vm.unban()">Снять бан</button>
                 </div>
-            </div>
-            <div class="col-xs-10 col-sm-10" *ngIf="item.lockoutEndDateUtc">
-                <span class="col-xs-8 col-sm-8 flex-vertical-center" *ngIf="item.lockoutEndDateUtc">Активность заблокирована до <span [textContent]="item.lockoutEndDateUtc | date:'medium'"></span></span>
-                <button class="btn btn-success" secured="'UsersFull'" ng-click="vm.unban()">Снять бан</button>
             </div>
         </div>
         <div class="form-group">
             <label class="col-xs-2 col-sm-2 control-label">Группа:</label>
             <div class="col-xs-10 col-sm-10">
-                <div>
-                    <span class="form-control" [textContent]="item.roleGroupName"></span>
-                    <select *ngIf="roles.isAdminAssistant" class="form-control" name="newsCategoryId"
-                            ng-model="item.roleGroupId"
-                            ng-options="roleGroup.id as roleGroup.name for roleGroup in vm.roleGroups" validation="required" ng-change="vm.editRole()"></select>
-                </div>
+                <span *ngIf="!roles.isAdminAssistant || roles.isSelf(item.id)" class="form-control" [textContent]="item.roleGroupName"></span>
+ 
+                <form *ngIf="roles.isAdminAssistant && !roles.isSelf(item.id)" class="form-inline" name="roleForm" role="form" [formGroup]="roleForm" (ngSubmit)="onSubmit(roleForm.value)">
+                    <select class="form-control" name="roleGroup" formControlName="roleGroupId">
+                        <option *ngFor="let roleGroup of roleGroups" value="{{roleGroup.id}}" [textContent]="roleGroup.name"></option>
+                    </select>
+                    <button type="submit" [disabled]="!roleForm.valid" class="btn btn-default">Сохранить</button>
+                </form>
             </div>
         </div>
         <div class="form-group" *ngIf="roles.isSelf || roles.isAdminAssistant">

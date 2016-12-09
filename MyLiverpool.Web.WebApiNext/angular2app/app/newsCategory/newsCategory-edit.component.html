@@ -3,13 +3,13 @@
         <div class="form-group">
             <label class="control-label col-xs-2 col-sm-2">Название</label>
             <div class="col-xs-10 col-sm-10">
-                <input class="form-control" name="title" [formControl]="editForm.controls['name']" />
+                <input class="form-control" name="title" formControlName="name" />
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-xs-2 col-sm-2">Описание</label>
             <div class="col-xs-10 col-sm-10">
-                <textarea mark-it-up class="form-control" name="brief" rows="4" [formControl]="editForm.controls['description']"> </textarea>
+                <textarea mark-it-up class="form-control" name="brief" rows="4" formControlName="description"> </textarea>
             </div>
         </div>
         <div class="form-group">

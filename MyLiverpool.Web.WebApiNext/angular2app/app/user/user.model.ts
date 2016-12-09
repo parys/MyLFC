@@ -9,7 +9,7 @@
     private birthday: Date;
     private roleGroupName: string;
     private fullName: string;
-    private roleGroupId: number;
+    roleGroupId: number;
     private lockoutEndDateUtc: Date;
     private photo: string;
     private newsCount: number;

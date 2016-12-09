@@ -17,6 +17,7 @@ import * as forumSubsection from "./forumSubsection/index";
 import * as forumTheme from "./forumTheme/index";
 import * as home from "./home/index";
 import * as match from "./match/index";
+import * as roleGroup from "./roleGroup/index";
 import * as shared from "./shared/index";                     
 import { UserDetailComponent } from "./user/user-detail.component";
 import { UserService } from "./user/user.service";
@@ -35,7 +36,6 @@ import { FileUploadModule } from "ng2-file-upload/ng2-file-upload";
         DatepickerModule,
         FileUploadModule,
         FormsModule,
-     //   MaterialModule.forRoot(),
         ModalModule,
         Ng2AutoCompleteModule,
         PaginationModule,
@@ -91,6 +91,7 @@ import { FileUploadModule } from "ng2-file-upload/ng2-file-upload";
         forumTheme.ForumThemeService,
         match.MatchService,
         newsCategory.NewsCategoryService,
+        roleGroup.RoleGroupService,
         shared.HttpWrapper,
         shared.GlobalValidators,
         shared.LocalStorageService,
