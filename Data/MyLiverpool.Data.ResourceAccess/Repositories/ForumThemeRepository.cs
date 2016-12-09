@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using MyLiverpool.Data.Entities;
@@ -69,27 +70,32 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
 
         public async Task<ForumTheme> GetByIdWithMessagesAsync(int id, int page, int itemPerPage = 15)
         {
-            return await _context.ForumThemes.Include(y => y.Messages).ThenInclude(m => m.Author).Select(x => new ForumTheme()
+            var theme = await _context.ForumThemes //todo bug maybe in future it's possible to realize in one request
+                .Select(x => new ForumTheme()
             {
                 Id = x.Id,
                 AuthorId = x.AuthorId,
                 Author = x.Author,
                 Name = x.Name,
                 Description = x.Description,
-                Messages = x.Messages.Skip((page - 1) * itemPerPage).Take(itemPerPage)//.Select(y => new ForumMessage()
-                //{
-                //    Id = y.Id,
-                //    OldId = y.OldId,
-                //    AdditionTime = y.AdditionTime,
-                //    AuthorId = y.AuthorId,
-                //    Author = y.Author,
-                //    Message = y.Message,
-                //    IsFirstMessage = y.IsFirstMessage,
-                //    LastModifiedTime = y.LastModifiedTime,
-               // })
-                .ToList(),
+               // Messages = x.Messages.Skip((page - 1) * itemPerPage).Take(itemPerPage).Select(y => new ForumMessage()
+               // {
+               //     Id = y.Id,
+               //     OldId = y.OldId,
+               //     AdditionTime = y.AdditionTime,
+               //     AuthorId = y.AuthorId,
+               //     Author = y.Author,
+               //     Message = y.Message,
+               //     IsFirstMessage = y.IsFirstMessage,
+               //     LastModifiedTime = y.LastModifiedTime,
+               //})
+               // .ToList(),
                 MessagesCount = x.Messages.Count,
+                
             }).FirstOrDefaultAsync(x => x.Id == id);
+            theme.Messages = await _context.ForumMessages.Include(x => x.Author).Skip((page - 1)*itemPerPage).Take(itemPerPage).ToListAsync();
+
+            return theme;
         }
     }
 }

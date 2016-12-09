@@ -4,12 +4,12 @@
     <div class="container-fluid forum-message col-sm-12" *ngFor="let message of items">
         <div class="panel panel-default">
             <div class="panel-heading col-sm-12">
-                <span class="col-sm-3"><a ui-sref="userInfo({id: message.authorId})" [textContent]="message.authorUserName"></a></span>
+                <span class="col-sm-3"><a [routerLink]="['/user', message.authorId]" [textContent]="message.authorUserName"></a></span>
                 <span class="col-sm-9 pull-right" [textContent]="message.additionTime | date:'medium'"></span>
             </div>
             <div class="panel-body">
                 <div class="col-sm-3"> <img class="flex-vertical-center width50p" src="{{message.photo}}" /></div>
-                <div class="col-sm-9" ng-bind-html="message.message | rawHtml">
+                <div class="col-sm-9" [innerHTML]="message.message">
                 </div>
             </div>
         </div>
