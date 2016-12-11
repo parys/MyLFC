@@ -724,7 +724,7 @@ namespace MyLiverpool.Data.ResourceAccess
             {
                 Name = "subsection 1",
                 Description = "subsection description 1",
-                SectionId = 1
+                SectionId = 1,
 
             };
             var forumSubsection2 = new ForumSubsection()

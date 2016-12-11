@@ -23,7 +23,7 @@ namespace MyLiverpool.Data.ResourceAccess
         //    public DbSet<UserLogin> UserLogins { get; set; }
         //     public DbSet<UserRole> UserRoles { get; set; }
 
-        public DbSet<Wish> Wishs { get; set; }
+        public DbSet<Wish> Wishes { get; set; }
         public DbSet<Material> Materials { get; set; }
         public DbSet<MaterialCategory> MaterialCategories { get; set; }
         public DbSet<MaterialComment> MaterialComments { get; set; }
@@ -57,11 +57,9 @@ namespace MyLiverpool.Data.ResourceAccess
        //     modelBuilder.Entity<OpenIddictAuthorization>().ToTable("Authorizations");
         //    modelBuilder.Entity<OpenIddictScope>().ToTable("Scopes");
           //  modelBuilder.Entity<OpenIddictToken>().ToTable("Tokens");
-
-            modelBuilder.Entity<Wish>().ToTable("Wishes");
             
             modelBuilder.Entity<MaterialComment>().HasOne(x => x.Author).WithMany(x => x.Comments).HasForeignKey(x => x.AuthorId);
-            modelBuilder.Entity<ForumMessage>().HasOne(x => x.Author).WithMany(u => u.ForumMessages);
+            modelBuilder.Entity<ForumMessage>().HasOne(x => x.Author).WithMany(u => u.ForumMessages).HasForeignKey(x => x.AuthorId);
            
             modelBuilder.Entity<Material>().HasOne(x => x.Author).WithMany(x => x.Materials).HasForeignKey(x => x.AuthorId);
             
@@ -119,6 +117,7 @@ namespace MyLiverpool.Data.ResourceAccess
 
         protected override void OnConfiguring(DbContextOptionsBuilder modelBuilder)
         {
+            modelBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking); //todo ??
             base.OnConfiguring(modelBuilder);
         }
     }

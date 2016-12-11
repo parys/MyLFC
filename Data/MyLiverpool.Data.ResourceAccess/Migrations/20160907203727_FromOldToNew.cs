@@ -149,7 +149,6 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     IdOld = table.Column<int>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     SectionId = table.Column<int>(nullable: false),
-                    ThemesCount = table.Column<int>(nullable: false),
                     Views = table.Column<int>(nullable: false)
                 },
                 constraints: table =>

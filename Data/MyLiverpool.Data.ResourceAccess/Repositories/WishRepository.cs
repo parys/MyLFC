@@ -21,18 +21,18 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
 
         public async Task<Wish> GetByIdAsync(int id)
         {
-            return await _context.Wishs.FindAsync(id);
+            return await _context.Wishes.FindAsync(id);
         }
 
         public async Task<Wish> AddAsync(Wish entity)
         {
-            var addedEntity = await _context.Wishs.AddAsync(entity);
+            var addedEntity = await _context.Wishes.AddAsync(entity);
             return addedEntity.Entity;
         }
 
         public async Task DeleteAsync(int id)
         {
-            var wish = await _context.Wishs.FindAsync(id);
+            var wish = await _context.Wishes.FindAsync(id);
             if (wish != null)
             {
                 await DeleteAsync(wish);
@@ -41,12 +41,12 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
 
         public async Task DeleteAsync(Wish entity)
         {
-            await Task.FromResult(_context.Wishs.Remove(entity));
+            await Task.FromResult(_context.Wishes.Remove(entity));
         }
 
         public void Update(Wish entity)
         {
-            _context.Wishs.Attach(entity);
+            _context.Wishes.Attach(entity);
             _context.Entry(entity).State = EntityState.Modified;
         }
 
@@ -61,7 +61,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             {
                 filter = wish => true;
             }
-            return await _context.Wishs.CountAsync(filter);
+            return await _context.Wishes.CountAsync(filter);
         }
 
         public Task<IEnumerable<Wish>> GetListAsync()
@@ -72,7 +72,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
         public async Task<ICollection<Wish>> GetOrderedByAsync(int page, int itemPerPage = 15, Expression<Func<Wish, bool>> filter = null, SortOrder order = SortOrder.Ascending,
             Expression<Func<Wish, object>> orderBy = null)
         {
-            IQueryable<Wish> query = _context.Wishs;
+            IQueryable<Wish> query = _context.Wishes;
             if (filter != null)
             {
                 query = query.Where(filter);

@@ -7,7 +7,7 @@
 <form class="form-horizontal" role="form" [formGroup]="commentForm" (ngSubmit)="onSubmit(commentForm.value)">
     <div class="col-md-12" *ngIf="canCommentary && roles.isLogined">
         <div class="col-md-12">
-            <textarea mark-it-up class="col-md-offset-2 col-md-8" rows="6" name="message" [formControl]="commentForm.controls['message']"></textarea>
+            <textarea mark-it-up class="col-md-offset-2 col-md-8" rows="6" name="message" formControlName="message"></textarea>
         </div>
         <div class="">
             <button class="btn btn-primary center-block" [disabled]="!commentForm.valid" type="submit">Добавить</button>

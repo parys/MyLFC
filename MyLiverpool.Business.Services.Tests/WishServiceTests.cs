@@ -70,7 +70,7 @@ namespace MyLiverpool.Business.Services.Tests
             var context = new FakeContext(new DbContextOptions<LiverpoolContext>());
          //   if (context.Wishs.Any())
             {
-                context.Wishs.AddRange(WishDataGenerator.Get3Wish());
+                context.Wishes.AddRange(WishDataGenerator.Get3Wish());
                 context.SaveChanges();
             }
             return context;

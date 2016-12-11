@@ -95,21 +95,7 @@
               </div>
           </div>
       </div-->
-
-    <div class="col-xs-12 col-sm-12">
-        <!-- todo ng-show="loggedIn()"-->
-        <form class="form-horizontal" name="commentForm" role="form">
-            <div class="col-md-12">
-                <div class="col-md-12">
-                    <textarea mark-it-up class="col-md-offset-2 col-md-8" rows="6" name="message" ng-model="vm.newComment.message" validation="required"></textarea>
-                </div>
-                <div class="">
-                    <button class="btn btn-primary center-block" ng-disabled="commentForm.$invalid" ng-click="vm.addComment()">Добавить</button>
-                </div>
-            </div>
-        </form>
-    </div>
-
+    <forumMessage-addition [themeId]="item.id"></forumMessage-addition>
     <div class="pagination">
         <pagination *ngIf="items" [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" [(ngModel)]="page" [maxSize]="7" (pageChanged)="pageChanged($event)"
                     previousText="&lsaquo;" nextText="&rsaquo;" firstText="1" lastText="totalItems/itemsPerPage"></pagination>

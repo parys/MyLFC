@@ -62,7 +62,7 @@ namespace MyLiverpool.Web.WebApiNext
         {
             // Add framework services.
             services.AddDbContext<LiverpoolContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("MyLiverpool.Data.ResourceAccess")));
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<User, Role>(options =>
             {
@@ -149,8 +149,9 @@ namespace MyLiverpool.Web.WebApiNext
                // options.HostingModel = NodeHostingModel.Socket;
                 options.InvocationTimeoutMilliseconds = 1000000; //todo
             });
-
-            new DatabaseInitializer((LiverpoolContext)services.BuildServiceProvider().GetService(typeof(LiverpoolContext))).Seed();
+            var context = (LiverpoolContext) services.BuildServiceProvider().GetService(typeof(LiverpoolContext));
+            context.Database.Migrate();
+                new DatabaseInitializer(context).Seed();
         }
 
         /// <summary>

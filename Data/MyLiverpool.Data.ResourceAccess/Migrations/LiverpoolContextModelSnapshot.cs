@@ -173,9 +173,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.Property<string>("Name");
 
                     b.Property<int>("SectionId");
-
-                    b.Property<int>("ThemesCount");
-
+                    
                     b.Property<int>("Views");
 
                     b.HasKey("Id");

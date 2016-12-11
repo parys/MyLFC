@@ -22,8 +22,8 @@ namespace MyLiverpool.Business.Services.Services
         public async Task<ForumMessageDto> CreateAsync(ForumMessageDto dto)
         {
             var model = _mapper.Map<ForumMessage>(dto);
-            model.AdditionTime = DateTime.Now;
-            model.LastModifiedTime = DateTime.Now;
+         //   model.AdditionTime = DateTime.Now;
+         //   model.LastModifiedTime = DateTime.Now;
             model = await _forumMessageRepository.AddAsync(model);
             await _forumMessageRepository.SaveChangesAsync();
             return _mapper.Map<ForumMessageDto>(model);
