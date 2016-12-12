@@ -71,6 +71,11 @@ export class LocalStorageService {
         return false;
     }
 
+    removeAllData(): void {
+        this.removeAuthTokens();
+        this.removeRoles();
+    }
+
     private set(key: string, value: string): void {
         if (!this.localStorage) return;
         localStorage[key] = value;

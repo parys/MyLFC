@@ -10,17 +10,16 @@ export class AuthService {
     roles: string[] = [];
     id: number;
 
-    constructor(private http: HttpWrapper, private http1: Http, private localStorage: LocalStorageService,
-        private rolesCheckedService: RolesCheckedService, private router: Router, private configuration: Configuration) {  
-        if (localStorage.hasAccessToken()) { 
-            this.isLoggedIn = true;                              
-            this.roles = localStorage.getRoles();
-            this.id = localStorage.getUserId();
-        } else {
-            localStorage.removeRoles();
-        }
+    constructor(private http: HttpWrapper,
+        private http1: Http,
+        private localStorage: LocalStorageService,
+        private rolesCheckedService: RolesCheckedService,
+        private router: Router,
+        private configuration: Configuration) {
+
+        this.isUserLogined();
     }
-                                                         
+
     redirectUrl: string;
 
     login(username: string, password: string): boolean {
@@ -43,7 +42,7 @@ export class AuthService {
                 },
                 () => this.getUserId());
         return true;
-    }      
+    }
 
     logout(): void {
         this.localStorage.removeAuthTokens();
@@ -56,6 +55,24 @@ export class AuthService {
             return true;
         }
         return false;
+    }
+
+    private isUserLogined(): void {
+        let result = false;
+        this.http.get(this.configuration.ServerWithApiUrl + "account/isSignedIn")
+            .subscribe(data => result = true,
+                error => this.localStorage.removeAllData(),
+                () => {
+                    console.log(result);
+                    if (result && this.localStorage.hasAccessToken()) {
+                        console.log(result + "1");
+                        this.isLoggedIn = true;
+                        this.roles = this.localStorage.getRoles();
+                        this.id = this.localStorage.getUserId();
+                    } else {
+                        this.localStorage.removeAllData();
+                    }
+                });
     }
 
     private parseLoginAnswer(item: any): void {
