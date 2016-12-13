@@ -5,7 +5,7 @@ import { Pageable } from "../shared/pageable.model";
 import { MaterialComment } from "./materialComment.model";
 import { MaterialCommentService } from "./materialComment.service";
 import { RolesCheckedService, IRoles } from "../shared/index";
-import { ModalDirective } from "ng2-bootstrap/ng2-bootstrap";
+import { ModalDirective } from "ng2-bootstrap";
 
 @Component({
     selector: "materialComment-detail",

@@ -5,7 +5,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
 import { News } from "./news.model";                
 import { RolesCheckedService, IRoles, LocalStorageService } from "../shared/index";
-import { ModalDirective } from "ng2-bootstrap/ng2-bootstrap";
+import { ModalDirective } from "ng2-bootstrap";
 
 @Component({
     selector: "news-detail",

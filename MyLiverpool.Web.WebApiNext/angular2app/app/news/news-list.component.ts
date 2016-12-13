@@ -9,7 +9,7 @@ import { MaterialFilters } from "./newsFilters.model";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
 import { RolesCheckedService, IRoles } from "../shared/index";
-import { ModalDirective } from "ng2-bootstrap/ng2-bootstrap";
+import { ModalDirective } from "ng2-bootstrap";
 
 @Component({
     selector: "news-list",

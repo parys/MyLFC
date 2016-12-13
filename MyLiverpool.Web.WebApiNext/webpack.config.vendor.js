@@ -42,7 +42,7 @@ var SharedConfig = {
             "jquery",
             "zone.js",
             "ng2-auto-complete",
-            "ng2-bootstrap/ng2-bootstrap" //todo need to remove duplication after update
+            "ng2-bootstrap"
         ]
     },
     output: {

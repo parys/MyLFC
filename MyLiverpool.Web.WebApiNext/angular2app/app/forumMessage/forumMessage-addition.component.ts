@@ -5,7 +5,7 @@ import { ForumMessage } from "./forumMessage.model";
 import { ForumMessageService } from "./forumMessage.service";
 import { Location } from "@angular/common";
 import { RolesCheckedService, IRoles } from "../shared/index";
-import { ModalDirective } from "ng2-bootstrap/ng2-bootstrap";
+import { ModalDirective } from "ng2-bootstrap";
 
 @Component({
     selector: "forumMessage-addition",
