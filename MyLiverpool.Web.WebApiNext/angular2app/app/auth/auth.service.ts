@@ -62,10 +62,8 @@ export class AuthService {
         this.http.get(this.configuration.ServerWithApiUrl + "account/isSignedIn")
             .subscribe(data => result = true,
                 error => this.localStorage.removeAllData(),
-                () => {
-                    console.log(result);
+                () => {                    
                     if (result && this.localStorage.hasAccessToken()) {
-                        console.log(result + "1");
                         this.isLoggedIn = true;
                         this.roles = this.localStorage.getRoles();
                         this.id = this.localStorage.getUserId();

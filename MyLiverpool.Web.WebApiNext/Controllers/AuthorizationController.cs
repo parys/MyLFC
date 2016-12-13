@@ -14,6 +14,8 @@ using MyLiverpool.Data.Entities;
 using OpenIddict;
 using System.Linq;
 using AspNet.Security.OpenIdConnect.Primitives;
+using OpenIddict.Core;
+using OpenIddict.Models;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
@@ -109,7 +111,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         {
             var request = HttpContext.GetOpenIdConnectRequest();
             
-            var application = await _applicationManager.FindByClientIdAsync(request.ClientId);
+            var application = await _applicationManager.FindByClientIdAsync(request.ClientId, HttpContext.RequestAborted);
             if (application == null)
             {
                 return BadRequest(OpenIdConnectConstants.Errors.InvalidClient);

@@ -4,7 +4,7 @@
   "dependencies": {
     "AutoMapper": "5.2.0",
     "HtmlAgilityPack.NetCore": "1.5.0.1",
-    "MailKit": "1.10.0",
+    "MailKit": "1.10.1",
     "Microsoft.AspNetCore.Http.Abstractions": "1.1.0",
     "MyLiverpool.Business.Contracts": "1.0.0-*",
     "MyLiverpool.Business.DtoNext": "1.0.0-*",

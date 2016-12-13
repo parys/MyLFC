@@ -1,13 +1,14 @@
 ﻿using System.Linq;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using MyLiverpool.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using OpenIddict;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace MyLiverpool.Data.ResourceAccess
 {
     //private readonly IHostingEnvironment _hostingEnvironment;
-    public class LiverpoolContext : OpenIddictDbContext<User, Role, int>//, UserLogin, UserRole, UserClaim>
+    public class LiverpoolContext : IdentityDbContext<User, Role, int>//, UserLogin, UserRole, UserClaim>
     {
         private static bool _created;
 
@@ -96,6 +97,9 @@ namespace MyLiverpool.Data.ResourceAccess
                 relationship.DeleteBehavior = DeleteBehavior.Restrict;
             }
 
+            // Register the entity sets needed by OpenIddict.
+
+            modelBuilder.UseOpenIddict<int>();
             base.OnModelCreating(modelBuilder);
         }
 

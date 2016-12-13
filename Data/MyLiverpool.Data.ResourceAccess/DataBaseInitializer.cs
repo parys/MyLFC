@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using MyLiverpool.Data.Entities;
 using OpenIddict;
+using OpenIddict.Core;
+using OpenIddict.Models;
 
 namespace MyLiverpool.Data.ResourceAccess
 {
@@ -1154,31 +1156,32 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
 
         private async Task AddApplication()
         {
-            if (_context.Applications.Any()) return;
+            var applications = _context.Set<OpenIddictApplication>();
+            if (applications.Any()) return;
 
-            var app = new OpenIddictApplication<int>()
-            {
-                ClientId = "client_id3",
-                ClientSecret = "client_secret44",
-                Type = OpenIddictConstants.ClientTypes.Public,
-              //  Id = 1,
-                DisplayName = "MVC Core client application",
-                RedirectUri = "http://localhost:1669/",
-                LogoutRedirectUri = "http://localhost:1669/",
-            };
-            _context.Applications.Add(app);
+            //var app = new OpenIddictApplication<int>() //todo maybe move it awaY?
+            //{
+            //    ClientId = "client_id3",
+            //    ClientSecret = "client_secret44",
+            //    Type = OpenIddictConstants.ClientTypes.Public,
+            //  //  Id = 1,
+            //    DisplayName = "MVC Core client application",
+            //    RedirectUri = "http://localhost:1669/",
+            //    LogoutRedirectUri = "http://localhost:1669/",
+            //};
+            //applications.Add<int>(app);
 
-            app = new OpenIddictApplication<int>()
-            {
-                ClientId = "client_id_swagger",
-                ClientSecret = "client_secret_swagger",
-                Type = OpenIddictConstants.ClientTypes.Public,
-              //  Id = 1,
-                DisplayName = "Swagger client application",
-                RedirectUri = "http://localhost:1669/swagger/o2c.html",
-                LogoutRedirectUri = "http://localhost:1669/swagger/index.html",
-            };
-            _context.Applications.Add(app);
+            //app = new OpenIddictApplication<int>()
+            //{
+            //    ClientId = "client_id_swagger",
+            //    ClientSecret = "client_secret_swagger",
+            //    Type = OpenIddictConstants.ClientTypes.Public,
+            //  //  Id = 1,
+            //    DisplayName = "Swagger client application",
+            //    RedirectUri = "http://localhost:1669/swagger/o2c.html",
+            //    LogoutRedirectUri = "http://localhost:1669/swagger/index.html",
+            //};
+            //applications.Add(app);
             await _context.SaveChangesAsync();
         }
 

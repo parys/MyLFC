@@ -20,6 +20,8 @@ using MyLiverpool.Data.ResourceAccess.Repositories;
 using MyLiverpool.Web.WebApiNext.Extensions;
 using Newtonsoft.Json.Serialization;
 using Swashbuckle.Swagger.Model;
+using OpenIddict.Core;
+using OpenIddict.Models;
 
 namespace MyLiverpool.Web.WebApiNext
 {
@@ -94,7 +96,8 @@ namespace MyLiverpool.Web.WebApiNext
                 });
             });
 
-            services.AddOpenIddict<LiverpoolContext, int>()
+            services.AddOpenIddict().AddEntityFrameworkCoreStores<LiverpoolContext, int>()
+              //  .AddMvcBinders()
                 // Enable the authorization and token endpoints (required to use the code flow).
                 .EnableAuthorizationEndpoint("/connect/authorize")
                 .EnableLogoutEndpoint("/connect/logout")
@@ -104,12 +107,18 @@ namespace MyLiverpool.Web.WebApiNext
                 // Allow client applications to use the grant_type=password flow.
                 .AllowImplicitFlow()
                 .AllowPasswordFlow()
-                //.AllowAuthorizationCodeFlow()
+                //.AllowAuthorizationCodeFlow)
                 .AllowRefreshTokenFlow()
 
                 // During development, you can disable the HTTPS requirement.
                 .DisableHttpsRequirement()
 
+                // When request caching is enabled, authorization and logout requests
+                // are stored in the distributed cache by OpenIddict and the user agent
+                // is redirected to the same page with a single parameter (request_id).
+                // This allows flowing large OpenID Connect requests even when using
+                // an external authentication provider like Google, Facebook or Twitter.
+                .EnableRequestCaching()
                 // Register a new ephemeral key, that is discarded when the application
                 // shuts down. Tokens signed using this key are automatically invalidated.
                 // This method should only be used during development.

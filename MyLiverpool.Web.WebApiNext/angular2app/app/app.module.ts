@@ -29,6 +29,7 @@ import { MaterialCommentListComponent, MaterialCommentService, MaterialCommentSe
 import { Ng2AutoCompleteModule } from "ng2-auto-complete";
 import { AdminService, EplTableComponent } from "./admin/index";
 import { DatepickerModule, ModalModule, PaginationModule, TabsModule } from "ng2-bootstrap/ng2-bootstrap";
+import { BreadcrumbComponent, BreadcrumbService } from "./shouldRemove/index";
 import { FileUploadModule } from "ng2-file-upload/ng2-file-upload";
 
 @NgModule({
@@ -38,7 +39,7 @@ import { FileUploadModule } from "ng2-file-upload/ng2-file-upload";
         FileUploadModule,
         FormsModule,
         ModalModule,
-        Ng2AutoCompleteModule,
+        Ng2AutoCompleteModule, 
         PaginationModule,
         ReactiveFormsModule,
         TabsModule,
@@ -68,6 +69,7 @@ import { FileUploadModule } from "ng2-file-upload/ng2-file-upload";
         newsCategory.NewsCategoryEditComponent,
         newsCategory.NewsCategoryListComponent,
         AppComponent,
+        BreadcrumbComponent,
         EplTableComponent,
         ForumSectionListComponent,
         match.MatchEditComponent,
@@ -103,6 +105,7 @@ import { FileUploadModule } from "ng2-file-upload/ng2-file-upload";
         appRoutingProviders,
         AuthGuard,
         AuthService,
+        BreadcrumbService,
         Configuration,
         ForumSectionService,
         { provide: LocalStorage, useFactory: () => (window) ? window.localStorage : {}},
