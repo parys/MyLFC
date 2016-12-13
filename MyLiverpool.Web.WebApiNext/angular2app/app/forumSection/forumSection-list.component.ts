@@ -25,6 +25,6 @@ export class ForumSectionListComponent implements OnInit {
             .getAll()
             .subscribe(data => this.items = data,
             error => console.log(error),
-            () => console.log(""));
+            () => {});
     }
 }

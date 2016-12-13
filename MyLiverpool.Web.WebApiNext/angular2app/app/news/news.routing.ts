@@ -2,9 +2,9 @@
 import { NewsListComponent, NewsDetailComponent, NewsEditComponent } from "./index";
 
 export const newsRoutes: Routes = [
-    { path: "news", component: NewsListComponent },
-    { path: "news/list", component: NewsListComponent },
-    { path: "news/list/:page", component: NewsListComponent },
-    { path: "news/:id", component: NewsDetailComponent },
-    { path: "news/:id/edit", component: NewsEditComponent }
+    { path: "news", component: NewsListComponent, data: { title: "Новости" } },
+    { path: "news/list", component: NewsListComponent, data: { title: "Новости" } },
+    { path: "news/list/:page", component: NewsListComponent, data: { title: "Новости" } },
+    { path: "news/:id", component: NewsDetailComponent, data: { title: "Новость" } },
+    { path: "news/:id/edit", component: NewsEditComponent, data: { title: "Создание новости" } }
 ];

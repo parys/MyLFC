@@ -20,8 +20,6 @@ using MyLiverpool.Data.ResourceAccess.Repositories;
 using MyLiverpool.Web.WebApiNext.Extensions;
 using Newtonsoft.Json.Serialization;
 using Swashbuckle.Swagger.Model;
-using OpenIddict.Core;
-using OpenIddict.Models;
 
 namespace MyLiverpool.Web.WebApiNext
 {
@@ -96,7 +94,8 @@ namespace MyLiverpool.Web.WebApiNext
                 });
             });
 
-            services.AddOpenIddict().AddEntityFrameworkCoreStores<LiverpoolContext, int>()
+            services.AddOpenIddict<int>()
+                .AddEntityFrameworkCoreStores<LiverpoolContext, int>()
               //  .AddMvcBinders()
                 // Enable the authorization and token endpoints (required to use the code flow).
                 .EnableAuthorizationEndpoint("/connect/authorize")
