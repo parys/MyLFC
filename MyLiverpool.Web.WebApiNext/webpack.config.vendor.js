@@ -8,7 +8,7 @@ var Merge = require("webpack-merge");
 
 var SharedConfig = {
     resolve: {
-        extensions: ["", ".js"]
+        extensions: [".js"]
     },
     module: {
         loaders: [
@@ -90,13 +90,15 @@ var ClientBundleConfig = Merge(SharedConfig,
 
 var ServerBundleConfig = Merge(SharedConfig, {
     target: "node",
-    resolve: { packageMains: ["main"] },
+    resolve: {
+        mainFields: ["main"]
+    },
     output: {
         path: Path.join(__dirname, "angular2app", "js"),
         libraryTarget: "commonjs2"
     },
     module: {
-        loaders: [{ test: /\.css(\?|$)/, loader: "to-string-loader!css-loader" }]
+        loaders: [{ test: /\.css(\?|$)/, loader: "style-loader!css-loader" }]
     },
     entry: { vendor: ["aspnet-prerendering"] },
     plugins: [

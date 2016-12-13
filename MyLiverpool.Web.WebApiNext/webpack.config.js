@@ -9,17 +9,17 @@ var WebpackNotifierPlugin = require("webpack-notifier");
 // Configuration in common to both client-side and server-side bundles
 var SharedConfig = {
     context: __dirname,
-    resolve: { extensions: ["", ".js", ".ts"] },
+    resolve: { extensions: [".js", ".ts"] },
     output: {
         filename: "[name].js",
         publicPath: "/js/" // Webpack dev middleware, if enabled, handles requests for this URL prefix
     },
     module: {
         loaders: [
-         //   { test: /\.ts$/, include: /angular2app/, loaders: ["ts-loader?silent=true", "angular2-template-loader"] },
-            { test: /\.ts$/, include: /angular2app/, loaders: ["awesome-typescript-loader", "angular2-template-loader"] },
+            { test: /\.ts$/, include: /angular2app/, loaders: ["ts-loader?silent=true", "angular2-template-loader"] },
+         //   { test: /\.ts$/, include: /angular2app/, loaders: ["awesome-typescript-loader", "angular2-template-loader"] },
             { test: /\.html$/, loader: "html-loader" },
-            { test: /\.css$/, loader: "to-string-loader!css-loader" },
+            { test: /\.css$/, loader: "style-loader!css-loader" },
             { test: /\.(png|jpg|jpeg|gif|svg)$/, loader: "url-loader", query: { limit: 25000 } }
         ]
     },
@@ -54,7 +54,7 @@ var ClientBundleConfig = Merge(SharedConfig, {
 
 // Configuration for server-side (prerendering) bundle suitable for running in Node
 var ServerBundleConfig = Merge(SharedConfig, {
-    resolve: { packageMains: ["main"] },
+    resolve: { mainFields: ["main"] },
     entry: { 'main-server': "./angular2app/boot-server.ts" },
     output: {
         libraryTarget: "commonjs",
@@ -74,4 +74,7 @@ var ServerBundleConfig = Merge(SharedConfig, {
     ]
 });
 
-module.exports = [ClientBundleConfig, ServerBundleConfig];
+module.exports = [
+    ClientBundleConfig,
+    ServerBundleConfig
+];
