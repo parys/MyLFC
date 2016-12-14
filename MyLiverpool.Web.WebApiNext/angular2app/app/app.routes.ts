@@ -9,6 +9,7 @@ import { newsRoutes } from "./news/news.routing";
 import { userRoutes } from "./user/user.routing";
 import { pmRoutes } from "./pm/pm.routing";
 import { homeRoutes } from "./home/home.routing";
+import { imageRoutes } from "./image/image.routing";
 import { forumSectionRoutes } from "./forumSection/forumSection.routing";
 import { forumSubsectionRoutes } from "./forumSubsection/forumSubsection.routing";
 import { forumThemeRoutes } from "./forumTheme/forumTheme.routing";
@@ -24,6 +25,7 @@ const routes: Routes = [
     ...forumSubsectionRoutes,
     ...forumThemeRoutes,
     ...homeRoutes,
+    ...imageRoutes,
     ...matchRoutes,
     ...materialCommentRoutes,
     ...newsCategoryRoutes,
@@ -31,7 +33,7 @@ const routes: Routes = [
     ...pmRoutes,
     ...userRoutes,
     ...wishRoutes,
-    { path: "", component: NewsListComponent, data: { title: "Главная" } }
+    { path: "", component: NewsListComponent, data: { title: "Главная", breadcrumb: "Главная" } }
 ];
 
 export const appRoutingProviders: any[] = [

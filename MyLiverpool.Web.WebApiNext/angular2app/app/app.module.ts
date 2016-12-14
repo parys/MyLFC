@@ -17,6 +17,7 @@ import * as forumSubsection from "./forumSubsection/index";
 import * as forumMessage from "./forumMessage/index";
 import * as forumTheme from "./forumTheme/index";
 import * as home from "./home/index";
+import * as image from "./image/index";
 import * as match from "./match/index";
 import * as roleGroup from "./roleGroup/index";
 import * as shared from "./shared/index";                     
@@ -29,7 +30,7 @@ import { MaterialCommentListComponent, MaterialCommentService, MaterialCommentSe
 import { Ng2AutoCompleteModule } from "ng2-auto-complete";
 import { AdminService, EplTableComponent } from "./admin/index";
 import { DatepickerModule, ModalModule, PaginationModule, TabsModule } from "ng2-bootstrap";
-import { BreadcrumbComponent, BreadcrumbService } from "./shouldRemove/index";
+import { BreadcrumbComponent } from "./shouldRemove/index";
 import { FileUploadModule } from "ng2-file-upload/ng2-file-upload";
 
 @NgModule({
@@ -66,6 +67,7 @@ import { FileUploadModule } from "ng2-file-upload/ng2-file-upload";
         home.RightSidebarComponent,
         home.RulesComponent,
         home.SquadComponent,
+        image.ImageListComponent,
         newsCategory.NewsCategoryEditComponent,
         newsCategory.NewsCategoryListComponent,
         AppComponent,
@@ -94,6 +96,7 @@ import { FileUploadModule } from "ng2-file-upload/ng2-file-upload";
         forumMessage.ForumMessageService,
         forumSubsection.ForumSubsectionService,
         forumTheme.ForumThemeService,
+        image.ImageService,
         match.MatchService,
         newsCategory.NewsCategoryService,
         roleGroup.RoleGroupService,
@@ -105,7 +108,7 @@ import { FileUploadModule } from "ng2-file-upload/ng2-file-upload";
         appRoutingProviders,
         AuthGuard,
         AuthService,
-        BreadcrumbService,
+     //   BreadcrumbService,
         Configuration,
         ForumSectionService,
         { provide: LocalStorage, useFactory: () => (window) ? window.localStorage : {}},

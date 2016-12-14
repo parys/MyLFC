@@ -86,7 +86,7 @@
                     </ul-->
                 </li>
                 <li> <a [routerLink]="['/materialComment']">Комментарии</a></li>
-                <!--<li> <a ng-if="vm.isNewsmaker() || vm.isAuthor()" ui-sref="images({path: 'content'})">Изображения</a></li>-->
+                <li> <a *ngIf="roles.isNewsmaker || roles.isAuthor" [routerLink]="['/image']">Изображения</a></li>
                 <li> <a [routerLink]="['/club']">Клубы</a></li>
                 <li> <a [routerLink]="['/match']">Матчи</a></li>
                 <li> <a [routerLink]="['/rules']"><span class="text-danger">Правила</span></a></li>
@@ -99,11 +99,11 @@
         </div>-->
     </header>
     <div class="body-content row">
-        <breadcrumb></breadcrumb>
+        <!--<breadcrumb></breadcrumb>-->
         <div class="col-xs-12 col-sm-push-3 col-sm-6 container-fluid" style="background-color: #f5deb3">
             <div class="">
                 <!--<uib-alert class="row" ng-repeat="alert in $root.alerts" dismiss-on-timeout="5000" type="{alert.type}}" close="closeAlert($index)" ng-bind="alert.msg"></uib-alert>-->
-                <div class="top20" ui-view autoscroll="false">
+                <div class="top20">
                     <router-outlet></router-outlet>
                     <!--div class="col-md-6" ui-view="newsFeed"></div>
                     <div class="col-md-6" ui-view="blogsFeed"></div>-->

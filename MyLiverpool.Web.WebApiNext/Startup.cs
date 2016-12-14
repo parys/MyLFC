@@ -95,7 +95,7 @@ namespace MyLiverpool.Web.WebApiNext
             });
 
             services.AddOpenIddict<int>()
-                .AddEntityFrameworkCoreStores<LiverpoolContext, int>()
+                .AddEntityFrameworkCoreStores<LiverpoolContext>()
               //  .AddMvcBinders()
                 // Enable the authorization and token endpoints (required to use the code flow).
                 .EnableAuthorizationEndpoint("/connect/authorize")

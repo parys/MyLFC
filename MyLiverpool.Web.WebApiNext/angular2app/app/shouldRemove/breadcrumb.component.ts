@@ -1,58 +1,121 @@
-﻿import {Component} from '@angular/core';
-import {Router, NavigationEnd} from '@angular/router';
-import {BreadcrumbService} from './breadcrumb.service';
+﻿import { Component, OnInit } from "@angular/core";
+import { Router, ActivatedRoute, NavigationEnd, Params, PRIMARY_OUTLET } from "@angular/router";
+import { Title } from "@angular/platform-browser";
+import "rxjs/add/operator/filter";
 
-/**
- * This component shows a breadcrumb trail for available routes the router can navigate to.
- * It subscribes to the router in order to update the breadcrumb trail as you navigate to a component.
- */
+interface IBreadcrumb {
+    label: string;
+    params: Params;
+    url: string;
+}
+
 @Component({
     selector: "breadcrumb",
     template: `
-        <div>
-            <ul class="breadcrumb">
-                <li *ngFor="let url of _urls; let last = last" [ngClass]="{'active': last}"> <!-- disable link of last item -->
-                    <a role="button" *ngIf="!last" (click)="navigateTo(url)">{{friendlyName(url)}}</a>
-                    <span *ngIf="last">{{friendlyName(url)}}</span>
-                </li>
-            </ul>
-        </div>
-    `
+    <ol class="breadcrumb">
+      <li><a routerLink="" class="breadcrumb">Главная</a></li>
+      <li *ngFor="let breadcrumb of breadcrumbs">
+        <a [routerLink]="[breadcrumb.url, breadcrumb.params]"></a>
+      </li>
+    </ol>
+  `
 })
-export class BreadcrumbComponent {
+export class BreadcrumbComponent implements OnInit {
 
-    private _urls: string[];
-    private _routerSubrciption: any;
+    public breadcrumbs: IBreadcrumb[];
 
-    constructor(private router: Router, private breadcrumbService: BreadcrumbService) {
-        this._urls = new Array();
-        this._routerSubrciption = this.router.events.subscribe((navigationEnd:NavigationEnd) => {
-            this._urls.length = 0; //Fastest way to clear out array
-            this.generateBreadcrumbTrail(navigationEnd.urlAfterRedirects ? navigationEnd.urlAfterRedirects : navigationEnd.url);
-        });
+    /**
+     * @class DetailComponent
+     * @constructor
+     */
+    constructor(
+        private activatedRoute: ActivatedRoute,
+        private router: Router,
+        private titleService: Title
+    ) {
+        this.breadcrumbs = [];
     }
 
-    generateBreadcrumbTrail(url: string): void {
-        if (!this.breadcrumbService.isRouteHidden(url)) {
-            //Add url to beginning of array (since the url is being recursively broken down from full url to its parent)
-            this._urls.unshift(url);
+    /**
+     * Let's go!
+     *
+     * @class DetailComponent
+     * @method ngOnInit
+     */
+    ngOnInit() {
+     //   const ROUTE_DATA_BREADCRUMB: string = "breadcrumb";
+        const ROUTE_DATA_BREADCRUMB: string = "breadcrumb";
+
+        //subscribe to the NavigationEnd event
+
+        this.router.events
+            .filter(event => event instanceof NavigationEnd)
+            .map(() => this.activatedRoute)
+            .map(route => {
+                while (route.firstChild) route = route.firstChild;
+                return route;
+            })
+            .filter(route => route.outlet === "primary")
+            .mergeMap(route => route.data)
+            .subscribe((event) => {
+                this.titleService.setTitle(event["title"]);
+      //          let root: ActivatedRoute = this.activatedRoute.root;
+      //          this.breadcrumbs = this.getBreadcrumbs(root);
+            });
+       // this.router.events.filter(event => event instanceof NavigationEnd).subscribe(event => {
+            //set breadcrumbs
+
+       // });
+    }
+
+    /**
+     * Returns array of IBreadcrumb objects that represent the breadcrumb
+     *
+     * @class DetailComponent
+     * @method getBreadcrumbs
+     * @param {ActivateRoute} route
+     * @param {string} url
+     * @param {IBreadcrumb[]} breadcrumbs
+     */
+    private getBreadcrumbs(route: ActivatedRoute, url: string = "", breadcrumbs: IBreadcrumb[] = []): IBreadcrumb[] {
+        const ROUTE_DATA_BREADCRUMB: string = "breadcrumb";
+
+        //get the child routes
+        let children: ActivatedRoute[] = route.children;
+
+        //return if there are no more children
+        if (children.length === 0) {
+            return breadcrumbs;
         }
 
-        if (url.lastIndexOf('/') > 0) {
-            this.generateBreadcrumbTrail(url.substr(0, url.lastIndexOf('/'))); //Find last '/' and add everything before it as a parent route
+        //iterate over each children
+        for (let child of children) {
+            //verify primary route
+            if (child.outlet !== PRIMARY_OUTLET) {
+                continue;
+            }
+
+            //verify the custom data property "breadcrumb" is specified on the route
+            if (!child.snapshot.data.hasOwnProperty(ROUTE_DATA_BREADCRUMB)) {
+                continue;
+            }
+
+            //get the route's URL segment
+            let routeURL: string = child.snapshot.url.map(segment => segment.path).join("/");
+
+            //append route URL to URL
+            url += `/${routeURL}`;
+
+            //add breadcrumb
+            let breadcrumb: IBreadcrumb = {
+                label: child.snapshot.data[ROUTE_DATA_BREADCRUMB],
+                params: child.snapshot.params,
+                url: url
+            };
+            breadcrumbs.push(breadcrumb);
+
+            //recursive
+            return this.getBreadcrumbs(child, url, breadcrumbs);
         }
     }
-
-    navigateTo(url: string): void {
-        this.router.navigateByUrl(url);
-    }
-
-    friendlyName(url: string): string {
-        return !url ? '' : this.breadcrumbService.getFriendlyNameForRoute(url);
-    }
-
-    ngOnDestroy(): void {
-        this._routerSubrciption.unsubscribe();
-    }
-
 }

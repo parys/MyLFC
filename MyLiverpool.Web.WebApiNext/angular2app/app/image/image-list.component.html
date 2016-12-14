@@ -1,0 +1,19 @@
+﻿<div>
+    <a ui-sref="imagesAdd({})">add</a>
+    <div *ngFor="let file of items">
+        <a ui-sref="images({path: file.path})">
+            <div *ngIf="file.isFolder" class="col-xs-2 bg-danger" style="height: 50px; margin: 10px" [textContent]="file.name"></div>
+        </a>
+        <a (click)="showBigImage($index)" href="">
+            <img class="col-xs-2" *ngIf="!file.isFolder" src="{{file.path}}" style="height: 50px; margin: 10px" />
+        </a>
+    </div>
+</div>
+
+<script type="text/ng-template" id="imageModal.html">
+    <div class="clearfix">
+        <img class="center-block" ng-src="{{vm.image.path}}" style="" />
+        <br />
+        <input class="col-xs-offset-1 col-xs-10" readonly value="{{vm.image.path}}" />
+    </div>
+</script>
