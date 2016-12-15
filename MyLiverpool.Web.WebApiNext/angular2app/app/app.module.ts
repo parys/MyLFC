@@ -12,6 +12,7 @@ import * as newsCategory from "./newsCategory/index";
 import { AuthGuard, AuthService } from "./auth/index";
 import { ForumSectionListComponent, ForumSectionService } from "./forumSection/index"; 
 import * as account from "./account/index";
+import * as chat from "./chat/index";
 import * as club from "./club/index";
 import * as forumSubsection from "./forumSubsection/index";
 import * as forumMessage from "./forumMessage/index";
@@ -54,6 +55,7 @@ import { FileUploadModule } from "ng2-file-upload/ng2-file-upload";
         account.ForgotPasswordComponent,
         account.ResetPasswordComponent,
         account.UnconfirmedEmailComponent,
+        chat.MiniChatComponent,
         club.ClubEditComponent,
         club.ClubListComponent,
         forumMessage.ForumMessageAdditionComponent,
@@ -92,6 +94,7 @@ import { FileUploadModule } from "ng2-file-upload/ng2-file-upload";
     bootstrap: [AppComponent],     // root component
     providers: [ // services
         account.AccountService, 
+        chat.ChatMessageService,
         club.ClubService,
         forumMessage.ForumMessageService,
         forumSubsection.ForumSubsectionService,

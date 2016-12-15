@@ -10,7 +10,7 @@ namespace MyLiverpool.Business.DtoNext
 
         public int AuthorId { get; set; }
 
-        public virtual int Author { get; set; }
+        public string AuthorUserName { get; set; }
 
         public string Message { get; set; }
 

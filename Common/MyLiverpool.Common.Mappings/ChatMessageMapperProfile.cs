@@ -13,7 +13,8 @@ namespace MyLiverpool.Common.Mappings
 
         private void RegisterChatMessageMap()
         {
-            CreateMap<ChatMessage, ChatMessageDto>();
+            CreateMap<ChatMessage, ChatMessageDto>()
+                .ForMember(dest => dest.AuthorUserName, src => src.MapFrom(x => x.Author.UserName));
 
             CreateMap<ChatMessageDto, ChatMessage>();
         }
