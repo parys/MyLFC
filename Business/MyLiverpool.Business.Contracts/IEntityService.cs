@@ -10,6 +10,6 @@ namespace MyLiverpool.Business.Contracts
 
         Task<bool> DeleteAsync(int id);
 
-        Task<T> GetAsync(int id);
+        Task<T> GetByIdAsync(int id);
     }
 }

@@ -2,8 +2,7 @@
 import "rxjs/add/operator/map";
 import { Observable } from "rxjs/Observable";
 import { Configuration } from "../app.constants";
-import { Image } from "./image.model";
-import { Pageable } from "../shared/pageable.model";
+import { Image } from "./image.model";              
 import { HttpWrapper } from "../shared/httpWrapper";   
 
 @Injectable()
@@ -15,37 +14,7 @@ export class ImageService {
         this.actionUrl = configuration.ServerWithApiUrl + "image/";
     }
 
-    //getAll = (filters: MaterialFilters): Observable<Pageable<News>> => {
-    //    return this.http.get(this.actionUrl + "list/" + encodeURIComponent(JSON.stringify(filters))).map(res => res.json());
-    //};
-
     get = (): Observable<Image[]> => {
         return this.http.get(this.actionUrl).map(res => res.json());
     };  
-      //getSingle = (id: number): Observable<News> => {
-    //    return this.http.get(this.actionUrl + id).map(res => res.json());
-    //};
-
-    //create = (item: News): Observable<News> => {
-    //    // var toAdd = JSON.stringify({ ItemName: item });
-    //    return this.http.post(this.actionUrl + "News/", JSON.stringify(item)).map(res => res.json());
-    //};
-
-    //update = (id: number, itemToUpdate: News): Observable<News> => {
-    //    return this.http
-    //        .put(this.actionUrl + id, JSON.stringify(itemToUpdate))
-    //        .map(res => res.json());
-    //};
-
-    //delete = (id: number): Observable<boolean> => {
-    //    return this.http.delete(this.actionUrl + id).map(response => response.json());
-    //};
-
-    //addView = (id: number): Observable<boolean> => {
-    //    return this.http.get(this.actionUrl + "addView/" + id).map(res => res.json());
-    //};
-
-    //activate = (id: number): Observable<boolean> => {
-    //    return this.http.get(this.actionUrl + "activate/" + id).map(res => res.json());
-    //};
 }

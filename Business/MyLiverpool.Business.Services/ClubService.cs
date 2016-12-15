@@ -52,7 +52,7 @@ namespace MyLiverpool.Business.Services.Services
             return true;
         }
 
-        public async Task<ClubDto> GetAsync(int id)
+        public async Task<ClubDto> GetByIdAsync(int id)
         {
             var model = await _clubRepository.GetByIdAsync(id);
             var dto = _mapper.Map<ClubDto>(model);

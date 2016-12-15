@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.Http.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MyLiverpool.Data.Entities;
-using OpenIddict;
 using System.Linq;
 using AspNet.Security.OpenIdConnect.Primitives;
 using OpenIddict.Core;

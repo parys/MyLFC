@@ -11,7 +11,7 @@ using MyLiverpool.Data.Entities;
 using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.ResourceAccess.Interfaces;
 
-namespace MyLiverpool.Business.Services.Services
+namespace MyLiverpool.Business.Services
 {
     public class WishService : IWishService
     {

@@ -26,6 +26,7 @@ namespace MyLiverpool.Data.Entities
             this.Materials = new HashSet<Material>();
             this.SentPrivateMessages = new HashSet<PrivateMessage>();
             this.ReceivedPrivateMessages = new HashSet<PrivateMessage>();
+            this.ChatMessages = new HashSet<ChatMessage>();
         }
 
       //  public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User, int> manager)
@@ -90,6 +91,7 @@ namespace MyLiverpool.Data.Entities
 
         public virtual ICollection<PrivateMessage> SentPrivateMessages { get; set; }
         public virtual ICollection<PrivateMessage> ReceivedPrivateMessages { get; set; }
+        public virtual ICollection<ChatMessage> ChatMessages { get; set; }
 
         public virtual RoleGroup RoleGroup { get; set; }
 

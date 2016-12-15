@@ -37,6 +37,7 @@ namespace MyLiverpool.Data.ResourceAccess
         public DbSet<RoleRoleGroup> RoleRoleGroups { get; set; }
         public DbSet<PrivateMessage> PrivateMessages { get; set; }
         public DbSet<Club> Clubs { get; set; }
+        public DbSet<ChatMessage> ChatMessages { get; set; }
         public DbSet<Match> Matches { get; set; }
 
         //public DbSet<OpenIddictApplication> Applications { get; set; }
@@ -91,6 +92,11 @@ namespace MyLiverpool.Data.ResourceAccess
             modelBuilder.Entity<PrivateMessage>().HasOne(x => x.Receiver).WithMany(x => x.ReceivedPrivateMessages).HasForeignKey(x => x.ReceiverId);
 
             modelBuilder.Entity<Match>().HasOne(x => x.Club).WithMany(x => x.Matches).HasForeignKey(x => x.ClubId);
+
+            modelBuilder.Entity<ChatMessage>()
+                .HasOne(x => x.Author)
+                .WithMany(x => x.ChatMessages)
+                .HasForeignKey(x => x.AuthorId);
 
             foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
             {

@@ -4,9 +4,10 @@ using MailKit.Net.Smtp;
 using MailKit.Security;
 using Microsoft.Extensions.Options;
 using MimeKit;
+using MyLiverpool.Business.Contracts;
 using MyLiverpool.Common.Utilities;
 
-namespace MyLiverpool.Business.Services.Services
+namespace MyLiverpool.Business.Services
 {
     public class AuthMessageSender : IEmailSender, ISmsSender
     {
@@ -40,7 +41,7 @@ namespace MyLiverpool.Business.Services.Services
                 await client.DisconnectAsync(true);
                 //  }
             }
-            catch (Exception ex)
+            catch (Exception ex) //todo add another try to send email
             {
                 var e = ex;
                 throw;

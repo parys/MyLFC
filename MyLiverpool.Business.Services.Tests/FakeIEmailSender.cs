@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using MyLiverpool.Business.Services.Services;
+using MyLiverpool.Business.Contracts;
 
 namespace MyLiverpool.Business.Services.Tests
 {

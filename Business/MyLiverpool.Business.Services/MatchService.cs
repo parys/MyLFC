@@ -8,7 +8,7 @@ using MyLiverpool.Common.Utilities;
 using MyLiverpool.Data.Entities;
 using MyLiverpool.Data.ResourceAccess.Interfaces;
 
-namespace MyLiverpool.Business.Services.Services
+namespace MyLiverpool.Business.Services
 {
     public class MatchService : IMatchService
     {
@@ -45,7 +45,7 @@ namespace MyLiverpool.Business.Services.Services
             return true;
         }
 
-        public async Task<MatchDto> GetAsync(int id)
+        public async Task<MatchDto> GetByIdAsync(int id)
         {
             var match = await _matchRepository.GetByIdAsync(id);
             var dto = _mapper.Map<MatchDto>(match);

@@ -18,6 +18,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
         {
             _context = context;
         }
+
         public async Task<Club> GetByIdAsync(int id)
         {
             return await _context.Clubs.FindAsync(id);

@@ -9,7 +9,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// <summary>
     /// Controller for manage admin functions.
     /// </summary>
-    [Route("api/v1/[controller]")]
+    [Authorize(Roles = nameof(RolesEnum.AdminStart)), Route("api/v1/[controller]")]
     public class AdminController : Controller
     {
         private readonly IAdminService _adminService;
@@ -27,9 +27,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// Updates epl table.
         /// </summary>
         /// <returns>Result of update.</returns>
-        [Route("updateTable")]
-        [HttpGet]
-        [Authorize(Roles = nameof(RolesEnum.AdminStart))]
+        [Authorize(Roles = nameof(RolesEnum.AdminStart)), HttpGet("updateTable")]
         public async Task<IActionResult> UpdateAplTable()
         {
             var result = await _adminService.UpdateTableAsync();

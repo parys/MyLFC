@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.DTO;
-using MyLiverpool.Business.Services.Services;
 using MyLiverpool.Business.Services.Tests.Helpers;
 using MyLiverpool.Common.Mappings;
 using MyLiverpool.Data.ResourceAccess;

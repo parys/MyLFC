@@ -60,7 +60,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             {
                 id = 1;
             }
-            var result = await _matchService.GetAsync(id);
+            var result = await _matchService.GetByIdAsync(id);
             return Ok(result);
         }
 

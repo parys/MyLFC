@@ -65,7 +65,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Authorize, HttpGet("{id:int}")]
         public async Task<IActionResult> GetAsync(int id)
         {
-            var result = await _clubService.GetAsync(id);
+            var result = await _clubService.GetByIdAsync(id);
             return Ok(result);
         }
 

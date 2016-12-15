@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace MyLiverpool.Business.Services.Services
+namespace MyLiverpool.Business.Contracts
 {
     public interface ISmsSender
     {

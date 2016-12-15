@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using MyLiverpool.Business.Contracts;
 
-namespace MyLiverpool.Business.Services.Services
+namespace MyLiverpool.Business.Services
 {
     public class UploadService : IUploadService
     {

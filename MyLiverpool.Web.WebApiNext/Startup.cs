@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using MyLiverpool.Business.Contracts;
+using MyLiverpool.Business.Services;
 using MyLiverpool.Business.Services.Services;
 using MyLiverpool.Common.Mappings;
 using MyLiverpool.Common.Utilities;
@@ -257,6 +258,7 @@ namespace MyLiverpool.Web.WebApiNext
         {
             services.AddTransient<IAccountService, AccountService>();
             services.AddTransient<IAdminService, AdminService>();
+            services.AddTransient<IChatMessageService, ChatMessageService>();
             services.AddTransient<IClubService, ClubService>();
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<IForumMessageService, ForumMessageService>();
@@ -280,6 +282,7 @@ namespace MyLiverpool.Web.WebApiNext
 
         private void RegisterRepositories(IServiceCollection services)
         {
+            services.AddScoped<IChatMessageRepository, ChatMessageRepository>();
             services.AddScoped<IClubRepository, ClubRepository>();
             services.AddScoped<IForumMessageRepository, ForumMessageRepository>();
             services.AddScoped<IForumSectionRepository, ForumSectionRepository>();
