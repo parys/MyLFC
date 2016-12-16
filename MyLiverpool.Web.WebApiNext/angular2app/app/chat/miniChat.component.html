@@ -1,1 +1,77 @@
-﻿
+﻿<div class="block">
+    <div class="block-top">
+    </div>
+    <div class="blocktitle">
+        Мини-чат
+    </div>
+    <div class="blockcontent alert-success">
+        <div class="blockcontent-inside">
+            <div style="white-space: normal">
+                <div class="cBlock1" style="padding: 0 4px 5px 2px; margin-bottom: 3px;" *ngFor="let message of items">
+                    <div style="float: right; font-size: 8px;" [textContent]="message.additionTime"></div>
+                    <div style="text-align: left;">
+                        <a [routerLink]="['/user', message.authorId]" [textContent]="message.authorUserName"><img alt="" src="http://s1.ucoz.net/img/icon/profile.png" width="13" border="0" style="vertical-align: -2px"></a>
+                        <a onclick=");parent.window.document.getElementById('mchatMsgF').value += '[i]Dreampool[/i], ';return false;"></a>
+
+                    </div>
+                    <div class="cMessage" style="text-align: left;" [textContent]="message.message">
+                    </div>
+                </div>
+            </div>
+            <form class="form-horizontal" name="messageForm" role="form" [formGroup]="messageForm" (ngSubmit)="onSubmit()">
+                <div class="form-group">
+                    <div class="col-xs-offset-2 col-sm-offset-2 col-xs-10 col-sm-10">
+                        <div class="checkbox">
+                            <label class="control-label">
+                                <input class="" name="message" formControlName="message" type="text" />
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <button type="submit" [disabled]="!messageForm.valid" class="btn btn-default">Сохранить</button>
+                    </div>
+                </div>
+            </form>
+                <!--<script type="text/javascript">
+        function sbtFrmMC991(f){$('#mchatBtn').css({display:'none'});$('#mchatAjax').css({display:''});_uPostForm('MCaddFrm',{type:'POST',url:'/mchat/?879107719.957613'});}
+        function countMessLength(){var rst = 500-$('#mchatMsgF').val().length;if (rst<0){rst=0;$('#mchatMsgF').val($('#mchatMsgF').val().substr(0,500));}$('#jeuwu28').html(rst);}
+        var tID7174=-1;var tAct7174=false;
+        function setT7174(s){var v=parseInt(s.options[s.selectedIndex].value);document.cookie="mcrtd="+s.selectedIndex+"; path=/";if(tAct7174){clearInterval(tID7174);tAct7174=false;}if(v>0){tID7174=setInterval("document.getElementById('mchatIfm2').src='/mchat/?'+Math.random();",v*1000);tAct7174=true;}}
+        function initSel7174() {var res=document.cookie.match(/(\W|^)mcrtd=([0-9]+)/);if(res){s=$("#mchatRSel")[0];;s.selectedIndex=parseInt(res[2]);setT7174(s);}$("#mchatMsgF").bind("keydown",function(e){if(e.keyCode==13 && e.ctrlKey && !e.shiftKey){e.preventDefault();sbtFrmMC991();}})}
+                    </script>
+                    <form style="margin:0;padding:0;" id="MCaddFrm" onsubmit="sbtFrmMC991();return false;">
+
+                        <table border="0" cellpadding="1" cellspacing="1" width="100%">
+                            <tbody>
+                            <tr>
+                                <td><select id="mchatRSel" onchange="setT7174(this);" class="mchat" title="Автообновление" style="font-size:7pt;"><option value="0">--</option><option value="15">15 сек</option><option value="30">30 сек</option><option value="60">1 мин</option><option value="120">2 мин</option></select></td>
+                                <td width="70%" align="right">
+                                    <a href="javascript://" rel="nofollow" onclick="document.getElementById('mchatIfm2').src='/mchat/?'+Math.random();return false;" title="Обновить"><img alt="" border="0" align="absmiddle" src="http://s1.ucoz.net/img/fr/mcr.gif" width="13" height="15"></a>
+                                    &nbsp;<a href="javascript://" rel="nofollow" onclick="new _uWnd('Sml',' ',-250,-350,{autosize:0,closeonesc:1,resize:0},{url:'/index/35-0-2'});return false;" title="Вставить смайл"><img alt="" border="0" align="absmiddle" src="http://s1.ucoz.net/img/fr/mcs.gif" width="13" height="15"></a>
+                                    &nbsp;<a href="javascript://" rel="nofollow" onclick="window.open('/index/17','cbbcodes','scrollbars=1,width=550,height=450,left=0,top=0');return false;" title="BB-Коды"><img alt="" border="0" align="absmiddle" src="http://s1.ucoz.net/img/fr/mcb.gif" width="13" height="15"></a>
+                                    &nbsp;<a href="javascript://" rel="nofollow" onclick="window.open('/mchat/0-1','mchatCtrl','scrollbars=1,width=550,height=550,left=0,top=0');return false;" title="Управление сообщениями"><img alt="" border="0" align="absmiddle" src="http://s1.ucoz.net/img/fr/mcm.gif" width="15" height="15"></a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                        <table border="0" cellpadding="1" cellspacing="1" width="100%">
+                            <tbody>
+                            <tr>
+                                <td width="95%" rowspan="2"><textarea name="mcmessage" class="mchat" id="mchatMsgF" title="Сообщение" onkeyup="countMessLength();" onfocus="countMessLength();" style="height:40px;width:100%;resize:none;"></textarea></td>
+                                <td align="center" valign="top"><div style="font-size:10px;"><b id="jeuwu28">500</b></div></td>
+                            </tr>
+                            <tr><td align="center" valign="bottom"><div style="width:30px"><input type="submit" value="OK" class="mchat" id="mchatBtn" style="width:30px;"><img alt="" style="display:none;" id="mchatAjax" src="/.s/img/fr/ajax3.gif" border="0" width="16"></div></td></tr>
+                            </tbody>
+                        </table>
+
+                        <input type="hidden" name="numa" id="numa832" value="0"><input type="hidden" name="a" value="18"><input type="hidden" id="ajaxFlag" name="ajax" value="1">
+                    </form>
+                    <script type="text/javascript">initSel7174();</script>-->
+</div>
+    </div>
+    <div class="blockbottom">
+    </div>
+</div>

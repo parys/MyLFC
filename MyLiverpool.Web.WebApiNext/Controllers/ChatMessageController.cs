@@ -33,9 +33,25 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         {
             dto.AuthorId = User.GetUserId();
             var result = await _chatMessageService.CreateAsync(dto);
+            result.Ip = HttpContext.GetIp();
+            
+            return Ok(result);
+        }     
+        
+        /// <summary>
+        /// Returns chat messages list.
+        /// </summary>
+        /// <returns>Result of creation message.</returns>
+        [Authorize, HttpGet("list")]
+        public async Task<IActionResult> GetListAsync()
+        {
+            var result = await _chatMessageService.GetListAsync();
             if (!User.IsInRole(nameof(RolesEnum.AdminStart)))
             {
-                result.Ip = null;
+                foreach (var messageDto in result)
+                {
+                    messageDto.Ip = string.Empty;
+                }
             }
             return Ok(result);
         }

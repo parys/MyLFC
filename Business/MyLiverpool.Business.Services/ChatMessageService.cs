@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using MyLiverpool.Business.Contracts;
@@ -22,7 +23,9 @@ namespace MyLiverpool.Business.Services
         {
             dto.AdditionTime = DateTime.Now;
             var model = _mapper.Map<ChatMessage>(dto);
-            model = await _chatMessageRepository.AddAsync(model);
+            await _chatMessageRepository.AddAsync(model);
+            await _chatMessageRepository.SaveChangesAsync();
+            model = await _chatMessageRepository.GetByIdAsync(model.Id);
             return _mapper.Map<ChatMessageDto>(model);
         }
 
@@ -36,9 +39,17 @@ namespace MyLiverpool.Business.Services
             throw new System.NotImplementedException();
         }
 
-        public Task<ChatMessageDto> GetByIdAsync(int id)
+        public async Task<ChatMessageDto> GetByIdAsync(int id)
         {
-            throw new System.NotImplementedException();
+            var model = await _chatMessageRepository.GetByIdAsync(id);
+            return _mapper.Map<ChatMessageDto>(model);
+        }
+
+        public async Task<IEnumerable<ChatMessageDto>> GetListAsync()
+        {
+            var messages = await  _chatMessageRepository.GetListAsync();
+            var results = _mapper.Map<IEnumerable<ChatMessageDto>>(messages);
+            return results;
         }
     }
 }
