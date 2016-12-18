@@ -22,6 +22,11 @@ textarea {
     width: 80px;
 }
 
+.chatMessage-block {
+    height: 150px;
+    overflow-y: auto;
+}
+
 .comment {
     background-color: #e5e5e5;
     border: gray solid thin;
@@ -127,7 +132,7 @@ textarea {
 }
 
 .margin-top-middle {
-    margin-top: 30px;
+    margin-top: 30px;               
 }
 
 .mini-avatar {
@@ -141,3 +146,47 @@ textarea {
 .ng-touched:not(:focus).ng-invalid:not(form)  {
   border-left: 5px solid #a94442; /* red */
 }
+
+/* forum start */
+.gTable, .postTable {
+    background: #ffffff;
+}
+
+.gTable {
+    background: #EBEBEB;
+    width: 98%;
+    margin-left: 1%;
+    margin-right: 1%;
+}
+
+.gTable td.gTableTop {
+    padding: 0px 10px;
+    border: 1px solid #debc72;
+    background: url(http://myliverpool.ru/desighn/img/126.png) repeat-y top right;
+    font: 14px/32px 'Tahoma';
+    color: #ffffff;
+    text-transform: uppercase;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+}
+.gTable td {
+    background: #ffffff;
+    border: 1px solid #e1e1e1;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+}
+
+.gTableTop, .gTableSubTop, .forumNameTd, .forumThreadTd, .forumPosrTd, .forumLastPostTd, .threadNametd, .threadPostTd, .threadAuthTd, .threadViewTd, .threadLastPostTd, td.threadsDetails, td.forumOnlineBar {
+    padding: 4px 10px;
+}
+
+.gTableTop {
+    padding: 2px;
+    background: url(http://src.ucoz.ru/t/631/17.gif) #B60600;
+    color: #FFFFFF;
+    font-weight: bold;
+    height: 23px;
+    padding-left: 17px;
+    font-size: 10pt;
+}
+/* forum end */

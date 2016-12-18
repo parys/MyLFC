@@ -6,7 +6,7 @@ import { Configuration } from "../app.constants";
 
 @Injectable()
 export class AuthService {
-    isLoggedIn: boolean = false;
+  //  isLoggedIn: boolean = false;
     roles: string[] = [];
     id: number;
 
@@ -46,7 +46,7 @@ export class AuthService {
 
     logout(): void {
         this.localStorage.removeAuthTokens();
-        this.isLoggedIn = false;
+      //  this.isLoggedIn = false;
         this.rolesCheckedService.checkRoles();
     }
 
@@ -64,7 +64,7 @@ export class AuthService {
                 error => this.localStorage.removeAllData(),
                 () => {                    
                     if (result && this.localStorage.hasAccessToken()) {
-                        this.isLoggedIn = true;
+                      //  this.isLoggedIn = true;
                         this.roles = this.localStorage.getRoles();
                         this.id = this.localStorage.getUserId();
                     } else {
@@ -74,9 +74,7 @@ export class AuthService {
     }
 
     private parseLoginAnswer(item: any): void {
-        if (this.localStorage.setAuthTokens(item)) {
-            this.isLoggedIn = true;
-        }
+        this.localStorage.setAuthTokens(item);
     }
 
     private parseRoles(item: any): void { 

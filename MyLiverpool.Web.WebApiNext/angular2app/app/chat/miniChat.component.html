@@ -7,18 +7,16 @@
     <div class="blockcontent alert-success">
         <div class="blockcontent-inside">
             <div style="white-space: normal">
-                <div class="cBlock1" style="padding: 0 4px 5px 2px; margin-bottom: 3px;" *ngFor="let message of items">
+                <div class="chatMessage-block" style="padding: 0 4px 5px 2px; margin-bottom: 3px;" *ngFor="let message of items">
                     <div style="float: right; font-size: 8px;" [textContent]="message.additionTime"></div>
                     <div style="text-align: left;">
                         <a [routerLink]="['/user', message.authorId]" [textContent]="message.authorUserName"><img alt="" src="http://s1.ucoz.net/img/icon/profile.png" width="13" border="0" style="vertical-align: -2px"></a>
-                        <a onclick=");parent.window.document.getElementById('mchatMsgF').value += '[i]Dreampool[/i], ';return false;"></a>
-
                     </div>
                     <div class="cMessage" style="text-align: left;" [textContent]="message.message">
                     </div>
                 </div>
             </div>
-            <form class="form-horizontal" name="messageForm" role="form" [formGroup]="messageForm" (ngSubmit)="onSubmit()">
+            <form *ngIf="roles.isLogined" class="form-horizontal" name="messageForm" role="form" [formGroup]="messageForm" (ngSubmit)="onSubmit()">
                 <div class="form-group">
                     <div class="col-xs-offset-2 col-sm-offset-2 col-xs-10 col-sm-10">
                         <div class="checkbox">
@@ -30,7 +28,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-md-10">
-                        <button type="submit" [disabled]="!messageForm.valid" class="btn btn-default">Сохранить</button>
+                        <button type="submit" [disabled]="!messageForm.valid" class="btn btn-default">Добавить</button>
                     </div>
                 </div>
             </form>

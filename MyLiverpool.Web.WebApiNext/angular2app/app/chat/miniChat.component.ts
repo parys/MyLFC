@@ -9,6 +9,7 @@ import { ChatMessage } from "./chatMessage.model";
 import { ChatMessageService } from "./chatMessage.service";
 import { Pageable } from "../shared/pageable.model";
 import { ModalDirective } from "ng2-bootstrap";
+import { RolesCheckedService, IRoles } from "../shared/index";
 
 @Component({
     selector: "mini-chat",
@@ -21,13 +22,16 @@ export class MiniChatComponent implements OnInit, OnDestroy {
     page: number = 1;
     itemsPerPage: number = 15;
     totalItems: number;
+    roles: IRoles;
 
     constructor(private service: ChatMessageService,
         private route: ActivatedRoute,
-        private formBuilder: FormBuilder) {
+        private formBuilder: FormBuilder,
+        private rolesChecked: RolesCheckedService) {
     }
 
     ngOnInit() {
+        this.roles = this.rolesChecked.checkedRoles;
         this.initForm();
         this.update();
     }

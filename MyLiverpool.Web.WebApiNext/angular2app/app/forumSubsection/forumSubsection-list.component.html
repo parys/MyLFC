@@ -1,11 +1,72 @@
-﻿<div class="container-fluid" *ngIf="item">
+﻿<table border="0" width="100%" bgcolor="#FFFFFF" cellspacing="1" cellpadding="0" class="gTable" *ngIf="item">
+    <tbody>
+        <tr><td class="gTableTop" colspan="7" [textContent]="item.name"><div style="float:right" class="gTopCornerRight"></div><div id="subscribe">[ <a href="javascript://" onclick="subscribe(this);return false;" class="subscribe_forum">Подписаться на форум</a> ]</div></td></tr>
+        <tr><td width="8%" colspan="2" class="gTableSubTop">&nbsp;</td><td class="gTableSubTop" align="left"><a href="javascript://" rel="nofollow" onclick="window.location.href='/forum/5-0-1-0-1';return false;" class="topSortLink">Тема</a></td><td width="7%" class="gTableSubTop" align="center"><a href="javascript://" rel="nofollow" onclick="window.location.href='/forum/5-0-1-0-4';return false;" class="topSortLink">Ответы</a></td><td width="6%" class="gTableSubTop" align="center"><a href="javascript://" rel="nofollow" onclick="window.location.href='/forum/5-0-1-0-6';return false;" class="topSortLink">Просмотры</a></td><td width="14%" class="gTableSubTop" align="center"><a href="javascript://" rel="nofollow" onclick="window.location.href='/forum/5-0-1-0-7';return false;" class="topSortLink">Автор темы</a></td><td width="21%" class="gTableSubTop" align="left"><a href="javascript://" rel="nofollow" onclick="window.location.href='/forum/5-0-1-0-9';return false;" class="topSortLink">Обновления</a><span class="sortArrDown">v</span></td></tr>
+        <tr><td class="threadsType" colspan="7">Важные темы</td></tr>
+        <!--tr >
+            <td class="threadIcoTd" align="center" width="4%">
+                <img alt="" style="margin:0;padding:0;vertical-align:middle;border:0;max-width:60px;max-height:60px;" src="/.s/img/fr/ic/2/f_norm_nonew.gif" title="Нет новых сообщений">
+            </td>
+            <td class="threadIcoTd" align="center" width="4%">
+                <img alt="" style="margin:0;padding:0;vertical-align:middle;border:0;max-width:60px;max-height:60px;" src="/.s/img/fr/ic1/poll.gif" title="Тема - опрос">
+            </td>
+            <td class="threadNametd">
+                <a class="threadPinnedLink" href="/forum/5-1991-1">Рубин Казань - Ливеруль 5 ноября 2015</a>
+                <span class="postpSwithces">[ <a class="postPSwithcesLink" href="/forum/5-1991-1">1</a>  <a class="postPSwithcesLink" href="/forum/5-1991-2">2</a> ]</span>
+                <a class="modBut" href="javascript://" rel="nofollow" onclick="new _uWnd('Et','Изменить/переместить тему',-440,-150,{autosize:1,closeonesc:1,resize:1,align:'left'},{url:'/forum/5-1991-0-20-1'});return false;" title="Изменить/переместить тему"><img alt="" border="0" align="absmiddle" src="/.s/img/fr/eb.gif" width="12" height="13"></a>
+                <a class="modBut" href="javascript://" rel="nofollow" onclick="thdel('5','1991');return false;" title="Удалить тему"><img alt="" border="0" id="dbth1991" align="absmiddle" src="/.s/img/fr/db.gif" width="10" height="13"></a>
+            </td>
+
+            <td class="threadPostTd" align="center">24</td>
+            <td class="threadViewTd" align="center">8539</td>
+            <td class="threadAuthTd" align="center"><span class="threadAuthor"><a class="threadAuthorLink" href="javascript://" rel="nofollow" onclick="window.open('/index/8-1','up1','scrollbars=1,top=0,left=0,resizable=1,width=680,height=350');return false;">XaNDeR</a></span></td>
+            <td class="threadLastPostTd">
+                <script type="text/javascript">document.write('<a title="К последнему сообщению" class="forumLastPostLink" hr'+'ef="/forum/5-1991-0-17">09.02.2016, 17:45:15</a>')</script><a title="К последнему сообщению" class="forumLastPostLink" href="/forum/5-1991-0-17">09.02.2016, 17:45:15</a>
+                <script type="text/javascript">document.write('<a hr'+'ef="/forum/5-1991-0-17-1"><img alt="" style="margin:0;padding:0;vertical-align:middle;border:0;max-width:60px;max-height:60px;" title="К первому непрочитанному сообщению" src="/.s/img/fr/ic/2/lastpost.gif" /></a>')</script><a href="/forum/5-1991-0-17-1"><img alt="" style="margin:0;padding:0;vertical-align:middle;border:0;max-width:60px;max-height:60px;" title="К первому непрочитанному сообщению" src="/.s/img/fr/ic/2/lastpost.gif"></a>
+                <br>Сообщение от: <span class="lastPostGuest"><a class="lastPostUserLink" href="javascript://" rel="nofollow" onclick="window.open('/index/8-0-LSLiv52','up27','scrollbars=1,top=0,left=0,resizable=1,width=680,height=350');return false;">LSLiv52</a></span>
+            </td>
+        </tr-->
+
+        <tr><td class="threadsType" colspan="7">Темы форума</td></tr>
+        <tr *ngFor="let theme of item.themes.list">
+            <td class="threadIcoTd" align="center" width="4%">
+                <img alt="" style="margin:0;padding:0;vertical-align:middle;border:0;max-width:60px;max-height:60px;" src="http://www.myliverpool.ru/.s/img/fr/ic/2/f_norm_nonew.gif" title="Нет новых сообщений">
+            </td>
+            <td class="threadIcoTd" align="center" width="4%">
+                <img alt="" style="margin:0;padding:0;vertical-align:middle;border:0;max-width:60px;max-height:60px;" src="http://www.myliverpool.ru/.s/img/fr/ic1/hot.gif" title="Горячая тема">
+            </td>
+            <td class="threadNametd">
+                <a class="threadLink" [routerLink]="['/forum/theme', theme.id]" [textContent]="theme.name"></a>
+                <span class="postpSwithces">[ <a class="postPSwithcesLink" href="/forum/5-1400-1">1</a>  <a class="postPSwithcesLink" href="/forum/5-1400-2">2</a>  <a class="postPSwithcesLink" href="/forum/5-1400-3">3</a>  <a class="postPSwithcesLink" href="/forum/5-1400-4">4</a>  <a class="postPSwithcesLink" href="/forum/5-1400-5">5</a> ]</span>
+                <a class="modBut" href="javascript://" rel="nofollow" onclick="new _uWnd('Et','Изменить/переместить тему',-440,-150,{autosize:1,closeonesc:1,resize:1,align:'left'},{url:'/forum/5-1400-0-20-1'});return false;" title="Изменить/переместить тему"><img alt="" border="0" align="absmiddle" src="http://www.myliverpool.ru/.s/img/fr/eb.gif" width="12" height="13"></a>
+                <a class="modBut" href="javascript://" rel="nofollow" onclick="thdel('5','1400');return false;" title="Удалить тему"><img alt="" border="0" id="dbth1400" align="absmiddle" src="http://www.myliverpool.ru/.s/img/fr/db.gif" width="10" height="13"></a>
+
+
+            </td>
+
+            <td class="threadPostTd" align="center">72</td>
+            <td class="threadViewTd" align="center">5329</td>
+            <td class="threadAuthTd" align="center"><span class="threadAuthor"><a class="threadAuthorLink" href="javascript://" rel="nofollow" onclick="window.open('/index/8-1670','up1670','scrollbars=1,top=0,left=0,resizable=1,width=680,height=350');return false;">Ringo_Starr</a></span></td>
+            <td class="threadLastPostTd">
+                <script type="text/javascript">document.write('<a title="К последнему сообщению" class="forumLastPostLink" hr'+'ef="/forum/5-1400-0-17">19.10.2016, 13:37:37</a>')</script><a title="К последнему сообщению" class="forumLastPostLink" href="/forum/5-1400-0-17">19.10.2016, 13:37:37</a>
+                <script type="text/javascript">document.write('<a hr'+'ef="/forum/5-1400-0-17-1"><img alt="" style="margin:0;padding:0;vertical-align:middle;border:0;max-width:60px;max-height:60px;" title="К первому непрочитанному сообщению" src="/.s/img/fr/ic/2/lastpost.gif" /></a>')</script><a href="/forum/5-1400-0-17-1"><img alt="" style="margin:0;padding:0;vertical-align:middle;border:0;max-width:60px;max-height:60px;" title="К первому непрочитанному сообщению" src="/.s/img/fr/ic/2/lastpost.gif"></a>
+                <br>Сообщение от: <span class="lastPostGuest"><a class="lastPostUserLink" href="javascript://" rel="nofollow" onclick="window.open('/index/8-0-icebergstollikcs','up27','scrollbars=1,top=0,left=0,resizable=1,width=680,height=350');return false;">icebergstollikcs</a></span>
+            </td>
+        </tr>
+
+
+        <tr><td class="threadsDetails" colspan="7">В этом форуме тем: <b>28</b>. На странице показано тем: <b>28</b>.</td></tr>
+        <tr><td class="forumOnlineBar" colspan="7">Форум просматривают: <a class="groupAdmin" href="javascript://" rel="nofollow" onclick="window.open('/index/8-10147','up10147','scrollbars=1,top=0,left=0,resizable=1,width=680,height=350');return false;">parys</a></td></tr>
+    </tbody>
+</table>
+<!--div class="container-fluid" *ngIf="item">
     <div class="panel panel-danger">
         <div class="panel-heading">
             <span [textContent]="item.name"></span>
             <span [textContent]="item.description"></span>
             <a [routerLink]="['/forum/theme', 0, 'edit']">Добавить тему</a>
         </div>
-        <!--  <div class="panel-body"></div>-->
+        <!--  <div class="panel-body"></div>->
         <ul class="list-group" *ngFor="let theme of item.themes.list">
             <li class="list-group-item list">
                 <span><a [routerLink]="['/forum/theme', theme.id]" [textContent]="theme.name"></a></span>
@@ -25,4 +86,4 @@
         <pagination *ngIf="items" [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" [(ngModel)]="page" [maxSize]="7" (pageChanged)="pageChanged($event)"
                     previousText="&lsaquo;" nextText="&rsaquo;" firstText="1" lastText="totalItems/itemsPerPage"></pagination>
     </div>
-</div>
+</!--div>-->

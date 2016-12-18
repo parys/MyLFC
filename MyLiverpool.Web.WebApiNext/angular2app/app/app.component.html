@@ -2,19 +2,19 @@
     <ul class="nav navbar-nav col-xs-3 col-sm-3 list-inline">
         <li><a id="back-top" href="#" style="display: none;">Вверх</a></li>
         <li class="divider"></li>
-        <li *ngIf="auth.isLoggedIn">
+        <li *ngIf="roles.isLogined">
             <a [routerLink]="['/pm']"><span class="glyphicon glyphicon-envelope"></span> Читать л/с <!--(<span ng-bind="vm.unreadPmCount"></span>)--></a>
         </li>
         <li class="divider"></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-        <li *ngIf="!auth.isLoggedIn">
+        <li *ngIf="!roles.isLogined">
             <account-signin></account-signin>
         </li>
-        <li *ngIf="!auth.isLoggedIn">
+        <li *ngIf="!roles.isLogined">
             <a [routerLink]="['/forgotPassword']"><span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="bottom" title="Забыли пароль?"></span></a>
         </li>
-        <li *ngIf="!auth.isLoggedIn">
+        <li *ngIf="!roles.isLogined">
             <a [routerLink]="['/signup']">Регистрация</a>
         </li>
         <li *ngIf="auth.isLoggedIn">
