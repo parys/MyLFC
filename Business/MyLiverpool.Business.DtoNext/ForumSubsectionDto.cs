@@ -16,6 +16,8 @@ namespace MyLiverpool.Business.DtoNext
         [Required]
         public int SectionId { get; set; }
 
-        public virtual PageableData<ForumThemeMiniDto> Themes { get; set; } 
+        public virtual PageableData<ForumThemeMiniDto> Themes { get; set; }
+
+        public int ThemesCount { get; set; }
     }
 }

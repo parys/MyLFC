@@ -319,6 +319,10 @@ a.threadLink:active {text-decoration:underline; color:#000000;}
 
 /*--------------------- Forum start ---------------------*/
 
+.modBut {
+    font-size: 12px;
+}
+
 .forumContent {
 width: 890px;
 background-color: #ffffff;

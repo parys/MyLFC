@@ -11,5 +11,7 @@
         public int AuthorId { get; set; }
 
         public string AuthorUserName { get; set; }
+
+        public int Answers { get; set; }
     }
 }

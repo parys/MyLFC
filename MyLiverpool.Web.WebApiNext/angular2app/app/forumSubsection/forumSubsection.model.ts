@@ -7,4 +7,5 @@ export class ForumSubsection {
     description: string;
     sectionId: number;
     themes: Pageable<ForumTheme>;
+    themesCount: number;
 }

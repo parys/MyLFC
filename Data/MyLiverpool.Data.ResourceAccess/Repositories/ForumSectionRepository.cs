@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using MyLiverpool.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using MyLiverpool.Data.ResourceAccess.Interfaces;
+using System.Linq;
 
 namespace MyLiverpool.Data.ResourceAccess.Repositories
 {
@@ -64,7 +65,21 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
 
         public async Task<IEnumerable<ForumSection>> GetListAsync()
         {
-            return await _context.ForumSections.Include(x => x.Subsections).ToListAsync();
+           // return await _context.ForumSections.Include(x => x.Subsections).ToListAsync();
+            return await _context.ForumSections.Select(x => new ForumSection()
+            {
+                Id = x.Id,
+                Name = x.Name,
+                IdOld = x.IdOld,
+                Subsections = x.Subsections.Select(y => new ForumSubsection()
+                {
+                    Id = y.Id,
+                    Name = y.Name,
+                    ThemesCount = y.Themes.Count,
+                    Description = y.Description,
+                    IdOld = y.IdOld
+                }).ToList()
+            }).ToListAsync();
         }
     }
 }

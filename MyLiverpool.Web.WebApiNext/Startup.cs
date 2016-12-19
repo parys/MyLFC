@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -108,6 +109,8 @@ namespace MyLiverpool.Web.WebApiNext
                 .AllowPasswordFlow()
                 //.AllowAuthorizationCodeFlow)
                 .AllowRefreshTokenFlow()
+                .SetIdentityTokenLifetime(TimeSpan.FromDays(14))
+                .SetAccessTokenLifetime(TimeSpan.FromDays(14))
 
                 // During development, you can disable the HTTPS requirement.
                 .DisableHttpsRequirement()

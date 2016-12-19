@@ -3,14 +3,14 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyLiverpool.Business.Contracts;
+using MyLiverpool.Data.Entities;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
     /// <summary>
     /// Manages forum sections.
     /// </summary>
-    [Route("api/v1/[controller]")]
-    [Authorize]
+    [Authorize, Route("api/v1/[controller]")]
     public class ForumSectionController : Controller
     {
         private readonly IForumSectionService _forumSectionService;
@@ -29,9 +29,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        [Route("")]
-        [HttpPost]
-        [Authorize(Roles = "AdminStart")]
+        [Authorize(Roles = nameof(RolesEnum.AdminStart)), HttpPost("")]
         public async Task<IActionResult> CreateSection([FromBody]string name)
         {
             if (string.IsNullOrEmpty(name))
@@ -51,9 +49,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [Route("{id:int}")]
-        [HttpDelete]
-        [Authorize(Roles = "AdminStart")]
+        [Authorize(Roles = nameof(RolesEnum.AdminStart)), HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteSection(int id)
         {
             var result = await _forumSectionService.DeleteAsync(id);
@@ -70,13 +66,11 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         //}
 
         /// <summary>
-        /// 
+        /// Returns section by id.
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        [Route("")]
-        [HttpGet]
-        [AllowAnonymous]
+        /// <param name="id">The identifier of section.</param>
+        /// <returns>Section.</returns>
+        [AllowAnonymous, HttpGet("{id:int}")]
         public async Task<IActionResult> Get([FromQuery]int id)
         {
             var result = await _forumSectionService.GetAsync(id);
@@ -84,12 +78,10 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Returns list of all sections.
         /// </summary>
-        /// <returns></returns>
-        [Route("list")]
-        [HttpGet]
-        [AllowAnonymous]
+        /// <returns>Sections list.</returns>
+        [AllowAnonymous, HttpGet("list")]
         public async Task<IActionResult> List()
         {
             var result = await _forumSectionService.GetListAsync();

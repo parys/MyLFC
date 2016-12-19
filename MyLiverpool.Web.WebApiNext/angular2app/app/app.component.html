@@ -17,7 +17,7 @@
         <li *ngIf="!roles.isLogined">
             <a [routerLink]="['/signup']">Регистрация</a>
         </li>
-        <li *ngIf="auth.isLoggedIn">
+        <li *ngIf="roles.isLogined">
             <ul class="nav navbar-nav">
                 <!--<li>
                     <a ui-sref="userInfo({id: vm.userId()})" class="padding0">

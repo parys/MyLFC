@@ -1,19 +1,136 @@
-﻿<div *ngIf="item">
-    <h2 [textContent]="item.name"></h2>
-    <h3 [textContent]="item.description"></h3>
-    <div class="container-fluid forum-message col-sm-12" *ngFor="let message of items">
-        <div class="panel panel-default">
-            <div class="panel-heading col-sm-12">
-                <span class="col-sm-3"><a [routerLink]="['/user', message.authorId]" [textContent]="message.authorUserName"></a></span>
-                <span class="col-sm-9 pull-right" [textContent]="message.additionTime | date:'medium'"></span>
-            </div>
-            <div class="panel-body">
-                <div class="col-sm-3"> <img class="flex-vertical-center width50p" src="{{message.photo}}" /></div>
-                <div class="col-sm-9" [innerHTML]="message.message">
-                </div>
+﻿<table class="gTable" border="0" width="100%" cellspacing="1" cellpadding="0">
+    <tbody>
+    <tr>
+        <td class="gTableTop">
+            <div style="float:right" class="gTopCornerRight"></div>
+            Флудилка
+            <!--div id="subscribe">[ <a href="javascript://" onclick="subscribe(this);return false;" class="thread_subscribe">Подписаться на тему</a> ]</!--div>-->
+        </td>
+    </tr>
+    <tr >
+        <td class="">
+            <table border="0" width="100%" cellspacing="1" cellpadding="2" class="postTable">
+                <tbody>
+                <tr>
+                    <td width="23%" class="postTdTop" align="center"><a class="postUser" href="javascript://" post-author="Heretic">Heretic</a>
+                    </td>
+                    <td class="postTdTop">
+                        <div style="float: right">
+                            <a href="javascript://" onclick="new _uWnd('AwD', 'Вручить награду', 380, 200, { autosize: 1, maxh: 300 }, { url: '/index/55-2733-28-forum-44_1667_100821_16_1369831384' });return false;">
+                                <img src="http://s1.ucoz.net/img/icon/thumbu.png" width="13" border="0" title="Хороший пост">
+                            </a> 
+                            <a href="javascript://" onclick="new _uWnd('AwD', 'Вручить награду', 380, 200, { autosize: 1, maxh: 300 }, { url: '/index/55-2733-47-forum-44_1667_100821_16_1369831384' });return false;">
+                                <img src="http://s1.ucoz.net/img/icon/thumbd.png" width="13" border="0" title="Плохой пост">
+                            </a>
+                        </div>Дата: Среда, 29.05.2013, 16:43:04 | Сообщение # 
+                        <a name="100821" class="postNumberLink" href="javascript://" rel="nofollow" onclick="prompt('Прямая ссылка к сообщению', 'http://www.myliverpool.ru/forum/44-1667-100821-16-1369831384');return false;">1</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="postTdInfo" valign="top">
+                        <img title="Heretic" class="userAvatar" border="0" src="/avatar/30/750298.jpg" height="80">
+                        <div class="postRankName">Fields of Anfield Road</div>
+                        <div class="postRankIco">
+                            <img alt="" style="margin: 0; padding: 0; border: 0;" name="groupIcon" src="http://www.myliverpool.ru/jay.png" title="Знатоки"/><b>Знатоки</b>
+                        </div>
+                        <div class="numposts">Сообщений: <span>1829</span></div>
+
+
+                        <!--<div class="postUserGroup">Страна: Российская Федерация</div>
+                        <div class="postUserGroup">Город: Rostov on Don</div>
+                        <div class="reputation">Подарки: <a href="javascript://" rel="nofollow" onclick="new _uWnd('AwL', 'Список наград', 380, 200, {autosize:1, closeonesc:1, maxh:300, minh:100},{url:'/index/54-2733'});return false;" title="Список наград"><span class="repNums"><b>38</b></span></a> &nbsp;<a href="javascript://" rel="nofollow" onclick="new _uWnd('AwD','Вручить награду',380,200,{autosize:1,closeonesc:1,maxh:300,minh:100},{url:'/index/55-2733'});return false;"><span style="font-size:10pt" title="Вручить награду"><b>+</b></span></a>
+                        <div class="reputation">Репутация: <a title="Смотреть историю репутации" class="repHistory" href="javascript://" rel="nofollow" onclick="new _uWnd('Rh',' ',400,250,{autosize:1,closeonesc:1,maxh:300,minh:100},{url:'/index/9-2733'});return false;"><b>824</b></a>  &nbsp;<a class="reputationDo" title="Изменить репутацию" href="javascript://" rel="nofollow" onclick="new _uWnd('Rd',' ',380,200,{autosize:1,closeonesc:1},{url:'/index/',type:'post',data:{a:'23',s:'2733',c:'/forum/44-1667-100821-16-1369831384'}});return false;"><span style="font-size:10pt"><b>&#177;</b></span></a></div>-->
+                        <div class="userBan">Замечания:
+                            <a class="banPercent" title="Смотреть историю замечаний" href="javascript://" rel="nofollow" onclick="new _uWnd('Bh',' ',400,250,{autosize:1,closeonesc:1,maxh:300,minh:100},{url:'/index/21-2733'});return false;">0%</a>  &nbsp;
+                        <a title="Изменить уровень замечаний" class="banDo" href="javascript://" rel="nofollow" onclick="new _uWnd('Bd',' ',400,250,{autosize:1,closeonesc:1,maxh:300,minh:100},{url:'/index/22-2733-1'});return false;">±</a>
+                        </div>
+                        <!-- <div class="statusBlock">Статус: <span class="statusOffline">Оффлайн</span></div> -->
+                    </td>
+                    <td class="posttdMessage" valign="top">
+                        <span class="ucoz-forum-post" id="ucoz-forum-post-100821" edit-url="/forum/44-1667-100821-9-1">Открыл новую флудилку! Старую перенес в архив! <br> Продолжаем флудить тут!!</span><br>
+
+                        <!--<br><hr size="1" width="150" align="left" class="signatureHr"><span class="signatureView">«Ливерпуль» создан для меня, а я – для «Ливерпуля» <br /> <img src="http://25.media.tumblr.com/tumblr_lwcf3wnhsd1qac7wmo9_400.gif" border="0" alt=""/></span>-->
+                    </td>
+                </tr>
+                <tr>
+                    <td class="postBottom" align="center">
+                        <div class="postip">[ 
+                                <a class="postIpLink" href="http://www.ripe.net/perl/whois?91.220.155.248" target="_blank">91.220.155.248</a>
+                         <!--   (<a href="javascript://" onclick="prompt( & quot;&quot;,&quot;Российская Федерация & quot;);return false;">RU</a>) ]--> 
+                            <span class="statusOffline">Оффлайн</span>
+                        </div>
+                    </td>
+                    <td class="postBottom">
+                        <table border="0" width="100%" cellspacing="0" cellpadding="0">
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <a href="javascript://" rel="nofollow" onclick="window.open('/index/8-2733', 'up2733', 'scrollbars=1,top=0,left=0,resizable=1,width=680,height=350');return false;">
+                                        <img alt="" style="margin: 0; padding: 0; border: 0;" src="http://myliverpool.ru/.s/img/fr/bt/16/p_profile.gif" title="Профиль пользователя">
+                                    </a> 
+                                    <a href="javascript://" rel="nofollow" onclick="window.open('/index/14-2733-0-1', 'userpm', 'scrollbars=1,top=0,left=0,resizable=1,width=680,height=350');return false;">
+                                        <img alt="" style="margin: 0; padding: 0; border: 0;" src="http://myliverpool.ru/.s/img/fr/bt/16/p_pm.gif" title="Личное сообщение">
+                                    </a>
+                                    <img alt="" style="cursor: pointer; margin: 0; padding: 0; border: 0;" src="http://myliverpool.ru/.s/img/fr/bt/16/p_icq.gif" title="ICQ: 575285688" onclick="prompt('ICQ number', '575285688');"> 
+                                    <a href="http://vkontakte.ru/scouserdi" target="_blank">
+                                        <img src="http://myliverpool.ru/desighn/vk.jpg" border="0">
+                                    </a>
+                                </td>
+                                <td align="right" style="padding-right: 15px;">
+                                    <a href="javascript:Insert('100821','Heretic',selection);" onmouseover="get_selection()" class="postQuote">
+                                        <img alt="" style="margin: 0; padding: 0; border: 0;" src="http://myliverpool.ru/.s/img/fr/bt/16/p_quote.gif" title="Цитировать">
+                                    </a>
+                                    <a href="/forum/44-1667-100821-9-1">
+                                        <img alt="" style="margin: 0; padding: 0; border: 0;" src="http://myliverpool.ru/.s/img/fr/bt/16/p_edit.gif" title="Изменить сообщение">
+                                    </a>
+                                    <a href="/forum/44-1667-0-21">
+                                        <img alt="" id="dbo100821" style="margin: 0; padding: 0; border: 0;" src="http://myliverpool.ru/.s/img/fr/bt/16/p_delete.gif" title="Удалить тему">
+                                    </a>
+                                </td>
+                                <td width="2%" nowrap="" align="right">
+                                    <a class="goOnTop" href="javascript:scroll(0,0);">
+                                        <img alt="" style="margin: 0; padding: 0; border: 0;" src="http://myliverpool.ru/.s/img/fr/bt/16/p_up.gif" title="Вверх">
+                                    </a> 
+                                    <input type="checkbox" title="Пометить на удаление" disabled="" style="display: none;">
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td class="postSeparator"></td>
+    </tr>
+    <tr id="delPtBut" style="display:none;"><td colspan="2" class="gTableSubTop" align="right"><div align="right" style="padding:1px;"><form style="margin:0;padding:0;" method="post" name="delposts" action="/forum/" onsubmit="return chdel(this);"><input class="delPostsSubmit" id="delPsSbm" type="submit" value="Удалить отмеченные сообщения" style="font-size:7pt;"><input type="hidden" name="fid" value="44"><input type="hidden" name="tid" value="1667"><input type="hidden" name="a" value="8"><input type="hidden" name="ss" value="gOKI9nKk"><input type="hidden" name="t" value="1"><input type="hidden" name="pg" value="1"><input type="hidden" id="pids" name="pids" value="0"></form></div></td></tr>
+    </tbody>
+</table>
+
+<!--<div *ngIf="item">
+<h2 [textContent]="item.name"></h2>
+<h3 [textContent]="item.description"></h3>
+<div class="container-fluid forum-message col-sm-12" *ngFor="let message of items">
+    <div class="panel panel-default">
+        <div class="panel-heading col-sm-12">
+            <span class="col-sm-3"><a [routerLink]="['/user', message.authorId]" [textContent]="message.authorUserName"></a></span>
+            <span class="col-sm-9 pull-right" [textContent]="message.additionTime | date:'medium'"></span>
+        </div>
+        <div class="panel-body">
+            <div class="col-sm-3"> <img class="flex-vertical-center width50p" src="{{message.photo}}" /></div>
+            <div class="col-sm-9" [innerHTML]="message.message">
             </div>
         </div>
     </div>
+</div>
+        <forumMessage-addition [themeId]="item.id"></forumMessage-addition>
+    <div class="pagination">
+        <pagination *ngIf="items" [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" [(ngModel)]="page" [maxSize]="7" (pageChanged)="pageChanged($event)"
+                    previousText="&lsaquo;" nextText="&rsaquo;" firstText="1" lastText="totalItems/itemsPerPage"></pagination>
+    </div>
+</div>-->
     <!--style>
           .flex-container-row {
               display: flex;
@@ -95,9 +212,4 @@
               </div>
           </div>
       </div-->
-    <forumMessage-addition [themeId]="item.id"></forumMessage-addition>
-    <div class="pagination">
-        <pagination *ngIf="items" [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" [(ngModel)]="page" [maxSize]="7" (pageChanged)="pageChanged($event)"
-                    previousText="&lsaquo;" nextText="&rsaquo;" firstText="1" lastText="totalItems/itemsPerPage"></pagination>
-    </div>
-</div>
+

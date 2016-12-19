@@ -70,8 +70,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
 
         public async Task<ForumSubsection> GetByIdWithThemesAsync(int subsectionId, int page, int itemPerPage = 15)
         {
-            return
-                await
+              var subsections = await
                     _context.ForumSubsections.Where(x => x.Id == subsectionId).Select(x =>
                         new ForumSubsection()
                         {
@@ -79,13 +78,28 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
                             Id = x.Id,
                             Description = x.Description,
                             ThemesCount = x.Themes.Count,
-                            Themes = x.Themes.Skip((page - 1)*itemPerPage).Take(itemPerPage).ToList(),
+                       //     Themes = x.Themes.Skip((page - 1)*itemPerPage).Take(itemPerPage).ToList(),
                             Section = x.Section,
                             SectionId = x.SectionId,
                             IdOld = x.IdOld,
                             AnswersCount = x.AnswersCount,
                             Views = x.Views
                         }).FirstOrDefaultAsync();
+            subsections.Themes =
+               // _context.ForumThemes.Include(x => x.Author).Skip((page - 1)*itemPerPage).Take(itemPerPage).ToList();
+                _context.ForumThemes.Skip((page - 1)*itemPerPage).Take(itemPerPage).Select(x => new ForumTheme()
+                {
+                    Id = x.Id,
+                    Description = x.Description,
+                    IdOld = x.IdOld,
+                    Name = x.Name,
+                    Answers = x.Messages.Count,
+                    AuthorId = x.AuthorId,
+                    Author = x.Author,
+                    
+                }).ToList();
+            return subsections;
+
         }
     }
 }
