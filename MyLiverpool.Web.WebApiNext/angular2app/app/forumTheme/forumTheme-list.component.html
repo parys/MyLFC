@@ -1,18 +1,19 @@
-﻿<table class="gTable" border="0" width="100%" cellspacing="1" cellpadding="0">
+﻿<table class="gTable" border="0" width="100%" cellspacing="1" cellpadding="0" *ngIf="item">
     <tbody>
     <tr>
         <td class="gTableTop">
-            <div style="float:right" class="gTopCornerRight"></div>
-            Флудилка
+            <div style="float:right" class="gTopCornerRight" [textContent]="item.name"></div>
+            
             <!--div id="subscribe">[ <a href="javascript://" onclick="subscribe(this);return false;" class="thread_subscribe">Подписаться на тему</a> ]</!--div>-->
         </td>
     </tr>
-    <tr >
+    <tr *ngFor="let message of items">
         <td class="">
             <table border="0" width="100%" cellspacing="1" cellpadding="2" class="postTable">
                 <tbody>
                 <tr>
-                    <td width="23%" class="postTdTop" align="center"><a class="postUser" href="javascript://" post-author="Heretic">Heretic</a>
+                    <td width="23%" class="postTdTop" align="center">
+                        <a class="postUser" [routerLink]="['/user', message.authorId]" [textContent]="message.authorUserName"></a>
                     </td>
                     <td class="postTdTop">
                         <div style="float: right">
@@ -28,10 +29,11 @@
                 </tr>
                 <tr>
                     <td class="postTdInfo" valign="top">
-                        <img title="Heretic" class="userAvatar" border="0" src="/avatar/30/750298.jpg" height="80">
+                        <img [title]="message.authorUserName" class="userAvatar" border="0" [src]="message.photo" height="80">
                         <div class="postRankName">Fields of Anfield Road</div>
                         <div class="postRankIco">
-                            <img alt="" style="margin: 0; padding: 0; border: 0;" name="groupIcon" src="http://www.myliverpool.ru/jay.png" title="Знатоки"/><b>Знатоки</b>
+                            <!--<img alt="" style="margin: 0; padding: 0; border: 0;" name="groupIcon" src="http://www.myliverpool.ru/jay.png" title="Знатоки"/>-->
+                            <b>Знатоки</b>
                         </div>
                         <div class="numposts">Сообщений: <span>1829</span></div>
 
@@ -47,7 +49,7 @@
                         <!-- <div class="statusBlock">Статус: <span class="statusOffline">Оффлайн</span></div> -->
                     </td>
                     <td class="posttdMessage" valign="top">
-                        <span class="ucoz-forum-post" id="ucoz-forum-post-100821" edit-url="/forum/44-1667-100821-9-1">Открыл новую флудилку! Старую перенес в архив! <br> Продолжаем флудить тут!!</span><br>
+                        <span class="ucoz-forum-post" [innerHTML]="message.message"></span>
 
                         <!--<br><hr size="1" width="150" align="left" class="signatureHr"><span class="signatureView">«Ливерпуль» создан для меня, а я – для «Ливерпуля» <br /> <img src="http://25.media.tumblr.com/tumblr_lwcf3wnhsd1qac7wmo9_400.gif" border="0" alt=""/></span>-->
                     </td>
@@ -77,7 +79,7 @@
                                     </a>
                                 </td>
                                 <td align="right" style="padding-right: 15px;">
-                                    <a href="javascript:Insert('100821','Heretic',selection);" onmouseover="get_selection()" class="postQuote">
+                                    <a href="" onmouseover="get_selection()" class="postQuote">
                                         <img alt="" style="margin: 0; padding: 0; border: 0;" src="http://myliverpool.ru/.s/img/fr/bt/16/p_quote.gif" title="Цитировать">
                                     </a>
                                     <a href="/forum/44-1667-100821-9-1">

@@ -89,6 +89,11 @@ textarea {
     margin-top: 50px;
 }
 
+.userAvatar {
+    max-width: 140px;
+    max-height: 140px;
+}
+
 /* AngularJS Form validation styling */
 .validation.help-block {
     color: #E07676;
