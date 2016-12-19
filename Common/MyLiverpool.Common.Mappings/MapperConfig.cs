@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using MyLiverpool.Common.MapperConfigs;
 
 namespace MyLiverpool.Common.Mappings
 {

@@ -1,4 +1,4 @@
-﻿namespace MyLiverpool.Business.DTO
+﻿namespace MyLiverpool.Business.DtoNext
 {
     public class ForumThemeMiniDto : IDto
     {
@@ -7,5 +7,9 @@
         public string Name { get; set; }
 
         public string Description { get; set; }
+
+        public int AuthorId { get; set; }
+
+        public string AuthorUserName { get; set; }
     }
 }

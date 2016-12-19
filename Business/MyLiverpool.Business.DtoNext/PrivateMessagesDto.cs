@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using MyLiverpool.Business.DTO;
 
-namespace MyLiverpool.Business.DTO
+namespace MyLiverpool.Business.DtoNext
 {
     public class PrivateMessagesDto : IDto
     {

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using MyLiverpool.Business.DtoNext;
 
 namespace MyLiverpool.Business.DTO
 {

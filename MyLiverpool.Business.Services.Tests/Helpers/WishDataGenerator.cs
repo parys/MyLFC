@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using MyLiverpool.Business.DTO;
+using MyLiverpool.Business.DtoNext;
 using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Entities;
 

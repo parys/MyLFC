@@ -1,9 +1,8 @@
 ﻿using AutoMapper;
 using MyLiverpool.Business.DtoNext;
-using MyLiverpool.Business.DTO;
 using MyLiverpool.Data.Entities;
 
-namespace MyLiverpool.Common.MapperConfigs
+namespace MyLiverpool.Common.Mappings
 {
     public class MaterialMapperProfile : Profile
     {

@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using MyLiverpool.Business.DTO;
+using MyLiverpool.Business.DtoNext;
 using MyLiverpool.Data.Entities;
 
-namespace MyLiverpool.Common.MapperConfigs
+namespace MyLiverpool.Common.Mappings
 {
     public class ForumThemeMapperProfile : Profile
     {
@@ -16,13 +16,17 @@ namespace MyLiverpool.Common.MapperConfigs
             CreateMap<ForumTheme, ForumThemeMiniDto>()
                 .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id))
                 .ForMember(dest => dest.Name, src => src.MapFrom(x => x.Name))
-                .ForMember(dest => dest.Description, src => src.MapFrom(x => x.Description));
+                .ForMember(dest => dest.Description, src => src.MapFrom(x => x.Description))
+                .ForMember(dest => dest.AuthorId, src => src.MapFrom(x => x.AuthorId))
+                .ForMember(dest => dest.AuthorUserName, src => src.MapFrom(x => x.Author.UserName));
 
             CreateMap<ForumTheme, ForumThemeDto>()
                 .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id))
                 .ForMember(dest => dest.Name, src => src.MapFrom(x => x.Name))
                 .ForMember(dest => dest.Description, src => src.MapFrom(x => x.Description))
                 .ForMember(dest => dest.SubsectionId, src => src.MapFrom(x => x.SubsectionId))
+                .ForMember(dest => dest.AuthorId, src => src.MapFrom(x => x.AuthorId))
+                .ForMember(dest => dest.AuthorUserName, src => src.MapFrom(x => x.Author.UserName))
                 .ForMember(dest => dest.Messages, src => src.Ignore());
 
             CreateMap<ForumThemeDto, ForumTheme>()

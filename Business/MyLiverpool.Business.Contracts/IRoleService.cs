@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using MyLiverpool.Business.DTO;
+using MyLiverpool.Business.DtoNext;
 
 namespace MyLiverpool.Business.Contracts
 {
@@ -11,6 +11,5 @@ namespace MyLiverpool.Business.Contracts
         Task<IEnumerable<RoleGroupDto>> GetRoleGroupsDtoAsync();
 
         Task<string> GetUserRolesAsync(int id);
-
     }
 }

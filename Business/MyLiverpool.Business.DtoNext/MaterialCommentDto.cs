@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MyLiverpool.Business.DTO
+namespace MyLiverpool.Business.DtoNext
 {
     public class MaterialCommentDto : IDto
     {

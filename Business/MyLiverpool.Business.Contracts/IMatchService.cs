@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using MyLiverpool.Business.DTO;
+using MyLiverpool.Business.DtoNext;
 using MyLiverpool.Common.Utilities;
 
 namespace MyLiverpool.Business.Contracts

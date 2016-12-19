@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using MyLiverpool.Common.Utilities;
 
-namespace MyLiverpool.Business.DTO
+namespace MyLiverpool.Business.DtoNext
 {
     public class ForumSubsectionDto : IDto
     {

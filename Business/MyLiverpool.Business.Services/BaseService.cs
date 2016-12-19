@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 
-namespace MyLiverpool.Business.Services.Services
+namespace MyLiverpool.Business.Services
 {
     public class BaseService
     {

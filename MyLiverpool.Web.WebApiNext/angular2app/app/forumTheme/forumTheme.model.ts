@@ -13,7 +13,7 @@ export class ForumTheme {
     views: number; 
     name: string;
     description: string;
-    //   virtual User Author: ;     
+    authorUserName: string;     
     authorId: number;      
     //    virtual User LastAnswerUser: ; 
     lastAnswerUserId: number;

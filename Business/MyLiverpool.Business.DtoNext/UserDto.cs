@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MyLiverpool.Business.DTO
+namespace MyLiverpool.Business.DtoNext
 {
     public class UserDto : IDto
     {

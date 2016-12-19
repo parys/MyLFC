@@ -7,13 +7,12 @@ using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.DtoNext;
-using MyLiverpool.Business.DTO;
 using MyLiverpool.Common.Utilities;
-using MyLiverpool.Data.Entities;
 using MyLiverpool.Common.Utilities.Extensions;
+using MyLiverpool.Data.Entities;
 using MyLiverpool.Data.ResourceAccess.Interfaces;
 
-namespace MyLiverpool.Business.Services.Services
+namespace MyLiverpool.Business.Services
 {
     public class UserService : IUserService
     {

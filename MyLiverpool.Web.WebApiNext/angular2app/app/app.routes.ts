@@ -1,5 +1,5 @@
 ﻿import { ModuleWithProviders } from "@angular/core";
-import { RouterModule, Routes } from "@angular/router";
+import { Routes } from "@angular/router";
 import { NewsListComponent } from "./news/index";
 import { authRoutes, authProviders } from "./auth/auth.routing";
 import { accountRoutes } from "./account/account.routing";
@@ -17,7 +17,7 @@ import { wishRoutes } from "./wish/wish.routing";
 import { materialCommentRoutes } from "./materialComment/materialComment.routing";
 import { matchRoutes } from "./match/match.routing";
 
-const routes: Routes = [
+export const routes: Routes = [
     ...accountRoutes,
     ...authRoutes,
     ...clubRoutes,
@@ -40,4 +40,4 @@ export const appRoutingProviders: any[] = [
     authProviders
 ];
 
-export const routing: ModuleWithProviders = RouterModule.forRoot(routes);
+//export const routing: ModuleWithProviders = RouterModule.forRoot(routes, { });

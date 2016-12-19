@@ -1,14 +1,14 @@
 ﻿using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using HtmlAgilityPack;
-using MyLiverpool.Business.Contracts;
-using System.Linq;
 using Microsoft.AspNetCore.Hosting;
+using MyLiverpool.Business.Contracts;
 
-namespace MyLiverpool.Business.Services.Services
+namespace MyLiverpool.Business.Services
 {
     public class AdminService : IAdminService
     {

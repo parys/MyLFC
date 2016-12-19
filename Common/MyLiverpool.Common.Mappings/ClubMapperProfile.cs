@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using MyLiverpool.Business.DTO;
+using MyLiverpool.Business.DtoNext;
 using MyLiverpool.Data.Entities;
 
-namespace MyLiverpool.Common.MapperConfigs
+namespace MyLiverpool.Common.Mappings
 {
     public class ClubMapperProfile : Profile
     {

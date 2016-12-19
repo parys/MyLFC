@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace MyLiverpool.Business.DTO
+namespace MyLiverpool.Business.DtoNext
 {
     public class ForumSectionDto : IDto
     {

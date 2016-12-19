@@ -1,11 +1,12 @@
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms"; 
 import { Title } from "@angular/platform-browser";
+import { RouterModule } from "@angular/router";
 import { UniversalModule } from "angular2-universal";
 import { LocalStorage } from "./shared/local-storage";     
 
 import { AppComponent }  from "./app.component";
-import { routing, appRoutingProviders } from "./app.routes";
+import { routes, appRoutingProviders  } from "./app.routes";
 import { Configuration } from "./app.constants";
 import { NewsEditComponent, NewsDetailComponent, NewsListComponent, NewsService } from "./news/index";             
 import * as newsCategory from "./newsCategory/index";
@@ -45,7 +46,7 @@ import { FileUploadModule } from "ng2-file-upload/ng2-file-upload";
         PaginationModule,
         ReactiveFormsModule,
         TabsModule,
-        routing
+        RouterModule.forRoot(routes, {})
     ], 
     declarations: [
         account.AccountSigninComponent,

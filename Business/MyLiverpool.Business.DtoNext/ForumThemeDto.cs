@@ -1,6 +1,6 @@
 ﻿using MyLiverpool.Common.Utilities;
 
-namespace MyLiverpool.Business.DTO
+namespace MyLiverpool.Business.DtoNext
 {
     public class ForumThemeDto : IDto
     {
@@ -13,6 +13,8 @@ namespace MyLiverpool.Business.DTO
         public int SubsectionId { get; set; }
 
         public int AuthorId { get; set; }
+
+        public string AuthorUserName { get; set; }
 
         public PageableData<ForumMessageDto> Messages { get;set; }
     }

@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
 using MyLiverpool.Business.DtoNext;
-using MyLiverpool.Business.DTO;
 using MyLiverpool.Data.Entities;
-using System.Linq;
 
-namespace MyLiverpool.Common.MapperConfigs
+namespace MyLiverpool.Common.Mappings
 {
     public class UserMapperProfile : Profile
     {

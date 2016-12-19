@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using MyLiverpool.Business.DTO;
+using MyLiverpool.Business.DtoNext;
 using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Entities;
 
-namespace MyLiverpool.Common.MapperConfigs
+namespace MyLiverpool.Common.Mappings
 {
     public class MatchMapperProfile : Profile
     {

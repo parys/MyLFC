@@ -6,7 +6,7 @@ using MyLiverpool.Business.DtoNext;
 using MyLiverpool.Data.Entities;
 using MyLiverpool.Data.ResourceAccess.Interfaces;
 
-namespace MyLiverpool.Business.Services.Services
+namespace MyLiverpool.Business.Services
 {
     public class MaterialCategoryService : IMaterialCategoryService
     {
