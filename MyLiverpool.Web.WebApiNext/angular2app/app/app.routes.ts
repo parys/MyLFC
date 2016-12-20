@@ -17,6 +17,7 @@ import { forumThemeRoutes } from "./forumTheme/forumTheme.routing";
 import { wishRoutes } from "./wish/wish.routing";
 import { materialCommentRoutes } from "./materialComment/materialComment.routing";
 import { matchRoutes } from "./match/match.routing";
+import { seasonRoutes } from "./season/season.routing";
 
 export const routes: Routes = [
     ...accountRoutes,
@@ -33,6 +34,7 @@ export const routes: Routes = [
     ...newsRoutes,
     ...playerRoutes,
     ...pmRoutes,
+    ...seasonRoutes,
     ...userRoutes,
     ...wishRoutes,
     { path: "", component: NewsListComponent, data: { title: "Главная", breadcrumb: "Главная" } }

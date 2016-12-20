@@ -26,6 +26,7 @@ export class AppComponent {
         this.roles = this.rolesChecked.checkedRoles;
         // You need this small hack in order to catch application root view container ref
         this.viewContainerRef = viewContainerRef;
+        this.initTitleSubscriber();
     }
 
     setTitle(newTitle: string) {

@@ -23,6 +23,7 @@ import * as image from "./image/index";
 import * as match from "./match/index";
 import * as player from "./player/index";
 import * as roleGroup from "./roleGroup/index";
+import * as season from "./season/index";
 import * as shared from "./shared/index";                     
 import { UserDetailComponent } from "./user/user-detail.component";
 import { UserService } from "./user/user.service";
@@ -78,6 +79,7 @@ import { FileUploadModule } from "ng2-file-upload/ng2-file-upload";
         newsCategory.NewsCategoryEditComponent,
         newsCategory.NewsCategoryListComponent,
         player.PlayerStatisticsComponent,
+        season.SeasonEplTableComponent,
         AppComponent,
         BreadcrumbComponent,
         EplTableComponent,
