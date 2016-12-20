@@ -1,4 +1,9 @@
-﻿img {
+﻿
+a:hover {
+    text-decoration: none; 
+}
+
+img {
     max-width: 100%;
     height: auto;
     display: block;
@@ -45,14 +50,26 @@ textarea {
     min-height: 120px;
 }
 
+.font-size13 {
+    font-size: 13px;
+}
+
 .list-inline.small-offset > li {
     display: inline-block;
     padding-right: 5px;
     padding-left: 0px;
 }
 
+.inline {
+    display:inline;
+}
+
 .mainContent {
     margin-top: 60px;
+}
+
+.margin-auto {
+    margin: auto;
 }
 
 .nav-avatar {
@@ -90,8 +107,8 @@ textarea {
 }
 
 .userAvatar {
-    max-width: 140px;
-    max-height: 140px;
+    max-width: 90px;
+    max-height: 90px;
 }
 
 /* AngularJS Form validation styling */
@@ -156,16 +173,16 @@ textarea {
 
 /* ===== forum Start ===== */
 
-a.postuser1:link,a.postuser1:visited,a.postuser1:hover {color:000000;font-weight:normal;text-decoration:none} 
-a.postuser2:link,a.postuser2:visited,a.postuser2:hover {color:993399;font-weight:bold;text-decoration:none} 
-a.postuser3:link,a.postuser3:visited,a.postuser3:hover {color:009900;font-weight:bold;text-decoration:none} 
+a.postuser1:link,a.postuser1:visited,a.postuser1:hover {color:#000000;font-weight:normal;text-decoration:none} 
+a.postuser2:link,a.postuser2:visited,a.postuser2:hover {color:#993399;font-weight:bold;text-decoration:none} 
+a.postuser3:link,a.postuser3:visited,a.postuser3:hover {color:#009900;font-weight:bold;text-decoration:none} 
 a.postuser4:link,a.postuser4:visited,a.postuser4:hover {color:red;font-weight:bold;text-decoration:none} 
-a.postuser5:link,a.postuser5:visited,a.postuser5:hover {color:3333FF;font-weight:bold;text-decoration:none} 
+a.postuser5:link,a.postuser5:visited,a.postuser5:hover {color:#3333FF;font-weight:bold;text-decoration:none} 
 a.postuser6:link,a.postuser6:visited,a.postuser6:hover {color:orange;font-weight:bold;text-decoration:none}
-a.postuser7:link,a.postuser7:visited,a.postuser7:hover {color:000000;font-weight:bold;text-decoration:none}
-a.postuser8:link,a.postuser8:visited,a.postuser8:hover {color:009900;font-weight:bold;text-decoration:none}
-a.postuser9:link,a.postuser9:visited,a.postuser9:hover {color:000000;font-weight:bold;text-decoration:none}
-a.postuser10:link,a.postuser10:visited,a.postuser10:hover {color:000000;font-weight:bold;text-decoration:none}
+a.postuser7:link,a.postuser7:visited,a.postuser7:hover {color:#000000;font-weight:bold;text-decoration:none}
+a.postuser8:link,a.postuser8:visited,a.postuser8:hover {color:#009900;font-weight:bold;text-decoration:none}
+a.postuser9:link,a.postuser9:visited,a.postuser9:hover {color:#000000;font-weight:bold;text-decoration:none}
+a.postuser10:link,a.postuser10:visited,a.postuser10:hover {color:#000000;font-weight:bold;text-decoration:none}
 
 /* General forum Table View */
 .gTable {background:#EBEBEB; width:98%; margin-left:1%; margin-right:1%;}
@@ -345,15 +362,15 @@ padding: 0 5px 0 5px;
 .gTable td {
  background: #ffffff;
  border: 1px solid #e1e1e1;
- border-radius: 5px;
  -moz-border-radius: 5px;
+ border-radius: 5px;
 }
 
 .postTable td {
  border-collapse: collapse;
  border: 1px solid #e1e1e1;
- border-radius: 5px;
  -moz-border-radius: 5px;
+ border-radius: 5px;
 }
 
 td.postRest1, td.postRest2, td.postFirst {
@@ -367,8 +384,8 @@ td.postRest1, td.postRest2, td.postFirst {
  font: 14px/32px 'Tahoma';
  color: #ffffff;
  text-transform: uppercase;
- border-radius: 5px;
  -moz-border-radius: 5px;
+ border-radius: 5px;
 }
 
 .gTableTop a {

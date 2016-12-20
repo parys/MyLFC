@@ -74,6 +74,14 @@
                         <li><a [routerLink]="['/coachTeam']">Тренерский штаб</a></li>
                         <li><a [routerLink]="['/squad']">Cостав</a></li>
                     </ul>
+                </li>          
+                      <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="">Сезон<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a [routerLink]="['/calendar']">Календарь</a></li>
+                        <li><a [routerLink]="['/eplFullTable']">Полная таблица АПЛ</a></li>
+                        <li><a [routerLink]="['/player/statistics']">Статистика игроков</a></li>
+                    </ul>
                 </li>
 
                 <li class="dropdown">
@@ -105,8 +113,6 @@
                 <!--<uib-alert class="row" ng-repeat="alert in $root.alerts" dismiss-on-timeout="5000" type="{alert.type}}" close="closeAlert($index)" ng-bind="alert.msg"></uib-alert>-->
                 <div class="top20">
                     <router-outlet></router-outlet>
-                    <!--div class="col-md-6" ui-view="newsFeed"></div>
-                    <div class="col-md-6" ui-view="blogsFeed"></div>-->
                 </div>
             </div>
         </div>
@@ -129,7 +135,9 @@
                     Джо Аллен
                 </div>
             </section>
-            <section class="row"><mini-chat></mini-chat></section>
+            <section class="row">
+                <mini-chat></mini-chat>
+            </section>
         </div>
         <right-sidebar></right-sidebar>
     </div>

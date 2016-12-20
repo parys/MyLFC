@@ -21,6 +21,7 @@ import * as forumTheme from "./forumTheme/index";
 import * as home from "./home/index";
 import * as image from "./image/index";
 import * as match from "./match/index";
+import * as player from "./player/index";
 import * as roleGroup from "./roleGroup/index";
 import * as shared from "./shared/index";                     
 import { UserDetailComponent } from "./user/user-detail.component";
@@ -70,15 +71,17 @@ import { FileUploadModule } from "ng2-file-upload/ng2-file-upload";
         home.RightSidebarComponent,
         home.RulesComponent,
         home.SquadComponent,
-        image.ImageListComponent,
+        image.ImageListComponent,           
+        match.MatchCalendarComponent,
+        match.MatchEditComponent,
+        match.MatchListComponent,
         newsCategory.NewsCategoryEditComponent,
         newsCategory.NewsCategoryListComponent,
+        player.PlayerStatisticsComponent,
         AppComponent,
         BreadcrumbComponent,
         EplTableComponent,
         ForumSectionListComponent,
-        match.MatchEditComponent,
-        match.MatchListComponent,
         MaterialCommentDetailComponent,
         MaterialCommentListComponent,
         MaterialCommentSectionComponent,

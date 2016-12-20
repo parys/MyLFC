@@ -7,6 +7,7 @@ import { clubRoutes } from "./club/club.routing";
 import { newsCategoryRoutes } from "./newsCategory/newsCategory.routing";
 import { newsRoutes } from "./news/news.routing";
 import { userRoutes } from "./user/user.routing";
+import { playerRoutes } from "./player/player.routing";
 import { pmRoutes } from "./pm/pm.routing";
 import { homeRoutes } from "./home/home.routing";
 import { imageRoutes } from "./image/image.routing";
@@ -30,6 +31,7 @@ export const routes: Routes = [
     ...materialCommentRoutes,
     ...newsCategoryRoutes,
     ...newsRoutes,
+    ...playerRoutes,
     ...pmRoutes,
     ...userRoutes,
     ...wishRoutes,
