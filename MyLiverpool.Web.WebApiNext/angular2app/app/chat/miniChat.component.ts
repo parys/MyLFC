@@ -37,11 +37,7 @@ export class MiniChatComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-    }
-
-
-    delete(): void {
-
+        this.sub.unsubscribe();
     }
 
     update(): void {
@@ -53,11 +49,7 @@ export class MiniChatComponent implements OnInit, OnDestroy {
     }
 
     onSubmit(): void {
-        console.log(this.messageForm.get("message"));
-        console.log(this.messageForm.get("message").value);
-        console.log(this.messageForm.value);
-        console.log(this.messageForm.value);
-        this.service.create(this.messageForm.value)
+        this.sub = this.service.create(this.messageForm.value)
             .subscribe(data => this.items.unshift(data),
             (error) => console.log(error),
             () => { });

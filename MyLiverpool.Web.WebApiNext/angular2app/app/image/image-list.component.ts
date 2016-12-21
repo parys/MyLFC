@@ -18,6 +18,7 @@ export class ImageListComponent implements OnInit, OnDestroy {
     page: number = 1;
     itemsPerPage: number = 15;
     totalItems: number;
+    selectedItem: Image;
 
     constructor(private service: ImageService, private route: ActivatedRoute) {
     }
@@ -37,6 +38,14 @@ export class ImageListComponent implements OnInit, OnDestroy {
        // this.sub.unsubscribe();
     }
 
+    showDetails(file: Image): void {
+        this.selectedItem = file;
+    }
+
+    removeSelection(): void {
+        this.selectedItem = null;
+    }
+
     //private parsePageable(pageable: Pageable<Image>): void {
     //    this.items = pageable.list;
     //    this.page = pageable.pageNo;
@@ -44,7 +53,7 @@ export class ImageListComponent implements OnInit, OnDestroy {
     //    this.totalItems = pageable.totalItems;
     //}
 
-    update() {
+    update() : void {
         //let filters = new UserFilters();
         ////  filters.categoryId = this.categoryId;
         ////  filters.materialType = "News";

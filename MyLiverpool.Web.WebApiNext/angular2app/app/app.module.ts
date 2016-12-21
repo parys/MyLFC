@@ -72,6 +72,7 @@ import { FileUploadModule } from "ng2-file-upload/ng2-file-upload";
         home.RightSidebarComponent,
         home.RulesComponent,
         home.SquadComponent,
+        image.ImageDetailComponent,           
         image.ImageListComponent,           
         match.MatchCalendarComponent,
         match.MatchEditComponent,
