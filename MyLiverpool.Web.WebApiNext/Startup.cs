@@ -4,6 +4,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -61,7 +62,6 @@ namespace MyLiverpool.Web.WebApiNext
         /// <param name="services">IServiceCollection.</param>
         public void ConfigureServices(IServiceCollection services)
         {
-            // Add framework services.
             services.AddDbContext<LiverpoolContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
@@ -82,6 +82,9 @@ namespace MyLiverpool.Web.WebApiNext
             });
 
             services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
+
+            services.Configure<GzipCompressionProviderOptions>(options => options.Level = System.IO.Compression.CompressionLevel.Fastest);
+            services.AddResponseCompression(options =>{});
 
             RegisterServices(services);
             
@@ -176,6 +179,8 @@ namespace MyLiverpool.Web.WebApiNext
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
+            app.UseResponseCompression();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -249,11 +254,6 @@ namespace MyLiverpool.Web.WebApiNext
                     name: "spa-fallback",
                     defaults: new {controller = "Home", action = "Index"});
             });
-
-            //builder =>
-            //{
-                //builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
-            //});
         }
 
         private void RegisterServices(IServiceCollection services)

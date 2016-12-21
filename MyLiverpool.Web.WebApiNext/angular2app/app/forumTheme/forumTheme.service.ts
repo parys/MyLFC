@@ -6,11 +6,10 @@ import { ForumTheme } from "./forumTheme.model";
 
 @Injectable()
 export class ForumThemeService {
-
     private actionUrl: string;
 
     constructor(private http: HttpWrapper, private configuration: Configuration) {
-        this.actionUrl = configuration.ServerWithApiUrl + "forumTheme/";
+        this.actionUrl = configuration.serverWithApiUrl + "forumTheme/";
     }
 
     getAll = (): Observable<ForumTheme[]> => {

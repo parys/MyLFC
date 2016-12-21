@@ -1,5 +1,4 @@
 ﻿import { Injectable } from "@angular/core";
-import "rxjs/add/operator/map";
 import { Observable } from "rxjs/Observable";
 import { Configuration } from "../app.constants";
 import { RoleGroup } from "./roleGroup.model";
@@ -8,11 +7,10 @@ import { HttpWrapper } from "../shared/httpWrapper";
 
 @Injectable()
 export class RoleGroupService {
-
     private actionUrl: string;
 
     constructor(private http: HttpWrapper, private configuration: Configuration) {
-        this.actionUrl = configuration.ServerWithApiUrl + "roleGroup/";
+        this.actionUrl = configuration.serverWithApiUrl + "roleGroup/";
     }
 
     getAll = (): Observable<RoleGroup[]> => {

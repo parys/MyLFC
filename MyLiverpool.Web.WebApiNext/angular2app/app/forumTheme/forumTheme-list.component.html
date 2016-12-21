@@ -1,4 +1,4 @@
-﻿<table class="gTable" border="0" width="100%" cellspacing="1" cellpadding="0" *ngIf="item">
+﻿<table class="gTable" *ngIf="item">
     <tbody>
     <tr>
         <td class="gTableTop">
@@ -9,7 +9,7 @@
     </tr>
     <tr *ngFor="let message of items">
         <td class="">
-            <table border="0" width="100%" cellspacing="1" cellpadding="2" class="postTable">
+            <table class="postTable">
                 <tbody>
                 <tr>
                     <td width="23%" class="postTdTop" align="center">
@@ -72,7 +72,7 @@
                              <a href="" target="_blank">
                                         <img class="inline" src="http://myliverpool.ru/desighn/vk.jpg" border="0" alt="">
                                     </a>
-                                    <a href="" onmouseover="get_selection()" class="postQuote">
+                                    <a onmouseover="get_selection()" class="postQuote">
                                         <img class="inline" alt="" style="margin: 0; padding: 0; border: 0;" src="http://myliverpool.ru/.s/img/fr/bt/16/p_quote.gif" title="Цитировать">
                                     </a>
                                     <a href="/forum/44-1667-100821-9-1">
@@ -81,7 +81,7 @@
                                     <a href="/forum/44-1667-0-21">
                                         <img class="inline"alt="" id="dbo100821" style="margin: 0; padding: 0; border: 0;" src="http://myliverpool.ru/.s/img/fr/bt/16/p_delete.gif" title="Удалить тему">
                                     </a>
-                                    <a class="inline" class="goOnTop" href="javascript:scroll(0,0);">
+                                    <a class="inline goOnTop" href="javascript:scroll(0,0);">
                                         <img class="inline" alt="" style="margin: 0; padding: 0; border: 0;" src="http://myliverpool.ru/.s/img/fr/bt/16/p_up.gif" title="Вверх">
                                     </a>
                                     <input class="inline" type="checkbox" title="Пометить на удаление" disabled="" style="display: none;">

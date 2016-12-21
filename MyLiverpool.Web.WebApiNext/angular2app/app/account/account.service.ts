@@ -1,5 +1,4 @@
 ﻿import { Injectable } from "@angular/core";
-import "rxjs/add/operator/map";
 import { Observable } from "rxjs/Observable";
 import { Configuration } from "../app.constants";
 import { HttpWrapper } from "../shared/index";
@@ -9,11 +8,10 @@ import { ChangePassword } from "./changePassword.model";
 
 @Injectable()
 export class AccountService {
-
     private actionUrl: string;
 
     constructor(private http: HttpWrapper, private configuration: Configuration) {
-        this.actionUrl = configuration.ServerWithApiUrl + "account/";
+        this.actionUrl = configuration.serverWithApiUrl + "account/";
     }
 
     create = (item: Signup): Observable<Signup> => {

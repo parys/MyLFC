@@ -10,7 +10,6 @@ import { PmService } from "./pm.service";
 })
 
 export class PmDetailComponent implements OnInit, OnDestroy {
-
     private sub: Subscription;
     item: Pm;
 
@@ -19,7 +18,7 @@ export class PmDetailComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.sub = this.route.params.subscribe(params => {
             let id = +params["id"];
-            this.pmService.GetSingle(id)
+            this.pmService.getSingle(id)
                 .subscribe(data => this.parse(data),
                 error => console.log(error),
                 () => {});

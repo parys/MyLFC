@@ -10,7 +10,6 @@ import { PmService } from "./pm.service";
 })
 
 export class PmListComponent implements OnInit {
-
     received: Pm[];
     sent: Pm[];
 
@@ -19,20 +18,18 @@ export class PmListComponent implements OnInit {
 
     ngOnInit() {
         this.pmService
-            .GetAll()
+            .getAll()
             .subscribe(data => this.parse(data),
             error => console.log(error),
             () => {});
     }
 
     private parse(model: any): void {
-        console.log(model);
         this.received = model.received;
         this.sent = model.sent;
     }
 
     delete(index: number) {
-        //console.log("delete");
         //this.newsCategoryService.Delete(this.items[index].id).subscribe(data => data,
         //    error => console.log(error),
         //    () => console.log("success remove categoryu"));

@@ -12,7 +12,6 @@ import { Router, ActivatedRoute } from "@angular/router";
     template: require("./wish-edit.component.html")
 })
 export class WishEditComponent implements OnInit, OnDestroy {
-
     editForm: FormGroup;
     id: number = 0;
     private sub: Subscription;
@@ -45,10 +44,10 @@ export class WishEditComponent implements OnInit, OnDestroy {
             this.id = +params["id"];
             if (this.id > 0) {
                 this.service
-                    .GetSingle(this.id)
+                    .getSingle(this.id)
                     .subscribe(data => this.editForm.patchValue(data),
                     error => console.log(error),
-                    () => console.log("success get  news"));
+                    () => {});
             }
         });
         this.updateTypes();
@@ -67,9 +66,9 @@ export class WishEditComponent implements OnInit, OnDestroy {
 
         let res;
         if (this.id > 0) {
-            let result = this.service.Update(this.id, model).subscribe(data => res = data);
+            let result = this.service.update(this.id, model).subscribe(data => res = data);
         } else {
-            let result = this.service.Create(model).subscribe(data => res = data);
+            let result = this.service.create(model).subscribe(data => res = data);
         }
 
         this.router.navigate(["/wish"]);
@@ -77,7 +76,7 @@ export class WishEditComponent implements OnInit, OnDestroy {
 
     updateTypes() {
         this.service
-            .GetTypes()
+            .getTypes()
             .subscribe(data => this.types = data);
     }
 }

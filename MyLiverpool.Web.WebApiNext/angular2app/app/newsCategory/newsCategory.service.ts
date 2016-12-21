@@ -1,6 +1,4 @@
 ﻿import { Injectable } from "@angular/core";
-import { Response } from "@angular/http";
-import "rxjs/add/operator/map";
 import { Observable } from "rxjs/Observable";
 import { Configuration } from "../app.constants";
 import { NewsCategory } from "./NewsCategory.model";
@@ -8,11 +6,10 @@ import { HttpWrapper } from "../shared/httpWrapper";
 
 @Injectable()
 export class NewsCategoryService {
-
     private actionUrl: string;
 
     constructor(private http: HttpWrapper, private configuration: Configuration) {
-        this.actionUrl = configuration.ServerWithApiUrl + "newsCategory/";
+        this.actionUrl = configuration.serverWithApiUrl + "newsCategory/";
     }
 
     getAll = (): Observable<NewsCategory[]> => {

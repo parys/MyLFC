@@ -56,7 +56,7 @@
     "webpack-merge": "1.1.2",
     "webpack-node-externals": "1.5.4",
     "webpack-notifier": "1.5.0",
-    "zone.js": "0.7.2"
+    "zone.js": "0.7.4"
   },
   "devDependencies": {}
 }

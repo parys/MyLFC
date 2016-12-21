@@ -11,7 +11,6 @@ import { PmService } from "./pm.service";
     template: require("./pm-edit.component.html")
 })
 export class PmEditComponent implements OnInit, OnDestroy {
-
     editForm: FormGroup;
     id: number = 0;
     private sub: Subscription;
@@ -77,7 +76,7 @@ export class PmEditComponent implements OnInit, OnDestroy {
         model.title = this.editForm.controls["title"].value;
         model.message = this.editForm.controls["message"].value;
 
-        let res = this.service.Create(model).subscribe(data => data);
+        let res = this.service.create(model).subscribe(data => data);
 
         this.router.navigate(["/pm"]);
 

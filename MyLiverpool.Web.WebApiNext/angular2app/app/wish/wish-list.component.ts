@@ -11,7 +11,6 @@ import { Subscription } from "rxjs/Subscription";
     template: require("./wish-list.component.html")
 })
 export class WishListComponent implements OnInit, OnDestroy {
-
     private sub: Subscription;
     items: Wish[];
     page: number = 1;
@@ -25,11 +24,10 @@ export class WishListComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.sub = this.route.params.subscribe(params => {
-            if (params['page']) {
-                this.page = +params['page'];
+            if (params["page"]) {
+                this.page = +params["page"];
             }
-            this.categoryId = +params['categoryId'];
-        //    this.userName = params['userName'];
+            this.categoryId = +params["categoryId"];
             this.update();
         });
     }
@@ -53,7 +51,7 @@ export class WishListComponent implements OnInit, OnDestroy {
         //filters.page = this.page;
 
         this.service
-            .GetAll()//bug
+            .getAll()//bug
             .subscribe(data => this.parsePageable(data),
             error => console.log(error),
             () => console.log("success load list wish"));

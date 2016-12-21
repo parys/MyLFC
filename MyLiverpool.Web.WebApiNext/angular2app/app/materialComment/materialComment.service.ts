@@ -1,5 +1,4 @@
 ﻿import { Injectable } from "@angular/core";
-import "rxjs/add/operator/map";
 import { Observable } from "rxjs/Observable";
 import { Configuration } from "../app.constants";
 import { MaterialComment } from "./materialComment.model";
@@ -12,7 +11,7 @@ export class MaterialCommentService {
     private actionUrl: string;
 
     constructor(private http: HttpWrapper, private configuration: Configuration) {
-        this.actionUrl = configuration.ServerWithApiUrl + "materialComment/";
+        this.actionUrl = configuration.serverWithApiUrl + "materialComment/";
     }
 
     getAll = (page: number): Observable<Pageable<MaterialComment>> => {
@@ -27,7 +26,7 @@ export class MaterialCommentService {
         return this.http.get(this.actionUrl + id).map(res => res.json());
     };
 
-    create = (item: MaterialComment): Observable<MaterialComment> => {  
+    create = (item: MaterialComment): Observable<MaterialComment> => {
         return this.http.post(this.actionUrl + "News/", JSON.stringify(item)).map(res => res.json());
     };
 

@@ -1,24 +1,22 @@
 ﻿import { Injectable } from "@angular/core";
-import "rxjs/add/operator/map";
 import { Observable } from "rxjs/Observable";
 import { Configuration } from "../app.constants";
 import { Match } from "./match.model";
 import { MatchType } from "./matchType.model";
-import { Pageable } from "../shared/pageable.model";
-import { HttpWrapper } from "../shared/httpWrapper";     
+// import { Pageable } from "../shared/pageable.model";
+import { HttpWrapper } from "../shared/httpWrapper";
 
 @Injectable()
 export class MatchService {
-
     private actionUrl: string;
 
     constructor(private http: HttpWrapper, private configuration: Configuration) {
-        this.actionUrl = configuration.ServerWithApiUrl + "match/";
+        this.actionUrl = configuration.serverWithApiUrl + "match/";
     }
 
-    //getAll = (filters: MaterialFilters): Observable<Pageable<News>> => {
+    // getAll = (filters: MaterialFilters): Observable<Pageable<News>> => {
     //    return this.http.get(this.actionUrl + "list/" + encodeURIComponent(JSON.stringify(filters))).map(res => res.json());
-    //};
+    // };
 
     getSingle = (id: number): Observable<Match> => {
         return this.http.get(this.actionUrl + id).map(res => res.json());

@@ -1,5 +1,4 @@
-﻿import { ModuleWithProviders } from "@angular/core";
-import { Routes } from "@angular/router";
+﻿import { Routes } from "@angular/router";
 import { NewsListComponent } from "./news/index";
 import { authRoutes, authProviders } from "./auth/auth.routing";
 import { accountRoutes } from "./account/account.routing";
@@ -44,4 +43,4 @@ export const appRoutingProviders: any[] = [
     authProviders
 ];
 
-//export const routing: ModuleWithProviders = RouterModule.forRoot(routes, { });
+// export const routing: ModuleWithProviders = RouterModule.forRoot(routes, { });

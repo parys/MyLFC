@@ -6,11 +6,10 @@ import { ForumSubsection } from "./forumSubsection.model";
 
 @Injectable()
 export class ForumSubsectionService {
-
     private actionUrl: string;
 
     constructor(private http: HttpWrapper, private configuration: Configuration) {
-        this.actionUrl = configuration.ServerWithApiUrl + "forumSubsection/";
+        this.actionUrl = configuration.serverWithApiUrl + "forumSubsection/";
     }
 
     getAll = (): Observable<ForumSubsection[]> => {

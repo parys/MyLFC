@@ -1,5 +1,4 @@
 ﻿import { Injectable } from "@angular/core";
-import "rxjs/add/operator/map";
 import { Observable } from "rxjs/Observable";
 import { Configuration } from "../app.constants";
 import { HttpWrapper, Pageable } from "../shared/index";
@@ -7,11 +6,10 @@ import { ChatMessage } from "./chatMessage.model";
 
 @Injectable()
 export class ChatMessageService {
-
     private actionUrl: string;
 
     constructor(private http: HttpWrapper, private configuration: Configuration) {
-        this.actionUrl = configuration.ServerWithApiUrl + "chatMessage/";
+        this.actionUrl = configuration.serverWithApiUrl + "chatMessage/";
     }
 
     getAll = (): Observable<ChatMessage[]> => {

@@ -1,12 +1,11 @@
 ﻿import { Injectable } from "@angular/core";
 import { Http, Headers } from "@angular/http";
-import { Router } from "@angular/router"; 
-import { RolesCheckedService, HttpWrapper, LocalStorageService } from "../shared/index"; 
+import { Router } from "@angular/router";
+import { RolesCheckedService, HttpWrapper, LocalStorageService } from "../shared/index";
 import { Configuration } from "../app.constants";
 
 @Injectable()
 export class AuthService {
-  //  isLoggedIn: boolean = false;
     roles: string[] = [];
     id: number;
 
@@ -27,7 +26,7 @@ export class AuthService {
         headers.append("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8;");
         let perams = `grant_type=password&username=${username}&password=${password}&client_id=client_id3`;
 
-        this.http1.post(this.configuration.Server + "connect/token",
+        this.http1.post(this.configuration.server + "connect/token",
                 perams,
                 {
                     headers: headers
@@ -59,12 +58,11 @@ export class AuthService {
 
     private isUserLogined(): void {
         let result = false;
-        this.http.get(this.configuration.ServerWithApiUrl + "account/isSignedIn")
+        this.http.get(this.configuration.serverWithApiUrl + "account/isSignedIn")
             .subscribe(data => result = true,
                 error => this.localStorage.removeAllData(),
-                () => {                    
+                () => {
                     if (result && this.localStorage.hasAccessToken()) {
-                      //  this.isLoggedIn = true;
                         this.roles = this.localStorage.getRoles();
                         this.id = this.localStorage.getUserId();
                     } else {
@@ -77,20 +75,20 @@ export class AuthService {
         this.localStorage.setAuthTokens(item);
     }
 
-    private parseRoles(item: any): void { 
+    private parseRoles(item: any): void {
         this.roles = item._body.split(", ");
         this.localStorage.setRoles(this.roles);
     }
 
     private getRoles(): void {
-        this.http.get(this.configuration.ServerWithApiUrl + "role")
+        this.http.get(this.configuration.serverWithApiUrl + "role")
             .subscribe(data => this.parseRoles(data),
             error => console.log(error),
             () => this.rolesCheckedService.checkRoles());
     }
 
     private getUserId(): void {
-        this.http.get(this.configuration.ServerWithApiUrl + "user/getId")
+        this.http.get(this.configuration.serverWithApiUrl + "user/getId")
             .subscribe(data => this.id = +JSON.parse(data.text()),
             error => console.log(error),
             () => {

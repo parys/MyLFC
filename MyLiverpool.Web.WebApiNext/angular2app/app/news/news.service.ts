@@ -1,5 +1,4 @@
 ﻿import { Injectable } from "@angular/core";
-import "rxjs/add/operator/map";
 import { Observable } from "rxjs/Observable";
 import { Configuration } from "../app.constants";
 import { News } from "./news.model";
@@ -9,11 +8,10 @@ import { MaterialFilters } from "./newsFilters.model";
 
 @Injectable()
 export class NewsService {
-
     private actionUrl: string;
 
     constructor(private http: HttpWrapper, private configuration: Configuration) {
-        this.actionUrl = configuration.ServerWithApiUrl + "material/";
+        this.actionUrl = configuration.serverWithApiUrl + "material/";
     }
 
     getAll = (filters:MaterialFilters): Observable<Pageable<News>> => {
@@ -25,8 +23,7 @@ export class NewsService {
     };
 
     create = (item: News): Observable<News> => {
-       // var toAdd = JSON.stringify({ ItemName: item });
-        return this.http.post(this.actionUrl + "News/", JSON.stringify(item)).map(res => res.json());
+        return this.http.post(this.actionUrl + "news/", JSON.stringify(item)).map(res => res.json());
     };
 
     update = (id: number, itemToUpdate: News): Observable<News> => {
