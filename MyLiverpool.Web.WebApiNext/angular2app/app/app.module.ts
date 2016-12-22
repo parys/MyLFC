@@ -1,4 +1,4 @@
-import { NgModule } from "@angular/core";
+import { NgModule, LOCALE_ID } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { Title } from "@angular/platform-browser";
 import { RouterModule } from "@angular/router";
@@ -115,6 +115,7 @@ import { FileUploadModule } from "ng2-file-upload/ng2-file-upload";
         shared.LocalStorageService,
         shared.RolesCheckedService,
         AdminService,
+        { provide: LOCALE_ID, useValue: "ru-RU" },
         appRoutingProviders,
         AuthGuard,
         AuthService,

@@ -1,13 +1,13 @@
 ﻿<div class="container-fluid" *ngIf="item">
     <h2>
         <span [textContent]="item.userName"></span>
-        <span [hidden]="!roles.isLogined || roles.isSelf(item.id)">
+        <span *ngIf="roles.isLogined && !roles.isSelf(item.id)">
             <a ui-sref="wpm({ userName: item.userName })"><span class="glyphicon glyphicon-envelope"></span></a>
         </span>
     </h2>
     <div class="row">
         <div class="col-xs-2 col-sm-2">
-            <img class="avatar" src="{{item.photo}}" alt="{{item.userName}}"/>
+            <img class="avatar" [src]="item.photo" [alt]="item.userName"/>
         </div>
         <div class="col-xs-10 col-sm-10">
             <div *ngIf="roles.isSelf(item.id) || roles.isModerator">
@@ -59,7 +59,7 @@
  
                 <form *ngIf="roles.isAdminAssistant && !roles.isSelf(item.id)" class="form-inline" name="roleForm" role="form" [formGroup]="roleForm" (ngSubmit)="onSubmit(roleForm.value)">
                     <select class="form-control" name="roleGroup" formControlName="roleGroupId">
-                        <option *ngFor="let roleGroup of roleGroups" value="{{roleGroup.id}}" [textContent]="roleGroup.name"></option>
+                        <option *ngFor="let roleGroup of roleGroups" [value]="roleGroup.id" [textContent]="roleGroup.name"></option>
                     </select>
                     <button type="submit" [disabled]="!roleForm.valid" class="btn btn-default">Сохранить</button>
                 </form>

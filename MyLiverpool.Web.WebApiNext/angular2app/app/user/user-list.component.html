@@ -14,12 +14,12 @@
                 <td class="">
                     <a [routerLink]="['/user', user.id ]">
                         <div class="col-md-3">
-                            <img class="mini-avatar" src="{{user.photo}}" alt="{{user.userName}}"/>
+                            <img class="mini-avatar" [src]="user.photo" [alt]="user.userName"/>
                         </div>
                         <span [textContent]="user.userName"></span>
                     </a>
-                    <span class="text-danger" uib-tooltip="Почта не подтверждена" [hidden]="user.emailConfirmed"> *</span>
-                    <a ng-show="loggedIn() && vm.isNotSelf(user.id, userId())" ui-sref="wpm({ userName: user.userName })"><span class="glyphicon glyphicon-envelope"></span></a>
+                    <span class="text-danger" tooltip="Почта не подтверждена" *ngIf="!user.emailConfirmed && (roles.isAdminAssist || roles.isSelf(item.id))"> *</span>
+                    <a *ngIf="roles.isLogined && !roles.isSelf(item.id)" ui-sref="wpm({ userName: user.userName })"><span class="glyphicon glyphicon-envelope"></span></a>
                 </td>
                 <td class="" [textContent]="user.registrationDate | date:'medium'"></td>
                 <td class="" [textContent]="user.roleGroupName"></td>
@@ -34,7 +34,7 @@
                         ng-options="roleGroup.id as roleGroup.name for roleGroup in vm.roleGroups" ng-change="vm.changeRoleId()"></select>
             </div>
             <div class="form-group">
-                <input class="form-control" ng-model="vm.filterUserName" ng-model-options="{debounce: 1000}" ng-change="vm.filterByUserName()" placeholder="Логин" /> <!--todo magic number--
+                <input class="form-control" ng-model="vm.filterUserName" ng-model-options="{debounce: 1000}" ng-change="vm.filterByUserName()" placeholder="Логин" />
             </div>
         </form-->
     </div>

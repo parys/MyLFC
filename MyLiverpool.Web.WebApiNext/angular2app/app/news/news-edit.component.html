@@ -3,8 +3,8 @@
         <div class="form-group">
             <label class="control-label col-xs-2 col-sm-2"> Категория:</label>
             <div class="col-xs-10 col-sm-10">
-                <select class="form-control" name="categoryId" [formControl]="editForm.controls['categoryId']">
-                    <option *ngFor="let category of categories" value="{{category.id}}">{{category.name}}</option>
+                <select class="form-control" name="categoryId" formControlName="categoryId">
+                    <option *ngFor="let category of categories" [value]="category.id" [textContent]="category.name"></option>
                 </select>
             </div>
         </div>
@@ -12,43 +12,42 @@
         <div class="form-group">
             <label class="control-label col-xs-2 col-sm-2"> Название:</label>
             <div class="col-xs-10 col-sm-10">
-                <input class="form-control" name="title" [formControl]="editForm.controls['title']" />
+                <input class="form-control" name="title" formControlName="title" />
             </div>
         </div>
 
         <div class="form-group">
             <label class="control-label col-xs-2 col-sm-2"> Краткое описание:</label>
             <div class="col-xs-10 col-sm-10">
-                <textarea mark-it-up class="form-control" name="brief" rows="4" [formControl]="editForm.controls['brief']"> </textarea>
+                <textarea mark-it-up class="form-control" name="brief" rows="4" formControlName="brief"> </textarea>
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-xs-2 col-sm-2"> Текст новости:</label>
             <div class="col-xs-10 col-sm-10">
-                <textarea mark-it-up class="form-control" name="message" rows="6" [formControl]="editForm.controls['message']"> </textarea>
+                <textarea mark-it-up class="form-control" name="message" rows="6" formControlName="message"> </textarea>
             </div>
         </div>
 
         <div class="form-group">
             <label class="control-label col-xs-2 col-sm-2"> Источник:</label>
             <div class="col-xs-10 col-sm-10">
-                <input class="form-control" name="source" [formControl]="editForm.controls['source']"/>
+                <input class="form-control" name="source" formControlName="source"/>
             </div>
         </div>
 
         <div class="form-group">
             <label class="control-label col-xs-2 col-sm-2"> Главное фото:</label>
             <div class="col-xs-10 col-sm-10">
-                <input class="form-control" name="photoPath" [formControl]="editForm.controls['photo']" />
+                <input class="form-control" name="photoPath" formControlName="photo" />
             </div>
         </div>
-        <div class="" ui-view="files" autoscroll="false"></div>
 
         <div class="form-group">
             <div class="col-xs-offset-2 col-sm-offset-2 col-xs-10 col-sm-10">
                 <div class="checkbox">
                     <label class="control-label">
-                        <input class="checkbox" name="canCommentary" [formControl]="editForm.controls['canCommentary']" type="checkbox" checked /> Разрешить комментарии
+                        <input class="checkbox" name="canCommentary" formControlName="canCommentary" type="checkbox" checked /> Разрешить комментарии
                     </label>
                 </div>
             </div>
@@ -57,7 +56,7 @@
             <div class="col-xs-offset-2 col-sm-offset-2 col-xs-10 col-sm-10">
                 <div class="checkbox">
                     <label class="control-label">
-                        <input class="checkbox" name="onTop" [formControl]="editForm.controls['onTop']" type="checkbox" /> Наверху
+                        <input class="checkbox" name="onTop" formControlName="onTop" type="checkbox" /> Наверху
                     </label>
                 </div>
             </div>
@@ -66,7 +65,7 @@
             <div class="col-xs-offset-2 col-sm-offset-2 col-xs-10 col-sm-10">
                 <div class="checkbox">
                     <label class="control-label">
-                        <input class="checkbox" name="pending" [formControl]="editForm.controls['pending']" type="checkbox" /> Отложена
+                        <input class="checkbox" name="pending" formControlName="pending" type="checkbox" /> Отложена
                     </label>
                 </div>
             </div>

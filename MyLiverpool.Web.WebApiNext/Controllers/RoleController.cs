@@ -1,5 +1,4 @@
-﻿using System.Security.Claims;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using MyLiverpool.Business.Contracts;
@@ -26,12 +25,10 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Gets current user roles.
         /// </summary>
-        /// <returns></returns>
-        [Route("")]
-        [HttpGet]
-        [Authorize]
+        /// <returns>List of current user roles.</returns>
+        [Authorize, HttpGet("")]
         public async Task<IActionResult> GetUserRoles()
         {
             var result = await _roleService.GetUserRolesAsync(User.GetUserId());

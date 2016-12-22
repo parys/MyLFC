@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using MyLiverpool.Data.Entities;
-using OpenIddict;
 using OpenIddict.Core;
 using OpenIddict.Models;
 
@@ -34,7 +33,7 @@ namespace MyLiverpool.Data.ResourceAccess
         public async void Seed()
         {
             if (_context.Roles.Any()) return;
-            //_context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+
             await InitializeRoles();
             await InitializeRoleGroups();
             await InitRoleRoleGroups();
@@ -55,7 +54,7 @@ namespace MyLiverpool.Data.ResourceAccess
             await InitializeForumSubsections();
             await InitializeForumThemes();
 
-         //   await AddApplication();
+            await AddApplication();
         }
 
         #region roles
@@ -192,7 +191,7 @@ namespace MyLiverpool.Data.ResourceAccess
             }
            // roles.ForEach(x => new Task(() => roleManager.CreateAsync(x)));
             //roleManager.Create(new Role { Name = RolesEnum.User.ToString() });
-                await  _context.SaveChangesAsync();
+            await  _context.SaveChangesAsync();
         }
 
         private async Task InitRoleRoleGroups()
@@ -555,7 +554,6 @@ namespace MyLiverpool.Data.ResourceAccess
                 RegistrationDate = DateTime.Now,
                 Birthday = DateTime.Now,
                 RoleGroupId = (int)RoleGroupsEnum.Admin,
-              //  RoleGroup = _context.RoleGroups.First(x => x.Id == (int)RoleGroupsEnum.Admin),
                 Photo = "content/avatars/0/755939.jpeg",
                 EmailConfirmed = true,
             };
@@ -563,9 +561,9 @@ namespace MyLiverpool.Data.ResourceAccess
             var userManager = GetUserManager();
 
             await userManager.CreateAsync(user, "123qwe");
-            var adminRoles = await _context.RoleGroups.FirstAsync(x => x.Name == RoleGroupsEnum.Admin.ToString());
+            var adminRoles = GetRoleNamesByRoleGroupId(user.RoleGroupId);
 
-            await userManager.AddToRolesAsync(user, adminRoles.RoleGroups.Select(x => x.Role.Name));
+            await userManager.AddToRolesAsync(user, adminRoles);
             await _context.SaveChangesAsync();
 
         }
@@ -590,11 +588,10 @@ namespace MyLiverpool.Data.ResourceAccess
             var userManager = GetUserManager();
 
             await userManager.CreateAsync(user, "123456");
-            var adminRoles = _context.RoleGroups.First(x => x.Id == user.RoleGroupId).RoleGroups.Select(r => r.Role.Name).ToList();
+            var adminRoles = GetRoleNamesByRoleGroupId(user.RoleGroupId);
 
             await userManager.AddToRolesAsync(user, adminRoles);
             await _context.SaveChangesAsync();
-
         }
 
         private async Task InitializeAuthor()
@@ -617,7 +614,7 @@ namespace MyLiverpool.Data.ResourceAccess
             var userManager = GetUserManager();
 
             await userManager.CreateAsync(user, "123456");
-            var adminRoles = _context.RoleGroups.First(x => x.Id == user.RoleGroupId).RoleGroups.Select(r => r.Role.Name).ToList();
+            var adminRoles = GetRoleNamesByRoleGroupId(user.RoleGroupId);
             await userManager.AddToRolesAsync(user, adminRoles);
             await _context.SaveChangesAsync();
         }
@@ -642,7 +639,7 @@ namespace MyLiverpool.Data.ResourceAccess
             var userManager = GetUserManager();
 
             await userManager.CreateAsync(user, "123456");
-            var adminRoles = _context.RoleGroups.First(x => x.Id == user.RoleGroupId).RoleGroups.Select(r=> r.Role.Name).ToList();
+            var adminRoles = GetRoleNamesByRoleGroupId(user.RoleGroupId);
 
             await userManager.AddToRolesAsync(user, adminRoles);
             await _context.SaveChangesAsync();
@@ -669,10 +666,14 @@ namespace MyLiverpool.Data.ResourceAccess
             var userManager = GetUserManager();
 
             await userManager.CreateAsync(user, "123456");
-            var adminRoles = _context.RoleGroups.First(x => x.Id == user.RoleGroupId).RoleGroups.Select(r => r.Role.Name).ToList();
+            var adminRoles = GetRoleNamesByRoleGroupId(user.RoleGroupId);
             await userManager.AddToRolesAsync(user, adminRoles);
             await _context.SaveChangesAsync();
+        }
 
+        private IEnumerable<string> GetRoleNamesByRoleGroupId(int id)
+        {
+            return _context.RoleGroups.Include(x => x.RoleGroups).ThenInclude(x => x.Role).First(x => x.Id == id).RoleGroups.Select(r => r.Role.Name).ToList();
         }
 
         private async Task InitializeNewsmaker()
@@ -695,7 +696,7 @@ namespace MyLiverpool.Data.ResourceAccess
             var userManager = GetUserManager();
 
             await userManager.CreateAsync(user, "123456");
-            var adminRoles = _context.RoleGroups.First(x => x.Id == user.RoleGroupId).RoleGroups.Select(r => r.Role.Name).ToList();
+            var adminRoles = GetRoleNamesByRoleGroupId(user.RoleGroupId);
             await userManager.AddToRolesAsync(user, adminRoles);
             await _context.SaveChangesAsync();
 
@@ -1156,32 +1157,32 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
 
         private async Task AddApplication()
         {
-            var applications = _context.Set<OpenIddictApplication>();
+            var applications = _context.Set<OpenIddictApplication<int>>();
             if (applications.Any()) return;
 
-            //var app = new OpenIddictApplication<int>() //todo maybe move it awaY?
-            //{
-            //    ClientId = "client_id3",
-            //    ClientSecret = "client_secret44",
-            //    Type = OpenIddictConstants.ClientTypes.Public,
-            //  //  Id = 1,
-            //    DisplayName = "MVC Core client application",
-            //    RedirectUri = "http://localhost:1669/",
-            //    LogoutRedirectUri = "http://localhost:1669/",
-            //};
-            //applications.Add<int>(app);
+            var app = new OpenIddictApplication<int>() 
+            {
+                ClientId = "client_id3",
+                ClientSecret = "client_secret44",
+                Type = OpenIddictConstants.ClientTypes.Public,
+              //  Id = Guid.NewGuid().ToString(),
+                DisplayName = "MVC Core client application",
+                RedirectUri = "http://localhost:1669/",
+                LogoutRedirectUri = "http://localhost:1669/",
+            };
+            applications.Add(app);
 
-            //app = new OpenIddictApplication<int>()
-            //{
-            //    ClientId = "client_id_swagger",
-            //    ClientSecret = "client_secret_swagger",
-            //    Type = OpenIddictConstants.ClientTypes.Public,
-            //  //  Id = 1,
-            //    DisplayName = "Swagger client application",
-            //    RedirectUri = "http://localhost:1669/swagger/o2c.html",
-            //    LogoutRedirectUri = "http://localhost:1669/swagger/index.html",
-            //};
-            //applications.Add(app);
+            app = new OpenIddictApplication<int>()
+            {
+                ClientId = "client_id_swagger",
+                ClientSecret = "client_secret_swagger",
+                Type = OpenIddictConstants.ClientTypes.Public,
+                //Id = Guid.NewGuid().ToString(),
+                DisplayName = "Swagger client application",
+                RedirectUri = "http://localhost:1669/swagger/o2c.html",
+                LogoutRedirectUri = "http://localhost:1669/swagger/index.html",
+            };
+            applications.Add(app);
             await _context.SaveChangesAsync();
         }
 

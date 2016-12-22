@@ -75,6 +75,10 @@ namespace MyLiverpool.Web.WebApiNext
                 options.Password.RequireLowercase = false;
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
+                options.User.RequireUniqueEmail = true;
+                options.SignIn.RequireConfirmedEmail = true;
+                options.SignIn.RequireConfirmedPhoneNumber = false;
+                options.Lockout.AllowedForNewUsers = true;
             })
                 .AddEntityFrameworkStores<LiverpoolContext, int>()
                 .AddDefaultTokenProviders();
@@ -163,8 +167,7 @@ namespace MyLiverpool.Web.WebApiNext
 
             services.AddNodeServices(options =>
             {
-               // options.HostingModel = NodeHostingModel.Socket;
-                options.InvocationTimeoutMilliseconds = 1000000; //todo
+               // options.InvocationTimeoutMilliseconds = 1000000;
             });
             var context = (LiverpoolContext) services.BuildServiceProvider().GetService(typeof(LiverpoolContext));
             context.Database.Migrate();
@@ -202,8 +205,7 @@ namespace MyLiverpool.Web.WebApiNext
                 {
                     c.SwaggerEndpoint("/swagger/v1/swagger.json", "V1 Docs");
                     c.ConfigureOAuth2("test-client-id123", "test-client-secr43et", "test-rea32lm", "test-a11pp");
-                }
-                );
+                });
             }
             else
             {
@@ -240,6 +242,20 @@ namespace MyLiverpool.Web.WebApiNext
 
             app.UseDefaultFiles();
             app.UseStaticFiles();
+
+      /*      app.UseCsp(options => options.DefaultSources(directive => directive.Self())
+    .ImageSources(directive => directive.Self()
+        .CustomSources("*"))
+    .ScriptSources(directive => directive.Self()
+        .UnsafeInline())
+    .StyleSources(directive => directive.Self()
+        .UnsafeInline()));
+
+            app.UseXContentTypeOptions();
+
+            app.UseXfo(options => options.Deny());
+
+            app.UseXXssProtection(options => options.EnabledWithBlockMode()); */
 
             app.UseIdentity();
 

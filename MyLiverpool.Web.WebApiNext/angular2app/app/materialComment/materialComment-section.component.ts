@@ -33,7 +33,7 @@ export class MaterialCommentSectionComponent implements OnInit {
         this.update(); 
 
         this.commentForm = this.formBuilder.group({
-            'message': ["", Validators.compose([ //todo composeASync??
+            'message': ["", Validators.compose([
                 Validators.required, Validators.minLength(3)])]
         });    
     }

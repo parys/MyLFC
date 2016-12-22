@@ -29,14 +29,19 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             return addedEntity.Entity;
         }
 
-        public Task DeleteAsync(int id)
+        public async Task DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            var entity = await _context.ChatMessages.FindAsync(id);
+            if (entity == null)
+            {
+                throw new NullReferenceException("ChatMessage cannot be null.");
+            }
+            await DeleteAsync(entity);
         }
 
-        public Task DeleteAsync(ChatMessage entity)
+        public async Task DeleteAsync(ChatMessage entity)
         {
-            throw new NotImplementedException();
+            await Task.FromResult(_context.ChatMessages.Remove(entity));
         }
 
         public void Update(ChatMessage entity)

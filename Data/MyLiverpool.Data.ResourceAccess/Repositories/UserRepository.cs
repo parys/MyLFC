@@ -116,7 +116,12 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
 
         public async Task<IList<string>> GetRolesAsync(int id)
         {
-            return await _userManager.GetRolesAsync(new User(id));
+            var user = await _userManager.FindByIdAsync(id.ToString());
+            if (user == null)
+            {
+                throw new NullReferenceException("User cannot be null");
+            }
+            return await _userManager.GetRolesAsync(user);
         }
 
         public async Task<IdentityResult> ChangePasswordAsync(int userId, string oldPassword, string newPassword)

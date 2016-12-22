@@ -106,7 +106,7 @@ namespace MyLiverpool.Business.Services
 
         public async Task<string> GetPhotoPathAsync(int userId)
         {
-            var user = await _userRepository.GetByIdAsync(userId); //todo get photo
+            var user = await _userRepository.GetByIdAsync(userId);
             return user.Photo;
         }
 

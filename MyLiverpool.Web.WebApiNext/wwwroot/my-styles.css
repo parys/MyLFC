@@ -161,7 +161,7 @@ textarea {
     height: 20px;
 }
 
-/*todo fixed*/
+/*maybe need refactor fixed*/
 .ng-valid[required].ng-touched, .ng-valid.required.ng-touched  {
   border-left: 5px solid #42A948; /* green */
 }

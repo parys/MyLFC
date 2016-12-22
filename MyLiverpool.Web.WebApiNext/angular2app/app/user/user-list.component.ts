@@ -7,6 +7,7 @@ import { User} from "./user.model";
 import { UserService } from "./user.service";
 import { Pageable } from "../shared/pageable.model";
 import { UserFilters } from "./userFilters.model";
+import { RolesCheckedService, IRoles } from "../shared/index";
 
 @Component({
     selector: "user-list",
@@ -17,6 +18,7 @@ export class UserListComponent implements OnInit, OnDestroy {
 
     private sub: Subscription;
     items: User[];
+    roles: IRoles;
     page: number = 1;
     itemsPerPage: number = 15;
     totalItems: number;
@@ -25,10 +27,12 @@ export class UserListComponent implements OnInit, OnDestroy {
 
     constructor(private userService: UserService,
         private location: Location,
+        private rolesChecked: RolesCheckedService,
         private route: ActivatedRoute) {
     }
 
     ngOnInit() {
+        this.roles = this.rolesChecked.checkedRoles;
         this.sub = this.route.params.subscribe(params => {
             if (params["page"]) {
                 this.page = +params["page"];

@@ -51,7 +51,7 @@ export class WishListComponent implements OnInit, OnDestroy {
         //filters.page = this.page;
 
         this.service
-            .getAll()//bug
+            .getAll()//todo pageable
             .subscribe(data => this.parsePageable(data),
             error => console.log(error),
             () => console.log("success load list wish"));

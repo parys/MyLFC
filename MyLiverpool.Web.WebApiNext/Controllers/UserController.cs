@@ -11,8 +11,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// <summary>
     /// Manages users.
     /// </summary>
-    [Route("api/v1/[controller]")]
-    [Authorize]
+    [Authorize, Route("api/v1/[controller]")]
     public class UserController : Controller
     {
         private readonly IUserService _userService;
@@ -30,14 +29,11 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [Route("GetId")]
-        [HttpGet]
-        [Authorize]
+        [Authorize, HttpGet("GetId")]
         public IActionResult GetId()
         {
             return Ok(User.GetUserId());
         }
-
         
         /// <summary>
         /// 
@@ -57,9 +53,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <param name="dto"></param>
         /// <returns></returns>
-        [Route("list/{dto}")]
-        [HttpGet]
-        [AllowAnonymous]
+        [AllowAnonymous, HttpGet("list/{dto}")]
         public async Task<IActionResult> List(string dto)
         {
             if (dto == null)
@@ -93,9 +87,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <param name="typed"></param>
         /// <returns></returns>
-        [Route("GetUsernames")]
-        [HttpGet]
-        [AllowAnonymous] //bug
+        [AllowAnonymous, HttpGet("GetUsernames")]
         public async Task<IActionResult> GetUserNames([FromQuery]string typed)
         {
             var result = await _userService.GetUserNamesAsync(typed);
@@ -110,9 +102,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <param name="userId"></param>
         /// <param name="daysCount"></param>
         /// <returns></returns>
-        [Route("BanUser")]
-        [HttpPut]
-        [Authorize(Roles = nameof(RolesEnum.UserStart))]
+        [Authorize(Roles = nameof(RolesEnum.UserStart)), HttpPut("BanUser")]
         public async Task<IActionResult> BanUser([FromQuery]int userId, [FromQuery]int daysCount)
         {
             var result = await _userService.BanUser(userId, daysCount);
@@ -124,9 +114,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        [Route("UnbanUser")]
-        [HttpPut]
-        [Authorize(Roles = nameof(RolesEnum.UserFull))]
+        [Authorize(Roles = nameof(RolesEnum.UserFull)), HttpPut("UnbanUser")]
         public async Task<IActionResult> UnbanUser([FromQuery]int userId)
         {
             var result = await _userService.UnbanUser(userId);
