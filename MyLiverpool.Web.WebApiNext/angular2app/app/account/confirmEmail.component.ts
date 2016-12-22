@@ -17,6 +17,7 @@ export class ConfirmEmailComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
+        console.log(11111);
         this.sub = this.route.queryParams.subscribe(params => {
             let id = +params["userId"];
             let code = params["code"];

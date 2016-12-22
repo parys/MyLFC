@@ -63,7 +63,10 @@ namespace MyLiverpool.Web.WebApiNext
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<LiverpoolContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+                options.UseOpenIddict<int>();
+            });
 
             services.AddIdentity<User, Role>(options =>
             {

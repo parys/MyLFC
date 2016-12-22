@@ -102,10 +102,6 @@ namespace MyLiverpool.Data.ResourceAccess
             {
                 relationship.DeleteBehavior = DeleteBehavior.Restrict;
             }
-
-            // Register the entity sets needed by OpenIddict.
-
-            modelBuilder.UseOpenIddict<int>();
             base.OnModelCreating(modelBuilder);
         }
 

@@ -1,38 +1,36 @@
 ﻿<div class="col-md-12 top20">
-    <form class="form-horizontal" [formGroup]="registerForm" (ngSubmit)="onSubmit(registerForm.value)" role="form">
+    <form class="form-horizontal" *ngIf="!result" [formGroup]="registerForm" (ngSubmit)="onSubmit(registerForm.value)" role="form">
         <div class="form-group">
             <label class="col-md-2 control-label">Логин</label>
             <div class="col-md-10">
-            <!--    <input type="text" name="userName" [(ngModel)]="item.username" id="userName" debounce="5000" validation="remote:vm.userNameUnique():alt=Пользователь с таким логином уже существует|min_len:3|max_len:30|required" />
+                <!--    <input type="text" name="userName" [(ngModel)]="item.username" id="userName" debounce="5000" validation="remote:vm.userNameUnique():alt=Пользователь с таким логином уже существует|min_len:3|max_len:30|required" />
                 -->  <input class="form-control" [formControl]="registerForm.controls['userName']" type="text" />
             </div>
         </div>
         <div class="form-group">
             <label class="col-md-2 control-label">Почтовый адрес</label>
             <div class="col-md-10">
-               <!-- <input type="email" name="email" [(ngModel)]="item.email" id="email" debounce="5000" validation="remote:vm.emailUnique():alt=Пользователь с таким адресом уже существуетrequired|email|min_len:6" />
-               -->  <input class="form-control" [formControl]="registerForm.controls['email']" type="email"/>
+                <!-- <input type="email" name="email" [(ngModel)]="item.email" id="email" debounce="5000" validation="remote:vm.emailUnique():alt=Пользователь с таким адресом уже существуетrequired|email|min_len:6" />
+                -->  <input class="form-control" [formControl]="registerForm.controls['email']" type="email"/>
             </div>
         </div>
         <div class="form-group">
             <label for="password" class="col-md-2 control-label">Пароль</label>
             <div class="col-md-10">
-               <!-- <input type="password" name="vm.registerForm.password" friendly-name="Пароль" id="password" [(ngModel)]="item.password" validation="required|min_len:6" />
-             -->    <input class="form-control" [formControl]="registerForm.controls['password']" type="password" />
-             </div>
+                <input class="form-control" [formControl]="registerForm.controls['password']" type="password" />
+            </div>
         </div>
         <div class="form-group">
             <label for="confirmPassword" class="col-md-2 control-label">Подтверждение пароля</label>
             <div class="col-md-10">
-             <!--   <input type="password" name="confirmPassword" id="confirmPassword" [(ngModel)]="item.confirmPassword" validation="required|match:vm.registerForm.password,Password2|min_len:6" />
-              -->   <input class="form-control" [formControl]="registerForm.controls['confirmPassword']" type="password" /> 
-              </div>
+                <!--   <input type="password" name="confirmPassword" id="confirmPassword" [(ngModel)]="item.confirmPassword" validation="required|match:vm.registerForm.password,Password2|min_len:6" />
+                -->   <input class="form-control" [formControl]="registerForm.controls['confirmPassword']" type="password" /> 
+            </div>
         </div>
         <div class="form-group">
             <label class="col-md-2 control-label">Полное имя</label>
             <div class="col-md-10">
-               <!-- <input type="text" name="fullName" [(ngModel)]="item.fullName" validation="required|min_len:2"/>
-           -->      <input class="form-control" [formControl]="registerForm.controls['fullName']"  type="text" />
+                <input class="form-control" [formControl]="registerForm.controls['fullName']" type="text"/>
             </div>
         </div>
         <div class="form-group">
@@ -49,7 +47,7 @@
                     <button type="button" class="btn btn-default" ng-click="vm.open()"><i class="glyphicon glyphicon-calendar"></i></button>
                     </span
                 </div> -->
-               <input class="form-control" [formControl]="registerForm.controls['birthday']" type="text"/>
+                <input class="form-control" [formControl]="registerForm.controls['birthday']" type="text"/>
             </div>
         </div>
         <div class="form-group">
@@ -58,4 +56,5 @@
             </div>
         </div>
     </form>
+    <span *ngIf="result">Регистрация прошла успешно, пожалуйста, подтвердите регистрацию. Письмо отправлено на введенную вами почту.</span>
 </div>

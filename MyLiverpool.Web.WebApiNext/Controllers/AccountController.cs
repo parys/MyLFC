@@ -152,7 +152,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 return GetErrorResult(result);
             }
 
-            return Ok();
+            return Ok(true);
         }
 
         /// <summary>

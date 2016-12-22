@@ -55,7 +55,7 @@ namespace MyLiverpool.Data.ResourceAccess
             await InitializeForumSubsections();
             await InitializeForumThemes();
 
-            await AddApplication();
+         //   await AddApplication();
         }
 
         #region roles

@@ -1,6 +1,5 @@
 ﻿import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ViewChild, ChangeDetectorRef } from "@angular/core";
-import { Location } from "@angular/common";                                    
-import "rxjs/add/operator/map";
+import { Location } from "@angular/common";
 import { NewsService } from "./news.service";
 import { News } from "./news.model";
 import { Observable } from "rxjs/Observable";

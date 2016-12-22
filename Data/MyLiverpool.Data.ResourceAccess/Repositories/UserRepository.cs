@@ -121,12 +121,22 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
 
         public async Task<IdentityResult> ChangePasswordAsync(int userId, string oldPassword, string newPassword)
         {
-            return await _userManager.ChangePasswordAsync(new User(userId), oldPassword, newPassword);
+            var user = await _userManager.FindByIdAsync(userId.ToString());
+            if (user == null)
+            {
+                throw new NullReferenceException("User cannot be null");
+            }
+            return await _userManager.ChangePasswordAsync(user, oldPassword, newPassword);
         }
 
         public async Task<IdentityResult> ConfirmEmailAsync(int userId, string code)
         {
-            return await _userManager.ConfirmEmailAsync(new User(userId), code);
+            var user = await _userManager.FindByIdAsync(userId.ToString());
+            if (user == null)
+            {
+                return IdentityResult.Failed(new IdentityError() { Description = "User is null"});
+            }
+            return await _userManager.ConfirmEmailAsync(user, code);
         }
 
         public async Task<IdentityResult> ResetPasswordAsync(User user, string token, string password)
@@ -136,12 +146,22 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
 
         public async Task<string> GenerateEmailConfirmationTokenAsync(int userId)
         {
-            return await _userManager.GenerateEmailConfirmationTokenAsync(new User(userId));
+            var user = await _userManager.FindByIdAsync(userId.ToString());
+            if (user == null)
+            {
+                throw new NullReferenceException("User cannot be null");
+            }
+            return await _userManager.GenerateEmailConfirmationTokenAsync(user);
         }
 
         public async Task<string> GeneratePasswordResetTokenAsync(int userId)
         {
-            return await _userManager.GeneratePasswordResetTokenAsync(new User(userId));
+            var user = await _userManager.FindByIdAsync(userId.ToString());
+            if (user == null)
+            {
+                throw new NullReferenceException("User cannot be null");
+            }
+            return await _userManager.GeneratePasswordResetTokenAsync(user);
         }
 
         public async Task<IdentityResult> CreateAsync(User user, string password)

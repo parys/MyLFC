@@ -1,5 +1,6 @@
 ﻿import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Observable } from "rxjs/Observable";
+import { Location } from "@angular/common";  
 import { Router, ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
 import { User} from "./user.model";
@@ -22,7 +23,9 @@ export class UserListComponent implements OnInit, OnDestroy {
     categoryId: number;
     userName: string;
 
-    constructor(private userService: UserService, private route: ActivatedRoute) {
+    constructor(private userService: UserService,
+        private location: Location,
+        private route: ActivatedRoute) {
     }
 
     ngOnInit() {
@@ -46,6 +49,20 @@ export class UserListComponent implements OnInit, OnDestroy {
         this.itemsPerPage = pageable.itemPerPage;
         this.totalItems = pageable.totalItems;
     }
+
+    pageChanged(event: any): void {
+        this.page = event.page;
+        this.update();
+        let newUrl = `user/list/${this.page}?`;
+     //   if (this.categoryId) {
+     //       newUrl = `${newUrl}?categoryId=${this.categoryId}`;
+     //   }
+     //   if (this.userName) {
+     //       newUrl = `${newUrl}${this.categoryId ? "&" : "?"}userName=${this.userName}`;
+    //    }
+
+        this.location.replaceState(newUrl);
+    };
 
     update() {
         let filters = new UserFilters();

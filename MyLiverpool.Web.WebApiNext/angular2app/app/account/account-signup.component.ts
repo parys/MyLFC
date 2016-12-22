@@ -11,16 +11,16 @@ import { GlobalValidators } from "../shared/index";
 })
 
 export class AccountSignupComponent implements OnInit {
-
     registerForm: FormGroup;
     id: number;
+    result: boolean = false;
 
     constructor(private accountService: AccountService, private formBuilder: FormBuilder) {
     }
 
     ngOnInit() {
         this.registerForm = this.formBuilder.group({
-            'userName': ["123", Validators.compose([ //todo composeASync??
+            'userName': ["123", Validators.compose([
                 Validators.required, Validators.minLength(3)])],
             'email': ["andrew_parys@tut.by", Validators.compose([
                 Validators.required, Validators.minLength(6), , GlobalValidators.mailFormat])],
@@ -36,7 +36,7 @@ export class AccountSignupComponent implements OnInit {
     }
 
     onSubmit(value: any): void {
-        var signup = new Signup();
+        let signup = new Signup();
         signup.userName = this.registerForm.controls["userName"].value;
         signup.email = this.registerForm.controls["email"].value;
         signup.password = this.registerForm.controls["password"].value;
@@ -46,7 +46,11 @@ export class AccountSignupComponent implements OnInit {
 
         this.accountService
             .create(signup)
-            .subscribe(data => {},//todo this.id = data.id},
+            .subscribe(data => {
+                    if (data) {
+                        this.result = true;
+                    }
+                },
             error => console.log(error),
             () => {});
     }

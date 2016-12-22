@@ -14,7 +14,7 @@ export class AccountService {
         this.actionUrl = configuration.serverWithApiUrl + "account/";
     }
 
-    create = (item: Signup): Observable<Signup> => {
+    create = (item: Signup): Observable<boolean> => {
         return this.http.post(this.actionUrl + "register/", JSON.stringify(item)).map(res => res.json());
     };
 
