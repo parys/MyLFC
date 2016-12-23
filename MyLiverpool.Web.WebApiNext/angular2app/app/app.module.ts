@@ -39,15 +39,16 @@ import { FileUploadModule } from "ng2-file-upload/ng2-file-upload";
 @NgModule({
     imports: [
         UniversalModule,     // must be first import. This automatically imports NgModule, BrowserModule, HttpModule, and JsonpModule too.],
-        DatepickerModule,
+        DatepickerModule.forRoot(),
         FileUploadModule,
         FormsModule,
-        ModalModule,
+        ModalModule.forRoot(),
         Ng2AutoCompleteModule,
-        PaginationModule,
+        PaginationModule.forRoot(),
+     //   Ng2BootstrapModule,
         ReactiveFormsModule,
-        TabsModule,
-        RouterModule.forRoot(routes, {})
+        TabsModule.forRoot(),
+        RouterModule.forRoot(routes, { useHash: true })
     ],
     declarations: [
         account.AccountSigninComponent,

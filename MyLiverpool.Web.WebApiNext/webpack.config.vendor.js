@@ -34,13 +34,14 @@ var SharedConfig = {
             "@angular/platform-server",
             "angular2-universal",
             "angular2-universal-polyfills",
-            "bootstrap",
-            "bootstrap/dist/css/bootstrap.css",
             "es6-shim",
             "es6-promise",
+            "zone.js",
+            "bootstrap",
+            "bootstrap/dist/css/bootstrap.css",
             "event-source-polyfill",
             "jquery",
-            "zone.js",
+            "rxjs",
             "ng2-auto-complete",
             "ng2-bootstrap"
         ]
