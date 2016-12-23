@@ -89,6 +89,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <param name="id">Material identifier.</param>
         /// <returns>Result of activation.</returns>
         [Authorize(Roles = nameof(RolesEnum.NewsStart)), HttpGet("activate/{id:int}")]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> ActivateAsync(int? id)
         {
             if (!id.HasValue)
@@ -129,6 +130,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <param name="model">Contains material model.</param>
         /// <returns>Result of updation.</returns>
         [Authorize(Roles = nameof(RolesEnum.NewsStart)), HttpPut("{id:int}")]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateAsync(int id, [FromBody]MaterialDto model)
         {
             if (id != model.Id)

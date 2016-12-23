@@ -12,8 +12,7 @@ import { ModalDirective } from "ng2-bootstrap";
 
 @Component({
     selector: "news-list",
-    template: require("./news-list.component.html"),
-    changeDetection: ChangeDetectionStrategy.Default
+    template: require("./news-list.component.html")
 })
 export class NewsListComponent implements OnInit, OnDestroy {
 
@@ -32,7 +31,7 @@ export class NewsListComponent implements OnInit, OnDestroy {
     @ViewChild("deleteModal") deleteModal: ModalDirective;
 
     constructor(private router: Router, private newsService: NewsService, private route: ActivatedRoute, private location: Location,
-        private rolesChecked: RolesCheckedService, private cd: ChangeDetectorRef) {
+        private rolesChecked: RolesCheckedService) {
     }
 
     showActivateModal(index: number): void {

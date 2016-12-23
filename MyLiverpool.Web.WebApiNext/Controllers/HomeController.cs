@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
@@ -6,6 +7,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// <summary>
     /// Home controller.
     /// </summary>
+    [AllowAnonymous]
     public class HomeController : Controller
     {
         /// <summary>

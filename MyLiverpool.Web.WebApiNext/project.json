@@ -4,6 +4,7 @@
   "dependencies": {
     "AspNet.Security.OAuth.Validation": "1.0.0-beta1-0195",
     "bootstrap": "3.3.7",
+    "Microsoft.AspNetCore.Antiforgery": "1.1.0",
     "Microsoft.AspNetCore.Diagnostics": "1.1.0",
     "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "1.1.0",
     "Microsoft.AspNetCore.Mvc": "1.1.0",

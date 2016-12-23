@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using AutoMapper;
+using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -11,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Primitives;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Services;
 using MyLiverpool.Common.Mappings;
@@ -82,6 +84,8 @@ namespace MyLiverpool.Web.WebApiNext
             })
                 .AddEntityFrameworkStores<LiverpoolContext, int>()
                 .AddDefaultTokenProviders();
+
+          //  services.AddAntiforgery(options => options.HeaderName = "X-XSRF-TOKEN");
 
             services.AddMvc().AddJsonOptions(options =>
             {
@@ -180,7 +184,8 @@ namespace MyLiverpool.Web.WebApiNext
         /// <param name="app"></param>
         /// <param name="env"></param>
         /// <param name="loggerFactory"></param>
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        /// <param name="antiforgery"></param>
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IAntiforgery antiforgery)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
@@ -211,7 +216,6 @@ namespace MyLiverpool.Web.WebApiNext
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-            app.UseCors("MyPolicy");
 
             //app.Use(async (context, next) =>
             //{
@@ -239,6 +243,20 @@ namespace MyLiverpool.Web.WebApiNext
 
             //    await next();
             //});
+
+            //app.Use(next => context =>
+            //{
+            //    var tokens = antiforgery.GetAndStoreTokens(context);
+            //    context.Response.Cookies.Append("XSRF-TOKEN", tokens.RequestToken,
+            //        new CookieOptions() {HttpOnly = false});
+            //    var formFields = new Dictionary<string, StringValues>()
+            //    {
+            //        {"X-XSRF-TOKEN", context.Request.Headers["X-XSRF-TOKEN"]}
+            //    };
+            //    context.Request.Form = new FormCollection(formFields);
+            //    return next(context);
+            //});
+            app.UseCors("MyPolicy");
 
             app.UseDefaultFiles();
             app.UseStaticFiles();

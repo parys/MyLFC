@@ -97,11 +97,11 @@ export class NewsEditComponent implements OnInit, OnDestroy {
             'source': ["", Validators.compose([])],
             'photo': ["", Validators.compose([
                 Validators.required])],
-            'canCommentary': ["", Validators.compose([
+            'canCommentary': ["true", Validators.compose([
                 Validators.required])],
-            'onTop': ["", Validators.compose([
+            'onTop': ["false", Validators.compose([
                 Validators.required])],
-            'pending': ["", Validators.compose([
+            'pending': ["true", Validators.compose([
                 Validators.required])]
         });
     }
