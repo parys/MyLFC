@@ -32,7 +32,7 @@ export class UserListComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.roles = this.rolesChecked.checkedRoles;
+        this.roles = this.rolesChecked.checkRoles();
         this.sub = this.route.params.subscribe(params => {
             if (params["page"]) {
                 this.page = +params["page"];

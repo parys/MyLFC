@@ -82,7 +82,7 @@ export class NewsListComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        this.roles = this.rolesChecked.checkedRoles;
+        this.roles = this.rolesChecked.checkRoles();
 
         this.sub = this.route.params.subscribe(params => {
             if (params["page"]) {

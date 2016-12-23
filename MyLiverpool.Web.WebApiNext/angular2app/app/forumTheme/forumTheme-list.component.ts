@@ -30,7 +30,7 @@ export class ForumThemeListComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.roles = this.rolesChecked.checkedRoles;
+        this.roles = this.rolesChecked.checkRoles();
         this.sub2 = this.route.queryParams.subscribe(params => {
             if (params["page"]) {
                 this.page = +params["page"];

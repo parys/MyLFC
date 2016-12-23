@@ -18,8 +18,8 @@
                         </div>
                         <span [textContent]="user.userName"></span>
                     </a>
-                    <span class="text-danger" tooltip="Почта не подтверждена" *ngIf="!user.emailConfirmed && (roles.isAdminAssist || roles.isSelf(item.id))"> *</span>
-                    <a *ngIf="roles.isLogined && !roles.isSelf(item.id)" ui-sref="wpm({ userName: user.userName })"><span class="glyphicon glyphicon-envelope"></span></a>
+                    <span class="text-danger" tooltip="Почта не подтверждена" *ngIf="!user.emailConfirmed && (roles.isAdminAssist || roles.isSelf(user.id))"> *</span>
+                    <a *ngIf="roles.isLogined && !roles.isSelf(user.id)" ui-sref="wpm({ userName: user.userName })"><span class="glyphicon glyphicon-envelope"></span></a>
                 </td>
                 <td class="" [textContent]="user.registrationDate | date:'medium'"></td>
                 <td class="" [textContent]="user.roleGroupName"></td>

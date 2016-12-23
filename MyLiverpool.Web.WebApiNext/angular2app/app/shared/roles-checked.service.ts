@@ -1,11 +1,11 @@
-﻿import { Injectable } from "@angular/core"; 
+﻿import { Injectable } from "@angular/core";
 import { IRoles } from "../shared/index";
 import { LocalStorageService } from "./localStorage.service";
 
 @Injectable()
 export class RolesCheckedService {
 
-    checkedRoles: IRoles = {
+    private checkedRoles: IRoles = {
         isLogined: false,
         isEditor: false,
         isNewsmaker: false,
@@ -14,17 +14,18 @@ export class RolesCheckedService {
         isAdminAssistant: false,
         isSelf: (userId : number) => this.isSelf(userId)
     };
-    private roles: string[];         
+    private roles: string[];
 
     constructor(
         private localStorage: LocalStorageService) {
             this.checkRoles();
     }
 
-    checkRoles(): void {
+    checkRoles(): IRoles {
         this.roles = this.localStorage.getRoles();
+        this.checkedRoles.isLogined = false;
         if (!this.roles) {
-            return;
+            return this.checkedRoles;
         };
         this.checkedRoles.isLogined = true;
         this.checkEditor();
@@ -32,6 +33,7 @@ export class RolesCheckedService {
         this.checkModerator();
         this.checkMainModerator();
         this.checkAdminAssistant();
+        return this.checkedRoles;
     }
 
     private checkEditor():void {

@@ -41,7 +41,7 @@ export class MaterialCommentDetailComponent implements OnInit {
     }
 
     ngOnInit(): void{
-        this.roles = this.rolesChecked.checkedRoles;
+        this.roles = this.rolesChecked.checkRoles();
         this.commentForm = this.formBuilder.group({
             'message': ["", Validators.compose([
                 Validators.required])],

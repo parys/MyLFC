@@ -13,7 +13,6 @@ import { RoleGroupService, RoleGroup } from "../roleGroup/index";
 })
 
 export class UserDetailComponent implements OnInit, OnDestroy {
-
     private sub: Subscription;
     item: User;
     roles: IRoles;
@@ -24,17 +23,21 @@ export class UserDetailComponent implements OnInit, OnDestroy {
         private route: ActivatedRoute,
         private rolesChecked: RolesCheckedService,
         private roleGroupService: RoleGroupService,
-        private formBuilder: FormBuilder) { }
+        private formBuilder: FormBuilder,
+        private router: Router) { }
 
     ngOnInit() {
-        this.roles = this.rolesChecked.checkedRoles;
+        this.roles = this.rolesChecked.checkRoles();
         this.initRoleForm();
         this.sub = this.route.params.subscribe(params => {
-            let id = +params["id"];
-            this.service.getSingle(id)
-                .subscribe(data => this.parse(data),
-                error => console.log(error),
-                () => {});
+            if (+params["id"]) {
+                this.service.getSingle(+params["id"])
+                    .subscribe(data => this.parse(data),
+                        error => console.log(error),
+                        () => {});
+            } else {
+                this.router.navigate(["/user/list/1"]);
+            }
         });
         if (this.roles.isAdminAssistant) {
             this.loadRoleGroups();

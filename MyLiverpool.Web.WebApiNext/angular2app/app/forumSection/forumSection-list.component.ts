@@ -19,7 +19,7 @@ export class ForumSectionListComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.roles = this.rolesChecked.checkedRoles;
+        this.roles = this.rolesChecked.checkRoles();
         
         this.service
             .getAll()

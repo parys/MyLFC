@@ -26,7 +26,7 @@ export class MaterialCommentListComponent implements OnInit {
     }                                       
 
     ngOnInit() {
-        this.roles = this.rolesChecked.checkedRoles;
+        this.roles = this.rolesChecked.checkRoles();
         this.update();
     }
 

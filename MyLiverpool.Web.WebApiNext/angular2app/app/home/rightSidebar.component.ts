@@ -16,7 +16,7 @@ export class RightSidebarComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.roles = this.rolesChecked.checkedRoles;
+        this.roles = this.rolesChecked.checkRoles();
     }
 
     updateEplTable() {

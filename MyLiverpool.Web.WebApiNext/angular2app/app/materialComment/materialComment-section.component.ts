@@ -29,7 +29,7 @@ export class MaterialCommentSectionComponent implements OnInit {
     }   
 
     ngOnInit() {
-        this.roles = this.rolesChecked.checkedRoles;     
+        this.roles = this.rolesChecked.checkRoles();     
         this.update(); 
 
         this.commentForm = this.formBuilder.group({

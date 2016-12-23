@@ -188,9 +188,8 @@ a.postuser10:link,a.postuser10:visited,a.postuser10:hover {color:#000000;font-we
 .gTable {background:#EBEBEB; width:98%; margin-left:1%; margin-right:1%;}
 .gTableTop {padding:2px;background: url('http://src.ucoz.ru/t/631/17.gif') #B60600;color:#FFFFFF;font-weight:bold;height:23px;padding-left:17px;font-size:10pt;}
 .gTableSubTop {padding:2px;background:url('http://src.ucoz.ru/t/631/5.gif') center #418E00;color:#000000;height:20px;font-size:10px;}
-.gTableBody {padding:2px;background:#F1FFDD;}
+.gTableBody, .gTableBottom {padding:2px;background:#F1FFDD;}
 .gTableBody1 {padding:2px;background:#FFFFFF;}
-.gTableBottom {padding:2px;background:#F1FFDD;}
 .gTableLeft {padding:2px;background:#F1FFDD;font-weight:bold;color:#BD0A00}
 .gTableRight {padding:2px;background:#F1FFDD}
 .gTableError {padding:2px;background:#F1FFDD;color:#FF0000;}
@@ -254,7 +253,7 @@ a.switchDigit:active,a.switchBack:active,a.switchNext:active {text-decoration:un
 /* ------------------- */
 
 /* forum Threads Style */
-.threadNametd,.threadAuthTd,.threadLastPostTd {padding:2px;padding:2px;background:#FFFFFF}
+.threadNametd,.threadAuthTd,.threadLastPostTd {padding:2px;background:#FFFFFF}
 .threadIcoTd,.threadPostTd,.threadViewTd {padding:2px;background:#F1FFDD}
 .threadLastPostTd {padding:2px;font-size:7pt;}
 .threadDescr {color:#858585;font-size:7pt;}
@@ -279,19 +278,19 @@ a.threadLink:active {text-decoration:underline; color:#000000;}
 /* ------------------- */
 
 /* forum Posts View */
-.postTable {}
+/*.postTable {}*/
 .postPoll {background:#F1FFDD;text-align:center;}
 .postFirst {background:#F7FDF4;border-bottom:3px solid #649A56;}
 .postRest1 {background:#F1FFDD;}
 .postRest2 {background:#F7FDF4;}
 .postSeparator {height:3px;background:#B60600;}
 
-.postTdTop {background:url('http://src.ucoz.ru/t/631/5.gif') center #418E00;color:#000000;height:20px;font-size:10px;}
+.postTdTop {background: center #418E00;color:#000000;height:20px;font-size:10px;}
 .postBottom {background:#FFF799;height:20px}
 .postUser {font-weight:bold;}
 .postTdInfo {text-align:center;padding:5px;background:#F1FFDD;}
 .postRankName {margin-top:5px;}
-.postRankIco {margin-bottom:5px;margin-bottom:5px;}
+.postRankIco {margin-bottom:5px;}
 .reputation {margin-top:5px;}
 .signatureHr {margin-top:20px;color:#649A56;}
 .posttdMessage {padding:5px;background:#FFFFFF;}
@@ -317,15 +316,20 @@ a.threadLink:active {text-decoration:underline; color:#000000;}
 /* forum AllInOne Fast Add */
 .newThreadBlock {background: #F9F9F9;border: 1px solid #B2B2B2;}
 .newPollBlock {background: #F9F9F9;border: 1px solid #B2B2B2;}
-.newThreadItem {padding: 0 0 0 8px; background: url('http://src.ucoz.ru/t/631/19.gif') no-repeat 0px 4px;}
-.newPollItem {padding: 0 0 0 8px; background: url('http://src.ucoz.ru/t/631/19.gif') no-repeat 0px 4px;}
+.newThreadItem, .newPollItem{padding: 0 0 0 8px; background: url('http://src.ucoz.ru/t/631/19.gif') no-repeat 0px 4px;}
 /* ----------------------- */
 
 /* forum Post Form */
-.pollBut, .loginButton, .searchSbmFl, .commSbmFl, .signButton {font-size:7pt;background: url('http://src.ucoz.ru/t/631/17.gif') #B60600;color:#FFFFFF;border:1px outset #FFFFFF;}
+.pollBut, .loginButton, .searchSbmFl, .commSbmFl, .signButton, .codeButtons, .codeCloseAll {
+    font-size:7pt;
+    background: url('http://src.ucoz.ru/t/631/17.gif') #B60600;
+    color:#FFFFFF;
+    border:1px outset #FFFFFF;
+}
 
-.codeButtons {font-size:7pt;background: url('http://src.ucoz.ru/t/631/17.gif') #B60600;color:#FFFFFF;border:1px outset #FFFFFF;}
-.codeCloseAll {font-size:7pt;background: url('http://src.ucoz.ru/t/631/17.gif') #B60600;color:#FFFFFF;border:1px outset #FFFFFF;font-weight:bold;}
+.codeCloseAll {
+    font-weight:bold;
+}
 .postNameFl,.postDescrFl {background:#FBFEFA;border:1px solid #BD0A00;width:400px}
 .postPollFl,.postQuestionFl {background:#FBFEFA;border:1px solid #BD0A00;width:400px}
 .postResultFl {background:#FBFEFA;border:1px solid #BD0A00;width:50px}
@@ -351,9 +355,9 @@ background-color: #ffffff;
 padding: 0 5px 0 5px;
 }
 
-.forumContent a {}
+/*.forumContent a {}
 
-.forumContent table {}
+.forumContent table {}*/
 
 .gTable, .postTable {
  background: #ffffff;
@@ -392,7 +396,7 @@ td.postRest1, td.postRest2, td.postFirst {
  color: #ffffff;
 }
 
-.gTableTop a:hover {}
+/*.gTableTop a:hover {}*/
 
 .gTable td.gTableSubTop {
  background: #e1e1e1;
@@ -436,9 +440,9 @@ td.postRest1, td.postRest2, td.postFirst {
  text-align: center !important;
 }
 
-a.TopSortLink {}
+/*a.TopSortLink {}
 
-a.TopSortLink:hover {}
+a.TopSortLink:hover {}*/
 
 a.postUser {
  font-weight: bold;
@@ -449,7 +453,7 @@ a.forum, a.threadLink {
  color: #c48b49;
 }
 
-.quoteMessage {}
+/*.quoteMessage {}*/
 
 .forumDescr, .threadDescr {
  font-size: 10px;
@@ -460,7 +464,7 @@ td.postTdTop {
  background: #e1e1e1;
 }
 
-td.postTdTop a {}
+/*td.postTdTop a {}*/
 
 td.forumIcoTd, td.forumThreadTd, td.forumPostTd, td.gTableRight, td.threadIcoTd, td.threadPostTd, 
 
@@ -472,11 +476,11 @@ td.pollQuestion, .pollResults td, td.pollResults, td.pollTotal, td.pollAnswer, t
  border: 0px;
 }
 
-td.pagesInfo, td.switch, td.switchActive {}
+/*td.pagesInfo, td.switch, td.switchActive {}
 
 td.switch, td.switchActive {}
 
-td.switch a {}
+td.switch a {}*/
 
 .switchActive {
  font-weight: bold;

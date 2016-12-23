@@ -20,29 +20,29 @@ export class AccountSignupComponent implements OnInit {
 
     ngOnInit() {
         this.registerForm = this.formBuilder.group({
-            'userName': ["123", Validators.compose([
+            'userName': ["", Validators.compose([
                 Validators.required, Validators.minLength(3)])],
-            'email': ["andrew_parys@tut.by", Validators.compose([
-                Validators.required, Validators.minLength(6), , GlobalValidators.mailFormat])],
-            'password': ["123qwe!Q", Validators.compose([
+            'email': ["", Validators.compose([
+                Validators.required, Validators.minLength(6), GlobalValidators.mailFormat])],
+            'password': ["", Validators.compose([
                 Validators.required, Validators.minLength(6)])],
-            'confirmPassword': ["123qwe!Q", Validators.compose([
+            'confirmPassword': ["", Validators.compose([
                 Validators.required, Validators.minLength(6)])],
-            'fullName': ["123", Validators.compose([
-                Validators.required,])],
-            'birthday': ["10/10/2015", Validators.compose([
-                Validators.required,])]
+            // 'fullName': ["123", Validators.compose([
+            //    Validators.required,])],
+           // 'birthday': ["10/10/2015", Validators.compose([
+           //     Validators.required,])]
         });
     }
 
-    onSubmit(value: any): void {
+    onSubmit(): void {
         let signup = new Signup();
         signup.userName = this.registerForm.controls["userName"].value;
         signup.email = this.registerForm.controls["email"].value;
         signup.password = this.registerForm.controls["password"].value;
         signup.confirmPassword = this.registerForm.controls["confirmPassword"].value;
-        signup.fullName = this.registerForm.controls["fullName"].value;
-        signup.birthday = this.registerForm.controls["birthday"].value;
+     //   signup.fullName = this.registerForm.controls["fullName"].value;
+     //   signup.birthday = this.registerForm.controls["birthday"].value;
 
         this.accountService
             .create(signup)

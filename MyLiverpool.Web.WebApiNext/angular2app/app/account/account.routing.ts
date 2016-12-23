@@ -1,5 +1,12 @@
 ﻿import { Routes } from "@angular/router";
-import { AccountSignupComponent, ConfirmEmailComponent, ForgotPasswordComponent, UnconfirmedEmailComponent, ResetPasswordComponent, ChangePasswordComponent } from "./index";
+import {
+    AccountSignupComponent,
+    ConfirmEmailComponent,
+    ForgotPasswordComponent,
+    UnconfirmedEmailComponent,
+    ResetPasswordComponent,
+    ChangePasswordComponent
+} from "./index";
 
 export const accountRoutes: Routes = [
     { path: "signup", component: AccountSignupComponent, data: { title: "Регистрация" } },

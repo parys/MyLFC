@@ -31,7 +31,7 @@ export class MiniChatComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.roles = this.rolesChecked.checkedRoles;
+        this.roles = this.rolesChecked.checkRoles();
         this.initForm();
         this.update();
     }

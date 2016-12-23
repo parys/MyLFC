@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using MyLiverpool.Business.DTO;
 
 namespace MyLiverpool.Business.DtoNext
 {
@@ -33,7 +32,7 @@ namespace MyLiverpool.Business.DtoNext
   //      [Display(ResourceType = typeof(UsersMessages), Name = "FullName")]
         public string FullName { get; set; }
 
-        [Required]//(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Required")]
+      //  [Required]//(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Required")]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
       //  [Display(ResourceType = typeof(UsersMessages), Name = "BirthDay")]
         public DateTime Birthday { get; set; }

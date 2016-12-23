@@ -1,7 +1,7 @@
-﻿<table border="0" width="100%" bgcolor="#FFFFFF" cellspacing="1" cellpadding="0" class="gTable">
+﻿<table class="gTable">
     <tbody *ngFor="let section of items">
-    <tr> <td class="gTableTop" colspan="5"><div style="float:right" class="gTopCornerRight"></div><a class="catLink" href="/forum/1" [textContent]="section.name"></a></td></tr>
-    <tr><td width="5%" class="gTableSubTop">&nbsp;</td><td class="gTableSubTop">Форум</td><td width="8%" class="gTableSubTop" align="center">Темы</td><td width="8%" class="gTableSubTop" align="center">Ответы</td><td width="30%" class="gTableSubTop">Обновления</td></tr>
+    <tr *ngIf="section.subsections.length > 0"> <td class="gTableTop" colspan="5"><div style="float:right" class="gTopCornerRight"></div><a class="catLink" href="/forum/1" [textContent]="section.name"></a></td></tr>
+    <tr *ngIf="section.subsections.length > 0"><td width="5%" class="gTableSubTop">&nbsp;</td><td class="gTableSubTop">Форум</td><td width="8%" class="gTableSubTop" align="center">Темы</td><td width="8%" class="gTableSubTop" align="center">Ответы</td><td width="30%" class="gTableSubTop">Обновления</td></tr>
         
     <tr *ngFor="let subsection of section.subsections">  
           <td class="forumIcoTd" align="center">

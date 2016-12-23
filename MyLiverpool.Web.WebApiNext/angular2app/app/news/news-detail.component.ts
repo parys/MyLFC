@@ -31,7 +31,7 @@ export class NewsDetailComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.roles = this.rolesChecked.checkedRoles;
+        this.roles = this.rolesChecked.checkRoles();
 
         this.sub = this.route.params.subscribe(params => {
             let id = +params["id"];
@@ -87,7 +87,6 @@ export class NewsDetailComponent implements OnInit, OnDestroy {
                 }
             );
     }
-
 
     private parse(item: News): void {
         this.item = item;

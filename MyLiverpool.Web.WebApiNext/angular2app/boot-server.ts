@@ -18,7 +18,7 @@ const doc = `
         </html>
     `;
 
-export default createServerRenderer(params => {  
+export default createServerRenderer(params => {
     return new Promise<RenderResult>((resolve, reject) => {
         const requestZone = Zone.current.fork({
             name: "angular-universal request",

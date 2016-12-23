@@ -23,7 +23,7 @@ export class AppComponent {
         private titleService: Title
       //  private breadcrumbService: BreadcrumbService
     ) { //todo need to more elegant decision
-        this.roles = this.rolesChecked.checkedRoles;
+        this.roles = this.rolesChecked.checkRoles();
         // You need this small hack in order to catch application root view container ref
         this.viewContainerRef = viewContainerRef;
         this.initTitleSubscriber();
@@ -35,6 +35,7 @@ export class AppComponent {
 
     logout() {
         this.auth.logout();
+        this.roles = this.rolesChecked.checkRoles();
     }
 
     private initTitleSubscriber() {
