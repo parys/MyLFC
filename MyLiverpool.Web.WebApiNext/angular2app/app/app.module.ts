@@ -48,7 +48,7 @@ import { FileUploadModule } from "ng2-file-upload/ng2-file-upload";
      //   Ng2BootstrapModule,
         ReactiveFormsModule,
         TabsModule.forRoot(),
-        RouterModule.forRoot(routes, { useHash: true })
+        RouterModule.forRoot(routes, { useHash: false })
     ],
     declarations: [
         account.AccountSigninComponent,
@@ -73,6 +73,7 @@ import { FileUploadModule } from "ng2-file-upload/ng2-file-upload";
         home.RulesComponent,
         home.SquadComponent,
         image.ImageDetailComponent,
+        image.ImageEditComponent,
         image.ImageListComponent,
         match.MatchCalendarComponent,
         match.MatchEditComponent,

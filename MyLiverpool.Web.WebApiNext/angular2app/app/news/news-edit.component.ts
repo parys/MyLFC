@@ -5,6 +5,7 @@ import { Subscription } from "rxjs/Subscription";
 import { NewsService } from "./news.service";
 import { News } from "./news.model";
 import { NewsCategoryService } from "../newsCategory/index";
+import { RolesCheckedService, IRoles } from "../shared/index";
 import { NewsCategory } from "../newsCategory/newsCategory.model";
 
 @Component({
@@ -14,19 +15,21 @@ import { NewsCategory } from "../newsCategory/newsCategory.model";
 
 export class NewsEditComponent implements OnInit, OnDestroy {
     editForm: FormGroup;
-
     private sub: Subscription;
     id: number;
     categories: NewsCategory[];
+    roles: IRoles;
 
     constructor(private newsService: NewsService,
         private newsCategoryService: NewsCategoryService,
         private route: ActivatedRoute,
         private router: Router,
+        private rolesChecked: RolesCheckedService,
         private formBuilder: FormBuilder) {
     }
                                                              
     ngOnInit() {
+        this.roles = this.rolesChecked.checkRoles();
         this.initForm();
         this.sub = this.route.params.subscribe(params => {
             let id = +params["id"];
