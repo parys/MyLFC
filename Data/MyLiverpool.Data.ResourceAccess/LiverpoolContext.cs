@@ -125,7 +125,7 @@ namespace MyLiverpool.Data.ResourceAccess
 
         protected override void OnConfiguring(DbContextOptionsBuilder modelBuilder)
         {
-           // modelBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking); //
+            modelBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
             if (_migrator)
             {
                 modelBuilder.UseOpenIddict<int>();

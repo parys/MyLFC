@@ -8,11 +8,11 @@ namespace MyLiverpool.Business.DtoNext
 
         public int SenderId { get; set; }
 
-        public string SenderUserName { get; set; }
+        public string Sender { get; set; }
 
         public int ReceiverId { get; set; }
 
-        public string ReceiverUserName { get; set; }
+        public string Receiver { get; set; }
       
         public string Title { get; set; }
 

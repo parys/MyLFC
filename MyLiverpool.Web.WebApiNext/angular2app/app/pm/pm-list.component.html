@@ -19,7 +19,7 @@
                             <span *ngIf="message.isRead" [textContent]="message.title"></span>
                         </a>
                     </td>
-                    <td><a [routerLink]="['/user', message.senderId]" [textContent]="message.senderUserName"></a></td>
+                    <td><a [routerLink]="['/user', message.senderId]" [textContent]="message.sender"></a></td>
                     <td [textContent]="message.sentTime | date:'medium'"></td>
                 </tr>
                 </tbody>
@@ -44,12 +44,14 @@
                             <span *ngIf="message.isRead" [textContent]="message.title"></span>
                         </a>
                     </td>
-                    <td><a [routerLink]="['/user', message.receiverId]" [textContent]="message.receiverUserName"></a></td>
+                    <td><a [routerLink]="['/user', message.receiverId]" [textContent]="message.receiver"></a></td>
                     <td [textContent]="message.sentTime | date:'medium'"></td>
                 </tr>
                 </tbody>
             </table>
         </tab>
-        <tab heading="Написать сообщеньку" (select)="writePm()"></tab>
+        <tab heading="Написать сообщеньку">
+            <pm-edit></pm-edit>
+        </tab> <!--(select)="writePm()"-->
     </tabset>
 </div>

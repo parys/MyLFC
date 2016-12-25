@@ -18,6 +18,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     roles: IRoles;
     roleGroups: RoleGroup[];
     roleForm: FormGroup;
+    selectedUserId: number;
 
     constructor(private service: UserService,
         private route: ActivatedRoute,
@@ -57,6 +58,14 @@ export class UserDetailComponent implements OnInit, OnDestroy {
                     this.roleForm.patchValue(roleGroupId);
                 }
             });
+    }
+
+    writePm(): void {
+        this.selectedUserId = this.item.id;
+    }
+
+    closePmWindow(event: any): void {
+        this.selectedUserId = null;
     }
 
     private parse(item: User): void {

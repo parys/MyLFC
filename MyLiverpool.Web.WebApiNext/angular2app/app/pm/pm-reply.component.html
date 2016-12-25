@@ -1,22 +1,10 @@
-﻿<form class="form-horizontal col-md-12" role="form" name="writePm"  [formGroup]="editForm" (ngSubmit)="onSubmit()">
+﻿<form class="form-horizontal col-md-12" role="form" name="writePm" [formGroup]="editForm" (ngSubmit)="onSubmit()">
     <h2>Написать сообщение</h2>
     <div class="form-group">
         <label class="control-label col-md-2">Получатель</label>
         <div class="col-md-10">
-            <!--p class="text-danger col-md-offset-2" ng-if="vm.errorMessage">
-            <i ng-bind="vm.errorMessage"></i>
-            </!p-->
-            <input
-                (valueChanged)="updateUsername($event)"
-                attr-placeholder="Введите логин..."
-                auto-complete class="form-control"
-                display-property-name="username"
-                formControlName="receiver"
-                loading-text="Загрузочка"
-                min-chars="2"
-                name="receiver"
-                type="text"
-                [source]="users" />
+            <input readonly
+                   [value]="userName" />
         </div>
     </div>
 
@@ -37,6 +25,7 @@
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <button [disabled]="!editForm.valid" type="submit" class="btn btn-default">Отправить</button>
+            <button type="button" class="btn btn-danger" (click)="closeWindow()">Отмена</button>
         </div>
     </div>
 </form>

@@ -13,11 +13,13 @@ import { PmService } from "./pm.service";
 export class PmEditComponent implements OnInit, OnDestroy {
     editForm: FormGroup;
     id: number = 0;
-    private sub: Subscription;
-    mySource = ["ar1", "ar2", "3dsa"];
-    users = "/api/user/GetUserNames?typed=:keyword";
+    private sub: Subscription;           
+    users = "/api/v1/user/GetUserNames?typed=:keyword";
 
-    constructor(private service: PmService, private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router) {
+    constructor(private service: PmService,
+        private formBuilder: FormBuilder,
+        private route: ActivatedRoute,
+        private router: Router) {
     }
 
     ngOnInit() {
@@ -50,7 +52,7 @@ export class PmEditComponent implements OnInit, OnDestroy {
             //        () => console.log("success get  news"));
             //}
         //});
-        this.getUsername();
+       // this.getUsername();
     }
 
     ngOnDestroy() {
@@ -63,12 +65,11 @@ export class PmEditComponent implements OnInit, OnDestroy {
         }
     }
 
-    getUsername(): void {
-        console.log(this.route);
-        if (this.route.data["username"]) {
-            console.log(this.route.data["username"]);
-        }
-    }
+    //getUsername(): void {
+    //    if (this.route.data["username"]) {
+    //        console.log(this.route.data["username"]);
+    //    }
+    //}
 
     onSubmit(): void {
         let model = new Pm();
@@ -79,6 +80,5 @@ export class PmEditComponent implements OnInit, OnDestroy {
         let res = this.service.create(model).subscribe(data => data);
 
         this.router.navigate(["/pm"]);
-
     }
 }

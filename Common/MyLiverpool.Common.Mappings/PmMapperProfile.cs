@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using MyLiverpool.Business.DtoNext;
-using MyLiverpool.Business.DTO;
 using MyLiverpool.Data.Entities;
 
 namespace MyLiverpool.Common.Mappings
@@ -18,9 +17,9 @@ namespace MyLiverpool.Common.Mappings
                 .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id))
                 .ForMember(dest => dest.IsRead, src => src.MapFrom(x => x.IsRead))
                 .ForMember(dest => dest.ReceiverId, src => src.MapFrom(x => x.ReceiverId))
-                .ForMember(dest => dest.ReceiverUserName, src => src.MapFrom(x => x.Receiver.UserName))
+                .ForMember(dest => dest.Receiver, src => src.MapFrom(x => x.Receiver.UserName))
                 .ForMember(dest => dest.SenderId, src => src.MapFrom(x => x.SenderId))
-                .ForMember(dest => dest.SenderUserName, src => src.MapFrom(x => x.Sender.UserName))
+                .ForMember(dest => dest.Sender, src => src.MapFrom(x => x.Sender.UserName))
                 .ForMember(dest => dest.SentTime, src => src.MapFrom(x => x.SentTime))
                 .ForMember(dest => dest.Title, src => src.MapFrom(x => x.Title));
 

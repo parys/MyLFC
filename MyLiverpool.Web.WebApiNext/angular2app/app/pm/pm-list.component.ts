@@ -29,14 +29,14 @@ export class PmListComponent implements OnInit {
         this.sent = model.sent;
     }
 
-    delete(index: number) {
+    delete(index: number): void {
         //this.newsCategoryService.Delete(this.items[index].id).subscribe(data => data,
         //    error => console.log(error),
         //    () => console.log("success remove categoryu"));
         //this.items.splice(index, 1);
     }
 
-    writePm() {           
+    writePm(): void {           
         this.router.navigate(["/pm", 0, "edit"]);  
     }
 }

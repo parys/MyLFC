@@ -27,7 +27,7 @@ import * as shared from "./shared/index";
 import { UserDetailComponent } from "./user/user-detail.component";
 import { UserService } from "./user/user.service";
 import { UserListComponent } from "./user/user-list.component";
-import { PmListComponent, PmDetailComponent, PmEditComponent, PmService } from "./pm/index";
+import * as pm from "./pm/index";
 import { WishListComponent, WishService, WishEditComponent } from "./wish/index";
 import * as materialComment from "./materialComment/index";
 import { Ng2AutoCompleteModule } from "ng2-auto-complete";
@@ -84,6 +84,10 @@ import { FileUploadModule } from "ng2-file-upload/ng2-file-upload";
         newsCategory.NewsCategoryEditComponent,
         newsCategory.NewsCategoryListComponent,
         player.PlayerStatisticsComponent,
+        pm.PmDetailComponent,
+        pm.PmEditComponent,
+        pm.PmListComponent,
+        pm.PmReplyComponent,
         season.SeasonEplTableComponent,
         AppComponent,
         BreadcrumbComponent,
@@ -92,9 +96,7 @@ import { FileUploadModule } from "ng2-file-upload/ng2-file-upload";
         NewsListComponent,
         NewsDetailComponent,
         NewsEditComponent,
-        PmDetailComponent,
-        PmEditComponent,
-        PmListComponent,
+
         UserDetailComponent,
         UserListComponent,
         WishEditComponent,
@@ -111,6 +113,7 @@ import { FileUploadModule } from "ng2-file-upload/ng2-file-upload";
         match.MatchService,
         materialComment.MaterialCommentService,
         newsCategory.NewsCategoryService,
+        pm.PmService,
         roleGroup.RoleGroupService,
         shared.HttpWrapper,
         shared.GlobalValidators,
@@ -125,7 +128,6 @@ import { FileUploadModule } from "ng2-file-upload/ng2-file-upload";
         ForumSectionService,
         { provide: LocalStorage, useFactory: () => (window) ? window.localStorage : {}},
         NewsService,
-        PmService,
         Title,
         UserService,
         WishService

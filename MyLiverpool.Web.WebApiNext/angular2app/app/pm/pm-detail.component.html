@@ -2,13 +2,13 @@
     <div class="form-group">
         <label class="control-label col-md-2">Получатель</label>
         <div class="col-md-10">
-            <input class="form-control" disabled value="{{item.receiver}}" />
+            <input class="form-control" disabled [value]="item.receiver" />
         </div>
     </div>
     <div class="form-group">
         <label class="control-label col-md-2">Заголовок</label>
         <div class="col-md-10">
-            <input class="form-control" disabled value="{{item.title}}" />
+            <input class="form-control" disabled [value]="item.title" />
         </div>
     </div>
     <div class="form-group">
@@ -20,7 +20,7 @@
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <!--a [routerLink]="['/pm', 0, 'edit', {username: item.receiver, userId: item.id}]" >Ответить</!a-->
-            <a [routerLink]="['/pm', 0, 'edit']" >Ответить</a>
+            <a *ngIf="roles.isSelf(item.receiverId)" [routerLink]="['/pm', 0, 'edit']" >Ответить</a>
         </div>
     </div>
 </div>

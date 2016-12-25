@@ -1,4 +1,5 @@
 ﻿<div class="table-responsive">
+    <pm-reply *ngIf="selectedUserId" [userId]="items[selectedUserId].id" (close)="closePmWindow($event);" [userName]="items[selectedUserId].userName"></pm-reply>
     <table class="table table-striped table-condensed">
         <thead>
             <tr>
@@ -8,7 +9,7 @@
                 <th>Группа</th>
             </tr>
         </thead>
-        <tbody *ngFor="let user of items">
+        <tbody *ngFor="let user of items; let i = index;">
             <tr>
                 <td class="" [textContent]="user.lastModified | date:'medium'"></td>
                 <td class="">
@@ -19,7 +20,7 @@
                         <span [textContent]="user.userName"></span>
                     </a>
                     <span class="text-danger" tooltip="Почта не подтверждена" *ngIf="!user.emailConfirmed && (roles.isAdminAssist || roles.isSelf(user.id))"> *</span>
-                    <a *ngIf="roles.isLogined && !roles.isSelf(user.id)" ui-sref="wpm({ userName: user.userName })"><span class="glyphicon glyphicon-envelope"></span></a>
+                    <a *ngIf="roles.isLogined && !roles.isSelf(user.id)" (click)="writePm(i)"><span class="glyphicon glyphicon-envelope"></span></a>
                 </td>
                 <td class="" [textContent]="user.registrationDate | date:'medium'"></td>
                 <td class="" [textContent]="user.roleGroupName"></td>

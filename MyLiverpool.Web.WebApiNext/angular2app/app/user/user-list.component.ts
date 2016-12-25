@@ -24,6 +24,7 @@ export class UserListComponent implements OnInit, OnDestroy {
     totalItems: number;
     categoryId: number;
     userName: string;
+    selectedUserId: number;
 
     constructor(private userService: UserService,
         private location: Location,
@@ -47,12 +48,14 @@ export class UserListComponent implements OnInit, OnDestroy {
         this.sub.unsubscribe();
     }
 
-    private parsePageable(pageable: Pageable<User>): void {
-        this.items = pageable.list;
-        this.page = pageable.pageNo;
-        this.itemsPerPage = pageable.itemPerPage;
-        this.totalItems = pageable.totalItems;
+    writePm(index: number): void {
+        this.selectedUserId = index;
     }
+
+    closePmWindow(event: any): void {
+        this.selectedUserId = null;
+    }
+
 
     pageChanged(event: any): void {
         this.page = event.page;
@@ -80,5 +83,12 @@ export class UserListComponent implements OnInit, OnDestroy {
             .subscribe(data => this.parsePageable(data),
             error => console.log(error),
             () => {});
+    }
+
+    private parsePageable(pageable: Pageable<User>): void {
+        this.items = pageable.list;
+        this.page = pageable.pageNo;
+        this.itemsPerPage = pageable.itemPerPage;
+        this.totalItems = pageable.totalItems;
     }
 }
