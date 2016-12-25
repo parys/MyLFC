@@ -4,9 +4,12 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using MyLiverpool.Common.Utilities;
 using MyLiverpool.Data.Entities;
 using MyLiverpool.Data.ResourceAccess;
@@ -37,21 +40,28 @@ namespace MigratorVnext
         static Program()
         {
           //  Database.SetInitializer(new DatabaseInitializer());
-            LiverpoolContext db = new LiverpoolContext(new DbContextOptions<LiverpoolContext>());
-            //   db.Database.Initialize(true);
-            var store = new UserStore<User, Role, LiverpoolContext, int>(db);
+            var _db = GetNewContext();
+            _db.Database.Migrate();
+            new DatabaseInitializer(GetNewContext()).Seed(true);
+
+            var store = new UserStore<User, Role, LiverpoolContext, int>(_db);
+           
             IPasswordHasher<User> hasher = new PasswordHasher<User>();
             //var provider = new MachineKeyProtectionProvider();
             //var userStore = new UserStore<User, Role, int, UserLogin, UserRole, UserClaim>(_context);
-            var userManager = new UserManager<User>(store, null, hasher, null, null, null, null, null, null);
-            UserRepository = new UserRepository(db, userManager);
-            ForumMessageRepository = new ForumMessageRepository(db);
-            ForumSectionRepository = new ForumSectionRepository(db);
-            ForumSubsectionRepository = new ForumSubsectionRepository(db);
-            ForumThemeRepository = new ForumThemeRepository(db);
-            MaterialRepository = new MaterialRepository(db);
-            MaterialCategoryRepository = new MaterialCategoryRepository(db);
-            MaterialCommentRepository = new MaterialCommentRepository(db);
+            IOptions<IdentityOptions> options = Options.Create(new IdentityOptions());
+            ILookupNormalizer normalizer = new UpperInvariantLookupNormalizer();
+            options.Value.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@!#$&?";
+            var userManager = new UserManager<User>(store, options, hasher, null, null, normalizer, null, null, null);
+
+            UserRepository = new UserRepository(_db, userManager);
+            ForumMessageRepository = new ForumMessageRepository(GetNewContext());
+            ForumSectionRepository = new ForumSectionRepository(GetNewContext());
+            ForumSubsectionRepository = new ForumSubsectionRepository(GetNewContext());
+            ForumThemeRepository = new ForumThemeRepository(GetNewContext());
+            MaterialRepository = new MaterialRepository(GetNewContext());
+            MaterialCategoryRepository = new MaterialCategoryRepository(GetNewContext());
+            MaterialCommentRepository = new MaterialCommentRepository(GetNewContext());
 
         }
 
@@ -59,23 +69,57 @@ namespace MigratorVnext
         {
             UpdateFromFiles();
             UpdateDb();
-            //  Console.ReadKey();
+            Console.ReadKey();
         }
 
         public static void UpdateFromFiles()
         {
-            UpdateUsers();
-            _deleted = UserRepository.FindByNameAsync("deleted").Result;
-            UpdateUsersId();
-            UpdateBlogCategory();
-            UpdateNewsCategory();
-            UpdateBlogItems();
-            UpdateNewsItems();
-            UpdateComments();
-            UpdateForumSectionsAndPopulateSubsectionList();
-            UpdateForumSubsectionsFromList();
-            UpdateForumThemes();
-            UpdateForumComments();
+            //UpdateUsers();
+            //_deleted = UserRepository.FindByNameAsync("deleted").Result;
+            //UpdateUsersId();
+            //UpdateBlogCategory();
+            //UpdateNewsCategory();
+            //UpdateBlogItems();
+            //UpdateNewsItems();
+            //UpdateComments();
+            //UpdateForumSectionsAndPopulateSubsectionList();
+            //UpdateForumSubsectionsFromList();
+            //UpdateForumThemes();
+            //UpdateForumComments();
+            var users = Task.Run(() => UpdateUsers()); //1
+            var blogsC = Task.Run(() => UpdateBlogCategory()); //1
+            var newsC = Task.Run(() => UpdateNewsCategory()); //1
+            var forumS = Task.Run(() => UpdateForumSectionsAndPopulateSubsectionList()); //1
+
+
+            Task.WhenAll(blogsC, newsC).Wait();
+            MaterialCategoryRepository.SaveChangesAsync().Wait();
+
+            Task.WhenAll(users, forumS).Wait();
+            Console.WriteLine("End 1");
+
+            _deleted = UserRepository.GetByIdAsync(1).Result; // added creating delete uzver
+
+            var usersU = Task.Run(() => UpdateUsersId()); //2
+            var forumSubs = Task.Run(() => UpdateForumSubsectionsFromList()); //2
+
+            Task.WhenAll(usersU, forumSubs).Wait();
+            Console.WriteLine("End 2");
+
+            var blogs = Task.Run(() => UpdateBlogItems()); //3
+            var forumT = Task.Run(() => UpdateForumThemes()); //3
+
+            Task.WhenAll(blogs, forumT).Wait();
+            var news = Task.Run(() => UpdateNewsItems()); //3
+            Task.WhenAll(news).Wait();
+            MaterialRepository.SaveChangesAsync().Wait();
+            Console.WriteLine("End 3");
+
+            var matComm = Task.Run(() => UpdateComments()); //4
+            var forumMes = Task.Run(() => UpdateForumComments()); //4
+
+            Task.WhenAll(matComm, forumMes).Wait();
+            Console.WriteLine("End 4");
         }
 
         public static void UpdateDb()
@@ -353,13 +397,15 @@ namespace MigratorVnext
                     }
                     user.LastModified = DateTimeHelpers.ConvertUtcToLocalTime(long.Parse(lastDate));
                     user.RoleGroupId = (int)RoleGroupsEnum.Simple;
-                    UserRepository.AddAsync(user).RunSynchronously();
+                    var result = UserRepository.AddAsync(user).Result;
+                    //r.Wait();
                     while (chars[i] != 10)
                     {
                         i++;
                     }
                 }
             }
+            Console.WriteLine("End UpdateUsers");
         }
 
         private static void UpdateUsersId()
@@ -399,7 +445,7 @@ namespace MigratorVnext
                     if (user != null)
                     {
                         user.OldId = int.Parse(id);
-                        UserRepository.UpdateAsync(user).RunSynchronously();
+                        var result = UserRepository.UpdateAsync(user).Result;
                     }
 
                     while (chars[i] != 10)
@@ -408,7 +454,7 @@ namespace MigratorVnext
                     }
                 }
             }
-
+            Console.WriteLine("End UpdateUsersId");
         }
 
         private static void UpdateBlogItems()
@@ -556,6 +602,18 @@ namespace MigratorVnext
                     }
                     i++;
 
+                    if (brief != null)
+                    {
+                        brief = Regex.Replace(brief, "<!--IMG1-->", "");
+                        var matches = Regex.Matches(brief, "src\\s*=\\s*['\"](?<src>[^'\"]*)['\"]", RegexOptions.IgnoreCase);
+                        if (matches.Count > 0)
+                        {
+                            var path1 = Regex.Replace(matches[0].Value, "src=", "");
+                            var path2 = Regex.Replace(path1, "\"", "");
+                            blogItem.PhotoPath = path2;
+                        }
+                        brief = Regex.Replace(brief, "<img([\\w\\W]+?)/>", "");
+                    }
                     blogItem.Brief = brief;
                     // message
                     string message = null;
@@ -718,18 +776,19 @@ namespace MigratorVnext
                     //}
                     //else
                     //{
-                    var category = categories.First(x => x.Id == int.Parse(categoryId));
+                    var category = categories.First(x => x.OldId == int.Parse(categoryId));
                     blogItem.CategoryId = category.Id;
                     //   category.BlogItems.Add(blogItem);
-                    MaterialRepository.AddAsync(blogItem);
+                    var result = MaterialRepository.AddAsync(blogItem).Result;
                     //  }
                     // while (chars[i] != 10)
                     //  {
                     //       i++;
                     //  }
                 }
-
+               // MaterialRepository.SaveChangesAsync().Wait();
             }
+            Console.WriteLine("End UpdateBlogItems");
         }
 
         private static void UpdateNewsItems()
@@ -746,7 +805,7 @@ namespace MigratorVnext
                 {
                     limit = MaxChars * 10;
                 }
-
+                
                 var categories = MaterialCategoryRepository.GetAsync().Result.Where(x => x.MaterialType == MaterialType.News).ToList();
 
                 for (int i = 0; i < limit; i++)
@@ -1058,8 +1117,7 @@ namespace MigratorVnext
                     //}
                     //else
                     //{
-                    var category = categories.FirstOrDefault(x => x.OldId == int.Parse(categoryId)) ??
-                                   categories.First(x => x.OldId == 5);
+                    var category = categories.FirstOrDefault(x => x.OldId == int.Parse(categoryId)) ?? categories.First(x => x.OldId == 5); //old new doesn't contain category
                     newsItem.CategoryId = category.Id;
 
                     //  category.Materials.Add(newsItem);
@@ -1070,7 +1128,9 @@ namespace MigratorVnext
                     //       i++;
                     //  }
                 }
+               // MaterialRepository.SaveChangesAsync().Wait();
             }
+            Console.WriteLine("End UpdateNewsItems");
         }
 
         private static void UpdateBlogCategory()
@@ -1142,9 +1202,11 @@ namespace MigratorVnext
                     }
                     i++;
 
-                    MaterialCategoryRepository.AddAsync(blogCategory);
+                    var result = MaterialCategoryRepository.AddAsync(blogCategory).Result;
                 }
+                //  MaterialCategoryRepository.SaveChangesAsync().Wait();
             }
+            Console.WriteLine("End UpdateBlogCategory");
         }
 
         private static void UpdateNewsCategory()
@@ -1217,7 +1279,9 @@ namespace MigratorVnext
                     }
                     MaterialCategoryRepository.AddAsync(newsCategory);
                 }
+                //  MaterialCategoryRepository.SaveChangesAsync().Wait();
             }
+            Console.WriteLine("End UpdateNewsCategory");
         }
 
         private static void UpdateComments()
@@ -1428,7 +1492,10 @@ namespace MigratorVnext
                     if (pending == '1')
                         comment.Pending = true;
                     comment.AdditionTime = DateTimeHelpers.ConvertUtcToLocalTime(long.Parse(additionTime));
-                    comment.Author = UserRepository.FindByNameAsync(userName).Result;
+                    if (!string.IsNullOrEmpty(userName))
+                    {
+                        comment.Author = UserRepository.FindByNameAsync(userName).Result;
+                    }
                     if (comment.Author == null)
                     {
                         comment.AuthorId = _deleted.Id;
@@ -1442,12 +1509,11 @@ namespace MigratorVnext
                     }
                     //comment.ParentId = int.Parse(parentId);
 
-                    MaterialCommentRepository.AddAsync(comment);
-
+                    var result = MaterialCommentRepository.AddAsync(comment);
                 }
-                MaterialCommentRepository.SaveChangesAsync().RunSynchronously();
-                //?? UnitOfWork.Save();
+                MaterialCommentRepository.SaveChangesAsync().Wait();
             }
+            Console.WriteLine("End UpdateComments");
         }
 
         private static void UpdateForumSectionsAndPopulateSubsectionList()
@@ -1460,6 +1526,7 @@ namespace MigratorVnext
 
                 char[] chars = Encoding.UTF8.GetString(data).ToCharArray();
                 var limit = chars.Length;
+                var forumSubsections = new List<ForumSubsection>();
                 if (UseLimit && MaxChars < chars.Length)
                 {
                     limit = MaxChars;
@@ -1570,20 +1637,20 @@ namespace MigratorVnext
                         // last modified
 
                         Subsections.Add(forumSubsection);
-                        //     UnitOfWork.ForumSubsectionRepository.Add(forumSubsection);
                         while (chars[i] != 10)
                         {
                             i++;
                         }
                     }
                 }
-               //? UnitOfWork.Save();
-                ForumSectionRepository.SaveChangesAsync();
             }
+            ForumSectionRepository.SaveChangesAsync().Wait();
+            Console.WriteLine("End UpdateForumSections");
         }
 
         private static void UpdateForumSubsectionsFromList()
         {
+            Console.WriteLine("Start UpdateForumSubsections");
             var sections = ForumSectionRepository.GetListAsync().Result;
 
             foreach (var subsection in Subsections)
@@ -1593,6 +1660,9 @@ namespace MigratorVnext
             }
 
             Subsections.ForEach(x => ForumSubsectionRepository.AddAsync(x));
+
+            ForumSubsectionRepository.SaveChangesAsync().Wait();
+            Console.WriteLine("End UpdateForumSubsections");
         }
 
         private static void UpdateForumThemes()
@@ -1706,6 +1776,10 @@ namespace MigratorVnext
                     }
                     i++;
                     forumTheme.Author = UserRepository.FindByNameAsync(author).Result;
+                    if (forumTheme.Author == null)
+                    {
+                        forumTheme.AuthorId = _deleted.Id;
+                    }
                     // user reg????
                     while (chars[i] != '|')
                     {
@@ -1722,17 +1796,21 @@ namespace MigratorVnext
                     }
                     i++;
                     forumTheme.LastAnswerUser = UserRepository.FindByNameAsync(authorLastMessage).Result;
-
+                    if (forumTheme.LastAnswerUser == null)
+                    {
+                        forumTheme.LastAnswerUserId = _deleted.Id;
+                    }
 
                     Themes.Add(forumTheme);
-                    //   UnitOfWork.ForumThemeRepository.Add(forumTheme);
+                    var result = ForumThemeRepository.AddAsync(forumTheme).Result;
                     while (chars[i] != 10)
                     {
                         i++;
                     }
                 }
-                //  UnitOfWork.Save();
+                ForumThemeRepository.SaveChangesAsync().Wait();
             }
+            Console.WriteLine("End UpdateForumThemes");
         }
 
         private static void UpdateForumComments()
@@ -1824,22 +1902,16 @@ namespace MigratorVnext
                     {
                         i++;
                     }
-                    if (UseLimit)
+                    //    if (UseLimit)
+                    //     {
+                    //         theme?.Messages.Add(forumMessage);
+                    //     }
+                    if (theme != null)
                     {
-                        theme?.Messages.Add(forumMessage);
-                        //  UnitOfWork.ForumMessageRepository.Add(forumMessage);
-                    }
-
-
-                }
-                foreach (var item in Themes)
-                {
-                    if (item.Messages.Any())
-                    {
-                        ForumThemeRepository.AddAsync(item).RunSynchronously();
+                        var result = ForumMessageRepository.AddAsync(forumMessage).Result;
                     }
                 }
-                ForumThemeRepository.SaveChangesAsync().RunSynchronously();
+                ForumMessageRepository.SaveChangesAsync().Wait();
             }
             Console.WriteLine("End UpdateForumComments");
         }
@@ -2009,5 +2081,11 @@ namespace MigratorVnext
         }
 
         #endregion
+
+        private static LiverpoolContext GetNewContext()
+        {
+            return new LiverpoolContext(new DbContextOptions<LiverpoolContext>(), true);
+        }
     }
 }
+

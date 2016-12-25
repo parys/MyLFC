@@ -27,6 +27,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             var user = await _context.Users.Where(x => x.Id == id).Select(x => new User
             {
                 Id = x.Id,
+                OldId = x.OldId,
                 Birthday = x.Birthday,
                 BlogsCount = x.Materials.Count(y => y.Type == MaterialType.Blog),
                 NewsCount = x.Materials.Count(y => y.Type == MaterialType.News),
@@ -174,9 +175,10 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             return await _userManager.CreateAsync(user, password);
         }
 
-        public Task<User> AddAsync(User entity)
+        public async Task<User> AddAsync(User entity)
         {
-            throw new NotImplementedException();
+            var result =  await _userManager.CreateAsync(entity, "123qwe!Q"); //for migrator
+            return result.Succeeded ? entity : null;
         }
 
         public Task DeleteAsync(int id)

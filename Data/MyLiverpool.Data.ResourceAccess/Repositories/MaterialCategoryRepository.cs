@@ -26,6 +26,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
                         .Select(x => new MaterialCategory()
                         {
                             Id = x.Id,
+                            OldId = x.OldId,
                             Description = x.Description,
                             ItemsCount = x.Materials.Count,
                             Name = x.Name,
@@ -81,13 +82,19 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
         public async Task<ICollection<MaterialCategory>> GetAsync(Expression<Func<MaterialCategory, bool>> filter = null,
             params Expression<Func<MaterialCategory, object>>[] includeProperties)
         {
-            return await _context.MaterialCategories.Include(x => x.Materials).Where(filter).Select(x => new MaterialCategory()
+            IQueryable<MaterialCategory> dbset = _context.MaterialCategories.Include(x => x.Materials);
+            if (filter != null)
+            {
+                dbset = dbset.Where(filter);
+            }
+            return await dbset.Select(x => new MaterialCategory()
             {
                 Id = x.Id,
                 Description = x.Description,
                 ItemsCount = x.Materials.Count,
                 Name = x.Name,
-                MaterialType = x.MaterialType
+                MaterialType = x.MaterialType,
+                OldId = x.OldId
             }).ToListAsync();
         }
     }

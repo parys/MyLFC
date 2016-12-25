@@ -11,9 +11,11 @@ namespace MyLiverpool.Data.ResourceAccess
     public class LiverpoolContext : IdentityDbContext<User, Role, int>//, UserLogin, UserRole, UserClaim>
     {
         private static bool _created;
+        private static bool _migrator = false;
 
-        public LiverpoolContext(DbContextOptions<LiverpoolContext> options) : base(options)
+        public LiverpoolContext(DbContextOptions<LiverpoolContext> options, bool migrator = false) : base(options)
         {
+            _migrator = migrator;
             if (!_created)
             {
                 _created = true;
@@ -123,7 +125,13 @@ namespace MyLiverpool.Data.ResourceAccess
 
         protected override void OnConfiguring(DbContextOptionsBuilder modelBuilder)
         {
-            modelBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking); //todo ??
+           // modelBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking); //
+            if (_migrator)
+            {
+                modelBuilder.UseOpenIddict<int>();
+                modelBuilder.UseSqlServer(
+                    "Server=(localdb)\\MSSQLLocalDB;Database=MyLiverpool1123;Trusted_Connection=True;MultipleActiveResultSets=true");
+            }
             base.OnConfiguring(modelBuilder);
         }
     }

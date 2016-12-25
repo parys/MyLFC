@@ -30,7 +30,7 @@ namespace MyLiverpool.Data.ResourceAccess
             this._context = context;
         }
 
-        public async void Seed()
+        public async void Seed(bool migrator = false)
         {
             if (_context.Roles.Any()) return;
 
@@ -38,21 +38,24 @@ namespace MyLiverpool.Data.ResourceAccess
             await InitializeRoleGroups();
             await InitRoleRoleGroups();
 
-            await InitUsers();
+            if (!migrator)
+            {
+                await InitUsers();
 
-            await InitializeNewsCategories();
-            await InitializeNews();
-            await InitializeNewsComments();
+                await InitializeNewsCategories();
+                await InitializeNews();
+                await InitializeNewsComments();
 
-            await InitializeBlogCategories();
-            await InitializeBlog();
-            await InitializeBlogComments();
+                await InitializeBlogCategories();
+                await InitializeBlog();
+                await InitializeBlogComments();
 
-            await InitializePrivateMessages();
+                await InitializePrivateMessages();
 
-            await InitializeForumSections();
-            await InitializeForumSubsections();
-            await InitializeForumThemes();
+                await InitializeForumSections();
+                await InitializeForumSubsections();
+                await InitializeForumThemes();
+            }
 
             await AddApplication();
         }
@@ -198,28 +201,28 @@ namespace MyLiverpool.Data.ResourceAccess
         {
             if (_context.RoleRoleGroups.Any()) return;
 
-            var adminRole = _context.Roles.First(x => x.Name == RolesEnum.AdminFull.ToString()); //1
-            var adminAssistanceRole = _context.Roles.First(x => x.Name == RolesEnum.AdminStart.ToString());
-            var moderatorRole = _context.Roles.First(x => x.Name == RolesEnum.UserStart.ToString());//3
-            var mainModeratorRole = _context.Roles.First(x => x.Name == RolesEnum.UserFull.ToString());
-            var authorRole = _context.Roles.First(x => x.Name == RolesEnum.BlogStart.ToString());//5
-            var mainAuthorRole = _context.Roles.First(x => x.Name == RolesEnum.BlogFull.ToString());
-            var internRole = _context.Roles.First(x => x.Name == RolesEnum.Intern.ToString());
+            var adminRole = await _context.Roles.FirstAsync(x => x.Name == RolesEnum.AdminFull.ToString()); //1
+            var adminAssistanceRole = await _context.Roles.FirstAsync(x => x.Name == RolesEnum.AdminStart.ToString());
+            var moderatorRole = await _context.Roles.FirstAsync(x => x.Name == RolesEnum.UserStart.ToString());//3
+            var mainModeratorRole = await _context.Roles.FirstAsync(x => x.Name == RolesEnum.UserFull.ToString());
+            var authorRole = await _context.Roles.FirstAsync(x => x.Name == RolesEnum.BlogStart.ToString());//5
+            var mainAuthorRole = await _context.Roles.FirstAsync(x => x.Name == RolesEnum.BlogFull.ToString());
+            var internRole = await _context.Roles.FirstAsync(x => x.Name == RolesEnum.Intern.ToString());
             // var mainEditorRole = _context.RoleGroups.First(x => x.Name == RolesEnum..ToString());//7
             //  var editorRole = _context.RoleGroups.First(x => x.Name == RolesEnum..ToString());
-            var mainNewsmakeRole = _context.Roles.First(x => x.Name == RolesEnum.NewsFull.ToString());//9
-            var newsmakerRole = _context.Roles.First(x => x.Name == RolesEnum.NewsStart.ToString());
+            var mainNewsmakeRole = await _context.Roles.FirstAsync(x => x.Name == RolesEnum.NewsFull.ToString());//9
+            var newsmakerRole = await _context.Roles.FirstAsync(x => x.Name == RolesEnum.NewsStart.ToString());
 
-            var adminGroup = _context.RoleGroups.First(x => x.Name == RoleGroupsEnum.Admin.ToString()); //1
-            var adminAssistGroup = _context.RoleGroups.First(x => x.Name == RoleGroupsEnum.AdminAssistance.ToString()); 
-            var mainNewsGroup = _context.RoleGroups.First(x => x.Name == RoleGroupsEnum.MainNewsmaker.ToString()); 
-            var newsGroup = _context.RoleGroups.First(x => x.Name == RoleGroupsEnum.Newsmaker.ToString()); 
-            var editorGroup = _context.RoleGroups.First(x => x.Name == RoleGroupsEnum.Editor.ToString()); 
-            var internGroup = _context.RoleGroups.First(x => x.Name == RoleGroupsEnum.Intern.ToString()); 
-            var moderatorGroup = _context.RoleGroups.First(x => x.Name == RoleGroupsEnum.Moderator.ToString()); 
-            var mainModeratorGroup = _context.RoleGroups.First(x => x.Name == RoleGroupsEnum.MainModerator.ToString()); 
-            var authorGroup = _context.RoleGroups.First(x => x.Name == RoleGroupsEnum.Author.ToString()); 
-            var mainEditorGroup = _context.RoleGroups.First(x => x.Name == RoleGroupsEnum.MainEditor.ToString()); 
+            var adminGroup = await _context.RoleGroups.FirstAsync(x => x.Name == RoleGroupsEnum.Admin.ToString()); //1
+            var adminAssistGroup = await _context.RoleGroups.FirstAsync(x => x.Name == RoleGroupsEnum.AdminAssistance.ToString()); 
+            var mainNewsGroup = await _context.RoleGroups.FirstAsync(x => x.Name == RoleGroupsEnum.MainNewsmaker.ToString()); 
+            var newsGroup = await _context.RoleGroups.FirstAsync(x => x.Name == RoleGroupsEnum.Newsmaker.ToString()); 
+            var editorGroup = await _context.RoleGroups.FirstAsync(x => x.Name == RoleGroupsEnum.Editor.ToString()); 
+            var internGroup = await _context.RoleGroups.FirstAsync(x => x.Name == RoleGroupsEnum.Intern.ToString()); 
+            var moderatorGroup = await _context.RoleGroups.FirstAsync(x => x.Name == RoleGroupsEnum.Moderator.ToString()); 
+            var mainModeratorGroup = await _context.RoleGroups.FirstAsync(x => x.Name == RoleGroupsEnum.MainModerator.ToString()); 
+            var authorGroup = await _context.RoleGroups.FirstAsync(x => x.Name == RoleGroupsEnum.Author.ToString()); 
+            var mainEditorGroup = await _context.RoleGroups.FirstAsync(x => x.Name == RoleGroupsEnum.MainEditor.ToString()); 
             
 
             #region adminRoleRoleGroups
