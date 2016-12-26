@@ -19,6 +19,7 @@ namespace MyLiverpool.Business.Services
         private readonly IUserRepository _userRepository;
         private readonly IRoleGroupRepository _roleGroupRepository;
         private readonly IMapper _mapper;
+        private const string DefaultPhotoPath = "/content/avatars/default.png";
 
         public UserService(IMapper mapper, IUserRepository userRepository, IRoleGroupRepository roleGroupRepository)
         {
@@ -131,7 +132,6 @@ namespace MyLiverpool.Business.Services
         public async Task<User> UpdateAsync(User user)
         {
             var result = await _userRepository.UpdateAsync(user);
-           // await _unitOfWork.SaveAsync();
             return result;
         }
 
@@ -150,6 +150,18 @@ namespace MyLiverpool.Business.Services
         public async Task<string> GetUsernameAsync(int id)
         {
             return await _userRepository.GetUsername(id);
+        }
+
+        public async Task<string> ResetAvatarAsync(int userId)
+        {
+            var user = await _userRepository.GetByIdAsync(userId);
+            if (user == null)
+            {
+                throw new NullReferenceException("User can't be null");
+            }
+            user.Photo = DefaultPhotoPath;
+            user = await _userRepository.UpdateAsync(user);//todo should remove old file
+            return user.Photo;
         }
 
         #region private

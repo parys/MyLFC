@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using MyLiverpool.Business.DtoNext;
-using MyLiverpool.Business.DTO;
 using MyLiverpool.Common.Utilities;
 using MyLiverpool.Data.Entities;
 
@@ -34,6 +33,7 @@ namespace MyLiverpool.Business.Contracts
         Task<UserDto> GetUserAsync(int id);
 
         Task<string> GetUsernameAsync(int id);
-        
+
+        Task<string> ResetAvatarAsync(int userId);
     }
 }

@@ -11,7 +11,7 @@
     private fullName: string;
     roleGroupId: number;
     lockoutEnd: Date;
-    private photo: string;
+    photo: string;
     private newsCount: number;
     private blogsCount : number;
 }

@@ -17,6 +17,7 @@ namespace MyLiverpool.Business.Services
         private readonly IEmailSender _messageService;
         private readonly IHttpContextAccessor _accessor;
         private readonly IUserRepository _userRepository;
+        private const string DefaultPhotoPath = "/content/avatars/default.png";
 
         public AccountService(IMapper mapper, IEmailSender messageService, IHttpContextAccessor accessor, IUserRepository userRepository)
         {
@@ -75,8 +76,9 @@ namespace MyLiverpool.Business.Services
             user.LastModified = DateTime.Now;
             user.LockoutEnabled = true;
             user.RoleGroupId = (int)RoleGroupsEnum.Simple;
+            user.Photo = DefaultPhotoPath;
 
-            IdentityResult result = await _userRepository.CreateAsync(user, model.Password);
+        IdentityResult result = await _userRepository.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {
                 await _userRepository.AddToRoleAsync(user, RolesEnum.Simple.ToString());

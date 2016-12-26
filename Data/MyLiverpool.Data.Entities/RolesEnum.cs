@@ -11,8 +11,8 @@
         UserFull = 6,
         AdminStart = 7,
         AdminFull = 8,
-        ModeratorStart = 9,
-        ModeratorFull = 10,
+     //   ModeratorStart = 9,
+     //   ModeratorFull = 10,
         Intern = 11,
     }
 }

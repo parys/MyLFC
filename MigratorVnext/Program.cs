@@ -398,6 +398,7 @@ namespace MigratorVnext
                     }
                     user.LastModified = DateTimeHelpers.ConvertUtcToLocalTime(long.Parse(lastDate));
                     user.RoleGroupId = (int)RoleGroupsEnum.Simple;
+                    user.Photo = "/content/avatars/default.png";
                     var result = UserRepository.AddAsync(user).Result;
                     //r.Wait();
                     while (chars[i] != 10)

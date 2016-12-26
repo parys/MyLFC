@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Net;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyLiverpool.Business.Contracts;
@@ -15,14 +16,17 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     public class UserController : Controller
     {
         private readonly IUserService _userService;
+        private readonly IUploadService _uploadService; //todo should call remove and method move to user service
 
         /// <summary>
         /// Constructor.
         /// </summary>
         /// <param name="userService"></param>
-        public UserController(IUserService userService)
+        /// <param name="uploadService"></param>
+        public UserController(IUserService userService, IUploadService uploadService)
         {
             _userService = userService;
+            _uploadService = uploadService;
         }
         
         /// <summary>
@@ -36,13 +40,11 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         }
         
         /// <summary>
-        /// 
+        /// Returns user by id.
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        [Route("{id:int}")]
-        [HttpGet]
-        [AllowAnonymous]
+        /// <param name="id">The identifier of user.</param>
+        /// <returns>Found user.</returns>
+        [AllowAnonymous, HttpGet("{id:int}")]
         public async Task<IActionResult> Get(int id)
         {
             return Ok(await _userService.GetUserAsync(id));
@@ -87,7 +89,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <param name="typed"></param>
         /// <returns></returns>
-        [AllowAnonymous, HttpGet("GetUsernames")]
+        [AllowAnonymous, HttpGet("GetUserNames")]
         public async Task<IActionResult> GetUserNames([FromQuery]string typed)
         {
             var result = await _userService.GetUserNamesAsync(typed);
@@ -118,6 +120,54 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         public async Task<IActionResult> UnbanUser(int userId)
         {
             var result = await _userService.UnbanUser(userId);
+            return Ok(result);
+        }
+
+
+
+        /// <summary>
+        /// Uploads a new user's avatar.
+        /// </summary>
+        /// <param name="userId">The identifier of updatable user.</param>
+        /// <returns>Result of uploading new avatar.</returns>
+        [Authorize, HttpPost("avatar/{id:int}")]
+        public async Task<ActionResult> UploadAvatarAsync(int userId)
+        {
+            if (User.GetUserId() != userId)
+            {
+                return StatusCode((int)HttpStatusCode.Forbidden);
+            }
+            //  if (!Request.Form.IsMimeMultipartContent())
+            //  {
+            //       return BadRequest();
+            //  }
+
+            if (Request.Form.Files != null && Request.Form.Files.Count > 0)
+            {
+                //  if (HttpContext.Current.Request.Files !=.Count > 0)
+                {
+                    var file = Request.Form.Files[0];
+                    var result = await _uploadService.UpdateAvatarAsync(userId, file);
+
+                    return Ok(result);
+                }
+            }
+            return BadRequest();
+        }
+
+        /// <summary>
+        /// Resets user's avatar to default.
+        /// </summary>
+        /// <param name="userId">The identifier of resetting avatar user.</param>
+        /// <returns>New user photo path.</returns>
+        [Authorize, HttpPut("avatar/{userId:int}/reset")]
+        public async Task<ActionResult> ResetAvatarAsync(int userId)
+        {
+            if (!User.IsInRole(nameof(RolesEnum.UserStart)) && User.GetUserId() != userId)
+            {
+                return StatusCode((int)HttpStatusCode.Forbidden);
+            }
+            var result = await _userService.ResetAvatarAsync(userId);
             return Ok(result);
         }
     }

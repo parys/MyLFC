@@ -26,6 +26,7 @@ namespace MyLiverpool.Data.ResourceAccess
         private const int CountUsers = 3;
         private const MaterialType NewsType = MaterialType.News;
         private const MaterialType BlogType = MaterialType.Blog;
+        private const string DefaultPhotoPath = "/content/avatars/default.png";
 
         public DatabaseInitializer(LiverpoolContext context)
         {
@@ -176,14 +177,14 @@ namespace MyLiverpool.Data.ResourceAccess
                 {
                     Name = RolesEnum.AdminStart.ToString(),
                 },
-                new Role()
-                {
-                    Name = RolesEnum.ModeratorFull.ToString(),
-                },
-                new Role()//11
-                {
-                    Name = RolesEnum.ModeratorStart.ToString(),
-                },
+                //new Role()
+                //{
+                //    Name = RolesEnum.ModeratorFull.ToString(),
+                //},
+                //new Role()//11
+                //{
+                //    Name = RolesEnum.ModeratorStart.ToString(),
+                //},
                 new Role()//12
                 {
                     Name = RolesEnum.Intern.ToString(),
@@ -513,7 +514,7 @@ namespace MyLiverpool.Data.ResourceAccess
                 RegistrationDate = DateTime.Now,
                 RoleGroupId = (int)RoleGroupsEnum.Simple,
                 LockoutEnabled = true,
-                Photo = string.Empty,
+                Photo = DefaultPhotoPath,
                 EmailConfirmed = true,
             };
 
@@ -536,7 +537,7 @@ namespace MyLiverpool.Data.ResourceAccess
                 RegistrationDate = DateTime.Now,
                 RoleGroupId = (int)RoleGroupsEnum.Simple,
                 LockoutEnabled = true,
-                Photo = string.Empty,
+                Photo = DefaultPhotoPath,
                 EmailConfirmed = true,
             };
 
@@ -586,7 +587,7 @@ namespace MyLiverpool.Data.ResourceAccess
                 Birthday = DateTime.Now,
                 RoleGroupId = (int)RoleGroupsEnum.Moderator,
                 LockoutEnabled = true,
-                Photo = string.Empty,
+                Photo = DefaultPhotoPath,
                 EmailConfirmed = true,
             };
 
@@ -612,7 +613,7 @@ namespace MyLiverpool.Data.ResourceAccess
                 Birthday = DateTime.Now,
                 RoleGroupId = (int)RoleGroupsEnum.Author,
                 LockoutEnabled = true,
-                Photo = string.Empty,
+                Photo = DefaultPhotoPath,
                 EmailConfirmed = true,
             };
 
@@ -637,7 +638,7 @@ namespace MyLiverpool.Data.ResourceAccess
                 Birthday = DateTime.Now,
                 RoleGroupId = (int)RoleGroupsEnum.Intern,
                 LockoutEnabled = true,
-                Photo = string.Empty,
+                Photo = DefaultPhotoPath,
                 EmailConfirmed = true,
             };
 
@@ -664,7 +665,7 @@ namespace MyLiverpool.Data.ResourceAccess
                 Birthday = DateTime.Now,
                 RoleGroupId = (int)RoleGroupsEnum.Editor,
                 LockoutEnabled = true,
-                Photo = string.Empty,
+                Photo = DefaultPhotoPath,
                 EmailConfirmed = true,
             };
 
@@ -694,7 +695,7 @@ namespace MyLiverpool.Data.ResourceAccess
                 Birthday = DateTime.Now,
                 RoleGroupId = (int)RoleGroupsEnum.Newsmaker,
                 LockoutEnabled = true,
-                Photo = string.Empty,
+                Photo = DefaultPhotoPath,
                 EmailConfirmed = true,
             };
             

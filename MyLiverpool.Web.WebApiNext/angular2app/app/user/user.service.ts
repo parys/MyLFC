@@ -35,6 +35,10 @@ export class UserService {
         return this.http.put(`${this.actionUrl}unban/${id}`, "").map(response => response.json());
     };
 
+    resetAvatar = (id: number): Observable<string> => {
+        return this.http.put(`${this.actionUrl}avatar/${id}/reset`, "").map(response => response.json());
+    };
+
     private extractData(res: Response) {
         let body = res.json();
         return body.data || {};

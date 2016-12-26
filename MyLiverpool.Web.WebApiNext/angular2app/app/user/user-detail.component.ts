@@ -75,6 +75,12 @@ export class UserDetailComponent implements OnInit, OnDestroy {
             });
     }
 
+    resetAvatar(): void {
+        this.service.resetAvatar(this.item.id).subscribe(result => this.item.photo = result,
+            error => console.log(error),
+            () => {});
+    }
+
     unban(): void {
         this.service.unban(this.item.id)
             .subscribe(data => {
