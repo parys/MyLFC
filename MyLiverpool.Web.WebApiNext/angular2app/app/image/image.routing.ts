@@ -1,7 +1,7 @@
 ﻿import { Routes } from "@angular/router";
-import { ImageListComponent } from "./index";
+import { ImageListComponent, ImageEditComponent } from "./index";
 
 export const imageRoutes: Routes = [
-    { path: "image", component: ImageListComponent, data: { title: "Изображения" } }
- //   { path: "match", component: MatchListComponent, data: { title: "Матчи" } }
+    { path: "image/add", component: ImageEditComponent, data: { title: "Загрузка изображений" } },
+    { path: "image", component: ImageListComponent, data: { title: "Изображения" }}
 ];

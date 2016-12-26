@@ -83,12 +83,10 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Upload new images.
         /// </summary>
-        /// <returns></returns>
-        [Authorize(Roles = "NewsStart,BlogStart")]
-        [Route("Images")]
-        [HttpPost]
+        /// <returns>Result of uploading.</returns>
+        [Authorize(Roles = nameof(RolesEnum.NewsStart) + "," + nameof(RolesEnum.BlogStart)), HttpPost("Images")]
         public async Task<IActionResult> UploadImages()
         {
             //if (!Request.Content.IsMimeMultipartContent())

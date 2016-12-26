@@ -1,28 +1,23 @@
-﻿<!--<div class="row">
+﻿<div class="row">
     <div class="col-xs-10 col-sm-10">
         <div>
             <h4>Загрузка файлов</h4>
-            <button ngf-select="vm.uploadFiles($files)" multiple accept="image/*">
-                Выберите файлы
-            </button>
+            <input type="file" ng2FileSelect [uploader]="uploader" multiple /><br />
             <br>
             <br>Файлы:
-            <ul>
-                <li ng-repeat="f in vm.files">
-                    {{f.name}}
-                </li>
-            </ul>
-            <span class="progress" ng-show="vm.progress >= 0">
-                <span style="width: {{vm.progress}}% " ng-bind="vm.progress + '%'"></span>
-            </span>
-            {{vm.errorMsg}}
+
+            <button type="button" class="btn btn-success btn-xs"
+                    (click)="upload()" [disabled]="uploader.queue.length == 0">
+                <span class="glyphicon glyphicon-upload"></span> Upload
+            </button>
         </div>
-        <div ng-repeat="f in vm.result">
+        <img *ngIf="uploadedFile" [src]="uploadedFile" alt="" />
+        <!--->div ng-repeat="f in vm.result">
             <img style="width: 200px;" [src]="f" />
             <input id="photo{{$index}}" value="{{f}}" />
             <button class="btn" ngclipboard data-clipboard-target="#photo{{$index}}">
                 <span class="glyphicon glyphicon-file"></span>
             </button>
-        </div>
+        </!--div>-->
     </div>
-</div>-->
+</div>

@@ -51,7 +51,6 @@ export class ClubEditComponent implements OnInit, OnDestroy {
     }
     upload() {           
         this.uploader.queue[0].onComplete = (response: string, status: number, headers: any) => {
-            console.log(response, status, headers);
             this.editForm.controls["logo"].patchValue(response);
         }
         this.uploader.uploadAll();

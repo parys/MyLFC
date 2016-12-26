@@ -18,6 +18,10 @@ export class LocalStorageService {
         return this.get("access_token") !== null;
     }
 
+    getAccessToken(): string {
+        return this.get("access_token");
+    }
+
     getAccessTokenWithType(): string {                                         
         return `${this.get("token_type")} ${this.get("access_token")}`;
     }

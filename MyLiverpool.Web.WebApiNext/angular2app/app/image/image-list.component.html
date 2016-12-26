@@ -1,5 +1,5 @@
 ﻿<div>
-    <a ui-sref="imagesAdd({})">Добавить</a>
+    <a [routerLink]="['/image/add']">Добавить</a>
     <a class="pull-right" *ngIf="selectedItem" (click)="removeSelection()">Отменить выбор</a>
     <image-detail *ngIf="selectedItem" [item]="selectedItem"></image-detail>
     <div *ngFor="let file of items">

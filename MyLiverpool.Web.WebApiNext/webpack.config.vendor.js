@@ -43,7 +43,8 @@ var SharedConfig = {
             "jquery",
             "rxjs",
             "ng2-auto-complete",
-            "ng2-bootstrap"
+            "ng2-bootstrap",
+            "ng2-file-upload"
         ]
     },
     output: {
@@ -72,12 +73,13 @@ var ClientBundleConfig = Merge(SharedConfig,
         new Webpack.DllPlugin({
             path: Path.join(__dirname, "wwwroot", "js", "[name]-manifest.json"),
             name: "[name]_[hash]"
-        })
-    ].concat(IsDevBuild
-        ? [
-            new WebpackNotifierPlugin({ title: "vendorBuild-client", alwaysNotify: true })
-        ]
-        : [
+        }),
+  //  ]
+     //   .concat(IsDevBuild
+      //  ? [
+            new WebpackNotifierPlugin({ title: "vendorBuild-client", alwaysNotify: true }),
+      //  ]
+     //   : [
             new Webpack.optimize.OccurrenceOrderPlugin(),
             new Webpack.optimize.UglifyJsPlugin({
                 compress: { warnings: false },
@@ -86,7 +88,7 @@ var ClientBundleConfig = Merge(SharedConfig,
                 },
                 minimize: true
             })
-        ])
+        ]//)
 });
 
 var ServerBundleConfig = Merge(SharedConfig, {
@@ -112,4 +114,6 @@ var ServerBundleConfig = Merge(SharedConfig, {
     ]
 });
 
-module.exports = [ClientBundleConfig, ServerBundleConfig];
+module.exports = [ClientBundleConfig
+    , ServerBundleConfig
+];

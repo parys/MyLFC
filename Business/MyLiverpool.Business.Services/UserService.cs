@@ -37,7 +37,7 @@ namespace MyLiverpool.Business.Services
         public async Task<bool> UnbanUser(int userId)
         {
             var user = await _userRepository.GetByIdAsync(userId);
-            var result = await _userRepository.SetLockoutEndDateAsync(user, DateTimeOffset.MinValue);
+            var result = await _userRepository.SetLockoutEndDateAsync(user, new DateTimeOffset?());
             return result == IdentityResult.Success;
         }
         

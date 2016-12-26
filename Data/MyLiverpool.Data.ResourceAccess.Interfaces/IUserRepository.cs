@@ -18,7 +18,7 @@ namespace MyLiverpool.Data.ResourceAccess.Interfaces
 
         Task<User> UpdateAsync(User user);
 
-        Task<IdentityResult> SetLockoutEndDateAsync(User user, DateTimeOffset dateTimeOffset);
+        Task<IdentityResult> SetLockoutEndDateAsync(User user, DateTimeOffset? dateTimeOffset);
 
         Task<DateTimeOffset?> GetLockoutEndDateAsync(int userId);
 

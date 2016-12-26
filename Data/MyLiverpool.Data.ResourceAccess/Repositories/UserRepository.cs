@@ -77,7 +77,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             return user;
         }
 
-        public async Task<IdentityResult> SetLockoutEndDateAsync(User user, DateTimeOffset dateTimeOffset)
+        public async Task<IdentityResult> SetLockoutEndDateAsync(User user, DateTimeOffset? dateTimeOffset)
         {
             return await _userManager.SetLockoutEndDateAsync(user, dateTimeOffset);
         }
