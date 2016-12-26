@@ -14,9 +14,14 @@ export class PmReplyComponent implements OnInit, OnDestroy {
     editForm: FormGroup;
     id: number = 0;
     private sub: Subscription;
-    @Input() userName: string;
-    @Input() userId: number;
-    @Output() close = new EventEmitter();
+    @Input()
+    userName: string;
+    @Input()
+    userId: number;
+    @Input()
+    title: string;
+    @Output()
+    close = new EventEmitter();
 
     constructor(private service: PmService,
         private formBuilder: FormBuilder,
@@ -27,7 +32,7 @@ export class PmReplyComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.editForm = this.formBuilder.group({
             'title': [
-                "", Validators.compose([
+                this.getTitle(), Validators.compose([
                     Validators.required,
                     Validators.maxLength(30)
                 ])
@@ -39,6 +44,7 @@ export class PmReplyComponent implements OnInit, OnDestroy {
                 ])
             ]
         });
+
         //this.sub = this.route.params.subscribe(params => {
         //this.id = +params["id"];
         //if (this.id > 0) {
@@ -55,18 +61,6 @@ export class PmReplyComponent implements OnInit, OnDestroy {
     ngOnDestroy() {
         //  this.sub.unsubscribe();
     }
-
-    //updateUserName(user: any) {
-    //    if (user) {
-    //        this.editForm.patchValue({ receiver: user.id });
-    //    }
-    //}
-
-    //getUsername(): void {        
-    //    if (this.route.data["username"]) {
-    //        console.log(this.route.data["username"]);
-    //    }
-    //}
 
     onSubmit(): void {
         let model = new Pm();
@@ -86,5 +80,18 @@ export class PmReplyComponent implements OnInit, OnDestroy {
 
     closeWindow(): void {
         this.close.emit({});
+    }
+
+    private getTitle(): string {
+        if (!this.title) {
+            return "";
+        }
+        const match = this.title.match(/\[.*]/);
+        if (match) {
+            let newValue = parseInt(match[0].substring(1, match[0].length - 1));
+            return this.title.replace(/\[.*]/, `[${++newValue}]`);
+        } else {
+            return `Re[1]: ${this.title}`;
+        }
     }
 }

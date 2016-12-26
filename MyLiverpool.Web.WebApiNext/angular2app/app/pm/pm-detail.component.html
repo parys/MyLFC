@@ -20,7 +20,9 @@
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <!--a [routerLink]="['/pm', 0, 'edit', {username: item.receiver, userId: item.id}]" >Ответить</!a-->
-            <a *ngIf="roles.isSelf(item.receiverId)" [routerLink]="['/pm', 0, 'edit']" >Ответить</a>
+            <!--<a *ngIf="roles.isSelf(item.receiverId)" [routerLink]="['/pm', 0, 'edit']" >Ответить</a>-->
+            <a *ngIf="roles.isSelf(item.receiverId)" (click)="writePm()">Ответить</a>
         </div>
     </div>
+    <pm-reply *ngIf="selectedUserId" [userId]="item.receiverId" (close)="closePmWindow($event);" [userName]="item.receiver" [title]="item.title"></pm-reply>
 </div>

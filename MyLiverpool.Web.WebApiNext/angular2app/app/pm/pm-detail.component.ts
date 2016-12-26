@@ -14,6 +14,7 @@ export class PmDetailComponent implements OnInit, OnDestroy {
     private sub: Subscription;
     item: Pm;
     roles: IRoles;
+    selectedUserId: number;
 
     constructor(private pmService: PmService,
         private rolesChecked: RolesCheckedService,
@@ -32,6 +33,14 @@ export class PmDetailComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         this.sub.unsubscribe();
+    }
+
+    writePm(): void {
+        this.selectedUserId = this.item.receiverId;
+    }
+
+    closePmWindow(event: any): void {
+        this.selectedUserId = null;
     }
 
     private parse(item: Pm): void {
