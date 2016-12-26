@@ -4,10 +4,12 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using MyLiverpool.Data.Entities;
 using OpenIddict.Core;
 using OpenIddict.Models;
@@ -1208,10 +1210,14 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
 
         private UserManager<User> GetUserManager()
         {
+            IPasswordHasher<User> hasher = new PasswordHasher<User>();
+            IOptions<IdentityOptions> options = Options.Create(new IdentityOptions());
+            ILookupNormalizer normalizer = new UpperInvariantLookupNormalizer();
+            options.Value.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@!#$&?";
+            options.Value.Lockout.AllowedForNewUsers = true;
+            
             var userStore = new UserStore<User, Role, LiverpoolContext, int>(_context);
-            return new UserManager<User>(userStore, null, new PasswordHasher<User>(), null, null, null, null, null, null);
+            return new UserManager<User>(userStore, options, hasher, null, null, normalizer, null, null, null);
         }
-
-        
     }
 }

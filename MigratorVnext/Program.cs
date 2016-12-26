@@ -52,6 +52,7 @@ namespace MigratorVnext
             IOptions<IdentityOptions> options = Options.Create(new IdentityOptions());
             ILookupNormalizer normalizer = new UpperInvariantLookupNormalizer();
             options.Value.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@!#$&?";
+            options.Value.Lockout.AllowedForNewUsers = true;
             var userManager = new UserManager<User>(store, options, hasher, null, null, normalizer, null, null, null);
 
             UserRepository = new UserRepository(_db, userManager);

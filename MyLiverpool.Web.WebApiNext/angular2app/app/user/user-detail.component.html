@@ -28,27 +28,23 @@
         </div>
     </div>
 
-    <form class="form-horizontal" role="form">
+    <div class="form-horizontal" role="form">
         <div class="form-group">
             <label class="col-sm-2 control-label">Логин</label>
             <div class="col-sm-10">
                 <span class="form-control" [textContent]="item.userName"></span>
             </div>
         </div>
-        <div *ngIf="roles.isModerator || roles.isSelf(item.id)" class="form-group">
-            <label class="col-xs-2 col-sm-2 control-label">Забанить</label>
-            <div class="" *ngIf="!item.lockoutEndDateUtc">
-                <div>
-                    <div class="col-xs-2 col-sm-2">
-                        <input min="0" type="number" placeholder="Количество дней" class="form-control" ng-model="item.banDaysCount" />
-                    </div>
-                    <div class="col-xs-8 col-sm-8">
-                        <button class="btn btn-danger" ng-click="vm.ban()" ngDisabled="item.banDaysCount <= 0">Забанить</button>
-                    </div>
-                </div>
-                <div class="col-xs-10 col-sm-10" *ngIf="item.lockoutEndDateUtc">
-                    <span class="col-xs-8 col-sm-8 flex-vertical-center" *ngIf="item.lockoutEndDateUtc">Активность заблокирована до <span [textContent]="item.lockoutEndDateUtc | date:'medium'"></span></span>
-                    <button class="btn btn-success" *ngIf="roles.isMainModerator" ng-click="vm.unban()">Снять бан</button>
+        <div *ngIf="roles.isModerator && !roles.isSelf(item.id)" class="form-group">
+            <label class="col-xs-2 col-sm-2 control-label">Блокировка</label>
+            <div class="col-xs-10 col-sm-10" >
+                <form *ngIf="!item.lockoutEnd" class="form-inline" name="banForm" role="form" [formGroup]="banForm" (ngSubmit)="onSubmitBan()">                    
+                        <input min="0" type="number" placeholder="Количество дней" class="form-control" formControlName="banDaysCount" />
+                        <button class="btn btn-danger" type="submit" [disabled]="!banForm.valid">Забанить</button>
+                </form>
+                <div class="col-xs-12 col-sm-12 flex-container" *ngIf="item.lockoutEnd">
+                    <span class="col-xs-10 col-sm-10 flex-vertical-center">Активность заблокирована до &nbsp;<b [textContent]="item.lockoutEnd | date:'medium'"></b></span>
+                    <button class="btn btn-success" *ngIf="roles.isMainModerator" (click)="unban()">Снять бан</button>
                 </div>
             </div>
         </div>
@@ -110,7 +106,7 @@
                 <li *ngIf="item.blogsCount > 0"><a ui-sref="blog({page: 1, userName: item.userName})">Блоги(<span [textContent]="item.blogsCount"></span>)</a></li>
             </ul>
         </div>
-    </form>
+    </div>
 </div>
 
 <!--script type="text/ng-template" id="changeRoleConfirmation.html">

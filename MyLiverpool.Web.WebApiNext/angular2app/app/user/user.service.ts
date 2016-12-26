@@ -27,6 +27,14 @@ export class UserService {
         return this.http.put(`${this.actionUrl}updateRoleGroup/${id}/${roleGroupId}`, "").map(response => response.json());
     };
 
+    ban = (id: number, banDaysCount: number): Observable<boolean> => {
+        return this.http.put(`${this.actionUrl}ban/${id}/${banDaysCount}`, "").map(response => response.json());
+    };
+
+    unban = (id: number): Observable<boolean> => {
+        return this.http.put(`${this.actionUrl}unban/${id}`, "").map(response => response.json());
+    };
+
     private extractData(res: Response) {
         let body = res.json();
         return body.data || {};

@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
 using MyLiverpool.Business.DtoNext;
 using MyLiverpool.Data.Entities;
 
@@ -24,7 +25,7 @@ namespace MyLiverpool.Common.Mappings
                 .ForMember(dest => dest.Gender, src => src.MapFrom(x => x.Gender))
                 .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id))
                 .ForMember(dest => dest.LastModifiedOn, src => src.MapFrom(x => x.LastModified))
-                .ForMember(dest => dest.LockoutEndDateUtc, src => src.MapFrom(x => x.LockoutEnd))
+                .ForMember(dest => dest.LockoutEnd, src => src.MapFrom(x => x.LockoutEnd.HasValue ? x.LockoutEnd.Value.DateTime : new DateTime?()))
                 .ForMember(dest => dest.NewsCount, src => src.MapFrom(x => x.NewsCount))
                 .ForMember(dest => dest.Photo, src => src.MapFrom(x => x.Photo))
                 .ForMember(dest => dest.RegistrationDate, src => src.MapFrom(x => x.RegistrationDate))

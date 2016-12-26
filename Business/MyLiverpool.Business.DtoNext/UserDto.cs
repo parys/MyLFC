@@ -26,7 +26,7 @@ namespace MyLiverpool.Business.DtoNext
 
         public int RoleGroupId { get; set; }
 
-        public DateTime? LockoutEndDateUtc { get; set; }
+        public DateTime? LockoutEnd { get; set; }
 
         public string Photo { get; set; }
 

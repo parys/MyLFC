@@ -141,6 +141,10 @@ textarea {
     width: 50%;
 }
 
+.flex-container {
+    display: flex;
+}
+
 .flex-vertical-center {
     min-height: 0%; /* Fallback for browsers do NOT support vh unit */
     min-height: 0vh; /* These two lines are counted as one :-)*/

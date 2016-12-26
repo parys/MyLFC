@@ -97,25 +97,25 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Bans user.
         /// </summary>
-        /// <param name="userId"></param>
+        /// <param name="userId">The identifier of blocking user.</param>
         /// <param name="daysCount"></param>
-        /// <returns></returns>
-        [Authorize(Roles = nameof(RolesEnum.UserStart)), HttpPut("BanUser")]
-        public async Task<IActionResult> BanUser([FromQuery]int userId, [FromQuery]int daysCount)
+        /// <returns>Result of block user.</returns>
+        [Authorize(Roles = nameof(RolesEnum.UserStart)), HttpPut("Ban/{userId:int}/{daysCount:int}")]
+        public async Task<IActionResult> BanUser(int userId, int daysCount)
         {
             var result = await _userService.BanUser(userId, daysCount);
             return Ok(result);
         }
 
         /// <summary>
-        /// 
+        /// Unbans user.
         /// </summary>
-        /// <param name="userId"></param>
-        /// <returns></returns>
-        [Authorize(Roles = nameof(RolesEnum.UserFull)), HttpPut("UnbanUser")]
-        public async Task<IActionResult> UnbanUser([FromQuery]int userId)
+        /// <param name="userId">The identifier of unblocking user.</param>
+        /// <returns>Result of unblocking user.</returns>
+        [Authorize(Roles = nameof(RolesEnum.UserFull)), HttpPut("Unban/{userId:int}")]
+        public async Task<IActionResult> UnbanUser(int userId)
         {
             var result = await _userService.UnbanUser(userId);
             return Ok(result);

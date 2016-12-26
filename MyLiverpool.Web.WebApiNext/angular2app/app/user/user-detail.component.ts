@@ -6,6 +6,7 @@ import { User } from "./user.model";
 import { UserService } from "./user.service";
 import { RolesCheckedService, IRoles } from "../shared/index";
 import { RoleGroupService, RoleGroup } from "../roleGroup/index";
+import { GlobalValidators } from "../shared/index";
 
 @Component({
     selector: "user-detail",
@@ -18,7 +19,9 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     roles: IRoles;
     roleGroups: RoleGroup[];
     roleForm: FormGroup;
+    banForm: FormGroup;
     selectedUserId: number;
+    banDaysCount: number = 0;
 
     constructor(private service: UserService,
         private route: ActivatedRoute,
@@ -30,6 +33,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.roles = this.rolesChecked.checkRoles();
         this.initRoleForm();
+        this.initBanForm();
         this.sub = this.route.params.subscribe(params => {
             if (+params["id"]) {
                 this.service.getSingle(+params["id"])
@@ -51,11 +55,31 @@ export class UserDetailComponent implements OnInit, OnDestroy {
 
     onSubmit(): void {
         let roleGroupId = this.roleForm.controls["roleGroupId"].value;
-        let result = false;
         this.service.updateRoleGroup(this.item.id, roleGroupId)
             .subscribe(data => {
                 if (data) {
                     this.roleForm.patchValue(roleGroupId);
+                }
+            });
+    }
+
+    onSubmitBan(): void {
+        let banDaysCount = this.banForm.controls["banDaysCount"].value;
+        this.service.ban(this.item.id, banDaysCount)
+            .subscribe(data => {
+                if (data) {
+                    let time = new Date();
+                    this.item.lockoutEnd = new Date(time.setHours(time.getHours() + banDaysCount * 24 * 60 * 60));
+                    this.banForm.controls["banDaysCount"].patchValue(null);
+                }
+            });
+    }
+
+    unban(): void {
+        this.service.unban(this.item.id)
+            .subscribe(data => {
+                if (data) {               
+                    this.item.lockoutEnd = null;                            
                 }
             });
     }
@@ -85,6 +109,17 @@ export class UserDetailComponent implements OnInit, OnDestroy {
             'roleGroupId': [
                 "", Validators.compose([
                     Validators.required
+                ])
+            ]
+        });
+    }
+
+    private initBanForm() {
+        this.banForm = this.formBuilder.group({
+            'banDaysCount': [
+                "", Validators.compose([
+                    Validators.required,
+                    GlobalValidators.mustBeGreaterThanZero
                 ])
             ]
         });

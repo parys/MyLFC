@@ -10,7 +10,7 @@
     private roleGroupName: string;
     private fullName: string;
     roleGroupId: number;
-    private lockoutEndDateUtc: Date;
+    lockoutEnd: Date;
     private photo: string;
     private newsCount: number;
     private blogsCount : number;

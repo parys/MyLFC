@@ -25,6 +25,13 @@ export class GlobalValidators {
             }
         }
     }
+
+    static mustBeGreaterThanZero(control: FormControl): IValidationResult {
+        if (control.value !== "" && +control.value > 0) {
+            return null;
+        }
+        return { "ValueMustBeGreaterThanZero": true };
+    }
 }
 
 interface IValidationResult {
