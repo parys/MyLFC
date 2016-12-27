@@ -2,11 +2,13 @@
 import { Router, ActivatedRoute } from "@angular/router";
 import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Subscription } from "rxjs/Subscription";
+import { Configuration } from "../app.constants";
 import { User } from "./user.model";                          
 import { UserService } from "./user.service";
-import { RolesCheckedService, IRoles } from "../shared/index";
+import { RolesCheckedService, IRoles, LocalStorageService } from "../shared/index";
 import { RoleGroupService, RoleGroup } from "../roleGroup/index";
 import { GlobalValidators } from "../shared/index";
+import { NgUploaderOptions } from "ngx-uploader";
 
 @Component({
     selector: "user-detail",
@@ -14,6 +16,7 @@ import { GlobalValidators } from "../shared/index";
 })
 
 export class UserDetailComponent implements OnInit, OnDestroy {
+    private url: string = "user/avatar/";
     private sub: Subscription;
     item: User;
     roles: IRoles;
@@ -21,9 +24,21 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     roleForm: FormGroup;
     banForm: FormGroup;
     selectedUserId: number;
-    banDaysCount: number = 0;
+    banDaysCount: number = 0;              
+    options: NgUploaderOptions = {
+        authToken: this.storage.getAccessToken(),
+        url: this.configuration.serverWithApiUrl + this.url,
+        autoUpload: false,
+        allowedExtensions: this.configuration.allowedImageTypes,
+        filterExtensions: false,
+        multiple: false,
+        multipart: true
+    };
+    sizeLimit = 2000000;
 
-    constructor(private service: UserService,
+    constructor(private configuration: Configuration,
+        private storage: LocalStorageService,
+        private service: UserService,
         private route: ActivatedRoute,
         private rolesChecked: RolesCheckedService,
         private roleGroupService: RoleGroupService,
@@ -75,8 +90,30 @@ export class UserDetailComponent implements OnInit, OnDestroy {
             });
     }
 
+    onChangeAvatar(event: any) {
+        var files = event.srcElement.files;
+        console.log(files);
+    }
+
+    handleUpload(data): void {
+        if (data && data.response) {
+          //  data = JSON.parse(data.response);
+            console.log(data);
+            console.log(data.response);
+        }
+    }
+
+    beforeUpload(uploadingFile): void {
+        if (uploadingFile.size > this.sizeLimit) {
+            uploadingFile.setAbort();
+            alert('File is too large');
+        }
+    }
+
+
     resetAvatar(): void {
-        this.service.resetAvatar(this.item.id).subscribe(result => this.item.photo = result,
+        this.service.resetAvatar(this.item.id)
+            .subscribe(result => this.item.photo = result,
             error => console.log(error),
             () => {});
     }

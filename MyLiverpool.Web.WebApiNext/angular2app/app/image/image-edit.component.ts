@@ -22,8 +22,8 @@ export class ImageEditComponent implements OnInit, OnDestroy {
     uploader: FileUploader = new FileUploader({
          authToken: this.storage.getAccessTokenWithType(),
          url: this.configuration.serverWithApiUrl + this.url,
-         removeAfterUpload: true
-
+         removeAfterUpload: true,
+         allowedFileType: this.configuration.allowedImageTypes
     });
 
     constructor(private configuration: Configuration,

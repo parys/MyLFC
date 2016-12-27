@@ -125,18 +125,14 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
 
 
 
+        // <param name="userId">The identifier of updatable user.</param>
         /// <summary>
         /// Uploads a new user's avatar.
         /// </summary>
-        /// <param name="userId">The identifier of updatable user.</param>
         /// <returns>Result of uploading new avatar.</returns>
-        [Authorize, HttpPost("avatar/{id:int}")]
-        public async Task<ActionResult> UploadAvatarAsync(int userId)
+        [Authorize, HttpPost("avatar")]
+        public async Task<ActionResult> UploadAvatarAsync()
         {
-            if (User.GetUserId() != userId)
-            {
-                return StatusCode((int)HttpStatusCode.Forbidden);
-            }
             //  if (!Request.Form.IsMimeMultipartContent())
             //  {
             //       return BadRequest();
@@ -147,7 +143,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 //  if (HttpContext.Current.Request.Files !=.Count > 0)
                 {
                     var file = Request.Form.Files[0];
-                    var result = await _uploadService.UpdateAvatarAsync(userId, file);
+                    var result = await _uploadService.UpdateAvatarAsync(User.GetUserId(), file);
 
                     return Ok(result);
                 }

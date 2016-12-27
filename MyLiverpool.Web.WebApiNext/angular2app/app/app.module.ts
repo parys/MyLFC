@@ -35,6 +35,7 @@ import { AdminService, EplTableComponent } from "./admin/index";
 import { DatepickerModule, ModalModule, PaginationModule, TabsModule } from "ng2-bootstrap";
 import { BreadcrumbComponent } from "./shouldRemove/index";
 import { FileUploadModule } from "ng2-file-upload/ng2-file-upload";
+import { NgUploaderModule } from "ngx-uploader";
 
 @NgModule({
     imports: [
@@ -44,6 +45,7 @@ import { FileUploadModule } from "ng2-file-upload/ng2-file-upload";
         FormsModule,
         ModalModule.forRoot(),
         Ng2AutoCompleteModule,
+        NgUploaderModule,
         PaginationModule.forRoot(),
      //   Ng2BootstrapModule,
         ReactiveFormsModule,

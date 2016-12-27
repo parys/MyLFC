@@ -9,5 +9,6 @@
         public const int FirstPage = 1;
         public const int PmsPerUser = 10; //todo to 200
         public const int CountLoginsForAutocomlete = 10;
+        public const string DefaultPhotoPath = "/content/avatars/default.png";
     }
 }

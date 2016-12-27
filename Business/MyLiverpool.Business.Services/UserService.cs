@@ -159,8 +159,11 @@ namespace MyLiverpool.Business.Services
             {
                 throw new NullReferenceException("User can't be null");
             }
-            user.Photo = DefaultPhotoPath;
-            user = await _userRepository.UpdateAsync(user);//todo should remove old file
+            if (FileHelper.Delete(user.Photo))
+            {
+                user.Photo = DefaultPhotoPath;
+                user = await _userRepository.UpdateAsync(user);
+            }
             return user.Photo;
         }
 

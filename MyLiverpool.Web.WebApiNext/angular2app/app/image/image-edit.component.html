@@ -2,13 +2,13 @@
     <div class="col-xs-10 col-sm-10">
         <div>
             <h4>Загрузка файлов</h4>
-            <input type="file" ng2FileSelect [uploader]="uploader" multiple /><br />
+            <input type="file" ng2FileSelect [uploader]="uploader" multiple accept="image/*" /><br />
             <br>
             <br>Файлы:
 
             <button type="button" class="btn btn-success btn-xs"
                     (click)="upload()" [disabled]="uploader.queue.length == 0">
-                <span class="glyphicon glyphicon-upload"></span> Upload
+                <span class="glyphicon glyphicon-upload"></span> Загрузить
             </button>
         </div>
         <img *ngIf="uploadedFile" [src]="uploadedFile" alt="" />

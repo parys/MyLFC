@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using MyLiverpool.Business.Contracts;
+using MyLiverpool.Common.Utilities;
 
 namespace MyLiverpool.Business.Services
 {
@@ -31,7 +32,7 @@ namespace MyLiverpool.Business.Services
         {
             var path = await _userService.GetPhotoPathAsync(userId);
             var relativePath = path;
-            if (string.IsNullOrEmpty(path))
+            if (string.IsNullOrEmpty(path) || path == GlobalConstants.DefaultPhotoPath)
             {
                 var newName = GenerateNewName() + "." + file.FileName.Split('.').Last();
                 var newPath = GenerateNewPath(AvatarPath);
@@ -42,10 +43,12 @@ namespace MyLiverpool.Business.Services
             {
                 path = GetFullPath(path);
             }
-
-            file.CopyTo(new FileStream(path, FileMode.Create));
-            relativePath = Regex.Replace(relativePath, "\\\\", "/");
-            await _userService.UpdatePhotoPathAsync(userId, relativePath);
+            if (FileHelper.Delete(path))
+            {
+                file.CopyTo(new FileStream(path, FileMode.OpenOrCreate));
+                relativePath = Regex.Replace(relativePath, "\\\\", "/");
+                await _userService.UpdatePhotoPathAsync(userId, relativePath);
+            }
             return relativePath;
         }
 
