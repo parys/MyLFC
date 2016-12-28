@@ -22,17 +22,13 @@
                        ng2FileSelect
                        (change)="onChangeAvatar($event)"
                        (change)="addedFileEvent($event)"
-                       (change)="addedFileEvent($event)"
        (onUpload)="handleUpload($event)"
        (beforeUpload)="beforeUpload($event)"
                        id="update-avatar-input"/-->   
                 <input type="file"
                        class="hidden"
-                       ngFileSelect
-                       [options]="options"
-                       accept="image/*"          
-                       (onUpload)="handleUpload($event)"
-                       (beforeUpload)="beforeUpload($event)"
+                       accept="image/*" 
+                       (change)="onChangeAvatar($event)"
                        id="update-avatar-input"/>
                 <button class="btn btn-warning" (click)="resetAvatar()">
                     Сбросить аватар

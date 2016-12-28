@@ -31,24 +31,26 @@ namespace MyLiverpool.Business.Services
         public async Task<string> UpdateAvatarAsync(int userId, IFormFile file)
         {
             var path = await _userService.GetPhotoPathAsync(userId);
-            var relativePath = path;
-            if (string.IsNullOrEmpty(path) || path == GlobalConstants.DefaultPhotoPath)
+
+            var relativePath = GlobalConstants.DefaultPhotoPath == path ? GenerateNewName() : path.Split('.').First().Split('/').Last();
+            relativePath = relativePath + "." + file.FileName.Split('.').Last();
+
+            var newPath = GenerateNewPath(AvatarPath);
+            if (path != GlobalConstants.DefaultPhotoPath)
             {
-                var newName = GenerateNewName() + "." + file.FileName.Split('.').Last();
-                var newPath = GenerateNewPath(AvatarPath);
-                relativePath = Path.Combine(newPath, newName);
-                path = GetFullPath(relativePath);
+                FileHelper.Delete(path);
             }
-            else
+
+            path = GetFullPath(newPath, relativePath);
+            relativePath = Path.Combine(newPath, relativePath);
+            using (var fileStream = new FileStream(path, FileMode.Create))
             {
-                path = GetFullPath(path);
+                await file.CopyToAsync(fileStream);
             }
-            if (FileHelper.Delete(path))
-            {
-                file.CopyTo(new FileStream(path, FileMode.OpenOrCreate));
-                relativePath = Regex.Replace(relativePath, "\\\\", "/");
-                await _userService.UpdatePhotoPathAsync(userId, relativePath);
-            }
+
+            relativePath = Regex.Replace(relativePath, "\\\\", "/");
+            await _userService.UpdatePhotoPathAsync(userId, relativePath);
+
             return relativePath;
         }
 
@@ -155,7 +157,7 @@ namespace MyLiverpool.Business.Services
             return Path.Combine(path, directoryName);
         }
 
-        private string GenerateNewName()
+        private static string GenerateNewName()
         {
             var random = new Random((int)DateTime.Now.ToFileTimeUtc());
             string newName;
@@ -170,6 +172,11 @@ namespace MyLiverpool.Business.Services
         {
             var path = _appEnvironment.WebRootPath;
             return Path.Combine(path, prefix);
+        }
+
+        private string GetFullPath(string path1, string path2)
+        {
+            return GetFullPath(Path.Combine(path1, path2));
         }
         #endregion
     }

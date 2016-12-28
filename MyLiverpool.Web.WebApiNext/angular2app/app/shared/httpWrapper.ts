@@ -1,5 +1,6 @@
 ﻿import { Injectable } from "@angular/core";
-import { Http, Headers } from "@angular/http";
+import { Http, Headers, Response } from "@angular/http";
+import { Observable } from "rxjs/Observable";
 import { LocalStorageService } from "./localStorage.service";
 
 @Injectable()
@@ -9,9 +10,14 @@ export class HttpWrapper {
         , private localStorage: LocalStorageService
     ) { }
 
-    updateHeaders(): Headers {
-        let headers = new Headers();
-        headers.append("Content-type", "application/json");
+    updateHeaders(withFiles: boolean = false): Headers {
+        let headers: Headers = new Headers();
+        if (withFiles) {
+         //   headers.append("Content-type", `multipart/form-data;boundary=----Boundary${Math.random()*100000}`);
+            headers.append("Accept", "application/json");
+        } else {
+            headers.append("Content-type", "application/json");
+        }
         if (this.localStorage.hasAccessToken()) {
             headers.append("Authorization",
                 this.localStorage.getAccessTokenWithType());
@@ -19,29 +25,26 @@ export class HttpWrapper {
         return headers;
     }
 
-    get(url) {
-        let result = this.http.get(url, {
+    get(url: string): Observable<Response> {
+        return this.http.get(url, {
             headers: this.updateHeaders(),
             body: ""
         });
-        return result;
     }
 
-    post(url, data) {
-        let headers = this.updateHeaders();
+    post(url: string, data: any, withFiles: boolean = false): Observable<Response> {
         return this.http.post(url, data, {
-            headers: headers
+            headers: this.updateHeaders(withFiles)
         });
     }
 
-    put(url, data) {
-        let headers = this.updateHeaders();
+    put(url: string, data: any): Observable<Response> {
         return this.http.put(url, data, {
-            headers: headers
+            headers: this.updateHeaders()
         });
     }
 
-    delete(url) {
+    delete(url: string): Observable<Response> {
         this.updateHeaders();
         return this.http.delete(url, {
             headers: this.updateHeaders(),

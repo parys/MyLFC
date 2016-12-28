@@ -133,11 +133,6 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Authorize, HttpPost("avatar")]
         public async Task<ActionResult> UploadAvatarAsync()
         {
-            //  if (!Request.Form.IsMimeMultipartContent())
-            //  {
-            //       return BadRequest();
-            //  }
-
             if (Request.Form.Files != null && Request.Form.Files.Count > 0)
             {
                 //  if (HttpContext.Current.Request.Files !=.Count > 0)

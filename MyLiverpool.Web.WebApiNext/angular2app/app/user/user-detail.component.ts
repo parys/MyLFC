@@ -18,6 +18,7 @@ import { NgUploaderOptions } from "ngx-uploader";
 export class UserDetailComponent implements OnInit, OnDestroy {
     private url: string = "user/avatar/";
     private sub: Subscription;
+    file: any;
     item: User;
     roles: IRoles;
     roleGroups: RoleGroup[];
@@ -91,29 +92,18 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     }
 
     onChangeAvatar(event: any) {
-        var files = event.srcElement.files;
-        console.log(files);
-    }
-
-    handleUpload(data): void {
-        if (data && data.response) {
-          //  data = JSON.parse(data.response);
-            console.log(data);
-            console.log(data.response);
+        let file = event.srcElement.files[0];
+        if (file) {
+            this.service.updateAvatar(file)
+                .subscribe(result => this.item.photo = `${result}#${Math.random()}`,
+                    error => console.log(error),
+                    () => {});
         }
     }
-
-    beforeUpload(uploadingFile): void {
-        if (uploadingFile.size > this.sizeLimit) {
-            uploadingFile.setAbort();
-            alert('File is too large');
-        }
-    }
-
 
     resetAvatar(): void {
         this.service.resetAvatar(this.item.id)
-            .subscribe(result => this.item.photo = result,
+            .subscribe(result => this.item.photo = `${result}#${Math.random()}`,
             error => console.log(error),
             () => {});
     }
