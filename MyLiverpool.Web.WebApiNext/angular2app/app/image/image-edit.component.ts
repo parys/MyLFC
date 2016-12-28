@@ -7,8 +7,8 @@ import { Title } from "@angular/platform-browser";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
 import { Image } from "./image.model";
+import { ImageService } from "./image.service";
 import { RolesCheckedService, IRoles, LocalStorageService } from "../shared/index";
-import { FileUploader } from "ng2-file-upload/ng2-file-upload";
 
 
 @Component({
@@ -16,30 +16,26 @@ import { FileUploader } from "ng2-file-upload/ng2-file-upload";
     template: require("./image-edit.component.html")
 })
 export class ImageEditComponent implements OnInit, OnDestroy {
-    private url: string = "upload/images/";
-    uploadedFile: string;
-    @Input() item: Image;
-    uploader: FileUploader = new FileUploader({
-         authToken: this.storage.getAccessTokenWithType(),
-         url: this.configuration.serverWithApiUrl + this.url,
-         removeAfterUpload: true,
-         allowedFileType: this.configuration.allowedImageTypes
-    });
+    uploadedFiles: string[];
+    // @Input() item: Image;
 
     constructor(private configuration: Configuration,
-        private storage: LocalStorageService
+        private storage: LocalStorageService,
+        private service: ImageService
     ) {
     }
 
-    ngOnInit() {                                
+    ngOnInit() {
     }
 
-    ngOnDestroy() { }
+    ngOnDestroy() {}
 
-    upload() {
-        this.uploader.queue[0].onComplete = (response: string, status: number, headers: any) => { 
-            this.uploadedFile = response;
+    onUploadImage(event: any) {
+        if (event.srcElement.files.length > 0) {
+            this.service.uploadImage(event.srcElement.files)
+                .subscribe(result => this.uploadedFiles = result,
+                    error => console.log(error),
+                    () => {});
         }
-        this.uploader.queue[0].upload();
     }
 }

@@ -13,9 +13,9 @@ namespace MyLiverpool.Business.Services
 {
     public class UploadService : IUploadService
     {
-        public const string AvatarPath = "Content\\avatars\\";
-        public const string LogoPath = "Content\\logos\\";
-        public const string ImagesPath = "Content\\images\\";
+        public const string AvatarPath = "content\\avatars\\";
+        public const string LogoPath = "content\\logos\\";
+        public const string ImagesPath = "content\\images\\";
         public const int FilesPerFolder = 200;
         private readonly IUserService _userService;
         private readonly IClubService _clubService;

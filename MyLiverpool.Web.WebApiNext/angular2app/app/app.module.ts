@@ -34,20 +34,15 @@ import { Ng2AutoCompleteModule } from "ng2-auto-complete";
 import { AdminService, EplTableComponent } from "./admin/index";
 import { DatepickerModule, ModalModule, PaginationModule, TabsModule } from "ng2-bootstrap";
 import { BreadcrumbComponent } from "./shouldRemove/index";
-import { FileUploadModule } from "ng2-file-upload/ng2-file-upload";
-import { NgUploaderModule } from "ngx-uploader";
 
 @NgModule({
     imports: [
         UniversalModule,     // must be first import. This automatically imports NgModule, BrowserModule, HttpModule, and JsonpModule too.],
         DatepickerModule.forRoot(),
-        FileUploadModule,
         FormsModule,
         ModalModule.forRoot(),
         Ng2AutoCompleteModule,
-        NgUploaderModule,
         PaginationModule.forRoot(),
-     //   Ng2BootstrapModule,
         ReactiveFormsModule,
         TabsModule.forRoot(),
         RouterModule.forRoot(routes, { useHash: false })

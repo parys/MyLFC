@@ -46,30 +46,5 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             }
             return BadRequest();
         }
-
-        /// <summary>
-        /// Upload new images.
-        /// </summary>
-        /// <returns>Result of uploading.</returns>
-        [Authorize(Roles = nameof(RolesEnum.NewsStart) + "," + nameof(RolesEnum.BlogStart)), HttpPost("Images")]
-        public async Task<IActionResult> UploadImages()
-        {
-            //if (!Request.Content.IsMimeMultipartContent())
-            //{
-            //    return BadRequest();
-            //}
-
-            if (Request.Form.Files != null && Request.Form.Files.Count > 0)
-            {
-               // if (HttpContext.Current.Request.Files.Count > 0)
-                {
-                    var files = Request.Form.Files;
-                    var result = await _uploadService.UploadAsync(files);
-
-                    return Ok(result);
-                }
-            }
-            return BadRequest();
-        }
     }
 }

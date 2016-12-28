@@ -43,9 +43,7 @@ var SharedConfig = {
             "jquery",
             "rxjs",
             "ng2-auto-complete",
-            "ng2-bootstrap",
-            "ng2-file-upload",
-            "ngx-uploader"
+            "ng2-bootstrap"
         ]
     },
     output: {

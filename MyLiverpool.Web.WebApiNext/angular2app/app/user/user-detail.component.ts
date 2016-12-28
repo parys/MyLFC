@@ -7,8 +7,7 @@ import { User } from "./user.model";
 import { UserService } from "./user.service";
 import { RolesCheckedService, IRoles, LocalStorageService } from "../shared/index";
 import { RoleGroupService, RoleGroup } from "../roleGroup/index";
-import { GlobalValidators } from "../shared/index";
-import { NgUploaderOptions } from "ngx-uploader";
+import { GlobalValidators } from "../shared/index";  
 
 @Component({
     selector: "user-detail",
@@ -16,9 +15,7 @@ import { NgUploaderOptions } from "ngx-uploader";
 })
 
 export class UserDetailComponent implements OnInit, OnDestroy {
-    private url: string = "user/avatar/";
     private sub: Subscription;
-    file: any;
     item: User;
     roles: IRoles;
     roleGroups: RoleGroup[];
@@ -26,16 +23,6 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     banForm: FormGroup;
     selectedUserId: number;
     banDaysCount: number = 0;              
-    options: NgUploaderOptions = {
-        authToken: this.storage.getAccessToken(),
-        url: this.configuration.serverWithApiUrl + this.url,
-        autoUpload: false,
-        allowedExtensions: this.configuration.allowedImageTypes,
-        filterExtensions: false,
-        multiple: false,
-        multipart: true
-    };
-    sizeLimit = 2000000;
 
     constructor(private configuration: Configuration,
         private storage: LocalStorageService,

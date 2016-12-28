@@ -5,8 +5,7 @@ import { Title } from "@angular/platform-browser";
 import { Subscription } from "rxjs/Subscription";
 import { ClubService } from "./club.service";
 import { Club } from "./club.model";
-import { LocalStorageService, RolesCheckedService } from "../shared/index";
-import { FileUploader } from "ng2-file-upload/ng2-file-upload";                                    
+import { LocalStorageService, RolesCheckedService } from "../shared/index";                         
 
 @Component({
     selector: "club-edit",
@@ -15,13 +14,9 @@ import { FileUploader } from "ng2-file-upload/ng2-file-upload";
 
 export class ClubEditComponent implements OnInit, OnDestroy {
     editForm: FormGroup;
-                                                  
     private sub: Subscription;
     id: number;
     item: Club;
-    uploadFile: any;
-    hasBaseDropZoneOver: boolean = false; 
-    uploader: FileUploader;
 
     constructor(private clubService: ClubService,
         private route: ActivatedRoute,
@@ -30,7 +25,7 @@ export class ClubEditComponent implements OnInit, OnDestroy {
         private formBuilder: FormBuilder,
         titleService: Title) {
         this.item = new Club();
-        titleService.setTitle("Редактирование клуба");
+        titleService.setTitle("Редактирование клуба");  //todo move it to routing
     }
 
     ngOnInit() {
@@ -46,14 +41,12 @@ export class ClubEditComponent implements OnInit, OnDestroy {
         });
 
         this.editForm.controls["englishName"].valueChanges.subscribe(data => {
-            this.updateOptions(data);
+           //todo add possibility to sending photo
         });
     }
+
     upload() {           
-        this.uploader.queue[0].onComplete = (response: string, status: number, headers: any) => {
-            this.editForm.controls["logo"].patchValue(response);
-        }
-        this.uploader.uploadAll();
+
     }
 
     ngOnDestroy() {
@@ -77,18 +70,6 @@ export class ClubEditComponent implements OnInit, OnDestroy {
 
     getRandomNumber(): number {
         return Math.random();
-    }
-
-    private updateOptions(name: string): void {
-        this.uploader = new FileUploader({
-            url: `/api/v1/upload/clubLogo/${name}`,
-            authToken: this.localStorage.getAccessTokenWithType(),
-            //  allowedFileType: ["jpg", "jpeg", "png"],
-            autoUpload: false
-
-            //        allowedExtensions: ["image/png", "image/jpg"],
-
-        });
     }
 
     private parse(data: Club): void {
