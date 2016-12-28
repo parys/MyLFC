@@ -1,4 +1,5 @@
 ﻿import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Location } from "@angular/common";
 import { Observable } from "rxjs/Observable";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
@@ -12,26 +13,22 @@ import { Pageable } from "../shared/pageable.model";
 })
 
 export class ImageListComponent implements OnInit, OnDestroy {
-
     private sub: Subscription;
     items: Image[];
-    page: number = 1;
-    itemsPerPage: number = 15;
-    totalItems: number;
     selectedItem: Image;
+    defaultPath: string = "content\\images";
+    path: string = this.defaultPath;
 
-    constructor(private service: ImageService, private route: ActivatedRoute) {
+    constructor(private service: ImageService, private location: Location, private route: ActivatedRoute) {
     }
 
     ngOnInit() {
-        //this.sub = this.route.params.subscribe(params => {
-        //    if (params["page"]) {
-        //        this.page = +params["page"];
-        //    }
-            //  this.categoryId = +params['categoryId'];
-            //  this.userName = params['userName'];
-            this.update();
-       // });
+        this.sub = this.route.queryParams.subscribe(params => {
+            if (params["path"]) {
+                this.path = params["path"];
+            }
+        this.updateFolder(this.path);
+        });
     }
 
     ngOnDestroy() {
@@ -46,24 +43,20 @@ export class ImageListComponent implements OnInit, OnDestroy {
         this.selectedItem = null;
     }
 
-    //private parsePageable(pageable: Pageable<Image>): void {
-    //    this.items = pageable.list;
-    //    this.page = pageable.pageNo;
-    //    this.itemsPerPage = pageable.itemPerPage;
-    //    this.totalItems = pageable.totalItems;
-    //}
+    goUp(): void {
+        this.path = this.path.substring(0, this.path.lastIndexOf("\\"));
+        this.updateFolder(this.path);
+    }
 
-    update() : void {
-        //let filters = new UserFilters();
-        ////  filters.categoryId = this.categoryId;
-        ////  filters.materialType = "News";
-        //filters.userName = this.userName;
-        //filters.page = this.page;
-
+    updateFolder(path: string) : void {
         this.service
-            .get()
+            .get(path)
             .subscribe(data => this.items = data,
             error => console.log(error),
             () => { });
+
+        this.path = path;
+        let newUrl = `image?path=${path}`;
+        this.location.replaceState(newUrl);
     }
 }
