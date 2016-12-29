@@ -4,6 +4,7 @@ import { Observable } from "rxjs/Observable";
 import { Pageable } from "../shared/pageable.model";
 import { NewsCategory } from "./newsCategory.model";
 import { NewsCategoryService } from "./newsCategory.service";
+import { RolesCheckedService, IRoles } from "../shared/index";
 
 @Component({
     selector: "newsCategory-list",
@@ -11,14 +12,16 @@ import { NewsCategoryService } from "./newsCategory.service";
 })
 
 export class NewsCategoryListComponent implements OnInit {
-
+    roles: IRoles;
     items: NewsCategory[];
 
     constructor(private newsCategoryService: NewsCategoryService,
-        private titleService: Title) {
+        private titleService: Title,
+        private rolesChecked: RolesCheckedService) {
     }
 
     ngOnInit() {
+        this.roles = this.rolesChecked.checkRoles();
         this.titleService.setTitle("Категории");
         this.newsCategoryService
             .getAll()

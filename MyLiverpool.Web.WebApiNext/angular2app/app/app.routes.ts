@@ -1,6 +1,5 @@
 ﻿import { Routes } from "@angular/router";
 import { NewsListComponent } from "./news/index";
-import { authRoutes, authProviders } from "./auth/auth.routing";
 import { accountRoutes } from "./account/account.routing";
 import { clubRoutes } from "./club/club.routing";
 import { newsCategoryRoutes } from "./newsCategory/newsCategory.routing";
@@ -20,7 +19,6 @@ import { seasonRoutes } from "./season/season.routing";
 
 export const routes: Routes = [
     ...accountRoutes,
-    ...authRoutes,
     ...clubRoutes,
     ...forumSectionRoutes,
     ...forumSubsectionRoutes,
@@ -38,9 +36,3 @@ export const routes: Routes = [
     ...wishRoutes,
     { path: "", component: NewsListComponent, data: { title: "Главная", breadcrumb: "Главная" } }
 ];
-
-export const appRoutingProviders: any[] = [
-    authProviders
-];
-
-// export const routing: ModuleWithProviders = RouterModule.forRoot(routes, { });

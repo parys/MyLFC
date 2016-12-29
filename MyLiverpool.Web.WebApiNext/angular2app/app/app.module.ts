@@ -4,7 +4,7 @@ import { Title } from "@angular/platform-browser";
 import { RouterModule } from "@angular/router";
 import { UniversalModule } from "angular2-universal";
 import { AppComponent } from "./app.component";
-import { routes, appRoutingProviders  } from "./app.routes";
+import { routes } from "./app.routes";
 import { Configuration } from "./app.constants";
 import { NewsEditComponent, NewsDetailComponent, NewsListComponent, NewsService } from "./news/index";
 import * as newsCategory from "./newsCategory/index";
@@ -44,7 +44,7 @@ import { BreadcrumbComponent } from "./shouldRemove/index";
         PaginationModule.forRoot(),
         ReactiveFormsModule,
         TabsModule.forRoot(),
-        RouterModule.forRoot(routes, { useHash: false })
+        RouterModule.forRoot(routes)
     ],
     declarations: [
         account.AccountSigninComponent,
@@ -121,7 +121,6 @@ import { BreadcrumbComponent } from "./shouldRemove/index";
         wish.WishService,
         AdminService,
         { provide: LOCALE_ID, useValue: "ru-RU" },
-        appRoutingProviders,
         Configuration,
         ForumSectionService,
         { provide: shared.LocalStorage, useFactory: () => (window) ? window.localStorage : {} },

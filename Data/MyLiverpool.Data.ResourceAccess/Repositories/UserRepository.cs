@@ -43,7 +43,10 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
                 RegistrationDate = x.RegistrationDate,
                 RoleGroupId = x.RoleGroupId,
                 RoleGroup = x.RoleGroup,
-                UserName = x.UserName
+                UserName = x.UserName,
+                AccessFailedCount = x.AccessFailedCount,
+                PasswordHash = x.PasswordHash,
+                SecurityStamp = x.SecurityStamp
             }).FirstOrDefaultAsync();
             return user;
         }

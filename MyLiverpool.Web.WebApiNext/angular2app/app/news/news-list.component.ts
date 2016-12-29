@@ -15,7 +15,6 @@ import { ModalDirective } from "ng2-bootstrap";
     template: require("./news-list.component.html")
 })
 export class NewsListComponent implements OnInit, OnDestroy {
-
     private sub: Subscription;
     private sub2: Subscription;
     items: News[];
@@ -30,7 +29,10 @@ export class NewsListComponent implements OnInit, OnDestroy {
     @ViewChild("activateModal") activateModal: ModalDirective;
     @ViewChild("deleteModal") deleteModal: ModalDirective;
 
-    constructor(private router: Router, private newsService: NewsService, private route: ActivatedRoute, private location: Location,
+    constructor(private router: Router,
+        private newsService: NewsService,
+        private route: ActivatedRoute,
+        private location: Location,
         private rolesChecked: RolesCheckedService) {
     }
 

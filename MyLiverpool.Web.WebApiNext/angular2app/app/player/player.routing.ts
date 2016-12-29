@@ -3,6 +3,6 @@ import { PlayerStatisticsComponent } from "./index";
 
 export const playerRoutes: Routes = [
     { path: "player/statistics", component: PlayerStatisticsComponent, data: { title: "Статистика игроков" } },
-  //  { path: "match", component: MatchListComponent, data: { title: "Матчи" } },
+  //  { path: "match", component: MatchListComponent, data: { title: "Матчи" }, canActivate: [RoleGuard] },
   //  { path: "calendar", component: MatchCalendarComponent, data: { title: "Календарь" } }
 ];
