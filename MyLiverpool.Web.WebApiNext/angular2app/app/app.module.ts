@@ -3,13 +3,12 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { Title } from "@angular/platform-browser";
 import { RouterModule } from "@angular/router";
 import { UniversalModule } from "angular2-universal";
-import { LocalStorage } from "./shared/local-storage";
 import { AppComponent } from "./app.component";
 import { routes, appRoutingProviders  } from "./app.routes";
 import { Configuration } from "./app.constants";
 import { NewsEditComponent, NewsDetailComponent, NewsListComponent, NewsService } from "./news/index";
 import * as newsCategory from "./newsCategory/index";
-import { AuthGuard, AuthService } from "./auth/index";
+import * as auth from "./auth/index";
 import { ForumSectionListComponent, ForumSectionService } from "./forumSection/index";
 import * as account from "./account/index";
 import * as chat from "./chat/index";
@@ -28,7 +27,7 @@ import { UserDetailComponent } from "./user/user-detail.component";
 import { UserService } from "./user/user.service";
 import { UserListComponent } from "./user/user-list.component";
 import * as pm from "./pm/index";
-import { WishListComponent, WishService, WishEditComponent } from "./wish/index";
+import * as wish from "./wish/index";
 import * as materialComment from "./materialComment/index";
 import { Ng2AutoCompleteModule } from "ng2-auto-complete";
 import { AdminService, EplTableComponent } from "./admin/index";
@@ -86,6 +85,8 @@ import { BreadcrumbComponent } from "./shouldRemove/index";
         pm.PmListComponent,
         pm.PmReplyComponent,
         season.SeasonEplTableComponent,
+        wish.WishEditComponent,
+        wish.WishListComponent,
         AppComponent,
         BreadcrumbComponent,
         EplTableComponent,
@@ -93,13 +94,14 @@ import { BreadcrumbComponent } from "./shouldRemove/index";
         NewsListComponent,
         NewsDetailComponent,
         NewsEditComponent,
-
         UserDetailComponent,
-        UserListComponent,
-        WishEditComponent,
-        WishListComponent],   // components and directives
-    bootstrap: [AppComponent],     // root component
-    providers: [ // services   
+        UserListComponent
+    ], // components and directives
+    bootstrap: [AppComponent], // root component
+    providers: [// services  
+        auth.AuthService,
+        auth.RoleGuard,
+        auth.UnSignedGuard,
         account.AccountService,
         chat.ChatMessageService,
         club.ClubService,
@@ -116,18 +118,16 @@ import { BreadcrumbComponent } from "./shouldRemove/index";
         shared.GlobalValidators,
         shared.LocalStorageService,
         shared.RolesCheckedService,
+        wish.WishService,
         AdminService,
         { provide: LOCALE_ID, useValue: "ru-RU" },
         appRoutingProviders,
-        AuthGuard,
-        AuthService,
         Configuration,
         ForumSectionService,
-        { provide: LocalStorage, useFactory: () => (window) ? window.localStorage : {}},
+        { provide: shared.LocalStorage, useFactory: () => (window) ? window.localStorage : {} },
         NewsService,
         Title,
-        UserService,
-        WishService
+        UserService
     ]
 })
 export class AppModule { }

@@ -36,6 +36,15 @@ export class RolesCheckedService {
         return this.checkedRoles;
     }
 
+    isUserInRole(role: string): boolean {
+        return this.checkRole(role);
+    }
+
+    private isSelf(authorId: number): boolean {
+        let userId = this.localStorage.getUserId();
+        return (userId === authorId);
+    }
+
     private checkEditor():void {
         if (this.checkRole("NewsFull")) {
             this.checkedRoles.isEditor = true;
@@ -71,10 +80,5 @@ export class RolesCheckedService {
             return true;
         }
         return false;
-    }
-
-    isSelf(authorId: number): boolean {
-        let userId = this.localStorage.getUserId();
-        return (userId === authorId);        
     }
 }

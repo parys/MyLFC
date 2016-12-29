@@ -4,3 +4,4 @@ export * from "./localStorage.service";
 export * from "./roles.interface";
 export * from "./roles-checked.service";
 export * from "./globalValidators";
+export * from "./local-storage";
