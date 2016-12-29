@@ -13,8 +13,8 @@ export class ImageService {
         this.actionUrl = configuration.serverWithApiUrl + "image/";
     }
 
-    get = (): Observable<Image[]> => {
-        return this.http.get(this.actionUrl).map((response: Response) => response.json());
+    get = (path: string): Observable<Image[]> => {
+        return this.http.get(`${this.actionUrl}?path=${path}`).map((response: Response) => response.json());
     };
 
     uploadImage = (files: File[]): Observable<string[]> => {

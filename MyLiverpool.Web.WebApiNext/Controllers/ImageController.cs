@@ -17,9 +17,9 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     [Authorize(Roles = nameof(RolesEnum.NewsStart) +"," + nameof(RolesEnum.BlogStart)), Route("api/v1/[controller]")]
     public class ImageController : Controller
     {
-        private const string PathContent = "content";
-        private const string PathImages = "images";
-        private const string PathFull = "content\\images";
+        private const string PathContent = "content\\";
+        private const string PathImages = "images\\";
+        private const string PathFull = "content\\images\\";
         private readonly IHostingEnvironment _env;
         private readonly IUploadService _uploadService;
 
