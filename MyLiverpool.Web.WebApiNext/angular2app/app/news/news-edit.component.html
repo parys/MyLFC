@@ -41,6 +41,7 @@
             <div class="col-xs-10 col-sm-10">
                 <input class="form-control" name="photoPath" formControlName="photo" />
             </div>
+            <image-addition [isMultiple]="false" (loadedImage)="updateImage($event)"></image-addition>
         </div>
 
         <div class="form-group">

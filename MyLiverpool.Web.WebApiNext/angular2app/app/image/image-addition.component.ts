@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, OnDestroy, ViewChild, Input } from "@angular/core";
+﻿import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from "@angular/core";
 import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Observable } from "rxjs/Observable";
 import { Configuration } from "../app.constants";
@@ -12,12 +12,15 @@ import { RolesCheckedService, IRoles, LocalStorageService } from "../shared/inde
 
 
 @Component({
-    selector: "image-edit",
-    template: require("./image-edit.component.html")
+    selector: "image-addition",
+    template: require("./image-addition.component.html")
 })
-export class ImageEditComponent implements OnInit, OnDestroy {
+export class ImageAdditionComponent implements OnInit, OnDestroy {
     uploadedFiles: string[];
-    // @Input() item: Image;
+    @Input()
+    isMultiple: boolean = true;
+    @Output()
+    loadedImage = new EventEmitter<string>();
 
     constructor(private configuration: Configuration,
         private storage: LocalStorageService,
@@ -33,7 +36,13 @@ export class ImageEditComponent implements OnInit, OnDestroy {
     onUploadImage(event: any) {
         if (event.srcElement.files.length > 0) {
             this.service.uploadImage(event.srcElement.files)
-                .subscribe(result => this.uploadedFiles = result,
+                .subscribe(result => {
+                        if (this.isMultiple) {
+                            this.uploadedFiles = result;
+                        } else {
+                            this.loadedImage.emit(result[0]);
+                        }
+                    },
                     error => console.log(error),
                     () => {});
         }

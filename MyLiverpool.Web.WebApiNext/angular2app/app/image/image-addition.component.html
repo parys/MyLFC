@@ -1,18 +1,13 @@
 ﻿<div class="row">
     <div class="col-xs-10 col-sm-10">
-        <div>
-            <h4>Загрузка файлов</h4>
-            <br>
-            <br>Файлы:
             <label for="upload-image"
                    class="btn btn-info">Загрузить изображениЯ</label>
             <input type="file"
                    class="hidden"
                    accept="image/*"
-                   multiple
+                   [multiple]="isMultiple"
                    (change)="onUploadImage($event)"
                    id="upload-image" />
-        </div>
         <div *ngFor="let file of uploadedFiles">
             <img [src]="file" alt="" />
         </div>

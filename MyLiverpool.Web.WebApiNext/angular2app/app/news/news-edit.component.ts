@@ -66,6 +66,10 @@ export class NewsEditComponent implements OnInit, OnDestroy {
         }
     }
 
+    updateImage(path: string) {
+        this.editForm.patchValue({ photo: path });
+    }
+
     private parse(data: News): void {
         this.id = data.id;
         this.editForm.patchValue(data);
