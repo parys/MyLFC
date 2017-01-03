@@ -19,6 +19,7 @@ export class NewsEditComponent implements OnInit, OnDestroy {
     id: number;
     categories: NewsCategory[];
     roles: IRoles;
+    item: News = new News();
 
     constructor(private newsService: NewsService,
         private newsCategoryService: NewsCategoryService,
@@ -47,8 +48,17 @@ export class NewsEditComponent implements OnInit, OnDestroy {
 
     }
 
+    cli() {
+        console.log(this.editForm.value);
+    }
+
     ngOnDestroy() {
         this.sub.unsubscribe();
+    }
+
+    changeMessage(event) {
+        console.log(123);
+        console.log(event);
     }
 
     onSubmit() {
@@ -73,6 +83,7 @@ export class NewsEditComponent implements OnInit, OnDestroy {
     private parse(data: News): void {
         this.id = data.id;
         this.editForm.patchValue(data);
+        this.item = data;
     }
 
     private parseForm(): News {

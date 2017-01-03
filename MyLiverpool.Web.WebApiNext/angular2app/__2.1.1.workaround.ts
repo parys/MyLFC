@@ -29,3 +29,6 @@ if (patch) {
     __universal__.CssSelector = __compiler__.CssSelector
     __universal__.SelectorMatcher = __compiler__.SelectorMatcher
 }
+
+
+declare var tinymce: any;
