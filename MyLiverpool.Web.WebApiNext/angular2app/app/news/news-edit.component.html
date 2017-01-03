@@ -19,13 +19,14 @@
         <div class="form-group">
             <label class="control-label col-xs-2 col-sm-2"> Краткое описание:</label>
             <div class="col-xs-10 col-sm-10">
-                <textarea mark-it-up class="form-control" name="brief" rows="4" formControlName="brief"> </textarea>
+                <textarea class="form-control" name="brief" rows="4" formControlName="brief"> </textarea>
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-xs-2 col-sm-2"> Текст новости:</label>
             <div class="col-xs-10 col-sm-10">
-                <textarea mark-it-up class="form-control" name="message" rows="6" formControlName="message"> </textarea>
+                <textarea class="form-control" tinymce name="message" rows="6" formControlName="message"> </textarea>
+                <tinymce [initVal]="123" (change)="changeMessage($event)"></tinymce>
             </div>
         </div>
 

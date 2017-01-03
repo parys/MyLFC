@@ -24,6 +24,7 @@ var SharedConfig = {
     },
     entry: {
         vendor: [
+            "core-js",
             "@angular/common",
             "@angular/compiler",
             "@angular/core",
@@ -43,7 +44,8 @@ var SharedConfig = {
             "jquery",
             "rxjs",
             "ng2-auto-complete",
-            "ng2-bootstrap"
+            "ng2-bootstrap",
+            "ng2-tinymce"
         ]
     },
     output: {

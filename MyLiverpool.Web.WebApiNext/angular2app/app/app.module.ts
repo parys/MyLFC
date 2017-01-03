@@ -32,6 +32,7 @@ import * as materialComment from "./materialComment/index";
 import { Ng2AutoCompleteModule } from "ng2-auto-complete";
 import { AdminService, EplTableComponent } from "./admin/index";
 import { DatepickerModule, ModalModule, PaginationModule, TabsModule } from "ng2-bootstrap";
+import { TinymceModule } from "ng2-tinymce";
 import { BreadcrumbComponent } from "./shouldRemove/index";
 
 @NgModule({
@@ -44,9 +45,11 @@ import { BreadcrumbComponent } from "./shouldRemove/index";
         PaginationModule.forRoot(),
         ReactiveFormsModule,
         TabsModule.forRoot(),
+      //  TinymceModule,
         RouterModule.forRoot(routes)
     ],
     declarations: [
+        shared.TinymceComponent,
         account.AccountSigninComponent,
         account.AccountSignupComponent,
         account.ChangePasswordComponent,

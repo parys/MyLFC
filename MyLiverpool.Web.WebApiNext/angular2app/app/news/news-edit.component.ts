@@ -51,6 +51,10 @@ export class NewsEditComponent implements OnInit, OnDestroy {
         this.sub.unsubscribe();
     }
 
+    changeMessage(event) {
+        console.log(event);
+    }
+
     onSubmit() {
         let newsItem = this.parseForm();
         if (this.id > 0) {

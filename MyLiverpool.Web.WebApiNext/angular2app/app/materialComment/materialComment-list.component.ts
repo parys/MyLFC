@@ -45,7 +45,7 @@ export class MaterialCommentListComponent implements OnInit {
             .getAll(this.page)
             .subscribe(data => this.parsePageable(data),
             error => console.log(error),
-            () => console.log("success load comment lits"));
+            () => {});
     }
 
     private parsePageable(pageable: Pageable<MaterialComment>): void {
