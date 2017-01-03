@@ -24,7 +24,7 @@ var SharedConfig = {
     },
     entry: {
         vendor: [
-            "core-js",
+            "reflect-metadata",
             "@angular/common",
             "@angular/compiler",
             "@angular/core",
@@ -44,8 +44,7 @@ var SharedConfig = {
             "jquery",
             "rxjs",
             "ng2-auto-complete",
-            "ng2-bootstrap",
-            "ng2-tinymce"
+            "ng2-bootstrap"
         ]
     },
     output: {
@@ -75,12 +74,12 @@ var ClientBundleConfig = Merge(SharedConfig,
             path: Path.join(__dirname, "wwwroot", "js", "[name]-manifest.json"),
             name: "[name]_[hash]"
         }),
-  //  ]
-     //   .concat(IsDevBuild
-      //  ? [
+    ]
+        .concat(IsDevBuild
+        ? [
             new WebpackNotifierPlugin({ title: "vendorBuild-client", alwaysNotify: true }),
-      //  ]
-     //   : [
+        ]
+        : [
             new Webpack.optimize.OccurrenceOrderPlugin(),
             new Webpack.optimize.UglifyJsPlugin({
                 compress: { warnings: false },
@@ -89,7 +88,7 @@ var ClientBundleConfig = Merge(SharedConfig,
                 },
                 minimize: true
             })
-        ]//)
+        ])
 });
 
 var ServerBundleConfig = Merge(SharedConfig, {

@@ -32,18 +32,13 @@ export class TinymceComponent implements ControlValueAccessor {
 
     @Input() initVal;
 
-    _value = '';
+    _value = "";
     zone;
     editor;
 
     ngAfterViewInit() {
-     //   console.log(tinymce);
-        console.log(window.tinymce);
         window.tinymce.init({
-            //selector: "textarea",
-            //plugins: ['link', 'autoresize'],
-            //menubar: false,
-            //toolbar: 'bold',
+            //selector: "textarea",     
             //skin_url: 'assets/skins/lightgray',
             //autoresize_overflow_padding: 0,
             selector: "textarea",
@@ -51,7 +46,7 @@ export class TinymceComponent implements ControlValueAccessor {
             autoresize_max_height: 500,
             menubar: false,
             plugins: [
-                "advlist autolink lists link image charmap print preview anchor",
+                "advlist autolink autoresize lists link image charmap print preview anchor",
                 "searchreplace visualblocks code fullscreen",
                 "insertdatetime media table contextmenu paste code emoticons"
             ],
