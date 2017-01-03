@@ -1,4 +1,5 @@
-﻿import {
+﻿//from https://www.npmjs.com/package/ng2-tinymce
+import {
     Component,
     EventEmitter,
     forwardRef,
@@ -38,22 +39,33 @@ export class TinymceComponent implements ControlValueAccessor {
     ngAfterViewInit() {
      //   console.log(tinymce);
         console.log(window.tinymce);
-        //window.tinymce.init({
-        //    selector: "textarea",
-        //    plugins: ['link', 'autoresize'],
-        //    menubar: false,
-        //    toolbar: 'bold',
-        //    skin_url: 'assets/skins/lightgray',
-        //    autoresize_overflow_padding: 0,
-        //    setup: editor => {
-        //        console.log('?');
-        //        this.editor = editor;
-        //        editor.on('keyup', () => {
-        //            const content = editor.getContent();
-        //            this.updateValue(content);
-        //        });
-        //    }
-        //});
+        window.tinymce.init({
+            //selector: "textarea",
+            //plugins: ['link', 'autoresize'],
+            //menubar: false,
+            //toolbar: 'bold',
+            //skin_url: 'assets/skins/lightgray',
+            //autoresize_overflow_padding: 0,
+            selector: "textarea",
+            // height: 500,
+            autoresize_max_height: 500,
+            menubar: false,
+            plugins: [
+                "advlist autolink lists link image charmap print preview anchor",
+                "searchreplace visualblocks code fullscreen",
+                "insertdatetime media table contextmenu paste code emoticons"
+            ],
+            toolbar: "undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image emoticons fullscreen",
+            content_css: "//www.tinymce.com/css/codepen.min.css",
+            setup: editor => {
+                console.log("?");
+                this.editor = editor;
+                editor.on("keyup", () => {
+                    const content = editor.getContent();
+                    this.updateValue(content);
+                });
+            }
+        });
     }
 
     /**

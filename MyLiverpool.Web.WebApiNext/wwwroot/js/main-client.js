@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "c5b3e5abc740e6043768"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "ac0d3db943a5c85d89fd"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotMainModule = true; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -3931,7 +3931,7 @@ module.exports = "<div class=\"\" *ngIf=\"item\">\r\n    <div class=\"alert-dang
 /* 106 */
 /***/ function(module, exports) {
 
-module.exports = "<div class=\"top20\">\r\n    <form class=\"form-horizontal\" name=\"editForm\" role=\"form\" [formGroup]=\"editForm\" (ngSubmit)=\"onSubmit(editForm.value)\">\r\n        <div class=\"form-group\">\r\n            <label class=\"control-label col-xs-2 col-sm-2\"> Категория:</label>\r\n            <div class=\"col-xs-10 col-sm-10\">\r\n                <select class=\"form-control\" name=\"categoryId\" formControlName=\"categoryId\">\r\n                    <option *ngFor=\"let category of categories\" [value]=\"category.id\" [textContent]=\"category.name\"></option>\r\n                </select>\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"form-group\">\r\n            <label class=\"control-label col-xs-2 col-sm-2\"> Название:</label>\r\n            <div class=\"col-xs-10 col-sm-10\">\r\n                <input class=\"form-control\" name=\"title\" formControlName=\"title\" />\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"form-group\">\r\n            <label class=\"control-label col-xs-2 col-sm-2\"> Краткое описание:</label>\r\n            <div class=\"col-xs-10 col-sm-10\">\r\n                <textarea class=\"form-control\" name=\"brief\" rows=\"4\" formControlName=\"brief\"> </textarea>\r\n            </div>\r\n        </div>\r\n        <div class=\"form-group\">\r\n            <label class=\"control-label col-xs-2 col-sm-2\"> Текст новости:</label>\r\n            <div class=\"col-xs-10 col-sm-10\">\r\n                <textarea class=\"form-control\" tinymce name=\"message\" rows=\"6\" formControlName=\"message\"> </textarea>\r\n                <tinymce [initVal]=\"123\" (change)=\"changeMessage($event)\"></tinymce>\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"form-group\">\r\n            <label class=\"control-label col-xs-2 col-sm-2\"> Источник:</label>\r\n            <div class=\"col-xs-10 col-sm-10\">\r\n                <input class=\"form-control\" name=\"source\" formControlName=\"source\"/>\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"form-group\">\r\n            <label class=\"control-label col-xs-2 col-sm-2\"> Главное фото:</label>\r\n            <div class=\"col-xs-10 col-sm-10\">\r\n                <input class=\"form-control\" name=\"photoPath\" formControlName=\"photo\" />\r\n            </div>\r\n            <image-addition [isMultiple]=\"false\" (loadedImage)=\"updateImage($event)\"></image-addition>\r\n        </div>\r\n\r\n        <div class=\"form-group\">\r\n            <div class=\"col-xs-offset-2 col-sm-offset-2 col-xs-10 col-sm-10\">\r\n                <div class=\"checkbox\">\r\n                    <label class=\"control-label\">\r\n                        <input class=\"checkbox\" name=\"canCommentary\" formControlName=\"canCommentary\" type=\"checkbox\" checked /> Разрешить комментарии\r\n                    </label>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <div class=\"form-group\">\r\n            <div class=\"col-xs-offset-2 col-sm-offset-2 col-xs-10 col-sm-10\">\r\n                <div class=\"checkbox\">\r\n                    <label class=\"control-label\">\r\n                        <input class=\"checkbox\" name=\"onTop\" formControlName=\"onTop\" type=\"checkbox\" /> Наверху\r\n                    </label>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <div class=\"form-group\" *ngIf=\"roles.isEditor\">\r\n            <div class=\"col-xs-offset-2 col-sm-offset-2 col-xs-10 col-sm-10\">\r\n                <div class=\"checkbox\">\r\n                    <label class=\"control-label\">\r\n                        <input class=\"checkbox\" name=\"pending\" formControlName=\"pending\" type=\"checkbox\" /> Отложена\r\n                    </label>\r\n                </div>\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"form-group\">\r\n            <div class=\"col-xs-offset-2 col-sm-offset-2 col-xs-10 col-sm-10\">\r\n                <button type=\"submit\" [disabled]=\"!editForm.valid\" class=\"btn btn-default\">Сохранить</button>\r\n            </div>\r\n        </div>\r\n    </form>\r\n</div>\r\n";
+module.exports = "<div class=\"top20\">\r\n    <form class=\"form-horizontal\" name=\"editForm\" role=\"form\" [formGroup]=\"editForm\" (ngSubmit)=\"onSubmit(editForm.value)\">\r\n        <div class=\"form-group\">\r\n            <label class=\"control-label col-xs-2 col-sm-2\"> Категория:</label>\r\n            <div class=\"col-xs-10 col-sm-10\">\r\n                <select class=\"form-control\" name=\"categoryId\" formControlName=\"categoryId\">\r\n                    <option *ngFor=\"let category of categories\" [value]=\"category.id\" [textContent]=\"category.name\"></option>\r\n                </select>\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"form-group\">\r\n            <label class=\"control-label col-xs-2 col-sm-2\"> Название:</label>\r\n            <div class=\"col-xs-10 col-sm-10\">\r\n                <input class=\"form-control\" name=\"title\" formControlName=\"title\" />\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"form-group\">\r\n            <label class=\"control-label col-xs-2 col-sm-2\"> Краткое описание:</label>\r\n            <div class=\"col-xs-10 col-sm-10\">\r\n                <!--<textarea class=\"form-control\" name=\"brief\" rows=\"4\" formControlName=\"brief\"> </textarea>-->\r\n                <tinymce [initVal]=\"this.item.brief\" formControlName=\"brief\"></tinymce>\r\n            </div>\r\n        </div>\r\n        <div class=\"form-group\">\r\n            <label class=\"control-label col-xs-2 col-sm-2\"> Текст новости:</label>\r\n            <div class=\"col-xs-10 col-sm-10\">\r\n                <!--<textarea class=\"form-control\" tinymce name=\"message\" rows=\"6\" formControlName=\"message\"> </textarea>-->\r\n                <tinymce [initVal]=\"this.item.message\" formControlName=\"message\"></tinymce>\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"form-group\">\r\n            <label class=\"control-label col-xs-2 col-sm-2\"> Источник:</label>\r\n            <div class=\"col-xs-10 col-sm-10\">\r\n                <input class=\"form-control\" name=\"source\" formControlName=\"source\"/>\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"form-group\">\r\n            <label class=\"control-label col-xs-2 col-sm-2\"> Главное фото:</label>\r\n            <div class=\"col-xs-10 col-sm-10\">\r\n                <input class=\"form-control\" name=\"photoPath\" formControlName=\"photo\" />\r\n            </div>\r\n            <image-addition [isMultiple]=\"false\" (loadedImage)=\"updateImage($event)\"></image-addition>\r\n        </div>\r\n\r\n        <div class=\"form-group\">\r\n            <div class=\"col-xs-offset-2 col-sm-offset-2 col-xs-10 col-sm-10\">\r\n                <div class=\"checkbox\">\r\n                    <label class=\"control-label\">\r\n                        <input class=\"checkbox\" name=\"canCommentary\" formControlName=\"canCommentary\" type=\"checkbox\" checked /> Разрешить комментарии\r\n                    </label>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <div class=\"form-group\">\r\n            <div class=\"col-xs-offset-2 col-sm-offset-2 col-xs-10 col-sm-10\">\r\n                <div class=\"checkbox\">\r\n                    <label class=\"control-label\">\r\n                        <input class=\"checkbox\" name=\"onTop\" formControlName=\"onTop\" type=\"checkbox\" /> Наверху\r\n                    </label>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <div class=\"form-group\" *ngIf=\"roles.isEditor\">\r\n            <div class=\"col-xs-offset-2 col-sm-offset-2 col-xs-10 col-sm-10\">\r\n                <div class=\"checkbox\">\r\n                    <label class=\"control-label\">\r\n                        <input class=\"checkbox\" name=\"pending\" formControlName=\"pending\" type=\"checkbox\" /> Отложена\r\n                    </label>\r\n                </div>\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"form-group\">\r\n            <div class=\"col-xs-offset-2 col-sm-offset-2 col-xs-10 col-sm-10\">\r\n                <button type=\"button\" (click)=\"cli()\" class=\"btn btn-default\">Сохрани342143ть</button>\r\n                <button type=\"submit\" [disabled]=\"!editForm.valid\" class=\"btn btn-default\">Сохранить</button>\r\n            </div>\r\n        </div>\r\n    </form>\r\n</div>\r\n";
 
 /***/ },
 /* 107 */
@@ -7161,6 +7161,7 @@ var NewsEditComponent = (function () {
         this.router = router;
         this.rolesChecked = rolesChecked;
         this.formBuilder = formBuilder;
+        this.item = new news_model_1.News();
     }
     NewsEditComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -7176,10 +7177,14 @@ var NewsEditComponent = (function () {
         this.newsCategoryService.getAll()
             .subscribe(function (data) { return _this.parseCategories(data); }, function (error) { return console.log(error); }, function () { });
     };
+    NewsEditComponent.prototype.cli = function () {
+        console.log(this.editForm.value);
+    };
     NewsEditComponent.prototype.ngOnDestroy = function () {
         this.sub.unsubscribe();
     };
     NewsEditComponent.prototype.changeMessage = function (event) {
+        console.log(123);
         console.log(event);
     };
     NewsEditComponent.prototype.onSubmit = function () {
@@ -7199,6 +7204,7 @@ var NewsEditComponent = (function () {
     NewsEditComponent.prototype.parse = function (data) {
         this.id = data.id;
         this.editForm.patchValue(data);
+        this.item = data;
     };
     NewsEditComponent.prototype.parseForm = function () {
         var item = new news_model_1.News();
@@ -8586,7 +8592,28 @@ var TinymceComponent = TinymceComponent_1 = (function () {
         this.zone = zone;
     }
     TinymceComponent.prototype.ngAfterViewInit = function () {
+        var _this = this;
         console.log(window.tinymce);
+        window.tinymce.init({
+            selector: "textarea",
+            autoresize_max_height: 500,
+            menubar: false,
+            plugins: [
+                "advlist autolink lists link image charmap print preview anchor",
+                "searchreplace visualblocks code fullscreen",
+                "insertdatetime media table contextmenu paste code emoticons"
+            ],
+            toolbar: "undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image emoticons fullscreen",
+            content_css: "//www.tinymce.com/css/codepen.min.css",
+            setup: function (editor) {
+                console.log("?");
+                _this.editor = editor;
+                editor.on("keyup", function () {
+                    var content = editor.getContent();
+                    _this.updateValue(content);
+                });
+            }
+        });
     };
     Object.defineProperty(TinymceComponent.prototype, "value", {
         get: function () { return this._value; },
