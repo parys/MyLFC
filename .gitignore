@@ -219,3 +219,5 @@ ModelManifest.xml
 /MyLiverpool.Web.WebApiNext/wwwroot/content/avatars/0/741004.png
 /MyLiverpool.Web.WebApiNext/wwwroot/content/avatars/0
 /MyLiverpool.Web.WebApiNext/wwwroot/dist
+/MyLiverpool.Web.WebApiNext/Properties/PublishProfiles/mylfc - Web Deploy-publish.ps1
+/MyLiverpool.Web.WebApiNext/Properties/PublishProfiles/mylfc - Web Deploy.pubxml
