@@ -1,4 +1,4 @@
-﻿//from https://www.npmjs.com/package/ng2-tinymce
+﻿// from https://www.npmjs.com/package/ng2-tinymce
 import {
     Component,
     EventEmitter,
@@ -13,17 +13,17 @@ declare var window: any;
 declare let tinymce: any;
 
 @Component({
-    selector: "tinymce",
+    selector: "full-editor",
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => TinymceComponent),
+            useExisting: forwardRef(() => FullEditorComponent),
             multi: true
         }
     ],
-    template: `<textarea id="{{elementId}}">{{initVal}}</textarea>`
+    template: `<textarea class="form-control full" id="{{elementId}}">{{initVal}}</textarea>`
 })
-export class TinymceComponent implements ControlValueAccessor {
+export class FullEditorComponent implements ControlValueAccessor {
     elementId: String = Math.random().toString(36).substring(2);
 
     @Output() change = new EventEmitter();
@@ -32,16 +32,15 @@ export class TinymceComponent implements ControlValueAccessor {
 
     @Input() initVal;
 
-    _value = "";
+    _value: string = "";
     zone;
     editor;
 
     ngAfterViewInit() {
-        window.tinymce.init({
-            //selector: "textarea",     
-            //skin_url: 'assets/skins/lightgray',
-            //autoresize_overflow_padding: 0,
-            selector: "textarea",
+        tinymce.init({
+            // skin_url: 'assets/skins/lightgray',
+            // autoresize_overflow_padding: 0,
+            selector: "textarea.full",
             // height: 500,
             autoresize_max_height: 500,
             menubar: false,
@@ -53,9 +52,8 @@ export class TinymceComponent implements ControlValueAccessor {
             toolbar: "undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image emoticons fullscreen",
             content_css: "//www.tinymce.com/css/codepen.min.css",
             setup: editor => {
-                console.log("?");
                 this.editor = editor;
-                editor.on("keyup", () => {
+                editor.on("change", () => {
                     const content = editor.getContent();
                     this.updateValue(content);
                 });
@@ -63,19 +61,19 @@ export class TinymceComponent implements ControlValueAccessor {
         });
     }
 
-    /**
-    * Constructor
-    */
     constructor(zone: NgZone) {
         this.value = this.initVal;
         this.zone = zone;
     }
 
-    get value(): any { return this._value; };
-    @Input() set value(v) {
+    get value(): any {
+         return this._value;
+    };
+    set value(v) {
         if (v !== this._value) {
             this._value = v;
             this.onChange(v);
+            this.onTouched();
         }
     }
 
@@ -103,6 +101,10 @@ export class TinymceComponent implements ControlValueAccessor {
     }
     onChange(_) { }
     onTouched() { }
-    registerOnChange(fn) { this.onChange = fn; }
-    registerOnTouched(fn) { this.onTouched = fn; }
+    registerOnChange(fn) {
+         this.onChange = fn;
+    }
+    registerOnTouched(fn) {
+         this.onTouched = fn;
+    }
 }

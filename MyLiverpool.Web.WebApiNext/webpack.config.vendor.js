@@ -24,7 +24,6 @@ var SharedConfig = {
     },
     entry: {
         vendor: [
-            "reflect-metadata",
             "@angular/common",
             "@angular/compiler",
             "@angular/core",
@@ -33,8 +32,8 @@ var SharedConfig = {
             "@angular/platform-browser-dynamic",
             "@angular/router",
             "@angular/platform-server",
-            "angular2-universal",
-            "angular2-universal-polyfills",
+         //   "angular2-universal",
+         //   "angular2-universal-polyfills",
             "es6-shim",
             "es6-promise",
             "zone.js",
@@ -44,7 +43,8 @@ var SharedConfig = {
             "jquery",
             "rxjs",
             "ng2-auto-complete",
-            "ng2-bootstrap"
+            "ng2-bootstrap",
+            "tinymce"
         ]
     },
     output: {
@@ -115,5 +115,5 @@ var ServerBundleConfig = Merge(SharedConfig, {
 });
 
 module.exports = [ClientBundleConfig
-    , ServerBundleConfig
+   // , ServerBundleConfig
 ];

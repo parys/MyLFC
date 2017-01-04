@@ -4,8 +4,8 @@
   "dependencies": {
     "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.1.0",
     "NETStandard.Library": "1.6.1",
-    "OpenIddict": "1.0.0-beta2-0537",
-    "OpenIddict.EntityFrameworkCore": "1.0.0-beta2-0537"
+    "OpenIddict": "1.0.0-beta2-0538",
+    "OpenIddict.EntityFrameworkCore": "1.0.0-beta2-0538"
   },
 
   "frameworks": {

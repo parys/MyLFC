@@ -6,7 +6,6 @@
     "experimentalDecorators": true,
     "removeComments": true,
     "sourceMap": true,
-    "skipDefaultLibCheck": true,
     "lib": [
       "es6",
       "dom"

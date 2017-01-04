@@ -23,6 +23,7 @@ import * as player from "./player/index";
 import * as roleGroup from "./roleGroup/index";
 import * as season from "./season/index";
 import * as shared from "./shared/index";
+import * as tineMceEditor from "./tinyMceEditor/index";
 import { UserDetailComponent } from "./user/user-detail.component";
 import { UserService } from "./user/user.service";
 import { UserListComponent } from "./user/user-list.component";
@@ -32,8 +33,7 @@ import * as materialComment from "./materialComment/index";
 import { Ng2AutoCompleteModule } from "ng2-auto-complete";
 import { AdminService, EplTableComponent } from "./admin/index";
 import { DatepickerModule, ModalModule, PaginationModule, TabsModule } from "ng2-bootstrap";
-//import { TinymceModule } from "ng2-tinymce";
-import { BreadcrumbComponent } from "./shouldRemove/index";
+//import { TinymceModule } from "ng2-tinymce";                    
 
 @NgModule({
     imports: [
@@ -48,8 +48,7 @@ import { BreadcrumbComponent } from "./shouldRemove/index";
        // TinymceModule,
         RouterModule.forRoot(routes)
     ],
-    declarations: [       
-        shared.TinymceComponent,         
+    declarations: [              
         account.AccountSigninComponent,
         account.AccountSignupComponent,
         account.ChangePasswordComponent,
@@ -88,10 +87,11 @@ import { BreadcrumbComponent } from "./shouldRemove/index";
         pm.PmListComponent,
         pm.PmReplyComponent,
         season.SeasonEplTableComponent,
+        tineMceEditor.FullEditorComponent,
+        tineMceEditor.MediumEditorComponent,
         wish.WishEditComponent,
         wish.WishListComponent,
         AppComponent,
-        BreadcrumbComponent,
         EplTableComponent,
         ForumSectionListComponent,
         NewsListComponent,

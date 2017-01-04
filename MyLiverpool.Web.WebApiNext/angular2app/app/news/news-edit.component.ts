@@ -19,7 +19,7 @@ export class NewsEditComponent implements OnInit, OnDestroy {
     id: number;
     categories: NewsCategory[];
     roles: IRoles;
-    item: News = new News();
+    item: News;
 
     constructor(private newsService: NewsService,
         private newsCategoryService: NewsCategoryService,
@@ -39,6 +39,8 @@ export class NewsEditComponent implements OnInit, OnDestroy {
                     .subscribe(data => this.parse(data),
                         error => console.log(error),
                         () => {});
+            } else {
+                this.item = new News();
             }
         });
         this.newsCategoryService.getAll()
@@ -47,30 +49,24 @@ export class NewsEditComponent implements OnInit, OnDestroy {
             () => { });
 
     }
-
     cli() {
+        console.log(this.editForm.controls["brief"].value);
         console.log(this.editForm.value);
     }
-
     ngOnDestroy() {
         this.sub.unsubscribe();
-    }
-
-    changeMessage(event) {
-        console.log(123);
-        console.log(event);
     }
 
     onSubmit() {
         let newsItem = this.parseForm();
         if (this.id > 0) {
             this.newsService.update(this.id, newsItem)
-                .subscribe(data => console.log(data.id),//this.router.navigate(["/news", data.id]),
+                .subscribe(data => console.log(data),//this.router.navigate(["/news", data.id]),
                 error => console.log(error),
                     () => {});
         } else {
             this.newsService.create(newsItem)
-                .subscribe(data => console.log(data.id),//this.router.navigate(["/news", data.id]),
+                .subscribe(data => console.log(data),//this.router.navigate(["/news", data.id]),
                 error => console.log(error),
                     () => {});
         }
