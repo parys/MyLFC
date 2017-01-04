@@ -4,10 +4,10 @@
     <materialComment-detail [item]="comment" [deep]="0" [materialId]="materialId" [canCommentary]="canCommentary"></materialComment-detail>
 </div>
 
-<form class="form-horizontal" role="form" [formGroup]="commentForm" (ngSubmit)="onSubmit(commentForm.value)">
+<form class="form-horizontal" role="form" [formGroup]="commentForm" (ngSubmit)="onSubmit()">
     <div class="col-md-12" *ngIf="canCommentary && roles.isLogined">
         <div class="col-md-12">
-            <textarea mark-it-up class="col-md-offset-2 col-md-8" rows="6" name="message" formControlName="message"></textarea>
+            <medium-editor class="col-md-offset-2 col-md-8" name="message" formControlName="message"></medium-editor>
         </div>
         <div class="">
             <button class="btn btn-primary center-block" [disabled]="!commentForm.valid" type="submit">Добавить</button>

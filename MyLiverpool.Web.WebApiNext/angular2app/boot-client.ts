@@ -1,4 +1,5 @@
-﻿import "./__2.1.1.workaround.ts"; // temporary until 2.1.1 things are patched in Core       bug
+﻿import "./polyfills";
+import "./__2.1.1.workaround.ts"; // temporary until 2.1.1 things are patched in Core       bug
 import "angular2-universal-polyfills/browser"; // This needs to be at the top, Universal neccessary polyfills
 import { platformUniversalDynamic } from "angular2-universal";
 import { enableProdMode } from "@angular/core";

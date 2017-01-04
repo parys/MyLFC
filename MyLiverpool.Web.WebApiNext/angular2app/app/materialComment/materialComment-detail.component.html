@@ -16,13 +16,13 @@
             <img class="avatar-medium" [src]="item.photo" [alt]="item.authorUserName"/>
         </div>
         <div class="col-xs-10 col-sm-10">
-            <p [textContent]="item.message"></p>
+            <p [innerHTML]="item.message"></p>
         </div>
     </div>
     <div class="row" *ngIf="item.answer">
         <div class="col-xs-3 col-sm-3">Ответ:</div>
         <div class="col-xs-9 col-sm-9">
-            <i [textContent]="item.answer"></i>
+            <i [innerHTML]="item.answer"></i>
         </div>
     </div>
     <div class="col-xs-12 col-sm-12" *ngIf="!roles.isSelf(item.authorId) && canCommentary">
@@ -44,7 +44,8 @@
                 <h4 class="modal-title">Добавить комментарий</h4>
             </div>
             <div class="modal-body">
-                <textarea [formControl]="commentForm.controls['message']"></textarea>
+                <!--<textarea formControlName="message"></textarea>-->
+                <medium-editor name="message" [formControl]="commentForm.controls['message']"></medium-editor>
             </div>    
             <div class="modal-footer">
                 <button class="btn btn-default" data-dismiss="modal" (click)="hideModal()" type="button">Отмена</button>
@@ -66,10 +67,12 @@
             </div>
             <div class="modal-body">
                 <div>
-                    <textarea [formControl]="commentForm.controls['message']"></textarea>
+                    <!--<textarea formControlName="message"></textarea>-->
+                    <medium-editor name="message" [formControl]="commentForm.controls['message']"></medium-editor>
                 </div>
                 <div *ngIf="roles.isEditor">
-                    <textarea [formControl]="commentForm.controls['answer']"></textarea>
+                    <!--<textarea formControlName="answer"></textarea>-->
+                    <medium-editor name="answer" [formControl]="commentForm.controls['answer']"></medium-editor>
                 </div>
             </div>    
             <div class="modal-footer">

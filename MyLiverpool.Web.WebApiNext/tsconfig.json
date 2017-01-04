@@ -1,11 +1,16 @@
 {
   "compilerOptions": {
     "target": "es5",
+    "module": "commonjs",
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "removeComments": true,
     "sourceMap": true,
+    "noEmit": false,
+    "noEmitHelpers": false,
+    "strictNullChecks": false,
+    "allowSyntheticDefaultImports": true,
     "lib": [
       "es6",
       "dom"
@@ -18,5 +23,9 @@
     "bin",
     "node_modules"
   ],
+  "awesomeTypescriptLoaderOptions": {
+    "forkChecker": true,
+    "useWebpackText": true
+  },
   "atom": { "rewriteTsconfig": false }
 }
