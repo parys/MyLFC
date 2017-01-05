@@ -18,7 +18,7 @@ export class MaterialCommentSectionComponent implements OnInit {
     itemsPerPage = 15;
     totalItems: number;
     roles: IRoles;
-    commentForm: FormGroup;
+    commentAddForm: FormGroup;
     //selectedItemIndex: number = undefined;
     @Input() materialId: number;
     @Input() canCommentary: boolean = false;
@@ -32,7 +32,7 @@ export class MaterialCommentSectionComponent implements OnInit {
         this.roles = this.rolesChecked.checkRoles();     
         this.update(); 
 
-        this.commentForm = this.formBuilder.group({
+        this.commentAddForm = this.formBuilder.group({
             'message': ["", Validators.compose([
                 Validators.required, Validators.minLength(3)])]
         });    
@@ -66,12 +66,12 @@ export class MaterialCommentSectionComponent implements OnInit {
 
     onSubmit(value: any): void {
         var comment = new MaterialComment();
-        comment.message = this.commentForm.controls["message"].value;
+        comment.message = this.commentAddForm.controls["message"].value;
         comment.materialId = this.materialId;
         this.materialCommentService.create(comment)
             .subscribe(data => {
                 this.items.push(data);
-                this.commentForm.controls["message"].patchValue("");
+                this.commentAddForm.controls["message"].patchValue("");
                 },
                 error => console.log(error),
                 () => {}

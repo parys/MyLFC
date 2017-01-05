@@ -55,7 +55,12 @@ export class ForumThemeListComponent implements OnInit, OnDestroy {
         this.location.replaceState(newUrl);
     };
 
-    update(id: number) {
+    addNewMessage(message: ForumMessage) {
+        this.items.push(message);
+        this.totalItems += 1;
+    }
+
+    private update(id: number) {
         this.service.getSingleWithMessages(id, this.page)
             .subscribe(data => {
                 this.item = data;

@@ -2,14 +2,14 @@
     <tbody>
     <tr>
         <td class="gTableTop">
-            <div style="float:left" class="gTopCornerRight" [textContent]="item.name"></div>
+            <div class="pull-left gTopCornerRight" [textContent]="item.name"></div>
             
             <!--div id="subscribe">[ <a href="javascript://" onclick="subscribe(this);return false;" class="thread_subscribe">Подписаться на тему</a> ]</!--div>-->
         </td>
     </tr>
     <tr *ngFor="let message of items">
         <td class="">
-            <table class="postTable">
+            <table class="col-sm-12 col-xs-12 postTable">
                 <tbody>
                 <tr>
                     <td width="23%" class="postTdTop" align="center">
@@ -97,7 +97,7 @@
     </tr>
     <tr id="delPtBut" style="display:none;"><td colspan="2" class="gTableSubTop" align="right"><div align="right" style="padding:1px;"><form style="margin:0;padding:0;" method="post" name="delposts" action="/forum/" onsubmit="return chdel(this);"><input class="delPostsSubmit" id="delPsSbm" type="submit" value="Удалить отмеченные сообщения" style="font-size:7pt;"><input type="hidden" name="fid" value="44"><input type="hidden" name="tid" value="1667"><input type="hidden" name="a" value="8"><input type="hidden" name="ss" value="gOKI9nKk"><input type="hidden" name="t" value="1"><input type="hidden" name="pg" value="1"><input type="hidden" id="pids" name="pids" value="0"></form></div></td></tr>
     </tbody>
-    <forumMessage-addition [themeId]="item.id"></forumMessage-addition>
+    <forumMessage-addition [themeId]="item.id" (newMessage)="addNewMessage($event)"></forumMessage-addition>
 </table>
 
 
@@ -111,7 +111,7 @@
             <span class="col-sm-9 pull-right" [textContent]="message.additionTime | date:'medium'"></span>
         </div>
         <div class="panel-body">
-            <div class="col-sm-3"> <img class="flex-vertical-center width50p" src="{{message.photo}}" /></div>
+            <div class="col-sm-3"> <img class="flex-vertical-center width50p" src="{message.photo}}" /></div>
             <div class="col-sm-9" [innerHTML]="message.message">
             </div>
         </div>

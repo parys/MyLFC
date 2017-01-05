@@ -42,7 +42,6 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 return BadRequest();
             }
             var result = await _forumMessageService.CreateAsync(dto);
-            result.AuthorUserName = User.Identity.Name;
             return Ok(result);
         }
     }

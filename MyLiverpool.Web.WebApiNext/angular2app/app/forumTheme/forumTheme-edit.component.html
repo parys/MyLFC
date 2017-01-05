@@ -4,7 +4,7 @@
             <label class="control-label col-xs-2 col-sm-2">Подсекция:</label>
             <div class="col-xs-10 col-sm-10">
                 <select class="form-control" name="subsectionId" formControlName="subsectionId">
-                    <option *ngFor="let subsection of forumSubsections" value="{{subsection.id}}">{{subsection.name}}</option>
+                    <option *ngFor="let subsection of forumSubsections" [value]="subsection.id">{{subsection.name}}</option>
                 </select>
             </div>
         </div>

@@ -49,10 +49,7 @@ export class NewsEditComponent implements OnInit, OnDestroy {
             () => { });
 
     }
-    cli() {
-        console.log(this.editForm.controls["brief"].value);
-        console.log(this.editForm.value);
-    }
+
     ngOnDestroy() {
         this.sub.unsubscribe();
     }

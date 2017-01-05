@@ -21,7 +21,7 @@ declare let tinymce: any;
             multi: true
         }
     ],
-    template: `<textarea class="form-control full" id="{{elementId}}">{{initVal}}</textarea>`
+    template: `<textarea class="form-control full" id="{{elementId}}">{{_value}}</textarea>`
 })
 export class FullEditorComponent implements ControlValueAccessor {
     elementId: String = Math.random().toString(36).substring(2);
@@ -29,18 +29,16 @@ export class FullEditorComponent implements ControlValueAccessor {
     @Output() change = new EventEmitter();
     @Output() ready = new EventEmitter();
     @Output() blur = new EventEmitter();
-
-    @Input() initVal;
-
-    _value: string = "";
+    @Input("value") _value: string = "";
     zone;
     editor;
 
-    ngAfterViewInit() {
+    ngAfterViewInit(): void {
         tinymce.init({
             // skin_url: 'assets/skins/lightgray',
             // autoresize_overflow_padding: 0,
             selector: "textarea.full",
+            forced_root_block: "",
             // height: 500,
             autoresize_max_height: 500,
             menubar: false,
@@ -62,7 +60,6 @@ export class FullEditorComponent implements ControlValueAccessor {
     }
 
     constructor(zone: NgZone) {
-        this.value = this.initVal;
         this.zone = zone;
     }
 
@@ -77,10 +74,7 @@ export class FullEditorComponent implements ControlValueAccessor {
         }
     }
 
-    /**
-    * Value update process
-    */
-    updateValue(value) {
+    updateValue(value): void {
         this.zone.run(() => {
             this.value = value;
             this.onChange(value);
@@ -89,22 +83,19 @@ export class FullEditorComponent implements ControlValueAccessor {
         });
     }
 
-    ngOnDestroy() {
+    ngOnDestroy(): void {
         tinymce.remove(this.editor);
     }
 
-    /**
-     * Implements ControlValueAccessor
-     */
-    writeValue(value) {
+    writeValue(value): void {
         this._value = value;
     }
-    onChange(_) { }
-    onTouched() { }
-    registerOnChange(fn) {
+    onChange(_): void { }
+    onTouched(): void { }
+    registerOnChange(fn): void {
          this.onChange = fn;
     }
-    registerOnTouched(fn) {
+    registerOnTouched(fn): void {
          this.onTouched = fn;
     }
 }

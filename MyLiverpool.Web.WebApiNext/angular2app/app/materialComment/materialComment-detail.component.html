@@ -6,8 +6,8 @@
         </div>
         <div class="col-xs-3 col-sm-3">
             <span class="pull-right">
-                    <a *ngIf="roles.isModerator || roles.isSelf(item.authorId)" (click)="showEditModal()"><span class="glyphicon glyphicon-pencil"> </span></a>
-                    <a *ngIf="roles.isModerator" (click)="delete()"><span class="glyphicon glyphicon-trash"> </span></a>
+                    <a *ngIf="roles.isModerator || roles.isSelf(item.authorId)" role="button" (click)="showEditModal()"><span class="glyphicon glyphicon-pencil"> </span></a>
+                    <a *ngIf="roles.isModerator" role="button" (click)="delete()"><span class="glyphicon glyphicon-trash"> </span></a>
                 </span>
         </div>
     </div>
@@ -26,7 +26,7 @@
         </div>
     </div>
     <div class="col-xs-12 col-sm-12" *ngIf="!roles.isSelf(item.authorId) && canCommentary">
-        <a (click)="showAddCommentModal()">Ответить</a>
+        <a role="button" (click)="showAddCommentModal()">Ответить</a>
     </div>
 </div>
 <div *ngFor="let child of item.children">
@@ -35,50 +35,52 @@
 
 <div class="modal fade" bsModal #addCommentModal="bs-modal" [config]="{backdrop: 'static'}"
      tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" aria-label="Close" (click)="hideModal()">
+                <button type="button" class="close" aria-label="Close" (click)="hideAddModal()">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h4 class="modal-title">Добавить комментарий</h4>
             </div>
-            <div class="modal-body">
-                <!--<textarea formControlName="message"></textarea>-->
-                <medium-editor name="message" [formControl]="commentForm.controls['message']"></medium-editor>
-            </div>    
-            <div class="modal-footer">
-                <button class="btn btn-default" data-dismiss="modal" (click)="hideModal()" type="button">Отмена</button>
-                <button class="btn btn-primary" type="button" (click)="addComment()">Добавить</button>
-            </div>
+
+            <form *ngIf="addCommentModal.isShown" class="form-horizontal" role="form" [formGroup]="commentForm" (ngSubmit)="addComment()">
+                <div class="modal-body">
+                    <medium-editor name="message" formControlName="message"></medium-editor>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-default" data-dismiss="modal" (click)="hideAddModal()" type="button">Отмена</button>
+                    <button class="btn btn-primary" [disabled]="!commentForm.valid" type="submit">Добавить</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
 
 <div class="modal fade" bsModal #editCommentModal="bs-modal" [config]="{backdrop: 'static'}"
      tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" aria-label="Close" (click)="hideModal()">
+                <button type="button" class="close" aria-label="Close" (click)="hideEditModal()">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h4 class="modal-title">Редактировать комментарий</h4>
             </div>
-            <div class="modal-body">
-                <div>
-                    <!--<textarea formControlName="message"></textarea>-->
-                    <medium-editor name="message" [formControl]="commentForm.controls['message']"></medium-editor>
+            <form *ngIf="editCommentModal.isShown" class="form-horizontal" role="form" [formGroup]="commentForm" (ngSubmit)="editComment()">
+                <div class="modal-body">
+                    <div>
+                          <medium-editor name="message" [value]="item.message" formControlName="message"></medium-editor>
+                    </div>
+                    <div *ngIf="roles.isEditor">
+                      <medium-editor name="answer" [value]="item.answer" formControlName="answer"></medium-editor>
+                    </div>
                 </div>
-                <div *ngIf="roles.isEditor">
-                    <!--<textarea formControlName="answer"></textarea>-->
-                    <medium-editor name="answer" [formControl]="commentForm.controls['answer']"></medium-editor>
+                <div class="modal-footer">
+                    <button class="btn btn-default" data-dismiss="modal" (click)="hideEditModal()" type="button">Отмена</button>
+                    <button class="btn btn-primary" [disabled]="!commentForm.valid" type="submit">Обновить</button>
                 </div>
-            </div>    
-            <div class="modal-footer">
-                <button class="btn btn-default" data-dismiss="modal" (click)="hideModal()" type="button">Отмена</button>
-                <button class="btn btn-primary" type="button" (click)="edit()">Обновить</button>
-            </div>
+            </form>
         </div>
     </div>
 </div>

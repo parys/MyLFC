@@ -20,19 +20,14 @@ export class MaterialCommentDetailComponent implements OnInit {
     @Input() materialId: number;
     @Input() parent: MaterialComment;
 
-    commentForm: FormGroup;
+    commentForm: FormGroup;          
     private oldCopy : MaterialComment;
 
     @ViewChild("addCommentModal") addCommentModal: ModalDirective;
     @ViewChild("editCommentModal") editCommentModal: ModalDirective;
     @ViewChild("deleteModal") deleteModal: ModalDirective;
-   // page: number = 1;
-   // itemsPerPage = 15;
-   // totalItems: number;
-    roles: IRoles;
-  //  selectedItemIndex: number = undefined;
 
-  //  @ViewChild("deleteModal") deleteModal: ModalDirective;
+    roles: IRoles;                
 
     constructor(private materialCommentService: MaterialCommentService,
         private location: Location,
@@ -42,39 +37,43 @@ export class MaterialCommentDetailComponent implements OnInit {
 
     ngOnInit(): void{
         this.roles = this.rolesChecked.checkRoles();
-        this.commentForm = this.formBuilder.group({
-            'message': ["", Validators.compose([
-                Validators.required])],
-            'answer': ["", Validators.compose([
-                Validators.required])]
-        });
     }
 
-    showAddCommentModal(index: number): void {
+    showAddCommentModal(): void {
+        this.initForm();
         this.addCommentModal.show();
     }
 
-    hideModal(): void {                                          
-        this.addCommentModal.hide();
-        this.hideEditModal();
-        this.deleteModal.hide();
+    showEditModal(): void {
+        this.initForm();
+        this.commentForm.patchValue(this.item);
+        this.editCommentModal.show();
     }
 
-    showDeleteModal(index: number): void {
+    showDeleteModal(): void {
         this.deleteModal.show();
     }
 
-    hideEditModal() {  
-        this.editCommentModal.hide();
-        this.cleanControls();
+    hideAddModal(): void {
+        this.commentForm = null;                                   
+        this.addCommentModal.hide();
+    }
+ 
+
+    hideDeleteModal(): void {      
+        this.deleteModal.hide();
     }
 
-    addComment(value: any): void {
-        let comment = this.getComment();
+    hideEditModal() {
+        this.commentForm = null;
+        this.editCommentModal.hide();
+    }
+
+    addComment(): void {
+        let comment = this.getNewComment();
         this.materialCommentService.create(comment)
             .subscribe(data => {
-                this.item.children.push(data);
-                this.cleanControls();
+                this.item.children.push(data);   
                 this.addCommentModal.hide();   
             },
             error => console.log(error),
@@ -100,20 +99,14 @@ export class MaterialCommentDetailComponent implements OnInit {
                         this.item = undefined;
 
                         // this.items.splice(this.selectedItemIndex, 1);
-                        this.hideModal();
+                        this.hideDeleteModal();
                     }
                 }
             );
     }
 
-    showEditModal(): void {
-        this.commentForm.patchValue(this.item);
-        this.editCommentModal.show();
-    }
-
-    edit(): void {
+    editComment(): void {
         let comment = this.getComment();
-        comment.answer = this.commentForm.controls["answer"].value;
         this.materialCommentService.update(this.item.id, comment)
             .subscribe(data => {
                 this.item = comment;
@@ -123,16 +116,26 @@ export class MaterialCommentDetailComponent implements OnInit {
             () => { });
     }
 
+    private initForm() {
+        this.commentForm = this.formBuilder.group({
+            'message': ["", Validators.compose([
+                Validators.required])],
+            'answer': [""]
+        });                                        
+    }
+
     private getComment(): MaterialComment {
         let comment = this.item;
         comment.message = this.commentForm.controls["message"].value;
+        comment.answer = this.commentForm.controls["answer"].value;
         return comment;
     }
 
-    private cleanControls(): void {    
-        this.commentForm.controls["message"].patchValue("");
-        this.commentForm.controls["message"].updateValueAndValidity();
-        this.commentForm.controls["answer"].patchValue("");
-        this.commentForm.controls["answer"].updateValueAndValidity();
+    private getNewComment(): MaterialComment {
+        let comment = new MaterialComment();
+        comment.message = this.commentForm.controls["message"].value;
+        comment.materialId = this.materialId;
+        comment.parentId = this.item.id;
+        return comment;
     }
-}
+}                                                                                                                

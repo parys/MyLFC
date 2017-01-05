@@ -19,14 +19,13 @@
         <div class="form-group">
             <label class="control-label col-xs-2 col-sm-2"> Краткое описание:</label>
             <div class="col-xs-10 col-sm-10">
-                <medium-editor *ngIf="item" [initVal]="item.brief" formControlName="brief"></medium-editor>
+                <medium-editor *ngIf="item" [value]="item.brief" formControlName="brief"></medium-editor>
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-xs-2 col-sm-2"> Текст новости:</label>
             <div class="col-xs-10 col-sm-10">
-                <!--<textarea class="form-control" tinymce name="message" rows="6" formControlName="message"> </textarea>-->
-                <full-editor *ngIf="item" [initVal]="item.message" formControlName="message"></full-editor>
+                <full-editor *ngIf="item" [value]="item.message" formControlName="message"></full-editor>
             </div>
         </div>
 
@@ -75,7 +74,6 @@
 
         <div class="form-group">
             <div class="col-xs-offset-2 col-sm-offset-2 col-xs-10 col-sm-10">
-                <button type="button" (click)="cli()" class="btn btn-default">Сохрани342143ть</button>
                 <button type="submit" [disabled]="!editForm.valid" class="btn btn-default">Сохранить</button>
             </div>
         </div>
