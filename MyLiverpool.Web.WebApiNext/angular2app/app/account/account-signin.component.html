@@ -1,11 +1,11 @@
-﻿<form name="loginForm1" class="form-inline" role="form" style="margin-top: 8px;" [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
+﻿<form name="loginForm" class="form-inline" role="form" style="margin-top: 8px;" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
-        <input class="form-control" [formControl]="loginForm.controls['userName']" placeholder="Логин" type="text" />
+        <input class="form-control" formControlName="userName" placeholder="Логин" type="text" />
       </div>
     <div class="form-group">
-        <input class="form-control" [formControl]="loginForm.controls['password']" placeholder="Пароль" type="password" />
+        <input class="form-control" formControlName="password" placeholder="Пароль" type="password" />
     </div>
     <div class="form-group">
-        <input type="submit" [disabled]="!loginForm.valid" value="Войти" class="btn btn-default" />
+        <button type="submit" [disabled]="!loginForm.valid" class="btn btn-default">Войти</button>
     </div>
 </form>

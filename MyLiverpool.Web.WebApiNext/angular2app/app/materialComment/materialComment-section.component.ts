@@ -70,8 +70,9 @@ export class MaterialCommentSectionComponent implements OnInit {
         comment.materialId = this.materialId;
         this.materialCommentService.create(comment)
             .subscribe(data => {
-                this.items.push(data);
-                this.commentAddForm.controls["message"].patchValue("");
+                    this.items.push(data);
+                    this.totalItems += 1;
+                    this.commentAddForm.controls["message"].patchValue("");
                 },
                 error => console.log(error),
                 () => {}

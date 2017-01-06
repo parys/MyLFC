@@ -26,7 +26,7 @@ export class AccountSigninComponent implements OnInit {
         });
     }
 
-    onSubmit(ra: any): void {
+    onSubmit(): void {
         this.userName = this.loginForm.controls["userName"].value;
         this.password = this.loginForm.controls["password"].value;
         let result = this.authService.login(this.userName, this.password);

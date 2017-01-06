@@ -85,9 +85,7 @@
     "include": [
       "angular2app/js",
       "Views",
-      "wwwroot",
-      "web.config",
-      "appsettings.json"
+      "wwwroot"
     ],
     "exclude": [
       "wwwroot/js/*.map",

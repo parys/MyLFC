@@ -29,17 +29,11 @@ namespace MyLiverpool.Business.Services
             try
             {
                 var client = new SmtpClient();
-                //     {
-                // client.Connect("smtp.gmail.com", 587, SecureSocketOptions.Auto);
-                // client.Authenticate(_settings.Value.Email, _settings.Value.Password);
-                //  client.Send(emailMessage);
-                // client.Disconnect(true);
-                await client.ConnectAsync("smtp.gmail.com", 587, SecureSocketOptions.Auto);
+                await client.ConnectAsync("smtp.gmail.com", 465, SecureSocketOptions.SslOnConnect);
                 await client.AuthenticateAsync(_settings.Value.Email, _settings.Value.Password);
 
                 await client.SendAsync(emailMessage);
                 await client.DisconnectAsync(true);
-                //  }
             }
             catch (Exception ex) //todo add another try to send email
             {
