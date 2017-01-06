@@ -14,7 +14,7 @@
                 <tr>
                     <td [textContent]="i + 1"></td>
                     <td>
-                        <a [routerLink]="['/pm', message.id]">
+                        <a [routerLink]="[message.id]">
                             <b *ngIf="!message.isRead" [textContent]="message.title"></b>
                             <span *ngIf="message.isRead" [textContent]="message.title"></span>
                         </a>
@@ -39,7 +39,7 @@
                 <tr>
                     <td [textContent]="i + 1"></td>
                     <td>
-                        <a [routerLink]="['/pm', message.id]">
+                        <a [routerLink]="[message.id]">
                             <b *ngIf="!message.isRead" [textContent]="message.title"></b>
                             <span *ngIf="message.isRead" [textContent]="message.title"></span>
                         </a>

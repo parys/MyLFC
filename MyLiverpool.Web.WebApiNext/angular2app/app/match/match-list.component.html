@@ -9,7 +9,7 @@
             <div class="form-group">
                 <input class="form-control" ng-model="vm.filterText" ng-model-options="{debounce: 1000}" ng-change="vm.filterByText()" placeholder="Поиск в тексте пожеланий" /> <!-todo magic number->
             </div>-->
-            <button class="btn btn-success" type="button" [routerLink]="['/match', 0, 'edit' ]">Добавить</button>
+            <button class="btn btn-success" type="button" [routerLink]="[0, 'edit']">Добавить</button>
         </form>
     </div>
     <div class="top20" *ngFor="let item of items">
@@ -26,7 +26,7 @@
                 <div [textContent]="item.englishName"></div>
             </div>
             <div class="panel-footer">
-                <img src="{{item.logo}}" />
+                <img [src]="item.logo" />
             </div>
         </div>
     </div>

@@ -3,14 +3,18 @@ import { NewsListComponent, NewsDetailComponent, NewsEditComponent } from "./ind
 import { RoleGuard } from "../auth/index";
 
 export const newsRoutes: Routes = [
-    { path: "news", component: NewsListComponent, data: { title: "Новости", breadcrumb: "Новости" } },
-    { path: "news/list", component: NewsListComponent, data: { title: "Новости", breadcrumb: "Новости" } },
-    { path: "news/list/:page", component: NewsListComponent, data: { title: "Новости", breadcrumb: "Новости" } },
-    { path: "news/:id", component: NewsDetailComponent, data: { title: "Новость", breadcrumb: "Новость" } },
-    {
-        path: "news/:id/edit",
-        component: NewsEditComponent,
-        data: { title: "Создание новости", breadcrumb: "Создание новости", roles: ["newsStart", "blogStart"] },
-        canActivate: [RoleGuard]
+    { path: "news", children: [
+            { path: "", component: NewsListComponent, data: { title: "Новости", breadcrumb: "Новости" } },
+            { path: "list", children: [
+                    { path: "", component: NewsListComponent, data: { title: "Новости", breadcrumb: "Новости" } },
+                    { path: ":page", component: NewsListComponent, data: { title: "Новости", breadcrumb: "Новости"} }
+                ]
+            },
+            { path: ":id", children: [
+                    { path: "", component: NewsDetailComponent, data: { title: "Новость", breadcrumb: "Новость" } },
+                    { path: "edit", component: NewsEditComponent, data: { title: "Создание новости", breadcrumb: "Создание новости", roles: ["newsStart", "blogStart"] }, canActivate: [RoleGuard] }
+                ]
+            }
+        ]
     }
 ];

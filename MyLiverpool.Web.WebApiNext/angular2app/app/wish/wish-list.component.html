@@ -9,7 +9,7 @@
             <div class="form-group">
                 <!--<input class="form-control" ng-model="vm.filterText" ng-model-options="{debounce: 1000}" ng-change="vm.filterByText()" placeholder="Поиск в тексте пожеланий" />-->
             </div>
-            <button class="btn btn-success" [routerLink]="['/wish', 0, 'edit']">Добавить</button>
+            <button class="btn btn-success" [routerLink]="[0, 'edit']">Добавить</button>
         </form>
     </div>
     <div class="top20" *ngFor="let wish of items; let i = index;">
@@ -19,7 +19,7 @@
                     <a [routerLink]="['/wish', wish.id, 'edit']">
                         <span [textContent]="wish.title"></span>
                     </a>
-                    <span class="col-xs-1 col-sm-1 pull-right" secured="AdminFull">
+                    <span class="col-xs-1 col-sm-1 pull-right" *ngIf="roles.IsAdmin">
                         <a ng-click="vm.delete(i)"><span class="glyphicon glyphicon-trash"></span></a>
                     </span>
                 </h3>
