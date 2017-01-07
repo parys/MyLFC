@@ -1,12 +1,13 @@
 ﻿import "./polyfills";
-import "./__2.1.1.workaround.ts"; // temporary until 2.1.1 things are patched in Core       bug
-import "angular2-universal-polyfills/browser"; // This needs to be at the top, Universal neccessary polyfills
-import { platformUniversalDynamic } from "angular2-universal";
+// import "./__2.1.1.workaround.ts"; // temporary until 2.1.1 things are patched in Core       bug
+// import "angular2-universal-polyfills/browser"; // This needs to be at the top, Universal neccessary polyfills
+// import { platformUniversalDynamic } from "angular2-universal";
+import { platformBrowserDynamic } from "@angular/platform-browser-dynamic";
 import { enableProdMode } from "@angular/core";
 import { AppModule } from "./app/app.module";
 import "bootstrap";
                                                                          
-// Enable either Hot Module Reloading or production mode
+// enable either Hot Module Reloading or production mode
 if (module["hot"]) {
     module["hot"].accept();
     module["hot"].dispose(() => { platform.destroy(); });
@@ -14,9 +15,9 @@ if (module["hot"]) {
     enableProdMode();
 }
 
-// Boot the application, either now or when the DOM content is loaded
+// boot the application, either now or when the DOM content is loaded
 
-const platform = platformUniversalDynamic();
+const platform = platformBrowserDynamic();
 const bootApplication = () => { platform.bootstrapModule(AppModule); };
 if (document.readyState === "complete") {
     bootApplication();

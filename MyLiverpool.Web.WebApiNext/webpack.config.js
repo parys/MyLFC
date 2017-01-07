@@ -53,26 +53,26 @@ var ClientBundleConfig = Merge(SharedConfig, {
 });
 
 // Configuration for server-side (prerendering) bundle suitable for running in Node
-var ServerBundleConfig = Merge(SharedConfig, {
-    resolve: { mainFields: ["main"] },
-    entry: { 'main-server': "./angular2app/boot-server.ts" },
-    output: {
-        libraryTarget: "commonjs",
-        path: Path.join(__dirname, "./angular2app/js")
-    },
-    target: "node",
-    devtool: "inline-source-map",
-    externals: [NodeExternals({ whitelist: [AllFilenamesExceptJavaScript] })], // Don't bundle .js files from node_modules
-    plugins: [
-        new WebpackNotifierPlugin({ title: "serverBuild", alwaysNotify: true }),
-                new Webpack.DllReferencePlugin({
-                    context: __dirname,
-                    manifest: require("./angular2app/js/vendor-manifest.json"),
-                    sourceType: "commonjs2",
-                    name: "./vendor"
-                })
-    ]
-});
+//var ServerBundleConfig = Merge(SharedConfig, {
+//    resolve: { mainFields: ["main"] },
+//    entry: { 'main-server': "./angular2app/boot-server.ts" },
+//    output: {
+//        libraryTarget: "commonjs",
+//        path: Path.join(__dirname, "./angular2app/js")
+//    },
+//    target: "node",
+//    devtool: "inline-source-map",
+//    externals: [NodeExternals({ whitelist: [AllFilenamesExceptJavaScript] })], // Don't bundle .js files from node_modules
+//    plugins: [
+//        new WebpackNotifierPlugin({ title: "serverBuild", alwaysNotify: true }),
+//                new Webpack.DllReferencePlugin({
+//                    context: __dirname,
+//                    manifest: require("./angular2app/js/vendor-manifest.json"),
+//                    sourceType: "commonjs2",
+//                    name: "./vendor"
+//                })
+//    ]
+//});
 
 module.exports = [
     ClientBundleConfig

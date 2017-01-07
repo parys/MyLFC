@@ -154,8 +154,8 @@ namespace MyLiverpool.Web.WebApiNext
                     TermsOfService = "None"
                 });
 
-                var filePath = Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, "MyApi.xml");
-                options.IncludeXmlComments(filePath);
+            //    var filePath = Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, "MyApi.xml");
+            //s    options.IncludeXmlComments(filePath);
                 options.OperationFilter<HandleModelbinding>();
 
                 options.AddSecurityDefinition("oauth2", new OAuth2Scheme()
