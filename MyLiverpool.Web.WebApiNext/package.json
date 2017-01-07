@@ -23,6 +23,7 @@
     "bootstrap": "^3.3.7",
     "css": "2.2.1",
     "css-loader": "0.26.1",
+    "copy-webpack-plugin": "4.0.1",
     "es6-promise": "4.0.5",
     "es6-shim": "0.35.2",
     "event-source-polyfill": "0.0.7",

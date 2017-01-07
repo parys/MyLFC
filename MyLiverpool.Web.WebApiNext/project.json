@@ -32,7 +32,7 @@
     "MyLiverpool.Common.Utilities": "1.0.0-*",
     "MyLiverpool.Data.Entities": "1.0.0-*",
     "MyLiverpool.Data.ResourceAccess": "1.0.0-*",
-    "Swashbuckle": "6.0.0-preview-0055"
+    "Swashbuckle.AspNetCore": "1.0.0-rc1"
   },
 
   "tools": {

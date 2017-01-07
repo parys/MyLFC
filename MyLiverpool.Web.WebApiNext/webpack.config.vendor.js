@@ -5,6 +5,7 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var ExtractCss = new ExtractTextPlugin("vendor.css");
 var WebpackNotifierPlugin = require("webpack-notifier");
 var Merge = require("webpack-merge");
+var CopyWebpackPlugin = require("copy-webpack-plugin");
 
 var SharedConfig = {
     resolve: {
@@ -74,6 +75,9 @@ var ClientBundleConfig = Merge(SharedConfig,
             path: Path.join(__dirname, "wwwroot", "js", "[name]-manifest.json"),
             name: "[name]_[hash]"
         }),
+         new CopyWebpackPlugin([
+            { from: "node_modules/swagger-ui/dist", to: "../swagger/" },
+         ])
     ]
         .concat(IsDevBuild
         ? [

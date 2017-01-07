@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using AutoMapper;
 using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Builder;
@@ -12,7 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Primitives;
+using Microsoft.Extensions.PlatformAbstractions;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Services;
 using MyLiverpool.Common.Mappings;
@@ -23,7 +24,7 @@ using MyLiverpool.Data.ResourceAccess.Interfaces;
 using MyLiverpool.Data.ResourceAccess.Repositories;
 using MyLiverpool.Web.WebApiNext.Extensions;
 using Newtonsoft.Json.Serialization;
-using Swashbuckle.Swagger.Model;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace MyLiverpool.Web.WebApiNext
 {
@@ -152,8 +153,11 @@ namespace MyLiverpool.Web.WebApiNext
                     Description = "API Sample made",
                     TermsOfService = "None"
                 });
+
+                var filePath = Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, "MyApi.xml");
+                options.IncludeXmlComments(filePath);
                 options.OperationFilter<HandleModelbinding>();
-                
+
                 options.AddSecurityDefinition("oauth2", new OAuth2Scheme()
                 {
                     Type = "oauth2",
@@ -165,7 +169,7 @@ namespace MyLiverpool.Web.WebApiNext
                     {
                         {"roles", "roles scope"},
                         {"openid", "openid scope"}
-                    }
+                    },
                 });
 
              //   options.OperationFilter<AssignSecurityRequirements>();
@@ -204,10 +208,7 @@ namespace MyLiverpool.Web.WebApiNext
                     HotModuleReplacement = true
                 });
 
-                app.UseSwagger(documentFilter: (swaggerDoc, httpRequest) =>
-                {
-                    swaggerDoc.Host = httpRequest.Host.Value;
-                });
+                app.UseSwagger();
                 app.UseSwaggerUi(c =>
                 {
                     c.SwaggerEndpoint("/swagger/v1/swagger.json", "V1 Docs");

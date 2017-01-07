@@ -221,3 +221,4 @@ ModelManifest.xml
 /MyLiverpool.Web.WebApiNext/wwwroot/dist
 /MyLiverpool.Web.WebApiNext/Properties/PublishProfiles/mylfc - Web Deploy-publish.ps1
 /MyLiverpool.Web.WebApiNext/Properties/PublishProfiles/mylfc - Web Deploy.pubxml
+/MyLiverpool.Web.WebApiNext/wwwroot/swagger
