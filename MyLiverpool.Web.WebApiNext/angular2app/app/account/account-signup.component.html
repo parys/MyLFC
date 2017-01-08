@@ -8,7 +8,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="col-md-2 control-label">Почтовый адрес</label>
+            <label class="col-md-2 control-label">Почта</label>
             <div class="col-md-10">
                 <!-- <input type="email" name="email" [(ngModel)]="item.email" id="email" debounce="5000" validation="remote:vm.emailUnique():alt=Пользователь с таким адресом уже существуетrequired|email|min_len:6" />
                 -->  <input class="form-control" formControlName="email" type="email"/>
@@ -21,39 +21,21 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="col-md-2 control-label">Подтверждение пароля</label>
+            <label class="col-md-2 control-label">Ещё пароль</label>
             <div class="col-md-10">
                 <input class="form-control" formControlName="confirmPassword" type="password"/>
             </div>
         </div>
-        <!--div class="form-group">
-            <label class="col-md-2 control-label">Полное имя</label>
-            <div class="col-md-10">
-                <input class="form-control" [formControlName]="registerForm.controls['fullName']" type="text"/>
-            </div>
-        </!--div>
-        <div class="form-group">
-            <label class="col-md-2 control-label">Дата рождения</label>
-            <div class="col-md-10">
-                <!-- <datepicker  class="form-control" [formControlName]="registerForm.controls['birthday']"></datepicker> 
-                <!-- <div class="input-group">
-                    <input type="text" class="form-control" validation="required" name="birthday"
-                           ng-readonly="true" show-button-bar="false"
-                           uib-datepicker-popup="dd/MMMM/yyyy" [(ngModel)]="item.birthday"
-                           is-open="vm.status.opened" datepicker-options="vm.dateOptions" close-text="Закрыть"
-                           alt-input-formats="altInputFormats"/>
-                    span class="input-group-btn va-top">
-                    <button type="button" class="btn btn-default" ng-click="vm.open()"><i class="glyphicon glyphicon-calendar"></i></button>
-                    </span
-                </div> ->
-                <input class="form-control" [formControlName]="registerForm.controls['birthday']" type="text"/>
-            </div>
-        </div-->
-        <div class="form-group">
+        <div class="form-group" *ngIf="isHuman">
             <div class="col-md-offset-2 col-md-10">
                 <button class="btn btn-default" [disabled]="!registerForm.valid" type="submit">Зарегистрироваться</button>
             </div>
         </div>
-    </form>
+        <div class="form-group" [hidden]="isHuman">
+            <div class="col-md-offset-2 col-md-10">
+                <recaptcha (isHuman)="isHuman = $event"></recaptcha>
+            </div>
+        </div>
+        </form>
     <span *ngIf="result">Регистрация прошла успешно, пожалуйста, подтвердите регистрацию. Письмо отправлено на введенную вами почту.</span>
 </div>

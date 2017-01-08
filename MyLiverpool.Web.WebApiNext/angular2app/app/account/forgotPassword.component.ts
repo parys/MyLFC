@@ -13,6 +13,7 @@ export class ForgotPasswordComponent implements OnInit {
     forgotForm: FormGroup;
     email: string;
     finish: boolean;
+    isHuman: boolean = false;
 
     constructor(private service: AccountService, private formBuilder: FormBuilder) {
     }
@@ -24,12 +25,13 @@ export class ForgotPasswordComponent implements OnInit {
         });
     }
 
-    onSubmit(ra: any): void {     
+    onSubmit(): void {     
         this.email = this.forgotForm.controls["email"].value;        
         this.service.forgotPassword(this.email).subscribe(data => data,
             error => console.log(error),
             () => { }
         );
         this.finish = true;
+        this.isHuman = false;
     }
 }

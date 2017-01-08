@@ -33,6 +33,7 @@ import * as materialComment from "./materialComment/index";
 import { Ng2AutoCompleteModule } from "ng2-auto-complete";
 import { AdminService, EplTableComponent } from "./admin/index";
 import { DatepickerModule, ModalModule, PaginationModule, TabsModule } from "ng2-bootstrap";
+import { ReCaptchaModule } from "angular2-recaptcha";
 
 @NgModule({
     imports: [
@@ -45,7 +46,8 @@ import { DatepickerModule, ModalModule, PaginationModule, TabsModule } from "ng2
         PaginationModule.forRoot(),
         ReactiveFormsModule,
         TabsModule.forRoot(),
-        RouterModule.forRoot(routes)
+        RouterModule.forRoot(routes),
+        ReCaptchaModule
     ],
     declarations: [
         account.AccountSigninComponent,
@@ -86,6 +88,7 @@ import { DatepickerModule, ModalModule, PaginationModule, TabsModule } from "ng2
         pm.PmListComponent,
         pm.PmReplyComponent,
         season.SeasonEplTableComponent,
+        shared.RecaptchaComponent,
         tineMceEditor.FullEditorComponent,
         tineMceEditor.MediumEditorComponent,
         wish.WishEditComponent,

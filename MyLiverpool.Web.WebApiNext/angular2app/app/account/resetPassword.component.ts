@@ -39,7 +39,7 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
         this.sub.unsubscribe();
     }
 
-    onSubmit(ra: any): void {
+    onSubmit(): void {
         let resetPassword = new ResetPassword();
         resetPassword.code = this.code;
         resetPassword.email = this.resetForm.controls["email"].value;

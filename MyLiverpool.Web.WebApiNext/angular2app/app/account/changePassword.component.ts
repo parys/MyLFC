@@ -13,6 +13,7 @@ import { ChangePassword } from "./changePassword.model";
 export class ChangePasswordComponent implements OnInit {
 
     passwordForm: FormGroup;
+    isHuman: boolean = false;
 
     constructor(private service: AccountService, private formBuilder: FormBuilder) {
     }
@@ -28,7 +29,7 @@ export class ChangePasswordComponent implements OnInit {
         }, { validator: GlobalValidators.matchingPasswords("newPassword", "confirmPassword") });
     }
 
-    onSubmit(ra: any): void {
+    onSubmit(): void {
         let model = new ChangePassword();
         model.oldPassword = this.passwordForm.controls["oldPassword"].value;
         model.newPassword = this.passwordForm.controls["newPassword"].value;
@@ -42,5 +43,6 @@ export class ChangePasswordComponent implements OnInit {
             error => console.log(error),
             () => { }
         );
+        this.isHuman = false;
     }
 }

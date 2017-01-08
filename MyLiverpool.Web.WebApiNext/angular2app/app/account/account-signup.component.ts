@@ -14,6 +14,7 @@ export class AccountSignupComponent implements OnInit {
     registerForm: FormGroup;
     id: number;
     result: boolean = false;
+    isHuman: boolean = false;
 
     constructor(private accountService: AccountService, private formBuilder: FormBuilder) {
     }
@@ -27,11 +28,7 @@ export class AccountSignupComponent implements OnInit {
             'password': ["", Validators.compose([
                 Validators.required, Validators.minLength(6)])],
             'confirmPassword': ["", Validators.compose([
-                Validators.required, Validators.minLength(6)])],
-            // 'fullName': ["123", Validators.compose([
-            //    Validators.required,])],
-           // 'birthday': ["10/10/2015", Validators.compose([
-           //     Validators.required,])]
+                Validators.required, Validators.minLength(6)])]
         });
     }
 
@@ -41,8 +38,6 @@ export class AccountSignupComponent implements OnInit {
         signup.email = this.registerForm.controls["email"].value;
         signup.password = this.registerForm.controls["password"].value;
         signup.confirmPassword = this.registerForm.controls["confirmPassword"].value;
-     //   signup.fullName = this.registerForm.controls["fullName"].value;
-     //   signup.birthday = this.registerForm.controls["birthday"].value;
 
         this.accountService
             .create(signup)
@@ -52,6 +47,7 @@ export class AccountSignupComponent implements OnInit {
                     }
                 },
             error => console.log(error),
-            () => {});
+            () => { });
+        this.isHuman = false;
     }
 }
