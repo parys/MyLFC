@@ -89,6 +89,7 @@
     ],
     "exclude": [
       "wwwroot/js/*.map",
+      "wwwroot/swagger",
       "node_modules"
     ]
   },

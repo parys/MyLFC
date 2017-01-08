@@ -1,14 +1,15 @@
 ﻿import { Injectable } from "@angular/core";
-import { isBrowser, isNode } from "angular2-universal";           
+//import { isBrowser, isNode } from "angular2-universal";           
 
 @Injectable()
 export class LocalStorageService { 
     private localStorage: Storage;
     constructor() {
-        if (isBrowser && !localStorage) {
+        if (//isBrowser &&
+            !localStorage) {
             throw new Error("Current browser does not support Local Storage");
-        } else if (isNode) {
-            this.localStorage = null;
+    //    } else if (isNode) {
+    //        this.localStorage = null;
         }else{
             this.localStorage = localStorage;
         }

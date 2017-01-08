@@ -45,7 +45,7 @@ var SharedConfig = {
             "rxjs",
             "ng2-auto-complete",
             "ng2-bootstrap",
-            "tinymce"
+         //   "tinymce"
         ]
     },
     output: {
@@ -70,53 +70,51 @@ var ClientBundleConfig = Merge(SharedConfig,
         ]
     },
     plugins: [
-        ExtractCss,
-        new Webpack.DllPlugin({
-            path: Path.join(__dirname, "wwwroot", "js", "[name]-manifest.json"),
-            name: "[name]_[hash]"
-        }),
-         new CopyWebpackPlugin([
-            { from: "node_modules/swagger-ui/dist", to: "../swagger/" },
-         ])
-    ]
-        .concat(IsDevBuild
-        ? [
-            new WebpackNotifierPlugin({ title: "vendorBuild-client", alwaysNotify: true }),
-        ]
-        : [
-            new Webpack.optimize.OccurrenceOrderPlugin(),
-            new Webpack.optimize.UglifyJsPlugin({
-                compress: { warnings: false },
-                output: {
-                    comments: false
-                },
-                minimize: true
+            ExtractCss,
+            new Webpack.DllPlugin({
+                path: Path.join(__dirname, "wwwroot", "js", "[name]-manifest.json"),
+                name: "[name]_[hash]"
             })
-        ])
+        ]
+        .concat(IsDevBuild
+            ? [
+                new WebpackNotifierPlugin({ title: "vendorBuild-client", alwaysNotify: true }),
+                new CopyWebpackPlugin([{ from: "node_modules/swagger-ui/dist", to: "../swagger/" }])
+            ]
+            : [
+                new Webpack.optimize.OccurrenceOrderPlugin(),
+                new Webpack.optimize.UglifyJsPlugin({
+                    compress: { warnings: false },
+                    output: {
+                        comments: false
+                    },
+                    minimize: true
+                })
+            ])
 });
 
-var ServerBundleConfig = Merge(SharedConfig, {
-    target: "node",
-    resolve: {
-        mainFields: ["main"]
-    },
-    output: {
-        path: Path.join(__dirname, "angular2app", "js"),
-        libraryTarget: "commonjs2"
-    },
-    module: {
-        loaders: [{ test: /\.css(\?|$)/, loader: "style-loader!css-loader" }]
-    },
-    entry: { vendor: ["aspnet-prerendering"] },
-    plugins: [
-        new Webpack.DllPlugin({
-            path: Path.join(__dirname, "angular2app", "js", "[name]-manifest.json"),
-            name: "[name]_[hash]"
-        }),
+//var ServerBundleConfig = Merge(SharedConfig, {
+//    target: "node",
+//    resolve: {
+//        mainFields: ["main"]
+//    },
+//    output: {
+//        path: Path.join(__dirname, "angular2app", "js"),
+//        libraryTarget: "commonjs2"
+//    },
+//    module: {
+//        loaders: [{ test: /\.css(\?|$)/, loader: "style-loader!css-loader" }]
+//    },
+//    entry: { vendor: ["aspnet-prerendering"] },
+//    plugins: [
+//        new Webpack.DllPlugin({
+//            path: Path.join(__dirname, "angular2app", "js", "[name]-manifest.json"),
+//            name: "[name]_[hash]"
+//        }),
         
-        new WebpackNotifierPlugin({title: "vendorBuild-server", alwaysNotify: true })
-    ]
-});
+//        new WebpackNotifierPlugin({title: "vendorBuild-server", alwaysNotify: true })
+//    ]
+//});
 
 module.exports = [ClientBundleConfig
    // , ServerBundleConfig

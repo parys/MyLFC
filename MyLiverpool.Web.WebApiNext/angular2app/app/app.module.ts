@@ -1,8 +1,8 @@
 import { NgModule, LOCALE_ID } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { Title } from "@angular/platform-browser";
+import { Title, BrowserModule } from "@angular/platform-browser";
 import { RouterModule } from "@angular/router";
-import { UniversalModule } from "angular2-universal";
+import { HttpModule } from "@angular/http";
 import { AppComponent } from "./app.component";
 import { routes } from "./app.routes";
 import { Configuration } from "./app.constants";
@@ -33,11 +33,11 @@ import * as materialComment from "./materialComment/index";
 import { Ng2AutoCompleteModule } from "ng2-auto-complete";
 import { AdminService, EplTableComponent } from "./admin/index";
 import { DatepickerModule, ModalModule, PaginationModule, TabsModule } from "ng2-bootstrap";
-//import { TinymceModule } from "ng2-tinymce";                    
 
 @NgModule({
     imports: [
-        UniversalModule,     //  must be first import. This automatically imports NgModule, BrowserModule, HttpModule, and JsonpModule too.],
+        BrowserModule,
+        HttpModule,
         DatepickerModule.forRoot(),
         FormsModule,
         ModalModule.forRoot(),
@@ -45,10 +45,9 @@ import { DatepickerModule, ModalModule, PaginationModule, TabsModule } from "ng2
         PaginationModule.forRoot(),
         ReactiveFormsModule,
         TabsModule.forRoot(),
-       // TinymceModule,
         RouterModule.forRoot(routes)
     ],
-    declarations: [              
+    declarations: [
         account.AccountSigninComponent,
         account.AccountSignupComponent,
         account.ChangePasswordComponent,

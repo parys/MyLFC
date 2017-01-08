@@ -1,9 +1,9 @@
 var IsDevBuild = process.argv.indexOf("--env.prod") < 0;
 var Path = require("path");
 var Webpack = require("webpack");
-var NodeExternals = require("webpack-node-externals");
+//var NodeExternals = require("webpack-node-externals");
 var Merge = require("webpack-merge");
-var AllFilenamesExceptJavaScript = /\.(?!js(\?|$))([^.]+(\?|$))/;
+//var AllFilenamesExceptJavaScript = /\.(?!js(\?|$))([^.]+(\?|$))/;
 var WebpackNotifierPlugin = require("webpack-notifier");
 
 // Configuration in common to both client-side and server-side bundles
