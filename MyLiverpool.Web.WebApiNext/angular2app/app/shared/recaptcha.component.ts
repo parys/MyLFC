@@ -1,6 +1,4 @@
-﻿import { Component, OnInit, Output, EventEmitter } from "@angular/core";
-import { Title } from "@angular/platform-browser";
-import { Observable } from "rxjs/Observable";
+﻿import { Component, Output, EventEmitter } from "@angular/core";
 
 @Component({
     selector: "recaptcha",
@@ -11,14 +9,8 @@ import { Observable } from "rxjs/Observable";
                             site_key="6Ld0AxEUAAAAAA9BH17mRd8MDPqLGDzSomOEeeIY">
                 </re-captcha>`
 })
-export class RecaptchaComponent implements OnInit {
-    @Output()
-    isHuman = new EventEmitter<boolean>();
-
-    ngOnInit() {
-
-    }
-
+export class RecaptchaComponent {
+    @Output() isHuman = new EventEmitter<boolean>();
 
     handleCorrectCaptcha(event: string): void {
         if (event) {

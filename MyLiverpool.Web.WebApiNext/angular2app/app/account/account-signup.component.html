@@ -7,7 +7,7 @@
                 <div class="alert alert-danger" *ngIf="registerForm.controls['userName'].touched && !registerForm.controls['userName'].valid">
                     <div *ngIf="registerForm.controls['userName'].hasError('required')">Необходимо заполнить поле.</div>
                     <div *ngIf="registerForm.controls['userName'].hasError('minlength')">Значение должно превышать 3 символа.</div><!--todo move to config-->
-                    <div *ngIf="registerForm.controls['userName'].hasError('isNotUniqueUserName')">Пользователь с таким логином уже зарегистрирован.</div>
+                    <div *ngIf="registerForm.controls['userName'].hasError('notUniqueUserName')">Пользователь с таким логином уже зарегистрирован.</div>
                 </div>
             </div>
         </div>
@@ -19,7 +19,7 @@
                     <div *ngIf="registerForm.controls['email'].hasError('required')">Необходимо заполнить поле.</div>
                     <div *ngIf="registerForm.controls['email'].hasError('minlength')">Значение должно превышать 6 символов.</div> <!--todo move to config-->
                     <div *ngIf="registerForm.controls['email'].hasError('incorrectMailFormat')">Введенное значение не является допустимым адресом.</div>
-                    <div *ngIf="registerForm.controls['email'].hasError('isNotUniqueEmail')">Пользователь с таким адресом уже зарегистрирован.</div>
+                    <div *ngIf="registerForm.controls['email'].hasError('notUniqueEmail')">Пользователь с таким адресом уже зарегистрирован.</div>
                 </div>
             </div>
         </div>

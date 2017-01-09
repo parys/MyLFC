@@ -37,7 +37,7 @@ export class AccountSignupComponent implements OnInit {
                 Validators.required, Validators.minLength(6)])],
             'confirmPassword': ["", Validators.compose([
                 Validators.required, Validators.minLength(6)])]
-        }, { validator: GlobalValidators.matchingPasswords("password", "confirmPassword") });                                
+        }, { validator: GlobalValidators.matchingPasswords("password", "confirmPassword") });                      
     }
 
     onSubmit(): void {

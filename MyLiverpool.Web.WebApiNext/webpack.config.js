@@ -16,8 +16,8 @@ var SharedConfig = {
     },
     module: {
         loaders: [
-            { test: /\.ts$/, include: /angular2app/, loaders: ["ts-loader?silent=true", "angular2-template-loader"] },
-         //   { test: /\.ts$/, include: /angular2app/, loaders: ["awesome-typescript-loader", "angular2-template-loader"] },
+         //   { test: /\.ts$/, include: /angular2app/, loaders: ["ts-loader?silent=true", "angular2-template-loader"] },
+            { test: /\.ts$/, include: /angular2app/, loaders: ["awesome-typescript-loader", "angular2-template-loader"] },
             { test: /\.html$/, loader: "html-loader" },
             { test: /\.css$/, loader: "style-loader!css-loader" },
             { test: /\.(png|jpg|jpeg|gif|svg)$/, loader: "url-loader", query: { limit: 25000 } }
