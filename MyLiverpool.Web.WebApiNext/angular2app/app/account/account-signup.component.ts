@@ -4,6 +4,7 @@ import { Observable } from "rxjs/Observable";
 import { Signup } from "./signup.model";
 import { AccountService } from "./account.service";
 import { GlobalValidators } from "../shared/index";
+import { AccountValidators } from "./account.validators";
 
 @Component({
     selector: "account-signup",
@@ -22,14 +23,21 @@ export class AccountSignupComponent implements OnInit {
     ngOnInit() {
         this.registerForm = this.formBuilder.group({
             'userName': ["", Validators.compose([
-                Validators.required, Validators.minLength(3)])],
+                Validators.required,
+                Validators.minLength(3),
+                new AccountValidators(this.accountService).isUserNameUnique
+            ])],
             'email': ["", Validators.compose([
-                Validators.required, Validators.minLength(6), GlobalValidators.mailFormat])],
+                Validators.required,
+                Validators.minLength(6),
+                GlobalValidators.mailFormat,
+                new AccountValidators(this.accountService).isEmailUnique
+            ])],
             'password': ["", Validators.compose([
                 Validators.required, Validators.minLength(6)])],
             'confirmPassword': ["", Validators.compose([
                 Validators.required, Validators.minLength(6)])]
-        });
+        }, { validator: GlobalValidators.matchingPasswords("password", "confirmPassword") });                                
     }
 
     onSubmit(): void {

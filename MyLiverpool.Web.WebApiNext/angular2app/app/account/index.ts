@@ -6,3 +6,4 @@ export * from "./resetPassword.component";
 export * from "./changePassword.component";
 export * from "./unconfirmedEmail.component";
 export * from "./account.service";      
+export * from "./account.validators";      

@@ -3,27 +3,45 @@
         <div class="form-group">
             <label class="col-md-2 control-label">Логин</label>
             <div class="col-md-10">
-                <!--    <input type="text" name="userName" [(ngModel)]="item.username" id="userName" debounce="5000" validation="remote:vm.userNameUnique():alt=Пользователь с таким логином уже существует|min_len:3|max_len:30|required" />
-                -->  <input class="form-control" formControlName="userName" type="text" />
+                <input class="form-control" formControlName="userName" type="text" />
+                <div class="alert alert-danger" *ngIf="registerForm.controls['userName'].touched && !registerForm.controls['userName'].valid">
+                    <div *ngIf="registerForm.controls['userName'].hasError('required')">Необходимо заполнить поле.</div>
+                    <div *ngIf="registerForm.controls['userName'].hasError('minlength')">Значение должно превышать 3 символа.</div><!--todo move to config-->
+                    <div *ngIf="registerForm.controls['userName'].hasError('isNotUniqueUserName')">Пользователь с таким логином уже зарегистрирован.</div>
+                </div>
             </div>
         </div>
         <div class="form-group">
             <label class="col-md-2 control-label">Почта</label>
             <div class="col-md-10">
-                <!-- <input type="email" name="email" [(ngModel)]="item.email" id="email" debounce="5000" validation="remote:vm.emailUnique():alt=Пользователь с таким адресом уже существуетrequired|email|min_len:6" />
-                -->  <input class="form-control" formControlName="email" type="email"/>
+                <input class="form-control" formControlName="email" type="email" />
+                <div class="alert alert-danger" *ngIf="registerForm.controls['email'].touched && !registerForm.controls['email'].valid">
+                    <div *ngIf="registerForm.controls['email'].hasError('required')">Необходимо заполнить поле.</div>
+                    <div *ngIf="registerForm.controls['email'].hasError('minlength')">Значение должно превышать 6 символов.</div> <!--todo move to config-->
+                    <div *ngIf="registerForm.controls['email'].hasError('incorrectMailFormat')">Введенное значение не является допустимым адресом.</div>
+                    <div *ngIf="registerForm.controls['email'].hasError('isNotUniqueEmail')">Пользователь с таким адресом уже зарегистрирован.</div>
+                </div>
             </div>
         </div>
         <div class="form-group">
             <label class="col-md-2 control-label">Пароль</label>
             <div class="col-md-10">
-                <input class="form-control"  formControlName="password" type="password" />
+                <input class="form-control" formControlName="password" type="password"/>
+                <div class="alert alert-danger" *ngIf="registerForm.controls['password'].touched && !registerForm.controls['password'].valid">
+                    <div *ngIf="registerForm.controls['password'].hasError('required')">Необходимо заполнить поле.</div>
+                    <div *ngIf="registerForm.controls['password'].hasError('minlength')">Значение должно превышать 6 символов.</div> <!--todo move to config-->
+                </div>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-md-2 control-label">Ещё пароль</label>
+            <label class="col-md-2 control-label">Ещё раз пароль</label>
             <div class="col-md-10">
                 <input class="form-control" formControlName="confirmPassword" type="password"/>
+                <div class="alert alert-danger" *ngIf="registerForm.controls['confirmPassword'].touched && !registerForm.controls['confirmPassword'].valid">
+                    <div *ngIf="registerForm.controls['confirmPassword'].hasError('required')">Необходимо заполнить поле.</div>
+                    <div *ngIf="registerForm.controls['confirmPassword'].hasError('minlength')">Значение должно превышать 6 символов.</div> <!--todo move to config-->
+                    <div *ngIf="registerForm.hasError('mismatchedPasswords')">Введенные пароли должны совпадать.</div>
+                </div>
             </div>
         </div>
         <div class="form-group" *ngIf="isHuman">
@@ -36,6 +54,6 @@
                 <recaptcha (isHuman)="isHuman = $event"></recaptcha>
             </div>
         </div>
-        </form>
+    </form>
     <span *ngIf="result">Регистрация прошла успешно, пожалуйста, подтвердите регистрацию. Письмо отправлено на введенную вами почту.</span>
 </div>

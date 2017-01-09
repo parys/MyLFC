@@ -5,25 +5,28 @@ import { Injectable } from "@angular/core";
 export class GlobalValidators {
 
     static mailFormat(control: FormControl): IValidationResult {
-        const EMAIL_REGEXP = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-
-        if (control.value !== "" && (control.value.length <= 5 || !EMAIL_REGEXP.test(control.value))) {
+        const EMAIL_REGEXP: RegExp  = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+        if (control.value === "" || control.value.length <= 6) {      //todo move to config
+            return null;
+        }
+        if (!EMAIL_REGEXP.test(control.value)) {
             return { "incorrectMailFormat": true };
         }
         return null;
     }
 
     static matchingPasswords(passwordKey: string, confirmPasswordKey: string) {
-        return (group: FormGroup): { [key: string]: any } => {
+        return (group: FormGroup): IValidationResult => {
             let password = group.controls[passwordKey];
             let confirmPassword = group.controls[confirmPasswordKey];
 
             if (password.value !== confirmPassword.value) {
                 return {
-                    mismatchedPasswords: true
+                    "mismatchedPasswords" : true
                 };
             }
-        }
+            return null;
+        };
     }
 
     static mustBeGreaterThanZero(control: FormControl): IValidationResult {

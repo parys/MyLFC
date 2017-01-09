@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.DtoNext;
-using MyLiverpool.Business.DTO;
 using MyLiverpool.Web.WebApiNext.Extensions;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
@@ -82,9 +81,9 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <summary>
         /// Checks if email isn't already used.
         /// </summary>
-        /// <param name="email">Checking email.</param>
+        /// <param name="email">Verifiable email.</param>
         /// <returns>Result of checking.</returns>
-        [AllowAnonymous, HttpPost("IsEmailUnique")]
+        [AllowAnonymous, HttpGet("IsEmailUnique")]
         public async Task<IActionResult> IsEmailUnique([FromQuery]string email)
         {
             var result = await _accountService.IsEmailUniqueAsync(email);
@@ -105,11 +104,9 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <summary>
         /// Checks if username isn't already used.
         /// </summary>
-        /// <param name="username">Checking email.</param>
+        /// <param name="username">Verifiable userName.</param>
         /// <returns>Result of checking.</returns>
-        [Route("IsUsernameUnique")]
-        [HttpPost]
-        [AllowAnonymous]
+        [AllowAnonymous, HttpGet("IsUsernameUnique")]
         public async Task<IActionResult> IsUsernameUnique([FromQuery]string username)
         {
             var result = await _accountService.IsUserNameUniqueAsync(username);

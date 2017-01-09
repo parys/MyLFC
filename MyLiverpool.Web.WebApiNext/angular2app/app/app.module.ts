@@ -108,6 +108,7 @@ import { ReCaptchaModule } from "angular2-recaptcha";
         auth.RoleGuard,
         auth.UnSignedGuard,
         account.AccountService,
+        account.AccountValidators,
         chat.ChatMessageService,
         club.ClubService,
         forumMessage.ForumMessageService,
