@@ -9,7 +9,7 @@
     </ul>
     <ul class="nav navbar-nav navbar-right">
         
-        <li class="alert-danger">Последнее обновление <b>10.01.17 20:00 МСК</b></li>
+        <li class="alert-danger">Последнее обновление <b>10.01.17 23:00 МСК</b></li>
         <li *ngIf="!roles.isLogined">
             <account-signin></account-signin>
         </li>
@@ -95,10 +95,10 @@
                     <!--/li>
                     </ul-->
                 </li>
-                <li> <a [routerLink]="['/materialComment']">Комментарии</a></li>
-                <li> <a *ngIf="roles.isNewsmaker || roles.isAuthor" [routerLink]="['/image']">Изображения</a></li>
-                <li> <a [routerLink]="['/club']">Клубы</a></li>
-                <li> <a [routerLink]="['/match']">Матчи</a></li>
+                <li *ngIf="roles.isLogined"> <a [routerLink]="['/materialComment']">Комментарии</a></li>
+                <li *ngIf="roles.isNewsmaker || roles.isAuthor" > <a [routerLink]="['/image']">Изображения</a></li>
+                <li *ngIf="roles.isAdminAssistant"> <a [routerLink]="['/club']">Клубы</a></li>
+                <li *ngIf="roles.isAdminAssistant"> <a [routerLink]="['/match']">Матчи</a></li>
                 <li> <a [routerLink]="['/rules']"><span class="text-danger">Правила</span></a></li>
                 <li class="bg-success"> <a [routerLink]="['/wish']"><span class="text-info">Пожелания</span></a></li>
             </ul>
@@ -119,25 +119,75 @@
             </div>
         </div>
         <div class="col-xs-6 col-sm-pull-6 col-sm-3 container-fluid">
-            <section class="col-md- alert-info row">
-                <h2>Эксетер </h2>
-                <div class="col-md-6">
-                    <img src="https://upload.wikimedia.org/wikipedia/ru/f/f7/Exeter_City_Logo.png" />
+            <section class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+                    <div class="left1">
+                        <div class="blocktitle2">Последняя игра </div>
+                        <div class="infopic">
+                            <table style="width: 193px">
+                                <tbody>
+                                <tr>
+                                    <td class="embl"><strong>Ливерпуль</strong></td>
+                                    <td class="embl"><strong> vs.</strong></td>
+                                    <td class="embl"><strong>Плимут</strong></td>
+                                </tr>
+                                <tr>
+                                    <td class="embl"><img src="http://www.myliverpool.ru/desighn/clubs/liverpool.png" alt="Ливерпуль" title="Ливерпуль" width="45px"></td>
+                                    <td class="score"><strong>0 : 0</strong></td>
+                                    <td class="embl"><img src="https://upload.wikimedia.org/wikipedia/ru/thumb/3/38/Plymouth_Argyle_FC.svg/150px-Plymouth_Argyle_FC.svg.png" alt="Плимут" title="Плимут" width="35px"></td>
+                                </tr>
+                                <tr>
+                                    <td class="infodate" colspan="3">
+                                        08 Янв 2017 16:30 МСК<br>
+                                        <a href="http://www.myliverpool.ru/news/liverpul_plimut_argajl/2017-01-08-18574">Отчет</a>
+                                        <a href="http://www.myliverpool.ru/news/match_plimutom_foto/2017-01-08-18575">Фото</a>
+                                        <a href="https://vk.com/video-117835363_456240738">Видео</a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-6">
-                    <span style="text-align: center; font-size: 45pt">3:0</span>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+                    <div class="left1">
+                        <div class="blocktitle2">Следующая игра </div>
+                        <div class="infopic">
+                            <table style="width: 190px">
+                                <tbody>
+                                    <tr>
+
+                                        <td class="embl"><strong>Саутг</strong></td>
+                                        <td class="embl"><strong> vs.</strong></td>
+                                        <td class="embl"><strong>Ливерпуль</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="embl"><img src="http://www.myliverpool.ru/images/clubs/saints_logo_2010_93X.png" alt="Саутгемптон" title="Саутгемптон" width="45px"></td>
+                                        <td class="score"><strong>- : -</strong></td>
+                                        <td class="embl"><img src="http://www.myliverpool.ru/desighn/clubs/liverpool.png" alt="Ливерпуль" title="Ливерпуль" width="45px"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="infodate" colspan="3">
+                                            11 Янв 2017 22:45 МСК<br>
+                                            <!--<a href="http://www.myliverpool.ru/index/live_broadcasts_online/0-16" target="_blank">Чат</a>-->
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </section>
-            <section class="col-md- alert-danger row">
+            <section class="alert-danger row">
                 <div class="col-md-12"> Лучший игрок матча с Эксетером </div>
                 <div styleclass="col-md-12">
-                    <img src="http://www.myliverpool.ru/images/Players/Squad12-13/Joe_Allen.png" />
+                    <img src="http://www.myliverpool.ru/images/Players/Squad12-13/Joe_Allen.png" alt=""/>
                 </div>
                 <div class="col-md-12">
                     Джо Аллен
                 </div>
             </section>
-            <section class="row">
+            <section class="row" *ngIf="roles.isLogined">
                 <mini-chat></mini-chat>
             </section>
         </div>

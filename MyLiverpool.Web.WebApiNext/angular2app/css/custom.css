@@ -503,3 +503,40 @@ td.switch a {}*/
 }
 
 /*--------------------- Forum end ---------------------*/
+
+/* old site start*/
+
+.left1 {
+    display: block;
+    float: left;
+    margin-left: 15px;
+    width: 205px;
+    height: 160px;
+    background: url(http://myliverpool.ru/desighn/img/inform.png) no-repeat;
+}
+
+.blocktitle2 {
+    line-height: 16px;
+    font: 11px 'Tahoma';
+    color: #ffffff;
+    padding-right: 70px;
+    padding-top: 5px;
+    text-transform: uppercase;
+}
+
+.infopic {
+    color: #000000;
+    font-family: Verdana;
+    font-size: 14px;
+    padding-top: 15px;
+    padding-left: 10px;
+}
+
+.embl {
+    text-align: center;
+    font-family: Verdana;
+    font-size: 12px;
+    color: #000000;
+}
+
+/* old site end*/
