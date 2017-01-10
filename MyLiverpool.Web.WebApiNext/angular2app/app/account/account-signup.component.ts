@@ -24,15 +24,14 @@ export class AccountSignupComponent implements OnInit {
         this.registerForm = this.formBuilder.group({
             'userName': ["", Validators.compose([
                 Validators.required,
-                Validators.minLength(3),
-                new AccountValidators(this.accountService).isUserNameUnique
-            ])],
+                Validators.minLength(3)
+            ]), new AccountValidators(this.accountService).isUserNameUnique],
             'email': ["", Validators.compose([
                 Validators.required,
                 Validators.minLength(6),
-                GlobalValidators.mailFormat,
-                new AccountValidators(this.accountService).isEmailUnique
-            ])],
+                GlobalValidators.mailFormat
+            ]),
+                new AccountValidators(this.accountService).isEmailUnique],
             'password': ["", Validators.compose([
                 Validators.required, Validators.minLength(6)])],
             'confirmPassword': ["", Validators.compose([

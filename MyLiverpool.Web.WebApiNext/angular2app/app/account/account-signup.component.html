@@ -3,7 +3,7 @@
         <div class="form-group">
             <label class="col-md-2 control-label">Логин</label>
             <div class="col-md-10">
-                <input class="form-control" formControlName="userName" type="text" />
+                <input class="form-control" formControlName="userName" type="text" />{{registerForm.controls['userName'].errors |json}}
                 <div class="alert alert-danger" *ngIf="registerForm.controls['userName'].touched && !registerForm.controls['userName'].valid">
                     <div *ngIf="registerForm.controls['userName'].hasError('required')">Необходимо заполнить поле.</div>
                     <div *ngIf="registerForm.controls['userName'].hasError('minlength')">Значение должно превышать 3 символа.</div><!--todo move to config-->
