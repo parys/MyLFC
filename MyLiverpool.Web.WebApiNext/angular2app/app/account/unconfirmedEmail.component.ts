@@ -19,12 +19,13 @@ export class UnconfirmedEmailComponent implements OnInit {
     ngOnInit() {
         this.unconfirmedForm = this.formBuilder.group({
             'email': ["", Validators.compose([
-                Validators.required, GlobalValidators.mailFormat])]
+                Validators.required,
+                Validators.minLength(6),
+                GlobalValidators.mailFormat])]
         });
     }
 
     onSubmit(): void {
-        console.log(1211);
         let email = this.unconfirmedForm.controls["email"].value;
         this.service.resendConfirmEmail(email).subscribe(data => {
                 if (data) {

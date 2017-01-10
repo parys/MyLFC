@@ -18,16 +18,24 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
     code: string;
     private sub: Subscription;
 
-    constructor(private service: AccountService, private route: ActivatedRoute, private router: Router, private formBuilder: FormBuilder) {
+    constructor(private service: AccountService,
+        private route: ActivatedRoute,
+        private router: Router,
+        private formBuilder: FormBuilder) {
     }
 
     ngOnInit() {
         this.sub = this.route.queryParams.subscribe(params => {
-            this.code = params["code"];
+            if (params["code"]) {
+                this.code = params["code"];
+            } else {
+                this.router.navigate(["/"]);
+            }
+
         });
         this.resetForm = this.formBuilder.group({
             'email': ["", Validators.compose([
-                Validators.required, GlobalValidators.mailFormat])],
+                Validators.required, Validators.minLength(6), GlobalValidators.mailFormat])],
             'password': ["", Validators.compose([
                 Validators.required, Validators.minLength(6)])],
             'confirmPassword': ["", Validators.compose([

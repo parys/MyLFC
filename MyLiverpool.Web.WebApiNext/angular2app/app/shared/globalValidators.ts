@@ -6,7 +6,7 @@ export class GlobalValidators {
 
     static mailFormat(control: FormControl): IValidationResult {
         const EMAIL_REGEXP: RegExp  = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-        if (control.value.length < 6) {      //todo move to config
+        if (control.value.length < 6) {      // todo move to config
             return null;
         }
         if (!EMAIL_REGEXP.test(control.value)) {

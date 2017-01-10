@@ -3,7 +3,7 @@
         <div class="form-group">
             <label class="col-md-2 control-label">Логин</label>
             <div class="col-md-10">
-                <input class="form-control" formControlName="userName" type="text" />{{registerForm.controls['userName'].errors |json}}
+                <input class="form-control" formControlName="userName" type="text" />
                 <div class="alert alert-danger" *ngIf="registerForm.controls['userName'].touched && !registerForm.controls['userName'].valid">
                     <div *ngIf="registerForm.controls['userName'].hasError('required')">Необходимо заполнить поле.</div>
                     <div *ngIf="registerForm.controls['userName'].hasError('minlength')">Значение должно превышать 3 символа.</div><!--todo move to config-->
@@ -37,7 +37,8 @@
             <label class="col-md-2 control-label">Ещё раз пароль</label>
             <div class="col-md-10">
                 <input class="form-control" formControlName="confirmPassword" type="password"/>
-                <div class="alert alert-danger" *ngIf="registerForm.controls['confirmPassword'].touched && !registerForm.controls['confirmPassword'].valid">
+                <div class="alert alert-danger" *ngIf="registerForm.controls['confirmPassword'].touched &&
+                      (!registerForm.controls['confirmPassword'].valid || registerForm.hasError('mismatchedPasswords'))">
                     <div *ngIf="registerForm.controls['confirmPassword'].hasError('required')">Необходимо заполнить поле.</div>
                     <div *ngIf="registerForm.controls['confirmPassword'].hasError('minlength')">Значение должно превышать 6 символов.</div> <!--todo move to config-->
                     <div *ngIf="registerForm.hasError('mismatchedPasswords')">Введенные пароли должны совпадать.</div>
