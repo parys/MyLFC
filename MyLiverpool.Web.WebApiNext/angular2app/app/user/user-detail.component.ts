@@ -34,11 +34,11 @@ export class UserDetailComponent implements OnInit, OnDestroy {
         private router: Router) { }
 
     ngOnInit() {
-        this.roles = this.rolesChecked.checkRoles();
+        this.roles = this.rolesChecked.checkRoles();      
         this.initRoleForm();
         this.initBanForm();
         this.sub = this.route.params.subscribe(params => {
-            if (+params["id"]) {
+            if (params["id"] !== undefined) {
                 this.service.getSingle(+params["id"])
                     .subscribe(data => this.parse(data),
                         error => console.log(error),

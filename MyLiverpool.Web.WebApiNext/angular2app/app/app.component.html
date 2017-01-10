@@ -8,6 +8,8 @@
         <li class="divider"></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
+        
+        <li class="alert-danger">Последнее обновление <b>10.01.17 20:00 МСК</b></li>
         <li *ngIf="!roles.isLogined">
             <account-signin></account-signin>
         </li>
@@ -19,14 +21,14 @@
         </li>
         <li *ngIf="roles.isLogined">
             <ul class="nav navbar-nav">
-                <!--<li>
-                    <a ui-sref="userInfo({id: vm.userId()})" class="padding0">
-                        <img class="nav-avatar" ng-src="{$root.userImage}}"/>
+                <li>
+                    <a [routerLink]="['/user', 0]" class="padding0">
+                        <!--<img class="nav-avatar" ng-src="{$root.userImage}}" alt=""/>-->
                     </a>
                 </li>
                 <li>
-                    <a ui-sref="userInfo({id: vm.userId()})">Мой профиль</a>
-                </li>-->
+                    <a [routerLink]="['/user', 0]">Мой профиль</a>
+                </li>
                 <li>
                     <a role="button" (click)="logout()">Выйти</a>
                 </li>

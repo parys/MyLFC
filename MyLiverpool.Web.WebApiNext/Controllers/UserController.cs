@@ -47,6 +47,10 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [AllowAnonymous, HttpGet("{id:int}")]
         public async Task<IActionResult> Get(int id)
         {
+            if (id == 0)
+            {
+                id = User.GetUserId();
+            }
             return Ok(await _userService.GetUserAsync(id));
         }
 
