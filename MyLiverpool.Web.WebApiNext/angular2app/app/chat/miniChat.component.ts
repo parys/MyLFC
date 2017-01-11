@@ -50,7 +50,10 @@ export class MiniChatComponent implements OnInit, OnDestroy {
 
     onSubmit(): void {
         this.sub = this.service.create(this.messageForm.value)
-            .subscribe(data => this.items.unshift(data),
+            .subscribe(data => {
+                this.items.unshift(data);
+                this.messageForm.reset();
+                },
             (error) => console.log(error),
             () => { });
     }

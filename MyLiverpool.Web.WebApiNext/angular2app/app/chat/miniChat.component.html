@@ -1,7 +1,7 @@
 ﻿<div class="block">
     <div class="block-top">
     </div>
-    <div class="blocktitle">
+    <div class="blocktitle text-center">
         Мини-чат
     </div>
     <div class="blockcontent alert-success">
@@ -18,16 +18,12 @@
             </div>
             <form *ngIf="roles.isLogined" class="form-horizontal" name="messageForm" role="form" [formGroup]="messageForm" (ngSubmit)="onSubmit()">
                 <div class="form-group">
-                    <div class="col-xs-offset-2 col-sm-offset-2 col-xs-10 col-sm-10">
-                        <div class="checkbox">
-                            <label class="control-label">
-                                <input class="" name="message" formControlName="message" type="text" />
-                            </label>
-                        </div>
+                    <div class="col-xs-12 col-sm-12">
+                         <input class="form-control" name="message" formControlName="message" type="text" />
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-md-10">
+                    <div class="col-md-12 text-center">
                         <button type="submit" [disabled]="!messageForm.valid" class="btn btn-default">Добавить</button>
                     </div>
                 </div>
