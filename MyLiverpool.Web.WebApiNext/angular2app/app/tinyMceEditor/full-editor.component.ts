@@ -92,8 +92,12 @@ export class FullEditorComponent implements ControlValueAccessor {
     }
 
     writeValue(value): void {
-        this._value = value;
-        tinymce.activeEditor.setContent(value);
+        if (value !== null) {
+            this._value = value;
+            if (tinymce.activeEditor) {
+                tinymce.activeEditor.setContent(value);
+            }
+        }
     }
     onChange(_): void { }
     onTouched(): void { }

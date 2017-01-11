@@ -92,10 +92,13 @@ export class MediumEditorComponent implements ControlValueAccessor {
         tinymce.remove(this.editor);
     }
 
-    writeValue(value): void {  
-        this._value = value;
-        tinymce.activeEditor.setContent(value);
-
+    writeValue(value): void {
+        if (value !== null) {
+            this._value = value;
+            if (tinymce.activeEditor) {
+                tinymce.activeEditor.setContent(value);
+            }
+        }
     }
     onChange(_): void { }
     onTouched(): void { }
