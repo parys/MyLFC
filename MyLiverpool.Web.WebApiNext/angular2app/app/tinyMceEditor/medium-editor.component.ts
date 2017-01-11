@@ -56,6 +56,10 @@ export class MediumEditorComponent implements ControlValueAccessor {
                     const content = editor.getContent();
                     this.updateValue(content);
                 });
+                editor.on("keyup", () => {
+                    const content = editor.getContent();
+                    this.updateValue(content);
+                });
             }
         });
     }
@@ -64,10 +68,10 @@ export class MediumEditorComponent implements ControlValueAccessor {
         this.zone = zone;
     }
 
-    get value(): string {
+    get value(): string { 
          return this._value;
     };
-    set value(value) {
+    set value(value) {               
         if (value !== this._value) {
             this._value = value;
             this.onChange(value);
@@ -75,7 +79,7 @@ export class MediumEditorComponent implements ControlValueAccessor {
         }
     }
 
-    updateValue(value): void {
+    updateValue(value): void {     
         this.zone.run(() => {
             this.value = value;
             this.onChange(value);
@@ -88,10 +92,10 @@ export class MediumEditorComponent implements ControlValueAccessor {
         tinymce.remove(this.editor);
     }
 
-    writeValue(value): void {
-        if (value) {
-            this._value = value;
-        }
+    writeValue(value): void {  
+        this._value = value;
+        tinymce.activeEditor.setContent(value);
+
     }
     onChange(_): void { }
     onTouched(): void { }

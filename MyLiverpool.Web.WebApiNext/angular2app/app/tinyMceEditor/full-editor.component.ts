@@ -55,6 +55,10 @@ export class FullEditorComponent implements ControlValueAccessor {
                     const content = editor.getContent();
                     this.updateValue(content);
                 });
+                editor.on("keyup", () => {
+                    const content = editor.getContent();
+                    this.updateValue(content);
+                });
             }
         });
     }
@@ -89,6 +93,7 @@ export class FullEditorComponent implements ControlValueAccessor {
 
     writeValue(value): void {
         this._value = value;
+        tinymce.activeEditor.setContent(value);
     }
     onChange(_): void { }
     onTouched(): void { }

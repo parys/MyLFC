@@ -72,49 +72,12 @@ export class MaterialCommentSectionComponent implements OnInit {
             .subscribe(data => {
                     this.items.push(data);
                     this.totalItems += 1;
-                    this.commentAddForm.controls["message"].patchValue("");
+                   // this.commentAddForm.controls["message"].patchValue("");
+                    this.commentAddForm.controls["message"].reset("");
                 },
                 error => console.log(error),
                 () => {}
             );
 
     }
-
-    //hideModal(): void {
-    //    this.selectedItemIndex = undefined;
-    //    this.deleteModal.hide();
-    //}
-
-    //verify(index: number): void {
-    //    let result;
-    //    this.materialCommentService
-    //        .verify(this.items[index].id)
-    //        .subscribe(data => result = data,
-    //        error => console.log(error),
-    //        () => {
-    //            if (result) {
-    //                this.items[index].isVerified = true;
-    //            }
-    //        }
-    //        );
-    //}
-
-    //showDeleteModal(index: number): void {
-    //    this.selectedItemIndex = index;
-    //    this.deleteModal.show();
-    //}
-
-    //delete() {
-    //    let result;
-    //    this.materialCommentService.delete(this.items[this.selectedItemIndex].id)
-    //        .subscribe(res => result = res,
-    //        e => console.log(e),
-    //        () => {
-    //            if (result) {
-    //                this.items.splice(this.selectedItemIndex, 1);
-    //                this.hideModal();
-    //            }
-    //        }
-    //        );
-    //}
 }
