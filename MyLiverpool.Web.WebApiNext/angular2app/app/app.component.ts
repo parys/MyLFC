@@ -1,4 +1,4 @@
-﻿import { Component, ViewContainerRef, enableProdMode } from "@angular/core";
+﻿import { Component, ViewContainerRef, enableProdMode, ViewEncapsulation } from '@angular/core';
 import { Router, ActivatedRoute, NavigationEnd } from "@angular/router";
 import { Title } from "@angular/platform-browser";
 import { AuthService } from "./auth/auth.service";
@@ -8,7 +8,9 @@ import { IRoles } from "./shared/roles.interface";
 
 @Component({
     selector: "app",
-    template: require("./app.component.html")
+    template: require("./app.component.html"),
+    styles: [require("./app.component.css")],
+    encapsulation: ViewEncapsulation.None
 })
 
 export class AppComponent {
