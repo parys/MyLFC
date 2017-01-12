@@ -29,13 +29,11 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Creates new wish.
         /// </summary>
-        /// <param name="dto"></param>
-        /// <returns></returns>
-        [Route("")]
-        [HttpPost]
-        [AllowAnonymous]
+        /// <param name="dto">Filled dto for new wish.</param>
+        /// <returns>Creation wish.</returns>
+        [AllowAnonymous, HttpPost("")]
         public async Task<IActionResult> CreateAsync([FromBody]WishDto dto)
         {
             if (!ModelState.IsValid)

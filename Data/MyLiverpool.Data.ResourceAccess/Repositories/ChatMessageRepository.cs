@@ -61,7 +61,11 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
 
         public async Task<IEnumerable<ChatMessage>> GetListAsync()
         {
-            return await _context.ChatMessages.Include(x => x.Author).OrderByDescending(x => x.AdditionTime).ToListAsync();
+            return
+                await _context.ChatMessages.Include(x => x.Author)
+                    .OrderByDescending(x => x.AdditionTime)
+                    .Take(100) //todo move config
+                    .ToListAsync();
         }
     }
 }

@@ -5,6 +5,7 @@ import { Observable } from "rxjs/Observable";
 import { Pageable } from "../shared/pageable.model";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
+import { RolesCheckedService, IRoles } from "../shared/index";
 
 @Component({
     selector: "wish-list",
@@ -12,6 +13,7 @@ import { Subscription } from "rxjs/Subscription";
 })
 export class WishListComponent implements OnInit, OnDestroy {
     private sub: Subscription;
+    roles: IRoles;
     items: Wish[];
     page: number = 1;
     itemsPerPage: number = 15;
@@ -19,10 +21,13 @@ export class WishListComponent implements OnInit, OnDestroy {
     categoryId: number;
     userName: string;
 
-    constructor(private service: WishService, private route: ActivatedRoute) {
+    constructor(private service: WishService,
+        private rolesChecked: RolesCheckedService,
+        private route: ActivatedRoute) {
     }
 
     ngOnInit() {
+        this.roles = this.rolesChecked.checkRoles();   
         this.sub = this.route.params.subscribe(params => {
             if (params["page"]) {
                 this.page = +params["page"];

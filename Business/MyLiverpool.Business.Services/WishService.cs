@@ -67,7 +67,14 @@ namespace MyLiverpool.Business.Services
 
         private async Task SendAlertAsync()
         {
-            await _emailService.SendEmailAsync("Новое пожелание", "Создано новое пожелание");
+            try
+            {
+                await _emailService.SendEmailAsync("Новое пожелание", "Создано новое пожелание");
+            }
+            catch (Exception ex)
+            {
+                // think what to do
+            }
         }
     }
 }

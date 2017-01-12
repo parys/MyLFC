@@ -13,5 +13,7 @@
         MainModerator = 9,
         Author = 10,
         Simple = 11,
+        ForumModerator = 12,
+        ForumMainModerator = 13
     }
 }

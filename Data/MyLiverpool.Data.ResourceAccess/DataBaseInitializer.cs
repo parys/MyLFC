@@ -177,14 +177,14 @@ namespace MyLiverpool.Data.ResourceAccess
                 {
                     Name = RolesEnum.AdminStart.ToString(),
                 },
-                //new Role()
-                //{
-                //    Name = RolesEnum.ModeratorFull.ToString(),
-                //},
-                //new Role()//11
-                //{
-                //    Name = RolesEnum.ModeratorStart.ToString(),
-                //},
+                new Role()
+                {
+                    Name = RolesEnum.ForumStart.ToString(),
+                },
+                new Role()//11
+                {
+                    Name = RolesEnum.ForumFull.ToString(),
+                },
                 new Role()//12
                 {
                     Name = RolesEnum.Intern.ToString(),
@@ -211,10 +211,11 @@ namespace MyLiverpool.Data.ResourceAccess
             var authorRole = await _context.Roles.FirstAsync(x => x.Name == RolesEnum.BlogStart.ToString());//5
             var mainAuthorRole = await _context.Roles.FirstAsync(x => x.Name == RolesEnum.BlogFull.ToString());
             var internRole = await _context.Roles.FirstAsync(x => x.Name == RolesEnum.Intern.ToString());
-            // var mainEditorRole = _context.RoleGroups.First(x => x.Name == RolesEnum..ToString());//7
-            //  var editorRole = _context.RoleGroups.First(x => x.Name == RolesEnum..ToString());
+            var mainForumRole = _context.RoleGroups.First(x => x.Name == RolesEnum.ForumFull.ToString());//7
+            var forumRole = _context.RoleGroups.First(x => x.Name == RolesEnum.ForumStart.ToString());
             var mainNewsmakeRole = await _context.Roles.FirstAsync(x => x.Name == RolesEnum.NewsFull.ToString());//9
             var newsmakerRole = await _context.Roles.FirstAsync(x => x.Name == RolesEnum.NewsStart.ToString());
+            var simpleRole = await _context.Roles.FirstAsync(x => x.Name == RolesEnum.Simple.ToString());
 
             var adminGroup = await _context.RoleGroups.FirstAsync(x => x.Name == RoleGroupsEnum.Admin.ToString()); //1
             var adminAssistGroup = await _context.RoleGroups.FirstAsync(x => x.Name == RoleGroupsEnum.AdminAssistance.ToString()); 
@@ -226,6 +227,7 @@ namespace MyLiverpool.Data.ResourceAccess
             var mainModeratorGroup = await _context.RoleGroups.FirstAsync(x => x.Name == RoleGroupsEnum.MainModerator.ToString()); 
             var authorGroup = await _context.RoleGroups.FirstAsync(x => x.Name == RoleGroupsEnum.Author.ToString()); 
             var mainEditorGroup = await _context.RoleGroups.FirstAsync(x => x.Name == RoleGroupsEnum.MainEditor.ToString()); 
+            var simpleGroup = await _context.RoleGroups.FirstAsync(x => x.Name == RoleGroupsEnum.Simple.ToString()); 
             
 
             #region adminRoleRoleGroups
@@ -275,6 +277,16 @@ namespace MyLiverpool.Data.ResourceAccess
                 {
                     RoleGroupId = adminGroup.Id,
                     RoleId = newsmakerRole.Id
+                },
+                new RoleRoleGroup()
+                {
+                    RoleGroupId = adminGroup.Id,
+                    RoleId = forumRole.Id
+                },
+                new RoleRoleGroup()
+                {
+                    RoleGroupId = adminGroup.Id,
+                    RoleId = mainForumRole.Id
                 },
             };
             adminRoleGroups.ForEach(x => _context.RoleRoleGroups.Add(x));
@@ -480,6 +492,19 @@ namespace MyLiverpool.Data.ResourceAccess
                 }
             };
             authorRoleGroups.ForEach(x => _context.RoleRoleGroups.Add(x));
+            #endregion
+
+            #region simpleRoleGroups
+
+            var simpleRoleGroups = new List<RoleRoleGroup>
+            {
+                new RoleRoleGroup()
+                {
+                    RoleGroupId = simpleGroup.Id,
+                    RoleId = simpleRole.Id
+                }
+            };
+            simpleRoleGroups.ForEach(x => _context.RoleRoleGroups.Add(x));
             #endregion
 
             await _context.SaveChangesAsync();
