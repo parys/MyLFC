@@ -31,7 +31,7 @@ namespace MyLiverpool.Business.Services
             var wish = _mapper.Map<Wish>(dto);
             wish = await _wishRepository.AddAsync(wish);
             await _wishRepository.SaveChangesAsync();
-            await SendAlertAsync();
+            await SendAlertAsync(wish.Message);
             return _mapper.Map<WishDto>(wish);
         }
 
@@ -65,13 +65,13 @@ namespace MyLiverpool.Business.Services
             return true;
         }
 
-        private async Task SendAlertAsync()
+        private async Task SendAlertAsync(string message)
         {
             try
             {
-                await _emailService.SendEmailAsync("Новое пожелание", "Создано новое пожелание");
+                await _emailService.SendEmailAsync("Новое пожелание", message);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // think what to do
             }
