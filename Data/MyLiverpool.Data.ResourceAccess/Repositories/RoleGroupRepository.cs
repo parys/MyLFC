@@ -67,7 +67,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
 
         public async Task<IEnumerable<RoleGroup>> GetListAsync()
         {
-            return await _context.RoleGroups.ToListAsync();
+            return await _context.RoleGroups.Include(x => x.RoleGroups).ThenInclude(x => x.Role).ToListAsync();
         }
     }
 }

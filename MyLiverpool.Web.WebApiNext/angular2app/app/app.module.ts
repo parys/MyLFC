@@ -87,6 +87,7 @@ import { ReCaptchaModule } from "angular2-recaptcha";
         pm.PmEditComponent,
         pm.PmListComponent,
         pm.PmReplyComponent,
+        roleGroup.RoleGroupListComponent,
         season.SeasonEplTableComponent,
         shared.RecaptchaComponent,
         tineMceEditor.FullEditorComponent,

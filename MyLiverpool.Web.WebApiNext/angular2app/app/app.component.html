@@ -9,7 +9,7 @@
     </ul>
     <ul class="nav navbar-nav navbar-right">
         
-        <li class="alert-danger">Последнее обновление <b>11.01.17 21:25 МСК</b></li>
+        <li class="alert-danger">Последнее обновление <b>12.01.17 17:40 МСК</b></li>
         <li *ngIf="!roles.isLogined">
             <account-signin></account-signin>
         </li>
@@ -49,10 +49,7 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li><a [routerLink]="['/']">Главная</a></li>
-                <!-- @if (User.IsInRole("AdminFull"))
-                {
-                <li> @Html.ActionLink(CommonMessages.Roles, "Index", "Role") </li>
-                }*@-->
+                <li *ngIf="roles.isAdminAssistant"><a [routerLink]="['/roleGroup']">Роли</a></li>
                 <li> <a [routerLink]="['/forum']">Форум</a></li>
                 <li class="dropdown">
                     <a [routerLink]="['/news/list', 1]" class="dropdown-toggle" data-toggle="">Новости<b class="caret"></b></a>
@@ -131,9 +128,9 @@
                                     <td class="embl"><strong>Плимут</strong></td>
                                 </tr>
                                 <tr>
-                                    <td class="embl"><img src="http://www.myliverpool.ru/desighn/clubs/liverpool.png" alt="Ливерпуль" title="Ливерпуль" width="45px"></td>
+                                    <td class="embl"><img src="http://www.myliverpool.ru/desighn/clubs/liverpool.png" alt="Ливерпуль" title="Ливерпуль" style="width:45px"></td>
                                     <td class="score"><strong>0 : 0</strong></td>
-                                    <td class="embl"><img src="https://upload.wikimedia.org/wikipedia/ru/thumb/3/38/Plymouth_Argyle_FC.svg/150px-Plymouth_Argyle_FC.svg.png" alt="Плимут" title="Плимут" width="35px"></td>
+                                    <td class="embl"><img src="https://upload.wikimedia.org/wikipedia/ru/thumb/3/38/Plymouth_Argyle_FC.svg/150px-Plymouth_Argyle_FC.svg.png" alt="Плимут" title="Плимут" style="width:45px"></td>
                                 </tr>
                                 <tr>
                                     <td class="infodate" colspan="3">
@@ -158,14 +155,13 @@
                                         <td class="embl"><strong>Ливерпуль</strong></td>
                                     </tr>
                                     <tr>
-                                        <td class="embl"><img src="http://www.myliverpool.ru/images/clubs/saints_logo_2010_93X.png" alt="Саутгемптон" title="Саутгемптон" width="45px"></td>
+                                        <td class="embl"><img src="http://www.myliverpool.ru/images/clubs/saints_logo_2010_93X.png" alt="Саутгемптон" title="Саутгемптон" style="width:45px"></td>
                                         <td class="score"><strong>- : -</strong></td>
-                                        <td class="embl"><img src="http://www.myliverpool.ru/desighn/clubs/liverpool.png" alt="Ливерпуль" title="Ливерпуль" width="45px"></td>
+                                        <td class="embl"><img src="http://www.myliverpool.ru/desighn/clubs/liverpool.png" alt="Ливерпуль" title="Ливерпуль" style="width:45px"></td>
                                     </tr>
                                     <tr>
                                         <td class="infodate" colspan="3">
                                             11 Янв 2017 22:45 МСК<br>
-                                            <!--<a href="http://www.myliverpool.ru/index/live_broadcasts_online/0-16" target="_blank">Чат</a>-->
                                         </td>
                                     </tr>
                                 </tbody>
@@ -190,6 +186,6 @@
     </div>
     <hr />
     <footer class="bottom container-fluid">
-        <p>&copy; @DateTime.Now.Year - @CommonMessages.SiteTitleAddress</p>
+        <p>&copy; @DateTime.Now.Year - Какой-то сайт.</p>
     </footer>
 </div>

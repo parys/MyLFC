@@ -12,6 +12,7 @@ export class RolesCheckedService {
         isModerator: false,
         isMainModerator: false,
         isAdminAssistant: false,
+        isAdmin: false,
         isSelf: (userId : number) => this.isSelf(userId)
     };
     private roles: string[];
@@ -33,6 +34,7 @@ export class RolesCheckedService {
         this.checkModerator();
         this.checkMainModerator();
         this.checkAdminAssistant();
+        this.checkAdmin();
         return this.checkedRoles;
     }
 
@@ -72,6 +74,12 @@ export class RolesCheckedService {
     private checkAdminAssistant():void {
         if (this.checkRole("AdminStart")) {
             this.checkedRoles.isAdminAssistant = true;
+        }
+    }
+
+    private checkAdmin():void {
+        if (this.checkRole("AdminFull")) {
+            this.checkedRoles.isAdmin = true;
         }
     }
 
