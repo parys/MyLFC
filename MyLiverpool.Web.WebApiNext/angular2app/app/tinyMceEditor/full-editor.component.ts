@@ -49,14 +49,14 @@ export class FullEditorComponent implements ControlValueAccessor {
             ],
             toolbar: "undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image emoticons fullscreen",
             content_css: "//www.tinymce.com/css/codepen.min.css",
-            setup: editor => {
+            setup: (editor: any) => {
                 this.editor = editor;
                 editor.on("change", () => {
-                    const content = editor.getContent();
+                    const content: any = editor.getContent();
                     this.updateValue(content);
                 });
                 editor.on("keyup", () => {
-                    const content = editor.getContent();
+                    const content: any = editor.getContent();
                     this.updateValue(content);
                 });
             }
@@ -70,7 +70,7 @@ export class FullEditorComponent implements ControlValueAccessor {
     get value(): any {
          return this._value;
     };
-    set value(v) {
+    set value(v: any) {
         if (v !== this._value) {
             this._value = v;
             this.onChange(v);
@@ -78,7 +78,7 @@ export class FullEditorComponent implements ControlValueAccessor {
         }
     }
 
-    updateValue(value): void {
+    updateValue(value: any): void {
         this.zone.run(() => {
             this.value = value;
             this.onChange(value);
@@ -91,7 +91,7 @@ export class FullEditorComponent implements ControlValueAccessor {
         tinymce.remove(this.editor);
     }
 
-    writeValue(value): void {
+    writeValue(value: any): void {
         if (value !== null) {
             this._value = value;
             if (tinymce.activeEditor) {
@@ -99,12 +99,12 @@ export class FullEditorComponent implements ControlValueAccessor {
             }
         }
     }
-    onChange(_): void { }
+    onChange(_: any): void { }
     onTouched(): void { }
-    registerOnChange(fn): void {
+    registerOnChange(fn: any): void {
          this.onChange = fn;
     }
-    registerOnTouched(fn): void {
+    registerOnTouched(fn: any): void {
          this.onTouched = fn;
     }
 }

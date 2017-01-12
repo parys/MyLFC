@@ -5,5 +5,6 @@
     isModerator: boolean;
     isMainModerator: boolean;
     isAdminAssistant: boolean;
+    isAdmin: boolean;
     isSelf(userId: number): boolean;
 }

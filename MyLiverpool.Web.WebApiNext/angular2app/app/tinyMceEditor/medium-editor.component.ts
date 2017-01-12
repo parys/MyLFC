@@ -35,7 +35,7 @@ export class MediumEditorComponent implements ControlValueAccessor {
     editor;
 
     ngAfterViewInit(): void {
-        tinymce.init({                                                                  
+        tinymce.init({
             // skin_url: 'assets/skins/lightgray',
             // autoresize_overflow_padding: 0,
             selector: `#${this.elementId}`,
@@ -50,14 +50,14 @@ export class MediumEditorComponent implements ControlValueAccessor {
             ],
             toolbar: "undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image emoticons fullscreen",
             content_css: "//www.tinymce.com/css/codepen.min.css",
-            setup: editor => {
+            setup: (editor: any) => {
                 this.editor = editor;
                 editor.on("change", () => {
-                    const content = editor.getContent();
+                    const content: any = editor.getContent();
                     this.updateValue(content);
                 });
                 editor.on("keyup", () => {
-                    const content = editor.getContent();
+                    const content: any = editor.getContent();
                     this.updateValue(content);
                 });
             }
@@ -68,10 +68,10 @@ export class MediumEditorComponent implements ControlValueAccessor {
         this.zone = zone;
     }
 
-    get value(): string { 
-         return this._value;
+    get value(): string {
+        return this._value;
     };
-    set value(value) {               
+    set value(value: string) {
         if (value !== this._value) {
             this._value = value;
             this.onChange(value);
@@ -79,7 +79,7 @@ export class MediumEditorComponent implements ControlValueAccessor {
         }
     }
 
-    updateValue(value): void {     
+    updateValue(value: any): void {
         this.zone.run(() => {
             this.value = value;
             this.onChange(value);
@@ -92,7 +92,7 @@ export class MediumEditorComponent implements ControlValueAccessor {
         tinymce.remove(this.editor);
     }
 
-    writeValue(value): void {
+    writeValue(value: any): void {
         if (value !== null) {
             this._value = value;
             if (tinymce.activeEditor) {
@@ -100,13 +100,13 @@ export class MediumEditorComponent implements ControlValueAccessor {
             }
         }
     }
-    onChange(_): void { }
+    onChange(_: any): void { }
     onTouched(): void { }
-    registerOnChange(fn): void {
+    registerOnChange(fn: any): void {
          this.onChange = fn;
     }
 
-    registerOnTouched(fn): void {
+    registerOnTouched(fn: any): void {
          this.onTouched = fn;
     }
 }

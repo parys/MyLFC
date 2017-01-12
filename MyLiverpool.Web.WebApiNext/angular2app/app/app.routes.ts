@@ -16,6 +16,7 @@ import { wishRoutes } from "./wish/wish.routing";
 import { materialCommentRoutes } from "./materialComment/materialComment.routing";
 import { matchRoutes } from "./match/match.routing";
 import { seasonRoutes } from "./season/season.routing";
+import { roleGroupRoutes } from "./roleGroup/roleGroup.routing";
 
 export const routes: Routes = [
     ...accountRoutes,
@@ -31,6 +32,7 @@ export const routes: Routes = [
     ...newsRoutes,
     ...playerRoutes,
     ...pmRoutes,
+    ...roleGroupRoutes,
     ...seasonRoutes,
     ...userRoutes,
     ...wishRoutes,

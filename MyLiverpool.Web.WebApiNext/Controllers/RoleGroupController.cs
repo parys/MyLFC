@@ -2,14 +2,14 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyLiverpool.Business.Contracts;
+using MyLiverpool.Data.Entities;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
     /// <summary>
     /// Manages role groups.
     /// </summary>
-    [Route("api/v1/[controller]")]
-    [Authorize(Roles = "AdminFull")]
+    [Authorize(Roles = nameof(RolesEnum.AdminFull)), Route("api/v1/[controller]")]
     public class RoleGroupController : Controller
     {
         private readonly IRoleService _roleService;
@@ -24,12 +24,10 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Returns all role groups.
         /// </summary>
-        /// <returns></returns>
-        [Route("")]
-        [HttpGet]
-        [AllowAnonymous]
+        /// <returns>Role groups list.</returns>
+        [AllowAnonymous, HttpGet("")]
         public async Task<IActionResult> GetAll()
         {
             var result = await _roleService.GetRoleGroupsDtoAsync();
