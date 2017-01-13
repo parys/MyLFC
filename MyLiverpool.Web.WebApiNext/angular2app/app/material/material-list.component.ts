@@ -97,7 +97,7 @@ export class MaterialListComponent implements OnInit {
     pageChanged(event: any): void {
         this.page = event.page;
         this.update();
-        let newUrl = `${MaterialType[this.type]}?page=${this.page}`;
+        let newUrl = `${MaterialType[this.type].toLowerCase()}?page=${this.page}`;
         if (this.categoryId) {
             newUrl = `${newUrl}&categoryId=${this.categoryId}`;
         }

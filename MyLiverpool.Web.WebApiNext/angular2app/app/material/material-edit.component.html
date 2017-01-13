@@ -39,7 +39,7 @@
         <div class="form-group">
             <label class="control-label col-xs-2 col-sm-2"> Главное фото:</label>
             <div class="col-xs-10 col-sm-10">
-                <input class="form-control" name="photoPath" formControlName="photo" />
+                <input class="form-control" name="photo" formControlName="photo" />
             </div>
             <image-addition [isMultiple]="false" (loadedImage)="updateImage($event)"></image-addition>
         </div>

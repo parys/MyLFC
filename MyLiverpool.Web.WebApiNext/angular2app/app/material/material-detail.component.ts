@@ -83,7 +83,7 @@ export class MaterialDetailComponent implements OnInit, OnDestroy {
                 () => {
                     if (result) {
                         this.hideModal();
-                        this.router.navigate([`/${MaterialType[this.type]}`]);
+                        this.router.navigate([`/${MaterialType[this.type].toLowerCase()}`]);
                     }
                 }
             );

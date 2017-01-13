@@ -65,12 +65,12 @@ export class MaterialEditComponent implements OnInit, OnDestroy {
         let newsItem = this.parseForm();
         if (this.id > 0) {
             this.service.update(this.id, newsItem)
-                .subscribe(data => this.router.navigate([`/${MaterialType[this.type]}`, data.id]),
+                .subscribe(data => this.router.navigate([`/${MaterialType[this.type].toLowerCase()}`, data.id]),
                 error => console.log(error),
                     () => {});
         } else {
             this.service.create(newsItem, this.type)
-                .subscribe(data => this.router.navigate([`/${MaterialType[this.type]}`, data.id]),
+                .subscribe(data => this.router.navigate([`/${MaterialType[this.type].toLowerCase()}`, data.id]),
                 error => console.log(error),
                     () => {});
         }

@@ -55,6 +55,7 @@ namespace MyLiverpool.Common.Mappings
                 .ForMember(dest => dest.CategoryId, src => src.MapFrom(x => x.CategoryId))
                 .ForMember(dest => dest.OnTop, src => src.MapFrom(x => x.OnTop))
                 .ForMember(dest => dest.Pending, src => src.MapFrom(x => x.Pending))
+                .ForMember(dest => dest.PhotoPath, src => src.MapFrom(x => x.Photo))
                 .ForMember(dest => dest.Reads, src => src.MapFrom(x => x.Reads))
                 .ForMember(dest => dest.Source, src => src.MapFrom(x => x.Source))
                 .ForMember(dest => dest.Type, src => src.MapFrom(x => x.Type))
