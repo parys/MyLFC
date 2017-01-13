@@ -58,6 +58,13 @@
                         <li><a [routerLink]="['/newsCategory']">Категории</a></li>
                     </ul>
                 </li>
+                <li class="dropdown">
+                    <a [routerLink]="['/blog/list', 1]" class="dropdown-toggle" data-toggle="">Блоги<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li *ngIf="roles.isAuthor"><a [routerLink]="['/blog', 0, 'edit']">Добавить</a></li>
+                        <li><a [routerLink]="['/blogCategory']">Категории</a></li>
+                    </ul>
+                </li>
                 <!--li class="dropdown">
                     <a ui-sref="blog()" href="#" class="dropdown-toggle" data-toggle="">Блоги<b class="caret"></b></a>
                     <ul class="dropdown-menu">

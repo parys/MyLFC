@@ -9,7 +9,7 @@ namespace MyLiverpool.Business.Contracts
     {
         Task<ICollection<MaterialCategoryDto>> GetListAsync(MaterialType materialType);
 
-        Task<MaterialCategoryDto> GetAsync(int id, MaterialType materialType);
+        Task<MaterialCategoryDto> GetAsync(int id);
 
         Task<MaterialCategoryDto> CreateAsync(MaterialCategoryDto dto);
 

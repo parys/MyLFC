@@ -2,7 +2,7 @@
 import { NewsListComponent } from "./news/index";
 import { accountRoutes } from "./account/account.routing";
 import { clubRoutes } from "./club/club.routing";
-import { newsCategoryRoutes } from "./newsCategory/newsCategory.routing";
+import { materialCategoryRoutes } from "./materialCategory/materialCategory.routing";
 import { newsRoutes } from "./news/news.routing";
 import { userRoutes } from "./user/user.routing";
 import { playerRoutes } from "./player/player.routing";
@@ -28,7 +28,7 @@ export const routes: Routes = [
     ...imageRoutes,
     ...matchRoutes,
     ...materialCommentRoutes,
-    ...newsCategoryRoutes,
+    ...materialCategoryRoutes,
     ...newsRoutes,
     ...playerRoutes,
     ...pmRoutes,

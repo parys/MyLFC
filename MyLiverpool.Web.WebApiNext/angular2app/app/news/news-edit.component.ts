@@ -4,9 +4,10 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
 import { NewsService } from "./news.service";
 import { News } from "./news.model";
-import { NewsCategoryService } from "../newsCategory/index";
+import { MaterialCategoryService } from "../materialCategory/index";
 import { RolesCheckedService, IRoles } from "../shared/index";
-import { NewsCategory } from "../newsCategory/newsCategory.model";
+import { MaterialCategory } from "../materialCategory/materialCategory.model";
+import { MaterialType } from "../materialCategory/materialType.enum";
 
 @Component({
     selector: "news-edit",
@@ -17,12 +18,13 @@ export class NewsEditComponent implements OnInit, OnDestroy {
     editForm: FormGroup;
     private sub: Subscription;
     id: number;
-    categories: NewsCategory[];
+    categories: MaterialCategory[];
     roles: IRoles;
     item: News;
+    type: MaterialType;
 
     constructor(private newsService: NewsService,
-        private newsCategoryService: NewsCategoryService,
+        private newsCategoryService: MaterialCategoryService,
         private route: ActivatedRoute,
         private router: Router,
         private rolesChecked: RolesCheckedService,
@@ -43,7 +45,7 @@ export class NewsEditComponent implements OnInit, OnDestroy {
                 this.item = new News();
             }
         });
-        this.newsCategoryService.getAll()
+        this.newsCategoryService.getAll(this.type)
             .subscribe(data => this.parseCategories(data),
             error => console.log(error),
             () => { });
@@ -117,7 +119,7 @@ export class NewsEditComponent implements OnInit, OnDestroy {
         });
     }
 
-    private parseCategories(items: NewsCategory[]) {
+    private parseCategories(items: MaterialCategory[]) {
         this.categories = items;
     }
 }

@@ -3,20 +3,26 @@ import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms"
 import { Router, ActivatedRoute } from "@angular/router";
 import { Observable } from "rxjs/Observable";
 import { Subscription } from "rxjs/Subscription";
-import { NewsCategory } from "./newsCategory.model";
-import { NewsCategoryService } from "./newsCategory.service";
+import { MaterialCategory } from "./materialCategory.model";
+import { MaterialCategoryService } from "./materialCategory.service";
+import { MaterialType } from "./materialType.enum";
 
 @Component({
-    selector: "newsCategory-edit",
-    template: require("./newsCategory-edit.component.html")
+    selector: "materialCategory-edit",
+    template: require("./materialCategory-edit.component.html")
 })
-export class NewsCategoryEditComponent implements OnInit, OnDestroy {
-
+export class MaterialCategoryEditComponent implements OnInit, OnDestroy {
     editForm: FormGroup;
     id: number = 0;
     private sub: Subscription;
+    type: MaterialType;
 
-    constructor(private service: NewsCategoryService, private formBuilder: FormBuilder, private route: ActivatedRoute) {
+    constructor(private service: MaterialCategoryService, private formBuilder: FormBuilder, private route: ActivatedRoute) {
+        if (route.snapshot.data["type"] === MaterialType[MaterialType.News]) {
+            this.type = MaterialType.News;
+        } else {
+            this.type = MaterialType.Blog;
+        }
     }
 
     ngOnInit() {
@@ -49,20 +55,17 @@ export class NewsCategoryEditComponent implements OnInit, OnDestroy {
     }
 
     onSubmit(): void {
-        let model = new NewsCategory();
+        let model = new MaterialCategory();
         model.id = this.id;
         model.name = this.editForm.controls["name"].value;
         model.description = this.editForm.controls["description"].value;
+    //    model.type = 
 
         let res;
         if (this.id > 0) {
-            let result = this.service.update(this.id, model).subscribe(data => res = data);
+            this.service.update(this.id, model).subscribe(data => res = data);
         } else {
-            let result = this.service.create(model).subscribe(data => res = data);
+            this.service.create(model, this.type).subscribe(data => res = data);
         }
-        if (res !== null) {
-            
-        }
-
     }
 }

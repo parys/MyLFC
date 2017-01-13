@@ -7,7 +7,7 @@ import { AppComponent } from "./app.component";
 import { routes } from "./app.routes";
 import { Configuration } from "./app.constants";
 import { NewsEditComponent, NewsDetailComponent, NewsListComponent, NewsService } from "./news/index";
-import * as newsCategory from "./newsCategory/index";
+import * as materialCategory from "./materialCategory/index";
 import * as auth from "./auth/index";
 import { ForumSectionListComponent, ForumSectionService } from "./forumSection/index";
 import * as account from "./account/index";
@@ -77,11 +77,11 @@ import { ReCaptchaModule } from "angular2-recaptcha";
         match.MatchCalendarComponent,
         match.MatchEditComponent,
         match.MatchListComponent,
+        materialCategory.MaterialCategoryEditComponent,
+        materialCategory.MaterialCategoryListComponent,
         materialComment.MaterialCommentDetailComponent,
         materialComment.MaterialCommentListComponent,
         materialComment.MaterialCommentSectionComponent,
-        newsCategory.NewsCategoryEditComponent,
-        newsCategory.NewsCategoryListComponent,
         player.PlayerStatisticsComponent,
         pm.PmDetailComponent,
         pm.PmEditComponent,
@@ -117,8 +117,8 @@ import { ReCaptchaModule } from "angular2-recaptcha";
         forumTheme.ForumThemeService,
         image.ImageService,
         match.MatchService,
+        materialCategory.MaterialCategoryService,
         materialComment.MaterialCommentService,
-        newsCategory.NewsCategoryService,
         pm.PmService,
         roleGroup.RoleGroupService,
         shared.HttpWrapper,

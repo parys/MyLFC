@@ -26,13 +26,9 @@ namespace MyLiverpool.Business.Services
             return result;
         }
 
-        public async Task<MaterialCategoryDto> GetAsync(int id, MaterialType materialType)
+        public async Task<MaterialCategoryDto> GetAsync(int id)
         {
             var result = await _categoryRepository.GetByIdAsync(id);
-            if (result.MaterialType != materialType)
-            {
-                return null;
-            }
             return _mapper.Map<MaterialCategoryDto>(result);
         }
 
