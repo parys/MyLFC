@@ -6,7 +6,7 @@ import { HttpModule } from "@angular/http";
 import { AppComponent } from "./app.component";
 import { routes } from "./app.routes";
 import { Configuration } from "./app.constants";
-import { NewsEditComponent, NewsDetailComponent, NewsListComponent, NewsService } from "./news/index";
+import * as material from "./material/index";
 import * as materialCategory from "./materialCategory/index";
 import * as auth from "./auth/index";
 import { ForumSectionListComponent, ForumSectionService } from "./forumSection/index";
@@ -97,9 +97,9 @@ import { ReCaptchaModule } from "angular2-recaptcha";
         AppComponent,
         EplTableComponent,
         ForumSectionListComponent,
-        NewsListComponent,
-        NewsDetailComponent,
-        NewsEditComponent,
+        material.MaterialListComponent,
+        material.MaterialDetailComponent,
+        material.MaterialEditComponent,
         UserDetailComponent,
         UserListComponent
     ], // components and directives
@@ -131,7 +131,7 @@ import { ReCaptchaModule } from "angular2-recaptcha";
         Configuration,
         ForumSectionService,
         { provide: shared.LocalStorage, useFactory: () => (window) ? window.localStorage : {} },
-        NewsService,
+        material.MaterialService,
         Title,
         UserService
     ]

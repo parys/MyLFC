@@ -1,41 +1,42 @@
 ﻿import { Component, OnInit, OnDestroy, ViewChild } from "@angular/core";
 import { Title } from "@angular/platform-browser";
-import { NewsService } from "./news.service";
+import { MaterialService } from "./material.service";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
-import { News } from "./news.model";                
+import { Material } from "./material.model";                
+import { MaterialType } from "../materialCategory/materialType.enum";                
 import { RolesCheckedService, IRoles, LocalStorageService } from "../shared/index";
 import { ModalDirective } from "ng2-bootstrap";
 
 @Component({
-    selector: "news-detail",
-    template: require("./news-detail.component.html")
+    selector: "material-detail",
+    template: require("./material-detail.component.html")
 })
 
-export class NewsDetailComponent implements OnInit, OnDestroy {
-    
+export class MaterialDetailComponent implements OnInit, OnDestroy {
     private sub: Subscription;
-    item: News;
+    item: Material;
     roles: IRoles;
     private title: Title;
+    type: MaterialType;
     @ViewChild("activateModal") activateModal: ModalDirective;
     @ViewChild("deleteModal") deleteModal: ModalDirective;
 
-    constructor(private newsService: NewsService,
+    constructor(private service: MaterialService,
         private route: ActivatedRoute,
         private localStorage: LocalStorageService,        
         private rolesChecked: RolesCheckedService,
         private router: Router,
         private titleService: Title) {
-       // this.title = t
+        this.title = titleService;
     }
 
     ngOnInit() {
         this.roles = this.rolesChecked.checkRoles();
 
-        this.sub = this.route.params.subscribe(params => {
+        this.sub = this.route.params.subscribe(params => {       //todo to snapshot
             let id = +params["id"];
-            this.newsService.getSingle(id)
+            this.service.getSingle(id)
                 .subscribe(data => this.parse(data),
                 error => console.log(error),
                 () => {});
@@ -62,7 +63,7 @@ export class NewsDetailComponent implements OnInit, OnDestroy {
     activate() {
         let result;
         
-        this.newsService.activate(this.item.id)
+        this.service.activate(this.item.id)
             .subscribe(res => result = res,
             e => console.log(e),
             () => {
@@ -76,19 +77,19 @@ export class NewsDetailComponent implements OnInit, OnDestroy {
 
     delete() {
         let result;
-        this.newsService.delete(this.item.id)
+        this.service.delete(this.item.id)
             .subscribe(res => result = res,
                 e => console.log(e),
                 () => {
                     if (result) {
                         this.hideModal();
-                        this.router.navigate(["/news"]);
+                        this.router.navigate([`/${MaterialType[this.type]}`]);
                     }
                 }
             );
     }
 
-    private parse(item: News): void {
+    private parse(item: Material): void {
         this.item = item;
         this.titleService.setTitle(item.title);
         this.addView();
@@ -97,7 +98,7 @@ export class NewsDetailComponent implements OnInit, OnDestroy {
     private addView() {
         let id = this.item.id;
         if (!this.localStorage.tryAddViewForNews(id)) {
-            this.newsService.addView(id).subscribe(data => data);
+            this.service.addView(id).subscribe(data => data);
         }
     }
 }

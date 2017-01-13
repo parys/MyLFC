@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using MyLiverpool.Business.Contracts;
@@ -17,15 +18,13 @@ namespace MyLiverpool.Business.Services
     {
         private readonly IMaterialRepository _materialRepository;
         private readonly IMaterialCommentRepository _materialCommentRepository;
-        private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
 
-        public MaterialService(IMaterialRepository materialRepository, IMapper mapper, IMaterialCommentRepository materialCommentRepository, IUserRepository userRepository)
+        public MaterialService(IMaterialRepository materialRepository, IMapper mapper, IMaterialCommentRepository materialCommentRepository)
         {
             _materialRepository = materialRepository;
             _mapper = mapper;
             _materialCommentRepository = materialCommentRepository;
-            _userRepository = userRepository;
         }
 
         #region Dto 
@@ -79,24 +78,23 @@ namespace MyLiverpool.Business.Services
             return dto;
         }
 
-        public async Task<bool> DeleteAsync(int id, int userId)
+        public async Task<bool> DeleteAsync(int id, ClaimsPrincipal claims)
         {
-            var newsItem = await _materialRepository.GetByIdAsync(id);
-            var userRoles = await _userRepository.GetRolesAsync(userId);
-            if (!userRoles.Contains(RolesEnum.NewsFull.ToString()) &&
-                !userRoles.Contains(RolesEnum.BlogFull.ToString()) &&
-                newsItem.AuthorId != userId)
+            var material = await _materialRepository.GetByIdAsync(id);
+
+            if ((!claims.IsInRole(nameof(RolesEnum.NewsFull)) && material.Type == MaterialType.News) ||
+                (!claims.IsInRole(nameof(RolesEnum.BlogFull)) && material.Type == MaterialType.Blog))
             {
                 return false;
             }
             try
             {
-                var comments = newsItem.Comments.ToList();
+                var comments = material.Comments.ToList();
                 foreach (var comment in comments)
                 {
                     await _materialCommentRepository.DeleteAsync(comment);
                 }
-                await _materialRepository.DeleteAsync(newsItem);
+                await _materialRepository.DeleteAsync(material);
                 await _materialRepository.SaveChangesAsync();
             }
             catch (Exception)
@@ -107,42 +105,48 @@ namespace MyLiverpool.Business.Services
             return true;
         }
 
-        public async Task<bool> ActivateAsync(int id)
+        public async Task<bool> ActivateAsync(int id, ClaimsPrincipal claims)
         {
             var material = await _materialRepository.GetByIdAsync(id);
             if (material == null)
             {
                 return false;
             }
-            material.Pending = false;
+
+            if ((!claims.IsInRole(nameof(RolesEnum.NewsFull)) && material.Type == MaterialType.News) ||
+                (!claims.IsInRole(nameof(RolesEnum.BlogFull)) && material.Type == MaterialType.Blog))
+            {
+                return false;
+            }
+
+                material.Pending = false;
             _materialRepository.Update(material);
             await _materialRepository.SaveChangesAsync();
             return true;
         }
 
-        public async Task<bool> CreateAsync(MaterialDto model, int userId, MaterialType materialType)
+        public async Task<MaterialDto> CreateAsync(MaterialDto model, int userId)
         {
             model.AdditionTime = DateTime.Now;
             model.AuthorId = userId;
 
             var material = _mapper.Map<Material>(model);
             material.LastModified = DateTime.Now;
-            material.Type = materialType;
+
             try
             {
                 material = await _materialRepository.AddAsync(material);
                 await _materialRepository.SaveChangesAsync();
+                return _mapper.Map<MaterialDto>(material);
             }
             catch (Exception)
             {
-                return false;
             }
-            return true;
+            return null;
         }
 
-        public async Task<bool> EditAsync(MaterialDto model, int userId)
+        public async Task<MaterialDto> EditAsync(MaterialDto model)
         {
-            // var newsItem = Mapper.Map<Material>(model);
             var updatingItem = await _materialRepository.GetByIdAsync(model.Id);
             updatingItem.LastModified = DateTime.Now;
             updatingItem.Brief = model.Brief;
@@ -159,12 +163,11 @@ namespace MyLiverpool.Business.Services
             {
                 _materialRepository.Update(updatingItem);
                 await _materialRepository.SaveChangesAsync();
+                return _mapper.Map<MaterialDto>(updatingItem);
             }
             catch (Exception)
-            {
-                return false;
-            }
-            return true;
+            {}
+            return null;
         }
 
         public async Task<bool> AddViewAsync(int id)

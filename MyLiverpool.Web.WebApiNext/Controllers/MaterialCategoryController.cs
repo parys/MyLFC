@@ -60,7 +60,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <param name="type">The type of new category.</param>
         /// <param name="dto">Filled dto for new category.</param>
         /// <returns>Created category object</returns>
-        [Authorize(Roles = nameof(RolesEnum.NewsFull)), HttpPost("{type}")]
+        [Authorize(Roles = nameof(RolesEnum.NewsFull) + "," + nameof(RolesEnum.BlogFull)), HttpPost("{type}")]
         public async Task<IActionResult> CreateAsync(string type, [FromBody] MaterialCategoryDto dto)
         {
             MaterialType parsedType;
@@ -83,7 +83,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <param name="id">The identifier of updatable object.</param>
         /// <param name="dto">Filled dto contains new values.</param>
         /// <returns>Updated category object.</returns>
-        [Authorize(Roles = nameof(RolesEnum.NewsFull)), HttpPut("{id:int}")]
+        [Authorize(Roles = nameof(RolesEnum.NewsFull) + "," + nameof(RolesEnum.BlogFull)), HttpPut("{id:int}")]
         public async Task<IActionResult> UpdateAsync(int id, [FromBody] MaterialCategoryDto dto)
         {
             if (!ModelState.IsValid || id != dto.Id)
@@ -99,7 +99,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <param name="id">The identifier of removing object.</param>
         /// <returns>Result of deleting.</returns>
-        [Authorize(Roles = nameof(RolesEnum.NewsFull)), HttpDelete("{id:int}")]
+        [Authorize(Roles = nameof(RolesEnum.NewsFull) + "," + nameof(RolesEnum.BlogFull)), HttpDelete("{id:int}")]
         public async Task<IActionResult> DeletAsync(int id)
         {
             var result = await _materialCategoryService.DeleteAsync(id);

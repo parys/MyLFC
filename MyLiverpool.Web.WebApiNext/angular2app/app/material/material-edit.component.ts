@@ -2,50 +2,55 @@
 import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
-import { NewsService } from "./news.service";
-import { News } from "./news.model";
+import { MaterialService } from "./material.service";
+import { Material } from "./material.model";
 import { MaterialCategoryService } from "../materialCategory/index";
 import { RolesCheckedService, IRoles } from "../shared/index";
 import { MaterialCategory } from "../materialCategory/materialCategory.model";
 import { MaterialType } from "../materialCategory/materialType.enum";
 
 @Component({
-    selector: "news-edit",
-    template: require("./news-edit.component.html")
+    selector: "material-edit",
+    template: require("./material-edit.component.html")
 })
 
-export class NewsEditComponent implements OnInit, OnDestroy {
+export class MaterialEditComponent implements OnInit, OnDestroy {
     editForm: FormGroup;
     private sub: Subscription;
     id: number;
     categories: MaterialCategory[];
     roles: IRoles;
-    item: News;
+    item: Material;
     type: MaterialType;
 
-    constructor(private newsService: NewsService,
-        private newsCategoryService: MaterialCategoryService,
+    constructor(private service: MaterialService,
+        private materialCategoryService: MaterialCategoryService,
         private route: ActivatedRoute,
         private router: Router,
         private rolesChecked: RolesCheckedService,
         private formBuilder: FormBuilder) {
+        if (route.snapshot.data["type"] === MaterialType[MaterialType.News]) {
+            this.type = MaterialType.News;
+        } else {
+            this.type = MaterialType.Blog;
+        }
     }
                                                              
     ngOnInit() {
         this.roles = this.rolesChecked.checkRoles();
         this.initForm();
-        this.sub = this.route.params.subscribe(params => {
+        this.sub = this.route.params.subscribe(params => { //todo
             let id = +params["id"];
             if (id > 0) {
-                this.newsService.getSingle(id)
+                this.service.getSingle(id)
                     .subscribe(data => this.parse(data),
                         error => console.log(error),
                         () => {});
             } else {
-                this.item = new News();
+                this.item = new Material();
             }
         });
-        this.newsCategoryService.getAll(this.type)
+        this.materialCategoryService.getAll(this.type)
             .subscribe(data => this.parseCategories(data),
             error => console.log(error),
             () => { });
@@ -59,13 +64,13 @@ export class NewsEditComponent implements OnInit, OnDestroy {
     onSubmit() {
         let newsItem = this.parseForm();
         if (this.id > 0) {
-            this.newsService.update(this.id, newsItem)
-                .subscribe(data => console.log(data),//this.router.navigate(["/news", data.id]),
+            this.service.update(this.id, newsItem)
+                .subscribe(data => this.router.navigate([`/${MaterialType[this.type]}`, data.id]),
                 error => console.log(error),
                     () => {});
         } else {
-            this.newsService.create(newsItem)
-                .subscribe(data => console.log(data),//this.router.navigate(["/news", data.id]),
+            this.service.create(newsItem, this.type)
+                .subscribe(data => this.router.navigate([`/${MaterialType[this.type]}`, data.id]),
                 error => console.log(error),
                     () => {});
         }
@@ -75,14 +80,14 @@ export class NewsEditComponent implements OnInit, OnDestroy {
         this.editForm.patchValue({ photo: path });
     }
 
-    private parse(data: News): void {
+    private parse(data: Material): void {
         this.id = data.id;
         this.editForm.patchValue(data);
         this.item = data;
     }
 
-    private parseForm(): News {
-        let item = new News();
+    private parseForm(): Material {
+        let item = new Material();
         item.id = this.id;
         item.categoryId = this.editForm.controls["categoryId"].value;
         item.title = this.editForm.controls["title"].value;

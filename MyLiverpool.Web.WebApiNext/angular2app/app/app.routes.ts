@@ -1,9 +1,9 @@
 ﻿import { Routes } from "@angular/router";
-import { NewsListComponent } from "./news/index";
+import { MaterialListComponent } from "./material/index";
 import { accountRoutes } from "./account/account.routing";
 import { clubRoutes } from "./club/club.routing";
 import { materialCategoryRoutes } from "./materialCategory/materialCategory.routing";
-import { newsRoutes } from "./news/news.routing";
+import { materialRoutes } from "./material/material.routing";
 import { userRoutes } from "./user/user.routing";
 import { playerRoutes } from "./player/player.routing";
 import { pmRoutes } from "./pm/pm.routing";
@@ -29,12 +29,12 @@ export const routes: Routes = [
     ...matchRoutes,
     ...materialCommentRoutes,
     ...materialCategoryRoutes,
-    ...newsRoutes,
+    ...materialRoutes,
     ...playerRoutes,
     ...pmRoutes,
     ...roleGroupRoutes,
     ...seasonRoutes,
     ...userRoutes,
     ...wishRoutes,
-    { path: "", component: NewsListComponent, data: { title: "Главная", breadcrumb: "Главная" } }
+    { path: "", component: MaterialListComponent, data: { title: "Главная", breadcrumb: "Главная", type: "News" } }
 ];

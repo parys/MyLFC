@@ -71,15 +71,10 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <param name="id">Material identifier.</param>
         /// <returns>Result of removing.</returns>
-        [Authorize(Roles = nameof(RolesEnum.NewsStart)), HttpDelete("{id:int}")]
-        public async Task<IActionResult> Delete(int? id)
+        [Authorize(Roles = nameof(RolesEnum.NewsStart) + "," + nameof(RolesEnum.BlogStart)), HttpDelete("{id:int}")]
+        public async Task<IActionResult> Delete(int id)
         {
-            if (!id.HasValue)
-            {
-                return BadRequest();
-            }
-
-            var result = await _materialService.DeleteAsync(id.Value, User.GetUserId());
+            var result = await _materialService.DeleteAsync(id, User);
             return Json(result);
         }
 
@@ -88,15 +83,10 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <param name="id">Material identifier.</param>
         /// <returns>Result of activation.</returns>
-        [Authorize(Roles = nameof(RolesEnum.NewsStart)), HttpGet("activate/{id:int}")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ActivateAsync(int? id)
+        [Authorize(Roles = nameof(RolesEnum.NewsFull) + "," + nameof(RolesEnum.BlogFull)), HttpGet("activate/{id:int}")]
+        public async Task<IActionResult> ActivateAsync(int id)
         {
-            if (!id.HasValue)
-            {
-                return BadRequest();
-            }
-            var result = await _materialService.ActivateAsync(id.Value);
+            var result = await _materialService.ActivateAsync(id, User);
             return Ok(result);
         }
 
@@ -106,7 +96,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <param name="type">Material type.</param>
         /// <param name="model">Contains material model.</param>
         /// <returns>Result of creation.</returns>
-        [Authorize(Roles = nameof(RolesEnum.NewsStart)), HttpPost("{type}")]
+        [Authorize(Roles = nameof(RolesEnum.NewsStart) + "," + nameof(RolesEnum.BlogStart)), HttpPost("{type}")]
         public async Task<IActionResult> CreateAsync(string type, [FromBody] MaterialDto model)
         {
             MaterialType materialType;
@@ -114,11 +104,13 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             {
                 return BadRequest(ModelState);
             }
-            if (!User.IsInRole(RolesEnum.NewsFull.ToString()))
+            model.Type = materialType;
+            if ((!User.IsInRole(nameof(RolesEnum.NewsFull)) && model.Type != MaterialType.News) ||
+                (!User.IsInRole(nameof(RolesEnum.BlogFull)) && model.Type != MaterialType.Blog))
             {
                 model.Pending = true;
             }
-            var result = await _materialService.CreateAsync(model, User.GetUserId(), materialType);
+            var result = await _materialService.CreateAsync(model, User.GetUserId());
             return Ok(result);
         }
 
@@ -129,7 +121,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <param name="id">Material identifier.</param>
         /// <param name="model">Contains material model.</param>
         /// <returns>Result of updation.</returns>
-        [Authorize(Roles = nameof(RolesEnum.NewsStart)), HttpPut("{id:int}")]
+        [Authorize(Roles = nameof(RolesEnum.NewsStart) + "," + nameof(RolesEnum.BlogStart)), HttpPut("{id:int}")]
         public async Task<IActionResult> UpdateAsync(int id, [FromBody]MaterialDto model)
         {
             if (id != model.Id)
@@ -140,8 +132,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             {
                 return BadRequest(ModelState);
             }
-
-            if (!User.IsInRole(RolesEnum.NewsFull.ToString()))
+            if ((!User.IsInRole(nameof(RolesEnum.NewsFull)) && model.Type != MaterialType.News) ||
+                (!User.IsInRole(nameof(RolesEnum.BlogFull)) && model.Type != MaterialType.Blog))
             {
                 if (model.AuthorId != User.GetUserId())
                 {
@@ -149,7 +141,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 }
                 model.Pending = true;
             }
-            var result = await _materialService.EditAsync(model, User.GetUserId()); //todo return result entity
+            var result = await _materialService.EditAsync(model);
             return Ok(result);
         }
 
@@ -160,13 +152,9 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <param name="id">Material identifier.</param>
         /// <returns>Result of addition view.</returns>
         [AllowAnonymous, HttpGet("AddView/{id:int}")]
-        public async Task<IActionResult> AddView(int? id)
+        public async Task<IActionResult> AddView(int id)
         {
-            if (!id.HasValue)
-            {
-                return BadRequest();
-            }
-            var result = await _materialService.AddViewAsync(id.Value);
+            var result = await _materialService.AddViewAsync(id);
             return Ok(result);
         }
     }

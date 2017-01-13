@@ -1,4 +1,5 @@
 ﻿using System;
+using MyLiverpool.Data.Entities;
 
 namespace MyLiverpool.Business.DtoNext
 {
@@ -41,5 +42,7 @@ namespace MyLiverpool.Business.DtoNext
         public bool OnTop { get; set; }
 
         public bool CanCommentary { get; set; }
+
+        public MaterialType Type { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿export class News {
+﻿export class Material {
     id: number;
     title: string;
     categoryId: number;
@@ -11,8 +11,9 @@
     message: string;
     private reads: number;
     source: string;
-    photo: string;                                                                      
+    photo: string;
     pending: boolean;
     onTop: boolean;
     canCommentary: boolean;
+    type: number;
 }
