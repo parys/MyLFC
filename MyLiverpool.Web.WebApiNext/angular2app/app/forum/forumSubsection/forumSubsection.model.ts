@@ -1,5 +1,5 @@
 ﻿import { ForumTheme }  from "../forumTheme/index";
-import { Pageable }  from "../shared/index";
+import { Pageable } from "../../shared/index";
 
 export class ForumSubsection {
     id: number;

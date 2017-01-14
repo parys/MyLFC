@@ -7,14 +7,13 @@ import { Observable } from "rxjs/Observable";
 import { ForumThemeService } from "./forumTheme.service";
 import { ForumMessage } from "../forumMessage/index";
 import { ForumTheme } from "./forumTheme.model";
-import { RolesCheckedService, IRoles } from "../shared/index";
+import { RolesCheckedService, IRoles } from "../../shared/index";
 
 @Component({
     selector: "forumTheme-list",
     template: require("./forumTheme-list.component.html")
 })
 export class ForumThemeListComponent implements OnInit, OnDestroy {
-
     item: ForumTheme;
     items: ForumMessage[];
     roles: IRoles;

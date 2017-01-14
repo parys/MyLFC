@@ -59,7 +59,7 @@ export class WishListComponent implements OnInit, OnDestroy {
             .getAll()//todo pageable
             .subscribe(data => this.parsePageable(data),
             error => console.log(error),
-            () => console.log("success load list wish"));
+            () => {});
     }
 
     getTypeClass(i) {

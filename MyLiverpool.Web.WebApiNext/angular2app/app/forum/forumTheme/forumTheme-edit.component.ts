@@ -12,13 +12,15 @@ import { ForumThemeService } from "./forumTheme.service";
     template: require("./forumTheme-edit.component.html")
 })
 export class ForumThemeEditComponent implements OnInit, OnDestroy {
-
     editForm: FormGroup;
     id: number = 0;
     private sub: Subscription;
     forumSubsections: ForumSubsection[];
 
-    constructor(private service: ForumThemeService, private formBuilder: FormBuilder, private route: ActivatedRoute, private subsectionService: ForumSubsectionService) {
+    constructor(private service: ForumThemeService,
+        private formBuilder: FormBuilder,
+        private route: ActivatedRoute,
+        private subsectionService: ForumSubsectionService) {
     }
 
     ngOnInit() {
@@ -75,6 +77,5 @@ export class ForumThemeEditComponent implements OnInit, OnDestroy {
         if (res !== null) {
 
         }
-
     }
 }

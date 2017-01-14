@@ -3,7 +3,7 @@ import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms"
 import { Observable } from "rxjs/Observable";
 import { ForumSectionService } from "./forumSection.service";
 import { ForumSection } from "./forumSection.model";
-import { RolesCheckedService, IRoles } from "../shared/index";
+import { RolesCheckedService, IRoles } from "../../shared/index";
 
 @Component({
     selector: "forumSection-list",

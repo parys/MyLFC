@@ -17,7 +17,10 @@ export class WishEditComponent implements OnInit, OnDestroy {
     private sub: Subscription;
     types: WishType[];
 
-    constructor(private service: WishService, private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router) {
+    constructor(private service: WishService,
+        private formBuilder: FormBuilder,
+        private route: ActivatedRoute,
+        private router: Router) {
     }
 
     ngOnInit() {

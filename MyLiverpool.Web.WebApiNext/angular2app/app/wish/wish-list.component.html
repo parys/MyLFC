@@ -9,14 +9,14 @@
             <div class="form-group">
                 <!--<input class="form-control" ng-model="vm.filterText" ng-model-options="{debounce: 1000}" ng-change="vm.filterByText()" placeholder="Поиск в тексте пожеланий" />-->
             </div>
-            <button class="btn btn-success" [routerLink]="[0, 'edit']">Добавить</button>
+            <a class="btn btn-success" [routerLink]="[0, 'edit']">Добавить</a>
         </form>
     </div>
     <div class="top20" *ngFor="let wish of items; let i = index;">
         <div class="panel" [ngClass]="getTypeClass(wish.type)">
             <div class="panel-heading">
                 <h3 class="panel-title">
-                    <a [routerLink]="['/wish', wish.id, 'edit']">
+                    <a [routerLink]="[wish.id, 'edit']">
                         <span [textContent]="wish.title"></span>
                     </a>
                     <span class="col-xs-1 col-sm-1 pull-right" *ngIf="roles.isAdmin">

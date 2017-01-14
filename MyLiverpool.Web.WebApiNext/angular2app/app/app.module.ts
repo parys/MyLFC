@@ -1,21 +1,18 @@
 import { NgModule, LOCALE_ID } from "@angular/core";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { Title, BrowserModule } from "@angular/platform-browser";
 import { RouterModule } from "@angular/router";
 import { HttpModule } from "@angular/http";
 import { AppComponent } from "./app.component";
 import { routes } from "./app.routes";
+import { ForumModule } from "./forum/index";
 import { Configuration } from "./app.constants";
 import * as material from "./material/index";
+import { EditorModule } from "./editor/index";
 import * as materialCategory from "./materialCategory/index";
 import * as auth from "./auth/index";
-import { ForumSectionListComponent, ForumSectionService } from "./forumSection/index";
 import * as account from "./account/index";
 import * as chat from "./chat/index";
 import * as club from "./club/index";
-import * as forumSubsection from "./forumSubsection/index";
-import * as forumMessage from "./forumMessage/index";
-import * as forumTheme from "./forumTheme/index";
 import * as home from "./home/index";
 import * as image from "./image/index";
 import * as match from "./match/index";
@@ -23,12 +20,11 @@ import * as player from "./player/index";
 import * as roleGroup from "./roleGroup/index";
 import * as season from "./season/index";
 import * as shared from "./shared/index";
-import * as tineMceEditor from "./tinyMceEditor/index";
 import { UserDetailComponent } from "./user/user-detail.component";
 import { UserService } from "./user/user.service";
 import { UserListComponent } from "./user/user-list.component";
 import * as pm from "./pm/index";
-import * as wish from "./wish/index";
+import { WishModule } from "./wish/index";
 import * as materialComment from "./materialComment/index";
 import { Ng2AutoCompleteModule } from "ng2-auto-complete";
 import { AdminService, EplTableComponent } from "./admin/index";
@@ -38,16 +34,17 @@ import { ReCaptchaModule } from "angular2-recaptcha";
 @NgModule({
     imports: [
         BrowserModule,
+        EditorModule,
         HttpModule,
         DatepickerModule.forRoot(),
-        FormsModule,
+        ForumModule,
         ModalModule.forRoot(),
         Ng2AutoCompleteModule,
         PaginationModule.forRoot(),
-        ReactiveFormsModule,
         TabsModule.forRoot(),
         RouterModule.forRoot(routes),
-        ReCaptchaModule
+        ReCaptchaModule,
+        WishModule
     ],
     declarations: [
         account.AccountSigninComponent,
@@ -60,11 +57,6 @@ import { ReCaptchaModule } from "angular2-recaptcha";
         chat.MiniChatComponent,
         club.ClubEditComponent,
         club.ClubListComponent,
-        forumMessage.ForumMessageAdditionComponent,
-        forumSubsection.ForumSubsectionEditComponent,
-        forumSubsection.ForumSubsectionListComponent,
-        forumTheme.ForumThemeEditComponent,
-        forumTheme.ForumThemeListComponent,
         home.AboutClubComponent,
         home.CoachTeamComponent,
         home.ClubHistoryComponent,
@@ -90,13 +82,8 @@ import { ReCaptchaModule } from "angular2-recaptcha";
         roleGroup.RoleGroupListComponent,
         season.SeasonEplTableComponent,
         shared.RecaptchaComponent,
-        tineMceEditor.FullEditorComponent,
-        tineMceEditor.MediumEditorComponent,
-        wish.WishEditComponent,
-        wish.WishListComponent,
         AppComponent,
         EplTableComponent,
-        ForumSectionListComponent,
         material.MaterialListComponent,
         material.MaterialDetailComponent,
         material.MaterialEditComponent,
@@ -112,9 +99,6 @@ import { ReCaptchaModule } from "angular2-recaptcha";
         account.AccountValidators,
         chat.ChatMessageService,
         club.ClubService,
-        forumMessage.ForumMessageService,
-        forumSubsection.ForumSubsectionService,
-        forumTheme.ForumThemeService,
         image.ImageService,
         match.MatchService,
         materialCategory.MaterialCategoryService,
@@ -125,11 +109,9 @@ import { ReCaptchaModule } from "angular2-recaptcha";
         shared.GlobalValidators,
         shared.LocalStorageService,
         shared.RolesCheckedService,
-        wish.WishService,
         AdminService,
         { provide: LOCALE_ID, useValue: "ru-RU" },
         Configuration,
-        ForumSectionService,
         { provide: shared.LocalStorage, useFactory: () => (window) ? window.localStorage : {} },
         material.MaterialService,
         Title,

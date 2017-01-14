@@ -29,7 +29,7 @@
     "es6-shim": "0.35.2",
     "event-source-polyfill": "0.0.7",
     "expose-loader": "0.7.1",
-    "extract-text-webpack-plugin": "2.0.0-beta.4",
+    "extract-text-webpack-plugin": "2.0.0-beta.5",
     "file-loader": "0.9.0",
     "html-loader": "0.4.4",
     "isomorphic-fetch": "2.2.1",
@@ -56,7 +56,7 @@
     "webpack-hot-middleware": "2.15.0",
     "webpack-merge": "1.1.2",
     "webpack-notifier": "1.5.0",
-    "zone.js": "0.7.4"
+    "zone.js": "0.7.5"
   },
   "devDependencies": {}
 }

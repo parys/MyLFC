@@ -1,8 +1,10 @@
 ﻿import { Injectable } from "@angular/core";
+import { Response } from "@angular/http";
 import { Observable } from "rxjs/Observable";
 import { Configuration } from "../app.constants";
 import { HttpWrapper } from "../shared/httpWrapper";
-import { Wish, WishType } from "./index";
+import { Wish } from "./wish.model";
+import { WishType } from "./wishType.model";
 import { Pageable } from "../shared/pageable.model";
 
 @Injectable()
@@ -14,28 +16,28 @@ export class WishService {
     }
 
     getAll = (): Observable<Pageable<Wish>> => {
-        return this.http.get(this.actionUrl + "list/").map(res => res.json());
+        return this.http.get(this.actionUrl + "list/").map((res: Response) => res.json());
     };
 
     getSingle = (id: number): Observable<Wish> => {
-        return this.http.get(this.actionUrl + id).map(res => res.json());
+        return this.http.get(this.actionUrl + id).map((res: Response) => res.json());
     };
 
     create = (item: Wish): Observable<Wish> => {
-        return this.http.post(this.actionUrl, JSON.stringify(item)).map(res => res.json());
+        return this.http.post(this.actionUrl, JSON.stringify(item)).map((res: Response) => res.json());
     };
 
     update = (id: number, itemToUpdate: Wish): Observable<Wish> => {
         return this.http
             .put(this.actionUrl + id, JSON.stringify(itemToUpdate))
-            .map(res => res.json());
+            .map((res: Response) => res.json());
     };
 
     delete = (id: number): Observable<boolean> => {
-        return this.http.delete(this.actionUrl + id).map(response => response.json());
+        return this.http.delete(this.actionUrl + id).map((res: Response) => res.json());
     };
 
     getTypes = (): Observable<WishType[]> => {
-        return this.http.get(this.actionUrl + "types/").map(res => res.json());
+        return this.http.get(this.actionUrl + "types/").map((res: Response) => res.json());
     };
 }

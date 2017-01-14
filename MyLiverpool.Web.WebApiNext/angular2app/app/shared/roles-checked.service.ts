@@ -14,7 +14,7 @@ export class RolesCheckedService {
         isAdminAssistant: false,
         isAdmin: false,
         isAuthor: false,
-        isSelf: (userId : number) => this.isSelf(userId)
+        isSelf: (userId: number): boolean => this.isSelf(userId)
     };
     private roles: string[];
 
@@ -45,7 +45,7 @@ export class RolesCheckedService {
     }
 
     private isSelf(authorId: number): boolean {
-        let userId = this.localStorage.getUserId();
+        let userId: number = this.localStorage.getUserId();
         return (userId === authorId);
     }
 

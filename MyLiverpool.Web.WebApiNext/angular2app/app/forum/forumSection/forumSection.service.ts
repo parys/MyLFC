@@ -1,7 +1,8 @@
 ﻿import { Injectable } from "@angular/core";
+import { Response } from "@angular/http";
 import { Observable } from "rxjs/Observable";
-import { Configuration } from "../app.constants";
-import { HttpWrapper } from "../shared/index";
+import { Configuration } from "../../app.constants";
+import { HttpWrapper } from "../../shared/index";
 import { ForumSection } from "./forumSection.model";
 
 @Injectable()
@@ -13,8 +14,8 @@ export class ForumSectionService {
     }
 
     getAll = (): Observable<ForumSection[]> => {
-        return this.http.get(this.actionUrl + "list/").map(res => res.json());
-     };
+        return this.http.get(this.actionUrl + "list/").map((res: Response) => res.json());
+    };
 
     // public GetSingle = (id: number): Observable<News> => {
     //    return this.http.get(this.actionUrl + id).map(res => res.json());

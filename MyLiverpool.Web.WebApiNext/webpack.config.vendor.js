@@ -57,7 +57,7 @@ var SharedConfig = {
         new Webpack.ProvidePlugin({ $: "jquery", jQuery: "jquery" }), // Maps these identifiers to the jQuery package (because Bootstrap expects it to be a global variable)
         new Webpack.ContextReplacementPlugin(/\@angular\b.*\b(bundles|linker)/, Path.join(__dirname, "./angular2app")), // Workaround for https://github.com/angular/angular/issues/11580
         new Webpack.IgnorePlugin(/^vertx$/), // Workaround for https://github.com/stefanpenner/es6-promise/issues/100
-        new Webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, require.resolve("node-noop")) // Workaround for https://github.com/andris9/encoding/issues/16
+ //       new Webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, require.resolve("node-noop")) // Workaround for https://github.com/andris9/encoding/issues/16
     ]
 };
 
@@ -82,7 +82,6 @@ var ClientBundleConfig = Merge(SharedConfig,
                 new CopyWebpackPlugin([{ from: "node_modules/swagger-ui/dist", to: "../swagger/" }])
             ]
             : [
-                new Webpack.optimize.OccurrenceOrderPlugin(),
                 new Webpack.optimize.UglifyJsPlugin({
                     compress: { warnings: false },
                     output: {
@@ -111,7 +110,6 @@ var ClientBundleConfig = Merge(SharedConfig,
 //            path: Path.join(__dirname, "angular2app", "js", "[name]-manifest.json"),
 //            name: "[name]_[hash]"
 //        }),
-        
 //        new WebpackNotifierPlugin({title: "vendorBuild-server", alwaysNotify: true })
 //    ]
 //});

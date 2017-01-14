@@ -1,11 +1,9 @@
 ﻿import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from "@angular/core";
-import { Pageable } from "../shared/pageable.model";
 import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { ForumMessage } from "./forumMessage.model";
 import { ForumMessageService } from "./forumMessage.service";
 import { Location } from "@angular/common";
-import { RolesCheckedService, IRoles } from "../shared/index";
-//import { ModalDirective } from "ng2-bootstrap";
+import { RolesCheckedService, IRoles, Pageable } from "../../shared/index";
 
 @Component({
     selector: "forumMessage-addition",

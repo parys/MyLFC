@@ -18,7 +18,10 @@ export class ForumSubsectionEditComponent implements OnInit, OnDestroy {
     private sub: Subscription;
     forumSections: ForumSection[];
 
-    constructor(private service: ForumSubsectionService, private formBuilder: FormBuilder, private route: ActivatedRoute, private sectionService: ForumSectionService) {
+    constructor(private service: ForumSubsectionService,
+        private formBuilder: FormBuilder,
+        private route: ActivatedRoute,
+        private sectionService: ForumSectionService) {
     }
 
     ngOnInit() {

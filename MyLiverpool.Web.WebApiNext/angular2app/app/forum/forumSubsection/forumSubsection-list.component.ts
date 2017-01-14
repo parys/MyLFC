@@ -7,14 +7,13 @@ import { Observable } from "rxjs/Observable";
 import { ForumSubsectionService } from "./forumSubsection.service";
 import { ForumSubsection } from "./forumSubsection.model";
 import { ForumTheme } from "../forumTheme/index";
-import { RolesCheckedService, IRoles } from "../shared/index";
+import { RolesCheckedService, IRoles } from "../../shared/index";
 
 @Component({
     selector: "forumSubsection-list",
     template: require("./forumSubsection-list.component.html")
 })
 export class ForumSubsectionListComponent implements OnInit, OnDestroy {
-
     item: ForumSubsection;
     items: ForumTheme[];
     roles: IRoles;
