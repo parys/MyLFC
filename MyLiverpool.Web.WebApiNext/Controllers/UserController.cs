@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -97,8 +98,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         public async Task<IActionResult> GetUserNames([FromQuery]string typed)
         {
             var result = await _userService.GetUserNamesAsync(typed);
-         //   var userId = User.GetUserId();
-         //   result = result.Where(x => x.Id != userId);
+           //bug var userId = User.GetUserId();
+           // result = result.Where(x => x.Id != userId);
             return Ok(result);
         }
 

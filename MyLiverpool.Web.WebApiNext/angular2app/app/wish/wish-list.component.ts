@@ -1,4 +1,5 @@
 ﻿import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Location } from "@angular/common";
 import { Wish } from "./wish.model";
 import { WishService } from "./wish.service";
 import { Observable } from "rxjs/Observable";
@@ -23,6 +24,7 @@ export class WishListComponent implements OnInit, OnDestroy {
 
     constructor(private service: WishService,
         private rolesChecked: RolesCheckedService,
+        private location: Location,
         private route: ActivatedRoute) {
     }
 
@@ -41,12 +43,19 @@ export class WishListComponent implements OnInit, OnDestroy {
         this.sub.unsubscribe();
     }
 
-    private parsePageable(pageable: Pageable<Wish>): void {
-        this.items = pageable.list;
-        this.page = pageable.pageNo;
-        this.itemsPerPage = pageable.itemPerPage;
-        this.totalItems = pageable.totalItems;
-    }
+    pageChanged(event: any): void {
+        this.page = event.page;
+        this.update();
+        let newUrl = `$wish?page=${this.page}`;
+       // if (this.categoryId) {
+       //     newUrl = `${newUrl}&categoryId=${this.categoryId}`;
+      //  }
+       // if (this.userName) {
+      //      newUrl = `${newUrl}&userName=${this.userName}`;
+      //  }
+
+        this.location.replaceState(newUrl);
+    };
 
     update() {
         //let filters = new MaterialFilters();
@@ -56,7 +65,7 @@ export class WishListComponent implements OnInit, OnDestroy {
         //filters.page = this.page;
 
         this.service
-            .getAll()//todo pageable
+            .getAll(this.page)
             .subscribe(data => this.parsePageable(data),
             error => console.log(error),
             () => {});
@@ -76,4 +85,11 @@ export class WishListComponent implements OnInit, OnDestroy {
                 return "";
         }
     };
+
+    private parsePageable(pageable: Pageable<Wish>): void {
+        this.items = pageable.list;
+        this.page = pageable.pageNo;
+        this.itemsPerPage = pageable.itemPerPage;
+        this.totalItems = pageable.totalItems;
+    }
 }

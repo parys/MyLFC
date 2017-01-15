@@ -13,8 +13,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// <summary>
     /// Manages wishes.
     /// </summary>
-    [Route("api/v1/[controller]")]
-    [Authorize]
+    [Authorize, Route("api/v1/[controller]")]
     public class WishController : Controller
     {
         private readonly IWishService _wishService;
@@ -45,34 +44,26 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Deletes wish by id.
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        [Route("")]
-        [HttpDelete]
-        [Authorize(Roles = "AdminStart")]
-        public async Task<IActionResult> DeleteAsync([FromQuery]int? id)
+        /// <param name="id">The identifier of deleting wish.</param>
+        /// <returns>Result of deleting.</returns>
+        [Authorize(Roles = nameof(RolesEnum.AdminStart)), HttpDelete("")]
+        public async Task<IActionResult> DeleteAsync([FromQuery]int id)
         {
-            if (!id.HasValue)
-            {
-                return BadRequest();
-            }
-            var model = await _wishService.DeleteAsync(id.Value);
+            var model = await _wishService.DeleteAsync(id);
             return Ok(model);
         }
 
 
         /// <summary>
-        /// 
+        /// Returns list with wishes.
         /// </summary>
-        /// <param name="page"></param>
+        /// <param name="page">The page of wish list.</param>
         /// <param name="typeId"></param>
         /// <param name="filterText"></param>
-        /// <returns></returns>
-        [Route("List")]
-        [HttpGet]
-        [AllowAnonymous]
+        /// <returns>Pageable wish list.</returns>
+        [AllowAnonymous, HttpGet("List")]
         public async Task<IActionResult> GetListAsync([FromQuery]int page = 1, [FromQuery]int? typeId = null, [FromQuery]string filterText = null)
         {
             if (page < 1)
@@ -105,9 +96,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [Route("types")]
-        [HttpGet]
-        [AllowAnonymous]
+        [AllowAnonymous, HttpGet("types")]
         public async Task<IActionResult> GetTypes()
         {
             var list = new List<object>();

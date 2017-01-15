@@ -1,8 +1,7 @@
-﻿import { Component, OnInit, OnDestroy } from "@angular/core";
+﻿import { Component, OnInit } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import { Location } from "@angular/common";  
 import { Router, ActivatedRoute } from "@angular/router";
-import { Subscription } from "rxjs/Subscription";
 import { User} from "./user.model";
 import { UserService } from "./user.service";
 import { Pageable } from "../shared/pageable.model";
@@ -14,9 +13,7 @@ import { RolesCheckedService, IRoles } from "../shared/index";
     template: require("./user-list.component.html")
 })
 
-export class UserListComponent implements OnInit, OnDestroy {
-
-    private sub: Subscription;
+export class UserListComponent implements OnInit {
     items: User[];
     roles: IRoles;
     page: number = 1;
@@ -34,18 +31,9 @@ export class UserListComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.roles = this.rolesChecked.checkRoles();
-        this.sub = this.route.params.subscribe(params => {
-            if (params["page"]) {
-                this.page = +params["page"];
-            }
-          //  this.categoryId = +params['categoryId'];
-          //  this.userName = params['userName'];
-            this.update();
-        });
-    }
-
-    ngOnDestroy() {
-        this.sub.unsubscribe();
+        this.page = +this.route.snapshot.params["page"] || 1;
+        this.userName = this.route.snapshot.params["userName"] || "";
+        this.update();
     }
 
     writePm(index: number): void {
@@ -56,17 +44,14 @@ export class UserListComponent implements OnInit, OnDestroy {
         this.selectedUserId = null;
     }
 
-
     pageChanged(event: any): void {
         this.page = event.page;
         this.update();
-        let newUrl = `user/list/${this.page}?`;
-     //   if (this.categoryId) {
-     //       newUrl = `${newUrl}?categoryId=${this.categoryId}`;
-     //   }
-     //   if (this.userName) {
-     //       newUrl = `${newUrl}${this.categoryId ? "&" : "?"}userName=${this.userName}`;
-    //    }
+        let newUrl = `user?page=${this.page}`;
+
+        if (this.userName) {
+            newUrl = `${newUrl}&userName=${this.userName}`;
+        }
 
         this.location.replaceState(newUrl);
     };

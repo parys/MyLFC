@@ -15,8 +15,8 @@ export class WishService {
         this.actionUrl = configuration.serverWithApiUrl + "wish/";
     }
 
-    getAll = (): Observable<Pageable<Wish>> => {
-        return this.http.get(this.actionUrl + "list/").map((res: Response) => res.json());
+    getAll = (page: number): Observable<Pageable<Wish>> => {
+        return this.http.get(`${this.actionUrl}list?page=${page}`).map((res: Response) => res.json());
     };
 
     getSingle = (id: number): Observable<Wish> => {

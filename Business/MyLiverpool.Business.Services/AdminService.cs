@@ -14,8 +14,8 @@ namespace MyLiverpool.Business.Services
     {
         private string address = "http://www.sports.ru/epl/table/";
         private string xpathTableRows = "/html/body/div/div/div/div/div/div/div/table/tbody//tr";
-        private string pathToRightSideBar = "app\\admin\\eplTable.component.html";
-        private string pathToRightSideBar2 = "app\\admin\\eplTable.component2.html";
+        private string pathToRightSideBar = "..\\angular2app\\app\\admin\\eplTable.component.html";
+        private string pathToRightSideBar2 = "..\\angular2app\\app\\admin\\eplTable.component2.html";
         private readonly IHostingEnvironment _appEnvironment;
 
         public AdminService(IHostingEnvironment appEnvironment)
@@ -60,7 +60,16 @@ namespace MyLiverpool.Business.Services
     <tbody>");
                 foreach (var club in clubs)
                 {
-                    newRows.AppendLine($"<tr><td>{club.position}</td><td>{club.name}</td><td>{club.matches}</td><td>{club.won}</td><td>{club.draw}</td><td>{club.lost}</td><td>{club.goals}</td><td>{club.points}</td></tr>");
+                    newRows.AppendLine($@"<tr>
+                                        <td>{club.position}</td>
+                                        <td>{club.name}</td>
+                                        <td>{club.matches}</td>
+                                        <td>{club.won}</td>
+                                        <td>{club.draw}</td>
+                                        <td>{club.lost}</td>
+                                        <td>{club.goals}</td>
+                                        <td>{club.points}</td>
+                                        </tr>");
                 }
                 newRows.Append("</tbody></table>");
 
