@@ -9,11 +9,13 @@ import * as forumMessage from "./forumMessage/index";
 import * as forumTheme from "./forumTheme/index";
 import { forumRoutes } from "./forum.routes";
 import { EditorModule } from "../editor/index";
+import { PaginationModule } from "ng2-bootstrap";
 
 @NgModule({
     imports: [
         CommonModule,
         EditorModule,
+        PaginationModule.forRoot(),
         RouterModule.forRoot(forumRoutes)
     ],
     declarations: [

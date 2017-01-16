@@ -8,8 +8,7 @@ import {
     NgZone
 } from "@angular/core";
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from "@angular/forms";
-
-declare var window: any;
+                         
 declare let tinymce: any;
 
 @Component({
@@ -21,27 +20,29 @@ declare let tinymce: any;
             multi: true
         }
     ],
-    template: `<textarea class="form-control full" id="{{elementId}}">{{_value}}</textarea>`
+    template: `<textarea class="form-control" id="{{elementId}}">{{_value}}</textarea>`
 })
 export class FullEditorComponent implements ControlValueAccessor {
-    elementId: String = Math.random().toString(36).substring(2);
 
     @Output() change = new EventEmitter();
     @Output() ready = new EventEmitter();
     @Output() blur = new EventEmitter();
     @Input("value") _value: string = "";
+    elementId: String = Math.random().toString(36).substring(2);
     zone;
     editor;
 
     ngAfterViewInit(): void {
+        console.log(this.elementId);
         tinymce.init({
             // skin_url: 'assets/skins/lightgray',
             // autoresize_overflow_padding: 0,
-            selector: "textarea.full",
-            forced_root_block: "",
+            selector: `#${this.elementId}`,
+         //   forced_root_block: "",
             // height: 500,
             autoresize_max_height: 500,
             menubar: false,
+           // inline: true,
             plugins: [
                 "advlist autolink autoresize lists link image charmap print preview anchor",
                 "searchreplace visualblocks code fullscreen",
@@ -67,13 +68,13 @@ export class FullEditorComponent implements ControlValueAccessor {
         this.zone = zone;
     }
 
-    get value(): any {
-         return this._value;
+    get value(): string {
+        return this._value;
     };
-    set value(v: any) {
-        if (v !== this._value) {
-            this._value = v;
-            this.onChange(v);
+    set value(value: string) {
+        if (value !== this._value) {
+            this._value = value;
+            this.onChange(value);
             this.onTouched();
         }
     }
@@ -104,6 +105,7 @@ export class FullEditorComponent implements ControlValueAccessor {
     registerOnChange(fn: any): void {
          this.onChange = fn;
     }
+
     registerOnTouched(fn: any): void {
          this.onTouched = fn;
     }

@@ -1,7 +1,6 @@
-﻿import { Component, OnInit, OnDestroy } from "@angular/core";
+﻿import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
-import { Subscription } from "rxjs/Subscription";
 import { MaterialService } from "./material.service";
 import { Material } from "./material.model";
 import { MaterialCategoryService } from "../materialCategory/index";
@@ -14,9 +13,8 @@ import { MaterialType } from "../materialCategory/materialType.enum";
     template: require("./material-edit.component.html")
 })
 
-export class MaterialEditComponent implements OnInit, OnDestroy {
-    editForm: FormGroup;
-    private sub: Subscription;
+export class MaterialEditComponent implements OnInit {
+    editForm: FormGroup;        
     id: number;
     categories: MaterialCategory[];
     roles: IRoles;
@@ -39,26 +37,19 @@ export class MaterialEditComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.roles = this.rolesChecked.checkRoles();
         this.initForm();
-        this.sub = this.route.params.subscribe(params => { //todo
-            let id = +params["id"];
-            if (id > 0) {
-                this.service.getSingle(id)
+        if(+this.route.snapshot.params["id"]){
+            this.service.getSingle(+this.route.snapshot.params["id"])
                     .subscribe(data => this.parse(data),
                         error => console.log(error),
                         () => {});
             } else {
                 this.item = new Material();
-            }
-        });
+            };
         this.materialCategoryService.getAll(this.type)
             .subscribe(data => this.parseCategories(data),
             error => console.log(error),
             () => { });
 
-    }
-
-    ngOnDestroy() {
-        this.sub.unsubscribe();
     }
 
     onSubmit() {

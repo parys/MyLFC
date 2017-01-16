@@ -21,7 +21,7 @@ declare let tinymce: any;
             multi: true
         }
     ],
-    template: `<textarea class="form-control medium" id="{{elementId}}">{{_value}}</textarea>`
+    template: `<textarea class="form-control" id="{{elementId}}">{{_value}}</textarea>`
 })
 export class MediumEditorComponent implements ControlValueAccessor {
     elementId: String = Math.random().toString(36).substring(2);
@@ -29,8 +29,7 @@ export class MediumEditorComponent implements ControlValueAccessor {
     @Output() change = new EventEmitter();
     @Output() ready = new EventEmitter();
     @Output() blur = new EventEmitter();
-
-     @Input("value") _value: string= "";
+    @Input("value") _value: string = "";
     zone;
     editor;
 
@@ -39,7 +38,7 @@ export class MediumEditorComponent implements ControlValueAccessor {
             // skin_url: 'assets/skins/lightgray',
             // autoresize_overflow_padding: 0,
             selector: `#${this.elementId}`,
-        //    forced_root_block: null,
+            forced_root_block: "",
             // height: 500,
             autoresize_max_height: 500,
             menubar: false,

@@ -1,75 +1,74 @@
 ﻿<table class="gTable" *ngIf="item">
     <tbody>
-    <tr>
-        <td class="gTableTop">
-            <div class="pull-left gTopCornerRight" [textContent]="item.name"></div>
-            
-            <!--div id="subscribe">[ <a href="javascript://" onclick="subscribe(this);return false;" class="thread_subscribe">Подписаться на тему</a> ]</!--div>-->
-        </td>
-    </tr>
-    <tr *ngFor="let message of items">
-        <td class="">
-            <table class="col-sm-12 col-xs-12 postTable">
-                <tbody>
-                <tr>
-                    <td width="23%" class="postTdTop" align="center">
-                        <a class="postUser" [routerLink]="['/user', message.authorId]" [textContent]="message.authorUserName"></a>
-                    </td>
-                    <td class="postTdTop">
-                        <div class="h6" style="float: right">
-                            <a tooltip="Хороший пост">
-                                <span class="glyphicon glyphicon-thumbs-up"></span>
-                            </a> 
-                            <a tooltip="Плохой пост">
-                                <span class="glyphicon glyphicon-thumbs-down"></span>
-                            </a>
-                        </div>Дата: <span [textContent]="message.additionTime | date:'medium'"></span> | Сообщение # N/A
-                        <!--<a name="100821" class="postNumberLink" href="javascript://" rel="nofollow" onclick="prompt('Прямая ссылка к сообщению', 'http://www.myliverpool.ru/forum/44-1667-100821-16-1369831384');return false;">1</a>-->
-                    </td>
-                </tr>
-                <tr>
-                    <td class="postTdInfo" valign="top">
-                        <img [title]="message.authorUserName" class="userAvatar margin-auto" [src]="message.photo" [alt]="message.authorUserName">
-                        <div class="postRankName">Fields of Anfield Road</div>
-                        <div class="postRankIco">
-                            <b>Знатоки</b>
-                        </div>
-                        <div class="numposts">Сообщений: <span>N/A</span></div>
+        <tr>
+            <td class="gTableTop">
+                <div class="pull-left gTopCornerRight" [textContent]="item.name"></div>
+            </td>
+        </tr>
+        <tr *ngFor="let message of items">
+            <td class="">
+                <table class="col-sm-12 col-xs-12 postTable">
+                    <tbody>
+                        <tr>
+                            <td width="23%" class="postTdTop" align="center">
+                                <a class="postUser" [routerLink]="['/user', message.authorId]" [textContent]="message.authorUserName"></a>
+                            </td>
+                            <td class="postTdTop">
+                                <div class="h6" style="float: right">
+                                    <a tooltip="Хороший пост">
+                                        <span class="glyphicon glyphicon-thumbs-up"></span>
+                                    </a>
+                                    <a tooltip="Плохой пост">
+                                        <span class="glyphicon glyphicon-thumbs-down"></span>
+                                    </a>
+                                </div>Дата: <span [textContent]="message.additionTime | date:'medium'"></span> | Сообщение # N/A
+                                <!--<a name="100821" class="postNumberLink" href="javascript://" rel="nofollow" onclick="prompt('Прямая ссылка к сообщению', 'http://www.myliverpool.ru/forum/44-1667-100821-16-1369831384');return false;">1</a>-->
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="postTdInfo" valign="top">
+                                <img [title]="message.authorUserName" class="userAvatar margin-auto" [src]="message.photo" [alt]="message.authorUserName">
+                                <div class="postRankName">Fields of Anfield Road</div>
+                                <div class="postRankIco">
+                                    <b>Знатоки</b>
+                                </div>
+                                <div class="numposts">Сообщений: <span>N/A</span></div>
 
 
-                        <!--<div class="postUserGroup">Страна: Российская Федерация</div>
-                        <div class="postUserGroup">Город: Rostov on Don</div>
-                        <div class="reputation">Подарки: <a href="javascript://" rel="nofollow" onclick="new _uWnd('AwL', 'Список наград', 380, 200, {autosize:1, closeonesc:1, maxh:300, minh:100},{url:'/index/54-2733'});return false;" title="Список наград"><span class="repNums"><b>38</b></span></a> &nbsp;<a href="javascript://" rel="nofollow" onclick="new _uWnd('AwD','Вручить награду',380,200,{autosize:1,closeonesc:1,maxh:300,minh:100},{url:'/index/55-2733'});return false;"><span style="font-size:10pt" title="Вручить награду"><b>+</b></span></a>
-                        <div class="reputation">Репутация: <a title="Смотреть историю репутации" class="repHistory" href="javascript://" rel="nofollow" onclick="new _uWnd('Rh',' ',400,250,{autosize:1,closeonesc:1,maxh:300,minh:100},{url:'/index/9-2733'});return false;"><b>824</b></a>  &nbsp;<a class="reputationDo" title="Изменить репутацию" href="javascript://" rel="nofollow" onclick="new _uWnd('Rd',' ',380,200,{autosize:1,closeonesc:1},{url:'/index/',type:'post',data:{a:'23',s:'2733',c:'/forum/44-1667-100821-16-1369831384'}});return false;"><span style="font-size:10pt"><b>&#177;</b></span></a></div>-->
-                        <div *ngIf="roles.isAdminAssist" class="userBan">Замечания:
-                            <a class="banPercent" title="Смотреть историю замечаний" rel="nofollow" onclick="new _uWnd('Bh',' ',400,250,{autosize:1,closeonesc:1,maxh:300,minh:100},{url:'/index/21-2733'});return false;">0%</a>  &nbsp;
-                            <a title="Изменить уровень замечаний" class="banDo" rel="nofollow" onclick="new _uWnd('Bd',' ',400,250,{autosize:1,closeonesc:1,maxh:300,minh:100},{url:'/index/22-2733-1'});return false;">±</a>
-                        </div>
-                    </td>
-                    <td class="posttdMessage" valign="top">
-                        <span class="ucoz-forum-post" [innerHTML]="message.message"></span>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="postBottom" align="center">
-                        <div class="postip"> 
-                            <a *ngIf="roles.isAdminAssist" class="postIpLink" href="http://www.ripe.net/perl/whois?91.220.155.248" target="_blank">91.220.155.248</a>
-                            <!--   (<a href="javascript://" onclick="prompt( & quot;&quot;,&quot;Российская Федерация & quot;);return false;">RU</a>) ]--> 
-                            <span class="statusOffline">Оффлайн</span>
-                        </div>
-                    </td>
-                    <td class="postBottom">
-                        <span>
+                                <!--<div class="postUserGroup">Страна: Российская Федерация</div>
+                                <div class="postUserGroup">Город: Rostov on Don</div>
+                                <div class="reputation">Подарки: <a href="javascript://" rel="nofollow" onclick="new _uWnd('AwL', 'Список наград', 380, 200, {autosize:1, closeonesc:1, maxh:300, minh:100},{url:'/index/54-2733'});return false;" title="Список наград"><span class="repNums"><b>38</b></span></a> &nbsp;<a href="javascript://" rel="nofollow" onclick="new _uWnd('AwD','Вручить награду',380,200,{autosize:1,closeonesc:1,maxh:300,minh:100},{url:'/index/55-2733'});return false;"><span style="font-size:10pt" title="Вручить награду"><b>+</b></span></a>
+                                <div class="reputation">Репутация: <a title="Смотреть историю репутации" class="repHistory" href="javascript://" rel="nofollow" onclick="new _uWnd('Rh',' ',400,250,{autosize:1,closeonesc:1,maxh:300,minh:100},{url:'/index/9-2733'});return false;"><b>824</b></a>  &nbsp;<a class="reputationDo" title="Изменить репутацию" href="javascript://" rel="nofollow" onclick="new _uWnd('Rd',' ',380,200,{autosize:1,closeonesc:1},{url:'/index/',type:'post',data:{a:'23',s:'2733',c:'/forum/44-1667-100821-16-1369831384'}});return false;"><span style="font-size:10pt"><b>&#177;</b></span></a></div>-->
+                                <div *ngIf="roles.isAdminAssist" class="userBan">
+                                    Замечания:
+                                    <a class="banPercent" title="Смотреть историю замечаний" onclick="new _uWnd('Bh',' ',400,250,{autosize:1,closeonesc:1,maxh:300,minh:100},{url:'/index/21-2733'});return false;">0%</a>  &nbsp;
+                                    <a title="Изменить уровень замечаний" class="banDo" onclick="new _uWnd('Bd',' ',400,250,{autosize:1,closeonesc:1,maxh:300,minh:100},{url:'/index/22-2733-1'});return false;">±</a>
+                                </div>
+                            </td>
+                            <td class="posttdMessage" valign="top">
+                                <span class="ucoz-forum-post" [innerHTML]="message.message"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="postBottom" align="center">
+                                <div class="postip">
+                                    <a *ngIf="roles.isAdminAssist" class="postIpLink" href="http://www.ripe.net/perl/whois?91.220.155.248" target="_blank">91.220.155.248</a>
+                                    <!--   (<a href="javascript://" onclick="prompt( & quot;&quot;,&quot;Российская Федерация & quot;);return false;">RU</a>) ]-->
+                                    <span class="statusOffline">Оффлайн</span>
+                                </div>
+                            </td>
+                            <td class="postBottom">
+                                <span>
                                     <!--<a href="javascript://" rel="nofollow" onclick="window.open('/index/8-2733', 'up2733', 'scrollbars=1,top=0,left=0,resizable=1,width=680,height=350');return false;">
                                         <img class="inline" alt="" style="margin: 0; padding: 0; border: 0;" src="http://myliverpool.ru/.s/img/fr/bt/16/p_profile.gif" title="Профиль пользователя">
-                                    </a>--> 
+                                    </a>-->
                                     <a href="javascript://" rel="nofollow" onclick="window.open('/index/14-2733-0-1', 'userpm', 'scrollbars=1,top=0,left=0,resizable=1,width=680,height=350');return false;">
                                         <img class="inline" alt="" style="margin: 0; padding: 0; border: 0;" src="http://myliverpool.ru/.s/img/fr/bt/16/p_pm.gif" title="Личное сообщение">
                                     </a>
-                            <a>
-                                    <img class="inline" alt="" style="cursor: pointer; margin: 0; padding: 0; border: 0;" src="http://myliverpool.ru/.s/img/fr/bt/16/p_icq.gif" title="ICQ: 575285688" onclick="prompt('ICQ number', '575285688');">
+                                    <a>
+                                        <img class="inline" alt="" style="cursor: pointer; margin: 0; padding: 0; border: 0;" src="http://myliverpool.ru/.s/img/fr/bt/16/p_icq.gif" title="ICQ: 575285688" onclick="prompt('ICQ number', '575285688');">
                                     </a>
-                             <a href="" target="_blank">
+                                    <a href="" target="_blank">
                                         <img class="inline" src="http://myliverpool.ru/desighn/vk.jpg" border="0" alt="">
                                     </a>
                                     <a class="postQuote">
@@ -79,26 +78,31 @@
                                         <img class="inline" alt="" style="margin: 0; padding: 0; border: 0;" src="http://myliverpool.ru/.s/img/fr/bt/16/p_edit.gif" title="Изменить сообщение">
                                     </a>
                                     <a href="/forum/44-1667-0-21">
-                                        <img class="inline"alt="" id="dbo100821" style="margin: 0; padding: 0; border: 0;" src="http://myliverpool.ru/.s/img/fr/bt/16/p_delete.gif" title="Удалить тему">
+                                        <img class="inline" alt="" id="dbo100821" style="margin: 0; padding: 0; border: 0;" src="http://myliverpool.ru/.s/img/fr/bt/16/p_delete.gif" title="Удалить тему">
                                     </a>
                                     <a class="inline goOnTop" href="javascript:scroll(0,0);">
                                         <img class="inline" alt="" style="margin: 0; padding: 0; border: 0;" src="http://myliverpool.ru/.s/img/fr/bt/16/p_up.gif" title="Вверх">
                                     </a>
                                     <input class="inline" type="checkbox" title="Пометить на удаление" disabled="" style="display: none;">
-                        </span>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </td>
-    </tr>
-    <tr>
-        <td class="postSeparator"></td>
-    </tr>
-    <tr id="delPtBut" style="display:none;"><td colspan="2" class="gTableSubTop" align="right"><div align="right" style="padding:1px;"><form style="margin:0;padding:0;" method="post" name="delposts" action="/forum/" onsubmit="return chdel(this);"><input class="delPostsSubmit" id="delPsSbm" type="submit" value="Удалить отмеченные сообщения" style="font-size:7pt;"><input type="hidden" name="fid" value="44"><input type="hidden" name="tid" value="1667"><input type="hidden" name="a" value="8"><input type="hidden" name="ss" value="gOKI9nKk"><input type="hidden" name="t" value="1"><input type="hidden" name="pg" value="1"><input type="hidden" id="pids" name="pids" value="0"></form></div></td></tr>
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td class="postSeparator"></td>
+        </tr>
+        <tr id="delPtBut" style="display:none;"><td colspan="2" class="gTableSubTop" align="right"><div align="right" style="padding:1px;"><form style="margin:0;padding:0;" method="post" name="delposts" action="/forum/" onsubmit="return chdel(this);"><input class="delPostsSubmit" id="delPsSbm" type="submit" value="Удалить отмеченные сообщения" style="font-size:7pt;"><input type="hidden" name="fid" value="44"><input type="hidden" name="tid" value="1667"><input type="hidden" name="a" value="8"><input type="hidden" name="ss" value="gOKI9nKk"><input type="hidden" name="t" value="1"><input type="hidden" name="pg" value="1"><input type="hidden" id="pids" name="pids" value="0"></form></div></td></tr>
     </tbody>
-    <forumMessage-addition [themeId]="item.id" (newMessage)="addNewMessage($event)"></forumMessage-addition>
+
 </table>
+<div class="pagination">
+    <pagination *ngIf="items" [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" [(ngModel)]="page" [maxSize]="7" (pageChanged)="pageChanged($event)"
+                previousText="&lsaquo;" nextText="&rsaquo;" firstText="1" lastText="totalItems/itemsPerPage"></pagination>
+</div>
+<forumMessage-addition [themeId]="item?.id" (newMessage)="addNewMessage($event)"></forumMessage-addition>
 
 
 <!--<div *ngIf="item">
@@ -118,90 +122,5 @@
     </div>
 </div>
         <forumMessage-addition [themeId]="item.id"></forumMessage-addition>
-    <div class="pagination">
-        <pagination *ngIf="items" [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" [(ngModel)]="page" [maxSize]="7" (pageChanged)="pageChanged($event)"
-                    previousText="&lsaquo;" nextText="&rsaquo;" firstText="1" lastText="totalItems/itemsPerPage"></pagination>
-    </div>
+
 </div>-->
-    <!--style>
-          .flex-container-row {
-              display: flex;
-              flex-direction: row;
-              flex-wrap: nowrap;
-              justify-content: flex-start;
-              align-content: flex-start;
-              align-items: flex-start;
-              background-color: #000080;
-               min-height: 100px;
-               margin-bottom: 10px;
-              }
-          .flex-container-column {
-              display: flex;
-              flex-direction: column;
-              flex-wrap: nowrap;
-              justify-content: flex-start;
-              align-content: stretch;
-              align-items: center;
-              background-color: #ffff00;
-              }
-
-
-          .flex-item-1 {
-              background-color: #2f4f4f;
-              order: 0;
-              flex: 3 0 auto;
-              flex-direction: column;
-              align-self: stretch;
-          }
-          .flex-item-2 {
-              background-color: #9400d3;
-              order: 0;
-              flex: 10 0 auto;
-              flex-direction: column;
-              align-self: stretch;
-          }
-          .flex-item {
-               order: 0;
-              flex: 0 1 auto;
-              flex-direction: column;
-          }
-          .flex-item.name {
-               order: 0;
-              flex: 1 1 auto;
-              flex-direction: column;
-          }
-          .flex-item.photo {
-               order: 0;
-              flex: 5 1 auto;
-              flex-direction: row;
-                background-color: #008080;
-            }
-          .flex-item.date {
-              order: 0;
-              flex: 1 1 auto;
-              flex-direction: row;
-           }
-          .flex-item.message {
-              order: 0;
-              flex: 5 1 auto;
-              flex-direction: row;
-                 align-self: flex-start;
-                 background-color: #00bfff;
-             }
-      </style>
-    <div class="flex-container-row message" ng-repeat="message in vm.messages">
-          <div class="flex-container-column flex-item-1">
-              <div class="flex-item name">
-                  <a ui-sref="userInfo({id: message.authorId})" ng-bind="message.authorUserName"></a>
-              </div>
-              <div class="flex-item photo">
-                  <img ng-src="message.photo}}"/>
-              </div>
-          </div>
-          <div class="flex-container-column flex-item-2 ">
-              <span class="flex-item date" ng-bind="message.additionTime | date:'medium'"></span>
-              <div class="flex-item message" ng-bind-html="message.message | rawHtml">
-              </div>
-          </div>
-      </div-->
-
