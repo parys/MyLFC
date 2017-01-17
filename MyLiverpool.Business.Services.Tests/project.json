@@ -3,14 +3,14 @@
   "testRunner": "xunit",
 
   "dependencies": {
-    "xunit": "2.2.0-beta4-build3444",
     "MyLiverpool.Business.Services": "1.0.0-*",
     "MyLiverpool.Business.Contracts": "1.0.0-*",
     "dotnet-test-xunit": "2.2.0-preview2-build1029",
     "Microsoft.EntityFrameworkCore.InMemory": "1.1.0",
     "MyLiverpool.Common.Mappings": "1.0.0-*",
     "MyLiverpool.Data.ResourceAccess": "1.0.0-*",
-    "FluentAssertions": "4.18.0"
+    "FluentAssertions": "4.18.0",
+    "xunit": "2.2.0-beta5-build3474"
   },
   "frameworks": {
     "netcoreapp1.1": {

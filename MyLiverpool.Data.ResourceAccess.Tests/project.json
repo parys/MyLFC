@@ -1,10 +1,10 @@
-﻿{
+{
   "version": "1.0.0-*",
   "testRunner": "xunit",
 
   "dependencies": {
-    "xunit": "2.2.0-beta4-build3444",
-    "dotnet-test-xunit": "2.2.0-preview2-build1029"
+    "dotnet-test-xunit": "2.2.0-preview2-build1029",
+    "xunit": "2.2.0-beta5-build3474"
   },
   "frameworks": {
     "netcoreapp1.1": {

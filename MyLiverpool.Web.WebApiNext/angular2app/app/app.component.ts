@@ -24,7 +24,7 @@ export class AppComponent {
         private activatedRoute: ActivatedRoute,
         private titleService: Title
       //  private breadcrumbService: BreadcrumbService
-    ) { //todo need to more elegant decision
+    ) { //todo need to more elegant decision              
         this.roles = this.rolesChecked.checkRoles();
         // You need this small hack in order to catch application root view container ref
         this.viewContainerRef = viewContainerRef;
@@ -44,12 +44,12 @@ export class AppComponent {
         this.router.events
             .filter(event => event instanceof NavigationEnd)
             .map(() => this.activatedRoute)
-            .map(route => {
+            .map((route: ActivatedRoute) => {
                 while (route.firstChild) route = route.firstChild;
                 return route;
             })
-            .filter(route => route.outlet === "primary")
-            .mergeMap(route => route.data)
+            .filter((route: ActivatedRoute) => route.outlet === "primary")
+            .mergeMap((route: ActivatedRoute) => route.data)
             .subscribe((event) => this.titleService.setTitle(event["title"]));
     }
 

@@ -4,7 +4,6 @@ import { Observable } from "rxjs/Observable";
 import { Location } from "@angular/common";
 import { Title } from "@angular/platform-browser";
 import { Router, ActivatedRoute } from "@angular/router";
-import { Subscription } from "rxjs/Subscription";
 import { ChatMessage } from "./chatMessage.model";
 import { ChatMessageService } from "./chatMessage.service";
 import { Pageable } from "../shared/pageable.model";
@@ -15,9 +14,8 @@ import { RolesCheckedService, IRoles } from "../shared/index";
     selector: "mini-chat",
     template: require("./miniChat.component.html")
 })
-export class MiniChatComponent implements OnInit, OnDestroy {
+export class MiniChatComponent implements OnInit {
     messageForm: FormGroup;
-    private sub: Subscription;
     items: ChatMessage[];
     page: number = 1;
     itemsPerPage: number = 15;
@@ -36,10 +34,6 @@ export class MiniChatComponent implements OnInit, OnDestroy {
         this.update();
     }
 
-    ngOnDestroy() {
-        this.sub.unsubscribe();
-    }
-
     update(): void {
         this.service
             .getAll()
@@ -49,7 +43,7 @@ export class MiniChatComponent implements OnInit, OnDestroy {
     }
 
     onSubmit(): void {
-        this.sub = this.service.create(this.messageForm.value)
+        this.service.create(this.messageForm.value)
             .subscribe(data => {
                 this.items.unshift(data);
                 this.messageForm.reset();
