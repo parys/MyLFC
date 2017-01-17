@@ -12,7 +12,7 @@ export class HttpWrapper {
 
     updateHeaders(withFiles: boolean = false): Headers {
         let headers: Headers = new Headers();
-        if (withFiles) {                                                                                         
+        if (withFiles) {
             headers.append("Accept", "application/json");
         } else {
             headers.append("Content-type", "application/json");

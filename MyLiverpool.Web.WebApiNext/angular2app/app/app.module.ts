@@ -19,7 +19,7 @@ import * as match from "./match/index";
 import * as player from "./player/index";
 import * as roleGroup from "./roleGroup/index";
 import * as season from "./season/index";
-import * as shared from "./shared/index";
+import { SharedModule} from "./shared/index";
 import { UserDetailComponent } from "./user/user-detail.component";
 import { UserService } from "./user/user.service";
 import { UserListComponent } from "./user/user-list.component";
@@ -41,6 +41,7 @@ import { ReCaptchaModule } from "angular2-recaptcha";
         ModalModule.forRoot(),
         Ng2AutoCompleteModule,
         PaginationModule.forRoot(),
+        SharedModule,
         TabsModule.forRoot(),
         RouterModule.forRoot(routes),
         ReCaptchaModule,
@@ -81,7 +82,6 @@ import { ReCaptchaModule } from "angular2-recaptcha";
         pm.PmReplyComponent,
         roleGroup.RoleGroupListComponent,
         season.SeasonEplTableComponent,
-        shared.RecaptchaComponent,
         AppComponent,
         EplTableComponent,
         material.MaterialListComponent,
@@ -105,14 +105,9 @@ import { ReCaptchaModule } from "angular2-recaptcha";
         materialComment.MaterialCommentService,
         pm.PmService,
         roleGroup.RoleGroupService,
-        shared.HttpWrapper,
-        shared.GlobalValidators,
-        shared.LocalStorageService,
-        shared.RolesCheckedService,
         AdminService,
         { provide: LOCALE_ID, useValue: "ru-RU" },
         Configuration,
-        { provide: shared.LocalStorage, useFactory: () => (window) ? window.localStorage : {} },
         material.MaterialService,
         Title,
         UserService

@@ -2,8 +2,9 @@
 //import { isBrowser, isNode } from "angular2-universal";           
 
 @Injectable()
-export class LocalStorageService { 
+export class LocalStorageService {
     private localStorage: Storage;
+
     constructor() {
         if (//isBrowser &&
             !localStorage) {

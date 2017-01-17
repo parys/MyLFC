@@ -19,9 +19,14 @@
             </select>
         </div>
     </div>
-    <div class="form-group">
+    <div class="form-group" *ngIf="isHuman">
         <div class="col-md-offset-2 col-md-10">
-            <button [disabled]="!editForm.valid" type="submit" class="btn btn-default">Создать</button>
+            <button type="submit" class="btn btn-default" [disabled]="!editWish.valid">Отправить</button>
+        </div>
+    </div>
+    <div class="form-group" [hidden]="isHuman">
+        <div class="col-md-offset-2 col-md-10">
+            <recaptcha (isHuman)="isHuman = $event"></recaptcha>
         </div>
     </div>
 </form>

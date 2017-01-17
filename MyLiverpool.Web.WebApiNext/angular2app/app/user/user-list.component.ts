@@ -4,9 +4,8 @@ import { Location } from "@angular/common";
 import { Router, ActivatedRoute } from "@angular/router";
 import { User} from "./user.model";
 import { UserService } from "./user.service";
-import { Pageable } from "../shared/pageable.model";
 import { UserFilters } from "./userFilters.model";
-import { RolesCheckedService, IRoles } from "../shared/index";
+import { Pageable, RolesCheckedService, IRoles } from "../shared/index";
 
 @Component({
     selector: "user-list",

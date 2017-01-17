@@ -8,6 +8,7 @@ import * as forumMessage from "./forumMessage/index";
 import * as forumTheme from "./forumTheme/index";
 import { forumRoutes } from "./forum.routes";
 import { EditorModule } from "../editor/index";
+import { SharedModule } from "../shared/index";
 import { ModalModule, PaginationModule } from "ng2-bootstrap";
 
 @NgModule({
@@ -16,7 +17,8 @@ import { ModalModule, PaginationModule } from "ng2-bootstrap";
         EditorModule,
         ModalModule.forRoot(),
         PaginationModule.forRoot(),
-        RouterModule.forRoot(forumRoutes)
+        RouterModule.forRoot(forumRoutes),
+        SharedModule
     ],
     declarations: [
         forumMessage.ForumMessageAdditionComponent,

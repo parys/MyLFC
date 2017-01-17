@@ -16,6 +16,7 @@ export class WishEditComponent implements OnInit, OnDestroy {
     id: number = 0;
     private sub: Subscription;
     types: WishType[];
+    isHuman: boolean = false;
 
     constructor(private service: WishService,
         private formBuilder: FormBuilder,
@@ -73,7 +74,7 @@ export class WishEditComponent implements OnInit, OnDestroy {
         } else {
             let result = this.service.create(model).subscribe(data => res = data);
         }
-
+        this.isHuman = false;
         this.router.navigate(["/wish"]);
     }
 

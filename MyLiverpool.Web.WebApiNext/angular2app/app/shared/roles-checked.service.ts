@@ -1,5 +1,5 @@
 ﻿import { Injectable } from "@angular/core";
-import { IRoles } from "../shared/index";
+import { IRoles } from "./roles.interface";
 import { LocalStorageService } from "./localStorage.service";
 
 @Injectable()

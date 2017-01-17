@@ -3,10 +3,9 @@ import { Location } from "@angular/common";
 import { Wish } from "./wish.model";
 import { WishService } from "./wish.service";
 import { Observable } from "rxjs/Observable";
-import { Pageable } from "../shared/pageable.model";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
-import { RolesCheckedService, IRoles } from "../shared/index";
+import { Pageable, RolesCheckedService, IRoles } from "../shared/index";
 
 @Component({
     selector: "wish-list",
