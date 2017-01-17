@@ -123,7 +123,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 return BadRequest();
             }
 
-            if (!User.IsInRole("NewsFull") && User.GetUserId() != dto.AuthorId)
+            if (!User.IsInRole(nameof(RolesEnum.UserStart)) && User.GetUserId() != dto.AuthorId)
             {
                 return StatusCode(StatusCodes.Status403Forbidden);
             }

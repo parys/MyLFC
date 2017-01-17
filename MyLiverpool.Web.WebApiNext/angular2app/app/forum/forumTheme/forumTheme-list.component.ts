@@ -1,49 +1,45 @@
-﻿import { Component, OnInit, OnDestroy } from "@angular/core";
+﻿import { Component, OnInit, ViewChild } from "@angular/core";
 import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
-import { Location } from "@angular/common";
-import { Subscription } from "rxjs/Subscription";
+import { Location } from "@angular/common";      
 import { Observable } from "rxjs/Observable";
 import { ForumThemeService } from "./forumTheme.service";
-import { ForumMessage } from "../forumMessage/index";
+import { ForumMessage, ForumMessageService } from "../forumMessage/index";
 import { ForumTheme } from "./forumTheme.model";
 import { RolesCheckedService, IRoles } from "../../shared/index";
+import { ModalDirective } from "ng2-bootstrap";
 
 @Component({
     selector: "forumTheme-list",
     template: require("./forumTheme-list.component.html")
 })
-export class ForumThemeListComponent implements OnInit, OnDestroy {
+export class ForumThemeListComponent implements OnInit {
     item: ForumTheme;
     items: ForumMessage[];
-    roles: IRoles;
-    private sub: Subscription;
-    private sub2: Subscription;
+    roles: IRoles;         
     page: number = 1;
     itemsPerPage = 15;
     totalItems: number;
+    @ViewChild("editCommentModal") editCommentModal: ModalDirective;
+    @ViewChild("deleteModal") deleteModal: ModalDirective;
+    commentForm: FormGroup;
+    selectedItemIndex: number = null;     
 
     constructor(private service: ForumThemeService,
+        private messageService: ForumMessageService,
         private rolesChecked: RolesCheckedService,
-        private route: ActivatedRoute, private location: Location) {
+        private route: ActivatedRoute,
+        private formBuilder: FormBuilder,
+        private location: Location) {
     }
 
     ngOnInit() {
         this.roles = this.rolesChecked.checkRoles();
-        this.sub2 = this.route.queryParams.subscribe(params => {
-            if (params["page"]) {
-                this.page = +params["page"];
-            }
-        });
-        this.sub = this.route.params.subscribe(params => {
-            let id = +params["id"];
-            this.update(id);
-        });
+        this.page = +this.route.snapshot.queryParams["page"] || 1;
+        this.update(+this.route.snapshot.params["id"]);
     };
 
     ngOnDestroy() {
-        this.sub.unsubscribe();
-        this.sub2.unsubscribe();
     }
 
     pageChanged(event: any): void {
@@ -57,6 +53,64 @@ export class ForumThemeListComponent implements OnInit, OnDestroy {
     addNewMessage(message: ForumMessage) {
         this.items.push(message);
         this.totalItems += 1;
+    }
+
+    showEditModal(index: number): void {
+        this.selectedItemIndex = index;
+        this.initForm(index);
+       // this.commentForm.patchValue();
+        this.editCommentModal.show();
+    }
+
+    hideEditModal() {
+        this.commentForm = null;
+        this.selectedItemIndex = null;
+        this.editCommentModal.hide();
+    }
+    showDeleteModal(index: number): void {
+        this.selectedItemIndex = index;
+        this.deleteModal.show();
+    }
+
+    hideDeleteModal(): void {
+        this.deleteModal.hide();
+    }
+
+    editComment(): void {
+        let comment = this.items[this.selectedItemIndex];
+        comment.message = this.commentForm.get("message").value;
+        this.messageService.update(comment.id, comment)
+            .subscribe(data => {
+                this.items[this.selectedItemIndex].message = data.message;
+                this.items[this.selectedItemIndex].lastModifiedTime = data.lastModifiedTime;
+                this.hideEditModal();
+            },
+            error => console.log(error),
+            () => { });
+    }
+
+    delete(): void {
+        let result;
+        this.messageService.delete(this.items[this.selectedItemIndex].id)
+            .subscribe(res => result = res,
+            e => console.log(e),
+            () => {
+                if (result) {
+                    this.items.splice(this.selectedItemIndex, 1);
+
+                    // this.items.splice(this.selectedItemIndex, 1);
+                    this.hideDeleteModal();
+                }
+            }
+            );
+    }
+
+    private initForm(index: number = null) {
+        let initValue = index !== null ? this.items[index].message : "";
+        this.commentForm = this.formBuilder.group({
+            'message': [initValue, Validators.compose([
+                Validators.required])]
+        });
     }
 
     private update(id: number) {

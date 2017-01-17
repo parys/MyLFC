@@ -5,7 +5,7 @@
                 <div class="pull-left gTopCornerRight" [textContent]="item.name"></div>
             </td>
         </tr>
-        <tr *ngFor="let message of items">
+        <tr *ngFor="let message of items; let i = index;">
             <td class="">
                 <table class="col-sm-12 col-xs-12 postTable">
                     <tbody>
@@ -39,7 +39,7 @@
                                 <div class="postUserGroup">Город: Rostov on Don</div>
                                 <div class="reputation">Подарки: <a href="javascript://" rel="nofollow" onclick="new _uWnd('AwL', 'Список наград', 380, 200, {autosize:1, closeonesc:1, maxh:300, minh:100},{url:'/index/54-2733'});return false;" title="Список наград"><span class="repNums"><b>38</b></span></a> &nbsp;<a href="javascript://" rel="nofollow" onclick="new _uWnd('AwD','Вручить награду',380,200,{autosize:1,closeonesc:1,maxh:300,minh:100},{url:'/index/55-2733'});return false;"><span style="font-size:10pt" title="Вручить награду"><b>+</b></span></a>
                                 <div class="reputation">Репутация: <a title="Смотреть историю репутации" class="repHistory" href="javascript://" rel="nofollow" onclick="new _uWnd('Rh',' ',400,250,{autosize:1,closeonesc:1,maxh:300,minh:100},{url:'/index/9-2733'});return false;"><b>824</b></a>  &nbsp;<a class="reputationDo" title="Изменить репутацию" href="javascript://" rel="nofollow" onclick="new _uWnd('Rd',' ',380,200,{autosize:1,closeonesc:1},{url:'/index/',type:'post',data:{a:'23',s:'2733',c:'/forum/44-1667-100821-16-1369831384'}});return false;"><span style="font-size:10pt"><b>&#177;</b></span></a></div>-->
-                                <div *ngIf="roles.isAdminAssist" class="userBan">
+                                <div *ngIf="roles.isAdminAssistant" class="userBan">
                                     Замечания:
                                     <a class="banPercent" title="Смотреть историю замечаний" onclick="new _uWnd('Bh',' ',400,250,{autosize:1,closeonesc:1,maxh:300,minh:100},{url:'/index/21-2733'});return false;">0%</a>  &nbsp;
                                     <a title="Изменить уровень замечаний" class="banDo" onclick="new _uWnd('Bd',' ',400,250,{autosize:1,closeonesc:1,maxh:300,minh:100},{url:'/index/22-2733-1'});return false;">±</a>
@@ -59,13 +59,13 @@
                             </td>
                             <td class="postBottom">
                                 <span>
-                                    <!--<a href="javascript://" rel="nofollow" onclick="window.open('/index/8-2733', 'up2733', 'scrollbars=1,top=0,left=0,resizable=1,width=680,height=350');return false;">
+                                    <a [routerLink]="['/user', message.authorId]">
                                         <img class="inline" alt="" style="margin: 0; padding: 0; border: 0;" src="http://myliverpool.ru/.s/img/fr/bt/16/p_profile.gif" title="Профиль пользователя">
-                                    </a>-->
-                                    <a href="javascript://" rel="nofollow" onclick="window.open('/index/14-2733-0-1', 'userpm', 'scrollbars=1,top=0,left=0,resizable=1,width=680,height=350');return false;">
-                                        <img class="inline" alt="" style="margin: 0; padding: 0; border: 0;" src="http://myliverpool.ru/.s/img/fr/bt/16/p_pm.gif" title="Личное сообщение">
                                     </a>
-                                    <a>
+                                    <!--<a href="javascript://" rel="nofollow" onclick="window.open('/index/14-2733-0-1', 'userpm', 'scrollbars=1,top=0,left=0,resizable=1,width=680,height=350');return false;">
+                                        <img class="inline" alt="" style="margin: 0; padding: 0; border: 0;" src="http://myliverpool.ru/.s/img/fr/bt/16/p_pm.gif" title="Личное сообщение">
+                                    </a>-->
+                                    <!--<a>
                                         <img class="inline" alt="" style="cursor: pointer; margin: 0; padding: 0; border: 0;" src="http://myliverpool.ru/.s/img/fr/bt/16/p_icq.gif" title="ICQ: 575285688" onclick="prompt('ICQ number', '575285688');">
                                     </a>
                                     <a href="" target="_blank">
@@ -73,17 +73,16 @@
                                     </a>
                                     <a class="postQuote">
                                         <img class="inline" alt="" style="margin: 0; padding: 0; border: 0;" src="http://myliverpool.ru/.s/img/fr/bt/16/p_quote.gif" title="Цитировать">
-                                    </a>
-                                    <a href="/forum/44-1667-100821-9-1">
+                                    </a>-->
+                                    <a *ngIf="roles.isModerator || roles.isSelf(item.authorId)" role="button" (click)="showEditModal(i)">
                                         <img class="inline" alt="" style="margin: 0; padding: 0; border: 0;" src="http://myliverpool.ru/.s/img/fr/bt/16/p_edit.gif" title="Изменить сообщение">
                                     </a>
-                                    <a href="/forum/44-1667-0-21">
-                                        <img class="inline" alt="" id="dbo100821" style="margin: 0; padding: 0; border: 0;" src="http://myliverpool.ru/.s/img/fr/bt/16/p_delete.gif" title="Удалить тему">
+                                    <a *ngIf="roles.isModerator" role="button" (click)="showDeleteModal(i)">
+                                        <img class="inline" alt="" style="margin: 0; padding: 0; border: 0;" src="http://myliverpool.ru/.s/img/fr/bt/16/p_delete.gif" title="Удалить сообщение">
                                     </a>
-                                    <a class="inline goOnTop" href="javascript:scroll(0,0);">
+                                    <!--<a class="inline goOnTop" href="javascript:scroll(0,0);">
                                         <img class="inline" alt="" style="margin: 0; padding: 0; border: 0;" src="http://myliverpool.ru/.s/img/fr/bt/16/p_up.gif" title="Вверх">
-                                    </a>
-                                    <input class="inline" type="checkbox" title="Пометить на удаление" disabled="" style="display: none;">
+                                    </a>-->
                                 </span>
                             </td>
                         </tr>
@@ -94,7 +93,6 @@
         <tr>
             <td class="postSeparator"></td>
         </tr>
-        <tr id="delPtBut" style="display:none;"><td colspan="2" class="gTableSubTop" align="right"><div align="right" style="padding:1px;"><form style="margin:0;padding:0;" method="post" name="delposts" action="/forum/" onsubmit="return chdel(this);"><input class="delPostsSubmit" id="delPsSbm" type="submit" value="Удалить отмеченные сообщения" style="font-size:7pt;"><input type="hidden" name="fid" value="44"><input type="hidden" name="tid" value="1667"><input type="hidden" name="a" value="8"><input type="hidden" name="ss" value="gOKI9nKk"><input type="hidden" name="t" value="1"><input type="hidden" name="pg" value="1"><input type="hidden" id="pids" name="pids" value="0"></form></div></td></tr>
     </tbody>
 
 </table>
@@ -104,23 +102,45 @@
 </div>
 <forumMessage-addition [themeId]="item?.id" (newMessage)="addNewMessage($event)"></forumMessage-addition>
 
-
-<!--<div *ngIf="item">
-<h2 [textContent]="item.name"></h2>
-<h3 [textContent]="item.description"></h3>
-<div class="container-fluid forum-message col-sm-12" *ngFor="let message of items">
-    <div class="panel panel-default">
-        <div class="panel-heading col-sm-12">
-            <span class="col-sm-3"><a [routerLink]="['/user', message.authorId]" [textContent]="message.authorUserName"></a></span>
-            <span class="col-sm-9 pull-right" [textContent]="message.additionTime | date:'medium'"></span>
+<div class="modal fade" bsModal #editCommentModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" aria-label="Close" (click)="hideEditModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Редактировать комментарий</h4>
+            </div>
+            <form *ngIf="editCommentModal.isShown" class="form-horizontal" role="form" [formGroup]="commentForm" (ngSubmit)="editComment()">
+                <div class="modal-body">
+                    <div>
+                        <bbeditor *ngIf="selectedItemIndex !== null" name="message" [value]="items[selectedItemIndex].message" formControlName="message"></bbeditor>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-default" data-dismiss="modal" (click)="hideEditModal()" type="button">Отмена</button>
+                    <button class="btn btn-primary" [disabled]="!commentForm.valid" type="submit">Обновить</button>
+                </div>
+            </form>
         </div>
-        <div class="panel-body">
-            <div class="col-sm-3"> <img class="flex-vertical-center width50p" src="{message.photo}}" /></div>
-            <div class="col-sm-9" [innerHTML]="message.message">
+    </div>
+</div>
+
+<div class="modal fade" bsModal #deleteModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" aria-label="Close" (click)="hideModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Удалить?</h4>
+            </div>
+            <div class="modal-body">
+                <button class="btn btn-default" data-dismiss="modal" (click)="hideModal()" type="button">Отмена</button>
+                <button class="btn btn-primary" type="button" (click)="delete()">Удалить</button>
             </div>
         </div>
     </div>
 </div>
-        <forumMessage-addition [themeId]="item.id"></forumMessage-addition>
-
-</div>-->

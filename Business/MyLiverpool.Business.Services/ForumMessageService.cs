@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using AutoMapper;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.DtoNext;
@@ -28,6 +29,23 @@ namespace MyLiverpool.Business.Services
             model.Author = await _userRepository.GetByIdAsync(model.AuthorId);
             
             return _mapper.Map<ForumMessageDto>(model);
+        }
+
+        public async Task<ForumMessageDto> UpdateAsync(ForumMessageDto dto)
+        {
+            var model = await _forumMessageRepository.GetByIdAsync(dto.Id);
+            model.LastModifiedTime = DateTime.Now;
+            model.Message = dto.Message;
+            _forumMessageRepository.Update(model);
+            await _forumMessageRepository.SaveChangesAsync();
+            return _mapper.Map<ForumMessageDto>(model);
+        }
+
+        public async Task<bool> DeleteAsync(int id)
+        {
+            await _forumMessageRepository.DeleteAsync(id);
+            await _forumMessageRepository.SaveChangesAsync();
+            return true;
         }
     }
 }

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.DtoNext;
+using MyLiverpool.Data.Entities;
 using MyLiverpool.Web.WebApiNext.Extensions;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
@@ -42,6 +44,41 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 return BadRequest();
             }
             var result = await _forumMessageService.CreateAsync(dto);
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// Updates forum comment.
+        /// </summary>
+        /// <param name="id">The identifier of comment.</param>
+        /// <param name="dto">Comment.</param>
+        /// <returns>Result of update.</returns>
+        [Authorize, HttpPut("{id:int}")]
+        public async Task<IActionResult> UpdateAsync(int id, [FromBody] ForumMessageDto dto)
+        {
+            if (id != dto.Id || !ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            if (!User.IsInRole(nameof(RolesEnum.UserStart)) && User.GetUserId() != dto.AuthorId)
+            {
+                return StatusCode(StatusCodes.Status403Forbidden);
+            }
+
+            var result = await _forumMessageService.UpdateAsync(dto);
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// Deletes forum comment.
+        /// </summary>
+        /// <param name="id">The identifier of comment.</param>
+        /// <returns>Result of deleting.</returns>
+        [Authorize(Roles = nameof(RolesEnum.UserStart)), HttpDelete("{id:int}")]
+        public async Task<IActionResult> DeleteAsync(int id)
+        {
+            var result = await _forumMessageService.DeleteAsync(id);
             return Ok(result);
         }
     }
