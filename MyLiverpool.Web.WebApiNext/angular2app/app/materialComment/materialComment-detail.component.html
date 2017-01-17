@@ -46,7 +46,7 @@
 
             <form *ngIf="addCommentModal.isShown" class="form-horizontal" role="form" [formGroup]="commentForm" (ngSubmit)="addComment()">
                 <div class="modal-body">
-                    <medium-editor name="message" formControlName="message"></medium-editor>
+                    <bbeditor name="message" formControlName="message"></bbeditor>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-default" data-dismiss="modal" (click)="hideAddModal()" type="button">Отмена</button>
@@ -70,10 +70,10 @@
             <form *ngIf="editCommentModal.isShown" class="form-horizontal" role="form" [formGroup]="commentForm" (ngSubmit)="editComment()">
                 <div class="modal-body">
                     <div>
-                          <medium-editor name="message" [value]="item.message" formControlName="message"></medium-editor>
+                        <bbeditor name="message" [value]="item.message" formControlName="message"></bbeditor>
                     </div>
                     <div *ngIf="roles.isEditor">
-                      <medium-editor name="answer" [value]="item.answer" formControlName="answer"></medium-editor>
+                        <bbeditor name="answer" [value]="item.answer" formControlName="answer"></bbeditor>
                     </div>
                 </div>
                 <div class="modal-footer">

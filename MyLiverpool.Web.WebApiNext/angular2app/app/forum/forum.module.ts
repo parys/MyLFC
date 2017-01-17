@@ -1,7 +1,6 @@
 ﻿import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { ForumSectionListComponent, ForumSectionService } from "./forumSection/index";
 import * as forumSubsection from "./forumSubsection/index";

@@ -13,7 +13,6 @@ import { ModalDirective } from "ng2-bootstrap";
 })
 
 export class MaterialCommentDetailComponent implements OnInit {
-
     @Input() item: MaterialComment;
     @Input() deep: number;
     @Input() canCommentary: boolean;

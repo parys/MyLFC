@@ -20,6 +20,7 @@ export class MaterialEditComponent implements OnInit {
     roles: IRoles;
     item: Material;
     type: MaterialType;
+    isInit: boolean = false;
 
     constructor(private service: MaterialService,
         private materialCategoryService: MaterialCategoryService,
@@ -75,6 +76,7 @@ export class MaterialEditComponent implements OnInit {
         this.id = data.id;
         this.editForm.patchValue(data);
         this.item = data;
+        this.isInit = true;
     }
 
     private parseForm(): Material {

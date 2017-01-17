@@ -7,7 +7,7 @@
 <form class="form-horizontal" role="form" [formGroup]="commentAddForm" (ngSubmit)="onSubmit()">
     <div class="col-md-12" *ngIf="canCommentary && roles.isLogined">
         <div class="col-md-12">
-            <medium-editor class="col-md-offset-2 col-md-8" name="message" formControlName="message"></medium-editor>
+            <bbeditor class="col-md-offset-2 col-md-8" name="message" formControlName="message"></bbeditor>
         </div>
         <div class="">
             <button class="btn btn-primary center-block" [disabled]="!commentAddForm.valid" type="submit">Добавить</button>

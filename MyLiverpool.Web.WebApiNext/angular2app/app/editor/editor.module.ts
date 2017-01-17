@@ -1,7 +1,6 @@
 ﻿import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { FullEditorComponent } from "./full-editor.component";
-import { MediumEditorComponent } from "./medium-editor.component";
+import { EditorComponent } from "./editor.component";
 
 @NgModule({
     imports: [
@@ -9,14 +8,12 @@ import { MediumEditorComponent } from "./medium-editor.component";
         ReactiveFormsModule
     ],
     declarations: [
-        FullEditorComponent,
-        MediumEditorComponent
+        EditorComponent
     ],
     exports: [
         FormsModule,
         ReactiveFormsModule,
-        FullEditorComponent,
-        MediumEditorComponent
+        EditorComponent
     ],
     providers: [
     ]

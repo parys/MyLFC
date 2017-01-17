@@ -29,13 +29,11 @@ export class MaterialCommentSectionComponent implements OnInit {
     }   
 
     ngOnInit() {
-        this.roles = this.rolesChecked.checkRoles();     
-        this.update(); 
-
-        this.commentAddForm = this.formBuilder.group({
+        this.roles = this.rolesChecked.checkRoles(); this.commentAddForm = this.formBuilder.group({
             'message': ["", Validators.compose([
                 Validators.required, Validators.minLength(3)])]
-        });    
+        });       
+        this.update();
     }
 
 
@@ -64,7 +62,7 @@ export class MaterialCommentSectionComponent implements OnInit {
         this.totalItems = pageable.totalItems;
     }                                 
 
-    onSubmit(value: any): void {
+    onSubmit(): void {
         var comment = new MaterialComment();
         comment.message = this.commentAddForm.controls["message"].value;
         comment.materialId = this.materialId;
