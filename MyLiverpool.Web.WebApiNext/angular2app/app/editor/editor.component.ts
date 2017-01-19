@@ -26,33 +26,7 @@ export class EditorComponent implements ControlValueAccessor {
     editor;
 
     ngAfterViewInit(): void {
-        tinymce.init({
-            // skin_url: 'assets/skins/lightgray',
-            // autoresize_overflow_padding: 0,
-            selector: `#${this.elementId}`,
-            schema: "html5",
-            //forced_root_block: "",
-            // height: 500,
-            autoresize_max_height: 500,
-            menubar: false,
-            // inline: true,
-            plugins: [
-                this.getPlugins()
-            ],
-            toolbar: this.getToolbar(),
-            content_css: "//www.tinymce.com/css/codepen.min.css",
-            setup: (editor: any) => {
-                this.editor = editor;
-                editor.on("change", () => {
-                    const content: any = editor.getContent();
-                    this.updateValue(content);
-                });
-                editor.on("keyup", () => {
-                    const content: any = editor.getContent();
-                    this.updateValue(content);
-                });
-            }
-        });
+           this.initTiny();
     }
 
     constructor(zone: NgZone) {
@@ -86,6 +60,9 @@ export class EditorComponent implements ControlValueAccessor {
     writeValue(value: any): void {
         if (value !== null) {
             this._value = value;
+            //if (!tinymce) {
+            //    this.initTiny();
+            //}
             if (tinymce.activeEditor && tinymce.activeEditor[this.elementId]) {
                 tinymce.activeEditor[this.elementId].setContent(value);
             }
@@ -123,5 +100,37 @@ export class EditorComponent implements ControlValueAccessor {
             return `undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image emoticons fullscreen`;
         }
         return "";
+    }
+
+    private initTiny(): void {
+        tinymce.init({
+            // skin_url: 'assets/skins/lightgray',
+            // autoresize_overflow_padding: 0,
+            selector: `#${this.elementId}`,
+            schema: "html5",
+            //forced_root_block: "",
+            // height: 500,        
+            forced_root_block: false,
+            autoresize_max_height: 500,
+            menubar: false,
+        //    language: "ru",
+            // inline: true,
+            plugins: [
+                this.getPlugins()
+            ],
+            toolbar: this.getToolbar(),
+            content_css: "//www.tinymce.com/css/codepen.min.css",
+            setup: (editor: any) => {
+                this.editor = editor;
+                editor.on("change", () => {
+                    const content: any = editor.getContent();
+                    this.updateValue(content);
+                });
+                editor.on("keyup", () => {
+                    const content: any = editor.getContent();
+                    this.updateValue(content);
+                });
+            }
+        });
     }
 }

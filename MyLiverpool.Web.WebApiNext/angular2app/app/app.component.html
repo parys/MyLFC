@@ -9,7 +9,7 @@
                 </button>
                 <!--<a [routerLink]="['/']" class="navbar-brand">Название сайта</a>-->
             </div>
-            <div class="navbar-collapse collapse">
+            <div class="navbar-collapse collapse row">
                 <ul class="nav navbar-nav">
                     <li><a [routerLink]="['/']">Главная</a></li>
                     <li> <a [routerLink]="['/forum']">Форум</a></li>
@@ -69,7 +69,7 @@
                         <div style="width: 132px;height: 50px;" class="alert-danger">Обновлено: <b>18.01.17 23:59 МСК</b></div>
                     </li>
                 </ul>
-                <ul class="nav navbar-nav navbar-right">
+                <ul class="nav navbar-nav pull-right">
                     <li *ngIf="!roles.isLogined">
                         <account-signin></account-signin>
                     </li>

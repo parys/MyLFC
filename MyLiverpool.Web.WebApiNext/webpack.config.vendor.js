@@ -46,7 +46,7 @@ var SharedConfig = {
             "ng2-auto-complete",
             "ng2-bootstrap",
           //  "ng2-page-scroll",
-         //   "tinymce"
+          //  "tinymce/tinymce.min.js"
         ]
     },
     output: {
