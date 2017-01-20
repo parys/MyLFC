@@ -5,6 +5,8 @@
   <ContentPage.Content>
     <StackLayout>
       <Label Text="Contacts data goes here" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
+      <Label x:Name="userName"></Label>
+      <Label x:Name="userId"></Label>
     </StackLayout>
   </ContentPage.Content>
 </ContentPage>

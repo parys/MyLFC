@@ -3,10 +3,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using MyLiverpool.Data.Entities;
 using MyLiverpool.Web.WebApiNext.Extensions;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.DtoNext;
+using MyLiverpool.Data.Common;
 using Newtonsoft.Json;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers

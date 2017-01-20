@@ -1,5 +1,4 @@
-﻿using MyLiverpool.Business.DTO;
-using MyLiverpool.Data.Entities;
+﻿using MyLiverpool.Data.Common;
 
 namespace MyLiverpool.Business.DtoNext
 {

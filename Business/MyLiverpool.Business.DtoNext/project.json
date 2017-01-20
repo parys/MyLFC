@@ -2,15 +2,16 @@
   "version": "1.0.0-*",
 
   "dependencies": {
-    "MyLiverpool.Common.Utilities": "1.0.0-*",
-    "MyLiverpool.Data.Entities": "1.0.0-*",
+    "MyLiverpool.Data.Common": "1.0.0-*",
     "NETStandard.Library": "1.6.1",
     "System.ComponentModel.Annotations": "4.3.0"
   },
 
   "frameworks": {
     "netstandard1.6": {
-      "imports": "dnxcore50"
+      "imports": [
+        "dnxcore50",
+         "portable-net45+win8" ]
     }
   }
 }

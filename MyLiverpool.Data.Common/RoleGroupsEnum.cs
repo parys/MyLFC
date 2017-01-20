@@ -1,4 +1,4 @@
-﻿namespace MyLiverpool.Data.Entities
+﻿namespace MyLiverpool.Data.Common
 {
     public enum RoleGroupsEnum
     {

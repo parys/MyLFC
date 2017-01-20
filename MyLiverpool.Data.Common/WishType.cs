@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MyLiverpool.Data.Entities
+namespace MyLiverpool.Data.Common
 {
     public enum WishType
     {

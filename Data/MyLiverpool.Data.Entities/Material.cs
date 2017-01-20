@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using MyLiverpool.Data.Common;
 
 namespace MyLiverpool.Data.Entities
 {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using MyLiverpool.Data.Common;
 
 namespace MyLiverpool.Data.Entities
 {

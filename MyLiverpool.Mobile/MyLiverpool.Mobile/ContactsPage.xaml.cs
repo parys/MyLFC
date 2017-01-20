@@ -13,6 +13,16 @@ namespace MyLiverpool.Mobile
         public ContactsPage()
         {
             InitializeComponent();
+
+
+        }
+
+        protected override async void OnAppearing()
+        {
+            var client = new UserHttpService();
+            var user = await client.GetUsers();
+            userId.Text = user.Id.ToString();
+            userName.Text = user.UserName.ToString();
         }
     }
 }

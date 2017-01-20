@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using MyLiverpool.Business.DtoNext;
 using MyLiverpool.Common.Utilities.Extensions;
+using MyLiverpool.Data.Common;
 using MyLiverpool.Data.Entities;
 
 namespace MyLiverpool.Business.Services.Tests.Helpers

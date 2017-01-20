@@ -30,6 +30,7 @@
     "MyLiverpool.Business.Services": "1.0.0-*",
     "MyLiverpool.Common.Mappings": "1.0.0-*",
     "MyLiverpool.Common.Utilities": "1.0.0-*",
+    "MyLiverpool.Data.Common": "1.0.0-*",
     "MyLiverpool.Data.Entities": "1.0.0-*",
     "MyLiverpool.Data.ResourceAccess": "1.0.0-*",
     "Swashbuckle.AspNetCore": "1.0.0-rc1"

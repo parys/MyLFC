@@ -1,4 +1,4 @@
-﻿using MyLiverpool.Data.Entities;
+﻿using MyLiverpool.Data.Common;
 
 namespace MyLiverpool.Common.Utilities
 {

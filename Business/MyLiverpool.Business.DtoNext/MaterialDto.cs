@@ -1,5 +1,5 @@
 ﻿using System;
-using MyLiverpool.Data.Entities;
+using MyLiverpool.Data.Common;
 
 namespace MyLiverpool.Business.DtoNext
 {

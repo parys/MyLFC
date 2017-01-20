@@ -1,4 +1,5 @@
 ﻿using System;
+using MyLiverpool.Data.Common;
 
 namespace MyLiverpool.Data.Entities
 {

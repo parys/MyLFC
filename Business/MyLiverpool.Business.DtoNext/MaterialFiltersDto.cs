@@ -1,6 +1,4 @@
-﻿using MyLiverpool.Data.Entities;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
+﻿using MyLiverpool.Data.Common;
 
 namespace MyLiverpool.Business.DtoNext
 {

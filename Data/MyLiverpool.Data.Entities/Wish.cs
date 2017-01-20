@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using MyLiverpool.Data.Common;
 
 namespace MyLiverpool.Data.Entities
 {
