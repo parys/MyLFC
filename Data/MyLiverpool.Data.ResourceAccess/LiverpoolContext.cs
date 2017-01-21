@@ -22,10 +22,6 @@ namespace MyLiverpool.Data.ResourceAccess
             }
         }
 
-        //   public DbSet<UserClaim> UserClaims { get; set; }
-        //    public DbSet<UserLogin> UserLogins { get; set; }
-        //     public DbSet<UserRole> UserRoles { get; set; }
-
         public DbSet<Wish> Wishes { get; set; }
         public DbSet<Material> Materials { get; set; }
         public DbSet<MaterialCategory> MaterialCategories { get; set; }
@@ -41,13 +37,7 @@ namespace MyLiverpool.Data.ResourceAccess
         public DbSet<Club> Clubs { get; set; }
         public DbSet<ChatMessage> ChatMessages { get; set; }
         public DbSet<Match> Matches { get; set; }
-
-        //public DbSet<OpenIddictApplication> Applications { get; set; }
-        //public DbSet<OpenIddictAuthorization> Authorizations { get; set; }
-        //public DbSet<OpenIddictScope> Scopes { get; set; }
-        //public DbSet<OpenIddictToken> Tokens { get; set; }
-
-
+        public DbSet<HelpEntity> HelpEntities { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

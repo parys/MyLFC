@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 using HtmlAgilityPack;
 using Microsoft.AspNetCore.Hosting;
 using MyLiverpool.Business.Contracts;
+using MyLiverpool.Data.Common;
+using MyLiverpool.Data.Entities;
+using MyLiverpool.Data.ResourceAccess.Interfaces;
 
 namespace MyLiverpool.Business.Services
 {
@@ -17,13 +20,15 @@ namespace MyLiverpool.Business.Services
         private string pathToRightSideBar = "..\\angular2app\\app\\admin\\eplTable.component.html";
         private string pathToRightSideBar2 = "..\\angular2app\\app\\admin\\eplTable.component2.html";
         private readonly IHostingEnvironment _appEnvironment;
+        private readonly IHelperEntityRepository _helperEntityRepository;
 
-        public AdminService(IHostingEnvironment appEnvironment)
+        public AdminService(IHostingEnvironment appEnvironment, IHelperEntityRepository helperEntityRepository)
         {
             _appEnvironment = appEnvironment;
+            _helperEntityRepository = helperEntityRepository;
         }
 
-        public async Task<bool> UpdateTableAsync()
+        public async Task<string> UpdateTableAsync()
         {
             var trNodes = await GetHtmlRowsAsync();
             var clubs = trNodes.Select(trNode => new
@@ -40,10 +45,10 @@ namespace MyLiverpool.Business.Services
 
             var path = _appEnvironment.WebRootPath;
             var newPath = Path.Combine(path, pathToRightSideBar2);
-            
-            using (var writer = new StreamWriter(new FileStream(newPath, FileMode.Create), Encoding.UTF8))//bug not tested
+            StringBuilder newRows;
+            using (var writer = new StreamWriter(new FileStream(newPath, FileMode.Create), Encoding.UTF8))
               {
-                  var newRows = new StringBuilder(
+                  newRows = new StringBuilder(
                           @"<table class=""table table-condensed table-striped table-responsive col-xs-12 overflowable"">
     <thead>
         <tr>
@@ -76,11 +81,18 @@ namespace MyLiverpool.Business.Services
                   await writer.WriteAsync(newRows.ToString());
                   await writer.FlushAsync();
               }
-            
-            var newPath1 = Path.Combine(path, pathToRightSideBar);
-            File.Copy(newPath, newPath1, true);
 
-            return true;
+            var entity = await _helperEntityRepository.GetByTypeAsync(HelperEntityType.EplTable) ?? new HelpEntity()
+            {
+                Type = HelperEntityType.EplTable
+            };
+            entity.Value = newRows.ToString();
+            await _helperEntityRepository.UpdateAndSaveAsync(entity);
+         //   var newPath1 = Path.Combine(path, pathToRightSideBar);
+         //   File.Copy(newPath, newPath1, true);
+
+
+            return newRows.ToString();
         }
         
         private async Task<HtmlNodeCollection> GetHtmlRowsAsync()

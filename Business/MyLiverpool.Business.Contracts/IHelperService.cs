@@ -2,8 +2,8 @@
 
 namespace MyLiverpool.Business.Contracts
 {
-    public interface IAdminService
+    public interface IHelperService
     {
-        Task<string> UpdateTableAsync();
+        Task<string> GetEplTableAsync();
     }
 }

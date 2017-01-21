@@ -307,6 +307,7 @@ namespace MyLiverpool.Web.WebApiNext
             services.AddTransient<IForumSectionService, ForumSectionService>();
             services.AddTransient<IForumSubsectionService, ForumSubsectionService>();
             services.AddTransient<IForumThemeService, ForumThemeService>();
+            services.AddTransient<IHelperService, HelperService>();
             services.AddTransient<IMatchService, MatchService>();
             services.AddTransient<IMaterialCategoryService, MaterialCategoryService>();
             services.AddTransient<IMaterialCommentService, MaterialCommentService>();
@@ -330,6 +331,7 @@ namespace MyLiverpool.Web.WebApiNext
             services.AddScoped<IForumSectionRepository, ForumSectionRepository>();
             services.AddScoped<IForumSubsectionRepository, ForumSubsectionRepository>();
             services.AddScoped<IForumThemeRepository, ForumThemeRepository>();
+            services.AddScoped<IHelperEntityRepository, HelperEntityRepository>();
             services.AddScoped<IMatchRepository, MatchRepository>();
             services.AddScoped<IMaterialCategoryRepository, MaterialCategoryRepository>();
             services.AddScoped<IMaterialCommentRepository, MaterialCommentRepository>();
