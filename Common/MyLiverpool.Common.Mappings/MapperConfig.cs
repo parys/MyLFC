@@ -16,6 +16,7 @@ namespace MyLiverpool.Common.Mappings
             cfg.AddProfile(new MaterialMapperProfile());
             cfg.AddProfile(new MaterialCategoryMapperProfile());
             cfg.AddProfile(new MaterialCommentMapperProfile());
+            cfg.AddProfile(new PersonMapperProfile());
             cfg.AddProfile(new PmMapperProfile());
             cfg.AddProfile(new RoleGroupsMapperProfile());
             cfg.AddProfile(new UserMapperProfile());

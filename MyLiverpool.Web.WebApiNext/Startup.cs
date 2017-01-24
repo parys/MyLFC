@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using AutoMapper;
 using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Builder;
@@ -13,7 +12,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.PlatformAbstractions;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Services;
 using MyLiverpool.Common.Mappings;
@@ -220,33 +218,6 @@ namespace MyLiverpool.Web.WebApiNext
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            //app.Use(async (context, next) =>
-            //{
-            //    await next();
-
-            //    if (context.Response.StatusCode == 404 && !Path.HasExtension(context.Request.Path.Value))
-            //    {
-            //        context.Request.Path = "/index.html"; // Put your Angular root page here 
-            //        await next();
-            //    }
-            //});
-
-            //var angularRoutes = new[] {
-            //     "/api",
-            //     "/connect"
-            // };
-
-            //app.Use(async (context, next) =>
-            //{
-            //    if (context.Request.Path.HasValue && null == angularRoutes.FirstOrDefault(
-            //        (ar) => context.Request.Path.Value.StartsWith(ar, StringComparison.OrdinalIgnoreCase)))
-            //    {
-            //        context.Request.Path = new PathString("/");
-            //    }
-
-            //    await next();
-            //});
-
             //app.Use(next => context =>
             //{
             //    var tokens = antiforgery.GetAndStoreTokens(context);
@@ -263,20 +234,6 @@ namespace MyLiverpool.Web.WebApiNext
 
             app.UseDefaultFiles();
             app.UseStaticFiles();
-
-      /*      app.UseCsp(options => options.DefaultSources(directive => directive.Self())
-    .ImageSources(directive => directive.Self()
-        .CustomSources("*"))
-    .ScriptSources(directive => directive.Self()
-        .UnsafeInline())
-    .StyleSources(directive => directive.Self()
-        .UnsafeInline()));
-
-            app.UseXContentTypeOptions();
-
-            app.UseXfo(options => options.Deny());
-
-            app.UseXXssProtection(options => options.EnabledWithBlockMode()); */
 
             app.UseIdentity();
 
@@ -312,6 +269,7 @@ namespace MyLiverpool.Web.WebApiNext
             services.AddTransient<IMaterialCategoryService, MaterialCategoryService>();
             services.AddTransient<IMaterialCommentService, MaterialCommentService>();
             services.AddTransient<IMaterialService, MaterialService>();
+            services.AddTransient<IPersonService, PersonService>();
             services.AddTransient<IPmService, PmService>();
             services.AddTransient<IRoleService, RoleService>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
@@ -336,6 +294,7 @@ namespace MyLiverpool.Web.WebApiNext
             services.AddScoped<IMaterialCategoryRepository, MaterialCategoryRepository>();
             services.AddScoped<IMaterialCommentRepository, MaterialCommentRepository>();
             services.AddScoped<IMaterialRepository, MaterialRepository>();
+            services.AddScoped<IPersonRepository, PersonRepository>();
             services.AddScoped<IPmRepository, PmRepository>();
             services.AddScoped<IRoleGroupRepository, RoleGroupRepository>();
             services.AddScoped<IUserRepository, UserRepository>();

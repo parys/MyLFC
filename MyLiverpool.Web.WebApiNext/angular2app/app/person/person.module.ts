@@ -1,8 +1,10 @@
 ﻿import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { PersonListComponent } from "./person-list.component";
+import { PersonService } from "./person.service";
 import { PlayerStatisticsComponent } from "./player-statistics.component";
-import { playerRoutes } from "./player.routes";
+import { personRoutes } from "./person.routes";
 import { SharedModule } from "../shared/index";
 
 
@@ -10,16 +12,18 @@ import { SharedModule } from "../shared/index";
     imports: [
         FormsModule,
         ReactiveFormsModule,
-        RouterModule.forRoot(playerRoutes),
+        RouterModule.forRoot(personRoutes),
         SharedModule
     ],
     declarations: [
+        PersonListComponent,
         PlayerStatisticsComponent
     ],
     exports: [
      //   EditorComponent
     ],
     providers: [
+        PersonService
     ]
 })
-export class PlayerModule { }
+export class PersonModule { }

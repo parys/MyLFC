@@ -4,3 +4,4 @@ export * from "./rightSidebar.component";
 export * from "./about-club.component";
 export * from "./coach-team.component";
 export * from "./squad.component";
+export * from "./navbar.component";

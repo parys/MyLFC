@@ -1,24 +1,17 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using MyLiverpool.Data.Common;
+﻿using MyLiverpool.Data.Common;
 
-namespace MyLiverpool.Data.Entities
+namespace MyLiverpool.Business.DtoNext
 {
-    public class Person: IEntity
+    public class PersonDto: IDto
     {
         public int Id { get; set; }
-
         public string FirstName { get; set; }
         public string FirstRussianName { get; set; }
         public string LastName { get; set; }
         public string LastRussianName { get; set; }
-
         public PersonType Type { get; set; }
-
         public string Photo { get; set; }
-
-        [NotMapped]
         public string Name => $"{FirstName} {LastName}";
-        [NotMapped]
         public string RussianName => $"{FirstRussianName} {LastRussianName}";
     }
 }
