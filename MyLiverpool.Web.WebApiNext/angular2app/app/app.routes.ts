@@ -5,7 +5,6 @@ import { clubRoutes } from "./club/club.routing";
 import { materialCategoryRoutes } from "./materialCategory/materialCategory.routing";
 import { materialRoutes } from "./material/material.routing";
 import { userRoutes } from "./user/user.routing";
-import { playerRoutes } from "./player/player.routing";
 import { pmRoutes } from "./pm/pm.routing";
 import { homeRoutes } from "./home/home.routing";
 import { imageRoutes } from "./image/image.routing";
@@ -23,7 +22,6 @@ export const routes: Routes = [
     ...materialCommentRoutes,
     ...materialCategoryRoutes,
     ...materialRoutes,
-    ...playerRoutes,
     ...pmRoutes,
     ...roleGroupRoutes,
     ...seasonRoutes,

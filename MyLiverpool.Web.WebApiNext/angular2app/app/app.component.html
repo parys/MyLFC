@@ -101,12 +101,8 @@
     <div class="body-content row">
         <!--<breadcrumb></breadcrumb>-->
         <div class="col-xs-12 col-sm-push-3 col-sm-6 container-fluid" style="background-color: #f5deb3">
-            <div class="">
-                <!--<uib-alert class="row" ng-repeat="alert in $root.alerts" dismiss-on-timeout="5000" type="{alert.type}}" close="closeAlert($index)" ng-bind="alert.msg"></uib-alert>-->
-                <div class="">
-                    <router-outlet></router-outlet>
-                </div>
-            </div>
+            <!--<uib-alert class="row" ng-repeat="alert in $root.alerts" dismiss-on-timeout="5000" type="{alert.type}}" close="closeAlert($index)" ng-bind="alert.msg"></uib-alert>-->
+            <router-outlet></router-outlet>
         </div>
         <div class="col-xs-6 col-sm-pull-6 col-sm-3 container-fluid">
             <section class="row flex">

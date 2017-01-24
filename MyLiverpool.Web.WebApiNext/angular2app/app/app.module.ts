@@ -16,7 +16,7 @@ import * as club from "./club/index";
 import * as home from "./home/index";
 import * as image from "./image/index";
 import * as match from "./match/index";
-import * as player from "./player/index";
+import { PlayerModule } from "./player/index";
 import * as roleGroup from "./roleGroup/index";
 import * as season from "./season/index";
 import { SharedModule} from "./shared/index";
@@ -41,10 +41,11 @@ import { ReCaptchaModule } from "angular2-recaptcha";
         ModalModule.forRoot(),
         Ng2AutoCompleteModule,
         PaginationModule.forRoot(),
-        SharedModule,
-        TabsModule.forRoot(),
+        PlayerModule,
         RouterModule.forRoot(routes),
         ReCaptchaModule,
+        SharedModule,
+        TabsModule.forRoot(),
         WishModule
     ],
     declarations: [
@@ -75,7 +76,6 @@ import { ReCaptchaModule } from "angular2-recaptcha";
         materialComment.MaterialCommentDetailComponent,
         materialComment.MaterialCommentListComponent,
         materialComment.MaterialCommentSectionComponent,
-        player.PlayerStatisticsComponent,
         pm.PmDetailComponent,
         pm.PmEditComponent,
         pm.PmListComponent,

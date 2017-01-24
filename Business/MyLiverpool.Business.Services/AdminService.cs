@@ -17,7 +17,7 @@ namespace MyLiverpool.Business.Services
     {
         private string address = "http://www.sports.ru/epl/table/";
         private string xpathTableRows = "/html/body/div/div/div/div/div/div/div/table/tbody//tr";
-        private string pathToRightSideBar = "..\\angular2app\\app\\admin\\eplTable.component.html";
+      //  private string pathToRightSideBar = "..\\angular2app\\app\\admin\\eplTable.component.html";
         private string pathToRightSideBar2 = "..\\angular2app\\app\\admin\\eplTable.component2.html";
         private readonly IHostingEnvironment _appEnvironment;
         private readonly IHelperEntityRepository _helperEntityRepository;

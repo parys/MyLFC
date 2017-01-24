@@ -5,8 +5,8 @@
     "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.1.0",
     "MyLiverpool.Data.Common": "1.0.0-*",
     "NETStandard.Library": "1.6.1",
-    "OpenIddict": "1.0.0-beta2-0540",
-    "OpenIddict.EntityFrameworkCore": "1.0.0-beta2-0540"
+    "OpenIddict": "1.0.0-beta2-0544",
+    "OpenIddict.EntityFrameworkCore": "1.0.0-beta2-0544"
   },
 
   "frameworks": {

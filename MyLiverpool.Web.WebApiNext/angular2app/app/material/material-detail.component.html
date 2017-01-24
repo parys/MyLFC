@@ -1,22 +1,22 @@
-﻿<div class="" *ngIf="item">
+﻿<div class="row" *ngIf="item">
     <div class="alert-danger flex-vertical-center">
         <h3 class="col-xs-12 col-sm-12">
-            <span class="col-xs-9 col-sm-9" [textContent]="item.title"></span>
-            <span class="col-xs-3 col-sm-3 pull-right" *ngIf="roles.isEditor || roles.isSelf(item.userId)">
+            <span class="col-xs-10 col-sm-10" [textContent]="item.title"></span>
+            <span class="col-xs-2 col-sm-2 pull-right" *ngIf="roles.isEditor || roles.isSelf(item.userId)">
                 <a [hidden]="!item.pending || !roles.isEditor" (click)="showActivateModal(i)"><span class="glyphicon glyphicon-ok"></span></a>
                 <a [routerLink]="['./edit']"><span class="glyphicon glyphicon-pencil"></span></a>
                 <a role="button" (click)="showDeleteModal(i)"><span class="glyphicon glyphicon-trash"></span></a>
             </span>
         </h3>
     </div>
-    <div class="">
+    <div class="col-xs-12 col-sm-12">
         <article [innerHTML]="item.message"></article>
         <div class="alert-warning">
             <ul class="list-inline">
                 <li><label>Просмотры:</label> <span [textContent]="item.reads"></span></li>
                 <li><label>Источник:</label> <span [textContent]="item.source"></span></li>
                 <li><label>Дата добавления:</label> <span [textContent]="item.additionTime | date:'medium'"></span></li>
-                <li><label>Категория:</label> <a [routerLink]="['/news/list', 1]" [queryParams]="{categoryId: item.categoryId}"> <span [textContent]="item.categoryName"></span> </a></li>
+                <li><label>Категория:</label> <a [routerLink]="['/news']" [queryParams]="{page: 1, categoryId: item.categoryId}"> <span [textContent]="item.categoryName"></span> </a></li>
             </ul>
         </div>
     </div>

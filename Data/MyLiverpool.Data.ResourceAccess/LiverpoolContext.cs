@@ -7,15 +7,13 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace MyLiverpool.Data.ResourceAccess
 {
-    //private readonly IHostingEnvironment _hostingEnvironment;
-    public class LiverpoolContext : IdentityDbContext<User, Role, int>//, UserLogin, UserRole, UserClaim>
+    public class LiverpoolContext : IdentityDbContext<User, Role, int>
     {
         private static bool _created;
-        private static bool _migrator = false;
-
-        public LiverpoolContext(DbContextOptions<LiverpoolContext> options, bool migrator = false) : base(options)
+        private static bool _isMigrator;
+        public LiverpoolContext(DbContextOptions<LiverpoolContext> options, bool isIsMigrator = false) : base(options)
         {
-            _migrator = migrator;
+            _isMigrator = isIsMigrator;
             if (!_created)
             {
                 _created = true;
@@ -30,7 +28,6 @@ namespace MyLiverpool.Data.ResourceAccess
         public DbSet<ForumSubsection> ForumSubsections { get; set; }
         public DbSet<ForumTheme> ForumThemes { get; set; }
         public DbSet<ForumMessage> ForumMessages { get; set; }
-
         public DbSet<RoleGroup> RoleGroups { get; set; }
         public DbSet<RoleRoleGroup> RoleRoleGroups { get; set; }
         public DbSet<PrivateMessage> PrivateMessages { get; set; }
@@ -38,6 +35,7 @@ namespace MyLiverpool.Data.ResourceAccess
         public DbSet<ChatMessage> ChatMessages { get; set; }
         public DbSet<Match> Matches { get; set; }
         public DbSet<HelpEntity> HelpEntities { get; set; }
+        public DbSet<Person> Persons { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -96,27 +94,11 @@ namespace MyLiverpool.Data.ResourceAccess
             }
             base.OnModelCreating(modelBuilder);
         }
-
-        //    public DbSet<RoleClaim> RoleClaims { get; set; }
-
-        // protected override void On(ModelBuilder modelBuilder)
-        // {
-        //    base.OnModelCreating(modelBuilder);
-        //   // modelBuilder.Entity<User>().ForRelational().Table(tableName: "Users");//, schemaName: "Map");
-        //   // modelBuilder.Entity<IdentityUser>().ForRelational().Table(tableName: "Users");//, schemaName: "Map");
-        //   // modelBuilder.Entity<User>().Key(u => u.Id);
-        //    //  modelBuilder.Entity<User>().ToTable("MyUsers").Property(p => p.Id).HasColumnName("UserId");
-        //    //  modelBuilder.Entity<ApplicationUser>().ToTable("MyUsers").Property(p => p.Id).HasColumnName("UserId");
-        //    //  modelBuilder.Entity<IdentityUserRole>().ToTable("MyUserRoles");
-        //    //  modelBuilder.Entity<IdentityUserLogin>().ToTable("MyUserLogins");
-        //    //  modelBuilder.Entity<IdentityUserClaim>().ToTable("MyUserClaims");
-        //    //  modelBuilder.Entity<IdentityRole>().ToTable("MyRoles");
-        // }
-
+        
         protected override void OnConfiguring(DbContextOptionsBuilder modelBuilder)
         {
             modelBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
-            if (_migrator)
+            if (_isMigrator)
             {
                 modelBuilder.UseOpenIddict<int>();
                 modelBuilder.UseSqlServer(

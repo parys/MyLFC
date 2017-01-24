@@ -1,1 +1,1 @@
-﻿export * from "./player-statistics.component";
+﻿export * from "./player.module";
