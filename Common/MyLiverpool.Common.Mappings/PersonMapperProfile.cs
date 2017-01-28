@@ -13,7 +13,8 @@ namespace MyLiverpool.Common.Mappings
         
         private void RegisterPersonMap()
         {
-            CreateMap<Person, PersonDto>();
+            CreateMap<Person, PersonDto>()
+                .ForMember(dest => dest.TypeName, src => src.MapFrom(x => x.Type.ToString()));
 
             CreateMap<PersonDto, Person>();
         }

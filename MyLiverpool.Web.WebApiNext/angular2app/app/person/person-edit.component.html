@@ -1,0 +1,65 @@
+﻿<form class="form-horizontal" name="editForm" role="form" [formGroup]="editForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+        <label class="control-label col-md-2">Имя на английском</label>
+        <div class="col-md-10">
+            <input class="form-control" name="title" formControlName="firstName" />
+        </div>
+    </div>    
+    <div class="form-group">
+        <label class="control-label col-md-2">Имя на русском</label>
+        <div class="col-md-10">
+            <input class="form-control" name="title" formControlName="firstRussianName" />
+        </div>
+    </div>  
+      <div class="form-group">
+        <label class="control-label col-md-2">Фамилия на английском</label>
+        <div class="col-md-10">
+            <input class="form-control" name="title" formControlName="lastName" />
+        </div>
+    </div>    
+    <div class="form-group">
+        <label class="control-label col-md-2">Фамилия на русском</label>
+        <div class="col-md-10">
+            <input class="form-control" name="title" formControlName="lastRussianName" />
+        </div>
+    </div>
+    <div class="row text-center">
+        <div class="col-xs-2 col-sm-2">
+            <img class="avatar" *ngIf="item.photo" [src]="item.photo" alt="" />
+        </div>
+        <div class="col-xs-10 col-sm-10">
+            <label for="update-input"
+                   class="btn btn-info">Загрузить фото</label>
+            <input type="file"
+                   class="hidden"
+                   accept="image/*"
+                   (change)="onUpload($event)"
+                   id="update-input" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-2 col-sm-2">Тип:</label>
+        <div class="col-xs-10 col-sm-10">
+            <select class="form-control" formControlName="type">
+                <option [value]="type.id" *ngFor="let type of types" [textContent]="type.name"></option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2">День рождения</label>
+        <div class="col-md-10">
+            <div class="input-group">
+                <input class="form-control" name="birthday" readonly [value]="editForm?.controls['birthday'].value | date:'shortDate'" />
+                <datepicker *ngIf="opened" (selectionDone)="opened = false" formControlName="birthday"></datepicker>
+                <span class="input-group-btn">
+                    <button class="btn btn-default" (click)="opened = !opened" type="button">Открыть</button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button type="submit" [disabled]="!editForm.valid" class="btn btn-default">Сохранить</button>
+        </div>
+    </div>
+</form>

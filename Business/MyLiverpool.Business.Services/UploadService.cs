@@ -16,6 +16,7 @@ namespace MyLiverpool.Business.Services
         public const string AvatarPath = "content\\avatars\\";
         public const string LogoPath = "content\\logos\\";
         public const string ImagesPath = "content\\images\\";
+        public const string PersonPath = "content\\persons\\";
         public const int FilesPerFolder = 200;
         private readonly IUserService _userService;
         private readonly IClubService _clubService;
@@ -127,6 +128,28 @@ namespace MyLiverpool.Business.Services
             }
             return result;
         }
+
+        public Task<string> UpdatePersonPhotoAsync(string name, IFormFile file)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new NullReferenceException("Name can't be null.");
+            }
+            if (!Directory.Exists(PersonPath))
+            {
+                Directory.CreateDirectory(PersonPath);
+            }
+            string path = PersonPath + name;
+
+            var relativePath = path;
+            path = GetFullPath(path);
+
+            file.CopyTo(new FileStream(path, FileMode.Create));
+            relativePath = Regex.Replace(relativePath, "\\\\", "/");
+
+            return Task.FromResult(relativePath);
+        }
+
 
         #region private helpers 
         private string GenerateNewPath(string path)

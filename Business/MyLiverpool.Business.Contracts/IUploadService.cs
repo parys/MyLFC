@@ -13,5 +13,7 @@ namespace MyLiverpool.Business.Contracts
         Task<string> UpdateLogoAsync(string clubName, IFormFile file);
 
         Task<IEnumerable<string>> UploadAsync(IFormFileCollection files);
+
+        Task<string> UpdatePersonPhotoAsync(string name, IFormFile file);
     }
 }

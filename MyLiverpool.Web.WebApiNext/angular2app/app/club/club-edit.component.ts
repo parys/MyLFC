@@ -22,10 +22,8 @@ export class ClubEditComponent implements OnInit, OnDestroy {
         private route: ActivatedRoute,
         private router: Router,
         private localStorage: LocalStorageService,
-        private formBuilder: FormBuilder,
-        titleService: Title) {
+        private formBuilder: FormBuilder) {
         this.item = new Club();
-        titleService.setTitle("Редактирование клуба");  //todo move it to routing
     }
 
     ngOnInit() {

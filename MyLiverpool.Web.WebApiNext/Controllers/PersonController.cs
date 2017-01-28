@@ -1,8 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.DtoNext;
+using MyLiverpool.Common.Utilities.Extensions;
+using MyLiverpool.Data.Common;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {   
@@ -13,14 +17,17 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     public class PersonController : Controller
     {
         private readonly IPersonService _personService;
+        private readonly IUploadService _uploadService;
 
         /// <summary>
         /// Controller.
         /// </summary>
         /// <param name="personService"></param>
-        public PersonController(IPersonService personService)
+        /// <param name="uploadService"></param>
+        public PersonController(IPersonService personService, IUploadService uploadService)
         {
             _personService = personService;
+            _uploadService = uploadService;
         }
 
         /// <summary>
@@ -56,10 +63,10 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         }
 
         /// <summary>
-        /// Returns club by id.
+        /// Returns person by id.
         /// </summary>
-        /// <param name="id">The identifier of club.</param>
-        /// <returns>Club.</returns>
+        /// <param name="id">The identifier of person.</param>
+        /// <returns>Person.</returns>
         [Authorize, HttpGet("{id:int}")]
         public async Task<IActionResult> GetAsync(int id)
         {
@@ -68,11 +75,11 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         }
 
         /// <summary>
-        /// Updates club.
+        /// Updates person.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <param name="dto">Modified club entity.</param>
-        /// <returns>Returns of editing.</returns>
+        /// <param name="dto">Modified person entity.</param>
+        /// <returns>Result of editing.</returns>
         [Authorize, HttpPut("{id:int}")]
         public async Task<IActionResult> EditAsync(int id, [FromBody]PersonDto dto)
         {
@@ -85,9 +92,9 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         }
 
         /// <summary>
-        /// Deletes club.
+        /// Deletes person.
         /// </summary>
-        /// <param name="id">The identifier of deleting club.</param>
+        /// <param name="id">The identifier of deleting person.</param>
         /// <returns>Result of deleting.</returns>
         [Authorize, HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteAsync(int id)
@@ -95,6 +102,40 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             var result = await _personService.DeleteAsync(id);
             return Ok(result);
         }
+
+        /// <summary>
+        /// Gets person types.
+        /// </summary>
+        /// <returns>Person types list.</returns>
+        [AllowAnonymous, HttpGet("types")]
+        public async Task<IActionResult> GetTypesAsync()
+        {
+            var list = new List<object>();
+            foreach (PersonType type in Enum.GetValues(typeof(PersonType)))
+            {
+                list.Add(new { id = type, name = type.GetNameAttribute() });
+            }
+
+            return Ok(await Task.FromResult(list));
+        }
+        
+        /// <summary>
+        /// Uploads a person photo.
+        /// </summary>
+        /// <returns>Result of uploading new photo.</returns>
+        [Authorize(Roles = nameof(RolesEnum.AdminStart)), HttpPost("photo/{name}")]//todo add name of player
+        public async Task<ActionResult> UploadPhotoAsync(string name)
+        {
+            if (Request.Form.Files != null && Request.Form.Files.Count > 0)
+            {
+                    var file = Request.Form.Files[0];
+                    var result = await _uploadService.UpdatePersonPhotoAsync(name, file);
+
+                    return Ok(result);
+            }
+            return BadRequest();
+        }
+
 
     }
 }

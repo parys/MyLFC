@@ -93,9 +93,9 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Gets wish types.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Wish types list.</returns>
         [AllowAnonymous, HttpGet("types")]
         public async Task<IActionResult> GetTypes()
         {

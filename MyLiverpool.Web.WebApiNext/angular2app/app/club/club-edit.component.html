@@ -1,5 +1,4 @@
-﻿<form class="form-horizontal" name="editForm" role="form" [formGroup]="editForm" (ngSubmit)="onSubmit(editForm.value)">
-
+﻿<form class="form-horizontal" name="editForm" role="form" [formGroup]="editForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
         <label class="control-label col-md-2">Соперник</label>
         <div class="col-md-10">
@@ -8,7 +7,7 @@
     </div>
     <div class="row">
         <div class="col-xs-2 col-sm-2">
-            <img class="avatar" src="{{editForm?.controls['logo'].value}}" />
+            <img class="avatar" [src]="editForm?.controls['logo'].value" alt=""/>
         </div><div class="col-xs-10 col-sm-10">
                   <input formControlName="logo" novalidate readonly />
        <!--     <input type="file" ng2FileSelect [uploader]="uploader" [disabled]="!editForm.controls['englishName'].valid"/>-->

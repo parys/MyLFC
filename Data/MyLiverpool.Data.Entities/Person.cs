@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using MyLiverpool.Data.Common;
 
 namespace MyLiverpool.Data.Entities
@@ -15,6 +16,8 @@ namespace MyLiverpool.Data.Entities
         public PersonType Type { get; set; }
 
         public string Photo { get; set; }
+
+        public DateTime Birthday { get; set; }
 
         [NotMapped]
         public string Name => $"{FirstName} {LastName}";

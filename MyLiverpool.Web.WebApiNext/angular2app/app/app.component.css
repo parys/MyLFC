@@ -522,6 +522,19 @@ td.switch a {}*/
     text-transform: uppercase;
 }
 
+.infodate {
+    text-align: center;
+    font-family: Verdana;
+    font-size: 11px;
+    color: #000000;
+}
+
+.score {
+    font-size: 14px;
+    text-align: center;
+    color: #000000;
+}
+
 .infopic {
     color: #000000;
     font-family: Verdana;

@@ -20,14 +20,13 @@ export class PersonListComponent implements OnInit {
     page: number = 1;
     itemsPerPage: number = 15;
     totalItems: number;
-    //categoryId: number;
     userName: string;
     selectedItemIndex: number = null;
     @ViewChild("deleteModal") deleteModal: ModalDirective;
 
-    constructor(private personService: PersonService, private route: ActivatedRoute, private location: Location,
-        titleService: Title) {
-        titleService.setTitle("Клубы");
+    constructor(private personService: PersonService,
+        private route: ActivatedRoute,
+        private location: Location) {
     }
 
     ngOnInit() {
@@ -76,7 +75,7 @@ export class PersonListComponent implements OnInit {
     pageChanged(event: any): void {
         this.page = event.page;
         this.update();
-        let newUrl = `person/list/${this.page}`;
+        let newUrl = `person?page=${this.page}`;
         //if (this.categoryId) {
         //     newUrl = `${newUrl}/${this.categoryId}`;
         // }

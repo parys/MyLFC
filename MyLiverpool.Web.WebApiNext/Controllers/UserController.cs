@@ -127,8 +127,6 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return Ok(result);
         }
 
-
-
         // <param name="userId">The identifier of updatable user.</param>
         /// <summary>
         /// Uploads a new user's avatar.
