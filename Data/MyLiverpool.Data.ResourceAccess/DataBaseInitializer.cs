@@ -212,8 +212,8 @@ namespace MyLiverpool.Data.ResourceAccess
             var authorRole = await _context.Roles.FirstAsync(x => x.Name == RolesEnum.BlogStart.ToString());//5
             var mainAuthorRole = await _context.Roles.FirstAsync(x => x.Name == RolesEnum.BlogFull.ToString());
             var internRole = await _context.Roles.FirstAsync(x => x.Name == RolesEnum.Intern.ToString());
-            var mainForumRole = _context.RoleGroups.First(x => x.Name == RolesEnum.ForumFull.ToString());//7
-            var forumRole = _context.RoleGroups.First(x => x.Name == RolesEnum.ForumStart.ToString());
+            var mainForumRole = _context.Roles.First(x => x.Name == RolesEnum.ForumFull.ToString());//7
+            var forumRole = _context.Roles.First(x => x.Name == RolesEnum.ForumStart.ToString());
             var mainNewsmakeRole = await _context.Roles.FirstAsync(x => x.Name == RolesEnum.NewsFull.ToString());//9
             var newsmakerRole = await _context.Roles.FirstAsync(x => x.Name == RolesEnum.NewsStart.ToString());
             var simpleRole = await _context.Roles.FirstAsync(x => x.Name == RolesEnum.Simple.ToString());

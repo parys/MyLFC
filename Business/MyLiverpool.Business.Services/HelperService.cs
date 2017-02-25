@@ -17,7 +17,7 @@ namespace MyLiverpool.Business.Services
         public async Task<string> GetEplTableAsync()
         {
             var entity = await _helperEntityRepository.GetByTypeAsync(HelperEntityType.EplTable);
-            return entity.Value;
+            return entity?.Value;
         }
     }
 }
