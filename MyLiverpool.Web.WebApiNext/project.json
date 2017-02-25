@@ -2,13 +2,13 @@
   "userSecretsId": "aspnet-MyLiverpool.Web.WebApiNext-c05b72c3-6c36-4fb4-b552-b0bedfd1553d",
 
   "dependencies": {
-    "AspNet.Security.OAuth.Validation": "1.0.0-beta1-0195",
+    "AspNet.Security.OAuth.Validation": "1.0.0-beta1-0209",
     "bootstrap": "3.3.7",
     "Microsoft.AspNetCore.Antiforgery": "1.1.0",
     "Microsoft.AspNetCore.Diagnostics": "1.1.0",
     "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "1.1.0",
-    "Microsoft.AspNetCore.Mvc": "1.1.0",
-    "Microsoft.AspNetCore.Mvc.TagHelpers": "1.1.0",
+    "Microsoft.AspNetCore.Mvc": "1.1.1",
+    "Microsoft.AspNetCore.Mvc.TagHelpers": "1.1.1",
     "Microsoft.AspNetCore.NodeServices": "1.1.0-rc1-final",
     "Microsoft.AspNetCore.Razor.Tools": "1.1.0-preview4-final",
     "Microsoft.AspNetCore.ResponseCompression": "1.0.0",

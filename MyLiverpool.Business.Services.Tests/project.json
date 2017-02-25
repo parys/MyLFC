@@ -9,8 +9,8 @@
     "Microsoft.EntityFrameworkCore.InMemory": "1.1.0",
     "MyLiverpool.Common.Mappings": "1.0.0-*",
     "MyLiverpool.Data.ResourceAccess": "1.0.0-*",
-    "FluentAssertions": "4.18.0",
-    "xunit": "2.2.0-beta5-build3474"
+    "FluentAssertions": "4.19.0",
+    "xunit": "2.2.0"
   },
   "frameworks": {
     "netcoreapp1.1": {
