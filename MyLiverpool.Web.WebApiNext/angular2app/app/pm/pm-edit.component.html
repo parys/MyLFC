@@ -9,7 +9,9 @@
             <input
                 (valueChanged)="updateUsername($event)"
                 attr-placeholder="Введите логин..."
-                auto-complete class="form-control"
+                ng2-auto-complete 
+                class="form-control"
+                [list-formatter]="autocompleListFormatter"
                 display-property-name="username"
                 formControlName="receiver"
                 loading-text="Загрузочка"

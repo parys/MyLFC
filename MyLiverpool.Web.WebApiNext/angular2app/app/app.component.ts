@@ -18,7 +18,6 @@ export class AppComponent {
     private viewContainerRef: ViewContainerRef;
 
     constructor(private router: Router,
-        public auth: AuthService,
         private rolesChecked: RolesCheckedService,
         viewContainerRef: ViewContainerRef,
         private activatedRoute: ActivatedRoute,
@@ -33,11 +32,6 @@ export class AppComponent {
 
     setTitle(newTitle: string) {
         this.titleService.setTitle(newTitle);
-    }
-
-    logout() {
-        this.auth.logout();
-        this.roles = this.rolesChecked.checkRoles();
     }
 
     private initTitleSubscriber() {

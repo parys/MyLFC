@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Security.Claims;
 
 namespace MyLiverpool.Web.WebApiNext.Extensions
@@ -19,7 +20,8 @@ namespace MyLiverpool.Web.WebApiNext.Extensions
         {
             if (principal == null)
                 throw new ArgumentNullException(nameof(principal));
-            var claim = principal.FindFirst(ClaimTypes.NameIdentifier);
+           // var claim = principal.Claims.FirstOrDefault(x => x.Value == "sub");//FindFirst(ClaimTypes.WindowsSubAuthority);
+            var claim = principal.FindFirst("sub");
             if (claim != null)
             {
                 return int.Parse(claim.Value);

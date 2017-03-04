@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using AspNet.Security.OpenIdConnect.Primitives;
 using AutoMapper;
 using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Builder;
@@ -86,7 +87,14 @@ namespace MyLiverpool.Web.WebApiNext
                 .AddEntityFrameworkStores<LiverpoolContext, int>()
                 .AddDefaultTokenProviders();
 
-          //  services.AddAntiforgery(options => options.HeaderName = "X-XSRF-TOKEN");
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.ClaimsIdentity.UserNameClaimType = OpenIdConnectConstants.Claims.Name;
+                options.ClaimsIdentity.UserIdClaimType = OpenIdConnectConstants.Claims.Subject;
+                options.ClaimsIdentity.RoleClaimType = OpenIdConnectConstants.Claims.Role;
+            });
+
+            //  services.AddAntiforgery(options => options.HeaderName = "X-XSRF-TOKEN");
 
             services.AddMvc().AddJsonOptions(options =>
             {
@@ -207,7 +215,7 @@ namespace MyLiverpool.Web.WebApiNext
                 });
 
                 app.UseSwagger();
-                app.UseSwaggerUi(c =>
+                app.UseSwaggerUI(c =>
                 {
                     c.SwaggerEndpoint("/swagger/v1/swagger.json", "V1 Docs");
                     c.ConfigureOAuth2("test-client-id123", "test-client-secr43et", "test-rea32lm", "test-a11pp");

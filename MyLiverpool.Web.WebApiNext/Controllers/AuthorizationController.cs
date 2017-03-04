@@ -84,7 +84,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                     return BadRequest("unconfirmed_email");
                 }
 
-                if (_userManager.SupportsUserLockout)
+                if (_userManager.SupportsUserLockout && await _userManager.IsLockedOutAsync(user))
                 {
                     await _userManager.ResetAccessFailedCountAsync(user);
                 }
@@ -175,20 +175,20 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             {
                 // Always include the user identifier in the
                 // access token and the identity token.
-                if (claim.Type == ClaimTypes.NameIdentifier)
+                if (claim.Type == OpenIdConnectConstants.Claims.Name)
                 {
                     claim.SetDestinations(OpenIdConnectConstants.Destinations.AccessToken,
                         OpenIdConnectConstants.Destinations.IdentityToken);
                 }
 
                 // Include the name claim, but only if the "profile" scope was requested.
-                else if (claim.Type == ClaimTypes.Name && scopes.Contains(OpenIdConnectConstants.Scopes.Profile))
-                {
-                    claim.SetDestinations(OpenIdConnectConstants.Destinations.IdentityToken);
-                }
+                //else if (claim.Type == OpenIdConnectConstants.Claims.Name && scopes.Contains(OpenIdConnectConstants.Scopes.Profile))
+                //{
+                //    claim.SetDestinations(OpenIdConnectConstants.Destinations.IdentityToken);
+                //}
 
                 // Include the role claims, but only if the "roles" scope was requested.
-                else if (claim.Type == ClaimTypes.Role && scopes.Contains(OpenIddictConstants.Scopes.Roles))
+                else if (claim.Type == OpenIdConnectConstants.Claims.Role && scopes.Contains(OpenIddictConstants.Scopes.Roles))
                 {
                     claim.SetDestinations(OpenIdConnectConstants.Destinations.AccessToken,
                         OpenIdConnectConstants.Destinations.IdentityToken);

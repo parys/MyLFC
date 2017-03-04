@@ -1,6 +1,7 @@
 ﻿import { Component, OnInit, OnDestroy } from "@angular/core";
 import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { Router, ActivatedRoute } from "@angular/router";  
+import { Router, ActivatedRoute } from "@angular/router";
+import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { Observable } from "rxjs/Observable";
 import { Subscription } from "rxjs/Subscription";   
 import { Pm } from "./pm.model";
@@ -19,7 +20,8 @@ export class PmEditComponent implements OnInit, OnDestroy {
     constructor(private service: PmService,
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
-        private router: Router) {
+        private router: Router,
+        private sanitizer: DomSanitizer) {
     }
 
     ngOnInit() {
@@ -65,11 +67,11 @@ export class PmEditComponent implements OnInit, OnDestroy {
         }
     }
 
-    //getUsername(): void {
-    //    if (this.route.data["username"]) {
-    //        console.log(this.route.data["username"]);
-    //    }
-    //}
+    autocompleListFormatter = (data: any): SafeHtml => {
+        let html = `<span>${data.username}</span>`;
+        return this.sanitizer.bypassSecurityTrustHtml(html);
+    }
+
 
     onSubmit(): void {
         let model = new Pm();
