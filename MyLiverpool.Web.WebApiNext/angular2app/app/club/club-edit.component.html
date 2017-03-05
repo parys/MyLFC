@@ -7,13 +7,21 @@
     </div>
     <div class="row">
         <div class="col-xs-2 col-sm-2">
-            <img class="avatar" [src]="editForm?.controls['logo'].value" alt=""/>
-        </div><div class="col-xs-10 col-sm-10">
-                  <input formControlName="logo" novalidate readonly />
-       <!--     <input type="file" ng2FileSelect [uploader]="uploader" [disabled]="!editForm.controls['englishName'].valid"/>-->
-            <button type="button" [hidden]="!this.uploader?.queue" (click)="upload()">Загрузить</button>
+            <img class="avatar" [src]="imagePath" alt=""/>
         </div>
-</div>
+        <div class="col-xs-10 col-sm-10" *ngIf="editForm?.controls['englishName'].value">
+            <input formControlName="logo" novalidate readonly />
+                  <label for="upload-image"
+                         class="btn btn-info">Загрузить логотип</label>
+                  <input type="file"
+                         class="hidden"
+                         accept="image/*"
+                         [multiple]="false"
+                         (change)="onUploadImage($event)"
+                         id="upload-image" />
+            <!--<button type="button" [hidden]="!this.uploader?.queue" (click)="upload()">Загрузить</button>-->
+        </div>
+    </div>
     <div class="form-group">
         <label class="control-label col-md-2">Название клуба на английском</label>
         <div class="col-md-10">

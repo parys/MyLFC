@@ -101,12 +101,14 @@ namespace MyLiverpool.Business.Services
                 path = GetFullPath(path);
             }
 
-            await file.CopyToAsync(new FileStream(path, FileMode.Create));
+            var fileStream = File.Create(path);
+            await file.CopyToAsync(fileStream);
+            fileStream.Dispose();
             relativePath = Regex.Replace(relativePath, "\\\\", "/");
 
          //   await _clubService.UpdateLogoAsync(clubName, relativePath);
             
-            return relativePath;
+            return "/" + relativePath;
         }
 
         public async Task<IEnumerable<string>> UploadAsync(IFormFileCollection files)
@@ -158,6 +160,10 @@ namespace MyLiverpool.Business.Services
             string directoryName;
             try
             {
+                if (!Directory.Exists(fullPath))
+                {
+                    Directory.CreateDirectory(fullPath);
+                }
                 var directoryInfo = Directory.EnumerateDirectories(fullPath).LastOrDefault();
                 if (directoryInfo == null)
                 {

@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { Title } from "@angular/platform-browser";
 import { Subscription } from "rxjs/Subscription";
 import { ClubService } from "./club.service";
-import { Club } from "./club.model";
+import { Club } from "./club.model";                   
 import { LocalStorageService, RolesCheckedService } from "../shared/index";                         
 
 @Component({
@@ -17,6 +17,7 @@ export class ClubEditComponent implements OnInit, OnDestroy {
     private sub: Subscription;
     id: number;
     item: Club;
+    imagePath: string;
 
     constructor(private clubService: ClubService,
         private route: ActivatedRoute,
@@ -36,10 +37,6 @@ export class ClubEditComponent implements OnInit, OnDestroy {
                     error => console.log(error),
                     () => { });
             }
-        });
-
-        this.editForm.controls["englishName"].valueChanges.subscribe(data => {
-           //todo add possibility to sending photo
         });
     }
 
@@ -61,6 +58,18 @@ export class ClubEditComponent implements OnInit, OnDestroy {
         } else {
             this.clubService.create(newsItem)
                 .subscribe(data => console.log(data.id),//this.router.navigate(["/news", data.id]),
+                error => console.log(error),
+                () => { });
+        }
+    }
+
+    onUploadImage(event: any) {
+        if (event.srcElement.files.length > 0) {
+            this.clubService.uploadLogo(event.srcElement.files[0], this.editForm.controls["englishName"].value)
+                .subscribe(result => {
+                        this.imagePath = result + "#" + this.getRandomNumber();
+                    this.editForm.controls["logo"].patchValue(result);
+                },
                 error => console.log(error),
                 () => { });
         }

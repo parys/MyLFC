@@ -13,7 +13,7 @@ export class ClubService {
         this.actionUrl = configuration.serverWithApiUrl + "club/";
     }
 
-    getAll = (page): Observable<Pageable<Club>> => {
+    getAll = (page: number): Observable<Pageable<Club>> => {
         return this.http.get(this.actionUrl + `list/${page}`).map((res: Response) => res.json());
     };
 
@@ -36,6 +36,12 @@ export class ClubService {
     };
 
     getByName = (typed: string): Observable<Club[]> => {
-        return this.http.get(this.actionUrl + `/getClubsByName/${typed}`).map((res: Response) => res.json());
+        return this.http.get(`${this.actionUrl}getClubsByName/${typed}`).map((res: Response) => res.json());
+    };
+
+    uploadLogo = (file: File, fileName: string): Observable<string> => {
+        let formData: FormData = new FormData();
+        formData.append("uploadFile", file, file.name);
+        return this.http.post(`${this.actionUrl}logo/${fileName}`, formData, true).map((response: Response) => response.text());
     };
 }
