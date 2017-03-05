@@ -7,7 +7,10 @@ import "bootstrap";
 // enable either Hot Module Reloading or production mode
 if (module["hot"]) {
     module["hot"].accept();
-    module["hot"].dispose(() => { platform.destroy(); });
+    module["hot"].dispose(() => {
+        platform.destroy();
+        document.body.appendChild(document.createElement("app"));
+    });
 } else {
     enableProdMode();
 }
