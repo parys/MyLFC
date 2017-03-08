@@ -26,6 +26,10 @@ textarea {
     width: 80px;
 }
 
+.center {
+    margin: auto;
+}
+
 .chatMessage-block {
     height: 150px;
     overflow-y: auto;
@@ -62,6 +66,12 @@ textarea {
 .inline {
     display:inline;
 }
+
+.img-medium {
+    min-width: 40px;
+    max-width: 100px;
+}
+
 
 .mainContent {
     margin-top: 60px;

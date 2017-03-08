@@ -4,8 +4,8 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { Title } from "@angular/platform-browser";
 import { Subscription } from "rxjs/Subscription";
 import { ClubService } from "./club.service";
-import { Club } from "./club.model";                   
-import { LocalStorageService, RolesCheckedService } from "../shared/index";                         
+import { Club } from "./club.model";
+import { LocalStorageService, RolesCheckedService } from "../shared/index";
 
 @Component({
     selector: "club-edit",
@@ -40,7 +40,7 @@ export class ClubEditComponent implements OnInit, OnDestroy {
         });
     }
 
-    upload() {           
+    upload() {
 
     }
 
@@ -49,15 +49,15 @@ export class ClubEditComponent implements OnInit, OnDestroy {
     }
 
     onSubmit() {
-        let newsItem = this.parseForm();
+        let club = this.parseForm();
         if (this.id > 0) {
-            this.clubService.update(this.id, newsItem)
-                .subscribe(data => console.log(data.id),//this.router.navigate(["/news", data.id]),
+            this.clubService.update(this.id, club)
+                .subscribe(data => this.router.navigate(["/club"]),
                 error => console.log(error),
                 () => { });
         } else {
-            this.clubService.create(newsItem)
-                .subscribe(data => console.log(data.id),//this.router.navigate(["/news", data.id]),
+            this.clubService.create(club)
+                .subscribe(data => this.router.navigate(["/club"]),
                 error => console.log(error),
                 () => { });
         }
@@ -67,8 +67,8 @@ export class ClubEditComponent implements OnInit, OnDestroy {
         if (event.srcElement.files.length > 0) {
             this.clubService.uploadLogo(event.srcElement.files[0], this.editForm.controls["englishName"].value)
                 .subscribe(result => {
-                        this.imagePath = result + "#" + this.getRandomNumber();
-                    this.editForm.controls["logo"].patchValue(result);
+                    this.imagePath = result + "?" + this.getRandomNumber();
+                    this.editForm.controls["logo"].patchValue(this.imagePath);
                 },
                 error => console.log(error),
                 () => { });
@@ -82,6 +82,7 @@ export class ClubEditComponent implements OnInit, OnDestroy {
     private parse(data: Club): void {
         this.id = data.id;
         this.editForm.patchValue(data);
+        this.imagePath = data.logo;
     }
 
     private parseForm(): Club {
