@@ -61,6 +61,8 @@ namespace MyLiverpool.Data.ResourceAccess
                 await InitializeForumThemes();
             }
 
+            await InitClubs();
+
             await AddApplication();
         }
 
@@ -1215,6 +1217,47 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                 LogoutRedirectUri = "http://localhost:1669/swagger/index.html",
             };
             applications.Add(app);
+            await _context.SaveChangesAsync();
+        }
+
+        private async Task InitClubs()
+        {
+            var clubs = _context.Set<Club>();
+            if (clubs.Any()) return;
+
+            var club = new Club() 
+            {
+                EnglishName = "Liverpool",
+                Logo = "/content/logos/0/liverpool.png",
+                Name = "Ливерпуль",
+                Stadium = "Энфилд"
+            };
+            clubs.Add(club);
+            var club1 = new Club() 
+            {
+                EnglishName = "Arsenal",
+                Logo = "/content/logos/0/arsenal.png",
+                Name = "Арсенал",
+                Stadium = "Эмирейтс"
+            };
+            clubs.Add(club1);
+            var club2 = new Club() 
+            {
+                EnglishName = "Everton",
+                Logo = "/content/logos/0/everton.png",
+                Name = "Эвертон",
+                Stadium = "Гуддисон"
+            };
+            clubs.Add(club2);
+            var club3 = new Club() 
+            {
+                EnglishName = "Manchester City",
+                Logo = "/content/logos/0/manchestercity.png",
+                Name = "Манчестер Сити",
+                Stadium = "Этихад"
+            };
+            clubs.Add(club3);
+
             await _context.SaveChangesAsync();
         }
 

@@ -130,7 +130,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             if (Request.Form.Files != null && Request.Form.Files.Count > 0)
             {
                 var file = Request.Form.Files[0];
-                var result = await _uploadService.UpdateLogoAsync(clubEnglishName, file);
+                var result = await _uploadService.UpdateLogoAsync(clubEnglishName.ToLower().Replace(" ", ""), file);
 
                 return Ok(result);
             }
