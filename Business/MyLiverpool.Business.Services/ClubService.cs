@@ -110,5 +110,16 @@ namespace MyLiverpool.Business.Services
             }
             throw new NullReferenceException("GetIdByNameAsync");
         }
+
+        public async Task<IEnumerable<KeyValuePair<int, string>>> GetClubsByNameWithoutLiverpoolAsync(string typed)
+        {
+            Expression<Func<Club, bool>> filter = x => x.EnglishName.ToLower() != "liverpool";
+            if (!string.IsNullOrWhiteSpace(typed))
+            {
+                filter = filter.And(x => x.Name.Contains(typed));
+            }
+            var clubs = await _clubRepository.GetListAsync(1, filter: filter);
+            return clubs.Select(x => new KeyValuePair<int, string>(x.Id, x.Name));
+        }
     }
 }

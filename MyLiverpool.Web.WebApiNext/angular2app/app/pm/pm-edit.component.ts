@@ -67,7 +67,7 @@ export class PmEditComponent implements OnInit, OnDestroy {
         }
     }
 
-    autocompleListFormatter = (data: any): SafeHtml => {
+    autocompleteListFormatter = (data: any): SafeHtml => {
         let html = `<span>${data.username}</span>`;
         return this.sanitizer.bypassSecurityTrustHtml(html);
     }

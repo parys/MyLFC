@@ -7,15 +7,13 @@ using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.DtoNext;
 using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
-using MyLiverpool.Data.Entities;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
     /// <summary>
     /// Manages matches.
     /// </summary>
-    [Route("api/v1/[controller]")]
-    [Authorize]
+    [Authorize, Route("api/v1/[controller]")]
     public class MatchController : Controller
     {
         private readonly IMatchService _matchService;
@@ -34,9 +32,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <param name="dto"></param>
         /// <returns></returns>
-        [Route("")]
-        [HttpPost]
-        [Authorize(Roles = nameof(RolesEnum.AdminStart))]
+        [Authorize(Roles = nameof(RolesEnum.AdminStart)), HttpPost("")]
         public async Task<IActionResult> CreateAsync([FromBody]MatchDto dto)
         {
             if (dto == null || !ModelState.IsValid)
@@ -52,9 +48,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [Route("")]
-        [HttpGet]
-        [Authorize]
+        [Authorize, HttpGet("")]
         public async Task<IActionResult> GetAsync([FromQuery]int id)
         {
             if (id < 1)
@@ -70,9 +64,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <param name="page"></param>
         /// <returns></returns>
-        [Route("list")]
-        [HttpGet]
-        [Authorize]
+        [Authorize, HttpGet("list")]
         public async Task<IActionResult> GetListAsync([FromQuery]int page = 1)
         {
             if (page < 1)

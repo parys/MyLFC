@@ -2,25 +2,43 @@
         <div class="form-group">
             <label class="control-label col-md-2">Cоперник</label>
             <div class="col-md-10">
-                <!--<autocomplete ng-model="vm.item.clubName" name="clubName" attr-placeholder="Введите клуб..." click-activation="true" data="vm.clubs"
-                                  on-type="vm.updateClubs" validation="max_len:30|required"></autocomplete>-->
+                <input (valueChanged)="updateClub($event)"
+                       attr-placeholder="Введите слуб..."
+                       ng2-auto-complete
+                       class="form-control"
+                       [list-formatter]="autocompleteListFormatter"
+                       display-property-name="value"
+                       formControlName="club"
+                       loading-text="Загрузочка"
+                       min-chars="2"
+                       name="club"
+                       type="text"
+                       [source]="clubs" />
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-xs-2 col-sm-2"> Категория:</label>
             <div class="col-xs-10 col-sm-10">
-                <select class="form-control" name="categoryId" ng-model="vm.item.typeId" ng-options="type.id as type.name for type in vm.types" validation="required"></select>
+                <select class="form-control" formControlName="typeId">
+                    <option *ngFor="let type of types" [value]="type.key" [textContent]="type.name"></option>
+                </select>
             </div>
         </div>
-        <div class="form-group">
-            <div class="col-xs-offset-2 col-sm-offset-2 col-xs-10 col-sm-10">
-                <div class="checkbox">
-                    <label class="control-label">
-                        <input class="checkbox" name="onTop" formControlName="isHome" type="checkbox" /> Дома <!--todo add switcher--> 
-                    </label>
-                </div>
+    <div class="form-group">
+        <div class="col-xs-offset-2 col-sm-offset-2 col-xs-10 col-sm-10">
+            <div class="checkbox">
+                <label class="control-label">
+                    <input class="checkbox" name="onTop" formControlName="isHome" type="checkbox" /> Дома <!--todo add switcher--> 
+                </label>
             </div>
         </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-2 col-sm-2"> Время:</label>
+        <div class="col-xs-10 col-sm-10">
+            <timepicker formControlName="time" [showMeridian]="false"></timepicker>
+        </div>
+    </div>
         <div class="form-group">
             <label class="col-md-2 control-label">Дата</label>
             <div class="col-md-5">

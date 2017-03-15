@@ -1,10 +1,12 @@
 ﻿import { Component, OnInit, OnDestroy } from "@angular/core";
 import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
+import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { Subscription } from "rxjs/Subscription";
 import { MatchService } from "./index";
 import { ClubService } from "../club/index";
 import { Match } from "./match.model";                        
+import { MatchType } from "./matchType.model";                        
 import { Club } from "../club/club.model";
 
 @Component({
@@ -17,13 +19,15 @@ export class MatchEditComponent implements OnInit, OnDestroy {
 
     private sub: Subscription;
     id: number;
-    clubs: Club[];
+    clubs = "/api/v1/club/GetClubsByName/:keyword";
+    types : MatchType[];
 
     constructor(private matchService: MatchService,      
         private clubService: ClubService,      
         private route: ActivatedRoute,
         private router: Router,
-        private formBuilder: FormBuilder) {
+        private formBuilder: FormBuilder,
+        private sanitizer: DomSanitizer) {
     }
 
     ngOnInit() {
@@ -37,10 +41,9 @@ export class MatchEditComponent implements OnInit, OnDestroy {
                     () => { });
             }
         });
-        this.clubService.getByName("")
-            .subscribe(data => this.parseClubs(data),
-            error => console.log(error),
-            () => { });
+        this.matchService.getTypes()
+            .subscribe(data => this.types = data,
+            error => console.log(error));
 
     }
 
@@ -63,6 +66,19 @@ export class MatchEditComponent implements OnInit, OnDestroy {
         }
     }
 
+    updateClub(club: any) {
+        if (club) {
+            this.editForm.patchValue({ clubId: club.key });
+            this.editForm.patchValue({ club: club.value });
+        }
+    }
+
+    autocompleteListFormatter = (data: any): SafeHtml => {
+        let html = `<span>${data.value}</span>`;
+        return this.sanitizer.bypassSecurityTrustHtml(html);
+    }
+
+
     private parse(data: Match): void {
         this.id = data.id;
         this.editForm.patchValue(data);
@@ -73,7 +89,7 @@ export class MatchEditComponent implements OnInit, OnDestroy {
         item.id = this.id;
         item.clubId = this.editForm.controls["clubId"].value;
         item.isHome = this.editForm.controls["isHome"].value;
-        item.dateTime = this.editForm.controls["dateTime"].value;
+      //?  item.dateTime = this.editForm.controls["dateTime"].value;
         item.typeId = this.editForm.controls["typeId"].value;
 
         return item;
@@ -81,18 +97,21 @@ export class MatchEditComponent implements OnInit, OnDestroy {
 
     private initForm(): void {
         this.editForm = this.formBuilder.group({
+            'club': [""],
             'clubId': ["", Validators.compose([
                 Validators.required])],
             'isHome': ["", Validators.compose([
                 Validators.required])],
-            'dateTime': ["", Validators.compose([
+            'date': ["", Validators.compose([
+                Validators.required])],
+            'time': ["", Validators.compose([
                 Validators.required])],
             'typeId': ["", Validators.compose([
                 Validators.required])]
         });
     }
 
-    private parseClubs(items: Club[]) {
-        this.clubs = items;
-    }
+    //private parseClubs(items: Club[]) {
+    //    this.clubs = items;
+    //}
 }

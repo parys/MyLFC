@@ -29,6 +29,7 @@ import * as materialComment from "./materialComment/index";
 import { Ng2AutoCompleteModule } from "ng2-auto-complete";
 import { AdminService, EplTableComponent } from "./admin/index";
 import { DatepickerModule, ModalModule, PaginationModule, TabsModule } from "ng2-bootstrap";
+import { TimepickerModule } from "ng2-bootstrap/timepicker";
 import { ReCaptchaModule } from "angular2-recaptcha";
 
 @NgModule({
@@ -46,6 +47,7 @@ import { ReCaptchaModule } from "angular2-recaptcha";
         ReCaptchaModule,
         SharedModule,
         TabsModule.forRoot(),
+        TimepickerModule.forRoot(),
         WishModule
     ],
     declarations: [

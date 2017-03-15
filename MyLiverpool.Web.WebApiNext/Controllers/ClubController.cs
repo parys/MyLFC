@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.DtoNext;
 using MyLiverpool.Data.Common;
-using MyLiverpool.Data.Entities;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
@@ -107,10 +106,10 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <param name="typed">Part of club name for search.</param>
         /// <returns>List of keyValuePair of club with identifiers.</returns>
-        [Authorize, HttpGet("getClubsByName/{typed?}")]
+        [AllowAnonymous, HttpGet("getClubsByName/{typed?}")]
         public async Task<IActionResult> GetClubsByNameAsync([FromQuery]string typed)
         {
-            var result = await _clubService.GetClubsByNameAsync(typed);
+            var result = await _clubService.GetClubsByNameWithoutLiverpoolAsync(typed);
             return Ok(result);
         }
 
@@ -127,7 +126,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             //    return BadRequest();
             //}
 
-            if (Request.Form.Files != null && Request.Form.Files.Count > 0)
+            if (Request.Form.Files?.Count > 0)
             {
                 var file = Request.Form.Files[0];
                 var result = await _uploadService.UpdateLogoAsync(clubEnglishName.ToLower().Replace(" ", ""), file);
