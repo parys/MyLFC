@@ -1,8 +1,7 @@
-﻿import { Component, OnInit, OnDestroy } from "@angular/core";
+﻿import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
-import { Subscription } from "rxjs/Subscription";
 import { MatchService } from "./index";
 import { ClubService } from "../club/index";
 import { Match } from "./match.model";                        
@@ -14,10 +13,8 @@ import { Club } from "../club/club.model";
     template: require("./match-edit.component.html")
 })
 
-export class MatchEditComponent implements OnInit, OnDestroy {
+export class MatchEditComponent implements OnInit {
     editForm: FormGroup;
-
-    private sub: Subscription;
     id: number;
     clubs = "/api/v1/club/GetClubsByName/:keyword";
     types : MatchType[];
@@ -44,10 +41,6 @@ export class MatchEditComponent implements OnInit, OnDestroy {
             .subscribe(data => this.types = data,
             error => console.log(error));
 
-    }
-
-    ngOnDestroy() {
-        this.sub.unsubscribe();
     }
 
     onSubmit() {

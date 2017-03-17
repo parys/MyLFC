@@ -44,12 +44,13 @@ export class MaterialEditComponent implements OnInit {
                         error => console.log(error),
                         () => {});
             } else {
-                this.item = new Material();
+            this.item = new Material();
+            this.isInit = true;
             };
         this.materialCategoryService.getAll(this.type)
             .subscribe(data => this.parseCategories(data),
-            error => console.log(error),
-            () => { });
+                error => console.log(error),
+                () => {});
 
     }
 

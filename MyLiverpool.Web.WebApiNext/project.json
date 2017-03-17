@@ -2,7 +2,7 @@
   "userSecretsId": "aspnet-MyLiverpool.Web.WebApiNext-c05b72c3-6c36-4fb4-b552-b0bedfd1553d",
 
   "dependencies": {
-    "AspNet.Security.OAuth.Validation": "1.0.0-beta1-0213",
+    "AspNet.Security.OAuth.Validation": "1.0.0-beta1-final",
     "bootstrap": "3.3.7",
     "Microsoft.AspNetCore.Antiforgery": "1.1.1",
     "Microsoft.AspNetCore.Diagnostics": "1.1.1",
