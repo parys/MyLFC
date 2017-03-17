@@ -4,7 +4,7 @@ import { Observable } from "rxjs/Observable";
 import { Configuration } from "../app.constants";
 import { Match } from "./match.model";
 import { MatchType } from "./matchType.model";
-// import { Pageable } from "../shared/pageable.model";
+import { Pageable } from "../shared/pageable.model";
 import { HttpWrapper } from "../shared/httpWrapper";
 
 @Injectable()
@@ -15,9 +15,9 @@ export class MatchService {
         this.actionUrl = configuration.serverWithApiUrl + "match/";
     }
 
-    // getAll = (filters: MaterialFilters): Observable<Pageable<News>> => {
-    //    return this.http.get(this.actionUrl + "list/" + encodeURIComponent(JSON.stringify(filters))).map(res => res.json());
-    // };
+    getAll = (page: number): Observable<Pageable<Match>> => {
+        return this.http.get(this.actionUrl + "list?page=" + page).map((res: Response) => res.json());
+    };
 
     getSingle = (id: number): Observable<Match> => {
         return this.http.get(this.actionUrl + id).map((res: Response) => res.json());

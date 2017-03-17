@@ -69,7 +69,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             Expression<Func<Match, bool>> filter = null,
             SortOrder order = SortOrder.Ascending, Expression<Func<Match, object>> orderBy = null)
         {
-            IQueryable<Match> query = _context.Matches;
+            IQueryable<Match> query = _context.Matches.Include(m => m.Club);
 
             if (filter != null)
             {

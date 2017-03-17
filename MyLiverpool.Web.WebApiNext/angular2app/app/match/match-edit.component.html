@@ -1,26 +1,28 @@
 ﻿<form class="form-horizontal" name="editForm" role="form" [formGroup]="editForm" (ngSubmit)="onSubmit(editForm.value)">
-        <div class="form-group">
-            <label class="control-label col-md-2">Cоперник</label>
-            <div class="col-md-10">
-                <input (valueChanged)="updateClub($event)"
-                       attr-placeholder="Введите слуб..."
-                       ng2-auto-complete
-                       class="form-control"
-                       [list-formatter]="autocompleteListFormatter"
-                       display-property-name="value"
-                       formControlName="club"
-                       loading-text="Загрузочка"
-                       min-chars="2"
-                       name="club"
-                       type="text"
-                       [source]="clubs" />
-            </div>
+    <div class="form-group">
+        {{editForm.value |json}}
+        <label class="control-label col-md-2">Cоперник</label>
+        <div class="col-md-10">
+            <input (valueChanged)="updateClub($event)"
+                   attr-placeholder="Введите слуб..."
+                   ng2-auto-complete
+                   class="form-control"
+                   [list-formatter]="autocompleteListFormatter"
+                   display-property-name="value"
+                   formControlName="club"
+                   loading-text="Загрузочка"
+                   min-chars="2"
+                   name="club"
+                   type="text"
+                   [source]="clubs"
+                   autocomplete="off"/>
         </div>
+    </div>
         <div class="form-group">
             <label class="control-label col-xs-2 col-sm-2"> Категория:</label>
             <div class="col-xs-10 col-sm-10">
                 <select class="form-control" formControlName="typeId">
-                    <option *ngFor="let type of types" [value]="type.key" [textContent]="type.name"></option>
+                    <option *ngFor="let type of types" [value]="type.id" [textContent]="type.name"></option>
                 </select>
             </div>
         </div>
@@ -43,14 +45,7 @@
             <label class="col-md-2 control-label">Дата</label>
             <div class="col-md-5">
                 <div class="input-group">
-                    <!--<input type="text" class="form-control" validation="required" name="date"
-                           ng-readonly="true" show-button-bar="false"
-                           uib-datepicker-popup="dd/MMMM/yyyy" ng-model="vm.item.date"
-                           is-open="vm.status.opened" datepicker-options="vm.dateOptions" close-text="Закрыть"
-                           alt-input-formats="altInputFormats" ng-click="vm.open()">-->
-                    <span class="input-group-btn va-top">
-                        <button type="button" class="btn btn-default" ng-click="vm.open()"><i class="glyphicon glyphicon-calendar"></i></button>
-                    </span>
+                    <datepicker formControlName="date" [showWeeks]="true"></datepicker>
                 </div>
             </div>
             <div class="col-md-5">

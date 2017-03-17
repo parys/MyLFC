@@ -48,8 +48,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [Authorize, HttpGet("")]
-        public async Task<IActionResult> GetAsync([FromQuery]int id)
+        [Authorize, HttpGet("{id:int}")]
+        public async Task<IActionResult> GetAsync(int id)
         {
             if (id < 1)
             {

@@ -32,15 +32,14 @@ export class MatchEditComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.initForm();
-        this.sub = this.route.params.subscribe(params => {
-            let id = +params["id"];
-            if (id > 0) {
+        let id = this.route.snapshot.params["id"];
+        if(id && id > 0) {
                 this.matchService.getSingle(id)
                     .subscribe(data => this.parse(data),
                     error => console.log(error),
                     () => { });
-            }
-        });
+            };
+        
         this.matchService.getTypes()
             .subscribe(data => this.types = data,
             error => console.log(error));
@@ -52,15 +51,15 @@ export class MatchEditComponent implements OnInit, OnDestroy {
     }
 
     onSubmit() {
-        let newsItem = this.parseForm();
+        let match = this.parseForm();
         if (this.id > 0) {
-            this.matchService.update(this.id, newsItem)
-                .subscribe(data => console.log(data.id),//this.router.navigate(["/news", data.id]),
+            this.matchService.update(this.id, match)
+                .subscribe(data => this.router.navigate(["/match"]),
                 error => console.log(error),
                 () => { });
         } else {
-            this.matchService.create(newsItem)
-                .subscribe(data => console.log(data.id),//this.router.navigate(["/news", data.id]),
+            this.matchService.create(match)
+                .subscribe(data => this.router.navigate(["/match"]),
                 error => console.log(error),
                 () => { });
         }
@@ -68,8 +67,8 @@ export class MatchEditComponent implements OnInit, OnDestroy {
 
     updateClub(club: any) {
         if (club) {
-            this.editForm.patchValue({ clubId: club.key });
-            this.editForm.patchValue({ club: club.value });
+            this.editForm.get("clubId").patchValue(club.key);
+            this.editForm.get("club").patchValue(club.value);
         }
     }
 
@@ -89,6 +88,11 @@ export class MatchEditComponent implements OnInit, OnDestroy {
         item.id = this.id;
         item.clubId = this.editForm.controls["clubId"].value;
         item.isHome = this.editForm.controls["isHome"].value;
+        let date = this.editForm.controls["date"].value;
+        let time = this.editForm.controls["time"].value;
+        item.dateTime = new Date(date.getYear(), date.getMonth(), date.getDate(), time.getHours(), time.getMinutes());
+        console.log(date.getFullYear());
+        console.log(item.dateTime);
       //?  item.dateTime = this.editForm.controls["dateTime"].value;
         item.typeId = this.editForm.controls["typeId"].value;
 
@@ -100,7 +104,7 @@ export class MatchEditComponent implements OnInit, OnDestroy {
             'club': [""],
             'clubId': ["", Validators.compose([
                 Validators.required])],
-            'isHome': ["", Validators.compose([
+            'isHome': ["true", Validators.compose([
                 Validators.required])],
             'date': ["", Validators.compose([
                 Validators.required])],

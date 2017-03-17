@@ -26,7 +26,7 @@ namespace MyLiverpool.Business.Services
         public async Task<MatchDto> CreateAsync(MatchDto dto)
         {
             var match = _mapper.Map<Match>(dto);
-            match.ClubId = await _clubService.GetIdByNameAsync(dto.ClubName);
+          //  match.ClubId = await _clubService.GetIdByNameAsync(dto.ClubName);
             match = await _matchRepository.AddAsync(match);
             await _matchRepository.SaveChangesAsync();
             dto = _mapper.Map<MatchDto>(match);
