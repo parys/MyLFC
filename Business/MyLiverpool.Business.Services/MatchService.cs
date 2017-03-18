@@ -12,13 +12,17 @@ namespace MyLiverpool.Business.Services
 {
     public class MatchService : IMatchService
     {
+        private const string LiverpoolClubEnglishName = "liverpool";
         private readonly IClubService _clubService;
+        private readonly IClubRepository _clubRepository;
         private readonly IMapper _mapper;
         private readonly IMatchRepository _matchRepository;
 
-        public MatchService(IMatchRepository matchRepository, IMapper mapper, IClubService clubService)
+        public MatchService(IMatchRepository matchRepository, IMapper mapper, IClubService clubService,
+            IClubRepository clubRepository)
         {
             _clubService = clubService;
+            _clubRepository = clubRepository;
             _mapper = mapper;
             _matchRepository = matchRepository;
         }
@@ -54,10 +58,36 @@ namespace MyLiverpool.Business.Services
 
         public async Task<PageableData<MatchDto>> GetListAsync(int page)
         {
-            var clubs = await _matchRepository.GetListAsync(page);
-            var dtos = _mapper.Map<ICollection<MatchDto>>(clubs);
-            var count = await _matchRepository.GetCountAsync();//todo unite two requests
+            var liverpoolClub = await _clubRepository.GetByEnglishName(LiverpoolClubEnglishName);
+            var matches = await _matchRepository.GetListAsync(page);
+            var dtos = new List<MatchDto>();
+            foreach (var match in matches)
+            {
+                var dto = _mapper.Map<MatchDto>(match);
+                if (match.IsHome)
+                {
+                    FillClubsFields(dto, liverpoolClub, match.Club);
+                }
+                else
+                {
+                    FillClubsFields(dto, match.Club, liverpoolClub);
+                }
+                dtos.Add(dto);
+            }
+
+            var count = await _matchRepository.GetCountAsync();
             return new PageableData<MatchDto>(dtos, page, count);
+        }
+
+        private static void FillClubsFields(MatchDto dto, Club homeClub, Club awayClub)
+        {
+            dto.HomeClubId = homeClub.Id;
+            dto.HomeClubName = homeClub.Name;
+            dto.HomeClubLogo = homeClub.Logo;
+            dto.AwayClubId = awayClub.Id;
+            dto.AwayClubName = awayClub.Name;
+            dto.AwayClubLogo = awayClub.Logo;
+            dto.Stadium = homeClub.Stadium;
         }
     }
 }

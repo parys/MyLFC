@@ -13,24 +13,24 @@
         </form>
     </div>
     <div class="top20" *ngFor="let item of items">
-        <div class="panel panel-default">
+        <div class="panel panel-default clearfix">
             <div class="panel-heading">
                 <h3 class="panel-title">
-                    <a [routerLink]="[item.id, 'edit']"><span [textContent]="item.clubName"></span></a>
+                    <a [routerLink]="[item.id, 'edit']"> <span [textContent]="item.dateTime | date:'medium'"></span> - <span [textContent]="item.stadium"></span></a>
                     <span class="col-xs-1 col-sm-1 pull-right">
                         <a ng-click="vm.delete($index)"><span class="glyphicon glyphicon-trash"></span></a>
                     </span>
                 </h3>
             </div>
-            <div class="panel-body">
-                <div [textContent]="item.englishName"></div>
-            </div>
-            <div class="panel-footer">
-                <img [src]="item.logo" />
+            <div class="panel-body col-xs-12 row">
+                <div class="col-xs-4"><img class="club-logo" [src]="item.homeClubLogo"><span [textContent]="item.homeClubName"></span></div>
+                <div class="col-xs-4"></div>
+                <div class="col-xs-4"><img class="club-logo" [src]="item.awayClubLogo"><span [textContent]="item.awayClubName"></span></div>
             </div>
         </div>
     </div>
 </div>
 <div class="pagination">
-    <!--<uib-pagination ng-show="vm.totalItems > vm.itemPerPage" total-items="vm.totalItems" ng-model="vm.page" ng-change="vm.goToPage()"></uib-pagination>-->
+    <pagination *ngIf="items" [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" [(ngModel)]="page" [maxSize]="7" (pageChanged)="pageChanged($event)"
+                previousText="&lsaquo;" nextText="&rsaquo;" firstText="1" lastText="totalItems/itemsPerPage"></pagination>
 </div>

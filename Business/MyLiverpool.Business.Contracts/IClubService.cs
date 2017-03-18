@@ -20,5 +20,6 @@ namespace MyLiverpool.Business.Contracts
         Task<IEnumerable<KeyValuePair<int, string>>> GetClubsByNameWithoutLiverpoolAsync(string typed);
 
         Task<int> GetIdByNameAsync(string name);
+        
     }
 }

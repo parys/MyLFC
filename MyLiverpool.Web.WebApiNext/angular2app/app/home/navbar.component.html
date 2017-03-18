@@ -9,7 +9,7 @@
     </div>
     <div class="navbar-collapse collapse row">
         <ul class="nav navbar-nav">
-            <li><a [routerLink]="['/']">Главная</a></li>
+            <li><a [routerLink]="['/']"><span class="glyphicon glyphicon-home"></span></a></li>
             <li> <a [routerLink]="['/forum']">Форум</a></li>
             <li class="dropdown">
                 <a [routerLink]="['/news']" [queryParams]="{page: 1}" class="dropdown-toggle" data-toggle="">Новости<b class="caret"></b></a>
@@ -65,7 +65,7 @@
                 </ul>
             </li>
             <li>
-                <div style="width: 132px;height: 50px;" class="alert-danger">Обновлено: <b>18.01.17 23:59 МСК</b></div>
+                <div style="width: 132px;height: 50px;" class="alert-danger">Обновлено: <b>18.03.17 16:59 МСК</b></div>
             </li>
         </ul>
         <ul class="nav navbar-nav pull-right">
@@ -84,7 +84,7 @@
                 </a>
             </li>
             <li *ngIf="roles.isLogined">
-                <a [routerLink]="['/user', 0]">Мой профиль</a>
+                <a [routerLink]="['/user', 0]"><span class="glyphicon glyphicon-user"></span></a>
             </li>
             <li *ngIf="roles.isLogined">
                 <a [routerLink]="['/pm']"><span class="glyphicon glyphicon-envelope"></span> Читать л/с <!--(<span ng-bind="vm.unreadPmCount"></span>)--></a>

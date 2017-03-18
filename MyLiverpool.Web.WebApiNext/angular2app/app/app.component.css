@@ -26,6 +26,10 @@ textarea {
     width: 80px;
 }
 
+.club-logo {
+    max-width: 45px;
+}
+
 .center {
     margin: auto;
 }

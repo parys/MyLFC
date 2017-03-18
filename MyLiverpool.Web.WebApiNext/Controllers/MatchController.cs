@@ -64,7 +64,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <param name="page"></param>
         /// <returns></returns>
-        [Authorize, HttpGet("list")]
+        [AllowAnonymous, HttpGet("list")]
         public async Task<IActionResult> GetListAsync([FromQuery]int page = 1)
         {
             if (page < 1)

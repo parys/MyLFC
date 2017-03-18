@@ -83,7 +83,7 @@ export class MatchEditComponent implements OnInit {
         item.isHome = this.editForm.controls["isHome"].value;
         let date = this.editForm.controls["date"].value;
         let time = this.editForm.controls["time"].value;
-        item.dateTime = new Date(date.getYear(), date.getMonth(), date.getDate(), time.getHours(), time.getMinutes());
+        item.dateTime = new Date(date.getFullYear(), date.getMonth(), date.getDate(), time.getHours(), time.getMinutes());
         console.log(date.getFullYear());
         console.log(item.dateTime);
       //?  item.dateTime = this.editForm.controls["dateTime"].value;

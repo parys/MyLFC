@@ -71,7 +71,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
 
         public async Task<Club> GetByEnglishName(string name)
         {
-            return await _context.Clubs.FirstOrDefaultAsync(x => x.EnglishName == name);
+            return await _context.Clubs.FirstOrDefaultAsync(x => x.EnglishName.ToLower() == name.ToLower());
         }
 
         public async Task<IEnumerable<Club>> GetListAsync(int page, int itemPerPage = 15, Expression<Func<Club, bool>> filter = null, SortOrder order = SortOrder.Ascending,
