@@ -87,7 +87,7 @@
                 <a [routerLink]="['/user', 0]"><span class="glyphicon glyphicon-user"></span></a>
             </li>
             <li *ngIf="roles.isLogined">
-                <a [routerLink]="['/pm']"><span class="glyphicon glyphicon-envelope"></span> Читать л/с <!--(<span ng-bind="vm.unreadPmCount"></span>)--></a>
+                <a [routerLink]="['/pm']"><span class="glyphicon glyphicon-envelope"></span> <!--Читать л/с (<span ng-bind="vm.unreadPmCount"></span>)--></a>
             </li>
             <li *ngIf="roles.isLogined">
                 <a role="button" (click)="logout()">Выйти</a>

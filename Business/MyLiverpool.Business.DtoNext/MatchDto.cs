@@ -29,5 +29,7 @@ namespace MyLiverpool.Business.DtoNext
         public string TypeName { get; set; }
 
         public string Stadium { get; set; }
+
+        public string Score { get; set; }
     }
 }

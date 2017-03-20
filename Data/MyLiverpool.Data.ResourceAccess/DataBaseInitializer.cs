@@ -36,6 +36,7 @@ namespace MyLiverpool.Data.ResourceAccess
 
         public async void Seed(bool migrator = false)
         {
+            await InitSeasons();
             if (_context.Roles.Any()) return;
 
             await InitializeRoles();
@@ -1220,6 +1221,15 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
             await _context.SaveChangesAsync();
         }
 
+        private async Task InitSeasons()
+        {
+            var season = new Season()
+            {
+                StartSeasonYear = DateTime.Today.AddYears(-1).Year
+            };
+            await _context.Seasons.AddAsync(season);
+            await _context.SaveChangesAsync();
+        }
         private async Task InitClubs()
         {
             var clubs = _context.Set<Club>();

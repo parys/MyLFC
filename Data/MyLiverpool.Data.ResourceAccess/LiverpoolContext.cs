@@ -36,6 +36,7 @@ namespace MyLiverpool.Data.ResourceAccess
         public DbSet<Match> Matches { get; set; }
         public DbSet<HelpEntity> HelpEntities { get; set; }
         public DbSet<Person> Persons { get; set; }
+        public DbSet<Season> Seasons { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -87,6 +88,8 @@ namespace MyLiverpool.Data.ResourceAccess
                 .HasOne(x => x.Author)
                 .WithMany(x => x.ChatMessages)
                 .HasForeignKey(x => x.AuthorId);
+
+            modelBuilder.Entity<Match>().HasOne(m => m.Season).WithMany(s => s.Matches).HasForeignKey(m => m.SeasonId);
 
             foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
             {
