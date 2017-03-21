@@ -57,11 +57,13 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
 
         public async Task<int> GetCountAsync(Expression<Func<Club, bool>> filter = null)
         {
-            if (filter == null)
+            IQueryable<Club> query = _context.Clubs;
+            if (filter != null)
             {
-                filter = club => true;
+                query = query.Where(filter);
             }
-            return await _context.Clubs.CountAsync(filter);
+
+            return await query.CountAsync();
         }
 
         public Task<IEnumerable<Club>> GetListAsync()

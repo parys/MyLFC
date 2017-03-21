@@ -28,17 +28,26 @@ namespace MyLiverpool.Business.Services
 
         public async Task<SeasonDto> UpdateAsync(SeasonDto dto)
         {
-            throw new NotImplementedException();
+            var model = await _seasonRepository.GetByIdAsync(dto.Id);
+            _seasonRepository.Update(model);
+            await _seasonRepository.SaveChangesAsync();
+            var result = _mapper.Map<SeasonDto>(model);
+            return result;
         }
 
         public async Task<bool> DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            await _seasonRepository.DeleteAsync(id);
+           // var season = await _seasonRepository.GetByIdAsync(id);
+           // if(season.Matches > 0) not delete //todo 
+            return true;
         }
 
         public async Task<SeasonDto> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var model = await _seasonRepository.GetByIdAsync(id);
+            var dto = _mapper.Map<SeasonDto>(model);
+            return dto;
         }
     }
 }

@@ -46,7 +46,8 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
 
         public void Update(ChatMessage entity)
         {
-            throw new NotImplementedException();
+            _context.ChatMessages.Attach(entity);
+            _context.Entry(entity).State = EntityState.Modified;
         }
 
         public async Task SaveChangesAsync()
@@ -54,9 +55,15 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public Task<int> GetCountAsync(Expression<Func<ChatMessage, bool>> filter = null)
+        public async Task<int> GetCountAsync(Expression<Func<ChatMessage, bool>> filter = null)
         {
-            throw new NotImplementedException();
+            IQueryable<ChatMessage> query = _context.ChatMessages;
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+
+            return await query.CountAsync();
         }
 
         public async Task<IEnumerable<ChatMessage>> GetListAsync()

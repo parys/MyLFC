@@ -2,5 +2,6 @@
 {
     public class SeasonDto : IDto
     {
+        public int Id { get; set; }
     }
 }

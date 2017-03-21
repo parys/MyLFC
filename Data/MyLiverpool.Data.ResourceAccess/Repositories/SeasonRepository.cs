@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using MyLiverpool.Data.Entities;
 using MyLiverpool.Data.ResourceAccess.Interfaces;
 
@@ -29,17 +30,23 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
 
         public async Task DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            var entity = await _context.Seasons.FindAsync(id);
+            if (entity != null)
+            {
+                await DeleteAsync(entity);
+            }
         }
 
         public async Task DeleteAsync(Season entity)
         {
-            throw new NotImplementedException();
+            await Task.FromResult(_context.Seasons.Remove(entity));
         }
 
         public void Update(Season entity)
         {
-            throw new NotImplementedException();
+
+            _context.Seasons.Attach(entity);
+            _context.Entry(entity).State = EntityState.Modified;
         }
 
         public async Task SaveChangesAsync()
@@ -49,12 +56,18 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
 
         public async Task<int> GetCountAsync(Expression<Func<Season, bool>> filter = null)
         {
-            throw new NotImplementedException();
+            IQueryable<Season> query = _context.Seasons;
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+
+            return await query.CountAsync();
         }
 
-        public async Task<IEnumerable<Season>> GetListAsync()
+        public Task<IEnumerable<Season>> GetListAsync()
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException(" not need to implement");
         }
     }
 }
