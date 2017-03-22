@@ -40,6 +40,7 @@
                     <li><a [routerLink]="['/calendar']">Календарь</a></li>
                     <!--<li><a [routerLink]="['/season/eplTable']">Полная таблица АПЛ</a></li>-->
                     <li><a [routerLink]="['/player/statistics']">Статистика игроков</a></li>
+                    <li *ngIf="roles.isAdmin"><a [routerLink]="['/season']">Список сезонов</a></li>
                 </ul>
             </li>
             <li class="dropdown">
