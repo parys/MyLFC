@@ -26,7 +26,7 @@
                 </ul>
             </li>
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="">ФК Ливерпуль<b class="caret"></b></a>
+                <a class="dropdown-toggle" data-toggle="">ФК Ливерпуль<b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a [routerLink]="['/clubHistory']">История</a></li>
                     <li><a [routerLink]="['/aboutClub']">О Клубе</a></li>
@@ -35,7 +35,7 @@
                 </ul>
             </li>
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="">Сезон<b class="caret"></b></a>
+                <a class="dropdown-toggle" data-toggle="">Сезон<b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a [routerLink]="['/calendar']">Календарь</a></li>
                     <!--<li><a [routerLink]="['/season/eplTable']">Полная таблица АПЛ</a></li>-->
@@ -54,7 +54,7 @@
             <li><a [routerLink]="['/rules']"><b class="text-danger">Правила</b></a></li>
             <li><a [routerLink]="['/wish']"><b class="text-info">Пожелания</b></a></li>
             <li *ngIf="roles.isAdminAssistant" class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="">Админка<b class="caret"></b></a>
+                <a class="dropdown-toggle" data-toggle="">Админка<b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a [routerLink]="['/match']">Матчи</a></li>
                     <li><a [routerLink]="['/club']">Клубы</a></li>
@@ -63,9 +63,6 @@
                     <li *ngIf="roles.isNewsmaker || roles.isAuthor"> <a [routerLink]="['/image']">Изображения</a></li>
                     <li *ngIf="roles.isLogined"> <a [routerLink]="['/materialComment']">Комментарии</a></li>
                 </ul>
-            </li>
-            <li>
-                <div style="width: 132px;height: 50px;" class="alert-danger">Обновлено: <b>18.03.17 16:59 МСК</b></div>
             </li>
         </ul>
         <ul class="nav navbar-nav pull-right">

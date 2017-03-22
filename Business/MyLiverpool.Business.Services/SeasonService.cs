@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using MyLiverpool.Business.Contracts;
@@ -48,6 +49,13 @@ namespace MyLiverpool.Business.Services
             var model = await _seasonRepository.GetByIdAsync(id);
             var dto = _mapper.Map<SeasonDto>(model);
             return dto;
+        }
+
+        public async Task<ICollection<SeasonDto>> GetListAsync()
+        {
+            var seasons = await _seasonRepository.GetListAsync();
+            var dtos = _mapper.Map<ICollection<SeasonDto>>(seasons);
+            return dtos;
         }
     }
 }

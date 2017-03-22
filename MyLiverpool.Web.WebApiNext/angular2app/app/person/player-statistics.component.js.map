@@ -1,1 +1,0 @@
-{"version":3,"file":"player-statistics.component.js","sourceRoot":"","sources":["player-statistics.component.ts"],"names":[],"mappings":";;;;;;;AAAA,sCAA0C;AAM1C,IAAa,yBAAyB;IAAtC;IAEA,CAAC;IAAD,gCAAC;AAAD,CAAC,AAFD,IAEC;AAFY,yBAAyB;IAJrC,gBAAS,CAAC;QACP,QAAQ,EAAE,qBAAqB;QAC/B,QAAQ,EAAE,OAAO,CAAC,oCAAoC,CAAC;KAC1D,CAAC;GACW,yBAAyB,CAErC;AAFY,8DAAyB"}

@@ -36,7 +36,6 @@ namespace MyLiverpool.Data.ResourceAccess
 
         public async void Seed(bool migrator = false)
         {
-            await InitSeasons();
             if (_context.Roles.Any()) return;
 
             await InitializeRoles();
@@ -62,6 +61,7 @@ namespace MyLiverpool.Data.ResourceAccess
                 await InitializeForumThemes();
             }
 
+            await InitSeasons();
             await InitClubs();
 
             await AddApplication();

@@ -34,7 +34,7 @@ export class MatchService {
     };
 
      getTypes = (): Observable<MatchType[]> => {
-        return this.http.get(this.actionUrl + "/getTypes")
+        return this.http.get(this.actionUrl + "getTypes/")
             .map((res: Response) => res.json());
     };
 

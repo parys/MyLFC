@@ -109,6 +109,7 @@ import { ReCaptchaModule } from "angular2-recaptcha";
         materialComment.MaterialCommentService,
         pm.PmService,
         roleGroup.RoleGroupService,
+        season.SeasonService,
         AdminService,
         { provide: LOCALE_ID, useValue: "ru-RU" },
         Configuration,

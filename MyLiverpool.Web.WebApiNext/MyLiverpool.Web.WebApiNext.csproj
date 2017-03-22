@@ -10,6 +10,7 @@
     <UserSecretsId>aspnet-MyLiverpool.Web.WebApiNext-c05b72c3-6c36-4fb4-b552-b0bedfd1553d</UserSecretsId>
     <PackageTargetFallback>$(PackageTargetFallback);portable-net45+win8;netstandard1.6;dnxcore50</PackageTargetFallback>
     <RuntimeFrameworkVersion>1.1.1</RuntimeFrameworkVersion>
+    <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
   </PropertyGroup>
 
   <ItemGroup>

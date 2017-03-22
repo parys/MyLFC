@@ -65,9 +65,9 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             return await query.CountAsync();
         }
 
-        public Task<IEnumerable<Season>> GetListAsync()
+        public async Task<IEnumerable<Season>> GetListAsync()
         {
-            throw new NotImplementedException(" not need to implement");
+            return await _context.Seasons.ToListAsync();
         }
     }
 }

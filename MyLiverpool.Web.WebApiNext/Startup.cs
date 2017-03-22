@@ -46,7 +46,7 @@ namespace MyLiverpool.Web.WebApiNext
             if (env.IsDevelopment())
             {
                 // For more details on using the user secret store see http://go.microsoft.com/fwlink/?LinkID=532709
-                builder.AddUserSecrets();
+                builder.AddUserSecrets<Startup>();
             }
 
             builder.AddEnvironmentVariables();
@@ -187,7 +187,7 @@ namespace MyLiverpool.Web.WebApiNext
             });
             var context = (LiverpoolContext) services.BuildServiceProvider().GetService(typeof(LiverpoolContext));
             context.Database.Migrate();
-                new DatabaseInitializer(context).Seed();
+            new DatabaseInitializer(context).Seed();
         }
 
         /// <summary>
@@ -280,6 +280,7 @@ namespace MyLiverpool.Web.WebApiNext
             services.AddTransient<IPersonService, PersonService>();
             services.AddTransient<IPmService, PmService>();
             services.AddTransient<IRoleService, RoleService>();
+            services.AddTransient<ISeasonService, SeasonService>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
             services.AddTransient<IUploadService, UploadService>();
             services.AddTransient<IUserService, UserService>();
@@ -305,6 +306,7 @@ namespace MyLiverpool.Web.WebApiNext
             services.AddScoped<IPersonRepository, PersonRepository>();
             services.AddScoped<IPmRepository, PmRepository>();
             services.AddScoped<IRoleGroupRepository, RoleGroupRepository>();
+            services.AddScoped<ISeasonRepository, SeasonRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IWishRepository, WishRepository>();
         }

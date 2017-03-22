@@ -18,11 +18,19 @@
                    autocomplete="off"/>
         </div>
     </div>
-        <div class="form-group">
-            <label class="control-label col-xs-2 col-sm-2"> Категория:</label>
+    <div class="form-group">
+        <label class="control-label col-xs-2 col-sm-2"> Категория:</label>
+        <div class="col-xs-10 col-sm-10">
+            <select class="form-control" formControlName="typeId">
+                <option *ngFor="let type of types" [value]="type.id" [textContent]="type.name"></option>
+            </select>
+        </div>
+    </div>      
+    <div class="form-group">
+            <label class="control-label col-xs-2 col-sm-2"> Сезон:</label>
             <div class="col-xs-10 col-sm-10">
-                <select class="form-control" formControlName="typeId">
-                    <option *ngFor="let type of types" [value]="type.id" [textContent]="type.name"></option>
+                <select class="form-control" formControlName="seasonId">
+                    <option *ngFor="let season of seasons" [value]="season.id" [textContent]="season.startSeasonYear + '-' + season.endSeasonYear"></option>
                 </select>
             </div>
         </div>

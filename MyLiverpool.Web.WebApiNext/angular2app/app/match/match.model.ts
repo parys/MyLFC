@@ -12,4 +12,5 @@
     typeId: number;
     typeName: string;
     stadium: string;
+    seasonId: number;
 }
