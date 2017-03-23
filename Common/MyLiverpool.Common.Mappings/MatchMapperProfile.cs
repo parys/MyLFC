@@ -15,8 +15,8 @@ namespace MyLiverpool.Common.Mappings
         private void RegisterMatchMapper()
         {
             CreateMap<Match, MatchDto>()
-              //  .ForMember(x => x.ClubId, src => src.MapFrom(x => x.ClubId))
-              //  .ForMember(x => x.ClubName, src => src.MapFrom(x => x.Club.Name))
+                .ForMember(x => x.ClubId, src => src.MapFrom(x => x.ClubId))
+                .ForMember(x => x.ClubName, src => src.MapFrom(x => x.Club.Name))
                 .ForMember(x => x.DateTime, src => src.MapFrom(x => x.DateTime))
                 .ForMember(x => x.Id, src => src.MapFrom(x => x.Id))
                 .ForMember(x => x.IsHome, src => src.MapFrom(x => x.IsHome))

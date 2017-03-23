@@ -10,6 +10,8 @@ namespace MyLiverpool.Business.DtoNext
 
         public int ClubId { get; set; }
 
+        public string ClubName { get; set; }
+
         public int HomeClubId { get; set; }
 
         public string HomeClubName { get; set; }

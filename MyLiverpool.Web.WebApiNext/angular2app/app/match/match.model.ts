@@ -2,6 +2,7 @@
     id: number;
     isHome: boolean;
     clubId: number;
+    clubName: string;
     homeClubId: number;
     homeClubName: string;
     homeClubLogo: string;

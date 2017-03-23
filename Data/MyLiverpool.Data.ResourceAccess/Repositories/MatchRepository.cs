@@ -21,7 +21,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
 
         public async Task<Match> GetByIdAsync(int id)
         {
-            return await _context.Matches.FindAsync(id);
+            return await _context.Matches.Include(m => m.Club).FirstOrDefaultAsync(m => m.Id == id);
         }
 
         public async Task<Match> AddAsync(Match entity)

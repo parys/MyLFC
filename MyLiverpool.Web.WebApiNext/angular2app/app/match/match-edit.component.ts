@@ -74,6 +74,8 @@ export class MatchEditComponent implements OnInit {
     private parse(data: Match): void {
         this.id = data.id;
         this.editForm.patchValue(data);
+        this.editForm.get("date").patchValue(data.dateTime);
+        this.editForm.get("time").patchValue(data.dateTime);
     }
 
     private parseForm(): Match {
@@ -94,7 +96,7 @@ export class MatchEditComponent implements OnInit {
 
     private initForm(): void {
         this.editForm = this.formBuilder.group({
-            'club': [""],
+            'clubName': [""],
             'clubId': ["", Validators.required],
             'seasonId': ["", Validators.required],
             'isHome': ["true", Validators.required],
