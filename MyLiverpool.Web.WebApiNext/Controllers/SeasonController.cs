@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyLiverpool.Business.Contracts;
+using MyLiverpool.Business.DtoNext;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
@@ -30,6 +31,63 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         public async Task<IActionResult> GetListAsync()
         {
             var result = await _seasonService.GetListAsync();
+            return Json(result);
+        }
+
+        /// <summary>
+        /// Returns season by id.
+        /// </summary>
+        /// <param name="id">The identifier of season.</param>
+        /// <returns>Founded season by id.</returns>
+        [AllowAnonymous, Route("{id:int}")]
+        public async Task<IActionResult> GetAsync(int id)
+        {
+            var result = await _seasonService.GetByIdAsync(id);
+            return Json(result);
+        }
+
+        /// <summary>
+        /// Creates new season.
+        /// </summary>
+        /// <param name="dto">Filled dto for new season.</param>
+        /// <returns>Created season object</returns>
+        [Authorize(), HttpPost("")]
+        public async Task<IActionResult> CreateAsync([FromBody] SeasonDto dto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(dto);
+            }
+            var result = await _seasonService.CreateAsync(dto);
+            return Json(result);
+        }
+
+        /// <summary>
+        /// Updates season.
+        /// </summary>
+        /// <param name="id">The identifier of updatable object.</param>
+        /// <param name="dto">Filled dto contains new values.</param>
+        /// <returns>Updated season object.</returns>
+        [Authorize(), HttpPut("{id:int}")]
+        public async Task<IActionResult> UpdateAsync(int id, [FromBody] SeasonDto dto)
+        {
+            if (!ModelState.IsValid || id != dto.Id)
+            {
+                return BadRequest();
+            }
+            var result = await _seasonService.UpdateAsync(dto);
+            return Json(result);
+        }
+
+        /// <summary>
+        /// Deletes season.
+        /// </summary>
+        /// <param name="id">The identifier of removing object.</param>
+        /// <returns>Result of deleting season.</returns>
+        [Authorize(), HttpDelete("{id:int}")]
+        public async Task<IActionResult> DeletAsync(int id)
+        {
+            var result = await _seasonService.DeleteAsync(id);
             return Ok(result);
         }
     }

@@ -2,7 +2,7 @@
     <a [routerLink]="[0, 'edit']">Добавить сезон</a>
     <ul *ngFor="let season of seasons; let i = index;">
         <li>
-            <a>
+            <a [routerLink]="[season.id, 'edit']">
                 <span [textContent]="season.startSeasonYear + '-' + season.endSeasonYear"></span>
             </a>
             <!--<span *ngIf="roles.isEditor">

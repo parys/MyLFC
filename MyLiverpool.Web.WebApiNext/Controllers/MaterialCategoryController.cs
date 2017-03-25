@@ -101,7 +101,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <param name="id">The identifier of removing object.</param>
         /// <returns>Result of deleting.</returns>
         [Authorize(Roles = nameof(RolesEnum.NewsFull) + "," + nameof(RolesEnum.BlogFull)), HttpDelete("{id:int}")]
-        public async Task<IActionResult> DeletAsync(int id)
+        public async Task<IActionResult> DeleteAsync(int id)
         {
             var result = await _materialCategoryService.DeleteAsync(id);
             return Ok(result);

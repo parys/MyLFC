@@ -1,6 +1,5 @@
 ﻿<form class="form-horizontal" name="editForm" role="form" [formGroup]="editForm" (ngSubmit)="onSubmit(editForm.value)">
     <div class="form-group">
-        {{editForm.value |json}}
         <label class="control-label col-md-2">Cоперник</label>
         <div class="col-md-10">
             <input (valueChanged)="updateClub($event)"

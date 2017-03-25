@@ -24,6 +24,7 @@ namespace MyLiverpool.Business.Services
         {
             var model = _mapper.Map<Season>(dto);
             var result = await _seasonRepository.AddAsync(model);
+            await _seasonRepository.SaveChangesAsync();
             return _mapper.Map<SeasonDto>(result);
         }
 

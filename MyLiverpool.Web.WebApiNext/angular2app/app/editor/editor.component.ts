@@ -89,6 +89,11 @@ export class EditorComponent implements ControlValueAccessor {
                 searchreplace visualblocks code fullscreen
                 insertdatetime media table contextmenu paste code emoticons`;
         }
+        if (this.type === 3) {
+            return `autolink autoresize lists link charmap print anchor
+                visualblocks code
+                insertdatetime media table paste code emoticons`;
+        }
         return "";
     }
 
@@ -98,6 +103,9 @@ export class EditorComponent implements ControlValueAccessor {
         }
         if (this.type === 2) {
             return `undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image emoticons fullscreen`;
+        }
+        if (this.type === 3) {
+            return `styleselect | bold italic | link image emoticons`;
         }
         return "";
     }

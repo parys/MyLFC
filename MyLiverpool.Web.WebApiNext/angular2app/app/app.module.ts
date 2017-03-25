@@ -86,6 +86,7 @@ import { ReCaptchaModule } from "angular2-recaptcha";
         pm.PmReplyComponent,
         roleGroup.RoleGroupListComponent,
         season.SeasonEplTableComponent,
+        season.SeasonEditComponent,
         season.SeasonListComponent,
         AppComponent,
         EplTableComponent,

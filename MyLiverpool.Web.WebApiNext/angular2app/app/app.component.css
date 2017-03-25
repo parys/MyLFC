@@ -26,6 +26,29 @@ textarea {
     width: 80px;
 }
 
+.block-minichat {
+    background-color: grey;
+    border-radius: 10px;
+}
+
+.blockcontent-inside {
+    margin-left: 0px;
+    padding: 1px 7px;
+}
+
+.blocktitle {
+    text-transform: uppercase;
+    color: orange;
+}
+
+.chat-message {
+    padding: 0 5px 5px 5px;
+    margin-bottom: 3px;
+    background: #e5e5e5;
+    border: 1px solid #cdcdcd;
+    border-radius: 5px;
+} 
+
 .club-logo {
     max-width: 45px;
 }

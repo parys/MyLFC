@@ -67,7 +67,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
 
         public async Task<IEnumerable<Season>> GetListAsync()
         {
-            return await _context.Seasons.ToListAsync();
+            return await _context.Seasons.OrderBy(s => s.StartSeasonYear).ToListAsync();
         }
     }
 }
