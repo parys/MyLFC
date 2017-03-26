@@ -25,6 +25,7 @@ namespace MyLiverpool.Common.Mappings
                 .ForMember(dest => dest.Pending, src => src.MapFrom(x => x.Pending))
                 .ForMember(dest => dest.Title, src => src.MapFrom(x => x.Title))
                 .ForMember(dest => dest.PhotoPath, src => src.MapFrom(x => x.PhotoPath))
+                .ForMember(dest => dest.Type, src => src.MapFrom(x => x.Type))
                 .ForMember(dest => dest.Reads, src => src.MapFrom(x => x.Reads));
 
             CreateMap<Material, MaterialDto>()

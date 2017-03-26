@@ -1,4 +1,8 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using MyLiverpool.Data.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -37,6 +41,24 @@ namespace MyLiverpool.Data.ResourceAccess
         public DbSet<HelpEntity> HelpEntities { get; set; }
         public DbSet<Person> Persons { get; set; }
         public DbSet<Season> Seasons { get; set; }
+
+        //public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+        //{
+        //    var en = ChangeTracker.Entries();
+        //    var entities = (from entry in ChangeTracker.Entries()
+        //                    where entry.State == EntityState.Modified || entry.State == EntityState.Added
+        //                    select entry.Entity);
+
+        //    var validationResults = new List<ValidationResult>();
+        //    foreach (var entity in entities)
+        //    {
+        //        if (!Validator.TryValidateObject(entity, new ValidationContext(entity), validationResults))
+        //        {
+        //            // throw new ValidationException() or do whatever you want
+        //        }
+        //    }
+        //    return base.SaveChangesAsync(cancellationToken);
+        //}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -105,7 +127,7 @@ namespace MyLiverpool.Data.ResourceAccess
             {
                 modelBuilder.UseOpenIddict<int>();
                 modelBuilder.UseSqlServer(
-                    "Server=(localdb)\\MSSQLLocalDB;Database=MyLiverpool1123;Trusted_Connection=True;MultipleActiveResultSets=true");
+                    "Server=User-pc;Database=MyLiverpool1123;Trusted_Connection=True;MultipleActiveResultSets=true");
             }
             base.OnConfiguring(modelBuilder);
         }

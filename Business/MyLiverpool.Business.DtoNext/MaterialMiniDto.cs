@@ -1,5 +1,6 @@
 ﻿using System;
 using MyLiverpool.Business.DTO;
+using MyLiverpool.Data.Common;
 
 namespace MyLiverpool.Business.DtoNext
 {
@@ -33,6 +34,8 @@ namespace MyLiverpool.Business.DtoNext
         //     public string Source { get; set; }
 
         public string PhotoPath { get; set; }
+
+        public MaterialType Type { get; set; }
 
         //   public DateTime LastModified { get; set; }
     }
