@@ -21,17 +21,17 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <summary>
         /// Constructor.
         /// </summary>
-        /// <param name="matchService"></param>
+        /// <param name="matchService">Injected value.</param>
         public MatchController(IMatchService matchService)
         {
             _matchService = matchService;
         }
 
         /// <summary>
-        /// 
+        /// Creates new match.
         /// </summary>
-        /// <param name="dto"></param>
-        /// <returns></returns>
+        /// <param name="dto">Filled match model.</param>
+        /// <returns>Created entity.</returns>
         [Authorize(Roles = nameof(RolesEnum.AdminStart)), HttpPost("")]
         public async Task<IActionResult> CreateAsync([FromBody]MatchDto dto)
         {
@@ -44,10 +44,27 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Updates match.
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        /// <param name="id">The identifier of entity.</param>
+        /// <param name="dto">Updated match dto.</param>
+        /// <returns>Updated entity.</returns>
+        [Authorize(Roles = nameof(RolesEnum.AdminStart)), HttpPut("{id:int}")]
+        public async Task<IActionResult> UpdateAsync(int id, [FromBody]MatchDto dto)
+        {
+            if (!ModelState.IsValid || id != dto.Id)
+            {
+                return BadRequest();
+            }
+            var result = await _matchService.UpdateAsync(dto);
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// Returns match by id.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>Found match entity.</returns>
         [Authorize, HttpGet("{id:int}")]
         public async Task<IActionResult> GetAsync(int id)
         {
@@ -60,10 +77,10 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Returns match list.
         /// </summary>
-        /// <param name="page"></param>
-        /// <returns></returns>
+        /// <param name="page">The page of match list.</param>
+        /// <returns>Selected page match list.</returns>
         [AllowAnonymous, HttpGet("list")]
         public async Task<IActionResult> GetListAsync([FromQuery]int page = 1)
         {

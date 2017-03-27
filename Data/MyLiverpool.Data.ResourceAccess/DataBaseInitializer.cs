@@ -86,50 +86,60 @@ namespace MyLiverpool.Data.ResourceAccess
                 },
                 new RoleGroup()
                 {
-                    Name = RoleGroupsEnum.Simple.ToString(),
-                    RussianName = "Юзверь",
-                },
-
-                new RoleGroup()
-                {
-                    Name = RoleGroupsEnum.MainNewsmaker.ToString(),
+                    Name = RoleGroupsEnum.MainNewsmaker.ToString(), //3
                     RussianName = "главноый ньюс"
                 },
                 new RoleGroup()
                 {
-                    Name = RoleGroupsEnum.Newsmaker.ToString(),//5
+                    Name = RoleGroupsEnum.Newsmaker.ToString(),//4
                     RussianName = "Ньюс"
                 },
                 new RoleGroup()
                 {
-                    Name = RoleGroupsEnum.Editor.ToString(),//6
+                    Name = RoleGroupsEnum.Editor.ToString(),//5
                     RussianName = "Редактор"
                 },
                 new RoleGroup()
                 {
-                    Name = RoleGroupsEnum.MainEditor.ToString(),//7
+                    Name = RoleGroupsEnum.MainEditor.ToString(),//6
                     RussianName = "Главный редактор"
                 },
                 new RoleGroup()
                 {
-                    Name = RoleGroupsEnum.Intern.ToString(),//8
+                    Name = RoleGroupsEnum.Intern.ToString(),//7
                     RussianName = "Стажер"
                 },
                 new RoleGroup()
                 {
-                    Name = RoleGroupsEnum.Moderator.ToString(),//9
+                    Name = RoleGroupsEnum.Moderator.ToString(),//8
                     RussianName = "Модератор"
                 },
                 new RoleGroup()
                 {
-                    Name = RoleGroupsEnum.MainModerator.ToString(),
+                    Name = RoleGroupsEnum.MainModerator.ToString(), //9
                     RussianName = "Главный модаратор",
                 },
                 new RoleGroup()
                 {
-                    Name = RoleGroupsEnum.Author.ToString(),//11
+                    Name = RoleGroupsEnum.Author.ToString(),//10
                     RussianName = "Автор"
                 },
+                new RoleGroup()
+                {
+                    Name = RoleGroupsEnum.Simple.ToString(), //11
+                    RussianName = "Юзверь",
+                },
+                new RoleGroup()
+                {
+                    Name = RoleGroupsEnum.ForumModerator.ToString(),//12
+                    RussianName = "Модератор форума"
+                },
+                new RoleGroup()
+                {
+                    Name = RoleGroupsEnum.ForumMainModerator.ToString(), //13
+                    RussianName = "Главный модератор форума",
+                },
+
             };
             roleGroups.ForEach(x => _context.RoleGroups.Add(x));
             // roles.ForEach(x => roleManager.Create(x));
@@ -145,51 +155,51 @@ namespace MyLiverpool.Data.ResourceAccess
 
             var roles = new List<Role>()
             {
-                new Role() //1
+                new Role() //0
                 {
                     Name = RolesEnum.Simple.ToString(),
                 },
-                new Role()
+                new Role()//1
+                {
+                    Name = RolesEnum.NewsStart.ToString(),
+                },
+                new Role() //2
                 {
                     Name = RolesEnum.NewsFull.ToString(),
                 },
                 new Role()//3
                 {
-                    Name = RolesEnum.NewsStart.ToString(),
+                    Name = RolesEnum.BlogStart.ToString(),
                 },
-                new Role()
+                new Role() //4
                 {
                     Name = RolesEnum.BlogFull.ToString(),
                 },
                 new Role()//5
                 {
-                    Name = RolesEnum.BlogStart.ToString(),
+                    Name = RolesEnum.UserStart.ToString(),
                 },
-                new Role()
+                new Role()//6
                 {
                     Name = RolesEnum.UserFull.ToString(),
                 },
                 new Role()//7
                 {
-                    Name = RolesEnum.UserStart.ToString(),
+                    Name = RolesEnum.AdminStart.ToString(),
                 },
-                new Role()
+                new Role()//8
                 {
                     Name = RolesEnum.AdminFull.ToString(),
                 },
                 new Role()//9
                 {
-                    Name = RolesEnum.AdminStart.ToString(),
-                },
-                new Role()
-                {
                     Name = RolesEnum.ForumStart.ToString(),
                 },
-                new Role()//11
+                new Role()//10
                 {
                     Name = RolesEnum.ForumFull.ToString(),
                 },
-                new Role()//12
+                new Role()//11
                 {
                     Name = RolesEnum.Intern.ToString(),
                 },

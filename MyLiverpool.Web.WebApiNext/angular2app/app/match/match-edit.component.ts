@@ -62,7 +62,7 @@ export class MatchEditComponent implements OnInit {
     updateClub(club: any) {
         if (club) {
             this.editForm.get("clubId").patchValue(club.key);
-            this.editForm.get("club").patchValue(club.value);
+            this.editForm.get("clubName").patchValue(club.value);
         }
     }
 
@@ -74,8 +74,8 @@ export class MatchEditComponent implements OnInit {
     private parse(data: Match): void {
         this.id = data.id;
         this.editForm.patchValue(data);
-        this.editForm.get("date").patchValue(data.dateTime);
-        this.editForm.get("time").patchValue(data.dateTime);
+        this.editForm.get("date").patchValue(new Date(data.dateTime));
+        this.editForm.get("time").patchValue(new Date(data.dateTime));
     }
 
     private parseForm(): Match {
@@ -86,8 +86,6 @@ export class MatchEditComponent implements OnInit {
         let date = this.editForm.controls["date"].value;
         let time = this.editForm.controls["time"].value;
         item.dateTime = new Date(date.getFullYear(), date.getMonth(), date.getDate(), time.getHours(), time.getMinutes());
-
-      //?  item.dateTime = this.editForm.controls["dateTime"].value;
         item.typeId = this.editForm.controls["typeId"].value;
         item.seasonId = this.editForm.controls["seasonId"].value;
 

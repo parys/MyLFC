@@ -18,7 +18,7 @@
                 <a [routerLink]="[+item.type === 1 ? '/news' : '/blog', item.id]" class="col-xs-9 col-sm-9"><h4 [textContent]="item.title"></h4></a> <!-- need to think about it from root-->
                 <span class="col-xs-3 col-sm-3 pull-right" *ngIf="roles.isEditor || roles.isSelf(item.userId)">
                     <a role="button" *ngIf="item.pending && roles.isEditor" (click)="showActivateModal(i)"><span class="glyphicon glyphicon-ok"></span></a>
-                    <a [routerLink]="[item.type == 1 ? '/news' : '/blog', item.id, 'edit']"><span class="glyphicon glyphicon-pencil"></span></a> <!-- need to think about it from root-->
+                    <a [routerLink]="[+item.type === 1 ? '/news' : '/blog', item.id, 'edit']"><span class="glyphicon glyphicon-pencil"></span></a> <!-- need to think about it from root-->
                     <a role="button" (click)="showDeleteModal(i)"><span class="glyphicon glyphicon-trash"></span></a>
                 </span>
             </div>

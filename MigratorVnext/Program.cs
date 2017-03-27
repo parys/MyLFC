@@ -793,6 +793,10 @@ namespace MigratorVnext
                     var category = categories.FirstOrDefault(x => x.OldId == int.Parse(categoryId)) ?? categories.FirstOrDefault(x => x.OldId == 1 && x.MaterialType == MaterialType.Blog);
 
                     blogItem.CategoryId = category.Id;
+                    if (blogItem.PhotoPath == null)
+                    {
+                        blogItem.PhotoPath = GetFirstImagePath(blogItem.Message);
+                    }
                     //   category.BlogItems.Add(blogItem);
                     var result = MaterialRepository.AddAsync(blogItem).Result;
                     //  }
@@ -994,10 +998,6 @@ namespace MigratorVnext
                     // files
                     bool notExit = false;
 
-                    if (newsItem.OldId == 7158)
-                    {
-                        var c = 1;
-                    }
                     while (chars[i] != '|' || notExit)
                     {
                         notExit = false;
@@ -1148,7 +1148,10 @@ namespace MigratorVnext
                     //{
                     var category = categories.FirstOrDefault(x => x.OldId == int.Parse(categoryId)) ?? categories.First(x => x.OldId == 5 && x.MaterialType == MaterialType.News); //old new doesn't contain category
                     newsItem.CategoryId = category.Id;
-
+                    if (newsItem.PhotoPath == null)
+                    {
+                        newsItem.PhotoPath = GetFirstImagePath(newsItem.Message);
+                    }
                     //  category.Materials.Add(newsItem);
                     var result = MaterialRepository.AddAsync(newsItem).Result;
                     // }
@@ -1521,6 +1524,7 @@ namespace MigratorVnext
                   //  comment.Material.Comments.Add(comment);
                     if (pending == '1')
                         comment.Pending = true;
+                    comment.IsVerified = true;
                     comment.AdditionTime = DateTimeHelpers.ConvertUtcToLocalTime(long.Parse(additionTime));
                     User author = null;
                     if (!string.IsNullOrEmpty(userName))
@@ -2117,9 +2121,22 @@ namespace MigratorVnext
 
         #endregion
 
+        //private static void UpdatePhotoForAlreadyMigratedMaterials()
+        //{
+        //    foreach (var VARIABLE in MaterialRepository.)
+        //    {
+                
+        //    }
+        //}
+
         private static LiverpoolContext GetNewContext()
         {
             return new LiverpoolContext(new DbContextOptions<LiverpoolContext>(), true);
+        }
+
+        private static string GetFirstImagePath(string message)
+        {
+            return Regex.Match(message, "<img.+?src=[\"'](.+?)[\"'].+?>", RegexOptions.IgnoreCase).Groups[1].Value;
         }
 
         private static T[] SubArray<T>(T[] data, int index, int length)

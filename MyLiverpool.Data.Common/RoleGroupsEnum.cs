@@ -9,7 +9,7 @@
         Editor = 5,
         MainEditor = 6,
         Intern = 7,
-        Moderator =8,
+        Moderator = 8,
         MainModerator = 9,
         Author = 10,
         Simple = 11,
