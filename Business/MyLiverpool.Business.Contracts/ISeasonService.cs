@@ -7,5 +7,7 @@ namespace MyLiverpool.Business.Contracts
     public interface ISeasonService : IEntityService<SeasonDto>
     {
         Task<ICollection<SeasonDto>> GetListAsync();
+
+        Task<SeasonDto> GetByIdWithMatchesAsync(int id);
     }
 }

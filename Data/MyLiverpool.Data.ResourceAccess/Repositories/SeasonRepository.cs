@@ -69,5 +69,10 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
         {
             return await _context.Seasons.OrderBy(s => s.StartSeasonYear).ToListAsync();
         }
+
+        public async Task<Season> GetLatestSeason()
+        {
+            return await _context.Seasons.OrderBy(s => s.StartSeasonYear).LastOrDefaultAsync();
+        }
     }
 }

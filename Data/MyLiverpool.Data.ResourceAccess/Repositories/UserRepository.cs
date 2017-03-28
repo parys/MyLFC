@@ -221,5 +221,10 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
         {
             throw new NotImplementedException("Not need to implement");
         }
+
+        public async Task<User> GetByIdFromManagerAsync(int userId)
+        {
+            return await _userManager.FindByIdAsync(userId.ToString());
+        }
     }
 }

@@ -33,4 +33,9 @@ export class SeasonService {
     delete = (id: number): Observable<boolean> => {
         return this.http.delete(this.actionUrl + id).map((response: Response) => response.json());
     };
+
+    getSingleWithMatches = (seasonId: number) => {
+        return this.http.get(`${this.actionUrl}getWithMatches/${seasonId}`)
+            .map((response: Response) => response.json());
+    }
 }

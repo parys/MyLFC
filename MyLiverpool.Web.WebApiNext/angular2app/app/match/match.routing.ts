@@ -1,5 +1,5 @@
 ﻿import { Routes } from "@angular/router";
-import { MatchListComponent, MatchEditComponent, MatchCalendarComponent } from "./index";
+import { MatchListComponent, MatchEditComponent } from "./index";
 import { RoleGuard } from "../auth/index";
 
 export const matchRoutes: Routes = [
@@ -18,6 +18,5 @@ export const matchRoutes: Routes = [
                 canActivate: [RoleGuard]
             }
         ]
-    },
-    { path: "calendar", component: MatchCalendarComponent, data: { title: "Календарь" } }
+    }
 ];

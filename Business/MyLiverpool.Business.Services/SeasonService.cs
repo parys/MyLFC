@@ -13,11 +13,13 @@ namespace MyLiverpool.Business.Services
     {
         private readonly IMapper _mapper;
         private readonly ISeasonRepository _seasonRepository;
+        private readonly IMatchService _matchService;
 
-        public SeasonService(IMapper mapper, ISeasonRepository seasonRepository)
+        public SeasonService(IMapper mapper, ISeasonRepository seasonRepository, IMatchService matchService)
         {
             _mapper = mapper;
             _seasonRepository = seasonRepository;
+            _matchService = matchService;
         }
 
         public async Task<SeasonDto> CreateAsync(SeasonDto dto)
@@ -57,6 +59,26 @@ namespace MyLiverpool.Business.Services
             var seasons = await _seasonRepository.GetListAsync();
             var dtos = _mapper.Map<ICollection<SeasonDto>>(seasons);
             return dtos;
+        }
+
+        public async Task<SeasonDto> GetByIdWithMatchesAsync(int id)
+        {
+            Season season;
+            if (id == 0)
+            {
+                season = await _seasonRepository.GetLatestSeason();
+            }
+            else
+            {
+                season = await _seasonRepository.GetByIdAsync(id);
+            }
+            if (season == null)
+            {
+                return null;
+            }
+            var seasonDto = _mapper.Map<SeasonDto>(season);
+            seasonDto.Matches = await _matchService.GetListForSeasonAsync(season.Id);
+            return seasonDto;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -51,7 +52,12 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             {
                 id = User.GetUserId();
             }
-            return Ok(await _userService.GetUserAsync(id));
+            var user = await _userService.GetUserAsync(id);
+            if (!User.IsInRole(nameof(RolesEnum.AdminFull)) && !User.IsInRole(nameof(RolesEnum.AdminStart)))
+            {
+                user.Email = string.Empty;
+            }
+            return Json(user);
         }
 
         /// <summary>
@@ -68,7 +74,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             }
             UserFiltersDto obj = Newtonsoft.Json.JsonConvert.DeserializeObject<UserFiltersDto>(dto); 
             var model = await _userService.GetUsersDtoAsync(obj);
-            return Ok(model);
+            return Json(model);
         }
 
         /// <summary>

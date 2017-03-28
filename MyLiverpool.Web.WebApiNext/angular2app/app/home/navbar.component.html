@@ -7,8 +7,8 @@
         </button>
         <!--<a [routerLink]="['/']" class="navbar-brand">Название сайта</a>-->
     </div>
-    <div class="navbar-collapse collapse row">
-        <ul class="nav navbar-nav">
+    <div class="navbar-collapse collapse row" style="margin-right: 0; padding-right: 0;"> <!--todo need some research-->
+        <ul class="nav navbar-nav col-xs-12">
             <li><a [routerLink]="['/']"><span class="glyphicon glyphicon-home"></span></a></li>
             <li> <a [routerLink]="['/forum']">Форум</a></li>
             <li class="dropdown">
@@ -37,10 +37,10 @@
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="">Сезон<b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                    <li><a [routerLink]="['/calendar']">Календарь</a></li>
+                    <li><a [routerLink]="['/seasons/calendar']">Календарь</a></li>
                     <!--<li><a [routerLink]="['/season/eplTable']">Полная таблица АПЛ</a></li>-->
                     <li><a [routerLink]="['/player/statistics']">Статистика игроков</a></li>
-                    <li *ngIf="roles.isAdmin"><a [routerLink]="['/season']">Список сезонов</a></li>
+                    <li *ngIf="roles.isAdmin"><a [routerLink]="['/seasons']">Список сезонов</a></li>
                 </ul>
             </li>
             <li class="dropdown">
@@ -65,31 +65,34 @@
                     <li *ngIf="roles.isLogined"> <a [routerLink]="['/materialComment']">Комментарии</a></li>
                 </ul>
             </li>
+            <li class="pull-right">
+                <ul class="nav navbar-nav pull-right" style="padding-right: 0;"> <!--todo need some research-->>
+                    <li *ngIf="!roles.isLogined">
+                        <account-signin></account-signin>
+                    </li>
+                    <li *ngIf="!roles.isLogined">
+                        <a [routerLink]="['/forgotPassword']"><span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="bottom" title="Забыли пароль?"></span></a>
+                    </li>
+                    <li *ngIf="!roles.isLogined">
+                        <a [routerLink]="['/signup']">Регистрация</a>
+                    </li>
+                    <li *ngIf="roles.isLogined">
+                        <a [routerLink]="['/user', 0]" class="padding0">
+                            <!--<img class="nav-avatar" ng-src="{$root.userImage}}" alt=""/>-->
+                        </a>
+                    </li>
+                    <li *ngIf="roles.isLogined">
+                        <a [routerLink]="['/user', 0]"><span class="glyphicon glyphicon-user"></span></a>
+                    </li>
+                    <li *ngIf="roles.isLogined">
+                        <a [routerLink]="['/pm']"><span class="glyphicon glyphicon-envelope"></span> <!--Читать л/с (<span ng-bind="vm.unreadPmCount"></span>)--></a>
+                    </li>
+                    <li *ngIf="roles.isLogined">
+                        <a role="button" (click)="logout()">Выйти</a>
+                    </li>
+                </ul>
+            </li>
         </ul>
-        <ul class="nav navbar-nav pull-right">
-            <li *ngIf="!roles.isLogined">
-                <account-signin></account-signin>
-            </li>
-            <li *ngIf="!roles.isLogined">
-                <a [routerLink]="['/forgotPassword']"><span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="bottom" title="Забыли пароль?"></span></a>
-            </li>
-            <li *ngIf="!roles.isLogined">
-                <a [routerLink]="['/signup']">Регистрация</a>
-            </li>
-            <li *ngIf="roles.isLogined">
-                <a [routerLink]="['/user', 0]" class="padding0">
-                    <!--<img class="nav-avatar" ng-src="{$root.userImage}}" alt=""/>-->
-                </a>
-            </li>
-            <li *ngIf="roles.isLogined">
-                <a [routerLink]="['/user', 0]"><span class="glyphicon glyphicon-user"></span></a>
-            </li>
-            <li *ngIf="roles.isLogined">
-                <a [routerLink]="['/pm']"><span class="glyphicon glyphicon-envelope"></span> <!--Читать л/с (<span ng-bind="vm.unreadPmCount"></span>)--></a>
-            </li>
-            <li *ngIf="roles.isLogined">
-                <a role="button" (click)="logout()">Выйти</a>
-            </li>
-        </ul>
+        
     </div>
 </nav>

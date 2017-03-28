@@ -47,5 +47,7 @@ namespace MyLiverpool.Data.ResourceAccess.Interfaces
         Task<string> GeneratePasswordResetTokenAsync(int userId);
 
         Task<IdentityResult> CreateAsync(User user, string password);
+
+        Task<User> GetByIdFromManagerAsync(int userId);
     }
 }

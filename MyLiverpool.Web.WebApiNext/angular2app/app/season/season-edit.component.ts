@@ -20,7 +20,7 @@ export class SeasonEditComponent implements OnInit {
         private route: ActivatedRoute) {
     }
 
-    ngOnInit() {
+    ngOnInit() : void {
         this.editForm = this.formBuilder.group({
             'startSeasonYear': ["", Validators.required]
         });
@@ -44,6 +44,6 @@ export class SeasonEditComponent implements OnInit {
         } else {
             this.service.create(model).subscribe(data => res = data);
         }
-        this.router.navigate(["/season"]);
+        this.router.navigate(["/seasons"]);
     }
 }

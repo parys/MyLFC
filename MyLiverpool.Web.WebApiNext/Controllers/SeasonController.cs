@@ -39,10 +39,22 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <param name="id">The identifier of season.</param>
         /// <returns>Founded season by id.</returns>
-        [AllowAnonymous, Route("{id:int}")]
+        [AllowAnonymous, HttpGet("{id:int}")]
         public async Task<IActionResult> GetAsync(int id)
         {
             var result = await _seasonService.GetByIdAsync(id);
+            return Json(result);
+        }
+
+        /// <summary>
+        /// Returns season by id with matches.
+        /// </summary>
+        /// <param name="id">The identifier of season.</param>
+        /// <returns>Founded season by id.</returns>
+        [AllowAnonymous, HttpGet("getWithMatches/{id:int}")]
+        public async Task<IActionResult> GetWithMatchesAsync(int id)
+        {
+            var result = await _seasonService.GetByIdWithMatchesAsync(id);
             return Json(result);
         }
 

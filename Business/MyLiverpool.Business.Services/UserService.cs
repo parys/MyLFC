@@ -70,7 +70,7 @@ namespace MyLiverpool.Business.Services
 
         public async Task<bool> EditRoleGroupAsync(int userId, int roleGroupId)
         {
-            var user = await _userRepository.GetByIdAsync(userId);
+            var user = await _userRepository.GetByIdFromManagerAsync(userId);
             var oldRoleGroup = await _roleGroupRepository.GetByIdAsync(user.RoleGroupId);
             var newRoleGroup = await _roleGroupRepository.GetByIdAsync(roleGroupId);
             var rolesToDelete = GetRolesToDelete(oldRoleGroup.RoleGroups.Select(x => x.Role), newRoleGroup.RoleGroups.Select(x => x.Role));
@@ -107,13 +107,13 @@ namespace MyLiverpool.Business.Services
 
         public async Task<string> GetPhotoPathAsync(int userId)
         {
-            var user = await _userRepository.GetByIdAsync(userId);
+            var user = await _userRepository.GetByIdFromManagerAsync(userId);
             return user.Photo;
         }
 
         public async Task<bool> UpdatePhotoPathAsync(int userId, string photo)
         {
-            var user = await _userRepository.GetByIdAsync(userId);
+            var user = await _userRepository.GetByIdFromManagerAsync(userId);
             user.Photo = photo;
             var result = await _userRepository.UpdateAsync(user);
             return true;
@@ -154,7 +154,7 @@ namespace MyLiverpool.Business.Services
 
         public async Task<string> ResetAvatarAsync(int userId)
         {
-            var user = await _userRepository.GetByIdAsync(userId);
+            var user = await _userRepository.GetByIdFromManagerAsync(userId);
             if (user == null)
             {
                 throw new NullReferenceException("User can't be null");

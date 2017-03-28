@@ -1,9 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.DtoNext;
 using MyLiverpool.Common.Utilities;
+using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
 using MyLiverpool.Data.Entities;
 using MyLiverpool.Data.ResourceAccess.Interfaces;
@@ -60,10 +63,32 @@ namespace MyLiverpool.Business.Services
             return dto;
         }
 
-        public async Task<PageableData<MatchDto>> GetListAsync(int page)
+        public async Task<PageableData<MatchDto>> GetListAsync(int page, int itemsPerPage = 15, int? seasonId = null)
+        {
+            Expression<Func<Match, bool>> filter = m => true;
+            if (seasonId.HasValue)
+            {
+                filter = filter.And(m => m.SeasonId == seasonId.Value);
+            }
+            var dtos = await GetMatchesAsync(page, itemsPerPage, filter);
+            var count = await _matchRepository.GetCountAsync(filter);
+            return new PageableData<MatchDto>(dtos, page, count);
+        }
+
+        public async Task<IEnumerable<MatchDto>> GetListForSeasonAsync(int seasonId)
+        {
+            var pageForGettingAllItems = 1;
+            var itemsPerPageForMatch = 100;
+            var result = await GetMatchesAsync(pageForGettingAllItems, itemsPerPageForMatch, x => x.SeasonId == seasonId);
+            var dtos = _mapper.Map<IEnumerable<MatchDto>>(result);
+            return dtos;
+        }
+
+        private async Task<IEnumerable<MatchDto>> GetMatchesAsync(int page, int itemsPerPage,
+            Expression<Func<Match, bool>> filter)
         {
             var liverpoolClub = await _clubRepository.GetByEnglishName(LiverpoolClubEnglishName);
-            var matches = await _matchRepository.GetListAsync(page, orderBy: m => m.DateTime);
+            var matches = await _matchRepository.GetListAsync(page, itemsPerPage, filter, orderBy: m => m.DateTime);
             var dtos = new List<MatchDto>();
             foreach (var match in matches)
             {
@@ -78,9 +103,7 @@ namespace MyLiverpool.Business.Services
                 }
                 dtos.Add(dto);
             }
-
-            var count = await _matchRepository.GetCountAsync();
-            return new PageableData<MatchDto>(dtos, page, count);
+            return dtos;
         }
 
         private static void FillClubsFields(MatchDto dto, Club homeClub, Club awayClub)

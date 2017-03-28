@@ -13,10 +13,10 @@
         </form-->
     </div>
     <div class="row" *ngFor="let item of items; let i = index;">
-        <div class="" *ngIf="!item.pending || roles.isEditor">
+        <div class="row" *ngIf="!item.pending || roles.isEditor">
             <div class="flex-vertical-center">
-                <a [routerLink]="[+item.type === 1 ? '/news' : '/blog', item.id]" class="col-xs-9 col-sm-9"><h4 [textContent]="item.title"></h4></a> <!-- need to think about it from root-->
-                <span class="col-xs-3 col-sm-3 pull-right" *ngIf="roles.isEditor || roles.isSelf(item.userId)">
+                <a [routerLink]="[+item.type === 1 ? '/news' : '/blog', item.id]" class="col-xs-10 col-sm-10"><h4 [textContent]="item.title"></h4></a> <!-- need to think about it from root-->
+                <span class="col-xs-2 col-sm-2 pull-right" *ngIf="roles.isEditor || roles.isSelf(item.userId)">
                     <a role="button" *ngIf="item.pending && roles.isEditor" (click)="showActivateModal(i)"><span class="glyphicon glyphicon-ok"></span></a>
                     <a [routerLink]="[+item.type === 1 ? '/news' : '/blog', item.id, 'edit']"><span class="glyphicon glyphicon-pencil"></span></a> <!-- need to think about it from root-->
                     <a role="button" (click)="showDeleteModal(i)"><span class="glyphicon glyphicon-trash"></span></a>
@@ -25,10 +25,10 @@
             <div class="">
                 <img class="img-thumbnail news-mini center-block" alt="" [src]="item.photoPath" />
             </div>
-            <div class="">
+            <div class="col-xs-12">
                 <i> <span [innerHTML]="item.brief"></span></i>
             </div>
-            <div class="col-xs-12 col-sm-12">
+            <div class="col-xs-12 col-sm-12 material-info-panel">
                 <ul class="list-inline small small-offset">
                     <li class="">Категория:</li> <!-- need to think about it from root-->
                     <li class=""><a [routerLink]="[+item.type === 1 ? '/news' : '/blog']" [queryParams]="{page: page, categoryId: item.categoryId, userName: userName}" [textContent]="item.categoryName"></a></li>

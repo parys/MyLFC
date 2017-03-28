@@ -104,6 +104,15 @@ textarea {
     margin-top: 60px;
 }
 
+.material-info-panel {
+    background-color: darkgray;
+}
+
+.material-info-panel>ul {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
 .margin-auto {
     margin: auto;
 }
