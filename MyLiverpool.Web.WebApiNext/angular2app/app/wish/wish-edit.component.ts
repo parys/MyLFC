@@ -75,7 +75,7 @@ export class WishEditComponent implements OnInit, OnDestroy {
             let result = this.service.create(model).subscribe(data => res = data);
         }
         this.isHuman = false;
-        this.router.navigate(["/wish"]);
+        this.router.navigate(["/wishes"]);
     }
 
     updateTypes() {

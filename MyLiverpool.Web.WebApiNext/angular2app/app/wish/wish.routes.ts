@@ -4,7 +4,7 @@ import { WishEditComponent } from "./wish-edit.component";
 
 export const wishRoutes: Routes = [
     {
-        path: "wish", children: [
+        path: "wishes", children: [
             { path: "", component: WishListComponent, data: { title: "Пожелания" } },
             { path: ":id/edit", component: WishEditComponent, data: { title: "Создание пожелания" } }
         ]

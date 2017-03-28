@@ -34,8 +34,8 @@
             <img alt="" style="margin:0;padding:0;vertical-align:middle;border:0;max-width:60px;max-height:60px;" src="http://www.myliverpool.ru/.s/img/fr/ic1/hot.gif" title="Горячая тема">
         </td>
         <td class="threadNametd">
-            <a class="threadLink" [routerLink]="['./theme', theme.id]" [textContent]="theme.name"></a>
-            <a class="modBut" [routerLink]="['./theme', theme.id, 'edit']" title="Изменить/переместить тему">
+            <a class="threadLink" [routerLink]="['./themes', theme.id]" [textContent]="theme.name"></a>
+            <a class="modBut" [routerLink]="['./themes', theme.id, 'edit']" title="Изменить/переместить тему">
                 <span class="glyphicon glyphicon-pencil" align="absmiddle"></span>
             </a>
             <a class="modBut" title="Удалить тему" ng-click="vm.removeSection($index)">
@@ -73,4 +73,4 @@
     <pagination *ngIf="items" [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" [(ngModel)]="page" [maxSize]="7" (pageChanged)="pageChanged($event)"
                 previousText="&lsaquo;" nextText="&rsaquo;" firstText="1" lastText="totalItems/itemsPerPage"></pagination>
 </div>
-<a [routerLink]="['./theme', 0, 'edit']">Добавить тему</a>
+<a [routerLink]="['./themes', 0, 'edit']">Добавить тему</a>

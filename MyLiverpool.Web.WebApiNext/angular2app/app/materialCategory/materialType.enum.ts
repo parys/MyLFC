@@ -1,4 +1,4 @@
 ﻿export enum MaterialType {
     News = 1,
-    Blog = 2
+    Blogs = 2
 }

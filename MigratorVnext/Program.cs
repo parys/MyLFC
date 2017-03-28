@@ -486,13 +486,13 @@ namespace MigratorVnext
                     limit = MaxChars;
                 }
 
-                var categories = MaterialCategoryRepository.GetAsync().Result.Where(x => x.MaterialType == MaterialType.Blog).ToList();
+                var categories = MaterialCategoryRepository.GetAsync().Result.Where(x => x.MaterialType == MaterialType.Blogs).ToList();
 
                 for (int i = 0; i < limit; i++)
                 {
                     Material blogItem = new Material()
                     {
-                        Type = MaterialType.Blog
+                        Type = MaterialType.Blogs
                     };
                     // id
                     string id = null;
@@ -790,7 +790,7 @@ namespace MigratorVnext
                     //}
                     //else
                     //{
-                    var category = categories.FirstOrDefault(x => x.OldId == int.Parse(categoryId)) ?? categories.FirstOrDefault(x => x.OldId == 1 && x.MaterialType == MaterialType.Blog);
+                    var category = categories.FirstOrDefault(x => x.OldId == int.Parse(categoryId)) ?? categories.FirstOrDefault(x => x.OldId == 1 && x.MaterialType == MaterialType.Blogs);
 
                     blogItem.CategoryId = category.Id;
                     if (blogItem.PhotoPath == null)
@@ -1184,7 +1184,7 @@ namespace MigratorVnext
                 {
                     MaterialCategory blogCategory = new MaterialCategory()
                     {
-                        MaterialType = MaterialType.Blog
+                        MaterialType = MaterialType.Blogs
                     };
                     // id
                     string id = null;
@@ -1503,7 +1503,7 @@ namespace MigratorVnext
                     }
                     else if (ModuleId == 1)
                     {
-                        materialType = MaterialType.Blog;
+                        materialType = MaterialType.Blogs;
                     }
                     MaterialComment comment = new MaterialComment()
                     {

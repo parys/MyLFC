@@ -26,7 +26,7 @@ namespace MyLiverpool.Data.ResourceAccess
         private const int CountBlogComments = 100;
         private const int CountUsers = 3;
         private const MaterialType NewsType = MaterialType.News;
-        private const MaterialType BlogType = MaterialType.Blog;
+        private const MaterialType BlogType = MaterialType.Blogs;
         private const string DefaultPhotoPath = "/content/avatars/default.png";
 
         public DatabaseInitializer(LiverpoolContext context)

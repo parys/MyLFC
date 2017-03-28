@@ -4,7 +4,7 @@ import { RoleGuard } from "../auth/index";
 
 export const matchRoutes: Routes = [
     {
-        path: "match",
+        path: "matches",
         children: [
             {
                 path: "",

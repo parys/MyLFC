@@ -106,7 +106,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             }
             model.Type = materialType;
             if ((!User.IsInRole(nameof(RolesEnum.NewsFull)) && model.Type != MaterialType.News) ||
-                (!User.IsInRole(nameof(RolesEnum.BlogFull)) && model.Type != MaterialType.Blog))
+                (!User.IsInRole(nameof(RolesEnum.BlogFull)) && model.Type != MaterialType.Blogs))
             {
                 model.Pending = true;
             }
@@ -133,7 +133,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 return BadRequest(ModelState);
             }
             if ((!User.IsInRole(nameof(RolesEnum.NewsFull)) && model.Type != MaterialType.News) ||
-                (!User.IsInRole(nameof(RolesEnum.BlogFull)) && model.Type != MaterialType.Blog))
+                (!User.IsInRole(nameof(RolesEnum.BlogFull)) && model.Type != MaterialType.Blogs))
             {
                 if (model.AuthorId != User.GetUserId())
                 {

@@ -107,7 +107,7 @@
                 </li>
                 <li>|</li>
                 <li *ngIf="item.blogsCount > 0">
-                    <a [routerLink]="['/blog']" [queryParams]="{page: 1, userName: item.userName}">Блоги(<span [textContent]="item.blogsCount"></span>)</a>
+                    <a [routerLink]="['/blogs']" [queryParams]="{page: 1, userName: item.userName}">Блоги(<span [textContent]="item.blogsCount"></span>)</a>
                 </li>
             </ul>
         </div>

@@ -56,7 +56,7 @@ export class ImageListComponent implements OnInit, OnDestroy {
             () => { });
 
         this.path = path;
-        let newUrl = `image?path=${path}`;
+        let newUrl = `images?path=${path}`;
         this.location.replaceState(newUrl);
     }
 }

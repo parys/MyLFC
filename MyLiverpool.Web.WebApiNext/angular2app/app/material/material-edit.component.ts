@@ -31,7 +31,7 @@ export class MaterialEditComponent implements OnInit {
         if (route.snapshot.data["type"] === MaterialType[MaterialType.News]) {
             this.type = MaterialType.News;
         } else {
-            this.type = MaterialType.Blog;
+            this.type = MaterialType.Blogs;
         }
     }
                                                              

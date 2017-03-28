@@ -2,7 +2,7 @@
     <a *ngIf="roles.isEditor" [routerLink]="[0, 'edit']">Создать категорию</a>
     <ul *ngFor="let category of items; let i = index;">
         <li *ngIf="roles.isEditor || category.itemsCount != 0">
-            <a [routerLink]="['/news']" [queryParams]="{page: 1, categoryId: category.id}">
+            <a [routerLink]="[+category.materialType === 1 ? '/news' : '/blogs']" [queryParams]="{page: 1, categoryId: category.id}">
                 <span [textContent]="category.name"></span> [<span [textContent]="category.itemsCount"></span>]
             </a>
             <span *ngIf="roles.isEditor">

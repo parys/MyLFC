@@ -45,7 +45,7 @@ export class ForumThemeListComponent implements OnInit {
     pageChanged(event: any): void {
         this.page = event.page;
         this.update(this.item.id);
-        let newUrl = `forum/theme/${this.item.id}?page=${this.page}`;
+        let newUrl = `forum/themes/${this.item.id}?page=${this.page}`;
 
         this.location.replaceState(newUrl);
     };

@@ -33,7 +33,7 @@ export class MaterialCommentListComponent implements OnInit {
     pageChanged(event: any): void {
         this.page = event.page;
         this.update();
-        let newUrl = `materialComment/list/${this.page}`;
+        let newUrl = `materialComments/list/${this.page}`;
      //   if (this.categoryId) {
     //        newUrl = `${newUrl}/${this.categoryId}`;
     //    }

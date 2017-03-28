@@ -3,7 +3,7 @@ import { PmListComponent, PmDetailComponent, PmEditComponent } from "./index";
 import { RoleGuard } from "../auth/index";
 
 export const pmRoutes: Routes = [
-    { path: "pm", children: [
+    { path: "pms", children: [
             { path: "", component: PmListComponent, data: { title: "Личные сообщения" }, canActivate: [RoleGuard] },
             { path: ":id", children: [
                     { path: "", component: PmDetailComponent, data: { title: "Личное сообщение" }, canActivate: [RoleGuard] },

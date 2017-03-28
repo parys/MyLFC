@@ -15,14 +15,14 @@
                 <a [routerLink]="['/news']" [queryParams]="{page: 1}" class="dropdown-toggle" data-toggle="">Новости<b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li *ngIf="roles.isNewsmaker"><a [routerLink]="['/news', 0, 'edit']">Добавить</a></li>
-                    <li><a [routerLink]="['/newsCategory']">Категории</a></li>
+                    <li><a [routerLink]="['/newsCategories']">Категории</a></li>
                 </ul>
             </li>
             <li class="dropdown">
-                <a [routerLink]="['/blog']" [queryParams]="{page: 1}" class="dropdown-toggle" data-toggle="">Блоги<b class="caret"></b></a>
+                <a [routerLink]="['/blogs']" [queryParams]="{page: 1}" class="dropdown-toggle" data-toggle="">Блоги<b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                    <li *ngIf="roles.isAuthor"><a [routerLink]="['/blog', 0, 'edit']">Добавить</a></li>
-                    <li><a [routerLink]="['/blogCategory']">Категории</a></li>
+                    <li *ngIf="roles.isAuthor"><a [routerLink]="['/blogs', 0, 'edit']">Добавить</a></li>
+                    <li><a [routerLink]="['/blogCategories']">Категории</a></li>
                 </ul>
             </li>
             <li class="dropdown">
@@ -39,7 +39,7 @@
                 <ul class="dropdown-menu">
                     <li><a [routerLink]="['/seasons/calendar']">Календарь</a></li>
                     <!--<li><a [routerLink]="['/season/eplTable']">Полная таблица АПЛ</a></li>-->
-                    <li><a [routerLink]="['/player/statistics']">Статистика игроков</a></li>
+                    <li><a [routerLink]="['/players/statistics']">Статистика игроков</a></li>
                     <li *ngIf="roles.isAdmin"><a [routerLink]="['/seasons']">Список сезонов</a></li>
                 </ul>
             </li>
@@ -48,21 +48,21 @@
                 <ul class="dropdown-menu">
 
                 <li-->
-                <a [routerLink]="['/user']" [queryParams]="{page: 1}">Пользователи</a>
+                <a [routerLink]="['/users']" [queryParams]="{page: 1}">Пользователи</a>
                 <!--/li>
                 </ul-->
             </li>
             <li><a [routerLink]="['/rules']"><b class="text-danger">Правила</b></a></li>
-            <li><a [routerLink]="['/wish']"><b class="text-info">Пожелания</b></a></li>
+            <li><a [routerLink]="['/wishes']"><b class="text-info">Пожелания</b></a></li>
             <li *ngIf="roles.isAdminAssistant" class="dropdown">
                 <a class="dropdown-toggle" data-toggle="">Админка<b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                    <li><a [routerLink]="['/match']">Матчи</a></li>
-                    <li><a [routerLink]="['/club']">Клубы</a></li>
-                    <li><a [routerLink]="['/roleGroup']">Роли</a></li>
-                    <li><a [routerLink]="['/person']">Люди</a></li>
-                    <li *ngIf="roles.isNewsmaker || roles.isAuthor"> <a [routerLink]="['/image']">Изображения</a></li>
-                    <li *ngIf="roles.isLogined"> <a [routerLink]="['/materialComment']">Комментарии</a></li>
+                    <li><a [routerLink]="['/matches']">Матчи</a></li>
+                    <li><a [routerLink]="['/clubs']">Клубы</a></li>
+                    <li><a [routerLink]="['/roleGroups']">Роли</a></li>
+                    <li><a [routerLink]="['/persons']">Люди</a></li>
+                    <li *ngIf="roles.isNewsmaker || roles.isAuthor"> <a [routerLink]="['/images']">Изображения</a></li>
+                    <li *ngIf="roles.isLogined"> <a [routerLink]="['/materialComments']">Комментарии</a></li>
                 </ul>
             </li>
             <li class="pull-right">
@@ -77,15 +77,15 @@
                         <a [routerLink]="['/signup']">Регистрация</a>
                     </li>
                     <li *ngIf="roles.isLogined">
-                        <a [routerLink]="['/user', 0]" class="padding0">
+                        <a [routerLink]="['/users', 0]" class="padding0">
                             <!--<img class="nav-avatar" ng-src="{$root.userImage}}" alt=""/>-->
                         </a>
                     </li>
                     <li *ngIf="roles.isLogined">
-                        <a [routerLink]="['/user', 0]"><span class="glyphicon glyphicon-user"></span></a>
+                        <a [routerLink]="['/users', 0]"><span class="glyphicon glyphicon-user"></span></a>
                     </li>
                     <li *ngIf="roles.isLogined">
-                        <a [routerLink]="['/pm']"><span class="glyphicon glyphicon-envelope"></span> <!--Читать л/с (<span ng-bind="vm.unreadPmCount"></span>)--></a>
+                        <a [routerLink]="['/pms']"><span class="glyphicon glyphicon-envelope"></span> <!--Читать л/с (<span ng-bind="vm.unreadPmCount"></span>)--></a>
                     </li>
                     <li *ngIf="roles.isLogined">
                         <a role="button" (click)="logout()">Выйти</a>

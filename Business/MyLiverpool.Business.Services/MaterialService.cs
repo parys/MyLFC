@@ -84,7 +84,7 @@ namespace MyLiverpool.Business.Services
             var material = await _materialRepository.GetByIdAsync(id);
 
             if ((!claims.IsInRole(nameof(RolesEnum.NewsFull)) && material.Type == MaterialType.News) ||
-                (!claims.IsInRole(nameof(RolesEnum.BlogFull)) && material.Type == MaterialType.Blog))
+                (!claims.IsInRole(nameof(RolesEnum.BlogFull)) && material.Type == MaterialType.Blogs))
             {
                 return false;
             }
@@ -115,7 +115,7 @@ namespace MyLiverpool.Business.Services
             }
 
             if ((!claims.IsInRole(nameof(RolesEnum.NewsFull)) && material.Type == MaterialType.News) ||
-                (!claims.IsInRole(nameof(RolesEnum.BlogFull)) && material.Type == MaterialType.Blog))
+                (!claims.IsInRole(nameof(RolesEnum.BlogFull)) && material.Type == MaterialType.Blogs))
             {
                 return false;
             }

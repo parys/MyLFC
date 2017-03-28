@@ -4,7 +4,7 @@ import { RoleGuard } from "../auth/role-guard.service";
 
 export const roleGroupRoutes: Routes = [
     {
-        path: "roleGroup", children: [
+        path: "roleGroups", children: [
             {
                 path: "", component: RoleGroupListComponent, data: { title: "Группы и роли", roles: ["adminStart"] },
                 canActivate: [RoleGuard] }

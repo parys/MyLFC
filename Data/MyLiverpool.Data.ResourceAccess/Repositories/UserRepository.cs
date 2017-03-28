@@ -30,7 +30,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
                 Id = x.Id,
                 OldId = x.OldId,
                 Birthday = x.Birthday,
-                BlogsCount = x.Materials.Count(y => y.Type == MaterialType.Blog),
+                BlogsCount = x.Materials.Count(y => y.Type == MaterialType.Blogs),
                 NewsCount = x.Materials.Count(y => y.Type == MaterialType.News),
                 ConcurrencyStamp = x.ConcurrencyStamp,
                 Email = x.Email,

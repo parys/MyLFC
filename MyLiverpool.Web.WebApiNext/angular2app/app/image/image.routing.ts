@@ -5,7 +5,7 @@ import { RoleGuard } from "../auth/index";
 export const imageRoutes: Routes = [
 
     {
-        path: "image",
+        path: "images",
         children: [
             {
                 path: "",

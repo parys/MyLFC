@@ -5,5 +5,5 @@ export class MaterialCategory {
     itemsCount: number;
     name: string;
     description: string;
-    type: MaterialType;
+    materialType: MaterialType;
 }

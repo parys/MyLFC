@@ -5,7 +5,7 @@ import { RoleGuard } from "../auth/index";
 
 export const materialCategoryRoutes: Routes = [
     {
-        path: "newsCategory",
+        path: "newsCategories",
         children: [
             { path: "", component: MaterialCategoryListComponent, data: { title: "Категории новостей", type: "News" } },
             {
@@ -17,7 +17,7 @@ export const materialCategoryRoutes: Routes = [
         ]
     },
     {
-        path: "blogCategory",
+        path: "blogCategories",
         children: [
             { path: "", component: MaterialCategoryListComponent, data: { title: "Категории блогов", type: "Blog" } },
             {

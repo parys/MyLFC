@@ -24,7 +24,7 @@ export const forumRoutes: Routes = [
                     },
                     {
 
-                        path: "theme/:idTheme",
+                        path: "themes/:idTheme",
                         children: [
                             { path: "", component: ForumThemeListComponent, data: { title: "Тема форума" } },
                             {

@@ -81,6 +81,6 @@ export class PmEditComponent implements OnInit, OnDestroy {
 
         let res = this.service.create(model).subscribe(data => data);
 
-     //   this.router.navigate(["/pm"]);
+     //   this.router.navigate(["/pms"]);
     }
 }

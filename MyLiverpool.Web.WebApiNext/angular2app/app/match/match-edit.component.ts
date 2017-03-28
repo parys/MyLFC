@@ -50,11 +50,11 @@ export class MatchEditComponent implements OnInit {
         let match = this.parseForm();
         if (this.id > 0) {
             this.matchService.update(this.id, match)
-                .subscribe(data => this.router.navigate(["/match"]),
+                .subscribe(data => this.router.navigate(["/matches"]),
                 error => console.log(error));
         } else {
             this.matchService.create(match)
-                .subscribe(data => this.router.navigate(["/match"]),
+                .subscribe(data => this.router.navigate(["/matches"]),
                 error => console.log(error));
         }
     }

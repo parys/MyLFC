@@ -23,7 +23,7 @@ export class MaterialCategoryListComponent implements OnInit {
         if (route.snapshot.data["type"] === MaterialType[MaterialType.News]) { 
             this.type = MaterialType.News;
         } else {
-            this.type = MaterialType.Blog;
+            this.type = MaterialType.Blogs;
         }
     }
 
@@ -32,8 +32,7 @@ export class MaterialCategoryListComponent implements OnInit {
         this.service
             .getAll(this.type)
             .subscribe(data => this.parsePageable(data),
-            error => console.log(error),
-            () => {});
+            error => console.log(error));
     }
 
     private parsePageable(model: MaterialCategory[]): void {
@@ -42,8 +41,7 @@ export class MaterialCategoryListComponent implements OnInit {
 
     delete(index: number) {
         this.service.delete(this.items[index].id).subscribe(data => data,
-            error => console.log(error),
-            () => {});
+            error => console.log(error));
         this.items.splice(index, 1);
     }
 }

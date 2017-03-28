@@ -34,8 +34,7 @@ export class PersonEditComponent implements OnInit {
         if (id > 0) {
             this.service.getSingle(id)
                 .subscribe(data => this.parse(data),
-                    error => console.log(error),
-                    () => {});
+                    error => console.log(error));
         }
 
      //   this.editForm.controls["englishName"].valueChanges.subscribe(data => {

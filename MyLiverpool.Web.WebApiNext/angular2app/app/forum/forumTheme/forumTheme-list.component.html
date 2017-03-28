@@ -11,7 +11,7 @@
                     <tbody>
                         <tr>
                             <td width="23%" class="postTdTop" align="center">
-                                <a class="postUser" [routerLink]="['/user', message.authorId]" [textContent]="message.authorUserName"></a>
+                                <a class="postUser" [routerLink]="['/users', message.authorId]" [textContent]="message.authorUserName"></a>
                             </td>
                             <td class="postTdTop">
                                 <div class="h6" style="float: right">
@@ -59,7 +59,7 @@
                             </td>
                             <td class="postBottom">
                                 <span>
-                                    <a [routerLink]="['/user', message.authorId]">
+                                    <a [routerLink]="['/users', message.authorId]">
                                         <img class="inline" alt="" style="margin: 0; padding: 0; border: 0;" src="http://myliverpool.ru/.s/img/fr/bt/16/p_profile.gif" title="Профиль пользователя">
                                     </a>
                                     <!--<a href="javascript://" rel="nofollow" onclick="window.open('/index/14-2733-0-1', 'userpm', 'scrollbars=1,top=0,left=0,resizable=1,width=680,height=350');return false;">

@@ -75,7 +75,7 @@ export class PersonListComponent implements OnInit {
     pageChanged(event: any): void {
         this.page = event.page;
         this.update();
-        let newUrl = `person?page=${this.page}`;
+        let newUrl = `persons?page=${this.page}`;
         //if (this.categoryId) {
         //     newUrl = `${newUrl}/${this.categoryId}`;
         // }

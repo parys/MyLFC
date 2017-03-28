@@ -4,9 +4,9 @@ import { PersonListComponent } from "./person-list.component";
 import { PersonEditComponent } from "./person-edit.component";
 
 export const personRoutes: Routes = [
-    { path: "player/statistics", component: PlayerStatisticsComponent, data: { title: "Статистика игроков" } },
+    { path: "players/statistics", component: PlayerStatisticsComponent, data: { title: "Статистика игроков" } },
     {
-        path: "person",
+        path: "persons",
         children: [
             { path: "", component: PersonListComponent, data: { title: "Люди" },  },
             { path: ":id/edit", component: PersonEditComponent, data: { title: "Редактирование человека" },  },

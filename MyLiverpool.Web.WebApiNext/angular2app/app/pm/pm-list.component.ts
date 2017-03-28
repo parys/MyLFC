@@ -13,15 +13,15 @@ export class PmListComponent implements OnInit {
     received: Pm[];
     sent: Pm[];
 
-    constructor(private pmService: PmService, private router: Router) {
+    constructor(private pmService: PmService,
+        private router: Router) {
     }
 
     ngOnInit() {
         this.pmService
             .getAll()
             .subscribe(data => this.parse(data),
-            error => console.log(error),
-            () => {});
+            error => console.log(error));
     }
 
     private parse(model: any): void {
@@ -37,6 +37,6 @@ export class PmListComponent implements OnInit {
     }
 
     writePm(): void {           
-        this.router.navigate(["/pm", 0, "edit"]);  
+        this.router.navigate(["/pms", 0, "edit"]);  
     }
 }

@@ -19,7 +19,7 @@
                             <span *ngIf="message.isRead" [textContent]="message.title"></span>
                         </a>
                     </td>
-                    <td><a [routerLink]="['/user', message.senderId]" [textContent]="message.sender"></a></td>
+                    <td><a [routerLink]="['/users', message.senderId]" [textContent]="message.sender"></a></td>
                     <td [textContent]="message.sentTime | date:'medium'"></td>
                 </tr>
                 </tbody>
@@ -44,7 +44,7 @@
                             <span *ngIf="message.isRead" [textContent]="message.title"></span>
                         </a>
                     </td>
-                    <td><a [routerLink]="['/user', message.receiverId]" [textContent]="message.receiver"></a></td>
+                    <td><a [routerLink]="['/users', message.receiverId]" [textContent]="message.receiver"></a></td>
                     <td [textContent]="message.sentTime | date:'medium'"></td>
                 </tr>
                 </tbody>

@@ -35,7 +35,7 @@ export const materialRoutes: Routes = [
         ]
     },
     {
-        path: "blog",
+        path: "blogs",
         children: [
             { path: "", component: MaterialListComponent, data: { title: "Блоги", breadcrumb: "Блоги", type: "Blog" } },
             {

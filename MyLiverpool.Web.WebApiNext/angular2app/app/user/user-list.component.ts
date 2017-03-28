@@ -46,7 +46,7 @@ export class UserListComponent implements OnInit {
     pageChanged(event: any): void {
         this.page = event.page;
         this.update();
-        let newUrl = `user?page=${this.page}`;
+        let newUrl = `users?page=${this.page}`;
 
         if (this.userName) {
             newUrl = `${newUrl}&userName=${this.userName}`;

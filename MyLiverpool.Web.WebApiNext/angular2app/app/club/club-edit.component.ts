@@ -52,12 +52,12 @@ export class ClubEditComponent implements OnInit, OnDestroy {
         let club = this.parseForm();
         if (this.id > 0) {
             this.clubService.update(this.id, club)
-                .subscribe(data => this.router.navigate(["/club"]),
+                .subscribe(data => this.router.navigate(["/clubs"]),
                 error => console.log(error),
                 () => { });
         } else {
             this.clubService.create(club)
-                .subscribe(data => this.router.navigate(["/club"]),
+                .subscribe(data => this.router.navigate(["/clubs"]),
                 error => console.log(error),
                 () => { });
         }

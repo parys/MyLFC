@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, OnDestroy, ViewChild } from "@angular/core";
+﻿import { Component, OnInit, ViewChild } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import { Location } from "@angular/common";
 import { Title } from "@angular/platform-browser";
@@ -15,9 +15,7 @@ import { ModalDirective } from "ng2-bootstrap";
     template: require("./club-list.component.html")
 })
 
-export class ClubListComponent implements OnInit, OnDestroy {
-
-    private sub: Subscription;
+export class ClubListComponent implements OnInit {
     items: Club[];
     page: number = 1;
     itemsPerPage: number = 15;
@@ -33,19 +31,13 @@ export class ClubListComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.sub = this.route.params.subscribe(params => {
-            if (params["page"]) {
-                this.page = +params["page"];
+        if(+this.route.snapshot.queryParams["page"]) {
+            this.page = +this.route.snapshot.queryParams["page"];
             }
             //  this.categoryId = +params['categoryId'];
             //  this.userName = params['userName'];
             this.update();
-        });
-    }
-
-    ngOnDestroy() {
-        this.sub.unsubscribe();
-    }
+        }
 
     showDeleteModal(index: number): void {
         this.selectedItemIndex = index;
@@ -88,7 +80,7 @@ export class ClubListComponent implements OnInit, OnDestroy {
     pageChanged(event: any): void {
         this.page = event.page;
         this.update();
-        let newUrl = `club/list/${this.page}`;
+        let newUrl = `clubs?page=${this.page}`;
         //if (this.categoryId) {
        //     newUrl = `${newUrl}/${this.categoryId}`;
        // }
