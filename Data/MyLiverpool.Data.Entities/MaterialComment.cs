@@ -37,6 +37,8 @@ namespace MyLiverpool.Data.Entities
 
         public int? ParentId { get; set; }
 
+        public int? OldParentId { get; set; }
+
         public virtual Material Material { get; set; }
 
         public int MaterialId { get; set; }

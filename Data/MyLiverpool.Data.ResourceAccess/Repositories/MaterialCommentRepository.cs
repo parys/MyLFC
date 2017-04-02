@@ -66,8 +66,9 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             return await query.CountAsync();
         }
 
-        public Task<IEnumerable<MaterialComment>> GetListAsync()
+        public async Task<IEnumerable<MaterialComment>> GetListAsync()
         {
+            return await _context.MaterialComments.ToListAsync(); //todo for migrator
             throw new NotImplementedException("Not need to implement");
         }
 

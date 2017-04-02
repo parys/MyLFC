@@ -9,9 +9,10 @@ using MyLiverpool.Data.Common;
 namespace MyLiverpool.Data.ResourceAccess.Migrations
 {
     [DbContext(typeof(LiverpoolContext))]
-    partial class LiverpoolContextModelSnapshot : ModelSnapshot
+    [Migration("20170329210014_AddUrlsFieldsToMatch")]
+    partial class AddUrlsFieldsToMatch
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.0-rtm-22752")
@@ -379,8 +380,6 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.Property<string>("Message");
 
                     b.Property<int>("OldId");
-
-                    b.Property<int?>("OldParentId");
 
                     b.Property<int?>("ParentId");
 

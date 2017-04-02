@@ -8,7 +8,7 @@ namespace MyLiverpool.Business.Services.Tests.Helpers
 {
     public class WishDataGenerator
     {
-        public static List<Wish> Get3Wish()
+        public static List<Wish> Get3Wishes()
         {
             return new List<Wish>()
             {
@@ -33,30 +33,30 @@ namespace MyLiverpool.Business.Services.Tests.Helpers
             };
         }
 
-        public static List<WishDto> Get3WishDto()
+        public static List<WishDto> Get3WishDtos()
         {
             return new List<WishDto>()
             {
-                                new WishDto()
+                new WishDto()
                 {
-                                    Id = 1,
-                    Type =  (int)WishType.Bug,
+                    Id = 1,
+                    Type = (int) WishType.Bug,
                     TypeName = WishType.Bug.GetNameAttribute(),
                     Message = "mes 1",
                     Title = "title 1"
                 },
                 new WishDto()
                 {
-                                    Id = 2,
-                    Type = (int)WishType.BugUi,
+                    Id = 2,
+                    Type = (int) WishType.BugUi,
                     TypeName = WishType.BugUi.GetNameAttribute(),
                     Message = "mes 2",
                     Title = "title 2"
                 },
                 new WishDto()
                 {
-                                    Id = 3,
-                    Type = (int)WishType.Feature,
+                    Id = 3,
+                    Type = (int) WishType.Feature,
                     TypeName = WishType.Feature.GetNameAttribute(),
                     Message = "mes 3",
                     Title = "title 3"

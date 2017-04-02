@@ -112,7 +112,7 @@ namespace MigratorVnext
             Console.WriteLine("End 2");
 
           //  UpdateBlogItems(); //3
-            UpdateNewsItems(); //3
+          //  UpdateNewsItems(); //3
          //   UpdateForumThemes(); //3
 
           //  Task.WhenAll(blogs, forumT).Wait();
@@ -120,11 +120,14 @@ namespace MigratorVnext
           //  MaterialRepository.SaveChangesAsync().Wait();
             Console.WriteLine("End 3");
 
-         //   UpdateComments(); //4
-         //    UpdateForumComments(); //4
+          //     UpdateComments(); //4
+            //    UpdateForumComments(); //4
 
-          //  Task.WhenAll(matComm, forumMes).Wait();
+            //  Task.WhenAll(matComm, forumMes).Wait();
             Console.WriteLine("End 4");
+
+             UpdateCommentsLinks();
+            Console.WriteLine("End 5");
         }
 
         public static void UpdateDb()
@@ -1337,7 +1340,6 @@ namespace MigratorVnext
 
                 for (int i = 0; i < limit; i++)
                 {
-
                     // id
                     string id = null;
                     while (chars[i] != '|')
@@ -1394,14 +1396,22 @@ namespace MigratorVnext
                     i++;
 
                     //name
+                    string name = null;
                     while (chars[i] != '|')
                     {
+                        name += chars[i];
                         i++;
+                    }
+                    if (userName == null)
+                    {
+                        userName = name;
                     }
                     i++;
                     //email
+                    string email = null;
                     while (chars[i] != '|')
                     {
+                        email += chars[i];
                         i++;
                     }
                     i++;
@@ -1412,8 +1422,10 @@ namespace MigratorVnext
                     }
                     i++;
                     //ip
+                    string ip = null;
                     while (chars[i] != '|')
                     {
+                        ip += chars[i];
                         i++;
                     }
                     i++;
@@ -1505,18 +1517,33 @@ namespace MigratorVnext
                     {
                         materialType = MaterialType.Blogs;
                     }
-                    MaterialComment comment = new MaterialComment()
+                    User author = null;
+                    if (!string.IsNullOrEmpty(userName))
                     {
-                        MaterialType = materialType,
-                   //     MaterialId = int.Parse(materialId),
-                        OldId = int.Parse(id),
-                    };
+                        author = UserRepository.FindByNameAsync(userName).Result;
+                    }
                     var material = news.FirstOrDefault(newsItem => newsItem.OldId == int.Parse(materialId));
                     if (material == null)
                     {
                         continue;
                     }
-                    comment.MaterialId = material.Id;
+
+                    MaterialComment comment = new MaterialComment()
+                    {
+                        MaterialType = materialType,
+                   //     MaterialId = int.Parse(materialId),
+                        OldId = int.Parse(id),
+                        IsVerified = true,
+                        AdditionTime = DateTimeHelpers.ConvertUtcToLocalTime(long.Parse(additionTime)),
+                        AuthorId = author?.Id ?? _deleted.Id,
+                        Answer = answer,
+                        Message = message,
+                        MaterialId = material.Id,
+                        LastModified = DateTimeHelpers.ConvertUtcToLocalTime(long.Parse(additionTime)),
+                        Pending = false
+
+                    };
+                    
                  //  if (comment.Material.Comments == null)
                  //   {
                   //      comment.Material.Comments = new List<MaterialComment>();
@@ -1524,24 +1551,15 @@ namespace MigratorVnext
                   //  comment.Material.Comments.Add(comment);
                     if (pending == '1')
                         comment.Pending = true;
-                    comment.IsVerified = true;
-                    comment.AdditionTime = DateTimeHelpers.ConvertUtcToLocalTime(long.Parse(additionTime));
-                    User author = null;
-                    if (!string.IsNullOrEmpty(userName))
-                    {
-                        author = UserRepository.FindByNameAsync(userName).Result;
-                    }
 
-                    comment.AuthorId = author?.Id ?? _deleted.Id;
-                    comment.Answer = answer;
-                    comment.Message = message;
                     var parId = int.Parse(parentId);
-                    if (parId > 0)
-                    {
-                        var parent =
-                            MaterialCommentRepository.GetOrderedByAsync(1, filter: x => x.OldId == parId).Result.FirstOrDefault();
-                        comment.ParentId = parent?.Id;
-                    }
+                    comment.OldParentId = parId;
+                    //if (parId > 0)
+                    //{
+                    //    var parent =
+                    //        MaterialCommentRepository.GetOrderedByAsync(1, filter: x => x.OldId == parId).Result.FirstOrDefault();
+                    //    comment.Parent = parent ?? null;
+                    //}
                     //comment.ParentId = int.Parse(parentId);
 
                     var result = MaterialCommentRepository.AddAsync(comment);
@@ -2000,35 +2018,19 @@ namespace MigratorVnext
 
         public static void UpdateCommentsLinks()
         {
-            //Console.WriteLine("Start UpdateCommentsLinks");
-            //var blogComments = UnitOfWork.BlogCommentRepository.Get(c => c.ParentId != 0).Result.ToList();
-            //foreach (var comment in blogComments)
-            //{
-            //    var parentComment = UnitOfWork.BlogCommentRepository.GetById(comment.ParentId).Result;
-
-            //    if (parentComment == null) continue;
-            //    if (parentComment.Children == null)
-            //    {
-            //        parentComment.Children = new List<BlogComment>();
-            //    }
-            //   // parentComment.Children.Add(comment);
-            //    comment.ParentId = parentComment.Id;
-            //    break;
-            //}
-            //var comments = UnitOfWork.MaterialCommentRepository.Get(c => c.ParentId != 0).Result.ToList();
-            //foreach (var comment in comments)
-            //{
-            //    var parentComment = await UnitOfWork.MaterialCommentRepository.GetById(comment.ParentId);
-
-            //    if (parentComment == null) continue;
-            //    if (parentComment.Children == null)
-            //    {
-            //        parentComment.Children = new List<NewsComment>();
-            //    }
-            //    //  parentComment.Children.Add(comment);
-            //    comment.ParentId = parentComment.Id;
-            //}
-            //UnitOfWork.Save();
+            Console.WriteLine("Start UpdateCommentsLinks");
+            var allComments = MaterialCommentRepository.GetListAsync().Result.ToList();
+            var commentsWithParent = MaterialCommentRepository.GetListAsync().Result.Where(c => c.OldParentId != null).ToList();
+            var counter = 0;
+            var count = commentsWithParent.Count;
+            foreach (var comment in commentsWithParent)
+            {
+                var parentComment = allComments.FirstOrDefault(x => x.OldId == comment.OldParentId);
+                comment.ParentId = parentComment?.Id;
+                Console.Write("| " + (counter++ * 1.00 / count).ToString("P"));
+                MaterialCommentRepository.Update(comment);
+            }
+            MaterialCommentRepository.SaveChangesAsync().Wait();
         }
 
         public static void UpdateCommentsForum()

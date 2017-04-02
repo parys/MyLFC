@@ -35,5 +35,11 @@ namespace MyLiverpool.Business.DtoNext
         public string Score { get; set; }
 
         public int SeasonId { get; set; }
+
+        public string ReportUrl { get; set; }
+
+        public string PhotoUrl { get; set; }
+
+        public string VideoUrl { get; set; }
     }
 }
