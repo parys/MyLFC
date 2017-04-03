@@ -100,12 +100,30 @@ namespace MyLiverpool.Business.Services
             return new PageableData<MaterialCommentDto>(commentDtos, page, commentsCount);
         }
 
+        private IEnumerable<MaterialComment> UniteComments(ICollection<MaterialComment> comments)
+        {
+            foreach (var comment in comments.Where(c => c.ParentId != null))
+            {
+                var parent = comments.FirstOrDefault(c => c.OldId == comment.OldParentId);
+                if (parent != null)
+                {
+                    if (parent.Children == null)
+                    {
+                        parent.Children = new List<MaterialComment>();
+                    }
+                    parent.Children.Add(comment);
+                }
+            }
+            return comments.Where(c => c.ParentId == null);
+        }
+
         public async Task<PageableData<MaterialCommentDto>> GetListByMaterialIdAsync(int materialId, int page)
         {
-            Expression<Func<MaterialComment, bool>> filter = x => x.MaterialId == materialId && x.ParentId == null;
+            Expression<Func<MaterialComment, bool>> filter = x => x.MaterialId == materialId;// && x.ParentId == null;
 
-            var comments = await _commentService.GetOrderedByAsync(page, ItemPerPage, filter, SortOrder.Ascending, m => m.AdditionTime);
-            var commentDtos = _mapper.Map<IEnumerable<MaterialCommentDto>>(comments);
+            var comments = await _commentService.GetOrderedByAsync(page, ItemPerPage, filter, SortOrder.Ascending, m => m.AdditionTime);//bug need to analize how get all comments for material page but count only top-level for paging
+            var unitedComments = UniteComments(comments);
+            var commentDtos = _mapper.Map<IEnumerable<MaterialCommentDto>>(unitedComments);
             var commentsCount = await _commentService.GetCountAsync(filter);
             return new PageableData<MaterialCommentDto>(commentDtos, page, commentsCount);
         }

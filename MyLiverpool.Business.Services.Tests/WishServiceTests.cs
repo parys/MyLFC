@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
+using System.Linq;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using MyLiverpool.Business.Contracts;
@@ -14,9 +16,9 @@ namespace MyLiverpool.Business.Services.Tests
 {
     public class WishServiceTests : IDisposable
     {
-        private readonly IWishService _wishService;
+        private static readonly IWishService _wishService;
 
-        public WishServiceTests()
+        static WishServiceTests()
         {
             _wishService = new WishService(MapperConfig.GetConfiration.CreateMapper(), new FakeIEmailSender(), new WishRepository(GetFakeContextWithWishes()));
         }
@@ -39,18 +41,18 @@ namespace MyLiverpool.Business.Services.Tests
             result.ShouldBeEquivalentTo(expected);
 		}
 
-		//[Theory, ClassData(typeof(WishGetListTestData))]
-  //      public async void GetListWish(int page, List<WishDto> expected)
-		//{
-		//    var result = await _wishService.GetListAsync(page);
+        [Theory, ClassData(typeof(WishGetListTestData))]
+        public async void GetListWish(int page, List<WishDto> expected, int expectedCount, int? typeId = null, string filterText = null)
+        {
+            var result = await _wishService.GetListAsync(page, typeId, filterText);
 
-  //          Assert.Equal(, result.TotalItems);
-  //          Assert.Equal(page, result.PageNo);
+            Assert.Equal(expectedCount, result.TotalItems);//bug list gets initial with created count
+            Assert.Equal(page, result.PageNo);
 
-  //          result.List.ShouldBeEquivalentTo(expected);
-		//} bug list gets initial with created count
+            result.List.ShouldBeEquivalentTo(expected);
+        }
 
-		[Theory, ClassData(typeof(WishDeleteTestData))]
+        [Theory, ClassData(typeof(WishDeleteTestData))]
         public async void DeleteWish(int wishId, bool expected)
 		{
 		    var wishToDelete = await _wishService.GetAsync(wishId);
@@ -75,7 +77,7 @@ namespace MyLiverpool.Business.Services.Tests
             var context = new FakeContext(new DbContextOptions<LiverpoolContext>());
          //   if (!DbFilled)
             {
-                context.Wishes.AddRange(WishDataGenerator.Get3Wishes());
+                context.Wishes.AddRange(WishDataGenerator.GetWishes());
                 context.SaveChanges();
           //      DbFilled = true;
             }
@@ -107,12 +109,12 @@ namespace MyLiverpool.Business.Services.Tests
             new object[]
             {
                 2,
-                WishDataGenerator.Get3WishDtos()[1]
+                WishDataGenerator.GetWishDtos()[1]
             },
             new object[]
             {
                 3,
-                WishDataGenerator.Get3WishDtos()[2]
+                WishDataGenerator.GetWishDtos()[2]
             },
             new object[]
             {
@@ -128,17 +130,35 @@ namespace MyLiverpool.Business.Services.Tests
             new object[]
             {
                 1,
-                WishDataGenerator.Get3WishDtos()
+                WishDataGenerator.GetWishDtos(),
+                5
             },
             new object[]
             {
                 5,
-                new List<WishDto>()
+                new List<WishDto>(),
+                5
             },
             new object[]
             {
                 10,
-                new List<WishDto>()
+                new List<WishDto>(),
+                5
+            },
+            new object[]
+            {
+                1,
+                WishDataGenerator.GetWishDtos().Where(w => w.Type == 3).ToList(),
+                3,
+                3
+            },
+            new object[]
+            {
+                1,
+                WishDataGenerator.GetWishDtos().Where(w => w.Message.Contains("help")).ToList(),
+                3,
+                null,
+                "help"
             }
         };
     }

@@ -14,15 +14,15 @@ namespace MyLiverpool.Business.Services.Tests
 {
     public class ClubServiceTests : IDisposable
     {
-        private readonly IClubService _clubService;
+        private static readonly IClubService _clubService;
 
-        public ClubServiceTests()
+        static ClubServiceTests()
         {
             _clubService = new ClubService(new ClubRepository(GetFakeContextWithClubs()), MapperConfig.GetConfiration.CreateMapper());
         }
 
         [Theory, ClassData(typeof(ClubCreateTestData))]
-        public async void CreateWish(ClubDto toCreate, ClubDto expected)
+        public async void CreateClub(ClubDto toCreate, ClubDto expected)
         {
             var result = await _clubService.CreateAsync(toCreate);
 
@@ -32,26 +32,26 @@ namespace MyLiverpool.Business.Services.Tests
         }
 
         [Theory, ClassData(typeof(ClubGetTestData))]
-        public async void GetWish(int wishId, ClubDto expected)
+        public async void GetClub(int wishId, ClubDto expected)
         {
             var result = await _clubService.GetByIdAsync(wishId);
 
             result.ShouldBeEquivalentTo(expected);
         }
 
-        //[Theory, ClassData(typeof(ClubGetListTestData))]
-        //      public async void GetListClub(int page, List<ClubDto> expected)
-        //{
-        //    var result = await _clubService.GetListAsync(page);
+        [Theory, ClassData(typeof(ClubGetListTestData))]
+        public async void GetListClub(int page, List<ClubDto> expected)
+        {
+            var result = await _clubService.GetListAsync(page);
 
-        //          Assert.Equal(, result.TotalItems);
-        //          Assert.Equal(page, result.PageNo);
+            Assert.Equal(3, result.TotalItems);//bug list gets initial with created count
+            Assert.Equal(page, result.PageNo);
 
-        //          result.List.ShouldBeEquivalentTo(expected);
-        //} bug list gets initial with created count
+            result.List.ShouldBeEquivalentTo(expected);
+        } 
 
         [Theory, ClassData(typeof(ClubDeleteTestData))]
-        public async void DeleteWish(int wishId, bool expected)
+        public async void DeleteClub(int wishId, bool expected)
         {
             var wishToDelete = await _clubService.GetByIdAsync(wishId);
             var result = await _clubService.DeleteAsync(wishId);
@@ -128,17 +128,17 @@ namespace MyLiverpool.Business.Services.Tests
             new object[]
             {
                 1,
-                WishDataGenerator.Get3WishDtos()
+                ClubDataGenerator.Get3ClubDtos()
             },
             new object[]
             {
                 5,
-                new List<WishDto>()
+                new List<ClubDto>()
             },
             new object[]
             {
                 100,
-                new List<WishDto>()
+                new List<ClubDto>()
             }
         };
     }

@@ -8,14 +8,14 @@ namespace MyLiverpool.Business.Services.Tests.Helpers
 {
     public class WishDataGenerator
     {
-        public static List<Wish> Get3Wishes()
+        public static List<Wish> GetWishes()
         {
             return new List<Wish>()
             {
                 new Wish()
                 {
                     Type = WishType.Bug,
-                    Message = "mes 1",
+                    Message = "mes help 1",
                     Title = "title 1"
                 },
                 new Wish()
@@ -27,13 +27,25 @@ namespace MyLiverpool.Business.Services.Tests.Helpers
                 new Wish()
                 {
                     Type = WishType.Feature,
-                    Message = "mes 3",
+                    Message = "mes help 3",
                     Title = "title 3"
+                },
+                new Wish()
+                {
+                    Type = WishType.Feature,
+                    Message = "mes help 4",
+                    Title = "title 4"
+                },
+                new Wish()
+                {
+                    Type = WishType.Feature,
+                    Message = "mes 5",
+                    Title = "title 5"
                 }
             };
         }
 
-        public static List<WishDto> Get3WishDtos()
+        public static List<WishDto> GetWishDtos()
         {
             return new List<WishDto>()
             {
@@ -42,7 +54,7 @@ namespace MyLiverpool.Business.Services.Tests.Helpers
                     Id = 1,
                     Type = (int) WishType.Bug,
                     TypeName = WishType.Bug.GetNameAttribute(),
-                    Message = "mes 1",
+                    Message = "mes help 1",
                     Title = "title 1"
                 },
                 new WishDto()
@@ -58,8 +70,24 @@ namespace MyLiverpool.Business.Services.Tests.Helpers
                     Id = 3,
                     Type = (int) WishType.Feature,
                     TypeName = WishType.Feature.GetNameAttribute(),
-                    Message = "mes 3",
+                    Message = "mes help 3",
                     Title = "title 3"
+                },
+                new WishDto()
+                {
+                    Id = 4,
+                    Type = (int) WishType.Feature,
+                    TypeName = WishType.Feature.GetNameAttribute(),
+                    Message = "mes help 4",
+                    Title = "title 4"
+                },
+                new WishDto()
+                {
+                    Id = 5,
+                    Type = (int) WishType.Feature,
+                    TypeName = WishType.Feature.GetNameAttribute(),
+                    Message = "mes 5",
+                    Title = "title 5"
                 }
             };
         }

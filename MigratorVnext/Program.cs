@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -2018,18 +2019,21 @@ namespace MigratorVnext
 
         public static void UpdateCommentsLinks()
         {
+            var bag = new ConcurrentBag<MaterialComment>();
             Console.WriteLine("Start UpdateCommentsLinks");
             var allComments = MaterialCommentRepository.GetListAsync().Result.ToList();
             var commentsWithParent = MaterialCommentRepository.GetListAsync().Result.Where(c => c.OldParentId != null).ToList();
             var counter = 0;
             var count = commentsWithParent.Count;
-            foreach (var comment in commentsWithParent)
+            Parallel.ForEach(commentsWithParent, comment =>
             {
                 var parentComment = allComments.FirstOrDefault(x => x.OldId == comment.OldParentId);
                 comment.ParentId = parentComment?.Id;
                 Console.Write("| " + (counter++ * 1.00 / count).ToString("P"));
-                MaterialCommentRepository.Update(comment);
-            }
+             //   MaterialCommentRepository.Update(comment);
+                bag.Add(comment);
+            });
+            MaterialCommentRepository.UpdateRange(bag.ToList());
             MaterialCommentRepository.SaveChangesAsync().Wait();
         }
 

@@ -71,10 +71,7 @@ namespace MyLiverpool.Business.Services
             {
                 await _emailService.SendEmailAsync("Новое пожелание", message);
             }
-            catch (Exception)
-            {
-                // think what to do
-            }
+            catch{} // think what to do
         }
     }
 }

@@ -77,7 +77,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             SortOrder order = SortOrder.Ascending, Expression<Func<MaterialComment, object>> orderBy = null)
         {
             IQueryable<MaterialComment> query =
-                _context.MaterialComments.Include(x => x.Author).Include(x => x.Children).ThenInclude(x => x.Author);
+                _context.MaterialComments.Include(x => x.Author);
 
             if (filter != null)
             {
@@ -89,6 +89,11 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             }
             query = query.Skip((page - 1)*itemPerPage).Take(itemPerPage);
             return await query.ToListAsync();
+        }
+
+        public void UpdateRange(List<MaterialComment> comments)
+        {
+           _context.MaterialComments.UpdateRange(comments);
         }
     }
 }

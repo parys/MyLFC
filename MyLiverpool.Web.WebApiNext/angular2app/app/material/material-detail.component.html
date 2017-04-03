@@ -16,7 +16,7 @@
                 <li><label>Просмотры:</label> <span [textContent]="item.reads"></span></li>
                 <li><label>Источник:</label> <span [textContent]="item.source"></span></li>
                 <li><label>Дата добавления:</label> <span [textContent]="item.additionTime | date:'medium'"></span></li>
-                <li><label>Категория:</label> <a [routerLink]="['/news']" [queryParams]="{page: 1, categoryId: item.categoryId}"> <span [textContent]="item.categoryName"></span> </a></li>
+                <li><label>Категория:</label> <a [routerLink]="[+item.type === 1 ? '/news' : '/blogs']" [queryParams]="{page: 1, categoryId: item.categoryId}"> <span [textContent]="item.categoryName"></span> </a></li>
             </ul>
         </div>
     </div>
