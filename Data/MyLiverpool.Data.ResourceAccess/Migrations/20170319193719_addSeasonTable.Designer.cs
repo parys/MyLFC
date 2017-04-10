@@ -10,7 +10,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
 {
     [DbContext(typeof(LiverpoolContext))]
     [Migration("20170319193719_addSeasonTable")]
-    partial class addSeasonTable
+    partial class AddSeasonTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

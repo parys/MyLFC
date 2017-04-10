@@ -1,0 +1,35 @@
+﻿<section class="row flex">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 bg-warning flex padding0" *ngIf="last">
+        <div class="col-xs-12">Последняя игра <span class="pull-right" [textContent]="last.dateTime | date:'d MMM y j:mm'"></span></div><!--todo add back color for win|drar|lost-->
+        <div class="col-xs-4 col-sm-5">
+            <img [src]="last.homeClubLogo" alt="last.homeClub" title="last.homeClubName" style="width: 45px">
+            <strong [textContent]="last.homeClubName"></strong>
+        </div>
+        <div class="col-xs-4 col-sm-2 flex-vertical-center padding0">
+            <strong class="score"><span [textContent]="last.scoreHome"></span><span>:</span><span [textContent]="last.scoreAway"></span> </strong>
+        </div>
+        <div class="col-xs-4 col-sm-5">
+            <img [src]="last.awayClubLogo" alt="last.awayClubName" title="last.awayClubName" style="width: 45px">
+            <strong [textContent]="last.awayClubName"></strong>
+        </div>
+        <div class="col-xs-12 infodate"><br>
+            <a href="http://www.myliverpool.ru/news/liverpul_plimut_argajl/2017-01-08-18574">Отчет</a>
+            <a href="http://www.myliverpool.ru/news/match_plimutom_foto/2017-01-08-18575">Фото</a>
+            <a href="https://vk.com/video-117835363_456240738">Видео</a>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 bg-primary flex padding0" *ngIf="next">
+        <div class="col-xs-12">Следующая игра <span class="pull-right" [textContent]="next.dateTime | date:'d MMM y j:mm'"></span> </div>
+        <div class="col-xs-4 col-sm-5">
+            <img [src]="next.homeClubLogo" alt="next.homeClub" title="next.homeClubName" style="width: 45px">
+            <strong [textContent]="next.homeClubName"></strong>
+        </div>
+        <div class="col-xs-4 col-sm-2 flex-vertical-center padding0">
+            <strong class="score"><span [textContent]="next.scoreHome"></span><span>:</span><span [textContent]="next.scoreAway"></span> </strong>
+        </div>
+        <div class="col-xs-4 col-sm-5">
+            <img [src]="next.awayClubLogo" alt="next.awayClubName" title="next.awayClubName" style="width: 45px">
+            <strong [textContent]="next.awayClubName"></strong>
+        </div>
+    </div>
+</section>

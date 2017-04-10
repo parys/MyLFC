@@ -12,5 +12,9 @@ namespace MyLiverpool.Data.ResourceAccess.Interfaces
         Task<IEnumerable<Match>> GetListAsync(int page, int itemPerPage = 15,
             Expression<Func<Match, bool>> filter = null,
             SortOrder order = SortOrder.Ascending, Expression<Func<Match, object>> orderBy = null);
+
+        Task<Match> GetLastMatchAsync();
+
+        Task<Match> GetNextMatchAsync();
     }
 }

@@ -17,15 +17,23 @@
             <div class="panel-heading">
                 <h3 class="panel-title">
                     <a [routerLink]="[item.id, 'edit']"> <span [textContent]="item.dateTime | date:'medium'"></span> - <span [textContent]="item.stadium"></span></a>
-                    <span class="col-xs-1 col-sm-1 pull-right">
+                    <!--span class="col-xs-1 col-sm-1 pull-right">
                         <a ng-click="vm.delete($index)"><span class="glyphicon glyphicon-trash"></span></a>
-                    </span>
+                    </!--span>-->
                 </h3>
             </div>
             <div class="panel-body col-xs-12 row">
-                <div class="col-xs-4"><img class="club-logo" [src]="item.homeClubLogo"><span [textContent]="item.homeClubName"></span></div>
-                <div class="col-xs-4"></div>
-                <div class="col-xs-4"><img class="club-logo" [src]="item.awayClubLogo"><span [textContent]="item.awayClubName"></span></div>
+                <div class="col-xs-4">
+                    <img class="club-logo" [src]="item.homeClubLogo" [alt]="item.homeClubName">
+                    <span [textContent]="item.homeClubName"></span>
+                </div>
+                <div class="col-xs-4 font-size40">
+                    <span [textContent]="item.scoreHome"></span>:<span [textContent]="item.scoreAway"></span>
+                </div>
+                <div class="col-xs-4">
+                    <img class="club-logo" [src]="item.awayClubLogo" [alt]="item.awayClubName">
+                    <span [textContent]="item.awayClubName"></span>
+                </div>
             </div>
         </div>
     </div>

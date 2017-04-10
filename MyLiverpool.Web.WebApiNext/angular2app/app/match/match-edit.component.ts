@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit } from "@angular/core";
-import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { MatchService } from "./index";
@@ -88,6 +88,12 @@ export class MatchEditComponent implements OnInit {
         item.dateTime = new Date(date.getFullYear(), date.getMonth(), date.getDate(), time.getHours(), time.getMinutes());
         item.typeId = this.editForm.controls["typeId"].value;
         item.seasonId = this.editForm.controls["seasonId"].value;
+        let scoreHome = this.editForm.controls["scoreHome"].value;
+        let scoreAway = this.editForm.controls["scoreAway"].value;
+        if (scoreHome && scoreAway) {
+            item.scoreHome = scoreHome;
+            item.scoreAway = scoreAway;
+        }
 
         return item;
     }
@@ -100,7 +106,9 @@ export class MatchEditComponent implements OnInit {
             'isHome': ["true", Validators.required],
             'date': ["", Validators.required],
             'time': ["", Validators.required],
-            'typeId': ["", Validators.required]
+            'typeId': ["", Validators.required],
+            'scoreHome': [""],
+            'scoreAway': [""]
         });
     }
 }

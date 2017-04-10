@@ -74,6 +74,7 @@ import { ReCaptchaModule } from "angular2-recaptcha";
         image.ImageListComponent,
         match.MatchEditComponent,
         match.MatchListComponent,
+        match.MatchCalendarComponent,
         materialCategory.MaterialCategoryEditComponent,
         materialCategory.MaterialCategoryListComponent,
         materialComment.MaterialCommentDetailComponent,

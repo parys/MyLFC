@@ -10,7 +10,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
 {
     [DbContext(typeof(LiverpoolContext))]
     [Migration("20170125140249_addBirthdayFieldToPerson")]
-    partial class addBirthdayFieldToPerson
+    partial class AddBirthdayFieldToPerson
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

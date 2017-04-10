@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -58,6 +59,23 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             }
             var result = await _matchService.UpdateAsync(dto);
             return Ok(result);
+        }      
+        
+        /// <summary>
+        /// Updates match score.
+        /// </summary>
+        /// <param name="id">The identifier of entity.</param>
+        /// <param name="score">New match score.</param>
+        /// <returns>Updated entity.</returns>
+        [Authorize(Roles = nameof(RolesEnum.AdminStart)), HttpPut("UpdateScore")]
+        public async Task<IActionResult> UpdateAsync([FromQuery]int id, [FromQuery]string score)
+        {
+            if (id <= 0 || string.IsNullOrEmpty(score) || !Regex.IsMatch(score, "[\\d]*-[\\d]*"))
+            {
+                return BadRequest();
+            }
+            var result = await _matchService.UpdateScoreAsync(id, score);
+            return Ok(result);
         }
 
         /// <summary>
@@ -73,6 +91,17 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 id = 1;
             }
             var result = await _matchService.GetByIdAsync(id);
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// Returns matches for calendar.
+        /// </summary>
+        /// <returns>Two matches for calendar.</returns>
+        [AllowAnonymous, HttpGet("getForCalendar")]
+        public async Task<IActionResult> GetForCalendarAsync()
+        {
+            var result = await _matchService.GetForCalendarAsync();
             return Ok(result);
         }
 

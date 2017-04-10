@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace MyLiverpool.Data.ResourceAccess.Migrations
 {
-    public partial class addPersonTable : Migration
+    public partial class AddPersonTable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

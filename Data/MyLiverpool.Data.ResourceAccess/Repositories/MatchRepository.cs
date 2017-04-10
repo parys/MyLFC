@@ -82,5 +82,19 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             query = query.Skip((page - 1) * itemPerPage).Take(itemPerPage);
             return await query.ToListAsync();
         }
+
+        public async Task<Match> GetLastMatchAsync()
+        {
+            return await _context.Matches.Include(m => m.Club)
+                .OrderBy(m => m.DateTime)
+                .LastOrDefaultAsync(m => !string.IsNullOrWhiteSpace(m.Score));
+        }
+
+        public async Task<Match> GetNextMatchAsync()
+        {
+            return await _context.Matches.Include(m => m.Club)
+                .OrderBy(m => m.DateTime)
+                .FirstOrDefaultAsync(m => string.IsNullOrWhiteSpace(m.Score));
+        }
     }
 }

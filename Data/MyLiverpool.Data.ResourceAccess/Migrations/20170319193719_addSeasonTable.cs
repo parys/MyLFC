@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace MyLiverpool.Data.ResourceAccess.Migrations
 {
-    public partial class addSeasonTable : Migration
+    public partial class AddSeasonTable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

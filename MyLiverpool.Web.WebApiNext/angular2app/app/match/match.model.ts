@@ -14,4 +14,6 @@
     typeName: string;
     stadium: string;
     seasonId: number;
+    scoreHome: string;
+    scoreAway: string;
 }

@@ -10,7 +10,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
 {
     [DbContext(typeof(LiverpoolContext))]
     [Migration("20170121100309_addHelperTable")]
-    partial class addHelperTable
+    partial class AddHelperTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

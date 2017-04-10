@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MyLiverpool.Data.ResourceAccess.Migrations
 {
-    public partial class addBirthdayFieldToPerson : Migration
+    public partial class AddBirthdayFieldToPerson : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

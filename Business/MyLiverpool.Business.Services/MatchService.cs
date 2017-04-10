@@ -44,10 +44,54 @@ namespace MyLiverpool.Business.Services
             match.IsHome = dto.IsHome;
             match.MatchType = (MatchTypeEnum)dto.TypeId;
             match.ClubId = dto.ClubId;
-            match.Score = dto.Score;
+            match.Score = $"{dto.ScoreHome}-{dto.ScoreAway}";
             _matchRepository.Update(match);
             await _matchRepository.SaveChangesAsync();
             return dto;
+        }
+
+        public async Task<MatchDto> UpdateScoreAsync(int matchId, string newScore)
+        {
+            var match = await _matchRepository.GetByIdAsync(matchId);
+            match.Score = newScore;
+            _matchRepository.Update(match);
+            await _matchRepository.SaveChangesAsync();
+            return _mapper.Map<MatchDto>(match);
+        }
+
+        public async Task<IEnumerable<MatchDto>> GetForCalendarAsync()
+        {
+            var liverpoolClub = await _clubRepository.GetByEnglishName(LiverpoolClubEnglishName);
+            if (liverpoolClub == null)
+            {
+                return null;
+            }
+            var lastMatch = await _matchRepository.GetLastMatchAsync();
+            var nextMatch = await _matchRepository.GetNextMatchAsync();
+            var dtos = new List<MatchDto>();
+            var matches = new List<Match>();
+            if (lastMatch != null)
+            {
+                matches.Add(lastMatch);
+            }
+            if (nextMatch != null)
+            {
+                matches.Add(nextMatch);
+            }
+            foreach (var match in matches)
+            {
+                var dto = _mapper.Map<MatchDto>(match);
+                if (match.IsHome)
+                {
+                    FillClubsFields(dto, liverpoolClub, match.Club);
+                }
+                else
+                {
+                    FillClubsFields(dto, match.Club, liverpoolClub);
+                }
+                dtos.Add(dto);
+            }
+            return dtos;
         }
 
         public async Task<bool> DeleteAsync(int id)

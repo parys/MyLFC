@@ -19,6 +19,10 @@ export class MatchService {
         return this.http.get(this.actionUrl + "list?page=" + page).map((res: Response) => res.json());
     };
 
+    getForCalendar = (): Observable<Match[]> => {
+        return this.http.get(this.actionUrl + "getForCalendar").map((res: Response) => res.json());
+    };
+
     getSingle = (id: number): Observable<Match> => {
         return this.http.get(this.actionUrl + id).map((res: Response) => res.json());
     };
@@ -30,6 +34,12 @@ export class MatchService {
     update = (id: number, itemToUpdate: Match): Observable<Match> => {
         return this.http
             .put(this.actionUrl + id, JSON.stringify(itemToUpdate))
+            .map((res: Response) => res.json());
+    };
+
+    updateScore = (id: number, score: string): Observable<Match> => {
+        return this.http
+            .put(`${this.actionUrl}updateScore?id=${id}&score=${score}`, null)
             .map((res: Response) => res.json());
     };
 
