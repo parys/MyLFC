@@ -35,7 +35,7 @@ namespace MyLiverpool.Common.Mappings
                 .ForMember(x => x.Score, src => src.MapFrom(x => GetScores(x.ScoreHome,x.ScoreAway)));
         }
 
-        private static string GetScores(string scoreHome, string scoreAway)
+        private static string GetScores(string scoreHome, string scoreAway) //todo duplicate at matchService
         {
             if (string.IsNullOrWhiteSpace(scoreHome) || string.IsNullOrWhiteSpace(scoreAway))
             {

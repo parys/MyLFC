@@ -44,7 +44,7 @@ namespace MyLiverpool.Business.Services
             match.IsHome = dto.IsHome;
             match.MatchType = (MatchTypeEnum)dto.TypeId;
             match.ClubId = dto.ClubId;
-            match.Score = $"{dto.ScoreHome}-{dto.ScoreAway}";
+            match.Score = GetScores(dto.ScoreHome, dto.ScoreAway);
             _matchRepository.Update(match);
             await _matchRepository.SaveChangesAsync();
             return dto;
@@ -159,6 +159,15 @@ namespace MyLiverpool.Business.Services
             dto.AwayClubName = awayClub.Name;
             dto.AwayClubLogo = awayClub.Logo;
             dto.Stadium = homeClub.Stadium;
+        }
+
+        private static string GetScores(string scoreHome, string scoreAway)
+        {
+            if (string.IsNullOrWhiteSpace(scoreHome) || string.IsNullOrWhiteSpace(scoreAway))
+            {
+                return null;
+            }
+            return $"{scoreHome}-{scoreAway}";
         }
     }
 }

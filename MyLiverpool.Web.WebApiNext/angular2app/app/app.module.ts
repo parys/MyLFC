@@ -32,6 +32,9 @@ import { ModalModule, PaginationModule, TabsModule } from "ng2-bootstrap";
 import { DatepickerModule } from "ng2-bootstrap/datepicker";
 import { TimepickerModule } from "ng2-bootstrap/timepicker";
 import { ReCaptchaModule } from "angular2-recaptcha";
+import { Ng2BreadcrumbModule, BreadcrumbService } from "ng2-breadcrumb/ng2-breadcrumb";
+import { BreadcrumbComponent } from "./shared/breadcrumb.component";
+
 
 @NgModule({
     imports: [
@@ -42,6 +45,7 @@ import { ReCaptchaModule } from "angular2-recaptcha";
         ForumModule,
         ModalModule.forRoot(),
         Ng2AutoCompleteModule,
+        Ng2BreadcrumbModule.forRoot(),
         PaginationModule.forRoot(),
         PersonModule,
         RouterModule.forRoot(routes),
@@ -59,6 +63,7 @@ import { ReCaptchaModule } from "angular2-recaptcha";
         account.ForgotPasswordComponent,
         account.ResetPasswordComponent,
         account.UnconfirmedEmailComponent,
+        BreadcrumbComponent,
         chat.MiniChatComponent,
         club.ClubEditComponent,
         club.ClubListComponent,
@@ -104,6 +109,7 @@ import { ReCaptchaModule } from "angular2-recaptcha";
         auth.UnSignedGuard,
         account.AccountService,
         account.AccountValidators,
+        BreadcrumbService,
         chat.ChatMessageService,
         club.ClubService,
         image.ImageService,

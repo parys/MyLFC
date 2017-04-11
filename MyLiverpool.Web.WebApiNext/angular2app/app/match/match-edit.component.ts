@@ -93,6 +93,9 @@ export class MatchEditComponent implements OnInit {
         if (scoreHome && scoreAway) {
             item.scoreHome = scoreHome;
             item.scoreAway = scoreAway;
+        } else {
+            item.scoreHome = null;
+            item.scoreAway = null;
         }
 
         return item;
