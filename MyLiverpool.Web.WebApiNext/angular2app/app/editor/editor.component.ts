@@ -58,16 +58,15 @@ export class EditorComponent implements ControlValueAccessor {
     }
 
     writeValue(value: any): void {
-        if (value !== null) {
-            this._value = value;
-            if (!tinymce) {
-                this.initTiny();
-            }
-            if (tinymce.activeEditor && tinymce.activeEditor[this.elementId]) {
-                tinymce.activeEditor[this.elementId].setContent(value);
-            }
+        this.value = value;
+        if (!tinymce) {
+            this.initTiny();
+        }
+        if (tinymce.editors && tinymce.editors[this.elementId]) {
+            tinymce.editors[this.elementId].setContent((value) ? value : "");
         }
     }
+
     onChange(_: any): void { }
     onTouched(): void { }
     registerOnChange(fn: any): void {

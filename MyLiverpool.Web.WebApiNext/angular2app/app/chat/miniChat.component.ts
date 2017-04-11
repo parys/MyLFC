@@ -1,13 +1,8 @@
-﻿import { Component, OnInit, OnDestroy, ViewChild } from "@angular/core";
-import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { Observable } from "rxjs/Observable";
-import { Location } from "@angular/common";
-import { Title } from "@angular/platform-browser";
-import { Router, ActivatedRoute } from "@angular/router";
+﻿import { Component, OnInit} from "@angular/core";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import {  ActivatedRoute } from "@angular/router";
 import { ChatMessage } from "./chatMessage.model";
 import { ChatMessageService } from "./chatMessage.service";
-import { Pageable } from "../shared/pageable.model";
-import { ModalDirective } from "ng2-bootstrap";
 import { RolesCheckedService, IRoles } from "../shared/index";
 
 @Component({
@@ -38,8 +33,7 @@ export class MiniChatComponent implements OnInit {
         this.service
             .getAll()
             .subscribe(data => this.items = data,
-                error => console.log(error),
-                () => {});
+                error => console.log(error));
     }
 
     onSubmit(): void {
@@ -48,8 +42,7 @@ export class MiniChatComponent implements OnInit {
                 this.items.unshift(data);
                 this.messageForm.reset();
                 },
-            (error) => console.log(error),
-            () => { });
+            (error) => console.log(error));
     }
 
     private initForm(): void {

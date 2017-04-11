@@ -77,14 +77,17 @@ export class MaterialListComponent implements OnInit {
     }
 
     delete(): void {
+        console.log("delete");
         let result;
         this.materialService.delete(this.items[this.selectedItemIndex].id)
             .subscribe(res => result = res,
                 e => console.log(e),
                 () => {
+                    this.hideModal();
                     if (result) {
                         this.items.splice(this.selectedItemIndex, 1);
-                        this.hideModal();
+                    } else {
+                        alert("Ошибка удаления")//todo temporary;
                     }
                 }
             );

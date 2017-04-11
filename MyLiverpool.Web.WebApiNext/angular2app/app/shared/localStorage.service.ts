@@ -68,7 +68,7 @@ export class LocalStorageService {
         this.setObject("userId", id);
     }
 
-    tryAddViewForNews(id: number): boolean {
+    tryAddViewForMaterial(id: number): boolean {
         if (!this.localStorage) return false;
         if (!this.get(`material${id}`)) {
             this.set(`material${id}`, "1");

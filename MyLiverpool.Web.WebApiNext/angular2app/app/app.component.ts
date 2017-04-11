@@ -44,7 +44,7 @@ export class AppComponent {
     }
 
     private setUpBreadcrumbs(): void {
-        this.breadcrumbService.addFriendlyNameForRoute("", "Главная");
+        //this.breadcrumbService.addFriendlyNameForRoute("/", "Главная");
 
         this.breadcrumbService.addFriendlyNameForRoute("/forum", "Форум");
         this.breadcrumbService.addFriendlyNameForRouteRegex("^/forum/[0-9]+$", "Подсекция");

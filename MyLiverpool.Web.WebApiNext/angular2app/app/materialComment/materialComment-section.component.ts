@@ -1,11 +1,10 @@
-﻿import { Component, OnInit, ViewChild, Input } from "@angular/core";
+﻿import { Component, OnInit, Input } from "@angular/core";
 import { Pageable } from "../shared/pageable.model";
-import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { MaterialComment } from "./materialComment.model";
 import { MaterialCommentService } from "./materialComment.service";
 import { Location } from "@angular/common";
 import { RolesCheckedService, IRoles } from "../shared/index";
-import { ModalDirective } from "ng2-bootstrap";
 
 @Component({
     selector: "comments",
@@ -19,7 +18,6 @@ export class MaterialCommentSectionComponent implements OnInit {
     totalItems: number;
     roles: IRoles;
     commentAddForm: FormGroup;
-    //selectedItemIndex: number = undefined;
     @Input() materialId: number;
     @Input() canCommentary: boolean = false;
                             
@@ -51,8 +49,7 @@ export class MaterialCommentSectionComponent implements OnInit {
         this.materialCommentService
             .getAllByMaterial(this.page, this.materialId)
             .subscribe(data => this.parsePageable(data),
-            error => console.log(error),
-            () => {});
+            error => console.log(error));
     }
 
     private parsePageable(pageable: Pageable<MaterialComment>): void {
@@ -60,7 +57,7 @@ export class MaterialCommentSectionComponent implements OnInit {
         this.page = pageable.pageNo;
         this.itemsPerPage = pageable.itemPerPage;
         this.totalItems = pageable.totalItems;
-    }                                 
+    }
 
     onSubmit(): void {
         var comment = new MaterialComment();
@@ -70,12 +67,9 @@ export class MaterialCommentSectionComponent implements OnInit {
             .subscribe(data => {
                     this.items.push(data);
                     this.totalItems += 1;
-                   // this.commentAddForm.controls["message"].patchValue("");
-                    this.commentAddForm.controls["message"].reset("");
+                    // this.commentAddForm.controls["message"].patchValue("");
+                    this.commentAddForm.controls["message"].patchValue("");
                 },
-                error => console.log(error),
-                () => {}
-            );
-
+                error => console.log(error));
     }
 }

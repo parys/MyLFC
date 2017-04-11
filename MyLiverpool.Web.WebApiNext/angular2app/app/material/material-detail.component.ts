@@ -1,8 +1,7 @@
-﻿import { Component, OnInit, OnDestroy, ViewChild } from "@angular/core";
+﻿import { Component, OnInit, ViewChild } from "@angular/core";
 import { Title } from "@angular/platform-browser";
 import { MaterialService } from "./material.service";
 import { Router, ActivatedRoute } from "@angular/router";
-import { Subscription } from "rxjs/Subscription";
 import { Material } from "./material.model";                
 import { MaterialType } from "../materialCategory/materialType.enum";                
 import { RolesCheckedService, IRoles, LocalStorageService } from "../shared/index";
@@ -13,8 +12,7 @@ import { ModalDirective } from "ng2-bootstrap";
     template: require("./material-detail.component.html")
 })
 
-export class MaterialDetailComponent implements OnInit, OnDestroy {
-    private sub: Subscription;
+export class MaterialDetailComponent implements OnInit {
     item: Material;
     roles: IRoles;
     private title: Title;
@@ -33,18 +31,9 @@ export class MaterialDetailComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.roles = this.rolesChecked.checkRoles();
-
-        this.sub = this.route.params.subscribe(params => {       //todo to snapshot
-            let id = +params["id"];
-            this.service.getSingle(id)
-                .subscribe(data => this.parse(data),
-                error => console.log(error),
-                () => {});
-        });
-    }
-
-    ngOnDestroy() {
-        this.sub.unsubscribe();
+        this.service.getSingle(+this.route.snapshot.params["id"])
+            .subscribe(data => this.parse(data),
+                error => console.log(error));
     }
 
     showActivateModal(index: number): void {
@@ -71,8 +60,7 @@ export class MaterialDetailComponent implements OnInit, OnDestroy {
                     this.item.pending = false;
                     this.hideModal();
                 }
-            }
-            );
+            });
     }
 
     delete() {
@@ -97,7 +85,7 @@ export class MaterialDetailComponent implements OnInit, OnDestroy {
 
     private addView() {
         let id = this.item.id;
-        if (!this.localStorage.tryAddViewForNews(id)) {
+        if (this.localStorage.tryAddViewForMaterial(id)) {
             this.service.addView(id).subscribe(data => data);
         }
     }

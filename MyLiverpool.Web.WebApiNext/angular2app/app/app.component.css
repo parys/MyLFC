@@ -41,6 +41,10 @@ textarea {
     color: orange;
 }
 
+.breadcrumb {
+    margin-bottom: 0;
+}
+
 .chat-message {
     padding: 0 5px 5px 5px;
     margin-bottom: 3px;
