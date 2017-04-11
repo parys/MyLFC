@@ -69,17 +69,14 @@ namespace MyLiverpool.Business.Services.Tests
         {
             Console.WriteLine("WishServiceTests.Dispose()");
         }
-
-        //private static bool DbFilled = false;
+        
         private static LiverpoolContext GetFakeContextWithWishes()
         {
             
             var context = new FakeContext(new DbContextOptions<LiverpoolContext>());
-         //   if (!DbFilled)
             {
                 context.Wishes.AddRange(WishDataGenerator.GetWishes());
                 context.SaveChanges();
-          //      DbFilled = true;
             }
             return context;
         }

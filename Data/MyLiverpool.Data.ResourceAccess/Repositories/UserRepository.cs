@@ -126,7 +126,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             var user = await _userManager.FindByIdAsync(id.ToString());
             if (user == null)
             {
-                throw new NullReferenceException("User cannot be null");
+                return new List<string>();
             }
             return await _userManager.GetRolesAsync(user);
         }

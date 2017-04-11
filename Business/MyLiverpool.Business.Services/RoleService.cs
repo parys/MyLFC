@@ -51,12 +51,12 @@ namespace MyLiverpool.Business.Services
             return string.Join(", ", roles);
         }
 
-        private IEnumerable<Role> GetRolesToDelete(IEnumerable<Role> oldRoles, IEnumerable<Role> newRoles)
+        private static IEnumerable<Role> GetRolesToDelete(IEnumerable<Role> oldRoles, IEnumerable<Role> newRoles)
         {
             return oldRoles.Except(newRoles);
         }
 
-        private IEnumerable<Role> GetRolesToAdd(IEnumerable<Role> oldRoles, IEnumerable<Role> newRoles)
+        private static IEnumerable<Role> GetRolesToAdd(IEnumerable<Role> oldRoles, IEnumerable<Role> newRoles)
         {
             return newRoles.Except(oldRoles);
         }
