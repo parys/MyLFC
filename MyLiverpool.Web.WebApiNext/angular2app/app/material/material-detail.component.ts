@@ -2,6 +2,7 @@
 import { Title } from "@angular/platform-browser";
 import { MaterialService } from "./material.service";
 import { Router, ActivatedRoute } from "@angular/router";
+import { Subscription } from "rxjs/Subscription";
 import { Material } from "./material.model";                
 import { MaterialType } from "../materialCategory/materialType.enum";                
 import { RolesCheckedService, IRoles, LocalStorageService } from "../shared/index";
@@ -13,6 +14,7 @@ import { ModalDirective } from "ng2-bootstrap";
 })
 
 export class MaterialDetailComponent implements OnInit {
+    sub: Subscription;
     item: Material;
     roles: IRoles;
     private title: Title;
@@ -31,10 +33,18 @@ export class MaterialDetailComponent implements OnInit {
 
     ngOnInit() {
         this.roles = this.rolesChecked.checkRoles();
-        this.service.getSingle(+this.route.snapshot.params["id"])
-            .subscribe(data => this.parse(data),
-                error => console.log(error));
+        this.sub = this.route.params.subscribe(params => {
+            this.service.getSingle(+params["id"])
+                .subscribe(data => this.parse(data),
+                    error => console.log(error),
+                    () => { });
+        });
     }
+
+    ngOnDestroy() {
+        this.sub.unsubscribe();
+    }
+    
 
     showActivateModal(index: number): void {
         this.activateModal.show();
