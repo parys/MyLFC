@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
 using MyLiverpool.Data.Entities;
 using OpenIddict.Core;
@@ -77,7 +78,7 @@ namespace MyLiverpool.Data.ResourceAccess
                 new RoleGroup()
                 {
                     Name = RoleGroupsEnum.Admin.ToString(),//1
-                    RussianName = "Админ",
+                    RussianName = RoleGroupsEnum.Admin.GetNameAttribute(),
                 },
                 new RoleGroup()
                 {
@@ -87,7 +88,7 @@ namespace MyLiverpool.Data.ResourceAccess
                 new RoleGroup()
                 {
                     Name = RoleGroupsEnum.MainNewsmaker.ToString(), //3
-                    RussianName = "главноый ньюс"
+                    RussianName = "главный ньюс"
                 },
                 new RoleGroup()
                 {
@@ -97,7 +98,7 @@ namespace MyLiverpool.Data.ResourceAccess
                 new RoleGroup()
                 {
                     Name = RoleGroupsEnum.Editor.ToString(),//5
-                    RussianName = "Редактор"
+                    RussianName = RoleGroupsEnum.Editor.GetNameAttribute()
                 },
                 new RoleGroup()
                 {
@@ -127,7 +128,7 @@ namespace MyLiverpool.Data.ResourceAccess
                 new RoleGroup()
                 {
                     Name = RoleGroupsEnum.Simple.ToString(), //11
-                    RussianName = "Юзверь",
+                    RussianName = RoleGroupsEnum.Simple.GetNameAttribute(),
                 },
                 new RoleGroup()
                 {

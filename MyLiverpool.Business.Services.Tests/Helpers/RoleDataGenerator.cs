@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using MyLiverpool.Business.DtoNext;
+using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
 using MyLiverpool.Data.Entities;
 
@@ -9,133 +10,96 @@ namespace MyLiverpool.Business.Services.Tests.Helpers
     {
         public static List<RoleGroup> GetRoleGroups()
         {
-            var simpleUser = new User()
-            {
-                Email = "asd",
-                UserName = "simple",
-                Roles =
-                {
-                    new IdentityUserRole<int>()
-                    {
-                        RoleId = 2,
-                        UserId = 1
-                    },
-                }
-            };
-            var editorUser = new User
-            {
-                Email = "as2d",
-                UserName = "editor",
-                Roles =
-                {
-                    new IdentityUserRole<int>()
-                    {
-                        RoleId = 2,
-                        UserId = 2
-                    },
-                    new IdentityUserRole<int>()
-                    {
-                        RoleId = 4,
-                        UserId = 2
-                    },
-                }
-            };
-            var adminUser = new User()
-            {
-                Email = "asd3",
-                UserName = "admin",
-                Roles =
-                {
-                    new IdentityUserRole<int>()
-                    {
-                        RoleId = 2,
-                        UserId = 3
-                    },
-                    new IdentityUserRole<int>()
-                    {
-                        RoleId = 4,
-                        UserId = 3
-                    },
-                    new IdentityUserRole<int>()
-                    {
-                        RoleId = 6,
-                        UserId = 3
-                    }
-                }
-            };
-            var simpleRole = new Role()
-            {
-                Name = RolesEnum.Simple.ToString()
-            };
-            var editorRole = new Role()
-            {
-                Name = RolesEnum.NewsFull.ToString(),
-            };
-            var adminRole = new Role()
-            {
-                Name = RolesEnum.AdminFull.ToString()
-            };
             return new List<RoleGroup>()
             {
                 new RoleGroup()
                 {
                     Name =  RoleGroupsEnum.Simple.ToString(),
-                    RussianName = "пользователь",
+                    RussianName = RoleGroupsEnum.Simple.GetNameAttribute(),
                     RoleGroups = new List<RoleRoleGroup>()
                     {
                         new RoleRoleGroup()
                         {
-                            Role = simpleRole
+                            RoleId = 1
                         }
-                    },
-                    Users = new List<User>()
-                    {
-                        simpleUser
                     }
                 },
                 new RoleGroup()
                 {
                     Name =  RoleGroupsEnum.Editor.ToString(),
-                    RussianName = "редактор",
+                    RussianName = RoleGroupsEnum.Editor.GetNameAttribute(),
                     RoleGroups = new List<RoleRoleGroup>()
                     {
                         new RoleRoleGroup()
                         {
-                            Role = simpleRole
+                            RoleId = 1
                         },
                         new RoleRoleGroup()
                         {
-                            Role = editorRole
+                            RoleId = 2
                         }
-                    },
-                    Users = new List<User>()
-                    {
-                        editorUser
                     }
                 },
                 new RoleGroup()
                 {
                     Name = RoleGroupsEnum.Admin.ToString(),
-                    RussianName = "админ",
+                    RussianName = RoleGroupsEnum.Admin.GetNameAttribute(),
                     RoleGroups = new List<RoleRoleGroup>()
                     {
                         new RoleRoleGroup()
                         {
-                            Role = simpleRole
+                            RoleId = 1
                         },
                         new RoleRoleGroup()
                         {
-                            Role = editorRole
+                            RoleId = 2
                         },
                         new RoleRoleGroup()
                         {
-                            Role = adminRole
+                            RoleId = 3
                         }
-                    },
-                    Users = new List<User>()
-                    {
-                        adminUser
                     }
+                }
+            };
+        }
+
+        public static IEnumerable<RoleGroupDto> GetRoleGroupDtos()
+        {
+            var simpleRole = new RoleDto()
+            {
+                Name = RolesEnum.Simple.ToString(),
+                Id = 1
+            };
+            var editorRole = new RoleDto()
+            {
+                Name = RolesEnum.NewsFull.ToString(),
+                Id = 2
+            };
+            var adminRole = new RoleDto()
+            {
+                Name = RolesEnum.AdminFull.ToString(),
+                Id = 3
+            };
+            return new List<RoleGroupDto>()
+            {
+                new RoleGroupDto()
+                {
+                    Name =  RoleGroupsEnum.Simple.GetNameAttribute(),
+                    Id = 1,
+                    Roles = new List<RoleDto>() { simpleRole }
+                    
+                },
+                new RoleGroupDto()
+                {
+                    Name =  RoleGroupsEnum.Editor.GetNameAttribute(),
+                    Id = 2,
+                    Roles = new List<RoleDto>(){ simpleRole, editorRole}
+                },
+                new RoleGroupDto()
+                {
+                    Name = RoleGroupsEnum.Admin.GetNameAttribute(),
+                    Id = 3,
+                    Roles = new List<RoleDto>(){simpleRole, editorRole, adminRole}
                 }
             };
         }

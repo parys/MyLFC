@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using FluentAssertions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.DtoNext;
@@ -13,6 +15,7 @@ using MyLiverpool.Common.Mappings;
 using MyLiverpool.Data.Common;
 using MyLiverpool.Data.Entities;
 using MyLiverpool.Data.ResourceAccess;
+using MyLiverpool.Data.ResourceAccess.Interfaces;
 using MyLiverpool.Data.ResourceAccess.Repositories;
 using Xunit;
 
@@ -22,19 +25,41 @@ namespace MyLiverpool.Business.Services.Tests
     {
         private static readonly LiverpoolContext Context = new FakeContext(new DbContextOptions<LiverpoolContext>());
         private static readonly IRoleService RoleService;
+        private static readonly IUserRepository UserRepository;
 
         static RoleServiceTests()
         {
+            InitRoles();
+            UserRepository = new UserRepository(Context, GetUserManager());
             RoleService = new RoleService(new RoleGroupRepository(GetFakeContextWithRolesAndRoleGroups()),
-                MapperConfig.GetConfiration.CreateMapper(), new UserRepository(Context, GetUserManager()));
+                MapperConfig.GetConfiration.CreateMapper(), UserRepository);
         }
-
 
         [Theory, ClassData(typeof(GetUserRolesTestData))]
         public async void GetUserRolesAsync(int userId, string expected)
         {
             var result = await RoleService.GetUserRolesAsync(userId);
             
+            result.ShouldBeEquivalentTo(expected);
+        }
+
+        [Theory, ClassData(typeof(GetRoleGroupsDtoTestData))]
+        public async void GetRoleGroupsDtoAsync(IEnumerable<RoleGroupDto> expected)
+        {
+            var result = await RoleService.GetRoleGroupsDtoAsync();
+            
+            result.Count().ShouldBeEquivalentTo(expected.Count());
+            result.ShouldBeEquivalentTo(expected);
+        }
+
+        [Theory, ClassData(typeof(GetEditRoleGroupTestData))]
+        public async void EditRoleGroupAsync(int newRoleGroup, int userId, bool expected)
+        {
+            var oldRoles = await UserRepository.GetRolesAsync(userId);
+            var result = await RoleService.EditRoleGroupAsync(newRoleGroup, userId);
+            var newRoles = await UserRepository.GetRolesAsync(userId);
+            
+            (oldRoles != newRoles).Should().BeTrue();
             result.ShouldBeEquivalentTo(expected);
         }
 
@@ -45,35 +70,139 @@ namespace MyLiverpool.Business.Services.Tests
 
         private static LiverpoolContext GetFakeContextWithRolesAndRoleGroups()
         {
-            //   if (!DbFilled)
+            Context.RoleGroups.AddRange(RoleDataGenerator.GetRoleGroups());
+            Context.SaveChanges();
+            var users = new List<User>()
             {
-                Context.RoleGroups.AddRange(RoleDataGenerator.GetRoleGroups());
-                Context.SaveChanges();
-                //      DbFilled = true;
-            }
+                new User()
+                {
+                    Email = "asd",
+                    UserName = "simple",
+                    Roles =
+                    {
+                        new IdentityUserRole<int>()
+                        {
+                            RoleId = 1
+                        }
+                    },
+                    RoleGroupId = 1
+                },
+                new User
+                {
+                    Email = "as2d",
+                    UserName = "editor",
+                    Roles =
+                    {
+                        new IdentityUserRole<int>()
+                        {
+                            RoleId = 1
+                        },
+                        new IdentityUserRole<int>()
+                        {
+                            RoleId = 2
+                        },
+                    },
+                    RoleGroupId = 2
+                },
+                new User()
+                {
+                    Email = "asd3",
+                    UserName = "admin",
+                    Roles =
+                    {
+                        new IdentityUserRole<int>()
+                        {
+                            RoleId = 1
+                        },
+                        new IdentityUserRole<int>()
+                        {
+                            RoleId = 2
+                        },
+                        new IdentityUserRole<int>()
+                        {
+                            RoleId = 3
+                        }
+                    },
+                    RoleGroupId = 3
+                }
+            };
+            users.ForEach(async u => await UserRepository.CreateAsync(u, "1234asdsaS"));
+           
+          //  UserRepository.AddToRolesAsync(users[0], new[] {RolesEnum.Simple.ToString()}).Wait();
+          //  UserRepository.AddToRolesAsync(users[1], new[] {RolesEnum.Simple.ToString(), RolesEnum.NewsFull.ToString()}).Wait();
+         //   UserRepository.AddToRolesAsync(users[2], new[] {RolesEnum.Simple.ToString(), RolesEnum.NewsFull.ToString(), RolesEnum.AdminFull.ToString()}).Wait();
+
             return Context;
         }
 
-        private static LiverpoolContext GetFakeContextWithUsers()
+        private static void InitRoles()
         {
-            //   if (!DbFilled)
+            var roleManager = new RoleManager<Role>(
+                new RoleStore<Role, LiverpoolContext, int>(Context), new IRoleValidator<Role>[0], null, new IdentityErrorDescriber(), new Logger<RoleManager<Role>>(new LoggerFactory()), null);
+            var roles = new List<Role>()
             {
-                Context.RoleGroups.AddRange(RoleDataGenerator.GetRoleGroups());
-                Context.SaveChanges();
-                //      DbFilled = true;
-            }
-            return Context;
+                new Role()
+                {
+                    Name = RolesEnum.Simple.ToString()
+                },
+                new Role()
+                {
+                    Name = RolesEnum.NewsFull.ToString()
+                },
+                new Role()
+                {
+                    Name = RolesEnum.AdminFull.ToString()
+                }
+            };
+            roles.ForEach(async r => await roleManager.CreateAsync(r));
         }
 
         private static UserManager<User> GetUserManager()
         {
-            return new UserManager<User>(new UserStore<User, Role, LiverpoolContext, int>(Context),
+            var store = new UserStore<User, Role, LiverpoolContext, int>(Context);
+            return new UserManager<User>(store,
                 new OptionsManager<IdentityOptions>(new IConfigureOptions<IdentityOptions>[0]),
                 new PasswordHasher<User>(), new IUserValidator<User>[0],
-                new IPasswordValidator<User>[0], null, new IdentityErrorDescriber(), null, null);
+                new IPasswordValidator<User>[0], null, new IdentityErrorDescriber(), null, new Logger<UserManager<User>>(new LoggerFactory()));
         }
     }
 
+    public class GetRoleGroupsDtoTestData : ClassTestData
+    {
+        protected override List<object[]> TestData => new List<object[]>
+        {
+            new object[]
+            {
+                RoleDataGenerator.GetRoleGroupDtos()
+            }
+        };
+    }
+
+
+    public class GetEditRoleGroupTestData : ClassTestData
+    {
+        protected override List<object[]> TestData => new List<object[]>
+        {
+            new object[]
+            {
+                1,
+                2,
+                true
+            },
+            new object[]
+            {
+                1,
+                3,
+                true
+            },
+            new object[]
+            {
+                2,
+                3,
+                true
+            }
+        };
+    }
 
     public class GetUserRolesTestData : ClassTestData
     {

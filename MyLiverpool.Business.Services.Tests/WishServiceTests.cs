@@ -117,7 +117,7 @@ namespace MyLiverpool.Business.Services.Tests
             {
                 10,
                 null
-            }
+            },
         };
     }
     public class WishGetListTestData : ClassTestData

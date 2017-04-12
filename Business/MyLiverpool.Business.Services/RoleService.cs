@@ -24,7 +24,7 @@ namespace MyLiverpool.Business.Services
 
         public async Task<bool> EditRoleGroupAsync(int newRoleGroupId, int userId)
         {
-            var user = await _userRepository.GetByIdAsync(userId);
+            var user = await _userRepository.GetByIdFromManagerAsync(userId);
             var oldRoleGroup = await _roleGroupRepository.GetByIdAsync(user.RoleGroupId);
             var newRoleGroup = await _roleGroupRepository.GetByIdAsync(newRoleGroupId);
 
@@ -32,9 +32,17 @@ namespace MyLiverpool.Business.Services
             var rolesToAdd = GetRolesToAdd(oldRoleGroup.RoleGroups.Select(x => x.Role), newRoleGroup.RoleGroups.Select(x => x.Role));
 
             user.RoleGroupId = newRoleGroupId;
-            await _userRepository.RemoveFromRolesAsync(user, rolesToDelete.Select(x => x.Name).ToArray());
-            await _userRepository.AddToRolesAsync(user, rolesToAdd.Select(x => x.Name).ToArray());
-            
+            user.RoleGroup = null;
+            var resultRemove = await _userRepository.RemoveFromRolesAsync(user, rolesToDelete.Select(x => x.Name).ToArray());
+            if (!resultRemove.Succeeded)
+            {
+               // return false; //bug big bug
+            }
+            var resultAdd = await _userRepository.AddToRolesAsync(user, rolesToAdd.Select(x => x.Name).ToArray());
+            if (!resultAdd.Succeeded)
+            {
+                return false;
+            }
             await _userRepository.UpdateAsync(user);
             return true;
         }
