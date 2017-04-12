@@ -88,6 +88,9 @@ export class MatchEditComponent implements OnInit {
         item.dateTime = new Date(date.getFullYear(), date.getMonth(), date.getDate(), time.getHours(), time.getMinutes());
         item.typeId = this.editForm.controls["typeId"].value;
         item.seasonId = this.editForm.controls["seasonId"].value;
+        item.reportUrl = this.getIdFromUrl(this.editForm.controls["reportUrl"].value);
+        item.photoUrl = this.getIdFromUrl(this.editForm.controls["photoUrl"].value);
+        item.videoUrl = this.editForm.controls["videoUrl"].value;
         let scoreHome = this.editForm.controls["scoreHome"].value;
         let scoreAway = this.editForm.controls["scoreAway"].value;
         if (scoreHome && scoreAway) {
@@ -110,8 +113,17 @@ export class MatchEditComponent implements OnInit {
             'date': ["", Validators.required],
             'time': ["", Validators.required],
             'typeId': ["", Validators.required],
+            'reportUrl': [""],
+            'photoUrl': [""],
+            'videoUrl': [""],
             'scoreHome': [""],
             'scoreAway': [""]
         });
+    }
+
+    private getIdFromUrl(url: string): string {
+        let pieces = url.split("/");
+        console.log(pieces);
+        return pieces[pieces.length - 1];
     }
 }

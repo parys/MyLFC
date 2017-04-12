@@ -44,6 +44,9 @@ namespace MyLiverpool.Business.Services
             match.IsHome = dto.IsHome;
             match.MatchType = (MatchTypeEnum)dto.TypeId;
             match.ClubId = dto.ClubId;
+            match.ReportUrl = dto.ReportUrl;
+            match.PhotoUrl = dto.PhotoUrl;
+            match.VideoUrl = dto.VideoUrl;
             match.Score = GetScores(dto.ScoreHome, dto.ScoreAway);
             _matchRepository.Update(match);
             await _matchRepository.SaveChangesAsync();

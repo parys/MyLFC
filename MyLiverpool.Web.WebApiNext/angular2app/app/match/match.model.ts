@@ -16,4 +16,7 @@
     seasonId: number;
     scoreHome: string;
     scoreAway: string;
+    reportUrl: string;
+    photoUrl: string;
+    videoUrl: string;
 }

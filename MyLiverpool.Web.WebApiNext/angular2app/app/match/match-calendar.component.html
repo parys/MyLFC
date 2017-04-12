@@ -13,9 +13,9 @@
             <strong [textContent]="last.awayClubName"></strong>
         </div>
         <div class="col-xs-12 infodate"><br>
-            <a href="http://www.myliverpool.ru/news/liverpul_plimut_argajl/2017-01-08-18574">Отчет</a>
-            <a href="http://www.myliverpool.ru/news/match_plimutom_foto/2017-01-08-18575">Фото</a>
-            <a href="https://vk.com/video-117835363_456240738">Видео</a>
+            <a *ngIf="last.reportUrl" [routerLink]="['news', last.reportUrl]">Отчет</a>
+            <a *ngIf="last.photoUrl" [routerLink]="['news', last.photoUrl]">Фото</a>
+            <a *ngIf="last.videoUrl" [href]="last.videoUrl" target="_blank">Видео</a>
         </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 bg-primary flex padding0" *ngIf="next">
