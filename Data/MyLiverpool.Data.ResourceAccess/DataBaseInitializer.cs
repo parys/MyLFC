@@ -83,17 +83,17 @@ namespace MyLiverpool.Data.ResourceAccess
                 new RoleGroup()
                 {
                     Name = RoleGroupsEnum.AdminAssistance.ToString(),//2
-                    RussianName = "Ассист админа",
+                    RussianName = RoleGroupsEnum.AdminAssistance.GetNameAttribute(),
                 },
                 new RoleGroup()
                 {
                     Name = RoleGroupsEnum.MainNewsmaker.ToString(), //3
-                    RussianName = "главный ньюс"
+                    RussianName = RoleGroupsEnum.MainNewsmaker.GetNameAttribute()
                 },
                 new RoleGroup()
                 {
                     Name = RoleGroupsEnum.Newsmaker.ToString(),//4
-                    RussianName = "Ньюс"
+                    RussianName = RoleGroupsEnum.Newsmaker.GetNameAttribute()
                 },
                 new RoleGroup()
                 {
@@ -103,27 +103,27 @@ namespace MyLiverpool.Data.ResourceAccess
                 new RoleGroup()
                 {
                     Name = RoleGroupsEnum.MainEditor.ToString(),//6
-                    RussianName = "Главный редактор"
+                    RussianName = RoleGroupsEnum.MainEditor.GetNameAttribute()
                 },
                 new RoleGroup()
                 {
                     Name = RoleGroupsEnum.Intern.ToString(),//7
-                    RussianName = "Стажер"
+                    RussianName = RoleGroupsEnum.Intern.GetNameAttribute()
                 },
                 new RoleGroup()
                 {
                     Name = RoleGroupsEnum.Moderator.ToString(),//8
-                    RussianName = "Модератор"
+                    RussianName = RoleGroupsEnum.Moderator.GetNameAttribute()
                 },
                 new RoleGroup()
                 {
                     Name = RoleGroupsEnum.MainModerator.ToString(), //9
-                    RussianName = "Главный модаратор",
+                    RussianName = RoleGroupsEnum.MainModerator.GetNameAttribute(),
                 },
                 new RoleGroup()
                 {
                     Name = RoleGroupsEnum.Author.ToString(),//10
-                    RussianName = "Автор"
+                    RussianName = RoleGroupsEnum.Author.GetNameAttribute()
                 },
                 new RoleGroup()
                 {
@@ -133,18 +133,35 @@ namespace MyLiverpool.Data.ResourceAccess
                 new RoleGroup()
                 {
                     Name = RoleGroupsEnum.ForumModerator.ToString(),//12
-                    RussianName = "Модератор форума"
+                    RussianName = RoleGroupsEnum.ForumModerator.GetNameAttribute()
                 },
                 new RoleGroup()
                 {
                     Name = RoleGroupsEnum.ForumMainModerator.ToString(), //13
-                    RussianName = "Главный модератор форума",
+                    RussianName = RoleGroupsEnum.ForumMainModerator.GetNameAttribute(),
                 },
-
+                new RoleGroup()
+                {
+                    Name = RoleGroupsEnum.Veteran.ToString(), //14
+                    RussianName = RoleGroupsEnum.Veteran.GetNameAttribute(),
+                },
+                new RoleGroup()
+                {
+                    Name = RoleGroupsEnum.Proven.ToString(), //15
+                    RussianName = RoleGroupsEnum.Proven.GetNameAttribute(),
+                },
+                new RoleGroup()
+                {
+                    Name = RoleGroupsEnum.ForecastLeader.ToString(), //16
+                    RussianName = RoleGroupsEnum.ForecastLeader.GetNameAttribute(),
+                },
+                new RoleGroup()
+                {
+                    Name = RoleGroupsEnum.HistoricExpert.ToString(), //17
+                    RussianName = RoleGroupsEnum.HistoricExpert.GetNameAttribute(),
+                },
             };
             roleGroups.ForEach(x => _context.RoleGroups.Add(x));
-            // roles.ForEach(x => roleManager.Create(x));
-            //roleManager.Create(new Role { Name = RolesEnum.User.ToString() });
             await _context.SaveChangesAsync();
         }
 
@@ -230,19 +247,25 @@ namespace MyLiverpool.Data.ResourceAccess
             var forumRole = _context.Roles.First(x => x.Name == RolesEnum.ForumStart.ToString());
             var mainNewsmakeRole = await _context.Roles.FirstAsync(x => x.Name == RolesEnum.NewsFull.ToString());//9
             var newsmakerRole = await _context.Roles.FirstAsync(x => x.Name == RolesEnum.NewsStart.ToString());
-            var simpleRole = await _context.Roles.FirstAsync(x => x.Name == RolesEnum.Simple.ToString());
+            var simpleRole = await _context.Roles.FirstAsync(x => x.Name == RolesEnum.Simple.ToString());//11
 
             var adminGroup = await _context.RoleGroups.FirstAsync(x => x.Name == RoleGroupsEnum.Admin.ToString()); //1
             var adminAssistGroup = await _context.RoleGroups.FirstAsync(x => x.Name == RoleGroupsEnum.AdminAssistance.ToString()); 
-            var mainNewsGroup = await _context.RoleGroups.FirstAsync(x => x.Name == RoleGroupsEnum.MainNewsmaker.ToString()); 
+            var mainNewsGroup = await _context.RoleGroups.FirstAsync(x => x.Name == RoleGroupsEnum.MainNewsmaker.ToString()); //3
             var newsGroup = await _context.RoleGroups.FirstAsync(x => x.Name == RoleGroupsEnum.Newsmaker.ToString()); 
-            var editorGroup = await _context.RoleGroups.FirstAsync(x => x.Name == RoleGroupsEnum.Editor.ToString()); 
-            var internGroup = await _context.RoleGroups.FirstAsync(x => x.Name == RoleGroupsEnum.Intern.ToString()); 
-            var moderatorGroup = await _context.RoleGroups.FirstAsync(x => x.Name == RoleGroupsEnum.Moderator.ToString()); 
-            var mainModeratorGroup = await _context.RoleGroups.FirstAsync(x => x.Name == RoleGroupsEnum.MainModerator.ToString()); 
+            var editorGroup = await _context.RoleGroups.FirstAsync(x => x.Name == RoleGroupsEnum.Editor.ToString()); //5
+            var mainEditorGroup = await _context.RoleGroups.FirstAsync(x => x.Name == RoleGroupsEnum.MainEditor.ToString());
+            var internGroup = await _context.RoleGroups.FirstAsync(x => x.Name == RoleGroupsEnum.Intern.ToString()); //7 
+            var moderatorGroup = await _context.RoleGroups.FirstAsync(x => x.Name == RoleGroupsEnum.Moderator.ToString());
+            var mainModeratorGroup = await _context.RoleGroups.FirstAsync(x => x.Name == RoleGroupsEnum.MainModerator.ToString());//9 
             var authorGroup = await _context.RoleGroups.FirstAsync(x => x.Name == RoleGroupsEnum.Author.ToString()); 
-            var mainEditorGroup = await _context.RoleGroups.FirstAsync(x => x.Name == RoleGroupsEnum.MainEditor.ToString()); 
-            var simpleGroup = await _context.RoleGroups.FirstAsync(x => x.Name == RoleGroupsEnum.Simple.ToString()); 
+            var simpleGroup = await _context.RoleGroups.FirstAsync(x => x.Name == RoleGroupsEnum.Simple.ToString()); //11
+            var forumModeratorGroup = await _context.RoleGroups.FirstAsync(x => x.Name == RoleGroupsEnum.ForumModerator.ToString()); 
+            var forumMainModeratorGroup = await _context.RoleGroups.FirstAsync(x => x.Name == RoleGroupsEnum.ForumMainModerator.ToString()); //13
+            var veteranGroup = await _context.RoleGroups.FirstAsync(x => x.Name == RoleGroupsEnum.Veteran.ToString()); 
+            var provenGroup = await _context.RoleGroups.FirstAsync(x => x.Name == RoleGroupsEnum.Proven.ToString()); //15
+            var forecastLeaderGroup = await _context.RoleGroups.FirstAsync(x => x.Name == RoleGroupsEnum.ForecastLeader.ToString()); 
+            var historicExpertGroup = await _context.RoleGroups.FirstAsync(x => x.Name == RoleGroupsEnum.HistoricExpert.ToString()); //17
             
 
             #region adminRoleRoleGroups

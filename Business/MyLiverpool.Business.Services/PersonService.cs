@@ -4,6 +4,7 @@ using AutoMapper;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.DtoNext;
 using MyLiverpool.Common.Utilities;
+using MyLiverpool.Data.Common;
 using MyLiverpool.Data.Entities;
 using MyLiverpool.Data.ResourceAccess.Interfaces;
 
@@ -13,11 +14,13 @@ namespace MyLiverpool.Business.Services
     {
         private readonly IMapper _mapper;
         private readonly IPersonRepository _personRepository;
+        private readonly IHelperEntityRepository _helperEntityRepository;
 
-        public PersonService(IMapper mapper, IPersonRepository personRepository)
+        public PersonService(IMapper mapper, IPersonRepository personRepository, IHelperEntityRepository helperEntityRepository)
         {
             _mapper = mapper;
             _personRepository = personRepository;
+            _helperEntityRepository = helperEntityRepository;
         }
 
         public async Task<PersonDto> CreateAsync(PersonDto dto)
@@ -50,6 +53,17 @@ namespace MyLiverpool.Business.Services
         {
             await _personRepository.DeleteAsync(id);
             return true;
+        }
+
+        public async Task<PersonDto> GetBestPlayerAsync()
+        {
+            var playerHelpEntity = await _helperEntityRepository.GetByTypeAsync(HelperEntityType.BestPlayer);
+            if (int.TryParse(playerHelpEntity.Value, out int playerId))
+            {
+                var player = await _personRepository.GetByIdAsync(playerId);
+                return _mapper.Map<PersonDto>(player);
+            }
+            return null;
         }
     }
 }

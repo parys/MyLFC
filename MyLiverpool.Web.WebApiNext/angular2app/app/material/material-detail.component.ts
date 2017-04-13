@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit, ViewChild } from "@angular/core";
-import { Title } from "@angular/platform-browser";
+import { Title, DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { MaterialService } from "./material.service";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
@@ -27,6 +27,7 @@ export class MaterialDetailComponent implements OnInit {
         private localStorage: LocalStorageService,        
         private rolesChecked: RolesCheckedService,
         private router: Router,
+        private sanitizer: DomSanitizer,
         private titleService: Title) {
         this.title = titleService;
     }
@@ -87,6 +88,10 @@ export class MaterialDetailComponent implements OnInit {
             );
     }
 
+    sanitizeByHtml(text: string): SafeHtml {
+        return this.sanitizer.bypassSecurityTrustHtml(text);
+    }
+
     private parse(item: Material): void {
         this.item = item;
         this.titleService.setTitle(item.title);
@@ -99,4 +104,5 @@ export class MaterialDetailComponent implements OnInit {
             this.service.addView(id).subscribe(data => data);
         }
     }
+
 }

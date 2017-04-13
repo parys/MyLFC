@@ -75,6 +75,17 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         }
 
         /// <summary>
+        /// Returns best player.
+        /// </summary>
+        /// <returns>Best player dto.</returns>
+        [AllowAnonymous, HttpGet("bestPlayer")]
+        public async Task<IActionResult> GetAsync()
+        {
+            var result = await _personService.GetBestPlayerAsync();
+            return Ok(result);
+        }
+
+        /// <summary>
         /// Updates person.
         /// </summary>
         /// <param name="id">The identifier.</param>

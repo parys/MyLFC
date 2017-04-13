@@ -10,7 +10,7 @@
         </h3>
     </div>
     <div class="col-xs-12 col-sm-12">
-        <article [innerHTML]="item.message"></article>
+        <article [innerHTML]="sanitizeByHtml(item.message)"></article>
         <div class="alert-warning">
             <ul class="list-inline">
                 <li><label>Просмотры:</label> <span [textContent]="item.reads"></span></li>

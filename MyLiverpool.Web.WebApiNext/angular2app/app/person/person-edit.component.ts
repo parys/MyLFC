@@ -37,9 +37,6 @@ export class PersonEditComponent implements OnInit {
                     error => console.log(error));
         }
 
-     //   this.editForm.controls["englishName"].valueChanges.subscribe(data => {
-     //       //todo add possibility to sending photo
-        //    });
         this.updateTypes();
     }
 
@@ -106,12 +103,9 @@ export class PersonEditComponent implements OnInit {
                 Validators.required, Validators.maxLength(30)])],
             'lastRussianName': ["", Validators.compose([
                 Validators.required, Validators.maxLength(30)])],
-            'birthday': ["", Validators.compose([
-                Validators.required])],
-            'photo': ["", Validators.compose([
-                Validators.required])],
-            'type': ["", Validators.compose([
-                Validators.required])]
+            'birthday': ["", Validators.required],
+            'photo': [""],
+            'type': ["", Validators.required]
         });
     }
 }

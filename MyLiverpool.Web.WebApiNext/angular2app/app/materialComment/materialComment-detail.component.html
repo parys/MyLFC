@@ -16,7 +16,7 @@
             <img class="avatar-medium" [src]="item.photo" [alt]="item.authorUserName"/>
         </div>
         <div class="col-xs-10 col-sm-10">
-            <p [innerHTML]="item.message"></p>
+            <p [innerHTML]="sanitizeByHtml(item.message)"></p>
         </div>
     </div>
     <div class="row" *ngIf="item.answer">

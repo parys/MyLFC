@@ -1,7 +1,7 @@
 ﻿import { Component, OnInit, ViewChild, Input } from "@angular/core";
-import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Location } from "@angular/common";
-import { Pageable } from "../shared/pageable.model";
+import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { MaterialComment } from "./materialComment.model";
 import { MaterialCommentService } from "./materialComment.service";
 import { RolesCheckedService, IRoles } from "../shared/index";
@@ -30,6 +30,7 @@ export class MaterialCommentDetailComponent implements OnInit {
 
     constructor(private materialCommentService: MaterialCommentService,
         private location: Location,
+        private sanitizer: DomSanitizer,
         private rolesChecked: RolesCheckedService,
         private formBuilder: FormBuilder) {
     }
@@ -111,9 +112,13 @@ export class MaterialCommentDetailComponent implements OnInit {
                 this.item = comment;
                 this.hideEditModal();
                 },
-            error => console.log(error),
-            () => { });
+            error => console.log(error));
     }
+    
+    sanitizeByHtml(text: string): SafeHtml {
+        return this.sanitizer.bypassSecurityTrustHtml(text);
+    }
+
 
     private initForm() {
         this.commentForm = this.formBuilder.group({

@@ -29,7 +29,7 @@ namespace MyLiverpool.Business.DtoNext
         [Required]
         public DateTime Birthday { get; set; }
 
-        [Required]
+    //    [Required]
         public string Photo { get; set; }
 
         public string Name => $"{FirstName} {LastName}";

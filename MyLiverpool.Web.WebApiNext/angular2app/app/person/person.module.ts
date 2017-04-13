@@ -6,6 +6,7 @@ import { PersonListComponent } from "./person-list.component";
 import { PersonEditComponent } from "./person-edit.component";
 import { PersonService } from "./person.service";
 import { PlayerStatisticsComponent } from "./player-statistics.component";
+import { BestPlayerComponent } from "./best-player.component";
 import { personRoutes } from "./person.routes";
 import { SharedModule } from "../shared/index";
 import { DatepickerModule } from "ng2-bootstrap/datepicker";
@@ -21,6 +22,7 @@ import { DatepickerModule } from "ng2-bootstrap/datepicker";
         SharedModule
     ],
     declarations: [
+        BestPlayerComponent,
         PersonEditComponent,
         PersonListComponent,
         PlayerStatisticsComponent
