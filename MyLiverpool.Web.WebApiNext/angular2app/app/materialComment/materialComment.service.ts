@@ -1,6 +1,5 @@
 ﻿import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
-import { Configuration } from "../app.constants";
 import { MaterialComment } from "./materialComment.model";
 import { Pageable } from "../shared/pageable.model";
 import { HttpWrapper } from "../shared/httpWrapper";
@@ -10,8 +9,8 @@ export class MaterialCommentService {
 
     private actionUrl: string;
 
-    constructor(private http: HttpWrapper, private configuration: Configuration) {
-        this.actionUrl = configuration.serverWithApiUrl + "materialComment/";
+    constructor(private http: HttpWrapper) {
+        this.actionUrl = "materialComment/";
     }
 
     getAll = (page: number): Observable<Pageable<MaterialComment>> => {

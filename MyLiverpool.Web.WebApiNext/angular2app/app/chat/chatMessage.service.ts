@@ -1,15 +1,13 @@
 ﻿import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
-import { Configuration } from "../app.constants";
 import { HttpWrapper, Pageable } from "../shared/index";
 import { ChatMessage } from "./chatMessage.model";
 
 @Injectable()
 export class ChatMessageService {
-    private actionUrl: string;
+    private actionUrl: string = "chatMessage/";
 
-    constructor(private http: HttpWrapper, private configuration: Configuration) {
-        this.actionUrl = configuration.serverWithApiUrl + "chatMessage/";
+    constructor(private http: HttpWrapper) {
     }
 
     getAll = (): Observable<ChatMessage[]> => {

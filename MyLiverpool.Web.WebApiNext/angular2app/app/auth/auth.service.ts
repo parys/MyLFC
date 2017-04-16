@@ -1,8 +1,5 @@
 ﻿import { Injectable } from "@angular/core";
-import { Http, Headers } from "@angular/http";
-import { Router } from "@angular/router";
 import { RolesCheckedService, HttpWrapper, LocalStorageService } from "../shared/index";
-import { Configuration } from "../app.constants";
 
 @Injectable()
 export class AuthService {
@@ -10,36 +7,24 @@ export class AuthService {
     id: number;
 
     constructor(private http: HttpWrapper,
-        private http1: Http,
         private localStorage: LocalStorageService,
-        private rolesCheckedService: RolesCheckedService,
-        private router: Router,
-        private configuration: Configuration) {
-
-        this.isUserLogined();
+        private rolesCheckedService: RolesCheckedService) {
+        this.roles = this.localStorage.getRoles();
+        this.id = this.localStorage.getUserId();
+        if (!this.id) {
+            if (http.checkTokenExpirationDate()) {
+                this.getUserId();
+            }
+        }
     }
 
-    redirectUrl: string;
+  //  redirectUrl: string;
 
     login(username: string, password: string): boolean {
-        let headers = new Headers();
-        headers.append("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8;");
-        let perams = `grant_type=password&username=${username}&password=${password}&client_id=client_id3`;
+        if (this.http.login(username, password)) {
+            this.getUserId();
+        }
 
-        this.http1.post(this.configuration.server + "connect/token",
-                perams,
-                {
-                    headers: headers
-                })
-            .subscribe(data => this.parseLoginAnswer(data),
-                error => {
-                    if (error._body === "unconfirmed_email") {
-                        this.router.navigate(["/unconfirmedEmail"]);
-                        return;
-                    }
-                    console.log(error);
-                },
-                () => this.getUserId());
         return true;
     }
 
@@ -55,45 +40,24 @@ export class AuthService {
         }
         return false;
     }
-
-    private isUserLogined(): void {
-        let result = false;
-        this.http.get(this.configuration.serverWithApiUrl + "account/isSignedIn")
-            .subscribe(data => result = true,
-                error => this.localStorage.removeAllData(),
-                () => {
-                    if (result && this.localStorage.hasAccessToken()) {
-                        this.roles = this.localStorage.getRoles();
-                        this.id = this.localStorage.getUserId();
-                    } else {
-                        this.localStorage.removeAllData();
-                    }
-                });
-    }
-
-    private parseLoginAnswer(item: any): void {
-        this.localStorage.setAuthTokens(item);
-    }
-
     private parseRoles(item: any): void {
         this.roles = item._body.split(", ");
         this.localStorage.setRoles(this.roles);
     }
 
     private getRoles(): void {
-        this.http.get(this.configuration.serverWithApiUrl + "role")
+        this.http.get("role")
             .subscribe(data => this.parseRoles(data),
-            error => console.log(error),
-            () => this.rolesCheckedService.checkRoles());
+                error => console.log(error),
+                () => this.rolesCheckedService.checkRoles());
     }
-
     private getUserId(): void {
-        this.http.get(this.configuration.serverWithApiUrl + "user/getId")
+        this.http.get("user/getId")
             .subscribe(data => this.id = +JSON.parse(data.text()),
-            error => console.log(error),
-            () => {
-                this.localStorage.setUserId(this.id);
-                this.getRoles();
-            });
+                error => console.log(error),
+                () => {
+                    this.localStorage.setUserId(this.id);
+                    this.getRoles();
+                });
     }
 }

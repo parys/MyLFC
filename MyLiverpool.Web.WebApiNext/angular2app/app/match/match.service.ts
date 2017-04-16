@@ -1,7 +1,6 @@
 ﻿import { Injectable } from "@angular/core";
 import { Response } from "@angular/http";
 import { Observable } from "rxjs/Observable";
-import { Configuration } from "../app.constants";
 import { Match } from "./match.model";
 import { MatchType } from "./matchType.model";
 import { Pageable } from "../shared/pageable.model";
@@ -11,8 +10,8 @@ import { HttpWrapper } from "../shared/httpWrapper";
 export class MatchService {
     private actionUrl: string;
 
-    constructor(private http: HttpWrapper, private configuration: Configuration) {
-        this.actionUrl = configuration.serverWithApiUrl + "match/";
+    constructor(private http: HttpWrapper) {
+        this.actionUrl = "match/";
     }
 
     getAll = (page: number): Observable<Pageable<Match>> => {

@@ -21,7 +21,7 @@
     </div>
     <div class="form-group" *ngIf="isHuman">
         <div class="col-md-offset-2 col-md-10">
-            <button type="submit" class="btn btn-default" [disabled]="!editWish.valid">Отправить</button>
+            <button type="submit" class="btn btn-default" [disabled]="!editForm.valid">Отправить</button>
         </div>
     </div>
     <div class="form-group" [hidden]="isHuman">

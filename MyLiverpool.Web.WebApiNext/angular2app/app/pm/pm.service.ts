@@ -1,15 +1,13 @@
 ﻿import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
-import { Configuration } from "../app.constants";
 import { HttpWrapper } from "../shared/httpWrapper";
 import { Pm } from "./index";
 
 @Injectable()
 export class PmService {
-    private actionUrl: string;
+    private actionUrl: string = "pm/";
 
-    constructor(private http: HttpWrapper, private configuration: Configuration) {
-        this.actionUrl = configuration.serverWithApiUrl + "pm/";
+    constructor(private http: HttpWrapper) {
     }
 
     getAll = (): Observable<Pm[]> => {

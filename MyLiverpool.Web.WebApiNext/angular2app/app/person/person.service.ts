@@ -1,17 +1,15 @@
 ﻿import { Injectable } from "@angular/core";
 import { Response } from "@angular/http";
 import { Observable } from "rxjs/Observable";
-import { Configuration } from "../app.constants";
 import { HttpWrapper, Pageable } from "../shared/index";
 import { Person } from "./person.model";
 import { PersonType } from "./personType.model";
 
 @Injectable()
 export class PersonService {
-    private actionUrl: string;
+    private actionUrl: string = "person/";
 
-    constructor(private http: HttpWrapper, private configuration: Configuration) {
-        this.actionUrl = configuration.serverWithApiUrl + "person/";
+    constructor(private http: HttpWrapper) {
     }
 
     getAll = (page: number): Observable<Pageable<Person>> => {

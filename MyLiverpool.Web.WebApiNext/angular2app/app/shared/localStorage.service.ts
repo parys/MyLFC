@@ -24,6 +24,10 @@ export class LocalStorageService {
         return this.get("access_token");
     }
 
+    getRefreshToken(): string {
+        return this.get("refresh_token");
+    }
+
     getAccessTokenWithType(): string {                                         
         return `${this.get("token_type")} ${this.get("access_token")}`;
     }
@@ -31,6 +35,11 @@ export class LocalStorageService {
     getRoles(): string[] {
         return this.getObject("roles");
     }
+
+    isTokenExpired(): boolean {
+        let expiredDate = new Date(this.get("expires_in"));
+        return (expiredDate <= new Date());
+    } 
 
     getUserId(): number {
         return +this.get("userId");
@@ -53,10 +62,16 @@ export class LocalStorageService {
         let response = JSON.parse(item._body);
         this.set("token_type", response.token_type);
         this.set("access_token", response.access_token);
-        this.set("expires_in", response.expires_in);
+        this.set("expires_in", this.setExpiredDate(response.expires_in));
         this.set("refresh_token", response.refresh_token);
         return true;
     }
+
+    private setExpiredDate(seconds : number) : string {
+        let date = new Date();
+        date.setSeconds(date.getSeconds() + seconds);
+        return date.toUTCString();
+    };
 
     setRoles(roles: string[]): void {
         if (!this.localStorage) return;

@@ -30,7 +30,8 @@ namespace MigratorVnext
         private static readonly IMaterialCategoryRepository MaterialCategoryRepository;
         private static readonly IMaterialCommentRepository MaterialCommentRepository;
         private static readonly IUserRepository UserRepository;
-        private const string Path = @"D:\\projects\example\";
+        private const string Path = @"D:\\projects\example\newest1404\";
+        private const string DefaultPhotoPath = "/content/images/default.jpg";
         private static readonly int MaxChars = 20000;
         private const bool UseLimit = false;
 
@@ -38,11 +39,11 @@ namespace MigratorVnext
         private static readonly List<ForumTheme> Themes = new List<ForumTheme>();
 
         private static User _deleted;
-
+        private static LiverpoolContext _db;
         static Program()
         {
           //  Database.SetInitializer(new DatabaseInitializer());
-            var _db = GetNewContext();
+             _db = GetNewContext();
             _db.Database.Migrate();
             new DatabaseInitializer(GetNewContext()).Seed(true);
 
@@ -92,24 +93,24 @@ namespace MigratorVnext
 
 
 
-           // UpdateUsers(); //1
-           // UpdateBlogCategory(); //1
-           // UpdateNewsCategory(); //1
+            // UpdateUsers(); //1
+            //UpdateNewsCategory(); //1
+            // UpdateBlogCategory(); //1
 
 
-           // //Task.WhenAll(blogsC, newsC).Wait();
-           // MaterialCategoryRepository.SaveChangesAsync().Wait();
+            // //Task.WhenAll(blogsC, newsC).Wait();
+            // MaterialCategoryRepository.SaveChangesAsync().Wait();
 
-           //// Task.WhenAll(users, forumS).Wait();
-           // Console.WriteLine("End 1");
+            //// Task.WhenAll(users, forumS).Wait();
+            // Console.WriteLine("End 1");
 
             _deleted = UserRepository.FindByNameAsync("deleteUser").Result; // added creating delete uzver
 
-            //   UpdateUsersId(); //2
-          //  UpdateForumSectionsAndPopulateSubsectionList(); //1
-         //   UpdateForumSubsectionsFromList(); //2
+           //    UpdateUsersId(); //2
+            //UpdateForumSectionsAndPopulateSubsectionList(); //1 call -> //  UpdateForumSubsectionsFromList(); //2
 
-         //   Task.WhenAll(usersU, forumSubs).Wait();
+
+            //   Task.WhenAll(usersU, forumSubs).Wait();
             Console.WriteLine("End 2");
 
           //  UpdateBlogItems(); //3
@@ -121,13 +122,14 @@ namespace MigratorVnext
           //  MaterialRepository.SaveChangesAsync().Wait();
             Console.WriteLine("End 3");
 
-          //     UpdateComments(); //4
-            //    UpdateForumComments(); //4
+           //    UpdateComments(); //4
+             //   UpdateForumComments(); //4
 
             //  Task.WhenAll(matComm, forumMes).Wait();
             Console.WriteLine("End 4");
 
-             UpdateCommentsLinks();
+           //  UpdateCommentsLinks();
+            UpdateMaterialLinks();
             Console.WriteLine("End 5");
         }
 
@@ -189,14 +191,6 @@ namespace MigratorVnext
 
         private static void UpdateUsers()
         {
-            var deleteUser = new User()
-            {
-                UserName = "deleteUser",
-                RoleGroupId = (int) RoleGroupsEnum.Simple,
-                Photo = "/content/avatars/default.png",
-            };
-                      _deleted = UserRepository.AddAsync(deleteUser).Result;
-                     UserRepository.SaveChangesAsync().Wait();
             Console.WriteLine("Start UpdateUsers");
             using (FileStream fs = new FileStream(Path + @"users.txt", FileMode.Open))
             {
@@ -413,7 +407,7 @@ namespace MigratorVnext
                         i++;
                     }
                     user.LastModified = DateTimeHelpers.ConvertUtcToLocalTime(long.Parse(lastDate));
-                    user.RoleGroupId = (int)RoleGroupsEnum.Simple;
+                    user.RoleGroupId = _db.RoleGroups.First(x => x.Name == RoleGroupsEnum.Simple.ToString()).Id;
                     user.Photo = "/content/avatars/default.png";
                     var result = UserRepository.AddAsync(user).Result;
                     //r.Wait();
@@ -421,8 +415,18 @@ namespace MigratorVnext
                     {
                         i++;
                     }
+                    Console.Write("| " + (i * 1.00 / chars.Length).ToString("P"));
                 }
             }
+
+            var deleteUser = new User()
+            {
+                UserName = "deleteUser",
+                RoleGroupId = (int)RoleGroupsEnum.Simple,
+                Photo = "/content/avatars/default.png",
+            };
+            _deleted = UserRepository.AddAsync(deleteUser).Result;
+            UserRepository.SaveChangesAsync().Wait();
             Console.WriteLine("End UpdateUsers");
         }
 
@@ -470,6 +474,7 @@ namespace MigratorVnext
                     {
                         i++;
                     }
+                    Console.Write("| " + (i * 1.00 / chars.Length).ToString("P"));
                 }
             }
             Console.WriteLine("End UpdateUsersId");
@@ -808,6 +813,7 @@ namespace MigratorVnext
                     //  {
                     //       i++;
                     //  }
+                    Console.Write("| " + (i * 1.00 / chars.Length).ToString("P"));
                 }
                 MaterialRepository.SaveChangesAsync().Wait();
             }
@@ -838,6 +844,7 @@ namespace MigratorVnext
                         Type = MaterialType.News
                     };
                     // id
+                    
                     string id = null;
                     while (chars[i] != '|')
                     {
@@ -845,6 +852,10 @@ namespace MigratorVnext
                         i++;
                     }
                     newsItem.OldId = int.Parse(id);
+                    if (newsItem.OldId == 14534)
+                    {
+                        
+                    }
                     i++;
                     // Category id
                     string categoryId = "";
@@ -980,6 +991,7 @@ namespace MigratorVnext
                     }
                     i++;
 
+                    message = Regex.Replace(message, "<!--IMG2-->", "");
                     newsItem.Message = message;
 
                     //while (true)
@@ -1029,7 +1041,7 @@ namespace MigratorVnext
                     }
 
                     i++;
-
+                    
                     newsItem.Reads = int.Parse(reads);
                     // rating
                     string rating = null;
@@ -1163,7 +1175,7 @@ namespace MigratorVnext
                     //  {
                     //       i++;
                     //  }
-                    Console.Write("| " + (i * 1.00 / chars.Length).ToString("P"));
+                    Console.Write("| " + newsItem.OldId + " " + (i * 1.00 / chars.Length).ToString("P"));
                 }
                 MaterialRepository.SaveChangesAsync().Wait();
             }
@@ -1238,10 +1250,11 @@ namespace MigratorVnext
                         }
                     }
                     i++;
-
-                    var result = MaterialCategoryRepository.AddAsync(blogCategory);//.Result;
+                    
+                    Console.Write("| " + (i * 1.00 / chars.Length).ToString("P"));
+                    var result = MaterialCategoryRepository.AddAsync(blogCategory).Result;
                 }
-                //  MaterialCategoryRepository.SaveChangesAsync().Wait();
+                 MaterialCategoryRepository.SaveChangesAsync().Wait();
             }
             Console.WriteLine("End UpdateBlogCategory");
         }
@@ -1314,9 +1327,10 @@ namespace MigratorVnext
                         }
                         i++;
                     }
-                    var result = MaterialCategoryRepository.AddAsync(newsCategory);//.Result;
+                    var result = MaterialCategoryRepository.AddAsync(newsCategory).Result;
+                    Console.Write("| " + (i * 1.00 / chars.Length).ToString("P"));
                 }
-                //  MaterialCategoryRepository.SaveChangesAsync().Wait();
+                  MaterialCategoryRepository.SaveChangesAsync().Wait();
             }
             Console.WriteLine("End UpdateNewsCategory");
         }
@@ -1697,10 +1711,13 @@ namespace MigratorVnext
                             i++;
                         }
                     }
+
+                    Console.Write("| " + (i * 1.00 / chars.Length).ToString("P"));
                 }
             }
             ForumSectionRepository.SaveChangesAsync().Wait();
             Console.WriteLine("End UpdateForumSections");
+            UpdateForumSubsectionsFromList();
         }
 
         private static void UpdateForumSubsectionsFromList()
@@ -1754,6 +1771,10 @@ namespace MigratorVnext
                         i++;
                     }
                     i++;
+                    if (forumTheme.IdOld == 2126)
+                    {
+                        //should skip
+                    }
                     var subsection =
                         ForumSubsectionRepository.GetListAsync().Result.First(x => x.IdOld == int.Parse(sectionId));
                     forumTheme.SubsectionId = subsection.Id;
@@ -1862,6 +1883,7 @@ namespace MigratorVnext
                     {
                         i++;
                     }
+                    Console.Write("| " + forumTheme.IdOld + " " + (i * 1.00 / chars.Length).ToString("P"));
                 }
                 ForumThemeRepository.SaveChangesAsync().Wait();
             }
@@ -2035,6 +2057,61 @@ namespace MigratorVnext
             });
             MaterialCommentRepository.UpdateRange(bag.ToList());
             MaterialCommentRepository.SaveChangesAsync().Wait();
+        }
+
+        public static void UpdateMaterialLinks()
+        {
+            var bag = new ConcurrentBag<Material>();
+            Console.WriteLine("Start UpdateMaterialLinks");
+            var allMaterials = _db.Materials.ToList();
+            var counter = 0;
+            var count = allMaterials.Count;
+            Parallel.ForEach(allMaterials, material =>
+            {
+                if (string.IsNullOrWhiteSpace(material.PhotoPath))
+                {
+                    material.PhotoPath = DefaultPhotoPath;
+                }
+                else
+                {
+                    if (DefaultPhotoPath != material.PhotoPath)
+                    {
+                        material.PhotoPath = material.PhotoPath.Replace("http://www.myliverpool.ru", "").Replace("/_nw/", "/content/images/_nw/").Replace("/_bl/", "/content/images/_bl/");
+                    }
+                }
+                if (material.Message != null)
+                {
+                    material.Message = material.Message
+                        .Replace("http://www.myliverpool.ru", "")
+                        .Replace("<!--IMG1-->", "")
+                        .Replace("<!--IMG2-->", "")
+                        .Replace("<!--IMG3-->", "")
+                        .Replace("<!--IMG4-->", "")
+                        .Replace("<!--IMG5-->", "")
+                        .Replace("<!--IMG6-->", "")
+                        .Replace("<!--IMG7-->", "").Replace("/_nw/", "/content/images/_nw/").Replace("/_bl/", "/content/images/_bl/");
+                }
+                if (material.Brief != null)
+                {
+                    material.Brief = material?.Brief
+                        .Replace("http://www.myliverpool.ru", "")
+                        .Replace("<i>", "")
+                        .Replace("</i>", "")
+                        .Replace("<!--IMG1-->", "")
+                        .Replace("<!--IMG2-->", "")
+                        .Replace("<!--IMG3-->", "")
+                        .Replace("<!--IMG4-->", "")
+                        .Replace("<!--IMG5-->", "")
+                        .Replace("<!--IMG6-->", "")
+                        .Replace("<!--IMG7-->", "").Replace("/_nw/", "/content/images/_nw/").Replace("/_bl/", "/content/images/_bl/");
+                }
+
+                Console.Write("| " + (counter++ * 1.00 / count).ToString("P"));
+             //   MaterialCommentRepository.Update(comment);
+                bag.Add(material);
+            });
+            _db.Materials.UpdateRange(bag.ToList());
+            _db.SaveChanges();
         }
 
         public static void UpdateCommentsForum()

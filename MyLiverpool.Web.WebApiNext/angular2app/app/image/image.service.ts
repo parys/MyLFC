@@ -1,7 +1,6 @@
 ﻿import { Injectable } from "@angular/core";
 import { Response } from "@angular/http";
 import { Observable } from "rxjs/Observable";
-import { Configuration } from "../app.constants";
 import { Image } from "./image.model";
 import { HttpWrapper } from "../shared/httpWrapper";
 
@@ -9,8 +8,8 @@ import { HttpWrapper } from "../shared/httpWrapper";
 export class ImageService {
     private actionUrl: string;
 
-    constructor(private http: HttpWrapper, private configuration: Configuration) {
-        this.actionUrl = configuration.serverWithApiUrl + "image/";
+    constructor(private http: HttpWrapper) {
+        this.actionUrl = "image/";
     }
 
     get = (path: string): Observable<Image[]> => {

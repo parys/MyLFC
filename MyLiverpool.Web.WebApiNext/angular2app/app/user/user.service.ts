@@ -2,17 +2,15 @@
 import { Response } from "@angular/http";
 import { Observable } from "rxjs/Observable";
 import { HttpWrapper } from "../shared/httpWrapper";
-import { Configuration } from "../app.constants";
 import { UserFilters } from "./userFilters.model";
 import { User } from "./user.model";
 import { Pageable } from "../shared/pageable.model";
 
 @Injectable()
 export class UserService {
-    private actionUrl: string;
+    private actionUrl: string = "user/";
 
-    constructor(private http: HttpWrapper, private configuration: Configuration) {
-        this.actionUrl = configuration.serverWithApiUrl + "user/";
+    constructor(private http: HttpWrapper) {
     }
 
     getAll = (filters: UserFilters): Observable<Pageable<User>> => {

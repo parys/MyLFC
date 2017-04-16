@@ -135,7 +135,7 @@ namespace MyLiverpool.Business.Services
         {
             if (string.IsNullOrWhiteSpace(name))
             {
-                throw new NullReferenceException("Name can't be null.");
+                return Task.FromResult(string.Empty);
             }
             if (!Directory.Exists(PersonPath))
             {

@@ -18,9 +18,20 @@
     <None Update="angular2app\js;Views\**\*;wwwroot\**\*">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </None>
-    <None Update="wwwroot\js\*.map;wwwroot\swagger\**\*;node_modules\**\*">
+    <None Update="wwwroot\js\*.map;wwwroot\swagger\**\*;node_modules\**\*;*.pdb">
       <CopyToPublishDirectory>Never</CopyToPublishDirectory>
     </None>
+
+    <Content Remove="appsettings.json;web.config" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Properties\PublishProfiles\Default Settings-publish.ps1" />
+    <None Remove="Properties\PublishProfiles\Default Settings.pubxml" />
+    <None Remove="Properties\PublishProfiles\mylfc - Web Deploy.pubxml" />
+    <None Remove="Properties\PublishProfiles\publish-module.psm1" />
+    <None Remove="Properties\PublishProfiles\zipp-publish.ps1" />
+    <None Remove="Properties\PublishProfiles\zipp.pubxml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -35,7 +46,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AspNet.Security.OAuth.Validation" Version="1.0.0-rtm-0241" />
+    <PackageReference Include="AspNet.Security.OAuth.Validation" Version="1.0.0-rtm-0245" />
     <PackageReference Include="bootstrap" Version="3.3.7" />
     <PackageReference Include="Microsoft.AspNetCore.Antiforgery" Version="1.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics" Version="1.1.1" />
@@ -74,6 +85,10 @@
 
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
 
 </Project>

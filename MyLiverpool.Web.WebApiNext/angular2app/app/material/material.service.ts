@@ -1,7 +1,6 @@
 ﻿import { Injectable } from "@angular/core";
 import { Response } from "@angular/http";
 import { Observable } from "rxjs/Observable";
-import { Configuration } from "../app.constants";
 import { Material } from "./material.model";
 import { MaterialType } from "../materialCategory/materialType.enum";
 import { Pageable } from "../shared/pageable.model";
@@ -12,8 +11,8 @@ import { MaterialFilters } from "./materialFilters.model";
 export class MaterialService {
     private actionUrl: string;
 
-    constructor(private http: HttpWrapper, private configuration: Configuration) {
-        this.actionUrl = configuration.serverWithApiUrl + "material/";
+    constructor(private http: HttpWrapper) {
+        this.actionUrl = "material/";
     }
 
     getAll = (filters: MaterialFilters): Observable<Pageable<Material>> => {

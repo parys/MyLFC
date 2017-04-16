@@ -55,7 +55,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
 
             if (request.IsPasswordGrantType())
             {
-                var user =  await _userManager.FindByNameAsync(request.Username);
+                var user = await _userManager.FindByNameAsync(request.Username);
                 if (user == null)
                 {
                     return BadRequest(new OpenIdConnectResponse
@@ -93,7 +93,42 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
 
                 return SignIn(ticket.Principal, ticket.Properties, ticket.AuthenticationScheme);
             }
+            else if ( request.IsRefreshTokenGrantType()) //request.IsAuthorizationCodeGrantType() ||
+            {
+                // Retrieve the claims principal stored in the authorization code/refresh token.
+                var info = await HttpContext.Authentication.GetAuthenticateInfoAsync(
+                    OpenIdConnectServerDefaults.AuthenticationScheme);      
+                
+                // Retrieve the user profile corresponding to the authorization code/refresh token.
+                // Note: if you want to automatically invalidate the authorization code/refresh token
+                // when the user password/roles change, use the following line instead:
+                // var user = _signInManager.ValidateSecurityStampAsync(info.Principal);
+                var user = await _userManager.GetUserAsync(info.Principal);
+                if (user == null)
+                {
+                    return BadRequest(new OpenIdConnectResponse
+                    {
+                        Error = OpenIdConnectConstants.Errors.InvalidGrant,
+                        ErrorDescription = "The token is no longer valid."
+                    });
+                }
 
+                // Ensure the user is still allowed to sign in.
+                if (!await _signInManager.CanSignInAsync(user))
+                {
+                    return BadRequest(new OpenIdConnectResponse
+                    {
+                        Error = OpenIdConnectConstants.Errors.InvalidGrant,
+                        ErrorDescription = "The user is no longer allowed to sign in."
+                    });
+                }
+
+                // Create a new authentication ticket, but reuse the properties stored in the
+                // authorization code/refresh token, including the scopes originally granted.
+                var ticket = await CreateTicketAsync(request, user, info.Properties);
+
+                return SignIn(ticket.Principal, ticket.Properties, ticket.AuthenticationScheme);
+            }
             return BadRequest(new OpenIdConnectResponse
             {
                 Error = OpenIdConnectConstants.Errors.UnsupportedGrantType,
@@ -149,23 +184,30 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return SignOut(OpenIdConnectServerDefaults.AuthenticationScheme);
         }
 
-        private async Task<AuthenticationTicket> CreateTicketAsync(OpenIdConnectRequest request, User user)
+        private async Task<AuthenticationTicket> CreateTicketAsync(OpenIdConnectRequest request, User user,
+            AuthenticationProperties properties = null)
         {
-            // Set the list of scopes granted to the client application.
-            // Note: the offline_access scope must be granted
-            // to allow OpenIddict to return a refresh token.
-            var scopes = new[]
-            {
-                OpenIdConnectConstants.Scopes.OpenId,
-                OpenIdConnectConstants.Scopes.Email,
-                OpenIdConnectConstants.Scopes.Profile,
-                OpenIdConnectConstants.Scopes.OfflineAccess,
-                OpenIddictConstants.Scopes.Roles
-            };// .Intersect(request.GetScopes());
-
             // Create a new ClaimsPrincipal containing the claims that
             // will be used to create an id_token, a token or a code.
             var principal = await _signInManager.CreateUserPrincipalAsync(user);
+
+            var ticket = new AuthenticationTicket(principal, properties,
+                OpenIdConnectServerDefaults.AuthenticationScheme);
+
+            if (!request.IsAuthorizationCodeGrantType() && !request.IsRefreshTokenGrantType())
+            {
+                // Set the list of scopes granted to the client application.
+                // Note: the offline_access scope must be granted
+                // to allow OpenIddict to return a refresh token.
+                ticket.SetScopes(new[]
+                {
+                    OpenIdConnectConstants.Scopes.OpenId,
+                    OpenIdConnectConstants.Scopes.Email,
+                    OpenIdConnectConstants.Scopes.Profile,
+                    OpenIdConnectConstants.Scopes.OfflineAccess,
+                    OpenIddictConstants.Scopes.Roles
+                }.Intersect(request.GetScopes()));
+            }
 
             // Note: by default, claims are NOT automatically included in the access and identity tokens.
             // To allow OpenIddict to serialize them, you must attach them a destination, that specifies
@@ -173,45 +215,25 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
 
             foreach (var claim in principal.Claims)
             {
-                // Always include the user identifier in the
-                // access token and the identity token.
-                if (claim.Type == OpenIdConnectConstants.Claims.Name)
+                var destinations = new List<string>
                 {
-                    claim.SetDestinations(OpenIdConnectConstants.Destinations.AccessToken,
-                        OpenIdConnectConstants.Destinations.IdentityToken);
+                    OpenIdConnectConstants.Destinations.AccessToken
+                };
+                // Only add the iterated claim to the id_token if the corresponding scope was granted to the client application.
+                // The other claims will only be added to the access_token, which is encrypted when using the default format.
+                if ((claim.Type == OpenIdConnectConstants.Claims.Name && ticket.HasScope(OpenIdConnectConstants.Scopes.Profile)) ||
+                    (claim.Type == OpenIdConnectConstants.Claims.Email && ticket.HasScope(OpenIdConnectConstants.Scopes.Email)) ||
+                    (claim.Type == OpenIdConnectConstants.Claims.Role && ticket.HasScope(OpenIddictConstants.Claims.Roles)))
+                {
+                    destinations.Add(OpenIdConnectConstants.Destinations.IdentityToken);
                 }
 
-                // Include the name claim, but only if the "profile" scope was requested.
-                //else if (claim.Type == OpenIdConnectConstants.Claims.Name && scopes.Contains(OpenIdConnectConstants.Scopes.Profile))
-                //{
-                //    claim.SetDestinations(OpenIdConnectConstants.Destinations.IdentityToken);
-                //}
-
-                // Include the role claims, but only if the "roles" scope was requested.
-                else if (claim.Type == OpenIdConnectConstants.Claims.Role && scopes.Contains(OpenIddictConstants.Scopes.Roles))
-                {
-                    claim.SetDestinations(OpenIdConnectConstants.Destinations.AccessToken,
-                        OpenIdConnectConstants.Destinations.IdentityToken);
-                }
-
-                // The other claims won't be added to the access
-                // and identity tokens and will be kept private.
+                claim.SetDestinations(destinations);
             }
-
-            List<Claim> roles = principal.Claims.Where(c => c.Type == ClaimTypes.Role).ToList();
-            // Create a new authentication ticket holding the user identity.
-            var ticket = new AuthenticationTicket(
-                principal, new AuthenticationProperties()
-                {
-                    AllowRefresh = true,
-                    ExpiresUtc = DateTimeOffset.Now.AddDays(14),
-                    IsPersistent = true,
-                    Items = { new KeyValuePair<string, string>(".roles", string.Join(", ", roles.Select(r => r.Value))) }
-                },
-                OpenIdConnectServerDefaults.AuthenticationScheme);
-
-            // ticket.SetResources(request.GetResources());
-            ticket.SetScopes(scopes);
+            
+          //  ticket.Properties.AllowRefresh = true;
+          //  ticket.Properties.ExpiresUtc = DateTimeOffset.Now.AddDays(14);
+          //  ticket.Properties.IsPersistent = false;
 
             return ticket;
         }

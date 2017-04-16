@@ -11,8 +11,8 @@ import { ChangePassword } from "./changePassword.model";
 export class AccountService {
     private actionUrl: string;
 
-    constructor(private http: HttpWrapper, private configuration: Configuration) {
-        this.actionUrl = configuration.serverWithApiUrl + "account/";
+    constructor(private http: HttpWrapper) {
+        this.actionUrl = "account/";
     }
 
     create = (item: Signup): Observable<boolean> => {

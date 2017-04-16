@@ -1,7 +1,6 @@
 ﻿import { Injectable } from "@angular/core";
 import { Response } from "@angular/http";
 import { Observable } from "rxjs/Observable";
-import { Configuration } from "../../app.constants";
 import { HttpWrapper } from "../../shared/index";
 import { ForumSubsection } from "./forumSubsection.model";
 
@@ -9,8 +8,8 @@ import { ForumSubsection } from "./forumSubsection.model";
 export class ForumSubsectionService {
     private actionUrl: string;
 
-    constructor(private http: HttpWrapper, private configuration: Configuration) {
-        this.actionUrl = configuration.serverWithApiUrl + "forumSubsection/";
+    constructor(private http: HttpWrapper) {
+        this.actionUrl = "forumSubsection/";
     }
 
     getAll = (): Observable<ForumSubsection[]> => {

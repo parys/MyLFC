@@ -1,7 +1,6 @@
 ﻿import { Injectable } from "@angular/core";
 import { Response } from "@angular/http";
 import { Observable } from "rxjs/Observable";
-import { Configuration } from "../app.constants";
 import { MaterialCategory } from "./materialCategory.model";
 import { MaterialType } from "./materialType.enum";
 import { HttpWrapper } from "../shared/httpWrapper";
@@ -10,8 +9,8 @@ import { HttpWrapper } from "../shared/httpWrapper";
 export class MaterialCategoryService {
     private actionUrl: string;
 
-    constructor(private http: HttpWrapper, private configuration: Configuration) {
-        this.actionUrl = configuration.serverWithApiUrl + "materialCategory/";
+    constructor(private http: HttpWrapper) {
+        this.actionUrl = "materialCategory/";
     }
 
     getAll = (type: MaterialType): Observable<MaterialCategory[]> => {

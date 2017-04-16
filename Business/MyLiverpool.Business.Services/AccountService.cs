@@ -100,15 +100,14 @@ namespace MyLiverpool.Business.Services
             return true;
         }
 
-        public async Task<bool> ResetPasswordAsync(ResetPasswordDto dto)
+        public async Task<IdentityResult> ResetPasswordAsync(ResetPasswordDto dto)
         {
             var user = await _userRepository.FindByEmailAsync(dto.Email);
             if (user == null)
             {
-                return false;
+                return IdentityResult.Failed(new IdentityError());
             }
-            var result = await _userRepository.ResetPasswordAsync(user, dto.Code.Base64ForUrlDecode(), dto.Password);
-            return result.Succeeded;
+            return await _userRepository.ResetPasswordAsync(user, dto.Code.Base64ForUrlDecode(), dto.Password);
         }
 
         public async Task<bool> UpdateLastModifiedAsync(int userId)

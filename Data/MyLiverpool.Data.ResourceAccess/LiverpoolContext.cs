@@ -127,7 +127,7 @@ namespace MyLiverpool.Data.ResourceAccess
             {
                 modelBuilder.UseOpenIddict<int>();
                 modelBuilder.UseSqlServer(
-                    "Server=User-pc;Database=MyLiverpool1123;Trusted_Connection=True;MultipleActiveResultSets=true");
+                    "Server=User-pc;Database=MyLiverpool1123Migrator;Trusted_Connection=True;MultipleActiveResultSets=true");
             }
             base.OnConfiguring(modelBuilder);
         }

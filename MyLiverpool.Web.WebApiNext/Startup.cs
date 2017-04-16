@@ -118,36 +118,40 @@ namespace MyLiverpool.Web.WebApiNext
                 });
             });
 
-            services.AddOpenIddict<int>()
-                .AddEntityFrameworkCoreStores<LiverpoolContext>()
-              //  .AddMvcBinders()
-                // Enable the authorization and token endpoints (required to use the code flow).
-                .EnableAuthorizationEndpoint("/connect/authorize")
-                .EnableLogoutEndpoint("/connect/logout")
-                // Enable the token endpoint (required to use the password flow).
-                .EnableTokenEndpoint("/connect/token")
-                
-                // Allow client applications to use the grant_type=password flow.
-                .AllowImplicitFlow()
-                .AllowPasswordFlow()
-                //.AllowAuthorizationCodeFlow)
-                .AllowRefreshTokenFlow()
-                .SetIdentityTokenLifetime(TimeSpan.FromDays(14))
-                .SetAccessTokenLifetime(TimeSpan.FromDays(14))
+            services.AddOpenIddict<int>(options =>
+            {
+             //   options.AddMvcBinders();
+               options.AddEntityFrameworkCoreStores<LiverpoolContext>()
+                    //  .AddMvcBinders()
+                    // Enable the authorization and token endpoints (required to use the code flow).
+                    .EnableAuthorizationEndpoint("/connect/authorize")
+                    .EnableLogoutEndpoint("/connect/logout")
+                    // Enable the token endpoint (required to use the password flow).
+                    .EnableTokenEndpoint("/connect/token")
 
-                // During development, you can disable the HTTPS requirement.
-                .DisableHttpsRequirement()
+                    // Allow client applications to use the grant_type=password flow.
+                    .AllowImplicitFlow()
+                    .AllowPasswordFlow()
+                    //.AllowAuthorizationCodeFlow)
+                    .AllowRefreshTokenFlow()
+                //    .SetIdentityTokenLifetime(TimeSpan.FromDays(14))
+                 //   .SetAccessTokenLifetime(TimeSpan.FromSeconds(10))
+                  //  .SetRefreshTokenLifetime(TimeSpan.FromDays(14))
 
-                // When request caching is enabled, authorization and logout requests
-                // are stored in the distributed cache by OpenIddict and the user agent
-                // is redirected to the same page with a single parameter (request_id).
-                // This allows flowing large OpenID Connect requests even when using
-                // an external authentication provider like Google, Facebook or Twitter.
-                .EnableRequestCaching()
-                // Register a new ephemeral key, that is discarded when the application
-                // shuts down. Tokens signed using this key are automatically invalidated.
-                // This method should only be used during development.
-                .AddEphemeralSigningKey();
+                    // During development, you can disable the HTTPS requirement.
+                    .DisableHttpsRequirement()
+
+                    // When request caching is enabled, authorization and logout requests
+                    // are stored in the distributed cache by OpenIddict and the user agent
+                    // is redirected to the same page with a single parameter (request_id).
+                    // This allows flowing large OpenID Connect requests even when using
+                    // an external authentication provider like Google, Facebook or Twitter.
+                    .EnableRequestCaching()
+                    // Register a new ephemeral key, that is discarded when the application
+                    // shuts down. Tokens signed using this key are automatically invalidated.
+                    // This method should only be used during development.
+                    .AddEphemeralSigningKey();
+            });
 
             // services.AddE();
             services.AddSwaggerGen(options =>

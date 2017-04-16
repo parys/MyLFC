@@ -1,7 +1,6 @@
 ﻿import { Injectable } from "@angular/core";
 import { Response } from "@angular/http";
 import { Observable } from "rxjs/Observable";
-import { Configuration } from "../app.constants";
 import { HttpWrapper, Pageable } from "../shared/index";
 import { Club } from "./club.model";
 
@@ -9,8 +8,8 @@ import { Club } from "./club.model";
 export class ClubService {
     private actionUrl: string;
 
-    constructor(private http: HttpWrapper, private configuration: Configuration) {
-        this.actionUrl = configuration.serverWithApiUrl + "club/";
+    constructor(private http: HttpWrapper) {
+        this.actionUrl = "club/";
     }
 
     getAll = (page: number): Observable<Pageable<Club>> => {
