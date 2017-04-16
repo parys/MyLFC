@@ -46,7 +46,7 @@ namespace MyLiverpool.Business.Services.Tests
         [Theory, ClassData(typeof(GetRoleGroupsDtoTestData))]
         public async void GetRoleGroupsDtoAsync(IEnumerable<RoleGroupDto> expected)
         {
-            var result = await RoleService.GetRoleGroupsDtoAsync();
+            var result = await RoleService.GetRoleGroupsWithRolesAsync();
             
             result.Count().ShouldBeEquivalentTo(expected.Count());
             result.ShouldBeEquivalentTo(expected);

@@ -24,13 +24,24 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         }
 
         /// <summary>
+        /// Returns all role groups with roles.
+        /// </summary>
+        /// <returns>Role groups list.</returns>
+        [AllowAnonymous, HttpGet("listWithRoles")]
+        public async Task<IActionResult> GetAllWithRolesAsync()
+        {
+            var result = await _roleService.GetRoleGroupsWithRolesAsync();
+            return Ok(result);
+        }
+
+        /// <summary>
         /// Returns all role groups.
         /// </summary>
         /// <returns>Role groups list.</returns>
-        [AllowAnonymous, HttpGet("")]
-        public async Task<IActionResult> GetAll()
+        [AllowAnonymous, HttpGet("list")]
+        public async Task<IActionResult> GetAllAsync()
         {
-            var result = await _roleService.GetRoleGroupsDtoAsync();
+            var result = await _roleService.GetRoleGroupsAsync();
             return Ok(result);
         }
     }

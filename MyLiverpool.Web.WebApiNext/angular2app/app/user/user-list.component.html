@@ -28,16 +28,19 @@
         </tbody>
     </table>
     <div>
-        <!--form class="form-inline">
+        <form class="form-inline" [formGroup]="filterForm" (ngSubmit)="update()">
             <div class="form-group">
                 <select class="form-control"
-                        ng-model="vm.chosenRoleGroupId"
-                        ng-options="roleGroup.id as roleGroup.name for roleGroup in vm.roleGroups" ng-change="vm.changeRoleId()"></select>
+                        formControlName="roleGroupId">
+                    <option value="">Все группы</option>
+                    <option *ngFor="let roleGroup of roleGroups" [value]="roleGroup.id" [textContent]="roleGroup.russianName"></option>
+                </select>
             </div>
             <div class="form-group">
-                <input class="form-control" ng-model="vm.filterUserName" ng-model-options="{debounce: 1000}" ng-change="vm.filterByUserName()" placeholder="Логин" />
+                <input class="form-control" formControlName="userName" placeholder="Логин" />
             </div>
-        </form-->
+            <button class="btn btn-success"> Отфильтровать</button>
+        </form>
     </div>
 </div>
 <div class="pagination">

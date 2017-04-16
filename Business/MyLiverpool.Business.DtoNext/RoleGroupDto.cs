@@ -6,6 +6,7 @@ namespace MyLiverpool.Business.DtoNext
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public string RussianName { get; set; }
         public ICollection<RoleDto> Roles { get; set; }
     }
 }

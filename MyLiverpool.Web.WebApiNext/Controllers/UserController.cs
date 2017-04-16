@@ -1,5 +1,4 @@
-﻿using System;
-using System.Net;
+﻿using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -7,6 +6,7 @@ using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.DtoNext;
 using MyLiverpool.Data.Common;
 using MyLiverpool.Web.WebApiNext.Extensions;
+using Newtonsoft.Json;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
@@ -31,9 +31,9 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         }
         
         /// <summary>
-        /// 
+        /// Returns current user id.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>User id.</returns>
         [Authorize, HttpGet("GetId")]
         public IActionResult GetId()
         {
@@ -61,10 +61,10 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Returns filtered users list.
         /// </summary>
-        /// <param name="dto"></param>
-        /// <returns></returns>
+        /// <param name="dto">Filters.</param>
+        /// <returns>List with users.</returns>
         [AllowAnonymous, HttpGet("list/{dto}")]
         public async Task<IActionResult> List(string dto)
         {
@@ -72,7 +72,12 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             {
                 return BadRequest();
             }
-            UserFiltersDto obj = Newtonsoft.Json.JsonConvert.DeserializeObject<UserFiltersDto>(dto); 
+            var obj = JsonConvert.DeserializeObject<UserFiltersDto>(dto, new JsonSerializerSettings() //todo should be application wide settings
+            {
+                MissingMemberHandling = MissingMemberHandling.Ignore,
+                NullValueHandling = NullValueHandling.Include,
+                DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate
+            }); 
             var model = await _userService.GetUsersDtoAsync(obj);
             return Json(model);
         }

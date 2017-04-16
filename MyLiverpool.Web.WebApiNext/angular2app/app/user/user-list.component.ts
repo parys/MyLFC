@@ -1,37 +1,48 @@
 ﻿import { Component, OnInit } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import { Location } from "@angular/common";  
+import { FormBuilder, FormGroup } from "@angular/forms";  
 import { Router, ActivatedRoute } from "@angular/router";
 import { User} from "./user.model";
 import { UserService } from "./user.service";
+import { RoleGroupService } from "../roleGroup/roleGroup.service";
+import { RoleGroup } from "../roleGroup/roleGroup.model";
 import { UserFilters } from "./userFilters.model";
 import { Pageable, RolesCheckedService, IRoles } from "../shared/index";
 
-@Component({
+@
+Component({
     selector: "user-list",
+   // templateUrl: "./user-list.component.html"
     template: require("./user-list.component.html")
 })
 
 export class UserListComponent implements OnInit {
     items: User[];
     roles: IRoles;
+    roleGroups: RoleGroup[];
+    filterForm: FormGroup;
     page: number = 1;
     itemsPerPage: number = 15;
     totalItems: number;
-    categoryId: number;
-    userName: string;
+    //userName: string;
     selectedUserId: number;
 
     constructor(private userService: UserService,
         private location: Location,
+        private roleGroupService: RoleGroupService,
         private rolesChecked: RolesCheckedService,
+        private formBuilder: FormBuilder,
         private route: ActivatedRoute) {
     }
 
     ngOnInit() {
         this.roles = this.rolesChecked.checkRoles();
-        this.page = +this.route.snapshot.params["page"] || 1;
-        this.userName = this.route.snapshot.params["userName"] || "";
+        this.page = +this.route.snapshot.queryParams["page"] || 1;
+        let userName = this.route.snapshot.queryParams["userName"] || "";
+        let roleGroupId = this.route.snapshot.queryParams["roleGroupId"] || "";
+        this.updateRoleGroups();
+        this.initFilterForm(userName, roleGroupId);
         this.update();
     }
 
@@ -46,27 +57,34 @@ export class UserListComponent implements OnInit {
     pageChanged(event: any): void {
         this.page = event.page;
         this.update();
-        let newUrl = `users?page=${this.page}`;
-
-        if (this.userName) {
-            newUrl = `${newUrl}&userName=${this.userName}`;
-        }
-
-        this.location.replaceState(newUrl);
     };
 
-    update() {
+    update(): void {
         let filters = new UserFilters();
-      //  filters.categoryId = this.categoryId;
-      //  filters.materialType = "News";
-        filters.userName = this.userName;
+        filters.userName = this.filterForm.get("userName").value;
+        filters.roleGroupId = this.filterForm.get("roleGroupId").value;
         filters.page = this.page;
 
         this.userService
             .getAll(filters)
             .subscribe(data => this.parsePageable(data),
             error => console.log(error),
-            () => {});
+            () => { this.updateUrl()});
+    }
+
+    private updateUrl(): void {
+        let newUrl = `users?page=${this.page}`;
+
+        let userName = this.filterForm.get("userName").value;
+        if (userName) {
+            newUrl = `${newUrl}&userName=${userName}`;
+        }
+        let roleGroupId = this.filterForm.get("roleGroupId").value;
+        if (roleGroupId) {
+            newUrl = `${newUrl}&roleGroupId=${roleGroupId}`;
+        }
+
+        this.location.replaceState(newUrl);
     }
 
     private parsePageable(pageable: Pageable<User>): void {
@@ -74,5 +92,17 @@ export class UserListComponent implements OnInit {
         this.page = pageable.pageNo;
         this.itemsPerPage = pageable.itemPerPage;
         this.totalItems = pageable.totalItems;
+    }
+
+    private updateRoleGroups() {
+        this.roleGroupService.getAll().subscribe(data => this.roleGroups = data,
+            error => console.log(error));
+    }
+
+    private initFilterForm(userName: string, roleGroupId: string) {
+        this.filterForm = this.formBuilder.group({
+            'roleGroupId': [roleGroupId],
+            'userName': [userName]
+        });
     }
 }

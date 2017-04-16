@@ -11,8 +11,12 @@ export class RoleGroupService {
     constructor(private http: HttpWrapper) {
     }
 
+    getAllWithRoles = (): Observable<RoleGroup[]> => {
+        return this.http.get(this.actionUrl + "listWithRoles/").map((res: Response) => res.json());
+    };
+
     getAll = (): Observable<RoleGroup[]> => {
-        return this.http.get(this.actionUrl).map((res: Response) => res.json());
+        return this.http.get(this.actionUrl + "list/").map((res: Response) => res.json());
     };
 
     // getSingle = (id: number): Observable<RoleGroup> => {

@@ -44,19 +44,27 @@ export class HttpWrapper {
         });
     }
 
-    login(username: string, password: string): boolean {
+    login(username: string, password: string): Observable<Response> {
         let headers = new Headers();
         headers.append("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8;");
         let params = `grant_type=password&username=${username}&password=${password}&scope=offline_access`;
 
-        this.requestForToken(params);
-        return true;
+        return this.requestForToken(params);
     }
 
-    checkTokenExpirationDate() : boolean {
-        if (this.localStorage.isTokenExpired()) {
-            this.refreshTokens();
-            return true;
+    refreshTokens(): Observable<Response> {
+        let refreshToken = this.localStorage.getRefreshToken();
+        let params = `grant_type=refresh_token&refresh_token=${refreshToken}`;
+        return this.requestForToken(params);
+    }
+
+    private checkTokenExpirationDate() : boolean {
+        if (this.localStorage.getRefreshToken() && this.localStorage.isTokenExpired()) {
+            this.refreshTokens()
+                .subscribe(data => this.parseLoginAnswer(data),
+                    error => console.log(error), () => {
+                        return true;
+                    });
         }
         return false;
     }
@@ -75,64 +83,17 @@ export class HttpWrapper {
         return headers;
     }
 
-    private refreshTokens(): void {
-        let refreshToken = this.localStorage.getRefreshToken();
-        if (!refreshToken) {
-            console.log("refreshTokens");
-            this.localStorage.removeAllData();
-            return;
-        }
-        let params = `grant_type=refresh_token&refresh_token=${refreshToken}`;
-        this.requestForToken(params);
-
-    }
-
-    private requestForToken(params: string): void {
+    private requestForToken(params: string): Observable<Response> {
         let headers = new Headers();
         headers.append("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8;");
-        this.http.post(this.configuration.server + "connect/token",
-                params,
-                {
-                    headers: headers
-                })
-            .subscribe(data => this.parseLoginAnswer(data),
-            error => {
-                if (error._body === "unconfirmed_email") {
-                    this.router.navigate(["/unconfirmedEmail"]);
-                    return;
-                }
-                console.log("requestForToken");
-                this.localStorage.removeAllData();
-            },
-            () => {
-                });
+        return this.http.post(this.configuration.server + "connect/token",
+            params,
+            {
+                headers: headers
+            });
     }
 
     private parseLoginAnswer(item: any): void {
         this.localStorage.setAuthTokens(item);
     }
-
-    //private parseRoles(item: any): void {
-    //    this.roles = item._body.split(", ");
-    //    this.localStorage.setRoles(this.roles);
-    //}
-
-    //private getRoles(): void {
-    //    this.http.get(this.configuration.serverWithApiUrl + "role")
-    //        .subscribe(data => this.parseRoles(data),
-    //            error => console.log(error),
-    //            () => this.rolesCheckedService.checkRoles());
-    //}
-
-    //private getUserId(): void {
-    //    this.http.get(this.configuration.serverWithApiUrl + "user/getId")
-    //        .subscribe(data => this.id = +JSON.parse(data.text()),
-    //            error => console.log(error),
-    //            () => {
-    //                this.localStorage.setUserId(this.id);
-    //                this.getRoles();
-    //            });
-    //}
-
-    //private checkForExpired
 }

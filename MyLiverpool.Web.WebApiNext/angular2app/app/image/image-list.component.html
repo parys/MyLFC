@@ -1,6 +1,6 @@
 ﻿<div>
     <a role="button" *ngIf="defaultPath != path" (click)="goUp()">Вернуться назад</a>
-    <a class="btn btn-info" [routerLink]="['/image/add']">Добавить</a>
+    <a class="btn btn-info" [routerLink]="['/images/add']">Добавить</a>
     <a role="button" class="pull-right" *ngIf="selectedItem" (click)="removeSelection()">Отменить выбор</a>
     <image-detail *ngIf="selectedItem" [item]="selectedItem"></image-detail>
     <div *ngFor="let file of items">

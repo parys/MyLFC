@@ -125,11 +125,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
 
     private initRoleForm() {
         this.roleForm = this.formBuilder.group({
-            'roleGroupId': [
-                "", Validators.compose([
-                    Validators.required
-                ])
-            ]
+            'roleGroupId': ["", Validators.required]
         });
     }
 

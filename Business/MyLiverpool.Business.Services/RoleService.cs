@@ -47,7 +47,13 @@ namespace MyLiverpool.Business.Services
             return true;
         }
 
-        public async Task<IEnumerable<RoleGroupDto>> GetRoleGroupsDtoAsync()
+        public async Task<IEnumerable<RoleGroupDto>> GetRoleGroupsWithRolesAsync()
+        {
+            var roleGroups = await _roleGroupRepository.GetListWithRolesAsync();
+            return _mapper.Map<IEnumerable<RoleGroupDto>>(roleGroups);
+        }
+
+        public async Task<IEnumerable<RoleGroupDto>> GetRoleGroupsAsync()
         {
             var roleGroups = await _roleGroupRepository.GetListAsync();
             return _mapper.Map<IEnumerable<RoleGroupDto>>(roleGroups);

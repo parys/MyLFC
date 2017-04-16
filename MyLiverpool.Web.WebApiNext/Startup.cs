@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using AspNet.Security.OpenIdConnect.Primitives;
 using AutoMapper;
 using Microsoft.AspNetCore.Antiforgery;
@@ -13,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Services;
 using MyLiverpool.Common.Mappings;
@@ -121,22 +123,21 @@ namespace MyLiverpool.Web.WebApiNext
             services.AddOpenIddict<int>(options =>
             {
              //   options.AddMvcBinders();
-               options.AddEntityFrameworkCoreStores<LiverpoolContext>()
+                options.AddEntityFrameworkCoreStores<LiverpoolContext>()
                     //  .AddMvcBinders()
                     // Enable the authorization and token endpoints (required to use the code flow).
                     .EnableAuthorizationEndpoint("/connect/authorize")
                     .EnableLogoutEndpoint("/connect/logout")
                     // Enable the token endpoint (required to use the password flow).
                     .EnableTokenEndpoint("/connect/token")
-
-                    // Allow client applications to use the grant_type=password flow.
-                    .AllowImplicitFlow()
+                    
+                 //   .AllowImplicitFlow()
                     .AllowPasswordFlow()
                     //.AllowAuthorizationCodeFlow)
                     .AllowRefreshTokenFlow()
-                //    .SetIdentityTokenLifetime(TimeSpan.FromDays(14))
-                 //   .SetAccessTokenLifetime(TimeSpan.FromSeconds(10))
-                  //  .SetRefreshTokenLifetime(TimeSpan.FromDays(14))
+                    //    .SetIdentityTokenLifetime(TimeSpan.FromDays(14))
+                    //   .SetAccessTokenLifetime(TimeSpan.FromSeconds(10))
+                    //  .SetRefreshTokenLifetime(TimeSpan.FromDays(14))
 
                     // During development, you can disable the HTTPS requirement.
                     .DisableHttpsRequirement()
@@ -146,11 +147,11 @@ namespace MyLiverpool.Web.WebApiNext
                     // is redirected to the same page with a single parameter (request_id).
                     // This allows flowing large OpenID Connect requests even when using
                     // an external authentication provider like Google, Facebook or Twitter.
-                    .EnableRequestCaching()
-                    // Register a new ephemeral key, that is discarded when the application
-                    // shuts down. Tokens signed using this key are automatically invalidated.
-                    // This method should only be used during development.
-                    .AddEphemeralSigningKey();
+                    .EnableRequestCaching();
+                // Register a new ephemeral key, that is discarded when the application
+                // shuts down. Tokens signed using this key are automatically invalidated.
+                // This method should only be used during development.
+                    options.AddSigningKey(new RsaSecurityKey(new RSACng(CngKey.Create(CngAlgorithm.Rsa))));
             });
 
             // services.AddE();

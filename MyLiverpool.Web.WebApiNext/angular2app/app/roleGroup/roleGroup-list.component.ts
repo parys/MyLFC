@@ -22,7 +22,7 @@ export class RoleGroupListComponent implements OnInit {
 
     private update(): void {
         this.service
-            .getAll()
+            .getAllWithRoles()
             .subscribe(data => this.items = data,
             error => console.log(error));
     }
