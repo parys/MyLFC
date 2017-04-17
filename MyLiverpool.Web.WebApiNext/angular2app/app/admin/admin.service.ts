@@ -12,10 +12,10 @@ export class AdminService {
     }
 
     updateEplTable = (): Observable<string> => {
-        return this.http.get("updateTable/").map((res: Response) => res.text());
+        return this.http.get(this.actionUrl + "updateTable/").map((res: Response) => res.text());
     };
 
     getEplTable = (): Observable<string> => {
-        return this.http.get("helper/").map((res: Response) => res.text());
+        return this.http.get(this.actionUrl + "helper/").map((res: Response) => res.text());
     };
 }

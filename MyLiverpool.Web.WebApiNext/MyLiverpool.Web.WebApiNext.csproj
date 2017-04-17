@@ -15,14 +15,14 @@
 
   <ItemGroup>
     <Compile Remove="node_modules\**\*" />
+    <Content Remove="appsettings.json" />
+    <Content Remove="web.config" />
     <None Update="angular2app\js;Views\**\*;wwwroot\**\*">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </None>
     <None Update="wwwroot\js\*.map;wwwroot\swagger\**\*;node_modules\**\*;*.pdb">
       <CopyToPublishDirectory>Never</CopyToPublishDirectory>
     </None>
-
-    <Content Remove="appsettings.json;web.config" />
   </ItemGroup>
 
   <ItemGroup>
@@ -89,6 +89,11 @@
 
   <ItemGroup>
     <Folder Include="Properties\PublishProfiles\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="appsettings.json" />
+    <None Include="web.config" />
   </ItemGroup>
 
 </Project>
