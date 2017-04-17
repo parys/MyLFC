@@ -19,19 +19,27 @@ export class ImageAdditionComponent implements OnInit, OnDestroy {
     uploadedFiles: string[];
     @Input()
     isMultiple: boolean = true;
+    @Input()
+    controlName: string = "upload-image";
+
+    buttonName: string;
     @Output()
     loadedImage = new EventEmitter<string>();
 
     constructor(private configuration: Configuration,
         private storage: LocalStorageService,
         private service: ImageService
-    ) {
+    ) { 
     }
 
-    ngOnInit() {
+    ngOnInit(): void {
     }
 
-    ngOnDestroy() {}
+    ngOnDestroy(): void { }
+
+    ngAfterViewInit(): void {
+        this.buttonName = this.isMultiple ? "Загрузить изображения" : "Загрузить изображение";
+    }
 
     onUploadImage(event: any) {
         if (event.srcElement.files.length > 0) {

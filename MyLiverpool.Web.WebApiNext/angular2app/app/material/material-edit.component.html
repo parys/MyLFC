@@ -40,6 +40,10 @@
             <image-addition [isMultiple]="false" (loadedImage)="updateImage($event)"></image-addition>
         </div>
         <div class="form-group">
+            <label class="control-label col-xs-2 col-sm-2"> Дополнительные фото:</label>
+            <image-addition [isMultiple]="true" [controlName]="additional"></image-addition>
+        </div>
+        <div class="form-group">
             <div class="col-xs-offset-2 col-sm-offset-2 col-xs-10 col-sm-10">
                 <div class="checkbox">
                     <label class="control-label">

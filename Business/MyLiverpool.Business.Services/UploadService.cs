@@ -116,17 +116,17 @@ namespace MyLiverpool.Business.Services
             var result = new List<string>();
             foreach (var file in files)
             {
-               //bug !!!not checked!!! var file = files[fileName];
                 var newName = GenerateNewName() + "." + file.FileName.Split('.').Last();
                 var newPath = GenerateNewPath(ImagesPath);
                 var relativePath = Path.Combine(newPath, newName);
                 var path = GetFullPath(relativePath);
+                relativePath = Regex.Replace(relativePath, "\\\\", "/");
 
                 using (var fileStream = new FileStream(path, FileMode.Create))
                 {
                     await file.CopyToAsync(fileStream);
                 }
-                result.Add(relativePath);
+                result.Add("/" + relativePath);
             }
             return result;
         }

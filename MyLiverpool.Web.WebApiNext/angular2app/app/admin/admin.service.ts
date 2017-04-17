@@ -16,6 +16,6 @@ export class AdminService {
     };
 
     getEplTable = (): Observable<string> => {
-        return this.http.get(this.actionUrl + "helper/").map((res: Response) => res.text());
+        return this.http.get("helper/").map((res: Response) => res.text());
     };
 }
