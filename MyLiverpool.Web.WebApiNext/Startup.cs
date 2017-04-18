@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Security.Cryptography;
-using AspNet.Security.OpenIdConnect.Primitives;
+﻿using AspNet.Security.OpenIdConnect.Primitives;
 using AutoMapper;
 using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Builder;
@@ -14,7 +11,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
-using Microsoft.IdentityModel.Tokens;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Services;
 using MyLiverpool.Common.Mappings;
@@ -23,9 +19,7 @@ using MyLiverpool.Data.Entities;
 using MyLiverpool.Data.ResourceAccess;
 using MyLiverpool.Data.ResourceAccess.Interfaces;
 using MyLiverpool.Data.ResourceAccess.Repositories;
-using MyLiverpool.Web.WebApiNext.Extensions;
 using Newtonsoft.Json.Serialization;
-using Swashbuckle.AspNetCore.Swagger;
 
 namespace MyLiverpool.Web.WebApiNext
 {
@@ -122,7 +116,6 @@ namespace MyLiverpool.Web.WebApiNext
 
             services.AddOpenIddict<int>(options =>
             {
-             //   options.AddMvcBinders();
                 options.AddEntityFrameworkCoreStores<LiverpoolContext>()
                     //  .AddMvcBinders()
                     // Enable the authorization and token endpoints (required to use the code flow).
@@ -130,10 +123,7 @@ namespace MyLiverpool.Web.WebApiNext
                     .EnableLogoutEndpoint("/connect/logout")
                     // Enable the token endpoint (required to use the password flow).
                     .EnableTokenEndpoint("/connect/token")
-                    
-                 //   .AllowImplicitFlow()
                     .AllowPasswordFlow()
-                    //.AllowAuthorizationCodeFlow)
                     .AllowRefreshTokenFlow()
                     //    .SetIdentityTokenLifetime(TimeSpan.FromDays(14))
                     //   .SetAccessTokenLifetime(TimeSpan.FromSeconds(10))
@@ -151,10 +141,10 @@ namespace MyLiverpool.Web.WebApiNext
                 // Register a new ephemeral key, that is discarded when the application
                 // shuts down. Tokens signed using this key are automatically invalidated.
                 // This method should only be used during development.
-                    options.AddSigningKey(new RsaSecurityKey(new RSACng(CngKey.Create(CngAlgorithm.Rsa))));
+               // options.AddEphemeralSigningKey();
             });
 
-            // services.AddE();
+#if Debug
             services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc("v1", new Info
@@ -185,6 +175,7 @@ namespace MyLiverpool.Web.WebApiNext
 
              //   options.OperationFilter<AssignSecurityRequirements>();
             });
+#endif
 
             services.AddNodeServices(options =>
             {
@@ -218,13 +209,14 @@ namespace MyLiverpool.Web.WebApiNext
                 {
                     HotModuleReplacement = true
                 });
-
+#if Debug
                 app.UseSwagger();
                 app.UseSwaggerUI(c =>
                 {
                     c.SwaggerEndpoint("/swagger/v1/swagger.json", "V1 Docs");
                     c.ConfigureOAuth2("test-client-id123", "test-client-secr43et", "test-rea32lm", "test-a11pp");
                 });
+#endif
             }
             else
             {
@@ -250,7 +242,11 @@ namespace MyLiverpool.Web.WebApiNext
 
             app.UseIdentity();
 
-            app.UseOAuthValidation();
+            app.UseOAuthValidation(opt => //todo does it need?
+            {
+                opt.AutomaticAuthenticate = true;
+                opt.AutomaticChallenge = true;
+            });
             
             app.UseOpenIddict();
 

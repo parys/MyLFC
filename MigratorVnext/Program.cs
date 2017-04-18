@@ -1,8 +1,11 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -104,7 +107,7 @@ namespace MigratorVnext
             //// Task.WhenAll(users, forumS).Wait();
             // Console.WriteLine("End 1");
 
-            _deleted = UserRepository.FindByNameAsync("deleteUser").Result; // added creating delete uzver
+         //   _deleted = UserRepository.FindByNameAsync("deleteUser").Result; // added creating delete uzver
 
            //    UpdateUsersId(); //2
             //UpdateForumSectionsAndPopulateSubsectionList(); //1 call -> //  UpdateForumSubsectionsFromList(); //2
@@ -129,8 +132,9 @@ namespace MigratorVnext
             Console.WriteLine("End 4");
 
            //  UpdateCommentsLinks();
-            UpdateMaterialLinks();
+          //  UpdateMaterialLinks();
             Console.WriteLine("End 5");
+            DownloadAllImages();
         }
 
         public static void UpdateDb()
@@ -143,6 +147,85 @@ namespace MigratorVnext
             //UpdateComments();
             // UpdateCommentsLinks();
             // UpdateCommentsLinksToNewsAndBlogs();
+        }
+
+        private static async void DownloadAllImages()
+        {
+            var prefix = "http://myliverpool.ru";
+            var prefix2 = "http://www.myliverpool.ru";
+            var path = "D:\\images1123\\";
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            var count = _db.Materials.Count();
+      //      for (int i = 0; i < count; i ++)
+            {
+                var materials = _db.Materials.ToList();
+                //   Parallel.ForEach(materials, new ParallelOptions()
+                //{
+                //    MaxDegreeOfParallelism = 2
+                //}, async material =>
+                var ctr = 1;
+                foreach (var material in materials)
+                {
+                    var images = GetImagesPath(material.Message);
+                    var counter = 1;
+                    foreach (Group image in images)
+                    {
+                        var filename = image.Value;
+                        var pathForFile = path + image.Value;
+                        if (filename.Contains("http"))
+                        {
+                            if (filename.Contains("myliverpool"))
+                            {
+                                pathForFile = pathForFile.Replace("http://www.myliverpool.ru/", "")
+                                    .Replace("http://myliverpool.ru/", "");
+                            }
+                            else
+                            {
+                                continue;
+                            }
+                        }
+
+                        pathForFile = pathForFile.Replace("/", "\\").Replace(" ", "").Replace("\\\\", "\\");
+                        if (counter++ % 2 != 0 || filename.Contains("../../"))
+                        {
+                            continue;
+                        }
+                        if (!filename.Contains(prefix) || !filename.Contains(prefix))
+                        {
+                            filename = prefix + filename;
+                        }
+                        filename = filename.Replace("content/images/", "").Replace(" ", "");
+                        if (!Directory.Exists(pathForFile))
+                        {
+                            Directory.CreateDirectory(System.IO.Path.GetDirectoryName(pathForFile));
+                        }
+                        //HttpContent content;
+                      //  if (!File.Exists(pathForFile))
+                        {
+                            using (var client = new HttpClient())
+                            using (var request = new HttpRequestMessage(HttpMethod.Get, filename))
+                            {
+                                HttpResponseMessage msg = await client.SendAsync(request);
+                                HttpContent content = msg.Content;
+                                using (
+                                    Stream contentStream = await content.ReadAsStreamAsync(),
+                                        stream = new FileStream(pathForFile, FileMode.Create, FileAccess.Write,
+                                            FileShare.None,
+                                            4145728, true))
+                                {
+                                        contentStream.CopyTo(stream);
+                                }
+                            }
+                        }
+                    }
+
+                    //      });
+                    Console.WriteLine(ctr++ * 1.0 / count * 100);
+                }
+            }
         }
 
         #region Update from files to DB
@@ -2219,7 +2302,12 @@ namespace MigratorVnext
 
         private static string GetFirstImagePath(string message)
         {
-            return Regex.Match(message, "<img.+?src=[\"'](.+?)[\"'].+?>", RegexOptions.IgnoreCase).Groups[1].Value;
+            return GetImagesPath(message)[1].Value;
+        }
+
+        private static GroupCollection GetImagesPath(string message)
+        {
+            return Regex.Match(message, "<img.+?src=[\"'](.+?)[\"'].+?>", RegexOptions.IgnoreCase).Groups;
         }
 
         private static T[] SubArray<T>(T[] data, int index, int length)

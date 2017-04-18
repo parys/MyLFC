@@ -47,11 +47,7 @@ export class MiniChatComponent implements OnInit {
 
     private initForm(): void {
         this.messageForm = this.formBuilder.group({
-            'message': [
-                "", Validators.compose([
-                    Validators.required
-                ])
-            ]
+            'message': ["", Validators.required] //todo add lengthRequitement + visual
         });
     }
 }

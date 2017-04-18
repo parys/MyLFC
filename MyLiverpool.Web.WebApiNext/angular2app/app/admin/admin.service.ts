@@ -5,10 +5,9 @@ import { HttpWrapper } from "../shared/index";
 
 @Injectable()
 export class AdminService {
-    private actionUrl: string;
+    private actionUrl: string = "admin/";
 
     constructor(private http: HttpWrapper) {
-        this.actionUrl = "admin/";
     }
 
     updateEplTable = (): Observable<string> => {

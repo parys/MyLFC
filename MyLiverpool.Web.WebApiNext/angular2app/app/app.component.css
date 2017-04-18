@@ -62,7 +62,7 @@ textarea {
 }
 
 .chatMessage-block {
-    height: 150px;
+    height: 350px;
     overflow-y: auto;
 }
 
