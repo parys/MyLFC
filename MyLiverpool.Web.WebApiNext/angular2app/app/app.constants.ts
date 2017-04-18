@@ -9,4 +9,9 @@ export class Configuration {
     serverWithApiUrl = this.server + this.apiUrl;
 
     allowedImageTypes = [".jpeg", ".jpg", ".png", ".gif", ".bmp"];
+
+    debounceTime: number = 400;
+    minEmailLength: number = 6;
+    minUserNameLength: number = 3;
+    maxChatMessageLength: number = 500;
 }

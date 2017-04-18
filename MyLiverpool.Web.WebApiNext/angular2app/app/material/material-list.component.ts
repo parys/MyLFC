@@ -87,7 +87,7 @@ export class MaterialListComponent implements OnInit {
                     if (result) {
                         this.items.splice(this.selectedItemIndex, 1);
                     } else {
-                        alert("Ошибка удаления")//todo temporary;
+                        alert("Ошибка удаления")//bug temporary;
                     }
                 }
             );

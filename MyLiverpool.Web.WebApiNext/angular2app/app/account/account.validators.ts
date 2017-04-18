@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import { Subject } from "rxjs/Subject";
 import { AccountService } from "./account.service";
+import { Configuration } from "../app.constants";
 
 @Injectable()
 export class AccountValidators {
@@ -10,7 +11,8 @@ export class AccountValidators {
     static changed = new Subject<any>();
     static changed1 = new Subject<any>();
 
-    constructor(private service1: AccountService) {
+    constructor(private service1: AccountService
+        , private configuration: Configuration) {
         AccountValidators.service = service1;
     }
 
@@ -19,13 +21,13 @@ export class AccountValidators {
         return new Observable((obs: any) => {
             control
                 .valueChanges
-                .debounceTime(400)        // todo moove magic number to constants                
+                .debounceTime(this.configuration.debounceTime)                
                 .takeUntil(AccountValidators.changed)
                 .take(1)
                 .switchMap((value: string) => AccountValidators.service.isEmailUnique(value))
                 .subscribe(
                 data => {
-                    if (+control.value.length < 6 || data) {  // todo moove magic number to constants   
+                    if (+control.value.length < this.configuration.minEmailLength || data) {  
                         obs.next(null);
                     } else {
                         obs.next({ "notUniqueEmail": true });
@@ -44,13 +46,12 @@ export class AccountValidators {
         return new Observable((obs: any) => {
             control
                 .valueChanges
-                .debounceTime(400)        // todo moove magic number to constants                
-                .takeUntil(AccountValidators.changed1)
+                .debounceTime(this.configuration.debounceTime)
                 .take(1)
                 .switchMap((value: string) => AccountValidators.service.isUserNameUnique(value))
                 .subscribe(
                 data => {
-                    if (+control.value.length < 3 || data) {  // todo moove magic number to constants   
+                    if (+control.value.length < this.configuration.minUserNameLength || data) {
                         obs.next(null);
                     } else {
                         obs.next({ "notUniqueUserName": true });

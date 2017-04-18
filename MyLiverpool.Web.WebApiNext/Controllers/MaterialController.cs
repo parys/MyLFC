@@ -96,7 +96,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <param name="type">Material type.</param>
         /// <param name="model">Contains material model.</param>
         /// <returns>Result of creation.</returns>
-        [Authorize(Roles = nameof(RolesEnum.NewsStart) + "," + nameof(RolesEnum.BlogStart)), HttpPost("{type}")]
+        [Authorize(Roles = nameof(RolesEnum.NewsStart) + "," + nameof(RolesEnum.BlogStart)), HttpPost("{type}")]//todo add cutting absolute path to relative
         public async Task<IActionResult> CreateAsync(string type, [FromBody] MaterialDto model)
         {
             MaterialType materialType;
@@ -122,7 +122,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <param name="model">Contains material model.</param>
         /// <returns>Result of updation.</returns>
         [Authorize(Roles = nameof(RolesEnum.NewsStart) + "," + nameof(RolesEnum.BlogStart)), HttpPut("{id:int}")]
-        public async Task<IActionResult> UpdateAsync(int id, [FromBody]MaterialDto model)
+        public async Task<IActionResult> UpdateAsync(int id, [FromBody]MaterialDto model)//todo add cutting absolute path to relative
         {
             if (id != model.Id)
             {

@@ -24,11 +24,9 @@ namespace MyLiverpool.Data.Entities
         public virtual User Author { get; set; }
 
         public int AuthorId { get; set; }
-
-        //todo [AllowHtml]
+        
         public string Message { get; set; }
-
-        //todo   [AllowHtml]
+        
         public string Answer { get; set; }
 
         public virtual ICollection<MaterialComment> Children { get; set; }

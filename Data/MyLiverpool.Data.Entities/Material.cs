@@ -38,11 +38,9 @@ namespace MyLiverpool.Data.Entities
         public virtual User Author { get; set; }
 
         public string Title { get; set; }
-
-        //todo   [AllowHtml]
+        
         public string Brief { get; set; }
-
-        //todo [AllowHtml]
+        
         public string Message { get; set; }
 
         public int Reads { get; set; }

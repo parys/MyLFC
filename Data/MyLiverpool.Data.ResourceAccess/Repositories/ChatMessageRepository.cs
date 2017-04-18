@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using MyLiverpool.Data.Entities;
 using MyLiverpool.Data.ResourceAccess.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using MyLiverpool.Common.Utilities;
 
 namespace MyLiverpool.Data.ResourceAccess.Repositories
 {
@@ -34,7 +35,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             var entity = await _context.ChatMessages.FindAsync(id);
             if (entity == null)
             {
-                throw new NullReferenceException("ChatMessage cannot be null.");
+                return;
             }
             await DeleteAsync(entity);
         }
@@ -71,7 +72,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             return
                 await _context.ChatMessages.Include(x => x.Author)
                     .OrderByDescending(x => x.AdditionTime)
-                    .Take(100) //todo move config
+                    .Take(GlobalConstants.TakingChatMessagesCount)
                     .ToListAsync();
         }
     }

@@ -1,6 +1,7 @@
 ﻿import { Component, OnInit} from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import {  ActivatedRoute } from "@angular/router";
+import { ActivatedRoute } from "@angular/router";
+import { Configuration } from "../app.constants";
 import { ChatMessage } from "./chatMessage.model";
 import { ChatMessageService } from "./chatMessage.service";
 import { RolesCheckedService, IRoles } from "../shared/index";
@@ -20,6 +21,7 @@ export class MiniChatComponent implements OnInit {
     constructor(private service: ChatMessageService,
         private route: ActivatedRoute,
         private formBuilder: FormBuilder,
+        private configuration: Configuration,
         private rolesChecked: RolesCheckedService) {
     }
 
@@ -47,7 +49,7 @@ export class MiniChatComponent implements OnInit {
 
     private initForm(): void {
         this.messageForm = this.formBuilder.group({
-            'message': ["", Validators.required] //todo add lengthRequitement + visual
+            'message': ["", Validators.compose([Validators.required, Validators.maxLength(this.configuration.maxChatMessageLength)])] //todo add visual warning
         });
     }
 }
