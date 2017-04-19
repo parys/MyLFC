@@ -42,8 +42,8 @@ export class ImageAdditionComponent implements OnInit, OnDestroy {
     }
 
     onUploadImage(event: any) {
-        if (event.srcElement.files.length > 0) {
-            this.service.uploadImage(event.srcElement.files)
+        if (event.currentTarget.files.length > 0) {
+            this.service.uploadImage(event.currentTarget.files)
                 .subscribe(result => {
                         if (this.isMultiple) {
                             this.uploadedFiles = result;

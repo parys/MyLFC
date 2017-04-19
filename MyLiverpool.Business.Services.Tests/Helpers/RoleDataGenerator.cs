@@ -85,6 +85,7 @@ namespace MyLiverpool.Business.Services.Tests.Helpers
                 new RoleGroupDto()
                 {
                     Name =  RoleGroupsEnum.Simple.GetNameAttribute(),
+                    RussianName = RoleGroupsEnum.Simple.GetNameAttribute(),
                     Id = 1,
                     Roles = new List<RoleDto>() { simpleRole }
                     
@@ -92,12 +93,14 @@ namespace MyLiverpool.Business.Services.Tests.Helpers
                 new RoleGroupDto()
                 {
                     Name =  RoleGroupsEnum.Editor.GetNameAttribute(),
+                    RussianName = RoleGroupsEnum.Editor.GetNameAttribute(),
                     Id = 2,
                     Roles = new List<RoleDto>(){ simpleRole, editorRole}
                 },
                 new RoleGroupDto()
                 {
                     Name = RoleGroupsEnum.Admin.GetNameAttribute(),
+                    RussianName = RoleGroupsEnum.Admin.GetNameAttribute(),
                     Id = 3,
                     Roles = new List<RoleDto>(){simpleRole, editorRole, adminRole}
                 }

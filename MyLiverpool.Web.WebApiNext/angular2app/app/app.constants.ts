@@ -14,4 +14,5 @@ export class Configuration {
     minEmailLength: number = 6;
     minUserNameLength: number = 3;
     maxChatMessageLength: number = 500;
+    minPasswordLength: number = 6;
 }

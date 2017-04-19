@@ -12,7 +12,7 @@ namespace MyLiverpool.Business.DtoNext
 
         public string CategoryName { get; set; }
 
-        //   public bool CanCommentary { get; set; }
+        public bool CanCommentary { get; set; }
 
         public bool Pending { get; set; }
 
@@ -25,8 +25,7 @@ namespace MyLiverpool.Business.DtoNext
         public int UserId { get; set; }
 
         public string Title { get; set; }
-
-     //   [AllowHtml]
+        
         public string Brief { get; set; }
 
         public int Reads { get; set; }

@@ -78,7 +78,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     }
 
     onChangeAvatar(event: any) {
-        let file = event.srcElement.files[0];
+        let file = event.currentTarget.files[0];
         if (file) {
             this.service.updateAvatar(file)
                 .subscribe(result => this.item.photo = `${result}#${Math.random()}`,

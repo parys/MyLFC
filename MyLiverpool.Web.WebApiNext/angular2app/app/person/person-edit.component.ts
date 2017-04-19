@@ -41,7 +41,7 @@ export class PersonEditComponent implements OnInit {
     }
 
     onUpload(event: any) {
-        let file = event.srcElement.files[0];
+        let file = event.currentTarget.files[0];
         let fullname = this.editForm.controls["firstName"].value + " " + this.editForm.controls["lastName"].value;
         if (file) {
             this.service.updatePhoto(fullname, file)

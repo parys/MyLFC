@@ -41,7 +41,7 @@
                     <li class="">|</li>
                     <li class="">Автор:</li>
                     <li class=""><a [routerLink]="['/users', item.userId ]" [textContent]="item.userName"></a></li>
-                    <li *ngIf="item.canCommentary || item.commentsCount > 0" class="">| Комментарии: <span [textContent]="item.commentsCount"></span></li>
+                    <li *ngIf="item.canCommentary" class="">| Комментарии: <span [textContent]="item.commentsCount"></span></li>
                 </ul>
             </div>
         </div>

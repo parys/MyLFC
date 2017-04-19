@@ -1,4 +1,5 @@
 ﻿import { Component, OnInit, ViewChild } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";  
 import { Pageable } from "../shared/pageable.model";
 import { MaterialComment } from "./materialComment.model";
 import { MaterialCommentService } from "./materialComment.service";
@@ -12,9 +13,10 @@ import { ModalDirective } from "ng2-bootstrap";
 })
 
 export class MaterialCommentListComponent implements OnInit {
-
     items: MaterialComment[];
     page: number = 1;
+    categoryId: number;
+    userName: string;
     itemsPerPage = 15;
     totalItems: number;
     roles: IRoles;
@@ -22,21 +24,29 @@ export class MaterialCommentListComponent implements OnInit {
                                                               
     @ViewChild("deleteModal") deleteModal: ModalDirective;
 
-    constructor(private materialCommentService: MaterialCommentService, private location: Location, private rolesChecked: RolesCheckedService) {
-    }                                       
+    constructor(private materialCommentService: MaterialCommentService,
+        private route: ActivatedRoute,
+        private location: Location,
+        private rolesChecked: RolesCheckedService) {
+    }
 
     ngOnInit() {
         this.roles = this.rolesChecked.checkRoles();
+        let qParams = this.route.snapshot.queryParams;
+
+        this.page = qParams["page"] || 1;
+        this.categoryId = qParams["categoryId"] || "";
+        this.userName = qParams["userName"] || "";
         this.update();
     }
 
     pageChanged(event: any): void {
         this.page = event.page;
         this.update();
-        let newUrl = `materialComments/list/${this.page}`;
-     //   if (this.categoryId) {
-    //        newUrl = `${newUrl}/${this.categoryId}`;
-    //    }
+        let newUrl = `materialComments?page=${this.page}`;
+        if (this.categoryId) {
+           newUrl = `${newUrl}&categoryId=${this.categoryId}`;
+        }
         this.location.replaceState(newUrl);
     };
 
