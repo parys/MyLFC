@@ -10,7 +10,7 @@ export class Configuration {
 
     allowedImageTypes = [".jpeg", ".jpg", ".png", ".gif", ".bmp"];
 
-    debounceTime: number = 400;
+    debounceTime: number = 600;
     minEmailLength: number = 6;
     minUserNameLength: number = 3;
     maxChatMessageLength: number = 500;

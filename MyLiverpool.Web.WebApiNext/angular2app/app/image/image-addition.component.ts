@@ -51,8 +51,7 @@ export class ImageAdditionComponent implements OnInit, OnDestroy {
                             this.loadedImage.emit(result[0]);
                         }
                     },
-                    error => console.log(error),
-                    () => {});
+                    error => console.log(error));
         }
     }
 }

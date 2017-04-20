@@ -53,8 +53,7 @@ export class AccountSignupComponent implements OnInit {
                         this.result = true;
                     }
                 },
-            error => console.log(error),
-            () => { });
+            error => console.log(error));
         this.isHuman = false;
     }
 }
