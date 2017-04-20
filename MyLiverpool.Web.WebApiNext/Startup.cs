@@ -244,8 +244,8 @@ namespace MyLiverpool.Web.WebApiNext
 
             app.UseOAuthValidation(opt => //todo does it need?
             {
-                opt.AutomaticAuthenticate = true;
-                opt.AutomaticChallenge = true;
+              //  opt.AutomaticAuthenticate = true;
+           //     opt.AutomaticChallenge = true;
             });
             
             app.UseOpenIddict();

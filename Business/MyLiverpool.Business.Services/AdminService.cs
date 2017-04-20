@@ -54,15 +54,18 @@ namespace MyLiverpool.Business.Services
     <tbody>");
                 foreach (var club in clubs)
                 {
-                    newRows.AppendLine($@"<tr>
+                    var goalsSign = club.goals > 0 ? "+" : "";
+                    var startTag = club.name.ToLower() == "Ливерпуль" ? "<b>" : "";
+                    var endTag = club.name.ToLower() == "Ливерпуль" ? "</b>" : "";
+                    newRows.AppendLine($@"<tr>{startTag}
                                         <td>{club.position}</td>
                                         <td>{club.name}</td>
                                         <td>{club.matches}</td>
                                         <td>{club.won}</td>
                                         <td>{club.draw}</td>
                                         <td>{club.lost}</td>
-                                        <td>{club.goals}</td>
-                                        <td>{club.points}</td>
+                                        <td>{goalsSign}{club.goals}</td>
+                                        <td>{club.points}</td>{endTag}
                                         </tr>");
                 }
                 newRows.Append("</tbody></table>");

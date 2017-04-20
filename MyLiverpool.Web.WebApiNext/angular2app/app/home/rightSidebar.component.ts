@@ -8,26 +8,9 @@ import { RolesCheckedService, IRoles } from "../shared/index";
     selector: "right-sidebar",
     template: require("./rightSidebar.component.html")
 })
-export class RightSidebarComponent implements OnInit {
+export class RightSidebarComponent  {
     roles: IRoles;
     eplTable: string;
 
-    constructor(private service: AdminService,
-        private rolesChecked: RolesCheckedService) {
-    }
 
-    ngOnInit() {
-        this.roles = this.rolesChecked.checkRoles();
-        this.service
-            .getEplTable()
-            .subscribe(data => this.eplTable = data,
-            error => console.log(error));
-    }
-
-    updateEplTable() {
-        this.service
-            .updateEplTable()
-            .subscribe(data => this.eplTable = data,
-            error => console.log(error));
-    }
 }

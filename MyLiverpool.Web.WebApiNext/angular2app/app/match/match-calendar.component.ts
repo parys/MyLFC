@@ -16,7 +16,15 @@ subscription: Subscription;
 
     ngOnInit(): void {
         this.subscription = this.service.getForCalendar().subscribe(data => {
-                [this.last, this.next] = data;
+                if (data.length === 1) {
+                    if (data[0].scoreHome) {
+                        this.last = data[0];
+                    } else {
+                        this.next = data[0];
+                    }
+                } else {
+                    [this.last, this.next] = data;
+                }
             },
             error => console.log(error));;
     }
