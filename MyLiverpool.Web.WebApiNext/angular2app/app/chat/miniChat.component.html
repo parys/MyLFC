@@ -24,8 +24,8 @@
                     <button type="submit" [disabled]="!messageForm.valid" class="btn btn-default">Добавить</button>
                 </div>
             </div>
-        </form><button (click)="update()"><span class="glyphicon glyphicon-refresh text-success"></span></button>
-        <div *ngIf="!roles.isLogined" class="text-center">Для добавления сообщений необходимо войти.</div>
+        </form><button (click)="update()"><span class="glyphicon glyphicon-refresh"></span></button>
+        <div *ngIf="!roles.isLogined" class="text-center text-white">Для добавления сообщений необходимо войти.</div>
         <!--
 
         <select id="mchatRSel" onchange="setT7174(this);" class="mchat" title="Автообновление" style="font-size:7pt;">
