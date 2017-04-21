@@ -16,7 +16,7 @@ import { Season } from "../season/season.model";
 export class MatchEditComponent implements OnInit {
     editForm: FormGroup;
     id: number;
-    clubs = "/api/v1/club/GetClubsByName/:keyword";
+    clubs = "/api/v1/club/GetClubsByName?typed=:keyword";
     types: MatchType[];
     seasons: Season[];
 

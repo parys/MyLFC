@@ -106,7 +106,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <param name="typed">Part of club name for search.</param>
         /// <returns>List of keyValuePair of club with identifiers.</returns>
-        [AllowAnonymous, HttpGet("getClubsByName/{typed?}")]
+        [AllowAnonymous, HttpGet("getClubsByName")]
         public async Task<IActionResult> GetClubsByNameAsync([FromQuery]string typed)
         {
             var result = await _clubService.GetClubsByNameWithoutLiverpoolAsync(typed);
