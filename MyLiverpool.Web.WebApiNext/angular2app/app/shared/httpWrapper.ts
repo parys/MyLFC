@@ -20,7 +20,7 @@ export class HttpWrapper {
             headers: this.updateHeaders(),
             body: ""
         });
-    }
+    }  
 
     post(url: string, data: any, withFiles: boolean = false): Observable<Response> {
         this.checkTokenExpirationDate();
@@ -43,7 +43,82 @@ export class HttpWrapper {
             body: ""
         });
     }
+  /*  get(url: string): Observable<Response> {
+        let authError = false;
+        this.http.get(this.configuration.serverWithApiUrl + url, {
+            headers: this.updateHeaders()
+        }).subscribe(response => { return response },
+            error => {
+                console.log(error);
+                if (error.status === 401) {
+                    this.checkTokenExpirationDate();
+                }
+            },
+            () => {
+                if (authError) {
+                    return this.get(url);
+                }
+            });
+        return Observable.create("get error");
+    }
 
+    post(url: string, data: any, withFiles: boolean = false): Observable<Response> {
+        let authError = false;
+        this.http.post(this.configuration.serverWithApiUrl + url, data, {
+            headers: this.updateHeaders(withFiles)
+        }).subscribe(response => { return response },
+            error => {
+                console.log(error);
+                if (error.status === 401) {
+                    this.checkTokenExpirationDate();
+                }
+            },
+            () => {
+                if (authError) {
+                    return this.post(url, data, withFiles);
+                }
+            });
+        return Observable.create("post error");
+    }
+
+    put(url: string, data: any): Observable<Response> {
+        let authError = false;
+        this.http.put(this.configuration.serverWithApiUrl + url, data, {
+            headers: this.updateHeaders()
+        }).subscribe(response => { return response }, 
+            error => {
+                console.log(error);
+                if (error.status === 401) {
+                    this.checkTokenExpirationDate();
+                }
+            },
+            () => {
+                if (authError) {
+                    return this.put(url, data);
+                }
+            });
+        return Observable.create("put error");
+    }
+
+    delete(url: string): Observable<Response> {
+        let authError = false;
+        this.http.delete(this.configuration.serverWithApiUrl + url, {
+            headers: this.updateHeaders()
+        }).subscribe(response => { return response },
+            error => {
+                console.log(error);
+                if (error.status === 401) {
+                    this.checkTokenExpirationDate();
+                }
+            },
+            () => {
+                if (authError) {
+                    return this.delete(url);
+                }
+            });
+        return Observable.create("delete error");
+    }
+    */
     login(username: string, password: string): Observable<Response> {
         let headers = new Headers();
         headers.append("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8;");
@@ -58,15 +133,12 @@ export class HttpWrapper {
         return this.requestForToken(params);
     }
 
-    private checkTokenExpirationDate() : boolean {
-        if (this.localStorage.getRefreshToken() && this.localStorage.isTokenExpired()) {
+    private checkTokenExpirationDate() : void {
+        if (this.localStorage.isTokenExpired()) {
             this.refreshTokens()
                 .subscribe(data => this.parseLoginAnswer(data),
-                    error => console.log(error), () => {
-                        return true;
-                    });
+                    error => console.log(error));
         }
-        return false;
     }
 
     private updateHeaders(withFiles: boolean = false): Headers {

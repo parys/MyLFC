@@ -21,7 +21,7 @@ export class AuthService {
                     this.router.navigate(["/unconfirmedEmail"]);
                     return;
                 }
-                console.log("requestForToken");
+                console.log("Error login -> requestForToken");
                 this.localStorage.removeAllData();
             },
             () => {
