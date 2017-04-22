@@ -91,15 +91,8 @@ export class MatchEditComponent implements OnInit {
         item.reportUrl = this.getIdFromUrl(this.editForm.controls["reportUrl"].value);
         item.photoUrl = this.getIdFromUrl(this.editForm.controls["photoUrl"].value);
         item.videoUrl = this.editForm.controls["videoUrl"].value;
-        let scoreHome = this.editForm.controls["scoreHome"].value;
-        let scoreAway = this.editForm.controls["scoreAway"].value;
-        if (scoreHome && scoreAway) {
-            item.scoreHome = scoreHome;
-            item.scoreAway = scoreAway;
-        } else {
-            item.scoreHome = null;
-            item.scoreAway = null;
-        }
+        item.scoreHome = this.editForm.controls["scoreHome"].value;
+        item.scoreAway = this.editForm.controls["scoreAway"].value;
 
         return item;
     }
@@ -116,14 +109,16 @@ export class MatchEditComponent implements OnInit {
             'reportUrl': [""],
             'photoUrl': [""],
             'videoUrl': [""],
-            'scoreHome': [""],
-            'scoreAway': [""]
+            'scoreHome': [null],
+            'scoreAway': [null]
         });
     }
 
     private getIdFromUrl(url: string): string {
-        let pieces = url.split("/");
-        console.log(pieces);
-        return pieces[pieces.length - 1];
+        if (url) {
+            let pieces = url.split("/");
+            return pieces[pieces.length - 1];
+        }
+        return null;
     }
 }

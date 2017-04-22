@@ -1,4 +1,5 @@
-﻿using AspNet.Security.OpenIdConnect.Primitives;
+﻿using System;
+using AspNet.Security.OpenIdConnect.Primitives;
 using AutoMapper;
 using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Builder;
@@ -118,8 +119,6 @@ namespace MyLiverpool.Web.WebApiNext
             {
                 options.AddEntityFrameworkCoreStores<LiverpoolContext>()
                     //  .AddMvcBinders()
-                    // Enable the authorization and token endpoints (required to use the code flow).
-                    .EnableAuthorizationEndpoint("/connect/authorize")
                     .EnableLogoutEndpoint("/connect/logout")
                     // Enable the token endpoint (required to use the password flow).
                     .EnableTokenEndpoint("/connect/token")
@@ -127,7 +126,7 @@ namespace MyLiverpool.Web.WebApiNext
                     .AllowRefreshTokenFlow()
                     //    .SetIdentityTokenLifetime(TimeSpan.FromDays(14))
                     //   .SetAccessTokenLifetime(TimeSpan.FromSeconds(10))
-                    //  .SetRefreshTokenLifetime(TimeSpan.FromDays(14))
+                    .SetRefreshTokenLifetime(TimeSpan.FromDays(14))
 
                     // During development, you can disable the HTTPS requirement.
                     .DisableHttpsRequirement()
