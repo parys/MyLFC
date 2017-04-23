@@ -33,5 +33,7 @@ namespace MyLiverpool.Business.DtoNext
         public int NewsCount { get; set; }
 
         public int BlogsCount { get; set; }
+
+        public string Ip { get; set; }
     }
 }

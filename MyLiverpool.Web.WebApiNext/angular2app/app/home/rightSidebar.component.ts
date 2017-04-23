@@ -9,8 +9,7 @@ import { RolesCheckedService, IRoles } from "../shared/index";
     template: require("./rightSidebar.component.html")
 })
 export class RightSidebarComponent  {
-    roles: IRoles;
-    eplTable: string;
+
 
 
 }

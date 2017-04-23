@@ -35,5 +35,7 @@ namespace MyLiverpool.Business.Contracts
         Task<string> GetUsernameAsync(int id);
 
         Task<string> ResetAvatarAsync(int userId);
+
+        Task UpdateUserIpAddress(string ipAddress, int userId);
     }
 }

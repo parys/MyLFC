@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Mvc;
 using MyLiverpool.Data.Entities;
 using System.Linq;
 using AspNet.Security.OpenIdConnect.Primitives;
+using Microsoft.AspNetCore.Http;
+using MyLiverpool.Business.Contracts;
 using OpenIddict.Core;
 using OpenIddict.Models;
 
@@ -25,6 +27,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         private readonly OpenIddictApplicationManager<OpenIddictApplication<int>> _applicationManager;
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
+        private readonly IUserService _userService;
 
         /// <summary>
         /// Constructor.
@@ -32,14 +35,16 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <param name="applicationManager"></param>
         /// <param name="signInManager"></param>
         /// <param name="userManager"></param>
+        /// <param name="userService"></param>
         public AuthorizationController(
             OpenIddictApplicationManager<OpenIddictApplication<int>> applicationManager,
             SignInManager<User> signInManager,
-            UserManager<User> userManager)
+            UserManager<User> userManager, IUserService userService)
         {
             _applicationManager = applicationManager;
             _signInManager = signInManager;
             _userManager = userManager;
+            _userService = userService;
         }
 
         /// <summary>
@@ -50,7 +55,6 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         public async Task<IActionResult> Exchange()
         {
             var request = HttpContext.GetOpenIdConnectRequest();
-
             if (request.IsPasswordGrantType())
             {
                 var user = await _userManager.FindByNameAsync(request.Username);
@@ -228,12 +232,20 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
 
                 claim.SetDestinations(destinations);
             }
-            
-          //  ticket.Properties.AllowRefresh = true;
-          //  ticket.Properties.ExpiresUtc = DateTimeOffset.Now.AddDays(14);
-          //  ticket.Properties.IsPersistent = false;
+
+            //  ticket.Properties.AllowRefresh = true;
+            //  ticket.Properties.ExpiresUtc = DateTimeOffset.Now.AddDays(14);
+            //  ticket.Properties.IsPersistent = false;
+
+            UpdateIpAddressForUser(user.Id);
 
             return ticket;
+        }
+
+        private async void UpdateIpAddressForUser(int userId)
+        {
+            var ip = HttpContext.Connection.RemoteIpAddress.ToString();
+            await _userService.UpdateUserIpAddress(ip, userId);
         }
     }
 }

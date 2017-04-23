@@ -167,6 +167,17 @@ namespace MyLiverpool.Business.Services
             return user.Photo;
         }
 
+        public async Task UpdateUserIpAddress(string ipAddress, int userId)
+        {
+            var user = await _userRepository.GetByIdFromManagerAsync(userId);
+            if (user != null)
+            {
+                user.LastModified = DateTime.Now;
+                user.Ip = ipAddress;
+                await _userRepository.UpdateAsync(user);
+            }
+        }
+
         #region private
 
         private IEnumerable<string> GetRolesToDelete(IEnumerable<Role> oldRoles, IEnumerable<Role> newRoles)

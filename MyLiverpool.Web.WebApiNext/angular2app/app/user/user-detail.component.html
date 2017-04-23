@@ -68,6 +68,12 @@
             <div class="col-xs-10 col-sm-10">
                 <span class="form-control" [textContent]="item.email"></span>
             </div>
+        </div>       
+        <div class="form-group" *ngIf="roles.isAdminAssistant">
+            <label class="col-xs-2 col-sm-2 control-label">Ip</label>
+            <div class="col-xs-10 col-sm-10">
+                <span class="form-control" [textContent]="item.ip"></span>
+            </div>
         </div>
         <div class="form-group">
             <label class="col-xs-2 col-sm-2 control-label">Последний вход </label>

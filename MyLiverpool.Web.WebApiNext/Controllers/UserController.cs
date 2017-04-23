@@ -50,12 +50,20 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         {
             if (id == 0)
             {
-                id = User.GetUserId();
+                id = User?.GetUserId() ?? 0;
+            }
+            if (id == 0)
+            {
+                return BadRequest();
             }
             var user = await _userService.GetUserAsync(id);
-            if (!User.IsInRole(nameof(RolesEnum.AdminFull)) && !User.IsInRole(nameof(RolesEnum.AdminStart)))
+            if (!User.Identity.IsAuthenticated ||
+                (!User.IsInRole(nameof(RolesEnum.AdminFull))
+                && !User.IsInRole(nameof(RolesEnum.AdminStart))
+                && User.GetUserId() != user.Id))
             {
-                user.Email = string.Empty;
+                user.Email = null;
+                user.Ip = null;
             }
             return Json(user);
         }
