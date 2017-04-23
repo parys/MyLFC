@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-
-namespace MyLiverpool.Business.DtoNext
+namespace MyLiverpool.Business.Dto
 {
     public class ForumMessageDto : IDto
     {

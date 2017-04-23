@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using MyLiverpool.Business.Contracts;
-using MyLiverpool.Business.DtoNext;
+using MyLiverpool.Business.Dto;
 using MyLiverpool.Business.Services.Tests.Helpers;
 using MyLiverpool.Common.Mappings;
 using MyLiverpool.Data.Common;

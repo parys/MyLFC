@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using MyLiverpool.Business.DtoNext;
+using MyLiverpool.Business.Dto;
 using MyLiverpool.Data.Entities;
 
 namespace MyLiverpool.Common.Mappings

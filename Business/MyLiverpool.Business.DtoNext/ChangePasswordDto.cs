@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using MyLiverpool.Business.DTO;
 
-namespace MyLiverpool.Business.DtoNext
+namespace MyLiverpool.Business.Dto
 {
     public class ChangePasswordDto : IDto
     {

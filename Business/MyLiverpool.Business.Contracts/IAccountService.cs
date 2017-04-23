@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
-using MyLiverpool.Business.DtoNext;
-using MyLiverpool.Business.DTO;
+using MyLiverpool.Business.Dto;
 
 namespace MyLiverpool.Business.Contracts
 {

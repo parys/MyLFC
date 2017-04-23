@@ -4,7 +4,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using MyLiverpool.Business.Contracts;
-using MyLiverpool.Business.DtoNext;
+using MyLiverpool.Business.Dto;
 using MyLiverpool.Common.Utilities;
 using MyLiverpool.Data.Common;
 using MyLiverpool.Data.Entities;

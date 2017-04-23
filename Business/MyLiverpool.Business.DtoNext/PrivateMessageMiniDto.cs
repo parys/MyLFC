@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MyLiverpool.Business.DtoNext
+namespace MyLiverpool.Business.Dto
 {
     public class PrivateMessageMiniDto : IDto
     {

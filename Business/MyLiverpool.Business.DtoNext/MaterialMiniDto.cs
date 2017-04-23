@@ -1,8 +1,7 @@
 ﻿using System;
-using MyLiverpool.Business.DTO;
 using MyLiverpool.Data.Common;
 
-namespace MyLiverpool.Business.DtoNext
+namespace MyLiverpool.Business.Dto
 {
     public class MaterialMiniDto : IDto
     {

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26228.9
+VisualStudioVersion = 15.0.26403.7
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{3540D30E-6F85-4604-B001-5F0DA7D44EA8}"
 EndProject
@@ -25,7 +25,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyLiverpool.Business.Contra
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyLiverpool.Business.Services", "Business\MyLiverpool.Business.Services\MyLiverpool.Business.Services.csproj", "{AC59F8D6-C1DC-4AD7-BA17-6E52987C292D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyLiverpool.Business.DtoNext", "Business\MyLiverpool.Business.DtoNext\MyLiverpool.Business.DtoNext.csproj", "{9D8DEF35-81BD-4910-A547-E7B42F4BFC78}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyLiverpool.Business.Dto", "Business\MyLiverpool.Business.DtoNext\MyLiverpool.Business.Dto.csproj", "{9D8DEF35-81BD-4910-A547-E7B42F4BFC78}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyLiverpool.Common.Utilities", "Common\MyLiverpool.Common.Utilities\MyLiverpool.Common.Utilities.csproj", "{18226F9A-097C-4386-9CFA-9AAA2F91783D}"
 EndProject

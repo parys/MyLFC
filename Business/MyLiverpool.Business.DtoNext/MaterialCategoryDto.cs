@@ -1,6 +1,6 @@
 ﻿using MyLiverpool.Data.Common;
 
-namespace MyLiverpool.Business.DtoNext
+namespace MyLiverpool.Business.Dto
 {
     public class MaterialCategoryDto : IDto
     {

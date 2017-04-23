@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using AutoMapper;
-using MyLiverpool.Business.DtoNext;
+using MyLiverpool.Business.Dto;
 using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Entities;
 

@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
 using MyLiverpool.Business.Contracts;
-using MyLiverpool.Business.DtoNext;
+using MyLiverpool.Business.Dto;
 using MyLiverpool.Common.Utilities;
 using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
@@ -94,7 +94,7 @@ namespace MyLiverpool.Business.Services
             {
                 filter = filter.And(x => !x.IsVerified);
             }
-            var comments = await _commentService.GetOrderedByAsync(page, ItemPerPage, filter, SortOrder.Ascending, m => m.AdditionTime);
+            var comments = await _commentService.GetOrderedByAsync(page, ItemPerPage, filter, SortOrder.Descending, m => m.AdditionTime);
             var commentDtos = _mapper.Map<IEnumerable<MaterialCommentDto>>(comments);
             var commentsCount = await _commentService.GetCountAsync(filter);
             return new PageableData<MaterialCommentDto>(commentDtos, page, commentsCount);

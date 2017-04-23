@@ -1,7 +1,7 @@
 ﻿using System;
 using MyLiverpool.Data.Common;
 
-namespace MyLiverpool.Business.DtoNext
+namespace MyLiverpool.Business.Dto
 {
     public class MaterialDto : IDto
     {

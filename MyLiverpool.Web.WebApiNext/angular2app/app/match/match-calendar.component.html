@@ -1,6 +1,7 @@
 ﻿<section class="flex">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 bg-warning flex padding0" *ngIf="last">
-        <div class="col-xs-12">Последняя игра <span class="pull-right" [textContent]="last.dateTime | date:'d MMM y j:mm'"></span> МСК </div><!--todo add back color for win|drar|lost-->
+        <div class="col-xs-12">Последняя игра </div><!--todo add back color for win|drar|lost-->
+        <div class="col-xs-12"><span class="" [textContent]="last.dateTime | date:'d MMM y EEE j:mm'"></span> МСК</div>
         <div class="col-xs-4 col-sm-5">
             <img [src]="last.homeClubLogo" alt="last.homeClub" title="last.homeClubName" style="width: 45px">
             <strong [textContent]="last.homeClubName"></strong>
@@ -19,7 +20,8 @@
         </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 bg-primary flex padding0" *ngIf="next">
-        <div class="col-xs-12">Следующая игра <span class="pull-right" [textContent]="next.dateTime | date:'d MMM y j:mm'"></span> МСК </div>
+        <div class="col-xs-12">Следующая игра </div>
+        <div class="col-xs-12"><span class="" [textContent]="next.dateTime | date:'d MMM y EEE j:mm'"></span> МСК</div>
         <div class="col-xs-4 col-sm-5">
             <img [src]="next.homeClubLogo" alt="next.homeClub" title="next.homeClubName" style="width: 45px">
             <strong [textContent]="next.homeClubName"></strong>

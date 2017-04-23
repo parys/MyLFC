@@ -1,6 +1,6 @@
 ﻿using MyLiverpool.Common.Utilities;
 
-namespace MyLiverpool.Business.DtoNext
+namespace MyLiverpool.Business.Dto
 {
     public class ForumThemeDto : IDto
     {

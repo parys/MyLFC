@@ -1,4 +1,4 @@
-﻿namespace MyLiverpool.Business.DtoNext
+﻿namespace MyLiverpool.Business.Dto.Filters
 {
     public class UserFiltersDto : IDto
     {

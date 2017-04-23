@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.Mvc;
 using MyLiverpool.Data.Entities;
 using System.Linq;
 using AspNet.Security.OpenIdConnect.Primitives;
-using Microsoft.AspNetCore.Http;
 using MyLiverpool.Business.Contracts;
 using OpenIddict.Core;
 using OpenIddict.Models;
@@ -237,12 +236,12 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             //  ticket.Properties.ExpiresUtc = DateTimeOffset.Now.AddDays(14);
             //  ticket.Properties.IsPersistent = false;
 
-            UpdateIpAddressForUser(user.Id);
+            await UpdateIpAddressForUser(user.Id);
 
             return ticket;
         }
 
-        private async void UpdateIpAddressForUser(int userId)
+        private async Task UpdateIpAddressForUser(int userId)
         {
             var ip = HttpContext.Connection.RemoteIpAddress.ToString();
             await _userService.UpdateUserIpAddress(ip, userId);

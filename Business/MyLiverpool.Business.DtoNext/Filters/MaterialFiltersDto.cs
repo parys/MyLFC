@@ -1,6 +1,6 @@
 ﻿using MyLiverpool.Data.Common;
 
-namespace MyLiverpool.Business.DtoNext
+namespace MyLiverpool.Business.Dto.Filters
 {
     public class MaterialFiltersDto
     {
@@ -10,7 +10,6 @@ namespace MyLiverpool.Business.DtoNext
 
         public string UserName { get; set; }
 
-     //   [JsonConverter(typeof(StringEnumConverter))]
         public MaterialType MaterialType { get; set; }
     }
 }

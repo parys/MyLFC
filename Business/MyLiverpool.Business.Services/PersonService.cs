@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using MyLiverpool.Business.Contracts;
-using MyLiverpool.Business.DtoNext;
+using MyLiverpool.Business.Dto;
 using MyLiverpool.Common.Utilities;
 using MyLiverpool.Data.Common;
 using MyLiverpool.Data.Entities;

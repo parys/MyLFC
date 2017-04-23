@@ -16,7 +16,7 @@
         <div class="panel panel-default clearfix">
             <div class="panel-heading">
                 <h3 class="panel-title">
-                    <a [routerLink]="[item.id, 'edit']"> <span [textContent]="item.dateTime | date:'d MMM y j:mm'"></span> МСК - <span [textContent]="item.stadium"></span></a>
+                    <a [routerLink]="[item.id, 'edit']"> <span [textContent]="item.dateTime | date:'d MMM y EEE j:mm'"></span> МСК - <span [textContent]="item.stadium"></span></a>
                     <!--span class="col-xs-1 col-sm-1 pull-right">
                         <a ng-click="vm.delete($index)"><span class="glyphicon glyphicon-trash"></span></a>
                     </!--span>-->
