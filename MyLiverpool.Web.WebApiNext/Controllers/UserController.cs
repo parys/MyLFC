@@ -57,10 +57,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 return BadRequest();
             }
             var user = await _userService.GetUserAsync(id);
-            if (!User.Identity.IsAuthenticated ||
-                (!User.IsInRole(nameof(RolesEnum.AdminFull))
-                && !User.IsInRole(nameof(RolesEnum.AdminStart))
-                && User.GetUserId() != user.Id))
+            if (User == null || !User.Identity.IsAuthenticated ||
+                (!User.IsInRole(nameof(RolesEnum.AdminStart)) && User.GetUserId() != user.Id))
             {
                 user.Email = null;
                 user.Ip = null;

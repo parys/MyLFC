@@ -37,6 +37,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
                 EmailConfirmed = x.EmailConfirmed,
                 FullName = x.FullName,
                 Gender = x.Gender,
+                Ip = x.Ip,
                 LastModified = x.LastModified,
                 LockoutEnd = x.LockoutEnd,
                 LockoutEnabled = x.LockoutEnabled,
@@ -183,7 +184,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
 
         public async Task<User> AddAsync(User entity)
         {
-            var result =  await _userManager.CreateAsync(entity, "123qwe!Q"); //for migrator
+            var result =  await _userManager.CreateAsync(entity); //for migrator
             return result.Succeeded ? entity : null;
         }
 
