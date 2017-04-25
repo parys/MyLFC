@@ -37,6 +37,9 @@ export class LocalStorageService {
     }
 
     isTokenExpired(): boolean {
+        if (!this.get("expires_in")) {
+            return false;
+        }
         let expiredDate = new Date(this.get("expires_in"));
         return (expiredDate <= new Date());
     } 

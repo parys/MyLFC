@@ -75,7 +75,7 @@ export class WishListComponent implements OnInit, OnDestroy {
             case 1:
                 return "panel-danger";
             case 2:
-                return "panel-warning";
+                return "panel-success";
             case 3:
                 return "panel-info";
             case 4:

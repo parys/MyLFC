@@ -17,6 +17,7 @@
     <Compile Remove="node_modules\**\*" />
     <Content Remove="appsettings.json" />
     <Content Remove="web.config" />
+    <Content Remove="wwwroot/10427.ttf" />
     <None Update="angular2app\js;Views\**\*;wwwroot\**\*">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </None>
@@ -35,6 +36,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="wwwroot\fonts\10427.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Business\MyLiverpool.Business.Contracts\MyLiverpool.Business.Contracts.csproj" />
     <ProjectReference Include="..\Business\MyLiverpool.Business.DtoNext\MyLiverpool.Business.Dto.csproj" />
     <ProjectReference Include="..\Business\MyLiverpool.Business.Services\MyLiverpool.Business.Services.csproj" />
@@ -46,7 +51,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AspNet.Security.OAuth.Validation" Version="1.0.0-rtm-0251" />
+    <PackageReference Include="AspNet.Security.OAuth.Validation" Version="1.0.0-rtm-0255" />
     <PackageReference Include="bootstrap" Version="3.3.7" />
     <PackageReference Include="Microsoft.AspNetCore.Antiforgery" Version="1.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics" Version="1.1.1" />

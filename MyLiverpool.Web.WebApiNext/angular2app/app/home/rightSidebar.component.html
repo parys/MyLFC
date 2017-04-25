@@ -1,1 +1,13 @@
-﻿
+﻿<ul class="maroon-panel row login-list-panel padding10"> <!--todo need some research-->
+    <li *ngIf="!roles.isLogined">
+        <account-signin></account-signin>
+    </li>
+    <li *ngIf="roles.isLogined" class="flex-space-around">
+            <a [routerLink]="['/users', 0]" class="text-white"><span class="glyphicon glyphicon-user"></span>Мой профиль</a>
+            <a [routerLink]="['/pms']" class="text-white"><span class="glyphicon glyphicon-envelope ">ЛС</span> <!--Читать л/с (<span ng-bind="vm.unreadPmCount"></span>)--></a>
+            <a role="button" (click)="logout()" class="text-white">Выйти</a>
+    </li>
+</ul>
+<section class="row">
+    <mini-chat></mini-chat>
+</section>

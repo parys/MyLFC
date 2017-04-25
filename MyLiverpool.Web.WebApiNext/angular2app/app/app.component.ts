@@ -108,7 +108,7 @@ export class AppComponent {
         this.breadcrumbService.addFriendlyNameForRouteRegex("/pms", "Личные сообщения");
 
         this.breadcrumbService.addFriendlyNameForRoute("/signup", "Регистрация");
-        this.breadcrumbService.addFriendlyNameForRoute("/confirmEmail", "Подтверждение пароля");
+        this.breadcrumbService.addFriendlyNameForRouteRegex("/confirmEmail", "Подтверждение пароля");
         this.breadcrumbService.addFriendlyNameForRoute("/forgotPassword", "Восстановление забытого пароля");
         this.breadcrumbService.addFriendlyNameForRoute("/unconfirmedEmail", "Ваша почта не подтверждена");
         this.breadcrumbService.addFriendlyNameForRouteRegex("/resetPassword", "Сброс пароля");

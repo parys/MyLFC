@@ -35,7 +35,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <param name="dto">New person model.</param>
         /// <returns>Created model.</returns>
-        [Authorize, HttpPost("")]
+        [Authorize(Roles = nameof(RolesEnum.AdminStart)), HttpPost("")] //todo edit role for this
         public async Task<IActionResult> CreateAsync([FromBody]PersonDto dto)
         {
             if (dto == null || !ModelState.IsValid)
@@ -51,8 +51,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <param name="page">Current page.</param>
         /// <returns>Persons list.</returns>
-        [Authorize, HttpGet("list/{page}")]
-        public async Task<IActionResult> GetListAsync(int page = 1)
+        [Authorize, HttpGet("list")]
+        public async Task<IActionResult> GetListAsync([FromQuery]int page = 1)
         {
             if (page < 1)
             {
@@ -91,7 +91,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <param name="id">The identifier.</param>
         /// <param name="dto">Modified person entity.</param>
         /// <returns>Result of editing.</returns>
-        [Authorize, HttpPut("{id:int}")]
+        [Authorize(Roles = nameof(RolesEnum.AdminStart)), HttpPut("{id:int}")]
         public async Task<IActionResult> EditAsync(int id, [FromBody]PersonDto dto)
         {
             if (id != dto.Id || !ModelState.IsValid)
@@ -107,7 +107,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <param name="id">The identifier of deleting person.</param>
         /// <returns>Result of deleting.</returns>
-        [Authorize, HttpDelete("{id:int}")]
+        [Authorize(Roles = nameof(RolesEnum.AdminStart)), HttpDelete("{id:int}")] //todo edit role
         public async Task<IActionResult> DeleteAsync(int id)
         {
             var result = await _personService.DeleteAsync(id);

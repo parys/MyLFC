@@ -38,7 +38,7 @@ namespace MyLiverpool.Business.Services
             catch (Exception ex) //todo add another try to send email
             {
                 var e = ex;
-                throw;
+                throw; //add private messate to admin?
             }
            
         }

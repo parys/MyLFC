@@ -13,36 +13,40 @@
         </form-->
     </div>
     <div class="row" *ngFor="let item of items; let i = index;">
-        <div class="row" *ngIf="!item.pending || roles.isEditor">
-            <div class="flex-vertical-center">
-                <a [routerLink]="[+item.type === 1 ? '/news' : '/blogs', item.id]" class="col-xs-10 col-sm-10"><h4 [textContent]="item.title"></h4></a> <!-- need to think about it from root-->
-                <span class="col-xs-2 col-sm-2 pull-right" *ngIf="roles.isEditor || roles.isSelf(item.userId)">
-                    <a role="button" *ngIf="item.pending && roles.isEditor" (click)="showActivateModal(i)"><span class="glyphicon glyphicon-ok"></span></a>
-                    <a [routerLink]="[+item.type === 1 ? '/news' : '/blogs', item.id, 'edit']"><span class="glyphicon glyphicon-pencil"></span></a> <!-- need to think about it from root-->
-                    <a role="button" (click)="showDeleteModal(i)"><span class="glyphicon glyphicon-trash"></span></a>
-                </span>
-            </div>
-            <div class="">
-                <img class="img-thumbnail news-mini center-block" [alt]="item.title" [src]="item.photoPath" />
-            </div>
-            <div class="col-xs-12">
-                <i> <span [innerHTML]="item.brief"></span></i>
-            </div>
-            <div class="col-xs-12 col-sm-12 material-info-panel">
-                <ul class="list-inline small small-offset">
-                    <li class="">Категория:</li> <!-- need to think about it from root-->
-                    <li class=""><a [routerLink]="[+item.type === 1 ? '/news' : '/blogs']" [queryParams]="{page: page, categoryId: item.categoryId, userName: userName}" [textContent]="item.categoryName"></a></li>
-                    <li class="">|</li>
-                    <li class="">Время добавления:</li> 
-                    <li class="" [textContent]="item.additionTime | date:'medium'"></li>
-                    <li class="">|</li>
-                    <li class="">Просмотры</li>
-                    <li class="" [textContent]="item.reads"></li>
-                    <li class="">|</li>
-                    <li class="">Автор:</li>
-                    <li class=""><a [routerLink]="['/users', item.userId ]" [textContent]="item.userName"></a></li>
-                    <li *ngIf="item.canCommentary" class="">| Комментарии: <span [textContent]="item.commentsCount"></span></li>
-                </ul>
+        <div class="padding10" *ngIf="!item.pending || roles.isEditor">
+            <div class="row  border-left-maroon" >
+                <div class="flex-vertical-center material-header col-xs-12">
+                    <a [routerLink]="[+item.type === 1 ? '/news' : '/blogs', item.id]">
+                        <h4 class="beauty-font" [textContent]="item.title"></h4>
+                    </a>
+                    <span class="pull-right" *ngIf="roles.isEditor || roles.isSelf(item.userId)">
+                        <a role="button" *ngIf="item.pending && roles.isEditor" (click)="showActivateModal(i)"><span class="glyphicon glyphicon-ok"></span></a>
+                        <a [routerLink]="[+item.type === 1 ? '/news' : '/blogs', item.id, 'edit']"><span class="glyphicon glyphicon-pencil"></span></a>
+                        <a role="button" (click)="showDeleteModal(i)"><span class="glyphicon glyphicon-trash"></span></a>
+                    </span>
+                </div>
+                <div class="">
+                    <img class="img-thumbnail news-mini center-block" [alt]="item.title" [src]="item.photoPath" />
+                </div>
+                <div class="col-xs-12">
+                    <i> <span [innerHTML]="item.brief"></span></i>
+                </div>
+                <div class="col-xs-12 col-sm-12 material-info-panel">
+                    <ul class="list-inline small small-offset">
+                        <li class="">Категория:</li>
+                        <li class=""><a [routerLink]="[+item.type === 1 ? '/news' : '/blogs']" [queryParams]="{page: page, categoryId: item.categoryId, userName: userName}" [textContent]="item.categoryName"></a></li>
+                        <li class="">|</li>
+                        <li class="">Время добавления:</li>
+                        <li class="" [textContent]="item.additionTime | date:'medium'"></li>
+                        <li class="">|</li>
+                        <li class="">Просмотры</li>
+                        <li class="" [textContent]="item.reads"></li>
+                        <li class="">|</li>
+                        <li class="">Автор:</li>
+                        <li class=""><a [routerLink]="['/users', item.userId ]" [textContent]="item.userName"></a></li>
+                        <li *ngIf="item.canCommentary" class="">| Комментарии: <span [textContent]="item.commentsCount"></span></li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>

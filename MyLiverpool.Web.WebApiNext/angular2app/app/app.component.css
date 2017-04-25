@@ -1,5 +1,13 @@
-﻿a:hover {
-    text-decoration: none; 
+﻿@font-face {
+    font-family: "Beauty";
+    src: url('./fonts/10427.ttf');
+}
+* {
+     font-family: cursive;
+}
+a:hover {
+    text-decoration: none;
+    color: yellow;
 }
 
 body {
@@ -30,6 +38,14 @@ textarea {
     width: 80px;
 }
 
+.beauty-font {
+    font-family: "Beauty";
+}
+
+.bg-gray {
+    background-color: #f5f5f5;
+}
+
 .block-minichat {
     background-color: #690000;
     border-radius: 10px;
@@ -44,6 +60,11 @@ textarea {
 .blocktitle {
     text-transform: uppercase;
     color: orange;
+}
+
+.border-left-maroon {
+    border-left: 5px solid #690000;
+    
 }
 
 .breadcrumb {
@@ -83,6 +104,26 @@ textarea {
 
 .dropdown-menu {
     min-width: 140px;
+    border: 5px solid #690000;
+    margin-top: 20px;
+    border-radius: 10px;
+}
+
+.dropdown-toggle:hover{
+    background-color: white;
+    color: yellow;
+}
+
+.flex {
+    display: flex;
+    justify-content: center;
+    flex-flow: row wrap;
+}
+
+.flex-space-around {
+    display: flex;
+    justify-content: space-around;
+    flex-flow: row;
 }
 
 .forum-message {
@@ -112,16 +153,36 @@ textarea {
     max-width: 100px;
 }
 
-.main-container {
-    background-color: lightgray;
+.login-list-panel {
+    list-style: none;
+
 }
+
+.main-container {
+    background-color: #f5f5f5;
+}
+
+.material-header {
+    color: #690000;
+    font-weight: bold;
+    padding-left: 10px;
+    text-transform: uppercase;
+} 
+
+.material-header > a {
+    color: #690000;
+} 
+
+.material-header > a > h4 {
+    font-weight: bold;
+} 
 
 .mainContent {
     margin-top: 60px;
 }
 
 .material-info-panel {
-    background-color: darkgray;
+    background-color: lightgray;
 }
 
 .material-info-panel>ul {
@@ -140,24 +201,33 @@ textarea {
 
 .navbar {
     margin-bottom: 0;
+
 }
 
 .navbar-default .navbar-nav > li > a {
-    color: #FFF;    
+    color: #FFF;
+    font-family: "Beauty";
 }
+
 .navbar-default .navbar-nav > li > a:hover {
     color: #6e6e6e;    
 }
 
-.navbar-maroon { /* needs better name*/
-     background-color: #690000;
+.maroon-panel {
+    background-color: #690000;
+    border-radius: 10px;
 }
+
 .overflowable {
     overflow-y: auto;
 }
 
 .padding0 {
     padding: 0;
+}
+
+.padding10 {
+    padding: 10px;
 }
 
 @media (min-width: 768px) {
@@ -632,11 +702,5 @@ td.switch a {}*/
     color: #000000;
 }
 
-.flex {
-    display: flex;
-    justify-content: center;
-    flex-flow: row wrap;
-
-}
 
 /* old site end*/

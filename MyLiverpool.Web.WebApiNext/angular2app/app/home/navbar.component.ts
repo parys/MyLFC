@@ -1,7 +1,5 @@
 ﻿import { Component } from "@angular/core";
-import { RolesCheckedService } from "../shared/roles-checked.service";
-import { AuthService } from "../auth/auth.service";
-import { IRoles } from "../shared/roles.interface";
+import { RolesCheckedService, IRoles } from "../shared/index";
 
 @Component({
     selector: "<navbar>",
@@ -10,15 +8,7 @@ import { IRoles } from "../shared/roles.interface";
 export class NavbarComponent {
     roles: IRoles;
 
-    constructor(
-        private rolesChecked: RolesCheckedService,
-        public auth: AuthService) {
-
-        this.roles = this.rolesChecked.checkRoles();
-    }
-
-    logout() {
-        this.auth.logout();
+    constructor(private rolesChecked: RolesCheckedService) {
         this.roles = this.rolesChecked.checkRoles();
     }
 }

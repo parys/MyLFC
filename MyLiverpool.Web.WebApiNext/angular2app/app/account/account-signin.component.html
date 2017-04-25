@@ -1,11 +1,17 @@
-﻿<form name="loginForm" class="form-inline" role="form" style="margin-top: 8px;" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+﻿<form name="loginForm" class="" role="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
         <input class="form-control" formControlName="userName" placeholder="Логин" type="text" />
       </div>
     <div class="form-group">
         <input class="form-control" formControlName="password" placeholder="Пароль" type="password" />
     </div>
-    <div class="form-group">
-        <button type="submit" [disabled]="!loginForm.valid" class="btn btn-default">Войти</button>
+    <div class="flex-space-around flex-vertical-center">
+        <span>
+            <a [routerLink]="['/forgotPassword']" class="text-white">Забыли пароль?</a></span>
+        <span>
+            <button type="submit" [disabled]="!loginForm.valid" class="btn btn-default">Войти</button></span>
+        <span>
+            <a [routerLink]="['/signup']" class="text-white">Регистрация</a>
+        </span>
     </div>
 </form>

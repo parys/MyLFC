@@ -1,7 +1,14 @@
 ﻿<div class="col-xs-12 col-sm-12">
     <navbar></navbar>
     <div class="row">
-        <breadcrumb prefix="Главная"></breadcrumb>
+        <div class="bg-gray col-xs-12">
+            <breadcrumb prefix="Главная" class="col-xs-9 row"></breadcrumb>
+            <span class="bg-gray col-xs-3 pull-right">
+                <a [routerLink]="['/wishes']" class="btn btn-success pull-right">
+                    Помогите нам стать лучше
+                </a>
+            </span>
+        </div>
         <div class="col-xs-12 col-sm-push-3 col-sm-6 container-fluid main-container">
             <router-outlet></router-outlet>
         </div>
@@ -20,16 +27,7 @@
 
         </div>
         <div class="col-xs-6 col-sm-3">
-            <section class="row">
-                <mini-chat></mini-chat>
-            </section>
-            <section class="navbar-maroon row" style="margin-top: 10px; padding-top:10px">
-                <form class="form-horizontal navbar-maroon col-xs-12 col-sm-12" >
-                    <input class="form-control"/>
-                    <input class="form-control"/>
-                    <button class="btn">Войти</button>
-                </form>
-            </section>
+            <right-sidebar></right-sidebar>
         </div>
     </div>
     <hr />

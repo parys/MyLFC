@@ -26,6 +26,7 @@
             </div>
         </form><button (click)="update()"><span class="glyphicon glyphicon-refresh"></span></button>
         <div *ngIf="!roles.isLogined" class="text-center text-white">Для добавления сообщений необходимо войти.</div>
+        <hr/>
         <!--
 
         <select id="mchatRSel" onchange="setT7174(this);" class="mchat" title="Автообновление" style="font-size:7pt;">
@@ -41,9 +42,19 @@
         &nbsp;<a href="javascript://" rel="nofollow" onclick="window.open('/mchat/0-1','mchatCtrl','scrollbars=1,width=550,height=550,left=0,top=0');return false;" title="Управление сообщениями"><img alt="" border="0" align="absmiddle" src="http://s1.ucoz.net/img/fr/mcm.gif" width="15" height="15"></a>
 
 
-        <td width="95%" rowspan="2"><textarea name="mcmessage" class="mchat" id="mchatMsgF" title="Сообщение" onkeyup="countMessLength();" onfocus="countMessLength();" style="height:40px;width:100%;resize:none;"></textarea></td>
+        <td width="95%" rowspan="2">
+            <textarea name="mcmessage" class="mchat" id="mchatMsgF" title="Сообщение" onkeyup="countMessLength();" onfocus="countMessLength();" style="height:40px;width:100%;resize:none;">
+            </textarea>
+        </td>
 
-        <tr><td align="center" valign="bottom"><div style="width:30px"><input type="submit" value="OK" class="mchat" id="mchatBtn" style="width:30px;"><img alt="" style="display:none;" id="mchatAjax" src="/.s/img/fr/ajax3.gif" border="0" width="16"></div></td></tr>
+        <tr>
+            <td align="center" valign="bottom">
+                <div style="width:30px">
+                    <input type="submit" value="OK" class="mchat" id="mchatBtn" style="width:30px;">
+                    <img alt="" style="display:none;" id="mchatAjax" src="/.s/img/fr/ajax3.gif" border="0" width="16">
+                </div>
+            </td>
+            </tr>
         -->
     </div>
 </div>
