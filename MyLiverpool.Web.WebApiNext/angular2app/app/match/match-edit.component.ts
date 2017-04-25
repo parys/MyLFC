@@ -46,7 +46,7 @@ export class MatchEditComponent implements OnInit {
             error => console.log(error));
     }
 
-    onSubmit() {
+    onSubmit(): void {
         let match = this.parseForm();
         if (this.id > 0) {
             this.matchService.update(this.id, match)
@@ -59,7 +59,7 @@ export class MatchEditComponent implements OnInit {
         }
     }
 
-    updateClub(club: any) {
+    updateClub(club: any): void {
         if (club) {
             this.editForm.get("clubId").patchValue(club.key);
             this.editForm.get("clubName").patchValue(club.value);

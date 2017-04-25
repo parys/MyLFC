@@ -1,20 +1,27 @@
-﻿import { Component, OnInit, ViewChild } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";  
+﻿import { Component, OnInit, ViewChild, OnDestroy } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
+import { FormGroup, FormBuilder } from "@angular/forms";
+import { Location } from "@angular/common";
+import { Subscription } from "rxjs/Subscription";
 import { Pageable } from "../shared/pageable.model";
 import { MaterialComment } from "./materialComment.model";
 import { MaterialCommentService } from "./materialComment.service";
-import { Location } from "@angular/common";
 import { RolesCheckedService, IRoles } from "../shared/index";
 import { ModalDirective } from "ng2-bootstrap";
+import { MaterialCommentFilter } from "./materialCommentFilter.model";
 
 @Component({
     selector: "materialComment-list",
     template: require("./materialComment-list.component.html")
 })
 
-export class MaterialCommentListComponent implements OnInit {
+export class MaterialCommentListComponent implements OnInit, OnDestroy {
+    sub: Subscription;
+    sub2: Subscription;
+    filterForm: FormGroup;
     items: MaterialComment[];
     page: number = 1;
+    onlyUnverified: boolean = false;
     categoryId: number;
     userName: string;
     itemsPerPage = 15;
@@ -27,35 +34,50 @@ export class MaterialCommentListComponent implements OnInit {
     constructor(private materialCommentService: MaterialCommentService,
         private route: ActivatedRoute,
         private location: Location,
+        private formBuilder: FormBuilder,
         private rolesChecked: RolesCheckedService) {
     }
 
     ngOnInit() {
+        this.initForm();
         this.roles = this.rolesChecked.checkRoles();
-        let qParams = this.route.snapshot.queryParams;
-
-        this.page = qParams["page"] || 1;
-        this.categoryId = qParams["categoryId"] || "";
-        this.userName = qParams["userName"] || "";
+        this.sub = this.route.queryParams.subscribe(qParams => {
+                this.page = qParams["page"] || 1;
+                this.categoryId = qParams["categoryId"] || "";
+                this.userName = qParams["userName"] || "";
+                this.onlyUnverified = qParams["onlyUnverified"] || false;
+            },
+            error => console.log(error));
         this.update();
+    }
+
+    ngOnDestroy(): void {
+        if(this.sub) this.sub.unsubscribe();
+        if(this.sub2) this.sub2.unsubscribe();
     }
 
     pageChanged(event: any): void {
         this.page = event.page;
         this.update();
-        let newUrl = `materialComments?page=${this.page}`;
-        if (this.categoryId) {
-           newUrl = `${newUrl}&categoryId=${this.categoryId}`;
-        }
-        this.location.replaceState(newUrl);
     };
 
-    private update(): void {
-        this.materialCommentService
-            .getAll(this.page)
+    update(): void {
+        let filters = new MaterialCommentFilter();
+        filters.onlyUnverified = this.filterForm.get("onlyUnverified").value;
+        filters.page = this.page;
+        this.sub2 = this.materialCommentService
+            .getAll(filters)
             .subscribe(data => this.parsePageable(data),
             error => console.log(error),
-            () => {});
+            () => {this.updateLocation();});
+    }
+
+    private updateLocation(): void {
+        let newUrl = `materialComments?page=${this.page}`;
+        if (this.categoryId) {
+            newUrl = `${newUrl}&categoryId=${this.categoryId}`;
+        }
+        this.location.replaceState(newUrl);
     }
 
     private parsePageable(pageable: Pageable<MaterialComment>): void {
@@ -89,7 +111,7 @@ export class MaterialCommentListComponent implements OnInit {
         this.deleteModal.show();
     }
 
-    delete() {
+    delete(): void {
         let result;
         this.materialCommentService.delete(this.items[this.selectedItemIndex].id)
             .subscribe(res => result = res,
@@ -103,11 +125,9 @@ export class MaterialCommentListComponent implements OnInit {
             );
     }
 
-    // delete(index: number) {
-    //    console.log("delete");
-    //    this.materialCommentService.delete(this.items[index].id).subscribe(data => data,
-    //        error => console.log(error),
-    //        () => console.log("success remove categoryu"));
-    //    this.items.splice(index, 1);
-    // }
+    private initForm(): void {
+        this.filterForm = this.formBuilder.group({
+            'onlyUnverified': [this.onlyUnverified]
+        });
+    }
 }

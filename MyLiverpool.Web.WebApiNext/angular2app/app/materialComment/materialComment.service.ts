@@ -2,6 +2,7 @@
 import { Response } from "@angular/http";
 import { Observable } from "rxjs/Observable";
 import { MaterialComment } from "./materialComment.model";
+import { MaterialCommentFilter } from "./materialCommentFilter.model";
 import { Pageable } from "../shared/pageable.model";
 import { HttpWrapper } from "../shared/httpWrapper";
 
@@ -14,8 +15,8 @@ export class MaterialCommentService {
         this.actionUrl = "materialComment/";
     }
 
-    getAll = (page: number): Observable<Pageable<MaterialComment>> => {
-        return this.http.get(this.actionUrl + "list/" + page).map((res:Response) => res.json());
+    getAll = (filters: MaterialCommentFilter): Observable<Pageable<MaterialComment>> => {
+        return this.http.get(this.actionUrl + "list/" + encodeURIComponent(JSON.stringify(filters))).map((res:Response) => res.json());
     };
 
     getAllByMaterial = (page: number, id: number): Observable<Pageable<MaterialComment>> => {

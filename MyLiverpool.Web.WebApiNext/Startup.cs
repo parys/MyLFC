@@ -140,7 +140,7 @@ namespace MyLiverpool.Web.WebApiNext
                 // Register a new ephemeral key, that is discarded when the application
                 // shuts down. Tokens signed using this key are automatically invalidated.
                 // This method should only be used during development.
-               // options.AddEphemeralSigningKey();
+                options.AddEphemeralSigningKey();
             });
 
 #if Debug

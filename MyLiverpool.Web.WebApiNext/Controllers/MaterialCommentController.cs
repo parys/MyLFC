@@ -5,8 +5,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
+using MyLiverpool.Business.Dto.Filters;
 using MyLiverpool.Data.Common;
 using MyLiverpool.Web.WebApiNext.Extensions;
+using Newtonsoft.Json;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
@@ -30,17 +32,21 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <summary>
         /// Returns pageable comments list.
         /// </summary>
-        /// <param name="page">The page of comments list.</param>
-        /// <param name="onlyUnverified">Option if returns only unverified comments.</param>
+        /// <param name="filtersObj">Contains filters.</param>
         /// <returns>Selected page comments list.</returns>
-        [AllowAnonymous, HttpGet("list/{page:int}")]
-        public async Task<IActionResult> GetList(int page = 1, [FromQuery]bool onlyUnverified = false)
+        [AllowAnonymous, HttpGet("list/{filtersObj}")]
+        public async Task<IActionResult> GetList([FromRoute] string filtersObj)
         {
-            if (page < 1)
+            MaterialCommentFiltersDto filters;
+            if (filtersObj == null)
             {
-                page = 1;
+                filters = new MaterialCommentFiltersDto { Page = 1 };
             }
-            var result = await _commentService.GetListAsync(page, onlyUnverified);
+            else
+            {
+                filters = (MaterialCommentFiltersDto)JsonConvert.DeserializeObject(filtersObj, typeof(MaterialCommentFiltersDto));
+            }
+            var result = await _commentService.GetListAsync(filters);
             return Ok(result);
         }
 
@@ -51,7 +57,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <param name="page">The page of comments list.</param>
         /// <returns>Selected page comments list for material.</returns>
         [AllowAnonymous, HttpGet("material/{id:int}/list/{page:int}")]
-        public async Task<IActionResult> GetList(int id, int page = 1)
+        public async Task<IActionResult> GetListForMaterialAsync(int id, int page = 1)
         {
             if (page < 1)
             {

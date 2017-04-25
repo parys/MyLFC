@@ -1,7 +1,7 @@
 ﻿<div>
     <table *ngIf="season" class="table table-condensed">
         <tbody >
-        <tr  *ngFor="let match of season.matches">
+        <tr *ngFor="let match of season.matches">
             <td>
                 <div class="panel panel-default clearfix">
                     <div class="panel-heading">
@@ -17,7 +17,7 @@
                             <img class="club-logo" [src]="match.homeClubLogo" [alt]="match.homeClubName"><span [textContent]="match.homeClubName"></span>
                         </div>
                         <div class="col-xs-4 font-size40">
-                            <span [textContent]="item.scoreHome"></span>:<span [textContent]="item.scoreAway"></span>
+                            <span [textContent]="match.scoreHome"></span>:<span [textContent]="match.scoreAway"></span>
                         </div>
                         <div class="col-xs-4">
                             <img class="club-logo" [src]="match.awayClubLogo" [alt]="match.awayClubName"><span [textContent]="match.awayClubName"></span>

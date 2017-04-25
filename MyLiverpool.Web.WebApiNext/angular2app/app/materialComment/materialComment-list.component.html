@@ -1,17 +1,12 @@
 ﻿<div>
-    <!--div class="btn-group">
-        <form class="form-inline btn-block">
-            <div class="form-group">
-                <select class="form-control"
-                        ng-model="vm.typeId"
-                        ng-options="type.id as type.name for type in vm.types" ng-change="vm.changeTypeId()"></select>
-            </div>
-            <div class="form-group">
-                <input class="form-control" ng-model="vm.filterText" ng-model-options="{debounce: 1000}" ng-change="vm.filterByText()" placeholder="Поиск в тексте пожеланий" />
-            </div>
-            <button class="btn btn-success" ui-sref="wishEdit()">Добавить</button>
+    <div class="btn-group">
+        <form class="form-inline btn-block" [formGroup]="filterForm" (ngSubmit)="update()">
+            <label class="control-label">
+                <input class="checkbox" name="onlyUnverified" formControlName="onlyUnverified" type="checkbox" /> Только непроверенные <!--todo add switcher--> 
+            </label>
+            <button class="btn btn-success" type="submit">Отфильтровать</button>
         </form>
-    </div-->
+    </div>
     <div class="top20" *ngFor="let comment of items; let i = index;">
         <div class="panel" ng-class="">
             <div class="panel-heading panel-default">

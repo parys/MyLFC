@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using MyLiverpool.Business.Dto;
+using MyLiverpool.Business.Dto.Filters;
 using MyLiverpool.Common.Utilities;
 using MyLiverpool.Data.Common;
 
@@ -13,7 +14,7 @@ namespace MyLiverpool.Business.Contracts
 
         Task<bool> UpdateAsync(MaterialCommentDto model);
         
-        Task<PageableData<MaterialCommentDto>> GetListAsync(int page, bool onlyUnverified);
+        Task<PageableData<MaterialCommentDto>> GetListAsync(MaterialCommentFiltersDto filters);
 
         Task<PageableData<MaterialCommentDto>> GetListByMaterialIdAsync(int materialId, int page);
 
