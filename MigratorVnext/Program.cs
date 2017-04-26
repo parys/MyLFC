@@ -1606,7 +1606,7 @@ namespace MigratorVnext
                         continue;
                         //moduleID (1=>'blog',2=>'news',3=>'publ',4=>'photo',5=>'load',6=>'dir',7=>'board')
                     }
-                    var materialType = MaterialType.Error;
+                    var materialType = MaterialType.Both;
                     if (ModuleId == 2)
                     {
                         materialType = MaterialType.News;

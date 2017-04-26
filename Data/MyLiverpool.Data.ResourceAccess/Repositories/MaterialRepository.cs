@@ -144,7 +144,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             {
                 query = query.ObjectSort(orderBy, SortOrder.Descending);
             }
-            if (includeProperties != null && includeProperties.Any())
+            if (includeProperties != null && includeProperties.Any()) 
             {
                 query = includeProperties.Aggregate(query,
                     (current, includeProperty) => current.Include(includeProperty));

@@ -2,7 +2,7 @@
 {
     public enum MaterialType
     {
-        Error = 0,
+        Both = 0,
      //   [EnumMember(Value = "News")]
         News = 1,
       //  [EnumMember(Value = "Blog")]

@@ -58,8 +58,8 @@
     "webpack-hot-middleware": "2.18.0",
     "webpack-merge": "4.1.0",
     "webpack-notifier": "1.5.0",
-    "zone.js": "0.8.7",
-    "ng2-page-scroll": "4.0.0-beta.6"
+    "zone.js": "0.8.9",
+    "ng2-page-scroll": "4.0.0-beta.7"
   },
   "devDependencies": {}
 }

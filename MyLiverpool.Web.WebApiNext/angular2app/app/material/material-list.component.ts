@@ -38,8 +38,10 @@ export class MaterialListComponent implements OnInit {
 
         if (route.snapshot.data["type"] === MaterialType[MaterialType.News]) {
             this.type = MaterialType.News;
-        } else {
+        } else if (route.snapshot.data["type"] === MaterialType[MaterialType.Blogs]) {
             this.type = MaterialType.Blogs;
+        } else {
+            this.type = MaterialType.Both;
         }
         this.parseQueryParamsAndUpdate(route);
     }

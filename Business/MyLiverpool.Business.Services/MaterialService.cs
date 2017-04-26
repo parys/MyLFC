@@ -34,7 +34,11 @@ namespace MyLiverpool.Business.Services
         public async Task<PageableData<MaterialMiniDto>> GetDtoAllAsync(MaterialFiltersDto filters)
         {
             var itemPerPage = GlobalConstants.NewsPerPage;
-            Expression<Func<Material, bool>> filter = x => x.Type == filters.MaterialType;
+            Expression<Func<Material, bool>> filter = x => true;
+            if (filters.MaterialType != 0)
+            {
+                filter = x => x.Type == filters.MaterialType;
+            }
             if (filters.CategoryId.HasValue)
             {
                 filter = filter.And(x => x.CategoryId == filters.CategoryId.Value);

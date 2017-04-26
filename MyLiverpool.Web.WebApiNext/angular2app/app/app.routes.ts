@@ -26,5 +26,5 @@ export const routes: Routes = [
     ...roleGroupRoutes,
     ...seasonRoutes,
     ...userRoutes,
-    { path: "", component: MaterialListComponent, data: { title: "Главная", breadcrumb: "Главная", type: "News" } }
+    { path: "", component: MaterialListComponent, data: { title: "Главная", breadcrumb: "Главная", type: "Both" } }
 ];
