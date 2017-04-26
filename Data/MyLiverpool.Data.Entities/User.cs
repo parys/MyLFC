@@ -73,13 +73,13 @@ namespace MyLiverpool.Data.Entities
 
         public string City { get; set; }
 
-        public DateTime RegistrationDate { get; set; }
+        public DateTimeOffset RegistrationDate { get; set; }
 
         public string Ip { get; set; }
 
-        public DateTime? Birthday { get; set; }
+        public DateTimeOffset? Birthday { get; set; }
 
-        public DateTime LastModified { get; set; }
+        public DateTimeOffset LastModified { get; set; }
 
         public string Title { get; set; }
 

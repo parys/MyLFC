@@ -13,7 +13,7 @@ namespace MyLiverpool.Data.Entities
 
         public virtual Club Club { get; set; }
 
-        public DateTime DateTime { get; set; }
+        public DateTimeOffset DateTime { get; set; }
 
         public MatchTypeEnum MatchType { get; set; }
 

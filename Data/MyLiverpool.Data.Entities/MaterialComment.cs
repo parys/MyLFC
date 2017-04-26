@@ -17,9 +17,9 @@ namespace MyLiverpool.Data.Entities
 
         public bool Pending { get; set; }
 
-        public DateTime AdditionTime { get; set; }
+        public DateTimeOffset AdditionTime { get; set; }
 
-        public DateTime LastModified { get; set; }
+        public DateTimeOffset LastModified { get; set; }
 
         public virtual User Author { get; set; }
 

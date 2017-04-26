@@ -16,17 +16,17 @@ namespace MyLiverpool.Business.Dto
 
         public bool? Gender { get; set; }
 
-        public DateTime RegistrationDate { get; set; }
+        public DateTimeOffset RegistrationDate { get; set; }
 
-        public DateTime LastModifiedOn{ get; set; }
+        public DateTimeOffset LastModifiedOn { get; set; }
 
-        public DateTime? Birthday { get; set; }
+        public DateTimeOffset? Birthday { get; set; }
 
         public string RoleGroupName { get; set; }
 
         public int RoleGroupId { get; set; }
 
-        public DateTime? LockoutEnd { get; set; }
+        public DateTimeOffset? LockoutEnd { get; set; }
 
         public string Photo { get; set; }
 

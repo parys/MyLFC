@@ -12,7 +12,7 @@ namespace MyLiverpool.Data.Entities
 
         public virtual ForumTheme Theme { get; set; }
 
-        public DateTime AdditionTime { get; set; }
+        public DateTimeOffset AdditionTime { get; set; }
 
         public bool IsFirstMessage { get; set; }
 
@@ -24,6 +24,6 @@ namespace MyLiverpool.Data.Entities
 
         //   public string Ip { get; set; }
 
-        public DateTime LastModifiedTime { get; set; }
+        public DateTimeOffset LastModifiedTime { get; set; }
     }
 }

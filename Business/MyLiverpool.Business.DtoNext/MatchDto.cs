@@ -24,7 +24,7 @@ namespace MyLiverpool.Business.Dto
 
         public string AwayClubLogo { get; set; }
 
-        public DateTime DateTime { get; set; }
+        public DateTimeOffset DateTime { get; set; }
 
         public int TypeId { get; set; }
 

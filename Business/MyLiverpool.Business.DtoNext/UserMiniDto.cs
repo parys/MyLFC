@@ -10,9 +10,9 @@ namespace MyLiverpool.Business.Dto
 
         public bool EmailConfirmed { get; set; }
 
-        public DateTime RegistrationDate { get; set; }
+        public DateTimeOffset RegistrationDate { get; set; }
 
-        public DateTime LastModified { get; set; }
+        public DateTimeOffset LastModified { get; set; }
 
         public string RoleGroupName { get; set; }
 

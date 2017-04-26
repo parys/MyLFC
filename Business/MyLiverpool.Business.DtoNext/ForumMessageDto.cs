@@ -15,10 +15,10 @@ namespace MyLiverpool.Business.Dto
         public string Message { get; set; }
 
         [Required]
-        public DateTime LastModifiedTime { get; set; }
+        public DateTimeOffset LastModifiedTime { get; set; }
 
         [Required]
-        public DateTime AdditionTime { get; set; }
+        public DateTimeOffset AdditionTime { get; set; }
 
         [Required]
         public int ThemeId { get; set; }

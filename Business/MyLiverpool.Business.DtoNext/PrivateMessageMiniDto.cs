@@ -16,7 +16,7 @@ namespace MyLiverpool.Business.Dto
       
         public string Title { get; set; }
 
-        public DateTime SentTime { get; set; }
+        public DateTimeOffset SentTime { get; set; }
 
         public bool IsRead { get; set; }
     }

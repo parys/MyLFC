@@ -17,7 +17,7 @@ namespace MyLiverpool.Data.Entities
 
         public string Photo { get; set; }
 
-        public DateTime Birthday { get; set; }
+        public DateTimeOffset Birthday { get; set; }
 
         [NotMapped]
         public string Name => $"{FirstName} {LastName}";

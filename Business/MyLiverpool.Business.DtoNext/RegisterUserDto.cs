@@ -35,6 +35,6 @@ namespace MyLiverpool.Business.Dto
       //  [Required]//(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Required")]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
       //  [Display(ResourceType = typeof(UsersMessages), Name = "BirthDay")]
-        public DateTime Birthday { get; set; }
+        public DateTimeOffset Birthday { get; set; }
     }
 }

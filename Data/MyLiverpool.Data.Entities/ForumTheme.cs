@@ -23,7 +23,7 @@ namespace MyLiverpool.Data.Entities
 
         public bool OnTop { get; set; }
 
-        public DateTime? LastMessageAdditionTime { get; set; }
+        public DateTimeOffset? LastMessageAdditionTime { get; set; }
 
         public bool IsClosed { get; set; }
 

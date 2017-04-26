@@ -13,7 +13,7 @@ namespace MyLiverpool.Business.Dto
 
         public string Message { get; set; }
 
-        public DateTime AdditionTime { get; set; }
+        public DateTimeOffset AdditionTime { get; set; }
 
         [MaxLength(15)]
         public string Ip { get; set; }

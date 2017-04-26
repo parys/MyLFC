@@ -30,7 +30,7 @@ namespace MyLiverpool.Data.Entities
 
         public bool CanCommentary { get; set; }
 
-        public DateTime AdditionTime { get; set; }
+        public DateTimeOffset AdditionTime { get; set; }
 
         [NotMapped]
         public int CommentsCount { get; set; }
@@ -55,7 +55,7 @@ namespace MyLiverpool.Data.Entities
 
         public string PhotoPath { get; set; }
 
-        public DateTime LastModified { get; set; }
+        public DateTimeOffset LastModified { get; set; }
 
         public virtual ICollection<MaterialComment> Comments { get; set; } 
 

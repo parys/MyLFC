@@ -142,7 +142,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             }
             if (orderBy != null)
             {
-                query = query.ObjectSort(orderBy, SortOrder.Descending);
+                query = query.OrderByDescending(orderBy);//, SortOrder.Descending);
             }
             if (includeProperties != null && includeProperties.Any()) 
             {

@@ -21,7 +21,7 @@ namespace MyLiverpool.Business.Dto
         [StringLength(500)]
         public string Message { get; set; }
 
-        public DateTime SentTime { get; set; }
+        public DateTimeOffset SentTime { get; set; }
 
         public bool IsRead { get; set; }
     }

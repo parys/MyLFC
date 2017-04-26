@@ -15,7 +15,7 @@ namespace MyLiverpool.Business.Dto
 
         public bool Pending { get; set; }
 
-        public DateTime AdditionTime { get; set; }
+        public DateTimeOffset AdditionTime { get; set; }
 
         public int CommentsCount { get; set; }
 
