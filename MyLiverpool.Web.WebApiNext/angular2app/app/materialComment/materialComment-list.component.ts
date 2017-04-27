@@ -12,7 +12,7 @@ import { MaterialCommentFilter } from "./materialCommentFilter.model";
 
 @Component({
     selector: "materialComment-list",
-    template: require("./materialComment-list.component.html")
+    templateUrl: "./materialComment-list.component.html"
 })
 
 export class MaterialCommentListComponent implements OnInit, OnDestroy {

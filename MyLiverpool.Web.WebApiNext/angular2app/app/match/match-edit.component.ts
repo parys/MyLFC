@@ -10,7 +10,7 @@ import { Season } from "../season/season.model";
 
 @Component({
     selector: "match-edit",
-    template: require("./match-edit.component.html")
+    templateUrl: "./match-edit.component.html"
 })
 
 export class MatchEditComponent implements OnInit {

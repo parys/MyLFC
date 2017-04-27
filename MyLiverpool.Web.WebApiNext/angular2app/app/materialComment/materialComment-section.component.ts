@@ -8,7 +8,7 @@ import { RolesCheckedService, IRoles } from "../shared/index";
 
 @Component({
     selector: "comments",
-    template: require("./materialComment-section.component.html")
+    templateUrl: "./materialComment-section.component.html"
 })
 export class MaterialCommentSectionComponent implements OnInit {
 

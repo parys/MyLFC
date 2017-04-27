@@ -9,7 +9,7 @@ import { Pageable, RolesCheckedService, IRoles } from "../shared/index";
 
 @Component({
     selector: "wish-list",
-    template: require("./wish-list.component.html")
+    templateUrl: "./wish-list.component.html"
 })
 export class WishListComponent implements OnInit, OnDestroy {
     private sub: Subscription;

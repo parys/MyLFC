@@ -8,7 +8,7 @@ import { Pageable } from "../shared/pageable.model";
 
 @Component({
     selector: "match-list",
-    template: require("./match-list.component.html")
+    templateUrl: "./match-list.component.html"
 })
 
 export class MatchListComponent implements OnInit {

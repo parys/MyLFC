@@ -8,7 +8,7 @@ import { PmService } from "./pm.service";
 
 @Component({
     selector: "pm-reply",
-    template: require("./pm-reply.component.html")
+    templateUrl: "./pm-reply.component.html"
 })
 export class PmReplyComponent implements OnInit, OnDestroy {
     editForm: FormGroup;

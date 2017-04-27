@@ -2,7 +2,7 @@
 
 @Component({
     selector: "<squad>",
-    template: require("./squad.component.html")
+    templateUrl: "./squad.component.html"
 })
 export class SquadComponent {
 

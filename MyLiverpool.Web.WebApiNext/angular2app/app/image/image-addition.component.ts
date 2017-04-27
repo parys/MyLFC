@@ -13,7 +13,7 @@ import { RolesCheckedService, IRoles, LocalStorageService } from "../shared/inde
 
 @Component({
     selector: "image-addition",
-    template: require("./image-addition.component.html")
+    templateUrl: "./image-addition.component.html"
 })
 export class ImageAdditionComponent implements OnInit, OnDestroy {
     uploadedFiles: string[];

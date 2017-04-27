@@ -9,7 +9,7 @@ import { ResetPassword } from "./resetPassword.model";
 
 @Component({
     selector: "reset-password",
-    template: require("./resetPassword.component.html")
+    templateUrl: "./resetPassword.component.html"
 })
 
 export class ResetPasswordComponent implements OnInit, OnDestroy {

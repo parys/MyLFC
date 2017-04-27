@@ -2,7 +2,7 @@
 
 @Component({
     selector: "<about-club>",
-    template: require("./about-club.component.html")
+    templateUrl: "./about-club.component.html"
 })
 export class AboutClubComponent {
 

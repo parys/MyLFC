@@ -2,7 +2,7 @@
 
 @Component({
     selector: "<coach-team>",
-    template: require("./coach-team.component.html")
+    templateUrl: "./coach-team.component.html"
 })
 export class CoachTeamComponent {
 

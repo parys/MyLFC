@@ -2,7 +2,7 @@
 
 @Component({
     selector: "<rules>",
-    template: require("./rules.component.html")
+    templateUrl: "./rules.component.html"
 })
 export class RulesComponent {
 

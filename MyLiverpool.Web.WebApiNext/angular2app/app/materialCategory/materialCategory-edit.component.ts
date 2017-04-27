@@ -9,7 +9,7 @@ import { MaterialType } from "./materialType.enum";
 
 @Component({
     selector: "materialCategory-edit",
-    template: require("./materialCategory-edit.component.html")
+    templateUrl: "./materialCategory-edit.component.html"
 })
 export class MaterialCategoryEditComponent implements OnInit, OnDestroy {
     editForm: FormGroup;

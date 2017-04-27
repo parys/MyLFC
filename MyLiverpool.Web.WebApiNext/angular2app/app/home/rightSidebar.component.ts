@@ -4,7 +4,7 @@ import { AuthService } from "../auth/index";
 
 @Component({
     selector: "right-sidebar",
-    template: require("./rightSidebar.component.html")
+    templateUrl: "./rightSidebar.component.html"
 })
 export class RightSidebarComponent {
     roles: IRoles;

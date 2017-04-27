@@ -9,7 +9,7 @@ import { ForumThemeService } from "./forumTheme.service";
 
 @Component({
     selector: "forumTheme-edit",
-    template: require("./forumTheme-edit.component.html")
+    templateUrl: "./forumTheme-edit.component.html"
 })
 export class ForumThemeEditComponent implements OnInit, OnDestroy {
     editForm: FormGroup;

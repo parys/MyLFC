@@ -9,7 +9,7 @@ import { Pageable } from "../shared/pageable.model";
 
 @Component({
     selector: "image-list",
-    template: require("./image-list.component.html")
+    templateUrl: "./image-list.component.html"
 })
 
 export class ImageListComponent implements OnInit, OnDestroy {

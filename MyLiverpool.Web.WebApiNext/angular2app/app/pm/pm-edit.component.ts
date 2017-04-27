@@ -9,7 +9,7 @@ import { PmService } from "./pm.service";
 
 @Component({
     selector: "pm-edit",
-    template: require("./pm-edit.component.html")
+    templateUrl: "./pm-edit.component.html"
 })
 export class PmEditComponent implements OnInit, OnDestroy {
     editForm: FormGroup;

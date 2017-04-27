@@ -12,7 +12,7 @@ import { MaterialType } from "../materialCategory/materialType.enum";
 
 @Component({
     selector: "material-list",
-    template: require("./material-list.component.html")
+    templateUrl: "./material-list.component.html"
 })
 export class MaterialListComponent implements OnInit {
     items: Material[];

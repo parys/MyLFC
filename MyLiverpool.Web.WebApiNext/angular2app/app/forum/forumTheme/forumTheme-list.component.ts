@@ -11,7 +11,7 @@ import { ModalDirective } from "ng2-bootstrap";
 
 @Component({
     selector: "forumTheme-list",
-    template: require("./forumTheme-list.component.html")
+    templateUrl: "./forumTheme-list.component.html"
 })
 export class ForumThemeListComponent implements OnInit {
     item: ForumTheme;

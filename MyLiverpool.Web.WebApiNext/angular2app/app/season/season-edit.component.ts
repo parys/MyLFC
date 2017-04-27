@@ -8,7 +8,7 @@ import { SeasonService } from "./season.service";
 
 @Component({
     selector: "season-edit",
-    template: require("./season-edit.component.html")
+    templateUrl: "./season-edit.component.html"
 })
 export class SeasonEditComponent implements OnInit {
     editForm: FormGroup;

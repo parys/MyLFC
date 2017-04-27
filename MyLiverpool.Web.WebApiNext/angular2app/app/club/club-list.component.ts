@@ -8,11 +8,10 @@ import { Club } from "./club.model";
 import { ClubService } from "./club.service";
 import { Pageable } from "../shared/pageable.model";
 import { ModalDirective } from "ng2-bootstrap";
-//import { UserFilters } from "./userFilters.model";
 
 @Component({
     selector: "club-list",
-    template: require("./club-list.component.html")
+    templateUrl: "./club-list.component.html"
 })
 
 export class ClubListComponent implements OnInit {

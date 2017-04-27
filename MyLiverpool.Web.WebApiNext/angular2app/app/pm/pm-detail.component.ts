@@ -7,7 +7,7 @@ import { RolesCheckedService, IRoles } from "../shared/index";
 
 @Component({
     selector: "pm-detail",
-    template: require("./pm-detail.component.html")
+    templateUrl: "./pm-detail.component.html"
 })
 
 export class PmDetailComponent implements OnInit, OnDestroy {

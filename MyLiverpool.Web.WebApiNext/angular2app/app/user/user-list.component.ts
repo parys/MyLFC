@@ -13,8 +13,7 @@ import { Pageable, RolesCheckedService, IRoles } from "../shared/index";
 @
 Component({
     selector: "user-list",
-   // templateUrl: "./user-list.component.html"
-    template: require("./user-list.component.html")
+    templateUrl: "./user-list.component.html"
 })
 
 export class UserListComponent implements OnInit {

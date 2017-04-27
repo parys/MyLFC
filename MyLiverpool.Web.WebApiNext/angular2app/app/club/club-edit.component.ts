@@ -9,7 +9,7 @@ import { LocalStorageService, RolesCheckedService } from "../shared/index";
 
 @Component({
     selector: "club-edit",
-    template: require("./club-edit.component.html")
+    templateUrl: "./club-edit.component.html"
 })
 
 export class ClubEditComponent implements OnInit, OnDestroy {

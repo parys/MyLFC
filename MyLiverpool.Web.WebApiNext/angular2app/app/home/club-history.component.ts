@@ -2,7 +2,7 @@
 
 @Component({
     selector: "<club-history>",
-    template: require("./club-history.component.html")
+    templateUrl: "./club-history.component.html"
 })
 export class ClubHistoryComponent {
 

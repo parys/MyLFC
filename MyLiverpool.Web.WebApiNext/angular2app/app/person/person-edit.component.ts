@@ -10,7 +10,7 @@ import { LocalStorageService, RolesCheckedService } from "../shared/index";
 
 @Component({
     selector: "person-edit",
-    template: require("./person-edit.component.html")
+    templateUrl: "./person-edit.component.html"
 })
 
 export class PersonEditComponent implements OnInit {

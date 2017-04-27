@@ -9,7 +9,7 @@ import { ModalDirective } from "ng2-bootstrap";
 
 @Component({
     selector: "materialComment-detail",
-    template: require("./materialComment-detail.component.html")
+    templateUrl: "./materialComment-detail.component.html"
 })
 
 export class MaterialCommentDetailComponent implements OnInit {

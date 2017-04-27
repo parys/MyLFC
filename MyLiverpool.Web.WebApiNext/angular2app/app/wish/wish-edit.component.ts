@@ -9,7 +9,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 
 @Component({
     selector: "wish-edit",
-    template: require("./wish-edit.component.html")
+    templateUrl: "./wish-edit.component.html"
 })
 export class WishEditComponent implements OnInit, OnDestroy {
     editForm: FormGroup;

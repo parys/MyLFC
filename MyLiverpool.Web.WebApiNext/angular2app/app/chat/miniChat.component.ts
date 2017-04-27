@@ -8,7 +8,7 @@ import { RolesCheckedService, IRoles } from "../shared/index";
 
 @Component({
     selector: "mini-chat",
-    template: require("./miniChat.component.html")
+    templateUrl: "./miniChat.component.html"
 })
 export class MiniChatComponent implements OnInit {
     messageForm: FormGroup;

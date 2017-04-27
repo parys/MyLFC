@@ -3,7 +3,7 @@ import { RolesCheckedService, IRoles } from "../shared/index";
 
 @Component({
     selector: "<navbar>",
-    template: require("./navbar.component.html")
+    templateUrl: "./navbar.component.html"
 })
 export class NavbarComponent {
     roles: IRoles;

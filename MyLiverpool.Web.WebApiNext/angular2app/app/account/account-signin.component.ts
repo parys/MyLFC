@@ -5,7 +5,7 @@ import { AuthService } from "../auth/auth.service";
 
 @Component({
     selector: "account-signin",
-    template: require("./account-signin.component.html")
+    templateUrl: "./account-signin.component.html"
 })
 
 export class AccountSigninComponent implements OnInit {

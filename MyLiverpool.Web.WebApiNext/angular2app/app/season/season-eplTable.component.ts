@@ -2,7 +2,7 @@
 
 @Component({
     selector: "<season-epltable>",
-    template: require("./season-eplTable.component.html")
+    templateUrl: "./season-eplTable.component.html"
 })
 export class SeasonEplTableComponent {
 

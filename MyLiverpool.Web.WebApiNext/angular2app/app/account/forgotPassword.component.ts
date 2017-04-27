@@ -6,7 +6,7 @@ import { GlobalValidators } from "../shared/index";
 
 @Component({
     selector: "forgot-password",
-    template: require("./forgotPassword.component.html")
+    templateUrl: "./forgotPassword.component.html"
 })
 
 export class ForgotPasswordComponent implements OnInit {

@@ -10,7 +10,7 @@ import { MaterialType } from "../materialCategory/materialType.enum";
 
 @Component({
     selector: "material-edit",
-    template: require("./material-edit.component.html")
+    templateUrl: "./material-edit.component.html"
 })
 
 export class MaterialEditComponent implements OnInit {

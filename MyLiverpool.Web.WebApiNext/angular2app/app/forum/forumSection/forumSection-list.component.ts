@@ -7,12 +7,12 @@ import { RolesCheckedService, IRoles } from "../../shared/index";
 
 @Component({
     selector: "forumSection-list",
-    template: require("./forumSection-list.component.html")
+    templateUrl: "./forumSection-list.component.html"
 })
 
 export class ForumSectionListComponent implements OnInit {
 
-    items: ForumSection[];
+    items: ForumSection[];//add subscr
     roles: IRoles;
 
     constructor(private service: ForumSectionService, private rolesChecked: RolesCheckedService) {
@@ -24,7 +24,6 @@ export class ForumSectionListComponent implements OnInit {
         this.service
             .getAll()
             .subscribe(data => this.items = data,
-            error => console.log(error),
-            () => {});
+            error => console.log(error));
     }
 }

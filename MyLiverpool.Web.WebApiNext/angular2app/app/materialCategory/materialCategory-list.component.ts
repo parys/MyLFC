@@ -9,7 +9,7 @@ import { RolesCheckedService, IRoles } from "../shared/index";
 
 @Component({
     selector: "materialCategory-list",
-    template: require("./materialCategory-list.component.html")
+    templateUrl: "./materialCategory-list.component.html"
 })
 
 export class MaterialCategoryListComponent implements OnInit {

@@ -127,7 +127,7 @@ namespace MyLiverpool.Web.WebApiNext
                     //    .SetIdentityTokenLifetime(TimeSpan.FromDays(14))
                     //   .SetAccessTokenLifetime(TimeSpan.FromSeconds(10))
                     .SetRefreshTokenLifetime(TimeSpan.FromDays(14))
-
+               //todo shouldUse     .UseJsonWebTokens()
                     // During development, you can disable the HTTPS requirement.
                     .DisableHttpsRequirement()
 

@@ -10,7 +10,7 @@ import { RolesCheckedService, IRoles } from "../shared/index";
 
 @Component({
     selector: "image-detail",
-    template: require("./image-detail.component.html")
+    templateUrl: "./image-detail.component.html"
 })
 export class ImageDetailComponent implements OnInit, OnDestroy {
     //messageForm: FormGroup;

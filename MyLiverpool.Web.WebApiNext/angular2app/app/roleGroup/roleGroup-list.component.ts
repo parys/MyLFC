@@ -5,7 +5,7 @@ import { RolesCheckedService, IRoles } from "../shared/index";
 
 @Component({
     selector: "roleGroup-list",
-    template: require("./roleGroup-list.component.html")
+    templateUrl: "./roleGroup-list.component.html"
 })
 export class RoleGroupListComponent implements OnInit { 
     items: RoleGroup[];

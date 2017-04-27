@@ -6,7 +6,7 @@ import { PmService } from "./pm.service";
 
 @Component({
     selector: "pm-list",
-    template: require("./pm-list.component.html")
+    templateUrl: "./pm-list.component.html"
 })
 
 export class PmListComponent implements OnInit {

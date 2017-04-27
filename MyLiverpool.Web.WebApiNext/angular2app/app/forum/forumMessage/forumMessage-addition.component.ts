@@ -7,7 +7,7 @@ import { RolesCheckedService, IRoles, Pageable } from "../../shared/index";
 
 @Component({
     selector: "forumMessage-addition",
-    template: require("./forumMessage-addition.component.html")
+    templateUrl: "./forumMessage-addition.component.html"
 })
 export class ForumMessageAdditionComponent implements OnInit {
                                      

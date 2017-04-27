@@ -10,7 +10,7 @@ import { RoleGroupService, RoleGroup } from "../roleGroup/index";
 
 @Component({
     selector: "user-detail",
-    template: require("./user-detail.component.html")
+    templateUrl: "./user-detail.component.html"
 })
 
 export class UserDetailComponent implements OnInit, OnDestroy {

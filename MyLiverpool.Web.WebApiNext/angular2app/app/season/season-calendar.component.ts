@@ -5,7 +5,7 @@ import { SeasonService } from "./season.service";
 
 @Component({
     selector: "<season-calendar>",
-    template: require("./season-calendar.component.html")
+    templateUrl: "./season-calendar.component.html"
 })
 export class SeasonCalendarComponent implements  OnInit {
     season: Season;

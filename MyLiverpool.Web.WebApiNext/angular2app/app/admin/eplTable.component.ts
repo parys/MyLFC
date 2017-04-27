@@ -7,11 +7,11 @@ import { RolesCheckedService, IRoles } from "../shared/index";
 
 @Component({
     selector: "epl-table",
-    template: require("./eplTable.component.html")
+    templateUrl: "./eplTable.component.html"
 })
 
 export class EplTableComponent implements OnInit {
-    roles: IRoles;
+    roles: IRoles;//todo add subscribtion
     eplTable: string;
 
     constructor(private service: AdminService,

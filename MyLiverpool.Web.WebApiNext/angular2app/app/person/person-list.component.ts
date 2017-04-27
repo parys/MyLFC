@@ -8,11 +8,10 @@ import { Person } from "./person.model";
 import { PersonService } from "./person.service";
 import { Pageable } from "../shared/pageable.model";
 import { ModalDirective } from "ng2-bootstrap";
-//import { UserFilters } from "./userFilters.model";
 
 @Component({
     selector: "person-list",
-    template: require("./person-list.component.html")
+    templateUrl: "./person-list.component.html"
 })
 
 export class PersonListComponent implements OnInit {

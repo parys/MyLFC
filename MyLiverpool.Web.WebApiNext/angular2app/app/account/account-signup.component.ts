@@ -8,7 +8,7 @@ import { AccountValidators } from "./account.validators";
 
 @Component({
     selector: "account-signup",
-    template: require("./account-signup.component.html")
+    templateUrl: "./account-signup.component.html"
 })
 
 export class AccountSignupComponent implements OnInit {

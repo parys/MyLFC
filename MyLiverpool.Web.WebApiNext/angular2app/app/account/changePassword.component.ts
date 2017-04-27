@@ -7,7 +7,7 @@ import { ChangePassword } from "./changePassword.model";
 
 @Component({
     selector: "change-password",
-    template: require("./changePassword.component.html")
+    templateUrl: "./changePassword.component.html"
 })
 
 export class ChangePasswordComponent implements OnInit {

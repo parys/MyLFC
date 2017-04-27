@@ -5,7 +5,7 @@ import { Match } from "./match.model";
 
 @Component({
     selector: "match-calendar",
-    template: require("./match-calendar.component.html")
+    templateUrl: "./match-calendar.component.html"
 })
 export class MatchCalendarComponent implements OnInit, OnDestroy {
     last: Match;

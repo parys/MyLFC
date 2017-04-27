@@ -2,7 +2,7 @@
 
 @Component({
     selector: "<player-statistics>",
-    template: require("./player-statistics.component.html")
+    templateUrl: "./player-statistics.component.html"
 })
 export class PlayerStatisticsComponent {
 

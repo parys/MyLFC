@@ -11,7 +11,7 @@ import { RolesCheckedService, IRoles } from "../../shared/index";
 
 @Component({
     selector: "forumSubsection-list",
-    template: require("./forumSubsection-list.component.html")
+    templateUrl: "./forumSubsection-list.component.html"
 })
 export class ForumSubsectionListComponent implements OnInit, OnDestroy {
     item: ForumSubsection;

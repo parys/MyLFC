@@ -5,7 +5,7 @@ import { Person } from "./person.model";
 
 @Component({
     selector: "best-player",
-    template: require("./best-player.component.html")
+    templateUrl: "./best-player.component.html"
 })
 export class BestPlayerComponent implements OnInit, OnDestroy {
     item: Person;
