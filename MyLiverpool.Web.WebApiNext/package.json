@@ -3,12 +3,14 @@
   "version": "1.0.0",
   "scripts": {
     "postinstall": "webpack --config webpack.config.vendor.js",
-    "client-server": "webpack --config webpack.config.js"
+    "client-server": "webpack --config webpack.config.js",
+    "build-aot": "node_modules/.bin/ngc -p tsconfig.aot.json"
   },
   "dependencies": {
     "@angular/animations": "4.1.0",
     "@angular/common": "4.1.0",
     "@angular/compiler": "4.1.0",
+    "@angular/compiler-cli": "4.1.0",
     "@angular/core": "4.1.0",
     "@angular/forms": "4.1.0",
     "@angular/http": "4.1.0",
@@ -45,6 +47,10 @@
     "preboot": "4.5.2",
     "raw-loader": "0.5.1",
     "resolve-url-loader": "2.0.2",
+    "rollup": "0.41.6",
+    "rollup-plugin-node-resolve": "3.0.0",
+    "rollup-plugin-commonjs": "8.0.2",
+    "rollup-plugin-uglify": "1.0.2",
     "rxjs": "5.3.0",
     "style-loader": "0.16.1",
     "swagger-ui": "3.0.6",

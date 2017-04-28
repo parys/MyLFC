@@ -227,3 +227,5 @@ ModelManifest.xml
 *.user
 *.ps1
 *.psm1
+/MyLiverpool.Web.WebApiNext/wwwroot/aot/angular2app/app
+/MyLiverpool.Web.WebApiNext/wwwroot/aot/angular2app/app
