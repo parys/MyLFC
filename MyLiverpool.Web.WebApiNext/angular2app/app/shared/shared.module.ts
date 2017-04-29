@@ -22,7 +22,8 @@ import { ReCaptchaModule } from "angular2-recaptcha";
         HttpWrapper,
         LocalStorageService,
         RolesCheckedService,
-        { provide: LocalStorage, useFactory: () => (window) ? window.localStorage : {} }
+        //{ provide: LocalStorage, useFactory: () => (window) ? window.localStorage : {} }
+        //LocalStorage
     ]
 })
 export class SharedModule { }

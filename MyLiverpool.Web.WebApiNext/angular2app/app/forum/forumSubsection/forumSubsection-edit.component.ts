@@ -9,7 +9,7 @@ import { ForumSectionService, ForumSection } from "../forumSection/index";
 
 @Component({
     selector: "forumSubsection-edit",
-    templateUrl: "./forumSubsection-edit.component.html"
+    templateUrl: "forumSubsection-edit.component.html"
 })
 export class ForumSubsectionEditComponent implements OnInit, OnDestroy {
 

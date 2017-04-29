@@ -37,6 +37,7 @@
 
   <ItemGroup>
     <Content Include="wwwroot\fonts\10427.ttf" />
+    <Content Include="wwwroot\fonts\Alice-Regular.ttf" />
   </ItemGroup>
 
   <ItemGroup>
@@ -94,6 +95,7 @@
 
   <ItemGroup>
     <Folder Include="Properties\PublishProfiles\" />
+    <Folder Include="wwwroot\js\" />
   </ItemGroup>
 
   <ItemGroup>

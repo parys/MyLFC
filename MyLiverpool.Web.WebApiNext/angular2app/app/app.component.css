@@ -2,8 +2,13 @@
     font-family: "Beauty";
     src: url('./fonts/10427.ttf');
 }
+@font-face {
+    font-family: "AnotherFont";
+    src: url('./fonts/Alice-Regular.ttf')
+}
+
 * {
-     font-family: cursive;
+    font-family: "AnotherFont";
 }
 a:hover {
     text-decoration: none;

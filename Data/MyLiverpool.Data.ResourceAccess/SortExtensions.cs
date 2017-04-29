@@ -28,6 +28,12 @@ namespace MyLiverpool.Data.ResourceAccess
                     return order == SortOrder.Ascending ? entities.OrderBy(newExpression) : entities.OrderByDescending(newExpression);
                 }
 
+                if (propertyExpression.Type == typeof(DateTimeOffset))
+                {
+                    var newExpression = Expression.Lambda<Func<T, DateTimeOffset>>(propertyExpression, parameters);
+                    return order == SortOrder.Ascending ? entities.OrderBy(newExpression) : entities.OrderByDescending(newExpression);
+                }
+
                 throw new NotSupportedException("Object type resolution not implemented for this type");
             }
             return entities.OrderBy(expression);

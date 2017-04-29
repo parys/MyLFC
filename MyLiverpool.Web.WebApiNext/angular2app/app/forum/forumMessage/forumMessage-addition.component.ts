@@ -7,7 +7,7 @@ import { RolesCheckedService, IRoles, Pageable } from "../../shared/index";
 
 @Component({
     selector: "forumMessage-addition",
-    templateUrl: "./forumMessage-addition.component.html"
+    templateUrl: "forumMessage-addition.component.html"
 })
 export class ForumMessageAdditionComponent implements OnInit {
                                      
@@ -30,7 +30,7 @@ export class ForumMessageAdditionComponent implements OnInit {
     }
 
     onSubmit(): void {
-        var comment = new ForumMessage();
+        let comment = new ForumMessage();
         comment.message = this.commentForm.controls["message"].value;
         comment.themeId = this.themeId;
         this.service.create(comment)
