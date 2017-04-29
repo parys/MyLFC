@@ -51,10 +51,15 @@ textarea {
     background-color: #f5f5f5;
 }
 
+.border-maroon {
+    border: 5px solid #690000;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
 .block-minichat {
     background-color: #690000;
     border-radius: 10px;
-    
 }
 
 .blockcontent-inside {
@@ -119,6 +124,10 @@ textarea {
     color: yellow;
 }
 
+.eplTable > .table{
+    margin-bottom: 0;
+}
+
 .flex {
     display: flex;
     justify-content: center;
@@ -143,10 +152,9 @@ textarea {
     font-size: 40px;
 }
 
-.list-inline.small-offset > li {
-    display: inline-block;
-    padding-right: 5px;
-    padding-left: 0px;
+.infodate {
+    text-align: center;
+    color: #000000;
 }
 
 .inline {
@@ -156,6 +164,12 @@ textarea {
 .img-medium {
     min-width: 40px;
     max-width: 100px;
+}
+
+.list-inline.small-offset > li {
+    display: inline-block;
+    padding-right: 5px;
+    padding-left: 0px;
 }
 
 .login-list-panel {
@@ -680,13 +694,6 @@ td.switch a {}*/
     padding-right: 70px;
     padding-top: 5px;
     text-transform: uppercase;
-}
-
-.infodate {
-    text-align: center;
-    font-family: Verdana;
-    font-size: 11px;
-    color: #000000;
 }
 
 .score {
