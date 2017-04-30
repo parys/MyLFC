@@ -35,7 +35,7 @@ export class MaterialCommentDetailComponent implements OnInit {
         private formBuilder: FormBuilder) {
     }
 
-    ngOnInit(): void{
+    ngOnInit(): void {
         this.roles = this.rolesChecked.checkRoles();
     }
 
@@ -64,7 +64,7 @@ export class MaterialCommentDetailComponent implements OnInit {
         this.deleteModal.hide();
     }
 
-    hideEditModal() {
+    hideEditModal(): void {
         this.commentForm = null;
         this.editCommentModal.hide();
     }
@@ -120,7 +120,7 @@ export class MaterialCommentDetailComponent implements OnInit {
     }
 
 
-    private initForm() {
+    private initForm(): void {
         this.commentForm = this.formBuilder.group({
             'message': ["", Validators.compose([
                 Validators.required])],

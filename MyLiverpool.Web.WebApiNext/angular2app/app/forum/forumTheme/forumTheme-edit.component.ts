@@ -23,7 +23,7 @@ export class ForumThemeEditComponent implements OnInit, OnDestroy {
         private subsectionService: ForumSubsectionService) {
     }
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.editForm = this.formBuilder.group({
             'subsectionId': [
                 "", Validators.compose([
@@ -57,7 +57,7 @@ export class ForumThemeEditComponent implements OnInit, OnDestroy {
             () => { });
     }
 
-    ngOnDestroy() {
+    ngOnDestroy() : void {
         this.sub.unsubscribe();
     }
 

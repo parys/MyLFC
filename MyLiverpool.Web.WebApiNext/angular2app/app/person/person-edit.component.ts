@@ -18,7 +18,7 @@ export class PersonEditComponent implements OnInit {
     id: number;
     item: Person;
     types: PersonType[];
-    private opened: boolean = false;
+    opened: boolean = false;
 
     constructor(private service: PersonService,
         private route: ActivatedRoute,
@@ -28,7 +28,7 @@ export class PersonEditComponent implements OnInit {
         this.item = new Person();
     }
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.initForm();
         let id = +this.route.snapshot.params["id"] || 0;
         if (id > 0) {
@@ -40,7 +40,7 @@ export class PersonEditComponent implements OnInit {
         this.updateTypes();
     }
 
-    onUpload(event: any) {
+    onUpload(event: any): void {
         let file = event.currentTarget.files[0];
         let fullname = this.editForm.controls["firstName"].value + " " + this.editForm.controls["lastName"].value;
         if (file) {
@@ -49,7 +49,7 @@ export class PersonEditComponent implements OnInit {
                 error => console.log(error));
         }
     }
-    onSubmit() {
+    onSubmit(): void {
         let newsItem = this.parseForm();
         if (this.id > 0) {
             this.service.update(this.id, newsItem)
@@ -68,7 +68,7 @@ export class PersonEditComponent implements OnInit {
         return Math.random();
     }
 
-    private updateTypes() {
+    private updateTypes(): void {
         this.service
             .getTypes()
             .subscribe(data => this.types = data);

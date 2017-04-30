@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit } from "@angular/core";
-import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
 import { MaterialService } from "./material.service";
 import { Material } from "./material.model";
@@ -21,6 +21,7 @@ export class MaterialEditComponent implements OnInit {
     item: Material;
     type: MaterialType;
     isInit: boolean = false;
+    additional: string = "additional";
 
     constructor(private service: MaterialService,
         private materialCategoryService: MaterialCategoryService,
@@ -35,7 +36,7 @@ export class MaterialEditComponent implements OnInit {
         }
     }
                                                              
-    ngOnInit() {
+    ngOnInit(): void {
         this.roles = this.rolesChecked.checkRoles();
         this.initForm();
         if(+this.route.snapshot.params["id"]){
@@ -54,7 +55,7 @@ export class MaterialEditComponent implements OnInit {
 
     }
 
-    onSubmit() {
+    onSubmit(): void {
         let newsItem = this.parseForm();
         if (this.id > 0) {
             this.service.update(this.id, newsItem)
@@ -69,7 +70,7 @@ export class MaterialEditComponent implements OnInit {
         }
     }
 
-    updateImage(path: string) {
+    updateImage(path: string): void {
         this.editForm.patchValue({ photo: path });
     }
 

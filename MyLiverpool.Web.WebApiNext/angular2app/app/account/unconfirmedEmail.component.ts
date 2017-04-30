@@ -6,7 +6,7 @@ import { GlobalValidators } from "../shared/index";
 
 @Component({
     selector: "unconfirmedEmail",
-    template: require("./unconfirmedEmail.component.html")
+    templateUrl: "./unconfirmedEmail.component.html"
 })
 
 export class UnconfirmedEmailComponent implements OnInit {

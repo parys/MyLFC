@@ -123,8 +123,11 @@ textarea {
     background-color: white;
     color: yellow;
 }
+.eplTable {
+    overflow-y: auto;
+}
 
-.eplTable > .table{
+.eplTable > .table {
     margin-bottom: 0;
 }
 
@@ -138,6 +141,11 @@ textarea {
     display: flex;
     justify-content: space-around;
     flex-flow: row;
+    flex-wrap: wrap;
+}
+
+.flex-wrap {
+    flex-wrap: wrap;
 }
 
 .forum-message {
@@ -220,7 +228,6 @@ textarea {
 
 .navbar {
     margin-bottom: 0;
-
 }
 
 .navbar-default .navbar-nav > li > a {
@@ -257,12 +264,6 @@ textarea {
 
     .navbar-nav > li > a.padding0 {
         padding: 0;
-    }
-}
-
-@media (max-width: 768px) {
-    .navbar-fixed-top {
-        position: relative;
     }
 }
 

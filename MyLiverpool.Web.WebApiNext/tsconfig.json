@@ -21,7 +21,8 @@
   },
   "exclude": [
     "bin",
-    "node_modules"
+    "node_modules",
+    "wwwroot/aot"
   ],
   "awesomeTypescriptLoaderOptions": {
     "forkChecker": true,

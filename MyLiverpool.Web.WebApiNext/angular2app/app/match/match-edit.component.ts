@@ -28,7 +28,7 @@ export class MatchEditComponent implements OnInit {
         private sanitizer: DomSanitizer) {
     }
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.initForm();
         let id = this.route.snapshot.params["id"];
         if(id && id > 0) {

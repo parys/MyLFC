@@ -26,7 +26,7 @@ export class MaterialCommentSectionComponent implements OnInit {
         , private formBuilder: FormBuilder) {   
     }   
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.roles = this.rolesChecked.checkRoles(); this.commentAddForm = this.formBuilder.group({
             'message': ["", Validators.compose([
                 Validators.required, Validators.minLength(3)])]
@@ -45,7 +45,7 @@ export class MaterialCommentSectionComponent implements OnInit {
      //   this.location.replaceState(newUrl);
     };
 
-    private update(): void {
+    update(): void {
         this.materialCommentService
             .getAllByMaterial(this.page, this.materialId)
             .subscribe(data => this.parsePageable(data),

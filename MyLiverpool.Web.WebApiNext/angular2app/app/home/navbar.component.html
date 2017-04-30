@@ -7,12 +7,12 @@
         </button>
     </div>
     <div class="navbar-collapse collapse row" style="margin-right: 0; padding-right: 0;"> <!--todo need some research-->
-        <ul class="nav navbar-nav col-xs-12 flex-vertical-center" style="font-size: large">
+        <ul class="nav navbar-nav col-xs-12 flex-vertical-center flex-wrap" style="font-size: large">
             <!--<li><a [routerLink]="['/']" style="color: aliceblue; font-weight: bold;">My<span style="color: yellow;">LFC</span>.ru</a></li>-->
             <li><a [routerLink]="['/']">
                 <img src="/content/logo6.jpg" style="width: 310px; border-radius: 10px; margin: -5px; border: 2px solid white" alt="MyLFC.ru"/>
             </a></li>
-<li class="dropdown">
+            <li class="dropdown">
                 <a [routerLink]="['/news']" [queryParams]="{page: 1}" class="dropdown-toggle" data-toggle="">Новости<b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li *ngIf="roles.isNewsmaker"><a [routerLink]="['/news', 0, 'edit']">Добавить</a></li>
