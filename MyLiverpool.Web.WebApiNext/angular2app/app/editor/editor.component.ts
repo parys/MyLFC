@@ -7,6 +7,7 @@ import "tinymce/themes/modern";
 import "tinymce/plugins/table";
 import "tinymce/plugins/link";
 import "tinymce/plugins/advlist";
+import "tinymce/plugins/hr";
 declare let tinymce: any;
 
 @Component({
@@ -84,7 +85,7 @@ export class EditorComponent implements ControlValueAccessor {
 
     private getPlugins(): string {
         if (this.type === 1) {
-            return `advlist autolink autoresize lists link image charmap print preview anchor
+            return `advlist autolink autoresize lists link image hr charmap print preview anchor
                 searchreplace visualblocks code fullscreen
                 insertdatetime media table contextmenu paste code emoticons`;
         }
@@ -102,21 +103,25 @@ export class EditorComponent implements ControlValueAccessor {
     }
 
     private getToolbar(): string {
+        let common =
+            `| styleselect | bold italic underline strikethrough | link image emoticons hr`;
+        let type1 = `insert | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | fullscreen ${
+            common}`;
+        let type2 = `undo redo ${type1}` ;
         if (this.type === 1) {
-            return `insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image emoticons fullscreen`;
+            return type1;
         }
         if (this.type === 2) {
-            return `undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image emoticons fullscreen`;
+            return type2;
         }
         if (this.type === 3) {
-            return `styleselect | bold italic | link image emoticons`;
+            return common;
         }
         return "";
     }
 
     private initTiny(): void {
         tinymce.init({
-            // skin_url: 'assets/skins/lightgray',
             // autoresize_overflow_padding: 0,
             selector: `#${this.elementId}`,
             schema: "html5",
