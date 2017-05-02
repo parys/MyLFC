@@ -90,7 +90,7 @@ export class ForumThemeListComponent implements OnInit {
     }
 
     delete(): void {
-        let result;
+        let result : boolean;
         this.messageService.delete(this.items[this.selectedItemIndex].id)
             .subscribe(res => result = res,
             e => console.log(e),

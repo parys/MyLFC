@@ -47,6 +47,10 @@ textarea {
     font-family: "Beauty";
 }
 
+.bg-maroon {
+    background-color: maroon;
+}
+
 .bg-gray {
     background-color: #f5f5f5;
 }

@@ -49,7 +49,7 @@ export class ClubListComponent implements OnInit {
     }
 
     delete(): void {
-        let result;
+        let result: boolean;
         this.clubService.delete(this.items[this.selectedItemIndex].id)
             .subscribe(res => result = res,
             e => console.log(e),

@@ -61,7 +61,7 @@ export class MaterialDetailComponent implements OnInit {
     }
 
     activate() {
-        let result;
+        let result: boolean;
         
         this.service.activate(this.item.id)
             .subscribe(res => result = res,
@@ -75,7 +75,7 @@ export class MaterialDetailComponent implements OnInit {
     }
 
     delete() {
-        let result;
+        let result: boolean;
         this.service.delete(this.item.id)
             .subscribe(res => result = res,
                 e => console.log(e),

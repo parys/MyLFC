@@ -56,7 +56,7 @@ export class WishListComponent implements OnInit, OnDestroy {
         this.location.replaceState(newUrl);
     };
 
-    update() {
+    update(): void {
         //let filters = new MaterialFilters();
         //filters.categoryId = this.categoryId;
         //filters.materialType = "News";
@@ -70,7 +70,7 @@ export class WishListComponent implements OnInit, OnDestroy {
             () => {});
     }
 
-    getTypeClass(i) {
+    getTypeClass(i: number): string {
         switch (i) {
             case 1:
                 return "panel-danger";

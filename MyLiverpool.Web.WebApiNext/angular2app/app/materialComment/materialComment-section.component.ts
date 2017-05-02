@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, Input } from "@angular/core";
+﻿import { Component, OnInit, Input, ChangeDetectionStrategy } from "@angular/core";
 import { Pageable } from "../shared/pageable.model";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { MaterialComment } from "./materialComment.model";
@@ -8,7 +8,8 @@ import { RolesCheckedService, IRoles } from "../shared/index";
 
 @Component({
     selector: "comments",
-    templateUrl: "./materialComment-section.component.html"
+    templateUrl: "./materialComment-section.component.html",
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MaterialCommentSectionComponent implements OnInit {
 

@@ -152,7 +152,7 @@ namespace MigratorVnext
         private static async void DownloadAllImages()
         {
             var prefix = "http://myliverpool.ru";
-            var prefix2 = "http://www.myliverpool.ru";
+     //       var prefix2 = "http://www.myliverpool.ru";
             var path = "D:\\images1123\\";
             if (!Directory.Exists(path))
             {

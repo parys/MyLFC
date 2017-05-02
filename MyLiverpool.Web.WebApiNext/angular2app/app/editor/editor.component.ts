@@ -22,8 +22,8 @@ export class EditorComponent implements ControlValueAccessor {
     @Input("value") _value: string = "";
     @Input() type: number = 1;
     elementId: string = Math.random().toString(36).substring(2);
-    zone;
-    editor;
+    zone: NgZone;
+    editor: any;
 
     ngAfterViewInit(): void {
            this.initTiny();

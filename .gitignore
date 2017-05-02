@@ -229,3 +229,4 @@ ModelManifest.xml
 *.psm1
 /MyLiverpool.Web.WebApiNext/wwwroot/aot/angular2app/app
 /MyLiverpool.Web.WebApiNext/wwwroot/aot/angular2app/app
+/MyLiverpool.Web.WebApiNext/wwwroot/src/build.js

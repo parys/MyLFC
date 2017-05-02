@@ -63,7 +63,7 @@ export class MaterialListComponent implements OnInit {
     }
 
     activate(): void {
-        let result;
+        let result: boolean;
 
         let news = this.items[this.selectedItemIndex];
         this.materialService.activate(news.id)
@@ -79,8 +79,7 @@ export class MaterialListComponent implements OnInit {
     }
 
     delete(): void {
-        console.log("delete");
-        let result;
+        let result: boolean;
         this.materialService.delete(this.items[this.selectedItemIndex].id)
             .subscribe(res => result = res,
                 e => console.log(e),

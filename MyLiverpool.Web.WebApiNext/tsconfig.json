@@ -10,6 +10,8 @@
     "noEmit": false,
     "noEmitHelpers": false,
     "strictNullChecks": false,
+    "noImplicitAny": true,
+    "suppressImplicitAnyIndexErrors": true,
     "allowSyntheticDefaultImports": true,
     "lib": [
       "es2015",

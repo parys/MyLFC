@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, ViewChild, Input } from "@angular/core";
+﻿import { Component, OnInit, ViewChild, Input, ChangeDetectionStrategy } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Location } from "@angular/common";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
@@ -9,7 +9,8 @@ import { ModalDirective } from "ng2-bootstrap";
 
 @Component({
     selector: "materialComment-detail",
-    templateUrl: "./materialComment-detail.component.html"
+    templateUrl: "./materialComment-detail.component.html",
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class MaterialCommentDetailComponent implements OnInit {
@@ -82,7 +83,7 @@ export class MaterialCommentDetailComponent implements OnInit {
 
 
     delete(): void {
-        let result;
+        let result: boolean;
         this.materialCommentService.delete(this.item.id)
             .subscribe(res => result = res,
                 e => console.log(e),

@@ -93,7 +93,7 @@ export class MaterialCommentListComponent implements OnInit, OnDestroy {
     }
 
     verify(index: number): void {
-        let result;
+        let result: boolean;
         this.materialCommentService
             .verify(this.items[index].id)
             .subscribe(data => result = data,
@@ -112,7 +112,7 @@ export class MaterialCommentListComponent implements OnInit, OnDestroy {
     }
 
     delete(): void {
-        let result;
+        let result: boolean;
         this.materialCommentService.delete(this.items[this.selectedItemIndex].id)
             .subscribe(res => result = res,
             e => console.log(e),
