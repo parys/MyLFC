@@ -2,6 +2,11 @@
 import { Component, EventEmitter, forwardRef, Input, Output, NgZone } from "@angular/core";
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from "@angular/forms";
 
+import "tinymce";
+import "tinymce/themes/modern";
+import "tinymce/plugins/table";
+import "tinymce/plugins/link";
+import "tinymce/plugins/advlist";
 declare let tinymce: any;
 
 @Component({
@@ -120,13 +125,13 @@ export class EditorComponent implements ControlValueAccessor {
             forced_root_block: false,
             autoresize_max_height: 500,
             menubar: false,
-        //    language: "ru",
+            language: "ru",
             // inline: true,
             plugins: [
                 this.getPlugins()
             ],
             toolbar: this.getToolbar(),
-            content_css: "//www.tinymce.com/css/codepen.min.css",
+            skin_url: "/src/lightgray",
             setup: (editor: any) => {
                 this.editor = editor;
                 editor.on("change", () => {

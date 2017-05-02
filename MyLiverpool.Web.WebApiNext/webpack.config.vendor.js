@@ -38,15 +38,15 @@ var SharedConfig = {
             "es6-shim",
             "es6-promise",
             "zone.js",
+            "jquery",
             "bootstrap",
             "bootstrap/dist/css/bootstrap.css",
             "event-source-polyfill",
-            "jquery",
             "rxjs",
             "ng2-auto-complete",
             "ng2-bootstrap",
           //  "ng2-page-scroll",
-          //  "tinymce/tinymce.min.js"
+            "tinymce/tinymce.min.js"
         ]
     },
     output: {
@@ -80,7 +80,10 @@ var ClientBundleConfig = Merge(SharedConfig,
         .concat(IsDevBuild
             ? [
                 new WebpackNotifierPlugin({ title: "vendorBuild-client", alwaysNotify: true }),
-                new CopyWebpackPlugin([{ from: "node_modules/swagger-ui/dist", to: "../swagger/" }])
+                new CopyWebpackPlugin([{ from: "node_modules/swagger-ui/dist", to: "../swagger/" },
+                    { from: "node_modules/tinymce/skins/", to: "../src/" },
+                    { from: "node_modules/tinymce/plugins/", to: "../js/plugins/" }
+                ])
             ]
             : [
                 new Webpack.optimize.UglifyJsPlugin({

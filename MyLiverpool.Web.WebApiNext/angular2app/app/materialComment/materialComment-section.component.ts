@@ -9,7 +9,7 @@ import { RolesCheckedService, IRoles } from "../shared/index";
 @Component({
     selector: "comments",
     templateUrl: "./materialComment-section.component.html",
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class MaterialCommentSectionComponent implements OnInit {
 
