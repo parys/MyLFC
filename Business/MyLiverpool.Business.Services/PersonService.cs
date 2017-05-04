@@ -39,14 +39,29 @@ namespace MyLiverpool.Business.Services
             return new PageableData<PersonDto>(dto, page, count, GlobalConstants.ItemPerPage);
         }
 
-        public Task<PersonDto> GetByIdAsync(int id)
+        public async Task<PersonDto> GetByIdAsync(int id)
         {
-            throw new System.NotImplementedException();
+            var person = await _personRepository.GetByIdAsync(id);
+            return _mapper.Map<PersonDto>(person);
         }
 
-        public Task<PersonDto> UpdateAsync(PersonDto dto)
+        public async Task<PersonDto> UpdateAsync(PersonDto dto)
         {
-            throw new System.NotImplementedException();
+            var person = await _personRepository.GetByIdAsync(dto.Id);
+            if (person == null)
+            {
+                return null;
+            }
+            person.Birthday = dto.Birthday;
+            person.FirstName = dto.FirstName;
+            person.FirstRussianName = dto.FirstRussianName;
+            person.LastName = dto.LastName;
+            person.LastRussianName = dto.LastRussianName;
+            person.Photo = dto.Photo;
+            person.Type = dto.Type;
+            _personRepository.Update(person);
+            await _personRepository.SaveChangesAsync();
+            return _mapper.Map<PersonDto>(person);
         }
 
         public async Task<bool> DeleteAsync(int id)

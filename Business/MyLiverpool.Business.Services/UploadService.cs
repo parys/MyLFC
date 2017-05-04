@@ -131,25 +131,30 @@ namespace MyLiverpool.Business.Services
             return result;
         }
 
-        public Task<string> UpdatePersonPhotoAsync(string name, IFormFile file)
+        public async Task<string> UpdatePersonPhotoAsync(string name, IFormFile file)
         {
             if (string.IsNullOrWhiteSpace(name))
             {
-                return Task.FromResult(string.Empty);
+                return string.Empty;
             }
+            var extension = file.FileName.Split('.').Last();
+            var fileName = name.Replace(" ", "") + "." + extension;
+            string path = PersonPath + fileName;
+
+            var relativePath = path;
+            path = GetFullPath(path);
             if (!Directory.Exists(PersonPath))
             {
                 Directory.CreateDirectory(PersonPath);
             }
-            string path = PersonPath + name;
 
-            var relativePath = path;
-            path = GetFullPath(path);
-
-            file.CopyTo(new FileStream(path, FileMode.Create));
+            using (var stream = new FileStream(path, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
             relativePath = Regex.Replace(relativePath, "\\\\", "/");
 
-            return Task.FromResult(relativePath);
+            return relativePath;
         }
 
 

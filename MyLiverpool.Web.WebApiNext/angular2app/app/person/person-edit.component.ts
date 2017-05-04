@@ -45,22 +45,23 @@ export class PersonEditComponent implements OnInit {
         let fullname = this.editForm.controls["firstName"].value + " " + this.editForm.controls["lastName"].value;
         if (file) {
             this.service.updatePhoto(fullname, file)
-                .subscribe(result => this.item.photo = `${result}#${Math.random()}`,
+                .subscribe(result => {
+                    this.editForm.controls["photo"].patchValue(result);
+                        this.item.photo = `${result}#${Math.random()}`;
+                    },
                 error => console.log(error));
         }
     }
     onSubmit(): void {
-        let newsItem = this.parseForm();
+        let person = this.parseForm();
         if (this.id > 0) {
-            this.service.update(this.id, newsItem)
+            this.service.update(this.id, person)
                 .subscribe(data => console.log(data.id),//this.router.navigate(["/news", data.id]),
-                error => console.log(error),
-                () => { });
+                error => console.log(error));
         } else {
-            this.service.create(newsItem)
+            this.service.create(person)
                 .subscribe(data => console.log(data.id),//this.router.navigate(["/news", data.id]),
-                error => console.log(error),
-                () => { });
+                error => console.log(error));
         }
     }
 
@@ -77,6 +78,7 @@ export class PersonEditComponent implements OnInit {
     private parse(data: Person): void {
         this.id = data.id;
         this.editForm.patchValue(data);
+        this.item = data;
     }
 
     private parseForm(): Person {

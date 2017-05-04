@@ -19,9 +19,9 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             _context = context;
         }
 
-        public Task<Person> GetByIdAsync(int id)
+        public async Task<Person> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Persons.FindAsync(id);
         }
 
         public async Task<Person> AddAsync(Person entity)
@@ -42,7 +42,8 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
 
         public void Update(Person entity)
         {
-            throw new NotImplementedException();
+            _context.Persons.Attach(entity);
+            _context.Entry(entity).State = EntityState.Modified;
         }
 
         public async Task SaveChangesAsync()

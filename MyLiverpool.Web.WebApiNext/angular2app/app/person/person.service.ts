@@ -13,7 +13,7 @@ export class PersonService {
     }
 
     getAll = (page: number): Observable<Pageable<Person>> => {
-        return this.http.get(this.actionUrl + `list/${page}`).map((res: Response) => res.json());
+        return this.http.get(this.actionUrl + `list?page=${page}`).map((res: Response) => res.json());
     };
 
     getSingle = (id: number): Observable<Person> => {

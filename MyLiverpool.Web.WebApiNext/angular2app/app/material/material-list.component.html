@@ -17,7 +17,7 @@
             <div class="row  border-left-maroon" >
                 <div class="flex-vertical-center material-header col-xs-12">
                     <a [routerLink]="[+item.type === 1 ? '/news' : '/blogs', item.id]">
-                        <h4 class="beauty-font" [textContent]="item.title"></h4>
+                        <h3 class="beauty-font" [textContent]="item.title"></h3>
                     </a>
                     <span class="pull-right" *ngIf="roles.isEditor || roles.isSelf(item.userId)">
                         <a role="button" *ngIf="item.pending && roles.isEditor" (click)="showActivateModal(i)"><span class="glyphicon glyphicon-ok"></span></a>

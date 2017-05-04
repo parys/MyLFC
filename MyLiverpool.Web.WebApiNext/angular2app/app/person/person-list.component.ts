@@ -67,8 +67,7 @@ export class PersonListComponent implements OnInit {
         this.personService
             .getAll(this.page)
             .subscribe(data => this.parsePageable(data),
-            error => console.log(error),
-            () => { });
+            error => console.log(error));
     }
 
     pageChanged(event: any): void {
