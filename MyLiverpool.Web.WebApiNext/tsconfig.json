@@ -23,6 +23,7 @@
   },
   "exclude": [
     "bin",
+    "obj",
     "node_modules",
     "wwwroot/aot"
   ],

@@ -38,6 +38,9 @@
   <ItemGroup>
     <Content Include="wwwroot\fonts\10427.ttf" />
     <Content Include="wwwroot\fonts\Alice-Regular.ttf" />
+    <Content Include="wwwroot\js\extPlugins\spoiler\css\spoiler.css" />
+    <Content Include="wwwroot\js\extPlugins\spoiler\plugin.js" />
+    <Content Include="wwwroot\js\extPlugins\spoiler\plugin.min.js" />
   </ItemGroup>
 
   <ItemGroup>
@@ -60,12 +63,12 @@
     <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="1.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="1.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.TagHelpers" Version="1.1.2" />
-    <PackageReference Include="Microsoft.AspNetCore.NodeServices" Version="1.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.NodeServices" Version="1.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.ResponseCompression" Version="1.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Server.IISIntegration" Version="1.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Server.IISIntegration.Tools" Version="1.1.0-preview4-final" />
     <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel" Version="1.1.1" />
-    <PackageReference Include="Microsoft.AspNetCore.SpaServices" Version="1.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices" Version="1.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="1.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="1.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="1.1.0" />
@@ -95,7 +98,7 @@
 
   <ItemGroup>
     <Folder Include="Properties\PublishProfiles\" />
-    <Folder Include="wwwroot\js\" />
+    <Folder Include="wwwroot\js\langs\" />
   </ItemGroup>
 
   <ItemGroup>

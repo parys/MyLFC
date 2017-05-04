@@ -104,7 +104,7 @@ export class EditorComponent implements ControlValueAccessor {
 
     private getToolbar(): string {
         let common =
-            `| styleselect | bold italic underline strikethrough | link image emoticons hr`;
+            `| styleselect | bold italic underline strikethrough | link image emoticons hr`;//poiler-add spoiler-remove`;
         let type1 = `insert | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | fullscreen ${
             common}`;
         let type2 = `undo redo ${type1}` ;
@@ -136,6 +136,9 @@ export class EditorComponent implements ControlValueAccessor {
                 this.getPlugins()
             ],
             toolbar: this.getToolbar(),
+            external_plugins: {
+                spoiler: "/js/extPlugins/spoiler/plugin.js"
+            },
             skin_url: "/src/lightgray",
             setup: (editor: any) => {
                 this.editor = editor;

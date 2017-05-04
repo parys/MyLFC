@@ -12,7 +12,7 @@
             <div class="panel-heading panel-default">
                 <h3 class="panel-title">
                     <a [routerLink]="['/users', comment.authorId]"><span [textContent]="comment.authorUserName"></span></a>
-                    <span class="col-xs-1 col-sm-1 pull-right" *ngIf="roles.isModerator">
+                    <span class="col-xs-2 col-sm-2 pull-right" *ngIf="roles.isModerator">
                         <a [hidden]="comment.isVerified" (click)="verify(i)"><span class="glyphicon glyphicon-ok"></span></a>
                         <a (click)="showDeleteModal(i)"><span class="glyphicon glyphicon-trash"></span></a>
                     </span>
@@ -22,7 +22,7 @@
                 <div [innerHTML]="comment.message"></div>
             </div>
             <div class="panel-footer">
-                <div [textContent]="comment.additionTime | date:'medium'"></div>
+                <div> <span [textContent]="comment.additionTime | date:'medium'"></span><a class="pull-right" [routerLink]="['/news', comment.materialId]">Материал</a></div>
             </div>
         </div>
     </div>

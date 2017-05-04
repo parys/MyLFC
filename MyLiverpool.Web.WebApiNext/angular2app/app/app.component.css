@@ -16,6 +16,7 @@ a:hover {
 }
 
 body {
+    background-color: #f5f5f5;
     /*color: #6e6e6e;'*/
 }
 
@@ -55,10 +56,27 @@ textarea {
     background-color: #f5f5f5;
 }
 
+.border-blue {
+    border-color: lightskyblue;
+}
+
+.border-gray {
+    border-color: gray;
+}
+
 .border-maroon {
-    border: 5px solid #690000;
+    border-color: #690000;
+}
+
+.border-yellow {
+    border-color: wheat;
+}
+
+.border-panel {
     border-radius: 10px;
     margin-bottom: 10px;
+    border-width: 5px;
+    border-style: solid;
 }
 
 .block-minichat {
@@ -722,3 +740,22 @@ td.switch a {}*/
 
 
 /* old site end*/
+.spoiler {
+    border: 1px solid #ff0000;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.spoiler-toggle {
+    font-weight: bold;
+    cursor: default;
+    padding: 5px;
+    font-size: 12px;
+    color: #ff0000;
+}
+
+.spoiler-text {
+    padding: 5px;
+}

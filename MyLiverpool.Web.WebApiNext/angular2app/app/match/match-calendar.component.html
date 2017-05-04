@@ -1,5 +1,5 @@
 ﻿<section class="flex">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 bg-warning flex padding0 border-maroon" *ngIf="last">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 bg-warning flex padding0 border-panel border-yellow" *ngIf="last">
         <div class="col-xs-5">Последняя игра </div><!--todo add back color for win|drar|lost-->
         <div class="col-xs-7">
             <span class="pull-right" [textContent]="last.dateTime | date:'d MMM y EEE j:mm'"></span>
@@ -21,7 +21,7 @@
             <a *ngIf="last.videoUrl" [href]="last.videoUrl" target="_blank">Видео</a>
         </div>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 bg-primary flex padding0 border-maroon" *ngIf="next">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 bg-primary flex padding0 border-panel border-blue" *ngIf="next">
         <div class="col-xs-5">Следующая игра </div>
         <div class="col-xs-7"><b style="font-size: 1.2em;" class="pull-right" [textContent]="next.dateTime | date:'d MMM y EEE j:mm'"></b></div>
         <div class="col-xs-4 col-sm-5 text-center">
