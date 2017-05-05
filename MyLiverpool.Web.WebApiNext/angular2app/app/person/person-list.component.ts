@@ -28,8 +28,8 @@ export class PersonListComponent implements OnInit {
         private location: Location) {
     }
 
-    ngOnInit() {
-        this.page = +this.route.snapshot.params || 1;
+    ngOnInit(): void {
+        this.page = +this.route.snapshot.params || 1; //todo add subscription
         this.update();
     }
 
@@ -57,7 +57,7 @@ export class PersonListComponent implements OnInit {
             );
     }
 
-    update() {
+    update(): void {
         //let filters = new UserFilters();
         ////  filters.categoryId = this.categoryId;
         ////  filters.materialType = "News";
@@ -66,7 +66,7 @@ export class PersonListComponent implements OnInit {
 
         this.personService
             .getAll(this.page)
-            .subscribe(data => this.parsePageable(data),
+            .subscribe(data => this.parsePageable(data), //todo add subscription
             error => console.log(error));
     }
 
@@ -79,6 +79,12 @@ export class PersonListComponent implements OnInit {
         // }
         this.location.replaceState(newUrl);
     };
+
+    setAsBestPlayer(personId: number) {
+        this.personService.setBestPlayer(personId)
+            .subscribe(data => data, //todo add subscription
+            error => console.log(error));
+    }
 
     private parsePageable(pageable: Pageable<Person>): void {
         this.items = pageable.list;

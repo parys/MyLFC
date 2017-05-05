@@ -6,8 +6,9 @@
                 <a [routerLink]="[person.id, 'edit']">
                     <span [textContent]="person.russianName"></span>
                 </a>
-                <span class="col-xs-1 col-sm-1 pull-right">
-                    <a ng-click="vm.delete(i)"><span class="glyphicon glyphicon-trash"></span></a>
+                <span class="col-xs-2 col-sm-2 pull-right">
+                    <a *ngIf="person.type === 1" (click)="setAsBestPlayer(person.id)"><span class="glyphicon glyphicon-bookmark"></span></a>
+                    <!--<a ng-click="vm.delete(i)"><span class="glyphicon glyphicon-trash"></span></a>-->
                 </span>
             </h3>
         </div>

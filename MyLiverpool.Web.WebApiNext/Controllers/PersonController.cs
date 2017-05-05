@@ -13,7 +13,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// <summary>
     /// Controller for manage persons.
     /// </summary>
-    [Route("api/v1/[controller]")]
+    [AllowAnonymous, Route("api/v1/[controller]")]
     public class PersonController : Controller
     {
         private readonly IPersonService _personService;
@@ -79,10 +79,21 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <returns>Best player dto.</returns>
         [AllowAnonymous, HttpGet("bestPlayer")]
-        public async Task<IActionResult> GetAsync()
+        public async Task<IActionResult> GetBestPlayerAsync()
         {
             var result = await _personService.GetBestPlayerAsync();
             return Ok(result);
+        }
+
+        /// <summary>
+        /// Setups best player.
+        /// </summary>
+        /// <returns>True if setup successfully.</returns>
+        [Authorize(Roles = nameof(RolesEnum.AdminStart)), HttpPut("bestPlayer/{personId:int}")] //todo change role
+        public async Task<IActionResult> SetBestPlayerAsync(int personId)
+        {
+            await _personService.SetBestPlayerAsync(personId);
+            return Ok(true);
         }
 
         /// <summary>

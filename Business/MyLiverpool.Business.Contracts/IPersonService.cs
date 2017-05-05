@@ -12,5 +12,6 @@ namespace MyLiverpool.Business.Contracts
         Task<PersonDto> UpdateAsync(PersonDto dto);
         Task<bool> DeleteAsync(int id);
         Task<PersonDto> GetBestPlayerAsync();
+        Task SetBestPlayerAsync(int personId);
     }
 }

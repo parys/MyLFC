@@ -73,12 +73,22 @@ namespace MyLiverpool.Business.Services
         public async Task<PersonDto> GetBestPlayerAsync()
         {
             var playerHelpEntity = await _helperEntityRepository.GetByTypeAsync(HelperEntityType.BestPlayer);
-            if (int.TryParse(playerHelpEntity.Value, out int playerId))
+            if (playerHelpEntity != null && int.TryParse(playerHelpEntity.Value, out int playerId))
             {
                 var player = await _personRepository.GetByIdAsync(playerId);
                 return _mapper.Map<PersonDto>(player);
             }
             return null;
+        }
+
+        public async Task SetBestPlayerAsync(int personId)
+        {
+            var entity = new HelpEntity()
+            {
+                Type = HelperEntityType.BestPlayer,
+                Value = personId.ToString()
+            };
+            await _helperEntityRepository.UpdateAndSaveAsync(entity);
         }
     }
 }

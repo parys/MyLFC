@@ -24,6 +24,10 @@ export class PersonService {
         return this.http.get(this.actionUrl + "bestPlayer/").map((res: Response) => res.json());
     };
 
+    setBestPlayer = (personId: number): Observable<boolean> => {
+        return this.http.put(`${this.actionUrl}bestPlayer/${personId}`, "").map((res: Response) => res.json());
+    };
+
     create = (item: Person): Observable<Person> => {
         return this.http.post(this.actionUrl, JSON.stringify(item)).map((res: Response) => res.json());
     };

@@ -28,6 +28,7 @@ import { DatepickerModule } from "ng2-bootstrap/datepicker";
         PlayerStatisticsComponent
     ],
     exports: [
+        BestPlayerComponent
     ],
     providers: [
         PersonService
