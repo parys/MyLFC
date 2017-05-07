@@ -10,4 +10,5 @@
     children: MaterialComment[];
     isVerified: boolean;
     parentId: number;
+    number: number;
 }

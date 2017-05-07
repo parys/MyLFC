@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using MyLiverpool.Data.Common;
 
 namespace MyLiverpool.Data.Entities
@@ -44,5 +45,8 @@ namespace MyLiverpool.Data.Entities
         public MaterialType MaterialType { get; set; }
 
         public bool IsVerified { get; set; }
+
+        [NotMapped]
+        public int Number { get; set; }
     }
 }

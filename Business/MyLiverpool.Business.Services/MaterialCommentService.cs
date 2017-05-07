@@ -101,29 +101,12 @@ namespace MyLiverpool.Business.Services
             return new PageableData<MaterialCommentDto>(commentDtos, filters.Page, commentsCount);
         }
 
-        private IEnumerable<MaterialComment> UniteComments(ICollection<MaterialComment> comments)
-        {
-            foreach (var comment in comments.Where(c => c.ParentId != null))
-            {
-                var parent = comments.FirstOrDefault(c => c.OldId == comment.OldParentId);
-                if (parent != null)
-                {
-                    if (parent.Children == null)
-                    {
-                        parent.Children = new List<MaterialComment>();
-                    }
-                    parent.Children.Add(comment);
-                }
-            }
-            return comments.Where(c => c.ParentId == null);
-        }
-
         public async Task<PageableData<MaterialCommentDto>> GetListByMaterialIdAsync(int materialId, int page)
         {
             Expression<Func<MaterialComment, bool>> filter = x => x.MaterialId == materialId;// && x.ParentId == null;
 
             var comments = await _commentService.GetOrderedByAsync(page, ItemPerPage, filter, SortOrder.Ascending, m => m.AdditionTime);//bug need to analize how get all comments for material page but count only top-level for paging
-            var unitedComments = UniteComments(comments);
+            var unitedComments = UniteComments(comments, page);
             var commentDtos = _mapper.Map<IEnumerable<MaterialCommentDto>>(unitedComments);
             var commentsCount = await _commentService.GetCountAsync(filter);
             return new PageableData<MaterialCommentDto>(commentDtos, page, commentsCount);
@@ -137,6 +120,29 @@ namespace MyLiverpool.Business.Services
             _commentService.Update(comment);
             await _commentService.SaveChangesAsync();
             return true;
+        }
+
+        private static IEnumerable<MaterialComment> UniteComments(ICollection<MaterialComment> comments, int page)
+        {
+            var startNumber = ItemPerPage * (page - 1) + 1;
+            foreach (var comment in comments)
+            {
+                comment.Number = startNumber++;
+                if (comment.ParentId == null)
+                {
+                    continue;
+                }
+                var parent = comments.FirstOrDefault(c => c.OldId == comment.OldParentId);
+                if (parent != null)
+                {
+                    if (parent.Children == null)
+                    {
+                        parent.Children = new List<MaterialComment>();
+                    }
+                    parent.Children.Add(comment);
+                }
+            }
+            return comments.Where(c => c.ParentId == null);
         }
     }
 }

@@ -12,7 +12,7 @@ namespace MyLiverpool.Business.Dto
 
         public int Id { get; set; }
 
-        //public bool Pending { get; set; }
+        public int Number { get; set; }
 
         public DateTimeOffset AdditionTime { get; set; }
 
@@ -22,10 +22,8 @@ namespace MyLiverpool.Business.Dto
 
         public string Photo { get; set; }
 
-     //   [AllowHtml]
         public string Message { get; set; }
-
-    //    [AllowHtml]
+        
         public string Answer { get; set; }
 
         public int MaterialId { get; set; }

@@ -55,8 +55,8 @@ namespace MyLiverpool.Business.Services
                 foreach (var club in clubs)
                 {
                     var goalsSign = club.goals > 0 ? "+" : "";
-                    var startTag = club.name.ToLower() == "Ливерпуль" ? "<b>" : "";
-                    var endTag = club.name.ToLower() == "Ливерпуль" ? "</b>" : "";
+                    var startTag = club.name.ToLower() == "ливерпуль" ? "<b>" : "";
+                    var endTag = club.name.ToLower() == "ливерпуль" ? "</b>" : "";
                     newRows.AppendLine($@"<tr>{startTag}
                                         <td>{club.position}</td>
                                         <td>{club.name}</td>

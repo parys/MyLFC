@@ -24,7 +24,7 @@ export class MaterialCommentListComponent implements OnInit, OnDestroy {
     onlyUnverified: boolean = false;
     categoryId: number;
     userName: string;
-    itemsPerPage = 15;
+    itemsPerPage = 50;
     totalItems: number;
     roles: IRoles;
     selectedItemIndex: number = undefined;

@@ -1,9 +1,9 @@
-﻿<div class="col-xs-12 bg-success flex padding0 border-panel">
-    <div class="col-xs-12">Лучший игрок последнего матча.</div>
-    <div>
-        <img [src]="item?.photo" alt="item?.russianName"/>
+﻿<div class="col-xs-12 bg-success flex padding0 border-panel" *ngIf="item">
+    <div class="col-xs-12 flex-space-around">Лучший игрок последнего матча.</div>
+    <div class="col-xs-12 flex-space-around">
+        <img [src]="item?.photo" [alt]="item?.russianName"/>
     </div>
-    <div>
-        <span [textContent]="item?.russianName"></span>
+    <div class="col-xs-12 flex-space-around">
+        <h4 [textContent]="item?.russianName"></h4>
     </div>
 </div>
