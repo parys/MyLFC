@@ -20,6 +20,7 @@ using MyLiverpool.Data.Entities;
 using MyLiverpool.Data.ResourceAccess;
 using MyLiverpool.Data.ResourceAccess.Interfaces;
 using MyLiverpool.Data.ResourceAccess.Repositories;
+using MyLiverpool.Web.WebApiNext.Extensions;
 using Newtonsoft.Json.Serialization;
 
 namespace MyLiverpool.Web.WebApiNext
@@ -143,6 +144,10 @@ namespace MyLiverpool.Web.WebApiNext
                 options.AddEphemeralSigningKey();
             });
 
+            services.AddMemoryCache();
+
+            services.AddAntiforgery(options => options.HeaderName = "X-XSRF-TOKEN");
+
 #if Debug
             services.AddSwaggerGen(options =>
             {
@@ -199,6 +204,7 @@ namespace MyLiverpool.Web.WebApiNext
 
             app.UseResponseCompression();
 
+            app.UseXsrf();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -222,18 +228,6 @@ namespace MyLiverpool.Web.WebApiNext
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            //app.Use(next => context =>
-            //{
-            //    var tokens = antiforgery.GetAndStoreTokens(context);
-            //    context.Response.Cookies.Append("XSRF-TOKEN", tokens.RequestToken,
-            //        new CookieOptions() {HttpOnly = false});
-            //    var formFields = new Dictionary<string, StringValues>()
-            //    {
-            //        {"X-XSRF-TOKEN", context.Request.Headers["X-XSRF-TOKEN"]}
-            //    };
-            //    context.Request.Form = new FormCollection(formFields);
-            //    return next(context);
-            //});
             app.UseCors("MyPolicy");
 
             app.UseDefaultFiles();
