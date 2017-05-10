@@ -158,7 +158,7 @@ export class HttpWrapper {
     private requestForToken(params: string): Observable<Response> {
         let headers = new Headers();
         headers.append("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8;");
-        return this.http.post(this.configuration.server + "connect/token",
+        return this.http.post("/connect/token",
             params,
             {
                 headers: headers

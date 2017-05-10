@@ -12,7 +12,7 @@
 }
 a:hover {
     text-decoration: none;
-    color: yellow;
+    color: red;
 }
 
 body {
@@ -62,6 +62,10 @@ textarea {
 
 .border-gray {
     border-color: gray;
+}
+
+.border-lgray {
+    border-color: lightgray;
 }
 
 .border-maroon {
@@ -209,7 +213,7 @@ textarea {
 
 .main-container {
     background-color: #f5f5f5;
-    font-size: large;
+    font-size: medium;
 }
 
 .material-header {
