@@ -1,5 +1,6 @@
 ﻿import { Component, OnInit } from "@angular/core";
 import { Observable } from "rxjs/Observable";
+import { Location } from "@angular/common";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
 import { Match } from "./match.model";
@@ -12,19 +13,26 @@ import { Pageable } from "../shared/pageable.model";
 })
 
 export class MatchListComponent implements OnInit {
+    sub: Subscription;
     items: Match[];
     page: number = 1;
     itemsPerPage: number = 15;
     totalItems: number;
     categoryId: number;
 
-    constructor(private matchService: MatchService, private route: ActivatedRoute) {
+    constructor(private matchService: MatchService,
+        private route: ActivatedRoute,
+        private location: Location) {
     }
 
     ngOnInit() {
-        if(this.route.snapshot.queryParams["page"]) {
-            this.page = this.route.snapshot.queryParams["page"];
-        };
+        this.sub = this.route.queryParams.subscribe(qParams => {
+                this.page = qParams["page"] || 1;
+                this.categoryId = qParams["categoryId"] || "";
+            //    this.userName = qParams["userName"] || "";
+            //    this.onlyUnverified = qParams["onlyUnverified"] || false;
+            },
+            error => console.log(error));
         this.update();
     }
 
@@ -47,4 +55,14 @@ export class MatchListComponent implements OnInit {
             .subscribe(data => this.parsePageable(data),
                 error => console.log(error));
     }
+
+    pageChanged(event: any): void {
+        this.page = event.page;
+        this.update();
+        let newUrl = `matches?page=${this.page}`;
+        //if (this.categoryId) {
+        //     newUrl = `${newUrl}/${this.categoryId}`;
+        // }
+        this.location.replaceState(newUrl);
+    };
 }

@@ -15,6 +15,7 @@ import { ModalDirective } from "ng2-bootstrap";
 })
 
 export class PersonListComponent implements OnInit {
+    sub: Subscription;
     items: Person[];
     page: number = 1;
     itemsPerPage: number = 15;
@@ -29,7 +30,13 @@ export class PersonListComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.page = +this.route.snapshot.params || 1; //todo add subscription
+        this.sub = this.route.queryParams.subscribe(qParams => {
+                this.page = qParams["page"] || 1;
+             //   this.categoryId = qParams["categoryId"] || "";
+                this.userName = qParams["userName"] || "";
+              //  this.onlyUnverified = qParams["onlyUnverified"] || false;
+            },
+            error => console.log(error));
         this.update();
     }
 
