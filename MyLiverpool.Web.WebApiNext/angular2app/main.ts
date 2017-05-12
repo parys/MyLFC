@@ -4,6 +4,7 @@ import { enableProdMode } from "@angular/core";
 import { AppModule } from "./app/app.module";
 import "./jquery-global.js";
 import "bootstrap";
+import "hammerjs";
 
 var rootElemTagName = "app";
 // enable either Hot Module Reloading or production mode

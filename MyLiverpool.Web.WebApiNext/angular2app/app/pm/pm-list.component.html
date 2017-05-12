@@ -1,6 +1,6 @@
 ﻿<div class="container-fluid">
-    <tabset>
-        <tab heading="Полученные">
+    <md-tab-group>
+        <md-tab label="Полученные">
             <table class="table">
                 <thead>
                 <tr>
@@ -24,8 +24,8 @@
                 </tr>
                 </tbody>
             </table>
-        </tab>
-        <tab heading="Отправленные">
+        </md-tab>
+        <md-tab label="Отправленные">
             <table class="table">
                 <thead>
                 <tr>
@@ -49,9 +49,9 @@
                 </tr>
                 </tbody>
             </table>
-        </tab>
-        <tab heading="Написать сообщеньку">
+        </md-tab>
+        <md-tab label="Написать сообщеньку">
             <pm-edit></pm-edit>
-        </tab> <!--(select)="writePm()"-->
-    </tabset>
+        </md-tab> <!--(select)="writePm()"-->
+    </md-tab-group>
 </div>

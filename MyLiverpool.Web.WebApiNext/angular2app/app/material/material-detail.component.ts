@@ -1,38 +1,37 @@
-﻿import { Component, OnInit, ViewChild } from "@angular/core";
+﻿import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Title, DomSanitizer, SafeHtml } from "@angular/platform-browser";
-import { MaterialService } from "./material.service";
 import { Router, ActivatedRoute } from "@angular/router";
+import { MdDialog, MdSnackBar } from '@angular/material';
 import { Subscription } from "rxjs/Subscription";
+import { MaterialService } from "./material.service";
 import { Material } from "./material.model";                
 import { MaterialType } from "../materialCategory/materialType.enum";                
-import { RolesCheckedService, IRoles, LocalStorageService } from "../shared/index";
-import { ModalDirective } from "ng2-bootstrap";
+import { RolesCheckedService, IRoles, LocalStorageService, DeleteDialogComponent } from "../shared/index";
+import { MaterialActivateDialogComponent } from "./material-activate-dialog.component";
 
 @Component({
     selector: "material-detail",
     templateUrl: "./material-detail.component.html"
 })
 
-export class MaterialDetailComponent implements OnInit {
-    sub: Subscription;
-    item: Material;
-    roles: IRoles;
-    private title: Title;
-    type: MaterialType;
-    @ViewChild("activateModal") activateModal: ModalDirective;
-    @ViewChild("deleteModal") deleteModal: ModalDirective;
+export class MaterialDetailComponent implements OnInit, OnDestroy {
+    private sub: Subscription;
+    public item: Material;
+    public roles: IRoles;
+    public type: MaterialType;
 
     constructor(private service: MaterialService,
         private route: ActivatedRoute,
-        private localStorage: LocalStorageService,        
+        private localStorage: LocalStorageService,
         private rolesChecked: RolesCheckedService,
         private router: Router,
         private sanitizer: DomSanitizer,
-        private titleService: Title) {
-        this.title = titleService;
+        private titleService: Title,
+        private snackBar: MdSnackBar,
+        private dialog: MdDialog) {
     }
 
-    ngOnInit() {
+    public ngOnInit(): void {
         this.roles = this.rolesChecked.checkRoles();
         this.sub = this.route.params.subscribe(params => {
             this.service.getSingle(+params["id"])
@@ -42,25 +41,34 @@ export class MaterialDetailComponent implements OnInit {
         });
     }
 
-    ngOnDestroy() {
-        this.sub.unsubscribe();
+    public ngOnDestroy() : void {
+        if(this.sub) this.sub.unsubscribe();
     }
     
 
-    showActivateModal(index: number): void {
-        this.activateModal.show();
+    public showActivateModal(): void {
+        let dialogRef = this.dialog.open(MaterialActivateDialogComponent);
+        dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                this.activate();
+            }
+        }, e => console.log(e));
     }
 
-    showDeleteModal(index: number): void {
-        this.deleteModal.show();
+    public showDeleteModal(): void {
+        let dialogRef = this.dialog.open(DeleteDialogComponent);
+        dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                this.delete();
+            }
+        }, e => console.log(e));
     }
 
-    hideModal(): void {
-        this.activateModal.hide();
-        this.deleteModal.hide();
+    public sanitizeByHtml(text: string): SafeHtml {
+        return this.sanitizer.bypassSecurityTrustHtml(text);
     }
 
-    activate() {
+    private activate() : void {
         let result: boolean;
         
         this.service.activate(this.item.id)
@@ -69,27 +77,23 @@ export class MaterialDetailComponent implements OnInit {
             () => {
                 if (result) {
                     this.item.pending = false;
-                    this.hideModal();
                 }
             });
     }
 
-    delete() {
+    private delete(): void {
         let result: boolean;
         this.service.delete(this.item.id)
             .subscribe(res => result = res,
                 e => console.log(e),
                 () => {
                     if (result) {
-                        this.hideModal();
                         this.router.navigate([`/${MaterialType[this.type].toLowerCase()}`]);
+                    } else {
+                        this.snackBar.open("Ошибка удаления", null, {duration: 2000});
                     }
                 }
             );
-    }
-
-    sanitizeByHtml(text: string): SafeHtml {
-        return this.sanitizer.bypassSecurityTrustHtml(text);
     }
 
     private parse(item: Material): void {
@@ -98,11 +102,10 @@ export class MaterialDetailComponent implements OnInit {
         this.addView();
     }
 
-    private addView() {
+    private addView(): void {
         let id = this.item.id;
         if (this.localStorage.tryAddViewForMaterial(id)) {
-            this.service.addView(id).subscribe(data => data);
+            this.service.addView(id).subscribe(data => data, e => console.log(e));
         }
     }
-
 }

@@ -19,7 +19,7 @@ import * as match from "./match/index";
 import { PersonModule } from "./person/index";
 import * as roleGroup from "./roleGroup/index";
 import * as season from "./season/index";
-import { SharedModule} from "./shared/index";
+import { SharedModule, DeleteDialogComponent } from "./shared/index";
 import { UserDetailComponent } from "./user/user-detail.component";
 import { UserService } from "./user/user.service";
 import { UserListComponent } from "./user/user-list.component";
@@ -28,22 +28,28 @@ import { WishModule } from "./wish/index";
 import * as materialComment from "./materialComment/index";
 import { Ng2AutoCompleteModule } from "ng2-auto-complete";
 import { AdminService, EplTableComponent } from "./admin/index";
-import { ModalModule, PaginationModule, TabsModule } from "ng2-bootstrap";
+import { ModalModule, PaginationModule } from "ng2-bootstrap";
 import { DatepickerModule } from "ng2-bootstrap/datepicker";
 import { TimepickerModule } from "ng2-bootstrap/timepicker";
 import { ReCaptchaModule } from "angular2-recaptcha";
 import { Ng2BreadcrumbModule, BreadcrumbService } from "ng2-breadcrumb/ng2-breadcrumb";
 import { BreadcrumbComponent } from "./shared/breadcrumb.component";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MdTabsModule, MdDialogModule, MdSnackBarModule } from '@angular/material';
 
 
 @NgModule({
     imports: [
+        BrowserAnimationsModule,
         BrowserModule,
         EditorModule,
         HttpModule,
         DatepickerModule.forRoot(),
         ForumModule,
         ModalModule.forRoot(),
+        MdDialogModule.forRoot(),
+        MdSnackBarModule.forRoot(),
+        MdTabsModule.forRoot(),
         Ng2AutoCompleteModule,
         Ng2BreadcrumbModule.forRoot(),
         PaginationModule.forRoot(),
@@ -51,7 +57,6 @@ import { BreadcrumbComponent } from "./shared/breadcrumb.component";
         RouterModule.forRoot(routes),
         ReCaptchaModule,
         SharedModule,
-        TabsModule.forRoot(),
         TimepickerModule.forRoot(),
         WishModule
     ],
@@ -99,10 +104,15 @@ import { BreadcrumbComponent } from "./shared/breadcrumb.component";
         material.MaterialListComponent,
         material.MaterialDetailComponent,
         material.MaterialEditComponent,
+        material.MaterialActivateDialogComponent,
         UserDetailComponent,
         UserListComponent
     ], // components and directives
-    bootstrap: [AppComponent], // root component
+    bootstrap: [
+        AppComponent], // root component
+entryComponents: [
+ material.MaterialActivateDialogComponent,
+],
     providers: [// services  
         auth.AuthService,
         auth.RoleGuard,
