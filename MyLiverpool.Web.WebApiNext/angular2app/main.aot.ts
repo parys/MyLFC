@@ -2,22 +2,17 @@
 import { platformBrowserDynamic } from "@angular/platform-browser-dynamic";
 import { enableProdMode } from "@angular/core";
 import { AppModuleNgFactory } from "../wwwroot/aot/angular2app/app/app.module.ngfactory";
-import "bootstrap";
+
+import "./jquery-global.js";
+
+//import * as jQuery_ from "jquery";
+//const jQuery: JQueryStatic = (<JQueryStatic>jQuery_).default || jQuery_; 
+//import "bootstrap";
 
 var rootElemTagName = "app";
-// enable either Hot Module Reloading or production mode
-if (module["hot"]) {
-    module["hot"].accept();
-    module["hot"].dispose(() => {
-        // Before restarting the app, we create a new root element and dispose the old one
-        const oldRootElem = document.querySelector(rootElemTagName);
-        const newRootElem = document.createElement(rootElemTagName);
-        oldRootElem.parentNode.insertBefore(newRootElem, oldRootElem);
-        platform.destroy();
-    });
-} else {
-    enableProdMode();
-}
+
+enableProdMode();
+
 
 // boot the application, either now or when the DOM content is loaded
 

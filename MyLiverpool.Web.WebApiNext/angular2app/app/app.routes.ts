@@ -26,5 +26,5 @@ export const routes: Routes = [
     ...roleGroupRoutes,
     ...seasonRoutes,
     ...userRoutes,
-    { path: "", component: MaterialListComponent, data: { title: "Главная", breadcrumb: "Главная", type: "Both" } }
+    { path: "", component: MaterialListComponent, data: { title: "MyLFC.ru - Сайт русскоязычных болельщиков \"Ливерпуля\"", breadcrumb: "Главная", type: "Both" } }
 ];
