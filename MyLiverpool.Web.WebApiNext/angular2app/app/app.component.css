@@ -20,6 +20,11 @@ body {
     /*color: #6e6e6e;'*/
 }
 
+hr {
+    border-top-width: 3px;
+    border-top-color: maroon;
+}
+
 img {
     max-width: 100%;
     height: auto;
@@ -324,7 +329,7 @@ textarea {
 /* invalid & (dirty or touched) => red -- CSS3 only */
 .ng-invalid.ng-dirty:not(:focus),
 .ng-invalid.ng-touched:not(:focus) {
-    border-color: #e74c3c;
+    /*border-color: #e74c3c;*/
 }
 
 /* valid & dirty => green */

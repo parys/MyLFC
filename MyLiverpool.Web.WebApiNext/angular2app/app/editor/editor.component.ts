@@ -31,7 +31,7 @@ export class EditorComponent implements ControlValueAccessor {
     zone: NgZone;
     editor: any;
 
-    ngAfterViewInit(): void {
+    public ngAfterViewInit(): void {
            this.initTiny();
     }
 
@@ -39,10 +39,10 @@ export class EditorComponent implements ControlValueAccessor {
         this.zone = zone;
     }
 
-    get value(): string {
+    public get value(): string {
         return this._value;
     };
-    set value(value: string) {
+    public set value(value: string) {
         if (value !== this._value) {
             this._value = value;
             this.onChange(value);
@@ -50,7 +50,7 @@ export class EditorComponent implements ControlValueAccessor {
         }
     }
 
-    updateValue(value: any): void {
+    public updateValue(value: any): void {
         this.zone.run(() => {
             this.value = value;
             this.onChange(value);
@@ -59,11 +59,13 @@ export class EditorComponent implements ControlValueAccessor {
         });
     }
 
-    ngOnDestroy(): void {
-        tinymce.remove(this.editor);
+    public ngOnDestroy(): void {
+        if (tinymce && this.editor) {
+            tinymce.remove(this.editor);
+        }
     }
 
-    writeValue(value: any): void {
+    public writeValue(value: any): void {
         this.value = value;
         if (!tinymce) {
             this.initTiny();
@@ -73,13 +75,13 @@ export class EditorComponent implements ControlValueAccessor {
         }
     }
 
-    onChange(_: any): void { }
-    onTouched(): void { }
-    registerOnChange(fn: any): void {
+    public onChange(_: any): void { }
+    public onTouched(): void { }
+    public registerOnChange(fn: any): void {
         this.onChange = fn;
     }
 
-    registerOnTouched(fn: any): void {
+    public registerOnTouched(fn: any): void {
         this.onTouched = fn;
     }
 

@@ -1,88 +1,98 @@
-﻿import { Component, OnInit, ViewChild, Input, ChangeDetectionStrategy } from "@angular/core";
+﻿import { Component, OnInit, Input, ChangeDetectionStrategy } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Location } from "@angular/common";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
+import { MdDialog } from '@angular/material';
 import { MaterialComment } from "./materialComment.model";
 import { MaterialCommentService } from "./materialComment.service";
-import { RolesCheckedService, IRoles } from "../shared/index";
-import { ModalDirective } from "ng2-bootstrap";
+import { RolesCheckedService, IRoles, DeleteDialogComponent } from "../shared/index";
 
 @Component({
     selector: "materialComment-detail",
     templateUrl: "./materialComment-detail.component.html",
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.Default
 })
 
 export class MaterialCommentDetailComponent implements OnInit {
-    @Input() item: MaterialComment;
-    @Input() deep: number;
-    @Input() canCommentary: boolean;
-    @Input() materialId: number;
-    @Input() parent: MaterialComment;
+    @Input() public item: MaterialComment;
+    @Input() public deep: number;
+    @Input() public canCommentary: boolean;
+    @Input() public materialId: number;
+    @Input() public parent: MaterialComment;
 
-    commentForm: FormGroup;          
-    private oldCopy : MaterialComment;
+    public commentForm: FormGroup;          
+    private oldCopy: MaterialComment;
+    public isEditMode: boolean = false;
+    public isAddingMode: boolean = false;
 
-    @ViewChild("addCommentModal") addCommentModal: ModalDirective;
-    @ViewChild("editCommentModal") editCommentModal: ModalDirective;
-    @ViewChild("deleteModal") deleteModal: ModalDirective;
-
-    roles: IRoles;                
+    public roles: IRoles;                
 
     constructor(private materialCommentService: MaterialCommentService,
         private location: Location,
         private sanitizer: DomSanitizer,
         private rolesChecked: RolesCheckedService,
+        private dialog: MdDialog,
         private formBuilder: FormBuilder) {
     }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         this.roles = this.rolesChecked.checkRoles();
     }
 
-    showAddCommentModal(): void {
+    public showAddCommentModal(): void {
         this.initForm();
-        this.addCommentModal.show();
+        this.isAddingMode = true;
     }
 
-    showEditModal(): void {
+    public showEditModal(): void {
         this.initForm();
-        this.commentForm.patchValue(this.item);
-        this.editCommentModal.show();
+        this.isEditMode = true;
     }
 
-    showDeleteModal(): void {
-        this.deleteModal.show();
+    public showDeleteModal(): void {
+        let dialogRef = this.dialog.open(DeleteDialogComponent);
+        dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                this.delete();
+            }
+        }, e => console.log(e));
     }
 
-    hideAddModal(): void {
+    public cancelAdding(): void {
         this.commentForm = null;                                   
-        this.addCommentModal.hide();
-    }
- 
-
-    hideDeleteModal(): void {      
-        this.deleteModal.hide();
+        this.isAddingMode = false;
     }
 
-    hideEditModal(): void {
-        this.commentForm = null;
-        this.editCommentModal.hide();
-    }
-
-    addComment(): void {
+    public addComment(): void {
         let comment = this.getNewComment();
         this.materialCommentService.create(comment)
             .subscribe(data => {
-                this.item.children.push(data);   
-                this.addCommentModal.hide();   
-            },
-            error => console.log(error),
-            () => {});
+                this.item.children.push(data);
+                    this.cancelAdding();
+                },
+            error => console.log(error));
     }
 
+    public editComment(): void {
+        let comment = this.getComment();
+        this.materialCommentService.update(this.item.id, comment)
+            .subscribe(data => {
+                this.item = comment;
+                this.cancelEdit();
+                },
+            error => console.log(error));
+    }
 
-    delete(): void {
+    public cancelEdit(): void {
+        this.isEditMode = false;
+        this.commentForm = null;
+    }
+
+    public sanitizeByHtml(text: string): SafeHtml {
+        return this.sanitizer.bypassSecurityTrustHtml(text);
+    }
+
+    private delete(): void {
         let result: boolean;
         this.materialCommentService.delete(this.item.id)
             .subscribe(res => result = res,
@@ -98,34 +108,18 @@ export class MaterialCommentDetailComponent implements OnInit {
                             }
                         });
                         this.item = undefined;
-
-                        // this.items.splice(this.selectedItemIndex, 1);
-                        this.hideDeleteModal();
                     }
                 }
             );
     }
 
-    editComment(): void {
-        let comment = this.getComment();
-        this.materialCommentService.update(this.item.id, comment)
-            .subscribe(data => {
-                this.item = comment;
-                this.hideEditModal();
-                },
-            error => console.log(error));
-    }
-    
-    sanitizeByHtml(text: string): SafeHtml {
-        return this.sanitizer.bypassSecurityTrustHtml(text);
-    }
-
-
     private initForm(): void {
+        let message = this.isEditMode ? this.item.message : "";
+        let answer = this.isEditMode ? this.item.answer : "";
         this.commentForm = this.formBuilder.group({
-            'message': ["", Validators.compose([
+            'message': [message, Validators.compose([
                 Validators.required])],
-            'answer': [""]
+            'answer': [answer]
         });                                        
     }
 

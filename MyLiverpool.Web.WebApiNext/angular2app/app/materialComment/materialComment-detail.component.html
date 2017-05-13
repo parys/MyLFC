@@ -7,27 +7,63 @@
         </div>
         <div class="col-xs-3 col-sm-3">
             <span class="pull-right">
-                    <a *ngIf="roles.isModerator || roles.isSelf(item.authorId)" role="button" (click)="showEditModal()"><span class="glyphicon glyphicon-pencil"> </span></a>
-                    <a *ngIf="roles.isModerator" role="button" (click)="delete()"><span class="glyphicon glyphicon-trash"> </span></a>
-                </span>
+                <a *ngIf="roles.isModerator || roles.isSelf(item.authorId)" role="button" (click)="showEditModal()"><span class="glyphicon glyphicon-pencil"> </span></a>
+                <a *ngIf="roles.isModerator" role="button" (click)="showDeleteModal()"><span class="glyphicon glyphicon-trash"> </span></a>
+            </span>
         </div>
     </div>
-    <div class="row">
-        <div class="col-xs-2 col-sm-2">
-            <img class="avatar-medium" [src]="item.photo" [alt]="item.authorUserName"/>
+    <div *ngIf="!isEditMode">
+        <div class="row" >
+            <div class="col-xs-2 col-sm-2">
+                <img class="avatar-medium" [src]="item.photo" [alt]="item.authorUserName" />
+            </div>
+            <div class="col-xs-10 col-sm-10">
+                <p [innerHTML]="sanitizeByHtml(item.message)"></p>
+            </div>
         </div>
-        <div class="col-xs-10 col-sm-10">
-            <p [innerHTML]="sanitizeByHtml(item.message)"></p>
+        <div class="row" *ngIf="item.answer || (isEditMode && roles.isEditor)">
+            <div class="col-xs-3 col-sm-3">Ответ:</div>
+            <div class="col-xs-9 col-sm-9">
+                <i *ngIf="!isEditMode" [innerHTML]="item.answer"></i>
+                <bbeditor *ngIf="isEditMode" name="answer" [value]="item.answer" formControlName="answer"></bbeditor>
+            </div>
+        </div>   
+        <div class="col-xs-12 col-sm-12" *ngIf="!roles.isSelf(item.authorId) && canCommentary && !isAddingMode && roles.isLogined">
+            <a role="button" (click)="showAddCommentModal()">Ответить</a>
         </div>
     </div>
-    <div class="row" *ngIf="item.answer">
-        <div class="col-xs-3 col-sm-3">Ответ:</div>
-        <div class="col-xs-9 col-sm-9">
-            <i [innerHTML]="item.answer"></i>
+    <form class="form-horizontal" role="form" [formGroup]="commentForm" (ngSubmit)="editComment()" *ngIf="isEditMode">
+        <div class="row">
+            <div class="col-xs-2 col-sm-2">
+                <img class="avatar-medium" [src]="item.photo" [alt]="item.authorUserName"/>
+            </div>
+            <div class="col-xs-10 col-sm-10">
+                <bbeditor name="message" formControlName="message"></bbeditor>
+            </div>
         </div>
-    </div>
-    <div class="col-xs-12 col-sm-12" *ngIf="!roles.isSelf(item.authorId) && canCommentary">
-        <a role="button" (click)="showAddCommentModal()">Ответить</a>
+        <div class="row" *ngIf="roles.isEditor">
+            <div class="col-xs-3 col-sm-3">Ответ:</div>
+            <div class="col-xs-9 col-sm-9">
+                <bbeditor name="answer" formControlName="answer"></bbeditor>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12">
+            <button class="btn btn-primary" [disabled]="!commentForm.valid" type="submit">Обновить</button>
+            <button class="btn btn-default" (click)="cancelEdit()" type="button">Отмена</button>
+        </div>
+    </form>
+    <div *ngIf="isAddingMode">
+        <hr/>
+        <h4 class="">Добавление ответа на комментарий</h4>
+        <form class="form-horizontal" role="form" [formGroup]="commentForm" (ngSubmit)="addComment()">
+            <div class="modal-body">
+                <bbeditor name="message" formControlName="message"></bbeditor>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default" data-dismiss="modal" (click)="cancelAdding()" type="button">Отмена</button>
+                <button class="btn btn-primary" [disabled]="!commentForm.valid" type="submit">Добавить</button>
+            </div>
+        </form>
     </div>
 </div>
 <div *ngFor="let child of item.children">
@@ -54,52 +90,6 @@
                     <button class="btn btn-primary" [disabled]="!commentForm.valid" type="submit">Добавить</button>
                 </div>
             </form>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" bsModal #editCommentModal="bs-modal" [config]="{backdrop: 'static'}"
-     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" aria-label="Close" (click)="hideEditModal()">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title">Редактировать комментарий</h4>
-            </div>
-            <form *ngIf="editCommentModal.isShown" class="form-horizontal" role="form" [formGroup]="commentForm" (ngSubmit)="editComment()">
-                <div class="modal-body">
-                    <div>
-                        <bbeditor name="message" [value]="item.message" formControlName="message"></bbeditor>
-                    </div>
-                    <div *ngIf="roles.isEditor">
-                        <bbeditor name="answer" [value]="item.answer" formControlName="answer"></bbeditor>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-default" data-dismiss="modal" (click)="hideEditModal()" type="button">Отмена</button>
-                    <button class="btn btn-primary" [disabled]="!commentForm.valid" type="submit">Обновить</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" bsModal #deleteModal="bs-modal" [config]="{backdrop: 'static'}"
-     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" aria-label="Close" (click)="hideDeleteModal()">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title">Удалить?</h4>
-            </div>
-            <div class="modal-body">
-                <button class="btn btn-default" data-dismiss="modal" (click)="hideDeleteModal()" type="button">Отмена</button>
-                <button class="btn btn-primary" type="button" (click)="delete()">Удалить</button>
-            </div>
         </div>
     </div>
 </div>

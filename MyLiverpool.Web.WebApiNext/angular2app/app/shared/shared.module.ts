@@ -7,10 +7,12 @@ import { RolesCheckedService } from "./roles-checked.service";
 import { GlobalValidators } from "./globalValidators";
 import { ReCaptchaModule } from "angular2-recaptcha";
 import { DeleteDialogComponent } from "./delete-dialog.component";
+import { MdButtonModule } from "@angular/material";
 
 @NgModule({
     imports: [
-        ReCaptchaModule
+        ReCaptchaModule, 
+MdButtonModule
     ],
     declarations: [
         DeleteDialogComponent,

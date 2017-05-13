@@ -132,7 +132,7 @@ namespace MyLiverpool.Business.Services
                 {
                     continue;
                 }
-                var parent = comments.FirstOrDefault(c => c.OldId == comment.OldParentId);
+                var parent = comments.FirstOrDefault(c => c.OldId == comment.OldParentId || c.Id == comment.ParentId);
                 if (parent != null)
                 {
                     if (parent.Children == null)

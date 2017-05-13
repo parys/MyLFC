@@ -5,12 +5,12 @@
 </div>
 
 <form class="form-horizontal" role="form" [formGroup]="commentAddForm" (ngSubmit)="onSubmit()">
-    <div class="col-md-12" *ngIf="canCommentary && roles.isLogined">
+    <div class="col-md-12 row" *ngIf="canCommentary && roles.isLogined">
         <div class="col-md-12">
-            <bbeditor class="col-md-offset-2 col-md-8" name="message" formControlName="message"></bbeditor>
+            <bbeditor class="col-md-12" name="message" formControlName="message"></bbeditor>
         </div>
         <div class="">
-            <button class="btn btn-primary center-block" [disabled]="!commentAddForm.valid" type="submit">Добавить</button>
+            <button class="btn btn-primary center-block" [disabled]="!commentAddForm.valid" type="submit">Д обавить</button>
         </div>
     </div>
 </form>

@@ -35,7 +35,7 @@ import { ReCaptchaModule } from "angular2-recaptcha";
 import { Ng2BreadcrumbModule, BreadcrumbService } from "ng2-breadcrumb/ng2-breadcrumb";
 import { BreadcrumbComponent } from "./shared/breadcrumb.component";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MdTabsModule, MdDialogModule, MdSnackBarModule } from '@angular/material';
+import { MdTabsModule, MdDialogModule, MdSnackBarModule, MdButtonModule, MdInputModule } from '@angular/material';
 
 
 @NgModule({
@@ -47,7 +47,9 @@ import { MdTabsModule, MdDialogModule, MdSnackBarModule } from '@angular/materia
         DatepickerModule.forRoot(),
         ForumModule,
         ModalModule.forRoot(),
+        MdButtonModule.forRoot(),
         MdDialogModule.forRoot(),
+        MdInputModule.forRoot(),
         MdSnackBarModule.forRoot(),
         MdTabsModule.forRoot(),
         Ng2AutoCompleteModule,

@@ -29,6 +29,7 @@ var SharedConfig = {
             "@angular/compiler",
             "@angular/core",
             "@angular/http",
+            "@angular/material",
             "@angular/platform-browser",
             "@angular/platform-browser-dynamic",
             "@angular/router",

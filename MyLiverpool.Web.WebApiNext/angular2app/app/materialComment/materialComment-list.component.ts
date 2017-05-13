@@ -2,12 +2,11 @@
 import { ActivatedRoute } from "@angular/router";
 import { FormGroup, FormBuilder } from "@angular/forms";
 import { Location } from "@angular/common";
+import { MdDialog } from '@angular/material';
 import { Subscription } from "rxjs/Subscription";
-import { Pageable } from "../shared/pageable.model";
 import { MaterialComment } from "./materialComment.model";
 import { MaterialCommentService } from "./materialComment.service";
-import { RolesCheckedService, IRoles } from "../shared/index";
-import { ModalDirective } from "ng2-bootstrap";
+import { RolesCheckedService, IRoles, DeleteDialogComponent, Pageable } from "../shared/index";
 import { MaterialCommentFilter } from "./materialCommentFilter.model";
 
 @Component({
@@ -16,29 +15,27 @@ import { MaterialCommentFilter } from "./materialCommentFilter.model";
 })
 
 export class MaterialCommentListComponent implements OnInit, OnDestroy {
-    sub: Subscription;
-    sub2: Subscription;
-    filterForm: FormGroup;
-    items: MaterialComment[];
-    page: number = 1;
-    onlyUnverified: boolean = false;
-    categoryId: number;
-    userName: string;
-    itemsPerPage = 50;
-    totalItems: number;
-    roles: IRoles;
-    selectedItemIndex: number = undefined;
-                                                              
-    @ViewChild("deleteModal") deleteModal: ModalDirective;
+    private sub: Subscription;
+    private sub2: Subscription;
+    public filterForm: FormGroup;
+    public items: MaterialComment[];
+    public page: number = 1;
+    public onlyUnverified: boolean = false;
+    public categoryId: number;
+    public userName: string;
+    public itemsPerPage = 50;
+    public totalItems: number;
+    public roles: IRoles;
 
     constructor(private materialCommentService: MaterialCommentService,
         private route: ActivatedRoute,
         private location: Location,
         private formBuilder: FormBuilder,
-        private rolesChecked: RolesCheckedService) {
+        private rolesChecked: RolesCheckedService,
+        private dialog: MdDialog) {
     }
 
-    ngOnInit() {
+    public ngOnInit(): void {
         this.initForm();
         this.roles = this.rolesChecked.checkRoles();
         this.sub = this.route.queryParams.subscribe(qParams => {
@@ -51,17 +48,17 @@ export class MaterialCommentListComponent implements OnInit, OnDestroy {
         this.update();
     }
 
-    ngOnDestroy(): void {
+    public ngOnDestroy(): void {
         if(this.sub) this.sub.unsubscribe();
         if(this.sub2) this.sub2.unsubscribe();
     }
 
-    pageChanged(event: any): void {
+    public pageChanged(event: any): void {
         this.page = event.page;
         this.update();
     };
 
-    update(): void {
+    public update(): void {
         let filters = new MaterialCommentFilter();
         filters.onlyUnverified = this.filterForm.get("onlyUnverified").value;
         filters.page = this.page;
@@ -87,42 +84,39 @@ export class MaterialCommentListComponent implements OnInit, OnDestroy {
         this.totalItems = pageable.totalItems;
     }
 
-    hideModal(): void {
-        this.selectedItemIndex = undefined;
-        this.deleteModal.hide();
-    }
-
-    verify(index: number): void {
+    public verify(index: number): void {
         let result: boolean;
         this.materialCommentService
             .verify(this.items[index].id)
             .subscribe(data => result = data,
-            error => console.log(error),
+                error => console.log(error),
                 () => {
                     if (result) {
                         this.items[index].isVerified = true;
                     }
-                }
-            );
+                });
     }
 
-    showDeleteModal(index: number): void {
-        this.selectedItemIndex = index;
-        this.deleteModal.show();
+    private showDeleteModal(index: number): void {
+        let dialogRef = this.dialog.open(DeleteDialogComponent);
+        dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                this.delete(index);
+            }
+        }, e => console.log(e));
     }
 
-    delete(): void {
+    private delete(index: number): void {
         let result: boolean;
-        this.materialCommentService.delete(this.items[this.selectedItemIndex].id)
+        this.materialCommentService.delete(this.items[index].id)
             .subscribe(res => result = res,
             e => console.log(e),
             () => {
                 if (result) {
-                    this.items.splice(this.selectedItemIndex, 1);
-                    this.hideModal();
+                    this.items.splice(index, 1);
+                    this.totalItems -= 1;
                 }
-            }
-            );
+            });
     }
 
     private initForm(): void {

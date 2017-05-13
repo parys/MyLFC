@@ -1,70 +1,55 @@
-﻿import { Component, OnInit, ViewChild } from "@angular/core";
-import { Observable } from "rxjs/Observable";
+﻿import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Location } from "@angular/common";
-import { Title } from "@angular/platform-browser";
-import { Router, ActivatedRoute } from "@angular/router";
+import { ActivatedRoute } from "@angular/router";
+import { MdDialog } from '@angular/material';
 import { Subscription } from "rxjs/Subscription";
 import { Person } from "./person.model";
 import { PersonService } from "./person.service";
-import { Pageable } from "../shared/pageable.model";
-import { ModalDirective } from "ng2-bootstrap";
+import { Pageable, DeleteDialogComponent } from "../shared/index";
 
 @Component({
     selector: "person-list",
     templateUrl: "./person-list.component.html"
 })
 
-export class PersonListComponent implements OnInit {
+export class PersonListComponent implements OnInit, OnDestroy {
     sub: Subscription;
     items: Person[];
     page: number = 1;
     itemsPerPage: number = 15;
     totalItems: number;
     userName: string;
-    selectedItemIndex: number = null;
-    @ViewChild("deleteModal") deleteModal: ModalDirective;
 
     constructor(private personService: PersonService,
         private route: ActivatedRoute,
-        private location: Location) {
+        private location: Location,
+        private dialog: MdDialog) {
     }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         this.sub = this.route.queryParams.subscribe(qParams => {
                 this.page = qParams["page"] || 1;
              //   this.categoryId = qParams["categoryId"] || "";
                 this.userName = qParams["userName"] || "";
-              //  this.onlyUnverified = qParams["onlyUnverified"] || false;
             },
             error => console.log(error));
         this.update();
     }
 
-    showDeleteModal(index: number): void {
-        this.selectedItemIndex = index;
-        this.deleteModal.show();
+    public ngOnDestroy(): void {
+        if(this.sub) this.sub.unsubscribe();
     }
 
-    hideModal(): void {
-        this.selectedItemIndex = null;
-        this.deleteModal.hide();
-    }
-
-    delete(): void {
-        let result: boolean;
-        this.personService.delete(this.items[this.selectedItemIndex].id)
-            .subscribe(res => result = res,
-            e => console.log(e),
-            () => {
-                if (result) {
-                    this.items.splice(this.selectedItemIndex, 1);
-                    this.hideModal();
-                }
+    public showDeleteModal(index: number): void {
+        let dialogRef = this.dialog.open(DeleteDialogComponent);
+        dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                this.delete(index);
             }
-            );
+        }, e => console.log(e));
     }
 
-    update(): void {
+    public update(): void {
         //let filters = new UserFilters();
         ////  filters.categoryId = this.categoryId;
         ////  filters.materialType = "News";
@@ -77,7 +62,7 @@ export class PersonListComponent implements OnInit {
             error => console.log(error));
     }
 
-    pageChanged(event: any): void {
+    public pageChanged(event: any): void {
         this.page = event.page;
         this.update();
         let newUrl = `persons?page=${this.page}`;
@@ -87,10 +72,23 @@ export class PersonListComponent implements OnInit {
         this.location.replaceState(newUrl);
     };
 
-    setAsBestPlayer(personId: number) {
+    public setAsBestPlayer(personId: number): void {
         this.personService.setBestPlayer(personId)
             .subscribe(data => data, //todo add subscription
             error => console.log(error));
+    }
+
+    private delete(index: number): void {
+        let result: boolean;
+        this.personService.delete(this.items[index].id)
+            .subscribe(res => result = res,
+                e => console.log(e),
+                () => {
+                    if (result) {
+                        this.items.splice(index, 1);
+                        this.totalItems -= 1;
+                    }
+                });
     }
 
     private parsePageable(pageable: Pageable<Person>): void {

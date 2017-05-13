@@ -1,12 +1,12 @@
 ﻿import { Component, OnInit, ViewChild } from "@angular/core";
-import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
-import { Location } from "@angular/common";      
-import { Observable } from "rxjs/Observable";
+import { Location } from "@angular/common";
+import { MdDialog } from '@angular/material';
 import { ForumThemeService } from "./forumTheme.service";
 import { ForumMessage, ForumMessageService } from "../forumMessage/index";
 import { ForumTheme } from "./forumTheme.model";
-import { RolesCheckedService, IRoles } from "../../shared/index";
+import { RolesCheckedService, IRoles, DeleteDialogComponent } from "../../shared/index";
 import { ModalDirective } from "ng2-bootstrap";
 
 @Component({
@@ -21,7 +21,6 @@ export class ForumThemeListComponent implements OnInit {
     itemsPerPage = 15;
     totalItems: number;
     @ViewChild("editCommentModal") editCommentModal: ModalDirective;
-    @ViewChild("deleteModal") deleteModal: ModalDirective;
     commentForm: FormGroup;
     selectedItemIndex: number = null;     
 
@@ -30,19 +29,20 @@ export class ForumThemeListComponent implements OnInit {
         private rolesChecked: RolesCheckedService,
         private route: ActivatedRoute,
         private formBuilder: FormBuilder,
-        private location: Location) {
+        private location: Location,
+        private dialog: MdDialog) {
     }
 
-    ngOnInit() {
+    public ngOnInit() {
         this.roles = this.rolesChecked.checkRoles();
         this.page = +this.route.snapshot.queryParams["page"] || 1;
         this.update(+this.route.snapshot.params["id"]);
     };
 
-    ngOnDestroy() {
+    public ngOnDestroy() {
     }
 
-    pageChanged(event: any): void {
+    public pageChanged(event: any): void {
         this.page = event.page;
         this.update(this.item.id);
         let newUrl = `forum/themes/${this.item.id}?page=${this.page}`;
@@ -50,33 +50,33 @@ export class ForumThemeListComponent implements OnInit {
         this.location.replaceState(newUrl);
     };
 
-    addNewMessage(message: ForumMessage) {
+    public addNewMessage(message: ForumMessage) {
         this.items.push(message);
         this.totalItems += 1;
     }
 
-    showEditModal(index: number): void {
+    public showEditModal(index: number): void {
         this.selectedItemIndex = index;
         this.initForm(index);
        // this.commentForm.patchValue();
         this.editCommentModal.show();
     }
 
-    hideEditModal() {
+    public hideEditModal() {
         this.commentForm = null;
         this.selectedItemIndex = null;
         this.editCommentModal.hide();
     }
-    showDeleteModal(index: number): void {
-        this.selectedItemIndex = index;
-        this.deleteModal.show();
+    public showDeleteModal(index: number): void {
+        let dialogRef = this.dialog.open(DeleteDialogComponent);
+        dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                this.delete(index);
+            }
+        }, e => console.log(e));
     }
 
-    hideDeleteModal(): void {
-        this.deleteModal.hide();
-    }
-
-    editComment(): void {
+    public editComment(): void {
         let comment = this.items[this.selectedItemIndex];
         comment.message = this.commentForm.get("message").value;
         this.messageService.update(comment.id, comment)
@@ -89,20 +89,17 @@ export class ForumThemeListComponent implements OnInit {
             () => { });
     }
 
-    delete(): void {
+    private delete(index: number): void {
         let result : boolean;
-        this.messageService.delete(this.items[this.selectedItemIndex].id)
+        this.messageService.delete(this.items[index].id)
             .subscribe(res => result = res,
             e => console.log(e),
             () => {
                 if (result) {
-                    this.items.splice(this.selectedItemIndex, 1);
-
-                    // this.items.splice(this.selectedItemIndex, 1);
-                    this.hideDeleteModal();
+                    this.items.splice(index, 1);
+                    this.totalItems -= 1;
                 }
-            }
-            );
+            });
     }
 
     private initForm(index: number = null) {
@@ -113,7 +110,7 @@ export class ForumThemeListComponent implements OnInit {
         });
     }
 
-    private update(id: number) {
+    private update(id: number): void {
         this.service.getSingleWithMessages(id, this.page)
             .subscribe(data => {
                 this.item = data;
@@ -121,7 +118,6 @@ export class ForumThemeListComponent implements OnInit {
                 this.items = data.messages.list;
                 this.totalItems = data.messages.totalItems;
             },
-            error => console.log(error),
-            () => { });
+            error => console.log(error));
     }
 }

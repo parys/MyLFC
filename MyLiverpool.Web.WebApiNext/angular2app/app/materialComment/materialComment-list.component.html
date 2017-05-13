@@ -31,21 +31,3 @@
     <pagination *ngIf="items" [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" [(ngModel)]="page" [maxSize]="7" (pageChanged)="pageChanged($event)"
                 previousText="&lsaquo;" nextText="&rsaquo;" firstText="1" lastText="totalItems/itemsPerPage"></pagination>
 </div>
-
-<div class="modal fade" bsModal #deleteModal="bs-modal" [config]="{backdrop: 'static'}"
-     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" aria-label="Close" (click)="hideModal()">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title">Удалить?</h4>
-            </div>
-            <div class="modal-body">
-                <button class="btn btn-default" data-dismiss="modal" (click)="hideModal()" type="button">Отмена</button>
-                <button class="btn btn-primary" type="button" (click)="delete()">Удалить</button>
-            </div>
-        </div>
-    </div>
-</div>

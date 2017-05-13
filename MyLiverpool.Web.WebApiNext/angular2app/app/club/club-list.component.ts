@@ -1,13 +1,11 @@
-﻿import { Component, OnInit, ViewChild } from "@angular/core";
-import { Observable } from "rxjs/Observable";
+﻿import { Component, OnInit } from "@angular/core";
 import { Location } from "@angular/common";
-import { Title } from "@angular/platform-browser";
 import { Router, ActivatedRoute } from "@angular/router";
+import { MdDialog } from '@angular/material';
 import { Subscription } from "rxjs/Subscription";
 import { Club } from "./club.model";
 import { ClubService } from "./club.service";
-import { Pageable } from "../shared/pageable.model";
-import { ModalDirective } from "ng2-bootstrap";
+import { Pageable, DeleteDialogComponent } from "../shared/index";
 
 @Component({
     selector: "club-list",
@@ -15,21 +13,20 @@ import { ModalDirective } from "ng2-bootstrap";
 })
 
 export class ClubListComponent implements OnInit {
-    items: Club[];
-    page: number = 1;
-    itemsPerPage: number = 15;
-    totalItems: number;
+    public items: Club[];
+    public page: number = 1;
+    public itemsPerPage: number = 15;
+    public totalItems: number;
     //categoryId: number;
-    userName: string;
-    selectedItemIndex: number = null; 
-    @ViewChild("deleteModal") deleteModal: ModalDirective;
+    public userName: string;
 
-    constructor(private clubService: ClubService, private route: ActivatedRoute, private location: Location,
-        titleService: Title) {
-        titleService.setTitle("Клубы");
+    constructor(private clubService: ClubService,
+        private route: ActivatedRoute,
+        private location: Location,
+        private dialog: MdDialog) {
     }
 
-    ngOnInit() {
+    public ngOnInit(): void {
         if(+this.route.snapshot.queryParams["page"]) {
             this.page = +this.route.snapshot.queryParams["page"];
             }
@@ -38,31 +35,16 @@ export class ClubListComponent implements OnInit {
             this.update();
         }
 
-    showDeleteModal(index: number): void {
-        this.selectedItemIndex = index;
-        this.deleteModal.show();
-    }
-
-    hideModal(): void {
-        this.selectedItemIndex = null;
-        this.deleteModal.hide();
-    }
-
-    delete(): void {
-        let result: boolean;
-        this.clubService.delete(this.items[this.selectedItemIndex].id)
-            .subscribe(res => result = res,
-            e => console.log(e),
-            () => {
-                if (result) {
-                    this.items.splice(this.selectedItemIndex, 1);
-                    this.hideModal();
-                }
+    public showDeleteModal(index: number): void {
+        let dialogRef = this.dialog.open(DeleteDialogComponent);
+        dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                this.delete(index);
             }
-            );
+        }, e => console.log(e));
     }
 
-    update() {
+    public update(): void {
         //let filters = new UserFilters();
         ////  filters.categoryId = this.categoryId;
         ////  filters.materialType = "News";
@@ -72,11 +54,10 @@ export class ClubListComponent implements OnInit {
         this.clubService
             .getAll(this.page)
             .subscribe(data => this.parsePageable(data),
-            error => console.log(error),
-            () => { });
+            error => console.log(error));
     }
 
-    pageChanged(event: any): void {
+    public pageChanged(event: any): void {
         this.page = event.page;
         this.update();
         let newUrl = `clubs?page=${this.page}`;
@@ -85,6 +66,19 @@ export class ClubListComponent implements OnInit {
        // }
         this.location.replaceState(newUrl);
     };
+
+    private delete(index: number): void {
+        let result: boolean;
+        this.clubService.delete(this.items[index].id)
+            .subscribe(res => result = res,
+                e => console.log(e),
+                () => {
+                    if (result) {
+                        this.items.splice(index, 1);
+                    }
+                }
+            );
+    }
 
     private parsePageable(pageable: Pageable<Club>): void {
         this.items = pageable.list;
