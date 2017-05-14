@@ -288,6 +288,10 @@ textarea {
     padding: 10px;
 }
 
+.red-color {
+    color: red;
+}
+
 @media (min-width: 768px) {
     .dropdown:hover .dropdown-menu {
         display: block;

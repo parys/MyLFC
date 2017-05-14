@@ -55,17 +55,19 @@ namespace MyLiverpool.Business.Services
                 foreach (var club in clubs)
                 {
                     var goalsSign = club.goals > 0 ? "+" : "";
-                    var startTag = club.name.ToLower() == "ливерпуль" ? "<b>" : "";
-                    var endTag = club.name.ToLower() == "ливерпуль" ? "</b>" : "";
-                    newRows.AppendLine($@"<tr>{startTag}
-                                        <td>{club.position}</td>
-                                        <td>{club.name}</td>
-                                        <td>{club.matches}</td>
-                                        <td>{club.won}</td>
-                                        <td>{club.draw}</td>
-                                        <td>{club.lost}</td>
-                                        <td>{goalsSign}{club.goals}</td>
-                                        <td>{club.points}</td>{endTag}
+                    var isLiverpool = club.name.ToLower().Contains("ливерпуль");
+                    var startTag = isLiverpool ? "<b>" : "";
+                    var endTag = isLiverpool ? "</b>" : "";
+                    var cssClass = isLiverpool ? " class=\"red-color\"" : "";
+                    newRows.AppendLine($@"<tr{cssClass}>
+                                        <td>{startTag}{club.position}{endTag}</td>
+                                        <td>{startTag}{club.name}{endTag}</td>
+                                        <td>{startTag}{club.matches}{endTag}</td>
+                                        <td>{startTag}{club.won}{endTag}</td>
+                                        <td>{startTag}{club.draw}{endTag}</td>
+                                        <td>{startTag}{club.lost}{endTag}</td>
+                                        <td>{startTag}{goalsSign}{club.goals}{endTag}</td>
+                                        <td>{startTag}{club.points}{endTag}</td>
                                         </tr>");
                 }
                 newRows.Append("</tbody></table>");
