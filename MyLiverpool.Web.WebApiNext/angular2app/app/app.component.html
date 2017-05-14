@@ -2,23 +2,22 @@
     <navbar></navbar>
     <div class="row">
         <div class="bg-gray col-xs-12">
-            <breadcrumb prefix="Главная" class="col-xs-9 row"></breadcrumb>
-            <span class="bg-gray col-xs-3 pull-right">
+            <breadcrumb prefix="Главная" class="col-xs-8 row"></breadcrumb>
+            <span class="bg-gray col-xs-4 pull-right">
                 <a [routerLink]="['/wishes']" class="btn btn-success pull-right col-xs-12" style="margin-right: -30px;">
                     Помогите нам стать лучше
                 </a>
             </span>
         </div>
-        <div class="col-xs-12 col-sm-push-3 col-sm-6 container-fluid main-container">
+        <div class="col-xs-12 container-fluid main-container" [class.col-sm-6]="isRoot" [class.col-sm-9]="!isRoot" [class.col-sm-push-3]="isRoot">
             <router-outlet></router-outlet>
         </div>
-        <div class="col-xs-6 col-sm-pull-6 col-sm-3 padding0">
-            <match-calendar></match-calendar>
-            <best-player></best-player>
-            <epl-table></epl-table>
+        <div *ngIf="isRoot" class="col-xs-12 col-sm-pull-6 col-sm-3 padding0">
+            <sidebar-left></sidebar-left>
         </div>
-        <div class="col-xs-6 col-sm-3">
-            <right-sidebar></right-sidebar>
+        <div class="col-xs-12 col-sm-3">
+            <sidebar-right></sidebar-right>
+            <sidebar-left *ngIf="!isRoot"></sidebar-left>
         </div>
     </div>
     <hr />

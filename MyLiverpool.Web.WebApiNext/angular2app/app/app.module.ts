@@ -28,7 +28,7 @@ import { WishModule } from "./wish/index";
 import * as materialComment from "./materialComment/index";
 import { Ng2AutoCompleteModule } from "ng2-auto-complete";
 import { AdminService, EplTableComponent } from "./admin/index";
-import { ModalModule, PaginationModule } from "ng2-bootstrap";
+import { PaginationModule } from "ng2-bootstrap";
 import { DatepickerModule } from "ng2-bootstrap/datepicker";
 import { TimepickerModule } from "ng2-bootstrap/timepicker";
 import { ReCaptchaModule } from "angular2-recaptcha";
@@ -46,7 +46,6 @@ import { MdTabsModule, MdDialogModule, MdSnackBarModule, MdButtonModule, MdInput
         HttpModule,
         DatepickerModule.forRoot(),
         ForumModule,
-        ModalModule.forRoot(),
         MdButtonModule.forRoot(),
         MdDialogModule.forRoot(),
         MdInputModule.forRoot(),
@@ -78,7 +77,8 @@ import { MdTabsModule, MdDialogModule, MdSnackBarModule, MdButtonModule, MdInput
         home.CoachTeamComponent,
         home.ClubHistoryComponent,
         home.NavbarComponent,
-        home.RightSidebarComponent,
+        home.SidebarLeftComponent,
+        home.SidebarRightComponent,
         home.RulesComponent,
         home.SquadComponent,
         image.ImageAdditionComponent,

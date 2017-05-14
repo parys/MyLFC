@@ -13,7 +13,8 @@ import { BreadcrumbService } from "ng2-breadcrumb/ng2-breadcrumb";
 })
 
 export class AppComponent {
-    roles: IRoles;
+    public roles: IRoles;
+    public isRoot: boolean = false;
     private viewContainerRef: ViewContainerRef;
 
     constructor(private router: Router,
@@ -40,7 +41,10 @@ export class AppComponent {
             })
             .filter((route: ActivatedRoute) => route.outlet === "primary")
             .mergeMap((route: ActivatedRoute) => route.data)
-            .subscribe((event) => this.titleService.setTitle(event["title"]));
+            .subscribe((event) => {
+                this.titleService.setTitle(event["title"]);
+                this.isRoot = (event["title"] === "MyLFC.ru - Сайт русскоязычных болельщиков \"Ливерпуля\"");
+            });
     }
 
     private setUpBreadcrumbs(): void {

@@ -1,35 +1,36 @@
-﻿import { Component, OnInit, ViewChild } from "@angular/core";
+﻿import { Component, OnInit, OnDestroy } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 import { Location } from "@angular/common";
 import { MdDialog } from '@angular/material';
+import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { Subscription } from "rxjs/Subscription";
 import { ForumThemeService } from "./forumTheme.service";
 import { ForumMessage, ForumMessageService } from "../forumMessage/index";
 import { ForumTheme } from "./forumTheme.model";
 import { RolesCheckedService, IRoles, DeleteDialogComponent } from "../../shared/index";
-import { ModalDirective } from "ng2-bootstrap";
 
 @Component({
     selector: "forumTheme-list",
     templateUrl: "./forumTheme-list.component.html"
 })
-export class ForumThemeListComponent implements OnInit {
+export class ForumThemeListComponent implements OnInit, OnDestroy {
     private sub: Subscription;
-    item: ForumTheme;
+    public item: ForumTheme;
     public items: ForumMessage[];
     public roles: IRoles;         
     public page: number = 1;
     public itemsPerPage = 15;
     public totalItems: number;
-    @ViewChild("editCommentModal") editCommentModal: ModalDirective;
     public commentForm: FormGroup;
-    selectedItemIndex: number = null;     
+    public isEditMode: boolean = false;
+    public selectedCommentIndex: number = null;
 
     constructor(private service: ForumThemeService,
         private messageService: ForumMessageService,
         private rolesChecked: RolesCheckedService,
         private route: ActivatedRoute,
+        private sanitizer: DomSanitizer,
         private formBuilder: FormBuilder,
         private location: Location,
         private dialog: MdDialog) {
@@ -51,7 +52,7 @@ export class ForumThemeListComponent implements OnInit {
     public pageChanged(event: any): void {
         this.page = event.page;
         this.update(this.item.id);
-        let newUrl = `forum/themes/${this.item.id}?page=${this.page}`;
+        let newUrl = `forum/${this.item.subsectionId}/themes/${this.item.id}?page=${this.page}`;
 
         this.location.replaceState(newUrl);
     };
@@ -62,16 +63,14 @@ export class ForumThemeListComponent implements OnInit {
     }
 
     public showEditModal(index: number): void {
-        this.selectedItemIndex = index;
+        this.isEditMode = true;
+        this.selectedCommentIndex = index;
         this.initForm(index);
-       // this.commentForm.patchValue();
-        this.editCommentModal.show();
     }
 
     public hideEditModal() {
         this.commentForm = null;
-        this.selectedItemIndex = null;
-        this.editCommentModal.hide();
+        this.isEditMode = false;
     }
     public showDeleteModal(index: number): void {
         let dialogRef = this.dialog.open(DeleteDialogComponent);
@@ -82,17 +81,20 @@ export class ForumThemeListComponent implements OnInit {
         }, e => console.log(e));
     }
 
-    public editComment(): void {
-        let comment = this.items[this.selectedItemIndex];
+    public editComment(index: number): void {
+        let comment = this.items[index];
         comment.message = this.commentForm.get("message").value;
         this.messageService.update(comment.id, comment)
             .subscribe(data => {
-                this.items[this.selectedItemIndex].message = data.message;
-                this.items[this.selectedItemIndex].lastModifiedTime = data.lastModifiedTime;
+                this.items[index].message = data.message;
+                this.items[index].lastModifiedTime = data.lastModifiedTime;
                 this.hideEditModal();
             },
-            error => console.log(error),
-            () => { });
+            error => console.log(error));
+    }
+
+    public sanitizeByHtml(text: string): SafeHtml {
+        return this.sanitizer.bypassSecurityTrustHtml(text);
     }
 
     private delete(index: number): void {

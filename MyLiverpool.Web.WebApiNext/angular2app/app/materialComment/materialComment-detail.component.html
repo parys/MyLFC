@@ -69,27 +69,3 @@
 <div *ngFor="let child of item.children">
     <materialComment-detail [item]="child" [deep]="deep > 6 ? 7 : deep+1" [materialId]="materialId" [canCommentary]="canCommentary" [parent]="item"></materialComment-detail>
 </div>
-
-<div class="modal fade" bsModal #addCommentModal="bs-modal" [config]="{backdrop: 'static'}"
-     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" aria-label="Close" (click)="hideAddModal()">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title">Добавить комментарий</h4>
-            </div>
-
-            <form *ngIf="addCommentModal.isShown" class="form-horizontal" role="form" [formGroup]="commentForm" (ngSubmit)="addComment()">
-                <div class="modal-body">
-                    <bbeditor name="message" formControlName="message"></bbeditor>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-default" data-dismiss="modal" (click)="hideAddModal()" type="button">Отмена</button>
-                    <button class="btn btn-primary" [disabled]="!commentForm.valid" type="submit">Добавить</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
