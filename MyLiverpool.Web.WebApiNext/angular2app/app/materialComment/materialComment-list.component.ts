@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, ViewChild, OnDestroy } from "@angular/core";
+﻿import { Component, OnInit, OnDestroy } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { FormGroup, FormBuilder } from "@angular/forms";
 import { Location } from "@angular/common";
@@ -13,7 +13,6 @@ import { MaterialCommentFilter } from "./materialCommentFilter.model";
     selector: "materialComment-list",
     templateUrl: "./materialComment-list.component.html"
 })
-
 export class MaterialCommentListComponent implements OnInit, OnDestroy {
     private sub: Subscription;
     private sub2: Subscription;
@@ -49,8 +48,8 @@ export class MaterialCommentListComponent implements OnInit, OnDestroy {
     }
 
     public ngOnDestroy(): void {
-        if(this.sub) this.sub.unsubscribe();
-        if(this.sub2) this.sub2.unsubscribe();
+        if (this.sub) this.sub.unsubscribe();
+        if (this.sub2) this.sub2.unsubscribe();
     }
 
     public pageChanged(event: any): void {
@@ -65,8 +64,8 @@ export class MaterialCommentListComponent implements OnInit, OnDestroy {
         this.sub2 = this.materialCommentService
             .getAll(filters)
             .subscribe(data => this.parsePageable(data),
-            error => console.log(error),
-            () => {this.updateLocation();});
+                error => console.log(error),
+                () => { this.updateLocation(); });
     }
 
     private updateLocation(): void {
@@ -100,23 +99,24 @@ export class MaterialCommentListComponent implements OnInit, OnDestroy {
     private showDeleteModal(index: number): void {
         let dialogRef = this.dialog.open(DeleteDialogComponent);
         dialogRef.afterClosed().subscribe(result => {
-            if (result) {
-                this.delete(index);
-            }
-        }, e => console.log(e));
+                if (result) {
+                    this.delete(index);
+                }
+            },
+            e => console.log(e));
     }
 
     private delete(index: number): void {
         let result: boolean;
         this.materialCommentService.delete(this.items[index].id)
             .subscribe(res => result = res,
-            e => console.log(e),
-            () => {
-                if (result) {
-                    this.items.splice(index, 1);
-                    this.totalItems -= 1;
-                }
-            });
+                e => console.log(e),
+                () => {
+                    if (result) {
+                        this.items.splice(index, 1);
+                        this.totalItems -= 1;
+                    }
+                });
     }
 
     private initForm(): void {

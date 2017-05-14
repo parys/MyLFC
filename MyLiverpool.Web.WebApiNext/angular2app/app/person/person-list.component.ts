@@ -13,12 +13,13 @@ import { Pageable, DeleteDialogComponent } from "../shared/index";
 })
 
 export class PersonListComponent implements OnInit, OnDestroy {
-    sub: Subscription;
-    items: Person[];
-    page: number = 1;
-    itemsPerPage: number = 15;
-    totalItems: number;
-    userName: string;
+    private sub: Subscription;
+    private sub2: Subscription;
+    public items: Person[];
+    public page: number = 1;
+    public itemsPerPage: number = 15;
+    public totalItems: number;
+    private userName: string;
 
     constructor(private personService: PersonService,
         private route: ActivatedRoute,
@@ -29,7 +30,6 @@ export class PersonListComponent implements OnInit, OnDestroy {
     public ngOnInit(): void {
         this.sub = this.route.queryParams.subscribe(qParams => {
                 this.page = qParams["page"] || 1;
-             //   this.categoryId = qParams["categoryId"] || "";
                 this.userName = qParams["userName"] || "";
             },
             error => console.log(error));
@@ -38,6 +38,7 @@ export class PersonListComponent implements OnInit, OnDestroy {
 
     public ngOnDestroy(): void {
         if(this.sub) this.sub.unsubscribe();
+        if(this.sub2) this.sub2.unsubscribe();
     }
 
     public showDeleteModal(index: number): void {
@@ -50,15 +51,9 @@ export class PersonListComponent implements OnInit, OnDestroy {
     }
 
     public update(): void {
-        //let filters = new UserFilters();
-        ////  filters.categoryId = this.categoryId;
-        ////  filters.materialType = "News";
-        //filters.userName = this.userName;
-        //filters.page = this.page;
-
-        this.personService
+        this.sub2 = this.personService
             .getAll(this.page)
-            .subscribe(data => this.parsePageable(data), //todo add subscription
+            .subscribe(data => this.parsePageable(data),
             error => console.log(error));
     }
 
@@ -66,9 +61,6 @@ export class PersonListComponent implements OnInit, OnDestroy {
         this.page = event.page;
         this.update();
         let newUrl = `persons?page=${this.page}`;
-        //if (this.categoryId) {
-        //     newUrl = `${newUrl}/${this.categoryId}`;
-        // }
         this.location.replaceState(newUrl);
     };
 

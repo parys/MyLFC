@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 import { Location } from "@angular/common";
 import { MdDialog } from '@angular/material';
+import { Subscription } from "rxjs/Subscription";
 import { ForumThemeService } from "./forumTheme.service";
 import { ForumMessage, ForumMessageService } from "../forumMessage/index";
 import { ForumTheme } from "./forumTheme.model";
@@ -14,14 +15,15 @@ import { ModalDirective } from "ng2-bootstrap";
     templateUrl: "./forumTheme-list.component.html"
 })
 export class ForumThemeListComponent implements OnInit {
+    private sub: Subscription;
     item: ForumTheme;
-    items: ForumMessage[];
-    roles: IRoles;         
-    page: number = 1;
-    itemsPerPage = 15;
-    totalItems: number;
+    public items: ForumMessage[];
+    public roles: IRoles;         
+    public page: number = 1;
+    public itemsPerPage = 15;
+    public totalItems: number;
     @ViewChild("editCommentModal") editCommentModal: ModalDirective;
-    commentForm: FormGroup;
+    public commentForm: FormGroup;
     selectedItemIndex: number = null;     
 
     constructor(private service: ForumThemeService,
@@ -33,13 +35,17 @@ export class ForumThemeListComponent implements OnInit {
         private dialog: MdDialog) {
     }
 
-    public ngOnInit() {
+    public ngOnInit(): void {
         this.roles = this.rolesChecked.checkRoles();
-        this.page = +this.route.snapshot.queryParams["page"] || 1;
+        this.sub = this.route.queryParams.subscribe(qParams => {
+                this.page = +qParams["page"] || 1;
+            },
+            e => console.log(e));
         this.update(+this.route.snapshot.params["id"]);
     };
 
-    public ngOnDestroy() {
+    public ngOnDestroy(): void {
+        if (this.sub) this.sub.unsubscribe();
     }
 
     public pageChanged(event: any): void {
