@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit, OnDestroy } from "@angular/core";
-import { Router, ActivatedRoute } from "@angular/router";
+import { ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
 import { Pm } from "./pm.model";
 import { PmService } from "./pm.service";
@@ -12,34 +12,40 @@ import { RolesCheckedService, IRoles } from "../shared/index";
 
 export class PmDetailComponent implements OnInit, OnDestroy {
     private sub: Subscription;
-    item: Pm;
-    roles: IRoles;
-    selectedUserId: number;
+    public item: Pm;
+    public roles: IRoles;
+    public selectedUserId: number;
+    public selectedUserName: string;
 
     constructor(private pmService: PmService,
         private rolesChecked: RolesCheckedService,
         private route: ActivatedRoute) { }
 
-    ngOnInit() {
+    public ngOnInit(): void {
         this.roles = this.rolesChecked.checkRoles();
         this.sub = this.route.params.subscribe(params => {
             let id = +params["id"];
             this.pmService.getSingle(id)
                 .subscribe(data => this.parse(data),
-                error => console.log(error),
-                () => {});
+                error => console.log(error));
         });
     }
 
-    ngOnDestroy() {
+    public ngOnDestroy(): void {
         this.sub.unsubscribe();
     }
 
-    writePm(): void {
-        this.selectedUserId = this.item.receiverId;
+    public writePm(): void {
+        if (this.roles.isSelf(this.item.senderId)) {
+            this.selectedUserId = this.item.receiverId;
+            this.selectedUserName = this.item.receiver;
+        } else {
+            this.selectedUserId = this.item.senderId;
+            this.selectedUserName = this.item.sender;
+        }
     }
 
-    closePmWindow(event: any): void {
+    public closePmWindow(event: any): void {
         this.selectedUserId = null;
     }
 

@@ -10,8 +10,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// <summary>
     /// Manages private messages.
     /// </summary>
-    [Route("api/v1/[controller]")]
-    [Authorize]
+    [Authorize, Route("api/v1/[controller]")]
     public class PmController : Controller
     {
         private readonly IPmService _pmService;
@@ -29,9 +28,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [Route("")]
-        [HttpGet]
-        [Authorize]
+        [Authorize, HttpGet("")]
         public async Task<IActionResult> GetPms()
         {
             var model = await _pmService.GetListAsync(User.GetUserId());
@@ -39,13 +36,11 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Returns detailed pm.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [Route("{id:int}")]
-        [HttpGet]
-        [Authorize]
+        [Authorize, HttpGet("{id:int}")]
         public async Task<IActionResult> Pm(int id)
         {
             var model = await _pmService.GetAsync(id, User.GetUserId());
@@ -53,13 +48,11 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Creates new private message.
         /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        [Route("")]
-        [HttpPost]
-        [Authorize]
+        /// <param name="model">Private message model.</param>
+        /// <returns>Is created successfully.</returns>
+        [Authorize, HttpPost("")]
         public async Task<IActionResult> WritePm([FromBody]PrivateMessageDto model)
         {
             if (!ModelState.IsValid)
@@ -76,12 +69,10 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Returns count of unreaded messages.
         /// </summary>
-        /// <returns></returns>
-        [Route("GetUnreadPmCount")]
-        [HttpGet]
-        [Authorize]
+        /// <returns>Count of unreaded messages.</returns>
+        [Authorize, HttpGet("GetUnreadPmCount")]
         public async Task<IActionResult> GetUnreadPmCount()
         {
             var result = await _pmService.GetUnreadPmCountAsync(User.GetUserId());

@@ -44,6 +44,7 @@ namespace MyLiverpool.Business.Services
             match.IsHome = dto.IsHome;
             match.MatchType = (MatchTypeEnum)dto.TypeId;
             match.ClubId = dto.ClubId;
+            match.Club = null;
             match.ReportUrl = dto.ReportUrl;
             match.PhotoUrl = dto.PhotoUrl;
             match.VideoUrl = dto.VideoUrl;
