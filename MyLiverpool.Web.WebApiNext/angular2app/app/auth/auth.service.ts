@@ -1,54 +1,175 @@
 ﻿import { Injectable } from "@angular/core";
-import { Router } from "@angular/router";
+import { Http, Headers, RequestOptions, Response, URLSearchParams } from '@angular/http';
+import { Observable } from "rxjs/Observable";
+import "rxjs/add/observable/interval";
+import { Subscription } from "rxjs/Subscription";
+import { BehaviorSubject } from "rxjs/BehaviorSubject";
+import { IRefreshGrantModel } from "./models/refresh-grant-model";
+import { IProfileModel } from "./models/profile-model";
+import { IAuthStateModel } from "./models/auth-state-model";
+import { IAuthTokenModel } from "./models/auth-tokens-model";
+import { IRegisterModel } from "./models/register-model";
+import { ILoginModel } from "./models/login-model";
 import { RolesCheckedService, HttpWrapper, LocalStorageService } from "../shared/index";
+const jwtDecode = require("jwt-decode");
 
 @Injectable()
 export class AuthService {
-    roles: string[] = [];
-    id: number;
+    public roles: string[] = [];
+    private id: number;
+
+    private initalState: IAuthStateModel = { profile: null, tokens: null, authReady: false };
+    private authReady$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+    private state: BehaviorSubject<IAuthStateModel>;
+    private refreshSubscription$: Subscription;
+
+    public state$: Observable<IAuthStateModel>;
+    public tokens$: Observable<IAuthTokenModel>;
+    public profile$: Observable<IProfileModel>;
+    public loggedIn$: Observable<boolean>;
 
     constructor(private http: HttpWrapper,
+        private http1: Http,
         private localStorage: LocalStorageService,
-        private rolesCheckedService: RolesCheckedService,
-        private router: Router) {
+        private rolesCheckedService: RolesCheckedService) {
         this.updateAuthTokens();
+
+        this.state = new BehaviorSubject<IAuthStateModel>(this.initalState);
+        this.state$ = this.state.asObservable();
+
+        this.tokens$ = this.state.filter((state : IAuthStateModel) => state.authReady)
+            .map((state: IAuthStateModel) => state.tokens);
+
+        this.profile$ = this.state.filter((state: IAuthStateModel) => state.authReady)
+            .map((state: IAuthStateModel) => state.profile);
+
+        this.loggedIn$ = this.tokens$.map(tokens => !!tokens);
     }
 
-    login(username: string, password: string): boolean {
-        this.http.login(username, password).subscribe(data => this.parseLoginAnswer(data),
-            error => {
-                if (error._body === "unconfirmed_email") {
-                    this.router.navigate(["/unconfirmedEmail"]);
-                    return;
-                }
-                console.log("Error login -> requestForToken");
-                this.localStorage.removeAllData();
-            },
-            () => {
-                this.getUserId();
-            });
-
-        return true;
-    }
-
-    logout(): void {
-        this.localStorage.removeAuthTokens();
-        this.rolesCheckedService.checkRoles();
-    }
-
-    isUserInRole(role: string): boolean {
+    public isUserInRole(role: string): boolean {
         if (this.roles.find(x => x.toLowerCase() === role.toLowerCase())) {
             return true;
         }
         return false;
     }
 
+    public init(): Observable<IAuthTokenModel> {
+        return this.startupTokenRefresh()
+            .do(() => this.scheduleRefresh());
+    }
+
+    public register(data: IRegisterModel): Observable<Response> {
+        return this.http1.post("/account/register", data)
+            .catch(res => Observable.throw(res.json()));
+    }
+
+    public login(user: ILoginModel): Observable<any> {
+        return this.getTokens(user, "password")
+            .catch(res => Observable.throw(res.json()))
+            .do(res => {
+                this.scheduleRefresh();
+            });
+    }
+
+    public logout(): void {
+        this.updateState({ profile: null, tokens: null });
+        if (this.refreshSubscription$) {
+            this.refreshSubscription$.unsubscribe();
+        }
+        this.removeToken();
+        this.localStorage.removeAuthTokens();
+        this.rolesCheckedService.checkRoles();
+    }
+
+    public refreshTokens(): Observable<IAuthTokenModel> {
+        return this.state.first()
+            .map((state: IAuthStateModel) => state.tokens)
+            .flatMap((tokens : IAuthTokenModel) => this.getTokens({ refresh_token: tokens.refresh_token }, "refresh_token")
+                .catch(error => Observable.throw("Session Expired"))
+            );
+    }
+
+    private storeToken(tokens: IAuthTokenModel): void {
+        localStorage.setItem("auth-tokens", JSON.stringify(tokens));
+    }
+
+    private retrieveTokens(): IAuthTokenModel {
+        const tokensString = localStorage.getItem("auth-tokens");
+        const tokensModel: IAuthTokenModel = tokensString == null ? null : JSON.parse(tokensString);
+        return tokensModel;
+    }
+
+    private removeToken(): void {
+        localStorage.removeItem("auth-tokens");
+    }
+
+    private updateState(newState: IAuthStateModel): void {
+        const previoudState = this.state.getValue();
+        this.state.next(Object.assign({}, previoudState, newState));
+    }
+
+    private getTokens(data: IRefreshGrantModel | ILoginModel, grantType: string): Observable<Response> {
+        const headers = new Headers({ 'Content-Type': "application/x-www-form-urlencoded; charset=UTF-8;" });
+        const options = new RequestOptions({ headers: headers });
+
+        Object.assign(data, { grant_type: grantType, scope: "openid offline_access" });
+
+        const params = new URLSearchParams();
+        Object.keys(data)
+            .forEach(key => params.append(key, data[key]));
+        return this.http1.post("/connect/token", params.toString(), options)
+            .do((res: Response) => {
+                const tokens: IAuthTokenModel = res.json();
+                const now = new Date();
+                tokens.expiration_date = new Date(now.getTime() + tokens.expires_in * 1000).getTime().toString();
+
+                const profile: IProfileModel = jwtDecode(tokens.id_token);
+
+                this.storeToken(tokens);
+                this.updateState({ authReady: true, tokens, profile });
+                this.getUserId();
+    });
+    }
+
+    private startupTokenRefresh(): Observable<IAuthTokenModel> {
+        return Observable.of(this.retrieveTokens())
+            .flatMap((tokens: IAuthTokenModel) => {
+                if (!tokens) {
+                    this.updateState({ authReady: true });
+                    return Observable.throw("No token in Storage");
+                }
+                const profile: IProfileModel = jwtDecode(tokens.id_token);
+
+                this.updateState({ tokens, profile });
+
+                if (+tokens.expiration_date > new Date().getTime()) {
+                    this.updateState({ authReady: true });
+                }
+
+                return this.refreshTokens();
+            })
+            .catch(error => {
+                this.logout();
+                this.updateState({ authReady: true });
+                return Observable.throw(error);
+            });
+    }
+
+    private scheduleRefresh(): void {
+        this.refreshSubscription$ = this.tokens$
+            .first()
+            // refresh every half the total expiration time
+            .flatMap((tokens: IAuthTokenModel) => Observable.interval(tokens.expires_in / 2 * 1000))
+            .flatMap(() => this.refreshTokens())
+            .subscribe();
+    }
+
     private updateAuthTokens(): void {
-        let refreshToken = this.localStorage.getRefreshToken();
+        const refreshToken: string = this.localStorage.getRefreshToken();
         if (!refreshToken) {
             return;
         }
-        let result = true;
+        let result: boolean = true;
         this.http.refreshTokens().subscribe(data => data,
             error => {
                 if (JSON.parse(error._body)["error"] === "invalid_grant") {

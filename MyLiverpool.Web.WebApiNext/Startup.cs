@@ -119,7 +119,7 @@ namespace MyLiverpool.Web.WebApiNext
             services.AddOpenIddict<int>(options =>
             {
                 options.AddEntityFrameworkCoreStores<LiverpoolContext>()
-                    //  .AddMvcBinders()
+                    .AddMvcBinders()
                     .EnableLogoutEndpoint("/connect/logout")
                     // Enable the token endpoint (required to use the password flow).
                     .EnableTokenEndpoint("/connect/token")

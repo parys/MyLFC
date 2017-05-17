@@ -11,7 +11,7 @@ export class RoleGuard implements CanActivate {
         private router: Router,
         private location: Location) { }
 
-    canActivate(route: ActivatedRouteSnapshot,
+    public canActivate(route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot): boolean {
         if (!this.rolesService.checkRoles().isLogined) {
             this.location.replaceState("/");

@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MyLiverpool.Data.Entities;
 using System.Linq;
+using System.Security.Claims;
 using AspNet.Security.OpenIdConnect.Primitives;
 using MyLiverpool.Business.Contracts;
 using OpenIddict.Core;
@@ -51,9 +52,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <returns>Result of authentification.</returns>
         [HttpPost("~/connect/token")]
-        public async Task<IActionResult> Exchange()
+        public async Task<IActionResult> Exchange(OpenIdConnectRequest request)
         {
-            var request = HttpContext.GetOpenIdConnectRequest();
             if (request.IsPasswordGrantType())
             {
                 var user = await _userManager.FindByNameAsync(request.Username);
@@ -220,6 +220,11 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 {
                     OpenIdConnectConstants.Destinations.AccessToken
                 };
+                //if (claim.Type == _identityOptions.Value.ClaimsIdentity.SecurityStampClaimType)
+             //   {
+            //        continue;
+            //    }
+
                 // Only add the iterated claim to the id_token if the corresponding scope was granted to the client application.
                 // The other claims will only be added to the access_token, which is encrypted when using the default format.
                 if ((claim.Type == OpenIdConnectConstants.Claims.Name && ticket.HasScope(OpenIdConnectConstants.Scopes.Profile)) ||
@@ -232,7 +237,9 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 claim.SetDestinations(destinations);
             }
 
-            //  ticket.Properties.AllowRefresh = true;
+            ticket.Properties.AllowRefresh = true;
+            var roles = principal.Claims.Where(c => c.Type == ClaimTypes.Role).ToList();
+       //     ticket.Properties.Items.Add(new KeyValuePair<string, string>("roles", string.Join(", ", roles.Select(r => r.Value))));
             //  ticket.Properties.ExpiresUtc = DateTimeOffset.Now.AddDays(14);
             //  ticket.Properties.IsPersistent = false;
 

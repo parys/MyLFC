@@ -1,6 +1,6 @@
 ﻿import { Component, OnInit } from "@angular/core";
-import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { Observable } from "rxjs/Observable";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { Router } from "@angular/router";
 import { AuthService } from "../auth/auth.service";
 
 @Component({
@@ -9,24 +9,25 @@ import { AuthService } from "../auth/auth.service";
 })
 
 export class AccountSigninComponent implements OnInit {
+    private loginForm: FormGroup;
 
-    loginForm: FormGroup;
-    userName: string;
-    password: string;
-
-    constructor(private authService: AuthService, private formBuilder: FormBuilder) {
+    constructor(private authService: AuthService,
+        private formBuilder: FormBuilder,
+        private router: Router) {
     }
 
-    ngOnInit() {
+    public ngOnInit(): void {
         this.loginForm = this.formBuilder.group({
-            'userName': ["", Validators.required],
+            'username': ["", Validators.required],
             'password': ["", Validators.required]
         });
     }
 
-    onSubmit(): void {
-        this.userName = this.loginForm.controls["userName"].value;
-        this.password = this.loginForm.controls["password"].value;
-        let result = this.authService.login(this.userName, this.password);
+    public onSubmit(): void {
+        let result = this.authService.login(this.loginForm.value).subscribe(data => data, e => {
+            if (e._body === "unconfirmed_email") {
+                                this.router.navigate(["/unconfirmedEmail"]);
+                                return;
+                            }});
     }
 }

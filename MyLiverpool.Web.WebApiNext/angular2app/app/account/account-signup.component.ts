@@ -1,10 +1,10 @@
 ﻿import { Component, OnInit } from "@angular/core";
-import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { Observable } from "rxjs/Observable";
-import { Signup } from "./signup.model";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { IRegisterModel } from "../auth/models/register-model";
 import { AccountService } from "./account.service";
 import { GlobalValidators } from "../shared/index";
 import { AccountValidators } from "./account.validators";
+import { AuthService } from "../auth/auth.service";
 
 @Component({
     selector: "account-signup",
@@ -12,15 +12,16 @@ import { AccountValidators } from "./account.validators";
 })
 
 export class AccountSignupComponent implements OnInit {
-    registerForm: FormGroup;
-    id: number;
-    result: boolean = false;
-    isHuman: boolean = false;
+    public registerForm: FormGroup;
+    public result: boolean = false;
+    public isHuman: boolean = false;
 
-    constructor(private accountService: AccountService, private formBuilder: FormBuilder) {
+    constructor(private accountService: AccountService,
+        private authService: AuthService,
+        private formBuilder: FormBuilder) {
     }
 
-    ngOnInit() {
+    public ngOnInit(): void {
         this.registerForm = this.formBuilder.group({
             'userName': ["", Validators.compose([
                 Validators.required,
@@ -39,15 +40,11 @@ export class AccountSignupComponent implements OnInit {
         }, { validator: GlobalValidators.matchingPasswords("password", "confirmPassword") });                      
     }
 
-    onSubmit(): void {
-        let signup = new Signup();
-        signup.userName = this.registerForm.controls["userName"].value;
-        signup.email = this.registerForm.controls["email"].value;
-        signup.password = this.registerForm.controls["password"].value;
-        signup.confirmPassword = this.registerForm.controls["confirmPassword"].value;
+    public onSubmit(): void {
+        const signup: IRegisterModel = this.registerForm.value;
 
-        this.accountService
-            .create(signup)
+        this.authService
+            .register(signup)
             .subscribe(data => {
                     if (data) {
                         this.result = true;

@@ -4,6 +4,7 @@ import { Observable } from "rxjs/Observable";
 import { LocalStorageService } from "./localStorage.service";
 import { Configuration } from "../app.constants";
 import { Router } from "@angular/router";
+import { IAuthTokenModel } from "../auth/models/auth-tokens-model";
 
 @Injectable()
 export class HttpWrapper {
@@ -15,7 +16,7 @@ export class HttpWrapper {
     ) { }
 
     get(url: string): Observable<Response> {
-        this.checkTokenExpirationDate();
+    //    this.checkTokenExpirationDate();
         return this.http.get(this.configuration.serverWithApiUrl + url, {
             headers: this.updateHeaders(),
             body: ""
@@ -23,7 +24,7 @@ export class HttpWrapper {
     }  
 
     post(url: string, data: any, withFiles: boolean = false): Observable<Response> {
-        this.checkTokenExpirationDate();
+    //    this.checkTokenExpirationDate();
         return this.http.post(this.configuration.serverWithApiUrl + url, data, {
             headers: this.updateHeaders(withFiles)
         });
@@ -37,7 +38,7 @@ export class HttpWrapper {
     }
 
     delete(url: string): Observable<Response> {
-        this.checkTokenExpirationDate();
+   //     this.checkTokenExpirationDate();
         return this.http.delete(this.configuration.serverWithApiUrl + url, {
             headers: this.updateHeaders(),
             body: ""
@@ -133,6 +134,12 @@ export class HttpWrapper {
         return this.requestForToken(params);
     }
 
+    private retrieveTokens(): IAuthTokenModel {
+        const tokensString = localStorage.getItem("auth-tokens");
+        const tokensModel: IAuthTokenModel = tokensString == null ? null : JSON.parse(tokensString);
+        return tokensModel;
+    }
+
     private checkTokenExpirationDate() : void {
         if (this.localStorage.isTokenExpired()) {
             this.refreshTokens()
@@ -148,9 +155,9 @@ export class HttpWrapper {
         } else {
             headers.append("Content-type", "application/json");
         }
-        if (this.localStorage.hasAccessToken()) {
-            headers.append("Authorization",
-                this.localStorage.getAccessTokenWithType());
+        let tokens = this.retrieveTokens();
+        if (tokens) {
+            headers.append("Authorization", "Bearer " + tokens.access_token);
         }
         return headers;
     }

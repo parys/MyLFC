@@ -1,4 +1,4 @@
-﻿export class Signup {
+﻿export interface IRegisterModel {
     userName: string;
     email: string;
     password: string;

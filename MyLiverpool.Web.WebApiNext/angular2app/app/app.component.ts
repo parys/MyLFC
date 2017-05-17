@@ -1,8 +1,11 @@
-﻿import { Component, ViewContainerRef, enableProdMode, ViewEncapsulation } from '@angular/core';
+﻿import { Component, ViewContainerRef, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router, ActivatedRoute, NavigationEnd } from "@angular/router";
 import { Title } from "@angular/platform-browser";
+import { Observable } from "rxjs/Observable"
 import { RolesCheckedService } from "./shared/roles-checked.service";
 import { IRoles } from "./shared/roles.interface";
+import { AuthService } from "./auth/auth.service";
+import { IAuthStateModel } from "./auth/models/auth-state-model";
 import { BreadcrumbService } from "ng2-breadcrumb/ng2-breadcrumb";
 
 @Component({
@@ -12,13 +15,15 @@ import { BreadcrumbService } from "ng2-breadcrumb/ng2-breadcrumb";
     encapsulation: ViewEncapsulation.None
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit {
     public roles: IRoles;
     public isRoot: boolean = false;
     private viewContainerRef: ViewContainerRef;
+    private authState$: Observable<IAuthStateModel>;
 
     constructor(private router: Router,
         private rolesChecked: RolesCheckedService,
+        private authService: AuthService,
         viewContainerRef: ViewContainerRef,
         private activatedRoute: ActivatedRoute,
         private titleService: Title,
@@ -29,6 +34,16 @@ export class AppComponent {
         this.viewContainerRef = viewContainerRef;
         this.initTitleSubscriber();
         this.setUpBreadcrumbs();
+    }
+
+    public ngOnInit(): void {
+        this.authState$ = this.authService.state$;
+        // This starts up the token refresh preocess for the app
+        this.authService.init()
+            .subscribe(
+                () => { console.info('Startup success'); },
+                error => console.warn(error)
+            );
     }
 
     private initTitleSubscriber() {
