@@ -9,9 +9,10 @@ using MyLiverpool.Data.Common;
 namespace MyLiverpool.Data.ResourceAccess.Migrations
 {
     [DbContext(typeof(LiverpoolContext))]
-    partial class LiverpoolContextModelSnapshot : ModelSnapshot
+    [Migration("20170519190841_RenameStadiumColumnToStadiumName")]
+    partial class RenameStadiumColumnToStadiumName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")
@@ -130,13 +131,9 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<int>("StadiumId");
-
                     b.Property<string>("StadiumName");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("StadiumId");
 
                     b.ToTable("Clubs");
                 });
@@ -282,8 +279,6 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
 
                     b.Property<int>("SeasonId");
 
-                    b.Property<int>("StadiumId");
-
                     b.Property<string>("VideoUrl");
 
                     b.HasKey("Id");
@@ -291,8 +286,6 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.HasIndex("ClubId");
 
                     b.HasIndex("SeasonId");
-
-                    b.HasIndex("StadiumId");
 
                     b.ToTable("Matches");
                 });
@@ -517,20 +510,6 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Seasons");
-                });
-
-            modelBuilder.Entity("MyLiverpool.Data.Entities.Stadium", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("City");
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Stadium");
                 });
 
             modelBuilder.Entity("MyLiverpool.Data.Entities.User", b =>

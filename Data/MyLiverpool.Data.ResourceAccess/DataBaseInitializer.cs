@@ -1274,7 +1274,7 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                 EnglishName = "Liverpool",
                 Logo = "/content/logos/0/liverpool.png",
                 Name = "Ливерпуль",
-                Stadium = "Энфилд"
+                StadiumName = "Энфилд"
             };
             clubs.Add(club);
             var club1 = new Club() 
@@ -1282,7 +1282,7 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                 EnglishName = "Arsenal",
                 Logo = "/content/logos/0/arsenal.png",
                 Name = "Арсенал",
-                Stadium = "Эмирейтс"
+                StadiumName = "Эмирейтс"
             };
             clubs.Add(club1);
             var club2 = new Club() 
@@ -1290,7 +1290,7 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                 EnglishName = "Everton",
                 Logo = "/content/logos/0/everton.png",
                 Name = "Эвертон",
-                Stadium = "Гуддисон"
+                StadiumName = "Гуддисон"
             };
             clubs.Add(club2);
             var club3 = new Club() 
@@ -1298,7 +1298,7 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                 EnglishName = "Manchester City",
                 Logo = "/content/logos/0/manchestercity.png",
                 Name = "Манчестер Сити",
-                Stadium = "Этихад"
+                StadiumName = "Этихад"
             };
             clubs.Add(club3);
 

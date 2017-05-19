@@ -15,7 +15,11 @@ namespace MyLiverpool.Data.Entities
 
         public string EnglishName { get; set; }
 
-        public string Stadium { get; set; }
+        public string StadiumName { get; set; }
+
+        public int StadiumId { get; set; }
+
+        public virtual Stadium Stadium { get; set; }
 
         public string Logo { get; set; }
 

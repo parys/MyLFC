@@ -162,7 +162,7 @@ namespace MyLiverpool.Business.Services
             dto.AwayClubId = awayClub.Id;
             dto.AwayClubName = awayClub.Name;
             dto.AwayClubLogo = awayClub.Logo;
-            dto.Stadium = homeClub.Stadium;
+            dto.Stadium = homeClub.StadiumName;
         }
 
         private static string GetScores(string scoreHome, string scoreAway)

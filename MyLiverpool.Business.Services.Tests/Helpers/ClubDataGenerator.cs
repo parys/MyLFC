@@ -14,21 +14,21 @@ namespace MyLiverpool.Business.Services.Tests.Helpers
                 {
                     EnglishName = "mes 1",
                     Name = "title 1",
-                    Stadium = "stadium 1",
+                    StadiumName = "stadium 1",
                     Logo = "logo 1",
                 },
                 new Club()
                 {
                     EnglishName = "mes 2",
                     Name = "title 2",
-                    Stadium = "stadium 2",
+                    StadiumName = "stadium 2",
                     Logo = "logo 2",
                 },
                 new Club()
                 {
                     EnglishName = "mes 3",
                     Name = "title 3",
-                    Stadium = "stadium 3",
+                    StadiumName = "stadium 3",
                     Logo = "logo 3",
                 }
             };

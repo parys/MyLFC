@@ -41,6 +41,7 @@ namespace MyLiverpool.Data.ResourceAccess
         public DbSet<HelpEntity> HelpEntities { get; set; }
         public DbSet<Person> Persons { get; set; }
         public DbSet<Season> Seasons { get; set; }
+     //   public DbSet<Stadium> Stadiums { get; set; }
 
         //public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         //{
@@ -62,17 +63,6 @@ namespace MyLiverpool.Data.ResourceAccess
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-          //  modelBuilder.Entity<User>().ToTable("Users");
-          //  modelBuilder.Entity<Role>().ToTable("RoleGroups");
-         //   modelBuilder.Entity<UserClaim>().ToTable("UserClaims");
-         //   modelBuilder.Entity<UserLogin>().ToTable("UserLogins");
-        //    modelBuilder.Entity<UserRole>().ToTable("UserRoles");
-
-        //    modelBuilder.Entity<OpenIddictApplication>().ToTable("Applications");
-       //     modelBuilder.Entity<OpenIddictAuthorization>().ToTable("Authorizations");
-        //    modelBuilder.Entity<OpenIddictScope>().ToTable("Scopes");
-          //  modelBuilder.Entity<OpenIddictToken>().ToTable("Tokens");
-            
             modelBuilder.Entity<MaterialComment>().HasOne(x => x.Author).WithMany(x => x.Comments).HasForeignKey(x => x.AuthorId);
             modelBuilder.Entity<ForumMessage>().HasOne(x => x.Author).WithMany(u => u.ForumMessages).HasForeignKey(x => x.AuthorId);
            
@@ -105,6 +95,8 @@ namespace MyLiverpool.Data.ResourceAccess
             modelBuilder.Entity<PrivateMessage>().HasOne(x => x.Receiver).WithMany(x => x.ReceivedPrivateMessages).HasForeignKey(x => x.ReceiverId);
 
             modelBuilder.Entity<Match>().HasOne(x => x.Club).WithMany(x => x.Matches).HasForeignKey(x => x.ClubId);
+         //   modelBuilder.Entity<Club>().HasOne(x => x.Stadium).WithMany(x => x.Clubs).HasForeignKey(x => x.StadiumId);
+          //  modelBuilder.Entity<Match>().HasOne(x => x.Stadium).WithMany(x => x.Matches).HasForeignKey(x => x.StadiumId);
 
             modelBuilder.Entity<ChatMessage>()
                 .HasOne(x => x.Author)

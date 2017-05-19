@@ -38,7 +38,7 @@ namespace MyLiverpool.Business.Services
             var club = await _clubRepository.GetByIdAsync(dto.Id);
             club.Name = dto.Name;
             club.EnglishName = dto.EnglishName;
-            club.Stadium = dto.Stadium;
+            club.StadiumName = dto.Stadium;
             _clubRepository.Update(club);
             await _clubRepository.SaveChangesAsync();
             dto = _mapper.Map<ClubDto>(club);

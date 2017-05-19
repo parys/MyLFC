@@ -11,7 +11,7 @@ namespace MyLiverpool.Data.ResourceAccess
         var optionsBuilder = new DbContextOptionsBuilder<LiverpoolContext>();
         optionsBuilder.UseOpenIddict<int>();
         optionsBuilder.UseSqlServer(
-                "Server=(localdb)\\MSSQLLocalDB;Database=MyLiverpool1123;Trusted_Connection=True;MultipleActiveResultSets=true");
+                "Server=.;Database=MyLiverpool1123;Trusted_Connection=True;MultipleActiveResultSets=true");
 
         return new LiverpoolContext(optionsBuilder.Options);
         }
@@ -21,7 +21,7 @@ namespace MyLiverpool.Data.ResourceAccess
             var optionsBuilder = new DbContextOptionsBuilder<LiverpoolContext>();
             optionsBuilder.UseOpenIddict<int>();
             optionsBuilder.UseSqlServer(
-                    "Server=(localdb)\\MSSQLLocalDB;Database=MyLiverpool1123;Trusted_Connection=True;MultipleActiveResultSets=true");
+                    "Server=.;Database=MyLiverpool1123;Trusted_Connection=True;MultipleActiveResultSets=true");
 
             return new LiverpoolContext(optionsBuilder.Options);
         }

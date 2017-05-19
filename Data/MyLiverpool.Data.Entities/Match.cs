@@ -28,5 +28,9 @@ namespace MyLiverpool.Data.Entities
         public string PhotoUrl { get; set; }
 
         public string VideoUrl { get; set; }
+
+        public int StadiumId { get; set; }
+
+        public virtual Stadium Stadium { get; set; }
     }
 }
