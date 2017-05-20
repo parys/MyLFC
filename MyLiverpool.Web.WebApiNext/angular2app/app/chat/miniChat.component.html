@@ -4,13 +4,13 @@
     </div>
     <div class="blockcontent-inside">
         <div class="chatMessage-block" style="white-space: normal">
-            <div class="chat-message" *ngFor="let message of items">
+            <div class="chat-message" *ngFor="let message of items; let i = index;">
                 <div style="float: right; font-size: 8px;" [textContent]="message.additionTime | date:'medium'"></div>
                 <div style="text-align: left;">
                     <a [routerLink]="['/users', message.authorId]" [textContent]="message.authorUserName"></a>
                 </div>
-                <div class="" style="text-align: left;" [innerHTML]="message.message">
-                </div>
+                <span class="" style="text-align: left;" [innerHTML]="message.message">
+                </span> <a role="button" (click)="addReply(i)"><span class="glyphicon glyphicon-share-alt"></span></a>
             </div>
         </div>
         <form *ngIf="roles.isLogined" class="form-horizontal" name="messageForm" role="form" [formGroup]="messageForm" (ngSubmit)="onSubmit()">

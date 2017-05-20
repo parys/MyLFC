@@ -11,13 +11,11 @@ import { RolesCheckedService, IRoles } from "../shared/index";
     templateUrl: "./miniChat.component.html"
 })
 export class MiniChatComponent implements OnInit {
-    messageForm: FormGroup;
-    items: ChatMessage[];
-    page: number = 1;
-    itemsPerPage: number = 15;
-    totalItems: number;
-    roles: IRoles;
-
+    public messageForm: FormGroup;
+    public items: ChatMessage[];
+    public page: number = 1;
+    public roles: IRoles;
+        
     constructor(private service: ChatMessageService,
         private route: ActivatedRoute,
         private formBuilder: FormBuilder,
@@ -25,20 +23,20 @@ export class MiniChatComponent implements OnInit {
         private rolesChecked: RolesCheckedService) {
     }
 
-    ngOnInit() {
+    public ngOnInit() {
         this.roles = this.rolesChecked.checkRoles();
         this.initForm();
         this.update();
     }
 
-    update(): void {
+    public update(): void {
         this.service
             .getAll()
             .subscribe(data => this.items = data,
                 error => console.log(error));
     }
 
-    onSubmit(): void {
+    public onSubmit(): void {
         this.service.create(this.messageForm.value)
             .subscribe(data => {
                 this.items.unshift(data);
@@ -47,9 +45,16 @@ export class MiniChatComponent implements OnInit {
             (error) => console.log(error));
     }
 
-    private initForm(): void {
+    public addReply(index: number): void {
+        let message: string = this.messageForm.get("message").value;
+        let userName: string = this.items[index].authorUserName;
+        let newMessage: string = `<i>${userName}</i>, ${message}`;
+        this.messageForm.get("message").patchValue(newMessage);
+    }
+
+    private initForm(message: string = null): void {
         this.messageForm = this.formBuilder.group({
-            'message': ["", Validators.compose([Validators.required, Validators.maxLength(this.configuration.maxChatMessageLength)])] //todo add visual warning
+            'message': [message || "", Validators.compose([Validators.required, Validators.maxLength(this.configuration.maxChatMessageLength)])] //todo add visual warning
         });
     }
 }

@@ -1,8 +1,8 @@
 ﻿export class ChatMessage {
-    id: number;
-    authorId: number;
-    authorUserName: string;
-    message: string;
-    additionTime: Date;
-    ip: string;
+    public id: number;
+    public authorId: number;
+    public authorUserName: string;
+    public message: string;
+    public additionTime: Date;
+    public ip: string;
 }
