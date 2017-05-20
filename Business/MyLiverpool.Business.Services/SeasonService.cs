@@ -32,6 +32,7 @@ namespace MyLiverpool.Business.Services
         public async Task<SeasonDto> UpdateAsync(SeasonDto dto)
         {
             var model = await _seasonRepository.GetByIdAsync(dto.Id);
+            model.StartSeasonYear = dto.StartSeasonYear;
             _seasonRepository.Update(model);
             await _seasonRepository.SaveChangesAsync();
             var result = _mapper.Map<SeasonDto>(model);
@@ -40,9 +41,12 @@ namespace MyLiverpool.Business.Services
 
         public async Task<bool> DeleteAsync(int id)
         {
+          //  var model = await _seasonRepository.GetByIdAsync(id); /todo add loading clubs or getting club count
+         //   if (model.Matches.Count > 0)
+            {
+          //      return false;
+            }
             await _seasonRepository.DeleteAsync(id);
-           // var season = await _seasonRepository.GetByIdAsync(id);
-           // if(season.Matches > 0) not delete //todo 
             return true;
         }
 

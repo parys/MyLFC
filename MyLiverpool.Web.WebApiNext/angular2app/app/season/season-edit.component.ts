@@ -1,7 +1,6 @@
-﻿import { Component, OnInit } from "@angular/core";
-import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms";
+﻿import { Component, OnInit, OnDestroy } from "@angular/core";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
-import { Observable } from "rxjs/Observable";
 import { Subscription } from "rxjs/Subscription";
 import { Season } from "./season.model";
 import { SeasonService } from "./season.service";
@@ -10,9 +9,11 @@ import { SeasonService } from "./season.service";
     selector: "season-edit",
     templateUrl: "./season-edit.component.html"
 })
-export class SeasonEditComponent implements OnInit {
-    editForm: FormGroup;
-    id: number = 0;
+export class SeasonEditComponent implements OnInit, OnDestroy {
+    private sub: Subscription;
+    private sub2: Subscription;
+    public editForm: FormGroup;
+    public id: number = 0;
 
     constructor(private service: SeasonService,
         private formBuilder: FormBuilder,
@@ -20,27 +21,34 @@ export class SeasonEditComponent implements OnInit {
         private route: ActivatedRoute) {
     }
 
-    ngOnInit() : void {
+    public ngOnInit() : void {
         this.editForm = this.formBuilder.group({
             'startSeasonYear': ["", Validators.required]
         });
-        this.id = +this.route.snapshot.params["id"];
+        this.sub = this.route.queryParams.subscribe(qParams => {
+            this.id = qParams["id"] || 0;
+        }, e => console.log(e));
         if (this.id > 0) {
-            this.service
+            this.sub2 = this.service
                 .getSingle(this.id)
                 .subscribe(data => this.editForm.patchValue(data),
                     error => console.log(error));
         }
     };
-    
-    onSubmit(): void {
-        let model = new Season();
+
+    public ngOnDestroy(): void {
+        if(this.sub) { this.sub.unsubscribe(); }
+        if(this.sub2) { this.sub2.unsubscribe(); }
+    }
+
+    public onSubmit(): void {
+        let model: Season = new Season();
         model.id = this.id;
         model.startSeasonYear = this.editForm.controls["startSeasonYear"].value;
 
-        let res;
+        let res: Season;
         if (this.id > 0) {
-            this.service.update(this.id, model).subscribe(data => res = data);
+            this.service.update(this.id, model).subscribe((data: Season) => res = data);
         } else {
             this.service.create(model).subscribe(data => res = data);
         }

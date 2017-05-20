@@ -8,15 +8,15 @@ import { SeasonService } from "./season.service";
     templateUrl: "./season-calendar.component.html"
 })
 export class SeasonCalendarComponent implements  OnInit {
-    season: Season;
-    id: number;
+    public season: Season;
+    private id: number;
 
     constructor(private service: SeasonService,
         private route: ActivatedRoute) {
     }
 
-    ngOnInit(): void {
-        let id = 0;
+    public ngOnInit(): void {
+        let id: number = 0;
         if (+this.route.snapshot.params["id"]) {
             id = +this.route.snapshot.params["id"];
         }

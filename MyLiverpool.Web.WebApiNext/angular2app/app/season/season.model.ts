@@ -1,5 +1,5 @@
 ﻿export class Season {
-    id: number;
-    startSeasonYear: number;
-    endSeaonYear: number;
+    public id: number;
+    public startSeasonYear: number;
+    public endSeaonYear: number;
 }
