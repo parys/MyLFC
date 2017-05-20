@@ -92,6 +92,7 @@ import { MdTabsModule, MdDialogModule, MdSnackBarModule, MdButtonModule, MdInput
         materialComment.MaterialCommentDetailComponent,
         materialComment.MaterialCommentListComponent,
         materialComment.MaterialCommentSectionComponent,
+        pm.PmCounterComponent,
         pm.PmDetailComponent,
         pm.PmEditComponent,
         pm.PmListComponent,

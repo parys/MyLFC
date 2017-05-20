@@ -133,6 +133,14 @@ textarea {
     overflow-y: auto;
 }
 
+.color-gold {
+    color: gold;
+}
+
+.color-red {
+    color: red;
+}
+
 .comment {
     background-color: #e5e5e5;
     border: gray solid thin;
@@ -288,8 +296,8 @@ textarea {
     padding: 10px;
 }
 
-.red-color {
-    color: red;
+.pm-counter {
+    font-size: large;
 }
 
 @media (min-width: 768px) {

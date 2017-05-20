@@ -69,10 +69,10 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         }
 
         /// <summary>
-        /// Returns count of unreaded messages.
+        /// Returns count of unread messages.
         /// </summary>
         /// <returns>Count of unreaded messages.</returns>
-        [Authorize, HttpGet("GetUnreadPmCount")]
+        [Authorize, HttpGet("unreadCount")]
         public async Task<IActionResult> GetUnreadPmCount()
         {
             var result = await _pmService.GetUnreadPmCountAsync(User.GetUserId());

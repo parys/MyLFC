@@ -12,6 +12,7 @@ import { RolesCheckedService, IRoles } from "../shared/index";
 
 export class PmDetailComponent implements OnInit, OnDestroy {
     private sub: Subscription;
+    private sub2: Subscription;
     public item: Pm;
     public roles: IRoles;
     public selectedUserId: number;
@@ -25,14 +26,15 @@ export class PmDetailComponent implements OnInit, OnDestroy {
         this.roles = this.rolesChecked.checkRoles();
         this.sub = this.route.params.subscribe(params => {
             let id = +params["id"];
-            this.pmService.getSingle(id)
+            this.sub2 = this.pmService.getSingle(id)
                 .subscribe(data => this.parse(data),
                 error => console.log(error));
         });
     }
 
     public ngOnDestroy(): void {
-        this.sub.unsubscribe();
+        if(this.sub) { this.sub.unsubscribe(); }
+        if(this.sub2) { this.sub2.unsubscribe(); }
     }
 
     public writePm(): void {

@@ -10,7 +10,7 @@
                     <a [routerLink]="['/users', message.authorId]" [textContent]="message.authorUserName"></a>
                 </div>
                 <span class="" style="text-align: left;" [innerHTML]="message.message">
-                </span> <a role="button" (click)="addReply(i)"><span class="glyphicon glyphicon-share-alt"></span></a>
+                </span> <a role="button" (click)="addReply(i)"><span *ngIf="!roles.isSelf(message.authorId)" class="glyphicon glyphicon-share-alt"></span></a>
             </div>
         </div>
         <form *ngIf="roles.isLogined" class="form-horizontal" name="messageForm" role="form" [formGroup]="messageForm" (ngSubmit)="onSubmit()">

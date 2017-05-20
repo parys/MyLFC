@@ -12,4 +12,5 @@ export class Configuration {
     minUserNameLength: number = 3;
     maxChatMessageLength: number = 500;
     minPasswordLength: number = 6;
+    public updateUnreadPmCountTime: number = 1000*60*5;
 }
