@@ -14,5 +14,7 @@ namespace MyLiverpool.Data.ResourceAccess.Interfaces
     Expression<Func<MaterialComment, object>> orderBy = null);
 
         void UpdateRange(List<MaterialComment> comments);
+
+        Task<IEnumerable<MaterialComment>> GetListAsync();
     }
 }

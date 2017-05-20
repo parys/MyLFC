@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
+using MyLiverpool.Data.Common;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
@@ -38,7 +39,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// Returns season by id.
         /// </summary>
         /// <param name="id">The identifier of season.</param>
-        /// <returns>Founded season by id.</returns>
+        /// <returns>Found season by id.</returns>
         [AllowAnonymous, HttpGet("{id:int}")]
         public async Task<IActionResult> GetAsync(int id)
         {
@@ -50,7 +51,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// Returns season by id with matches.
         /// </summary>
         /// <param name="id">The identifier of season.</param>
-        /// <returns>Founded season by id.</returns>
+        /// <returns>Found season by id with matches.</returns>
         [AllowAnonymous, HttpGet("getWithMatches/{id:int}")]
         public async Task<IActionResult> GetWithMatchesAsync(int id)
         {
@@ -62,8 +63,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// Creates new season.
         /// </summary>
         /// <param name="dto">Filled dto for new season.</param>
-        /// <returns>Created season object</returns>
-        [Authorize(), HttpPost("")]
+        /// <returns>Created season objec.t</returns>
+        [Authorize(Roles = nameof(RolesEnum.AdminStart)), HttpPost("")]
         public async Task<IActionResult> CreateAsync([FromBody] SeasonDto dto)
         {
             if (!ModelState.IsValid)
@@ -80,7 +81,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <param name="id">The identifier of updatable object.</param>
         /// <param name="dto">Filled dto contains new values.</param>
         /// <returns>Updated season object.</returns>
-        [Authorize(), HttpPut("{id:int}")]
+        [Authorize(Roles = nameof(RolesEnum.AdminStart)), HttpPut("{id:int}")]
         public async Task<IActionResult> UpdateAsync(int id, [FromBody] SeasonDto dto)
         {
             if (!ModelState.IsValid || id != dto.Id)
@@ -96,8 +97,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <param name="id">The identifier of removing object.</param>
         /// <returns>Result of deleting season.</returns>
-        [Authorize(), HttpDelete("{id:int}")]
-        public async Task<IActionResult> DeletAsync(int id)
+        [Authorize(Roles = nameof(RolesEnum.AdminStart)), HttpDelete("{id:int}")]
+        public async Task<IActionResult> DeleteAsync(int id)
         {
             var result = await _seasonService.DeleteAsync(id);
             return Ok(result);

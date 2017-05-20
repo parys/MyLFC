@@ -41,7 +41,7 @@ namespace MyLiverpool.Data.ResourceAccess
         public DbSet<HelpEntity> HelpEntities { get; set; }
         public DbSet<Person> Persons { get; set; }
         public DbSet<Season> Seasons { get; set; }
-     //   public DbSet<Stadium> Stadiums { get; set; }
+        public DbSet<Stadium> Stadiums { get; set; }
 
         //public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         //{

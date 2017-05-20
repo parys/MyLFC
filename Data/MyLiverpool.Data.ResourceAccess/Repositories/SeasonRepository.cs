@@ -44,7 +44,6 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
 
         public void Update(Season entity)
         {
-
             _context.Seasons.Attach(entity);
             _context.Entry(entity).State = EntityState.Modified;
         }

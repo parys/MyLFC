@@ -6,5 +6,6 @@ namespace MyLiverpool.Data.ResourceAccess.Interfaces
 {
     public interface IForumSectionRepository: ICrudRepository<ForumSection>
     {
+        Task<IEnumerable<ForumSection>> GetListAsync();
     }
 }

@@ -7,5 +7,7 @@ namespace MyLiverpool.Data.ResourceAccess.Interfaces
     public interface IRoleGroupRepository : ICrudRepository<RoleGroup>
     {
         Task<IEnumerable<RoleGroup>> GetListWithRolesAsync();
+
+        Task<IEnumerable<RoleGroup>> GetListAsync();
     }
 }

@@ -11,6 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Common\MyLiverpool.Common.Mappings\MyLiverpool.Common.Mappings.csproj" />
     <ProjectReference Include="..\MyLiverpool.Business.Contracts\MyLiverpool.Business.Contracts.csproj" />
     <ProjectReference Include="..\..\Common\MyLiverpool.Common.Utilities\MyLiverpool.Common.Utilities.csproj" />
     <ProjectReference Include="..\..\Data\MyLiverpool.Data.ResourceAccess.Interfaces\MyLiverpool.Data.ResourceAccess.Interfaces.csproj" />

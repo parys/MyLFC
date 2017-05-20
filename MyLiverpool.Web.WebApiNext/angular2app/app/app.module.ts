@@ -19,7 +19,7 @@ import * as match from "./match/index";
 import { PersonModule } from "./person/index";
 import * as roleGroup from "./roleGroup/index";
 import * as season from "./season/index";
-import { SharedModule, DeleteDialogComponent } from "./shared/index";
+import { SharedModule } from "./shared/index";
 import { UserDetailComponent } from "./user/user-detail.component";
 import { UserService } from "./user/user.service";
 import { UserListComponent } from "./user/user-list.component";
@@ -46,11 +46,11 @@ import { MdTabsModule, MdDialogModule, MdSnackBarModule, MdButtonModule, MdInput
         HttpModule,
         DatepickerModule.forRoot(),
         ForumModule,
-        MdButtonModule.forRoot(),
-        MdDialogModule.forRoot(),
-        MdInputModule.forRoot(),
-        MdSnackBarModule.forRoot(),
-        MdTabsModule.forRoot(),
+        MdButtonModule,
+        MdDialogModule,
+        MdInputModule,
+        MdSnackBarModule,
+        MdTabsModule,
         Ng2AutoCompleteModule,
         Ng2BreadcrumbModule.forRoot(),
         PaginationModule.forRoot(),

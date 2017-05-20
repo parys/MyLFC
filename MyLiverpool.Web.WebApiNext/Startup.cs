@@ -1,6 +1,5 @@
 ﻿using System;
 using AspNet.Security.OpenIdConnect.Primitives;
-using AutoMapper;
 using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -12,14 +11,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
-using MyLiverpool.Business.Contracts;
-using MyLiverpool.Business.Services;
-using MyLiverpool.Common.Mappings;
+using MyLiverpool.Business.Services.Helpers;
 using MyLiverpool.Common.Utilities;
 using MyLiverpool.Data.Entities;
 using MyLiverpool.Data.ResourceAccess;
-using MyLiverpool.Data.ResourceAccess.Interfaces;
-using MyLiverpool.Data.ResourceAccess.Repositories;
+using MyLiverpool.Data.ResourceAccess.Helpers;
 using MyLiverpool.Web.WebApiNext.Extensions;
 using Newtonsoft.Json.Serialization;
 
@@ -92,8 +88,6 @@ namespace MyLiverpool.Web.WebApiNext
                 options.ClaimsIdentity.RoleClaimType = OpenIdConnectConstants.Claims.Role;
             });
 
-            //  services.AddAntiforgery(options => options.HeaderName = "X-XSRF-TOKEN");
-
             services.AddMvc().AddJsonOptions(options =>
             {
                 options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
@@ -103,9 +97,11 @@ namespace MyLiverpool.Web.WebApiNext
 
             services.Configure<GzipCompressionProviderOptions>(options => options.Level = System.IO.Compression.CompressionLevel.Fastest);
             services.AddResponseCompression(options =>{});
-
-            RegisterServices(services);
             
+            RegisterCoreHelpers(services);
+            services.RegisterRepositories();
+            services.RegisterServices();
+
             services.AddCors(options =>
             {
                 options.AddPolicy("MyPolicy", builder =>
@@ -183,7 +179,6 @@ namespace MyLiverpool.Web.WebApiNext
 
             services.AddNodeServices(options =>
             {
-               // options.InvocationTimeoutMilliseconds = 1000000;
             });
             var context = (LiverpoolContext) services.BuildServiceProvider().GetService(typeof(LiverpoolContext));
             context.Database.Migrate();
@@ -253,56 +248,6 @@ namespace MyLiverpool.Web.WebApiNext
                     name: "spa-fallback",
                     defaults: new {controller = "Home", action = "Index"});
             });
-        }
-
-        private void RegisterServices(IServiceCollection services)
-        {
-            services.AddTransient<IAccountService, AccountService>();
-            services.AddTransient<IAdminService, AdminService>();
-            services.AddTransient<IChatMessageService, ChatMessageService>();
-            services.AddTransient<IClubService, ClubService>();
-            services.AddTransient<IEmailSender, AuthMessageSender>();
-            services.AddTransient<IForumMessageService, ForumMessageService>();
-            services.AddTransient<IForumSectionService, ForumSectionService>();
-            services.AddTransient<IForumSubsectionService, ForumSubsectionService>();
-            services.AddTransient<IForumThemeService, ForumThemeService>();
-            services.AddTransient<IHelperService, HelperService>();
-            services.AddTransient<IMatchService, MatchService>();
-            services.AddTransient<IMaterialCategoryService, MaterialCategoryService>();
-            services.AddTransient<IMaterialCommentService, MaterialCommentService>();
-            services.AddTransient<IMaterialService, MaterialService>();
-            services.AddTransient<IPersonService, PersonService>();
-            services.AddTransient<IPmService, PmService>();
-            services.AddTransient<IRoleService, RoleService>();
-            services.AddTransient<ISeasonService, SeasonService>();
-            services.AddTransient<ISmsSender, AuthMessageSender>();
-            services.AddTransient<IUploadService, UploadService>();
-            services.AddTransient<IUserService, UserService>();
-            services.AddTransient<IWishService, WishService>();
-            services.AddSingleton<IMapper>(MapperConfig.GetConfiration.CreateMapper());
-            RegisterRepositories(services);
-            RegisterCoreHelpers(services);
-        }
-
-        private void RegisterRepositories(IServiceCollection services)
-        {
-            services.AddScoped<IChatMessageRepository, ChatMessageRepository>();
-            services.AddScoped<IClubRepository, ClubRepository>();
-            services.AddScoped<IForumMessageRepository, ForumMessageRepository>();
-            services.AddScoped<IForumSectionRepository, ForumSectionRepository>();
-            services.AddScoped<IForumSubsectionRepository, ForumSubsectionRepository>();
-            services.AddScoped<IForumThemeRepository, ForumThemeRepository>();
-            services.AddScoped<IHelperEntityRepository, HelperEntityRepository>();
-            services.AddScoped<IMatchRepository, MatchRepository>();
-            services.AddScoped<IMaterialCategoryRepository, MaterialCategoryRepository>();
-            services.AddScoped<IMaterialCommentRepository, MaterialCommentRepository>();
-            services.AddScoped<IMaterialRepository, MaterialRepository>();
-            services.AddScoped<IPersonRepository, PersonRepository>();
-            services.AddScoped<IPmRepository, PmRepository>();
-            services.AddScoped<IRoleGroupRepository, RoleGroupRepository>();
-            services.AddScoped<ISeasonRepository, SeasonRepository>();
-            services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<IWishRepository, WishRepository>();
         }
 
         private void RegisterCoreHelpers(IServiceCollection services)

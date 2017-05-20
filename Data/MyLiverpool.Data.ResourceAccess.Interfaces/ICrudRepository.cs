@@ -34,8 +34,6 @@ namespace MyLiverpool.Data.ResourceAccess.Interfaces
 
         Task SaveChangesAsync();
 
-        Task<int> GetCountAsync(Expression<Func<TEntity, bool>> filter = null);
-
-        Task<IEnumerable<TEntity>> GetListAsync();
+        Task<int> GetCountAsync(Expression<Func<TEntity, bool>> filter = null); //todo should be moved away
     }
 }
