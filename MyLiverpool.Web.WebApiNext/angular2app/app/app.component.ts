@@ -132,6 +132,10 @@ export class AppComponent implements OnInit {
         this.breadcrumbService.addFriendlyNameForRoute("/unconfirmedEmail", "Ваша почта не подтверждена");
         this.breadcrumbService.addFriendlyNameForRouteRegex("/resetPassword", "Сброс пароля");
         this.breadcrumbService.addFriendlyNameForRoute("/changePassword", "Изменение пароля");
+
+        this.breadcrumbService.addFriendlyNameForRoute("/stadiums", "Стадионы");
+        this.breadcrumbService.hideRouteRegex("^/stadiums/[0-9]+$"); // this.breadcrumbService.addCallbackForRouteRegex("^/news/[0-9]+$", this.getTitle);
+        this.breadcrumbService.addFriendlyNameForRouteRegex("/stadiums/[0-9]+/edit$", "Редактирование");
     }   
 
     getTitle(id: string = null): string {

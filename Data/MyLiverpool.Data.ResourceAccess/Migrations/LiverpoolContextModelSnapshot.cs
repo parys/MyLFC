@@ -519,7 +519,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.ToTable("Seasons");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.Stadium", b =>
+            modelBuilder.Entity("MyLiverpool.Data.Entities.Stadiums", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -530,7 +530,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Stadium");
+                    b.ToTable("Stadiums");
                 });
 
             modelBuilder.Entity("MyLiverpool.Data.Entities.User", b =>

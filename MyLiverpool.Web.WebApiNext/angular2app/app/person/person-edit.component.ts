@@ -1,12 +1,10 @@
 ﻿import { Component, OnInit } from "@angular/core";
-import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
-import { Title } from "@angular/platform-browser";
 import { Subscription } from "rxjs/Subscription";
 import { PersonService } from "./person.service";
 import { Person } from "./person.model";
 import { PersonType } from "./personType.model";
-import { LocalStorageService, RolesCheckedService } from "../shared/index";
 
 @Component({
     selector: "person-edit",
@@ -23,16 +21,15 @@ export class PersonEditComponent implements OnInit {
     constructor(private service: PersonService,
         private route: ActivatedRoute,
         private router: Router,
-        private localStorage: LocalStorageService,
         private formBuilder: FormBuilder) {
         this.item = new Person();
     }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         this.initForm();
-        let id = +this.route.snapshot.params["id"] || 0;
-        if (id > 0) {
-            this.service.getSingle(id)
+        this.id = +this.route.snapshot.params["id"] || 0;
+        if (this.id > 0) {
+            this.service.getSingle(this.id)
                 .subscribe(data => this.parse(data),
                     error => console.log(error));
         }
@@ -40,7 +37,7 @@ export class PersonEditComponent implements OnInit {
         this.updateTypes();
     }
 
-    onUpload(event: any): void {
+    public onUpload(event: any): void {
         let file = event.currentTarget.files[0];
         let fullname = this.editForm.controls["firstName"].value + " " + this.editForm.controls["lastName"].value;
         if (file) {
@@ -52,7 +49,7 @@ export class PersonEditComponent implements OnInit {
                 error => console.log(error));
         }
     }
-    onSubmit(): void {
+    public onSubmit(): void {
         let person = this.parseForm();
         if (this.id > 0) {
             this.service.update(this.id, person)
@@ -65,7 +62,7 @@ export class PersonEditComponent implements OnInit {
         }
     }
 
-    getRandomNumber(): number {
+    public getRandomNumber(): number {
         return Math.random();
     }
 

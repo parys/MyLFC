@@ -3,25 +3,24 @@ import { Location } from "@angular/common";
 import { ActivatedRoute } from "@angular/router";
 import { MdDialog } from '@angular/material';
 import { Subscription } from "rxjs/Subscription";
-import { Person } from "./person.model";
-import { PersonService } from "./person.service";
+import { Stadium } from "./stadium.model";
+import { StadiumService } from "./stadium.service";
 import { Pageable, DeleteDialogComponent } from "../shared/index";
 
 @Component({
-    selector: "person-list",
-    templateUrl: "./person-list.component.html"
+    selector: "stadium-list",
+    templateUrl: "./stadium-list.component.html"
 })
 
-export class PersonListComponent implements OnInit, OnDestroy {
+export class StadiumListComponent implements OnInit, OnDestroy {
     private sub: Subscription;
     private sub2: Subscription;
-    public items: Person[];
+    public items: Stadium[];
     public page: number = 1;
     public itemsPerPage: number = 15;
     public totalItems: number;
-    private userName: string;
 
-    constructor(private personService: PersonService,
+    constructor(private service: StadiumService,
         private route: ActivatedRoute,
         private location: Location,
         private dialog: MdDialog) {
@@ -30,15 +29,14 @@ export class PersonListComponent implements OnInit, OnDestroy {
     public ngOnInit(): void {
         this.sub = this.route.queryParams.subscribe(qParams => {
                 this.page = qParams["page"] || 1;
-                this.userName = qParams["userName"] || "";
             },
             error => console.log(error));
         this.update();
     }
 
     public ngOnDestroy(): void {
-        if(this.sub) this.sub.unsubscribe();
-        if(this.sub2) this.sub2.unsubscribe();
+        if (this.sub) this.sub.unsubscribe();
+        if (this.sub2) this.sub2.unsubscribe();
     }
 
     public showDeleteModal(index: number): void {
@@ -51,10 +49,10 @@ export class PersonListComponent implements OnInit, OnDestroy {
     }
 
     public update(): void {
-        this.sub2 = this.personService
+        this.sub2 = this.service
             .getAll(this.page)
             .subscribe(data => this.parsePageable(data),
-            error => console.log(error));
+                error => console.log(error));
     }
 
     public pageChanged(event: any): void {
@@ -64,15 +62,9 @@ export class PersonListComponent implements OnInit, OnDestroy {
         this.location.replaceState(newUrl);
     };
 
-    public setAsBestPlayer(personId: number): void {
-        this.personService.setBestPlayer(personId)
-            .subscribe(data => data,
-            error => console.log(error));
-    }
-
     private delete(index: number): void {
         let result: boolean;
-        this.personService.delete(this.items[index].id)
+        this.service.delete(this.items[index].id)
             .subscribe(res => result = res,
                 e => console.log(e),
                 () => {
@@ -83,7 +75,7 @@ export class PersonListComponent implements OnInit, OnDestroy {
                 });
     }
 
-    private parsePageable(pageable: Pageable<Person>): void {
+    private parsePageable(pageable: Pageable<Stadium>): void {
         this.items = pageable.list;
         this.page = pageable.pageNo;
         this.itemsPerPage = pageable.itemPerPage;

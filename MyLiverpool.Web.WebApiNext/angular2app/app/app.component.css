@@ -199,6 +199,10 @@ textarea {
     font-size: 40px;
 }
 
+.full-width {
+    width: 100%;
+}
+
 .infodate {
     text-align: center;
     color: #000000;
@@ -339,15 +343,15 @@ textarea {
 }
 
 /* invalid & (dirty or touched) => red -- CSS3 only */
-.ng-invalid.ng-dirty:not(:focus),
-.ng-invalid.ng-touched:not(:focus) {
-    /*border-color: #e74c3c;*/
+/*.mat-input-container.ng-invalid.ng-dirty:not(:focus),
+.mat-input-container.ng-invalid.ng-touched:not(:focus) {
+    border-left: 5px solid #e74c3c;
 }
 
-/* valid & dirty => green */
-.ng-valid.ng-dirty.ng-touched {
-    border-color: #2ecc71;
-}
+/* valid & dirty => green 
+.mat-input-container.ng-valid.ng-dirty.ng-touched {
+    border-left: 5px solid #2ecc71;
+}*/
 
 /* error display font italic, text-danger is red in BS */
 .validation.text-danger {
@@ -388,10 +392,10 @@ textarea {
 }
 
 /*maybe need refactor fixed*/
-.ng-valid[required].ng-touched, .ng-valid.required.ng-touched  {
+input.ng-valid[required].ng-touched, .ng-valid.required.ng-touched  {
   border-left: 5px solid #42A948; /* green */
 }
-.ng-touched:not(:focus).ng-invalid:not(form)  {
+input.ng-touched:not(:focus).ng-invalid:not(form)  {
   border-left: 5px solid #a94442; /* red */
 }
 

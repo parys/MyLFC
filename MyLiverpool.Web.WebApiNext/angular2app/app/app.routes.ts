@@ -1,17 +1,18 @@
 ﻿import { Routes } from "@angular/router";
 import { MaterialListComponent } from "./material/index";
-import { accountRoutes } from "./account/account.routing";
-import { clubRoutes } from "./club/club.routing";
-import { materialCategoryRoutes } from "./materialCategory/materialCategory.routing";
-import { materialRoutes } from "./material/material.routing";
-import { userRoutes } from "./user/user.routing";
-import { pmRoutes } from "./pm/pm.routing";
-import { homeRoutes } from "./home/home.routing";
-import { imageRoutes } from "./image/image.routing";
-import { materialCommentRoutes } from "./materialComment/materialComment.routing";
-import { matchRoutes } from "./match/match.routing";
-import { seasonRoutes } from "./season/season.routing";
-import { roleGroupRoutes } from "./roleGroup/roleGroup.routing";
+import { accountRoutes } from "./account/account.routes";
+import { clubRoutes } from "./club/club.routes";
+import { materialCategoryRoutes } from "./materialCategory/materialCategory.routes";
+import { materialRoutes } from "./material/material.routes";
+import { userRoutes } from "./user/user.routes";
+import { pmRoutes } from "./pm/pm.routes";
+import { homeRoutes } from "./home/home.routes";
+import { imageRoutes } from "./image/image.routes";
+import { materialCommentRoutes } from "./materialComment/materialComment.routes";
+import { matchRoutes } from "./match/match.routes";
+import { seasonRoutes } from "./season/season.routes";
+import { stadiumRoutes } from "./stadium/stadium.routes";
+import { roleGroupRoutes } from "./roleGroup/roleGroup.routes";
 
 export const routes: Routes = [
     ...accountRoutes,
@@ -25,6 +26,7 @@ export const routes: Routes = [
     ...pmRoutes,
     ...roleGroupRoutes,
     ...seasonRoutes,
+    ...stadiumRoutes,
     ...userRoutes,
     { path: "", component: MaterialListComponent, data: { title: "MyLFC.ru - Сайт русскоязычных болельщиков \"Ливерпуля\"", breadcrumb: "Главная", type: "Both" } }
 ];

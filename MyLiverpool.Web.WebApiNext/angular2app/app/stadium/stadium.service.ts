@@ -2,37 +2,28 @@
 import { Response } from "@angular/http";
 import { Observable } from "rxjs/Observable";
 import { HttpWrapper, Pageable } from "../shared/index";
-import { Person } from "./person.model";
-import { PersonType } from "./personType.model";
+import { Stadium } from "./stadium.model";
 
 @Injectable()
-export class PersonService {
-    private actionUrl: string = "person/";
+export class StadiumService {
+    private actionUrl: string = "stadium/";
 
     constructor(private http: HttpWrapper) {
     }
 
-    public getAll = (page: number): Observable<Pageable<Person>> => {
+    public getAll = (page: number): Observable<Pageable<Stadium>> => {
         return this.http.get(this.actionUrl + `list?page=${page}`).map((res: Response) => res.json());
     };
 
-    public getSingle = (id: number): Observable<Person> => {
+    public getSingle = (id: number): Observable<Stadium> => {
         return this.http.get(this.actionUrl + id).map((res: Response) => res.json());
     };
 
-    public getBestPlayer = (): Observable<Person> => {
-        return this.http.get(this.actionUrl + "bestPlayer/").map((res: Response) => res.json());
-    };
-
-    public setBestPlayer = (personId: number): Observable<boolean> => {
-        return this.http.put(`${this.actionUrl}bestPlayer/${personId}`, "").map((res: Response) => res.json());
-    };
-
-    public create = (item: Person): Observable<Person> => {
+    public create = (item: Stadium): Observable<Stadium> => {
         return this.http.post(this.actionUrl, JSON.stringify(item)).map((res: Response) => res.json());
     };
 
-    public update = (id: number, itemToUpdate: Person): Observable<Person> => {
+    public update = (id: number, itemToUpdate: Stadium): Observable<Stadium> => {
         return this.http
             .put(this.actionUrl + id, JSON.stringify(itemToUpdate))
             .map((res: Response) => res.json());
@@ -40,10 +31,6 @@ export class PersonService {
 
     public delete = (id: number): Observable<boolean> => {
         return this.http.delete(this.actionUrl + id).map((res: Response) => res.json());
-    };
-
-    public getTypes = (): Observable<PersonType[]> => {
-        return this.http.get(this.actionUrl + "types/").map((res: Response) => res.json());
     };
 
     public updatePhoto = (name: string, file: File): Observable<string> => {

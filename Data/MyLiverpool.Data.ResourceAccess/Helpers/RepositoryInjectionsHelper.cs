@@ -23,6 +23,7 @@ namespace MyLiverpool.Data.ResourceAccess.Helpers
             services.AddScoped<IPmRepository, PmRepository>();
             services.AddScoped<IRoleGroupRepository, RoleGroupRepository>();
             services.AddScoped<ISeasonRepository, SeasonRepository>();
+            services.AddScoped<IStadiumRepository, StadiumRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IWishRepository, WishRepository>();
         }

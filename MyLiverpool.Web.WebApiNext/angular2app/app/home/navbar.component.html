@@ -55,19 +55,17 @@
             </li>
             <li><a [routerLink]="['/rules']"><b class="text-danger" style="color: red; font-family: 'Beauty';">Правила</b></a></li>
             <li> <a [routerLink]="['/forum']">Форум</a></li>
-            <li *ngIf="roles.isAdminAssistant" class="dropdown">
+            <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="">Админка<b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                    <li><a [routerLink]="['/matches']">Матчи</a></li>
-                    <li><a [routerLink]="['/clubs']">Клубы</a></li>
-                    <li><a [routerLink]="['/roleGroups']">Роли</a></li>
-                    <li><a [routerLink]="['/persons']">Люди</a></li>
+                    <li *ngIf="roles.isAdminAssistant"><a [routerLink]="['/matches']">Матчи</a></li>
+                    <li *ngIf="roles.isAdminAssistant"><a [routerLink]="['/clubs']">Клубы</a></li>
+                    <li *ngIf="roles.isAdminAssistant"><a [routerLink]="['/roleGroups']">Роли</a></li>
+                    <li *ngIf="roles.isAdminAssistant"><a [routerLink]="['/persons']">Люди</a></li>
+                    <li *ngIf="roles.isAdminAssistant"><a [routerLink]="['/stadiums']">Стадионы</a></li>
                     <li *ngIf="roles.isNewsmaker || roles.isAuthor"> <a [routerLink]="['/images']">Изображения</a></li>
                     <li *ngIf="roles.isLogined"> <a [routerLink]="['/materialComments']" [queryParams]="{page: 1}">Комментарии</a></li>
                 </ul>
-            </li>
-            <li class="pull-right">
-               
             </li>
         </ul>
         

@@ -22,7 +22,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                 defaultValue: 0);
 
             migrationBuilder.CreateTable(
-                name: "Stadium",
+                name: "Stadiums",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -49,7 +49,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Stadium");
+                name: "Stadiums");
 
             migrationBuilder.DropIndex(
                 name: "IX_Matches_StadiumId",

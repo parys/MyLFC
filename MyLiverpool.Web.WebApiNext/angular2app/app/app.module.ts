@@ -24,6 +24,7 @@ import { UserDetailComponent } from "./user/user-detail.component";
 import { UserService } from "./user/user.service";
 import { UserListComponent } from "./user/user-list.component";
 import * as pm from "./pm/index";
+import { StadiumModule } from "./stadium/index";
 import { WishModule } from "./wish/index";
 import * as materialComment from "./materialComment/index";
 import { Ng2AutoCompleteModule } from "ng2-auto-complete";
@@ -58,6 +59,7 @@ import { MdTabsModule, MdDialogModule, MdSnackBarModule, MdButtonModule, MdInput
         RouterModule.forRoot(routes),
         ReCaptchaModule,
         SharedModule,
+        StadiumModule,
         TimepickerModule.forRoot(),
         WishModule
     ],

@@ -9,7 +9,7 @@ export const materialRoutes: Routes = [
             {
                 path: "",
                 component: MaterialListComponent,
-                data: { title: "Новости", breadcrumb: "Новости", type: "News" }
+                data: { title: "Новости", type: "News" }
             },
             {
                 path: ":id",
@@ -17,14 +17,13 @@ export const materialRoutes: Routes = [
                     {
                         path: "",
                         component: MaterialDetailComponent,
-                        data: { title: "Новость", breadcrumb: "Новость", type: "News" }
+                        data: { title: "Новость", type: "News" }
                     },
                     {
                         path: "edit",
                         component: MaterialEditComponent,
                         data: {
-                            title: "Создание новости",
-                            breadcrumb: "Создание новости",
+                            title: "Редактирование новости",
                             roles: ["newsStart"],
                             type: "News"
                         },
@@ -37,21 +36,20 @@ export const materialRoutes: Routes = [
     {
         path: "blogs",
         children: [
-            { path: "", component: MaterialListComponent, data: { title: "Блоги", breadcrumb: "Блоги", type: "Blog" } },
+            { path: "", component: MaterialListComponent, data: { title: "Блоги", type: "Blog" } },
             {
                 path: ":id",
                 children: [
                     {
                         path: "",
                         component: MaterialDetailComponent,
-                        data: { title: "Блог", breadcrumb: "Блог", type: "Blog" }
+                        data: { title: "Блог", type: "Blog" }
                     },
                     {
                         path: "edit",
                         component: MaterialEditComponent,
                         data: {
-                            title: "Создание блога",
-                            breadcrumb: "Создание блога",
+                            title: "Редактирование блога",
                             roles: ["blogStart"],
                             type: "Blog"
                         },
