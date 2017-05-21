@@ -88,13 +88,13 @@ namespace MyLiverpool.Business.Services.Tests
         {
             new object[]
             {
-                new ClubDto() {Logo = "mes 1", EnglishName = "name 1", Name = "title 1", Stadium = "stadium 1"},
-                new ClubDto() {Logo = "mes 1", EnglishName = "name 1", Name = "title 1", Stadium = "stadium 1"},
+                new ClubDto() {Logo = "mes 1", EnglishName = "name 1", Name = "title 1", StadiumId = 1 },
+                new ClubDto() {Logo = "mes 1", EnglishName = "name 1", Name = "title 1", StadiumId = 1 },
             },
             new object[]
             {
-                new ClubDto() {Logo = "mes 2", EnglishName = "name 2", Name = "title 2", Stadium = "stadium 2"},
-                new ClubDto() {Logo = "mes 2", EnglishName = "name 2", Name = "title 2", Stadium = "stadium 2"},
+                new ClubDto() {Logo = "mes 2", EnglishName = "name 2", Name = "title 2", StadiumId = 2},
+                new ClubDto() {Logo = "mes 2", EnglishName = "name 2", Name = "title 2", StadiumId = 2},
             },
         };
     }

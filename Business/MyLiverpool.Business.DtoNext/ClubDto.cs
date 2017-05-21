@@ -8,16 +8,17 @@ namespace MyLiverpool.Business.Dto
 
         [Required(AllowEmptyStrings = false)]
         [DisplayFormat(ConvertEmptyStringToNull = false)]
-
         public string Name { get; set; }
 
         [Required(AllowEmptyStrings = false)]
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string EnglishName { get; set; }
-
-        [Required(AllowEmptyStrings = false)]
+        
         [DisplayFormat(ConvertEmptyStringToNull = false)]
-        public string Stadium { get; set; }
+        public string StadiumName { get; set; }
+        
+        [Required]
+        public int StadiumId { get; set; }
 
         public string Logo { get; set; }
     }

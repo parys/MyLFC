@@ -14,5 +14,10 @@ namespace MyLiverpool.Data.ResourceAccess.Interfaces
         Task<IEnumerable<Stadium>> GetListAsync(int page, int itemPerPage = 15,
             Expression<Func<Stadium, bool>> filter = null,
             SortOrder order = SortOrder.Ascending, Expression<Func<Stadium, object>> orderBy = null);
+
+        Task<IEnumerable<Stadium>> GetListByNameAsync(string typed);
+
+        //bug temporary
+        Task<IEnumerable<Stadium>> GetListAsync();
     }
 }

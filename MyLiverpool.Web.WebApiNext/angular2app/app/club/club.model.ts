@@ -1,7 +1,8 @@
 ﻿export class Club {
-    id: number;
-    name: string;
-    englishName: string;
-    stadium: string;
-    logo: string;
+    public id: number;
+    public name: string;
+    public englishName: string;
+    public stadiumName: string;
+    public stadiumId: string;
+    public logo: string;
 }

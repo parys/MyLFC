@@ -31,6 +31,13 @@ namespace MyLiverpool.Business.Services
             return null;
         }
 
+        //bug temporary
+        public async Task<IEnumerable<StadiumDto>> GeListAsync()
+        {
+            var stadiums = await _stadiumRepository.GetListAsync();
+            return _mapper.Map<IEnumerable<StadiumDto>>(stadiums);
+        }
+
         public async Task<PageableData<StadiumDto>> GeListAsync(int page)
         {
             var stadiums = await _stadiumRepository.GetListAsync(page);
@@ -66,6 +73,12 @@ namespace MyLiverpool.Business.Services
                 return false;
             }
             return true;
+        }
+
+        public async Task<IEnumerable<StadiumDto>> GetListByNameAsync(string typed)
+        {
+            var list = await _stadiumRepository.GetListByNameAsync(typed);
+            return _mapper.Map<IEnumerable<StadiumDto>>(list);
         }
     }
 }

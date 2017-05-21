@@ -1,11 +1,18 @@
 ﻿import { Component, OnInit, OnDestroy } from "@angular/core";
 import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
-import { Title } from "@angular/platform-browser";
 import { Subscription } from "rxjs/Subscription";
+import { Observable } from "rxjs/Observable";
+import { Subject } from "rxjs/Subject";
+import "rxjs/add/operator/debounceTime";
+import "rxjs/add/operator/take";
+import "rxjs/add/operator/takeUntil";
 import { ClubService } from "./club.service";
+import { Configuration } from "../app.constants";
 import { Club } from "./club.model";
-import { LocalStorageService, RolesCheckedService } from "../shared/index";
+import { Stadium } from "../stadium/index";
+import { StadiumService } from "../stadium/stadium.service";
+import { LocalStorageService } from "../shared/index";
 
 @Component({
     selector: "club-edit",
@@ -13,69 +20,81 @@ import { LocalStorageService, RolesCheckedService } from "../shared/index";
 })
 
 export class ClubEditComponent implements OnInit, OnDestroy {
-    editForm: FormGroup;
     private sub: Subscription;
-    id: number;
-    item: Club;
-    imagePath: string;
+    private sub2: Subscription;
+    private id: number;
+    private static changer: Subject<any> = new Subject<any>();
+    public editForm: FormGroup;
+    public imagePath: string;
+    public stadiums: Stadium[];
+    public filteredStadiums$: Observable<Stadium[]>;
 
     constructor(private clubService: ClubService,
+        private stadiumService: StadiumService,
         private route: ActivatedRoute,
         private router: Router,
+        private config: Configuration,
         private localStorage: LocalStorageService,
         private formBuilder: FormBuilder) {
-        this.item = new Club();
     }
 
-    ngOnInit() {
+    public filterStadiums(val: string) {
+        return val ? this.stadiums.filter(s => new RegExp(`^${val}`, 'gi').test(s.name))
+            : this.stadiums;
+    }
+
+    public ngOnInit(): void {
         this.initForm();
         this.sub = this.route.params.subscribe(params => {
-            let id = +params["id"];
-            if (id > 0) {
-                this.clubService.getSingle(id)
+            this.id = +params["id"];
+            if (this.id > 0) {
+                this.sub2 = this.clubService.getSingle(this.id)
                     .subscribe(data => this.parse(data),
-                    error => console.log(error),
-                    () => { });
+                    error => console.log(error));
             }
         });
+        this.stadiumService.getAllAll().subscribe(data => this.stadiums = data,
+            e => console.log(e), () => {
+                this.filteredStadiums$ = this.editForm.controls["stadiumName"].valueChanges
+                    .startWith(null)
+                    .map((name: string) => this.filterStadiums(name));
+            });
     }
 
-    upload() {
-
+    public ngOnDestroy(): void {
+        if(this.sub) {this.sub.unsubscribe();}
+        if(this.sub2) {this.sub2.unsubscribe();}
     }
 
-    ngOnDestroy() {
-        this.sub.unsubscribe();
-    }
-
-    onSubmit() {
-        let club = this.parseForm();
+    public onSubmit(): void {
+        const club: Club = this.parseForm();
         if (this.id > 0) {
             this.clubService.update(this.id, club)
                 .subscribe(data => this.router.navigate(["/clubs"]),
-                error => console.log(error),
-                () => { });
+                error => console.log(error));
         } else {
             this.clubService.create(club)
                 .subscribe(data => this.router.navigate(["/clubs"]),
-                error => console.log(error),
-                () => { });
+                error => console.log(error));
         }
     }
 
-    onUploadImage(event: any) {
+    public onUploadImage(event: any): void {
         if (event.currentTarget.files.length > 0) {
             this.clubService.uploadLogo(event.currentTarget.files[0], this.editForm.controls["englishName"].value)
                 .subscribe(result => {
                     this.imagePath = result + "?" + this.getRandomNumber();
                     this.editForm.controls["logo"].patchValue(this.imagePath);
                 },
-                error => console.log(error),
-                () => { });
+                error => console.log(error));
         }
     }
 
-    getRandomNumber(): number {
+    public selected(id: number) {
+        this.editForm.get("stadiumId").patchValue(id);
+    }
+
+    private getRandomNumber(): number {
         return Math.random();
     }
 
@@ -86,13 +105,8 @@ export class ClubEditComponent implements OnInit, OnDestroy {
     }
 
     private parseForm(): Club {
-        let item = new Club();
+        let item = this.editForm.value;
         item.id = this.id;
-        item.englishName = this.editForm.controls["englishName"].value;
-        item.logo = this.editForm.controls["logo"].value;
-        item.name = this.editForm.controls["name"].value;
-        item.stadium = this.editForm.controls["stadium"].value;
-
         return item;
     }
 
@@ -100,12 +114,19 @@ export class ClubEditComponent implements OnInit, OnDestroy {
         this.editForm = this.formBuilder.group({
             'englishName': ["", Validators.compose([
                 Validators.required, Validators.maxLength(30)])],
-            'logo': ["", Validators.compose([
-                Validators.required])],
+            'logo': ["", Validators.required],
             'name': ["", Validators.compose([
                 Validators.required, Validators.maxLength(30)])],
-            'stadium': ["", Validators.compose([
-                Validators.required, Validators.maxLength(30)])]
+            'stadiumId': ["", Validators.required],
+            'stadiumName': ["", Validators.required],
+            'id': [0, Validators.required]
         });
+        //this.editForm.controls["stadiumName"].valueChanges
+        //    .debounceTime(this.config.debounceTime)
+        //    .takeUntil(ClubEditComponent.changer)
+        //    .take(1)
+        //    .switchMap((value: string) => this.stadiumService.getListByName(value))
+        //    .subscribe((data: Stadium[]) => this.stadiums = data,
+        //        e => console.log(e));
     }
 }

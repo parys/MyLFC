@@ -34,6 +34,18 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         {
             var stadium = await _stadiumService.GetByIdAsync(id);
             return Ok(stadium);
+        }  
+        
+        /// <summary>
+        /// Returns top 10 stadiums by name.
+        /// </summary>
+        /// <param name="typed">The part of name of stadium.</param>
+        /// <returns>Found stadiums.</returns>
+        [AllowAnonymous, HttpGet("getListByName")]
+        public async Task<IActionResult> GetListByNameAsync([FromQuery]string typed)
+        {
+            var stadium = await _stadiumService.GetListByNameAsync(typed);
+            return Ok(stadium);
         }
 
         /// <summary>
@@ -45,6 +57,19 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         public async Task<IActionResult> GetListAsync([FromQuery]int page)
         {
             var stadium = await _stadiumService.GeListAsync(page);
+            return Ok(stadium);
+        }
+
+        //bug temporary
+        /// <summary>
+        /// Returns list of stadiums.
+        /// </summary>
+        /// <param name="page">The identifier of stadium.</param>
+        /// <returns>List with stadiums.</returns>
+        [AllowAnonymous, HttpGet("listAll")]
+        public async Task<IActionResult> GetListAsync()
+        {
+            var stadium = await _stadiumService.GeListAsync();
             return Ok(stadium);
         }
 

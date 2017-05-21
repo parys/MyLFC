@@ -15,6 +15,14 @@ export class StadiumService {
         return this.http.get(this.actionUrl + `list?page=${page}`).map((res: Response) => res.json());
     };
 
+    public getAllAll = (): Observable<Stadium[]> => {
+        return this.http.get(this.actionUrl + `listAll`).map((res: Response) => res.json());
+    };
+
+    public getListByName = (typed: string): Observable<Stadium[]> => {
+        return this.http.get(this.actionUrl + `getListByName?typed=${typed}`).map((res: Response) => res.json());
+    };
+
     public getSingle = (id: number): Observable<Stadium> => {
         return this.http.get(this.actionUrl + id).map((res: Response) => res.json());
     };

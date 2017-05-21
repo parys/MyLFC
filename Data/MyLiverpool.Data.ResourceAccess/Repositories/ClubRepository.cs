@@ -21,7 +21,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
 
         public async Task<Club> GetByIdAsync(int id)
         {
-            return await _context.Clubs.FindAsync(id);
+            return await _context.Clubs.Include(c => c.Stadium).FirstOrDefaultAsync(c => c.Id == id);
         }
 
         public async Task<Club> AddAsync(Club entity)
@@ -39,8 +39,8 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             }
         }
 
-        public async Task DeleteAsync(Club entity){
-
+        public async Task DeleteAsync(Club entity)
+        {
             await Task.FromResult(_context.Clubs.Remove(entity));
         }
 

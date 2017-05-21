@@ -5,6 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using MyLiverpool.Common.Utilities;
 using MyLiverpool.Data.Entities;
 using MyLiverpool.Data.ResourceAccess.Interfaces;
 
@@ -73,6 +74,22 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             }
             query = query.Skip((page - 1) * itemPerPage).Take(itemPerPage);
             return await query.ToListAsync();
+        }
+
+        public async Task<IEnumerable<Stadium>> GetListByNameAsync(string typed)
+        {
+            IQueryable<Stadium> query = _context.Stadiums;
+            if (!string.IsNullOrWhiteSpace(typed))
+            {
+                query = query.Where(s => s.Name.Contains(typed));
+            }
+            return await query.Take(GlobalConstants.CountStadiumsForAutocomlete).ToListAsync();
+        }
+
+        //bug temporary
+        public async Task<IEnumerable<Stadium>> GetListAsync()
+        {
+            return await _context.Stadiums.ToListAsync();
         }
 
         public async Task SaveChangesAsync()
