@@ -58,7 +58,7 @@ export class StadiumListComponent implements OnInit, OnDestroy {
     public pageChanged(event: any): void {
         this.page = event.page;
         this.update();
-        let newUrl = `persons?page=${this.page}`;
+        let newUrl = `stadiums?page=${this.page}`;
         this.location.replaceState(newUrl);
     };
 
