@@ -32,16 +32,17 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
 
         public async Task DeleteAsync(int id)
         {
-            var pm = await _context.Matches.FindAsync(id);
-            if (pm != null)
+            var match = await _context.Matches.FindAsync(id);
+            if (match != null)
             {
-                await DeleteAsync(pm);
+                await DeleteAsync(match);
             }
         }
 
         public async Task DeleteAsync(Match entity)
         {
-            await Task.FromResult(_context.Matches.Remove(entity));
+            _context.Matches.Remove(entity);
+            await _context.SaveChangesAsync();
         }
 
         public void Update(Match entity)

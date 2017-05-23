@@ -14,40 +14,40 @@ export class MatchService {
         this.actionUrl = "match/";
     }
 
-    getAll = (page: number): Observable<Pageable<Match>> => {
+    public getAll = (page: number): Observable<Pageable<Match>> => {
         return this.http.get(this.actionUrl + "list?page=" + page).map((res: Response) => res.json());
     };
 
-    getForCalendar = (): Observable<Match[]> => {
+    public getForCalendar = (): Observable<Match[]> => {
         return this.http.get(this.actionUrl + "getForCalendar").map((res: Response) => res.json());
     };
 
-    getSingle = (id: number): Observable<Match> => {
+    public getSingle = (id: number): Observable<Match> => {
         return this.http.get(this.actionUrl + id).map((res: Response) => res.json());
     };
 
-    create = (item: Match): Observable<Match> => {
+    public create = (item: Match): Observable<Match> => {
         return this.http.post(this.actionUrl, JSON.stringify(item)).map((res: Response) => res.json());
     };
 
-    update = (id: number, itemToUpdate: Match): Observable<Match> => {
+    public update = (id: number, itemToUpdate: Match): Observable<Match> => {
         return this.http
             .put(this.actionUrl + id, JSON.stringify(itemToUpdate))
             .map((res: Response) => res.json());
     };
 
-    updateScore = (id: number, score: string): Observable<Match> => {
+    public updateScore = (id: number, score: string): Observable<Match> => {
         return this.http
             .put(`${this.actionUrl}updateScore?id=${id}&score=${score}`, null)
             .map((res: Response) => res.json());
     };
 
-     getTypes = (): Observable<MatchType[]> => {
+    public getTypes = (): Observable<MatchType[]> => {
         return this.http.get(this.actionUrl + "getTypes/")
             .map((res: Response) => res.json());
     };
 
-    delete = (id: number): Observable<boolean> => {
+    public delete = (id: number): Observable<boolean> => {
         return this.http.delete(this.actionUrl + id).map((res: Response) => res.json());
     };
 }

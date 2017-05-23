@@ -315,6 +315,11 @@ textarea {
     }
 }
 
+.table > tbody > tr > td {
+    vertical-align: middle;
+    align-content: center;
+}
+
 .text-white {
     color: white;
 }

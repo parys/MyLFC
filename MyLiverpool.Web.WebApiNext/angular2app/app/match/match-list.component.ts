@@ -1,39 +1,80 @@
-﻿import { Component, OnInit } from "@angular/core";
-import { Observable } from "rxjs/Observable";
+﻿import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Location } from "@angular/common";
-import { Router, ActivatedRoute } from "@angular/router";
+import { ActivatedRoute } from "@angular/router";
+import { MdDialog } from '@angular/material';
 import { Subscription } from "rxjs/Subscription";
 import { Match } from "./match.model";
 import { MatchService } from "./match.service";
-import { Pageable } from "../shared/pageable.model";
+import { Pageable, DeleteDialogComponent } from "../shared/index";
 
 @Component({
     selector: "match-list",
     templateUrl: "./match-list.component.html"
 })
 
-export class MatchListComponent implements OnInit {
-    sub: Subscription;
-    items: Match[];
-    page: number = 1;
-    itemsPerPage: number = 15;
-    totalItems: number;
-    categoryId: number;
+export class MatchListComponent implements OnInit, OnDestroy {
+    private sub: Subscription;
+    private sub2: Subscription;
+    public items: Match[];
+    public page: number = 1;
+    public itemsPerPage: number = 15;
+    public totalItems: number;
+    private categoryId: number;
 
     constructor(private matchService: MatchService,
         private route: ActivatedRoute,
-        private location: Location) {
+        private location: Location,
+        private dialog: MdDialog) {
     }
 
-    ngOnInit() {
+    public ngOnInit(): void {
         this.sub = this.route.queryParams.subscribe(qParams => {
                 this.page = qParams["page"] || 1;
                 this.categoryId = qParams["categoryId"] || "";
-            //    this.userName = qParams["userName"] || "";
-            //    this.onlyUnverified = qParams["onlyUnverified"] || false;
             },
             error => console.log(error));
         this.update();
+    }
+
+    public ngOnDestroy(): void {
+        if(this.sub) { this.sub.unsubscribe(); }
+        if(this.sub2) { this.sub2.unsubscribe(); }
+    }
+
+    public update(): void {
+        this.sub2 = this.matchService
+            .getAll(this.page)
+            .subscribe(data => this.parsePageable(data),
+                error => console.log(error));
+    }
+
+    public pageChanged(event: any): void {
+        this.page = event.page;
+        this.update();
+        let newUrl = `matches?page=${this.page}`;
+        this.location.replaceState(newUrl);
+    };
+
+    public showDeleteModal(index: number): void {
+        let dialogRef = this.dialog.open(DeleteDialogComponent);
+        dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                this.delete(index);
+            }
+        }, e => console.log(e));
+    }
+
+    private delete(index: number): void {
+        let result: boolean;
+        this.matchService.delete(this.items[index].id)
+            .subscribe(res => result = res,
+                e => console.log(e),
+                () => {
+                    if (result) {
+                        this.items.splice(index, 1);
+                    }
+                }
+            );
     }
 
     private parsePageable(pageable: Pageable<Match>): void {
@@ -42,27 +83,4 @@ export class MatchListComponent implements OnInit {
         this.itemsPerPage = pageable.itemPerPage;
         this.totalItems = pageable.totalItems;
     }
-
-    update() {
-        //let filters = new UserFilters();
-        ////  filters.categoryId = this.categoryId;
-        ////  filters.materialType = "News";
-        //filters.userName = this.userName;
-        //filters.page = this.page;
-
-        this.matchService
-            .getAll(this.page)
-            .subscribe(data => this.parsePageable(data),
-                error => console.log(error));
-    }
-
-    pageChanged(event: any): void {
-        this.page = event.page;
-        this.update();
-        let newUrl = `matches?page=${this.page}`;
-        //if (this.categoryId) {
-        //     newUrl = `${newUrl}/${this.categoryId}`;
-        // }
-        this.location.replaceState(newUrl);
-    };
 }

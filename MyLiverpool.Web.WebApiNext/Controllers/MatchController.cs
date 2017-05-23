@@ -135,5 +135,16 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             }
             return Ok(await Task.FromResult(list));
         }
+
+        /// <summary>
+        /// Delete match.
+        /// </summary>
+        /// <returns>List of types.</returns>
+        [Authorize(Roles = nameof(RolesEnum.AdminStart)), HttpDelete("{id:int}")]
+        public async Task<IActionResult> DeleteAsync(int id)
+        {
+            var result = await _matchService.DeleteAsync(id);
+            return Ok(result);
+        }
     }
 }

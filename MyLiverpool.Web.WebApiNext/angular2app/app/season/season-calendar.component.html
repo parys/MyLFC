@@ -1,29 +1,32 @@
 ﻿<div>
-    <table *ngIf="season" class="table table-condensed">
-        <tbody >
-        <tr *ngFor="let match of season.matches">
+    <table *ngIf="season" class="table table-condensed table-bordered table-hover">
+        <tbody class="">
+        <tr *ngFor="let match of season.matches; let i = index;" class="center-middle">
+            <td [textContent]="i+1">
+            </td>
             <td>
-                <div class="panel panel-default clearfix">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">
-                            <a [routerLink]="['/seasons', match.id, 'edit']"> <span [textContent]="match.dateTime | date:'d MMM y j:mm'"></span> МСК - <span [textContent]="match.stadium"></span></a>
-                            <span class="col-xs-1 col-sm-1 pull-right">
-                                <a ng-click="vm.delete($index)"><span class="glyphicon glyphicon-trash"></span></a>
-                            </span>
-                        </h3>
-                    </div>
-                    <div class="panel-body col-xs-12 row">
-                        <div class="col-xs-4">
-                            <img class="club-logo" [src]="match.homeClubLogo" [alt]="match.homeClubName"><span [textContent]="match.homeClubName"></span>
-                        </div>
-                        <div class="col-xs-4 font-size40">
-                            <span [textContent]="match.scoreHome"></span>:<span [textContent]="match.scoreAway"></span>
-                        </div>
-                        <div class="col-xs-4">
-                            <img class="club-logo" [src]="match.awayClubLogo" [alt]="match.awayClubName"><span [textContent]="match.awayClubName"></span>
-                        </div>
-                    </div>
-                </div>
+                <span [textContent]="match.typeName"></span>
+            </td>
+            <td>
+                <a [routerLink]="['/matches', match.id, 'edit']"> <span [textContent]="match.dateTime | date:'d MMM y j:mm'"></span></a>
+            </td>
+            <td>
+                <img class="club-logo" [src]="match.homeClubLogo" [alt]="match.homeClubName">
+            </td>
+            <td>
+                <span [textContent]="match.homeClubName"></span>
+            </td>
+            <td>
+                <span [textContent]="match.scoreHome"></span>:<span [textContent]="match.scoreAway"></span>
+            </td>
+            <td>
+                <img class="club-logo" [src]="match.awayClubLogo" [alt]="match.awayClubName">
+            </td>
+            <td>
+                <span [textContent]="match.awayClubName"></span>
+            </td>
+            <td>
+                <span [textContent]="match.stadium"></span>
             </td>
         </tr>
         </tbody>
