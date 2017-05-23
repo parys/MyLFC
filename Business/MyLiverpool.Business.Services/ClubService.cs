@@ -84,7 +84,7 @@ namespace MyLiverpool.Business.Services
 
         public async Task<PageableData<ClubDto>> GetListAsync(int page)
         {
-            var clubs = await _clubRepository.GetListAsync(page);
+            var clubs = await _clubRepository.GetListAsync(page, orderBy: x => x.Name);
             var dtos =  _mapper.Map<ICollection<ClubDto>>(clubs);
             var count = await _clubRepository.GetCountAsync();
             return new PageableData<ClubDto>(dtos, page, count);

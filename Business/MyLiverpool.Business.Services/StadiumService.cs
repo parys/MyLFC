@@ -40,7 +40,7 @@ namespace MyLiverpool.Business.Services
 
         public async Task<PageableData<StadiumDto>> GeListAsync(int page)
         {
-            var stadiums = await _stadiumRepository.GetListAsync(page);
+            var stadiums = await _stadiumRepository.GetListAsync(page, orderBy: x => x.Name);
             var dtos = _mapper.Map<ICollection<StadiumDto>>(stadiums);
             var count = await _stadiumRepository.GetCountAsync();
             return new PageableData<StadiumDto>(dtos, page, count);
