@@ -324,6 +324,10 @@ textarea {
     color: white;
 }
 
+.text-underline {
+    text-decoration: underline;
+}
+
 .top20 {
     margin-top: 20px;
 }
