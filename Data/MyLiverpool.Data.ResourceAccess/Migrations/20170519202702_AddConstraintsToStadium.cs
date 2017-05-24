@@ -10,7 +10,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
         {
             //add temp stadium if not exists
             migrationBuilder.Sql(@"  SET IDENTITY_INSERT Stadiums ON
- IF NOT EXISTS(SELECT 1 FROM Stadiums WHERE Stadium.Id = 1)
+ IF NOT EXISTS(SELECT 1 FROM Stadiums WHERE Stadiums.Id = 1)
  BEGIN
     INSERT INTO Stadiums (Id, Name, City) VALUES (1, 'temp', 'temp')
 	 UPDATE Clubs
@@ -26,7 +26,7 @@ SET IDENTITY_INSERT Stadiums OFF
                 name: "FK_Clubs_Stadium_StadiumId",
                 table: "Clubs",
                 column: "StadiumId",
-                principalTable: "Stadium",
+                principalTable: "Stadiums",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);
 
@@ -34,7 +34,7 @@ SET IDENTITY_INSERT Stadiums OFF
                 name: "FK_Matches_Stadium_StadiumId",
                 table: "Matches",
                 column: "StadiumId",
-                principalTable: "Stadium",
+                principalTable: "Stadiums",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);
         }
