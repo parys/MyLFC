@@ -63,10 +63,17 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             return await _context.ForumSections.CountAsync(filter);
         }
 
-        public async Task<IEnumerable<ForumSection>> GetListAsync()
+        public async Task<IEnumerable<ForumSection>> GetListAsync(bool isAdmin)
         {
+            Expression<Func<ForumSubsection, bool>> filter = x => true;
+            if (!isAdmin)
+            {
+                filter = s => s.Name != "MyLiverpool Shop" &&
+                              s.Name != "Администрация" &&
+                              s.Name != "Новости" && s.Name != "Рабочие темы";
+            }
            // return await _context.ForumSections.Include(x => x.Subsections).ToListAsync();
-            return await _context.ForumSections.Select(x => new ForumSection()
+            var result = await _context.ForumSections.Select(x => new ForumSection()
             {
                 Id = x.Id,
                 Name = x.Name,
@@ -80,6 +87,8 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
                     IdOld = y.IdOld
                 }).ToList()
             }).ToListAsync();
+            result.ForEach(x => x.Subsections = x.Subsections.AsQueryable().Where(filter).ToList());
+            return result;
         }
     }
 }

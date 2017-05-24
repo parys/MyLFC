@@ -46,26 +46,15 @@ namespace MyLiverpool.Business.Services
             return true;
         }
 
-        //public async Task<ForumDto> GetAsync()
-        //{
-        //    var sections = await _forumSectionRepository.GetListAsync();
-
-        //    var model = new ForumDto()
-        //    {
-        //        Sections = _mapper.Map<ICollection<ForumSectionDto>>(sections)
-        //    };
-        //    return model;
-        //}
-
         public async Task<ForumSectionDto> GetAsync(int id)
         {
             var section = await _forumSectionRepository.GetByIdAsync(id);
             return _mapper.Map<ForumSectionDto>(section);
         }
 
-        public async Task<IEnumerable<ForumSectionDto>> GetListAsync()
+        public async Task<IEnumerable<ForumSectionDto>> GetListAsync(bool isAdmin)
         {
-            var sections = await _forumSectionRepository.GetListAsync();
+            var sections = await _forumSectionRepository.GetListAsync(isAdmin);
             return _mapper.Map<IEnumerable<ForumSectionDto>>(sections);
         }
     }

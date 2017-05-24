@@ -1806,7 +1806,7 @@ namespace MigratorVnext
         private static void UpdateForumSubsectionsFromList()
         {
             Console.WriteLine("Start UpdateForumSubsections");
-            var sections = ForumSectionRepository.GetListAsync().Result;
+            var sections = ForumSectionRepository.GetListAsync(true).Result;
 
             foreach (var subsection in Subsections)
             {
@@ -2220,7 +2220,7 @@ namespace MigratorVnext
         public static void UpdateForumSectionAndSubsection()
         {
             Console.WriteLine("Start UpdateForumSectionAndSubsection");
-            var sections = ForumSectionRepository.GetListAsync().Result;
+            var sections = ForumSectionRepository.GetListAsync(true).Result;
             var subSections = ForumSubsectionRepository.GetListAsync().Result;
             foreach (var section in sections)
             {

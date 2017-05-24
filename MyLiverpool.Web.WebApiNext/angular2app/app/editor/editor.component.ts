@@ -3,11 +3,23 @@ import { Component, EventEmitter, forwardRef, Input, Output, NgZone } from "@ang
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from "@angular/forms";
 
 import "tinymce";
-import "tinymce/themes/modern";
-import "tinymce/plugins/table";
-import "tinymce/plugins/link";
 import "tinymce/plugins/advlist";
+import "tinymce/plugins/anchor";
+import "tinymce/plugins/autolink";
+import "tinymce/plugins/autoresize";
+import "tinymce/plugins/code";
+import "tinymce/plugins/emoticons";
+import "tinymce/plugins/fullscreen";
+import "tinymce/plugins/image";
 import "tinymce/plugins/hr";
+import "tinymce/plugins/link";
+import "tinymce/plugins/lists";
+import "tinymce/plugins/media";
+import "tinymce/themes/modern";
+import "tinymce/plugins/paste";
+import "tinymce/plugins/preview";
+import "tinymce/plugins/table";
+import "tinymce/plugins/visualblocks";
 declare let tinymce: any;
 
 @Component({
@@ -22,14 +34,14 @@ declare let tinymce: any;
     template: `<textarea class="form-control" id="{{elementId}}">{{_value}}</textarea>`
 })
 export class EditorComponent implements ControlValueAccessor {
-    @Output() change = new EventEmitter();
-    @Output() ready = new EventEmitter();
-    @Output() blur = new EventEmitter();
-    @Input("value") _value: string = "";
-    @Input() type: number = 1;
-    elementId: string = Math.random().toString(36).substring(2);
-    zone: NgZone;
-    editor: any;
+    @Output() public change = new EventEmitter();
+    @Output() public ready = new EventEmitter();
+    @Output() public blur = new EventEmitter();
+    @Input("value") public _value: string = "";
+    @Input() public type: number = 1;
+    public elementId: string = Math.random().toString(36).substring(2);
+    public zone: NgZone;
+    public editor: any;
 
     public ngAfterViewInit(): void {
            this.initTiny();
@@ -86,30 +98,26 @@ export class EditorComponent implements ControlValueAccessor {
     }
 
     private getPlugins(): string {
+        const common: string = `anchor autolink autoresize lists link anchor image preview fullscreen
+        visualblocks code media table paste code emoticons`;
         if (this.type === 1) {
-            return `advlist autolink autoresize lists link image hr charmap print preview anchor
-                searchreplace visualblocks code fullscreen
-                insertdatetime media table contextmenu paste code emoticons`;
+            return `advlist contextmenu ${common}`;
         }
         if (this.type === 2) {
-            return `advlist autolink autoresize lists link image charmap print preview anchor
-                searchreplace visualblocks code fullscreen
-                insertdatetime media table contextmenu paste code emoticons`;
+            return `advlist contextmenu ${common}`;
         }
         if (this.type === 3) {
-            return `autolink autoresize lists link charmap print anchor
-                visualblocks code
-                insertdatetime media table paste code emoticons`;
+            return `${common}`;
         }
         return "";
     }
 
     private getToolbar(): string {
-        let common =
+        const common: string =
             `| styleselect | bold italic underline strikethrough | link image emoticons hr`;//poiler-add spoiler-remove`;
-        let type1 = `insert | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | fullscreen ${
+        const type1: string = `insert | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | fullscreen ${
             common}`;
-        let type2 = `undo redo ${type1}` ;
+        const type2: string = `undo redo ${type1}` ;
         if (this.type === 1) {
             return type1;
         }
@@ -138,9 +146,9 @@ export class EditorComponent implements ControlValueAccessor {
                 this.getPlugins()
             ],
             toolbar: this.getToolbar(),
-            external_plugins: {
-                spoiler: "/js/extPlugins/spoiler/plugin.js"
-            },
+            //external_plugins: {
+            //    spoiler: "/js/extPlugins/spoiler/plugin.js"
+            //},
             skin_url: "/src/lightgray",
             setup: (editor: any) => {
                 this.editor = editor;

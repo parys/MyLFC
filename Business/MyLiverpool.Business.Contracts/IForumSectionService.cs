@@ -14,6 +14,6 @@ namespace MyLiverpool.Business.Contracts
 
         Task<ForumSectionDto> GetAsync(int id);
 
-        Task<IEnumerable<ForumSectionDto>> GetListAsync();
+        Task<IEnumerable<ForumSectionDto>> GetListAsync(bool isAdmin);
     }
 }

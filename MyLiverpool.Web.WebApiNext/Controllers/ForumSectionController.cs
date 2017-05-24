@@ -84,7 +84,13 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [AllowAnonymous, HttpGet("list")]
         public async Task<IActionResult> List()
         {
-            var result = await _forumSectionService.GetListAsync();
+            var hasAdminAccess = User.Identity.IsAuthenticated
+                                  && User.IsInRole(nameof(RolesEnum.AdminStart))
+                                  || User.IsInRole(nameof(RolesEnum.BlogStart))
+                                  || User.IsInRole(nameof(RolesEnum.ForumStart))
+                                  || User.IsInRole(nameof(RolesEnum.NewsStart))
+                                  || User.IsInRole(nameof(RolesEnum.UserStart));
+            var result = await _forumSectionService.GetListAsync(hasAdminAccess);
             return Ok(result);
         }
     }

@@ -39,7 +39,7 @@ var SharedConfig = {
             "zone.js",
             "jquery",
             "bootstrap",
-            "bootstrap/dist/css/bootstrap.css",
+            "bootstrap/dist/css/bootstrap.min.css",
             "@angular/material/prebuilt-themes/indigo-pink.css",
             "event-source-polyfill",
             "rxjs",
@@ -81,8 +81,8 @@ var ClientBundleConfig = Merge(SharedConfig,
             ? [
                 new WebpackNotifierPlugin({ title: "vendorBuild-client", alwaysNotify: true }),
                 new CopyWebpackPlugin([{ from: "node_modules/swagger-ui/dist", to: "../swagger/" },
-                    { from: "node_modules/tinymce/skins/", to: "../src/" },
-                    { from: "node_modules/tinymce/plugins/", to: "../js/plugins/" }
+                    { from: "node_modules/tinymce/skins/", to: "../src/" }
+          //          { from: "node_modules/tinymce/plugins/", to: "../js/plugins/" }
                 ])
             ]
             : [

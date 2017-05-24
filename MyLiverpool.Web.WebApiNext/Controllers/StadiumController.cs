@@ -64,7 +64,6 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <summary>
         /// Returns list of stadiums.
         /// </summary>
-        /// <param name="page">The identifier of stadium.</param>
         /// <returns>List with stadiums.</returns>
         [AllowAnonymous, HttpGet("listAll")]
         public async Task<IActionResult> GetListAsync()
