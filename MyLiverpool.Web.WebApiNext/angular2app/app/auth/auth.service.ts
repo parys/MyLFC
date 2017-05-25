@@ -32,7 +32,6 @@ export class AuthService {
         private http1: Http,
         private localStorage: LocalStorageService,
         private rolesCheckedService: RolesCheckedService) {
-        this.updateAuthTokens();
 
         this.state = new BehaviorSubject<IAuthStateModel>(this.initalState);
         this.state$ = this.state.asObservable();
@@ -162,27 +161,6 @@ export class AuthService {
             .flatMap((tokens: IAuthTokenModel) => Observable.interval(tokens.expires_in / 2 * 1000))
             .flatMap(() => this.refreshTokens())
             .subscribe();
-    }
-
-    private updateAuthTokens(): void {
-        const refreshToken: string = this.localStorage.getRefreshToken();
-        if (!refreshToken) {
-            return;
-        }
-        let result: boolean = true;
-        this.http.refreshTokens().subscribe(data => data,
-            error => {
-                if (JSON.parse(error._body)["error"] === "invalid_grant") {
-                    result = false;
-                    this.localStorage.removeAllData();
-                }
-            },
-            () => {
-                if (result) {
-                    this.roles = this.localStorage.getRoles();
-                    this.id = this.localStorage.getUserId();
-                }
-            });
     }
 
     private parseLoginAnswer(item: any): void {
