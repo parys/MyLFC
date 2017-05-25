@@ -39,7 +39,7 @@ var SharedConfig = {
             "zone.js",
             "jquery",
             "bootstrap",
-            "bootstrap/dist/css/bootstrap.min.css",
+            "bootstrap/dist/css/bootstrap.css",
             "@angular/material/prebuilt-themes/indigo-pink.css",
             "event-source-polyfill",
             "rxjs",

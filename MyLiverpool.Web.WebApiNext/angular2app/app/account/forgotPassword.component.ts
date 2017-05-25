@@ -27,7 +27,7 @@ export class ForgotPasswordComponent implements OnInit {
         });
     }
 
-    onSubmit(): void {     
+    public onSubmit(): void {     
         this.email = this.forgotForm.controls["email"].value;        
         this.service.forgotPassword(this.email).subscribe(data => data,
             error => console.log(error),

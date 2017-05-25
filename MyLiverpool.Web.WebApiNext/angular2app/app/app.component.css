@@ -41,12 +41,12 @@ textarea {
 }
 
 .avatar {
-    width: 30px;
+    width: 100px;
 }
 
 .avatar-medium {
     min-width: 30px;
-    width: 80px;
+    width: 100px;
 }
 
 .beauty-font {

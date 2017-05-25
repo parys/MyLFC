@@ -58,7 +58,7 @@ namespace MyLiverpool.Business.Services
                     var isLiverpool = club.name.ToLower().Contains("ливерпуль");
                     var startTag = isLiverpool ? "<b>" : "";
                     var endTag = isLiverpool ? "</b>" : "";
-                    var cssClass = isLiverpool ? " class=\"red-color\"" : "";
+                    var cssClass = isLiverpool ? " class=\"color-red\"" : "";
                     newRows.AppendLine($@"<tr{cssClass}>
                                         <td>{startTag}{club.position}{endTag}</td>
                                         <td>{startTag}{club.name}{endTag}</td>

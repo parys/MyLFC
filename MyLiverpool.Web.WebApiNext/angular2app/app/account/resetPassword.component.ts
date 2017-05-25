@@ -13,9 +13,10 @@ import { ResetPassword } from "./resetPassword.model";
 })
 
 export class ResetPasswordComponent implements OnInit, OnDestroy {
-    resetForm: FormGroup;
-    finish: boolean;
-    code: string;
+    public resetForm: FormGroup;
+    public finish: boolean;
+    public error: boolean = false;
+    public code: string;
     private sub: Subscription;
 
     constructor(private service: AccountService,
@@ -24,7 +25,7 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
         private formBuilder: FormBuilder) {
     }
 
-    ngOnInit() {
+    public ngOnInit(): void {
         this.sub = this.route.queryParams.subscribe(params => {
             if (params["code"]) {
                 this.code = params["code"];
@@ -43,19 +44,18 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
         }, { validator: GlobalValidators.matchingPasswords("password", "confirmPassword") });
     }
 
-    ngOnDestroy() {
-        this.sub.unsubscribe();
+    public ngOnDestroy(): void {
+        if(this.sub) { this.sub.unsubscribe(); }
     }
 
-    onSubmit(): void {
+    public onSubmit(): void {
         let resetPassword = new ResetPassword();
         resetPassword.code = this.code;
         resetPassword.email = this.resetForm.controls["email"].value;
         resetPassword.password = this.resetForm.controls["password"].value;
         resetPassword.confirmPassword = this.resetForm.controls["confirmPassword"].value;
-        this.service.resetPassword(resetPassword).subscribe(data => data,
-            error => console.log(error),
-            () => { }
+        this.service.resetPassword(resetPassword).subscribe(data => this.error = !data,
+            error => console.log(error)
         );
         this.finish = true;
     }
