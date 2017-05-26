@@ -36,14 +36,14 @@ export const materialRoutes: Routes = [
     {
         path: "blogs",
         children: [
-            { path: "", component: MaterialListComponent, data: { title: "Блоги", type: "Blog" } },
+            { path: "", component: MaterialListComponent, data: { title: "Блоги", type: "Blogs" } },
             {
                 path: ":id",
                 children: [
                     {
                         path: "",
                         component: MaterialDetailComponent,
-                        data: { title: "Блог", type: "Blog" }
+                        data: { title: "Блог", type: "Blogs" }
                     },
                     {
                         path: "edit",
@@ -51,7 +51,7 @@ export const materialRoutes: Routes = [
                         data: {
                             title: "Редактирование блога",
                             roles: ["blogStart"],
-                            type: "Blog"
+                            type: "Blogs"
                         },
                         canActivate: [RoleGuard]
                     }

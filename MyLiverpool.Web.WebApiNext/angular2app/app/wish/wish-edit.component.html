@@ -1,4 +1,4 @@
-﻿<form class="form-horizontal col-md-12" role="form" name="editWish" [formGroup]="editForm" (ngSubmit)="onSubmit()">
+﻿<form class="form-horizontal col-md-12" role="form" name="editWish" [formGroup]="editWishForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
         <label class="control-label col-md-2">Заголовок</label>
         <div class="col-md-10">
@@ -21,7 +21,7 @@
     </div>
     <div class="form-group" *ngIf="isHuman">
         <div class="col-md-offset-2 col-md-10">
-            <button type="submit" class="btn btn-default" [disabled]="!editForm.valid">Отправить</button>
+            <button type="submit" class="btn btn-default" [disabled]="!editWishForm.valid">Отправить</button>
         </div>
     </div>
     <div class="form-group" [hidden]="isHuman">

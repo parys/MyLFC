@@ -1,22 +1,21 @@
 ﻿import { Component, OnInit, OnDestroy } from "@angular/core";
-import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { Observable } from "rxjs/Observable";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { Router, ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
 import { Wish } from "./wish.model";
 import { WishType } from "./wishType.model";
 import { WishService } from "./wish.service";
-import { Router, ActivatedRoute } from "@angular/router";
 
 @Component({
     selector: "wish-edit",
     templateUrl: "./wish-edit.component.html"
 })
 export class WishEditComponent implements OnInit, OnDestroy {
-    editForm: FormGroup;
-    id: number = 0;
+    private id: number = 0;
     private sub: Subscription;
-    types: WishType[];
-    isHuman: boolean = false;
+    public editWishForm: FormGroup;
+    public types: WishType[];
+    public isHuman: boolean = false;
 
     constructor(private service: WishService,
         private formBuilder: FormBuilder,
@@ -24,8 +23,8 @@ export class WishEditComponent implements OnInit, OnDestroy {
         private router: Router) {
     }
 
-    ngOnInit() {
-        this.editForm = this.formBuilder.group({
+    public ngOnInit(): void {
+        this.editWishForm = this.formBuilder.group({
             'message': [
                 "", Validators.compose([
                     Validators.required,
@@ -49,7 +48,7 @@ export class WishEditComponent implements OnInit, OnDestroy {
             if (this.id > 0) {
                 this.service
                     .getSingle(this.id)
-                    .subscribe(data => this.editForm.patchValue(data),
+                    .subscribe(data => this.editWishForm.patchValue(data),
                     error => console.log(error),
                     () => {});
             }
@@ -57,18 +56,15 @@ export class WishEditComponent implements OnInit, OnDestroy {
         this.updateTypes();
     }
 
-    ngOnDestroy() {
-        this.sub.unsubscribe();
+    public ngOnDestroy(): void {
+        if(this.sub) { this.sub.unsubscribe(); }
     }
 
-    onSubmit(): void {
-        let model = new Wish();
+    public onSubmit(): void {
+        let model: Wish = this.editWishForm.value;
         model.id = this.id;
-        model.message = this.editForm.controls["message"].value;
-        model.title = this.editForm.controls["title"].value;
-        model.type = this.editForm.controls["type"].value; 
 
-        let res;
+        let res: any;
         if (this.id > 0) {
             let result = this.service.update(this.id, model).subscribe(data => res = data);
         } else {
@@ -78,7 +74,7 @@ export class WishEditComponent implements OnInit, OnDestroy {
         this.router.navigate(["/wishes"]);
     }
 
-    updateTypes() {
+    public updateTypes(): void {
         this.service
             .getTypes()
             .subscribe(data => this.types = data);

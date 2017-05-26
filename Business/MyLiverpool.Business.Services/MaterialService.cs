@@ -35,7 +35,7 @@ namespace MyLiverpool.Business.Services
         {
             var itemPerPage = GlobalConstants.NewsPerPage;
             Expression<Func<Material, bool>> filter = x => true;
-            if (filters.MaterialType != 0)
+            if (filters.MaterialType != MaterialType.Both)
             {
                 filter = filter.And(x => x.Type == filters.MaterialType);
             }
