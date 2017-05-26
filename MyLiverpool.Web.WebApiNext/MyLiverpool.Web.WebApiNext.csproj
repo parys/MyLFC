@@ -106,7 +106,6 @@
   <ItemGroup>
     <None Include="appsettings.json" />
     <None Include="web.config" />
-    <None Include="wwwroot\dist\unbundled-aot\angular2app\jquery-global.js" />
   </ItemGroup>
 
 </Project>

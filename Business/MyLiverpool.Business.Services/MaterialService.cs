@@ -37,7 +37,7 @@ namespace MyLiverpool.Business.Services
             Expression<Func<Material, bool>> filter = x => true;
             if (filters.MaterialType != 0)
             {
-                filter = x => x.Type == filters.MaterialType;
+                filter = filter.And(x => x.Type == filters.MaterialType);
             }
             if (filters.CategoryId.HasValue)
             {
@@ -66,7 +66,7 @@ namespace MyLiverpool.Business.Services
                 await
                     _materialRepository.GetOrderedByDescAndNotTopAsync(filters.Page, itemPerPage, filter,
                         x => x.AdditionTime);
-            var newsForView = topNews.Concat(news);
+            var newsForView = topNews.Concat(news.OrderByDescending(x => x.AdditionTime));//bug need to research why need to order one more time
             var newsDtos = _mapper.Map<IEnumerable<MaterialMiniDto>>(newsForView);
             var result = new PageableData<MaterialMiniDto>(newsDtos, filters.Page, allNewsCount);
             return result;

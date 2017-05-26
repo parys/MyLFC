@@ -35,10 +35,10 @@
         </td>
         <td class="threadNametd">
             <a class="threadLink" [routerLink]="['./themes', theme.id]" [textContent]="theme.name"></a>
-            <a class="modBut" [routerLink]="['./themes', theme.id, 'edit']" title="Изменить/переместить тему">
+            <a class="modBut" *ngIf="roles.isAdminAssisstant" [routerLink]="['./themes', theme.id, 'edit']" title="Изменить/переместить тему">
                 <span class="glyphicon glyphicon-pencil" align="absmiddle"></span>
             </a>
-            <a class="modBut" title="Удалить тему" ng-click="vm.removeSection($index)">
+            <a class="modBut" *ngIf="roles.isAdminAssisstant" title="Удалить тему" ng-click="vm.removeSection($index)">
                 <span class="glyphicon glyphicon-remove"></span>
             </a>
         </td>
@@ -51,14 +51,14 @@
             </span>
         </td>
         <td class="threadLastPostTd">
-            <script type="text/javascript">document.write('<a title="К последнему сообщению" class="forumLastPostLink" href="/forum/5-1400-0-17">19.10.2016, 13:37:37</a>')</script><a title="К последнему сообщению" class="forumLastPostLink" href="/forum/5-1400-0-17">19.10.2016, 13:37:37</a>
+            <!--script type="text/javascript">document.write('<a title="К последнему сообщению" class="forumLastPostLink" href="/forum/5-1400-0-17">19.10.2016, 13:37:37</a>')</!--script><a title="К последнему сообщению" class="forumLastPostLink" href="/forum/5-1400-0-17">19.10.2016, 13:37:37</a>
             <script type="text/javascript">document.write('<a href="/forum/5-1400-0-17-1"><img alt="" style="margin:0;padding:0;vertical-align:middle;border:0;max-width:60px;max-height:60px;" title="К первому непрочитанному сообщению" src="http://www.myliverpool.ru.s/img/fr/ic/2/lastpost.gif" /></a>')</script>
             <a href="/forum/5-1400-0-17-1">
                 <img alt="" style="margin: 0; padding: 0; vertical-align: middle; border: 0; max-width: 60px; max-height: 60px;" title="К первому непрочитанному сообщению" src="http://www.myliverpool.ru/.s/img/fr/ic/2/lastpost.gif">
             </a>
             <br>Сообщение от: <span class="lastPostGuest">
                 <a class="lastPostUserLink" onclick="window.open('/index/8-0-icebergstollikcs', 'up27', 'scrollbars=1,top=0,left=0,resizable=1,width=680,height=350');return false;">icebergstollikcs</a>
-            </span>
+            </span-->
         </td>
     </tr>
 

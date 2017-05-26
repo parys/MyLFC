@@ -72,7 +72,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
         {
               var subsections = await
                     _context.ForumSubsections.Where(x => x.Id == subsectionId).Select(x =>
-                        new ForumSubsection()
+                        new ForumSubsection
                         {
                             Name = x.Name,
                             Id = x.Id,
@@ -85,9 +85,9 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
                             AnswersCount = x.AnswersCount,
                             Views = x.Views
                         }).FirstOrDefaultAsync();
-            subsections.Themes =
+            subsections.Themes = //but reuse
                // _context.ForumThemes.Include(x => x.Author).Skip((page - 1)*itemPerPage).Take(itemPerPage).ToList();
-                _context.ForumThemes.Skip((page - 1)*itemPerPage).Take(itemPerPage).Select(x => new ForumTheme()
+                _context.ForumThemes.Where(x => x.SubsectionId == subsectionId).Skip((page - 1)*itemPerPage).Take(itemPerPage).Select(x => new ForumTheme
                 {
                     Id = x.Id,
                     Description = x.Description,

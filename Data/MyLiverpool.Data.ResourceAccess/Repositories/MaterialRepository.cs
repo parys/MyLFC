@@ -133,8 +133,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
         public async Task<ICollection<Material>> GetOrderedByDescAndNotTopAsync(int page, int itemPerPage = 15, Expression<Func<Material, bool>> filter = null,
             Expression<Func<Material, object>> orderBy = null, params Expression<Func<Material, object>>[] includeProperties)
         {
-            IQueryable<Material> query = _context.Materials.Include(x => x.Category).Include(x => x.Author);
-            query = query.Where(x => !x.OnTop);
+            IQueryable<Material> query = _context.Materials.Include(x => x.Category).Include(x => x.Author).Where(x => !x.OnTop);
 
             if (filter != null)
             {
@@ -142,7 +141,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             }
             if (orderBy != null)
             {
-                query = query.OrderByDescending(orderBy);//, SortOrder.Descending);
+                query = query.ObjectSort(orderBy, SortOrder.Descending);
             }
             if (includeProperties != null && includeProperties.Any()) 
             {

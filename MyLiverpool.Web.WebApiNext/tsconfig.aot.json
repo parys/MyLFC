@@ -9,7 +9,7 @@
     "lib": [ "es2015", "dom" ],
     "noImplicitAny": false,
     "suppressImplicitAnyIndexErrors": true,
-    "outDir": "wwwroot/dist/unbundled-aot"
+    "outDir": "temp-js/dist/unbundled-aot"
   },
 
   "files": [
@@ -18,7 +18,7 @@
   ],
 
   "angularCompilerOptions": {
-    "genDir": "wwwroot/aot",
+    "genDir": "temp-js/aot",
     "skipMetadataEmit": true
   },
   "atom": { "rewriteTsconfig": false }

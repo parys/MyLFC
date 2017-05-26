@@ -91,10 +91,10 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
                // .ToList(),
                 MessagesCount = x.Messages.Count,
                 
-            }).FirstOrDefaultAsync(x => x.Id == id);
-            theme.Messages =
+            }).FirstOrDefaultAsync(x => x.Id == id); 
+            theme.Messages =//bug return to use
                 await
-                    _context.ForumMessages.Include(x => x.Author)
+                    _context.ForumMessages.Where(x => x.ThemeId == id).Include(x => x.Author)
                         .Where(x => x.ThemeId == id)
                         .Skip((page - 1)*itemPerPage)
                         .Take(itemPerPage)

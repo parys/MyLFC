@@ -4,7 +4,7 @@ import commonjs from "rollup-plugin-commonjs";
 import uglify from "rollup-plugin-uglify";
 
 export default {
-    entry: "wwwroot/dist/unbundled-aot/angular2app/main.js",
+    entry: "temp-js/unbundled-aot/angular2app/main.js",
     dest: "wwwroot/src/build.js", // output a single application bundle
     sourceMap: false,
     treeshake: true,
