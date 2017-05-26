@@ -1,6 +1,7 @@
 ﻿import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
+import { MdSnackBar } from "@angular/material";
 import { AuthService } from "../auth/auth.service";
 
 @Component({
@@ -13,6 +14,7 @@ export class AccountSigninComponent implements OnInit {
 
     constructor(private authService: AuthService,
         private formBuilder: FormBuilder,
+        private snackBar: MdSnackBar,
         private router: Router) {
     }
 
@@ -28,6 +30,10 @@ export class AccountSigninComponent implements OnInit {
             if (e._body === "unconfirmed_email") {
                                 this.router.navigate(["/unconfirmedEmail"]);
                                 return;
-                            }});
+            }
+            if (e.error === "invalid_grant" && e.error_description === "The username/password couple is invalid.") {
+                this.snackBar.open("Неверный логин и/или пароль", null, { duration: 5000 });
+            }
+        });
     }
 }

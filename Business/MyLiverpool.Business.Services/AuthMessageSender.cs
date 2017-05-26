@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using MailKit.Net.Smtp;
 using MailKit.Security;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using MimeKit;
 using MyLiverpool.Business.Contracts;
@@ -12,10 +13,12 @@ namespace MyLiverpool.Business.Services
     public class AuthMessageSender : IEmailSender, ISmsSender
     {
         private readonly IOptions<EmailSettings> _settings;
+        private readonly ILogger<AuthMessageSender> _logger;
 
-        public AuthMessageSender(IOptions<EmailSettings> settings)
+        public AuthMessageSender(IOptions<EmailSettings> settings, ILogger<AuthMessageSender> logger)
         {
             _settings = settings;
+            _logger = logger;
         }
 
         public async Task SendEmailAsync(string email, string subject, string message)
@@ -37,6 +40,7 @@ namespace MyLiverpool.Business.Services
             }
             catch (Exception ex) //todo add another try to send email
             {
+                _logger.LogCritical(ex.ToString());
                 var e = ex;
                 throw; //add private messate to admin?
             }

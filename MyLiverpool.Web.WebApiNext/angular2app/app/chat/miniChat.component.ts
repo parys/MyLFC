@@ -23,7 +23,7 @@ export class MiniChatComponent implements OnInit {
         private rolesChecked: RolesCheckedService) {
     }
 
-    public ngOnInit() {
+    public ngOnInit(): void {
         this.roles = this.rolesChecked.checkRoles();
         this.initForm();
         this.update();
@@ -40,7 +40,7 @@ export class MiniChatComponent implements OnInit {
         this.service.create(this.messageForm.value)
             .subscribe(data => {
                 this.items.unshift(data);
-                this.messageForm.reset();
+                this.messageForm.get("message").patchValue("");
                 },
             (error) => console.log(error));
     }
@@ -52,7 +52,7 @@ export class MiniChatComponent implements OnInit {
         this.messageForm.get("message").patchValue(newMessage);
     }
 
-    private initForm(message: string = null): void {
+    private initForm(message: string = ""): void {
         this.messageForm = this.formBuilder.group({
             'message': [message || "", Validators.compose([Validators.required, Validators.maxLength(this.configuration.maxChatMessageLength)])] //todo add visual warning
         });

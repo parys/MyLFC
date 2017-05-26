@@ -63,7 +63,8 @@ namespace MyLiverpool.Web.WebApiNext
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
                 options.UseOpenIddict<int>();
             });
-
+            
+            
             services.AddIdentity<User, Role>(options =>
             {
                 options.Password.RequireDigit = false;
@@ -73,7 +74,7 @@ namespace MyLiverpool.Web.WebApiNext
                 options.Password.RequireUppercase = false;
                 options.User.RequireUniqueEmail = true;
                 options.User.AllowedUserNameCharacters =
-                    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@!#$&?";
+                    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@!#$&?абвгдеёжзийклмнопрстуфхцчшщъыьэюяAБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
                 options.SignIn.RequireConfirmedEmail = true;
                 options.SignIn.RequireConfirmedPhoneNumber = false;
                 options.Lockout.AllowedForNewUsers = true;
@@ -134,10 +135,13 @@ namespace MyLiverpool.Web.WebApiNext
                     // This allows flowing large OpenID Connect requests even when using
                     // an external authentication provider like Google, Facebook or Twitter.
                     .EnableRequestCaching();
-                // Register a new ephemeral key, that is discarded when the application
-                // shuts down. Tokens signed using this key are automatically invalidated.
-                // This method should only be used during development.
-                options.AddEphemeralSigningKey();
+            // Register a new ephemeral key, that is discarded when the application
+            // shuts down. Tokens signed using this key are automatically invalidated.
+            // This method should only be used during development.
+                if (Env.IsDevelopment())
+                {
+                    options.AddEphemeralSigningKey();
+                }
             });
 
             services.AddMemoryCache();
