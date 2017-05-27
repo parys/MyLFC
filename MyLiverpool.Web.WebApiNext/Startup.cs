@@ -146,7 +146,7 @@ namespace MyLiverpool.Web.WebApiNext
 
             services.AddMemoryCache();
 
-            services.AddAntiforgery(options => options.HeaderName = "X-XSRF-TOKEN");
+         //   services.AddAntiforgery(options => options.HeaderName = "X-XSRF-TOKEN");
 
 #if Debug
             services.AddSwaggerGen(options =>
@@ -203,7 +203,7 @@ namespace MyLiverpool.Web.WebApiNext
 
             app.UseResponseCompression();
 
-            app.UseXsrf();
+           // app.UseXsrf();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

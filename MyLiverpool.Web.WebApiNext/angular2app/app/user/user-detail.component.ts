@@ -1,6 +1,7 @@
 ﻿import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
-import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { MdSnackBar } from "@angular/material";
 import { Subscription } from "rxjs/Subscription";
 import { Configuration } from "../app.constants";
 import { User } from "./user.model";                          
@@ -30,9 +31,10 @@ export class UserDetailComponent implements OnInit, OnDestroy {
         private rolesChecked: RolesCheckedService,
         private roleGroupService: RoleGroupService,
         private formBuilder: FormBuilder,
+        private snackBar: MdSnackBar,
         private router: Router) { }
 
-    ngOnInit() {
+    public ngOnInit(): void {
         this.roles = this.rolesChecked.checkRoles();      
         this.initRoleForm();
         this.initBanForm();
@@ -51,21 +53,24 @@ export class UserDetailComponent implements OnInit, OnDestroy {
         }
     }
 
-    ngOnDestroy() {
-        this.sub.unsubscribe();
+    public ngOnDestroy(): void {
+        if(this.sub) { this.sub.unsubscribe(); }
     }
 
-    onSubmit(): void {
+    public onSubmit(): void {
         let roleGroupId = this.roleForm.controls["roleGroupId"].value;
         this.service.updateRoleGroup(this.item.id, roleGroupId)
             .subscribe(data => {
                 if (data) {
                     this.roleForm.patchValue(roleGroupId);
+                    this.snackBar.open("Группа была успешно изменена", null, { duration: 5000 });
+                } else {
+                    this.snackBar.open("Не удалось изменить группу", null, { duration: 5000 });
                 }
             });
     }
 
-    onSubmitBan(): void {
+    public onSubmitBan(): void {
         let banDaysCount = this.banForm.controls["banDaysCount"].value;
         this.service.ban(this.item.id, banDaysCount)
             .subscribe(data => {
@@ -77,7 +82,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
             });
     }
 
-    onChangeAvatar(event: any) {
+    public onChangeAvatar(event: any): void {
         let file = event.currentTarget.files[0];
         if (file) {
             this.service.updateAvatar(file)
@@ -87,14 +92,14 @@ export class UserDetailComponent implements OnInit, OnDestroy {
         }
     }
 
-    resetAvatar(): void {
+    public resetAvatar(): void {
         this.service.resetAvatar(this.item.id)
             .subscribe(result => this.item.photo = `${result}#${Math.random()}`,
             error => console.log(error),
             () => {});
     }
 
-    unban(): void {
+    public unban(): void {
         this.service.unban(this.item.id)
             .subscribe(data => {
                 if (data) {               
@@ -103,11 +108,11 @@ export class UserDetailComponent implements OnInit, OnDestroy {
             });
     }
 
-    writePm(): void {
+    public writePm(): void {
         this.selectedUserId = this.item.id;
     }
 
-    closePmWindow(event: any): void {
+    public closePmWindow(event: any): void {
         this.selectedUserId = null;
     }
 
@@ -116,20 +121,20 @@ export class UserDetailComponent implements OnInit, OnDestroy {
         this.roleForm.patchValue(item);
     }
 
-    private loadRoleGroups() {
+    private loadRoleGroups(): void {
         this.roleGroupService.getAll()
             .subscribe(data => this.roleGroups = data,
                 error => console.log(error),
                 () => {});
     }
 
-    private initRoleForm() {
+    private initRoleForm(): void {
         this.roleForm = this.formBuilder.group({
             'roleGroupId': ["", Validators.required]
         });
     }
 
-    private initBanForm() {
+    private initBanForm(): void {
         this.banForm = this.formBuilder.group({
             'banDaysCount': [
                 "", Validators.compose([

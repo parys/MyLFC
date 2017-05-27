@@ -25,7 +25,7 @@ export class AccountService {
         return this.http.get(this.actionUrl + `resendConfirmEmail?email=${email}`).map((res: Response) => res.json());
     };
 
-    public resetPassword = (model: ResetPassword): Observable<boolean> => {
+    public resetPassword = (model: ResetPassword): Observable<any> => {//todo add identityModel
         return this.http.put(this.actionUrl + `resetPassword`, model).map((res: Response) => res.json());
     };
 

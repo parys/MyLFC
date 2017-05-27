@@ -1,7 +1,7 @@
 ﻿import { Component, OnInit, OnDestroy } from "@angular/core";
-import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
-import { Observable } from "rxjs/Observable";
+import { MdSnackBar } from "@angular/material";
 import { Subscription } from "rxjs/Subscription";
 import { AccountService } from "./account.service";
 import { GlobalValidators } from "../shared/index";
@@ -13,15 +13,16 @@ import { ResetPassword } from "./resetPassword.model";
 })
 
 export class ResetPasswordComponent implements OnInit, OnDestroy {
+    private sub: Subscription;
     public resetForm: FormGroup;
     public finish: boolean;
     public error: boolean = false;
     public code: string;
-    private sub: Subscription;
 
     constructor(private service: AccountService,
         private route: ActivatedRoute,
         private router: Router,
+        private snackBar: MdSnackBar,
         private formBuilder: FormBuilder) {
     }
 
@@ -49,14 +50,16 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
     }
 
     public onSubmit(): void {
-        let resetPassword = new ResetPassword();
+        const resetPassword: ResetPassword = this.resetForm.value;
         resetPassword.code = this.code;
-        resetPassword.email = this.resetForm.controls["email"].value;
-        resetPassword.password = this.resetForm.controls["password"].value;
-        resetPassword.confirmPassword = this.resetForm.controls["confirmPassword"].value;
-        this.service.resetPassword(resetPassword).subscribe(data => this.error = !data,
+        this.service.resetPassword(resetPassword).subscribe(data => {
+                this.error = !data.succeeded;
+                this.finish = data.succeeded;
+                if (!data.succeeded) {
+                    this.snackBar.open(`Ошибка: ${data.errors[0].description}`, null, { duration: 5000 });
+                }
+            },
             error => console.log(error)
         );
-        this.finish = true;
     }
 }

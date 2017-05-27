@@ -100,6 +100,9 @@ export class MaterialListComponent implements OnInit, OnDestroy {
                 () => {
                     if (result) {
                         news.pending = false;
+                        this.snackBar.open("Материал успешно активирован", null, { duration: 5000 });
+                    } else {
+                        this.snackBar.open("Материал НЕ БЫЛ активирован", null, { duration: 5000 });
                     }
                 }
             );

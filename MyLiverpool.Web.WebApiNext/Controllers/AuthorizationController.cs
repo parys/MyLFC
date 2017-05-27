@@ -70,7 +70,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 {
                     if (_userManager.SupportsUserLockout)
                     {
-                        await _userManager.AccessFailedAsync(user);
+                      //  await _userManager.AccessFailedAsync(user);
                     }
 
                     return BadRequest(new OpenIdConnectResponse

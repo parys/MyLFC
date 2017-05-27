@@ -169,7 +169,8 @@ namespace MyLiverpool.Business.Services
                 {
                     Directory.CreateDirectory(fullPath);
                 }
-                var directoryInfo = Directory.EnumerateDirectories(fullPath).LastOrDefault();
+                //workaround for folders _nw and _bl to slip them
+                var directoryInfo = Directory.EnumerateDirectories(fullPath).LastOrDefault(x => !x.Contains("_"));
                 if (directoryInfo == null)
                 {
                     directoryInfo = "0";

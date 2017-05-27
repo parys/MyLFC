@@ -1,4 +1,5 @@
 ﻿import { Component, OnInit, OnDestroy } from "@angular/core";
+import { MdSnackBar } from "@angular/material";
 import { Subscription } from "rxjs/Subscription";
 import { Observable } from "rxjs/Observable";
 import { PmService } from "./pm.service";
@@ -17,6 +18,7 @@ export class PmCounterComponent implements OnInit, OnDestroy {
 
     constructor(private pmService: PmService,
         private rolesChecked: RolesCheckedService,
+        private snackBar: MdSnackBar,
         private config: Configuration) { }
 
     public ngOnInit(): void {
@@ -38,7 +40,13 @@ export class PmCounterComponent implements OnInit, OnDestroy {
 
     private updateCount() {
         this.sub = this.pmService.getUnreadCount()
-            .subscribe(data => this.count = data,
+            .subscribe(data => {
+                this.count = data;
+                if (+data > 0) {
+                    this.snackBar.open("У вас есть непрочитанные личные сообщения",
+                        null, {  duration: 5000 });
+                }
+                },
                 error => console.log(error));
     }
 }

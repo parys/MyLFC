@@ -1,6 +1,7 @@
 ﻿@font-face {
     font-family: "Beauty";
-    src: url('./fonts/10427.ttf');
+    src: url('./fonts/10427.ttf') format('truetype'),
+    url('./fonts/Vollkorn-Black.ttf');
 }
 @font-face {
     font-family: "AnotherFont";
@@ -272,6 +273,7 @@ textarea {
 
 .navbar {
     margin-bottom: 0;
+    text-transform: uppercase;
 }
 
 .navbar-default .navbar-nav > li > a {
@@ -631,7 +633,7 @@ td.postRest1, td.postRest2, td.postFirst {
 .gTable td.gTableTop {
  padding: 0px 10px;
  border: 1px solid #debc72;
- background: url(http://myliverpool.ru/desighn/img/126.png) repeat-y top right;
+ background: url(http://myliverpool.ru/desighn/img/126.png) repeat top right;
  font: 14px/32px 'Tahoma';
  color: #ffffff;
  text-transform: uppercase;
