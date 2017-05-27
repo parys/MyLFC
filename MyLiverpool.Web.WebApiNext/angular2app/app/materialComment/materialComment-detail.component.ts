@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, Input, ChangeDetectionStrategy } from "@angular/core";
+﻿import { Component, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Location } from "@angular/common";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
@@ -10,7 +10,7 @@ import { RolesCheckedService, IRoles, DeleteDialogComponent } from "../shared/in
 @Component({
     selector: "materialComment-detail",
     templateUrl: "./materialComment-detail.component.html",
-    changeDetection: ChangeDetectionStrategy.Default
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class MaterialCommentDetailComponent implements OnInit {
@@ -32,21 +32,23 @@ export class MaterialCommentDetailComponent implements OnInit {
         private sanitizer: DomSanitizer,
         private rolesChecked: RolesCheckedService,
         private dialog: MdDialog,
+        private cd: ChangeDetectorRef,
         private formBuilder: FormBuilder) {
     }
 
     public ngOnInit(): void {
         this.roles = this.rolesChecked.checkRoles();
+        this.initForm();
     }
 
     public showAddCommentModal(): void {
-        this.initForm();
         this.isAddingMode = true;
+        this.updateFormValues();
     }
 
     public showEditModal(): void {
-        this.initForm();
         this.isEditMode = true;
+        this.updateFormValues();
     }
 
     public showDeleteModal(): void {
@@ -59,8 +61,10 @@ export class MaterialCommentDetailComponent implements OnInit {
     }
 
     public cancelAdding(): void {
-        this.commentForm = null;                                   
         this.isAddingMode = false;
+        this.updateFormValues();//does it need
+        this.cd.markForCheck();
+        this.cd.detectChanges();
     }
 
     public addComment(): void {
@@ -68,7 +72,7 @@ export class MaterialCommentDetailComponent implements OnInit {
         this.materialCommentService.create(comment)
             .subscribe(data => {
                 this.item.children.push(data);
-                    this.cancelAdding();
+                this.cancelAdding();
                 },
             error => console.log(error));
     }
@@ -85,7 +89,9 @@ export class MaterialCommentDetailComponent implements OnInit {
 
     public cancelEdit(): void {
         this.isEditMode = false;
-        this.commentForm = null;
+        this.updateFormValues();//does it need
+        this.cd.markForCheck();
+        this.cd.detectChanges();
     }
 
     public sanitizeByHtml(text: string): SafeHtml {
@@ -109,6 +115,9 @@ export class MaterialCommentDetailComponent implements OnInit {
                         });
                         this.item = undefined;
                     }
+
+                    this.cd.markForCheck();
+                    this.cd.detectChanges();
                 }
             );
     }
@@ -117,10 +126,19 @@ export class MaterialCommentDetailComponent implements OnInit {
         let message = this.isEditMode ? this.item.message : "";
         let answer = this.isEditMode ? this.item.answer : "";
         this.commentForm = this.formBuilder.group({
-            'message': [message, Validators.compose([
-                Validators.required])],
+            'message': [message, Validators.required],
             'answer': [answer]
-        });                                        
+        });
+        this.commentForm.valueChanges.subscribe(() => {
+            this.cd.markForCheck();
+            this.cd.detectChanges();
+        });
+    }
+    private updateFormValues(): void {
+        let message = this.isEditMode ? this.item.message : "";
+        let answer = this.isEditMode ? this.item.answer : "";
+        this.commentForm.get("message").patchValue(message);
+        this.commentForm.get("answer").patchValue(answer);
     }
 
     private getComment(): MaterialComment {

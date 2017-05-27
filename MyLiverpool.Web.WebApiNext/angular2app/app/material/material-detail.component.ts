@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, OnDestroy } from "@angular/core";
+﻿import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
 import { Title, DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { Router, ActivatedRoute } from "@angular/router";
 import { MdDialog, MdSnackBar } from '@angular/material';
@@ -11,7 +11,8 @@ import { MaterialActivateDialogComponent } from "./material-activate-dialog.comp
 
 @Component({
     selector: "material-detail",
-    templateUrl: "./material-detail.component.html"
+    templateUrl: "./material-detail.component.html",
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class MaterialDetailComponent implements OnInit, OnDestroy {
@@ -22,6 +23,7 @@ export class MaterialDetailComponent implements OnInit, OnDestroy {
 
     constructor(private service: MaterialService,
         private route: ActivatedRoute,
+        private cd: ChangeDetectorRef,
         private localStorage: LocalStorageService,
         private rolesChecked: RolesCheckedService,
         private router: Router,
@@ -36,12 +38,11 @@ export class MaterialDetailComponent implements OnInit, OnDestroy {
         this.sub = this.route.params.subscribe(params => {
             this.service.getSingle(+params["id"])
                 .subscribe(data => this.parse(data),
-                    error => console.log(error),
-                    () => { });
+                    error => console.log(error));
         });
     }
 
-    public ngOnDestroy() : void {
+    public ngOnDestroy(): void {
         if(this.sub) this.sub.unsubscribe();
     }
     
@@ -100,6 +101,8 @@ export class MaterialDetailComponent implements OnInit, OnDestroy {
         this.item = item;
         this.titleService.setTitle(item.title);
         this.addView();
+        this.cd.markForCheck();
+        this.cd.detectChanges();
     }
 
     private addView(): void {

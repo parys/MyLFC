@@ -145,6 +145,8 @@ export class EditorComponent implements ControlValueAccessor {
             plugins: [
                 this.getPlugins()
             ],
+            relative_urls: true,
+            document_base_url: "/",
             toolbar: this.getToolbar(),
             //external_plugins: {
             //    spoiler: "/js/extPlugins/spoiler/plugin.js"

@@ -33,7 +33,7 @@ namespace MigratorVnext
         private static readonly IMaterialCategoryRepository MaterialCategoryRepository;
         private static readonly IMaterialCommentRepository MaterialCommentRepository;
         private static readonly IUserRepository UserRepository;
-        private const string Path = @"D:\\projects\example\newest1404\";
+        private const string Path = @"D:\\downloads\11\_s1\";
         private const string DefaultPhotoPath = "/content/images/default.jpg";
         private static readonly int MaxChars = 20000;
         private const bool UseLimit = false;
@@ -82,17 +82,17 @@ namespace MigratorVnext
         public static void UpdateFromFiles()
         {
             //UpdateUsers();
-            //_deleted = UserRepository.FindByNameAsync("deleted").Result;
-            //UpdateUsersId();
+            _deleted = UserRepository.FindByNameAsync("deleted").Result;
+          //  UpdateUsersId();
             //UpdateBlogCategory();
             //UpdateNewsCategory();
-            //UpdateBlogItems();
-            //UpdateNewsItems();
-            //UpdateComments();
-            //UpdateForumSectionsAndPopulateSubsectionList();
-            //UpdateForumSubsectionsFromList();
-            //UpdateForumThemes();
-            //UpdateForumComments();
+           // UpdateBlogItems();
+           // UpdateNewsItems();
+           // UpdateComments();
+           // UpdateForumSectionsAndPopulateSubsectionList();
+           // UpdateForumSubsectionsFromList();
+           // UpdateForumThemes();
+          //  UpdateForumComments();
 
 
 
@@ -131,10 +131,10 @@ namespace MigratorVnext
             //  Task.WhenAll(matComm, forumMes).Wait();
             Console.WriteLine("End 4");
 
-           //  UpdateCommentsLinks();
-          //  UpdateMaterialLinks();
+            // UpdateCommentsLinks();
+            UpdateMaterialLinks();
             Console.WriteLine("End 5");
-            DownloadAllImages();
+           // DownloadAllImages();
         }
 
         public static void UpdateDb()
@@ -502,13 +502,13 @@ namespace MigratorVnext
                 }
             }
 
-            var deleteUser = new User()
-            {
-                UserName = "deleteUser",
-                RoleGroupId = (int)RoleGroupsEnum.Simple,
-                Photo = "/content/avatars/default.png",
-            };
-            _deleted = UserRepository.AddAsync(deleteUser).Result;
+            //var deleteUser = new User()
+            //{
+            //    UserName = "deleteUser",
+            //    RoleGroupId = (int)RoleGroupsEnum.Simple,
+            //    Photo = "/content/avatars/default.png",
+            //};
+            //_deleted = UserRepository.AddAsync(deleteUser).Result;
             UserRepository.SaveChangesAsync().Wait();
             Console.WriteLine("End UpdateUsers");
         }
@@ -684,11 +684,8 @@ namespace MigratorVnext
                     }
                     i++;
 
-                    blogItem.Author = UserRepository.FindByNameAsync(userName).Result;
-                    if (blogItem.Author == null)
-                    {
-                        blogItem.AuthorId = _deleted.Id;
-                    }
+                    var author = UserRepository.FindByNameAsync(userName).Result;
+                    blogItem.AuthorId = author?.Id ?? _deleted.Id;
                     //title
                     string title = null;
                     while (chars[i] != '|')
@@ -1029,11 +1026,9 @@ namespace MigratorVnext
                     }
                     i++;
 
-                    newsItem.Author = UserRepository.FindByNameAsync(userName).Result;
-                    if (newsItem.Author == null)
-                    {
-                        newsItem.AuthorId = _deleted.Id;
-                    }
+                    var author = UserRepository.FindByNameAsync(userName).Result;
+
+                    newsItem.AuthorId = author?.Id ?? _deleted.Id;
                     //title
                     string title = null;
                     while (chars[i] != '|')
@@ -1568,7 +1563,10 @@ namespace MigratorVnext
                     {
                         i++;
                     }
-
+                  //  if (int.Parse(id) < 256161)
+                    {
+                   //     continue;
+                    }
                     // user id
                     //string rate = null;
                     //while (chars[i] != '|')
@@ -1934,11 +1932,8 @@ namespace MigratorVnext
                         i++;
                     }
                     i++;
-                    forumTheme.Author = UserRepository.FindByNameAsync(author).Result;
-                    if (forumTheme.Author == null)
-                    {
-                        forumTheme.AuthorId = _deleted.Id;
-                    }
+                    var user = UserRepository.FindByNameAsync(author).Result;
+                    forumTheme.AuthorId = user?.Id ?? _deleted.Id;
                     // user reg????
                     while (chars[i] != '|')
                     {
@@ -1954,14 +1949,19 @@ namespace MigratorVnext
                         i++;
                     }
                     i++;
-                    forumTheme.LastAnswerUser = UserRepository.FindByNameAsync(authorLastMessage).Result;
-                    if (forumTheme.LastAnswerUser == null)
+                    var lastAnswerUser = UserRepository.FindByNameAsync(authorLastMessage).Result;
+                    if (authorLastMessage == "Kapral-006")
                     {
-                        forumTheme.LastAnswerUserId = _deleted.Id;
+                        continue;
                     }
+                    forumTheme.LastAnswerUserId = lastAnswerUser?.Id ?? _deleted.Id;
+
 
                     Themes.Add(forumTheme);
-                    var result = ForumThemeRepository.AddAsync(forumTheme).Result;
+                    if (_db.ForumThemes.All(x => x.IdOld != forumTheme.IdOld))
+                    {
+                        var result = ForumThemeRepository.AddAsync(forumTheme).Result;
+                    }
                     while (chars[i] != 10)
                     {
                         i++;
@@ -2262,38 +2262,8 @@ namespace MigratorVnext
             ForumSubsectionRepository.SaveChangesAsync().RunSynchronously(); //todo above not duplicating?
         }
 
-        public static void UpdateCommentsLinksToNewsAndBlogs()
-        {
-            //Console.WriteLine("Start UpdateCommentsLinksToNewsAndBlogs");
-
-            ////var newsComments = UnitOfWork.MaterialCommentRepository.Get();
-
-            ////var blogComments = UnitOfWork.BlogCommentRepository.Get();
-            ////var blogs = UnitOfWork.BlogItemRepository.Get(n => n.NumberCommentaries > 0);
-            ////foreach (var comment in blogComments)
-            ////{
-            ////    foreach (var blog in blogs.Where(blog => comment.MaterialId == blog.Id))
-            ////    {
-            ////        if (blog.Children == null)
-            ////        {
-            ////            blog.Children = new List<BlogComment>();
-            ////        }
-            ////        blog.Children.Add(comment);
-            ////        comment.BlogItem = blog;
-            ////    }
-            ////}
-            //Console.WriteLine("End UpdateCommentsLinksToNewsAndBlogs");
-        }
 
         #endregion
-
-        //private static void UpdatePhotoForAlreadyMigratedMaterials()
-        //{
-        //    foreach (var VARIABLE in MaterialRepository.)
-        //    {
-                
-        //    }
-        //}
 
         private static LiverpoolContext GetNewContext()
         {
