@@ -34,6 +34,7 @@ import { DatepickerModule } from "ng2-bootstrap/datepicker";
 import { TimepickerModule } from "ng2-bootstrap/timepicker";
 import { ReCaptchaModule } from "angular2-recaptcha";
 import { Ng2BreadcrumbModule, BreadcrumbService } from "ng2-breadcrumb/ng2-breadcrumb";
+import { Ng2PageScrollModule } from "ng2-page-scroll";
 import { BreadcrumbComponent } from "./shared/breadcrumb.component";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MdAutocompleteModule, MdTabsModule, MdDialogModule, MdSnackBarModule, MdButtonModule, MdInputModule } from '@angular/material';
@@ -55,6 +56,7 @@ import { MdAutocompleteModule, MdTabsModule, MdDialogModule, MdSnackBarModule, M
         MdTabsModule,
         Ng2AutoCompleteModule,
         Ng2BreadcrumbModule.forRoot(),
+        Ng2PageScrollModule.forRoot(),
         PaginationModule.forRoot(),
         PersonModule,
         RouterModule.forRoot(routes),

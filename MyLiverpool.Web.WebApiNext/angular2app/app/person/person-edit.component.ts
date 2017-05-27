@@ -1,6 +1,7 @@
 ﻿import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
+import { MdSnackBar } from "@angular/material";
 import { Subscription } from "rxjs/Subscription";
 import { PersonService } from "./person.service";
 import { Person } from "./person.model";
@@ -12,15 +13,17 @@ import { PersonType } from "./personType.model";
 })
 
 export class PersonEditComponent implements OnInit {
-    editForm: FormGroup;
-    id: number;
-    item: Person;
-    types: PersonType[];
-    opened: boolean = false;
+    private id: number;
+    private sub: Subscription;
+    public editForm: FormGroup;
+    public item: Person;
+    public types: PersonType[];
+    public opened: boolean = false;
 
     constructor(private service: PersonService,
         private route: ActivatedRoute,
         private router: Router,
+        private snackBar: MdSnackBar,
         private formBuilder: FormBuilder) {
         this.item = new Person();
     }
@@ -29,7 +32,7 @@ export class PersonEditComponent implements OnInit {
         this.initForm();
         this.id = +this.route.snapshot.params["id"] || 0;
         if (this.id > 0) {
-            this.service.getSingle(this.id)
+            this.sub = this.service.getSingle(this.id)
                 .subscribe(data => this.parse(data),
                     error => console.log(error));
         }
@@ -44,21 +47,31 @@ export class PersonEditComponent implements OnInit {
             this.service.updatePhoto(fullname, file)
                 .subscribe(result => {
                     this.editForm.controls["photo"].patchValue(result);
-                        this.item.photo = `${result}#${Math.random()}`;
+                    this.item.photo = `${result}#${Math.random()}`;
+                        this.snackBar.open("Фото успешно загружено", null, {duration: 5000});
                     },
-                error => console.log(error));
+                error => {
+                    console.log(error);
+                    this.snackBar.open("Ошибка при загрузке фото", null, { duration: 5000 });
+                });
         }
     }
     public onSubmit(): void {
         let person = this.parseForm();
         if (this.id > 0) {
             this.service.update(this.id, person)
-                .subscribe(data => console.log(data.id),//this.router.navigate(["/news", data.id]),
-                error => console.log(error));
+                .subscribe(data => this.snackBar.open("Профиль успешно создан", null, { duration: 5000 }),
+                error => {
+                    console.log(error);
+                    this.snackBar.open("Ошибка при создании профиля", null, { duration: 5000 });
+                });
         } else {
             this.service.create(person)
-                .subscribe(data => console.log(data.id),//this.router.navigate(["/news", data.id]),
-                error => console.log(error));
+                .subscribe(data => this.snackBar.open("Профиль успешно обновлен", null, { duration: 5000 }),
+                error => {
+                    console.log(error);
+                    this.snackBar.open("Ошибка при обновлении профиля", null, { duration: 5000 });
+                });
         }
     }
 
@@ -79,16 +92,8 @@ export class PersonEditComponent implements OnInit {
     }
 
     private parseForm(): Person {
-        let item = new Person();
+        let item: Person = this.editForm.value;
         item.id = this.id;
-        item.firstName = this.editForm.controls["firstName"].value;
-        item.firstRussianName = this.editForm.controls["firstRussianName"].value;
-        item.lastName = this.editForm.controls["lastName"].value;
-        item.lastRussianName = this.editForm.controls["lastRussianName"].value;
-        item.photo = this.editForm.controls["photo"].value;
-        item.type = this.editForm.controls["type"].value;
-        item.birthday = this.editForm.controls["birthday"].value;
-
         return item;
     }
 

@@ -1,4 +1,4 @@
-﻿import { Component, ViewContainerRef, OnInit, ViewEncapsulation } from '@angular/core';
+﻿import { Component, ViewContainerRef, OnInit, ViewEncapsulation, Renderer2 } from '@angular/core';  
 import { Router, ActivatedRoute, NavigationEnd } from "@angular/router";
 import { Title } from "@angular/platform-browser";
 import { Observable } from "rxjs/Observable"
@@ -27,6 +27,7 @@ export class AppComponent implements OnInit {
         viewContainerRef: ViewContainerRef,
         private activatedRoute: ActivatedRoute,
         private titleService: Title,
+        private renderer: Renderer2,
         private breadcrumbService: BreadcrumbService
     ) {        
         this.roles = this.rolesChecked.checkRoles();
@@ -57,6 +58,7 @@ export class AppComponent implements OnInit {
             .filter((route: ActivatedRoute) => route.outlet === "primary")
             .mergeMap((route: ActivatedRoute) => route.data)
             .subscribe((event) => {
+                this.renderer.setProperty(document.body, "scrollTop", 0);
                 this.titleService.setTitle(event["title"]);
                 this.isRoot = (event["title"] === "MyLFC.ru - Сайт русскоязычных болельщиков \"Ливерпуля\"");
             });

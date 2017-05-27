@@ -1,6 +1,7 @@
 ﻿import { Component, OnInit, OnDestroy } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
+import { MdSnackBar } from "@angular/material";
 import { Subscription } from "rxjs/Subscription";
 import { Wish } from "./wish.model";
 import { WishType } from "./wishType.model";
@@ -13,6 +14,7 @@ import { WishService } from "./wish.service";
 export class WishEditComponent implements OnInit, OnDestroy {
     private id: number = 0;
     private sub: Subscription;
+    private sub2: Subscription;
     public editWishForm: FormGroup;
     public types: WishType[];
     public isHuman: boolean = false;
@@ -20,6 +22,7 @@ export class WishEditComponent implements OnInit, OnDestroy {
     constructor(private service: WishService,
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
+        private snackBar: MdSnackBar,
         private router: Router) {
     }
 
@@ -46,7 +49,7 @@ export class WishEditComponent implements OnInit, OnDestroy {
         this.sub = this.route.params.subscribe(params => {
             this.id = +params["id"];
             if (this.id > 0) {
-                this.service
+                this.sub2 = this.service
                     .getSingle(this.id)
                     .subscribe(data => this.editWishForm.patchValue(data),
                     error => console.log(error),
@@ -58,6 +61,7 @@ export class WishEditComponent implements OnInit, OnDestroy {
 
     public ngOnDestroy(): void {
         if(this.sub) { this.sub.unsubscribe(); }
+        if(this.sub2) { this.sub2.unsubscribe(); }
     }
 
     public onSubmit(): void {
@@ -68,7 +72,12 @@ export class WishEditComponent implements OnInit, OnDestroy {
         if (this.id > 0) {
             let result = this.service.update(this.id, model).subscribe(data => res = data);
         } else {
-            let result = this.service.create(model).subscribe(data => res = data);
+            let result = this.service.create(model).subscribe(data => {
+                res = data;
+            }, e => {
+                console.log(e);
+                this.snackBar.open("Пожелание успешно создано", null, { duration: 5000 });
+            });
         }
         this.isHuman = false;
         this.router.navigate(["/wishes"]);
