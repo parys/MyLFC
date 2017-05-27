@@ -1,5 +1,6 @@
-﻿import { Component, OnInit} from "@angular/core";
+﻿import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { ActivatedRoute } from "@angular/router";
 import { Configuration } from "../app.constants";
 import { ChatMessage } from "./chatMessage.model";
@@ -8,7 +9,8 @@ import { RolesCheckedService, IRoles } from "../shared/index";
 
 @Component({
     selector: "mini-chat",
-    templateUrl: "./miniChat.component.html"
+    templateUrl: "./miniChat.component.html",
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MiniChatComponent implements OnInit {
     public messageForm: FormGroup;
@@ -19,7 +21,9 @@ export class MiniChatComponent implements OnInit {
     constructor(private service: ChatMessageService,
         private route: ActivatedRoute,
         private formBuilder: FormBuilder,
+        private cd: ChangeDetectorRef,
         private configuration: Configuration,
+        private sanitizer: DomSanitizer,
         private rolesChecked: RolesCheckedService) {
     }
 
@@ -32,7 +36,10 @@ export class MiniChatComponent implements OnInit {
     public update(): void {
         this.service
             .getAll()
-            .subscribe(data => this.items = data,
+            .subscribe(data => {
+                this.items = data;
+                this.cd.detectChanges();
+                },
                 error => console.log(error));
     }
 
@@ -52,9 +59,16 @@ export class MiniChatComponent implements OnInit {
         this.messageForm.get("message").patchValue(newMessage);
     }
 
+    public sanitizeByHtml(text: string): SafeHtml {
+        return this.sanitizer.bypassSecurityTrustHtml(text);
+    }
+
     private initForm(message: string = ""): void {
         this.messageForm = this.formBuilder.group({
             'message': [message || "", Validators.compose([Validators.required, Validators.maxLength(this.configuration.maxChatMessageLength)])] //todo add visual warning
+        });
+        this.messageForm.valueChanges.subscribe(() => {
+            this.cd.detectChanges();
         });
     }
 }

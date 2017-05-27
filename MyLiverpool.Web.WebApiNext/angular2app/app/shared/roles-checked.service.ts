@@ -4,7 +4,6 @@ import { LocalStorageService } from "./localStorage.service";
 
 @Injectable()
 export class RolesCheckedService {
-
     private checkedRoles: IRoles = {
         isLogined: false,
         isEditor: false,
@@ -23,7 +22,7 @@ export class RolesCheckedService {
             this.checkRoles();
     }
 
-    checkRoles(): IRoles {
+    public checkRoles(): IRoles {
         this.roles = this.localStorage.getRoles();
         this.checkedRoles.isLogined = false;
         if (!this.roles) {
@@ -40,12 +39,12 @@ export class RolesCheckedService {
         return this.checkedRoles;
     }
 
-    isUserInRole(role: string): boolean {
+    public isUserInRole(role: string): boolean {
         return this.checkRole(role);
     }
 
     private isSelf(authorId: number): boolean {
-        let userId: number = this.localStorage.getUserId();
+        const userId: number = this.localStorage.getUserId();
         return (userId === authorId);
     }
 

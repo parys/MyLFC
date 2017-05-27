@@ -69,6 +69,10 @@ export class MaterialDetailComponent implements OnInit, OnDestroy {
         return this.sanitizer.bypassSecurityTrustHtml(text);
     }
 
+    public sanitizeByUrl(text: string): SafeHtml {
+        return this.sanitizer.bypassSecurityTrustResourceUrl(text);
+    }
+
     private activate() : void {
         let result: boolean;
         

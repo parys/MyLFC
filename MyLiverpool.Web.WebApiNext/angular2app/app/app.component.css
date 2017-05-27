@@ -32,7 +32,7 @@ img {
     display: block;
 }
 
-    .news-mini {
+  .news-mini {
         height: 140px;
         width: 300px;
     }
@@ -52,6 +52,11 @@ textarea {
 
 .beauty-font {
     font-family: "Beauty";
+}
+
+.best-player {
+    height: 150px;
+    width: 150px;
 }
 
 .bg-maroon {
@@ -234,12 +239,18 @@ textarea {
     font-size: medium;
 }
 
+.material-body > img {
+    border: lightgray solid 5px;
+    margin: auto;
+    
+}
+
 .material-header {
     color: #690000;
     font-weight: bold;
     padding-left: 10px;
     text-transform: uppercase;
-} 
+}
 
 .material-header > a {
     color: #690000;

@@ -12,14 +12,14 @@ import { RolesCheckedService, IRoles } from "../shared/index";
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MaterialCommentSectionComponent implements OnInit {
-    items: MaterialComment[] = [];
-    page: number = 1;
-    itemsPerPage = 15;
-    totalItems: number;
-    roles: IRoles;
-    commentAddForm: FormGroup;
-    @Input() materialId: number;
-    @Input() canCommentary: boolean = false;
+    public items: MaterialComment[] = [];
+    public page: number = 1;
+    public itemsPerPage: number = 15;
+    public totalItems: number;
+    public roles: IRoles;
+    public commentAddForm: FormGroup;
+    @Input() public  materialId: number;
+    @Input() public  canCommentary: boolean = false;
 
     constructor(private materialCommentService: MaterialCommentService,
         private location: Location,
@@ -35,12 +35,10 @@ export class MaterialCommentSectionComponent implements OnInit {
                 Validators.required, Validators.minLength(3)])]
         });
         this.commentAddForm.valueChanges.subscribe(() => {
-                this.cd.markForCheck();
                 this.cd.detectChanges();
             }
         );
         this.update();
-        this.cd.markForCheck();
         this.cd.detectChanges();
     }
 
@@ -55,7 +53,6 @@ export class MaterialCommentSectionComponent implements OnInit {
             .subscribe(data => this.parsePageable(data),
             error => console.log(error), () =>
                 {
-        this.cd.markForCheck();
         this.cd.detectChanges();
                 });
     }
@@ -68,8 +65,7 @@ export class MaterialCommentSectionComponent implements OnInit {
     }
 
     public onSubmit(): void {
-        var comment = new MaterialComment();
-        comment.message = this.commentAddForm.controls["message"].value;
+        const comment: MaterialComment = this.commentAddForm.value;
         comment.materialId = this.materialId;
         this.materialCommentService.create(comment)
             .subscribe(data => {
@@ -79,7 +75,6 @@ export class MaterialCommentSectionComponent implements OnInit {
                 },
                 error => console.log(error),
                 () => {
-                    this.cd.markForCheck();
                     this.cd.detectChanges();
                 });
     }

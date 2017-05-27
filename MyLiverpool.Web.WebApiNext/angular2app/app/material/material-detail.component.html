@@ -1,4 +1,4 @@
-﻿<div class="" *ngIf="item">
+﻿<div *ngIf="item">
     <div class="flex-vertical-center material-header">
         <h3 class="col-xs-12 col-sm-12">
             <span class="beauty-font" [textContent]="item.title"></span>
@@ -10,7 +10,7 @@
         </h3>
     </div>
     <div class="col-xs-12 col-sm-12">
-        <article [innerHTML]="sanitizeByHtml(item.message)"></article>
+        <article class="material-body" [innerHTML]="sanitizeByHtml(item.message)"></article>
         <div class="alert-warning">
             <ul class="list-inline">
                 <li><label>Просмотры:</label> <span [textContent]="item.reads"></span></li>

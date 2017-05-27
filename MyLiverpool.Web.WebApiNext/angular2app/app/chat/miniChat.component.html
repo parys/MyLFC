@@ -9,7 +9,7 @@
                     <a [routerLink]="['/users', message.authorId]" [textContent]="message.authorUserName"></a>
                     <div class="pull-right" [textContent]="message.additionTime | date:'medium'"></div>
                 </div>
-                <div class="col-xs-12 row" style="text-align: left;" [innerHTML]="message.message">
+                <div class="col-xs-12 row" style="text-align: left;" [innerHTML]="sanitizeByHtml(message.message)">
                 </div>
                 <div class="col-xs-12 row">
                     <a role="button" (click)="addReply(i)"><span *ngIf="roles.isLogined && !roles.isSelf(message.authorId)" class="glyphicon glyphicon-share-alt"></span></a>

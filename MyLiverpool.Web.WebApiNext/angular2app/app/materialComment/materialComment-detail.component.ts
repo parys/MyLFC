@@ -63,7 +63,7 @@ export class MaterialCommentDetailComponent implements OnInit {
     public cancelAdding(): void {
         this.isAddingMode = false;
         this.updateFormValues();//does it need
-        this.cd.markForCheck();
+      //  this.cd.markForCheck();
         this.cd.detectChanges();
     }
 
@@ -90,7 +90,7 @@ export class MaterialCommentDetailComponent implements OnInit {
     public cancelEdit(): void {
         this.isEditMode = false;
         this.updateFormValues();//does it need
-        this.cd.markForCheck();
+     //   this.cd.markForCheck();
         this.cd.detectChanges();
     }
 
@@ -116,7 +116,7 @@ export class MaterialCommentDetailComponent implements OnInit {
                         this.item = undefined;
                     }
 
-                    this.cd.markForCheck();
+            //        this.cd.markForCheck();
                     this.cd.detectChanges();
                 }
             );
@@ -130,8 +130,8 @@ export class MaterialCommentDetailComponent implements OnInit {
             'answer': [answer]
         });
         this.commentForm.valueChanges.subscribe(() => {
-            this.cd.markForCheck();
-            this.cd.detectChanges();
+     //       this.cd.markForCheck();
+     //       this.cd.detectChanges();
         });
     }
     private updateFormValues(): void {
