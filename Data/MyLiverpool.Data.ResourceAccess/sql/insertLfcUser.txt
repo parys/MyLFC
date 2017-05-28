@@ -1,0 +1,5 @@
+﻿SET Identity_insert aspnetUsers on
+INSERT INTO aspnetUsers (id, userName, email, AccessFailedCount,EmailConfirmed,Gender,
+LastModified,LockoutEnabled,oldId,PhoneNumberConfirmed,RegistrationDate,RoleGroupId,TwoFactorEnabled)
+VALUES (559, 'myLFC', 'MyLFC', 0,1,1,'2014-12-22 21:12:49.0000000 +00:00',0,1,0,'2014-12-22 21:12:49.0000000 +00:00',1,0)
+SET Identity_insert aspnetUsers off

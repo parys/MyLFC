@@ -73,6 +73,9 @@ export class MaterialDetailComponent implements OnInit, OnDestroy {
         if (!url) {
             return "";
         }
+        if (url.indexOf("http://") === -1 && url.indexOf("https://") === -1) {
+            url = `http://${url}`;
+        }
         return new URL(url).hostname;
     }
 

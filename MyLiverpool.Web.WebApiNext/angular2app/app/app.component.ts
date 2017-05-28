@@ -62,7 +62,7 @@ export class AppComponent implements OnInit {
                 this.titleService.setTitle(event["title"]);
                 this.isRoot = (event["title"] === "MyLFC.ru - Сайт русскоязычных болельщиков \"Ливерпуля\"");
             });
-
+        /* todo research
         this.router.events
             .filter(event => event instanceof NavigationEnd)
             .map(() => this.activatedRoute)
@@ -76,7 +76,7 @@ export class AppComponent implements OnInit {
                 if (event) {
                     this.renderer.setProperty(document.body, "scrollTop", 0);
                 }
-            });
+            }); */
     }
 
     private setUpBreadcrumbs(): void {

@@ -21,14 +21,16 @@ namespace MyLiverpool.Business.Services
         private readonly IMaterialCommentRepository _commentService;
         private readonly IMapper _mapper;
         private readonly IUserService _userService;
+        private readonly IPmService _pmService;
 
         private const int ItemPerPage = GlobalConstants.CommentsPerPageList;
 
-        public MaterialCommentService(IMapper mapper, IMaterialCommentRepository commentService, IUserService userService)
+        public MaterialCommentService(IMapper mapper, IMaterialCommentRepository commentService, IUserService userService, IPmService pmService)
         {
             _mapper = mapper;
             _commentService = commentService;
             _userService = userService;
+            _pmService = pmService;
         }
 
         public async Task<bool> DeleteAsync(int id)
@@ -61,6 +63,10 @@ namespace MyLiverpool.Business.Services
                 var result = _mapper.Map<MaterialCommentDto>(comment);
                 result.AuthorUserName = await _userService.GetUsernameAsync(comment.AuthorId);
                 result.Photo = await _userService.GetPhotoPathAsync(comment.AuthorId);
+                if (comment.ParentId.HasValue)
+                {
+               //     await SendNotificationToPmAsync(comment.ParentId.Value);
+                }
                 return result;
             }
             catch (Exception)
@@ -147,6 +153,21 @@ namespace MyLiverpool.Business.Services
                 }
             }
             return comments.Where(c => c.ParentId == null);
+        }
+
+        private async Task SendNotificationToPmAsync(int parentCommentId)
+        {
+            var comment = await _commentService.GetByIdAsync(parentCommentId);
+            var link = comment.MaterialType == MaterialType.News ? "news" : "blogs";
+            var pmDto = new PrivateMessageDto
+            {
+                SenderId = GlobalConstants.MyLfcUserId,
+                ReceiverId = comment.AuthorId,
+                SentTime = DateTimeOffset.Now,
+                Title = "Новый ответ на комментарий",
+                Message = $"На ваш комментарий к <a href=\"/{link}/{comment.MaterialId}\" target=\"_blank\" \">материалом</a> получен ответ"
+            };
+            await _pmService.SaveAsync(pmDto);
         }
     }
 }

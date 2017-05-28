@@ -106,8 +106,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 return BadRequest(ModelState);
             }
             model.Type = materialType;
-            if ((!User.IsInRole(nameof(RolesEnum.NewsFull)) && model.Type != MaterialType.News) ||
-                (!User.IsInRole(nameof(RolesEnum.BlogFull)) && model.Type != MaterialType.Blogs))
+            if (!User.IsInRole(nameof(RolesEnum.NewsFull)) && 
+                !User.IsInRole(nameof(RolesEnum.BlogFull)))
             {
                 model.Pending = true;
             }
@@ -133,8 +133,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             {
                 return BadRequest(ModelState);
             }
-            if ((!User.IsInRole(nameof(RolesEnum.NewsFull)) && model.Type != MaterialType.News) ||
-                (!User.IsInRole(nameof(RolesEnum.BlogFull)) && model.Type != MaterialType.Blogs))
+            if (!User.IsInRole(nameof(RolesEnum.NewsFull)) && 
+                !User.IsInRole(nameof(RolesEnum.BlogFull)))
             {
                 if (model.AuthorId != User.GetUserId())
                 {

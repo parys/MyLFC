@@ -191,7 +191,10 @@ namespace MyLiverpool.Web.WebApiNext
             });
             var context = (LiverpoolContext) services.BuildServiceProvider().GetService(typeof(LiverpoolContext));
             context.Database.Migrate();
-            new DatabaseInitializer(context).Seed();
+            if (Env.IsDevelopment())
+            {
+                new DatabaseInitializer(context).Seed();
+            }
         }
 
         /// <summary>
