@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using AspNet.Security.OpenIdConnect.Primitives;
 using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Builder;
@@ -16,7 +17,6 @@ using MyLiverpool.Common.Utilities;
 using MyLiverpool.Data.Entities;
 using MyLiverpool.Data.ResourceAccess;
 using MyLiverpool.Data.ResourceAccess.Helpers;
-using MyLiverpool.Web.WebApiNext.Extensions;
 using Newtonsoft.Json.Serialization;
 
 namespace MyLiverpool.Web.WebApiNext
@@ -68,7 +68,7 @@ namespace MyLiverpool.Web.WebApiNext
             services.AddIdentity<User, Role>(options =>
             {
                 options.Password.RequireDigit = false;
-                options.Password.RequiredLength = 2;
+                options.Password.RequiredLength = 6;
                 options.Password.RequireLowercase = false;
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
@@ -125,10 +125,10 @@ namespace MyLiverpool.Web.WebApiNext
                     //    .SetIdentityTokenLifetime(TimeSpan.FromDays(14))
                     //   .SetAccessTokenLifetime(TimeSpan.FromSeconds(10))
                     .SetRefreshTokenLifetime(TimeSpan.FromDays(14))
-               //todo shouldUse     .UseJsonWebTokens()
+               //todo shouldUse ??  .UseJsonWebTokens()
                     // During development, you can disable the HTTPS requirement.
                     .DisableHttpsRequirement()
-
+                //    .AddSigningKey(new RsaSecurityKey(new RSACng(CngKey.Create(new CngAlgorithm("")))))
                     // When request caching is enabled, authorization and logout requests
                     // are stored in the distributed cache by OpenIddict and the user agent
                     // is redirected to the same page with a single parameter (request_id).
@@ -141,6 +141,11 @@ namespace MyLiverpool.Web.WebApiNext
                 if (Env.IsDevelopment())
                 {
                     options.AddEphemeralSigningKey();
+                }
+                else
+                {
+                    options.AddSigningCertificate(
+                        new FileStream(Directory.GetCurrentDirectory() + "/cert.pfx", FileMode.Open), Configuration.GetSection("Cert")["password"]);
                 }
             });
 

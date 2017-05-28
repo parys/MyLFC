@@ -176,13 +176,12 @@ namespace MyLiverpool.Business.Services
             return null;
         }
 
-        public async Task<bool> AddViewAsync(int id)
+        public async void AddView(int id)
         {
             var item = await _materialRepository.GetByIdAsync(id);
             item.Reads += 1;
             _materialRepository.Update(item);
             await _materialRepository.SaveChangesAsync();
-            return true;
         }
 
         #endregion

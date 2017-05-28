@@ -27,8 +27,8 @@ namespace MyLiverpool.Business.Services
             var messages = await _pmRepository.GetAsync(x => x.ReceiverId == id || x.SenderId == id);
             var dto = new PrivateMessagesDto()
             {
-                Received = _mapper.Map<ICollection<PrivateMessageMiniDto>>(messages.Where(x => x.ReceiverId == id)),
-                Sent = _mapper.Map<ICollection<PrivateMessageMiniDto>>(messages.Where(x => x.SenderId == id))
+                Received = _mapper.Map<ICollection<PrivateMessageMiniDto>>(messages.Where(x => x.ReceiverId == id).OrderByDescending(x => x.SentTime)),
+                Sent = _mapper.Map<ICollection<PrivateMessageMiniDto>>(messages.Where(x => x.SenderId == id).OrderByDescending(x => x.SentTime))
             };
             return dto;
         }

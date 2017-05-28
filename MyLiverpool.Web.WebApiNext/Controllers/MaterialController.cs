@@ -153,10 +153,10 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <param name="id">Material identifier.</param>
         /// <returns>Result of addition view.</returns>
         [AllowAnonymous, HttpGet("AddView/{id:int}")]
-        public async Task<IActionResult> AddView(int id)
+        public IActionResult AddView(int id)
         {
-            var result = await _materialService.AddViewAsync(id);
-            return Ok(result);
+            _materialService.AddView(id);
+            return Ok();
         }
     }
 }

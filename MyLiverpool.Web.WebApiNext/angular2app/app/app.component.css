@@ -239,7 +239,7 @@ textarea {
     font-size: medium;
 }
 
-.material-body > img {
+.material-body img {
     border: lightgray solid 5px;
     margin: auto;
     
@@ -341,6 +341,9 @@ textarea {
     text-decoration: underline;
 }
 
+.top10 {
+    margin-top: 10px;
+}
 .top20 {
     margin-top: 20px;
 }

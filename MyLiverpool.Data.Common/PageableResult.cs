@@ -12,11 +12,7 @@ namespace MyLiverpool.Common.Utilities
 
         public PageableData(IEnumerable<T> list, int page, int totalItems = 1, int itemPerPage = 0)
         {
-            if (itemPerPage == 0)
-            {
-                ItemPerPage = ItemPerPageDefault;
-            }
-      //      ItemPerPage = itemPerPage;
+            ItemPerPage = itemPerPage == 0 ? ItemPerPageDefault : itemPerPage;
             PageNo = page;
             TotalItems = totalItems;//(int)decimal.Remainder(TotalItems, itemPerPage) == 0 ? TotalItems / itemPerPage : TotalItems / itemPerPage + 1;
             List = list;

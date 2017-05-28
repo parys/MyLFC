@@ -69,6 +69,10 @@ export class MaterialDetailComponent implements OnInit, OnDestroy {
         return this.sanitizer.bypassSecurityTrustHtml(text);
     }
 
+    public getShortLink(url: string): string {
+        return new URL(url).hostname;
+    }
+
     public sanitizeByUrl(text: string): SafeHtml {
         return this.sanitizer.bypassSecurityTrustResourceUrl(text);
     }

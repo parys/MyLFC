@@ -47,7 +47,7 @@ namespace MyLiverpool.Business.Services
 
         public async Task<IEnumerable<ChatMessageDto>> GetListAsync()
         {
-            var messages = await  _chatMessageRepository.GetListAsync();
+            var messages = await  _chatMessageRepository.GetListAsync();// there is order and take
             var results = _mapper.Map<IEnumerable<ChatMessageDto>>(messages);
             return results;
         }

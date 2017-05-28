@@ -58,7 +58,7 @@ export class AuthService {
     }
 
     public register(data: IRegisterModel): Observable<Response> {
-        return this.http1.post("/account/register", data)
+        return this.http1.post("api/v1/account/register", data)
             .catch(res => Observable.throw(res.json()));
     }
 

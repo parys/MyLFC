@@ -131,7 +131,7 @@ export class MaterialCommentDetailComponent implements OnInit {
         });
         this.commentForm.valueChanges.subscribe(() => {
      //       this.cd.markForCheck();
-     //       this.cd.detectChanges();
+            this.cd.detectChanges();
         });
     }
     private updateFormValues(): void {
