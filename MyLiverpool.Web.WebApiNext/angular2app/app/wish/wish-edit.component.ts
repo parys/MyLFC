@@ -28,18 +28,19 @@ export class WishEditComponent implements OnInit, OnDestroy {
 
     public ngOnInit(): void {
         this.editWishForm = this.formBuilder.group({
-            'message': [
+            'title': [
                 "", Validators.compose([
                     Validators.required,
                     Validators.maxLength(30)
                 ])
             ],
-            'title': [
+            'message': [
                 "", Validators.compose([
                     Validators.required,
                     Validators.maxLength(300)
                 ])
             ],
+
             'type': [
                 "", Validators.compose([
                     Validators.required

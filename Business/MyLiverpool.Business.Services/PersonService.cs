@@ -83,12 +83,12 @@ namespace MyLiverpool.Business.Services
 
         public async Task SetBestPlayerAsync(int personId)
         {
-            var entity = new HelpEntity()
-            {
-                Type = HelperEntityType.BestPlayer,
-                Value = personId.ToString()
-            };
-            await _helperEntityRepository.UpdateAndSaveAsync(entity);
+            //var entity = new HelpEntity()
+            //{
+            //    Type = HelperEntityType.BestPlayer,
+            //    Value = personId.ToString()
+            //};
+            //await _helperEntityRepository.UpdateAndSaveAsync(entity);
         }
     }
 }

@@ -1,13 +1,12 @@
 ﻿import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Location } from "@angular/common";
 import { MdDialog, MdSnackBar } from '@angular/material';
+import { Router, ActivatedRoute } from "@angular/router";
+import { Subscription } from "rxjs/Subscription";
 import { MaterialService } from "./material.service";
 import { Material } from "./material.model";
-import { Subscription } from "rxjs/Subscription";
-import { Pageable } from "../shared/pageable.model";
 import { MaterialFilters } from "./materialFilters.model";
-import { Router, ActivatedRoute } from "@angular/router";   
-import { RolesCheckedService, IRoles, DeleteDialogComponent } from "../shared/index";
+import { RolesCheckedService, IRoles, DeleteDialogComponent,Pageable } from "../shared/index";
 import { MaterialType } from "../materialCategory/materialType.enum";
 import { MaterialActivateDialogComponent } from "./material-activate-dialog.component";
 
@@ -16,16 +15,16 @@ import { MaterialActivateDialogComponent } from "./material-activate-dialog.comp
     templateUrl: "./material-list.component.html"
 })
 export class MaterialListComponent implements OnInit, OnDestroy {
-    public items: Material[];
-    public page: number = 1;
-    public itemsPerPage = 15;
-    public totalItems: number;
-    public categoryId: number;
-    private userName: string;
-    public roles: IRoles;
     private type: MaterialType;
     private sub: Subscription;
     private sub2: Subscription;
+    private userName: string;
+    public items: Material[];
+    public page: number = 1;
+    public itemsPerPage: number = 15;
+    public totalItems: number;
+    public categoryId: number;
+    public roles: IRoles;
 
     constructor(private router: Router,
         private materialService: MaterialService,
@@ -46,7 +45,7 @@ export class MaterialListComponent implements OnInit, OnDestroy {
     }
 
     public showActivateModal(index: number): void {
-        let dialogRef = this.dialog.open(MaterialActivateDialogComponent);
+        const dialogRef = this.dialog.open(MaterialActivateDialogComponent);
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
                 this.activate(index);
@@ -55,7 +54,7 @@ export class MaterialListComponent implements OnInit, OnDestroy {
     }
 
     public showDeleteModal(index: number): void {
-        let dialogRef = this.dialog.open(DeleteDialogComponent);
+        const dialogRef = this.dialog.open(DeleteDialogComponent);
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
                 this.delete(index);
@@ -79,7 +78,7 @@ export class MaterialListComponent implements OnInit, OnDestroy {
     };
 
     private updateUrl(): void {
-        let newUrl = `${MaterialType[this.type].toLowerCase()}?page=${this.page}`;
+        let newUrl: string = `${MaterialType[this.type].toLowerCase()}?page=${this.page}`;
         if (this.categoryId) {
             newUrl = `${newUrl}&categoryId=${this.categoryId}`;
         }
@@ -93,7 +92,7 @@ export class MaterialListComponent implements OnInit, OnDestroy {
     private activate(index: number): void {
         let result: boolean;
 
-        let news = this.items[index];
+        const news: Material = this.items[index];
         this.materialService.activate(news.id)
             .subscribe(res => result = res,
                 e => console.log(e),
@@ -117,7 +116,7 @@ export class MaterialListComponent implements OnInit, OnDestroy {
                     if (result) {
                         this.items.splice(index, 1);
                     } else {
-                        this.snackBar.open("Ошибка удаления", null, {duration: 2000});
+                        this.snackBar.open("Ошибка удаления", null, {duration: 5000});
                     }
                 }
             );
@@ -131,7 +130,7 @@ export class MaterialListComponent implements OnInit, OnDestroy {
     }
 
     private update(): void {
-        let filters = new MaterialFilters();
+        const filters: MaterialFilters = new MaterialFilters();
         filters.categoryId = this.categoryId || null;
         filters.materialType = MaterialType[this.type];
         filters.userName = this.userName || null;

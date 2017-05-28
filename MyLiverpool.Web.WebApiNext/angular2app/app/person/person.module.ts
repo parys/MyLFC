@@ -10,6 +10,7 @@ import { BestPlayerComponent } from "./best-player.component";
 import { personRoutes } from "./person.routes";
 import { SharedModule } from "../shared/index";
 import { DatepickerModule } from "ng2-bootstrap/datepicker";
+import { PaginationModule } from "ng2-bootstrap/pagination";
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { DatepickerModule } from "ng2-bootstrap/datepicker";
         CommonModule,
         DatepickerModule.forRoot(),
         FormsModule,
+        PaginationModule.forRoot(),
         ReactiveFormsModule,
         RouterModule.forRoot(personRoutes),
         SharedModule

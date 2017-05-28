@@ -145,7 +145,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// Uploads a person photo.
         /// </summary>
         /// <returns>Result of uploading new photo.</returns>
-        [Authorize(Roles = nameof(RolesEnum.AdminStart)), HttpPost("photo/{name}")]//todo add name of player
+        [Authorize(Roles = nameof(RolesEnum.AdminStart)), HttpPost("photo/{name}")]
         public async Task<ActionResult> UploadPhotoAsync(string name)
         {
             if (Request.Form.Files != null && Request.Form.Files.Count > 0)

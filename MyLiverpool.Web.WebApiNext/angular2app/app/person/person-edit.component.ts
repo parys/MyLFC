@@ -1,4 +1,4 @@
-﻿import { Component, OnInit } from "@angular/core";
+﻿import { Component, OnInit, OnDestroy } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
 import { MdSnackBar } from "@angular/material";
@@ -12,7 +12,7 @@ import { PersonType } from "./personType.model";
     templateUrl: "./person-edit.component.html"
 })
 
-export class PersonEditComponent implements OnInit {
+export class PersonEditComponent implements OnInit, OnDestroy {
     private id: number;
     private sub: Subscription;
     public editForm: FormGroup;
@@ -39,10 +39,13 @@ export class PersonEditComponent implements OnInit {
 
         this.updateTypes();
     }
+    public ngOnDestroy(): void {
+        if(this.sub) { this.sub.unsubscribe(); }
+    }
 
     public onUpload(event: any): void {
-        let file = event.currentTarget.files[0];
-        let fullname = this.editForm.controls["firstName"].value + " " + this.editForm.controls["lastName"].value;
+        const file = event.currentTarget.files[0];
+        const fullname = this.editForm.controls["firstName"].value + " " + this.editForm.controls["lastName"].value;
         if (file) {
             this.service.updatePhoto(fullname, file)
                 .subscribe(result => {
@@ -57,7 +60,7 @@ export class PersonEditComponent implements OnInit {
         }
     }
     public onSubmit(): void {
-        let person = this.parseForm();
+        const person = this.parseForm();
         if (this.id > 0) {
             this.service.update(this.id, person)
                 .subscribe(data => this.snackBar.open("Профиль успешно обновлен", null, { duration: 5000 }),
@@ -92,7 +95,7 @@ export class PersonEditComponent implements OnInit {
     }
 
     private parseForm(): Person {
-        let item: Person = this.editForm.value;
+        const item: Person = this.editForm.value;
         item.id = this.id;
         return item;
     }
