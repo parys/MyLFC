@@ -70,6 +70,9 @@ export class MaterialDetailComponent implements OnInit, OnDestroy {
     }
 
     public getShortLink(url: string): string {
+        if (!url) {
+            return "";
+        }
         return new URL(url).hostname;
     }
 

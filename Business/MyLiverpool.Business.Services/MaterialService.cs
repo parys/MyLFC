@@ -176,7 +176,7 @@ namespace MyLiverpool.Business.Services
             return null;
         }
 
-        public async void AddView(int id)
+        public async Task AddViewAsync(int id)
         {
             var item = await _materialRepository.GetByIdAsync(id);
             item.Reads += 1;

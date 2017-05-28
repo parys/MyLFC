@@ -62,6 +62,21 @@ export class AppComponent implements OnInit {
                 this.titleService.setTitle(event["title"]);
                 this.isRoot = (event["title"] === "MyLFC.ru - Сайт русскоязычных болельщиков \"Ливерпуля\"");
             });
+
+        this.router.events
+            .filter(event => event instanceof NavigationEnd)
+            .map(() => this.activatedRoute)
+            .map((route: ActivatedRoute) => {
+                while (route.firstChild) route = route.firstChild;
+                return route;
+            })
+            .filter((route: ActivatedRoute) => route.outlet === "primary")
+            .mergeMap((route: ActivatedRoute) => route.fragment)
+            .subscribe((event) => {
+                if (event) {
+                    this.renderer.setProperty(document.body, "scrollTop", 0);
+                }
+            });
     }
 
     private setUpBreadcrumbs(): void {

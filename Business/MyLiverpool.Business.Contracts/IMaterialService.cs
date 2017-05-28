@@ -20,6 +20,6 @@ namespace MyLiverpool.Business.Contracts
 
         Task<MaterialDto> EditAsync(MaterialDto dto);
 
-        void AddView(int id);
+        Task AddViewAsync(int id);
     }
 }

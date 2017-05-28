@@ -58,20 +58,24 @@ namespace MyLiverpool.Business.Services
             {
                 comment = await _commentService.AddAsync(comment);
                 await _commentService.SaveChangesAsync();
+                var result = _mapper.Map<MaterialCommentDto>(comment);
+                result.AuthorUserName = await _userService.GetUsernameAsync(comment.AuthorId);
+                result.Photo = await _userService.GetPhotoPathAsync(comment.AuthorId);
+                return result;
             }
             catch (Exception)
             {
-                throw new Exception();
+                return null;
             }
-            var result = _mapper.Map<MaterialCommentDto>(comment);
-            result.AuthorUserName = await _userService.GetUsernameAsync(comment.AuthorId);
-            result.Photo = await _userService.GetPhotoPathAsync(comment.AuthorId);
-            return result;
         }
 
         public async Task<bool> UpdateAsync(MaterialCommentDto model)
         {
             var comment = await _commentService.GetByIdAsync(model.Id);
+            if (comment == null)
+            {
+                return false;
+            }
             comment.LastModified = DateTime.Now;
             comment.Answer = model.Answer;
             comment.Message = model.Message;

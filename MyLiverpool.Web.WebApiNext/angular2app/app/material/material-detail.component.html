@@ -14,7 +14,7 @@
         <div class="alert-warning top10">
             <ul class="list-inline">
                 <li><label>Просмотры:</label> <span [textContent]="item.reads"></span></li>
-                <li><label>Источник:</label> <a [href]="sanitizeByUrl(item.source)" target="_blank" [textContent]="getShortLink(item.source)"></a></li>
+                <li *ngIf="item.source"><label>Источник:</label> <a [href]="sanitizeByUrl(item.source)" target="_blank" [textContent]="getShortLink(item.source)"></a></li>
                 <li><label>Дата добавления:</label> <span [textContent]="item.additionTime | date:'medium'"></span></li>
                 <li><label>Категория:</label> <a [routerLink]="[+item.type === 1 ? '/news' : '/blogs']" [queryParams]="{page: 1, categoryId: item.categoryId}"> <span [textContent]="item.categoryName"></span> </a></li>
             </ul>
