@@ -14,7 +14,7 @@
     </div>
     <div class="row" *ngFor="let item of items; let i = index;">
         <div class="padding10" *ngIf="!item.pending || roles.isNewsmaker">
-            <div class="row  border-left-maroon" >
+            <div class="row flex border-left-maroon" >
                 <div class="flex-vertical-center material-header col-xs-12">
                     <a [routerLink]="[+item.type === 1 ? '/news' : '/blogs', item.id]">
                         <h3 class="beauty-font" [textContent]="item.title"></h3>
@@ -32,8 +32,8 @@
                 <div class="col-xs-6 col-sm-12 col-md-12 col-lg-6">
                     <img class="img-thumbnail news-mini center-block" [alt]="item.title" [src]="item.photo" />
                 </div>
-                <div class="col-xs-6 col-sm-12 col-md-12 col-lg-6">
-                    <i> <span [innerHTML]="item.brief"></span></i>
+                <div class="col-xs-6 col-sm-12 col-md-12 col-lg-6 flex-vertical-center">
+                    <i class=""> <span [innerHTML]="item.brief"></span></i>
                 </div>
                 <div class="col-xs-12 col-sm-12 material-info-panel">
                     <ul class="list-inline small small-offset">
