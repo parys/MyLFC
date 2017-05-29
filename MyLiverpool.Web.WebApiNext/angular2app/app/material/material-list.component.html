@@ -13,20 +13,24 @@
         </form-->
     </div>
     <div class="row" *ngFor="let item of items; let i = index;">
-        <div class="padding10" *ngIf="!item.pending || roles.isEditor">
+        <div class="padding10" *ngIf="!item.pending || roles.isNewsmaker">
             <div class="row  border-left-maroon" >
                 <div class="flex-vertical-center material-header col-xs-12">
                     <a [routerLink]="[+item.type === 1 ? '/news' : '/blogs', item.id]">
                         <h3 class="beauty-font" [textContent]="item.title"></h3>
                     </a>
-                    <span class="pull-right" *ngIf="roles.isEditor || roles.isSelf(item.userId)">
-                        <a role="button" *ngIf="item.pending && roles.isEditor" (click)="showActivateModal(i)"><span class="glyphicon glyphicon-ok"></span></a>
-                        <a [routerLink]="[+item.type === 1 ? '/news' : '/blogs', item.id, 'edit']"><span class="glyphicon glyphicon-pencil"></span></a>
-                        <a role="button" (click)="showDeleteModal(i)"><span class="glyphicon glyphicon-trash"></span></a>
+                    <span class="pull-right">
+                        <span *ngIf="item.pending && !roles.isEditor" class="glyphicon glyphicon-ok"></span>
+                        <span *ngIf="roles.isEditor || roles.isSelf(item.userId)">
+                            <a role="button" *ngIf="item.pending && roles.isEditor" (click)="showActivateModal(i)"><span class="glyphicon glyphicon-ok"></span></a>
+                            <a [routerLink]="[+item.type === 1 ? '/news' : '/blogs', item.id, 'edit']"><span class="glyphicon glyphicon-pencil"></span></a>
+                            <a role="button" (click)="showDeleteModal(i)"><span class="glyphicon glyphicon-trash"></span></a>
+                        </span>
+
                     </span>
                 </div>
                 <div class="col-xs-6 col-sm-12 col-md-12 col-lg-6">
-                    <img class="img-thumbnail news-mini center-block" [alt]="item.title" [src]="item.photoPath" />
+                    <img class="img-thumbnail news-mini center-block" [alt]="item.title" [src]="item.photo" />
                 </div>
                 <div class="col-xs-6 col-sm-12 col-md-12 col-lg-6">
                     <i> <span [innerHTML]="item.brief"></span></i>

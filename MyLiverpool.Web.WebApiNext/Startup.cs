@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using AspNet.Security.OpenIdConnect.Primitives;
 using Microsoft.AspNetCore.Antiforgery;
@@ -17,7 +18,9 @@ using MyLiverpool.Common.Utilities;
 using MyLiverpool.Data.Entities;
 using MyLiverpool.Data.ResourceAccess;
 using MyLiverpool.Data.ResourceAccess.Helpers;
+using MyLiverpool.Web.WebApiNext.Extensions;
 using Newtonsoft.Json.Serialization;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace MyLiverpool.Web.WebApiNext
 {
@@ -140,51 +143,51 @@ namespace MyLiverpool.Web.WebApiNext
             // This method should only be used during development.
                 if (Env.IsDevelopment())
                 {
-                    options.AddEphemeralSigningKey();
+                    options.AddEphemeralSigningKey(); 
                 }
                 else
                 {
-                    options.AddSigningCertificate(
-                        new FileStream(Directory.GetCurrentDirectory() + "/cert.pfx", FileMode.Open), Configuration.GetSection("Cert")["password"]);
+                    options.AddSigningCertificate(new FileStream(Directory.GetCurrentDirectory() + "/cert.pfx", FileMode.Open), Configuration.GetSection("Cert")["password"]);
                 }
             });
 
             services.AddMemoryCache();
 
-         //   services.AddAntiforgery(options => options.HeaderName = "X-XSRF-TOKEN");
+            //   services.AddAntiforgery(options => options.HeaderName = "X-XSRF-TOKEN");
 
-#if Debug
-            services.AddSwaggerGen(options =>
+            if (Env.IsDevelopment())
             {
-                options.SwaggerDoc("v1", new Info
+                services.AddSwaggerGen(options =>
                 {
-                    Version = "v1",
-                    Title = "Swagger Sample API",
-                    Description = "API Sample made",
-                    TermsOfService = "None"
-                });
-
-            //    var filePath = Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, "MyApi.xml");
-            //s    options.IncludeXmlComments(filePath);
-                options.OperationFilter<HandleModelbinding>();
-
-                options.AddSecurityDefinition("oauth2", new OAuth2Scheme()
-                {
-                    Type = "oauth2",
-                    Flow = "implicit",
-                    AuthorizationUrl = "/connect/authorize",
-                 //   Extensions = { {"123", new object()}},
-                    TokenUrl = "connect/token",
-                    Scopes = new Dictionary<string, string>
+                    options.SwaggerDoc("v1", new Info
                     {
-                        {"roles", "roles scope"},
-                        {"openid", "openid scope"}
-                    },
-                });
+                        Version = "v1",
+                        Title = "Swagger Sample API",
+                        Description = "API Sample made",
+                        TermsOfService = "None"
+                    });
 
-             //   options.OperationFilter<AssignSecurityRequirements>();
-            });
-#endif
+                    //    var filePath = Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, "MyApi.xml");
+                    //s    options.IncludeXmlComments(filePath);
+                    options.OperationFilter<HandleModelbinding>();
+
+                    options.AddSecurityDefinition("oauth2", new OAuth2Scheme()
+                    {
+                        Type = "oauth2",
+                        Flow = "implicit",
+                        AuthorizationUrl = "/connect/authorize",
+                        //   Extensions = { {"123", new object()}},
+                        TokenUrl = "connect/token",
+                        Scopes = new Dictionary<string, string>
+                        {
+                            {"roles", "roles scope"},
+                            {"openid", "openid scope"}
+                        },
+                    });
+
+                    //   options.OperationFilter<AssignSecurityRequirements>();
+                });
+            }
 
             services.AddNodeServices(options =>
             {
@@ -221,14 +224,13 @@ namespace MyLiverpool.Web.WebApiNext
                 {
                     HotModuleReplacement = true
                 });
-#if Debug
+
                 app.UseSwagger();
                 app.UseSwaggerUI(c =>
                 {
                     c.SwaggerEndpoint("/swagger/v1/swagger.json", "V1 Docs");
                     c.ConfigureOAuth2("test-client-id123", "test-client-secr43et", "test-rea32lm", "test-a11pp");
                 });
-#endif
             }
             else
             {
@@ -238,12 +240,18 @@ namespace MyLiverpool.Web.WebApiNext
             app.UseCors("MyPolicy");
 
             app.UseDefaultFiles();
-            app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                OnPrepareResponse = ctx =>
+                {
+                    ctx.Context.Response.Headers.Append("Cache-Control", "public,max-age=86400");
+                }
+            });
 
             app.UseIdentity();
 
             app.UseOAuthValidation(opt => //todo does it need?
-            {
+            { 
                 opt.AutomaticAuthenticate = true;
                 opt.AutomaticChallenge = true;
             });

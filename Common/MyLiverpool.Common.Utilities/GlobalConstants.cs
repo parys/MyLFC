@@ -8,7 +8,7 @@
         public const int BlogsPerPage = 10;
         public const int UsersPerPage = 10;
         public const int FirstPage = 1;
-        public const int PmsPerUser = 200;
+        public const int PmsPerUser = 400;
         public const int CountLoginsForAutocomlete = 10;
         public const int CountStadiumsForAutocomlete = 10;
         public const int TakingChatMessagesCount = 100;

@@ -15,9 +15,9 @@ namespace MyLiverpool.Web.WebApiNext
         public static void Main(string[] args)
         {
             var host = new WebHostBuilder()
+                .CaptureStartupErrors(true)
                 .UseKestrel(options =>
                 {
-                    options.ThreadCount = 1; //bug try without it
                 })
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()

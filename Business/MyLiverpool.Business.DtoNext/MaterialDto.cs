@@ -19,7 +19,7 @@ namespace MyLiverpool.Business.Dto
 
         public int CommentsCount { get; set; }
 
-        public int AuthorId { get; set; }
+        public int UserId { get; set; }
 
         public string Username { get; set; }
 

@@ -24,13 +24,13 @@ namespace MyLiverpool.Common.Mappings
                 .ForMember(dest => dest.CommentsCount, src => src.MapFrom(x => x.CommentsCount))
                 .ForMember(dest => dest.Pending, src => src.MapFrom(x => x.Pending))
                 .ForMember(dest => dest.Title, src => src.MapFrom(x => x.Title))
-                .ForMember(dest => dest.PhotoPath, src => src.MapFrom(x => x.PhotoPath))
+                .ForMember(dest => dest.Photo, src => src.MapFrom(x => x.PhotoPath))
                 .ForMember(dest => dest.Type, src => src.MapFrom(x => x.Type))
                 .ForMember(dest => dest.Reads, src => src.MapFrom(x => x.Reads));
 
             CreateMap<Material, MaterialDto>()
                 .ForMember(dest => dest.AdditionTime, src => src.MapFrom(x => x.AdditionTime))
-                .ForMember(dest => dest.AuthorId, src => src.MapFrom(x => x.AuthorId))
+                .ForMember(dest => dest.UserId, src => src.MapFrom(x => x.AuthorId))
                 .ForMember(dest => dest.Username, src => src.MapFrom(x => x.Author.UserName))
                 .ForMember(dest => dest.Brief, src => src.MapFrom(x => x.Brief))
                 .ForMember(dest => dest.CanCommentary, src => src.MapFrom(x => x.CanCommentary))
@@ -48,7 +48,7 @@ namespace MyLiverpool.Common.Mappings
 
             CreateMap<MaterialDto, Material>()
                 .ForMember(dest => dest.AdditionTime, src => src.MapFrom(x => x.AdditionTime.Value))
-                .ForMember(dest => dest.AuthorId, src => src.MapFrom(x => x.AuthorId))
+                .ForMember(dest => dest.AuthorId, src => src.MapFrom(x => x.UserId))
                 .ForMember(dest => dest.Brief, src => src.MapFrom(x => x.Brief))
                 .ForMember(dest => dest.CanCommentary, src => src.MapFrom(x => x.CanCommentary))
                 .ForMember(dest => dest.Comments, src => src.Ignore())

@@ -92,8 +92,9 @@ export class MaterialEditComponent implements OnInit {
     }
 
     private parseForm(): Material {
-        let item = this.editForm.value;
+        const item: Material = this.editForm.value;
         item.id = this.id;
+        item.userId = this.item.userId;//should move to input
         return item;
     }
 

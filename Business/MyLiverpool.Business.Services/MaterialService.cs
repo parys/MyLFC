@@ -35,6 +35,10 @@ namespace MyLiverpool.Business.Services
         {
             var itemPerPage = GlobalConstants.NewsPerPage;
             Expression<Func<Material, bool>> filter = x => true;
+            if (!filters.IsInNewsmakerRole)
+            {
+                filter = filter.And(x => !x.Pending);
+            }
             if (filters.MaterialType != MaterialType.Both)
             {
                 filter = filter.And(x => x.Type == filters.MaterialType);
@@ -43,7 +47,6 @@ namespace MyLiverpool.Business.Services
             {
                 filter = filter.And(x => x.CategoryId == filters.CategoryId.Value);
             }
-
             if (!string.IsNullOrWhiteSpace(filters.UserName))
             {
                 Expression<Func<Material, bool>> newFilter = x => x.Author.UserName.Contains(filters.UserName);
@@ -134,7 +137,7 @@ namespace MyLiverpool.Business.Services
         public async Task<MaterialDto> CreateAsync(MaterialDto model, int userId)
         {
             model.AdditionTime = DateTime.Now;
-            model.AuthorId = userId;
+            model.UserId = userId;
 
             var material = _mapper.Map<Material>(model);
             material.LastModified = DateTime.Now;

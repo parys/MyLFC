@@ -50,7 +50,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             {
                 filters = (MaterialFiltersDto) JsonConvert.DeserializeObject(filtersObj, typeof(MaterialFiltersDto));
             }
-
+            filters.IsInNewsmakerRole = User.IsInRole(nameof(RolesEnum.NewsStart));
             var result = await _materialService.GetDtoAllAsync(filters);
             return Ok(result);
         }
@@ -136,7 +136,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             if (!User.IsInRole(nameof(RolesEnum.NewsFull)) && 
                 !User.IsInRole(nameof(RolesEnum.BlogFull)))
             {
-                if (model.AuthorId != User.GetUserId())
+                if (model.UserId != User?.GetUserId())
                 {
                     return Unauthorized();
                 }

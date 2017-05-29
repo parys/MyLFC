@@ -10,6 +10,10 @@ namespace MyLiverpool.Business.Dto.Filters
 
         public string UserName { get; set; }
 
+        public int? UserId { get; set; }
+
+        public bool IsInNewsmakerRole { get; set; }
+
         public MaterialType MaterialType { get; set; }
     }
 }

@@ -1,19 +1,19 @@
 ﻿export class Material {
-    id: number;
-    title: string;
-    categoryId: number;
-    private categoryName: string;
-    private additionTime: Date;
-    private commentsCount: number;
-    private userId: number;
-    private username: string;
-    brief: string;
-    message: string;
-    private reads: number;
-    source: string;
-    photo: string;
-    pending: boolean;
-    onTop: boolean;
-    canCommentary: boolean;
-    type: number;
+    public id: number;
+    public title: string;
+    public categoryId: number;
+    public categoryName: string;
+    public additionTime: Date;
+    public commentsCount: number;
+    public  userId: number;
+    public username: string;
+    public brief: string;
+    public message: string;
+    public reads: number;
+    public source: string;
+    public photo: string;
+    public pending: boolean;
+    public onTop: boolean;
+    public canCommentary: boolean;
+    public type: number;
 }

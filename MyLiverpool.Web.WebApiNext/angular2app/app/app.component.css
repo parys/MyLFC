@@ -1,6 +1,6 @@
 ﻿@font-face {
     font-family: "Beauty";
-    src: url('./fonts/10427.ttf') format('truetype'),
+    src: /* url('./fonts/10427.ttf') format('truetype'),*/
     url('./fonts/Vollkorn-Black.ttf');
 }
 @font-face {
