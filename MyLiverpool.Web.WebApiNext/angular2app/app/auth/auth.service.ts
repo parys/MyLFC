@@ -77,6 +77,7 @@ export class AuthService {
         }
         this.removeToken();
         this.localStorage.removeAuthTokens();
+        this.localStorage.removeAllData();
         this.rolesCheckedService.checkRoles();
     }
 

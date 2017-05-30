@@ -69,7 +69,7 @@ namespace MyLiverpool.Web.WebApiNext
             });
 
             services.AddDataProtection().SetApplicationName("liverpoolfc-app")
-                .PersistKeysToFileSystem(new DirectoryInfo("/"));
+                .PersistKeysToFileSystem(new DirectoryInfo(Directory.GetCurrentDirectory()));
             
             services.AddIdentity<User, Role>(options =>
             {
@@ -146,11 +146,22 @@ namespace MyLiverpool.Web.WebApiNext
             // This method should only be used during development.
                 if (Env.IsDevelopment())
                 {
-                    options.AddEphemeralSigningKey(); 
+                    options.AddEphemeralSigningKey();
                 }
                 else
                 {
-                    options.AddSigningCertificate(new FileStream(Directory.GetCurrentDirectory() + "/cert.pfx", FileMode.Open), Configuration.GetSection("Cert")["password"]);
+                    try
+                    {
+                        options.AddSigningCertificate(
+                            new FileStream(Directory.GetCurrentDirectory() + "/cert.pfx", FileMode.Open),
+                            Configuration.GetSection("Cert")["password"]);
+                    }
+                    catch
+                    {
+                        options.AddSigningCertificate(
+                            new FileStream(Directory.GetCurrentDirectory() + "/cert2.pfx", FileMode.Open),
+                            Configuration.GetSection("Cert")["password"]);
+                    }
                 }
             });
 
