@@ -62,6 +62,7 @@ namespace MyLiverpool.Data.ResourceAccess
                 await InitializeForumThemes();
             }
 
+            await InitStadiums();
             await InitSeasons();
             await InitClubs();
 
@@ -1264,6 +1265,17 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
             await _context.Seasons.AddAsync(season);
             await _context.SaveChangesAsync();
         }
+
+        private async Task InitStadiums()
+        {
+            var stadiums = new Stadium()
+            {
+                City = "city",
+                Name = "name"
+            };
+            await _context.Stadiums.AddAsync(stadiums);
+            await _context.SaveChangesAsync();
+        }
         private async Task InitClubs()
         {
             var clubs = _context.Set<Club>();
@@ -1274,7 +1286,8 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                 EnglishName = "Liverpool",
                 Logo = "/content/logos/0/liverpool.png",
                 Name = "Ливерпуль",
-                StadiumName = "Энфилд"
+                StadiumName = "Энфилд",
+                StadiumId = 1
             };
             clubs.Add(club);
             var club1 = new Club() 
@@ -1282,7 +1295,8 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                 EnglishName = "Arsenal",
                 Logo = "/content/logos/0/arsenal.png",
                 Name = "Арсенал",
-                StadiumName = "Эмирейтс"
+                StadiumName = "Эмирейтс",
+                StadiumId = 1
             };
             clubs.Add(club1);
             var club2 = new Club() 
@@ -1290,7 +1304,8 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                 EnglishName = "Everton",
                 Logo = "/content/logos/0/everton.png",
                 Name = "Эвертон",
-                StadiumName = "Гуддисон"
+                StadiumName = "Гуддисон",
+                StadiumId = 1
             };
             clubs.Add(club2);
             var club3 = new Club() 
@@ -1298,7 +1313,8 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                 EnglishName = "Manchester City",
                 Logo = "/content/logos/0/manchestercity.png",
                 Name = "Манчестер Сити",
-                StadiumName = "Этихад"
+                StadiumName = "Этихад",
+                StadiumId = 1
             };
             clubs.Add(club3);
 

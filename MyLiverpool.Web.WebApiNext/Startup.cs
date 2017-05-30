@@ -4,6 +4,7 @@ using System.IO;
 using AspNet.Security.OpenIdConnect.Primitives;
 using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.ResponseCompression;
@@ -66,7 +67,9 @@ namespace MyLiverpool.Web.WebApiNext
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
                 options.UseOpenIddict<int>();
             });
-            
+
+            services.AddDataProtection().SetApplicationName("liverpoolfc-app")
+                .PersistKeysToFileSystem(new DirectoryInfo("/"));
             
             services.AddIdentity<User, Role>(options =>
             {
