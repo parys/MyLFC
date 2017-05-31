@@ -18,6 +18,8 @@ export class PmDetailComponent implements OnInit, OnDestroy {
     public roles: IRoles;
     public selectedUserId: number;
     public selectedUserName: string;
+    public link: string;
+    public materialId: string;
 
     constructor(private pmService: PmService,
         private rolesChecked: RolesCheckedService,
@@ -27,8 +29,7 @@ export class PmDetailComponent implements OnInit, OnDestroy {
     public ngOnInit(): void {
         this.roles = this.rolesChecked.checkRoles();
         this.sub = this.route.params.subscribe(params => {
-            let id = +params["id"];
-            this.sub2 = this.pmService.getSingle(id)
+            this.sub2 = this.pmService.getSingle(+params["id"])
                 .subscribe(data => this.parse(data),
                 error => console.log(error));
         });
@@ -47,6 +48,8 @@ export class PmDetailComponent implements OnInit, OnDestroy {
             this.selectedUserId = this.item.senderId;
             this.selectedUserName = this.item.sender;
         }
+        console.log(this.selectedUserId);
+        console.log(this.selectedUserName);
     }
 
     public closePmWindow(event: any): void {
@@ -59,5 +62,15 @@ export class PmDetailComponent implements OnInit, OnDestroy {
 
     private parse(item: Pm): void {
         this.item = item;
+        this.tryToParseHelpInfo(item.message);
+    }
+
+    private tryToParseHelpInfo(message: string): void {
+        const result: RegExpMatchArray = message.match(/\[.*\]/ig);
+        if (result) {
+            this.item.message = message.replace(result[0], "");
+            this.link = result[0].match(/\w.*(?=\;)/ig)[0];
+            this.materialId = result[0].match(/[\d]*(?=\])/ig)[0];
+        }
     }
 }

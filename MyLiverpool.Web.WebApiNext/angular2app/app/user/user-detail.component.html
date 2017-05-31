@@ -93,12 +93,12 @@
                 <span class="form-control" [textContent]="item.fullName"></span>
             </div>
         </div>
-        <div class="form-group" *ngIf="item.birthday">
+        <!--div class="form-group" *ngIf="item.birthday">
             <label class="col-xs-2 col-sm-2 control-label">День рождения</label>
             <div class="col-xs-10 col-sm-10">
                 <span class="form-control" [textContent]="item.birthday | date:'longDate'"></span>
             </div>
-        </div>
+        </!--div-->
         <div class="form-group" *ngIf="item.gender">
             <label class="col-xs-2 col-sm-2 control-label">Пол</label>
             <div class="col-xs-10 col-sm-10">
@@ -119,29 +119,3 @@
         </div>
     </div>
 </div>
-
-<!--script type="text/ng-template" id="changeRoleConfirmation.html">
-    <div class="modal-header">
-        <h3 class="modal-title">Редактирование роли</h3>
-    </div>
-    <div class="modal-body">
-        Изменить?
-    </div>
-    <div class="modal-footer">
-        <button class="btn btn-primary" type="button" ng-click="vm.ok()">Изменить</button>
-        <button class="btn btn-default" type="button" ng-click="vm.cancel()">Отмена</button>
-    </div>
-</!--script>
-
-<script type="text/ng-template" id="banConfirmation.html">
-    <div class="modal-header">
-        <h3 class="modal-title"></h3>
-    </div>
-    <div class="modal-body">
-        Забанить?
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-default" ng-click="vm.ok()">Забанить</button>
-        <button type="button" class="btn btn-primary" ng-click="vm.cancel()">Отмена</button>
-    </div>
-</script>-->

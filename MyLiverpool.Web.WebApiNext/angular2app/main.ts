@@ -6,6 +6,7 @@ import "./jquery-global.js";
 import "bootstrap";
 import "hammerjs";
 
+//enableProdMode();
 var rootElemTagName = "app";
 // enable either Hot Module Reloading or production mode
 if (module["hot"]) {

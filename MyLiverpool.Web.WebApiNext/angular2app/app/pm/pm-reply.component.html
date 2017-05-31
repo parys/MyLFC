@@ -1,4 +1,4 @@
-﻿<form class="form-horizontal col-md-12" role="form" name="writePm" [formGroup]="editForm" (ngSubmit)="onSubmit()">
+﻿<form *ngIf="pmReplyEditForm" class="form-horizontal col-md-12" role="form" name="writePm" [formGroup]="pmReplyEditForm" (ngSubmit)="onSubmit()">
     <h2>Написать сообщение</h2>
     <div class="form-group">
         <label class="control-label col-md-2">Получатель</label>
@@ -7,25 +7,22 @@
                    [value]="userName" />
         </div>
     </div>
-
     <div class="form-group">
         <label class="control-label col-md-2">Заголовок</label>
         <div class="col-md-10">
-            <input class="form-control" name="title" formControlName="title" />
+            <input class="form-control" name="title" formControlName="title" maxlength="30" />
         </div>
     </div>
-
     <div class="form-group">
         <label class="control-label col-md-2">Сообщение</label>
         <div class="col-md-10">
-            <textarea class="form-control" name="message" rows="4" formControlName="message"> </textarea>
+            <textarea class="form-control" name="message" rows="4" formControlName="message" maxlength="500"> </textarea>
         </div>
     </div>
-
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <button [disabled]="!editForm.valid" type="submit" class="btn btn-default">Отправить</button>
-            <button type="button" class="btn btn-danger" (click)="closeWindow()">Отмена</button>
+            <button [disabled]="!pmReplyEditForm.valid" type="submit" class="btn btn-default">Отправить</button>
+            <button class="btn btn-default" type="button" (click)="closeWindow()">Отмена</button>
         </div>
     </div>
 </form>

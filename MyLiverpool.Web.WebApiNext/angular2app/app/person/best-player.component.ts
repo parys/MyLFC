@@ -1,26 +1,29 @@
-﻿import { Component, OnInit, OnDestroy } from "@angular/core";
+﻿import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
 import { Subscription } from "rxjs/Subscription";
 import { PersonService } from "./person.service";
 import { Person } from "./person.model";
 
 @Component({
     selector: "best-player",
-    templateUrl: "./best-player.component.html"
+    templateUrl: "./best-player.component.html",
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BestPlayerComponent implements OnInit, OnDestroy {
-    item: Person;
-    subscription: Subscription;
+    public item: Person;
+    private sub: Subscription;
 
-    constructor(private service: PersonService) { }
+    constructor(private service: PersonService,
+        private cd: ChangeDetectorRef
+    ) { }
 
-    ngOnInit(): void {
-        this.subscription = this.service.getBestPlayer()
-            .subscribe(data => this.item = data, error => console.log(error));
+    public ngOnInit(): void {
+        this.sub = this.service.getBestPlayer()
+            .subscribe(data => this.item = data,
+            error => console.log(error),
+        () => this.cd.markForCheck());
     }
 
-    ngOnDestroy(): void {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
+    public ngOnDestroy(): void {
+        if (this.sub) {this.sub.unsubscribe();}
     }
 }

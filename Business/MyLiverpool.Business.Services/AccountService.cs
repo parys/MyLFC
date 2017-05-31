@@ -76,13 +76,13 @@ namespace MyLiverpool.Business.Services
             user.RegistrationDate = DateTime.Now;
             user.LastModified = DateTime.Now;
             user.LockoutEnabled = true;
-            user.RoleGroupId = (int)RoleGroupsEnum.Simple;
+            user.RoleGroupId = 6;
             user.Photo = DefaultPhotoPath;
 
         IdentityResult result = await _userRepository.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {
-                await _userRepository.AddToRoleAsync(user, RolesEnum.Simple.ToString());
+               // await _userRepository.AddToRoleAsync(user, RolesEnum.Simple.ToString());
 
                 await SendConfirmEmailAsync(user.Email, user.Id);
             }

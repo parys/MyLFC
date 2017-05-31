@@ -65,7 +65,7 @@ namespace MyLiverpool.Business.Services
                 result.Photo = await _userService.GetPhotoPathAsync(comment.AuthorId);
                 if (comment.ParentId.HasValue)
                 {
-               //     await SendNotificationToPmAsync(comment.ParentId.Value);
+                    await SendNotificationToPmAsync(comment.ParentId.Value);
                 }
                 return result;
             }
@@ -164,8 +164,8 @@ namespace MyLiverpool.Business.Services
                 SenderId = GlobalConstants.MyLfcUserId,
                 ReceiverId = comment.AuthorId,
                 SentTime = DateTimeOffset.Now,
-                Title = "Новый ответ на комментарий",
-                Message = $"На ваш комментарий к <a href=\"/{link}/{comment.MaterialId}\" target=\"_blank\" \">материалом</a> получен ответ"
+                Title = "Новый ответ",
+                Message = $"На ваш комментарий получен ответ.[{link};{comment.MaterialId}]"
             };
             await _pmService.SaveAsync(pmDto);
         }

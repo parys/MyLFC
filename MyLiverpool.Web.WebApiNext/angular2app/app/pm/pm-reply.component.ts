@@ -1,7 +1,6 @@
 ﻿import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from "@angular/core";
-import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
-import { Observable } from "rxjs/Observable";
 import { Subscription } from "rxjs/Subscription";
 import { Pm } from "./pm.model";
 import { PmService } from "./pm.service";
@@ -11,17 +10,13 @@ import { PmService } from "./pm.service";
     templateUrl: "./pm-reply.component.html"
 })
 export class PmReplyComponent implements OnInit, OnDestroy {
-    editForm: FormGroup;
-    id: number = 0;
     private sub: Subscription;
-    @Input()
-    userName: string;
-    @Input()
-    userId: number;
-    @Input()
-    title: string;
-    @Output()
-    close = new EventEmitter();
+    public pmReplyEditForm: FormGroup;
+    id: number = 0;
+    @Input() public userName: string;
+    @Input() public userId: number;
+    @Input() public title: string;
+    @Output() public close = new EventEmitter();
 
     constructor(private service: PmService,
         private formBuilder: FormBuilder,
@@ -29,8 +24,8 @@ export class PmReplyComponent implements OnInit, OnDestroy {
         private router: Router) {
     }
 
-    ngOnInit() {
-        this.editForm = this.formBuilder.group({
+    public ngOnInit(): void {
+        this.pmReplyEditForm = this.formBuilder.group({
             'title': [
                 this.getTitle(), Validators.compose([
                     Validators.required,
@@ -58,17 +53,15 @@ export class PmReplyComponent implements OnInit, OnDestroy {
         //this.getUsername();
     }
 
-    ngOnDestroy() {
+    public ngOnDestroy(): void {
         //  this.sub.unsubscribe();
     }
 
-    onSubmit(): void {
-        let model = new Pm();
+    public onSubmit(): void {
+        const model: Pm = this.pmReplyEditForm.value;
         model.receiverId = this.userId;
-        model.title = this.editForm.controls["title"].value;
-        model.message = this.editForm.controls["message"].value;
 
-        let res = this.service.create(model).subscribe(data => {
+        this.sub = this.service.create(model).subscribe(data => {
                 if (data) {
                     this.closeWindow();
                 }
@@ -78,7 +71,7 @@ export class PmReplyComponent implements OnInit, OnDestroy {
             });
     }
 
-    closeWindow(): void {
+    public closeWindow(): void {
         this.close.emit({});
     }
 

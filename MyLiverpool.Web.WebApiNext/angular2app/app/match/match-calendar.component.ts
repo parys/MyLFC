@@ -1,21 +1,23 @@
-﻿import { Component, OnInit,OnDestroy } from "@angular/core";
+﻿import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
 import { Subscription } from "rxjs/Subscription";
 import { MatchService } from "./match.service";
 import { Match } from "./match.model";
 
 @Component({
     selector: "match-calendar",
-    templateUrl: "./match-calendar.component.html"
+    templateUrl: "./match-calendar.component.html",
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MatchCalendarComponent implements OnInit, OnDestroy {
-    last: Match;
-    next: Match;
-subscription: Subscription;
+    public last: Match;
+    public next: Match;
+    private sub: Subscription;
 
-    constructor(private service: MatchService) {}
+    constructor(private service: MatchService,
+        private cd: ChangeDetectorRef) { }
 
-    ngOnInit(): void {
-        this.subscription = this.service.getForCalendar().subscribe(data => {
+    public ngOnInit(): void {
+        this.sub = this.service.getForCalendar().subscribe(data => {
                 if (data.length === 1) {
                     if (data[0].scoreHome) {
                         this.last = data[0];
@@ -26,10 +28,11 @@ subscription: Subscription;
                     [this.last, this.next] = data;
                 }
             },
-            error => console.log(error));;
+            error => console.log(error),
+        () => {this.cd.markForCheck();});
     }
 
-    ngOnDestroy(): void {
-        this.subscription.unsubscribe();
+    public ngOnDestroy(): void {
+        if(this.sub) {this.sub.unsubscribe();}
     }
 }
