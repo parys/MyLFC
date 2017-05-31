@@ -2,11 +2,14 @@
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
+import { Observable } from "rxjs/Observable";
 import { MatchService } from "./index";
 import { SeasonService } from "../season/index";
 import { Match } from "./match.model";                        
 import { MatchType } from "./matchType.model";  
 import { Season } from "../season/season.model";
+import { Stadium } from "../stadium/index";
+import { StadiumService } from "../stadium/stadium.service";
 
 @Component({
     selector: "match-edit",
@@ -14,21 +17,24 @@ import { Season } from "../season/season.model";
 })
 
 export class MatchEditComponent implements OnInit {
-    editForm: FormGroup;
-    id: number;
-    clubs = "/api/v1/club/GetClubsByName?typed=:keyword";
-    types: MatchType[];
-    seasons: Season[];
+    private id: number;
+    public editMatchForm: FormGroup;
+    public clubs: string = "/api/v1/club/GetClubsByName?typed=:keyword";
+    public types: MatchType[];
+    public seasons: Season[];
+    public stadiums: Stadium[];
+    public filteredStadiums$: Observable<Stadium[]>;
 
     constructor(private matchService: MatchService,    
         private route: ActivatedRoute,
+        private stadiumService: StadiumService,
         private router: Router,
         private formBuilder: FormBuilder,
         private seasonService: SeasonService,
         private sanitizer: DomSanitizer) {
     }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         this.initForm();
         let id = this.route.snapshot.params["id"];
         if(id && id > 0) {
@@ -44,9 +50,22 @@ export class MatchEditComponent implements OnInit {
         this.seasonService.getAll()
             .subscribe(data => this.seasons = data,
             error => console.log(error));
+
+        this.stadiumService.getAllAll().subscribe(data => this.stadiums = data,
+            e => console.log(e), () => {
+                this.filteredStadiums$ = this.editMatchForm.controls["stadiumName"].valueChanges
+                    .startWith(null)
+                    .map((name: string) => this.filterStadiums(name));
+            });
     }
 
-    onSubmit(): void {
+
+    public filterStadiums(val: string) {
+        return val ? this.stadiums.filter(s => new RegExp(`^${val}`, 'gi').test(s.name))
+            : this.stadiums;
+    }
+
+    public onSubmit(): void {
         let match = this.parseForm();
         if (this.id > 0) {
             this.matchService.update(this.id, match)
@@ -59,46 +78,40 @@ export class MatchEditComponent implements OnInit {
         }
     }
 
-    updateClub(club: any): void {
+    public updateClub(club: any): void {
         if (club) {
-            this.editForm.get("clubId").patchValue(club.key);
-            this.editForm.get("clubName").patchValue(club.value);
+            this.editMatchForm.get("clubId").patchValue(club.key);
+            this.editMatchForm.get("clubName").patchValue(club.value);
         }
     }
 
-    autocompleteListFormatter = (data: any): SafeHtml => {
+    public selected(id: number) {
+        this.editMatchForm.get("stadiumId").patchValue(id);
+    }
+
+    public autocompleteListFormatter = (data: any): SafeHtml => {
         let html = `<span>${data.value}</span>`;
         return this.sanitizer.bypassSecurityTrustHtml(html);
     }
 
     private parse(data: Match): void {
         this.id = data.id;
-        this.editForm.patchValue(data);
-        this.editForm.get("date").patchValue(new Date(data.dateTime));
-        this.editForm.get("time").patchValue(new Date(data.dateTime));
+        this.editMatchForm.patchValue(data);
+        this.editMatchForm.get("date").patchValue(new Date(data.dateTime));
+        this.editMatchForm.get("time").patchValue(new Date(data.dateTime));
     }
 
     private parseForm(): Match {
-        let item = new Match();
+        const item = this.editMatchForm.value;
         item.id = this.id;
-        item.clubId = this.editForm.controls["clubId"].value;
-        item.isHome = this.editForm.controls["isHome"].value;
-        let date = this.editForm.controls["date"].value;
-        let time = this.editForm.controls["time"].value;
+        let date = this.editMatchForm.controls["date"].value;
+        let time = this.editMatchForm.controls["time"].value;
         item.dateTime = new Date(date.getFullYear(), date.getMonth(), date.getDate(), time.getHours(), time.getMinutes());
-        item.typeId = this.editForm.controls["typeId"].value;
-        item.seasonId = this.editForm.controls["seasonId"].value;
-        item.reportUrl = this.getIdFromUrl(this.editForm.controls["reportUrl"].value);
-        item.photoUrl = this.getIdFromUrl(this.editForm.controls["photoUrl"].value);
-        item.videoUrl = this.editForm.controls["videoUrl"].value;
-        item.scoreHome = this.editForm.controls["scoreHome"].value;
-        item.scoreAway = this.editForm.controls["scoreAway"].value;
-
         return item;
     }
 
     private initForm(): void {
-        this.editForm = this.formBuilder.group({
+        this.editMatchForm = this.formBuilder.group({
             'clubName': [""],
             'clubId': ["", Validators.required],
             'seasonId': ["", Validators.required],
@@ -106,6 +119,8 @@ export class MatchEditComponent implements OnInit {
             'date': ["", Validators.required],
             'time': ["", Validators.required],
             'typeId': ["", Validators.required],
+            'stadiumId': ["", Validators.required],
+            'stadiumName': ["", Validators.required],
             'reportUrl': [""],
             'photoUrl': [""],
             'videoUrl': [""],

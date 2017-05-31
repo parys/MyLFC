@@ -1,4 +1,4 @@
-﻿<form class="form-horizontal" name="editForm" role="form" [formGroup]="editForm" (ngSubmit)="onSubmit()">
+﻿<form class="form-horizontal" name="editForm" role="form" [formGroup]="editMatchForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
         <label class="control-label col-xs-2 col-md-2">Cоперник</label>
         <div class="col-xs-10 col-md-10">
@@ -42,6 +42,15 @@
             </div>
         </div>
     </div>
+    <md-input-container class="full-width">
+        <input mdInput placeholder="Стадион" [mdAutocomplete]="auto" formControlName="stadiumName">
+    </md-input-container>
+
+    <md-autocomplete #auto="mdAutocomplete">
+        <md-option *ngFor="let stadium of filteredStadiums$ | async" [value]="stadium.name" (click)="selected(stadium.id)">
+            {{ stadium.name }}
+        </md-option>
+    </md-autocomplete>
     <div class="form-group">
         <label class="control-label col-xs-2 col-sm-2"> Время:</label>
         <div class="col-xs-10 col-sm-10">
@@ -88,7 +97,7 @@
     </div>
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <button type="submit" [disabled]="!editForm.valid" class="btn btn-default">Сохранить</button>
+            <button type="submit" [disabled]="!editMatchForm.valid" class="btn btn-default">Сохранить</button>
         </div>
     </div>
 </form>

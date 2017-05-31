@@ -30,7 +30,7 @@ namespace MyLiverpool.Business.Dto
 
         public string TypeName { get; set; }
 
-        public string Stadium { get; set; }
+        public string StadiumName { get; set; }
 
         public int StadiumId { get; set; }
 
@@ -39,6 +39,8 @@ namespace MyLiverpool.Business.Dto
         public string ScoreAway { get; set; }
 
         public int SeasonId { get; set; }
+
+        public string SeasonName { get; set; }
 
         public string ReportUrl { get; set; }
 

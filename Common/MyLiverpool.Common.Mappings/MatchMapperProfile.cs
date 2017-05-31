@@ -26,6 +26,7 @@ namespace MyLiverpool.Common.Mappings
                 .ForMember(x => x.ScoreAway, src => src.MapFrom(x => x.Score.Split('-').LastOrDefault()))
                 .ForMember(x => x.ScoreHome, src => src.MapFrom(x => x.Score.Split('-').FirstOrDefault()))
                 .ForMember(x => x.PhotoUrl, src => src.MapFrom(x => x.PhotoUrl))
+                .ForMember(x => x.StadiumName, src => src.MapFrom(x => x.Stadium.Name))
                 .ForMember(x => x.ReportUrl, src => src.MapFrom(x => x.ReportUrl))
                 .ForMember(x => x.VideoUrl, src => src.MapFrom(x => x.VideoUrl));
 

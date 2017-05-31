@@ -30,10 +30,6 @@ namespace MyLiverpool.Business.Services
 
         public async Task<MatchDto> CreateAsync(MatchDto dto)
         {
-            if (dto.StadiumId < 0)
-            {
-                dto.StadiumId = 1; //temporary
-            }
             var match = _mapper.Map<Match>(dto);
             match = await _matchRepository.AddAsync(match);
             await _matchRepository.SaveChangesAsync();
@@ -43,10 +39,6 @@ namespace MyLiverpool.Business.Services
 
         public async Task<MatchDto> UpdateAsync(MatchDto dto)
         {
-            if (dto.StadiumId < 0)
-            {
-                dto.StadiumId = 1; //temporary
-            }
             var match = await _matchRepository.GetByIdAsync(dto.Id);
             match.DateTime = dto.DateTime;
             match.IsHome = dto.IsHome;
@@ -56,6 +48,7 @@ namespace MyLiverpool.Business.Services
             match.ReportUrl = dto.ReportUrl;
             match.PhotoUrl = dto.PhotoUrl;
             match.VideoUrl = dto.VideoUrl;
+            match.Stadium = null;
             match.StadiumId = dto.StadiumId;
             match.Score = GetScores(dto.ScoreHome, dto.ScoreAway);
             _matchRepository.Update(match);
@@ -171,7 +164,6 @@ namespace MyLiverpool.Business.Services
             dto.AwayClubId = awayClub.Id;
             dto.AwayClubName = awayClub.Name;
             dto.AwayClubLogo = awayClub.Logo;
-            dto.Stadium = homeClub.StadiumName;
         }
 
         private static string GetScores(string scoreHome, string scoreAway)
