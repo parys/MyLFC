@@ -1,11 +1,11 @@
 ﻿export class Pm {
-    id: number;
-    senderId: number;
-    sender: string;
-    receiverId: number;
-    receiver: string;
-    title: string;
-    message: string;
-    sentTime: Date;
-    isRead: boolean;
+    public id: number;
+    public senderId: number;
+    public sender: string;
+    public receiverId: number;
+    public receiver: string;
+    public title: string;
+    public message: string;
+    public sentTime: Date;
+    public isRead: boolean;
 }

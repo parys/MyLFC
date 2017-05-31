@@ -1,8 +1,7 @@
 ﻿import { Component, OnInit, OnDestroy } from "@angular/core";
-import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
-import { Observable } from "rxjs/Observable";
 import { Subscription } from "rxjs/Subscription";   
 import { Pm } from "./pm.model";
 import { PmService } from "./pm.service";
@@ -12,10 +11,10 @@ import { PmService } from "./pm.service";
     templateUrl: "./pm-edit.component.html"
 })
 export class PmEditComponent implements OnInit, OnDestroy {
-    editForm: FormGroup;
-    id: number = 0;
-    private sub: Subscription;           
-    users = "/api/v1/user/GetUserNames?typed=:keyword";
+    public editPmForm: FormGroup;
+    public id: number = 0;
+    private sub: Subscription;
+    public users = "/api/v1/user/GetUserNames?typed=:keyword";
 
     constructor(private service: PmService,
         private formBuilder: FormBuilder,
@@ -24,8 +23,13 @@ export class PmEditComponent implements OnInit, OnDestroy {
         private sanitizer: DomSanitizer) {
     }
 
-    ngOnInit() {
-        this.editForm = this.formBuilder.group({
+    public ngOnInit(): void {
+        this.editPmForm = this.formBuilder.group({
+            'receiverId': [
+                "", Validators.compose([
+                    Validators.required
+                ])
+            ],
             'receiver': [
                 "", Validators.compose([
                     Validators.required
@@ -44,43 +48,38 @@ export class PmEditComponent implements OnInit, OnDestroy {
                 ])
             ]
         });
-        //this.sub = this.route.params.subscribe(params => {
-            //this.id = +params["id"];
-            //if (this.id > 0) {
-            //    this.service
-            //        .GetSingle(this.id)
-            //        .subscribe(data => this.editForm.patchValue(data),
-            //        error => console.log(error),
-            //        () => console.log("success get  news"));
-            //}
-        //});
-       // this.getUsername();
     }
 
-    ngOnDestroy() {
-      //  this.sub.unsubscribe();
+    public ngOnDestroy(): void {
+        if(this.sub) { this.sub.unsubscribe(); }
     }
 
-    updateUsername(user: any) {
+    public updateUsername(user: any): void {
+        console.log(user);
         if (user) {
-            this.editForm.patchValue({ receiver: user.id });
+            this.editPmForm.patchValue({ receiverId: user.id });
+            this.editPmForm.patchValue({ receiver: user.username });
+        } else {
+            this.editPmForm.patchValue({ receiverId: "" });
+            this.editPmForm.patchValue({ receiver: ""});
         }
     }
 
-    autocompleteListFormatter = (data: any): SafeHtml => {
+    public autocompleteListFormatter = (data: any): SafeHtml => {
         let html = `<span>${data.username}</span>`;
         return this.sanitizer.bypassSecurityTrustHtml(html);
     }
 
 
-    onSubmit(): void {
-        let model = new Pm();
-        model.receiverId = this.editForm.controls["receiver"].value;
-        model.title = this.editForm.controls["title"].value;
-        model.message = this.editForm.controls["message"].value;
+    public onSubmit(): void {
+        const model: Pm = this.editPmForm.value;
 
-        let res = this.service.create(model).subscribe(data => data);
-
-     //   this.router.navigate(["/pms"]);
+        this.sub = this.service.create(model).subscribe(data => {
+                this.editPmForm.patchValue({message: ""});
+            },
+            e => console.log(e),
+            () => {
+                //todo add snackbar
+            });
     }
 }

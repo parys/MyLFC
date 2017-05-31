@@ -1,4 +1,4 @@
-﻿<form class="form-horizontal col-md-12" role="form" name="writePm"  [formGroup]="editForm" (ngSubmit)="onSubmit()">
+﻿<form class="form-horizontal col-md-12" role="form" name="writePm"  [formGroup]="editPmForm" (ngSubmit)="onSubmit()">
     <h2>Написать сообщение</h2>
     <div class="form-group">
         <label class="control-label col-md-2">Получатель</label>
@@ -10,6 +10,7 @@
                 (valueChanged)="updateUsername($event)"
                 attr-placeholder="Введите логин..."
                 ng2-auto-complete 
+                [accept-user-input]="false"
                 class="form-control"
                 [list-formatter]="autocompleteListFormatter"
                 display-property-name="username"
@@ -38,7 +39,7 @@
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <button [disabled]="!editForm.valid" type="submit" class="btn btn-default">Отправить</button>
+            <button [disabled]="!editPmForm.valid" type="submit" class="btn btn-default">Отправить</button>
         </div>
     </div>
 </form>
