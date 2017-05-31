@@ -1,10 +1,9 @@
-﻿import rollup from "rollup";
-import nodeResolve from "rollup-plugin-node-resolve";
+﻿import nodeResolve from "rollup-plugin-node-resolve";
 import commonjs from "rollup-plugin-commonjs";
 import uglify from "rollup-plugin-uglify";
 
 export default {
-    entry: "temp-js/unbundled-aot/angular2app/main.js",
+    entry: "temp-js/dist/unbundled-aot/angular2app/main.js",
     dest: "wwwroot/src/build.js", // output a single application bundle
     sourceMap: false,
     treeshake: true,
@@ -24,7 +23,11 @@ export default {
         nodeResolve({ jsnext: true, module: true }),
         commonjs(
             {
-                include: "node_modules/**"
+                include: ["node_modules/rxjs/**",
+                    "node_modules/ng2-auto-complete/**",
+                    "node_modules/angular2-recaptcha/**",
+                    "node_modules/jquery/**",
+                ]
             }),
         uglify()
     ]

@@ -11,7 +11,7 @@ import { IAuthTokenModel } from "./models/auth-tokens-model";
 import { IRegisterModel } from "./models/register-model";
 import { ILoginModel } from "./models/login-model";
 import { RolesCheckedService, HttpWrapper, LocalStorageService } from "../shared/index";
-const jwtDecode = require("jwt-decode");
+//const jwtDecode = require("jwt-decode");
 
 @Injectable()
 export class AuthService {
@@ -123,10 +123,11 @@ export class AuthService {
                 const now = new Date();
                 tokens.expiration_date = new Date(now.getTime() + tokens.expires_in * 1000).getTime().toString();
 
-                const profile: IProfileModel = jwtDecode(tokens.id_token);
+             //   const profile: IProfileModel = new Object();// jwtDecode(tokens.id_token);
 
                 this.storeToken(tokens);
-                this.updateState({ authReady: true, tokens, profile });
+              //  this.updateState({ authReady: true, tokens, profile });
+                this.updateState({ authReady: true, tokens });
                 this.getUserId();
     });
     }
@@ -138,9 +139,10 @@ export class AuthService {
                     this.updateState({ authReady: true });
                     return Observable.throw("No token in Storage");
                 }
-                const profile: IProfileModel = jwtDecode(tokens.id_token);
+               // const profile = jwtDecode(tokens.id_token);
 
-                this.updateState({ tokens, profile });
+             //   this.updateState({ tokens, profile });
+                this.updateState({ tokens });
 
                 if (+tokens.expiration_date > new Date().getTime()) {
                     this.updateState({ authReady: true });
