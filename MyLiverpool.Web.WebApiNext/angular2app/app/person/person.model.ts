@@ -1,13 +1,14 @@
 ﻿export class Person {
-    id: number;
-    birthday: Date;
-    firstName: string;
-    firstRussianName: string;
-    lastName: string;
-    lastRussianName: string;
-    type: number;
-    typeName: string;
-    photo: string;
-    name: string;
-    russianName: string;
+    public id: number;
+    public birthday: Date;
+    public firstName: string;
+    public firstRussianName: string;
+    public lastName: string;
+    public lastRussianName: string;
+    public type: number;
+    public typeName: string;
+    public photo: string;
+    public name: string;
+    public russianName: string;
+    public title: string;
 }

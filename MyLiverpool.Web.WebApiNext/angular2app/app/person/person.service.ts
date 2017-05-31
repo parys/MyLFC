@@ -46,6 +46,10 @@ export class PersonService {
         return this.http.get(this.actionUrl + "types/").map((res: Response) => res.json());
     };
 
+    public getStuff = (): Observable<Person[]> => {
+        return this.http.get(this.actionUrl + "stuff/").map((res: Response) => res.json());
+    };
+
     public updatePhoto = (name: string, file: File): Observable<string> => {
         let formData: FormData = new FormData();
         formData.append("uploadFile", file, file.name);

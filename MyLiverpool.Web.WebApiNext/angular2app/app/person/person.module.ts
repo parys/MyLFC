@@ -7,8 +7,10 @@ import { PersonEditComponent } from "./person-edit.component";
 import { PersonService } from "./person.service";
 import { PlayerStatisticsComponent } from "./player-statistics.component";
 import { BestPlayerComponent } from "./best-player.component";
+import { StuffListComponent } from "./stuff-list.component";
 import { personRoutes } from "./person.routes";
 import { SharedModule } from "../shared/index";
+import { MdButtonModule, MdInputModule, MdSelectModule } from "@angular/material";
 import { DatepickerModule } from "ng2-bootstrap/datepicker";
 import { PaginationModule } from "ng2-bootstrap/pagination";
 
@@ -18,6 +20,8 @@ import { PaginationModule } from "ng2-bootstrap/pagination";
         CommonModule,
         DatepickerModule.forRoot(),
         FormsModule,
+        MdInputModule,
+        MdSelectModule,
         PaginationModule.forRoot(),
         ReactiveFormsModule,
         RouterModule.forRoot(personRoutes),
@@ -27,7 +31,8 @@ import { PaginationModule } from "ng2-bootstrap/pagination";
         BestPlayerComponent,
         PersonEditComponent,
         PersonListComponent,
-        PlayerStatisticsComponent
+        PlayerStatisticsComponent,
+        StuffListComponent
     ],
     exports: [
         BestPlayerComponent

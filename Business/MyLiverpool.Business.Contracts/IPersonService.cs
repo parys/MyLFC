@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Common.Utilities;
 
@@ -13,5 +14,6 @@ namespace MyLiverpool.Business.Contracts
         Task<bool> DeleteAsync(int id);
         Task<PersonDto> GetBestPlayerAsync();
         Task SetBestPlayerAsync(int personId);
+        Task<IEnumerable<PersonDto>> GetStuffListAsync();
     }
 }

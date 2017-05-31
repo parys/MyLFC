@@ -60,6 +60,17 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             }
             var result = await _personService.GetListAsync(page);
             return Ok(result);
+        }   
+        
+        /// <summary>
+        /// Returns stuff list.
+        /// </summary>
+        /// <returns>Persons list.</returns>
+        [AllowAnonymous, HttpGet("stuff")]
+        public async Task<IActionResult> GetStuffListAsync()
+        {
+            var result = await _personService.GetStuffListAsync();
+            return Ok(result);
         }
 
         /// <summary>

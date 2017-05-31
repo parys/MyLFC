@@ -103,7 +103,6 @@ export class AppComponent implements OnInit {
 
         this.breadcrumbService.addFriendlyNameForRoute("/clubHistory", "История клуба");
         this.breadcrumbService.addFriendlyNameForRoute("/aboutClub", "О клубе");
-        this.breadcrumbService.addFriendlyNameForRoute("/coachTeam", "Тренерский штаб");
         this.breadcrumbService.addFriendlyNameForRoute("/squad", "Состав");
 
         this.breadcrumbService.addFriendlyNameForRoute("/seasons", "Сезоны");
@@ -136,6 +135,7 @@ export class AppComponent implements OnInit {
         this.breadcrumbService.addFriendlyNameForRouteRegex("/persons", "Люди");
         this.breadcrumbService.hideRouteRegex("^/persons/[0-9]+$"); // this.breadcrumbService.addCallbackForRouteRegex("^/news/[0-9]+$", this.getTitle);
         this.breadcrumbService.addFriendlyNameForRouteRegex("^/persons/[0-9]+/edit$", "Редактирование");
+        this.breadcrumbService.addFriendlyNameForRoute("/stuff", "Тренерский штаб");
 
         this.breadcrumbService.addFriendlyNameForRouteRegex("/images", "Изображения");
 

@@ -90,5 +90,11 @@ namespace MyLiverpool.Business.Services
             //};
             //await _helperEntityRepository.UpdateAndSaveAsync(entity);
         }
+
+        public async Task<IEnumerable<PersonDto>> GetStuffListAsync()
+        {
+            var stuffList = await _personRepository.GetListAsync(1, 1000, x => x.Type == PersonType.Stuff);
+            return _mapper.Map<IEnumerable<PersonDto>>(stuffList);
+        }
     }
 }

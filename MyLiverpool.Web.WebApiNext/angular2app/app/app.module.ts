@@ -80,7 +80,6 @@ import { MdAutocompleteModule, MdTabsModule, MdDialogModule, MdSnackBarModule, M
         club.ClubListComponent,
         home.AboutComponent,
         home.AboutClubComponent,
-        home.CoachTeamComponent,
         home.CopyrightComponent,
         home.ClubHistoryComponent,
         home.NavbarComponent,

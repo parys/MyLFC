@@ -1,0 +1,21 @@
+﻿<!-- FIRST TEAM -->
+<div align="left">
+    <table align="left" class="SquadList1">
+        <tbody>
+            <tr class="squadEvenTab">
+                <th class="StaffTab" colspan="2">Первая команда</th>
+            </tr>
+        </tbody>
+        <tbody >
+            <tr *ngFor="let person of items" class="squadOdd">
+                <td class="SquadPhoto"><img style="width: 150px;"[alt]="person.name" class="SquadPhoto" [src]="person.photo" [title]="person.russianName" /></td>
+                <td class="StaffTable">
+                    <p class="StaffName" [textContent]="person.russianName"></p>
+
+                    <p class="JobTitle"></p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
