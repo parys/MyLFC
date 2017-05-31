@@ -13,9 +13,9 @@ import { RolesCheckedService, IRoles } from "../shared/index";
 })
 
 export class MaterialCategoryListComponent implements OnInit {
-    roles: IRoles;
-    items: MaterialCategory[];
-    type: MaterialType;
+    public roles: IRoles;
+    public items: MaterialCategory[];
+    public type: MaterialType;
 
     constructor(private service: MaterialCategoryService, 
         private rolesChecked: RolesCheckedService,
@@ -27,7 +27,7 @@ export class MaterialCategoryListComponent implements OnInit {
         }
     }
 
-    ngOnInit() {
+    public ngOnInit(): void {
         this.roles = this.rolesChecked.checkRoles();          
         this.service
             .getAll(this.type)
@@ -39,9 +39,9 @@ export class MaterialCategoryListComponent implements OnInit {
         this.items = model; 
     }
 
-    delete(index: number) {
+    public delete(index: number): void {
         this.service.delete(this.items[index].id).subscribe(data => data,
-            error => console.log(error));
+            error => console.log(error));//todo add modal
         this.items.splice(index, 1);
     }
 }

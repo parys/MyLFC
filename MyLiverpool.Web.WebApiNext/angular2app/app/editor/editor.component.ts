@@ -7,6 +7,8 @@ import "tinymce/plugins/advlist";
 import "tinymce/plugins/anchor";
 import "tinymce/plugins/autolink";
 import "tinymce/plugins/autoresize";
+import "tinymce/plugins/colorpicker";
+import "tinymce/plugins/textcolor";
 import "tinymce/plugins/code";
 import "tinymce/plugins/emoticons";
 import "tinymce/plugins/fullscreen";
@@ -99,12 +101,12 @@ export class EditorComponent implements ControlValueAccessor {
 
     private getPlugins(): string {
         const common: string = `anchor autolink autoresize lists link anchor image preview fullscreen
-        visualblocks code media table paste code emoticons`;
+        visualblocks code media table paste code emoticons textcolor colorpicker`;
         if (this.type === 1) {
-            return `advlist contextmenu ${common}`;
+            return `advlist ${common}`;
         }
         if (this.type === 2) {
-            return `advlist contextmenu ${common}`;
+            return `advlist ${common}`;
         }
         if (this.type === 3) {
             return `${common}`;
@@ -114,10 +116,10 @@ export class EditorComponent implements ControlValueAccessor {
 
     private getToolbar(): string {
         const common: string =
-            `| styleselect | bold italic underline strikethrough | link image emoticons hr`;//poiler-add spoiler-remove`;
+            `| styleselect | bold italic underline strikethrough | link image emoticons hr | forecolor backcolor fontsizeselect`;//poiler-add spoiler-remove`;
         const type1: string = `insert | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | fullscreen ${
             common}`;
-        const type2: string = `undo redo ${type1}` ;
+        const type2: string = `undo redo colorpicker ${type1}` ;
         if (this.type === 1) {
             return type1;
         }
@@ -135,6 +137,7 @@ export class EditorComponent implements ControlValueAccessor {
             // autoresize_overflow_padding: 0,
             selector: `#${this.elementId}`,
             schema: "html5",
+            fontsize_formats: "8pt 9pt 10pt 11pt 12pt 26pt 36pt",
             //forced_root_block: "",
             // height: 500,        
             forced_root_block: false,

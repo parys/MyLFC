@@ -8,7 +8,7 @@
                 <span [textContent]="match.typeName"></span>
             </td>
             <td>
-                <a [routerLink]="['/matches', match.id, 'edit']"> <span [textContent]="match.dateTime | date:'d MMM y j:mm'"></span></a>
+                <span><span [textContent]="match.dateTime | date:'d MMM y j:mm'"></span><a *ngIf="roles.isAdminAssistant" [routerLink]="['/matches', match.id, 'edit']"><span class="glyphicon glyphicon-pencil"></span></a></span>
             </td>
             <td>
                 <img class="club-logo" [src]="match.homeClubLogo" [alt]="match.homeClubName">
