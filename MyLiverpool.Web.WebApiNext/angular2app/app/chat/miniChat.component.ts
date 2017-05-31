@@ -10,7 +10,7 @@ import { RolesCheckedService, IRoles } from "../shared/index";
 @Component({
     selector: "mini-chat",
     templateUrl: "./miniChat.component.html",
-    changeDetection: ChangeDetectionStrategy.Default
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MiniChatComponent implements OnInit {
     public messageForm: FormGroup;
@@ -40,7 +40,7 @@ export class MiniChatComponent implements OnInit {
                 this.items = data;
                 },
                 error => console.log(error), () => {
-               //todo research     this.cd.detectChanges();
+                this.cd.markForCheck();
                 });
     }
 
@@ -69,7 +69,7 @@ export class MiniChatComponent implements OnInit {
             'message': [message || "", Validators.compose([Validators.required, Validators.maxLength(this.configuration.maxChatMessageLength)])] //todo add visual warning
         });
         this.messageForm.valueChanges.subscribe(() => {
-            //todo research      this.cd.detectChanges();
+            this.cd.markForCheck();
         });
     }
 }
