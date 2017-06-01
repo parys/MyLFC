@@ -327,6 +327,11 @@ textarea {
     }
 }
 
+.stuff-card {
+    width: 200px;
+    margin-bottom: 20px;
+} 
+
 .table > tbody > tr > td {
     vertical-align: middle;
     align-content: center;

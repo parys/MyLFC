@@ -1,11 +1,12 @@
 ﻿import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
+import { MdDialog, MdSnackBar } from '@angular/material';
 import { ActivatedRoute } from "@angular/router";
 import { Configuration } from "../app.constants";
 import { ChatMessage } from "./chatMessage.model";
 import { ChatMessageService } from "./chatMessage.service";
-import { RolesCheckedService, IRoles } from "../shared/index";
+import { RolesCheckedService, IRoles, DeleteDialogComponent } from "../shared/index";
 
 @Component({
     selector: "mini-chat",
@@ -22,9 +23,11 @@ export class MiniChatComponent implements OnInit {
         private route: ActivatedRoute,
         private formBuilder: FormBuilder,
         private cd: ChangeDetectorRef,
+        private snackBar: MdSnackBar,
         private configuration: Configuration,
         private sanitizer: DomSanitizer,
-        private rolesChecked: RolesCheckedService) {
+        private rolesChecked: RolesCheckedService,
+        private dialog: MdDialog) {
     }
 
     public ngOnInit(): void {
@@ -51,6 +54,30 @@ export class MiniChatComponent implements OnInit {
                 this.messageForm.get("message").patchValue("");
                 },
             (error) => console.log(error));
+    }
+
+    public showDeleteModal(index: number): void {
+        let dialogRef = this.dialog.open(DeleteDialogComponent);
+        dialogRef.afterClosed().subscribe(result => {
+                if (result) {
+                    this.delete(index);
+                }
+            },
+            e => console.log(e));
+    }
+
+    private delete(index: number): void {
+        this.service.delete(this.items[index].id).subscribe(data => {
+                if (data) {
+                    this.items.slice(index, 1);
+                    this.cd.markForCheck();
+                    this.snackBar.open("Комментарий успешно удален", null, { duration: 5000 });
+                }
+            },
+            e => {
+                console.log(e);
+                this.snackBar.open("Комментарий НЕ удален", null, { duration: 5000 });
+            });
     }
 
     public addReply(index: number): void {

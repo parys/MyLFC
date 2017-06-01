@@ -520,7 +520,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.ToTable("Seasons");
                 });
 
-            modelBuilder.Entity("MyLiverpool.Data.Entities.Stadiums", b =>
+            modelBuilder.Entity("MyLiverpool.Data.Entities.Stadium", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();

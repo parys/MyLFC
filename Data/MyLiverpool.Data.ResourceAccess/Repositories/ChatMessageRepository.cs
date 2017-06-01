@@ -42,7 +42,8 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
 
         public async Task DeleteAsync(ChatMessage entity)
         {
-            await Task.FromResult(_context.ChatMessages.Remove(entity));
+            _context.ChatMessages.Remove(entity);
+            await SaveChangesAsync();
         }
 
         public void Update(ChatMessage entity)

@@ -10,7 +10,7 @@ import { BestPlayerComponent } from "./best-player.component";
 import { StuffListComponent } from "./stuff-list.component";
 import { personRoutes } from "./person.routes";
 import { SharedModule } from "../shared/index";
-import { MdButtonModule, MdInputModule, MdSelectModule } from "@angular/material";
+import { MdButtonModule, MdInputModule, MdSelectModule, MdCardModule } from "@angular/material";
 import { DatepickerModule } from "ng2-bootstrap/datepicker";
 import { PaginationModule } from "ng2-bootstrap/pagination";
 
@@ -20,6 +20,8 @@ import { PaginationModule } from "ng2-bootstrap/pagination";
         CommonModule,
         DatepickerModule.forRoot(),
         FormsModule,
+        MdButtonModule,
+        MdCardModule,
         MdInputModule,
         MdSelectModule,
         PaginationModule.forRoot(),

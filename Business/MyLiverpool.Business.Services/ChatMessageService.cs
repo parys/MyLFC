@@ -34,9 +34,10 @@ namespace MyLiverpool.Business.Services
             throw new System.NotImplementedException();
         }
 
-        public Task<bool> DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
-            throw new System.NotImplementedException();
+            await _chatMessageRepository.DeleteAsync(id);
+            return true;
         }
 
         public async Task<ChatMessageDto> GetByIdAsync(int id)

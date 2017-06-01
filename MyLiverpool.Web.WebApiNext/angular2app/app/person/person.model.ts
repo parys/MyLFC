@@ -11,4 +11,6 @@
     public name: string;
     public russianName: string;
     public title: string;
+    public position: string;
+    public country: string;
 }

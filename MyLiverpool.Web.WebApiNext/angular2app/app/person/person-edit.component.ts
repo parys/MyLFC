@@ -15,7 +15,7 @@ import { PersonType } from "./personType.model";
 export class PersonEditComponent implements OnInit, OnDestroy {
     private id: number;
     private sub: Subscription;
-    public editForm: FormGroup;
+    public editPersonForm: FormGroup;
     public item: Person;
     public types: PersonType[];
     public opened: boolean = false;
@@ -45,11 +45,11 @@ export class PersonEditComponent implements OnInit, OnDestroy {
 
     public onUpload(event: any): void {
         const file = event.currentTarget.files[0];
-        const fullname = this.editForm.controls["firstName"].value + " " + this.editForm.controls["lastName"].value;
+        const fullname = this.editPersonForm.controls["firstName"].value + " " + this.editPersonForm.controls["lastName"].value;
         if (file) {
             this.service.updatePhoto(fullname, file)
                 .subscribe(result => {
-                    this.editForm.controls["photo"].patchValue(result);
+                    this.editPersonForm.controls["photo"].patchValue(result);
                     this.item.photo = `${result}#${Math.random()}`;
                         this.snackBar.open("Фото успешно загружено", null, {duration: 5000});
                     },
@@ -90,18 +90,18 @@ export class PersonEditComponent implements OnInit, OnDestroy {
 
     private parse(data: Person): void {
         this.id = data.id;
-        this.editForm.patchValue(data);
+        this.editPersonForm.patchValue(data);
         this.item = data;
     }
 
     private parseForm(): Person {
-        const item: Person = this.editForm.value;
+        const item: Person = this.editPersonForm.value;
         item.id = this.id;
         return item;
     }
 
     private initForm(): void {
-        this.editForm = this.formBuilder.group({
+        this.editPersonForm = this.formBuilder.group({
             'firstName': ["", Validators.compose([
                 Validators.required, Validators.maxLength(30)])],
             'firstRussianName': ["", Validators.compose([
@@ -110,6 +110,8 @@ export class PersonEditComponent implements OnInit, OnDestroy {
                 Validators.required, Validators.maxLength(30)])],
             'lastRussianName': ["", Validators.compose([
                 Validators.required, Validators.maxLength(30)])],
+            'position': ["", Validators.required],
+            'country': ["", Validators.required],
             'birthday': ["", Validators.required],
             'photo': [""],
             'type': ["", Validators.required]

@@ -14,9 +14,11 @@
         </div>
         <div class="panel-body">
             <div [textContent]="person.name"></div>
+            <div *ngIf="person.position">Позиция/должность: <span [textContent]="person.position"></span></div>
+            <div *ngIf="person.country">Страна: <span [textContent]="person.country"></span></div>
         </div>
         <div class="panel-footer">
-            <div [textContent]="person.birthday"></div>
+            <div [textContent]="person.birthday | date:'yMMMMd'"></div>
         </div>
     </div>
 </div>

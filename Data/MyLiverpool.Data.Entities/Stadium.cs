@@ -6,7 +6,8 @@ namespace MyLiverpool.Data.Entities
     {
         public Stadium()
         {
-            this.Matches = new HashSet<Match>();    
+            Matches = new HashSet<Match>();
+            Clubs = new List<Club>();
         }
 
         public int Id { get; set; }

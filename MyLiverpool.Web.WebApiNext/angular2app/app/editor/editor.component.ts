@@ -100,8 +100,8 @@ export class EditorComponent implements ControlValueAccessor {
     }
 
     private getPlugins(): string {
-        const common: string = `anchor autolink autoresize lists link anchor image preview fullscreen
-        visualblocks code media table paste code emoticons textcolor colorpicker`;
+        const common: string = ` autolink autoresize lists link anchor image preview fullscreen
+        visualblocks code media table paste emoticons textcolor colorpicker`;
         if (this.type === 1) {
             return `advlist ${common}`;
         }

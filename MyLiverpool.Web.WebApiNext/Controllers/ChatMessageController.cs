@@ -36,13 +36,25 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             result.Ip = HttpContext.GetIp();
             
             return Ok(result);
+        }
+
+        /// <summary>
+        /// Deletes chat message.
+        /// </summary>
+        /// <param name="id">Message identifier.</param>
+        /// <returns>Result of deleting message.</returns>
+        [Authorize(Roles = nameof(RolesEnum.AdminStart)), HttpDelete("{id:int}")]
+        public async Task<IActionResult> DeleteAsync(int id)
+        {
+            var result = await _chatMessageService.DeleteAsync(id);
+            return Ok(result);
         }     
         
         /// <summary>
         /// Returns chat messages list.
         /// </summary>
         /// <returns>Result of creation message.</returns>
-        [Authorize, HttpGet("list")]
+        [AllowAnonymous, HttpGet("list")]
         public async Task<IActionResult> GetListAsync()
         {
             var result = await _chatMessageService.GetListAsync();

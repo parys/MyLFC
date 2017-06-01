@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using MyLiverpool.Business.Contracts;
@@ -59,6 +60,8 @@ namespace MyLiverpool.Business.Services
             person.LastRussianName = dto.LastRussianName;
             person.Photo = dto.Photo;
             person.Type = dto.Type;
+            person.Position = dto.Position;
+            person.Country = dto.Country;
             _personRepository.Update(person);
             await _personRepository.SaveChangesAsync();
             return _mapper.Map<PersonDto>(person);
@@ -93,8 +96,26 @@ namespace MyLiverpool.Business.Services
 
         public async Task<IEnumerable<PersonDto>> GetStuffListAsync()
         {
-            var stuffList = await _personRepository.GetListAsync(1, 1000, x => x.Type == PersonType.Stuff);
-            return _mapper.Map<IEnumerable<PersonDto>>(stuffList);
+            var stuffList1 = await _personRepository.GetListAsync(1, 1000, x => x.Type == PersonType.Stuff);
+            var stuffList = stuffList1.ToList();
+            var tempList = new List<Person>();
+            var coach = stuffList.FirstOrDefault(x => x.Position == "Главный тренер");
+            if (coach != null)
+            {
+                tempList.Add(coach);
+                stuffList.Remove(coach);
+            }
+            var assistants = stuffList.Where(x => x.Position == "Помощник тренера");
+            if(assistants.Any())
+            {
+                foreach (var assistant in assistants)
+                {
+                    tempList.Add(assistant);
+                    stuffList.Remove(assistant);
+                }
+            }
+            tempList.AddRange(stuffList);
+            return _mapper.Map<IEnumerable<PersonDto>>(tempList);
         }
     }
 }

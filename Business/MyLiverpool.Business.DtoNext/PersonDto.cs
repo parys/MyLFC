@@ -26,6 +26,10 @@ namespace MyLiverpool.Business.Dto
 
         public string TypeName { get; set; }
 
+        public string Position { get; set; }
+
+        public string Country { get; set; }
+
         [Required]
         public DateTimeOffset Birthday { get; set; }
 

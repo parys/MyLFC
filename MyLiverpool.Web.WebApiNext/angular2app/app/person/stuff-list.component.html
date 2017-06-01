@@ -1,21 +1,19 @@
-﻿<!-- FIRST TEAM -->
-<div align="left">
-    <table align="left" class="SquadList1">
-        <tbody>
-            <tr class="squadEvenTab">
-                <th class="StaffTab" colspan="2">Первая команда</th>
-            </tr>
-        </tbody>
-        <tbody >
-            <tr *ngFor="let person of items" class="squadOdd">
-                <td class="SquadPhoto"><img style="width: 150px;"[alt]="person.name" class="SquadPhoto" [src]="person.photo" [title]="person.russianName" /></td>
-                <td class="StaffTable">
-                    <p class="StaffName" [textContent]="person.russianName"></p>
-
-                    <p class="JobTitle"></p>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+﻿<div>
+    <h3>Тренерский штаб</h3>
+    <div *ngFor="let person of items" class="col-xs-12 col-sm-5 col-md-4 col-lg-3">
+        <md-card class="stuff-card">
+            <md-card-header>
+                <!--<div md-card-avatar class="example-header-image"></div>-->
+                <md-card-title [textContent]="person.russianName"></md-card-title>
+                <md-card-subtitle [textContent]="person.position"></md-card-subtitle>
+            </md-card-header>
+            <img md-card-image [src]="person.photo" [alt]="person.russianName">
+            <md-card-content>
+                <!--<div *ngIf="person.position">Позиция/должность: <span [textContent]="person.position"></span></div>-->
+                <p *ngIf="person.country"><span [textContent]="person.country"></span></p>
+                <p><span [textContent]="person.birthday | date"></span></p>
+            </md-card-content>
+        </md-card>
+    </div>
 </div>
 

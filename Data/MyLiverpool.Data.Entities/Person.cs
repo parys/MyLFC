@@ -15,7 +15,11 @@ namespace MyLiverpool.Data.Entities
 
         public PersonType Type { get; set; }
 
+        public string Position { get; set; }
+
         public string Photo { get; set; }
+
+        public string Country { get; set; }
 
         public DateTimeOffset Birthday { get; set; }
 
