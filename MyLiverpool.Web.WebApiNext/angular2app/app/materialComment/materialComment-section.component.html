@@ -1,6 +1,8 @@
 ﻿<div>Комментарии: <span [textContent]="totalItems"></span> <button (click)="update()"><span class="glyphicon glyphicon-refresh text-success"></span></button></div>
 
-<div class="" *ngFor="let comment of items">
+<div class="" *ngFor="let comment of items | paginate: { itemsPerPage: itemsPerPage,
+                                                      currentPage: page,
+                                                      totalItems: totalItems }">
     <materialComment-detail [item]="comment" [deep]="0" [materialId]="materialId" [canCommentary]="canCommentary"></materialComment-detail>
 </div>
 
@@ -16,6 +18,12 @@
 </form>
 
 <div class="pagination">
-    <pagination *ngIf="items && totalItems > itemsPerPage" [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" [(ngModel)]="page" [maxSize]="7" (pageChanged)="pageChanged($event)"
-                previousText="&lsaquo;" nextText="&rsaquo;" firstText="1" lastText="totalItems/itemsPerPage"></pagination>
+    <pagination-controls (pageChange)="pageChanged($event)"
+                         directionLinks="true"
+                         autoHide="true"
+                         previousLabel="Назад"
+                         nextLabel="Вперед"
+                         screenReaderPaginationLabel="Постраничный вид"
+                         screenReaderPageLabel="Страница"
+                         screenReaderCurrentLabel="Вы на странице"></pagination-controls>
 </div>

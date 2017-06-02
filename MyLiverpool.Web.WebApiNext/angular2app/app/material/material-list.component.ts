@@ -72,7 +72,7 @@ export class MaterialListComponent implements OnInit, OnDestroy {
     }
 
     public pageChanged(event: any): void {
-        this.page = event.page;
+        this.page = event;
         this.update();
         this.updateUrl();
     };

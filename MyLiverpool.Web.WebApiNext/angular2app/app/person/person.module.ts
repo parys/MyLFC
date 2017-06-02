@@ -12,7 +12,7 @@ import { personRoutes } from "./person.routes";
 import { SharedModule } from "../shared/index";
 import { MdButtonModule, MdInputModule, MdSelectModule, MdCardModule } from "@angular/material";
 import { DatepickerModule } from "ng2-bootstrap/datepicker";
-import { PaginationModule } from "ng2-bootstrap/pagination";
+import { NgxPaginationModule } from "ngx-pagination";
 
 
 @NgModule({
@@ -24,7 +24,7 @@ import { PaginationModule } from "ng2-bootstrap/pagination";
         MdCardModule,
         MdInputModule,
         MdSelectModule,
-        PaginationModule.forRoot(),
+        NgxPaginationModule,
         ReactiveFormsModule,
         RouterModule.forRoot(personRoutes),
         SharedModule

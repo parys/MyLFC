@@ -54,7 +54,7 @@ export class UserListComponent implements OnInit {
     }
 
     pageChanged(event: any): void {
-        this.page = event.page;
+        this.page = event;
         this.update();
     };
 

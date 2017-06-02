@@ -9,7 +9,9 @@
                 <th>Группа</th>
             </tr>
         </thead>
-        <tbody *ngFor="let user of items; let i = index;">
+        <tbody *ngFor="let user of items | paginate: { itemsPerPage: itemsPerPage,
+                                                      currentPage: page,
+                                                      totalItems: totalItems }; let i = index;">
             <tr>
                 <td class="" [textContent]="user.lastModified | date:'medium'"></td>
                 <td class="">
@@ -44,6 +46,12 @@
     </div>
 </div>
 <div class="pagination">
-    <pagination *ngIf="items" [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" [(ngModel)]="page" [maxSize]="7" (pageChanged)="pageChanged($event)" [boundaryLinks]="true"
-                previousText="&lsaquo;" nextText="&rsaquo;" firstText="Первая" lastText="Последняя"></pagination>
+    <pagination-controls (pageChange)="pageChanged($event)"
+                         directionLinks="true"
+                         autoHide="true"
+                         previousLabel="Назад"
+                         nextLabel="Вперед"
+                         screenReaderPaginationLabel="Постраничный вид"
+                         screenReaderPageLabel="Страница"
+                         screenReaderCurrentLabel="Вы на странице"></pagination-controls>
 </div>

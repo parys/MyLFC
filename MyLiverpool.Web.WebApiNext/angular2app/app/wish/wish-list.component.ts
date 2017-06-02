@@ -43,7 +43,7 @@ export class WishListComponent implements OnInit, OnDestroy {
     }
 
     pageChanged(event: any): void {
-        this.page = event.page;
+        this.page = event;
         this.update();
         let newUrl = `$wishes?page=${this.page}`;
        // if (this.categoryId) {

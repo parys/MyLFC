@@ -12,7 +12,9 @@
         </div>
         </form-->
     </div>
-    <div class="row" *ngFor="let item of items; let i = index;">
+    <div class="row" *ngFor="let item of items | paginate: { itemsPerPage: itemsPerPage,
+                                                      currentPage: page,
+                                                      totalItems: totalItems }; let i = index;">
         <div class="padding10" *ngIf="!item.pending || roles.isNewsmaker">
             <div class="row flex border-left-maroon" >
                 <div class="flex-vertical-center material-header col-xs-12">
@@ -55,7 +57,13 @@
         </div>
     </div>
     <div class="pagination">
-        <pagination *ngIf="items" [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" [(ngModel)]="page" [maxSize]="7" (pageChanged)="pageChanged($event)"
-                    previousText="&lsaquo;" nextText="&rsaquo;" firstText="1" lastText="totalItems/itemsPerPage"></pagination>
+        <pagination-controls (pageChange)="pageChanged($event)"
+                             directionLinks="true"
+                             autoHide="true"
+                             previousLabel="Назад"
+                             nextLabel="Вперед"
+                             screenReaderPaginationLabel="Постраничный вид"
+                             screenReaderPageLabel="Страница"
+                             screenReaderCurrentLabel="Вы на странице"></pagination-controls>
     </div>
 </div>

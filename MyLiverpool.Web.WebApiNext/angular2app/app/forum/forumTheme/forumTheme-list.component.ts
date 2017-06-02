@@ -50,7 +50,7 @@ export class ForumThemeListComponent implements OnInit, OnDestroy {
     }
 
     public pageChanged(event: any): void {
-        this.page = event.page;
+        this.page = event;
         this.update(this.item.id);
         let newUrl = `forum/${this.item.subsectionId}/themes/${this.item.id}?page=${this.page}`;
 

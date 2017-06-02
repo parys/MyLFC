@@ -45,6 +45,7 @@ var SharedConfig = {
             "rxjs",
             "ng2-auto-complete",
             "ng2-bootstrap",
+            "ngx-pagination",
           //  "ng2-page-scroll",
             "tinymce/tinymce.min.js"
         ]

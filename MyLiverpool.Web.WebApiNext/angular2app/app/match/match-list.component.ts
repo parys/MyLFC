@@ -49,7 +49,7 @@ export class MatchListComponent implements OnInit, OnDestroy {
     }
 
     public pageChanged(event: any): void {
-        this.page = event.page;
+        this.page = event;
         this.update();
         let newUrl = `matches?page=${this.page}`;
         this.location.replaceState(newUrl);

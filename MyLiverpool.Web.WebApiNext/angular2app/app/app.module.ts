@@ -29,16 +29,15 @@ import { WishModule } from "./wish/index";
 import * as materialComment from "./materialComment/index";
 import { Ng2AutoCompleteModule } from "ng2-auto-complete";
 import { AdminService, EplTableComponent } from "./admin/index";
-import { PaginationModule } from "ng2-bootstrap";
+import { NgxPaginationModule } from "ngx-pagination";
 import { DatepickerModule } from "ng2-bootstrap/datepicker";
 import { TimepickerModule } from "ng2-bootstrap/timepicker";
 import { ReCaptchaModule } from "angular2-recaptcha";
 import { Ng2BreadcrumbModule, BreadcrumbService } from "ng2-breadcrumb/ng2-breadcrumb";
-import { Ng2PageScrollModule } from "ng2-page-scroll";
 import { BreadcrumbComponent } from "./shared/breadcrumb.component";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MdAutocompleteModule, MdTabsModule, MdDialogModule, MdSnackBarModule, MdButtonModule, MdInputModule } from '@angular/material';
-
+import 'rxjs/add/operator/mergeMap';
 
 @NgModule({
     imports: [
@@ -56,8 +55,7 @@ import { MdAutocompleteModule, MdTabsModule, MdDialogModule, MdSnackBarModule, M
         MdTabsModule,
         Ng2AutoCompleteModule,
         Ng2BreadcrumbModule.forRoot(),
-        Ng2PageScrollModule.forRoot(),
-        PaginationModule.forRoot(),
+        NgxPaginationModule,
         PersonModule,
         RouterModule.forRoot(routes),
         ReCaptchaModule,

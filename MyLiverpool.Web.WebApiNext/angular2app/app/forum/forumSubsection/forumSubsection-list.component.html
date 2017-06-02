@@ -26,7 +26,9 @@
     <!--<tr><td class="threadsType" colspan="7">Важные темы</td></tr>-->
 
     <tr><td class="threadsType" colspan="7">Темы форума</td></tr>
-    <tr *ngFor="let theme of item.themes.list">
+    <tr *ngFor="let theme of item.themes.list | paginate: { itemsPerPage: itemsPerPage,
+                                                      currentPage: page,
+                                                      totalItems: totalItems }">
         <td class="threadIcoTd" width="4%">
             <img alt="" style="margin:0;padding:0;vertical-align:middle;border:0;max-width:60px;max-height:60px;" src="http://www.myliverpool.ru/.s/img/fr/ic/2/f_norm_nonew.gif" title="Нет новых сообщений">
         </td>
@@ -70,7 +72,13 @@
     </tbody>
 </table>
 <div class="pagination">
-    <pagination *ngIf="items" [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" [(ngModel)]="page" [maxSize]="7" (pageChanged)="pageChanged($event)"
-                previousText="&lsaquo;" nextText="&rsaquo;" firstText="1" lastText="totalItems/itemsPerPage"></pagination>
+    <pagination-controls (pageChange)="pageChanged($event)"
+                         directionLinks="true"
+                         autoHide="true"
+                         previousLabel="Назад"
+                         nextLabel="Вперед"
+                         screenReaderPaginationLabel="Постраничный вид"
+                         screenReaderPageLabel="Страница"
+                         screenReaderCurrentLabel="Вы на странице"></pagination-controls>
 </div>
 <a [routerLink]="['./themes', 0, 'edit']">Добавить тему</a>

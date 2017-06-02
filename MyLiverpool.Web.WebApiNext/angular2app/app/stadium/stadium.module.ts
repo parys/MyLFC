@@ -8,7 +8,7 @@ import { StadiumService } from "./stadium.service";
 import { stadiumRoutes } from "./stadium.routes";
 import { SharedModule } from "../shared/index";
 import { MdInputModule, MdButtonModule } from '@angular/material';
-import { PaginationModule } from "ng2-bootstrap";//temporary
+import { NgxPaginationModule } from "ngx-pagination";
 
 @NgModule({
     imports: [
@@ -16,7 +16,7 @@ import { PaginationModule } from "ng2-bootstrap";//temporary
         FormsModule,
         MdButtonModule,
         MdInputModule,
-        PaginationModule.forRoot(),
+        NgxPaginationModule,
         ReactiveFormsModule,
         RouterModule.forRoot(stadiumRoutes),
         SharedModule

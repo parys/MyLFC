@@ -105,7 +105,7 @@ namespace MyLiverpool.Business.Services
                 tempList.Add(coach);
                 stuffList.Remove(coach);
             }
-            var assistants = stuffList.Where(x => x.Position == "Помощник тренера");
+            var assistants = stuffList.Where(x => x.Position == "Помощник тренера").ToList();
             if(assistants.Any())
             {
                 foreach (var assistant in assistants)

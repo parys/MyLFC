@@ -43,7 +43,7 @@ export class MaterialCommentSectionComponent implements OnInit {
     }
 
     public pageChanged(event: any): void {
-        this.page = event.page;
+        this.page = event;
         this.update();
     };
 

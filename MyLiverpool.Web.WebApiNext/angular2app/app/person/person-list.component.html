@@ -1,6 +1,8 @@
 ﻿<button class="btn btn-success" [routerLink]="[0, 'edit']">Добавить</button>
-<div class="top20" *ngFor="let person of items; let i = index;">
-    <div class="panel" > <!--[ngClass]="getTypeClass(wish.type)">-->
+<div class="top20" *ngFor="let person of items | paginate: { itemsPerPage: itemsPerPage,
+                                                      currentPage: page,
+                                                      totalItems: totalItems }; let i = index;">
+    <div class="panel" >
         <div class="panel-heading">
             <h3 class="panel-title">
                 <a [routerLink]="[person.id, 'edit']">
@@ -23,6 +25,12 @@
     </div>
 </div>
 <div class="pagination">
-    <pagination *ngIf="items" [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" [(ngModel)]="page" [maxSize]="7" (pageChanged)="pageChanged($event)"
-                previousText="&lsaquo;" nextText="&rsaquo;" firstText="1" lastText="totalItems/itemsPerPage"></pagination>
+    <pagination-controls (pageChange)="pageChanged($event)" 
+                         directionLinks="true"
+                         autoHide="true"
+                         previousLabel="Назад"
+                         nextLabel="Вперед"
+                         screenReaderPaginationLabel="Постраничный вид"
+                         screenReaderPageLabel="Страница"
+                         screenReaderCurrentLabel="Вы на странице"></pagination-controls>
 </div>

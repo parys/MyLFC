@@ -12,7 +12,9 @@
             <button type="button" class="btn btn-success" [routerLink]="[0, 'edit']">Добавить</button>
         </form>
     </div>
-    <div class="top20" *ngFor="let item of items; let i = index;">
+    <div class="top20" *ngFor="let item of items | paginate: { itemsPerPage: itemsPerPage,
+                                                      currentPage: page,
+                                                      totalItems: totalItems }; let i = index;">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">
@@ -32,6 +34,12 @@
     </div>
 </div>
 <div class="pagination">
-    <pagination *ngIf="items" [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" [(ngModel)]="page" [maxSize]="7" (pageChanged)="pageChanged($event)"
-                previousText="&lsaquo;" nextText="&rsaquo;" firstText="1" lastText="totalItems/itemsPerPage"></pagination>
+    <pagination-controls (pageChange)="pageChanged($event)"
+                         directionLinks="true"
+                         autoHide="true"
+                         previousLabel="Назад"
+                         nextLabel="Вперед"
+                         screenReaderPaginationLabel="Постраничный вид"
+                         screenReaderPageLabel="Страница"
+                         screenReaderCurrentLabel="Вы на странице"></pagination-controls>
 </div>

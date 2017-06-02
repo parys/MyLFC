@@ -6,7 +6,7 @@ import { WishListComponent } from "./wish-list.component";
 import { WishEditComponent } from "./wish-edit.component";
 import { WishService } from "./wish.service";
 import { wishRoutes } from "./wish.routes";
-import { PaginationModule } from "ng2-bootstrap";
+import { NgxPaginationModule } from "ngx-pagination";
 import { SharedModule } from "../shared/index";
 
 @NgModule({
@@ -15,7 +15,7 @@ import { SharedModule } from "../shared/index";
         FormsModule,
         RouterModule.forRoot(wishRoutes),
         ReactiveFormsModule,
-        PaginationModule.forRoot(),
+        NgxPaginationModule,
         SharedModule
     ],
     declarations: [

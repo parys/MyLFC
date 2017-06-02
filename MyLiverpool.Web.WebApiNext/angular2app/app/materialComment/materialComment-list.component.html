@@ -7,7 +7,9 @@
             <button class="btn btn-success" type="submit">Отфильтровать</button>
         </form>
     </div>
-    <div class="top20" *ngFor="let comment of items; let i = index;">
+    <div class="top20" *ngFor="let comment of items | paginate: { itemsPerPage: itemsPerPage,
+                                                      currentPage: page,
+                                                      totalItems: totalItems }; let i = index;">
         <div class="panel" ng-class="">
             <div class="panel-heading panel-default">
                 <h3 class="panel-title">
@@ -28,6 +30,12 @@
     </div>
 </div>
 <div class="pagination">
-    <pagination *ngIf="items" [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" [(ngModel)]="page" [maxSize]="7" (pageChanged)="pageChanged($event)"
-                previousText="&lsaquo;" nextText="&rsaquo;" firstText="1" lastText="totalItems/itemsPerPage"></pagination>
+    <pagination-controls (pageChange)="pageChanged($event)"
+                         directionLinks="true"
+                         autoHide="true"
+                         previousLabel="Назад"
+                         nextLabel="Вперед"
+                         screenReaderPaginationLabel="Постраничный вид"
+                         screenReaderPageLabel="Страница"
+                         screenReaderCurrentLabel="Вы на странице"></pagination-controls>
 </div>

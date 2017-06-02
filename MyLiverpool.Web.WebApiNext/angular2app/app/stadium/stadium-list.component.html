@@ -1,6 +1,8 @@
 ﻿<div>
     <a [routerLink]="[0, 'edit']">Добавить стадион</a>
-    <ul *ngFor="let item of items; let i = index;">
+    <ul *ngFor="let item of items | paginate: { itemsPerPage: itemsPerPage,
+                                                      currentPage: page,
+                                                      totalItems: totalItems }; let i = index;">
         <li>
             <a [routerLink]="[item.id, 'edit']">
                 <span [textContent]="item.name + '-' + item.city"></span>
@@ -13,6 +15,12 @@
     </ul>
 </div>
 <div class="pagination">
-    <pagination *ngIf="items" [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" [(ngModel)]="page" [maxSize]="7" (pageChanged)="pageChanged($event)"
-                previousText="&lsaquo;" nextText="&rsaquo;" firstText="1" lastText="totalItems/itemsPerPage"></pagination>
+    <pagination-controls (pageChange)="pageChanged($event)"
+                         directionLinks="true"
+                         autoHide="true"
+                         previousLabel="Назад"
+                         nextLabel="Вперед"
+                         screenReaderPaginationLabel="Постраничный вид"
+                         screenReaderPageLabel="Страница"
+                         screenReaderCurrentLabel="Вы на странице"></pagination-controls>
 </div>

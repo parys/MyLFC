@@ -63,14 +63,20 @@ export class PersonEditComponent implements OnInit, OnDestroy {
         const person = this.parseForm();
         if (this.id > 0) {
             this.service.update(this.id, person)
-                .subscribe(data => this.snackBar.open("Профиль успешно обновлен", null, { duration: 5000 }),
+                .subscribe(data => {
+                        this.snackBar.open("Профиль успешно обновлен", null, { duration: 5000 });
+                        this.router.navigate(["/persons"]);
+                    },
                 error => {
                     console.log(error);
                     this.snackBar.open("Ошибка при обновлении профиля", null, { duration: 5000 });
                 });
         } else {
             this.service.create(person)
-                .subscribe(data => this.snackBar.open("Профиль успешно создан", null, { duration: 5000 }),
+                .subscribe(data => {
+                        this.snackBar.open("Профиль успешно создан", null, { duration: 5000 });
+                        this.router.navigate(["/persons"]);
+                    },
                 error => {
                     console.log(error);
                     this.snackBar.open("Ошибка при создании профиля", null, { duration: 5000 });
