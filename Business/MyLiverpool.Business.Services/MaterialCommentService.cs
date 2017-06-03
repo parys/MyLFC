@@ -115,9 +115,10 @@ namespace MyLiverpool.Business.Services
         {
             Expression<Func<MaterialComment, bool>> filter = x => x.MaterialId == materialId;// && x.ParentId == null;
 
-            var comments = await _commentService.GetOrderedByAsync(page, ItemPerPage, filter, SortOrder.Ascending, m => m.AdditionTime);//bug need to analize how get all comments for material page but count only top-level for paging
+            var comments = await _commentService.GetOrderedByAsync(page, ItemPerPage, filter, SortOrder.Ascending, m => m.AdditionTime);
             var unitedComments = UniteComments(comments, page);
             var commentDtos = _mapper.Map<IEnumerable<MaterialCommentDto>>(unitedComments);
+            filter = filter.And(x => x.ParentId == null);//bug need to analize how get all comments for material page but count only top-level for paging
             var commentsCount = await _commentService.GetCountAsync(filter);
             return new PageableData<MaterialCommentDto>(commentDtos, page, commentsCount);
         }

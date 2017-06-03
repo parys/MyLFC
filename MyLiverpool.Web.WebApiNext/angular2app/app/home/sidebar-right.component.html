@@ -3,11 +3,14 @@
         <account-signin></account-signin>
     </li>
     <li *ngIf="roles.isLogined" class="flex-space-around">
-            <a [routerLink]="['/users', 0]" class="text-white"><span class="glyphicon glyphicon-user"></span>Мой профиль</a>
-            <pm-counter></pm-counter>
-            <a role="button" (click)="logout()" class="text-white">Выйти</a>
+        <a [routerLink]="['/users', 0]" class="text-white"><span class="glyphicon glyphicon-user"></span>Мой профиль</a>
+        <pm-counter></pm-counter>
+        <a role="button" (click)="logout()" class="text-white">Выйти</a>
     </li>
 </ul>
-<section class="row">
+<div class="clearfix">
+    <button role="button" class="btn btn-warning col-xs-12 container-row" [routerLink]="['/news', 17995]">Всё о переезде</button>
+</div>
+<section class="row top10">
     <mini-chat></mini-chat>
 </section>

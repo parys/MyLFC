@@ -166,6 +166,7 @@ namespace MyLiverpool.Business.Services
             updatingItem.Pending = model.Pending;
             updatingItem.PhotoPath = model.Photo;
             updatingItem.Source = model.Source;
+            updatingItem.Category = null;
             updatingItem.CategoryId = model.CategoryId;
 
             try
