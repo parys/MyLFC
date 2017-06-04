@@ -17,7 +17,7 @@ import { BreadcrumbService } from "ng2-breadcrumb/ng2-breadcrumb";
 
 export class AppComponent implements OnInit {
     public roles: IRoles;
-    public isRoot: boolean = false;
+   // public isRoot: boolean = false;
     private viewContainerRef: ViewContainerRef;
     private authState$: Observable<IAuthStateModel>;
 
@@ -60,7 +60,7 @@ export class AppComponent implements OnInit {
             .subscribe((event) => {
                 this.renderer.setProperty(document.body, "scrollTop", 0);
                 this.titleService.setTitle(event["title"]);
-                this.isRoot = (event["title"] === "MyLFC.ru - Сайт русскоязычных болельщиков \"Ливерпуля\"");
+               // this.isRoot = (event["title"] === "MyLFC.ru - Сайт русскоязычных болельщиков \"Ливерпуля\"");
             });
         /* todo research
         this.router.events
