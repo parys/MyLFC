@@ -238,12 +238,11 @@ textarea {
     font-size: medium;
 }
 
+/* background image*/
+/*
 .main {
-    /*background-image: url('/content/logo21.jpg');*/
-    /*background-repeat: repeat;*/
     overflow: hidden;
 }
-
     .main:before {
         content: ' ';
         display: block;
@@ -259,7 +258,7 @@ textarea {
         background-position: 50% 0;
         
         background-size: 100%;
-    }
+    }*/
 
 .material-body img {
     border: lightgray solid 5px;

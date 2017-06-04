@@ -98,7 +98,7 @@ export class MatchEditComponent implements OnInit {
         this.id = data.id;
         this.editMatchForm.patchValue(data);
         this.editMatchForm.get("date").patchValue(new Date(data.dateTime));
-        this.editMatchForm.get("time").patchValue(new Date(data.dateTime));
+        this.editMatchForm.get("time").patchValue(new Date(data.dateTime).toTimeString().slice(0, 8));
     }
 
     private parseForm(): Match {
@@ -106,7 +106,7 @@ export class MatchEditComponent implements OnInit {
         item.id = this.id;
         let date = this.editMatchForm.controls["date"].value;
         let time = this.editMatchForm.controls["time"].value;
-        item.dateTime = new Date(date.getFullYear(), date.getMonth(), date.getDate(), time.getHours(), time.getMinutes());
+        item.dateTime = new Date(date.getFullYear(), date.getMonth(), date.getDate(), time.slice(0, 2), time.slice(3, 5));
         return item;
     }
 

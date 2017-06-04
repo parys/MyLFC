@@ -30,13 +30,11 @@ import * as materialComment from "./materialComment/index";
 import { Ng2AutoCompleteModule } from "ng2-auto-complete";
 import { AdminService, EplTableComponent } from "./admin/index";
 import { NgxPaginationModule } from "ngx-pagination";
-import { DatepickerModule } from "ng2-bootstrap/datepicker";
-import { TimepickerModule } from "ng2-bootstrap/timepicker";
 import { ReCaptchaModule } from "angular2-recaptcha";
 import { Ng2BreadcrumbModule, BreadcrumbService } from "ng2-breadcrumb/ng2-breadcrumb";
 import { BreadcrumbComponent } from "./shared/breadcrumb.component";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MdAutocompleteModule, MdTabsModule, MdDialogModule, MdSnackBarModule, MdButtonModule, MdInputModule } from '@angular/material';
+import * as angMaterial from '@angular/material';
 import 'rxjs/add/operator/mergeMap';
 
 @NgModule({
@@ -45,14 +43,15 @@ import 'rxjs/add/operator/mergeMap';
         BrowserModule,
         EditorModule,
         HttpModule,
-        DatepickerModule.forRoot(),
         ForumModule,
-        MdAutocompleteModule,
-        MdButtonModule,
-        MdDialogModule,
-        MdInputModule,
-        MdSnackBarModule,
-        MdTabsModule,
+        angMaterial.MdAutocompleteModule,
+        angMaterial.MdButtonModule,
+        angMaterial.MdDatepickerModule,
+        angMaterial.MdDialogModule,
+        angMaterial.MdInputModule,
+        angMaterial.MdNativeDateModule,
+        angMaterial.MdSnackBarModule,
+        angMaterial.MdTabsModule,
         Ng2AutoCompleteModule,
         Ng2BreadcrumbModule.forRoot(),
         NgxPaginationModule,
@@ -61,7 +60,6 @@ import 'rxjs/add/operator/mergeMap';
         ReCaptchaModule,
         SharedModule,
         StadiumModule,
-        TimepickerModule.forRoot(),
         WishModule
     ],
     declarations: [

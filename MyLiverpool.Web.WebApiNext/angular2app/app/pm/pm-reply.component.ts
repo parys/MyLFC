@@ -29,13 +29,13 @@ export class PmReplyComponent implements OnInit, OnDestroy {
             'title': [
                 this.getTitle(), Validators.compose([
                     Validators.required,
-                    Validators.maxLength(30)
+                    Validators.maxLength(50)
                 ])
             ],
             'message': [
                 "", Validators.compose([
                     Validators.required,
-                    Validators.maxLength(500)
+                    Validators.maxLength(2500)
                 ])
             ]
         });

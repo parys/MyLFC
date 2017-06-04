@@ -54,7 +54,7 @@
             <div class="col-xs-10 col-sm-10">
                 <span *ngIf="!roles.isAdminAssistant || roles.isSelf(item.id)" class="form-control" [textContent]="item.roleGroupName"></span>
  
-                <form *ngIf="roles.isAdminAssistant && !roles.isSelf(item.id)" class="form-inline" name="roleForm" role="form" [formGroup]="roleForm" (ngSubmit)="onSubmit(roleForm.value)">
+                <form *ngIf="roles.isAdminAssistant && !roles.isSelf(item.id)" class="form-inline" name="roleForm" role="form" [formGroup]="roleForm" (ngSubmit)="onSubmit()">
                     <select class="form-control" name="roleGroup" formControlName="roleGroupId">
                         <option *ngFor="let roleGroup of roleGroups" [value]="roleGroup.id" [textContent]="roleGroup.name"></option>
                     </select>

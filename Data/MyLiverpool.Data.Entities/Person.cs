@@ -21,7 +21,7 @@ namespace MyLiverpool.Data.Entities
 
         public string Country { get; set; }
 
-        public DateTimeOffset Birthday { get; set; }
+        public DateTimeOffset? Birthday { get; set; }
 
         [NotMapped]
         public string Name => $"{FirstName} {LastName}";

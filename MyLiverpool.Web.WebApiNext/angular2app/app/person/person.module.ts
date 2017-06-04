@@ -10,19 +10,19 @@ import { BestPlayerComponent } from "./best-player.component";
 import { StuffListComponent } from "./stuff-list.component";
 import { personRoutes } from "./person.routes";
 import { SharedModule } from "../shared/index";
-import { MdButtonModule, MdInputModule, MdSelectModule, MdCardModule } from "@angular/material";
-import { DatepickerModule } from "ng2-bootstrap/datepicker";
+import { MdButtonModule, MdInputModule, MdSelectModule, MdCardModule, MdNativeDateModule, MdDatepickerModule } from "@angular/material";
 import { NgxPaginationModule } from "ngx-pagination";
 
 
 @NgModule({
     imports: [
         CommonModule,
-        DatepickerModule.forRoot(),
         FormsModule,
         MdButtonModule,
         MdCardModule,
+        MdDatepickerModule,
         MdInputModule,
+        MdNativeDateModule,
         MdSelectModule,
         NgxPaginationModule,
         ReactiveFormsModule,

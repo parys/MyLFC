@@ -44,9 +44,6 @@ var SharedConfig = {
             "event-source-polyfill",
             "rxjs",
             "ng2-auto-complete",
-         //   "ng2-bootstrap",
-            "ng2-bootstrap/datepicker",
-            "ng2-bootstrap/timepicker",
             "ngx-pagination",
           //  "ng2-page-scroll",
             "tinymce/tinymce.min.js"

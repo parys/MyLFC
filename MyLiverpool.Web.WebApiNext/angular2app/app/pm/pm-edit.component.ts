@@ -38,13 +38,13 @@ export class PmEditComponent implements OnInit, OnDestroy {
             'title': [
                 "", Validators.compose([
                     Validators.required,
-                    Validators.maxLength(30)
+                    Validators.maxLength(50)
                 ])
             ],
             'message': [
                 "", Validators.compose([
                     Validators.required,
-                    Validators.maxLength(500)
+                    Validators.maxLength(2500)
                 ])
             ]
         });

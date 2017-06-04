@@ -35,18 +35,11 @@
                    id="update-input"/>
         </div>
     </div>
-    <div class="form-group top20">
-        <label class="control-label col-md-2">День рождения</label>
-        <div class="col-md-10">
-            <div class="input-group">
-                <input class="form-control" name="birthday" readonly [value]="editPersonForm?.controls['birthday'].value | date:'shortDate'"/>
-                <datepicker *ngIf="opened" (selectionDone)="opened = false" formControlName="birthday"></datepicker>
-                <span class="input-group-btn">
-                    <button class="btn btn-default" (click)="opened = !opened" type="button">Открыть</button>
-                </span>
-            </div>
-        </div>
-    </div>
+    <md-input-container>
+        <input mdInput [mdDatepicker]="datePicker" placeholder="Выберите дату рождения" formControlName="birthday">
+        <button mdSuffix [mdDatepickerToggle]="datePicker"></button>
+    </md-input-container>
+    <md-datepicker #datePicker startView="year" touchUi="true"></md-datepicker>
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <button md-raised-button type="submit" [disabled]="!editPersonForm.valid">Сохранить</button>

@@ -48,8 +48,6 @@ export class PmDetailComponent implements OnInit, OnDestroy {
             this.selectedUserId = this.item.senderId;
             this.selectedUserName = this.item.sender;
         }
-        console.log(this.selectedUserId);
-        console.log(this.selectedUserName);
     }
 
     public closePmWindow(event: any): void {
