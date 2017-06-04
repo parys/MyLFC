@@ -14,11 +14,18 @@
 
   "files": [
     "angular2app/app/app.module.ts",
-    "angular2app/main.ts"
+    "angular2app/main.aot.ts"
+  ],
+  "typeRoots": [
+    "./node_modules/@types"
+  ],
+  "types": [
+    "node",
+    "tinymce"
   ],
 
   "angularCompilerOptions": {
-    "genDir": "temp-js/aot",
+    "genDir": "./temp-js/aot",
     "skipMetadataEmit": true
   },
   "atom": { "rewriteTsconfig": false }

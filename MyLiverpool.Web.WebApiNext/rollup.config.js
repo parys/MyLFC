@@ -3,7 +3,7 @@ import commonjs from "rollup-plugin-commonjs";
 import uglify from "rollup-plugin-uglify";
 
 export default {
-    entry: "temp-js/dist/unbundled-aot/angular2app/main.js",
+    entry: "temp-js/dist/unbundled-aot/angular2app/main.aot.js",
     dest: "wwwroot/src/build.js", // output a single application bundle
     sourceMap: false,
     treeshake: true,
@@ -25,8 +25,7 @@ export default {
             {
                 include: ["node_modules/rxjs/**",
                     "node_modules/ng2-auto-complete/**",
-                    "node_modules/angular2-recaptcha/**",
-                    "node_modules/jquery/**",
+                    "node_modules/angular2-recaptcha/**"
                 ]
             }),
         uglify()

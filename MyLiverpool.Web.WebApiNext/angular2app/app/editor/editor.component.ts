@@ -2,7 +2,8 @@
 import { Component, EventEmitter, forwardRef, Input, Output, NgZone } from "@angular/core";
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from "@angular/forms";
 
-import "tinymce";
+import "tinymce"; //todo should be moved
+import "tinymce/themes/modern"
 import "tinymce/plugins/advlist";
 import "tinymce/plugins/anchor";
 import "tinymce/plugins/autolink";
@@ -17,12 +18,13 @@ import "tinymce/plugins/hr";
 import "tinymce/plugins/link";
 import "tinymce/plugins/lists";
 import "tinymce/plugins/media";
-import "tinymce/themes/modern";
 import "tinymce/plugins/paste";
+import "tinymce/plugins/spellchecker";
 import "tinymce/plugins/preview";
 import "tinymce/plugins/table";
 import "tinymce/plugins/visualblocks";
 declare let tinymce: any;
+
 
 @Component({
     selector: "bbeditor",
@@ -101,7 +103,7 @@ export class EditorComponent implements ControlValueAccessor {
 
     private getPlugins(): string {
         const common: string = ` autolink autoresize lists link anchor image preview fullscreen
-        visualblocks code media table paste emoticons textcolor colorpicker`;
+        visualblocks code media table paste emoticons textcolor colorpicker spellchecker`;
         if (this.type === 1) {
             return `advlist ${common}`;
         }
@@ -148,6 +150,7 @@ export class EditorComponent implements ControlValueAccessor {
             plugins: [
                 this.getPlugins()
             ],
+            spellchecker_language: "ru",
             relative_urls: true,
             document_base_url: "/",
             toolbar: this.getToolbar(),

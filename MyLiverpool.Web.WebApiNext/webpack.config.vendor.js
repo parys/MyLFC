@@ -34,12 +34,8 @@ var SharedConfig = {
             "@angular/platform-browser-dynamic",
             "@angular/router",
             "@angular/platform-server",
-            "es6-shim",
-            "es6-promise",
             "zone.js",
-            "jquery",
-            "bootstrap",
-            "bootstrap/dist/css/bootstrap.css",
+            "bootstrap/dist/css/bootstrap.min.css",
             "@angular/material/prebuilt-themes/indigo-pink.css",
             "event-source-polyfill",
             "rxjs",
@@ -55,10 +51,10 @@ var SharedConfig = {
         library: "[name]_[hash]"
     },
     plugins: [
-        new Webpack.ProvidePlugin({ $: "jquery", jQuery: "jquery" }), // Maps these identifiers to the jQuery package (because Bootstrap expects it to be a global variable)
+      //  new Webpack.ProvidePlugin({ $: "jquery", jQuery: "jquery" }), // Maps these identifiers to the jQuery package (because Bootstrap expects it to be a global variable)
         new Webpack.ContextReplacementPlugin(/\@angular\b.*\b(bundles|linker)/, Path.join(__dirname, "./angular2app")), // Workaround for https://github.com/angular/angular/issues/11580
-        new Webpack.IgnorePlugin(/^vertx$/), // Workaround for https://github.com/stefanpenner/es6-promise/issues/100
-        new Webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, require.resolve("node-noop")) // Workaround for https://github.com/andris9/encoding/issues/16
+     //   new Webpack.IgnorePlugin(/^vertx$/), // Workaround for https://github.com/stefanpenner/es6-promise/issues/100
+     //   new Webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, require.resolve("node-noop")) // Workaround for https://github.com/andris9/encoding/issues/16
     ]
 };
 
@@ -75,14 +71,17 @@ var ClientBundleConfig = Merge(SharedConfig,
             new Webpack.DllPlugin({
                 path: Path.join(__dirname, "wwwroot", "js", "[name]-manifest.json"),
                 name: "[name]_[hash]"
-            })
+            }),
+            new CopyWebpackPlugin([
+                { from: "node_modules/tinymce/skins/", to: "../src/" },
+                { from: "node_modules/tinymce/plugins/", to: "../src/plugins/" },
+                { from: "node_modules/tinymce/themes/", to: "../src/themes/" }
+            ])
         ]
         .concat(IsDevBuild
             ? [
                 new WebpackNotifierPlugin({ title: "vendorBuild-client", alwaysNotify: true }),
-                new CopyWebpackPlugin([{ from: "node_modules/swagger-ui/dist", to: "../swagger/" },
-                    { from: "node_modules/tinymce/skins/", to: "../src/" }
-          //          { from: "node_modules/tinymce/plugins/", to: "../js/plugins/" }
+                new CopyWebpackPlugin([//{ from: "node_modules/swagger-ui/dist", to: "../swagger/" },
                 ])
             ]
             : [

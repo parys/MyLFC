@@ -16,6 +16,7 @@
   <ItemGroup>
     <Compile Remove="node_modules\**\*" />
     <Content Remove="appsettings.json" />
+    <Content Remove="package-lock.json" />
     <Content Remove="web.config" />
     <Content Remove="wwwroot/10427.ttf" />
     <None Update="angular2app\js;Views\**\*;wwwroot\**\*">
@@ -90,7 +91,8 @@
 
   <Target Name="PrepublishScript" BeforeTargets="PrepareForPublish">
     <Exec Command="node node_modules/webpack/bin/webpack.js --config webpack.config.vendor.js --env.prod" />
-    <Exec Command="node node_modules/webpack/bin/webpack.js --env.prod" />
+    <Exec Command="node node_modules/@angular/compiler-cli/src/main.js -p tsconfig.aot.json" />
+    <Exec Command="node node_modules/rollup/bin/rollup -c rollup.config.js" />
   </Target>
 
   <ItemGroup>
