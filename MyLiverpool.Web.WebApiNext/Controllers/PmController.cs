@@ -76,7 +76,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         public async Task<IActionResult> GetUnreadPmCount()
         {
             var result = await _pmService.GetUnreadPmCountAsync(User.GetUserId());
-            return Ok(result);
+            return Json(result);
         }
     }
 }

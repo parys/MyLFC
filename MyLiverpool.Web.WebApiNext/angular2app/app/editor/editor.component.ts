@@ -102,8 +102,8 @@ export class EditorComponent implements ControlValueAccessor {
     }
 
     private getPlugins(): string {
-        const common: string = ` autolink autoresize lists link anchor image preview fullscreen
-        visualblocks code media table paste emoticons textcolor colorpicker spellchecker`;
+        const common: string = ` autolink autoresize lists link anchor image preview fullscreen hr
+        visualblocks code media table paste emoticons textcolor colorpicker autolink`;
         if (this.type === 1) {
             return `advlist ${common}`;
         }
@@ -118,10 +118,11 @@ export class EditorComponent implements ControlValueAccessor {
 
     private getToolbar(): string {
         const common: string =
-            `| styleselect | bold italic underline strikethrough | link image emoticons hr | forecolor backcolor fontsizeselect`;//poiler-add spoiler-remove`;
-        const type1: string = `insert | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | fullscreen ${
-            common}`;
-        const type2: string = `undo redo colorpicker ${type1}` ;
+            `bold italic underline strikethrough | emoticons `;//poiler-add spoiler-remove`;
+        const type1: string = `styleselect| link image media | alignleft aligncenter alignright alignjustify
+                                 | bullist numlist | outdent indent | forecolor backcolor |${
+            common} | fontsizeselect`;
+        const type2: string = `undo redo | fullscreen | colorpicker ${type1}` ;
         if (this.type === 1) {
             return type1;
         }
@@ -150,10 +151,10 @@ export class EditorComponent implements ControlValueAccessor {
             plugins: [
                 this.getPlugins()
             ],
-            spellchecker_language: "ru",
             relative_urls: true,
             document_base_url: "/",
             toolbar: this.getToolbar(),
+            visualblocks_default_state: true,
             //external_plugins: {
             //    spoiler: "/js/extPlugins/spoiler/plugin.js"
             //},

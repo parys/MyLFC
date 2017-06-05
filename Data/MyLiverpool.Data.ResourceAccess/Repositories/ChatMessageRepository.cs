@@ -68,10 +68,11 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             return await query.CountAsync();
         }
 
-        public async Task<IEnumerable<ChatMessage>> GetListAsync()
+        public async Task<IEnumerable<ChatMessage>> GetListAsync(int lastMessageId)
         {
             return
                 await _context.ChatMessages.Include(x => x.Author)
+                    .Where(x => x.Id > lastMessageId)
                     .OrderByDescending(x => x.AdditionTime)
                     .Take(GlobalConstants.TakingChatMessagesCount)
                     .ToListAsync();

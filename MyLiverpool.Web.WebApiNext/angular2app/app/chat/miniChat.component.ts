@@ -15,7 +15,7 @@ import { RolesCheckedService, IRoles, DeleteDialogComponent } from "../shared/in
 })
 export class MiniChatComponent implements OnInit {
     public messageForm: FormGroup;
-    public items: ChatMessage[];
+    public items: ChatMessage[] = new Array<ChatMessage>();
     public page: number = 1;
     public roles: IRoles;
         
@@ -37,13 +37,15 @@ export class MiniChatComponent implements OnInit {
     }
 
     public update(): void {
+        const id: number = this.items.length > 0 ? this.items[0].id : 0;
         this.service
-            .getAll()
-            .subscribe(data => {
-                this.items = data;
+            .getAll(id)
+            .subscribe((data: ChatMessage[]) => {
+                    this.items = data.concat(this.items);
                 },
-                error => console.log(error), () => {
-                this.cd.markForCheck();
+                error => console.log(error),
+                () => {
+                    this.cd.markForCheck();
                 });
     }
 
@@ -70,13 +72,15 @@ export class MiniChatComponent implements OnInit {
         this.service.delete(this.items[index].id).subscribe(data => {
                 if (data) {
                     this.items.slice(index, 1);
-                    this.cd.markForCheck();
+                    this.items = this.items.concat([]);
                     this.snackBar.open("Комментарий успешно удален", null, { duration: 5000 });
                 }
             },
             e => {
                 console.log(e);
                 this.snackBar.open("Комментарий НЕ удален", null, { duration: 5000 });
+            }, () => {
+                this.cd.markForCheck();
             });
     }
 

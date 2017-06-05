@@ -11,8 +11,8 @@ export class ChatMessageService {
     constructor(private http: HttpWrapper) {
     }
 
-    public getAll = (): Observable<ChatMessage[]> => {
-        return this.http.get(this.actionUrl + `list/`).map((res: Response) => res.json());
+    public getAll = (lastId: number): Observable<ChatMessage[]> => {
+        return this.http.get(this.actionUrl + `list/`+ lastId).map((res: Response) => res.json());
     };
 
     public getSingle = (id: number): Observable<ChatMessage> => {

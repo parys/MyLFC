@@ -54,10 +54,10 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// Returns chat messages list.
         /// </summary>
         /// <returns>Result of creation message.</returns>
-        [AllowAnonymous, HttpGet("list")]
-        public async Task<IActionResult> GetListAsync()
+        [AllowAnonymous, HttpGet("list/{lastMessageId:int}")]
+        public async Task<IActionResult> GetListAsync(int lastMessageId)
         {
-            var result = await _chatMessageService.GetListAsync();
+            var result = await _chatMessageService.GetListAsync(lastMessageId);
             if (!User.IsInRole(nameof(RolesEnum.AdminStart)))
             {
                 foreach (var messageDto in result)

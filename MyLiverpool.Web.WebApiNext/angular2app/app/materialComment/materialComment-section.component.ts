@@ -14,7 +14,7 @@ import { RolesCheckedService, IRoles } from "../shared/index";
 export class MaterialCommentSectionComponent implements OnInit {
     public items: MaterialComment[] = [];
     public page: number = 1;
-    public itemsPerPage: number = 15;
+    public itemsPerPage: number = 50;
     public totalItems: number;
     public roles: IRoles;
     public commentAddForm: FormGroup;
