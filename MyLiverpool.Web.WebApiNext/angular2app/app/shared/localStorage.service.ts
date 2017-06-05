@@ -16,27 +16,27 @@ export class LocalStorageService {
         }
     }
 
-    hasAccessToken(): boolean {
+    public hasAccessToken(): boolean {
         return this.get("access_token") !== null;
     }
 
-    getAccessToken(): string {
+    public getAccessToken(): string {
         return this.get("access_token");
     }
 
-    getRefreshToken(): string {
+    public getRefreshToken(): string {
         return this.get("refresh_token");
     }
 
-    getAccessTokenWithType(): string {                                         
+    public getAccessTokenWithType(): string {                                         
         return `${this.get("token_type")} ${this.get("access_token")}`;
     }
 
-    getRoles(): string[] {
+    public getRoles(): string[] {
         return this.getObject("roles");
     }
 
-    isTokenExpired(): boolean {
+    public isTokenExpired(): boolean {
         if (!this.get("expires_in")) {
             return false;
         }
@@ -44,15 +44,23 @@ export class LocalStorageService {
         return (expiredDate <= new Date());
     } 
 
-    getUserId(): number {
+    public getUserId(): number {
         return +this.get("userId");
     }
 
-    removeRoles(): void {
+    public removeRoles(): void {
         this.remove("roles");
     }
 
-    removeAuthTokens(): void {
+    public setChatUpdateTime(value: number): void {
+        this.set("chatTimer", value.toString());
+    }
+
+    public getChatUpdateTime(): number {
+        return +this.get("chatTimer");
+    }
+
+    public removeAuthTokens(): void {
         this.remove("token_type");
         this.remove("access_token");
         this.remove("expires_in");
@@ -61,7 +69,7 @@ export class LocalStorageService {
         this.remove("userId");
     }
 
-    setAuthTokens(item: any): boolean {
+    public setAuthTokens(item: any): boolean {
         let response = JSON.parse(item._body);
         this.set("token_type", response.token_type);
         this.set("access_token", response.access_token);
@@ -76,17 +84,17 @@ export class LocalStorageService {
         return date.toUTCString();
     };
 
-    setRoles(roles: string[]): void {
+    public setRoles(roles: string[]): void {
         if (!this.localStorage) return;
         this.setObject("roles", roles);
     }
 
-    setUserId(id: number): void {
+    public setUserId(id: number): void {
         if (!this.localStorage) return;
         this.setObject("userId", id);
     }
 
-    tryAddViewForMaterial(id: number): boolean {
+    public tryAddViewForMaterial(id: number): boolean {
         if (!this.localStorage) return false;
         if (!this.get(`material${id}`)) {
             this.set(`material${id}`, "1");
@@ -95,7 +103,7 @@ export class LocalStorageService {
         return false;
     }
 
-    removeAllData(): void {
+    public removeAllData(): void {
         this.removeAuthTokens();
         this.removeRoles();
     }

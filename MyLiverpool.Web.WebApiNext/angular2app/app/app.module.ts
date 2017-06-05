@@ -51,6 +51,7 @@ import 'rxjs/add/operator/mergeMap';
         angMaterial.MdInputModule,
         angMaterial.MdNativeDateModule,
         angMaterial.MdSnackBarModule,
+        angMaterial.MdSelectModule,
         angMaterial.MdTabsModule,
         Ng2AutoCompleteModule,
         Ng2BreadcrumbModule.forRoot(),

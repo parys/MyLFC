@@ -23,42 +23,26 @@
                     <bbeditor name="chat-message" [type]="3" [value]="messageForm.message" formControlName="message"></bbeditor>
                 </div>
             </div>
-            <div class="form-group">
-                <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                    <button type="submit" [disabled]="!messageForm.valid" class="btn btn-default">Добавить</button>
+            <div class="form-group" style="margin-bottom: 0">
+                <div class="col-xs-12 col-sm-12 col-md-12 text-center" style="margin-top: -52px;">            
+                     <button md-raised-button color="warn" type="submit" [disabled]="!messageForm.valid">Добавить</button>
                 </div>
             </div>
-        </form><button (click)="update()"><span class="glyphicon glyphicon-refresh"></span></button>
-        <div *ngIf="!roles.isLogined" class="text-center text-white">Для добавления сообщений необходимо войти.</div>
+        </form>
+        <div class="text-center text-white flex-space-around">
+            <div *ngIf="!roles.isLogined">Для добавления сообщений необходимо войти.</div>
+            <form role="form" [formGroup]="chatTimerForm">
+                <md-select placeholder="Время" formControlName="timerValue" (change)="updateSchedule($event)" style="background-color: white; padding-left: 5px;">
+                    <md-option *ngFor="let interval of intervalArray" [value]="interval.value" [textContent]="interval.key"></md-option>
+                </md-select>
+            </form>
+            <button type="button" (click)="update()"><span class="glyphicon glyphicon-refresh"></span></button>
+        </div>
+
         <hr/>
-        <!--
-
-        <select id="mchatRSel" onchange="setT7174(this);" class="mchat" title="Автообновление" style="font-size:7pt;">
-            <option value="0">--</option>
-            <option value="15">15 сек</option>
-            <option value="30">30 сек</option>
-            <option value="60">1 мин</option>
-            <option value="120">2 мин</option>
-        </select></td>
-        <a href="javascript://" rel="nofollow" onclick="document.getElementById('mchatIfm2').src='/mchat/?'+Math.random();return false;" title="Обновить"><img alt="" border="0" align="absmiddle" src="http://s1.ucoz.net/img/fr/mcr.gif" width="13" height="15"></a>
-        &nbsp;<a href="javascript://" rel="nofollow" onclick="new _uWnd('Sml',' ',-250,-350,{autosize:0,closeonesc:1,resize:0},{url:'/index/35-0-2'});return false;" title="Вставить смайл"><img alt="" border="0" align="absmiddle" src="http://s1.ucoz.net/img/fr/mcs.gif" width="13" height="15"></a>
-        &nbsp;<a href="javascript://" rel="nofollow" onclick="window.open('/index/17','cbbcodes','scrollbars=1,width=550,height=450,left=0,top=0');return false;" title="BB-Коды"><img alt="" border="0" align="absmiddle" src="http://s1.ucoz.net/img/fr/mcb.gif" width="13" height="15"></a>
-        &nbsp;<a href="javascript://" rel="nofollow" onclick="window.open('/mchat/0-1','mchatCtrl','scrollbars=1,width=550,height=550,left=0,top=0');return false;" title="Управление сообщениями"><img alt="" border="0" align="absmiddle" src="http://s1.ucoz.net/img/fr/mcm.gif" width="15" height="15"></a>
-
-
-        <td width="95%" rowspan="2">
-            <textarea name="mcmessage" class="mchat" id="mchatMsgF" title="Сообщение" onkeyup="countMessLength();" onfocus="countMessLength();" style="height:40px;width:100%;resize:none;">
-            </textarea>
-        </td>
-
-        <tr>
-            <td align="center" valign="bottom">
-                <div style="width:30px">
-                    <input type="submit" value="OK" class="mchat" id="mchatBtn" style="width:30px;">
-                    <img alt="" style="display:none;" id="mchatAjax" src="/.s/img/fr/ajax3.gif" border="0" width="16">
-                </div>
-            </td>
-            </tr>
-        -->
-    </div>
+    <!--
+    &nbsp;<a href="javascript://" rel="nofollow" onclick="new _uWnd('Sml',' ',-250,-350,{autosize:0,closeonesc:1,resize:0},{url:'/index/35-0-2'});return false;" title="Вставить смайл"><img alt="" border="0" align="absmiddle" src="http://s1.ucoz.net/img/fr/mcs.gif" width="13" height="15"></a>
+            &nbsp;<a href="javascript://" rel="nofollow" onclick="window.open('/mchat/0-1','mchatCtrl','scrollbars=1,width=550,height=550,left=0,top=0');return false;" title="Управление сообщениями"><img alt="" border="0" align="absmiddle" src="http://s1.ucoz.net/img/fr/mcm.gif" width="15" height="15"></a>
+    -->
+</div>
 </div>

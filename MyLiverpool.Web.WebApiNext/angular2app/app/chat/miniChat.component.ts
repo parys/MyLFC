@@ -1,24 +1,35 @@
-﻿import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
+﻿import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { MdDialog, MdSnackBar } from '@angular/material';
 import { ActivatedRoute } from "@angular/router";
+import { Subscription } from "rxjs/Subscription";
+import { Observable } from "rxjs/Observable";
 import { Configuration } from "../app.constants";
 import { ChatMessage } from "./chatMessage.model";
 import { ChatMessageService } from "./chatMessage.service";
-import { RolesCheckedService, IRoles, DeleteDialogComponent } from "../shared/index";
+import { RolesCheckedService, IRoles, DeleteDialogComponent, LocalStorageService } from "../shared/index";
 
 @Component({
     selector: "mini-chat",
     templateUrl: "./miniChat.component.html",
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MiniChatComponent implements OnInit {
+export class MiniChatComponent implements OnInit, OnDestroy {
+    private sub: Subscription;
+    private updater$: Subscription;
     public messageForm: FormGroup;
+    public chatTimerForm: FormGroup;
     public items: ChatMessage[] = new Array<ChatMessage>();
     public page: number = 1;
     public roles: IRoles;
-        
+    public intervalArray: { key: string, value: number }[]
+ = [{ key: "---", value: 0 },
+ { key: "15 сек", value: 15 },
+ { key: "30 сек", value: 30 },
+ { key: "1 мин", value: 60 },
+ { key: "2 мин", value: 120 }];
+
     constructor(private service: ChatMessageService,
         private route: ActivatedRoute,
         private formBuilder: FormBuilder,
@@ -27,6 +38,7 @@ export class MiniChatComponent implements OnInit {
         private configuration: Configuration,
         private sanitizer: DomSanitizer,
         private rolesChecked: RolesCheckedService,
+private localStorage: LocalStorageService,
         private dialog: MdDialog) {
     }
 
@@ -34,6 +46,10 @@ export class MiniChatComponent implements OnInit {
         this.roles = this.rolesChecked.checkRoles();
         this.initForm();
         this.update();
+    }
+
+    public ngOnDestroy() {
+        if(this.updater$) { this.updater$.unsubscribe(); }
     }
 
     public update(): void {
@@ -66,6 +82,23 @@ export class MiniChatComponent implements OnInit {
                 }
             },
             e => console.log(e));
+    }
+
+    public updateSchedule(event: any): void {
+        this.scheduleUpdate(event.value);
+        this.localStorage.setChatUpdateTime(event.value);
+    }
+
+    private scheduleUpdate(selectedValue: number) {
+        if (selectedValue === 0) {
+            if (this.updater$) {
+                this.updater$.unsubscribe();
+            }
+        } else {
+            this.updater$ = Observable.interval(1000 * selectedValue)
+                .map(x => this.update())
+                .subscribe();
+        }
     }
 
     private delete(index: number): void {
@@ -101,6 +134,14 @@ export class MiniChatComponent implements OnInit {
         });
         this.messageForm.valueChanges.subscribe(() => {
             this.cd.markForCheck();
+        });
+
+        let timerValue: number = this.localStorage.getChatUpdateTime();
+        if (timerValue) {
+            this.scheduleUpdate(timerValue);
+        }
+        this.chatTimerForm = this.formBuilder.group({
+            'timerValue': [timerValue]
         });
     }
 }
