@@ -120,8 +120,7 @@ export class EditorComponent implements ControlValueAccessor {
         const common: string =
             `bold italic underline strikethrough | emoticons `;//poiler-add spoiler-remove`;
         const type1: string = `styleselect| link image media | alignleft aligncenter alignright alignjustify
-                                 | bullist numlist | outdent indent | forecolor backcolor |${
-            common} | fontsizeselect`;
+                                 | bullist numlist | outdent indent | forecolor backcolor | ${common} | fontsizeselect`;
         const type2: string = `undo redo | fullscreen | colorpicker ${type1}` ;
         if (this.type === 1) {
             return type1;

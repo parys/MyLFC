@@ -36,9 +36,13 @@ export class MaterialDetailComponent implements OnInit, OnDestroy {
     public ngOnInit(): void {
         this.roles = this.rolesChecked.checkRoles();
         this.sub = this.route.params.subscribe(params => {
-            this.service.getSingle(+params["id"])
-                .subscribe(data => this.parse(data),
-                    error => console.log(error));
+            if (+params["id"] === 0) {
+                this.router.navigate(["/"]); //bug temporary workaround
+            } else {
+                this.service.getSingle(+params["id"])
+                    .subscribe(data => this.parse(data),
+                        error => console.log(error));
+            }
         });
     }
 

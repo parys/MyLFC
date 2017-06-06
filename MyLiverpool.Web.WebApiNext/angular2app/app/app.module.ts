@@ -49,6 +49,7 @@ import 'rxjs/add/operator/mergeMap';
         angMaterial.MdDatepickerModule,
         angMaterial.MdDialogModule,
         angMaterial.MdInputModule,
+        angMaterial.MdMenuModule,
         angMaterial.MdNativeDateModule,
         angMaterial.MdSnackBarModule,
         angMaterial.MdSelectModule,

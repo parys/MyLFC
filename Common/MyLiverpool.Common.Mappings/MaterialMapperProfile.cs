@@ -31,7 +31,7 @@ namespace MyLiverpool.Common.Mappings
             CreateMap<Material, MaterialDto>()
                 .ForMember(dest => dest.AdditionTime, src => src.MapFrom(x => x.AdditionTime))
                 .ForMember(dest => dest.UserId, src => src.MapFrom(x => x.AuthorId))
-                .ForMember(dest => dest.Username, src => src.MapFrom(x => x.Author.UserName))
+                .ForMember(dest => dest.UserName, src => src.MapFrom(x => x.Author.UserName))
                 .ForMember(dest => dest.Brief, src => src.MapFrom(x => x.Brief))
                 .ForMember(dest => dest.CanCommentary, src => src.MapFrom(x => x.CanCommentary))
                 .ForMember(dest => dest.CommentsCount, src => src.Ignore())

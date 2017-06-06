@@ -1,19 +1,17 @@
-﻿<div>
-    <h3>Тренерский штаб</h3>
-    <div *ngFor="let person of items" class="col-xs-12 col-sm-5 col-md-4 col-lg-3">
+﻿<h3>Тренерский штаб</h3>
+<div class="flex-space-around">
+    <div *ngFor="let person of items">
         <md-card class="stuff-card">
             <md-card-header>
-                <!--<div md-card-avatar class="example-header-image"></div>-->
-                <md-card-title [textContent]="person.russianName"></md-card-title>
+                <md-card-title role="button" *ngIf="roles.isAdminAssistant" [routerLink]="['/persons', person.id, 'edit']" [textContent]="person.russianName"></md-card-title>
+                <md-card-title *ngIf="!roles.isAdminAssistant" [textContent]="person.russianName"></md-card-title>
                 <md-card-subtitle [textContent]="person.position"></md-card-subtitle>
             </md-card-header>
             <img md-card-image [src]="person.photo" [alt]="person.russianName">
             <md-card-content>
-                <!--<div *ngIf="person.position">Позиция/должность: <span [textContent]="person.position"></span></div>-->
                 <p *ngIf="person.country"><span [textContent]="person.country"></span></p>
                 <p><span [textContent]="person.birthday | date"></span></p>
             </md-card-content>
         </md-card>
     </div>
 </div>
-

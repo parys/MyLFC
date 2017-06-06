@@ -5,8 +5,8 @@
     public categoryName: string;
     public additionTime: Date;
     public commentsCount: number;
-    public  userId: number;
-    public username: string;
+    public userId: number;
+    public userName: string;
     public brief: string;
     public message: string;
     public reads: number;

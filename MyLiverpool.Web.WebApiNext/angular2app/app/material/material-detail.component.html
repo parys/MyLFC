@@ -17,6 +17,7 @@
                 <li *ngIf="item.source"><label>Источник:</label> <a [href]="sanitizeByUrl(item.source)" target="_blank" [textContent]="getShortLink(item.source)"></a></li>
                 <li><label>Дата добавления:</label> <span [textContent]="item.additionTime | date:'medium'"></span></li>
                 <li><label>Категория:</label> <a [routerLink]="[+item.type === 1 ? '/news' : '/blogs']" [queryParams]="{page: 1, categoryId: item.categoryId}"> <span [textContent]="item.categoryName"></span> </a></li>
+                <li><label>Автор:</label> <a [routerLink]="['/users', item.userId ]" [textContent]="item.userName"></a></li>
             </ul>
         </div>
     </div>

@@ -21,7 +21,7 @@ namespace MyLiverpool.Business.Dto
 
         public int UserId { get; set; }
 
-        public string Username { get; set; }
+        public string UserName { get; set; }
 
         public string Title { get; set; }
 

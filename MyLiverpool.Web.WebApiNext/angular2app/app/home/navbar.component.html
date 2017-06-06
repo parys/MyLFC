@@ -2,63 +2,69 @@
     <div class="navbar-collapse row" style="margin-right: 0; padding-right: 0;"> <!--todo need some research-->
         <ul class="nav navbar-nav col-xs-10 col-sm-10 col-md-10 flex-vertical-center flex-wrap" style="font-size: large">
             <!--<li><a [routerLink]="['/']" style="color: aliceblue; font-weight: bold;">My<span style="color: yellow;">LFC</span>.ru</a></li>-->
-            <li><a [routerLink]="['/']">
+            <li><a role="button" [routerLink]="['/news', 0]">
                 <img src="/content/logo29.png" style="width: 310px; background-color: lightgray; border-radius: 10px; margin: -5px; border: 2px solid white" alt="MyLFC.ru"/>
             </a></li>
-            <li class="dropdown">
-                <a [routerLink]="['/news']" [queryParams]="{page: 1}" class="dropdown-toggle" data-toggle="">Новости<b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    <li *ngIf="roles.isNewsmaker"><a [routerLink]="['/news', 0, 'edit']">Добавить</a></li>
-                    <li><a [routerLink]="['/newsCategories']">Категории</a></li>
-                </ul>
+            <li>
+                <a role="button" [mdMenuTriggerFor]="newsMenu">
+                    Новости<b class="caret"></b>
+                </a>
+                <md-menu #newsMenu="mdMenu">
+                    <button [routerLink]="['/news']" [queryParams]="{page: 1}" md-menu-item>Новости</button>
+                    <button *ngIf="roles.isNewsmaker" [routerLink]="['/news', 0, 'edit']" md-menu-item>Добавить</button>
+                    <button [routerLink]="['/newsCategories']" md-menu-item>Категории</button>
+                </md-menu>
             </li>
-            <li class="dropdown">
-                <a [routerLink]="['/blogs']" [queryParams]="{page: 1}" class="dropdown-toggle" data-toggle="">Блоги<b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    <li *ngIf="roles.isAuthor"><a [routerLink]="['/blogs', 0, 'edit']">Добавить</a></li>
-                    <li><a [routerLink]="['/blogCategories']">Категории</a></li>
-                </ul>
+            <li>
+                <a role="button" [mdMenuTriggerFor]="blogsMenu">
+                    Блоги<b class="caret"></b>
+                </a>
+                <md-menu #blogsMenu="mdMenu">
+                    <button [routerLink]="['/blogs']" [queryParams]="{page: 1}" md-menu-item>Новости</button>
+                    <button *ngIf="roles.isAuthor" [routerLink]="['/blogs', 0, 'edit']" md-menu-item>Добавить</button>
+                    <button [routerLink]="['/blogCategories']" md-menu-item>Категории</button>
+                </md-menu>
             </li>
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="">ФК Ливерпуль<b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    <li><a [routerLink]="['/clubHistory']">История</a></li>
-                    <li><a [routerLink]="['/aboutClub']">О Клубе</a></li>
-                    <li><a [routerLink]="['/stuff']">Тренерский штаб</a></li>
-                    <li><a [routerLink]="['/squad']">Cостав</a></li>
-                </ul>
+            <li>
+                <a role="button" [mdMenuTriggerFor]="fcClub">
+                    ФК Ливерпуль<b class="caret"></b>
+                </a>
+                <md-menu #fcClub="mdMenu">
+                    <button [routerLink]="['/clubHistory']" md-menu-item>История</button>
+                    <button [routerLink]="['/aboutClub']" md-menu-item>О Клубе</button>
+                    <button [routerLink]="['/stuff']" md-menu-item>Тренерский штаб</button>
+                    <button [routerLink]="['/squad']" md-menu-item>Состав</button>
+                </md-menu>
             </li>
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="">Сезон<b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    <li><a [routerLink]="['/seasons/calendar']">Календарь</a></li>
-                    <!--<li><a [routerLink]="['/season/eplTable']">Полная таблица АПЛ</a></li>-->
-                    <li><a [routerLink]="['/players/statistics']">Статистика игроков</a></li>
-                    <li *ngIf="roles.isAdmin"><a [routerLink]="['/seasons']">Список сезонов</a></li>
-                </ul>
+            <li>
+                <a role="button" [mdMenuTriggerFor]="seasonMenu">
+                    Сезон<b class="caret"></b>
+                </a>
+                <md-menu #seasonMenu="mdMenu">
+                    <button [routerLink]="['/seasons/calendar']" md-menu-item>Календарь</button>
+                    <!--<button [routerLink]="['/season/eplTable']" md-menu-item>Полная таблица АПЛ</button>-->
+                    <button [routerLink]="['/players/statistics']" md-menu-item>Статистика игроков</button>
+                    <button *ngIf="roles.isAdmin" [routerLink]="['/seasons']" md-menu-item>Список сезонов</button>
+                </md-menu>
             </li>
-            <li class="dropdown">
-                <!-- <a href="#" class="dropdown-toggle" data-toggle="">Пользователи <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-
-                <li-->
+            <li>
                 <a [routerLink]="['/users']" [queryParams]="{page: 1}">Пользователи</a>
-                <!--/li>
-                </ul-->
             </li>
             <li><a [routerLink]="['/rules']"><b class="text-danger color-red" style=" font-family: 'Beauty';">Правила</b></a></li>
             <!--li> <a [routerLink]="['/forum']">Форум</a></!--li>-->
-            <li class="dropdown" *ngIf="roles.isNewsmaker || roles.isAuthor">
-                <a class="dropdown-toggle" data-toggle="">Админка<b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    <li *ngIf="roles.isAdminAssistant"><a [routerLink]="['/matches']">Матчи</a></li>
-                    <li *ngIf="roles.isAdminAssistant"><a [routerLink]="['/clubs']">Клубы</a></li>
-                    <li *ngIf="roles.isAdminAssistant"><a [routerLink]="['/roleGroups']">Роли</a></li>
-                    <li *ngIf="roles.isAdminAssistant"><a [routerLink]="['/persons']">Люди</a></li>
-                    <li *ngIf="roles.isAdminAssistant"><a [routerLink]="['/stadiums']">Стадионы</a></li>
-                    <li *ngIf="roles.isNewsmaker || roles.isAuthor"> <a [routerLink]="['/images']">Изображения</a></li>
-                    <li *ngIf="roles.isLogined"> <a [routerLink]="['/materialComments']" [queryParams]="{page: 1}">Комментарии</a></li>
-                </ul>
+            <li *ngIf="roles.isNewsmaker || roles.isAuthor">
+                <a role="button" [mdMenuTriggerFor]="adminMenu">
+                    Админка<b class="caret"></b>
+                </a>
+                <md-menu #adminMenu="mdMenu">
+                    <button [routerLink]="['/matches']" md-menu-item>Матчи</button>
+                    <button [routerLink]="['/clubs']" md-menu-item>Клубы</button>
+                    <button [routerLink]="['/roleGroups']" md-menu-item>Роли</button>
+                    <button [routerLink]="['/persons']" md-menu-item>Люди</button>
+                    <button [routerLink]="['/stadiums']" md-menu-item>Стадионы</button>
+                    <button *ngIf="roles.isNewsmaker || roles.isAuthor" [routerLink]="['/images']" md-menu-item>Изображения</button>
+                    <button [routerLink]="['/materialComments']" [queryParams]="{page: 1}" md-menu-item>Комментарии</button>
+                </md-menu>
             </li>
         </ul>
         <div class="flex-vertical-center pull-right">

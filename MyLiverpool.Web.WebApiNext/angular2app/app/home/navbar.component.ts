@@ -6,7 +6,7 @@ import { RolesCheckedService, IRoles } from "../shared/index";
     templateUrl: "./navbar.component.html"
 })
 export class NavbarComponent {
-    roles: IRoles;
+    public roles: IRoles;
 
     constructor(private rolesChecked: RolesCheckedService) {
         this.roles = this.rolesChecked.checkRoles();
