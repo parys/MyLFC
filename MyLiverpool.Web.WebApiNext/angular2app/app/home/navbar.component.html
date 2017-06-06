@@ -1,6 +1,6 @@
 ﻿<nav class="navbar navbar-default maroon-panel row beauty-font">
     <div class="navbar-collapse row" style="margin-right: 0; padding-right: 0;"> <!--todo need some research-->
-        <ul class="nav navbar-nav col-xs-10 col-sm-10 col-md-10 flex-vertical-center flex-wrap" style="font-size: large">
+        <ul class="nav navbar-nav flex-vertical-center flex-space-around" style="font-size: large; width: 100%; ">
             <!--<li><a [routerLink]="['/']" style="color: aliceblue; font-weight: bold;">My<span style="color: yellow;">LFC</span>.ru</a></li>-->
             <li><a role="button" [routerLink]="['/news', 0]">
                 <img src="/content/logo29.png" style="width: 310px; background-color: lightgray; border-radius: 10px; margin: -5px; border: 2px solid white" alt="MyLFC.ru"/>
@@ -66,9 +66,9 @@
                     <button [routerLink]="['/materialComments']" [queryParams]="{page: 1}" md-menu-item>Комментарии</button>
                 </md-menu>
             </li>
+            <li class="" style="margin-left: auto">
+                <img alt="125 лет со дня основания ФК Ливерпуль" src="/content/liverbird3.png" style="height: 90px; margin-right: 15px; margin-top: 4px;" class="">
+            </li>
         </ul>
-        <div class="flex-vertical-center pull-right">
-            <img alt="125 лет со дня основания ФК Ливерпуль" src="/content/liverbird3.png" style="height: 90px; margin-right: 15px; margin-top: 4px;" class="">
-        </div>
     </div>
 </nav>

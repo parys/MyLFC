@@ -5,6 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Business.Dto.Filters;
@@ -22,15 +23,20 @@ namespace MyLiverpool.Business.Services
         private readonly IMapper _mapper;
         private readonly IUserService _userService;
         private readonly IPmService _pmService;
+        private readonly IEmailSender _messageService;
+        private readonly IHttpContextAccessor _accessor;
 
         private const int ItemPerPage = GlobalConstants.CommentsPerPageList;
 
-        public MaterialCommentService(IMapper mapper, IMaterialCommentRepository commentService, IUserService userService, IPmService pmService)
+        public MaterialCommentService(IMapper mapper, IMaterialCommentRepository commentService,
+            IUserService userService, IPmService pmService, IHttpContextAccessor accessor, IEmailSender messageService)
         {
             _mapper = mapper;
             _commentService = commentService;
             _userService = userService;
             _pmService = pmService;
+            _accessor = accessor;
+            _messageService = messageService;
         }
 
         public async Task<bool> DeleteAsync(int id)
@@ -66,6 +72,7 @@ namespace MyLiverpool.Business.Services
                 if (comment.ParentId.HasValue)
                 {
                     await SendNotificationToPmAsync(comment.ParentId.Value);
+                    await SendNotificationToEmailAsync(comment.ParentId.Value);
                 }
                 return result;
             }
@@ -118,9 +125,9 @@ namespace MyLiverpool.Business.Services
             var comments = await _commentService.GetOrderedByAsync(page, ItemPerPage, filter, SortOrder.Ascending, m => m.AdditionTime);
             var unitedComments = UniteComments(comments, page);
             var commentDtos = _mapper.Map<IEnumerable<MaterialCommentDto>>(unitedComments);
-            filter = filter.And(x => x.ParentId == null);//bug need to analize how get all comments for material page but count only top-level for paging
+          //  filter = filter.And(x => x.ParentId == null);//bug need to analize how get all comments for material page but count only top-level for paging
             var commentsCount = await _commentService.GetCountAsync(filter);
-            return new PageableData<MaterialCommentDto>(commentDtos, page, commentsCount);
+            return new PageableData<MaterialCommentDto>(commentDtos, page, commentsCount, ItemPerPage);
         }
 
         public async Task<bool> VerifyAsync(int id)
@@ -170,5 +177,26 @@ namespace MyLiverpool.Business.Services
             };
             await _pmService.SaveAsync(pmDto);
         }
+
+        private async Task SendNotificationToEmailAsync(int parentCommentId)
+        {
+            var comment = await _commentService.GetByIdAsync(parentCommentId);
+            const string newAnswer = "Новый ответ";
+            var user = await _userService.GetUserAsync(comment.AuthorId);
+            if (user != null)
+            {
+                await _messageService.SendEmailAsync(user.Email, newAnswer, GetNotificationEmailBody(comment));
+            }
+        }
+
+        private string GetNotificationEmailBody(MaterialComment parentComment)
+        {
+            var host = _accessor.HttpContext.Request.Host;
+            var link = parentComment.MaterialType == MaterialType.News ? "news" : "blogs";
+
+            var callbackUrl = $"http://{host}/{link}/{parentComment.MaterialId}";
+            return $"На ваш комментарий получен ответ, <a href=\"{callbackUrl}\">перейти к материалу</a>.";
+        }
+
     }
 }

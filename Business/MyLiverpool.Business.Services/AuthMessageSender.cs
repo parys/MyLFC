@@ -41,10 +41,10 @@ namespace MyLiverpool.Business.Services
             catch (Exception ex) //todo add another try to send email
             {
                 _logger.LogCritical(ex.ToString());
+              //  await SendEmailAsync(email, subject, message); how to stop after some tries
                 var e = ex;
-                throw; //add private messate to admin?
+                throw; //todo add private messate to admin?
             }
-           
         }
 
         public async Task SendEmailAsync(string subject, string message)
