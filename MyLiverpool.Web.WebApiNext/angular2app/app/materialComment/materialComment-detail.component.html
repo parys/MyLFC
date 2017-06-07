@@ -17,7 +17,7 @@
             <div class="col-xs-2 col-sm-2">
                 <img class="avatar-medium" [src]="item.photo" [alt]="item.authorUserName" />
             </div>
-            <div class="col-xs-10 col-sm-10">
+            <div class="col-xs-10 col-sm-10 container-row">
                 <p [innerHTML]="sanitizeByHtml(item.message)"></p>
             </div>
         </div>
@@ -28,7 +28,7 @@
                 <bbeditor *ngIf="isEditMode" name="answer" [value]="item.answer" formControlName="answer"></bbeditor>
             </div>
         </div>   
-        <div class="col-xs-12 col-sm-12" *ngIf="!roles.isSelf(item.authorId) && canCommentary && !isAddingMode && roles.isLogined">
+        <div class="col-xs-12 col-sm-12 container-row" *ngIf="!roles.isSelf(item.authorId) && canCommentary && !isAddingMode && roles.isLogined">
             <a role="button" (click)="showAddCommentModal()">Ответить</a>
         </div>
     </div>

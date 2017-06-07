@@ -63,8 +63,6 @@ export class MaterialCommentDetailComponent implements OnInit {
     public cancelAdding(): void {
         this.isAddingMode = false;
         this.updateFormValues();//does it need
-      //  this.cd.markForCheck();
-        this.cd.detectChanges();
     }
 
     public addComment(): void {
@@ -90,8 +88,7 @@ export class MaterialCommentDetailComponent implements OnInit {
     public cancelEdit(): void {
         this.isEditMode = false;
         this.updateFormValues();//does it need
-     //   this.cd.markForCheck();
-        this.cd.detectChanges();
+        this.cd.markForCheck();
     }
 
     public sanitizeByHtml(text: string): SafeHtml {
@@ -116,8 +113,7 @@ export class MaterialCommentDetailComponent implements OnInit {
                         this.item = undefined;
                     }
 
-            //        this.cd.markForCheck();
-                    this.cd.detectChanges();
+                    this.cd.markForCheck();
                 }
             );
     }
@@ -130,8 +126,7 @@ export class MaterialCommentDetailComponent implements OnInit {
             'answer': [answer]
         });
         this.commentForm.valueChanges.subscribe(() => {
-     //       this.cd.markForCheck();
-            this.cd.detectChanges();
+            this.cd.markForCheck();
         });
     }
     private updateFormValues(): void {
@@ -139,6 +134,7 @@ export class MaterialCommentDetailComponent implements OnInit {
         let answer = this.isEditMode ? this.item.answer : "";
         this.commentForm.get("message").patchValue(message);
         this.commentForm.get("answer").patchValue(answer);
+        this.cd.markForCheck();
     }
 
     private getComment(): MaterialComment {

@@ -10,7 +10,7 @@
                     <div class="pull-right" [textContent]="message.additionTime | date:'medium'"></div>
                     <span role="button" *ngIf="roles.isAdminAssistant" (click)="showDeleteModal(i)" class="glyphicon glyphicon-trash"></span>
                 </div>
-                <div class="col-xs-12 row" style="text-align: left;" [innerHTML]="sanitizeByHtml(message.message)">
+                <div class="col-xs-12 container-row" style="text-align: left;" [innerHTML]="sanitizeByHtml(message.message)">
                 </div>
                 <div class="col-xs-12 row">
                     <a role="button" (click)="addReply(i)"><span *ngIf="roles.isLogined && !roles.isSelf(message.authorId)" class="glyphicon glyphicon-share-alt"></span></a>

@@ -35,11 +35,11 @@ export class MaterialCommentSectionComponent implements OnInit {
                 Validators.required, Validators.minLength(3)])]
         });
         this.commentAddForm.valueChanges.subscribe(() => {
-                this.cd.detectChanges();
+                this.cd.markForCheck();
             }
         );
         this.update();
-        this.cd.detectChanges();
+        this.cd.markForCheck();
     }
 
     public pageChanged(event: any): void {
@@ -53,7 +53,7 @@ export class MaterialCommentSectionComponent implements OnInit {
             .subscribe(data => this.parsePageable(data),
             error => console.log(error), () =>
                 {
-        this.cd.detectChanges();
+                    this.cd.markForCheck();
                 });
     }
 
@@ -75,7 +75,7 @@ export class MaterialCommentSectionComponent implements OnInit {
                 },
                 error => console.log(error),
                 () => {
-                    this.cd.detectChanges();
+                    this.cd.markForCheck();
                 });
     }
 }
