@@ -95,6 +95,9 @@ namespace MyLiverpool.Data.Entities
 
         public virtual RoleGroup RoleGroup { get; set; }
 
+        public virtual UserConfig UserConfig { get; set; }
+
+
         public int RoleGroupId { get; set; }
 
         [NotMapped]

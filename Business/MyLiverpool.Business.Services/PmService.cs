@@ -50,9 +50,9 @@ namespace MyLiverpool.Business.Services
         }
 
         public async Task<bool> SaveAsync(PrivateMessageDto model)
-        {
-            await RemoveOldMessages(model.SenderId);
-            await RemoveOldMessages(model.ReceiverId);
+        {//bug ??
+           // await RemoveOldMessages(model.SenderId);
+           // await RemoveOldMessages(model.ReceiverId);
 
             var message = _mapper.Map<PrivateMessage>(model);
             message.SentTime = DateTime.Now;

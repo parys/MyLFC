@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -42,6 +43,7 @@ namespace MyLiverpool.Data.ResourceAccess
         public DbSet<Person> Persons { get; set; }
         public DbSet<Season> Seasons { get; set; }
         public DbSet<Stadium> Stadiums { get; set; }
+        public DbSet<UserConfig> UserConfigs { get; set; }
 
         //public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         //{
@@ -70,16 +72,18 @@ namespace MyLiverpool.Data.ResourceAccess
             
             modelBuilder.Entity<Material>().HasOne(x => x.Category).WithMany(x => x.Materials).HasForeignKey(x => x.CategoryId);
             modelBuilder.Entity<MaterialComment>().HasOne(u => u.Material).WithMany(x => x.Comments).HasForeignKey(x => x.MaterialId);
-
-            //modelBuilder.Entity<MaterialComment>().HasOptional(x => x.Parent).WithMany(x => x.Children).HasForeignKey(x => x.ParentId);
+            
 
             modelBuilder.Entity<ForumSubsection>().HasOne(x => x.Section).WithMany(x => x.Subsections).HasForeignKey(x => x.SectionId);
             modelBuilder.Entity<ForumTheme>().HasOne(x => x.Subsection).WithMany(x => x.Themes).HasForeignKey(x => x.SubsectionId);
             modelBuilder.Entity<ForumMessage>().HasOne(x => x.Theme).WithMany(x => x.Messages).HasForeignKey(x => x.ThemeId);
 
             modelBuilder.Entity<User>().HasOne(x => x.RoleGroup).WithMany(x => x.Users).HasForeignKey(x => x.RoleGroupId);
-          //  modelBuilder.Entity<Role>().HasMany(x => x.RoleRoleGroups);
-         //   modelBuilder.Entity<RoleGroup>().HasMany(x => x.RoleGroups);
+
+            modelBuilder.Entity<UserConfig>().HasKey(x => x.UserId);
+            modelBuilder.Entity<UserConfig>().Property(x => x.UserId).ValueGeneratedNever();
+            modelBuilder.Entity<UserConfig>().HasOne(x => x.User).WithOne(x => x.UserConfig).IsRequired(true);
+
             modelBuilder.Entity<RoleRoleGroup>().HasKey(t => new { t.RoleId, t.RoleGroupId });
             modelBuilder.Entity<RoleRoleGroup>()
                .HasOne(pt => pt.Role)
