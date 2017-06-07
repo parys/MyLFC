@@ -1,6 +1,6 @@
 ﻿<div *ngIf="item">
     <div class="flex-vertical-center material-header">
-        <h3 class="col-xs-12 col-sm-12">
+        <h3 class="col-xs-12 col-sm-12 container-row">
             <span class="beauty-font" [textContent]="item.title"></span>
             <span class="pull-right" *ngIf="roles.isEditor || roles.isSelf(item.userId)">
                 <a [hidden]="!item.pending || !roles.isEditor" (click)="showActivateModal(i)"><span class="glyphicon glyphicon-ok"></span></a>
@@ -9,7 +9,7 @@
             </span>
         </h3>
     </div>
-    <div class="col-xs-12 col-sm-12">
+    <div class="col-xs-12 col-sm-12 container-row">
         <article class="material-body" [innerHTML]="sanitizeByHtml(item.message)"></article>
         <div class="alert-warning top10">
             <ul class="list-inline">
