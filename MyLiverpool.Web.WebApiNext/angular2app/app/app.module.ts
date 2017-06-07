@@ -20,9 +20,7 @@ import { PersonModule } from "./person/index";
 import * as roleGroup from "./roleGroup/index";
 import * as season from "./season/index";
 import { SharedModule } from "./shared/index";
-import { UserDetailComponent } from "./user/user-detail.component";
-import { UserService } from "./user/user.service";
-import { UserListComponent } from "./user/user-list.component";
+import * as user from "./user/index";
 import * as pm from "./pm/index";
 import { StadiumModule } from "./stadium/index";
 import { WishModule } from "./wish/index";
@@ -53,6 +51,7 @@ import 'rxjs/add/operator/mergeMap';
         angMaterial.MdNativeDateModule,
         angMaterial.MdSnackBarModule,
         angMaterial.MdSelectModule,
+        angMaterial.MdSlideToggleModule,
         angMaterial.MdTabsModule,
         Ng2AutoCompleteModule,
         Ng2BreadcrumbModule.forRoot(),
@@ -112,8 +111,9 @@ import 'rxjs/add/operator/mergeMap';
         material.MaterialDetailComponent,
         material.MaterialEditComponent,
         material.MaterialActivateDialogComponent,
-        UserDetailComponent,
-        UserListComponent
+        user.UserDetailComponent,
+        user.UserListComponent,
+        user.UserConfigComponent,
     ], // components and directives
     bootstrap: [
         AppComponent], // root component
@@ -141,7 +141,7 @@ entryComponents: [
         Configuration,
         material.MaterialService,
         Title,
-        UserService
+        user.UserService
     ]
 })
 export class AppModule { }

@@ -227,5 +227,25 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
         {
             return await _userManager.FindByIdAsync(userId.ToString());
         }
+
+        public async Task<UserConfig> GetUserConfigAsync(int userId)
+        {
+            return await _context.UserConfigs.FindAsync(userId);
+        }
+
+        public async Task<UserConfig> CreateOrUpdateUserConfigAsync(UserConfig config)
+        {
+            var configEntity = await _context.UserConfigs.FindAsync(config.UserId);
+            if (configEntity != null)
+            {
+                _context.UserConfigs.Update(config);
+            }
+            else
+            {
+                await _context.UserConfigs.AddAsync(config);
+            }
+            await SaveChangesAsync();
+            return config;
+        }
     }
 }

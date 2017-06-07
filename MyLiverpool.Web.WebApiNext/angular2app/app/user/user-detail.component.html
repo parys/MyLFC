@@ -24,6 +24,7 @@
                     Сбросить аватар
                 </button>
                 <button *ngIf="roles.isSelf(item.id)" class="btn btn-danger" [routerLink]="['/changePassword']">Изменить пароль</button>
+                <button md-raised-button *ngIf="roles.isSelf(item.id)" [routerLink]="['./settings']">Изменить настройки</button>
                 <br><br>
             </div>
         </div>

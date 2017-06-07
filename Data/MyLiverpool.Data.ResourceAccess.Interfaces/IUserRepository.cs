@@ -49,5 +49,9 @@ namespace MyLiverpool.Data.ResourceAccess.Interfaces
         Task<IdentityResult> CreateAsync(User user, string password);
 
         Task<User> GetByIdFromManagerAsync(int userId);
+
+        Task<UserConfig> GetUserConfigAsync(int userId);
+
+        Task<UserConfig> CreateOrUpdateUserConfigAsync(UserConfig config);
     }
 }

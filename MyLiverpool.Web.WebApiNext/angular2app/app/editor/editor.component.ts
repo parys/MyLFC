@@ -139,7 +139,7 @@ export class EditorComponent implements ControlValueAccessor {
             // autoresize_overflow_padding: 0,
             selector: `#${this.elementId}`,
             schema: "html5",
-            fontsize_formats: "8pt 9pt 10pt 11pt 12pt 26pt 36pt",
+            fontsize_formats: "8pt 9pt 10pt 11pt 12pt 14pt 16pt 18pt",
             //forced_root_block: "",
             // height: 500,        
             forced_root_block: false,

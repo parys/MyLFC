@@ -179,6 +179,20 @@ namespace MyLiverpool.Business.Services
             }
         }
 
+        public async Task<UserConfigDto> GetUserConfigAsync(int userId)
+        {
+            var model = await _userRepository.GetUserConfigAsync(userId) ?? new UserConfig();
+            return _mapper.Map<UserConfigDto>(model);
+        }
+
+        public async Task<UserConfigDto> UpdateUserConfigAsync(UserConfigDto config, int currentUserId)
+        {
+            var model = _mapper.Map<UserConfig>(config);
+            model.UserId = currentUserId;
+            var result = await _userRepository.CreateOrUpdateUserConfigAsync(model);
+            return _mapper.Map<UserConfigDto>(result);
+        }
+
         #region private
 
         private IEnumerable<string> GetRolesToDelete(IEnumerable<Role> oldRoles, IEnumerable<Role> newRoles)

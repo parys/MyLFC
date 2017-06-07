@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyLiverpool.Business.Contracts;
+using MyLiverpool.Business.Dto;
 using MyLiverpool.Business.Dto.Filters;
 using MyLiverpool.Data.Common;
 using MyLiverpool.Web.WebApiNext.Extensions;
@@ -106,7 +107,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Returns first 
         /// </summary>
         /// <param name="typed"></param>
         /// <returns></returns>
@@ -117,6 +118,28 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
            //bug var userId = User.GetUserId();
            // result = result.Where(x => x.Id != userId);
             return Ok(result);
+        }
+
+        /// <summary>
+        /// Returns current user config.
+        /// </summary>
+        /// <returns>Config.</returns>
+        [Authorize, HttpGet("config")]
+        public async Task<IActionResult> GetConfigAsync()
+        {
+            var result = await _userService.GetUserConfigAsync(User.GetUserId());
+            return Json(result);
+        }
+
+        /// <summary>
+        /// Updates current user config.
+        /// </summary>
+        /// <returns>Updated config.</returns>
+        [Authorize, HttpPut("config")]
+        public async Task<IActionResult> GetConfigAsync([FromBody]UserConfigDto dto)
+        {
+            var result = await _userService.UpdateUserConfigAsync(dto, User.GetUserId());
+            return Json(result);
         }
 
         /// <summary>

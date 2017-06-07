@@ -71,8 +71,7 @@ namespace MyLiverpool.Business.Services
                 result.Photo = await _userService.GetPhotoPathAsync(comment.AuthorId);
                 if (comment.ParentId.HasValue)
                 {
-                    await SendNotificationToPmAsync(comment.ParentId.Value);
-                    await SendNotificationToEmailAsync(comment.ParentId.Value);
+                    await SendNotificationsAsync(comment.ParentId.Value);
                 }
                 return result;
             }
@@ -140,6 +139,20 @@ namespace MyLiverpool.Business.Services
             return true;
         }
 
+        private async Task SendNotificationsAsync(int parentCommentId)
+        {
+            var parentComment = await _commentService.GetByIdAsync(parentCommentId);
+            var userConfig = await _userService.GetUserConfigAsync(parentComment.AuthorId);
+            if (userConfig.IsReplyToPmEnabled)
+            {
+                await SendNotificationToPmAsync(parentComment);
+            }
+            if (userConfig.IsReplyToEmailEnabled)
+            {
+                await SendNotificationToEmailAsync(parentComment);
+            }
+        }
+
         private static IEnumerable<MaterialComment> UniteComments(ICollection<MaterialComment> comments, int page)
         {
             var startNumber = ItemPerPage * (page - 1) + 1;
@@ -163,29 +176,27 @@ namespace MyLiverpool.Business.Services
             return comments.Where(c => c.ParentId == null);
         }
 
-        private async Task SendNotificationToPmAsync(int parentCommentId)
+        private async Task SendNotificationToPmAsync(MaterialComment parentComment)
         {
-            var comment = await _commentService.GetByIdAsync(parentCommentId);
-            var link = comment.MaterialType == MaterialType.News ? "news" : "blogs";
+            var link = parentComment.MaterialType == MaterialType.News ? "news" : "blogs";
             var pmDto = new PrivateMessageDto
             {
                 SenderId = GlobalConstants.MyLfcUserId,
-                ReceiverId = comment.AuthorId,
+                ReceiverId = parentComment.AuthorId,
                 SentTime = DateTimeOffset.Now,
                 Title = "Новый ответ",
-                Message = $"На ваш комментарий получен ответ.[{link};{comment.MaterialId}]"
+                Message = $"На ваш комментарий получен ответ.[{link};{parentComment.MaterialId}]"
             };
             await _pmService.SaveAsync(pmDto);
         }
 
-        private async Task SendNotificationToEmailAsync(int parentCommentId)
+        private async Task SendNotificationToEmailAsync(MaterialComment parentComment)
         {
-            var comment = await _commentService.GetByIdAsync(parentCommentId);
             const string newAnswer = "Новый ответ";
-            var user = await _userService.GetUserAsync(comment.AuthorId);
+            var user = await _userService.GetUserAsync(parentComment.AuthorId);
             if (user != null)
             {
-                await _messageService.SendEmailAsync(user.Email, newAnswer, GetNotificationEmailBody(comment));
+                await _messageService.SendEmailAsync(user.Email, newAnswer, GetNotificationEmailBody(parentComment));
             }
         }
 
