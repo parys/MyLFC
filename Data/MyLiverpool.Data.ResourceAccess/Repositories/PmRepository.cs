@@ -19,7 +19,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
         }
         public async Task<PrivateMessage> GetByIdAsync(int id)
         {//bug
-            return await _context.PrivateMessages.Include(x => x.Receiver).Include(x => x.Sender).Take(300).FirstOrDefaultAsync(x => x.Id == id);
+            return await _context.PrivateMessages.Include(x => x.Receiver).Include(x => x.Sender).FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<PrivateMessage> AddAsync(PrivateMessage entity)
@@ -69,7 +69,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
         }
 
         public async Task<IEnumerable<PrivateMessage>> GetAsync(Expression<Func<PrivateMessage, bool>> filter = null)
-        {
+        {//should be better test
             return await _context.PrivateMessages.Include(x => x.Receiver).Include(x=> x.Sender).Where(filter).ToListAsync();
         }
     }
