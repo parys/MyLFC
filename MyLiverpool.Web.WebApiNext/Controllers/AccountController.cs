@@ -11,8 +11,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// <summary>
     /// Controller for manage user accounts.
     /// </summary>
-    [Route("api/v1/[controller]")]
-    [Authorize]
+    [Authorize, Route("api/v1/[controller]")]
     public class AccountController : Controller
     {
         private const string LocalLoginProvider = "Local";

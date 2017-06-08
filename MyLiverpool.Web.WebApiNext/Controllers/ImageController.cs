@@ -39,7 +39,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <param name="path">Path to show.</param>
         /// <returns>List of folders and files.</returns>
-        [HttpGet, Route("")]
+        [HttpGet("")]
         public async Task<IActionResult> Get([FromQuery]string path)
         {
             List<ImageDto> files = new List<ImageDto>();

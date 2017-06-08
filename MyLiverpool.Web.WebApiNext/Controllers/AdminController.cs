@@ -27,7 +27,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// Updates epl table.
         /// </summary>
         /// <returns>Result of update.</returns>
-        [Authorize(Roles = nameof(RolesEnum.AdminStart)), HttpGet("updateTable")]
+        [Authorize(Roles = nameof(RolesEnum.InfoStart)), HttpGet("updateTable")]
         public async Task<IActionResult> UpdateAplTable()
         {
             var result = await _adminService.UpdateTableAsync();

@@ -13,13 +13,15 @@ export class RolesCheckedService {
         isAdminAssistant: false,
         isAdmin: false,
         isAuthor: false,
+        isInformer: false,
+        isMainInformer: false,
         isSelf: (userId: number): boolean => this.isSelf(userId)
     };
     private roles: string[];
 
     constructor(
         private localStorage: LocalStorageService) {
-            this.checkRoles();
+        this.checkRoles();
     }
 
     public checkRoles(): IRoles {
@@ -36,6 +38,8 @@ export class RolesCheckedService {
         this.checkAdminAssistant();
         this.checkAdmin();
         this.checkAuthor();
+        this.checkInformer();
+        this.checkMainInformer();
         return this.checkedRoles;
     }
 
@@ -48,44 +52,57 @@ export class RolesCheckedService {
         return (userId === authorId);
     }
 
-    private checkEditor():void {
+    private checkEditor(): void {
         if (this.checkRole("NewsFull") || this.checkRole("BlogFull")) {
             this.checkedRoles.isEditor = true;
         }
     }
 
-    private checkNewsmaker():void {
+    private checkNewsmaker(): void {
         if (this.checkRole("NewsStart")) {
             this.checkedRoles.isNewsmaker = true;
         }
     }
 
-    private checkModerator():void {
+    private checkModerator(): void {
         if (this.checkRole("UserStart")) {
             this.checkedRoles.isModerator = true;
         }
     }
 
-    private checkMainModerator():void {
+    private checkMainModerator(): void {
         if (this.checkRole("UserFull")) {
             this.checkedRoles.isMainModerator = true;
         }
     }
 
-    private checkAdminAssistant():void {
+    private checkAdminAssistant(): void {
         if (this.checkRole("AdminStart")) {
             this.checkedRoles.isAdminAssistant = true;
         }
     }
 
-    private checkAdmin():void {
+    private checkAdmin(): void {
         if (this.checkRole("AdminFull")) {
             this.checkedRoles.isAdmin = true;
         }
     }
-    private checkAuthor():void {
+
+    private checkAuthor(): void {
         if (this.checkRole("BlogStart")) {
             this.checkedRoles.isAuthor = true;
+        }
+    }
+
+    private checkInformer(): void {
+        if (this.checkRole("InfoStart")) {
+            this.checkedRoles.isInformer = true;
+        }
+    }
+
+    private checkMainInformer(): void {
+        if (this.checkRole("InfoFull")) {
+            this.checkedRoles.isMainInformer = true;
         }
     }
 

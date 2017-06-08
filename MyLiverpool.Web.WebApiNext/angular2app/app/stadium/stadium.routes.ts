@@ -12,7 +12,7 @@ export const stadiumRoutes: Routes = [
                 component: StadiumListComponent,
                 data: {
                     title: "Стадионы",
-                    roles: ["adminStart"]
+                    roles: ["infoStart"]
                 },
                 canActivate: [RoleGuard]
             },
@@ -24,7 +24,7 @@ export const stadiumRoutes: Routes = [
                         component: StadiumEditComponent,
                         data: {
                             title: "Редактирование стадиона",
-                            roles: ["adminStart"]
+                            roles: ["infoStart"]
                         },
                         canActivate: [RoleGuard]
                     }

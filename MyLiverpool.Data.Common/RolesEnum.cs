@@ -11,8 +11,8 @@
         UserFull = 6,
         AdminStart = 7,
         AdminFull = 8,
-        ForumStart = 9,
-        ForumFull = 10,
+        InfoStart = 9,
+        InfoFull = 10,
         Intern = 11,
     }
 }

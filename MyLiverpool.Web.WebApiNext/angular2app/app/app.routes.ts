@@ -28,5 +28,5 @@ export const routes: Routes = [
     ...seasonRoutes,
     ...stadiumRoutes,
     ...userRoutes,
-    { path: "", component: MaterialListComponent, data: { title: "MyLFC.ru - Сайт русскоязычных болельщиков \"Ливерпуля\"", breadcrumb: "Главная", type: "Both" } }
+    { path: "", component: MaterialListComponent, data: { title: "MyLFC.ru - Сайт русскоязычных болельщиков ФК \"Ливерпуль\"", breadcrumb: "Главная", type: "Both" } }
 ];

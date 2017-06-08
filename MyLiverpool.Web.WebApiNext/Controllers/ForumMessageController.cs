@@ -13,8 +13,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// <summary>
     /// Manages forum messages.
     /// </summary>
-    [Route("api/v1/[controller]")]
-    [Authorize]
+    [Authorize, Route("api/v1/[controller]")]
     public class ForumMessageController : Controller
     {
         private readonly IForumMessageService _forumMessageService;

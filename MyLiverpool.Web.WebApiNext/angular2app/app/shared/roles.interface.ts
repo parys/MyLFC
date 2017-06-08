@@ -7,5 +7,7 @@
     isAdminAssistant: boolean;
     isAdmin: boolean;
     isAuthor: boolean;
+    isInformer: boolean;
+    isMainInformer: boolean;
     isSelf(userId: number): boolean;
 }

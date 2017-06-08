@@ -35,7 +35,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <param name="dto">New person model.</param>
         /// <returns>Created model.</returns>
-        [Authorize(Roles = nameof(RolesEnum.AdminStart)), HttpPost("")] //todo edit role for this
+        [Authorize(Roles = nameof(RolesEnum.InfoStart)), HttpPost("")]
         public async Task<IActionResult> CreateAsync([FromBody]PersonDto dto)
         {
             if (dto == null || !ModelState.IsValid)
@@ -51,7 +51,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <param name="page">Current page.</param>
         /// <returns>Persons list.</returns>
-        [Authorize, HttpGet("list")]
+        [AllowAnonymous, HttpGet("list")]
         public async Task<IActionResult> GetListAsync([FromQuery]int page = 1)
         {
             if (page < 1)
@@ -78,7 +78,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <param name="id">The identifier of person.</param>
         /// <returns>Person.</returns>
-        [Authorize, HttpGet("{id:int}")]
+        [AllowAnonymous, HttpGet("{id:int}")]
         public async Task<IActionResult> GetAsync(int id)
         {
             var result = await _personService.GetByIdAsync(id);
@@ -100,7 +100,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// Setups best player.
         /// </summary>
         /// <returns>True if setup successfully.</returns>
-        [Authorize(Roles = nameof(RolesEnum.AdminStart)), HttpPut("bestPlayer/{personId:int}")] //todo change role
+        [Authorize(Roles = nameof(RolesEnum.InfoStart)), HttpPut("bestPlayer/{personId:int}")]
         public async Task<IActionResult> SetBestPlayerAsync(int personId)
         {
             await _personService.SetBestPlayerAsync(personId);
@@ -113,7 +113,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <param name="id">The identifier.</param>
         /// <param name="dto">Modified person entity.</param>
         /// <returns>Result of editing.</returns>
-        [Authorize(Roles = nameof(RolesEnum.AdminStart)), HttpPut("{id:int}")]
+        [Authorize(Roles = nameof(RolesEnum.InfoStart)), HttpPut("{id:int}")]
         public async Task<IActionResult> EditAsync(int id, [FromBody]PersonDto dto)
         {
             if (id != dto.Id || !ModelState.IsValid)
@@ -129,7 +129,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <param name="id">The identifier of deleting person.</param>
         /// <returns>Result of deleting.</returns>
-        [Authorize(Roles = nameof(RolesEnum.AdminStart)), HttpDelete("{id:int}")] //todo edit role
+        [Authorize(Roles = nameof(RolesEnum.InfoStart)), HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteAsync(int id)
         {
             var result = await _personService.DeleteAsync(id);
@@ -156,7 +156,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// Uploads a person photo.
         /// </summary>
         /// <returns>Result of uploading new photo.</returns>
-        [Authorize(Roles = nameof(RolesEnum.AdminStart)), HttpPost("photo/{name}")]
+        [Authorize(Roles = nameof(RolesEnum.InfoStart)), HttpPost("photo/{name}")]
         public async Task<ActionResult> UploadPhotoAsync(string name)
         {
             if (Request.Form.Files != null && Request.Form.Files.Count > 0)

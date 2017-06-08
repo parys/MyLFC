@@ -14,7 +14,10 @@ export const seasonRoutes: Routes = [
             {
                 path: ":id/edit",
                 component: SeasonEditComponent,
-                data: { title: "Редактирование сезона", roles: ["adminStart"] },
+                data: {
+                     title: "Редактирование сезона",
+                     roles: ["infoStart"]
+                },
                 canActivate: [RoleGuard]
             },
             { path: "calendar", component: SeasonCalendarComponent, data: { title: "Календарь" } }

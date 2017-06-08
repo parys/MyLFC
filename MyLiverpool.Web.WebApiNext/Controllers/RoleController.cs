@@ -9,8 +9,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// <summary>
     /// Manages roles.
     /// </summary>
-    [Route("api/v1/[controller]")]
-    [Authorize]
+    [Authorize, Route("api/v1/[controller]")]
     public class RoleController : Controller
     {
         private readonly IRoleService _roleService;

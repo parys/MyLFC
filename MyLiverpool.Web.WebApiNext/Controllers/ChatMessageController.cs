@@ -43,7 +43,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <param name="id">Message identifier.</param>
         /// <returns>Result of deleting message.</returns>
-        [Authorize(Roles = nameof(RolesEnum.AdminStart)), HttpDelete("{id:int}")]
+        [Authorize(Roles = nameof(RolesEnum.UserStart)), HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteAsync(int id)
         {
             var result = await _chatMessageService.DeleteAsync(id);

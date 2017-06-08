@@ -33,7 +33,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <param name="dto">Filled match model.</param>
         /// <returns>Created entity.</returns>
-        [Authorize(Roles = nameof(RolesEnum.AdminStart)), HttpPost("")]
+        [Authorize(Roles = nameof(RolesEnum.InfoStart)), HttpPost("")]
         public async Task<IActionResult> CreateAsync([FromBody]MatchDto dto)
         {
             if (dto == null || !ModelState.IsValid)
@@ -50,7 +50,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <param name="id">The identifier of entity.</param>
         /// <param name="dto">Updated match dto.</param>
         /// <returns>Updated entity.</returns>
-        [Authorize(Roles = nameof(RolesEnum.AdminStart)), HttpPut("{id:int}")]
+        [Authorize(Roles = nameof(RolesEnum.InfoStart)), HttpPut("{id:int}")]
         public async Task<IActionResult> UpdateAsync(int id, [FromBody]MatchDto dto)
         {
             if (!ModelState.IsValid || id != dto.Id)
@@ -67,7 +67,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <param name="id">The identifier of entity.</param>
         /// <param name="score">New match score.</param>
         /// <returns>Updated entity.</returns>
-        [Authorize(Roles = nameof(RolesEnum.AdminStart)), HttpPut("UpdateScore")]
+        [Authorize(Roles = nameof(RolesEnum.InfoStart)), HttpPut("UpdateScore")]
         public async Task<IActionResult> UpdateAsync([FromQuery]int id, [FromQuery]string score)
         {
             if (id <= 0 || string.IsNullOrEmpty(score) || !Regex.IsMatch(score, "[\\d]*-[\\d]*"))
@@ -140,7 +140,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// Delete match.
         /// </summary>
         /// <returns>List of types.</returns>
-        [Authorize(Roles = nameof(RolesEnum.AdminStart)), HttpDelete("{id:int}")]
+        [Authorize(Roles = nameof(RolesEnum.InfoStart)), HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteAsync(int id)
         {
             var result = await _matchService.DeleteAsync(id);

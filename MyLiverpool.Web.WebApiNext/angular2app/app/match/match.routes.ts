@@ -9,12 +9,18 @@ export const matchRoutes: Routes = [
             {
                 path: "",
                 component: MatchListComponent,
-                data: { title: "Матчи", roles: ["adminStart"] },
+                data: {
+                     title: "Матчи", 
+                     roles: ["infoStart"]
+                },
                 canActivate: [RoleGuard]
             }, {
                 path: ":id/edit",
                 component: MatchEditComponent,
-                data: { title: "Создание матча", roles: ["adminStart"] },
+                data: {
+                     title: "Создание матча",
+                     roles: ["infoStart"]
+                },
                 canActivate: [RoleGuard]
             }
         ]

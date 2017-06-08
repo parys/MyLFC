@@ -10,7 +10,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// <summary>
     /// Manages seasons.
     /// </summary>
-    [AllowAnonymous(), Route("api/v1/[controller]")]
+    [AllowAnonymous, Route("api/v1/[controller]")]
     public class SeasonController : Controller
     {
         private readonly ISeasonService _seasonService;
@@ -64,7 +64,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <param name="dto">Filled dto for new season.</param>
         /// <returns>Created season objec.t</returns>
-        [Authorize(Roles = nameof(RolesEnum.AdminStart)), HttpPost("")]
+        [Authorize(Roles = nameof(RolesEnum.InfoStart)), HttpPost("")]
         public async Task<IActionResult> CreateAsync([FromBody] SeasonDto dto)
         {
             if (!ModelState.IsValid)
@@ -81,7 +81,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <param name="id">The identifier of updatable object.</param>
         /// <param name="dto">Filled dto contains new values.</param>
         /// <returns>Updated season object.</returns>
-        [Authorize(Roles = nameof(RolesEnum.AdminStart)), HttpPut("{id:int}")]
+        [Authorize(Roles = nameof(RolesEnum.InfoStart)), HttpPut("{id:int}")]
         public async Task<IActionResult> UpdateAsync(int id, [FromBody] SeasonDto dto)
         {
             if (!ModelState.IsValid || id != dto.Id)
@@ -97,7 +97,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <param name="id">The identifier of removing object.</param>
         /// <returns>Result of deleting season.</returns>
-        [Authorize(Roles = nameof(RolesEnum.AdminStart)), HttpDelete("{id:int}")]
+        [Authorize(Roles = nameof(RolesEnum.InfoStart)), HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteAsync(int id)
         {
             var result = await _seasonService.DeleteAsync(id);

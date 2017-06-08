@@ -79,9 +79,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [Route("")]
-        [HttpGet]
-        [AllowAnonymous]
+        [AllowAnonymous, HttpGet("")]
         public async Task<IActionResult> GetAsync([FromQuery]int id)
         {
             if (id < 1)

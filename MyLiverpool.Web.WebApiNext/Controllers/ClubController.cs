@@ -10,8 +10,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// <summary>
     /// Manages club entity.
     /// </summary>
-    [Route("api/v1/[controller]")]
-    [Authorize(Roles = nameof(RolesEnum.AdminStart))]
+    [Authorize(Roles = nameof(RolesEnum.InfoStart)), Route("api/v1/[controller]")]
     public class ClubController : Controller
     {
         private readonly IClubService _clubService;
@@ -33,7 +32,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <param name="dto">New club model.</param>
         /// <returns></returns>
-        [Authorize, HttpPost("")]
+        [Authorize(Roles = nameof(RolesEnum.InfoStart)), HttpPost("")]
         public async Task<IActionResult> CreateAsync([FromBody]ClubDto dto)
         {
             if (dto == null || !ModelState.IsValid)
@@ -49,7 +48,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <param name="page">Current page.</param>
         /// <returns>Clubs list.</returns>
-        [Authorize, HttpGet("list/{page}")]
+        [AllowAnonymous, HttpGet("list/{page}")]
         public async Task<IActionResult> GetListAsync(int page = 1)
         {
             if (page < 1)
@@ -65,7 +64,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <param name="id">The identifier of club.</param>
         /// <returns>Club.</returns>
-        [Authorize, HttpGet("{id:int}")]
+        [AllowAnonymous, HttpGet("{id:int}")]
         public async Task<IActionResult> GetAsync(int id)
         {
             var result = await _clubService.GetByIdAsync(id);
@@ -78,7 +77,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <param name="id">The identifier.</param>
         /// <param name="dto">Modified club entity.</param>
         /// <returns>Returns of editing.</returns>
-        [Authorize, HttpPut("{id:int}")]
+        [Authorize(Roles = nameof(RolesEnum.InfoStart)), HttpPut("{id:int}")]
         public async Task<IActionResult> EditAsync(int id, [FromBody]ClubDto dto)
         {
             if ( id != dto.Id || !ModelState.IsValid)
@@ -94,7 +93,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <param name="id">The identifier of deleting club.</param>
         /// <returns>Result of deleting.</returns>
-        [Authorize, HttpDelete("{id:int}")]
+        [Authorize(Roles = nameof(RolesEnum.InfoStart)), HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteAsync(int id)
         {
             var result = await _clubService.DeleteAsync(id);
@@ -118,7 +117,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <param name="clubEnglishName">Club english name.</param>
         /// <returns>Result of uploading.</returns>
-        [Authorize(Roles = nameof(RolesEnum.AdminStart)), HttpPost("logo/{clubEnglishName}")]
+        [Authorize(Roles = nameof(RolesEnum.InfoStart)), HttpPost("logo/{clubEnglishName}")]
         public async Task<IActionResult> ClubLogo(string clubEnglishName)
         {
             //if (!Request.Content.IsMimeMultipartContent())

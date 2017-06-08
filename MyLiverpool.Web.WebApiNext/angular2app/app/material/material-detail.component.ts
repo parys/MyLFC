@@ -19,6 +19,7 @@ export class MaterialDetailComponent implements OnInit, OnDestroy {
     private sub: Subscription;
     public item: Material;
     public roles: IRoles;
+    public body: SafeHtml;
     public type: MaterialType;
 
     constructor(private service: MaterialService,
@@ -120,6 +121,7 @@ export class MaterialDetailComponent implements OnInit, OnDestroy {
 
     private parse(item: Material): void {
         this.item = item;
+        this.body = this.sanitizeByHtml(item.message);
         this.titleService.setTitle(item.title);
         this.addView();
         this.cd.markForCheck();

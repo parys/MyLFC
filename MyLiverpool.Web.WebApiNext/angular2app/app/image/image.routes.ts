@@ -3,7 +3,6 @@ import { ImageListComponent, ImageAdditionComponent } from "./index";
 import { RoleGuard } from "../auth/index";
 
 export const imageRoutes: Routes = [
-
     {
         path: "images",
         children: [

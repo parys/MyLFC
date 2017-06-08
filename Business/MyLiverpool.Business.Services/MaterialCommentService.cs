@@ -61,7 +61,6 @@ namespace MyLiverpool.Business.Services
             comment.MaterialType = materialType;
             comment.AdditionTime = DateTime.Now;
             comment.LastModified = DateTime.Now;
-            comment.IsVerified = false;
             try
             {
                 comment = await _commentService.AddAsync(comment);
@@ -91,7 +90,7 @@ namespace MyLiverpool.Business.Services
             comment.LastModified = DateTime.Now;
             comment.Answer = model.Answer;
             comment.Message = model.Message;
-            comment.IsVerified = false;
+            comment.IsVerified = model.IsVerified;
             try
             {
                 _commentService.Update(comment);

@@ -136,7 +136,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <returns>Updated config.</returns>
         [Authorize, HttpPut("config")]
-        public async Task<IActionResult> GetConfigAsync([FromBody]UserConfigDto dto)
+        public async Task<IActionResult> UpdateConfigAsync([FromBody]UserConfigDto dto)
         {
             var result = await _userService.UpdateUserConfigAsync(dto, User.GetUserId());
             return Json(result);

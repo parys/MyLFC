@@ -93,6 +93,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             {
                 return BadRequest(ModelState);
             }
+            dto.IsVerified = IsSiteTeamMember();
             dto.AuthorId = User.GetUserId();
             var result = await _commentService.AddAsync(dto, materialType);
             return Ok(result);
@@ -103,7 +104,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <param name="id">The identifier of removing comment.</param>
         /// <returns>Result of removing.</returns>
-        [Authorize(Roles = nameof(RolesEnum.NewsFull)), HttpDelete("{id:int}")]
+        [Authorize(Roles = nameof(RolesEnum.UserStart)), HttpDelete("{id:int}")]
         public async Task<IActionResult> Delete(int id)
         {
             if (id <= 0)
@@ -133,9 +134,20 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             {
                 return StatusCode(StatusCodes.Status403Forbidden);
             }
+            dto.IsVerified = IsSiteTeamMember();
 
             var result = await _commentService.UpdateAsync(dto);
             return Ok(result);
+        }
+
+        private bool IsSiteTeamMember()
+        {
+            return User.Identity.IsAuthenticated
+                                 &&(User.IsInRole(nameof(RolesEnum.AdminStart))
+                                 || User.IsInRole(nameof(RolesEnum.BlogStart))
+                                 || User.IsInRole(nameof(RolesEnum.InfoStart))
+                                 || User.IsInRole(nameof(RolesEnum.NewsStart))
+                                 || User.IsInRole(nameof(RolesEnum.UserStart)));
         }
     }
 }

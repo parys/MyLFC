@@ -18,7 +18,7 @@ export const forumRoutes: Routes = [
                         component: ForumSubsectionEditComponent,
                         data: {
                             title: "Создание подраздела",
-                            roles: ["newsStart", "forumStart"]
+                            roles: ["newsStart", "infoStart"]
                         },
                         canActivate: [RoleGuard]
                     },
