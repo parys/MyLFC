@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -7,6 +8,7 @@ using MyLiverpool.Business.Dto;
 using MyLiverpool.Business.Dto.Filters;
 using MyLiverpool.Data.Common;
 using MyLiverpool.Web.WebApiNext.Extensions;
+using MyLiverpool.Web.WebApiNext.OnlineCounting;
 using Newtonsoft.Json;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
@@ -107,17 +109,42 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         }
 
         /// <summary>
-        /// Returns first 
+        /// Returns first users whose userNames contain typed
         /// </summary>
         /// <param name="typed"></param>
         /// <returns></returns>
         [AllowAnonymous, HttpGet("GetUserNames")]
-        public async Task<IActionResult> GetUserNames([FromQuery]string typed)
+        public async Task<IActionResult> GetUserNamesAsync([FromQuery]string typed)
         {
             var result = await _userService.GetUserNamesAsync(typed);
            //bug var userId = User.GetUserId();
            // result = result.Where(x => x.Id != userId);
             return Ok(result);
+        }      
+        
+        /// <summary>
+        /// Returns first 
+        /// </summary>
+        /// <param name="typed"></param>
+        /// <returns></returns>
+        [AllowAnonymous, HttpGet("online")]
+        public IActionResult GetOnlineCounter()//todo think maybe get unique id like guid from frontend
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var model = new OnlineCounterModel
+                {
+                    Id = User.GetUserId(),
+                    Date = DateTimeOffset.Now,
+                    UserName = User.Identity.Name
+                };
+                OnlineCounter.AddUserToOnline(model);
+            }
+            else
+            {
+                OnlineCounter.AddGuestToOnline(HttpContext.Connection.RemoteIpAddress.ToString());
+            }
+            return Json(OnlineCounter.GetStats());
         }
 
         /// <summary>

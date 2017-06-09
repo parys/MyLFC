@@ -4,6 +4,7 @@ import { Observable } from "rxjs/Observable";
 import { HttpWrapper } from "../shared/httpWrapper";
 import { UserFilters } from "./userFilters.model";
 import { User } from "./user.model";
+import { UsersOnline } from "./user-online.model";
 import { UserConfig } from "./user-config.model";
 import { Pageable } from "../shared/pageable.model";
 
@@ -47,6 +48,10 @@ export class UserService {
 
     public getConfig = (): Observable<UserConfig> => {
         return this.http.get(`${this.actionUrl}/config`).map((response: Response) => response.json());
+    };
+
+    public getOnlineCount = (): Observable<UsersOnline> => {
+        return this.http.get(`${this.actionUrl}/online`).map((response: Response) => response.json());
     };
 
     public updateConfig = (itemToUpdate: UserConfig): Observable<UserConfig> => {

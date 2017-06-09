@@ -114,6 +114,7 @@ import 'rxjs/add/operator/mergeMap';
         user.UserDetailComponent,
         user.UserListComponent,
         user.UserConfigComponent,
+        user.UserOnlineCounterComponent
     ], // components and directives
     bootstrap: [
         AppComponent], // root component

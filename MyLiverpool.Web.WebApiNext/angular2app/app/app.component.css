@@ -361,6 +361,10 @@ textarea {
     color: white;
 }
 
+.text-yellow {
+    color: yellow;
+}
+
 .text-underline {
     text-decoration: underline;
 }

@@ -156,7 +156,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         public async Task<IActionResult> AddViewAsync(int id)
         {
             await _materialService.AddViewAsync(id);
-            return Ok();
+            return Json(true);
         }
     }
 }
