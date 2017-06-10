@@ -15,6 +15,10 @@
 
   <ItemGroup>
     <Compile Remove="node_modules\**\*" />
+    <Compile Remove="temp-js\**" />
+    <Content Remove="temp-js\**" />
+    <EmbeddedResource Remove="temp-js\**" />
+    <None Remove="temp-js\**" />
     <Content Remove="appsettings.json" />
     <Content Remove="package-lock.json" />
     <Content Remove="web.config" />
@@ -37,6 +41,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="wwwroot\content\persons\AdamLallana1.jpeg" />
+    <Content Include="wwwroot\content\persons\StevenGerrard2.jpg" />
     <Content Include="wwwroot\fonts\10427.ttf" />
     <Content Include="wwwroot\fonts\Alice-Regular.ttf" />
     <Content Include="wwwroot\js\extPlugins\spoiler\css\spoiler.css" />
@@ -90,7 +96,6 @@
   </PropertyGroup>
 
   <Target Name="PrepublishScript" BeforeTargets="PrepareForPublish">
-    <Exec Command="node node_modules/webpack/bin/webpack.js --config webpack.config.vendor.js --env.prod" />
     <Exec Command="node node_modules/@angular/compiler-cli/src/main.js -p tsconfig.aot.json" />
     <Exec Command="node node_modules/rollup/bin/rollup -c rollup.config.js" />
   </Target>
@@ -101,7 +106,6 @@
 
   <ItemGroup>
     <Folder Include="Properties\PublishProfiles\" />
-    <Folder Include="wwwroot\content\persons\" />
     <Folder Include="wwwroot\js\langs\" />
   </ItemGroup>
 

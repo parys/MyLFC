@@ -10,6 +10,12 @@
 * {
     /*font-family: "AnotherFont";*/
 }
+/* temporary bug*/
+.mce-container.mce-panel.mce-floatpanel.mce-popover.mce-bottom.mce-start {
+    width: 250px !important;
+    height: 290px !important;
+    overflow: auto;
+}
 a:hover {
     text-decoration: none;
     color: red;
@@ -23,12 +29,6 @@ body {
 hr {
     border-top-width: 3px;
     border-top-color: maroon;
-}
-
-img {
-    max-width: 100%;
-    height: auto;
-    display: block;
 }
 
   .news-mini {
@@ -64,6 +64,26 @@ textarea {
 
 .bg-gray {
     background-color: #f5f5f5;
+}
+
+.bg-header {
+     overflow: hidden;
+ }
+
+.bg-header::before {
+    content: ' ';
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    z-index: 0;
+    opacity: 0.2;
+    background-repeat: no-repeat;
+    background-image: url('/content/header2.png');
+    background-position: 50% 100%;
+    background-size: 50%;
+    
 }
 
 .border-blue {
@@ -124,6 +144,11 @@ textarea {
     border-radius: 5px;
 } 
 
+.chat-message img {
+    max-width: 100%;
+    height: auto;
+}
+
 .club-logo {
     max-width: 45px;
 }
@@ -154,6 +179,11 @@ textarea {
     margin-bottom: 5px;
     padding-bottom: 5px;
 }
+
+    .comment img {
+        max-width: 100%;
+        height: auto;
+    }
 
 .dropdown-menu {
     min-width: 140px;
@@ -258,30 +288,16 @@ textarea {
         
         background-size: 100%;
     }*/
-.bg-header {
-    overflow: hidden;
-}
-
-.bg-header::before {
-    content: ' ';
-    position: absolute;
+.match-calendar img {
     display: block;
-    width: 100%;
-    height: 100%;
-    margin: auto;
-    z-index: 0;
-    opacity: 0.2;
-    background-repeat: no-repeat;
-    background-image: url('/content/header2.png');
-    background-position: 50% 100%;
-    background-size: 50%;
-    
+    width: 45px;
 }
-
 
 .material-body img {
     border: lightgray solid 5px;
     margin: auto;
+    max-width: 100%;
+    height: auto;
 }
 
 .material-header {
