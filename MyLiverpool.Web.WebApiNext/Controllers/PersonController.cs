@@ -74,6 +74,17 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         }
 
         /// <summary>
+        /// Returns squad list.
+        /// </summary>
+        /// <returns>Persons list.</returns>
+        [AllowAnonymous, HttpGet("squad")]
+        public async Task<IActionResult> GetSquadListAsync()
+        {
+            var result = await _personService.GetSquadListAsync();
+            return Ok(result);
+        }
+
+        /// <summary>
         /// Returns person by id.
         /// </summary>
         /// <param name="id">The identifier of person.</param>

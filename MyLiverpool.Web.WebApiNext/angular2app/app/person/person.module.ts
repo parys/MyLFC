@@ -8,6 +8,7 @@ import { PersonService } from "./person.service";
 import { PlayerStatisticsComponent } from "./player-statistics.component";
 import { BestPlayerComponent } from "./best-player.component";
 import { StuffListComponent } from "./stuff-list.component";
+import { SquadComponent } from "./squad.component";
 import { personRoutes } from "./person.routes";
 import { SharedModule } from "../shared/index";
 import { MdButtonModule, MdInputModule, MdSelectModule, MdCardModule, MdNativeDateModule, MdDatepickerModule } from "@angular/material";
@@ -34,6 +35,7 @@ import { NgxPaginationModule } from "ngx-pagination";
         PersonEditComponent,
         PersonListComponent,
         PlayerStatisticsComponent,
+        SquadComponent,
         StuffListComponent
     ],
     exports: [

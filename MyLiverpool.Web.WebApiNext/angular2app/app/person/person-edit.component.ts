@@ -108,17 +108,30 @@ export class PersonEditComponent implements OnInit, OnDestroy {
 
     private initForm(): void {
         this.editPersonForm = this.formBuilder.group({
-            'firstName': ["", Validators.compose([
-                Validators.required, Validators.maxLength(30)])],
-            'firstRussianName': ["", Validators.compose([
-                Validators.required, Validators.maxLength(30)])],
-            'lastName': ["", Validators.compose([
-                Validators.required, Validators.maxLength(30)])],
-            'lastRussianName': ["", Validators.compose([
-                Validators.required, Validators.maxLength(30)])],
+            'firstName': [
+                "", Validators.compose([
+                    Validators.required, Validators.maxLength(30)
+                ])
+            ],
+            'firstRussianName': [
+                "", Validators.compose([
+                    Validators.required, Validators.maxLength(30)
+                ])
+            ],
+            'lastName': [
+                "", Validators.compose([
+                    Validators.required, Validators.maxLength(30)
+                ])
+            ],
+            'lastRussianName': [
+                "", Validators.compose([
+                    Validators.required, Validators.maxLength(30)
+                ])
+            ],
             'position': ["", Validators.required],
             'country': ["", Validators.required],
             'birthday': [null],
+            'number': [null],
             'photo': [""],
             'type': ["", Validators.required]
         });

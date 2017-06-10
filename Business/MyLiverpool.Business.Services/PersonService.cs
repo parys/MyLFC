@@ -62,6 +62,7 @@ namespace MyLiverpool.Business.Services
             person.Type = dto.Type;
             person.Position = dto.Position;
             person.Country = dto.Country;
+            person.Number = dto.Number;
             _personRepository.Update(person);
             await _personRepository.SaveChangesAsync();
             return _mapper.Map<PersonDto>(person);
@@ -116,6 +117,23 @@ namespace MyLiverpool.Business.Services
             }
             tempList.AddRange(stuffList);
             return _mapper.Map<IEnumerable<PersonDto>>(tempList);
+        }
+
+        public async Task<SquadListDto> GetSquadListAsync()
+        {
+            var squadList1 = await _personRepository.GetListAsync(1, 1000, x => x.Type == PersonType.First);
+            var squadList = _mapper.Map<IEnumerable<PersonDto>>(squadList1).ToList();
+            var goalkeepers = squadList.Where(x => x.Position == "Вратарь");
+            var defenders = squadList.Where(x => x.Position == "Защитник");
+            var midfielders = squadList.Where(x => x.Position == "Полузащитник");
+            var strikers = squadList.Where(x => x.Position == "Форвард");
+            return new SquadListDto
+            {
+                Goalkeepers = goalkeepers.OrderBy(x => x.Number),
+                Defenders = defenders.OrderBy(x => x.Number),
+                Midfielders = midfielders.OrderBy(x => x.Number),
+                Strikers = strikers.OrderBy(x => x.Number)
+            };
         }
     }
 }

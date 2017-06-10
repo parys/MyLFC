@@ -28,6 +28,8 @@ namespace MyLiverpool.Business.Dto
 
         public string Position { get; set; }
 
+        public byte? Number { get; set; }
+
         public string Country { get; set; }
         
         public DateTimeOffset? Birthday { get; set; }

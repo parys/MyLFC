@@ -5,5 +5,4 @@ export * from "./sidebar-left.component";
 export * from "./about-club.component";
 export * from "./about.component";
 export * from "./copyright.component";
-export * from "./squad.component";
 export * from "./navbar.component";

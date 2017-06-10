@@ -3,6 +3,7 @@ import { PlayerStatisticsComponent } from "./player-statistics.component";
 import { PersonListComponent } from "./person-list.component";
 import { PersonEditComponent } from "./person-edit.component";
 import { StuffListComponent } from "./stuff-list.component";
+import { SquadComponent } from "./squad.component";
 import { RoleGuard } from "../auth/index";
 
 export const personRoutes: Routes = [
@@ -23,5 +24,6 @@ export const personRoutes: Routes = [
         ]
     },
     { path: "stuff", component: StuffListComponent, data: { title: "Тренерский состав" } },
+    { path: "squad", component: SquadComponent, data: { title: "Состав команды" } }
     //  { path: "calendar", component: MatchCalendarComponent, data: { title: "Календарь" } }
 ];

@@ -3,6 +3,7 @@ import { Response } from "@angular/http";
 import { Observable } from "rxjs/Observable";
 import { HttpWrapper, Pageable } from "../shared/index";
 import { Person } from "./person.model";
+import { SquadList } from "./squad-list.model";
 import { PersonType } from "./personType.model";
 
 @Injectable()
@@ -48,6 +49,10 @@ export class PersonService {
 
     public getStuff = (): Observable<Person[]> => {
         return this.http.get(this.actionUrl + "stuff/").map((res: Response) => res.json());
+    };
+
+    public getSquad = (): Observable<SquadList> => {
+        return this.http.get(this.actionUrl + "squad/").map((res: Response) => res.json());
     };
 
     public updatePhoto = (name: string, file: File): Observable<string> => {

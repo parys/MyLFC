@@ -17,6 +17,9 @@
     </md-select>   
     <md-input-container class="col-xs-12">
         <input mdInput placeholder="Должность(для персонала)/позиция на поле(для игроков)" formControlName="position">
+    </md-input-container>   
+    <md-input-container class="col-xs-12">
+        <input mdInput placeholder="Номер на футболке" formControlName="number">
     </md-input-container>
     <md-input-container class="col-xs-12">
         <input mdInput placeholder="Страна рождения" formControlName="country">
@@ -26,8 +29,8 @@
             <img class="avatar" *ngIf="item.photo" [src]="item.photo" alt=""/>
         </div>
         <div class="col-xs-10">
-            <label for="update-input" md-raised-button
-                   class="btn btn-info">Загрузить фото</label>
+            <label for="update-input"
+                   ><button md-raised-button>Загрузить фото</button></label>
             <input type="file"
                    class="hidden"
                    accept="image/*"
@@ -42,7 +45,7 @@
     <md-datepicker #datePicker startView="year" touchUi="true"></md-datepicker>
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <button md-raised-button type="submit" [disabled]="!editPersonForm.valid">Сохранить</button>
+            <button md-raised-button color="warn" type="submit" [disabled]="!editPersonForm.valid">Сохранить</button>
         </div>
     </div>
 </form>

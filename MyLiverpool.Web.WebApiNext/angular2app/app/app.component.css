@@ -258,6 +258,26 @@ textarea {
         
         background-size: 100%;
     }*/
+.bg-header {
+    overflow: hidden;
+}
+
+.bg-header::before {
+    content: ' ';
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    z-index: 0;
+    opacity: 0.2;
+    background-repeat: no-repeat;
+    background-image: url('/content/header2.png');
+    background-position: 50% 100%;
+    background-size: 50%;
+    
+}
+
 
 .material-body img {
     border: lightgray solid 5px;

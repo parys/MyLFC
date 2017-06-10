@@ -15,10 +15,10 @@ namespace MyLiverpool.Business.Dto
 
         public string Receiver { get; set; }
 
-        [StringLength(30)]
+        [StringLength(50)]
         public string Title { get; set; }
 
-        [StringLength(500)]
+        [StringLength(2500)]
         public string Message { get; set; }
 
         public DateTimeOffset SentTime { get; set; }

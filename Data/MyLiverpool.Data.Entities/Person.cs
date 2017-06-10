@@ -17,6 +17,8 @@ namespace MyLiverpool.Data.Entities
 
         public string Position { get; set; }
 
+        public byte? Number { get; set; }
+
         public string Photo { get; set; }
 
         public string Country { get; set; }

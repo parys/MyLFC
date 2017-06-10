@@ -8,6 +8,7 @@
     public type: number;
     public typeName: string;
     public photo: string;
+    public number?: number;
     public name: string;
     public russianName: string;
     public title: string;

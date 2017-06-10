@@ -83,7 +83,6 @@ import 'rxjs/add/operator/mergeMap';
         home.SidebarLeftComponent,
         home.SidebarRightComponent,
         home.RulesComponent,
-        home.SquadComponent,
         image.ImageAdditionComponent,
         image.ImageDetailComponent,
         image.ImageListComponent,
