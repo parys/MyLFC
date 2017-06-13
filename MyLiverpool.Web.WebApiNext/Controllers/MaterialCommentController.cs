@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Business.Dto.Filters;
@@ -19,14 +20,17 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     public class MaterialCommentController : Controller
     {
         private readonly IMaterialCommentService _commentService;
+        private readonly IMemoryCache _cache;
 
         /// <summary>
         /// Constructor.
         /// </summary>
         /// <param name="commentService"></param>
-        public MaterialCommentController(IMaterialCommentService commentService)
+        /// <param name="cache"></param>
+        public MaterialCommentController(IMaterialCommentService commentService, IMemoryCache cache)
         {
             _commentService = commentService;
+            _cache = cache;
         }
 
         /// <summary>
@@ -96,6 +100,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             dto.IsVerified = IsSiteTeamMember();
             dto.AuthorId = User.GetUserId();
             var result = await _commentService.AddAsync(dto, materialType);
+            CleanMaterialCache();
             return Ok(result);
         }
 
@@ -113,6 +118,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             }
 
             var result = await _commentService.DeleteAsync(id);
+            CleanMaterialCache();
             return Ok(result);
         }
 
@@ -148,6 +154,23 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                                  || User.IsInRole(nameof(RolesEnum.InfoStart))
                                  || User.IsInRole(nameof(RolesEnum.NewsStart))
                                  || User.IsInRole(nameof(RolesEnum.UserStart)));
+        }
+
+
+        private MaterialFiltersDto GetBasicMaterialFilters(bool isNewsMaker)
+        {
+            return new MaterialFiltersDto
+            {
+                Page = 1,
+                MaterialType = MaterialType.Both,
+                IsInNewsmakerRole = isNewsMaker
+            };
+        }
+
+        private void CleanMaterialCache()
+        {
+            _cache.Remove(GetBasicMaterialFilters(false).ToString());//duplicate here and in material ctrl
+            _cache.Remove(GetBasicMaterialFilters(true).ToString());
         }
     }
 }

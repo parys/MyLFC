@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Common.Utilities.Extensions;
@@ -18,16 +19,20 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     {
         private readonly IPersonService _personService;
         private readonly IUploadService _uploadService;
+        private readonly IMemoryCache _cache;
+        private const string BestPlayerMemKey = "bestPlayer";
 
         /// <summary>
         /// Controller.
         /// </summary>
         /// <param name="personService"></param>
         /// <param name="uploadService"></param>
-        public PersonController(IPersonService personService, IUploadService uploadService)
+        /// <param name="cache"></param>
+        public PersonController(IPersonService personService, IUploadService uploadService, IMemoryCache cache)
         {
             _personService = personService;
             _uploadService = uploadService;
+            _cache = cache;
         }
 
         /// <summary>
@@ -103,7 +108,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [AllowAnonymous, HttpGet("bestPlayer")]
         public async Task<IActionResult> GetBestPlayerAsync()
         {
-            var result = await _personService.GetBestPlayerAsync();
+            var result = await _cache.GetOrCreateAsync(BestPlayerMemKey, async x => await _personService.GetBestPlayerAsync());
             return Ok(result);
         }
 
@@ -115,6 +120,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         public async Task<IActionResult> SetBestPlayerAsync(int personId)
         {
             await _personService.SetBestPlayerAsync(personId);
+            _cache.Remove(BestPlayerMemKey);
             return Ok(true);
         }
 

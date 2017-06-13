@@ -15,5 +15,10 @@ namespace MyLiverpool.Business.Dto.Filters
         public bool IsInNewsmakerRole { get; set; }
 
         public MaterialType MaterialType { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Page}{CategoryId}{UserName}{UserId}{IsInNewsmakerRole}{MaterialType}";
+        }
     }
 }

@@ -2,11 +2,13 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using MyLiverpool.Web.WebApiNext.Extensions;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Business.Dto.Filters;
+using MyLiverpool.Common.Utilities;
 using MyLiverpool.Data.Common;
 using Newtonsoft.Json;
 
@@ -20,16 +22,19 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     {
         private readonly IMaterialService _materialService;
         private readonly ILogger<MaterialController> _logger;
+        private readonly IMemoryCache _cache;
 
         /// <summary>
         /// Constructor.
         /// </summary>
         /// <param name="materialService">Injecting materialService.</param>
         /// <param name="logger">Injecting logger.</param>
-        public MaterialController(IMaterialService materialService, ILogger<MaterialController> logger)
+        /// <param name="cache">Injecting inMemory cache.</param>
+        public MaterialController(IMaterialService materialService, ILogger<MaterialController> logger, IMemoryCache cache)
         {
             _materialService = materialService;
             _logger = logger;
+            _cache = cache;
         }
 
         /// <summary>
@@ -44,14 +49,15 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             MaterialFiltersDto filters;
             if (filtersObj == null)
             {
-                filters = new MaterialFiltersDto{Page = 1};
+                filters = GetBasicMaterialFilters(false);
             }
             else
             {
                 filters = (MaterialFiltersDto) JsonConvert.DeserializeObject(filtersObj, typeof(MaterialFiltersDto));
             }
             filters.IsInNewsmakerRole = User.IsInRole(nameof(RolesEnum.NewsStart));
-            var result = await _materialService.GetDtoAllAsync(filters);
+            var result = await _cache.GetOrCreateAsync(filters.ToString(),
+                async x => await _materialService.GetDtoAllAsync(filters));
             return Ok(result);
         }
 
@@ -76,6 +82,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             var result = await _materialService.DeleteAsync(id, User);
+            CleanCache();
             return Json(result);
         }
 
@@ -88,6 +95,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         public async Task<IActionResult> ActivateAsync(int id)
         {
             var result = await _materialService.ActivateAsync(id, User);
+            CleanCache();
             return Ok(result);
         }
 
@@ -112,6 +120,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 model.Pending = true;
             }
             var result = await _materialService.CreateAsync(model, User.GetUserId());
+            CleanCache();
             return Ok(result);
         }
 
@@ -143,9 +152,9 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 model.Pending = true;
             }
             var result = await _materialService.EditAsync(model);
+            CleanCache();
             return Ok(result);
         }
-
 
         /// <summary>
         /// Adds view to material.
@@ -156,7 +165,23 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         public async Task<IActionResult> AddViewAsync(int id)
         {
             await _materialService.AddViewAsync(id);
+            CleanCache();
             return Json(true);
+        }
+
+        private MaterialFiltersDto GetBasicMaterialFilters(bool isNewsMaker)
+        {
+            return new MaterialFiltersDto {
+                Page = 1,
+                MaterialType = MaterialType.Both,
+                IsInNewsmakerRole = isNewsMaker
+            };
+        }
+
+        private void CleanCache()
+        {
+            _cache.Remove(GetBasicMaterialFilters(false).ToString());
+            _cache.Remove(GetBasicMaterialFilters(true).ToString());
         }
     }
 }

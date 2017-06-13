@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Common.Utilities.Extensions;
@@ -18,14 +19,18 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     public class MatchController : Controller
     {
         private readonly IMatchService _matchService;
+        private readonly IMemoryCache _cache;
+        private readonly string calendarCacheConst = "calendarMatch";
 
         /// <summary>
         /// Constructor.
         /// </summary>
         /// <param name="matchService">Injected value.</param>
-        public MatchController(IMatchService matchService)
+        /// <param name="cache"></param>
+        public MatchController(IMatchService matchService, IMemoryCache cache)
         {
             _matchService = matchService;
+            _cache = cache;
         }
 
         /// <summary>
@@ -41,6 +46,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 return BadRequest(ModelState);
             }
             var result = await _matchService.CreateAsync(dto);
+            RemoveCalendarFromCache();
             return Ok(result);
         }
 
@@ -58,6 +64,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 return BadRequest();
             }
             var result = await _matchService.UpdateAsync(dto);
+            RemoveCalendarFromCache();
             return Ok(result);
         }      
         
@@ -75,6 +82,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 return BadRequest();
             }
             var result = await _matchService.UpdateScoreAsync(id, score);
+            RemoveCalendarFromCache();
             return Ok(result);
         }
 
@@ -101,7 +109,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [AllowAnonymous, HttpGet("getForCalendar")]
         public async Task<IActionResult> GetForCalendarAsync()
         {
-            var result = await _matchService.GetForCalendarAsync();
+            var result = await _cache.GetOrCreateAsync(calendarCacheConst,
+                async x => await _matchService.GetForCalendarAsync());
             return Ok(result);
         }
 
@@ -143,8 +152,14 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Authorize(Roles = nameof(RolesEnum.InfoStart)), HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteAsync(int id)
         {
+            RemoveCalendarFromCache();
             var result = await _matchService.DeleteAsync(id);
             return Ok(result);
+        }
+
+        private void RemoveCalendarFromCache()
+        {
+            _cache.Remove(calendarCacheConst);
         }
     }
 }

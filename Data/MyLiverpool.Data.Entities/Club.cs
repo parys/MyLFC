@@ -6,7 +6,8 @@ namespace MyLiverpool.Data.Entities
     {
         public Club()
         {
-            Matches = new List<Match>();
+            Matches = new HashSet<Match>();
+            Transfers = new HashSet<Transfer>();
         }
 
         public int Id { get; set; }
@@ -24,5 +25,7 @@ namespace MyLiverpool.Data.Entities
         public string Logo { get; set; }
 
         public virtual ICollection<Match> Matches { get; set; }
+
+        public virtual ICollection<Transfer> Transfers { get; set; }
     }
 }
