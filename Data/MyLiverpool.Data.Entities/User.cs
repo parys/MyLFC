@@ -105,5 +105,8 @@ namespace MyLiverpool.Data.Entities
 
         [NotMapped]
         public int BlogsCount { get; set; }
+
+        [NotMapped]
+        public int CommentsCount { get; set; }
     }
 }

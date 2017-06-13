@@ -110,6 +110,10 @@ namespace MyLiverpool.Business.Services
             {
                 filter = filter.And(x => !x.IsVerified);
             }
+            if (filters.UserId.HasValue)
+            {
+                filter = filter.And(x => x.AuthorId == filters.UserId.Value);
+            }
             var comments = await _commentService.GetOrderedByAsync(filters.Page, ItemPerPage, filter, SortOrder.Descending, m => m.AdditionTime);
             var commentDtos = _mapper.Map<IEnumerable<MaterialCommentDto>>(comments);
             var commentsCount = await _commentService.GetCountAsync(filter);

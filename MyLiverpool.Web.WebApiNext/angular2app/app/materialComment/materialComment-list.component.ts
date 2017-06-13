@@ -22,7 +22,8 @@ export class MaterialCommentListComponent implements OnInit, OnDestroy {
     public onlyUnverified: boolean = false;
     public categoryId: number;
     public userName: string;
-    public itemsPerPage = 50;
+    public userId: number;
+    public itemsPerPage: number = 50;
     public totalItems: number;
     public roles: IRoles;
 
@@ -41,6 +42,7 @@ export class MaterialCommentListComponent implements OnInit, OnDestroy {
                 this.page = qParams["page"] || 1;
                 this.categoryId = qParams["categoryId"] || "";
                 this.userName = qParams["userName"] || "";
+                this.userId = qParams["userId"] || null;
                 this.onlyUnverified = qParams["onlyUnverified"] || false;
             },
             error => console.log(error));
@@ -60,6 +62,7 @@ export class MaterialCommentListComponent implements OnInit, OnDestroy {
     public update(): void {
         let filters = new MaterialCommentFilter();
         filters.onlyUnverified = this.filterForm.get("onlyUnverified").value;
+        filters.userId = this.userId;
         filters.page = this.page;
         this.sub2 = this.materialCommentService
             .getAll(filters)
@@ -70,8 +73,11 @@ export class MaterialCommentListComponent implements OnInit, OnDestroy {
 
     private updateLocation(): void {
         let newUrl = `materialComments?page=${this.page}`;
-        if (this.categoryId) {
-            newUrl = `${newUrl}&categoryId=${this.categoryId}`;
+        if (this.userId) {
+            newUrl = `${newUrl}&userId=${this.categoryId}`;
+        }
+        if (this.onlyUnverified) {
+            newUrl = `${newUrl}&onlyUnverified=${this.onlyUnverified}`;
         }
         this.location.replaceState(newUrl);
     }

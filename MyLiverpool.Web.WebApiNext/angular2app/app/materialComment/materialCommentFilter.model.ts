@@ -1,4 +1,5 @@
 ﻿export class MaterialCommentFilter {
-    onlyUnverified: boolean;
-    page: number;
+    public onlyUnverified: boolean;
+    public page: number;
+    public userId: number;
 }

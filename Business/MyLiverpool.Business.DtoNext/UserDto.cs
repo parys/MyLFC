@@ -34,6 +34,8 @@ namespace MyLiverpool.Business.Dto
 
         public int BlogsCount { get; set; }
 
+        public int CommentsCount { get; set; }
+
         public string Ip { get; set; }
     }
 }

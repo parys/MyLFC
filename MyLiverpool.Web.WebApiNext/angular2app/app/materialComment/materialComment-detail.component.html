@@ -48,8 +48,8 @@
             </div>
         </div>
         <div class="col-xs-12 col-sm-12">
-            <button class="btn btn-primary" [disabled]="!commentForm.valid" type="submit">Обновить</button>
-            <button class="btn btn-default" (click)="cancelEdit()" type="button">Отмена</button>
+            <button md-raised-button color="warn" [disabled]="!commentForm.valid" type="submit">Обновить</button>
+            <button md-raised-button (click)="cancelEdit()" type="button">Отмена</button>
         </div>
     </form>
     <div *ngIf="isAddingMode">

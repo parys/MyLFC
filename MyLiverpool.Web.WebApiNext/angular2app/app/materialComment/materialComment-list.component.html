@@ -1,5 +1,5 @@
 ﻿<div>
-    <div class="btn-group">
+    <div class="btn-group" *ngIf="roles.isModerator">
         <form class="form-inline btn-block" [formGroup]="filterForm" (ngSubmit)="update()">
             <label class="control-label">
                 <input class="checkbox" name="onlyUnverified" formControlName="onlyUnverified" type="checkbox" /> Только непроверенные <!--todo add switcher--> 

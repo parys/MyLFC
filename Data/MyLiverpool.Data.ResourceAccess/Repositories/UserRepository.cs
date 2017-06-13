@@ -32,6 +32,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
                 Birthday = x.Birthday,
                 BlogsCount = x.Materials.Count(y => y.Type == MaterialType.Blogs),
                 NewsCount = x.Materials.Count(y => y.Type == MaterialType.News),
+                CommentsCount = x.Comments.Count(y => y.AuthorId == x.Id),
                 ConcurrencyStamp = x.ConcurrencyStamp,
                 Email = x.Email,
                 EmailConfirmed = x.EmailConfirmed,

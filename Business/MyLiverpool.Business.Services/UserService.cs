@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -62,7 +63,8 @@ namespace MyLiverpool.Business.Services
                 filter = filter.And(x => x.UserName.Contains(dto.UserName));
             }
 
-            var users = await _userRepository.GetListAsync(dto.Page, filter: filter);
+            var users = await _userRepository.GetListAsync(dto.Page, filter: filter, order: SortOrder.Descending,
+                orderBy: x => x.LastModified);
             var usersDto = _mapper.Map<IEnumerable<UserMiniDto>>(users);
             var allUsersCount = await _userRepository.GetCountAsync(filter);
             var result = new PageableData<UserMiniDto>(usersDto, dto.Page, allUsersCount);

@@ -1,18 +1,19 @@
 ﻿export class User {
-    id: number;
-    email: string;
-    userName: string;
-    emailConfirmed: boolean;
-    gender: boolean;
-    registrationDate: Date;
-    lastModifiedOn: Date;
-    birthday: Date;
-    roleGroupName: string;
-    fullName: string;
-    roleGroupId: number;
-    lockoutEnd: Date;
-    photo: string;
-    newsCount: number;
-    blogsCount: number;
-    ip: string;
+    public id: number;
+    public email: string;
+    public userName: string;
+    public emailConfirmed: boolean;
+    public gender: boolean;
+    public registrationDate: Date;
+    public lastModifiedOn: Date;
+    public birthday: Date;
+    public roleGroupName: string;
+    public fullName: string;
+    public roleGroupId: number;
+    public lockoutEnd: Date;
+    public photo: string;
+    public newsCount: number;
+    public blogsCount: number;
+    public commentsCount: number;
+    public ip: string;
 }

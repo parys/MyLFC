@@ -1,18 +1,18 @@
-﻿<nav class="navbar navbar-default maroon-panel row beauty-font bg-header">
-    <div class="navbar-collapse row" style="margin-right: 0; padding-right: 0;"> <!--todo need some research-->
+﻿<nav class="navbar navbar-default maroon-panel container-row beauty-font bg-header">
+    <div class="navbar-collapse container-row" style="margin-right: 0; padding-right: 0;"> <!--todo need some research-->
         <ul class="nav navbar-nav flex-vertical-center flex-space-around" style="font-size: large; width: 100%;">
             <!--<li><a [routerLink]="['/']" style="color: aliceblue; font-weight: bold;">My<span style="color: yellow;">LFC</span>.ru</a></li>-->
-            <li><a role="button" [routerLink]="['/news', 0]">
-                <img src="/content/logo34.png" style="max-width: 310px; margin: -5px;" alt="MyLFC.ru"/>
+            <li><a role="button" [routerLink]="['/news', 0]" style="display: inline;">
+                <img src="/content/logo34.png" style="max-width: 310px; margin: 0 -15px;" alt="MyLFC.ru"/>
             </a></li>
             <li>
                 <a role="button" [mdMenuTriggerFor]="newsMenu">
                     Новости<b class="caret"></b>
                 </a>
                 <md-menu #newsMenu="mdMenu">
-                    <button [routerLink]="['/news']" [queryParams]="{page: 1}" md-menu-item>Новости</button>
-                    <button *ngIf="roles.isNewsmaker" [routerLink]="['/news', 0, 'edit']" md-menu-item>Добавить</button>
-                    <button [routerLink]="['/newsCategories']" md-menu-item>Категории</button>
+                    <a [routerLink]="['/news']" [queryParams]="{page: 1}" md-menu-item>Новости</a>
+                    <a *ngIf="roles.isNewsmaker" [routerLink]="['/news', 0, 'edit']" md-menu-item>Добавить</a>
+                    <a [routerLink]="['/newsCategories']" md-menu-item>Категории</a>
                 </md-menu>
             </li>
             <li>
@@ -20,9 +20,9 @@
                     Блоги<b class="caret"></b>
                 </a>
                 <md-menu #blogsMenu="mdMenu">
-                    <button [routerLink]="['/blogs']" [queryParams]="{page: 1}" md-menu-item>Новости</button>
-                    <button *ngIf="roles.isAuthor" [routerLink]="['/blogs', 0, 'edit']" md-menu-item>Добавить</button>
-                    <button [routerLink]="['/blogCategories']" md-menu-item>Категории</button>
+                    <a [routerLink]="['/blogs']" [queryParams]="{page: 1}" md-menu-item>Новости</a>
+                    <a *ngIf="roles.isAuthor" [routerLink]="['/blogs', 0, 'edit']" md-menu-item>Добавить</a>
+                    <a [routerLink]="['/blogCategories']" md-menu-item>Категории</a>
                 </md-menu>
             </li>
             <li>
@@ -30,10 +30,10 @@
                     ФК Ливерпуль<b class="caret"></b>
                 </a>
                 <md-menu #fcClub="mdMenu">
-                    <button [routerLink]="['/clubHistory']" md-menu-item>История</button>
-                    <button [routerLink]="['/aboutClub']" md-menu-item>О Клубе</button>
-                    <button [routerLink]="['/stuff']" md-menu-item>Тренерский штаб</button>
-                    <button [routerLink]="['/squad']" md-menu-item>Состав</button>
+                    <a [routerLink]="['/clubHistory']" md-menu-item>История</a>
+                    <a [routerLink]="['/aboutClub']" md-menu-item>О Клубе</a>
+                    <a [routerLink]="['/stuff']" md-menu-item>Тренерский штаб</a>
+                    <a [routerLink]="['/squad']" md-menu-item>Состав</a>
                 </md-menu>
             </li>
             <li>
@@ -41,10 +41,10 @@
                     Сезон<b class="caret"></b>
                 </a>
                 <md-menu #seasonMenu="mdMenu">
-                    <button [routerLink]="['/seasons/calendar']" md-menu-item>Календарь</button>
+                    <a [routerLink]="['/seasons/calendar']" md-menu-item>Календарь</a>
                     <!--<button [routerLink]="['/season/eplTable']" md-menu-item>Полная таблица АПЛ</button>-->
-                    <button [routerLink]="['/players/statistics']" md-menu-item>Статистика игроков</button>
-                    <button *ngIf="roles.isAdmin" [routerLink]="['/seasons']" md-menu-item>Список сезонов</button>
+                    <a [routerLink]="['/players/statistics']" md-menu-item>Статистика игроков</a>
+                    <a *ngIf="roles.isAdmin" [routerLink]="['/seasons']" md-menu-item>Список сезонов</a>
                 </md-menu>
             </li>
             <li>
@@ -57,13 +57,13 @@
                     Админка<b class="caret"></b>
                 </a>
                 <md-menu #adminMenu="mdMenu">
-                    <button [routerLink]="['/matches']" md-menu-item>Матчи</button>
-                    <button [routerLink]="['/clubs']" md-menu-item>Клубы</button>
-                    <button [routerLink]="['/roleGroups']" md-menu-item>Роли</button>
-                    <button [routerLink]="['/persons']" md-menu-item>Люди</button>
-                    <button [routerLink]="['/stadiums']" md-menu-item>Стадионы</button>
-                    <button *ngIf="roles.isNewsmaker || roles.isAuthor" [routerLink]="['/images']" md-menu-item>Изображения</button>
-                    <button [routerLink]="['/materialComments']" [queryParams]="{page: 1}" md-menu-item>Комментарии</button>
+                    <a [routerLink]="['/matches']" md-menu-item>Матчи</a>
+                    <a [routerLink]="['/clubs']" md-menu-item>Клубы</a>
+                    <a [routerLink]="['/roleGroups']" md-menu-item>Роли</a>
+                    <a [routerLink]="['/persons']" md-menu-item>Люди</a>
+                    <a [routerLink]="['/stadiums']" md-menu-item>Стадионы</a>
+                    <a *ngIf="roles.isNewsmaker || roles.isAuthor" [routerLink]="['/images']" md-menu-item>Изображения</a>
+                    <a [routerLink]="['/materialComments']" [queryParams]="{page: 1}" md-menu-item>Комментарии</a>
                 </md-menu>
             </li>
             <li class="liverbird-navbar">
