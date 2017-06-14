@@ -17,7 +17,7 @@
                 </div>
             </div>
         </div>
-        <form *ngIf="roles.isLogined" class="form-horizontal" name="messageForm" role="form" [formGroup]="messageForm" (ngSubmit)="onSubmit()">
+        <form *ngIf="roles.isLogined" class="form-horizontal clearfix" name="messageForm" role="form" [formGroup]="messageForm" (ngSubmit)="onSubmit()">
             <div>
                 <div class="col-xs-12 col-sm-12 container-row">
                     <bbeditor name="chat-message" [type]="3" [value]="messageForm.message" formControlName="message"></bbeditor>
@@ -27,7 +27,7 @@
                 <button md-raised-button color="warn" type="submit" [disabled]="!messageForm.valid">Добавить</button>
             </div>
         </form>
-        <div class="full-width text-center text-white flex-space-around top10">
+        <div class="full-width text-center text-white flex-space-around top20">
             <div *ngIf="!roles.isLogined">Для добавления сообщений необходимо войти.</div>
             <form role="form" [formGroup]="chatTimerForm">
                 <md-select placeholder="Время" formControlName="timerValue" (change)="updateSchedule($event)" style="background-color: white; padding-left: 5px;">

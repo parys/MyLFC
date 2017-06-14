@@ -44,6 +44,7 @@ namespace MyLiverpool.Data.ResourceAccess
         public DbSet<Season> Seasons { get; set; }
         public DbSet<Stadium> Stadiums { get; set; }
         public DbSet<UserConfig> UserConfigs { get; set; }
+        public DbSet<Transfer> Transfers { get; set; }
 
         //public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         //{
@@ -108,6 +109,8 @@ namespace MyLiverpool.Data.ResourceAccess
                 .HasForeignKey(x => x.AuthorId);
 
             modelBuilder.Entity<Match>().HasOne(m => m.Season).WithMany(s => s.Matches).HasForeignKey(m => m.SeasonId);
+            modelBuilder.Entity<Transfer>().HasOne(x => x.Person).WithMany(x => x.Transfers).HasForeignKey(x => x.PersonId);
+            modelBuilder.Entity<Transfer>().HasOne(x => x.Club).WithMany(x => x.Transfers).HasForeignKey(x => x.ClubId).IsRequired(false);
 
             foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
             {

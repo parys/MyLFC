@@ -42,7 +42,7 @@ export class MaterialCommentListComponent implements OnInit, OnDestroy {
                 this.page = qParams["page"] || 1;
                 this.categoryId = qParams["categoryId"] || "";
                 this.userName = qParams["userName"] || "";
-                this.userId = qParams["userId"] || null;
+                this.userId = qParams["userId"];
                 this.onlyUnverified = qParams["onlyUnverified"] || false;
             },
             error => console.log(error));
@@ -74,7 +74,7 @@ export class MaterialCommentListComponent implements OnInit, OnDestroy {
     private updateLocation(): void {
         let newUrl = `materialComments?page=${this.page}`;
         if (this.userId) {
-            newUrl = `${newUrl}&userId=${this.categoryId}`;
+            newUrl = `${newUrl}&userId=${this.userId}`;
         }
         if (this.onlyUnverified) {
             newUrl = `${newUrl}&onlyUnverified=${this.onlyUnverified}`;

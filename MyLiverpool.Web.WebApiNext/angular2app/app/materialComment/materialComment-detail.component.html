@@ -60,8 +60,8 @@
                 <bbeditor name="message" formControlName="message"></bbeditor>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-primary" [disabled]="!commentForm.valid" type="submit">Добавить</button>
-                <button class="btn btn-default" data-dismiss="modal" (click)="cancelAdding()" type="button">Отмена</button>
+                <button md-raised-button color="warn" [disabled]="!commentForm.valid" type="submit">Добавить</button>
+                <button md-raised-button data-dismiss="modal" (click)="cancelAdding()" type="button">Отмена</button>
             </div>
         </form>
     </div>
