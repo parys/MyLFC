@@ -66,6 +66,7 @@ private localStorage: LocalStorageService,
     }
 
     public onSubmit(): void {
+        this.messageForm.markAsPending();
         this.service.create(this.messageForm.value)
             .subscribe(data => {
                 this.items.unshift(data);

@@ -1,11 +1,11 @@
 ﻿import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Location } from "@angular/common";
+import { ActivatedRoute } from "@angular/router";
+import { MdDialog } from '@angular/material';
+import { Subscription } from "rxjs/Subscription";
 import { Wish } from "./wish.model";
 import { WishService } from "./wish.service";
-import { Observable } from "rxjs/Observable";
-import { Router, ActivatedRoute } from "@angular/router";
-import { Subscription } from "rxjs/Subscription";
-import { Pageable, RolesCheckedService, IRoles } from "../shared/index";
+import { Pageable, RolesCheckedService, IRoles, DeleteDialogComponent } from "../shared/index";
 
 @Component({
     selector: "wish-list",
@@ -13,21 +13,22 @@ import { Pageable, RolesCheckedService, IRoles } from "../shared/index";
 })
 export class WishListComponent implements OnInit, OnDestroy {
     private sub: Subscription;
-    roles: IRoles;
-    items: Wish[];
-    page: number = 1;
-    itemsPerPage: number = 15;
-    totalItems: number;
-    categoryId: number;
-    userName: string;
+    private sub2: Subscription;
+    public roles: IRoles;
+    public items: Wish[];
+    public page: number = 1;
+    public itemsPerPage: number = 15;
+    public totalItems: number;
+    public categoryId: number;
 
     constructor(private service: WishService,
         private rolesChecked: RolesCheckedService,
         private location: Location,
-        private route: ActivatedRoute) {
+        private route: ActivatedRoute,
+        private dialog: MdDialog) {
     }
 
-    ngOnInit() {
+    public ngOnInit(): void  {
         this.roles = this.rolesChecked.checkRoles();   
         this.sub = this.route.params.subscribe(params => {
             if (params["page"]) {
@@ -38,14 +39,15 @@ export class WishListComponent implements OnInit, OnDestroy {
         });
     }
 
-    ngOnDestroy() {
-        this.sub.unsubscribe();
+    public ngOnDestroy(): void  {
+        if(this.sub) { this.sub.unsubscribe(); }
+        if(this.sub2) { this.sub2.unsubscribe(); }
     }
 
-    pageChanged(event: any): void {
+    public pageChanged(event: any): void {
         this.page = event;
         this.update();
-        let newUrl = `$wishes?page=${this.page}`;
+        const newUrl: string = `$wishes?page=${this.page}`;
        // if (this.categoryId) {
        //     newUrl = `${newUrl}&categoryId=${this.categoryId}`;
       //  }
@@ -56,21 +58,20 @@ export class WishListComponent implements OnInit, OnDestroy {
         this.location.replaceState(newUrl);
     };
 
-    update(): void {
+    public update(): void {
         //let filters = new MaterialFilters();
         //filters.categoryId = this.categoryId;
         //filters.materialType = "News";
         //filters.userName = this.userName;
         //filters.page = this.page;
 
-        this.service
+        this.sub2 = this.service
             .getAll(this.page)
             .subscribe(data => this.parsePageable(data),
-            error => console.log(error),
-            () => {});
+            error => console.log(error));
     }
 
-    getTypeClass(i: number): string {
+    public getTypeClass(i: number): string {
         switch (i) {
             case 1:
                 return "panel-danger";
@@ -84,6 +85,28 @@ export class WishListComponent implements OnInit, OnDestroy {
                 return "";
         }
     };
+
+    public showDeleteModal(index: number): void {
+        let dialogRef = this.dialog.open(DeleteDialogComponent);
+        dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                this.delete(index);
+            }
+        }, e => console.log(e));
+    }
+
+    private delete(index: number): void {
+        let result: boolean;
+        this.service.delete(this.items[index].id)
+            .subscribe(res => result = res,
+                e => console.log(e),
+                () => {
+                    if (result) {
+                        this.items.splice(index, 1);
+                        this.totalItems -= 1;
+                    }
+                });
+    }
 
     private parsePageable(pageable: Pageable<Wish>): void {
         this.items = pageable.list;

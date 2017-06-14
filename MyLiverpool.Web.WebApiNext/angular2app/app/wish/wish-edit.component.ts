@@ -6,6 +6,7 @@ import { Subscription } from "rxjs/Subscription";
 import { Wish } from "./wish.model";
 import { WishType } from "./wishType.model";
 import { WishService } from "./wish.service";
+import { RolesCheckedService, IRoles } from "../shared/index";
 
 @Component({
     selector: "wish-edit",
@@ -15,6 +16,7 @@ export class WishEditComponent implements OnInit, OnDestroy {
     private id: number = 0;
     private sub: Subscription;
     private sub2: Subscription;
+    public roles: IRoles;
     public editWishForm: FormGroup;
     public types: WishType[];
     public isHuman: boolean = false;
@@ -22,11 +24,13 @@ export class WishEditComponent implements OnInit, OnDestroy {
     constructor(private service: WishService,
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
+        private rolesChecked: RolesCheckedService,
         private snackBar: MdSnackBar,
         private router: Router) {
     }
 
     public ngOnInit(): void {
+        this.roles = this.rolesChecked.checkRoles();   
         this.editWishForm = this.formBuilder.group({
             'title': [
                 "", Validators.compose([
@@ -53,8 +57,7 @@ export class WishEditComponent implements OnInit, OnDestroy {
                 this.sub2 = this.service
                     .getSingle(this.id)
                     .subscribe(data => this.editWishForm.patchValue(data),
-                    error => console.log(error),
-                    () => {});
+                    error => console.log(error));
             }
         });
         this.updateTypes();
@@ -67,6 +70,7 @@ export class WishEditComponent implements OnInit, OnDestroy {
 
     public onSubmit(): void {
         let model: Wish = this.editWishForm.value;
+        this.editWishForm.markAsPending();
         model.id = this.id;
 
         let res: any;
@@ -75,9 +79,9 @@ export class WishEditComponent implements OnInit, OnDestroy {
         } else {
             let result = this.service.create(model).subscribe(data => {
                 res = data;
+                this.snackBar.open("Пожелание успешно создано", null, { duration: 5000 });
             }, e => {
                 console.log(e);
-                this.snackBar.open("Пожелание успешно создано", null, { duration: 5000 });
             });
         }
         this.isHuman = false;

@@ -65,6 +65,7 @@ export class MaterialCommentSectionComponent implements OnInit {
     }
 
     public onSubmit(): void {
+        this.commentAddForm.markAsPending();
         const comment: MaterialComment = this.commentAddForm.value;
         comment.materialId = this.materialId;
         this.materialCommentService.create(comment)

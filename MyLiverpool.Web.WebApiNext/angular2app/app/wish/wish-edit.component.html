@@ -19,12 +19,12 @@
             </select>
         </div>
     </div>
-    <div class="form-group" *ngIf="isHuman">
+    <div class="form-group" *ngIf="isHuman || roles.isLogined">
         <div class="col-md-offset-2 col-md-10">
             <button type="submit" class="btn btn-default" [disabled]="!editWishForm.valid">Отправить</button>
         </div>
     </div>
-    <div class="form-group" [hidden]="isHuman">
+    <div class="form-group" *ngIf="!roles.isLogined" [hidden]="isHuman">
         <div class="col-md-offset-2 col-md-10">
             <recaptcha (isHuman)="isHuman = $event"></recaptcha>
         </div>

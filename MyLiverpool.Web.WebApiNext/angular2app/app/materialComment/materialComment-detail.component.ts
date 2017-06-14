@@ -66,6 +66,7 @@ export class MaterialCommentDetailComponent implements OnInit {
     }
 
     public addComment(): void {
+        this.commentForm.markAsPending();
         let comment = this.getNewComment();
         this.materialCommentService.create(comment)
             .subscribe(data => {
@@ -76,6 +77,7 @@ export class MaterialCommentDetailComponent implements OnInit {
     }
 
     public editComment(): void {
+        this.commentForm.markAsPending();
         let comment = this.getComment();
         this.materialCommentService.update(this.item.id, comment)
             .subscribe(data => {
