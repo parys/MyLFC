@@ -186,6 +186,16 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return BadRequest();
         }
 
-
+        /// <summary>
+        /// Returns persons which names contain types string.
+        /// </summary>
+        /// <param name="typed">Part of person name for search.</param>
+        /// <returns>List of keyValuePair of persons with identifiers.</returns>
+        [AllowAnonymous, HttpGet("getPersonsByName")]
+        public async Task<IActionResult> GetPrsonsByNameAsync([FromQuery]string typed)
+        {
+            var result = await _personService.GetPersonsByNameAsync(typed);
+            return Ok(result);
+        }
     }
 }

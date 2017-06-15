@@ -5,14 +5,26 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { PersonListComponent } from "./person-list.component";
 import { PersonEditComponent } from "./person-edit.component";
 import { PersonService } from "./person.service";
+import { TransferService } from "./transfer.service";
 import { PlayerStatisticsComponent } from "./player-statistics.component";
 import { BestPlayerComponent } from "./best-player.component";
 import { StuffListComponent } from "./stuff-list.component";
+import { TransferListComponent } from "./transfer-list.component";
+import { TransferEditComponent  } from "./transfer-edit.component";
 import { SquadComponent } from "./squad.component";
 import { personRoutes } from "./person.routes";
 import { SharedModule } from "../shared/index";
-import { MdButtonModule, MdInputModule, MdSelectModule, MdCardModule, MdNativeDateModule, MdDatepickerModule } from "@angular/material";
+import {
+    MdButtonModule,
+    MdInputModule,
+    MdSelectModule,
+    MdCardModule,
+    MdSlideToggleModule,
+    MdNativeDateModule,
+    MdDatepickerModule
+} from "@angular/material";
 import { NgxPaginationModule } from "ngx-pagination";
+import { Ng2AutoCompleteModule } from "ng2-auto-complete";
 
 
 @NgModule({
@@ -25,6 +37,8 @@ import { NgxPaginationModule } from "ngx-pagination";
         MdInputModule,
         MdNativeDateModule,
         MdSelectModule,
+        MdSlideToggleModule,
+Ng2AutoCompleteModule,
         NgxPaginationModule,
         ReactiveFormsModule,
         RouterModule.forRoot(personRoutes),
@@ -36,13 +50,16 @@ import { NgxPaginationModule } from "ngx-pagination";
         PersonListComponent,
         PlayerStatisticsComponent,
         SquadComponent,
-        StuffListComponent
+        StuffListComponent,
+        TransferListComponent,
+        TransferEditComponent 
     ],
     exports: [
         BestPlayerComponent
     ],
     providers: [
-        PersonService
+        PersonService,
+        TransferService
     ]
 })
 export class PersonModule { }

@@ -1,10 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Common.Utilities;
+using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
 using MyLiverpool.Data.Entities;
 using MyLiverpool.Data.ResourceAccess.Interfaces;
@@ -134,6 +137,20 @@ namespace MyLiverpool.Business.Services
                 Midfielders = midfielders.OrderBy(x => x.Number),
                 Strikers = strikers.OrderBy(x => x.Number)
             };
+        }
+
+        public async Task<IEnumerable<KeyValuePair<int, string>>> GetPersonsByNameAsync(string typed)
+        {
+            Expression<Func<Person, bool>> filter = x => true;
+            if (!string.IsNullOrWhiteSpace(typed))
+            {
+                filter = filter.And(x => x.FirstName.ToLower().Contains(typed.ToLower()) ||
+                                         x.FirstRussianName.ToLower().Contains(typed.ToLower()) ||
+                                         x.LastName.ToLower().Contains(typed.ToLower()) ||
+                                         x.LastRussianName.ToLower().Contains(typed.ToLower()));
+            }
+            var persons = await _personRepository.GetListAsync(1, filter: filter);
+            return persons.Select(x => new KeyValuePair<int, string>(x.Id, x.Name));
         }
     }
 }

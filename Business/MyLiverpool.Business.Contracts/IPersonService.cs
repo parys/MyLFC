@@ -16,5 +16,6 @@ namespace MyLiverpool.Business.Contracts
         Task SetBestPlayerAsync(int personId);
         Task<IEnumerable<PersonDto>> GetStuffListAsync();
         Task<SquadListDto> GetSquadListAsync();
+        Task<IEnumerable<KeyValuePair<int, string>>> GetPersonsByNameAsync(string typed);
     }
 }
