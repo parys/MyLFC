@@ -14,5 +14,7 @@ namespace MyLiverpool.Data.Entities
         public string Message { get; set; }
 
         public WishType Type { get; set; }
+
+        public WishStateEnum State { get; set; }
     }
 }

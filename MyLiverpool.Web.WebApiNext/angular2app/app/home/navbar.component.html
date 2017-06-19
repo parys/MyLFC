@@ -45,7 +45,7 @@
                     <!--<button [routerLink]="['/season/eplTable']" md-menu-item>Полная таблица АПЛ</button>-->
                     <a [routerLink]="['/players/statistics']" md-menu-item>Статистика игроков</a>
                     <a *ngIf="roles.isAdmin" [routerLink]="['/seasons']" md-menu-item>Список сезонов</a>
-                    <a *ngIf="roles.isAdmin" [routerLink]="['/transfers']" md-menu-item>Трансферы</a>
+                    <a [routerLink]="['/transfers/current']" md-menu-item>Трансферы</a>
                 </md-menu>
             </li>
             <li>

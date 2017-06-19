@@ -14,7 +14,7 @@ namespace MyLiverpool.Data.Entities
 
         public DateTimeOffset? FinishDate { get; set; }
 
-        public int Amount { get; set; }
+        public int? Amount { get; set; }
 
         public int? ClubId { get; set; }
 
@@ -23,5 +23,9 @@ namespace MyLiverpool.Data.Entities
         public int PersonId { get; set; }
 
         public virtual Person Person { get; set; }
+
+        public int? SeasonId { get; set; }
+
+        public virtual Season Season { get; set; }
     }
 }

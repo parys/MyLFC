@@ -16,5 +16,10 @@ namespace MyLiverpool.Business.Dto
         public int Type { get; set; }
 
         public string TypeName { get; set; }
+
+        [Required]
+        public int State { get; set; }
+
+        public string StateName { get; set; }
     }
 }

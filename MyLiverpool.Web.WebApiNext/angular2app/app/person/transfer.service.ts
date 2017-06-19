@@ -15,6 +15,10 @@ export class TransferService {
         return this.http.get(this.actionUrl + `list?page=${page}`).map((res: Response) => res.json());
     };
 
+    public getCurrentAll = (): Observable<Transfer[]> => {
+        return this.http.get(this.actionUrl + `current`).map((res: Response) => res.json());
+    };
+
     public getSingle = (id: number): Observable<Transfer> => {
         return this.http.get(this.actionUrl + id).map((res: Response) => res.json());
     };

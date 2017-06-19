@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -68,6 +69,14 @@ namespace MyLiverpool.Business.Services
             var dtos = _mapper.Map<ICollection<TransferDto>>(transfers);
             var count = await _transferRepository.GetCountAsync();
             return new PageableData<TransferDto>(dtos, page, count);
+        }
+
+        public async Task<IEnumerable<TransferDto>> GetCurrentListAsync()
+        {
+            Expression<Func<Transfer, bool>> filter = x => x.StartDate >= DateTimeOffset.Now.AddMonths(-6);//todo maybe link by season
+            var transfers =
+                await _transferRepository.GetListAsync(1, 1000, filter, SortOrder.Ascending, x => x.StartDate);
+            return _mapper.Map<ICollection<TransferDto>>(transfers);
         }
     }
 }

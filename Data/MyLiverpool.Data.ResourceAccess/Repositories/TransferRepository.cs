@@ -21,7 +21,8 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
 
         public async Task<Transfer> GetByIdAsync(int id)
         {
-            return await _context.Transfers.FindAsync(id);
+            return await _context.Transfers.Include(x => x.Person).Include(x => x.Club)
+                .FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<Transfer> AddAsync(Transfer entity)

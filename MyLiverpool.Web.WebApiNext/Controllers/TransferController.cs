@@ -23,6 +23,19 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         {
             _transferService = transferService;
         }
+
+        /// <summary>
+        /// Returns transfer by id.
+        /// </summary>
+        /// <param name="id">The identifier of transfer.</param>
+        /// <returns>Found transfer by id.</returns>
+        [AllowAnonymous, HttpGet("{id:int}")]
+        public async Task<IActionResult> GetAsync(int id)
+        {
+            var result = await _transferService.GetByIdAsync(id);
+            return Json(result);
+        }
+
         /// <summary>
         /// Returns transfers list.
         /// </summary>
@@ -31,6 +44,17 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         public async Task<IActionResult> GetListAsync([FromQuery]int page)
         {
             var result = await _transferService.GetListAsync(page);
+            return Json(result);
+        }
+
+        /// <summary>
+        /// Returns transfers list for current moment.
+        /// </summary>
+        /// <returns>List with transfers.</returns>
+        [AllowAnonymous, HttpGet("current")]
+        public async Task<IActionResult> GetCurrentListAsync()
+        {
+            var result = await _transferService.GetCurrentListAsync();
             return Json(result);
         }
 

@@ -1,4 +1,4 @@
-﻿<form class="form-horizontal" name="editForm" role="form" [formGroup]="editTransferForm" (ngSubmit)="onSubmit()">
+﻿<form class="form-horizontal col-xs-12" name="editForm" role="form" [formGroup]="editTransferForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
         <label class="control-label col-xs-2 col-md-2">Игрок</label>
         <div class="col-xs-10 col-md-10">
@@ -35,7 +35,7 @@
                    autocomplete="off"/>
         </div>
     </div> 
-    <md-input-container>
+    <md-input-container class="full-width">
         <input mdInput [mdDatepicker]="datePicker1" placeholder="Выберите дату трансфера" formControlName="startDate">
         <button mdSuffix [mdDatepickerToggle]="datePicker1"></button>
     </md-input-container>
@@ -45,23 +45,23 @@
                          color="warn">Аренда
         </md-slide-toggle>
     </div>
-        <md-input-container>
-            <input mdInput [mdDatepicker]="datePicker2" placeholder="Выберите дату окончания трансфера" formControlName="finishDate">
+    <div [hidden]="!editTransferForm.get('onLoan').value">
+        <md-input-container class="full-width">
+            <input mdInput [mdDatepicker]="datePicker2" placeholder="Выберите дату окончания трансфера(Для аренды)" formControlName="finishDate">
             <button mdSuffix [mdDatepickerToggle]="datePicker2"></button>
         </md-input-container>
-    <md-datepicker #datePicker2 startView="year" touchUi="true"></md-datepicker>
+        <md-datepicker #datePicker2 startView="year" touchUi="true"></md-datepicker>
+    </div>
     <md-input-container class="col-xs-12">
-        <input mdInput placeholder="Сумма трансфера" formControlName="amount">
+        <input mdInput placeholder="Сумма трансфера в фунтах(цифра)" type="number" formControlName="amount">
     </md-input-container>
-    <div class="form-group">
+    <div class="form-group">Ушел
         <md-slide-toggle formControlName="coming"
                          color="warn">Пришел
         </md-slide-toggle>
     </div>
 
     <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <button md-raised-button type="submit" [disabled]="!editTransferForm.valid" class="btn btn-default">Сохранить</button>
-        </div>
+        <button md-raised-button type="submit" [disabled]="!editTransferForm.valid" class="text-center full-width">Сохранить</button>
     </div>
 </form>

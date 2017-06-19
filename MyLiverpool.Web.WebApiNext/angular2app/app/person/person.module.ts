@@ -10,6 +10,7 @@ import { PlayerStatisticsComponent } from "./player-statistics.component";
 import { BestPlayerComponent } from "./best-player.component";
 import { StuffListComponent } from "./stuff-list.component";
 import { TransferListComponent } from "./transfer-list.component";
+import { TransferCurrentListComponent } from "./transfer-current-list.component";
 import { TransferEditComponent  } from "./transfer-edit.component";
 import { SquadComponent } from "./squad.component";
 import { personRoutes } from "./person.routes";
@@ -52,6 +53,7 @@ Ng2AutoCompleteModule,
         SquadComponent,
         StuffListComponent,
         TransferListComponent,
+        TransferCurrentListComponent,
         TransferEditComponent 
     ],
     exports: [

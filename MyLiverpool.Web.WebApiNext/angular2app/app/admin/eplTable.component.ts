@@ -15,6 +15,7 @@ export class EplTableComponent implements OnInit, OnDestroy {
     private sub2: Subscription;
     public roles: IRoles;
     public eplTable: string;
+    public opened: boolean = false;
 
     constructor(private service: AdminService,
         private cd: ChangeDetectorRef,

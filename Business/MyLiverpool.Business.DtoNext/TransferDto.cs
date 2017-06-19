@@ -14,7 +14,7 @@ namespace MyLiverpool.Business.Dto
 
         public DateTimeOffset? FinishDate { get; set; }
 
-        public int Amount { get; set; }
+        public int? Amount { get; set; }
 
         public int? ClubId { get; set; }
 
@@ -23,5 +23,9 @@ namespace MyLiverpool.Business.Dto
         public int PersonId { get; set; }
 
         public string PersonName { get; set; }
+
+        public int? SeasonId { get; set; }
+
+        public string SeasonName { get; set; }
     }
 }

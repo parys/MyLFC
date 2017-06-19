@@ -9,7 +9,7 @@
 
     public finishDate?: Date;
 
-    public amount: number;
+    public amount?: number;
 
     public clubId?: number;
 
