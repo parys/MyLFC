@@ -19,6 +19,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// Constructor.
         /// </summary>
         /// <param name="helperService"></param>
+        /// <param name="cache"></param>
         public HelperController(IHelperService helperService, IMemoryCache cache)
         {
             _helperService = helperService;

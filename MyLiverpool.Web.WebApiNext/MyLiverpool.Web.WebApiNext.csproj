@@ -32,15 +32,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Properties\PublishProfiles\Default Settings-publish.ps1" />
-    <None Remove="Properties\PublishProfiles\Default Settings.pubxml" />
-    <None Remove="Properties\PublishProfiles\mylfc - Web Deploy.pubxml" />
-    <None Remove="Properties\PublishProfiles\publish-module.psm1" />
-    <None Remove="Properties\PublishProfiles\zipp-publish.ps1" />
-    <None Remove="Properties\PublishProfiles\zipp.pubxml" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Include="wwwroot\content\persons\AdamLallana1.jpeg" />
     <Content Include="wwwroot\content\persons\StevenGerrard2.jpg" />
     <Content Include="wwwroot\fonts\10427.ttf" />
@@ -216,12 +207,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="wwwroot\js\langs\" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="appsettings.json" />
+    <None Include="Properties\PublishProfiles\Default Settings.pubxml.user" />
+    <None Include="Properties\PublishProfiles\mylfc - Web Deploy.pubxml.user" />
+    <None Include="Properties\PublishProfiles\zipp.pubxml.user" />
     <None Include="web.config" />
   </ItemGroup>
 

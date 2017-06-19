@@ -1,6 +1,7 @@
 ﻿import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
+import { MdButtonModule } from "@angular/material";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { WishListComponent } from "./wish-list.component";
 import { WishEditComponent } from "./wish-edit.component";
@@ -13,6 +14,7 @@ import { SharedModule } from "../shared/index";
     imports: [
         CommonModule,
         FormsModule,
+        MdButtonModule,
         RouterModule.forRoot(wishRoutes),
         ReactiveFormsModule,
         NgxPaginationModule,

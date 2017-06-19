@@ -13,5 +13,7 @@ namespace MyLiverpool.Business.Contracts
         Task<WishDto> GetAsync(int wishId);
 
         Task<bool> DeleteAsync(int id);
+
+        Task<WishDto> UpdateAsync(WishDto dto);
     }
 }

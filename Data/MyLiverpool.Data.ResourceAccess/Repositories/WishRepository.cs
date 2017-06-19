@@ -27,6 +27,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
         public async Task<Wish> AddAsync(Wish entity)
         {
             var addedEntity = await _context.Wishes.AddAsync(entity);
+            await _context.SaveChangesAsync();
             return addedEntity.Entity;
         }
 
@@ -41,7 +42,8 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
 
         public async Task DeleteAsync(Wish entity)
         {
-            await Task.FromResult(_context.Wishes.Remove(entity));
+            _context.Wishes.Remove(entity);
+            await _context.SaveChangesAsync();
         }
 
         public void Update(Wish entity)
@@ -52,7 +54,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
 
         public async Task SaveChangesAsync()
         {
-            await _context.SaveChangesAsync();
+            throw new NotImplementedException("Not need to implement");
         }
 
         public async Task<int> GetCountAsync(Expression<Func<Wish, bool>> filter = null)
@@ -83,6 +85,13 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             }
             query = query.Skip((page - 1) * itemPerPage).Take(itemPerPage);
             return await query.ToListAsync();
+        }
+
+        public async Task<Wish> UpdateAsync(Wish wish)
+        {
+            _context.Wishes.Update(wish);
+            await _context.SaveChangesAsync();
+            return wish;
         }
     }
 }

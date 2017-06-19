@@ -125,7 +125,6 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <summary>
         /// Returns first 
         /// </summary>
-        /// <param name="typed"></param>
         /// <returns></returns>
         [AllowAnonymous, HttpGet("online")]
         public IActionResult GetOnlineCounter()//todo think maybe get unique id like guid from frontend

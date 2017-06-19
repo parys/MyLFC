@@ -1,4 +1,4 @@
-﻿export class WishType {
+﻿export class WishState {
     public id: number;
     public name: string;
 }

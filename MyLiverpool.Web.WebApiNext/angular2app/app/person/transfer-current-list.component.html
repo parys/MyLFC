@@ -1,6 +1,6 @@
 ﻿<div *ngIf="roles.isInformer">
-    <button md-raised-button color="primary" [routerLink]="['/transfers', 0, 'edit']">Добавить</button>
-    <button md-raised-button color="danger" [routerLink]="['/transfers']">К полному списку</button>
+    <button md-raised-button color="warn" [routerLink]="['/transfers', 0, 'edit']">Добавить</button>
+    <button md-raised-button [routerLink]="['/transfers']">К полному списку</button>
 </div>
 <div class="top20">
     <div class="panel panel-success">
@@ -12,12 +12,11 @@
                 <a *ngIf="roles.isInformer" [routerLink]="['/transfers', transfer.id, 'edit']">
                     <div [textContent]="transfer.personName"></div>
                 </a>
-                <span *ngIf="!roles.isInformer" > <b [textContent]="transfer.personName"></b></span>
-                <span> Из</span>
-                <span [textContent]="transfer.clubName"></span>
-                <span>
+                <div *ngIf="!roles.isInformer" > <b [textContent]="transfer.personName"></b></div>
+                <div> Из <span [textContent]="transfer.clubName"></span></div>
+                <div>
                     Дата: <span [textContent]="transfer.startDate | date: 'yMMMMd'"></span>
-                </span>
+                </div>
                 <div *ngIf="transfer.onLoan" class="full-width">В аренде</div>
                 <div>
                     Сумма: <span *ngIf="transfer.amount>0" [textContent]="transfer.amount | currency:'GBP':true"></span>
@@ -42,12 +41,11 @@
                 <a *ngIf="roles.isInformer" [routerLink]="['/transfers', transfer.id, 'edit']">
                     <div [textContent]="transfer.personName"></div>
                 </a>
-                <span *ngIf="!roles.isInformer" > <b [textContent]="transfer.personName"></b></span>
-                <span> В</span>
-                <span [textContent]="transfer.clubName"></span>
-                <span>
+                <div *ngIf="!roles.isInformer" > <b [textContent]="transfer.personName"></b></div>
+                <div>В <span [textContent]="transfer.clubName"></span></div>
+                <div>
                     Дата: <span [textContent]="transfer.startDate | date: 'yMMMMd'"></span>
-                </span>
+                </div>
                 <div *ngIf="transfer.onLoan" class="full-width">В аренде</div>
                 <div>Сумма: <span *ngIf="transfer.amount>0"[textContent]="transfer.amount | currency:'GBP':true"></span>
                     <span *ngIf="transfer.amount===null">Не определена</span>

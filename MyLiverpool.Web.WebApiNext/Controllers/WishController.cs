@@ -43,6 +43,24 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return Ok(model);
         }
 
+
+        /// <summary>
+        /// Updates wish.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="dto">Modified wish entity.</param>
+        /// <returns>Result of editing.</returns>
+        [Authorize(Roles = nameof(RolesEnum.AdminStart)), HttpPut("{id:int}")]
+        public async Task<IActionResult> UpdateAsync(int id, [FromBody]WishDto dto)
+        {
+            if (id != dto.Id || !ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            var result = await _wishService.UpdateAsync(dto);
+            return Ok(result);
+        }
+
         /// <summary>
         /// Deletes wish by id.
         /// </summary>
@@ -75,12 +93,12 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Returns wish by id.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [AllowAnonymous, HttpGet("")]
-        public async Task<IActionResult> GetAsync([FromQuery]int id)
+        [AllowAnonymous, HttpGet("{id:int}")]
+        public async Task<IActionResult> GetByIdAsync(int id)
         {
             if (id < 1)
             {
@@ -102,7 +120,21 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             {
                 list.Add(new { id = type, name = type.GetNameAttribute() });
             }
-
+            return Ok(await Task.FromResult(list));
+        } 
+        
+        /// <summary>
+        /// Gets wish states.
+        /// </summary>
+        /// <returns>Wish states list.</returns>
+        [AllowAnonymous, HttpGet("states")]
+        public async Task<IActionResult> GetStates()
+        {
+            var list = new List<object>();
+            foreach (WishStateEnum type in Enum.GetValues(typeof(WishStateEnum)))
+            {
+                list.Add(new { id = type, name = type.GetNameAttribute() });
+            }
             return Ok(await Task.FromResult(list));
         }
     }

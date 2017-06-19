@@ -9,6 +9,7 @@ using MyLiverpool.Business.Dto;
 using MyLiverpool.Common.Utilities;
 using MyLiverpool.Data.Entities;
 using MyLiverpool.Common.Utilities.Extensions;
+using MyLiverpool.Data.Common;
 using MyLiverpool.Data.ResourceAccess.Interfaces;
 
 namespace MyLiverpool.Business.Services
@@ -30,7 +31,6 @@ namespace MyLiverpool.Business.Services
         {
             var wish = _mapper.Map<Wish>(dto);
             wish = await _wishRepository.AddAsync(wish);
-            await _wishRepository.SaveChangesAsync();
             await SendAlertAsync(wish.Message);
             return _mapper.Map<WishDto>(wish);
         }
@@ -38,9 +38,10 @@ namespace MyLiverpool.Business.Services
         public async Task<PageableData<WishDto>> GetListAsync(int page, int? typeId = null, string filterText = null)
         {
             Expression<Func<Wish, bool>> filter = x => true;
-            if (typeId.HasValue)
+            //  if (typeId.HasValue)//bug temporary stateId = 1 or 0
             {
-                filter = filter.And(x => (int)x.Type == typeId.Value);
+                filter = filter.And(x => (int)x.State == 1 || x.State == 0);
+               // filter = filter.And(x => (int)x.Type == typeId.Value);
             }
             if (!string.IsNullOrWhiteSpace(filterText) && filterText != "undefined")
             {
@@ -61,8 +62,21 @@ namespace MyLiverpool.Business.Services
         public async Task<bool> DeleteAsync(int id)
         {
             await _wishRepository.DeleteAsync(id);
-            await _wishRepository.SaveChangesAsync();
             return true;
+        }
+
+        public async Task<WishDto> UpdateAsync(WishDto dto)
+        {
+            var wish = await _wishRepository.GetByIdAsync(dto.Id);
+            if (wish != null)
+            {
+                wish.State = (WishStateEnum) dto.State;
+                wish.Message = dto.Message;
+                wish.Title = dto.Title;
+                wish.Type = (WishType) dto.Type;
+                wish = await _wishRepository.UpdateAsync(wish);
+            }
+            return wish != null ? _mapper.Map<WishDto>(wish) : null;
         }
 
         private async Task SendAlertAsync(string message)

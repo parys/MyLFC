@@ -115,26 +115,44 @@ namespace MyLiverpool.Web.WebApiNext.OnlineCounting
     }
 
     /// <summary>
-    /// 
+    /// Contains signed user.
     /// </summary>
     public class OnlineCounterModel
     {
+        /// <summary>
+        /// The identifier of user.
+        /// </summary>
         public int Id { get; set; }
 
+        /// <summary>
+        /// UserName.
+        /// </summary>
         public string UserName { get; set; }
 
+        /// <summary>
+        /// Last
+        /// </summary>
         public DateTimeOffset Date { get; set; }
     }
 
     /// <summary>
-    /// 
+    /// Contains guests count and list of users.
     /// </summary>
     public class OnlineUsersDto
     {
+        /// <summary>
+        /// Sum users and guests count.
+        /// </summary>
         public int AllCount { get; set; }
 
+        /// <summary>
+        /// Guests count.
+        /// </summary>
         public int GuestCount { get; set; }
 
+        /// <summary>
+        /// List of signed users.
+        /// </summary>
         public ICollection<OnlineCounterModel> Users { get; set; }
     }
 }

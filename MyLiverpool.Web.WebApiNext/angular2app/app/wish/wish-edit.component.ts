@@ -5,6 +5,7 @@ import { MdSnackBar } from "@angular/material";
 import { Subscription } from "rxjs/Subscription";
 import { Wish } from "./wish.model";
 import { WishType } from "./wishType.model";
+import { WishState } from "./wishState.model";
 import { WishService } from "./wish.service";
 import { RolesCheckedService, IRoles } from "../shared/index";
 
@@ -19,6 +20,7 @@ export class WishEditComponent implements OnInit, OnDestroy {
     public roles: IRoles;
     public editWishForm: FormGroup;
     public types: WishType[];
+    public states: WishState[];
     public isHuman: boolean = false;
 
     constructor(private service: WishService,
@@ -49,7 +51,9 @@ export class WishEditComponent implements OnInit, OnDestroy {
                 "", Validators.compose([
                     Validators.required
                 ])
-            ]
+            ],
+
+            'state': [1]
         });
         this.sub = this.route.params.subscribe(params => {
             this.id = +params["id"];
@@ -61,6 +65,7 @@ export class WishEditComponent implements OnInit, OnDestroy {
             }
         });
         this.updateTypes();
+        this.updateStates();
     }
 
     public ngOnDestroy(): void {
@@ -92,5 +97,11 @@ export class WishEditComponent implements OnInit, OnDestroy {
         this.service
             .getTypes()
             .subscribe(data => this.types = data);
+    }
+
+    public updateStates(): void {
+        this.service
+            .getStates()
+            .subscribe(data => this.states = data);
     }
 }

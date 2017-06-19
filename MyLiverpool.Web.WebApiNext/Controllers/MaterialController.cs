@@ -70,6 +70,13 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         public async Task<IActionResult> GetItem(int id)
         {
             var model = await _materialService.GetDtoAsync(id);
+            if (model.Pending)
+            {
+                if(User == null || !User.IsInRole(nameof(RolesEnum.NewsStart)))
+                {
+                    return BadRequest();
+                }
+            }
             return Ok(model);
         }
 

@@ -12,20 +12,28 @@
         </div>
     </div>
     <div class="form-group">
-        <label class="control-label col-xs-2 col-sm-2">Тип:</label>
-        <div class="col-xs-10 col-sm-10">
+        <label class="control-label col-md-2">Тип:</label>
+        <div class="col-md-10">
             <select class="form-control" formControlName="type">
                 <option [value]="type.id" *ngFor="let type of types" [textContent]="type.name"></option>
             </select>
         </div>
+    </div>    
+    <div class="form-group" *ngIf="roles.isAdminAssistant">
+        <label class="control-label col-md-2">Состояние:</label>
+        <div class="col-md-10">
+            <select class="form-control" formControlName="state">
+                <option [value]="state.id" *ngFor="let state of states" [textContent]="state.name"></option>
+            </select>
+        </div>
     </div>
     <div class="form-group" *ngIf="isHuman || roles.isLogined">
-        <div class="col-md-offset-2 col-md-10">
-            <button type="submit" class="btn btn-default" [disabled]="!editWishForm.valid">Отправить</button>
+        <div class="col-xs-offset-2 col-xs-10">
+            <button md-raised-button color="warn" type="submit" [disabled]="!editWishForm.valid">Отправить</button>
         </div>
     </div>
     <div class="form-group" *ngIf="!roles.isLogined" [hidden]="isHuman">
-        <div class="col-md-offset-2 col-md-10">
+        <div class="col-xs-offset-2 col-xs-10">
             <recaptcha (isHuman)="isHuman = $event"></recaptcha>
         </div>
     </div>

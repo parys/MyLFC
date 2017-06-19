@@ -76,7 +76,7 @@ namespace MyLiverpool.Business.Services
             await _personRepository.DeleteAsync(id);
             return true;
         }
-
+        
         public async Task<PersonDto> GetBestPlayerAsync()
         {
             var playerHelpEntity = await _helperEntityRepository.GetByTypeAsync(HelperEntityType.BestPlayer);
