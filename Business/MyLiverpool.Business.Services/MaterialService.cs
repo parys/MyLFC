@@ -39,13 +39,17 @@ namespace MyLiverpool.Business.Services
             {
                 filter = filter.And(x => !x.Pending);
             }
-            if (filters.MaterialType != MaterialType.Both)
-            {
-                filter = filter.And(x => x.Type == filters.MaterialType);
-            }
+            
             if (filters.CategoryId.HasValue)
             {
                 filter = filter.And(x => x.CategoryId == filters.CategoryId.Value);
+            }
+            else
+            {
+                if (filters.MaterialType != MaterialType.Both)
+                {
+                    filter = filter.And(x => x.Type == filters.MaterialType);
+                }
             }
             if (!string.IsNullOrWhiteSpace(filters.UserName))
             {
