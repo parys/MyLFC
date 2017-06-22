@@ -20,7 +20,7 @@
                     Блоги<b class="caret"></b>
                 </a>
                 <md-menu #blogsMenu="mdMenu">
-                    <a [routerLink]="['/blogs']" [queryParams]="{page: 1}" md-menu-item>Новости</a>
+                    <a [routerLink]="['/blogs']" [queryParams]="{page: 1}" md-menu-item>Блоги</a>
                     <a *ngIf="roles.isAuthor" [routerLink]="['/blogs', 0, 'edit']" md-menu-item>Добавить</a>
                     <a [routerLink]="['/blogCategories']" md-menu-item>Категории</a>
                 </md-menu>

@@ -45,7 +45,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [AllowAnonymous, HttpGet("list/{filtersObj}")]
         public async Task<IActionResult> GetListItems([FromRoute] string filtersObj)
         {
-            _logger.LogInformation( "Listing all items1111111111111");
+         //   _logger.LogInformation( "Listing all items1111111111111");
             MaterialFiltersDto filters;
             if (filtersObj == null)
             {
