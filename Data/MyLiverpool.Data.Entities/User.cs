@@ -15,6 +15,7 @@ namespace MyLiverpool.Data.Entities
             this.Materials = new HashSet<Material>();
             this.SentPrivateMessages = new HashSet<PrivateMessage>();
             this.ReceivedPrivateMessages = new HashSet<PrivateMessage>();
+            CommentVotes = new HashSet<CommentVote>();
         }
 
         public User(int id)
@@ -92,6 +93,7 @@ namespace MyLiverpool.Data.Entities
         public virtual ICollection<PrivateMessage> SentPrivateMessages { get; set; }
         public virtual ICollection<PrivateMessage> ReceivedPrivateMessages { get; set; }
         public virtual ICollection<ChatMessage> ChatMessages { get; set; }
+        public virtual ICollection<CommentVote> CommentVotes { get; set; }
 
         public virtual RoleGroup RoleGroup { get; set; }
 

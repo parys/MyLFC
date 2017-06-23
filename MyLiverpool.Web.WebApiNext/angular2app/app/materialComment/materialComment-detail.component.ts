@@ -1,9 +1,11 @@
-﻿import { Component, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
+﻿import { Component, OnInit, OnDestroy, Input, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Location } from "@angular/common";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { MdDialog } from '@angular/material';
+import { Subscription } from "rxjs/Subscription"
 import { MaterialComment } from "./materialComment.model";
+import { CommentVote } from "./commentVote.model";
 import { MaterialCommentService } from "./materialComment.service";
 import { RolesCheckedService, IRoles, DeleteDialogComponent } from "../shared/index";
 
@@ -13,7 +15,8 @@ import { RolesCheckedService, IRoles, DeleteDialogComponent } from "../shared/in
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class MaterialCommentDetailComponent implements OnInit {
+export class MaterialCommentDetailComponent implements OnInit, OnDestroy {
+    private vote$: Subscription;
     @Input() public item: MaterialComment;
     @Input() public deep: number;
     @Input() public canCommentary: boolean;
@@ -39,6 +42,10 @@ export class MaterialCommentDetailComponent implements OnInit {
     public ngOnInit(): void {
         this.roles = this.rolesChecked.checkRoles();
         this.initForm();
+    }
+
+    public ngOnDestroy(): void {
+        if(this.vote$) { this.vote$.unsubscribe(); }
     }
 
     public showAddCommentModal(): void {
@@ -76,9 +83,41 @@ export class MaterialCommentDetailComponent implements OnInit {
             error => console.log(error));
     }
 
+    public vote(positive: boolean): void {
+        const vote: CommentVote = new CommentVote();
+        vote.positive = positive;
+        vote.commentId = this.item.id;
+        this.vote$ = this.materialCommentService.vote(vote).subscribe(data => {
+                if (data) {
+                    this.updateVotes(positive);
+                    //todo add snackBar комментарий оценен
+                }
+            },
+            e => console.log(e));
+    }
+
+    private updateVotes(positive: boolean): void {
+        if (positive) {
+            this.item.positiveCount += 1;
+            if (!this.item.canNegativeVote) {
+                this.item.negativeCount += 1;
+            }
+            this.item.canPositiveVote = false;
+            this.item.canNegativeVote = true;
+        } else {
+            this.item.negativeCount -= 1;
+            if (!this.item.canPositiveVote) {
+                this.item.positiveCount -= 1;
+            }
+            this.item.canPositiveVote = true;
+            this.item.canNegativeVote = false;
+        }
+        this.cd.markForCheck();
+    }
+
     public editComment(): void {
         this.commentForm.markAsPending();
-        let comment = this.getComment();
+        const comment: MaterialComment = this.getComment();
         this.materialCommentService.update(this.item.id, comment)
             .subscribe(data => {
                 this.item = comment;
@@ -89,7 +128,6 @@ export class MaterialCommentDetailComponent implements OnInit {
 
     public cancelEdit(): void {
         this.isEditMode = false;
-        this.updateFormValues();//does it need
         this.cd.markForCheck();
     }
 
@@ -121,8 +159,8 @@ export class MaterialCommentDetailComponent implements OnInit {
     }
 
     private initForm(): void {
-        let message = this.isEditMode ? this.item.message : "";
-        let answer = this.isEditMode ? this.item.answer : "";
+        const message: string = this.isEditMode ? this.item.message : "";
+        const answer: string = this.isEditMode ? this.item.answer : "";//todo here and below unite
         this.commentForm = this.formBuilder.group({
             'message': [message, Validators.required],
             'answer': [answer]
@@ -132,22 +170,22 @@ export class MaterialCommentDetailComponent implements OnInit {
         });
     }
     private updateFormValues(): void {
-        let message = this.isEditMode ? this.item.message : "";
-        let answer = this.isEditMode ? this.item.answer : "";
+        const message: string = this.isEditMode ? this.item.message : "";
+        const answer: string = this.isEditMode ? this.item.answer : "";
         this.commentForm.get("message").patchValue(message);
         this.commentForm.get("answer").patchValue(answer);
         this.cd.markForCheck();
     }
 
     private getComment(): MaterialComment {
-        let comment = this.item;
+        const comment: MaterialComment = this.item;
         comment.message = this.commentForm.controls["message"].value;
         comment.answer = this.commentForm.controls["answer"].value;
         return comment;
     }
 
     private getNewComment(): MaterialComment {
-        let comment = new MaterialComment();
+        const comment: MaterialComment = new MaterialComment();
         comment.message = this.commentForm.controls["message"].value;
         comment.materialId = this.materialId;
         comment.parentId = this.item.id;

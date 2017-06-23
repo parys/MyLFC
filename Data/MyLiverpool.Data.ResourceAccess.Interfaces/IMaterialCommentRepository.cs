@@ -16,5 +16,11 @@ namespace MyLiverpool.Data.ResourceAccess.Interfaces
         void UpdateRange(List<MaterialComment> comments);
 
         Task<IEnumerable<MaterialComment>> GetListAsync();
+
+        Task<CommentVote> GetVoteByIdAsync(int commentId, int userId);
+
+        Task AddVoteAsync(CommentVote vote);
+
+        Task UpdateVoteAsync(CommentVote vote);
     }
 }

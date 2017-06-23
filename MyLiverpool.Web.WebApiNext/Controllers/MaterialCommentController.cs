@@ -7,6 +7,7 @@ using Microsoft.Extensions.Caching.Memory;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Business.Dto.Filters;
+using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
 using MyLiverpool.Web.WebApiNext.Extensions;
 using Newtonsoft.Json;
@@ -144,6 +145,25 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
 
             var result = await _commentService.UpdateAsync(dto);
             return Ok(result);
+        }       
+        
+        /// <summary>
+        /// Updates comment vote.
+        /// </summary>
+        /// <param name="dto">Comment vote.</param>
+        /// <returns>Result of update.</returns>
+        [Authorize, HttpPut("vote")]
+        public async Task<IActionResult> UpdateVoteAsync([FromBody] CommentVoteDto dto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            dto.UserId = User.GetUserId();
+            var result = await _commentService.UpdateVoteAsync(dto);
+
+            return Json(result);
         }
 
         private bool IsSiteTeamMember()

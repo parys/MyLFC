@@ -19,5 +19,7 @@ namespace MyLiverpool.Business.Contracts
         Task<PageableData<MaterialCommentDto>> GetListByMaterialIdAsync(int materialId, int page);
 
         Task<bool> VerifyAsync(int id);
+
+        Task<bool> UpdateVoteAsync(CommentVoteDto dto);
     }
 }

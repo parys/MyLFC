@@ -4,11 +4,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
-using MyLiverpool.Web.WebApiNext.Extensions;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Business.Dto.Filters;
-using MyLiverpool.Common.Utilities;
+using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
 using Newtonsoft.Json;
 
@@ -56,8 +55,9 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 filters = (MaterialFiltersDto) JsonConvert.DeserializeObject(filtersObj, typeof(MaterialFiltersDto));
             }
             filters.IsInNewsmakerRole = User.IsInRole(nameof(RolesEnum.NewsStart));
-            var result = await _cache.GetOrCreateAsync(filters.ToString(),
-                async x => await _materialService.GetDtoAllAsync(filters));
+            var result = //todo research await _cache.GetOrCreateAsync(filters.ToString(),
+             //.   async x => 
+                await _materialService.GetDtoAllAsync(filters);
             return Ok(result);
         }
 
@@ -187,8 +187,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
 
         private void CleanCache()
         {
-            _cache.Remove(GetBasicMaterialFilters(false).ToString());
-            _cache.Remove(GetBasicMaterialFilters(true).ToString());
+          //  _cache.Remove(GetBasicMaterialFilters(false).ToString());
+         //   _cache.Remove(GetBasicMaterialFilters(true).ToString());
         }
     }
 }

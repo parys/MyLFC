@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using MyLiverpool.Business.Contracts;
-using MyLiverpool.Web.WebApiNext.Extensions;
+using MyLiverpool.Common.Utilities.Extensions;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {

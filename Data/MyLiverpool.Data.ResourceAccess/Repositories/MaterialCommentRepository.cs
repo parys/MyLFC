@@ -26,6 +26,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
         public async Task<MaterialComment> AddAsync(MaterialComment entity)
         {
             var addedEntity = await _context.MaterialComments.AddAsync(entity);
+            await _context.SaveChangesAsync();
             return addedEntity.Entity;
         }
 
@@ -38,10 +39,10 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             }
         }
 
-        public Task DeleteAsync(MaterialComment entity)
+        public async Task DeleteAsync(MaterialComment entity)
         {
             _context.MaterialComments.Remove(entity);
-            return Task.CompletedTask;
+            await _context.SaveChangesAsync();
         }
 
         public void Update(MaterialComment entity)
@@ -72,12 +73,29 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             throw new NotImplementedException("Not need to implement");
         }
 
+        public async Task<CommentVote> GetVoteByIdAsync(int commentId, int userId)
+        {
+            return await _context.CommentVotes.FindAsync(userId, commentId);
+        }
+
+        public async Task AddVoteAsync(CommentVote vote)
+        {
+            await _context.CommentVotes.AddAsync(vote);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task UpdateVoteAsync(CommentVote vote)
+        {
+            _context.CommentVotes.Update(vote);
+            await _context.SaveChangesAsync();
+        }
+
         public async Task<ICollection<MaterialComment>> GetOrderedByAsync(int page, int itemPerPage = 15,
             Expression<Func<MaterialComment, bool>> filter = null,
             SortOrder order = SortOrder.Ascending, Expression<Func<MaterialComment, object>> orderBy = null)
         {
             IQueryable<MaterialComment> query =
-                _context.MaterialComments.Include(x => x.Author);
+                _context.MaterialComments.Include(x => x.Author).Include(x => x.CommentVotes);
 
             if (filter != null)
             {

@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Linq;
 using System.Security.Claims;
 
-namespace MyLiverpool.Web.WebApiNext.Extensions
+namespace MyLiverpool.Common.Utilities.Extensions
 {
     /// <summary>
     /// Contains claim extensions.

@@ -33,5 +33,13 @@ namespace MyLiverpool.Business.Dto
         public virtual ICollection<MaterialCommentDto> Children { get; set; }
 
         public bool IsVerified { get; set; }
+
+        public bool CanPositiveVote { get; set; }
+
+        public bool CanNegativeVote { get; set; }
+
+        public int PositiveCount { get; set; }
+
+        public int NegativeCount { get; set; }
     }
 }

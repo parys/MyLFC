@@ -45,6 +45,7 @@ namespace MyLiverpool.Data.ResourceAccess
         public DbSet<Stadium> Stadiums { get; set; }
         public DbSet<UserConfig> UserConfigs { get; set; }
         public DbSet<Transfer> Transfers { get; set; }
+        public DbSet<CommentVote> CommentVotes { get; set; }
 
         //public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         //{
@@ -83,7 +84,13 @@ namespace MyLiverpool.Data.ResourceAccess
 
             modelBuilder.Entity<UserConfig>().HasKey(x => x.UserId);
             modelBuilder.Entity<UserConfig>().Property(x => x.UserId).ValueGeneratedNever();
-            modelBuilder.Entity<UserConfig>().HasOne(x => x.User).WithOne(x => x.UserConfig).IsRequired(true);
+            modelBuilder.Entity<UserConfig>().HasOne(x => x.User).WithOne(x => x.UserConfig).IsRequired();
+
+            modelBuilder.Entity<CommentVote>().HasKey(t => new { t.UserId, t.CommentId });
+            modelBuilder.Entity<MaterialComment>().HasMany(x => x.CommentVotes).WithOne(x => x.Comment)
+                .HasForeignKey(x => x.CommentId);
+            modelBuilder.Entity<User>().HasMany(x => x.CommentVotes).WithOne(x => x.User)
+                .HasForeignKey(x => x.UserId);
 
             modelBuilder.Entity<RoleRoleGroup>().HasKey(t => new { t.RoleId, t.RoleGroupId });
             modelBuilder.Entity<RoleRoleGroup>()

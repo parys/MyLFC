@@ -9,9 +9,10 @@ using MyLiverpool.Data.Common;
 namespace MyLiverpool.Data.ResourceAccess.Migrations
 {
     [DbContext(typeof(LiverpoolContext))]
-    partial class LiverpoolContextModelSnapshot : ModelSnapshot
+    [Migration("20170621205120_AddCommentVoteTable")]
+    partial class AddCommentVoteTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")
@@ -832,7 +833,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
 
                     b.HasOne("MyLiverpool.Data.Entities.User", "User")
                         .WithMany("CommentVotes")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("CommentId");
                 });
 
             modelBuilder.Entity("MyLiverpool.Data.Entities.ForumMessage", b =>

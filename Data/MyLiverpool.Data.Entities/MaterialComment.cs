@@ -10,6 +10,7 @@ namespace MyLiverpool.Data.Entities
         public MaterialComment()
         {
             Children = new HashSet<MaterialComment>();
+            CommentVotes = new HashSet<CommentVote>();
         }
 
         public int Id { get; set; }
@@ -34,6 +35,8 @@ namespace MyLiverpool.Data.Entities
 
         public virtual MaterialComment Parent { get; set; }
 
+        public virtual ICollection<CommentVote> CommentVotes { get; set; }
+
         public int? ParentId { get; set; }
 
         public int? OldParentId { get; set; }
@@ -48,5 +51,8 @@ namespace MyLiverpool.Data.Entities
 
         [NotMapped]
         public int Number { get; set; }
+
+        [NotMapped]//todo need more elegant solution
+        public int? CurrentUserId { get; set; }
     }
 }

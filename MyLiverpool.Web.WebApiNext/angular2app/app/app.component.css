@@ -26,6 +26,11 @@ body {
     /*color: #6e6e6e;'*/
 }
 
+button.no-style {
+    border: 0;
+    background-color: inherit;
+}
+
 hr {
     border-top-width: 3px;
     border-top-color: maroon;
@@ -83,9 +88,11 @@ textarea {
     background-image: url('/content/header2.png');
     background-position: 50% 100%;
     background-size: 50%;
-    
 }
 
+.bg-light-blue {
+    background-color: lightblue;
+}
 .border-blue {
     border-color: lightskyblue;
 }
@@ -163,7 +170,15 @@ textarea {
 }
 
 .color-gold {
-    color: gold;
+    color: gold !important;
+}
+
+.color-back-gold {
+    background-color: gold;
+}
+
+.color-back-maroon {
+    background-color: maroon;
 }
 
 .color-red {

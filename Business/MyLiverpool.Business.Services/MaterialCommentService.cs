@@ -115,6 +115,8 @@ namespace MyLiverpool.Business.Services
                 filter = filter.And(x => x.AuthorId == filters.UserId.Value);
             }
             var comments = await _commentService.GetOrderedByAsync(filters.Page, ItemPerPage, filter, SortOrder.Descending, m => m.AdditionTime);
+
+            UpdateCurrentUserField(comments);
             var commentDtos = _mapper.Map<IEnumerable<MaterialCommentDto>>(comments);
             var commentsCount = await _commentService.GetCountAsync(filter);
             return new PageableData<MaterialCommentDto>(commentDtos, filters.Page, commentsCount);
@@ -125,6 +127,7 @@ namespace MyLiverpool.Business.Services
             Expression<Func<MaterialComment, bool>> filter = x => x.MaterialId == materialId;// && x.ParentId == null;
 
             var comments = await _commentService.GetOrderedByAsync(page, ItemPerPage, filter, SortOrder.Ascending, m => m.AdditionTime);
+            UpdateCurrentUserField(comments);
             var unitedComments = UniteComments(comments, page);
             var commentDtos = _mapper.Map<IEnumerable<MaterialCommentDto>>(unitedComments);
           //  filter = filter.And(x => x.ParentId == null);//bug need to analize how get all comments for material page but count only top-level for paging
@@ -142,6 +145,27 @@ namespace MyLiverpool.Business.Services
             return true;
         }
 
+        public async Task<bool> UpdateVoteAsync(CommentVoteDto dto)
+        {
+            var vote = await _commentService.GetVoteByIdAsync(dto.CommentId, dto.UserId);
+            if (vote != null)
+            {
+                vote.Positive = dto.Positive;
+                await _commentService.UpdateVoteAsync(vote);
+            }
+            else
+            {
+                var comment = await _commentService.GetByIdAsync(dto.CommentId);
+                if (comment.AuthorId == dto.UserId)
+                {
+                    return false;
+                }
+                vote = _mapper.Map<CommentVote>(dto);
+                await _commentService.AddVoteAsync(vote);
+            }
+            return true;
+        }
+
         private async Task SendNotificationsAsync(int parentCommentId)
         {
             var parentComment = await _commentService.GetByIdAsync(parentCommentId);
@@ -153,6 +177,17 @@ namespace MyLiverpool.Business.Services
             if (userConfig.IsReplyToEmailEnabled)
             {
                 await SendNotificationToEmailAsync(parentComment);
+            }
+        }
+
+        private void UpdateCurrentUserField(ICollection<MaterialComment> comments)
+        {
+            if (_accessor.HttpContext.User.Identity.IsAuthenticated)
+            {
+                foreach (var materialComment in comments)
+                {
+                    materialComment.CurrentUserId = _accessor.HttpContext.User.GetUserId(); //todo need more elegant solution
+                }
             }
         }
 
