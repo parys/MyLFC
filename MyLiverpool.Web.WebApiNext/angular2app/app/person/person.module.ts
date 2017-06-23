@@ -22,7 +22,8 @@ import {
     MdCardModule,
     MdSlideToggleModule,
     MdNativeDateModule,
-    MdDatepickerModule
+    MdDatepickerModule,
+    MdTabsModule
 } from "@angular/material";
 import { NgxPaginationModule } from "ngx-pagination";
 import { Ng2AutoCompleteModule } from "ng2-auto-complete";
@@ -39,6 +40,7 @@ import { Ng2AutoCompleteModule } from "ng2-auto-complete";
         MdNativeDateModule,
         MdSelectModule,
         MdSlideToggleModule,
+        MdTabsModule,
 Ng2AutoCompleteModule,
         NgxPaginationModule,
         ReactiveFormsModule,

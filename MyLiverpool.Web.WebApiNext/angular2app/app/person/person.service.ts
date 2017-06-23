@@ -51,8 +51,8 @@ export class PersonService {
         return this.http.get(this.actionUrl + "stuff/").map((res: Response) => res.json());
     };
 
-    public getSquad = (): Observable<SquadList> => {
-        return this.http.get(this.actionUrl + "squad/").map((res: Response) => res.json());
+    public getSquad = (type:string): Observable<SquadList> => {
+        return this.http.get(`${this.actionUrl}squad?type=${type}`).map((res: Response) => res.json());
     };
 
     public updatePhoto = (name: string, file: File): Observable<string> => {

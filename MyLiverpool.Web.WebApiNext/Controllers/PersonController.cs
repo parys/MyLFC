@@ -83,9 +83,14 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <returns>Persons list.</returns>
         [AllowAnonymous, HttpGet("squad")]
-        public async Task<IActionResult> GetSquadListAsync()
+        public async Task<IActionResult> GetSquadListAsync([FromQuery]string type)
         {
-            var result = await _personService.GetSquadListAsync();
+            PersonType squadType;
+            if (!Enum.TryParse(type, out squadType))
+            {
+                squadType = PersonType.First;
+            }
+            var result = await _personService.GetSquadListAsync(squadType);
             return Ok(result);
         }
 

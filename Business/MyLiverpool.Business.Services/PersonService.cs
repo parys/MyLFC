@@ -122,9 +122,9 @@ namespace MyLiverpool.Business.Services
             return _mapper.Map<IEnumerable<PersonDto>>(tempList);
         }
 
-        public async Task<SquadListDto> GetSquadListAsync()
+        public async Task<SquadListDto> GetSquadListAsync(PersonType type)
         {
-            var squadList1 = await _personRepository.GetListAsync(1, 1000, x => x.Type == PersonType.First);
+            var squadList1 = await _personRepository.GetListAsync(1, 1000, x => x.Type == type);
             var squadList = _mapper.Map<IEnumerable<PersonDto>>(squadList1).ToList();
             var goalkeepers = squadList.Where(x => x.Position == "Вратарь");
             var defenders = squadList.Where(x => x.Position == "Защитник");

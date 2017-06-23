@@ -6,8 +6,8 @@ namespace MyLiverpool.Data.Common
     {
         [Display(Name = "Первая команда")]
         First = 1,
-        [Display(Name = "До 23")]
-        U23 = 2,
+        [Display(Name = "Академия")]//todo official site doesn't split them
+        Academy = 2,
         [Display(Name = "До 21")]
         U21 = 3,
         [Display(Name = "До 19")]

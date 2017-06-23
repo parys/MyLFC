@@ -1,4 +1,11 @@
-﻿<h2>Основной состав команды:</h2>
+﻿<h2>Cостав:</h2>
+<nav md-tab-nav-bar>
+    <a md-tab-link *ngFor="let routeLink of routeLinks; let i = index"
+       [routerLink]="routeLink.link"
+       [active]="activeLinkIndex === i"
+       (click)="activeLinkIndex = i"
+       [textContent]="routeLink.label"></a>
+</nav>
 <h3>Вратари:</h3>
 <div class="flex-space-around">
     <div *ngFor="let person of item?.goalkeepers">
@@ -6,7 +13,7 @@
             <md-card-header>
                 <md-card-title role="button" *ngIf="roles.isAdminAssistant" [routerLink]="['/persons', person.id, 'edit']" [textContent]="person.russianName"></md-card-title>
                 <md-card-title *ngIf="!roles.isAdminAssistant" [textContent]="person.russianName"></md-card-title>
-                <md-card-subtitle>Номер: <span [textContent]="person.number"></span></md-card-subtitle>
+                <md-card-subtitle *ngIf="person.number">Номер: <span [textContent]="person.number"></span></md-card-subtitle>
             </md-card-header>
             <img md-card-image [src]="person.photo" [alt]="person.russianName">
             <md-card-content>
@@ -23,7 +30,7 @@
             <md-card-header>
                 <md-card-title role="button" *ngIf="roles.isAdminAssistant" [routerLink]="['/persons', person.id, 'edit']" [textContent]="person.russianName"></md-card-title>
                 <md-card-title *ngIf="!roles.isAdminAssistant" [textContent]="person.russianName"></md-card-title>
-                <md-card-subtitle>Номер: <span [textContent]="person.number"></span></md-card-subtitle>
+                <md-card-subtitle *ngIf="person.number">Номер: <span [textContent]="person.number"></span></md-card-subtitle>
             </md-card-header>
             <img md-card-image [src]="person.photo" [alt]="person.russianName">
             <md-card-content>
@@ -40,7 +47,7 @@
             <md-card-header>
                 <md-card-title role="button" *ngIf="roles.isAdminAssistant" [routerLink]="['/persons', person.id, 'edit']" [textContent]="person.russianName"></md-card-title>
                 <md-card-title *ngIf="!roles.isAdminAssistant" [textContent]="person.russianName"></md-card-title>
-                <md-card-subtitle>Номер: <span [textContent]="person.number"></span></md-card-subtitle>
+                <md-card-subtitle *ngIf="person.number">Номер: <span [textContent]="person.number"></span></md-card-subtitle>
             </md-card-header>
             <img md-card-image [src]="person.photo" [alt]="person.russianName">
             <md-card-content>
@@ -57,7 +64,7 @@
             <md-card-header>
                 <md-card-title role="button" *ngIf="roles.isAdminAssistant" [routerLink]="['/persons', person.id, 'edit']" [textContent]="person.russianName"></md-card-title>
                 <md-card-title *ngIf="!roles.isAdminAssistant" [textContent]="person.russianName"></md-card-title>
-                <md-card-subtitle>Номер: <span [textContent]="person.number"></span></md-card-subtitle>
+                <md-card-subtitle *ngIf="person.number">Номер: <span [textContent]="person.number"></span></md-card-subtitle>
             </md-card-header>
             <img md-card-image [src]="person.photo" [alt]="person.russianName">
             <md-card-content>

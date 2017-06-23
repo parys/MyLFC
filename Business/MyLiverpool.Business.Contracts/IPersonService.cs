@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Common.Utilities;
+using MyLiverpool.Data.Common;
 
 namespace MyLiverpool.Business.Contracts
 {
@@ -15,7 +16,7 @@ namespace MyLiverpool.Business.Contracts
         Task<PersonDto> GetBestPlayerAsync();
         Task SetBestPlayerAsync(int personId);
         Task<IEnumerable<PersonDto>> GetStuffListAsync();
-        Task<SquadListDto> GetSquadListAsync();
+        Task<SquadListDto> GetSquadListAsync(PersonType type);
         Task<IEnumerable<KeyValuePair<int, string>>> GetPersonsByNameAsync(string typed);
     }
 }

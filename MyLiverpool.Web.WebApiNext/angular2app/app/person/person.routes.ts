@@ -27,7 +27,13 @@ export const personRoutes: Routes = [
         ]
     },
     { path: "stuff", component: StuffListComponent, data: { title: "Тренерский состав" } },
-    { path: "squad", component: SquadComponent, data: { title: "Состав команды" } },
+    {
+        path: "squad", children: [
+            { path: "", redirectTo: "/squad/first", pathMatch: "full" },
+            { path: "first", component: SquadComponent, data: { title: "Состав команды", type: "First" } },
+            { path: "academy", component: SquadComponent, data: { title: "Состав академии", type: "Academy" } }
+        ]
+    },
     {
         path: "transfers",
         children: [
