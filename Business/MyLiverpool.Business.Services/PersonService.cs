@@ -37,7 +37,7 @@ namespace MyLiverpool.Business.Services
 
         public async Task<PageableData<PersonDto>> GetListAsync(int page)
         {
-            var model = await _personRepository.GetListAsync(page);
+            var model = await _personRepository.GetListAsync(page, orderBy: x => x.LastRussianName);
             var dto = _mapper.Map<IEnumerable<PersonDto>>(model);
             var count = await _personRepository.GetCountAsync();
             return new PageableData<PersonDto>(dto, page, count, GlobalConstants.ItemPerPage);

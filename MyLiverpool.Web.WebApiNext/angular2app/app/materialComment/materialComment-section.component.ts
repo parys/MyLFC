@@ -1,13 +1,12 @@
-﻿import { Component, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef, AfterViewChecked } from "@angular/core";
-import { Pageable } from "../shared/pageable.model";
+﻿import { Component, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { Pageable } from "../shared/pageable.model";
 import { MaterialComment } from "./materialComment.model";
 import { MaterialCommentService } from "./materialComment.service";
-import { Location } from "@angular/common";
 import { RolesCheckedService, IRoles } from "../shared/index";
 
 @Component({
-    selector: "comments",
+    selector: "comment-section",
     templateUrl: "./materialComment-section.component.html",
     changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -15,11 +14,11 @@ export class MaterialCommentSectionComponent implements OnInit {
     public items: MaterialComment[] = [];
     public page: number = 1;
     public itemsPerPage: number = 50;
-    public totalItems: number;
+    public totalItems: number = 0;
     public roles: IRoles;
     public commentAddForm: FormGroup;
-    @Input() public  materialId: number;
-    @Input() public  canCommentary: boolean = false;
+    @Input() public materialId: number;
+    @Input() public canCommentary: boolean = false;
 
     constructor(private materialCommentService: MaterialCommentService,
         private location: Location,
@@ -51,8 +50,7 @@ export class MaterialCommentSectionComponent implements OnInit {
         this.materialCommentService
             .getAllByMaterial(this.page, this.materialId)
             .subscribe(data => this.parsePageable(data),
-            error => console.log(error), () =>
-                {
+            error => console.log(error), () => {
                     this.cd.markForCheck();
                 });
     }

@@ -104,6 +104,8 @@ export class AppComponent implements OnInit {
         this.breadcrumbService.addFriendlyNameForRoute("/clubHistory", "История клуба");
         this.breadcrumbService.addFriendlyNameForRoute("/aboutClub", "О клубе");
         this.breadcrumbService.addFriendlyNameForRoute("/squad", "Состав");
+        this.breadcrumbService.addFriendlyNameForRoute("/squad/first", "Первая команда");
+        this.breadcrumbService.addFriendlyNameForRoute("/squad/academy", "Академия");
 
         this.breadcrumbService.addFriendlyNameForRoute("/seasons", "Сезоны");
         this.breadcrumbService.addFriendlyNameForRoute("/seasons/calendar", "Календарь");

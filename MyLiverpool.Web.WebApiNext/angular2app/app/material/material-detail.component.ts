@@ -21,7 +21,7 @@ export class MaterialDetailComponent implements OnInit, OnDestroy {
     public roles: IRoles;
     public body: SafeHtml;
     public type: MaterialType;
-
+    
     constructor(private service: MaterialService,
         private route: ActivatedRoute,
         private cd: ChangeDetectorRef,
@@ -132,6 +132,7 @@ export class MaterialDetailComponent implements OnInit, OnDestroy {
         let id = this.item.id;
         if (this.localStorage.tryAddViewForMaterial(id)) {
             this.service.addView(id).subscribe(data => data, e => console.log(e));
+            this.item.reads += 1;
         }
     }
 }
