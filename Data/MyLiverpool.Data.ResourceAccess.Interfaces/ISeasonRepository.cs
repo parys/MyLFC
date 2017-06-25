@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using MyLiverpool.Data.Entities;
 
@@ -8,6 +10,6 @@ namespace MyLiverpool.Data.ResourceAccess.Interfaces
     {
         Task<Season> GetLatestSeason();
 
-        Task<IEnumerable<Season>> GetListAsync();
+        Task<IEnumerable<Season>> GetListAsync(Expression<Func<Season, bool>> filter = null);
     }
 }

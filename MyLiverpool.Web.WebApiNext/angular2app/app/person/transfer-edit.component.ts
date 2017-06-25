@@ -6,7 +6,6 @@ import { Subscription } from "rxjs/Subscription";
 import { TransferService } from "./transfer.service";
 import { PersonService } from "./person.service";
 import { Transfer } from "./transfer.model";
-import { Season } from "../season/season.model";
 
 @Component({
     selector: "transfer-edit",
@@ -15,12 +14,12 @@ import { Season } from "../season/season.model";
 
 export class TransferEditComponent implements OnInit, OnDestroy {
     private sub: Subscription;
-    private sub2: Subscription;
     private sub3: Subscription;
     private id: number;
     public editTransferForm: FormGroup;
     public clubs: string = "/api/v1/club/GetClubsByName?typed=:keyword";
     public persons: string = "/api/v1/person/GetPersonsByName?typed=:keyword";
+    public seasons: string = "/api/v1/season/getSeasonsByYear?typed=:keyword";
 
     constructor(private transferService: TransferService,    
         private route: ActivatedRoute,
@@ -43,24 +42,25 @@ export class TransferEditComponent implements OnInit, OnDestroy {
 
     public ngOnDestroy(): void {
         if(this.sub) { this.sub.unsubscribe(); }
-        if(this.sub2) { this.sub2.unsubscribe(); }
         if(this.sub3) { this.sub3.unsubscribe(); }
     }
 
     public onSubmit(): void {
         const transfer: Transfer = this.parseForm();
+        console.warn(transfer);
         if (this.id > 0) {
-            this.sub2 = this.transferService.update(this.id, transfer)
+            this.transferService.update(this.id, transfer)
                 .subscribe(data => this.router.navigate(["/transfers"]),
                     error => console.log(error));
         } else {
-            this.sub2 = this.transferService.create(transfer)
+            this.transferService.create(transfer)
                 .subscribe(data => this.router.navigate(["/transfers"]),
                     error => console.log(error));
         }
     }
 
     public updateClub(club: any): void {
+        this.editTransferForm.get("clubId").patchValue("");
         if (club) {
             this.editTransferForm.get("clubId").patchValue(club.key);
             this.editTransferForm.get("clubName").patchValue(club.value);
@@ -74,6 +74,12 @@ export class TransferEditComponent implements OnInit, OnDestroy {
         }
     }
 
+    public updateSeason(season: any): void {
+        if (season) {
+            this.editTransferForm.get("seasonId").patchValue(season.key);
+            this.editTransferForm.get("seasonName").patchValue(season.value);
+        }
+    }
 
     public autocompleteListFormatter = (data: any): SafeHtml => {
         const html: string = `<span>${data.value}</span>`;
@@ -86,8 +92,12 @@ export class TransferEditComponent implements OnInit, OnDestroy {
     }
 
     private parseForm(): Transfer {
+        if (!this.editTransferForm.get("clubName").value) {
+            this.editTransferForm.get("clubId").patchValue("");
+        }
         const item = this.editTransferForm.value;
         item.id = this.id;
+
         return item;
     }
 
@@ -95,8 +105,8 @@ export class TransferEditComponent implements OnInit, OnDestroy {
         this.editTransferForm = this.formBuilder.group({
             'clubName': [""],
             'clubId': [""],
+            'seasonId': ["", Validators.required],
             'seasonName': [""],
-            'seasonId': [""],
             'personId': ["", Validators.required],
             'personName': [""],
             'startDate': ["", Validators.required],

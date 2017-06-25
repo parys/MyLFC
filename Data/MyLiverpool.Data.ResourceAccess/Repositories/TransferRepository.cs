@@ -21,7 +21,10 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
 
         public async Task<Transfer> GetByIdAsync(int id)
         {
-            return await _context.Transfers.Include(x => x.Person).Include(x => x.Club)
+            return await _context.Transfers
+                .Include(x => x.Person)
+                .Include(x => x.Club)
+                .Include(x => x.Season)
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
 
@@ -62,7 +65,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
         public async Task<IEnumerable<Transfer>> GetListAsync(int page, int itemPerPage = 15, Expression<Func<Transfer, bool>> filter = null, SortOrder order = SortOrder.Ascending,
             Expression<Func<Transfer, object>> orderBy = null)
         {
-            IQueryable<Transfer> query = _context.Transfers.Include(m => m.Club).Include(m => m.Person);
+            IQueryable<Transfer> query = _context.Transfers.Include(m => m.Club).Include(m => m.Person).Include(x => x.Season);
 
             if (filter != null)
             {

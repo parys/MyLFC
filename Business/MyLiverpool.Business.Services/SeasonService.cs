@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
 using MyLiverpool.Business.Contracts;
@@ -82,6 +85,14 @@ namespace MyLiverpool.Business.Services
             var seasonDto = _mapper.Map<SeasonDto>(season);
             seasonDto.Matches = await _matchService.GetListForSeasonAsync(season.Id);
             return seasonDto;
+        }
+
+        public async Task<IEnumerable<KeyValuePair<int, string>>> GetSeasonsByYearAsync(string typed)
+        {
+            Expression<Func<Season, bool>> filter = x => x.StartSeasonYear.ToString().Contains(typed);
+            
+            var clubs = await _seasonRepository.GetListAsync(filter);
+            return clubs.Select(x => new KeyValuePair<int, string>(x.Id, x.StartSeasonYear.ToString()));
         }
     }
 }

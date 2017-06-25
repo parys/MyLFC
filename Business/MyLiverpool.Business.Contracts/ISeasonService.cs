@@ -9,5 +9,7 @@ namespace MyLiverpool.Business.Contracts
         Task<ICollection<SeasonDto>> GetListAsync();
 
         Task<SeasonDto> GetByIdWithMatchesAsync(int id);
+
+        Task<IEnumerable<KeyValuePair<int, string>>> GetSeasonsByYearAsync(string typed);
     }
 }

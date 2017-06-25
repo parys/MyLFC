@@ -21,7 +21,6 @@ export class MaterialCommentSectionComponent implements OnInit {
     @Input() public canCommentary: boolean = false;
 
     constructor(private materialCommentService: MaterialCommentService,
-        private location: Location,
         private cd: ChangeDetectorRef,
         private rolesChecked: RolesCheckedService
         , private formBuilder: FormBuilder) {   

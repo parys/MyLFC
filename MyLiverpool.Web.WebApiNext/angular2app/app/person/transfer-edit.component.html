@@ -34,6 +34,24 @@
                    [source]="clubs"
                    autocomplete="off"/>
         </div>
+    </div>     
+    <div class="form-group">
+        <label class="control-label col-xs-2 col-md-2">Сезон</label>
+        <div class="col-xs-10 col-md-10">
+            <input (valueChanged)="updateSeason($event)"
+                   attr-placeholder="Введите сезон..."
+                   ng2-auto-complete
+                   class="form-control"
+                   [list-formatter]="autocompleteListFormatter"
+                   display-property-name="value"
+                   formControlName="seasonName"
+                   loading-text="Загрузочка"
+                   min-chars="2"
+                   name="season"
+                   type="text"
+                   [source]="seasons"
+                   autocomplete="off"/>
+        </div>
     </div> 
     <md-input-container class="full-width">
         <input mdInput [mdDatepicker]="datePicker1" placeholder="Выберите дату трансфера" formControlName="startDate">

@@ -36,7 +36,9 @@ namespace MyLiverpool.Business.Services
             entity.Club = null;
             entity.ClubId = dto.ClubId;
             entity.Person = null;
-            entity.PersonId = entity.PersonId;
+            entity.PersonId = dto.PersonId;
+            entity.Season = null;
+            entity.SeasonId = dto.SeasonId;
             entity.StartDate = dto.StartDate;
             entity.Amount = dto.Amount;
             entity.Coming = dto.Coming;

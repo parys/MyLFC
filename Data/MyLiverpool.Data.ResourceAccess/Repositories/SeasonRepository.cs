@@ -64,9 +64,14 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             return await query.CountAsync();
         }
 
-        public async Task<IEnumerable<Season>> GetListAsync()
+        public async Task<IEnumerable<Season>> GetListAsync(Expression<Func<Season, bool>> filter = null)
         {
-            return await _context.Seasons.OrderBy(s => s.StartSeasonYear).ToListAsync();
+            IQueryable<Season> query = _context.Seasons;
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+            return await query.OrderBy(s => s.StartSeasonYear).ToListAsync();
         }
 
         public async Task<Season> GetLatestSeason()

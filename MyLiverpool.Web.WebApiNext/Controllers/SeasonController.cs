@@ -103,5 +103,17 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             var result = await _seasonService.DeleteAsync(id);
             return Ok(result);
         }
+
+        /// <summary>
+        /// Returns seasons which year contain types string.
+        /// </summary>
+        /// <param name="typed">Part of season year for search.</param>
+        /// <returns>List of keyValuePair of seasons with identifiers.</returns>
+        [AllowAnonymous, HttpGet("getSeasonsByYear")]
+        public async Task<IActionResult> GetSeasonsByYearAsync([FromQuery]string typed)
+        {
+            var result = await _seasonService.GetSeasonsByYearAsync(typed);
+            return Ok(result);
+        }
     }
 }

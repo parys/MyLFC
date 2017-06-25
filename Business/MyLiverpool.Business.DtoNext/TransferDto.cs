@@ -20,6 +20,8 @@ namespace MyLiverpool.Business.Dto
 
         public string ClubName { get; set; }
 
+        public string ClubLogo { get; set; }
+
         public int PersonId { get; set; }
 
         public string PersonName { get; set; }

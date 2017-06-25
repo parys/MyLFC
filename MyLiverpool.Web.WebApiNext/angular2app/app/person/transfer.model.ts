@@ -15,7 +15,13 @@
 
     public clubName: string;
 
+    public clubLogo: string;
+
     public personId: number;
 
     public personName: string;
+
+    public seasonId: number;
+
+    public seasonName: string;
 }

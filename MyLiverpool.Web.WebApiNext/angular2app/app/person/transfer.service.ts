@@ -28,6 +28,7 @@ export class TransferService {
     };
 
     public update = (id: number, itemToUpdate: Transfer): Observable<Transfer> => {
+        console.debug(itemToUpdate);
         return this.http
             .put(this.actionUrl + id, JSON.stringify(itemToUpdate))
             .map((res: Response) => res.json());
