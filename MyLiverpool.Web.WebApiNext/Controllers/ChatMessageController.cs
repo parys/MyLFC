@@ -68,5 +68,27 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             }
             return Ok(result);
         }
+        
+        /// <summary>
+        /// Updates club.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="dto">Modified club entity.</param>
+        /// <returns>Returns of editing.</returns>
+        [Authorize, HttpPut("{id:int}")]
+        public async Task<IActionResult> EditAsync(int id, [FromBody]ChatMessageDto dto)
+        {
+            if (id != dto.Id || !ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            int? userId = null;
+            if (!User.IsInRole(nameof(RolesEnum.UserStart)))
+            {
+                userId = User.GetUserId();
+            }
+            var result = await _chatMessageService.UpdateAsync(dto, userId);
+            return Ok(result);
+        }
     }
 }

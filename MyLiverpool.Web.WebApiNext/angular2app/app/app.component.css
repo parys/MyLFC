@@ -286,9 +286,16 @@ textarea {
 .list-inline.small-offset > li {
     display: inline-block;
     padding-right: 5px;
-    padding-left: 0px;
+    padding-left: 0;
 }
 
+@media (min-width: 768px) and (max-width: 992px) {
+    .chat-button {
+        min-width: 80px !important;
+        max-width: 80px;
+        padding: 0 !important;
+    }
+}
 
 @media(max-width: 1209px) { /* should based on menu length? todo*/
     .liverbird-navbar > img {

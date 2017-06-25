@@ -7,5 +7,7 @@ namespace MyLiverpool.Business.Contracts
     public interface IChatMessageService : IEntityService<ChatMessageDto>
     {
         Task<IEnumerable<ChatMessageDto>> GetListAsync(int lastMessageId);
+
+        Task<ChatMessageDto> UpdateAsync(ChatMessageDto entity, int? userId);
     }
 }

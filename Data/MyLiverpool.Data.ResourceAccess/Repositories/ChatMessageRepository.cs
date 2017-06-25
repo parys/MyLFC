@@ -27,6 +27,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
         public async Task<ChatMessage> AddAsync(ChatMessage entity)
         {
             var addedEntity = await _context.ChatMessages.AddAsync(entity); //maybe I can in future returns with nav props
+            await _context.SaveChangesAsync();
             return addedEntity.Entity;
         }
 
@@ -76,6 +77,12 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
                     .OrderByDescending(x => x.AdditionTime)
                     .Take(GlobalConstants.TakingChatMessagesCount)
                     .ToListAsync();
+        }
+
+        public async Task UpdateAsync(ChatMessage entity)
+        {
+            _context.ChatMessages.Update(entity);
+            await _context.SaveChangesAsync();
         }
     }
 }

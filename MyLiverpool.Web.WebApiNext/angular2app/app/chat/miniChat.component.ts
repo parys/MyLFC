@@ -23,6 +23,7 @@ export class MiniChatComponent implements OnInit, OnDestroy {
     public items: ChatMessage[] = new Array<ChatMessage>();
     public page: number = 1;
     public roles: IRoles;
+    public selectedEditIndex: number = null;
     public intervalArray: { key: string, value: number }[]
  = [{ key: "---", value: 0 },
  { key: "15 сек", value: 15 },
@@ -67,12 +68,21 @@ private localStorage: LocalStorageService,
 
     public onSubmit(): void {
         this.messageForm.markAsPending();
-        this.service.create(this.messageForm.value)
-            .subscribe(data => {
-                this.items.unshift(data);
-                this.messageForm.get("message").patchValue("");
+        if (this.selectedEditIndex) {
+            const message: ChatMessage = this.items[this.selectedEditIndex];
+            message.message = this.messageForm.get("message").value;
+            this.service.update(message.id, message).subscribe(data => {
+                    this.cancelEdit();
                 },
-            (error) => console.log(error));
+                e => console.log(e));
+        } else {
+            this.service.create(this.messageForm.value)
+                .subscribe(data => {
+                        this.items.unshift(data);
+                        this.messageForm.get("message").patchValue("");
+                    },
+                    (error) => console.log(error));
+        }
     }
 
     public showDeleteModal(index: number): void {
@@ -127,6 +137,18 @@ private localStorage: LocalStorageService,
 
     public sanitizeByHtml(text: string): SafeHtml {
         return this.sanitizer.bypassSecurityTrustHtml(text);
+    }
+
+    public edit(index: number): void {
+        console.log(this.roles.isModerator);
+        console.log(this.roles.isSelf(this.items[index].authorId));
+        this.selectedEditIndex = index;
+        this.messageForm.get("message").patchValue(this.items[index].message);
+    }
+
+    public cancelEdit(): void {
+        this.selectedEditIndex = null;
+        this.messageForm.get("message").patchValue("");
     }
 
     private initForm(message: string = ""): void {

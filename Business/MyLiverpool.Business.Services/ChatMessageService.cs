@@ -31,7 +31,19 @@ namespace MyLiverpool.Business.Services
 
         public Task<ChatMessageDto> UpdateAsync(ChatMessageDto dto)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
+        }
+
+        public async Task<ChatMessageDto> UpdateAsync(ChatMessageDto dto, int? userId)
+        {
+            var entity = await _chatMessageRepository.GetByIdAsync(dto.Id);
+            if (userId.HasValue && entity.AuthorId != userId)
+            {
+                return null;
+            }
+            entity.Message = dto.Message;
+            await _chatMessageRepository.UpdateAsync(entity);
+            return _mapper.Map<ChatMessageDto>(entity);
         }
 
         public async Task<bool> DeleteAsync(int id)

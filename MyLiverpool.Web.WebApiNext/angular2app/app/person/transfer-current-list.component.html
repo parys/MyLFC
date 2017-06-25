@@ -2,6 +2,7 @@
     <button md-raised-button color="warn" [routerLink]="['/transfers', 0, 'edit']">Добавить</button>
     <button md-raised-button [routerLink]="['/transfers']">К полному списку</button>
 </div>
+<md-card class="top10">Общая сумма: <span [textContent]="totalOut - totalIn | currency:'GBP':true"></span></md-card>
 <div class="top20">
     <div class="panel panel-success">
         <div class="panel-heading">
