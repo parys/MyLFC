@@ -50,6 +50,10 @@ export class UserService {
         return this.http.get(`${this.actionUrl}/config`).map((response: Response) => response.json());
     };
 
+    public getBirthdays = (): Observable<User[]> => {
+        return this.http.get(`${this.actionUrl}/birthdays`).map((response: Response) => response.json());
+    };
+
     public getOnlineCount = (): Observable<UsersOnline> => {
         return this.http.get(`${this.actionUrl}/online`).map((response: Response) => response.json());
     };

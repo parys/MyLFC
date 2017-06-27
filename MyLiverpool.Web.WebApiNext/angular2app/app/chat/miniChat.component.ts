@@ -68,7 +68,7 @@ private localStorage: LocalStorageService,
 
     public onSubmit(): void {
         this.messageForm.markAsPending();
-        if (this.selectedEditIndex) {
+        if (this.selectedEditIndex != null) {
             const message: ChatMessage = this.items[this.selectedEditIndex];
             message.message = this.messageForm.get("message").value;
             this.service.update(message.id, message).subscribe(data => {

@@ -159,6 +159,17 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         }
 
         /// <summary>
+        /// Returns users list who celebrate birthday today.
+        /// </summary>
+        /// <returns>Users who celebrates birthday today.</returns>
+        [AllowAnonymous, HttpGet("birthdays")]
+        public async Task<IActionResult> GetBirthdaysAsync()
+        {
+            var result = await _userService.GetBirthdaysAsync();
+            return Json(result);
+        }
+
+        /// <summary>
         /// Updates current user config.
         /// </summary>
         /// <returns>Updated config.</returns>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
@@ -193,6 +194,14 @@ namespace MyLiverpool.Business.Services
             model.UserId = currentUserId;
             var result = await _userRepository.CreateOrUpdateUserConfigAsync(model);
             return _mapper.Map<UserConfigDto>(result);
+        }
+
+        public async Task<IEnumerable<UserDto>> GetBirthdaysAsync()
+        {
+            Expression<Func<User, bool>> filter = x => x.Birthday.GetValueOrDefault().Date == DateTimeOffset.Now.Date &&
+                                                       x.LastModified.AddMonths(1).Date > DateTimeOffset.Now.Date;
+            var list = await _userRepository.GetListAsync(1, 1000, filter);
+            return _mapper.Map<IEnumerable<UserDto>>(list);
         }
 
         #region private

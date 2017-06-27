@@ -42,5 +42,7 @@ namespace MyLiverpool.Business.Contracts
         Task<UserConfigDto> GetUserConfigAsync(int userId);
 
         Task<UserConfigDto> UpdateUserConfigAsync(UserConfigDto config, int currentUserId);
+
+        Task<IEnumerable<UserDto>> GetBirthdaysAsync();
     }
 }

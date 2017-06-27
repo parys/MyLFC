@@ -110,6 +110,7 @@ import 'rxjs/add/operator/mergeMap';
         material.MaterialDetailComponent,
         material.MaterialEditComponent,
         material.MaterialActivateDialogComponent,
+        user.UserBirthdayComponent,
         user.UserDetailComponent,
         user.UserListComponent,
         user.UserConfigComponent,
