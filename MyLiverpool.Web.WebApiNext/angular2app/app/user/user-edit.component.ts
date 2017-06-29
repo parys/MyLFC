@@ -31,6 +31,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
 
     public onSubmit(): void {
         const user: User = this.userEditForm.value;
+        user.birthday = new Date(user.birthday.getFullYear(), user.birthday.getMonth(), user.birthday.getDate(), (-1) * user.birthday.getTimezoneOffset() / 60);
         this.service.update(user)
             .subscribe(data => {
                 if (data) {

@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Identity;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Common.Utilities;
-using MyLiverpool.Data.Common;
 using MyLiverpool.Data.Entities;
 using MyLiverpool.Data.ResourceAccess.Interfaces;
 
@@ -46,7 +45,7 @@ namespace MyLiverpool.Business.Services
             var user = await _userRepository.FindByEmailAsync(email);
             if (user == null || !user.EmailConfirmed)
             {
-                return true;
+       //         return true;
             }
             await SendForgotPasswordEmailAsync(user.Email, user.Id);
             return true;
@@ -112,7 +111,7 @@ namespace MyLiverpool.Business.Services
 
         public async Task<bool> UpdateLastModifiedAsync(int userId)
         {
-            var user = await _userRepository.GetByIdAsync(userId);
+            var user = await _userRepository.GetByIdForUpdateAsync(userId);
             user.LastModified = DateTime.Now;
             var result = await _userRepository.UpdateAsync(user);
 

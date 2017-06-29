@@ -23,6 +23,11 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             _userManager = userManager;
         }
 
+        public async Task<User> GetByIdForUpdateAsync(int id)
+        {
+            return await _context.Users.FindAsync(id);
+        }
+
         public async Task<User> GetByIdAsync(int id)
         {
             var user = await _context.Users.Where(x => x.Id == id).Select(x => new User
@@ -49,7 +54,9 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
                 UserName = x.UserName,
                 AccessFailedCount = x.AccessFailedCount,
                 PasswordHash = x.PasswordHash,
-                SecurityStamp = x.SecurityStamp
+                SecurityStamp = x.SecurityStamp,
+                NormalizedEmail = x.NormalizedEmail,
+                NormalizedUserName = x.NormalizedUserName
             }).FirstOrDefaultAsync();
             return user;
         }

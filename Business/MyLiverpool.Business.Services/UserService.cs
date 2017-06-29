@@ -134,7 +134,7 @@ namespace MyLiverpool.Business.Services
 
         public async Task<UserDto> UpdateAsync(UserDto user)
         {
-            var model = await _userRepository.GetByIdAsync(user.Id);
+            var model = await _userRepository.GetByIdForUpdateAsync(user.Id);
             if (model != null)
             {
                 model.Birthday = user.Birthday;
@@ -202,15 +202,13 @@ namespace MyLiverpool.Business.Services
             return _mapper.Map<UserConfigDto>(result);
         }
 
-        public async Task<IEnumerable<UserDto>> GetBirthdaysAsync()
+        public async Task<IEnumerable<UserMiniDto>> GetBirthdaysAsync()
         {
             Expression<Func<User, bool>> filter = x => x.Birthday.HasValue &&
                                                        x.Birthday.Value.Date == DateTime.Now.Date &&
-                                                    //   x.Birthday.Value.Month == DateTime.Now.Month &&
-                                                    //   x.Birthday.Value.Day == DateTime.Now.Day &&
                                                        x.LastModified.AddMonths(1).Date > DateTimeOffset.Now.Date;
             var list = await _userRepository.GetListAsync(1, 1000, filter);
-            return _mapper.Map<IEnumerable<UserDto>>(list);
+            return _mapper.Map<IEnumerable<UserMiniDto>>(list);
         }
 
         #region private

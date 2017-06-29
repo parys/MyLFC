@@ -41,7 +41,7 @@ export class MaterialListComponent implements OnInit, OnDestroy {
         } else {
             this.type = MaterialType.Both;
         }
-    //    this.parseQueryParamsAndUpdate(route);
+        this.parseQueryParamsAndUpdate(route);
     }
 
     public showActivateModal(index: number): void {

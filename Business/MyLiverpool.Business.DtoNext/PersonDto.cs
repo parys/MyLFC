@@ -32,7 +32,7 @@ namespace MyLiverpool.Business.Dto
 
         public string Country { get; set; }
         
-        public DateTimeOffset? Birthday { get; set; }
+        public DateTime? Birthday { get; set; }
 
     //    [Required]
         public string Photo { get; set; }

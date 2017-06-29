@@ -10,6 +10,7 @@ import { User } from "./user.model";
 export class UserBirthdayComponent implements OnInit, OnDestroy {
     private sub: Subscription;
     public items: User[];
+    public currentUserIndex: number = null;
 
     constructor(private service: UserService) {
     }
@@ -26,7 +27,32 @@ export class UserBirthdayComponent implements OnInit, OnDestroy {
         }
     }
 
+    public goToPrevious(): void {
+        if (this.currentUserIndex === 0) {
+            this.currentUserIndex = this.items.length - 1;
+        } else {
+            this.currentUserIndex -= 1;
+        }
+    }
+
+    public goToNext(): void {
+        if (this.items.length === this.currentUserIndex + 1) {
+            this.currentUserIndex = 0;
+        } else {
+            this.currentUserIndex += 1;
+        }
+    }
+
     private parse(list: User[]): void {
         this.items = list;
+        if (list.length > 0) {
+            this.setRandomIndex();
+        }
+    }
+
+    private setRandomIndex(): void {
+        const rand: number = Math.random() * (this.items.length + 1) - 0.5;
+        const intNumber: number = Math.round(rand);
+        this.currentUserIndex = intNumber === this.items.length ? intNumber - 1 : intNumber;
     }
 }

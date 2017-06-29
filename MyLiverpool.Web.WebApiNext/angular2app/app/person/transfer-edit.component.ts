@@ -47,6 +47,13 @@ export class TransferEditComponent implements OnInit, OnDestroy {
 
     public onSubmit(): void {
         const transfer: Transfer = this.parseForm();
+        transfer.startDate = new Date(transfer.startDate.getFullYear(), transfer.startDate.getMonth(), transfer.startDate.getDate(), (-1) * transfer.startDate.getTimezoneOffset() / 60);
+        if (transfer.finishDate != null) {
+            transfer.finishDate = new Date(transfer.startDate.getFullYear(),
+                transfer.finishDate.getMonth(),
+                transfer.finishDate.getDate(),
+                (-1) * transfer.finishDate.getTimezoneOffset() / 60);
+        }
         console.warn(transfer);
         if (this.id > 0) {
             this.transferService.update(this.id, transfer)

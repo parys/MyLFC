@@ -60,7 +60,8 @@ export class PersonEditComponent implements OnInit, OnDestroy {
         }
     }
     public onSubmit(): void {
-        const person = this.parseForm();
+        const person: Person = this.parseForm();
+        person.birthday = new Date(person.birthday.getFullYear(), person.birthday.getMonth(), person.birthday.getDate(), (-1) * person.birthday.getTimezoneOffset() / 60);
         if (this.id > 0) {
             this.service.update(this.id, person)
                 .subscribe(data => {

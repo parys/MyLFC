@@ -11,7 +11,7 @@ namespace MyLiverpool.Data.ResourceAccess.Interfaces
     public interface IUserRepository : ICrudRepository<User>
     {
         Task<string> GetUsernameAsync(int id);
-
+        
         Task<IEnumerable<User>> GetListAsync(int page, int itemPerPage = 15,
             Expression<Func<User, bool>> filter = null,
             SortOrder order = SortOrder.Ascending, Expression<Func<User, object>> orderBy = null);
@@ -49,6 +49,8 @@ namespace MyLiverpool.Data.ResourceAccess.Interfaces
         Task<IdentityResult> CreateAsync(User user, string password);
 
         Task<User> GetByIdFromManagerAsync(int userId);
+
+        Task<User> GetByIdForUpdateAsync(int userId);
 
         Task<UserConfig> GetUserConfigAsync(int userId);
 

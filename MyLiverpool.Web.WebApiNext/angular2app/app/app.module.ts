@@ -44,6 +44,7 @@ import 'rxjs/add/operator/mergeMap';
         ForumModule,
         angMaterial.MdAutocompleteModule,
         angMaterial.MdButtonModule,
+        angMaterial.MdCardModule,
         angMaterial.MdDatepickerModule,
         angMaterial.MdDialogModule,
         angMaterial.MdInputModule,
