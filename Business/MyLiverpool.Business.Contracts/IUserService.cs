@@ -27,7 +27,7 @@ namespace MyLiverpool.Business.Contracts
 
         Task<User> FindAsync(string userName, string password);
 
-        Task<User> UpdateAsync(User user);
+        Task<UserDto> UpdateAsync(UserDto user);
 
         Task<IList<string>> GetRolesAsync(int id);
 

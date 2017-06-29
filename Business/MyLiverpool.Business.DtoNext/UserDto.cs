@@ -14,7 +14,7 @@ namespace MyLiverpool.Business.Dto
 
         public string FullName { get; set; }
 
-        public bool? Gender { get; set; }
+        public bool Gender { get; set; }
 
         public DateTimeOffset RegistrationDate { get; set; }
 

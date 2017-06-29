@@ -54,7 +54,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             return user;
         }
 
-        public async Task<string> GetUsername(int id)
+        public async Task<string> GetUsernameAsync(int id)
         {
             var user = await _context.Users.FindAsync(id);
             return user.UserName;
@@ -79,7 +79,9 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
 
         public async Task<User> UpdateAsync(User user)
         {
-            await _userManager.UpdateAsync(user);
+          //  await _userManager.UpdateAsync(user);
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync();
             return user;
         }
 

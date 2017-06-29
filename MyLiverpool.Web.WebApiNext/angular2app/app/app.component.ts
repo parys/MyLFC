@@ -118,6 +118,7 @@ export class AppComponent implements OnInit {
         this.breadcrumbService.addFriendlyNameForRouteRegex("/users", "Пользователи");
         this.breadcrumbService.addFriendlyNameForRouteRegex("^/users/[0-9]+$", "Пользователь");
         this.breadcrumbService.addFriendlyNameForRouteRegex("^/users/[0-9]+/settings$", "Настройки");
+        this.breadcrumbService.addFriendlyNameForRouteRegex("^/users/[0-9]+/edit$", "Редактирование");
 
         this.breadcrumbService.addFriendlyNameForRoute("/rules", "Правила");
 

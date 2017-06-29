@@ -24,6 +24,12 @@ export class UserService {
         return this.http.get(this.actionUrl + id).map((response: Response) => response.json());
     };
 
+    public update = (itemToUpdate: User): Observable<User> => {
+        return this.http
+            .put(this.actionUrl, JSON.stringify(itemToUpdate))
+            .map((res: Response) => res.json());
+    };
+
     public updateRoleGroup = (id: number, roleGroupId: number): Observable<boolean> => {
         return this.http.put(`${this.actionUrl}updateRoleGroup/${id}/${roleGroupId}`, "").map((response: Response) => response.json());
     };

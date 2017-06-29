@@ -10,7 +10,7 @@ namespace MyLiverpool.Data.ResourceAccess.Interfaces
 {
     public interface IUserRepository : ICrudRepository<User>
     {
-        Task<string> GetUsername(int id);
+        Task<string> GetUsernameAsync(int id);
 
         Task<IEnumerable<User>> GetListAsync(int page, int itemPerPage = 15,
             Expression<Func<User, bool>> filter = null,

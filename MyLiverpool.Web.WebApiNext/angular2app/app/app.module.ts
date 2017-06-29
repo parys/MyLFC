@@ -113,6 +113,7 @@ import 'rxjs/add/operator/mergeMap';
         user.UserBirthdayComponent,
         user.UserDetailComponent,
         user.UserListComponent,
+        user.UserEditComponent,
         user.UserConfigComponent,
         user.UserOnlineCounterComponent
     ], // components and directives

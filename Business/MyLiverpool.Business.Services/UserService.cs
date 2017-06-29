@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Security.Cryptography.X509Certificates;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
@@ -14,6 +7,12 @@ using MyLiverpool.Common.Utilities;
 using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Entities;
 using MyLiverpool.Data.ResourceAccess.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace MyLiverpool.Business.Services
 {
@@ -133,10 +132,17 @@ namespace MyLiverpool.Business.Services
             return null;
         }
 
-        public async Task<User> UpdateAsync(User user)
+        public async Task<UserDto> UpdateAsync(UserDto user)
         {
-            var result = await _userRepository.UpdateAsync(user);
-            return result;
+            var model = await _userRepository.GetByIdAsync(user.Id);
+            if (model != null)
+            {
+                model.Birthday = user.Birthday;
+                model.FullName = user.FullName;
+                model.Gender = user.Gender;
+                model = await _userRepository.UpdateAsync(model);
+            }
+            return _mapper.Map<UserDto>(model);
         }
 
         public async Task<IList<string>> GetRolesAsync(int id)
@@ -153,7 +159,7 @@ namespace MyLiverpool.Business.Services
 
         public async Task<string> GetUsernameAsync(int id)
         {
-            return await _userRepository.GetUsername(id);
+            return await _userRepository.GetUsernameAsync(id);
         }
 
         public async Task<string> ResetAvatarAsync(int userId)
@@ -198,7 +204,10 @@ namespace MyLiverpool.Business.Services
 
         public async Task<IEnumerable<UserDto>> GetBirthdaysAsync()
         {
-            Expression<Func<User, bool>> filter = x => x.Birthday.GetValueOrDefault().Date == DateTimeOffset.Now.Date &&
+            Expression<Func<User, bool>> filter = x => x.Birthday.HasValue &&
+                                                       x.Birthday.Value.Date == DateTime.Now.Date &&
+                                                    //   x.Birthday.Value.Month == DateTime.Now.Month &&
+                                                    //   x.Birthday.Value.Day == DateTime.Now.Day &&
                                                        x.LastModified.AddMonths(1).Date > DateTimeOffset.Now.Date;
             var list = await _userRepository.GetListAsync(1, 1000, filter);
             return _mapper.Map<IEnumerable<UserDto>>(list);

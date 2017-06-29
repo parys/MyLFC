@@ -43,7 +43,6 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return Ok(model);
         }
 
-
         /// <summary>
         /// Updates wish.
         /// </summary>

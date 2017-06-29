@@ -1,10 +1,21 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title></title>
-</head>
-<body>
-
-</body>
-</html>
+﻿<div class="container-fluid">
+    <form class="form-horizontal col-md-12" role="form" [formGroup]="userEditForm" (ngSubmit)="onSubmit()">
+        <md-input-container>
+            <input mdInput [mdDatepicker]="datePicker" placeholder="Выберите дату рождения" formControlName="birthday">
+            <button mdSuffix [mdDatepickerToggle]="datePicker"></button>
+        </md-input-container>
+        <md-datepicker #datePicker startView="year" touchUi="true"></md-datepicker>
+        <div class="form-group">
+            Парень <md-slide-toggle formControlName="gender"
+                                   color="warn">
+                Девушка
+            </md-slide-toggle>
+        </div>
+        <md-input-container class="full-width">
+            <input mdInput placeholder="Полное имя" formControlName="fullName">
+        </md-input-container>
+        <div class="form-group">
+            <button md-raised-button color="warn" type="submit">Сохранить</button>
+        </div>
+    </form>
+</div>

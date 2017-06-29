@@ -140,8 +140,6 @@ private localStorage: LocalStorageService,
     }
 
     public edit(index: number): void {
-        console.log(this.roles.isModerator);
-        console.log(this.roles.isSelf(this.items[index].authorId));
         this.selectedEditIndex = index;
         this.messageForm.get("message").patchValue(this.items[index].message);
     }

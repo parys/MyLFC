@@ -8,7 +8,6 @@ using MyLiverpool.Business.Dto;
 using MyLiverpool.Business.Dto.Filters;
 using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
-using MyLiverpool.Web.WebApiNext.Extensions;
 using MyLiverpool.Web.WebApiNext.OnlineCounting;
 using Newtonsoft.Json;
 
@@ -68,6 +67,24 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 user.Ip = null;
             }
             return Json(user);
+        }
+
+        /// <summary>
+        /// Updates user.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="dto">Modified user entity.</param>
+        /// <returns>Result of editing.</returns>
+        [Authorize, HttpPut]
+        public async Task<IActionResult> UpdateAsync([FromBody]UserDto dto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            dto.Id = User.GetUserId();
+            var result = await _userService.UpdateAsync(dto);
+            return Ok(result);
         }
 
         /// <summary>
