@@ -5,4 +5,5 @@
     public message: string;
     public additionTime: Date;
     public ip: string;
+    public type: number;
 }

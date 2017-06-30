@@ -186,6 +186,10 @@ textarea {
     overflow-y: auto;
 }
 
+.chatMessage-block.maxi {
+    height: 500px;
+}
+
 .color-gold {
     color: gold !important;
 }

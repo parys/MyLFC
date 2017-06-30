@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using MyLiverpool.Data.Common;
 
 namespace MyLiverpool.Data.Entities
 {
@@ -17,5 +18,7 @@ namespace MyLiverpool.Data.Entities
 
         [MaxLength(15)]
         public string Ip { get; set; }
+
+        public ChatMessageTypeEnum Type { get; set; }
     }
 }

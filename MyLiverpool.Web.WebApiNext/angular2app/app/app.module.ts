@@ -73,6 +73,7 @@ import 'rxjs/add/operator/mergeMap';
         account.ResetPasswordComponent,
         account.UnconfirmedEmailComponent,
         BreadcrumbComponent,
+        chat.MaxiChatComponent,
         chat.MiniChatComponent,
         club.ClubEditComponent,
         club.ClubListComponent,

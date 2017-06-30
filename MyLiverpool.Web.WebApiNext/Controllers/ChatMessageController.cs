@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyLiverpool.Business.Contracts;
@@ -55,10 +56,10 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// Returns chat messages list.
         /// </summary>
         /// <returns>Result of creation message.</returns>
-        [AllowAnonymous, HttpGet("list/{lastMessageId:int}")]
-        public async Task<IActionResult> GetListAsync(int lastMessageId)
+        [AllowAnonymous, HttpGet("list/{lastMessageId:int}/{typeId:int}")]
+        public async Task<IActionResult> GetListAsync(int lastMessageId, int typeId)
         {
-            var result = await _chatMessageService.GetListAsync(lastMessageId);
+            var result = await _chatMessageService.GetListAsync(lastMessageId, (ChatMessageTypeEnum)typeId);
             if (!User.IsInRole(nameof(RolesEnum.AdminStart)))
             {
                 foreach (var messageDto in result)

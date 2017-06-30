@@ -1,6 +1,7 @@
 ﻿import { Routes } from "@angular/router";
 import { MaterialListComponent } from "./material/index";
 import { accountRoutes } from "./account/account.routes";
+import { chatRoutes } from "./chat/chat.routes";
 import { clubRoutes } from "./club/club.routes";
 import { materialCategoryRoutes } from "./materialCategory/materialCategory.routes";
 import { materialRoutes } from "./material/material.routes";
@@ -16,6 +17,7 @@ import { roleGroupRoutes } from "./roleGroup/roleGroup.routes";
 
 export const routes: Routes = [
     ...accountRoutes,
+    ...chatRoutes,
     ...clubRoutes,
     ...homeRoutes,
     ...imageRoutes,

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
+using MyLiverpool.Data.Common;
 using MyLiverpool.Data.Entities;
 using MyLiverpool.Data.ResourceAccess.Interfaces;
 
@@ -58,9 +60,10 @@ namespace MyLiverpool.Business.Services
             return _mapper.Map<ChatMessageDto>(model);
         }
 
-        public async Task<IEnumerable<ChatMessageDto>> GetListAsync(int lastMessageId)
+        public async Task<IEnumerable<ChatMessageDto>> GetListAsync(int lastMessageId, ChatMessageTypeEnum type)
         {
-            var messages = await  _chatMessageRepository.GetListAsync(lastMessageId);// there is order and take
+            Expression<Func<ChatMessage, bool>> filter = x => x.Type == type && x.Id > lastMessageId;
+            var messages = await _chatMessageRepository.GetListAsync(filter);// there is order and take
             var results = _mapper.Map<IEnumerable<ChatMessageDto>>(messages);
             return results;
         }

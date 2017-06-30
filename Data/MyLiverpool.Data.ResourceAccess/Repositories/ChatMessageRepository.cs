@@ -69,14 +69,16 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             return await query.CountAsync();
         }
 
-        public async Task<IEnumerable<ChatMessage>> GetListAsync(int lastMessageId)
+        public async Task<IEnumerable<ChatMessage>> GetListAsync(Expression<Func<ChatMessage, bool>> filter = null)
         {
-            return
-                await _context.ChatMessages.Include(x => x.Author)
-                    .Where(x => x.Id > lastMessageId)
-                    .OrderByDescending(x => x.AdditionTime)
-                    .Take(GlobalConstants.TakingChatMessagesCount)
-                    .ToListAsync();
+            IQueryable<ChatMessage> query = _context.ChatMessages.Include(x => x.Author);
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+
+            return await query.OrderByDescending(x => x.AdditionTime).Take(GlobalConstants.TakingChatMessagesCount)
+                .ToListAsync();
         }
 
         public async Task UpdateAsync(ChatMessage entity)

@@ -20,7 +20,7 @@
                        accept="image/*" 
                        (change)="onChangeAvatar($event)"
                        id="update-avatar-input"/>
-                <button class="btn btn-warning" (click)="resetAvatar()">
+                <button md-raised-button color="primary" (click)="resetAvatar()">
                     Сбросить аватар
                 </button>
                 <button md-raised-button color="warn" *ngIf="roles.isSelf(item.id)" [routerLink]="['/changePassword']">Изменить пароль</button>

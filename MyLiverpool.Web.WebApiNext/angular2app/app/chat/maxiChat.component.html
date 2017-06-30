@@ -1,9 +1,10 @@
-﻿<div class="block-minichat">
+﻿<h4>Здесь можно общаться на любые темы. По плану разбить на вкладки по все подряд, траснферы, новости клуба. Будем рады услышать ваши предложения по улучшению данной страницы.</h4>
+<div class="block-minichat">
     <div class="blocktitle text-center">
-        <b>Мини-чат</b>
+        <b>Макси-чат(флудилка)</b>
     </div>
     <div class="blockcontent-inside">
-        <div class="chatMessage-block">
+        <div class="chatMessage-block maxi">
             <div class="chat-message clearfix" *ngFor="let message of items; let i = index;">
                 <div class="col-xs-12 col-sm-12 container-row clearfix">
                     <a [routerLink]="['/users', message.authorId]" [textContent]="message.authorUserName"></a>
@@ -33,17 +34,14 @@
                 
             </div>
         </form>
-        <div class="full-width text-center flex-space-around top20">
-            <div *ngIf="!roles.isLogined" class="text-white">Для добавления сообщений необходимо войти.</div>
-            <form role="form" [formGroup]="chatTimerForm">
+        <div class="full-width text-center text-white flex-space-around top20">
+            <div *ngIf="!roles.isLogined">Для добавления сообщений необходимо войти.</div>
+            <form role="form" [formGroup]="chatMaxiTimerForm">
                 <md-select placeholder="Автообновление" color="warn" formControlName="timerValue" (change)="updateSchedule($event)" style="background-color: white; padding-left: 5px;">
                     <md-option *ngFor="let interval of intervalArray" [value]="interval.value" [textContent]="interval.key"></md-option>
                 </md-select>
             </form>
             <button type="button" (click)="update()"><span class="glyphicon glyphicon-refresh"></span></button>
-            <a md-raised-button role="button" [routerLink]="['/chat']">Флудилка</a>
         </div>
-        <hr/>
-        <user-online-counter></user-online-counter>
     </div>
 </div>

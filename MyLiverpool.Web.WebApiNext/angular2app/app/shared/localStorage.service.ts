@@ -52,12 +52,12 @@ export class LocalStorageService {
         this.remove("roles");
     }
 
-    public setChatUpdateTime(value: number): void {
-        this.set("chatTimer", value.toString());
+    public setChatUpdateTime(value: number, type: number = null): void {
+        this.set(`chatTimer${type}`, value.toString());
     }
 
-    public getChatUpdateTime(): number {
-        return +this.get("chatTimer");
+    public getChatUpdateTime(type: number = null): number {
+        return +this.get(`chatTimer${type}`);
     }
 
     public removeAuthTokens(): void {

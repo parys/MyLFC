@@ -12,15 +12,15 @@ import { ChatMessageService } from "./chatMessage.service";
 import { RolesCheckedService, IRoles, DeleteDialogComponent, LocalStorageService } from "../shared/index";
 
 @Component({
-    selector: "mini-chat",
-    templateUrl: "./miniChat.component.html",
+    selector: "maxi-chat",
+    templateUrl: "./maxiChat.component.html",
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MiniChatComponent implements OnInit, OnDestroy {
+export class MaxiChatComponent implements OnInit, OnDestroy {
     private sub: Subscription;
     private updater$: Subscription;
     public messageForm: FormGroup;
-    public chatTimerForm: FormGroup;
+    public chatMaxiTimerForm: FormGroup;
     public items: ChatMessage[] = new Array<ChatMessage>();
     public roles: IRoles;
     public selectedEditIndex: number = null;
@@ -56,7 +56,7 @@ private localStorage: LocalStorageService,
     public update(): void {
         const id: number = this.items.length > 0 ? this.items[0].id : 0;
         this.service
-            .getAll(id, ChatMessageType.Mini)
+            .getAll(id, ChatMessageType.All)
             .subscribe((data: ChatMessage[]) => {
                     this.items = data.concat(this.items);
                 },
@@ -76,7 +76,9 @@ private localStorage: LocalStorageService,
                 },
                 e => console.log(e));
         } else {
-            this.service.create(this.messageForm.value)
+            const message: ChatMessage = this.messageForm.value;
+            message.type = ChatMessageType.All;
+            this.service.create(message)
                 .subscribe(data => {
                         this.items.unshift(data);
                         this.messageForm.get("message").patchValue("");
@@ -97,7 +99,7 @@ private localStorage: LocalStorageService,
 
     public updateSchedule(event: any): void {
         this.scheduleUpdate(event.value);
-        this.localStorage.setChatUpdateTime(event.value);
+        this.localStorage.setChatUpdateTime(event.value, ChatMessageType.All);
     }
 
     private scheduleUpdate(selectedValue: number) {
@@ -152,17 +154,17 @@ private localStorage: LocalStorageService,
     private initForm(message: string = ""): void {
         this.messageForm = this.formBuilder.group({
             'message': [message || "", Validators.compose([Validators.required, Validators.maxLength(this.configuration.maxChatMessageLength)])], //todo add visual warning
-            'typeId': [ChatMessageType.Mini, Validators.required]
+            'type': [ChatMessageType.All, Validators.required]
         });
         this.messageForm.valueChanges.subscribe(() => {
             this.cd.markForCheck();
         });
 
-        let timerValue: number = this.localStorage.getChatUpdateTime();
+        let timerValue: number = this.localStorage.getChatUpdateTime(ChatMessageType.All);
         if (timerValue) {
             this.scheduleUpdate(timerValue);
         }
-        this.chatTimerForm = this.formBuilder.group({
+        this.chatMaxiTimerForm = this.formBuilder.group({
             'timerValue': [timerValue]
         });
     }
