@@ -72,7 +72,6 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <summary>
         /// Updates user.
         /// </summary>
-        /// <param name="id">The identifier.</param>
         /// <param name="dto">Modified user entity.</param>
         /// <returns>Result of editing.</returns>
         [Authorize, HttpPut]

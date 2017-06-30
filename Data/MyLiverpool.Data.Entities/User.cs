@@ -78,7 +78,7 @@ namespace MyLiverpool.Data.Entities
 
         public string Ip { get; set; }
 
-        public DateTime? Birthday { get; set; }
+        public DateTimeOffset? Birthday { get; set; }
 
         public DateTimeOffset LastModified { get; set; }
 

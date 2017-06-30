@@ -32,7 +32,7 @@ namespace MyLiverpool.Data.Entities
 
         public string Country { get; set; }
 
-        public DateTime? Birthday { get; set; }
+        public DateTimeOffset? Birthday { get; set; }
 
         public virtual ICollection<Transfer> Transfers { get; set; }
 

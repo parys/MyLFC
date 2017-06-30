@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using MyLiverpool.Data.ResourceAccess;
-using MyLiverpool.Data.Common;
 
 namespace MyLiverpool.Data.ResourceAccess.Migrations
 {
@@ -425,7 +424,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime?>("Birthday");
+                    b.Property<DateTimeOffset?>("Birthday");
 
                     b.Property<string>("Country");
 
@@ -593,7 +592,7 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
 
                     b.Property<int>("AccessFailedCount");
 
-                    b.Property<DateTime?>("Birthday");
+                    b.Property<DateTimeOffset?>("Birthday");
 
                     b.Property<string>("City");
 

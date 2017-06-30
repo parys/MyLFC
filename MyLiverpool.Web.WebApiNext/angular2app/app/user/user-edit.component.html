@@ -1,7 +1,7 @@
 ﻿<div class="container-fluid">
     <form class="form-horizontal col-md-12" role="form" [formGroup]="userEditForm" (ngSubmit)="onSubmit()">
         <md-input-container>
-            <input mdInput [mdDatepicker]="datePicker" placeholder="Выберите дату рождения" formControlName="birthday">
+            <input mdInput [mdDatepicker]="datePicker" readonly="" placeholder="Выберите дату рождения" formControlName="birthday">
             <button mdSuffix [mdDatepickerToggle]="datePicker"></button>
         </md-input-container>
         <md-datepicker #datePicker startView="year" touchUi="true"></md-datepicker>

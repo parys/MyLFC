@@ -205,7 +205,8 @@ namespace MyLiverpool.Business.Services
         public async Task<IEnumerable<UserMiniDto>> GetBirthdaysAsync()
         {
             Expression<Func<User, bool>> filter = x => x.Birthday.HasValue &&
-                                                       x.Birthday.Value.Date == DateTime.Now.Date &&
+                                                       x.Birthday.Value.Date.Day == DateTime.Now.Date.Day &&
+                                                       x.Birthday.Value.Date.Month == DateTime.Now.Date.Month &&
                                                        x.LastModified.AddMonths(1).Date > DateTimeOffset.Now.Date;
             var list = await _userRepository.GetListAsync(1, 1000, filter);
             return _mapper.Map<IEnumerable<UserMiniDto>>(list);

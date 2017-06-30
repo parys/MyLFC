@@ -20,7 +20,7 @@ namespace MyLiverpool.Business.Dto
 
         public DateTimeOffset LastModifiedOn { get; set; }
 
-        public DateTime? Birthday { get; set; }
+        public DateTimeOffset? Birthday { get; set; }
 
         public string RoleGroupName { get; set; }
 

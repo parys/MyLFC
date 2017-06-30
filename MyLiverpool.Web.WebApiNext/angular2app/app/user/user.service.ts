@@ -53,20 +53,20 @@ export class UserService {
     };
 
     public getConfig = (): Observable<UserConfig> => {
-        return this.http.get(`${this.actionUrl}/config`).map((response: Response) => response.json());
+        return this.http.get(`${this.actionUrl}config`).map((response: Response) => response.json());
     };
 
     public getBirthdays = (): Observable<User[]> => {
-        return this.http.get(`${this.actionUrl}/birthdays`).map((response: Response) => response.json());
+        return this.http.get(`${this.actionUrl}birthdays`).map((response: Response) => response.json());
     };
 
     public getOnlineCount = (): Observable<UsersOnline> => {
-        return this.http.get(`${this.actionUrl}/online`).map((response: Response) => response.json());
+        return this.http.get(`${this.actionUrl}online`).map((response: Response) => response.json());
     };
 
     public updateConfig = (itemToUpdate: UserConfig): Observable<UserConfig> => {
         return this.http
-            .put(`${this.actionUrl}/config`, JSON.stringify(itemToUpdate))
+            .put(`${this.actionUrl}config`, JSON.stringify(itemToUpdate))
             .map((res: Response) => res.json());
     };
 }
