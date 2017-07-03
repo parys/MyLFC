@@ -3,7 +3,7 @@
                                                       currentPage: page,
                                                       totalItems: totalItems }; let i = index;">
         <div class="padding10" *ngIf="!item.pending || roles.isNewsmaker">
-            <div class="row flex border-left-maroon" >
+            <div class="row flex border-left-maroon" [class.material-pending]="item.pending">
                 <div class="flex-vertical-center material-header col-xs-12">
                     <a [routerLink]="[+item.type === 1 ? '/news' : '/blogs', item.id]">
                         <h3 class="beauty-font" [textContent]="item.title"></h3>

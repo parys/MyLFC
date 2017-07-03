@@ -18,13 +18,15 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             _context = context;
         }
         public async Task<PrivateMessage> GetByIdAsync(int id)
-        {//bug
-            return await _context.PrivateMessages.Include(x => x.Receiver).Include(x => x.Sender).FirstOrDefaultAsync(x => x.Id == id);
+        {
+            return await _context.PrivateMessages.Include(x => x.Receiver).Include(x => x.Sender)
+                .FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<PrivateMessage> AddAsync(PrivateMessage entity)
         {
             var addedEntity = await _context.PrivateMessages.AddAsync(entity);
+            await _context.SaveChangesAsync();
             return addedEntity.Entity;
         }
 
@@ -69,8 +71,15 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
         }
 
         public async Task<IEnumerable<PrivateMessage>> GetAsync(Expression<Func<PrivateMessage, bool>> filter = null)
-        {//should be better test
-            return await _context.PrivateMessages.Include(x => x.Receiver).Include(x=> x.Sender).Where(filter).ToListAsync();
+        {
+            IQueryable<PrivateMessage> query = _context.PrivateMessages.Include(x => x.Receiver).Include(x => x.Sender);
+
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+
+            return await query.ToListAsync();
         }
     }
 }

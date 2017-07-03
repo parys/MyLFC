@@ -46,10 +46,12 @@ export class TransferEditComponent implements OnInit, OnDestroy {
     }
 
     public onSubmit(): void {
-        const transfer: Transfer = this.parseForm();
+        const transfer: Transfer = this.parseForm();//todo bug should be fixed
+        transfer.startDate = new Date(transfer.startDate);
         transfer.startDate = new Date(transfer.startDate.getFullYear(), transfer.startDate.getMonth(), transfer.startDate.getDate(), (-1) * transfer.startDate.getTimezoneOffset() / 60);
         if (transfer.finishDate != null) {
-            transfer.finishDate = new Date(transfer.startDate.getFullYear(),
+            transfer.finishDate = new Date(transfer.finishDate);
+            transfer.finishDate = new Date(transfer.finishDate.getFullYear(),
                 transfer.finishDate.getMonth(),
                 transfer.finishDate.getDate(),
                 (-1) * transfer.finishDate.getTimezoneOffset() / 60);

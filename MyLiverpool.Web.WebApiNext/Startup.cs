@@ -150,18 +150,18 @@ namespace MyLiverpool.Web.WebApiNext
                 }
                 else
                 {
-                    try
-                    {
-                        options.AddSigningCertificate(
-                            new FileStream(Directory.GetCurrentDirectory() + "/cert.pfx", FileMode.Open),
-                            Configuration.GetSection("Cert")["password"]);
-                    }
-                    catch
-                    {
-                        options.AddSigningCertificate(
-                            new FileStream(Directory.GetCurrentDirectory() + "/cert2.pfx", FileMode.Open),
-                            Configuration.GetSection("Cert")["password"]);
-                    }
+                    //try
+                    //{
+                    //    options.AddSigningCertificate(
+                    //        new FileStream(Directory.GetCurrentDirectory() + "/cert.pfx", FileMode.Open),
+                    //        Configuration.GetSection("Cert")["password"]);
+                    //}
+                    //catch
+                    //{
+                    //    options.AddSigningCertificate(
+                    //        new FileStream(Directory.GetCurrentDirectory() + "/cert2.pfx", FileMode.Open),
+                    //        Configuration.GetSection("Cert")["password"]);
+                    //}
                 }
             });
 

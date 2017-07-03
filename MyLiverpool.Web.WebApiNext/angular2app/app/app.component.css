@@ -190,6 +190,15 @@ textarea {
     height: 500px;
 }
 
+.chatUpdate {
+    background-color: white;
+    padding-left: 5px;
+}
+
+.chatUpdate .mat-select-placeholder {
+    color: goldenrod;
+}
+
 .color-gold {
     color: gold !important;
 }
@@ -369,6 +378,10 @@ textarea {
             .material-header > a > h4 {
                 font-weight: bold;
             }
+
+.material-pending {
+    background-color: #e07676;
+}
 
     .mainContent {
         margin-top: 60px;
