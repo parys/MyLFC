@@ -19,6 +19,7 @@ export class MaterialListComponent implements OnInit, OnDestroy {
     private sub: Subscription;
     private sub2: Subscription;
     private userName: string;
+    private userId: number = null;
     public items: Material[];
     public page: number = 1;
     public itemsPerPage: number = 15;
@@ -134,6 +135,7 @@ export class MaterialListComponent implements OnInit, OnDestroy {
         filters.categoryId = this.categoryId || null;
         filters.materialType = MaterialType[this.type];
         filters.userName = this.userName || null;
+        filters.userId = this.userId || null;
         filters.page = this.page;
 
         this.sub = this.materialService
@@ -147,6 +149,7 @@ export class MaterialListComponent implements OnInit, OnDestroy {
                 this.page = qParams["page"] || 1;
                 this.categoryId = qParams["categoryId"] || "";
                 this.userName = qParams["userName"] || "";
+                this.userId = qParams["userId"] || null;
             },
             error => console.log(error));
         this.update();

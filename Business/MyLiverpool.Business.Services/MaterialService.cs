@@ -51,7 +51,11 @@ namespace MyLiverpool.Business.Services
                     filter = filter.And(x => x.Type == filters.MaterialType);
                 }
             }
-            if (!string.IsNullOrWhiteSpace(filters.UserName))
+            if (filters.UserId.HasValue)
+            {
+                filter = filter.And(x => x.AuthorId == filters.UserId.Value);
+            }
+            else if (!string.IsNullOrWhiteSpace(filters.UserName))
             {
                 Expression<Func<Material, bool>> newFilter = x => x.Author.UserName.Contains(filters.UserName);
                 filter = filter.And(newFilter);
