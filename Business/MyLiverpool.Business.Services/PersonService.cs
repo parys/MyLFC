@@ -152,5 +152,14 @@ namespace MyLiverpool.Business.Services
             var persons = await _personRepository.GetListAsync(1, filter: filter);
             return persons.Select(x => new KeyValuePair<int, string>(x.Id, x.Name));
         }
+
+        public async Task<IEnumerable<PersonDto>> GetBirthdaysAsync()
+        {
+            Expression<Func<Person, bool>> filter = x => x.Birthday.HasValue &&
+                                                       x.Birthday.Value.Date.Day == DateTimeOffset.Now.Date.Day &&
+                                                       x.Birthday.Value.Date.Month == DateTimeOffset.Now.Date.Month;
+            var list = await _personRepository.GetListAsync(1, 1000, filter);
+            return _mapper.Map<IEnumerable<PersonDto>>(list);
+        }
     }
 }

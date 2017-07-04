@@ -43,6 +43,10 @@ export class PersonService {
         return this.http.delete(this.actionUrl + id).map((res: Response) => res.json());
     };
 
+    public getBirthdays = (): Observable<Person[]> => {
+        return this.http.get(`${this.actionUrl}birthdays`).map((response: Response) => response.json());
+    };
+
     public getTypes = (): Observable<PersonType[]> => {
         return this.http.get(this.actionUrl + "types/").map((res: Response) => res.json());
     };

@@ -18,5 +18,7 @@ namespace MyLiverpool.Business.Contracts
         Task<IEnumerable<PersonDto>> GetStuffListAsync();
         Task<SquadListDto> GetSquadListAsync(PersonType type);
         Task<IEnumerable<KeyValuePair<int, string>>> GetPersonsByNameAsync(string typed);
+
+        Task<IEnumerable<PersonDto>> GetBirthdaysAsync();
     }
 }

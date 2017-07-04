@@ -130,6 +130,17 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         }
 
         /// <summary>
+        /// Returns persons list who celebrate birthday today.
+        /// </summary>
+        /// <returns>Persons who celebrates birthday today.</returns>
+        [AllowAnonymous, HttpGet("birthdays")]
+        public async Task<IActionResult> GetBirthdaysAsync()
+        {
+            var result = await _personService.GetBirthdaysAsync();
+            return Json(result);
+        }
+
+        /// <summary>
         /// Updates person.
         /// </summary>
         /// <param name="id">The identifier.</param>

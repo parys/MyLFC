@@ -4,6 +4,7 @@ import { RouterModule } from "@angular/router";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { PersonListComponent } from "./person-list.component";
 import { PersonEditComponent } from "./person-edit.component";
+import { PersonBirthdayComponent } from "./person-birthday.component";
 import { PersonService } from "./person.service";
 import { TransferService } from "./transfer.service";
 import { PlayerStatisticsComponent } from "./player-statistics.component";
@@ -49,6 +50,7 @@ Ng2AutoCompleteModule,
     ],
     declarations: [
         BestPlayerComponent,
+        PersonBirthdayComponent,
         PersonEditComponent,
         PersonListComponent,
         PlayerStatisticsComponent,
@@ -59,7 +61,8 @@ Ng2AutoCompleteModule,
         TransferEditComponent 
     ],
     exports: [
-        BestPlayerComponent
+        BestPlayerComponent,
+        PersonBirthdayComponent
     ],
     providers: [
         PersonService,

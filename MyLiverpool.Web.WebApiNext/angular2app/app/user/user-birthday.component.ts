@@ -52,7 +52,7 @@ export class UserBirthdayComponent implements OnInit, OnDestroy {
 
     private setRandomIndex(): void {
         const rand: number = Math.random() * (this.items.length + 1) - 0.5;
-        const intNumber: number = Math.round(rand);
+        const intNumber = Math.round(rand);
         this.currentUserIndex = intNumber === this.items.length ? intNumber - 1 : intNumber;
     }
 }
