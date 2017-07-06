@@ -51,8 +51,8 @@ export class PersonService {
         return this.http.get(this.actionUrl + "types/").map((res: Response) => res.json());
     };
 
-    public getStuff = (): Observable<Person[]> => {
-        return this.http.get(this.actionUrl + "stuff/").map((res: Response) => res.json());
+    public getStuff = (type: string): Observable<Person[]> => {
+        return this.http.get(`${this.actionUrl}stuff?type=${type}`).map((res: Response) => res.json());
     };
 
     public getSquad = (type:string): Observable<SquadList> => {

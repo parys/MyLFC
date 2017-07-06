@@ -98,9 +98,9 @@ namespace MyLiverpool.Business.Services
             //await _helperEntityRepository.UpdateAndSaveAsync(entity);
         }
 
-        public async Task<IEnumerable<PersonDto>> GetStuffListAsync()
+        public async Task<IEnumerable<PersonDto>> GetStuffListAsync(PersonType personType)
         {
-            var stuffList1 = await _personRepository.GetListAsync(1, 1000, x => x.Type == PersonType.Stuff);
+            var stuffList1 = await _personRepository.GetListAsync(1, 1000, x => x.Type == personType);
             var stuffList = stuffList1.ToList();
             var tempList = new List<Person>();
             var coach = stuffList.FirstOrDefault(x => x.Position == "Главный тренер");

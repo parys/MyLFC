@@ -1,10 +1,17 @@
-﻿<h3>Тренерский штаб</h3>
+﻿<h2>Тренерский штаб</h2>
+<nav md-tab-nav-bar>
+    <a md-tab-link *ngFor="let routeLink of routeLinks; let i = index"
+       [routerLink]="routeLink.link"
+       [active]="activeLinkIndex === i"
+       (click)="activeLinkIndex = i"
+       [textContent]="routeLink.label"></a>
+</nav>
 <div class="flex-space-around">
     <div *ngFor="let person of items">
         <md-card class="stuff-card">
             <md-card-header>
-                <md-card-title role="button" *ngIf="roles.isAdminAssistant" [routerLink]="['/persons', person.id, 'edit']" [textContent]="person.russianName"></md-card-title>
-                <md-card-title *ngIf="!roles.isAdminAssistant" [textContent]="person.russianName"></md-card-title>
+                <md-card-title role="button" *ngIf="roles.isInformer" [routerLink]="['/persons', person.id, 'edit']" [textContent]="person.russianName"></md-card-title>
+                <md-card-title *ngIf="!roles.isInformer" [textContent]="person.russianName"></md-card-title>
                 <md-card-subtitle [textContent]="person.position"></md-card-subtitle>
             </md-card-header>
             <img md-card-image [src]="person.photo" [alt]="person.russianName">

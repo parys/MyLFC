@@ -26,7 +26,7 @@ export class SquadComponent {
     public ngOnInit(): void {
         this.roles = this.rolesChecked.checkRoles();
         this.routeLinks = [
-            { label: "Основная команда", link: "/squad/first" },
+            { label: "Первая команда", link: "/squad/first" },
             { label: "Академия", link: "/squad/academy" }];
         if (this.route.snapshot.data["type"] === PersonType[PersonType.First]) {
             this.activeLinkIndex = 0;

@@ -26,7 +26,14 @@ export const personRoutes: Routes = [
             },
         ]
     },
-    { path: "stuff", component: StuffListComponent, data: { title: "Тренерский состав" } },
+    {
+        path: "stuff",
+        children: [
+            { path: "", redirectTo: "/stuff/first", pathMatch: "full" },
+            { path: "first", component: StuffListComponent, data: { title: "Тренерский состав", type: "First" } },
+            { path: "academy", component: StuffListComponent, data: { title: "Тренерский состав", type: "Academy"} },
+        ]
+    },
     {
         path: "squad", children: [
             { path: "", redirectTo: "/squad/first", pathMatch: "full" },
