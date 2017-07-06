@@ -26,7 +26,7 @@ import { StadiumModule } from "./stadium/index";
 import { WishModule } from "./wish/index";
 import * as materialComment from "./materialComment/index";
 import { Ng2AutoCompleteModule } from "ng2-auto-complete";
-import { AdminService, EplTableComponent } from "./admin/index";
+import * as admin from "./admin/index";
 import { NgxPaginationModule } from "ngx-pagination";
 import { ReCaptchaModule } from "angular2-recaptcha";
 import { Ng2BreadcrumbModule, BreadcrumbService } from "ng2-breadcrumb/ng2-breadcrumb";
@@ -81,6 +81,7 @@ import 'rxjs/add/operator/mergeMap';
         home.AboutClubComponent,
         home.CopyrightComponent,
         home.ClubHistoryComponent,
+        home.JobComponent,
         home.NavbarComponent,
         home.SidebarLeftComponent,
         home.SidebarRightComponent,
@@ -107,7 +108,8 @@ import 'rxjs/add/operator/mergeMap';
         season.SeasonEditComponent,
         season.SeasonListComponent,
         AppComponent,
-        EplTableComponent,
+        admin.EplTableComponent,
+        admin.PageEditorComponent,
         material.MaterialListComponent,
         material.MaterialDetailComponent,
         material.MaterialEditComponent,
@@ -140,7 +142,7 @@ entryComponents: [
         pm.PmService,
         roleGroup.RoleGroupService,
         season.SeasonService,
-        AdminService,
+        admin.AdminService,
         { provide: LOCALE_ID, useValue: "ru-RU" },
         Configuration,
         material.MaterialService,

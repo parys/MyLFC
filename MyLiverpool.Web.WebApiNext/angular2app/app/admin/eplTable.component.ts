@@ -1,8 +1,8 @@
 ﻿import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
 import { Subscription } from "rxjs/Subscription";
-import { AdminService } from "../admin/admin.service";
+import { AdminService } from "./admin.service";
+import { HelperType } from "./helperType.enum";
 import { RolesCheckedService, IRoles } from "../shared/index";
-
 
 @Component({
     selector: "epl-table",
@@ -25,7 +25,7 @@ export class EplTableComponent implements OnInit, OnDestroy {
     public ngOnInit(): void {
         this.roles = this.rolesChecked.checkRoles();
         this.sub = this.service
-            .getEplTable()
+            .getValue(HelperType.EplTable)
             .subscribe(data => this.eplTable = data,
             error => console.log(error),
             () => {
@@ -42,6 +42,9 @@ export class EplTableComponent implements OnInit, OnDestroy {
         this.sub2 = this.service
             .updateEplTable()
             .subscribe(data => this.eplTable = data,
-                error => console.log(error));
+            error => console.log(error),
+                () => {
+                    this.cd.markForCheck();
+                });
     }
 }

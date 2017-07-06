@@ -21,7 +21,6 @@ export class MaterialEditComponent implements OnInit {
     public roles: IRoles;
     public item: Material;
     public type: MaterialType;
-    public isInit: boolean = false;
     public additional: string = "additional";
 
     constructor(private service: MaterialService,
@@ -47,7 +46,6 @@ export class MaterialEditComponent implements OnInit {
                         error => console.log(error));
             } else {
             this.item = new Material();
-            this.isInit = true;
             };
         this.materialCategoryService.getAll(this.type)
             .subscribe(data => this.parseCategories(data),
@@ -88,7 +86,6 @@ export class MaterialEditComponent implements OnInit {
         this.id = data.id;
         this.editForm.patchValue(data);
         this.item = data;
-        this.isInit = true;
     }
 
     private parseForm(): Material {

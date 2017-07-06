@@ -6,11 +6,11 @@ import { HelperType } from "../admin/helperType.enum";
 import { RolesCheckedService, IRoles, } from "../shared/index";
 
 @Component({
-    selector: "<rules>",
-    templateUrl: "./rules.component.html",
+    selector: "<job>",
+    templateUrl: "./job.component.html",
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RulesComponent implements OnInit, OnDestroy {
+export class JobComponent implements OnInit, OnDestroy {
     private sub: Subscription;
     public content: SafeHtml;
     public roles: IRoles;
@@ -23,12 +23,12 @@ export class RulesComponent implements OnInit, OnDestroy {
 
     public ngOnInit(): void {
         this.roles = this.rolesChecked.checkRoles();
-        this.sub = this.service.getValue(HelperType.Rules).subscribe(pageData => {
-                if (pageData) {
-                    this.content = this.sanitizeByHtml(pageData);
-                    this.cd.markForCheck();
-                }
-            },
+        this.sub = this.service.getValue(HelperType.Job).subscribe(pageData => {
+            if (pageData) {
+                this.content = this.sanitizeByHtml(pageData);
+                this.cd.markForCheck();
+            }
+        },
             e => console.log(e));
     }
 

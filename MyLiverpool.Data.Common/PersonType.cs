@@ -21,6 +21,8 @@ namespace MyLiverpool.Data.Common
         [Display(Name = "Бывший сотрудник штаба")]
         OldStuff = 8,
         [Display(Name = "Бывший игрок и тренер")]
-        OldPlayerAndStuff = 9
+        OldPlayerAndStuff = 9,
+        [Display(Name = "Тренерский штаб академии")]
+        StuffAcademy = 10
     }
 }

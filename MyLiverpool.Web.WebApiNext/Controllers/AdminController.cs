@@ -32,7 +32,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <returns>Result of update.</returns>
         [Authorize(Roles = nameof(RolesEnum.InfoStart)), HttpGet("updateTable")]
-        public async Task<IActionResult> UpdateAplTable()
+        public async Task<IActionResult> UpdateEplTable()
         {
             var result = await _adminService.UpdateTableAsync();
             _cache.Set("eplTable", result);

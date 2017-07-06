@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using MyLiverpool.Business.Contracts;
+using MyLiverpool.Data.Common;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
@@ -14,6 +15,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     {
         private readonly IHelperService _helperService;
         private readonly IMemoryCache _cache;
+        private const string HelperEntity = "HelperEntity";
 
         /// <summary>
         /// Constructor.
@@ -30,11 +32,23 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// Returns epl table.
         /// </summary>
         /// <returns></returns>
-        [AllowAnonymous, HttpGet("")]
-        public async Task<IActionResult> GetAsync()
+        [AllowAnonymous, HttpGet("value/{id:int}")]
+        public async Task<IActionResult> GetAsync(int id)
         {
-            var result = await _cache.GetOrCreateAsync("eplTable", async x => await _helperService.GetEplTableAsync());
+            var result = await _cache.GetOrCreateAsync(HelperEntity + id, async x => await _helperService.GetAsync((HelperEntityType)id));
             return Ok(result);
+        }
+
+        /// <summary>
+        /// Updates page content.
+        /// </summary>
+        /// <returns>Result of update.</returns>
+        [Authorize(Roles = nameof(RolesEnum.AdminStart)), HttpPut("value/{id:int}")]
+        public async Task<IActionResult> UpdateAsync(int id, [FromBody]string value)
+        {
+            _cache.Remove(HelperEntity + id);
+            var result = await _helperService.UpdateAsync((HelperEntityType)id, value);
+            return Json(result);
         }
     }
 }

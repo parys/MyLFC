@@ -6,3 +6,4 @@ export * from "./about-club.component";
 export * from "./about.component";
 export * from "./copyright.component";
 export * from "./navbar.component";
+export * from "./job.component";

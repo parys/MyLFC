@@ -72,7 +72,7 @@ namespace MyLiverpool.Business.Services
                 }
                 newRows.Append("</tbody></table>");
 
-            var entity = await _helperEntityRepository.GetByTypeAsync(HelperEntityType.EplTable) ?? new HelpEntity()
+            var entity = await _helperEntityRepository.GetByTypeAsync(HelperEntityType.EplTable) ?? new HelpEntity
             {
                 Type = HelperEntityType.EplTable
             };
