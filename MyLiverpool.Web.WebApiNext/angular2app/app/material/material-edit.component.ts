@@ -91,29 +91,21 @@ export class MaterialEditComponent implements OnInit {
     private parseForm(): Material {
         const item: Material = this.editForm.value;
         item.id = this.id;
-        item.userId = this.item.userId;//should move to input
+        item.userId = this.item.userId;//todo should move to input
         return item;
     }
 
     private initForm(): void {
         this.editForm = this.formBuilder.group({
-            'categoryId': ["", Validators.compose([
-                Validators.required])],
-            'title': ["", Validators.compose([
-                Validators.required])],
-            'brief': ["", Validators.compose([
-                Validators.required])],
-            'message': ["", Validators.compose([
-                Validators.required])],
-            'source': ["", Validators.compose([])],
-            'photo': ["", Validators.compose([
-                Validators.required])],
-            'canCommentary': ["true", Validators.compose([
-                Validators.required])],
-            'onTop': ["false", Validators.compose([
-                Validators.required])],
-            'pending': ["true", Validators.compose([
-                Validators.required])]
+            'categoryId': ["", Validators.required],
+            'title': ["", Validators.required],
+            'brief': ["", Validators.required],
+            'message': ["", Validators.required],
+            'source': [""],
+            'photo': ["", Validators.required],
+            'canCommentary': [true, Validators.required],
+            'onTop': [false, Validators.required],
+            'pending': [true, Validators.required]
         });
     }
 
