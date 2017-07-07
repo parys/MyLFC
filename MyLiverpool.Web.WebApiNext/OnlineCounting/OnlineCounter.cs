@@ -81,36 +81,44 @@ namespace MyLiverpool.Web.WebApiNext.OnlineCounting
             }
         }
 
+        private static readonly object GuestRemovingLockObject = new object();
+
         private static void RemoveOldGuestsRecords()
         {
-            _isRemovingGuests = true;
-            _currentOnlineGuests2 = new ConcurrentDictionary<string, DateTimeOffset>();
-            foreach (var keyValue in _currentOnlineGuests)
+            lock (GuestRemovingLockObject)
             {
-                if (keyValue.Value.AddSeconds(40) > DateTimeOffset.Now)
-                {
-                    _currentOnlineGuests2.TryAdd(keyValue.Key, keyValue.Value);
-                }
-            }
-            _currentOnlineGuests = _currentOnlineGuests2;
+                _isRemovingGuests = true;
+                _currentOnlineGuests2 = new ConcurrentDictionary<string, DateTimeOffset>();
 
-            _isRemovingGuests = false;
+                foreach (var keyValue in _currentOnlineGuests)
+                {
+                    if (keyValue.Value.AddSeconds(40) > DateTimeOffset.Now)
+                    {
+                        _currentOnlineGuests2.TryAdd(keyValue.Key, keyValue.Value);
+                    }
+                }
+                _currentOnlineGuests = _currentOnlineGuests2;
+                _isRemovingGuests = false;
+            }
         }
 
+        private static readonly object UserRemovingLockObject = new object();
         private static void RemoveOldUsersRecords()
         {
-            _currentOnline2 = new ConcurrentDictionary<int, OnlineCounterModel>();
-            _isRemoving = true;
-            foreach (var keyValue in _currentOnline)
+            lock (UserRemovingLockObject)
             {
-                if (keyValue.Value.Date.AddSeconds(40) > DateTimeOffset.Now)
+                _isRemoving = true;
+                _currentOnline2 = new ConcurrentDictionary<int, OnlineCounterModel>();
+                foreach (var keyValue in _currentOnline)
                 {
-                    _currentOnline2.TryAdd(keyValue.Key, keyValue.Value);
+                    if (keyValue.Value.Date.AddSeconds(40) > DateTimeOffset.Now)
+                    {
+                        _currentOnline2.TryAdd(keyValue.Key, keyValue.Value);
+                    }
                 }
+                _currentOnline = _currentOnline2;
+                _isRemoving = false;
             }
-            _currentOnline = _currentOnline2;
-
-            _isRemoving = false;
         }
     }
 

@@ -2,6 +2,9 @@
 import { Http, Headers, RequestOptions, Response, URLSearchParams } from '@angular/http';
 import { Observable } from "rxjs/Observable";
 import "rxjs/add/observable/interval";
+import "rxjs/add/observable/of";
+import "rxjs/add/operator/catch";
+import "rxjs/add/operator/do";
 import { Subscription } from "rxjs/Subscription";
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import { IRefreshGrantModel } from "./models/refresh-grant-model";

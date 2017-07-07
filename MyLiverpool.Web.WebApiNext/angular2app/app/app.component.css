@@ -102,9 +102,9 @@ textarea {
     z-index: 0;
     opacity: 0.2;
     background-repeat: no-repeat;
-    background-image: url('/content/header2.png');
+    background-image: url('/content/header4.png');
     background-position: 50% 100%;
-    background-size: 50%;
+    background-size: 30%;
 }
 
 .bg-light-blue {

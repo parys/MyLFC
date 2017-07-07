@@ -2,6 +2,7 @@
 import { Router, ActivatedRoute, NavigationEnd } from "@angular/router";
 import { Title } from "@angular/platform-browser";
 import { Observable } from "rxjs/Observable"
+import "rxjs/add/observable/throw";
 import { RolesCheckedService } from "./shared/roles-checked.service";
 import { IRoles } from "./shared/roles.interface";
 import { AuthService } from "./auth/auth.service";
