@@ -1,11 +1,12 @@
 ﻿import { Routes } from "@angular/router";
-import { ClubHistoryComponent, RulesComponent, AboutClubComponent, AboutComponent, CopyrightComponent, JobComponent } from "./index";
+import { StaticPageComponent } from "./index";
+import { HelperType } from "../admin/helperType.enum";
 
 export const homeRoutes: Routes = [
-    { path: "clubHistory", component: ClubHistoryComponent, data: { title: "История клуба" } },
-    { path: "copyright", component: CopyrightComponent, data: { title: "О перепечатке информации" } },
-    { path: "rules", component: RulesComponent, data: { title: "Правила" } },
-    { path: "aboutClub", component: AboutClubComponent, data: { title: "О клубе" } },
-    { path: "about", component: AboutComponent, data: { title: "О нас" } },
-    { path: "job", component: JobComponent, data: { title: "Работа на сайте" } }
+    { path: "clubHistory", component: StaticPageComponent, data: { title: "История клуба", type: HelperType.ClubHistory } },
+    { path: "copyright", component: StaticPageComponent, data: { title: "О перепечатке информации", type: HelperType.Copyright } },
+    { path: "rules", component: StaticPageComponent, data: { title: "Правила", type: HelperType.Rules } },
+    { path: "aboutClub", component: StaticPageComponent, data: { title: "О клубе", type: HelperType.AboutClub } },
+    { path: "about", component: StaticPageComponent, data: { title: "О нас", type: HelperType.About } },
+    { path: "job", component: StaticPageComponent, data: { title: "Работа на сайте", type: HelperType.Job } }
 ];

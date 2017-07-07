@@ -33,8 +33,8 @@
                 
             </div>
         </form>
+        <div *ngIf="!roles.isLogined" class="text-white text-center ">Для добавления сообщений необходимо войти.</div>
         <div class="full-width text-center flex-space-around top20">
-            <div *ngIf="!roles.isLogined" class="text-white">Для добавления сообщений необходимо войти.</div>
             <form role="form" [formGroup]="chatTimerForm">
                 <md-select placeholder="Автообновление чата" color="warn" formControlName="timerValue" (change)="updateSchedule($event)" class="chatUpdate">
                     <md-option *ngFor="let interval of intervalArray" [value]="interval.value" [textContent]="interval.key"></md-option>
