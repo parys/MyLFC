@@ -362,6 +362,7 @@ textarea {
         height: auto;
         margin: auto;
         max-width: 100%;
+        width: auto;
     }
 
     .material-header {

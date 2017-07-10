@@ -16,4 +16,12 @@
     public onTop: boolean;
     public canCommentary: boolean;
     public type: number;
+    
+    public nextMaterialId : number;
+
+    public nextMaterialTitle: string;
+
+    public prevMaterialId: number;
+
+    public prevMaterialTitle: string;
 }

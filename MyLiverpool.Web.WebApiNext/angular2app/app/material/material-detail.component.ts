@@ -129,9 +129,8 @@ export class MaterialDetailComponent implements OnInit, OnDestroy {
     }
 
     private addView(): void {
-        let id = this.item.id;
-        if (this.localStorage.tryAddViewForMaterial(id)) {
-            this.service.addView(id).subscribe(data => data, e => console.log(e));
+        if (this.localStorage.tryAddViewForMaterial(this.item.id)) {
+            this.service.addView(this.item.id).subscribe(data => data, e => console.log(e));
             this.item.reads += 1;
         }
     }

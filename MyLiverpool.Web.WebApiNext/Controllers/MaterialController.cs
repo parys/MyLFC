@@ -69,10 +69,12 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [AllowAnonymous, HttpGet("{id:int}")]
         public async Task<IActionResult> GetItem(int id)
         {
-            var model = await _materialService.GetDtoAsync(id);
+            var hasAccess = User != null && (User.IsInRole(nameof(RolesEnum.NewsStart)) || User.IsInRole(nameof(RolesEnum.BlogStart)));
+            var model = await _materialService.GetDtoAsync(id, hasAccess);
             if (model.Pending)
             {
-                if(User == null || !User.IsInRole(nameof(RolesEnum.NewsStart)))
+                if((model.Type == MaterialType.News || User.GetUserId() != model.UserId) &&
+                    (User == null || !User.IsInRole(nameof(RolesEnum.NewsStart))))
                 {
                     return BadRequest();
                 }

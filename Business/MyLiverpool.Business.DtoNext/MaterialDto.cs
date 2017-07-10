@@ -24,11 +24,9 @@ namespace MyLiverpool.Business.Dto
         public string UserName { get; set; }
 
         public string Title { get; set; }
-
-       // [AllowHtml]
+        
         public string Brief { get; set; }
-
-       // [AllowHtml]
+        
         public string Message { get; set; }
 
         public int Reads { get; set; }
@@ -44,5 +42,13 @@ namespace MyLiverpool.Business.Dto
         public bool CanCommentary { get; set; }
 
         public MaterialType Type { get; set; }
+
+        public int? NextMaterialId { get; set; }
+
+        public string NextMaterialTitle { get; set; }
+
+        public int? PrevMaterialId { get; set; }
+
+        public string PrevMaterialTitle { get; set; }
     }
 }

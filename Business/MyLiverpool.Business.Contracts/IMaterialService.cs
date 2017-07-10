@@ -14,7 +14,7 @@ namespace MyLiverpool.Business.Contracts
 
         Task<PageableData<MaterialMiniDto>> GetDtoAllAsync(MaterialFiltersDto filters);
 
-        Task<MaterialDto> GetDtoAsync(int id);
+        Task<MaterialDto> GetDtoAsync(int id, bool hasAccess = false);
 
         Task<MaterialDto> CreateAsync(MaterialDto dto, int userId);
 

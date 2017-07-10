@@ -83,7 +83,7 @@ namespace MyLiverpool.Business.Services
             return result;
         }
 
-        public async Task<MaterialDto> GetDtoAsync(int id)
+        public async Task<MaterialDto> GetDtoAsync(int id, bool hasAccess = false)
         {
             var material = await _materialRepository.GetByIdAsync(id);
             if (material == null)
@@ -92,7 +92,13 @@ namespace MyLiverpool.Business.Services
             }
             
             var dto = _mapper.Map<MaterialDto>(material);
-            return dto;
+            var previous = await GetPrevMaterialAsync(dto.Id, dto.OnTop, hasAccess);
+            var next = await GetNextMaterialAsync(dto.Id, dto.OnTop, hasAccess);
+            dto.PrevMaterialId = previous?.Id;
+            dto.PrevMaterialTitle = previous?.Title;
+            dto.NextMaterialId = next?.Id;
+            dto.NextMaterialTitle = next?.Title;
+           return dto;
         }
 
         public async Task<bool> DeleteAsync(int id, ClaimsPrincipal claims)
@@ -197,6 +203,68 @@ namespace MyLiverpool.Business.Services
         }
 
         #endregion
+
+        private async Task<Material> GetPrevMaterialAsync(int nextMaterialId, bool nextOnTop, bool hasAccess)
+        {
+            Expression<Func<Material, bool>> filter;
+            if (hasAccess)
+            {
+                filter = x => true;
+            }
+            else
+            {
+                filter = x => !x.Pending;
+            }
+            if (nextOnTop)
+            {
+                var topMaterials = await _materialRepository.GetTopMaterialsAsync(filter);
+                if (topMaterials.Count > 1 && topMaterials.Last().Id != nextMaterialId)
+                {
+                    return topMaterials.OrderByDescending(x => x.AdditionTime).TakeWhile(x => x.Id != nextMaterialId)
+                        .Last();
+                }
+            }
+
+            Material material = null;
+            nextMaterialId -= 1;
+            while (material == null && nextMaterialId > 0 || (material == null || material.Pending) && !hasAccess)
+            {
+                material = await _materialRepository.GetByIdAsync(nextMaterialId--);
+            }
+            return material;
+        }
+
+        private async Task<Material> GetNextMaterialAsync(int prevMaterialId, bool prevOnTop, bool hasAccess)
+        {
+            Expression<Func<Material, bool>> filter;
+            if (hasAccess)
+            {
+                filter = x => true;
+            }
+            else
+            {
+                filter = x => !x.Pending;
+            }
+            if (prevOnTop)
+            {
+                var topMaterials = await _materialRepository.GetTopMaterialsAsync(filter);
+                if (topMaterials.Count > 1 && topMaterials.First().Id != prevMaterialId)
+                {
+                    return topMaterials.TakeWhile(x => x.Id != prevMaterialId)
+                        .Last();
+                }
+
+                return null;
+            }
+            var lastMaterial = await _materialRepository.GetOrderedByDescAndNotTopAsync(1, 1, orderBy: x=> x.AdditionTime);
+            Material material = null;
+            prevMaterialId += 1;
+            while (material == null && prevMaterialId < lastMaterial.FirstOrDefault()?.Id || (material == null || material.Pending) && !hasAccess)
+            {
+                material = await _materialRepository.GetByIdAsync(prevMaterialId++);
+            }
+            return material;
+        }
     }
 }
 
