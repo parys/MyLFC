@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Security.Claims;
@@ -256,12 +257,16 @@ namespace MyLiverpool.Business.Services
 
                 return null;
             }
-            var lastMaterial = await _materialRepository.GetOrderedByDescAndNotTopAsync(1, 1, orderBy: x=> x.AdditionTime);
+            var lastMaterial = await _materialRepository.GetOrderedByAsync(1, 1, SortOrder.Descending, orderBy: x=> x.AdditionTime);
             Material material = null;
             prevMaterialId += 1;
-            while (material == null && prevMaterialId < lastMaterial.FirstOrDefault()?.Id || (material == null || material.Pending) && !hasAccess)
+            while (material == null && prevMaterialId <= lastMaterial.FirstOrDefault()?.Id)
             {
                 material = await _materialRepository.GetByIdAsync(prevMaterialId++);
+                if (material != null && material.Pending && !hasAccess)
+                {
+                    material = null;
+                }
             }
             return material;
         }

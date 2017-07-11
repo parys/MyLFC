@@ -21,5 +21,9 @@
             </ul>
         </div>
     </div>
+    <div class="col-xs-12 flex-space-around"><span class="col-xs-12">К другим новостям: </span>
+        <a *ngIf="item.prevMaterialId" [routerLink]="[+item.type === 1 ? '/news' : '/blogs', item.prevMaterialId]"><span [textContent]="item.prevMaterialTitle"></span>(назад)</a>
+        <a *ngIf="item.nextMaterialId" [routerLink]="[+item.type === 1 ? '/news' : '/blogs', item.nextMaterialId]"><span [textContent]="item.nextMaterialTitle"></span>(вперед)</a>
+    </div>
     <comment-section [materialId]="item.id" [canCommentary]="item.canCommentary"></comment-section>
 </div>
