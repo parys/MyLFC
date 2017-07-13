@@ -84,7 +84,7 @@ export class ClubEditComponent implements OnInit, OnDestroy {
             this.clubService.uploadLogo(event.currentTarget.files[0], this.editForm.controls["englishName"].value)
                 .subscribe(result => {
                     this.imagePath = result + "?" + this.getRandomNumber();
-                    this.editForm.controls["logo"].patchValue(this.imagePath);
+                    this.editForm.controls["logo"].patchValue(result);
                 },
                 error => console.log(error));
         }

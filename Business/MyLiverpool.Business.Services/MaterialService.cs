@@ -222,7 +222,7 @@ namespace MyLiverpool.Business.Services
                 if (topMaterials.Count > 1 && topMaterials.Last().Id != nextMaterialId)
                 {
                     return topMaterials.OrderByDescending(x => x.AdditionTime).TakeWhile(x => x.Id != nextMaterialId)
-                        .Last();
+                        .LastOrDefault();
                 }
             }
 
@@ -252,7 +252,7 @@ namespace MyLiverpool.Business.Services
                 if (topMaterials.Count > 1 && topMaterials.First().Id != prevMaterialId)
                 {
                     return topMaterials.TakeWhile(x => x.Id != prevMaterialId)
-                        .Last();
+                        .LastOrDefault();
                 }
 
                 return null;
@@ -268,8 +268,12 @@ namespace MyLiverpool.Business.Services
                     material = null;
                 }
             }
+            if (material == null)
+            {
+                var topMaterials = await _materialRepository.GetTopMaterialsAsync(filter);
+                material = topMaterials.LastOrDefault();
+            }
             return material;
         }
     }
 }
-

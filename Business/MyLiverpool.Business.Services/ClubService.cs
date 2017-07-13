@@ -40,6 +40,7 @@ namespace MyLiverpool.Business.Services
             club.EnglishName = dto.EnglishName;
             club.StadiumId = dto.StadiumId;
             club.Stadium = null;
+            club.Logo = dto.Logo;
             _clubRepository.Update(club);
             await _clubRepository.SaveChangesAsync();
             dto = _mapper.Map<ClubDto>(club);
