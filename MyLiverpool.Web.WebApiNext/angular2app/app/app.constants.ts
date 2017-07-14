@@ -14,4 +14,5 @@ export class Configuration {
     public minPasswordLength: number = 6;
     public updateUnreadPmCountTime: number = 1000*30;
     public updateUserOnline: number = 1000*30;
+    public updateLastComments: number = 1000*60*5;
 }

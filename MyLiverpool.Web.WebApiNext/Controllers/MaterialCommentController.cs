@@ -56,6 +56,17 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         }
 
         /// <summary>
+        /// Returns last comments list.
+        /// </summary>
+        /// <returns>Last comments list.</returns>
+        [AllowAnonymous, HttpGet("list/last")]
+        public async Task<IActionResult> GetLastList()
+        {
+            var result = await _commentService.GetLastListAsync();
+            return Json(result);
+        }
+
+        /// <summary>
         /// Returns pageable comments list for material.
         /// </summary>
         /// <param name="id">The identifier of material.</param>
@@ -87,20 +98,14 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <summary>
         /// Creates new material comment.
         /// </summary>
-        /// <param name="type">Type of material.</param>
         /// <param name="dto">New comment model.</param>
         /// <returns>Result of creation.</returns>
-        [Authorize, HttpPost("{type}")]
-        public async Task<IActionResult> CreateAsync(string type, [FromBody] MaterialCommentDto dto)
+        [Authorize, HttpPost("")]
+        public async Task<IActionResult> CreateAsync([FromBody] MaterialCommentDto dto)
         {
-            MaterialType materialType;
-            if (!ModelState.IsValid || !Enum.TryParse(type, true, out materialType))
-            {
-                return BadRequest(ModelState);
-            }
             dto.IsVerified = IsSiteTeamMember();
             dto.AuthorId = User.GetUserId();
-            var result = await _commentService.AddAsync(dto, materialType);
+            var result = await _commentService.AddAsync(dto);
             CleanMaterialCache();
             return Ok(result);
         }

@@ -20,6 +20,7 @@ namespace MyLiverpool.Business.Services
     public class MaterialCommentService : IMaterialCommentService
     {
         private readonly IMaterialCommentRepository _commentService;
+        private readonly IMaterialService _materialService;
         private readonly IMapper _mapper;
         private readonly IUserService _userService;
         private readonly IPmService _pmService;
@@ -29,7 +30,7 @@ namespace MyLiverpool.Business.Services
         private const int ItemPerPage = GlobalConstants.CommentsPerPageList;
 
         public MaterialCommentService(IMapper mapper, IMaterialCommentRepository commentService,
-            IUserService userService, IPmService pmService, IHttpContextAccessor accessor, IEmailSender messageService)
+            IUserService userService, IPmService pmService, IHttpContextAccessor accessor, IEmailSender messageService, IMaterialService materialService)
         {
             _mapper = mapper;
             _commentService = commentService;
@@ -37,6 +38,7 @@ namespace MyLiverpool.Business.Services
             _pmService = pmService;
             _accessor = accessor;
             _messageService = messageService;
+            _materialService = materialService;
         }
 
         public async Task<bool> DeleteAsync(int id)
@@ -55,10 +57,10 @@ namespace MyLiverpool.Business.Services
             return true;
         }
 
-        public async Task<MaterialCommentDto> AddAsync(MaterialCommentDto model, MaterialType materialType)
+        public async Task<MaterialCommentDto> AddAsync(MaterialCommentDto model)
         {
             var comment = _mapper.Map<MaterialComment>(model);
-            comment.MaterialType = materialType;
+            comment.MaterialType = (await _materialService.GetDtoAsync(model.MaterialId, true)).Type;
             comment.AdditionTime = DateTime.Now;
             comment.LastModified = DateTime.Now;
             try
@@ -164,6 +166,18 @@ namespace MyLiverpool.Business.Services
                 await _commentService.AddVoteAsync(vote);
             }
             return true;
+        }
+
+        public async Task<IEnumerable<MaterialCommentDto>> GetLastListAsync()
+        {
+            var comments = await _commentService.GetLastAsync(GlobalConstants.LastCommentsCount, SortOrder.Descending, m => m.AdditionTime);
+            foreach (var comment in comments)
+            {
+                if (comment.Message.Length > GlobalConstants.LastCommentMessageSymbolCount)
+                    comment.Message = comment.Message.Substring(0, GlobalConstants.LastCommentMessageSymbolCount) +
+                                      "...";
+            }
+            return _mapper.Map<IEnumerable<MaterialCommentDto>>(comments);
         }
 
         private async Task SendNotificationsAsync(int parentCommentId)

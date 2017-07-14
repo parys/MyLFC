@@ -109,6 +109,20 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             return await query.ToListAsync();
         }
 
+        public async Task<ICollection<MaterialComment>> GetLastAsync(int itemPerPage = 15,
+            SortOrder order = SortOrder.Descending, Expression<Func<MaterialComment, object>> orderBy = null)
+        {
+            IQueryable<MaterialComment> query =
+                _context.MaterialComments.Include(x => x.Author);
+
+            if (orderBy != null)
+            {
+                query = query.ObjectSort(orderBy, order);
+            }
+            query = query.Take(itemPerPage);
+            return await query.ToListAsync();
+        }
+
         public void UpdateRange(List<MaterialComment> comments)
         {
            _context.MaterialComments.UpdateRange(comments);

@@ -20,6 +20,10 @@ export class MaterialCommentService {
         return this.http.get(this.actionUrl + "list/" + encodeURIComponent(JSON.stringify(filters))).map((res:Response) => res.json());
     };
 
+    public getLastList = (): Observable<MaterialComment[]> => {
+        return this.http.get(this.actionUrl + "list/last").map((res:Response) => res.json());
+    };
+
     public getAllByMaterial = (page: number, id: number): Observable<Pageable<MaterialComment>> => {
         return this.http.get(`${this.actionUrl}material/${id}/list/${page}`).map((res: Response) => res.json());
     };
@@ -29,7 +33,7 @@ export class MaterialCommentService {
     };
 
     public create = (item: MaterialComment): Observable<MaterialComment> => {
-        return this.http.post(this.actionUrl + "News/", JSON.stringify(item)).map((res: Response) => res.json());
+        return this.http.post(this.actionUrl, JSON.stringify(item)).map((res: Response) => res.json());
     };
 
     public update = (id: number, itemToUpdate: MaterialComment): Observable<MaterialComment> => {

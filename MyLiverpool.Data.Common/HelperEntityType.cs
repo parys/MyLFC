@@ -11,5 +11,7 @@
         Job = 7,
         ClubHistory = 8,
         AboutClub = 9,
+        Instructions = 10,
+        Plans = 11,
     }
 }

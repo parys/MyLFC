@@ -470,6 +470,10 @@ textarea {
         color: yellow;
     }
 
+    .text-darkgold {
+        color: darkgoldenrod;
+    }
+
     .text-underline {
         text-decoration: underline;
     }

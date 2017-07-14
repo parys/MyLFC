@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using MyLiverpool.Data.Common;
 
 namespace MyLiverpool.Business.Dto
 {
@@ -41,5 +42,7 @@ namespace MyLiverpool.Business.Dto
         public int PositiveCount { get; set; }
 
         public int NegativeCount { get; set; }
+
+        public MaterialType Type { get; set; }
     }
 }

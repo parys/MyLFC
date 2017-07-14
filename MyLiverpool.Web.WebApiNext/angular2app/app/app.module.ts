@@ -92,6 +92,7 @@ import 'rxjs/add/operator/mergeMap';
         materialComment.MaterialCommentDetailComponent,
         materialComment.MaterialCommentListComponent,
         materialComment.MaterialCommentSectionComponent,
+        materialComment.LastCommentsComponent,
         pm.PmCounterComponent,
         pm.PmDetailComponent,
         pm.PmEditComponent,

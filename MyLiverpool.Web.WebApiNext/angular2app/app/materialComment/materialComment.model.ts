@@ -15,4 +15,5 @@
     public canNegativeVote: boolean;
     public positiveCount: number;
     public negativeCount: number;
+    public type: number;
 }

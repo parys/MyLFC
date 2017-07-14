@@ -1,8 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Business.Dto.Filters;
 using MyLiverpool.Common.Utilities;
-using MyLiverpool.Data.Common;
 
 namespace MyLiverpool.Business.Contracts
 {
@@ -10,7 +10,7 @@ namespace MyLiverpool.Business.Contracts
     {
         Task<bool> DeleteAsync(int id);
 
-        Task<MaterialCommentDto> AddAsync(MaterialCommentDto model, MaterialType materialType);
+        Task<MaterialCommentDto> AddAsync(MaterialCommentDto model);
 
         Task<bool> UpdateAsync(MaterialCommentDto model);
         
@@ -21,5 +21,7 @@ namespace MyLiverpool.Business.Contracts
         Task<bool> VerifyAsync(int id);
 
         Task<bool> UpdateVoteAsync(CommentVoteDto dto);
+
+        Task<IEnumerable<MaterialCommentDto>> GetLastListAsync();
     }
 }
