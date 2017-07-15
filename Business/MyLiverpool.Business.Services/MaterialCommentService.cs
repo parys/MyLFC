@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
@@ -121,7 +122,7 @@ namespace MyLiverpool.Business.Services
             UpdateCurrentUserField(comments);
             var commentDtos = _mapper.Map<IEnumerable<MaterialCommentDto>>(comments);
             var commentsCount = await _commentService.GetCountAsync(filter);
-            return new PageableData<MaterialCommentDto>(commentDtos, filters.Page, commentsCount);
+            return new PageableData<MaterialCommentDto>(commentDtos, filters.Page, commentsCount, GlobalConstants.CommentsPerPageList);
         }
 
         public async Task<PageableData<MaterialCommentDto>> GetListByMaterialIdAsync(int materialId, int page)
@@ -173,7 +174,7 @@ namespace MyLiverpool.Business.Services
             var comments = await _commentService.GetLastAsync(GlobalConstants.LastCommentsCount, SortOrder.Descending, m => m.AdditionTime);
             foreach (var comment in comments)
             {
-                comment.Message = comment.Message.Replace("&nbsp;", "").Replace("<p>", "");
+                comment.Message = Regex.Replace(comment.Message.Replace("&nbsp;", ""), "<.*?>", string.Empty);
                 if (comment.Message.Length > GlobalConstants.LastCommentMessageSymbolCount)
                     comment.Message = comment.Message.Substring(0, GlobalConstants.LastCommentMessageSymbolCount) +
                                       "...";

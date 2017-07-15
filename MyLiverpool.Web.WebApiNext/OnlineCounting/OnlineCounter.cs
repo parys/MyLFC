@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-
 namespace MyLiverpool.Web.WebApiNext.OnlineCounting
 {
     /// <summary>
@@ -12,10 +11,8 @@ namespace MyLiverpool.Web.WebApiNext.OnlineCounting
         /// <summary>
         /// 
         /// </summary>
-        private static ConcurrentDictionary<string, DateTimeOffset> _currentOnlineGuests = new ConcurrentDictionary<string, DateTimeOffset>();
-        private static ConcurrentDictionary<string, DateTimeOffset> _currentOnlineGuests2;
-        private static ConcurrentDictionary<int, OnlineCounterModel> _currentOnline = new ConcurrentDictionary<int, OnlineCounterModel>();
-        private static ConcurrentDictionary<int, OnlineCounterModel> _currentOnline2;
+        private static readonly ConcurrentDictionary<string, DateTimeOffset> CurrentOnlineGuests = new ConcurrentDictionary<string, DateTimeOffset>();
+        private static readonly ConcurrentDictionary<int, OnlineCounterModel> CurrentOnline = new ConcurrentDictionary<int, OnlineCounterModel>();
 
         /// <summary>
         /// 
@@ -24,13 +21,13 @@ namespace MyLiverpool.Web.WebApiNext.OnlineCounting
         public static void AddUserToOnline(OnlineCounterModel model)
         {
             OnlineCounterModel oldValue;
-            if (_currentOnline.TryGetValue(model.Id, out oldValue))
+            if (CurrentOnline.TryGetValue(model.Id, out oldValue))
             {
-                _currentOnline.TryUpdate(model.Id, model, oldValue);
+                CurrentOnline.TryUpdate(model.Id, model, oldValue);
             }
             else
             {
-                _currentOnline.TryAdd(model.Id, model);
+                CurrentOnline.TryAdd(model.Id, model);
             }
             RemoveOld();
         }
@@ -42,14 +39,15 @@ namespace MyLiverpool.Web.WebApiNext.OnlineCounting
         public static void AddGuestToOnline(string key)
         {
             DateTimeOffset oldValue;
-            if (_currentOnlineGuests.TryGetValue(key, out oldValue))
+            if (CurrentOnlineGuests.TryGetValue(key, out oldValue))
             {
-                _currentOnlineGuests.TryUpdate(key, DateTimeOffset.Now, oldValue);
+                CurrentOnlineGuests.TryUpdate(key, DateTimeOffset.Now, oldValue);
             }
             else
             {
-                _currentOnlineGuests.TryAdd(key, DateTimeOffset.Now);
+                CurrentOnlineGuests.TryAdd(key, DateTimeOffset.Now);
             }
+            RemoveOld();
         }
 
         /// <summary>
@@ -60,15 +58,14 @@ namespace MyLiverpool.Web.WebApiNext.OnlineCounting
         {
             return new OnlineUsersDto
             {
-                AllCount = _currentOnline.Count + _currentOnlineGuests.Count,
-                GuestCount = _currentOnlineGuests.Count,
-                Users = _currentOnline.Values
+                AllCount = CurrentOnline.Count + CurrentOnlineGuests.Count,
+                GuestCount = CurrentOnlineGuests.Count,
+                Users = CurrentOnline.Values
             };
         }
 
         private static bool _isRemovingGuests;
         private static bool _isRemoving;
-
         private static void RemoveOld()
         {
             if (!_isRemoving)
@@ -80,45 +77,33 @@ namespace MyLiverpool.Web.WebApiNext.OnlineCounting
                 RemoveOldGuestsRecords();
             }
         }
-
-        private static readonly object GuestRemovingLockObject = new object();
-
+        
         private static void RemoveOldGuestsRecords()
         {
-            lock (GuestRemovingLockObject)
+            _isRemovingGuests = true;
+            foreach (var keyValue in CurrentOnlineGuests)
             {
-                _isRemovingGuests = true;
-                _currentOnlineGuests2 = new ConcurrentDictionary<string, DateTimeOffset>();
-
-                foreach (var keyValue in _currentOnlineGuests)
+                if (keyValue.Value.AddSeconds(40) < DateTimeOffset.Now)
                 {
-                    if (keyValue.Value.AddSeconds(40) > DateTimeOffset.Now)
-                    {
-                        _currentOnlineGuests2.TryAdd(keyValue.Key, keyValue.Value);
-                    }
+                    DateTimeOffset oldValue;
+                    CurrentOnlineGuests.TryRemove(keyValue.Key, out oldValue);
                 }
-                _currentOnlineGuests = _currentOnlineGuests2;
-                _isRemovingGuests = false;
             }
+            _isRemovingGuests = false;
         }
 
-        private static readonly object UserRemovingLockObject = new object();
         private static void RemoveOldUsersRecords()
         {
-            lock (UserRemovingLockObject)
+            _isRemoving = true;
+            foreach (var keyValue in CurrentOnline)
             {
-                _isRemoving = true;
-                _currentOnline2 = new ConcurrentDictionary<int, OnlineCounterModel>();
-                foreach (var keyValue in _currentOnline)
+                if (keyValue.Value.Date.AddSeconds(40) < DateTimeOffset.Now)
                 {
-                    if (keyValue.Value.Date.AddSeconds(40) > DateTimeOffset.Now)
-                    {
-                        _currentOnline2.TryAdd(keyValue.Key, keyValue.Value);
-                    }
+                    OnlineCounterModel oldValue;
+                    CurrentOnline.TryRemove(keyValue.Key, out oldValue);
                 }
-                _currentOnline = _currentOnline2;
-                _isRemoving = false;
             }
+            _isRemoving = false;
         }
     }
 
