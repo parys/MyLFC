@@ -173,6 +173,7 @@ namespace MyLiverpool.Business.Services
             var comments = await _commentService.GetLastAsync(GlobalConstants.LastCommentsCount, SortOrder.Descending, m => m.AdditionTime);
             foreach (var comment in comments)
             {
+                comment.Message = comment.Message.Replace("&nbsp;", "").Replace("<p>", "");
                 if (comment.Message.Length > GlobalConstants.LastCommentMessageSymbolCount)
                     comment.Message = comment.Message.Substring(0, GlobalConstants.LastCommentMessageSymbolCount) +
                                       "...";

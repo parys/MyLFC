@@ -6,7 +6,7 @@
         public const int ItemPerPage = 15;
         public const int CommentsPerPageList = 50;
         public const int LastCommentsCount = 10;
-        public const int LastCommentMessageSymbolCount = 15;
+        public const int LastCommentMessageSymbolCount = 25;
         public const int BlogsPerPage = 10;
         public const int UsersPerPage = 10;
         public const int FirstPage = 1;
