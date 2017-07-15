@@ -178,6 +178,18 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return Json(true);
         }
 
+        /// <summary>
+        /// Extracts and returns file linls for images.
+        /// </summary>
+        /// <param name="url">Url of page with images.</param>
+        /// <returns>Found images links.</returns>
+        [Authorize(Roles = nameof(RolesEnum.NewsStart)), HttpGet("imageLinks/{*url}")]
+        public async Task<IActionResult> GetExtractedImageLinksAsync(string url)
+        {
+            var fileLinks = await _materialService.GetExtractedImageLinks(url);
+            return Json(fileLinks);
+        }
+
         private MaterialFiltersDto GetBasicMaterialFilters(bool isNewsMaker)
         {
             return new MaterialFiltersDto {

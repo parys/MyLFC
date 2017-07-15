@@ -44,4 +44,8 @@ export class MaterialService {
     public activate = (id: number): Observable<boolean> => {
         return this.http.get(this.actionUrl + "activate/" + id).map((res: Response) => res.json());
     };
+
+    public extractPhoto = (url: string): Observable<string[]> => {
+        return this.http.get(this.actionUrl + "imageLinks/" + url).map((res: Response) => res.json());
+    }
 }

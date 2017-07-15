@@ -1,10 +1,8 @@
 ﻿using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using HtmlAgilityPack;
 using MyLiverpool.Business.Contracts;
+using MyLiverpool.Common.Utilities;
 using MyLiverpool.Data.Common;
 using MyLiverpool.Data.Entities;
 using MyLiverpool.Data.ResourceAccess.Interfaces;
@@ -24,7 +22,7 @@ namespace MyLiverpool.Business.Services
 
         public async Task<string> UpdateTableAsync()
         {
-            var trNodes = await GetHtmlRowsAsync();
+            var trNodes = await HtmlExtractorHelpers.GetHtmlRowsAsync(Address, XpathTableRows);
             var clubs = trNodes.Select(trNode => new
             {
                 position = trNode.ChildNodes[1].InnerText,
@@ -79,19 +77,6 @@ namespace MyLiverpool.Business.Services
             entity.Value = newRows.ToString();
             await _helperEntityRepository.UpdateAndSaveAsync(entity);
             return entity.Value;
-        }
-        
-        private async Task<HtmlNodeCollection> GetHtmlRowsAsync()
-        {
-            var http = new HttpClient();
-            var response = await http.GetByteArrayAsync(Address);
-            var source = Encoding.GetEncoding("utf-8").GetString(response, 0, response.Length - 1);
-            source = WebUtility.HtmlDecode(source);
-            var resultat = new HtmlDocument();
-            resultat.LoadHtml(source);
-
-            var trNodes = resultat.DocumentNode.SelectNodes(XpathTableRows);
-            return trNodes;
         }
     }
 }

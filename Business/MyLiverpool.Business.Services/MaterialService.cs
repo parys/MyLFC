@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Net;
+using System.Net.Http;
 using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using HtmlAgilityPack;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Business.Dto.Filters;
@@ -201,6 +205,13 @@ namespace MyLiverpool.Business.Services
             item.Reads += 1;
             _materialRepository.Update(item);
             await _materialRepository.SaveChangesAsync();
+        }
+
+        private const string XpathImages = "//img[contains(@class, 'media-gallery-image')]";
+        public async Task<IEnumerable<string>> GetExtractedImageLinks(string url)
+        {
+            var htmlImgTags = await HtmlExtractorHelpers.GetHtmlRowsAsync(url.Replace(":/", "://"), XpathImages);
+            return htmlImgTags?.Select(x => x.Attributes["data-src"].Value);
         }
 
         #endregion

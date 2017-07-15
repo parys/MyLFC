@@ -82,6 +82,20 @@ export class MaterialEditComponent implements OnInit {
         this.editForm.patchValue({ photo: path });
     }
 
+    public copyPhoto(): void {
+        let url = this.editForm.get("photoUrl").value;
+        let imgTags: string = "";
+        this.service.extractPhoto(url).subscribe(result => {
+            for (let src of result) {
+                imgTags += `<img src="${src}" alt="" /><br/>`;
+                }
+            },
+            e => console.log(e), () => {
+                let oldValue = this.editForm.get("message").value;
+                this.editForm.get("message").patchValue(oldValue + imgTags);
+            });
+    }
+
     private parse(data: Material): void {
         this.id = data.id;
         this.editForm.patchValue(data);
@@ -105,7 +119,8 @@ export class MaterialEditComponent implements OnInit {
             'photo': ["", Validators.required],
             'canCommentary': [true, Validators.required],
             'onTop': [false, Validators.required],
-            'pending': [true, Validators.required]
+            'pending': [true, Validators.required],
+            'photoUrl': [""]
         });
     }
 

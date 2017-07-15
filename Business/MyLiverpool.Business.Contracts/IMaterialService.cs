@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Business.Dto.Filters;
@@ -21,5 +22,7 @@ namespace MyLiverpool.Business.Contracts
         Task<MaterialDto> EditAsync(MaterialDto dto);
 
         Task AddViewAsync(int id);
+
+        Task<IEnumerable<string>> GetExtractedImageLinks(string url);
     }
 }
