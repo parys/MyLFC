@@ -7,7 +7,6 @@ import { PersonEditComponent } from "./person-edit.component";
 import { PersonBirthdayComponent } from "./person-birthday.component";
 import { PersonService } from "./person.service";
 import { TransferService } from "./transfer.service";
-import { PlayerStatisticsComponent } from "./player-statistics.component";
 import { BestPlayerComponent } from "./best-player.component";
 import { StuffListComponent } from "./stuff-list.component";
 import { TransferListComponent } from "./transfer-list.component";
@@ -53,7 +52,6 @@ Ng2AutoCompleteModule,
         PersonBirthdayComponent,
         PersonEditComponent,
         PersonListComponent,
-        PlayerStatisticsComponent,
         SquadComponent,
         StuffListComponent,
         TransferListComponent,

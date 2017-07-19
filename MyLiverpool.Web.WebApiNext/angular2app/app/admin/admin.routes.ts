@@ -12,7 +12,7 @@ export const helperRoutes: Routes = [
                 component: PageEditorComponent,
                 data: {
                     title: "Редактирование страницы",
-                    roles: ["adminStart"]
+                    roles: ["adminStart", "infoStart"]
                 },
                 canActivate: [RoleGuard]
             }

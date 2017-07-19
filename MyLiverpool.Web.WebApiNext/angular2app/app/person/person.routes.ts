@@ -10,7 +10,6 @@ import { TransferCurrentListComponent } from "./transfer-current-list.component"
 import { RoleGuard } from "../auth/index";
 
 export const personRoutes: Routes = [
-    { path: "players/statistics", component: PlayerStatisticsComponent, data: { title: "Статистика игроков" } },
     {
         path: "persons",
         children: [

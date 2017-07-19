@@ -18,6 +18,7 @@ export const homeRoutes: Routes = [
     { path: "aboutClub", component: StaticPageComponent, data: { title: "О клубе", type: HelperType.AboutClub } },
     { path: "about", component: StaticPageComponent, data: { title: "О нас", type: HelperType.About } },
     { path: "job", component: StaticPageComponent, data: { title: "Работа на сайте", type: HelperType.Job } },
+    { path: "players/statistics", component: StaticPageComponent, data: { title: "Статистика игроков", type: HelperType.Strikers } },
     {
         path: "instructions",
         component: StaticPageComponent,
