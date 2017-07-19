@@ -1,5 +1,4 @@
 ﻿import { Routes } from "@angular/router";
-import { PlayerStatisticsComponent } from "./player-statistics.component";
 import { PersonListComponent } from "./person-list.component";
 import { PersonEditComponent } from "./person-edit.component";
 import { TransferEditComponent } from "./transfer-edit.component";

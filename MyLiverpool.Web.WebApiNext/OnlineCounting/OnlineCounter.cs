@@ -13,22 +13,14 @@ namespace MyLiverpool.Web.WebApiNext.OnlineCounting
         /// </summary>
         private static readonly ConcurrentDictionary<string, DateTimeOffset> CurrentOnlineGuests = new ConcurrentDictionary<string, DateTimeOffset>();
         private static readonly ConcurrentDictionary<int, OnlineCounterModel> CurrentOnline = new ConcurrentDictionary<int, OnlineCounterModel>();
-
+    
         /// <summary>
         /// 
         /// </summary>
         /// <param name="model"></param>
         public static void AddUserToOnline(OnlineCounterModel model)
         {
-            OnlineCounterModel oldValue;
-            if (CurrentOnline.TryGetValue(model.Id, out oldValue))
-            {
-                CurrentOnline.TryUpdate(model.Id, model, oldValue);
-            }
-            else
-            {
-                CurrentOnline.TryAdd(model.Id, model);
-            }
+            CurrentOnline.AddOrUpdate(model.Id, model, (key, value) => model);
             RemoveOld();
         }
 
@@ -38,15 +30,7 @@ namespace MyLiverpool.Web.WebApiNext.OnlineCounting
         /// <param name="key"></param>
         public static void AddGuestToOnline(string key)
         {
-            DateTimeOffset oldValue;
-            if (CurrentOnlineGuests.TryGetValue(key, out oldValue))
-            {
-                CurrentOnlineGuests.TryUpdate(key, DateTimeOffset.Now, oldValue);
-            }
-            else
-            {
-                CurrentOnlineGuests.TryAdd(key, DateTimeOffset.Now);
-            }
+            CurrentOnlineGuests.AddOrUpdate(key, DateTimeOffset.Now, (k, value) => DateTimeOffset.Now);
             RemoveOld();
         }
 
