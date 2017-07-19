@@ -18,7 +18,6 @@ namespace MyLiverpool.Web.WebApiNext
                 .CaptureStartupErrors(true)
                 .UseKestrel(options =>
                 {
-                    options.ShutdownTimeout
                 })
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
