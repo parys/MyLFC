@@ -161,7 +161,7 @@ export class EditorComponent implements ControlValueAccessor {
             toolbar: this.getToolbar(),
             //visualblocks_default_state: true,
             external_plugins: {
-                customEmoticons: "/js/plugins/customEmoticons/plugin.js"
+                customEmoticons: "/src/plugins/customEmoticons/plugin.js"
             },
             skin_url: "/src/lightgray",
             setup: (editor: Editor) => {

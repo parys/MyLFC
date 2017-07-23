@@ -12,7 +12,7 @@ var SharedConfig = {
     resolve: { extensions: [".js", ".ts"] },
     output: {
         filename: "[name].js",
-        publicPath: "/js/" // Webpack dev middleware, if enabled, handles requests for this URL prefix
+        publicPath: "/src/" // Webpack dev middleware, if enabled, handles requests for this URL prefix
     },
     module: {
         loaders: [
@@ -31,14 +31,14 @@ var SharedConfig = {
 };
 
 // Configuration for client-side bundle suitable for running in browsers
-var ClientBundleOutputDir = "./wwwroot/js/";
+var ClientBundleOutputDir = "./wwwroot/src/";
 var ClientBundleConfig = Merge(SharedConfig, {
     entry: { 'main-client': "./angular2app/main.ts" },
     output: { path: Path.join(__dirname, ClientBundleOutputDir) },
     plugins: [
         new Webpack.DllReferencePlugin({
             context: __dirname,
-            manifest: require("./wwwroot/js/vendor-manifest.json")
+            manifest: require("./wwwroot/src/vendor-manifest.json")
         })
     ].concat(IsDevBuild ? [
         // Plugins that apply in development builds only

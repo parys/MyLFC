@@ -46,7 +46,7 @@ var SharedConfig = {
         ]
     },
     output: {
-        publicPath: "/js/",
+        publicPath: "/src/",
         filename: "[name].js",
         library: "[name]_[hash]"
     },
@@ -60,7 +60,7 @@ var SharedConfig = {
 
 var ClientBundleConfig = Merge(SharedConfig,
 {
-    output: { path: Path.join(__dirname, "wwwroot", "js") },
+    output: { path: Path.join(__dirname, "wwwroot", "src") },
     module: {
         loaders: [
             { test: /\.css(\?|$)/, loader: ExtractCss.extract(["css-loader"]) }
@@ -69,13 +69,13 @@ var ClientBundleConfig = Merge(SharedConfig,
     plugins: [
             ExtractCss,
             new Webpack.DllPlugin({
-                path: Path.join(__dirname, "wwwroot", "js", "[name]-manifest.json"),
+                path: Path.join(__dirname, "wwwroot", "src", "[name]-manifest.json"),
                 name: "[name]_[hash]"
             }),
-            new CopyWebpackPlugin([
+           new CopyWebpackPlugin([
                 { from: "node_modules/tinymce/skins/", to: "../src/" },
-                { from: "node_modules/tinymce/plugins/", to: "../src/plugins/" },
-                { from: "node_modules/tinymce/themes/", to: "../src/themes/" }
+              //  { from: "node_modules/tinymce/plugins/", to: "../src/plugins/" },
+            //    { from: "node_modules/tinymce/themes/", to: "../src/themes/" }
             ])
         ]
         .concat(IsDevBuild

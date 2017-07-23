@@ -185,8 +185,7 @@ define(
 
       editor.addButton('CustomEmoticons', {
         type: 'panelbutton',
-		image: '/js/plugins/customEmoticons/img/good.gif',
-		tooltip: "Insert Current Date",
+		image: '/src/plugins/customEmoticons/img/good.gif',
 	//	text: "emoticon",
         panel: {
           role: 'application',
@@ -207,7 +206,7 @@ define(
             }
           }
         },
-        tooltip: 'CustomEmoticons'
+        tooltip: 'Вставить смайл'
       });
     });
 

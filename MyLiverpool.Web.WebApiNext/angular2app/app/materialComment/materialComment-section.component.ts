@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
+﻿import { Component, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef, OnChanges } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Pageable } from "../shared/pageable.model";
 import { MaterialComment } from "./materialComment.model";
@@ -10,7 +10,7 @@ import { RolesCheckedService, IRoles } from "../shared/index";
     templateUrl: "./materialComment-section.component.html",
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MaterialCommentSectionComponent implements OnInit {
+export class MaterialCommentSectionComponent implements OnInit, OnChanges {
     public items: MaterialComment[] = [];
     public page: number = 1;
     public itemsPerPage: number = 50;
@@ -38,6 +38,10 @@ export class MaterialCommentSectionComponent implements OnInit {
         );
         this.update();
         this.cd.markForCheck();
+    }
+
+    public ngOnChanges(): void {
+        this.update();
     }
 
     public pageChanged(event: any): void {
