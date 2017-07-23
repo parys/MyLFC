@@ -1,9 +1,11 @@
-﻿// from https://www.npmjs.com/package/ng2-tinymce
-import { Component, EventEmitter, forwardRef, Input, Output, NgZone } from "@angular/core";
+﻿import { Component, EventEmitter, forwardRef, Input, Output, NgZone } from "@angular/core";
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from "@angular/forms";
+import { Settings, EditorManager, Editor, WindowManager } from "tinymce";
+
+declare let tinymce: any;
 
 import "tinymce"; //todo should be moved
-import "tinymce/themes/modern"
+/*import "tinymce/themes/modern"
 import "tinymce/plugins/advlist";
 import "tinymce/plugins/anchor";
 import "tinymce/plugins/autolink";
@@ -22,8 +24,7 @@ import "tinymce/plugins/paste";
 import "tinymce/plugins/spellchecker";
 import "tinymce/plugins/preview";
 import "tinymce/plugins/table";
-import "tinymce/plugins/visualblocks";
-declare let tinymce: any;
+import "tinymce/plugins/visualblocks";*/
 
 
 @Component({
@@ -45,7 +46,8 @@ export class EditorComponent implements ControlValueAccessor {
     @Input() public type: number = 1;
     public elementId: string = Math.random().toString(36).substring(2);
     public zone: NgZone;
-    public editor: any;
+ //   public tinymce: EditorManager = new EditorManager();
+    public editor: Editor;
 
     public ngAfterViewInit(): void {
            this.initTiny();
@@ -76,6 +78,8 @@ export class EditorComponent implements ControlValueAccessor {
     }
 
     public ngOnDestroy(): void {
+      //  if (this.tinymce && this.editor) {
+      //      this.tinymce.remove(this.editor);
         if (tinymce && this.editor) {
             tinymce.remove(this.editor);
         }
@@ -83,9 +87,12 @@ export class EditorComponent implements ControlValueAccessor {
 
     public writeValue(value: any): void {
         this.value = value;
-        if (!tinymce) {
+      //  if (!this.tinymce) {
+        if (tinymce) {
             this.initTiny();
         }
+      //  if (this.tinymce.editors && this.tinymce.editors[this.elementId]) {
+      //      this.tinymce.editors[this.elementId].setContent((value) ? value : "");
         if (tinymce.editors && tinymce.editors[this.elementId]) {
             tinymce.editors[this.elementId].setContent((value) ? value : "");
         }
@@ -135,15 +142,14 @@ export class EditorComponent implements ControlValueAccessor {
     }
 
     private initTiny(): void {
-        tinymce.init({
+        let settings1: Settings = {
             // autoresize_overflow_padding: 0,
+            
             selector: `#${this.elementId}`,
             schema: "html5",
             fontsize_formats: "8pt 9pt 10pt 11pt 12pt 14pt 16pt 18pt",
-            //forced_root_block: "",
-            // height: 500,        
-            forced_root_block: false,
-            autoresize_max_height: 500,
+            forced_root_block: "",
+            max_height: 500,
             menubar: false,
             language: "ru",
             // inline: true,
@@ -153,12 +159,12 @@ export class EditorComponent implements ControlValueAccessor {
             relative_urls: true,
             document_base_url: "/",
             toolbar: this.getToolbar(),
-            visualblocks_default_state: true,
+            //visualblocks_default_state: true,
             external_plugins: {
                 customEmoticons: "/js/plugins/customEmoticons/plugin.js"
             },
             skin_url: "/src/lightgray",
-            setup: (editor: any) => {
+            setup: (editor: Editor) => {
                 this.editor = editor;
                 editor.on("change", () => {
                     const content: any = editor.getContent();
@@ -169,6 +175,8 @@ export class EditorComponent implements ControlValueAccessor {
                     this.updateValue(content);
                 });
             }
-        });
+        }
+
+        tinymce.init(settings1);
     }
 }
