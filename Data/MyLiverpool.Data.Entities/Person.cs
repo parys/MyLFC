@@ -36,6 +36,10 @@ namespace MyLiverpool.Data.Entities
 
         public virtual ICollection<Transfer> Transfers { get; set; }
 
+        public virtual ICollection<Injury> Injuries { get; set; }
+
+        public virtual ICollection<Loan> Loans { get; set; }
+
         [NotMapped]
         public string Name => $"{FirstName} {LastName}";
         [NotMapped]

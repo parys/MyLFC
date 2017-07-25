@@ -45,7 +45,7 @@ namespace MyLiverpool.Business.Services
             var user = await _userRepository.FindByEmailAsync(email);
             if (user == null || !user.EmailConfirmed)
             {
-       //         return true;
+                return true;
             }
             await SendForgotPasswordEmailAsync(user.Email, user.Id);
             return true;

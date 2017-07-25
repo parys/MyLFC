@@ -109,7 +109,7 @@ export class EditorComponent implements ControlValueAccessor {
     }
 
     private getPlugins(): string {
-        const common: string = ` autolink autoresize lists link anchor image preview fullscreen hr
+        const common: string = ` autolink lists link anchor image preview fullscreen hr
         visualblocks code media table paste textcolor colorpicker autolink CustomEmoticons`;
         if (this.type === 1) {
             return `advlist ${common}`;
@@ -149,7 +149,10 @@ export class EditorComponent implements ControlValueAccessor {
             schema: "html5",
             fontsize_formats: "8pt 9pt 10pt 11pt 12pt 14pt 16pt 18pt",
             forced_root_block: "",
-            max_height: 500,
+           min_height: 100,
+            browser_spellcheck: true,
+            gecko_spellcheck: true,
+            remove_trailing_brs: true,
             menubar: false,
             language: "ru",
             // inline: true,

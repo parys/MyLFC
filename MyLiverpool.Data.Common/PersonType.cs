@@ -8,8 +8,8 @@ namespace MyLiverpool.Data.Common
         First = 1,
         [Display(Name = "Академия")]//todo official site doesn't split them
         Academy = 2,
-        [Display(Name = "До 21")]
-        U21 = 3,
+        [Display(Name = "В аренде")]
+        Loan = 3,
         [Display(Name = "До 19")]
         U19 = 4,
         [Display(Name = "Женская команда")]

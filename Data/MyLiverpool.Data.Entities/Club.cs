@@ -27,5 +27,7 @@ namespace MyLiverpool.Data.Entities
         public virtual ICollection<Match> Matches { get; set; }
 
         public virtual ICollection<Transfer> Transfers { get; set; }
+
+        public virtual ICollection<Loan> Loans { get; set; }
     }
 }
