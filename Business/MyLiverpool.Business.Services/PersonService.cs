@@ -31,7 +31,6 @@ namespace MyLiverpool.Business.Services
         {
             var model = _mapper.Map<Person>(dto);
             var result = await _personRepository.AddAsync(model);
-            await _personRepository.SaveChangesAsync();
             return _mapper.Map<PersonDto>(result);
         }
 
@@ -66,8 +65,7 @@ namespace MyLiverpool.Business.Services
             person.Position = dto.Position;
             person.Country = dto.Country;
             person.Number = dto.Number;
-            _personRepository.Update(person);
-            await _personRepository.SaveChangesAsync();
+            await _personRepository.UpdateAsync(person);
             return _mapper.Map<PersonDto>(person);
         }
 

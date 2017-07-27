@@ -28,7 +28,6 @@ namespace MyLiverpool.Business.Services
         {
             var club = _mapper.Map<Club>(dto);
             await _clubRepository.AddAsync(club);
-            await _clubRepository.SaveChangesAsync();
             dto = _mapper.Map<ClubDto>(club);
             return dto;
         }
@@ -41,8 +40,7 @@ namespace MyLiverpool.Business.Services
             club.StadiumId = dto.StadiumId;
             club.Stadium = null;
             club.Logo = dto.Logo;
-            _clubRepository.Update(club);
-            await _clubRepository.SaveChangesAsync();
+            await _clubRepository.UpdateAsync(club);
             dto = _mapper.Map<ClubDto>(club);
             return dto;
         }
@@ -50,7 +48,6 @@ namespace MyLiverpool.Business.Services
         public async Task<bool> DeleteAsync(int id)
         {
             await _clubRepository.DeleteAsync(id);
-            await _clubRepository.SaveChangesAsync();
             return true;
         }
 
@@ -71,16 +68,14 @@ namespace MyLiverpool.Business.Services
         {
             var club = await _clubRepository.GetByIdAsync(clubId);
             club.Logo = relativePath;
-            _clubRepository.Update(club);
-            await _clubRepository.SaveChangesAsync();
+            await _clubRepository.UpdateAsync(club);
         }
 
         public async Task UpdateLogoAsync(string clubName, string relativePath)
         {
             var club = await _clubRepository.GetByEnglishName(clubName);
             club.Logo = relativePath;
-            _clubRepository.Update(club);
-            await _clubRepository.SaveChangesAsync();
+            await _clubRepository.UpdateAsync(club);
         }
 
         public async Task<PageableData<ClubDto>> GetListAsync(int page)

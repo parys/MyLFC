@@ -28,7 +28,6 @@ namespace MyLiverpool.Business.Services
         {
             var model = _mapper.Map<Season>(dto);
             var result = await _seasonRepository.AddAsync(model);
-            await _seasonRepository.SaveChangesAsync();
             return _mapper.Map<SeasonDto>(result);
         }
 
@@ -36,8 +35,7 @@ namespace MyLiverpool.Business.Services
         {
             var model = await _seasonRepository.GetByIdAsync(dto.Id);
             model.StartSeasonYear = dto.StartSeasonYear;
-            _seasonRepository.Update(model);
-            await _seasonRepository.SaveChangesAsync();
+            await _seasonRepository.UpdateAsync(model);
             var result = _mapper.Map<SeasonDto>(model);
             return result;
         }

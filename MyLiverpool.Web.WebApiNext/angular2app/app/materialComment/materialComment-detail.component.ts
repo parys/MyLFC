@@ -48,6 +48,20 @@ export class MaterialCommentDetailComponent implements OnInit, OnDestroy {
         if(this.vote$) { this.vote$.unsubscribe(); }
     }
 
+    public verify(): void {
+        let result: boolean;
+        this.materialCommentService
+            .verify(this.item.id)
+            .subscribe(data => result = data,
+                error => console.log(error),
+                () => {
+                    if (result) {
+                        this.item.isVerified = true;
+                        this.cd.markForCheck();
+                    }
+                });
+    }
+
     public showAddCommentModal(): void {
         this.isAddingMode = true;
         this.updateFormValues();
@@ -136,24 +150,23 @@ export class MaterialCommentDetailComponent implements OnInit, OnDestroy {
     }
 
     private delete(): void {
-        let result: boolean;
         this.materialCommentService.delete(this.item.id)
-            .subscribe(res => result = res,
+            .subscribe(res => {
+                if (res) {
+                    this.item.children.forEach(x => {
+                        if (this.parent) {
+                            x.parentId = this.parent.id;
+                            this.parent.children.push(x);
+                        } else {
+                            x.parentId = undefined;
+                        }
+                    });
+                    this.item = undefined;
+                }
+            },
                 e => console.log(e),
                 () => {
-                    if (result) {
-                        this.item.children.forEach(x => {
-                            if (this.parent) {
-                                x.parentId = this.parent.id;
-                                this.parent.children.push(x);
-                            } else {
-                                x.parentId = undefined;
-                            }
-                        });
-                        this.item = undefined;
-                    }
-
-                    this.cd.markForCheck();
+                    this.cd.detectChanges();
                 }
             );
     }

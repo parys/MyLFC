@@ -25,6 +25,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
         public async Task<Season> AddAsync(Season entity)
         {
             var addedEntity = await _context.Seasons.AddAsync(entity);
+            await _context.SaveChangesAsync();
             return addedEntity.Entity;
         }
 
@@ -39,17 +40,14 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
 
         public async Task DeleteAsync(Season entity)
         {
-            await Task.FromResult(_context.Seasons.Remove(entity));
+            _context.Seasons.Remove(entity);
+            await _context.SaveChangesAsync();
         }
 
-        public void Update(Season entity)
+        public async Task UpdateAsync(Season entity)
         {
             _context.Seasons.Attach(entity);
             _context.Entry(entity).State = EntityState.Modified;
-        }
-
-        public async Task SaveChangesAsync()
-        {
             await _context.SaveChangesAsync();
         }
 

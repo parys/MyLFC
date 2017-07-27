@@ -113,7 +113,7 @@ namespace MyLiverpool.Business.Services
         {
             var user = await _userRepository.GetByIdForUpdateAsync(userId);
             user.LastModified = DateTime.Now;
-            var result = await _userRepository.UpdateAsync(user);
+            await _userRepository.UpdateAsync(user);
 
             return true;
         }

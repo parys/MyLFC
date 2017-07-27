@@ -25,6 +25,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
         public async Task<ForumTheme> AddAsync(ForumTheme entity)
         {
             var addedEntity = await _context.ForumThemes.AddAsync(entity);
+            await _context.SaveChangesAsync();
             return addedEntity.Entity;
         }
 
@@ -39,17 +40,14 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
 
         public async Task DeleteAsync(ForumTheme entity)
         {
-            await Task.FromResult(_context.ForumThemes.Remove(entity));
+            _context.ForumThemes.Remove(entity);
+            await _context.SaveChangesAsync();
         }
-
-        public void Update(ForumTheme entity)
+        
+        public async Task UpdateAsync(ForumTheme entity)
         {
             _context.ForumThemes.Attach(entity);
             _context.Entry(entity).State = EntityState.Modified;
-        }
-
-        public async Task SaveChangesAsync()
-        {
             await _context.SaveChangesAsync();
         }
 

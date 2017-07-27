@@ -37,7 +37,6 @@ namespace MyLiverpool.Business.Services
         {
             var model = _mapper.Map<MaterialCategory>(dto);
             model = await _categoryRepository.AddAsync(model);
-            await _categoryRepository.SaveChangesAsync();
             var result = _mapper.Map<MaterialCategoryDto>(model);
             return result;
         }
@@ -47,8 +46,7 @@ namespace MyLiverpool.Business.Services
             var model = await _categoryRepository.GetByIdAsync(dto.Id);
             model.Name = dto.Name;
             model.Description = dto.Description;
-            _categoryRepository.Update(model);
-            await _categoryRepository.SaveChangesAsync();
+            await _categoryRepository.UpdateAsync(model);
             var result = _mapper.Map<MaterialCategoryDto>(model);
             return result;
         }
@@ -61,7 +59,6 @@ namespace MyLiverpool.Business.Services
                 return false;
             }
             await _categoryRepository.DeleteAsync(id);
-            await _categoryRepository.SaveChangesAsync();
             return true;
         }
     }

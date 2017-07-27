@@ -15,6 +15,7 @@ namespace MyLiverpool.Data.ResourceAccess.Helpers
             services.AddScoped<IForumSubsectionRepository, ForumSubsectionRepository>();
             services.AddScoped<IForumThemeRepository, ForumThemeRepository>();
             services.AddScoped<IHelperEntityRepository, HelperEntityRepository>();
+            services.AddScoped<IInjuryRepository, InjuryRepository>();
             services.AddScoped<IMatchRepository, MatchRepository>();
             services.AddScoped<IMaterialCategoryRepository, MaterialCategoryRepository>();
             services.AddScoped<IMaterialCommentRepository, MaterialCommentRepository>();

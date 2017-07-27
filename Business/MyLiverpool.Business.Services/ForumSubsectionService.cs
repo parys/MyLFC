@@ -25,7 +25,6 @@ namespace MyLiverpool.Business.Services
         {
             var model = _mapper.Map<ForumSubsection>(dto);
             model = await _forumSubsectionRepository.AddAsync(model);
-            await _forumSubsectionRepository.SaveChangesAsync();
             dto = _mapper.Map<ForumSubsectionDto>(model);
             return dto;
         }
@@ -38,8 +37,7 @@ namespace MyLiverpool.Business.Services
         public async Task<ForumSubsectionDto> UpdateAsync(ForumSubsectionDto dto)
         {
             var model = _mapper.Map<ForumSubsection>(dto);
-            _forumSubsectionRepository.Update(model);
-            await _forumSubsectionRepository.SaveChangesAsync();
+            await _forumSubsectionRepository.UpdateAsync(model);
             dto = _mapper.Map<ForumSubsectionDto>(model);
             return dto;
         } 

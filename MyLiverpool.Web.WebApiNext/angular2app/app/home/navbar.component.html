@@ -51,20 +51,21 @@
             <li>
                 <a [routerLink]="['/users']" [queryParams]="{page: 1}">Пользователи</a>
             </li>
-            <li><a [routerLink]="['/rules']"><b class="text-danger color-red" style=" font-family: 'Beauty';">Правила</b></a></li>
+            <li><a [routerLink]="['/rules']"><b class="text-danger color-red beauty-font">Правила</b></a></li>
             <!--li> <a [routerLink]="['/forum']">Форум</a></!--li>-->
-            <li *ngIf="roles.isNewsmaker || roles.isAuthor">
+            <li *ngIf="roles.isNewsmaker || roles.isAuthor || roles.isModerator">
                 <a role="button" [mdMenuTriggerFor]="adminMenu">
                     Админка<b class="caret"></b>
                 </a>
                 <md-menu #adminMenu="mdMenu">
-                    <a [routerLink]="['/matches']" md-menu-item>Матчи</a>
-                    <a [routerLink]="['/clubs']" md-menu-item>Клубы</a>
-                    <a [routerLink]="['/roleGroups']" md-menu-item>Роли</a>
-                    <a [routerLink]="['/persons']" md-menu-item>Люди</a>
-                    <a [routerLink]="['/stadiums']" md-menu-item>Стадионы</a>
+                    <a *ngIf="roles.isInformer" [routerLink]="['/matches']" md-menu-item>Матчи</a>
+                    <a *ngIf="roles.isInformer" [routerLink]="['/clubs']" md-menu-item>Клубы</a>
+                    <a *ngIf="roles.isInformer" [routerLink]="['/roleGroups']" md-menu-item>Роли</a>
+                    <a *ngIf="roles.isInformer" [routerLink]="['/persons']" md-menu-item>Люди</a>
+                    <a *ngIf="roles.isInformer" [routerLink]="['/stadiums']" md-menu-item>Стадионы</a>
+                    <a *ngIf="roles.isInformer" [routerLink]="['/injuries']" md-menu-item>Травмы</a>
                     <a *ngIf="roles.isNewsmaker || roles.isAuthor" [routerLink]="['/images']" md-menu-item>Изображения</a>
-                    <a [routerLink]="['/materialComments']" [queryParams]="{page: 1}" md-menu-item>Комментарии</a>
+                    <a *ngIf="roles.isModerator" [routerLink]="['/materialComments']" [queryParams]="{page: 1}" md-menu-item>Комментарии</a>
                 </md-menu>
             </li>
             <li class="liverbird-navbar">

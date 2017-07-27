@@ -15,6 +15,7 @@
                     <button class="no-style" (click)="vote(false)" *ngIf="item.canNegativeVote && !roles.isSelf(item.authorId)"><span class="glyphicon glyphicon-thumbs-down"></span></button>
                     <span [textContent]="item.negativeCount"></span>
                 </span>
+                <a *ngIf="roles.isModerator && !item.isVerified" (click)="verify()"><span class="glyphicon glyphicon-ok"></span></a>
                 <a *ngIf="roles.isModerator || roles.isSelf(item.authorId)" role="button" (click)="showEditModal()"><span class="glyphicon glyphicon-pencil"> </span></a>
                 <a *ngIf="roles.isModerator" role="button" (click)="showDeleteModal()"><span class="glyphicon glyphicon-trash"> </span></a>
             </span>

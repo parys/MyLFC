@@ -123,7 +123,6 @@ namespace MyLiverpool.Business.Services
                     await _materialCommentRepository.DeleteAsync(comment);
                 }
                 await _materialRepository.DeleteAsync(material);
-                await _materialRepository.SaveChangesAsync();
             }
             catch (Exception)
             {
@@ -148,8 +147,7 @@ namespace MyLiverpool.Business.Services
             }
 
                 material.Pending = false;
-            _materialRepository.Update(material);
-            await _materialRepository.SaveChangesAsync();
+            await _materialRepository.UpdateAsync(material);
             return true;
         }
 
@@ -164,7 +162,6 @@ namespace MyLiverpool.Business.Services
             try
             {
                 material = await _materialRepository.AddAsync(material);
-                await _materialRepository.SaveChangesAsync();
                 return _mapper.Map<MaterialDto>(material);
             }
             catch (Exception)
@@ -190,8 +187,7 @@ namespace MyLiverpool.Business.Services
 
             try
             {
-                _materialRepository.Update(updatingItem);
-                await _materialRepository.SaveChangesAsync();
+                await _materialRepository.UpdateAsync(updatingItem);
                 return _mapper.Map<MaterialDto>(updatingItem);
             }
             catch (Exception)
@@ -203,8 +199,7 @@ namespace MyLiverpool.Business.Services
         {
             var item = await _materialRepository.GetByIdAsync(id);
             item.Reads += 1;
-            _materialRepository.Update(item);
-            await _materialRepository.SaveChangesAsync();
+            await _materialRepository.UpdateAsync(item);
         }
 
         private const string XpathImages = "//img[contains(@class, 'media-gallery-image')]";

@@ -94,7 +94,7 @@ namespace MyLiverpool.Business.Services
             {
                 
             }
-            var result = await _userRepository.UpdateAsync(user);
+            await _userRepository.UpdateAsync(user);
             return true;
         }
 
@@ -118,7 +118,7 @@ namespace MyLiverpool.Business.Services
         {
             var user = await _userRepository.GetByIdFromManagerAsync(userId);
             user.Photo = photo;
-            var result = await _userRepository.UpdateAsync(user);
+            await _userRepository.UpdateAsync(user);
             return true;
         }
 
@@ -140,7 +140,7 @@ namespace MyLiverpool.Business.Services
                 model.Birthday = user.Birthday;
                 model.FullName = user.FullName;
                 model.Gender = user.Gender;
-                model = await _userRepository.UpdateAsync(model);
+                await _userRepository.UpdateAsync(model);
             }
             return _mapper.Map<UserDto>(model);
         }
@@ -172,7 +172,7 @@ namespace MyLiverpool.Business.Services
             if (FileHelper.Delete(user.Photo))
             {
                 user.Photo = DefaultPhotoPath;
-                user = await _userRepository.UpdateAsync(user);
+                await _userRepository.UpdateAsync(user);
             }
             return user.Photo;
         }

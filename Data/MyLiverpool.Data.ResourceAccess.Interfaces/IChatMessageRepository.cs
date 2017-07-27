@@ -9,7 +9,5 @@ namespace MyLiverpool.Data.ResourceAccess.Interfaces
     public interface IChatMessageRepository : ICrudRepository<ChatMessage>
     {
         Task<IEnumerable<ChatMessage>> GetListAsync(Expression<Func<ChatMessage, bool>> filter = null);
-
-        Task UpdateAsync(ChatMessage entity); //todo can be moved to IcrudRepo
     }
 }

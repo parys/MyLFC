@@ -7,7 +7,7 @@ namespace MyLiverpool.Business.Dto
     {
         [Required]//(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Required")]
         [EmailAddress]
-     //todo   [UniqueEmail]
+     //   [UniqueEmail]
       //  [Display(ResourceType = typeof(UsersMessages), Name = "Email")] 
         public string Email { get; set; }
 

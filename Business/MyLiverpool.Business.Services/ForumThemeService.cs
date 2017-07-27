@@ -63,7 +63,6 @@ namespace MyLiverpool.Business.Services
             model.LastAnswerUserId = model.AuthorId;
          //   model.
             model = await _forumThemeRepository.AddAsync(model);
-            await _forumThemeRepository.SaveChangesAsync();
 
             return _mapper.Map<ForumThemeDto>(model);
         }
@@ -79,8 +78,7 @@ namespace MyLiverpool.Business.Services
             theme.Name = model.Name;
             theme.SubsectionId = model.SubsectionId;
             theme.Description = model.Description;
-            _forumThemeRepository.Update(theme);
-            await _forumThemeRepository.SaveChangesAsync();
+            await _forumThemeRepository.UpdateAsync(theme);
 
             return _mapper.Map<ForumThemeDto>(theme);
         }

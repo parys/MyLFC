@@ -43,8 +43,7 @@ namespace MyLiverpool.Business.Services
             if (!message.IsRead && message.ReceiverId == userId)
             {
                 message.IsRead = true;
-                _pmRepository.Update(message);
-                await _pmRepository.SaveChangesAsync();
+                await _pmRepository.UpdateAsync(message);
             }
             return _mapper.Map<PrivateMessageDto>(message);
         }
@@ -58,8 +57,7 @@ namespace MyLiverpool.Business.Services
             message.SentTime = DateTime.Now;
             try
             {
-                message = await _pmRepository.AddAsync(message);
-                await _pmRepository.SaveChangesAsync();
+                await _pmRepository.AddAsync(message);
             }
             catch (Exception)
             {
@@ -82,8 +80,7 @@ namespace MyLiverpool.Business.Services
                         _pmRepository.GetAsync(
                             x => x.ReceiverId == userId || x.SenderId == userId);
                 var messages2 = messages.Take(GlobalConstants.PmsPerUser / 2).ToList();
-                messages2.ForEach(x =>_pmRepository.DeleteAsync(x));
-                await _pmRepository.SaveChangesAsync();
+                messages2.ForEach(async x => await _pmRepository.DeleteAsync(x));
             }
         }
     }

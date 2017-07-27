@@ -41,17 +41,14 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
 
         public async Task DeleteAsync(PrivateMessage entity)
         {
-            await Task.FromResult(_context.PrivateMessages.Remove(entity));
+            _context.PrivateMessages.Remove(entity);
+            await _context.SaveChangesAsync();
         }
 
-        public void Update(PrivateMessage entity)
+        public async Task UpdateAsync(PrivateMessage entity)
         {
             _context.PrivateMessages.Update(entity);
             _context.Entry(entity).State = EntityState.Modified;
-        }
-
-        public async Task SaveChangesAsync()
-        {
             await _context.SaveChangesAsync();
         }
 

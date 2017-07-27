@@ -27,6 +27,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
         public async Task<Club> AddAsync(Club entity)
         {
             var addedEntity = await _context.Clubs.AddAsync(entity);
+            await _context.SaveChangesAsync();
             return addedEntity.Entity;
         }
 
@@ -41,17 +42,14 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
 
         public async Task DeleteAsync(Club entity)
         {
-            await Task.FromResult(_context.Clubs.Remove(entity));
+            _context.Clubs.Remove(entity);
+            await _context.SaveChangesAsync();
         }
 
-        public void Update(Club entity)
+        public async Task UpdateAsync(Club entity)
         {
             _context.Clubs.Attach(entity);
             _context.Entry(entity).State = EntityState.Modified;
-        }
-
-        public async Task SaveChangesAsync()
-        {
             await _context.SaveChangesAsync();
         }
 

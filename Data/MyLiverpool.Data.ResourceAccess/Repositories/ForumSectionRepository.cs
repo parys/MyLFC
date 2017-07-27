@@ -26,6 +26,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
         public async Task<ForumSection> AddAsync(ForumSection entity)
         {
             var addedEntity = await _context.ForumSections.AddAsync(entity);
+            await _context.SaveChangesAsync();
             return addedEntity.Entity;
         }
 
@@ -40,17 +41,14 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
 
         public async Task DeleteAsync(ForumSection entity)
         {
-            await Task.FromResult(_context.ForumSections.Remove(entity));
+            _context.ForumSections.Remove(entity);
+            await _context.SaveChangesAsync();
         }
-
-        public void Update(ForumSection entity)
+        
+        public async Task UpdateAsync(ForumSection entity)
         {
             _context.ForumSections.Attach(entity);
             _context.Entry(entity).State = EntityState.Modified;
-        }
-
-        public async Task SaveChangesAsync()
-        {
             await _context.SaveChangesAsync();
         }
 

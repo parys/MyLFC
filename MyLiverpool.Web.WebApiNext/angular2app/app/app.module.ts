@@ -15,6 +15,7 @@ import * as chat from "./chat/index";
 import * as club from "./club/index";
 import * as home from "./home/index";
 import * as image from "./image/index";
+import { InjuryModule } from "./injury/index";
 import * as match from "./match/index";
 import { PersonModule } from "./person/index";
 import * as roleGroup from "./roleGroup/index";
@@ -33,7 +34,7 @@ import { Ng2BreadcrumbModule, BreadcrumbService } from "ng2-breadcrumb/ng2-bread
 import { BreadcrumbComponent } from "./shared/breadcrumb.component";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import * as angMaterial from '@angular/material';
-import 'rxjs/add/operator/mergeMap';
+import "rxjs/add/operator/mergeMap";
 
 @NgModule({
     imports: [
@@ -42,6 +43,7 @@ import 'rxjs/add/operator/mergeMap';
         EditorModule,
         HttpModule,
         ForumModule,
+        InjuryModule,
         angMaterial.MdAutocompleteModule,
         angMaterial.MdButtonModule,
         angMaterial.MdCardModule,

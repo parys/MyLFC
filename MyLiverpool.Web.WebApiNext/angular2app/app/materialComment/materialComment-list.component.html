@@ -15,7 +15,7 @@
                 <h3 class="panel-title">
                     <a [routerLink]="['/users', comment.authorId]"><span [textContent]="comment.authorUserName"></span></a>
                     <span class="col-xs-2 col-sm-2 pull-right" *ngIf="roles.isModerator">
-                        <a [hidden]="comment.isVerified" (click)="verify(i)"><span class="glyphicon glyphicon-ok"></span></a>
+                        <a *ngIf="!comment.isVerified" (click)="verify(i)"><span class="glyphicon glyphicon-ok"></span></a>
                         <a (click)="showDeleteModal(i)"><span class="glyphicon glyphicon-trash"></span></a>
                     </span>
                 </h3>

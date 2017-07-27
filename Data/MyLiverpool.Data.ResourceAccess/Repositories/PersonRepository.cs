@@ -27,6 +27,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
         public async Task<Person> AddAsync(Person entity)
         {
             var result = await _context.Persons.AddAsync(entity);
+            await _context.SaveChangesAsync();
             return result.Entity;
         }
 
@@ -39,18 +40,14 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
         {
             throw new NotImplementedException();
         }
-
-        public void Update(Person entity)
+        
+        public async Task UpdateAsync(Person entity)
         {
             _context.Persons.Attach(entity);
             _context.Entry(entity).State = EntityState.Modified;
-        }
-
-        public async Task SaveChangesAsync()
-        {
             await _context.SaveChangesAsync();
         }
-
+        
         public async Task<int> GetCountAsync(Expression<Func<Person, bool>> filter = null)
         {
             IQueryable<Person> query = _context.Persons;

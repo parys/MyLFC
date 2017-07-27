@@ -163,6 +163,11 @@ export class AppComponent implements OnInit {
         this.breadcrumbService.hideRouteRegex("^/transfers/[0-9]+$"); // this.breadcrumbService.addCallbackForRouteRegex("^/news/[0-9]+$", this.getTitle);
         this.breadcrumbService.addFriendlyNameForRouteRegex("^/transfers/[0-9]+/edit$", "Редактирование");
 
+
+        this.breadcrumbService.addFriendlyNameForRouteRegex("/injuries", "Травмы");
+        this.breadcrumbService.hideRouteRegex("^/injuries/[0-9]+$"); // this.breadcrumbService.addCallbackForRouteRegex("^/blog/[0-9]+$", this.getTitle);
+        this.breadcrumbService.addFriendlyNameForRouteRegex("^/injuries/[0-9]+/edit$", "Редактирование");
+
         this.breadcrumbService.addFriendlyNameForRoute("/stadiums", "Стадионы");
         this.breadcrumbService.hideRouteRegex("^/stadiums/[0-9]+$"); // this.breadcrumbService.addCallbackForRouteRegex("^/news/[0-9]+$", this.getTitle);
         this.breadcrumbService.addFriendlyNameForRouteRegex("/stadiums/[0-9]+/edit$", "Редактирование");

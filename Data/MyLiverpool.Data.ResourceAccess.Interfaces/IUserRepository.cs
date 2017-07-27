@@ -15,9 +15,7 @@ namespace MyLiverpool.Data.ResourceAccess.Interfaces
         Task<IEnumerable<User>> GetListAsync(int page, int itemPerPage = 15,
             Expression<Func<User, bool>> filter = null,
             SortOrder order = SortOrder.Ascending, Expression<Func<User, object>> orderBy = null);
-
-        Task<User> UpdateAsync(User user);
-
+        
         Task<IdentityResult> SetLockoutEndDateAsync(User user, DateTimeOffset? dateTimeOffset);
 
         Task<DateTimeOffset?> GetLockoutEndDateAsync(int userId);

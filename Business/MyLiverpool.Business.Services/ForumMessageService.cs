@@ -25,7 +25,6 @@ namespace MyLiverpool.Business.Services
         {
             var model = _mapper.Map<ForumMessage>(dto);
             model = await _forumMessageRepository.AddAsync(model);
-            await _forumMessageRepository.SaveChangesAsync();
             model.Author = await _userRepository.GetByIdAsync(model.AuthorId);
             
             return _mapper.Map<ForumMessageDto>(model);
@@ -36,15 +35,13 @@ namespace MyLiverpool.Business.Services
             var model = await _forumMessageRepository.GetByIdAsync(dto.Id);
             model.LastModifiedTime = DateTime.Now;
             model.Message = dto.Message;
-            _forumMessageRepository.Update(model);
-            await _forumMessageRepository.SaveChangesAsync();
+            await _forumMessageRepository.UpdateAsync(model);
             return _mapper.Map<ForumMessageDto>(model);
         }
 
         public async Task<bool> DeleteAsync(int id)
         {
             await _forumMessageRepository.DeleteAsync(id);
-            await _forumMessageRepository.SaveChangesAsync();
             return true;
         }
     }

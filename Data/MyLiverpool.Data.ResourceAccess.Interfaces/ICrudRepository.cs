@@ -30,9 +30,7 @@ namespace MyLiverpool.Data.ResourceAccess.Interfaces
         /// <summary>
         /// Updates object in repository.
         /// </summary>
-        void Update(TEntity entity);
-
-        Task SaveChangesAsync();
+        Task UpdateAsync(TEntity entity);
 
         Task<int> GetCountAsync(Expression<Func<TEntity, bool>> filter = null); //todo should be moved away
     }

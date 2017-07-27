@@ -1,1 +1,1 @@
-﻿
+﻿export * from "./injury.module";

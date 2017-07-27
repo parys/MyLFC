@@ -28,7 +28,6 @@ namespace MyLiverpool.Business.Services
             }
             var model = new ForumSection(name);
             model = await _forumSectionRepository.AddAsync(model);
-            await _forumSectionRepository.SaveChangesAsync();
             var result = _mapper.Map<ForumSectionDto>(model);
             return result;
         
@@ -42,7 +41,6 @@ namespace MyLiverpool.Business.Services
                 return false;
             }
             await _forumSectionRepository.DeleteAsync(section);
-            await _forumSectionRepository.SaveChangesAsync();
             return true;
         }
 

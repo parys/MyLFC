@@ -32,7 +32,6 @@ namespace MyLiverpool.Business.Services
         {
             var match = _mapper.Map<Match>(dto);
             match = await _matchRepository.AddAsync(match);
-            await _matchRepository.SaveChangesAsync();
             dto = _mapper.Map<MatchDto>(match);
             return dto;
         }
@@ -51,8 +50,7 @@ namespace MyLiverpool.Business.Services
             match.Stadium = null;
             match.StadiumId = dto.StadiumId;
             match.Score = GetScores(dto.ScoreHome, dto.ScoreAway);
-            _matchRepository.Update(match);
-            await _matchRepository.SaveChangesAsync();
+            await _matchRepository.UpdateAsync(match);
             return dto;
         }
 
@@ -60,8 +58,7 @@ namespace MyLiverpool.Business.Services
         {
             var match = await _matchRepository.GetByIdAsync(matchId);
             match.Score = newScore;
-            _matchRepository.Update(match);
-            await _matchRepository.SaveChangesAsync();
+            await _matchRepository.UpdateAsync(match);
             return _mapper.Map<MatchDto>(match);
         }
 

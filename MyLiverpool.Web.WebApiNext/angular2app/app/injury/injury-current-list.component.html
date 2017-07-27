@@ -1,0 +1,8 @@
+﻿<div class="full-width">
+    <div class="col-xs-12">Травмированные:</div>
+    <div class="full-width" *ngFor="let injury of items">
+        <b class="col-xs-6" [textContent]="injury.personName"></b>
+        <span class="col-xs-6" [textContent]="injury.endTime | date"></span>
+        <hr class="full-width"/>
+    </div>
+</div>

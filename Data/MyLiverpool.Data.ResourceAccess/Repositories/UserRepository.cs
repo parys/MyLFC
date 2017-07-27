@@ -84,12 +84,11 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             return await query.ToListAsync();
         }
 
-        public async Task<User> UpdateAsync(User user)
+        public async Task UpdateAsync(User user)
         {
-          //  await _userManager.UpdateAsync(user);
+          //  await _userManager.UpdateAsync(user);todo do
             _context.Users.Update(user);
             await _context.SaveChangesAsync();
-            return user;
         }
 
         public async Task<IdentityResult> SetLockoutEndDateAsync(User user, DateTimeOffset? dateTimeOffset)

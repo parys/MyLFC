@@ -34,6 +34,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
         public async Task<Material> AddAsync(Material entity)
         {
             var addedEntity = await _context.Materials.AddAsync(entity);
+            await _context.SaveChangesAsync();
             return addedEntity.Entity;
         }
 
@@ -53,17 +54,14 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
                 _context.Materials.Attach(entity);
             }
 
-            await Task.FromResult(_context.Materials.Remove(entity));
+            _context.Materials.Remove(entity);
+            await _context.SaveChangesAsync();
         }
-
-        public void Update(Material entity)
+        
+        public async Task UpdateAsync(Material entity)
         {
             _context.Materials.Attach(entity);
             _context.Entry(entity).State = EntityState.Modified;
-        }
-
-        public async Task SaveChangesAsync()
-        {
             await _context.SaveChangesAsync();
         }
 

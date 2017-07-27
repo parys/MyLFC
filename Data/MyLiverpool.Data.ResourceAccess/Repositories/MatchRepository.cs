@@ -27,6 +27,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
         public async Task<Match> AddAsync(Match entity)
         {
             var addedEntity = await _context.Matches.AddAsync(entity);
+            await _context.SaveChangesAsync();
             return addedEntity.Entity;
         }
 
@@ -44,18 +45,14 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             _context.Matches.Remove(entity);
             await _context.SaveChangesAsync();
         }
-
-        public void Update(Match entity)
+        
+        public async Task UpdateAsync(Match entity)
         {
             _context.Matches.Attach(entity);
             _context.Entry(entity).State = EntityState.Modified;
-        }
-
-        public async Task SaveChangesAsync()
-        {
             await _context.SaveChangesAsync();
         }
-
+        
         public async Task<int> GetCountAsync(Expression<Func<Match, bool>> filter = null)
         {
             return await _context.Matches.CountAsync();

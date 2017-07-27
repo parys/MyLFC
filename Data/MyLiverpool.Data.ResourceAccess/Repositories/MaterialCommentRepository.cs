@@ -44,18 +44,14 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             _context.MaterialComments.Remove(entity);
             await _context.SaveChangesAsync();
         }
-
-        public void Update(MaterialComment entity)
+        
+        public async Task UpdateAsync(MaterialComment entity)
         {
             _context.MaterialComments.Attach(entity);
             _context.Entry(entity).State = EntityState.Modified;
-        }
-
-        public async Task SaveChangesAsync()
-        {
             await _context.SaveChangesAsync();
         }
-
+        
         public async Task<int> GetCountAsync(Expression<Func<MaterialComment, bool>> filter = null)
         {
             IQueryable<MaterialComment> query = _context.MaterialComments;

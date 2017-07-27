@@ -26,7 +26,6 @@ namespace MyLiverpool.Business.Services
             dto.AdditionTime = DateTime.Now;
             var model = _mapper.Map<ChatMessage>(dto);
             await _chatMessageRepository.AddAsync(model);
-            await _chatMessageRepository.SaveChangesAsync();
             model = await _chatMessageRepository.GetByIdAsync(model.Id);
             return _mapper.Map<ChatMessageDto>(model);
         }

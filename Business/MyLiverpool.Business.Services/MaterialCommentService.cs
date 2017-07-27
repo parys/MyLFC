@@ -51,10 +51,9 @@ namespace MyLiverpool.Business.Services
                 {
                     item.Parent = comment.Parent;
                 }
-                comment.Children.ToList().ForEach(x => _commentService.Update(x));
+                comment.Children.ToList().ForEach(async x => await _commentService.UpdateAsync(x));
             }
             await _commentService.DeleteAsync(id);
-            await _commentService.SaveChangesAsync();
             return true;
         }
 
@@ -67,7 +66,6 @@ namespace MyLiverpool.Business.Services
             try
             {
                 comment = await _commentService.AddAsync(comment);
-                await _commentService.SaveChangesAsync();
                 var result = _mapper.Map<MaterialCommentDto>(comment);
                 result.AuthorUserName = await _userService.GetUsernameAsync(comment.AuthorId);
                 result.Photo = await _userService.GetPhotoPathAsync(comment.AuthorId);
@@ -96,8 +94,7 @@ namespace MyLiverpool.Business.Services
             comment.IsVerified = model.IsVerified;
             try
             {
-                _commentService.Update(comment);
-                await _commentService.SaveChangesAsync();
+                await _commentService.UpdateAsync(comment);
             }
             catch (Exception)
             {
@@ -143,8 +140,7 @@ namespace MyLiverpool.Business.Services
             var comment = await _commentService.GetByIdAsync(id);
             comment.IsVerified = true;
             comment.LastModified = DateTime.Now;
-            _commentService.Update(comment);
-            await _commentService.SaveChangesAsync();
+            await _commentService.UpdateAsync(comment);
             return true;
         }
 

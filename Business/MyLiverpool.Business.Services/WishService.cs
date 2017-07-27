@@ -74,7 +74,7 @@ namespace MyLiverpool.Business.Services
                 wish.Message = dto.Message;
                 wish.Title = dto.Title;
                 wish.Type = (WishType) dto.Type;
-                wish = await _wishRepository.UpdateAsync(wish);
+                await _wishRepository.UpdateAsync(wish);
             }
             return wish != null ? _mapper.Map<WishDto>(wish) : null;
         }

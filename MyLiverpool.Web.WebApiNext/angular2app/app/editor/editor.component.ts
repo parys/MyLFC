@@ -44,6 +44,7 @@ export class EditorComponent implements ControlValueAccessor {
     @Output() public blur = new EventEmitter();
     @Input("value") public _value: string = "";
     @Input() public type: number = 1;
+    @Input() public height: number = 200;
     public elementId: string = Math.random().toString(36).substring(2);
     public zone: NgZone;
  //   public tinymce: EditorManager = new EditorManager();
@@ -149,7 +150,7 @@ export class EditorComponent implements ControlValueAccessor {
             schema: "html5",
             fontsize_formats: "8pt 9pt 10pt 11pt 12pt 14pt 16pt 18pt",
             forced_root_block: "",
-           min_height: 100,
+            min_height: this.height,
             browser_spellcheck: true,
             gecko_spellcheck: true,
             remove_trailing_brs: true,
