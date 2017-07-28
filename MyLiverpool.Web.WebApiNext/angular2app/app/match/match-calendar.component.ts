@@ -2,6 +2,7 @@
 import { Subscription } from "rxjs/Subscription";
 import { MatchService } from "./match.service";
 import { Match } from "./match.model";
+import { RolesCheckedService, IRoles } from "../shared/index";
 
 @Component({
     selector: "match-calendar",
@@ -9,14 +10,17 @@ import { Match } from "./match.model";
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MatchCalendarComponent implements OnInit, OnDestroy {
+    private sub: Subscription;
     public last: Match;
     public next: Match;
-    private sub: Subscription;
+    public roles: IRoles;
 
     constructor(private service: MatchService,
+        private rolesChecked: RolesCheckedService,
         private cd: ChangeDetectorRef) { }
 
     public ngOnInit(): void {
+        this.roles = this.rolesChecked.checkRoles();
         this.sub = this.service.getForCalendar().subscribe(data => {
                 if (data.length === 1) {
                     if (data[0].scoreHome) {
