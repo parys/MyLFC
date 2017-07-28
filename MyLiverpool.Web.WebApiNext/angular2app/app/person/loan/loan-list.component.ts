@@ -3,24 +3,24 @@ import { Location } from "@angular/common";
 import { ActivatedRoute } from "@angular/router";
 import { MdDialog } from '@angular/material';
 import { Subscription } from "rxjs/Subscription";
-import { Injury } from "./injury.model";
-import { InjuryService } from "./injury.service";
-import { Pageable, DeleteDialogComponent } from "../shared/index";
+import { Loan } from "./loan.model";
+import { LoanService } from "./loan.service";
+import { Pageable, DeleteDialogComponent } from "../../shared/index";
 
 @Component({
-    selector: "injury-list",
-    templateUrl: "./injury-list.component.html"
+    selector: "loan-list",
+    templateUrl: "./loan-list.component.html"
 })
 
-export class InjuryListComponent implements OnInit, OnDestroy {
+export class LoanListComponent implements OnInit, OnDestroy {
     private sub: Subscription;
     private sub2: Subscription;
-    public items: Injury[];
+    public items: Loan[];
     public page: number = 1;
     public itemsPerPage: number = 15;
     public totalItems: number;
 
-    constructor(private injuryService: InjuryService,
+    constructor(private injuryService: LoanService,
         private route: ActivatedRoute,
         private location: Location,
         private dialog: MdDialog) {
@@ -58,7 +58,7 @@ export class InjuryListComponent implements OnInit, OnDestroy {
     public pageChanged(event: any): void {
         this.page = event;
         this.update();
-        let newUrl = `injuries?page=${this.page}`;
+        let newUrl = `loans?page=${this.page}`;
         this.location.replaceState(newUrl);
     };
     
@@ -75,7 +75,7 @@ export class InjuryListComponent implements OnInit, OnDestroy {
                 });
     }
 
-    private parsePageable(pageable: Pageable<Injury>): void {
+    private parsePageable(pageable: Pageable<Loan>): void {
         this.items = pageable.list;
         this.page = pageable.pageNo;
         this.itemsPerPage = pageable.itemPerPage;

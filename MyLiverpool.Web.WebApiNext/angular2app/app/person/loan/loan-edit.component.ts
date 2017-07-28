@@ -3,28 +3,25 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
-import { InjuryService } from "./injury.service";
-import { Configuration } from "../app.constants";
-import { Injury } from "./injury.model";
-import { Person } from "../person/index";
-import { PersonService } from "../person/person.service";
-import { LocalStorageService } from "../shared/index";
+import { LoanService } from "./loan.service";
+import { Configuration } from "../../app.constants";
+import { Loan } from "./loan.model";
+import { LocalStorageService } from "../../shared/index";
 
 @Component({
-    selector: "injury-edit",
-    templateUrl: "./injury-edit.component.html"
+    selector: "loan-edit",
+    templateUrl: "./loan-edit.component.html"
 })
 
-export class InjuryEditComponent implements OnInit, OnDestroy {
+export class LoanEditComponent implements OnInit, OnDestroy {
     private sub: Subscription;
     private sub2: Subscription;
     private id: number;
-    public editInjuryForm: FormGroup;
-    public imagePath: string;
+    public editLoanForm: FormGroup;
     public persons: string = "/api/v1/person/GetPersonsByName?typed=:keyword";
+    public clubs: string = "/api/v1/club/GetClubsByName?typed=:keyword";
 
-    constructor(private injuryService: InjuryService,
-        private personService: PersonService,
+    constructor(private loanService: LoanService,
         private route: ActivatedRoute,
         private router: Router,
         private config: Configuration,
@@ -38,7 +35,7 @@ export class InjuryEditComponent implements OnInit, OnDestroy {
         this.sub = this.route.params.subscribe(params => {
             this.id = +params["id"];
             if (this.id > 0) {
-                this.sub2 = this.injuryService.getSingle(this.id)
+                this.sub2 = this.loanService.getSingle(this.id)
                     .subscribe(data => this.parse(data),
                         error => console.log(error));
             }
@@ -51,22 +48,29 @@ export class InjuryEditComponent implements OnInit, OnDestroy {
     }
 
     public onSubmit(): void {
-        const injury: Injury = this.parseForm();
+        const loan: Loan = this.parseForm();
         if (this.id > 0) {
-            this.injuryService.update(this.id, injury)
-                .subscribe(data => this.router.navigate(["/injuries"]),
+            this.loanService.update(this.id, loan)
+                .subscribe(data => this.router.navigate(["/loans"]),
                     error => console.log(error));
         } else {
-            this.injuryService.create(injury)
-                .subscribe(data => this.router.navigate(["/injuries"]),
+            this.loanService.create(loan)
+                .subscribe(data => this.router.navigate(["/loans"]),
                     error => console.log(error));
         }
     }
     
     public updatePerson(person: any): void {
         if (person) {
-            this.editInjuryForm.get("personId").patchValue(person.key);
-            this.editInjuryForm.get("personName").patchValue(person.value);
+            this.editLoanForm.get("personId").patchValue(person.key);
+            this.editLoanForm.get("personName").patchValue(person.value);
+        }
+    }
+
+    public updateClub(club: any): void {
+        if (club) {
+            this.editLoanForm.get("clubId").patchValue(club.key);
+            this.editLoanForm.get("clubName").patchValue(club.value);
         }
     }
 
@@ -80,13 +84,13 @@ export class InjuryEditComponent implements OnInit, OnDestroy {
         return Math.random();
     }
 
-    private parse(data: Injury): void {
+    private parse(data: Loan): void {
         this.id = data.id;
-        this.editInjuryForm.patchValue(data);
+        this.editLoanForm.patchValue(data);
     }
 
-    private parseForm(): Injury {
-        const item: Injury = this.editInjuryForm.value;
+    private parseForm(): Loan {
+        const item: Loan = this.editLoanForm.value;
         item.startTime = this.normalizeDate(item.startTime);
         item.endTime = this.normalizeDate(item.endTime);
         item.id = this.id;
@@ -94,9 +98,11 @@ export class InjuryEditComponent implements OnInit, OnDestroy {
     }
 
     private initForm(): void {
-        this.editInjuryForm = this.formBuilder.group({
+        this.editLoanForm = this.formBuilder.group({
             'personId': ["", Validators.required],
             'personName': ["", Validators.required],
+            'clubId': ["", Validators.required],
+            'clubName': ["", Validators.required],
             'startTime': ["", Validators.required],
             'endTime': ["", Validators.required],
             'description': ["", Validators.required],

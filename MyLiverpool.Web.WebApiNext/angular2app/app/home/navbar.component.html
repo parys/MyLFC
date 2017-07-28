@@ -60,7 +60,7 @@
                 <md-menu #adminMenu="mdMenu">
                     <a *ngIf="roles.isInformer" [routerLink]="['/matches']" md-menu-item>Матчи</a>
                     <a *ngIf="roles.isInformer" [routerLink]="['/clubs']" md-menu-item>Клубы</a>
-                    <a *ngIf="roles.isInformer" [routerLink]="['/roleGroups']" md-menu-item>Роли</a>
+                    <a *ngIf="roles.isAdminAssistant" [routerLink]="['/roleGroups']" md-menu-item>Роли</a>
                     <a *ngIf="roles.isInformer" [routerLink]="['/persons']" md-menu-item>Люди</a>
                     <a *ngIf="roles.isInformer" [routerLink]="['/stadiums']" md-menu-item>Стадионы</a>
                     <a *ngIf="roles.isInformer" [routerLink]="['/injuries']" md-menu-item>Травмы</a>

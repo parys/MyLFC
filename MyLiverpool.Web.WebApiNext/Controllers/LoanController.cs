@@ -8,43 +8,43 @@ using MyLiverpool.Data.Common;
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
     /// <summary>
-    /// Manages injuries.
+    /// Manages Loans.
     /// </summary>
     [Authorize(Roles = nameof(RolesEnum.InfoStart)), Route("api/v1/[controller]")]
-    public class InjuryController : Controller
+    public class LoanController: Controller
     {
-        private readonly IInjuryService _injuryService;
-        
+        private readonly ILoanService _loanService;
+
         /// <summary>
         /// Constructor.
         /// </summary>
-        /// <param name="injuryService"></param>
-        public InjuryController(IInjuryService injuryService)
+        /// <param name="loanService"></param>
+        public LoanController(ILoanService loanService)
         {
-            _injuryService = injuryService;
+            _loanService = loanService;
         }
 
         /// <summary>
-        /// Creates new injury item.
+        /// Creates new loan item.
         /// </summary>
-        /// <param name="dto">New injury model.</param>
+        /// <param name="dto">New loan model.</param>
         /// <returns></returns>
         [Authorize(Roles = nameof(RolesEnum.InfoStart)), HttpPost("")]
-        public async Task<IActionResult> CreateAsync([FromBody]InjuryDto dto)
+        public async Task<IActionResult> CreateAsync([FromBody]LoanDto dto)
         {
             if (dto == null || !ModelState.IsValid)
             {
                 return BadRequest();
             }
-            var result = await _injuryService.CreateAsync(dto);
+            var result = await _loanService.CreateAsync(dto);
             return Ok(result);
         }
 
         /// <summary>
-        /// Returns pageable injury list.
+        /// Returns pageable loan list.
         /// </summary>
         /// <param name="page">Current page.</param>
-        /// <returns>Injuries list.</returns>
+        /// <returns>Loans list.</returns>
         [AllowAnonymous, HttpGet("list/{page}")]
         public async Task<IActionResult> GetListAsync(int page = 1)
         {
@@ -52,59 +52,59 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             {
                 page = 1;
             }
-            var result = await _injuryService.GetListAsync(page);
+            var result = await _loanService.GetListAsync(page);
             return Ok(result);
         }
 
         /// <summary>
-        /// Returns injury by id.
+        /// Returns loan by id.
         /// </summary>
-        /// <param name="id">The identifier of injury.</param>
-        /// <returns>Injury model.</returns>
+        /// <param name="id">The identifier of loan.</param>
+        /// <returns>Loan model.</returns>
         [AllowAnonymous, HttpGet("{id:int}")]
         public async Task<IActionResult> GetAsync(int id)
         {
-            var result = await _injuryService.GetByIdAsync(id);
+            var result = await _loanService.GetByIdAsync(id);
             return Ok(result);
         }
 
         /// <summary>
-        /// Updates injury.
+        /// Updates loan.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <param name="dto">Modified injury entity.</param>
+        /// <param name="dto">Modified loan entity.</param>
         /// <returns>Returns of editing.</returns>
         [Authorize(Roles = nameof(RolesEnum.InfoStart)), HttpPut("{id:int}")]
-        public async Task<IActionResult> EditAsync(int id, [FromBody]InjuryDto dto)
+        public async Task<IActionResult> EditAsync(int id, [FromBody]LoanDto dto)
         {
             if (id != dto.Id || !ModelState.IsValid)
             {
                 return BadRequest();
             }
-            var result = await _injuryService.UpdateAsync(dto);
+            var result = await _loanService.UpdateAsync(dto);
             return Ok(result);
         }
 
         /// <summary>
-        /// Deletes injury.
+        /// Deletes loan.
         /// </summary>
-        /// <param name="id">The identifier of deleting injury.</param>
+        /// <param name="id">The identifier of deleting loan.</param>
         /// <returns>Result of deleting.</returns>
         [Authorize(Roles = nameof(RolesEnum.InfoStart)), HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteAsync(int id)
         {
-            var result = await _injuryService.DeleteAsync(id);
+            var result = await _loanService.DeleteAsync(id);
             return Ok(result);
         }
 
         /// <summary>
-        /// Returns injuries list for current moment.
+        /// Returns loans list for current moment.
         /// </summary>
-        /// <returns>List with injuries.</returns>
+        /// <returns>List with loans.</returns>
         [AllowAnonymous, HttpGet("current")]
         public async Task<IActionResult> GetCurrentListAsync()
         {
-            var result = await _injuryService.GetCurrentListAsync();
+            var result = await _loanService.GetCurrentListAsync();
             return Json(result);
         }
     }

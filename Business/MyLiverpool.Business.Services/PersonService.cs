@@ -122,7 +122,24 @@ namespace MyLiverpool.Business.Services
 
         public async Task<SquadListDto> GetSquadListAsync(PersonType type)
         {
-            var squadList1 = await _personRepository.GetListAsync(1, 1000, x => x.Type == type);
+            Expression<Func<Person, bool>> filter = x => true;
+            if (type == PersonType.Loan)
+            {
+                filter = x => x.Transfers.Any(y => y.OnLoan && !y.Coming && y.FinishDate.Value.Date >= DateTime.Today.Date);
+            }
+            else if (type == PersonType.First)
+            {
+                filter = x => x.Type == PersonType.First &&
+                              !x.Transfers.Any(y => y.OnLoan && !y.Coming &&
+                                                   y.FinishDate.Value.Date >= DateTime.Today.Date);
+            }
+            else if (type == PersonType.Academy)
+            {
+                filter = x => x.Type == PersonType.Academy &&
+                              !x.Transfers.Any(y => y.OnLoan && !y.Coming &&
+                                                    y.FinishDate.Value.Date >= DateTime.Today.Date);
+            }
+            var squadList1 = await _personRepository.GetListAsync(1, 100, filter);
             var squadList = _mapper.Map<IEnumerable<PersonDto>>(squadList1).ToList();
             var goalkeepers = squadList.Where(x => x.Position == "Вратарь");
             var defenders = squadList.Where(x => x.Position == "Защитник");
@@ -156,7 +173,7 @@ namespace MyLiverpool.Business.Services
             Expression<Func<Person, bool>> filter = x => x.Birthday.HasValue &&
                                                        x.Birthday.Value.Date.Day == DateTimeOffset.Now.Date.Day &&
                                                        x.Birthday.Value.Date.Month == DateTimeOffset.Now.Date.Month;
-            var list = await _personRepository.GetListAsync(1, 1000, filter);
+            var list = await _personRepository.GetListAsync(1, 100, filter);
             return _mapper.Map<IEnumerable<PersonDto>>(list);
         }
     }

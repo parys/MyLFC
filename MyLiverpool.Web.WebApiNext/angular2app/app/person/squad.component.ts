@@ -27,11 +27,14 @@ export class SquadComponent {
         this.roles = this.rolesChecked.checkRoles();
         this.routeLinks = [
             { label: "Первая команда", link: "/squad/first" },
-            { label: "Академия", link: "/squad/academy" }];
+            { label: "Академия", link: "/squad/academy" },
+            { label: "В аренде", link: "/squad/loan" }];
         if (this.route.snapshot.data["type"] === PersonType[PersonType.First]) {
             this.activeLinkIndex = 0;
-        } else {
+        } else if (this.route.snapshot.data["type"] === PersonType[PersonType.Academy]) {
             this.activeLinkIndex = 1;
+        } else {
+            this.activeLinkIndex = 2;
         }
         this.updateState(PersonType[this.activeLinkIndex].toString());
     }

@@ -6,15 +6,13 @@ import { PersonListComponent } from "./person-list.component";
 import { PersonEditComponent } from "./person-edit.component";
 import { PersonBirthdayComponent } from "./person-birthday.component";
 import { PersonService } from "./person.service";
-import { TransferService } from "./transfer.service";
 import { BestPlayerComponent } from "./best-player.component";
 import { StuffListComponent } from "./stuff-list.component";
-import { TransferListComponent } from "./transfer-list.component";
-import { TransferCurrentListComponent } from "./transfer-current-list.component";
-import { TransferEditComponent  } from "./transfer-edit.component";
 import { SquadComponent } from "./squad.component";
 import { personRoutes } from "./person.routes";
 import { SharedModule } from "../shared/index";
+import { LoanModule } from "./loan/index";
+import { TransferModule } from "./transfer/index";
 import {
     MdButtonModule,
     MdInputModule,
@@ -33,6 +31,7 @@ import { Ng2AutoCompleteModule } from "ng2-auto-complete";
     imports: [
         CommonModule,
         FormsModule,
+        LoanModule,
         MdButtonModule,
         MdCardModule,
         MdDatepickerModule,
@@ -45,7 +44,8 @@ Ng2AutoCompleteModule,
         NgxPaginationModule,
         ReactiveFormsModule,
         RouterModule.forRoot(personRoutes),
-        SharedModule
+        SharedModule,
+        TransferModule
     ],
     declarations: [
         BestPlayerComponent,
@@ -53,18 +53,14 @@ Ng2AutoCompleteModule,
         PersonEditComponent,
         PersonListComponent,
         SquadComponent,
-        StuffListComponent,
-        TransferListComponent,
-        TransferCurrentListComponent,
-        TransferEditComponent 
+        StuffListComponent
     ],
     exports: [
         BestPlayerComponent,
         PersonBirthdayComponent
     ],
     providers: [
-        PersonService,
-        TransferService
+        PersonService
     ]
 })
 export class PersonModule { }

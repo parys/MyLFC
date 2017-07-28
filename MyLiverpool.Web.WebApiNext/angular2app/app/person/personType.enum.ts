@@ -1,4 +1,6 @@
 ﻿export enum PersonType {
     First = 0,
-    Academy = 1
+    Academy = 1,
+    Loan = 2,
+    
 }

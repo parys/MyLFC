@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { Subscription } from "rxjs/Subscription";
 import { TransferService } from "./transfer.service";
-import { PersonService } from "./person.service";
+import { PersonService } from "../person.service";
 import { Transfer } from "./transfer.model";
 
 @Component({
