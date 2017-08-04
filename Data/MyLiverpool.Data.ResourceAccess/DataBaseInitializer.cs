@@ -158,8 +158,18 @@ namespace MyLiverpool.Data.ResourceAccess
                 },
                 new RoleGroup()
                 {
-                    Name = RoleGroupsEnum.HistoricExpert.ToString(), //17
-                    RussianName = RoleGroupsEnum.HistoricExpert.GetNameAttribute(),
+                    Name = RoleGroupsEnum.Leader.ToString(), //17
+                    RussianName = RoleGroupsEnum.Leader.GetNameAttribute(),
+                },
+                new RoleGroup()
+                {
+                    Name = RoleGroupsEnum.Basic.ToString(), //18
+                    RussianName = RoleGroupsEnum.Basic.GetNameAttribute(),
+                },
+                new RoleGroup()
+                {
+                    Name = RoleGroupsEnum.Profi.ToString(), //19
+                    RussianName = RoleGroupsEnum.Profi.GetNameAttribute(),
                 },
             };
             roleGroups.ForEach(x => _context.RoleGroups.Add(x));
@@ -266,7 +276,9 @@ namespace MyLiverpool.Data.ResourceAccess
             var veteranGroup = await _context.RoleGroups.FirstAsync(x => x.Name == RoleGroupsEnum.Veteran.ToString()); 
             var provenGroup = await _context.RoleGroups.FirstAsync(x => x.Name == RoleGroupsEnum.Proven.ToString()); //15
             var forecastLeaderGroup = await _context.RoleGroups.FirstAsync(x => x.Name == RoleGroupsEnum.ForecastLeader.ToString()); 
-            var historicExpertGroup = await _context.RoleGroups.FirstAsync(x => x.Name == RoleGroupsEnum.HistoricExpert.ToString()); //17
+            var historicExpertGroup = await _context.RoleGroups.FirstAsync(x => x.Name == RoleGroupsEnum.Leader.ToString()); //17
+            var basicGroup = await _context.RoleGroups.FirstAsync(x => x.Name == RoleGroupsEnum.Basic.ToString()); 
+            var profiGroup = await _context.RoleGroups.FirstAsync(x => x.Name == RoleGroupsEnum.Profi.ToString()); //19
             
 
             #region adminRoleRoleGroups

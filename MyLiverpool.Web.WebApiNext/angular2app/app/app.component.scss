@@ -1,19 +1,31 @@
-﻿@font-face {
-    font-family: "Beauty";
-    src:  url('./fonts/10427.ttf') format('truetype');
-}
-@font-face {
-    font-family: "AnotherFont";
-    src: url('./fonts/Cuprum-Regular.ttf');
+﻿@mixin font-face($font-family, $file-path /*,$font-weight, $font-style*/ ) {
+    @font-face {
+        font-family: $font-family;
+        src: url('#{$file-path}.eot');
+        src: /*url('#{$file-path}.eot?#iefix') format('embedded-opentype'), url('#{$file-path}.woff') format('woff'),*/
+            url('#{$file-path}.ttf') format('truetype'), url('#{$file-path}.svg##{$font-family}') format('svg');
+        /* font-weight: $font-weight;
+        font-style: $font-style;*/
+    }
+    // Chrome for Windows rendering fix: https://www.adtrak.co.uk/blog/font-face-chrome-rendering/
+    @media screen and (-webkit-min-device-pixel-ratio: 0) {
+        @font-face {
+            font-family: $font-family;
+            src: url('#{$file-path}.svg##{$font-family}') format('svg');
+        }
+    }
 }
 
-* {
-    /*font-family: "AnotherFont";*/
+@include font-face(Beauty-font, './fonts/10427');
+
+@mixin Beauty-font {
+    font-family: 'Beauty-font';
 }
+$maroon-color: maroon;
 
 /* override theme material */
 .mat-ink-bar {
-    background-color: maroon;
+    background-color: $maroon-color;
 }
 
 /* material override */
@@ -50,7 +62,7 @@ iframe .body-wrapper{
 
 hr {
     border-top-width: 3px;
-    border-top-color: maroon;
+    border-top-color: $maroon-color;
 }
 
   .news-mini {
@@ -72,7 +84,7 @@ textarea {
 }
 
 .beauty-font {
-    font-family: "Beauty";
+    @include Beauty-font;
 }
 
 .best-player {
@@ -293,21 +305,20 @@ textarea {
 }
 
 .injuries {
-    background-color: antiquewhite;    
+    background-color: antiquewhite;
 }
 
 .injury-item {
     border-left: maroon solid 3px;
     margin-bottom: 5px;
-}
 
-.injury-item img {
+    img {
         max-width: 40px;
     }
-
+}
 
 .inline {
-    display:inline;
+    display: inline;
 }
 
 .img-medium {
@@ -430,10 +441,10 @@ textarea {
         text-transform: uppercase;
     }
 
-    .navbar-default .navbar-nav > li > a {
-        color: #FFF;
-        font-family: "Beauty";
-    }
+.navbar-default .navbar-nav > li > a {
+    color: #FFF;
+    @include Beauty-font;
+}
 
         .navbar-default .navbar-nav > li > a:hover {
             color: #6e6e6e;
@@ -1368,7 +1379,7 @@ td.switch a {}*/
     }
 
     .score {
-        font-size: 20px;
+        font-size: 30px;
     }
 
     .infopic {

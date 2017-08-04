@@ -3,11 +3,14 @@ import { Router, ActivatedRoute, NavigationEnd } from "@angular/router";
 import { Title } from "@angular/platform-browser";
 import { Observable } from "rxjs/Observable"
 import "rxjs/add/observable/throw";
+import "rxjs/add/operator/filter";
+import "rxjs/add/operator/mergeMap";
 import { RolesCheckedService } from "./shared/roles-checked.service";
 import { IRoles } from "./shared/roles.interface";
 import { AuthService } from "./auth/auth.service";
 import { IAuthStateModel } from "./auth/models/auth-state-model";
 import { BreadcrumbService } from "ng2-breadcrumb/ng2-breadcrumb";
+
 
 @Component({
     selector: "app",
@@ -19,13 +22,13 @@ import { BreadcrumbService } from "ng2-breadcrumb/ng2-breadcrumb";
 export class AppComponent implements OnInit {
     public roles: IRoles;
    // public isRoot: boolean = false;
-    private viewContainerRef: ViewContainerRef;
+ //   private viewContainerRef: ViewContainerRef;
     private authState$: Observable<IAuthStateModel>;
 
     constructor(private router: Router,
         private rolesChecked: RolesCheckedService,
         private authService: AuthService,
-        viewContainerRef: ViewContainerRef,
+        private viewContainerRef: ViewContainerRef,
         private activatedRoute: ActivatedRoute,
         private titleService: Title,
         private renderer: Renderer2,
@@ -33,7 +36,7 @@ export class AppComponent implements OnInit {
     ) {        
         this.roles = this.rolesChecked.checkRoles();
         // You need this small hack in order to catch application root view container ref
-        this.viewContainerRef = viewContainerRef;
+  //      this.viewContainerRef = viewContainerRef;
         this.initTitleSubscriber();
         this.setUpBreadcrumbs();
     }
@@ -107,6 +110,7 @@ export class AppComponent implements OnInit {
         this.breadcrumbService.addFriendlyNameForRoute("/squad", "Состав");
         this.breadcrumbService.addFriendlyNameForRoute("/squad/first", "Первая команда");
         this.breadcrumbService.addFriendlyNameForRoute("/squad/academy", "Академия");
+        this.breadcrumbService.addFriendlyNameForRoute("/squad/loan", "В аренде");
 
         this.breadcrumbService.addFriendlyNameForRoute("/seasons", "Сезоны");
         this.breadcrumbService.addFriendlyNameForRoute("/seasons/calendar", "Календарь");
@@ -178,6 +182,8 @@ export class AppComponent implements OnInit {
 
         this.breadcrumbService.addFriendlyNameForRoute("/chat", "Чат");
         this.breadcrumbService.addFriendlyNameForRoute("/job", "Работа на сайте");
+        this.breadcrumbService.addFriendlyNameForRoute("/plans", "Планы");
+        this.breadcrumbService.addFriendlyNameForRoute("/instructions", "Инструкции");
 
         this.breadcrumbService.addFriendlyNameForRoute("/editPage", "Редактирование страницы");
         this.breadcrumbService.hideRouteRegex("^/editPage/[0-9]+$"); 

@@ -22,6 +22,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     {
         private readonly IMaterialCommentService _commentService;
         private readonly IMemoryCache _cache;
+        private const string LastComments = "lastComments";
 
         /// <summary>
         /// Constructor.
@@ -62,7 +63,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [AllowAnonymous, HttpGet("list/last")]
         public async Task<IActionResult> GetLastList()
         {
-            var result = await _commentService.GetLastListAsync();
+            var result = await _cache.GetOrCreateAsync("LastComments", async x => await _commentService.GetLastListAsync());
             return Json(result);
         }
 
@@ -107,6 +108,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             dto.AuthorId = User.GetUserId();
             var result = await _commentService.AddAsync(dto);
             CleanMaterialCache();
+            _cache.Remove(LastComments);
             return Ok(result);
         }
 
@@ -194,8 +196,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
 
         private void CleanMaterialCache()
         {
-            _cache.Remove(GetBasicMaterialFilters(false).ToString());//duplicate here and in material ctrl
-            _cache.Remove(GetBasicMaterialFilters(true).ToString());
+            _cache.Remove("MaterialList");//duplicate here and in material ctrl
+          //  _cache.Remove(GetBasicMaterialFilters(true).ToString());
         }
     }
 }

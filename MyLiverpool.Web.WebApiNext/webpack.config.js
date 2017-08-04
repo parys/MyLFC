@@ -15,9 +15,12 @@ var SharedConfig = {
         publicPath: "/src/" // Webpack dev middleware, if enabled, handles requests for this URL prefix
     },
     module: {
-        loaders: [
-            //{ test: /\.ts$/, include: /angular2app/, loaders: ["ts-loader?silent=true", "angular2-template-loader"] },
-               { test: /\.ts$/, include: /angular2app/, loaders: ["awesome-typescript-loader", "angular2-template-loader"] },
+        rules: [
+            {
+                test: /\.scss$/,
+                loaders: ["raw-loader", "resolve-url-loader", "sass-loader"]
+            },
+            { test: /\.ts$/, include: /angular2app/, loaders: ["awesome-typescript-loader", "angular2-template-loader"] },
             { test: /\.html$/, loader: "html-loader" },
           // bug  { test: /\.css$/, loader: "style-loader!css-loader" },
             { test: /\.css$/, loader: "raw-loader" },

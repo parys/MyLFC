@@ -11,6 +11,7 @@
     <PackageTargetFallback>$(PackageTargetFallback);portable-net45+win8;netstandard1.6;dnxcore50</PackageTargetFallback>
     <RuntimeFrameworkVersion>1.1.1</RuntimeFrameworkVersion>
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+    <ServerGarbageCollection>true</ServerGarbageCollection>
   </PropertyGroup>
 
   <ItemGroup>
@@ -337,7 +338,6 @@
 
   <ItemGroup>
     <PackageReference Include="AspNet.Security.OAuth.Validation" Version="1.0.0" />
-    <PackageReference Include="bootstrap" Version="3.3.7" />
     <PackageReference Include="Microsoft.AspNetCore.Antiforgery" Version="1.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics" Version="1.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="1.1.2" />
@@ -361,12 +361,18 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="1.1.2" />
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="1.1.2" />
     <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="1.1.2" />
-    <PackageReference Include="OpenIddict.Mvc" Version="1.0.0-beta2-0636" />
+    <PackageReference Include="OpenIddict.Mvc" Version="1.0.0-beta2-0638" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="1.0.0" />
   </ItemGroup>
 
   <PropertyGroup Condition=" '$(TargetFramework)' == 'netcoreapp1.1' ">
     <LangVersion>6</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <Optimize>True</Optimize>
+    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
 
   <Target Name="PrepublishScript" BeforeTargets="PrepareForPublish">

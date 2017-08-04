@@ -36,7 +36,11 @@ namespace MyLiverpool.Data.Common
         Proven = 15,
         [Display(Name = "Ведущий конкурса прогнозов")]
         ForecastLeader = 16,
-        [Display(Name = "Знаток")]
-        HistoricExpert = 17
+        [Display(Name = "Лидер")]
+        Leader = 17,
+        [Display(Name = "Основа")]
+        Basic = 18,
+        [Display(Name = "Профи")]
+        Profi = 19
     }
 }

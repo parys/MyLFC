@@ -1,0 +1,69 @@
+﻿import angular from 'rollup-plugin-angular-aot';
+import typescript from 'rollup-plugin-typescript2';
+import nodeResolve from 'rollup-plugin-node-resolve';
+import commonjs from "rollup-plugin-commonjs";
+import uglify from "rollup-plugin-uglify";
+import sass from 'node-sass';
+import CleanCSS from 'clean-css';
+import { minify as minifyHtml } from 'html-minifier';
+//import sass from 'rollup-plugin-sass';
+
+const cssmin = new CleanCSS();
+const htmlminOpts = {
+    caseSensitive: true,
+    collapseWhitespace: true,
+    removeComments: true,
+};
+
+
+
+export default {
+    entry: "angular2app/main.aot.ts",
+  //  entry: "temp-js/dist/unbundled-aot/angular2app/main.aot.js",
+    dest: "wwwroot/src/build.js", // output a single application bundle
+    sourceMap: false,
+   // treeshake: true,
+    format: "iife",
+    onwarn: function(warning) {
+        // Skip certain warnings
+
+        // should intercept ... but doesn't in some rollup versions
+        if (warning.code === "THIS_IS_UNDEFINED") {
+            return;
+        }
+
+        // console.warn everything else
+        console.warn(warning.message);
+    },
+    plugins: [       
+     //   sass({output: true}),
+      /*  commonjs(
+            {
+                include: ["node_modules/rxjs/**",
+                    "node_modules/ng2-auto-complete/**",
+                    "node_modules/angular2-recaptcha/**"
+                ]
+            }),*/
+          angular({
+               preprocessors: {
+                   template: template => minifyHtml(template, htmlminOpts),
+                   style: scss => {
+                       const css = sass.renderSync({ data: scss }).css;
+                       return cssmin.minify(css).styles;
+                   }
+               }
+           }),
+           typescript({
+            //   check: false,
+           //    clean: true,
+               tsconfig: "tsconfig.aot.json",
+               verbosity: 3,
+          //     abortOnError: false,
+            //   rollupCommonJSResolveHack: true
+ 
+           }),
+        nodeResolve({ jsnext: true, module: true }),
+
+       // uglify()
+    ]
+};

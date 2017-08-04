@@ -1,6 +1,7 @@
 ﻿import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
 import { Subscription } from "rxjs/Subscription";
 import { Observable } from "rxjs/Observable";
+import "rxjs/add/observable/interval";
 import { UserService } from "./user.service";
 import { IUserOnline } from "./user-online.model";
 import { Configuration } from "../app.constants";

@@ -1,10 +1,16 @@
-﻿<div class="full-width injuries" *ngIf="items?.length > 0">
-    <div class="col-xs-12"><b>Травмированные:</b></div>
-    <div class="full-width" *ngFor="let injury of items">
-        <b class="col-xs-5" [textContent]="injury.personName"></b>
-        <span class="col-xs-1">до</span>
-        <span class="col-xs-5" [textContent]="injury.endTime | date"></span>
-        <span class="col-xs-12" [textContent]="injury.description"></span>
-        <hr class="full-width"/>
+﻿<div class="col-xs-12 injuries" *ngIf="items?.length > 0">
+    <h4><b>Травмированные:</b>
+        <a *ngIf="roles.isAdminAssistant" [routerLink]="['/injuries', 0, 'edit']"><span class="glyphicon glyphicon-plus color-red"></span></a></h4>
+    <div class="col-xs-12 container-row injury-item" *ngFor="let injury of items">
+        <div class="col-xs-12 container-row">
+            <img [src]="injury.personPhoto" [alt]="injury.personName"/>
+            <b [textContent]="injury.personName"></b>
+            <a *ngIf="roles.isAdminAssistant" [routerLink]="['/injuries', injury.id, 'edit']"><span class="glyphicon glyphicon-pencil color-red"></span></a>
+        </div>
+        <div class="col-xs-12">
+            <span [textContent]="injury.description"></span>
+            <span class="col-xs-1">До:</span>
+            <span class="col-xs-5" [textContent]="injury.endTime | date"></span>
+        </div>
     </div>
 </div>

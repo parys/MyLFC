@@ -42,8 +42,7 @@ export class WishEditComponent implements OnInit, OnDestroy {
             ],
             'message': [
                 "", Validators.compose([
-                    Validators.required,
-                    Validators.maxLength(300)
+                    Validators.required
                 ])
             ],
 

@@ -9,8 +9,7 @@ namespace MyLiverpool.Data.Entities
 
         [MaxLength(30)]
         public string Title { get; set; }
-
-        [MaxLength(300)]
+        
         public string Message { get; set; }
 
         public WishType Type { get; set; }

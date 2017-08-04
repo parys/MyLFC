@@ -14,7 +14,8 @@ namespace MyLiverpool.Common.Mappings
         private void Map()
         {
             CreateMap<Injury, InjuryDto>()
-                .ForMember(dest => dest.PersonName, src => src.MapFrom(x => x.Person.RussianName));
+                .ForMember(dest => dest.PersonName, src => src.MapFrom(x => x.Person.RussianName))
+                .ForMember(dest => dest.PersonPhoto, src => src.MapFrom(x => x.Person.Photo));
 
             CreateMap<InjuryDto, Injury>();
         }

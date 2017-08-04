@@ -1,11 +1,11 @@
-﻿@*<app asp-prerender-module="angular2app/js/main-server">Loading...</app>*@
-<app>Загружаемся...</app>
+﻿<app>Загружаемся...</app>
 @section scripts {
     <environment names="Development">
         <script src="~/src/vendor.js" asp-append-version="true"></script>
         <script src="~/src/main-client.js" asp-append-version="true"></script>
     </environment>
     <environment names="Staging,Production">
+        @*<link rel="stylesheet" href="~/src/vendor.css" asp-append-version="true" />*@
         <script src="~/src/build.js" asp-append-version="true"></script>
     </environment>
 }

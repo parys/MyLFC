@@ -224,14 +224,14 @@ namespace MyLiverpool.Web.WebApiNext
         /// <param name="antiforgery"></param>
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IAntiforgery antiforgery)
         {
-            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
             app.UseMiddleware<ExceptionHandlerMiddleware>();
             app.UseResponseCompression();
 
            // app.UseXsrf();
             if (env.IsDevelopment())
             {
+                loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+                loggerFactory.AddDebug();
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
                 app.UseBrowserLink();
