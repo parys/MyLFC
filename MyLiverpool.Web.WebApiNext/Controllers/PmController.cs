@@ -1,10 +1,10 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Common.Utilities.Extensions;
-using MyLiverpool.Web.WebApiNext.Extensions;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
@@ -15,14 +15,18 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     public class PmController : Controller
     {
         private readonly IPmService _pmService;
+        private readonly IMemoryCache _cache;
+        private const string UserPm = "userPm";
 
         /// <summary>
         /// Constructor.
         /// </summary>
         /// <param name="pmService"></param>
-        public PmController(IPmService pmService)
+        /// <param name="cache"></param>
+        public PmController(IPmService pmService, IMemoryCache cache)
         {
             _pmService = pmService;
+            _cache = cache;
         }
 
         /// <summary>
@@ -66,6 +70,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 return BadRequest();
             }
             var result = await _pmService.SaveAsync(model);
+            _cache.Remove(UserPm + model.ReceiverId);
             return Ok(result);
         }
 
@@ -76,7 +81,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Authorize, HttpGet("unreadCount")]
         public async Task<IActionResult> GetUnreadPmCount()
         {
-            var result = await _pmService.GetUnreadPmCountAsync(User.GetUserId());
+            var userId = User.GetUserId();
+            var result = await _cache.GetOrCreate(UserPm + userId, async x => await _pmService.GetUnreadPmCountAsync(userId));
             return Json(result);
         }
     }

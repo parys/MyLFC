@@ -3,6 +3,7 @@ using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Business.Dto.Filters;
@@ -20,17 +21,21 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     public class UserController : Controller
     {
         private readonly IUserService _userService;
-        private readonly IUploadService _uploadService; //todo should call remove and method move to user service
+        private readonly IUploadService _uploadService;
+        private readonly IMemoryCache _cache; //todo should call remove and method move to user service
+        private const string UserBirthdays = "UserBirthdays";
 
         /// <summary>
         /// Constructor.
         /// </summary>
         /// <param name="userService"></param>
         /// <param name="uploadService"></param>
-        public UserController(IUserService userService, IUploadService uploadService)
+        /// <param name="cache"></param>
+        public UserController(IUserService userService, IUploadService uploadService, IMemoryCache cache)
         {
             _userService = userService;
             _uploadService = uploadService;
+            _cache = cache;
         }
         
         /// <summary>
@@ -181,7 +186,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [AllowAnonymous, HttpGet("birthdays")]
         public async Task<IActionResult> GetBirthdaysAsync()
         {
-            var result = await _userService.GetBirthdaysAsync();
+            var result = await _cache.GetOrCreateAsync(UserBirthdays, async x => await _userService.GetBirthdaysAsync());
             return Json(result);
         }
 

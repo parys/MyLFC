@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -47,7 +48,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [AllowAnonymous, HttpGet("list/{filtersObj}")]
         public async Task<IActionResult> GetListItems([FromRoute] string filtersObj)
         {
-         //   _logger.LogInformation( "Listing all items1111111111111");
+            _logger.LogError(Process.GetCurrentProcess().Threads.Count.ToString());
             MaterialFiltersDto filters;
             if (filtersObj == null)
             {

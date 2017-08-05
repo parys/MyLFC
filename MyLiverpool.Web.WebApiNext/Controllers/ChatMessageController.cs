@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Common.Utilities.Extensions;
@@ -17,12 +18,15 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     public class ChatMessageController : Controller
     {
         private readonly IChatMessageService _chatMessageService;
+        private readonly IMemoryCache _cache;
+        private const string ChatName = "Chat";
         /// <summary>
         /// Controller.
         /// </summary>
-        public ChatMessageController(IChatMessageService chatMessageService)
+        public ChatMessageController(IChatMessageService chatMessageService, IMemoryCache cache)
         {
             _chatMessageService = chatMessageService;
+            _cache = cache;
         }
 
         /// <summary>
@@ -36,7 +40,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             dto.AuthorId = User.GetUserId();
             var result = await _chatMessageService.CreateAsync(dto);
             result.Ip = HttpContext.GetIp();
-            
+            _cache.Remove(ChatName);
             return Ok(result);
         }
 
@@ -49,6 +53,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         public async Task<IActionResult> DeleteAsync(int id)
         {
             var result = await _chatMessageService.DeleteAsync(id);
+            _cache.Remove(ChatName);
             return Ok(result);
         }     
         
@@ -59,7 +64,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [AllowAnonymous, HttpGet("list/{lastMessageId:int}/{typeId:int}")]
         public async Task<IActionResult> GetListAsync(int lastMessageId, int typeId)
         {
-            var result = await _chatMessageService.GetListAsync(lastMessageId, (ChatMessageTypeEnum)typeId);
+            var result = await _cache.GetOrCreateAsync(ChatName,
+                async x => await _chatMessageService.GetListAsync(lastMessageId, (ChatMessageTypeEnum) typeId));
             if (!User.IsInRole(nameof(RolesEnum.AdminStart)))
             {
                 foreach (var messageDto in result)

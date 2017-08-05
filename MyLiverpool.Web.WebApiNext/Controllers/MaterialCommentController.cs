@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -9,7 +8,6 @@ using MyLiverpool.Business.Dto;
 using MyLiverpool.Business.Dto.Filters;
 using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
-using MyLiverpool.Web.WebApiNext.Extensions;
 using Newtonsoft.Json;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers

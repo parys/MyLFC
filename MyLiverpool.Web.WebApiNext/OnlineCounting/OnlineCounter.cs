@@ -13,7 +13,8 @@ namespace MyLiverpool.Web.WebApiNext.OnlineCounting
         /// </summary>
         private static readonly ConcurrentDictionary<string, DateTimeOffset> CurrentOnlineGuests = new ConcurrentDictionary<string, DateTimeOffset>();
         private static readonly ConcurrentDictionary<int, OnlineCounterModel> CurrentOnline = new ConcurrentDictionary<int, OnlineCounterModel>();
-    
+
+        private const int CounterTime = 140;
         /// <summary>
         /// 
         /// </summary>
@@ -67,7 +68,7 @@ namespace MyLiverpool.Web.WebApiNext.OnlineCounting
             _isRemovingGuests = true;
             foreach (var keyValue in CurrentOnlineGuests)
             {
-                if (keyValue.Value.AddSeconds(40) < DateTimeOffset.Now)
+                if (keyValue.Value.AddSeconds(CounterTime) < DateTimeOffset.Now)
                 {
                     DateTimeOffset oldValue;
                     CurrentOnlineGuests.TryRemove(keyValue.Key, out oldValue);
@@ -81,7 +82,7 @@ namespace MyLiverpool.Web.WebApiNext.OnlineCounting
             _isRemoving = true;
             foreach (var keyValue in CurrentOnline)
             {
-                if (keyValue.Value.Date.AddSeconds(40) < DateTimeOffset.Now)
+                if (keyValue.Value.Date.AddSeconds(CounterTime) < DateTimeOffset.Now)
                 {
                     OnlineCounterModel oldValue;
                     CurrentOnline.TryRemove(keyValue.Key, out oldValue);

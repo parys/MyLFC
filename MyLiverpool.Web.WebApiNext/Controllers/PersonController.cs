@@ -21,6 +21,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         private readonly IUploadService _uploadService;
         private readonly IMemoryCache _cache;
         private const string BestPlayerMemKey = "bestPlayer";
+        private const string PersonBday = "PersonBday";
 
         /// <summary>
         /// Controller.
@@ -146,7 +147,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [AllowAnonymous, HttpGet("birthdays")]
         public async Task<IActionResult> GetBirthdaysAsync()
         {
-            var result = await _personService.GetBirthdaysAsync();
+            var result = await _cache.GetOrCreateAsync(PersonBday, async x => await _personService.GetBirthdaysAsync());
             return Json(result);
         }
 
