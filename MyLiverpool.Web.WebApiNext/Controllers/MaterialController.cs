@@ -116,6 +116,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         {
             var result = await _materialService.ActivateAsync(id, User);
             CleanCache();
+            _cache.Remove(Material + id);
             return Ok(result);
         }
 
@@ -187,6 +188,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         {
             await _materialService.AddViewAsync(id);
             CleanCache();
+            _cache.Remove(Material + id);
             return Json(true);
         }
 

@@ -70,10 +70,6 @@ namespace MyLiverpool.Business.Services
             if (filters.Page == GlobalConstants.FirstPage)
             {
                 topNews = await _materialRepository.GetTopMaterialsAsync(filter);
-
-                itemPerPage = GlobalConstants.NewsPerPage - topNews.Count > 0
-                    ? GlobalConstants.NewsPerPage - topNews.Count
-                    : 0;
             }
 
             var allNewsCount = await _materialRepository.GetCountAsync(filter);

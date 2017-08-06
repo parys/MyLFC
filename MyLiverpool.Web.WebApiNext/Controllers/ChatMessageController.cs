@@ -40,7 +40,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             dto.AuthorId = User.GetUserId();
             var result = await _chatMessageService.CreateAsync(dto);
             result.Ip = HttpContext.GetIp();
-            _cache.Remove(ChatName);
+       //     _cache.Remove(ChatName + (int)dto.Type);
             return Ok(result);
         }
 
@@ -53,7 +53,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         public async Task<IActionResult> DeleteAsync(int id)
         {
             var result = await _chatMessageService.DeleteAsync(id);
-            _cache.Remove(ChatName);
+          //  _cache.Remove(ChatName);
             return Ok(result);
         }     
         
@@ -64,8 +64,9 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [AllowAnonymous, HttpGet("list/{lastMessageId:int}/{typeId:int}")]
         public async Task<IActionResult> GetListAsync(int lastMessageId, int typeId)
         {
-            var result = await _cache.GetOrCreateAsync(ChatName,
-                async x => await _chatMessageService.GetListAsync(lastMessageId, (ChatMessageTypeEnum) typeId));
+            var result = //await _cache.GetOrCreateAsync(ChatName + lastMessageId + typeId,
+              //  async x => 
+                await _chatMessageService.GetListAsync(lastMessageId, (ChatMessageTypeEnum) typeId);//);
             if (!User.IsInRole(nameof(RolesEnum.AdminStart)))
             {
                 foreach (var messageDto in result)

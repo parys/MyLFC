@@ -61,7 +61,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [AllowAnonymous, HttpGet("list/last")]
         public async Task<IActionResult> GetLastList()
         {
-            var result = await _cache.GetOrCreateAsync("LastComments", async x => await _commentService.GetLastListAsync());
+            var result = await _cache.GetOrCreateAsync(LastComments, async x => await _commentService.GetLastListAsync());
             return Json(result);
         }
 

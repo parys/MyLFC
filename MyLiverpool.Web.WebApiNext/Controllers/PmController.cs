@@ -46,9 +46,11 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [Authorize, HttpGet("{id:int}")]
-        public async Task<IActionResult> Pm(int id)
+        public async Task<IActionResult> GetAsync(int id)
         {
-            var model = await _pmService.GetAsync(id, User.GetUserId());
+            var userId = User.GetUserId();
+            var model = await _pmService.GetAsync(id, userId);
+            _cache.Remove(UserPm + userId);
             return Ok(model);
         }
 
@@ -58,7 +60,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <param name="model">Private message model.</param>
         /// <returns>Is created successfully.</returns>
         [Authorize, HttpPost("")]
-        public async Task<IActionResult> WritePm([FromBody]PrivateMessageDto model)
+        public async Task<IActionResult> CreateAsync([FromBody]PrivateMessageDto model)
         {
             if (!ModelState.IsValid)
             {
