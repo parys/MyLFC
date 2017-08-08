@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
+
 namespace MyLiverpool.Web.WebApiNext.OnlineCounting
 {
     /// <summary>
@@ -15,6 +17,7 @@ namespace MyLiverpool.Web.WebApiNext.OnlineCounting
         private static readonly ConcurrentDictionary<int, OnlineCounterModel> CurrentOnline = new ConcurrentDictionary<int, OnlineCounterModel>();
 
         private const int CounterTime = 140;
+        private static DateTimeOffset _lastRemovingTime = DateTimeOffset.Now;
         /// <summary>
         /// 
         /// </summary>
@@ -53,25 +56,32 @@ namespace MyLiverpool.Web.WebApiNext.OnlineCounting
         private static bool _isRemoving;
         private static void RemoveOld()
         {
-            if (!_isRemoving)
+            if (_lastRemovingTime.AddSeconds(CounterTime) < DateTimeOffset.Now)
             {
-                RemoveOldUsersRecords();
-            }
-            if (!_isRemovingGuests)
-            {
-                RemoveOldGuestsRecords();
+                if (!_isRemoving)
+                {
+                    RemoveOldUsersRecords();
+                }
+                if (!_isRemovingGuests)
+                {
+                    RemoveOldGuestsRecords();
+                }
+                _lastRemovingTime = DateTimeOffset.Now;
             }
         }
         
         private static void RemoveOldGuestsRecords()
         {
             _isRemovingGuests = true;
-            foreach (var keyValue in CurrentOnlineGuests)
+            //foreach (var keyValue in CurrentOnlineGuests)
+                for (var i = 0; i < CurrentOnlineGuests.Count; i++)
             {
-                if (keyValue.Value.AddSeconds(CounterTime) < DateTimeOffset.Now)
+              //  if (keyValue.Value.AddSeconds(CounterTime) < DateTimeOffset.Now)
+                    if (CurrentOnlineGuests.Values.ElementAt(i).AddSeconds(CounterTime) < DateTimeOffset.Now)
                 {
                     DateTimeOffset oldValue;
-                    CurrentOnlineGuests.TryRemove(keyValue.Key, out oldValue);
+                    CurrentOnlineGuests.TryRemove(CurrentOnlineGuests.Keys.ElementAt(i), out oldValue);
+                    //CurrentOnlineGuests.TryRemove(keyValue.Key, out oldValue);
                 }
             }
             _isRemovingGuests = false;
@@ -80,12 +90,15 @@ namespace MyLiverpool.Web.WebApiNext.OnlineCounting
         private static void RemoveOldUsersRecords()
         {
             _isRemoving = true;
-            foreach (var keyValue in CurrentOnline)
+            for (var i = 0; i < CurrentOnline.Count; i++)
+             //   foreach (var keyValue in CurrentOnline)
             {
-                if (keyValue.Value.Date.AddSeconds(CounterTime) < DateTimeOffset.Now)
+          //      if (keyValue.Value.Date.AddSeconds(CounterTime) < DateTimeOffset.Now)
+                if (CurrentOnline.Values.ElementAt(i).Date.AddSeconds(CounterTime) < DateTimeOffset.Now)
                 {
                     OnlineCounterModel oldValue;
-                    CurrentOnline.TryRemove(keyValue.Key, out oldValue);
+               //     CurrentOnline.TryRemove(keyValue.Key, out oldValue);
+                    CurrentOnline.TryRemove(CurrentOnline.Keys.ElementAt(i), out oldValue);
                 }
             }
             _isRemoving = false;
