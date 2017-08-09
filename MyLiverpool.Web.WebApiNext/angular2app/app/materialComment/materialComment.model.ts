@@ -1,6 +1,7 @@
 ﻿export class MaterialComment {
     public id: number;
     public additionTime: Date;
+    public lastModified: Date;
     public authorUserName: string;
     public authorId: number;
     public photo: string;

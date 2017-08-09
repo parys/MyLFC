@@ -61,8 +61,7 @@ namespace MyLiverpool.Business.Services
         {
             var comment = _mapper.Map<MaterialComment>(model);
             comment.MaterialType = (await _materialService.GetDtoAsync(model.MaterialId, true)).Type;
-            comment.AdditionTime = DateTime.Now;
-            comment.LastModified = DateTime.Now;
+            comment.AdditionTime = comment.LastModified = DateTime.Now;
             try
             {
                 comment = await _commentService.AddAsync(comment);

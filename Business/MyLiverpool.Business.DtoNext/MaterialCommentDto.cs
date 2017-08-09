@@ -16,6 +16,7 @@ namespace MyLiverpool.Business.Dto
         public int Number { get; set; }
 
         public DateTimeOffset AdditionTime { get; set; }
+        public DateTimeOffset LastModified { get; set; }
 
         public string AuthorUserName { get; set; }
 

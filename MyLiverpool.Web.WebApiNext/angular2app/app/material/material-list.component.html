@@ -27,7 +27,9 @@
                 <div class="col-xs-12 col-sm-12 material-info-panel">
                     <ul class="list-inline small small-offset">
                         <li class="">Категория:</li>
-                        <li class=""><a [routerLink]="[+item.type === 1 ? '/news' : '/blogs']" [queryParams]="{page: page, categoryId: item.categoryId, userName: userName, userId: userId}" [textContent]="item.categoryName"></a></li>
+                        <li class=""><a [routerLink]="[+item.type === 1 ? '/news' : '/blogs']" [queryParams]="{page: page, categoryId: item.categoryId, userName: userName
+                                        }" [textContent]="item.categoryName"></a></li>
+                        <!--todo!!, userId: userId-->
                         <li class="">|</li>
                         <li class="">Время добавления:</li>
                         <li class="" [textContent]="item.additionTime | date:'medium'"></li>
