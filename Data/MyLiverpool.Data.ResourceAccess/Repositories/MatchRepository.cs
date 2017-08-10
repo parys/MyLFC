@@ -55,7 +55,12 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
         
         public async Task<int> GetCountAsync(Expression<Func<Match, bool>> filter = null)
         {
-            return await _context.Matches.CountAsync();
+            IQueryable<Match> query = _context.Matches;
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+            return await query.CountAsync();
         }
 
         public Task<IEnumerable<Match>> GetListAsync()

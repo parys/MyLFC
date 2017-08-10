@@ -1,10 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 using MyLiverpool.Data.Common;
 
 namespace MyLiverpool.Data.Entities
 {
     public class Match : IEntity
     {
+        public Match()
+        {
+            Events = new HashSet<MatchEvent>();
+        }
+
         public int Id { get; set; }
 
         public bool IsHome { get; set; }
@@ -32,5 +38,7 @@ namespace MyLiverpool.Data.Entities
         public int StadiumId { get; set; }
 
         public virtual Stadium Stadium { get; set; }
+
+        public virtual ICollection<MatchEvent> Events { get; set; }
     }
 }

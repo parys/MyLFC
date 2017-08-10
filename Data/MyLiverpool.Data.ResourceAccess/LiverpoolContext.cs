@@ -1,9 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using MyLiverpool.Data.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -48,6 +43,7 @@ namespace MyLiverpool.Data.ResourceAccess
         public DbSet<CommentVote> CommentVotes { get; set; }
         public DbSet<Injury> Injuries { get; set; }
         public DbSet<Loan> Loans { get; set; }
+        public DbSet<MatchEvent> MatchEvents { get; set; }
 
         //public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         //{
@@ -123,6 +119,10 @@ namespace MyLiverpool.Data.ResourceAccess
             modelBuilder.Entity<Loan>().HasOne(x => x.Person).WithMany(x => x.Loans).HasForeignKey(x => x.PersonId);
             modelBuilder.Entity<Loan>().HasOne(x => x.Club).WithMany(x => x.Loans).HasForeignKey(x => x.ClubId);
             modelBuilder.Entity<Injury>().HasOne(x => x.Person).WithMany(x => x.Injuries).HasForeignKey(x => x.PersonId);
+
+            modelBuilder.Entity<MatchEvent>().HasOne(x => x.Season).WithMany(x => x.Events).HasForeignKey(x => x.SeasonId);
+            modelBuilder.Entity<MatchEvent>().HasOne(x => x.Person).WithMany(x => x.Events).HasForeignKey(x => x.PersonId).IsRequired(false);
+            modelBuilder.Entity<MatchEvent>().HasOne(x => x.Match).WithMany(x => x.Events).HasForeignKey(x => x.MatchId);
 
             foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
             {

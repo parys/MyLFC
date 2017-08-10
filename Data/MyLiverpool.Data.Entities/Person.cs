@@ -10,6 +10,8 @@ namespace MyLiverpool.Data.Entities
         public Person()
         {
             Transfers = new HashSet<Transfer>();
+            Events = new HashSet<MatchEvent>();
+            Injuries = new HashSet<Injury>();
         }
 
         public int Id { get; set; }
@@ -39,6 +41,8 @@ namespace MyLiverpool.Data.Entities
         public virtual ICollection<Injury> Injuries { get; set; }
 
         public virtual ICollection<Loan> Loans { get; set; }
+
+        public virtual ICollection<MatchEvent> Events { get; set; }
 
         [NotMapped]
         public string Name => $"{FirstName} {LastName}";

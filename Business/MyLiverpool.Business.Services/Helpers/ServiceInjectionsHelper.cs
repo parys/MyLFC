@@ -22,6 +22,7 @@ namespace MyLiverpool.Business.Services.Helpers
             services.AddTransient<IInjuryService, InjuryService>();
             services.AddTransient<ILoanService, LoanService>();
             services.AddTransient<IMatchService, MatchService>();
+            services.AddTransient<IMatchEventService, MatchEventService>();
             services.AddTransient<IMaterialCategoryService, MaterialCategoryService>();
             services.AddTransient<IMaterialCommentService, MaterialCommentService>();
             services.AddTransient<IMaterialService, MaterialService>();

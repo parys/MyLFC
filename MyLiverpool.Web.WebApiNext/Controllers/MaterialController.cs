@@ -58,9 +58,9 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             {
                 filters = (MaterialFiltersDto) JsonConvert.DeserializeObject(filtersObj, typeof(MaterialFiltersDto));
             }
-            filters.IsInNewsmakerRole = User.IsInRole(nameof(RolesEnum.NewsStart));
+            filters.IsInNewsmakerRole = User.IsInRole(nameof(RolesEnum.NewsStart)) || User.IsInRole(nameof(RolesEnum.BlogStart));
             PageableData<MaterialMiniDto> result;
-            if (filters.Page == 1 && !filters.IsInNewsmakerRole)
+            if (filters.Page == 1 && !filters.IsInNewsmakerRole && filters.MaterialType == MaterialType.Both)
             {
                 result = await _cache.GetOrCreateAsync(MaterialList, async x =>
                     await _materialService.GetDtoAllAsync(filters));

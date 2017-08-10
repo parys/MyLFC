@@ -15,6 +15,7 @@ namespace MyLiverpool.Common.Mappings
             cfg.AddProfile(new InjuryMapperProfile());
             cfg.AddProfile(new LoanMapperProfile());
             cfg.AddProfile(new MatchMapperProfile());
+            cfg.AddProfile(new MatchEventMapperProfile());
             cfg.AddProfile(new MaterialMapperProfile());
             cfg.AddProfile(new MaterialCategoryMapperProfile());
             cfg.AddProfile(new MaterialCommentMapperProfile());

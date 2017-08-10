@@ -8,6 +8,8 @@ import { GlobalValidators } from "./globalValidators";
 import { ReCaptchaModule } from "angular2-recaptcha";
 import { DeleteDialogComponent } from "./delete-dialog.component";
 import { MdButtonModule } from "@angular/material";
+import { LoaderComponent } from "./loader.component";
+import { LoaderService } from "./loader.service";
 
 @NgModule({
     imports: [
@@ -16,7 +18,8 @@ MdButtonModule
     ],
     declarations: [
         DeleteDialogComponent,
-        RecaptchaComponent
+        RecaptchaComponent,
+        LoaderComponent
     ],
     exports: [
         DeleteDialogComponent,
@@ -27,6 +30,7 @@ MdButtonModule
         HttpWrapper,
         LocalStorageService,
         RolesCheckedService,
+        LoaderService,
         //{ provide: LocalStorage, useFactory: () => (window) ? window.localStorage : {} }
         //LocalStorage
     ],

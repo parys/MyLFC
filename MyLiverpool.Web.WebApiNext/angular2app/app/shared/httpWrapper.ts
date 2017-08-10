@@ -1,18 +1,28 @@
 ﻿import { Injectable } from "@angular/core";
-import { Http, Headers, Response } from "@angular/http";
+import { Http, Headers, Response,
+    RequestOptions,
+    RequestOptionsArgs,
+    Request,
+    XHRBackend } from "@angular/http";
 import { Observable } from "rxjs/Observable";
 import { LocalStorageService } from "./localStorage.service";
 import { Configuration } from "../app.constants";
 import { Router } from "@angular/router";
 import { IAuthTokenModel } from "../auth/models/auth-tokens-model";
+import { LoaderService } from "./loader.service";
 
 @Injectable()
-export class HttpWrapper {
+export class HttpWrapper {//}extends Http {
     constructor(private http: Http
         , private localStorage: LocalStorageService
         , private configuration: Configuration,
-        private router: Router
-    ) { }
+        private router: Router,
+        private loaderService: LoaderService//,
+   //     defaultOptions: RequestOptions,
+ //   backend: XHRBackend
+    ) {
+       // super(backend, defaultOptions);
+ }
 
     public get(url: string): Observable<Response> {
         return this.http.get(this.configuration.serverWithApiUrl + url, {
