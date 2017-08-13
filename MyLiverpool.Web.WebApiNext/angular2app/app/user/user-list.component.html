@@ -16,13 +16,13 @@
                 <td class="" [textContent]="user.lastModified | date:'medium'"></td>
                 <td class="">
                     <a [routerLink]="[user.id]">
-                        <div class="col-md-3">
+                        <div class="col-sm-3">
                             <img class="mini-avatar" [src]="user.photo" [alt]="user.userName"/>
                         </div>
-                        <span [textContent]="user.userName"></span>
+                        <span class="col-sm-7" [textContent]="user.userName"></span>
                     </a>
                     <span class="text-danger" tooltip="Почта не подтверждена" *ngIf="!user.emailConfirmed && (roles.isAdminAssist || roles.isSelf(user.id))"> *</span>
-                    <a role="button" *ngIf="roles.isLogined && !roles.isSelf(user.id)" (click)="writePm(i)"><span class="glyphicon glyphicon-envelope"></span></a>
+                    <a class="col-sm-2" role="button" *ngIf="roles.isLogined && !roles.isSelf(user.id)" (click)="writePm(i)"><span class="glyphicon glyphicon-envelope"></span></a>
                 </td>
                 <td class="" [textContent]="user.registrationDate | date:'medium'"></td>
                 <td class="" [textContent]="user.roleGroupName"></td>

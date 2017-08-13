@@ -95,7 +95,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
 
         public async Task<Match> GetNextMatchAsync()
         {
-            return await _context.Matches.Include(m => m.Club)
+            return await _context.Matches.Include(m => m.Club).Include(m => m.Stadium)
                 .OrderBy(m => m.DateTime)
                 .FirstOrDefaultAsync(m => string.IsNullOrWhiteSpace(m.Score));
         }

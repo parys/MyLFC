@@ -204,6 +204,10 @@ textarea {
     color: gold !important;
 }
 
+.color-tomato {
+    color: #FF6347;
+}
+
 .color-back-gold {
     background-color: gold;
 }

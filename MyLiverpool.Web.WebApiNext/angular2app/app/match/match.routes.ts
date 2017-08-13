@@ -1,5 +1,6 @@
 ﻿import { Routes } from "@angular/router";
 import { MatchListComponent, MatchEditComponent } from "./index";
+import { MatchDetailComponent } from "./match-detail.component";
 import { RoleGuard } from "../auth/index";
 
 export const matchRoutes: Routes = [
@@ -10,18 +11,30 @@ export const matchRoutes: Routes = [
                 path: "",
                 component: MatchListComponent,
                 data: {
-                     title: "Матчи", 
-                     roles: ["infoStart"]
+                    title: "Матчи",
+                    roles: ["infoStart"]
                 },
                 canActivate: [RoleGuard]
             }, {
-                path: ":id/edit",
-                component: MatchEditComponent,
-                data: {
-                     title: "Создание матча",
-                     roles: ["infoStart"]
-                },
-                canActivate: [RoleGuard]
+                path: ":id",
+                children: [
+                    {
+                        path: "",
+                        component: MatchDetailComponent,
+                        data: {
+                            title: "Матч"
+                        }
+                    },
+                    {
+                        path: "edit",
+                        component: MatchEditComponent,
+                        data: {
+                            title: "Редактирование",
+                            roles: ["infoStart"]
+                        },
+                        canActivate: [RoleGuard]
+                    }
+                ]
             }
         ]
     }

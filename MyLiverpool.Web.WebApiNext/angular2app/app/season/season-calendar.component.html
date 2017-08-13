@@ -12,8 +12,6 @@
             </td>
             <td>
                 <img class="club-logo" [src]="match.homeClubLogo" [alt]="match.homeClubName">
-            </td>
-            <td>
                 <span [textContent]="match.homeClubName"></span>
             </td>
             <td>
@@ -21,12 +19,15 @@
             </td>
             <td>
                 <img class="club-logo" [src]="match.awayClubLogo" [alt]="match.awayClubName">
-            </td>
-            <td>
                 <span [textContent]="match.awayClubName"></span>
             </td>
             <td>
-                <span [textContent]="match.stadium"></span>
+                <span [textContent]="match.stadiumName"></span>
+            </td>
+            <td>
+                <a *ngIf="match.reportUrl" [routerLink]="['/news', match.reportUrl]">Отчет</a>
+                <a *ngIf="match.photoUrl" [routerLink]="['/news', match.photoUrl]">Фото</a>
+                <a *ngIf="match.videoUrl" [href]="match.videoUrl" target="_blank">Видео</a>
             </td>
         </tr>
         </tbody>

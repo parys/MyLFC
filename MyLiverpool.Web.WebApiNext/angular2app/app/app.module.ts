@@ -89,6 +89,7 @@ import "rxjs/add/operator/mergeMap";
         match.MatchEditComponent,
         match.MatchListComponent,
         match.MatchCalendarComponent,
+        match.MatchDetailComponent,
         materialCategory.MaterialCategoryEditComponent,
         materialCategory.MaterialCategoryListComponent,
         materialComment.MaterialCommentDetailComponent,
