@@ -10,4 +10,5 @@
     AboutClub = 9,
     Instructions = 10,
     Plans = 11,
+    Fantasy = 12,
 }

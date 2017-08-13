@@ -33,8 +33,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="wwwroot\content\persons\AdamLallana1.jpeg" />
-    <Content Include="wwwroot\content\persons\StevenGerrard2.jpg" />
     <Content Include="wwwroot\fonts\10427.ttf" />
     <Content Include="wwwroot\fonts\Alice-Regular.ttf" />
     <Content Include="wwwroot\src\langs\ru.js" />

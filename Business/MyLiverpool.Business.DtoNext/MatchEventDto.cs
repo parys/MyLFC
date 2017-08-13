@@ -27,5 +27,8 @@ namespace MyLiverpool.Business.Dto
 
         [Required]
         public string Minute { get; set; }
+
+        [Required]
+        public bool Home { get; set; }
     }
 }

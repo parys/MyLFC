@@ -28,7 +28,7 @@ namespace MyLiverpool.Business.Services
         private readonly IEmailSender _messageService;
         private readonly IHttpContextAccessor _accessor;
 
-        private const int ItemPerPage = GlobalConstants.CommentsPerPageList;
+        private const int ItemPerPage = GlobalConstants.CommentsPerPageList * 10 /*todo should be fixed*/;
 
         public MaterialCommentService(IMapper mapper, IMaterialCommentRepository commentService,
             IUserService userService, IPmService pmService, IHttpContextAccessor accessor, IEmailSender messageService, IMaterialService materialService)
