@@ -12,9 +12,11 @@
         <div *ngFor="let person of item?.goalkeepers">
             <md-card class="stuff-card">
                 <md-card-header>
-                    <md-card-title role="button" *ngIf="roles.isInformer" [routerLink]="['/persons', person.id, 'edit']" [textContent]="person.russianName"></md-card-title>
-                    <md-card-title *ngIf="!roles.isInformer" [textContent]="person.russianName"></md-card-title>
-                    <md-card-subtitle *ngIf="person.number">Номер: <span [textContent]="person.number"></span></md-card-subtitle>
+                    <md-card-title>
+                        <b *ngIf="person.number">#<span [textContent]="person.number"></span></b>
+                        <span role="button" *ngIf="roles.isInformer" [routerLink]="['/persons', person.id, 'edit']" [textContent]="person.russianName"></span>
+                        <span *ngIf="!roles.isInformer" [textContent]="person.russianName"></span>
+                    </md-card-title>
                 </md-card-header>
                 <img md-card-image [src]="person.photo" [alt]="person.russianName">
                 <md-card-content>
@@ -31,9 +33,11 @@
         <div *ngFor="let person of item?.defenders">
             <md-card class="stuff-card">
                 <md-card-header>
-                    <md-card-title role="button" *ngIf="roles.isInformer" [routerLink]="['/persons', person.id, 'edit']" [textContent]="person.russianName"></md-card-title>
-                    <md-card-title *ngIf="!roles.isInformer" [textContent]="person.russianName"></md-card-title>
-                    <md-card-subtitle *ngIf="person.number">Номер: <span [textContent]="person.number"></span></md-card-subtitle>
+                    <md-card-title>
+                        <b *ngIf="person.number">#<span [textContent]="person.number"></span></b>
+                        <span role="button" *ngIf="roles.isInformer" [routerLink]="['/persons', person.id, 'edit']" [textContent]="person.russianName"></span>
+                        <span *ngIf="!roles.isInformer" [textContent]="person.russianName"></span>
+                    </md-card-title>
                 </md-card-header>
                 <img md-card-image [src]="person.photo" [alt]="person.russianName">
                 <md-card-content>
@@ -50,9 +54,11 @@
         <div *ngFor="let person of item?.midfielders">
             <md-card class="stuff-card">
                 <md-card-header>
-                    <md-card-title role="button" *ngIf="roles.isInformer" [routerLink]="['/persons', person.id, 'edit']" [textContent]="person.russianName"></md-card-title>
-                    <md-card-title *ngIf="!roles.isInformer" [textContent]="person.russianName"></md-card-title>
-                    <md-card-subtitle *ngIf="person.number">Номер: <span [textContent]="person.number"></span></md-card-subtitle>
+                    <md-card-title>
+                        <b *ngIf="person.number">#<span [textContent]="person.number"></span></b>
+                        <span role="button" *ngIf="roles.isInformer" [routerLink]="['/persons', person.id, 'edit']" [textContent]="person.russianName"></span>
+                        <span *ngIf="!roles.isInformer" [textContent]="person.russianName"></span>
+                    </md-card-title>
                 </md-card-header>
                 <img md-card-image [src]="person.photo" [alt]="person.russianName">
                 <md-card-content>
@@ -69,9 +75,11 @@
         <div *ngFor="let person of item?.strikers">
             <md-card class="stuff-card">
                 <md-card-header>
-                    <md-card-title role="button" *ngIf="roles.isInformer" [routerLink]="['/persons', person.id, 'edit']" [textContent]="person.russianName"></md-card-title>
-                    <md-card-title *ngIf="!roles.isInformer" [textContent]="person.russianName"></md-card-title>
-                    <md-card-subtitle *ngIf="person.number">Номер: <span [textContent]="person.number"></span></md-card-subtitle>
+                    <md-card-title>
+                        <b *ngIf="person.number">#<span [textContent]="person.number"></span></b>
+                        <span role="button" *ngIf="roles.isInformer" [routerLink]="['/persons', person.id, 'edit']" [textContent]="person.russianName"></span>
+                        <span *ngIf="!roles.isInformer" [textContent]="person.russianName"></span>
+                    </md-card-title>
                 </md-card-header>
                 <img md-card-image [src]="person.photo" [alt]="person.russianName">
                 <md-card-content>

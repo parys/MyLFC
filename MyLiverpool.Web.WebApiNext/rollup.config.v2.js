@@ -37,13 +37,13 @@ export default {
     },
     plugins: [       
      //   sass({output: true}),
-      /*  commonjs(
+        commonjs(
             {
                 include: ["node_modules/rxjs/**",
                     "node_modules/ng2-auto-complete/**",
                     "node_modules/angular2-recaptcha/**"
                 ]
-            }),*/
+            }),
           angular({
                preprocessors: {
                    template: template => minifyHtml(template, htmlminOpts),

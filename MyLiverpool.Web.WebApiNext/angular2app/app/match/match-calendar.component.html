@@ -8,14 +8,14 @@
             <img [src]="next.homeClubLogo" class="center" alt="next.homeClub" title="next.homeClubName">
             <strong style="font-size: 1.2em;" class="" [textContent]="next.homeClubName"></strong>
         </div>
-        <div class="col-xs-4 col-sm-12 col-md-2 flex-vertical-center padding0 text-center">
-            <strong class="score center" [textContent]="next.stadiumName"></strong>
+        <div class="col-xs-4 col-sm-12 col-md-2 padding0 text-center">
+            <strong class="stadium center color-gold" [textContent]="next.stadiumName"></strong>
         </div>
         <div class="col-xs-4 col-sm-12 col-md-5 text-center">
             <img [src]="next.awayClubLogo" class="center" alt="next.awayClubName" title="next.awayClubName">
             <strong style="font-size: 1.2em;" class="text-center" [textContent]="next.awayClubName"></strong>
         </div>
-        <div class="col-xs-12 text-center"><a class="color-tomato" [routerLink]="['/seasons/calendar']">Календарь</a></div>
+        <div class="col-xs-12 text-center"><a class="text-white" [routerLink]="['/seasons/calendar']">Календарь</a></div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 bg-light-blue flex padding0 border-panel border-lgray match-calendar" *ngIf="last">
         <div class="col-xs-5">Последняя игра 

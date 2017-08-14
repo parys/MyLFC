@@ -50,7 +50,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         {
             var userId = User.GetUserId();
             var model = await _pmService.GetAsync(id, userId);
-            _cache.Remove(UserPm + userId);
+      //      _cache.Remove(UserPm + userId);
             return Ok(model);
         }
 
@@ -72,7 +72,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 return BadRequest();
             }
             var result = await _pmService.SaveAsync(model);
-            _cache.Remove(UserPm + model.ReceiverId);
+         //   _cache.Remove(UserPm + model.ReceiverId);
             return Ok(result);
         }
 
@@ -84,7 +84,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         public async Task<IActionResult> GetUnreadPmCount()
         {
             var userId = User.GetUserId();
-            var result = await _cache.GetOrCreate(UserPm + userId, async x => await _pmService.GetUnreadPmCountAsync(userId));
+            var result = //await _cache.GetOrCreate(UserPm + userId, async x =>
+            await _pmService.GetUnreadPmCountAsync(userId);//);
             return Json(result);
         }
     }
