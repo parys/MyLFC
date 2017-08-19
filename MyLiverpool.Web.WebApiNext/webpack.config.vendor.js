@@ -12,7 +12,7 @@ var SharedConfig = {
         extensions: [".js"]
     },
     module: {
-        loaders: [
+        rules: [
             {
                 test: /\.(png|woff|woff2|eot|ttf|svg)(\?|$)/,
                 loader: "url-loader?limit=100000"
@@ -53,7 +53,8 @@ var SharedConfig = {
     plugins: [
       //  new Webpack.ProvidePlugin({ $: "jquery", jQuery: "jquery" }), // Maps these identifiers to the jQuery package (because Bootstrap expects it to be a global variable)
         new Webpack.ContextReplacementPlugin(/\@angular\b.*\b(bundles|linker)/, Path.join(__dirname, "./angular2app")), // Workaround for https://github.com/angular/angular/issues/11580
-     //   new Webpack.IgnorePlugin(/^vertx$/), // Workaround for https://github.com/stefanpenner/es6-promise/issues/100
+        new Webpack.ContextReplacementPlugin(/angular(\\|\/)core(\\|\/)@angular/, Path.join(__dirname, "./angular2app")), // Workaround for https://github.com/angular/angular/issues/14898
+        new Webpack.IgnorePlugin(/^vertx$/), // Workaround for https://github.com/stefanpenner/es6-promise/issues/100
      //   new Webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, require.resolve("node-noop")) // Workaround for https://github.com/andris9/encoding/issues/16
     ]
 };
@@ -73,7 +74,7 @@ var ClientBundleConfig = Merge(SharedConfig,
                 name: "[name]_[hash]"
             }),
            new CopyWebpackPlugin([
-                { from: "node_modules/tinymce/skins/", to: "../src/" },
+             //   { from: "node_modules/tinymce/skins/", to: "../src/" },
               //  { from: "node_modules/tinymce/plugins/", to: "../src/plugins/" },
             //    { from: "node_modules/tinymce/themes/", to: "../src/themes/" }
             ])

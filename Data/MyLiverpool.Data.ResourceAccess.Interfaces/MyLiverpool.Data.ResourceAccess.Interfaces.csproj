@@ -1,23 +1,21 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard1.6</TargetFramework>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
     <AssemblyName>MyLiverpool.Data.ResourceAccess.Interfaces</AssemblyName>
     <PackageId>MyLiverpool.Data.ResourceAccess.Interfaces</PackageId>
-    <NetStandardImplicitPackageVersion>1.6.1</NetStandardImplicitPackageVersion>
-    <PackageTargetFallback>$(PackageTargetFallback);dnxcore50</PackageTargetFallback>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Business\MyLiverpool.Business.DtoNext\MyLiverpool.Business.Dto.csproj" />
-    <ProjectReference Include="..\MyLiverpool.Data.Entities\MyLiverpool.Data.Entities.csproj" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.4.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Data.SqlClient" Version="4.4.0" />
+    <ProjectReference Include="..\..\Business\MyLiverpool.Business.DtoNext\MyLiverpool.Business.Dto.csproj" />
+    <ProjectReference Include="..\MyLiverpool.Data.Entities\MyLiverpool.Data.Entities.csproj" />
   </ItemGroup>
 
 </Project>

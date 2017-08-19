@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using MyLiverpool.Data.Entities;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace MyLiverpool.Data.ResourceAccess
@@ -128,6 +127,31 @@ namespace MyLiverpool.Data.ResourceAccess
             {
                 relationship.DeleteBehavior = DeleteBehavior.Restrict;
             }
+            modelBuilder.Entity<Material>().ToTable("Materials");
+            modelBuilder.Entity<MaterialCategory>().ToTable("MaterialCategories");
+            modelBuilder.Entity<MaterialComment>().ToTable("MaterialComments");
+            modelBuilder.Entity<Wish>().ToTable("Wishes");
+            modelBuilder.Entity<ForumSection>().ToTable("ForumSections");
+            modelBuilder.Entity<ForumSubsection>().ToTable("ForumSubsections");
+            modelBuilder.Entity<ForumTheme>().ToTable("ForumThemes");
+            modelBuilder.Entity<ForumMessage>().ToTable("ForumMessages");
+            modelBuilder.Entity<RoleGroup>().ToTable("RoleGroups");
+            modelBuilder.Entity<RoleRoleGroup>().ToTable("RoleRoleGroups");
+            modelBuilder.Entity<PrivateMessage>().ToTable("PrivateMessages");
+            modelBuilder.Entity<Club>().ToTable("Clubs");
+            modelBuilder.Entity<ChatMessage>().ToTable("ChatMessages");
+            modelBuilder.Entity<Match>().ToTable("Matches");
+            modelBuilder.Entity<HelpEntity>().ToTable("HelpEntities");
+            modelBuilder.Entity<Person>().ToTable("Persons");
+            modelBuilder.Entity<Season>().ToTable("Seasons");
+            modelBuilder.Entity<Stadium>().ToTable("Stadiums");
+            modelBuilder.Entity<UserConfig>().ToTable("UserConfigs");
+            modelBuilder.Entity<Transfer>().ToTable("Transfers");
+            modelBuilder.Entity<CommentVote>().ToTable("CommentVotes");
+            modelBuilder.Entity<Injury>().ToTable("Injuries");
+            modelBuilder.Entity<Loan>().ToTable("Loans");
+            modelBuilder.Entity<MatchEvent>().ToTable("MatchEvents");
+
             base.OnModelCreating(modelBuilder);
         }
         

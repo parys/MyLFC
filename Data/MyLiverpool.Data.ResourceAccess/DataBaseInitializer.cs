@@ -4,8 +4,6 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -180,7 +178,7 @@ namespace MyLiverpool.Data.ResourceAccess
         {
             if (_context.Roles.Any()) return;
             var roleStore = new RoleStore<Role, LiverpoolContext, int>(_context);
-            var roleManager = new RoleManager<Role>(roleStore, null, null, null, null, new HttpContextAccessor());
+            var roleManager = new RoleManager<Role>(roleStore, null, null, null, null);
 
             var roles = new List<Role>()
             {

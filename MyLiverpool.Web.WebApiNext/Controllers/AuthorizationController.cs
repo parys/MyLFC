@@ -5,7 +5,6 @@ using AspNet.Security.OpenIdConnect.Server;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MyLiverpool.Data.Entities;
@@ -97,7 +96,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             else if ( request.IsRefreshTokenGrantType()) //request.IsAuthorizationCodeGrantType() ||
             {
                 // Retrieve the claims principal stored in the authorization code/refresh token.
-                var info = await HttpContext.Authentication.GetAuthenticateInfoAsync(
+                var info = await HttpContext.AuthenticateAsync(
                     OpenIdConnectServerDefaults.AuthenticationScheme);      
                 
                 // Retrieve the user profile corresponding to the authorization code/refresh token.
@@ -185,8 +184,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return SignOut(OpenIdConnectServerDefaults.AuthenticationScheme);
         }
 
-        private async Task<AuthenticationTicket> CreateTicketAsync(OpenIdConnectRequest request, User user,
-            AuthenticationProperties properties = null)
+        private async Task<AuthenticationTicket> CreateTicketAsync(OpenIdConnectRequest request, User user, AuthenticationProperties properties = null)
         {
             // Create a new ClaimsPrincipal containing the claims that
             // will be used to create an id_token, a token or a code.

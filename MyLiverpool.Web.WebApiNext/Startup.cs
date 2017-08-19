@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Compression;
 using AspNet.Security.OpenIdConnect.Primitives;
 using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Builder;
@@ -8,6 +9,7 @@ using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.EntityFrameworkCore;
@@ -86,7 +88,7 @@ namespace MyLiverpool.Web.WebApiNext
                 options.SignIn.RequireConfirmedPhoneNumber = false;
                 options.Lockout.AllowedForNewUsers = true;
             })
-                .AddEntityFrameworkStores<LiverpoolContext, int>()
+                .AddEntityFrameworkStores<LiverpoolContext>()
                 .AddDefaultTokenProviders();
 
             services.Configure<IdentityOptions>(options =>
@@ -96,6 +98,7 @@ namespace MyLiverpool.Web.WebApiNext
                 options.ClaimsIdentity.RoleClaimType = OpenIdConnectConstants.Claims.Role;
             });
 
+            services.AddAuthentication().AddOAuthValidation();
             services.AddMvc().AddJsonOptions(options =>
             {
                 options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
@@ -103,7 +106,7 @@ namespace MyLiverpool.Web.WebApiNext
 
             services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
 
-            services.Configure<GzipCompressionProviderOptions>(options => options.Level = System.IO.Compression.CompressionLevel.Fastest);
+            services.Configure<GzipCompressionProviderOptions>(options => options.Level = CompressionLevel.Optimal);
             services.AddResponseCompression(options =>{});
             
             RegisterCoreHelpers(services);
@@ -263,15 +266,15 @@ namespace MyLiverpool.Web.WebApiNext
                 }
             });
 
-            app.UseIdentity();
+            app.UseAuthentication();//UseIdentity();
 
-            app.UseOAuthValidation(opt => //todo does it need?
-            { 
-                opt.AutomaticAuthenticate = true;
-                opt.AutomaticChallenge = true;
-            });
+        //    app.UseOAuthValidation(opt => //todo does it need?
+       //     { 
+               // opt.AutomaticAuthenticate = true;
+              //  opt.AutomaticChallenge = true;
+      //      });
             
-            app.UseOpenIddict();
+  //          app.UseOpenIddict();
 
             app.UseMvc(routes =>
             {

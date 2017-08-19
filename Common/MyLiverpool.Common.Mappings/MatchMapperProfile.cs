@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using AutoMapper;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Common.Utilities.Extensions;
@@ -23,8 +24,8 @@ namespace MyLiverpool.Common.Mappings
                 .ForMember(x => x.IsHome, src => src.MapFrom(x => x.IsHome))
                 .ForMember(x => x.TypeId, src => src.MapFrom(x => x.MatchType))
                 .ForMember(x => x.TypeName, src => src.MapFrom(x => x.MatchType.GetNameAttribute()))
-                .ForMember(x => x.ScoreAway, src => src.MapFrom(x => x.Score.Split('-').LastOrDefault()))
-                .ForMember(x => x.ScoreHome, src => src.MapFrom(x => x.Score.Split('-').FirstOrDefault()))
+                .ForMember(x => x.ScoreAway, src => src.MapFrom(x => x.Score.Split('-', StringSplitOptions.RemoveEmptyEntries).LastOrDefault()))
+                .ForMember(x => x.ScoreHome, src => src.MapFrom(x => x.Score.Split('-', StringSplitOptions.RemoveEmptyEntries).FirstOrDefault()))
                 .ForMember(x => x.PhotoUrl, src => src.MapFrom(x => x.PhotoUrl))
                 .ForMember(x => x.StadiumName, src => src.MapFrom(x => x.Stadium.Name))
                 .ForMember(x => x.ReportUrl, src => src.MapFrom(x => x.ReportUrl))

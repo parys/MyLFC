@@ -30,8 +30,8 @@
     "@types/tinymce": "4.5.10",
     "angular2-recaptcha": "0.6.0",
     "angular2-template-loader": "0.6.2",
-    "aspnet-prerendering": "2.0.6",
-    "aspnet-webpack": "1.0.29",
+    "aspnet-prerendering": "3.0.0",
+    "aspnet-webpack": "2.0.1",
     "awesome-typescript-loader": "3.2.3",
     "bootstrap": "3.3.7",
     "copy-webpack-plugin": "4.0.1",
@@ -86,8 +86,7 @@
     "clean-css": "4.1.7",
     "html-minifier": "3.5.3",
     "rollup-plugin-sass": "0.5.3",
-    "rollup-plugin-typescript2": "0.5.0",
-    "tsickle": "0.23.5"
+    "rollup-plugin-typescript2": "0.5.0"
   },
   "main": "package.json",
   "author": "Andrei Kapitanchik",

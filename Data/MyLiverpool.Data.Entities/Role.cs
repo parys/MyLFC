@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace MyLiverpool.Data.Entities
 {
-    public partial class Role : IdentityRole<int>, IEntity
+    public class Role : IdentityRole<int>, IEntity
     {
         public Role()
         {

@@ -11,7 +11,7 @@ namespace MyLiverpool.Business.Services.Tests
 
         protected override void OnConfiguring(DbContextOptionsBuilder modelBuilder)
         {
-            modelBuilder.UseInMemoryDatabase();
+            modelBuilder.UseInMemoryDatabase("");
             base.OnConfiguring(modelBuilder);
         }
     }

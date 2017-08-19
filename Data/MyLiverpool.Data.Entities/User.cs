@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace MyLiverpool.Data.Entities
 {
-    public class User : IdentityUser<int>,/* UserLogin, UserRole, UserClaim>, */IEntity
+    public class User : IdentityUser<int>//,/* UserLogin, UserRole, UserClaim>, */IEntity
     {
         public User()
         {
@@ -15,6 +15,7 @@ namespace MyLiverpool.Data.Entities
             this.Materials = new HashSet<Material>();
             this.SentPrivateMessages = new HashSet<PrivateMessage>();
             this.ReceivedPrivateMessages = new HashSet<PrivateMessage>();
+            this.UserRoles = new HashSet<IdentityUserRole<int>>();
             CommentVotes = new HashSet<CommentVote>();
         }
 
@@ -56,7 +57,7 @@ namespace MyLiverpool.Data.Entities
 
         // public virtual ICollection<UserClaim> Claims { get; set; }
         // public virtual ICollection<UserLogin> Logins { get; set; }
-        // public virtual ICollection<Role> RoleGroups { get; set; }
+         public virtual ICollection<IdentityUserRole<int>> UserRoles { get; set; }
 
         public int OldId { get; set; }
 

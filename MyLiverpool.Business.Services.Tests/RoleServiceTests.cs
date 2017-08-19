@@ -2,22 +2,21 @@
 using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using MyLiverpool.Business.Services.Tests.Helpers;
+using Xunit;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
-using MyLiverpool.Business.Services.Tests.Helpers;
 using MyLiverpool.Common.Mappings;
 using MyLiverpool.Data.Common;
 using MyLiverpool.Data.Entities;
 using MyLiverpool.Data.ResourceAccess;
 using MyLiverpool.Data.ResourceAccess.Interfaces;
 using MyLiverpool.Data.ResourceAccess.Repositories;
-using Xunit;
 
 namespace MyLiverpool.Business.Services.Tests
 {
@@ -78,7 +77,7 @@ namespace MyLiverpool.Business.Services.Tests
                 {
                     Email = "asd",
                     UserName = "simple",
-                    Roles =
+                    UserRoles = 
                     {
                         new IdentityUserRole<int>()
                         {
@@ -91,7 +90,7 @@ namespace MyLiverpool.Business.Services.Tests
                 {
                     Email = "as2d",
                     UserName = "editor",
-                    Roles =
+                    UserRoles =
                     {
                         new IdentityUserRole<int>()
                         {
@@ -108,7 +107,7 @@ namespace MyLiverpool.Business.Services.Tests
                 {
                     Email = "asd3",
                     UserName = "admin",
-                    Roles =
+                    UserRoles =
                     {
                         new IdentityUserRole<int>()
                         {
@@ -138,7 +137,7 @@ namespace MyLiverpool.Business.Services.Tests
         private static void InitRoles()
         {
             var roleManager = new RoleManager<Role>(
-                new RoleStore<Role, LiverpoolContext, int>(Context), new IRoleValidator<Role>[0], null, new IdentityErrorDescriber(), new Logger<RoleManager<Role>>(new LoggerFactory()), null);
+                new RoleStore<Role, LiverpoolContext, int>(Context), new IRoleValidator<Role>[0], null, new IdentityErrorDescriber(), new Logger<RoleManager<Role>>(new LoggerFactory()));
             var roles = new List<Role>()
             {
                 new Role()
@@ -161,7 +160,7 @@ namespace MyLiverpool.Business.Services.Tests
         {
             var store = new UserStore<User, Role, LiverpoolContext, int>(Context);
             return new UserManager<User>(store,
-                new OptionsManager<IdentityOptions>(new IConfigureOptions<IdentityOptions>[0]),
+                new OptionsManager<IdentityOptions>(new OptionsFactory<IdentityOptions>(new IConfigureOptions<IdentityOptions>[0],new IPostConfigureOptions<IdentityOptions>[0] )),
                 new PasswordHasher<User>(), new IUserValidator<User>[0],
                 new IPasswordValidator<User>[0], null, new IdentityErrorDescriber(), null, new Logger<UserManager<User>>(new LoggerFactory()));
         }
