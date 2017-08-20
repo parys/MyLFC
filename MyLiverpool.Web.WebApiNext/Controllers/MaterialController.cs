@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using AspNet.Security.OAuth.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
@@ -18,7 +19,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// <summary>
     /// Manages materials.
     /// </summary>
-    [AllowAnonymous, Route("api/v1/[controller]")]
+    [Authorize(AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme), Route("api/v1/[controller]")]
     public class MaterialController : Controller
     {
         private readonly IMaterialService _materialService;

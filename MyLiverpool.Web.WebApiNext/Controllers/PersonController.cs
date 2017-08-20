@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using AspNet.Security.OAuth.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
@@ -14,7 +15,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// <summary>
     /// Controller for manage persons.
     /// </summary>
-    [AllowAnonymous, Route("api/v1/[controller]")]
+    [Authorize(AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme), Route("api/v1/[controller]")]
     public class PersonController : Controller
     {
         private readonly IPersonService _personService;

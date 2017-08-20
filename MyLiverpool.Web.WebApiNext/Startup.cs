@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
+using AspNet.Security.OAuth.Validation;
 using AspNet.Security.OpenIdConnect.Primitives;
 using Microsoft.AspNetCore.Antiforgery;
+using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Diagnostics;
@@ -65,6 +67,16 @@ namespace MyLiverpool.Web.WebApiNext
         /// <param name="services">IServiceCollection.</param>
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<GzipCompressionProviderOptions>(options => options.Level = CompressionLevel.Optimal);
+            services.AddResponseCompression(options => { });
+
+            services.AddMvc(options =>
+            {
+            } ).AddJsonOptions(options =>
+            {
+                options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            });
+
             services.AddDbContext<LiverpoolContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
@@ -98,30 +110,10 @@ namespace MyLiverpool.Web.WebApiNext
                 options.ClaimsIdentity.RoleClaimType = OpenIdConnectConstants.Claims.Role;
             });
 
-            services.AddAuthentication().AddOAuthValidation();
-            services.AddMvc().AddJsonOptions(options =>
+            services.AddAuthentication(opt =>
             {
-                options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-            });
-
-            services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
-
-            services.Configure<GzipCompressionProviderOptions>(options => options.Level = CompressionLevel.Optimal);
-            services.AddResponseCompression(options =>{});
-            
-            RegisterCoreHelpers(services);
-            services.RegisterRepositories();
-            services.RegisterServices();
-
-            services.AddCors(options =>
-            {
-                options.AddPolicy("MyPolicy", builder =>
-                {
-                    builder.AllowAnyOrigin()
-                        .AllowAnyMethod()
-                        .AllowAnyHeader().Build();
-                });
-            });
+                
+            }).AddOAuthValidation();
 
             services.AddOpenIddict<int>(options =>
             {
@@ -135,19 +127,19 @@ namespace MyLiverpool.Web.WebApiNext
                     //    .SetIdentityTokenLifetime(TimeSpan.FromDays(14))
                     //   .SetAccessTokenLifetime(TimeSpan.FromSeconds(10))
                     .SetRefreshTokenLifetime(TimeSpan.FromDays(14))
-               //todo shouldUse ??  .UseJsonWebTokens()
+                    //todo shouldUse ??  .UseJsonWebTokens()
                     // During development, you can disable the HTTPS requirement.
                     .DisableHttpsRequirement()
-                //    .AddSigningKey(new RsaSecurityKey(new RSACng(CngKey.Create(new CngAlgorithm("")))))
+                    //    .AddSigningKey(new RsaSecurityKey(new RSACng(CngKey.Create(new CngAlgorithm("")))))
                     // When request caching is enabled, authorization and logout requests
                     // are stored in the distributed cache by OpenIddict and the user agent
                     // is redirected to the same page with a single parameter (request_id).
                     // This allows flowing large OpenID Connect requests even when using
                     // an external authentication provider like Google, Facebook or Twitter.
                     .EnableRequestCaching();
-            // Register a new ephemeral key, that is discarded when the application
-            // shuts down. Tokens signed using this key are automatically invalidated.
-            // This method should only be used during development.
+                // Register a new ephemeral key, that is discarded when the application
+                // shuts down. Tokens signed using this key are automatically invalidated.
+                // This method should only be used during development.
                 if (Env.IsDevelopment())
                 {
                     options.AddEphemeralSigningKey();
@@ -168,6 +160,23 @@ namespace MyLiverpool.Web.WebApiNext
                     //}
                 }
             });
+
+            
+            RegisterCoreHelpers(services);
+            services.RegisterRepositories();
+            services.RegisterServices();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("MyPolicy", builder =>
+                {
+                    builder.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader().Build();
+                });
+            });
+            services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
+
 
             services.AddMemoryCache();
 
@@ -255,7 +264,7 @@ namespace MyLiverpool.Web.WebApiNext
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            app.UseCors("MyPolicy");
+         //   app.UseCors("MyPolicy");
 
             app.UseDefaultFiles();
             app.UseStaticFiles(new StaticFileOptions()
@@ -274,7 +283,7 @@ namespace MyLiverpool.Web.WebApiNext
               //  opt.AutomaticChallenge = true;
       //      });
             
-  //          app.UseOpenIddict();
+          //  app.UseOpenIddict();
 
             app.UseMvc(routes =>
             {

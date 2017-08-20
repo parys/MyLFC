@@ -11,6 +11,7 @@ using MyLiverpool.Data.Entities;
 using System.Linq;
 using System.Security.Claims;
 using AspNet.Security.OpenIdConnect.Primitives;
+using Microsoft.Extensions.Options;
 using MyLiverpool.Business.Contracts;
 using OpenIddict.Core;
 using OpenIddict.Models;
@@ -24,6 +25,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     public class AuthorizationController : Controller
     {
         private readonly OpenIddictApplicationManager<OpenIddictApplication<int>> _applicationManager;
+        private readonly IOptions<IdentityOptions> _identityOptions;
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
         private readonly IUserService _userService;
@@ -35,15 +37,18 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <param name="signInManager"></param>
         /// <param name="userManager"></param>
         /// <param name="userService"></param>
+        /// <param name="identityOptions"></param>
         public AuthorizationController(
             OpenIddictApplicationManager<OpenIddictApplication<int>> applicationManager,
             SignInManager<User> signInManager,
-            UserManager<User> userManager, IUserService userService)
+            UserManager<User> userManager, IUserService userService,
+            IOptions<IdentityOptions> identityOptions)
         {
             _applicationManager = applicationManager;
             _signInManager = signInManager;
             _userManager = userManager;
             _userService = userService;
+            _identityOptions = identityOptions;
         }
 
         /// <summary>
@@ -65,13 +70,9 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                     });
                 }
 
-                if (!await _userManager.CheckPasswordAsync(user, request.Password))
+                var result = await _signInManager.CheckPasswordSignInAsync(user, request.Password, true);
+                if (!result.Succeeded)
                 {
-                    if (_userManager.SupportsUserLockout)
-                    {
-                      //  await _userManager.AccessFailedAsync(user);
-                    }
-
                     return BadRequest(new OpenIdConnectResponse
                     {
                         Error = OpenIdConnectConstants.Errors.InvalidGrant,
@@ -218,10 +219,10 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 {
                     OpenIdConnectConstants.Destinations.AccessToken
                 };
-                //if (claim.Type == _identityOptions.Value.ClaimsIdentity.SecurityStampClaimType)
-             //   {
-            //        continue;
-            //    }
+                if (claim.Type == _identityOptions.Value.ClaimsIdentity.SecurityStampClaimType)
+                {
+                    continue;
+                }
 
                 // Only add the iterated claim to the id_token if the corresponding scope was granted to the client application.
                 // The other claims will only be added to the access_token, which is encrypted when using the default format.

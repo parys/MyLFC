@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using AspNet.Security.OAuth.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -11,7 +12,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// <summary>
     /// Controller for manage user accounts.
     /// </summary>
-    [Authorize, Route("api/v1/[controller]")]
+    [Authorize(AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme), Route("api/v1/[controller]")]
     public class AccountController : Controller
     {
         private const string LocalLoginProvider = "Local";

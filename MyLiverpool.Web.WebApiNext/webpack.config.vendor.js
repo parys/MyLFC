@@ -15,7 +15,7 @@ var SharedConfig = {
         rules: [
             {
                 test: /\.(png|woff|woff2|eot|ttf|svg)(\?|$)/,
-                loader: "url-loader?limit=100000"
+                use: "url-loader?limit=100000"
             },
             {
                 test: /\.json$/,
@@ -46,7 +46,7 @@ var SharedConfig = {
         ]
     },
     output: {
-        publicPath: "/src/",
+        publicPath: "src/",
         filename: "[name].js",
         library: "[name]_[hash]"
     },
@@ -63,7 +63,7 @@ var ClientBundleConfig = Merge(SharedConfig,
 {
     output: { path: Path.join(__dirname, "wwwroot", "src") },
     module: {
-        loaders: [
+        rules: [
             { test: /\.css(\?|$)/, loader: ExtractCss.extract(["css-loader"]) }
         ]
     },
@@ -86,13 +86,7 @@ var ClientBundleConfig = Merge(SharedConfig,
                 ])
             ]
             : [
-                new Webpack.optimize.UglifyJsPlugin({
-                    compress: { warnings: false },
-                    output: {
-                        comments: false
-                    },
-                    minimize: true
-                })
+                new Webpack.optimize.UglifyJsPlugin()
             ])
 });
 

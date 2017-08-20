@@ -1,8 +1,10 @@
 using System.Threading.Tasks;
+using AspNet.Security.OAuth.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using MyLiverpool.Business.Contracts;
+using MyLiverpool.Common.Utilities;
 using MyLiverpool.Data.Common;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
@@ -10,7 +12,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// <summary>
     /// Controller for manage admin functions.
     /// </summary>
-    [Authorize(Roles = nameof(RolesEnum.AdminStart)), Route("api/v1/[controller]")]
+    [Authorize(AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme, Roles = nameof(RolesEnum.AdminStart)), Route("api/v1/[controller]")]
     public class AdminController : Controller
     {
         private readonly IAdminService _adminService;
@@ -35,7 +37,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         public async Task<IActionResult> UpdateEplTable()
         {
             var result = await _adminService.UpdateTableAsync();
-            _cache.Set("eplTable", result);
+            _cache.Set(GlobalConstants.HelperEntity + (int)HelperEntityType.EplTable, result);
             return Ok(result);
         }
     }

@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using AspNet.Security.OAuth.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
@@ -11,7 +12,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// <summary>
     /// Manages private messages.
     /// </summary>
-    [Authorize, Route("api/v1/[controller]")]
+    [Authorize(AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme), Route("api/v1/[controller]")]
     public class PmController : Controller
     {
         private readonly IPmService _pmService;

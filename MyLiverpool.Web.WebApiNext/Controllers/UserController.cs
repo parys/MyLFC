@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.Threading.Tasks;
+using AspNet.Security.OAuth.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
@@ -17,7 +18,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// <summary>
     /// Manages users.
     /// </summary>
-    [Authorize, Route("api/v1/[controller]")]
+    [Authorize(AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme), Route("api/v1/[controller]")]
     public class UserController : Controller
     {
         private readonly IUserService _userService;

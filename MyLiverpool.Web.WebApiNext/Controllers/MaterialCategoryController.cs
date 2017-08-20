@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using AspNet.Security.OAuth.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyLiverpool.Business.Contracts;
@@ -11,7 +12,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// <summary>
     /// Manages news categories.
     /// </summary>
-    [Route("api/v1/[controller]")]
+    [Authorize(AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme), Route("api/v1/[controller]")]
     public class MaterialCategoryController : Controller
     {
         private readonly IMaterialCategoryService _materialCategoryService;

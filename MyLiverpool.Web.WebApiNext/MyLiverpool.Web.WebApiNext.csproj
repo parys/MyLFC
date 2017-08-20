@@ -43,14 +43,7 @@
 
   <ItemGroup>
     <PackageReference Include="AspNet.Security.OAuth.Validation" Version="2.0.0-preview1-0283" />
-    <PackageReference Include="Microsoft.AspNetCore" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Antiforgery" Version="2.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics" Version="2.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="2.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.TagHelpers" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.NodeServices" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.ResponseCompression" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Server.IISIntegration" Version="2.0.0" />
@@ -66,13 +59,13 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.0.0" />
-    <PackageReference Include="OpenIddict.Mvc" Version="2.0.0-preview1-0643" />
+    <PackageReference Include="OpenIddict.Mvc" Version="2.0.0-preview1-0648" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="1.0.0" />
   </ItemGroup>
 
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <Optimize>true</Optimize>
+    <Optimize>false</Optimize>
     <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DefineConstants>TRACE;DEBUG;NETCOREAPP2_0</DefineConstants>

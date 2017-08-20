@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using AspNet.Security.OAuth.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyLiverpool.Business.Contracts;
@@ -10,7 +11,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// <summary>
     /// Manages club entity.
     /// </summary>
-    [Authorize(Roles = nameof(RolesEnum.InfoStart)), Route("api/v1/[controller]")]
+    [Authorize(AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme, Roles = nameof(RolesEnum.InfoStart)), Route("api/v1/[controller]")]
     public class ClubController : Controller
     {
         private readonly IClubService _clubService;

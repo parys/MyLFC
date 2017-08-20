@@ -12,7 +12,7 @@ var SharedConfig = {
     resolve: { extensions: [".js", ".ts"] },
     output: {
         filename: "[name].js",
-        publicPath: "/src/" // Webpack dev middleware, if enabled, handles requests for this URL prefix
+        publicPath: "src/" // Webpack dev middleware, if enabled, handles requests for this URL prefix
     },
     module: {
         rules: [
@@ -20,12 +20,12 @@ var SharedConfig = {
                 test: /\.scss$/,
                 loaders: ["raw-loader", "resolve-url-loader", "sass-loader"]
             },
-            { test: /\.ts$/, include: /angular2app/, loaders: ["awesome-typescript-loader", "angular2-template-loader"] },
-            { test: /\.html$/, loader: "html-loader" },
+            { test: /\.ts$/, include: /angular2app/, use: ["awesome-typescript-loader", "angular2-template-loader"] },
+            { test: /\.html$/, use: "html-loader" },
           // bug  { test: /\.css$/, loader: "style-loader!css-loader" },
-            { test: /\.css$/, loader: "raw-loader" },
+            { test: /\.css$/, use: "raw-loader" },
 
-            { test: /\.(png|jpg|jpeg|gif|svg)$/, loader: "url-loader", query: { limit: 25000 } }
+            { test: /\.(png|jpg|jpeg|gif|svg)$/, use: "url-loader?limit=25000" }
         ]
     },
     plugins: [
@@ -52,7 +52,6 @@ var ClientBundleConfig = Merge(SharedConfig, {
         new WebpackNotifierPlugin({ title: "clientBuild", alwaysNotify: true })
     ] : [
         // Plugins that apply in production builds only
-        new Webpack.optimize.OccurrenceOrderPlugin(),
         new Webpack.optimize.UglifyJsPlugin()
     ])
 });
