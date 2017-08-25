@@ -3,7 +3,6 @@ import { LocalStorage } from "./local-storage";
 
 @Injectable()
 export class LocalStorageService {
- //   private localStorage: Storage;
 
     constructor(
         @Inject(LocalStorage) private localStorage: any) {
@@ -13,33 +12,9 @@ export class LocalStorageService {
         return this.get("auth-tokens");
     }
 
-    public hasAccessToken(): boolean {
-        return this.get("access_token") !== null;
-    }
-
-    public getAccessToken(): string {
-        return this.get("access_token");
-    }
-
-    public getRefreshToken(): string {
-        return this.get("refresh_token");
-    }
-
-    public getAccessTokenWithType(): string {                                         
-        return `${this.get("token_type")} ${this.get("access_token")}`;
-    }
-
     public getRoles(): string[] {
         return this.getObject("roles");
     }
-
-    public isTokenExpired(): boolean {
-        if (!this.get("expires_in")) {
-            return false;
-        }
-        let expiredDate = new Date(this.get("expires_in"));
-        return (expiredDate <= new Date());
-    } 
 
     public getUserId(): number {
         return +this.get("userId");
@@ -58,22 +33,13 @@ export class LocalStorageService {
     }
 
     public removeAuthTokens(): void {
-        this.remove("token_type");
-        this.remove("access_token");
-        this.remove("expires_in");
-        this.remove("refresh_token");
         this.remove("roles");
         this.remove("userId");
         this.remove("auth-tokens");
     }
 
     public setAuthTokens(item: any): boolean {
-        this.set("auth-tokens", JSON.stringify(item));
-        //let response = JSON.parse(item._body);
-        //this.set("token_type", response.token_type);
-        //this.set("access_token", response.access_token);
-        //this.set("expires_in", this.setExpiredDate(response.expires_in));
-        //this.set("refresh_token", response.refresh_token);
+        this.setObject("auth-tokens", item);
         return true;
     }
 

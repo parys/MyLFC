@@ -31,7 +31,6 @@ import * as admin from "./admin/index";
 import { NgxPaginationModule } from "ngx-pagination";
 import { ReCaptchaModule } from "angular2-recaptcha";
 import { Ng2BreadcrumbModule, BreadcrumbService } from "ng2-breadcrumb/ng2-breadcrumb";
-import { BreadcrumbComponent } from "./shared/breadcrumb.component";
 import * as angMaterial from '@angular/material';
 import "rxjs/add/operator/mergeMap";
 
@@ -72,7 +71,6 @@ import "rxjs/add/operator/mergeMap";
         account.ForgotPasswordComponent,
         account.ResetPasswordComponent,
         account.UnconfirmedEmailComponent,
-        BreadcrumbComponent,
         chat.MaxiChatComponent,
         chat.MiniChatComponent,
         club.ClubEditComponent,

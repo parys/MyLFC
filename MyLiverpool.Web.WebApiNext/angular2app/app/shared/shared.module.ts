@@ -14,7 +14,7 @@ import { LoaderService } from "./loader.service";
 @NgModule({
     imports: [
         ReCaptchaModule, 
-MdButtonModule
+        MdButtonModule
     ],
     declarations: [
         DeleteDialogComponent,
@@ -32,7 +32,6 @@ MdButtonModule
         RolesCheckedService,
         LoaderService,
         { provide: LocalStorage, useFactory: () => (typeof window !== 'undefined') ? window.localStorage : null }
-        //LocalStorage
     ],
     entryComponents: [
         DeleteDialogComponent

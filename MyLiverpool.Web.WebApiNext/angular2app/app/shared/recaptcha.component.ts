@@ -10,9 +10,9 @@
                 </re-captcha>`
 })
 export class RecaptchaComponent {
-    @Output() isHuman = new EventEmitter<boolean>();
+    @Output() public isHuman = new EventEmitter<boolean>();
 
-    handleCorrectCaptcha(event: string): void {
+    public handleCorrectCaptcha(event: string): void {
         if (event) {
             this.isHuman.emit(true);
         } else {
