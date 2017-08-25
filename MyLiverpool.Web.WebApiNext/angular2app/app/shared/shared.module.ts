@@ -31,14 +31,11 @@ MdButtonModule
         LocalStorageService,
         RolesCheckedService,
         LoaderService,
-        //{ provide: LocalStorage, useFactory: () => (window) ? window.localStorage : {} }
+        { provide: LocalStorage, useFactory: () => (typeof window !== 'undefined') ? window.localStorage : null }
         //LocalStorage
     ],
     entryComponents: [
         DeleteDialogComponent
     ]
 })
-export class SharedModule { }
-
-/*                                 
-import * from "./local-storage";             */
+export class SharedModule { }  

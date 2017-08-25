@@ -51,8 +51,8 @@ export class HttpWrapper {//}extends Http {
     }
 
     private retrieveTokens(): IAuthTokenModel {
-        const tokensString = localStorage.getItem("auth-tokens");
-        const tokensModel: IAuthTokenModel = tokensString == null ? null : JSON.parse(tokensString);
+        const tokensString = this.localStorage.getAuthTokens();
+        const tokensModel: IAuthTokenModel = tokensString ? JSON.parse(tokensString) : null;
         return tokensModel;
     }
 

@@ -3,7 +3,7 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from "@angular/forms";
 import { Settings, EditorManager, Editor, WindowManager } from "tinymce";
 
 declare let tinymce: any;
-
+//declare let document: any;
 import "tinymce"; //todo should be moved
 /*import "tinymce/themes/modern"
 import "tinymce/plugins/advlist";
@@ -34,10 +34,20 @@ import "tinymce/plugins/visualblocks";*/
             provide: NG_VALUE_ACCESSOR,
             useExisting: forwardRef(() => EditorComponent),
             multi: true
-        }
-    ],
+        }],
+    
     template: `<textarea class="form-control" id="{{elementId}}">{{_value}}</textarea>`
 })
+/*export class EditorComponent {
+    @Output() public change = new EventEmitter();
+    @Output() public ready = new EventEmitter();
+    @Output() public blur = new EventEmitter();
+    @Input("value") public _value: string = "";
+    @Input() public type: number = 1;
+    @Input() public height: number = 200;
+    public elementId: string = Math.random().toString(36).substring(2);
+    
+}*/
 export class EditorComponent implements ControlValueAccessor {
     @Output() public change = new EventEmitter();
     @Output() public ready = new EventEmitter();
@@ -47,14 +57,20 @@ export class EditorComponent implements ControlValueAccessor {
     @Input() public height: number = 200;
     public elementId: string = Math.random().toString(36).substring(2);
     public zone: NgZone;
+    ClientSide: boolean;
  //   public tinymce: EditorManager = new EditorManager();
     public editor: Editor;
 
     public ngAfterViewInit(): void {
-           this.initTiny();
+        this.initTiny();
+   //     if (this.ClientSide) {
+   //         require.resolve(['tinymce'
+   //         ], require => require("tinymce"))
+  //      } //todo should be moved
     }
 
     constructor(zone: NgZone) {
+        this.ClientSide = typeof window !== 'undefined'
         this.zone = zone;
     }
 

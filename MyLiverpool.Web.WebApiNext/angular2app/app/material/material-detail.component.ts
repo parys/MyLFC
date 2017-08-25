@@ -1,4 +1,5 @@
-﻿import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
+﻿import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, PLATFORM_ID, Inject } from "@angular/core";
+import { isPlatformServer } from '@angular/common';
 import { Title, DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { Router, ActivatedRoute } from "@angular/router";
 import { MdDialog, MdSnackBar } from '@angular/material';
@@ -23,6 +24,7 @@ export class MaterialDetailComponent implements OnInit, OnDestroy {
     public type: MaterialType;
     
     constructor(private service: MaterialService,
+        @Inject(PLATFORM_ID) private platformId: Object,
         private route: ActivatedRoute,
         private cd: ChangeDetectorRef,
         private localStorage: LocalStorageService,
@@ -75,7 +77,7 @@ export class MaterialDetailComponent implements OnInit, OnDestroy {
     }
 
     public getShortLink(url: string): string {
-        if (!url) {
+        if (!url || isPlatformServer(this.platformId)) {
             return "";
         }
         if (url.indexOf("http://") === -1 && url.indexOf("https://") === -1) {

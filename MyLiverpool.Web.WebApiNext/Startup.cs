@@ -218,6 +218,10 @@ namespace MyLiverpool.Web.WebApiNext
 
             services.AddNodeServices(options =>
             {
+                options.DebuggingPort = 8888;
+                options.LaunchWithDebugging = true;
+
+                options.InvocationTimeoutMilliseconds = 140000;
             });
             var context = (LiverpoolContext) services.BuildServiceProvider().GetService(typeof(LiverpoolContext));
             context.Database.Migrate();

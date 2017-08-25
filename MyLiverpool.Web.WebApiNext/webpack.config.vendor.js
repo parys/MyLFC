@@ -1,13 +1,45 @@
-﻿var IsDevBuild = process.argv.indexOf("--env.prod") < 0;
-var Path = require("path");
-var Webpack = require("webpack");
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
-var ExtractCss = new ExtractTextPlugin("vendor.css");
-var WebpackNotifierPlugin = require("webpack-notifier");
-var Merge = require("webpack-merge");
-var CopyWebpackPlugin = require("copy-webpack-plugin");
+﻿const path = require("path");
+const webpack = require("webpack");
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const extractCss = new ExtractTextPlugin("vendor.css");
+const WebpackNotifierPlugin = require("webpack-notifier");
+const merge = require("webpack-merge");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 
-var SharedConfig = {
+const treeShakableModules = [
+    '@angular/animations',
+    '@angular/common',
+    '@angular/compiler',
+    '@angular/core',
+    '@angular/forms',
+    '@angular/http',
+    "@angular/material",
+    '@angular/platform-browser',
+    '@angular/platform-browser-dynamic',
+    "@angular/platform-server",
+    '@angular/router',
+    'zone.js',
+];
+
+const nonTreeShakableModules = [
+    'es6-promise',
+    'es6-shim',
+    "bootstrap/dist/css/bootstrap.min.css",
+    "@angular/material/prebuilt-themes/indigo-pink.css",
+    "event-source-polyfill",
+  //  "rxjs",
+    "ng2-auto-complete",
+    "ngx-pagination",
+    //  "ng2-page-scroll",
+   // "tinymce/tinymce.min.js"
+];
+const allModules = treeShakableModules.concat(nonTreeShakableModules);
+
+module.exports = (env) => {
+    const isDevBuild = !(env && env.prod);
+
+const sharedConfig = {
+    stats: { modules: false },
     resolve: {
         extensions: [".js"]
     },
@@ -23,54 +55,33 @@ var SharedConfig = {
             }
         ]
     },
-    entry: {
-        vendor: [
-            "@angular/common",
-            "@angular/compiler",
-            "@angular/core",
-            "@angular/http",
-            "@angular/material",
-            "@angular/platform-browser",
-            "@angular/platform-browser-dynamic",
-            "@angular/router",
-            "@angular/platform-server",
-            "zone.js",
-            "bootstrap/dist/css/bootstrap.min.css",
-            "@angular/material/prebuilt-themes/indigo-pink.css",
-            "event-source-polyfill",
-            "rxjs",
-            "ng2-auto-complete",
-            "ngx-pagination",
-          //  "ng2-page-scroll",
-            "tinymce/tinymce.min.js"
-        ]
-    },
     output: {
         publicPath: "src/",
         filename: "[name].js",
         library: "[name]_[hash]"
     },
     plugins: [
-      //  new Webpack.ProvidePlugin({ $: "jquery", jQuery: "jquery" }), // Maps these identifiers to the jQuery package (because Bootstrap expects it to be a global variable)
-        new Webpack.ContextReplacementPlugin(/\@angular\b.*\b(bundles|linker)/, Path.join(__dirname, "./angular2app")), // Workaround for https://github.com/angular/angular/issues/11580
-        new Webpack.ContextReplacementPlugin(/angular(\\|\/)core(\\|\/)@angular/, Path.join(__dirname, "./angular2app")), // Workaround for https://github.com/angular/angular/issues/14898
-        new Webpack.IgnorePlugin(/^vertx$/), // Workaround for https://github.com/stefanpenner/es6-promise/issues/100
-     //   new Webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, require.resolve("node-noop")) // Workaround for https://github.com/andris9/encoding/issues/16
+      //  new webpack.ProvidePlugin({ $: "jquery", jQuery: "jquery" }), // Maps these identifiers to the jQuery package (because Bootstrap expects it to be a global variable)
+        new webpack.ContextReplacementPlugin(/\@angular\b.*\b(bundles|linker)/, path.join(__dirname, "./angular2app")), // Workaround for https://github.com/angular/angular/issues/11580
+        new webpack.ContextReplacementPlugin(/angular(\\|\/)core(\\|\/)@angular/, path.join(__dirname, "./angular2app")), // Workaround for https://github.com/angular/angular/issues/14898
+        new webpack.IgnorePlugin(/^vertx$/), // Workaround for https://github.com/stefanpenner/es6-promise/issues/100
     ]
 };
 
-var ClientBundleConfig = Merge(SharedConfig,
-{
-    output: { path: Path.join(__dirname, "wwwroot", "src") },
+const clientBundleConfig = merge(sharedConfig, {
+    entry: {
+        vendor: isDevBuild ? allModules : nonTreeShakableModules
+    },
+    output: { path: path.join(__dirname, "wwwroot", "src") },
     module: {
         rules: [
-            { test: /\.css(\?|$)/, loader: ExtractCss.extract(["css-loader"]) }
+            { test: /\.css(\?|$)/, loader: extractCss.extract(["css-loader"]) }
         ]
     },
     plugins: [
-            ExtractCss,
-            new Webpack.DllPlugin({
-                path: Path.join(__dirname, "wwwroot", "src", "[name]-manifest.json"),
+            extractCss,
+            new webpack.DllPlugin({
+                path: path.join(__dirname, "wwwroot", "src", "[name]-manifest.json"),
                 name: "[name]_[hash]"
             }),
            new CopyWebpackPlugin([
@@ -79,39 +90,36 @@ var ClientBundleConfig = Merge(SharedConfig,
             //    { from: "node_modules/tinymce/themes/", to: "../src/themes/" }
             ])
         ]
-        .concat(IsDevBuild
+        .concat(isDevBuild
             ? [
                 new WebpackNotifierPlugin({ title: "vendorBuild-client", alwaysNotify: true }),
                 new CopyWebpackPlugin([//{ from: "node_modules/swagger-ui/dist", to: "../swagger/" },
                 ])
             ]
             : [
-                new Webpack.optimize.UglifyJsPlugin()
+                new webpack.optimize.UglifyJsPlugin()
             ])
 });
 
-//var ServerBundleConfig = Merge(SharedConfig, {
-//    target: "node",
-//    resolve: {
-//        mainFields: ["main"]
-//    },
-//    output: {
-//        path: Path.join(__dirname, "angular2app", "js"),
-//        libraryTarget: "commonjs2"
-//    },
-//    module: {
-//        loaders: [{ test: /\.css(\?|$)/, loader: "style-loader!css-loader" }]
-//    },
-//    entry: { vendor: ["aspnet-prerendering"] },
-//    plugins: [
-//        new Webpack.DllPlugin({
-//            path: Path.join(__dirname, "angular2app", "js", "[name]-manifest.json"),
-//            name: "[name]_[hash]"
-//        }),
-//        new WebpackNotifierPlugin({title: "vendorBuild-server", alwaysNotify: true })
-//    ]
-//});
+const serverBundleConfig = merge(sharedConfig, {
+    target: "node",
+    resolve: { mainFields: ["main"] },
+    entry: { vendor: allModules.concat(["aspnet-prerendering"]) },
+    output: {
+        path: path.join(__dirname, "angular2app", "dist"),
+        libraryTarget: "commonjs2"
+    },
+    module: {
+        rules: [{ test: /\.css(\?|$)/, use: ['to-string-loader', isDevBuild ? 'css-loader' : 'css-loader?minimize'] }]
+    },
+    plugins: [
+        new webpack.DllPlugin({
+            path: path.join(__dirname, "angular2app", "dist", "[name]-manifest.json"),
+            name: "[name]_[hash]"
+        }),
+        new WebpackNotifierPlugin({ title: "vendorBuild-server", alwaysNotify: true })
+    ]
+});
 
-module.exports = [ClientBundleConfig
-   // , ServerBundleConfig
-];
+    return [clientBundleConfig, serverBundleConfig];
+}

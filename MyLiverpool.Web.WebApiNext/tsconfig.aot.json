@@ -13,8 +13,8 @@
   },
 
   "files": [
-    "angular2app/app/app.module.ts",
-    "angular2app/main.aot.ts"
+    "angular2app/app/app.module.browser.ts",
+    "angular2app/main.browser.aot.ts"
   ],
   "typeRoots": [
     "./node_modules/@types"

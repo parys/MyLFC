@@ -4,11 +4,13 @@ import uglify from "rollup-plugin-uglify";
 import sass from 'rollup-plugin-sass';
 
 export default {
-    entry: "temp-js/dist/unbundled-aot/angular2app/main.aot.js",
-    dest: "wwwroot/src/build.js", // output a single application bundle
+    input: "temp-js/dist/unbundled-aot/angular2app/main.browser.aot.js",
+    output: {
+        file: "wwwroot/src/build.js",
+        format: "iife"
+    }, // output a single application bundle
     sourceMap: false,
     treeshake: true,
-    format: "iife",
     onwarn: function(warning) {
         // Skip certain warnings
 

@@ -208,7 +208,7 @@ namespace MyLiverpool.Business.Services
                                                        x.Birthday.Value.Date.Day == DateTimeOffset.Now.Date.Day &&
                                                        x.Birthday.Value.Date.Month == DateTimeOffset.Now.Date.Month &&
                                                        x.LastModified.AddMonths(1).Date > DateTimeOffset.Now.Date;
-            var list = await _userRepository.GetListAsync(1, 1000, filter);
+            var list = await _userRepository.GetListAsync(1, 1000, filter, SortOrder.Descending, u => u.LastModified);
             return _mapper.Map<IEnumerable<UserMiniDto>>(list);
         }
 

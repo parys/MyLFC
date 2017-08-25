@@ -12,7 +12,7 @@ import angular from 'rollup-plugin-angular';
 
 
 export default {
-    entry: "temp-js/dist/unbundled-aot/angular2app/main.aot.js",
+    entry: "temp-js/dist/unbundled-aot/angular2app/main.browser.aot.js",
     dest: "wwwroot/src/build.js", // output a single application bundle
     sourceMap: false,
     treeshake: true,

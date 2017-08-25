@@ -32,14 +32,12 @@ import { NgxPaginationModule } from "ngx-pagination";
 import { ReCaptchaModule } from "angular2-recaptcha";
 import { Ng2BreadcrumbModule, BreadcrumbService } from "ng2-breadcrumb/ng2-breadcrumb";
 import { BreadcrumbComponent } from "./shared/breadcrumb.component";
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import * as angMaterial from '@angular/material';
 import "rxjs/add/operator/mergeMap";
 
 @NgModule({
     imports: [
-        BrowserAnimationsModule,
-        BrowserModule,
+        BrowserModule.withServerTransition({ appId: 'mylfc-app' }),
         EditorModule,
         HttpModule,
         ForumModule,
@@ -120,8 +118,6 @@ import "rxjs/add/operator/mergeMap";
         user.UserConfigComponent,
         user.UserOnlineCounterComponent
     ], // components and directives
-    bootstrap: [
-        AppComponent], // root component
 entryComponents: [
  material.MaterialActivateDialogComponent,
 ],
@@ -149,4 +145,4 @@ entryComponents: [
         user.UserService
     ]
 })
-export class AppModule { }
+export class AppModuleShared { }

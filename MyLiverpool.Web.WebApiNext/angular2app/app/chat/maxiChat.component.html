@@ -37,9 +37,12 @@
         <div *ngIf="!roles.isLogined" class="text-white text-center ">Для добавления сообщений необходимо войти.</div>
         <div class="full-width text-center text-white flex-space-around top20">
             <form role="form" [formGroup]="chatMaxiTimerForm">
-                <md-select placeholder="Автообновление чата" color="warn" formControlName="timerValue" (change)="updateSchedule($event)" class="chatUpdate">
+                <!--todo bug <md-select placeholder="Автообновление чата" color="warn" formControlName="timerValue" (change)="updateSchedule($event)" class="chatUpdate">
                     <md-option *ngFor="let interval of intervalArray" [value]="interval.value" [textContent]="interval.key"></md-option>
-                </md-select>
+                </md-select>-->     
+                <select placeholder="Автообновление чата" color="warn" formControlName="timerValue" (change)="updateSchedule($event)" class="chatUpdate">
+                    <option *ngFor="let interval of intervalArray" [value]="interval.value" [textContent]="interval.key"></option>
+                </select>
             </form>
             <button type="button" (click)="update()"><span class="glyphicon glyphicon-refresh"></span></button>
         </div>

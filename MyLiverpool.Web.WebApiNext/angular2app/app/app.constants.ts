@@ -1,8 +1,13 @@
-﻿import { Injectable } from "@angular/core";
+﻿import { Injectable, Inject } from "@angular/core";
 
 @Injectable()
 export class Configuration {
-    public apiUrl: string = "api/v1/";
+
+   // constructor(@Inject('BASE_URL') baseUrl: string) {
+    constructor() {
+   //     this.serverWithApiUrl = baseUrl + this.apiUrl;
+    }
+    public apiUrl: string = "http://localhost:1669/" + "api/v1/";
     public serverWithApiUrl: string = this.apiUrl;
 
     public allowedImageTypes: string[] = [".jpeg", ".jpg", ".png", ".gif", ".bmp"];

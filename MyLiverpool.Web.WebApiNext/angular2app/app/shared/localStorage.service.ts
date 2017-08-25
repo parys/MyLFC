@@ -1,19 +1,16 @@
-﻿import { Injectable } from "@angular/core";
-//import { isBrowser, isNode } from "angular2-universal";           
+﻿import { Injectable, Inject } from "@angular/core";
+import { LocalStorage } from "./local-storage"; 
 
 @Injectable()
 export class LocalStorageService {
-    private localStorage: Storage;
+ //   private localStorage: Storage;
 
-    constructor() {
-        if (//isBrowser &&
-            !localStorage) {
-            throw new Error("Current browser does not support Local Storage");
-    //    } else if (isNode) {
-    //        this.localStorage = null;
-        }else{
-            this.localStorage = localStorage;
-        }
+    constructor(
+        @Inject(LocalStorage) private localStorage: any) {
+    }
+
+    public getAuthTokens(): string {
+        return this.get("auth-tokens");
     }
 
     public hasAccessToken(): boolean {
@@ -67,14 +64,16 @@ export class LocalStorageService {
         this.remove("refresh_token");
         this.remove("roles");
         this.remove("userId");
+        this.remove("auth-tokens");
     }
 
     public setAuthTokens(item: any): boolean {
-        let response = JSON.parse(item._body);
-        this.set("token_type", response.token_type);
-        this.set("access_token", response.access_token);
-        this.set("expires_in", this.setExpiredDate(response.expires_in));
-        this.set("refresh_token", response.refresh_token);
+        this.set("auth-tokens", JSON.stringify(item));
+        //let response = JSON.parse(item._body);
+        //this.set("token_type", response.token_type);
+        //this.set("access_token", response.access_token);
+        //this.set("expires_in", this.setExpiredDate(response.expires_in));
+        //this.set("refresh_token", response.refresh_token);
         return true;
     }
 
@@ -132,6 +131,7 @@ export class LocalStorageService {
     }
 
     private remove(key: string): any {
-        localStorage.removeItem(key);
+        if (!this.localStorage) return null;
+        this.localStorage.removeItem(key);
     }
 }

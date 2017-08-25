@@ -1,22 +1,18 @@
 ﻿import "./polyfills";
 import { platformBrowserDynamic } from "@angular/platform-browser-dynamic";
 import { enableProdMode } from "@angular/core";
-import { AppModule } from "./app/app.module";
+import { AppModuleNgFactory } from "../temp-js/aot/angular2app/app/app.module.browser.ngfactory";
 import "hammerjs";
 
-if (module["hot"]) {
-    module["hot"].accept();
-    module["hot"].dispose(() => {
-        platform.destroy();
-    });
-} else {
-    enableProdMode();
-}
+var rootElemTagName = "app";
+
+enableProdMode();
+
 
 // boot the application, either now or when the DOM content is loaded
 
 const platform = platformBrowserDynamic();
-const bootApplication = () => { platform.bootstrapModule(AppModule); };
+const bootApplication = () => { platform.bootstrapModuleFactory(AppModuleNgFactory); };
 if (document.readyState === "complete") {
     bootApplication();
 } else {

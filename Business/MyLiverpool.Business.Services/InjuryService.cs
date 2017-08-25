@@ -68,7 +68,7 @@ namespace MyLiverpool.Business.Services
            // {
           //      filter = filter.And(m => m.SeasonId == seasonId.Value);
           //  }
-            var injuries = await _injuryRepository.GetListAsync(page, itemsPerPage, filter);
+            var injuries = await _injuryRepository.GetListAsync(page, itemsPerPage, filter, SortOrder.Ascending, i => i.EndTime);
             var dtos = _mapper.Map<IEnumerable<InjuryDto>>(injuries);
             var count = await _injuryRepository.GetCountAsync(filter);
             return new PageableData<InjuryDto>(dtos, page, count);
@@ -77,7 +77,7 @@ namespace MyLiverpool.Business.Services
         public async Task<IEnumerable<InjuryDto>> GetCurrentListAsync()
         {
             Expression<Func<Injury, bool>> filter = x => x.EndTime.Date >= DateTime.Today;
-            var injuries = await _injuryRepository.GetListAsync(1, 1000, filter);
+            var injuries = await _injuryRepository.GetListAsync(1, 1000, filter, SortOrder.Ascending, i => i.EndTime);
             return _mapper.Map<ICollection<InjuryDto>>(injuries);
         }
     }

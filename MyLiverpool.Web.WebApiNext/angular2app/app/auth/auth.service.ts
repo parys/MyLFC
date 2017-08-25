@@ -79,7 +79,6 @@ export class AuthService {
             this.refreshSubscription$.unsubscribe();
         }
         this.removeToken();
-        this.localStorage.removeAuthTokens();
         this.localStorage.removeAllData();
         this.rolesCheckedService.checkRoles();
     }
@@ -93,17 +92,17 @@ export class AuthService {
     }
 
     private storeToken(tokens: IAuthTokenModel): void {
-        localStorage.setItem("auth-tokens", JSON.stringify(tokens));
+        this.localStorage.setAuthTokens(tokens);
     }
 
     private retrieveTokens(): IAuthTokenModel {
-        const tokensString = localStorage.getItem("auth-tokens");
-        const tokensModel: IAuthTokenModel = tokensString == null ? null : JSON.parse(tokensString);
+        const tokensString: string = this.localStorage.getAuthTokens();
+        const tokensModel: IAuthTokenModel = tokensString ? JSON.parse(tokensString) : null;
         return tokensModel;
     }
 
     private removeToken(): void {
-        localStorage.removeItem("auth-tokens");
+        this.localStorage.removeAuthTokens();
     }
 
     private updateState(newState: IAuthStateModel): void {
