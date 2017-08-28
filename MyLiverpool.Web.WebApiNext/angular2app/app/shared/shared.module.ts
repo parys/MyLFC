@@ -1,7 +1,7 @@
 ﻿import { NgModule } from "@angular/core";
 import { RecaptchaComponent } from "./recaptcha.component";
 import { HttpWrapper } from "./httpWrapper";
-import { LocalStorageService } from "./localStorage.service";
+import { StorageService } from "./storage.service";
 import { LocalStorage } from "./local-storage";
 import { RolesCheckedService } from "./roles-checked.service";
 import { GlobalValidators } from "./globalValidators";
@@ -10,6 +10,11 @@ import { DeleteDialogComponent } from "./delete-dialog.component";
 import { MdButtonModule } from "@angular/material";
 import { LoaderComponent } from "./loader.component";
 import { LoaderService } from "./loader.service";
+
+export function getStorage() {
+    const result = typeof window !== 'undefined' ? window.localStorage : null;
+    return result;
+}
 
 @NgModule({
     imports: [
@@ -28,10 +33,10 @@ import { LoaderService } from "./loader.service";
     providers: [
         GlobalValidators,
         HttpWrapper,
-        LocalStorageService,
+        StorageService,
         RolesCheckedService,
         LoaderService,
-        { provide: LocalStorage, useFactory: () => (typeof window !== 'undefined') ? window.localStorage : null }
+        { provide: LocalStorage, useFactory: getStorage }
     ],
     entryComponents: [
         DeleteDialogComponent

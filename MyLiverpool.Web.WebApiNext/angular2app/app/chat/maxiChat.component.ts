@@ -9,7 +9,7 @@ import { Configuration } from "../app.constants";
 import { ChatMessage } from "./chatMessage.model";
 import { ChatMessageType } from "./chatMessageType.enum";
 import { ChatMessageService } from "./chatMessage.service";
-import { RolesCheckedService, IRoles, DeleteDialogComponent, LocalStorageService } from "../shared/index";
+import { RolesCheckedService, IRoles, DeleteDialogComponent, StorageService } from "../shared/index";
 
 @Component({
     selector: "maxi-chat",
@@ -39,7 +39,7 @@ export class MaxiChatComponent implements OnInit, OnDestroy {
         private configuration: Configuration,
         private sanitizer: DomSanitizer,
         private rolesChecked: RolesCheckedService,
-private localStorage: LocalStorageService,
+        private storage: StorageService,
         private dialog: MdDialog) {
     }
 
@@ -99,7 +99,7 @@ private localStorage: LocalStorageService,
 
     public updateSchedule(event: any): void {
         this.scheduleUpdate(event.value);
-        this.localStorage.setChatUpdateTime(event.value, ChatMessageType.All);
+        this.storage.setChatUpdateTime(event.value, ChatMessageType.All);
     }
 
     private scheduleUpdate(selectedValue: number) {
@@ -160,7 +160,7 @@ private localStorage: LocalStorageService,
             this.cd.markForCheck();
         });
 
-        let timerValue: number = this.localStorage.getChatUpdateTime(ChatMessageType.All);
+        let timerValue: number = this.storage.getChatUpdateTime(ChatMessageType.All);
         if (timerValue) {
             this.scheduleUpdate(timerValue);
         }

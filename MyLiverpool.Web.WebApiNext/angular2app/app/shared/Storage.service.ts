@@ -2,10 +2,11 @@
 import { LocalStorage } from "./local-storage"; 
 
 @Injectable()
-export class LocalStorageService {
+export class StorageService {
 
     constructor(
         @Inject(LocalStorage) private localStorage: any) {
+        console.warn(localStorage);
     }
 
     public getAuthTokens(): string {
@@ -39,7 +40,7 @@ export class LocalStorageService {
     }
 
     public setAuthTokens(item: any): boolean {
-        this.setObject("auth-tokens", item);
+        this.set("auth-tokens", JSON.stringify(item));
         return true;
     }
 

@@ -6,9 +6,7 @@ import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { InjuryService } from "./injury.service";
 import { Configuration } from "../app.constants";
 import { Injury } from "./injury.model";
-import { Person } from "../person/index";
 import { PersonService } from "../person/person.service";
-import { LocalStorageService } from "../shared/index";
 
 @Component({
     selector: "injury-edit",
@@ -28,7 +26,6 @@ export class InjuryEditComponent implements OnInit, OnDestroy {
         private route: ActivatedRoute,
         private router: Router,
         private config: Configuration,
-        private localStorage: LocalStorageService,
         private sanitizer: DomSanitizer,
         private formBuilder: FormBuilder) {
     }

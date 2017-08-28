@@ -13,7 +13,7 @@ import { IAuthStateModel } from "./models/auth-state-model";
 import { IAuthTokenModel } from "./models/auth-tokens-model";
 import { IRegisterModel } from "./models/register-model";
 import { ILoginModel } from "./models/login-model";
-import { RolesCheckedService, HttpWrapper, LocalStorageService } from "../shared/index";
+import { RolesCheckedService, HttpWrapper, StorageService } from "../shared/index";
 //const jwtDecode = require("jwt-decode");
 
 @Injectable()
@@ -33,7 +33,7 @@ export class AuthService {
 
     constructor(private http: HttpWrapper,
         private http1: Http,
-        private localStorage: LocalStorageService,
+        private storage: StorageService,
         private rolesCheckedService: RolesCheckedService) {
 
         this.state = new BehaviorSubject<IAuthStateModel>(this.initalState);
@@ -69,6 +69,7 @@ export class AuthService {
         return this.getTokens(user, "password")
             .catch(res => Observable.throw(res.json()))
             .do(res => {
+                console.log(res);
                 this.scheduleRefresh();
             });
     }
@@ -79,7 +80,7 @@ export class AuthService {
             this.refreshSubscription$.unsubscribe();
         }
         this.removeToken();
-        this.localStorage.removeAllData();
+        this.storage.removeAllData();
         this.rolesCheckedService.checkRoles();
     }
 
@@ -92,17 +93,17 @@ export class AuthService {
     }
 
     private storeToken(tokens: IAuthTokenModel): void {
-        this.localStorage.setAuthTokens(tokens);
+        this.storage.setAuthTokens(tokens);
     }
 
     private retrieveTokens(): IAuthTokenModel {
-        const tokensString: string = this.localStorage.getAuthTokens();
+        const tokensString: string = this.storage.getAuthTokens();
         const tokensModel: IAuthTokenModel = tokensString ? JSON.parse(tokensString) : null;
         return tokensModel;
     }
 
     private removeToken(): void {
-        this.localStorage.removeAuthTokens();
+        this.storage.removeAuthTokens();
     }
 
     private updateState(newState: IAuthStateModel): void {
@@ -169,12 +170,12 @@ export class AuthService {
     }
 
     private parseLoginAnswer(item: any): void {
-        this.localStorage.setAuthTokens(item);
+        this.storage.setAuthTokens(item);
     }
 
     private parseRoles(item: any): void {
         this.roles = item._body.split(", ");
-        this.localStorage.setRoles(this.roles);
+        this.storage.setRoles(this.roles);
     }
 
     private getRoles(): void {
@@ -191,7 +192,7 @@ export class AuthService {
                 },
                 error => console.log(error),
                 () => {
-                    this.localStorage.setUserId(this.id);
+                    this.storage.setUserId(this.id);
                     this.getRoles();
                 });
     }

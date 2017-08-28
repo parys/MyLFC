@@ -12,7 +12,6 @@ import { Configuration } from "../app.constants";
 import { Club } from "./club.model";
 import { Stadium } from "../stadium/index";
 import { StadiumService } from "../stadium/stadium.service";
-import { LocalStorageService } from "../shared/index";
 
 @Component({
     selector: "club-edit",
@@ -34,7 +33,6 @@ export class ClubEditComponent implements OnInit, OnDestroy {
         private route: ActivatedRoute,
         private router: Router,
         private config: Configuration,
-        private localStorage: LocalStorageService,
         private formBuilder: FormBuilder) {
     }
 

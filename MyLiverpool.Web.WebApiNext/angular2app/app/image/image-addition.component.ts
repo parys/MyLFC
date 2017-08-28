@@ -2,7 +2,6 @@
 import { MdSnackBar } from "@angular/material";
 import { Configuration } from "../app.constants";
 import { ImageService } from "./image.service";
-import { LocalStorageService } from "../shared/index";
 
 @Component({
     selector: "image-addition",
@@ -20,7 +19,6 @@ export class ImageAdditionComponent implements OnInit, OnDestroy {
     public loadedImage: EventEmitter<string> = new EventEmitter<string>();
 
     constructor(private configuration: Configuration,
-        private storage: LocalStorageService,
         private service: ImageService,
         private snackBar: MdSnackBar
     ) { 

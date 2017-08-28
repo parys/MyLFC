@@ -9,7 +9,7 @@ import { Configuration } from "../app.constants";
 import { ChatMessage } from "./chatMessage.model";
 import { ChatMessageType } from "./chatMessageType.enum";
 import { ChatMessageService } from "./chatMessage.service";
-import { RolesCheckedService, IRoles, DeleteDialogComponent, LocalStorageService } from "../shared/index";
+import { RolesCheckedService, IRoles, DeleteDialogComponent, StorageService } from "../shared/index";
 
 @Component({
     selector: "mini-chat",
@@ -39,7 +39,7 @@ export class MiniChatComponent implements OnInit, OnDestroy {
         private configuration: Configuration,
         private sanitizer: DomSanitizer,
         private rolesChecked: RolesCheckedService,
-private localStorage: LocalStorageService,
+        private storage: StorageService,
         private dialog: MdDialog) {
     }
 
@@ -97,7 +97,7 @@ private localStorage: LocalStorageService,
 
     public updateSchedule(event: any): void {
         this.scheduleUpdate(event.value);
-        this.localStorage.setChatUpdateTime(event.value);
+        this.storage.setChatUpdateTime(event.value);
     }
 
     private scheduleUpdate(selectedValue: number) {
@@ -158,7 +158,7 @@ private localStorage: LocalStorageService,
             this.cd.markForCheck();
         });
 
-        let timerValue: number = this.localStorage.getChatUpdateTime();
+        let timerValue: number = this.storage.getChatUpdateTime();
         if (timerValue) {
             this.scheduleUpdate(timerValue);
         }

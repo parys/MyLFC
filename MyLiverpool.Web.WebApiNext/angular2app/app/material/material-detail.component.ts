@@ -7,7 +7,7 @@ import { Subscription } from "rxjs/Subscription";
 import { MaterialService } from "./material.service";
 import { Material } from "./material.model";                
 import { MaterialType } from "../materialCategory/materialType.enum";                
-import { RolesCheckedService, IRoles, LocalStorageService, DeleteDialogComponent } from "../shared/index";
+import { RolesCheckedService, IRoles, StorageService, DeleteDialogComponent } from "../shared/index";
 import { MaterialActivateDialogComponent } from "./material-activate-dialog.component";
 
 @Component({
@@ -27,7 +27,7 @@ export class MaterialDetailComponent implements OnInit, OnDestroy {
         @Inject(PLATFORM_ID) private platformId: Object,
         private route: ActivatedRoute,
         private cd: ChangeDetectorRef,
-        private localStorage: LocalStorageService,
+        private storage: StorageService,
         private rolesChecked: RolesCheckedService,
         private router: Router,
         private sanitizer: DomSanitizer,
@@ -131,7 +131,7 @@ export class MaterialDetailComponent implements OnInit, OnDestroy {
     }
 
     private addView(): void {
-        if (this.localStorage.tryAddViewForMaterial(this.item.id)) {
+        if (this.storage.tryAddViewForMaterial(this.item.id)) {
             this.service.addView(this.item.id).subscribe(data => data, e => console.log(e));
             this.item.reads += 1;
         }

@@ -7,7 +7,7 @@ export class Configuration {
     constructor() {
    //     this.serverWithApiUrl = baseUrl + this.apiUrl;
     }
-    public apiUrl: string = "http://localhost:1669/" + "api/v1/";
+    public apiUrl: string = "api/v1/";
     public serverWithApiUrl: string = this.apiUrl;
 
     public allowedImageTypes: string[] = [".jpeg", ".jpg", ".png", ".gif", ".bmp"];

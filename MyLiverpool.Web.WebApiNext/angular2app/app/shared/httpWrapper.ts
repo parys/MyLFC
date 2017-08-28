@@ -5,7 +5,7 @@ import { Http, Headers, Response,
     Request,
     XHRBackend } from "@angular/http";
 import { Observable } from "rxjs/Observable";
-import { LocalStorageService } from "./localStorage.service";
+import { StorageService } from "./storage.service";
 import { Configuration } from "../app.constants";
 import { Router } from "@angular/router";
 import { IAuthTokenModel } from "../auth/models/auth-tokens-model";
@@ -14,7 +14,7 @@ import { LoaderService } from "./loader.service";
 @Injectable()
 export class HttpWrapper {//}extends Http {
     constructor(private http: Http
-        , private localStorage: LocalStorageService
+        , private storage: StorageService
         , private configuration: Configuration,
         private router: Router,
         private loaderService: LoaderService//,
@@ -51,7 +51,7 @@ export class HttpWrapper {//}extends Http {
     }
 
     private retrieveTokens(): IAuthTokenModel {
-        const tokensString = this.localStorage.getAuthTokens();
+        const tokensString = this.storage.getAuthTokens();
         const tokensModel: IAuthTokenModel = tokensString ? JSON.parse(tokensString) : null;
         return tokensModel;
     }
@@ -71,6 +71,6 @@ export class HttpWrapper {//}extends Http {
     }
 
     private parseLoginAnswer(item: any): void {
-        this.localStorage.setAuthTokens(item);
+        this.storage.setAuthTokens(item);
     }
 }

@@ -4,12 +4,14 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PreserveCompilationContext>true</PreserveCompilationContext>
     <AssemblyName>MyLiverpool.Web.WebApiNext</AssemblyName>
-    <OutputType>Exe</OutputType>
     <PackageId>MyLiverpool.Web.WebApiNext</PackageId>
-    <UserSecretsId>aspnet-MyLiverpool.Web.WebApiNext-c05b72c3-6c36-4fb4-b552-b0bedfd1553d</UserSecretsId>
+      <IsPackable>false</IsPackable>
+      <OutputType>Exe</OutputType>
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
     <ServerGarbageCollection>true</ServerGarbageCollection>
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
+    <ApplicationIcon />
+    <StartupObject />
   </PropertyGroup>
 
   <ItemGroup>
@@ -43,7 +45,15 @@
 
   <ItemGroup>
     <PackageReference Include="AspNet.Security.OAuth.Validation" Version="2.0.0-preview1-0283" />
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.OAuth" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.Abstractions" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.NodeServices" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.ResponseCompression" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Server.IISIntegration" Version="2.0.0" />
@@ -59,7 +69,7 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.0.0" />
-    <PackageReference Include="OpenIddict.Mvc" Version="2.0.0-preview1-0648" />
+    <PackageReference Include="OpenIddict.Mvc" Version="2.0.0-preview1-0649" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="1.0.0" />
   </ItemGroup>
 
@@ -74,12 +84,12 @@
     <OutputPath>bin\Debug\netcoreapp2.0</OutputPath>
     <DocumentationFile>obj\Debug\netcoreapp2.0\MyLiverpool.Web.WebApiNext.xml</DocumentationFile>
   </PropertyGroup>
-
-  <Target Name="PrepublishScript" BeforeTargets="PrepareForPublish">
-    <Exec Command="node node_modules/@angular/compiler-cli/src/main.js -p tsconfig.aot.json" />
-    <Exec Command="node node_modules/rollup/bin/rollup -c rollup.config.js" />
-  </Target>
-
+    
+    <Target Name="PrepublishScript" BeforeTargets="PrepareForPublish">
+        <Exec Command="node node_modules/@angular/compiler-cli/src/main.js -p tsconfig.aot.json" />
+        <Exec Command="node node_modules/rollup/bin/rollup -c rollup.config.js" />
+    </Target>
+        
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
   </ItemGroup>

@@ -6,7 +6,7 @@ import { Subscription } from "rxjs/Subscription";
 import { Configuration } from "../app.constants";
 import { User } from "./user.model";                          
 import { UserService } from "./user.service";
-import { GlobalValidators, RolesCheckedService, IRoles, LocalStorageService } from "../shared/index";
+import { GlobalValidators, RolesCheckedService, IRoles } from "../shared/index";
 import { RoleGroupService, RoleGroup } from "../roleGroup/index";
 
 @Component({
@@ -25,7 +25,6 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     banDaysCount: number = 0;              
 
     constructor(private configuration: Configuration,
-        private storage: LocalStorageService,
         private service: UserService,
         private route: ActivatedRoute,
         private rolesChecked: RolesCheckedService,

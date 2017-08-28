@@ -6,7 +6,6 @@ import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { LoanService } from "./loan.service";
 import { Configuration } from "../../app.constants";
 import { Loan } from "./loan.model";
-import { LocalStorageService } from "../../shared/index";
 
 @Component({
     selector: "loan-edit",
@@ -25,7 +24,6 @@ export class LoanEditComponent implements OnInit, OnDestroy {
         private route: ActivatedRoute,
         private router: Router,
         private config: Configuration,
-        private localStorage: LocalStorageService,
         private sanitizer: DomSanitizer,
         private formBuilder: FormBuilder) {
     }

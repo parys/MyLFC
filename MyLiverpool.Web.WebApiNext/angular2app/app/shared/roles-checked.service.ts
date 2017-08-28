@@ -1,6 +1,6 @@
 ﻿import { Injectable } from "@angular/core";
 import { IRoles } from "./roles.interface";
-import { LocalStorageService } from "./localStorage.service";
+import { StorageService } from "./storage.service";
 
 @Injectable()
 export class RolesCheckedService {
@@ -20,12 +20,12 @@ export class RolesCheckedService {
     private roles: string[];
 
     constructor(
-        private localStorage: LocalStorageService) {
+        private storage: StorageService) {
         this.checkRoles();
     }
 
     public checkRoles(): IRoles {
-        this.roles = this.localStorage.getRoles();
+        this.roles = this.storage.getRoles();
         this.checkedRoles.isLogined = false;
         if (!this.roles) {
             return this.checkedRoles;
@@ -48,7 +48,7 @@ export class RolesCheckedService {
     }
 
     private isSelf(authorId: number): boolean {
-        const userId: number = this.localStorage.getUserId();
+        const userId: number = this.storage.getUserId();
         return (userId === authorId);
     }
 
