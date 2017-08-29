@@ -1,7 +1,8 @@
 ﻿import { Routes } from "@angular/router";
-import { MatchListComponent, MatchEditComponent } from "./index";
-import { MatchDetailComponent } from "./match-detail.component";
 import { RoleGuard } from "../auth/index";
+import { MatchListComponent } from "./match-list/index";
+import { MatchDetailComponent } from "./match-detail/index";
+import { MatchEditComponent } from "./match-edit/index";
 
 export const matchRoutes: Routes = [
     {

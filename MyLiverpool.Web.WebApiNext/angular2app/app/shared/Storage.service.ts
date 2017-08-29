@@ -6,7 +6,6 @@ export class StorageService {
 
     constructor(
         @Inject(LocalStorage) private localStorage: any) {
-        console.warn(localStorage);
     }
 
     public getAuthTokens(): string {

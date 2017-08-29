@@ -1,16 +1,16 @@
 ﻿import { Component, OnInit } from "@angular/core";
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { FormBuilder } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
-import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
+import { DomSanitizer } from "@angular/platform-browser";
 import { Observable } from "rxjs/Observable";
 import "rxjs/add/operator/startWith";
-import { MatchService } from "./index";
-import { SeasonService } from "../season/index";
-import { Match } from "./match.model";                        
-import { MatchType } from "./matchType.model";  
-import { Season } from "../season/season.model";
-import { Stadium } from "../stadium/index";
-import { StadiumService } from "../stadium/stadium.service";
+import { MatchService } from "../match.service";
+import { SeasonService } from "../../season/index";
+import { Match } from "../match.model";                        
+import { MatchType } from "../matchType.model";  
+import { Season } from "../../season/season.model";
+import { Stadium } from "../../stadium/index";
+import { StadiumService } from "../../stadium/stadium.service";
 
 @Component({
     selector: "match-detail",

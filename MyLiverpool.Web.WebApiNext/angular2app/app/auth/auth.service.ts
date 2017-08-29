@@ -69,7 +69,6 @@ export class AuthService {
         return this.getTokens(user, "password")
             .catch(res => Observable.throw(res.json()))
             .do(res => {
-                console.log(res);
                 this.scheduleRefresh();
             });
     }
@@ -164,7 +163,7 @@ export class AuthService {
         this.refreshSubscription$ = this.tokens$
             .first()
             // refresh every half the total expiration time
-            .flatMap((tokens: IAuthTokenModel) => Observable.interval(tokens.expires_in / 2 * 1000))
+            .flatMap((tokens: IAuthTokenModel) => Observable.interval(tokens.expires_in * 500))
             .flatMap(() => this.refreshTokens())
             .subscribe();
     }

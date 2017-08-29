@@ -96,8 +96,9 @@ export class MiniChatComponent implements OnInit, OnDestroy {
     }
 
     public updateSchedule(event: any): void {
-        this.scheduleUpdate(event.value);
-        this.storage.setChatUpdateTime(event.value);
+        let value = event.value || event.target.value;
+        this.scheduleUpdate(value);
+        this.storage.setChatUpdateTime(value);
     }
 
     private scheduleUpdate(selectedValue: number) {

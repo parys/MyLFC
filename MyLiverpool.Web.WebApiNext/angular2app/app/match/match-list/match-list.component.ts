@@ -3,9 +3,9 @@ import { Location } from "@angular/common";
 import { ActivatedRoute } from "@angular/router";
 import { MdDialog } from '@angular/material';
 import { Subscription } from "rxjs/Subscription";
-import { Match } from "./match.model";
-import { MatchService } from "./match.service";
-import { Pageable, DeleteDialogComponent } from "../shared/index";
+import { Match } from "../match.model";
+import { MatchService } from "../match.service";
+import { Pageable, DeleteDialogComponent } from "../../shared/index";
 
 @Component({
     selector: "match-list",

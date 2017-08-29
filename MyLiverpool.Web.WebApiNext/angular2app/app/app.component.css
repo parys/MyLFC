@@ -7,10 +7,6 @@
     src: url('./fonts/Cuprum-Regular.ttf');
 }
 
-* {
-    /*font-family: "AnotherFont";*/
-}
-
 /* override theme material */
 .mat-ink-bar {
     background-color: maroon;
@@ -279,6 +275,10 @@ textarea {
     font-size: 13px;
 }
 
+.font-size20 {
+    font-size: 20px;
+}
+
 .font-size30 {
     font-size: 30px;
 }
@@ -348,10 +348,6 @@ textarea {
         list-style: none;
     }
 
-    .main-container {
-        /*background-color: #f5f5f5;*/
-        /*font-size: medium; todo maybe bug*/
-    }
 
     /* background image*/
     /*

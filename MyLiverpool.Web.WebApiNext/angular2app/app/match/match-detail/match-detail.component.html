@@ -1,0 +1,23 @@
+﻿<div class="full-width flex-vertical-center" *ngIf="item">
+    <div class="col-sm-4">
+        <div class="full-width text-center">
+            <img [src]="item.homeClubLogo" [alt]="item.homeClubName" [title]="item.homeClubName" />
+        </div>
+        <div class="full-width text-center">
+            <b class="font-size20" [textContent]="item.homeClubName"></b>
+        </div>
+    </div>
+    <div class="col-sm-4 font-size40">
+        <b class="col-sm-5" [textContent]="item.scoreHome"></b>
+        <span class="col-sm-2 padding0">:</span>
+        <b class="col-sm-5" [textContent]="item.scoreAway"></b>
+    </div>
+    <div class="col-sm-4">
+        <div class="full-width text-center">
+            <img [src]="item.awayClubLogo" [alt]="item.awayClubName" [title]="item.awayClubName" />
+        </div>
+        <div class="full-width text-center">
+            <b class="font-size20" [textContent]="item.awayClubName"></b>
+        </div>
+    </div>
+</div>

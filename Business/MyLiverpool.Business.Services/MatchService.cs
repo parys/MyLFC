@@ -105,8 +105,21 @@ namespace MyLiverpool.Business.Services
 
         public async Task<MatchDto> GetByIdAsync(int id)
         {
+            var liverpoolClub = await _clubRepository.GetByEnglishName(LiverpoolClubEnglishName);
+            if (liverpoolClub == null)
+            {
+                return null;
+            }
             var match = await _matchRepository.GetByIdAsync(id);
             var dto = _mapper.Map<MatchDto>(match);
+            if (match.IsHome)
+            {
+                FillClubsFields(dto, liverpoolClub, match.Club);
+            }
+            else
+            {
+                FillClubsFields(dto, match.Club, liverpoolClub);
+            }
             return dto;
         }
 

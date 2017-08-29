@@ -16,7 +16,7 @@ import * as club from "./club/index";
 import * as home from "./home/index";
 import * as image from "./image/index";
 import { InjuryModule } from "./injury/index";
-import * as match from "./match/index";
+import { MatchModule } from "./match/index";
 import { PersonModule } from "./person/index";
 import * as roleGroup from "./roleGroup/index";
 import * as season from "./season/index";
@@ -56,6 +56,7 @@ import "rxjs/add/operator/mergeMap";
         Ng2AutoCompleteModule,
         Ng2BreadcrumbModule.forRoot(),
         NgxPaginationModule,
+        MatchModule,
         PersonModule,
         RouterModule.forRoot(routes),
         ReCaptchaModule,
@@ -82,10 +83,6 @@ import "rxjs/add/operator/mergeMap";
         image.ImageAdditionComponent,
         image.ImageDetailComponent,
         image.ImageListComponent,
-        match.MatchEditComponent,
-        match.MatchListComponent,
-        match.MatchCalendarComponent,
-        match.MatchDetailComponent,
         materialCategory.MaterialCategoryEditComponent,
         materialCategory.MaterialCategoryListComponent,
         materialComment.MaterialCommentDetailComponent,
@@ -129,7 +126,6 @@ entryComponents: [
         chat.ChatMessageService,
         club.ClubService,
         image.ImageService,
-        match.MatchService,
         materialCategory.MaterialCategoryService,
         materialComment.MaterialCommentService,
         pm.PmService,

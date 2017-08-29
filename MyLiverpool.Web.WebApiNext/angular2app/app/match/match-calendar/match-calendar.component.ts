@@ -1,8 +1,8 @@
 ﻿import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
 import { Subscription } from "rxjs/Subscription";
-import { MatchService } from "./match.service";
-import { Match } from "./match.model";
-import { RolesCheckedService, IRoles } from "../shared/index";
+import { MatchService } from "../match.service";
+import { Match } from "../match.model";
+import { RolesCheckedService, IRoles } from "../../shared/index";
 
 @Component({
     selector: "match-calendar",
