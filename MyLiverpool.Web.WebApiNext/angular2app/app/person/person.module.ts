@@ -11,7 +11,6 @@ import { StuffListComponent } from "./stuff-list.component";
 import { SquadComponent } from "./squad.component";
 import { personRoutes } from "./person.routes";
 import { SharedModule } from "../shared/index";
-import { LoanModule } from "./loan/index";
 import { TransferModule } from "./transfer/index";
 import {
     MdButtonModule,
@@ -31,7 +30,6 @@ import { Ng2AutoCompleteModule } from "ng2-auto-complete";
     imports: [
         CommonModule,
         FormsModule,
-        LoanModule,
         MdButtonModule,
         MdCardModule,
         MdDatepickerModule,

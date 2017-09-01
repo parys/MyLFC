@@ -42,9 +42,9 @@
             </div>
         </div>
     </div>
-    <md-input-container class="full-width">
+    <md-form-field class="full-width">
         <input mdInput placeholder="Стадион" [mdAutocomplete]="auto" formControlName="stadiumName">
-    </md-input-container>
+    </md-form-field>
 
     <md-autocomplete #auto="mdAutocomplete">
         <md-option *ngFor="let stadium of filteredStadiums$ | async"
@@ -59,11 +59,11 @@
             <input type="time" formControlName="time"/>
         </div>
     </div>
-    <md-input-container>
+    <md-form-field>
         <input mdInput [mdDatepicker]="datePicker" placeholder="Выберите дату" formControlName="date">
-        <button mdSuffix [mdDatepickerToggle]="datePicker"></button>
-    </md-input-container>
-    <md-datepicker #datePicker startView="year" touchUi="true"></md-datepicker>
+        <md-datepicker-toggle mdSuffix [for]="datePicker"></md-datepicker-toggle>
+        <md-datepicker #datePicker startView="year" touchUi="true"></md-datepicker>
+    </md-form-field>
     <div class="form-group">
         <label class="col-xs-2 control-label">Счет</label>
         <span class="col-xs-10 flex-container">

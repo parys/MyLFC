@@ -18,21 +18,21 @@
         </div>
     </div>
 
-    <md-input-container class="full-width">
+    <md-form-field class="full-width">
         <input mdInput [mdDatepicker]="datePicker1" placeholder="Выберите дату травмы" formControlName="startTime">
-        <button mdSuffix [mdDatepickerToggle]="datePicker1"></button>
-    </md-input-container>
-    <md-datepicker #datePicker1 startView="month" touchUi="true"></md-datepicker>
+        <md-datepicker-toggle mdSuffix [for]="datePicker1"></md-datepicker-toggle>
+        <md-datepicker #datePicker1 startView="month" touchUi="true"></md-datepicker>
+    </md-form-field>
 
-        <md-input-container class="full-width">
+        <md-form-field class="full-width">
             <input mdInput [mdDatepicker]="datePicker2" placeholder="Выберите дату окончания возвращения(можно приблизительную)" formControlName="endTime">
-            <button mdSuffix [mdDatepickerToggle]="datePicker2"></button>
-        </md-input-container>
-        <md-datepicker #datePicker2 startView="month" touchUi="true"></md-datepicker>
+            <md-datepicker-toggle mdSuffix [for]="datePicker2"></md-datepicker-toggle>
+            <md-datepicker #datePicker2 startView="month" touchUi="true"></md-datepicker>
+        </md-form-field>
     
-    <md-input-container class="full-width">
+    <md-form-field class="full-width">
         <input mdInput placeholder="Описание травмы(краткое)" formControlName="description">
-    </md-input-container>
+    </md-form-field>
 
     <div class="form-group">
         <button md-raised-button type="submit" [disabled]="!editInjuryForm.valid" class="text-center full-width">Сохранить</button>

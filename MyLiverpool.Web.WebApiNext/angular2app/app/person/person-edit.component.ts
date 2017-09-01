@@ -101,6 +101,7 @@ export class PersonEditComponent implements OnInit, OnDestroy {
 
     private parse(data: Person): void {
         this.id = data.id;
+        data.birthday = new Date(data.birthday);
         this.editPersonForm.patchValue(data);
         this.item = data;
     }

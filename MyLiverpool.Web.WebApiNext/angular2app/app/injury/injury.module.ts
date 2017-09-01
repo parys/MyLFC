@@ -1,7 +1,6 @@
 ﻿import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
-import { MdButtonModule } from "@angular/material";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { InjuryEditComponent } from "./injury-edit.component";
 import { InjuryListComponent } from "./injury-list.component";
@@ -17,7 +16,6 @@ import { Ng2AutoCompleteModule } from "ng2-auto-complete";
     imports: [
         CommonModule,
         FormsModule,
-        MdButtonModule,
         RouterModule.forRoot(injuryRoutes),
         ReactiveFormsModule,
         Ng2AutoCompleteModule,

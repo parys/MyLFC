@@ -53,26 +53,26 @@
                    autocomplete="off"/>
         </div>
     </div> 
-    <md-input-container class="full-width">
+    <md-form-field class="full-width">
         <input mdInput [mdDatepicker]="datePicker1" placeholder="Выберите дату трансфера" formControlName="startDate">
-        <button mdSuffix [mdDatepickerToggle]="datePicker1"></button>
-    </md-input-container>
-    <md-datepicker #datePicker1 startView="year" touchUi="true"></md-datepicker> 
+        <md-datepicker-toggle mdSuffix [for]="datePicker1"></md-datepicker-toggle>
+        <md-datepicker #datePicker1 startView="year" touchUi="true"></md-datepicker> 
+    </md-form-field>
     <div class="form-group">
         <md-slide-toggle formControlName="onLoan"
                          color="warn">Аренда
         </md-slide-toggle>
     </div>
     <div [hidden]="!editTransferForm.get('onLoan').value">
-        <md-input-container class="full-width">
+        <md-form-field class="full-width">
             <input mdInput [mdDatepicker]="datePicker2" placeholder="Выберите дату окончания трансфера(Для аренды)" formControlName="finishDate">
-            <button mdSuffix [mdDatepickerToggle]="datePicker2"></button>
-        </md-input-container>
-        <md-datepicker #datePicker2 startView="year" touchUi="true"></md-datepicker>
+            <md-datepicker-toggle mdSuffix [for]="datePicker2"></md-datepicker-toggle>
+            <md-datepicker #datePicker2 startView="year" touchUi="true"></md-datepicker>
+        </md-form-field>
     </div>
-    <md-input-container class="col-xs-12">
+    <md-form-field class="col-xs-12">
         <input mdInput placeholder="Сумма трансфера в фунтах(цифра)" type="number" formControlName="amount">
-    </md-input-container>
+    </md-form-field>
     <div class="form-group">Ушел
         <md-slide-toggle formControlName="coming"
                          color="warn">Пришел

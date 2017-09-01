@@ -117,7 +117,7 @@ export class TransferEditComponent implements OnInit, OnDestroy {
             'seasonName': [""],
             'personId': ["", Validators.required],
             'personName': [""],
-            'startDate': ["", Validators.required],
+            'startDate': [null, Validators.required],
             'finishDate': [null],
             'amount': [null],
             'onLoan': [false, Validators.required],

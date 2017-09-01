@@ -44,12 +44,13 @@ export class UserEditComponent implements OnInit, OnDestroy {
     }
 
     private parse(item: User): void {
+        item.birthday = new Date(item.birthday);
         this.userEditForm.patchValue(item);
     }
 
     private initUserEditForm(): void {
         this.userEditForm = this.formBuilder.group({
-            'birthday': [""],
+            'birthday': [null],
             'fullName': [""],
             'gender': ["", Validators.required]
         });
