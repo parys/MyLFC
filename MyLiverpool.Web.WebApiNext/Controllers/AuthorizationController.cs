@@ -75,8 +75,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 {
                     return BadRequest(new OpenIdConnectResponse
                     {
-                        Error = OpenIdConnectConstants.Errors.InvalidGrant,
-                        ErrorDescription = "The username/password couple is invalid."
+                        Error = OpenIdConnectConstants.Errors.AccessDenied,
+                        ErrorDescription = "The user is locked out."
                     });
                 }
 
@@ -123,7 +123,14 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                         ErrorDescription = "The user is no longer allowed to sign in."
                     });
                 }
-
+                if (_userManager.SupportsUserLockout && await _userManager.IsLockedOutAsync(user))
+                {
+                    return BadRequest(new OpenIdConnectResponse
+                    {
+                        Error = OpenIdConnectConstants.Errors.AccessDenied,
+                        ErrorDescription = "The user is locked out."
+                    });
+                }
                 // Create a new authentication ticket, but reuse the properties stored in the
                 // authorization code/refresh token, including the scopes originally granted.
                 var ticket = await CreateTicketAsync(request, user, info.Properties);

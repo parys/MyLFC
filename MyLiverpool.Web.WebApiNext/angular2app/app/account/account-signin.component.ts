@@ -34,6 +34,9 @@ export class AccountSigninComponent implements OnInit {
             if (e.error === "invalid_grant" && e.error_description === "The username/password couple is invalid.") {
                 this.snackBar.open("Неверный логин и/или пароль", null, { duration: 5000 });
             }
+            if (e.error === "access_denied" && e.error_description === "The user is locked out.") {
+                this.snackBar.open("Активность вашего аккаунта временно заблокирована за нарушение правил сайта.", null, { duration: 35000 });
+            }
         });
     }
 }
