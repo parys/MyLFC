@@ -53,7 +53,7 @@ export class AppComponent implements OnInit {
 
     private initTitleSubscriber() {
         this.router.events
-            .filter(event => event instanceof NavigationEnd)
+            .filter((event: any) => event instanceof NavigationEnd)
             .map(() => this.activatedRoute)
             .map((route: ActivatedRoute) => {
                 while (route.firstChild) route = route.firstChild;
@@ -66,6 +66,19 @@ export class AppComponent implements OnInit {
                 this.titleService.setTitle(event["title"]);
                // this.isRoot = (event["title"] === "MyLFC.ru - Сайт русскоязычных болельщиков \"Ливерпуля\"");
             });
+        this.router.events.subscribe(event => {
+            if (event instanceof NavigationEnd) {
+
+                const tree = this.router.parseUrl(this.router.url);
+                if (tree.fragment) {
+                    const element = document.querySelector(tree.fragment);
+                    console.log(element);
+                    if (element) {
+                        console.log(1234);
+                        element.scrollTo();}
+                }
+            }
+        });
         /* todo research
         this.router.events
             .filter(event => event instanceof NavigationEnd)

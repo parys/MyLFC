@@ -1,5 +1,5 @@
 ﻿import { Routes } from "@angular/router";
-import { StaticPageComponent } from "./index";
+import { StaticPageComponent } from "./static-page/index";
 import { HelperType } from "../admin/helperType.enum";
 import { RoleGuard } from "../auth/index";
 

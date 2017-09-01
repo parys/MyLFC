@@ -1,0 +1,13 @@
+﻿@media(max-width: 767px) {
+    #goToTop {
+        display: none;
+    }
+}
+
+#goToTop {
+    left: -38%;
+    position: fixed;
+    bottom: 10%;
+    text-align: center;
+    width: 100%;
+}

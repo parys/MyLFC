@@ -4,11 +4,11 @@ import { Title, DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { Router, ActivatedRoute } from "@angular/router";
 import { MdDialog, MdSnackBar } from '@angular/material';
 import { Subscription } from "rxjs/Subscription";
-import { MaterialService } from "./material.service";
-import { Material } from "./material.model";                
-import { MaterialType } from "../materialCategory/materialType.enum";                
-import { RolesCheckedService, IRoles, StorageService, DeleteDialogComponent } from "../shared/index";
-import { MaterialActivateDialogComponent } from "./material-activate-dialog.component";
+import { MaterialService } from "../material.service";
+import { Material } from "../material.model";                
+import { MaterialType } from "../../materialCategory/materialType.enum";                
+import { RolesCheckedService, IRoles, StorageService, DeleteDialogComponent } from "../../shared/index";
+import { MaterialActivateDialogComponent } from "../material-activate-dialog.component";
 
 @Component({
     selector: "material-detail",
