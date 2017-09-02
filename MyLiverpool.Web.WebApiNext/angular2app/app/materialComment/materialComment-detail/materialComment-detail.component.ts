@@ -4,10 +4,10 @@ import { Location } from "@angular/common";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { MdDialog } from '@angular/material';
 import { Subscription } from "rxjs/Subscription"
-import { MaterialComment } from "./materialComment.model";
-import { CommentVote } from "./commentVote.model";
-import { MaterialCommentService } from "./materialComment.service";
-import { RolesCheckedService, IRoles, DeleteDialogComponent } from "../shared/index";
+import { MaterialComment } from "../materialComment.model";
+import { CommentVote } from "../commentVote.model";
+import { MaterialCommentService } from "../materialComment.service";
+import { RolesCheckedService, IRoles, DeleteDialogComponent } from "../../shared/index";
 
 @Component({
     selector: "materialComment-detail",

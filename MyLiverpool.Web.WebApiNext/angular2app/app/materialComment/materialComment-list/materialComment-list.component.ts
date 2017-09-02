@@ -4,10 +4,10 @@ import { FormGroup, FormBuilder } from "@angular/forms";
 import { Location } from "@angular/common";
 import { MdDialog } from '@angular/material';
 import { Subscription } from "rxjs/Subscription";
-import { MaterialComment } from "./materialComment.model";
-import { MaterialCommentService } from "./materialComment.service";
-import { RolesCheckedService, IRoles, DeleteDialogComponent, Pageable } from "../shared/index";
-import { MaterialCommentFilter } from "./materialCommentFilter.model";
+import { MaterialComment } from "../materialComment.model";
+import { MaterialCommentService } from "../materialComment.service";
+import { RolesCheckedService, IRoles, DeleteDialogComponent, Pageable } from "../../shared/index";
+import { MaterialCommentFilter } from "../materialCommentFilter.model";
 
 @Component({
     selector: "materialComment-list",

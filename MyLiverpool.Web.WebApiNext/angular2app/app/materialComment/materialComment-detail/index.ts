@@ -1,0 +1,1 @@
+﻿export * from "./materialComment-detail.component";
