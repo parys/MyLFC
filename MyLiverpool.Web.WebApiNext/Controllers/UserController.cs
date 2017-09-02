@@ -188,7 +188,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [AllowAnonymous, HttpGet("birthdays")]
         public async Task<IActionResult> GetBirthdaysAsync()
         {
-            var result = await _cache.GetOrCreateAsync(UserBirthdays, async x => await _userService.GetBirthdaysAsync());
+            var result = await _cache.GetOrCreateAsync(UserBirthdays + DateTime.Today, async x => await _userService.GetBirthdaysAsync());
             return Json(result);
         }
 

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using MyLiverpool.Business.Contracts;
@@ -23,7 +24,7 @@ namespace MyLiverpool.Business.Services
         public async Task<ICollection<MaterialCategoryDto>> GetListAsync(MaterialType materialType)
         {
             var categories = await _categoryRepository.GetAsync(x => x.MaterialType == materialType);
-            var result = _mapper.Map<ICollection<MaterialCategoryDto>>(categories);
+            var result = _mapper.Map<ICollection<MaterialCategoryDto>>(categories.OrderBy(x => x.Name));
             return result;
         }
 

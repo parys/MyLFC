@@ -12,6 +12,7 @@ using MyLiverpool.Data.Common;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {   
+    /// <inheritdoc />
     /// <summary>
     /// Controller for manage persons.
     /// </summary>
@@ -50,6 +51,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 return BadRequest();
             }
             var result = await _personService.CreateAsync(dto);
+            _cache.Remove(PersonBday + DateTime.Today);
             return Ok(result);
         }
 
@@ -166,6 +168,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 return BadRequest();
             }
             var result = await _personService.UpdateAsync(dto);
+            _cache.Remove(PersonBday + DateTime.Today);
             return Ok(result);
         }
 

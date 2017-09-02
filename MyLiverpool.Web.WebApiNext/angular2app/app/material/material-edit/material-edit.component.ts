@@ -2,12 +2,12 @@
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
 import { MdSnackBar } from "@angular/material";
-import { MaterialService } from "./material.service";
-import { Material } from "./material.model";
-import { MaterialCategoryService } from "../materialCategory/index";
-import { RolesCheckedService, IRoles } from "../shared/index";
-import { MaterialCategory } from "../materialCategory/materialCategory.model";
-import { MaterialType } from "../materialCategory/materialType.enum";
+import { MaterialService } from "../material.service";
+import { Material } from "../material.model";
+import { MaterialCategoryService } from "../../materialCategory/index";
+import { RolesCheckedService, IRoles } from "../../shared/index";
+import { MaterialCategory } from "../../materialCategory/materialCategory.model";
+import { MaterialType } from "../../materialCategory/materialType.enum";
 
 @Component({
     selector: "material-edit",
@@ -58,7 +58,9 @@ export class MaterialEditComponent implements OnInit {
         if (this.id > 0) {
             this.service.update(this.id, newsItem)
                 .subscribe(data => {
-                    this.router.navigate([`/${MaterialType[this.type].toLowerCase()}`, data.id]);
+                        if (!this.editForm.get("stayOnPage").value) {
+                            this.router.navigate([`/${MaterialType[this.type].toLowerCase()}`, data.id]);
+                        }
                         this.snackBar.open("Материал успешно обновлен", null, { duration: 5000 });
                     },
                 error => {
@@ -68,7 +70,9 @@ export class MaterialEditComponent implements OnInit {
         } else {
             this.service.create(newsItem, this.type)
                 .subscribe(data => {
-                    this.router.navigate([`/${MaterialType[this.type].toLowerCase()}`, data.id]);
+                        if (!this.editForm.get("stayOnPage").value) {
+                            this.router.navigate([`/${MaterialType[this.type].toLowerCase()}`, data.id]);
+                        }
                         this.snackBar.open("Материал успешно создан", null, { duration: 5000 });
                     },
                 error => {
@@ -120,8 +124,9 @@ export class MaterialEditComponent implements OnInit {
             'canCommentary': [true, Validators.required],
             'onTop': [false, Validators.required],
             'pending': [true, Validators.required],
-            'photoUrl': [""]
-        });
+            'photoUrl': [""],
+            'stayOnPage': [false]
+    });
     }
 
     private parseCategories(items: MaterialCategory[]) {
