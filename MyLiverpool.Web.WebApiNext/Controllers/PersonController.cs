@@ -148,7 +148,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [AllowAnonymous, HttpGet("birthdays")]
         public async Task<IActionResult> GetBirthdaysAsync()
         {
-            var result = await _cache.GetOrCreateAsync(PersonBday, async x => await _personService.GetBirthdaysAsync());
+            var result = await _cache.GetOrCreateAsync(PersonBday + DateTime.Today, async x => await _personService.GetBirthdaysAsync());
             return Json(result);
         }
 
@@ -209,7 +209,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                     var file = Request.Form.Files[0];
                     var result = await _uploadService.UpdatePersonPhotoAsync(name, file);
 
-                    return Ok(result);
+                    return Json(new { path = result });
             }
             return BadRequest();
         }

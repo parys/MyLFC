@@ -42,14 +42,14 @@ export class UserService {
         return this.http.put(`${this.actionUrl}unban/${id}`, "").map((response: Response) => response.json());
     };
 
-    public resetAvatar = (id: number): Observable<string> => {
-        return this.http.put(`${this.actionUrl}avatar/${id}/reset`, "").map((response: Response) => response.text());
+    public resetAvatar = (id: number): Observable<Object> => {
+        return this.http.put(`${this.actionUrl}avatar/${id}/reset`, "").map((response: Response) => response.json());
     };
 
-    public updateAvatar = (file: File): Observable<string> => {
+    public updateAvatar = (file: File): Observable<Object> => {
         let formData: FormData = new FormData();
         formData.append("uploadFile", file, file.name);
-        return this.http.post(`${this.actionUrl}avatar/`, formData, true).map((response: Response) => response.text());
+        return this.http.post(`${this.actionUrl}avatar/`, formData, true).map((response: Response) => response.json());
     };
 
     public getConfig = (): Observable<UserConfig> => {

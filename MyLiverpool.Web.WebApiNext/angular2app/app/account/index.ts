@@ -1,5 +1,5 @@
 ﻿export * from "./account-signin.component";
-export * from "./account-signup.component";
+export * from "./account-signup/index";
 export * from "./confirmEmail.component";
 export * from "./forgotPassword.component";
 export * from "./resetPassword.component";

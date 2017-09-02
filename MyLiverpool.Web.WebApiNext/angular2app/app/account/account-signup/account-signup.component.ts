@@ -1,10 +1,10 @@
 ﻿import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { IRegisterModel } from "../auth/models/register-model";
-import { AccountService } from "./account.service";
-import { GlobalValidators } from "../shared/index";
-import { AccountValidators } from "./account.validators";
-import { AuthService } from "../auth/auth.service";
+import { IRegisterModel } from "../../auth/models/register-model";
+import { AccountService } from "../account.service";
+import { GlobalValidators } from "../../shared/index";
+import { AccountValidators } from "../account.validators";
+import { AuthService } from "../../auth/auth.service";
 
 @Component({
     selector: "account-signup",

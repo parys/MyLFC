@@ -15,6 +15,7 @@ using Newtonsoft.Json;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
+    /// <inheritdoc />
     /// <summary>
     /// Manages users.
     /// </summary>
@@ -22,8 +23,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     public class UserController : Controller
     {
         private readonly IUserService _userService;
-        private readonly IUploadService _uploadService;
-        private readonly IMemoryCache _cache; //todo should call remove and method move to user service
+        private readonly IUploadService _uploadService;//todo should call remove and method move to user service
+        private readonly IMemoryCache _cache; 
         private const string UserBirthdays = "UserBirthdays";
 
         /// <summary>
@@ -242,7 +243,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                     var file = Request.Form.Files[0];
                     var result = await _uploadService.UpdateAvatarAsync(User.GetUserId(), file);
 
-                    return Ok(result);
+                    return Json(new { path = result});
                 }
             }
             return BadRequest();
@@ -261,7 +262,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 return StatusCode((int)HttpStatusCode.Forbidden);
             }
             var result = await _userService.ResetAvatarAsync(userId);
-            return Ok(result);
+            return Json(new { path = result });
         }
     }
 }

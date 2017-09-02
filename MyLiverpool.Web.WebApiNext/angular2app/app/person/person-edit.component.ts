@@ -48,9 +48,10 @@ export class PersonEditComponent implements OnInit, OnDestroy {
         const fullname = this.editPersonForm.controls["firstName"].value + " " + this.editPersonForm.controls["lastName"].value;
         if (file) {
             this.service.updatePhoto(fullname, file)
-                .subscribe(result => {
-                    this.editPersonForm.controls["photo"].patchValue(result);
-                    this.item.photo = `${result}#${Math.random()}`;
+                .subscribe((result: any) => {
+                        console.log(result.path);
+                        this.editPersonForm.controls["photo"].patchValue(result.path);
+                        this.item.photo = `${result.path}#${Math.random()}`;
                         this.snackBar.open("Фото успешно загружено", null, {duration: 5000});
                     },
                 error => {

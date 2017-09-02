@@ -80,9 +80,9 @@ export class ClubEditComponent implements OnInit, OnDestroy {
     public onUploadImage(event: any): void {
         if (event.currentTarget.files.length > 0) {
             this.clubService.uploadLogo(event.currentTarget.files[0], this.editForm.controls["englishName"].value)
-                .subscribe(result => {
-                    this.imagePath = result + "?" + this.getRandomNumber();
-                    this.editForm.controls["logo"].patchValue(result);
+                .subscribe((result: any) => {
+                    this.imagePath = result.path + "?" + this.getRandomNumber();
+                    this.editForm.controls["logo"].patchValue(result.path);
                 },
                 error => console.log(error));
         }

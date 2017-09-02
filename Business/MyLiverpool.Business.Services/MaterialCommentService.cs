@@ -174,7 +174,7 @@ namespace MyLiverpool.Business.Services
                     comment.Message = comment.Message.Substring(0, GlobalConstants.LastCommentMessageSymbolCount) +
                                       "...";
             }
-            return _mapper.Map<IEnumerable<MaterialCommentDto>>(comments);
+            return _mapper.Map<IEnumerable<MaterialCommentDto>>(comments.Where(x => !string.IsNullOrWhiteSpace(x.Message)));
         }
 
         private async Task SendNotificationsAsync(int parentCommentId)

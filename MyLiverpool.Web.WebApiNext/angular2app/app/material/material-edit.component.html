@@ -27,7 +27,7 @@
             </div>
         </div>
         <div class="form-group">
-            <md-input-container class="col-xs-12">
+            <md-input-container class="full-width">
                 <input mdInput formControlName="photoUrl" placeholder="Ссылка на фоторепортаж(пока только оф сайт)"/>
             </md-input-container>
             <button md-raised-button type="button" [disabled]="!editForm.get('photoUrl').value" (click)="copyPhoto()">Скопировать фото</button>

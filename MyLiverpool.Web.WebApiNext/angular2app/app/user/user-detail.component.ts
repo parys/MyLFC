@@ -85,7 +85,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
         let file = event.currentTarget.files[0];
         if (file) {
             this.service.updateAvatar(file)
-                .subscribe(result => this.item.photo = `${result}#${Math.random()}`,
+                .subscribe((result: any) => this.item.photo = `${result.path}#${Math.random()}`,
                     error => console.log(error),
                     () => {});
         }
@@ -93,7 +93,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
 
     public resetAvatar(): void {
         this.service.resetAvatar(this.item.id)
-            .subscribe(result => this.item.photo = `${result}#${Math.random()}`,
+            .subscribe((result: any) => this.item.photo = `${result.path}#${Math.random()}`,
             error => console.log(error),
             () => {});
     }

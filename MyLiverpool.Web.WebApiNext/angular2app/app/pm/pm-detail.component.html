@@ -3,20 +3,20 @@
         <label class="control-label col-md-2" *ngIf="roles.isSelf(item.senderId)">Получатель</label>
         <label class="control-label col-md-2" *ngIf="!roles.isSelf(item.senderId)">Отправитель</label>
         <div class="col-md-10">
-            <input class="form-control" disabled *ngIf="roles.isSelf(item.senderId)" [value]="item.receiver" />
-            <input class="form-control" disabled *ngIf="!roles.isSelf(item.senderId)" [value]="item.sender" />
+            <input class="form-control" readonly *ngIf="roles.isSelf(item.senderId)" [value]="item.receiver" />
+            <input class="form-control" readonly *ngIf="!roles.isSelf(item.senderId)" [value]="item.sender" />
         </div>
     </div>
     <div class="form-group">
         <label class="control-label col-md-2">Заголовок</label>
         <div class="col-md-10">
-            <input class="form-control" disabled [value]="item.title" />
+            <input class="form-control" readonly [value]="item.title" />
         </div>
     </div>
     <div class="form-group">
         <label class="control-label col-md-2">Сообщение</label>
         <div class="col-md-10">
-            <textarea class="form-control" disabled rows="8" [innerHTML]="sanitizeByHtml(item.message)"></textarea>
+            <textarea class="form-control" readonly rows="8" [innerHTML]="sanitizeByHtml(item.message)"></textarea>
         </div>
     </div>   
     <div class="form-group">

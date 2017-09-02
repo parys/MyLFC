@@ -81,7 +81,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Authorize(Roles = nameof(RolesEnum.InfoStart)), HttpPut("{id:int}")]
         public async Task<IActionResult> EditAsync(int id, [FromBody]ClubDto dto)
         {
-            if ( id != dto.Id || !ModelState.IsValid)
+            if (id != dto.Id || !ModelState.IsValid)
             {
                 return BadRequest();
             }
@@ -131,7 +131,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 var file = Request.Form.Files[0];
                 var result = await _uploadService.UpdateLogoAsync(clubEnglishName.ToLower().Replace(" ", ""), file);
 
-                return Ok(result);
+                return Json(new { path = result });
             }
             return BadRequest();
         }

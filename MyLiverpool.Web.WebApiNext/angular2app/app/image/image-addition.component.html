@@ -9,7 +9,7 @@
                    (change)="onUploadImage($event)"
                    [id]="controlName" />
         <div *ngFor="let file of uploadedFiles">
-            <img [src]="file" alt="" />
+            <img [src]="file" alt="" class="full-width" />
             <input class="form-control" readonly [value]="file" alt="" />
         </div>
     </div>
