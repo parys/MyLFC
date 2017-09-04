@@ -23,6 +23,10 @@ namespace MyLiverpool.Business.Services
 
         public async Task SendEmailAsync(string email, string subject, string message)
         {
+            if (string.IsNullOrWhiteSpace(_settings.Value.Email) || string.IsNullOrWhiteSpace(_settings.Value.Password))
+            {
+                return;
+            }
             var emailMessage = new MimeMessage();
 
             emailMessage.From.Add(new MailboxAddress(_settings.Value.Author, _settings.Value.Email));
