@@ -3,9 +3,9 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
 import { MdSnackBar } from "@angular/material";
 import { Subscription } from "rxjs/Subscription";
-import { AccountService } from "./account.service";
-import { GlobalValidators } from "../shared/index";
-import { ResetPassword } from "./resetPassword.model";
+import { AccountService } from "../account.service";
+import { GlobalValidators } from "../../shared/index";
+import { ResetPassword } from "../resetPassword.model";
 
 @Component({
     selector: "reset-password",

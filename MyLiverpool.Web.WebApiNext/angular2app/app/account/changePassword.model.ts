@@ -1,5 +1,5 @@
 ﻿export class ChangePassword {
-    oldPassword: string;
-    newPassword: string;
-    confirmPassword: string;
+    public oldPassword: string;
+    public newPassword: string;
+    public confirmPassword: string;
 }

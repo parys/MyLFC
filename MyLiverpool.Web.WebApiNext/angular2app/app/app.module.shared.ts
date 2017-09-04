@@ -10,7 +10,6 @@ import * as material from "./material/index";
 import { EditorModule } from "./editor/index";
 import * as materialCategory from "./materialCategory/index";
 import * as auth from "./auth/index";
-import * as account from "./account/index";
 import * as chat from "./chat/index";
 import * as club from "./club/index";
 import * as home from "./home/index";
@@ -33,12 +32,14 @@ import { ReCaptchaModule } from "angular2-recaptcha";
 import { Ng2BreadcrumbModule, BreadcrumbService } from "ng2-breadcrumb/ng2-breadcrumb";
 import * as angMaterial from '@angular/material';
 import "rxjs/add/operator/mergeMap";
+import { AccountModule } from "./account/index";
 
 @NgModule({
     imports: [
         BrowserModule.withServerTransition({ appId: 'mylfc-app' }),
         EditorModule,
         HttpModule,
+        AccountModule,
         ForumModule,
         InjuryModule,
         angMaterial.MdAutocompleteModule,
@@ -66,13 +67,6 @@ import "rxjs/add/operator/mergeMap";
         WishModule
     ],
     declarations: [
-        account.AccountSigninComponent,
-        account.AccountSignupComponent,
-        account.ChangePasswordComponent,
-        account.ConfirmEmailComponent,
-        account.ForgotPasswordComponent,
-        account.ResetPasswordComponent,
-        account.UnconfirmedEmailComponent,
         chat.MaxiChatComponent,
         chat.MiniChatComponent,
         club.ClubEditComponent,
@@ -121,8 +115,6 @@ entryComponents: [
         auth.AuthService,
         auth.RoleGuard,
         auth.UnSignedGuard,
-        account.AccountService,
-        account.AccountValidators,
         BreadcrumbService,
         chat.ChatMessageService,
         club.ClubService,

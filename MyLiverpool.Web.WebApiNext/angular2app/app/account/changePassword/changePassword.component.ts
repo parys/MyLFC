@@ -1,9 +1,8 @@
 ﻿import { Component, OnInit } from "@angular/core";
-import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { Observable } from "rxjs/Observable";        
-import { AccountService } from "./account.service";    
-import { GlobalValidators } from "../shared/index";
-import { ChangePassword } from "./changePassword.model";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { AccountService } from "../account.service";    
+import { GlobalValidators } from "../../shared/index";
+import { ChangePassword } from "../changePassword.model";
 
 @Component({
     selector: "change-password",
@@ -11,14 +10,13 @@ import { ChangePassword } from "./changePassword.model";
 })
 
 export class ChangePasswordComponent implements OnInit {
-
-    passwordForm: FormGroup;
-    isHuman: boolean = false;
+    public passwordForm: FormGroup;
+    public isHuman: boolean = false;
 
     constructor(private service: AccountService, private formBuilder: FormBuilder) {
     }
 
-    ngOnInit() {
+    public ngOnInit(): void {
         this.passwordForm = this.formBuilder.group({
             'oldPassword': ["", Validators.compose([
                 Validators.required, Validators.minLength(6)])],
@@ -29,7 +27,7 @@ export class ChangePasswordComponent implements OnInit {
         }, { validator: GlobalValidators.matchingPasswords("newPassword", "confirmPassword") });
     }
 
-    onSubmit(): void {
+    public onSubmit(): void {
         let model = new ChangePassword();
         model.oldPassword = this.passwordForm.controls["oldPassword"].value;
         model.newPassword = this.passwordForm.controls["newPassword"].value;

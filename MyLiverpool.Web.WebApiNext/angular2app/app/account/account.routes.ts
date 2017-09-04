@@ -1,13 +1,11 @@
 ﻿import { Routes } from "@angular/router";
-import {
-    AccountSignupComponent,
-    ConfirmEmailComponent,
-    ForgotPasswordComponent,
-    UnconfirmedEmailComponent,
-    ResetPasswordComponent,
-    ChangePasswordComponent
-} from "./index";
 import { UnSignedGuard, RoleGuard } from "../auth/index";
+import { AccountSignupComponent } from "./account-signup/index";
+import { ConfirmEmailComponent } from "./confirmEmail.component";
+import { ForgotPasswordComponent } from "./forgotPassword/index";
+import { UnconfirmedEmailComponent } from "./unconfirmedEmail/index";
+import { ResetPasswordComponent } from "./resetPassword/index";
+import { ChangePasswordComponent } from "./changePassword/index";
 
 export const accountRoutes: Routes = [
     {

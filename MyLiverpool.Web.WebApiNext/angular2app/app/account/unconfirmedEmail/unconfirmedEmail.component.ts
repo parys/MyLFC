@@ -1,8 +1,7 @@
 ﻿import { Component, OnInit } from "@angular/core";
-import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { Observable } from "rxjs/Observable";
-import { AccountService } from "./account.service";
-import { GlobalValidators } from "../shared/index";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { AccountService } from "../account.service";
+import { GlobalValidators } from "../../shared/index";
 
 @Component({
     selector: "unconfirmedEmail",
@@ -10,13 +9,13 @@ import { GlobalValidators } from "../shared/index";
 })
 
 export class UnconfirmedEmailComponent implements OnInit {
-    unconfirmedForm: FormGroup; 
-    finish: boolean;
+    public unconfirmedForm: FormGroup; 
+    public finish: boolean;
 
     constructor(private service: AccountService, private formBuilder: FormBuilder) {
     }
 
-    ngOnInit() {
+    public ngOnInit(): void {
         this.unconfirmedForm = this.formBuilder.group({
             'email': ["", Validators.compose([
                 Validators.required,
@@ -25,8 +24,8 @@ export class UnconfirmedEmailComponent implements OnInit {
         });
     }
 
-    onSubmit(): void {
-        let email = this.unconfirmedForm.controls["email"].value;
+    public onSubmit(): void {
+        const email = this.unconfirmedForm.controls["email"].value;
         this.service.resendConfirmEmail(email).subscribe(data => {
                 if (data) {
                     this.finish = true;
