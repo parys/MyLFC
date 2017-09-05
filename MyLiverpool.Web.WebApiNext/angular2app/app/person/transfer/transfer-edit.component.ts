@@ -96,6 +96,10 @@ export class TransferEditComponent implements OnInit, OnDestroy {
 
     private parse(data: Transfer): void {
         this.id = data.id;
+        data.startDate = new Date(data.startDate);
+        if (data.finishDate) {
+            data.finishDate = new Date(data.finishDate);
+        }
         this.editTransferForm.patchValue(data);
     }
 

@@ -4,10 +4,11 @@
     }
 }
 
-#goToTop {
-    left: -38%;
+.top {
+    left: 0;
     position: fixed;
     bottom: 10%;
+    height: 10%;
     text-align: center;
-    width: 100%;
+    width: 25%;
 }
