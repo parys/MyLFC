@@ -1,5 +1,5 @@
 ﻿import { Injectable } from "@angular/core";
-import { Http, Headers, RequestOptions, Response, URLSearchParams } from '@angular/http';
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs/Observable";
 import "rxjs/add/observable/interval";
 import "rxjs/add/observable/of";
@@ -14,12 +14,12 @@ import { IAuthTokenModel } from "./models/auth-tokens-model";
 import { IRegisterModel } from "./models/register-model";
 import { ILoginModel } from "./models/login-model";
 import { RolesCheckedService, HttpWrapper, StorageService } from "../shared/index";
+import { IUserProfile } from "./models/userProfile.model";
 //const jwtDecode = require("jwt-decode");
 
 @Injectable()
 export class AuthService {
     public roles: string[] = [];
-    private id: number;
 
     private initalState: IAuthStateModel = { profile: null, tokens: null, authReady: false };
     private authReady$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
@@ -32,7 +32,7 @@ export class AuthService {
     public loggedIn$: Observable<boolean>;
 
     constructor(private http: HttpWrapper,
-        private http1: Http,
+        private http1: HttpClient,
         private storage: StorageService,
         private rolesCheckedService: RolesCheckedService) {
 
@@ -110,18 +110,18 @@ export class AuthService {
         this.state.next(Object.assign({}, previoudState, newState));
     }
 
-    private getTokens(data: IRefreshGrantModel | ILoginModel, grantType: string): Observable<Response> {
-        const headers = new Headers({ 'Content-Type': "application/x-www-form-urlencoded; charset=UTF-8;" });
-        const options = new RequestOptions({ headers: headers });
+    private getTokens(data: IRefreshGrantModel | ILoginModel, grantType: string): Observable<IAuthTokenModel> {
+        const headers = new HttpHeaders({ 'Content-Type': "application/x-www-form-urlencoded; charset=UTF-8;" });
+      //  const options = new ({ headers: headers });
 
         Object.assign(data, { grant_type: grantType, scope: "openid offline_access" });
 
         const params = new URLSearchParams();
         Object.keys(data)
             .forEach(key => params.append(key, data[key]));
-        return this.http1.post("/connect/token", params.toString(), options)
-            .do((res: Response) => {
-                const tokens: IAuthTokenModel = res.json();
+        return this.http1.post<IAuthTokenModel>("/connect/token", params.toString(), {headers: headers})
+            .do((tokens:IAuthTokenModel) => {
+
                 const now = new Date();
                 tokens.expiration_date = new Date(now.getTime() + tokens.expires_in * 1000).getTime().toString();
 
@@ -130,7 +130,7 @@ export class AuthService {
                 this.storeToken(tokens);
               //  this.updateState({ authReady: true, tokens, profile });
                 this.updateState({ authReady: true, tokens });
-                this.getUserId();
+                this.getUserProfile();
     });
     }
 
@@ -172,27 +172,19 @@ export class AuthService {
         this.storage.setAuthTokens(item);
     }
 
-    private parseRoles(item: any): void {
-        this.roles = item._body.split(", ");
+    private parseRoles(roles: string): void {
+        this.roles = roles.split(", ");
         this.storage.setRoles(this.roles);
     }
 
-    private getRoles(): void {
-        this.http.get("role")//bug make list request form service
-            .subscribe(data => this.parseRoles(data),
-                error => console.log(error),
-                () => this.rolesCheckedService.checkRoles());
-    }
-
-    private getUserId(): void {
-        this.http.get("user/getId")//bug make list request form service
-            .subscribe(data => {
-                    this.id = +JSON.parse(data.text());
+    private getUserProfile(): void {
+        this.http.get<IUserProfile>("role") //bug make list request form service
+            .subscribe((data: IUserProfile) => {
+                    this.storage.setUserId(+data.userId);
+                    this.parseRoles(data.roles);
+                    this.rolesCheckedService.checkRoles();
                 },
-                error => console.log(error),
-                () => {
-                    this.storage.setUserId(this.id);
-                    this.getRoles();
-                });
+                error => console.log(error)
+            );
     }
 }

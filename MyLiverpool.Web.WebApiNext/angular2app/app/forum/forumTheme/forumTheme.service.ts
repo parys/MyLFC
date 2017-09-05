@@ -1,5 +1,4 @@
 ﻿import { Injectable } from "@angular/core";
-import { Response } from "@angular/http";
 import { Observable } from "rxjs/Observable";
 import { HttpWrapper } from "../../shared/index";
 import { ForumTheme } from "./forumTheme.model";
@@ -12,25 +11,23 @@ export class ForumThemeService {
         this.actionUrl = "forumTheme/";
     }
 
-    getAll = (): Observable<ForumTheme[]> => {
-        return this.http.get(this.actionUrl + "list/").map((res: Response) => res.json());
+    public getAll = (): Observable<ForumTheme[]> => {
+        return this.http.get<ForumTheme[]>(this.actionUrl + "list/");
     };
 
-    getSingle = (id: number): Observable<ForumTheme> => {
-        return this.http.get(this.actionUrl + id).map((res: Response) => res.json());
+    public getSingle = (id: number): Observable<ForumTheme> => {
+        return this.http.get<ForumTheme> (this.actionUrl + id);
     };
 
-    getSingleWithMessages = (id: number, page: number): Observable<ForumTheme> => {
-        return this.http.get(`${this.actionUrl}${id}/${page}`).map((res: Response) => res.json());
+    public getSingleWithMessages = (id: number, page: number): Observable<ForumTheme> => {
+        return this.http.get<ForumTheme>(`${this.actionUrl}${id}/${page}`);
     };
 
-    create = (item: ForumTheme): Observable<ForumTheme> => {
-        return this.http.post(this.actionUrl, JSON.stringify(item)).map((res: Response) => res.json());
+    public create = (item: ForumTheme): Observable<ForumTheme> => {
+        return this.http.post<ForumTheme>(this.actionUrl, JSON.stringify(item));
     };
 
-    update = (id: number, itemToUpdate: ForumTheme): Observable<ForumTheme> => {
-        return this.http
-            .put(this.actionUrl + id, JSON.stringify(itemToUpdate))
-            .map((res: Response) => res.json());
+    public update = (id: number, itemToUpdate: ForumTheme): Observable<ForumTheme> => {
+        return this.http.put<ForumTheme> (this.actionUrl + id, JSON.stringify(itemToUpdate));
     };
 }

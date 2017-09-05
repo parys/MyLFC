@@ -1,7 +1,7 @@
 import { NgModule, LOCALE_ID } from "@angular/core";
 import { Title, BrowserModule } from "@angular/platform-browser";
 import { RouterModule } from "@angular/router";
-import { HttpModule } from "@angular/http";
+import { HttpClientModule } from "@angular/common/http";
 import { AppComponent } from "./app.component";
 import { routes } from "./app.routes";
 import { ForumModule } from "./forum/index";
@@ -38,7 +38,7 @@ import { AccountModule } from "./account/index";
     imports: [
         BrowserModule.withServerTransition({ appId: 'mylfc-app' }),
         EditorModule,
-        HttpModule,
+        HttpClientModule,
         AccountModule,
         ForumModule,
         InjuryModule,

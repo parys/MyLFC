@@ -1,5 +1,4 @@
 ﻿import { Injectable } from "@angular/core";
-import { Response } from "@angular/http";
 import { Observable } from "rxjs/Observable";
 import { MatchEvent } from "./matchEvent.model";
 import { MatchEventType } from "./matchEventType.model";
@@ -15,39 +14,34 @@ export class MatchEventService {
     }
 
     public getAll = (page: number): Observable<Pageable<MatchEvent>> => {
-        return this.http.get(this.actionUrl + "list?page=" + page).map((res: Response) => res.json());
+        return this.http.get<Pageable<MatchEvent>>(this.actionUrl + "list?page=" + page);
     };
 
     public getForCalendar = (): Observable<MatchEvent[]> => {
-        return this.http.get(this.actionUrl + "getForCalendar").map((res: Response) => res.json());
+        return this.http.get<MatchEvent[]>(this.actionUrl + "getForCalendar");
     };
 
     public getSingle = (id: number): Observable<MatchEvent> => {
-        return this.http.get(this.actionUrl + id).map((res: Response) => res.json());
+        return this.http.get<MatchEvent>(this.actionUrl + id);
     };
 
     public create = (item: MatchEvent): Observable<MatchEvent> => {
-        return this.http.post(this.actionUrl, JSON.stringify(item)).map((res: Response) => res.json());
+        return this.http.post<MatchEvent>(this.actionUrl, JSON.stringify(item));
     };
 
     public update = (id: number, itemToUpdate: MatchEvent): Observable<MatchEvent> => {
-        return this.http
-            .put(this.actionUrl + id, JSON.stringify(itemToUpdate))
-            .map((res: Response) => res.json());
+        return this.http.put<MatchEvent>(this.actionUrl + id, JSON.stringify(itemToUpdate));
     };
 
     public updateScore = (id: number, score: string): Observable<MatchEvent> => {
-        return this.http
-            .put(`${this.actionUrl}updateScore?id=${id}&score=${score}`, null)
-            .map((res: Response) => res.json());
+        return this.http.put<MatchEvent>(`${this.actionUrl}updateScore?id=${id}&score=${score}`, null);
     };
 
     public getTypes = (): Observable<MatchEventType[]> => {
-        return this.http.get(this.actionUrl + "getTypes/")
-            .map((res: Response) => res.json());
+        return this.http.get<MatchEventType[]>(this.actionUrl + "getTypes/");
     };
 
     public delete = (id: number): Observable<boolean> => {
-        return this.http.delete(this.actionUrl + id).map((res: Response) => res.json());
+        return this.http.delete<boolean>(this.actionUrl + id);
     };
 }

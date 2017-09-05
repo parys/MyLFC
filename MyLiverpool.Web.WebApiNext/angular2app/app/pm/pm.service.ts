@@ -1,5 +1,4 @@
 ﻿import { Injectable } from "@angular/core";
-import { Response } from "@angular/http";
 import { Observable } from "rxjs/Observable";
 import { HttpWrapper } from "../shared/httpWrapper";
 import { Pm } from "./index";
@@ -12,28 +11,26 @@ export class PmService {
     }
 
     public getAll = (): Observable<Pm[]> => {
-        return this.http.get(this.actionUrl ).map((res: Response) => res.json());
+        return this.http.get<Pm[]>(this.actionUrl );
     };
 
     public getSingle = (id: number): Observable<Pm> => {
-        return this.http.get(this.actionUrl + id).map((res: Response) => res.json());
+        return this.http.get<Pm>(this.actionUrl + id);
     };
 
     public create = (item: Pm): Observable<Pm> => {
-        return this.http.post(this.actionUrl, JSON.stringify(item)).map((res: Response) => res.json());
+        return this.http.post<Pm>(this.actionUrl, JSON.stringify(item));
     };
 
     public update = (id: number, itemToUpdate: Pm): Observable<Pm> => {
-        return this.http
-            .put(this.actionUrl + id, JSON.stringify(itemToUpdate))
-            .map((res: Response) => res.json());
+        return this.http.put<Pm>(this.actionUrl + id, JSON.stringify(itemToUpdate));
     };
 
     public delete = (id: number): Observable<boolean> => {
-        return this.http.delete(this.actionUrl + id).map((res: Response) => res.json());
+        return this.http.delete<boolean>(this.actionUrl + id);
     };
 
     public getUnreadCount = (): Observable<number> => {
-        return this.http.get(this.actionUrl + "unreadCount/").map((res: Response) => res.json());
+        return this.http.get<number>(this.actionUrl + "unreadCount/");
     };
 }

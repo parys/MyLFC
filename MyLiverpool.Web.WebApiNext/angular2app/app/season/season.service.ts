@@ -1,5 +1,4 @@
 ﻿import { Injectable } from "@angular/core";
-import { Response } from "@angular/http";
 import { Observable } from "rxjs/Observable";
 import { HttpWrapper } from "../shared/httpWrapper";
 import { Season } from "./season.model";
@@ -12,28 +11,26 @@ export class SeasonService {
     }
 
     public getAll = (): Observable<Season[]> => {
-        return this.http.get(`${this.actionUrl}list/`).map((response: Response) => response.json());
+        return this.http.get<Season[]>(`${this.actionUrl}list/`);
     };
 
     public getSingle = (id: number): Observable<Season> => {
-        return this.http.get(`${this.actionUrl}/${id}`).map((response: Response) => response.json());
+        return this.http.get<Season>(`${this.actionUrl}/${id}`);
     };
 
     public create = (item: Season): Observable<Season> => {
-        return this.http.post(this.actionUrl, JSON.stringify(item)).map((response: Response) => response.json());
+        return this.http.post<Season>(this.actionUrl, JSON.stringify(item));
     };
 
     public update = (id: number, itemToUpdate: Season): Observable<Season> => {
-        return this.http.put(this.actionUrl + id, JSON.stringify(itemToUpdate))
-            .map((response: Response) => response.json());
+        return this.http.put<Season>(this.actionUrl + id, JSON.stringify(itemToUpdate));
     };
 
     public delete = (id: number): Observable<boolean> => {
-        return this.http.delete(this.actionUrl + id).map((response: Response) => response.json());
+        return this.http.delete<boolean>(this.actionUrl + id);
     };
 
-    public getSingleWithMatches = (seasonId: number) => {
-        return this.http.get(`${this.actionUrl}getWithMatches/${seasonId}`)
-            .map((response: Response) => response.json());
+    public getSingleWithMatches = (seasonId: number): Observable<Season> => {
+        return this.http.get<Season>(`${this.actionUrl}getWithMatches/${seasonId}`);
     }
 }

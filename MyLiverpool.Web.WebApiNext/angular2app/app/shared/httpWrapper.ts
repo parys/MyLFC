@@ -1,9 +1,5 @@
 ﻿import { Injectable } from "@angular/core";
-import { Http, Headers, Response,
-    RequestOptions,
-    RequestOptionsArgs,
-    Request,
-    XHRBackend } from "@angular/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs/Observable";
 import { StorageService } from "./storage.service";
 import { Configuration } from "../app.constants";
@@ -12,41 +8,39 @@ import { IAuthTokenModel } from "../auth/models/auth-tokens-model";
 import { LoaderService } from "./loader.service";
 
 @Injectable()
-export class HttpWrapper {//}extends Http {
-    constructor(private http: Http
+export class HttpWrapper {// extends HttpClient {
+    constructor(private http: HttpClient
         , private storage: StorageService
         , private configuration: Configuration,
         private router: Router,
-        private loaderService: LoaderService//,
-   //     defaultOptions: RequestOptions,
- //   backend: XHRBackend
+        private loaderService: LoaderService
+      //  defaultOptions: RequestOptions,
+   // backend: XHRBackend
     ) {
-       // super(backend, defaultOptions);
+     //   super(backend, defaultOptions);
  }
 
-    public get(url: string): Observable<Response> {
-        return this.http.get(this.configuration.serverWithApiUrl + url, {
-            headers: this.updateHeaders(),
-            body: ""
+    public get<T>(url: string): Observable<T> {
+        return this.http.get<T>(this.configuration.serverWithApiUrl + url, {
+            headers: this.updateHeaders()
         });
     }  
 
-    public post(url: string, data: any, withFiles: boolean = false): Observable<Response> {
-        return this.http.post(this.configuration.serverWithApiUrl + url, data, {
+    public post<T>(url: string, data: any, withFiles: boolean = false): Observable<T> {
+        return this.http.post<T>(this.configuration.serverWithApiUrl + url, data, {
             headers: this.updateHeaders(withFiles)
         });
     }
 
-    public put(url: string, data: any): Observable<Response> {
-        return this.http.put(this.configuration.serverWithApiUrl + url, data, {
+    public put<T>(url: string, data: any): Observable<T> {
+        return this.http.put<T>(this.configuration.serverWithApiUrl + url, data, {
             headers: this.updateHeaders()
         });
     }
 
-    public delete(url: string): Observable<Response> {
-        return this.http.delete(this.configuration.serverWithApiUrl + url, {
-            headers: this.updateHeaders(),
-            body: ""
+    public delete<T>(url: string): Observable<T> {
+        return this.http.delete<T>(this.configuration.serverWithApiUrl + url, {
+            headers: this.updateHeaders()
         });
     }
 
@@ -56,17 +50,15 @@ export class HttpWrapper {//}extends Http {
         return tokensModel;
     }
 
-    private updateHeaders(withFiles: boolean = false): Headers {
-        let headers: Headers = new Headers();
+    private updateHeaders(withFiles: boolean = false): HttpHeaders {
+        let headers: HttpHeaders;
+        const tokens = this.retrieveTokens();
         if (withFiles) {
-            headers.append("Accept", "application/json");
+            headers = new HttpHeaders().set("Accept", "application/json").set("Authorization", `Bearer ${tokens ? tokens.access_token : ""}`);
         } else {
-            headers.append("Content-type", "application/json");
+            headers = new HttpHeaders().set("Content-type", "application/json").set("Authorization", `Bearer ${tokens ? tokens.access_token : ""}`);
         }
-        let tokens = this.retrieveTokens();
-        if (tokens) {
-            headers.append("Authorization", "Bearer " + tokens.access_token);
-        }
+       
         return headers;
     }
 

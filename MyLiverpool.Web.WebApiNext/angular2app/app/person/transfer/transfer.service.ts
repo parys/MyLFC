@@ -1,5 +1,4 @@
 ﻿import { Injectable } from "@angular/core";
-import { Response } from "@angular/http";
 import { Observable } from "rxjs/Observable";
 import { HttpWrapper, Pageable } from "../../shared/index";
 import { Transfer } from "./transfer.model";
@@ -12,29 +11,27 @@ export class TransferService {
     }
 
     public getAll = (page: number): Observable<Pageable<Transfer>> => {
-        return this.http.get(this.actionUrl + `list?page=${page}`).map((res: Response) => res.json());
+        return this.http.get<Pageable<Transfer>>(this.actionUrl + `list?page=${page}`);
     };
 
     public getCurrentAll = (): Observable<Transfer[]> => {
-        return this.http.get(this.actionUrl + `current`).map((res: Response) => res.json());
+        return this.http.get<Transfer[]>(this.actionUrl + `current`);
     };
 
     public getSingle = (id: number): Observable<Transfer> => {
-        return this.http.get(this.actionUrl + id).map((res: Response) => res.json());
+        return this.http.get<Transfer>(this.actionUrl + id);
     };
     
     public create = (item: Transfer): Observable<Transfer> => {
-        return this.http.post(this.actionUrl, JSON.stringify(item)).map((res: Response) => res.json());
+        return this.http.post<Transfer>(this.actionUrl, JSON.stringify(item));
     };
 
     public update = (id: number, itemToUpdate: Transfer): Observable<Transfer> => {
         console.debug(itemToUpdate);
-        return this.http
-            .put(this.actionUrl + id, JSON.stringify(itemToUpdate))
-            .map((res: Response) => res.json());
+        return this.http.put<Transfer>(this.actionUrl + id, JSON.stringify(itemToUpdate));
     };
 
     public delete = (id: number): Observable<boolean> => {
-        return this.http.delete(this.actionUrl + id).map((res: Response) => res.json());
+        return this.http.delete<boolean>(this.actionUrl + id);
     };
 }

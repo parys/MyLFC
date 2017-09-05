@@ -1,5 +1,4 @@
 ﻿import { Injectable } from "@angular/core";
-import { Response } from "@angular/http";
 import { Observable } from "rxjs/Observable";
 import { HttpWrapper } from "../shared/index";
 
@@ -12,14 +11,14 @@ export class AdminService {
     }
 
     public updateEplTable = (): Observable<string> => {
-        return this.http.get(this.actionUrl + "updateTable/").map((res: Response) => res.text());
+        return this.http.get<string>(this.actionUrl + "updateTable/");
     };
 
     public getValue = (id: number): Observable<string> => {
-        return this.http.get(`${this.actionHelperUrl}value/${id}`).map((res: Response) => res.text());
+        return this.http.get<string>(`${this.actionHelperUrl}value/${id}`);
     };
 
     public updateValue = (id: number, value: string): Observable<boolean> => {
-        return this.http.put(`${this.actionHelperUrl}value/${id}`, JSON.stringify(value)).map((res: Response) => res.json());
+        return this.http.put<boolean>(`${this.actionHelperUrl}value/${id}`, JSON.stringify(value));
     };
 }

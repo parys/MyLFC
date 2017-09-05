@@ -1,5 +1,4 @@
 ﻿import { Injectable } from "@angular/core";
-import { Response } from "@angular/http";
 import { Observable } from "rxjs/Observable";
 import { HttpWrapper } from "../shared/index";
 import { ResetPassword } from "./resetPassword.model";
@@ -14,30 +13,30 @@ export class AccountService {
     }
 
     public confirmEmail = (userId: number, code: string): Observable<boolean> => {
-        return this.http.get(this.actionUrl + `confirmEmail?userId=${userId}&code=${code}`).map((res: Response) => res.json());
+        return this.http.get<boolean>(this.actionUrl + `confirmEmail?userId=${userId}&code=${code}`);
     };
 
     public forgotPassword = (email: string): Observable<boolean> => {
-        return this.http.get(this.actionUrl + `forgotPassword?email=${email}`).map((res: Response) => res.json());
+        return this.http.get<boolean>(this.actionUrl + `forgotPassword?email=${email}`);
     };
 
     public resendConfirmEmail = (email: string): Observable<boolean> => {
-        return this.http.get(this.actionUrl + `resendConfirmEmail?email=${email}`).map((res: Response) => res.json());
+        return this.http.get<boolean>(this.actionUrl + `resendConfirmEmail?email=${email}`);
     };
 
     public resetPassword = (model: ResetPassword): Observable<any> => {//todo add identityModel
-        return this.http.put(this.actionUrl + `resetPassword`, model).map((res: Response) => res.json());
+        return this.http.put<any>(this.actionUrl + `resetPassword`, model);
     };
 
     public changePassword = (model: ChangePassword): Observable<boolean> => {
-        return this.http.put(this.actionUrl + `changePassword`, model).map((res: Response) => res.json());
+        return this.http.put<boolean>(this.actionUrl + `changePassword`, model);
     };
 
     public isEmailUnique = (email: string): Observable<boolean> => {
-        return this.http.get(this.actionUrl + `isEmailUnique?email=${email}`).map((res: Response) => res.json());
+        return this.http.get<boolean>(this.actionUrl + `isEmailUnique?email=${email}`);
     };
 
     public isUserNameUnique = (userName: string): Observable<boolean> => {
-        return this.http.get(this.actionUrl + `isUserNameUnique?username=${userName}`).map((res: Response) => res.json());
+        return this.http.get<boolean>(this.actionUrl + `isUserNameUnique?username=${userName}`);
     };
 }

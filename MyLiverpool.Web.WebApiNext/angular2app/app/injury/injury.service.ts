@@ -1,5 +1,4 @@
 ﻿import { Injectable } from "@angular/core";
-import { Response } from "@angular/http";
 import { Observable } from "rxjs/Observable";
 import { HttpWrapper, Pageable } from "../shared/index";
 import { Injury } from "./injury.model";
@@ -13,28 +12,26 @@ export class InjuryService {
     }
 
     public getAll = (page: number): Observable<Pageable<Injury>> => {
-        return this.http.get(this.actionUrl + `list/${page}`).map((res: Response) => res.json());
+        return this.http.get<Pageable<Injury>>(this.actionUrl + `list/${page}`);
     };
 
     public getSingle = (id: number): Observable<Injury> => {
-        return this.http.get(this.actionUrl + id).map((res: Response) => res.json());
+        return this.http.get<Injury>(this.actionUrl + id);
     };
 
     public create = (item: Injury): Observable<Injury> => {
-        return this.http.post(this.actionUrl, JSON.stringify(item)).map((res: Response) => res.json());
+        return this.http.post<Injury>(this.actionUrl, JSON.stringify(item));
     };
 
     public update = (id: number, itemToUpdate: Injury): Observable<Injury> => {
-        return this.http
-            .put(this.actionUrl + id, JSON.stringify(itemToUpdate))
-            .map((res: Response) => res.json());
+        return this.http.put<Injury>(this.actionUrl + id, JSON.stringify(itemToUpdate));
     };
 
     public delete = (id: number): Observable<boolean> => {
-        return this.http.delete(this.actionUrl + id).map((res: Response) => res.json());
+        return this.http.delete<boolean>(this.actionUrl + id);
     };
 
     public getCurrentAll = (): Observable<Injury[]> => {
-        return this.http.get(this.actionUrl + `current`).map((res: Response) => res.json());
+        return this.http.get<Injury[]>(this.actionUrl + `current`);
     };
 }

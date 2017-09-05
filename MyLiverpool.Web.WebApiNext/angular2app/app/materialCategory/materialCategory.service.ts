@@ -1,5 +1,4 @@
 ﻿import { Injectable } from "@angular/core";
-import { Response } from "@angular/http";
 import { Observable } from "rxjs/Observable";
 import { MaterialCategory } from "./materialCategory.model";
 import { MaterialType } from "./materialType.enum";
@@ -13,24 +12,23 @@ export class MaterialCategoryService {
         this.actionUrl = "materialCategory/";
     }
 
-    getAll = (type: MaterialType): Observable<MaterialCategory[]> => {
-        return this.http.get(`${this.actionUrl}${MaterialType[type]}/`).map((response: Response) => response.json());
+    public getAll = (type: MaterialType): Observable<MaterialCategory[]> => {
+        return this.http.get<MaterialCategory[]>(`${this.actionUrl}${MaterialType[type]}/`);
     };
 
-    getSingle = (id: number): Observable<MaterialCategory> => {
-        return this.http.get(this.actionUrl + id).map((response: Response) => response.json());
+    public getSingle = (id: number): Observable<MaterialCategory> => {
+        return this.http.get<MaterialCategory> (this.actionUrl + id);
     };
 
-    create = (item: MaterialCategory, type: MaterialType): Observable<MaterialCategory> => {
-        return this.http.post(`${this.actionUrl}${MaterialType[type]}/`, JSON.stringify(item)).map((response: Response) => response.json());
+    public create = (item: MaterialCategory, type: MaterialType): Observable<MaterialCategory> => {
+        return this.http.post<MaterialCategory>(`${this.actionUrl}${MaterialType[type]}/`, JSON.stringify(item));
     };
 
-    update = (id: number, itemToUpdate: MaterialCategory): Observable<MaterialCategory> => {
-        return this.http.put(this.actionUrl + id, JSON.stringify(itemToUpdate))
-            .map((response: Response) => response.json());
+    public update = (id: number, itemToUpdate: MaterialCategory): Observable<MaterialCategory> => {
+        return this.http.put<MaterialCategory>(this.actionUrl + id, JSON.stringify(itemToUpdate));
     };
 
-    delete = (id: number): Observable<boolean> => {
-        return this.http.delete(this.actionUrl + id).map((response: Response) => response.json());
+    public delete = (id: number): Observable<boolean> => {
+        return this.http.delete<boolean>(this.actionUrl + id);
     };
 }

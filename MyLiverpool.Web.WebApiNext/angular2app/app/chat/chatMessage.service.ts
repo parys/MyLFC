@@ -1,5 +1,4 @@
 ﻿import { Injectable } from "@angular/core";
-import { Response } from "@angular/http";
 import { Observable } from "rxjs/Observable";
 import { HttpWrapper } from "../shared/index";
 import { ChatMessage } from "./chatMessage.model";
@@ -12,24 +11,23 @@ export class ChatMessageService {
     }
 
     public getAll = (lastId: number, typeId: number): Observable<ChatMessage[]> => {
-        return this.http.get(this.actionUrl + `list/`+ lastId + "/" + typeId).map((res: Response) => res.json());
+        return this.http.get<ChatMessage[]>(this.actionUrl + `list/`+ lastId + "/" + typeId);
     };
 
     public getSingle = (id: number): Observable<ChatMessage> => {
-        return this.http.get(this.actionUrl + id).map((res: Response) => res.json());
+        return this.http.get<ChatMessage>(this.actionUrl + id);
     };
 
     public create = (item: ChatMessage): Observable<ChatMessage> => {
-        return this.http.post(this.actionUrl, JSON.stringify(item)).map((res: Response) => res.json());
+        return this.http.post<ChatMessage>(this.actionUrl, JSON.stringify(item));
     };
 
     public update = (id: number, itemToUpdate: ChatMessage): Observable<ChatMessage> => {
         return this.http
-            .put(this.actionUrl + id, JSON.stringify(itemToUpdate))
-            .map((res: Response) => res.json());
+            .put<ChatMessage>(this.actionUrl + id, JSON.stringify(itemToUpdate));
     };
 
     public delete = (id: number): Observable<boolean> => {
-        return this.http.delete(this.actionUrl + id).map((res: Response) => res.json());
+        return this.http.delete<boolean>(this.actionUrl + id);
     };
 }

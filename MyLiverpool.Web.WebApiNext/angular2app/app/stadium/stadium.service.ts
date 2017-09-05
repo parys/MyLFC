@@ -1,5 +1,4 @@
 ﻿import { Injectable } from "@angular/core";
-import { Response } from "@angular/http";
 import { Observable } from "rxjs/Observable";
 import { HttpWrapper, Pageable } from "../shared/index";
 import { Stadium } from "./stadium.model";
@@ -12,38 +11,30 @@ export class StadiumService {
     }
 
     public getAll = (page: number): Observable<Pageable<Stadium>> => {
-        return this.http.get(this.actionUrl + `list?page=${page}`).map((res: Response) => res.json());
+        return this.http.get<Pageable<Stadium>>(this.actionUrl + `list?page=${page}`);
     };
 
     public getAllAll = (): Observable<Stadium[]> => {
-        return this.http.get(this.actionUrl + `listAll`).map((res: Response) => res.json());
+        return this.http.get<Stadium[]>(this.actionUrl + `listAll`);
     };
 
     public getListByName = (typed: string): Observable<Stadium[]> => {
-        return this.http.get(this.actionUrl + `getListByName?typed=${typed}`).map((res: Response) => res.json());
+        return this.http.get<Stadium[]>(this.actionUrl + `getListByName?typed=${typed}`);
     };
 
     public getSingle = (id: number): Observable<Stadium> => {
-        return this.http.get(this.actionUrl + id).map((res: Response) => res.json());
+        return this.http.get<Stadium>(this.actionUrl + id);
     };
 
     public create = (item: Stadium): Observable<Stadium> => {
-        return this.http.post(this.actionUrl, JSON.stringify(item)).map((res: Response) => res.json());
+        return this.http.post<Stadium>(this.actionUrl, JSON.stringify(item));
     };
 
     public update = (id: number, itemToUpdate: Stadium): Observable<Stadium> => {
-        return this.http
-            .put(this.actionUrl + id, JSON.stringify(itemToUpdate))
-            .map((res: Response) => res.json());
+        return this.http.put<Stadium>(this.actionUrl + id, JSON.stringify(itemToUpdate));
     };
 
     public delete = (id: number): Observable<boolean> => {
-        return this.http.delete(this.actionUrl + id).map((res: Response) => res.json());
-    };
-
-    public updatePhoto = (name: string, file: File): Observable<string> => {
-        let formData: FormData = new FormData();
-        formData.append("uploadFile", file, file.name);
-        return this.http.post(`${this.actionUrl}photo/${name}`, formData, true).map((response: Response) => response.text());
+        return this.http.delete<boolean>(this.actionUrl + id);
     };
 }

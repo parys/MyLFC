@@ -1,5 +1,4 @@
 ﻿import { Injectable } from "@angular/core";
-import { Response } from "@angular/http";
 import { Observable } from "rxjs/Observable";
 import { HttpWrapper } from "../../shared/index";
 import { ForumSection } from "./forumSection.model";
@@ -12,8 +11,8 @@ export class ForumSectionService {
         this.actionUrl = "forumSection/";
     }
 
-    getAll = (): Observable<ForumSection[]> => {
-        return this.http.get(this.actionUrl + "list/").map((res: Response) => res.json());
+    public getAll = (): Observable<ForumSection[]> => {
+        return this.http.get<ForumSection[]>(this.actionUrl + "list/");
     };
 
     // public GetSingle = (id: number): Observable<News> => {

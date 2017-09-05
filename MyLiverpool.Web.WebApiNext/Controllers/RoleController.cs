@@ -7,6 +7,7 @@ using MyLiverpool.Common.Utilities.Extensions;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
+    /// <inheritdoc />
     /// <summary>
     /// Manages roles.
     /// </summary>
@@ -29,10 +30,11 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <returns>List of current user roles.</returns>
         [Authorize, HttpGet("")]
-        public async Task<IActionResult> GetUserRoles()
+        public async Task<IActionResult> GetUserRolesAsync()
         {
-            var result = await _roleService.GetUserRolesAsync(User.GetUserId());
-            return Ok(result);
+            var userId = User.GetUserId();
+            var roles = await _roleService.GetUserRolesAsync(userId);
+            return Json(new { userId, roles });
         }
     }
 }

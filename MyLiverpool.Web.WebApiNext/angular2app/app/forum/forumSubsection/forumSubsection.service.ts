@@ -1,5 +1,4 @@
 ﻿import { Injectable } from "@angular/core";
-import { Response } from "@angular/http";
 import { Observable } from "rxjs/Observable";
 import { HttpWrapper } from "../../shared/index";
 import { ForumSubsection } from "./forumSubsection.model";
@@ -12,25 +11,23 @@ export class ForumSubsectionService {
         this.actionUrl = "forumSubsection/";
     }
 
-    getAll = (): Observable<ForumSubsection[]> => {
-        return this.http.get(this.actionUrl + "list/").map((res: Response) => res.json());
+    public getAll = (): Observable<ForumSubsection[]> => {
+        return this.http.get<ForumSubsection[]>(this.actionUrl + "list/");
     };
 
-    getSingle = (id: number): Observable<ForumSubsection> => {
-        return this.http.get(this.actionUrl + id).map((res: Response) => res.json());
+    public getSingle = (id: number): Observable<ForumSubsection> => {
+        return this.http.get<ForumSubsection>(this.actionUrl + id);
     };
 
-    getSingleWithThemes = (id: number, page: number): Observable<ForumSubsection> => {
-        return this.http.get(`${this.actionUrl}${id}/${page}`).map((res: Response) => res.json());
+    public getSingleWithThemes = (id: number, page: number): Observable<ForumSubsection> => {
+        return this.http.get<ForumSubsection>(`${this.actionUrl}${id}/${page}`);
     };
 
-    create = (item: ForumSubsection): Observable<ForumSubsection> => {
-        return this.http.post(this.actionUrl, JSON.stringify(item)).map((res: Response) => res.json());
+    public create = (item: ForumSubsection): Observable<ForumSubsection> => {
+        return this.http.post<ForumSubsection>(this.actionUrl, JSON.stringify(item));
     };
 
-    update = (id: number, itemToUpdate: ForumSubsection): Observable<ForumSubsection> => {
-        return this.http
-            .put(this.actionUrl + id, JSON.stringify(itemToUpdate))
-            .map((res: Response) => res.json());
+    public update = (id: number, itemToUpdate: ForumSubsection): Observable<ForumSubsection> => {
+        return this.http.put<ForumSubsection>(this.actionUrl + id, JSON.stringify(itemToUpdate));
     };
 }

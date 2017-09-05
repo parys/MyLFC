@@ -1,7 +1,7 @@
 ﻿import { Role } from "./role.model";
 export class RoleGroup {
-    id: number;
-    name: string;
-    russianName: string;
-    roles: Role[];
+    public id: number;
+    public name: string;
+    public russianName: string;
+    public roles: Role[];
 }

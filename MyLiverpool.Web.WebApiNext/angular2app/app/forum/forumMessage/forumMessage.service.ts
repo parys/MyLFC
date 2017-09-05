@@ -1,5 +1,4 @@
 ﻿import { Injectable } from "@angular/core";
-import { Response } from "@angular/http";
 import { Observable } from "rxjs/Observable";
 import { HttpWrapper } from "../../shared/index";
 import { ForumMessage } from "./forumMessage.model";
@@ -13,28 +12,26 @@ export class ForumMessageService {
     }
 
     // getAll = (): Observable<ForumMessage[]> => {
-    //    return this.http.get(this.actionUrl + "list/").map((res: Response) => res.json());
+    //    return this.http.get(this.actionUrl + "list/").map(res => res.json());
     // };
 
     // getSingle = (id: number): Observable<ForumMessage> => {
-    //    return this.http.get(this.actionUrl + id).map((res: Response) => res.json());
+    //    return this.http.get(this.actionUrl + id).map(res => res.json());
     // };
 
     // getSingleWithMessages = (id: number, page: number): Observable<ForumMessage> => {
-    //    return this.http.get(`${this.actionUrl}${id}/${page}`).map((res: Response) => res.json());
+    //    return this.http.get(`${this.actionUrl}${id}/${page}`).map(res => res.json());
     // };
 
-    create = (item: ForumMessage): Observable<ForumMessage> => {
-        return this.http.post(this.actionUrl, JSON.stringify(item)).map((res: Response) => res.json());
+    public create = (item: ForumMessage): Observable<ForumMessage> => {
+        return this.http.post<ForumMessage>(this.actionUrl, JSON.stringify(item));
     };
 
-     update = (id: number, itemToUpdate: ForumMessage): Observable<ForumMessage> => {
-        return this.http
-            .put(this.actionUrl + id, JSON.stringify(itemToUpdate))
-            .map((res: Response) => res.json());
+    public update = (id: number, itemToUpdate: ForumMessage): Observable<ForumMessage> => {
+        return this.http.put<ForumMessage>(this.actionUrl + id, JSON.stringify(itemToUpdate));
     };
 
-     delete = (id: number): Observable<boolean> => {
-         return this.http.delete(`${this.actionUrl}/${id}`).map((res: Response) => res.json());
-     };
+    public delete = (id: number): Observable<boolean> => {
+        return this.http.delete<boolean>(`${this.actionUrl}/${id}`);
+    };
 }
