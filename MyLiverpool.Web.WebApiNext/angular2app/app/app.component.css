@@ -177,10 +177,10 @@ textarea {
 .com-offset-0 {
     margin-left: 0;
 }
-.com-offset-1 {
+.com-offset-1, .com-offset-2, .com-offset-3, .com-offset-4, .com-offset-5, .com-offset-6, .com-offset-7 {
     margin-left: 3%;
 }
-.com-offset-2 {
+/*.com-offset-2 {
     margin-left: 6%;
 }
 .com-offset-3 {
@@ -197,7 +197,7 @@ textarea {
 }
 .com-offset-7 {
     margin-left: 21%;
-}
+}*/
 
 .center {
     margin: auto;
@@ -242,8 +242,13 @@ textarea {
 }
 
 .comment-container.nested {
-     /*border-left: #6e6e6e dotted 1px;*/ 
+     border-left: #6e6e6e dotted 1px;
+    padding-left: 1px;
 }
+    .comment-container.nested:hover {
+        border-left: #6e6e6e dashed 2px;
+        padding-left: 0px;
+    }
 
 .comment {
     background-color: #e5e5e5;

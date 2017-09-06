@@ -1,4 +1,5 @@
 ﻿import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
+import { HttpEvent } from "@angular/common/http";
 import { Subscription } from "rxjs/Subscription";
 import { AdminService } from "./admin.service";
 import { HelperType } from "./helperType.enum";
@@ -41,7 +42,10 @@ export class EplTableComponent implements OnInit, OnDestroy {
     public updateEplTable(): void {
         this.sub2 = this.service
             .updateEplTable()
-            .subscribe(data => this.eplTable = data,
+            .subscribe((data: string) => {
+                    console.log(data);
+                    this.eplTable = data;
+                },
             error => console.log(error),
                 () => {
                     this.cd.markForCheck();

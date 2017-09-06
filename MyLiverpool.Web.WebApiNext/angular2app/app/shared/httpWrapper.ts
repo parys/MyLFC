@@ -26,6 +26,13 @@ export class HttpWrapper {// extends HttpClient {
         });
     }  
 
+    public getString(url: string): Observable<string> {
+        return this.http.get(this.configuration.serverWithApiUrl + url, {
+            headers: this.updateHeaders(),
+            responseType: "text"
+        });
+    }  
+    
     public post<T>(url: string, data: any, withFiles: boolean = false): Observable<T> {
         return this.http.post<T>(this.configuration.serverWithApiUrl + url, data, {
             headers: this.updateHeaders(withFiles)

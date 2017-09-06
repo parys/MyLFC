@@ -60,7 +60,8 @@ export class MaterialEditComponent implements OnInit {
                 .subscribe(data => {
                         if (!this.editForm.get("stayOnPage").value) {
                             this.router.navigate([`/${MaterialType[this.type].toLowerCase()}`, data.id]);
-                        }
+                    }
+                        this.id = data.id;
                         this.snackBar.open("Материал успешно обновлен", null, { duration: 5000 });
                     },
                 error => {
@@ -72,7 +73,8 @@ export class MaterialEditComponent implements OnInit {
                 .subscribe(data => {
                         if (!this.editForm.get("stayOnPage").value) {
                             this.router.navigate([`/${MaterialType[this.type].toLowerCase()}`, data.id]);
-                        }
+                    }
+                        this.id = data.id;
                         this.snackBar.open("Материал успешно создан", null, { duration: 5000 });
                     },
                 error => {

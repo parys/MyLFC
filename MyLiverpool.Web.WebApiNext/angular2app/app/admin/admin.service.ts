@@ -11,11 +11,11 @@ export class AdminService {
     }
 
     public updateEplTable = (): Observable<string> => {
-        return this.http.get<string>(this.actionUrl + "updateTable/");
+        return this.http.getString(this.actionUrl + "updateTable/");
     };
 
     public getValue = (id: number): Observable<string> => {
-        return this.http.get<string>(`${this.actionHelperUrl}value/${id}`);
+        return this.http.getString(`${this.actionHelperUrl}value/${id}`);
     };
 
     public updateValue = (id: number, value: string): Observable<boolean> => {
