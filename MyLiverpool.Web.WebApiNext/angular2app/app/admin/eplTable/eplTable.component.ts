@@ -1,16 +1,14 @@
 ﻿import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
-import { HttpEvent } from "@angular/common/http";
 import { Subscription } from "rxjs/Subscription";
-import { AdminService } from "./admin.service";
-import { HelperType } from "./helperType.enum";
-import { RolesCheckedService, IRoles } from "../shared/index";
+import { AdminService } from "../admin.service";
+import { HelperType } from "../helperType.enum";
+import { RolesCheckedService, IRoles } from "../../shared/index";
 
 @Component({
     selector: "epl-table",
     templateUrl: "./eplTable.component.html",
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-
 export class EplTableComponent implements OnInit, OnDestroy {
     private sub: Subscription;
     private sub2: Subscription;
@@ -28,8 +26,8 @@ export class EplTableComponent implements OnInit, OnDestroy {
         this.sub = this.service
             .getValue(HelperType.EplTable)
             .subscribe(data => this.eplTable = data,
-            error => console.log(error),
-            () => {
+                error => console.log(error),
+                () => {
                     this.cd.markForCheck();
                 });
     }
@@ -43,10 +41,9 @@ export class EplTableComponent implements OnInit, OnDestroy {
         this.sub2 = this.service
             .updateEplTable()
             .subscribe((data: string) => {
-                    console.log(data);
                     this.eplTable = data;
                 },
-            error => console.log(error),
+                error => console.log(error),
                 () => {
                     this.cd.markForCheck();
                 });

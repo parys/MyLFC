@@ -610,17 +610,6 @@ textarea {
     height: 20px;
 }
 
-    /*maybe need refactor fixed*/
-    input.ng-valid[required].ng-touched, .ng-valid.required.ng-touched {
-        border-left: 5px solid #42A948; /* green */
-    }
-
-    input.ng-touched:not(:focus).ng-invalid:not(form) {
-        border-left: 5px solid #a94442; /* red */
-    }
-
-    /* forum start */
-
     /* ===== forum Start ===== */
 
     a.postuser1:link, a.postuser1:visited, a.postuser1:hover {

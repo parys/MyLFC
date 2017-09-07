@@ -3,9 +3,9 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 import { MdSnackBar } from "@angular/material";
 import { Subscription } from "rxjs/Subscription";
-import { AdminService } from "./admin.service";
-import { HelperType } from "./helperType.enum";
-import { RolesCheckedService, IRoles } from "../shared/index";
+import { AdminService } from "../admin.service";
+import { HelperType } from "../helperType.enum";
+import { RolesCheckedService, IRoles } from "../../shared/index";
 
 @Component({
     selector: "page-editor",

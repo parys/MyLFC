@@ -1,5 +1,5 @@
 ﻿import { Routes } from "@angular/router";
-import { PageEditorComponent } from "./index";
+import { PageEditorComponent } from "./page-editor/index";
 import { RoleGuard } from "../auth/index";
 
 export const helperRoutes: Routes = [
