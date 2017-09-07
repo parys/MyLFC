@@ -21,10 +21,6 @@ export class StorageService {
         return +this.get("userId");
     }
 
-    public removeRoles(): void {
-        this.remove("roles");
-    }
-
     public setChatUpdateTime(value: number, type: number = null): void {
         this.set(`chatTimer${type}`, value.toString());
     }
@@ -44,12 +40,6 @@ export class StorageService {
         return true;
     }
 
-    private setExpiredDate(seconds : number) : string {
-        let date = new Date();
-        date.setSeconds(date.getSeconds() + seconds);
-        return date.toUTCString();
-    };
-
     public setRoles(roles: string[]): void {
         if (!this.localStorage) return;
         this.setObject("roles", roles);
@@ -68,11 +58,12 @@ export class StorageService {
         }
         return false;
     }
-
-    public removeAllData(): void {
-        this.removeAuthTokens();
-        this.removeRoles();
-    }
+    
+    private setExpiredDate(seconds: number): string {
+        let date = new Date();
+        date.setSeconds(date.getSeconds() + seconds);
+        return date.toUTCString();
+    };
 
     private set(key: string, value: string): void {
         if (!this.localStorage) return;

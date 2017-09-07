@@ -139,7 +139,7 @@ textarea {
 }
 
 .blockcontent-inside {
-    margin-left: 0px;
+    margin-left: 0;
     padding: 1px 7px;
 }
 
@@ -1171,7 +1171,7 @@ textarea {
 
     .newThreadItem, .newPollItem {
         padding: 0 0 0 8px;
-        background: url('http://src.ucoz.ru/t/631/19.gif') no-repeat 0px 4px;
+        background: url('http://src.ucoz.ru/t/631/19.gif') no-repeat 0 4px;
     }
     /* ----------------------- */
 
@@ -1277,7 +1277,7 @@ textarea {
     }
 
     .gTable td.gTableTop {
-        padding: 0px 10px;
+        padding: 0 10px;
         border: 1px solid #debc72;
         background: url(http://myliverpool.ru/desighn/img/126.png) repeat top right;
         font: 14px/32px 'Tahoma';

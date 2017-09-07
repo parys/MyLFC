@@ -78,8 +78,8 @@ export class AuthService {
         if (this.refreshSubscription$) {
             this.refreshSubscription$.unsubscribe();
         }
-        this.removeToken();
-        this.storage.removeAllData();
+
+        this.storage.removeAuthTokens();
         this.rolesCheckedService.checkRoles();
     }
 
@@ -89,14 +89,6 @@ export class AuthService {
             .flatMap((tokens : IAuthTokenModel) => this.getTokens({ refresh_token: tokens.refresh_token }, "refresh_token")
                 .catch(error => Observable.throw("Session Expired"))
             );
-    }
-
-    private storeToken(tokens: IAuthTokenModel): void {
-        this.storage.setAuthTokens(tokens);
-    }
-
-    private removeToken(): void {
-        this.storage.removeAuthTokens();
     }
 
     private updateState(newState: IAuthStateModel): void {
@@ -120,7 +112,7 @@ export class AuthService {
 
              //   const profile: IProfileModel = new Object();// jwtDecode(tokens.id_token);
 
-                this.storeToken(tokens);
+                this.storage.setAuthTokens(tokens);
               //  this.updateState({ authReady: true, tokens, profile });
                 this.updateState({ authReady: true, tokens });
                 this.getUserProfile();
@@ -160,21 +152,12 @@ export class AuthService {
             .flatMap(() => this.refreshTokens())
             .subscribe();
     }
-
-    private parseLoginAnswer(item: any): void {
-        this.storage.setAuthTokens(item);
-    }
-
-    private parseRoles(roles: string): void {
-        this.roles = roles.split(", ");
-        this.storage.setRoles(this.roles);
-    }
-
+    
     private getUserProfile(): void {
         this.http.get<IUserProfile>("role") //bug make list request form service
             .subscribe((data: IUserProfile) => {
                     this.storage.setUserId(+data.userId);
-                    this.parseRoles(data.roles);
+                    this.storage.setRoles(data.roles.split(", "));
                     this.rolesCheckedService.checkRoles();
                 },
                 error => console.log(error)
