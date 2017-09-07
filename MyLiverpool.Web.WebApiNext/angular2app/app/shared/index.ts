@@ -6,4 +6,4 @@ export * from "./roles.interface";
 export * from "./roles-checked.service";
 export * from "./globalValidators";
 export * from "./recaptcha.component";             
-export * from "./delete-dialog.component";             
+export * from "./delete-dialog/index";             

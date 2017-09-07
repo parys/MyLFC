@@ -21,7 +21,7 @@ export class SidebarLeftComponent {
 }
 
 window.onscroll = oEvent => {
-    var scrollPos = document.getElementsByTagName("body")[0].scrollTop;
+    var scrollPos = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
 
     if (scrollPos >= 200)
         document.getElementById("goToTop").className = "";

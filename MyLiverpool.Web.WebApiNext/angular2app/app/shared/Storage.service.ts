@@ -1,15 +1,16 @@
 ﻿import { Injectable, Inject } from "@angular/core";
-import { LocalStorage } from "./local-storage"; 
+import { LocalStorage } from "./local-storage";
+import { IAuthTokenModel } from "../auth/models/auth-tokens-model";
 
 @Injectable()
 export class StorageService {
-
     constructor(
         @Inject(LocalStorage) private localStorage: any) {
     }
 
-    public getAuthTokens(): string {
-        return this.get("auth-tokens");
+    public retrieveTokens(): IAuthTokenModel {
+        const tokensString = this.get("auth-tokens");
+        return tokensString ? JSON.parse(tokensString) : null;
     }
 
     public getRoles(): string[] {
@@ -96,8 +97,8 @@ export class StorageService {
         return null;
     }
 
-    private remove(key: string): any {
-        if (!this.localStorage) return null;
+    private remove(key: string): void {
+        if (!this.localStorage) return;
         this.localStorage.removeItem(key);
     }
 }

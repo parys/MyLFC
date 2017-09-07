@@ -95,12 +95,6 @@ export class AuthService {
         this.storage.setAuthTokens(tokens);
     }
 
-    private retrieveTokens(): IAuthTokenModel {
-        const tokensString: string = this.storage.getAuthTokens();
-        const tokensModel: IAuthTokenModel = tokensString ? JSON.parse(tokensString) : null;
-        return tokensModel;
-    }
-
     private removeToken(): void {
         this.storage.removeAuthTokens();
     }
@@ -112,7 +106,6 @@ export class AuthService {
 
     private getTokens(data: IRefreshGrantModel | ILoginModel, grantType: string): Observable<IAuthTokenModel> {
         const headers = new HttpHeaders({ 'Content-Type': "application/x-www-form-urlencoded; charset=UTF-8;" });
-      //  const options = new ({ headers: headers });
 
         Object.assign(data, { grant_type: grantType, scope: "openid offline_access" });
 
@@ -135,7 +128,7 @@ export class AuthService {
     }
 
     private startupTokenRefresh(): Observable<IAuthTokenModel> {
-        return Observable.of(this.retrieveTokens())
+        return Observable.of(this.storage.retrieveTokens())
             .flatMap((tokens: IAuthTokenModel) => {
                 if (!tokens) {
                     this.updateState({ authReady: true });
