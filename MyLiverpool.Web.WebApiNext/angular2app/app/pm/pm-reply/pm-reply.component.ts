@@ -2,8 +2,8 @@
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
-import { Pm } from "./pm.model";
-import { PmService } from "./pm.service";
+import { Pm } from "../pm.model";
+import { PmService } from "../pm.service";
 
 @Component({
     selector: "pm-reply",
@@ -12,7 +12,7 @@ import { PmService } from "./pm.service";
 export class PmReplyComponent implements OnInit, OnDestroy {
     private sub: Subscription;
     public pmReplyEditForm: FormGroup;
-    id: number = 0;
+    public id: number = 0;
     @Input() public userName: string;
     @Input() public userId: number;
     @Input() public title: string;
@@ -39,22 +39,9 @@ export class PmReplyComponent implements OnInit, OnDestroy {
                 ])
             ]
         });
-
-        //this.sub = this.route.params.subscribe(params => {
-        //this.id = +params["id"];
-        //if (this.id > 0) {
-        //    this.service
-        //        .GetSingle(this.id)
-        //        .subscribe(data => this.editForm.patchValue(data),
-        //        error => console.log(error),
-        //        () => console.log("success get  news"));
-        //}
-        //});
-        //this.getUsername();
     }
 
     public ngOnDestroy(): void {
-        //  this.sub.unsubscribe();
     }
 
     public onSubmit(): void {

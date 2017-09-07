@@ -1,6 +1,8 @@
 ﻿import { Routes } from "@angular/router";
-import { PmListComponent, PmDetailComponent, PmEditComponent } from "./index";
 import { RoleGuard } from "../auth/index";
+import { PmListComponent } from "./pm-list/index";
+import { PmDetailComponent } from "./pm-detail/index";
+import { PmEditComponent } from "./pm-edit/index";
 
 export const pmRoutes: Routes = [
     { path: "pms", children: [

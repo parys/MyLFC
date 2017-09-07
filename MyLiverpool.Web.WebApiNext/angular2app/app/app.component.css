@@ -242,11 +242,11 @@ textarea {
 }
 
 .comment-container.nested {
-    /*border-left: #6e6e6e dotted 1px;*/
+    border-left: #6e6e6e dotted 1px;
     padding-left: 1px;
 }
     .comment-container.nested:hover {
-        border-left: #6e6e6e dashed 1px;
+        border-left: #6e6e6e dashed 2px;
         padding-left: 0;
     }
 

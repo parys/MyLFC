@@ -1,8 +1,7 @@
 ﻿import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { Observable } from "rxjs/Observable";
-import { Pm } from "./pm.model";
-import { PmService } from "./pm.service";
+import { Pm } from "../pm.model";
+import { PmService } from "../pm.service";
 
 @Component({
     selector: "pm-list",
@@ -10,14 +9,14 @@ import { PmService } from "./pm.service";
 })
 
 export class PmListComponent implements OnInit {
-    received: Pm[];
-    sent: Pm[];
+    public received: Pm[];
+    public sent: Pm[];
 
     constructor(private pmService: PmService,
         private router: Router) {
     }
 
-    ngOnInit() {
+    public ngOnInit(): void {
         this.pmService
             .getAll()
             .subscribe(data => this.parse(data),
@@ -29,14 +28,14 @@ export class PmListComponent implements OnInit {
         this.sent = model.sent;
     }
 
-    delete(index: number): void {
+    public delete(index: number): void {
         //this.newsCategoryService.Delete(this.items[index].id).subscribe(data => data,
         //    error => console.log(error),
         //    () => console.log("success remove categoryu"));
         //this.items.splice(index, 1);
     }
 
-    writePm(): void {           
+    public writePm(): void {           
         this.router.navigate(["/pms", 0, "edit"]);  
     }
 }

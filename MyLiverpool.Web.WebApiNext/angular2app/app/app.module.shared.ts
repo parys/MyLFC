@@ -21,7 +21,7 @@ import * as roleGroup from "./roleGroup/index";
 import * as season from "./season/index";
 import { SharedModule } from "./shared/index";
 import * as user from "./user/index";
-import * as pm from "./pm/index";
+import { PmModule } from "./pm/index";
 import { StadiumModule } from "./stadium/index";
 import { WishModule } from "./wish/index";
 import * as materialComment from "./materialComment/index";
@@ -60,6 +60,7 @@ import { AccountModule } from "./account/index";
         NgxPaginationModule,
         MatchModule,
         PersonModule,
+        PmModule,
         RouterModule.forRoot(routes),
         ReCaptchaModule,
         SharedModule,
@@ -84,11 +85,6 @@ import { AccountModule } from "./account/index";
         materialComment.MaterialCommentListComponent,
         materialComment.MaterialCommentSectionComponent,
         materialComment.LastCommentsComponent,
-        pm.PmCounterComponent,
-        pm.PmDetailComponent,
-        pm.PmEditComponent,
-        pm.PmListComponent,
-        pm.PmReplyComponent,
         roleGroup.RoleGroupListComponent,
         season.SeasonCalendarComponent,
         season.SeasonEplTableComponent,
@@ -121,7 +117,6 @@ entryComponents: [
         image.ImageService,
         materialCategory.MaterialCategoryService,
         materialComment.MaterialCommentService,
-        pm.PmService,
         roleGroup.RoleGroupService,
         season.SeasonService,
         admin.AdminService,

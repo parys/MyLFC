@@ -30,7 +30,7 @@ export class PmService {
         return this.http.delete<boolean>(this.actionUrl + id);
     };
 
-    public getUnreadCount = (): Observable<number> => {
-        return this.http.get<number>(this.actionUrl + "unreadCount/");
+    public getUnreadCount = (): Observable<string> => {
+        return this.http.getString(this.actionUrl + "unreadCount/");
     };
 }

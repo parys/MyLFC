@@ -16,6 +16,7 @@
 
   <ItemGroup>
       <!-- Files not to publish (note that the 'dist' subfolders are re-added below) -->
+    <Compile Remove="temp-js\**" />
     <Content Remove="angular2app\**" />
     <Content Remove="package-lock.json" />
     <Content Remove="temp-js\**" />
@@ -26,6 +27,8 @@
     <Content Remove="wwwroot\src\lightgray\**" />
     <Content Remove="wwwroot\src\plugins\**" />
     <Content Remove="wwwroot\src\themes\**" />
+    <EmbeddedResource Remove="temp-js\**" />
+    <None Remove="temp-js\**" />
 
     <None Update="node_modules\**;*.pdb">
       <CopyToPublishDirectory>Never</CopyToPublishDirectory>

@@ -2,9 +2,9 @@
 import { MdSnackBar } from "@angular/material";
 import { Subscription } from "rxjs/Subscription";
 import { Observable } from "rxjs/Observable";
-import { PmService } from "./pm.service";
-import { RolesCheckedService, IRoles } from "../shared/index";
-import { Configuration } from "../app.constants";
+import { PmService } from "../pm.service";
+import { RolesCheckedService, IRoles } from "../../shared/index";
+import { Configuration } from "../../app.constants";
 
 @Component({
     selector: "pm-counter",
@@ -41,7 +41,7 @@ export class PmCounterComponent implements OnInit, OnDestroy {
     private updateCount() {
         this.sub = this.pmService.getUnreadCount()
             .subscribe(data => {
-                this.count = data;
+                this.count = +data;
                 if (+data > 0) {
                     this.snackBar.open("У вас есть непрочитанные личные сообщения",
                         null, {  duration: 5000 });

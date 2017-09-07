@@ -3,8 +3,8 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { Subscription } from "rxjs/Subscription";   
-import { Pm } from "./pm.model";
-import { PmService } from "./pm.service";
+import { Pm } from "../pm.model";
+import { PmService } from "../pm.service";
 
 @Component({
     selector: "pm-edit",
