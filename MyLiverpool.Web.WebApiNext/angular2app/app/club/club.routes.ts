@@ -1,6 +1,7 @@
 ﻿import { Routes } from "@angular/router";
-import { ClubListComponent, ClubEditComponent } from "./index";
 import { RoleGuard } from "../auth/index";
+import { ClubListComponent } from "./club-list/club-list.component";
+import { ClubEditComponent } from "./club-edit/club-edit.component";
 
 export const clubRoutes: Routes = [
     {

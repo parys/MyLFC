@@ -4,20 +4,18 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { Observable } from "rxjs/Observable";
 import "rxjs/add/operator/startWith";
-import { MatchEventService } from "./index";
-import { SeasonService } from "../season/index";
-import { MatchEvent } from "./matchEvent.model";                        
-import { MatchEventType } from "./matchEventType.model";  
-import { Season } from "../season/season.model";
-import { Stadium } from "../stadium/index";
-import { StadiumService } from "../stadium/stadium.service";
+import { MatchEventService } from "../matchEvent.service";
+import { SeasonService, Season } from "../../season/index";
+import { MatchEvent } from "../matchEvent.model";                        
+import { MatchEventType } from "../matchEventType.model";  
+import { Stadium, StadiumService } from "../../stadium/index";
 
 @Component({
-    selector: "matchEvent-edit",
-    templateUrl: "./match-edit.component.html"
+    selector: "matchEvent-edit-panel",
+    templateUrl: "./matchEvent-edit-panel.component.html"
 })
 
-export class MatchEventEditComponent implements OnInit {
+export class MatchEventEditPanelComponent implements OnInit {
     private id: number;
     public editMatchForm: FormGroup;
     public clubs: string = "/api/v1/club/GetClubsByName?typed=:keyword";

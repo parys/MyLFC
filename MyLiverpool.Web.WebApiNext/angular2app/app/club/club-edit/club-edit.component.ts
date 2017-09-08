@@ -7,11 +7,10 @@ import { Subject } from "rxjs/Subject";
 import "rxjs/add/operator/debounceTime";
 import "rxjs/add/operator/take";
 import "rxjs/add/operator/takeUntil";
-import { ClubService } from "./club.service";
-import { Configuration } from "../app.constants";
-import { Club } from "./club.model";
-import { Stadium } from "../stadium/index";
-import { StadiumService } from "../stadium/stadium.service";
+import { ClubService } from "../club.service";
+import { Configuration } from "../../app.constants";
+import { Club } from "../club.model";
+import { Stadium, StadiumService } from "../../stadium/index";
 
 @Component({
     selector: "club-edit",

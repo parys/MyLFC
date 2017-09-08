@@ -1,11 +1,10 @@
 ﻿import { Component, OnInit } from "@angular/core";
 import { Location } from "@angular/common";
-import { Router, ActivatedRoute } from "@angular/router";
+import { ActivatedRoute } from "@angular/router";
 import { MdDialog } from '@angular/material';
-import { Subscription } from "rxjs/Subscription";
-import { Club } from "./club.model";
-import { ClubService } from "./club.service";
-import { Pageable, DeleteDialogComponent } from "../shared/index";
+import { Club } from "../club.model";
+import { ClubService } from "../club.service";
+import { Pageable, DeleteDialogComponent } from "../../shared/index";
 
 @Component({
     selector: "club-list",

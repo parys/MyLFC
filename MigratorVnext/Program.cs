@@ -509,7 +509,7 @@ namespace MigratorVnext
             //    Photo = "/content/avatars/default.png",
             //};
             //_deleted = UserRepository.AddAsync(deleteUser).Result;
-            UserRepository.SaveChangesAsync().Wait();
+          //  UserRepository.SaveChangesAsync().Wait();
             Console.WriteLine("End UpdateUsers");
         }
 
@@ -550,7 +550,7 @@ namespace MigratorVnext
                     if (user != null)
                     {
                         user.OldId = int.Parse(id);
-                        var result = UserRepository.UpdateAsync(user).Result;
+                        UserRepository.UpdateAsync(user).Wait();
                     }
 
                     while (chars[i] != 10)
@@ -895,7 +895,7 @@ namespace MigratorVnext
                     //  }
                     Console.Write("| " + (i * 1.00 / chars.Length).ToString("P"));
                 }
-                MaterialRepository.SaveChangesAsync().Wait();
+             //   MaterialRepository.SaveChangesAsync().Wait();
             }
             Console.WriteLine("End UpdateBlogItems");
         }
@@ -1255,7 +1255,7 @@ namespace MigratorVnext
                     //  }
                     Console.Write("| " + newsItem.OldId + " " + (i * 1.00 / chars.Length).ToString("P"));
                 }
-                MaterialRepository.SaveChangesAsync().Wait();
+            //    MaterialRepository.SaveChangesAsync().Wait();
             }
             Console.WriteLine("End UpdateNewsItems");
         }
@@ -1332,7 +1332,7 @@ namespace MigratorVnext
                     Console.Write("| " + (i * 1.00 / chars.Length).ToString("P"));
                     var result = MaterialCategoryRepository.AddAsync(blogCategory).Result;
                 }
-                 MaterialCategoryRepository.SaveChangesAsync().Wait();
+             //    MaterialCategoryRepository.SaveChangesAsync().Wait();
             }
             Console.WriteLine("End UpdateBlogCategory");
         }
@@ -1408,7 +1408,7 @@ namespace MigratorVnext
                     var result = MaterialCategoryRepository.AddAsync(newsCategory).Result;
                     Console.Write("| " + (i * 1.00 / chars.Length).ToString("P"));
                 }
-                  MaterialCategoryRepository.SaveChangesAsync().Wait();
+              //    MaterialCategoryRepository.SaveChangesAsync().Wait();
             }
             Console.WriteLine("End UpdateNewsCategory");
         }
@@ -1661,7 +1661,7 @@ namespace MigratorVnext
                     var result = MaterialCommentRepository.AddAsync(comment);
                     Console.Write("| " + (i * 1.00 / chars.Length).ToString("P"));
                 }
-                MaterialCommentRepository.SaveChangesAsync().Wait();
+            //    MaterialCommentRepository.SaveChangesAsync().Wait();
             }
             Console.WriteLine("End UpdateComments");
         }
@@ -1796,7 +1796,7 @@ namespace MigratorVnext
                     Console.Write("| " + (i * 1.00 / chars.Length).ToString("P"));
                 }
             }
-            ForumSectionRepository.SaveChangesAsync().Wait();
+           // ForumSectionRepository.SaveChangesAsync().Wait();
             Console.WriteLine("End UpdateForumSections");
             UpdateForumSubsectionsFromList();
         }
@@ -1814,7 +1814,7 @@ namespace MigratorVnext
 
             Subsections.ForEach(x => ForumSubsectionRepository.AddAsync(x));
 
-            ForumSubsectionRepository.SaveChangesAsync().Wait();
+         //   ForumSubsectionRepository.SaveChangesAsync().Wait();
             Console.WriteLine("End UpdateForumSubsections");
         }
 
@@ -1968,7 +1968,7 @@ namespace MigratorVnext
                     }
                     Console.Write("| " + forumTheme.IdOld + " " + (i * 1.00 / chars.Length).ToString("P"));
                 }
-                ForumThemeRepository.SaveChangesAsync().Wait();
+             //   ForumThemeRepository.SaveChangesAsync().Wait();
             }
             Console.WriteLine("End UpdateForumThemes");
         }
@@ -2074,7 +2074,7 @@ namespace MigratorVnext
 
                     Console.Write("| " + (i*1.00 / chars.Length).ToString("P"));
                 }
-                ForumMessageRepository.SaveChangesAsync().Wait();
+             //   ForumMessageRepository.SaveChangesAsync().Wait();
             }
             Console.WriteLine("End UpdateForumComments");
         }
@@ -2139,7 +2139,7 @@ namespace MigratorVnext
                 bag.Add(comment);
             });
             MaterialCommentRepository.UpdateRange(bag.ToList());
-            MaterialCommentRepository.SaveChangesAsync().Wait();
+          //  MaterialCommentRepository.SaveChangesAsync().Wait();
         }
 
         public static void UpdateMaterialLinks()
@@ -2259,7 +2259,7 @@ namespace MigratorVnext
                     subSection.Themes.Add(theme);
                 }
             }
-            ForumSubsectionRepository.SaveChangesAsync().RunSynchronously(); //todo above not duplicating?
+          //  ForumSubsectionRepository.SaveChangesAsync().RunSynchronously(); //todo above not duplicating?
         }
 
 

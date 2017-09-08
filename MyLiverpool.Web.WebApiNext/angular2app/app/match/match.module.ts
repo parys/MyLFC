@@ -10,6 +10,7 @@ import { MatchListComponent } from "./match-list/index";
 import { MatchCalendarComponent } from "./match-calendar/index";
 import { MatchDetailComponent } from "./match-detail/index";
 import { MatchService } from "./match.service";
+import { matchRoutes } from "./match.routes";
 
 @NgModule({
     imports: [
@@ -22,7 +23,7 @@ import { MatchService } from "./match.service";
         MdDatepickerModule,
         MdInputModule,
         ReactiveFormsModule,
-        RouterModule
+        RouterModule.forRoot(matchRoutes)
     ],
     declarations: [
         MatchEditComponent,

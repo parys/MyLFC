@@ -11,7 +11,7 @@ import { EditorModule } from "./editor/index";
 import * as materialCategory from "./materialCategory/index";
 import * as auth from "./auth/index";
 import * as chat from "./chat/index";
-import * as club from "./club/index";
+import { ClubModule } from "./club/index";
 import * as home from "./home/index";
 import * as image from "./image/index";
 import { InjuryModule } from "./injury/index";
@@ -58,6 +58,7 @@ import { AccountModule } from "./account/index";
         Ng2AutoCompleteModule,
         Ng2BreadcrumbModule.forRoot(),
         NgxPaginationModule,
+        ClubModule,
         MatchModule,
         PersonModule,
         PmModule,
@@ -70,8 +71,6 @@ import { AccountModule } from "./account/index";
     declarations: [
         chat.MaxiChatComponent,
         chat.MiniChatComponent,
-        club.ClubEditComponent,
-        club.ClubListComponent,
         home.StaticPageComponent,
         home.NavbarComponent,
         home.SidebarLeftComponent,
@@ -113,7 +112,6 @@ entryComponents: [
         auth.UnSignedGuard,
         BreadcrumbService,
         chat.ChatMessageService,
-        club.ClubService,
         image.ImageService,
         materialCategory.MaterialCategoryService,
         materialComment.MaterialCommentService,
