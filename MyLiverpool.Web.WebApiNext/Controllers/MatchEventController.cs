@@ -11,6 +11,7 @@ using MyLiverpool.Data.Common;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
+    /// <inheritdoc />
     /// <summary>
     /// Manages match events.
     /// </summary>
@@ -85,7 +86,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         public async Task<IActionResult> GetTypes()
         {
             var list = new List<object>();
-            foreach (MatchTypeEnum type in Enum.GetValues(typeof(MatchEventType)))
+            foreach (MatchEventType type in Enum.GetValues(typeof(MatchEventType)))
             {
                 list.Add(new { id = type, name = type.GetNameAttribute() });
             }

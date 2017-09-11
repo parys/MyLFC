@@ -34,12 +34,12 @@ export class MatchEventService {
 
     public updateScore = (id: number, score: string): Observable<MatchEvent> => {
         return this.http.put<MatchEvent>(`${this.actionUrl}updateScore?id=${id}&score=${score}`, null);
-    };
+    };*/
 
     public getTypes = (): Observable<MatchEventType[]> => {
         return this.http.get<MatchEventType[]>(this.actionUrl + "getTypes/");
     };
-
+    /*
     public delete = (id: number): Observable<boolean> => {
         return this.http.delete<boolean>(this.actionUrl + id);
     };*/

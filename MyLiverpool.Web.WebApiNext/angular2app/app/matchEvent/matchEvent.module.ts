@@ -1,6 +1,6 @@
 ﻿import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { MdInputModule, MdButtonModule, MdCheckboxModule, MdAutocompleteModule, MdSelectModule } from "@angular/material";
+import { MdInputModule, MdButtonModule, MdAutocompleteModule, MdSelectModule, MdSlideToggleModule } from "@angular/material";
 import { RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
 import { NgxPaginationModule } from "ngx-pagination";
@@ -14,7 +14,7 @@ import { MatchEventService } from "./matchEvent.service";
     imports: [
         CommonModule,
         FormsModule,
-     //   MdCheckboxModule,
+        MdSlideToggleModule,
         MdAutocompleteModule,
         MdButtonModule,
         MdInputModule,

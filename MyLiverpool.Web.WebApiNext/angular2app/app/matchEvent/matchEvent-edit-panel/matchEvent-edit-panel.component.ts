@@ -25,7 +25,7 @@ export class MatchEventEditPanelComponent implements OnInit {
     
     public types: MatchEventType[];
 
-    constructor(private matchService: MatchEventService,    
+    constructor(private matchEventService: MatchEventService,    
         private route: ActivatedRoute,
         private personService: PersonService,
         private config: Configuration,
@@ -42,9 +42,9 @@ export class MatchEventEditPanelComponent implements OnInit {
         //            error => console.log(error));
         //    };
         
-        //this.matchService.getTypes()
-        //    .subscribe(data => this.types = data,
-        //        error => console.log(error));
+        this.matchEventService.getTypes()
+            .subscribe(data => this.types = data,
+                e => console.log(e));
     }
 
     public onSubmit(): void {
@@ -72,11 +72,10 @@ export class MatchEventEditPanelComponent implements OnInit {
     }
 
     private parseForm(): MatchEvent {
-        const item = this.editMatchEventForm.value;
+        const item: MatchEvent = this.editMatchEventForm.value;
         item.id = this.id;
-     //   let date = this.editMatchEventForm.controls["date"].value;
-     //   let time = this.editMatchEventForm.controls["time"].value;
-    //    item.dateTime = new Date(date.getFullYear(), date.getMonth(), date.getDate(), time.slice(0, 2), time.slice(3, 5));
+        item.matchId = this.matchId;
+        item.seasonId = this.seasonId;
         return item;
     }
 
@@ -84,13 +83,8 @@ export class MatchEventEditPanelComponent implements OnInit {
         this.editMatchEventForm = this.formBuilder.group({
             'personName': ["", Validators.required],
             'personId': ["", Validators.required],
-      //      'seasonId': ["", Validators.required],
-      //      'isHome': ["true", Validators.required],
-      // //     'date': ["", Validators.required],
-      ////      'time': ["", Validators.required],
-      //      'typeId': ["", Validators.required],
-      //      'stadiumId': ["", Validators.required],
-      //      'stadiumName': ["", Validators.required],
+            'minute': [0, Validators.required],
+            'our': [, Validators.required]
         });
 
         this.persons$ = this.editMatchEventForm.controls["personName"].valueChanges
@@ -98,12 +92,4 @@ export class MatchEventEditPanelComponent implements OnInit {
             .distinctUntilChanged()
             .switchMap((value: string) => this.personService.getListByName(value));
     }
-
-    //private getIdFromUrl(url: string): string {
-    //    if (url) {
-    //        let pieces = url.split("/");
-    //        return pieces[pieces.length - 1];
-    //    }
-    //    return null;
-    //}
 }
