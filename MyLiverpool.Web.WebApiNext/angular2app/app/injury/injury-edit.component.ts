@@ -2,11 +2,11 @@
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
-import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
+import { Observable } from "rxjs/Observable";
 import { InjuryService } from "./injury.service";
 import { Configuration } from "../app.constants";
 import { Injury } from "./injury.model";
-import { PersonService } from "../person/person.service";
+import { PersonService, Person } from "../person/index";
 
 @Component({
     selector: "injury-edit",
@@ -19,14 +19,13 @@ export class InjuryEditComponent implements OnInit, OnDestroy {
     private id: number;
     public editInjuryForm: FormGroup;
     public imagePath: string;
-    public persons: string = "/api/v1/person/GetPersonsByName?typed=:keyword";
+    public persons$: Observable<Person[]>;
 
     constructor(private injuryService: InjuryService,
         private personService: PersonService,
         private route: ActivatedRoute,
         private router: Router,
         private config: Configuration,
-        private sanitizer: DomSanitizer,
         private formBuilder: FormBuilder) {
     }
     
@@ -59,17 +58,9 @@ export class InjuryEditComponent implements OnInit, OnDestroy {
                     error => console.log(error));
         }
     }
-    
-    public updatePerson(person: any): void {
-        if (person) {
-            this.editInjuryForm.get("personId").patchValue(person.key);
-            this.editInjuryForm.get("personName").patchValue(person.value);
-        }
-    }
 
-    public autocompleteListFormatter = (data: any): SafeHtml => {
-        const html: string = `<span>${data.value}</span>`;
-        return this.sanitizer.bypassSecurityTrustHtml(html);
+    public selectPerson(id: number) {
+        this.editInjuryForm.get("personId").patchValue(id);
     }
 
 
@@ -101,6 +92,11 @@ export class InjuryEditComponent implements OnInit, OnDestroy {
             'description': ["", Validators.required],
             'id': [0, Validators.required]
         });
+
+        this.persons$ = this.editInjuryForm.controls["personName"].valueChanges
+            .debounceTime(this.config.debounceTime)
+            .distinctUntilChanged()
+            .switchMap((value: string) => this.personService.getListByName(value));
     }
 
     private normalizeDate(date: Date): Date {

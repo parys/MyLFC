@@ -1,22 +1,12 @@
 ﻿<form class="form-horizontal" name="editForm" role="form" [formGroup]="editMatchForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-        <label class="control-label col-xs-2 col-md-2">Cоперник</label>
-        <div class="col-xs-10 col-md-10">
-            <input (valueChanged)="updateClub($event)"
-                   attr-placeholder="Введите клуб..."
-                   ng2-auto-complete
-                   class="form-control"
-                   [list-formatter]="autocompleteListFormatter"
-                   display-property-name="value"
-                   formControlName="clubName"
-                   loading-text="Загрузочка"
-                   min-chars="2"
-                   name="club"
-                   type="text"
-                   [source]="clubs"
-                   autocomplete="off"/>
-        </div>
-    </div>
+    <md-form-field class="full-width">
+        <input mdInput placeholder="Cоперник" [mdAutocomplete]="club" formControlName="clubName">
+        <md-autocomplete #club="mdAutocomplete">
+            <md-option *ngFor="let club of clubs$ | async" [value]="club.value" (click)="selectClub(club.key)">
+                <span>{{ club.value }}</span>
+            </md-option>
+        </md-autocomplete>
+    </md-form-field>
     <div class="form-group">
         <label class="control-label col-xs-2 col-sm-2"> Категория:</label>
         <div class="col-xs-10 col-sm-10">
@@ -43,16 +33,13 @@
         </div>
     </div>
     <md-form-field class="full-width">
-        <input mdInput placeholder="Стадион" [mdAutocomplete]="auto" formControlName="stadiumName">
+        <input mdInput placeholder="Стадион" [mdAutocomplete]="stadium" formControlName="stadiumName">
+        <md-autocomplete #stadium="mdAutocomplete">
+            <md-option *ngFor="let stadium of stadiums$ | async" [value]="stadium.name" (click)="selectStadium(stadium.id)">
+                <span>{{ stadium.name }}</span>
+            </md-option>
+        </md-autocomplete>
     </md-form-field>
-
-    <md-autocomplete #auto="mdAutocomplete">
-        <md-option *ngFor="let stadium of filteredStadiums$ | async"
-                   [value]="stadium.name"
-                   (click)="selected(stadium.id)"
-                   [textContent]="stadium.name">
-        </md-option>
-    </md-autocomplete>
     <div class="form-group">
         <label class="control-label col-xs-2 col-sm-2"> Время:</label>
         <div class="col-xs-10 col-sm-10">

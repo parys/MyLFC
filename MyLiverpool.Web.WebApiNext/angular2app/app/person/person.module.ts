@@ -11,7 +11,6 @@ import { StuffListComponent } from "./stuff-list.component";
 import { SquadComponent } from "./squad.component";
 import { personRoutes } from "./person.routes";
 import { SharedModule } from "../shared/index";
-import { TransferModule } from "./transfer/index";
 import {
     MdButtonModule,
     MdInputModule,
@@ -23,7 +22,6 @@ import {
     MdTabsModule
 } from "@angular/material";
 import { NgxPaginationModule } from "ngx-pagination";
-import { Ng2AutoCompleteModule } from "ng2-auto-complete";
 
 
 @NgModule({
@@ -38,12 +36,10 @@ import { Ng2AutoCompleteModule } from "ng2-auto-complete";
         MdSelectModule,
         MdSlideToggleModule,
         MdTabsModule,
-Ng2AutoCompleteModule,
         NgxPaginationModule,
         ReactiveFormsModule,
         RouterModule.forRoot(personRoutes),
-        SharedModule,
-        TransferModule
+        SharedModule
     ],
     declarations: [
         BestPlayerComponent,

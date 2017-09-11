@@ -1,15 +1,15 @@
 ﻿import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
-import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { Observable } from "rxjs/Observable";
-import "rxjs/add/operator/startWith";
+import "rxjs/add/operator/debounceTime";
+import "rxjs/add/operator/takeUntil";
 import { MatchService } from "../match.service";
-import { SeasonService } from "../../season/index";
+import { SeasonService, Season } from "../../season/index";
 import { Match } from "../match.model";                        
 import { MatchType } from "../matchType.model";  
-import { Season } from "../../season/season.model";
 import { Stadium, StadiumService } from "../../stadium/index";
+import { Club, ClubService } from "../../club/index";
 
 @Component({
     selector: "match-edit",
@@ -19,11 +19,11 @@ import { Stadium, StadiumService } from "../../stadium/index";
 export class MatchEditComponent implements OnInit {
     private id: number;
     public editMatchForm: FormGroup;
-    public clubs: string = "/api/v1/club/GetClubsByName?typed=:keyword";
+    public debounceTime: number = 600;
     public types: MatchType[];
     public seasons: Season[];
-    public stadiums: Stadium[];
-    public filteredStadiums$: Observable<Stadium[]>;
+    public clubs$: Observable<Club[]>;
+    public stadiums$: Observable<Stadium[]>;
 
     constructor(private matchService: MatchService,    
         private route: ActivatedRoute,
@@ -31,7 +31,7 @@ export class MatchEditComponent implements OnInit {
         private router: Router,
         private formBuilder: FormBuilder,
         private seasonService: SeasonService,
-        private sanitizer: DomSanitizer) {
+        private clubService: ClubService) {
     }
 
     public ngOnInit(): void {
@@ -50,19 +50,6 @@ export class MatchEditComponent implements OnInit {
         this.seasonService.getAll()
             .subscribe(data => this.seasons = data,
             error => console.log(error));
-
-        this.stadiumService.getAllAll().subscribe(data => this.stadiums = data,
-            e => console.log(e), () => {
-                this.filteredStadiums$ = this.editMatchForm.controls["stadiumName"].valueChanges
-                    .startWith(null)
-                    .map((name: string) => this.filterStadiums(name));
-            });
-    }
-
-
-    public filterStadiums(val: string) {
-        return val ? this.stadiums.filter(s => new RegExp(`^${val}`, 'gi').test(s.name))
-            : this.stadiums;
     }
 
     public onSubmit(): void {
@@ -78,20 +65,12 @@ export class MatchEditComponent implements OnInit {
         }
     }
 
-    public updateClub(club: any): void {
-        if (club) {
-            this.editMatchForm.get("clubId").patchValue(club.key);
-            this.editMatchForm.get("clubName").patchValue(club.value);
-        }
-    }
-
-    public selected(id: number) {
+    public selectStadium(id: number) {
         this.editMatchForm.get("stadiumId").patchValue(id);
     }
 
-    public autocompleteListFormatter = (data: any): SafeHtml => {
-        let html = `<span>${data.value}</span>`;
-        return this.sanitizer.bypassSecurityTrustHtml(html);
+    public selectClub(id: number) {
+        this.editMatchForm.get("clubId").patchValue(id);
     }
 
     private parse(data: Match): void {
@@ -127,6 +106,16 @@ export class MatchEditComponent implements OnInit {
             'scoreHome': [null],
             'scoreAway': [null]
         });
+
+        this.stadiums$ = this.editMatchForm.controls["stadiumName"].valueChanges
+            .debounceTime(this.debounceTime)
+            .distinctUntilChanged()
+            .switchMap((value: string) => this.stadiumService.getListByName(value));
+
+        this.clubs$ = this.editMatchForm.controls["clubName"].valueChanges
+            .debounceTime(this.debounceTime)
+            .distinctUntilChanged()
+            .switchMap((value: string) => this.clubService.getListByName(value));
     }
 
     private getIdFromUrl(url: string): string {

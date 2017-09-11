@@ -25,7 +25,6 @@ import { PmModule } from "./pm/index";
 import { StadiumModule } from "./stadium/index";
 import { WishModule } from "./wish/index";
 import * as materialComment from "./materialComment/index";
-import { Ng2AutoCompleteModule } from "ng2-auto-complete";
 import * as admin from "./admin/index";
 import { NgxPaginationModule } from "ngx-pagination";
 import { ReCaptchaModule } from "angular2-recaptcha";
@@ -33,6 +32,7 @@ import { Ng2BreadcrumbModule, BreadcrumbService } from "ng2-breadcrumb/ng2-bread
 import * as angMaterial from '@angular/material';
 import "rxjs/add/operator/mergeMap";
 import { AccountModule } from "./account/index";
+import { TransferModule } from "./transfer/index";
 
 @NgModule({
     imports: [
@@ -55,11 +55,11 @@ import { AccountModule } from "./account/index";
         angMaterial.MdSelectModule,
         angMaterial.MdSlideToggleModule,
         angMaterial.MdTabsModule,
-        Ng2AutoCompleteModule,
         Ng2BreadcrumbModule.forRoot(),
         NgxPaginationModule,
         ClubModule,
         MatchModule,
+        TransferModule,
         PersonModule,
         PmModule,
         RouterModule.forRoot(routes),
@@ -103,9 +103,9 @@ import { AccountModule } from "./account/index";
         user.UserConfigComponent,
         user.UserOnlineCounterComponent
     ], // components and directives
-entryComponents: [
- material.MaterialActivateDialogComponent,
-],
+    entryComponents: [
+        material.MaterialActivateDialogComponent,
+    ],
     providers: [// services  
         auth.AuthService,
         auth.RoleGuard,

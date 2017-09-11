@@ -14,53 +14,57 @@ export class UserService {
     constructor(private http: HttpWrapper) {
     }
 
-    public getAll = (filters: UserFilters): Observable<Pageable<User>> => {
+    public getAll(filters: UserFilters): Observable<Pageable<User>> {
         return this.http.get<Pageable<User>>(this.actionUrl + "list/" + encodeURIComponent(JSON.stringify(filters)));
     };
 
-    public getSingle = (id: number): Observable<User> => {
+    public getSingle(id: number): Observable<User> {
         return this.http.get<User>(this.actionUrl + id);
     };
 
-    public update = (itemToUpdate: User): Observable<User> => {
+    public getListByUserName(typed: string): Observable<User[]> {
+        return this.http.get<User[]>(`${this.actionUrl}getUserNames?typed=${typed}`);
+    };
+
+    public update(itemToUpdate: User): Observable<User> {
         return this.http.put<User>(this.actionUrl, JSON.stringify(itemToUpdate));
     };
 
-    public updateRoleGroup = (id: number, roleGroupId: number): Observable<boolean> => {
+    public updateRoleGroup(id: number, roleGroupId: number): Observable<boolean> {
         return this.http.put<boolean>(`${this.actionUrl}updateRoleGroup/${id}/${roleGroupId}`, "");
     };
 
-    public ban = (id: number, banDaysCount: number): Observable<boolean> => {
+    public ban(id: number, banDaysCount: number): Observable<boolean> {
         return this.http.put<boolean>(`${this.actionUrl}ban/${id}/${banDaysCount}`, "");
     };
 
-    public unban = (id: number): Observable<boolean> => {
+    public unban(id: number): Observable<boolean> {
         return this.http.put<boolean>(`${this.actionUrl}unban/${id}`, "");
     };
 
-    public resetAvatar = (id: number): Observable<Object> => {
+    public resetAvatar(id: number): Observable<Object> {
         return this.http.put<Object>(`${this.actionUrl}avatar/${id}/reset`, "");
     };
 
-    public updateAvatar = (file: File): Observable<Object> => {
+    public updateAvatar(file: File): Observable<Object> {
         let formData: FormData = new FormData();
         formData.append("uploadFile", file, file.name);
         return this.http.post<Object>(`${this.actionUrl}avatar/`, formData, true);
     };
 
-    public getConfig = (): Observable<UserConfig> => {
+    public getConfig(): Observable<UserConfig> {
         return this.http.get<UserConfig>(`${this.actionUrl}config`);
     };
 
-    public getBirthdays = (): Observable<User[]> => {
+    public getBirthdays(): Observable<User[]> {
         return this.http.get<User[]>(`${this.actionUrl}birthdays`);
     };
 
-    public getOnlineCount = (): Observable<UsersOnline> => {
+    public getOnlineCount(): Observable<UsersOnline> {
         return this.http.get<UsersOnline>(`${this.actionUrl}online`);
     };
 
-    public updateConfig = (itemToUpdate: UserConfig): Observable<UserConfig> => {
+    public updateConfig (itemToUpdate: UserConfig): Observable<UserConfig> {
         return this.http.put<UserConfig>(`${this.actionUrl}config`, JSON.stringify(itemToUpdate));
     };
 }

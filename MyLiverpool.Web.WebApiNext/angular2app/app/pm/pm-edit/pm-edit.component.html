@@ -1,45 +1,23 @@
 ﻿<form class="form-horizontal col-md-12" role="form" name="writePm"  [formGroup]="editPmForm" (ngSubmit)="onSubmit()">
     <h2>Написать сообщение</h2>
-    <div class="form-group">
-        <label class="control-label col-md-2">Получатель</label>
-        <div class="col-md-10">
-            <!--p class="text-danger col-md-offset-2" ng-if="vm.errorMessage">
-            <i ng-bind="vm.errorMessage"></i>
-            </!p-->
-            <input
-                (valueChanged)="updateUsername($event)"
-                attr-placeholder="Введите логин..."
-                ng2-auto-complete 
-                [accept-user-input]="false"
-                class="form-control"
-                [list-formatter]="autocompleteListFormatter"
-                display-property-name="username"
-                formControlName="receiver"
-                loading-text="Загрузочка"
-                min-chars="2"
-                name="receiver"
-                type="text"
-                [source]="users" />
-        </div>
-    </div>
+    <md-form-field class="full-width">
+        <input mdInput placeholder="Получатель" [mdAutocomplete]="user" formControlName="receiver">
+        <md-autocomplete #user="mdAutocomplete">
+            <md-option *ngFor="let user of users$ | async" [value]="user.username" (click)="selectUser(user.id)">
+                <span>{{ user.username }}</span>
+            </md-option>
+        </md-autocomplete>
+    </md-form-field>
 
-    <div class="form-group">
-        <label class="control-label col-md-2">Заголовок</label>
-        <div class="col-md-10">
-            <input class="form-control" name="title" formControlName="title" />
-        </div>
-    </div>
+    <md-form-field class="full-width">
+        <input mdInput placeholder="Заголовок" formControlName="title">
+    </md-form-field>
 
-    <div class="form-group">
-        <label class="control-label col-md-2">Сообщение</label>
-        <div class="col-md-10">
-            <textarea class="form-control" name="message" rows="4" formControlName="message"> </textarea>
-        </div>
-    </div>
+    <md-form-field class="full-width">
+        <textarea mdInput rows="4" placeholder="Сообщение" formControlName="message"></textarea>
+    </md-form-field>
 
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <button md-raised-button color="primary" [disabled]="!editPmForm.valid" type="submit">Отправить</button>
-        </div>
+    <div class="form-group text-center">
+        <button md-raised-button color="warn" [disabled]="!editPmForm.valid" type="submit">Отправить</button>
     </div>
 </form>

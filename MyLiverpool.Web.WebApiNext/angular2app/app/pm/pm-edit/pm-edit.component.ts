@@ -1,26 +1,30 @@
 ﻿import { Component, OnInit, OnDestroy } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
-import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { Subscription } from "rxjs/Subscription";   
+import { Observable } from "rxjs/Observable";
+import "rxjs/add/operator/debounceTime";
+import "rxjs/add/operator/takeUntil";
 import { Pm } from "../pm.model";
 import { PmService } from "../pm.service";
+import { User, UserService } from "../../user/index";
 
 @Component({
     selector: "pm-edit",
     templateUrl: "./pm-edit.component.html"
 })
 export class PmEditComponent implements OnInit, OnDestroy {
+    private sub: Subscription;
     public editPmForm: FormGroup;
     public id: number = 0;
-    private sub: Subscription;
-    public users = "/api/v1/user/GetUserNames?typed=:keyword";
+    public debounceTime: number = 600;
+    public users$: Observable<User[]>;
 
     constructor(private service: PmService,
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
-        private sanitizer: DomSanitizer) {
+        private userService: UserService) {
     }
 
     public ngOnInit(): void {
@@ -48,28 +52,21 @@ export class PmEditComponent implements OnInit, OnDestroy {
                 ])
             ]
         });
+
+
+        this.users$ = this.editPmForm.controls["receiver"].valueChanges
+            .debounceTime(this.debounceTime)
+            .distinctUntilChanged()
+            .switchMap((value: string) => this.userService.getListByUserName(value));
     }
 
     public ngOnDestroy(): void {
         if(this.sub) { this.sub.unsubscribe(); }
     }
-
-    public updateUsername(user: any): void {
-        console.log(user);
-        if (user) {
-            this.editPmForm.patchValue({ receiverId: user.id });
-            this.editPmForm.patchValue({ receiver: user.username });
-        } else {
-            this.editPmForm.patchValue({ receiverId: "" });
-            this.editPmForm.patchValue({ receiver: ""});
-        }
+    
+    public selectUser(id: number) {
+        this.editPmForm.get("receiverId").patchValue(id);
     }
-
-    public autocompleteListFormatter = (data: any): SafeHtml => {
-        let html = `<span>${data.username}</span>`;
-        return this.sanitizer.bypassSecurityTrustHtml(html);
-    }
-
 
     public onSubmit(): void {
         const model: Pm = this.editPmForm.value;

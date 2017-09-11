@@ -1,23 +1,22 @@
-﻿<form class="form-horizontal" name="editForm" role="form" [formGroup]="editMatchForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-        <label class="control-label col-xs-2 col-md-2">Cоперник</label>
+﻿<form class="form-horizontal" role="form" [formGroup]="editMatchEventForm" (ngSubmit)="onSubmit()">
+  <!--<div class="form-group">
+        <label class="control-label col-xs-2 col-md-2">Игрок</label>
         <div class="col-xs-10 col-md-10">
-            <input (valueChanged)="updateClub($event)"
-                   attr-placeholder="Введите клуб..."
+            <input (valueChanged)="updatePerson($event)"
+                   attr-placeholder="Введите игрока..."
                    ng2-auto-complete
                    class="form-control"
                    [list-formatter]="autocompleteListFormatter"
                    display-property-name="value"
-                   formControlName="clubName"
+                   formControlName="personName"
                    loading-text="Загрузочка"
                    min-chars="2"
-                   name="club"
                    type="text"
-                   [source]="clubs"
+                   [source]="persons"
                    autocomplete="off"/>
         </div>
-    </div>
-    <div class="form-group">
+    </div>-->
+    <!--   <div class="form-group">
         <label class="control-label col-xs-2 col-sm-2"> Категория:</label>
         <div class="col-xs-10 col-sm-10">
             <select class="form-control" formControlName="typeId">
@@ -37,7 +36,7 @@
         <div class="col-xs-offset-2 col-sm-offset-2 col-xs-10 col-sm-10">
             <div class="checkbox">
                 <label class="control-label">
-                    <input class="checkbox" name="onTop" formControlName="isHome" type="checkbox" /> Дома <!--todo add switcher--> 
+                    <input class="checkbox" name="onTop" formControlName="isHome" type="checkbox" /> Дома
                 </label>
             </div>
         </div>
@@ -98,5 +97,5 @@
         <div class="col-md-offset-2 col-md-10">
             <button type="submit" [disabled]="!editMatchForm.valid" class="btn btn-default">Сохранить</button>
         </div>
-    </div>
+    </div>-->
 </form>

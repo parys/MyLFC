@@ -1,11 +1,14 @@
 ﻿import { Component, OnInit, OnDestroy } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
-import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { Subscription } from "rxjs/Subscription";
-import { TransferService } from "./transfer.service";
-import { PersonService } from "../person.service";
-import { Transfer } from "./transfer.model";
+import { Observable } from "rxjs/Observable";
+import { TransferService } from "../transfer.service";
+import { PersonService, Person } from "../../person/index";
+import { Transfer } from "../transfer.model";
+import { Configuration } from "../../app.constants";
+import { ClubService, Club } from "../../club/index";
+import { SeasonService, Season } from "../../season/index";
 
 @Component({
     selector: "transfer-edit",
@@ -17,16 +20,18 @@ export class TransferEditComponent implements OnInit, OnDestroy {
     private sub3: Subscription;
     private id: number;
     public editTransferForm: FormGroup;
-    public clubs: string = "/api/v1/club/GetClubsByName?typed=:keyword";
-    public persons: string = "/api/v1/person/GetPersonsByName?typed=:keyword";
-    public seasons: string = "/api/v1/season/getSeasonsByYear?typed=:keyword";
+    public clubs$: Observable<Club[]>;
+    public persons$: Observable<Person[]>;
+    public seasons$: Observable<Season[]>;
 
     constructor(private transferService: TransferService,    
         private route: ActivatedRoute,
         private router: Router,
+        private config: Configuration,
         private formBuilder: FormBuilder,
         private personService: PersonService,
-        private sanitizer: DomSanitizer) {
+        private clubService: ClubService,
+        private seasonService: SeasonService) {
     }
 
     public ngOnInit(): void {
@@ -36,13 +41,25 @@ export class TransferEditComponent implements OnInit, OnDestroy {
         if (id > 0) {
             this.sub3 = this.transferService.getSingle(id)
                 .subscribe(data => this.parse(data),
-                    error => console.log(error));
+                    e => console.log(e));
         };
     }
 
     public ngOnDestroy(): void {
         if(this.sub) { this.sub.unsubscribe(); }
         if(this.sub3) { this.sub3.unsubscribe(); }
+    }
+
+    public selectSeason(id: number) {
+        this.editTransferForm.get("seasonId").patchValue(id);
+    }
+
+    public selectClub(id: number) {
+        this.editTransferForm.get("clubId").patchValue(id);
+    }
+
+    public selectPerson(id: number) {
+        this.editTransferForm.get("personId").patchValue(id);
     }
 
     public onSubmit(): void {
@@ -59,39 +76,12 @@ export class TransferEditComponent implements OnInit, OnDestroy {
         if (this.id > 0) {
             this.transferService.update(this.id, transfer)
                 .subscribe(data => this.router.navigate(["/transfers"]),
-                    error => console.log(error));
+                    e => console.log(e));
         } else {
             this.transferService.create(transfer)
                 .subscribe(data => this.router.navigate(["/transfers"]),
-                    error => console.log(error));
+                    e => console.log(e));
         }
-    }
-
-    public updateClub(club: any): void {
-        this.editTransferForm.get("clubId").patchValue("");
-        if (club) {
-            this.editTransferForm.get("clubId").patchValue(club.key);
-            this.editTransferForm.get("clubName").patchValue(club.value);
-        }
-    }
-
-    public updatePerson(person: any): void {
-        if (person) {
-            this.editTransferForm.get("personId").patchValue(person.key);
-            this.editTransferForm.get("personName").patchValue(person.value);
-        }
-    }
-
-    public updateSeason(season: any): void {
-        if (season) {
-            this.editTransferForm.get("seasonId").patchValue(season.key);
-            this.editTransferForm.get("seasonName").patchValue(season.value);
-        }
-    }
-
-    public autocompleteListFormatter = (data: any): SafeHtml => {
-        const html: string = `<span>${data.value}</span>`;
-        return this.sanitizer.bypassSecurityTrustHtml(html);
     }
 
     private parse(data: Transfer): void {
@@ -127,6 +117,21 @@ export class TransferEditComponent implements OnInit, OnDestroy {
             'onLoan': [false, Validators.required],
             'coming': [true, Validators.required],
         });
+
+        this.persons$ = this.editTransferForm.controls["personName"].valueChanges
+            .debounceTime(this.config.debounceTime)
+            .distinctUntilChanged()
+            .switchMap((value: string) => this.personService.getListByName(value));
+
+        this.clubs$ = this.editTransferForm.controls["clubName"].valueChanges
+            .debounceTime(this.config.debounceTime)
+            .distinctUntilChanged()
+            .switchMap((value: string) => this.clubService.getListByName(value));
+
+        this.seasons$ = this.editTransferForm.controls["seasonName"].valueChanges
+            .debounceTime(this.config.debounceTime)
+            .distinctUntilChanged()
+            .switchMap((value: string) => this.seasonService.getListByYear(value));
     }
 
     private getIdFromUrl(url: string): string {

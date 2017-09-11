@@ -5,3 +5,4 @@ export * from "./user-config.component";
 export * from "./user-birthday.component";
 export * from "./user-online-counter.component";
 export * from "./user.service";
+export * from "./user.model";

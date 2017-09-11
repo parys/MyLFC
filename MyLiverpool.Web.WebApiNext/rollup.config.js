@@ -30,7 +30,6 @@ export default {
         commonjs(
             {
                 include: ["node_modules/rxjs/**",
-                    "node_modules/ng2-auto-complete/**",
                     "node_modules/angular2-recaptcha/**"
                 ]
             }),

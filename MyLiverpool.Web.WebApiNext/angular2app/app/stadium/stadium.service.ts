@@ -13,11 +13,7 @@ export class StadiumService {
     public getAll = (page: number): Observable<Pageable<Stadium>> => {
         return this.http.get<Pageable<Stadium>>(this.actionUrl + `list?page=${page}`);
     };
-
-    public getAllAll = (): Observable<Stadium[]> => {
-        return this.http.get<Stadium[]>(this.actionUrl + `listAll`);
-    };
-
+    
     public getListByName = (typed: string): Observable<Stadium[]> => {
         return this.http.get<Stadium[]>(this.actionUrl + `getListByName?typed=${typed}`);
     };

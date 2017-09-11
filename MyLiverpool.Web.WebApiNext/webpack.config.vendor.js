@@ -28,7 +28,6 @@ const nonTreeShakableModules = [
     "@angular/material/prebuilt-themes/indigo-pink.css",
     "event-source-polyfill",
   //  "rxjs",
-    "ng2-auto-complete",
     "ngx-pagination",
     //  "ng2-page-scroll",
    // "tinymce/tinymce.min.js"

@@ -10,27 +10,31 @@ export class SeasonService {
     constructor(private http: HttpWrapper) {
     }
 
-    public getAll = (): Observable<Season[]> => {
+    public getAll(): Observable<Season[]> {
         return this.http.get<Season[]>(`${this.actionUrl}list/`);
     };
 
-    public getSingle = (id: number): Observable<Season> => {
+    public getListByYear(typed: string): Observable<Season[]> {
+        return this.http.get<Season[]>(`${this.actionUrl}getSeasonsByYear?typed=${typed}`);
+    };
+
+    public getSingle(id: number): Observable<Season> {
         return this.http.get<Season>(`${this.actionUrl}/${id}`);
     };
 
-    public create = (item: Season): Observable<Season> => {
+    public create(item: Season): Observable<Season> {
         return this.http.post<Season>(this.actionUrl, JSON.stringify(item));
     };
 
-    public update = (id: number, itemToUpdate: Season): Observable<Season> => {
+    public update(id: number, itemToUpdate: Season): Observable<Season> {
         return this.http.put<Season>(this.actionUrl + id, JSON.stringify(itemToUpdate));
     };
 
-    public delete = (id: number): Observable<boolean> => {
+    public delete(id: number): Observable<boolean> {
         return this.http.delete<boolean>(this.actionUrl + id);
     };
 
-    public getSingleWithMatches = (seasonId: number): Observable<Season> => {
+    public getSingleWithMatches(seasonId: number): Observable<Season> {
         return this.http.get<Season>(`${this.actionUrl}getWithMatches/${seasonId}`);
     }
 }

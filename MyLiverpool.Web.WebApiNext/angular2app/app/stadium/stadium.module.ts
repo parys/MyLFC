@@ -25,7 +25,6 @@ import { NgxPaginationModule } from "ngx-pagination";
         StadiumEditComponent,
         StadiumListComponent,
     ],
-    exports: [],
     providers: [
         StadiumService
     ]

@@ -42,10 +42,10 @@ export class MatchEventListComponent implements OnInit, OnDestroy {
     }
 
     public update(): void {
-        this.sub2 = this.matchService
-            .getAll(this.page)
-            .subscribe(data => this.parsePageable(data),
-                error => console.log(error));
+        //this.sub2 = this.matchService
+        //    .getAll(this.page)
+        //    .subscribe(data => this.parsePageable(data),
+        //        error => console.log(error));
     }
 
     public pageChanged(event: any): void {
@@ -65,16 +65,16 @@ export class MatchEventListComponent implements OnInit, OnDestroy {
     }
 
     private delete(index: number): void {
-        let result: boolean;
-        this.matchService.delete(this.items[index].id)
-            .subscribe(res => result = res,
-                e => console.log(e),
-                () => {
-                    if (result) {
-                        this.items.splice(index, 1);
-                    }
-                }
-            );
+        //let result: boolean;
+        //this.matchService.delete(this.items[index].id)
+        //    .subscribe(res => result = res,
+        //        e => console.log(e),
+        //        () => {
+        //            if (result) {
+        //                this.items.splice(index, 1);
+        //            }
+        //        }
+        //    );
     }
 
     private parsePageable(pageable: Pageable<MatchEvent>): void {

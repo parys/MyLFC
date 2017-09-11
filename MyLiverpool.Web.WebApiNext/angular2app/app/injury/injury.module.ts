@@ -10,7 +10,6 @@ import { injuryRoutes } from "./injury.routes";
 import { NgxPaginationModule } from "ngx-pagination";
 import { SharedModule } from "../shared/index";
 import * as angMaterial from '@angular/material';
-import { Ng2AutoCompleteModule } from "ng2-auto-complete";
 
 @NgModule({
     imports: [
@@ -18,9 +17,9 @@ import { Ng2AutoCompleteModule } from "ng2-auto-complete";
         FormsModule,
         RouterModule.forRoot(injuryRoutes),
         ReactiveFormsModule,
-        Ng2AutoCompleteModule,
         NgxPaginationModule,
         SharedModule,
+        angMaterial.MdAutocompleteModule,
         angMaterial.MdButtonModule,
         angMaterial.MdInputModule,
         angMaterial.MdDatepickerModule

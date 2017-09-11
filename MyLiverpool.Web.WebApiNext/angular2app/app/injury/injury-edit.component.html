@@ -1,22 +1,12 @@
 ﻿<form class="form-horizontal col-xs-12" name="editForm" role="form" [formGroup]="editInjuryForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-        <label class="control-label col-xs-2 col-md-2">Игрок</label>
-        <div class="col-xs-10 col-md-10">
-            <input (valueChanged)="updatePerson($event)"
-                   attr-placeholder="Введите игрока..."
-                   ng2-auto-complete
-                   class="form-control"
-                   [list-formatter]="autocompleteListFormatter"
-                   display-property-name="value"
-                   formControlName="personName"
-                   loading-text="Загрузочка"
-                   min-chars="2"
-                   name="person"
-                   type="text"
-                   [source]="persons"
-                   autocomplete="off" />
-        </div>
-    </div>
+    <md-form-field class="full-width">
+        <input mdInput placeholder="Игрок" [mdAutocomplete]="person" formControlName="personName">
+        <md-autocomplete #person="mdAutocomplete">
+            <md-option *ngFor="let person of persons$ | async" [value]="person.value" (click)="selectPerson(person.key)">
+                <span>{{ person.value }}</span>
+            </md-option>
+        </md-autocomplete>
+    </md-form-field>
 
     <md-form-field class="full-width">
         <input mdInput [mdDatepicker]="datePicker1" placeholder="Выберите дату травмы" formControlName="startTime">
@@ -35,6 +25,6 @@
     </md-form-field>
 
     <div class="form-group">
-        <button md-raised-button type="submit" [disabled]="!editInjuryForm.valid" class="text-center full-width">Сохранить</button>
+        <button md-raised-button color="warn" type="submit" [disabled]="!editInjuryForm.valid" class="text-center full-width">Сохранить</button>
     </div>
 </form>

@@ -3,9 +3,7 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
 import { Observable } from "rxjs/Observable";
-import { Subject } from "rxjs/Subject";
 import "rxjs/add/operator/debounceTime";
-import "rxjs/add/operator/take";
 import "rxjs/add/operator/takeUntil";
 import { ClubService } from "../club.service";
 import { Configuration } from "../../app.constants";
@@ -21,11 +19,9 @@ export class ClubEditComponent implements OnInit, OnDestroy {
     private sub: Subscription;
     private sub2: Subscription;
     private id: number;
-    private static changer: Subject<any> = new Subject<any>();
     public editForm: FormGroup;
     public imagePath: string;
-    public stadiums: Stadium[];
-    public filteredStadiums$: Observable<Stadium[]>;
+    public stadiums$: Observable<Stadium[]>;
 
     constructor(private clubService: ClubService,
         private stadiumService: StadiumService,
@@ -33,11 +29,6 @@ export class ClubEditComponent implements OnInit, OnDestroy {
         private router: Router,
         private config: Configuration,
         private formBuilder: FormBuilder) {
-    }
-
-    public filterStadiums(val: string) {
-        return val ? this.stadiums.filter(s => new RegExp(`^${val}`, 'gi').test(s.name))
-            : this.stadiums;
     }
 
     public ngOnInit(): void {
@@ -50,12 +41,6 @@ export class ClubEditComponent implements OnInit, OnDestroy {
                     error => console.log(error));
             }
         });
-        this.stadiumService.getAllAll().subscribe(data => this.stadiums = data,
-            e => console.log(e), () => {
-                this.filteredStadiums$ = this.editForm.controls["stadiumName"].valueChanges
-                    .startWith(null)
-                    .map((name: string) => this.filterStadiums(name));
-            });
     }
 
     public ngOnDestroy(): void {
@@ -87,7 +72,7 @@ export class ClubEditComponent implements OnInit, OnDestroy {
         }
     }
 
-    public selected(id: number) {
+    public selectStadium(id: number) {
         this.editForm.get("stadiumId").patchValue(id);
     }
 
@@ -118,12 +103,10 @@ export class ClubEditComponent implements OnInit, OnDestroy {
             'stadiumName': ["", Validators.required],
             'id': [0, Validators.required]
         });
-        //this.editForm.controls["stadiumName"].valueChanges
-        //    .debounceTime(this.config.debounceTime)
-        //    .takeUntil(ClubEditComponent.changer)
-        //    .take(1)
-        //    .switchMap((value: string) => this.stadiumService.getListByName(value))
-        //    .subscribe((data: Stadium[]) => this.stadiums = data,
-        //        e => console.log(e));
+
+        this.stadiums$ = this.editForm.controls["stadiumName"].valueChanges
+            .debounceTime(this.config.debounceTime)
+            .distinctUntilChanged()
+            .switchMap((value: string) => this.stadiumService.getListByName(value));
     }
 }

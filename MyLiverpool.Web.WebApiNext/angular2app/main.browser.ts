@@ -4,9 +4,15 @@ import { enableProdMode } from "@angular/core";
 import { AppModule } from "./app/app.module.browser";
 import "hammerjs";
 
+var rootElemTagName = "app";
+// enable either Hot Module Reloading or production mode
 if (module["hot"]) {
     module["hot"].accept();
     module["hot"].dispose(() => {
+        // Before restarting the app, we create a new root element and dispose the old one
+        const oldRootElem = document.querySelector(rootElemTagName);
+        const newRootElem = document.createElement(rootElemTagName);
+        oldRootElem.parentNode.insertBefore(newRootElem, oldRootElem);
         platform.destroy();
     });
 } else {

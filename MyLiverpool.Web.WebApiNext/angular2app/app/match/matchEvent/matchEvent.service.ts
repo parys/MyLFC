@@ -12,7 +12,7 @@ export class MatchEventService {
     constructor(private http: HttpWrapper) {
         this.actionUrl = "matchEvent/";
     }
-
+/*
     public getAll = (page: number): Observable<Pageable<MatchEvent>> => {
         return this.http.get<Pageable<MatchEvent>>(this.actionUrl + "list?page=" + page);
     };
@@ -43,5 +43,5 @@ export class MatchEventService {
 
     public delete = (id: number): Observable<boolean> => {
         return this.http.delete<boolean>(this.actionUrl + id);
-    };
+    };*/
 }
