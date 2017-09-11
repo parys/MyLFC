@@ -1,21 +1,14 @@
-﻿<form class="form-horizontal" role="form" [formGroup]="editMatchEventForm" (ngSubmit)="onSubmit()">
-  <!--<div class="form-group">
-        <label class="control-label col-xs-2 col-md-2">Игрок</label>
-        <div class="col-xs-10 col-md-10">
-            <input (valueChanged)="updatePerson($event)"
-                   attr-placeholder="Введите игрока..."
-                   ng2-auto-complete
-                   class="form-control"
-                   [list-formatter]="autocompleteListFormatter"
-                   display-property-name="value"
-                   formControlName="personName"
-                   loading-text="Загрузочка"
-                   min-chars="2"
-                   type="text"
-                   [source]="persons"
-                   autocomplete="off"/>
-        </div>
-    </div>-->
+﻿<hr/>
+<h6 class="text-center">Добавление события матча</h6>
+<form class="form-horizontal col-xs-12" role="form" [formGroup]="editMatchEventForm" (ngSubmit)="onSubmit()">
+    <md-form-field class="full-width">
+        <input mdInput placeholder="Игрок" [mdAutocomplete]="person" formControlName="personName">
+        <md-autocomplete #person="mdAutocomplete">
+            <md-option *ngFor="let person of persons$ | async" [value]="person.value" (click)="selectPerson(person.key)">
+                <span>{{ person.value }}</span>
+            </md-option>
+        </md-autocomplete>
+    </md-form-field>
     <!--   <div class="form-group">
         <label class="control-label col-xs-2 col-sm-2"> Категория:</label>
         <div class="col-xs-10 col-sm-10">
@@ -41,17 +34,7 @@
             </div>
         </div>
     </div>
-    <md-form-field class="full-width">
-        <input mdInput placeholder="Стадион" [mdAutocomplete]="auto" formControlName="stadiumName">
-    </md-form-field>
 
-    <md-autocomplete #auto="mdAutocomplete">
-        <md-option *ngFor="let stadium of filteredStadiums$ | async"
-                   [value]="stadium.name"
-                   (click)="selected(stadium.id)"
-                   [textContent]="stadium.name">
-        </md-option>
-    </md-autocomplete>
     <div class="form-group">
         <label class="control-label col-xs-2 col-sm-2"> Время:</label>
         <div class="col-xs-10 col-sm-10">
@@ -92,10 +75,8 @@
         <div class="col-xs-10 col-sm-10">
             <input class="form-control" name="videoUrl" formControlName="videoUrl"/>
         </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <button type="submit" [disabled]="!editMatchForm.valid" class="btn btn-default">Сохранить</button>
-        </div>
     </div>-->
+    <div class="form-group text-center">
+            <button md-raised-button color="warn" type="submit" [disabled]="!editMatchEventForm.valid">Сохранить</button>
+    </div>
 </form>

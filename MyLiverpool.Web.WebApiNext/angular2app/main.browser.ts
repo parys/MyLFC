@@ -10,9 +10,9 @@ if (module["hot"]) {
     module["hot"].accept();
     module["hot"].dispose(() => {
         // Before restarting the app, we create a new root element and dispose the old one
-        const oldRootElem = document.querySelector(rootElemTagName);
-        const newRootElem = document.createElement(rootElemTagName);
-        oldRootElem.parentNode.insertBefore(newRootElem, oldRootElem);
+     //   const oldRootElem = document.querySelector(rootElemTagName);
+     //   const newRootElem = document.createElement(rootElemTagName);
+     //   oldRootElem.parentNode.insertBefore(newRootElem, oldRootElem);
         platform.destroy();
     });
 } else {

@@ -1,12 +1,13 @@
-﻿//using Microsoft.AspNet.Identity.EntityFramework;
+﻿//using Microsoft.AspNetCore.Identity;
 
-//namespace MyLiverpoolSite.Data.Entities
+//namespace MyLiverpool.Data.Entities
 //{
-//    public class UserRole : IdentityUserRole<int>, IEntity
+//    public class UserRole : IdentityUserRole<int>// //IEntity
 //    {
-//    //    [Key]
-//    //    public string UserId { get; set; }
-//    //    public string RoleId { get; set; }
-//    
+//            //[Key]
+//            public int UserId { get; set; }
+//            public int RoleId { get; set; }
+
+//       // public int Id { get; set; }
 //    }
 //}

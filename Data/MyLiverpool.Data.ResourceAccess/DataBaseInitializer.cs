@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
@@ -23,7 +24,7 @@ namespace MyLiverpool.Data.ResourceAccess
         private const int CountBlog = 100;
         private const int CountNewsComments = 100;
         private const int CountBlogComments = 100;
-        private const int CountUsers = 3;
+        private const int CountUsers = 2;
         private const MaterialType NewsType = MaterialType.News;
         private const MaterialType BlogType = MaterialType.Blogs;
         private const string DefaultPhotoPath = "/content/avatars/default.png";
@@ -35,23 +36,23 @@ namespace MyLiverpool.Data.ResourceAccess
 
         public async void Seed(bool migrator = false)
         {
-            if (_context.Roles.Any()) return;
+         //   if (_context.Roles.Any()) return;
 
-            await InitializeRoles();
-            await InitializeRoleGroups();
-            await InitRoleRoleGroups();
+        //    await InitializeRoles();
+        //    await InitializeRoleGroups();
+       //     await InitRoleRoleGroups();
 
             if (!migrator)
             {
-                await InitUsers();
+               // await InitUsers();
 
                 await InitializeNewsCategories();
                 await InitializeNews();
                 await InitializeNewsComments();
 
-                await InitializeBlogCategories();
-                await InitializeBlog();
-                await InitializeBlogComments();
+              //  await InitializeBlogCategories();
+             //   await InitializeBlog();
+             //   await InitializeBlogComments();
 
                 await InitializePrivateMessages();
 
@@ -644,7 +645,7 @@ namespace MyLiverpool.Data.ResourceAccess
             var adminRoles = GetRoleNamesByRoleGroupId(user.RoleGroupId);
 
             await userManager.AddToRolesAsync(user, adminRoles);
-            await _context.SaveChangesAsync();
+          //  await _context.SaveChangesAsync();
 
         }
 
@@ -1065,7 +1066,7 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                 {
                     CategoryId = i % 2 == 0 ? 1 : 2,
                     AdditionTime = DateTime.Now.AddHours(randomizer.NextDouble() * -CountNews),
-                    AuthorId = i % 3 + 1,
+                    AuthorId =1,// i % 3 + 1,
                     Brief = "brief" + i,
                     CanCommentary = i % 2 == 0,
                     Type = type,
@@ -1343,9 +1344,13 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
 
             if (attributes != null &&
                 attributes.Length > 0)
+            {
                 return attributes[0].Description;
+            }
             else
+            {
                 return value.ToString();
+            }
         }
 
         private UserManager<User> GetUserManager()
@@ -1357,7 +1362,7 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
             options.Value.Lockout.AllowedForNewUsers = true;
             
             var userStore = new UserStore<User, Role, LiverpoolContext, int>(_context);
-            return new UserManager<User>(userStore, options, hasher, null, null, normalizer, null, null, null);
+            return new UserManager<User>(userStore, options, hasher, null, null, normalizer, null, null, new Logger<UserManager<User>>(new LoggerFactory()));
         }
     }
 }

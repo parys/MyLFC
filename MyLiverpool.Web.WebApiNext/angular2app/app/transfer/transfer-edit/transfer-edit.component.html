@@ -1,12 +1,12 @@
 ﻿<form class="form-horizontal col-xs-12" name="editForm" role="form" [formGroup]="editTransferForm" (ngSubmit)="onSubmit()">
     <md-form-field class="full-width">
-    <input mdInput placeholder="Игрок" [mdAutocomplete]="person" formControlName="personName">
-    <md-autocomplete #person="mdAutocomplete">
-        <md-option *ngFor="let person of persons$ | async" [value]="person.value" (click)="selectPerson(person.key)">
-            <span>{{ person.value }}</span>
-        </md-option>
-    </md-autocomplete>
-</md-form-field>
+        <input mdInput placeholder="Игрок" [mdAutocomplete]="person" formControlName="personName">
+        <md-autocomplete #person="mdAutocomplete">
+            <md-option *ngFor="let person of persons$ | async" [value]="person.value" (click)="selectPerson(person.key)">
+                <span>{{ person.value }}</span>
+            </md-option>
+        </md-autocomplete>
+    </md-form-field>
     <md-form-field class="full-width">
         <input mdInput placeholder="Cоперник" [mdAutocomplete]="club" formControlName="clubName">
         <md-autocomplete #club="mdAutocomplete">

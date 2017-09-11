@@ -22,14 +22,16 @@ export class MatchCalendarComponent implements OnInit, OnDestroy {
     public ngOnInit(): void {
         this.roles = this.rolesChecked.checkRoles();
         this.sub = this.service.getForCalendar().subscribe(data => {
-                if (data.length === 1) {
-                    if (data[0].scoreHome) {
-                        this.last = data[0];
+                if (data) {
+                    if (data.length === 1) {
+                        if (data[0].scoreHome) {
+                            this.last = data[0];
+                        } else {
+                            this.next = data[0];
+                        }
                     } else {
-                        this.next = data[0];
+                        [this.last, this.next] = data;
                     }
-                } else {
-                    [this.last, this.next] = data;
                 }
             },
             error => console.log(error),

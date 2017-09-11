@@ -18,7 +18,7 @@ namespace MyLiverpool.Data.ResourceAccess
                 _created = true;
             }
         }
-
+        
         public DbSet<Wish> Wishes { get; set; }
         public DbSet<Material> Materials { get; set; }
         public DbSet<MaterialCategory> MaterialCategories { get; set; }
@@ -122,6 +122,9 @@ namespace MyLiverpool.Data.ResourceAccess
             modelBuilder.Entity<MatchEvent>().HasOne(x => x.Season).WithMany(x => x.Events).HasForeignKey(x => x.SeasonId);
             modelBuilder.Entity<MatchEvent>().HasOne(x => x.Person).WithMany(x => x.Events).HasForeignKey(x => x.PersonId).IsRequired(false);
             modelBuilder.Entity<MatchEvent>().HasOne(x => x.Match).WithMany(x => x.Events).HasForeignKey(x => x.MatchId);
+
+        //    modelBuilder.Entity<UserRole>().HasKey(x => new { x.UserId, x.RoleId });
+
 
             foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
             {
