@@ -7,23 +7,22 @@ const merge = require("webpack-merge");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 const treeShakableModules = [
-    '@angular/animations',
-    '@angular/common',
-    '@angular/compiler',
-    '@angular/core',
-    '@angular/forms',
-    '@angular/http',
+    "@angular/animations",
+    "@angular/common",
+    "@angular/compiler",
+    "@angular/core",
+    "@angular/forms",
     "@angular/material",
-    '@angular/platform-browser',
-    '@angular/platform-browser-dynamic',
+    "@angular/platform-browser",
+    "@angular/platform-browser-dynamic",
     "@angular/platform-server",
-    '@angular/router',
-    'zone.js',
+    "@angular/router",
+    "zone.js",
 ];
 
 const nonTreeShakableModules = [
-    'es6-promise',
-    'es6-shim',
+    "es6-promise",
+    "es6-shim",
     "bootstrap/dist/css/bootstrap.min.css",
     "@angular/material/prebuilt-themes/indigo-pink.css",
     "event-source-polyfill",

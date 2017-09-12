@@ -245,3 +245,4 @@ ModelManifest.xml
 /MyLiverpool.Web.WebApiNext/key-3e5ec71e-6120-41ac-8fcf-3a0e3ecb44ed.xml
 /MyLiverpool.Web.WebApiNext/key-5b5e578c-b033-4c04-8a34-1b18cb0e963a.xml
 *.xml
+/MyLiverpool.Web.WebApiNext/wwwroot/src.zip

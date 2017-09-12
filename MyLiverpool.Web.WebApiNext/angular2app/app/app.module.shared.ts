@@ -90,6 +90,7 @@ import { TransferModule } from "./transfer/index";
         season.SeasonEditComponent,
         season.SeasonListComponent,
         AppComponent,
+        admin.CupTableComponent,
         admin.EplTableComponent,
         admin.PageEditorComponent,
         material.MaterialListComponent,

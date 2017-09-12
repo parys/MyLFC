@@ -2,11 +2,10 @@
 import "zone.js";
 import "rxjs/add/operator/first";
 import { APP_BASE_HREF } from "@angular/common";
-import { enableProdMode, ApplicationRef, NgZone, ValueProvider, RendererFactory2 } from "@angular/core";
+import { enableProdMode, ApplicationRef, NgZone, } from "@angular/core";
 import { platformDynamicServer, PlatformState, INITIAL_CONFIG } from "@angular/platform-server";
 import { createServerRenderer, RenderResult } from "aspnet-prerendering";
 import { AppModule } from "./app/app.module.server";
-import { ɵAnimationRendererFactory } from '@angular/platform-browser/animations';
 
 enableProdMode();
 
@@ -19,8 +18,8 @@ export default createServerRenderer(params => {
 
     return platformDynamicServer(providers).bootstrapModule(AppModule).then(moduleRef => {
         const appRef: ApplicationRef = moduleRef.injector.get(ApplicationRef);
-        const state = moduleRef.injector.get(PlatformState);
-        const zone = moduleRef.injector.get(NgZone);
+        const state: PlatformState = moduleRef.injector.get(PlatformState);
+        const zone: NgZone = moduleRef.injector.get(NgZone);
 
         return new Promise<RenderResult>((resolve, reject) => {
             zone.onError.subscribe((errorInfo: any) => reject(errorInfo));
