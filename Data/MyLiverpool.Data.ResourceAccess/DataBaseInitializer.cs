@@ -36,23 +36,23 @@ namespace MyLiverpool.Data.ResourceAccess
 
         public async void Seed(bool migrator = false)
         {
-         //   if (_context.Roles.Any()) return;
+            if (_context.Roles.Any()) return;
 
-        //    await InitializeRoles();
-        //    await InitializeRoleGroups();
-       //     await InitRoleRoleGroups();
+            await InitializeRoles();
+            await InitializeRoleGroups();
+            await InitRoleRoleGroups();
 
             if (!migrator)
             {
-               // await InitUsers();
+                await InitUsers();
 
                 await InitializeNewsCategories();
                 await InitializeNews();
                 await InitializeNewsComments();
 
-              //  await InitializeBlogCategories();
-             //   await InitializeBlog();
-             //   await InitializeBlogComments();
+                await InitializeBlogCategories();
+                await InitializeBlog();
+                await InitializeBlogComments();
 
                 await InitializePrivateMessages();
 
@@ -64,6 +64,8 @@ namespace MyLiverpool.Data.ResourceAccess
             await InitStadiums();
             await InitSeasons();
             await InitClubs();
+            await InitMatches();
+            await InitPersonsAsync();
 
             await AddApplication();
         }
@@ -1267,6 +1269,7 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
             await _context.SaveChangesAsync();
         }
 
+        #region season-stadium-club-match
         private async Task InitSeasons()
         {
             var season = new Season()
@@ -1287,44 +1290,41 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
             await _context.Stadiums.AddAsync(stadiums);
             await _context.SaveChangesAsync();
         }
+
         private async Task InitClubs()
         {
             var clubs = _context.Set<Club>();
             if (clubs.Any()) return;
 
-            var club = new Club() 
+            var club = new Club
             {
                 EnglishName = "Liverpool",
                 Logo = "/content/logos/0/liverpool.png",
                 Name = "Ливерпуль",
-                StadiumName = "Энфилд",
                 StadiumId = 1
             };
             clubs.Add(club);
-            var club1 = new Club() 
+            var club1 = new Club
             {
                 EnglishName = "Arsenal",
                 Logo = "/content/logos/0/arsenal.png",
                 Name = "Арсенал",
-                StadiumName = "Эмирейтс",
                 StadiumId = 1
             };
             clubs.Add(club1);
-            var club2 = new Club() 
+            var club2 = new Club 
             {
                 EnglishName = "Everton",
                 Logo = "/content/logos/0/everton.png",
                 Name = "Эвертон",
-                StadiumName = "Гуддисон",
                 StadiumId = 1
             };
             clubs.Add(club2);
-            var club3 = new Club() 
+            var club3 = new Club 
             {
                 EnglishName = "Manchester City",
                 Logo = "/content/logos/0/manchestercity.png",
                 Name = "Манчестер Сити",
-                StadiumName = "Этихад",
                 StadiumId = 1
             };
             clubs.Add(club3);
@@ -1332,6 +1332,79 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
             await _context.SaveChangesAsync();
         }
 
+        private async Task InitMatches()
+        {
+            var matches = _context.Set<Match>();
+            if (matches.Any()) return;
+
+            var match = new Match
+            {
+                ClubId = 2,
+                DateTime = DateTimeOffset.Now,
+                StadiumId = 1,
+                IsHome = false,
+                MatchType = MatchTypeEnum.Apl,
+                Score = "3-3",
+                SeasonId = 1
+            };
+
+            var match2 = new Match
+            {
+                ClubId = 2,
+                DateTime = DateTimeOffset.Now.AddDays(55),
+                StadiumId = 1,
+                IsHome = false,
+                MatchType = MatchTypeEnum.Apl,
+                SeasonId = 1
+            };
+
+            matches.Add(match);
+            matches.Add(match2);
+
+            await _context.SaveChangesAsync();
+        }
+#endregion
+
+        private async Task InitPersonsAsync()
+        {
+            if(_context.Persons.Any()) return;
+
+            var person = new Person
+            {
+                Birthday = DateTimeOffset.Now,
+                Country = "country",
+                FirstName = "first name 1",
+                FirstRussianName = "russian 1",
+                LastName = "last name 1",
+                LastRussianName = "russian last 2",
+                Position = "position",
+                Type = PersonType.First
+            };
+            var person2 = new Person
+            {
+                Birthday = DateTimeOffset.Now,
+                Country = "country 2",
+                FirstName = "first name 2",
+                FirstRussianName = "russian 21",
+                LastName = "last name 21",
+                LastRussianName = "russian last 22",
+                Position = "position",
+                Type = PersonType.Stuff
+            };
+            var person3 = new Person
+            {
+                Birthday = DateTimeOffset.Now,
+                Country = "country 23",
+                FirstName = "first name 23",
+                FirstRussianName = "russian 213",
+                LastName = "last name 213",
+                LastRussianName = "russian last 223",
+                Position = "position",
+                Type = PersonType.Academy
+            };
+            _context.Persons.AddRange(person, person2, person3);
+            await _context.SaveChangesAsync();
+        }
 
         private static string GetEnumDescription(Enum value)
         {

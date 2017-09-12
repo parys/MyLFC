@@ -64,6 +64,8 @@ namespace MyLiverpool.Data.ResourceAccess
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<MaterialComment>().HasOne(x => x.Author).WithMany(x => x.Comments).HasForeignKey(x => x.AuthorId);
             modelBuilder.Entity<ForumMessage>().HasOne(x => x.Author).WithMany(u => u.ForumMessages).HasForeignKey(x => x.AuthorId);
            
@@ -122,8 +124,28 @@ namespace MyLiverpool.Data.ResourceAccess
             modelBuilder.Entity<MatchEvent>().HasOne(x => x.Season).WithMany(x => x.Events).HasForeignKey(x => x.SeasonId);
             modelBuilder.Entity<MatchEvent>().HasOne(x => x.Person).WithMany(x => x.Events).HasForeignKey(x => x.PersonId).IsRequired(false);
             modelBuilder.Entity<MatchEvent>().HasOne(x => x.Match).WithMany(x => x.Events).HasForeignKey(x => x.MatchId);
+            //research todo maybe it doesn't need https://docs.microsoft.com/en-us/aspnet/core/migration/1x-to-2x/identity-2x
+            modelBuilder.Entity<User>()
+                .HasMany(e => e.Claims)
+                .WithOne()
+                .HasForeignKey(e => e.UserId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Cascade);
 
-        //    modelBuilder.Entity<UserRole>().HasKey(x => new { x.UserId, x.RoleId });
+            modelBuilder.Entity<User>()
+                .HasMany(e => e.Logins)
+                .WithOne()
+                .HasForeignKey(e => e.UserId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<User>()
+                .HasMany(e => e.Roles)
+                .WithOne()
+                .HasForeignKey(e => e.UserId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Cascade);
+            //end research
 
 
             foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
@@ -155,7 +177,6 @@ namespace MyLiverpool.Data.ResourceAccess
             modelBuilder.Entity<Loan>().ToTable("Loans");
             modelBuilder.Entity<MatchEvent>().ToTable("MatchEvents");
 
-            base.OnModelCreating(modelBuilder);
         }
         
         protected override void OnConfiguring(DbContextOptionsBuilder modelBuilder)

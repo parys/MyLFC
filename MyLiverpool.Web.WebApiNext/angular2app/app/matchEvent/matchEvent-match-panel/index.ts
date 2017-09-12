@@ -1,0 +1,1 @@
+﻿export * from "./matchEvent-match-panel.component";

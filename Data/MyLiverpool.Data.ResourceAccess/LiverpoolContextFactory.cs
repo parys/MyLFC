@@ -8,7 +8,7 @@ namespace MyLiverpool.Data.ResourceAccess
     public class LiverpoolContextFactory : IDesignTimeDbContextFactory<LiverpoolContext>
     {
         private const string connectionString =
-            "Server=.;Database=MyLiverpool1123;Trusted_Connection=True;MultipleActiveResultSets=true";
+            "Server=.;Database=MyLiverpool11231;Trusted_Connection=True;MultipleActiveResultSets=true";
         public LiverpoolContext Create()
         {
         var optionsBuilder = new DbContextOptionsBuilder<LiverpoolContext>();

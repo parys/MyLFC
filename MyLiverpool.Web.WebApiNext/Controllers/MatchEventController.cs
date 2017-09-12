@@ -79,6 +79,22 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         }
 
         /// <summary>
+        /// Returns match events by match id.
+        /// </summary>
+        /// <param name="id">The identifier of match.</param>
+        /// <returns>List of match events for match.</returns>
+        [Authorize, HttpGet("getForMatch/{id:int}")]
+        public async Task<IActionResult> GetForMatchAsync(int id)
+        {
+            if (id < 1)
+            {
+                return BadRequest();
+            }
+            var result = await _matchEventService.GetListByMatchIdAsync(id);
+            return Json(result);
+        }
+
+        /// <summary>
         /// Returns all types of match events.
         /// </summary>
         /// <returns>List of types.</returns>

@@ -137,12 +137,12 @@ namespace MyLiverpool.Web.WebApiNext
                     // This allows flowing large OpenID Connect requests even when using
                     // an external authentication provider like Google, Facebook or Twitter.
                     .EnableRequestCaching();
-                // Register a new ephemeral key, that is discarded when the application
-                // shuts down. Tokens signed using this key are automatically invalidated.
-                // This method should only be used during development.
                 if (Env.IsDevelopment())
                 {
-                    options.AddEphemeralSigningKey();
+                    // Register a new ephemeral key, that is discarded when the application
+                    // shuts down. Tokens signed using this key are automatically invalidated.
+                    // This method should only be used during development.
+                    //      options.AddEphemeralSigningKey();
                 }
                 else
                 {

@@ -83,7 +83,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
 
         public async Task<IEnumerable<MatchEvent>> GetListAsync(Expression<Func<MatchEvent, bool>> filter = null, SortOrder order = SortOrder.Ascending, Expression<Func<MatchEvent, object>> orderBy = null)
         {
-            IQueryable<MatchEvent> query = _context.MatchEvents.Include(m => m.Person).Include(m => m.Season);
+            IQueryable<MatchEvent> query = _context.MatchEvents.Include(m => m.Person);
 
             if (filter != null)
             {

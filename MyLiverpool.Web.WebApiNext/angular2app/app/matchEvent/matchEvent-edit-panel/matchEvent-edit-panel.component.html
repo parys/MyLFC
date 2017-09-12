@@ -10,7 +10,7 @@
             </md-option>
         </md-autocomplete>
     </md-form-field>
-    <md-select placeholder="Тип" class="full-width form-group">
+    <md-select placeholder="Тип" class="full-width form-group" formControlName="type">
         <md-option *ngFor="let type of types" [value]="type.id">{{ type.name }}</md-option>
     </md-select>
     <md-form-field class="full-width form-group">

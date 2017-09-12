@@ -77,7 +77,7 @@ namespace MyLiverpool.Business.Services.Tests
                 {
                     Email = "asd",
                     UserName = "simple",
-                    UserRoles = 
+                    Roles = 
                     {
                         new IdentityUserRole<int>()
                         {
@@ -90,7 +90,7 @@ namespace MyLiverpool.Business.Services.Tests
                 {
                     Email = "as2d",
                     UserName = "editor",
-                    UserRoles =
+                    Roles =
                     {
                         new IdentityUserRole<int>()
                         {
@@ -107,7 +107,7 @@ namespace MyLiverpool.Business.Services.Tests
                 {
                     Email = "asd3",
                     UserName = "admin",
-                    UserRoles =
+                    Roles =
                     {
                         new IdentityUserRole<int>()
                         {

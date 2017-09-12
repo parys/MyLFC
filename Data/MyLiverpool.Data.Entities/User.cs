@@ -11,11 +11,9 @@ namespace MyLiverpool.Data.Entities
         {
             this.ForumMessages = new HashSet<ForumMessage>();
             this.Comments = new HashSet<MaterialComment>();
-            //  this.BlogItems = new HashSet<BlogItem>();
             this.Materials = new HashSet<Material>();
             this.SentPrivateMessages = new HashSet<PrivateMessage>();
             this.ReceivedPrivateMessages = new HashSet<PrivateMessage>();
-            this.UserRoles = new HashSet<IdentityUserRole<int>>();
             CommentVotes = new HashSet<CommentVote>();
         }
 
@@ -31,13 +29,6 @@ namespace MyLiverpool.Data.Entities
             this.ChatMessages = new HashSet<ChatMessage>();
         }
 
-      //  public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User, int> manager)
-     //   {
-            // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
-      //      var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
-            // Add custom user claims here
-      //      return userIdentity;
-     //   }
 
         // public int Id { get; set; }
         // public string Email { get; set; }
@@ -55,9 +46,11 @@ namespace MyLiverpool.Data.Entities
         // public string NormalizedEmail { get; set; }
         // public string NormalizedUserName { get; set; }
 
-        // public virtual ICollection<UserClaim> Claims { get; set; }
-        // public virtual ICollection<UserLogin> Logins { get; set; }
-         public virtual ICollection<IdentityUserRole<int>> UserRoles { get; set; }
+        //todo research and maybe remove  https://docs.microsoft.com/en-us/aspnet/core/migration/1x-to-2x/identity-2x
+        public virtual ICollection<IdentityUserRole<int>> Roles { get; } = new List<IdentityUserRole<int>>();
+        public virtual ICollection<IdentityUserClaim<int>> Claims { get; } = new List<IdentityUserClaim<int>>();
+        public virtual ICollection<IdentityUserLogin<int>> Logins { get; } = new List<IdentityUserLogin<int>>();
+        //end research
 
         public int OldId { get; set; }
 

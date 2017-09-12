@@ -1,16 +1,7 @@
 ﻿import { Component, OnInit } from "@angular/core";
-import { FormBuilder } from "@angular/forms";
-import { Router, ActivatedRoute } from "@angular/router";
-import { DomSanitizer } from "@angular/platform-browser";
-import { Observable } from "rxjs/Observable";
-import "rxjs/add/operator/startWith";
+import { ActivatedRoute } from "@angular/router";
 import { MatchService } from "../match.service";
-import { SeasonService } from "../../season/index";
-import { Match } from "../match.model";                        
-import { MatchType } from "../matchType.model";  
-import { Season } from "../../season/season.model";
-import { Stadium } from "../../stadium/index";
-import { StadiumService } from "../../stadium/stadium.service";
+import { Match } from "../match.model";  
 
 @Component({
     selector: "match-detail",
@@ -21,12 +12,7 @@ export class MatchDetailComponent implements OnInit {
     public item: Match;
 
     constructor(private matchService: MatchService,    
-        private route: ActivatedRoute,
-        private stadiumService: StadiumService,
-        private router: Router,
-        private formBuilder: FormBuilder,
-        private seasonService: SeasonService,
-        private sanitizer: DomSanitizer) {
+        private route: ActivatedRoute) {
     }
 
     public ngOnInit(): void {

@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Threading.Tasks;
 using AutoMapper;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
@@ -59,6 +61,14 @@ namespace MyLiverpool.Business.Services
                 return _mapper.Map<MatchEventDto>(model);
             }
             return null;
+        }
+
+        public async Task<IEnumerable<MatchEventDto>> GetListByMatchIdAsync(int matchId)
+        {
+            var events =
+                await _matchEventRepository.GetListAsync(x => x.MatchId == matchId, SortOrder.Descending,
+                    x => x.Minute);
+            return _mapper.Map<IEnumerable<MatchEventDto>>(events);
         }
     }
 }

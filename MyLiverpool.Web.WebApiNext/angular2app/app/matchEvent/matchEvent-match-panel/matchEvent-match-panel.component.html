@@ -1,0 +1,5 @@
+﻿<button md-raised-button color="warn" (click)="addEvent()" *ngIf="!isEditEvent">Добавить событие</button>
+<button md-raised-button (click)="cancelEventEdit()" *ngIf="isEditEvent">Отменить редактирование</button>
+<div class="full-width top20" *ngIf="isEditEvent">
+    <matchEvent-edit-panel [matchId]="matchId" [seasonId]="seasonId"></matchEvent-edit-panel>
+</div>
