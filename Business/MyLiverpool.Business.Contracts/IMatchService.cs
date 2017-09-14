@@ -10,9 +10,7 @@ namespace MyLiverpool.Business.Contracts
         Task<PageableData<MatchDto>> GetListAsync(int page, int itemsPerPage = 15, int? seasonId = null);
 
         Task<IEnumerable<MatchDto>> GetListForSeasonAsync(int seasonId);
-
-        Task<MatchDto> UpdateScoreAsync(int matchId, string newScore);
-
+        
         Task<IEnumerable<MatchDto>> GetForCalendarAsync();
     }
 }

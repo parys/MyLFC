@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -49,18 +50,18 @@ namespace MyLiverpool.Business.Services
             match.VideoUrl = dto.VideoUrl;
             match.Stadium = null;
             match.StadiumId = dto.StadiumId;
-            match.Score = GetScores(dto.ScoreHome, dto.ScoreAway);
+        //    match.Score = GetScores(dto.ScoreHome, dto.ScoreAway);
             await _matchRepository.UpdateAsync(match);
             return dto;
         }
 
-        public async Task<MatchDto> UpdateScoreAsync(int matchId, string newScore)
-        {
-            var match = await _matchRepository.GetByIdAsync(matchId);
-            match.Score = newScore;
-            await _matchRepository.UpdateAsync(match);
-            return _mapper.Map<MatchDto>(match);
-        }
+        //public async Task<MatchDto> UpdateScoreAsync(int matchId, string newScore)
+        //{
+        //    var match = await _matchRepository.GetByIdAsync(matchId);
+        //    match.Score = newScore;
+        //    await _matchRepository.UpdateAsync(match);
+        //    return _mapper.Map<MatchDto>(match);
+        //}
 
         public async Task<IEnumerable<MatchDto>> GetForCalendarAsync()
         {
@@ -86,11 +87,11 @@ namespace MyLiverpool.Business.Services
                 var dto = _mapper.Map<MatchDto>(match);
                 if (match.IsHome)
                 {
-                    FillClubsFields(dto, liverpoolClub, match.Club);
+                    FillClubsFields(dto, liverpoolClub, match.Club, null, null);//todo need to fix
                 }
                 else
                 {
-                    FillClubsFields(dto, match.Club, liverpoolClub);
+                    FillClubsFields(dto, match.Club, liverpoolClub, null, null);//todo need to fix
                 }
                 dtos.Add(dto);
             }
@@ -114,12 +115,13 @@ namespace MyLiverpool.Business.Services
             var dto = _mapper.Map<MatchDto>(match);
             if (match.IsHome)
             {
-                FillClubsFields(dto, liverpoolClub, match.Club);
+                FillClubsFields(dto, liverpoolClub, match.Club, GetScore(match.Events, true), GetScore(match.Events, false));
             }
             else
             {
-                FillClubsFields(dto, match.Club, liverpoolClub);
+                FillClubsFields(dto, match.Club, liverpoolClub, GetScore(match.Events, false), GetScore(match.Events, true));
             }
+            
             return dto;
         }
 
@@ -166,23 +168,21 @@ namespace MyLiverpool.Business.Services
             return dtos;
         }
 
-        private static void FillClubsFields(MatchDto dto, Club homeClub, Club awayClub)
+        private static void FillClubsFields(MatchDto dto, Club homeClub, Club awayClub, int? homeScore, int? awayScore)
         {
             dto.HomeClubId = homeClub.Id;
             dto.HomeClubName = homeClub.Name;
             dto.HomeClubLogo = homeClub.Logo;
+            dto.ScoreHome = homeScore;
             dto.AwayClubId = awayClub.Id;
             dto.AwayClubName = awayClub.Name;
             dto.AwayClubLogo = awayClub.Logo;
+            dto.ScoreAway = awayScore;
         }
 
-        private static string GetScores(string scoreHome, string scoreAway)
+        private static int GetScore(IEnumerable<MatchEvent> matchEvents, bool forLiverpool = true)
         {
-            if (string.IsNullOrWhiteSpace(scoreHome) || string.IsNullOrWhiteSpace(scoreAway))
-            {
-                return null;
-            }
-            return $"{scoreHome}-{scoreAway}";
+            return matchEvents.Count();
         }
     }
 }

@@ -70,24 +70,6 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         }      
         
         /// <summary>
-        /// Updates match score.
-        /// </summary>
-        /// <param name="id">The identifier of entity.</param>
-        /// <param name="score">New match score.</param>
-        /// <returns>Updated entity.</returns>
-        [Authorize(Roles = nameof(RolesEnum.InfoStart)), HttpPut("UpdateScore")]
-        public async Task<IActionResult> UpdateAsync([FromQuery]int id, [FromQuery]string score)
-        {
-            if (id <= 0 || string.IsNullOrEmpty(score) || !Regex.IsMatch(score, "[\\d]*-[\\d]*"))
-            {
-                return BadRequest();
-            }
-            var result = await _matchService.UpdateScoreAsync(id, score);
-            RemoveCalendarFromCache();
-            return Ok(result);
-        }
-
-        /// <summary>
         /// Returns match by id.
         /// </summary>
         /// <param name="id">The identifier.</param>

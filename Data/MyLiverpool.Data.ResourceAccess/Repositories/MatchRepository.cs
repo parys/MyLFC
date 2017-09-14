@@ -88,16 +88,18 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
 
         public async Task<Match> GetLastMatchAsync()
         {
-            return await _context.Matches.Include(m => m.Club)
+            return await _context.Matches.Include(m => m.Club).Include(m => m.Events)
                 .OrderBy(m => m.DateTime)
-                .LastOrDefaultAsync(m => !string.IsNullOrWhiteSpace(m.Score));
+                .LastOrDefaultAsync(m => m.DateTime <= DateTimeOffset.Now.AddHours(1.5));
+               // .LastOrDefaultAsync(m => !string.IsNullOrWhiteSpace(m.Score));
         }
 
         public async Task<Match> GetNextMatchAsync()
         {
-            return await _context.Matches.Include(m => m.Club).Include(m => m.Stadium)
+            return await _context.Matches.Include(m => m.Club).Include(m => m.Stadium).Include(m => m.Events)
                 .OrderBy(m => m.DateTime)
-                .FirstOrDefaultAsync(m => string.IsNullOrWhiteSpace(m.Score));
+                .FirstOrDefaultAsync(m => m.DateTime >= DateTimeOffset.Now.AddHours(1.5));
+             //   .FirstOrDefaultAsync(m => string.IsNullOrWhiteSpace(m.Score));
         }
     }
 }

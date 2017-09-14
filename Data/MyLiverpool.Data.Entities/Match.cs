@@ -23,8 +23,6 @@ namespace MyLiverpool.Data.Entities
 
         public MatchTypeEnum MatchType { get; set; }
 
-        public string Score { get; set; }
-
         public virtual Season Season { get; set; }
 
         public int SeasonId { get; set; }
