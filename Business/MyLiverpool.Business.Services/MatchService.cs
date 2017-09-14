@@ -157,27 +157,27 @@ namespace MyLiverpool.Business.Services
                 var dto = _mapper.Map<MatchDto>(match);
                 if (match.IsHome)
                 {
-                    FillClubsFields(dto, liverpoolClub, match.Club);
+                    FillClubsFields(dto, liverpoolClub, match.Club, GetScore(match.Events, true), GetScore(match.Events, false));
                 }
                 else
                 {
-                    FillClubsFields(dto, match.Club, liverpoolClub);
+                    FillClubsFields(dto, match.Club, liverpoolClub, GetScore(match.Events, false), GetScore(match.Events, true));
                 }
                 dtos.Add(dto);
             }
             return dtos;
         }
 
-        private static void FillClubsFields(MatchDto dto, Club homeClub, Club awayClub, int? homeScore, int? awayScore)
+        private static void FillClubsFields(MatchDto dto, Club homeClub, Club awayClub, int? homeScore, int? awayScore)//todo need penalty
         {
             dto.HomeClubId = homeClub.Id;
             dto.HomeClubName = homeClub.Name;
             dto.HomeClubLogo = homeClub.Logo;
-            dto.ScoreHome = homeScore;
+            dto.ScoreHome = homeScore?.ToString();
             dto.AwayClubId = awayClub.Id;
             dto.AwayClubName = awayClub.Name;
             dto.AwayClubLogo = awayClub.Logo;
-            dto.ScoreAway = awayScore;
+            dto.ScoreAway = awayScore?.ToString();
         }
 
         private static int GetScore(IEnumerable<MatchEvent> matchEvents, bool forLiverpool = true)

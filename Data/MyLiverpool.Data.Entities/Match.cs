@@ -27,6 +27,8 @@ namespace MyLiverpool.Data.Entities
 
         public int SeasonId { get; set; }
 
+        public string Score { get; set; } //should be removed in future todo
+
         public string ReportUrl { get; set; }
 
         public string PhotoUrl { get; set; }
