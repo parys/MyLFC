@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
+using MyLiverpool.Business.Dto.Filters;
 using MyLiverpool.Common.Utilities;
 using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
@@ -34,12 +35,24 @@ namespace MyLiverpool.Business.Services
             return _mapper.Map<PersonDto>(result);
         }
 
-        public async Task<PageableData<PersonDto>> GetListAsync(int page)
+        public async Task<PageableData<PersonDto>> GetListAsync(PersonFiltersDto filters)
         {
-            var model = await _personRepository.GetListAsync(page, orderBy: x => x.LastRussianName);
+            Expression<Func<Person, bool>> filter = x => true;
+            if (filters.Type.HasValue)
+            {
+                filter = filter.And(x => x.Type == filters.Type.Value);
+            }
+            if (!string.IsNullOrWhiteSpace(filters.Name))
+            {
+                filter = filter.And(x => x.FirstName.Contains(filters.Name) ||
+                                         x.LastName.Contains(filters.Name) ||
+                                         x.FirstRussianName.Contains(filters.Name) ||
+                                         x.LastRussianName.Contains(filters.Name));
+            }
+            var model = await _personRepository.GetListAsync(filters.Page, filters.ItemsPerPage, filter, orderBy: x => x.LastRussianName);
             var dto = _mapper.Map<IEnumerable<PersonDto>>(model);
-            var count = await _personRepository.GetCountAsync();
-            return new PageableData<PersonDto>(dto, page, count, GlobalConstants.ItemPerPage);
+            var count = await _personRepository.GetCountAsync(filter);
+            return new PageableData<PersonDto>(dto, filters.Page, count, filters.ItemsPerPage);
         }
 
         public async Task<PersonDto> GetByIdAsync(int id)

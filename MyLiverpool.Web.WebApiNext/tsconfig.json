@@ -31,7 +31,8 @@
     "obj",
     "node_modules",
     "temp-js",
-    "angular2app/main.browser.aot.ts"
+    "angular2app/main.browser.aot.ts",
+    "angular2app/main.server.ts"
   ],
   "awesomeTypescriptLoaderOptions": {
     "forkChecker": true,

@@ -2,10 +2,8 @@
 
 namespace MyLiverpool.Business.Dto.Filters
 {
-    public class MaterialFiltersDto
+    public class MaterialFiltersDto: BaseFiltersDto
     {
-        public int Page { get; set; } = 1;
-
         public int? CategoryId { get; set; }
 
         public string UserName { get; set; }

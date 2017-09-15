@@ -19,7 +19,7 @@
         <div class="panel-heading">
             <h3 class="panel-title">
                 <a [routerLink]="[person.id, 'edit']">
-                    <span [textContent]="person.russianName"></span>
+                    <span [textContent]="person.lastRussianName + ' ' + person.firstRussianName"></span>
                 </a>
                 <span class="col-xs-2 col-sm-2 pull-right">
                     <a *ngIf="person.type === 1" (click)="setAsBestPlayer(person.id)"><span class="glyphicon glyphicon-bookmark"></span></a>

@@ -49,7 +49,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [AllowAnonymous, HttpGet("list/{filtersObj}")]
         public async Task<IActionResult> GetListItems([FromRoute] string filtersObj)
         {
-            _logger.LogError(Process.GetCurrentProcess().Threads.Count.ToString());
+           // _logger.LogError(Process.GetCurrentProcess().Threads.Count.ToString());
             MaterialFiltersDto filters;
             if (filtersObj == null)
             {

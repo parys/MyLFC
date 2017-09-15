@@ -4,6 +4,7 @@ import { HttpWrapper, Pageable } from "../shared/index";
 import { Person } from "./person.model";
 import { SquadList } from "./squad-list.model";
 import { PersonType } from "./personType.model";
+import { PersonFilters } from "./personFilters.model";
 
 @Injectable()
 export class PersonService {
@@ -12,8 +13,8 @@ export class PersonService {
     constructor(private http: HttpWrapper) {
     }
 
-    public getAll(page: number): Observable<Pageable<Person>> {
-        return this.http.get<Pageable<Person>>(this.actionUrl + `list?page=${page}`);
+    public getAll(filters: PersonFilters): Observable<Pageable<Person>> {
+        return this.http.get<Pageable<Person>>(this.actionUrl + `list/${encodeURIComponent(JSON.stringify(filters))}`);
     };
 
     public getListByName(typed: string): Observable<Person[]> {
@@ -61,7 +62,7 @@ export class PersonService {
     };
 
     public updatePhoto(name: string, file: File): Observable<Object> {
-        let formData: FormData = new FormData();
+        const formData: FormData = new FormData();
         formData.append("uploadFile", file, file.name);
         return this.http.post<Object>(`${this.actionUrl}photo/${name}`, formData, true);
     };
