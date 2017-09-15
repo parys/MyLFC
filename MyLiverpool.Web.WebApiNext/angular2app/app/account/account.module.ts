@@ -1,6 +1,6 @@
 ﻿import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { MdInputModule, MdButtonModule, MdCheckboxModule } from "@angular/material";
+import { MdInputModule, MdButtonModule, MdCheckboxModule, MdSnackBarModule } from "@angular/material";
 import { RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
 import { SharedModule } from "../shared/index";
@@ -22,6 +22,7 @@ import { AccountValidators } from "./account.validators";
         MdButtonModule,
         MdCheckboxModule,
         MdInputModule,
+        MdSnackBarModule,
         ReactiveFormsModule,
         RouterModule.forRoot(accountRoutes),
         SharedModule

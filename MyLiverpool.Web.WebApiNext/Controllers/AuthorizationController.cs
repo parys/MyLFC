@@ -18,6 +18,7 @@ using OpenIddict.Models;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
+    /// <inheritdoc />
     /// <summary>
     /// Controller for authorization actions.
     /// </summary>
@@ -73,16 +74,29 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 var result = await _signInManager.CheckPasswordSignInAsync(user, request.Password, true);
                 if (!result.Succeeded)
                 {
+                    if (result.IsLockedOut)
+                    {
+                        return BadRequest(new OpenIdConnectResponse
+                        {
+                            Error = OpenIdConnectConstants.Errors.AccessDenied,
+                            ErrorDescription = "The user is locked out."
+                        });
+                    }
                     return BadRequest(new OpenIdConnectResponse
                     {
-                        Error = OpenIdConnectConstants.Errors.AccessDenied,
-                        ErrorDescription = "The user is locked out."
+                        Error = OpenIdConnectConstants.Errors.InvalidGrant,
+                        ErrorDescription = "The username/password couple is invalid."
                     });
+
                 }
 
                 if (!user.EmailConfirmed)
                 {
-                    return BadRequest("unconfirmed_email");
+                    return BadRequest(new OpenIdConnectResponse
+                        {
+                            Error = "unconfirmed_email",
+                            ErrorDescription = "User should check his email."
+                        });
                 }
 
                 if (_userManager.SupportsUserLockout && await _userManager.IsLockedOutAsync(user))
