@@ -3,9 +3,9 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
 import { MdSnackBar } from "@angular/material";
 import { Subscription } from "rxjs/Subscription";
-import { PersonService } from "./person.service";
-import { Person } from "./person.model";
-import { PersonType } from "./personType.model";
+import { PersonService } from "../person.service";
+import { Person } from "../person.model";
+import { PersonType } from "../personType.model";
 
 @Component({
     selector: "person-edit",
@@ -34,7 +34,7 @@ export class PersonEditComponent implements OnInit, OnDestroy {
         if (this.id > 0) {
             this.sub = this.service.getSingle(this.id)
                 .subscribe(data => this.parse(data),
-                    error => console.log(error));
+                    e => console.log(e));
         }
 
         this.updateTypes();
@@ -53,8 +53,8 @@ export class PersonEditComponent implements OnInit, OnDestroy {
                         this.item.photo = `${result.path}#${Math.random()}`;
                         this.snackBar.open("Фото успешно загружено", null, {duration: 5000});
                     },
-                error => {
-                    console.log(error);
+                e => {
+                    console.log(e);
                     this.snackBar.open("Ошибка при загрузке фото", null, { duration: 5000 });
                 });
         }
@@ -72,8 +72,8 @@ export class PersonEditComponent implements OnInit, OnDestroy {
                         this.snackBar.open("Профиль успешно обновлен", null, { duration: 5000 });
                         this.router.navigate(["/persons"]);
                     },
-                error => {
-                    console.log(error);
+                e => {
+                    console.log(e);
                     this.snackBar.open("Ошибка при обновлении профиля", null, { duration: 5000 });
                 });
         } else {
@@ -82,8 +82,8 @@ export class PersonEditComponent implements OnInit, OnDestroy {
                         this.snackBar.open("Профиль успешно создан", null, { duration: 5000 });
                         this.router.navigate(["/persons"]);
                     },
-                error => {
-                    console.log(error);
+                e => {
+                    console.log(e);
                     this.snackBar.open("Ошибка при создании профиля", null, { duration: 5000 });
                 });
         }
@@ -114,32 +114,24 @@ export class PersonEditComponent implements OnInit, OnDestroy {
 
     private initForm(): void {
         this.editPersonForm = this.formBuilder.group({
-            'firstName': [
+            firstName: ["", Validators.maxLength(30)],
+            firstRussianName: [
                 "", Validators.compose([
                     Validators.required, Validators.maxLength(30)
                 ])
             ],
-            'firstRussianName': [
+            lastName: ["", Validators.maxLength(30)],
+            lastRussianName: [
                 "", Validators.compose([
                     Validators.required, Validators.maxLength(30)
                 ])
             ],
-            'lastName': [
-                "", Validators.compose([
-                    Validators.required, Validators.maxLength(30)
-                ])
-            ],
-            'lastRussianName': [
-                "", Validators.compose([
-                    Validators.required, Validators.maxLength(30)
-                ])
-            ],
-            'position': ["", Validators.required],
-            'country': ["", Validators.required],
-            'birthday': [null],
-            'number': [null],
-            'photo': [""],
-            'type': ["", Validators.required]
+            position: ["", Validators.required],
+            country: [null],
+            birthday: [null],
+            number: [null],
+            photo: [""],
+            type: ["", Validators.required]
         });
     }
 }

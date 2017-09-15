@@ -1,10 +1,10 @@
 ﻿import { Component, OnInit, OnDestroy } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
-import { Person } from "./person.model";
-import { PersonService } from "./person.service";
-import { PersonType } from "./personType.enum";
-import { RolesCheckedService, IRoles } from "../shared/index";
+import { Person } from "../person.model";
+import { PersonService } from "../person.service";
+import { PersonType } from "../personType.enum";
+import { RolesCheckedService, IRoles } from "../../shared/index";
 
 @Component({
     selector: "<stuff-list>",

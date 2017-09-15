@@ -50,7 +50,7 @@ namespace MyLiverpool.Business.Services
             match.VideoUrl = dto.VideoUrl;
             match.Stadium = null;
             match.StadiumId = dto.StadiumId;
-        //    match.Score = GetScores(dto.ScoreHome, dto.ScoreAway);
+            match.Score = GetScores(dto.ScoreHome, dto.ScoreAway);
             await _matchRepository.UpdateAsync(match);
             return dto;
         }
@@ -173,16 +173,25 @@ namespace MyLiverpool.Business.Services
             dto.HomeClubId = homeClub.Id;
             dto.HomeClubName = homeClub.Name;
             dto.HomeClubLogo = homeClub.Logo;
-            dto.ScoreHome = homeScore?.ToString();
+            dto.ScoreHome = dto.ScoreHome ?? homeScore?.ToString();
             dto.AwayClubId = awayClub.Id;
             dto.AwayClubName = awayClub.Name;
             dto.AwayClubLogo = awayClub.Logo;
-            dto.ScoreAway = awayScore?.ToString();
+            dto.ScoreAway = dto.ScoreAway ?? awayScore?.ToString();
         }
 
         private static int GetScore(IEnumerable<MatchEvent> matchEvents, bool forLiverpool = true)
         {
             return matchEvents.Count();
+        }
+
+        private static string GetScores(string scoreHome, string scoreAway)
+        {
+            if (string.IsNullOrWhiteSpace(scoreHome) || string.IsNullOrWhiteSpace(scoreAway))
+            {
+                return null;
+            }
+            return $"{scoreHome}-{scoreAway}";
         }
     }
 }

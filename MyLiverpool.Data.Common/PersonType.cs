@@ -10,8 +10,8 @@ namespace MyLiverpool.Data.Common
         Academy = 2,
         [Display(Name = "В аренде")]
         Loan = 3,
-        [Display(Name = "До 19")]
-        U19 = 4,
+        [Display(Name = "Соперник")]
+        Rival = 4,
         [Display(Name = "Женская команда")]
         Ladies = 5,
         [Display(Name = "Тренерский штаб")]

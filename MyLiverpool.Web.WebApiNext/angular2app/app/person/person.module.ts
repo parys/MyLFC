@@ -2,13 +2,13 @@
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { PersonListComponent } from "./person-list.component";
-import { PersonEditComponent } from "./person-edit.component";
-import { PersonBirthdayComponent } from "./person-birthday.component";
+import { PersonListComponent } from "./person-list/index";
+import { PersonEditComponent } from "./person-edit/index";
+import { PersonBirthdayComponent } from "./person-birthday/index";
 import { PersonService } from "./person.service";
-import { BestPlayerComponent } from "./best-player.component";
-import { StuffListComponent } from "./stuff-list.component";
-import { SquadComponent } from "./squad.component";
+import { BestPlayerComponent } from "./best-player/index";
+import { StuffListComponent } from "./stuff-list/index";
+import { SquadComponent } from "./squad/index";
 import { personRoutes } from "./person.routes";
 import { SharedModule } from "../shared/index";
 import {

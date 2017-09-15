@@ -1,8 +1,7 @@
 ﻿import { Component, OnInit } from "@angular/core";
-import { Observable } from "rxjs/Observable";
 import { Location } from "@angular/common";  
 import { FormBuilder, FormGroup } from "@angular/forms";  
-import { Router, ActivatedRoute } from "@angular/router";
+import { ActivatedRoute } from "@angular/router";
 import { User} from "./user.model";
 import { UserService } from "./user.service";
 import { RoleGroupService } from "../roleGroup/roleGroup.service";
@@ -17,15 +16,15 @@ Component({
 })
 
 export class UserListComponent implements OnInit {
-    items: User[];
-    roles: IRoles;
-    roleGroups: RoleGroup[];
-    filterForm: FormGroup;
-    page: number = 1;
-    itemsPerPage: number = 15;
-    totalItems: number;
+    public items: User[];
+    public roles: IRoles;
+    public roleGroups: RoleGroup[];
+    public filterForm: FormGroup;
+    public page: number = 1;
+    public itemsPerPage: number = 15;
+    public totalItems: number;
     //userName: string;
-    selectedUserId: number;
+    public selectedUserId: number;
 
     constructor(private userService: UserService,
         private location: Location,
@@ -35,7 +34,7 @@ export class UserListComponent implements OnInit {
         private route: ActivatedRoute) {
     }
 
-    ngOnInit() {
+    public ngOnInit(): void {
         this.roles = this.rolesChecked.checkRoles();
         this.page = +this.route.snapshot.queryParams["page"] || 1;
         let userName = this.route.snapshot.queryParams["userName"] || "";
@@ -45,20 +44,20 @@ export class UserListComponent implements OnInit {
         this.update();
     }
 
-    writePm(index: number): void {
+    public writePm(index: number): void {
         this.selectedUserId = index;
     }
 
-    closePmWindow(event: any): void {
+    public closePmWindow(event: any): void {
         this.selectedUserId = null;
     }
 
-    pageChanged(event: any): void {
+    public pageChanged(event: any): void {
         this.page = event;
         this.update();
     };
 
-    update(): void {
+    public update(): void {
         let filters = new UserFilters();
         filters.userName = this.filterForm.get("userName").value;
         filters.roleGroupId = this.filterForm.get("roleGroupId").value;
@@ -74,11 +73,11 @@ export class UserListComponent implements OnInit {
     private updateUrl(): void {
         let newUrl = `users?page=${this.page}`;
 
-        let userName = this.filterForm.get("userName").value;
+        const userName = this.filterForm.get("userName").value;
         if (userName) {
             newUrl = `${newUrl}&userName=${userName}`;
         }
-        let roleGroupId = this.filterForm.get("roleGroupId").value;
+        const roleGroupId = this.filterForm.get("roleGroupId").value;
         if (roleGroupId) {
             newUrl = `${newUrl}&roleGroupId=${roleGroupId}`;
         }
@@ -95,7 +94,7 @@ export class UserListComponent implements OnInit {
 
     private updateRoleGroups() {
         this.roleGroupService.getAll().subscribe(data => this.roleGroups = data,
-            error => console.log(error));
+            e => console.log(e));
     }
 
     private initFilterForm(userName: string, roleGroupId: string) {

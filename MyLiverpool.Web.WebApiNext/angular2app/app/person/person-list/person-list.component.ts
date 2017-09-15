@@ -1,11 +1,14 @@
 ﻿import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Location } from "@angular/common";
+import { FormBuilder, FormGroup } from "@angular/forms"; 
 import { ActivatedRoute } from "@angular/router";
-import { MdDialog } from '@angular/material';
+import { MdDialog } from "@angular/material";
 import { Subscription } from "rxjs/Subscription";
-import { Person } from "./person.model";
-import { PersonService } from "./person.service";
-import { Pageable, DeleteDialogComponent } from "../shared/index";
+import { Person } from "../person.model";
+import { PersonService } from "../person.service";
+import { Pageable, DeleteDialogComponent } from "../../shared/index";
+import { PersonType } from "../personType.enum";
+import { PersonFilters } from "../personFilters.model";
 
 @Component({
     selector: "person-list",
@@ -16,21 +19,23 @@ export class PersonListComponent implements OnInit, OnDestroy {
     private sub: Subscription;
     private sub2: Subscription;
     public items: Person[];
+    public filterForm: FormGroup;
+    public personTypes: PersonType[];
     public page: number = 1;
     public itemsPerPage: number = 15;
     public totalItems: number;
-    private userName: string;
 
     constructor(private personService: PersonService,
         private route: ActivatedRoute,
         private location: Location,
+        private formBuilder: FormBuilder,
         private dialog: MdDialog) {
     }
 
     public ngOnInit(): void {
         this.sub = this.route.queryParams.subscribe(qParams => {
                 this.page = qParams["page"] || 1;
-                this.userName = qParams["userName"] || "";
+          //      this.userName = qParams["userName"] || "";
             },
             error => console.log(error));
         this.update();
@@ -42,7 +47,7 @@ export class PersonListComponent implements OnInit, OnDestroy {
     }
 
     public showDeleteModal(index: number): void {
-        let dialogRef = this.dialog.open(DeleteDialogComponent);
+        const dialogRef = this.dialog.open(DeleteDialogComponent);
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
                 this.delete(index);
@@ -50,24 +55,51 @@ export class PersonListComponent implements OnInit, OnDestroy {
         }, e => console.log(e));
     }
 
+    //public update(): void {
+    //    this.sub2 = this.personService
+    //        .getAll(this.page)
+    //        .subscribe(data => this.parsePageable(data),
+    //        error => console.log(error));
+    //}
+
     public update(): void {
-        this.sub2 = this.personService
-            .getAll(this.page)
+        const filters = new PersonFilters();
+        filters.name = this.filterForm.get("name").value;
+        filters.typeId = this.filterForm.get("typeId").value;
+        filters.page = this.filterForm.get("page").value;
+
+        this.personService
+            .getAll(filters)
             .subscribe(data => this.parsePageable(data),
-            error => console.log(error));
+                e => console.log(e),
+                () => { this.updateUrl() });
     }
 
     public pageChanged(event: any): void {
         this.page = event;
         this.update();
-        let newUrl = `persons?page=${this.page}`;
-        this.location.replaceState(newUrl);
     };
 
     public setAsBestPlayer(personId: number): void {
         this.personService.setBestPlayer(personId)
             .subscribe(data => data,
             error => console.log(error));
+    }
+
+    private updateUrl(): void {
+        let newUrl = `persons?page=${this.page}`;
+
+        const name = this.filterForm.get("name").value;
+        if (name) {
+            newUrl = `${newUrl}&name=${name}`;
+        }
+        const typeId = this.filterForm.get("typeId").value;
+        if (typeId) {
+            newUrl = `${newUrl}&typeId=${typeId}`;
+        }
+        
+        this.location.replaceState(newUrl);
+        
     }
 
     private delete(index: number): void {
@@ -88,5 +120,13 @@ export class PersonListComponent implements OnInit, OnDestroy {
         this.page = pageable.pageNo;
         this.itemsPerPage = pageable.itemPerPage;
         this.totalItems = pageable.totalItems;
+    }
+
+    private initFilterForm() {
+        this.filterForm = this.formBuilder.group({
+            typeId: [],
+            name: [],
+            page: []
+        });
     }
 }

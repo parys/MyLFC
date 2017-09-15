@@ -1,10 +1,10 @@
 ﻿import { Component } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
-import { SquadList } from "./squad-list.model";
-import { PersonService } from "./person.service";
-import { PersonType } from "./personType.enum";
-import { RolesCheckedService, IRoles } from "../shared/index";
+import { SquadList } from "../squad-list.model";
+import { PersonService } from "../person.service";
+import { PersonType } from "../personType.enum";
+import { RolesCheckedService, IRoles } from "../../shared/index";
 
 @Component({
     selector: "<squad>",
