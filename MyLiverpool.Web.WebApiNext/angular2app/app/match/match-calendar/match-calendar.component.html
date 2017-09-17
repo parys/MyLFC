@@ -1,9 +1,9 @@
 ﻿<section class="flex">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 bg-primary flex padding0 border-panel border-lgray match-calendar" *ngIf="next">
-        <div class="col-xs-5">Следующая игра 
+        <div class="col-xs-12 col-md-5">Следующая игра 
             <a *ngIf="roles.isAdminAssistant" [routerLink]="['/matches', next.id, 'edit']"><span class="glyphicon glyphicon-pencil color-red"></span></a>
         </div>
-        <div class="col-xs-7"><b style="font-size: 1.2em;" class="pull-right" [textContent]="next.dateTime | date:'d MMM y EEE j:mm'"></b></div>
+        <div class="col-xs-12 col-md-7"><b style="font-size: 1.2em;" class="pull-right" [textContent]="next.dateTime | date:'d MMM y EEE j:mm'"></b></div>
         <div class="col-xs-4 col-sm-12 col-md-5 text-center">
             <img [src]="next.homeClubLogo" class="center" [alt]="next.homeClub" [title]="next.homeClubName">
             <strong style="font-size: 1.2em;" class="" [textContent]="next.homeClubName"></strong>
@@ -18,10 +18,10 @@
         <div class="col-xs-12 text-center"><a class="text-white" [routerLink]="['/seasons/calendar']">Календарь</a></div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 bg-light-blue flex padding0 border-panel border-lgray match-calendar" *ngIf="last">
-        <div class="col-xs-5">Последняя игра 
+        <div class="col-xs-12 col-sm-12 col-md-5">Последняя игра 
             <a *ngIf="roles.isAdminAssistant" [routerLink]="['/matches', last.id, 'edit']"><span class="glyphicon glyphicon-pencil color-red"></span></a>
         </div><!--todo add back color for win|drar|lost-->
-        <div class="col-xs-7">
+        <div class="col-xs-12 col-sm-12 col-md-7">
             <span class="pull-right" [textContent]="last.dateTime | date:'d MMM y EEE j:mm'"></span>
         </div>
         <div class="col-xs-4 col-sm-12 col-md-12 col-lg-5 text-center">

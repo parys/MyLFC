@@ -3,7 +3,7 @@ import { ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
 import { Person } from "../person.model";
 import { PersonService } from "../person.service";
-import { PersonType } from "../personType.enum";
+import { PersonTypeEnum } from "../personType.enum";
 import { RolesCheckedService, IRoles } from "../../shared/index";
 
 @Component({
@@ -27,12 +27,12 @@ export class StuffListComponent implements OnInit, OnDestroy {
         this.routeLinks = [
             { label: "Первая команда", link: "/stuff/first" },
             { label: "Академия", link: "/stuff/academy" }];
-        if (this.route.snapshot.data["type"] === PersonType[PersonType.First]) {
+        if (this.route.snapshot.data["type"] === PersonTypeEnum[PersonTypeEnum.First]) {
             this.activeLinkIndex = 0;
         } else {
             this.activeLinkIndex = 1;
         }
-        this.updateState(PersonType[this.activeLinkIndex].toString());
+        this.updateState(PersonTypeEnum[this.activeLinkIndex].toString());
 
     }
 

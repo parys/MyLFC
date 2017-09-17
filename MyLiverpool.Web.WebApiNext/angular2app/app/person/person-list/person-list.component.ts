@@ -7,7 +7,7 @@ import { Subscription } from "rxjs/Subscription";
 import { Person } from "../person.model";
 import { PersonService } from "../person.service";
 import { Pageable, DeleteDialogComponent } from "../../shared/index";
-import { PersonType } from "../personType.enum";
+import { PersonType } from "../personType.model";
 import { PersonFilters } from "../personFilters.model";
 
 @Component({
@@ -24,6 +24,8 @@ export class PersonListComponent implements OnInit, OnDestroy {
     public page: number = 1;
     public itemsPerPage: number = 15;
     public totalItems: number;
+    public name: string;
+    public typeId: number;
 
     constructor(private personService: PersonService,
         private route: ActivatedRoute,
@@ -33,12 +35,16 @@ export class PersonListComponent implements OnInit, OnDestroy {
     }
 
     public ngOnInit(): void {
+        this.initFilterForm();
         this.sub = this.route.queryParams.subscribe(qParams => {
-                this.page = qParams["page"] || 1;
-          //      this.userName = qParams["userName"] || "";
+                this.page = +qParams["page"] || 1;
+                this.itemsPerPage = +qParams["itemsPerPage"] || 15;
+                this.name = qParams["name"] || null;
+                this.typeId = +qParams["typeId"] || null;
             },
             error => console.log(error));
         this.update();
+        this.personService.getTypes().subscribe(data => this.personTypes = data, e => console.log(e));
     }
 
     public ngOnDestroy(): void {
@@ -55,18 +61,11 @@ export class PersonListComponent implements OnInit, OnDestroy {
         }, e => console.log(e));
     }
 
-    //public update(): void {
-    //    this.sub2 = this.personService
-    //        .getAll(this.page)
-    //        .subscribe(data => this.parsePageable(data),
-    //        error => console.log(error));
-    //}
-
     public update(): void {
         const filters = new PersonFilters();
         filters.name = this.filterForm.get("name").value;
-        filters.typeId = this.filterForm.get("typeId").value;
-        filters.page = this.filterForm.get("page").value;
+        filters.type = this.filterForm.get("typeId").value;
+        filters.page = this.page;
 
         this.personService
             .getAll(filters)
@@ -83,19 +82,19 @@ export class PersonListComponent implements OnInit, OnDestroy {
     public setAsBestPlayer(personId: number): void {
         this.personService.setBestPlayer(personId)
             .subscribe(data => data,
-            error => console.log(error));
+            e => console.log(e));
     }
 
     private updateUrl(): void {
         let newUrl = `persons?page=${this.page}`;
 
-        const name = this.filterForm.get("name").value;
-        if (name) {
-            newUrl = `${newUrl}&name=${name}`;
+        this.name = this.filterForm.get("name").value;
+        if (this.name) {
+            newUrl = `${newUrl}&name=${this.name}`;
         }
-        const typeId = this.filterForm.get("typeId").value;
-        if (typeId) {
-            newUrl = `${newUrl}&typeId=${typeId}`;
+        this.typeId = this.filterForm.get("typeId").value;
+        if (this.typeId) {
+            newUrl = `${newUrl}&typeId=${this.typeId}`;
         }
         
         this.location.replaceState(newUrl);

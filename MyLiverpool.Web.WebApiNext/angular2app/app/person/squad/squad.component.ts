@@ -3,7 +3,7 @@ import { ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
 import { SquadList } from "../squad-list.model";
 import { PersonService } from "../person.service";
-import { PersonType } from "../personType.enum";
+import { PersonTypeEnum } from "../personType.enum";
 import { RolesCheckedService, IRoles } from "../../shared/index";
 
 @Component({
@@ -29,14 +29,14 @@ export class SquadComponent {
             { label: "Первая команда", link: "/squad/first" },
             { label: "Академия", link: "/squad/academy" },
             { label: "В аренде", link: "/squad/loan" }];
-        if (this.route.snapshot.data["type"] === PersonType[PersonType.First]) {
+        if (this.route.snapshot.data["type"] === PersonTypeEnum[PersonTypeEnum.First]) {
             this.activeLinkIndex = 0;
-        } else if (this.route.snapshot.data["type"] === PersonType[PersonType.Academy]) {
+        } else if (this.route.snapshot.data["type"] === PersonTypeEnum[PersonTypeEnum.Academy]) {
             this.activeLinkIndex = 1;
         } else {
             this.activeLinkIndex = 2;
         }
-        this.updateState(PersonType[this.activeLinkIndex].toString());
+        this.updateState(PersonTypeEnum[this.activeLinkIndex].toString());
     }
 
     public ngOnDestroy(): void {
