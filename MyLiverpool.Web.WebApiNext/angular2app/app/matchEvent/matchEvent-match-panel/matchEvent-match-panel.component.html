@@ -1,4 +1,9 @@
-﻿<button md-raised-button color="warn" (click)="addEvent()" *ngIf="!isEditEvent">Добавить событие</button>
+﻿<div *ngFor="let event of events" class="col-sm-12">
+    <div class="col-sm-12">
+        <div [class.pull-right]="event.personId">{{event.personName}} - {{event.minute}}'</div>
+    </div>
+</div>
+<button md-raised-button color="warn" (click)="addEvent()" *ngIf="!isEditEvent">Добавить событие</button>
 <button md-raised-button (click)="cancelEventEdit()" *ngIf="isEditEvent">Отменить редактирование</button>
 <div class="full-width top20" *ngIf="isEditEvent">
     <matchEvent-edit-panel [matchId]="matchId" [seasonId]="seasonId"></matchEvent-edit-panel>

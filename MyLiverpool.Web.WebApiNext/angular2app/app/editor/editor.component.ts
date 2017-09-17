@@ -145,7 +145,7 @@ export class EditorComponent implements ControlValueAccessor {
             `bold italic underline strikethrough | CustomEmoticons |`;//poiler-add spoiler-remove`;
         const type1: string = `styleselect | link image media | alignleft aligncenter alignright alignjustify |
                                  | bullist numlist | outdent indent | forecolor backcolor | ${common} | fontsizeselect`;
-        const type2: string = `undo redo | fullscreen | colorpicker ${type1}` ;
+        const type2: string = `undo redo | fullscreen | colorpicker table ${type1}` ;
         if (this.type === 1) {
             return type1;
         }

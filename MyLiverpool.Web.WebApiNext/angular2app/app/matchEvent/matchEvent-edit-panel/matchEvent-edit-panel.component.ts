@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+﻿import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Observable } from "rxjs/Observable";
@@ -10,7 +10,7 @@ import { Configuration } from "../../app.constants";
 
 @Component({
     selector: "matchEvent-edit-panel",
-    templateUrl: "./matchEvent-edit-panel.component.html"
+    templateUrl: "./matchEvent-edit-panel.component.html",
 })
 
 export class MatchEventEditPanelComponent implements OnInit {
@@ -72,24 +72,30 @@ export class MatchEventEditPanelComponent implements OnInit {
         item.id = this.id;
         item.matchId = this.matchId;
         item.seasonId = this.seasonId;
+        console.warn(this.editMatchEventForm.get("our").value);
         if (!this.editMatchEventForm.get("our").value) {
             item.personId = null;
+
         }
         return item;
     }
 
     private initForm(): void {
         this.editMatchEventForm = this.formBuilder.group({
-            'personName': ["", Validators.required],
-            'personId': [""],
-            'type': ["", Validators.required],
-            'minute': [0, Validators.required],
-            'our': []
+            personName: ["", Validators.required],
+            personId: [""],
+            type: ["", Validators.required],
+            minute: [0, Validators.required],
+            our: [false]
         });
 
         this.persons$ = this.editMatchEventForm.controls["personName"].valueChanges
             .debounceTime(this.config.debounceTime)
             .distinctUntilChanged()
-            .switchMap((value: string) => this.personService.getListByName(value));
+            .switchMap((value: string) => this.personService.getListByName(value)).do(() => {
+                this.editMatchEventForm.controls["our"].patchValue(true);
+            });
+
+
     }
 }

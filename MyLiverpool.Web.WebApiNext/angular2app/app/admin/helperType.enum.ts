@@ -11,4 +11,5 @@
     Instructions = 10,
     Plans = 11,
     Fantasy = 12,
+    CupTable = 13,
 }

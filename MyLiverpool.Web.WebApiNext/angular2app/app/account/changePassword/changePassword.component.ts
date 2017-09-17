@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { AccountService } from "../account.service";    
 import { GlobalValidators } from "../../shared/index";
 import { ChangePassword } from "../changePassword.model";
+import { MdSnackBar } from "@angular/material";
 
 @Component({
     selector: "change-password",
@@ -13,34 +14,36 @@ export class ChangePasswordComponent implements OnInit {
     public passwordForm: FormGroup;
     public isHuman: boolean = false;
 
-    constructor(private service: AccountService, private formBuilder: FormBuilder) {
+    constructor(private service: AccountService,
+        private snackBar: MdSnackBar,
+        private formBuilder: FormBuilder) {
     }
 
     public ngOnInit(): void {
         this.passwordForm = this.formBuilder.group({
-            'oldPassword': ["", Validators.compose([
+            oldPassword: ["", Validators.compose([
                 Validators.required, Validators.minLength(6)])],
-            'newPassword': ["", Validators.compose([
+            newPassword: ["", Validators.compose([
                 Validators.required, Validators.minLength(6)])],
-            'confirmPassword': ["", Validators.compose([
+            confirmPassword: ["", Validators.compose([
                 Validators.required, Validators.minLength(6)])]
         }, { validator: GlobalValidators.matchingPasswords("newPassword", "confirmPassword") });
     }
 
     public onSubmit(): void {
-        let model = new ChangePassword();
-        model.oldPassword = this.passwordForm.controls["oldPassword"].value;
-        model.newPassword = this.passwordForm.controls["newPassword"].value;
-        model.confirmPassword = this.passwordForm.controls["confirmPassword"].value;
+        const model: ChangePassword = this.passwordForm.value;
+
         this.service.changePassword(model).subscribe(data => {
-                if (data) {
-                    //what todo?
-                    console.log("password changed");
-                }
+            if (data) {
+                this.snackBar.open("Пароль успешно изменен.", null, { duration: 5000 });
+            } else {
+                this.snackBar.open("Пароль НЕ БЫЛ изменен.", null, { duration: 5000 });
+            }
             },
-            error => console.log(error),
-            () => { }
-        );
+            error => {
+                console.log(error);
+                this.snackBar.open("Пароль НЕ БЫЛ изменен.", null, { duration: 5000 });
+            });
         this.isHuman = false;
     }
 }

@@ -63,12 +63,12 @@ export class AuthService {
 
     public register(data: IRegisterModel): Observable<Response> {
         return this.http1.post("api/v1/account/register", data)
-            .catch(res => Observable.throw(res.json()));
+            .catch(res => Observable.throw(res.error));
     }
 
     public login(user: ILoginModel): Observable<any> {
         return this.getTokens(user, "password")
-            .catch(res => Observable.throw(res.json()))
+            .catch(res => Observable.throw(res.error))
             .do(res => {
                 this.scheduleRefresh();
             });
