@@ -34,7 +34,6 @@ namespace MyLiverpool.Business.Services
             {
                 entity.MatchId = dto.MatchId;
                 entity.Minute = dto.Minute;
-                entity.PersonName = dto.PersonName;
                 entity.PersonId = dto.PersonId;
                 entity.SeasonId = dto.SeasonId;
                 entity.Type = dto.Type;

@@ -20,7 +20,7 @@ export class MatchEventMatchPanelComponent implements OnInit {
    // @Output() public matchEvent = new EventEmitter<MatchEvent>();
     public editMatchEventForm: FormGroup;
     public persons$: Observable<Person[]>;
-    public isEditEvent: boolean = true;
+    public isEditEvent: boolean = false;
     public events: MatchEvent[];
 
     constructor(private matchEventService: MatchEventService,    

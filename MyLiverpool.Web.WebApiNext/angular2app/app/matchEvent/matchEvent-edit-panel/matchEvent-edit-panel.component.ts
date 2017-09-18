@@ -83,10 +83,10 @@ export class MatchEventEditPanelComponent implements OnInit {
     private initForm(): void {
         this.editMatchEventForm = this.formBuilder.group({
             personName: ["", Validators.required],
-            personId: [""],
+            personId: ["", Validators.required],
             type: ["", Validators.required],
             minute: [0, Validators.required],
-            our: [false]
+            isOur: [false]
         });
 
         this.persons$ = this.editMatchEventForm.controls["personName"].valueChanges

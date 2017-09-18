@@ -7,14 +7,12 @@ namespace MyLiverpool.Business.Dto
     public class PersonDto: IDto
     {
         public int Id { get; set; }
-
-        [Required]
+        
         public string FirstName { get; set; }
 
         [Required]
         public string FirstRussianName { get; set; }
 
-        [Required]
         public string LastName { get; set; }
 
         [Required]

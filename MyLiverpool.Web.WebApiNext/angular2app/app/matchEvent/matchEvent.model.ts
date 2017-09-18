@@ -8,4 +8,5 @@
     public typeName: string;
     public seasonId: number;
     public seasonName: number;
+    public isOur: boolean;
 }

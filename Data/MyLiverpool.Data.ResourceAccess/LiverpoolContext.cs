@@ -122,7 +122,7 @@ namespace MyLiverpool.Data.ResourceAccess
             modelBuilder.Entity<Injury>().HasOne(x => x.Person).WithMany(x => x.Injuries).HasForeignKey(x => x.PersonId);
 
             modelBuilder.Entity<MatchEvent>().HasOne(x => x.Season).WithMany(x => x.Events).HasForeignKey(x => x.SeasonId);
-            modelBuilder.Entity<MatchEvent>().HasOne(x => x.Person).WithMany(x => x.Events).HasForeignKey(x => x.PersonId).IsRequired(false);
+            modelBuilder.Entity<MatchEvent>().HasOne(x => x.Person).WithMany(x => x.Events).HasForeignKey(x => x.PersonId);
             modelBuilder.Entity<MatchEvent>().HasOne(x => x.Match).WithMany(x => x.Events).HasForeignKey(x => x.MatchId);
             //research todo maybe it doesn't need https://docs.microsoft.com/en-us/aspnet/core/migration/1x-to-2x/identity-2x
             modelBuilder.Entity<User>()
