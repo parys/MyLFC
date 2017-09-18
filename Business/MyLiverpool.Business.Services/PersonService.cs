@@ -178,7 +178,7 @@ namespace MyLiverpool.Business.Services
                                          x.LastRussianName.ToLower().Contains(typed.ToLower()));
             }
             var persons = await _personRepository.GetListAsync(1, filter: filter);
-            return persons.Select(x => new KeyValuePair<int, string>(x.Id, x.Name));
+            return persons.Select(x => new KeyValuePair<int, string>(x.Id, x.RussianName));
         }
 
         public async Task<IEnumerable<PersonDto>> GetBirthdaysAsync()

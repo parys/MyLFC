@@ -12,18 +12,19 @@ import { Configuration } from "../../app.constants";
     selector: "matchEvent-match-panel",
     templateUrl: "./matchEvent-match-panel.component.html"
 })
-
 export class MatchEventMatchPanelComponent implements OnInit {
     public id: number = 0;
     @Input() public matchId: number;
+    @Input() public isHome: boolean;
     @Input() public seasonId: number;
-   // @Output() public matchEvent = new EventEmitter<MatchEvent>();
     public editMatchEventForm: FormGroup;
     public persons$: Observable<Person[]>;
     public isEditEvent: boolean = false;
     public events: MatchEvent[];
+    public selectedEvent: MatchEvent;
+    public selectedIndex: number;
 
-    constructor(private matchEventService: MatchEventService,    
+    constructor(private matchEventService: MatchEventService,
         private route: ActivatedRoute,
         private personService: PersonService,
         private config: Configuration,
@@ -32,7 +33,6 @@ export class MatchEventMatchPanelComponent implements OnInit {
     }
 
     public ngOnInit(): void {
-      //  this.initForm();
         this.matchEventService.getForMatch(this.matchId)
             .subscribe(data => this.events = data,
                 e => console.log(e));
@@ -43,54 +43,25 @@ export class MatchEventMatchPanelComponent implements OnInit {
     }
 
     public cancelEventEdit(): void {
+        this.selectedEvent = null;
         this.isEditEvent = false;
+        this.selectedIndex = null;
     }
 
-    //public onSubmit(): void {
-    //    const matchEvent: MatchEvent = this.parseForm();
-    //    if (this.id > 0) {
-    //        this.matchEventService.update(this.id, matchEvent)
-    //            .subscribe(data => {},
-    //            e => console.log(e));
-    //    } else {
-    //        this.matchEventService.create(matchEvent)
-    //            .subscribe(data => {},
-    //            e => console.log(e));
-    //    }
-    //}
-    
-    //public selectPerson(id: number) {
-    //    this.editMatchEventForm.get("personId").patchValue(id);
-    //}
-    
-    //private parse(data: MatchEvent): void {
-    //    this.id = data.id;
-    //    this.editMatchEventForm.patchValue(data);
-    //}
+    public updateEvent(event: MatchEvent) {
+        console.log(event);
+        if (this.selectedIndex) {
+            this.events[this.selectedIndex] = event;
+        } else {
+            this.events.push(event);
+        }
 
-    //private parseForm(): MatchEvent {
-    //    const item: MatchEvent = this.editMatchEventForm.value;
-    //    item.id = this.id;
-    //    item.matchId = this.matchId;
-    //    item.seasonId = this.seasonId;
-    //    if (!this.editMatchEventForm.get("our").value) {
-    //        item.personId = null;
-    //    }
-    //    return item;
-    //}
+        this.cancelEventEdit();
+    }
 
-    //private initForm(): void {
-    //    this.editMatchEventForm = this.formBuilder.group({
-    //        'personName': ["", Validators.required],
-    //        'personId': [""],
-    //        'type': ["", Validators.required],
-    //        'minute': [0, Validators.required],
-    //        'our': []
-    //    });
-
-    //    this.persons$ = this.editMatchEventForm.controls["personName"].valueChanges
-    //        .debounceTime(this.config.debounceTime)
-    //        .distinctUntilChanged()
-    //        .switchMap((value: string) => this.personService.getListByName(value));
-    //}
+    public selectEvent(index: number): void {
+        this.selectedEvent = this.events[index];
+        this.selectedIndex = index;
+        this.isEditEvent = true;
+    }
 }

@@ -1,10 +1,11 @@
-﻿<div *ngFor="let event of events" class="col-sm-12">
+﻿<div *ngFor="let event of events; let i = index;" class="col-sm-12">
     <div class="col-sm-12">
-        <div [class.pull-right]="event.personId">{{event.personName}} - {{event.minute}}'</div>
+        <div [class.pull-right]="(!isHome && event.isOur) || (isHome && !event.isOur)">{{event.personName}} - {{event.minute}}'
+        <span role="button" (click)="selectEvent(i)" class="glyphicon glyphicon-pencil"></span></div>
     </div>
 </div>
 <button md-raised-button color="warn" (click)="addEvent()" *ngIf="!isEditEvent">Добавить событие</button>
 <button md-raised-button (click)="cancelEventEdit()" *ngIf="isEditEvent">Отменить редактирование</button>
 <div class="full-width top20" *ngIf="isEditEvent">
-    <matchEvent-edit-panel [matchId]="matchId" [seasonId]="seasonId"></matchEvent-edit-panel>
+    <matchEvent-edit-panel [matchId]="matchId" [seasonId]="seasonId" [selectedEvent]="selectedEvent" (matchEvent)="updateEvent($event)"></matchEvent-edit-panel>
 </div>

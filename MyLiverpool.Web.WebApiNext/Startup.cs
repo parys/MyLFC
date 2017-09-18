@@ -99,6 +99,7 @@ namespace MyLiverpool.Web.WebApiNext
                 options.SignIn.RequireConfirmedEmail = true;
                 options.SignIn.RequireConfirmedPhoneNumber = false;
                 options.Lockout.AllowedForNewUsers = true;
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromSeconds(10);
             })
                 .AddEntityFrameworkStores<LiverpoolContext>()
                 .AddDefaultTokenProviders();
