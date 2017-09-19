@@ -2,8 +2,8 @@
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { MdSnackBar } from "@angular/material";
 import { Subscription } from "rxjs/Subscription";
-import { UserConfig } from "./user-config.model";                          
-import { UserService } from "./user.service";
+import { UserConfig } from "../user-config.model";                          
+import { UserService } from "../user.service";
 
 @Component({
     selector: "user-config",
@@ -22,7 +22,7 @@ export class UserConfigComponent implements OnInit, OnDestroy {
         this.initUserConfigForm();
         this.sub = this.service.getConfig()
             .subscribe(data => this.parse(data),
-                error => console.log(error));
+                e => console.log(e));
     }
 
     public ngOnDestroy(): void {

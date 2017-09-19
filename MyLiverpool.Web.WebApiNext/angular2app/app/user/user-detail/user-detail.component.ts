@@ -3,11 +3,11 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { MdSnackBar } from "@angular/material";
 import { Subscription } from "rxjs/Subscription";
-import { Configuration } from "../app.constants";
-import { User } from "./user.model";                          
-import { UserService } from "./user.service";
-import { GlobalValidators, RolesCheckedService, IRoles } from "../shared/index";
-import { RoleGroupService, RoleGroup } from "../roleGroup/index";
+import { Configuration } from "../../app.constants";
+import { User } from "../user.model";                          
+import { UserService } from "../user.service";
+import { GlobalValidators, RolesCheckedService, IRoles } from "../../shared/index";
+import { RoleGroupService, RoleGroup } from "../../roleGroup/index";
 
 @Component({
     selector: "user-detail",
@@ -16,13 +16,13 @@ import { RoleGroupService, RoleGroup } from "../roleGroup/index";
 
 export class UserDetailComponent implements OnInit, OnDestroy {
     private sub: Subscription;
-    item: User;
-    roles: IRoles;
-    roleGroups: RoleGroup[];
-    roleForm: FormGroup;
-    banForm: FormGroup;
-    selectedUserId: number;
-    banDaysCount: number = 0;              
+    public item: User;
+    public roles: IRoles;
+    public roleGroups: RoleGroup[];
+    public roleForm: FormGroup;
+    public banForm: FormGroup;
+    public selectedUserId: number;
+    public banDaysCount: number = 0;              
 
     constructor(private configuration: Configuration,
         private service: UserService,

@@ -1,6 +1,7 @@
 ﻿import { Routes } from "@angular/router";
-import { UserDetailComponent, UserListComponent, UserConfigComponent, UserEditComponent } from "./index";
+import { UserListComponent, UserConfigComponent, UserEditComponent } from "./index";
 import { RoleGuard } from "../auth/index";
+import { UserDetailComponent } from "./user-detail/index";
 
 export const userRoutes: Routes = [
     {

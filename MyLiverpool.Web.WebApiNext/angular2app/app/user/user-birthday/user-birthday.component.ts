@@ -1,7 +1,7 @@
 ﻿import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Subscription } from "rxjs/Subscription";
-import { UserService } from "./user.service";
-import { User } from "./user.model";
+import { UserService } from "../user.service";
+import { User } from "../user.model";
 
 @Component({
     selector: "user-birthday",
@@ -18,7 +18,7 @@ export class UserBirthdayComponent implements OnInit, OnDestroy {
     public ngOnInit(): void {
         this.sub = this.service.getBirthdays()
             .subscribe(data => this.parse(data),
-                error => console.log(error));
+                e => console.log(e));
     }
 
     public ngOnDestroy(): void {
