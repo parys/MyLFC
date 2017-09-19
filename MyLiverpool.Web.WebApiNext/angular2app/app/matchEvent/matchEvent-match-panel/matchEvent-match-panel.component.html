@@ -1,7 +1,9 @@
 ﻿<div *ngFor="let event of events; let i = index;" class="col-sm-12">
     <div class="col-sm-12">
-        <div [class.pull-right]="(!isHome && event.isOur) || (isHome && !event.isOur)">{{event.personName}} - {{event.minute}}'
-        <span role="button" (click)="selectEvent(i)" class="glyphicon glyphicon-pencil"></span></div>
+        <div [class.pull-right]="(!isHome && event.isOur) || (isHome && !event.isOur)">
+            <span class="glyphicon"></span>{{event.personName}} - {{event.minute}}' - {{event.typeName}}
+            <span role="button" (click)="selectEvent(i)" class="glyphicon glyphicon-pencil"></span>
+        </div>
     </div>
 </div>
 <button md-raised-button color="warn" (click)="addEvent()" *ngIf="!isEditEvent">Добавить событие</button>

@@ -48,8 +48,6 @@ export class MatchEventEditPanelComponent implements OnInit {
 
     public onSubmit(): void {
         const matchEvent: MatchEvent = this.parseForm();
-        console.log('send');
-        console.log(matchEvent);
         if (this.id > 0) {
             this.matchEventService.update(this.id, matchEvent)
                 .subscribe(data => this.emitNewEvent(data),

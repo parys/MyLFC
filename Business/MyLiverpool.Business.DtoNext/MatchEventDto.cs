@@ -15,6 +15,8 @@ namespace MyLiverpool.Business.Dto
         [Required]
         public MatchEventType Type { get; set; }
 
+        public string TypeName { get; set; }
+
         [Required]
         public int SeasonId { get; set; }
 
