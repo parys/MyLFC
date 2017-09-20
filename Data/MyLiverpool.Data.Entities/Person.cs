@@ -44,6 +44,8 @@ namespace MyLiverpool.Data.Entities
 
         public virtual ICollection<MatchEvent> Events { get; set; }
 
+        public virtual ICollection<MatchPerson> Matches { get; set; } = new HashSet<MatchPerson>();
+
         [NotMapped]
         public string Name => $"{FirstName} {LastName}";
         [NotMapped]
