@@ -19,7 +19,6 @@
     <Compile Remove="temp-js\**" />
     <Content Remove="angular2app\**" />
     <Content Remove="package-lock.json" />
-    <Content Remove="wwwroot\src\build.js" />
     <Content Remove="wwwroot\src\core.min.js" />
     <Content Remove="wwwroot\src\library.min.js" />
     <Content Remove="wwwroot\src\shim.min.js" />
