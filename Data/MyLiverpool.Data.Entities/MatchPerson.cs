@@ -1,4 +1,6 @@
-﻿namespace MyLiverpool.Data.Entities
+﻿using MyLiverpool.Data.Common;
+
+namespace MyLiverpool.Data.Entities
 {
     public class MatchPerson
     {
@@ -9,5 +11,7 @@
         public int PersonId { get; set; }
 
         public Person Person { get; set; }
+
+        public MatchPersonType PersonType { get; set; }
     }
 }

@@ -12,9 +12,10 @@ using System;
 namespace MyLiverpool.Data.ResourceAccess.Migrations
 {
     [DbContext(typeof(LiverpoolContext))]
-    partial class LiverpoolContextModelSnapshot : ModelSnapshot
+    [Migration("20170920200812_AddMatchPersonTable")]
+    partial class AddMatchPersonTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
