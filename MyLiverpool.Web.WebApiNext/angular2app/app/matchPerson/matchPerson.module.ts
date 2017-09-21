@@ -5,11 +5,9 @@ import { RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
 import { NgxPaginationModule } from "ngx-pagination";
 import { SharedModule } from "../shared/index";
-import { matchEventRoutes } from "./matchEvent.routes";
-import { MatchEventEditPanelComponent } from "./matchEvent-edit-panel/index";
-import { MatchEventListComponent } from "./matchEvent-list.component";
-import { MatchEventService } from "./matchEvent.service";
-import { MatchEventMatchPanelComponent } from "./matchEvent-match-panel/index";
+import { MatchPersonEditPanelComponent } from "./matchPerson-edit-panel/matchPerson-edit-panel.component";
+import { MatchPersonService } from "./matchPerson.service";
+import { MatchPersonPanelComponent } from "./matchPerson-panel/matchPerson-panel.component";
 
 @NgModule({
     imports: [
@@ -22,20 +20,20 @@ import { MatchEventMatchPanelComponent } from "./matchEvent-match-panel/index";
         MdSelectModule,
         NgxPaginationModule,
         ReactiveFormsModule,
-      //  RouterModule.forRoot(matchEventRoutes),
+        //      RouterModule.forRoot(matchEventRoutes),
         SharedModule
     ],
     declarations: [
-        MatchEventEditPanelComponent,
-        MatchEventMatchPanelComponent,
-        MatchEventListComponent
+        MatchPersonEditPanelComponent,
+        MatchPersonPanelComponent,
+        //    MatchEventListComponent
     ],
     exports: [
-        MatchEventEditPanelComponent,
-        MatchEventMatchPanelComponent
+        MatchPersonEditPanelComponent,
+        MatchPersonPanelComponent
     ],
     providers: [
-        MatchEventService
+        MatchPersonService
     ]
 })
-export class MatchEventModule { }
+export class MatchPersonModule { }

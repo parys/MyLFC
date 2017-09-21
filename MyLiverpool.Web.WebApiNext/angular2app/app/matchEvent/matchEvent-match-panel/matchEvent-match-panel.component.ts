@@ -1,10 +1,8 @@
-﻿import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+﻿import { Component, OnInit, Input } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Observable } from "rxjs/Observable";
 import { MatchEventService } from "../matchEvent.service";
-import { MatchEvent } from "../matchEvent.model";                        
-import { MatchEventType } from "../matchEventType.model";
+import { MatchEvent } from "../matchEvent.model";
 import { Person, PersonService } from "../../person/index";
 import { Configuration } from "../../app.constants";
 
@@ -13,11 +11,9 @@ import { Configuration } from "../../app.constants";
     templateUrl: "./matchEvent-match-panel.component.html"
 })
 export class MatchEventMatchPanelComponent implements OnInit {
-    public id: number = 0;
     @Input() public matchId: number;
     @Input() public isHome: boolean;
     @Input() public seasonId: number;
-    public editMatchEventForm: FormGroup;
     public persons$: Observable<Person[]>;
     public isEditEvent: boolean = false;
     public events: MatchEvent[];
@@ -28,8 +24,7 @@ export class MatchEventMatchPanelComponent implements OnInit {
         private route: ActivatedRoute,
         private personService: PersonService,
         private config: Configuration,
-        private router: Router,
-        private formBuilder: FormBuilder) {
+        private router: Router) {
     }
 
     public ngOnInit(): void {
