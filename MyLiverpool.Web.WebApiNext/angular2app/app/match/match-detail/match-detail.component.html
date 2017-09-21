@@ -20,6 +20,6 @@
             <b class="font-size20" [textContent]="item.awayClubName"></b>
         </div>
     </div>
-        <matchEvent-match-panel [matchId]="item.id" [seasonId]="item.seasonId" [isHome]="item.homeClubId === 1"></matchEvent-match-panel>
+        <matchEvent-match-panel [events]="item.events" [matchId]="item.id" [seasonId]="item.seasonId" [isHome]="item.homeClubId === 1"></matchEvent-match-panel>
         <matchPerson-panel [matchId]="item.id" [isHome]="item.homeClubId === 1"></matchPerson-panel>
 </div>

@@ -14,9 +14,9 @@ export class MatchEventMatchPanelComponent implements OnInit {
     @Input() public matchId: number;
     @Input() public isHome: boolean;
     @Input() public seasonId: number;
+    @Input() public events: MatchEvent[];
     public persons$: Observable<Person[]>;
     public isEditEvent: boolean = false;
-    public events: MatchEvent[];
     public selectedEvent: MatchEvent;
     public selectedIndex: number;
 
@@ -28,9 +28,9 @@ export class MatchEventMatchPanelComponent implements OnInit {
     }
 
     public ngOnInit(): void {
-        this.matchEventService.getForMatch(this.matchId)
-            .subscribe(data => this.events = data,
-                e => console.log(e));
+        //this.matchEventService.getForMatch(this.matchId)
+        //    .subscribe(data => this.events = data,
+        //        e => console.log(e));
     }
 
     public addEvent(): void {

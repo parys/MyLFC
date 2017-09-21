@@ -1,4 +1,6 @@
-﻿export class Match {
+﻿import { MatchEvent } from "../matchEvent/matchEvent.model";
+
+export class Match {
     public id: number;
     public isHome: boolean;
     public clubId: number;
@@ -21,4 +23,5 @@
     public reportUrl: string;
     public photoUrl: string;
     public videoUrl: string;
+    public events: MatchEvent[];
 }

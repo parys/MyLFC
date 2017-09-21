@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace MyLiverpool.Business.Dto
 {
@@ -47,5 +48,7 @@ namespace MyLiverpool.Business.Dto
         public string PhotoUrl { get; set; }
 
         public string VideoUrl { get; set; }
+
+        public virtual IEnumerable<MatchEventDto> Events { get; set; } = new HashSet<MatchEventDto>();
     }
 }

@@ -21,7 +21,11 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
 
         public async Task<Match> GetByIdAsync(int id)
         {
-            return await _context.Matches.Include(m => m.Club).Include(m => m.Stadium).FirstOrDefaultAsync(m => m.Id == id);
+            return await _context.Matches
+                .Include(m => m.Club)
+                .Include(m => m.Stadium)
+                .Include(x => x.Events).ThenInclude(x => x.Person)
+                .FirstOrDefaultAsync(m => m.Id == id);
         }
 
         public async Task<Match> AddAsync(Match entity)
