@@ -5,6 +5,7 @@ import { MatchEventService } from "../matchEvent.service";
 import { MatchEvent } from "../matchEvent.model";
 import { Person, PersonService } from "../../person/index";
 import { Configuration } from "../../app.constants";
+import { RolesCheckedService } from "../../shared/index";
 
 @Component({
     selector: "matchEvent-match-panel",
@@ -24,7 +25,8 @@ export class MatchEventMatchPanelComponent implements OnInit {
         private route: ActivatedRoute,
         private personService: PersonService,
         private config: Configuration,
-        private router: Router) {
+        private router: Router,
+        private roles: RolesCheckedService) {
     }
 
     public ngOnInit(): void {

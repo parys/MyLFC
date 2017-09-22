@@ -2,6 +2,7 @@
 import { Configuration } from "../../app.constants";
 import { MatchPersonService } from "../matchPerson.service";
 import { MatchPerson } from "../matchPerson.model";
+import { RolesCheckedService } from "../../shared/index";
 
 @Component({
     selector: "matchPerson-panel",
@@ -16,7 +17,8 @@ export class MatchPersonPanelComponent implements OnInit {
     public selectedIndex: number;
 
     constructor(private matchPersonService: MatchPersonService,
-        private config: Configuration) {
+        private config: Configuration,
+        private roles: RolesCheckedService) {
     }
 
     public ngOnInit(): void {

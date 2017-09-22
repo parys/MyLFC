@@ -2,12 +2,14 @@
     <div class="col-sm-12">
         <div [class.pull-right]="(!isHome && matchPersons.isOur) || (isHome && !matchPersons.isOur)">
             <span class="glyphicon"></span>{{matchPerson.number}} - {{matchPerson.personName}} 
-            <span role="button" (click)="selectMatchPerson(i)" class="glyphicon glyphicon-pencil"></span>
+            <span *ngIf="roles.checked.isInformer" role="button" (click)="selectMatchPerson(i)" class="glyphicon glyphicon-pencil"></span>
         </div>
     </div>
 </div>
-<button md-raised-button color="warn" (click)="addMatchPerson()" *ngIf="!isEdit">Добавить человека</button>
-<button md-raised-button (click)="cancelMatchPersonEdit()" *ngIf="isEdit">Отменить редактирование</button>
-<div class="full-width top20" *ngIf="isEdit">
-    <matchPerson-edit-panel [matchId]="matchId" [selectedMatchPerson]="selectedMatchPerson" (matchPerson)="updateMatchPerson($event)"></matchPerson-edit-panel>
+<div *ngIf="roles.checked.isInformer">
+    <button md-raised-button color="warn" (click)="addMatchPerson()" *ngIf="!isEdit">Добавить человека</button>
+    <button md-raised-button (click)="cancelMatchPersonEdit()" *ngIf="isEdit">Отменить редактирование</button>
+    <div class="full-width top20" *ngIf="isEdit">
+        <matchPerson-edit-panel [matchId]="matchId" [selectedMatchPerson]="selectedMatchPerson" (matchPerson)="updateMatchPerson($event)"></matchPerson-edit-panel>
+    </div>
 </div>

@@ -1,7 +1,7 @@
 ﻿import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { MatchService } from "../match.service";
-import { Match } from "../match.model";  
+import { Match } from "../match.model";
 
 @Component({
     selector: "match-detail",
@@ -23,6 +23,4 @@ export class MatchDetailComponent implements OnInit {
                     error => console.log(error));
         };
     }
-
-
 }

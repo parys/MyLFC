@@ -13,6 +13,7 @@ using MyLiverpool.Data.Common;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
+    /// <inheritdoc />
     /// <summary>
     /// Manages matches.
     /// </summary>
@@ -74,7 +75,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <returns>Found match entity.</returns>
-        [Authorize, HttpGet("{id:int}")]
+        [AllowAnonymous, HttpGet("{id:int}")]
         public async Task<IActionResult> GetAsync(int id)
         {
             if (id < 1)

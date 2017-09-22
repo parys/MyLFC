@@ -82,7 +82,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <param name="id">The identifier of match.</param>
         /// <returns>List of match events for match.</returns>
-        [Authorize, HttpGet("getForMatch/{id:int}")]
+        [AllowAnonymous, HttpGet("getForMatch/{id:int}")]
         public async Task<IActionResult> GetForMatchAsync(int id)
         {
             if (id < 1)

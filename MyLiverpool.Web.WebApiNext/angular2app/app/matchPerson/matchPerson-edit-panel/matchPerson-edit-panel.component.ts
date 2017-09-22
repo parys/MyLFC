@@ -61,6 +61,7 @@ export class MatchPersonEditPanelComponent implements OnInit {
     private emitNewPerson(matchPerson: MatchPerson): void {
         matchPerson.personName = this.editMatchPersonForm.get("personName").value;
         this.matchPerson.emit(matchPerson);
+        this.selectedMatchPerson = null;
     }
 
     private parse(data: MatchPerson): void {

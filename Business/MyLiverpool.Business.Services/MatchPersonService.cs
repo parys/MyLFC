@@ -38,7 +38,7 @@ namespace MyLiverpool.Business.Services
                 await _matchPersonRepository.UpdateAsync(entity);
                 return _mapper.Map<MatchPersonDto>(entity);
             }
-            return null;
+            return await CreateAsync(dto);
         }
 
         public async Task<bool> DeleteAsync(int id)
