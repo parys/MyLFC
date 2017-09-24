@@ -22,6 +22,7 @@ export class MaterialCommentDetailComponent implements OnInit, OnDestroy {
     @Input() public canCommentary: boolean;
     @Input() public materialId: number;
     @Input() public parent: MaterialComment;
+    @Input() public type: number;
 
     public commentForm: FormGroup;          
     private oldCopy: MaterialComment;
@@ -202,6 +203,7 @@ export class MaterialCommentDetailComponent implements OnInit, OnDestroy {
         comment.message = this.commentForm.controls["message"].value;
         comment.materialId = this.materialId;
         comment.parentId = this.item.id;
+        comment.type = this.type;
         return comment;
     }
 }                                                                                                                

@@ -12,10 +12,12 @@ import { MatchService } from "./match.service";
 import { matchRoutes } from "./match.routes";
 import { MatchEventModule } from "../matchEvent/index";
 import { MatchPersonModule } from "../matchPerson/index";
+import { CommentModule } from "../materialComment/index";
 
 @NgModule({
     imports: [
         CommonModule,
+        CommentModule,
         FormsModule,
         NgxPaginationModule,
         MdAutocompleteModule,

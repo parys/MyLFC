@@ -1,4 +1,4 @@
-﻿<div class="full-width" *ngIf="item">
+﻿<div class="col-xs-12 container-row" *ngIf="item">
     <div class="col-xs-12 text-center bottom10">
         {{item.dateTime | date:'d MMM y EEE j:mm' }}, {{item.typeName}}
     </div>
@@ -23,6 +23,11 @@
             <b class="font-size20" [textContent]="item.awayClubName"></b>
         </div>
     </div>
-    <matchEvent-match-panel [events]="item.events" [matchId]="item.id" [seasonId]="item.seasonId" [isHome]="item.homeClubId === 1"></matchEvent-match-panel>
-    <matchPerson-panel [matchId]="item.id" [isHome]="item.homeClubId === 1"></matchPerson-panel>
+    <div class="col-xs-12 container-row clearfix">
+        <matchEvent-match-panel [events]="item.events" [matchId]="item.id" [seasonId]="item.seasonId" [isHome]="item.homeClubId === 1"></matchEvent-match-panel>
+        <matchPerson-panel [matchId]="item.id" [isHome]="item.homeClubId === 1"></matchPerson-panel>
+    </div>
+<div class="col-xs-12 container-row clearfix">
+    <comment-section id="comments" [matchId]="item.id" [canCommentary]="true"></comment-section>
+    </div>
 </div>

@@ -39,6 +39,7 @@ export class CommentSectionComponent implements OnInit, OnChanges {
         );
         this.update();
         this.cd.markForCheck();
+        this.type = this.type ? this.type : 3;
     }
 
     public ngOnChanges(): void {
@@ -51,12 +52,23 @@ export class CommentSectionComponent implements OnInit, OnChanges {
     };
 
     public update(): void {
-        this.materialCommentService
-            .getAllByMaterial(this.page, this.materialId)
-            .subscribe(data => this.parsePageable(data),
-            e => console.log(e), () => {
-                    this.cd.markForCheck();
-                });
+        if (this.materialId) {
+            this.materialCommentService
+                .getAllByMaterial(this.page, this.materialId)
+                .subscribe(data => this.parsePageable(data),
+                    e => console.log(e),
+                    () => {
+                        this.cd.markForCheck();
+                    });
+        } else if (this.matchId) {
+            this.materialCommentService
+                .getAllByMatch(this.page, this.matchId)
+                .subscribe(data => this.parsePageable(data),
+                    e => console.log(e),
+                    () => {
+                        this.cd.markForCheck();
+                    });
+        }
     }
 
     private parsePageable(pageable: Pageable<MaterialComment>): void {

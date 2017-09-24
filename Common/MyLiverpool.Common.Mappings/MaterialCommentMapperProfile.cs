@@ -37,6 +37,7 @@ namespace MyLiverpool.Common.Mappings
                 .ForMember(dest => dest.AuthorId, src => src.MapFrom(x => x.AuthorId))
                 .ForMember(dest => dest.Message, src => src.MapFrom(x => x.Message.Trim()))
                 .ForMember(dest => dest.MaterialId, src => src.MapFrom(x => x.MaterialId))
+                .ForMember(dest => dest.MatchId, src => src.MapFrom(x => x.MatchId))
                 .ForMember(dest => dest.ParentId, src => src.MapFrom(x => x.ParentId));
 
             CreateMap<CommentVoteDto, CommentVote>();

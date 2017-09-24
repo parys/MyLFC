@@ -3,7 +3,7 @@
 <div *ngFor="let comment of items | paginate: { itemsPerPage: itemsPerPage,
                                                       currentPage: page,
                                                       totalItems: totalItems }">
-    <materialComment-detail [item]="comment" [deep]="0" [materialId]="materialId" [canCommentary]="canCommentary"></materialComment-detail>
+    <materialComment-detail [item]="comment" [deep]="0" [materialId]="materialId" [canCommentary]="canCommentary" [type]="type"></materialComment-detail>
 </div>
 
 <form class="form-horizontal" role="form" [formGroup]="commentAddForm" (ngSubmit)="onSubmit()">

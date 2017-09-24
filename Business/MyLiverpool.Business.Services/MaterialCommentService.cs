@@ -133,6 +133,19 @@ namespace MyLiverpool.Business.Services
             return new PageableData<MaterialCommentDto>(commentDtos, page, commentsCount, ItemPerPage);
         }
 
+        public async Task<PageableData<MaterialCommentDto>> GetListByMatchIdAsync(int matchId, int page)//todo need to unite with above
+        {
+            Expression<Func<MaterialComment, bool>> filter = x => x.MatchId == matchId;// && x.ParentId == null;
+
+            var comments = await _commentService.GetOrderedByAsync(page, ItemPerPage, filter, SortOrder.Ascending, m => m.AdditionTime);
+            UpdateCurrentUserField(comments);
+            var unitedComments = UniteComments(comments, page);
+            var commentDtos = _mapper.Map<IEnumerable<MaterialCommentDto>>(unitedComments);
+          //  filter = filter.And(x => x.ParentId == null);//bug need to analize how get all comments for material page but count only top-level for paging
+            var commentsCount = await _commentService.GetCountAsync(filter);
+            return new PageableData<MaterialCommentDto>(commentDtos, page, commentsCount, ItemPerPage);
+        }
+
         public async Task<bool> VerifyAsync(int id)
         {
             var comment = await _commentService.GetByIdAsync(id);
