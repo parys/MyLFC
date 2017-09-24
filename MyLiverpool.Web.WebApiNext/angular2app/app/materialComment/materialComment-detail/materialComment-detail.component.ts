@@ -21,6 +21,7 @@ export class MaterialCommentDetailComponent implements OnInit, OnDestroy {
     @Input() public deep: number;
     @Input() public canCommentary: boolean;
     @Input() public materialId: number;
+    @Input() public matchId: number;
     @Input() public parent: MaterialComment;
     @Input() public type: number;
 
@@ -202,6 +203,7 @@ export class MaterialCommentDetailComponent implements OnInit, OnDestroy {
         const comment: MaterialComment = new MaterialComment();
         comment.message = this.commentForm.controls["message"].value;
         comment.materialId = this.materialId;
+        comment.matchId = this.matchId;
         comment.parentId = this.item.id;
         comment.type = this.type;
         return comment;

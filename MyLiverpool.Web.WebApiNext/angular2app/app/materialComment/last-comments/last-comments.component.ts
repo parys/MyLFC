@@ -44,4 +44,14 @@ export class LastCommentsComponent implements OnInit, OnDestroy {
             .subscribe(data => this.items = data,
                 error => console.log(error));
     }
+
+    public getLink(type: number): string {
+        if (type === 1) {
+            return "/news";
+        } else if (type === 2) {
+            return "/blogs";
+        }else if (type === 3) {
+            return "/matches";
+        }
+    }
 }
