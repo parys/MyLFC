@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using AutoMapper;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Common.Utilities.Extensions;
+using MyLiverpool.Data.Common;
 using MyLiverpool.Data.Entities;
 
 namespace MyLiverpool.Common.Mappings
@@ -24,8 +27,8 @@ namespace MyLiverpool.Common.Mappings
                 .ForMember(x => x.IsHome, src => src.MapFrom(x => x.IsHome))
                 .ForMember(x => x.TypeId, src => src.MapFrom(x => x.MatchType))
                 .ForMember(x => x.TypeName, src => src.MapFrom(x => x.MatchType.GetNameAttribute()))
-                .ForMember(x => x.ScoreAway, src => src.MapFrom(x => x.Score.Split('-', StringSplitOptions.RemoveEmptyEntries).LastOrDefault()))
-                .ForMember(x => x.ScoreHome, src => src.MapFrom(x => x.Score.Split('-', StringSplitOptions.RemoveEmptyEntries).FirstOrDefault()))
+                .ForMember(x => x.ScoreAway, src => src.MapFrom(x => !string.IsNullOrWhiteSpace(x.Score) ? x.Score.Split('-', StringSplitOptions.RemoveEmptyEntries).LastOrDefault() : GetScore(x.Events, !x.IsHome)))
+                .ForMember(x => x.ScoreHome, src => src.MapFrom(x => !string.IsNullOrWhiteSpace(x.Score) ? x.Score.Split('-', StringSplitOptions.RemoveEmptyEntries).FirstOrDefault() : GetScore(x.Events, x.IsHome)))
                 .ForMember(x => x.PhotoUrl, src => src.MapFrom(x => x.PhotoUrl))
                 .ForMember(x => x.StadiumName, src => src.MapFrom(x => x.Stadium.Name))
                 .ForMember(x => x.ReportUrl, src => src.MapFrom(x => x.ReportUrl))
@@ -50,6 +53,17 @@ namespace MyLiverpool.Common.Mappings
                 return null;
             }
             return $"{scoreHome}-{scoreAway}";
+        }
+
+        private static string GetScore(IEnumerable<MatchEvent> matchEvents, bool forLiverpool = true)
+        {
+            Expression<Func<MatchEvent, bool>> filter = x => forLiverpool ? x.IsOur : !x.IsOur;
+            filter = filter.And(x =>
+                x.Type == MatchEventType.Goal ||
+                x.Type == MatchEventType.GoalPenalty ||
+                x.Type == MatchEventType.GoalOwn);
+
+            return matchEvents.Count(filter.Compile()).ToString();
         }
     }
 }

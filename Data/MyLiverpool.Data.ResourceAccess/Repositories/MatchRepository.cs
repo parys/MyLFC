@@ -66,17 +66,12 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             }
             return await query.CountAsync();
         }
-
-        public Task<IEnumerable<Match>> GetListAsync()
-        {
-            throw new NotImplementedException("Not need to implement");
-        }
-
+        
         public async Task<IEnumerable<Match>> GetListAsync(int page, int itemPerPage = 15,
             Expression<Func<Match, bool>> filter = null,
             SortOrder order = SortOrder.Ascending, Expression<Func<Match, object>> orderBy = null)
         {
-            IQueryable<Match> query = _context.Matches.Include(m => m.Club).Include(m => m.Stadium);
+            IQueryable<Match> query = _context.Matches.Include(m => m.Club).Include(m => m.Stadium).Include(x => x.Events);
 
             if (filter != null)
             {

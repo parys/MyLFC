@@ -1,1 +1,1 @@
-﻿export * from "./materialComment-section.component";
+﻿export * from "./comment-section.component";

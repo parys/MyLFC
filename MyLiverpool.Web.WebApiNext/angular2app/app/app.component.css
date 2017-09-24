@@ -152,6 +152,10 @@ textarea {
     border-left: 5px solid #731010;
 }
 
+.bottom10 {
+    margin-bottom: 10px;
+}
+
 .breadcrumb {
     margin-bottom: 0;
 }
@@ -492,6 +496,10 @@ textarea {
 
     .pm-counter {
         font-size: large;
+    }
+
+    .text-right {
+        text-align: right;
     }
 
     @media (min-width: 768px) {

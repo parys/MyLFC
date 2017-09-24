@@ -1,4 +1,4 @@
-﻿export class MaterialComment {
+﻿export class Comment {
     public id: number;
     public additionTime: Date;
     public lastModified: Date;
@@ -8,7 +8,7 @@
     public message: string;
     public answer: string;
     public materialId: number;
-    public children: MaterialComment[];
+    public children: Comment[];
     public isVerified: boolean;
     public parentId: number;
     public number: number;
@@ -17,4 +17,5 @@
     public positiveCount: number;
     public negativeCount: number;
     public type: number;
+    public matchId: number;
 }

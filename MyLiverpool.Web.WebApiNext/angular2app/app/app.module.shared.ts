@@ -82,7 +82,7 @@ import { TransferModule } from "./transfer/index";
         materialCategory.MaterialCategoryListComponent,
         materialComment.MaterialCommentDetailComponent,
         materialComment.MaterialCommentListComponent,
-        materialComment.MaterialCommentSectionComponent,
+        materialComment.CommentSectionComponent,
         materialComment.LastCommentsComponent,
         roleGroup.RoleGroupListComponent,
         season.SeasonCalendarComponent,

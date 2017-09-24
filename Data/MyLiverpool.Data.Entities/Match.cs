@@ -37,5 +37,7 @@ namespace MyLiverpool.Data.Entities
         public virtual ICollection<MatchEvent> Events { get; set; } = new HashSet<MatchEvent>();
 
         public virtual ICollection<MatchPerson> Persons { get; set; } = new HashSet<MatchPerson>();
+
+        public virtual ICollection<MaterialComment> Comments { get; set; } = new HashSet<MaterialComment>();
     }
 }

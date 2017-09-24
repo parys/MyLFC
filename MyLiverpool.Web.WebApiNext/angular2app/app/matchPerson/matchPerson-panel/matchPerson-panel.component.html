@@ -1,12 +1,37 @@
-﻿<div *ngFor="let matchPerson of matchPersons; let i = index;" class="col-sm-12">
-    <div class="col-sm-12">
-        <div [class.pull-right]="(!isHome && matchPersons.isOur) || (isHome && !matchPersons.isOur)">
-            <span class="glyphicon"></span>{{matchPerson.number}} - {{matchPerson.personName}} 
-            <span *ngIf="roles.checked.isInformer" role="button" (click)="selectMatchPerson(i)" class="glyphicon glyphicon-pencil"></span>
+﻿<div class="col-xs-12 container-row">
+    <div class="col-xs-12 container-row">
+        <div class="text-center">Главный судья: {{mainRef?.personName}}</div>
+        <div class="col-xs-6 container-row">
+            <i class="col-xs-12 top10">Главный тренер:</i>
+            <div class="col-xs-12" [textContent]="homeCoach?.personName"></div>
+            <i class="col-xs-12 top10">Состав:</i>
+            <div class="col-xs-12" *ngFor="let person of homeTeam">
+                {{person.number}} - {{person.personName}}
+                <span *ngIf="roles.checked.isInformer" role="button" (click)="selectMatchPerson(person)" class="glyphicon glyphicon-pencil"></span>
+            </div>
+            <i class="col-xs-12 top10">Запасные:</i>
+            <div class="col-xs-12" *ngFor="let person of homeBench">
+                {{person.number}} - {{person.personName}}
+                <span *ngIf="roles.checked.isInformer" role="button" (click)="selectMatchPerson(person)" class="glyphicon glyphicon-pencil"></span>
+            </div>
+        </div>
+        <div class="col-xs-6 container-row text-right">
+            <i class="col-xs-12 top10">Главный тренер:</i>
+            <div class="col-xs-12" [textContent]="awayCoach?.personName"></div>
+            <div class="col-xs-12 top10">Состав:</div>
+            <div class="col-xs-12" *ngFor="let person of awayTeam">
+                {{person.number}} - {{person.personName}}
+                <span *ngIf="roles.checked.isInformer" role="button" (click)="selectMatchPerson(person)" class="glyphicon glyphicon-pencil"></span>
+            </div>
+            <div class="col-xs-12 top10">Запасные:</div>
+            <div class="col-xs-12" *ngFor="let person of awayBench">
+                {{person.number}} - {{person.personName}}
+                <span *ngIf="roles.checked.isInformer" role="button" (click)="selectMatchPerson(person)" class="glyphicon glyphicon-pencil"></span>
+            </div>
         </div>
     </div>
 </div>
-<div *ngIf="roles.checked.isInformer">
+<div *ngIf="roles.checked.isInformer" class="col-xs-12">
     <button md-raised-button color="warn" (click)="addMatchPerson()" *ngIf="!isEdit">Добавить человека</button>
     <button md-raised-button (click)="cancelMatchPersonEdit()" *ngIf="isEdit">Отменить редактирование</button>
     <div class="full-width top20" *ngIf="isEdit">

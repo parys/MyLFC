@@ -47,7 +47,7 @@ namespace MyLiverpool.Business.Services
             return true;
         }
 
-        public async Task<MatchPersonDto> GetByIdAsync(int id)
+        public Task<MatchPersonDto> GetByIdAsync(int id)
         {
             throw new System.NotImplementedException();
         }

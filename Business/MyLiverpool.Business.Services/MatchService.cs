@@ -87,11 +87,11 @@ namespace MyLiverpool.Business.Services
                 var dto = _mapper.Map<MatchDto>(match);
                 if (match.IsHome)
                 {
-                    FillClubsFields(dto, liverpoolClub, match.Club, null, null);//todo need to fix
+                    FillClubsFields(dto, liverpoolClub, match.Club, GetScore(match.Events, true), GetScore(match.Events, false));//todo need to fix
                 }
                 else
                 {
-                    FillClubsFields(dto, match.Club, liverpoolClub, null, null);//todo need to fix
+                    FillClubsFields(dto, match.Club, liverpoolClub, GetScore(match.Events, false), GetScore(match.Events, true));//todo need to fix
                 }
                 dtos.Add(dto);
             }
@@ -182,7 +182,13 @@ namespace MyLiverpool.Business.Services
 
         private static int GetScore(IEnumerable<MatchEvent> matchEvents, bool forLiverpool = true)
         {
-            return matchEvents.Count();
+            Expression<Func<MatchEvent, bool>> filter = x => forLiverpool ? x.IsOur : !x.IsOur;
+                filter = filter.And(x =>
+                    x.Type == MatchEventType.Goal ||
+                    x.Type == MatchEventType.GoalPenalty ||
+                    x.Type == MatchEventType.GoalOwn);
+            
+            return matchEvents.Count(filter.Compile());
         }
 
         private static string GetScores(string scoreHome, string scoreAway)

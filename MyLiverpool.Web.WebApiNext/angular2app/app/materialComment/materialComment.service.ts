@@ -1,6 +1,6 @@
 ﻿import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
-import { MaterialComment } from "./materialComment.model";
+import { Comment as MaterialComment } from "./materialComment.model";
 import { CommentVote } from "./commentVote.model";
 import { MaterialCommentFilter } from "./materialCommentFilter.model";
 import { Pageable } from "../shared/pageable.model";

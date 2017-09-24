@@ -3,7 +3,7 @@ import { ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
 import { Observable } from "rxjs/Observable";
 import { MaterialCommentService } from "../materialComment.service";
-import { MaterialComment } from "../materialComment.model";
+import { Comment as MaterialComment } from "../materialComment.model";
 import { Configuration } from "../../app.constants";
 
 @Component({

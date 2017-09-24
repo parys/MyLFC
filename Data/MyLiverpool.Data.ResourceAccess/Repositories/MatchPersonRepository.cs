@@ -19,7 +19,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             _context = context;
         }
 
-        public async Task<MatchPerson> GetByIdAsync(int id)
+        public Task<MatchPerson> GetByIdAsync(int id)
         {
             throw new NotImplementedException();
         }

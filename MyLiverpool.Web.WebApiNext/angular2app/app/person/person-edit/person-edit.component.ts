@@ -126,7 +126,7 @@ export class PersonEditComponent implements OnInit, OnDestroy {
                     Validators.required, Validators.maxLength(30)
                 ])
             ],
-            position: ["", Validators.required],
+            position: [""],
             country: [null],
             birthday: [null],
             number: [null],

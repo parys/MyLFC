@@ -1,16 +1,16 @@
 ﻿import { Component, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef, OnChanges } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Pageable } from "../../shared/pageable.model";
-import { MaterialComment } from "../materialComment.model";
+import { Comment as MaterialComment } from "../materialComment.model";
 import { MaterialCommentService } from "../materialComment.service";
 import { RolesCheckedService, IRoles } from "../../shared/index";
 
 @Component({
     selector: "comment-section",
-    templateUrl: "./materialComment-section.component.html",
+    templateUrl: "./comment-section.component.html",
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MaterialCommentSectionComponent implements OnInit, OnChanges {
+export class CommentSectionComponent implements OnInit, OnChanges {
     public items: MaterialComment[] = [];
     public page: number = 1;
     public itemsPerPage: number = 50;
@@ -18,6 +18,8 @@ export class MaterialCommentSectionComponent implements OnInit, OnChanges {
     public roles: IRoles;
     public commentAddForm: FormGroup;
     @Input() public materialId: number;
+    @Input() public matchId: number;
+    @Input() public type: number;
     @Input() public canCommentary: boolean = false;
 
     constructor(private materialCommentService: MaterialCommentService,
@@ -29,8 +31,7 @@ export class MaterialCommentSectionComponent implements OnInit, OnChanges {
     public ngOnInit(): void {
         this.roles = this.rolesChecked.checkRoles();
         this.commentAddForm = this.formBuilder.group({
-            'message': ["", Validators.compose([
-                Validators.required, Validators.minLength(3)])]
+            message: ["", Validators.minLength(3)]
         });
         this.commentAddForm.valueChanges.subscribe(() => {
                 this.cd.markForCheck();
@@ -53,7 +54,7 @@ export class MaterialCommentSectionComponent implements OnInit, OnChanges {
         this.materialCommentService
             .getAllByMaterial(this.page, this.materialId)
             .subscribe(data => this.parsePageable(data),
-            error => console.log(error), () => {
+            e => console.log(e), () => {
                     this.cd.markForCheck();
                 });
     }
@@ -69,13 +70,15 @@ export class MaterialCommentSectionComponent implements OnInit, OnChanges {
         this.commentAddForm.markAsPending();
         const comment: MaterialComment = this.commentAddForm.value;
         comment.materialId = this.materialId;
+        comment.matchId = this.matchId;
+        comment.type = this.type ? this.type : 3;//todo
         this.materialCommentService.create(comment)
             .subscribe(data => {
                     this.items.push(data);
                     this.totalItems += 1;
                     this.commentAddForm.controls["message"].patchValue("");
                 },
-                error => console.log(error),
+                e => console.log(e),
                 () => {
                     this.cd.markForCheck();
                 });

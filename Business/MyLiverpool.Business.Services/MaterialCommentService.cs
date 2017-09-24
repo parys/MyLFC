@@ -60,7 +60,6 @@ namespace MyLiverpool.Business.Services
         public async Task<MaterialCommentDto> AddAsync(MaterialCommentDto model)
         {
             var comment = _mapper.Map<MaterialComment>(model);
-            comment.MaterialType = (await _materialService.GetDtoAsync(model.MaterialId, true)).Type;
             comment.AdditionTime = comment.LastModified = DateTime.Now;
             try
             {
@@ -227,14 +226,25 @@ namespace MyLiverpool.Business.Services
 
         private async Task SendNotificationToPmAsync(MaterialComment parentComment)
         {
-            var link = parentComment.MaterialType == MaterialType.News ? "news" : "blogs";
+            var link = "";
+            if (parentComment.Type == CommentType.News)
+            {
+                link = "news";
+            } else if (parentComment.Type == CommentType.Blogs)
+            {
+                link = "blogs";
+            } else if (parentComment.Type == CommentType.Match)
+            {
+                link = "matches";
+            }
+                //todo need to refactor
             var pmDto = new PrivateMessageDto
             {
                 SenderId = GlobalConstants.MyLfcUserId,
                 ReceiverId = parentComment.AuthorId,
                 SentTime = DateTimeOffset.Now,
                 Title = "Новый ответ",
-                Message = $"На ваш комментарий получен ответ.[{link};{parentComment.MaterialId}]"
+                Message = $"На ваш комментарий получен ответ.[{link};{parentComment.MaterialId ?? parentComment.MatchId}]"
             };
             await _pmService.SaveAsync(pmDto);
         }
@@ -252,9 +262,22 @@ namespace MyLiverpool.Business.Services
         private string GetNotificationEmailBody(MaterialComment parentComment)
         {
             var host = _accessor.HttpContext.Request.Host;
-            var link = parentComment.MaterialType == MaterialType.News ? "news" : "blogs";
+            var link = "";
+            if (parentComment.Type == CommentType.News)
+            {
+                link = "news";
+            }
+            else if (parentComment.Type == CommentType.Blogs)
+            {
+                link = "blogs";
+            }
+            else if (parentComment.Type == CommentType.Match)
+            {
+                link = "matches";
+            }
+            //todo need to refactor
 
-            var callbackUrl = $"http://{host}/{link}/{parentComment.MaterialId}";
+            var callbackUrl = $"http://{host}/{link}/{parentComment.MaterialId ?? parentComment.MatchId}";
             return $"На ваш комментарий получен ответ, <a href=\"{callbackUrl}\">перейти к материалу</a>.";
         }
 

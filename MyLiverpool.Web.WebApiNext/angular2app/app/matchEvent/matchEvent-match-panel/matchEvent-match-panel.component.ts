@@ -26,7 +26,7 @@ export class MatchEventMatchPanelComponent implements OnInit {
         private personService: PersonService,
         private config: Configuration,
         private router: Router,
-        private roles: RolesCheckedService) {
+        public roles: RolesCheckedService) {
     }
 
     public ngOnInit(): void {
