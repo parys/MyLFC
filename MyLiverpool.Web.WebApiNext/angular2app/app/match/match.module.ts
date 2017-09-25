@@ -13,6 +13,7 @@ import { matchRoutes } from "./match.routes";
 import { MatchEventModule } from "../matchEvent/index";
 import { MatchPersonModule } from "../matchPerson/index";
 import { CommentModule } from "../materialComment/index";
+import { MatchHeaderComponent } from "./match-header/index";
 
 @NgModule({
     imports: [
@@ -34,12 +35,14 @@ import { CommentModule } from "../materialComment/index";
         MatchListComponent,
         MatchCalendarComponent,
         MatchDetailComponent,
+        MatchHeaderComponent,
     ],
     providers: [
         MatchService,
     ],
     exports: [
-        MatchCalendarComponent
+        MatchCalendarComponent,
+        MatchHeaderComponent
     ]
 })
 export class MatchModule { }  

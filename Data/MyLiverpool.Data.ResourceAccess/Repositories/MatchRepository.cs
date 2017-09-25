@@ -25,6 +25,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
                 .Include(m => m.Club)
                 .Include(m => m.Stadium)
                 .Include(x => x.Events).ThenInclude(x => x.Person)
+                .Include(x => x.Comments)
                 .FirstOrDefaultAsync(m => m.Id == id);
         }
 

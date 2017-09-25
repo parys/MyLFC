@@ -15,5 +15,6 @@
         Plans = 11,
         Fantasy = 12,
         CupTable = 13,
+        HeaderMatch = 14,
     }
 }

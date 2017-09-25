@@ -21,6 +21,10 @@ export class MatchService {
         return this.http.get<Match[]>(this.actionUrl + "getForCalendar");
     };
 
+    public getHeaderMatch(): Observable<Match> {
+        return this.http.get<Match>(this.actionUrl + "header");
+    };
+
     public getSingle(id: number): Observable<Match> {
         return this.http.get<Match>(this.actionUrl + id);
     };
@@ -31,6 +35,10 @@ export class MatchService {
 
     public update(id: number, itemToUpdate: Match): Observable<Match> {
         return this.http.put<Match>(this.actionUrl + id, JSON.stringify(itemToUpdate));
+    };
+
+    public pin(id?: number): Observable<boolean> {
+        return this.http.put<boolean>(this.actionUrl + id + "/setAsHeader", "");
     };
 
     public updateScore(id: number, score: string): Observable<Match> {

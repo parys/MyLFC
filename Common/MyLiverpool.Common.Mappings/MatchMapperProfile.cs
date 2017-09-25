@@ -37,6 +37,7 @@ namespace MyLiverpool.Common.Mappings
                 .ForMember(x => x.PhotoUrl, src => src.MapFrom(x => x.PhotoUrl))
                 .ForMember(x => x.StadiumName, src => src.MapFrom(x => x.Stadium.Name))
                 .ForMember(x => x.ReportUrl, src => src.MapFrom(x => x.ReportUrl))
+                .ForMember(x => x.CommentCount, src => src.MapFrom(x => x.Comments.Count))
                 .ForMember(x => x.VideoUrl, src => src.MapFrom(x => x.VideoUrl));
 
             CreateMap<MatchDto, Match>()

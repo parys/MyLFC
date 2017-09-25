@@ -1,10 +1,6 @@
 ﻿<div class="col-xs-12 container-row" *ngIf="item">
-    <div *ngIf="roles.checked.isInformer">
-        <button md-raised-button color="warn" (click)="pin(item.id)">Закрепить на главной</button>
-        <button md-raised-button (click)="pin(0)">Открепить от главной</button>
-    </div>
     <div class="col-xs-12 text-center bottom10">
-        {{item.dateTime | date:'d MMM y EEE j:mm' }}, {{item.stadiumName}}, {{item.typeName}}
+        {{item.dateTime | date:'d MMM y EEE j:mm' }}, {{item.typeName}}, {{item.stadiumName}}
     </div>
     <div class="col-xs-4">
         <div class="full-width text-center">
@@ -29,11 +25,5 @@
             <b class="font-size20" [textContent]="item.awayClubName"></b>
         </div>
     </div>
-    <div class="col-xs-12 container-row clearfix">
-        <matchEvent-match-panel [events]="item.events" [matchId]="item.id" [seasonId]="item.seasonId" [isHome]="item.homeClubId === 1"></matchEvent-match-panel>
-        <matchPerson-panel [matchId]="item.id" [isHome]="item.homeClubId === 1"></matchPerson-panel>
-    </div>
-    <div class="col-xs-12 container-row clearfix">
-        <comment-section id="comments" [matchId]="item.id" [canCommentary]="true"></comment-section>
-    </div>
+    <div class="col-xs-12 text-center"> <a [routerLink]="['matches', item.id]">Перейти к обсуждению({{item.commentCount}})</a></div>
 </div>

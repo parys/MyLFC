@@ -31,8 +31,8 @@
             <strong style="font-size: 1.2em;" [textContent]="last.homeClubName"></strong>
         </div>
         <div class="col-xs-4 col-sm-12 col-md-12 col-lg-2 flex-vertical-center padding0">
-            <strong class="score center"><span [textContent]="last.scoreHome"></span><span>:</span><span [textContent]="last.scoreAway"></span> </strong>
-            <div class="col-xs-12 container-row" *ngIf="last.scorePenaltyHome != null">({{last.scorePenaltyHome}}-{{last.scorePenaltyAway}})</div>
+            <strong class="score center"><span [textContent]="last.scoreHome"></span><span>:</span><span [textContent]="last.scoreAway"></span>
+                <span class="col-xs-12 container-row" *ngIf="last.scorePenaltyHome || last.scorePenaltyAway">({{last.scorePenaltyHome}}-{{last.scorePenaltyAway}})</span> </strong>
         </div>
         <div class="col-xs-4 col-sm-12 col-md-12 col-lg-5 text-center">
             <img [src]="last.awayClubLogo" class="center" [alt]="last.awayClubName" [title]="last.awayClubName">

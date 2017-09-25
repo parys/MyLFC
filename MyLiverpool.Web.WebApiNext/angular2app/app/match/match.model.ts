@@ -25,5 +25,6 @@ export class Match {
     public reportUrl: string;
     public photoUrl: string;
     public videoUrl: string;
+    public commentCount: number;
     public events: MatchEvent[];
 }

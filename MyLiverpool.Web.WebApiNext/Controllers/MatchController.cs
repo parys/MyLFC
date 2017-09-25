@@ -21,6 +21,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     public class MatchController : Controller
     {
         private readonly IMatchService _matchService;
+        private readonly IHelperService _helperService;
         private readonly IMemoryCache _cache;
 
         /// <summary>
@@ -28,10 +29,12 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <param name="matchService">Injected value.</param>
         /// <param name="cache"></param>
-        public MatchController(IMatchService matchService, IMemoryCache cache)
+        /// <param name="helperService"></param>
+        public MatchController(IMatchService matchService, IMemoryCache cache, IHelperService helperService)
         {
             _matchService = matchService;
             _cache = cache;
+            _helperService = helperService;
         }
 
         /// <summary>
@@ -83,6 +86,37 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             }
             var result = await _matchService.GetByIdAsync(id);
             return Ok(result);
+        }
+
+        /// <summary>
+        /// Returns header match by id.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>Found match entity.</returns>
+        [AllowAnonymous, HttpGet("header")]
+        public async Task<IActionResult> GetForHeaderAsync()
+        {
+            var helpEntity = await _cache.GetOrCreateAsync(CacheKeysConstants.HeaderMatchId,
+                async x => await _helperService.GetAsync(HelperEntityType.HeaderMatch));
+            if (!string.IsNullOrWhiteSpace(helpEntity))
+            {
+                var result = await _matchService.GetByIdAsync(int.Parse(helpEntity));
+                return Json(result);
+            }
+            return Ok();
+        }
+
+        /// <summary>
+        /// Set new match id value as header match id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [Authorize(Roles = nameof(RolesEnum.InfoStart)), HttpPut("{id:int}/setAsHeader")]
+        public async Task<IActionResult> SetAsHeader(int id)
+        {
+            await _helperService.UpdateAsync(HelperEntityType.HeaderMatch, id > 0 ? id.ToString() : null);
+            _cache.Remove(CacheKeysConstants.HeaderMatchId);
+            return Json(true);
         }
 
         /// <summary>

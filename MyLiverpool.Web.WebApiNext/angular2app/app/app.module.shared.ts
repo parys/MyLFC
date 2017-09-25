@@ -40,7 +40,7 @@ import { CommentModule } from "./materialComment/index";
         EditorModule,
         HttpClientModule,
         AccountModule,
-        ForumModule,
+      //  ForumModule,
         InjuryModule,
         angMaterial.MdAutocompleteModule,
         angMaterial.MdButtonModule,
