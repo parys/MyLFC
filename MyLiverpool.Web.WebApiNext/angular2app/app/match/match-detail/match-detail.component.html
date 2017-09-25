@@ -11,9 +11,11 @@
         </div>
     </div>
     <div class="col-xs-4 font-size40 text-center">
-        <b class="col-xs-5" [textContent]="item.scoreHome"></b>
+        <b class="col-xs-5"><span [textContent]="item.scoreHome"></span></b>
         <span class="col-xs-2 padding0">:</span>
-        <b class="col-xs-5" [textContent]="item.scoreAway"></b>
+        <b class="col-xs-5"><span [textContent]="item.scoreAway"></span></b>
+        <!--<i class="font-size13">Серия пенальти:</i>-->
+        <b *ngIf="item.scorePenaltyHome != null">({{item.scorePenaltyHome}}-{{item.scorePenaltyAway}})</b>
     </div>
     <div class="col-xs-4">
         <div class="full-width text-center">

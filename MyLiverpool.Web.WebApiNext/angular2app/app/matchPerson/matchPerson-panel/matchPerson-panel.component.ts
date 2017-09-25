@@ -8,19 +8,22 @@ import { RolesCheckedService } from "../../shared/index";
     templateUrl: "./matchPerson-panel.component.html"
 })
 export class MatchPersonPanelComponent implements OnInit {
-    private matchPersons: MatchPerson[];
+    private matchPersons: MatchPerson[] = [];
     @Input() public matchId: number;
     @Input() public isHome: boolean;
     public isEdit: boolean = false;
     public selectedMatchPerson: MatchPerson;
     public selectedIndex: number;
-    public homeTeam: MatchPerson[];
-    public homeBench: MatchPerson[];
+    public homeTeam: MatchPerson[] = [];
+    public homeBench: MatchPerson[] = [];
     public homeCoach: MatchPerson;
-    public awayTeam: MatchPerson[];
-    public awayBench: MatchPerson[];
+    public awayTeam: MatchPerson[] = [];
+    public awayBench: MatchPerson[] = [];
     public awayCoach: MatchPerson;
     public mainRef: MatchPerson;
+    public assistantRef: MatchPerson[] = [];
+    public additionalRef: MatchPerson[] = [];
+    public fourthRef: MatchPerson;
 
     constructor(private matchPersonService: MatchPersonService,
         public roles: RolesCheckedService) {
@@ -69,5 +72,8 @@ export class MatchPersonPanelComponent implements OnInit {
         this.awayBench = persons.filter(x => x.personType === (this.isHome ? 4 : 2));
         this.awayBench = persons.filter(x => x.personType === (this.isHome ? 4 : 2));
         this.mainRef = persons.filter(x => x.personType === 7)[0];
+        this.assistantRef = persons.filter(x => x.personType === 8);
+        this.additionalRef = persons.filter(x => x.personType === 10);
+        this.fourthRef = persons.filter(x => x.personType === 9)[0];
     }
 }

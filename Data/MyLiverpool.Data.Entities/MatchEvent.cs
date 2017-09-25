@@ -20,7 +20,7 @@ namespace MyLiverpool.Data.Entities
 
         public virtual Match Match { get; set; }
 
-        public string Minute { get; set; }
+        public byte? Minute { get; set; }
 
         public bool Home { get; set; }
 

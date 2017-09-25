@@ -26,9 +26,8 @@ namespace MyLiverpool.Business.Dto
         public int MatchId { get; set; }
 
         public bool IsOur { get; set; }
-
-        [Required]
-        public string Minute { get; set; }
+        
+        public byte? Minute { get; set; }
 
         [Required]
         public bool Home { get; set; }

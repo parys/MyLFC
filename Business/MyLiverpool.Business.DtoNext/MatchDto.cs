@@ -37,7 +37,11 @@ namespace MyLiverpool.Business.Dto
 
         public string ScoreHome { get; set; }
 
+        public int? ScorePenaltyHome { get; set; }
+
         public string ScoreAway { get; set; }
+
+        public int? ScorePenaltyAway { get; set; }
 
         public int SeasonId { get; set; }
 

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using AspNet.Security.OAuth.Validation;
 using Microsoft.AspNetCore.Authorization;
@@ -10,6 +9,7 @@ using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
+using MyLiverpool.Web.WebApiNext.Extensions;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
@@ -22,7 +22,6 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     {
         private readonly IMatchService _matchService;
         private readonly IMemoryCache _cache;
-        private readonly string calendarCacheConst = "calendarMatch";
 
         /// <summary>
         /// Constructor.
@@ -93,7 +92,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [AllowAnonymous, HttpGet("getForCalendar")]
         public async Task<IActionResult> GetForCalendarAsync()
         {
-            var result = await _cache.GetOrCreateAsync(calendarCacheConst,
+            var result = await _cache.GetOrCreateAsync(CacheKeysConstants.CalendarCacheConst,
                 async x => await _matchService.GetForCalendarAsync());
             return Ok(result);
         }
@@ -143,7 +142,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
 
         private void RemoveCalendarFromCache()
         {
-            _cache.Remove(calendarCacheConst);
+            _cache.Remove(CacheKeysConstants.CalendarCacheConst);
         }
     }
 }

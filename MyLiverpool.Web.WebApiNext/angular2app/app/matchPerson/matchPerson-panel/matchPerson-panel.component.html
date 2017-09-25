@@ -1,6 +1,9 @@
 ﻿<div class="col-xs-12 container-row">
     <div class="col-xs-12 container-row">
-        <div class="text-center">Главный судья: {{mainRef?.personName}}</div>
+        <div class="text-center" *ngIf="mainRef">Главный судья: {{mainRef?.personName}}</div>
+        <div class="text-center" *ngIf="assistantRef.length > 0">Помощники судьи: <span *ngFor="let ref of assistantRef">{{ref.personName}},</span></div>
+        <div class="text-center" *ngIf="additionalRef.length > 0">Дополнительные судьи: <span *ngFor="let ref of additionalRef">{{ref.personName}},</span></div>
+        <div class="text-center" *ngIf="fourthRef">Резервный судья: {{fourthRef.personName}}</div>
         <div class="col-xs-6 container-row">
             <i class="col-xs-12 top10">Главный тренер:</i>
             <div class="col-xs-12" [textContent]="homeCoach?.personName"></div>
@@ -18,12 +21,12 @@
         <div class="col-xs-6 container-row text-right">
             <i class="col-xs-12 top10">Главный тренер:</i>
             <div class="col-xs-12" [textContent]="awayCoach?.personName"></div>
-            <div class="col-xs-12 top10">Состав:</div>
+            <i class="col-xs-12 top10">Состав:</i>
             <div class="col-xs-12" *ngFor="let person of awayTeam">
                 {{person.number}} - {{person.personName}}
                 <span *ngIf="roles.checked.isInformer" role="button" (click)="selectMatchPerson(person)" class="glyphicon glyphicon-pencil"></span>
             </div>
-            <div class="col-xs-12 top10">Запасные:</div>
+            <i class="col-xs-12 top10">Запасные:</i>
             <div class="col-xs-12" *ngFor="let person of awayBench">
                 {{person.number}} - {{person.personName}}
                 <span *ngIf="roles.checked.isInformer" role="button" (click)="selectMatchPerson(person)" class="glyphicon glyphicon-pencil"></span>

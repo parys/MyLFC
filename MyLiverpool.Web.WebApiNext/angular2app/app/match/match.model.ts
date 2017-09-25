@@ -19,7 +19,9 @@ export class Match {
     public seasonId: number;
     public seasonName: number;
     public scoreHome: string;
+    public scorePenaltyHome: number;
     public scoreAway: string;
+    public scorePenaltyAway: number;
     public reportUrl: string;
     public photoUrl: string;
     public videoUrl: string;
