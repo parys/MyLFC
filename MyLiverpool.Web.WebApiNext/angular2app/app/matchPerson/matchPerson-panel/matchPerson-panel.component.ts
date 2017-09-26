@@ -17,9 +17,13 @@ export class MatchPersonPanelComponent implements OnInit {
     public homeTeam: MatchPerson[] = [];
     public homeBench: MatchPerson[] = [];
     public homeCoach: MatchPerson;
+    public homeInjury: MatchPerson[] = [];
+    public homeBan: MatchPerson[] = [];
     public awayTeam: MatchPerson[] = [];
     public awayBench: MatchPerson[] = [];
     public awayCoach: MatchPerson;
+    public awayInjury: MatchPerson[] = [];
+    public awayBan: MatchPerson[] = [];
     public mainRef: MatchPerson;
     public assistantRef: MatchPerson[] = [];
     public additionalRef: MatchPerson[] = [];
@@ -70,7 +74,10 @@ export class MatchPersonPanelComponent implements OnInit {
         this.awayTeam = persons.filter(x => x.personType === (this.isHome ? 3 : 1));
         this.homeBench = persons.filter(x => x.personType === (this.isHome ? 2 : 4));
         this.awayBench = persons.filter(x => x.personType === (this.isHome ? 4 : 2));
-        this.awayBench = persons.filter(x => x.personType === (this.isHome ? 4 : 2));
+        this.homeBan = persons.filter(x => x.personType === (this.isHome ? 12 : 14));
+        this.awayBan = persons.filter(x => x.personType === (this.isHome ? 14 : 12));
+        this.homeInjury = persons.filter(x => x.personType === (this.isHome ? 11 : 13));
+        this.awayInjury = persons.filter(x => x.personType === (this.isHome ? 13 : 11));
         this.mainRef = persons.filter(x => x.personType === 7)[0];
         this.assistantRef = persons.filter(x => x.personType === 8);
         this.additionalRef = persons.filter(x => x.personType === 10);

@@ -33,6 +33,8 @@ namespace MyLiverpool.Business.Dto
 
         public string StadiumName { get; set; }
 
+        public string StadiumCity { get; set; }
+
         public int StadiumId { get; set; }
 
         public string ScoreHome { get; set; }

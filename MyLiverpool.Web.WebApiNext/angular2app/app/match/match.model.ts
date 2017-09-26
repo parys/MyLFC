@@ -16,6 +16,7 @@ export class Match {
     public typeName: string;
     public stadiumId: number;
     public stadiumName: string;
+    public stadiumCity: string;
     public seasonId: number;
     public seasonName: number;
     public scoreHome: string;

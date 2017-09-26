@@ -36,6 +36,7 @@ namespace MyLiverpool.Common.Mappings
                 .ForMember(x => x.ScorePenaltyHome, src => src.MapFrom(x => GetPenaltyScore(x.DateTime, x.Events, x.IsHome)))
                 .ForMember(x => x.PhotoUrl, src => src.MapFrom(x => x.PhotoUrl))
                 .ForMember(x => x.StadiumName, src => src.MapFrom(x => x.Stadium.Name))
+                .ForMember(x => x.StadiumCity, src => src.MapFrom(x => x.Stadium.City))
                 .ForMember(x => x.ReportUrl, src => src.MapFrom(x => x.ReportUrl))
                 .ForMember(x => x.CommentCount, src => src.MapFrom(x => x.Comments.Count))
                 .ForMember(x => x.VideoUrl, src => src.MapFrom(x => x.VideoUrl));
@@ -66,7 +67,9 @@ namespace MyLiverpool.Common.Mappings
             if (DateTimeOffset.Now >= dateTime)
             {
                 return !string.IsNullOrWhiteSpace(score)
-                    ? score.Split('-', StringSplitOptions.RemoveEmptyEntries).FirstOrDefault()
+                    ? isHome
+                        ? score.Split('-', StringSplitOptions.RemoveEmptyEntries).FirstOrDefault()
+                        : score.Split('-', StringSplitOptions.RemoveEmptyEntries).LastOrDefault()
                     : CalculateScore(events, isHome);
             }
             return null;

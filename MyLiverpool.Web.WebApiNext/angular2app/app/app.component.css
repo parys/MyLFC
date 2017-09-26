@@ -241,6 +241,10 @@ textarea {
     background-color: maroon;
 }
 
+.color-green {
+    color: green;
+}
+
 .color-red {
     color: red;
 }
@@ -581,6 +585,11 @@ textarea {
     .validation.text-danger {
         font-style: italic;
     }
+
+    .width20px {
+        width: 20px;
+    }
+
 
     .width50p {
         width: 50%;
