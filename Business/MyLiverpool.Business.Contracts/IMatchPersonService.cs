@@ -7,5 +7,7 @@ namespace MyLiverpool.Business.Contracts
     public interface IMatchPersonService : IEntityService<MatchPersonDto>
     {
         Task<IEnumerable<MatchPersonDto>> GetListByMatchIdAsync(int matchId);
+
+        Task<bool> DeleteAsync(int matchId, int personId);
     }
 }

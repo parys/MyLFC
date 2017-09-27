@@ -1,9 +1,8 @@
 ﻿import { Component, OnInit, Input, EventEmitter, Output } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
-import { MdDialog } from '@angular/material';
+import { MdSnackBar } from '@angular/material';
 import { Observable } from "rxjs/Observable";
-import { Pageable, DeleteDialogComponent } from "../../shared/index";
 import { MatchPerson } from "../matchPerson.model";
 import { Person } from "../../person/person.model";
 import { MatchPersonType } from "../matchPersonType.model";
@@ -30,7 +29,8 @@ export class MatchPersonEditPanelComponent implements OnInit {
         private route: ActivatedRoute,
         private personService: PersonService,
         private config: Configuration,
-        private formBuilder: FormBuilder) {
+        private formBuilder: FormBuilder,
+        private snackBar: MdSnackBar) {
     }
 
     public ngOnInit(): void {

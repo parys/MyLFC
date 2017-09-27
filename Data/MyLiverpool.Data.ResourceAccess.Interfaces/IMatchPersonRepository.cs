@@ -14,5 +14,7 @@ namespace MyLiverpool.Data.ResourceAccess.Interfaces
         Task<IEnumerable<MatchPerson>> GetListAsync(
             Expression<Func<MatchPerson, bool>> filter = null,
             SortOrder order = SortOrder.Ascending, Expression<Func<MatchPerson, object>> orderBy = null);
+
+        Task DeleteAsync(int matchId, int personId);
     }
 }

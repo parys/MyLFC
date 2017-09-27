@@ -2,7 +2,7 @@
 import { Observable } from "rxjs/Observable";
 import { MatchEvent } from "./matchEvent.model";
 import { MatchEventType } from "./matchEventType.model";
-import { Pageable, HttpWrapper } from "../shared/index";
+import { HttpWrapper } from "../shared/index";
 
 @Injectable()
 export class MatchEventService {
@@ -35,8 +35,8 @@ export class MatchEventService {
     public getTypes(): Observable<MatchEventType[]> {
         return this.http.get<MatchEventType[]>(this.actionUrl + "getTypes/");
     };
-    /*
+    
     public delete(id: number): Observable<boolean> {
         return this.http.delete<boolean>(this.actionUrl + id);
-    };*/
+    };
 }

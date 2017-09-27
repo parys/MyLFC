@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Data.SqlClient;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using MyLiverpool.Business.Contracts;
@@ -43,8 +43,7 @@ namespace MyLiverpool.Business.Services
 
         public async Task<bool> DeleteAsync(int id)
         {
-            await _matchPersonRepository.DeleteAsync(id);
-            return true;
+            throw new NotImplementedException("Complex key");
         }
 
         public Task<MatchPersonDto> GetByIdAsync(int id)
@@ -56,6 +55,12 @@ namespace MyLiverpool.Business.Services
         {
             var events = await _matchPersonRepository.GetListAsync(x => x.MatchId == matchId);
             return _mapper.Map<IEnumerable<MatchPersonDto>>(events);
+        }
+
+        public async Task<bool> DeleteAsync(int matchId, int personId)
+        {
+            await _matchPersonRepository.DeleteAsync(matchId, personId);
+            return true;
         }
     }
 }

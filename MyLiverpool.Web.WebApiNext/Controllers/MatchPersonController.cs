@@ -112,10 +112,10 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// Delete match person.
         /// </summary>
         /// <returns>Result of deleting.</returns>
-        [Authorize(Roles = nameof(RolesEnum.InfoStart)), HttpDelete("{id:int}")]
-        public async Task<IActionResult> DeleteAsync(int id)
+        [Authorize(Roles = nameof(RolesEnum.InfoStart)), HttpDelete("{matchId:int}/{personId:int}")]
+        public async Task<IActionResult> DeleteAsync(int matchId, int personId)
         {
-            var result = await _matchPersonService.DeleteAsync(id);
+            var result = await _matchPersonService.DeleteAsync(matchId, personId);
             return Ok(result);
         }
     }

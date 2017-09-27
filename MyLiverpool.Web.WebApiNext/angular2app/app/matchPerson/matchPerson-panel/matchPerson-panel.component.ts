@@ -1,4 +1,6 @@
 ﻿import { Component, OnInit, Input } from "@angular/core";
+import { MdDialog, MdSnackBar } from "@angular/material";
+import { DeleteDialogComponent } from "../../shared/index";
 import { MatchPersonService } from "../matchPerson.service";
 import { MatchPerson } from "../matchPerson.model";
 import { RolesCheckedService } from "../../shared/index";
@@ -30,7 +32,9 @@ export class MatchPersonPanelComponent implements OnInit {
     public fourthRef: MatchPerson;
 
     constructor(private matchPersonService: MatchPersonService,
-        public roles: RolesCheckedService) {
+        public roles: RolesCheckedService,
+        private snackBar: MdSnackBar,
+        private dialog: MdDialog) {
     }
 
     public ngOnInit(): void {
@@ -67,6 +71,33 @@ export class MatchPersonPanelComponent implements OnInit {
         this.isEdit = true;
     }
 
+    public showDeleteModal(person: MatchPerson): void {
+        const dialogRef = this.dialog.open(DeleteDialogComponent);
+        dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                this.delete(person);
+            }
+        }, e => console.log(e));
+    }
+
+
+    private delete(person: MatchPerson): void {
+        let result: boolean;
+        this.matchPersonService.delete(this.matchId, person.personId)
+            .subscribe(res => result = res,
+                e => console.log(e),
+                () => {
+                    if (result) {
+                        this.matchPersons.splice(this.matchPersons.indexOf(person), 1);
+                        this.parsePersons(this.matchPersons);
+                        this.snackBar.open("Удалено", null, { duration: 2000 });
+                    } else {
+                        this.snackBar.open("Ошибка удаления", null, { duration: 2000 });
+                    }
+                }
+            );
+    }
+
     private parsePersons(persons: MatchPerson[]): void {
         this.homeCoach = persons.filter(x => x.personType === (this.isHome ? 5 : 6))[0];
         this.awayCoach = persons.filter(x => x.personType === (this.isHome ? 6 : 5))[0];
@@ -82,5 +113,7 @@ export class MatchPersonPanelComponent implements OnInit {
         this.assistantRef = persons.filter(x => x.personType === 8);
         this.additionalRef = persons.filter(x => x.personType === 10);
         this.fourthRef = persons.filter(x => x.personType === 9)[0];
+
+        this.matchPersons = persons;
     }
 }

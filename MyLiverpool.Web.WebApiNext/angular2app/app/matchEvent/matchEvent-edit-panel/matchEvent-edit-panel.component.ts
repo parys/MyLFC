@@ -34,12 +34,6 @@ export class MatchEventEditPanelComponent implements OnInit {
 
     public ngOnInit(): void {
         this.initForm();
-        //let id = this.route.snapshot.params["id"];
-        //if(id && id > 0) {
-        //        this.matchService.getSingle(id)
-        //            .subscribe(data => this.parse(data),
-        //            error => console.log(error));
-        //    };
         
         this.matchEventService.getTypes()
             .subscribe(data => this.types = data,
@@ -78,11 +72,6 @@ export class MatchEventEditPanelComponent implements OnInit {
         item.id = this.id;
         item.matchId = this.matchId;
         item.seasonId = this.seasonId;
-     //   console.warn(this.editMatchEventForm.get("our").value);
-      //  if (!this.editMatchEventForm.get("our").value) {
-     //       item.personId = null;
-//
-     //   }
         return item;
     }
 
@@ -91,7 +80,7 @@ export class MatchEventEditPanelComponent implements OnInit {
             personName: [this.selectedEvent ? this.selectedEvent.personName : "", Validators.required],
             personId: [this.selectedEvent ? this.selectedEvent.personId : "", Validators.required],
             type: [this.selectedEvent ? this.selectedEvent.type : "", Validators.required],
-            minute: [this.selectedEvent ? this.selectedEvent.minute : 0, Validators.required],
+            minute: [this.selectedEvent ? this.selectedEvent.minute : "", Validators.required],
             isOur: [this.selectedEvent ? this.selectedEvent.isOur : false]
         });
         this.id = this.selectedEvent ? this.selectedEvent.id : 0;
@@ -100,7 +89,5 @@ export class MatchEventEditPanelComponent implements OnInit {
             .debounceTime(this.config.debounceTime)
             .distinctUntilChanged()
             .switchMap((value: string) => this.personService.getListByName(value));
-
-
     }
 }

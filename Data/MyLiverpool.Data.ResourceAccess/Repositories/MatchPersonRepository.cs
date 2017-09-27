@@ -33,11 +33,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
 
         public async Task DeleteAsync(int id)
         {
-            var entity = await _context.MatchPersons.FindAsync(id);
-            if (entity != null)
-            {
-                await DeleteAsync(entity);
-            }
+            throw new NotImplementedException("Complex key");
         }
 
         public async Task DeleteAsync(MatchPerson entity)
@@ -81,6 +77,15 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
                 query = query.ObjectSort(orderBy, order);
             }
             return await query.ToListAsync();
+        }
+
+        public async Task DeleteAsync(int matchId, int personId)
+        {
+            var entity = await _context.MatchPersons.FindAsync(matchId, personId);
+            if (entity != null)
+            {
+                await DeleteAsync(entity);
+            }
         }
     }
 }

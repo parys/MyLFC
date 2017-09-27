@@ -1,5 +1,7 @@
 ﻿import { Component, OnInit, Input } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
+import { MdDialog, MdSnackBar } from "@angular/material";
+import { DeleteDialogComponent } from "../../shared/index";
 import { Observable } from "rxjs/Observable";
 import { MatchEventService } from "../matchEvent.service";
 import { MatchEvent } from "../matchEvent.model";
@@ -26,7 +28,9 @@ export class MatchEventMatchPanelComponent implements OnInit {
         private personService: PersonService,
         private config: Configuration,
         private router: Router,
-        public roles: RolesCheckedService) {
+        public roles: RolesCheckedService,
+        private snackBar: MdSnackBar,
+        private dialog: MdDialog) {
     }
 
     public ngOnInit(): void {
@@ -60,5 +64,32 @@ export class MatchEventMatchPanelComponent implements OnInit {
         this.selectedEvent = this.events[index];
         this.selectedIndex = index;
         this.isEditEvent = true;
+    }
+
+
+    public showDeleteModal(index: number): void {
+        const dialogRef = this.dialog.open(DeleteDialogComponent);
+        dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                this.delete(index);
+            }
+        }, e => console.log(e));
+    }
+
+
+    private delete(index: number): void {
+        let result: boolean;
+        this.matchEventService.delete(this.events[index].id)
+            .subscribe(res => result = res,
+                e => console.log(e),
+                () => {
+                    if (result) {
+                        this.events.splice(index, 1);
+                        this.snackBar.open("Удалено", null, { duration: 2000 });
+                    } else {
+                        this.snackBar.open("Ошибка удаления", null, { duration: 2000 });
+                    }
+                }
+            );
     }
 }

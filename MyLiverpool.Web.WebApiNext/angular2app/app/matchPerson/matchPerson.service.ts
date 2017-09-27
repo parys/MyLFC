@@ -1,7 +1,7 @@
 ﻿import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import { MatchPerson } from "./matchPerson.model";
-import { Pageable, HttpWrapper } from "../shared/index";
+import { HttpWrapper } from "../shared/index";
 import { MatchPersonType } from "./matchPersonType.model";
 
 @Injectable()
@@ -35,8 +35,8 @@ export class MatchPersonService {
     public getTypes(): Observable<MatchPersonType[]> {
         return this.http.get<MatchPersonType[]>(this.actionUrl + "getTypes/");
     };
-    /*
-    public delete(id: number): Observable<boolean> {
-        return this.http.delete<boolean>(this.actionUrl + id);
-    };*/
+    
+    public delete(matchId: number, personId: number): Observable<boolean> {
+        return this.http.delete<boolean>(this.actionUrl + matchId + "/" + personId);
+    };
 }
