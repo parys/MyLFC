@@ -1,5 +1,5 @@
-﻿<div>
-    <table *ngIf="season" class="table table-condensed table-bordered table-hover">
+﻿<div style="overflow-x:auto">
+    <table *ngIf="season" class="table table-condensed table-bordered table-hover table-responsive">
         <tbody class="">
         <tr *ngFor="let match of season.matches; let i = index;" class="center-middle">
             <td [textContent]="i+1">
@@ -11,21 +11,26 @@
                 <span><span [textContent]="match.dateTime | date:'d MMM y j:mm'"></span><a *ngIf="roles.isAdminAssistant" [routerLink]="['/matches', match.id, 'edit']"><span class="glyphicon glyphicon-pencil"></span></a></span>
             </td>
             <td>
-                <img class="club-logo" [src]="match.homeClubLogo" [alt]="match.homeClubName">
-                <span [textContent]="match.homeClubName"></span>
-            </td>
-            <td>
-                <span [textContent]="match.scoreHome"></span>:<span [textContent]="match.scoreAway"></span>
-            </td>
-            <td>
-                <img class="club-logo" [src]="match.awayClubLogo" [alt]="match.awayClubName">
-                <span [textContent]="match.awayClubName"></span>
+                <div class="flex-vertical-center">
+                    <span class="col-xs-12 col-md-5 text-center">
+                        <img class="club-logo" [src]="match.homeClubLogo" [alt]="match.homeClubName">
+                        <span [textContent]="match.homeClubName"></span>
+                    </span>
+                    <span class="col-xs-12 col-md-2 text-center">
+                        <span [textContent]="match.scoreHome"></span>:<span [textContent]="match.scoreAway"></span>
+                    </span>
+                    <span class="col-xs-12 col-md-5 text-center">
+                        <img class="club-logo" [src]="match.awayClubLogo" [alt]="match.awayClubName">
+                        <span [textContent]="match.awayClubName"></span>
+                    </span>
+                </div>
             </td>
             <td>
                 <span [textContent]="match.stadiumName"></span>
             </td>
             <td>
                 <a *ngIf="match.reportUrl" [routerLink]="['/news', match.reportUrl]">Отчет</a>
+                <a *ngIf="!match.reportUrl" [routerLink]="['/matches', match.id]">Обсуждение</a>
                 <a *ngIf="match.photoUrl" [routerLink]="['/news', match.photoUrl]">Фото</a>
                 <a *ngIf="match.videoUrl" [href]="match.videoUrl" target="_blank">Видео</a>
             </td>
