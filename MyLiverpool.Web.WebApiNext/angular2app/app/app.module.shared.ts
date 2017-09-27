@@ -24,7 +24,6 @@ import * as user from "./user/index";
 import { PmModule } from "./pm/index";
 import { StadiumModule } from "./stadium/index";
 import { WishModule } from "./wish/index";
-import * as materialComment from "./materialComment/index";
 import * as admin from "./admin/index";
 import { NgxPaginationModule } from "ngx-pagination";
 import { ReCaptchaModule } from "angular2-recaptcha";
@@ -33,6 +32,7 @@ import * as angMaterial from '@angular/material';
 import "rxjs/add/operator/mergeMap";
 import { AccountModule } from "./account/index";
 import { TransferModule } from "./transfer/index";
+import { CommentModule } from "./materialComment/index";
 
 @NgModule({
     imports: [
@@ -40,7 +40,7 @@ import { TransferModule } from "./transfer/index";
         EditorModule,
         HttpClientModule,
         AccountModule,
-        ForumModule,
+      //  ForumModule,
         InjuryModule,
         angMaterial.MdAutocompleteModule,
         angMaterial.MdButtonModule,
@@ -57,6 +57,7 @@ import { TransferModule } from "./transfer/index";
         angMaterial.MdTabsModule,
         Ng2BreadcrumbModule.forRoot(),
         NgxPaginationModule,
+        CommentModule,
         ClubModule,
         MatchModule,
         TransferModule,
@@ -80,10 +81,6 @@ import { TransferModule } from "./transfer/index";
         image.ImageListComponent,
         materialCategory.MaterialCategoryEditComponent,
         materialCategory.MaterialCategoryListComponent,
-        materialComment.MaterialCommentDetailComponent,
-        materialComment.MaterialCommentListComponent,
-        materialComment.MaterialCommentSectionComponent,
-        materialComment.LastCommentsComponent,
         roleGroup.RoleGroupListComponent,
         season.SeasonCalendarComponent,
         season.SeasonEplTableComponent,
@@ -115,7 +112,6 @@ import { TransferModule } from "./transfer/index";
         chat.ChatMessageService,
         image.ImageService,
         materialCategory.MaterialCategoryService,
-        materialComment.MaterialCommentService,
         roleGroup.RoleGroupService,
         season.SeasonService,
         admin.AdminService,

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using AspNet.Security.OAuth.Validation;
 using Microsoft.AspNetCore.Authorization;
@@ -10,9 +9,11 @@ using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
+using MyLiverpool.Web.WebApiNext.Extensions;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
+    /// <inheritdoc />
     /// <summary>
     /// Manages matches.
     /// </summary>
@@ -20,18 +21,20 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     public class MatchController : Controller
     {
         private readonly IMatchService _matchService;
+        private readonly IHelperService _helperService;
         private readonly IMemoryCache _cache;
-        private readonly string calendarCacheConst = "calendarMatch";
 
         /// <summary>
         /// Constructor.
         /// </summary>
         /// <param name="matchService">Injected value.</param>
         /// <param name="cache"></param>
-        public MatchController(IMatchService matchService, IMemoryCache cache)
+        /// <param name="helperService"></param>
+        public MatchController(IMatchService matchService, IMemoryCache cache, IHelperService helperService)
         {
             _matchService = matchService;
             _cache = cache;
+            _helperService = helperService;
         }
 
         /// <summary>
@@ -70,29 +73,11 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         }      
         
         /// <summary>
-        /// Updates match score.
-        /// </summary>
-        /// <param name="id">The identifier of entity.</param>
-        /// <param name="score">New match score.</param>
-        /// <returns>Updated entity.</returns>
-        [Authorize(Roles = nameof(RolesEnum.InfoStart)), HttpPut("UpdateScore")]
-        public async Task<IActionResult> UpdateAsync([FromQuery]int id, [FromQuery]string score)
-        {
-            if (id <= 0 || string.IsNullOrEmpty(score) || !Regex.IsMatch(score, "[\\d]*-[\\d]*"))
-            {
-                return BadRequest();
-            }
-            var result = await _matchService.UpdateScoreAsync(id, score);
-            RemoveCalendarFromCache();
-            return Ok(result);
-        }
-
-        /// <summary>
         /// Returns match by id.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <returns>Found match entity.</returns>
-        [Authorize, HttpGet("{id:int}")]
+        [AllowAnonymous, HttpGet("{id:int}")]
         public async Task<IActionResult> GetAsync(int id)
         {
             if (id < 1)
@@ -104,13 +89,44 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         }
 
         /// <summary>
+        /// Returns header match by id.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>Found match entity.</returns>
+        [AllowAnonymous, HttpGet("header")]
+        public async Task<IActionResult> GetForHeaderAsync()
+        {
+            var helpEntity = await _cache.GetOrCreateAsync(CacheKeysConstants.HeaderMatchId,
+                async x => await _helperService.GetAsync(HelperEntityType.HeaderMatch));
+            if (!string.IsNullOrWhiteSpace(helpEntity))
+            {
+                var result = await _matchService.GetByIdAsync(int.Parse(helpEntity));
+                return Json(result);
+            }
+            return Ok();
+        }
+
+        /// <summary>
+        /// Set new match id value as header match id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [Authorize(Roles = nameof(RolesEnum.InfoStart)), HttpPut("{id:int}/setAsHeader")]
+        public async Task<IActionResult> SetAsHeader(int id)
+        {
+            await _helperService.UpdateAsync(HelperEntityType.HeaderMatch, id > 0 ? id.ToString() : null);
+            _cache.Remove(CacheKeysConstants.HeaderMatchId);
+            return Json(true);
+        }
+
+        /// <summary>
         /// Returns matches for calendar.
         /// </summary>
         /// <returns>Two matches for calendar.</returns>
         [AllowAnonymous, HttpGet("getForCalendar")]
         public async Task<IActionResult> GetForCalendarAsync()
         {
-            var result = await _cache.GetOrCreateAsync(calendarCacheConst,
+            var result = await _cache.GetOrCreateAsync(CacheKeysConstants.CalendarCacheConst,
                 async x => await _matchService.GetForCalendarAsync());
             return Ok(result);
         }
@@ -160,7 +176,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
 
         private void RemoveCalendarFromCache()
         {
-            _cache.Remove(calendarCacheConst);
+            _cache.Remove(CacheKeysConstants.CalendarCacheConst);
         }
     }
 }

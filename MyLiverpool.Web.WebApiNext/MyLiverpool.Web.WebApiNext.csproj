@@ -19,6 +19,9 @@
     <Compile Remove="temp-js\**" />
     <Content Remove="angular2app\**" />
     <Content Remove="package-lock.json" />
+    <Content Remove="wwwroot\src\core.min.js" />
+    <Content Remove="wwwroot\src\library.min.js" />
+    <Content Remove="wwwroot\src\shim.min.js" />
     <Content Remove="temp-js\**" />
     <Content Remove="wwwroot\content\**" />
     <Content Remove="wwwroot\fonts\**" />
@@ -96,5 +99,7 @@
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
   </ItemGroup>
+        
+  <ProjectExtensions><VisualStudio><UserProperties package_1json__JSONSchema="http://json.schemastore.org/resjson" /></VisualStudio></ProjectExtensions>
 
 </Project>

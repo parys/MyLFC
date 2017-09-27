@@ -10,11 +10,15 @@ import { MatchCalendarComponent } from "./match-calendar/index";
 import { MatchDetailComponent } from "./match-detail/index";
 import { MatchService } from "./match.service";
 import { matchRoutes } from "./match.routes";
-import { MatchEventModule } from "../matchEvent/matchEvent.module";
+import { MatchEventModule } from "../matchEvent/index";
+import { MatchPersonModule } from "../matchPerson/index";
+import { CommentModule } from "../materialComment/index";
+import { MatchHeaderComponent } from "./match-header/index";
 
 @NgModule({
     imports: [
         CommonModule,
+        CommentModule,
         FormsModule,
         NgxPaginationModule,
         MdAutocompleteModule,
@@ -22,6 +26,7 @@ import { MatchEventModule } from "../matchEvent/matchEvent.module";
         MdDatepickerModule,
         MdInputModule,
         MatchEventModule,
+        MatchPersonModule,
         ReactiveFormsModule,
         RouterModule.forRoot(matchRoutes)
     ],
@@ -30,12 +35,14 @@ import { MatchEventModule } from "../matchEvent/matchEvent.module";
         MatchListComponent,
         MatchCalendarComponent,
         MatchDetailComponent,
+        MatchHeaderComponent,
     ],
     providers: [
         MatchService,
     ],
     exports: [
-        MatchCalendarComponent
+        MatchCalendarComponent,
+        MatchHeaderComponent
     ]
 })
 export class MatchModule { }  

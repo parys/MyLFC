@@ -21,6 +21,12 @@ namespace MyLiverpool.Data.Common
         [Display(Name = "Выход на замену")]
         SubstitudeIn = 8,
         [Display(Name = "Уход на замену")]
-        SubstitudeOut = 9
+        SubstitudeOut = 9,
+        [Display(Name = "Незабитый пенальти")]
+        NotGoalPenalty = 10,
+        [Display(Name = "Незабитый пенальти в серии")]
+        NotGoalPenaltySeries = 11,
+        [Display(Name = "Травма")]
+        Injury = 12
     }
 }

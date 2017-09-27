@@ -6,11 +6,9 @@ namespace MyLiverpool.Data.Entities
     {
         public int Id { get; set; }
 
-        public int? PersonId { get; set; }
+        public int PersonId { get; set; }
 
         public virtual Person Person { get; set; }
-
-        public string PersonName { get; set; }
 
         public MatchEventType Type { get; set; }
 
@@ -22,8 +20,10 @@ namespace MyLiverpool.Data.Entities
 
         public virtual Match Match { get; set; }
 
-        public string Minute { get; set; }
+        public byte? Minute { get; set; }
 
         public bool Home { get; set; }
+
+        public bool IsOur { get; set; }
     }
 }

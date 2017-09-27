@@ -21,7 +21,12 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
 
         public async Task<Match> GetByIdAsync(int id)
         {
-            return await _context.Matches.Include(m => m.Club).Include(m => m.Stadium).FirstOrDefaultAsync(m => m.Id == id);
+            return await _context.Matches
+                .Include(m => m.Club)
+                .Include(m => m.Stadium)
+                .Include(x => x.Events).ThenInclude(x => x.Person)
+                .Include(x => x.Comments)
+                .FirstOrDefaultAsync(m => m.Id == id);
         }
 
         public async Task<Match> AddAsync(Match entity)
@@ -62,17 +67,12 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             }
             return await query.CountAsync();
         }
-
-        public Task<IEnumerable<Match>> GetListAsync()
-        {
-            throw new NotImplementedException("Not need to implement");
-        }
-
+        
         public async Task<IEnumerable<Match>> GetListAsync(int page, int itemPerPage = 15,
             Expression<Func<Match, bool>> filter = null,
             SortOrder order = SortOrder.Ascending, Expression<Func<Match, object>> orderBy = null)
         {
-            IQueryable<Match> query = _context.Matches.Include(m => m.Club).Include(m => m.Stadium);
+            IQueryable<Match> query = _context.Matches.Include(m => m.Club).Include(m => m.Stadium).Include(x => x.Events);
 
             if (filter != null)
             {
@@ -88,16 +88,18 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
 
         public async Task<Match> GetLastMatchAsync()
         {
-            return await _context.Matches.Include(m => m.Club)
+            return await _context.Matches.Include(m => m.Club).Include(m => m.Events)
                 .OrderBy(m => m.DateTime)
-                .LastOrDefaultAsync(m => !string.IsNullOrWhiteSpace(m.Score));
+                .LastOrDefaultAsync(m => m.DateTime <= DateTimeOffset.Now.AddHours(1.5));
+               // .LastOrDefaultAsync(m => !string.IsNullOrWhiteSpace(m.Score));
         }
 
         public async Task<Match> GetNextMatchAsync()
         {
-            return await _context.Matches.Include(m => m.Club).Include(m => m.Stadium)
+            return await _context.Matches.Include(m => m.Club).Include(m => m.Stadium).Include(m => m.Events)
                 .OrderBy(m => m.DateTime)
-                .FirstOrDefaultAsync(m => string.IsNullOrWhiteSpace(m.Score));
+                .FirstOrDefaultAsync(m => m.DateTime >= DateTimeOffset.Now.AddHours(1.5));
+             //   .FirstOrDefaultAsync(m => string.IsNullOrWhiteSpace(m.Score));
         }
     }
 }

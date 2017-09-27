@@ -25,5 +25,5 @@
         <a *ngIf="item.prevMaterialId" [routerLink]="[+item.type === 1 ? '/news' : '/blogs', item.prevMaterialId]"><span [textContent]="item.prevMaterialTitle"></span>(назад)</a>
         <a *ngIf="item.nextMaterialId" [routerLink]="[+item.type === 1 ? '/news' : '/blogs', item.nextMaterialId]"><span [textContent]="item.nextMaterialTitle"></span>(вперед)</a>
     </div>
-    <comment-section id="comments" [materialId]="item.id" [canCommentary]="item.canCommentary"></comment-section>
+    <comment-section id="comments" [materialId]="item.id" [type]="item.type" [canCommentary]="item.canCommentary"></comment-section>
 </div>

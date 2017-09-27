@@ -17,6 +17,7 @@ export class MatchEventEditPanelComponent implements OnInit {
     public id: number = 0;
     @Input() public matchId: number;
     @Input() public seasonId: number;
+    @Input() public selectedEvent: MatchEvent;
     @Output() public matchEvent = new EventEmitter<MatchEvent>();
     public editMatchEventForm: FormGroup;
     public persons$: Observable<Person[]>;
@@ -49,17 +50,22 @@ export class MatchEventEditPanelComponent implements OnInit {
         const matchEvent: MatchEvent = this.parseForm();
         if (this.id > 0) {
             this.matchEventService.update(this.id, matchEvent)
-                .subscribe(data => {},
+                .subscribe(data => this.emitNewEvent(data),
                 e => console.log(e));
         } else {
             this.matchEventService.create(matchEvent)
-                .subscribe(data => {},
+                .subscribe(data => this.emitNewEvent(data),
                 e => console.log(e));
         }
     }
     
     public selectPerson(id: number) {
         this.editMatchEventForm.get("personId").patchValue(id);
+    }
+
+    private emitNewEvent(event: MatchEvent): void {
+        event.personName = this.editMatchEventForm.get("personName").value;
+        this.matchEvent.emit(event);
     }
     
     private parse(data: MatchEvent): void {
@@ -72,29 +78,28 @@ export class MatchEventEditPanelComponent implements OnInit {
         item.id = this.id;
         item.matchId = this.matchId;
         item.seasonId = this.seasonId;
-        console.warn(this.editMatchEventForm.get("our").value);
-        if (!this.editMatchEventForm.get("our").value) {
-            item.personId = null;
-
-        }
+     //   console.warn(this.editMatchEventForm.get("our").value);
+      //  if (!this.editMatchEventForm.get("our").value) {
+     //       item.personId = null;
+//
+     //   }
         return item;
     }
 
     private initForm(): void {
         this.editMatchEventForm = this.formBuilder.group({
-            personName: ["", Validators.required],
-            personId: [""],
-            type: ["", Validators.required],
-            minute: [0, Validators.required],
-            our: [false]
+            personName: [this.selectedEvent ? this.selectedEvent.personName : "", Validators.required],
+            personId: [this.selectedEvent ? this.selectedEvent.personId : "", Validators.required],
+            type: [this.selectedEvent ? this.selectedEvent.type : "", Validators.required],
+            minute: [this.selectedEvent ? this.selectedEvent.minute : 0, Validators.required],
+            isOur: [this.selectedEvent ? this.selectedEvent.isOur : false]
         });
+        this.id = this.selectedEvent ? this.selectedEvent.id : 0;
 
         this.persons$ = this.editMatchEventForm.controls["personName"].valueChanges
             .debounceTime(this.config.debounceTime)
             .distinctUntilChanged()
-            .switchMap((value: string) => this.personService.getListByName(value)).do(() => {
-                this.editMatchEventForm.controls["our"].patchValue(true);
-            });
+            .switchMap((value: string) => this.personService.getListByName(value));
 
 
     }

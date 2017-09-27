@@ -78,6 +78,11 @@
         </div>
     </div>
     <div *ngFor="let child of item.children">
-        <materialComment-detail [item]="child" [deep]="deep > 6 ? 7 : deep+1" [materialId]="materialId" [canCommentary]="canCommentary" [parent]="item"></materialComment-detail>
+        <materialComment-detail [item]="child" [deep]="deep > 6 ? 7 : deep+1"
+                                [materialId]="materialId"
+                                [canCommentary]="canCommentary"
+                                [parent]="item"
+                                [type]="type"
+                                [matchId]="matchId"></materialComment-detail>
     </div>
 </div>

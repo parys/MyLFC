@@ -28,7 +28,9 @@ namespace MyLiverpool.Business.Dto
         
         public string Answer { get; set; }
 
-        public int MaterialId { get; set; }
+        public int? MaterialId { get; set; }
+
+        public int? MatchId { get; set; }
 
         public int? ParentId { get; set; }
 
@@ -44,6 +46,6 @@ namespace MyLiverpool.Business.Dto
 
         public int NegativeCount { get; set; }
 
-        public MaterialType Type { get; set; }
+        public CommentType Type { get; set; }
     }
 }

@@ -1,4 +1,6 @@
-﻿export class Match {
+﻿import { MatchEvent } from "../matchEvent/matchEvent.model";
+
+export class Match {
     public id: number;
     public isHome: boolean;
     public clubId: number;
@@ -14,11 +16,16 @@
     public typeName: string;
     public stadiumId: number;
     public stadiumName: string;
+    public stadiumCity: string;
     public seasonId: number;
     public seasonName: number;
     public scoreHome: string;
+    public scorePenaltyHome: number;
     public scoreAway: string;
+    public scorePenaltyAway: number;
     public reportUrl: string;
     public photoUrl: string;
     public videoUrl: string;
+    public commentCount: number;
+    public events: MatchEvent[];
 }

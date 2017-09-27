@@ -4,10 +4,12 @@ using System.Threading.Tasks;
 using AspNet.Security.OAuth.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
+using MyLiverpool.Web.WebApiNext.Extensions;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
@@ -19,14 +21,17 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     public class MatchEventController : Controller
     {
         private readonly IMatchEventService _matchEventService;
+        private readonly IMemoryCache _cache;
 
         /// <summary>
         /// Constructor.
         /// </summary>
         /// <param name="matchEventService"></param>
-        public MatchEventController(IMatchEventService matchEventService)
+        /// <param name="cache"></param>
+        public MatchEventController(IMatchEventService matchEventService, IMemoryCache cache)
         {
             _matchEventService = matchEventService;
+            _cache = cache;
         }
 
         /// <summary>
@@ -42,6 +47,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 return BadRequest(ModelState);
             }
             var result = await _matchEventService.CreateAsync(dto);
+
+            _cache.Remove(CacheKeysConstants.CalendarCacheConst);
             return Ok(result);
         }
 
@@ -59,6 +66,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 return BadRequest();
             }
             var result = await _matchEventService.UpdateAsync(dto);
+
+            _cache.Remove(CacheKeysConstants.CalendarCacheConst);
             return Ok(result);
         }
 
@@ -117,6 +126,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         public async Task<IActionResult> DeleteAsync(int id)
         {
             var result = await _matchEventService.DeleteAsync(id);
+
+            _cache.Remove(CacheKeysConstants.CalendarCacheConst);
             return Ok(result);
         }
     }

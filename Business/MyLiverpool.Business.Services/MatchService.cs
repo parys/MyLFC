@@ -54,14 +54,6 @@ namespace MyLiverpool.Business.Services
             return dto;
         }
 
-        public async Task<MatchDto> UpdateScoreAsync(int matchId, string newScore)
-        {
-            var match = await _matchRepository.GetByIdAsync(matchId);
-            match.Score = newScore;
-            await _matchRepository.UpdateAsync(match);
-            return _mapper.Map<MatchDto>(match);
-        }
-
         public async Task<IEnumerable<MatchDto>> GetForCalendarAsync()
         {
             var liverpoolClub = await _clubRepository.GetByEnglishName(LiverpoolClubEnglishName);
@@ -120,6 +112,7 @@ namespace MyLiverpool.Business.Services
             {
                 FillClubsFields(dto, match.Club, liverpoolClub);
             }
+            
             return dto;
         }
 

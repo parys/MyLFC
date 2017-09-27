@@ -955,7 +955,7 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                     AuthorId = new Random().Next(_context.Users.First().Id, _context.Users.Last().Id),
                     Message = "message " + i,
                     Pending = (i + 3) % 5 == 0,
-                    MaterialType = NewsType,
+                    Type = CommentType.News,
                     LastModified = DateTime.Now,
                 };
                 if (i % 3 == 0)
@@ -970,7 +970,7 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                             AdditionTime = DateTime.Now,
                     AuthorId = new Random().Next(_context.Users.First().Id, _context.Users.Last().Id),
                             Message = "comment inside",
-                            MaterialType = NewsType,
+                            Type = CommentType.News,
                             LastModified = DateTime.Now,
                         }
                     };
@@ -989,7 +989,7 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                 AdditionTime = DateTime.Now,
                 AuthorId = new Random().Next(_context.Users.First().Id, _context.Users.Last().Id),
                 Message = "comment first",
-                MaterialType = NewsType,
+                Type = CommentType.News,
                 LastModified = DateTime.Now,
                 Children = new List<MaterialComment>()
                 {
@@ -1001,7 +1001,7 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                         AdditionTime = DateTime.Now,
                     AuthorId = new Random().Next(_context.Users.First().Id, _context.Users.Last().Id),
                         Message = "comment second inside",
-                        MaterialType = NewsType,
+                        Type = CommentType.News,
                         LastModified = DateTime.Now,
                         Children = new List<MaterialComment>()
                         {
@@ -1013,7 +1013,7 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                                 AdditionTime = DateTime.Now,
                     AuthorId = new Random().Next(_context.Users.First().Id, _context.Users.Last().Id),
                                 Message = "comment three inside",
-                                MaterialType = NewsType,
+                                Type = CommentType.News,
                                 LastModified = DateTime.Now,
                             }
                         }
@@ -1107,7 +1107,7 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
 
         private async Task InitializeBlogComments()
         {
-            var type = BlogType;
+            const CommentType type = CommentType.Blogs;
             var newsComments = new List<MaterialComment>();
             var random = new Random((int)DateTime.UtcNow.Ticks);
             for (int i = 0; i < CountNewsComments; i++)
@@ -1120,7 +1120,7 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                     AuthorId = random.Next(1, CountUsers),
                     Message = "message " + i,
                     Pending = (i + 3) % 5 == 0,
-                    MaterialType = type,
+                    Type = type,
                     LastModified = DateTime.Now,
                 };
                 if (i % 3 == 0)
@@ -1135,7 +1135,7 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                             AdditionTime = DateTime.Now,
                             AuthorId = random.Next(1, CountUsers),
                             Message = "comment inside",
-                            MaterialType = type,
+                            Type = type,
                             LastModified = DateTime.Now,
                         }
                     };
@@ -1154,7 +1154,7 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                 AdditionTime = DateTime.Now,
                 AuthorId = 1,
                 Message = "comment first",
-                MaterialType = type,
+                Type = type,
                 LastModified = DateTime.Now,
                 Children = new List<MaterialComment>()
                 {
@@ -1166,7 +1166,7 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                         AdditionTime = DateTime.Now,
                         AuthorId = 2,
                         Message = "comment second inside",
-                        MaterialType = type,
+                        Type = type,
                         LastModified = DateTime.Now,
                         Children = new List<MaterialComment>()
                         {
@@ -1178,7 +1178,7 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                                 AdditionTime = DateTime.Now,
                                 AuthorId = 3,
                                 Message = "comment three inside",
-                                MaterialType = type,
+                                Type = type,
                                 LastModified = DateTime.Now,
                             }
                         }
@@ -1344,7 +1344,7 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                 StadiumId = 1,
                 IsHome = false,
                 MatchType = MatchTypeEnum.Apl,
-                Score = "3-3",
+                //Score = "3-3",
                 SeasonId = 1
             };
 

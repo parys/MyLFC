@@ -369,13 +369,13 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
 
                     b.Property<bool>("Home");
 
+                    b.Property<bool>("IsOur");
+
                     b.Property<int>("MatchId");
 
-                    b.Property<string>("Minute");
+                    b.Property<byte?>("Minute");
 
-                    b.Property<int?>("PersonId");
-
-                    b.Property<string>("PersonName");
+                    b.Property<int>("PersonId");
 
                     b.Property<int>("SeasonId");
 
@@ -390,6 +390,21 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.HasIndex("SeasonId");
 
                     b.ToTable("MatchEvents");
+                });
+
+            modelBuilder.Entity("MyLiverpool.Data.Entities.MatchPerson", b =>
+                {
+                    b.Property<int>("MatchId");
+
+                    b.Property<int>("PersonId");
+
+                    b.Property<int>("PersonType");
+
+                    b.HasKey("MatchId", "PersonId");
+
+                    b.HasIndex("PersonId");
+
+                    b.ToTable("MatchPersons");
                 });
 
             modelBuilder.Entity("MyLiverpool.Data.Entities.Material", b =>
@@ -475,9 +490,9 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
 
                     b.Property<DateTimeOffset>("LastModified");
 
-                    b.Property<int>("MaterialId");
+                    b.Property<int?>("MatchId");
 
-                    b.Property<int>("MaterialType");
+                    b.Property<int?>("MaterialId");
 
                     b.Property<string>("Message");
 
@@ -489,9 +504,13 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
 
                     b.Property<bool>("Pending");
 
+                    b.Property<int>("Type");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AuthorId");
+
+                    b.HasIndex("MatchId");
 
                     b.HasIndex("MaterialId");
 
@@ -1046,6 +1065,19 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
+            modelBuilder.Entity("MyLiverpool.Data.Entities.MatchPerson", b =>
+                {
+                    b.HasOne("MyLiverpool.Data.Entities.Match", "Match")
+                        .WithMany("Persons")
+                        .HasForeignKey("MatchId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("MyLiverpool.Data.Entities.Person", "Person")
+                        .WithMany("Matches")
+                        .HasForeignKey("PersonId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
             modelBuilder.Entity("MyLiverpool.Data.Entities.Material", b =>
                 {
                     b.HasOne("MyLiverpool.Data.Entities.User", "Author")
@@ -1064,6 +1096,11 @@ namespace MyLiverpool.Data.ResourceAccess.Migrations
                     b.HasOne("MyLiverpool.Data.Entities.User", "Author")
                         .WithMany("Comments")
                         .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("MyLiverpool.Data.Entities.Match", "Match")
+                        .WithMany("Comments")
+                        .HasForeignKey("MatchId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("MyLiverpool.Data.Entities.Material", "Material")

@@ -7,8 +7,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
+using MyLiverpool.Business.Dto.Filters;
 using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
+using Newtonsoft.Json;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {   
@@ -58,19 +60,32 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <summary>
         /// Returns pageable person list.
         /// </summary>
-        /// <param name="page">Current page.</param>
         /// <returns>Persons list.</returns>
-        [AllowAnonymous, HttpGet("list")]
-        public async Task<IActionResult> GetListAsync([FromQuery]int page = 1)
+        [AllowAnonymous, HttpGet("list/{filtersObj}")]
+        public async Task<IActionResult> GetListAsync([FromRoute] string filtersObj)
         {
-            if (page < 1)
+            PersonFiltersDto filters;
+            if (filtersObj == null)
             {
-                page = 1;
+                filters = GetBasicPersonFilters();
             }
-            var result = await _personService.GetListAsync(page);
+            else
+            {
+                filters = (PersonFiltersDto)JsonConvert.DeserializeObject(filtersObj, typeof(PersonFiltersDto));
+            }
+            var result = await _personService.GetListAsync(filters);
             return Ok(result);
-        }   
-        
+        }
+
+        private PersonFiltersDto GetBasicPersonFilters()
+        {
+            return new PersonFiltersDto
+            {
+                Page = 1,
+                Type = null
+            };
+        }
+
         /// <summary>
         /// Returns stuff list.
         /// </summary>

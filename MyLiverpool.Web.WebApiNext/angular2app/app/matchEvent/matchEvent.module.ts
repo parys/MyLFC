@@ -1,6 +1,6 @@
 ﻿import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { MdInputModule, MdButtonModule, MdAutocompleteModule, MdSelectModule, MdSlideToggleModule } from "@angular/material";
+import { MdInputModule, MdButtonModule, MdAutocompleteModule, MdSelectModule, MdSlideToggleModule, MdIconModule } from "@angular/material";
 import { RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
 import { NgxPaginationModule } from "ngx-pagination";
@@ -18,11 +18,12 @@ import { MatchEventMatchPanelComponent } from "./matchEvent-match-panel/index";
         MdSlideToggleModule,
         MdAutocompleteModule,
         MdButtonModule,
+        MdIconModule,
         MdInputModule,
         MdSelectModule,
         NgxPaginationModule,
         ReactiveFormsModule,
-        RouterModule.forRoot(matchEventRoutes),
+      //  RouterModule.forRoot(matchEventRoutes),
         SharedModule
     ],
     declarations: [

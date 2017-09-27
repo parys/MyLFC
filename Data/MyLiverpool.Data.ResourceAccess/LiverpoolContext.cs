@@ -43,6 +43,7 @@ namespace MyLiverpool.Data.ResourceAccess
         public DbSet<Injury> Injuries { get; set; }
         public DbSet<Loan> Loans { get; set; }
         public DbSet<MatchEvent> MatchEvents { get; set; }
+        public DbSet<MatchPerson> MatchPersons { get; set; }
 
         //public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         //{
@@ -72,7 +73,8 @@ namespace MyLiverpool.Data.ResourceAccess
             modelBuilder.Entity<Material>().HasOne(x => x.Author).WithMany(x => x.Materials).HasForeignKey(x => x.AuthorId);
             
             modelBuilder.Entity<Material>().HasOne(x => x.Category).WithMany(x => x.Materials).HasForeignKey(x => x.CategoryId);
-            modelBuilder.Entity<MaterialComment>().HasOne(u => u.Material).WithMany(x => x.Comments).HasForeignKey(x => x.MaterialId);
+            modelBuilder.Entity<MaterialComment>().HasOne(u => u.Material).WithMany(x => x.Comments).HasForeignKey(x => x.MaterialId).IsRequired(false);
+            modelBuilder.Entity<MaterialComment>().HasOne(u => u.Match).WithMany(x => x.Comments).HasForeignKey(x => x.MatchId).IsRequired(false);
             
 
             modelBuilder.Entity<ForumSubsection>().HasOne(x => x.Section).WithMany(x => x.Subsections).HasForeignKey(x => x.SectionId);
@@ -102,6 +104,18 @@ namespace MyLiverpool.Data.ResourceAccess
                 .WithMany(t => t.RoleGroups)
                 .HasForeignKey(pt => pt.RoleGroupId);
 
+
+            modelBuilder.Entity<MatchPerson>().HasKey(t => new { t.MatchId, t.PersonId });
+            modelBuilder.Entity<MatchPerson>()
+                .HasOne(pt => pt.Match)
+                .WithMany(p => p.Persons)
+                .HasForeignKey(pt => pt.MatchId);
+
+            modelBuilder.Entity<MatchPerson>()
+                .HasOne(pt => pt.Person)
+                .WithMany(t => t.Matches)
+                .HasForeignKey(pt => pt.PersonId);
+
             modelBuilder.Entity<PrivateMessage>().HasOne(x => x.Sender).WithMany(x => x.SentPrivateMessages).HasForeignKey(x => x.SenderId);
             modelBuilder.Entity<PrivateMessage>().HasOne(x => x.Receiver).WithMany(x => x.ReceivedPrivateMessages).HasForeignKey(x => x.ReceiverId);
 
@@ -120,9 +134,9 @@ namespace MyLiverpool.Data.ResourceAccess
             modelBuilder.Entity<Loan>().HasOne(x => x.Person).WithMany(x => x.Loans).HasForeignKey(x => x.PersonId);
             modelBuilder.Entity<Loan>().HasOne(x => x.Club).WithMany(x => x.Loans).HasForeignKey(x => x.ClubId);
             modelBuilder.Entity<Injury>().HasOne(x => x.Person).WithMany(x => x.Injuries).HasForeignKey(x => x.PersonId);
-
+            
             modelBuilder.Entity<MatchEvent>().HasOne(x => x.Season).WithMany(x => x.Events).HasForeignKey(x => x.SeasonId);
-            modelBuilder.Entity<MatchEvent>().HasOne(x => x.Person).WithMany(x => x.Events).HasForeignKey(x => x.PersonId).IsRequired(false);
+            modelBuilder.Entity<MatchEvent>().HasOne(x => x.Person).WithMany(x => x.Events).HasForeignKey(x => x.PersonId);
             modelBuilder.Entity<MatchEvent>().HasOne(x => x.Match).WithMany(x => x.Events).HasForeignKey(x => x.MatchId);
             //research todo maybe it doesn't need https://docs.microsoft.com/en-us/aspnet/core/migration/1x-to-2x/identity-2x
             modelBuilder.Entity<User>()

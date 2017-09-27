@@ -84,6 +84,23 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         }
 
         /// <summary>
+        /// Returns pageable comments list for match.
+        /// </summary>
+        /// <param name="id">The identifier of match.</param>
+        /// <param name="page">The page of comments list.</param>
+        /// <returns>Selected page comments list for match.</returns>
+        [AllowAnonymous, HttpGet("match/{id:int}/list/{page:int}")]
+        public async Task<IActionResult> GetListForMatchAsync(int id, int page = 1)
+        {
+            if (page < 1)
+            {
+                page = 1;
+            }
+            var result = await _commentService.GetListByMatchIdAsync(id, page);
+            return Ok(result);
+        }
+
+        /// <summary>
         /// Mark comment as verified by moderator.
         /// </summary>
         /// <param name="id">Id of verifiable comment.</param>

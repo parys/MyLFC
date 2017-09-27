@@ -24,7 +24,7 @@ namespace MyLiverpool.Common.Mappings
                 .ForMember(dest => dest.Children, src => src.MapFrom(x => x.Children))
                 .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id))
                 .ForMember(dest => dest.MaterialId, src => src.MapFrom(x => x.MaterialId))
-                .ForMember(dest => dest.Type, src => src.MapFrom(x => x.MaterialType))
+                .ForMember(dest => dest.Type, src => src.MapFrom(x => x.Type))
                 .ForMember(dest => dest.PositiveCount, src => src.MapFrom(x => x.CommentVotes.Count(y => y.Positive)))
                 .ForMember(dest => dest.NegativeCount, src => src.MapFrom(x => -1*x.CommentVotes.Count(y => !y.Positive)))
                 .ForMember(dest => dest.CanPositiveVote, src => src.MapFrom(x => CanComment(x.CommentVotes, x.CurrentUserId, true)))
@@ -37,6 +37,7 @@ namespace MyLiverpool.Common.Mappings
                 .ForMember(dest => dest.AuthorId, src => src.MapFrom(x => x.AuthorId))
                 .ForMember(dest => dest.Message, src => src.MapFrom(x => x.Message.Trim()))
                 .ForMember(dest => dest.MaterialId, src => src.MapFrom(x => x.MaterialId))
+                .ForMember(dest => dest.MatchId, src => src.MapFrom(x => x.MatchId))
                 .ForMember(dest => dest.ParentId, src => src.MapFrom(x => x.ParentId));
 
             CreateMap<CommentVoteDto, CommentVote>();

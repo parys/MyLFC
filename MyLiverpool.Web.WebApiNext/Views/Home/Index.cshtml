@@ -1,6 +1,10 @@
 ﻿@*<app asp-prerender-module="angular2app/dist/main-server">Загружаемся...</app>*@
 <app>Загружаемся...</app>
 @section scripts {
+    <script type="text/javascript">
+        if(/MSIE \d|Trident.*rv:/.test(navigator.userAgent))
+            document.write('<script src="./src/core.min.js"><\/script>');
+    </script>
     <environment names="Development">
         <script src="~/src/vendor.js" asp-append-version="true"></script>
         <script src="~/src/main-client.js" asp-append-version="true"></script>

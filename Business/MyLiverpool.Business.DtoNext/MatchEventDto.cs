@@ -7,13 +7,15 @@ namespace MyLiverpool.Business.Dto
     {
         public int Id { get; set; }
 
-        public int? PersonId { get; set; }
-        
         [Required]
+        public int PersonId { get; set; }
+        
         public string PersonName { get; set; }
 
         [Required]
         public MatchEventType Type { get; set; }
+
+        public string TypeName { get; set; }
 
         [Required]
         public int SeasonId { get; set; }
@@ -23,10 +25,9 @@ namespace MyLiverpool.Business.Dto
         [Required]
         public int MatchId { get; set; }
 
-        //  public string SeasonName { get; set; }
-
-        [Required]
-        public string Minute { get; set; }
+        public bool IsOur { get; set; }
+        
+        public byte? Minute { get; set; }
 
         [Required]
         public bool Home { get; set; }

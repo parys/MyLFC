@@ -152,6 +152,10 @@ textarea {
     border-left: 5px solid #731010;
 }
 
+.bottom10 {
+    margin-bottom: 10px;
+}
+
 .breadcrumb {
     margin-bottom: 0;
 }
@@ -235,6 +239,10 @@ textarea {
 
 .color-back-maroon {
     background-color: maroon;
+}
+
+.color-green {
+    color: green;
 }
 
 .color-red {
@@ -494,6 +502,10 @@ textarea {
         font-size: large;
     }
 
+    .text-right {
+        text-align: right;
+    }
+
     @media (min-width: 768px) {
         .dropdown:hover .dropdown-menu {
             display: block;
@@ -573,6 +585,11 @@ textarea {
     .validation.text-danger {
         font-style: italic;
     }
+
+    .width20px {
+        width: 20px;
+    }
+
 
     .width50p {
         width: 50%;

@@ -43,9 +43,13 @@ namespace MyLiverpool.Data.Entities
 
         public virtual Material Material { get; set; }
 
-        public int MaterialId { get; set; }
+        public int? MaterialId { get; set; }
 
-        public MaterialType MaterialType { get; set; }
+        public virtual Match Match { get; set; }
+
+        public int? MatchId { get; set; }
+
+        public CommentType Type { get; set; }
 
         public bool IsVerified { get; set; }
 

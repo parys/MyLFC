@@ -3,7 +3,7 @@ import { ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
 import { Observable } from "rxjs/Observable";
 import { MaterialCommentService } from "../materialComment.service";
-import { MaterialComment } from "../materialComment.model";
+import { Comment as MaterialComment } from "../materialComment.model";
 import { Configuration } from "../../app.constants";
 
 @Component({
@@ -43,5 +43,15 @@ export class LastCommentsComponent implements OnInit, OnDestroy {
             .getLastList()
             .subscribe(data => this.items = data,
                 error => console.log(error));
+    }
+
+    public getLink(type: number): string {
+        if (type === 1) {
+            return "/news";
+        } else if (type === 2) {
+            return "/blogs";
+        }else if (type === 3) {
+            return "/matches";
+        }
     }
 }

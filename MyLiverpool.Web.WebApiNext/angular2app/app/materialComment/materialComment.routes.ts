@@ -1,5 +1,5 @@
 ﻿import { Routes } from "@angular/router";
-import { MaterialCommentListComponent } from "./index";
+import { MaterialCommentListComponent } from "./materialComment-list/index";
 
 export const materialCommentRoutes: Routes = [
     {

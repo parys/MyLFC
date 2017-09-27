@@ -6,11 +6,6 @@ namespace MyLiverpool.Data.Entities
 {
     public class Match : IEntity
     {
-        public Match()
-        {
-            Events = new HashSet<MatchEvent>();
-        }
-
         public int Id { get; set; }
 
         public bool IsHome { get; set; }
@@ -23,11 +18,11 @@ namespace MyLiverpool.Data.Entities
 
         public MatchTypeEnum MatchType { get; set; }
 
-        public string Score { get; set; }
-
         public virtual Season Season { get; set; }
 
         public int SeasonId { get; set; }
+
+        public string Score { get; set; } //should be removed in future todo
 
         public string ReportUrl { get; set; }
 
@@ -39,6 +34,10 @@ namespace MyLiverpool.Data.Entities
 
         public virtual Stadium Stadium { get; set; }
 
-        public virtual ICollection<MatchEvent> Events { get; set; }
+        public virtual ICollection<MatchEvent> Events { get; set; } = new HashSet<MatchEvent>();
+
+        public virtual ICollection<MatchPerson> Persons { get; set; } = new HashSet<MatchPerson>();
+
+        public virtual ICollection<MaterialComment> Comments { get; set; } = new HashSet<MaterialComment>();
     }
 }

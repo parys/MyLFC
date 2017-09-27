@@ -14,35 +14,35 @@ export class MaterialService {
         this.actionUrl = "material/";
     }
 
-    public getAll = (filters: MaterialFilters): Observable<Pageable<Material>> => {
+    public getAll(filters: MaterialFilters): Observable<Pageable<Material>> {
         return this.http.get<Pageable<Material>>(this.actionUrl + "list/" + encodeURIComponent(JSON.stringify(filters)));
     };
 
-    public getSingle = (id: number): Observable<Material> => {
+    public getSingle(id: number): Observable<Material> {
         return this.http.get<Material>(this.actionUrl + id);
     };
 
-    public create = (item: Material, type: MaterialType): Observable<Material> => {
+    public create(item: Material, type: MaterialType): Observable<Material> {
         return this.http.post<Material>(`${this.actionUrl}${MaterialType[type]}/`, JSON.stringify(item));
     };
 
-    public update = (id: number, itemToUpdate: Material): Observable<Material> => {
+    public update(id: number, itemToUpdate: Material): Observable<Material> {
         return this.http.put<Material>(this.actionUrl + id, JSON.stringify(itemToUpdate));
     };
 
-    public delete = (id: number): Observable<boolean> => {
+    public delete(id: number): Observable<boolean> {
         return this.http.delete<boolean>(this.actionUrl + id);
     };
 
-    public addView = (id: number): Observable<boolean> => {
+    public addView(id: number): Observable<boolean> {
         return this.http.get<boolean>(this.actionUrl + "addView/" + id);
     };
 
-    public activate = (id: number): Observable<boolean> => {
+    public activate(id: number): Observable<boolean> {
         return this.http.get<boolean>(this.actionUrl + "activate/" + id);
     };
 
-    public extractPhoto = (url: string): Observable<string[]> => {
+    public extractPhoto(url: string): Observable<string[]> {
         return this.http.get<string[]>(this.actionUrl + "imageLinks/" + url);
     }
 }

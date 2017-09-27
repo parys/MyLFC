@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace MyLiverpool.Business.Dto
 {
@@ -32,11 +33,17 @@ namespace MyLiverpool.Business.Dto
 
         public string StadiumName { get; set; }
 
+        public string StadiumCity { get; set; }
+
         public int StadiumId { get; set; }
 
         public string ScoreHome { get; set; }
 
+        public int? ScorePenaltyHome { get; set; }
+
         public string ScoreAway { get; set; }
+
+        public int? ScorePenaltyAway { get; set; }
 
         public int SeasonId { get; set; }
 
@@ -47,5 +54,9 @@ namespace MyLiverpool.Business.Dto
         public string PhotoUrl { get; set; }
 
         public string VideoUrl { get; set; }
-    }
+
+        public virtual IEnumerable<MatchEventDto> Events { get; set; } = new HashSet<MatchEventDto>();
+
+        public int CommentCount { get; set; }
+}
 }

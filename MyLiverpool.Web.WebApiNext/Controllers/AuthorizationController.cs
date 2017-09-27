@@ -99,7 +99,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                         });
                 }
 
-                if (_userManager.SupportsUserLockout && await _userManager.IsLockedOutAsync(user))
+                if (_userManager.SupportsUserLockout && !await _userManager.IsLockedOutAsync(user))
                 {
                     await _userManager.ResetAccessFailedCountAsync(user);
                 }

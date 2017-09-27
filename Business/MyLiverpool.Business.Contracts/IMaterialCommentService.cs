@@ -23,5 +23,7 @@ namespace MyLiverpool.Business.Contracts
         Task<bool> UpdateVoteAsync(CommentVoteDto dto);
 
         Task<IEnumerable<MaterialCommentDto>> GetLastListAsync();
+
+        Task<PageableData<MaterialCommentDto>> GetListByMatchIdAsync(int matchId, int page);
     }
 }
