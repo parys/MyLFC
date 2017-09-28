@@ -36,7 +36,7 @@ import "tinymce/plugins/visualblocks";*/
             multi: true
         }],
     
-    template: `<textarea class="form-control" id="{{elementId}}">{{_value}}</textarea>`
+    template: `<textarea id="{{elementId}}">{{_value}}</textarea>`
 })
 /*export class EditorComponent {
     @Output() public change = new EventEmitter();
@@ -57,7 +57,7 @@ export class EditorComponent implements ControlValueAccessor {
     @Input() public height: number = 200;
     public elementId: string = Math.random().toString(36).substring(2);
     public zone: NgZone;
-    ClientSide: boolean;
+    public clientSide: boolean;
  //   public tinymce: EditorManager = new EditorManager();
     public editor: Editor;
 
@@ -70,13 +70,14 @@ export class EditorComponent implements ControlValueAccessor {
     }
 
     constructor(zone: NgZone) {
-        this.ClientSide = typeof window !== 'undefined'
+        this.clientSide = typeof window !== "undefined";
         this.zone = zone;
     }
 
     public get value(): string {
         return this._value;
     };
+
     public set value(value: string) {
         if (value !== this._value) {
             this._value = value;
@@ -159,9 +160,8 @@ export class EditorComponent implements ControlValueAccessor {
     }
 
     private initTiny(): void {
-        let settings1: Settings = {
+        const settings1: Settings = {
             // autoresize_overflow_padding: 0,
-            
             selector: `#${this.elementId}`,
             schema: "html5",
             fontsize_formats: "8pt 9pt 10pt 11pt 12pt 14pt 16pt 18pt",
@@ -185,18 +185,35 @@ export class EditorComponent implements ControlValueAccessor {
             },
             skin_url: "/src/lightgray",
             setup: (editor: Editor) => {
-                this.editor = editor;
-                editor.on("change", () => {
-                    const content: any = editor.getContent();
-                    this.updateValue(content);
-                });
-                editor.on("keyup", () => {
-                    const content: any = editor.getContent();
-                    this.updateValue(content);
-                });
-            }
+            this.editor = editor;
+            editor.on("change", () => {
+                const content: any = editor.getContent();
+                this.updateValue(content);
+            });
+            editor.on("keyup", () => {
+                const content: any = editor.getContent();
+                this.updateValue(content);
+            });
+        }
         }
 
         tinymce.init(settings1);
+
+    }
+
+    private setupFunction(editor: Editor) {
+        this.editor = editor;
+        if (editor) {
+            editor.on("change",
+                () => {
+                    const content: any = editor.getContent();
+                    this.updateValue(content);
+                });
+            editor.on("keyup",
+                () => {
+                    const content: any = editor.getContent();
+                    this.updateValue(content);
+                });
+        }
     }
 }

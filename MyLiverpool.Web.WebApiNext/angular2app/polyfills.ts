@@ -1,5 +1,5 @@
 ﻿import "reflect-metadata";
-import "core-js/shim";
+//import "core-js/shim";
 /*import "core-js/es6/object";
 import "core-js/es6/function";
 import "core-js/es6/parse-int";

@@ -9,12 +9,11 @@ import { Configuration } from "../app.constants";
 import { ChatMessage } from "./chatMessage.model";
 import { ChatMessageType } from "./chatMessageType.enum";
 import { ChatMessageService } from "./chatMessage.service";
-import { RolesCheckedService, IRoles, DeleteDialogComponent, StorageService } from "../shared/index";
+import { RolesCheckedService, DeleteDialogComponent, StorageService } from "../shared/index";
 
 @Component({
     selector: "mini-chat",
-    templateUrl: "./miniChat.component.html",
-    changeDetection: ChangeDetectionStrategy.OnPush
+    templateUrl: "./miniChat.component.html"
 })
 export class MiniChatComponent implements OnInit, OnDestroy {
     private sub: Subscription;
@@ -22,7 +21,6 @@ export class MiniChatComponent implements OnInit, OnDestroy {
     public messageForm: FormGroup;
     public chatTimerForm: FormGroup;
     public items: ChatMessage[] = new Array<ChatMessage>();
-    public roles: IRoles;
     public selectedEditIndex: number = null;
     public intervalArray: { key: string, value: number }[]
  = [{ key: "---", value: 0 },
@@ -38,13 +36,12 @@ export class MiniChatComponent implements OnInit, OnDestroy {
         private snackBar: MdSnackBar,
         private configuration: Configuration,
         private sanitizer: DomSanitizer,
-        private rolesChecked: RolesCheckedService,
+        public roles: RolesCheckedService,
         private storage: StorageService,
         private dialog: MdDialog) {
     }
 
     public ngOnInit(): void {
-        this.roles = this.rolesChecked.checkRoles();
         this.initForm();
         this.update();
     }
