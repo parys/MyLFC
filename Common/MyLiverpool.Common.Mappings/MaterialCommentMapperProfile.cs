@@ -25,6 +25,7 @@ namespace MyLiverpool.Common.Mappings
                 .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id))
                 .ForMember(dest => dest.MaterialId, src => src.MapFrom(x => x.MaterialId))
                 .ForMember(dest => dest.Type, src => src.MapFrom(x => x.Type))
+                .ForMember(dest => dest.TypeName, src => src.MapFrom(x => x.Type.ToString().ToLowerInvariant()))
                 .ForMember(dest => dest.PositiveCount, src => src.MapFrom(x => x.CommentVotes.Count(y => y.Positive)))
                 .ForMember(dest => dest.NegativeCount, src => src.MapFrom(x => -1*x.CommentVotes.Count(y => !y.Positive)))
                 .ForMember(dest => dest.CanPositiveVote, src => src.MapFrom(x => CanComment(x.CommentVotes, x.CurrentUserId, true)))

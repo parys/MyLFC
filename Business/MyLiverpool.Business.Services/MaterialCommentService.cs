@@ -239,18 +239,8 @@ namespace MyLiverpool.Business.Services
 
         private async Task SendNotificationToPmAsync(MaterialComment parentComment)
         {
-            var link = "";
-            if (parentComment.Type == CommentType.News)
-            {
-                link = "news";
-            } else if (parentComment.Type == CommentType.Blogs)
-            {
-                link = "blogs";
-            } else if (parentComment.Type == CommentType.Match)
-            {
-                link = "matches";
-            }
-                //todo need to refactor
+            var link = parentComment.Type.ToString().ToLowerInvariant();
+            
             var pmDto = new PrivateMessageDto
             {
                 SenderId = GlobalConstants.MyLfcUserId,
@@ -275,20 +265,8 @@ namespace MyLiverpool.Business.Services
         private string GetNotificationEmailBody(MaterialComment parentComment)
         {
             var host = _accessor.HttpContext.Request.Host;
-            var link = "";
-            if (parentComment.Type == CommentType.News)
-            {
-                link = "news";
-            }
-            else if (parentComment.Type == CommentType.Blogs)
-            {
-                link = "blogs";
-            }
-            else if (parentComment.Type == CommentType.Match)
-            {
-                link = "matches";
-            }
-            //todo need to refactor
+
+            var link = parentComment.Type.ToString().ToLowerInvariant();
 
             var callbackUrl = $"http://{host}/{link}/{parentComment.MaterialId ?? parentComment.MatchId}";
             return $"На ваш комментарий получен ответ, <a href=\"{callbackUrl}\">перейти к материалу</a>.";

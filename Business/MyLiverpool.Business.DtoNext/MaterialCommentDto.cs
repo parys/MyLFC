@@ -47,5 +47,7 @@ namespace MyLiverpool.Business.Dto
         public int NegativeCount { get; set; }
 
         public CommentType Type { get; set; }
+
+        public string TypeName { get; set; }
     }
 }
