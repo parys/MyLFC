@@ -16,6 +16,7 @@ export class MatchPersonPanelComponent implements OnInit {
     public isEdit: boolean = false;
     public selectedMatchPerson: MatchPerson;
     public selectedIndex: number;
+    public selectedType: number;
     public homeTeam: MatchPerson[] = [];
     public homeBench: MatchPerson[] = [];
     public homeCoach: MatchPerson;
@@ -43,14 +44,16 @@ export class MatchPersonPanelComponent implements OnInit {
             e => console.log(e));
     }
 
-    public addMatchPerson(): void {
+    public addMatchPerson(typeId: number = null): void {
         this.isEdit = true;
+        this.selectedType = typeId;
     }
 
     public cancelMatchPersonEdit(): void {
         this.selectedMatchPerson = null;
         this.isEdit = false;
         this.selectedIndex = null;
+        this.selectedType = null;
     }
 
     public updateMatchPerson(person: MatchPerson) {

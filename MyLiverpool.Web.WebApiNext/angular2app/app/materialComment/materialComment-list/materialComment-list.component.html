@@ -24,7 +24,7 @@
                 <div [innerHTML]="comment.message"></div>
             </div>
             <div class="panel-footer">
-                <div> <span [textContent]="comment.additionTime | date:'medium'"></span><a class="pull-right" [routerLink]="[+comment.type === 1 ? '/news' : '/blogs', comment.materialId]">Материал</a></div>
+                <div> <span [textContent]="comment.additionTime | date:'medium'"></span><a class="pull-right" [routerLink]="['/', comment.typeName, comment.materialId || comment.matchId]">Материал</a></div>
             </div>
         </div>
     </div>

@@ -41,7 +41,7 @@ namespace MyLiverpool.Business.Services
             return await CreateAsync(dto);
         }
 
-        public async Task<bool> DeleteAsync(int id)
+        public Task<bool> DeleteAsync(int id)
         {
             throw new NotImplementedException("Complex key");
         }

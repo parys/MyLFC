@@ -10,7 +10,13 @@ export class StorageService {
 
     public retrieveTokens(): IAuthTokenModel {
         const tokensString = this.get("auth-tokens");
-        return tokensString ? JSON.parse(tokensString) : null;
+        if (tokensString) {
+            const tokens: IAuthTokenModel = JSON.parse(tokensString);
+            tokens.refresh_token = this.getRefreshToken();
+            return tokens;
+        } else {
+            return null;
+        }
     }
 
     public getRoles(): string[] {
@@ -33,11 +39,20 @@ export class StorageService {
         this.remove("roles");
         this.remove("userId");
         this.remove("auth-tokens");
+        this.remove("refresh-token");
     }
 
     public setAuthTokens(item: any): boolean {
         this.set("auth-tokens", JSON.stringify(item));
         return true;
+    }
+
+    public setRefreshToken(token: string): void {
+        this.set("refresh-token", token);
+    }
+
+    public getRefreshToken(): string {
+        return this.get("refresh-token");
     }
 
     public setRoles(roles: string[]): void {

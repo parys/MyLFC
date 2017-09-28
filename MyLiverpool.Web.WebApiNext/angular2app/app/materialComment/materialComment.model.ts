@@ -17,5 +17,6 @@
     public positiveCount: number;
     public negativeCount: number;
     public type: number;
+    public typeName: string;
     public matchId: number;
 }

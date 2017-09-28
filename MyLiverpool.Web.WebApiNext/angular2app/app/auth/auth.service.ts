@@ -114,7 +114,10 @@ export class AuthService {
              //   const profile: IProfileModel = new Object();// jwtDecode(tokens.id_token);
 
                 this.storage.setAuthTokens(tokens);
-              //  this.updateState({ authReady: true, tokens, profile });
+                if (tokens.refresh_token) {
+                    this.storage.setRefreshToken(tokens.refresh_token);
+                }
+                //  this.updateState({ authReady: true, tokens, profile });
                 this.updateState({ authReady: true, tokens });
                 this.getUserProfile();
     });

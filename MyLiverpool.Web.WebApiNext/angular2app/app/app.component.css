@@ -178,6 +178,10 @@ textarea {
     max-width: 45px;
 }
 
+.inline-flex {
+    display: inline-flex;
+}
+
 .com-offset-0 {
     margin-left: 0;
 }

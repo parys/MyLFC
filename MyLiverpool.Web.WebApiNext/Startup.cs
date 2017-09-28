@@ -128,10 +128,8 @@ namespace MyLiverpool.Web.WebApiNext
                     //    .SetIdentityTokenLifetime(TimeSpan.FromDays(14))
                     //   .SetAccessTokenLifetime(TimeSpan.FromSeconds(10))
                     .SetRefreshTokenLifetime(TimeSpan.FromDays(14))
-                    //todo shouldUse ??  .UseJsonWebTokens()
                     // During development, you can disable the HTTPS requirement.
                     .DisableHttpsRequirement()
-                    //    .AddSigningKey(new RsaSecurityKey(new RSACng(CngKey.Create(new CngAlgorithm("")))))
                     // When request caching is enabled, authorization and logout requests
                     // are stored in the distributed cache by OpenIddict and the user agent
                     // is redirected to the same page with a single parameter (request_id).

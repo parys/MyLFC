@@ -19,6 +19,7 @@ export class MatchPersonEditPanelComponent implements OnInit {
     public isEdit: boolean = false;
     @Input() public matchId: number;
     @Input() public selectedMatchPerson: MatchPerson;
+    @Input() public typeId: number;
     @Output() public matchPerson = new EventEmitter<MatchPerson>();
     public editMatchPersonForm: FormGroup;
     public persons$: Observable<Person[]>;
@@ -78,7 +79,7 @@ export class MatchPersonEditPanelComponent implements OnInit {
         this.editMatchPersonForm = this.formBuilder.group({
             personName: [this.selectedMatchPerson ? this.selectedMatchPerson.personName : "", Validators.required],
             personId: [this.selectedMatchPerson ? this.selectedMatchPerson.personId : "", Validators.required],
-            personType: [this.selectedMatchPerson ? this.selectedMatchPerson.personType : "", Validators.required]
+            personType: [this.selectedMatchPerson ? this.selectedMatchPerson.personType : this.typeId, Validators.required]
         });
         this.isEdit = this.selectedMatchPerson !== undefined;
 
