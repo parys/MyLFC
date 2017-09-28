@@ -1,5 +1,5 @@
 ﻿import { Component } from "@angular/core";
-import { RolesCheckedService, IRoles } from "../../shared/index";
+import { RolesCheckedService } from "../../shared/index";
 import { AuthService } from "../../auth/index";
 
 @Component({
@@ -7,11 +7,9 @@ import { AuthService } from "../../auth/index";
     templateUrl: "./sidebar-right.component.html"
 })
 export class SidebarRightComponent {
-    public roles: IRoles;
 
-    constructor(private rolesChecked: RolesCheckedService,
+    constructor(public roles: RolesCheckedService,
         private authService: AuthService) {
-        this.roles = this.rolesChecked.checkRoles();
     }
 
     public logout(): void {

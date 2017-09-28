@@ -1,8 +1,8 @@
 ﻿<ul class="maroon-panel login-list-panel padding10"> <!--todo need some research-->
-    <li *ngIf="!roles.isLogined">
+    <li *ngIf="!roles.checked.isLogined">
         <account-signin></account-signin>
     </li>
-    <li *ngIf="roles.isLogined" class="flex-space-around">
+    <li *ngIf="roles.checked.isLogined" class="flex-space-around">
         <a [routerLink]="['/users', 0]" class="text-white"><span class="glyphicon glyphicon-user"></span>Мой профиль</a>
         <pm-counter></pm-counter>
         <a role="button" (click)="logout()" class="text-white">Выйти</a>
@@ -18,7 +18,7 @@
  <user-birthday></user-birthday> 
 </section>
 <last-comments></last-comments>
-<div *ngIf="roles.isAdminAssistant">
+<div *ngIf="roles.checked.isAdminAssistant">
     <a [routerLink]="['/plans']">Планы</a>
     <a [routerLink]="['/instructions']">Инструкции</a>
 </div>
