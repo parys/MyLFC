@@ -1,6 +1,6 @@
 ﻿import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { MdInputModule, MdButtonModule, MdAutocompleteModule, MdSelectModule, MdSlideToggleModule } from "@angular/material";
+import { MdInputModule, MdButtonModule, MdAutocompleteModule, MdSelectModule, MdSlideToggleModule, MdIconModule } from "@angular/material";
 import { RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
 import { NgxPaginationModule } from "ngx-pagination";
@@ -15,6 +15,7 @@ import { MatchPersonPanelComponent } from "./matchPerson-panel/matchPerson-panel
         FormsModule,
         MdSlideToggleModule,
         MdAutocompleteModule,
+        MdIconModule,
         MdButtonModule,
         MdInputModule,
         MdSelectModule,

@@ -1,6 +1,6 @@
-﻿<div *ngFor="let event of events; let i = index;" class="col-xs-12">
-    <div class="col-xs-12">
-        <div [class.pull-right]="(!isHome && event.isOur) || (isHome && !event.isOur)">
+﻿<div *ngFor="let event of events; let i = index;" class="col-xs-12 container-row">
+    <div class="col-xs-12 container-row">
+        <div [class.pull-right]="(!isHome && event.isOur) || (isHome && !event.isOur)" class="inline-flex">
             <span *ngIf="event.type === 1"><img class="width20px" alt="Гол" src="/img/goal.png" [title]="event.typeName">{{event.personName}} - {{event.minute}}' </span>
             <span *ngIf="event.type === 2"><img class="width20px" alt="Гол" src="/img/goal.png" [title]="event.typeName">(П){{event.personName}} - {{event.minute}}' </span>
             <!--<span *ngIf="event.type === 3"> <span class="">Г</span>{{event.personName}} - {{event.minute}}' </span>-->
