@@ -28,7 +28,7 @@ namespace MyLiverpool.Data.Common
         Coach = 11,
         [Display(Name = "Бывший игрок и текущий тренер")]
         OldPlayerAndStuff = 12,
-        [Display(Name = "Бывший игрок и текущий тренер")]
+        [Display(Name = "Бывший игрок и текущий тренер академии")]
         OldPlayerAndStuffAcademy = 13,
         [Display(Name = "Тренер соперника")]
         CompetitorCoach = 14,

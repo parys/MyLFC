@@ -31,7 +31,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             return addedEntity.Entity;
         }
 
-        public async Task DeleteAsync(int id)
+        public Task DeleteAsync(int id)
         {
             throw new NotImplementedException("Complex key");
         }

@@ -8,6 +8,7 @@ namespace MyLiverpool.Data.ResourceAccess.Helpers
     {
         public static void RegisterRepositories(this IServiceCollection services)
         {
+            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IChatMessageRepository, ChatMessageRepository>();
             services.AddScoped<IClubRepository, ClubRepository>();
             services.AddScoped<IForumMessageRepository, ForumMessageRepository>();
