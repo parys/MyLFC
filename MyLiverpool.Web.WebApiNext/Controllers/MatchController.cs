@@ -89,9 +89,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         }
 
         /// <summary>
-        /// Returns header match by id.
+        /// Returns header match.
         /// </summary>
-        /// <param name="id">The identifier.</param>
         /// <returns>Found match entity.</returns>
         [AllowAnonymous, HttpGet("header")]
         public async Task<IActionResult> GetForHeaderAsync()
@@ -103,7 +102,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 var result = await _matchService.GetByIdAsync(int.Parse(helpEntity));
                 return Json(result);
             }
-            return Ok();
+            return Json(null);
         }
 
         /// <summary>
