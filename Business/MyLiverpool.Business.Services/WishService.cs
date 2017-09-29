@@ -18,9 +18,9 @@ namespace MyLiverpool.Business.Services
     {
         private readonly IMapper _mapper;
         private readonly IEmailSender _emailService;
-        private readonly IWishRepository _wishRepository;
+        private readonly IGenericRepository<Wish> _wishRepository;
 
-        public WishService(IMapper mapper, IEmailSender emailService, IWishRepository wishRepository)
+        public WishService(IMapper mapper, IEmailSender emailService, IGenericRepository<Wish> wishRepository)
         {
             _mapper = mapper;
             _emailService = emailService;
@@ -30,7 +30,7 @@ namespace MyLiverpool.Business.Services
         public async Task<WishDto> CreateAsync(WishDto dto)
         {
             var wish = _mapper.Map<Wish>(dto);
-            wish = await _wishRepository.AddAsync(wish);
+            wish = await _wishRepository.CreateAsync(wish);
             await SendAlertAsync(wish.Message);
             return _mapper.Map<WishDto>(wish);
         }
@@ -47,7 +47,7 @@ namespace MyLiverpool.Business.Services
             {
                 filter = filter.And(x => x.Title.Contains(filterText) || x.Message.Contains(filterText));
             }
-            var wishes = await _wishRepository.GetOrderedByAsync(page, filter : filter, order: SortOrder.Descending, orderBy: x => x.Id);
+            var wishes = await _wishRepository.GetListAsync(page, filter : filter, order: SortOrder.Descending, orderBy: x => x.Id);
             var wishesDto = _mapper.Map<IEnumerable<WishDto>>(wishes);
             var wishesCount = await _wishRepository.GetCountAsync(filter);
             return new PageableData<WishDto>(wishesDto, page, wishesCount);

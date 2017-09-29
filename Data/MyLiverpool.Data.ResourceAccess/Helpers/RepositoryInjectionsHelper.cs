@@ -31,7 +31,6 @@ namespace MyLiverpool.Data.ResourceAccess.Helpers
             services.AddScoped<IStadiumRepository, StadiumRepository>();
             services.AddScoped<ITransferRepository, TransferRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<IWishRepository, WishRepository>();
         }
     }
 }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using MyLiverpool.Data.Entities;
@@ -72,10 +71,13 @@ namespace MyLiverpool.Data.ResourceAccess
         }
 
         public async Task<IEnumerable<T>> GetListAsync(int page, int itemPerPage = 15, Expression<Func<T, bool>> filter = null, SortOrder order = SortOrder.Ascending,
-            Expression<Func<T, object>> orderBy = null)
+            Expression<Func<T, object>> orderBy = null, params Expression<Func<T, object>>[] includes)
         {
-            IQueryable<T> query = _context.Set<T>();//todo include prop
-
+            IQueryable<T> query = _context.Set<T>();
+            if (includes != null && includes.Any())
+            {
+                query = includes.Aggregate(query, (current, include) => current.Include(include));
+            }
             if (filter != null)
             {
                 query = query.Where(filter);
