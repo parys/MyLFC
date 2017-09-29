@@ -85,11 +85,8 @@ export class AuthService {
     }
 
     public refreshTokens(): Observable<IAuthTokenModel> {
-        return this.state.first()
-            .map((state: IAuthStateModel) => state.tokens)
-            .flatMap((tokens : IAuthTokenModel) => this.getTokens({ refresh_token: tokens.refresh_token }, "refresh_token")
-                .catch(error => Observable.throw("Session Expired"))
-            );
+        return this.getTokens({ refresh_token: this.storage.getRefreshToken() }, "refresh_token")
+                .catch(error => Observable.throw("Session Expired"));
     }
 
     private updateState(newState: IAuthStateModel): void {
