@@ -1,0 +1,5 @@
+﻿<a [routerLink]="['/notifications']" class="text-white flex-vertical-center">
+    <md-icon *ngIf="count === 0">notifications_none</md-icon>
+    <md-icon *ngIf="count > 0">notifications_active</md-icon>
+    <span [class.color-red]="count > 0">(<span class="" [class.color-gold]="count > 0"[textContent]="count"></span>)</span>
+</a>

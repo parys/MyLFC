@@ -38,5 +38,10 @@ namespace MyLiverpool.Business.Services
         {
             throw new NotImplementedException();
         }
+
+        public async Task<int> GetUnreadCountAsync(int userId)
+        {
+            return await _notificationRepository.GetCountAsync(x => x.UserId == userId && !x.IsRead);
+        }
     }
 }

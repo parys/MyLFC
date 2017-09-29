@@ -1,6 +1,6 @@
 ﻿import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { MdInputModule, MdButtonModule, MdCheckboxModule, MdTabsModule, MdAutocompleteModule } from "@angular/material";
+import { MdInputModule, MdButtonModule, MdCheckboxModule, MdTabsModule, MdAutocompleteModule, MdIconModule } from "@angular/material";
 import { RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
 import { SharedModule } from "../shared/index";
@@ -18,6 +18,7 @@ import { PmService } from "./pm.service";
         FormsModule,
         MdButtonModule,
         MdCheckboxModule,
+        MdIconModule,
         MdInputModule,
         MdTabsModule,
         MdAutocompleteModule,

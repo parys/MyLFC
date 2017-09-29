@@ -3,11 +3,11 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
 import { MdSnackBar } from "@angular/material";
 import { Subscription } from "rxjs/Subscription";
-import { Wish } from "./wish.model";
-import { WishType } from "./wishType.model";
-import { WishState } from "./wishState.model";
-import { WishService } from "./wish.service";
-import { RolesCheckedService, IRoles } from "../shared/index";
+import { Wish } from "../wish.model";
+import { WishType } from "../wishType.model";
+import { WishState } from "../wishState.model";
+import { WishService } from "../wish.service";
+import { RolesCheckedService } from "../../shared/index";
 
 @Component({
     selector: "wish-edit",
@@ -17,7 +17,6 @@ export class WishEditComponent implements OnInit, OnDestroy {
     private id: number = 0;
     private sub: Subscription;
     private sub2: Subscription;
-    public roles: IRoles;
     public editWishForm: FormGroup;
     public types: WishType[];
     public states: WishState[];
@@ -26,13 +25,12 @@ export class WishEditComponent implements OnInit, OnDestroy {
     constructor(private service: WishService,
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
-        private rolesChecked: RolesCheckedService,
+        public roles: RolesCheckedService,
         private snackBar: MdSnackBar,
         private router: Router) {
     }
 
     public ngOnInit(): void {
-        this.roles = this.rolesChecked.checkRoles();   
         this.editWishForm = this.formBuilder.group({
             'title': [
                 "", Validators.compose([

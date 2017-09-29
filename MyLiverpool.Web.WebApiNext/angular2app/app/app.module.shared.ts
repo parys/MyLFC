@@ -33,6 +33,7 @@ import "rxjs/add/operator/mergeMap";
 import { AccountModule } from "./account/index";
 import { TransferModule } from "./transfer/index";
 import { CommentModule } from "./materialComment/index";
+import { NotificationModule } from "./notification/index";
 
 @NgModule({
     imports: [
@@ -48,6 +49,7 @@ import { CommentModule } from "./materialComment/index";
         angMaterial.MdCheckboxModule,
         angMaterial.MdDatepickerModule,
         angMaterial.MdDialogModule,
+        angMaterial.MdIconModule,
         angMaterial.MdInputModule,
         angMaterial.MdMenuModule,
         angMaterial.MdNativeDateModule,
@@ -61,6 +63,7 @@ import { CommentModule } from "./materialComment/index";
         ClubModule,
         MatchModule,
         TransferModule,
+        NotificationModule,
         PersonModule,
         PmModule,
         RouterModule.forRoot(routes),

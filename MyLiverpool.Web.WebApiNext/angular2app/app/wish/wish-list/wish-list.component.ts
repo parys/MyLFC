@@ -3,9 +3,9 @@ import { Location } from "@angular/common";
 import { ActivatedRoute } from "@angular/router";
 import { MdDialog } from '@angular/material';
 import { Subscription } from "rxjs/Subscription";
-import { Wish } from "./wish.model";
-import { WishService } from "./wish.service";
-import { Pageable, RolesCheckedService, IRoles, DeleteDialogComponent } from "../shared/index";
+import { Wish } from "../wish.model";
+import { WishService } from "../wish.service";
+import { Pageable, RolesCheckedService, DeleteDialogComponent } from "../../shared/index";
 
 @Component({
     selector: "wish-list",
@@ -14,7 +14,6 @@ import { Pageable, RolesCheckedService, IRoles, DeleteDialogComponent } from "..
 export class WishListComponent implements OnInit, OnDestroy {
     private sub: Subscription;
     private sub2: Subscription;
-    public roles: IRoles;
     public items: Wish[];
     public page: number = 1;
     public itemsPerPage: number = 15;
@@ -22,14 +21,13 @@ export class WishListComponent implements OnInit, OnDestroy {
     public categoryId: number;
 
     constructor(private service: WishService,
-        private rolesChecked: RolesCheckedService,
+        public roles: RolesCheckedService,
         private location: Location,
         private route: ActivatedRoute,
         private dialog: MdDialog) {
     }
 
-    public ngOnInit(): void  {
-        this.roles = this.rolesChecked.checkRoles();   
+    public ngOnInit(): void  { 
         this.sub = this.route.params.subscribe(params => {
             if (params["page"]) {
                 this.page = +params["page"];

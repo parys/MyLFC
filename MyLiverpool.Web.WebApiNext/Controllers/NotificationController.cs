@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AspNet.Security.OAuth.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -74,6 +71,19 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             var result = await _notificationService.CreateAsync(model);
             //   _cache.Remove(UserPm + model.ReceiverId);
             return Ok(result);
+        }
+
+        /// <summary>
+        /// Returns count of unread notifications.
+        /// </summary>
+        /// <returns>Count of unread notifications.</returns>
+        [Authorize, HttpGet("unread")]
+        public async Task<IActionResult> GetUnreadCount()
+        {
+            var userId = User.GetUserId();
+            var result = 1;//await _cache.GetOrCreate(UserPm + userId, async x =>
+           //     await _notificationService.GetUnreadCountAsync(userId);//);
+            return Json(result);
         }
     }
 }

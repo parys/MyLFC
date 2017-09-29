@@ -1,6 +1,6 @@
 ﻿import { Routes } from "@angular/router";
-import { WishListComponent } from "./wish-list.component";
-import { WishEditComponent } from "./wish-edit.component";
+import { WishListComponent } from "./wish-list/index";
+import { WishEditComponent } from "./wish-edit/index";
 
 export const wishRoutes: Routes = [
     {
