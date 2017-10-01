@@ -70,7 +70,7 @@ namespace MyLiverpool.Data.ResourceAccess
             return await query.CountAsync();
         }
 
-        public async Task<IEnumerable<T>> GetListAsync(int page, int itemPerPage = 15, Expression<Func<T, bool>> filter = null, SortOrder order = SortOrder.Ascending,
+        public async Task<IEnumerable<T>> GetListAsync(int? page = null, int itemPerPage = 15, Expression<Func<T, bool>> filter = null, SortOrder order = SortOrder.Ascending,
             Expression<Func<T, object>> orderBy = null, params Expression<Func<T, object>>[] includes)
         {
             IQueryable<T> query = _context.Set<T>();
@@ -86,7 +86,10 @@ namespace MyLiverpool.Data.ResourceAccess
             {
                 query = query.ObjectSort(orderBy, order);
             }
-            query = query.Skip((page - 1) * itemPerPage).Take(itemPerPage);
+            if (page.HasValue)
+            {
+                query = query.Skip((page.Value - 1) * itemPerPage).Take(itemPerPage);
+            }
             return await query.ToListAsync();
         }
     }

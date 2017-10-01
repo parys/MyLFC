@@ -2,9 +2,12 @@
 <app>Загружаемся...</app>
 @section scripts {
     <script type="text/javascript">
-        if(/MSIE \d|Trident.*rv:/.test(navigator.userAgent))
+        if (/MSIE \d|Trident.*rv:/.test(navigator.userAgent)) {
             document.write('<script src="./src/core.min.js"><\/script>');
+            document.write('<script src="./src/usp.js"><\/script>');
+        }
     </script>
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Intl.~locale.en,Intl.~locale.ru"></script>
     <environment names="Development">
         <script src="~/src/vendor.js" asp-append-version="true"></script>
         <script src="~/src/main-client.js" asp-append-version="true"></script>

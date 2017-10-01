@@ -1,4 +1,5 @@
-﻿using MyLiverpool.Data.Common;
+﻿using System;
+using MyLiverpool.Data.Common;
 
 namespace MyLiverpool.Data.Entities
 {
@@ -15,5 +16,7 @@ namespace MyLiverpool.Data.Entities
         public string Text { get; set; }
 
         public bool IsRead { get; set; }
+
+        public DateTimeOffset DateTime { get; set; }
     }
 }

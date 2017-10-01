@@ -23,9 +23,8 @@ namespace MyLiverpool.Data.ResourceAccess.Interfaces
 
         Task<int> GetCountAsync(Expression<Func<T, bool>> filter = null);
 
-        Task<IEnumerable<T>> GetListAsync(int page, int itemPerPage = 15,
+        Task<IEnumerable<T>> GetListAsync(int? page = null, int itemPerPage = 15,
             Expression<Func<T, bool>> filter = null,
             SortOrder order = SortOrder.Ascending, Expression<Func<T, object>> orderBy = null, params Expression<Func<T, object>>[] includes);
-
     }
 }

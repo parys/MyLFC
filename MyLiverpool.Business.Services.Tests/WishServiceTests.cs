@@ -7,8 +7,8 @@ using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Business.Services.Tests.Helpers;
 using MyLiverpool.Common.Mappings;
+using MyLiverpool.Data.Entities;
 using MyLiverpool.Data.ResourceAccess;
-using MyLiverpool.Data.ResourceAccess.Repositories;
 using Xunit;
 
 namespace MyLiverpool.Business.Services.Tests
@@ -19,7 +19,7 @@ namespace MyLiverpool.Business.Services.Tests
 
         static WishServiceTests()
         {
-            _wishService = new WishService(MapperConfig.GetConfiration.CreateMapper(), new FakeIEmailSender(), new WishRepository(GetFakeContextWithWishes()));
+            _wishService = new WishService(MapperConfig.GetConfiration.CreateMapper(), new FakeIEmailSender(), new GenericRepository<Wish>(GetFakeContextWithWishes()));
         }
 
 		[Theory, ClassData(typeof(WishCreateTestData))]

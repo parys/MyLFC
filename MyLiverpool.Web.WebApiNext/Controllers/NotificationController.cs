@@ -1,10 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using AspNet.Security.OAuth.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Common.Utilities.Extensions;
+using MyLiverpool.Data.Common;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
@@ -33,8 +35,20 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Authorize, HttpGet("")]
         public async Task<IActionResult> GetListAsync()
         {
-          //  var model = await _notificationService.GetListAsync(User.GetUserId());
-            return Ok();
+            var model = new List<NotificationDto>
+            {
+                new NotificationDto
+                {
+                    Type = NotificationType.Matches,
+                    Id = 1,
+                    TypeName = NotificationType.Matches.ToString(),
+                    IsRead = false,
+                    EntityId = 22,
+                    Text = "Пользователь ОДМЕН ответил на ваш комментарий: здесь ответ начало из пятидесяти символов"
+                    
+                }
+            };//await _notificationService.GetListAsync(User.GetUserId());
+            return Json(model);
         }
 
         /// <summary>
@@ -81,7 +95,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         public async Task<IActionResult> GetUnreadCount()
         {
             var userId = User.GetUserId();
-            var result = 1;//await _cache.GetOrCreate(UserPm + userId, async x =>
+            var result = 0;//await _cache.GetOrCreate(UserPm + userId, async x =>
            //     await _notificationService.GetUnreadCountAsync(userId);//);
             return Json(result);
         }

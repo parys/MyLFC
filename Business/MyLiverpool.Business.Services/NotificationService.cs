@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Threading.Tasks;
 using AutoMapper;
 using MyLiverpool.Business.Contracts;
@@ -34,7 +36,7 @@ namespace MyLiverpool.Business.Services
             throw new NotImplementedException();
         }
 
-        public async Task<NotificationDto> GetByIdAsync(int id)
+        public Task<NotificationDto> GetByIdAsync(int id)
         {
             throw new NotImplementedException();
         }
@@ -42,6 +44,13 @@ namespace MyLiverpool.Business.Services
         public async Task<int> GetUnreadCountAsync(int userId)
         {
             return await _notificationRepository.GetCountAsync(x => x.UserId == userId && !x.IsRead);
+        }
+
+        public async Task<IEnumerable<NotificationDto>> GetListAsync(int userId)
+        {
+            var list = await _notificationRepository.GetListAsync(filter: x => x.UserId == userId && !x.IsRead,  order: SortOrder.Ascending,
+                orderBy: y => y.Id);
+            return _mapper.Map<IEnumerable<NotificationDto>>(list);
         }
     }
 }

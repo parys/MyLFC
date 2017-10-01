@@ -15,7 +15,6 @@ export class CommentSectionComponent implements OnInit, OnChanges {
     public page: number = 1;
     public itemsPerPage: number = 50;
     public totalItems: number = 0;
-    public roles: IRoles;
     public commentAddForm: FormGroup;
     @Input() public materialId: number;
     @Input() public matchId: number;
@@ -24,14 +23,14 @@ export class CommentSectionComponent implements OnInit, OnChanges {
 
     constructor(private materialCommentService: MaterialCommentService,
         private cd: ChangeDetectorRef,
-        private rolesChecked: RolesCheckedService
+        public roles: RolesCheckedService
         , private formBuilder: FormBuilder) {   
     }   
 
     public ngOnInit(): void {
-        this.roles = this.rolesChecked.checkRoles();
         this.commentAddForm = this.formBuilder.group({
-            message: ["", Validators.minLength(3)]
+            message: ["", Validators.compose([
+                Validators.required, Validators.minLength(3)])]
         });
         this.commentAddForm.valueChanges.subscribe(() => {
                 this.cd.markForCheck();

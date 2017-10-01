@@ -7,7 +7,7 @@
 </div>
 
 <form class="form-horizontal" role="form" [formGroup]="commentAddForm" (ngSubmit)="onSubmit()">
-    <div class="col-xs-12 container-row" *ngIf="canCommentary && roles.isLogined">
+    <div class="col-xs-12 container-row" *ngIf="canCommentary && roles.checked.isLogined">
         <div class="col-xs-12 container-row">
             <bbeditor class="col-xs-12 container-row" name="message" formControlName="message"></bbeditor>
         </div> 
