@@ -1,16 +1,20 @@
 ﻿import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 import { Notification } from "../notification.model";
 import { NotificationService } from "../notification.service";
 
-@Component({
+@
+Component({
     selector: "notification-list",
-    templateUrl: "./notification-list.component.html"
+    templateUrl: "./notification-list.component.html",
+    styleUrls: ["./notification-list.component.css"]
 })
 
 export class NotificationListComponent implements OnInit {
     public items: Notification[];
 
-    constructor(private service: NotificationService) {
+    constructor(private service: NotificationService,
+        private router: Router) {
     }
 
     public ngOnInit(): void {
@@ -20,14 +24,20 @@ export class NotificationListComponent implements OnInit {
             e => console.log(e));
     }
 
-    private parse(model: any): void {
-        this.items = model.received;
+    public read(index: number): void {
+        if (!this.items[index].isRead) {
+            this.service.read(this.items[index].id).subscribe(res => {
+                    if (res) {
+                        this.goToNotification(index);
+                    }
+                },
+                e => console.log(e));
+        } else {
+        }
+        this.goToNotification(index);
     }
-
-    public delete(index: number): void {
-        //this.newsCategoryService.Delete(this.items[index].id).subscribe(data => data,
-        //    error => console.log(error),
-        //    () => console.log("success remove categoryu"));
-        //this.items.splice(index, 1);
+    
+    private goToNotification(index: number): void {
+        this.router.navigate(["/", this.items[index].typeName, this.items[index].entityId]);
     }
 }

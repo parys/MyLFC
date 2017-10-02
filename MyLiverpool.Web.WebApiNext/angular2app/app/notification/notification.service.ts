@@ -22,9 +22,9 @@ export class NotificationService {
     //    return this.http.post<Notification>(this.actionUrl, JSON.stringify(item));
     //};
 
-    //public update = (id: number, itemToUpdate: Notification): Observable<Notification> => {
-    //    return this.http.put<Notification>(this.actionUrl + id, JSON.stringify(itemToUpdate));
-    //};
+    public read(id: number): Observable<boolean> {
+        return this.http.put<boolean>(this.actionUrl + id, "");
+    };
 
     //public delete = (id: number): Observable<boolean> => {
     //    return this.http.delete<boolean>(this.actionUrl + id);

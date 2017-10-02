@@ -1,12 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AspNet.Security.OAuth.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Common.Utilities.Extensions;
-using MyLiverpool.Data.Common;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
@@ -19,13 +18,17 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     {
         private readonly INotificationService _notificationService;
 
+        private readonly IMemoryCache _cache;
+
         /// <summary>
-        /// Controller.
+        /// Constructor.
         /// </summary>
         /// <param name="notificationService"></param>
-        public NotificationController(INotificationService notificationService)
+        /// <param name="cache"></param>
+        public NotificationController(INotificationService notificationService, IMemoryCache cache)
         {
             _notificationService = notificationService;
+            _cache = cache;
         }
 
         /// <summary>
@@ -35,19 +38,40 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Authorize, HttpGet("")]
         public async Task<IActionResult> GetListAsync()
         {
-            var model = new List<NotificationDto>
-            {
-                new NotificationDto
-                {
-                    Type = NotificationType.Matches,
-                    Id = 1,
-                    TypeName = NotificationType.Matches.ToString(),
-                    IsRead = false,
-                    EntityId = 22,
-                    Text = "Пользователь ОДМЕН ответил на ваш комментарий: здесь ответ начало из пятидесяти символов"
+            var model = //new List<NotificationDto>
+            //{
+            //    new NotificationDto
+            //    {
+            //        Type = NotificationType.Matches,
+            //        Id = 1,
+            //        TypeName = NotificationType.Matches.ToString(),
+            //        IsRead = false,
+            //        EntityId = 22,
+            //        Text = "Пользователь ОДМЕН ответил на ваш комментарий: здесь ответ начало из пятидесяти символов"
                     
-                }
-            };//await _notificationService.GetListAsync(User.GetUserId());
+            //    },
+            //    new NotificationDto
+            //    {
+            //        Type = NotificationType.Matches,
+            //        Id = 1,
+            //        TypeName = NotificationType.Matches.ToString(),
+            //        IsRead = false,
+            //        EntityId = 22,
+            //        Text = "Пользователь ОДМЕН ответил на ваш комментарий: здесь ответ начало из пятидесяти символов"
+                    
+            //    },
+            //    new NotificationDto
+            //    {
+            //        Type = NotificationType.Matches,
+            //        Id = 1,
+            //        TypeName = NotificationType.Matches.ToString(),
+            //        IsRead = false,
+            //        EntityId = 22,
+            //        Text = "Пользователь ОДМЕН ответил на ваш комментарий: здесь ответ начало из пятидесяти символов"
+                    
+            //    },
+            //};
+            await _notificationService.GetListAsync(User.GetUserId());
             return Json(model);
         }
 
@@ -95,8 +119,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         public async Task<IActionResult> GetUnreadCount()
         {
             var userId = User.GetUserId();
-            var result = 0;//await _cache.GetOrCreate(UserPm + userId, async x =>
-           //     await _notificationService.GetUnreadCountAsync(userId);//);
+            var result = //await _cache.GetOrCreate(CacheKeysConstants.NotificationUserId + userId, async x =>
+                await _notificationService.GetUnreadCountAsync(userId);//);
             return Json(result);
         }
     }

@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MyLiverpool.Data.Entities
 {
-    public class User : IdentityUser<int>//,/* UserLogin, UserRole, UserClaim>, */IEntity
+    public class User : IdentityUser<int>// UserLogin, UserRole, UserClaim>, IEntity
     {
         public User()
         {
@@ -88,6 +88,7 @@ namespace MyLiverpool.Data.Entities
         public virtual ICollection<PrivateMessage> ReceivedPrivateMessages { get; set; }
         public virtual ICollection<ChatMessage> ChatMessages { get; set; }
         public virtual ICollection<CommentVote> CommentVotes { get; set; }
+        public virtual ICollection<Notification> Notifications { get; set; } = new HashSet<Notification>();
 
         public virtual RoleGroup RoleGroup { get; set; }
 

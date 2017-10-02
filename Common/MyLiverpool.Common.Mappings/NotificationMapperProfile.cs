@@ -16,7 +16,7 @@ namespace MyLiverpool.Common.Mappings
             CreateMap<Notification, NotificationDto>()
                 .ForMember(dest => dest.TypeName, src => src.MapFrom(x => x.Type.ToString().ToLowerInvariant()));
 
-         //   CreateMap<NotificationDto, Notification>();
+            CreateMap<NotificationDto, Notification>();
         }
     }
 }

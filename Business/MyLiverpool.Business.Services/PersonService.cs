@@ -185,7 +185,10 @@ namespace MyLiverpool.Business.Services
         {
             Expression<Func<Person, bool>> filter = x => x.Birthday.HasValue &&
                                                        x.Birthday.Value.Date.Day == DateTimeOffset.Now.Date.Day &&
-                                                       x.Birthday.Value.Date.Month == DateTimeOffset.Now.Date.Month;
+                                                       x.Birthday.Value.Date.Month == DateTimeOffset.Now.Date.Month &&
+                                                       x.Type != PersonType.Rival &&
+                                                       x.Type != PersonType.CompetitorCoach &&
+                                                       x.Type != PersonType.Referee;
             var list = await _personRepository.GetListAsync(1, 100, filter);
             return _mapper.Map<IEnumerable<PersonDto>>(list);
         }

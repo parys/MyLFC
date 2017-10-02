@@ -44,6 +44,7 @@ namespace MyLiverpool.Data.ResourceAccess
         public DbSet<Loan> Loans { get; set; }
         public DbSet<MatchEvent> MatchEvents { get; set; }
         public DbSet<MatchPerson> MatchPersons { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
 
         //public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         //{
@@ -91,6 +92,9 @@ namespace MyLiverpool.Data.ResourceAccess
             modelBuilder.Entity<MaterialComment>().HasMany(x => x.CommentVotes).WithOne(x => x.Comment)
                 .HasForeignKey(x => x.CommentId);
             modelBuilder.Entity<User>().HasMany(x => x.CommentVotes).WithOne(x => x.User)
+                .HasForeignKey(x => x.UserId);
+
+            modelBuilder.Entity<User>().HasMany(x => x.Notifications).WithOne(x => x.User)
                 .HasForeignKey(x => x.UserId);
 
             modelBuilder.Entity<RoleRoleGroup>().HasKey(t => new { t.RoleId, t.RoleGroupId });
@@ -190,6 +194,7 @@ namespace MyLiverpool.Data.ResourceAccess
             modelBuilder.Entity<Injury>().ToTable("Injuries");
             modelBuilder.Entity<Loan>().ToTable("Loans");
             modelBuilder.Entity<MatchEvent>().ToTable("MatchEvents");
+            modelBuilder.Entity<Notification>().ToTable("Notifications");
 
         }
         

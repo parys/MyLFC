@@ -25,7 +25,7 @@ namespace MyLiverpool.Data.Common
         [Display(Name = "Тренерский штаб академии")]
         StuffAcademy = 10,
         [Display(Name = "Судья")]
-        Coach = 11,
+        Referee = 11,
         [Display(Name = "Бывший игрок и текущий тренер")]
         OldPlayerAndStuff = 12,
         [Display(Name = "Бывший игрок и текущий тренер академии")]

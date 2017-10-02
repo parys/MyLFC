@@ -23,10 +23,12 @@ namespace MyLiverpool.Business.Services
 
         public async Task<NotificationDto> CreateAsync(NotificationDto dto)
         {
-            throw new NotImplementedException();
+            var model = _mapper.Map<Notification>(dto);
+            model = await _notificationRepository.CreateAsync(model);
+            return _mapper.Map<NotificationDto>(model);
         }
 
-        public async Task<NotificationDto> UpdateAsync(NotificationDto dto)
+        public Task<NotificationDto> UpdateAsync(NotificationDto dto)
         {
             throw new NotImplementedException();
         }

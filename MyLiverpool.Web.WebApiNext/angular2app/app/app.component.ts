@@ -140,6 +140,8 @@ export class AppComponent implements OnInit {
 
         this.breadcrumbService.addFriendlyNameForRoute("/rules", "Правила");
 
+        this.breadcrumbService.addFriendlyNameForRoute("/notifications", "Уведомления");
+
         this.breadcrumbService.addFriendlyNameForRoute("/roleGroups", "Группы и роли");
 
         this.breadcrumbService.addFriendlyNameForRouteRegex("/wishes", "Пожелания");
