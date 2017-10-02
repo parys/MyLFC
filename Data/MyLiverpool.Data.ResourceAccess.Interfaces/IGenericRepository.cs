@@ -11,7 +11,7 @@ namespace MyLiverpool.Data.ResourceAccess.Interfaces
     {
         Task<T> CreateAsync(T entity);
 
-        Task<T> GetByIdAsync(int id);
+        Task<T> GetByIdAsync(int id, params Expression<Func<T, object>>[] includes);
 
         Task<T> GetByComplexIdAsync(int id, int id2);
 
@@ -21,7 +21,7 @@ namespace MyLiverpool.Data.ResourceAccess.Interfaces
 
         Task<bool> DeleteAsync(int id);
 
-        Task<int> GetCountAsync(Expression<Func<T, bool>> filter = null);
+        Task<int> CountAsync(Expression<Func<T, bool>> filter = null);
 
         Task<IEnumerable<T>> GetListAsync(int? page = null, int itemPerPage = 15,
             Expression<Func<T, bool>> filter = null,

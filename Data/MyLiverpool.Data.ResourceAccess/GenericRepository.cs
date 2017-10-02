@@ -26,9 +26,14 @@ namespace MyLiverpool.Data.ResourceAccess
             return entityEntry.Entity;
         }
 
-        public async Task<T> GetByIdAsync(int id)
+        public async Task<T> GetByIdAsync(int id, params Expression<Func<T, object>>[] includes)
         {
-            return await _context.Set<T>().FindAsync(id);//todo include props
+            IQueryable<T> query = _context.Set<T>();
+            if (includes != null && includes.Any())
+            {
+                query = includes.Aggregate(query, (current, include) => current.Include(include));
+            }
+            return await query.FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<T> GetByComplexIdAsync(int id, int id2)
@@ -60,7 +65,7 @@ namespace MyLiverpool.Data.ResourceAccess
             return await DeleteAsync(entity);
         }
 
-        public async Task<int> GetCountAsync(Expression<Func<T, bool>> filter = null)
+        public async Task<int> CountAsync(Expression<Func<T, bool>> filter = null)
         {
             IQueryable<T> query = _context.Set<T>();
             if (filter != null)

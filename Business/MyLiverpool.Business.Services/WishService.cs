@@ -49,7 +49,7 @@ namespace MyLiverpool.Business.Services
             }
             var wishes = await _wishRepository.GetListAsync(page, filter : filter, order: SortOrder.Descending, orderBy: x => x.Id);
             var wishesDto = _mapper.Map<IEnumerable<WishDto>>(wishes);
-            var wishesCount = await _wishRepository.GetCountAsync(filter);
+            var wishesCount = await _wishRepository.CountAsync(filter);
             return new PageableData<WishDto>(wishesDto, page, wishesCount);
         }
 

@@ -9,5 +9,7 @@ namespace MyLiverpool.Business.Contracts
         Task<int> GetUnreadCountAsync(int userId);
 
         Task<IEnumerable<NotificationDto>> GetListAsync(int userId);
+
+        Task<bool> MarkAsReadAsync(int id, int userId);
     }
 }

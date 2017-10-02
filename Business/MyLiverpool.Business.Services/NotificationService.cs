@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
+using MyLiverpool.Common.Utilities;
 using MyLiverpool.Data.Entities;
 using MyLiverpool.Data.ResourceAccess.Interfaces;
 
@@ -23,6 +24,7 @@ namespace MyLiverpool.Business.Services
 
         public async Task<NotificationDto> CreateAsync(NotificationDto dto)
         {
+            await RemoveOldNotificationsAsync(dto.UserId);
             var model = _mapper.Map<Notification>(dto);
             model = await _notificationRepository.CreateAsync(model);
             return _mapper.Map<NotificationDto>(model);
@@ -35,7 +37,8 @@ namespace MyLiverpool.Business.Services
 
         public async Task<bool> DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            await _notificationRepository.DeleteAsync(id);
+            return true;
         }
 
         public Task<NotificationDto> GetByIdAsync(int id)
@@ -45,14 +48,38 @@ namespace MyLiverpool.Business.Services
 
         public async Task<int> GetUnreadCountAsync(int userId)
         {
-            return await _notificationRepository.GetCountAsync(x => x.UserId == userId && !x.IsRead);
+            return await _notificationRepository.CountAsync(x => x.UserId == userId && !x.IsRead);
         }
 
         public async Task<IEnumerable<NotificationDto>> GetListAsync(int userId)
         {
-            var list = await _notificationRepository.GetListAsync(filter: x => x.UserId == userId && !x.IsRead,  order: SortOrder.Ascending,
-                orderBy: y => y.Id);
+            var list = await _notificationRepository.GetListAsync(filter: x => x.UserId == userId,  order: SortOrder.Descending,
+                orderBy: y => y.DateTime);
             return _mapper.Map<IEnumerable<NotificationDto>>(list);
+        }
+
+        public async Task<bool> MarkAsReadAsync(int id, int userId)
+        {
+            var entity = await _notificationRepository.GetByIdAsync(id);
+            if (entity != null && !entity.IsRead && entity.UserId == userId)
+            {
+                entity.IsRead = true;
+                await _notificationRepository.UpdateAsync(entity);
+            }
+            return true;
+        }
+
+        private async Task RemoveOldNotificationsAsync(int userId)
+        {
+            var count = await _notificationRepository.CountAsync(x => x.UserId == userId);
+            if (count >= GlobalConstants.NotificationsCount)
+            {
+                var list = await _notificationRepository.GetListAsync(filter: x => x.IsRead);
+                foreach (var notification in list)
+                {
+                    await DeleteAsync(notification.Id);
+                }
+            }
         }
     }
 }

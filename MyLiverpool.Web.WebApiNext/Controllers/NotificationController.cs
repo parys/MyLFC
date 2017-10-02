@@ -2,9 +2,7 @@
 using AspNet.Security.OAuth.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Caching.Memory;
 using MyLiverpool.Business.Contracts;
-using MyLiverpool.Business.Dto;
 using MyLiverpool.Common.Utilities.Extensions;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
@@ -17,18 +15,14 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     public class NotificationController : Controller
     {
         private readonly INotificationService _notificationService;
-
-        private readonly IMemoryCache _cache;
-
+        
         /// <summary>
         /// Constructor.
         /// </summary>
         /// <param name="notificationService"></param>
-        /// <param name="cache"></param>
-        public NotificationController(INotificationService notificationService, IMemoryCache cache)
+        public NotificationController(INotificationService notificationService)
         {
             _notificationService = notificationService;
-            _cache = cache;
         }
 
         /// <summary>
@@ -38,79 +32,23 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Authorize, HttpGet("")]
         public async Task<IActionResult> GetListAsync()
         {
-            var model = //new List<NotificationDto>
-            //{
-            //    new NotificationDto
-            //    {
-            //        Type = NotificationType.Matches,
-            //        Id = 1,
-            //        TypeName = NotificationType.Matches.ToString(),
-            //        IsRead = false,
-            //        EntityId = 22,
-            //        Text = "Пользователь ОДМЕН ответил на ваш комментарий: здесь ответ начало из пятидесяти символов"
-                    
-            //    },
-            //    new NotificationDto
-            //    {
-            //        Type = NotificationType.Matches,
-            //        Id = 1,
-            //        TypeName = NotificationType.Matches.ToString(),
-            //        IsRead = false,
-            //        EntityId = 22,
-            //        Text = "Пользователь ОДМЕН ответил на ваш комментарий: здесь ответ начало из пятидесяти символов"
-                    
-            //    },
-            //    new NotificationDto
-            //    {
-            //        Type = NotificationType.Matches,
-            //        Id = 1,
-            //        TypeName = NotificationType.Matches.ToString(),
-            //        IsRead = false,
-            //        EntityId = 22,
-            //        Text = "Пользователь ОДМЕН ответил на ваш комментарий: здесь ответ начало из пятидесяти символов"
-                    
-            //    },
-            //};
-            await _notificationService.GetListAsync(User.GetUserId());
+            var model = await _notificationService.GetListAsync(User.GetUserId());
             return Json(model);
         }
 
         /// <summary>
-        /// Returns detailed pm.
+        /// Mark notification as read.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [Authorize, HttpGet("{id:int}")]
-        public async Task<IActionResult> GetAsync(int id)
+        [Authorize, HttpPut("{id:int}")]
+        public async Task<IActionResult> ReadAsync(int id)
         {
             var userId = User.GetUserId();
-         //   var model = await _notificationService.GetAsync(id, userId);
-            //      _cache.Remove(UserPm + userId);
-            return Ok();
+            var model = await _notificationService.MarkAsReadAsync(id, userId);
+            return Json(model);
         }
-
-        /// <summary>
-        /// Creates new private message.
-        /// </summary>
-        /// <param name="model">Private message model.</param>
-        /// <returns>Is created successfully.</returns>
-        [Authorize, HttpPost("")]
-        public async Task<IActionResult> CreateAsync([FromBody]NotificationDto model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
-         //   model.SenderId = User.GetUserId();
-       //     if (model.ReceiverId == model.SenderId)
-            {
-                return BadRequest();
-            }
-            var result = await _notificationService.CreateAsync(model);
-            //   _cache.Remove(UserPm + model.ReceiverId);
-            return Ok(result);
-        }
-
+        
         /// <summary>
         /// Returns count of unread notifications.
         /// </summary>

@@ -31,7 +31,7 @@ export class NotificationCounterComponent implements OnInit, OnDestroy {
     }
 
     private scheduleUpdateCount() {
-        this.sub2 = Observable.interval(this.config.updateUnreadPmCountTime)
+        this.sub2 = Observable.interval(this.config.updateNotifications)
             .map(x => this.updateCount())
             .subscribe();
     }
