@@ -4,7 +4,7 @@ import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { Subscription } from "rxjs/Subscription";
 import { Pm } from "../pm.model";
 import { PmService } from "../pm.service";
-import { RolesCheckedService, IRoles } from "../../shared/index";
+import { RolesCheckedService } from "../../shared/index";
 
 @Component({
     selector: "pm-detail",
@@ -15,23 +15,19 @@ export class PmDetailComponent implements OnInit, OnDestroy {
     private sub: Subscription;
     private sub2: Subscription;
     public item: Pm;
-    public roles: IRoles;
     public selectedUserId: number;
     public selectedUserName: string;
-    public link: string;
-    public materialId: string;
 
     constructor(private pmService: PmService,
-        private rolesChecked: RolesCheckedService,
+        public roles: RolesCheckedService,
         private sanitizer: DomSanitizer,
         private route: ActivatedRoute) { }
 
     public ngOnInit(): void {
-        this.roles = this.rolesChecked.checkRoles();
         this.sub = this.route.params.subscribe(params => {
             this.sub2 = this.pmService.getSingle(+params["id"])
-                .subscribe(data => this.parse(data),
-                error => console.log(error));
+                .subscribe(data => this.item = data,
+                e => console.log(e));
         });
     }
 
@@ -41,7 +37,7 @@ export class PmDetailComponent implements OnInit, OnDestroy {
     }
 
     public writePm(): void {
-        if (this.roles.isSelf(this.item.senderId)) {
+        if (this.roles.checked.isSelf(this.item.senderId)) {
             this.selectedUserId = this.item.receiverId;
             this.selectedUserName = this.item.receiver;
         } else {
@@ -56,19 +52,5 @@ export class PmDetailComponent implements OnInit, OnDestroy {
 
     public sanitizeByHtml(text: string): SafeHtml {
         return this.sanitizer.bypassSecurityTrustHtml(text);
-    }
-
-    private parse(item: Pm): void {
-        this.item = item;
-        this.tryToParseHelpInfo(item.message);
-    }
-
-    private tryToParseHelpInfo(message: string): void {
-        const result: RegExpMatchArray = message.match(/\[.*\]/ig);
-        if (result) {
-            this.item.message = message.replace(result[0], "");
-            this.link = result[0].match(/\w.*(?=\;)/ig)[0];
-            this.materialId = result[0].match(/[\d]*(?=\])/ig)[0];
-        }
     }
 }
