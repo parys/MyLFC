@@ -32,7 +32,7 @@ import * as angMaterial from '@angular/material';
 import "rxjs/add/operator/mergeMap";
 import { AccountModule } from "./account/index";
 import { TransferModule } from "./transfer/index";
-import { CommentModule } from "./materialComment/index";
+import { CommentModule } from "./comment/index";
 import { NotificationModule } from "./notification/index";
 
 @NgModule({

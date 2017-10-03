@@ -13,11 +13,12 @@ using Newtonsoft.Json;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
+    /// <inheritdoc />
     /// <summary>
-    /// Controller for manage material comments.
+    /// Controller for manage comments.
     /// </summary>
     [Authorize(AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme), Route("api/v1/[controller]")]
-    public class MaterialCommentController : Controller
+    public class CommentController : Controller
     {
         private readonly IMaterialCommentService _commentService;
         private readonly IMemoryCache _cache;
@@ -28,7 +29,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <param name="commentService"></param>
         /// <param name="cache"></param>
-        public MaterialCommentController(IMaterialCommentService commentService, IMemoryCache cache)
+        public CommentController(IMaterialCommentService commentService, IMemoryCache cache)
         {
             _commentService = commentService;
             _cache = cache;

@@ -7,9 +7,7 @@ import { materialRoutes } from "./material/material.routes";
 import { userRoutes } from "./user/user.routes";
 import { homeRoutes } from "./home/home.routes";
 import { imageRoutes } from "./image/image.routes";
-import { materialCommentRoutes } from "./materialComment/materialComment.routes";
 import { seasonRoutes } from "./season/season.routes";
-import { stadiumRoutes } from "./stadium/stadium.routes";
 import { roleGroupRoutes } from "./roleGroup/roleGroup.routes";
 
 export const routes: Routes = [
@@ -17,12 +15,10 @@ export const routes: Routes = [
     ...chatRoutes,
     ...homeRoutes,
     ...imageRoutes,
-    ...materialCommentRoutes,
     ...materialCategoryRoutes,
     ...materialRoutes,
     ...roleGroupRoutes,
     ...seasonRoutes,
-    ...stadiumRoutes,
     ...userRoutes,
     { path: "", component: MaterialListComponent, data: { title: "MyLFC.ru - Сайт русскоязычных болельщиков ФК \"Ливерпуль\"", breadcrumb: "Главная", type: "Both" } }
 ];

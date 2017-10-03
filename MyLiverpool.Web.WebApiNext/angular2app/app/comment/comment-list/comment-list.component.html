@@ -1,0 +1,24 @@
+﻿    <div class="btn-group" *ngIf="roles.isModerator">
+    <form class="form-inline btn-block" [formGroup]="filterForm" (ngSubmit)="update()">
+        <md-checkbox formControlName="onlyUnverified" color="warn">Только непроверенные</md-checkbox>       
+        <md-select placeholder="Количество на странице" color="warn" formControlName="itemsPerPage">
+            <md-option *ngFor="let interval of intervalArray" [value]="interval.value" [textContent]="interval.key"></md-option>
+        </md-select>   
+        <button md-raised-button color="primary">Отфильтровать</button>
+    </form>
+</div>
+<div *ngFor="let comment of items | paginate: { itemsPerPage: itemsPerPage,
+                                                      currentPage: page,
+                                                      totalItems: totalItems }; let i = index;">
+    <comment-detail [item]="comment" [deep]="0" [canCommentary]="false"></comment-detail>
+</div>
+<div class="pagination">
+    <pagination-controls (pageChange)="pageChanged($event)"
+                         directionLinks="true"
+                         autoHide="true"
+                         previousLabel="Назад"
+                         nextLabel="Вперед"
+                         screenReaderPaginationLabel="Постраничный вид"
+                         screenReaderPageLabel="Страница"
+                         screenReaderCurrentLabel="Вы на странице"></pagination-controls>
+</div>

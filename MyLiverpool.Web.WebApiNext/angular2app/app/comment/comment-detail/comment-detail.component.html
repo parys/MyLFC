@@ -2,20 +2,24 @@
     <div class="comment container-fluid">
         <div class="row">
             <div class="col-xs-9 col-sm-7">
-                <span [textContent]="item?.number"></span>
+                <span *ngIf="item.number" [textContent]="item.number"></span>
                 <a [routerLink]="['/users', item.authorId]" [textContent]="item.authorUserName"></a>
                 <span class="small" [textContent]="item.additionTime | date:'medium'"></span>
                 <i *ngIf="item.lastModified !== item.additionTime" class="small">Отредактировано: <span [textContent]="item.lastModified | date:'medium'"></span></i>
             </div>
-            <div class="col-xs-3 col-sm-5">
+            <div class="col-xs-3 col-sm-5 container-row">
                 <span class="pull-right">
-                    <span style="color: green">
+                    <span class="color-green">
                         <span [textContent]="item.positiveCount"></span>
-                        <button class="no-style" (click)="vote(true)" *ngIf="item.canPositiveVote && !roles.isSelf(item.authorId)"><span class="glyphicon glyphicon-thumbs-up"></span></button>
+                        <button class="no-style font-size13" (click)="vote(true)" *ngIf="item.canPositiveVote && !roles.isSelf(item.authorId)">
+                            <span class="glyphicon glyphicon-thumbs-up"></span>
+                        </button>
                     </span>/
-                    <span style="color: red">
-                        <button class="no-style" (click)="vote(false)" *ngIf="item.canNegativeVote && !roles.isSelf(item.authorId)"><span class="glyphicon glyphicon-thumbs-down"></span></button>
+                    <span class="color-red">
                         <span [textContent]="item.negativeCount"></span>
+                        <button class="no-style font-size13" (click)="vote(false)" *ngIf="item.canNegativeVote && !roles.isSelf(item.authorId)">
+                            <span class="glyphicon glyphicon-thumbs-down"></span>
+                        </button>
                     </span>
                     <a *ngIf="roles.isModerator && !item.isVerified" (click)="verify()"><span class="glyphicon glyphicon-ok"></span></a>
                     <a *ngIf="roles.isModerator || roles.isSelf(item.authorId)" role="button" (click)="showEditModal()"><span class="glyphicon glyphicon-pencil"> </span></a>
@@ -78,11 +82,11 @@
         </div>
     </div>
     <div *ngFor="let child of item.children">
-        <materialComment-detail [item]="child" [deep]="deep > 6 ? 7 : deep+1"
+        <comment-detail [item]="child" [deep]="deep > 6 ? 7 : deep+1"
                                 [materialId]="materialId"
                                 [canCommentary]="canCommentary"
                                 [parent]="item"
                                 [type]="type"
-                                [matchId]="matchId"></materialComment-detail>
+                                [matchId]="matchId"></comment-detail>
     </div>
 </div>

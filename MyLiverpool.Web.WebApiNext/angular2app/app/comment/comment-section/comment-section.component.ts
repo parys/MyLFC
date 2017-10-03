@@ -1,9 +1,9 @@
 ﻿import { Component, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef, OnChanges } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Pageable } from "../../shared/pageable.model";
-import { Comment as MaterialComment } from "../materialComment.model";
-import { MaterialCommentService } from "../materialComment.service";
-import { RolesCheckedService, IRoles } from "../../shared/index";
+import { Comment } from "../comment.model";
+import { CommentService } from "../comment.service";
+import { RolesCheckedService } from "../../shared/index";
 
 @Component({
     selector: "comment-section",
@@ -11,7 +11,7 @@ import { RolesCheckedService, IRoles } from "../../shared/index";
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CommentSectionComponent implements OnInit, OnChanges {
-    public items: MaterialComment[] = [];
+    public items: Comment[] = [];
     public page: number = 1;
     public itemsPerPage: number = 50;
     public totalItems: number = 0;
@@ -21,7 +21,7 @@ export class CommentSectionComponent implements OnInit, OnChanges {
     @Input() public type: number;
     @Input() public canCommentary: boolean = false;
 
-    constructor(private materialCommentService: MaterialCommentService,
+    constructor(private commentService: CommentService,
         private cd: ChangeDetectorRef,
         public roles: RolesCheckedService
         , private formBuilder: FormBuilder) {   
@@ -52,7 +52,7 @@ export class CommentSectionComponent implements OnInit, OnChanges {
 
     public update(): void {
         if (this.materialId) {
-            this.materialCommentService
+            this.commentService
                 .getAllByMaterial(this.page, this.materialId)
                 .subscribe(data => this.parsePageable(data),
                     e => console.log(e),
@@ -60,7 +60,7 @@ export class CommentSectionComponent implements OnInit, OnChanges {
                         this.cd.markForCheck();
                     });
         } else if (this.matchId) {
-            this.materialCommentService
+            this.commentService
                 .getAllByMatch(this.page, this.matchId)
                 .subscribe(data => this.parsePageable(data),
                     e => console.log(e),
@@ -70,7 +70,7 @@ export class CommentSectionComponent implements OnInit, OnChanges {
         }
     }
 
-    private parsePageable(pageable: Pageable<MaterialComment>): void {
+    private parsePageable(pageable: Pageable<Comment>): void {
         this.items = pageable.list;
         this.page = pageable.pageNo;
         this.itemsPerPage = pageable.itemPerPage;
@@ -79,11 +79,11 @@ export class CommentSectionComponent implements OnInit, OnChanges {
 
     public onSubmit(): void {
         this.commentAddForm.markAsPending();
-        const comment: MaterialComment = this.commentAddForm.value;
+        const comment: Comment = this.commentAddForm.value;
         comment.materialId = this.materialId;
         comment.matchId = this.matchId;
         comment.type = this.type ? this.type : 3;//todo
-        this.materialCommentService.create(comment)
+        this.commentService.create(comment)
             .subscribe(data => {
                     this.items.push(data);
                     this.totalItems += 1;

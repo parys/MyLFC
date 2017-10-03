@@ -12,7 +12,7 @@ import { MatchService } from "./match.service";
 import { matchRoutes } from "./match.routes";
 import { MatchEventModule } from "../matchEvent/index";
 import { MatchPersonModule } from "../matchPerson/index";
-import { CommentModule } from "../materialComment/index";
+import { CommentModule } from "../comment/index";
 import { MatchHeaderComponent } from "./match-header/index";
 
 @NgModule({

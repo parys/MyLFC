@@ -4,45 +4,42 @@ import { Location } from "@angular/common";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { MdDialog } from '@angular/material';
 import { Subscription } from "rxjs/Subscription"
-import { Comment as MaterialComment } from "../materialComment.model";
+import { Comment } from "../comment.model";
 import { CommentVote } from "../commentVote.model";
-import { MaterialCommentService } from "../materialComment.service";
-import { RolesCheckedService, IRoles, DeleteDialogComponent } from "../../shared/index";
+import { CommentService } from "../comment.service";
+import { RolesCheckedService, DeleteDialogComponent } from "../../shared/index";
 
 @Component({
-    selector: "materialComment-detail",
-    templateUrl: "./materialComment-detail.component.html",
+    selector: "comment-detail",
+    templateUrl: "./comment-detail.component.html",
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class MaterialCommentDetailComponent implements OnInit, OnDestroy {
+export class CommentDetailComponent implements OnInit, OnDestroy {
     private vote$: Subscription;
-    @Input() public item: MaterialComment;
+    @Input() public item: Comment;
     @Input() public deep: number;
     @Input() public canCommentary: boolean;
     @Input() public materialId: number;
     @Input() public matchId: number;
-    @Input() public parent: MaterialComment;
+    @Input() public parent: Comment;
     @Input() public type: number;
 
     public commentForm: FormGroup;          
-    private oldCopy: MaterialComment;
+    private oldCopy: Comment;
     public isEditMode: boolean = false;
     public isAddingMode: boolean = false;
 
-    public roles: IRoles;                
-
-    constructor(private materialCommentService: MaterialCommentService,
+    constructor(private materialCommentService: CommentService,
         private location: Location,
         private sanitizer: DomSanitizer,
-        private rolesChecked: RolesCheckedService,
+        public roles: RolesCheckedService,
         private dialog: MdDialog,
         private cd: ChangeDetectorRef,
         private formBuilder: FormBuilder) {
     }
 
     public ngOnInit(): void {
-        this.roles = this.rolesChecked.checkRoles();
         this.initForm();
     }
 
@@ -66,12 +63,12 @@ export class MaterialCommentDetailComponent implements OnInit, OnDestroy {
 
     public showAddCommentModal(): void {
         this.isAddingMode = true;
-        this.updateFormValues();
+        this.initForm();
     }
 
     public showEditModal(): void {
         this.isEditMode = true;
-        this.updateFormValues();
+        this.initForm();
     }
 
     public showDeleteModal(): void {
@@ -85,7 +82,7 @@ export class MaterialCommentDetailComponent implements OnInit, OnDestroy {
 
     public cancelAdding(): void {
         this.isAddingMode = false;
-        this.updateFormValues();//does it need
+        this.initForm();//does it need
     }
 
     public addComment(): void {
@@ -96,7 +93,7 @@ export class MaterialCommentDetailComponent implements OnInit, OnDestroy {
                 this.item.children.push(data);
                 this.cancelAdding();
                 },
-            error => console.log(error));
+            e => console.log(e));
     }
 
     public vote(positive: boolean): void {
@@ -133,7 +130,7 @@ export class MaterialCommentDetailComponent implements OnInit, OnDestroy {
 
     public editComment(): void {
         this.commentForm.markAsPending();
-        const comment: MaterialComment = this.getComment();
+        const comment: Comment = this.getComment();
         this.materialCommentService.update(this.item.id, comment)
             .subscribe(data => {
                 this.item = comment;
@@ -175,32 +172,25 @@ export class MaterialCommentDetailComponent implements OnInit, OnDestroy {
 
     private initForm(): void {
         const message: string = this.isEditMode ? this.item.message : "";
-        const answer: string = this.isEditMode ? this.item.answer : "";//todo here and below unite
+        const answer: string = this.isEditMode ? this.item.answer : "";
         this.commentForm = this.formBuilder.group({
-            'message': [message, Validators.required],
-            'answer': [answer]
+            message: [message, Validators.required],
+            answer: [answer]
         });
         this.commentForm.valueChanges.subscribe(() => {
             this.cd.markForCheck();
         });
     }
-    private updateFormValues(): void {
-        const message: string = this.isEditMode ? this.item.message : "";
-        const answer: string = this.isEditMode ? this.item.answer : "";
-        this.commentForm.get("message").patchValue(message);
-        this.commentForm.get("answer").patchValue(answer);
-        this.cd.markForCheck();
-    }
 
-    private getComment(): MaterialComment {
-        const comment: MaterialComment = this.item;
+    private getComment(): Comment {
+        const comment: Comment = this.item;
         comment.message = this.commentForm.controls["message"].value;
         comment.answer = this.commentForm.controls["answer"].value;
         return comment;
     }
 
-    private getNewComment(): MaterialComment {
-        const comment: MaterialComment = new MaterialComment();
+    private getNewComment(): Comment {
+        const comment: Comment = new Comment();
         comment.message = this.commentForm.controls["message"].value;
         comment.materialId = this.materialId;
         comment.matchId = this.matchId;

@@ -44,6 +44,10 @@ iframe .body-wrapper{
     background-color: #f5f5f5;
 }
 
+h3 {
+    margin-top: 10px;
+}
+
 hr {
     border-top-width: 3px;
     border-top-color: maroon;
@@ -178,10 +182,6 @@ textarea {
     max-width: 45px;
 }
 
-.inline-flex {
-    display: inline-flex;
-}
-
 .com-offset-0 {
     margin-left: 0;
 }
@@ -265,7 +265,7 @@ textarea {
 .comment {
     background-color: #e5e5e5;
     border: gray solid thin;
-    border-radius: 10px;
+    border-radius: 0 0 10px 10px;
     min-height: 80px;
     margin-top: 5px;
     margin-bottom: 5px;
@@ -311,6 +311,20 @@ textarea {
 
 .flex-wrap {
     flex-wrap: wrap;
+}
+
+.flex-container {
+    display: flex;
+}
+
+.flex-vertical-center {
+    min-height: 0;
+    display: flex;
+    align-items: center;
+}
+
+.inline-flex {
+    display: inline-flex;
 }
 
 .forum-message {
@@ -597,16 +611,6 @@ textarea {
 
     .vertical-center {
         vertical-align: middle;
-    }
-
-    .flex-container {
-        display: flex;
-    }
-
-    .flex-vertical-center {
-        min-height: 0;
-        display: flex;
-        align-items: center;
     }
 
     .container-row {

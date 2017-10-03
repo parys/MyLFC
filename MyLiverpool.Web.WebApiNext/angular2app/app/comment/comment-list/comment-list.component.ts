@@ -2,50 +2,53 @@
 import { ActivatedRoute } from "@angular/router";
 import { FormGroup, FormBuilder } from "@angular/forms";
 import { Location } from "@angular/common";
-import { MdDialog } from '@angular/material';
+import { MdDialog } from "@angular/material";
 import { Subscription } from "rxjs/Subscription";
-import { Comment as MaterialComment } from "../materialComment.model";
-import { MaterialCommentService } from "../materialComment.service";
-import { RolesCheckedService, IRoles, DeleteDialogComponent, Pageable } from "../../shared/index";
-import { MaterialCommentFilter } from "../materialCommentFilter.model";
+import { Comment } from "../comment.model";
+import { CommentService } from "../comment.service";
+import { RolesCheckedService, DeleteDialogComponent, Pageable } from "../../shared/index";
+import { CommentFilter } from "../commentFilter.model";
 
 @Component({
-    selector: "materialComment-list",
-    templateUrl: "./materialComment-list.component.html"
+    selector: "comment-list",
+    templateUrl: "./comment-list.component.html"
 })
-export class MaterialCommentListComponent implements OnInit, OnDestroy {
+export class CommentListComponent implements OnInit, OnDestroy {
     private sub: Subscription;
     private sub2: Subscription;
     public filterForm: FormGroup;
-    public items: MaterialComment[];
+    public items: Comment[];
     public page: number = 1;
     public onlyUnverified: boolean = false;
     public categoryId: number;
     public userName: string;
     public userId: number;
-    public itemsPerPage: number = 50;
+    public itemsPerPage: number;
     public totalItems: number;
-    public roles: IRoles;
+    public intervalArray: { key: string, value: number }[]
+        = [{ key: "15", value: 15 },
+            { key: "25", value: 25 },
+            { key: "50", value: 50 }];
 
-    constructor(private materialCommentService: MaterialCommentService,
+    constructor(private materialCommentService: CommentService,
         private route: ActivatedRoute,
         private location: Location,
         private formBuilder: FormBuilder,
-        private rolesChecked: RolesCheckedService,
+        public roles: RolesCheckedService,
         private dialog: MdDialog) {
     }
 
     public ngOnInit(): void {
         this.initForm();
-        this.roles = this.rolesChecked.checkRoles();
         this.sub = this.route.queryParams.subscribe(qParams => {
                 this.page = qParams["page"] || 1;
-                this.categoryId = qParams["categoryId"] || "";
+                this.categoryId = qParams["categoryId"] || null;
                 this.userName = qParams["userName"] || "";
                 this.userId = qParams["userId"];
                 this.onlyUnverified = qParams["onlyUnverified"] || false;
+                this.itemsPerPage = qParams["itemsPerPage"] || 15;
             },
-            error => console.log(error));
+            e => console.log(e));
         this.update();
     }
 
@@ -60,29 +63,30 @@ export class MaterialCommentListComponent implements OnInit, OnDestroy {
     };
 
     public update(): void {
-        let filters = new MaterialCommentFilter();
+        const filters = new CommentFilter();
         filters.onlyUnverified = this.filterForm.get("onlyUnverified").value;
         filters.userId = this.userId;
         filters.page = this.page;
+        filters.itemsPerPage = this.filterForm.get("itemsPerPage").value;
         this.sub2 = this.materialCommentService
             .getAll(filters)
             .subscribe(data => this.parsePageable(data),
-                error => console.log(error),
+                e => console.log(e),
                 () => { this.updateLocation(); });
     }
 
     private updateLocation(): void {
-        let newUrl = `materialComments?page=${this.page}`;
+        let newUrl = `materialComments?page=${this.page}&itemsPerPage=${this.itemsPerPage}`;
         if (this.userId) {
             newUrl = `${newUrl}&userId=${this.userId}`;
         }
-        if (this.onlyUnverified) {
+        if (this.onlyUnverified !== undefined) {
             newUrl = `${newUrl}&onlyUnverified=${this.onlyUnverified}`;
         }
         this.location.replaceState(newUrl);
     }
 
-    private parsePageable(pageable: Pageable<MaterialComment>): void {
+    private parsePageable(pageable: Pageable<Comment>): void {
         this.items = pageable.list;
         this.page = pageable.pageNo;
         this.itemsPerPage = pageable.itemPerPage;
@@ -94,7 +98,7 @@ export class MaterialCommentListComponent implements OnInit, OnDestroy {
         this.materialCommentService
             .verify(this.items[index].id)
             .subscribe(data => result = data,
-                error => console.log(error),
+                e => console.log(e),
                 () => {
                     if (result) {
                         this.items[index].isVerified = true;
@@ -103,7 +107,7 @@ export class MaterialCommentListComponent implements OnInit, OnDestroy {
     }
 
     private showDeleteModal(index: number): void {
-        let dialogRef = this.dialog.open(DeleteDialogComponent);
+        const dialogRef = this.dialog.open(DeleteDialogComponent);
         dialogRef.afterClosed().subscribe(result => {
                 if (result) {
                     this.delete(index);
@@ -127,7 +131,8 @@ export class MaterialCommentListComponent implements OnInit, OnDestroy {
 
     private initForm(): void {
         this.filterForm = this.formBuilder.group({
-            'onlyUnverified': [this.onlyUnverified]
+            onlyUnverified: [this.onlyUnverified],
+            itemsPerPage: [this.itemsPerPage || 15]
         });
     }
 }

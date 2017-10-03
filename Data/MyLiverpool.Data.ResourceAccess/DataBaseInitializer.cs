@@ -1250,8 +1250,8 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                 Type = OpenIddictConstants.ClientTypes.Public,
               //  Id = Guid.NewGuid().ToString(),
                 DisplayName = "MVC Core client application",
-                RedirectUri = "http://localhost:1669/",
-                LogoutRedirectUri = "http://localhost:1669/",
+                RedirectUris = "http://localhost:1669/",
+                PostLogoutRedirectUris = "http://localhost:1669/",
             };
             applications.Add(app);
 
@@ -1262,8 +1262,8 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                 Type = OpenIddictConstants.ClientTypes.Public,
                 //Id = Guid.NewGuid().ToString(),
                 DisplayName = "Swagger client application",
-                RedirectUri = "http://localhost:1669/swagger/o2c.html",
-                LogoutRedirectUri = "http://localhost:1669/swagger/index.html",
+                RedirectUris = "http://localhost:1669/swagger/o2c.html",
+                PostLogoutRedirectUris = "http://localhost:1669/swagger/index.html",
             };
             applications.Add(app);
             await _context.SaveChangesAsync();

@@ -1,16 +1,16 @@
 ﻿import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { MdInputModule, MdButtonModule, MdAutocompleteModule, MdSelectModule, MdSlideToggleModule } from "@angular/material";
+import { MdInputModule, MdButtonModule, MdAutocompleteModule, MdSelectModule, MdSlideToggleModule, MdCheckboxModule, MdIconModule } from "@angular/material";
 import { RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
 import { NgxPaginationModule } from "ngx-pagination";
 import { SharedModule } from "../shared/index";
-import { materialCommentRoutes } from "./materialComment.routes";
-import { MaterialCommentService } from "./materialComment.service";
-import { MaterialCommentDetailComponent } from "./materialComment-detail/index";
-import { MaterialCommentListComponent } from "./materialComment-list/index";
-import { CommentSectionComponent } from "./materialComment-section/index";
-import { LastCommentsComponent } from "./last-comments/index";
+import { commentRoutes } from "./comment.routes";
+import { CommentService } from "./comment.service";
+import { CommentDetailComponent } from "./comment-detail/index";
+import { CommentListComponent } from "./comment-list/index";
+import { CommentSectionComponent } from "./comment-section/index";
+import { CommentLastComponent } from "./comment-last/index";
 import { EditorModule } from "../editor/index";
 
 @NgModule({
@@ -19,27 +19,29 @@ import { EditorModule } from "../editor/index";
         EditorModule,
         FormsModule,
         MdSlideToggleModule,
+        MdIconModule,
         MdAutocompleteModule,
         MdButtonModule,
+        MdCheckboxModule,
         MdInputModule,
         MdSelectModule,
         NgxPaginationModule,
         ReactiveFormsModule,
-        RouterModule.forRoot(materialCommentRoutes),
+        RouterModule.forRoot(commentRoutes),
         SharedModule
     ],
     declarations: [
-        MaterialCommentDetailComponent,
-        MaterialCommentListComponent,
+        CommentDetailComponent,
+        CommentListComponent,
         CommentSectionComponent,
-        LastCommentsComponent,
+        CommentLastComponent,
     ],
     exports: [
         CommentSectionComponent,
-        LastCommentsComponent
+        CommentLastComponent
     ],
     providers: [
-        MaterialCommentService
+        CommentService
     ]
 })
 export class CommentModule { }

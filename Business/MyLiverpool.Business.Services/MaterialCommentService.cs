@@ -111,12 +111,12 @@ namespace MyLiverpool.Business.Services
             {
                 filter = filter.And(x => x.AuthorId == filters.UserId.Value);
             }
-            var comments = await _commentService.GetOrderedByAsync(filters.Page, ItemPerPage, filter, SortOrder.Descending, m => m.AdditionTime);
+            var comments = await _commentService.GetOrderedByAsync(filters.Page, filters.ItemsPerPage, filter, SortOrder.Descending, m => m.AdditionTime);
 
             UpdateCurrentUserField(comments);
             var commentDtos = _mapper.Map<IEnumerable<MaterialCommentDto>>(comments);
             var commentsCount = await _commentService.GetCountAsync(filter);
-            return new PageableData<MaterialCommentDto>(commentDtos, filters.Page, commentsCount, GlobalConstants.CommentsPerPageList);
+            return new PageableData<MaterialCommentDto>(commentDtos, filters.Page, commentsCount, filters.ItemsPerPage);
         }
 
         public async Task<PageableData<MaterialCommentDto>> GetListByMaterialIdAsync(int materialId, int page)

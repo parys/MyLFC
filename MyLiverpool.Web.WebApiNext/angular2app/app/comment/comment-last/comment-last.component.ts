@@ -2,20 +2,20 @@
 import { ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
 import { Observable } from "rxjs/Observable";
-import { MaterialCommentService } from "../materialComment.service";
-import { Comment as MaterialComment } from "../materialComment.model";
+import { CommentService } from "../comment.service";
+import { Comment } from "../comment.model";
 import { Configuration } from "../../app.constants";
 
 @Component({
-    selector: "<last-comments>",
-    templateUrl: "./last-comments.component.html"
+    selector: "<comment-last>",
+    templateUrl: "./comment-last.component.html"
 })
-export class LastCommentsComponent implements OnInit, OnDestroy {
+export class CommentLastComponent implements OnInit, OnDestroy {
     private sub: Subscription;
     private sub2: Subscription;
-    public items: MaterialComment[];
+    public items: Comment[];
 
-    constructor(private service: MaterialCommentService,
+    constructor(private service: CommentService,
         private route: ActivatedRoute,
         private config: Configuration) {
     }
