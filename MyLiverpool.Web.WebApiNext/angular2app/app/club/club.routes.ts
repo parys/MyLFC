@@ -1,5 +1,5 @@
 ﻿import { Routes } from "@angular/router";
-import { RoleGuard } from "../auth/index";
+import { RoleGuard } from "../shared/index";
 import { ClubListComponent } from "./club-list/club-list.component";
 import { ClubEditComponent } from "./club-edit/club-edit.component";
 

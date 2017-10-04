@@ -1,7 +1,7 @@
 ﻿import { Routes } from "@angular/router";
 import { StadiumEditComponent } from "./stadium-edit.component"
 import { StadiumListComponent } from "./stadium-list.component";
-import { RoleGuard } from "../auth/index";
+import { RoleGuard } from "../shared/index";
 
 export const stadiumRoutes: Routes = [
     {

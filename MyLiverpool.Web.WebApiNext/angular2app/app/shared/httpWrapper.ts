@@ -1,18 +1,12 @@
 ﻿import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs/Observable";
-import { StorageService } from "./storage.service";
 import { Configuration } from "../app.constants";
-import { Router } from "@angular/router";
-import { LoaderService } from "./loader.service";
 
 @Injectable()
 export class HttpWrapper {
     constructor(private http: HttpClient,
-        private storage: StorageService,
         private configuration: Configuration,
-        private router: Router,
-        private loaderService: LoaderService
     ) {
     }
 

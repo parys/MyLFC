@@ -1,6 +1,6 @@
 ﻿import { Injectable, Inject } from "@angular/core";
 import { LocalStorage } from "./local-storage";
-import { IAuthTokenModel } from "../auth/models/auth-tokens-model";
+import { IAuthTokenModel } from "./auth/index";
 
 @Injectable()
 export class StorageService {
@@ -87,7 +87,7 @@ export class StorageService {
 
     private get(key: string): string {
         if (!this.localStorage) return "";
-        return localStorage[key] || false;
+        return localStorage[key] || "";
     }
 
     private setObject(key: string, value: any): void {

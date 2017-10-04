@@ -1,7 +1,7 @@
 ﻿import { Routes } from "@angular/router";
 import { StaticPageComponent } from "./static-page/index";
 import { HelperType } from "../admin/helperType.enum";
-import { RoleGuard } from "../auth/index";
+import { RoleGuard } from "../shared/index";
 
 export const homeRoutes: Routes = [
     {

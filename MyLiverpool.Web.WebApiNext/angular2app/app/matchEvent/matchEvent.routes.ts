@@ -1,5 +1,5 @@
 ﻿import { Routes } from "@angular/router";
-import { RoleGuard } from "../auth/index";
+import { RoleGuard } from "../shared/index";
 import { MatchEventListComponent } from "./matchEvent-list.component";
 
 export const matchEventRoutes: Routes = [
@@ -14,16 +14,7 @@ export const matchEventRoutes: Routes = [
                     roles: ["infoStart"]
                 },
                 canActivate: [RoleGuard]
-            },
-            //{
-            //    path: ":id/edit",
-            //    component: MatchEventEditComponent,
-            //    data: {
-            //         title: "Создание события",
-            //         roles: ["infoStart"]
-            //    },
-            //    canActivate: [RoleGuard]
-            //}
+            }
         ]
     }
 ];

@@ -4,13 +4,13 @@ import {
     ActivatedRouteSnapshot,
     RouterStateSnapshot
 } from "@angular/router";
-import { RolesCheckedService } from "../shared/index";
+import { RolesCheckedService } from "../roles-checked.service";
 
 @Injectable()
 export class UnSignedGuard implements CanActivate {
     constructor(private rolesService: RolesCheckedService, private router: Router) { }
 
-    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
         if (this.rolesService.checkRoles().isLogined) {
             this.router.navigate(["/news"]);              //bug need to go to root
              return false;

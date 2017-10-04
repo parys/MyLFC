@@ -2,7 +2,7 @@
 import { InjuryEditComponent } from "./injury-edit.component";
 import { InjuryListComponent } from "./injury-list.component";
 import { InjuryCurrentListComponent } from "./injury-current-list.component";
-import { RoleGuard } from "../auth/index";
+import { RoleGuard } from "../shared/index";
 
 export const injuryRoutes: Routes = [
     {

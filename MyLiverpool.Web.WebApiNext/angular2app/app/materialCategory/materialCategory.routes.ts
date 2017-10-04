@@ -1,7 +1,7 @@
 ﻿import { Routes } from "@angular/router";
 import { MaterialCategoryListComponent } from "./materialCategory-list.component";
 import { MaterialCategoryEditComponent } from "./materialCategory-edit.component";
-import { RoleGuard } from "../auth/index";
+import { RoleGuard } from "../shared/index";
 
 export const materialCategoryRoutes: Routes = [
     {

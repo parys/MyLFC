@@ -1,6 +1,6 @@
 ﻿import { Routes } from "@angular/router";
 import { UserListComponent, UserConfigComponent, UserEditComponent } from "./index";
-import { RoleGuard } from "../auth/index";
+import { RoleGuard } from "../shared/index";
 import { UserDetailComponent } from "./user-detail/index";
 
 export const userRoutes: Routes = [

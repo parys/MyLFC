@@ -9,7 +9,6 @@ import { Configuration } from "./app.constants";
 import * as material from "./material/index";
 import { EditorModule } from "./editor/index";
 import * as materialCategory from "./materialCategory/index";
-import * as auth from "./auth/index";
 import * as chat from "./chat/index";
 import { ClubModule } from "./club/index";
 import * as home from "./home/index";
@@ -107,10 +106,7 @@ import { NotificationModule } from "./notification/index";
     entryComponents: [
         material.MaterialActivateDialogComponent,
     ],
-    providers: [// services  
-        auth.AuthService,
-        auth.RoleGuard,
-        auth.UnSignedGuard,
+    providers: [// services
         BreadcrumbService,
         chat.ChatMessageService,
         image.ImageService,

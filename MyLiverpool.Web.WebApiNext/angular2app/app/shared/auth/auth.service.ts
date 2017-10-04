@@ -11,11 +11,13 @@ import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import { IRefreshGrantModel } from "./models/refresh-grant-model";
 import { IProfileModel } from "./models/profile-model";
 import { IAuthStateModel } from "./models/auth-state-model";
-import { IAuthTokenModel } from "./models/auth-tokens-model";
+import { IAuthTokenModel } from "./models/auth-token-model";
 import { IRegisterModel } from "./models/register-model";
 import { ILoginModel } from "./models/login-model";
-import { RolesCheckedService, HttpWrapper, StorageService } from "../shared/index";
 import { IUserProfile } from "./models/userProfile.model";
+import { HttpWrapper } from "../httpWrapper";
+import { StorageService } from "../storage.service";
+import { RolesCheckedService } from "../roles-checked.service";
 //const jwtDecode = require("jwt-decode");
 
 @Injectable()
@@ -35,7 +37,8 @@ export class AuthService {
     constructor(private http: HttpWrapper,
         private http1: HttpClient,
         private storage: StorageService,
-        private rolesCheckedService: RolesCheckedService) {
+        private rolesCheckedService: RolesCheckedService
+    ) {
 
         this.state = new BehaviorSubject<IAuthStateModel>(this.initalState);
         this.state$ = this.state.asObservable();
@@ -102,13 +105,13 @@ export class AuthService {
         const params = new URLSearchParams();
         Object.keys(data)
             .forEach(key => params.append(key, data[key]));
-        return this.http1.post<IAuthTokenModel>("/connect/token", params.toString(), {headers: headers})
-            .do((tokens:IAuthTokenModel) => {
+        return this.http1.post<IAuthTokenModel>("/connect/token", params.toString(), { headers: headers })
+            .do((tokens: IAuthTokenModel) => {
 
                 const now = new Date();
                 tokens.expiration_date = new Date(now.getTime() + tokens.expires_in * 1000).getTime().toString();
 
-             //   const profile: IProfileModel = new Object();// jwtDecode(tokens.id_token);
+                //   const profile: IProfileModel = new Object();// jwtDecode(tokens.id_token);
 
                 this.storage.setAuthTokens(tokens);
                 if (tokens.refresh_token) {
@@ -117,7 +120,7 @@ export class AuthService {
                 //  this.updateState({ authReady: true, tokens, profile });
                 this.updateState({ authReady: true, tokens });
                 this.getUserProfile();
-    });
+            });
     }
 
     private startupTokenRefresh(): Observable<IAuthTokenModel> {

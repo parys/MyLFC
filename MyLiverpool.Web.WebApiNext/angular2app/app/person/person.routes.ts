@@ -3,7 +3,7 @@ import { PersonListComponent } from "./person-list/index";
 import { PersonEditComponent } from "./person-edit/index";
 import { StuffListComponent } from "./stuff-list/index";
 import { SquadComponent } from "./squad/index";
-import { RoleGuard } from "../auth/index";
+import { RoleGuard } from "../shared/index";
 
 export const personRoutes: Routes = [
     {

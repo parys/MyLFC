@@ -5,10 +5,7 @@ import { Observable } from "rxjs/Observable"
 import "rxjs/add/observable/throw";
 import "rxjs/add/operator/filter";
 import "rxjs/add/operator/mergeMap";
-import { RolesCheckedService } from "./shared/roles-checked.service";
-import { IRoles } from "./shared/roles.interface";
-import { AuthService } from "./auth/auth.service";
-import { IAuthStateModel } from "./auth/models/auth-state-model";
+import { RolesCheckedService, AuthService, IAuthStateModel } from "./shared/index";
 import { BreadcrumbService } from "ng2-breadcrumb/ng2-breadcrumb";
 
 
@@ -20,13 +17,12 @@ import { BreadcrumbService } from "ng2-breadcrumb/ng2-breadcrumb";
 })
 
 export class AppComponent implements OnInit {
-    public roles: IRoles;
    // public isRoot: boolean = false;
  //   private viewContainerRef: ViewContainerRef;
     private authState$: Observable<IAuthStateModel>;
 
     constructor(private router: Router,
-        private rolesChecked: RolesCheckedService,
+        public roles: RolesCheckedService,
         private authService: AuthService,
         private viewContainerRef: ViewContainerRef,
         private activatedRoute: ActivatedRoute,
@@ -34,7 +30,6 @@ export class AppComponent implements OnInit {
         private renderer: Renderer2,
         private breadcrumbService: BreadcrumbService
     ) {        
-        this.roles = this.rolesChecked.checkRoles();
         // You need this small hack in order to catch application root view container ref
   //      this.viewContainerRef = viewContainerRef;
         this.initTitleSubscriber();
@@ -44,10 +39,10 @@ export class AppComponent implements OnInit {
     public ngOnInit(): void {
         this.authState$ = this.authService.state$;
         // This starts up the token refresh preocess for the app
-        this.authService.init()
-            .subscribe(
-                () => { console.info('Startup success'); },
-                error => console.warn(error)
+       this.authService.init()
+           .subscribe(
+                () => { console.info("Startup success"); },
+                e => console.warn(e)
             );
     }
 

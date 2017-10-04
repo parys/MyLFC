@@ -3,7 +3,7 @@ import { SeasonEplTableComponent } from "./season-eplTable.component";
 import { SeasonListComponent } from "./season-list.component";
 import { SeasonEditComponent } from "./season-edit.component";
 import { SeasonCalendarComponent } from "./season-calendar.component";
-import { RoleGuard } from "../auth/index";
+import { RoleGuard } from "../shared/index";
 
 export const seasonRoutes: Routes = [
     {

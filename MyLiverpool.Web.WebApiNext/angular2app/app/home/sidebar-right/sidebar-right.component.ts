@@ -1,6 +1,5 @@
 ﻿import { Component } from "@angular/core";
-import { RolesCheckedService } from "../../shared/index";
-import { AuthService } from "../../auth/index";
+import { RolesCheckedService, AuthService } from "../../shared/index";
 
 @Component({
     selector: "sidebar-right",

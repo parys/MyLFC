@@ -1,5 +1,5 @@
 ﻿import { Routes } from "@angular/router";
-import { UnSignedGuard, RoleGuard } from "../auth/index";
+import { UnSignedGuard, RoleGuard } from "../shared/index";
 import { AccountSignupComponent } from "./account-signup/index";
 import { ConfirmEmailComponent } from "./confirmEmail.component";
 import { ForgotPasswordComponent } from "./forgotPassword/index";

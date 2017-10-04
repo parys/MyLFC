@@ -1,5 +1,5 @@
 ﻿import { Routes } from "@angular/router";
-import { RoleGuard } from "../auth/index";
+import { RoleGuard } from "../shared/index";
 import { PmListComponent } from "./pm-list/index";
 import { PmDetailComponent } from "./pm-detail/index";
 import { PmEditComponent } from "./pm-edit/index";
