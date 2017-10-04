@@ -1,9 +1,7 @@
 ﻿import { Component, OnInit } from "@angular/core";
-import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { Observable } from "rxjs/Observable";
 import { ForumSectionService } from "./forumSection.service";
 import { ForumSection } from "./forumSection.model";
-import { RolesCheckedService, IRoles } from "../../shared/index";
+import { RolesCheckedService } from "../../shared/index";
 
 @Component({
     selector: "forumSection-list",
@@ -12,15 +10,12 @@ import { RolesCheckedService, IRoles } from "../../shared/index";
 
 export class ForumSectionListComponent implements OnInit {
 
-    items: ForumSection[];//add subscr
-    roles: IRoles;
+    items: ForumSection[];
 
-    constructor(private service: ForumSectionService, private rolesChecked: RolesCheckedService) {
+    constructor(private service: ForumSectionService, public roles: RolesCheckedService) {
     }
 
-    ngOnInit() {
-        this.roles = this.rolesChecked.checkRoles();
-        
+    public ngOnInit(): void {
         this.service
             .getAll()
             .subscribe(data => this.items = data,

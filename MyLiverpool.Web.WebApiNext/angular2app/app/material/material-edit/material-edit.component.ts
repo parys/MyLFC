@@ -5,7 +5,7 @@ import { MdSnackBar } from "@angular/material";
 import { MaterialService } from "../material.service";
 import { Material } from "../material.model";
 import { MaterialCategoryService } from "../../materialCategory/index";
-import { RolesCheckedService, IRoles } from "../../shared/index";
+import { RolesCheckedService } from "../../shared/index";
 import { MaterialCategory } from "../../materialCategory/materialCategory.model";
 import { MaterialType } from "../../materialCategory/materialType.enum";
 
@@ -18,7 +18,6 @@ export class MaterialEditComponent implements OnInit {
     private id: number;
     public editForm: FormGroup;        
     public categories: MaterialCategory[];
-    public roles: IRoles;
     public item: Material;
     public type: MaterialType;
     public additional: string = "additional";
@@ -28,7 +27,7 @@ export class MaterialEditComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private snackBar: MdSnackBar,
-        private rolesChecked: RolesCheckedService,
+        public roles: RolesCheckedService,
         private formBuilder: FormBuilder) {
         if (route.snapshot.data["type"] === MaterialType[MaterialType.News]) {
             this.type = MaterialType.News;
@@ -38,7 +37,6 @@ export class MaterialEditComponent implements OnInit {
     }
                                                              
     public ngOnInit(): void {
-        this.roles = this.rolesChecked.checkRoles();
         this.initForm();
         if(+this.route.snapshot.params["id"]){
             this.service.getSingle(+this.route.snapshot.params["id"])

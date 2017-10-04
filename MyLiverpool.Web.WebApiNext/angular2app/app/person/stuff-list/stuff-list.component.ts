@@ -4,7 +4,7 @@ import { Subscription } from "rxjs/Subscription";
 import { Person } from "../person.model";
 import { PersonService } from "../person.service";
 import { PersonTypeEnum } from "../personType.enum";
-import { RolesCheckedService, IRoles } from "../../shared/index";
+import { RolesCheckedService } from "../../shared/index";
 
 @Component({
     selector: "<stuff-list>",
@@ -13,17 +13,15 @@ import { RolesCheckedService, IRoles } from "../../shared/index";
 export class StuffListComponent implements OnInit, OnDestroy {
     private sub: Subscription;
     public items: Person[];
-    public roles: IRoles;
     public routeLinks: any[];
     public activeLinkIndex: number = 0;
 
     constructor(private personService: PersonService,
         private route: ActivatedRoute,
-        private rolesChecked: RolesCheckedService){
+        public roles: RolesCheckedService){
     }
 
     public ngOnInit(): void {
-        this.roles = this.rolesChecked.checkRoles();
         this.routeLinks = [
             { label: "Первая команда", link: "/stuff/first" },
             { label: "Академия", link: "/stuff/academy" }];

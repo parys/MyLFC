@@ -7,7 +7,7 @@ import { Subscription } from "rxjs/Subscription";
 import { MaterialService } from "../material.service";
 import { Material } from "../material.model";                
 import { MaterialType } from "../../materialCategory/materialType.enum";                
-import { RolesCheckedService, IRoles, StorageService, DeleteDialogComponent } from "../../shared/index";
+import { RolesCheckedService, StorageService, DeleteDialogComponent } from "../../shared/index";
 import { MaterialActivateDialogComponent } from "../material-activate-dialog.component";
 
 @Component({
@@ -19,7 +19,6 @@ import { MaterialActivateDialogComponent } from "../material-activate-dialog.com
 export class MaterialDetailComponent implements OnInit, OnDestroy {
     private sub: Subscription;
     public item: Material;
-    public roles: IRoles;
     public body: SafeHtml;
     public type: MaterialType;
     
@@ -28,7 +27,7 @@ export class MaterialDetailComponent implements OnInit, OnDestroy {
         private route: ActivatedRoute,
         private cd: ChangeDetectorRef,
         private storage: StorageService,
-        private rolesChecked: RolesCheckedService,
+        public roles: RolesCheckedService,
         private router: Router,
         private sanitizer: DomSanitizer,
         private titleService: Title,
@@ -37,7 +36,6 @@ export class MaterialDetailComponent implements OnInit, OnDestroy {
     }
 
     public ngOnInit(): void {
-        this.roles = this.rolesChecked.checkRoles();
         this.sub = this.route.params.subscribe(params => {
             if (+params["id"] === 0) {
                 this.router.navigate(["/"]); //bug temporary workaround

@@ -23,19 +23,19 @@ export class AccountSignupComponent implements OnInit {
 
     public ngOnInit(): void {
         this.registerForm = this.formBuilder.group({
-            'userName': ["", Validators.compose([
+            userName: ["", Validators.compose([
                 Validators.required,
                 Validators.minLength(3)
             ]), new AccountValidators(this.accountService).isUserNameUnique],
-            'email': ["", Validators.compose([
+            email: ["", Validators.compose([
                 Validators.required,
                 Validators.minLength(6),
                 GlobalValidators.mailFormat
             ]),
                 new AccountValidators(this.accountService).isEmailUnique],
-            'password': ["", Validators.compose([
+            password: ["", Validators.compose([
                 Validators.required, Validators.minLength(6)])],
-            'confirmPassword': ["", Validators.compose([
+            confirmPassword: ["", Validators.compose([
                 Validators.required, Validators.minLength(6)])]
         }, { validator: GlobalValidators.matchingPasswords("password", "confirmPassword") });                      
     }
@@ -50,7 +50,7 @@ export class AccountSignupComponent implements OnInit {
                         this.result = true;
                     }
                 },
-            error => console.log(error));
+            e => console.log(e));
         this.isHuman = false;
     }
 }

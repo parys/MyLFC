@@ -2,7 +2,7 @@
 import { Subscription } from "rxjs/Subscription";
 import { AdminService } from "../admin.service";
 import { HelperType } from "../helperType.enum";
-import { RolesCheckedService, IRoles } from "../../shared/index";
+import { RolesCheckedService } from "../../shared/index";
 
 @Component({
     selector: "cup-table",
@@ -11,16 +11,14 @@ import { RolesCheckedService, IRoles } from "../../shared/index";
 })
 export class CupTableComponent implements OnInit, OnDestroy {
     private sub: Subscription;
-    public roles: IRoles;
     public cupTable: string;
 
     constructor(private service: AdminService,
         private cd: ChangeDetectorRef,
-        private rolesChecked: RolesCheckedService) {
+        public roles: RolesCheckedService) {
     }
 
     public ngOnInit(): void {
-        this.roles = this.rolesChecked.checkRoles();
         this.sub = this.service
             .getValue(HelperType.CupTable)
             .subscribe(data => this.cupTable = data,

@@ -2,7 +2,7 @@
 import { Subscription } from "rxjs/Subscription";
 import { InjuryService } from "./injury.service";
 import { Injury } from "./injury.model";
-import { RolesCheckedService, IRoles } from "../shared/index";
+import { RolesCheckedService } from "../shared/index";
 
 @Component({
     selector: "<injury-current-list>",
@@ -10,15 +10,13 @@ import { RolesCheckedService, IRoles } from "../shared/index";
 })
 export class InjuryCurrentListComponent implements OnInit, OnDestroy {
     private sub2: Subscription;
-    public roles: IRoles;
     public items: Injury[];
 
     constructor(private service: InjuryService,
-        private rolesChecked: RolesCheckedService) {
+        public roles: RolesCheckedService) {
     }
 
     public ngOnInit(): void {
-        this.roles = this.rolesChecked.checkRoles();
         this.update();
     }
 

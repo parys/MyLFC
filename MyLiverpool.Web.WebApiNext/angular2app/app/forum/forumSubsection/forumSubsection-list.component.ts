@@ -7,7 +7,7 @@ import { Observable } from "rxjs/Observable";
 import { ForumSubsectionService } from "./forumSubsection.service";
 import { ForumSubsection } from "./forumSubsection.model";
 import { ForumTheme } from "../forumTheme/index";
-import { RolesCheckedService, IRoles } from "../../shared/index";
+import { RolesCheckedService } from "../../shared/index";
 
 @Component({
     selector: "forumSubsection-list",
@@ -16,7 +16,6 @@ import { RolesCheckedService, IRoles } from "../../shared/index";
 export class ForumSubsectionListComponent implements OnInit, OnDestroy {
     item: ForumSubsection;
     items: ForumTheme[];
-    roles: IRoles;
     private sub: Subscription;
     private sub2: Subscription;
     page: number = 1;
@@ -24,12 +23,11 @@ export class ForumSubsectionListComponent implements OnInit, OnDestroy {
     totalItems: number;
 
     constructor(private service: ForumSubsectionService,
-        private rolesChecked: RolesCheckedService,
+        public roles: RolesCheckedService,
         private route: ActivatedRoute, private location: Location) {
     }
 
-    ngOnInit() {
-        this.roles = this.rolesChecked.checkRoles();
+    public ngOnInit(): void {
         this.sub2 = this.route.queryParams.subscribe(params => {
             if (params["page"]) {
                 this.page = +params["page"];
@@ -41,12 +39,12 @@ export class ForumSubsectionListComponent implements OnInit, OnDestroy {
         });
     };
 
-    ngOnDestroy() {
+    public ngOnDestroy(): void {
         this.sub.unsubscribe();
         this.sub2.unsubscribe();
     }
 
-    pageChanged(event: any): void {
+    public pageChanged(event: any): void {
         this.page = event;
         this.update(this.item.id);
         let newUrl = `forum/${this.item.id}?page=${this.page}`;
@@ -54,7 +52,7 @@ export class ForumSubsectionListComponent implements OnInit, OnDestroy {
         this.location.replaceState(newUrl);
     };
 
-    update(id: number) {
+    public update(id: number) {
         this.service.getSingleWithThemes(id, this.page)
             .subscribe(data => {
                 this.item = data;

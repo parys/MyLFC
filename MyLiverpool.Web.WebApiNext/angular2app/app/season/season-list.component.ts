@@ -2,7 +2,6 @@
 import { Subscription } from "rxjs/Subscription";
 import { SeasonService } from "./season.service";
 import { Season } from "./season.model";
-import { RolesCheckedService, IRoles } from "../shared/index";
 
 @Component({
     selector: "<season-list>",
@@ -10,16 +9,13 @@ import { RolesCheckedService, IRoles } from "../shared/index";
 })
 export class SeasonListComponent implements OnInit, OnDestroy {
     private sub: Subscription;
-    public roles: IRoles;
     public seasons: Season[];
 
-    constructor(private service: SeasonService,
-    private rolesChecked: RolesCheckedService) {
+    constructor(private service: SeasonService) {
         
     }
 
-    public ngOnInit(): void {
-        this.roles = this.rolesChecked.checkRoles();        
+    public ngOnInit(): void {     
         this.sub = this.service.getAll().subscribe(data => this.seasons = data,
             error => console.log(error));
     }

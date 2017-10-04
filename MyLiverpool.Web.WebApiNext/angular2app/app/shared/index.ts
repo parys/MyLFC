@@ -2,7 +2,6 @@
 export * from "./pageable.model";
 export * from "./httpWrapper";
 export * from "./storage.service";
-export * from "./roles.interface";
 export * from "./roles-checked.service";
 export * from "./globalValidators";
 export * from "./recaptcha.component";             

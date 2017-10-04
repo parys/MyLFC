@@ -37,7 +37,7 @@ export class PmDetailComponent implements OnInit, OnDestroy {
     }
 
     public writePm(): void {
-        if (this.roles.checked.isSelf(this.item.senderId)) {
+        if (this.roles.isSelf(this.item.senderId)) {
             this.selectedUserId = this.item.receiverId;
             this.selectedUserName = this.item.receiver;
         } else {

@@ -1,22 +1,8 @@
 ﻿import { Injectable } from "@angular/core";
-import { IRoles } from "./roles.interface";
 import { StorageService } from "./storage.service";
 
 @Injectable()
 export class RolesCheckedService {
-    public checked: IRoles = { //todo will be removed
-        isLogined: false,
-        isEditor: false,
-        isNewsmaker: false,
-        isModerator: false,
-        isMainModerator: false,
-        isAdminAssistant: false,
-        isAdmin: false,
-        isAuthor: false,
-        isInformer: false,
-        isMainInformer: false,
-        isSelf: (userId: number): boolean => this.isSelf(userId)
-    };
     public isLogined: boolean = false;
     public isEditor: boolean =  false;
     public isNewsmaker: boolean =  false;
@@ -35,14 +21,12 @@ export class RolesCheckedService {
         this.checkRoles();
     }
 
-    public checkRoles(): IRoles {
+    public checkRoles(): void {
         this.roles = this.storage.getRoles();
-        this.checked.isLogined = false;
         this.isLogined = false;
         if (!this.roles) {
-            return this.checked;
+            return;
         };
-        this.checked.isLogined = true;
         this.isLogined = true;
         this.checkEditor();
         this.checkNewsmaker();
@@ -53,7 +37,6 @@ export class RolesCheckedService {
         this.checkAuthor();
         this.checkInformer();
         this.checkMainInformer();
-        return this.checked;
     }
 
     public isUserInRole(role: string): boolean {
@@ -67,63 +50,54 @@ export class RolesCheckedService {
 
     private checkEditor(): void {
         if (this.checkRole("NewsFull") || this.checkRole("BlogFull")) {
-            this.checked.isEditor = true;
             this.isEditor = true;
         }
     }
 
     private checkNewsmaker(): void {
         if (this.checkRole("NewsStart")) {
-            this.checked.isNewsmaker = true;
             this.isNewsmaker = true;
         }
     }
 
     private checkModerator(): void {
         if (this.checkRole("UserStart")) {
-            this.checked.isModerator = true;
             this.isModerator = true;
         }
     }
 
     private checkMainModerator(): void {
         if (this.checkRole("UserFull")) {
-            this.checked.isMainModerator = true;
             this.isMainModerator = true;
         }
     }
 
     private checkAdminAssistant(): void {
         if (this.checkRole("AdminStart")) {
-            this.checked.isAdminAssistant = true;
             this.isAdminAssistant = true;
         }
     }
 
     private checkAdmin(): void {
         if (this.checkRole("AdminFull")) {
-            this.checked.isAdmin = true;
             this.isAdmin = true;
         }
     }
 
     private checkAuthor(): void {
         if (this.checkRole("BlogStart")) {
-            this.checked.isAuthor = true;
             this.isAuthor = true;
         }
     }
 
     private checkInformer(): void {
         if (this.checkRole("InfoStart")) {
-            this.checked.isInformer = true;
             this.isInformer = true;
         }
     }
 
     private checkMainInformer(): void {
         if (this.checkRole("InfoFull")) {
-            this.checked.isMainInformer = true;
             this.isMainInformer = true;
         }
     }

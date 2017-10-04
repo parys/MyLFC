@@ -3,7 +3,7 @@ import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
 import { AdminService } from "../../admin/admin.service";
-import { RolesCheckedService, IRoles, } from "../../shared/index";
+import { RolesCheckedService } from "../../shared/index";
 
 @Component({
     selector: "<static-page>",
@@ -13,11 +13,10 @@ import { RolesCheckedService, IRoles, } from "../../shared/index";
 export class StaticPageComponent implements OnInit, OnDestroy {
     private sub: Subscription;
     public content: SafeHtml;
-    public roles: IRoles;
     public typeId: number;
 
     constructor(private service: AdminService,
-        private rolesChecked: RolesCheckedService,
+        public roles: RolesCheckedService,
         private route: ActivatedRoute,
         private cd: ChangeDetectorRef,
         private sanitizer: DomSanitizer) {
@@ -26,7 +25,6 @@ export class StaticPageComponent implements OnInit, OnDestroy {
     }
 
     public ngOnInit(): void {
-        this.roles = this.rolesChecked.checkRoles();
         this.sub = this.service.getValue(this.typeId).subscribe(pageData => {
                 if (pageData) {
                     this.content = this.sanitizeByHtml(pageData);

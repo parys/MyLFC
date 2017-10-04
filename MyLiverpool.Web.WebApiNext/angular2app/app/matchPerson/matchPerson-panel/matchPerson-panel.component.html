@@ -1,89 +1,89 @@
 ﻿<div class="col-xs-12 container-row">
     <div class="col-xs-12 container-row">
         <div class="text-center">Главный судья: {{mainRef?.personName}}
-            <span *ngIf="roles.checked.isInformer && !mainRef" role="button" (click)="addMatchPerson(7)"><md-icon>add</md-icon></span></div>
+            <span *ngIf="roles.isInformer && !mainRef" role="button" (click)="addMatchPerson(7)"><md-icon>add</md-icon></span></div>
         <div class="text-center" *ngIf="assistantRef.length > 0">Помощники судьи: <span *ngFor="let ref of assistantRef">{{ref.personName}},</span></div>
         <div class="text-center" *ngIf="additionalRef.length > 0">Дополнительные судьи: <span *ngFor="let ref of additionalRef">{{ref.personName}},</span></div>
         <div class="text-center" *ngIf="fourthRef">Резервный судья: {{fourthRef.personName}}</div>
         <div class="col-xs-6 container-row">
             <i class="col-xs-12 container-row top10">Главный тренер:
-                <span *ngIf="roles.checked.isInformer && !homeCoach" role="button" (click)="addMatchPerson(isHome ? 5 : 6)"><md-icon>add</md-icon></span>
+                <span *ngIf="roles.isInformer && !homeCoach" role="button" (click)="addMatchPerson(isHome ? 5 : 6)"><md-icon>add</md-icon></span>
             </i>
             <div class="col-xs-12 container-row" [textContent]="homeCoach?.personName"></div>
             <i class="col-xs-12 container-row top10">Состав:
-                <span *ngIf="roles.checked.isInformer && homeTeam.length < 11" role="button" (click)="addMatchPerson(isHome ? 1 : 3)"><md-icon>add</md-icon></span>
+                <span *ngIf="roles.isInformer && homeTeam.length < 11" role="button" (click)="addMatchPerson(isHome ? 1 : 3)"><md-icon>add</md-icon></span>
             </i>
             <div class="col-xs-12 container-row" *ngFor="let person of homeTeam">
                 {{person.number}} - {{person.personName}}
-                <span *ngIf="roles.checked.isInformer" role="button" (click)="selectMatchPerson(person)" class="glyphicon glyphicon-pencil"></span>
-                <span *ngIf="roles.checked.isInformer" role="button" (click)="showDeleteModal(person)" class="glyphicon glyphicon-trash"></span>
+                <span *ngIf="roles.isInformer" role="button" (click)="selectMatchPerson(person)" class="glyphicon glyphicon-pencil"></span>
+                <span *ngIf="roles.isInformer" role="button" (click)="showDeleteModal(person)" class="glyphicon glyphicon-trash"></span>
             </div>
             <i class="col-xs-12 container-row top10">Запасные:
-                <span *ngIf="roles.checked.isInformer" role="button" (click)="addMatchPerson(isHome ? 2 : 4)"><md-icon>add</md-icon></span>
+                <span *ngIf="roles.isInformer" role="button" (click)="addMatchPerson(isHome ? 2 : 4)"><md-icon>add</md-icon></span>
             </i>
             <div class="col-xs-12 container-row" *ngFor="let person of homeBench">
                 {{person.number}} - {{person.personName}}
-                <span *ngIf="roles.checked.isInformer" role="button" (click)="selectMatchPerson(person)" class="glyphicon glyphicon-pencil"></span>
-                <span *ngIf="roles.checked.isInformer" role="button" (click)="showDeleteModal(person)" class="glyphicon glyphicon-trash"></span>
+                <span *ngIf="roles.isInformer" role="button" (click)="selectMatchPerson(person)" class="glyphicon glyphicon-pencil"></span>
+                <span *ngIf="roles.isInformer" role="button" (click)="showDeleteModal(person)" class="glyphicon glyphicon-trash"></span>
             </div>
             <div class="col-xs-12 container-row top10" *ngIf="homeBan.length > 0">
                 <i class="col-xs-12 container-row">Дисквалифицированы:</i>
                 <div class="col-xs-12 container-row" *ngFor="let person of homeBan">
                     {{person.number}} - {{person.personName}}
-                    <md-icon *ngIf="roles.checked.isInformer" role="button" (click)="selectMatchPerson(person)">create</md-icon>
-                    <span *ngIf="roles.checked.isInformer" role="button" (click)="showDeleteModal(person)" class="glyphicon glyphicon-trash"></span>
+                    <md-icon *ngIf="roles.isInformer" role="button" (click)="selectMatchPerson(person)">create</md-icon>
+                    <span *ngIf="roles.isInformer" role="button" (click)="showDeleteModal(person)" class="glyphicon glyphicon-trash"></span>
                 </div>
             </div>
             <div class="col-xs-12 container-row top10" *ngIf="homeInjury.length > 0">
                 <i class="col-xs-12 container-row">Травмированы:</i>
                 <div class="col-xs-12 container-row" *ngFor="let person of homeInjury">
                     {{person.number}} - {{person.personName}}
-                    <span *ngIf="roles.checked.isInformer" role="button" (click)="selectMatchPerson(person)" class="glyphicon glyphicon-pencil"></span>
-                    <span *ngIf="roles.checked.isInformer" role="button" (click)="showDeleteModal(person)" class="glyphicon glyphicon-trash"></span>
+                    <span *ngIf="roles.isInformer" role="button" (click)="selectMatchPerson(person)" class="glyphicon glyphicon-pencil"></span>
+                    <span *ngIf="roles.isInformer" role="button" (click)="showDeleteModal(person)" class="glyphicon glyphicon-trash"></span>
                 </div>
             </div>
         </div>
         <div class="col-xs-6 container-row text-right">
             <i class="col-xs-12 container-row top10">Главный тренер:
-                <span *ngIf="roles.checked.isInformer && !awayCoach" role="button" (click)="addMatchPerson(isHome ? 6 : 5)"><md-icon>add</md-icon></span>
+                <span *ngIf="roles.isInformer && !awayCoach" role="button" (click)="addMatchPerson(isHome ? 6 : 5)"><md-icon>add</md-icon></span>
             </i>
             <div class="col-xs-12 container-row" [textContent]="awayCoach?.personName"></div>
             <i class="col-xs-12 container-row top10">Состав:
-            <span *ngIf="roles.checked.isInformer && awayTeam.length < 11" role="button" (click)="addMatchPerson(isHome ? 3 : 1)"><md-icon>add</md-icon></span>
+            <span *ngIf="roles.isInformer && awayTeam.length < 11" role="button" (click)="addMatchPerson(isHome ? 3 : 1)"><md-icon>add</md-icon></span>
             </i>
             <div class="col-xs-12 container-row" *ngFor="let person of awayTeam">
                 {{person.number}} - {{person.personName}}
-                <span *ngIf="roles.checked.isInformer" role="button" (click)="selectMatchPerson(person)" class="glyphicon glyphicon-pencil"></span>
-                <span *ngIf="roles.checked.isInformer" role="button" (click)="showDeleteModal(person)" class="glyphicon glyphicon-trash"></span>
+                <span *ngIf="roles.isInformer" role="button" (click)="selectMatchPerson(person)" class="glyphicon glyphicon-pencil"></span>
+                <span *ngIf="roles.isInformer" role="button" (click)="showDeleteModal(person)" class="glyphicon glyphicon-trash"></span>
             </div>
             <i class="col-xs-12 container-row top10">Запасные:
-                <span *ngIf="roles.checked.isInformer" role="button" (click)="addMatchPerson(isHome ? 4 : 2)"><md-icon>add</md-icon></span>
+                <span *ngIf="roles.isInformer" role="button" (click)="addMatchPerson(isHome ? 4 : 2)"><md-icon>add</md-icon></span>
             </i>
             <div class="col-xs-12 container-row" *ngFor="let person of awayBench">
                 {{person.number}} - {{person.personName}}
-                <span *ngIf="roles.checked.isInformer" role="button" (click)="selectMatchPerson(person)" class="glyphicon glyphicon-pencil"></span>
-                <span *ngIf="roles.checked.isInformer" role="button" (click)="showDeleteModal(person)" class="glyphicon glyphicon-trash"></span>
+                <span *ngIf="roles.isInformer" role="button" (click)="selectMatchPerson(person)" class="glyphicon glyphicon-pencil"></span>
+                <span *ngIf="roles.isInformer" role="button" (click)="showDeleteModal(person)" class="glyphicon glyphicon-trash"></span>
             </div>
             <div class="col-xs-12 container-row top10" *ngIf="awayBan.length > 0">
                 <i class="col-xs-12 container-row">Дисквалифицированы:</i>
                 <div class="col-xs-12 container-row" *ngFor="let person of awayBan">
                     {{person.number}} - {{person.personName}}
-                    <span *ngIf="roles.checked.isInformer" role="button" (click)="selectMatchPerson(person)" class="glyphicon glyphicon-pencil"></span>
-                    <span *ngIf="roles.checked.isInformer" role="button" (click)="showDeleteModal(person)" class="glyphicon glyphicon-trash"></span>
+                    <span *ngIf="roles.isInformer" role="button" (click)="selectMatchPerson(person)" class="glyphicon glyphicon-pencil"></span>
+                    <span *ngIf="roles.isInformer" role="button" (click)="showDeleteModal(person)" class="glyphicon glyphicon-trash"></span>
                 </div>
             </div>
             <div class="col-xs-12 container-row top10" *ngIf="awayInjury.length > 0">
                 <i class="col-xs-12 container-row">Травмированы:</i>
                 <div class="col-xs-12 container-row" *ngFor="let person of awayInjury">
                     {{person.number}} - {{person.personName}}
-                    <span *ngIf="roles.checked.isInformer" role="button" (click)="selectMatchPerson(person)" class="glyphicon glyphicon-pencil"></span>
-                    <span *ngIf="roles.checked.isInformer" role="button" (click)="showDeleteModal(person)" class="glyphicon glyphicon-trash"></span>
+                    <span *ngIf="roles.isInformer" role="button" (click)="selectMatchPerson(person)" class="glyphicon glyphicon-pencil"></span>
+                    <span *ngIf="roles.isInformer" role="button" (click)="showDeleteModal(person)" class="glyphicon glyphicon-trash"></span>
                 </div>
             </div>
             </div>
     </div>
 </div>
-<div *ngIf="roles.checked.isInformer" class="col-xs-12">
+<div *ngIf="roles.isInformer" class="col-xs-12">
     <button md-raised-button color="warn" (click)="addMatchPerson()" *ngIf="!isEdit">Добавить человека</button>
     <button md-raised-button (click)="cancelMatchPersonEdit()" *ngIf="isEdit">Отменить редактирование</button>
     <div class="full-width top20" *ngIf="isEdit">

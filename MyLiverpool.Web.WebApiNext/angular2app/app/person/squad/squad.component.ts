@@ -4,7 +4,7 @@ import { Subscription } from "rxjs/Subscription";
 import { SquadList } from "../squad-list.model";
 import { PersonService } from "../person.service";
 import { PersonTypeEnum } from "../personType.enum";
-import { RolesCheckedService, IRoles } from "../../shared/index";
+import { RolesCheckedService } from "../../shared/index";
 
 @Component({
     selector: "<squad>",
@@ -13,18 +13,16 @@ import { RolesCheckedService, IRoles } from "../../shared/index";
 export class SquadComponent {
     private sub: Subscription;
     public item: SquadList;
-    public roles: IRoles;
     public routeLinks: any[];
     public activeLinkIndex: number = 0;
 
     constructor(private personService: PersonService,
         private route: ActivatedRoute,
-        private rolesChecked: RolesCheckedService) {
+        public roles: RolesCheckedService) {
 
     }
 
     public ngOnInit(): void {
-        this.roles = this.rolesChecked.checkRoles();
         this.routeLinks = [
             { label: "Первая команда", link: "/squad/first" },
             { label: "Академия", link: "/squad/academy" },

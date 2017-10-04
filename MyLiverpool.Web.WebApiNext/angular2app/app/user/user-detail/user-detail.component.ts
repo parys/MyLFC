@@ -6,7 +6,7 @@ import { Subscription } from "rxjs/Subscription";
 import { Configuration } from "../../app.constants";
 import { User } from "../user.model";                          
 import { UserService } from "../user.service";
-import { GlobalValidators, RolesCheckedService, IRoles } from "../../shared/index";
+import { GlobalValidators, RolesCheckedService } from "../../shared/index";
 import { RoleGroupService, RoleGroup } from "../../roleGroup/index";
 
 @Component({
@@ -17,7 +17,6 @@ import { RoleGroupService, RoleGroup } from "../../roleGroup/index";
 export class UserDetailComponent implements OnInit, OnDestroy {
     private sub: Subscription;
     public item: User;
-    public roles: IRoles;
     public roleGroups: RoleGroup[];
     public roleForm: FormGroup;
     public banForm: FormGroup;
@@ -27,14 +26,13 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     constructor(private configuration: Configuration,
         private service: UserService,
         private route: ActivatedRoute,
-        private rolesChecked: RolesCheckedService,
+        public roles: RolesCheckedService,
         private roleGroupService: RoleGroupService,
         private formBuilder: FormBuilder,
         private snackBar: MdSnackBar,
         private router: Router) { }
 
-    public ngOnInit(): void {
-        this.roles = this.rolesChecked.checkRoles();      
+    public ngOnInit(): void { 
         this.initRoleForm();
         this.initBanForm();
         this.sub = this.route.params.subscribe(params => {
@@ -138,7 +136,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
             'banDaysCount': [
                 "", Validators.compose([
                     Validators.required,
-                    GlobalValidators.mustBeGreaterThanZero
+                    GlobalValidators.mustBeGreaterThanZero//todo research minValue = 1 ?
                 ])
             ]
         });

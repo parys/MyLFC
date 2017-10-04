@@ -7,7 +7,7 @@ import { UserService } from "./user.service";
 import { RoleGroupService } from "../roleGroup/roleGroup.service";
 import { RoleGroup } from "../roleGroup/roleGroup.model";
 import { UserFilters } from "./userFilters.model";
-import { Pageable, RolesCheckedService, IRoles } from "../shared/index";
+import { Pageable, RolesCheckedService } from "../shared/index";
 
 @
 Component({
@@ -17,7 +17,6 @@ Component({
 
 export class UserListComponent implements OnInit {
     public items: User[];
-    public roles: IRoles;
     public roleGroups: RoleGroup[];
     public filterForm: FormGroup;
     public page: number = 1;
@@ -29,13 +28,12 @@ export class UserListComponent implements OnInit {
     constructor(private userService: UserService,
         private location: Location,
         private roleGroupService: RoleGroupService,
-        private rolesChecked: RolesCheckedService,
+        public roles: RolesCheckedService,
         private formBuilder: FormBuilder,
         private route: ActivatedRoute) {
     }
 
     public ngOnInit(): void {
-        this.roles = this.rolesChecked.checkRoles();
         this.page = +this.route.snapshot.queryParams["page"] || 1;
         let userName = this.route.snapshot.queryParams["userName"] || "";
         let roleGroupId = this.route.snapshot.queryParams["roleGroupId"] || "";

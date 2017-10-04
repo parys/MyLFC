@@ -4,7 +4,7 @@ import { ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
 import { TransferService } from "./transfer.service";
 import { Transfer } from "./transfer.model";
-import { RolesCheckedService, IRoles,Pageable } from "../shared/index";
+import { RolesCheckedService, Pageable } from "../shared/index";
 
 @Component({
     selector: "<transfer-list>",
@@ -13,7 +13,6 @@ import { RolesCheckedService, IRoles,Pageable } from "../shared/index";
 export class TransferListComponent implements OnInit, OnDestroy {
     private sub: Subscription;
     private sub2: Subscription;
-    public roles: IRoles;
     public items: Transfer[];
     public page: number = 1;
     public itemsPerPage: number = 15;
@@ -22,11 +21,10 @@ export class TransferListComponent implements OnInit, OnDestroy {
     constructor(private service: TransferService,
         private route: ActivatedRoute,
         private location: Location,
-        private rolesChecked: RolesCheckedService) {
+        public roles: RolesCheckedService) {
     }
 
     public ngOnInit(): void {
-        this.roles = this.rolesChecked.checkRoles();
         this.sub = this.route.queryParams.subscribe(qParams => {
                 this.page = qParams["page"] || 1;
             },

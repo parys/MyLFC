@@ -4,7 +4,7 @@ import { ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
 import { TransferService } from "./transfer.service";
 import { Transfer } from "./transfer.model";
-import { RolesCheckedService, IRoles } from "../shared/index";
+import { RolesCheckedService } from "../shared/index";
 
 @Component({
     selector: "<transfer-current-list>",
@@ -12,7 +12,6 @@ import { RolesCheckedService, IRoles } from "../shared/index";
 })
 export class TransferCurrentListComponent implements OnInit, OnDestroy {
     private sub2: Subscription;
-    public roles: IRoles;
     public comeIn: Transfer[];
     public comeOut: Transfer[];
     public totalIn: number = 0;
@@ -21,12 +20,10 @@ export class TransferCurrentListComponent implements OnInit, OnDestroy {
     constructor(private service: TransferService,
         private route: ActivatedRoute,
         private location: Location,
-        private rolesChecked: RolesCheckedService) {
+        public roles: RolesCheckedService) {
     }
 
     public ngOnInit(): void {
-        this.roles = this.rolesChecked.checkRoles();
-
         this.update();
     }
 

@@ -5,7 +5,6 @@ import { MdSnackBar } from "@angular/material";
 import { Subscription } from "rxjs/Subscription";
 import { AdminService } from "../admin.service";
 import { HelperType } from "../helperType.enum";
-import { RolesCheckedService, IRoles } from "../../shared/index";
 
 @Component({
     selector: "page-editor",
@@ -17,7 +16,6 @@ export class PageEditorComponent implements OnInit, OnDestroy {
     private sub: Subscription;
     private sub2: Subscription;
     private id: number;
-    public roles: IRoles;
     public title: string;
     public editPageForm: FormGroup;
     public content: string;
@@ -27,12 +25,10 @@ export class PageEditorComponent implements OnInit, OnDestroy {
         private cd: ChangeDetectorRef,
         private route: ActivatedRoute,
         private snackBar: MdSnackBar,
-        private rolesChecked: RolesCheckedService,
         private formBuilder: FormBuilder) {
     }
 
     public ngOnInit(): void {
-        this.roles = this.rolesChecked.checkRoles();
         this.initForm();
         this.sub = this.route.params.subscribe(data => {
                 this.id = +data["id"];
@@ -48,7 +44,6 @@ export class PageEditorComponent implements OnInit, OnDestroy {
                 }
             },
             e => console.log(e));
-        // HelperType.f
     }
 
     public ngOnDestroy(): void {
@@ -57,7 +52,7 @@ export class PageEditorComponent implements OnInit, OnDestroy {
     
     private initForm(): void {
         this.editPageForm = this.formBuilder.group({
-            'content': ["", Validators.required]
+            content: ["", Validators.required]
         });
         this.editPageForm.valueChanges.subscribe(_ => this.cd.markForCheck());
     }

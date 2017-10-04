@@ -6,7 +6,7 @@ import { Subscription } from "rxjs/Subscription";
 import { MaterialService } from "./material.service";
 import { Material } from "./material.model";
 import { MaterialFilters } from "./materialFilters.model";
-import { RolesCheckedService, IRoles, DeleteDialogComponent,Pageable } from "../shared/index";
+import { RolesCheckedService, DeleteDialogComponent,Pageable } from "../shared/index";
 import { MaterialType } from "../materialCategory/materialType.enum";
 import { MaterialActivateDialogComponent } from "./material-activate-dialog.component";
 
@@ -25,24 +25,14 @@ export class MaterialListComponent implements OnInit, OnDestroy {
     public itemsPerPage: number = 15;
     public totalItems: number;
     public categoryId: number;
-    public roles: IRoles;
 
     constructor(private router: Router,
         private materialService: MaterialService,
         private route: ActivatedRoute,
         private location: Location,
-        private rolesChecked: RolesCheckedService,
+        public roles: RolesCheckedService,
         private snackBar: MdSnackBar,
         private dialog: MdDialog) {
-
-        if (route.snapshot.data["type"] === MaterialType[MaterialType.News]) {
-            this.type = MaterialType.News;
-        } else if (route.snapshot.data["type"] === MaterialType[MaterialType.Blogs]) {
-            this.type = MaterialType.Blogs;
-        } else {
-            this.type = MaterialType.Both;
-        }
-        this.parseQueryParamsAndUpdate(route);
     }
 
     public showActivateModal(index: number): void {
@@ -64,7 +54,14 @@ export class MaterialListComponent implements OnInit, OnDestroy {
     }
 
     public ngOnInit(): void {
-        this.roles = this.rolesChecked.checkRoles();
+        if (this.route.snapshot.data["type"] === MaterialType[MaterialType.News]) {
+            this.type = MaterialType.News;
+        } else if (this.route.snapshot.data["type"] === MaterialType[MaterialType.Blogs]) {
+            this.type = MaterialType.Blogs;
+        } else {
+            this.type = MaterialType.Both;
+        }
+        this.parseQueryParamsAndUpdate(this.route);
     }
 
     public ngOnDestroy(): void {
@@ -147,7 +144,7 @@ export class MaterialListComponent implements OnInit, OnDestroy {
     private parseQueryParamsAndUpdate(route: ActivatedRoute): void {
         this.sub2 = route.queryParams.subscribe(qParams => {
                 this.page = qParams["page"] || 1;
-                this.categoryId = qParams["categoryId"] || "";
+                this.categoryId = qParams["categoryId"] || null;
                 this.userName = qParams["userName"] || "";
                 this.userId = qParams["userId"] || null;
             },

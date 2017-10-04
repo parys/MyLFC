@@ -1,11 +1,9 @@
 ﻿import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Location } from "@angular/common";
-import { Observable } from "rxjs/Observable";
-import { Router, ActivatedRoute } from "@angular/router";
+import { ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
 import { Image } from "./image.model";
 import { ImageService } from "./image.service";
-import { Pageable } from "../shared/pageable.model"; 
 
 @Component({
     selector: "image-list",

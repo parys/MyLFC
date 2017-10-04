@@ -3,7 +3,6 @@ import { MdSnackBar } from "@angular/material";
 import { Subscription } from "rxjs/Subscription";
 import { Observable } from "rxjs/Observable";
 import { PmService } from "../pm.service";
-import { RolesCheckedService, IRoles } from "../../shared/index";
 import { Configuration } from "../../app.constants";
 
 @Component({
@@ -13,16 +12,13 @@ import { Configuration } from "../../app.constants";
 export class PmCounterComponent implements OnInit, OnDestroy {
     private sub: Subscription;
     private sub2: Subscription;
-    public roles: IRoles;
     public count: number = 0;
 
     constructor(private pmService: PmService,
-        private rolesChecked: RolesCheckedService,
         private snackBar: MdSnackBar,
         private config: Configuration) { }
 
     public ngOnInit(): void {
-        this.roles = this.rolesChecked.checkRoles();
         this.updateCount();
         this.scheduleUpdateCount();
     }

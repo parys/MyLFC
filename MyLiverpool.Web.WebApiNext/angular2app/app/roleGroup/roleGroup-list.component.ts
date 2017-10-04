@@ -1,22 +1,18 @@
 ﻿import { Component, OnInit } from "@angular/core";
 import { RoleGroup } from "./roleGroup.model";
 import { RoleGroupService } from "./roleGroup.service";
-import { RolesCheckedService, IRoles } from "../shared/index";
 
 @Component({
     selector: "roleGroup-list",
     templateUrl: "./roleGroup-list.component.html"
 })
 export class RoleGroupListComponent implements OnInit { 
-    items: RoleGroup[];
-    roles: IRoles;
+    public items: RoleGroup[];
 
-    constructor(private service: RoleGroupService,
-        private rolesChecked: RolesCheckedService) {
+    constructor(private service: RoleGroupService) {
     }
 
-    ngOnInit() {
-        this.roles = this.rolesChecked.checkRoles();
+    public ngOnInit(): void {
         this.update();
     }
 

@@ -1,11 +1,9 @@
 ﻿import { Component, OnInit } from "@angular/core";   
-import { ActivatedRoute } from "@angular/router";   
-import { Observable } from "rxjs/Observable";
-import { Pageable } from "../shared/pageable.model";
+import { ActivatedRoute } from "@angular/router";
 import { MaterialCategory } from "./materialCategory.model";
 import { MaterialCategoryService } from "./materialCategory.service";
 import { MaterialType } from "./materialType.enum";
-import { RolesCheckedService, IRoles } from "../shared/index";
+import { RolesCheckedService } from "../shared/index";
 
 @Component({
     selector: "materialCategory-list",
@@ -13,22 +11,20 @@ import { RolesCheckedService, IRoles } from "../shared/index";
 })
 
 export class MaterialCategoryListComponent implements OnInit {
-    public roles: IRoles;
     public items: MaterialCategory[];
     public type: MaterialType;
 
     constructor(private service: MaterialCategoryService, 
-        private rolesChecked: RolesCheckedService,
-        route: ActivatedRoute) {
-        if (route.snapshot.data["type"] === MaterialType[MaterialType.News]) { 
+        public roles: RolesCheckedService,
+        private route: ActivatedRoute) {
+    }
+
+    public ngOnInit(): void {    
+        if (this.route.snapshot.data["type"] === MaterialType[MaterialType.News]) {
             this.type = MaterialType.News;
         } else {
             this.type = MaterialType.Blogs;
         }
-    }
-
-    public ngOnInit(): void {
-        this.roles = this.rolesChecked.checkRoles();          
         this.service
             .getAll(this.type)
             .subscribe(data => this.parsePageable(data),

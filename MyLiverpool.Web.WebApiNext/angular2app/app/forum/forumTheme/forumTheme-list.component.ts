@@ -8,7 +8,7 @@ import { Subscription } from "rxjs/Subscription";
 import { ForumThemeService } from "./forumTheme.service";
 import { ForumMessage, ForumMessageService } from "../forumMessage/index";
 import { ForumTheme } from "./forumTheme.model";
-import { RolesCheckedService, IRoles, DeleteDialogComponent } from "../../shared/index";
+import { RolesCheckedService, DeleteDialogComponent } from "../../shared/index";
 
 @Component({
     selector: "forumTheme-list",
@@ -17,8 +17,7 @@ import { RolesCheckedService, IRoles, DeleteDialogComponent } from "../../shared
 export class ForumThemeListComponent implements OnInit, OnDestroy {
     private sub: Subscription;
     public item: ForumTheme;
-    public items: ForumMessage[];
-    public roles: IRoles;         
+    public items: ForumMessage[];  
     public page: number = 1;
     public itemsPerPage = 15;
     public totalItems: number;
@@ -28,7 +27,7 @@ export class ForumThemeListComponent implements OnInit, OnDestroy {
 
     constructor(private service: ForumThemeService,
         private messageService: ForumMessageService,
-        private rolesChecked: RolesCheckedService,
+        public roles: RolesCheckedService,
         private route: ActivatedRoute,
         private sanitizer: DomSanitizer,
         private formBuilder: FormBuilder,
@@ -37,7 +36,6 @@ export class ForumThemeListComponent implements OnInit, OnDestroy {
     }
 
     public ngOnInit(): void {
-        this.roles = this.rolesChecked.checkRoles();
         this.sub = this.route.queryParams.subscribe(qParams => {
                 this.page = +qParams["page"] || 1;
             },
