@@ -14,10 +14,10 @@ namespace MyLiverpool.Business.Services
 {
     public class InjuryService: IInjuryService
     {
-        private readonly IInjuryRepository _injuryRepository;
+        private readonly IGenericRepository<Injury> _injuryRepository;
         private readonly IMapper _mapper;
 
-        public InjuryService(IInjuryRepository injuryRepository, IMapper mapper)
+        public InjuryService(IGenericRepository<Injury> injuryRepository, IMapper mapper)
         {
             _injuryRepository = injuryRepository;
             _mapper = mapper;
@@ -26,7 +26,7 @@ namespace MyLiverpool.Business.Services
         public async Task<InjuryDto> CreateAsync(InjuryDto dto)
         {
             var model = _mapper.Map<Injury>(dto);
-            await _injuryRepository.AddAsync(model);
+            await _injuryRepository.CreateAsync(model);
             return _mapper.Map<InjuryDto>(model);
         }
 
@@ -53,7 +53,7 @@ namespace MyLiverpool.Business.Services
 
         public async Task<InjuryDto> GetByIdAsync(int id)
         {
-            var model = await _injuryRepository.GetByIdAsync(id);
+            var model = await _injuryRepository.GetByIdAsync(id, x => x.Person);
             if (model != null)
             {
                 return _mapper.Map<InjuryDto>(model);
@@ -64,20 +64,17 @@ namespace MyLiverpool.Business.Services
         public async Task<PageableData<InjuryDto>> GetListAsync(int page, int itemsPerPage = 15)
         {
             Expression<Func<Injury, bool>> filter = m => true;
-          //  if (seasonId.HasValue)
-           // {
-          //      filter = filter.And(m => m.SeasonId == seasonId.Value);
-          //  }
-            var injuries = await _injuryRepository.GetListAsync(page, itemsPerPage, filter, SortOrder.Ascending, i => i.EndTime);
+
+            var injuries = await _injuryRepository.GetListAsync(page, itemsPerPage, filter, SortOrder.Ascending, i => i.EndTime, x => x.Person);
             var dtos = _mapper.Map<IEnumerable<InjuryDto>>(injuries);
-            var count = await _injuryRepository.GetCountAsync(filter);
+            var count = await _injuryRepository.CountAsync(filter);
             return new PageableData<InjuryDto>(dtos, page, count);
         }
 
         public async Task<IEnumerable<InjuryDto>> GetCurrentListAsync()
         {
             Expression<Func<Injury, bool>> filter = x => x.EndTime.Date >= DateTime.Today;
-            var injuries = await _injuryRepository.GetListAsync(1, 1000, filter, SortOrder.Ascending, i => i.EndTime);
+            var injuries = await _injuryRepository.GetListAsync(filter, SortOrder.Ascending, i => i.EndTime, x => x.Person);
             return _mapper.Map<ICollection<InjuryDto>>(injuries);
         }
     }

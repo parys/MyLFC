@@ -17,6 +17,7 @@
         public const int MyLfcUserId = 559;
         public const string DefaultPhotoPath = "/content/avatars/default.png";
         public const int NotificationsCount = 15;
+        public const string LiverpoolClubEnglishName = "liverpool";
 
 
         public const string HelperEntity = "HelperEntity";

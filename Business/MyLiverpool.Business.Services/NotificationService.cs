@@ -53,8 +53,8 @@ namespace MyLiverpool.Business.Services
 
         public async Task<IEnumerable<NotificationDto>> GetListAsync(int userId)
         {
-            var list = await _notificationRepository.GetListAsync(filter: x => x.UserId == userId,  order: SortOrder.Descending,
-                orderBy: y => y.DateTime);
+            var list = await _notificationRepository.GetListAsync(x => x.UserId == userId, SortOrder.Descending,
+                y => y.DateTime);
             return _mapper.Map<IEnumerable<NotificationDto>>(list);
         }
 
@@ -74,7 +74,7 @@ namespace MyLiverpool.Business.Services
             var count = await _notificationRepository.CountAsync(x => x.UserId == userId);
             if (count >= GlobalConstants.NotificationsCount)
             {
-                var list = await _notificationRepository.GetListAsync(filter: x => x.IsRead);
+                var list = await _notificationRepository.GetListAsync(x => x.IsRead);
                 foreach (var notification in list)
                 {
                     await DeleteAsync(notification.Id);

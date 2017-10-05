@@ -1,10 +1,10 @@
 ﻿<div class="col-md-12 form-horizontal margin-top-middle" *ngIf="item">
     <div class="form-group">
-        <label class="control-label col-md-2" *ngIf="roles.checked.isSelf(item.senderId)">Получатель</label>
-        <label class="control-label col-md-2" *ngIf="!roles.checked.isSelf(item.senderId)">Отправитель</label>
+        <label class="control-label col-md-2" *ngIf="roles.isSelf(item.senderId)">Получатель</label>
+        <label class="control-label col-md-2" *ngIf="!roles.isSelf(item.senderId)">Отправитель</label>
         <div class="col-md-10">
-            <input class="form-control" readonly *ngIf="roles.checked.isSelf(item.senderId)" [value]="item.receiver" />
-            <input class="form-control" readonly *ngIf="!roles.checked.isSelf(item.senderId)" [value]="item.sender" />
+            <input class="form-control" readonly *ngIf="roles.isSelf(item.senderId)" [value]="item.receiver" />
+            <input class="form-control" readonly *ngIf="!roles.isSelf(item.senderId)" [value]="item.sender" />
         </div>
     </div>
     <div class="form-group">

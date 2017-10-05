@@ -2,7 +2,7 @@
 
 namespace MyLiverpool.Data.Entities
 {
-    public class Stadium
+    public class Stadium : IEntity
     {
         public Stadium()
         {
