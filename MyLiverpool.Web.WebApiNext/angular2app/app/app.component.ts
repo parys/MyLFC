@@ -131,7 +131,7 @@ export class AppComponent implements OnInit {
         this.breadcrumbService.addFriendlyNameForRouteRegex("/users", "Пользователи");
         this.breadcrumbService.addFriendlyNameForRouteRegex("^/users/[0-9]+$", "Пользователь");
         this.breadcrumbService.addFriendlyNameForRouteRegex("^/users/[0-9]+/settings$", "Настройки");
-        this.breadcrumbService.addFriendlyNameForRouteRegex("^/users/[0-9]+/edit$", "Редактирование");
+       // this.breadcrumbService.addFriendlyNameForRouteRegex("^/users/[0-9]+/edit$", "Редактирование");
 
         this.breadcrumbService.addFriendlyNameForRoute("/rules", "Правила");
 
@@ -176,16 +176,12 @@ export class AppComponent implements OnInit {
         this.breadcrumbService.addFriendlyNameForRoute("/transfers", "Трансферы");
         this.breadcrumbService.addFriendlyNameForRoute("/transfers/current", "Текущие");
         this.breadcrumbService.hideRouteRegex("^/transfers/[0-9]+$"); // this.breadcrumbService.addCallbackForRouteRegex("^/news/[0-9]+$", this.getTitle);
-        this.breadcrumbService.addFriendlyNameForRouteRegex("^/transfers/[0-9]+/edit$", "Редактирование");
+      //  this.breadcrumbService.addFriendlyNameForRouteRegex("^/transfers/[0-9]+/edit$", "Редактирование");
 
 
         this.breadcrumbService.addFriendlyNameForRouteRegex("/injuries", "Травмы");
         this.breadcrumbService.hideRouteRegex("^/injuries/[0-9]+$"); // this.breadcrumbService.addCallbackForRouteRegex("^/blog/[0-9]+$", this.getTitle);
-        this.breadcrumbService.addFriendlyNameForRouteRegex("^/injuries/[0-9]+/edit$", "Редактирование");
-
-        this.breadcrumbService.addFriendlyNameForRouteRegex("/loans", "Аренда");
-        this.breadcrumbService.hideRouteRegex("^/loans/[0-9]+$"); // this.breadcrumbService.addCallbackForRouteRegex("^/blog/[0-9]+$", this.getTitle);
-        this.breadcrumbService.addFriendlyNameForRouteRegex("^/loans/[0-9]+/edit$", "Редактирование");
+      //  this.breadcrumbService.addFriendlyNameForRouteRegex("^/injuries/[0-9]+/edit$", "Редактирование");
 
         this.breadcrumbService.addFriendlyNameForRoute("/stadiums", "Стадионы");
         this.breadcrumbService.hideRouteRegex("^/stadiums/[0-9]+$"); // this.breadcrumbService.addCallbackForRouteRegex("^/news/[0-9]+$", this.getTitle);
