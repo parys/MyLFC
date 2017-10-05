@@ -10,14 +10,11 @@ namespace MyLiverpool.Data.ResourceAccess.Helpers
         {
             services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IChatMessageRepository, ChatMessageRepository>();
-            services.AddScoped<IClubRepository, ClubRepository>();
             services.AddScoped<IForumMessageRepository, ForumMessageRepository>();
             services.AddScoped<IForumSectionRepository, ForumSectionRepository>();
             services.AddScoped<IForumSubsectionRepository, ForumSubsectionRepository>();
             services.AddScoped<IForumThemeRepository, ForumThemeRepository>();
             services.AddScoped<IHelperEntityRepository, HelperEntityRepository>();
-            services.AddScoped<IInjuryRepository, InjuryRepository>();
-            services.AddScoped<ILoanRepository, LoanRepository>();
             services.AddScoped<IMatchRepository, MatchRepository>();
             services.AddScoped<IMatchPersonRepository, MatchPersonRepository>();
             services.AddScoped<IMatchEventRepository, MatchEventRepository>();
@@ -28,7 +25,6 @@ namespace MyLiverpool.Data.ResourceAccess.Helpers
             services.AddScoped<IPmRepository, PmRepository>();
             services.AddScoped<IRoleGroupRepository, RoleGroupRepository>();
             services.AddScoped<ISeasonRepository, SeasonRepository>();
-            services.AddScoped<IStadiumRepository, StadiumRepository>();
             services.AddScoped<ITransferRepository, TransferRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
         }

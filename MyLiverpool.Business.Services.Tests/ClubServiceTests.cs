@@ -6,8 +6,8 @@ using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Business.Services.Tests.Helpers;
 using MyLiverpool.Common.Mappings;
+using MyLiverpool.Data.Entities;
 using MyLiverpool.Data.ResourceAccess;
-using MyLiverpool.Data.ResourceAccess.Repositories;
 using Xunit;
 
 namespace MyLiverpool.Business.Services.Tests
@@ -18,7 +18,7 @@ namespace MyLiverpool.Business.Services.Tests
 
         static ClubServiceTests()
         {
-            _clubService = new ClubService(new ClubRepository(GetFakeContextWithClubs()), MapperConfig.GetConfiration.CreateMapper());
+            _clubService = new ClubService(new GenericRepository<Club>(GetFakeContextWithClubs()), MapperConfig.GetConfiration.CreateMapper());
         }
 
         [Theory, ClassData(typeof(ClubCreateTestData))]

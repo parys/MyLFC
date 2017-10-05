@@ -2,7 +2,7 @@
 
 namespace MyLiverpool.Data.Entities
 {
-    public class Injury
+    public class Injury: IEntity
     {
         public int Id { get; set; }
 

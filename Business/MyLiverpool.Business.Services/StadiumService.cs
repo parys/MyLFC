@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
 using MyLiverpool.Business.Contracts;
@@ -12,10 +13,10 @@ namespace MyLiverpool.Business.Services
 {
     public class StadiumService : IStadiumService
     {
-        private readonly IStadiumRepository _stadiumRepository;
+        private readonly IGenericRepository<Stadium> _stadiumRepository;
         private readonly IMapper _mapper;
 
-        public StadiumService(IStadiumRepository stadiumRepository, IMapper mapper)
+        public StadiumService(IGenericRepository<Stadium> stadiumRepository, IMapper mapper)
         {
             _stadiumRepository = stadiumRepository;
             _mapper = mapper;
@@ -30,11 +31,10 @@ namespace MyLiverpool.Business.Services
             }
             return null;
         }
-
-        //bug temporary
+        
         public async Task<IEnumerable<StadiumDto>> GeListAsync()
         {
-            var stadiums = await _stadiumRepository.GetListAsync();
+            var stadiums = await _stadiumRepository.GetListAsync(null, 0);
             return _mapper.Map<IEnumerable<StadiumDto>>(stadiums);
         }
 
@@ -42,14 +42,14 @@ namespace MyLiverpool.Business.Services
         {
             var stadiums = await _stadiumRepository.GetListAsync(page, orderBy: x => x.Name);
             var dtos = _mapper.Map<ICollection<StadiumDto>>(stadiums);
-            var count = await _stadiumRepository.GetCountAsync();
+            var count = await _stadiumRepository.CountAsync();
             return new PageableData<StadiumDto>(dtos, page, count);
         }
 
         public async Task<StadiumDto> CreateAsync(StadiumDto dto)
         {
             var stadium = _mapper.Map<Stadium>(dto);
-            var result = await _stadiumRepository.AddAsync(stadium);
+            var result = await _stadiumRepository.CreateAsync(stadium);
             return _mapper.Map<StadiumDto>(result);
         }
 
@@ -77,7 +77,8 @@ namespace MyLiverpool.Business.Services
 
         public async Task<IEnumerable<StadiumDto>> GetListByNameAsync(string typed)
         {
-            var list = await _stadiumRepository.GetListByNameAsync(typed);
+            Expression<Func<Stadium, bool>> filter = x => string.IsNullOrWhiteSpace(typed) || x.Name.Contains(typed);
+            var list = await _stadiumRepository.GetListAsync(1, GlobalConstants.CountStadiumsForAutocomlete, filter);
             return _mapper.Map<IEnumerable<StadiumDto>>(list);
         }
     }

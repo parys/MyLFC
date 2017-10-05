@@ -15,15 +15,14 @@ namespace MyLiverpool.Business.Services
 {
     public class MatchService : IMatchService
     {
-        private const string LiverpoolClubEnglishName = "liverpool";
-        private readonly IClubRepository _clubRepository;
+        private readonly IClubService _clubService;
         private readonly IMapper _mapper;
         private readonly IMatchRepository _matchRepository;
 
         public MatchService(IMatchRepository matchRepository, IMapper mapper,
-            IClubRepository clubRepository)
+            IClubService clubService)
         {
-            _clubRepository = clubRepository;
+            _clubService = clubService;
             _mapper = mapper;
             _matchRepository = matchRepository;
         }
@@ -56,7 +55,7 @@ namespace MyLiverpool.Business.Services
 
         public async Task<IEnumerable<MatchDto>> GetForCalendarAsync()
         {
-            var liverpoolClub = await _clubRepository.GetByEnglishName(LiverpoolClubEnglishName);
+            var liverpoolClub = await _clubService.GetByNameAsync(GlobalConstants.LiverpoolClubEnglishName);
             if (liverpoolClub == null)
             {
                 return null;
@@ -76,13 +75,14 @@ namespace MyLiverpool.Business.Services
             foreach (var match in matches)
             {
                 var dto = _mapper.Map<MatchDto>(match);
+                var clubDto = _mapper.Map<ClubDto>(match.Club);
                 if (match.IsHome)
                 {
-                    FillClubsFields(dto, liverpoolClub, match.Club);
+                    FillClubsFields(dto, liverpoolClub, clubDto);
                 }
                 else
                 {
-                    FillClubsFields(dto, match.Club, liverpoolClub);
+                    FillClubsFields(dto, clubDto, liverpoolClub);
                 }
                 dtos.Add(dto);
             }
@@ -97,20 +97,21 @@ namespace MyLiverpool.Business.Services
 
         public async Task<MatchDto> GetByIdAsync(int id)
         {
-            var liverpoolClub = await _clubRepository.GetByEnglishName(LiverpoolClubEnglishName);
+            var liverpoolClub = await _clubService.GetByNameAsync(GlobalConstants.LiverpoolClubEnglishName);
             if (liverpoolClub == null)
             {
                 return null;
             }
             var match = await _matchRepository.GetByIdAsync(id);
             var dto = _mapper.Map<MatchDto>(match);
+            var clubDto = _mapper.Map<ClubDto>(match.Club);
             if (match.IsHome)
             {
-                FillClubsFields(dto, liverpoolClub, match.Club);
+                FillClubsFields(dto, liverpoolClub, clubDto);
             }
             else
             {
-                FillClubsFields(dto, match.Club, liverpoolClub);
+                FillClubsFields(dto, clubDto, liverpoolClub);
             }
             
             return dto;
@@ -140,26 +141,27 @@ namespace MyLiverpool.Business.Services
         private async Task<IEnumerable<MatchDto>> GetMatchesAsync(int page, int itemsPerPage,
             Expression<Func<Match, bool>> filter)
         {
-            var liverpoolClub = await _clubRepository.GetByEnglishName(LiverpoolClubEnglishName);
+            var liverpoolClub = await _clubService.GetByNameAsync(GlobalConstants.LiverpoolClubEnglishName);
             var matches = await _matchRepository.GetListAsync(page, itemsPerPage, filter, orderBy: m => m.DateTime);
             var dtos = new List<MatchDto>();
             foreach (var match in matches)
             {
                 var dto = _mapper.Map<MatchDto>(match);
+                var clubDto = _mapper.Map<ClubDto>(match.Club);
                 if (match.IsHome)
                 {
-                    FillClubsFields(dto, liverpoolClub, match.Club);
+                    FillClubsFields(dto, liverpoolClub, clubDto);
                 }
                 else
                 {
-                    FillClubsFields(dto, match.Club, liverpoolClub);
+                    FillClubsFields(dto, clubDto, liverpoolClub);
                 }
                 dtos.Add(dto);
             }
             return dtos;
         }
 
-        private static void FillClubsFields(MatchDto dto, Club homeClub, Club awayClub)
+        private static void FillClubsFields(MatchDto dto, ClubDto homeClub, ClubDto awayClub)
         {
             dto.HomeClubId = homeClub.Id;
             dto.HomeClubName = homeClub.Name;

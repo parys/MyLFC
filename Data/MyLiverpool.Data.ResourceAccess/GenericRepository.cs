@@ -10,7 +10,7 @@ using MyLiverpool.Data.ResourceAccess.Interfaces;
 
 namespace MyLiverpool.Data.ResourceAccess
 {
-    public class GenericRepository<T>: IGenericRepository<T> where T: class, IEntity
+    public class GenericRepository<T> : IGenericRepository<T> where T : class, IEntity
     {
         private readonly LiverpoolContext _context;
 
@@ -96,6 +96,23 @@ namespace MyLiverpool.Data.ResourceAccess
                 query = query.Skip((page.Value - 1) * itemPerPage).Take(itemPerPage);
             }
             return await query.ToListAsync();
+        }
+
+        public async Task<IEnumerable<T>> GetListAsync(Expression<Func<T, bool>> filter = null,
+            SortOrder order = SortOrder.Ascending, Expression<Func<T, object>> orderBy = null,
+            params Expression<Func<T, object>>[] includes)
+        {
+            return await GetListAsync(null, 0, filter, order, orderBy);
+        }
+
+        public async Task<T> GetFirstByFilterAsync(Expression<Func<T, bool>> filter)
+        {
+            IQueryable<T> query = _context.Set<T>();
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+            return await query.FirstOrDefaultAsync();
         }
     }
 }

@@ -20,7 +20,6 @@ namespace MyLiverpool.Business.Services.Helpers
             services.AddTransient<IForumThemeService, ForumThemeService>();
             services.AddTransient<IHelperService, HelperService>();
             services.AddTransient<IInjuryService, InjuryService>();
-            services.AddTransient<ILoanService, LoanService>();
             services.AddTransient<IMatchService, MatchService>();
             services.AddTransient<IMatchEventService, MatchEventService>();
             services.AddTransient<IMatchPersonService, MatchPersonService>();

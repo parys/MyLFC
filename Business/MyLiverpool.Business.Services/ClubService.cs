@@ -15,10 +15,10 @@ namespace MyLiverpool.Business.Services
 {
     public class ClubService : IClubService
     {
-        private readonly IClubRepository _clubRepository;
+        private readonly IGenericRepository<Club> _clubRepository;
         private readonly IMapper _mapper;
 
-        public ClubService(IClubRepository clubRepository, IMapper mapper)
+        public ClubService(IGenericRepository<Club> clubRepository, IMapper mapper)
         {
             _clubRepository = clubRepository;
             _mapper = mapper;
@@ -27,7 +27,7 @@ namespace MyLiverpool.Business.Services
         public async Task<ClubDto> CreateAsync(ClubDto dto)
         {
             var club = _mapper.Map<Club>(dto);
-            await _clubRepository.AddAsync(club);
+            await _clubRepository.CreateAsync(club);
             dto = _mapper.Map<ClubDto>(club);
             return dto;
         }
@@ -53,7 +53,7 @@ namespace MyLiverpool.Business.Services
 
         public async Task<ClubDto> GetByIdAsync(int id)
         {
-            var model = await _clubRepository.GetByIdAsync(id);
+            var model = await _clubRepository.GetByIdAsync(id, x => x.Stadium);
             var dto = _mapper.Map<ClubDto>(model);
             return dto;
         }
@@ -71,18 +71,22 @@ namespace MyLiverpool.Business.Services
             await _clubRepository.UpdateAsync(club);
         }
 
-        public async Task UpdateLogoAsync(string clubName, string relativePath)
+        public async Task UpdateLogoAsync(string name, string relativePath)
         {
-            var club = await _clubRepository.GetByEnglishName(clubName);
-            club.Logo = relativePath;
-            await _clubRepository.UpdateAsync(club);
+            Expression<Func<Club, bool>> filter = x => string.IsNullOrWhiteSpace(name) || x.EnglishName.ToLowerInvariant() == name.ToLowerInvariant();
+            var club = await _clubRepository.GetFirstByFilterAsync(filter);
+            if (club != null)
+            {
+                club.Logo = relativePath;
+                await _clubRepository.UpdateAsync(club);
+            }
         }
 
         public async Task<PageableData<ClubDto>> GetListAsync(int page)
         {
             var clubs = await _clubRepository.GetListAsync(page, orderBy: x => x.Name);
             var dtos =  _mapper.Map<ICollection<ClubDto>>(clubs);
-            var count = await _clubRepository.GetCountAsync();
+            var count = await _clubRepository.CountAsync();
             return new PageableData<ClubDto>(dtos, page, count);
         }
 
@@ -97,16 +101,17 @@ namespace MyLiverpool.Business.Services
             return clubs.Select(x => new KeyValuePair<int, string>(x.Id, x.Name));
         }
 
-        public async Task<int> GetIdByNameAsync(string name)
+        public async Task<ClubDto> GetByNameAsync(string name)
         {
-            var club = await _clubRepository.GetByEnglishName(name);
+            Expression<Func<Club, bool>> filter = x => string.IsNullOrWhiteSpace(name) || x.EnglishName.ToLowerInvariant() == name.ToLowerInvariant();
+            var club = await _clubRepository.GetFirstByFilterAsync(filter);
             if (club != null)
             {
-                return club.Id;
+                return _mapper.Map<ClubDto>(club);
             }
-            throw new NullReferenceException("GetIdByNameAsync");
+            return null;
         }
-
+        
         public async Task<IEnumerable<KeyValuePair<int, string>>> GetClubsByNameWithoutLiverpoolAsync(string typed)
         {
             Expression<Func<Club, bool>> filter = x => x.EnglishName.ToLower() != "liverpool";
