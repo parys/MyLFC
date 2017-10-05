@@ -57,7 +57,7 @@ export class AppComponent implements OnInit {
             .filter((route: ActivatedRoute) => route.outlet === "primary")
             .mergeMap((route: ActivatedRoute) => route.data)
             .subscribe((event) => {
-                this.renderer.setProperty(document.body, "scrollTop", 0);
+                window.scrollTo(0,0);
                 this.titleService.setTitle(event["title"]);
                // this.isRoot = (event["title"] === "MyLFC.ru - Сайт русскоязычных болельщиков \"Ливерпуля\"");
             });
@@ -189,7 +189,7 @@ export class AppComponent implements OnInit {
 
         this.breadcrumbService.addFriendlyNameForRoute("/stadiums", "Стадионы");
         this.breadcrumbService.hideRouteRegex("^/stadiums/[0-9]+$"); // this.breadcrumbService.addCallbackForRouteRegex("^/news/[0-9]+$", this.getTitle);
-        this.breadcrumbService.addFriendlyNameForRouteRegex("/stadiums/[0-9]+/edit$", "Редактирование");
+        this.breadcrumbService.addFriendlyNameForRouteRegex("/[a-zA-Z]+/[0-9]+/edit$", "Редактирование");
 
         this.breadcrumbService.addFriendlyNameForRoute("/chat", "Чат");
         this.breadcrumbService.addFriendlyNameForRoute("/job", "Работа на сайте");
