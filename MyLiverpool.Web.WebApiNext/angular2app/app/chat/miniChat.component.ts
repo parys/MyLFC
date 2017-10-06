@@ -1,15 +1,16 @@
-﻿import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
+﻿import { Component, OnInit, OnDestroy, ChangeDetectorRef, PLATFORM_ID, Inject } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
-import { MdDialog, MdSnackBar } from '@angular/material';
+import { isPlatformBrowser } from "@angular/common";
+import { MdDialog, MdSnackBar } from "@angular/material";
 import { ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
 import { Observable } from "rxjs/Observable";
-import { Configuration } from "../app.constants";
+import { Configuration } from "@app/app.constants";
 import { ChatMessage } from "./chatMessage.model";
 import { ChatMessageType } from "./chatMessageType.enum";
 import { ChatMessageService } from "./chatMessage.service";
-import { RolesCheckedService, DeleteDialogComponent, StorageService } from "../shared/index";
+import { RolesCheckedService, DeleteDialogComponent, StorageService } from "@app/shared";
 
 @Component({
     selector: "mini-chat",
@@ -30,6 +31,7 @@ export class MiniChatComponent implements OnInit, OnDestroy {
  { key: "2 мин", value: 120 }];
 
     constructor(private service: ChatMessageService,
+        @Inject(PLATFORM_ID) private platformId: Object,
         private route: ActivatedRoute,
         private formBuilder: FormBuilder,
         private cd: ChangeDetectorRef,
@@ -155,13 +157,14 @@ export class MiniChatComponent implements OnInit, OnDestroy {
         this.messageForm.valueChanges.subscribe(() => {
             this.cd.markForCheck();
         });
-
-        let timerValue: number = this.storage.getChatUpdateTime();
-        if (timerValue) {
-            this.scheduleUpdate(timerValue);
+        if (isPlatformBrowser(this.platformId)) {
+            let timerValue: number = this.storage.getChatUpdateTime();
+            if (timerValue) {
+                this.scheduleUpdate(timerValue);
+            }
+            this.chatTimerForm = this.formBuilder.group({
+                'timerValue': [timerValue]
+            });
         }
-        this.chatTimerForm = this.formBuilder.group({
-            'timerValue': [timerValue]
-        });
     }
 }
