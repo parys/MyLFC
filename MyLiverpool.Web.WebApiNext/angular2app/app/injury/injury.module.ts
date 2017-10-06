@@ -2,14 +2,13 @@
 import { RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { InjuryEditComponent } from "./injury-edit.component";
-import { InjuryListComponent } from "./injury-list.component";
-import { InjuryCurrentListComponent } from "./injury-current-list.component";
+import { InjuryEditComponent } from "./injury-edit/index";
+import { InjuryListComponent } from "./injury-list/index";
+import { InjuryCurrentListComponent } from "./injury-current-list/index";
 import { InjuryService } from "./injury.service";
 import { injuryRoutes } from "./injury.routes";
 import { NgxPaginationModule } from "ngx-pagination";
-import { SharedModule } from "../shared/index";
-import * as angMaterial from '@angular/material';
+import { SharedModule } from "@app/shared";
 
 @NgModule({
     imports: [
@@ -19,10 +18,6 @@ import * as angMaterial from '@angular/material';
         ReactiveFormsModule,
         NgxPaginationModule,
         SharedModule,
-        angMaterial.MdAutocompleteModule,
-        angMaterial.MdButtonModule,
-        angMaterial.MdInputModule,
-        angMaterial.MdDatepickerModule
     ],
     declarations: [
         InjuryEditComponent,

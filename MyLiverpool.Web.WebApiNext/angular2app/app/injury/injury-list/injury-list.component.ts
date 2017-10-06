@@ -2,10 +2,10 @@
 import { Location } from "@angular/common";
 import { ActivatedRoute } from "@angular/router";
 import { MdDialog } from '@angular/material';
-import { Subscription } from "rxjs/Subscription";
-import { Injury } from "./injury.model";
-import { InjuryService } from "./injury.service";
-import { Pageable, DeleteDialogComponent } from "../shared/index";
+import { Subscription } from "rxjs";
+import { Injury } from "../injury.model";
+import { InjuryService } from "../injury.service";
+import { Pageable, DeleteDialogComponent } from "@app/shared";
 
 @Component({
     selector: "injury-list",

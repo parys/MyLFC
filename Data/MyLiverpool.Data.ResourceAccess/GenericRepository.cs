@@ -102,7 +102,7 @@ namespace MyLiverpool.Data.ResourceAccess
             SortOrder order = SortOrder.Ascending, Expression<Func<T, object>> orderBy = null,
             params Expression<Func<T, object>>[] includes)
         {
-            return await GetListAsync(null, 0, filter, order, orderBy);
+            return await GetListAsync(null, 0, filter, order, orderBy, includes);
         }
 
         public async Task<T> GetFirstByFilterAsync(Expression<Func<T, bool>> filter)

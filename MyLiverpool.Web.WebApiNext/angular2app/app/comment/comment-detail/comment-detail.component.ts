@@ -82,7 +82,7 @@ export class CommentDetailComponent implements OnInit, OnDestroy {
 
     public cancelAdding(): void {
         this.isAddingMode = false;
-        this.initForm();//does it need
+        this.cd.markForCheck();
     }
 
     public addComment(): void {

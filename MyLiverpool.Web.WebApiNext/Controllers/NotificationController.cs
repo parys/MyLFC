@@ -37,15 +37,15 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         }
 
         /// <summary>
-        /// Mark notification as read.
+        /// Mark notifications as read.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="ids">Array with ids for </param>
         /// <returns></returns>
-        [Authorize, HttpPut("{id:int}")]
-        public async Task<IActionResult> ReadAsync(int id)
+        [Authorize, HttpPut("read")]
+        public async Task<IActionResult> ReadAsync([FromBody]int[] ids)
         {
             var userId = User.GetUserId();
-            var model = await _notificationService.MarkAsReadAsync(id, userId);
+            var model = await _notificationService.MarkAsReadAsync(ids, userId);
             return Json(model);
         }
         

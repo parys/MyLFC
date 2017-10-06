@@ -22,8 +22,8 @@ export class NotificationService {
     //    return this.http.post<Notification>(this.actionUrl, JSON.stringify(item));
     //};
 
-    public read(id: number): Observable<boolean> {
-        return this.http.put<boolean>(this.actionUrl + id, "");
+    public read(ids: number[]): Observable<boolean> {
+        return this.http.put<boolean>(this.actionUrl + "read/", ids);
     };
 
     //public delete = (id: number): Observable<boolean> => {

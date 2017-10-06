@@ -1,8 +1,8 @@
 ﻿import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Subscription } from "rxjs/Subscription";
-import { InjuryService } from "./injury.service";
-import { Injury } from "./injury.model";
-import { RolesCheckedService } from "../shared/index";
+import { InjuryService } from "../injury.service";
+import { Injury } from "../injury.model";
+import { RolesCheckedService } from "../../shared/index";
 
 @Component({
     selector: "<injury-current-list>",

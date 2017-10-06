@@ -5,12 +5,21 @@ var Merge = require("webpack-merge");
 //var AllFilenamesExceptJavaScript = /\.(?!js(\?|$))([^.]+(\?|$))/;
 var WebpackNotifierPlugin = require("webpack-notifier");
 
+function srcPath(subdir) {
+    return path.join(__dirname, "angular2app", subdir);
+}
+
 module.exports = (env) => {
     // Configuration in common to both client-side and server-side bundles
     const isDevBuild = !(env && env.prod);
     const sharedConfig = {
         context: __dirname,
-        resolve: { extensions: [".js", ".ts"] },
+        resolve: {
+            extensions: [".js", ".ts"],
+            alias: {
+                '@app': srcPath("app"),
+            }
+        },
         output: {
             filename: "[name].js",
             publicPath: "src/" // webpack dev middleware, if enabled, handles requests for this URL prefix

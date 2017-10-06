@@ -10,6 +10,6 @@ namespace MyLiverpool.Business.Contracts
 
         Task<IEnumerable<NotificationDto>> GetListAsync(int userId);
 
-        Task<bool> MarkAsReadAsync(int id, int userId);
+        Task<bool> MarkAsReadAsync(int[] ids, int userId);
     }
 }

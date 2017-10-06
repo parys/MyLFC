@@ -3,7 +3,7 @@ import { MdSnackBar } from "@angular/material";
 import { Subscription } from "rxjs/Subscription";
 import { Observable } from "rxjs/Observable";
 import { NotificationService } from "../notification.service";
-import { RolesCheckedService } from "../../shared/index";
+import { RolesCheckedService } from "@app/shared";
 import { Configuration } from "../../app.constants";
 
 @Component({

@@ -58,13 +58,16 @@ namespace MyLiverpool.Business.Services
             return _mapper.Map<IEnumerable<NotificationDto>>(list);
         }
 
-        public async Task<bool> MarkAsReadAsync(int id, int userId)
+        public async Task<bool> MarkAsReadAsync(int[] ids, int userId)
         {
-            var entity = await _notificationRepository.GetByIdAsync(id);
-            if (entity != null && !entity.IsRead && entity.UserId == userId)
+            foreach (var id in ids)
             {
-                entity.IsRead = true;
-                await _notificationRepository.UpdateAsync(entity);
+                var entity = await _notificationRepository.GetByIdAsync(id);
+                if (entity != null && !entity.IsRead && entity.UserId == userId)
+                {
+                    entity.IsRead = true;
+                    await _notificationRepository.UpdateAsync(entity);
+                }
             }
             return true;
         }

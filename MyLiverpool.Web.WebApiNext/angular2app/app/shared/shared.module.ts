@@ -8,7 +8,7 @@ import { RolesCheckedService } from "./roles-checked.service";
 import { GlobalValidators } from "./globalValidators";
 import { ReCaptchaModule } from "angular2-recaptcha";
 import { DeleteDialogComponent } from "./delete-dialog/index";
-import { MdButtonModule, MdProgressBarModule } from "@angular/material";
+import { MdAutocompleteModule, MdButtonModule, MdDatepickerModule, MdInputModule, MdProgressBarModule } from "@angular/material";
 import { LoaderComponent, LoaderService } from "./loader/index";
 import { BearerInterceptor } from "./interceptors/index";
 import { RoleGuard, UnSignedGuard, AuthService } from "./auth/index";
@@ -23,8 +23,13 @@ export function getStorage() {
     imports: [
         CommonModule,
         ReCaptchaModule, 
+
+        MdAutocompleteModule,
         MdButtonModule,
-        MdProgressBarModule
+        MdDatepickerModule,
+        MdInputModule,
+        MdProgressBarModule,
+
     ],
     declarations: [
         DeleteDialogComponent,
@@ -34,7 +39,12 @@ export function getStorage() {
     exports: [
         DeleteDialogComponent,
         RecaptchaComponent,
-        LoaderComponent
+        LoaderComponent,
+
+        MdAutocompleteModule,
+        MdButtonModule,
+        MdDatepickerModule,
+        MdInputModule,
     ],
     providers: [
         AuthService,

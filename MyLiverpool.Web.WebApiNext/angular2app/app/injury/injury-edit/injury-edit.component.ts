@@ -3,10 +3,10 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
 import { Observable } from "rxjs/Observable";
-import { InjuryService } from "./injury.service";
-import { Configuration } from "../app.constants";
-import { Injury } from "./injury.model";
-import { PersonService, Person } from "../person/index";
+import { InjuryService } from "../injury.service";
+import { Injury } from "../injury.model";
+import { PersonService, Person } from "@app/person";
+import { Configuration } from "@app/app.constants";
 
 @Component({
     selector: "injury-edit",
