@@ -35,6 +35,8 @@ namespace MyLiverpool.Business.Dto
 
         public MaterialType Type { get; set; }
 
+        public string TypeName { get; set; }
+
         //   public DateTime LastModified { get; set; }
     }
 }

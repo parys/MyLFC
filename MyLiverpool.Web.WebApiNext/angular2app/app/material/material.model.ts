@@ -16,6 +16,7 @@
     public onTop: boolean;
     public canCommentary: boolean;
     public type: number;
+    public typeName: string;
     
     public nextMaterialId : number;
 

@@ -13,6 +13,7 @@ import { LoaderComponent, LoaderService } from "./loader/index";
 import { BearerInterceptor } from "./interceptors/index";
 import { RoleGuard, UnSignedGuard, AuthService } from "./auth/index";
 import { CommonModule } from "@angular/common";
+import { CustomDatePipe } from "./pipes/index";
 
 export function getStorage() {
     const result = typeof window !== "undefined" ? window.localStorage : null;
@@ -22,7 +23,7 @@ export function getStorage() {
 @NgModule({
     imports: [
         CommonModule,
-        ReCaptchaModule, 
+        ReCaptchaModule,
 
         MdAutocompleteModule,
         MdButtonModule,
@@ -34,12 +35,14 @@ export function getStorage() {
     declarations: [
         DeleteDialogComponent,
         RecaptchaComponent,
-        LoaderComponent
+        LoaderComponent,
+        CustomDatePipe
     ],
     exports: [
         DeleteDialogComponent,
         RecaptchaComponent,
-        LoaderComponent,
+        LoaderComponent, 
+        CustomDatePipe,
 
         MdAutocompleteModule,
         MdButtonModule,

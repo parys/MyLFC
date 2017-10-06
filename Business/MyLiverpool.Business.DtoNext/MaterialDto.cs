@@ -5,10 +5,6 @@ namespace MyLiverpool.Business.Dto
 {
     public class MaterialDto : IDto
     {
-        public MaterialDto()
-        {
-        }
-
         public int Id { get; set; }
 
         public int CategoryId { get; set; }
@@ -42,6 +38,8 @@ namespace MyLiverpool.Business.Dto
         public bool CanCommentary { get; set; }
 
         public MaterialType Type { get; set; }
+
+        public string TypeName { get; set; }
 
         public int? NextMaterialId { get; set; }
 

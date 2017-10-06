@@ -4,7 +4,7 @@
             <a *ngIf="roles.isInformer" [routerLink]="['/matches', next.id]"><span class="glyphicon glyphicon-cog color-red"></span></a>
             <a *ngIf="roles.isInformer" [routerLink]="['/matches', next.id, 'edit']"><span class="glyphicon glyphicon-pencil color-red"></span></a>
         </div>
-        <div class="col-xs-12 col-md-7"><b style="font-size: 1.2em;" class="pull-right" [textContent]="next.dateTime | date:'d MMM y EEE j:mm'"></b></div>
+        <div class="col-xs-12 col-md-7"><b style="font-size: 1.2em;" class="pull-right" [textContent]="next.dateTime | customDate:false:true"></b></div>
         <div class="col-xs-4 col-sm-12 col-md-5 text-center">
             <img [src]="next.homeClubLogo" class="center" [alt]="next.homeClub" [title]="next.homeClubName">
             <strong style="font-size: 1.2em;" class="" [textContent]="next.homeClubName"></strong>
@@ -24,7 +24,7 @@
             <a *ngIf="roles.isInformer" [routerLink]="['/matches', last.id, 'edit']"><span class="glyphicon glyphicon-pencil color-red"></span></a>
         </div><!--todo add back color for win|drar|lost-->
         <div class="col-xs-12 col-sm-12 col-md-7">
-            <span class="pull-right" [textContent]="last.dateTime | date:'d MMM y EEE j:mm'"></span>
+            <span class="pull-right" [textContent]="last.dateTime | customDate:false:true"></span>
         </div>
         <div class="col-xs-4 col-sm-12 col-md-12 col-lg-5 text-center">
             <img [src]="last.homeClubLogo" class="center " [alt]="last.homeClub" [title]="last.homeClubName">

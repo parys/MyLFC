@@ -1,13 +1,13 @@
 ﻿import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, PLATFORM_ID, Inject } from "@angular/core";
-import { isPlatformServer } from '@angular/common';
+import { isPlatformServer } from "@angular/common";
 import { Title, DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { Router, ActivatedRoute } from "@angular/router";
-import { MdDialog, MdSnackBar } from '@angular/material';
+import { MdDialog, MdSnackBar } from "@angular/material";
 import { Subscription } from "rxjs/Subscription";
 import { MaterialService } from "../material.service";
 import { Material } from "../material.model";                
-import { MaterialType } from "../../materialCategory/materialType.enum";                
-import { RolesCheckedService, StorageService, DeleteDialogComponent } from "../../shared/index";
+import { MaterialType } from "@app/materialCategory";                
+import { RolesCheckedService, StorageService, DeleteDialogComponent } from "@app/shared";
 import { MaterialActivateDialogComponent } from "../material-activate-dialog.component";
 
 @Component({
@@ -53,7 +53,7 @@ export class MaterialDetailComponent implements OnInit, OnDestroy {
     
 
     public showActivateModal(): void {
-        let dialogRef = this.dialog.open(MaterialActivateDialogComponent);
+        const dialogRef = this.dialog.open(MaterialActivateDialogComponent);
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
                 this.activate();
@@ -89,34 +89,29 @@ export class MaterialDetailComponent implements OnInit, OnDestroy {
     }
 
     private activate() : void {
-        let result: boolean;
-        
         this.service.activate(this.item.id)
-            .subscribe(res => result = res,
-            e => console.log(e),
-            () => {
-                if (result) {
-                    this.item.pending = false;
-                    this.snackBar.open("Материал успешно активирован", null, { duration: 5000 });
-                } else {
-                    this.snackBar.open("Материал НЕ БЫЛ активирован", null, { duration: 5000 });
-                }
-            });
+            .subscribe(res => {
+                    if (res) {
+                        this.item.pending = false;
+                        this.cd.markForCheck();
+                        this.snackBar.open("Материал успешно активирован", null, { duration: 5000 });
+                    } else {
+                        this.snackBar.open("Материал НЕ БЫЛ активирован", null, { duration: 5000 });
+                    }
+                },
+            e => console.log(e));
     }
 
     private delete(): void {
-        let result: boolean;
         this.service.delete(this.item.id)
-            .subscribe(res => result = res,
-                e => console.log(e),
-                () => {
-                    if (result) {
-                        this.router.navigate([`/${MaterialType[this.type].toLowerCase()}`]);
-                    } else {
-                        this.snackBar.open("Ошибка удаления", null, {duration: 2000});
-                    }
+            .subscribe(result => {
+                if (result) {
+                    this.router.navigate([`/${MaterialType[this.type].toLowerCase()}`]);
+                } else {
+                    this.snackBar.open("Ошибка удаления", null, { duration: 2000 });
                 }
-            );
+                },
+                e => console.log(e));
     }
 
     private parse(item: Material): void {

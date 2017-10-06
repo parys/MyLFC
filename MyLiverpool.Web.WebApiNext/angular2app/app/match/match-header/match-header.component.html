@@ -1,6 +1,6 @@
 ﻿<div class="col-xs-12 container-row" *ngIf="item">
     <div class="col-xs-12 text-center bottom10">
-        {{item.dateTime | date:'d MMM y EEE j:mm' }}, {{item.typeName}}, {{item.stadiumName}}
+        {{item.dateTime | customDate:false:true }}, {{item.typeName}}, {{item.stadiumName}}
     </div>
     <div class="col-xs-4">
         <div class="full-width text-center">

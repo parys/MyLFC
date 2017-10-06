@@ -18,7 +18,7 @@
         <div class="panel panel-default clearfix">
             <div class="panel-heading">
                 <h3 class="panel-title">
-                    <a [routerLink]="[item.id]"> <span [textContent]="item.dateTime | date:'d MMM y EEE j:mm'"></span> - <span [textContent]="item.stadiumName"></span></a>
+                    <a [routerLink]="[item.id]"> <span [textContent]="item.dateTime | customDate:false:true"></span> - <span [textContent]="item.stadiumName"></span></a>
                     <span class="col-xs-2 col-sm-2 pull-right">
                         <a [routerLink]="[item.id, 'edit']"><span class="glyphicon glyphicon-pencil"></span></a>
                         <a (click)="showDeleteModal(i)"><span class="glyphicon glyphicon-trash"></span></a>

@@ -10,16 +10,18 @@ import { MatchCalendarComponent } from "./match-calendar/index";
 import { MatchDetailComponent } from "./match-detail/index";
 import { MatchService } from "./match.service";
 import { matchRoutes } from "./match.routes";
-import { MatchEventModule } from "../matchEvent/index";
-import { MatchPersonModule } from "../matchPerson/index";
-import { CommentModule } from "../comment/index";
+import { MatchEventModule } from "@app/matchEvent";
+import { MatchPersonModule } from "@app/matchPerson";
+import { CommentModule } from "@app/comment";
 import { MatchHeaderComponent } from "./match-header/index";
+import { SharedModule } from "@app/shared";
 
 @NgModule({
     imports: [
         CommonModule,
         CommentModule,
         FormsModule,
+        SharedModule,
         NgxPaginationModule,
         MdAutocompleteModule,
         MdButtonModule,

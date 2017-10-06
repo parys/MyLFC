@@ -7,7 +7,7 @@
             <div class="chat-message clearfix" *ngFor="let message of items; let i = index;">
                 <div class="col-xs-12 col-sm-12 container-row clearfix">
                     <a [routerLink]="['/users', message.authorId]" [textContent]="message.authorUserName"></a>
-                    <div class="pull-right" [textContent]="message.additionTime | date:'medium'"></div>
+                    <div class="pull-right" [textContent]="message.additionTime | customDate"></div>
                     <span role="button" *ngIf="roles.isModerator || roles.isSelf(message.authorId)" (click)="edit(i)" class="glyphicon glyphicon-pencil"></span>
                     <span role="button" *ngIf="roles.isModerator" (click)="showDeleteModal(i)" class="glyphicon glyphicon-trash"></span>
                 </div>
