@@ -1,8 +1,8 @@
 ﻿import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
-import { MdSnackBar } from "@angular/material";
-import { AuthService } from "../../shared/index";
+import { MatSnackBar } from "@angular/material";
+import { AuthService } from "@app/shared";
 
 @Component({
     selector: "account-signin",
@@ -14,7 +14,7 @@ export class AccountSigninComponent implements OnInit {
 
     constructor(private authService: AuthService,
         private formBuilder: FormBuilder,
-        private snackBar: MdSnackBar,
+        private snackBar: MatSnackBar,
         private router: Router) {
     }
 

@@ -1,17 +1,17 @@
 ﻿<div class="col-xs-12 container-row">
     <div class="col-xs-12 container-row">
         <div class="text-center">Главный судья: {{mainRef?.personName}}
-            <span *ngIf="roles.isInformer && !mainRef" role="button" (click)="addMatchPerson(7)"><md-icon>add</md-icon></span></div>
+            <span *ngIf="roles.isInformer && !mainRef" role="button" (click)="addMatchPerson(7)"><mat-icon>add</mat-icon></span></div>
         <div class="text-center" *ngIf="assistantRef.length > 0">Помощники судьи: <span *ngFor="let ref of assistantRef">{{ref.personName}},</span></div>
         <div class="text-center" *ngIf="additionalRef.length > 0">Дополнительные судьи: <span *ngFor="let ref of additionalRef">{{ref.personName}},</span></div>
         <div class="text-center" *ngIf="fourthRef">Резервный судья: {{fourthRef.personName}}</div>
         <div class="col-xs-6 container-row">
             <i class="col-xs-12 container-row top10">Главный тренер:
-                <span *ngIf="roles.isInformer && !homeCoach" role="button" (click)="addMatchPerson(isHome ? 5 : 6)"><md-icon>add</md-icon></span>
+                <span *ngIf="roles.isInformer && !homeCoach" role="button" (click)="addMatchPerson(isHome ? 5 : 6)"><mat-icon>add</mat-icon></span>
             </i>
             <div class="col-xs-12 container-row" [textContent]="homeCoach?.personName"></div>
             <i class="col-xs-12 container-row top10">Состав:
-                <span *ngIf="roles.isInformer && homeTeam.length < 11" role="button" (click)="addMatchPerson(isHome ? 1 : 3)"><md-icon>add</md-icon></span>
+                <span *ngIf="roles.isInformer && homeTeam.length < 11" role="button" (click)="addMatchPerson(isHome ? 1 : 3)"><mat-icon>add</mat-icon></span>
             </i>
             <div class="col-xs-12 container-row" *ngFor="let person of homeTeam">
                 {{person.number}} - {{person.personName}}
@@ -19,7 +19,7 @@
                 <span *ngIf="roles.isInformer" role="button" (click)="showDeleteModal(person)" class="glyphicon glyphicon-trash"></span>
             </div>
             <i class="col-xs-12 container-row top10">Запасные:
-                <span *ngIf="roles.isInformer" role="button" (click)="addMatchPerson(isHome ? 2 : 4)"><md-icon>add</md-icon></span>
+                <span *ngIf="roles.isInformer" role="button" (click)="addMatchPerson(isHome ? 2 : 4)"><mat-icon>add</mat-icon></span>
             </i>
             <div class="col-xs-12 container-row" *ngFor="let person of homeBench">
                 {{person.number}} - {{person.personName}}
@@ -30,7 +30,7 @@
                 <i class="col-xs-12 container-row">Дисквалифицированы:</i>
                 <div class="col-xs-12 container-row" *ngFor="let person of homeBan">
                     {{person.number}} - {{person.personName}}
-                    <md-icon *ngIf="roles.isInformer" role="button" (click)="selectMatchPerson(person)">create</md-icon>
+                    <mat-icon *ngIf="roles.isInformer" role="button" (click)="selectMatchPerson(person)">create</mat-icon>
                     <span *ngIf="roles.isInformer" role="button" (click)="showDeleteModal(person)" class="glyphicon glyphicon-trash"></span>
                 </div>
             </div>
@@ -45,11 +45,11 @@
         </div>
         <div class="col-xs-6 container-row text-right">
             <i class="col-xs-12 container-row top10">Главный тренер:
-                <span *ngIf="roles.isInformer && !awayCoach" role="button" (click)="addMatchPerson(isHome ? 6 : 5)"><md-icon>add</md-icon></span>
+                <span *ngIf="roles.isInformer && !awayCoach" role="button" (click)="addMatchPerson(isHome ? 6 : 5)"><mat-icon>add</mat-icon></span>
             </i>
             <div class="col-xs-12 container-row" [textContent]="awayCoach?.personName"></div>
             <i class="col-xs-12 container-row top10">Состав:
-            <span *ngIf="roles.isInformer && awayTeam.length < 11" role="button" (click)="addMatchPerson(isHome ? 3 : 1)"><md-icon>add</md-icon></span>
+            <span *ngIf="roles.isInformer && awayTeam.length < 11" role="button" (click)="addMatchPerson(isHome ? 3 : 1)"><mat-icon>add</mat-icon></span>
             </i>
             <div class="col-xs-12 container-row" *ngFor="let person of awayTeam">
                 {{person.number}} - {{person.personName}}
@@ -57,7 +57,7 @@
                 <span *ngIf="roles.isInformer" role="button" (click)="showDeleteModal(person)" class="glyphicon glyphicon-trash"></span>
             </div>
             <i class="col-xs-12 container-row top10">Запасные:
-                <span *ngIf="roles.isInformer" role="button" (click)="addMatchPerson(isHome ? 4 : 2)"><md-icon>add</md-icon></span>
+                <span *ngIf="roles.isInformer" role="button" (click)="addMatchPerson(isHome ? 4 : 2)"><mat-icon>add</mat-icon></span>
             </i>
             <div class="col-xs-12 container-row" *ngFor="let person of awayBench">
                 {{person.number}} - {{person.personName}}
@@ -84,8 +84,8 @@
     </div>
 </div>
 <div *ngIf="roles.isInformer" class="col-xs-12">
-    <button md-raised-button color="warn" (click)="addMatchPerson()" *ngIf="!isEdit">Добавить человека</button>
-    <button md-raised-button (click)="cancelMatchPersonEdit()" *ngIf="isEdit">Отменить редактирование</button>
+    <button mat-raised-button color="warn" (click)="addMatchPerson()" *ngIf="!isEdit">Добавить человека</button>
+    <button mat-raised-button (click)="cancelMatchPersonEdit()" *ngIf="isEdit">Отменить редактирование</button>
     <div class="full-width top20" *ngIf="isEdit">
         <matchPerson-edit-panel [matchId]="matchId" [selectedMatchPerson]="selectedMatchPerson" [typeId]="selectedType" (matchPerson)="updateMatchPerson($event)"></matchPerson-edit-panel>
     </div>

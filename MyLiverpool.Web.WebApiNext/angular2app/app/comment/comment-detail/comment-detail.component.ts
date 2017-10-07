@@ -2,7 +2,7 @@
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Location } from "@angular/common";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
-import { MdDialog } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { Subscription } from "rxjs/Subscription"
 import { Comment } from "../comment.model";
 import { CommentVote } from "../commentVote.model";
@@ -34,7 +34,7 @@ export class CommentDetailComponent implements OnInit, OnDestroy {
         private location: Location,
         private sanitizer: DomSanitizer,
         public roles: RolesCheckedService,
-        private dialog: MdDialog,
+        private dialog: MatDialog,
         private cd: ChangeDetectorRef,
         private formBuilder: FormBuilder) {
     }

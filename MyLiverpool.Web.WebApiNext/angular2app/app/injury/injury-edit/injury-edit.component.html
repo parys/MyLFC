@@ -1,30 +1,30 @@
 ﻿<form class="form-horizontal col-xs-12" name="editForm" role="form" [formGroup]="editInjuryForm" (ngSubmit)="onSubmit()">
-    <md-form-field class="full-width">
-        <input mdInput placeholder="Игрок" [mdAutocomplete]="person" formControlName="personName">
-        <md-autocomplete #person="mdAutocomplete">
-            <md-option *ngFor="let person of persons$ | async" [value]="person.value" (click)="selectPerson(person.key)">
+    <mat-form-field class="full-width">
+        <input matInput placeholder="Игрок" [matAutocomplete]="person" formControlName="personName">
+        <mat-autocomplete #person="matAutocomplete">
+            <mat-option *ngFor="let person of persons$ | async" [value]="person.value" (click)="selectPerson(person.key)">
                 <span>{{ person.value }}</span>
-            </md-option>
-        </md-autocomplete>
-    </md-form-field>
+            </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
 
-    <md-form-field class="full-width">
-        <input mdInput [mdDatepicker]="datePicker1" placeholder="Выберите дату травмы" formControlName="startTime">
-        <md-datepicker-toggle mdSuffix [for]="datePicker1"></md-datepicker-toggle>
-        <md-datepicker #datePicker1 startView="month" touchUi="true"></md-datepicker>
-    </md-form-field>
+    <mat-form-field class="full-width">
+        <input matInput [matDatepicker]="datePicker1" placeholder="Выберите дату травмы" formControlName="startTime">
+        <mat-datepicker-toggle matSuffix [for]="datePicker1"></mat-datepicker-toggle>
+        <mat-datepicker #datePicker1 startView="month" touchUi="true"></mat-datepicker>
+    </mat-form-field>
 
-        <md-form-field class="full-width">
-            <input mdInput [mdDatepicker]="datePicker2" placeholder="Выберите дату окончания возвращения(можно приблизительную)" formControlName="endTime">
-            <md-datepicker-toggle mdSuffix [for]="datePicker2"></md-datepicker-toggle>
-            <md-datepicker #datePicker2 startView="month" touchUi="true"></md-datepicker>
-        </md-form-field>
+        <mat-form-field class="full-width">
+            <input matInput [matDatepicker]="datePicker2" placeholder="Выберите дату окончания возвращения(можно приблизительную)" formControlName="endTime">
+            <mat-datepicker-toggle matSuffix [for]="datePicker2"></mat-datepicker-toggle>
+            <mat-datepicker #datePicker2 startView="month" touchUi="true"></mat-datepicker>
+        </mat-form-field>
     
-    <md-form-field class="full-width">
-        <input mdInput placeholder="Описание травмы(краткое)" formControlName="description">
-    </md-form-field>
+    <mat-form-field class="full-width">
+        <input matInput placeholder="Описание травмы(краткое)" formControlName="description">
+    </mat-form-field>
 
     <div class="form-group">
-        <button md-raised-button color="warn" type="submit" [disabled]="!editInjuryForm.valid" class="text-center full-width">Сохранить</button>
+        <button mat-raised-button color="warn" type="submit" [disabled]="!editInjuryForm.valid" class="text-center full-width">Сохранить</button>
     </div>
 </form>

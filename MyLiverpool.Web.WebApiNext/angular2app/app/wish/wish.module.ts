@@ -1,20 +1,18 @@
 ﻿import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
-import { MdButtonModule } from "@angular/material";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { WishListComponent } from "./wish-list/index";
 import { WishEditComponent } from "./wish-edit/index";
 import { WishService } from "./wish.service";
 import { wishRoutes } from "./wish.routes";
 import { NgxPaginationModule } from "ngx-pagination";
-import { SharedModule } from "../shared/index";
+import { SharedModule } from "@app/shared";
 
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
-        MdButtonModule,
         RouterModule.forRoot(wishRoutes),
         ReactiveFormsModule,
         NgxPaginationModule,

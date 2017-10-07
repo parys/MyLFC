@@ -1,56 +1,56 @@
 ﻿<form class="form-horizontal col-xs-12" name="editForm" role="form" [formGroup]="editTransferForm" (ngSubmit)="onSubmit()">
-    <md-form-field class="full-width">
-        <input mdInput placeholder="Игрок" [mdAutocomplete]="person" formControlName="personName">
-        <md-autocomplete #person="mdAutocomplete">
-            <md-option *ngFor="let person of persons$ | async" [value]="person.value" (click)="selectPerson(person.key)">
+    <mat-form-field class="full-width">
+        <input matInput placeholder="Игрок" [matAutocomplete]="person" formControlName="personName">
+        <mat-autocomplete #person="matAutocomplete">
+            <mat-option *ngFor="let person of persons$ | async" [value]="person.value" (click)="selectPerson(person.key)">
                 <span>{{ person.value }}</span>
-            </md-option>
-        </md-autocomplete>
-    </md-form-field>
-    <md-form-field class="full-width">
-        <input mdInput placeholder="Cоперник" [mdAutocomplete]="club" formControlName="clubName">
-        <md-autocomplete #club="mdAutocomplete">
-            <md-option *ngFor="let club of clubs$ | async" [value]="club.value" (click)="selectClub(club.key)">
+            </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+    <mat-form-field class="full-width">
+        <input matInput placeholder="Cоперник" [matAutocomplete]="club" formControlName="clubName">
+        <mat-autocomplete #club="matAutocomplete">
+            <mat-option *ngFor="let club of clubs$ | async" [value]="club.value" (click)="selectClub(club.key)">
                 <span>{{ club.value }}</span>
-            </md-option>
-        </md-autocomplete>
-    </md-form-field>
-    <md-form-field class="full-width">
-        <input mdInput placeholder="Cезон" [mdAutocomplete]="season" formControlName="seasonName">
-        <md-autocomplete #season="mdAutocomplete">
-            <md-option *ngFor="let season of seasons$ | async" [value]="season.value" (click)="selectSeason(season.key)">
+            </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+    <mat-form-field class="full-width">
+        <input matInput placeholder="Cезон" [matAutocomplete]="season" formControlName="seasonName">
+        <mat-autocomplete #season="matAutocomplete">
+            <mat-option *ngFor="let season of seasons$ | async" [value]="season.value" (click)="selectSeason(season.key)">
                 <span>{{ season.value }}</span>
-            </md-option>
-        </md-autocomplete>
-    </md-form-field>
+            </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
  
-    <md-form-field class="full-width">
-        <input mdInput [mdDatepicker]="datePicker1" placeholder="Выберите дату трансфера" formControlName="startDate">
-        <md-datepicker-toggle mdSuffix [for]="datePicker1"></md-datepicker-toggle>
-        <md-datepicker #datePicker1 startView="year" touchUi="true"></md-datepicker> 
-    </md-form-field>
+    <mat-form-field class="full-width">
+        <input matInput [matDatepicker]="datePicker1" placeholder="Выберите дату трансфера" formControlName="startDate">
+        <mat-datepicker-toggle matSuffix [for]="datePicker1"></mat-datepicker-toggle>
+        <mat-datepicker #datePicker1 startView="year" touchUi="true"></mat-datepicker> 
+    </mat-form-field>
     <div class="form-group">
-        <md-slide-toggle formControlName="onLoan"
+        <mat-slide-toggle formControlName="onLoan"
                          color="warn">Аренда
-        </md-slide-toggle>
+        </mat-slide-toggle>
     </div>
     <div [hidden]="!editTransferForm.get('onLoan').value">
-        <md-form-field class="full-width">
-            <input mdInput [mdDatepicker]="datePicker2" placeholder="Выберите дату окончания трансфера(Для аренды)" formControlName="finishDate">
-            <md-datepicker-toggle mdSuffix [for]="datePicker2"></md-datepicker-toggle>
-            <md-datepicker #datePicker2 startView="year" touchUi="true"></md-datepicker>
-        </md-form-field>
+        <mat-form-field class="full-width">
+            <input matInput [matDatepicker]="datePicker2" placeholder="Выберите дату окончания трансфера(Для аренды)" formControlName="finishDate">
+            <mat-datepicker-toggle matSuffix [for]="datePicker2"></mat-datepicker-toggle>
+            <mat-datepicker #datePicker2 startView="year" touchUi="true"></mat-datepicker>
+        </mat-form-field>
     </div>
-    <md-form-field class="col-xs-12">
-        <input mdInput placeholder="Сумма трансфера в фунтах(цифра)" type="number" formControlName="amount">
-    </md-form-field>
+    <mat-form-field class="col-xs-12">
+        <input matInput placeholder="Сумма трансфера в фунтах(цифра)" type="number" formControlName="amount">
+    </mat-form-field>
     <div class="form-group">Ушел
-        <md-slide-toggle formControlName="coming"
+        <mat-slide-toggle formControlName="coming"
                          color="warn">Пришел
-        </md-slide-toggle>
+        </mat-slide-toggle>
     </div>
 
     <div class="form-group">
-        <button md-raised-button type="submit" [disabled]="!editTransferForm.valid" class="text-center full-width">Сохранить</button>
+        <button mat-raised-button type="submit" [disabled]="!editTransferForm.valid" class="text-center full-width">Сохранить</button>
     </div>
 </form>

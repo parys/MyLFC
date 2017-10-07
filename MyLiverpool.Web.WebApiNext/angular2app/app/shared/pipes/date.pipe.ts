@@ -6,12 +6,12 @@ export class CustomDatePipe implements PipeTransform {
     public transform(value: string, withSeconds: boolean = false, withDayOfWeek: boolean = false): string {
         const datePipe = new DatePipe("ru-RU");
         if (this.isToday(value)) {
-            return `сегодня ${datePipe.transform(value, withSeconds ? "hh:mm:ss" : "hh:mm")}`;
+            return `сегодня ${datePipe.transform(value, withSeconds ? "j:mm:ss" : "j:mm")}`;
         }
         if (this.isYesterday(value)) {
-            return `вчера ${datePipe.transform(value, withSeconds ? "hh:mm:ss" : "hh:mm")}`;
+            return `вчера ${datePipe.transform(value, withSeconds ? "j:mm:ss" : "j:mm")}`;
         }
-        return datePipe.transform(value, `d MMM y ${withDayOfWeek ? "EEE" : ""} hh:mm${withSeconds ? ":ss" : ""}`);
+        return datePipe.transform(value, `d MMM y ${withDayOfWeek ? "EEE" : ""} j:mm${withSeconds ? ":ss" : ""}`);
     }
 
     private isToday(date: string): boolean {

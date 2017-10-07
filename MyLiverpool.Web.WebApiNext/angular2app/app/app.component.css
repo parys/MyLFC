@@ -20,6 +20,11 @@
     height: 290px !important;
     overflow: auto;
 }
+
+.width200 {
+    width: 200px;
+}
+
 a:hover {
     text-decoration: none;
     color: red;
@@ -223,6 +228,7 @@ textarea {
 .chatUpdate {
     background-color: white;
     padding-left: 5px;
+    width: 100px;
 }
 
 .chatUpdate .mat-select-placeholder {

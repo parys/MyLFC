@@ -1,6 +1,6 @@
 ﻿import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from "@angular/core";
-import { MdSnackBar } from "@angular/material";
-import { Configuration } from "../app.constants";
+import { MatSnackBar } from "@angular/material";
+import { Configuration } from "@app/app.constants";
 import { ImageService } from "./image.service";
 
 @Component({
@@ -20,7 +20,7 @@ export class ImageAdditionComponent implements OnInit, OnDestroy {
 
     constructor(private configuration: Configuration,
         private service: ImageService,
-        private snackBar: MdSnackBar
+        private snackBar: MatSnackBar
     ) { 
     }
 

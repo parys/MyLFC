@@ -3,14 +3,12 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
 import { Observable } from "rxjs/Observable";
-import "rxjs/add/operator/debounceTime";
-import "rxjs/add/operator/takeUntil";
 import { TransferService } from "../transfer.service";
-import { PersonService, Person } from "../../person/index";
+import { PersonService, Person } from "@app/person";
 import { Transfer } from "../transfer.model";
-import { Configuration } from "../../app.constants";
-import { ClubService, Club } from "../../club/index";
-import { SeasonService, Season } from "../../season/index";
+import { Configuration } from "@app/app.constants";
+import { ClubService, Club } from "@app/club";
+import { SeasonService, Season } from "@app/season";
 
 @Component({
     selector: "transfer-edit",

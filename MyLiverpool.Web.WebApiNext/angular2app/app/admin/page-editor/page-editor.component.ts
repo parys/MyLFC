@@ -1,7 +1,7 @@
 ﻿import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
-import { MdSnackBar } from "@angular/material";
+import { MatSnackBar } from "@angular/material";
 import { Subscription } from "rxjs/Subscription";
 import { AdminService } from "../admin.service";
 import { HelperType } from "../helperType.enum";
@@ -24,7 +24,7 @@ export class PageEditorComponent implements OnInit, OnDestroy {
     constructor(private service: AdminService,
         private cd: ChangeDetectorRef,
         private route: ActivatedRoute,
-        private snackBar: MdSnackBar,
+        private snackBar: MatSnackBar,
         private formBuilder: FormBuilder) {
     }
 

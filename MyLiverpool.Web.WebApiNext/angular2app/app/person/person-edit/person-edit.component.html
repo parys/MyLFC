@@ -1,35 +1,35 @@
 ﻿<form class="full-width" name="editForm" role="form" [formGroup]="editPersonForm" (ngSubmit)="onSubmit()">
-    <md-form-field class="full-width">
-        <input mdInput placeholder="Имя на русском" formControlName="firstRussianName">
-    </md-form-field>
-    <md-form-field class="full-width">
-        <input mdInput placeholder="Фамилия на русском" formControlName="lastRussianName">
-    </md-form-field>
-    <md-select placeholder="Тип:" formControlName="type" class="full-width">
-        <md-option *ngFor="let type of types" [value]="type.id" [textContent]="type.name">
-        </md-option>
-    </md-select>   
-    <md-form-field class="full-width">
-        <input mdInput placeholder="Должность(для персонала)/позиция на поле(для игроков)" formControlName="position">
-    </md-form-field>   
-    <md-form-field class="full-width">
-        <input mdInput placeholder="Имя на английском" formControlName="firstName">
-    </md-form-field>
-    <md-form-field class="full-width">
-        <input mdInput placeholder="Фамилия на английском" formControlName="lastName">
-    </md-form-field>
-    <md-form-field class="full-width">
-        <input mdInput placeholder="Номер на футболке" formControlName="number">
-    </md-form-field>
-    <md-form-field class="full-width">
-        <input mdInput placeholder="Страна рождения" formControlName="country">
-    </md-form-field>
+    <mat-form-field class="full-width">
+        <input matInput placeholder="Имя на русском" formControlName="firstRussianName">
+    </mat-form-field>
+    <mat-form-field class="full-width">
+        <input matInput placeholder="Фамилия на русском" formControlName="lastRussianName">
+    </mat-form-field>
+    <mat-select placeholder="Тип:" formControlName="type" class="full-width">
+        <mat-option *ngFor="let type of types" [value]="type.id" [textContent]="type.name">
+        </mat-option>
+    </mat-select>   
+    <mat-form-field class="full-width">
+        <input matInput placeholder="Должность(для персонала)/позиция на поле(для игроков)" formControlName="position">
+    </mat-form-field>   
+    <mat-form-field class="full-width">
+        <input matInput placeholder="Имя на английском" formControlName="firstName">
+    </mat-form-field>
+    <mat-form-field class="full-width">
+        <input matInput placeholder="Фамилия на английском" formControlName="lastName">
+    </mat-form-field>
+    <mat-form-field class="full-width">
+        <input matInput placeholder="Номер на футболке" formControlName="number">
+    </mat-form-field>
+    <mat-form-field class="full-width">
+        <input matInput placeholder="Страна рождения" formControlName="country">
+    </mat-form-field>
     <div class="full-width text-center top20" *ngIf="editPersonForm.get('firstName').value && editPersonForm.get('lastName').value">
         <div class="col-xs-2">
             <img class="avatar" *ngIf="item.photo" [src]="item.photo" alt=""/>
         </div>
         <div class="col-xs-10">
-            <button md-raised-button type="button">
+            <button mat-raised-button type="button">
                 <label for="update-input">
                     Загрузить фото
                 </label>
@@ -41,12 +41,12 @@
                    id="update-input"/>
         </div>
     </div>
-    <md-form-field class="full-width">
-        <input mdInput [mdDatepicker]="datePicker" placeholder="Выберите дату рождения" formControlName="birthday">
-        <md-datepicker-toggle mdSuffix [for]="datePicker"></md-datepicker-toggle>
-        <md-datepicker #datePicker startView="year" touchUi="true"></md-datepicker>
-    </md-form-field>
+    <mat-form-field class="full-width">
+        <input matInput [matDatepicker]="datePicker" placeholder="Выберите дату рождения" formControlName="birthday">
+        <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
+        <mat-datepicker #datePicker startView="year" touchUi="true"></mat-datepicker>
+    </mat-form-field>
     <div class="full-width text-center">
-        <button md-raised-button color="warn" type="submit" [disabled]="!editPersonForm.valid">Сохранить</button>
+        <button mat-raised-button color="warn" type="submit" [disabled]="!editPersonForm.valid">Сохранить</button>
     </div>
 </form>

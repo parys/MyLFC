@@ -8,12 +8,14 @@ import { RolesCheckedService } from "./roles-checked.service";
 import { GlobalValidators } from "./globalValidators";
 import { ReCaptchaModule } from "angular2-recaptcha";
 import { DeleteDialogComponent } from "./delete-dialog/index";
-import { MdAutocompleteModule, MdButtonModule, MdDatepickerModule, MdInputModule, MdProgressBarModule } from "@angular/material";
+import { MatAutocompleteModule, MatButtonModule, MatCardModule, MatCheckboxModule, MatDatepickerModule, MatDialogModule,
+    MatIconModule, MatInputModule, MatMenuModule, MatNativeDateModule, MatProgressBarModule, MatSelectModule, MatSlideToggleModule, MatSnackBarModule, MatTabsModule } from "@angular/material";
 import { LoaderComponent, LoaderService } from "./loader/index";
 import { BearerInterceptor } from "./interceptors/index";
 import { RoleGuard, UnSignedGuard, AuthService } from "./auth/index";
 import { CommonModule } from "@angular/common";
 import { CustomDatePipe } from "./pipes/index";
+import { McBreadcrumbsModule } from "ngx-breadcrumbs";
 
 export function getStorage() {
     const result = typeof window !== "undefined" ? window.localStorage : null;
@@ -24,12 +26,23 @@ export function getStorage() {
     imports: [
         CommonModule,
         ReCaptchaModule,
+        McBreadcrumbsModule.forRoot(),
 
-        MdAutocompleteModule,
-        MdButtonModule,
-        MdDatepickerModule,
-        MdInputModule,
-        MdProgressBarModule,
+        MatAutocompleteModule,
+        MatButtonModule,
+        MatCardModule,
+        MatCheckboxModule,
+        MatDatepickerModule,
+        MatDialogModule,
+        MatIconModule,
+        MatInputModule,
+        MatMenuModule,
+        MatNativeDateModule,
+        MatProgressBarModule,
+        MatSelectModule,
+        MatSlideToggleModule,
+        MatSnackBarModule,
+        MatTabsModule
 
     ],
     declarations: [
@@ -43,11 +56,22 @@ export function getStorage() {
         RecaptchaComponent,
         LoaderComponent, 
         CustomDatePipe,
+      //  McBreadcrumbsModule.forRoot(),
 
-        MdAutocompleteModule,
-        MdButtonModule,
-        MdDatepickerModule,
-        MdInputModule,
+        MatAutocompleteModule,
+        MatButtonModule,
+        MatCardModule,
+        MatCheckboxModule,
+        MatDatepickerModule,
+        MatDialogModule,
+        MatIconModule,
+        MatInputModule,
+        MatMenuModule,
+        MatNativeDateModule,
+        MatSelectModule,
+        MatSlideToggleModule,
+        MatSnackBarModule,
+        MatTabsModule
     ],
     providers: [
         AuthService,

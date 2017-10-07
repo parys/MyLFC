@@ -1,6 +1,6 @@
 ﻿<h2>Тренерский штаб</h2>
-<nav md-tab-nav-bar>
-    <a md-tab-link *ngFor="let routeLink of routeLinks; let i = index"
+<nav mat-tab-nav-bar>
+    <a mat-tab-link *ngFor="let routeLink of routeLinks; let i = index"
        [routerLink]="routeLink.link"
        [active]="activeLinkIndex === i"
        (click)="activeLinkIndex = i"
@@ -8,17 +8,17 @@
 </nav>
 <div class="flex-space-around">
     <div *ngFor="let person of items">
-        <md-card class="stuff-card">
-            <md-card-header>
-                <md-card-title role="button" *ngIf="roles.isInformer" [routerLink]="['/persons', person.id, 'edit']" [textContent]="person.russianName"></md-card-title>
-                <md-card-title *ngIf="!roles.isInformer" [textContent]="person.russianName"></md-card-title>
-                <md-card-subtitle [textContent]="person.position"></md-card-subtitle>
-            </md-card-header>
-            <img md-card-image [src]="person.photo" [alt]="person.russianName">
-            <md-card-content>
+        <mat-card class="stuff-card">
+            <mat-card-header>
+                <mat-card-title role="button" *ngIf="roles.isInformer" [routerLink]="['/persons', person.id, 'edit']" [textContent]="person.russianName"></mat-card-title>
+                <mat-card-title *ngIf="!roles.isInformer" [textContent]="person.russianName"></mat-card-title>
+                <mat-card-subtitle [textContent]="person.position"></mat-card-subtitle>
+            </mat-card-header>
+            <img mat-card-image [src]="person.photo" [alt]="person.russianName">
+            <mat-card-content>
                 <p *ngIf="person.country"><span [textContent]="person.country"></span></p>
                 <p><span [textContent]="person.birthday | date"></span></p>
-            </md-card-content>
-        </md-card>
+            </mat-card-content>
+        </mat-card>
     </div>
 </div>

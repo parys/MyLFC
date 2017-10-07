@@ -1,5 +1,4 @@
 ﻿import { NgModule } from "@angular/core";
-import { MdIconModule } from "@angular/material";
 import { RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
 import { SharedModule } from "../shared/index";
@@ -11,7 +10,6 @@ import { NotificationService } from "./notification.service";
 @NgModule({
     imports: [
         CommonModule,
-        MdIconModule,
         RouterModule.forRoot(notificationRoutes),
         SharedModule
     ],

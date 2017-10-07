@@ -1,11 +1,11 @@
 ﻿import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Location } from "@angular/common";
 import { ActivatedRoute } from "@angular/router";
-import { MdDialog } from '@angular/material';
+import { MatDialog } from "@angular/material";
 import { Subscription } from "rxjs/Subscription";
 import { Match } from "../match.model";
 import { MatchService } from "../match.service";
-import { Pageable, DeleteDialogComponent } from "../../shared/index";
+import { Pageable, DeleteDialogComponent } from "@app/shared";
 
 @Component({
     selector: "match-list",
@@ -24,13 +24,13 @@ export class MatchListComponent implements OnInit, OnDestroy {
     constructor(private matchService: MatchService,
         private route: ActivatedRoute,
         private location: Location,
-        private dialog: MdDialog) {
+        private dialog: MatDialog) {
     }
 
     public ngOnInit(): void {
         this.sub = this.route.queryParams.subscribe(qParams => {
                 this.page = qParams["page"] || 1;
-                this.categoryId = qParams["categoryId"] || "";
+                this.categoryId = qParams["categoryId"] || null;
             },
             error => console.log(error));
         this.update();

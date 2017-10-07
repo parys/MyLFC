@@ -1,13 +1,12 @@
 ﻿import { Component, OnInit, Input } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
-import { MdDialog, MdSnackBar } from "@angular/material";
-import { DeleteDialogComponent } from "../../shared/index";
+import { MatDialog, MatSnackBar } from "@angular/material";
+import { DeleteDialogComponent, RolesCheckedService } from "@app/shared";
 import { Observable } from "rxjs/Observable";
 import { MatchEventService } from "../matchEvent.service";
 import { MatchEvent } from "../matchEvent.model";
-import { Person, PersonService } from "../../person/index";
-import { Configuration } from "../../app.constants";
-import { RolesCheckedService } from "../../shared/index";
+import { Person, PersonService } from "@app/person";
+import { Configuration } from "@app/app.constants";
 
 @Component({
     selector: "matchEvent-match-panel",
@@ -29,8 +28,8 @@ export class MatchEventMatchPanelComponent implements OnInit {
         private config: Configuration,
         private router: Router,
         public roles: RolesCheckedService,
-        private snackBar: MdSnackBar,
-        private dialog: MdDialog) {
+        private snackBar: MatSnackBar,
+        private dialog: MatDialog) {
     }
 
     public ngOnInit(): void {

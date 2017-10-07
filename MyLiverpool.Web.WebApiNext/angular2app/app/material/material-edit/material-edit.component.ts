@@ -1,13 +1,11 @@
 ﻿import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
-import { MdSnackBar } from "@angular/material";
+import { MatSnackBar } from "@angular/material";
 import { MaterialService } from "../material.service";
 import { Material } from "../material.model";
-import { MaterialCategoryService } from "../../materialCategory/index";
-import { RolesCheckedService } from "../../shared/index";
-import { MaterialCategory } from "../../materialCategory/materialCategory.model";
-import { MaterialType } from "../../materialCategory/materialType.enum";
+import { MaterialCategoryService, MaterialCategory, MaterialType } from "@app/materialCategory";
+import { RolesCheckedService } from "@app/shared";
 
 @Component({
     selector: "material-edit",
@@ -26,7 +24,7 @@ export class MaterialEditComponent implements OnInit {
         private materialCategoryService: MaterialCategoryService,
         private route: ActivatedRoute,
         private router: Router,
-        private snackBar: MdSnackBar,
+        private snackBar: MatSnackBar,
         public roles: RolesCheckedService,
         private formBuilder: FormBuilder) {
         if (route.snapshot.data["type"] === MaterialType[MaterialType.News]) {

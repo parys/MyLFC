@@ -1,18 +1,18 @@
 ﻿<hr class="full-width" />
 <h6 class="text-center">Добавление человека к матчу</h6>
 <form class="col-xs-12" role="form" [formGroup]="editMatchPersonForm" (ngSubmit)="onSubmit()">
-    <md-form-field class="full-width">
-        <input mdInput placeholder="Игрок" [mdAutocomplete]="person" formControlName="personName">
-        <md-autocomplete #person="mdAutocomplete">
-            <md-option *ngFor="let person of persons$ | async" [value]="person.value" (click)="selectPerson(person.key)">
+    <mat-form-field class="full-width">
+        <input matInput placeholder="Игрок" [matAutocomplete]="person" formControlName="personName">
+        <mat-autocomplete #person="matAutocomplete">
+            <mat-option *ngFor="let person of persons$ | async" [value]="person.value" (click)="selectPerson(person.key)">
                 <span>{{ person.value }}</span>
-            </md-option>
-        </md-autocomplete>
-    </md-form-field>
-    <md-select placeholder="Тип" class="full-width form-group" formControlName="personType">
-        <md-option *ngFor="let type of types" [value]="type.key">{{ type.value }}</md-option>
-    </md-select>
+            </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+    <mat-select placeholder="Тип" class="full-width form-group" formControlName="personType">
+        <mat-option *ngFor="let type of types" [value]="type.key">{{ type.value }}</mat-option>
+    </mat-select>
     <div class="form-group text-center">
-        <button md-raised-button color="warn" type="submit" [disabled]="!editMatchPersonForm.valid">Сохранить</button>
+        <button mat-raised-button color="warn" type="submit" [disabled]="!editMatchPersonForm.valid">Сохранить</button>
     </div>
 </form>

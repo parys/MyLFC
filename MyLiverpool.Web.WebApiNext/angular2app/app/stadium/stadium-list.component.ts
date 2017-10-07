@@ -1,11 +1,11 @@
 ﻿import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Location } from "@angular/common";
 import { ActivatedRoute } from "@angular/router";
-import { MdDialog } from '@angular/material';
+import { MatDialog } from "@angular/material";
 import { Subscription } from "rxjs/Subscription";
 import { Stadium } from "./stadium.model";
 import { StadiumService } from "./stadium.service";
-import { Pageable, DeleteDialogComponent } from "../shared/index";
+import { Pageable, DeleteDialogComponent } from "@app/shared";
 
 @Component({
     selector: "stadium-list",
@@ -23,7 +23,7 @@ export class StadiumListComponent implements OnInit, OnDestroy {
     constructor(private service: StadiumService,
         private route: ActivatedRoute,
         private location: Location,
-        private dialog: MdDialog) {
+        private dialog: MatDialog) {
     }
 
     public ngOnInit(): void {

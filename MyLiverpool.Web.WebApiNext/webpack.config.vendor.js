@@ -21,8 +21,8 @@ const treeShakableModules = [
 ];
 
 const nonTreeShakableModules = [
-    "es6-promise",
-    "es6-shim",
+    "core-js",
+   // "es6-shim",
     "bootstrap/dist/css/bootstrap.min.css",
     "@angular/material/prebuilt-themes/indigo-pink.css",
     "event-source-polyfill",

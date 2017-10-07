@@ -1,13 +1,13 @@
 ﻿import { Component, OnInit, OnDestroy } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
-import { MdSnackBar } from "@angular/material";
+import { MatSnackBar } from "@angular/material";
 import { Subscription } from "rxjs/Subscription";
 import { Wish } from "../wish.model";
 import { WishType } from "../wishType.model";
 import { WishState } from "../wishState.model";
 import { WishService } from "../wish.service";
-import { RolesCheckedService } from "../../shared/index";
+import { RolesCheckedService } from "@app/shared";
 
 @Component({
     selector: "wish-edit",
@@ -26,7 +26,7 @@ export class WishEditComponent implements OnInit, OnDestroy {
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         public roles: RolesCheckedService,
-        private snackBar: MdSnackBar,
+        private snackBar: MatSnackBar,
         private router: Router) {
     }
 

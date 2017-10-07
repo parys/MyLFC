@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { AccountService } from "../account.service";    
 import { GlobalValidators } from "../../shared/index";
 import { ChangePassword } from "../changePassword.model";
-import { MdSnackBar } from "@angular/material";
+import { MatSnackBar } from "@angular/material";
 
 @Component({
     selector: "change-password",
@@ -15,7 +15,7 @@ export class ChangePasswordComponent implements OnInit {
     public isHuman: boolean = false;
 
     constructor(private service: AccountService,
-        private snackBar: MdSnackBar,
+        private snackBar: MatSnackBar,
         private formBuilder: FormBuilder) {
     }
 

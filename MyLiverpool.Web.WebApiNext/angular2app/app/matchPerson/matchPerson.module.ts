@@ -1,33 +1,23 @@
 ﻿import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { MdInputModule, MdButtonModule, MdAutocompleteModule, MdSelectModule, MdSlideToggleModule, MdIconModule } from "@angular/material";
-import { RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
 import { NgxPaginationModule } from "ngx-pagination";
-import { SharedModule } from "../shared/index";
-import { MatchPersonEditPanelComponent } from "./matchPerson-edit-panel/matchPerson-edit-panel.component";
+import { SharedModule } from "@app/shared";
+import { MatchPersonEditPanelComponent } from "./matchPerson-edit-panel/index";
 import { MatchPersonService } from "./matchPerson.service";
-import { MatchPersonPanelComponent } from "./matchPerson-panel/matchPerson-panel.component";
+import { MatchPersonPanelComponent } from "./matchPerson-panel/index";
 
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
-        MdSlideToggleModule,
-        MdAutocompleteModule,
-        MdIconModule,
-        MdButtonModule,
-        MdInputModule,
-        MdSelectModule,
         NgxPaginationModule,
         ReactiveFormsModule,
-        //      RouterModule.forRoot(matchEventRoutes),
         SharedModule
     ],
     declarations: [
         MatchPersonEditPanelComponent,
-        MatchPersonPanelComponent,
-        //    MatchEventListComponent
+        MatchPersonPanelComponent
     ],
     exports: [
         MatchPersonEditPanelComponent,

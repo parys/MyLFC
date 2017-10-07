@@ -26,11 +26,11 @@
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 text-center container-row" style="margin-top: -37px;">            
-                <button md-raised-button color="warn" type="submit" [disabled]="!messageForm.valid" class="chat-button">
+                <button mat-raised-button color="warn" type="submit" [disabled]="!messageForm.valid" class="chat-button">
                     <span *ngIf="selectedEditIndex == null">Добавить</span>
                     <span *ngIf="selectedEditIndex !== null">Обновить</span>
                 </button>
-                <button md-raised-button *ngIf="selectedEditIndex !== null" type="button" (click)="cancelEdit()">Отмена</button>
+                <button mat-raised-button *ngIf="selectedEditIndex !== null" type="button" (click)="cancelEdit()">Отмена</button>
                 
             </div>
         </form>

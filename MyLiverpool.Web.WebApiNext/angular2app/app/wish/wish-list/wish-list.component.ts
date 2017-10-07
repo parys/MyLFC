@@ -1,11 +1,11 @@
 ﻿import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Location } from "@angular/common";
 import { ActivatedRoute } from "@angular/router";
-import { MdDialog } from '@angular/material';
+import { MatDialog } from "@angular/material";
 import { Subscription } from "rxjs/Subscription";
 import { Wish } from "../wish.model";
 import { WishService } from "../wish.service";
-import { Pageable, RolesCheckedService, DeleteDialogComponent } from "../../shared/index";
+import { Pageable, RolesCheckedService, DeleteDialogComponent } from "@app/shared";
 
 @Component({
     selector: "wish-list",
@@ -24,7 +24,7 @@ export class WishListComponent implements OnInit, OnDestroy {
         public roles: RolesCheckedService,
         private location: Location,
         private route: ActivatedRoute,
-        private dialog: MdDialog) {
+        private dialog: MatDialog) {
     }
 
     public ngOnInit(): void  { 

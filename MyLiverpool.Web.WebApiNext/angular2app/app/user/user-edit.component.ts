@@ -1,6 +1,6 @@
 ﻿import { Component, OnInit, OnDestroy } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { MdSnackBar } from "@angular/material";
+import { MatSnackBar } from "@angular/material";
 import { Subscription } from "rxjs/Subscription";
 import { User } from "./user.model";
 import { UserService } from "./user.service";
@@ -16,7 +16,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
 
     constructor(private service: UserService,
         private formBuilder: FormBuilder,
-        private snackBar: MdSnackBar) { }
+        private snackBar: MatSnackBar) { }
 
     public ngOnInit(): void {
         this.initUserEditForm();

@@ -1,9 +1,8 @@
 ﻿import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { MdInputModule, MdButtonModule, MdCheckboxModule, MdSnackBarModule } from "@angular/material";
 import { RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
-import { SharedModule } from "../shared/index";
+import { SharedModule } from "@app/shared";
 import { accountRoutes } from "./account.routes";
 import { AccountSigninComponent } from "./account-signin/index";
 import { AccountSignupComponent } from "./account-signup/index";
@@ -19,10 +18,6 @@ import { AccountValidators } from "./account.validators";
     imports: [
         CommonModule,
         FormsModule,
-        MdButtonModule,
-        MdCheckboxModule,
-        MdInputModule,
-        MdSnackBarModule,
         ReactiveFormsModule,
         RouterModule.forRoot(accountRoutes),
         SharedModule

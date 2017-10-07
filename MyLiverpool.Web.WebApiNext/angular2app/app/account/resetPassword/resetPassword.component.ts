@@ -1,10 +1,10 @@
 ﻿import { Component, OnInit, OnDestroy } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
-import { MdSnackBar } from "@angular/material";
+import { MatSnackBar } from "@angular/material";
 import { Subscription } from "rxjs/Subscription";
 import { AccountService } from "../account.service";
-import { GlobalValidators } from "../../shared/index";
+import { GlobalValidators } from "@app/shared";
 import { ResetPassword } from "../resetPassword.model";
 
 @Component({
@@ -22,7 +22,7 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
     constructor(private service: AccountService,
         private route: ActivatedRoute,
         private router: Router,
-        private snackBar: MdSnackBar,
+        private snackBar: MatSnackBar,
         private formBuilder: FormBuilder) {
     }
 

@@ -1,23 +1,23 @@
 ﻿<form class="form-horizontal col-md-12" role="form" name="writePm"  [formGroup]="editPmForm" (ngSubmit)="onSubmit()">
     <h2>Написать сообщение</h2>
-    <md-form-field class="full-width">
-        <input mdInput placeholder="Получатель" [mdAutocomplete]="user" formControlName="receiver">
-        <md-autocomplete #user="mdAutocomplete">
-            <md-option *ngFor="let user of users$ | async" [value]="user.username" (click)="selectUser(user.id)">
+    <mat-form-field class="full-width">
+        <input matInput placeholder="Получатель" [matAutocomplete]="user" formControlName="receiver">
+        <mat-autocomplete #user="matAutocomplete">
+            <mat-option *ngFor="let user of users$ | async" [value]="user.username" (click)="selectUser(user.id)">
                 <span>{{ user.username }}</span>
-            </md-option>
-        </md-autocomplete>
-    </md-form-field>
+            </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
 
-    <md-form-field class="full-width">
-        <input mdInput placeholder="Заголовок" formControlName="title">
-    </md-form-field>
+    <mat-form-field class="full-width">
+        <input matInput placeholder="Заголовок" formControlName="title">
+    </mat-form-field>
 
-    <md-form-field class="full-width">
-        <textarea mdInput rows="4" placeholder="Сообщение" formControlName="message"></textarea>
-    </md-form-field>
+    <mat-form-field class="full-width">
+        <textarea matInput rows="4" placeholder="Сообщение" formControlName="message"></textarea>
+    </mat-form-field>
 
     <div class="form-group text-center">
-        <button md-raised-button color="warn" [disabled]="!editPmForm.valid" type="submit">Отправить</button>
+        <button mat-raised-button color="warn" [disabled]="!editPmForm.valid" type="submit">Отправить</button>
     </div>
 </form>

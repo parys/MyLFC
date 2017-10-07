@@ -1,9 +1,9 @@
 ﻿import { Component, OnInit, OnDestroy } from "@angular/core";
-import { MdSnackBar } from "@angular/material";
+import { MatSnackBar } from "@angular/material";
 import { Subscription } from "rxjs/Subscription";
 import { Observable } from "rxjs/Observable";
 import { PmService } from "../pm.service";
-import { Configuration } from "../../app.constants";
+import { Configuration } from "@app/app.constants";
 
 @Component({
     selector: "pm-counter",
@@ -15,7 +15,7 @@ export class PmCounterComponent implements OnInit, OnDestroy {
     public count: number = 0;
 
     constructor(private pmService: PmService,
-        private snackBar: MdSnackBar,
+        private snackBar: MatSnackBar,
         private config: Configuration) { }
 
     public ngOnInit(): void {
@@ -43,6 +43,6 @@ export class PmCounterComponent implements OnInit, OnDestroy {
                         null, {  duration: 5000 });
                 }
                 },
-                error => console.log(error));
+                e => console.log(e));
     }
 }

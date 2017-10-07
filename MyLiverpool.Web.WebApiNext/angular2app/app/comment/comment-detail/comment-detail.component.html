@@ -63,8 +63,8 @@
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12">
-                <button md-raised-button color="warn" [disabled]="!commentForm.valid" type="submit">Обновить</button>
-                <button md-raised-button (click)="cancelEdit()" type="button">Отмена</button>
+                <button mat-raised-button color="warn" [disabled]="!commentForm.valid" type="submit">Обновить</button>
+                <button mat-raised-button (click)="cancelEdit()" type="button">Отмена</button>
             </div>
         </form>
         <div *ngIf="isAddingMode">
@@ -75,8 +75,8 @@
                     <bbeditor name="message" formControlName="message"></bbeditor>
                 </div>
                 <div class="modal-footer">
-                    <button md-raised-button color="warn" [disabled]="!commentForm.valid" type="submit">Добавить</button>
-                    <button md-raised-button data-dismiss="modal" (click)="cancelAdding()" type="button">Отмена</button>
+                    <button mat-raised-button color="warn" [disabled]="!commentForm.valid" type="submit">Добавить</button>
+                    <button mat-raised-button data-dismiss="modal" (click)="cancelAdding()" type="button">Отмена</button>
                 </div>
             </form>
         </div>

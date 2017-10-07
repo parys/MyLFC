@@ -1,8 +1,8 @@
 ﻿import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Location } from "@angular/common";
 import { ActivatedRoute } from "@angular/router";
-import { MdDialog } from '@angular/material';
-import { Subscription } from "rxjs";
+import { MatDialog } from "@angular/material";
+import { Subscription } from "rxjs/Subscription";
 import { Injury } from "../injury.model";
 import { InjuryService } from "../injury.service";
 import { Pageable, DeleteDialogComponent } from "@app/shared";
@@ -23,7 +23,7 @@ export class InjuryListComponent implements OnInit, OnDestroy {
     constructor(private injuryService: InjuryService,
         private route: ActivatedRoute,
         private location: Location,
-        private dialog: MdDialog) {
+        private dialog: MatDialog) {
     }
 
     public ngOnInit(): void {
@@ -58,7 +58,7 @@ export class InjuryListComponent implements OnInit, OnDestroy {
     public pageChanged(event: any): void {
         this.page = event;
         this.update();
-        let newUrl = `injuries?page=${this.page}`;
+        const newUrl = `injuries?page=${this.page}`;
         this.location.replaceState(newUrl);
     };
     

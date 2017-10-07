@@ -1,10 +1,10 @@
 ﻿import { Component, OnInit } from "@angular/core";
 import { Location } from "@angular/common";
 import { ActivatedRoute } from "@angular/router";
-import { MdDialog } from '@angular/material';
+import { MatDialog } from "@angular/material";
 import { Club } from "../club.model";
 import { ClubService } from "../club.service";
-import { Pageable, DeleteDialogComponent } from "../../shared/index";
+import { Pageable, DeleteDialogComponent } from "@app/shared";
 
 @Component({
     selector: "club-list",
@@ -22,7 +22,7 @@ export class ClubListComponent implements OnInit {
     constructor(private clubService: ClubService,
         private route: ActivatedRoute,
         private location: Location,
-        private dialog: MdDialog) {
+        private dialog: MatDialog) {
     }
 
     public ngOnInit(): void {
@@ -35,7 +35,7 @@ export class ClubListComponent implements OnInit {
         }
 
     public showDeleteModal(index: number): void {
-        let dialogRef = this.dialog.open(DeleteDialogComponent);
+        const dialogRef = this.dialog.open(DeleteDialogComponent);
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
                 this.delete(index);

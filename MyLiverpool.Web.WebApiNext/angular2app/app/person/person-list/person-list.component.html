@@ -3,17 +3,19 @@
 </div>
 <form class="form-inline" [formGroup]="filterForm" (ngSubmit)="update()">
     <div class="form-group">
-        <md-select formControlName="typeId" placeholder="Тип">
-            <md-option value="">Все типы</md-option>
-            <md-option *ngFor="let type of personTypes" [value]="type.id" [textContent]="type.name"></md-option>
-        </md-select>
+        <mat-form-field>
+            <mat-select formControlName="typeId" placeholder="Тип">
+                <mat-option value="">Все типы</mat-option>
+                <mat-option *ngFor="let type of personTypes" [value]="type.id" [textContent]="type.name"></mat-option>
+            </mat-select>
+        </mat-form-field>
     </div>
     <div class="form-group">
-        <md-form-field>
-            <input mdInput formControlName="name" placeholder="Имя" />
-        </md-form-field>
+        <mat-form-field>
+            <input matInput formControlName="name" placeholder="Имя" />
+        </mat-form-field>
     </div>
-    <button md-raised-button> Отфильтровать</button>
+    <button mat-raised-button> Отфильтровать</button>
 </form>
 <div class="top20" *ngFor="let person of items | paginate: { itemsPerPage: itemsPerPage,
                                                       currentPage: page,

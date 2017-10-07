@@ -1,9 +1,8 @@
 ﻿import { Component, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef, OnChanges } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { Pageable } from "../../shared/pageable.model";
 import { Comment } from "../comment.model";
 import { CommentService } from "../comment.service";
-import { RolesCheckedService } from "../../shared/index";
+import { RolesCheckedService, Pageable } from "@app/shared/index";
 
 @Component({
     selector: "comment-section",

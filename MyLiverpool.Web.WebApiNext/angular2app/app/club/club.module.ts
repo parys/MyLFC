@@ -1,10 +1,9 @@
 ﻿import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
-import { MdButtonModule, MdAutocompleteModule, MdInputModule } from "@angular/material";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { NgxPaginationModule } from "ngx-pagination";
-import { SharedModule } from "../shared/index";
+import { SharedModule } from "@app/shared";
 import { clubRoutes } from "./club.routes";
 import { ClubEditComponent } from "./club-edit/index";
 import { ClubListComponent } from "./club-list/index";
@@ -14,9 +13,6 @@ import { ClubService } from "./club.service";
     imports: [
         CommonModule,
         FormsModule,
-        MdAutocompleteModule,
-        MdButtonModule,
-        MdInputModule,
         RouterModule.forRoot(clubRoutes),
         ReactiveFormsModule,
         NgxPaginationModule,

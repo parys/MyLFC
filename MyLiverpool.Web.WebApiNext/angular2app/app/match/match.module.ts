@@ -1,5 +1,4 @@
 ﻿import { NgModule } from "@angular/core";
-import { MdButtonModule, MdDatepickerModule, MdInputModule, MdAutocompleteModule } from "@angular/material";
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
@@ -23,10 +22,6 @@ import { SharedModule } from "@app/shared";
         FormsModule,
         SharedModule,
         NgxPaginationModule,
-        MdAutocompleteModule,
-        MdButtonModule,
-        MdDatepickerModule,
-        MdInputModule,
         MatchEventModule,
         MatchPersonModule,
         ReactiveFormsModule,

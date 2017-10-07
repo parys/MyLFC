@@ -11,16 +11,6 @@ import { StuffListComponent } from "./stuff-list/index";
 import { SquadComponent } from "./squad/index";
 import { personRoutes } from "./person.routes";
 import { SharedModule } from "../shared/index";
-import {
-    MdButtonModule,
-    MdInputModule,
-    MdSelectModule,
-    MdCardModule,
-    MdSlideToggleModule,
-    MdNativeDateModule,
-    MdDatepickerModule,
-    MdTabsModule
-} from "@angular/material";
 import { NgxPaginationModule } from "ngx-pagination";
 
 
@@ -28,14 +18,6 @@ import { NgxPaginationModule } from "ngx-pagination";
     imports: [
         CommonModule,
         FormsModule,
-        MdButtonModule,
-        MdCardModule,
-        MdDatepickerModule,
-        MdInputModule,
-        MdNativeDateModule,
-        MdSelectModule,
-        MdSlideToggleModule,
-        MdTabsModule,
         NgxPaginationModule,
         ReactiveFormsModule,
         RouterModule.forRoot(personRoutes),

@@ -1,10 +1,10 @@
 ﻿import { Component, OnInit, OnDestroy } from "@angular/core";
-import { MdSnackBar } from "@angular/material";
+import { MatSnackBar } from "@angular/material";
 import { Subscription } from "rxjs/Subscription";
 import { Observable } from "rxjs/Observable";
 import { NotificationService } from "../notification.service";
 import { RolesCheckedService } from "@app/shared";
-import { Configuration } from "../../app.constants";
+import { Configuration } from "@app/app.constants";
 
 @Component({
     selector: "notification-counter",
@@ -17,7 +17,7 @@ export class NotificationCounterComponent implements OnInit, OnDestroy {
 
     constructor(private service: NotificationService,
         public roles: RolesCheckedService,
-        private snackBar: MdSnackBar,
+        private snackBar: MatSnackBar,
         private config: Configuration) { }
 
     public ngOnInit(): void {

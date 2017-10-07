@@ -1,8 +1,9 @@
-﻿import "./polyfills";
+﻿import "./polyfills/polyfills";
+import "./polyfills/browser.polyfills";
+import "./polyfills/rx-imports";// aot doesn't copy this files through import local files
 import { platformBrowserDynamic } from "@angular/platform-browser-dynamic";
 import { enableProdMode } from "@angular/core";
 import { AppModule } from "./app/app.module.browser";
-import "hammerjs";
 
 var rootElemTagName = "app";
 // enable either Hot Module Reloading or production mode

@@ -26,8 +26,7 @@ import { WishModule } from "./wish/index";
 import * as admin from "./admin/index";
 import { NgxPaginationModule } from "ngx-pagination";
 import { ReCaptchaModule } from "angular2-recaptcha";
-import { Ng2BreadcrumbModule, BreadcrumbService } from "ng2-breadcrumb/ng2-breadcrumb";
-import * as angMaterial from '@angular/material';
+//import { Ng2BreadcrumbModule, BreadcrumbService } from "ng2-breadcrumb";
 import "rxjs/add/operator/mergeMap";
 import { AccountModule } from "./account/index";
 import { TransferModule } from "./transfer/index";
@@ -42,21 +41,7 @@ import { NotificationModule } from "./notification/index";
         AccountModule,
       //  ForumModule,
         InjuryModule,
-        angMaterial.MdAutocompleteModule,
-        angMaterial.MdButtonModule,
-        angMaterial.MdCardModule,
-        angMaterial.MdCheckboxModule,
-        angMaterial.MdDatepickerModule,
-        angMaterial.MdDialogModule,
-        angMaterial.MdIconModule,
-        angMaterial.MdInputModule,
-        angMaterial.MdMenuModule,
-        angMaterial.MdNativeDateModule,
-        angMaterial.MdSnackBarModule,
-        angMaterial.MdSelectModule,
-        angMaterial.MdSlideToggleModule,
-        angMaterial.MdTabsModule,
-        Ng2BreadcrumbModule.forRoot(),
+      //  Ng2BreadcrumbModule.forRoot(),
         NgxPaginationModule,
         CommentModule,
         ClubModule,
@@ -107,7 +92,7 @@ import { NotificationModule } from "./notification/index";
         material.MaterialActivateDialogComponent,
     ],
     providers: [// services
-        BreadcrumbService,
+   //     BreadcrumbService,
         chat.ChatMessageService,
         image.ImageService,
         materialCategory.MaterialCategoryService,

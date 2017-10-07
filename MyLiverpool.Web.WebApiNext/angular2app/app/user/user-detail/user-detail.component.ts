@@ -1,13 +1,13 @@
 ﻿import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { MdSnackBar } from "@angular/material";
+import { MatSnackBar } from "@angular/material";
 import { Subscription } from "rxjs/Subscription";
-import { Configuration } from "../../app.constants";
+import { Configuration } from "@app/app.constants";
 import { User } from "../user.model";                          
 import { UserService } from "../user.service";
-import { GlobalValidators, RolesCheckedService } from "../../shared/index";
-import { RoleGroupService, RoleGroup } from "../../roleGroup/index";
+import { GlobalValidators, RolesCheckedService } from "@app/shared";
+import { RoleGroupService, RoleGroup } from "@app/roleGroup";
 
 @Component({
     selector: "user-detail",
@@ -29,7 +29,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
         public roles: RolesCheckedService,
         private roleGroupService: RoleGroupService,
         private formBuilder: FormBuilder,
-        private snackBar: MdSnackBar,
+        private snackBar: MatSnackBar,
         private router: Router) { }
 
     public ngOnInit(): void { 

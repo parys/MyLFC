@@ -7,15 +7,12 @@ import { StadiumEditComponent } from "./stadium-edit.component";
 import { StadiumService } from "./stadium.service";
 import { stadiumRoutes } from "./stadium.routes";
 import { SharedModule } from "../shared/index";
-import { MdInputModule, MdButtonModule } from '@angular/material';
 import { NgxPaginationModule } from "ngx-pagination";
 
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
-        MdButtonModule,
-        MdInputModule,
         NgxPaginationModule,
         ReactiveFormsModule,
         RouterModule.forRoot(stadiumRoutes),

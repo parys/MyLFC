@@ -1,15 +1,15 @@
-﻿<div class="top20" *ngIf="item">
+﻿<div *ngIf="item">
     <form class="form-horizontal" name="editForm" role="form" [formGroup]="editForm" (ngSubmit)="onSubmit()">
+        <mat-form-field class="full-width">
+            <mat-select placeholder="Категория" formControlName="categoryId">
+                <mat-option *ngFor="let category of categories" [value]="category.id" [textContent]="category.name">
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
         <div class="form-group col-sm-12">
-            <md-select placeholder="Категория" formControlName="categoryId" class="full-width">
-                <md-option *ngFor="let category of categories" [value]="category.id" [textContent]="category.name">
-                </md-option>
-            </md-select>
-        </div>
-        <div class="form-group col-sm-12">
-            <md-form-field class="full-width">
-                <input mdInput formControlName="title" placeholder="Название"/>
-            </md-form-field>
+            <mat-form-field class="full-width">
+                <input matInput formControlName="title" placeholder="Название"/>
+            </mat-form-field>
         </div>
         <div class="form-group">
             <div class="col-sm-12"> 
@@ -24,20 +24,20 @@
             </div>
         </div>
         <div class="form-group col-sm-12">
-            <md-form-field class="full-width">
-                <input mdInput formControlName="photoUrl" placeholder="Ссылка на фоторепортаж(пока только оф сайт)"/>
-            </md-form-field>
-            <button md-raised-button type="button" [disabled]="!editForm.get('photoUrl').value" (click)="copyPhoto()">Скопировать фото</button>
+            <mat-form-field class="full-width">
+                <input matInput formControlName="photoUrl" placeholder="Ссылка на фоторепортаж(пока только оф сайт)"/>
+            </mat-form-field>
+            <button mat-raised-button type="button" [disabled]="!editForm.get('photoUrl').value" (click)="copyPhoto()">Скопировать фото</button>
         </div>
         <div class="form-group col-sm-12">
-            <md-form-field class="full-width">
-                <input mdInput formControlName="source" placeholder="Источник" />
-            </md-form-field>
+            <mat-form-field class="full-width">
+                <input matInput formControlName="source" placeholder="Источник" />
+            </mat-form-field>
         </div>
         <div class="form-group col-sm-12">
-            <md-form-field class="full-width">
-                <input mdInput formControlName="photo" placeholder="Главное фото"/>
-            </md-form-field>
+            <mat-form-field class="full-width">
+                <input matInput formControlName="photo" placeholder="Главное фото"/>
+            </mat-form-field>
             <image-addition [isMultiple]="false" (loadedImage)="updateImage($event)"></image-addition>
         </div>
         <div class="form-group col-sm-12">
@@ -46,27 +46,27 @@
         </div>
         <div class="form-group col-sm-12">
             <div class="full-width">
-                <md-checkbox color="warn" formControlName="canCommentary">Разрешить комментарии</md-checkbox>
+                <mat-checkbox color="warn" formControlName="canCommentary">Разрешить комментарии</mat-checkbox>
             </div>
         </div>
         <div class="form-group col-sm-12">
             <div class="full-width">
-                <md-checkbox color="warn" formControlName="onTop">Наверху</md-checkbox>
+                <mat-checkbox color="warn" formControlName="onTop">Наверху</mat-checkbox>
             </div>
         </div>
         <div class="form-group col-sm-12" *ngIf="roles.isEditor">
             <div class="full-width">
-                <md-checkbox color="warn" formControlName="pending">Отложена</md-checkbox>
+                <mat-checkbox color="warn" formControlName="pending">Отложена</mat-checkbox>
             </div>
         </div>      
         <div class="form-group col-sm-12">
             <div class="full-width">
-                <md-checkbox color="warn" formControlName="stayOnPage">Оставаться на этой странице после сохранения</md-checkbox>
+                <mat-checkbox color="warn" formControlName="stayOnPage">Оставаться на этой странице после сохранения</mat-checkbox>
             </div>
         </div>
         <div class="form-group col-sm-12">
             <div class="col-xs-offset-2 col-sm-offset-2 col-xs-10 col-sm-10">
-                <button md-raised-button color="warn" type="submit" [disabled]="!editForm.valid">Сохранить</button>
+                <button mat-raised-button color="warn" type="submit" [disabled]="!editForm.valid">Сохранить</button>
             </div>
         </div>
     </form>

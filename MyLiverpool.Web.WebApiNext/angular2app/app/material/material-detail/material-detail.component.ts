@@ -2,7 +2,7 @@
 import { isPlatformServer } from "@angular/common";
 import { Title, DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { Router, ActivatedRoute } from "@angular/router";
-import { MdDialog, MdSnackBar } from "@angular/material";
+import { MatDialog, MatSnackBar } from "@angular/material";
 import { Subscription } from "rxjs/Subscription";
 import { MaterialService } from "../material.service";
 import { Material } from "../material.model";                
@@ -31,8 +31,8 @@ export class MaterialDetailComponent implements OnInit, OnDestroy {
         private router: Router,
         private sanitizer: DomSanitizer,
         private titleService: Title,
-        private snackBar: MdSnackBar,
-        private dialog: MdDialog) {
+        private snackBar: MatSnackBar,
+        private dialog: MatDialog) {
     }
 
     public ngOnInit(): void {

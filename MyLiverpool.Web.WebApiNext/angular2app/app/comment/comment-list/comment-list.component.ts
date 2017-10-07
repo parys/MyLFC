@@ -2,11 +2,11 @@
 import { ActivatedRoute } from "@angular/router";
 import { FormGroup, FormBuilder } from "@angular/forms";
 import { Location } from "@angular/common";
-import { MdDialog } from "@angular/material";
+import { MatDialog } from "@angular/material";
 import { Subscription } from "rxjs/Subscription";
 import { Comment } from "../comment.model";
 import { CommentService } from "../comment.service";
-import { RolesCheckedService, DeleteDialogComponent, Pageable } from "../../shared/index";
+import { RolesCheckedService, DeleteDialogComponent, Pageable } from "@app/shared";
 import { CommentFilter } from "../commentFilter.model";
 
 @Component({
@@ -35,7 +35,7 @@ export class CommentListComponent implements OnInit, OnDestroy {
         private location: Location,
         private formBuilder: FormBuilder,
         public roles: RolesCheckedService,
-        private dialog: MdDialog) {
+        private dialog: MatDialog) {
     }
 
     public ngOnInit(): void {

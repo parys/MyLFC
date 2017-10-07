@@ -1,6 +1,5 @@
-﻿import "reflect-metadata";
-import "zone.js";
-import "rxjs/add/operator/first";
+﻿import "zone.js/dist/zone-node";
+import "./polyfills/server.polyfills";
 import { APP_BASE_HREF } from "@angular/common";
 import { enableProdMode, ApplicationRef, NgZone } from "@angular/core";
 import { platformDynamicServer, PlatformState, INITIAL_CONFIG } from "@angular/platform-server";

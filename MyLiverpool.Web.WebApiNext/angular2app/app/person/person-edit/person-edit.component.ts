@@ -1,7 +1,7 @@
 ﻿import { Component, OnInit, OnDestroy } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
-import { MdSnackBar } from "@angular/material";
+import { MatSnackBar } from "@angular/material";
 import { Subscription } from "rxjs/Subscription";
 import { PersonService } from "../person.service";
 import { Person } from "../person.model";
@@ -23,7 +23,7 @@ export class PersonEditComponent implements OnInit, OnDestroy {
     constructor(private service: PersonService,
         private route: ActivatedRoute,
         private router: Router,
-        private snackBar: MdSnackBar,
+        private snackBar: MatSnackBar,
         private formBuilder: FormBuilder) {
         this.item = new Person();
     }

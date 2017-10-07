@@ -6,10 +6,10 @@
             <!--<span *ngIf="event.type === 3"> <span class="">Г</span>{{event.personName}} - {{event.minute}}' </span>-->
             <span *ngIf="event.type === 4"><img class="width20px" alt="Гол" src="/img/goal_own.png" [title]="event.typeName">(А){{event.personName}} - {{event.minute}}' </span>
             <span *ngIf="event.type === 5" [title]="event.typeName">({{event.personName}})</span>
-            <span *ngIf="event.type === 6" class="flex-vertical-center"><md-icon class="color-gold">sim_card_alert</md-icon>{{event.personName}} - {{event.minute}}' </span>
-            <span *ngIf="event.type === 7" class="flex-vertical-center"><md-icon class="color-red" [title]="event.typeName">sim_card_alert</md-icon>{{event.personName}} - {{event.minute}}' </span>
-            <span *ngIf="event.type === 9" class="flex-vertical-center" [title]="event.typeName"> <md-icon class="color-red">arrow_downward</md-icon>{{event.personName}} - {{event.minute}}' </span>
-            <span *ngIf="event.type === 8" class="flex-vertical-center" [title]="event.typeName"><md-icon class="color-green">arrow_upward</md-icon>{{event.personName}} - {{event.minute}}' </span>
+            <span *ngIf="event.type === 6" class="flex-vertical-center"><mat-icon class="color-gold">sim_card_alert</mat-icon>{{event.personName}} - {{event.minute}}' </span>
+            <span *ngIf="event.type === 7" class="flex-vertical-center"><mat-icon class="color-red" [title]="event.typeName">sim_card_alert</mat-icon>{{event.personName}} - {{event.minute}}' </span>
+            <span *ngIf="event.type === 9" class="flex-vertical-center" [title]="event.typeName"> <mat-icon class="color-red">arrow_downward</mat-icon>{{event.personName}} - {{event.minute}}' </span>
+            <span *ngIf="event.type === 8" class="flex-vertical-center" [title]="event.typeName"><mat-icon class="color-green">arrow_upward</mat-icon>{{event.personName}} - {{event.minute}}' </span>
             <span *ngIf="event.type === 10"><img class="width20px" alt="Гол" src="/img/goal_own.png" [title]="event.typeName">П(нереализованный){{event.personName}} - {{event.minute}}' </span>
             <span *ngIf="event.type === 12"><span class="">Травма </span>{{event.personName}} - {{event.minute}}' </span>
             <span *ngIf="roles.isInformer" role="button" (click)="selectEvent(i)" class="glyphicon glyphicon-pencil"></span>
@@ -18,8 +18,8 @@
     </div>
 </div>
 <div *ngIf="roles.isInformer" class="col-xs-12">
-    <button md-raised-button color="warn" (click)="addEvent()" *ngIf="!isEditEvent">Добавить событие</button>
-    <button md-raised-button (click)="cancelEventEdit()" *ngIf="isEditEvent">Отменить редактирование</button>
+    <button mat-raised-button color="warn" (click)="addEvent()" *ngIf="!isEditEvent">Добавить событие</button>
+    <button mat-raised-button (click)="cancelEventEdit()" *ngIf="isEditEvent">Отменить редактирование</button>
     <div class="full-width top20" *ngIf="isEditEvent">
         <matchEvent-edit-panel [matchId]="matchId" [seasonId]="seasonId" [selectedEvent]="selectedEvent" (matchEvent)="updateEvent($event)"></matchEvent-edit-panel>
     </div>

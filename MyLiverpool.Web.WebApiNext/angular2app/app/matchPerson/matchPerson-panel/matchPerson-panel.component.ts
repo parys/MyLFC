@@ -1,9 +1,8 @@
 ﻿import { Component, OnInit, Input } from "@angular/core";
-import { MdDialog, MdSnackBar } from "@angular/material";
-import { DeleteDialogComponent } from "../../shared/index";
+import { MatDialog, MatSnackBar } from "@angular/material";
+import { DeleteDialogComponent, RolesCheckedService } from "@app/shared";
 import { MatchPersonService } from "../matchPerson.service";
 import { MatchPerson } from "../matchPerson.model";
-import { RolesCheckedService } from "../../shared/index";
 
 @Component({
     selector: "matchPerson-panel",
@@ -34,8 +33,8 @@ export class MatchPersonPanelComponent implements OnInit {
 
     constructor(private matchPersonService: MatchPersonService,
         public roles: RolesCheckedService,
-        private snackBar: MdSnackBar,
-        private dialog: MdDialog) {
+        private snackBar: MatSnackBar,
+        private dialog: MatDialog) {
     }
 
     public ngOnInit(): void {

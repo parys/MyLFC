@@ -1,9 +1,8 @@
 ﻿import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { MdInputModule, MdButtonModule, MdCheckboxModule, MdTabsModule, MdAutocompleteModule, MdIconModule } from "@angular/material";
 import { RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
-import { SharedModule } from "../shared/index";
+import { SharedModule } from "@app/shared";
 import { pmRoutes } from "./pm.routes";
 import { PmListComponent } from "./pm-list/index";
 import { PmDetailComponent } from "./pm-detail/index";
@@ -16,12 +15,6 @@ import { PmService } from "./pm.service";
     imports: [
         CommonModule,
         FormsModule,
-        MdButtonModule,
-        MdCheckboxModule,
-        MdIconModule,
-        MdInputModule,
-        MdTabsModule,
-        MdAutocompleteModule,
         ReactiveFormsModule,
         RouterModule.forRoot(pmRoutes),
         SharedModule

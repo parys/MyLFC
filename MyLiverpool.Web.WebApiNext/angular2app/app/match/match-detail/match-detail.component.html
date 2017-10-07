@@ -1,7 +1,7 @@
 ﻿<div class="col-xs-12 container-row" *ngIf="item">
     <div *ngIf="roles.isInformer">
-        <button md-raised-button color="warn" (click)="pin(item.id)">Закрепить на главной</button>
-        <button md-raised-button (click)="pin(0)">Открепить от главной</button>
+        <button mat-raised-button color="warn" (click)="pin(item.id)">Закрепить на главной</button>
+        <button mat-raised-button (click)="pin(0)">Открепить от главной</button>
     </div>
     <div class="col-xs-12 text-center">
         {{item.dateTime | customDate:false:true}}, {{item.typeName}}

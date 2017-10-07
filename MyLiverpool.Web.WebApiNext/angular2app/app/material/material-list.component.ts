@@ -1,13 +1,13 @@
 ﻿import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Location } from "@angular/common";
-import { MdDialog, MdSnackBar } from '@angular/material';
+import { MatDialog, MatSnackBar } from "@angular/material";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
 import { MaterialService } from "./material.service";
 import { Material } from "./material.model";
 import { MaterialFilters } from "./materialFilters.model";
-import { RolesCheckedService, DeleteDialogComponent,Pageable } from "../shared/index";
-import { MaterialType } from "../materialCategory/materialType.enum";
+import { RolesCheckedService, DeleteDialogComponent,Pageable } from "@app/shared";
+import { MaterialType } from "@app/materialCategory";
 import { MaterialActivateDialogComponent } from "./material-activate-dialog.component";
 
 @Component({
@@ -31,8 +31,8 @@ export class MaterialListComponent implements OnInit, OnDestroy {
         private route: ActivatedRoute,
         private location: Location,
         public roles: RolesCheckedService,
-        private snackBar: MdSnackBar,
-        private dialog: MdDialog) {
+        private snackBar: MatSnackBar,
+        private dialog: MatDialog) {
     }
 
     public showActivateModal(index: number): void {

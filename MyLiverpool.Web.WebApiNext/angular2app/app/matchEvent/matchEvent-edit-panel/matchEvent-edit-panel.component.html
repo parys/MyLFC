@@ -1,22 +1,22 @@
 ﻿<hr class="full-width"/>
 <h6 class="text-center">Добавление события матча</h6>
 <form class="col-xs-12" role="form" [formGroup]="editMatchEventForm" (ngSubmit)="onSubmit()">
-    <md-slide-toggle formControlName="isOur">Наш(игрок ЛФК)</md-slide-toggle>
-    <md-form-field class="full-width">
-        <input mdInput placeholder="Игрок" [mdAutocomplete]="person" formControlName="personName">
-        <md-autocomplete #person="mdAutocomplete">
-            <md-option *ngFor="let person of persons$ | async" [value]="person.value" (click)="selectPerson(person.key)">
+    <mat-slide-toggle formControlName="isOur">Наш(игрок ЛФК)</mat-slide-toggle>
+    <mat-form-field class="full-width">
+        <input matInput placeholder="Игрок" [matAutocomplete]="person" formControlName="personName">
+        <mat-autocomplete #person="matAutocomplete">
+            <mat-option *ngFor="let person of persons$ | async" [value]="person.value" (click)="selectPerson(person.key)">
                 <span>{{ person.value }}</span>
-            </md-option>
-        </md-autocomplete>
-    </md-form-field>
-    <md-select placeholder="Тип" class="full-width form-group" formControlName="type">
-        <md-option *ngFor="let type of types" [value]="type.id">{{ type.name }}</md-option>
-    </md-select>
-    <md-form-field class="full-width form-group">
-        <input mdInput placeholder="Минута" formControlName="minute">
-    </md-form-field>
+            </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+    <mat-select placeholder="Тип" class="full-width form-group" formControlName="type">
+        <mat-option *ngFor="let type of types" [value]="type.id">{{ type.name }}</mat-option>
+    </mat-select>
+    <mat-form-field class="full-width form-group">
+        <input matInput placeholder="Минута" formControlName="minute">
+    </mat-form-field>
     <div class="form-group text-center">
-        <button md-raised-button color="warn" type="submit" [disabled]="!editMatchEventForm.valid">Сохранить</button>
+        <button mat-raised-button color="warn" type="submit" [disabled]="!editMatchEventForm.valid">Сохранить</button>
     </div>
 </form>

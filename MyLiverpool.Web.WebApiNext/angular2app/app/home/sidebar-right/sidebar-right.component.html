@@ -3,17 +3,17 @@
         <account-signin></account-signin>
     </li>
     <li *ngIf="roles.isLogined" class="flex-space-around">
-        <a [routerLink]="['/users', 0]" class="text-white flex-space-around"><md-icon>person</md-icon>Профиль</a>
+        <a [routerLink]="['/users', 0]" class="text-white flex-space-around"><mat-icon>person</mat-icon>Профиль</a>
         <pm-counter></pm-counter>
         <notification-counter></notification-counter>
         <a role="button" (click)="logout()" class="text-white">Выйти</a>
     </li>
 </ul>
-<a md-raised-button class="col-xs-6 col-sm-12 col-md-6 color-back-gold" [routerLink]="['/news']" [queryParams]="{page: 1, categoryId: 90}"><b>Клуб Прогнозов</b></a>
-<a md-raised-button class="col-xs-6 col-sm-12 col-md-6 color-back-maroon color-gold" [routerLink]="['/fantasy']"><b>Fantasy</b></a>
+<a mat-raised-button class="col-xs-6 col-sm-12 col-md-6 color-back-gold" [routerLink]="['/news']" [queryParams]="{page: 1, categoryId: 90}"><b>Клуб Прогнозов</b></a>
+<a mat-raised-button class="col-xs-6 col-sm-12 col-md-6 color-back-maroon color-gold" [routerLink]="['/fantasy']"><b>Fantasy</b></a>
 <section class="top10">
        <mini-chat></mini-chat>
-    <a md-raised-button class="col-xs-12 color-back-gold" [routerLink]="['/news', 18096]"><b>Галерея личностей</b></a>
+    <a mat-raised-button class="col-xs-12 color-back-gold" [routerLink]="['/news', 18096]"><b>Галерея личностей</b></a>
 </section>
 <section class="col-xs-12 container-row top10">
  <user-birthday></user-birthday> 
@@ -23,4 +23,4 @@
     <a [routerLink]="['/plans']">Планы</a>
     <a [routerLink]="['/instructions']">Инструкции</a>
 </div>
-<a md-raised-button class="col-xs-12 color-back-gold" [routerLink]="['/job']"><b>Вакансии</b></a>
+<a mat-raised-button class="col-xs-12 color-back-gold" [routerLink]="['/job']"><b>Вакансии</b></a>

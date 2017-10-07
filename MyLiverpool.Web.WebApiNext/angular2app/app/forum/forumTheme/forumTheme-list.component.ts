@@ -2,13 +2,13 @@
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 import { Location } from "@angular/common";
-import { MdDialog } from '@angular/material';
+import { MatDialog } from "@angular/material";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { Subscription } from "rxjs/Subscription";
 import { ForumThemeService } from "./forumTheme.service";
-import { ForumMessage, ForumMessageService } from "../forumMessage/index";
+import { ForumMessage, ForumMessageService } from "@app/forum/forumMessage";
 import { ForumTheme } from "./forumTheme.model";
-import { RolesCheckedService, DeleteDialogComponent } from "../../shared/index";
+import { RolesCheckedService, DeleteDialogComponent } from "@app/shared";
 
 @Component({
     selector: "forumTheme-list",
@@ -32,7 +32,7 @@ export class ForumThemeListComponent implements OnInit, OnDestroy {
         private sanitizer: DomSanitizer,
         private formBuilder: FormBuilder,
         private location: Location,
-        private dialog: MdDialog) {
+        private dialog: MatDialog) {
     }
 
     public ngOnInit(): void {

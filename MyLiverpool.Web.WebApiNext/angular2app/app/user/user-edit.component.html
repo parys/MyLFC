@@ -1,21 +1,21 @@
 ﻿<div class="container-fluid">
     <form class="form-horizontal col-md-12" role="form" [formGroup]="userEditForm" (ngSubmit)="onSubmit()">
-        <md-form-field>
-            <input mdInput [mdDatepicker]="datePicker" readonly="" placeholder="Выберите дату рождения" formControlName="birthday">
-            <md-datepicker-toggle mdSuffix [for]="datePicker"></md-datepicker-toggle>
-            <md-datepicker #datePicker startView="year" touchUi="true"></md-datepicker>
-        </md-form-field>
+        <mat-form-field>
+            <input matInput [matDatepicker]="datePicker" readonly="" placeholder="Выберите дату рождения" formControlName="birthday">
+            <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
+            <mat-datepicker #datePicker startView="year" touchUi="true"></mat-datepicker>
+        </mat-form-field>
         <div class="form-group">
-            Парень <md-slide-toggle formControlName="gender"
+            Парень <mat-slide-toggle formControlName="gender"
                                    color="warn">
                 Девушка
-            </md-slide-toggle>
+            </mat-slide-toggle>
         </div>
-        <md-form-field class="full-width">
-            <input mdInput placeholder="Полное имя" formControlName="fullName">
-        </md-form-field>
+        <mat-form-field class="full-width">
+            <input matInput placeholder="Полное имя" formControlName="fullName">
+        </mat-form-field>
         <div class="form-group">
-            <button md-raised-button color="warn" type="submit">Сохранить</button>
+            <button mat-raised-button color="warn" type="submit">Сохранить</button>
         </div>
     </form>
 </div>

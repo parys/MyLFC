@@ -1,6 +1,6 @@
 ﻿<h2>Cостав:</h2>
-<nav md-tab-nav-bar>
-    <a md-tab-link *ngFor="let routeLink of routeLinks; let i = index"
+<nav mat-tab-nav-bar>
+    <a mat-tab-link *ngFor="let routeLink of routeLinks; let i = index"
        [routerLink]="routeLink.link"
        [active]="activeLinkIndex === i"
        (click)="activeLinkIndex = i"
@@ -10,20 +10,20 @@
     <h3>Вратари:</h3>
     <div class="flex-space-around">
         <div *ngFor="let person of item?.goalkeepers">
-            <md-card class="stuff-card">
-                <md-card-header>
-                    <md-card-title>
+            <mat-card class="stuff-card">
+                <mat-card-header>
+                    <mat-card-title>
                         <b *ngIf="person.number">#<span [textContent]="person.number"></span></b>
                         <span role="button" *ngIf="roles.isInformer" [routerLink]="['/persons', person.id, 'edit']" [textContent]="person.russianName"></span>
                         <span *ngIf="!roles.isInformer" [textContent]="person.russianName"></span>
-                    </md-card-title>
-                </md-card-header>
-                <img md-card-image [src]="person.photo" [alt]="person.russianName">
-                <md-card-content>
+                    </mat-card-title>
+                </mat-card-header>
+                <img mat-card-image [src]="person.photo" [alt]="person.russianName">
+                <mat-card-content>
                     <p *ngIf="person.country"><span [textContent]="person.country"></span></p>
                     <p><span [textContent]="person.birthday | date"></span></p>
-                </md-card-content>
-            </md-card>
+                </mat-card-content>
+            </mat-card>
         </div>
     </div>
 </div>
@@ -31,20 +31,20 @@
     <h3>Защитники:</h3>
     <div class="flex-space-around">
         <div *ngFor="let person of item?.defenders">
-            <md-card class="stuff-card">
-                <md-card-header>
-                    <md-card-title>
+            <mat-card class="stuff-card">
+                <mat-card-header>
+                    <mat-card-title>
                         <b *ngIf="person.number">#<span [textContent]="person.number"></span></b>
                         <span role="button" *ngIf="roles.isInformer" [routerLink]="['/persons', person.id, 'edit']" [textContent]="person.russianName"></span>
                         <span *ngIf="!roles.isInformer" [textContent]="person.russianName"></span>
-                    </md-card-title>
-                </md-card-header>
-                <img md-card-image [src]="person.photo" [alt]="person.russianName">
-                <md-card-content>
+                    </mat-card-title>
+                </mat-card-header>
+                <img mat-card-image [src]="person.photo" [alt]="person.russianName">
+                <mat-card-content>
                     <p *ngIf="person.country"><span [textContent]="person.country"></span></p>
                     <p><span [textContent]="person.birthday | date"></span></p>
-                </md-card-content>
-            </md-card>
+                </mat-card-content>
+            </mat-card>
         </div>
     </div>
     </div>
@@ -52,20 +52,20 @@
     <h3>Полузащитники:</h3>
     <div class="flex-space-around">
         <div *ngFor="let person of item?.midfielders">
-            <md-card class="stuff-card">
-                <md-card-header>
-                    <md-card-title>
+            <mat-card class="stuff-card">
+                <mat-card-header>
+                    <mat-card-title>
                         <b *ngIf="person.number">#<span [textContent]="person.number"></span></b>
                         <span role="button" *ngIf="roles.isInformer" [routerLink]="['/persons', person.id, 'edit']" [textContent]="person.russianName"></span>
                         <span *ngIf="!roles.isInformer" [textContent]="person.russianName"></span>
-                    </md-card-title>
-                </md-card-header>
-                <img md-card-image [src]="person.photo" [alt]="person.russianName">
-                <md-card-content>
+                    </mat-card-title>
+                </mat-card-header>
+                <img mat-card-image [src]="person.photo" [alt]="person.russianName">
+                <mat-card-content>
                     <p *ngIf="person.country"><span [textContent]="person.country"></span></p>
                     <p><span [textContent]="person.birthday | date"></span></p>
-                </md-card-content>
-            </md-card>
+                </mat-card-content>
+            </mat-card>
         </div>
     </div>
 </div>
@@ -73,20 +73,20 @@
     <h3>Нападающие:</h3>
     <div class="flex-space-around">
         <div *ngFor="let person of item?.strikers">
-            <md-card class="stuff-card">
-                <md-card-header>
-                    <md-card-title>
+            <mat-card class="stuff-card">
+                <mat-card-header>
+                    <mat-card-title>
                         <b *ngIf="person.number">#<span [textContent]="person.number"></span></b>
                         <span role="button" *ngIf="roles.isInformer" [routerLink]="['/persons', person.id, 'edit']" [textContent]="person.russianName"></span>
                         <span *ngIf="!roles.isInformer" [textContent]="person.russianName"></span>
-                    </md-card-title>
-                </md-card-header>
-                <img md-card-image [src]="person.photo" [alt]="person.russianName">
-                <md-card-content>
+                    </mat-card-title>
+                </mat-card-header>
+                <img mat-card-image [src]="person.photo" [alt]="person.russianName">
+                <mat-card-content>
                     <p *ngIf="person.country"><span [textContent]="person.country"></span></p>
                     <p><span [textContent]="person.birthday | date"></span></p>
-                </md-card-content>
-            </md-card>
+                </mat-card-content>
+            </mat-card>
         </div>
     </div>
 </div>

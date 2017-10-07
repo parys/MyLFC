@@ -3,14 +3,14 @@
             <img class="img-medium" *ngIf="imagePath" [src]="imagePath" alt="" />
     </div>
     <div class="full-width">
-        <md-form-field class="full-width">
-            <input mdInput placeholder="Название" formControlName="name">
-        </md-form-field>
+        <mat-form-field class="full-width">
+            <input matInput placeholder="Название" formControlName="name">
+        </mat-form-field>
     </div>
     <div class="full-width">
-        <md-form-field class="full-width">
-            <input mdInput placeholder="Название на английском" formControlName="englishName">
-        </md-form-field>
+        <mat-form-field class="full-width">
+            <input matInput placeholder="Название на английском" formControlName="englishName">
+        </mat-form-field>
     </div>
     <div class="full-width">
         <div class="col-xs-1 col-sm-1"></div>
@@ -28,15 +28,15 @@
             </span>
         </div>
     </div>
-    <md-form-field class="full-width">
-        <input mdInput placeholder="Стадион" [mdAutocomplete]="stadium" formControlName="stadiumName">
-        <md-autocomplete #stadium="mdAutocomplete">
-            <md-option *ngFor="let stadium of stadiums$ | async" [value]="stadium.name" (click)="selectStadium(stadium.id)">
+    <mat-form-field class="full-width">
+        <input matInput placeholder="Стадион" [matAutocomplete]="stadium" formControlName="stadiumName">
+        <mat-autocomplete #stadium="matAutocomplete">
+            <mat-option *ngFor="let stadium of stadiums$ | async" [value]="stadium.name" (click)="selectStadium(stadium.id)">
                 <span>{{ stadium.name }}</span>
-            </md-option>
-        </md-autocomplete>
-    </md-form-field>
+            </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
     <div class="form-group full-width text-center">
-            <button md-raised-button color="warn" type="submit" [disabled]="!editForm.valid">Сохранить</button>
+            <button mat-raised-button color="warn" type="submit" [disabled]="!editForm.valid">Сохранить</button>
     </div>
 </form>

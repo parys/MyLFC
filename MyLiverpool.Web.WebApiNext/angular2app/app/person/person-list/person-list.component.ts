@@ -2,11 +2,11 @@
 import { Location } from "@angular/common";
 import { FormBuilder, FormGroup } from "@angular/forms"; 
 import { ActivatedRoute } from "@angular/router";
-import { MdDialog } from "@angular/material";
+import { MatDialog } from "@angular/material";
 import { Subscription } from "rxjs/Subscription";
 import { Person } from "../person.model";
 import { PersonService } from "../person.service";
-import { Pageable, DeleteDialogComponent } from "../../shared/index";
+import { Pageable, DeleteDialogComponent } from "@app/shared";
 import { PersonType } from "../personType.model";
 import { PersonFilters } from "../personFilters.model";
 
@@ -31,7 +31,7 @@ export class PersonListComponent implements OnInit, OnDestroy {
         private route: ActivatedRoute,
         private location: Location,
         private formBuilder: FormBuilder,
-        private dialog: MdDialog) {
+        private dialog: MatDialog) {
     }
 
     public ngOnInit(): void {

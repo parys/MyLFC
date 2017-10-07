@@ -2,7 +2,7 @@
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { isPlatformBrowser } from "@angular/common";
-import { MdDialog, MdSnackBar } from "@angular/material";
+import { MatDialog, MatSnackBar } from "@angular/material";
 import { ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
 import { Observable } from "rxjs/Observable";
@@ -35,12 +35,12 @@ export class MiniChatComponent implements OnInit, OnDestroy {
         private route: ActivatedRoute,
         private formBuilder: FormBuilder,
         private cd: ChangeDetectorRef,
-        private snackBar: MdSnackBar,
+        private snackBar: MatSnackBar,
         private configuration: Configuration,
         private sanitizer: DomSanitizer,
         public roles: RolesCheckedService,
         private storage: StorageService,
-        private dialog: MdDialog) {
+        private dialog: MatDialog) {
     }
 
     public ngOnInit(): void {

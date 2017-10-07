@@ -1,26 +1,26 @@
 ﻿<form class="form-horizontal" name="editForm" role="form" [formGroup]="editMatchForm" (ngSubmit)="onSubmit()">
-    <md-form-field class="full-width">
-        <input mdInput placeholder="Cоперник" [mdAutocomplete]="club" formControlName="clubName">
-        <md-autocomplete #club="mdAutocomplete">
-            <md-option *ngFor="let club of clubs$ | async" [value]="club.value" (click)="selectClub(club.key)">
+    <mat-form-field class="full-width">
+        <input matInput placeholder="Cоперник" [matAutocomplete]="club" formControlName="clubName">
+        <mat-autocomplete #club="matAutocomplete">
+            <mat-option *ngFor="let club of clubs$ | async" [value]="club.value" (click)="selectClub(club.key)">
                 <span>{{ club.value }}</span>
-            </md-option>
-        </md-autocomplete>
-    </md-form-field>
+            </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
     <div class="form-group">
         <label class="control-label col-xs-2 col-sm-2"> Категория:</label>
         <div class="col-xs-10 col-sm-10">
-            <select class="form-control" formControlName="typeId">
-                <option *ngFor="let type of types" [value]="type.id" [textContent]="type.name"></option>
-            </select>
+            <mat-select class="form-control" formControlName="typeId">
+                <mat-option *ngFor="let type of types" [value]="type.id" [textContent]="type.name"></mat-option>
+            </mat-select>
         </div>
     </div>      
     <div class="form-group">
         <label class="control-label col-xs-2 col-sm-2"> Сезон:</label>
         <div class="col-xs-10 col-sm-10">
-            <select class="form-control" formControlName="seasonId">
-                <option *ngFor="let season of seasons" [value]="season.id" [textContent]="season.startSeasonYear + '-' + season.endSeasonYear"></option>
-            </select>
+            <mat-select class="form-control" formControlName="seasonId">
+                <mat-option *ngFor="let season of seasons" [value]="season.id" [textContent]="season.startSeasonYear + '-' + season.endSeasonYear"></mat-option>
+            </mat-select>
         </div>
     </div>
     <div class="form-group">
@@ -32,25 +32,25 @@
             </div>
         </div>
     </div>
-    <md-form-field class="full-width">
-        <input mdInput placeholder="Стадион" [mdAutocomplete]="stadium" formControlName="stadiumName">
-        <md-autocomplete #stadium="mdAutocomplete">
-            <md-option *ngFor="let stadium of stadiums$ | async" [value]="stadium.name" (click)="selectStadium(stadium.id)">
+    <mat-form-field class="full-width">
+        <input matInput placeholder="Стадион" [matAutocomplete]="stadium" formControlName="stadiumName">
+        <mat-autocomplete #stadium="matAutocomplete">
+            <mat-option *ngFor="let stadium of stadiums$ | async" [value]="stadium.name" (click)="selectStadium(stadium.id)">
                 <span>{{ stadium.name }}</span>
-            </md-option>
-        </md-autocomplete>
-    </md-form-field>
+            </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
     <div class="form-group">
         <label class="control-label col-xs-2 col-sm-2"> Время:</label>
         <div class="col-xs-10 col-sm-10">
             <input type="time" formControlName="time"/>
         </div>
     </div>
-    <md-form-field>
-        <input mdInput [mdDatepicker]="datePicker" placeholder="Выберите дату" formControlName="date">
-        <md-datepicker-toggle mdSuffix [for]="datePicker"></md-datepicker-toggle>
-        <md-datepicker #datePicker startView="year" touchUi="true"></md-datepicker>
-    </md-form-field>
+    <mat-form-field>
+        <input matInput [matDatepicker]="datePicker" placeholder="Выберите дату" formControlName="date">
+        <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
+        <mat-datepicker #datePicker startView="year" touchUi="true"></mat-datepicker>
+    </mat-form-field>
     <div class="form-group">
         <label class="col-xs-2 control-label">Счет</label>
         <span class="col-xs-10 flex-container">

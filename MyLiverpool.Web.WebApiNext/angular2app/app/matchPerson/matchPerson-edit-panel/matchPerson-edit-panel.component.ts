@@ -1,13 +1,12 @@
 ﻿import { Component, OnInit, Input, EventEmitter, Output } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
-import { MdSnackBar } from '@angular/material';
+import { MatSnackBar } from "@angular/material";
 import { Observable } from "rxjs/Observable";
 import { MatchPerson } from "../matchPerson.model";
-import { Person } from "../../person/person.model";
 import { MatchPersonType } from "../matchPersonType.model";
-import { PersonService } from "../../person/person.service";
-import { Configuration } from "../../app.constants";
+import { PersonService, Person } from "@app/person";
+import { Configuration } from "@app/app.constants";
 import { MatchPersonService } from "../matchPerson.service";
 
 @Component({
@@ -31,7 +30,7 @@ export class MatchPersonEditPanelComponent implements OnInit {
         private personService: PersonService,
         private config: Configuration,
         private formBuilder: FormBuilder,
-        private snackBar: MdSnackBar) {
+        private snackBar: MatSnackBar) {
     }
 
     public ngOnInit(): void {

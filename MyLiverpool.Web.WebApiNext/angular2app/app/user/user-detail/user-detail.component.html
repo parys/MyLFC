@@ -20,12 +20,12 @@
                        accept="image/*" 
                        (change)="onChangeAvatar($event)"
                        id="update-avatar-input"/>
-                <button md-raised-button color="primary" (click)="resetAvatar()">
+                <button mat-raised-button color="primary" (click)="resetAvatar()">
                     Сбросить аватар
                 </button>
-                <button md-raised-button color="warn" *ngIf="roles.isSelf(item.id)" [routerLink]="['/changePassword']">Изменить пароль</button>
-                <button md-raised-button *ngIf="roles.isSelf(item.id)" [routerLink]="['./settings']">Изменить настройки</button>
-                <button md-raised-button *ngIf="roles.isSelf(item.id)" [routerLink]="['./edit']">Изменить профиль</button>
+                <button mat-raised-button color="warn" *ngIf="roles.isSelf(item.id)" [routerLink]="['/changePassword']">Изменить пароль</button>
+                <button mat-raised-button *ngIf="roles.isSelf(item.id)" [routerLink]="['./settings']">Изменить настройки</button>
+                <button mat-raised-button *ngIf="roles.isSelf(item.id)" [routerLink]="['./edit']">Изменить профиль</button>
                 <br><br>
             </div>
         </div>
