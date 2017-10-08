@@ -4,35 +4,36 @@ import { RouterModule } from "@angular/router";
 import { HttpClientModule } from "@angular/common/http";
 import { AppComponent } from "./app.component";
 import { routes } from "./app.routes";
-import { ForumModule } from "./forum/index";
+import { ForumModule } from "./forum";
 import { Configuration } from "./app.constants";
-import * as material from "./material/index";
-import { EditorModule } from "./editor/index";
-import * as chat from "./chat/index";
-import { ClubModule } from "./club/index";
-import * as home from "./home/index";
-import * as image from "./image/index";
-import { InjuryModule } from "./injury/index";
-import { MatchModule } from "./match/index";
-import { PersonModule } from "./person/index";
-import * as roleGroup from "./roleGroup/index";
-import * as season from "./season/index";
-import { SharedModule } from "./shared/index";
-import * as user from "./user/index";
-import { PmModule } from "./pm/index";
-import { StadiumModule } from "./stadium/index";
-import { WishModule } from "./wish/index";
-import * as admin from "./admin/index";
+import * as material from "./material";
+import { EditorModule } from "./editor";
+import * as chat from "./chat";
+import { ClubModule } from "./club";
+import * as home from "./home";
+import * as image from "./image";
+import { InjuryModule } from "./injury";
+import { MatchModule } from "./match";
+import { PersonModule } from "./person";
+import * as roleGroup from "./roleGroup";
+import * as season from "./season";
+import { SharedModule } from "./shared";
+import { PmModule } from "./pm";
+import { StadiumModule } from "./stadium";
+import { WishModule } from "./wish";
+import * as admin from "./admin";
 import { NgxPaginationModule } from "ngx-pagination";
-import { AccountModule } from "./account/index";
-import { TransferModule } from "./transfer/index";
-import { CommentModule } from "./comment/index";
-import { NotificationModule } from "./notification/index";
-import { MaterialCategoryModule } from "./materialCategory/index";
+import { AccountModule } from "./account";
+import { TransferModule } from "./transfer";
+import { CommentModule } from "./comment";
+import { NotificationModule } from "./notification";
+import { MaterialCategoryModule } from "./materialCategory";
+import { UserModule } from "./user";
 
 @NgModule({
     imports: [
         BrowserModule.withServerTransition({ appId: 'mylfc-app' }),
+        SharedModule,
         EditorModule,
         HttpClientModule,
         AccountModule,
@@ -46,10 +47,9 @@ import { MaterialCategoryModule } from "./materialCategory/index";
         MaterialCategoryModule,
         NotificationModule,
         PersonModule,
-        PmModule,
         RouterModule.forRoot(routes),
-        SharedModule,
         StadiumModule,
+        UserModule,
         WishModule,
     ],
     declarations: [
@@ -74,13 +74,7 @@ import { MaterialCategoryModule } from "./materialCategory/index";
         material.MaterialListComponent,
         material.MaterialDetailComponent,
         material.MaterialEditComponent,
-        material.MaterialActivateDialogComponent,
-        user.UserBirthdayComponent,
-        user.UserDetailComponent,
-        user.UserListComponent,
-        user.UserEditComponent,
-        user.UserConfigComponent,
-        user.UserOnlineCounterComponent,
+        material.MaterialActivateDialogComponent
     ], // components and directives
     entryComponents: [
         material.MaterialActivateDialogComponent,
@@ -94,8 +88,7 @@ import { MaterialCategoryModule } from "./materialCategory/index";
         { provide: LOCALE_ID, useValue: "ru-RU" },
         Configuration,
         material.MaterialService,
-        Title,
-        user.UserService
+        Title
     ]
 })
 export class AppModuleShared { }

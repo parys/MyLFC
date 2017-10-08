@@ -1,7 +1,5 @@
 ﻿import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { StadiumListComponent } from "./stadium-list.component";
 import { StadiumEditComponent } from "./stadium-edit.component";
 import { StadiumService } from "./stadium.service";
@@ -11,10 +9,7 @@ import { NgxPaginationModule } from "ngx-pagination";
 
 @NgModule({
     imports: [
-        CommonModule,
-        FormsModule,
         NgxPaginationModule,
-        ReactiveFormsModule,
         RouterModule.forRoot(stadiumRoutes),
         SharedModule
     ],

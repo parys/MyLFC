@@ -3,11 +3,9 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";   
 import { Observable } from "rxjs/Observable";
-import "rxjs/add/operator/debounceTime";
-import "rxjs/add/operator/takeUntil";
 import { Pm } from "../pm.model";
 import { PmService } from "../pm.service";
-import { User, UserService } from "../../user/index";
+import { User, UserService } from "@app/user";
 
 @Component({
     selector: "pm-edit",
@@ -29,23 +27,23 @@ export class PmEditComponent implements OnInit, OnDestroy {
 
     public ngOnInit(): void {
         this.editPmForm = this.formBuilder.group({
-            'receiverId': [
+            receiverId: [
                 "", Validators.compose([
                     Validators.required
                 ])
             ],
-            'receiver': [
+            receiver: [
                 "", Validators.compose([
                     Validators.required
                 ])
             ],
-            'title': [
+            title: [
                 "", Validators.compose([
                     Validators.required,
                     Validators.maxLength(50)
                 ])
             ],
-            'message': [
+            message: [
                 "", Validators.compose([
                     Validators.required,
                     Validators.maxLength(2500)

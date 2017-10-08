@@ -4,7 +4,7 @@ import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { Subscription } from "rxjs/Subscription";
 import { Pm } from "../pm.model";
 import { PmService } from "../pm.service";
-import { RolesCheckedService } from "../../shared/index";
+import { RolesCheckedService } from "@app/shared";
 
 @Component({
     selector: "pm-detail",

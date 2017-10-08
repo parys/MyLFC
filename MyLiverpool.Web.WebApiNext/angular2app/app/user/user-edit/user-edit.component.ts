@@ -2,8 +2,8 @@
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { MatSnackBar } from "@angular/material";
 import { Subscription } from "rxjs/Subscription";
-import { User } from "./user.model";
-import { UserService } from "./user.service";
+import { User } from "../user.model";
+import { UserService } from "../user.service";
 
 @Component({
     selector: "user-edit",
@@ -50,9 +50,9 @@ export class UserEditComponent implements OnInit, OnDestroy {
 
     private initUserEditForm(): void {
         this.userEditForm = this.formBuilder.group({
-            'birthday': [null],
-            'fullName': [""],
-            'gender': ["", Validators.required]
+            birthday: [null],
+            fullName: [""],
+            gender: [null, Validators.required]
         });
     }
 }

@@ -102,6 +102,7 @@
         
   <ItemGroup>
     <Folder Include="angular2app\app\person\NewFolder\" />
+    <Folder Include="angular2app\app\user\+core\" />
   </ItemGroup>
         
   <ProjectExtensions><VisualStudio><UserProperties package_1json__JSONSchema="http://json.schemastore.org/resjson" /></VisualStudio></ProjectExtensions>

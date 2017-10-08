@@ -6,3 +6,4 @@ import "rxjs/add/operator/mergeMap";
 import "rxjs/add/operator/filter";
 
 import "rxjs/add/observable/throw";
+import "rxjs/add/observable/interval";

@@ -2,15 +2,12 @@
 import { Location } from "@angular/common";  
 import { FormBuilder, FormGroup } from "@angular/forms";  
 import { ActivatedRoute } from "@angular/router";
-import { User} from "./user.model";
-import { UserService } from "./user.service";
-import { RoleGroupService } from "../roleGroup/roleGroup.service";
-import { RoleGroup } from "../roleGroup/roleGroup.model";
-import { UserFilters } from "./userFilters.model";
-import { Pageable, RolesCheckedService } from "../shared/index";
+import { User} from "../user.model";
+import { UserService } from "../user.service";
+import { RoleGroup, RoleGroupService } from "@app/roleGroup";
+import { Pageable, RolesCheckedService } from "@app/shared";
 
-@
-Component({
+@Component({
     selector: "user-list",
     templateUrl: "./user-list.component.html"
 })
@@ -56,15 +53,13 @@ export class UserListComponent implements OnInit {
     };
 
     public update(): void {
-        let filters = new UserFilters();
-        filters.userName = this.filterForm.get("userName").value;
-        filters.roleGroupId = this.filterForm.get("roleGroupId").value;
+        const filters = this.filterForm.value;
         filters.page = this.page;
 
         this.userService
             .getAll(filters)
             .subscribe(data => this.parsePageable(data),
-            error => console.log(error),
+            e => console.log(e),
             () => { this.updateUrl()});
     }
 

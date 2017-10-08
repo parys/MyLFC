@@ -1,10 +1,9 @@
 ﻿import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
 import { Subscription } from "rxjs/Subscription";
 import { Observable } from "rxjs/Observable";
-import "rxjs/add/observable/interval";
-import { UserService } from "./user.service";
-import { IUserOnline } from "./user-online.model";
-import { Configuration } from "../app.constants";
+import { UserService } from "../user.service";
+import { IUserOnline } from "../user-online.model";
+import { Configuration } from "@app/app.constants";
 
 @Component({
     selector: "user-online-counter",
@@ -44,9 +43,8 @@ export class UserOnlineCounterComponent implements OnInit, OnDestroy {
                     this.allCount = data.allCount;
                     this.guestCount = data.guestCount;
                     this.users = data.users;
-                },
-                error => console.log(error),() => {
                     this.cd.markForCheck();
-                });
+                },
+                error => console.log(error));
     }
 }
