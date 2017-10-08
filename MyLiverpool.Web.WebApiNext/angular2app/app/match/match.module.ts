@@ -1,7 +1,6 @@
 ﻿import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { NgxPaginationModule } from "ngx-pagination";
 import { MatchEditComponent } from "./match-edit/index";
 import { MatchListComponent } from "./match-list/index";
@@ -19,12 +18,10 @@ import { SharedModule } from "@app/shared";
     imports: [
         CommonModule,
         CommentModule,
-        FormsModule,
         SharedModule,
         NgxPaginationModule,
         MatchEventModule,
         MatchPersonModule,
-        ReactiveFormsModule,
         RouterModule.forRoot(matchRoutes)
     ],
     declarations: [

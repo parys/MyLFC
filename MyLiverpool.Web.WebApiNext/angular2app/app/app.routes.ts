@@ -2,7 +2,6 @@
 import { MaterialListComponent } from "./material/index";
 import { helperRoutes } from "./admin/admin.routes";
 import { chatRoutes } from "./chat/chat.routes";
-import { materialCategoryRoutes } from "./materialCategory/materialCategory.routes";
 import { materialRoutes } from "./material/material.routes";
 import { userRoutes } from "./user/user.routes";
 import { homeRoutes } from "./home/home.routes";
@@ -15,7 +14,6 @@ export const routes: Routes = [
     ...chatRoutes,
     ...homeRoutes,
     ...imageRoutes,
-    ...materialCategoryRoutes,
     ...materialRoutes,
     ...roleGroupRoutes,
     ...seasonRoutes,

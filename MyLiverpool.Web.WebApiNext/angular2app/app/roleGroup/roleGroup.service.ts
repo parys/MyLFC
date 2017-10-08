@@ -1,7 +1,7 @@
 ﻿import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import { RoleGroup } from "./roleGroup.model";
-import { HttpWrapper } from "../shared/httpWrapper";
+import { HttpWrapper } from "@app/shared";
 
 @Injectable()
 export class RoleGroupService {
@@ -10,11 +10,11 @@ export class RoleGroupService {
     constructor(private http: HttpWrapper) {
     }
 
-    public getAllWithRoles = (): Observable<RoleGroup[]> => {
+    public getAllWithRoles(): Observable<RoleGroup[]> {
         return this.http.get<RoleGroup[]> (this.actionUrl + "listWithRoles/");
     };
 
-    public getAll = (): Observable<RoleGroup[]> => {
+    public getAll(): Observable<RoleGroup[]> {
         return this.http.get<RoleGroup[]> (this.actionUrl + "list/");
     };
 

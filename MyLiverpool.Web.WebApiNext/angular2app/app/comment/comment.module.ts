@@ -1,5 +1,4 @@
 ﻿import { NgModule } from "@angular/core";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
 import { NgxPaginationModule } from "ngx-pagination";
@@ -16,9 +15,7 @@ import { EditorModule } from "@app/editor";
     imports: [
         CommonModule,
         EditorModule,
-        FormsModule,
         NgxPaginationModule,
-        ReactiveFormsModule,
         RouterModule.forRoot(commentRoutes),
         SharedModule
     ],

@@ -1,0 +1,13 @@
+﻿<div class="top20">
+    <form class="form-horizontal" role="form" [formGroup]="editCategoryForm" (ngSubmit)="onSubmit()">
+        <mat-form-field class="full-width">
+            <input matInput formControlName="name" placeholder="Название" />
+        </mat-form-field>
+        <mat-form-field class="full-width">
+            <textarea matInput formControlName="description" placeholder="Название"></textarea>
+        </mat-form-field>
+        <div class="text-center">
+            <button mat-raised-button color="warn" type="submit">Сохранить</button>
+        </div>
+    </form>
+</div>

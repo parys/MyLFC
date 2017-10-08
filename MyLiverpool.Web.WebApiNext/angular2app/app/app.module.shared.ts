@@ -8,7 +8,6 @@ import { ForumModule } from "./forum/index";
 import { Configuration } from "./app.constants";
 import * as material from "./material/index";
 import { EditorModule } from "./editor/index";
-import * as materialCategory from "./materialCategory/index";
 import * as chat from "./chat/index";
 import { ClubModule } from "./club/index";
 import * as home from "./home/index";
@@ -29,6 +28,7 @@ import { AccountModule } from "./account/index";
 import { TransferModule } from "./transfer/index";
 import { CommentModule } from "./comment/index";
 import { NotificationModule } from "./notification/index";
+import { MaterialCategoryModule } from "./materialCategory/index";
 
 @NgModule({
     imports: [
@@ -43,6 +43,7 @@ import { NotificationModule } from "./notification/index";
         ClubModule,
         MatchModule,
         TransferModule,
+        MaterialCategoryModule,
         NotificationModule,
         PersonModule,
         PmModule,
@@ -61,8 +62,6 @@ import { NotificationModule } from "./notification/index";
         image.ImageAdditionComponent,
         image.ImageDetailComponent,
         image.ImageListComponent,
-        materialCategory.MaterialCategoryEditComponent,
-        materialCategory.MaterialCategoryListComponent,
         roleGroup.RoleGroupListComponent,
         season.SeasonCalendarComponent,
         season.SeasonEplTableComponent,
@@ -89,7 +88,6 @@ import { NotificationModule } from "./notification/index";
     providers: [// services
         chat.ChatMessageService,
         image.ImageService,
-        materialCategory.MaterialCategoryService,
         roleGroup.RoleGroupService,
         season.SeasonService,
         admin.AdminService,

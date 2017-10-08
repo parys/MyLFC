@@ -1,5 +1,6 @@
 ﻿import { NgModule } from "@angular/core";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RecaptchaComponent } from "./recaptcha.component";
 import { HttpWrapper } from "./httpWrapper";
 import { StorageService } from "./storage.service";
@@ -26,6 +27,8 @@ export function getStorage() {
     imports: [
         CommonModule,
         ReCaptchaModule,
+        FormsModule,
+        ReactiveFormsModule,
       //  McBreadcrumbsModule.forRoot(),
 
         MatAutocompleteModule,
@@ -53,11 +56,14 @@ export function getStorage() {
         BreadcrumbComponent
     ],
     exports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+
         DeleteDialogComponent,
         RecaptchaComponent,
         LoaderComponent, 
         CustomDatePipe,
-        ReCaptchaModule,
         BreadcrumbComponent,
 
         MatAutocompleteModule,

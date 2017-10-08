@@ -32,9 +32,6 @@
     </div>
 
     <div class="form-horizontal top10" role="form">
-        <mat-form-field class="full-width">
-            <input matInput placeholder="Логин" readonly [value]="item.userName">
-        </mat-form-field>
         <div *ngIf="roles.isModerator && !roles.isSelf(item.id)" class="form-group col-xs-12 col-md-6">
             <form *ngIf="!item.lockoutEnd" class="form-inline" name="banForm" role="form" [formGroup]="banForm" (ngSubmit)="onSubmitBan()">
                 <mat-form-field>
@@ -62,9 +59,9 @@
                 <button mat-raised-button type="submit" color="warn" [disabled]="!roleForm.valid">Сохранить</button>
             </form>
         </div>
-        <mat-form-field class="full-width">
+        <mat-form-field class="full-width" *ngIf="(roles.isSelf(item.id) || roles.isAdminAssistant)">
             <input matInput placeholder="Почта" readonly [value]="item.email">
-            <div *ngIf="(roles.isSelf(item.id) || roles.isAdminAssistant) && !item.emailConfirmed" [class.text-danger]="!item.emailConfirmed">Почта не подтверждена</div>
+            <div *ngIf="!item.emailConfirmed" class="text-danger">Почта не подтверждена</div>
         </mat-form-field>
         <mat-form-field *ngIf="roles.isAdminAssistant" class="full-width">
             <input matInput placeholder="Ip" readonly [value]="item.ip">
