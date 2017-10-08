@@ -25,9 +25,6 @@ import { StadiumModule } from "./stadium/index";
 import { WishModule } from "./wish/index";
 import * as admin from "./admin/index";
 import { NgxPaginationModule } from "ngx-pagination";
-import { ReCaptchaModule } from "angular2-recaptcha";
-//import { Ng2BreadcrumbModule, BreadcrumbService } from "ng2-breadcrumb";
-import "rxjs/add/operator/mergeMap";
 import { AccountModule } from "./account/index";
 import { TransferModule } from "./transfer/index";
 import { CommentModule } from "./comment/index";
@@ -41,7 +38,6 @@ import { NotificationModule } from "./notification/index";
         AccountModule,
       //  ForumModule,
         InjuryModule,
-      //  Ng2BreadcrumbModule.forRoot(),
         NgxPaginationModule,
         CommentModule,
         ClubModule,
@@ -51,10 +47,9 @@ import { NotificationModule } from "./notification/index";
         PersonModule,
         PmModule,
         RouterModule.forRoot(routes),
-        ReCaptchaModule,
         SharedModule,
         StadiumModule,
-        WishModule
+        WishModule,
     ],
     declarations: [
         chat.MaxiChatComponent,
@@ -86,13 +81,12 @@ import { NotificationModule } from "./notification/index";
         user.UserListComponent,
         user.UserEditComponent,
         user.UserConfigComponent,
-        user.UserOnlineCounterComponent
+        user.UserOnlineCounterComponent,
     ], // components and directives
     entryComponents: [
         material.MaterialActivateDialogComponent,
     ],
     providers: [// services
-   //     BreadcrumbService,
         chat.ChatMessageService,
         image.ImageService,
         materialCategory.MaterialCategoryService,

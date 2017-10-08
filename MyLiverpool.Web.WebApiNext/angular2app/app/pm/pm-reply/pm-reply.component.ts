@@ -26,13 +26,13 @@ export class PmReplyComponent implements OnInit, OnDestroy {
 
     public ngOnInit(): void {
         this.pmReplyEditForm = this.formBuilder.group({
-            'title': [
+            title: [
                 this.getTitle(), Validators.compose([
                     Validators.required,
                     Validators.maxLength(50)
                 ])
             ],
-            'message': [
+            message: [
                 "", Validators.compose([
                     Validators.required,
                     Validators.maxLength(2500)

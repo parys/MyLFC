@@ -85,15 +85,17 @@ export class MaterialEditComponent implements OnInit {
     }
 
     public copyPhoto(): void {
-        let url = this.editForm.get("photoUrl").value;
+        const url = this.editForm.get("source").value;
         let imgTags: string = "";
         this.service.extractPhoto(url).subscribe(result => {
-            for (let src of result) {
-                imgTags += `<img src="${src}" alt="" /><br/>`;
+                if (result) {
+                    for (let src of result) {
+                        imgTags += `<img src="${src}" alt="" /><br/>`;
+                    }
                 }
             },
             e => console.log(e), () => {
-                let oldValue = this.editForm.get("message").value;
+                const oldValue = this.editForm.get("message").value;
                 this.editForm.get("message").patchValue(oldValue + imgTags);
             });
     }
@@ -122,7 +124,6 @@ export class MaterialEditComponent implements OnInit {
             'canCommentary': [true, Validators.required],
             'onTop': [false, Validators.required],
             'pending': [true, Validators.required],
-            'photoUrl': [""],
             'stayOnPage': [false]
     });
     }

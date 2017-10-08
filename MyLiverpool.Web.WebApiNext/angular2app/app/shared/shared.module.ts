@@ -15,7 +15,7 @@ import { BearerInterceptor } from "./interceptors/index";
 import { RoleGuard, UnSignedGuard, AuthService } from "./auth/index";
 import { CommonModule } from "@angular/common";
 import { CustomDatePipe } from "./pipes/index";
-import { McBreadcrumbsModule } from "ngx-breadcrumbs";
+import { BreadcrumbComponent, BreadcrumbService } from "./breadcrumb/index";
 
 export function getStorage() {
     const result = typeof window !== "undefined" ? window.localStorage : null;
@@ -26,7 +26,7 @@ export function getStorage() {
     imports: [
         CommonModule,
         ReCaptchaModule,
-        McBreadcrumbsModule.forRoot(),
+      //  McBreadcrumbsModule.forRoot(),
 
         MatAutocompleteModule,
         MatButtonModule,
@@ -49,14 +49,16 @@ export function getStorage() {
         DeleteDialogComponent,
         RecaptchaComponent,
         LoaderComponent,
-        CustomDatePipe
+        CustomDatePipe,
+        BreadcrumbComponent
     ],
     exports: [
         DeleteDialogComponent,
         RecaptchaComponent,
         LoaderComponent, 
         CustomDatePipe,
-      //  McBreadcrumbsModule.forRoot(),
+        ReCaptchaModule,
+        BreadcrumbComponent,
 
         MatAutocompleteModule,
         MatButtonModule,
@@ -82,6 +84,7 @@ export function getStorage() {
         StorageService,
         RolesCheckedService,
         LoaderService,
+        BreadcrumbService,
         { provide: LocalStorage, useFactory: getStorage },
         { provide: HTTP_INTERCEPTORS, useClass: BearerInterceptor, multi: true }
     ],

@@ -13,7 +13,7 @@
                                                       currentPage: page,
                                                       totalItems: totalItems }; let i = index;">
             <tr>
-                <td class="" [textContent]="user.lastModified | date:'medium'"></td>
+                <td class="" [textContent]="user.lastModified | customDate:true"></td>
                 <td class="">
                     <a [routerLink]="[user.id]">
                         <div class="col-sm-3">
@@ -24,7 +24,7 @@
                     <span class="text-danger" tooltip="Почта не подтверждена" *ngIf="!user.emailConfirmed && (roles.isAdminAssist || roles.isSelf(user.id))"> *</span>
                     <a class="col-sm-2" role="button" *ngIf="roles.isLogined && !roles.isSelf(user.id)" (click)="writePm(i)"><span class="glyphicon glyphicon-envelope"></span></a>
                 </td>
-                <td class="" [textContent]="user.registrationDate | date:'medium'"></td>
+                <td class="" [textContent]="user.registrationDate | customDate:true"></td>
                 <td class="" [textContent]="user.roleGroupName"></td>
             </tr>
         </tbody>

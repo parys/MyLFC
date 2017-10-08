@@ -42,7 +42,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
                         error => console.log(error),
                         () => {});
             } else {
-                this.router.navigate(["/user", { page: 1 }]);
+                this.router.navigate(["/users", { page: 1 }]);
             }
         });
         if (this.roles.isAdminAssistant) {
@@ -80,18 +80,22 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     }
 
     public onChangeAvatar(event: any): void {
-        let file = event.currentTarget.files[0];
+        const file = event.currentTarget.files[0];
         if (file) {
+            console.log(file.size);
+            if (file.size > 251 * 1024) {
+                alert("Размер изображения не должен превышать 250КБ");
+                return;
+            }
             this.service.updateAvatar(file)
-                .subscribe((result: any) => this.item.photo = `${result.path}#${Math.random()}`,
-                    error => console.log(error),
-                    () => {});
+                .subscribe((result: any) => this.item.photo = `${result.path}?${Math.random()}`,
+                    e => console.log(e));
         }
     }
 
     public resetAvatar(): void {
         this.service.resetAvatar(this.item.id)
-            .subscribe((result: any) => this.item.photo = `${result.path}#${Math.random()}`,
+            .subscribe((result: any) => this.item.photo = `${result.path}?${Math.random()}`,
             error => console.log(error),
             () => {});
     }

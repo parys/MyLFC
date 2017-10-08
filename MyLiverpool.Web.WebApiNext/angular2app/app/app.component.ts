@@ -2,11 +2,8 @@
 import { Router, ActivatedRoute, NavigationEnd } from "@angular/router";
 import { Title } from "@angular/platform-browser";
 import { Observable } from "rxjs/Observable"
-import "rxjs/add/observable/throw";
-import "rxjs/add/operator/filter";
-import "rxjs/add/operator/mergeMap";
-import { RolesCheckedService, AuthService, IAuthStateModel } from "./shared/index";
-//import { BreadcrumbService } from "ng2-breadcrumb/ng2-breadcrumb";
+import { RolesCheckedService, AuthService, IAuthStateModel } from "@app/shared/index";
+import { BreadcrumbService } from "@app/shared/breadcrumb";
 
 
 @Component({
@@ -28,12 +25,12 @@ export class AppComponent implements OnInit {
         private activatedRoute: ActivatedRoute,
         private titleService: Title,
         private renderer: Renderer2,
-       // private breadcrumbService: BreadcrumbService
+        private breadcrumbService: BreadcrumbService
     ) {        
         // You need this small hack in order to catch application root view container ref
   //      this.viewContainerRef = viewContainerRef;
         this.initTitleSubscriber();
-      //  this.setUpBreadcrumbs();
+        this.setUpBreadcrumbs();
     }
 
     public ngOnInit(): void {
@@ -91,7 +88,7 @@ export class AppComponent implements OnInit {
             }); */
     }
 
-/*    private setUpBreadcrumbs(): void {
+    private setUpBreadcrumbs(): void {
         //this.breadcrumbService.addFriendlyNameForRoute("/", "Главная");
 
         this.breadcrumbService.addFriendlyNameForRoute("/forum", "Форум");
@@ -195,9 +192,5 @@ export class AppComponent implements OnInit {
 
         this.breadcrumbService.addFriendlyNameForRoute("/editPage", "Редактирование страницы");
         this.breadcrumbService.hideRouteRegex("^/editPage/[0-9]+$"); 
-    }   
-
-    getTitle(id: string = null): string {
-        return "123";
-    }*/
+    }
 }

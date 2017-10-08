@@ -2,6 +2,7 @@
     <div *ngIf="roles.isInformer">
         <button mat-raised-button color="warn" (click)="pin(item.id)">Закрепить на главной</button>
         <button mat-raised-button (click)="pin(0)">Открепить от главной</button>
+        <button mat-raised-button [routerLink]="['./edit']">Изменить</button>
     </div>
     <div class="col-xs-12 text-center">
         {{item.dateTime | customDate:false:true}}, {{item.typeName}}

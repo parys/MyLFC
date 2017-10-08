@@ -8,7 +8,7 @@
             <div class="chat-message clearfix" *ngFor="let message of items; let i = index;">
                 <div class="col-xs-12 col-sm-12 container-row clearfix">
                     <a [routerLink]="['/users', message.authorId]" [textContent]="message.authorUserName"></a>
-                    <div class="pull-right" [textContent]="message.additionTime | date:'medium'"></div>
+                    <div class="pull-right" [textContent]="message.additionTime | customDate:true"></div>
                     <span role="button" *ngIf="roles.isModerator || roles.isSelf(message.authorId)" (click)="edit(i)" class="glyphicon glyphicon-pencil"></span>
                     <span role="button" *ngIf="roles.isModerator" (click)="showDeleteModal(i)" class="glyphicon glyphicon-trash"></span>
                 </div>
@@ -37,9 +37,6 @@
         <div *ngIf="!roles.isLogined" class="text-white text-center ">Для добавления сообщений необходимо войти.</div>
         <div class="full-width text-center text-white flex-space-around top20">
             <form role="form" [formGroup]="chatMaxiTimerForm">
-                <!--todo bug <md-select placeholder="Автообновление чата" color="warn" formControlName="timerValue" (change)="updateSchedule($event)" class="chatUpdate">
-                    <md-option *ngFor="let interval of intervalArray" [value]="interval.value" [textContent]="interval.key"></md-option>
-                </md-select>-->     
                 <select placeholder="Автообновление чата" color="warn" formControlName="timerValue" (change)="updateSchedule($event)" class="chatUpdate">
                     <option *ngFor="let interval of intervalArray" [value]="interval.value" [textContent]="interval.key"></option>
                 </select>

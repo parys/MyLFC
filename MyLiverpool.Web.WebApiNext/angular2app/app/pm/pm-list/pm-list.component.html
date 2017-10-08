@@ -1,6 +1,6 @@
 ﻿<div class="container-fluid">
-    <md-tab-group>
-        <md-tab label="Полученные">
+    <mat-tab-group>
+        <mat-tab label="Полученные">
             <table class="table">
                 <thead>
                 <tr>
@@ -20,12 +20,12 @@
                         </a>
                     </td>
                     <td><a [routerLink]="['/users', message.senderId]" [textContent]="message.sender"></a></td>
-                    <td [textContent]="message.sentTime | date:'medium'"></td>
+                    <td [textContent]="message.sentTime | customDate:true"></td>
                 </tr>
                 </tbody>
             </table>
-        </md-tab>
-        <md-tab label="Отправленные">
+        </mat-tab>
+        <mat-tab label="Отправленные">
             <table class="table">
                 <thead>
                 <tr>
@@ -45,13 +45,13 @@
                         </a>
                     </td>
                     <td><a [routerLink]="['/users', message.receiverId]" [textContent]="message.receiver"></a></td>
-                    <td [textContent]="message.sentTime | date:'medium'"></td>
+                    <td [textContent]="message.sentTime | customDate:true"></td>
                 </tr>
                 </tbody>
             </table>
-        </md-tab>
-        <md-tab label="Написать сообщеньку">
+        </mat-tab>
+        <mat-tab label="Написать сообщеньку">
             <pm-edit></pm-edit>
-        </md-tab> <!--(select)="writePm()"-->
-    </md-tab-group>
+        </mat-tab>
+    </mat-tab-group>
 </div>
