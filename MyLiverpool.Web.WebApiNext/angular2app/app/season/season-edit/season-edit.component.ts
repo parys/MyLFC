@@ -2,18 +2,17 @@
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
-import { Season } from "./season.model";
-import { SeasonService } from "./season.service";
+import { Season } from "../season.model";
+import { SeasonService } from "../season.service";
 
 @Component({
     selector: "season-edit",
     templateUrl: "./season-edit.component.html"
 })
 export class SeasonEditComponent implements OnInit, OnDestroy {
-    private sub: Subscription;
     private sub2: Subscription;
     public editForm: FormGroup;
-    public id: number = 0;
+    public id: number;
 
     constructor(private service: SeasonService,
         private formBuilder: FormBuilder,
@@ -23,28 +22,24 @@ export class SeasonEditComponent implements OnInit, OnDestroy {
 
     public ngOnInit() : void {
         this.editForm = this.formBuilder.group({
-            'startSeasonYear': ["", Validators.required]
+            startSeasonYear: ["", Validators.required]
         });
-        this.sub = this.route.queryParams.subscribe(qParams => {
-            this.id = qParams["id"] || 0;
-        }, e => console.log(e));
+        this.id = this.route.snapshot.params["id"] || 0;
         if (this.id > 0) {
             this.sub2 = this.service
                 .getSingle(this.id)
                 .subscribe(data => this.editForm.patchValue(data),
-                    error => console.log(error));
+                    e => console.log(e));
         }
     };
 
     public ngOnDestroy(): void {
-        if(this.sub) { this.sub.unsubscribe(); }
         if(this.sub2) { this.sub2.unsubscribe(); }
     }
 
     public onSubmit(): void {
-        let model: Season = new Season();
+        const model: Season = this.editForm.value;
         model.id = this.id;
-        model.startSeasonYear = this.editForm.controls["startSeasonYear"].value;
 
         let res: Season;
         if (this.id > 0) {

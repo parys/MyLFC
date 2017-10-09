@@ -16,9 +16,7 @@ import { InjuryModule } from "./injury";
 import { MatchModule } from "./match";
 import { PersonModule } from "./person";
 import * as roleGroup from "./roleGroup";
-import * as season from "./season";
 import { SharedModule } from "./shared";
-import { PmModule } from "./pm";
 import { StadiumModule } from "./stadium";
 import { WishModule } from "./wish";
 import * as admin from "./admin";
@@ -29,6 +27,7 @@ import { CommentModule } from "./comment";
 import { NotificationModule } from "./notification";
 import { MaterialCategoryModule } from "./materialCategory";
 import { UserModule } from "./user";
+import { SeasonModule } from "./season";
 
 @NgModule({
     imports: [
@@ -48,6 +47,7 @@ import { UserModule } from "./user";
         NotificationModule,
         PersonModule,
         RouterModule.forRoot(routes),
+        SeasonModule,
         StadiumModule,
         UserModule,
         WishModule,
@@ -63,10 +63,6 @@ import { UserModule } from "./user";
         image.ImageDetailComponent,
         image.ImageListComponent,
         roleGroup.RoleGroupListComponent,
-        season.SeasonCalendarComponent,
-        season.SeasonEplTableComponent,
-        season.SeasonEditComponent,
-        season.SeasonListComponent,
         AppComponent,
         admin.CupTableComponent,
         admin.EplTableComponent,
@@ -83,7 +79,6 @@ import { UserModule } from "./user";
         chat.ChatMessageService,
         image.ImageService,
         roleGroup.RoleGroupService,
-        season.SeasonService,
         admin.AdminService,
         { provide: LOCALE_ID, useValue: "ru-RU" },
         Configuration,

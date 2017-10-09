@@ -1,8 +1,8 @@
 ﻿import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { Season } from "./season.model";
-import { SeasonService } from "./season.service";
-import { RolesCheckedService } from "../shared/index";
+import { Season } from "../season.model";
+import { SeasonService } from "../season.service";
+import { RolesCheckedService } from "@app/shared";
 
 @Component({
     selector: "<season-calendar>",
@@ -24,6 +24,6 @@ export class SeasonCalendarComponent implements  OnInit {
         }
         this.service.getSingleWithMatches(id)
             .subscribe(data => this.season = data,
-                error => console.log(error));
+                e => console.log(e));
     }
 }

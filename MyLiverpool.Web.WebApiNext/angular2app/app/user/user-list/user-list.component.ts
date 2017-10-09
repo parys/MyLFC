@@ -3,7 +3,7 @@ import { Location } from "@angular/common";
 import { FormBuilder, FormGroup } from "@angular/forms";  
 import { ActivatedRoute } from "@angular/router";
 import { User} from "../user.model";
-import { UserService } from "../user.service";
+import { UserService } from "../+core";
 import { RoleGroup, RoleGroupService } from "@app/roleGroup";
 import { Pageable, RolesCheckedService } from "@app/shared";
 

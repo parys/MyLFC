@@ -1,11 +1,10 @@
 ﻿import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
-import { HttpWrapper } from "../shared/httpWrapper";
-import { UserFilters } from "./userFilters.model";
-import { User } from "./user.model";
-import { UsersOnline } from "./user-online.model";
-import { UserConfig } from "./user-config.model";
-import { Pageable } from "../shared/pageable.model";
+import { HttpWrapper, Pageable } from "@app/shared";
+import { UserFilters } from "../userFilters.model";
+import { User } from "../user.model";
+import { UsersOnline } from "../user-online.model";
+import { UserConfig } from "../user-config.model";
 
 @Injectable()
 export class UserService {
@@ -47,7 +46,7 @@ export class UserService {
     };
 
     public updateAvatar(file: File): Observable<Object> {
-        let formData: FormData = new FormData();
+        const formData: FormData = new FormData();
         formData.append("uploadFile", file, file.name);
         return this.http.post<Object>(`${this.actionUrl}avatar/`, formData, true);
     };

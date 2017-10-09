@@ -1,6 +1,6 @@
 ﻿import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { Router, ActivatedRoute } from "@angular/router";
+import { MatSnackBar } from "@angular/material";
 import { Subscription } from "rxjs/Subscription";
 import { Pm } from "../pm.model";
 import { PmService } from "../pm.service";
@@ -19,9 +19,8 @@ export class PmReplyComponent implements OnInit, OnDestroy {
     @Output() public close = new EventEmitter();
 
     constructor(private service: PmService,
-        private formBuilder: FormBuilder,
-        private route: ActivatedRoute,
-        private router: Router) {
+        private snackBar: MatSnackBar,
+        private formBuilder: FormBuilder) {
     }
 
     public ngOnInit(): void {
@@ -51,11 +50,10 @@ export class PmReplyComponent implements OnInit, OnDestroy {
         this.sub = this.service.create(model).subscribe(data => {
                 if (data) {
                     this.closeWindow();
+                    this.snackBar.open("Сообщение отправлено.", null, { duration: 5000 });
                 }
             },
-            error => console.log(error),
-            () => {
-            });
+            e => console.log(e));
     }
 
     public closeWindow(): void {

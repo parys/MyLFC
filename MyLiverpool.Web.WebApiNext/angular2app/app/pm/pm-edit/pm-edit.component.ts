@@ -1,11 +1,11 @@
 ﻿import { Component, OnInit, OnDestroy } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { Router, ActivatedRoute } from "@angular/router";
+import { MatSnackBar } from "@angular/material";
 import { Subscription } from "rxjs/Subscription";   
 import { Observable } from "rxjs/Observable";
 import { Pm } from "../pm.model";
 import { PmService } from "../pm.service";
-import { User, UserService } from "@app/user";
+import { User } from "@app/user";
 
 @Component({
     selector: "pm-edit",
@@ -20,23 +20,15 @@ export class PmEditComponent implements OnInit, OnDestroy {
 
     constructor(private service: PmService,
         private formBuilder: FormBuilder,
-        private route: ActivatedRoute,
-        private router: Router,
-        private userService: UserService) {
+        private snackBar: MatSnackBar,
+   //     private userService: UserService
+    ) {
     }
 
     public ngOnInit(): void {
         this.editPmForm = this.formBuilder.group({
-            receiverId: [
-                "", Validators.compose([
-                    Validators.required
-                ])
-            ],
-            receiver: [
-                "", Validators.compose([
-                    Validators.required
-                ])
-            ],
+            receiverId: ["", Validators.required],
+            receiver: ["", Validators.required],
             title: [
                 "", Validators.compose([
                     Validators.required,
@@ -50,12 +42,11 @@ export class PmEditComponent implements OnInit, OnDestroy {
                 ])
             ]
         });
-
-
+        
         this.users$ = this.editPmForm.controls["receiver"].valueChanges
             .debounceTime(this.debounceTime)
             .distinctUntilChanged()
-            .switchMap((value: string) => this.userService.getListByUserName(value));
+            .switchMap((value: string) => this.service.getListByUserName(value));
     }
 
     public ngOnDestroy(): void {
@@ -70,11 +61,9 @@ export class PmEditComponent implements OnInit, OnDestroy {
         const model: Pm = this.editPmForm.value;
 
         this.sub = this.service.create(model).subscribe(data => {
-                this.editPmForm.patchValue({message: ""});
+            this.editPmForm.patchValue({ message: "" });
+                this.snackBar.open("Сообщение отправлено.", null, { duration: 5000 });
             },
-            e => console.log(e),
-            () => {
-                //todo add snackbar
-            });
+            e => console.log(e));
     }
 }

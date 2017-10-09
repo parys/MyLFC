@@ -5,7 +5,7 @@ import { NgxPaginationModule } from "ngx-pagination";
 import { userRoutes } from "./user.routes";
 import { UserEditComponent } from "./user-edit";
 import { UserListComponent } from "./user-list";
-import { UserService } from "./user.service";
+import { UserCoreModule } from "./+core";
 import { UserBirthdayComponent } from "./user-birthday";
 import { UserDetailComponent } from "./user-detail";
 import { UserConfigComponent } from "./user-config";
@@ -16,7 +16,8 @@ import { PmModule } from "@app/pm";
     imports: [
         SharedModule,
         NgxPaginationModule,
-      //  PmModule,
+        UserCoreModule,
+        PmModule,
         RouterModule.forRoot(userRoutes)
     ],
     declarations: [
@@ -27,12 +28,10 @@ import { PmModule } from "@app/pm";
         UserEditComponent,
         UserListComponent,
     ],
-    providers: [
-        UserService
-    ],
     exports: [
         UserOnlineCounterComponent,
-        UserBirthdayComponent
+        UserBirthdayComponent,
+        PmModule
     ]
 })
 export class UserModule { }

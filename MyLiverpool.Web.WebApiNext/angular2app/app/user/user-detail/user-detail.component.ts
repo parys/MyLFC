@@ -5,7 +5,7 @@ import { MatSnackBar } from "@angular/material";
 import { Subscription } from "rxjs/Subscription";
 import { Configuration } from "@app/app.constants";
 import { User } from "../user.model";                          
-import { UserService } from "../user.service";
+import { UserService } from "../+core";
 import { GlobalValidators, RolesCheckedService } from "@app/shared";
 import { RoleGroupService, RoleGroup } from "@app/roleGroup";
 

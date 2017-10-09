@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { MatSnackBar } from "@angular/material";
 import { Subscription } from "rxjs/Subscription";
 import { User } from "../user.model";
-import { UserService } from "../user.service";
+import { UserService } from "../+core";
 
 @Component({
     selector: "user-edit",

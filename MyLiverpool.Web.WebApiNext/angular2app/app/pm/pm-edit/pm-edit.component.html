@@ -1,4 +1,4 @@
-﻿<form class="form-horizontal col-md-12" role="form" name="writePm"  [formGroup]="editPmForm" (ngSubmit)="onSubmit()">
+﻿<form class="form-horizontal" role="form" [formGroup]="editPmForm" (ngSubmit)="onSubmit()">
     <h2>Написать сообщение</h2>
     <mat-form-field class="full-width">
         <input matInput placeholder="Получатель" [matAutocomplete]="user" formControlName="receiver">

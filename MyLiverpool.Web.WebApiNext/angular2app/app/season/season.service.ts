@@ -1,6 +1,6 @@
 ﻿import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
-import { HttpWrapper } from "../shared/httpWrapper";
+import { HttpWrapper } from "@app/shared/";
 import { Season } from "./season.model";
 
 @Injectable()
