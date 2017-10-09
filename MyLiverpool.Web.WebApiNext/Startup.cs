@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
-using AspNet.Security.OAuth.Validation;
 using AspNet.Security.OpenIdConnect.Primitives;
 using Microsoft.AspNetCore.Antiforgery;
-using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Diagnostics;
@@ -159,7 +157,7 @@ namespace MyLiverpool.Web.WebApiNext
                     //}
                 }
             });
-
+        //    services.AddSignalR();
             
             RegisterCoreHelpers(services);
             services.RegisterRepositories();
@@ -280,13 +278,11 @@ namespace MyLiverpool.Web.WebApiNext
 
             app.UseAuthentication();//UseIdentity();
 
-        //    app.UseOAuthValidation(opt => //todo does it need?
-       //     { 
-               // opt.AutomaticAuthenticate = true;
-              //  opt.AutomaticChallenge = true;
-      //      });
-            
-          //  app.UseOpenIddict();
+            //app.UseSignalR(routes =>
+            //{
+            //    routes.MapHub<LfcHub>("hub");
+            //});
+
 
             app.UseMvc(routes =>
             {

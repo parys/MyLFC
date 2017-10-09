@@ -3,12 +3,14 @@ using System.Threading.Tasks;
 using AspNet.Security.OAuth.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Caching.Memory;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
 using MyLiverpool.Web.WebApiNext.Extensions;
+using MyLiverpool.Web.WebApiNext.Hubs;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
@@ -41,7 +43,10 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             dto.AuthorId = User.GetUserId();
             var result = await _chatMessageService.CreateAsync(dto);
             result.Ip = HttpContext.GetIp();
-       //     _cache.Remove(ChatName + (int)dto.Type);
+            //     _cache.Remove(ChatName + (int)dto.Type);
+
+         //   var hubContext = new LfcHub(_chatMessageService);
+         //   hubContext.SendChatMessage(result);
             return Ok(result);
         }
 

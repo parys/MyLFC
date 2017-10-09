@@ -3,7 +3,6 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { isPlatformBrowser } from "@angular/common";
 import { MatDialog, MatSnackBar } from "@angular/material";
-import { ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
 import { Observable } from "rxjs/Observable";
 import { Configuration } from "@app/app.constants";
@@ -11,6 +10,8 @@ import { ChatMessage } from "./chatMessage.model";
 import { ChatMessageType } from "./chatMessageType.enum";
 import { ChatMessageService } from "./chatMessage.service";
 import { RolesCheckedService, DeleteDialogComponent, StorageService } from "@app/shared";
+//import { HubConnection } from '@aspnet/signalr-client/dist/browser/signalr-clientES5-1.0.0-alpha1-final.js';
+//import { HubConnection } from '@aspnet/signalr-client';
 
 @Component({
     selector: "mini-chat",
@@ -23,6 +24,7 @@ export class MiniChatComponent implements OnInit, OnDestroy {
     public chatTimerForm: FormGroup;
     public items: ChatMessage[] = new Array<ChatMessage>();
     public selectedEditIndex: number = null;
+//    private chatHub: HubConnection;
     public intervalArray: { key: string, value: number }[]
  = [{ key: "---", value: 0 },
  { key: "15 сек", value: 15 },
@@ -32,7 +34,6 @@ export class MiniChatComponent implements OnInit, OnDestroy {
 
     constructor(private service: ChatMessageService,
         @Inject(PLATFORM_ID) private platformId: Object,
-        private route: ActivatedRoute,
         private formBuilder: FormBuilder,
         private cd: ChangeDetectorRef,
         private snackBar: MatSnackBar,
@@ -41,6 +42,12 @@ export class MiniChatComponent implements OnInit, OnDestroy {
         public roles: RolesCheckedService,
         private storage: StorageService,
         private dialog: MatDialog) {
+
+        //this.chatHub = new HubConnection("/hub");
+        //this.chatHub.on("sendChat", (data) => {
+        //   console.warn(data);
+        //});
+        //this.chatHub.start();
     }
 
     public ngOnInit(): void {
@@ -75,17 +82,19 @@ export class MiniChatComponent implements OnInit, OnDestroy {
                 },
                 e => console.log(e));
         } else {
+            //    this.chatHub.invoke("sendChat", this.messageForm.value);
             this.service.create(this.messageForm.value)
                 .subscribe(data => {
                         this.items.unshift(data);
                         this.messageForm.get("message").patchValue("");
                     },
-                    (error) => console.log(error));
+                    (e) => console.log(e));
         }
     }
 
     public showDeleteModal(index: number): void {
-        let dialogRef = this.dialog.open(DeleteDialogComponent);
+   //     this.chatHub.invoke("send", this.count*10);
+        const dialogRef = this.dialog.open(DeleteDialogComponent);
         dialogRef.afterClosed().subscribe(result => {
                 if (result) {
                     this.delete(index);
