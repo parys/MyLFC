@@ -35,6 +35,12 @@ body {
     /*color: #6e6e6e;'*/
 }
 
+blockquote {
+    background-color: rgba(128, 0, 0, .1);
+    border-color: maroon;
+    font-size: 14px;
+}
+
 button.no-style {
     border: 0;
     background-color: inherit;
