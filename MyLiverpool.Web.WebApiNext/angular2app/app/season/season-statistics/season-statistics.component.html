@@ -1,1 +1,21 @@
-﻿{{statistics | json}}
+﻿<h3>Статистика текущего сезона</h3>
+<table class="table table-condensed table-striped table-bordered table-hover">
+    <thead>
+    <tr>
+        <td>Игрок</td>
+        <td>Голы</td>
+        <td>Передачи</td>
+        <td>ЖК</td>
+        <td>КК</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of statistics">
+        <td [textContent]="item.personName"></td>
+        <td [textContent]="item.goals.total"></td>
+        <td [textContent]="item.assists.total"></td>
+        <td [textContent]="item.yellows.total"></td>
+        <td [textContent]="item.reds.total"></td>
+    </tr>
+    </tbody>
+</table>
