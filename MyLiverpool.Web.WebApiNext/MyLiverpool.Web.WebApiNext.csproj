@@ -16,6 +16,7 @@
 
   <ItemGroup>
       <!-- Files not to publish (note that the 'dist' subfolders are re-added below) -->
+    <Compile Remove="angular2app\app\person\NewFolder\**" />
     <Compile Remove="temp-js\**" />
     <Content Remove="angular2app\**" />
     <Content Remove="package-lock.json" />
@@ -30,7 +31,9 @@
     <Content Remove="wwwroot\src\lightgray\**" />
     <Content Remove="wwwroot\src\plugins\**" />
     <Content Remove="wwwroot\src\themes\**" />
+    <EmbeddedResource Remove="angular2app\app\person\NewFolder\**" />
     <EmbeddedResource Remove="temp-js\**" />
+    <None Remove="angular2app\app\person\NewFolder\**" />
     <None Remove="temp-js\**" />
 
     <None Update="node_modules\**;*.pdb">
@@ -99,10 +102,6 @@
         
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
-  </ItemGroup>
-        
-  <ItemGroup>
-    <Folder Include="angular2app\app\person\NewFolder\" />
   </ItemGroup>
         
   <ProjectExtensions><VisualStudio><UserProperties package_1json__JSONSchema="http://json.schemastore.org/resjson" /></VisualStudio></ProjectExtensions>

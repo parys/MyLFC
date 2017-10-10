@@ -31,5 +31,7 @@ namespace MyLiverpool.Data.ResourceAccess.Interfaces
             SortOrder order = SortOrder.Ascending, Expression<Func<T, object>> orderBy = null, params Expression<Func<T, object>>[] includes);
 
         Task<T> GetFirstByFilterAsync(Expression<Func<T, bool>> filter);
+
+        Task<T> GetSingleByFilterAsync(Expression<Func<T, bool>> filter);
     }
 }

@@ -8,6 +8,7 @@ using MyLiverpool.Data.Common;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
+    /// <inheritdoc />
     /// <summary>
     /// Manages seasons.
     /// </summary>
@@ -15,14 +16,17 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     public class SeasonController : Controller
     {
         private readonly ISeasonService _seasonService;
+        private readonly IMatchEventService _matchEventService;
 
         /// <summary>
         /// Constructor.
         /// </summary>
         /// <param name="seasonService"></param>
-        public SeasonController(ISeasonService seasonService)
+        /// <param name="matchEventService"></param>
+        public SeasonController(ISeasonService seasonService, IMatchEventService matchEventService)
         {
             _seasonService = seasonService;
+            _matchEventService = matchEventService;
         }
 
         /// <summary>
@@ -57,6 +61,18 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         public async Task<IActionResult> GetWithMatchesAsync(int id)
         {
             var result = await _seasonService.GetByIdWithMatchesAsync(id);
+            return Json(result);
+        }
+
+        /// <summary>
+        /// Returns statistics for season.
+        /// </summary>
+        /// <param name="id">The identifier of season.</param>
+        /// <returns>Statistics for season.</returns>
+        [AllowAnonymous, HttpGet("{id:int}/statistics")]
+        public async Task<IActionResult> GetStatisticsAsync(int id)
+        {
+            var result = await _matchEventService.GetStatistics(id);
             return Json(result);
         }
 

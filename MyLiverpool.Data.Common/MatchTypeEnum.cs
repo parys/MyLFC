@@ -6,7 +6,7 @@ namespace MyLiverpool.Data.Common
     {
         // Error = 0,
         [Display(Name = "Английская Премьер-Лига")]
-        Apl = 1,
+        Epl = 1,
         [Display(Name = "Кубок Лиги")]
         CurlingCup = 2,
         [Display(Name = "Кубок Англии")]

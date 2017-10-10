@@ -17,14 +17,12 @@ namespace MyLiverpool.Data.ResourceAccess.Helpers
             services.AddScoped<IHelperEntityRepository, HelperEntityRepository>();
             services.AddScoped<IMatchRepository, MatchRepository>();
             services.AddScoped<IMatchPersonRepository, MatchPersonRepository>();
-            services.AddScoped<IMatchEventRepository, MatchEventRepository>();
             services.AddScoped<IMaterialCategoryRepository, MaterialCategoryRepository>();
             services.AddScoped<IMaterialCommentRepository, MaterialCommentRepository>();
             services.AddScoped<IMaterialRepository, MaterialRepository>();
             services.AddScoped<IPersonRepository, PersonRepository>();
             services.AddScoped<IPmRepository, PmRepository>();
             services.AddScoped<IRoleGroupRepository, RoleGroupRepository>();
-            services.AddScoped<ISeasonRepository, SeasonRepository>();
             services.AddScoped<ITransferRepository, TransferRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
         }

@@ -2,6 +2,7 @@
 import { Observable } from "rxjs/Observable";
 import { HttpWrapper } from "@app/shared/";
 import { Season } from "./season.model";
+import { PersonStatistics } from "./personStatistics.model";
 
 @Injectable()
 export class SeasonService {
@@ -36,5 +37,9 @@ export class SeasonService {
 
     public getSingleWithMatches(seasonId: number): Observable<Season> {
         return this.http.get<Season>(`${this.actionUrl}getWithMatches/${seasonId}`);
+    }
+
+    public getStatistics(seasonId: number): Observable<PersonStatistics[]> {
+        return this.http.get<PersonStatistics[]>(`${this.actionUrl}${seasonId}/statistics`);
     }
 }

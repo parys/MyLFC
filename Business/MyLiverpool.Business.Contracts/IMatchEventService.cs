@@ -7,5 +7,7 @@ namespace MyLiverpool.Business.Contracts
     public interface IMatchEventService : IEntityService<MatchEventDto>
     {
         Task<IEnumerable<MatchEventDto>> GetListByMatchIdAsync(int matchId);
+
+        Task<IEnumerable<PersonStatisticDto>> GetStatistics(int seasonId);
     }
 }

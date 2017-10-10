@@ -48,6 +48,7 @@ namespace MyLiverpool.Business.Services
             match.VideoUrl = dto.VideoUrl;
             match.Stadium = null;
             match.StadiumId = dto.StadiumId;
+            match.SeasonId = dto.SeasonId;
             match.Score = GetScores(dto.ScoreHome, dto.ScoreAway);
             await _matchRepository.UpdateAsync(match);
             return dto;

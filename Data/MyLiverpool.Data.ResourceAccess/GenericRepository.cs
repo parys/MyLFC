@@ -114,5 +114,15 @@ namespace MyLiverpool.Data.ResourceAccess
             }
             return await query.FirstOrDefaultAsync();
         }
+
+        public async Task<T> GetSingleByFilterAsync(Expression<Func<T, bool>> filter)
+        {
+            IQueryable<T> query = _context.Set<T>();
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+            return await query.SingleOrDefaultAsync();
+        }
     }
 }

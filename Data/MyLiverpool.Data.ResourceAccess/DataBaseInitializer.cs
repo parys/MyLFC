@@ -1343,7 +1343,7 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                 DateTime = DateTimeOffset.Now,
                 StadiumId = 1,
                 IsHome = false,
-                MatchType = MatchTypeEnum.Apl,
+                MatchType = MatchTypeEnum.Epl,
                 //Score = "3-3",
                 SeasonId = 1
             };
@@ -1354,7 +1354,7 @@ src='http://s4.hostingkartinok.com/uploads/images/2013/07/8a7fed2ee9f513c0e75655
                 DateTime = DateTimeOffset.Now.AddDays(55),
                 StadiumId = 1,
                 IsHome = false,
-                MatchType = MatchTypeEnum.Apl,
+                MatchType = MatchTypeEnum.Epl,
                 SeasonId = 1
             };
 

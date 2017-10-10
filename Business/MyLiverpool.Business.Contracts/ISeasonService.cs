@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using MyLiverpool.Business.Dto;
+using MyLiverpool.Data.Entities;
 
 namespace MyLiverpool.Business.Contracts
 {
@@ -11,5 +12,7 @@ namespace MyLiverpool.Business.Contracts
         Task<SeasonDto> GetByIdWithMatchesAsync(int id);
 
         Task<IEnumerable<KeyValuePair<int, string>>> GetSeasonsByYearAsync(string typed);
+
+        Task<Season> GetCurrentSeasonAsync();
     }
 }

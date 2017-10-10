@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -14,10 +15,10 @@ namespace MyLiverpool.Business.Services
     public class SeasonService : ISeasonService
     {
         private readonly IMapper _mapper;
-        private readonly ISeasonRepository _seasonRepository;
+        private readonly IGenericRepository<Season> _seasonRepository;
         private readonly IMatchService _matchService;
 
-        public SeasonService(IMapper mapper, ISeasonRepository seasonRepository, IMatchService matchService)
+        public SeasonService(IMapper mapper, IGenericRepository<Season> seasonRepository, IMatchService matchService)
         {
             _mapper = mapper;
             _seasonRepository = seasonRepository;
@@ -27,7 +28,7 @@ namespace MyLiverpool.Business.Services
         public async Task<SeasonDto> CreateAsync(SeasonDto dto)
         {
             var model = _mapper.Map<Season>(dto);
-            var result = await _seasonRepository.AddAsync(model);
+            var result = await _seasonRepository.CreateAsync(model);
             return _mapper.Map<SeasonDto>(result);
         }
 
@@ -42,11 +43,6 @@ namespace MyLiverpool.Business.Services
 
         public async Task<bool> DeleteAsync(int id)
         {
-          //  var model = await _seasonRepository.GetByIdAsync(id); /todo add loading clubs or getting club count
-         //   if (model.Matches.Count > 0)
-            {
-          //      return false;
-            }
             await _seasonRepository.DeleteAsync(id);
             return true;
         }
@@ -60,7 +56,7 @@ namespace MyLiverpool.Business.Services
 
         public async Task<ICollection<SeasonDto>> GetListAsync()
         {
-            var seasons = await _seasonRepository.GetListAsync();
+            var seasons = await _seasonRepository.GetListAsync(null, SortOrder.Descending, x => x.StartSeasonYear);
             var dtos = _mapper.Map<ICollection<SeasonDto>>(seasons);
             return dtos;
         }
@@ -70,7 +66,7 @@ namespace MyLiverpool.Business.Services
             Season season;
             if (id == 0)
             {
-                season = await _seasonRepository.GetLatestSeason();
+                season = await GetCurrentSeasonAsync();
             }
             else
             {
@@ -91,6 +87,23 @@ namespace MyLiverpool.Business.Services
             
             var clubs = await _seasonRepository.GetListAsync(filter);
             return clubs.Select(x => new KeyValuePair<int, string>(x.Id, x.StartSeasonYear.ToString()));
+        }
+
+        public async Task<SeasonDto> GetByStartYearAsync(int startSeason)
+        {
+            var season = await _seasonRepository.GetSingleByFilterAsync(x => x.StartSeasonYear == startSeason);
+            return season != null ? _mapper.Map<SeasonDto>(season) : null;
+        }
+
+        public async Task<Season> GetCurrentSeasonAsync()
+        {
+            //todo maybe will be refactored in future
+            // if June passed that it's new season, if no it's second part of season
+            var startYear = DateTime.Now.Month > 6 ? DateTime.Now.Year : DateTime.Now.Year - 1;
+
+            Expression<Func<Season, bool>> filter = x => x.StartSeasonYear == startYear;
+
+            return await _seasonRepository.GetSingleByFilterAsync(filter);
         }
     }
 }

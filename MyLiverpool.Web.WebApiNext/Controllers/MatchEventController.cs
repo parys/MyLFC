@@ -108,14 +108,14 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <returns>List of types.</returns>
         [Authorize, HttpGet("getTypes")]
-        public async Task<IActionResult> GetTypes()
+        public IActionResult GetTypes()
         {
             var list = new List<object>();
             foreach (MatchEventType type in Enum.GetValues(typeof(MatchEventType)))
             {
                 list.Add(new { id = type, name = type.GetNameAttribute() });
             }
-            return Ok(await Task.FromResult(list));
+            return Ok(list);
         }
 
         /// <summary>

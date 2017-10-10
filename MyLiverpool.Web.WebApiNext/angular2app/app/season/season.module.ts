@@ -6,6 +6,7 @@ import { SeasonService } from "./season.service";
 import { SeasonCalendarComponent } from "./season-calendar";
 import { SeasonEditComponent } from "./season-edit";
 import { SeasonListComponent } from "./season-list";
+import { SeasonStatisticsComponent } from "./season-statistics";
 
 @NgModule({
     imports: [
@@ -15,7 +16,8 @@ import { SeasonListComponent } from "./season-list";
     declarations: [
         SeasonCalendarComponent,
         SeasonEditComponent,
-        SeasonListComponent
+        SeasonListComponent,
+        SeasonStatisticsComponent
     ],
     exports: [
     ],

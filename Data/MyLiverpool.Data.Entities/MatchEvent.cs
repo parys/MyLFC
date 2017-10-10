@@ -2,7 +2,7 @@
 
 namespace MyLiverpool.Data.Entities
 {
-    public class MatchEvent
+    public class MatchEvent : IEntity
     {
         public int Id { get; set; }
 
@@ -12,7 +12,7 @@ namespace MyLiverpool.Data.Entities
 
         public MatchEventType Type { get; set; }
 
-        public int SeasonId { get; set; }
+        public int SeasonId { get; set; }//todo think does it need
 
         public virtual Season Season { get; set; }
 
