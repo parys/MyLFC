@@ -9,9 +9,11 @@
             </mat-option>
         </mat-autocomplete>
     </mat-form-field>
-    <mat-select placeholder="Тип" class="full-width form-group" formControlName="personType">
-        <mat-option *ngFor="let type of types" [value]="type.key">{{ type.value }}</mat-option>
-    </mat-select>
+    <mat-form-field class="full-width">
+        <mat-select placeholder="Тип" formControlName="personType">
+            <mat-option *ngFor="let type of types" [value]="type.key">{{ type.value }}</mat-option>
+        </mat-select>
+    </mat-form-field>
     <div class="form-group text-center">
         <button mat-raised-button color="warn" type="submit" [disabled]="!editMatchPersonForm.valid">Сохранить</button>
     </div>

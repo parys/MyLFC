@@ -3,7 +3,8 @@
         <div class="text-center">Главный судья: {{mainRef?.personName}}
             <span *ngIf="roles.isInformer && !mainRef" role="button" (click)="addMatchPerson(7)"><mat-icon>add</mat-icon></span></div>
         <div class="text-center" *ngIf="assistantRef.length > 0">Помощники судьи: <span *ngFor="let ref of assistantRef">{{ref.personName}},</span></div>
-        <div class="text-center" *ngIf="additionalRef.length > 0">Дополнительные судьи: <span *ngFor="let ref of additionalRef">{{ref.personName}},</span></div>
+        <div class="text-center" *ngIf="additionalRef.length > 0">Дополнительные судьи: <span *ngFor="let ref of additionalRef; let last=last;">{{ref.personName}}
+            <span *ngIf="!last">, </span></span></div>
         <div class="text-center" *ngIf="fourthRef">Резервный судья: {{fourthRef.personName}}</div>
         <div class="col-xs-6 container-row">
             <i class="col-xs-12 container-row top10">Главный тренер:
