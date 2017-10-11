@@ -1,4 +1,5 @@
 ﻿import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RecaptchaComponent } from "./recaptcha.component";
@@ -8,15 +9,15 @@ import { LocalStorage } from "./local-storage";
 import { RolesCheckedService } from "./roles-checked.service";
 import { GlobalValidators } from "./globalValidators";
 import { ReCaptchaModule } from "angular2-recaptcha";
-import { DeleteDialogComponent } from "./delete-dialog/index";
+import { DeleteDialogComponent } from "./delete-dialog";
 import { MatAutocompleteModule, MatButtonModule, MatCardModule, MatCheckboxModule, MatDatepickerModule, MatDialogModule,
     MatIconModule, MatInputModule, MatMenuModule, MatNativeDateModule, MatProgressBarModule, MatSelectModule, MatSlideToggleModule, MatSnackBarModule, MatTabsModule } from "@angular/material";
-import { LoaderComponent, LoaderService } from "./loader/index";
-import { BearerInterceptor } from "./interceptors/index";
-import { RoleGuard, UnSignedGuard, AuthService } from "./auth/index";
-import { CommonModule } from "@angular/common";
-import { CustomDatePipe } from "./pipes/index";
-import { BreadcrumbComponent, BreadcrumbService } from "./breadcrumb/index";
+import { LoaderComponent, LoaderService } from "./loader";
+import { BearerInterceptor } from "./interceptors";
+import { RoleGuard, UnSignedGuard, AuthService } from "./auth";
+import { CustomDatePipe } from "./pipes";
+import { BreadcrumbComponent, BreadcrumbService } from "./breadcrumb";
+import { NgxPaginationModule } from "ngx-pagination";
 
 export function getStorage() {
     const result = typeof window !== "undefined" ? window.localStorage : null;
@@ -29,6 +30,7 @@ export function getStorage() {
         ReCaptchaModule,
         FormsModule,
         ReactiveFormsModule,
+        NgxPaginationModule,
       //  McBreadcrumbsModule.forRoot(),
 
         MatAutocompleteModule,
@@ -59,6 +61,7 @@ export function getStorage() {
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
+        NgxPaginationModule,
 
         DeleteDialogComponent,
         RecaptchaComponent,

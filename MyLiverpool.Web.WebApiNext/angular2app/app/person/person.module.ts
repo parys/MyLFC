@@ -1,25 +1,18 @@
 ﻿import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { PersonListComponent } from "./person-list/index";
-import { PersonEditComponent } from "./person-edit/index";
-import { PersonBirthdayComponent } from "./person-birthday/index";
+import { PersonListComponent } from "./person-list";
+import { PersonEditComponent } from "./person-edit";
+import { PersonBirthdayComponent } from "./person-birthday";
 import { PersonService } from "./person.service";
-import { BestPlayerComponent } from "./best-player/index";
-import { StuffListComponent } from "./stuff-list/index";
-import { SquadComponent } from "./squad/index";
+import { BestPlayerComponent } from "./best-player";
+import { StuffListComponent } from "./stuff-list";
+import { SquadComponent } from "./squad";
 import { personRoutes } from "./person.routes";
-import { SharedModule } from "../shared/index";
-import { NgxPaginationModule } from "ngx-pagination";
+import { SharedModule } from "../shared";
 
 
 @NgModule({
     imports: [
-        CommonModule,
-        FormsModule,
-        NgxPaginationModule,
-        ReactiveFormsModule,
         RouterModule.forRoot(personRoutes),
         SharedModule
     ],
@@ -33,7 +26,8 @@ import { NgxPaginationModule } from "ngx-pagination";
     ],
     exports: [
         BestPlayerComponent,
-        PersonBirthdayComponent
+        PersonBirthdayComponent,
+        PersonEditComponent
     ],
     providers: [
         PersonService

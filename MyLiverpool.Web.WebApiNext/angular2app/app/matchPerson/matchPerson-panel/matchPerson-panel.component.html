@@ -20,7 +20,7 @@
                 <span *ngIf="roles.isInformer" role="button" (click)="showDeleteModal(person)" class="glyphicon glyphicon-trash"></span>
             </div>
             <i class="col-xs-12 container-row top10">Запасные:
-                <span *ngIf="roles.isInformer" role="button" (click)="addMatchPerson(isHome ? 2 : 4)"><mat-icon>add</mat-icon></span>
+                <span *ngIf="roles.isInformer && homeBench.length < 7" role="button" (click)="addMatchPerson(isHome ? 2 : 4)"><mat-icon>add</mat-icon></span>
             </i>
             <div class="col-xs-12 container-row" *ngFor="let person of homeBench">
                 {{person.number}} - {{person.personName}}
@@ -58,7 +58,7 @@
                 <span *ngIf="roles.isInformer" role="button" (click)="showDeleteModal(person)" class="glyphicon glyphicon-trash"></span>
             </div>
             <i class="col-xs-12 container-row top10">Запасные:
-                <span *ngIf="roles.isInformer" role="button" (click)="addMatchPerson(isHome ? 4 : 2)"><mat-icon>add</mat-icon></span>
+                <span *ngIf="roles.isInformer && awayBench.length < 7" role="button" (click)="addMatchPerson(isHome ? 4 : 2)"><mat-icon>add</mat-icon></span>
             </i>
             <div class="col-xs-12 container-row" *ngFor="let person of awayBench">
                 {{person.number}} - {{person.personName}}
@@ -89,5 +89,12 @@
     <button mat-raised-button (click)="cancelMatchPersonEdit()" *ngIf="isEdit">Отменить редактирование</button>
     <div class="full-width top20" *ngIf="isEdit">
         <matchPerson-edit-panel [matchId]="matchId" [selectedMatchPerson]="selectedMatchPerson" [typeId]="selectedType" (matchPerson)="updateMatchPerson($event)"></matchPerson-edit-panel>
+    </div>
+</div>
+<div *ngIf="roles.isInformer" class="col-xs-12">
+    <button mat-raised-button color="primary" (click)="isCreation = true" *ngIf="!isCreation">Создать человека</button>
+    <button mat-raised-button (click)="isCreation = false" *ngIf="isCreation">Отменить создание</button>
+    <div class="full-width top20" *ngIf="isCreation">
+        <person-edit [isFull]="false" (done)="isCreation = false"></person-edit>
     </div>
 </div>

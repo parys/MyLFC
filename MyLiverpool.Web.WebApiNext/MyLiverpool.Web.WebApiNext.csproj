@@ -16,8 +16,8 @@
 
   <ItemGroup>
       <!-- Files not to publish (note that the 'dist' subfolders are re-added below) -->
-    <Compile Remove="angular2app\app\person\NewFolder\**" />
     <Compile Remove="temp-js\**" />
+    <Compile Remove="wwwroot\content\persons\**" />
     <Content Remove="angular2app\**" />
     <Content Remove="package-lock.json" />
     <Content Remove="wwwroot\src\core.min.js" />
@@ -31,10 +31,10 @@
     <Content Remove="wwwroot\src\lightgray\**" />
     <Content Remove="wwwroot\src\plugins\**" />
     <Content Remove="wwwroot\src\themes\**" />
-    <EmbeddedResource Remove="angular2app\app\person\NewFolder\**" />
     <EmbeddedResource Remove="temp-js\**" />
-    <None Remove="angular2app\app\person\NewFolder\**" />
+    <EmbeddedResource Remove="wwwroot\content\persons\**" />
     <None Remove="temp-js\**" />
+    <None Remove="wwwroot\content\persons\**" />
 
     <None Update="node_modules\**;*.pdb">
       <CopyToPublishDirectory>Never</CopyToPublishDirectory>
@@ -79,6 +79,7 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.0" />
     <PackageReference Include="OpenIddict.Mvc" Version="2.0.0-rc1-0719" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="1.0.0" />
   </ItemGroup>
@@ -102,6 +103,10 @@
         
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
+  </ItemGroup>
+        
+  <ItemGroup>
+    <Folder Include="wwwroot\content\" />
   </ItemGroup>
         
   <ProjectExtensions><VisualStudio><UserProperties package_1json__JSONSchema="http://json.schemastore.org/resjson" /></VisualStudio></ProjectExtensions>

@@ -1,8 +1,7 @@
-﻿import { Component, OnInit, OnDestroy } from "@angular/core";
+﻿import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
 import { MatSnackBar } from "@angular/material";
-import { Subscription } from "rxjs/Subscription";
 import { PersonService } from "../person.service";
 import { Person } from "../person.model";
 import { PersonType } from "../personType.model";
@@ -12,35 +11,33 @@ import { PersonType } from "../personType.model";
     templateUrl: "./person-edit.component.html"
 })
 
-export class PersonEditComponent implements OnInit, OnDestroy {
+export class PersonEditComponent implements OnInit {
     private id: number;
-    private sub: Subscription;
     public editPersonForm: FormGroup;
-    public item: Person;
+    public photo: string;
     public types: PersonType[];
-    public opened: boolean = false;
+    @Input() public isFull: boolean = true;
+    @Output() public done = new EventEmitter();
 
     constructor(private service: PersonService,
         private route: ActivatedRoute,
         private router: Router,
         private snackBar: MatSnackBar,
         private formBuilder: FormBuilder) {
-        this.item = new Person();
     }
 
     public ngOnInit(): void {
         this.initForm();
-        this.id = +this.route.snapshot.params["id"] || 0;
-        if (this.id > 0) {
-            this.sub = this.service.getSingle(this.id)
-                .subscribe(data => this.parse(data),
-                    e => console.log(e));
+        if (this.isFull) {
+            this.id = +this.route.snapshot.params["id"] || 0;
+            if (this.id > 0) {
+                this.service.getSingle(this.id)
+                    .subscribe(data => this.parse(data),
+                        e => console.log(e));
+            }
         }
 
         this.updateTypes();
-    }
-    public ngOnDestroy(): void {
-        if(this.sub) { this.sub.unsubscribe(); }
     }
 
     public onUpload(event: any): void {
@@ -49,10 +46,10 @@ export class PersonEditComponent implements OnInit, OnDestroy {
         if (file) {
             this.service.updatePhoto(fullname, file)
                 .subscribe((result: any) => {
-                        this.editPersonForm.controls["photo"].patchValue(result.path);
-                        this.item.photo = `${result.path}#${Math.random()}`;
-                        this.snackBar.open("Фото успешно загружено", null, {duration: 5000});
-                    },
+                    this.editPersonForm.controls["photo"].patchValue(result.path);
+                    this.photo = `${result.path}?${Math.random()}`;
+                    this.snackBar.open("Фото успешно загружено", null, { duration: 5000 });
+                },
                 e => {
                     console.log(e);
                     this.snackBar.open("Ошибка при загрузке фото", null, { duration: 5000 });
@@ -65,13 +62,13 @@ export class PersonEditComponent implements OnInit, OnDestroy {
             person.birthday = new Date(person.birthday);
             person.birthday = new Date(person.birthday.setHours(person.birthday.getHours() +
                 (-1) * person.birthday.getTimezoneOffset() / 60));
-        } 
+        }
         if (this.id > 0) {
             this.service.update(this.id, person)
                 .subscribe(data => {
-                        this.snackBar.open("Профиль успешно обновлен", null, { duration: 5000 });
-                        this.router.navigate(["/persons"]);
-                    },
+                    this.snackBar.open("Профиль успешно обновлен", null, { duration: 5000 });
+                    this.router.navigate(["/persons"]);
+                },
                 e => {
                     console.log(e);
                     this.snackBar.open("Ошибка при обновлении профиля", null, { duration: 5000 });
@@ -79,8 +76,12 @@ export class PersonEditComponent implements OnInit, OnDestroy {
         } else {
             this.service.create(person)
                 .subscribe(data => {
-                        this.snackBar.open("Профиль успешно создан", null, { duration: 5000 });
+                    this.snackBar.open("Профиль успешно создан", null, { duration: 5000 });
+                    if (this.isFull) {
                         this.router.navigate(["/persons"]);
+                    } else {
+                        this.done.emit();
+                    }
                     },
                 e => {
                     console.log(e);
@@ -103,7 +104,7 @@ export class PersonEditComponent implements OnInit, OnDestroy {
         this.id = data.id;
         data.birthday = new Date(data.birthday);
         this.editPersonForm.patchValue(data);
-        this.item = data;
+        this.photo = `${data.photo}?${Math.random()}`;
     }
 
     private parseForm(): Person {
@@ -126,11 +127,11 @@ export class PersonEditComponent implements OnInit, OnDestroy {
                     Validators.required, Validators.maxLength(30)
                 ])
             ],
-            position: [""],
+            position: [null],
             country: [null],
             birthday: [null],
             number: [null],
-            photo: [""],
+            photo: [null],
             type: ["", Validators.required]
         });
     }

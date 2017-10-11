@@ -1,19 +1,14 @@
 ﻿import { NgModule } from "@angular/core";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { CommonModule } from "@angular/common";
-import { NgxPaginationModule } from "ngx-pagination";
 import { SharedModule } from "@app/shared";
-import { MatchPersonEditPanelComponent } from "./matchPerson-edit-panel/index";
+import { MatchPersonEditPanelComponent } from "./matchPerson-edit-panel";
 import { MatchPersonService } from "./matchPerson.service";
-import { MatchPersonPanelComponent } from "./matchPerson-panel/index";
+import { MatchPersonPanelComponent } from "./matchPerson-panel";
+import { PersonModule } from "@app/person";
 
 @NgModule({
     imports: [
-        CommonModule,
-        FormsModule,
-        NgxPaginationModule,
-        ReactiveFormsModule,
-        SharedModule
+        SharedModule,
+        PersonModule
     ],
     declarations: [
         MatchPersonEditPanelComponent,

@@ -13,6 +13,7 @@ export class MatchPersonPanelComponent implements OnInit {
     @Input() public matchId: number;
     @Input() public isHome: boolean;
     public isEdit: boolean = false;
+    public isCreation: boolean = false;
     public selectedMatchPerson: MatchPerson;
     public selectedIndex: number;
     public selectedType: number;

@@ -11,43 +11,45 @@
             </mat-option>
         </mat-select>
     </mat-form-field>
-    <mat-form-field class="full-width">
-        <input matInput placeholder="Должность(для персонала)/позиция на поле(для игроков)" formControlName="position">
-    </mat-form-field>
-    <mat-form-field class="full-width">
-        <input matInput placeholder="Имя на английском" formControlName="firstName">
-    </mat-form-field>
-    <mat-form-field class="full-width">
-        <input matInput placeholder="Фамилия на английском" formControlName="lastName">
-    </mat-form-field>
-    <mat-form-field class="full-width">
-        <input matInput placeholder="Номер на футболке" formControlName="number">
-    </mat-form-field>
-    <mat-form-field class="full-width">
-        <input matInput placeholder="Страна рождения" formControlName="country">
-    </mat-form-field>
-    <div class="full-width text-center top20" *ngIf="editPersonForm.get('firstName').value && editPersonForm.get('lastName').value">
-        <div class="col-xs-2">
-            <img class="avatar" *ngIf="item.photo" [src]="item.photo" alt="" />
+    <div class="full-width" *ngIf="isFull">
+        <mat-form-field class="full-width">
+            <input matInput placeholder="Должность(для персонала)/позиция на поле(для игроков)" formControlName="position">
+        </mat-form-field>
+        <mat-form-field class="full-width">
+            <input matInput placeholder="Имя на английском" formControlName="firstName">
+        </mat-form-field>
+        <mat-form-field class="full-width">
+            <input matInput placeholder="Фамилия на английском" formControlName="lastName">
+        </mat-form-field>
+        <mat-form-field class="full-width">
+            <input matInput placeholder="Номер на футболке" formControlName="number">
+        </mat-form-field>
+        <mat-form-field class="full-width">
+            <input matInput placeholder="Страна рождения" formControlName="country">
+        </mat-form-field>
+        <div class="full-width text-center top20" *ngIf="editPersonForm.get('firstName').value && editPersonForm.get('lastName').value">
+            <div class="col-xs-2">
+                <img class="avatar" *ngIf="photo" [src]="photo" alt="" />
+            </div>
+            <div class="col-xs-10">
+                <button mat-raised-button type="button">
+                    <label for="update-input">
+                        Загрузить фото
+                    </label>
+                </button>
+                <input type="file"
+                       accept="image/*"
+                       class="hidden"
+                       (change)="onUpload($event)"
+                       id="update-input" />
+            </div>
         </div>
-        <div class="col-xs-10">
-            <button mat-raised-button type="button">
-                <label for="update-input">
-                    Загрузить фото
-                </label>
-            </button>
-            <input type="file"
-                   accept="image/*"
-                   class="hidden"
-                   (change)="onUpload($event)"
-                   id="update-input" />
-        </div>
+        <mat-form-field class="full-width">
+            <input matInput [matDatepicker]="datePicker" placeholder="Выберите дату рождения" formControlName="birthday">
+            <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
+            <mat-datepicker #datePicker startView="year" touchUi="true"></mat-datepicker>
+        </mat-form-field>
     </div>
-    <mat-form-field class="full-width">
-        <input matInput [matDatepicker]="datePicker" placeholder="Выберите дату рождения" formControlName="birthday">
-        <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
-        <mat-datepicker #datePicker startView="year" touchUi="true"></mat-datepicker>
-    </mat-form-field>
     <div class="full-width text-center">
         <button mat-raised-button color="warn" type="submit" [disabled]="!editPersonForm.valid">Сохранить</button>
     </div>
