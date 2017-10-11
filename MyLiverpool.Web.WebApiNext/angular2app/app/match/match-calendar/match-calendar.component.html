@@ -1,7 +1,6 @@
 ﻿<section class="flex">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 bg-primary flex padding0 border-panel border-lgray match-calendar" *ngIf="next">
         <div class="col-xs-12 col-md-5">Следующая игра 
-            <a *ngIf="roles.isInformer" [routerLink]="['/matches', next.id]"><span class="glyphicon glyphicon-cog color-red"></span></a>
             <a *ngIf="roles.isInformer" [routerLink]="['/matches', next.id, 'edit']"><span class="glyphicon glyphicon-pencil color-red"></span></a>
         </div>
         <div class="col-xs-12 col-md-7"><b style="font-size: 1.2em;" class="pull-right" [textContent]="next.dateTime | customDate:false:true"></b></div>
@@ -16,11 +15,11 @@
             <img [src]="next.awayClubLogo" class="center" [alt]="next.awayClubName" [title]="next.awayClubName">
             <strong style="font-size: 1.2em;" class="text-center" [textContent]="next.awayClubName"></strong>
         </div>
-        <div class="col-xs-12 text-center"><a class="text-white" [routerLink]="['/seasons/calendar']">Календарь</a></div>
+        <div class="col-xs-12 text-center"><a class="text-white" [routerLink]="['/seasons/calendar']">Календарь</a>
+            <a class="text-white" [routerLink]="['matches', next.id]">Обсуждение</a></div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 bg-light-blue flex padding0 border-panel border-lgray match-calendar" *ngIf="last">
         <div class="col-xs-12 col-sm-12 col-md-5">Последняя игра 
-            <a *ngIf="roles.isInformer" [routerLink]="['/matches', last.id]"><span class="glyphicon glyphicon-cog color-red"></span></a>
             <a *ngIf="roles.isInformer" [routerLink]="['/matches', last.id, 'edit']"><span class="glyphicon glyphicon-pencil color-red"></span></a>
         </div><!--todo add back color for win|drar|lost-->
         <div class="col-xs-12 col-sm-12 col-md-7">

@@ -1,5 +1,8 @@
-﻿import { Component, OnInit } from "@angular/core";
+﻿import { Component, OnInit, OnDestroy } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
+import { BehaviorSubject } from "rxjs/BehaviorSubject";
+import { Subscription } from "rxjs/Subscription";
+import { Observable } from "rxjs/Observable";
 import { MatchService } from "../match.service";
 import { Match } from "../match.model";
 import { RolesCheckedService } from "@app/shared";
@@ -8,44 +11,53 @@ import { RolesCheckedService } from "@app/shared";
     selector: "match-detail",
     templateUrl: "./match-detail.component.html"
 })
-
-export class MatchDetailComponent implements OnInit {
+export class MatchDetailComponent implements OnInit, OnDestroy {
+    private sub$: Subscription;
     public item: Match;
+    public countDown$: BehaviorSubject<string>;
 
-    constructor(private matchService: MatchService,    
+    constructor(private matchService: MatchService,
         public roles: RolesCheckedService,
         private route: ActivatedRoute) {
     }
 
     public ngOnInit(): void {
         const id = this.route.snapshot.params["id"];
-        if(id) {
+        if (id) {
             this.matchService.getSingle(id)
-                .subscribe(data => this.item = data,
+                .subscribe(data => {
+                        this.item = data;
+                        if (!data.scoreHome) {
+                            this.countDown$ =
+                                new BehaviorSubject<string>(this.updateTimeRemaining(this.item.dateTime));
+                            this.sub$ = Observable.interval(1000)
+                                .map(() => this.countDown$.next(this.updateTimeRemaining(this.item.dateTime)))
+                                .subscribe();
+
+                        }
+                    },
                     e => console.log(e));
         };
+    }
+
+    public ngOnDestroy(): void {
+        if (this.sub$) this.sub$.unsubscribe();
     }
 
     public pin(id?: number): void {
         this.matchService.pin(id).subscribe(data => data, e => console.log(e));
     }
 
-    private getTimeRemaining(endtime: Date): Counter {
-        let t = Date.parse(endtime.toLocaleString()) - Date.parse(new Date().toLocaleString());
-        var seconds = Math.floor((t / 1000) % 60);
-        var minutes = Math.floor((t / 1000 / 60) % 60);
-        var hours = Math.floor((t / (1000 * 60 * 60)) % 24);
-        var days = Math.floor(t / (1000 * 60 * 60 * 24));
-        return {
-            'total': t,
-            'days': days,
-            'hours': hours,
-            'minutes': minutes,
-            'seconds': seconds
-        };
+    private updateTimeRemaining(endtime: Date): string {
+        const t = Date.parse(endtime.toString()) - Date.parse(new Date().toString());
+        const seconds = Math.floor((t / 1000) % 60);
+        const minutes = Math.floor((t / 1000 / 60) % 60);
+        const hours = Math.floor((t / (1000 * 60 * 60)) % 24);
+        const days = Math.floor(t / (1000 * 60 * 60 * 24));
+        if (t < 0) {
+            this.sub$.unsubscribe();
+            return "Матч начался!";
+        }
+        return `${days}д:${hours}ч:${minutes}м:${seconds}с`;
     }
-}
-
-export class Counter {
-
 }
