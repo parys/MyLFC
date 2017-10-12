@@ -7,6 +7,7 @@ using MyLiverpool.Data.Common;
 
 namespace MyLiverpool.Web.WebApiNext.Areas.Lite.Controllers
 {
+    /// <inheritdoc />
     /// <summary>
     /// Home controller.
     /// </summary>

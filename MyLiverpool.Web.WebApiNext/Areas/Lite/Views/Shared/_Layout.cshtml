@@ -11,7 +11,9 @@
     <base href="/" />
     <link rel="shortcut icon" type="image/x-icon" href="~/favicon.ico" />
     <link rel="stylesheet" href="~/src/vendor.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lite/styles.css" asp-append-version="true" />
+    <script async src="~/lite/material.umd.min.js" asp-append-version="true"></script>
+    @*<script async src="~/l" href="~/styles.css" asp-append-version="true" ></script>*@
     <style>
         .async-hide {
             opacity: 0 !important
@@ -35,7 +37,7 @@
             <ul class="nav navbar-nav flex-vertical-center flex-space-around" style="font-size: large; width: 100%;">
                 <!--<li><a [routerLink]="['/']" style="color: aliceblue; font-weight: bold;">My<span style="color: yellow;">LFC</span>.ru</a></li>-->
                 <li>
-                    <a role="button" [routerLink]="['/news', 0]" style="display: inline;">
+                    <a role="button" href="@Url.Action("Index", "Home")" style="display: inline;">
                         <img src="/content/logo34.png" style="max-width: 310px; margin: 0 -15px;" alt="MyLFC.ru"/>
                     </a>
                 </li>

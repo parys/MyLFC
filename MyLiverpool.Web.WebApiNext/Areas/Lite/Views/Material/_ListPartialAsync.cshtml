@@ -9,7 +9,7 @@
     @*<match-header></match-header>*@
     @foreach (var item in @Model.List)
     {
-        @if (!item.Pending || User.IsInRole(nameof(RolesEnum.NewsStart)) || User.IsInRole(nameof(RolesEnum.BlogStart)) @*todo || User?.GetUserId() == item.UserId *@)
+        if(!item.Pending || User.IsInRole(nameof(RolesEnum.NewsStart)) || User.IsInRole(nameof(RolesEnum.BlogStart)) @*todo || User?.GetUserId() == item.UserId *@)
          {
              <div class="padding10">
                  <div class="row flex border-left-maroon" [class.material-pending]="item.pending">
@@ -46,7 +46,6 @@
                                         }" [textContent]="item.categoryName"></a>
                                  @item.CategoryName
                              </li>
-                             <!--todo!!, userId: userId-->
                              <li class="">|</li>
                              <li class="">Время добавления:</li>
                              <li class="">@item.AdditionTime.ToString("G")</li>
@@ -55,7 +54,7 @@
                              <li class="">@item.Reads</li>
                              <li class="">|</li>
                              <li class="">Автор:</li>
-                             <li class=""><a [routerLink]="['/users', item.userId ]">@item.UserName</a></li>
+                             <li class=""><a href="@Url.Action("Detail", "User", new { id=item.UserId})">@item.UserName</a></li>
                              @if (item.CanCommentary)
                              {
                                  <li class="">| Комментарии: @item.CommentsCount</li>

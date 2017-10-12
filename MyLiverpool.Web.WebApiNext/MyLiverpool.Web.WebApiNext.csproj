@@ -67,7 +67,7 @@
     <PackageReference Include="Microsoft.AspNetCore.ResponseCompression" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Server.IISIntegration" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel" Version="2.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.0.0-alpha1-final" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.0.0-alpha2-final" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.0.0" />
@@ -80,7 +80,7 @@
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.0" />
-    <PackageReference Include="OpenIddict.Mvc" Version="2.0.0-rc1-0719" />
+    <PackageReference Include="OpenIddict.Mvc" Version="2.0.0-rc1-0734" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="1.0.0" />
   </ItemGroup>
 
@@ -109,10 +109,11 @@
     <Folder Include="Areas\Lite\Data\" />
     <Folder Include="Areas\Lite\Models\" />
     <Folder Include="wwwroot\content\" />
+    <Folder Include="wwwroot\NewFolder\" />
   </ItemGroup>
         
   <ItemGroup>
-    <None Include="wwwroot\styles.css" />
+    <None Include="wwwroot\lite\styles.css" />
   </ItemGroup>
         
   <ProjectExtensions><VisualStudio><UserProperties package_1json__JSONSchema="http://json.schemastore.org/resjson" /></VisualStudio></ProjectExtensions>

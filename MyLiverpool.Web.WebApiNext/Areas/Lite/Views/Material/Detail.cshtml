@@ -30,7 +30,7 @@
             }
             <li><label>Дата добавления:</label> @Model.AdditionTime.ToString("G")</li>
             <li><label>Категория:</label> <a [routerLink]="['/' + item.typeName]" [queryParams]="{page: 1, categoryId: item.categoryId}"> @Model.CategoryName</a></li>
-            <li><label>Автор:</label> <a [routerLink]="['/users', item.userId ]">@Model.UserName</a></li>
+            <li><label>Автор:</label> <a href="@Url.Action("Detail", "User", new { id = Model.UserId})">@Model.UserName</a></li>
         </ul>
     </div>
 </div>
