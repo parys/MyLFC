@@ -11,7 +11,7 @@ namespace MyLiverpool.Business.Dto
       
         public string CategoryName { get; set; }
 
-        public DateTimeOffset? AdditionTime { get; set; }
+        public DateTimeOffset AdditionTime { get; set; }
 
         public int CommentsCount { get; set; }
 

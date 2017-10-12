@@ -10,7 +10,6 @@
                         <h3 class="beauty-font" [textContent]="item.title"></h3>
                     </a>
                     <span class="pull-right">
-                        <span *ngIf="item.pending && !roles.isEditor" class="glyphicon glyphicon-ok"></span>
                         <span *ngIf="roles.isEditor || roles.isSelf(item.userId)">
                             <a role="button" *ngIf="item.pending && roles.isEditor" (click)="showActivateModal(i)"><span class="glyphicon glyphicon-ok"></span></a>
                             <a [routerLink]="['/', item.typeName, item.id, 'edit']"><span class="glyphicon glyphicon-pencil"></span></a>

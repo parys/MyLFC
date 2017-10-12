@@ -12,6 +12,8 @@ using MyLiverpool.Business.Dto.Filters;
 using MyLiverpool.Common.Utilities;
 using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
+using MyLiverpool.Data.Entities;
+using MyLiverpool.Web.WebApiNext.Extensions;
 using Newtonsoft.Json;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
@@ -25,8 +27,6 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         private readonly IMaterialService _materialService;
         private readonly ILogger<MaterialController> _logger;
         private readonly IMemoryCache _cache;
-        private const string Material = "Material";
-        private const string MaterialList = "MaterialList";
 
         /// <summary>
         /// Constructor.
@@ -63,7 +63,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             PageableData<MaterialMiniDto> result;
             if (filters.Page == 1 && !filters.IsInNewsmakerRole && filters.MaterialType == MaterialType.Both)
             {
-                result = await _cache.GetOrCreateAsync(MaterialList, async x =>
+                result = await _cache.GetOrCreateAsync(CacheKeysConstants.MaterialList, async x =>
                     await _materialService.GetDtoAllAsync(filters));
             }
             else
@@ -82,7 +82,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         public async Task<IActionResult> GetItem(int id)
         {
             var hasAccess = User != null && (User.IsInRole(nameof(RolesEnum.NewsStart)) || User.IsInRole(nameof(RolesEnum.BlogStart)));
-            var model = await _cache.GetOrCreateAsync(Material+ id, async x => await _materialService.GetDtoAsync(id, hasAccess));
+            var model = await _cache.GetOrCreateAsync(CacheKeysConstants.Material + id, async x => await _materialService.GetDtoAsync(id, hasAccess));
             if (model.Pending)
             {
                 if((model.Type == MaterialType.News || User.GetUserId() != model.UserId) &&
@@ -117,7 +117,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         {
             var result = await _materialService.ActivateAsync(id, User);
             CleanCache();
-            _cache.Remove(Material + id);
+            _cache.Remove(CacheKeysConstants.Material + id);
             return Ok(result);
         }
 
@@ -174,7 +174,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 model.Pending = true;
             }
             var result = await _materialService.EditAsync(model);
-            _cache.Set(Material + id, result);
+            _cache.Set(CacheKeysConstants.Material + id, result);
             CleanCache();
             return Ok(result);
         }
@@ -189,7 +189,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         {
             await _materialService.AddViewAsync(id);
             CleanCache();
-            _cache.Remove(Material + id);
+            _cache.Remove(CacheKeysConstants.Material + id);
             return Json(true);
         }
 
@@ -216,7 +216,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
 
         private void CleanCache()
         {
-            _cache.Remove(MaterialList);
+            _cache.Remove(CacheKeysConstants.MaterialList);
           //  _cache.Remove(GetBasicMaterialFilters(true).ToString());
         }
     }

@@ -49,7 +49,7 @@ namespace MyLiverpool.Common.Mappings
                 .ForMember(dest => dest.Title, src => src.MapFrom(x => x.Title));
 
             CreateMap<MaterialDto, Material>()
-                .ForMember(dest => dest.AdditionTime, src => src.MapFrom(x => x.AdditionTime.Value))
+                .ForMember(dest => dest.AdditionTime, src => src.MapFrom(x => x.AdditionTime))
                 .ForMember(dest => dest.AuthorId, src => src.MapFrom(x => x.UserId))
                 .ForMember(dest => dest.Brief, src => src.MapFrom(x => x.Brief))
                 .ForMember(dest => dest.CanCommentary, src => src.MapFrom(x => x.CanCommentary))

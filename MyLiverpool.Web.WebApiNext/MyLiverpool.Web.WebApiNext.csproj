@@ -106,7 +106,13 @@
   </ItemGroup>
         
   <ItemGroup>
+    <Folder Include="Areas\Lite\Data\" />
+    <Folder Include="Areas\Lite\Models\" />
     <Folder Include="wwwroot\content\" />
+  </ItemGroup>
+        
+  <ItemGroup>
+    <None Include="wwwroot\styles.css" />
   </ItemGroup>
         
   <ProjectExtensions><VisualStudio><UserProperties package_1json__JSONSchema="http://json.schemastore.org/resjson" /></VisualStudio></ProjectExtensions>

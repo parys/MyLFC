@@ -17,5 +17,10 @@
         /// Key name of notification.
         /// </summary>
         public const string NotificationUserId = "notificationForUser";
+
+
+        public const string Material = "Material";
+
+        public const string MaterialList = "MaterialList";
     }
 }
