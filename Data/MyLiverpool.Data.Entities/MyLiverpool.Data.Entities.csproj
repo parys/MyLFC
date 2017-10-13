@@ -17,6 +17,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.0.0" />
     <PackageReference Include="OpenIddict" Version="2.0.0-rc1-0734" />
     <PackageReference Include="OpenIddict.EntityFrameworkCore" Version="2.0.0-rc1-0734" />
+    <PackageReference Include="OpenIddict.Mvc" Version="2.0.0-rc1-0734" />
   </ItemGroup>
 
 </Project>

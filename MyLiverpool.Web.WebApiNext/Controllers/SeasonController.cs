@@ -33,7 +33,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// Returns seasons list.
         /// </summary>
         /// <returns>List with seasons.</returns>
-        [AllowAnonymous, Route("list")]
+        [AllowAnonymous, HttpGet("list")]
         public async Task<IActionResult> GetListAsync()
         {
             var result = await _seasonService.GetListAsync();

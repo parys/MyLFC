@@ -71,7 +71,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                     });
                 }
 
-                var result = await _signInManager.CheckPasswordSignInAsync(user, request.Password, true);
+                var result = await _signInManager.CheckPasswordSignInAsync(user, request.Password, false);
                 if (!result.Succeeded)
                 {
                     if (result.IsLockedOut)
@@ -236,14 +236,14 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
 
             foreach (var claim in principal.Claims)
             {
-                var destinations = new List<string>
-                {
-                    OpenIdConnectConstants.Destinations.AccessToken
-                };
                 if (claim.Type == _identityOptions.Value.ClaimsIdentity.SecurityStampClaimType)
                 {
                     continue;
                 }
+                var destinations = new List<string>
+                {
+                    OpenIdConnectConstants.Destinations.AccessToken
+                };
 
                 // Only add the iterated claim to the id_token if the corresponding scope was granted to the client application.
                 // The other claims will only be added to the access_token, which is encrypted when using the default format.
@@ -258,7 +258,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             }
 
             ticket.Properties.AllowRefresh = true;
-            var roles = principal.Claims.Where(c => c.Type == ClaimTypes.Role).ToList();
+         //   var roles = principal.Claims.Where(c => c.Type == ClaimTypes.Role).ToList();
        //     ticket.Properties.Items.Add(new KeyValuePair<string, string>("roles", string.Join(", ", roles.Select(r => r.Value))));
             //  ticket.Properties.ExpiresUtc = DateTimeOffset.Now.AddDays(14);
             //  ticket.Properties.IsPersistent = false;

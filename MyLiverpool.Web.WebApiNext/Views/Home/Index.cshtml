@@ -1,14 +1,15 @@
 ﻿@*<app asp-prerender-module="angular2app/dist/main-server">Загружаемся...</app>*@
 <app>Загружаемся...</app>
+Если загрузка не происходит,<a href="~/lite"> здесь </a> есть сильно облегченная версия сайта
 @*<div> К сожалению в данный момент могут наблюдаться проблемы в Internet explorer, cnf </div>*@
 @section scripts {
-    <script type="text/javascript">
+    @*<script type="text/javascript">
             if (/MSIE \d|Trident.*rv:/.test(navigator.userAgent)) {
                 document.write('<script src="./src/usp.js"><\/script>');
                 document.write('<script src="./src/core.min.js"><\/script>');
                 document.write('<script src="//cdn.jsdelivr.net/npm/classlist.js@1.1.20150312/classList.min.js"><\/script>');
             }
-        </script>
+        </script>*@
     @*<script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Intl.~locale.en,Intl.~locale.ru"></script>*@
    <script src="/src/incl.js"></script>
     <environment names="Development">
