@@ -104,6 +104,10 @@ namespace MyLiverpool.Business.Services
                 return null;
             }
             var match = await _matchRepository.GetByIdAsync(id);
+            if (match == null)
+            {
+                return null;
+            }
             var dto = _mapper.Map<MatchDto>(match);
             var clubDto = _mapper.Map<ClubDto>(match.Club);
             if (match.IsHome)

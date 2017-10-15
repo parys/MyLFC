@@ -36,7 +36,7 @@
                          <img class="img-thumbnail news-mini center-block" alt="@item.Title" src="@item.Photo"/>
                      </div>
                      <div class="col-xs-6 col-sm-12 col-md-12 col-lg-6 flex-vertical-center">
-                         <i class="">@item.Brief</i>
+                         <i class="">@Html.Raw(item.Brief)</i>
                      </div>
                      <div class="col-xs-12 col-sm-12 material-info-panel">
                          <ul class="list-inline small small-offset">

@@ -25,6 +25,10 @@ namespace MyLiverpool.Web.WebApiNext.Areas.Lite.Controllers
         public async Task<IActionResult> Detail(int id)
         {
             var match = await _matchService.GetByIdAsync(id); //todo add caching for match
+            if (match == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             return View(match);
         }
     }

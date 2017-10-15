@@ -10,11 +10,11 @@
         {
             <div class="text-center">
                 Помощники судьи: 
-                @for (var i = 0; i <= Model.AssistantRef.Count(); i++)
+                @for (var i = 0; i < Model.AssistantRef.Count(); i++)
                 {
-                    <span *ngFor="let ref of assistantRef; let last = last;">
+                    <span>
                         @Model.AssistantRef.ElementAt(i).PersonName
-                    @if (i != Model.AssistantRef.Count())
+                    @if (i < Model.AssistantRef.Count() - 1)
                     {
                         <span *ngIf="!last">, </span>
                     }
@@ -26,11 +26,11 @@
         {
             <div class="text-center">
                 Дополнительные судьи: 
-                @for (var i = 0; i <= Model.AdditionalRef.Count(); i++)
+                @for (var i = 0; i < Model.AdditionalRef.Count(); i++)
                 {
                     <span *ngFor="let ref of assistantRef; let last = last;">
                         @Model.AdditionalRef.ElementAt(i).PersonName
-                    @if (i != Model.AdditionalRef.Count())
+                    @if (i < Model.AdditionalRef.Count() - 1)
                     {
                         <span *ngIf="!last">, </span>
                     }
