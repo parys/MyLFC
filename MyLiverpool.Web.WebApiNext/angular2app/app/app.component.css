@@ -25,6 +25,10 @@
     width: 200px;
 }
 
+.flex-center-h {
+    justify-content: center;
+}
+
 a:hover {
     text-decoration: none;
     color: red;

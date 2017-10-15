@@ -4,11 +4,11 @@ using MyLiverpool.Data.Common;
 
 namespace MyLiverpool.Business.Dto
 {
-    public class MaterialCommentDto : IDto
+    public class CommentDto : IDto
     {
-        public MaterialCommentDto()
+        public CommentDto()
         {
-            Children = new HashSet<MaterialCommentDto>();
+            Children = new HashSet<CommentDto>();
         }
 
         public int Id { get; set; }
@@ -34,7 +34,7 @@ namespace MyLiverpool.Business.Dto
 
         public int? ParentId { get; set; }
 
-        public virtual ICollection<MaterialCommentDto> Children { get; set; }
+        public virtual ICollection<CommentDto> Children { get; set; }
 
         public bool IsVerified { get; set; }
 

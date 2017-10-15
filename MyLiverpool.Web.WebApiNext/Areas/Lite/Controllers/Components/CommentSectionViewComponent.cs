@@ -1,9 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MyLiverpool.Business.Contracts;
+using MyLiverpool.Business.Dto;
+using MyLiverpool.Common.Utilities;
 
 namespace MyLiverpool.Web.WebApiNext.Areas.Lite.Controllers.Components
 {
+    [ViewComponent(Name = "CommentSection")]
     public class CommentSectionViewComponent : ViewComponent
     {
         private readonly IMaterialCommentService _commentService;
@@ -13,11 +18,15 @@ namespace MyLiverpool.Web.WebApiNext.Areas.Lite.Controllers.Components
             _commentService = commentService;
         }
 
-        public IViewComponentResult InvokeAsync(int? materialId = null, int? matchId = null)
+        public async Task<IViewComponentResult> InvokeAsync(int? materialId = null, int? matchId = null)
         {
-         //   var result = await _commentService.GetListByMaterialIdAsync(id, page);
-          //  var result = await _commentService.GetListByMatchIdAsync(id, page);
-            return View();
+            PageableData<CommentDto> result = null;
+            if (materialId.HasValue) {
+                result = await _commentService.GetListByMaterialIdAsync(materialId.Value, 1);
+            } else if (matchId.HasValue) {
+                 result = await _commentService.GetListByMatchIdAsync(matchId.Value, 1);
+            }
+            return View(result);
         }
     }
 }

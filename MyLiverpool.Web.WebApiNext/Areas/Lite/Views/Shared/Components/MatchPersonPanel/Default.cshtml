@@ -1,0 +1,179 @@
+﻿@model MatchPersonPanelVm
+
+<div class="col-xs-12 container-row">
+    <div class="col-xs-12 container-row">
+        <div class="text-center">
+            Главный судья: @Model.MainRef?.PersonName
+            @*<span *ngIf="roles.isInformer && !mainRef" role="button" (click)="addMatchPerson(7)"><mat-icon>add</mat-icon></span>*@
+        </div>
+        @if (Model.AssistantRef.Any())
+        {
+            <div class="text-center">
+                Помощники судьи: 
+                @for (var i = 0; i <= Model.AssistantRef.Count(); i++)
+                {
+                    <span *ngFor="let ref of assistantRef; let last = last;">
+                        @Model.AssistantRef.ElementAt(i).PersonName
+                    @if (i != Model.AssistantRef.Count())
+                    {
+                        <span *ngIf="!last">, </span>
+                    }
+                </span>
+                }
+            </div>
+        }
+        @if (Model.AdditionalRef.Any())
+        {
+            <div class="text-center">
+                Дополнительные судьи: 
+                @for (var i = 0; i <= Model.AdditionalRef.Count(); i++)
+                {
+                    <span *ngFor="let ref of assistantRef; let last = last;">
+                        @Model.AdditionalRef.ElementAt(i).PersonName
+                    @if (i != Model.AdditionalRef.Count())
+                    {
+                        <span *ngIf="!last">, </span>
+                    }
+                </span>
+                }
+            </div>
+        }
+        @if (Model.FourthRef != null)
+        {
+            <div class="text-center">Резервный судья: @Model.FourthRef.PersonName</div>
+        }
+        <div class="col-xs-6 container-row">
+            <i class="col-xs-12 container-row top10">
+                Главный тренер:
+                @*<span *ngIf="roles.isInformer && !homeCoach" role="button" (click)="addMatchPerson(isHome ? 5 : 6)"><mat-icon>add</mat-icon></span>*@
+            </i>
+            <div class="col-xs-12 container-row">@Model.HomeCoach?.PersonName</div>
+            <i class="col-xs-12 container-row top10">
+                Состав:
+                @*<span *ngIf="roles.isInformer && homeTeam.length < 11" role="button" (click)="addMatchPerson(isHome ? 1 : 3)"><mat-icon>add</mat-icon></span>*@
+            </i>
+            @foreach (var person in Model.HomeTeam)
+            {
+                <div class="col-xs-12 container-row">
+                    @person.Number - @person.PersonName
+                    @*<span *ngIf="roles.isInformer" role="button" (click)="selectMatchPerson(person)" class="glyphicon glyphicon-pencil"></span>
+                        <span *ngIf="roles.isInformer" role="button" (click)="showDeleteModal(person)" class="glyphicon glyphicon-trash"></span>*@
+                </div>
+            }
+            <i class="col-xs-12 container-row top10">
+                Запасные:
+                @*<span *ngIf="roles.isInformer && homeBench.length < 7" role="button" (click)="addMatchPerson(isHome ? 2 : 4)"><mat-icon>add</mat-icon></span>*@
+            </i>
+            @foreach (var person in Model.HomeBench)
+            {
+                <div class="col-xs-12 container-row">
+                    @person.Number - @person.PersonName
+                    @*<span *ngIf="roles.isInformer" role="button" (click)="selectMatchPerson(person)" class="glyphicon glyphicon-pencil"></span>
+                        <span *ngIf="roles.isInformer" role="button" (click)="showDeleteModal(person)" class="glyphicon glyphicon-trash"></span>*@
+                </div>
+            }
+            @if (Model.HomeBan.Any())
+            {
+                <div class="col-xs-12 container-row top10">
+                    <i class="col-xs-12 container-row">Дисквалифицированы:</i>
+                    @foreach (var person in Model.HomeBench)
+                    {
+                        <div class="col-xs-12 container-row">
+                            @person.Number - @person.PersonName
+                            @*<mat-icon *ngIf="roles.isInformer" role="button" (click)="selectMatchPerson(person)">create</mat-icon>
+                                <span *ngIf="roles.isInformer" role="button" (click)="showDeleteModal(person)" class="glyphicon glyphicon-trash"></span>*@
+                        </div>
+                    }
+                </div>
+            }
+            @if (Model.HomeInjury.Any())
+            {
+                <div class="col-xs-12 container-row top10">
+                    <i class="col-xs-12 container-row">Травмированы:</i>
+                    @foreach (var person in Model.HomeInjury)
+                    {
+                        <div class="col-xs-12 container-row">
+                            @person.Number - @person.PersonName
+                            @*<span *ngIf="roles.isInformer" role="button" (click)="selectMatchPerson(person)" class="glyphicon glyphicon-pencil"></span>
+                                <span *ngIf="roles.isInformer" role="button" (click)="showDeleteModal(person)" class="glyphicon glyphicon-trash"></span>*@
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+        <div class="col-xs-6 container-row text-right">
+            <i class="col-xs-12 container-row top10">
+                Главный тренер:
+                @*<span *ngIf="roles.isInformer && !awayCoach" role="button" (click)="addMatchPerson(isHome ? 6 : 5)"><mat-icon>add</mat-icon></span>*@
+            </i>
+            <div class="col-xs-12 container-row" [textContent]="awayCoach?.personName">@Model.AwayCoach?.PersonName</div>
+            <i class="col-xs-12 container-row top10">
+                Состав:
+                @*<span *ngIf="roles.isInformer && awayTeam.length < 11" role="button" (click)="addMatchPerson(isHome ? 3 : 1)"><mat-icon>add</mat-icon></span>*@
+            </i>
+
+            @foreach (var person in Model.AwayTeam)
+            {
+                <div class="col-xs-12 container-row">
+                    @person.Number - @person.PersonName
+                    @*<span *ngIf="roles.isInformer" role="button" (click)="selectMatchPerson(person)" class="glyphicon glyphicon-pencil"></span>
+                        <span *ngIf="roles.isInformer" role="button" (click)="showDeleteModal(person)" class="glyphicon glyphicon-trash"></span>*@
+                </div>
+            }
+            <i class="col-xs-12 container-row top10">
+                Запасные:
+                @*<span *ngIf="roles.isInformer && awayBench.length < 7" role="button" (click)="addMatchPerson(isHome ? 4 : 2)"><mat-icon>add</mat-icon></span>*@
+            </i>
+            @foreach (var person in Model.AwayBench)
+            {
+                <div class="col-xs-12 container-row">
+                    @person.Number - @person.PersonName
+                    @*<span *ngIf="roles.isInformer" role="button" (click)="selectMatchPerson(person)" class="glyphicon glyphicon-pencil"></span>
+                        <span *ngIf="roles.isInformer" role="button" (click)="showDeleteModal(person)" class="glyphicon glyphicon-trash"></span>*@
+                </div>
+            }
+            @if (Model.AwayBan.Any())
+            {
+                <div class="col-xs-12 container-row top10" *ngIf="awayBan.length > 0">
+                    <i class="col-xs-12 container-row">Дисквалифицированы:</i>
+                    @foreach (var person in Model.AwayBan)
+                {
+                        <div class="col-xs-12 container-row">
+                            @person.Number - @person.PersonName
+                            @*<span *ngIf="roles.isInformer" role="button" (click)="selectMatchPerson(person)" class="glyphicon glyphicon-pencil"></span>
+                                <span *ngIf="roles.isInformer" role="button" (click)="showDeleteModal(person)" class="glyphicon glyphicon-trash"></span>*@
+                        </div>
+                    }
+                </div>
+            }
+            @if (Model.AwayInjury.Any())
+            {
+                <div class="col-xs-12 container-row top10" *ngIf="awayInjury.length > 0">
+                    <i class="col-xs-12 container-row">Травмированы:</i>
+                    @foreach (var person in Model.AwayInjury)
+                {
+                        <div class="col-xs-12 container-row">
+                            @person.Number - @person.PersonName
+                            @*<span *ngIf="roles.isInformer" role="button" (click)="selectMatchPerson(person)" class="glyphicon glyphicon-pencil"></span>
+                                <span *ngIf="roles.isInformer" role="button" (click)="showDeleteModal(person)" class="glyphicon glyphicon-trash"></span>*@
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</div>
+@*<div *ngIf="roles.isInformer" class="col-xs-12">
+        <button mat-raised-button color="warn" (click)="addMatchPerson()" *ngIf="!isEdit">Добавить человека</button>
+        <button mat-raised-button (click)="cancelMatchPersonEdit()" *ngIf="isEdit">Отменить редактирование</button>
+        <div class="full-width top20" *ngIf="isEdit">
+            <matchPerson-edit-panel [matchId]="matchId" [selectedMatchPerson]="selectedMatchPerson" [typeId]="selectedType" (matchPerson)="updateMatchPerson($event)"></matchPerson-edit-panel>
+        </div>
+    </div>*@
+@*<div *ngIf="roles.isInformer" class="col-xs-12">
+        <button mat-raised-button color="primary" (click)="isCreation = true" *ngIf="!isCreation">Создать человека</button>
+        <button mat-raised-button (click)="isCreation = false" *ngIf="isCreation">Отменить создание</button>
+        <div class="full-width top20" *ngIf="isCreation">
+            <person-edit [isFull]="false" (done)="isCreation = false"></person-edit>
+        </div>
+    </div>*@

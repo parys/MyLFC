@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using MyLiverpool.Common.Mappings.Vm;
 
 namespace MyLiverpool.Common.Mappings
 {
@@ -28,6 +29,10 @@ namespace MyLiverpool.Common.Mappings
             cfg.AddProfile(new TransferMapperProfile());
             cfg.AddProfile(new UserMapperProfile());
             cfg.AddProfile(new WishMapperProfile());
+
+
+
+            cfg.AddProfile(new CommentVmMapperProfile());
         });
     }
 }

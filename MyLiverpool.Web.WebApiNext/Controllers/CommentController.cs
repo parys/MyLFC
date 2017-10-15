@@ -119,7 +119,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <param name="dto">New comment model.</param>
         /// <returns>Result of creation.</returns>
         [Authorize, HttpPost("")]
-        public async Task<IActionResult> CreateAsync([FromBody] MaterialCommentDto dto)
+        public async Task<IActionResult> CreateAsync([FromBody] CommentDto dto)
         {
             dto.IsVerified = IsSiteTeamMember();
             dto.AuthorId = User.GetUserId();
@@ -154,7 +154,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <param name="dto">Comment.</param>
         /// <returns>Result of update.</returns>
         [Authorize, HttpPut("{id:int}")]
-        public async Task<IActionResult> UpdateAsync(int id, [FromBody] MaterialCommentDto dto)
+        public async Task<IActionResult> UpdateAsync(int id, [FromBody] CommentDto dto)
         {
             if (id != dto.Id || !ModelState.IsValid)
             {

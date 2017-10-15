@@ -56,14 +56,14 @@ namespace MyLiverpool.Business.Services
             return true;
         }
 
-        public async Task<MaterialCommentDto> AddAsync(MaterialCommentDto model)
+        public async Task<CommentDto> AddAsync(CommentDto model)
         {
             var comment = _mapper.Map<MaterialComment>(model);
             comment.AdditionTime = comment.LastModified = DateTime.Now;
             try
             {
                 comment = await _commentService.AddAsync(comment);
-                var result = _mapper.Map<MaterialCommentDto>(comment);
+                var result = _mapper.Map<CommentDto>(comment);
                 result.AuthorUserName = await _userService.GetUsernameAsync(comment.AuthorId);
                 result.Photo = await _userService.GetPhotoPathAsync(comment.AuthorId);
                 if (comment.ParentId.HasValue)
@@ -78,7 +78,7 @@ namespace MyLiverpool.Business.Services
             }
         }
 
-        public async Task<bool> UpdateAsync(MaterialCommentDto model)
+        public async Task<bool> UpdateAsync(CommentDto model)
         {
             var comment = await _commentService.GetByIdAsync(model.Id);
             if (comment == null)
@@ -100,7 +100,7 @@ namespace MyLiverpool.Business.Services
             return true;
         }
 
-        public async Task<PageableData<MaterialCommentDto>> GetListAsync(MaterialCommentFiltersDto filters)
+        public async Task<PageableData<CommentDto>> GetListAsync(MaterialCommentFiltersDto filters)
         {
             Expression<Func<MaterialComment, bool>> filter = x => true;
             if (filters.OnlyUnverified)
@@ -114,35 +114,35 @@ namespace MyLiverpool.Business.Services
             var comments = await _commentService.GetOrderedByAsync(filters.Page, filters.ItemsPerPage, filter, SortOrder.Descending, m => m.AdditionTime);
 
             UpdateCurrentUserField(comments);
-            var commentDtos = _mapper.Map<IEnumerable<MaterialCommentDto>>(comments);
+            var commentDtos = _mapper.Map<IEnumerable<CommentDto>>(comments);
             var commentsCount = await _commentService.GetCountAsync(filter);
-            return new PageableData<MaterialCommentDto>(commentDtos, filters.Page, commentsCount, filters.ItemsPerPage);
+            return new PageableData<CommentDto>(commentDtos, filters.Page, commentsCount, filters.ItemsPerPage);
         }
 
-        public async Task<PageableData<MaterialCommentDto>> GetListByMaterialIdAsync(int materialId, int page)
+        public async Task<PageableData<CommentDto>> GetListByMaterialIdAsync(int materialId, int page)
         {
             Expression<Func<MaterialComment, bool>> filter = x => x.MaterialId == materialId;// && x.ParentId == null;
 
             var comments = await _commentService.GetOrderedByAsync(page, ItemPerPage, filter, SortOrder.Ascending, m => m.AdditionTime);
             UpdateCurrentUserField(comments);
             var unitedComments = UniteComments(comments, page);
-            var commentDtos = _mapper.Map<IEnumerable<MaterialCommentDto>>(unitedComments);
+            var commentDtos = _mapper.Map<IEnumerable<CommentDto>>(unitedComments);
           //  filter = filter.And(x => x.ParentId == null);//bug need to analize how get all comments for material page but count only top-level for paging
             var commentsCount = await _commentService.GetCountAsync(filter);
-            return new PageableData<MaterialCommentDto>(commentDtos, page, commentsCount, ItemPerPage);
+            return new PageableData<CommentDto>(commentDtos, page, commentsCount, ItemPerPage);
         }
 
-        public async Task<PageableData<MaterialCommentDto>> GetListByMatchIdAsync(int matchId, int page)//todo need to unite with above
+        public async Task<PageableData<CommentDto>> GetListByMatchIdAsync(int matchId, int page)//todo need to unite with above
         {
             Expression<Func<MaterialComment, bool>> filter = x => x.MatchId == matchId;// && x.ParentId == null;
 
             var comments = await _commentService.GetOrderedByAsync(page, ItemPerPage, filter, SortOrder.Ascending, m => m.AdditionTime);
             UpdateCurrentUserField(comments);
             var unitedComments = UniteComments(comments, page);
-            var commentDtos = _mapper.Map<IEnumerable<MaterialCommentDto>>(unitedComments);
+            var commentDtos = _mapper.Map<IEnumerable<CommentDto>>(unitedComments);
           //  filter = filter.And(x => x.ParentId == null);//bug need to analize how get all comments for material page but count only top-level for paging
             var commentsCount = await _commentService.GetCountAsync(filter);
-            return new PageableData<MaterialCommentDto>(commentDtos, page, commentsCount, ItemPerPage);
+            return new PageableData<CommentDto>(commentDtos, page, commentsCount, ItemPerPage);
         }
 
         public async Task<bool> VerifyAsync(int id)
@@ -175,7 +175,7 @@ namespace MyLiverpool.Business.Services
             return true;
         }
 
-        public async Task<IEnumerable<MaterialCommentDto>> GetLastListAsync()
+        public async Task<IEnumerable<CommentDto>> GetLastListAsync()
         {
             var comments = await _commentService.GetLastAsync(GlobalConstants.LastCommentsCount, SortOrder.Descending, m => m.AdditionTime);
             foreach (var comment in comments)
@@ -185,7 +185,7 @@ namespace MyLiverpool.Business.Services
                     comment.Message = comment.Message.Substring(0, GlobalConstants.LastCommentMessageSymbolCount) +
                                       "...";
             }
-            return _mapper.Map<IEnumerable<MaterialCommentDto>>(comments.Where(x => !string.IsNullOrWhiteSpace(x.Message)));
+            return _mapper.Map<IEnumerable<CommentDto>>(comments.Where(x => !string.IsNullOrWhiteSpace(x.Message)));
         }
 
         private async Task SendNotificationsAsync(int parentCommentId, string authorUserName, string commentText)

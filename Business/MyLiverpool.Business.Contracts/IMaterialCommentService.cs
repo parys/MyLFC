@@ -10,20 +10,20 @@ namespace MyLiverpool.Business.Contracts
     {
         Task<bool> DeleteAsync(int id);
 
-        Task<MaterialCommentDto> AddAsync(MaterialCommentDto model);
+        Task<CommentDto> AddAsync(CommentDto model);
 
-        Task<bool> UpdateAsync(MaterialCommentDto model);
+        Task<bool> UpdateAsync(CommentDto model);
         
-        Task<PageableData<MaterialCommentDto>> GetListAsync(MaterialCommentFiltersDto filters);
+        Task<PageableData<CommentDto>> GetListAsync(MaterialCommentFiltersDto filters);
 
-        Task<PageableData<MaterialCommentDto>> GetListByMaterialIdAsync(int materialId, int page);
+        Task<PageableData<CommentDto>> GetListByMaterialIdAsync(int materialId, int page);
 
         Task<bool> VerifyAsync(int id);
 
         Task<bool> UpdateVoteAsync(CommentVoteDto dto);
 
-        Task<IEnumerable<MaterialCommentDto>> GetLastListAsync();
+        Task<IEnumerable<CommentDto>> GetLastListAsync();
 
-        Task<PageableData<MaterialCommentDto>> GetListByMatchIdAsync(int matchId, int page);
+        Task<PageableData<CommentDto>> GetListByMatchIdAsync(int matchId, int page);
     }
 }

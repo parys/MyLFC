@@ -1,7 +1,7 @@
 ﻿@model MaterialDto
 
 @{
-    ViewBag.Title = @Model.Title;
+    ViewBag.Title = Model.Title;
     Layout = "_Layout";
 }
 
@@ -45,4 +45,5 @@
         <a href="@Url.Action("Detail", new { id = Model.NextMaterialId})">@Model.NextMaterialTitle (вперед)</a>
     }
 </div>
-<comment-section id="comments" [materialId]="item.id" [type]="item.type" [canCommentary]="item.canCommentary"></comment-section>
+@await Component.InvokeAsync("CommentSection", new { materialId = Model.Id })
+@*<comment-section id="comments" [materialId]="item.id" [type]="item.type" [canCommentary]="item.canCommentary"></comment-section>*@

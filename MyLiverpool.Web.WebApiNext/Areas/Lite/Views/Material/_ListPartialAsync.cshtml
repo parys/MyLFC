@@ -42,9 +42,13 @@
                          <ul class="list-inline small small-offset">
                              <li class="">Категория:</li>
                              <li class="">
-                                 <a [routerLink]="['/', item.typeName]" [queryParams]="{page: page, categoryId: item.categoryId, userName: userName
-                                        }" [textContent]="item.categoryName"></a>
-                                 @item.CategoryName
+                                 <a asp-action="Index"
+                                    asp-controller="Home"
+                                    asp-route-page="1"
+                                    asp-route-categoryId="@item.CategoryId"
+                                    class="">
+                                     @item.CategoryName
+                                 </a>
                              </li>
                              <li class="">|</li>
                              <li class="">Время добавления:</li>
@@ -58,6 +62,7 @@
                              @if (item.CanCommentary)
                              {
                                  <li class="">| Комментарии: @item.CommentsCount</li>
+                                @*<li class="">| Комментарии: <a href="@Url.Action("Detail", "Material", new {id = item.Id})#comments">@item.CommentsCount</a></li>*@
                              }
                          </ul>
                      </div>
@@ -65,14 +70,21 @@
              </div>
          }
     }
-    @*<div class="pagination">
-            <pagination-controls (pageChange)="pageChanged($event)"
-                                 directionLinks="true"
-                                 autoHide="true"
-                                 previousLabel="Назад"
-                                 nextLabel="Вперед"
-                                 screenReaderPaginationLabel="Постраничный вид"
-                                 screenReaderPageLabel="Страница"
-                                 screenReaderCurrentLabel="Вы на странице"></pagination-controls>
-        </div>*@
+    @{
+        var prevDisabled = Model.PageNo == 1 ? "disabled" : "";
+        var nextDisabled = Model.PageNo == Model.TotalPages ? "disabled" : "";
+    }
+
+    <a asp-action="Index"
+       asp-controller="Home"
+       asp-route-page="@(Model.PageNo - 1)"
+       class="btn btn-default @prevDisabled">
+        Предыдущая
+    </a>
+    <a asp-action="Index"
+       asp-controller="Home"
+       asp-route-page="@(Model.PageNo + 1)"
+       class="btn btn-default @nextDisabled">
+        Следующая
+    </a>
 </div>

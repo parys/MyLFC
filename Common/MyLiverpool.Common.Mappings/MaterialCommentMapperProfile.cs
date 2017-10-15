@@ -15,7 +15,7 @@ namespace MyLiverpool.Common.Mappings
         
         private void RegisterMaterialCommentMapping()
         {
-            CreateMap<MaterialComment, MaterialCommentDto>()
+            CreateMap<MaterialComment, CommentDto>()
                 .ForMember(dest => dest.AdditionTime, src => src.MapFrom(x => x.AdditionTime))
                 .ForMember(dest => dest.Answer, src => src.MapFrom(x => x.Answer))
                 .ForMember(dest => dest.AuthorId, src => src.MapFrom(x => x.AuthorId))
@@ -32,7 +32,7 @@ namespace MyLiverpool.Common.Mappings
                 .ForMember(dest => dest.CanNegativeVote, src => src.MapFrom(x => CanComment(x.CommentVotes, x.CurrentUserId, false)))
                 .ForMember(dest => dest.Message, src => src.MapFrom(x => x.Message));
 
-            CreateMap<MaterialCommentDto, MaterialComment>()
+            CreateMap<CommentDto, MaterialComment>()
                 .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id))
                 .ForMember(dest => dest.Answer, src => src.MapFrom(x => x.Answer))
                 .ForMember(dest => dest.AuthorId, src => src.MapFrom(x => x.AuthorId))
