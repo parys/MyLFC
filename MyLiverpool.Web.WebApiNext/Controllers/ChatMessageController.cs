@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AspNet.Security.OAuth.Validation;
 using Microsoft.AspNetCore.Authorization;
@@ -22,7 +23,6 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     {
         private readonly IChatMessageService _chatMessageService;
         private readonly IMemoryCache _cache;
-        private const string ChatName = "Chat";
         /// <summary>
         /// Controller.
         /// </summary>
@@ -42,8 +42,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         {
             dto.AuthorId = User.GetUserId();
             var result = await _chatMessageService.CreateAsync(dto);
-            result.Ip = HttpContext.GetIp();
-            //     _cache.Remove(ChatName + (int)dto.Type);
+          //  result.Ip = HttpContext.GetIp();
+            RemoveCache((int)dto.Type);
 
          //   var hubContext = new LfcHub(_chatMessageService);
          //   hubContext.SendChatMessage(result);
@@ -59,7 +59,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         public async Task<IActionResult> DeleteAsync(int id)
         {
             var result = await _chatMessageService.DeleteAsync(id);
-          //  _cache.Remove(ChatName);
+            RemoveCache((int)ChatMessageTypeEnum.Mini);
+            RemoveCache((int)ChatMessageTypeEnum.All);
             return Ok(result);
         }     
         
@@ -70,9 +71,18 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [AllowAnonymous, HttpGet("list/{lastMessageId:int}/{typeId:int}")]
         public async Task<IActionResult> GetListAsync(int lastMessageId, int typeId)
         {
-            var result = //await _cache.GetOrCreateAsync(ChatName + lastMessageId + typeId,
-              //  async x => 
-                await _chatMessageService.GetListAsync(lastMessageId, (ChatMessageTypeEnum) typeId);//);
+            IEnumerable<ChatMessageDto> result;
+            if (lastMessageId == 0)
+            {
+                result = await _cache.GetOrCreateAsync(
+                    CacheKeysConstants.ChatName + typeId,
+                    async x =>
+                        await _chatMessageService.GetListAsync(lastMessageId, (ChatMessageTypeEnum)typeId));
+            }
+            else
+            {
+                result = await _chatMessageService.GetListAsync(lastMessageId, (ChatMessageTypeEnum) typeId);
+            }
             if (!User.IsInRole(nameof(RolesEnum.AdminStart)))
             {
                 foreach (var messageDto in result)
@@ -102,7 +112,13 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 userId = User.GetUserId();
             }
             var result = await _chatMessageService.UpdateAsync(dto, userId);
+            RemoveCache((int)dto.Type);
             return Ok(result);
+        }
+
+        private void RemoveCache(int typeId)
+        {
+            _cache.Remove(CacheKeysConstants.ChatName + typeId);
         }
     }
 }

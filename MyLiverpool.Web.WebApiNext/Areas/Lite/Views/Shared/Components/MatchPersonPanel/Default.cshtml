@@ -16,7 +16,7 @@
                         @Model.AssistantRef.ElementAt(i).PersonName
                     @if (i < Model.AssistantRef.Count() - 1)
                     {
-                        <span *ngIf="!last">, </span>
+                        <span>, </span>
                     }
                 </span>
                 }
@@ -32,7 +32,7 @@
                         @Model.AdditionalRef.ElementAt(i).PersonName
                     @if (i < Model.AdditionalRef.Count() - 1)
                     {
-                        <span *ngIf="!last">, </span>
+                        <span>, </span>
                     }
                 </span>
                 }

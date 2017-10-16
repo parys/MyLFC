@@ -2,8 +2,10 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyLiverpool.Business.Contracts;
+using MyLiverpool.Business.Dto.Filters;
 using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
+using Newtonsoft.Json;
 
 namespace MyLiverpool.Web.WebApiNext.Areas.Lite.Controllers
 {
@@ -17,9 +19,15 @@ namespace MyLiverpool.Web.WebApiNext.Areas.Lite.Controllers
             _userService = userService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index(int page = 1)
         {
-            return View();
+            var obj = new UserFiltersDto
+            {
+                Page = page,
+                ItemsPerPage = 15,
+            };
+            var model = await _userService.GetUsersDtoAsync(obj);
+            return View(model);
         }
 
         [AllowAnonymous]
