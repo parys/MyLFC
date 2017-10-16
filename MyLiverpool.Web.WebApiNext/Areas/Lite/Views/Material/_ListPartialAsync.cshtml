@@ -14,7 +14,9 @@
              <div class="padding10">
                  <div class="row flex border-left-maroon" [class.material-pending]="item.pending">
                      <div class="flex-vertical-center material-header col-xs-12">
-                         <a href="@Url.Action("Detail", "Material", new {id = item.Id})">
+                         <a asp-action="Detail"
+                            asp-controller="Material" 
+                            asp-route-id="@item.Id">
                              <h3 class="beauty-font">@item.Title</h3>
                          </a>
                          <span class="pull-right">
@@ -58,7 +60,9 @@
                              <li class="">@item.Reads</li>
                              <li class="">|</li>
                              <li class="">Автор:</li>
-                             <li class=""><a href="@Url.Action("Detail", "User", new { id=item.UserId})">@item.UserName</a></li>
+                             <li class=""><a asp-action="Detail"
+                                             asp-controller="User"
+                                             asp-route-id="@item.UserId">@item.UserName</a></li>
                              @if (item.CanCommentary)
                              {
                                  <li class="">| Комментарии: @item.CommentsCount</li>
@@ -76,13 +80,13 @@
     }
 
     <a asp-action="Index"
-       asp-controller="Home"
+       asp-controller="Material"
        asp-route-page="@(Model.PageNo - 1)"
        class="btn btn-default @prevDisabled">
         Предыдущая
     </a>
     <a asp-action="Index"
-       asp-controller="Home"
+       asp-controller="Material"
        asp-route-page="@(Model.PageNo + 1)"
        class="btn btn-default @nextDisabled">
         Следующая

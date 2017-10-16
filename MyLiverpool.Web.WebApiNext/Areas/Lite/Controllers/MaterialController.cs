@@ -23,13 +23,14 @@ namespace MyLiverpool.Web.WebApiNext.Areas.Lite.Controllers
             _cache = cache;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1, int? categoryId = null)
         {
             var filters = new MaterialFiltersDto
             {
-                Page = 1,
+                Page = page,
                 MaterialType = MaterialType.Both,
-                IsInNewsmakerRole = false
+                IsInNewsmakerRole = false,
+                CategoryId = categoryId
             };
             var result = await _materialService.GetDtoAllAsync(filters);
             return View(result);

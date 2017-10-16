@@ -1,0 +1,24 @@
+﻿@model IEnumerable<InjuryDto>
+@if (Model.Any())
+{
+    <div class="col-xs-12 injuries">
+        <h4>
+            <b>Травмированные:</b>
+            @*<a *ngIf="roles.isAdminAssistant" [routerLink]="['/injuries', 0, 'edit']"><span class="glyphicon glyphicon-plus color-red"></span></a>*@
+        </h4>
+        @foreach (var injury in Model)
+        {
+            <div class="col-xs-12 container-row injury-item">
+                <div class="col-xs-12 container-row">
+                    <img src="@injury.PersonPhoto" alt="@injury.PersonName"/>
+                    <b>@injury.PersonName</b>
+                    @*<a *ngIf="roles.isAdminAssistant" [routerLink]="['/injuries', injury.id, 'edit']"><span class="glyphicon glyphicon-pencil color-red"></span></a>*@
+                </div>
+                <div class="col-xs-12 container-row">
+                    <span class="col-xs-12"[textContent]="injury.description">@injury.Description</span>
+                    <span class="col-xs-6">До: @injury.EndTime.ToString("d")</span>
+                </div>
+            </div>
+        }
+    </div>
+}

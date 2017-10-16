@@ -63,8 +63,7 @@
             </div>
             <div class="col-xs-12 infodate">
                 <br>
-                <a class="text-white"
-                   asp-controller="Match"
+                <a asp-controller="Match"
                    asp-action="Detail"
                    asp-route-id="@Model[0].Id">Обсуждение</a>
                 @if (!string.IsNullOrWhiteSpace(Model[0].PhotoUrl))

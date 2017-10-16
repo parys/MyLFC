@@ -1,1 +1,3 @@
-﻿@Html.RenderPartialAsync("_ListPartialAsync")
+﻿@model PageableData<MaterialMiniDto>
+
+@Html.RenderPartialAsync("_ListPartialAsync", Model)
