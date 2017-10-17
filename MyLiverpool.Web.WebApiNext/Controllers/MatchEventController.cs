@@ -48,7 +48,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             }
             var result = await _matchEventService.CreateAsync(dto);
 
-            _cache.Remove(CacheKeysConstants.CalendarCacheConst);
+            _cache.Remove(CacheKeysConstants.MatchCalendarCacheConst);
             return Ok(result);
         }
 
@@ -67,7 +67,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             }
             var result = await _matchEventService.UpdateAsync(dto);
 
-            _cache.Remove(CacheKeysConstants.CalendarCacheConst);
+            _cache.Remove(CacheKeysConstants.MatchCalendarCacheConst);
             return Ok(result);
         }
 
@@ -127,7 +127,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         {
             var result = await _matchEventService.DeleteAsync(id);
 
-            _cache.Remove(CacheKeysConstants.CalendarCacheConst);
+            _cache.Remove(CacheKeysConstants.MatchCalendarCacheConst);
             return Ok(result);
         }
     }

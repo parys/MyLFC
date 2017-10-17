@@ -1,0 +1,67 @@
+﻿@using System.Globalization
+@model SeasonDto
+
+@{
+    ViewBag.Title = "Календарь матчей";
+    Layout = "_Layout";
+}
+
+<div style="overflow-x:auto">
+    <table class="table table-condensed table-bordered table-hover table-responsive">
+        <tbody class="">
+            @for (var i = 0; i < Model.Matches.Count(); i++)
+            {
+                <tr class="center-middle">
+                    <td>@(i + 1)</td>
+                    <td>
+                        <span>@Model.Matches.ElementAt(i).TypeName</span>
+                    </td>
+                    <td>
+                        <span>
+                            <span data-date="@Model.Matches.ElementAt(i).DateTime" data-dow="true" data-sec="false" class="timeConvert"></span>
+                            @*<a *ngIf="roles.isAdminAssistant" [routerLink]="['/matches', match.id, 'edit']">
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                </a>*@
+                        </span>
+                    </td>
+                    <td>
+                        <div class="flex-vertical-center">
+                            <span class="col-xs-12 col-md-5 text-center">
+                                <img class="club-logo" src="@Model.Matches.ElementAt(i).HomeClubLogo" alt="@Model.Matches.ElementAt(i).HomeClubName">
+                                @Model.Matches.ElementAt(i).HomeClubName
+                            </span>
+                            <span class="col-xs-12 col-md-2 text-center">
+                                <span>@Model.Matches.ElementAt(i).ScoreHome</span>:<span>@Model.Matches.ElementAt(i).ScoreAway</span>
+                            </span>
+                            <span class="col-xs-12 col-md-5 text-center">
+                                <img class="club-logo" src="@Model.Matches.ElementAt(i).AwayClubLogo" alt="@Model.Matches.ElementAt(i).AwayClubName">
+                                @Model.Matches.ElementAt(i).AwayClubName
+                            </span>
+                        </div>
+                    </td>
+                    <td>
+                        @Model.Matches.ElementAt(i).StadiumName
+                    </td>
+                    <td>
+                        @if (!string.IsNullOrWhiteSpace(Model.Matches.ElementAt(i).ReportUrl))
+                {
+                            <a asp-action="Detail" asp-controller="Material" asp-route-id="@Model.Matches.ElementAt(i).ReportUrl">Отчет</a>
+                        }
+                        else
+                        {
+                            <a asp-action="Detail" asp-controller="Match" asp-route-id="@Model.Matches.ElementAt(i).Id">Обсуждение</a>
+                        }
+                        @if (!string.IsNullOrWhiteSpace(Model.Matches.ElementAt(i).PhotoUrl))
+                {
+                            <a asp-action="Detail" asp-controller="Material" asp-route-id="@Model.Matches.ElementAt(i).PhotoUrl">Фото</a>
+                        }
+                        @if (!string.IsNullOrWhiteSpace(Model.Matches.ElementAt(i).VideoUrl))
+                {
+                            <a href="@Model.Matches.ElementAt(i).VideoUrl" target="_blank">Видео</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

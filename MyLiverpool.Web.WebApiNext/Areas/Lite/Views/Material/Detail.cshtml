@@ -28,7 +28,7 @@
                 @* todo <li *ngIf="item.source"><label>Источник:</label> <a [href]="sanitizeByUrl(item.source)" target="_blank" [textContent]="getShortLink(item.source)"></a></li>*@
 
             }
-            <li><label>Дата добавления:</label> @Model.AdditionTime.ToString("G")</li>
+            <li><label>Дата добавления:</label> <span class="timeConvert" data-date="@Model.AdditionTime" data-dow="true" data-sec="false"></span></li>
             <li><label>Категория:</label> <a asp-action="Index"
                                              asp-controller="Material"
                                              asp-route-page="1"

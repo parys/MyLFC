@@ -8,7 +8,7 @@
         /// <summary>
         /// Key name of match calendar.
         /// </summary>
-        public const string CalendarCacheConst = "calendarMatch";
+        public const string MatchCalendarCacheConst = "calendarMatch";
         /// <summary>
         /// Key name of match header.
         /// </summary>

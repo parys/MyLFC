@@ -6,11 +6,12 @@
         <div class="row">
             <div class="col-xs-9 col-sm-8">
                 <span>@Model.Number</span>
-                <a href="@Url.Action("Detail", "User", new { id = Model.AuthorId})" [textContent]="item.authorUserName">@Model.AuthorUserName</a>
-                <span class="small">@Model.AdditionTime.ToString("G")</span>
+                <a asp-action="Detail" asp-controller="User" asp-route-id="@Model.AuthorId">@Model.AuthorUserName</a>
+                <span class="small timeConvert" data-date="@Model.AdditionTime" data-dow="true" data-sec="false"></span>
                 @if (Model.LastModified != Model.AdditionTime)
                 {
-                    <i class="small" title="Отредактировано">(@Model.LastModified.ToString("G"))</i>
+                    <i class="small" title="Отредактировано">( 
+                        <span class="timeConvert" data-date="@Model.LastModified" data-dow="true" data-sec="false"></span>)</i>
                 }
             </div>
             <div class="col-xs-3 col-sm-4 container-row">

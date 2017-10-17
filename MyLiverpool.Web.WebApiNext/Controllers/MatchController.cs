@@ -125,7 +125,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [AllowAnonymous, HttpGet("getForCalendar")]
         public async Task<IActionResult> GetForCalendarAsync()
         {
-            var result = await _cache.GetOrCreateAsync(CacheKeysConstants.CalendarCacheConst,
+            var result = await _cache.GetOrCreateAsync(CacheKeysConstants.MatchCalendarCacheConst,
                 async x => await _matchService.GetForCalendarAsync());
             return Ok(result);
         }
@@ -175,7 +175,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
 
         private void RemoveCalendarFromCache()
         {
-            _cache.Remove(CacheKeysConstants.CalendarCacheConst);
+            _cache.Remove(CacheKeysConstants.MatchCalendarCacheConst);
         }
     }
 }

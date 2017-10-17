@@ -9,7 +9,7 @@
                 @*<a *ngIf="roles.isInformer" [routerLink]="['/matches', next.id, 'edit']"><span class="glyphicon glyphicon-pencil color-red"></span></a>*@
             </div>
             <div class="col-xs-12 col-md-7">
-                <b style="font-size: 1.2em;" class="pull-right">@Model[1].DateTime.ToString("g")</b>
+                <b style="font-size: 1.2em;" class="pull-right timeConvert" data-date="@Model[1].DateTime.ToString("g")" data-dow="true" data-sec="false"></b>
             </div>
             <div class="col-xs-4 col-sm-12 col-md-5 text-center">
                 <img src="@Model[1].HomeClubLogo" class="center" alt="@Model[1].HomeClubName" title="@Model[1].HomeClubName">
@@ -23,7 +23,7 @@
                 <strong style="font-size: 1.2em;" class="text-center">@Model[1].AwayClubName</strong>
             </div>
             <div class="col-xs-12 text-center">
-                    @*<a class="text-white" [routerLink]="['/seasons/calendar']">Календарь</a>*@
+                <a class="text-white" asp-action="Calendar" asp-controller="Season">Календарь</a>
                 <a class="text-white"
                    asp-controller="Match"
                    asp-action="Detail"
@@ -39,23 +39,23 @@
                 @*<a *ngIf="roles.isInformer" [routerLink]="['/matches', last.id, 'edit']"><span class="glyphicon glyphicon-pencil color-red"></span></a>*@
             </div>
             <div class="col-xs-12 col-sm-12 col-md-7">
-                <span class="pull-right">@Model[0].DateTime.ToString("g")</span>
+                <span class="pull-right timeConvert" data-date="@Model[0].DateTime" data-dow="true" data-sec="false"></span>
             </div>
             <div class="col-xs-4 col-sm-12 col-md-12 col-lg-5 text-center">
                 <img src="@Model[0].HomeClubLogo" class="center " alt="@Model[0].HomeClubName" title="@Model[0].HomeClubName">
                 <strong style="font-size: 1.2em;">@Model[0].HomeClubName</strong>
             </div>
             <div class="col-xs-4 col-sm-12 col-md-12 col-lg-2 flex-vertical-center flex-center-h padding0">
-                @*<a [routerLink]="['matches', last.id]" class="score center">*@
-                <strong class="text-center">
-                    <span>@Model[0].ScoreHome</span><span>:</span><span [textContent]="last.scoreAway">@Model[0].ScoreAway</span>
+               <a asp-action="Detail" asp-controller="Match" asp-route-id="@Model[0].Id" class="score center">
+                <strong class="text-center font-size20">
+                    @Model[0].ScoreHome:@Model[0].ScoreAway
                     @if (Model[0].ScorePenaltyHome.HasValue && Model[0].ScorePenaltyHome.Value > 0 ||
                          Model[0].ScorePenaltyAway.HasValue && Model[0].ScorePenaltyAway.Value > 0)
                     {
                         <span class="col-md-12 container-row">(@Model[0].ScorePenaltyHome-@Model[0].ScorePenaltyAway)</span>
                     }
                 </strong>
-                @*</a>*@
+                </a>
             </div>
             <div class="col-xs-4 col-sm-12 col-md-12 col-lg-5 text-center">
                 <img src="@Model[0].AwayClubLogo" class="center" alt="@Model[0].AwayClubName" title="@Model[0].AwayClubName">
@@ -68,7 +68,7 @@
                    asp-route-id="@Model[0].Id">Обсуждение</a>
                 @if (!string.IsNullOrWhiteSpace(Model[0].PhotoUrl))
                 {
-                    <a href="@Url.Action("Detail", "Material", new {id = Model[0].PhotoUrl})" [routerLink]="['news', last.photoUrl]">Фото</a>
+                    <a asp-action="Detail" asp-controller="Material" asp-route-id="@Model[0].PhotoUrl">Фото</a>
                 }
                 @if (!string.IsNullOrWhiteSpace(Model[0].VideoUrl))
                 {

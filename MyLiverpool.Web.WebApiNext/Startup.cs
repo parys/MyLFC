@@ -70,12 +70,12 @@ namespace MyLiverpool.Web.WebApiNext
             services.Configure<GzipCompressionProviderOptions>(options => options.Level = CompressionLevel.Optimal);
             services.AddResponseCompression(options => { });
 
-            //services.Configure<RequestLocalizationOptions>(options =>
-            //{
-            //    options.DefaultRequestCulture = new RequestCulture("ru-RU");
-            //    options.SupportedCultures = new List<CultureInfo> { new CultureInfo("ru-RU") };
-            //    options.RequestCultureProviders = new List<IRequestCultureProvider>();
-            //});
+            services.Configure<RequestLocalizationOptions>(options =>
+            {
+                options.DefaultRequestCulture = new RequestCulture("ru-RU");
+                options.SupportedCultures = new List<CultureInfo> { new CultureInfo("ru-RU") };
+                options.RequestCultureProviders = new List<IRequestCultureProvider>();
+            });
             services.AddRouting(options => options.LowercaseUrls = true);
             services.AddMvc(options =>
             {

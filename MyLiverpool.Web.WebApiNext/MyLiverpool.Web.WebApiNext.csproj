@@ -107,7 +107,7 @@
         
   <ItemGroup>
     <Folder Include="Areas\Lite\Data\" />
-    <Folder Include="Areas\Lite\Models\" />
+    <Folder Include="Areas\Lite\Views\Comment\" />
     <Folder Include="wwwroot\content\" />
     <Folder Include="wwwroot\NewFolder\" />
   </ItemGroup>

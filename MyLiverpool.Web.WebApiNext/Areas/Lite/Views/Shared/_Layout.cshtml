@@ -7,7 +7,7 @@
     <meta name="description" content="Сайт футбольного клуба Ливерпуль. FC Liverpool. Новости, матчи, история, турнирные таблицы, статистика, статьи, составы команд. Русскоязычные болельщики.">
     <meta name="keywords" content="ливерпуль, liverpool, ливерпуль фк, liverpool fc, lfc, liverpoolfc, клуб ливерпуль, ливерпуль футбольный клуб, сайт ливерпуля, трансляция ливерпуль, ливерпуль видео">
     <meta name="yandex-verification" content="6a75c05877213439" />
-    <title>MyLFC.ru - Сайт русскоязычных болельщиков ФК "Ливерпуль"</title>
+    <title>@ViewBag.Title - MyLFC.ru - Сайт русскоязычных болельщиков ФК "Ливерпуль"</title>
     <base href="/" />
     <link rel="shortcut icon" type="image/x-icon" href="~/favicon.ico" />
     <!-- Latest compiled and minified CSS -->
@@ -16,16 +16,15 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="~/src/vendor.css" asp-append-version="true" />
+    @*<link rel="stylesheet" href="~/src/vendor.css" asp-append-version="true" />*@
     <link rel="stylesheet" href="~/lite/styles.css" asp-append-version="true" />
-    @*<script async src="~/lite/material.umd.min.js" asp-append-version="true"></script>*@
+    <script async src="~/lite/site.js" asp-append-version="true"></script>
     @*<script async src="~/l" href="~/styles.css" asp-append-version="true" ></script>*@
 
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
-
     <navbar>
         <nav class="navbar navbar-default maroon-panel container-row beauty-font bg-header">
             <div class="navbar-collapse container-row" style="margin-right: 0; padding-right: 0;">
@@ -37,71 +36,87 @@
                             <img src="/content/logo34.png" style="max-width: 310px; margin: 0 -15px;" alt="MyLFC.ru" />
                         </a>
                     </li>
-                    <li class="col-xs-8 text-white">Данная <span class="text-yellow">облегченная и усеченная версия</span> предназначена для тех, у кого не работает основная версия сайта, чтобы предоставить возможность читать новости и комментарии.(на данном этапе). Преимущественное развитие будет получать только основная версия.</li>
-                    <!--<li>
-                        <a role="button" [matMenuTriggerFor]="newsMenu">
-                            Новости<b class="caret"></b>
+                    <li class="dropdown">
+                        <button class="dropdown-toggle no-style text-white" type="button" id="newsMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Новости
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="newsMenu">
+                            <li><a asp-action="Index" asp-controller="Material" asp-route-type="News">Новости</a></li>
+                            <li><a asp-action="Index" asp-controller="MaterialCategory" asp-route-type="News">Категории</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <button class="dropdown-toggle no-style text-white" type="button" id="blogs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Блоги
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="blogs">
+                            <li><a asp-action="Index" asp-controller="Material" asp-route-type="Blogs">Блоги</a></li>
+                            <li><a asp-action="Index" asp-controller="MaterialCategory" asp-route-type="Blogs">Категории</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <button class="dropdown-toggle no-style text-white" type="button" id="fcClub" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            ФК Ливерпуль
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="fcClub">
+                            <li><a asp-action="ClubHistory" asp-controller="Home">История</a></li>
+                            <li><a asp-action="AboutClub" asp-controller="Home">О клубе</a></li>
+                        </ul>
+                    </li>
+                    @* <li>
+                            <a role="button" [matMenuTriggerFor]="fcClub">
+                                ФК Ливерпуль<b class="caret"></b>
+                            </a>
+                            <mat-menu #fcClub="matMenu">
+                                <a [routerLink]="['/stuff/first']" mat-menu-item>Тренерский штаб</a>
+                                <a [routerLink]="['/squad/first']" mat-menu-item>Состав</a>
+                            </mat-menu>
+                        </li>*@
+                    
+                <li class="dropdown">
+                    <button class="dropdown-toggle no-style text-white" type="button" id="seasonMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Сезон
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="seasonMenu">
+                        <li><a asp-action="Calendar" asp-controller="Season">Календарь</a></li>
+                        @*<li><a asp-action="Index" asp-controller="MaterialCategory" asp-route-type="News">Категории</a></li>*@
+                    </ul>
+                </li>
+               @* <li>
+                        <a role="button" [matMenuTriggerFor]="seasonMenu">
+                            Сезон<b class="caret"></b>
                         </a>
-                        <mat-menu #newsMenu="matMenu">
-                            <a [routerLink]="['/news']" [queryParams]="{page: 1}" mat-menu-item>Новости</a>
-                            <a *ngIf="roles.isNewsmaker" [routerLink]="['/news', 0, 'edit']" mat-menu-item>Добавить</a>
-                            <a [routerLink]="['/newsCategories']" mat-menu-item>Категории</a>
+                        <mat-menu #seasonMenu="matMenu">
+                        <!--<button [routerLink]="['/season/eplTable']" mat-menu-item>Полная таблица АПЛ</button>->
+                        <a [routerLink]="['/seasons/statistics']" mat-menu-item>Статистика игроков</a>
+                        <a *ngIf="roles.isAdmin" [routerLink]="['/seasons']" mat-menu-item>Список сезонов</a>
+                        <a [routerLink]="['/transfers/current']" mat-menu-item>Трансферы</a>
                         </mat-menu>
-                    </li>
-
+                        </li>*@
                     <li>
-                        <a role="button" [matMenuTriggerFor]="blogsMenu">
-                            Блоги<b class="caret"></b>
-                        </a>
-                        <mat-menu #blogsMenu="matMenu">
-                            <a [routerLink]="['/blogs']" [queryParams]="{page: 1}" mat-menu-item>Блоги</a>
-                            <a *ngIf="roles.isAuthor" [routerLink]="['/blogs', 0, 'edit']" mat-menu-item>Добавить</a>
-                            <a [routerLink]="['/blogCategories']" mat-menu-item>Категории</a>
-                        </mat-menu>
+                        <a asp-action="index" asp-controller="User">Пользователи</a>
                     </li>
-                    <li>
-                        <a role="button" [matMenuTriggerFor]="fcClub">
-                            ФК Ливерпуль<b class="caret"></b>
-                        </a>
-                        <mat-menu #fcClub="matMenu">
-                            <a [routerLink]="['/clubHistory']" mat-menu-item>История</a>
-                            <a [routerLink]="['/aboutClub']" mat-menu-item>О Клубе</a>
-                            <a [routerLink]="['/stuff/first']" mat-menu-item>Тренерский штаб</a>
-                            <a [routerLink]="['/squad/first']" mat-menu-item>Состав</a>
-                        </mat-menu>
-                    </li>
-                    <li>
-                    <a role="button" [matMenuTriggerFor]="seasonMenu">
-                        Сезон<b class="caret"></b>
-                    </a>
-                    <mat-menu #seasonMenu="matMenu">
-                    <a [routerLink]="['/seasons/calendar']" mat-menu-item>Календарь</a>
-                    <!--<button [routerLink]="['/season/eplTable']" mat-menu-item>Полная таблица АПЛ</button>->
-                    <a [routerLink]="['/seasons/statistics']" mat-menu-item>Статистика игроков</a>
-                    <a *ngIf="roles.isAdmin" [routerLink]="['/seasons']" mat-menu-item>Список сезонов</a>
-                    <a [routerLink]="['/transfers/current']" mat-menu-item>Трансферы</a>
-                    </mat-menu>
-                    </li>
-                    <li>
-                        <a [routerLink]="['/users']" [queryParams]="{page: 1}">Пользователи</a>
-                    </li>
-                    <li><a [routerLink]="['/rules']"><b class="text-danger color-red beauty-font">Правила</b></a></li>
-                    <!--li> <a [routerLink]="['/forum']">Форум</a></!--li>->
-                    <li *ngIf="roles.isNewsmaker || roles.isAuthor || roles.isModerator">
-                        <a role="button" [matMenuTriggerFor]="adminMenu">
-                            Админка<b class="caret"></b>
-                        </a>
-                        <mat-menu #adminMenu="matMenu">
-                            <a *ngIf="roles.isInformer" [routerLink]="['/matches']" mat-menu-item>Матчи</a>
-                            <a *ngIf="roles.isInformer" [routerLink]="['/clubs']" mat-menu-item>Клубы</a>
-                            <a *ngIf="roles.isAdminAssistant" [routerLink]="['/roleGroups']" mat-menu-item>Роли</a>
-                            <a *ngIf="roles.isInformer" [routerLink]="['/persons']" mat-menu-item>Люди</a>
-                            <a *ngIf="roles.isInformer" [routerLink]="['/stadiums']" mat-menu-item>Стадионы</a>
-                            <a *ngIf="roles.isInformer" [routerLink]="['/injuries']" mat-menu-item>Травмы</a>
-                            <a *ngIf="roles.isNewsmaker || roles.isAuthor" [routerLink]="['/images']" mat-menu-item>Изображения</a>
-                            <a *ngIf="roles.isModerator" [routerLink]="['/materialComments']" [queryParams]="{page: 1}" mat-menu-item>Комментарии</a>
-                        </mat-menu>
-                    </li>-->
+                    <li><a asp-action="Rules" asp-controller="Home"><b class="text-danger color-red beauty-font">Правила</b></a></li>
+                    @* <!--li> <a [routerLink]="['/forum']">Форум</a></!--li>->
+                        <li *ngIf="roles.isNewsmaker || roles.isAuthor || roles.isModerator">
+                            <a role="button" [matMenuTriggerFor]="adminMenu">
+                                Админка<b class="caret"></b>
+                            </a>
+                            <mat-menu #adminMenu="matMenu">
+                                <a *ngIf="roles.isInformer" [routerLink]="['/matches']" mat-menu-item>Матчи</a>
+                                <a *ngIf="roles.isInformer" [routerLink]="['/clubs']" mat-menu-item>Клубы</a>
+                                <a *ngIf="roles.isAdminAssistant" [routerLink]="['/roleGroups']" mat-menu-item>Роли</a>
+                                <a *ngIf="roles.isInformer" [routerLink]="['/persons']" mat-menu-item>Люди</a>
+                                <a *ngIf="roles.isInformer" [routerLink]="['/stadiums']" mat-menu-item>Стадионы</a>
+                                <a *ngIf="roles.isInformer" [routerLink]="['/injuries']" mat-menu-item>Травмы</a>
+                                <a *ngIf="roles.isNewsmaker || roles.isAuthor" [routerLink]="['/images']" mat-menu-item>Изображения</a>
+                                <a *ngIf="roles.isModerator" [routerLink]="['/materialComments']" [queryParams]="{page: 1}" mat-menu-item>Комментарии</a>
+                            </mat-menu>
+                        </li>*@
                     <li class="liverbird-navbar">
                         <img alt="125 лет со дня основания ФК Ливерпуль" src="/content/liverbird5.png">
                     </li>
@@ -109,7 +124,7 @@
             </div>
         </nav>
     </navbar>
-
+    <b class="col-xs-12 text-center">Облегченная версия сайта mylfc.ru. Преимущественное развитие будет получать только основная версия.</b>
     <div class="main clearfix">
         <div class="col-xs-12 container-fluid main-container col-sm-6 col-sm-push-3">
             @RenderBody()
@@ -117,10 +132,16 @@
         <div class="col-xs-12 col-sm-pull-6 col-sm-3 padding0">
             <sidebar-left></sidebar-left>
             @await Component.InvokeAsync("MatchCalendar")
-            <div class="border-panel border-lgray clearfix eplTable">@await Component.InvokeAsync("StaticPage", HelperEntityType.EplTable)</div>
-            
+            <button class="btn btn-violet full-width" type="button" onclick="$('.eplTable.toggleable').toggleClass('hidden')"><span class="eplTable toggleable">Показать таблицу АПЛ</span>
+            <span class="eplTable toggleable hidden">Скрыть таблицу</span></button>
+            <div class="border-panel border-lgray clearfix eplTable toggleable hidden">@await Component.InvokeAsync("StaticPage", HelperEntityType.EplTable)</div>
+
             <div class="border-panel border-lgray clearfix eplTable">@await Component.InvokeAsync("StaticPage", HelperEntityType.CupTable)</div>
             @await Component.InvokeAsync("InjuryPanel")
+            <div id="goToTop" class="hidden">
+                <button mat-raised-button class="top color-gold color-back-maroon" onclick="window.scrollTo(0,0);">НАВЕРХ</button>
+            </div>
+
         </div>
         <div class="col-xs-12 col-sm-3 container-row">
             <sidebar-right></sidebar-right>
@@ -144,23 +165,41 @@
     </footer>
     @RenderSection("scripts", required: false)
 
-    <environment names="Staging,Production">
-        <style>
-            .async-hide {
-                opacity: 0 !important
+<environment names="Staging,Production">
+    <style>
+        .async-hide {
+            opacity: 0 !important
+        }
+    </style>
+    <script>
+    (function (a, s, y, n, c, h, i, d, e) {
+        s.className += ' ' + y; h.start = 1 * new Date;
+        h.end = i = function () { s.className = s.className.replace(RegExp(' ?' + y), '') };
+        (a[n] = a[n] || []).hide = h; setTimeout(function () { i(); h.end = null }, c); h.timeout = c;
+    })(window, document.documentElement, 'async-hide', 'dataLayer', 4000,
+        { 'GTM-WFBPL67': true });</script>
+    <script>(function (i, s, o, g, r, a, m) { i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () { (i[r].q = i[r].q || []).push(arguments) }, i[r].l = 1 * new Date(); a = s.createElement(o), m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m) })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga'); ga('create', 'UA-79219562-2', 'auto'); ga('require', 'GTM-WFBPL67'); ga('send', 'pageview');</script>
+    <script type="text/javascript">(function (d, w, c) { (w[c] = w[c] || []).push(function () { try { w.yaCounter44979745 = new Ya.Metrika({ id: 44979745, clickmap: true, trackLinks: true, accurateTrackBounce: true }); } catch (e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script><noscript><div><img src="https://mc.yandex.ru/watch/44979745" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <script type="text/javascript">document.write("<a href='//www.liveinternet.ru/click' target=_blank><img src='//counter.yadro.ru/hit?t14.6;r" + escape(document.referrer) + ((typeof (screen) == "undefined") ? "" : ";s" + screen.width + "*" + screen.height + "*" + (screen.colorDepth ? screen.colorDepth : screen.pixelDepth)) + ";u" + escape(document.URL) + ";" + Math.random() + "' alt='' title='LiveInternet' border='0' width='88' height='31'><\/a>")</script>
+</environment>
+<script>
+    $(document).ready(function() {
+        $(".timeConvert").each(function () {
+            var dateTime = new Date($(this).data("date"));
+            var time;
+            if ($(this).data("sec")) {
+                time = dateTime.toString("HH:mm:ss");
+            } else {
+                time = dateTime.toString("HH:mm");
             }
-        </style>
-        <script>
-            (function (a, s, y, n, c, h, i, d, e) {
-                s.className += ' ' + y; h.start = 1 * new Date;
-                h.end = i = function () { s.className = s.className.replace(RegExp(' ?' + y), '') };
-                (a[n] = a[n] || []).hide = h; setTimeout(function () { i(); h.end = null }, c); h.timeout = c;
-            })(window, document.documentElement, 'async-hide', 'dataLayer', 4000,
-                { 'GTM-WFBPL67': true });</script>
-        <script>(function (i, s, o, g, r, a, m) { i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () { (i[r].q = i[r].q || []).push(arguments) }, i[r].l = 1 * new Date(); a = s.createElement(o), m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m) })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga'); ga('create', 'UA-79219562-2', 'auto'); ga('require', 'GTM-WFBPL67'); ga('send', 'pageview');</script>
-        <script type="text/javascript">(function (d, w, c) { (w[c] = w[c] || []).push(function () { try { w.yaCounter44979745 = new Ya.Metrika({ id: 44979745, clickmap: true, trackLinks: true, accurateTrackBounce: true }); } catch (e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script><noscript><div><img src="https://mc.yandex.ru/watch/44979745" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-        <script type="text/javascript">document.write("<a href='//www.liveinternet.ru/click' target=_blank><img src='//counter.yadro.ru/hit?t14.6;r" + escape(document.referrer) + ((typeof (screen) == "undefined") ? "" : ";s" + screen.width + "*" + screen.height + "*" + (screen.colorDepth ? screen.colorDepth : screen.pixelDepth)) + ";u" + escape(document.URL) + ";" + Math.random() + "' alt='' title='LiveInternet' border='0' width='88' height='31'><\/a>")</script>
-    </environment>
-
+            var date = dateTime.toString("dd/MM/YYYY"); 
+            if ($(this).data()) {
+                
+            }//
+          //  $(this).text(`${time} ${date}`);
+            $(this).text(dateTime.toLocaleString("ru-RU"));
+        });
+    })
+</script>
 </body>
 </html>

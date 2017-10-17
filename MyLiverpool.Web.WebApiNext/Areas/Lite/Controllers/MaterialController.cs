@@ -23,12 +23,12 @@ namespace MyLiverpool.Web.WebApiNext.Areas.Lite.Controllers
             _cache = cache;
         }
 
-        public async Task<IActionResult> Index(int page = 1, int? categoryId = null)
+        public async Task<IActionResult> Index(int page = 1, int? categoryId = null, MaterialType type = MaterialType.Both)
         {
             var filters = new MaterialFiltersDto
             {
                 Page = page,
-                MaterialType = MaterialType.Both,
+                MaterialType = type,
                 IsInNewsmakerRole = false,
                 CategoryId = categoryId
             };
@@ -48,13 +48,15 @@ namespace MyLiverpool.Web.WebApiNext.Areas.Lite.Controllers
                     return BadRequest();
                 }
             }
-            var label = "Material" + id;
+            var label = CacheKeysConstants.Material + id;
             if (string.IsNullOrWhiteSpace(Request.Cookies[label]))
             {
                 var options = new CookieOptions { Expires = DateTime.Now.AddMonths(1) };
                 Response.Cookies.Append(label, "1", options);
-                model.Reads = +1;
+                model.Reads++;
                 await _materialService.AddViewAsync(id);
+                _cache.Remove(CacheKeysConstants.Material + id);
+                _cache.Remove(CacheKeysConstants.MaterialList);
             }
             return View(model);
         }

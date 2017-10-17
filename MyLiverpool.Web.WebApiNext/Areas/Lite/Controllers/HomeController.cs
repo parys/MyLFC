@@ -38,13 +38,28 @@ namespace MyLiverpool.Web.WebApiNext.Areas.Lite.Controllers
             var result = await _materialService.GetDtoAllAsync(filters);
             return View(result);
         }
-        
+
         public IActionResult About()
         {
             return View();
         }
-        
+
         public IActionResult Copyright()
+        {
+            return View();
+        }
+
+        public IActionResult ClubHistory()
+        {
+            return View();
+        }
+
+        public IActionResult AboutClub()
+        {
+            return View();
+        }
+
+        public IActionResult Rules()
         {
             return View();
         }
