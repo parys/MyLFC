@@ -9,7 +9,7 @@
                 @*<a *ngIf="roles.isInformer" [routerLink]="['/matches', next.id, 'edit']"><span class="glyphicon glyphicon-pencil color-red"></span></a>*@
             </div>
             <div class="col-xs-12 col-md-7">
-                <b style="font-size: 1.2em;" class="pull-right timeConvert" data-date="@Model[1].DateTime.ToString("g")" data-dow="true" data-sec="false"></b>
+                <b style="font-size: 1.2em;" class="pull-right timeConvert" data-date="@Model[1].DateTime" data-dow="true" data-sec="false"></b>
             </div>
             <div class="col-xs-4 col-sm-12 col-md-5 text-center">
                 <img src="@Model[1].HomeClubLogo" class="center" alt="@Model[1].HomeClubName" title="@Model[1].HomeClubName">

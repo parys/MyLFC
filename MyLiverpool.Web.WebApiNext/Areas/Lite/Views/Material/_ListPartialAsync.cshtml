@@ -5,9 +5,10 @@
   //  Layout = "_Layout";
 }
 
+@await Component.InvokeAsync("MatchPanel")
+
 <div>
-    @*<match-header></match-header>*@
-    @foreach (var item in @Model.List)
+    @foreach (var item in Model.List)
     {
         if(!item.Pending || User.IsInRole(nameof(RolesEnum.NewsStart)) || User.IsInRole(nameof(RolesEnum.BlogStart)) @*todo || User?.GetUserId() == item.UserId *@)
          {

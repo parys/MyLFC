@@ -83,7 +83,7 @@
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="seasonMenu">
                         <li><a asp-action="Calendar" asp-controller="Season">Календарь</a></li>
-                        @*<li><a asp-action="Index" asp-controller="MaterialCategory" asp-route-type="News">Категории</a></li>*@
+                        <li><a asp-action="Statistics" asp-controller="Season">Статистика игроков</a></li>
                     </ul>
                 </li>
                @* <li>
@@ -124,7 +124,7 @@
             </div>
         </nav>
     </navbar>
-    <b class="col-xs-12 text-center">Облегченная версия сайта mylfc.ru. Преимущественное развитие будет получать только основная версия.</b>
+    <b class="col-xs-12 text-center">Облегченная версия сайта mylfc.ru только для чтения. Преимущественное развитие будет получать только основная версия.</b>
     <div class="main clearfix">
         <div class="col-xs-12 container-fluid main-container col-sm-6 col-sm-push-3">
             @RenderBody()

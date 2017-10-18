@@ -1,0 +1,31 @@
+﻿@model IEnumerable<PersonStatisticDto>
+
+@{
+    ViewBag.Title = "Статистика игроков";
+    Layout = "_Layout";
+}
+
+<h3>Статистика текущего сезона</h3>
+<table class="table table-condensed table-striped table-bordered table-hover">
+    <thead>
+        <tr>
+            <td>Игрок</td>
+            <td>Голы</td>
+            <td>Передачи</td>
+            <td>ЖК</td>
+            <td>КК</td>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.PersonName</td>
+            <td>@item.Goals.Total</td>
+            <td>@item.Assists.Total</td>
+            <td>@item.Yellows.Total</td>
+            <td>@item.Reds.Total</td>
+        </tr>
+    }
+    </tbody>
+</table>
