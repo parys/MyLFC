@@ -16,11 +16,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.1/moment.js" integrity="sha256-1ni73t/Fu4WpdnQI5OzfL5KFTY8VmP6fntwKqxx9W8o=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.1/locale/ru.js" integrity="sha256-QwJ+fQvopjhC9dbS1Hl9xYxHC+44Pl7Qe9ZSbMi+oDQ=" crossorigin="anonymous"></script>
     @*<link rel="stylesheet" href="~/src/vendor.css" asp-append-version="true" />*@
     <link rel="stylesheet" href="~/lite/styles.css" asp-append-version="true" />
     <script async src="~/lite/site.js" asp-append-version="true"></script>
-    @*<script async src="~/l" href="~/styles.css" asp-append-version="true" ></script>*@
-
+ 
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
@@ -182,24 +183,5 @@
     <script type="text/javascript">(function (d, w, c) { (w[c] = w[c] || []).push(function () { try { w.yaCounter44979745 = new Ya.Metrika({ id: 44979745, clickmap: true, trackLinks: true, accurateTrackBounce: true }); } catch (e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script><noscript><div><img src="https://mc.yandex.ru/watch/44979745" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
     <script type="text/javascript">document.write("<a href='//www.liveinternet.ru/click' target=_blank><img src='//counter.yadro.ru/hit?t14.6;r" + escape(document.referrer) + ((typeof (screen) == "undefined") ? "" : ";s" + screen.width + "*" + screen.height + "*" + (screen.colorDepth ? screen.colorDepth : screen.pixelDepth)) + ";u" + escape(document.URL) + ";" + Math.random() + "' alt='' title='LiveInternet' border='0' width='88' height='31'><\/a>")</script>
 </environment>
-<script>
-    $(document).ready(function() {
-        $(".timeConvert").each(function () {
-            var dateTime = new Date($(this).data("date"));
-            var time;
-            if ($(this).data("sec")) {
-                time = dateTime.toString("HH:mm:ss");
-            } else {
-                time = dateTime.toString("HH:mm");
-            }
-            var date = dateTime.toString("dd/MM/YYYY"); 
-            if ($(this).data()) {
-                
-            }//
-          //  $(this).text(`${time} ${date}`);
-            $(this).text(dateTime.toLocaleString("ru-RU"));
-        });
-    })
-</script>
 </body>
 </html>

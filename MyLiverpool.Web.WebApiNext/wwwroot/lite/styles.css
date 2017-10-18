@@ -47,12 +47,12 @@ blockquote {
 
 button.no-style {
     border: 0;
-    background-color: inherit;
+    background-color: transparent;
 }
 
 button.no-style:hover {
     border: 0;
-    background-color: inherit;
+    background-color: transparent;
 }
 
 iframe {
