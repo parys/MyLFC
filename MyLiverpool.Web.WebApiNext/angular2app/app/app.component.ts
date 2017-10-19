@@ -1,4 +1,4 @@
-﻿import { Component, ViewContainerRef, OnInit, ViewEncapsulation, Renderer2 } from "@angular/core";  
+﻿import { Component, ViewContainerRef, OnInit, ViewEncapsulation, Renderer2, ElementRef } from "@angular/core";  
 import { Router, ActivatedRoute, NavigationEnd } from "@angular/router";
 import { Title } from "@angular/platform-browser";
 import { Observable } from "rxjs/Observable"
@@ -24,7 +24,8 @@ export class AppComponent implements OnInit {
         private viewContainerRef: ViewContainerRef,
         private activatedRoute: ActivatedRoute,
         private titleService: Title,
-        private renderer: Renderer2,
+      //  private renderer: Renderer2,
+        private elRef: ElementRef,
         private breadcrumbService: BreadcrumbService
     ) {        
         // You need this small hack in order to catch application root view container ref
@@ -40,7 +41,20 @@ export class AppComponent implements OnInit {
            .subscribe(
                 () => { console.info("Startup success"); },
                 e => console.warn(e)
-            );
+        );
+
+       //this.activatedRoute.fragment.subscribe(f => {
+       //    if (f) {
+       //        console.warn(f);
+       //        const element = document.querySelector('#' + f);
+       //        const tt =this.elRef.nativeElement.querySelector('#comments44');
+       //        console.warn(element);
+       //        console.warn(tt);
+       //        if (element) {
+       //            element.scrollIntoView(); // <-- omit element from the argument
+       //        }
+       //    }
+       //});
     }
 
     private initTitleSubscriber() {
@@ -54,23 +68,30 @@ export class AppComponent implements OnInit {
             .filter((route: ActivatedRoute) => route.outlet === "primary")
             .mergeMap((route: ActivatedRoute) => route.data)
             .subscribe((event) => {
-                window.scrollTo(0,0);
+       //         window.scrollTo(0,0);
                 this.titleService.setTitle(event["title"]);
                // this.isRoot = (event["title"] === "MyLFC.ru - Сайт русскоязычных болельщиков \"Ливерпуля\"");
             });
-        this.router.events.subscribe(event => {
-            if (event instanceof NavigationEnd) {
+        //this.router.events.subscribe(event => {
+        //    if (event instanceof NavigationEnd) {
+        //        const fragment = this.router.parseUrl(this.router.url).fragment;
+        //        if (fragment) {
+        //            console.log(fragment);
 
-                const tree = this.router.parseUrl(this.router.url);
-                if (tree.fragment) {
-                    const element = document.querySelector(tree.fragment);
-                    console.log(element);
-                    if (element) {
-                        console.log(1234);
-                        element.scrollTo();}
-                }
-            }
-        });
+        //            const element = document.querySelector('#' + fragment);
+        //            const element2 = document.querySelector(fragment);
+        //            const element3 = document.getElementById('#' + fragment);
+        //            const element4 = document.getElementById(fragment);
+        //            console.log(element);
+        //            console.log(element2);
+        //            console.log(element3);
+        //            console.log(element4);
+        //            if (element2) {
+        //                console.log(1234);
+        //                element2.scrollTo();}
+        //        }
+        //    }
+        //});
         /* todo research
         this.router.events
             .filter(event => event instanceof NavigationEnd)

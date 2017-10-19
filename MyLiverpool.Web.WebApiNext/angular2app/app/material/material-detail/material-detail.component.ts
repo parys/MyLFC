@@ -42,16 +42,16 @@ export class MaterialDetailComponent implements OnInit, OnDestroy {
             } else {
                 this.service.getSingle(+params["id"])
                     .subscribe(data => this.parse(data),
-                        error => console.log(error));
+                        e => console.log(e));
             }
         });
+
     }
 
     public ngOnDestroy(): void {
         if(this.sub) this.sub.unsubscribe();
     }
     
-
     public showActivateModal(): void {
         const dialogRef = this.dialog.open(MaterialActivateDialogComponent);
         dialogRef.afterClosed().subscribe(result => {

@@ -66,8 +66,8 @@
                                              asp-route-id="@item.UserId">@item.UserName</a></li>
                              @if (item.CanCommentary)
                              {
-                                 <li class="">| Комментарии: @item.CommentsCount</li>
-                                @*<li class="">| Комментарии: <a href="@Url.Action("Detail", "Material", new {id = item.Id})#comments">@item.CommentsCount</a></li>*@
+                                 <li class="">@*| Комментарии: @item.CommentsCount*@</li>
+                                <li class="">| Комментарии: <a asp-action="Detail" asp-controller="Material" asp-route-id="@item.Id" asp-fragment="comments">@item.CommentsCount</a></li>
                              }
                          </ul>
                      </div>

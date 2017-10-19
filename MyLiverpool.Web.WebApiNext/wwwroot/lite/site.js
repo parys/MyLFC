@@ -1,16 +1,7 @@
-﻿window.onscroll= function() {
-    var scrollPos = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-
-    if (scrollPos >= 200)
-        document.getElementById("goToTop").className = "";
-    else
-        document.getElementById("goToTop").className = "hidden";
-};
-
-$(document).ready(function () {
+﻿$(document).ready(function () {
 
     $(".timeConvert").each(function () {
-        var dateTime = new Date($(this).data("date"));
+        const dateTime = new Date($(this).data("date"));
         var time;
         if ($(this).data("sec")) {
             time = dateTime.toString("HH:mm:ss");
@@ -24,4 +15,29 @@ $(document).ready(function () {
         //  $(this).text(`${time} ${date}`);
         $(this).text(moment($(this).data("date")).format('DD MMM YYYY, HH:mm:ss'));
     });
+
+    $(".short-link").each(function() {
+        const fullLink = new URL($(this).attr("href")).hostname;
+        $(this).text(fullLink);
+    });
+
+    window.onscroll = function () {
+        var scrollPos = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+
+        if (scrollPos >= 200)
+            document.getElementById("goToTop").className = "";
+        else
+            document.getElementById("goToTop").className = "hidden";
+    };
+
+    window.onload = function() {
+        if (location.hash) {
+            $("html,body")
+                .animate({
+                        scrollTop: $(location.hash).offset().top
+                    },
+                    1500);
+        }
+    };
+
 })

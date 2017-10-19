@@ -1,15 +1,19 @@
-﻿import { Component, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef, OnChanges } from "@angular/core";
+﻿import { Component, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef, OnChanges, AfterViewChecked, ElementRef } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { Router, ActivatedRoute } from "@angular/router";
 import { Comment } from "../comment.model";
 import { CommentService } from "../comment.service";
-import { RolesCheckedService, Pageable } from "@app/shared/index";
+import { RolesCheckedService, Pageable } from "@app/shared";
 
 @Component({
     selector: "comment-section",
     templateUrl: "./comment-section.component.html",
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CommentSectionComponent implements OnInit, OnChanges {
+export class CommentSectionComponent implements OnInit, OnChanges, AfterViewChecked {
+    private scrolled: boolean = false;
+    private prevChatHeight: number = 0;
+    private commentsElem: any;
     public items: Comment[] = [];
     public page: number = 1;
     public itemsPerPage: number = 50;
@@ -22,7 +26,10 @@ export class CommentSectionComponent implements OnInit, OnChanges {
 
     constructor(private commentService: CommentService,
         private cd: ChangeDetectorRef,
-        public roles: RolesCheckedService
+        public roles: RolesCheckedService,
+        private route: ActivatedRoute,
+        public element: ElementRef,
+    private router: Router
         , private formBuilder: FormBuilder) {   
     }   
 
@@ -38,6 +45,56 @@ export class CommentSectionComponent implements OnInit, OnChanges {
         this.update();
         this.cd.markForCheck();
         this.type = this.type ? this.type : 3;
+
+
+        this.commentsElem = this.element.nativeElement.querySelector("#comments");
+    }
+    
+    public ngAfterViewChecked(): void {
+
+       // if (this.canScrollDown()) {
+       //     this.scrollDown();
+      //  }
+        console.warn(this.commentsElem);
+        if (!this.scrolled) {
+            const fragment = this.router.parseUrl(this.router.url).fragment;
+            if (fragment) {
+             //   console.log(fragment);
+                const element = document.querySelector('#' + fragment);
+                const element3 = document.getElementById('#' + fragment);
+                console.log(element);
+                console.log(1);
+                if (element) {
+                //    console.log(element.clientHeight);
+                    console.log(element.scrollHeight);
+                    console.log(element.scrollWidth);
+                }
+                console.log(element3);
+                if (element3) {
+               //     console.log(element3.clientHeight);
+                    console.log(element3.offsetHeight);
+                    console.log(element3.scrollHeight);
+                    console.log(element3.scrollTop);
+                }
+                if (element) {
+                    console.log(1234);
+                    element.scrollIntoView();
+                    this.scrolled = true;
+                }
+            }
+        }
+    }
+
+    private canScrollDown(): boolean {
+        /* compares prev and current scrollHeight */
+
+        var can = (this.prevChatHeight !== this.commentsElem.scrollHeight);
+        this.prevChatHeight = this.commentsElem.scrollHeight;
+        return can;
+    }
+
+    public scrollDown(): void {
+        this.commentsElem.scrollTop = this.commentsElem.scrollHeight;
     }
 
     public ngOnChanges(): void {

@@ -23,10 +23,12 @@
     <div class="alert-warning top10">
         <ul class="list-inline">
             <li><label>Просмотры:</label> @Model.Reads<span [textContent]="item.reads"></span></li>
-            @if (!string.IsNullOrWhiteSpace(Model.Source))
+            @if (!string.IsNullOrWhiteSpace(Model.Source) && Uri.IsWellFormedUriString(Model.Source, UriKind.RelativeOrAbsolute))
             {
-                @* todo <li *ngIf="item.source"><label>Источник:</label> <a [href]="sanitizeByUrl(item.source)" target="_blank" [textContent]="getShortLink(item.source)"></a></li>*@
-
+                if (Uri.TryCreate(Model.Source, UriKind.Absolute, out var uri))
+                {
+                    <li><label>Источник:</label> <a href="@Model.Source" target="_blank"> @(uri.Host)</a></li>
+                }
             }
             <li><label>Дата добавления:</label> <span class="timeConvert" data-date="@Model.AdditionTime" data-dow="true" data-sec="false"></span></li>
             <li><label>Категория:</label> <a asp-action="Index"
@@ -43,12 +45,14 @@
     <span class="col-xs-12">К другим новостям: </span>
     @if (Model.PrevMaterialId.HasValue)
     {
-        <a href="@Url.Action("Detail", new { id = Model.PrevMaterialId})">@Model.PrevMaterialTitle (назад)</a>
+        <a asp-action="Detail" asp-route-id="@Model.PrevMaterialId">@Model.PrevMaterialTitle (назад)</a>
     }
     @if (Model.NextMaterialId.HasValue)
     {
-        <a href="@Url.Action("Detail", new { id = Model.NextMaterialId})">@Model.NextMaterialTitle (вперед)</a>
+        <a asp-action="Detail" asp-route-id="@Model.NextMaterialId">@Model.NextMaterialTitle (вперед)</a>
     }
 </div>
-@await Component.InvokeAsync("CommentSection", new { materialId = Model.Id })
+<div class="full-width flex">
+    @await Component.InvokeAsync("CommentSection", new {materialId = Model.Id})
+</div>
 @*<comment-section id="comments" [materialId]="item.id" [type]="item.type" [canCommentary]="item.canCommentary"></comment-section>*@

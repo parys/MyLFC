@@ -40,6 +40,8 @@
                         <li class="">Автор:</li>
                         <li class=""><a [routerLink]="['/users', item.userId ]" [textContent]="item.userName"></a></li>
                         <li *ngIf="item.canCommentary" class="">| Комментарии: <span [textContent]="item.commentsCount"></span></li>
+                        <li *ngIf="item.canCommentary" class="">| Комментарии: <a [routerLink]="['/', item.typeName, item.id]" fragment="comments" 
+                                                                                  [textContent]="item.commentsCount"></a></li>
                     </ul>
                 </div>
             </div>
