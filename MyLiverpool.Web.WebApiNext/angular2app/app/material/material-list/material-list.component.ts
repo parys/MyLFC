@@ -3,12 +3,12 @@ import { Location } from "@angular/common";
 import { MatDialog, MatSnackBar } from "@angular/material";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
-import { MaterialService } from "./material.service";
-import { Material } from "./material.model";
-import { MaterialFilters } from "./materialFilters.model";
+import { MaterialService } from "../material.service";
+import { Material } from "../material.model";
+import { MaterialFilters } from "../materialFilters.model";
 import { RolesCheckedService, DeleteDialogComponent,Pageable } from "@app/shared";
 import { MaterialType } from "@app/materialCategory";
-import { MaterialActivateDialogComponent } from "./material-activate-dialog.component";
+import { MaterialActivateDialogComponent } from "../material-activate-dialog.component";
 
 @Component({
     selector: "material-list",

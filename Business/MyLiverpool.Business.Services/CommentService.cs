@@ -18,7 +18,7 @@ using MyLiverpool.Data.ResourceAccess.Interfaces;
 
 namespace MyLiverpool.Business.Services
 {
-    public class MaterialCommentService : IMaterialCommentService
+    public class CommentService : ICommentService
     {
         private readonly IMaterialCommentRepository _commentService;
         private readonly INotificationService _notificationService;
@@ -29,7 +29,7 @@ namespace MyLiverpool.Business.Services
 
         private const int ItemPerPage = GlobalConstants.CommentsPerPageList * 10 /*todo should be fixed*/;
 
-        public MaterialCommentService(IMapper mapper, IMaterialCommentRepository commentService,
+        public CommentService(IMapper mapper, IMaterialCommentRepository commentService,
             IUserService userService, IHttpContextAccessor accessor,
             IEmailSender messageService, INotificationService notificationService)
         {
@@ -68,7 +68,7 @@ namespace MyLiverpool.Business.Services
                 result.Photo = await _userService.GetPhotoPathAsync(comment.AuthorId);
                 if (comment.ParentId.HasValue)
                 {
-                    await SendNotificationsAsync(comment.ParentId.Value, result.AuthorUserName, comment.Message);
+                    await SendNotificationsAsync(comment.ParentId.Value, comment.Id, result.AuthorUserName, comment.Message);
                 }
                 return result;
             }
@@ -188,17 +188,17 @@ namespace MyLiverpool.Business.Services
             return _mapper.Map<IEnumerable<CommentDto>>(comments.Where(x => !string.IsNullOrWhiteSpace(x.Message)));
         }
 
-        private async Task SendNotificationsAsync(int parentCommentId, string authorUserName, string commentText)
+        private async Task SendNotificationsAsync(int parentCommentId, int commentId, string authorUserName, string commentText)
         {
             var parentComment = await _commentService.GetByIdAsync(parentCommentId);
             var userConfig = await _userService.GetUserConfigAsync(parentComment.AuthorId);
             if (userConfig.IsReplyToPmEnabled)
             {
-                await SendNotificationAsync(parentComment, authorUserName, commentText);
+                await SendNotificationAsync(parentComment, commentId, authorUserName, commentText);
             }
             if (userConfig.IsReplyToEmailEnabled)
             {
-                await SendNotificationToEmailAsync(parentComment, authorUserName, commentText);
+                await SendNotificationToEmailAsync(parentComment, commentId, authorUserName, commentText);
             }
         }
 
@@ -236,7 +236,7 @@ namespace MyLiverpool.Business.Services
             return comments.Where(c => c.ParentId == null);
         }
 
-        private async Task SendNotificationAsync(MaterialComment parentComment, string authorUserName, string commentText)
+        private async Task SendNotificationAsync(MaterialComment parentComment, int commentId, string authorUserName, string commentText)
         {
             var notification = new NotificationDto
             {
@@ -245,28 +245,29 @@ namespace MyLiverpool.Business.Services
                 Type = (NotificationType)parentComment.Type,
                 EntityId = parentComment.MaterialId ?? parentComment.MatchId,
                 IsRead = false,
+                CommentId = commentId,
                 Text = $"Пользователь {authorUserName} оставил ответ на ваш комментарий: \"{commentText}\"."
             };
             await _notificationService.CreateAsync(notification);
         }
 
-        private async Task SendNotificationToEmailAsync(MaterialComment parentComment, string authorUserName, string commentText)
+        private async Task SendNotificationToEmailAsync(MaterialComment parentComment, int commentId, string authorUserName, string commentText)
         {
             const string newAnswer = "Новый ответ на ваш комментарий";
             var user = await _userService.GetUserAsync(parentComment.AuthorId);
             if (user != null)
             {
-                await _messageService.SendEmailAsync(user.Email, newAnswer, GetNotificationEmailBody(parentComment, authorUserName, commentText));
+                await _messageService.SendEmailAsync(user.Email, newAnswer, GetNotificationEmailBody(parentComment, commentId, authorUserName, commentText));
             }
         }
 
-        private string GetNotificationEmailBody(MaterialComment parentComment, string authorUserName, string commentText)
+        private string GetNotificationEmailBody(MaterialComment parentComment, int commentId, string authorUserName, string commentText)
         {
             var host = _accessor.HttpContext.Request.Host;
 
             var link = parentComment.Type.ToString().ToLowerInvariant();
 
-            var callbackUrl = $"http://{host}/{link}/{parentComment.MaterialId ?? parentComment.MatchId}";
+            var callbackUrl = $"http://{host}/{link}/{parentComment.MaterialId ?? parentComment.MatchId}#com{commentId}";
             return $"Пользователь {authorUserName} оставил <a href=\"{callbackUrl}\">ответ</a> на ваш комментарий: \"{commentText}\".";
         }
 

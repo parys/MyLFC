@@ -6,7 +6,7 @@ using MyLiverpool.Common.Utilities;
 
 namespace MyLiverpool.Business.Contracts
 {
-    public interface IMaterialCommentService
+    public interface ICommentService
     {
         Task<bool> DeleteAsync(int id);
 

@@ -3,6 +3,7 @@
     public type: number;
     public typeName: string;
     public entityId: number;
+    public commentId: number;
     public text: string;
     public isRead: boolean;
     public dateTime: Date;

@@ -11,9 +11,9 @@ namespace MyLiverpool.Web.WebApiNext.Areas.Lite.Controllers.Components
     [ViewComponent(Name = "CommentSection")]
     public class CommentSectionViewComponent : ViewComponent
     {
-        private readonly IMaterialCommentService _commentService;
+        private readonly ICommentService _commentService;
 
-        public CommentSectionViewComponent(IMaterialCommentService commentService)
+        public CommentSectionViewComponent(ICommentService commentService)
         {
             _commentService = commentService;
         }

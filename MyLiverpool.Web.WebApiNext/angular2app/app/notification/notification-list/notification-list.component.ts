@@ -54,7 +54,7 @@ export class NotificationListComponent implements OnInit {
     }
 
     private goToNotification(index: number): void {
-        this.router.navigate(["/", this.items[index].typeName, this.items[index].entityId]);
+        this.router.navigate(["/", this.items[index].typeName, this.items[index].entityId], { fragment: this.items[index].commentId ? `com${this.items[index].commentId}` : ""});
     }
 
     private readArray(ids: number[]): boolean {

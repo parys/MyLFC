@@ -15,6 +15,8 @@ namespace MyLiverpool.Business.Dto
 
         public int UserId { get; set; }
 
+        public int CommentId { get; set; }
+
         public string Text { get; set; }
 
         public bool IsRead { get; set; }

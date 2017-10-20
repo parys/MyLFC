@@ -20,7 +20,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     [Authorize(AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme), Route("api/v1/[controller]")]
     public class CommentController : Controller
     {
-        private readonly IMaterialCommentService _commentService;
+        private readonly ICommentService _commentService;
         private readonly IMemoryCache _cache;
         private const string LastComments = "lastComments";
 
@@ -29,7 +29,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <param name="commentService"></param>
         /// <param name="cache"></param>
-        public CommentController(IMaterialCommentService commentService, IMemoryCache cache)
+        public CommentController(ICommentService commentService, IMemoryCache cache)
         {
             _commentService = commentService;
             _cache = cache;

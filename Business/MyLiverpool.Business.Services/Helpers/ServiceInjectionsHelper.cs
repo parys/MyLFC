@@ -24,7 +24,7 @@ namespace MyLiverpool.Business.Services.Helpers
             services.AddTransient<IMatchEventService, MatchEventService>();
             services.AddTransient<IMatchPersonService, MatchPersonService>();
             services.AddTransient<IMaterialCategoryService, MaterialCategoryService>();
-            services.AddTransient<IMaterialCommentService, MaterialCommentService>();
+            services.AddTransient<ICommentService, CommentService>();
             services.AddTransient<IMaterialService, MaterialService>();
             services.AddTransient<INotificationService, NotificationService>();
             services.AddTransient<IPersonService, PersonService>();

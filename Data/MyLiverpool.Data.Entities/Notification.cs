@@ -15,6 +15,8 @@ namespace MyLiverpool.Data.Entities
 
         public int? EntityId { get; set; }
 
+        public int CommentId { get; set; }
+
         public string Text { get; set; }
 
         public bool IsRead { get; set; }
