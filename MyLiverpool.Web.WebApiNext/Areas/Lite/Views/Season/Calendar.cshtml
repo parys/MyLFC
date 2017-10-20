@@ -18,7 +18,7 @@
                     </td>
                     <td>
                         <span>
-                            <span data-date="@Model.Matches.ElementAt(i).DateTime" data-dow="true" data-sec="false" class="timeConvert"></span>
+                            <span data-date="@Model.Matches.ElementAt(i).DateTime.ToString("O")" data-dow="true" data-sec="false" class="timeConvert"></span>
                             @*<a *ngIf="roles.isAdminAssistant" [routerLink]="['/matches', match.id, 'edit']">
                                     <span class="glyphicon glyphicon-pencil"></span>
                                 </a>*@

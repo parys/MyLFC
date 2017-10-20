@@ -16,7 +16,7 @@
                 </div>
                 <div class="col-xs-12 container-row">
                     <span class="col-xs-12"[textContent]="injury.description">@injury.Description</span>
-                    <span class="col-xs-12 container-row">До: <span class="timeConvert" data-date="@injury.EndTime" data-dow="true" data-sec="false"></span></span>
+                    <span class="col-xs-12 container-row">До: <span class="timeConvert" data-date="@injury.EndTime.ToString("O")" data-dow="true" data-sec="false"></span></span>
                 </div>
             </div>
         }

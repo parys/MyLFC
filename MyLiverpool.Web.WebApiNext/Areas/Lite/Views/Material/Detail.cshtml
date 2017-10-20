@@ -30,7 +30,7 @@
                     <li><label>Источник:</label> <a href="@Model.Source" target="_blank"> @(uri.Host)</a></li>
                 }
             }
-            <li><label>Дата добавления:</label> <span class="timeConvert" data-date="@Model.AdditionTime" data-dow="true" data-sec="false"></span></li>
+            <li><label>Дата добавления:</label> <span class="timeConvert" data-date="@Model.AdditionTime.ToString("O")" data-dow="true" data-sec="false"></span></li>
             <li><label>Категория:</label> <a asp-action="Index"
                                              asp-controller="Material"
                                              asp-route-page="1"
@@ -52,7 +52,7 @@
         <a asp-action="Detail" asp-route-id="@Model.NextMaterialId">@Model.NextMaterialTitle (вперед)</a>
     }
 </div>
-<div class="full-width flex">
+<div class="container-row col-xs-12">
     @await Component.InvokeAsync("CommentSection", new {materialId = Model.Id})
 </div>
 @*<comment-section id="comments" [materialId]="item.id" [type]="item.type" [canCommentary]="item.canCommentary"></comment-section>*@

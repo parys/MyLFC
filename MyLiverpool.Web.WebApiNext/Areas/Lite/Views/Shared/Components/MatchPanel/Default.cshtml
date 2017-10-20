@@ -4,7 +4,7 @@
 {
     <div class="col-xs-12 container-row">
         <div class="col-xs-12 text-center bottom10">
-            <span class="timeConvert" data-date="@Model.DateTime" data-dow="true" data-sec="false"></span>, @Model.TypeName, @Model.StadiumName
+            <span class="timeConvert" data-date="@Model.DateTime.ToString("O")" data-dow="true" data-sec="false"></span>, @Model.TypeName, @Model.StadiumName
         </div>
         <div class="col-xs-4">
             <div class="full-width text-center">

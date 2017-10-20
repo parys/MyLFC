@@ -1,10 +1,8 @@
 ﻿@model PageableData<CommentDto>
 
-<div id="comments" class="col-xs-12">Комментарии: @Model.TotalItems @*<button (click)="update()"><span class="glyphicon glyphicon-refresh text-success"></span></button>*@</div>
+<div id="comments" class="full-width">Комментарии: @Model.TotalItems @*<button (click)="update()"><span class="glyphicon glyphicon-refresh text-success"></span></button>*@</div>
 @foreach (var comment in Model.List)
 {
-    @*@Html.Partial("../../../Comment/_CommentDetail.cshtml", comment)*@
     @await Component.InvokeAsync("CommentDetail", new { comment, deep = 0})
     @*<comment-detail [item]="comment" [deep]="0" [materialId]="materialId" [canCommentary]="canCommentary" [type]="type" [matchId]="matchId"></comment-detail>*@
-
 }

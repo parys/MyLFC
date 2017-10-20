@@ -14,13 +14,11 @@
         <th>Группа</th>
     </tr>
     </thead>
-    <tbody *ngFor="let user of items | paginate: { itemsPerPage: itemsPerPage,
-                                                      currentPage: page,
-                                                      totalItems: totalItems }; let i = index;">
+    <tbody>
     @foreach (var user in Model.List)
     {
         <tr>
-            <td class="">@user.LastModified.ToString("G")</td>
+            <td class=""><span data-date="@user.LastModified.ToString("O")" data-dow="true" data-sec="false" class="timeConvert"></span></td>
             <td class="">
                 <a asp-action="Detail" asp-controller="User" asp-route-id="@user.Id">
                     <div class="col-sm-3">
@@ -31,7 +29,7 @@
                 @*<span class="text-danger" tooltip="Почта не подтверждена" *ngIf="!user.emailConfirmed && (roles.isAdminAssist || roles.isSelf(user.id))"> *</span>*@
                 @*<a class="col-sm-2" role="button" *ngIf="roles.isLogined && !roles.isSelf(user.id)" (click)="writePm(i)"><span class="glyphicon glyphicon-envelope"></span></a>*@
             </td>
-            <td class="">@user.RegistrationDate.ToString("G")</td>
+            <td class=""><span data-date="@user.RegistrationDate.ToString("O")" data-dow="true" data-sec="false" class="timeConvert"></span></td>
             <td class="">@user.RoleGroupName</td>
         </tr>
     }

@@ -12,7 +12,7 @@
         <button mat-raised-button [routerLink]="['./edit']">Изменить</button>
     </div>*@
     <div class="col-xs-12 text-center">
-        <span class="timeConvert" data-date="@Model.DateTime" data-dow="true" data-sec="false"></span>, @Model.TypeName
+        <span class="timeConvert" data-date="@Model.DateTime.ToString("O")" data-dow="true" data-sec="false"></span>, @Model.TypeName
     </div>
     <div class="col-xs-12 text-center bottom10">
         @Model.StadiumName, @Model.StadiumCity
