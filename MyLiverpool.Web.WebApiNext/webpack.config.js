@@ -1,5 +1,6 @@
 const path = require("path");
 const webpack = require("webpack");
+//const rxPaths = require("rxjs/_esm5/path-mapping");
 //var NodeExternals = require("webpack-node-externals");
 var Merge = require("webpack-merge");
 //var AllFilenamesExceptJavaScript = /\.(?!js(\?|$))([^.]+(\?|$))/;
@@ -18,6 +19,7 @@ module.exports = (env) => {
             extensions: [".js", ".ts"],
             alias: {
                 '@app': srcPath("app"),
+             //   rxPaths()
             }
         },
         output: {

@@ -16,15 +16,10 @@
 
   <ItemGroup>
       <!-- Files not to publish (note that the 'dist' subfolders are re-added below) -->
-    <Compile Remove="Areas\Lite\Views\Comment\**" />
     <Compile Remove="temp-js\**" />
     <Compile Remove="wwwroot\content\persons\**" />
     <Content Remove="angular2app\**" />
-    <Content Remove="Areas\Lite\Views\Comment\**" />
     <Content Remove="package-lock.json" />
-    <Content Remove="wwwroot\src\core.min.js" />
-    <Content Remove="wwwroot\src\library.min.js" />
-    <Content Remove="wwwroot\src\shim.min.js" />
     <Content Remove="temp-js\**" />
     <Content Remove="wwwroot\content\**" />
     <Content Remove="wwwroot\fonts\**" />
@@ -33,10 +28,8 @@
     <Content Remove="wwwroot\src\lightgray\**" />
     <Content Remove="wwwroot\src\plugins\**" />
     <Content Remove="wwwroot\src\themes\**" />
-    <EmbeddedResource Remove="Areas\Lite\Views\Comment\**" />
     <EmbeddedResource Remove="temp-js\**" />
     <EmbeddedResource Remove="wwwroot\content\persons\**" />
-    <None Remove="Areas\Lite\Views\Comment\**" />
     <None Remove="temp-js\**" />
     <None Remove="wwwroot\content\persons\**" />
 
@@ -110,7 +103,6 @@
   </ItemGroup>
         
   <ItemGroup>
-    <Folder Include="Areas\Lite\Data\" />
     <Folder Include="wwwroot\content\" />
   </ItemGroup>
         

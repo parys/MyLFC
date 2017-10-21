@@ -1,6 +1,7 @@
 ﻿import commonjs from "rollup-plugin-commonjs";
 import uglify from "rollup-plugin-uglify";
 import sass from "rollup-plugin-sass";
+//const rxPaths = require("rxjs/_esm5/path-mapping");
 const path = require("path");
 import resolve from "rollup-plugin-node-resolve-with-alias";
 
@@ -43,7 +44,8 @@ export default {
             browser: true,  // Default: false 
             //     resolve: ["/index.js", ".js"],
             alias: {
-             '@app': path.join(__dirname, "temp-js/dist/unbundled-aot/angular2app/app")
+                '@app': path.join(__dirname, "temp-js/dist/unbundled-aot/angular2app/app"),
+         //       rxPaths()
         }
         }),
         sass({
