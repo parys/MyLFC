@@ -7,7 +7,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// Home controller.
     /// </summary>
     [AllowAnonymous]
-    public class HomeController : Controller
+    public class SpaController : Controller
     {
         /// <summary>
         /// Returns index wiew with prerended view.

@@ -301,11 +301,11 @@ namespace MyLiverpool.Web.WebApiNext
                 );
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Spa}/{action=Index}/{id?}");
 
                 routes.MapSpaFallbackRoute(
                     name: "spa-fallback",
-                    defaults: new {controller = "Home", action = "Index"});
+                    defaults: new {controller = "Spa", action = "Index"});
             });
         }
 
