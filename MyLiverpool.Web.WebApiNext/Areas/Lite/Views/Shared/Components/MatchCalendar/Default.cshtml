@@ -46,7 +46,7 @@
                 <strong style="font-size: 1.2em;">@Model[0].HomeClubName</strong>
             </div>
             <div class="col-xs-4 col-sm-12 col-md-12 col-lg-2 flex-vertical-center flex-center-h padding0">
-               <a asp-action="Detail" asp-controller="Match" asp-route-id="@Model[0].Id" class="score center">
+               <a asp-action="Detail" asp-controller="Match" asp-route-id="@Model[0].Id" class="score text-center">
                 <strong class="text-center font-size20">
                     @Model[0].ScoreHome:@Model[0].ScoreAway
                     @if (Model[0].ScorePenaltyHome.HasValue && Model[0].ScorePenaltyHome.Value > 0 ||

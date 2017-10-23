@@ -32,12 +32,9 @@
 
     window.onload = function() {
         if (location.hash) {
-            $("html,body")
-                .animate({
-                        scrollTop: $(location.hash).offset().top
-                    },
-                    1500);
+            if (location.hash.indexOf("com")) {
+                $(location.hash).addClass("active");
+            }
         }
     };
-
 })

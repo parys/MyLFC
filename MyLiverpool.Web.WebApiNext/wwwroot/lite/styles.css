@@ -319,6 +319,11 @@ textarea {
         height: auto;
     }
 
+    .comment.active {
+        border-color: #731010;
+        border-width: 3px;
+    }
+
 .dropdown-menu {
     min-width: 140px;
     border: 5px solid #731010;

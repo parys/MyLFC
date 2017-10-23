@@ -30,7 +30,7 @@
             <strong style="font-size: 1.2em;" [textContent]="last.homeClubName"></strong>
         </div>
         <div class="col-xs-4 col-sm-12 col-md-12 col-lg-2 flex-vertical-center flex-center-h padding0">
-            <a [routerLink]="['matches', last.id]" class="score center">
+            <a [routerLink]="['matches', last.id]" class="score text-center">
                 <strong>
                     <span [textContent]="last.scoreHome"></span><span>:</span><span [textContent]="last.scoreAway"></span>
                     <span class="col-xs-12 container-row" *ngIf="last.scorePenaltyHome || last.scorePenaltyAway">({{last.scorePenaltyHome}}-{{last.scorePenaltyAway}})</span>

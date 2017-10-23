@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef, OnChanges, AfterViewChecked, ElementRef } from "@angular/core";
+﻿import { Component, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef, OnChanges, AfterViewChecked, ElementRef, Renderer2 } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Comment } from "../comment.model";
@@ -27,6 +27,7 @@ export class CommentSectionComponent implements OnInit, OnChanges, AfterViewChec
         private cd: ChangeDetectorRef,
         public roles: RolesCheckedService,
         private route: ActivatedRoute,
+        private renderer: Renderer2,
         public element: ElementRef,
         private router: Router
         , private formBuilder: FormBuilder) {
@@ -51,7 +52,9 @@ export class CommentSectionComponent implements OnInit, OnChanges, AfterViewChec
         const fragment = this.router.parseUrl(this.router.url).fragment;
         if (fragment) {
             const element = document.getElementById(fragment);
+        //    const element = document.getElementsByTagName("footer")[0];
             if (element) {
+                this.renderer.addClass(element, "active");
                 const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
                 const clientTop = document.documentElement.clientTop || document.body.clientTop || 0;
                 const top = element.getBoundingClientRect().top + scrollTop - clientTop;
@@ -59,14 +62,7 @@ export class CommentSectionComponent implements OnInit, OnChanges, AfterViewChec
                     this.prevHeight = top;
                 } else {
                    element.scrollIntoView();
-                //    element.className += " color-red";
-                //    element.style.backgroundColor = "red";
-                ////    element.classList.add("color-red");
-                //    console.log(element);
-                //    console.log(element.className);
-                //    console.log(element.classList);
                     this.isScrolled = true;
-               //     this.cd.detectChanges();
                 }
             }
         }

@@ -1,5 +1,5 @@
-﻿<div *ngIf="item" class="comment-container com-offset-{{deep}}" [id]="'com'+item.id" [class.nested]="item.children.length > 0">
-    <div class="comment container-fluid">
+﻿<div *ngIf="item" class="comment-container com-offset-{{deep}}" [class.nested]="item.children.length > 0">
+    <div class="comment container-fluid" [id]="'com'+item.id">
         <div class="row">
             <div class="col-xs-9 col-sm-7">
                 <span *ngIf="item.number" [textContent]="item.number"></span>

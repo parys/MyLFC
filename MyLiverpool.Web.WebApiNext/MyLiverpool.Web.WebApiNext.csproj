@@ -107,7 +107,14 @@
   </ItemGroup>
         
   <ItemGroup>
+    <None Include="web.config" />
     <None Include="wwwroot\lite\styles.css" />
+  </ItemGroup>
+        
+  <ItemGroup>
+    <Content Update="web.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
         
   <ProjectExtensions><VisualStudio><UserProperties package_1json__JSONSchema="http://json.schemastore.org/resjson" /></VisualStudio></ProjectExtensions>
