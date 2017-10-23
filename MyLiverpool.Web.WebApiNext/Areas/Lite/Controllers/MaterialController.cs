@@ -41,6 +41,10 @@ namespace MyLiverpool.Web.WebApiNext.Areas.Lite.Controllers
         {
             var hasAccess = User != null && (User.IsInRole(nameof(RolesEnum.NewsStart)) || User.IsInRole(nameof(RolesEnum.BlogStart)));
             var model = await _cache.GetOrCreateAsync(CacheKeysConstants.Material + id, async x => await _materialService.GetDtoAsync(id, hasAccess));
+            if (model == null)
+            {
+                return RedirectToAction("Index", "Material");
+            }
             if (model.Pending)
             {
                 if ((model.Type == MaterialType.News || User.GetUserId() != model.UserId) &&

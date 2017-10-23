@@ -9,6 +9,7 @@ using MyLiverpool.Business.Dto;
 using MyLiverpool.Business.Dto.Filters;
 using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
+using MyLiverpool.Web.WebApiNext.Extensions;
 using Newtonsoft.Json;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
@@ -22,7 +23,6 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     {
         private readonly ICommentService _commentService;
         private readonly IMemoryCache _cache;
-        private const string LastComments = "lastComments";
 
         /// <summary>
         /// Constructor.
@@ -63,7 +63,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [AllowAnonymous, HttpGet("list/last")]
         public async Task<IActionResult> GetLastList()
         {
-            var result = await _cache.GetOrCreateAsync(LastComments, async x => await _commentService.GetLastListAsync());
+            var result = await _cache.GetOrCreateAsync(CacheKeysConstants.LastComments, async x => await _commentService.GetLastListAsync());
             return Json(result);
         }
 
@@ -125,7 +125,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             dto.AuthorId = User.GetUserId();
             var result = await _commentService.AddAsync(dto);
             CleanMaterialCache();
-            _cache.Remove(LastComments);
+            _cache.Remove(CacheKeysConstants.LastComments);
             return Ok(result);
         }
 

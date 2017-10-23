@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using MyLiverpool.Business.Contracts;
+using MyLiverpool.Business.Dto;
 using MyLiverpool.Data.Common;
 using MyLiverpool.Web.WebApiNext.Extensions;
 
@@ -32,7 +33,7 @@ namespace MyLiverpool.Web.WebApiNext.Areas.Lite.Controllers.Components
                 var result = await _matchService.GetByIdAsync(int.Parse(helpEntity));
                 return View(result);
             }
-            return View(null);
+            return View(null as MatchDto);
         }
     }
 }

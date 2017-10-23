@@ -1,8 +1,8 @@
 ﻿@model PageableData<MaterialMiniDto>
-
+    
+@await Component.InvokeAsync("MatchPanel")
 @Html.Partial("../Material/_ListPartialAsync.cshtml", Model)
 @section scripts {
-    @*<script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Intl.~locale.en,Intl.~locale.ru"></script>*@
     <environment names="Development">
     </environment>
     <environment names="Staging,Production">

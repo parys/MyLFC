@@ -148,7 +148,8 @@
         </div>
         <div class="col-xs-12 col-sm-3 container-row">
             <sidebar-right></sidebar-right>
-            @await Component.InvokeAsync("ChatMini")
+                        @await Component.InvokeAsync("ChatMini")
+                        @await Component.InvokeAsync("CommentLast")
             <!--<sidebar-left *ngIf="!isRoot"></sidebar-left>-->
         </div>
     </div>
