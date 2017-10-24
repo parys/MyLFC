@@ -20,6 +20,7 @@ namespace MyLiverpool.Web.WebApiNext
 
         private static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .UseApplicationInsights()
               //  .CaptureStartupErrors(true)
                 .UseKestrel()
                 .UseContentRoot(Directory.GetCurrentDirectory())
