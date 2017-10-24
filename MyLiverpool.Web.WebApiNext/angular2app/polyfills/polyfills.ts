@@ -22,12 +22,6 @@ import "core-js/es7/reflect";
 
 //import "web-animations-js";  // Run `npm install --save web-animations-js`.
 
-/**
- * Date, currency, decimal and percent pipes.
- * Needed for: All but Chrome, Firefox, Edge, IE11 and Safari 10
- */
-import "intl";  // Run `npm install --save intl`.
-
 //import "./rx-imports";
 
 import "hammerjs";

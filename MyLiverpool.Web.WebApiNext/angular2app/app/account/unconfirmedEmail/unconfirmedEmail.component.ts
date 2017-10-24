@@ -1,7 +1,7 @@
 ﻿import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { AccountService } from "../account.service";
-import { GlobalValidators } from "../../shared/index";
+import { GlobalValidators } from "@app/shared";
 
 @Component({
     selector: "unconfirmedEmail",
@@ -17,7 +17,7 @@ export class UnconfirmedEmailComponent implements OnInit {
 
     public ngOnInit(): void {
         this.unconfirmedForm = this.formBuilder.group({
-            'email': ["", Validators.compose([
+            email: ["", Validators.compose([
                 Validators.required,
                 Validators.minLength(6),
                 GlobalValidators.mailFormat])]
@@ -31,8 +31,7 @@ export class UnconfirmedEmailComponent implements OnInit {
                     this.finish = true;
                 }
             },
-            error => console.log(error),
-            () => { }
+            error => console.log(error)
         );
     }
 }

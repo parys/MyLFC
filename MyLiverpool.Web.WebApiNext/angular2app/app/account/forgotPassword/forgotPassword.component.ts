@@ -1,7 +1,7 @@
 ﻿import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { AccountService } from "../account.service";
-import { GlobalValidators } from "../../shared/index";
+import { GlobalValidators } from "@app/shared";
 
 @Component({
     selector: "forgot-password",
@@ -19,7 +19,7 @@ export class ForgotPasswordComponent implements OnInit {
 
     public ngOnInit() : void {
         this.forgotForm = this.formBuilder.group({
-            'email': ["", Validators.compose([
+            email: ["", Validators.compose([
                 Validators.required,
                 Validators.minLength(6),
                 GlobalValidators.mailFormat])]
@@ -29,8 +29,7 @@ export class ForgotPasswordComponent implements OnInit {
     public onSubmit(): void {     
         this.email = this.forgotForm.controls["email"].value;        
         this.service.forgotPassword(this.email).subscribe(data => data,
-            error => console.log(error),
-            () => { }
+            error => console.log(error)
         );
         this.finish = true;
         this.isHuman = false;

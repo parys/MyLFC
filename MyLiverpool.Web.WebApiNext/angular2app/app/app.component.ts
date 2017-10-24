@@ -5,7 +5,6 @@ import { Observable } from "rxjs/Observable"
 import { RolesCheckedService, AuthService, IAuthStateModel } from "@app/shared/index";
 import { BreadcrumbService } from "@app/shared/breadcrumb";
 
-
 @Component({
     selector: "app",
     templateUrl: "./app.component.html",
