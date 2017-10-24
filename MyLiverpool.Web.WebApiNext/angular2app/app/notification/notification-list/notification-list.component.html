@@ -7,7 +7,7 @@
 </div>
 <div class="col-xs-12 container-row" *ngFor="let event of items; let i = index;">
     <div class="col-xs-12 event-block" [class.unread]="!event.isRead">
-        <div class="col-xs-12"> <span [textContent]="event.dateTime | date:'medium'"></span><a *ngIf="!event.isRead" class="pull-right" role="button" (click)="read(i)">Пометить как прочитанное</a></div>
+        <div class="col-xs-12"> <span [textContent]="event.dateTime | customDate"></span><a *ngIf="!event.isRead" class="pull-right" role="button" (click)="read(i)">Пометить как прочитанное</a></div>
         <a role="button" (click)="readAndGo(i)" [innerHtml]="event.text"></a>
     </div>
 </div>

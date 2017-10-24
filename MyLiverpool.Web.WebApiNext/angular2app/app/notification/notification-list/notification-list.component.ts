@@ -26,8 +26,8 @@ export class NotificationListComponent implements OnInit {
 
     public read(index: number): void {
         if (!this.items[index].isRead) {
-            this.service.read(this.items.filter(x => !x.isRead).map(x => x.id)).subscribe(res => {
-                if (res) {
+            this.service.read([this.items[index].id]).subscribe(res => {
+                if (res) {  
                     this.items[index].isRead = true;
                 }
             },
