@@ -24,5 +24,7 @@
         public const string MaterialList = "MaterialList";
 
         public const string ChatName = "Chat";
+
+        public const string LastComments = "lastComments";
     }
 }
