@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+
+using MyLiverpool.Web.WebApiNext.Extensions;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
@@ -13,8 +16,17 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// Returns index wiew with prerended view.
         /// </summary>
         /// <returns></returns>
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            var prerenderResult = await Request.BuildPrerender();
+
+            ViewData["SpaHtml"] = prerenderResult.Html; // our <app> from Angular
+            ViewData["Title"] = prerenderResult.Globals["title"]; // set our <title> from Angular
+            ViewData["Styles"] = prerenderResult.Globals["styles"]; // put styles in the correct place
+            ViewData["Scripts"] = prerenderResult.Globals["scripts"]; // scripts (that were in our header)
+            ViewData["Meta"] = prerenderResult.Globals["meta"]; // set our <meta> SEO tags
+            ViewData["Links"] = prerenderResult.Globals["links"]; // set our <link rel="canonical"> etc SEO tags
+            ViewData["TransferData"] = prerenderResult.Globals["transferData"]; // our transfer data set to window.TRANSFER_CACHE = {};
             return View();
         }
     }
