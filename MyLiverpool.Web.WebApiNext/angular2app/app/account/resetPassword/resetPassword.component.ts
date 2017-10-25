@@ -36,11 +36,11 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
 
         });
         this.resetForm = this.formBuilder.group({
-            'email': ["", Validators.compose([
+            email: ["", Validators.compose([
                 Validators.required, Validators.minLength(6), GlobalValidators.mailFormat])],
-            'password': ["", Validators.compose([
+            password: ["", Validators.compose([
                 Validators.required, Validators.minLength(6)])],
-            'confirmPassword': ["", Validators.compose([
+            confirmPassword: ["", Validators.compose([
                 Validators.required, Validators.minLength(6)])],
         }, { validator: GlobalValidators.matchingPasswords("password", "confirmPassword") });
     }

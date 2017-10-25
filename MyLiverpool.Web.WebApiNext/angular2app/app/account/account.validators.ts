@@ -4,12 +4,6 @@ import { Observable } from "rxjs/Observable";
 import { Subject } from "rxjs/Subject";
 import { AccountService } from "./account.service";
 import { Configuration } from "../app.constants";
-import "rxjs/add/operator/debounceTime";
-import "rxjs/add/operator/first";
-import "rxjs/add/operator/distinctUntilChanged";
-import "rxjs/add/operator/take";
-import "rxjs/add/operator/takeUntil";
-import "rxjs/add/operator/switchMap";
 
 @Injectable()
 export class AccountValidators {
@@ -24,14 +18,14 @@ export class AccountValidators {
         AccountValidators.config = new Configuration();
     }
 
-    isEmailUnique(control: FormControl): Observable<IValidationResult> {
+    public isEmailUnique(control: FormControl): Observable<IValidationResult> {
         AccountValidators.changed.next();
         return new Observable((obs: any) => {
             control
                 .valueChanges
                 .debounceTime(AccountValidators.config.debounceTime)                
                 .takeUntil(AccountValidators.changed)
-                .take(1)
+                .take(1)//todo
                 .switchMap((value: string) => AccountValidators.service.isEmailUnique(value))
                 .subscribe(
                 data => {
@@ -49,14 +43,14 @@ export class AccountValidators {
         });
     }
 
-    isUserNameUnique(control: FormControl): Observable<IValidationResult> {
+    public isUserNameUnique(control: FormControl): Observable<IValidationResult> {
         AccountValidators.changed1.next();
         return new Observable((obs: any) => {
             control
                 .valueChanges
                 .debounceTime(AccountValidators.config.debounceTime)
                 .takeUntil(AccountValidators.changed1)
-                .take(1)
+                .take(1)//todo
                 .switchMap((value: string) => AccountValidators.service.isUserNameUnique(value))
                 .subscribe(
                 data => {

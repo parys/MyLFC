@@ -1,8 +1,7 @@
 ﻿import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { IRegisterModel, AuthService } from "../../shared/index";
+import { IRegisterModel, AuthService, GlobalValidators } from "@app/shared";
 import { AccountService } from "../account.service";
-import { GlobalValidators } from "../../shared/index";
 import { AccountValidators } from "../account.validators";
 
 @Component({

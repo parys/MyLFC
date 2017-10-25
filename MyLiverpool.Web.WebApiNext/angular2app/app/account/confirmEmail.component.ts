@@ -15,7 +15,7 @@ export class ConfirmEmailComponent implements OnInit, OnDestroy {
     constructor(private accountService: AccountService, private route: ActivatedRoute, private router: Router) {
     }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         this.sub = this.route.queryParams.subscribe(params => {
             let id = +params["userId"];
             let code = params["code"];
@@ -30,7 +30,7 @@ export class ConfirmEmailComponent implements OnInit, OnDestroy {
         });
     }
 
-    ngOnDestroy(): void {
+    public ngOnDestroy(): void {
         this.sub.unsubscribe();
     }
 }

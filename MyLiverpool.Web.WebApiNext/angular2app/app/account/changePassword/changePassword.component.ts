@@ -1,7 +1,7 @@
 ﻿import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { AccountService } from "../account.service";    
-import { GlobalValidators } from "../../shared/index";
+import { GlobalValidators } from "@app/shared";
 import { ChangePassword } from "../changePassword.model";
 import { MatSnackBar } from "@angular/material";
 
