@@ -1,4 +1,10 @@
 ﻿@model PageableData<MaterialMiniDto>
+
+@{
+    ViewBag.Title = "Материалы";
+    Layout = "_Layout";
+}
+
 @{
     Html.RenderPartial("_ListPartialAsync", Model);
 }
