@@ -23,5 +23,3 @@ import "core-js/es7/reflect";
 //import "web-animations-js";  // Run `npm install --save web-animations-js`.
 
 //import "./rx-imports";
-
-import "hammerjs";

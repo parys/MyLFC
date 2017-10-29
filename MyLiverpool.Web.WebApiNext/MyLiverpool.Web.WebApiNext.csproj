@@ -106,6 +106,7 @@
   </ItemGroup>
         
   <ItemGroup>
+    <Folder Include="angular2app\app\chat\miniChat\" />
     <Folder Include="wwwroot\content\" />
   </ItemGroup>
         

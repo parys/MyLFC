@@ -1,10 +1,11 @@
-﻿import { Component, OnInit, OnDestroy } from "@angular/core";
+﻿import { Component, OnInit, OnDestroy, Inject, PLATFORM_ID } from "@angular/core";
+import { isPlatformBrowser } from "@angular/common";
 import { ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
 import { Observable } from "rxjs/Observable";
 import { CommentService } from "../comment.service";
 import { Comment } from "../comment.model";
-import { Configuration } from "../../app.constants";
+import { Configuration } from "@app/app.constants";
 
 @Component({
     selector: "<comment-last>",
@@ -17,14 +18,16 @@ export class CommentLastComponent implements OnInit, OnDestroy {
 
     constructor(private service: CommentService,
         private route: ActivatedRoute,
+        @Inject(PLATFORM_ID) private platformId: Object,
         private config: Configuration) {
     }
 
     public ngOnInit(): void {
-
         this.update();
 
-        this.scheduleUpdateCount();
+        if (isPlatformBrowser(this.platformId)) {
+            this.scheduleUpdateCount();
+        }
     }
 
     public ngOnDestroy(): void {
@@ -42,16 +45,6 @@ export class CommentLastComponent implements OnInit, OnDestroy {
         this.sub2 = this.service
             .getLastList()
             .subscribe(data => this.items = data,
-                error => console.log(error));
-    }
-
-    public getLink(type: number): string {
-        if (type === 1) {
-            return "/news";
-        } else if (type === 2) {
-            return "/blogs";
-        }else if (type === 3) {
-            return "/matches";
-        }
+                e => console.log(e));
     }
 }

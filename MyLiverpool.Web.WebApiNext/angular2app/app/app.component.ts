@@ -1,8 +1,9 @@
-﻿import { Component, ViewContainerRef, OnInit, ViewEncapsulation, Renderer2, ElementRef } from "@angular/core";  
+﻿import { Component, ViewContainerRef, OnInit, ViewEncapsulation, Renderer2, ElementRef, PLATFORM_ID, Inject } from "@angular/core";  
+import { isPlatformBrowser } from "@angular/common";  
 import { Router, ActivatedRoute, NavigationEnd } from "@angular/router";
 import { Title } from "@angular/platform-browser";
 import { Observable } from "rxjs/Observable"
-import { RolesCheckedService, AuthService, IAuthStateModel } from "@app/shared/index";
+import { RolesCheckedService, AuthService, IAuthStateModel } from "@app/shared";
 import { BreadcrumbService } from "@app/shared/breadcrumb";
 
 @Component({
@@ -14,7 +15,6 @@ import { BreadcrumbService } from "@app/shared/breadcrumb";
 
 export class AppComponent implements OnInit {
    // public isRoot: boolean = false;
- //   private viewContainerRef: ViewContainerRef;
     private authState$: Observable<IAuthStateModel>;
 
     constructor(private router: Router,
@@ -23,26 +23,27 @@ export class AppComponent implements OnInit {
         private viewContainerRef: ViewContainerRef,
         private activatedRoute: ActivatedRoute,
         private titleService: Title,
+        @Inject(PLATFORM_ID) private platformId: Object,
       //  private renderer: Renderer2,
         private elRef: ElementRef,
         private breadcrumbService: BreadcrumbService
-    ) {        
-        // You need this small hack in order to catch application root view container ref
-  //      this.viewContainerRef = viewContainerRef;
-        this.initTitleSubscriber();
+    ) {       
         this.setUpBreadcrumbs();
     }
 
     public ngOnInit(): void {
-        this.authState$ = this.authService.state$;
-        // This starts up the token refresh preocess for the app
-       this.authService.init()
-           .subscribe(
-                () => { console.info("Startup success"); },
-                e => console.warn(e)
-        );
+        if (isPlatformBrowser(this.platformId)) {
+            this.authState$ = this.authService.state$;
+            // This starts up the token refresh preocess for the app
+            this.authService.init()
+                .subscribe(
+                    () => { console.info("Startup success"); },
+                    e => console.warn(e)
+                );
+        }
 
-       //this.activatedRoute.fragment.subscribe(f => {
+        this.initTitleSubscriber();
+        //this.activatedRoute.fragment.subscribe(f => {
        //    if (f) {
        //        console.warn(f);
        //        const element = document.querySelector('#' + f);

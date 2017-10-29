@@ -1,10 +1,8 @@
 ﻿import { Component, EventEmitter, forwardRef, Input, Output, NgZone } from "@angular/core";
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from "@angular/forms";
-import { Settings, EditorManager, Editor, WindowManager } from "tinymce";
+import { Settings, Editor } from "tinymce";
 
 declare let tinymce: any;
-//declare let document: any;
-import "tinymce"; //todo should be moved
 /*import "tinymce/themes/modern"
 import "tinymce/plugins/advlist";
 import "tinymce/plugins/anchor";
@@ -38,16 +36,7 @@ import "tinymce/plugins/visualblocks";*/
     
     template: `<textarea id="{{elementId}}">{{_value}}</textarea>`
 })
-/*export class EditorComponent {
-    @Output() public change = new EventEmitter();
-    @Output() public ready = new EventEmitter();
-    @Output() public blur = new EventEmitter();
-    @Input("value") public _value: string = "";
-    @Input() public type: number = 1;
-    @Input() public height: number = 200;
-    public elementId: string = Math.random().toString(36).substring(2);
-    
-}*/
+
 export class EditorComponent implements ControlValueAccessor {
     @Output() public change = new EventEmitter();
     @Output() public ready = new EventEmitter();
@@ -61,17 +50,16 @@ export class EditorComponent implements ControlValueAccessor {
  //   public tinymce: EditorManager = new EditorManager();
     public editor: Editor;
 
-    public ngAfterViewInit(): void {
-        this.initTiny();
-   //     if (this.ClientSide) {
-   //         require.resolve(['tinymce'
-   //         ], require => require("tinymce"))
-  //      } //todo should be moved
+    constructor(zone: NgZone) {
+        this.zone = zone;
     }
 
-    constructor(zone: NgZone) {
-        this.clientSide = typeof window !== "undefined";
-        this.zone = zone;
+    public ngAfterViewInit(): void {
+        this.initTiny();
+        //     if (this.ClientSide) {
+        //         require.resolve(['tinymce'
+        //         ], require => require("tinymce"))
+        //      } //todo should be moved
     }
 
     public get value(): string {
@@ -96,8 +84,6 @@ export class EditorComponent implements ControlValueAccessor {
     }
 
     public ngOnDestroy(): void {
-      //  if (this.tinymce && this.editor) {
-      //      this.tinymce.remove(this.editor);
         if (tinymce && this.editor) {
             tinymce.remove(this.editor);
         }

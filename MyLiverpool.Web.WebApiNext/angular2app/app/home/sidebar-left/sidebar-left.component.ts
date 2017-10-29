@@ -1,5 +1,6 @@
-﻿import { Component } from "@angular/core";
-import { RolesCheckedService } from "../../shared/index";
+﻿import { Component, HostListener, PLATFORM_ID, Inject } from "@angular/core";
+import { isPlatformBrowser } from "@angular/common";
+import { RolesCheckedService } from "@app/shared";
 
 @Component({
     selector: "sidebar-left",
@@ -7,20 +8,22 @@ import { RolesCheckedService } from "../../shared/index";
     styleUrls: ["./sidebar-left.component.css"]
 })
 export class SidebarLeftComponent {
+    @HostListener("window:scroll", [])
+    public onWindowScroll() {
+        if (isPlatformBrowser(this.platformId)) {
+            const scrollPos = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
 
-    constructor(public roles: RolesCheckedService) {
+            if (scrollPos >= 200)
+                document.getElementById("goToTop").className = "";
+            else
+                document.getElementById("goToTop").className = "hidden";
+        }
+    }
+    constructor(public roles: RolesCheckedService,
+        @Inject(PLATFORM_ID) private platformId: Object) {
     }
 
     public goToTop(): void {
         scrollTo(0,0);
     }
 }
-
-window.onscroll = oEvent => {
-    var scrollPos = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-
-    if (scrollPos >= 200)
-        document.getElementById("goToTop").className = "";
-    else
-        document.getElementById("goToTop").className = "hidden";
-};

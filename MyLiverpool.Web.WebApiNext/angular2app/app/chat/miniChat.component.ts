@@ -160,20 +160,20 @@ export class MiniChatComponent implements OnInit, OnDestroy {
 
     private initForm(message: string = ""): void {
         this.messageForm = this.formBuilder.group({
-            'message': [message || "", Validators.compose([Validators.required, Validators.maxLength(this.configuration.maxChatMessageLength)])], //todo add visual warning
-            'typeId': [ChatMessageType.Mini, Validators.required]
+            message: [message, Validators.compose([Validators.required, Validators.maxLength(this.configuration.maxChatMessageLength)])], //todo add visual warning
+            typeId: [ChatMessageType.Mini, Validators.required]
         });
         this.messageForm.valueChanges.subscribe(() => {
             this.cd.markForCheck();
         });
+        let timerValue: number = this.storage.getChatUpdateTime();
         if (isPlatformBrowser(this.platformId)) {
-            let timerValue: number = this.storage.getChatUpdateTime();
             if (timerValue) {
                 this.scheduleUpdate(timerValue);
             }
-            this.chatTimerForm = this.formBuilder.group({
-                'timerValue': [timerValue]
-            });
         }
+        this.chatTimerForm = this.formBuilder.group({
+            timerValue: [timerValue]
+        });
     }
 }

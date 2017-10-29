@@ -1,4 +1,5 @@
-﻿import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
+﻿import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, PLATFORM_ID, Inject } from "@angular/core";
+import { isPlatformBrowser } from "@angular/common";  
 import { Subscription } from "rxjs/Subscription";
 import { Observable } from "rxjs/Observable";
 import { UserService } from "../+core";
@@ -19,11 +20,14 @@ export class UserOnlineCounterComponent implements OnInit, OnDestroy {
 
     constructor(private userService: UserService,
         private cd: ChangeDetectorRef,
+        @Inject(PLATFORM_ID) private platformId: Object,
         private config: Configuration) { }
 
     public ngOnInit(): void {
         this.updateCount();
-        this.scheduleUpdateCount();
+        if (isPlatformBrowser(this.platformId)) {
+            this.scheduleUpdateCount();
+        }
     }
 
     public ngOnDestroy(): void {
@@ -45,6 +49,6 @@ export class UserOnlineCounterComponent implements OnInit, OnDestroy {
                     this.users = data.users;
                     this.cd.markForCheck();
                 },
-                error => console.log(error));
+                e => console.log(e));
     }
 }

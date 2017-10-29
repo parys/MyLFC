@@ -1,4 +1,5 @@
-﻿import { Component, OnInit, OnDestroy } from "@angular/core";
+﻿import { Component, OnInit, OnDestroy, Inject, PLATFORM_ID } from "@angular/core";
+import { isPlatformBrowser } from "@angular/common";
 import { MatSnackBar } from "@angular/material";
 import { Subscription } from "rxjs/Subscription";
 import { Observable } from "rxjs/Observable";
@@ -16,11 +17,14 @@ export class PmCounterComponent implements OnInit, OnDestroy {
 
     constructor(private pmService: PmService,
         private snackBar: MatSnackBar,
+        @Inject(PLATFORM_ID) private platformId: Object,
         private config: Configuration) { }
 
     public ngOnInit(): void {
         this.updateCount();
-        this.scheduleUpdateCount();
+        if (isPlatformBrowser(this.platformId)) {
+            this.scheduleUpdateCount();
+        }
     }
 
     public ngOnDestroy(): void {
@@ -41,8 +45,7 @@ export class PmCounterComponent implements OnInit, OnDestroy {
                 if (+data > 0) {
                     this.snackBar.open("У вас есть непрочитанные личные сообщения",
                         null, {  duration: 5000 });
-                }
-                },
+                }},
                 e => console.log(e));
     }
 }

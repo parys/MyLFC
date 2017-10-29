@@ -8,7 +8,7 @@ import { ForumModule } from "./forum";
 import { Configuration } from "./app.constants";
 import * as material from "./material";
 import { EditorModule } from "./editor";
-import * as chat from "./chat";
+import { ChatModule } from "./chat";
 import { ClubModule } from "./club";
 import * as home from "./home";
 import * as image from "./image";
@@ -39,6 +39,7 @@ import { SeasonModule } from "./season";
       //  ForumModule,
         InjuryModule,
         NgxPaginationModule,
+        ChatModule,
         CommentModule,
         ClubModule,
         MatchModule,
@@ -53,8 +54,6 @@ import { SeasonModule } from "./season";
         WishModule,
     ],
     declarations: [
-        chat.MaxiChatComponent,
-        chat.MiniChatComponent,
         home.StaticPageComponent,
         home.NavbarComponent,
         home.SidebarLeftComponent,
@@ -76,7 +75,6 @@ import { SeasonModule } from "./season";
         material.MaterialActivateDialogComponent,
     ],
     providers: [// services
-        chat.ChatMessageService,
         image.ImageService,
         roleGroup.RoleGroupService,
         admin.AdminService,

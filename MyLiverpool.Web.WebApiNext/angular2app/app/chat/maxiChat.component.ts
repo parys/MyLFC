@@ -106,9 +106,9 @@ export class MaxiChatComponent implements OnInit, OnDestroy {
                 this.updater$.unsubscribe();
             }
         } else {
-            this.updater$ = Observable.interval(1000 * selectedValue)
-                .map(x => this.update())
-                .subscribe();
+            //this.updater$ = Observable.interval(1000 * selectedValue)
+            //    .map(x => this.update())
+            //    .subscribe();
         }
     }
 
@@ -163,7 +163,7 @@ export class MaxiChatComponent implements OnInit, OnDestroy {
             this.scheduleUpdate(timerValue);
         }
         this.chatMaxiTimerForm = this.formBuilder.group({
-            'timerValue': [timerValue]
+            timerValue: [timerValue]
         });
     }
 }

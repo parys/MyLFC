@@ -1,4 +1,5 @@
-﻿import { Component, OnInit, OnDestroy } from "@angular/core";
+﻿import { Component, OnInit, OnDestroy, Inject, PLATFORM_ID } from "@angular/core";
+import { isPlatformBrowser } from "@angular/common";
 import { MatSnackBar } from "@angular/material";
 import { Subscription } from "rxjs/Subscription";
 import { Observable } from "rxjs/Observable";
@@ -17,12 +18,15 @@ export class NotificationCounterComponent implements OnInit, OnDestroy {
 
     constructor(private service: NotificationService,
         public roles: RolesCheckedService,
+        @Inject(PLATFORM_ID) private platformId: Object,
         private snackBar: MatSnackBar,
         private config: Configuration) { }
 
     public ngOnInit(): void {
         this.updateCount();
-        this.scheduleUpdateCount();
+        if (isPlatformBrowser(this.platformId)) {
+            this.scheduleUpdateCount();
+        }
     }
 
     public ngOnDestroy(): void {

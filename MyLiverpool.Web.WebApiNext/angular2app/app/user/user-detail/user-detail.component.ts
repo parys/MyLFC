@@ -1,6 +1,7 @@
 ﻿import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { Title } from "@angular/platform-browser";
 import { MatSnackBar } from "@angular/material";
 import { Subscription } from "rxjs/Subscription";
 import { Configuration } from "@app/app.constants";
@@ -30,6 +31,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
         private roleGroupService: RoleGroupService,
         private formBuilder: FormBuilder,
         private snackBar: MatSnackBar,
+        private titleService: Title,
         private router: Router) { }
 
     public ngOnInit(): void { 
@@ -39,8 +41,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
             if (params["id"] !== undefined) {
                 this.service.getSingle(+params["id"])
                     .subscribe(data => this.parse(data),
-                        error => console.log(error),
-                        () => {});
+                        e => console.log(e));
             } else {
                 this.router.navigate(["/users", { page: 1 }]);
             }
@@ -96,8 +97,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     public resetAvatar(): void {
         this.service.resetAvatar(this.item.id)
             .subscribe((result: any) => this.item.photo = `${result.path}?${Math.random()}`,
-            error => console.log(error),
-            () => {});
+            e => console.log(e));
     }
 
     public unban(): void {
@@ -119,25 +119,25 @@ export class UserDetailComponent implements OnInit, OnDestroy {
 
     private parse(item: User): void {
         this.item = item;
+        this.titleService.setTitle(item.userName);
         this.roleForm.patchValue(item);
     }
 
     private loadRoleGroups(): void {
         this.roleGroupService.getAll()
             .subscribe(data => this.roleGroups = data,
-                error => console.log(error),
-                () => {});
+                e => console.log(e));
     }
 
     private initRoleForm(): void {
         this.roleForm = this.formBuilder.group({
-            'roleGroupId': ["", Validators.required]
+            roleGroupId: ["", Validators.required]
         });
     }
 
     private initBanForm(): void {
         this.banForm = this.formBuilder.group({
-            'banDaysCount': [
+            banDaysCount: [
                 "", Validators.compose([
                     Validators.required,
                     GlobalValidators.mustBeGreaterThanZero//todo research minValue = 1 ?
