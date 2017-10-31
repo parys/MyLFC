@@ -59,12 +59,8 @@ namespace MyLiverpool.Business.Services
 
         public async Task<MatchEventDto> GetByIdAsync(int id)
         {
-            var model = await _matchEventRepository.GetByIdAsync(id, x => x.Season, x => x.Person);
-            if(model != null)
-            {
-                return _mapper.Map<MatchEventDto>(model);
-            }
-            return null;
+            var model = await _matchEventRepository.GetByIdAsync(id, true, x => x.Season, x => x.Person);
+            return model != null ? _mapper.Map<MatchEventDto>(model) : null;
         }
 
         public async Task<IEnumerable<MatchEventDto>> GetListByMatchIdAsync(int matchId)

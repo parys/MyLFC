@@ -26,9 +26,13 @@ namespace MyLiverpool.Data.ResourceAccess
             return entityEntry.Entity;
         }
 
-        public async Task<T> GetByIdAsync(int id, params Expression<Func<T, object>>[] includes)
+        public async Task<T> GetByIdAsync(int id, bool noTracking = false, params Expression<Func<T, object>>[] includes)
         {
             IQueryable<T> query = _context.Set<T>();
+            if (noTracking)
+            {
+                query = query.AsNoTracking();
+            }
             if (includes != null && includes.Any())
             {
                 query = includes.Aggregate(query, (current, include) => current.Include(include));
@@ -67,7 +71,7 @@ namespace MyLiverpool.Data.ResourceAccess
 
         public async Task<int> CountAsync(Expression<Func<T, bool>> filter = null)
         {
-            IQueryable<T> query = _context.Set<T>();
+            IQueryable<T> query = _context.Set<T>().AsNoTracking();
             if (filter != null)
             {
                 query = query.Where(filter);
@@ -78,7 +82,7 @@ namespace MyLiverpool.Data.ResourceAccess
         public async Task<IEnumerable<T>> GetListAsync(int? page = null, int itemPerPage = 15, Expression<Func<T, bool>> filter = null, SortOrder order = SortOrder.Ascending,
             Expression<Func<T, object>> orderBy = null, params Expression<Func<T, object>>[] includes)
         {
-            IQueryable<T> query = _context.Set<T>();
+            IQueryable<T> query = _context.Set<T>().AsNoTracking();
             if (includes != null && includes.Any())
             {
                 query = includes.Aggregate(query, (current, include) => current.Include(include));

@@ -11,7 +11,7 @@ namespace MyLiverpool.Data.ResourceAccess.Interfaces
     {
         Task<T> CreateAsync(T entity);
 
-        Task<T> GetByIdAsync(int id, params Expression<Func<T, object>>[] includes);
+        Task<T> GetByIdAsync(int id, bool noTracking = false, params Expression<Func<T, object>>[] includes);
 
         Task<T> GetByComplexIdAsync(int id, int id2);
 

@@ -77,12 +77,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <param name="id">The identifier.</param>
         /// <returns>Found match event entity.</returns>
         [Authorize, HttpGet("{id:int}")]
-        public async Task<IActionResult> GetAsync(int id)
+        public async Task<IActionResult> GetAsync(int id = 1)
         {
-            if (id < 1)
-            {
-                id = 1;
-            }
             var result = await _matchEventService.GetByIdAsync(id);
             return Ok(result);
         }

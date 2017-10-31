@@ -53,7 +53,7 @@ namespace MyLiverpool.Business.Services
 
         public async Task<InjuryDto> GetByIdAsync(int id)
         {
-            var model = await _injuryRepository.GetByIdAsync(id, x => x.Person);
+            var model = await _injuryRepository.GetByIdAsync(id, true, x => x.Person);
             if (model != null)
             {
                 return _mapper.Map<InjuryDto>(model);

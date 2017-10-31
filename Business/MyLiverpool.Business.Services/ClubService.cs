@@ -53,9 +53,8 @@ namespace MyLiverpool.Business.Services
 
         public async Task<ClubDto> GetByIdAsync(int id)
         {
-            var model = await _clubRepository.GetByIdAsync(id, x => x.Stadium);
-            var dto = _mapper.Map<ClubDto>(model);
-            return dto;
+            var model = await _clubRepository.GetByIdAsync(id, true, x => x.Stadium);
+            return _mapper.Map<ClubDto>(model);
         }
 
         public async Task<string> GetNameAsync(int clubId)
