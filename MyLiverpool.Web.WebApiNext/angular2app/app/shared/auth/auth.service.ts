@@ -137,7 +137,7 @@ export class AuthService {
                 return this.refreshTokens();
             })
             .catch(error => {
-             //   this.logout();
+                this.logout();
                 this.updateState({ authReady: true });
                 return Observable.throw(error);
             });

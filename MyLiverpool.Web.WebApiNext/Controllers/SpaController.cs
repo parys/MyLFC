@@ -16,25 +16,32 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// Returns index wiew with prerended view.
         /// </summary>
         /// <returns></returns>
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            try
-            {
-                var prerenderResult = await Request.BuildPrerender();
 
-                ViewData["SpaHtml"] = prerenderResult.Html; // our <app> from Angular
-                ViewData["Title"] = prerenderResult.Globals["title"]; // set our <title> from Angular
-                ViewData["Styles"] = prerenderResult.Globals["styles"]; // put styles in the correct place
-                ViewData["Scripts"] = prerenderResult.Globals["scripts"]; // scripts (that were in our header)
-                ViewData["Meta"] = prerenderResult.Globals["meta"]; // set our <meta> SEO tags
-                ViewData["Links"] = prerenderResult.Globals["links"]; // set our <link rel="canonical"> etc SEO tags
-                ViewData["TransferData"] = prerenderResult.Globals["transferData"]; // our transfer data set to window.TRANSFER_CACHE = {};
-            }
-            catch
-            {
-
-            }
             return View();
+
         }
+
+        //public async Task<IActionResult> Index()
+        //{
+        //    try
+        //    {
+        //        var prerenderResult = await Request.BuildPrerender();
+
+        //        ViewData["SpaHtml"] = prerenderResult.Html; // our <app> from Angular
+        //        ViewData["Title"] = prerenderResult.Globals["title"]; // set our <title> from Angular
+        //        ViewData["Styles"] = prerenderResult.Globals["styles"]; // put styles in the correct place
+        //        ViewData["Scripts"] = prerenderResult.Globals["scripts"]; // scripts (that were in our header)
+        //        ViewData["Meta"] = prerenderResult.Globals["meta"]; // set our <meta> SEO tags
+        //        ViewData["Links"] = prerenderResult.Globals["links"]; // set our <link rel="canonical"> etc SEO tags
+        //        ViewData["TransferData"] = prerenderResult.Globals["transferData"]; // our transfer data set to window.TRANSFER_CACHE = {};
+        //    }
+        //    catch
+        //    {
+
+        //    }
+        //    return View();
+        //}
     }
 }

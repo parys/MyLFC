@@ -1,12 +1,8 @@
-﻿import { Injectable, Inject } from "@angular/core";
+﻿import { Injectable } from "@angular/core";
 
 @Injectable()
 export class Configuration {
-
-   // constructor(@Inject('BASE_URL') baseUrl: string) {
-    constructor() {
-   //     this.serverWithApiUrl = baseUrl + this.apiUrl;
-    }
+    
     public apiUrl: string = "api/v1/";
     public serverWithApiUrl: string = this.apiUrl;
 
