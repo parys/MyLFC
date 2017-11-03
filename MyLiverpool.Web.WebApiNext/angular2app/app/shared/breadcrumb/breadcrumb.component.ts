@@ -33,10 +33,6 @@ export class BreadcrumbComponent implements OnInit, OnChanges {
         this._routerSubscription = this.router.events.subscribe((navigationEnd: NavigationEnd) => {
             this.urls.length = 0; //Fastest way to clear out array
             if (!navigationEnd.urlAfterRedirects && !navigationEnd.url) return;
-            console.log(1);
-            console.log(navigationEnd);
-            console.log(navigationEnd.urlAfterRedirects);
-            console.log(navigationEnd.url);
              this.generateBreadcrumbTrail(navigationEnd.urlAfterRedirects ? navigationEnd.urlAfterRedirects : navigationEnd.url);
         });
     }
