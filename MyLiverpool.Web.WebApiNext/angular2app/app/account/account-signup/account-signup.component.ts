@@ -29,7 +29,7 @@ export class AccountSignupComponent implements OnInit {
             email: ["", Validators.compose([
                 Validators.required,
                 Validators.minLength(6),
-                GlobalValidators.mailFormat
+                Validators.email
             ]),
                 new AccountValidators(this.accountService).isEmailUnique],
             password: ["", Validators.compose([

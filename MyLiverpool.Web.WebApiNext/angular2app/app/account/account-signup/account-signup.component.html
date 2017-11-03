@@ -24,7 +24,7 @@
                 <div class="alert alert-danger" *ngIf="registerForm.controls['email'].touched && !registerForm.controls['email'].valid">
                     <div *ngIf="registerForm.controls['email'].hasError('required')">Необходимо заполнить поле.</div>
                     <div *ngIf="registerForm.controls['email'].hasError('minlength')">Значение должно превышать 6 символов.</div> <!--todo move to config-->
-                    <div *ngIf="registerForm.controls['email'].hasError('incorrectMailFormat')">Введенное значение не является допустимым адресом.</div>
+                    <div *ngIf="registerForm.controls['email'].hasError('email')">Введенное значение не является допустимым адресом.</div>
                     <div *ngIf="registerForm.controls['email'].hasError('notUniqueEmail')">Пользователь с таким адресом уже зарегистрирован.</div>
                 </div>
             </div>

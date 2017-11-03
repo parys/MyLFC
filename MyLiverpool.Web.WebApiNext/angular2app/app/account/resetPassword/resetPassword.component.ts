@@ -37,7 +37,7 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
         });
         this.resetForm = this.formBuilder.group({
             email: ["", Validators.compose([
-                Validators.required, Validators.minLength(6), GlobalValidators.mailFormat])],
+                Validators.required, Validators.minLength(6), Validators.email])],
             password: ["", Validators.compose([
                 Validators.required, Validators.minLength(6)])],
             confirmPassword: ["", Validators.compose([
@@ -59,7 +59,7 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
                     this.snackBar.open(`Ошибка: ${data.errors[0].description}`, null, { duration: 5000 });
                 }
             },
-            error => console.log(error)
+            e => console.log(e)
         );
     }
 }

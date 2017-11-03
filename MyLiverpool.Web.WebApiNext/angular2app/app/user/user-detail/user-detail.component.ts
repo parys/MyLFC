@@ -140,7 +140,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
             banDaysCount: [
                 "", Validators.compose([
                     Validators.required,
-                    GlobalValidators.mustBeGreaterThanZero//todo research minValue = 1 ?
+                    Validators.min(1)
                 ])
             ]
         });
