@@ -12,7 +12,7 @@ export default {
         format: "iife"
     }, // output a single application bundle
     sourceMap: false,
-   // moduleName: "prodClient",
+    name: "prodClient",
     treeshake: true,
     onwarn: function(warning) {
         // Skip certain warnings
@@ -58,6 +58,6 @@ export default {
                     "node_modules/angular2-recaptcha/**"
                 ]
             }),
-        uglify()
+     //   uglify()
     ]
 };
