@@ -12,6 +12,7 @@ export default {
         format: "iife"
     }, // output a single application bundle
     sourceMap: false,
+   // moduleName: "prodClient",
     treeshake: true,
     onwarn: function(warning) {
         // Skip certain warnings

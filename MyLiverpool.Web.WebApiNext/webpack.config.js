@@ -18,7 +18,7 @@ module.exports = (env) => {
         resolve: {
             extensions: [".js", ".ts"],
             alias: {
-                '@app': srcPath("app"),
+                '@app': srcPath("app")
              //   rxPaths()
             }
         },

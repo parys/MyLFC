@@ -2,6 +2,8 @@ import { NgModule, LOCALE_ID } from "@angular/core";
 import { Title, BrowserModule } from "@angular/platform-browser";
 import { RouterModule } from "@angular/router";
 import { HttpClientModule } from "@angular/common/http";
+import { registerLocaleData } from "@angular/common";
+import localeRU from "@angular/common/locales/ru";
 import { AppComponent } from "./app.component";
 import { routes } from "./app.routes";
 import { ForumModule } from "./forum";
@@ -28,6 +30,8 @@ import { NotificationModule } from "./notification";
 import { MaterialCategoryModule } from "./materialCategory";
 import { UserModule } from "./user";
 import { SeasonModule } from "./season";
+
+registerLocaleData(localeRU);
 
 @NgModule({
     imports: [

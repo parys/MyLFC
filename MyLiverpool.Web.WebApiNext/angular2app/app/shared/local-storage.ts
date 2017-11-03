@@ -1,3 +1,3 @@
-﻿import { OpaqueToken } from "@angular/core";
+﻿import { InjectionToken } from "@angular/core";
 
-export const LocalStorage = new OpaqueToken("localStorage");
+export const LocalStorage = new InjectionToken("localStorage");
