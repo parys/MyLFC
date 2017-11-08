@@ -17,14 +17,14 @@ export class ConfirmEmailComponent implements OnInit, OnDestroy {
 
     public ngOnInit(): void {
         this.sub = this.route.queryParams.subscribe(params => {
-            let id = +params["userId"];
-            let code = params["code"];
+            const id = +params["userId"];
+            const code = params["code"];
             this.accountService.confirmEmail(id, code)
                 .subscribe(data => this.result = data,
                 error => console.log(error),
                 () => {
                     if (this.result) {
-                        // this.router.navigate(["/news"]);
+                        this.router.navigate(["/"]);
                     }
                 });
         });

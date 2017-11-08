@@ -1,6 +1,5 @@
 ﻿import "./polyfills/polyfills";
 import "./polyfills/browser.polyfills";
-import "./polyfills/rx-imports";// aot doesn't copy this files through import local files
 import { platformBrowserDynamic } from "@angular/platform-browser-dynamic";
 import { enableProdMode } from "@angular/core";
 import { AppModule } from "./app/app.module.browser";

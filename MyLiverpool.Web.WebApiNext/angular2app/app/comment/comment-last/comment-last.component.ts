@@ -2,7 +2,8 @@
 import { isPlatformBrowser } from "@angular/common";
 import { ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
-import { Observable } from "rxjs/Observable";
+import { interval } from "rxjs/observable/interval";
+import { map } from "rxjs/operators";
 import { CommentService } from "../comment.service";
 import { Comment } from "../comment.model";
 import { Configuration } from "@app/app.constants";
@@ -36,8 +37,9 @@ export class CommentLastComponent implements OnInit, OnDestroy {
     }
 
     private scheduleUpdateCount() {
-        this.sub = Observable.interval(this.config.updateLastComments)
-            .map(x => this.update())
+        this.sub = interval(this.config.updateLastComments).pipe(
+                map(x => this.update())
+            )
             .subscribe();
     }
 
@@ -45,6 +47,6 @@ export class CommentLastComponent implements OnInit, OnDestroy {
         this.sub2 = this.service
             .getLastList()
             .subscribe(data => this.items = data,
-                e => console.log(e));
+            e => console.log(e));
     }
 }

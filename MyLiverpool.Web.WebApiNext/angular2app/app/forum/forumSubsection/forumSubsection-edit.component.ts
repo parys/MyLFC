@@ -4,7 +4,7 @@ import { ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
 import { ForumSubsection } from "./forumSubsection.model";
 import { ForumSubsectionService } from "./forumSubsection.service";
-import { ForumSectionService, ForumSection } from "../forumSection/index";
+import { ForumSectionService, ForumSection } from "../forumSection";
 
 @Component({
     selector: "forumSubsection-edit",
@@ -25,21 +25,9 @@ export class ForumSubsectionEditComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.editForm = this.formBuilder.group({
-            'sectionId': [
-                "", Validators.compose([
-                    Validators.required
-                ])
-            ],
-            'name': [
-                "", Validators.compose([
-                    Validators.required
-                ])
-            ],
-            'description': [
-                "", Validators.compose([
-                    Validators.required
-                ])
-            ]
+            sectionId: ["", Validators.required],
+            name: ["", Validators.required],
+            description: ["", Validators.required]
         });
         this.sub = this.route.params.subscribe(params => {
             this.id = +params["id"];
@@ -47,14 +35,12 @@ export class ForumSubsectionEditComponent implements OnInit, OnDestroy {
                 this.service
                     .getSingle(this.id)
                     .subscribe(data => this.editForm.patchValue(data),
-                    error => console.log(error),
-                    () => { });
+                    error => console.log(error));
             }
         });
         this.sectionService.getAll()
             .subscribe(data => this.forumSections = data,
-                error => console.log(error),
-                () => {});
+                error => console.log(error));
     }
 
     ngOnDestroy() {
@@ -68,7 +54,7 @@ export class ForumSubsectionEditComponent implements OnInit, OnDestroy {
         model.name = this.editForm.controls["name"].value;
         model.description = this.editForm.controls["description"].value;
 
-        let res;
+        let res: any;
         if (this.id > 0) {
             let result = this.service.update(this.id, model).subscribe(data => res = data);
         } else {

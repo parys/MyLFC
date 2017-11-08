@@ -4,7 +4,7 @@ import { Subscription } from "rxjs/Subscription";
 import { Person } from "../person.model";
 import { PersonService } from "../person.service";
 import { PersonTypeEnum } from "../personType.enum";
-import { RolesCheckedService } from "../../shared/index";
+import { RolesCheckedService } from "@app/shared";
 
 @Component({
     selector: "<stuff-list>",

@@ -2,7 +2,8 @@
 import { ActivatedRoute } from "@angular/router";
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import { Subscription } from "rxjs/Subscription";
-import { Observable } from "rxjs/Observable";
+import { interval } from "rxjs/observable/interval";
+import { map } from "rxjs/operators";
 import { MatchService } from "../match.service";
 import { Match } from "../match.model";
 import { RolesCheckedService } from "@app/shared";
@@ -30,8 +31,9 @@ export class MatchDetailComponent implements OnInit, OnDestroy {
                         if (!data.scoreHome) {
                             this.countDown$ =
                                 new BehaviorSubject<string>(this.updateTimeRemaining(this.item.dateTime));
-                            this.sub$ = Observable.interval(1000)
-                                .map(() => this.countDown$.next(this.updateTimeRemaining(this.item.dateTime)))
+                            this.sub$ = interval(1000).pipe(
+                                    map(() => this.countDown$.next(this.updateTimeRemaining(this.item.dateTime)))
+                                )
                                 .subscribe();
 
                         }

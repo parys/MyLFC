@@ -1,12 +1,13 @@
-﻿import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
+﻿import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Observable } from "rxjs/Observable";
+import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
 import { MatchEventService } from "../matchEvent.service";
 import { MatchEvent } from "../matchEvent.model";                        
 import { MatchEventType } from "../matchEventType.model";
-import { Person, PersonService } from "../../person/index";
-import { Configuration } from "../../app.constants";
+import { Person, PersonService } from "@app/person";
+import { Configuration } from "@app/app.constants";
 
 @Component({
     selector: "matchEvent-edit-panel",
@@ -85,9 +86,9 @@ export class MatchEventEditPanelComponent implements OnInit {
         });
         this.id = this.selectedEvent ? this.selectedEvent.id : 0;
 
-        this.persons$ = this.editMatchEventForm.controls["personName"].valueChanges
-            .debounceTime(this.config.debounceTime)
-            .distinctUntilChanged()
-            .switchMap((value: string) => this.personService.getListByName(value));
+        this.persons$ = this.editMatchEventForm.controls["personName"].valueChanges.pipe(
+            debounceTime(this.config.debounceTime),
+            distinctUntilChanged(),
+            switchMap((value: string) => this.personService.getListByName(value)));
     }
 }

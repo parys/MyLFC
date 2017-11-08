@@ -60,8 +60,8 @@ export class MaterialEditComponent implements OnInit {
                         this.id = data.id;
                         this.snackBar.open("Материал успешно обновлен", null, { duration: 5000 });
                     },
-                error => {
-                    console.log(error);
+                e => {
+                    console.log(e);
                     this.snackBar.open("Материал не был обновлен", null, { duration: 5000 });
                 });
         } else {
@@ -73,8 +73,8 @@ export class MaterialEditComponent implements OnInit {
                         this.id = data.id;
                         this.snackBar.open("Материал успешно создан", null, { duration: 5000 });
                     },
-                error => {
-                    console.log(error);
+                e => {
+                    console.log(e);
                     this.snackBar.open("Материал не был создан", null, { duration: 5000 });
                 });
         }
@@ -115,16 +115,16 @@ export class MaterialEditComponent implements OnInit {
 
     private initForm(): void {
         this.editForm = this.formBuilder.group({
-            'categoryId': ["", Validators.required],
-            'title': ["", Validators.required],
-            'brief': ["", Validators.required],
-            'message': ["", Validators.required],
-            'source': [""],
-            'photo': ["", Validators.required],
-            'canCommentary': [true, Validators.required],
-            'onTop': [false, Validators.required],
-            'pending': [true, Validators.required],
-            'stayOnPage': [false]
+            categoryId: ["", Validators.required],
+            title: ["", Validators.required],
+            brief: ["", Validators.required],
+            message: ["", Validators.required],
+            source: [""],
+            photo: ["", Validators.required],
+            canCommentary: [true, Validators.required],
+            onTop: [false, Validators.required],
+            pending: [true, Validators.required],
+            stayOnPage: [false]
     });
     }
 

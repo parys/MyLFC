@@ -1,7 +1,7 @@
 ﻿import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import { MatchPerson } from "./matchPerson.model";
-import { HttpWrapper } from "../shared/index";
+import { HttpWrapper } from "@app/shared";
 import { MatchPersonType } from "./matchPersonType.model";
 
 @Injectable()

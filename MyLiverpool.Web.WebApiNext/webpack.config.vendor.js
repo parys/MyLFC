@@ -26,10 +26,8 @@ const nonTreeShakableModules = [
     "bootstrap/dist/css/bootstrap.min.css",
     "@angular/material/prebuilt-themes/indigo-pink.css",
     "event-source-polyfill",
-  //  "rxjs",
     "ngx-pagination",
     //  "ng2-page-scroll",
-   // "tinymce/tinymce.min.js"
 ];
 const allModules = treeShakableModules.concat(nonTreeShakableModules);
 

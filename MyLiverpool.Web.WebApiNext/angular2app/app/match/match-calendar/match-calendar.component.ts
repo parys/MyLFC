@@ -32,7 +32,7 @@ export class MatchCalendarComponent implements OnInit, OnDestroy {
                 }
             }
         },
-            error => console.log(error),
+            e => console.log(e),
             () => { this.cd.markForCheck(); });
     }
 

@@ -1,13 +1,11 @@
 ﻿import { Component, OnInit, OnDestroy } from "@angular/core";
-import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 import { Location } from "@angular/common";   
 import { Subscription } from "rxjs/Subscription";
-import { Observable } from "rxjs/Observable";
 import { ForumSubsectionService } from "./forumSubsection.service";
 import { ForumSubsection } from "./forumSubsection.model";
-import { ForumTheme } from "../forumTheme/index";
-import { RolesCheckedService } from "../../shared/index";
+import { ForumTheme } from "../forumTheme";
+import { RolesCheckedService } from "@app/shared";
 
 @Component({
     selector: "forumSubsection-list",
@@ -47,7 +45,7 @@ export class ForumSubsectionListComponent implements OnInit, OnDestroy {
     public pageChanged(event: any): void {
         this.page = event;
         this.update(this.item.id);
-        let newUrl = `forum/${this.item.id}?page=${this.page}`;
+        const newUrl = `forum/${this.item.id}?page=${this.page}`;
 
         this.location.replaceState(newUrl);
     };
@@ -60,7 +58,6 @@ export class ForumSubsectionListComponent implements OnInit, OnDestroy {
                 this.items = data.themes.list;
                 this.totalItems = data.themes.totalItems;
             },
-            error => console.log(error),
-            () => { });
+            error => console.log(error));
     }
 }

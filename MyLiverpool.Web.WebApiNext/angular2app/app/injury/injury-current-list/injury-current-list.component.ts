@@ -2,7 +2,7 @@
 import { Subscription } from "rxjs/Subscription";
 import { InjuryService } from "../injury.service";
 import { Injury } from "../injury.model";
-import { RolesCheckedService } from "../../shared/index";
+import { RolesCheckedService } from "@app/shared";
 
 @Component({
     selector: "<injury-current-list>",
@@ -28,6 +28,6 @@ export class InjuryCurrentListComponent implements OnInit, OnDestroy {
         this.sub2 = this.service
             .getCurrentAll()
             .subscribe(data => this.items = data,
-                error => console.log(error));
+                e => console.log(e));
     }
 }

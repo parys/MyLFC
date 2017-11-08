@@ -1,12 +1,11 @@
 ﻿import { Component } from "@angular/core";
-import { RolesCheckedService } from "../../shared/index";
+import { RolesCheckedService } from "@app/shared";
 
 @Component({
     selector: "<navbar>",
     templateUrl: "./navbar.component.html"
 })
 export class NavbarComponent {
-
     constructor(public roles: RolesCheckedService) {
     }
 }

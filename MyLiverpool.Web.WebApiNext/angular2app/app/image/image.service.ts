@@ -1,7 +1,7 @@
 ﻿import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import { Image } from "./image.model";
-import { HttpWrapper } from "../shared/httpWrapper";
+import { HttpWrapper } from "@app/shared";
 
 @Injectable()
 export class ImageService {
@@ -11,11 +11,11 @@ export class ImageService {
         this.actionUrl = "image/";
     }
 
-    public get = (path: string): Observable<Image[]> => {
+    public get(path: string): Observable<Image[]> {
         return this.http.get<Image[]>(`${this.actionUrl}?path=${path}`);
     };
 
-    public uploadImage = (files: File[]): Observable<string[]> => {
+    public uploadImage(files: File[]): Observable<string[]> {
         let formData: FormData = new FormData();
         for(let i: number =0; i< files.length; i++) {
             formData.append("uploadFile", files[i], files[i].name);

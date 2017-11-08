@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { MatSnackBar } from "@angular/material";
 import { Subscription } from "rxjs/Subscription";   
 import { Observable } from "rxjs/Observable";
+import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
 import { Pm } from "../pm.model";
 import { PmService } from "../pm.service";
 import { User } from "@app/user";
@@ -43,10 +44,10 @@ export class PmEditComponent implements OnInit, OnDestroy {
             ]
         });
         
-        this.users$ = this.editPmForm.controls["receiver"].valueChanges
-            .debounceTime(this.debounceTime)
-            .distinctUntilChanged()
-            .switchMap((value: string) => this.service.getListByUserName(value));
+        this.users$ = this.editPmForm.controls["receiver"].valueChanges.pipe(
+            debounceTime(this.debounceTime),
+            distinctUntilChanged(),
+            switchMap((value: string) => this.service.getListByUserName(value)));
     }
 
     public ngOnDestroy(): void {

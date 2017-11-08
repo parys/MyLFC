@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from "@angular/core";
+﻿import { Component, Input, Output, EventEmitter } from "@angular/core";
 import { MatSnackBar } from "@angular/material";
 import { Configuration } from "@app/app.constants";
 import { ImageService } from "./image.service";
@@ -7,7 +7,7 @@ import { ImageService } from "./image.service";
     selector: "image-addition",
     templateUrl: "./image-addition.component.html"
 })
-export class ImageAdditionComponent implements OnInit, OnDestroy {
+export class ImageAdditionComponent {
     public uploadedFiles: string[];
     @Input()
     public isMultiple: boolean = true;
@@ -23,11 +23,6 @@ export class ImageAdditionComponent implements OnInit, OnDestroy {
         private snackBar: MatSnackBar
     ) { 
     }
-
-    public ngOnInit(): void {
-    }
-
-    public ngOnDestroy(): void { }
 
     public ngAfterViewInit(): void {
         this.buttonName = this.isMultiple ? "Загрузить изображения" : "Загрузить изображение";

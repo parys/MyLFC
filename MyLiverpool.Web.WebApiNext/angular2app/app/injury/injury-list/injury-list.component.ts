@@ -30,7 +30,7 @@ export class InjuryListComponent implements OnInit, OnDestroy {
         this.sub = this.route.queryParams.subscribe(qParams => {
                 this.page = qParams["page"] || 1;
             },
-            error => console.log(error));
+            e => console.log(e));
         this.update();
     }
 
@@ -52,7 +52,7 @@ export class InjuryListComponent implements OnInit, OnDestroy {
         this.sub2 = this.injuryService
             .getAll(this.page)
             .subscribe(data => this.parsePageable(data),
-                error => console.log(error));
+                e => console.log(e));
     }
 
     public pageChanged(event: any): void {

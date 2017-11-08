@@ -1,9 +1,9 @@
 ﻿import { Routes } from "@angular/router";
-import { PersonListComponent } from "./person-list/index";
-import { PersonEditComponent } from "./person-edit/index";
-import { StuffListComponent } from "./stuff-list/index";
-import { SquadComponent } from "./squad/index";
-import { RoleGuard } from "../shared/index";
+import { PersonListComponent } from "./person-list";
+import { PersonEditComponent } from "./person-edit";
+import { StuffListComponent } from "./stuff-list";
+import { SquadComponent } from "./squad";
+import { RoleGuard } from "@app/shared";
 
 export const personRoutes: Routes = [
     {

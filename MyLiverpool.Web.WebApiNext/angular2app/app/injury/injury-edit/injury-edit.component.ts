@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
 import { Observable } from "rxjs/Observable";
+import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
 import { InjuryService } from "../injury.service";
 import { Injury } from "../injury.model";
 import { PersonService, Person } from "@app/person";
@@ -36,7 +37,7 @@ export class InjuryEditComponent implements OnInit, OnDestroy {
             if (this.id > 0) {
                 this.sub2 = this.injuryService.getSingle(this.id)
                     .subscribe(data => this.parse(data),
-                        error => console.log(error));
+                        e => console.log(e));
             }
         });
     }
@@ -51,11 +52,11 @@ export class InjuryEditComponent implements OnInit, OnDestroy {
         if (this.id > 0) {
             this.injuryService.update(this.id, injury)
                 .subscribe(data => this.router.navigate(["/injuries"]),
-                    error => console.log(error));
+                    e => console.log(e));
         } else {
             this.injuryService.create(injury)
                 .subscribe(data => this.router.navigate(["/injuries"]),
-                    error => console.log(error));
+                    e => console.log(e));
         }
     }
 
@@ -85,18 +86,18 @@ export class InjuryEditComponent implements OnInit, OnDestroy {
 
     private initForm(): void {
         this.editInjuryForm = this.formBuilder.group({
-            'personId': ["", Validators.required],
-            'personName': ["", Validators.required],
-            'startTime': [null, Validators.required],
-            'endTime': [null, Validators.required],
-            'description': ["", Validators.required],
-            'id': [0, Validators.required]
+            personId: ["", Validators.required],
+            personName: ["", Validators.required],
+            startTime: [null, Validators.required],
+            endTime: [null, Validators.required],
+            description: ["", Validators.required],
+            id: [0, Validators.required]
         });
 
-        this.persons$ = this.editInjuryForm.controls["personName"].valueChanges
-            .debounceTime(this.config.debounceTime)
-            .distinctUntilChanged()
-            .switchMap((value: string) => this.personService.getListByName(value));
+        this.persons$ = this.editInjuryForm.controls["personName"].valueChanges.pipe(
+            debounceTime(this.config.debounceTime),
+            distinctUntilChanged(),
+            switchMap((value: string) => this.personService.getListByName(value)));
     }
 
     private normalizeDate(date: Date): Date {

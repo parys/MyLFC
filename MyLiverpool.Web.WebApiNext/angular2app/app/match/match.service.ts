@@ -2,8 +2,7 @@
 import { Observable } from "rxjs/Observable";
 import { Match } from "./match.model";
 import { MatchType } from "./matchType.model";
-import { Pageable } from "../shared/pageable.model";
-import { HttpWrapper } from "../shared/httpWrapper";
+import { HttpWrapper, Pageable } from "@app/shared";
 
 @Injectable()
 export class MatchService {

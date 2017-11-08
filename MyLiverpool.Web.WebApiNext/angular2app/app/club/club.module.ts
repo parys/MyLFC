@@ -22,8 +22,6 @@ import { ClubService } from "./club.service";
         ClubEditComponent,
         ClubListComponent
     ],
-    exports: [
-    ],
     providers: [
         ClubService
     ]

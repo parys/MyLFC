@@ -1,7 +1,7 @@
 ﻿import { Routes } from "@angular/router";
-import { InjuryEditComponent } from "./injury-edit/index";
-import { InjuryListComponent } from "./injury-list/index";
-import { InjuryCurrentListComponent } from "./injury-current-list/index";
+import { InjuryEditComponent } from "./injury-edit";
+import { InjuryListComponent } from "./injury-list";
+import { InjuryCurrentListComponent } from "./injury-current-list";
 import { RoleGuard } from "@app/shared";
 
 export const injuryRoutes: Routes = [

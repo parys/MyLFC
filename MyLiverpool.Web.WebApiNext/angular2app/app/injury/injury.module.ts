@@ -2,9 +2,9 @@
 import { RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { InjuryEditComponent } from "./injury-edit/index";
-import { InjuryListComponent } from "./injury-list/index";
-import { InjuryCurrentListComponent } from "./injury-current-list/index";
+import { InjuryEditComponent } from "./injury-edit";
+import { InjuryListComponent } from "./injury-list";
+import { InjuryCurrentListComponent } from "./injury-current-list";
 import { InjuryService } from "./injury.service";
 import { injuryRoutes } from "./injury.routes";
 import { NgxPaginationModule } from "ngx-pagination";

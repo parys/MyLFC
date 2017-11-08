@@ -1,8 +1,8 @@
 ﻿import { Routes } from "@angular/router";
-import { RoleGuard } from "../shared/index";
-import { MatchListComponent } from "./match-list/index";
-import { MatchDetailComponent } from "./match-detail/index";
-import { MatchEditComponent } from "./match-edit/index";
+import { RoleGuard } from "@app/shared";
+import { MatchListComponent } from "./match-list";
+import { MatchDetailComponent } from "./match-detail";
+import { MatchEditComponent } from "./match-edit";
 
 export const matchRoutes: Routes = [
     {

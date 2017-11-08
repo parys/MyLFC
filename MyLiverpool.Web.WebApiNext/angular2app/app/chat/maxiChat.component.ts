@@ -1,15 +1,15 @@
 ﻿import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
-import { MatDialog, MatSnackBar } from '@angular/material';
+import { MatDialog, MatSnackBar } from "@angular/material";
 import { ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
-import { Observable } from "rxjs/Observable";
+import { interval } from "rxjs/observable/interval";
 import { Configuration } from "../app.constants";
 import { ChatMessage } from "./chatMessage.model";
 import { ChatMessageType } from "./chatMessageType.enum";
 import { ChatMessageService } from "./chatMessage.service";
-import { RolesCheckedService, DeleteDialogComponent, StorageService } from "../shared/index";
+import { RolesCheckedService, DeleteDialogComponent, StorageService } from "@app/shared";
 
 @Component({
     selector: "maxi-chat",
@@ -106,9 +106,9 @@ export class MaxiChatComponent implements OnInit, OnDestroy {
                 this.updater$.unsubscribe();
             }
         } else {
-            //this.updater$ = Observable.interval(1000 * selectedValue)
-            //    .map(x => this.update())
-            //    .subscribe();
+            this.updater$ = interval(1000 * selectedValue)
+                .map(x => this.update())
+                .subscribe();
         }
     }
 
@@ -129,10 +129,10 @@ export class MaxiChatComponent implements OnInit, OnDestroy {
     }
 
     public addReply(index: number): void {
-        let message: string = this.messageForm.get("message").value;
-        let userName: string = this.items[index].authorUserName;
-        let newMessage: string = `<i>${userName}</i>, ${message}`;
-        this.messageForm.get("message").patchValue(newMessage);
+        const message: string = this.messageForm.get("message").value;
+        const userName: string = this.items[index].authorUserName;
+        const newMessage: string = `<i>${userName}</i>, ${message}`;
+        this.messageForm.get("message").patchValue(newMessage);//todo add focus
     }
 
     public sanitizeByHtml(text: string): SafeHtml {
@@ -151,14 +151,14 @@ export class MaxiChatComponent implements OnInit, OnDestroy {
 
     private initForm(message: string = ""): void {
         this.messageForm = this.formBuilder.group({
-            'message': [message || "", Validators.compose([Validators.required, Validators.maxLength(this.configuration.maxChatMessageLength)])], //todo add visual warning
-            'type': [ChatMessageType.All, Validators.required]
+            message: [message || "", Validators.compose([Validators.required, Validators.maxLength(this.configuration.maxChatMessageLength)])], //todo add visual warning
+            type: [ChatMessageType.All, Validators.required]
         });
         this.messageForm.valueChanges.subscribe(() => {
             this.cd.markForCheck();
         });
 
-        let timerValue: number = this.storage.getChatUpdateTime(ChatMessageType.All);
+        const timerValue: number = this.storage.getChatUpdateTime(ChatMessageType.All);
         if (timerValue) {
             this.scheduleUpdate(timerValue);
         }

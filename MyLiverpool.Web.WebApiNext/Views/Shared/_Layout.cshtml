@@ -1,4 +1,4 @@
-﻿@inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet
+﻿@*@inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet*@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -14,9 +14,15 @@
     <link rel="stylesheet" href="~/src/vendor.css" asp-append-version="true" />
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-    <environment names="Staging,Production">
-        @Html.Raw(JavaScriptSnippet.FullScript)
+    <script type="text/javascript" src="~/src/tinymce.min.js" asp-append-version="true"></script>
+    @*todo fix for SSR*@
+    @*   <environment names="Development">
+       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.6.7/tinymce.js" integrity="sha256-m1XH51XIIl4SQhJSLOfGOa0oYpfnkVe5Fe4xZcCAOL0="
+        crossorigin="anonymous"></script>
+    </environment>*@
+     <environment names="Staging,Production">
+         @*@Html.Raw(JavaScriptSnippet.FullScript)*@
+        @*<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.6.7/tinymce.min.js" integrity="sha256-m1XH51XIIl4SQhJSLOfGOa0oYpfnkVe5Fe4xZcCAOL0=" crossorigin="anonymous"></script>*@
     </environment>
         @Html.Raw(ViewData["Links"])
         @Html.Raw(ViewData["Styles"])

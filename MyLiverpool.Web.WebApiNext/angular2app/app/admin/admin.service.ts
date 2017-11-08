@@ -1,6 +1,6 @@
 ﻿import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
-import { HttpWrapper } from "../shared/index";
+import { HttpWrapper } from "@app/shared";
 
 @Injectable()
 export class AdminService {
@@ -10,15 +10,15 @@ export class AdminService {
     constructor(private http: HttpWrapper) {
     }
 
-    public updateEplTable = (): Observable<string> => {
+    public updateEplTable(): Observable<string> {
         return this.http.getString(this.actionUrl + "updateTable/");
     };
 
-    public getValue = (id: number): Observable<string> => {
+    public getValue(id: number): Observable<string> {
         return this.http.getString(`${this.actionHelperUrl}value/${id}`);
     };
 
-    public updateValue = (id: number, value: string): Observable<boolean> => {
+    public updateValue(id: number, value: string): Observable<boolean> {
         return this.http.put<boolean>(`${this.actionHelperUrl}value/${id}`, JSON.stringify(value));
     };
 }

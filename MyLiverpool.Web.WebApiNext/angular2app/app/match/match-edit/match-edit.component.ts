@@ -2,14 +2,13 @@
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Observable } from "rxjs/Observable";
-import "rxjs/add/operator/debounceTime";
-import "rxjs/add/operator/takeUntil";
+import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
 import { MatchService } from "../match.service";
-import { SeasonService, Season } from "../../season/index";
+import { SeasonService, Season } from "@app/season";
 import { Match } from "../match.model";                        
 import { MatchType } from "../matchType.model";  
-import { Stadium, StadiumService } from "../../stadium/index";
-import { Club, ClubService } from "../../club/index";
+import { Stadium, StadiumService } from "@app/stadium";
+import { Club, ClubService } from "@app/club";
 
 @Component({
     selector: "match-edit",
@@ -57,11 +56,11 @@ export class MatchEditComponent implements OnInit {
         if (this.id > 0) {
             this.matchService.update(this.id, match)
                 .subscribe(data => this.router.navigate(["/matches"]),
-                error => console.log(error));
+                e => console.log(e));
         } else {
             this.matchService.create(match)
                 .subscribe(data => this.router.navigate(["/matches"]),
-                error => console.log(error));
+                e => console.log(e));
         }
     }
 
@@ -91,36 +90,36 @@ export class MatchEditComponent implements OnInit {
 
     private initForm(): void {
         this.editMatchForm = this.formBuilder.group({
-            'clubName': [""],
-            'clubId': ["", Validators.required],
-            'seasonId': ["", Validators.required],
-            'isHome': ["true", Validators.required],
-            'date': [null, Validators.required],
-            'time': [null, Validators.required],
-            'typeId': ["", Validators.required],
-            'stadiumId': ["", Validators.required],
-            'stadiumName': ["", Validators.required],
-            'reportUrl': [""],
-            'photoUrl': [""],
-            'videoUrl': [""],
-            'scoreHome': [null],
-            'scoreAway': [null]
+            clubName: [""],
+            clubId: ["", Validators.required],
+            seasonId: ["", Validators.required],
+            isHome: ["true", Validators.required],
+            date: [null, Validators.required],
+            time: [null, Validators.required],
+            typeId: ["", Validators.required],
+            stadiumId: ["", Validators.required],
+            stadiumName: ["", Validators.required],
+            reportUrl: [""],
+            photoUrl: [""],
+            videoUrl: [""],
+            scoreHome: [null],
+            scoreAway: [null]
         });
 
-        this.stadiums$ = this.editMatchForm.controls["stadiumName"].valueChanges
-            .debounceTime(this.debounceTime)
-            .distinctUntilChanged()
-            .switchMap((value: string) => this.stadiumService.getListByName(value));
+        this.stadiums$ = this.editMatchForm.controls["stadiumName"].valueChanges.pipe(
+            debounceTime(this.debounceTime),
+            distinctUntilChanged(),
+            switchMap((value: string) => this.stadiumService.getListByName(value)));
 
-        this.clubs$ = this.editMatchForm.controls["clubName"].valueChanges
-            .debounceTime(this.debounceTime)
-            .distinctUntilChanged()
-            .switchMap((value: string) => this.clubService.getListByName(value));
+        this.clubs$ = this.editMatchForm.controls["clubName"].valueChanges.pipe(
+            debounceTime(this.debounceTime),
+            distinctUntilChanged(),
+            switchMap((value: string) => this.clubService.getListByName(value)));
     }
 
     private getIdFromUrl(url: string): string {
         if (url) {
-            let pieces = url.split("/");
+            const pieces = url.split("/");
             return pieces[pieces.length - 1];
         }
         return null;

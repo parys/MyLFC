@@ -2,7 +2,8 @@
 import { isPlatformBrowser } from "@angular/common";
 import { MatSnackBar } from "@angular/material";
 import { Subscription } from "rxjs/Subscription";
-import { Observable } from "rxjs/Observable";
+import { interval } from "rxjs/observable/interval";
+import { map } from "rxjs/operators";
 import { NotificationService } from "../notification.service";
 import { RolesCheckedService } from "@app/shared";
 import { Configuration } from "@app/app.constants";
@@ -35,8 +36,8 @@ export class NotificationCounterComponent implements OnInit, OnDestroy {
     }
 
     private scheduleUpdateCount() {
-        this.sub2 = Observable.interval(this.config.updateNotifications)
-            .map(x => this.updateCount())
+        this.sub2 = interval(this.config.updateNotifications).pipe(
+            map(x => this.updateCount()))
             .subscribe();
     }
 

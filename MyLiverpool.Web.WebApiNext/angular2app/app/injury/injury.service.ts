@@ -1,5 +1,5 @@
 ﻿import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
+import { Observable } from "rxjs/Observable";
 import { HttpWrapper, Pageable } from "@app/shared";
 import { Injury } from "./injury.model";
 
@@ -11,27 +11,27 @@ export class InjuryService {
         this.actionUrl = "injury/";
     }
 
-    public getAll = (page: number): Observable<Pageable<Injury>> => {
+    public getAll(page: number): Observable<Pageable<Injury>> {
         return this.http.get<Pageable<Injury>>(this.actionUrl + `list/${page}`);
     };
 
-    public getSingle = (id: number): Observable<Injury> => {
+    public getSingle(id: number): Observable<Injury> {
         return this.http.get<Injury>(this.actionUrl + id);
     };
 
-    public create = (item: Injury): Observable<Injury> => {
+    public create(item: Injury): Observable<Injury> {
         return this.http.post<Injury>(this.actionUrl, JSON.stringify(item));
     };
 
-    public update = (id: number, itemToUpdate: Injury): Observable<Injury> => {
+    public update(id: number, itemToUpdate: Injury): Observable<Injury> {
         return this.http.put<Injury>(this.actionUrl + id, JSON.stringify(itemToUpdate));
     };
 
-    public delete = (id: number): Observable<boolean> => {
+    public delete(id: number): Observable<boolean> {
         return this.http.delete<boolean>(this.actionUrl + id);
     };
 
-    public getCurrentAll = (): Observable<Injury[]> => {
+    public getCurrentAll(): Observable<Injury[]> {
         return this.http.get<Injury[]>(this.actionUrl + `current`);
     };
 }

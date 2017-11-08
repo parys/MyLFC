@@ -58,7 +58,7 @@ export class PageEditorComponent implements OnInit, OnDestroy {
     }
 
     public onSubmit(): void {
-        let model: string = this.editPageForm.controls["content"].value;
+        const model: string = this.editPageForm.controls["content"].value;
         
         this.service.updateValue(this.id, model).subscribe(data => {
             if (data) {

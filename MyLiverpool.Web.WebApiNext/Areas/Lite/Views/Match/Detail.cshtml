@@ -64,6 +64,30 @@
     <matchEvent-match-panel [events]="item.events" [matchId]="item.id" [seasonId]="item.seasonId" [isHome]="item.homeClubId === 1"></matchEvent-match-panel>
     @await Component.InvokeAsync("MatchPersonPanel", new {matchId = Model.Id, isHome = Model.HomeClubId == 1})
 </div>
+
+<environment names="Staging,Production">
+    <div class="col-xs-12">
+        <div id="yandex_rtb_R-A-255349-1"></div>
+        <script type="text/javascript">
+            (function (w, d, n, s, t) {
+                w[n] = w[n] || [];
+                w[n].push(function () {
+                    Ya.Context.AdvManager.render({
+                        blockId: "R-A-255349-1",
+                        renderTo: "yandex_rtb_R-A-255349-1",
+                        async: true
+                    });
+                });
+                t = d.getElementsByTagName("script")[0];
+                s = d.createElement("script");
+                s.type = "text/javascript";
+                s.src = "//an.yandex.ru/system/context.js";
+                s.async = true;
+                t.parentNode.insertBefore(s, t);
+            })(this, this.document, "yandexContextAsyncCallbacks");
+        </script>
+    </div>
+</environment>
     <div class="col-xs-12 container-row clearfix top10">
         @*<comment-section id="comments" [matchId]="item.id" [canCommentary]="true"></comment-section>*@
         <vc:comment-section match-id="@Model.Id"></vc:comment-section>

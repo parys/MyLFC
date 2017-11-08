@@ -3,12 +3,11 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
 import { Observable } from "rxjs/Observable";
-import "rxjs/add/operator/debounceTime";
-import "rxjs/add/operator/takeUntil";
+import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
 import { ClubService } from "../club.service";
-import { Configuration } from "../../app.constants";
+import { Configuration } from "@app/app.constants";
 import { Club } from "../club.model";
-import { Stadium, StadiumService } from "../../stadium/index";
+import { Stadium, StadiumService } from "@app/stadium";
 
 @Component({
     selector: "club-edit",
@@ -38,7 +37,7 @@ export class ClubEditComponent implements OnInit, OnDestroy {
             if (this.id > 0) {
                 this.sub2 = this.clubService.getSingle(this.id)
                     .subscribe(data => this.parse(data),
-                    error => console.log(error));
+                    e => console.log(e));
             }
         });
     }
@@ -53,11 +52,11 @@ export class ClubEditComponent implements OnInit, OnDestroy {
         if (this.id > 0) {
             this.clubService.update(this.id, club)
                 .subscribe(data => this.router.navigate(["/clubs"]),
-                error => console.log(error));
+                e => console.log(e));
         } else {
             this.clubService.create(club)
                 .subscribe(data => this.router.navigate(["/clubs"]),
-                error => console.log(error));
+                e => console.log(e));
         }
     }
 
@@ -68,7 +67,7 @@ export class ClubEditComponent implements OnInit, OnDestroy {
                     this.imagePath = result.path + "?" + this.getRandomNumber();
                     this.editForm.controls["logo"].patchValue(result.path);
                 },
-                error => console.log(error));
+                e => console.log(e));
         }
     }
 
@@ -87,26 +86,27 @@ export class ClubEditComponent implements OnInit, OnDestroy {
     }
 
     private parseForm(): Club {
-        let item = this.editForm.value;
+        const item = this.editForm.value;
         item.id = this.id;
         return item;
     }
 
     private initForm(): void {
         this.editForm = this.formBuilder.group({
-            'englishName': ["", Validators.compose([
+            englishName: ["", Validators.compose([
                 Validators.required, Validators.maxLength(30)])],
-            'logo': ["", Validators.required],
-            'name': ["", Validators.compose([
+            logo: ["", Validators.required],
+            name: ["", Validators.compose([
                 Validators.required, Validators.maxLength(30)])],
-            'stadiumId': ["", Validators.required],
-            'stadiumName': ["", Validators.required],
-            'id': [0, Validators.required]
+            stadiumId: ["", Validators.required],
+            stadiumName: ["", Validators.required],
+            id: [0, Validators.required]
         });
 
-        this.stadiums$ = this.editForm.controls["stadiumName"].valueChanges
-            .debounceTime(this.config.debounceTime)
-            .distinctUntilChanged()
-            .switchMap((value: string) => this.stadiumService.getListByName(value));
+        this.stadiums$ = this.editForm.controls["stadiumName"].valueChanges.pipe(
+            debounceTime(this.config.debounceTime),
+            distinctUntilChanged(),
+            switchMap((value: string) => this.stadiumService.getListByName(value))
+        );
     }
 }

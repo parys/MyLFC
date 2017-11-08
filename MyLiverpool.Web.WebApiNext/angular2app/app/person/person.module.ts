@@ -8,7 +8,7 @@ import { BestPlayerComponent } from "./best-player";
 import { StuffListComponent } from "./stuff-list";
 import { SquadComponent } from "./squad";
 import { personRoutes } from "./person.routes";
-import { SharedModule } from "../shared";
+import { SharedModule } from "@app/shared";
 
 
 @NgModule({

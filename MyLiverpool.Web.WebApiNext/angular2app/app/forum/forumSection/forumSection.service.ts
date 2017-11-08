@@ -1,6 +1,6 @@
 ﻿import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
-import { HttpWrapper } from "../../shared/index";
+import { HttpWrapper } from "@app/shared";
 import { ForumSection } from "./forumSection.model";
 
 @Injectable()
@@ -11,7 +11,7 @@ export class ForumSectionService {
         this.actionUrl = "forumSection/";
     }
 
-    public getAll = (): Observable<ForumSection[]> => {
+    public getAll(): Observable<ForumSection[]> {
         return this.http.get<ForumSection[]>(this.actionUrl + "list/");
     };
 

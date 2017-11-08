@@ -4,6 +4,7 @@ import { Observable } from "rxjs/Observable";
 import { Subject } from "rxjs/Subject";
 import { AccountService } from "./account.service";
 import { Configuration } from "../app.constants";
+import { debounceTime, takeUntil, take, switchMap } from "rxjs/operators";
 
 @Injectable()
 export class AccountValidators {
@@ -22,11 +23,12 @@ export class AccountValidators {
         AccountValidators.changed.next();
         return new Observable((obs: any) => {
             control
-                .valueChanges
-                .debounceTime(AccountValidators.config.debounceTime)                
-                .takeUntil(AccountValidators.changed)
-                .take(1)//todo
-                .switchMap((value: string) => AccountValidators.service.isEmailUnique(value))
+                .valueChanges.pipe(
+                debounceTime(AccountValidators.config.debounceTime),                
+                takeUntil(AccountValidators.changed),
+                take(1),
+                switchMap((value: string) => AccountValidators.service.isEmailUnique(value))
+                )
                 .subscribe(
                 data => {
                     if (+control.value.length < AccountValidators.config.minEmailLength || data) {  
@@ -47,11 +49,12 @@ export class AccountValidators {
         AccountValidators.changed1.next();
         return new Observable((obs: any) => {
             control
-                .valueChanges
-                .debounceTime(AccountValidators.config.debounceTime)
-                .takeUntil(AccountValidators.changed1)
-                .take(1)//todo
-                .switchMap((value: string) => AccountValidators.service.isUserNameUnique(value))
+                .valueChanges.pipe(
+                debounceTime(AccountValidators.config.debounceTime),
+                takeUntil(AccountValidators.changed1),
+                take(1),//todo
+                switchMap((value: string) => AccountValidators.service.isUserNameUnique(value))
+                )
                 .subscribe(
                 data => {
                     if (+control.value.length < AccountValidators.config.minUserNameLength || data) {

@@ -4,7 +4,7 @@ import { StadiumListComponent } from "./stadium-list.component";
 import { StadiumEditComponent } from "./stadium-edit.component";
 import { StadiumService } from "./stadium.service";
 import { stadiumRoutes } from "./stadium.routes";
-import { SharedModule } from "../shared/index";
+import { SharedModule } from "@app/shared";
 import { NgxPaginationModule } from "ngx-pagination";
 
 @NgModule({

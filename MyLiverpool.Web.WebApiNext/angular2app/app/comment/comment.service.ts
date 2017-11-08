@@ -3,8 +3,7 @@ import { Observable } from "rxjs/Observable";
 import { Comment } from "./comment.model";
 import { CommentVote } from "./commentVote.model";
 import { CommentFilter } from "./commentFilter.model";
-import { Pageable } from "../shared/pageable.model";
-import { HttpWrapper } from "../shared/httpWrapper";
+import { HttpWrapper, Pageable } from "@app/shared";
 
 @Injectable()
 export class CommentService {

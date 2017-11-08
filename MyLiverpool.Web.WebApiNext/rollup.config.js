@@ -1,7 +1,7 @@
 ﻿import commonjs from "rollup-plugin-commonjs";
 import uglify from "rollup-plugin-uglify";
 import sass from "rollup-plugin-sass";
-//const rxPaths = require("rxjs/_esm5/path-mapping");
+const rxPaths = require("rxjs/_esm5/path-mapping");
 const path = require("path");
 import resolve from "rollup-plugin-node-resolve-with-alias";
 
@@ -9,10 +9,10 @@ export default {
     input: "temp-js/dist/unbundled-aot/angular2app/main.browser.aot.js",
     output: {
         file: "wwwroot/src/build.js",
-        format: "iife"
+        format: "iife",
+        name: "prodClient",
     }, // output a single application bundle
     sourceMap: false,
-    name: "prodClient",
     treeshake: true,
     onwarn: function(warning) {
         // Skip certain warnings
@@ -27,7 +27,8 @@ export default {
     },
     plugins: [
         resolve({
-            module: true, // Default: true 
+            module: true,// Default: true
+            es2015: true,
 
             // use "jsnext:main" if possible 
             // – see https://github.com/rollup/rollup/wiki/jsnext:main 
@@ -46,12 +47,12 @@ export default {
             //     resolve: ["/index.js", ".js"],
             alias: {
                 '@app': path.join(__dirname, "temp-js/dist/unbundled-aot/angular2app/app"),
-         //       rxPaths()
+               // rxPaths()
         }
         }),
-        sass({
-            output: "bundle.css"
-        }),
+        //sass({
+        //    output: "bundle.css"
+        //}),
         commonjs(
             {
                 include: ["node_modules/rxjs/**",

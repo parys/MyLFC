@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 import { MatSnackBar } from "@angular/material";
 import { Observable } from "rxjs/Observable";
+import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
 import { MatchPerson } from "../matchPerson.model";
 import { MatchPersonType } from "../matchPersonType.model";
 import { PersonService, Person } from "@app/person";
@@ -82,9 +83,9 @@ export class MatchPersonEditPanelComponent implements OnInit {
         });
         this.isEdit = this.selectedMatchPerson !== undefined;
 
-        this.persons$ = this.editMatchPersonForm.controls["personName"].valueChanges
-            .debounceTime(this.config.debounceTime)
-            .distinctUntilChanged()
-            .switchMap((value: string) => this.personService.getListByName(value));
+        this.persons$ = this.editMatchPersonForm.controls["personName"].valueChanges.pipe(
+            debounceTime(this.config.debounceTime),
+            distinctUntilChanged(),
+            switchMap((value: string) => this.personService.getListByName(value)));
     }
 }

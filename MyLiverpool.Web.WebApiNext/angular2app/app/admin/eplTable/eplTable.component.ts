@@ -2,7 +2,7 @@
 import { Subscription } from "rxjs/Subscription";
 import { AdminService } from "../admin.service";
 import { HelperType } from "../helperType.enum";
-import { RolesCheckedService } from "../../shared/index";
+import { RolesCheckedService } from "@app/shared";
 
 @Component({
     selector: "epl-table",

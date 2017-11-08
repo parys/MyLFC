@@ -2,8 +2,8 @@
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
-import { AdminService } from "../../admin/admin.service";
-import { RolesCheckedService } from "../../shared/index";
+import { AdminService } from "@app/admin";
+import { RolesCheckedService } from "@app/shared";
 
 @Component({
     selector: "<static-page>",

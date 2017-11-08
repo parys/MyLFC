@@ -42,11 +42,11 @@ export class StadiumEditComponent implements OnInit, OnDestroy {
         if (this.id > 0) {
             this.service.update(this.id, stadium)
                 .subscribe(data => this.router.navigate(["/stadiums"]),
-                    error => console.log(error));
+                    e => console.log(e));
         } else {
             this.service.create(stadium)
                 .subscribe(data => this.router.navigate(["/stadiums"]),
-                    error => console.log(error));
+                    e => console.log(e));
         }
     }
 
@@ -57,9 +57,9 @@ export class StadiumEditComponent implements OnInit, OnDestroy {
 
     private initForm(): void {
         this.editForm = this.formBuilder.group({
-            'name': ["", Validators.required],
-            'city': ["", Validators.required],
-            'id': [0, Validators.required]
+            name: ["", Validators.required],
+            city: ["", Validators.required],
+            id: [0, Validators.required]
         });
     }
 }

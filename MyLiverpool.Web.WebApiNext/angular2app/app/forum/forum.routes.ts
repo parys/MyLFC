@@ -1,8 +1,8 @@
 ﻿import { Routes } from "@angular/router";
-import { ForumSectionListComponent } from "./forumSection/index";
-import { ForumSubsectionListComponent, ForumSubsectionEditComponent } from "./forumSubsection/index";
-import { ForumThemeListComponent, ForumThemeEditComponent } from "./forumTheme/index";
-import { RoleGuard } from "../shared/index";
+import { ForumSectionListComponent } from "./forumSection";
+import { ForumSubsectionListComponent, ForumSubsectionEditComponent } from "./forumSubsection";
+import { ForumThemeListComponent, ForumThemeEditComponent } from "./forumTheme";
+import { RoleGuard } from "@app/shared";
 
 export const forumRoutes: Routes = [
     {

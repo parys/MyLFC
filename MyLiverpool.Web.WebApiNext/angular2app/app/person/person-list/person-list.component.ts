@@ -42,7 +42,7 @@ export class PersonListComponent implements OnInit, OnDestroy {
                 this.name = qParams["name"] || null;
                 this.typeId = +qParams["typeId"] || null;
             },
-            error => console.log(error));
+            e => console.log(e));
         this.update();
         this.personService.getTypes().subscribe(data => this.personTypes = data, e => console.log(e));
     }

@@ -2,7 +2,8 @@
 import { isPlatformBrowser } from "@angular/common";
 import { MatSnackBar } from "@angular/material";
 import { Subscription } from "rxjs/Subscription";
-import { Observable } from "rxjs/Observable";
+import { interval } from "rxjs/observable/interval";
+import { map } from "rxjs/operators";
 import { PmService } from "../pm.service";
 import { Configuration } from "@app/app.constants";
 
@@ -33,8 +34,8 @@ export class PmCounterComponent implements OnInit, OnDestroy {
     }
 
     private scheduleUpdateCount() {
-        this.sub2 = Observable.interval(this.config.updateUnreadPmCountTime)
-            .map(x => this.updateCount())
+        this.sub2 = interval(this.config.updateUnreadPmCountTime).pipe(
+            map(x => this.updateCount()))
             .subscribe();
     }
 

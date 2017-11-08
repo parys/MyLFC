@@ -2,12 +2,12 @@
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Location } from "@angular/common";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
-import { MatDialog } from '@angular/material';
+import { MatDialog } from "@angular/material";
 import { Subscription } from "rxjs/Subscription"
 import { Comment } from "../comment.model";
 import { CommentVote } from "../commentVote.model";
 import { CommentService } from "../comment.service";
-import { RolesCheckedService, DeleteDialogComponent } from "../../shared/index";
+import { RolesCheckedService, DeleteDialogComponent } from "@app/shared";
 
 @Component({
     selector: "comment-detail",
@@ -136,7 +136,7 @@ export class CommentDetailComponent implements OnInit, OnDestroy {
                 this.item = comment;
                 this.cancelEdit();
                 },
-            error => console.log(error));
+            e => console.log(e));
     }
 
     public cancelEdit(): void {

@@ -4,7 +4,7 @@ import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { isPlatformBrowser } from "@angular/common";
 import { MatDialog, MatSnackBar } from "@angular/material";
 import { Subscription } from "rxjs/Subscription";
-import { Observable } from "rxjs/Observable";
+import { interval } from "rxjs/observable/interval";
 import { Configuration } from "@app/app.constants";
 import { ChatMessage } from "./chatMessage.model";
 import { ChatMessageType } from "./chatMessageType.enum";
@@ -115,7 +115,7 @@ export class MiniChatComponent implements OnInit, OnDestroy {
                 this.updater$.unsubscribe();
             }
         } else {
-            this.updater$ = Observable.interval(1000 * selectedValue)
+            this.updater$ = interval(1000 * selectedValue)
                 .map(x => this.update())
                 .subscribe();
         }

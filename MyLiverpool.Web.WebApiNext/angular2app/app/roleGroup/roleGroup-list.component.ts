@@ -20,6 +20,6 @@ export class RoleGroupListComponent implements OnInit {
         this.service
             .getAllWithRoles()
             .subscribe(data => this.items = data,
-            error => console.log(error));
+            e => console.log(e));
     }
 }

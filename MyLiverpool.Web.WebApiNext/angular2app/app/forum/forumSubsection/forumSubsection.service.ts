@@ -1,6 +1,6 @@
 ﻿import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
-import { HttpWrapper } from "../../shared/index";
+import { HttpWrapper } from "@app/shared";
 import { ForumSubsection } from "./forumSubsection.model";
 
 @Injectable()
@@ -11,19 +11,19 @@ export class ForumSubsectionService {
         this.actionUrl = "forumSubsection/";
     }
 
-    public getAll = (): Observable<ForumSubsection[]> => {
+    public getAll(): Observable<ForumSubsection[]> {
         return this.http.get<ForumSubsection[]>(this.actionUrl + "list/");
     };
 
-    public getSingle = (id: number): Observable<ForumSubsection> => {
+    public getSingle(id: number): Observable<ForumSubsection> {
         return this.http.get<ForumSubsection>(this.actionUrl + id);
     };
 
-    public getSingleWithThemes = (id: number, page: number): Observable<ForumSubsection> => {
+    public getSingleWithThemes(id: number, page: number): Observable<ForumSubsection> {
         return this.http.get<ForumSubsection>(`${this.actionUrl}${id}/${page}`);
     };
 
-    public create = (item: ForumSubsection): Observable<ForumSubsection> => {
+    public create(item: ForumSubsection): Observable<ForumSubsection> {
         return this.http.post<ForumSubsection>(this.actionUrl, JSON.stringify(item));
     };
 

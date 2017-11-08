@@ -2,7 +2,7 @@
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { ForumMessage } from "./forumMessage.model";
 import { ForumMessageService } from "./forumMessage.service";
-import { RolesCheckedService } from "../../shared/index";
+import { RolesCheckedService } from "@app/shared";
 
 @Component({
     selector: "forumMessage-addition",
@@ -20,9 +20,8 @@ export class ForumMessageAdditionComponent implements OnInit {
     }
 
     public ngOnInit(): void {
-
         this.commentForm = this.formBuilder.group({
-            'message': ["", Validators.compose([Validators.required,
+            message: ["", Validators.compose([Validators.required,
             Validators.minLength(3)])]
         });
     }
@@ -36,8 +35,7 @@ export class ForumMessageAdditionComponent implements OnInit {
                     this.newMessage.emit(data);
                     this.commentForm.reset();
                 },
-                error => console.log(error),
-                () => {}
+                e => console.log(e)
             );
     }
 }
