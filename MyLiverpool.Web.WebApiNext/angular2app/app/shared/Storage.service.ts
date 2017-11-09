@@ -1,6 +1,6 @@
 ﻿import { Injectable, Inject } from "@angular/core";
 import { LocalStorage } from "./local-storage";
-import { IAuthTokenModel } from "./auth/index";
+import { IAuthTokenModel } from "./auth";
 
 @Injectable()
 export class StorageService {

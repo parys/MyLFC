@@ -5,5 +5,6 @@ export * from "./storage.service";
 export * from "./roles-checked.service";
 export * from "./globalValidators";
 export * from "./recaptcha.component";             
-export * from "./delete-dialog/index";             
-export * from "./auth/index";
+export * from "./delete-dialog";             
+export * from "./auth";
+export * from "./breadcrumb";

@@ -1,6 +1,6 @@
 ﻿import commonjs from "rollup-plugin-commonjs";
 import uglify from "rollup-plugin-uglify";
-import sass from "rollup-plugin-sass";
+//import sass from "rollup-plugin-sass";
 const rxPaths = require("rxjs/_esm5/path-mapping");
 const path = require("path");
 import resolve from "rollup-plugin-node-resolve-with-alias";
@@ -10,7 +10,7 @@ export default {
     output: {
         file: "wwwroot/src/build.js",
         format: "iife",
-        name: "prodClient",
+    //    name: "prodClient",
     }, // output a single application bundle
     sourceMap: false,
     treeshake: true,
@@ -28,7 +28,7 @@ export default {
     plugins: [
         resolve({
             module: true,// Default: true
-            es2015: true,
+           // es2015: true,
 
             // use "jsnext:main" if possible 
             // – see https://github.com/rollup/rollup/wiki/jsnext:main 
@@ -47,7 +47,7 @@ export default {
             //     resolve: ["/index.js", ".js"],
             alias: {
                 '@app': path.join(__dirname, "temp-js/dist/unbundled-aot/angular2app/app"),
-               // rxPaths()
+              // 'rxjs': rxPaths()
         }
         }),
         //sass({
@@ -59,6 +59,6 @@ export default {
                     "node_modules/angular2-recaptcha/**"
                 ]
             }),
-     //   uglify()
+       // uglify()
     ]
 };

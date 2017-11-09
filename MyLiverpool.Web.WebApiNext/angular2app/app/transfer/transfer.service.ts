@@ -1,6 +1,6 @@
 ﻿import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
-import { HttpWrapper, Pageable } from "../shared/index";
+import { HttpWrapper, Pageable } from "@app/shared";
 import { Transfer } from "./transfer.model";
 
 @Injectable()

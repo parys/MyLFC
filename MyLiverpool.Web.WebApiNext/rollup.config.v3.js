@@ -6,9 +6,17 @@ import uglify from "rollup-plugin-uglify";
 import cleanup from 'rollup-plugin-cleanup';
 
 //import alias from 'rollup-plugin-alias';
-import resolve from 'rollup-plugin-node-resolve';
+import resolve from "rollup-plugin-node-resolve-with-alias";
 import typescript from 'rollup-plugin-typescript2';
 import angular from 'rollup-plugin-angular';
+const path = require("path");
+
+const cssmin = new CleanCSS();
+const htmlminOpts = {
+    caseSensitive: true,
+    collapseWhitespace: true,
+    removeComments: true,
+};
 
 
 export default {
@@ -44,22 +52,20 @@ export default {
      //       output: 'bundle.css'
      //   }),
         resolve({
-      //      es2015: true,
-            module: true,
             jsnext: true,
-     //       main: true,
-      //      extensions: [ ".js", ".json" ],
-      //      preferBuiltins: false
+            module: true,
+            alias: {
+                '@app': path.join(__dirname, "temp-js/dist/unbundled-aot/angular2app/app"),
+                // 'rxjs': rxPaths()
+            }
         }),
         commonjs(
             {
                 include: ["node_modules/rxjs/**",
-                    "node_modules/ng2-auto-complete/**",
-                    "node_modules/angular2-recaptcha/**",
-     //               "node_modules/@angular/cdk/**"
+                    "node_modules/angular2-recaptcha/**"
                 ]
             }),
         cleanup(),
-        uglify()
+      //  uglify()
     ]
 };

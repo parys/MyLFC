@@ -95,7 +95,7 @@ export function getStorage() {
         LoaderService,
         BreadcrumbService,
         { provide: LocalStorage, useFactory: getStorage },
-        { provide: HTTP_INTERCEPTORS, useClass: BearerInterceptor, multi: true }
+        { provide: HTTP_INTERCEPTORS, useClass: BearerInterceptor, multi: true, deps: [StorageService, LoaderService] }
     ],
     entryComponents: [
         DeleteDialogComponent

@@ -1,8 +1,8 @@
 ﻿import { Routes } from "@angular/router";
-import { TransferEditComponent } from "./transfer-edit/index";
+import { TransferEditComponent } from "./transfer-edit";
 import { TransferListComponent } from "./transfer-list.component";
 import { TransferCurrentListComponent } from "./transfer-current-list.component";
-import { RoleGuard } from "../shared/index";
+import { RoleGuard } from "@app/shared";
 
 export const transferRoutes: Routes = [
     {

@@ -4,7 +4,7 @@ import { ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
 import { TransferService } from "./transfer.service";
 import { Transfer } from "./transfer.model";
-import { RolesCheckedService } from "../shared/index";
+import { RolesCheckedService } from "@app/shared";
 
 @Component({
     selector: "<transfer-current-list>",

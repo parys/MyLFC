@@ -34,6 +34,9 @@
     <EmbeddedResource Remove="wwwroot\content\persons\**" />
     <None Remove="temp-js\**" />
     <None Remove="wwwroot\content\persons\**" />
+    <Content Include="angular2app\tsconfig.app.json">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
 
     <None Update="node_modules\**;*.pdb">
       <CopyToPublishDirectory>Never</CopyToPublishDirectory>

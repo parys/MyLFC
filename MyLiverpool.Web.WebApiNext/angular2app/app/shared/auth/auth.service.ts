@@ -1,6 +1,10 @@
 ﻿import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs/Observable";
+import { of } from "rxjs/observable/of";
+import { _throw } from "rxjs/observable/throw";
+import { interval } from "rxjs/observable/interval";
+import { filter, map, tap, catchError, flatMap, first } from "rxjs/operators";
 import { Subscription } from "rxjs/Subscription";
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import { IRefreshGrantModel } from "./models/refresh-grant-model";
@@ -38,13 +42,15 @@ export class AuthService {
         this.state = new BehaviorSubject<IAuthStateModel>(this.initalState);
         this.state$ = this.state.asObservable();
 
-        this.tokens$ = this.state.filter((state : IAuthStateModel) => state.authReady)
-            .map((state: IAuthStateModel) => state.tokens);
+        this.tokens$ = this.state.pipe(
+            filter((state: IAuthStateModel) => state.authReady),
+            map((state: IAuthStateModel) => state.tokens));
 
-        this.profile$ = this.state.filter((state: IAuthStateModel) => state.authReady)
-            .map((state: IAuthStateModel) => state.profile);
+        this.profile$ = this.state.pipe(
+            filter((state: IAuthStateModel) => state.authReady),
+            map((state: IAuthStateModel) => state.profile));
 
-        this.loggedIn$ = this.tokens$.map(tokens => !!tokens);
+        this.loggedIn$ = this.tokens$.pipe(map(tokens => !!tokens));
     }
 
     public isUserInRole(role: string): boolean {
@@ -55,21 +61,21 @@ export class AuthService {
     }
 
     public init(): Observable<IAuthTokenModel> {
-        return this.startupTokenRefresh()
-            .do(() => this.scheduleRefresh());
+        return this.startupTokenRefresh().pipe(
+            tap(() => this.scheduleRefresh()));
     }
 
     public register(data: IRegisterModel): Observable<Response> {
-        return this.http1.post("api/v1/account/register", data)
-            .catch(res => Observable.throw(res.error));
+        return this.http1.post("api/v1/account/register", data).pipe(
+            catchError(res => _throw(res.error)));
     }
 
     public login(user: ILoginModel): Observable<any> {
-        return this.getTokens(user, "password")
-            .catch(res => Observable.throw(res.error))
-            .do(res => {
+        return this.getTokens(user, "password").pipe(
+            catchError(res => _throw(res.error)),
+            tap(res => {
                 this.scheduleRefresh();
-            });
+            }));
     }
 
     public logout(): void {
@@ -83,8 +89,8 @@ export class AuthService {
     }
 
     public refreshTokens(): Observable<IAuthTokenModel> {
-        return this.getTokens({ refresh_token: this.storage.getRefreshToken() }, "refresh_token")
-                .catch(error => Observable.throw("Session Expired"));
+        return this.getTokens({ refresh_token: this.storage.getRefreshToken() }, "refresh_token").pipe(
+            catchError(error => _throw("Session Expired")));
     }
 
     private updateState(newState: IAuthStateModel): void {
@@ -100,11 +106,10 @@ export class AuthService {
         const params = new URLSearchParams();
         Object.keys(data)
             .forEach(key => params.append(key, data[key]));
-        return this.http1.post<IAuthTokenModel>("/connect/token", params.toString(), { headers: headers })
-            .do((tokens: IAuthTokenModel) => {
-
-                const now = new Date();
-                tokens.expiration_date = new Date(now.getTime() + tokens.expires_in * 1000).getTime().toString();
+        return this.http1.post<IAuthTokenModel>("/connect/token", params.toString(), { headers: headers }).pipe(
+            tap((tokens: IAuthTokenModel) => {
+                
+                tokens.expiration_date = new Date(new Date().getTime() + tokens.expires_in * 1000).getTime().toString();
 
                 //   const profile: IProfileModel = new Object();// jwtDecode(tokens.id_token);
 
@@ -115,15 +120,15 @@ export class AuthService {
                 //  this.updateState({ authReady: true, tokens, profile });
                 this.updateState({ authReady: true, tokens });
                 this.getUserProfile();
-            });
+            }));
     }
 
     private startupTokenRefresh(): Observable<IAuthTokenModel> {
-        return Observable.of(this.storage.retrieveTokens())
-            .flatMap((tokens: IAuthTokenModel) => {
+        return of(this.storage.retrieveTokens()).pipe(
+            flatMap((tokens: IAuthTokenModel) => {
                 if (!tokens) {
                     this.updateState({ authReady: true });
-                    return Observable.throw("No token in Storage");
+                    return _throw("No token in Storage");
                 }
                // const profile = jwtDecode(tokens.id_token);
 
@@ -135,20 +140,20 @@ export class AuthService {
                 }
 
                 return this.refreshTokens();
-            })
-            .catch(error => {
+            }),
+            catchError(e => {
                 this.logout();
                 this.updateState({ authReady: true });
-                return Observable.throw(error);
-            });
+                return _throw(e);
+            }));
     }
 
     private scheduleRefresh(): void {
-        this.refreshSubscription$ = this.tokens$
-            .first()
+        this.refreshSubscription$ = this.tokens$.pipe(
+            first(),
             // refresh every half the total expiration time
-            .flatMap((tokens: IAuthTokenModel) => Observable.interval(tokens.expires_in * 500))
-            .flatMap(() => this.refreshTokens())
+            flatMap((tokens: IAuthTokenModel) => interval(tokens.expires_in * 500)),
+            flatMap(() => this.refreshTokens()))
             .subscribe();
     }
     
@@ -159,7 +164,7 @@ export class AuthService {
                     this.storage.setRoles(data.roles.split(", "));
                     this.rolesCheckedService.checkRoles();
                 },
-                error => console.log(error)
+                e => console.log(e)
             );
     }
 }

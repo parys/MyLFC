@@ -32,25 +32,15 @@ export class WishEditComponent implements OnInit, OnDestroy {
 
     public ngOnInit(): void {
         this.editWishForm = this.formBuilder.group({
-            'title': [
+            title: [
                 "", Validators.compose([
                     Validators.required,
                     Validators.maxLength(30)
                 ])
             ],
-            'message': [
-                "", Validators.compose([
-                    Validators.required
-                ])
-            ],
-
-            'type': [
-                "", Validators.compose([
-                    Validators.required
-                ])
-            ],
-
-            'state': [1]
+            message: ["", Validators.required],
+            type: ["", Validators.required],
+            state: [1]
         });
         this.sub = this.route.params.subscribe(params => {
             this.id = +params["id"];

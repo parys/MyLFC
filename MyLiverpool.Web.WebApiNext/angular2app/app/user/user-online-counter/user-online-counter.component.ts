@@ -1,7 +1,8 @@
 ﻿import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, PLATFORM_ID, Inject } from "@angular/core";
 import { isPlatformBrowser } from "@angular/common";  
 import { Subscription } from "rxjs/Subscription";
-import { Observable } from "rxjs/Observable";
+import { interval } from "rxjs/observable/interval";
+import { map } from "rxjs/operators";
 import { UserService } from "../+core";
 import { IUserOnline } from "../user-online.model";
 import { Configuration } from "@app/app.constants";
@@ -36,8 +37,8 @@ export class UserOnlineCounterComponent implements OnInit, OnDestroy {
     }
 
     private scheduleUpdateCount() {
-        this.sub2 = Observable.interval(this.config.updateUserOnline)
-            .map(x => this.updateCount())
+        this.sub2 = interval(this.config.updateUserOnline).pipe(
+            map(x => this.updateCount()))
             .subscribe();
     }
 

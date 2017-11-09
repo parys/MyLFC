@@ -1,7 +1,8 @@
-﻿import nodeResolve from "rollup-plugin-node-resolve";
+﻿import resolve from "rollup-plugin-node-resolve-with-alias";
 import commonjs from "rollup-plugin-commonjs";
 import uglify from "rollup-plugin-uglify";
 import sass from 'rollup-plugin-sass';
+const path = require("path");
 
 export default {
     entry: "temp-js/dist/unbundled-aot/angular2app/main.browser.aot.js",
@@ -24,14 +25,19 @@ export default {
         sass({
             output: 'bundle.css'
         }),
-        nodeResolve({ jsnext: true, module: true }),
+        resolve({
+            jsnext: true,
+            module: true,
+            alias: {
+                '@app': path.join(__dirname, "temp-js/dist/unbundled-aot/angular2app/app"),
+                // 'rxjs': rxPaths()
+            } }),
         commonjs(
             {
                 include: ["node_modules/rxjs/**",
-                    "node_modules/ng2-auto-complete/**",
                     "node_modules/angular2-recaptcha/**"
                 ]
             }),
-        uglify()
+       // uglify()
     ]
 };

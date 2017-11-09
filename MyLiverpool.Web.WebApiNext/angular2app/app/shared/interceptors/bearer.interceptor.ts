@@ -1,10 +1,12 @@
 ﻿import { Injectable, Inject } from "@angular/core";
 import { HttpInterceptor, HttpRequest, HttpEvent, HttpHandler, HttpErrorResponse, HttpResponse, HttpHeaders, HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
+import { tap, catchError, flatMap } from "rxjs/operators";
+import { _throw } from "rxjs/observable/throw";
 import { StorageService } from "../storage.service";
 import { IRefreshGrantModel } from "../auth/models/refresh-grant-model";
 import { IAuthTokenModel } from "../auth/models/auth-token-model";
-import { LoaderService } from "../loader/index";
+import { LoaderService } from "../loader";
 
 @Injectable()
 export class BearerInterceptor implements HttpInterceptor {
@@ -15,18 +17,19 @@ export class BearerInterceptor implements HttpInterceptor {
 
     public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         this.loaderService.show();
-        return next.handle(this.addAuth(req)).do(event => {
-            if (event instanceof HttpResponse) {
-                this.loaderService.hide();
-            }
-        })
-            .catch(response => {
+        return next.handle(this.addAuth(req)).pipe(
+            tap(event => {
+                if (event instanceof HttpResponse) {
+                    this.loaderService.hide();
+                }
+            }),
+            catchError(response => {
                 if (response instanceof HttpErrorResponse && response.status === 401) {
-                    return this.updateTokens(next).flatMap(() => next.handle(this.addAuth(req)));
+                    return this.updateTokens(next).pipe(flatMap(() => next.handle(this.addAuth(req))));
                 }
                 this.loaderService.hide();
-                return Observable.throw(response);
-            });
+                return _throw(response);
+            }));
     }
 
     private addAuth(req: HttpRequest<any>): HttpRequest<any> {
@@ -46,15 +49,14 @@ export class BearerInterceptor implements HttpInterceptor {
         Object.keys(data)
             .forEach(key => params.append(key, data[key]));
         const http = new HttpClient(handler);
-        return http.post<IAuthTokenModel>("/connect/token", params.toString(), { headers: headers })
-            .do((tokens: IAuthTokenModel) => {
-
-                const now = new Date();
-                tokens.expiration_date = new Date(now.getTime() + tokens.expires_in * 1000).getTime().toString();
+        return http.post<IAuthTokenModel>("/connect/token", params.toString(), { headers: headers }).pipe(
+            tap((tokens: IAuthTokenModel) => {
+                
+                tokens.expiration_date = new Date(new Date().getTime() + tokens.expires_in * 1000).getTime().toString();
 
                 this.storage.setAuthTokens(tokens);
 
                 console.warn("refreshed !");
-            });
+            }));
     }
 }

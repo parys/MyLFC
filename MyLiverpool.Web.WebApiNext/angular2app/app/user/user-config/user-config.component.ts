@@ -47,9 +47,9 @@ export class UserConfigComponent implements OnInit, OnDestroy {
 
     private initUserConfigForm(): void {
         this.userConfigForm = this.formBuilder.group({
-            'isReplyToPmEnabled': ["", Validators.required],
-            'isReplyToEmailEnabled': ["", Validators.required],
-            'isPmToEmailNotifyEnabled': ["", Validators.required]
+            isReplyToPmEnabled: ["", Validators.required],
+            isReplyToEmailEnabled: ["", Validators.required],
+            isPmToEmailNotifyEnabled: ["", Validators.required]
         });
     }
 }

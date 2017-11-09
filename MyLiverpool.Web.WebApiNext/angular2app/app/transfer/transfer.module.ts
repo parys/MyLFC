@@ -2,7 +2,7 @@
 import { RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { TransferEditComponent } from "./transfer-edit/index";
+import { TransferEditComponent } from "./transfer-edit";
 import { TransferListComponent } from "./transfer-list.component";
 import { TransferCurrentListComponent } from "./transfer-current-list.component";
 import { TransferService } from "./transfer.service";

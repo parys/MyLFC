@@ -92,8 +92,8 @@ export class UserListComponent implements OnInit {
 
     private initFilterForm(userName: string, roleGroupId: string) {
         this.filterForm = this.formBuilder.group({
-            'roleGroupId': [roleGroupId],
-            'userName': [userName]
+            roleGroupId: [roleGroupId],
+            userName: [userName]
         });
     }
 }

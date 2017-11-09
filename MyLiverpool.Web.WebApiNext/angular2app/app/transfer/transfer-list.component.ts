@@ -4,7 +4,7 @@ import { ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
 import { TransferService } from "./transfer.service";
 import { Transfer } from "./transfer.model";
-import { RolesCheckedService, Pageable } from "../shared/index";
+import { RolesCheckedService, Pageable } from "@app/shared";
 
 @Component({
     selector: "<transfer-list>",
@@ -28,7 +28,7 @@ export class TransferListComponent implements OnInit, OnDestroy {
         this.sub = this.route.queryParams.subscribe(qParams => {
                 this.page = qParams["page"] || 1;
             },
-            error => console.log(error));
+            e => console.log(e));
         this.update();
     }
 

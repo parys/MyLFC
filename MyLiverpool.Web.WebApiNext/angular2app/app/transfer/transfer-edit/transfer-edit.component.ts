@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
 import { Observable } from "rxjs/Observable";
+import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
 import { TransferService } from "../transfer.service";
 import { PersonService, Person } from "@app/person";
 import { Transfer } from "../transfer.model";
@@ -105,40 +106,32 @@ export class TransferEditComponent implements OnInit, OnDestroy {
 
     private initForm(): void {
         this.editTransferForm = this.formBuilder.group({
-            'clubName': [""],
-            'clubId': [""],
-            'seasonId': ["", Validators.required],
-            'seasonName': [""],
-            'personId': ["", Validators.required],
-            'personName': [""],
-            'startDate': [null, Validators.required],
-            'finishDate': [null],
-            'amount': [null],
-            'onLoan': [false, Validators.required],
-            'coming': [true, Validators.required],
+            clubName: [""],
+            clubId: [""],
+            seasonId: ["", Validators.required],
+            seasonName: [""],
+            personId: ["", Validators.required],
+            personName: [""],
+            startDate: [null, Validators.required],
+            finishDate: [null],
+            amount: [null],
+            onLoan: [false, Validators.required],
+            coming: [true, Validators.required],
         });
 
-        this.persons$ = this.editTransferForm.controls["personName"].valueChanges
-            .debounceTime(this.config.debounceTime)
-            .distinctUntilChanged()
-            .switchMap((value: string) => this.personService.getListByName(value));
+        this.persons$ = this.editTransferForm.controls["personName"].valueChanges.pipe(
+            debounceTime(this.config.debounceTime),
+            distinctUntilChanged(),
+            switchMap((value: string) => this.personService.getListByName(value)));
 
-        this.clubs$ = this.editTransferForm.controls["clubName"].valueChanges
-            .debounceTime(this.config.debounceTime)
-            .distinctUntilChanged()
-            .switchMap((value: string) => this.clubService.getListByName(value));
+        this.clubs$ = this.editTransferForm.controls["clubName"].valueChanges.pipe(
+            debounceTime(this.config.debounceTime),
+            distinctUntilChanged(),
+            switchMap((value: string) => this.clubService.getListByName(value)));
 
-        this.seasons$ = this.editTransferForm.controls["seasonName"].valueChanges
-            .debounceTime(this.config.debounceTime)
-            .distinctUntilChanged()
-            .switchMap((value: string) => this.seasonService.getListByYear(value));
-    }
-
-    private getIdFromUrl(url: string): string {
-        if (url) {
-            const pieces: string[] = url.split("/");
-            return pieces[pieces.length - 1];
-        }
-        return null;
+        this.seasons$ = this.editTransferForm.controls["seasonName"].valueChanges.pipe(
+            debounceTime(this.config.debounceTime),
+            distinctUntilChanged(),
+            switchMap((value: string) => this.seasonService.getListByYear(value)));
     }
 }

@@ -3,8 +3,8 @@ import { isPlatformBrowser } from "@angular/common";
 import { Router, ActivatedRoute, NavigationEnd } from "@angular/router";
 import { Title } from "@angular/platform-browser";
 import { Observable } from "rxjs/Observable"
-import { RolesCheckedService, AuthService, IAuthStateModel } from "@app/shared";
-import { BreadcrumbService } from "@app/shared/breadcrumb";
+import { filter, map, mergeMap } from "rxjs/operators"
+import { RolesCheckedService, AuthService, IAuthStateModel, BreadcrumbService } from "@app/shared";
 
 @Component({
     selector: "app",
@@ -58,15 +58,15 @@ export class AppComponent implements OnInit {
     }
 
     private initTitleSubscriber() {
-        this.router.events
-            .filter((event: any) => event instanceof NavigationEnd)
-            .map(() => this.activatedRoute)
-            .map((route: ActivatedRoute) => {
+        this.router.events.pipe(
+            filter((event: any) => event instanceof NavigationEnd),
+            map(() => this.activatedRoute),
+            map((route: ActivatedRoute) => {
                 while (route.firstChild) route = route.firstChild;
                 return route;
-            })
-            .filter((route: ActivatedRoute) => route.outlet === "primary")
-            .mergeMap((route: ActivatedRoute) => route.data)
+            }),
+            filter((route: ActivatedRoute) => route.outlet === "primary"),
+            mergeMap((route: ActivatedRoute) => route.data))
             .subscribe((event) => {
        //         window.scrollTo(0,0);
                 this.titleService.setTitle(event["title"]);
