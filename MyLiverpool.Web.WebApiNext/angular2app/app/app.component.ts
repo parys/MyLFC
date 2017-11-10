@@ -1,10 +1,12 @@
-﻿import { Component, ViewContainerRef, OnInit, ViewEncapsulation, Renderer2, ElementRef, PLATFORM_ID, Inject } from "@angular/core";  
+﻿import { Component, ViewContainerRef, OnInit, ViewEncapsulation, ElementRef, PLATFORM_ID, Inject } from "@angular/core";  
 import { isPlatformBrowser } from "@angular/common";  
 import { Router, ActivatedRoute, NavigationEnd } from "@angular/router";
 import { Title } from "@angular/platform-browser";
 import { Observable } from "rxjs/Observable"
 import { filter, map, mergeMap } from "rxjs/operators"
 import { RolesCheckedService, AuthService, IAuthStateModel, BreadcrumbService } from "@app/shared";
+
+declare let addAd: any;
 
 @Component({
     selector: "app",
@@ -70,7 +72,8 @@ export class AppComponent implements OnInit {
             .subscribe((event) => {
        //         window.scrollTo(0,0);
                 this.titleService.setTitle(event["title"]);
-               // this.isRoot = (event["title"] === "MyLFC.ru - Сайт русскоязычных болельщиков \"Ливерпуля\"");
+                addAd();
+                // this.isRoot = (event["title"] === "MyLFC.ru - Сайт русскоязычных болельщиков \"Ливерпуля\"");
             });
         //this.router.events.subscribe(event => {
         //    if (event instanceof NavigationEnd) {
