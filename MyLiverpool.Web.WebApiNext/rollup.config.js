@@ -59,6 +59,6 @@ export default {
                     "node_modules/angular2-recaptcha/**"
                 ]
             }),
-       // uglify()
+        uglify()
     ]
 };

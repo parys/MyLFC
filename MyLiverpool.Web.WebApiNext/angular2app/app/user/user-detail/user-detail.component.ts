@@ -7,7 +7,7 @@ import { Subscription } from "rxjs/Subscription";
 import { Configuration } from "@app/app.constants";
 import { User } from "../user.model";                          
 import { UserService } from "../+core";
-import { GlobalValidators, RolesCheckedService } from "@app/shared";
+import { RolesCheckedService } from "@app/shared";
 import { RoleGroupService, RoleGroup } from "@app/roleGroup";
 
 @Component({
@@ -22,7 +22,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     public roleForm: FormGroup;
     public banForm: FormGroup;
     public selectedUserId: number;
-    public banDaysCount: number = 0;              
+    public banDaysCount: number = 0;    
 
     constructor(private configuration: Configuration,
         private service: UserService,
