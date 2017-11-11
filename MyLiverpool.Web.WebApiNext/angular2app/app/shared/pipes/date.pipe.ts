@@ -15,7 +15,7 @@ export class CustomDatePipe implements PipeTransform {
         } else {
             dateString += datePipe.transform(value,`d MMM y ${withDayOfWeek ? "EEE" : ""}`);
         }
-        return dateString + datePipe.transform(value, ` ${withoutTime ? "" : " hh:mm"}${!withoutTime && withSeconds ? ":ss" : ""}`);
+        return dateString + datePipe.transform(value, ` ${withoutTime ? "" : " HH:mm"}${!withoutTime && withSeconds ? ":ss" : ""}`);
     }
 
     private isToday(date: string, withoutYear: boolean): boolean {

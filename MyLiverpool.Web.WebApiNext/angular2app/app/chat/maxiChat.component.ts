@@ -5,6 +5,7 @@ import { MatDialog, MatSnackBar } from "@angular/material";
 import { ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
 import { interval } from "rxjs/observable/interval";
+import { map } from "rxjs/operators";
 import { Configuration } from "../app.constants";
 import { ChatMessage } from "./chatMessage.model";
 import { ChatMessageType } from "./chatMessageType.enum";
@@ -81,7 +82,7 @@ export class MaxiChatComponent implements OnInit, OnDestroy {
                         this.items.unshift(data);
                         this.messageForm.get("message").patchValue("");
                     },
-                    (error) => console.log(error));
+                    (e) => console.log(e));
         }
     }
 
@@ -106,8 +107,8 @@ export class MaxiChatComponent implements OnInit, OnDestroy {
                 this.updater$.unsubscribe();
             }
         } else {
-            this.updater$ = interval(1000 * selectedValue)
-                .map(x => this.update())
+            this.updater$ = interval(1000 * selectedValue).pipe(
+                map(x => this.update()))
                 .subscribe();
         }
     }
