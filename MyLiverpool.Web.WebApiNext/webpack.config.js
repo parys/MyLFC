@@ -1,10 +1,13 @@
 const path = require("path");
 const webpack = require("webpack");
+const AngularCompilerPlugin = require('@ngtools/webpack').AngularCompilerPlugin;
 //const rxPaths = require("rxjs/_esm5/path-mapping");
 //var NodeExternals = require("webpack-node-externals");
 var Merge = require("webpack-merge");
 //var AllFilenamesExceptJavaScript = /\.(?!js(\?|$))([^.]+(\?|$))/;
 var WebpackNotifierPlugin = require("webpack-notifier");
+const CheckerPlugin = require('awesome-typescript-loader').CheckerPlugin;
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 function srcPath(subdir) {
     return path.join(__dirname, "angular2app", subdir);
@@ -36,7 +39,7 @@ module.exports = (env) => {
                 {
                     test: /\.ts$/,
                     include: /angular2app/,
-                    use: ["awesome-typescript-loader", "angular2-template-loader"]
+                    use: isDevBuild ? ["awesome-typescript-loader?silent=true", "angular2-template-loader", "angular2-router-loader"] : "@ngtools/webpack"
                 },
                 { test: /\.html$/, use: "html-loader" },
                 // bug  { test: /\.css$/, loader: "style-loader!css-loader" },
@@ -46,6 +49,7 @@ module.exports = (env) => {
         },
         plugins: [
 // Put webpack plugins here if needed, or leave it as an empty array if not
+            new CheckerPlugin()
         ]
     };
 
@@ -73,7 +77,12 @@ module.exports = (env) => {
                 ]
                 : [
                     // Plugins that apply in production builds only
-                    new webpack.optimize.UglifyJsPlugin()
+                    new webpack.optimize.UglifyJsPlugin(),
+                    new AngularCompilerPlugin({
+                        tsConfigPath: "./tsconfig.json",
+                        entryModule: path.join(__dirname, 'angular2app/app/app.module.browser#AppModule'),
+                        exclude: ["./**/*.server.ts"]
+                    })
                 ])
         });
 
@@ -87,7 +96,7 @@ module.exports = (env) => {
                 libraryTarget: "commonjs",
                 path: path.join(__dirname, "./angular2app/dist")
             },
-            devtool: "inline-source-map",
+            devtool: isDevBuild ? "inline-source-map" : false,
 //    externals: [NodeExternals({ whitelist: [AllFilenamesExceptJavaScript] })], // Don't bundle .js files from node_modules
             plugins: [
                 new WebpackNotifierPlugin({ title: "serverBuild", alwaysNotify: true }),
@@ -97,7 +106,18 @@ module.exports = (env) => {
                     sourceType: "commonjs2",
                     name: "./vendor"
                 })
-            ]
+            ].concat(isDevBuild ? [] : [
+                new webpack.optimize.UglifyJsPlugin({
+                    compress: false,
+                    mangle: false
+                }),
+                // Plugins that apply in production builds only
+                new AngularCompilerPlugin({
+                    tsConfigPath: './tsconfig.json',
+                    entryModule: path.join(__dirname, 'ClientApp/app/app.module.server#AppModule'),
+                    exclude: ['./**/*.browser.ts']
+                })
+            ]),
         });
    // return [clientBundleConfig, serverBundleConfig];
     return [clientBundleConfig];

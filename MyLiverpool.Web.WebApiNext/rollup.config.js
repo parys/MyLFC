@@ -10,7 +10,7 @@ export default {
     output: {
         file: "wwwroot/src/build.js",
         format: "iife",
-    //    name: "prodClient",
+        name: "prodClient",
     }, // output a single application bundle
     sourceMap: false,
     treeshake: true,
@@ -59,6 +59,6 @@ export default {
                     "node_modules/angular2-recaptcha/**"
                 ]
             }),
-        uglify()
+      //  uglify()
     ]
 };
