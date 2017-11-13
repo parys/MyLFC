@@ -70,9 +70,11 @@ export class AppComponent implements OnInit {
             filter((route: ActivatedRoute) => route.outlet === "primary"),
             mergeMap((route: ActivatedRoute) => route.data))
             .subscribe((event) => {
-       //         window.scrollTo(0,0);
+       //         window.scrollTo(0,0); //todo find solution to get if is fragment
                 this.titleService.setTitle(event["title"]);
-                addAd();
+                setTimeout(() => {
+                    addAd();
+                }, 1500);
                 // this.isRoot = (event["title"] === "MyLFC.ru - Сайт русскоязычных болельщиков \"Ливерпуля\"");
             });
         //this.router.events.subscribe(event => {
