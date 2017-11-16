@@ -35,15 +35,20 @@ module.exports = (env) => {
                 {
                     test: /\.scss$/,
                     loaders: ["raw-loader", "resolve-url-loader", "sass-loader"]
-                },
-                {
-                    test: /\.ts$/,
-                    include: /angular2app/,
-                    use: isDevBuild ? ["awesome-typescript-loader?silent=true", "angular2-template-loader", "angular2-router-loader"] : "@ngtools/webpack"
-                },
-                { test: /\.html$/, use: "html-loader" },
-                // bug  { test: /\.css$/, loader: "style-loader!css-loader" },
-                { test: /\.css$/, use: "raw-loader" },
+              },
+              {
+                test: /\.(png|woff|woff2|eot|ttf|svg)(\?|$)/,
+                use: "url-loader?limit=100000"
+              },
+              {
+                test: /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/,
+                include: /angular2app/,
+                use: isDevBuild
+                  ? ["awesome-typescript-loader?silent=true", "angular2-template-loader", "angular-router-loader"]
+                  : "@ngtools/webpack"
+              },
+                { test: /\.html$/, use: "html-loader?minimize=false" },
+                { test: /\.css$/, use: ['to-string-loader', isDevBuild ? "css-loader" : "css-loader?minimize"] },
                 { test: /\.(png|jpg|jpeg|gif|svg)$/, use: "url-loader?limit=25000" }
             ]
         },
@@ -77,7 +82,24 @@ module.exports = (env) => {
                 ]
                 : [
                     // Plugins that apply in production builds only
-                    new webpack.optimize.UglifyJsPlugin(),
+                new webpack.optimize.UglifyJsPlugin({
+                  compress: {
+                    warnings: false,
+                    screw_ie8: true,
+                    conditionals: true,
+                    unused: true,
+                    comparisons: true,
+                    sequences: true,
+                    dead_code: true,
+                    evaluate: true,
+                    if_return: true,
+                    join_vars: true
+                  },
+                  output: {
+                    comments: false
+                  },
+                  sourceMap: true
+                }),
                     new AngularCompilerPlugin({
                         tsConfigPath: "./tsconfig.json",
                         entryModule: path.join(__dirname, 'angular2app/app/app.module.browser#AppModule'),
@@ -114,7 +136,7 @@ module.exports = (env) => {
                 // Plugins that apply in production builds only
                 new AngularCompilerPlugin({
                     tsConfigPath: './tsconfig.json',
-                    entryModule: path.join(__dirname, 'ClientApp/app/app.module.server#AppModule'),
+                  entryModule: path.join(__dirname, 'angular2app/app/app.module.server#AppModule'),
                     exclude: ['./**/*.browser.ts']
                 })
             ]),
