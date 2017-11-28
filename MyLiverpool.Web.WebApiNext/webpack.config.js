@@ -82,24 +82,24 @@ module.exports = (env) => {
                 ]
                 : [
                     // Plugins that apply in production builds only
-                new webpack.optimize.UglifyJsPlugin({
-                  compress: {
-                    warnings: false,
-                    screw_ie8: true,
-                    conditionals: true,
-                    unused: true,
-                    comparisons: true,
-                    sequences: true,
-                    dead_code: true,
-                    evaluate: true,
-                    if_return: true,
-                    join_vars: true
-                  },
-                  output: {
-                    comments: false
-                  },
-                  sourceMap: true
-                }),
+                //new webpack.optimize.UglifyJsPlugin({
+                //  compress: {
+                //    warnings: false,
+                //    screw_ie8: true,
+                //    conditionals: true,
+                //    unused: true,
+                //    comparisons: true,
+                //    sequences: true,
+                //    dead_code: true,
+                //    evaluate: true,
+                //    if_return: true,
+                //    join_vars: true
+                //  },
+                //  output: {
+                //    comments: false
+                //  },
+                //  sourceMap: true
+                //}),
                     new AngularCompilerPlugin({
                         tsConfigPath: "./tsconfig.json",
                         entryModule: path.join(__dirname, 'angular2app/app/app.module.browser#AppModule'),
