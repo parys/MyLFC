@@ -88,7 +88,6 @@ namespace MyLiverpool.Business.Services
             comment.LastModified = DateTime.Now;
             comment.Answer = model.Answer;
             comment.Message = model.Message;
-            comment.IsVerified = model.IsVerified;
             try
             {
                 await _commentService.UpdateAsync(comment);
@@ -149,7 +148,6 @@ namespace MyLiverpool.Business.Services
         {
             var comment = await _commentService.GetByIdAsync(id);
             comment.IsVerified = true;
-            comment.LastModified = DateTime.Now;
             await _commentService.UpdateAsync(comment);
             return true;
         }
