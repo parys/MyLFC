@@ -33,6 +33,7 @@
     <EmbeddedResource Remove="wwwroot\content\persons\**" />
     <None Remove="temp-js\**" />
     <None Remove="wwwroot\content\persons\**" />
+    <None Remove="key-89e37b14-6fa7-4d15-b4db-6887042daa4e.xml" />
     <Content Include="angular2app\tsconfig.app.json">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
@@ -82,7 +83,7 @@
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.0" />
-    <PackageReference Include="OpenIddict.Mvc" Version="2.0.0-rc2-0772" />
+    <PackageReference Include="OpenIddict.Mvc" Version="2.0.0-rc2-0775" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="1.1.0" />
   </ItemGroup>
 

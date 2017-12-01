@@ -80,7 +80,10 @@ module.exports = (env) => {
                     }),
                     new WebpackNotifierPlugin({ title: "clientBuild", alwaysNotify: true })
                 ]
-                : [
+              : [
+
+                new BundleAnalyzerPlugin(),
+                new WebpackNotifierPlugin({ title: "clientBuild-PROD", alwaysNotify: true }),
                     // Plugins that apply in production builds only
                 //new webpack.optimize.UglifyJsPlugin({
                 //  compress: {
