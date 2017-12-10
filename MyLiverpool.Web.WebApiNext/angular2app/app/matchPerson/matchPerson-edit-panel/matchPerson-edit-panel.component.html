@@ -18,3 +18,10 @@
         <button mat-raised-button color="warn" type="submit" [disabled]="!editMatchPersonForm.valid">Сохранить</button>
     </div>
 </form>
+<div class="col-xs-12">
+    <button mat-raised-button color="primary" (click)="isCreation = true" *ngIf="!isCreation">Создать человека</button>
+    <button mat-raised-button (click)="isCreation = false" *ngIf="isCreation">Отменить создание</button>
+    <div class="full-width top20" *ngIf="isCreation">
+        <person-edit [isFull]="false" (newPerson)="setPerson($event)"></person-edit>
+    </div>
+</div>

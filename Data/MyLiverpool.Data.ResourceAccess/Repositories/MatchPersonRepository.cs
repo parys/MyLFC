@@ -61,7 +61,10 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
 
         public async Task<MatchPerson> GetByComplexIdAsync(int matchId, int personId)
         {
-            return await _context.MatchPersons.FindAsync(matchId, personId);
+            return await _context.MatchPersons
+                .Include(x => x.Person)
+                .Include(x => x.Match)
+                .FirstOrDefaultAsync(x => x.MatchId == matchId && x.PersonId == personId);
         }
 
         public async Task<IEnumerable<MatchPerson>> GetListAsync(Expression<Func<MatchPerson, bool>> filter = null, SortOrder order = SortOrder.Ascending, Expression<Func<MatchPerson, object>> orderBy = null)

@@ -45,6 +45,7 @@
         <matchEvent-match-panel [events]="item.events" [matchId]="item.id" [seasonId]="item.seasonId" [isHome]="item.homeClubId === 1"></matchEvent-match-panel>
         <matchPerson-panel [matchId]="item.id" [isHome]="item.homeClubId === 1"></matchPerson-panel>
     </div>
+    <button mat-raised-button (click)="ngOnInit()">Обновить события матча</button>
     <div class="col-xs-12">
         <div id="yandex_rtb_R-A-255349-2"></div>
     </div>

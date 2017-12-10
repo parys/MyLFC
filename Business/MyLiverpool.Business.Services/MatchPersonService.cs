@@ -24,7 +24,7 @@ namespace MyLiverpool.Business.Services
         {
             var entity = _mapper.Map<MatchPerson>(dto);
             await _matchPersonRepository.AddAsync(entity);
-            return _mapper.Map<MatchPersonDto>(entity);
+            return dto;
         }
 
         public async Task<MatchPersonDto> UpdateAsync(MatchPersonDto dto)

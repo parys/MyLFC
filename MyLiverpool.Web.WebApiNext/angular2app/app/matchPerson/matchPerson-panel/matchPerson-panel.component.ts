@@ -49,14 +49,15 @@ export class MatchPersonPanelComponent implements OnInit {
         this.selectedType = typeId;
     }
 
-    public cancelMatchPersonEdit(): void {
+    public cancelMatchPersonEdit(stayEdit: boolean = false): void {
         this.selectedMatchPerson = null;
-        this.isEdit = false;
+        this.isEdit = stayEdit;
         this.selectedIndex = null;
         this.selectedType = null;
     }
 
-    public updateMatchPerson(person: MatchPerson) {
+  public updateMatchPerson(person: MatchPerson) {
+    console.log(person);
         if (this.selectedIndex) {
             this.matchPersons[this.selectedIndex] = person;
             this.selectedMatchPerson = person;
@@ -64,7 +65,7 @@ export class MatchPersonPanelComponent implements OnInit {
             this.matchPersons.push(person);
         }
 
-        this.cancelMatchPersonEdit();
+        this.cancelMatchPersonEdit(true);
         this.parsePersons(this.matchPersons);
     }
 
