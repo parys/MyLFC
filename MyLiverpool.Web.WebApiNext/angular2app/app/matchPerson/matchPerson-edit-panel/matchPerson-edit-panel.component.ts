@@ -18,6 +18,7 @@ import { MatchPersonTypeEnum } from "../matchPersonType.enum";
 
 export class MatchPersonEditPanelComponent implements OnInit {
     public isEdit: boolean = false;
+    public isCreation: boolean = false;
     @Input() public matchId: number;
     @Input() public selectedMatchPerson: MatchPerson;
     @Input() public typeId: number;
