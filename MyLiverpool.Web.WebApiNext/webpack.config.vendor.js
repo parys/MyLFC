@@ -18,7 +18,7 @@ const treeShakableModules = [
     "@angular/platform-browser-dynamic",
     "@angular/platform-server",
     "@angular/router",
-    "zone.js",
+    "zone.js"
 ];
 
 const nonTreeShakableModules = [
@@ -122,5 +122,5 @@ module.exports = (env) => {
         ]
     });
 
-    return [clientBundleConfig, serverBundleConfig];
+  return [clientBundleConfig];//, serverBundleConfig];
 }
