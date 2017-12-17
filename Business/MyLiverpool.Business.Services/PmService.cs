@@ -14,12 +14,15 @@ namespace MyLiverpool.Business.Services
     public class PmService : IPmService
     {
         private readonly IPmRepository _pmRepository;
+        private readonly IEmailSender _messageService;
+        private readonly IUserService _userService;
         private readonly IMapper _mapper;
 
-        public PmService(IPmRepository pmRepository, IMapper mapper)
+        public PmService(IPmRepository pmRepository, IMapper mapper, IEmailSender messageService)
         {
             _pmRepository = pmRepository;
             _mapper = mapper;
+            _messageService = messageService;
         }
 
         public async Task<PrivateMessagesDto> GetListAsync(int id)
@@ -57,7 +60,8 @@ namespace MyLiverpool.Business.Services
             message.SentTime = DateTime.Now;
             try
             {
-                await _pmRepository.AddAsync(message);
+                message = await _pmRepository.AddAsync(message);
+                await _messageService.SendNewPmToEmailAsync(message.ReceiverId, message.Message, message.Id);
             }
             catch (Exception)
             {
@@ -65,6 +69,7 @@ namespace MyLiverpool.Business.Services
             }
             return true;
         }
+
         public async Task<int> GetUnreadPmCountAsync(int userId)
         {
              return await _pmRepository.GetCountAsync(x => !x.IsRead && x.ReceiverId == userId);

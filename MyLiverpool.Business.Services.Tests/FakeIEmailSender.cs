@@ -10,6 +10,11 @@ namespace MyLiverpool.Business.Services.Tests
             return Task.CompletedTask;
         }
 
+        public Task SendNewPmToEmailAsync(int userId, string message, int pmId)
+        {
+            return Task.CompletedTask;
+        }
+
         public Task SendEmailAsync(string subject, string message)
         {
             return Task.CompletedTask;

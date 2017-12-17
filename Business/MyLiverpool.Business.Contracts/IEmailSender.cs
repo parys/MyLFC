@@ -6,6 +6,8 @@ namespace MyLiverpool.Business.Contracts
     {
         Task SendEmailAsync(string email, string subject, string message);
 
+        Task SendNewPmToEmailAsync(int userId, string message, int pmId);
+
         Task SendEmailAsync(string subject, string message);
     }
 }
