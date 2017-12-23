@@ -7,6 +7,8 @@ using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Business.Services.Tests.Helpers;
 using MyLiverpool.Common.Mappings;
+using MyLiverpool.Common.Utilities.Extensions;
+using MyLiverpool.Data.Common;
 using MyLiverpool.Data.Entities;
 using MyLiverpool.Data.ResourceAccess;
 using Xunit;
@@ -88,12 +90,12 @@ namespace MyLiverpool.Business.Services.Tests
             new object[]
             {
                 new WishDto() { Message = "mes 1", Type = 1, Title = "title 1" },
-                new WishDto() { Message = "mes 1", Type = 1, Title = "title 1", TypeName = "Баг" },
+                new WishDto() { Message = "mes 1", Type = 1, Title = "title 1", TypeName = "Баг", StateName = WishStateEnum.Default.GetNameAttribute()},
             },
             new object[]
             {
                 new WishDto() { Message = "mes 2", Type = 2, Title = "title 2"},
-                new WishDto() { Message = "mes 2", Type = 2, Title = "title 2", TypeName = "Баг оформления" },
+                new WishDto() { Message = "mes 2", Type = 2, Title = "title 2", TypeName = "Баг оформления", StateName = WishStateEnum.Default.GetNameAttribute() },
             },
         };
     }

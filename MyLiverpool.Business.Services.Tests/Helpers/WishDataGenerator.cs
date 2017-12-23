@@ -16,31 +16,36 @@ namespace MyLiverpool.Business.Services.Tests.Helpers
                 {
                     Type = WishType.Bug,
                     Message = "mes help 1",
-                    Title = "title 1"
+                    Title = "title 1",
+                    State = WishStateEnum.Default
                 },
                 new Wish()
                 {
                     Type = WishType.BugUi,
                     Message = "mes 2",
-                    Title = "title 2"
+                    Title = "title 2",
+                    State = WishStateEnum.Default
                 },
                 new Wish()
                 {
                     Type = WishType.Feature,
                     Message = "mes help 3",
-                    Title = "title 3"
+                    Title = "title 3",
+                    State = WishStateEnum.Default
                 },
                 new Wish()
                 {
                     Type = WishType.Feature,
                     Message = "mes help 4",
-                    Title = "title 4"
+                    Title = "title 4",
+                    State = WishStateEnum.Default
                 },
                 new Wish()
                 {
                     Type = WishType.Feature,
                     Message = "mes 5",
-                    Title = "title 5"
+                    Title = "title 5",
+                    State = WishStateEnum.Default
                 }
             };
         }
@@ -55,7 +60,9 @@ namespace MyLiverpool.Business.Services.Tests.Helpers
                     Type = (int) WishType.Bug,
                     TypeName = WishType.Bug.GetNameAttribute(),
                     Message = "mes help 1",
-                    Title = "title 1"
+                    Title = "title 1",
+                    State = (int)WishStateEnum.Default,
+                    StateName = WishStateEnum.Default.GetNameAttribute()
                 },
                 new WishDto()
                 {
@@ -63,7 +70,9 @@ namespace MyLiverpool.Business.Services.Tests.Helpers
                     Type = (int) WishType.BugUi,
                     TypeName = WishType.BugUi.GetNameAttribute(),
                     Message = "mes 2",
-                    Title = "title 2"
+                    Title = "title 2",
+                    State = (int)WishStateEnum.Default,
+                    StateName = WishStateEnum.Default.GetNameAttribute()
                 },
                 new WishDto()
                 {
@@ -71,7 +80,9 @@ namespace MyLiverpool.Business.Services.Tests.Helpers
                     Type = (int) WishType.Feature,
                     TypeName = WishType.Feature.GetNameAttribute(),
                     Message = "mes help 3",
-                    Title = "title 3"
+                    Title = "title 3",
+                    State = (int)WishStateEnum.Default,
+                    StateName = WishStateEnum.Default.GetNameAttribute()
                 },
                 new WishDto()
                 {
@@ -79,7 +90,9 @@ namespace MyLiverpool.Business.Services.Tests.Helpers
                     Type = (int) WishType.Feature,
                     TypeName = WishType.Feature.GetNameAttribute(),
                     Message = "mes help 4",
-                    Title = "title 4"
+                    Title = "title 4",
+                    State = (int)WishStateEnum.Default,
+                    StateName = WishStateEnum.Default.GetNameAttribute()
                 },
                 new WishDto()
                 {
@@ -87,7 +100,9 @@ namespace MyLiverpool.Business.Services.Tests.Helpers
                     Type = (int) WishType.Feature,
                     TypeName = WishType.Feature.GetNameAttribute(),
                     Message = "mes 5",
-                    Title = "title 5"
+                    Title = "title 5",
+                    State = (int)WishStateEnum.Default,
+                    StateName = WishStateEnum.Default.GetNameAttribute()
                 }
             };
         }
