@@ -24,7 +24,7 @@
                     Сбросить аватар
                 </button>
                 <button mat-raised-button color="warn" *ngIf="roles.isSelf(item.id)" [routerLink]="['/changePassword']">Изменить пароль</button>
-                <button mat-raised-button *ngIf="roles.isSelf(item.id)" [routerLink]="['./settings']">Изменить настройки</button>
+                <button mat-raised-button *ngIf="roles.isSelf(item.id)" [routerLink]="['./settings']" class="color-back-gold">Уведомления</button>
                 <button mat-raised-button *ngIf="roles.isSelf(item.id)" [routerLink]="['./edit']">Изменить профиль</button>
                 <br><br>
             </div>

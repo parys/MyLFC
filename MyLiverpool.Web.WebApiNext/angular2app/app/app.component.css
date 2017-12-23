@@ -179,6 +179,10 @@ textarea {
     margin-bottom: 0;
 }
 
+.comment-action-buttons {
+    margin-top: -37px;
+}
+
 .chat-message {
     padding: 0 5px 5px 5px;
     margin-bottom: 3px;

@@ -9,6 +9,7 @@ import { MatchPersonType } from "../matchPersonType.model";
 import { PersonService, Person } from "@app/person";
 import { Configuration } from "@app/app.constants";
 import { MatchPersonService } from "../matchPerson.service";
+import { MatchPersonTypeEnum } from "../matchPersonType.enum";
 
 @Component({
     selector: "matchPerson-edit-panel",
@@ -17,6 +18,7 @@ import { MatchPersonService } from "../matchPerson.service";
 
 export class MatchPersonEditPanelComponent implements OnInit {
     public isEdit: boolean = false;
+    public isCreation: boolean = false;
     @Input() public matchId: number;
     @Input() public selectedMatchPerson: MatchPerson;
     @Input() public typeId: number;
@@ -40,7 +42,13 @@ export class MatchPersonEditPanelComponent implements OnInit {
         this.matchPersonService.getTypes()
             .subscribe(data => this.types = data,
             e => console.log(e));
+    //  this.types = this.enumSelector(MatchPersonTypeEnum);
     }
+
+  public enumSelector(definition : any) {
+    return Object.keys(definition)
+      .map(key => (new MatchPersonType(+key, definition[key])));
+  }
 
     public onSubmit(): void {
         const matchPerson: MatchPerson = this.parseForm();
@@ -52,15 +60,21 @@ export class MatchPersonEditPanelComponent implements OnInit {
             this.matchPersonService.create(matchPerson)
                 .subscribe(data => this.emitNewPerson(data),
                 e => console.log(e));
-        }
+      }
+      this.editMatchPersonForm.get("personId").patchValue("");
+      this.editMatchPersonForm.get("personName").patchValue("");
     }
 
-    public selectPerson(id: number) {
+    public setPerson(person: Person): void {
+        this.editMatchPersonForm.get("personId").patchValue(person.id);
+        this.editMatchPersonForm.get("personName").patchValue(person.russianName);
+    } 
+
+    public selectPerson(id: number) : void {
         this.editMatchPersonForm.get("personId").patchValue(id);
     }
 
     private emitNewPerson(matchPerson: MatchPerson): void {
-        matchPerson.personName = this.editMatchPersonForm.get("personName").value;
         this.matchPerson.emit(matchPerson);
         this.selectedMatchPerson = null;
     }

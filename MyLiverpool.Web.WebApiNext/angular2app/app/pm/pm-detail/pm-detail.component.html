@@ -3,10 +3,10 @@
         <input matInput readonly [placeholder]="roles.isSelf(item.senderId) ? 'Получатель' : 'Отправитель'" [value]="roles.isSelf(item.senderId) ? item.receiver : item.sender" />
     </mat-form-field>
     <mat-form-field class="full-width">
-        <input matInput readonly placeholder="Заголовок" [value]="item.title"/>
+        <input matInput placeholder="Заголовок" [value]="item.title"/>
     </mat-form-field>
     <mat-form-field class="full-width">
-        <textarea matInput readonly matTextareaAutosize  placeholder="Сообщение" [innerHTML]="sanitizeByHtml(item.message)"></textarea>
+        <textarea matInput matTextareaAutosize  placeholder="Сообщение" [innerHTML]="sanitizeByHtml(item.message)"></textarea>
     </mat-form-field>
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">

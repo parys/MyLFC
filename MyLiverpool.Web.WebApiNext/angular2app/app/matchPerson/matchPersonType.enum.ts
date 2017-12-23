@@ -1,0 +1,16 @@
+﻿export enum MatchPersonTypeEnum {
+    Team = 1,
+    TeamBench = 2,
+    Competitor = 3,
+    CompetitorBench = 4,
+    Coach = 5,
+    CompetitorCoach = 6,
+    MainReferee = 7,
+    SubReferee = 8,
+    FourthReferee = 9,
+    AdditionalReferee = 10,
+    Injury = 11,
+    Ban = 12,
+    InjuryCompetitor = 13,
+    BanCompetitor = 14,
+}

@@ -17,7 +17,7 @@ export class PersonEditComponent implements OnInit {
     public photo: string;
     public types: PersonType[];
     @Input() public isFull: boolean = true;
-    @Output() public done = new EventEmitter();
+    @Output() public newPerson = new EventEmitter<Person>();
 
     constructor(private service: PersonService,
         private route: ActivatedRoute,
@@ -80,7 +80,9 @@ export class PersonEditComponent implements OnInit {
                     if (this.isFull) {
                         this.router.navigate(["/persons"]);
                     } else {
-                        this.done.emit();
+                      this.newPerson.emit(data);
+                      this.editPersonForm.get("firstRussianName").setValue(null);
+                      this.editPersonForm.get("lastRussianName").setValue(null);
                     }
                     },
                 e => {

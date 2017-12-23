@@ -1,11 +1,17 @@
 ﻿<div class="col-xs-12 container-row">
     <div class="col-xs-12 container-row">
         <div class="text-center">Главный судья: {{mainRef?.personName}}
-            <span *ngIf="roles.isInformer && !mainRef" role="button" (click)="addMatchPerson(7)"><mat-icon>add</mat-icon></span></div>
-        <div class="text-center" *ngIf="assistantRef.length > 0">Помощники судьи: <span *ngFor="let ref of assistantRef; let last = last;">{{ref.personName}}<span *ngIf="!last">, </span></span></div>
+            <span *ngIf="roles.isInformer && !mainRef" role="button" (click)="addMatchPerson(7)"><mat-icon>add</mat-icon></span>
+        </div>
+        <div class="text-center">Помощники судьи: <span *ngFor="let ref of assistantRef; let last = last;">{{ref.personName}}<span *ngIf="!last">, </span></span>
+            <span *ngIf="roles.isInformer && assistantRef.length < 2" role="button" (click)="addMatchPerson(8)"><mat-icon>add</mat-icon></span>
+        </div>
         <div class="text-center" *ngIf="additionalRef.length > 0">Дополнительные судьи: <span *ngFor="let ref of additionalRef; let last=last;">{{ref.personName}}
-            <span *ngIf="!last">, </span></span></div>
-        <div class="text-center" *ngIf="fourthRef">Резервный судья: {{fourthRef.personName}}</div>
+            <span *ngIf="!last">, </span></span>
+        </div>
+        <div class="text-center">Резервный судья: {{fourthRef?.personName}}
+            <span *ngIf="roles.isInformer && !fourthRef" role="button" (click)="addMatchPerson(9)"><mat-icon>add</mat-icon></span>
+        </div>
         <div class="col-xs-6 container-row">
             <i class="col-xs-12 container-row top10">Главный тренер:
                 <span *ngIf="roles.isInformer && !homeCoach" role="button" (click)="addMatchPerson(isHome ? 5 : 6)"><mat-icon>add</mat-icon></span>
@@ -89,12 +95,5 @@
     <button mat-raised-button (click)="cancelMatchPersonEdit()" *ngIf="isEdit">Отменить редактирование</button>
     <div class="full-width top20" *ngIf="isEdit">
         <matchPerson-edit-panel [matchId]="matchId" [selectedMatchPerson]="selectedMatchPerson" [typeId]="selectedType" (matchPerson)="updateMatchPerson($event)"></matchPerson-edit-panel>
-    </div>
-</div>
-<div *ngIf="roles.isInformer" class="col-xs-12">
-    <button mat-raised-button color="primary" (click)="isCreation = true" *ngIf="!isCreation">Создать человека</button>
-    <button mat-raised-button (click)="isCreation = false" *ngIf="isCreation">Отменить создание</button>
-    <div class="full-width top20" *ngIf="isCreation">
-        <person-edit [isFull]="false" (done)="isCreation = false"></person-edit>
     </div>
 </div>
