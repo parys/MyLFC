@@ -56,11 +56,16 @@
                     <mat-checkbox color="warn" formControlName="pending">Отложена</mat-checkbox>
                 </div>
             </div>
-            <div class="form-group col-sm-12">
-                <div class="full-width">
-                    <mat-checkbox color="warn" formControlName="stayOnPage">Оставаться на этой странице после сохранения</mat-checkbox>
-                </div>
+        <div class="form-group col-sm-12">
+            <div class="full-width">
+                <mat-checkbox color="warn" formControlName="stayOnPage">Оставаться на этой странице после сохранения</mat-checkbox>
             </div>
+        </div>
+        <div class="form-group col-sm-12">
+            <div class="full-width">
+                <mat-checkbox color="warn" formControlName="usePhotoInBody">Использовать главное фото в новости</mat-checkbox>
+            </div>
+        </div>
             <div class="form-group col-sm-12">
                 <div class="col-xs-offset-2 col-sm-offset-2 col-xs-10 col-sm-10">
                     <button mat-raised-button color="warn" type="submit" [disabled]="!editForm.valid">Сохранить</button>

@@ -48,5 +48,7 @@ namespace MyLiverpool.Business.Dto
         public int? PrevMaterialId { get; set; }
 
         public string PrevMaterialTitle { get; set; }
+
+        public bool UsePhotoInBody { get; set; }
     }
 }

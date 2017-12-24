@@ -3,13 +3,9 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Net;
-using System.Net.Http;
 using System.Security.Claims;
-using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-using HtmlAgilityPack;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Business.Dto.Filters;
@@ -180,6 +176,7 @@ namespace MyLiverpool.Business.Services
             updatingItem.Source = model.Source;
             updatingItem.Category = null;
             updatingItem.CategoryId = model.CategoryId;
+            updatingItem.UsePhotoInBody = model.UsePhotoInBody;
 
             try
             {

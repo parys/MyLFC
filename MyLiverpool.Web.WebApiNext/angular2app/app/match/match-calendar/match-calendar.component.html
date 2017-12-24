@@ -15,7 +15,8 @@
             <img [src]="next.awayClubLogo" class="center" [alt]="next.awayClubName" [title]="next.awayClubName">
             <strong style="font-size: 1.2em;" class="text-center" [textContent]="next.awayClubName"></strong>
         </div>
-        <div class="col-xs-12 text-center"><a class="text-white" [routerLink]="['/seasons/calendar']">Календарь</a>
+        <div class="col-xs-12 text-center"><a *ngIf="next.previewId" class="text-white" [routerLink]="['/news', next.previewId]">Превью</a>
+            <a class="text-white" [routerLink]="['/seasons/calendar']">Календарь</a>
             <a class="text-white" [routerLink]="['matches', next.id]">Обсуждение</a></div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 bg-light-blue flex padding0 border-panel border-lgray match-calendar" *ngIf="last">
@@ -42,10 +43,10 @@
             <strong style="font-size: 1.2em;" [textContent]="last.awayClubName"></strong>
         </div>
         <div class="col-xs-12 infodate"><br>
-            <a *ngIf="last.reportUrl" [routerLink]="['news', last.reportUrl]">Отчет</a>
-            <a *ngIf="!last.reportUrl" [routerLink]="['matches', last.id]">Обсуждение</a>
+            <a [routerLink]="['matches', last.id]">Обсуждение</a>
             <a *ngIf="last.photoUrl" [routerLink]="['news', last.photoUrl]">Фото</a>
             <a *ngIf="last.videoUrl" [href]="last.videoUrl" target="_blank">Видео</a>
+            <a *ngIf="last.reportId" [href]="last.reportId" [routerLink]="['news', last.reportId]">Вердикт</a>
         </div>
     </div>
 </section>

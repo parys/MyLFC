@@ -259,7 +259,7 @@ namespace MyLiverpool.Web.WebApiNext
                 app.UseBrowserLink();
                 //app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions()
                 //{
-                //    HotModuleReplacement = true
+                //    HotModuleReplacement = true,
                 //});
 
                 app.UseSwagger();

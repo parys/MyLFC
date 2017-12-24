@@ -99,9 +99,11 @@ export class MatchEditComponent implements OnInit {
             typeId: ["", Validators.required],
             stadiumId: ["", Validators.required],
             stadiumName: ["", Validators.required],
-            reportUrl: [""],
-            photoUrl: [""],
-            videoUrl: [""],
+            reportUrl: [null],
+            photoUrl: [null],
+            videoUrl: [null],
+            previewId: [null],
+            reportId: [null],
             scoreHome: [null],
             scoreAway: [null]
         });

@@ -14,7 +14,7 @@
                 <mat-option *ngFor="let type of types" [value]="type.id" [textContent]="type.name"></mat-option>
             </mat-select>
         </div>
-    </div>      
+    </div>
     <div class="form-group">
         <label class="control-label col-xs-2 col-sm-2"> Сезон:</label>
         <div class="col-xs-10 col-sm-10">
@@ -27,7 +27,7 @@
         <div class="col-xs-offset-2 col-sm-offset-2 col-xs-10 col-sm-10">
             <div class="checkbox">
                 <label class="control-label">
-                    <input class="checkbox" name="onTop" formControlName="isHome" type="checkbox" /> Дома <!--todo add switcher--> 
+                    <input class="checkbox" name="onTop" formControlName="isHome" type="checkbox" /> Дома <!--todo add switcher-->
                 </label>
             </div>
         </div>
@@ -43,7 +43,7 @@
     <div class="form-group">
         <label class="control-label col-xs-2 col-sm-2"> Время:</label>
         <div class="col-xs-10 col-sm-10">
-            <input type="time" formControlName="time"/>
+            <input type="time" formControlName="time" />
         </div>
     </div>
     <mat-form-field>
@@ -64,21 +64,33 @@
         </span>
     </div>
     <div class="form-group">
+        <label class="control-label col-xs-2 col-sm-2"> Превью:</label>
+        <div class="col-xs-10 col-sm-10">
+            <input class="form-control" formControlName="previewId" />
+        </div>
+    </div>
+    <div class="form-group">
         <label class="control-label col-xs-2 col-sm-2"> Отчет:</label>
         <div class="col-xs-10 col-sm-10">
-            <input class="form-control" name="reportUrl" formControlName="reportUrl"/>
+            <input class="form-control" formControlName="reportUrl" />
         </div>
     </div>
     <div class="form-group">
         <label class="control-label col-xs-2 col-sm-2"> Фото:</label>
         <div class="col-xs-10 col-sm-10">
-            <input class="form-control" name="photoUrl" formControlName="photoUrl"/>
+            <input class="form-control" formControlName="photoUrl" />
         </div>
     </div>
     <div class="form-group">
         <label class="control-label col-xs-2 col-sm-2"> Видео:</label>
         <div class="col-xs-10 col-sm-10">
-            <input class="form-control" name="videoUrl" formControlName="videoUrl"/>
+            <input class="form-control" formControlName="videoUrl" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-2 col-sm-2"> Вердикт:</label>
+        <div class="col-xs-10 col-sm-10">
+            <input class="form-control" formControlName="reportId" />
         </div>
     </div>
     <div class="form-group">

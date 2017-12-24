@@ -30,6 +30,10 @@ namespace MyLiverpool.Data.Entities
 
         public string VideoUrl { get; set; }
 
+        public int? PreviewId { get; set; }
+
+        public int? ReportId { get; set; }
+
         public int StadiumId { get; set; }
 
         public virtual Stadium Stadium { get; set; }

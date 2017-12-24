@@ -19,6 +19,7 @@ import { MaterialActivateDialogComponent } from "../material-activate-dialog.com
 export class MaterialDetailComponent implements OnInit, OnDestroy {
     private sub: Subscription;
     public item: Material;
+    public brief: SafeHtml;
     public body: SafeHtml;
     public type: MaterialType;
     
@@ -117,6 +118,7 @@ export class MaterialDetailComponent implements OnInit, OnDestroy {
     private parse(item: Material): void {
         this.item = item;
         this.body = this.sanitizeByHtml(item.message);
+        this.brief = this.sanitizeByHtml(item.brief);
         this.titleService.setTitle(item.title);
         this.addView();
         this.cd.markForCheck();

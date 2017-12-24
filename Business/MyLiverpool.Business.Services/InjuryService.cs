@@ -65,7 +65,7 @@ namespace MyLiverpool.Business.Services
         {
             Expression<Func<Injury, bool>> filter = m => true;
 
-            var injuries = await _injuryRepository.GetListAsync(page, itemsPerPage, filter, SortOrder.Ascending, i => i.EndTime, x => x.Person);
+            var injuries = await _injuryRepository.GetListAsync(page, itemsPerPage, filter, SortOrder.Descending, i => i.StartTime, x => x.Person);
             var dtos = _mapper.Map<IEnumerable<InjuryDto>>(injuries);
             var count = await _injuryRepository.CountAsync(filter);
             return new PageableData<InjuryDto>(dtos, page, count);
@@ -73,8 +73,8 @@ namespace MyLiverpool.Business.Services
 
         public async Task<IEnumerable<InjuryDto>> GetCurrentListAsync()
         {
-            Expression<Func<Injury, bool>> filter = x => x.EndTime.Date >= DateTime.Today;
-            var injuries = await _injuryRepository.GetListAsync(filter, SortOrder.Ascending, i => i.EndTime, x => x.Person);
+            Expression<Func<Injury, bool>> filter = x => !x.EndTime.HasValue;
+            var injuries = await _injuryRepository.GetListAsync(filter, SortOrder.Descending, i => i.StartTime, x => x.Person);
             return _mapper.Map<ICollection<InjuryDto>>(injuries);
         }
     }

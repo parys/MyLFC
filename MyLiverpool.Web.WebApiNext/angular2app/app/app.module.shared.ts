@@ -3,6 +3,7 @@ import { Title, BrowserModule } from "@angular/platform-browser";
 import { RouterModule } from "@angular/router";
 import { HttpClientModule } from "@angular/common/http";
 import { registerLocaleData } from "@angular/common";
+
 import localeRU from "@angular/common/locales/ru";
 import { AppComponent } from "./app.component";
 import { routes } from "./app.routes";

@@ -55,6 +55,10 @@ namespace MyLiverpool.Business.Dto
 
         public string VideoUrl { get; set; }
 
+        public int? PreviewId { get; set; }
+
+        public int? ReportId { get; set; }
+
         public virtual IEnumerable<MatchEventDto> Events { get; set; } = new HashSet<MatchEventDto>();
 
         public int CommentCount { get; set; }

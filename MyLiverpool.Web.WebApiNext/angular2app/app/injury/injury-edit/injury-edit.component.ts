@@ -72,7 +72,9 @@ export class InjuryEditComponent implements OnInit, OnDestroy {
     private parse(data: Injury): void {
         this.id = data.id;
         data.startTime = new Date(data.startTime);
-        data.endTime = new Date(data.endTime);
+        if (data.endTime) {
+            data.endTime = new Date(data.endTime);
+        }
         this.editInjuryForm.patchValue(data);
     }
 
@@ -89,7 +91,7 @@ export class InjuryEditComponent implements OnInit, OnDestroy {
             personId: ["", Validators.required],
             personName: ["", Validators.required],
             startTime: [null, Validators.required],
-            endTime: [null, Validators.required],
+            endTime: [null],
             description: ["", Validators.required],
             id: [0, Validators.required]
         });

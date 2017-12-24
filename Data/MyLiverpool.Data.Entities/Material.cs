@@ -7,11 +7,6 @@ namespace MyLiverpool.Data.Entities
 {
     public class Material : IEntity
     {
-        public Material()
-        {
-            Comments = new HashSet<MaterialComment>();
-        }
-
         public int Id { get; set; }
 
         public int OldId { get; set; }
@@ -57,12 +52,14 @@ namespace MyLiverpool.Data.Entities
 
         public DateTimeOffset LastModified { get; set; }
 
-        public virtual ICollection<MaterialComment> Comments { get; set; } 
+        public virtual ICollection<MaterialComment> Comments { get; set; } = new List<MaterialComment>();
 
         public int CategoryId { get; set; }
 
         public int AuthorId { get; set; }
 
         public MaterialType Type { get; set; }
+
+        public bool UsePhotoInBody { get; set; }
     }
 }

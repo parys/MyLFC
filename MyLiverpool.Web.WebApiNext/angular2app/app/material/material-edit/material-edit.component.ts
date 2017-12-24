@@ -124,7 +124,8 @@ export class MaterialEditComponent implements OnInit {
             canCommentary: [true, Validators.required],
             onTop: [false, Validators.required],
             pending: [true, Validators.required],
-            stayOnPage: [false]
+            stayOnPage: [false],
+            usePhotoInBody: [false]
     });
     }
 

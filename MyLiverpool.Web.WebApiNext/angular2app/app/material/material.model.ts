@@ -17,12 +17,9 @@
     public canCommentary: boolean;
     public type: number;
     public typeName: string;
-    
-    public nextMaterialId : number;
-
+    public nextMaterialId: number;
     public nextMaterialTitle: string;
-
     public prevMaterialId: number;
-
     public prevMaterialTitle: string;
+    public usePhotoInBody: boolean;
 }

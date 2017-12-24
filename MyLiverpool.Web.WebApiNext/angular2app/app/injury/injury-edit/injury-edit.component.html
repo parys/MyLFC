@@ -9,13 +9,13 @@
     </mat-form-field>
 
     <mat-form-field class="full-width">
-        <input matInput [matDatepicker]="datePicker1" placeholder="Выберите дату травмы" formControlName="startTime">
+        <input matInput [matDatepicker]="datePicker1" placeholder="Дата травмы" formControlName="startTime">
         <mat-datepicker-toggle matSuffix [for]="datePicker1"></mat-datepicker-toggle>
         <mat-datepicker #datePicker1 startView="month" touchUi="true"></mat-datepicker>
     </mat-form-field>
 
         <mat-form-field class="full-width">
-            <input matInput [matDatepicker]="datePicker2" placeholder="Выберите дату окончания возвращения(можно приблизительную)" formControlName="endTime">
+            <input matInput [matDatepicker]="datePicker2" placeholder="Дата возвращения" formControlName="endTime">
             <mat-datepicker-toggle matSuffix [for]="datePicker2"></mat-datepicker-toggle>
             <mat-datepicker #datePicker2 startView="month" touchUi="true"></mat-datepicker>
         </mat-form-field>

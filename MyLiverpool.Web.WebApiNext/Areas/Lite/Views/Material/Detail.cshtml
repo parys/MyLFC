@@ -19,6 +19,13 @@
     </h3>
 </div>
 <div class="col-xs-12 col-sm-12 container-row">
+    @if (Model.UsePhotoInBody)
+    {
+        <img src="@Model.Photo" alt="" style="height: auto; max-width: 100%"/>
+        <!--todo move to css-->
+        <br/>
+        <i>@Html.Raw(Model.Brief)</i>
+    }
     <article class="material-body">@Html.Raw(Model.Message)</article>
     <div class="alert-warning top10">
         <ul class="list-inline">
@@ -31,13 +38,15 @@
                 }
             }
             <li><label>Дата добавления:</label> <span class="timeConvert" data-date="@Model.AdditionTime.ToString("O")" data-dow="true" data-sec="false"></span></li>
-            <li><label>Категория:</label> <a asp-action="Index"
-                                             asp-controller="Material"
-                                             asp-route-page="1"
-                                             asp-route-categoryId="@Model.CategoryId"> @Model.CategoryName</a></li>
-            <li><label>Автор:</label> <a asp-action="Detail"
-                                         asp-controller="User"
-                                         asp-route-id="@Model.UserId">@Model.UserName</a></li>
+            <li><label>Категория:</label>
+                <a asp-action="Index"
+                   asp-controller="Material"
+                   asp-route-page="1"
+                   asp-route-categoryId="@Model.CategoryId"> @Model.CategoryName</a></li>
+            <li><label>Автор:</label>
+                <a asp-action="Detail"
+                   asp-controller="User"
+                   asp-route-id="@Model.UserId">@Model.UserName</a></li>
         </ul>
     </div>
 </div>

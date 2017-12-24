@@ -38,7 +38,7 @@ namespace MyLiverpool.Business.Services
         public async Task<MatchDto> UpdateAsync(MatchDto dto)
         {
             var match = await _matchRepository.GetByIdAsync(dto.Id);
-            match.DateTime = dto.DateTime;
+            match.DateTime = dto.DateTime;//todo think about it use automapper?
             match.IsHome = dto.IsHome;
             match.MatchType = (MatchTypeEnum)dto.TypeId;
             match.ClubId = dto.ClubId;
@@ -49,6 +49,8 @@ namespace MyLiverpool.Business.Services
             match.Stadium = null;
             match.StadiumId = dto.StadiumId;
             match.SeasonId = dto.SeasonId;
+            match.PreviewId = dto.PreviewId;
+            match.ReportId = dto.ReportId;
             match.Score = GetScores(dto.ScoreHome, dto.ScoreAway);
             await _matchRepository.UpdateAsync(match);
             return dto;
