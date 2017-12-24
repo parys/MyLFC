@@ -91,12 +91,12 @@ module.exports = (env) => {
         ]
         .concat(isDevBuild
           ? [
-            new WebpackNotifierPlugin({ title: "vendorBuild-client", alwaysNotify: true }),
+            new WebpackNotifierPlugin({ title: "vendor-client", alwaysNotify: true }),
             new CopyWebpackPlugin([//{ from: "node_modules/swagger-ui/dist", to: "../swagger/" },
             ])
           ]
           : [
-            new WebpackNotifierPlugin({ title: "vendorBuild-client-PROD", alwaysNotify: true }),
+            new WebpackNotifierPlugin({ title: "vendor-client-PROD", alwaysNotify: true }),
             new BundleAnalyzerPlugin(),
             new webpack.optimize.UglifyJsPlugin()
           ])

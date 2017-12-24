@@ -11,7 +11,7 @@ declare let addAd: any;
 @Component({
     selector: "app",
     templateUrl: "./app.component.html",
-    styleUrls: ["./app.component.css"],
+    styleUrls: ["./app.component.scss"],
     encapsulation: ViewEncapsulation.None
 })
 

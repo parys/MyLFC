@@ -1,0 +1,33 @@
+﻿{
+    "compileOnSave": false,
+    "compilerOptions": {
+        "baseUrl": ".",
+        "module": "es2015",
+        "types": [],
+        "outDir": "./wwwroot/dist",
+        "sourceMap": true,
+        "declaration": false,
+        "moduleResolution": "node",
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "target": "es5",
+        "typeRoots": [
+            "node_modules/@types"
+        ],
+        "lib": [
+            "es2017",
+            "dom"
+        ],
+        "paths": {
+            "@app/*": [ "angular2app/app/*" ] // This mapping is relative to "baseUrl"
+        }
+    },
+    "exclude": [
+        "node_modules",
+        "angular2app/main.browser.ts",
+        "angular2app/main.server.ts"
+    ],
+    "angularCompilerOptions": {
+        "strictMetadataEmit": false
+    }
+}

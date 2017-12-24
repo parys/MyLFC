@@ -17,11 +17,13 @@
 
   <ItemGroup>
       <!-- Files not to publish (note that the 'dist' subfolders are re-added below) -->
-    <Compile Remove="temp-js\**" />
+    <Compile Remove="angular2app\app\fonts\**" />
+    <Compile Remove="angular2app\fonts\**" />
     <Compile Remove="wwwroot\content\persons\**" />
     <Content Remove="angular2app\**" />
+    <Content Remove="angular2app\app\fonts\**" />
+    <Content Remove="angular2app\fonts\**" />
     <Content Remove="package-lock.json" />
-    <Content Remove="temp-js\**" />
     <Content Remove="wwwroot\content\**" />
     <Content Remove="wwwroot\fonts\**" />
     <Content Remove="wwwroot\swagger\**" />
@@ -29,14 +31,13 @@
     <Content Remove="wwwroot\src\lightgray\**" />
     <Content Remove="wwwroot\src\plugins\**" />
     <Content Remove="wwwroot\src\themes\**" />
+    <EmbeddedResource Remove="angular2app\app\fonts\**" />
+    <EmbeddedResource Remove="angular2app\fonts\**" />
     <EmbeddedResource Remove="temp-js\**" />
     <EmbeddedResource Remove="wwwroot\content\persons\**" />
-    <None Remove="temp-js\**" />
+    <None Remove="angular2app\app\fonts\**" />
+    <None Remove="angular2app\fonts\**" />
     <None Remove="wwwroot\content\persons\**" />
-    <None Remove="key-89e37b14-6fa7-4d15-b4db-6887042daa4e.xml" />
-    <Content Include="angular2app\tsconfig.app.json">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
 
     <None Update="node_modules\**;*.pdb">
       <CopyToPublishDirectory>Never</CopyToPublishDirectory>
@@ -100,8 +101,7 @@
   </PropertyGroup>
     
     <Target Name="PrepublishScript" BeforeTargets="PrepareForPublish">
-        <Exec Command="node node_modules/@angular/compiler-cli/src/main.js -p tsconfig.aot.json" />
-        <Exec Command="node node_modules/rollup/bin/rollup -c rollup.config.js" />
+        <Exec Command="node node_modules/@angular/cli/commands/build.js --prod --build-optimizer --output-hashing none" />
     </Target>
         
   <ItemGroup>
