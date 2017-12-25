@@ -59,6 +59,15 @@ iframe .body-wrapper{
     background-color: #f5f5f5;
 }
 
+img.material-preview {
+    border: lightgray solid 5px;
+    display: flex;
+    height: auto;
+    margin: auto;
+    max-width: 100%;
+    width: auto;
+}
+
 h3 {
     margin-top: 10px;
 }

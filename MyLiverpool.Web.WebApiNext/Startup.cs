@@ -274,7 +274,7 @@ namespace MyLiverpool.Web.WebApiNext
                 app.UseExceptionHandler("/Home/Error");
             }
 
-         //   app.UseCors("MyPolicy");
+            app.UseCors("MyPolicy");
 
             app.UseDefaultFiles();
             app.UseStaticFiles(new StaticFileOptions()

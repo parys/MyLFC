@@ -11,9 +11,9 @@
     </div>
     <div class="col-xs-12 col-sm-12 container-row">
         <div *ngIf="item.usePhotoInBody" class="col-xs-12 container-row">
-            <img [src]="item.photo" alt="" style="height: auto; max-width: 100%" /><!--todo move to css-->
+            <img [src]="item.photo" class="material-preview" alt="" />
+            <i [innerHTML]="brief"></i>           
             <br />
-            <i [innerHTML]="brief"></i>
         </div>
         <article class="material-body" [innerHTML]="body"></article>
         <div class="alert-warning top10">

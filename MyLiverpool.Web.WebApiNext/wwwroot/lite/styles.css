@@ -483,6 +483,15 @@ textarea {
         width: 45px;
     }
 
+img.material-preview {
+    border: lightgray solid 5px;
+    display: flex;
+    height: auto;
+    margin: auto;
+    max-width: 100%;
+    width: auto;
+}
+
     .material-body img {
         border: lightgray solid 5px;
         display: flex;

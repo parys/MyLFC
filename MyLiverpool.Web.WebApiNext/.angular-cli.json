@@ -9,6 +9,12 @@
             "tsconfig": "../tsconfig.cli.json",
             "outDir": "./wwwroot/dist",
             "assets": [
+                {
+                    "glob": "**/*",
+                    "input": "../wwwroot/",
+                    "output": "./",
+                    "allowOutsideOutDir": true
+                }
             ],
             "main": "main.browser.cli.ts",
             "polyfills": "polyfills/polyfills.ts",
@@ -16,6 +22,7 @@
             "prefix": "app",
             "scripts": [],
             "index": "index.html"
+
         }
     ]
 }
