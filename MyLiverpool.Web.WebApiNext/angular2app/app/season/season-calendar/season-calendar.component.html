@@ -17,7 +17,7 @@
                         <span [textContent]="match.homeClubName"></span>
                     </span>
                     <span class="col-xs-12 col-md-2 text-center">
-                        <span [textContent]="match.scoreHome"></span>:<span [textContent]="match.scoreAway"></span>
+                        <a [routerLink]="['/matches', match.id]"> <b [textContent]="match.scoreHome"></b>:<b [textContent]="match.scoreAway"></b></a>
                     </span>
                     <span class="col-xs-12 col-md-5 text-center">
                         <img class="club-logo" [src]="match.awayClubLogo" [alt]="match.awayClubName">
@@ -29,10 +29,12 @@
                 <span [textContent]="match.stadiumName"></span>
             </td>
             <td>
+                <a *ngIf="match.previewId" [routerLink]="['news', match.previewId]">Превью</a>
                 <a *ngIf="match.reportUrl" [routerLink]="['/news', match.reportUrl]">Отчет</a>
                 <a *ngIf="!match.reportUrl" [routerLink]="['/matches', match.id]">Обсуждение</a>
                 <a *ngIf="match.photoUrl" [routerLink]="['/news', match.photoUrl]">Фото</a>
                 <a *ngIf="match.videoUrl" [href]="match.videoUrl" target="_blank">Видео</a>
+                <a *ngIf="match.reportId" [routerLink]="['news', match.reportId]">Вердикт</a>
             </td>
         </tr>
         </tbody>

@@ -16,5 +16,6 @@
         Fantasy = 12,
         CupTable = 13,
         HeaderMatch = 14,
+        Cooperation = 15,
     }
 }

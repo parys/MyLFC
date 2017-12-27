@@ -42,11 +42,13 @@
             <img [src]="last.awayClubLogo" class="center" [alt]="last.awayClubName" [title]="last.awayClubName">
             <strong style="font-size: 1.2em;" [textContent]="last.awayClubName"></strong>
         </div>
-        <div class="col-xs-12 infodate"><br>
+        <div class="col-xs-12 infodate">
+            <br>
+            <a *ngIf="last.previewId" [routerLink]="['news', last.previewId]">Превью</a>
             <a [routerLink]="['matches', last.id]">Обсуждение</a>
             <a *ngIf="last.photoUrl" [routerLink]="['news', last.photoUrl]">Фото</a>
             <a *ngIf="last.videoUrl" [href]="last.videoUrl" target="_blank">Видео</a>
-            <a *ngIf="last.reportId" [href]="last.reportId" [routerLink]="['news', last.reportId]">Вердикт</a>
+            <a *ngIf="last.reportId" [routerLink]="['news', last.reportId]">Вердикт</a>
         </div>
     </div>
 </section>

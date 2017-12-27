@@ -1,4 +1,5 @@
-﻿export enum HelperType {
+﻿//should also changed 
+export enum HelperType {
     EplTable = 1,
     BestPlayer = 2,
     Strikers = 3,
@@ -12,4 +13,6 @@
     Plans = 11,
     Fantasy = 12,
     CupTable = 13,
+    HeaderMatch = 14,
+    Cooperation = 15,
 }
