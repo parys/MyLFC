@@ -1,21 +1,76 @@
 ﻿<h3>Статистика текущего сезона</h3>
-<table class="table table-condensed table-striped table-bordered table-hover">
-    <thead>
-    <tr>
-        <td>Игрок</td>
-        <td>Голы</td>
-        <td>Передачи</td>
-        <td>ЖК</td>
-        <td>КК</td>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let item of statistics">
-        <td [textContent]="item.personName"></td>
-        <td [textContent]="item.goals.total"></td>
-        <td [textContent]="item.assists.total"></td>
-        <td [textContent]="item.yellows.total"></td>
-        <td [textContent]="item.reds.total"></td>
-    </tr>
-    </tbody>
-</table>
+<div style="position: relative;">
+    <div class="overflowable container-row" style="margin-left: 150px; width: calc(100%-150px);
+                                                                                                 overflow-x: auto;
+                                                                                                 overflow-y: auto;
+                                                                                                 padding-bottom: 5px;
+                                                                                                 ">
+        <table class="table table-condensed table-striped table-bordered table-hover" style="border-collapse: separate; ">
+            <thead>
+                <tr>
+                    <td style="position: absolute; left: 0; top: auto;" ></td>
+                    <td colspan="6">Голы</td>
+                    <td colspan="6">Передачи</td>
+                    <td colspan="6">ЖК</td>
+                    <td colspan="6">КК</td>
+                </tr>
+                <tr>
+                    <td style="position: absolute; left: 0;; top: auto">Игрок</td>
+                    <td>АПЛ</td>
+                    <td>ЛЧ</td>
+                    <td>ЛЕ</td>
+                    <td>КЛ</td>
+                    <td>КА</td>
+                    <td>Σ</td>
+                    <td>АПЛ</td>
+                    <td>ЛЧ</td>
+                    <td>ЛЕ</td>
+                    <td>КЛ</td>
+                    <td>КА</td>
+                    <td>Σ</td>
+                    <td>АПЛ</td>
+                    <td>ЛЧ</td>
+                    <td>ЛЕ</td>
+                    <td>КЛ</td>
+                    <td>КА</td>
+                    <td>Σ</td>
+                    <td>АПЛ</td>
+                    <td>ЛЧ</td>
+                    <td>ЛЕ</td>
+                    <td>КЛ</td>
+                    <td>КА</td>
+                    <td>Σ</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of statistics">
+                    <td style="position: absolute; left: 0; width: 150px" [textContent]="item.personName"></td>
+                    <td [textContent]="item.goals.epl"></td>
+                    <td [textContent]="item.goals.cl"></td>
+                    <td [textContent]="item.goals.lc"></td>
+                    <td [textContent]="item.goals.el"></td>
+                    <td [textContent]="item.goals.ec"></td>
+                    <td [textContent]="item.goals.total"></td>
+                    <td [textContent]="item.assists.epl"></td>
+                    <td [textContent]="item.assists.cl"></td>
+                    <td [textContent]="item.assists.lc"></td>
+                    <td [textContent]="item.assists.el"></td>
+                    <td [textContent]="item.assists.ec"></td>
+                    <td [textContent]="item.assists.total"></td>
+                    <td [textContent]="item.yellows.epl"></td>
+                    <td [textContent]="item.yellows.cl"></td>
+                    <td [textContent]="item.yellows.lc"></td>
+                    <td [textContent]="item.yellows.el"></td>
+                    <td [textContent]="item.yellows.ec"></td>
+                    <td [textContent]="item.yellows.total"></td>
+                    <td [textContent]="item.reds.epl"></td>
+                    <td [textContent]="item.reds.cl"></td>
+                    <td [textContent]="item.reds.lc"></td>
+                    <td [textContent]="item.reds.el"></td>
+                    <td [textContent]="item.reds.ec"></td>
+                    <td [textContent]="item.reds.total"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

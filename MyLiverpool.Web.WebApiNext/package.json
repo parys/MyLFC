@@ -2,7 +2,7 @@
   "name": "asp.net",
   "version": "1.0.0",
   "scripts": {
-    "run": "ng serve --hmr true --proxy-config proxy.conf.json",
+    "run": "ng serve --hmr false --proxy-config proxy.conf.json",
     "build": "ng build --prod --build-optimizer --output-hashing none",
     "analyse": "node_modules/.bin/source-map-explorer wwwroot/src/main.bundle.js",
     "webpack:prod": "npm run build:vendor -- --env.prod && npm run build:webpack -- --env.prod",
