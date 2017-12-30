@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using System.Threading.Tasks;
+using System.Xml;
 using AspNet.Security.OAuth.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
+using Microsoft.SyndicationFeed;
+using Microsoft.SyndicationFeed.Rss;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Business.Dto.Filters;
@@ -204,6 +208,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             var fileLinks = await _materialService.GetExtractedImageLinks(url);
             return Json(fileLinks);
         }
+
+      
 
         private MaterialFiltersDto GetBasicMaterialFilters(bool isNewsMaker)
         {
