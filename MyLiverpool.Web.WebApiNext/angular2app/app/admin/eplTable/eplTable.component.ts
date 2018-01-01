@@ -7,6 +7,7 @@ import { RolesCheckedService } from "@app/shared";
 @Component({
     selector: "epl-table",
     templateUrl: "./eplTable.component.html",
+    styleUrls: ["./eplTable.component.scss"],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EplTableComponent implements OnInit, OnDestroy {

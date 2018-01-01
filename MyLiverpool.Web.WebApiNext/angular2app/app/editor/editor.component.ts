@@ -1,4 +1,4 @@
-﻿import { Component, EventEmitter, forwardRef, Input, Output, NgZone } from "@angular/core";
+﻿import { Component, EventEmitter, forwardRef, Input, Output, NgZone, ViewChild, ElementRef } from "@angular/core";
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from "@angular/forms";
 import { Settings, Editor } from "tinymce";
 
@@ -49,6 +49,7 @@ export class EditorComponent implements ControlValueAccessor {
     public clientSide: boolean;
  //   public tinymce: EditorManager = new EditorManager();
     public editor: Editor;
+  //  @ViewChild("nativeElement") public nativeElement: ElementRef;
 
     constructor(zone: NgZone) {
         this.zone = zone;
@@ -60,6 +61,14 @@ export class EditorComponent implements ControlValueAccessor {
         //         require.resolve(['tinymce'
         //         ], require => require("tinymce"))
         //      } //todo should be moved
+    }
+
+    public setFocus() {
+        if (tinymce.editors && tinymce.editors[this.elementId]) {
+            tinymce.editors[this.elementId].selection.select(tinymce.editors[this.elementId].getBody(), true);
+            tinymce.editors[this.elementId].selection.collapse(false);
+            tinymce.editors[this.elementId].focus();
+        }
     }
 
     public get value(): string {

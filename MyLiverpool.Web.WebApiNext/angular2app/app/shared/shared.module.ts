@@ -10,7 +10,7 @@ import { RolesCheckedService } from "./roles-checked.service";
 import { GlobalValidators } from "./globalValidators";
 import { ReCaptchaModule } from "angular2-recaptcha";
 import { DeleteDialogComponent } from "./delete-dialog";
-import { MatAutocompleteModule, MatButtonModule, MatCardModule, MatCheckboxModule, MatDatepickerModule, MatDialogModule,
+import { MatAutocompleteModule, MatButtonModule, MatCardModule, MatCheckboxModule, MatDatepickerModule, MatDialogModule, MatExpansionModule,
     MatIconModule, MatInputModule, MatMenuModule, MatNativeDateModule, MatProgressBarModule, MatSelectModule, MatSlideToggleModule, MatSnackBarModule, MatTabsModule } from "@angular/material";
 import { LoaderComponent, LoaderService } from "./loader";
 import { BearerInterceptor } from "./interceptors";
@@ -39,6 +39,7 @@ export function getStorage() {
         MatCheckboxModule,
         MatDatepickerModule,
         MatDialogModule,
+        MatExpansionModule,
         MatIconModule,
         MatInputModule,
         MatMenuModule,
@@ -75,6 +76,7 @@ export function getStorage() {
         MatCheckboxModule,
         MatDatepickerModule,
         MatDialogModule,
+        MatExpansionModule,
         MatIconModule,
         MatInputModule,
         MatMenuModule,

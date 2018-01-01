@@ -6,3 +6,14 @@
     <span *ngIf="opened">Скрыть таблицу</span>
 </button>
 <div *ngIf="opened" class="border-panel border-lgray clearfix eplTable" [innerHTML]="eplTable"></div>
+<!--<mat-expansion-panel class="top10">
+    <span class="col-xs-12" *ngIf="roles.isInformer">
+        <a role="button" (click)="updateEplTable()">Обновить таблицу</a>
+    </span>
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            Таблица АПЛ
+        </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="border-panel border-lgray clearfix eplTable" [innerHTML]="eplTable"></div>
+</mat-expansion-panel>-->

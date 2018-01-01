@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, OnDestroy, Input, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
+﻿import { Component, OnInit, OnDestroy, Input, ChangeDetectionStrategy, ChangeDetectorRef, ElementRef, ViewChild } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Location } from "@angular/common";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
@@ -8,6 +8,7 @@ import { Comment } from "../comment.model";
 import { CommentVote } from "../commentVote.model";
 import { CommentService } from "../comment.service";
 import { RolesCheckedService, DeleteDialogComponent } from "@app/shared";
+import { EditorComponent } from "@app/editor";
 
 @Component({
     selector: "comment-detail",
@@ -24,6 +25,7 @@ export class CommentDetailComponent implements OnInit, OnDestroy {
     @Input() public matchId: number;
     @Input() public parent: Comment;
     @Input() public type: number;
+    @ViewChild("replyInput") private elementRef: EditorComponent;
 
     public commentForm: FormGroup;          
     private oldCopy: Comment;
@@ -64,11 +66,15 @@ export class CommentDetailComponent implements OnInit, OnDestroy {
     public showAddCommentModal(): void {
         this.isAddingMode = true;
         this.initForm();
+        this.cd.detectChanges();
+        this.elementRef.setFocus();
     }
 
     public showEditModal(): void {
         this.isEditMode = true;
         this.initForm();
+        this.cd.detectChanges();
+        this.elementRef.setFocus();
     }
 
     public showDeleteModal(): void {

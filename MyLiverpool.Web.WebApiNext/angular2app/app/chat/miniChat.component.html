@@ -21,7 +21,7 @@
         <form *ngIf="roles.isLogined" class="form-horizontal clearfix" name="messageForm" role="form" [formGroup]="messageForm" (ngSubmit)="onSubmit()">
             <div>
                 <div class="col-xs-12 col-sm-12 container-row">
-                    <bbeditor [type]="3" [value]="messageForm?.message" [height]="150" formControlName="message"></bbeditor>
+                    <bbeditor [type]="3" [value]="messageForm?.message" [height]="150" formControlName="message" #chatInput></bbeditor>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 text-center container-row comment-action-buttons">            

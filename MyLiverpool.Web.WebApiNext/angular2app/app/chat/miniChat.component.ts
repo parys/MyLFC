@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, OnDestroy, ChangeDetectorRef, PLATFORM_ID, Inject } from "@angular/core";
+﻿import { Component, OnInit, OnDestroy, ChangeDetectorRef, PLATFORM_ID, Inject, ViewChild } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { isPlatformBrowser } from "@angular/common";
@@ -11,6 +11,7 @@ import { ChatMessage } from "./chatMessage.model";
 import { ChatMessageType } from "./chatMessageType.enum";
 import { ChatMessageService } from "./chatMessage.service";
 import { RolesCheckedService, DeleteDialogComponent, StorageService } from "@app/shared";
+import { EditorComponent } from "@app/editor";
 //import { HubConnection } from '@aspnet/signalr-client/dist/browser/signalr-clientES5-1.0.0-alpha2-final.js';
 //import { HubConnection } from '@aspnet/signalr-client';
 
@@ -25,13 +26,14 @@ export class MiniChatComponent implements OnInit, OnDestroy {
     public chatTimerForm: FormGroup;
     public items: ChatMessage[] = new Array<ChatMessage>();
     public selectedEditIndex: number = null;
-//    private chatHub: HubConnection;
+    //    private chatHub: HubConnection;
     public intervalArray: { key: string, value: number }[]
- = [{ key: "---", value: 0 },
- { key: "15 сек", value: 15 },
- { key: "30 сек", value: 30 },
- { key: "1 мин", value: 60 },
- { key: "2 мин", value: 120 }];
+        = [{ key: "---", value: 0 },
+        { key: "15 сек", value: 15 },
+        { key: "30 сек", value: 30 },
+        { key: "1 мин", value: 60 },
+        { key: "2 мин", value: 120 }];
+    @ViewChild("chatInput") private elementRef: EditorComponent;
 
     constructor(private service: ChatMessageService,
         @Inject(PLATFORM_ID) private platformId: Object,
@@ -57,7 +59,7 @@ export class MiniChatComponent implements OnInit, OnDestroy {
     }
 
     public ngOnDestroy() {
-        if(this.updater$) { this.updater$.unsubscribe(); }
+        if (this.updater$) { this.updater$.unsubscribe(); }
     }
 
     public update(): void {
@@ -65,12 +67,12 @@ export class MiniChatComponent implements OnInit, OnDestroy {
         this.service
             .getAll(id, ChatMessageType.Mini)
             .subscribe((data: ChatMessage[]) => {
-                    this.items = data.concat(this.items);
-                },
-                error => console.log(error),
-                () => {
-                    this.cd.markForCheck();
-                });
+                this.items = data.concat(this.items);
+            },
+            error => console.log(error),
+            () => {
+                this.cd.markForCheck();
+            });
     }
 
     public onSubmit(): void {
@@ -79,28 +81,28 @@ export class MiniChatComponent implements OnInit, OnDestroy {
             const message: ChatMessage = this.items[this.selectedEditIndex];
             message.message = this.messageForm.get("message").value;
             this.service.update(message.id, message).subscribe(data => {
-                    this.cancelEdit();
-                },
+                this.cancelEdit();
+            },
                 e => console.log(e));
         } else {
             //    this.chatHub.invoke("sendChat", this.messageForm.value);
             this.service.create(this.messageForm.value)
                 .subscribe(data => {
-                        this.items.unshift(data);
-                        this.messageForm.get("message").patchValue("");
-                    },
-                    (e) => console.log(e));
+                    this.items.unshift(data);
+                    this.messageForm.get("message").patchValue("");
+                },
+                (e) => console.log(e));
         }
     }
 
     public showDeleteModal(index: number): void {
-   //     this.chatHub.invoke("send", this.count*10);
+        //     this.chatHub.invoke("send", this.count*10);
         const dialogRef = this.dialog.open(DeleteDialogComponent);
         dialogRef.afterClosed().subscribe(result => {
-                if (result) {
-                    this.delete(index);
-                }
-            },
+            if (result) {
+                this.delete(index);
+            }
+        },
             e => console.log(e));
     }
 
@@ -124,12 +126,12 @@ export class MiniChatComponent implements OnInit, OnDestroy {
 
     private delete(index: number): void {
         this.service.delete(this.items[index].id).subscribe(data => {
-                if (data) {
-                    this.items.slice(index, 1);
-                    this.items = this.items.concat([]);
-                    this.snackBar.open("Комментарий успешно удален", null, { duration: 5000 });
-                }
-            },
+            if (data) {
+                this.items.slice(index, 1);
+                this.items = this.items.concat([]);
+                this.snackBar.open("Комментарий успешно удален", null, { duration: 5000 });
+            }
+        },
             e => {
                 console.log(e);
                 this.snackBar.open("Комментарий НЕ удален", null, { duration: 5000 });
@@ -143,6 +145,7 @@ export class MiniChatComponent implements OnInit, OnDestroy {
         let userName: string = this.items[index].authorUserName;
         let newMessage: string = `<i>${userName}</i>, ${message}`;
         this.messageForm.get("message").patchValue(newMessage);
+        this.elementRef.setFocus();
     }
 
     public sanitizeByHtml(text: string): SafeHtml {

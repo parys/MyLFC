@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, Input, EventEmitter, Output } from "@angular/core";
+﻿import { Component, OnInit, Input, EventEmitter, Output, ElementRef, ViewChild, AfterViewInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 import { MatSnackBar } from "@angular/material";
@@ -16,7 +16,7 @@ import { MatchPersonTypeEnum } from "../matchPersonType.enum";
     templateUrl: "./matchPerson-edit-panel.component.html"
 })
 
-export class MatchPersonEditPanelComponent implements OnInit {
+export class MatchPersonEditPanelComponent implements OnInit, AfterViewInit {
     public isEdit: boolean = false;
     public isCreation: boolean = false;
     @Input() public matchId: number;
@@ -25,6 +25,7 @@ export class MatchPersonEditPanelComponent implements OnInit {
     @Output() public matchPerson = new EventEmitter<MatchPerson>();
     public editMatchPersonForm: FormGroup;
     public persons$: Observable<Person[]>;
+    @ViewChild("mpInput") private elementRef: ElementRef;
 
     public types: MatchPersonType[];
 
@@ -43,6 +44,10 @@ export class MatchPersonEditPanelComponent implements OnInit {
             .subscribe(data => this.types = data,
             e => console.log(e));
     //  this.types = this.enumSelector(MatchPersonTypeEnum);
+    }
+
+    public ngAfterViewInit(): void {
+        this.focus();
     }
 
   public enumSelector(definition : any) {
@@ -68,6 +73,7 @@ export class MatchPersonEditPanelComponent implements OnInit {
     public setPerson(person: Person): void {
         this.editMatchPersonForm.get("personId").patchValue(person.id);
         this.editMatchPersonForm.get("personName").patchValue(person.russianName);
+        this.focus();
     } 
 
     public selectPerson(id: number) : void {
@@ -87,6 +93,10 @@ export class MatchPersonEditPanelComponent implements OnInit {
         const item: MatchPerson = this.editMatchPersonForm.value;
         item.matchId = this.matchId;
         return item;
+    }
+
+    private focus(): void {
+        this.elementRef.nativeElement.focus();
     }
 
     private initForm(): void {

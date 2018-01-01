@@ -2,6 +2,7 @@
 import { ActivatedRoute } from "@angular/router";
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import { Subscription } from "rxjs/Subscription";
+import { Title } from "@angular/platform-browser";
 import { interval } from "rxjs/observable/interval";
 import { map } from "rxjs/operators";
 import { MatchService } from "../match.service";
@@ -19,6 +20,7 @@ export class MatchDetailComponent implements OnInit, OnDestroy {
 
     constructor(private matchService: MatchService,
         public roles: RolesCheckedService,
+        private title: Title,
         private route: ActivatedRoute) {
     }
 
@@ -27,7 +29,8 @@ export class MatchDetailComponent implements OnInit, OnDestroy {
         if (id) {
             this.matchService.getSingle(id)
                 .subscribe(data => {
-                        this.item = data;
+                    this.item = data;
+                    this.title.setTitle(`${this.item.homeClubName} ${this.item.scoreHome}-${this.item.scoreAway} ${this.item.awayClubName}`);
                         if (!data.scoreHome) {
                             this.countDown$ =
                                 new BehaviorSubject<string>(this.updateTimeRemaining(this.item.dateTime));

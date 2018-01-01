@@ -1,6 +1,6 @@
 ﻿<form class="full-width" name="editForm" role="form" [formGroup]="editPersonForm" (ngSubmit)="onSubmit()">
     <mat-form-field class="full-width">
-        <input matInput placeholder="Имя на русском" formControlName="firstRussianName">
+        <input matInput placeholder="Имя на русском" formControlName="firstRussianName" #pInput>
     </mat-form-field>
     <mat-form-field class="full-width">
         <input matInput placeholder="Фамилия на русском" formControlName="lastRussianName">

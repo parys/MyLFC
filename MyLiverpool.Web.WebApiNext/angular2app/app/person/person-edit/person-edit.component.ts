@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+﻿import { Component, OnInit, Input, Output, EventEmitter, ElementRef, ViewChild, AfterViewInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
 import { MatSnackBar } from "@angular/material";
@@ -11,13 +11,14 @@ import { PersonType } from "../personType.model";
     templateUrl: "./person-edit.component.html"
 })
 
-export class PersonEditComponent implements OnInit {
+export class PersonEditComponent implements OnInit, AfterViewInit {
     private id: number;
     public editPersonForm: FormGroup;
     public photo: string;
     public types: PersonType[];
     @Input() public isFull: boolean = true;
     @Output() public newPerson = new EventEmitter<Person>();
+    @ViewChild("pInput") private elementRef: ElementRef;
 
     constructor(private service: PersonService,
         private route: ActivatedRoute,
@@ -38,6 +39,11 @@ export class PersonEditComponent implements OnInit {
         }
 
         this.updateTypes();
+    }
+
+    public ngAfterViewInit(): void {
+        console.log(111);
+        this.elementRef.nativeElement.focus();
     }
 
     public onUpload(event: any): void {

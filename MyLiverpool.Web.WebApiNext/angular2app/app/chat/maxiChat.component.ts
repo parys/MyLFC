@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
+﻿import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, ViewChild } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { MatDialog, MatSnackBar } from "@angular/material";
@@ -11,6 +11,7 @@ import { ChatMessage } from "./chatMessage.model";
 import { ChatMessageType } from "./chatMessageType.enum";
 import { ChatMessageService } from "./chatMessage.service";
 import { RolesCheckedService, DeleteDialogComponent, StorageService } from "@app/shared";
+import { EditorComponent } from "@app/editor";
 
 @Component({
     selector: "maxi-chat",
@@ -29,7 +30,8 @@ export class MaxiChatComponent implements OnInit, OnDestroy {
  { key: "15 сек", value: 15 },
  { key: "30 сек", value: 30 },
  { key: "1 мин", value: 60 },
- { key: "2 мин", value: 120 }];
+            { key: "2 мин", value: 120 }];
+    @ViewChild("chatInput") private elementRef: EditorComponent;
 
     constructor(private service: ChatMessageService,
         private route: ActivatedRoute,
@@ -133,7 +135,8 @@ export class MaxiChatComponent implements OnInit, OnDestroy {
         const message: string = this.messageForm.get("message").value;
         const userName: string = this.items[index].authorUserName;
         const newMessage: string = `<i>${userName}</i>, ${message}`;
-        this.messageForm.get("message").patchValue(newMessage);//todo add focus
+        this.messageForm.get("message").patchValue(newMessage);
+        this.elementRef.setFocus();
     }
 
     public sanitizeByHtml(text: string): SafeHtml {
