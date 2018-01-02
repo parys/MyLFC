@@ -10,21 +10,10 @@
     <title>@ViewData["Title"] MyLFC.ru - Сайт русскоязычных болельщиков ФК "Ливерпуль"</title>
     <base href="/" />
     <link rel="shortcut icon" type="image/x-icon" href="~/favicon.ico" />
-    <link rel="stylesheet" href="~/src/vendor.css" asp-append-version="true" />
 
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <script type="text/javascript" src="~/src/tinymce.min.js" asp-append-version="true"></script>
+    <script async type="text/javascript" src="~/src/tinymce.min.js" asp-append-version="true"></script>
     <link title="MyLFC.ru / Последние материалы" type="application/rss+xml" rel="alternate" href="~/rss"/>
 
-    @*todo fix for SSR*@
-    @*   <environment names="Development">
-       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.6.7/tinymce.js" integrity="sha256-m1XH51XIIl4SQhJSLOfGOa0oYpfnkVe5Fe4xZcCAOL0="
-        crossorigin="anonymous"></script>
-    </environment>*@
-     <environment names="Staging,Production">
-         @*@Html.Raw(JavaScriptSnippet.FullScript)*@
-        @*<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.6.7/tinymce.min.js" integrity="sha256-m1XH51XIIl4SQhJSLOfGOa0oYpfnkVe5Fe4xZcCAOL0=" crossorigin="anonymous"></script>*@
-    </environment>
         @Html.Raw(ViewData["Links"])
         @Html.Raw(ViewData["Styles"])
 </head>
@@ -69,5 +58,6 @@
              function addAd() {}
          </script>
 </environment>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </body >
 </html >

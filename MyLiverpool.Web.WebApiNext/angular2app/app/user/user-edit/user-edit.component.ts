@@ -31,8 +31,12 @@ export class UserEditComponent implements OnInit, OnDestroy {
 
     public onSubmit(): void {
         const user: User = this.userEditForm.value;
-        user.birthday = new Date(user.birthday);
-        user.birthday = new Date(user.birthday.setHours(user.birthday.getHours() + (-1) * user.birthday.getTimezoneOffset() / 60));
+        if (user.birthday) {
+            user.birthday = new Date(user.birthday);
+            user.birthday =
+                new Date(user.birthday.setHours(
+                    user.birthday.getHours() + (-1) * user.birthday.getTimezoneOffset() / 60));
+        }
         this.service.update(user)
             .subscribe(data => {
                 if (data) {
@@ -44,7 +48,9 @@ export class UserEditComponent implements OnInit, OnDestroy {
     }
 
     private parse(item: User): void {
-        item.birthday = new Date(item.birthday);
+        if (item.birthday) {
+            item.birthday = new Date(item.birthday);
+        }
         this.userEditForm.patchValue(item);
     }
 

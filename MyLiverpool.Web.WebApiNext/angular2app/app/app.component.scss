@@ -189,7 +189,10 @@ textarea {
 }
 
 .comment-action-buttons {
-    margin-top: -37px;
+    margin-top: -29px;
+}
+.comment-action-buttons>button {
+    line-height: 28px;
 }
 
 .chat-message {

@@ -24,7 +24,7 @@
                     <bbeditor [type]="3" [value]="messageForm?.message" [height]="150" formControlName="message" #chatInput></bbeditor>
                 </div>
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-12 text-center container-row comment-action-buttons">            
+            <div class="col-xs-6 container-row comment-action-buttons">            
                 <button mat-raised-button color="warn" type="submit" [disabled]="!messageForm.valid" class="chat-button">
                     <span *ngIf="selectedEditIndex == null">Добавить</span>
                     <span *ngIf="selectedEditIndex !== null">Обновить</span>
@@ -33,7 +33,7 @@
                 
             </div>
         </form>
-        <div *ngIf="!roles.isLogined" class="text-white text-center ">Для добавления сообщений необходимо войти.</div>
+        <div *ngIf="!roles.isLogined" class="text-white text-center">Для добавления сообщений необходимо войти.</div>
         <div class="full-width text-center flex-space-around top20">
             <form role="form" [formGroup]="chatTimerForm">
                     <select title="Автообновление чата" color="warn" formControlName="timerValue" (change)="updateSchedule($event)">

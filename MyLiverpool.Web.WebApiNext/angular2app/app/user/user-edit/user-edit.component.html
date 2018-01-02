@@ -1,7 +1,7 @@
 ﻿<div class="container-fluid">
     <form class="form-horizontal col-md-12" role="form" [formGroup]="userEditForm" (ngSubmit)="onSubmit()">
         <mat-form-field>
-            <input matInput [matDatepicker]="datePicker" readonly="" placeholder="Выберите дату рождения" formControlName="birthday">
+            <input matInput [matDatepicker]="datePicker" placeholder="Выберите дату рождения" formControlName="birthday">
             <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
             <mat-datepicker #datePicker startView="year" touchUi="true"></mat-datepicker>
         </mat-form-field>

@@ -77,8 +77,9 @@ namespace MyLiverpool.Business.Services
             user.LockoutEnabled = true;
             user.RoleGroupId = 6;
             user.Photo = DefaultPhotoPath;
+            user.Birthday = null;
 
-        IdentityResult result = await _userRepository.CreateAsync(user, model.Password);
+            IdentityResult result = await _userRepository.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {
                // await _userRepository.AddToRoleAsync(user, RolesEnum.Simple.ToString());

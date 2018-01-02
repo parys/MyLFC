@@ -1,4 +1,4 @@
-﻿import { Component, EventEmitter, forwardRef, Input, Output, NgZone, ViewChild, ElementRef } from "@angular/core";
+﻿import { Component, EventEmitter, forwardRef, Input, Output, NgZone,  } from "@angular/core";
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from "@angular/forms";
 import { Settings, Editor } from "tinymce";
 
@@ -123,7 +123,7 @@ export class EditorComponent implements ControlValueAccessor {
 
     private getPlugins(): string {
         const common: string = ` autolink lists link anchor image preview fullscreen hr
-        visualblocks code media table paste textcolor colorpicker autolink CustomEmoticons`;
+        visualblocks code media table paste textcolor colorpicker autolink CustomEmoticons visualblocks`;
         if (this.type === 1) {
             return `advlist ${common}`;
         }
@@ -140,7 +140,7 @@ export class EditorComponent implements ControlValueAccessor {
         const common: string =
             `bold italic underline strikethrough | CustomEmoticons |`;//poiler-add spoiler-remove`;
         const type1: string = `styleselect | link image media | alignleft aligncenter alignright alignjustify |
-                                 | bullist numlist | outdent indent | forecolor backcolor | ${common} | fontsizeselect`;
+                                 | bullist numlist | outdent indent | forecolor backcolor | ${common} | fontsizeselect visualblocks`;
         const type2: string = `undo redo | fullscreen | colorpicker table ${type1}` ;
         if (this.type === 1) {
             return type1;
@@ -155,8 +155,9 @@ export class EditorComponent implements ControlValueAccessor {
     }
 
     private initTiny(): void {
-        const settings1: Settings = {
-            // autoresize_overflow_padding: 0,
+        const settings1//: Settings
+            = {
+             autoresize_overflow_padding: 0,
             selector: `#${this.elementId}`,
             schema: "html5",
             fontsize_formats: "8pt 9pt 10pt 11pt 12pt 14pt 16pt 18pt",
@@ -171,10 +172,11 @@ export class EditorComponent implements ControlValueAccessor {
             plugins: [
                 this.getPlugins()
             ],
+            allow_script_urls: true,
             relative_urls: true,
             document_base_url: "/",
             toolbar: this.getToolbar(),
-            //visualblocks_default_state: true,
+            visualblocks_default_state: true,
             external_plugins: {
                 customEmoticons: "/src/plugins/customEmoticons/plugin.js"
             },
