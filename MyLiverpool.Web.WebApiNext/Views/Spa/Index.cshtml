@@ -10,16 +10,13 @@ else
 
 @section scripts {
     <environment names="Development">
-        <link rel="stylesheet" href="~/src/vendor.css" asp-append-version="true" />
         <script src="~/src/vendor.js" asp-append-version="true"></script>
         <script src="~/src/main-client.js" asp-append-version="true"></script>
     </environment>
     <environment names="Staging,Production">
         <!-- Latest compiled and minified CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-        <link href="https://unpkg.com/@angular/material/prebuilt-themes/indigo-pink.css" rel="stylesheet">
-        <script src="~/dist/inline.bundle.js" asp-append-version="true"></script>
-        <script src="~/dist/polyfills.bundle.js" asp-append-version="true"></script>
-        <script src="~/dist/main.bundle.js" async asp-append-version="true"></script>
+        <script src="~/dist/inline.bundle.js" async asp-append-version="true"></script>
+        <script src="~/dist/polyfills.bundle.js" async asp-append-version="true"></script>
+        <script src="~/dist/main.bundle.js" async defer asp-append-version="true"></script>
     </environment>
 }

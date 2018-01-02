@@ -108,7 +108,9 @@
         
   <ItemGroup>
     <Folder Include="angular2app\app\chat\miniChat\" />
-    <Folder Include="wwwroot\content\" />
+    <Folder Include="wwwroot\content\">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Folder>
   </ItemGroup>
         
   <ItemGroup>
