@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <meta name="description" content="Сайт футбольного клуба Ливерпуль. FC Liverpool. Новости, матчи, история, турнирные таблицы, статистика, статьи, составы команд. Русскоязычные болельщики.">
     <meta name="keywords" content="ливерпуль, liverpool, ливерпуль фк, liverpool fc, lfc, liverpoolfc, клуб ливерпуль, ливерпуль футбольный клуб, сайт ливерпуля, трансляция ливерпуль, ливерпуль видео">
+    <meta name="theme-color" content="#731010">
     <title>@ViewData["Title"] MyLFC.ru - Сайт русскоязычных болельщиков ФК "Ливерпуль"</title>
     <base href="/" />
     <link rel="shortcut icon" type="image/x-icon" href="~/favicon.ico" />
@@ -14,13 +15,13 @@
     </environment>
     <environment names="Staging,Production">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-        @Html.Raw("<link href=\"https://unpkg.com/@angular/material@5.0.2/prebuilt-themes/indigo-pink.css\" rel=\"stylesheet\">")
+        @Html.Raw("<link href=\"https://unpkg.com/@angular/material@5.0.3/prebuilt-themes/indigo-pink.css\" rel=\"stylesheet\">")
     </environment>
     <script async type="text/javascript" src="~/src/tinymce.min.js" asp-append-version="true"></script>
-    <link title="MyLFC.ru / Последние материалы" type="application/rss+xml" rel="alternate" href="~/rss"/>
+    <link title="MyLFC.ru / Последние материалы" type="application/rss+xml" rel="alternate" href="~/rss" />
 
-        @Html.Raw(ViewData["Links"])
-        @Html.Raw(ViewData["Styles"])
+    @Html.Raw(ViewData["Links"])
+    @Html.Raw(ViewData["Styles"])
 </head>
 <body>
 @RenderBody()
