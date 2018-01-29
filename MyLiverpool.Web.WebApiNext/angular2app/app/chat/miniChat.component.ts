@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, OnDestroy, ChangeDetectorRef, PLATFORM_ID, Inject, ViewChild } from "@angular/core";
+﻿import { Component, OnInit, OnDestroy, ChangeDetectorRef, PLATFORM_ID, Inject, ViewChild, ChangeDetectionStrategy } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { isPlatformBrowser } from "@angular/common";
@@ -17,7 +17,8 @@ import { EditorComponent } from "@app/editor";
 
 @Component({
     selector: "mini-chat",
-    templateUrl: "./miniChat.component.html"
+    templateUrl: "./miniChat.component.html",
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MiniChatComponent implements OnInit, OnDestroy {
     private sub: Subscription;
@@ -90,6 +91,7 @@ export class MiniChatComponent implements OnInit, OnDestroy {
                 .subscribe(data => {
                     this.items.unshift(data);
                     this.messageForm.get("message").patchValue("");
+                    this.cd.markForCheck();
                 },
                 (e) => console.log(e));
         }
@@ -146,6 +148,7 @@ export class MiniChatComponent implements OnInit, OnDestroy {
         let newMessage: string = `<i>${userName}</i>, ${message}`;
         this.messageForm.get("message").patchValue(newMessage);
         this.elementRef.setFocus();
+        this.cd.markForCheck();
     }
 
     public sanitizeByHtml(text: string): SafeHtml {
@@ -160,6 +163,7 @@ export class MiniChatComponent implements OnInit, OnDestroy {
     public cancelEdit(): void {
         this.selectedEditIndex = null;
         this.messageForm.get("message").patchValue("");
+        this.cd.markForCheck();
     }
 
     private initForm(message: string = ""): void {
