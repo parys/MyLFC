@@ -29,12 +29,12 @@
                 <span [textContent]="match.stadiumName"></span>
             </td>
             <td>
-                <a *ngIf="match.previewId" [routerLink]="['news', match.previewId]">Превью</a>
+                <a *ngIf="match.previewId" [routerLink]="['/news', match.previewId]">Превью</a>
                 <a *ngIf="match.reportUrl" [routerLink]="['/news', match.reportUrl]">Отчет</a>
                 <a *ngIf="!match.reportUrl" [routerLink]="['/matches', match.id]">Обсуждение</a>
                 <a *ngIf="match.photoUrl" [routerLink]="['/news', match.photoUrl]">Фото</a>
                 <a *ngIf="match.videoUrl" [href]="match.videoUrl" target="_blank">Видео</a>
-                <a *ngIf="match.reportId" [routerLink]="['news', match.reportId]">Вердикт</a>
+                <a *ngIf="match.reportId" [routerLink]="['/news', match.reportId]">Вердикт</a>
             </td>
         </tr>
         </tbody>
