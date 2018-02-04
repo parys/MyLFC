@@ -116,10 +116,10 @@ export class MaterialDetailComponent implements OnInit, OnDestroy {
     }
 
     private parse(item: Material): void {
+        this.titleService.setTitle(item.title);
         this.item = item;
         this.body = this.sanitizeByHtml(item.message);
         this.brief = this.sanitizeByHtml(item.brief);
-        this.titleService.setTitle(item.title);
         this.addView();
         this.cd.markForCheck();
         this.cd.detectChanges();

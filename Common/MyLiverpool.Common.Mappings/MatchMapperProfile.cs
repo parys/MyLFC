@@ -32,7 +32,7 @@ namespace MyLiverpool.Common.Mappings
                     src => src.MapFrom(x => GetScore(x.Score, x.DateTime, x.Events, !x.IsHome)))
                 .ForMember(x => x.ScoreHome,
                     src => src.MapFrom(x => GetScore(x.Score, x.DateTime, x.Events, x.IsHome)))
-                .ForMember(x => x.ScorePenaltyAway, src => src.MapFrom(x => GetPenaltyScore( x.DateTime, x.Events, !x.IsHome)))
+                .ForMember(x => x.ScorePenaltyAway, src => src.MapFrom(x => GetPenaltyScore(x.DateTime, x.Events, !x.IsHome)))
                 .ForMember(x => x.ScorePenaltyHome, src => src.MapFrom(x => GetPenaltyScore(x.DateTime, x.Events, x.IsHome)))
                 .ForMember(x => x.PhotoUrl, src => src.MapFrom(x => x.PhotoUrl))
                 .ForMember(x => x.StadiumName, src => src.MapFrom(x => x.Stadium.Name))
@@ -47,7 +47,7 @@ namespace MyLiverpool.Common.Mappings
                 .ForMember(x => x.Id, src => src.MapFrom(x => x.Id))
                 .ForMember(x => x.IsHome, src => src.MapFrom(x => x.IsHome))
                 .ForMember(x => x.MatchType, src => src.MapFrom(x => x.TypeId))
-                .ForMember(x => x.Score, src => src.MapFrom(x => GetScores(x.ScoreHome,x.ScoreAway)))
+                .ForMember(x => x.Score, src => src.MapFrom(x => GetScores(x.ScoreHome, x.ScoreAway)))
                 .ForMember(x => x.PhotoUrl, src => src.MapFrom(x => x.PhotoUrl))
                 .ForMember(x => x.ReportUrl, src => src.MapFrom(x => x.ReportUrl))
                 .ForMember(x => x.VideoUrl, src => src.MapFrom(x => x.VideoUrl));
@@ -66,16 +66,16 @@ namespace MyLiverpool.Common.Mappings
         {
             if (DateTimeOffset.Now >= dateTime)
             {
-                return !string.IsNullOrWhiteSpace(score)
-                    ? isHome
+                return events.Any()
+                    ? CalculateScore(events, isHome)
+                    : isHome
                         ? score.Split('-', StringSplitOptions.RemoveEmptyEntries).FirstOrDefault()
-                        : score.Split('-', StringSplitOptions.RemoveEmptyEntries).LastOrDefault()
-                    : CalculateScore(events, isHome);
+                        : score.Split('-', StringSplitOptions.RemoveEmptyEntries).LastOrDefault();
             }
             return null;
         }
 
-        private static int? GetPenaltyScore(DateTimeOffset dateTime, ICollection<MatchEvent> events, bool isHome)
+        private static int? GetPenaltyScore(DateTimeOffset dateTime, IEnumerable<MatchEvent> events, bool isHome)
         {
             if (DateTimeOffset.Now >= dateTime)
             {

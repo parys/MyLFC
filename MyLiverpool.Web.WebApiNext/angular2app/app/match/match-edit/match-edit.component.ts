@@ -82,8 +82,8 @@ export class MatchEditComponent implements OnInit {
     private parseForm(): Match {
         const item = this.editMatchForm.value;
         item.id = this.id;
-        let date = this.editMatchForm.controls["date"].value;
-        let time = this.editMatchForm.controls["time"].value;
+        const date = this.editMatchForm.controls["date"].value;
+        const time = this.editMatchForm.controls["time"].value;
         item.dateTime = new Date(date.getFullYear(), date.getMonth(), date.getDate(), time.slice(0, 2), time.slice(3, 5));
         return item;
     }
@@ -93,19 +93,16 @@ export class MatchEditComponent implements OnInit {
             clubName: [""],
             clubId: ["", Validators.required],
             seasonId: ["", Validators.required],
-            isHome: ["true", Validators.required],
+            isHome: [true, Validators.required],
             date: [null, Validators.required],
             time: [null, Validators.required],
             typeId: ["", Validators.required],
             stadiumId: ["", Validators.required],
             stadiumName: ["", Validators.required],
-            reportUrl: [null],
             photoUrl: [null],
             videoUrl: [null],
             previewId: [null],
-            reportId: [null],
-            scoreHome: [null],
-            scoreAway: [null]
+            reportId: [null]
         });
 
         this.stadiums$ = this.editMatchForm.controls["stadiumName"].valueChanges.pipe(

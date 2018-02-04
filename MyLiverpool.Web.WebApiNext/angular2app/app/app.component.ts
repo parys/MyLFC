@@ -1,4 +1,4 @@
-﻿import { Component, ViewContainerRef, OnInit, ViewEncapsulation, ElementRef, PLATFORM_ID, Inject } from "@angular/core";  
+﻿import { Component, ViewContainerRef, OnInit, ViewEncapsulation, ElementRef, PLATFORM_ID, Inject, Renderer2 } from "@angular/core";  
 import { isPlatformBrowser } from "@angular/common";  
 import { Router, ActivatedRoute, NavigationEnd } from "@angular/router";
 import { Title } from "@angular/platform-browser";
@@ -26,7 +26,7 @@ export class AppComponent implements OnInit {
         private activatedRoute: ActivatedRoute,
         private titleService: Title,
         @Inject(PLATFORM_ID) private platformId: Object,
-      //  private renderer: Renderer2,
+        private renderer: Renderer2,
         private elRef: ElementRef,
         private breadcrumbService: BreadcrumbService
     ) {       
@@ -70,7 +70,7 @@ export class AppComponent implements OnInit {
             filter((route: ActivatedRoute) => route.outlet === "primary"),
             mergeMap((route: ActivatedRoute) => route.data))
             .subscribe((event) => {
-       //         window.scrollTo(0,0); //todo find solution to get if is fragment
+               // window.scrollTo(0,0); //todo find solution to get if is fragment
                 this.titleService.setTitle(event["title"]);
                 setTimeout(() => {
                     addAd();

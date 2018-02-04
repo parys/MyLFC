@@ -24,13 +24,10 @@
         </div>
     </div>
     <div class="form-group">
-        <div class="col-xs-offset-2 col-sm-offset-2 col-xs-10 col-sm-10">
-            <div class="checkbox">
-                <label class="control-label">
-                    <input class="checkbox" name="onTop" formControlName="isHome" type="checkbox" /> Дома <!--todo add switcher-->
-                </label>
-            </div>
-        </div>
+        Выезд <mat-slide-toggle formControlName="isHome"
+                                color="warn">
+            Дома
+        </mat-slide-toggle>
     </div>
     <mat-form-field class="full-width">
         <input matInput placeholder="Стадион" [matAutocomplete]="stadium" formControlName="stadiumName">
@@ -51,28 +48,11 @@
         <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
         <mat-datepicker #datePicker startView="year" touchUi="true"></mat-datepicker>
     </mat-form-field>
-    <div class="form-group">
-        <label class="col-xs-2 control-label">Счет</label>
-        <span class="col-xs-10 flex-container">
-            <span class="col-xs-4">
-                <input formControlName="scoreHome" class="form-control col-xs-2" />
-            </span>
-            <span class="col-xs-1 flex-vertical-center"><b>-</b></span>
-            <span class="col-xs-4">
-                <input formControlName="scoreAway" class="form-control" />
-            </span>
-        </span>
-    </div>
+
     <div class="form-group">
         <label class="control-label col-xs-2 col-sm-2"> Превью:</label>
         <div class="col-xs-10 col-sm-10">
             <input class="form-control" formControlName="previewId" />
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-xs-2 col-sm-2"> Отчет:</label>
-        <div class="col-xs-10 col-sm-10">
-            <input class="form-control" formControlName="reportUrl" />
         </div>
     </div>
     <div class="form-group">

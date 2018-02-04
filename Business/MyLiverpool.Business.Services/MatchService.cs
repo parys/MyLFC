@@ -51,7 +51,6 @@ namespace MyLiverpool.Business.Services
             match.SeasonId = dto.SeasonId;
             match.PreviewId = dto.PreviewId;
             match.ReportId = dto.ReportId;
-            match.Score = GetScores(dto.ScoreHome, dto.ScoreAway);
             await _matchRepository.UpdateAsync(match);
             return dto;
         }
@@ -176,15 +175,6 @@ namespace MyLiverpool.Business.Services
             dto.AwayClubId = awayClub.Id;
             dto.AwayClubName = awayClub.Name;
             dto.AwayClubLogo = awayClub.Logo;
-        }
-
-        private static string GetScores(string scoreHome, string scoreAway)
-        {
-            if (string.IsNullOrWhiteSpace(scoreHome) || string.IsNullOrWhiteSpace(scoreAway))
-            {
-                return null;
-            }
-            return $"{scoreHome}-{scoreAway}";
         }
     }
 }
