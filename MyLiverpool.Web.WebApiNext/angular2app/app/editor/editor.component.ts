@@ -1,6 +1,7 @@
 ﻿import { Component, EventEmitter, forwardRef, Input, Output, NgZone, } from "@angular/core";
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from "@angular/forms";
 import { Settings, Editor } from "tinymce";
+import { LazyLoadingLibraryService } from "./lazyLoadingLibrary.service";
 
 declare let tinymce: any;
 /*import "tinymce/themes/modern"
@@ -51,12 +52,15 @@ export class EditorComponent implements ControlValueAccessor {
     public editor: Editor;
     //  @ViewChild("nativeElement") public nativeElement: ElementRef;
 
-    constructor(zone: NgZone) {
+    constructor(
+        private lazyService: LazyLoadingLibraryService,
+        zone: NgZone) {
         this.zone = zone;
+        lazyService.loadJs("/src/tinymce.min.js").subscribe(_ => this.initTiny());
     }
 
     public ngAfterViewInit(): void {
-        if (tinymce) {
+        if (this.isTinyDefined()) {
             this.initTiny();
         }
         //     if (this.ClientSide) {
@@ -66,7 +70,7 @@ export class EditorComponent implements ControlValueAccessor {
     }
 
     public setFocus() {
-        if (tinymce && tinymce.editors && tinymce.editors[this.elementId]) {
+        if (this.isTinyDefined() && tinymce.editors && tinymce.editors[this.elementId]) {
             tinymce.editors[this.elementId].selection.select(tinymce.editors[this.elementId].getBody(), true);
             tinymce.editors[this.elementId].selection.collapse(false);
             tinymce.editors[this.elementId].focus();
@@ -95,14 +99,14 @@ export class EditorComponent implements ControlValueAccessor {
     }
 
     public ngOnDestroy(): void {
-        if (tinymce && this.editor) {
+        if (this.isTinyDefined() && this.editor) {
             tinymce.remove(this.editor);
         }
     }
 
     public writeValue(value: any): void {
         this.value = value;
-        if (tinymce) {
+        if (this.isTinyDefined()) {
             this.initTiny();
             if (tinymce.editors && tinymce.editors[this.elementId]) {
                 tinymce.editors[this.elementId].setContent((value) ? value : "");
@@ -209,5 +213,9 @@ export class EditorComponent implements ControlValueAccessor {
                     this.updateValue(content);
                 });
         }
+    }
+
+    private isTinyDefined(): boolean {
+        return typeof tinymce !== "undefined";
     }
 }

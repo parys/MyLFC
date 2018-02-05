@@ -18,7 +18,7 @@ import { EditorComponent } from "@app/editor";
 @Component({
     selector: "mini-chat",
     templateUrl: "./miniChat.component.html",
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.Default //todo temporary before doing roles observable
 })
 export class MiniChatComponent implements OnInit, OnDestroy {
     private sub: Subscription;

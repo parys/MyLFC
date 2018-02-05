@@ -1,4 +1,4 @@
-﻿import { Injectable } from "@angular/core";
+﻿import { Injectable, ApplicationRef } from "@angular/core";
 import { StorageService } from "./storage.service";
 
 @Injectable()
@@ -17,7 +17,8 @@ export class RolesCheckedService {
     private roles: string[];
 
     constructor(
-        private storage: StorageService) {
+        private storage: StorageService,
+        private cd: ApplicationRef ) {
         this.checkRoles();
     }
 
@@ -37,6 +38,7 @@ export class RolesCheckedService {
         this.checkAuthor();
         this.checkInformer();
         this.checkMainInformer();
+        this.cd.tick();
     }
 
     public isUserInRole(role: string): boolean {
