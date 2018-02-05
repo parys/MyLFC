@@ -25,7 +25,7 @@
                     <bbeditor name="chat-message" [type]="3" [value]="messageForm.message" formControlName="message"></bbeditor>
                 </div>
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-12 text-center container-row" style="margin-top: -37px;">            
+            <div class="col-xs-12 container-row comment-action-buttons">            
                 <button mat-raised-button color="warn" type="submit" [disabled]="!messageForm.valid" class="chat-button">
                     <span *ngIf="selectedEditIndex == null">Добавить</span>
                     <span *ngIf="selectedEditIndex !== null">Обновить</span>

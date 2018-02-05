@@ -1,4 +1,4 @@
-﻿import { Component, EventEmitter, forwardRef, Input, Output, NgZone,  } from "@angular/core";
+﻿import { Component, EventEmitter, forwardRef, Input, Output, NgZone, } from "@angular/core";
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from "@angular/forms";
 import { Settings, Editor } from "tinymce";
 
@@ -33,7 +33,7 @@ import "tinymce/plugins/visualblocks";*/
             useExisting: forwardRef(() => EditorComponent),
             multi: true
         }],
-    
+
     template: `<textarea id="{{elementId}}">{{_value}}</textarea>`
 })
 
@@ -47,16 +47,18 @@ export class EditorComponent implements ControlValueAccessor {
     public elementId: string = Math.random().toString(36).substring(2);
     public zone: NgZone;
     public clientSide: boolean;
- //   public tinymce: EditorManager = new EditorManager();
+    //   public tinymce: EditorManager = new EditorManager();
     public editor: Editor;
-  //  @ViewChild("nativeElement") public nativeElement: ElementRef;
+    //  @ViewChild("nativeElement") public nativeElement: ElementRef;
 
     constructor(zone: NgZone) {
         this.zone = zone;
     }
 
     public ngAfterViewInit(): void {
-        this.initTiny();
+        if (tinymce) {
+            this.initTiny();
+        }
         //     if (this.ClientSide) {
         //         require.resolve(['tinymce'
         //         ], require => require("tinymce"))
@@ -64,7 +66,7 @@ export class EditorComponent implements ControlValueAccessor {
     }
 
     public setFocus() {
-        if (tinymce.editors && tinymce.editors[this.elementId]) {
+        if (tinymce && tinymce.editors && tinymce.editors[this.elementId]) {
             tinymce.editors[this.elementId].selection.select(tinymce.editors[this.elementId].getBody(), true);
             tinymce.editors[this.elementId].selection.collapse(false);
             tinymce.editors[this.elementId].focus();
@@ -100,14 +102,11 @@ export class EditorComponent implements ControlValueAccessor {
 
     public writeValue(value: any): void {
         this.value = value;
-      //  if (!this.tinymce) {
         if (tinymce) {
             this.initTiny();
-        }
-      //  if (this.tinymce.editors && this.tinymce.editors[this.elementId]) {
-      //      this.tinymce.editors[this.elementId].setContent((value) ? value : "");
-        if (tinymce.editors && tinymce.editors[this.elementId]) {
-            tinymce.editors[this.elementId].setContent((value) ? value : "");
+            if (tinymce.editors && tinymce.editors[this.elementId]) {
+                tinymce.editors[this.elementId].setContent((value) ? value : "");
+            }
         }
     }
 
@@ -141,7 +140,7 @@ export class EditorComponent implements ControlValueAccessor {
             `bold italic underline strikethrough | CustomEmoticons |`;//poiler-add spoiler-remove`;
         const type1: string = `styleselect | link image media | alignleft aligncenter alignright alignjustify |
                                  | bullist numlist | outdent indent | forecolor backcolor | ${common} | fontsizeselect visualblocks`;
-        const type2: string = `undo redo | fullscreen | colorpicker table ${type1}` ;
+        const type2: string = `undo redo | fullscreen | colorpicker table ${type1}`;
         if (this.type === 1) {
             return type1;
         }
@@ -157,45 +156,43 @@ export class EditorComponent implements ControlValueAccessor {
     private initTiny(): void {
         const settings1//: Settings
             = {
-             autoresize_overflow_padding: 0,
-            selector: `#${this.elementId}`,
-            schema: "html5",
-            fontsize_formats: "8pt 9pt 10pt 11pt 12pt 14pt 16pt 18pt",
-            forced_root_block: "",
-            min_height: this.height,
-            browser_spellcheck: true,
-            gecko_spellcheck: true,
-            remove_trailing_brs: true,
-            menubar: false,
-            language: "ru",
-            // inline: true,
-            plugins: [
-                this.getPlugins()
-            ],
-            allow_script_urls: true,
-            relative_urls: true,
-            document_base_url: "/",
-            toolbar: this.getToolbar(),
-            visualblocks_default_state: true,
-            external_plugins: {
-                customEmoticons: "/src/plugins/customEmoticons/plugin.js"
-            },
-            skin_url: "/src/lightgray",
-            setup: (editor: Editor) => {
-            this.editor = editor;
-            editor.on("change", () => {
-                const content: any = editor.getContent();
-                this.updateValue(content);
-            });
-            editor.on("keyup", () => {
-                const content: any = editor.getContent();
-                this.updateValue(content);
-            });
-        }
-        }
-
+                autoresize_overflow_padding: 0,
+                selector: `#${this.elementId}`,
+                schema: "html5",
+                fontsize_formats: "8pt 9pt 10pt 11pt 12pt 14pt 16pt 18pt",
+                forced_root_block: "",
+                min_height: this.height,
+                browser_spellcheck: true,
+                gecko_spellcheck: true,
+                remove_trailing_brs: true,
+                menubar: false,
+                language: "ru",
+                // inline: true,
+                plugins: [
+                    this.getPlugins()
+                ],
+                allow_script_urls: true,
+                relative_urls: true,
+                document_base_url: "/",
+                toolbar: this.getToolbar(),
+                visualblocks_default_state: true,
+                external_plugins: {
+                    customEmoticons: "/src/plugins/customEmoticons/plugin.js"
+                },
+                skin_url: "/src/lightgray",
+                setup: (editor: Editor) => {
+                    this.editor = editor;
+                    editor.on("change", () => {
+                        const content: any = editor.getContent();
+                        this.updateValue(content);
+                    });
+                    editor.on("keyup", () => {
+                        const content: any = editor.getContent();
+                        this.updateValue(content);
+                    });
+                }
+            }
         tinymce.init(settings1);
-
     }
 
     private setupFunction(editor: Editor) {
