@@ -9,10 +9,22 @@
     <!--<script type="text/javascript" async src="src/tinymce.min.js" asp-append-version="true"></script>-->
 </head>
 <body>
-<app></app>
-<script type="text/javascript">
-    function addAd() {}
+    <app></app>
+    <script type="text/javascript">
+        function addAd() {
+            include("https://platform.twitter.com/widgets.js");
+            include("https://platform.instagram.com/en_US/embeds.js");
+    }
+    function include(url)
+    {
+        const s = document.createElement("script");
+        s.setAttribute("type", "text/javascript");
+        s.setAttribute("src", url);
+        s.setAttribute("async", true);
+        const nodes = document.getElementsByTagName("*");
+        const node = nodes[nodes.length -1].parentNode;
+        node.appendChild(s);
+    }
 </script>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </body>
 </html>
