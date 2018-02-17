@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 
 namespace MyLiverpool.Web.WebApiNext.Areas.Lite.Controllers
 {
+    [Authorize]
     [Area("lite")]
     public class UserController : Controller
     {
@@ -30,7 +31,7 @@ namespace MyLiverpool.Web.WebApiNext.Areas.Lite.Controllers
             return View(model);
         }
 
-        [AllowAnonymous]
+    //    [AllowAnonymous]
         public async Task<IActionResult> Detail(int id)
         {
             if (id == 0)

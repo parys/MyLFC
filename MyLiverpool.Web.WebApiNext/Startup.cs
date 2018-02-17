@@ -5,11 +5,13 @@ using System.IO;
 using System.IO.Compression;
 using AspNet.Security.OpenIdConnect.Primitives;
 using Microsoft.AspNetCore.Antiforgery;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.ResponseCompression;
@@ -49,7 +51,7 @@ namespace MyLiverpool.Web.WebApiNext
             if (env.IsDevelopment())
             {
                 // For more details on using the user secret store see http://go.microsoft.com/fwlink/?LinkID=532709
-               // builder.AddUserSecrets<Startup>();
+                // builder.AddUserSecrets<Startup>();
             }
 
             builder.AddEnvironmentVariables();
@@ -79,10 +81,10 @@ namespace MyLiverpool.Web.WebApiNext
             services.AddRouting(options => options.LowercaseUrls = true);
             services.AddMvc(options =>
             {
-            } ).AddJsonOptions(options =>
-            {
-                options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-            });
+            }).AddJsonOptions(options =>
+           {
+               options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+           });
 
             services.AddDbContext<LiverpoolContext>(options =>
             {
@@ -92,7 +94,7 @@ namespace MyLiverpool.Web.WebApiNext
 
             services.AddDataProtection().SetApplicationName("liverpoolfc-app")
                 .PersistKeysToFileSystem(new DirectoryInfo(Directory.GetCurrentDirectory()));
-            
+
             services.AddIdentity<User, Role>(options =>
             {
                 options.Password.RequireDigit = false;
@@ -118,10 +120,19 @@ namespace MyLiverpool.Web.WebApiNext
                 options.ClaimsIdentity.RoleClaimType = OpenIdConnectConstants.Claims.Role;
             });
 
-            services.AddAuthentication(opt =>
-            {
-                
-            }).AddOAuthValidation();
+            services.AddAuthentication()
+            //        options =>
+            //{
+            //    options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            //    options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            //    options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            //})
+                .AddCookie(options =>
+                {
+                     options.LoginPath = "/Lite/Account/Login/";
+                     options.LogoutPath = "/Lite/Account/Logout/";
+                })
+                .AddOAuthValidation();
 
             services.AddOpenIddict<int>(options =>
             {
@@ -222,14 +233,14 @@ namespace MyLiverpool.Web.WebApiNext
                 });
             }
 
-           // services.AddNodeServices(options =>
-          //  {
-              //  options.DebuggingPort = 8888;
-             //   options.LaunchWithDebugging = true;
+            // services.AddNodeServices(options =>
+            //  {
+            //  options.DebuggingPort = 8888;
+            //   options.LaunchWithDebugging = true;
 
-             //   options.InvocationTimeoutMilliseconds = 140000;
-          //  });
-            var context = (LiverpoolContext) services.BuildServiceProvider().GetService(typeof(LiverpoolContext));
+            //   options.InvocationTimeoutMilliseconds = 140000;
+            //  });
+            var context = (LiverpoolContext)services.BuildServiceProvider().GetService(typeof(LiverpoolContext));
             context.Database.Migrate();
             if (Env.IsDevelopment())
             {
@@ -247,9 +258,14 @@ namespace MyLiverpool.Web.WebApiNext
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IAntiforgery antiforgery)
         {
             app.UseMiddleware<ExceptionHandlerMiddleware>();
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            });
+
             app.UseResponseCompression();
 
-           // app.UseXsrf();
+            // app.UseXsrf();
             if (env.IsDevelopment())
             {
                 loggerFactory.AddConsole(Configuration.GetSection("Logging"));
@@ -305,7 +321,7 @@ namespace MyLiverpool.Web.WebApiNext
 
                 routes.MapSpaFallbackRoute(
                     name: "spa-fallback",
-                    defaults: new {controller = "Spa", action = "Index"});
+                    defaults: new { controller = "Spa", action = "Index" });
             });
         }
 
