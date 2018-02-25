@@ -231,7 +231,7 @@ namespace MyLiverpool.Web.WebApiNext
           //  });
             var context = (LiverpoolContext) services.BuildServiceProvider().GetService(typeof(LiverpoolContext));
             context.Database.Migrate();
-            if (Env.IsDevelopment())
+          //  if (Env.IsDevelopment())
             {
                 new DatabaseInitializer(context).Seed();
             }
@@ -266,7 +266,7 @@ namespace MyLiverpool.Web.WebApiNext
                 app.UseSwaggerUI(c =>
                 {
                     c.SwaggerEndpoint("/swagger/v1/swagger.json", "V1 Docs");
-                    c.ConfigureOAuth2("test-client-id123", "test-client-secr43et", "test-rea32lm", "test-a11pp");
+                 //   c.ConfigureOAuth2("test-client-id123", "test-client-secr43et", "test-rea32lm", "test-a11pp");
                 });
             }
             else

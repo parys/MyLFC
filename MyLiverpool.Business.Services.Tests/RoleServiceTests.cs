@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
+using FluentAssertions.Common;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -39,7 +40,7 @@ namespace MyLiverpool.Business.Services.Tests
         {
             var result = await RoleService.GetUserRolesAsync(userId);
             
-            result.ShouldBeEquivalentTo(expected);
+            result.IsSameOrEqualTo(expected);
         }
 
         [Theory, ClassData(typeof(GetRoleGroupsDtoTestData))]
@@ -47,8 +48,8 @@ namespace MyLiverpool.Business.Services.Tests
         {
             var result = await RoleService.GetRoleGroupsWithRolesAsync();
             
-            result.Count().ShouldBeEquivalentTo(expected.Count());
-            result.ShouldBeEquivalentTo(expected);
+            result.Count().IsSameOrEqualTo(expected.Count());
+            result.IsSameOrEqualTo(expected);
         }
 
         [Theory, ClassData(typeof(GetEditRoleGroupTestData))]
@@ -59,7 +60,7 @@ namespace MyLiverpool.Business.Services.Tests
             var newRoles = await UserRepository.GetRolesAsync(userId);
             
             (oldRoles != newRoles).Should().BeTrue();
-            result.ShouldBeEquivalentTo(expected);
+            result.IsSameOrEqualTo(expected);
         }
 
         public void Dispose()

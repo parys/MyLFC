@@ -53,8 +53,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AspNet.Security.OAuth.Validation" Version="2.0.0-rc1-final" />
-    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.1.1" />
+    <PackageReference Include="AspNet.Security.OAuth.Validation" Version="2.0.0-rc3-0298" />
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.2.1" />
     <PackageReference Include="Microsoft.AspNetCore" Version="2.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.OAuth" Version="2.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.0.1" />
@@ -82,8 +82,8 @@
     <PackageReference Include="Microsoft.SyndicationFeed.ReaderWriter" Version="1.0.2" />
     <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.0.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.2" />
-    <PackageReference Include="OpenIddict.Mvc" Version="2.0.0-rc1-final" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="1.1.0" />
+    <PackageReference Include="OpenIddict.Mvc" Version="2.0.0-rc3-0878" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="2.1.0" />
   </ItemGroup>
 
 

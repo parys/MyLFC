@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using FluentAssertions;
+using FluentAssertions.Common;
 using Microsoft.EntityFrameworkCore;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
@@ -31,7 +31,7 @@ namespace MyLiverpool.Business.Services.Tests
             
             Assert.True(result.Id > 0);
 		    expected.Id = result.Id;
-			result.ShouldBeEquivalentTo(expected);
+			result.IsSameOrEqualTo(expected);
 		}
 
 		[Theory, ClassData(typeof(WishGetTestData))]
@@ -39,7 +39,7 @@ namespace MyLiverpool.Business.Services.Tests
 		{
 		    var result = await _wishService.GetAsync(wishId);
 
-            result.ShouldBeEquivalentTo(expected);
+            result.IsSameOrEqualTo(expected);
 		}
 
         [Theory, ClassData(typeof(WishGetListTestData))]
@@ -50,7 +50,7 @@ namespace MyLiverpool.Business.Services.Tests
             Assert.Equal(expectedCount, result.TotalItems);//bug list gets initial with created count
             Assert.Equal(page, result.PageNo);
 
-            result.List.ShouldBeEquivalentTo(expected);
+            result.List.IsSameOrEqualTo(expected);
         }
 
         [Theory, ClassData(typeof(WishDeleteTestData))]
@@ -61,9 +61,9 @@ namespace MyLiverpool.Business.Services.Tests
 		    if (wishToDelete != null)
 		    {
 		        wishToDelete = await _wishService.GetAsync(wishId);
-                wishToDelete.ShouldBeEquivalentTo(null);
+                wishToDelete.IsSameOrEqualTo(null);
 		    }
-            result.ShouldBeEquivalentTo(expected);
+            result.IsSameOrEqualTo(expected);
 		}
 
         public void Dispose()
