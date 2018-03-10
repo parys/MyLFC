@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.ResponseCompression;
@@ -231,10 +232,10 @@ namespace MyLiverpool.Web.WebApiNext
           //  });
             var context = (LiverpoolContext) services.BuildServiceProvider().GetService(typeof(LiverpoolContext));
             context.Database.Migrate();
-          //  if (Env.IsDevelopment())
-            {
-                new DatabaseInitializer(context).Seed();
-            }
+            //if (Env.IsDevelopment())
+            //{
+            //    new DatabaseInitializer(context).Seed();
+            //}
         }
 
         /// <summary>
@@ -277,14 +278,18 @@ namespace MyLiverpool.Web.WebApiNext
             app.UseCors("MyPolicy");
 
             app.UseDefaultFiles();
-            app.UseStaticFiles(new StaticFileOptions()
+            app.UseStaticFiles(new StaticFileOptions
             {
                 OnPrepareResponse = ctx =>
                 {
                     ctx.Context.Response.Headers.Append("Cache-Control", "public,max-age=86400");
                 }
             });
-
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            });
+            
             app.UseAuthentication();//UseIdentity();
 
             //app.UseSignalR(routes =>
