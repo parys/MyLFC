@@ -23,7 +23,12 @@
     <Content Remove="angular2app\**" />
     <Content Remove="angular2app\app\fonts\**" />
     <Content Remove="angular2app\fonts\**" />
+    <Content Remove=".angular-cli.json" />
     <Content Remove="package-lock.json" />
+    <Content Remove="package.json" />
+    <Content Remove="proxy.conf.json" />
+    <Content Remove="tsconfig.cli.json" />
+    <Content Remove="tsconfig.json" />
     <Content Remove="wwwroot\content\**" />
     <Content Remove="wwwroot\fonts\**" />
     <Content Remove="wwwroot\swagger\**" />
@@ -53,37 +58,37 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AspNet.Security.OAuth.Validation" Version="2.0.0-rc3-0298" />
+    <PackageReference Include="AspNet.Security.OAuth.Validation" Version="2.0.0-rc3-0300" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.2.1" />
-    <PackageReference Include="Microsoft.AspNetCore" Version="2.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.OAuth" Version="2.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics" Version="2.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.Abstractions" Version="2.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="2.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.0.2" />
-    <PackageReference Include="Microsoft.AspNetCore.NodeServices" Version="2.0.2" />
-    <PackageReference Include="Microsoft.AspNetCore.ResponseCompression" Version="2.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Server.IISIntegration" Version="2.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel" Version="2.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore" Version="2.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.OAuth" Version="2.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics" Version="2.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.Abstractions" Version="2.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="2.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.NodeServices" Version="2.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.ResponseCompression" Version="2.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Server.IISIntegration" Version="2.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel" Version="2.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.0.0-alpha2-final" />
-    <PackageReference Include="Microsoft.AspNetCore.SpaServices" Version="2.0.2" />
-    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.0.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.0.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="2.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="2.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="2.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="2.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices" Version="2.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="2.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="2.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="2.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="2.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.0.1" />
     <PackageReference Include="Microsoft.SyndicationFeed.ReaderWriter" Version="1.0.2" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.0.1" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.2" />
-    <PackageReference Include="OpenIddict.Mvc" Version="2.0.0-rc3-0878" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="2.1.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.0.2" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.3" />
+    <PackageReference Include="OpenIddict.Mvc" Version="2.0.0-rc3-0896" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="2.3.0" />
   </ItemGroup>
 
 
@@ -114,14 +119,17 @@
   </ItemGroup>
         
   <ItemGroup>
+    <None Include=".angular-cli.json" />
+    <None Include="package.json" />
+    <None Include="proxy.conf.json" />
+    <None Include="tsconfig.cli.json" />
+    <None Include="tsconfig.json" />
     <None Include="web.config" />
     <None Include="wwwroot\lite\styles.css" />
     <None Include="wwwroot\src\89889688147bd7575d6327160d64e760.svg" />
     <None Include="wwwroot\src\langs\ru.js" />
     <None Include="wwwroot\src\lightgray\fonts\tinymce-small.svg" />
     <None Include="wwwroot\src\lightgray\fonts\tinymce.svg" />
-    <None Include="wwwroot\src\main-client.js" />
-    <None Include="wwwroot\src\main-client.js.map" />
     <None Include="wwwroot\src\plugins\advlist\index.js" />
     <None Include="wwwroot\src\plugins\advlist\plugin.js" />
     <None Include="wwwroot\src\plugins\advlist\plugin.min.js" />
@@ -260,7 +268,6 @@
     <None Include="wwwroot\src\themes\modern\theme.js" />
     <None Include="wwwroot\src\themes\modern\theme.min.js" />
     <None Include="wwwroot\src\tinymce.min.js" />
-    <None Include="wwwroot\src\vendor.js" />
   </ItemGroup>
         
   <ItemGroup>

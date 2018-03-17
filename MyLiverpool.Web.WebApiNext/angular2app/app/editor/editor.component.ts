@@ -126,7 +126,7 @@ export class EditorComponent implements ControlValueAccessor {
 
     private getPlugins(): string {
         const common: string = ` autolink lists link anchor image preview fullscreen hr
-        visualblocks code media table paste textcolor colorpicker autolink CustomEmoticons visualblocks`;
+        visualblocks code media table paste textcolor colorpicker autolink customEmoticons visualblocks`;
         if (this.type === 1) {
             return `advlist ${common}`;
         }
@@ -141,7 +141,7 @@ export class EditorComponent implements ControlValueAccessor {
 
     private getToolbar(): string {
         const common: string =
-            `bold italic underline strikethrough | CustomEmoticons |`;//poiler-add spoiler-remove`;
+            `bold italic underline strikethrough | customEmoticons |`;//poiler-add spoiler-remove`;
         const type1: string = `styleselect | link image media | alignleft aligncenter alignright alignjustify |
                                  | bullist numlist | outdent indent | forecolor backcolor | ${common} | fontsizeselect visualblocks`;
         const type2: string = `undo redo | fullscreen | colorpicker table code ${type1}`;

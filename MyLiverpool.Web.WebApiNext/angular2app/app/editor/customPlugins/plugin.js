@@ -135,20 +135,20 @@ define(
  */
 
 /**
- * This class contains all core logic for the CustomEmoticons plugin.
+ * This class contains all core logic for the customEmoticons plugin.
  *
- * @class tinymce.CustomEmoticons.Plugin
+ * @class tinymce.customEmoticons.Plugin
  * @private
  */
 define(
-  'tinymce.plugins.CustomEmoticons.Plugin',
+  'tinymce.plugins.customEmoticons.Plugin',
   [
     'tinymce.core.PluginManager',
     'tinymce.core.util.Tools'
   ],
   function (PluginManager, Tools) {
-    PluginManager.add('CustomEmoticons', function (editor, url) {
-      var CustomEmoticons = [
+    PluginManager.add('customEmoticons', function (editor, url) {
+      var customEmoticons = [
         ["good", "sad", "tease", "lol"],
 		["angel", "bravo", "wink", "yahoo"],
 		["yes", "no", "ok", "hi"],
@@ -164,7 +164,7 @@ define(
 
         emoticonsHtml = '<table role="list" class="mce-grid">';
 
-        Tools.each(CustomEmoticons, function (row) {
+        Tools.each(customEmoticons, function (row) {
           emoticonsHtml += '<tr>';
 
           Tools.each(row, function (icon) {
@@ -183,7 +183,7 @@ define(
         return emoticonsHtml;
       }
 
-      editor.addButton('CustomEmoticons', {
+      editor.addButton('customEmoticons', {
         type: 'panelbutton',
 		image: '/src/plugins/customEmoticons/img/good.gif',
 	//	text: "emoticon",
@@ -213,5 +213,5 @@ define(
     return function () { };
   }
 );
-dem('tinymce.plugins.CustomEmoticons.Plugin')();
+dem('tinymce.plugins.customEmoticons.Plugin')();
 })();

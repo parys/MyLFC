@@ -5,7 +5,6 @@ using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto.Filters;
 using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
-using Newtonsoft.Json;
 
 namespace MyLiverpool.Web.WebApiNext.Areas.Lite.Controllers
 {
