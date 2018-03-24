@@ -13,10 +13,11 @@ namespace MyLiverpool.Business.Services
 {
     public class UploadService : IUploadService
     {
-        public const string AvatarPath = "content\\avatars\\";
-        public const string LogoPath = "content\\logos\\";
-        public const string ImagesPath = "content\\images\\";
-        public const string PersonPath = "content\\persons\\";
+        public const string ContentPath = "content";
+        public readonly string AvatarPath = Path.Combine(ContentPath, "avatars");
+        public readonly string LogoPath = Path.Combine(ContentPath, "logos");
+        public readonly string ImagesPath = Path.Combine(ContentPath, "images");
+        public readonly string PersonPath = Path.Combine(ContentPath, "persons");
         public const int FilesPerFolder = 200;
         private readonly IUserService _userService;
         private readonly IClubService _clubService;
@@ -33,11 +34,11 @@ namespace MyLiverpool.Business.Services
         {
             var path = await _userService.GetPhotoPathAsync(userId);
 
-            var relativePath = GlobalConstants.DefaultPhotoPath == path ? GenerateNewName() : path.Split('.').First().Split('/').Last();
+            var relativePath = path.Contains(GlobalConstants.DefaultPhotoPath) ? GenerateNewName() : path.Split('.').First().Split('/').Last();
             relativePath = relativePath + "." + file.FileName.Split('.').Last();
 
             var newPath = GenerateNewPath(AvatarPath);
-            if (path != GlobalConstants.DefaultPhotoPath)
+            if (!path.Contains(GlobalConstants.DefaultPhotoPath))
             {
                 FileHelper.Delete(path);
             }
@@ -174,7 +175,7 @@ namespace MyLiverpool.Business.Services
                 if (directoryInfo == null)
                 {
                     directoryInfo = "0";
-                    Directory.CreateDirectory(fullPath + "\\0\\");
+                    Directory.CreateDirectory(Path.Combine(fullPath, directoryInfo));
                 }
                 var lastFolderName = int.Parse(directoryInfo.Split('\\').Last());
                 directoryName = lastFolderName.ToString();
