@@ -223,13 +223,13 @@ namespace MyLiverpool.Web.WebApiNext
                 });
             }
 
-           // services.AddNodeServices(options =>
-          //  {
+            services.AddNodeServices(options =>
+            {
               //  options.DebuggingPort = 8888;
              //   options.LaunchWithDebugging = true;
 
              //   options.InvocationTimeoutMilliseconds = 140000;
-          //  });
+            });
             var context = (LiverpoolContext) services.BuildServiceProvider().GetService(typeof(LiverpoolContext));
             context.Database.Migrate();
             //if (Env.IsDevelopment())
@@ -258,10 +258,10 @@ namespace MyLiverpool.Web.WebApiNext
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
                 app.UseBrowserLink();
-                //app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions()
-                //{
-                //    HotModuleReplacement = true,
-                //});
+                app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions()
+                {
+                    HotModuleReplacement = true,
+                });
 
                 app.UseSwagger();
                 app.UseSwaggerUI(c =>
