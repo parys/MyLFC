@@ -80,7 +80,10 @@ namespace MyLiverpool.Common.Mappings
             if (DateTimeOffset.Now >= dateTime)
             {
                 var filteredEvents = events.Where(x => x.Type == MatchEventType.GoalPenaltySeries);
-                return isHome ? filteredEvents.Count(x => x.IsOur) : filteredEvents.Count(x => !x.IsOur);
+                if(filteredEvents.Any())
+                {
+                    return isHome ? filteredEvents.Count(x => x.IsOur) : filteredEvents.Count(x => !x.IsOur);
+                }
             }
             return null;
         }

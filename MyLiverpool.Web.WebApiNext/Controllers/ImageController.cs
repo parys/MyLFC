@@ -68,18 +68,18 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
 
             foreach (var entry in subdirectoryFolders)
             {
-                files.Add(new ImageDto()
+                files.Add(new ImageDto
                 {
-                    Name = entry.Substring(entry.LastIndexOf('\\') + 1),
+                    Name = entry.Substring(entry.LastIndexOf(Path.DirectorySeparatorChar) + 1),
                     Path = entry.Substring(entry.LastIndexOf(_pathFull, StringComparison.OrdinalIgnoreCase)),
                     IsFolder = true
                 });
             }
             foreach (var entry in subdirectoryFiles)
             {
-                files.Add(new ImageDto()
+                files.Add(new ImageDto
                 {
-                    Name = entry.Substring(entry.LastIndexOf('\\') + 1),
+                    Name = entry.Substring(entry.LastIndexOf(Path.DirectorySeparatorChar) + 1),
                     Path = entry.Substring(entry.LastIndexOf(_pathFull, StringComparison.OrdinalIgnoreCase)),
                     IsFolder = false
                 });

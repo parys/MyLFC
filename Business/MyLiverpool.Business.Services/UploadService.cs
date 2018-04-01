@@ -34,7 +34,12 @@ namespace MyLiverpool.Business.Services
         {
             var path = await _userService.GetPhotoPathAsync(userId);
 
-            var relativePath = path.Contains(GlobalConstants.DefaultPhotoPath) ? GenerateNewName() : path.Split('.').First().Split('/').Last();
+            var relativePath = path.Contains(GlobalConstants.DefaultPhotoPath)
+                ? GenerateNewName()
+                : path.Split('.')
+                    .First()
+                    .Split(Path.DirectorySeparatorChar)
+                    .Last();
             relativePath = relativePath + "." + file.FileName.Split('.').Last();
 
             var newPath = GenerateNewPath(AvatarPath);
@@ -92,7 +97,9 @@ namespace MyLiverpool.Business.Services
             var relativePath = path;
             if (string.IsNullOrEmpty(path) || !path.Contains(LogoPath))
             {
-                var newName = (string.IsNullOrWhiteSpace(path) ? GenerateNewName() : path) + "." + file.FileName.Split('.').Last();
+                var newName = (string.IsNullOrWhiteSpace(path)
+                                  ? GenerateNewName()
+                                  : path) + "." + file.FileName.Split('.').Last();
                 var newPath = GenerateNewPath(LogoPath);
                 relativePath = Path.Combine(newPath, newName);
                 path = GetFullPath(relativePath);
@@ -177,11 +184,11 @@ namespace MyLiverpool.Business.Services
                     directoryInfo = "0";
                     Directory.CreateDirectory(Path.Combine(fullPath, directoryInfo));
                 }
-                var lastFolderName = int.Parse(directoryInfo.Split('\\').Last());
+                var lastFolderName = int.Parse(directoryInfo.Split(Path.DirectorySeparatorChar).Last());
                 directoryName = lastFolderName.ToString();
                 if (Directory.GetFiles(directoryInfo).Length >= FilesPerFolder)
                 {
-                    directoryName = (lastFolderName + 1) + "\\";
+                    directoryName = (lastFolderName + 1).ToString() + Path.DirectorySeparatorChar;
                     directoryInfo = Path.Combine(fullPath + directoryName);
                     Directory.CreateDirectory(directoryInfo);
                 }
