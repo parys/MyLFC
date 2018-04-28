@@ -1,12 +1,7 @@
 ﻿import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Observable } from "rxjs/Observable";
-import { of } from "rxjs/observable/of";
-import { _throw } from "rxjs/observable/throw";
-import { interval } from "rxjs/observable/interval";
 import { filter, map, tap, catchError, flatMap, first } from "rxjs/operators";
-import { Subscription } from "rxjs/Subscription";
-import { BehaviorSubject } from "rxjs/BehaviorSubject";
+import { Observable, Subscription, BehaviorSubject, of, interval, throwError } from "rxjs";
 import { IRefreshGrantModel } from "./models/refresh-grant-model";
 import { IProfileModel } from "./models/profile-model";
 import { IAuthStateModel } from "./models/auth-state-model";
@@ -67,12 +62,12 @@ export class AuthService {
 
     public register(data: IRegisterModel): Observable<Response> {
         return this.http1.post("api/v1/account/register", data).pipe(
-            catchError(res => _throw(res.error)));
+            catchError(res => throwError(res.error)));
     }
 
     public login(user: ILoginModel): Observable<any> {
         return this.getTokens(user, "password").pipe(
-            catchError(res => _throw(res.error)),
+            catchError(res => throwError(res.error)),
             tap(res => {
                 this.scheduleRefresh();
             }));
@@ -89,8 +84,8 @@ export class AuthService {
     }
 
     public refreshTokens(): Observable<IAuthTokenModel> {
-        return this.getTokens({ refresh_token: this.storage.getRefreshToken() }, "refresh_token").pipe(
-            catchError(error => _throw("Session Expired")));
+        return this.getTokens({ refresh_token: this.storage.getRefreshToken() }, "refresh_token")
+            .pipe(catchError(error => throwError("Session Expired")));
     }
 
     private updateState(newState: IAuthStateModel): void {
@@ -128,7 +123,7 @@ export class AuthService {
             flatMap((tokens: IAuthTokenModel) => {
                 if (!tokens) {
                     this.updateState({ authReady: true });
-                    return _throw("No token in Storage");
+                    return throwError("No token in Storage");
                 }
                // const profile = jwtDecode(tokens.id_token);
 
@@ -144,7 +139,7 @@ export class AuthService {
             catchError(e => {
                 this.logout();
                 this.updateState({ authReady: true });
-                return _throw(e);
+                return throwError(e);
             }));
     }
 

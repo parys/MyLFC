@@ -1,8 +1,7 @@
 ﻿import { Component, OnInit, OnDestroy, Inject, PLATFORM_ID } from "@angular/core";
 import { isPlatformBrowser } from "@angular/common";
 import { MatSnackBar } from "@angular/material";
-import { Subscription } from "rxjs/Subscription";
-import { interval } from "rxjs/observable/interval";
+import { Subscription, interval } from "rxjs";
 import { map } from "rxjs/operators";
 import { PmService } from "../pm.service";
 import { Configuration } from "@app/app.constants";

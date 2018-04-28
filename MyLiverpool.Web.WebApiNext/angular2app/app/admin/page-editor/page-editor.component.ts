@@ -2,7 +2,7 @@
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 import { MatSnackBar } from "@angular/material";
-import { Subscription } from "rxjs/Subscription";
+import { Subscription } from "rxjs";
 import { AdminService } from "../admin.service";
 import { HelperType } from "../helperType.enum";
 

@@ -1,8 +1,7 @@
 ﻿import { Component, OnInit, OnDestroy, Inject, PLATFORM_ID } from "@angular/core";
 import { isPlatformBrowser } from "@angular/common";
 import { ActivatedRoute } from "@angular/router";
-import { Subscription } from "rxjs/Subscription";
-import { interval } from "rxjs/observable/interval";
+import { interval, Subscription } from "rxjs";
 import { map } from "rxjs/operators";
 import { CommentService } from "../comment.service";
 import { Comment } from "../comment.model";

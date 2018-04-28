@@ -1,5 +1,5 @@
 ﻿import { Injectable } from "@angular/core";
-import { Observable } from "rxjs/Observable";
+import { Observable } from "rxjs";
 import { RoleGroup } from "./roleGroup.model";
 import { HttpWrapper } from "@app/shared";
 

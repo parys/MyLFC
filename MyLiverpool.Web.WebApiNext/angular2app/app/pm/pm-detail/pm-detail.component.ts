@@ -1,7 +1,7 @@
 ﻿import { Component, OnInit, OnDestroy } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
-import { Subscription } from "rxjs/Subscription";
+import { Subscription } from "rxjs";
 import { Pm } from "../pm.model";
 import { PmService } from "../pm.service";
 import { RolesCheckedService } from "@app/shared";

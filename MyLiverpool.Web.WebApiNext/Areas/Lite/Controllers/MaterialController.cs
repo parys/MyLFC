@@ -11,18 +11,35 @@ using MyLiverpool.Web.WebApiNext.Extensions;
 
 namespace MyLiverpool.Web.WebApiNext.Areas.Lite.Controllers
 {
+
+    /// <summary>
+    /// Manages materials.
+    /// </summary>
     [Area("lite")]
     public class MaterialController : Controller
     {
         private readonly IMaterialService _materialService;
         private readonly IMemoryCache _cache;
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="materialService"></param>
+        /// <param name="cache"></param>
         public MaterialController(IMaterialService materialService, IMemoryCache cache)
         {
             _materialService = materialService;
             _cache = cache;
         }
 
+        /// <summary>
+        /// Material list view.
+        /// </summary>
+        /// <param name="page"></param>
+        /// <param name="categoryId"></param>
+        /// <param name="type"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         public async Task<IActionResult> Index(int page = 1, int? categoryId = null, MaterialType type = MaterialType.Both, int? userId = null)
         {
             var filters = new MaterialFiltersDto
@@ -37,6 +54,11 @@ namespace MyLiverpool.Web.WebApiNext.Areas.Lite.Controllers
             return View(result);
         }
 
+        /// <summary>
+        /// MAterial details.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IActionResult> Detail(int id)
         {
             var hasAccess = User != null && (User.IsInRole(nameof(RolesEnum.NewsStart)) || User.IsInRole(nameof(RolesEnum.BlogStart)));

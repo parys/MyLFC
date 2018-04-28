@@ -1,5 +1,5 @@
 ﻿import { Injectable } from "@angular/core";
-import { Observable } from "rxjs/Observable";
+import { Observable } from "rxjs";
 import { Match } from "./match.model";
 import { MatchType } from "./matchType.model";
 import { HttpWrapper, Pageable } from "@app/shared";

@@ -1,0 +1,29 @@
+﻿{
+  "$schema": "./node_modules/@angular-devkit/core/src/workspace/workspace-schema.json",
+  "project": {
+    "name": "myLfc"
+  },
+  "projects": {
+    "angular2app": {
+      "root": "angular2app",
+      "projectType": "application",
+      "tsconfig": "../tsconfig.cli.json",
+      "outDir": "./wwwroot/dist",
+      "assets": [
+        {
+          "glob": "**/*",
+          "input": "../wwwroot/",
+          "output": "./",
+          "allowOutsideOutDir": true
+        }
+      ],
+      "main": "main.browser.cli.ts",
+      "polyfills": "polyfills/polyfills.ts",
+
+      "prefix": "app",
+      "scripts": [],
+      "index": "index.html"
+
+    }
+  }
+}

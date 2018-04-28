@@ -3,7 +3,7 @@ import { isPlatformServer } from "@angular/common";
 import { Title, DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { Router, ActivatedRoute } from "@angular/router";
 import { MatDialog, MatSnackBar } from "@angular/material";
-import { Subscription } from "rxjs/Subscription";
+import { Subscription } from "rxjs";
 import { MaterialService } from "../material.service";
 import { Material } from "../material.model";                
 import { MaterialType } from "@app/materialCategory";                

@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
-import { Subscription } from "rxjs/Subscription";
+import { Subscription } from "rxjs";
 import { AdminService } from "../admin.service";
 import { HelperType } from "../helperType.enum";
 import { RolesCheckedService } from "@app/shared";

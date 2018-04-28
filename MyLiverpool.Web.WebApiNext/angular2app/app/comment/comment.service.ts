@@ -1,5 +1,5 @@
 ﻿import { Injectable } from "@angular/core";
-import { Observable } from "rxjs/Observable";
+import { Observable } from "rxjs";
 import { Comment } from "./comment.model";
 import { CommentVote } from "./commentVote.model";
 import { CommentFilter } from "./commentFilter.model";

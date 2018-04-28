@@ -2,7 +2,7 @@
 import { isPlatformBrowser } from "@angular/common";  
 import { Router, ActivatedRoute, NavigationEnd } from "@angular/router";
 import { Title } from "@angular/platform-browser";
-import { Observable } from "rxjs/Observable"
+import { Observable } from "rxjs"
 import { filter, map, mergeMap } from "rxjs/operators"
 import { RolesCheckedService, AuthService, IAuthStateModel, BreadcrumbService } from "@app/shared";
 

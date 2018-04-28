@@ -2,7 +2,7 @@
 import { Location } from "@angular/common";
 import { MatDialog, MatSnackBar } from "@angular/material";
 import { Router, ActivatedRoute } from "@angular/router";
-import { Subscription } from "rxjs/Subscription";
+import { Subscription } from "rxjs";
 import { MaterialService } from "../material.service";
 import { Material } from "../material.model";
 import { MaterialFilters } from "../materialFilters.model";

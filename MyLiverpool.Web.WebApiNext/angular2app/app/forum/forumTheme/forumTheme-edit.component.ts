@@ -1,7 +1,7 @@
 ﻿import { Component, OnInit, OnDestroy } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
-import { Subscription } from "rxjs/Subscription";
+import { Subscription } from "rxjs";
 import { ForumTheme } from "./forumTheme.model";
 import { ForumSubsectionService, ForumSubsection } from "../forumSubsection";
 import { ForumThemeService } from "./forumTheme.service";

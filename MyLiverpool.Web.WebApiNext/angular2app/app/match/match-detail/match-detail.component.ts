@@ -1,9 +1,7 @@
 ﻿import { Component, OnInit, OnDestroy } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { BehaviorSubject } from "rxjs/BehaviorSubject";
-import { Subscription } from "rxjs/Subscription";
+import { BehaviorSubject, Subscription, interval } from "rxjs";
 import { Title } from "@angular/platform-browser";
-import { interval } from "rxjs/observable/interval";
 import { map } from "rxjs/operators";
 import { MatchService } from "../match.service";
 import { Match } from "../match.model";

@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Location } from "@angular/common";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { MatDialog } from "@angular/material";
-import { Subscription } from "rxjs/Subscription"
+import { Subscription } from "rxjs"
 import { Comment } from "../comment.model";
 import { CommentVote } from "../commentVote.model";
 import { CommentService } from "../comment.service";

@@ -1,5 +1,5 @@
 ﻿import { Injectable } from "@angular/core";
-import { Observable } from "rxjs/Observable";
+import { Observable } from "rxjs";
 import { HttpWrapper, Pageable } from "@app/shared";
 import { Person } from "./person.model";
 import { SquadList } from "./squad-list.model";

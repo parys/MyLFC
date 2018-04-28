@@ -2,7 +2,7 @@
 import { Router, ActivatedRoute } from "@angular/router";
 import { MatDialog, MatSnackBar } from "@angular/material";
 import { DeleteDialogComponent, RolesCheckedService } from "@app/shared";
-import { Observable } from "rxjs/Observable";
+import { Observable } from "rxjs";
 import { MatchEventService } from "../matchEvent.service";
 import { MatchEvent } from "../matchEvent.model";
 import { Person, PersonService } from "@app/person";

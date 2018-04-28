@@ -1,8 +1,7 @@
 ﻿import { Injectable, Inject } from "@angular/core";
 import { HttpInterceptor, HttpRequest, HttpEvent, HttpHandler, HttpErrorResponse, HttpResponse, HttpHeaders, HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs";
+import { Observable, throwError } from "rxjs";
 import { tap, catchError, flatMap } from "rxjs/operators";
-import { _throw } from "rxjs/observable/throw";
 import { StorageService } from "../storage.service";
 import { IRefreshGrantModel } from "../auth/models/refresh-grant-model";
 import { IAuthTokenModel } from "../auth/models/auth-token-model";
@@ -28,7 +27,7 @@ export class BearerInterceptor implements HttpInterceptor {
                     return this.updateTokens(next).pipe(flatMap(() => next.handle(this.addAuth(req))));
                 }
                 this.loaderService.hide();
-                return _throw(response);
+                return throwError(response);
             }));
     }
 

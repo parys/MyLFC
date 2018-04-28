@@ -2,7 +2,7 @@
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 import { MatSnackBar } from "@angular/material";
-import { Observable } from "rxjs/Observable";
+import { Observable } from "rxjs";
 import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
 import { MatchPerson } from "../matchPerson.model";
 import { MatchPersonType } from "../matchPersonType.model";

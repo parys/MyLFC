@@ -26,6 +26,10 @@ namespace MyLiverpool.Web.WebApiNext.Hubs
             _chatMessageService = chatMessageService;
         }
         
+        /// <summary>
+        /// Sends to clients new chat message.
+        /// </summary>
+        /// <param name="chatMessage"></param>
         [Authorize]
         public async void SendChatMessage(ChatMessageDto chatMessage)
         {

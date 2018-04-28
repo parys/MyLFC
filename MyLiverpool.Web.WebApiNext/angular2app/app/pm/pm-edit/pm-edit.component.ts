@@ -1,8 +1,7 @@
 ﻿import { Component, OnInit, OnDestroy } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { MatSnackBar } from "@angular/material";
-import { Subscription } from "rxjs/Subscription";   
-import { Observable } from "rxjs/Observable";
+import { Observable, Subscription } from "rxjs";
 import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
 import { Pm } from "../pm.model";
 import { PmService } from "../pm.service";

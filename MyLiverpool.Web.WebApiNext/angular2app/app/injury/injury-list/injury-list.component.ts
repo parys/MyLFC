@@ -2,7 +2,7 @@
 import { Location } from "@angular/common";
 import { ActivatedRoute } from "@angular/router";
 import { MatDialog } from "@angular/material";
-import { Subscription } from "rxjs/Subscription";
+import { Subscription } from "rxjs";
 import { Injury } from "../injury.model";
 import { InjuryService } from "../injury.service";
 import { Pageable, DeleteDialogComponent } from "@app/shared";

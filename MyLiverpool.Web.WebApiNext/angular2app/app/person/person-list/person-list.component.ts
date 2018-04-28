@@ -3,7 +3,7 @@ import { Location } from "@angular/common";
 import { FormBuilder, FormGroup } from "@angular/forms"; 
 import { ActivatedRoute } from "@angular/router";
 import { MatDialog } from "@angular/material";
-import { Subscription } from "rxjs/Subscription";
+import { Subscription } from "rxjs";
 import { Person } from "../person.model";
 import { PersonService } from "../person.service";
 import { Pageable, DeleteDialogComponent } from "@app/shared";

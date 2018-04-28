@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Title } from "@angular/platform-browser";
 import { MatSnackBar } from "@angular/material";
-import { Subscription } from "rxjs/Subscription";
+import { Subscription } from "rxjs";
 import { Configuration } from "@app/app.constants";
 import { User } from "../user.model";                          
 import { UserService } from "../+core";

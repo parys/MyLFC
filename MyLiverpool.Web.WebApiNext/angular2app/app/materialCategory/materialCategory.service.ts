@@ -1,5 +1,5 @@
 ﻿import { Injectable } from "@angular/core";
-import { Observable } from "rxjs/Observable";
+import { Observable } from "rxjs";
 import { MaterialCategory } from "./materialCategory.model";
 import { MaterialType } from "./materialType.enum";
 import { HttpWrapper } from "@app/shared";

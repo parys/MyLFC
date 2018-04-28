@@ -1,7 +1,7 @@
 ﻿import { Component, OnInit, OnDestroy } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { Location } from "@angular/common";   
-import { Subscription } from "rxjs/Subscription";
+import { Subscription } from "rxjs";
 import { ForumSubsectionService } from "./forumSubsection.service";
 import { ForumSubsection } from "./forumSubsection.model";
 import { ForumTheme } from "../forumTheme";

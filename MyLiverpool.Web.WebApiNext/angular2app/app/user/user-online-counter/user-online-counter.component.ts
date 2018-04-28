@@ -1,7 +1,6 @@
 ﻿import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, PLATFORM_ID, Inject } from "@angular/core";
 import { isPlatformBrowser } from "@angular/common";  
-import { Subscription } from "rxjs/Subscription";
-import { interval } from "rxjs/observable/interval";
+import { interval, Subscription } from "rxjs";
 import { map } from "rxjs/operators";
 import { UserService } from "../+core";
 import { IUserOnline } from "../user-online.model";

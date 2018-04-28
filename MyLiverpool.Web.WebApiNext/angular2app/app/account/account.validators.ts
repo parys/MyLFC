@@ -1,7 +1,6 @@
 ﻿import { FormControl } from "@angular/forms";
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs/Observable";
-import { Subject } from "rxjs/Subject";
+import { Observable, Subject } from "rxjs";
 import { AccountService } from "./account.service";
 import { Configuration } from "../app.constants";
 import { debounceTime, takeUntil, take, switchMap } from "rxjs/operators";

@@ -1,6 +1,6 @@
 ﻿import { Component } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { Subscription } from "rxjs/Subscription";
+import { Subscription } from "rxjs";
 import { SquadList } from "../squad-list.model";
 import { PersonService } from "../person.service";
 import { PersonTypeEnum } from "../personType.enum";

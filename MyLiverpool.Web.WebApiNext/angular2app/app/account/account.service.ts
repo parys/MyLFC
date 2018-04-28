@@ -1,6 +1,6 @@
 ﻿import { Injectable } from "@angular/core";
-import { Observable } from "rxjs/Observable";
-import { HttpWrapper } from "../shared/index";
+import { Observable } from "rxjs";
+import { HttpWrapper } from "@app/shared";
 import { ResetPassword } from "./resetPassword.model";
 import { ChangePassword } from "./changePassword.model";
 
