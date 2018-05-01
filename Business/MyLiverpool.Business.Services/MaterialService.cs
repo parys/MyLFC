@@ -198,7 +198,16 @@ namespace MyLiverpool.Business.Services
         private const string XpathImages = "//img[contains(@class, 'media-gallery-image')]";
         public async Task<IEnumerable<string>> GetExtractedImageLinks(string url)
         {
-            var htmlImgTags = await HtmlExtractorHelpers.GetHtmlRowsAsync(url.Replace(":/", "://"), XpathImages);
+            if (!url.Contains("://"))
+            {
+                url = url.Replace(":/", "://");
+            }
+
+            if (url.Last() == '/')
+            {
+                url = url.Substring(0, url.Length - 1);
+            }
+            var htmlImgTags = await HtmlExtractorHelpers.GetHtmlRowsAsync(url, XpathImages);
             return htmlImgTags?.Select(x => x.Attributes["data-src"].Value);
         }
 

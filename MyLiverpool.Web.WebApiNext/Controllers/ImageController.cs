@@ -18,14 +18,12 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     [Authorize(AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme, Roles = nameof(RolesEnum.NewsStart) +"," + nameof(RolesEnum.BlogStart)), Route("api/v1/[controller]")]
     public class ImageController : Controller
     {
-        private const string PathContent = "content\\";
-        private const string PathImages = "images\\";
-        private const string PathFull = "content\\images\\";
+        private const string PathContent = "content";
+        private const string PathImages = "images";
+        private readonly string _pathFull = Path.Combine("content", "images");
         private readonly IHostingEnvironment _env;
         private readonly IUploadService _uploadService;
-
-        private readonly int _pathLength = PathFull.Length + 1;
-
+        
         /// <summary>
         /// Constructor.
         /// </summary>
@@ -46,11 +44,11 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             List<ImageDto> files = new List<ImageDto>();
             if (string.IsNullOrWhiteSpace(path) || path == "undefined")
             {
-                path = PathFull;
+                path = _pathFull;
             }
             if (!path.Contains(PathContent))
             {
-                path = Path.Combine(PathFull, path);
+                path = Path.Combine(_pathFull, path);
             }
             //CHECK ONLY ALLOWED PATHES
             IEnumerable<string> subdirectoryFolders;
@@ -63,26 +61,26 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             }
             catch (DirectoryNotFoundException)
             {
-                fullPath = Path.Combine(_env.ContentRootPath, PathFull);
+                fullPath = Path.Combine(_env.ContentRootPath, _pathFull);
                 subdirectoryFolders = Directory.EnumerateDirectories(fullPath);
                 subdirectoryFiles = Directory.EnumerateFiles(fullPath);
             }
 
             foreach (var entry in subdirectoryFolders)
             {
-                files.Add(new ImageDto()
+                files.Add(new ImageDto
                 {
-                    Name = entry.Substring(entry.LastIndexOf('\\') + 1),
-                    Path = entry.Substring(entry.LastIndexOf(PathFull, StringComparison.OrdinalIgnoreCase)),
+                    Name = entry.Substring(entry.LastIndexOf(Path.DirectorySeparatorChar) + 1),
+                    Path = entry.Substring(entry.LastIndexOf(_pathFull, StringComparison.OrdinalIgnoreCase)),
                     IsFolder = true
                 });
             }
             foreach (var entry in subdirectoryFiles)
             {
-                files.Add(new ImageDto()
+                files.Add(new ImageDto
                 {
-                    Name = entry.Substring(entry.LastIndexOf('\\') + 1),
-                    Path = entry.Substring(entry.LastIndexOf(PathFull, StringComparison.OrdinalIgnoreCase)),
+                    Name = entry.Substring(entry.LastIndexOf(Path.DirectorySeparatorChar) + 1),
+                    Path = entry.Substring(entry.LastIndexOf(_pathFull, StringComparison.OrdinalIgnoreCase)),
                     IsFolder = false
                 });
             }

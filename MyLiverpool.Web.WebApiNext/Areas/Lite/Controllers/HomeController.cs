@@ -17,6 +17,10 @@ namespace MyLiverpool.Web.WebApiNext.Areas.Lite.Controllers
     {
         private readonly IMaterialService _materialService;
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="materialService"></param>
         public HomeController(IMaterialService materialService)
         {
             _materialService = materialService;
@@ -60,6 +64,11 @@ namespace MyLiverpool.Web.WebApiNext.Areas.Lite.Controllers
         }
 
         public IActionResult Rules()
+        {
+            return View();
+        }
+
+        public IActionResult Cooperation()
         {
             return View();
         }

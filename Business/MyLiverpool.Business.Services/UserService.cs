@@ -10,6 +10,7 @@ using MyLiverpool.Data.ResourceAccess.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -21,7 +22,7 @@ namespace MyLiverpool.Business.Services
         private readonly IUserRepository _userRepository;
         private readonly IRoleGroupRepository _roleGroupRepository;
         private readonly IMapper _mapper;
-        private const string DefaultPhotoPath = "/content/avatars/default.png";
+        private readonly string _defaultPhotoPath = Path.Combine("content", "avatars", "default.png");
 
         public UserService(IMapper mapper, IUserRepository userRepository, IRoleGroupRepository roleGroupRepository)
         {
@@ -171,7 +172,7 @@ namespace MyLiverpool.Business.Services
             }
             if (FileHelper.Delete(user.Photo))
             {
-                user.Photo = DefaultPhotoPath;
+                user.Photo = _defaultPhotoPath;
                 await _userRepository.UpdateAsync(user);
             }
             return user.Photo;

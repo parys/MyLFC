@@ -15,7 +15,7 @@
         public const int CountStadiumsForAutocomlete = 10;
         public const int TakingChatMessagesCount = 100;
         public const int MyLfcUserId = 559;
-        public const string DefaultPhotoPath = "/content/avatars/default.png";
+        public const string DefaultPhotoPath = "default.png";
         public const int NotificationsCount = 15;
         public const string LiverpoolClubEnglishName = "liverpool";
 

@@ -19,7 +19,7 @@
             <span class="col-xs-2 padding0">:</span>
             <b class="col-xs-5">@Model.ScoreAway</b>
             <!--<i class="font-size13">Серия пенальти:</i>-->
-            @if (Model.ScorePenaltyHome.HasValue)
+            @if (Model.ScorePenaltyHome.HasValue && Model.ScorePenaltyAway.HasValue)
             {
                 <b>(@Model.ScorePenaltyHome-@Model.ScorePenaltyAway)</b>
             }

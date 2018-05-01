@@ -233,19 +233,19 @@ namespace MyLiverpool.Web.WebApiNext
                 });
             }
 
-            // services.AddNodeServices(options =>
-            //  {
-            //  options.DebuggingPort = 8888;
-            //   options.LaunchWithDebugging = true;
-
-            //   options.InvocationTimeoutMilliseconds = 140000;
-            //  });
-            var context = (LiverpoolContext)services.BuildServiceProvider().GetService(typeof(LiverpoolContext));
-            context.Database.Migrate();
-            if (Env.IsDevelopment())
+            services.AddNodeServices(options =>
             {
-                new DatabaseInitializer(context).Seed();
-            }
+              //  options.DebuggingPort = 8888;
+             //   options.LaunchWithDebugging = true;
+
+             //   options.InvocationTimeoutMilliseconds = 140000;
+            });
+            var context = (LiverpoolContext) services.BuildServiceProvider().GetService(typeof(LiverpoolContext));
+            context.Database.Migrate();
+            //if (Env.IsDevelopment())
+            //{
+            //    new DatabaseInitializer(context).Seed();
+            //}
         }
 
         /// <summary>
@@ -273,16 +273,16 @@ namespace MyLiverpool.Web.WebApiNext
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
                 app.UseBrowserLink();
-                //app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions()
-                //{
-                //    HotModuleReplacement = true,
-                //});
+                app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions()
+                {
+                    HotModuleReplacement = true,
+                });
 
                 app.UseSwagger();
                 app.UseSwaggerUI(c =>
                 {
                     c.SwaggerEndpoint("/swagger/v1/swagger.json", "V1 Docs");
-                    c.ConfigureOAuth2("test-client-id123", "test-client-secr43et", "test-rea32lm", "test-a11pp");
+                 //   c.ConfigureOAuth2("test-client-id123", "test-client-secr43et", "test-rea32lm", "test-a11pp");
                 });
             }
             else
@@ -293,14 +293,18 @@ namespace MyLiverpool.Web.WebApiNext
             app.UseCors("MyPolicy");
 
             app.UseDefaultFiles();
-            app.UseStaticFiles(new StaticFileOptions()
+            app.UseStaticFiles(new StaticFileOptions
             {
                 OnPrepareResponse = ctx =>
                 {
                     ctx.Context.Response.Headers.Append("Cache-Control", "public,max-age=86400");
                 }
             });
-
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            });
+            
             app.UseAuthentication();//UseIdentity();
 
             //app.UseSignalR(routes =>

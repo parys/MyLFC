@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using FluentAssertions;
+using FluentAssertions.Common;
 using Microsoft.EntityFrameworkCore;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
@@ -28,7 +28,7 @@ namespace MyLiverpool.Business.Services.Tests
 
             Assert.True(result.Id > 0);
             expected.Id = result.Id;
-            result.ShouldBeEquivalentTo(expected);
+            result.IsSameOrEqualTo(expected);
         }
 
         [Theory, ClassData(typeof(ClubGetTestData))]
@@ -36,7 +36,7 @@ namespace MyLiverpool.Business.Services.Tests
         {
             var result = await _clubService.GetByIdAsync(wishId);
 
-            result.ShouldBeEquivalentTo(expected);
+            result.IsSameOrEqualTo(expected);
         }
 
         [Theory, ClassData(typeof(ClubGetListTestData))]
@@ -47,7 +47,7 @@ namespace MyLiverpool.Business.Services.Tests
             Assert.Equal(3, result.TotalItems);//bug list gets initial with created count
             Assert.Equal(page, result.PageNo);
 
-            result.List.ShouldBeEquivalentTo(expected);
+            result.List.IsSameOrEqualTo(expected);
         } 
 
         [Theory, ClassData(typeof(ClubDeleteTestData))]
@@ -58,9 +58,9 @@ namespace MyLiverpool.Business.Services.Tests
             if (wishToDelete != null)
             {
                 wishToDelete = await _clubService.GetByIdAsync(wishId);
-                wishToDelete.ShouldBeEquivalentTo(null);
+                wishToDelete.IsSameOrEqualTo(null);
             }
-            result.ShouldBeEquivalentTo(expected);
+            result.IsSameOrEqualTo(expected);
         }
 
         public void Dispose()

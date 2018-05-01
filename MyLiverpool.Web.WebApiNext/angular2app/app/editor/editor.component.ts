@@ -4,27 +4,6 @@ import { Settings, Editor } from "tinymce";
 import { LazyLoadingLibraryService } from "./lazyLoadingLibrary.service";
 
 declare let tinymce: any;
-/*import "tinymce/themes/modern"
-import "tinymce/plugins/advlist";
-import "tinymce/plugins/anchor";
-import "tinymce/plugins/autolink";
-import "tinymce/plugins/autoresize";
-import "tinymce/plugins/colorpicker";
-import "tinymce/plugins/textcolor";
-import "tinymce/plugins/code";
-import "tinymce/plugins/emoticons";
-import "tinymce/plugins/fullscreen";
-import "tinymce/plugins/image";
-import "tinymce/plugins/hr";
-import "tinymce/plugins/link";
-import "tinymce/plugins/lists";
-import "tinymce/plugins/media";
-import "tinymce/plugins/paste";
-import "tinymce/plugins/spellchecker";
-import "tinymce/plugins/preview";
-import "tinymce/plugins/table";
-import "tinymce/plugins/visualblocks";*/
-
 
 @Component({
     selector: "bbeditor",
@@ -47,7 +26,6 @@ export class EditorComponent implements ControlValueAccessor {
     @Input() public height: number = 200;
     public elementId: string = Math.random().toString(36).substring(2);
     public zone: NgZone;
-    public clientSide: boolean;
     //   public tinymce: EditorManager = new EditorManager();
     public editor: Editor;
     //  @ViewChild("nativeElement") public nativeElement: ElementRef;
@@ -56,17 +34,13 @@ export class EditorComponent implements ControlValueAccessor {
         private lazyService: LazyLoadingLibraryService,
         zone: NgZone) {
         this.zone = zone;
-        lazyService.loadJs("/src/tinymce.min.js").subscribe(_ => this.initTiny());
+      //  lazyService.loadJs("/src/tinymce.min.js").subscribe(_ => this.initTiny());
     }
 
     public ngAfterViewInit(): void {
         if (this.isTinyDefined()) {
             this.initTiny();
         }
-        //     if (this.ClientSide) {
-        //         require.resolve(['tinymce'
-        //         ], require => require("tinymce"))
-        //      } //todo should be moved
     }
 
     public setFocus() {
@@ -107,12 +81,12 @@ export class EditorComponent implements ControlValueAccessor {
     public writeValue(value: any): void {
         this.value = value;
         if (this.isTinyDefined()) {
-            this.initTiny();
-            if (tinymce.editors && tinymce.editors[this.elementId]) {
-                tinymce.editors[this.elementId].setContent((value) ? value : "");
+                this.initTiny();
+                if (tinymce.editors && tinymce.editors[this.elementId]) {
+                    tinymce.editors[this.elementId].setContent((value) ? value : "");
+                }
             }
         }
-    }
 
     public onChange(_: any): void { }
     public onTouched(): void { }
@@ -126,7 +100,7 @@ export class EditorComponent implements ControlValueAccessor {
 
     private getPlugins(): string {
         const common: string = ` autolink lists link anchor image preview fullscreen hr
-        visualblocks code media table paste textcolor colorpicker autolink CustomEmoticons visualblocks`;
+        visualblocks code media table paste textcolor colorpicker autolink customEmoticons visualblocks`;
         if (this.type === 1) {
             return `advlist ${common}`;
         }
@@ -141,7 +115,7 @@ export class EditorComponent implements ControlValueAccessor {
 
     private getToolbar(): string {
         const common: string =
-            `bold italic underline strikethrough | CustomEmoticons |`;//poiler-add spoiler-remove`;
+            `bold italic underline strikethrough | customEmoticons |`;//poiler-add spoiler-remove`;
         const type1: string = `styleselect | link image media | alignleft aligncenter alignright alignjustify |
                                  | bullist numlist | outdent indent | forecolor backcolor | ${common} | fontsizeselect visualblocks`;
         const type2: string = `undo redo | fullscreen | colorpicker table code ${type1}`;

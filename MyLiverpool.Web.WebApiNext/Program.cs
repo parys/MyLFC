@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 
 namespace MyLiverpool.Web.WebApiNext
 {
@@ -15,19 +16,26 @@ namespace MyLiverpool.Web.WebApiNext
         /// <param name="args">Console arguments.</param>
         public static void Main(string[] args)
         {
-            BuildWebHost(args).Run();
-        }
+            var config = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("hosting.json", true)
+                .Build();
 
-        private static IWebHost BuildWebHost(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-//#if !DEBUG
-//                .UseApplicationInsights()
-//#endif
-                .CaptureStartupErrors(true)
+
+            var host = WebHost.CreateDefaultBuilder(args)
+                //                .UseApplicationInsights()
+                .UseConfiguration(config)
+                //.CaptureStartupErrors(true)
                 .UseKestrel()
                 .UseContentRoot(Directory.GetCurrentDirectory())
-                .UseIISIntegration()
+
+#if DEBUG        
+    .UseIISIntegration()
+#endif
                 .UseStartup<Startup>()
                 .Build();
+
+            host.Run();
+        }
     }
 }

@@ -14,7 +14,7 @@ export class ImageListComponent implements OnInit, OnDestroy {
     private sub: Subscription;
     items: Image[];
     selectedItem: Image;
-    defaultPath: string = "content\\images";
+    defaultPath: string = "content/images";
     path: string = this.defaultPath;
 
     constructor(private service: ImageService, private location: Location, private route: ActivatedRoute) {
@@ -42,7 +42,7 @@ export class ImageListComponent implements OnInit, OnDestroy {
     }
 
     goUp(): void {
-        this.path = this.path.substring(0, this.path.lastIndexOf("\\"));
+        this.path = this.path.substring(0, this.path.lastIndexOf("/"));
         this.updateFolder(this.path);
     }
 

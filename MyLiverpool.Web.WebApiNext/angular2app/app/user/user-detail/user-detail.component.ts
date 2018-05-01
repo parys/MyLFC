@@ -83,7 +83,6 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     public onChangeAvatar(event: any): void {
         const file = event.currentTarget.files[0];
         if (file) {
-            console.log(file.size);
             if (file.size > 251 * 1024) {
                 alert("Размер изображения не должен превышать 250КБ");
                 return;
