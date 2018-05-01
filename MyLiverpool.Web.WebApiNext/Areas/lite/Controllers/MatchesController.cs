@@ -5,11 +5,11 @@ using MyLiverpool.Business.Contracts;
 namespace MyLiverpool.Web.WebApiNext.Areas.Lite.Controllers
 {
     [Area("lite")]
-    public class MatchController : Controller
+    public class MatchesController : Controller
     {
         private readonly IMatchService _matchService;
 
-        public MatchController(IMatchService matchService)
+        public MatchesController(IMatchService matchService)
         {
             _matchService = matchService;
         }

@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-xs-9 col-sm-8">
                 <span>@Model.Number</span>
-                <a asp-action="Detail" asp-controller="User" asp-route-id="@Model.AuthorId">@Model.AuthorUserName</a>
+                <a asp-action="Detail" asp-controller="Users" asp-route-id="@Model.AuthorId">@Model.AuthorUserName</a>
                 <span class="small timeConvert" data-date="@Model.AdditionTime.ToString("O")" data-dow="true" data-sec="false"></span>
                 @if (Model.LastModified != Model.AdditionTime)
                 {

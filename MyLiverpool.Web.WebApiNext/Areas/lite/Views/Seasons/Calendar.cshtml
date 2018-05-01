@@ -45,15 +45,15 @@
                     <td>
                         @if (!string.IsNullOrWhiteSpace(Model.Matches.ElementAt(i).ReportUrl))
                 {
-                            <a asp-action="Detail" asp-controller="Material" asp-route-id="@Model.Matches.ElementAt(i).ReportUrl">Отчет</a>
+                            <a asp-action="Detail" asp-controller="Materials" asp-route-id="@Model.Matches.ElementAt(i).ReportUrl">Отчет</a>
                         }
                         else
                         {
-                            <a asp-action="Detail" asp-controller="Match" asp-route-id="@Model.Matches.ElementAt(i).Id">Обсуждение</a>
+                            <a asp-action="Detail" asp-controller="Matches" asp-route-id="@Model.Matches.ElementAt(i).Id">Обсуждение</a>
                         }
                         @if (!string.IsNullOrWhiteSpace(Model.Matches.ElementAt(i).PhotoUrl))
                 {
-                            <a asp-action="Detail" asp-controller="Material" asp-route-id="@Model.Matches.ElementAt(i).PhotoUrl">Фото</a>
+                            <a asp-action="Detail" asp-controller="Materials" asp-route-id="@Model.Matches.ElementAt(i).PhotoUrl">Фото</a>
                         }
                         @if (!string.IsNullOrWhiteSpace(Model.Matches.ElementAt(i).VideoUrl))
                 {

@@ -300,11 +300,6 @@ namespace MyLiverpool.Web.WebApiNext
                     ctx.Context.Response.Headers.Append("Cache-Control", "public,max-age=86400");
                 }
             });
-            app.UseForwardedHeaders(new ForwardedHeadersOptions
-            {
-                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
-            });
-            
             app.UseAuthentication();//UseIdentity();
 
             //app.UseSignalR(routes =>

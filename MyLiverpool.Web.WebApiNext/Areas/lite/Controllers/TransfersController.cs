@@ -8,11 +8,11 @@ using MyLiverpool.Business.Contracts;
 namespace MyLiverpool.Web.WebApiNext.Areas.Lite.Controllers
 {
     [Area("lite")]
-    public class TransferController : Controller
+    public class TransfersController : Controller
     {
         private readonly ITransferService _transferService;
 
-        public TransferController(ITransferService transferService)
+        public TransfersController(ITransferService transferService)
         {
             _transferService = transferService;
         }

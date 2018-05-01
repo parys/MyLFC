@@ -6,11 +6,11 @@ using MyLiverpool.Data.Common;
 namespace MyLiverpool.Web.WebApiNext.Areas.Lite.Controllers
 {
     [Area("lite")]
-    public class MaterialCategoryController : Controller
+    public class MaterialCategoriesController : Controller
     {
         private readonly IMaterialCategoryService _materialCategoryService;
 
-        public MaterialCategoryController(IMaterialCategoryService materialCategoryService)
+        public MaterialCategoriesController(IMaterialCategoryService materialCategoryService)
         {
             _materialCategoryService = materialCategoryService;
         }

@@ -12,12 +12,12 @@ using MyLiverpool.Web.WebApiNext.Extensions;
 namespace MyLiverpool.Web.WebApiNext.Areas.Lite.Controllers
 {
     [Area("lite")]
-    public class MaterialController : Controller
+    public class MaterialsController : Controller
     {
         private readonly IMaterialService _materialService;
         private readonly IMemoryCache _cache;
 
-        public MaterialController(IMaterialService materialService, IMemoryCache cache)
+        public MaterialsController(IMaterialService materialService, IMemoryCache cache)
         {
             _materialService = materialService;
             _cache = cache;

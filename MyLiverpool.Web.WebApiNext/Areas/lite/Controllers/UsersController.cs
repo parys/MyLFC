@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto.Filters;
@@ -8,13 +7,21 @@ using MyLiverpool.Data.Common;
 
 namespace MyLiverpool.Web.WebApiNext.Areas.Lite.Controllers
 {
-    [Authorize]
+    /// <inheritdoc />
+    /// <summary>
+    /// Manages users.
+    /// </summary>
     [Area("lite")]
-    public class UserController : Controller
+    [Route("[controller]")]
+    public class UsersController : Controller
     {
         private readonly IUserService _userService;
 
-        public UserController(IUserService userService)
+        /// <summary>
+        /// Controller.
+        /// </summary>
+        /// <param name="userService"></param>
+        public UsersController(IUserService userService)
         {
             _userService = userService;
         }
@@ -30,6 +37,7 @@ namespace MyLiverpool.Web.WebApiNext.Areas.Lite.Controllers
             return View(model);
         }
 
+        [HttpGet("{id}")]
     //    [AllowAnonymous]
         public async Task<IActionResult> Detail(int id)
         {

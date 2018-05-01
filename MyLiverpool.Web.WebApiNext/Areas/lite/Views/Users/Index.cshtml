@@ -20,7 +20,7 @@
         <tr>
             <td class=""><span data-date="@user.LastModified.ToString("O")" data-dow="true" data-sec="false" class="timeConvert"></span></td>
             <td class="">
-                <a asp-action="Detail" asp-controller="User" asp-route-id="@user.Id">
+                <a asp-action="Detail" asp-controller="Users" asp-route-id="@user.Id">
                     <div class="col-sm-3">
                         <img class="mini-avatar" src="@user.Photo" alt="@user.UserName"/>
                     </div>
@@ -41,13 +41,13 @@
 }
 
 <a asp-action="Index"
-   asp-controller="User"
+   asp-controller="Users"
    asp-route-page="@(Model.PageNo - 1)"
    class="btn btn-default @prevDisabled">
     Предыдущая
 </a>
 <a asp-action="Index"
-   asp-controller="User"
+   asp-controller="Users"
    asp-route-page="@(Model.PageNo + 1)"
    class="btn btn-default @nextDisabled">
     Следующая

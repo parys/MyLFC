@@ -14,12 +14,12 @@
                  <div class="row flex border-left-maroon" [class.material-pending]="item.pending">
                      <div class="flex-vertical-center material-header col-xs-12">
                          <a asp-action="Detail"
-                            asp-controller="Material" 
+                            asp-controller="Materials" 
                             asp-route-id="@item.Id">
                              <h3 class="beauty-font">@item.Title</h3>
                          </a>
                          <span class="pull-right">
-                             @if (User.IsInRole(nameof(RolesEnum.NewsFull)) @*todo || User?.GetUserId() == item.UserId *@)
+                             @if (User.IsInRole(nameof(RolesEnum.NewsFull)) || User?.GetUserId() == item.UserId)
                              {
                                  <span>
                                      @if (item.Pending && User.IsInRole(nameof(RolesEnum.NewsFull)))
@@ -60,12 +60,14 @@
                              <li class="">|</li>
                              <li class="">Автор:</li>
                              <li class=""><a asp-action="Detail"
-                                             asp-controller="User"
+                                             asp-controller="Users"
                                              asp-route-id="@item.UserId">@item.UserName</a></li>
                              @if (item.CanCommentary)
                              {
-                                 <li class="">@*| Комментарии: @item.CommentsCount*@</li>
-                                <li class="">| <a asp-action="Detail" asp-controller="Material" asp-route-id="@item.Id" asp-fragment="comments">Комментарии: @item.CommentsCount</a></li>
+                                 <li class="">| <a asp-action="Detail"
+                                                   asp-controller="Materials"
+                                                   asp-route-id="@item.Id"
+                                                   asp-fragment="comments">Комментарии: @item.CommentsCount</a></li>
                              }
                          </ul>
                      </div>
@@ -79,13 +81,13 @@
     }
 
     <a asp-action="Index"
-       asp-controller="Material"
+       asp-controller="Materials"
        asp-route-page="@(Model.PageNo - 1)"
        class="btn btn-default @prevDisabled">
         Предыдущая
     </a>
     <a asp-action="Index"
-       asp-controller="Material"
+       asp-controller="Materials"
        asp-route-page="@(Model.PageNo + 1)"
        class="btn btn-default @nextDisabled">
         Следующая

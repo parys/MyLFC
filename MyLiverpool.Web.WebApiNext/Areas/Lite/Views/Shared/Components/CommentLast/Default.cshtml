@@ -9,13 +9,13 @@
         var id = Model.ElementAt(i).MaterialId ?? Model.ElementAt(i).MatchId;
         <div class="col-xs-12 container-row">
             <a asp-action="Detail"
-               asp-controller="User"
+               asp-controller="Users"
                asp-route-id="@Model.ElementAt(i).AuthorId"
                class="color-gold">@Model.ElementAt(i).AuthorUserName</a>: 
             @if (Model.ElementAt(i).MaterialId.HasValue)
                {
                 <a asp-action="Detail"
-                   asp-controller="Material"
+                   asp-controller="Materials"
                    asp-route-id="@Model.ElementAt(i).MaterialId.Value"
                    asp-fragment="com@(Model.ElementAt(i).Id)"
                    class="@textYellow @textDarkGold">@Model.ElementAt(i).Message</a>
@@ -23,7 +23,7 @@
             @if (Model.ElementAt(i).MatchId.HasValue)
             {
                 <a asp-action="Detail"
-                   asp-controller="Match"
+                   asp-controller="Matches"
                    asp-route-id="@Model.ElementAt(i).MatchId.Value"
                    asp-fragment="com@(Model.ElementAt(i).Id)"
                    class="@textYellow @textDarkGold">@Model.ElementAt(i).Message</a>

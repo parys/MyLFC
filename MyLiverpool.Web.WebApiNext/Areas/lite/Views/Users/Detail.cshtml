@@ -128,14 +128,14 @@
             @if (Model.NewsCount > 0)
             {
                 <li>
-                    <a asp-action="Index" asp-controller="Material" asp-route-type="News" asp-route-userId="@Model.Id">Новости(@Model.NewsCount)</a>
+                    <a asp-action="Index" asp-controller="Materials" asp-route-type="News" asp-route-userId="@Model.Id">Новости(@Model.NewsCount)</a>
                 </li>
                 <li>|</li>
             }
             @if (Model.BlogsCount > 0)
             {
                 <li *ngIf="item.blogsCount > 0">
-                    <a asp-action="Index" asp-controller="Material" asp-route-type="Blogs" asp-route-userId="@Model.Id">Блоги(@Model.BlogsCount)</a>
+                    <a asp-action="Index" asp-controller="Materials" asp-route-type="Blogs" asp-route-userId="@Model.Id">Блоги(@Model.BlogsCount)</a>
                 </li>
                 <li>|</li>
             }

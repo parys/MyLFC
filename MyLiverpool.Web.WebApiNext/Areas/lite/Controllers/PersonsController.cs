@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace MyLiverpool.Web.WebApiNext.Areas.Lite.Controllers
 {
     [Area("lite")]
-    public class PersonController : Controller
+    public class PersonsController : Controller
     {
         public IActionResult Squad()
         {

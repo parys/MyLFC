@@ -9,13 +9,13 @@ using MyLiverpool.Business.Contracts;
 namespace MyLiverpool.Web.WebApiNext.Areas.Lite.Controllers
 {
     [Area("lite")]
-    public class SeasonController : Controller
+    public class SeasonsController : Controller
     {
         private readonly ISeasonService _seasonService;
         private readonly IMatchEventService _matchEventService;
         private readonly IMemoryCache _cache;
 
-        public SeasonController(ISeasonService seasonService, IMemoryCache cache, IMatchEventService matchEventService)
+        public SeasonsController(ISeasonService seasonService, IMemoryCache cache, IMatchEventService matchEventService)
         {
             _seasonService = seasonService;
             _cache = cache;

@@ -40,12 +40,12 @@
             <li><label>Дата добавления:</label> <span class="timeConvert" data-date="@Model.AdditionTime.ToString("O")" data-dow="true" data-sec="false"></span></li>
             <li><label>Категория:</label>
                 <a asp-action="Index"
-                   asp-controller="Material"
+                   asp-controller="Materials"
                    asp-route-page="1"
                    asp-route-categoryId="@Model.CategoryId"> @Model.CategoryName</a></li>
             <li><label>Автор:</label>
                 <a asp-action="Detail"
-                   asp-controller="User"
+                   asp-controller="Users"
                    asp-route-id="@Model.UserId">@Model.UserName</a></li>
         </ul>
     </div>
