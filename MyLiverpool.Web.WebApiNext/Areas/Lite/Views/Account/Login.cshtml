@@ -5,7 +5,7 @@
 @inject SignInManager<User> SignInManager
 
 @{
-    ViewData["Title"] = "Log in";
+    ViewData["Title"] = "Вход";
 }
 
 <h2>@ViewData["Title"]</h2>
@@ -13,7 +13,7 @@
     <div class="col-md-4">
         <section>
             <form asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
-                <h4>Use a local account to log in.</h4>
+                <h4>Используйте логин и пароль чтобы войти в систему</h4>
                 <hr />
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="form-group">
@@ -35,16 +35,16 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-default">Log in</button>
+                    <button type="submit" class="btn btn-default">Войти</button>
                 </div>
-                <div class="form-group">
+                @*<div class="form-group">
                     <p>
-                        <a asp-action="ForgotPassword">Forgot your password?</a>
+                        <a asp-action="ForgotPassword">Забыли пароль?</a>
                     </p>
                     <p>
-                        <a asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]">Register as a new user?</a>
+                        <a asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]">Зарегистрироваться как новый пользователь?</a>
                     </p>
-                </div>
+                </div>*@
             </form>
         </section>
     </div>

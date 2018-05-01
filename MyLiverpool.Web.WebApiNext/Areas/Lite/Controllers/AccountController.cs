@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -13,6 +12,10 @@ using MyLiverpool.Web.WebApiNext.Areas.Lite.Models.AccountViewModels;
 
 namespace MyLiverpool.Web.WebApiNext.Areas.Lite.Controllers
 {
+    /// <inheritdoc />
+    /// <summary>
+    /// Manages user accounts.
+    /// </summary>
     [Authorize]
     [Route("[controller]/[action]")]
     [Area("lite")]
@@ -25,6 +28,15 @@ namespace MyLiverpool.Web.WebApiNext.Areas.Lite.Controllers
         private readonly IAccountService _accountService;
         private readonly ILogger _logger;
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="userManager"></param>
+        /// <param name="signInManager"></param>
+        /// <param name="emailSender"></param>
+        /// <param name="logger"></param>
+        /// <param name="accountService"></param>
+        /// <param name="userService"></param>
         public AccountController(
             UserManager<User> userManager,
             SignInManager<User> signInManager,

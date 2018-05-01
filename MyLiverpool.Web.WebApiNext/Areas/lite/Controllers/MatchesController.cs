@@ -4,11 +4,20 @@ using MyLiverpool.Business.Contracts;
 
 namespace MyLiverpool.Web.WebApiNext.Areas.Lite.Controllers
 {
+    /// <inheritdoc />
+    /// <summary>
+    /// Manages matches.
+    /// </summary>
     [Area("lite")]
+    [Route("[controller]")]
     public class MatchesController : Controller
     {
         private readonly IMatchService _matchService;
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="matchService"></param>
         public MatchesController(IMatchService matchService)
         {
             _matchService = matchService;
@@ -19,6 +28,12 @@ namespace MyLiverpool.Web.WebApiNext.Areas.Lite.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Shows detail match page.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("{id:int}")]
         public async Task<IActionResult> Detail(int id)
         {
             var match = await _matchService.GetByIdAsync(id); //todo add caching for match
