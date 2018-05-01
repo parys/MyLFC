@@ -1,23 +1,17 @@
 ﻿using System;
-using System.Diagnostics;
-using System.IO;
 using System.Threading.Tasks;
-using System.Xml;
 using AspNet.Security.OAuth.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
-using Microsoft.SyndicationFeed;
-using Microsoft.SyndicationFeed.Rss;
+using MyLfc.Common.Web;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Business.Dto.Filters;
 using MyLiverpool.Common.Utilities;
 using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
-using MyLiverpool.Data.Entities;
-using MyLiverpool.Web.WebApiNext.Extensions;
 using Newtonsoft.Json;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
@@ -134,8 +128,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Authorize(Roles = nameof(RolesEnum.NewsStart) + "," + nameof(RolesEnum.BlogStart)), HttpPost("{type}")]//todo add cutting absolute path to relative
         public async Task<IActionResult> CreateAsync(string type, [FromBody] MaterialDto model)
         {
-            MaterialType materialType;
-            if (!ModelState.IsValid || !Enum.TryParse(type, true, out materialType))
+            if (!ModelState.IsValid || !Enum.TryParse(type, true, out MaterialType materialType))
             {
                 return BadRequest(ModelState);
             }

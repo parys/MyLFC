@@ -311,10 +311,6 @@ namespace MyLiverpool.Web.WebApiNext
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
-                    name: "lite",
-                    template: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
-                );
-                routes.MapRoute(
                     name: "default",
                     template: "{controller=Spa}/{action=Index}/{id?}");
 

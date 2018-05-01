@@ -1,0 +1,98 @@
+﻿@model CommentVm
+
+
+<div class="comment-container com-offset-@Model.Deep" [class.nested]="item.children.length > 0">
+    <div class="comment container-fluid" id="com@(Model.Id)">
+        <div class="row">
+            <div class="col-xs-9 col-sm-8">
+                <span>@Model.Number</span>
+                <a asp-action="Detail" asp-controller="Users" asp-route-id="@Model.AuthorId">@Model.AuthorUserName</a>
+                <span class="small timeConvert" data-date="@Model.AdditionTime.ToString("O")" data-dow="true" data-sec="true"></span>
+                @if (Model.LastModified != Model.AdditionTime)
+                {
+                    <i class="small" title="Отредактировано">( 
+                        <span class="timeConvert" data-date="@Model.LastModified.ToString("O")" data-dow="true" data-sec="true"></span>)</i>
+                }
+            </div>
+            <div class="col-xs-3 col-sm-4 container-row">
+                <span class="pull-right">
+                    <span class="color-green">
+                        <span>@Model.PositiveCount</span>
+                        @*<button class="no-style font-size13" (click)="vote(true)" *ngIf="item.canPositiveVote && !roles.isSelf(item.authorId)">
+                            <span class="glyphicon glyphicon-thumbs-up"></span>
+                        </button>*@
+                    </span>/
+                    <span class="color-red">
+                        <span>@Model.NegativeCount</span>
+                        @*<button class="no-style font-size13" (click)="vote(false)" *ngIf="item.canNegativeVote && !roles.isSelf(item.authorId)">
+                            <span class="glyphicon glyphicon-thumbs-down"></span>
+                        </button>*@
+                    </span>
+                    @*<a *ngIf="roles.isModerator && !item.isVerified" (click)="verify()"><span class="glyphicon glyphicon-ok"></span></a>
+    <a *ngIf="roles.isModerator || roles.isSelf(item.authorId)" role="button" (click)="showEditModal()"><span class="glyphicon glyphicon-pencil"> </span></a>
+    <a *ngIf="roles.isModerator" role="button" (click)="showDeleteModal()"><span class="glyphicon glyphicon-trash"> </span></a>*@
+                </span>
+            </div>
+        </div>
+        <div *ngIf="!isEditMode">
+            <div class="row">
+                <div class="col-xs-2 col-sm-2">
+                    <img class="avatar-medium" src="@Model.Photo" alt="@Model.AuthorUserName" />
+                </div>
+                <div class="col-xs-10 col-sm-10 container-row">
+                    <p>@Html.Raw(Model.Message)</p>
+                </div>
+            </div>
+            @if (!string.IsNullOrWhiteSpace(Model.Answer))
+            {
+                <div class="row" *ngIf="item.answer || (isEditMode && roles.isEditor)">
+                    <div class="col-xs-3 col-sm-3">Ответ:</div>
+                    <div class="col-xs-9 col-sm-9">
+                        <i *ngIf="!isEditMode">@Html.Raw(Model.Answer)</i>
+                        @*<bbeditor *ngIf="isEditMode" name="answer" [value]="item.answer" formControlName="answer"></bbeditor>*@
+                    </div>
+                </div>
+            }
+            @*<div class="col-xs-12 col-sm-12 container-row" *ngIf="!roles.isSelf(item.authorId) && canCommentary && !isAddingMode && roles.isLogined">
+                <a role="button" (click)="showAddCommentModal()">Ответить</a>
+            </div>*@
+        </div>
+        @*<form class="form-horizontal" role="form" [formGroup]="commentForm" (ngSubmit)="editComment()" *ngIf="isEditMode">
+        <div class="row">
+            <div class="col-xs-2 col-sm-2">
+                <img class="avatar-medium" [src]="item.photo" [alt]="item.authorUserName" />
+            </div>
+            <div class="col-xs-10 col-sm-10">
+                <bbeditor name="message" formControlName="message"></bbeditor>
+            </div>
+        </div>
+        <div class="row" *ngIf="roles.isEditor">
+            <div class="col-xs-3 col-sm-3">Ответ:</div>
+            <div class="col-xs-9 col-sm-9">
+                <bbeditor name="answer" formControlName="answer"></bbeditor>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12">
+            <button mat-raised-button color="warn" [disabled]="!commentForm.valid" type="submit">Обновить</button>
+            <button mat-raised-button (click)="cancelEdit()" type="button">Отмена</button>
+        </div>
+    </form>
+    <div *ngIf="isAddingMode">
+        <hr />
+        <h4 class="">Добавление ответа на комментарий</h4>
+        <form class="form-horizontal" role="form" [formGroup]="commentForm" (ngSubmit)="addComment()">
+            <div class="modal-body">
+                <bbeditor name="message" formControlName="message"></bbeditor>
+            </div>
+            <div class="modal-footer">
+                <button mat-raised-button color="warn" [disabled]="!commentForm.valid" type="submit">Добавить</button>
+                <button mat-raised-button data-dismiss="modal" (click)="cancelAdding()" type="button">Отмена</button>
+            </div>
+        </form>
+    </div>*@
+    </div>
+@foreach (var comment in Model.Children)
+{
+    @await Component.InvokeAsync("CommentDetail", new { comment, deep = (Model.Deep > 6) ? 6 : ++Model.Deep })
+}
+</div>

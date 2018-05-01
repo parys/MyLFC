@@ -52,6 +52,7 @@
     <ProjectReference Include="..\Business\MyLiverpool.Business.Services\MyLiverpool.Business.Services.csproj" />
     <ProjectReference Include="..\Common\MyLiverpool.Common.Mappings\MyLiverpool.Common.Mappings.csproj" />
     <ProjectReference Include="..\Common\MyLiverpool.Common.Utilities\MyLiverpool.Common.Utilities.csproj" />
+    <ProjectReference Include="..\MyLfc.Common.Web\MyLfc.Common.Web.csproj" />
     <ProjectReference Include="..\MyLiverpool.Data.Common\MyLiverpool.Data.Common.csproj" />
     <ProjectReference Include="..\Data\MyLiverpool.Data.Entities\MyLiverpool.Data.Entities.csproj" />
     <ProjectReference Include="..\Data\MyLiverpool.Data.ResourceAccess\MyLiverpool.Data.ResourceAccess.csproj" />
@@ -125,7 +126,6 @@
     <None Include="tsconfig.cli.json" />
     <None Include="tsconfig.json" />
     <None Include="web.config" />
-    <None Include="wwwroot\lite\styles.css" />
     <None Include="wwwroot\src\89889688147bd7575d6327160d64e760.svg" />
     <None Include="wwwroot\src\langs\ru.js" />
     <None Include="wwwroot\src\lightgray\fonts\tinymce-small.svg" />
