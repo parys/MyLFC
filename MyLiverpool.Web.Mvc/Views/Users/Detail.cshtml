@@ -18,7 +18,7 @@
         <img class="avatar" src="@Model.Photo" alt="@Model.UserName" />
     </div>
     <div class="col-xs-8 col-sm-8">
-        @if (User.IsInRole(nameof(RolesEnum.UserStart)))
+        @*@if (User.IsInRole(nameof(RolesEnum.UserStart)))
             {
             <div *ngIf="roles.isSelf(item.id) || roles.isModerator">
                 <label for="update-avatar-input"
@@ -37,7 +37,7 @@
                 <button mat-raised-button *ngIf="roles.isSelf(item.id)" [routerLink]="['./edit']">Изменить профиль</button>
                 <br><br>
             </div>
-        }
+        }*@
     </div>
 </div>
 

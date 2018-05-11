@@ -67,9 +67,9 @@
             </div>
             <div class="col-xs-12 infodate">
                 <br>
-                @if (Model[1].PreviewId.HasValue)
+                @if (Model[0].PreviewId.HasValue)
                 {
-                    <a asp-action="@Model[1].PreviewId" asp-controller="News">Превью</a>
+                    <a asp-action="@Model[0].PreviewId" asp-controller="News">Превью</a>
                 }
                 <a asp-controller="Matches"
                    asp-action="Detail"

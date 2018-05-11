@@ -148,14 +148,14 @@
 
         </div>
         <div class="col-xs-12 col-sm-3 container-row">
-            @if (User.Identity.IsAuthenticated)
+            @*@if (User.Identity.IsAuthenticated)
             {
                 <a asp-action="Logout" asp-controller="Account" class="btn">Выйти</a>
             }
             else
             {
                 <a asp-action="Login" asp-controller="Account">Войти</a>
-            }
+            }*@
 
             @await Component.InvokeAsync("ChatMini")
             @await Component.InvokeAsync("CommentLast")
