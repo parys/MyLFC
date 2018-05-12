@@ -5,6 +5,7 @@ using System.IO;
 using System.IO.Compression;
 using AspNet.Security.OpenIdConnect.Primitives;
 using Microsoft.AspNetCore.Antiforgery;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Diagnostics;
@@ -50,7 +51,7 @@ namespace MyLiverpool.Web.WebApiNext
             if (env.IsDevelopment())
             {
                 // For more details on using the user secret store see http://go.microsoft.com/fwlink/?LinkID=532709
-               // builder.AddUserSecrets<Startup>();
+                // builder.AddUserSecrets<Startup>();
             }
 
             builder.AddEnvironmentVariables();
@@ -80,10 +81,10 @@ namespace MyLiverpool.Web.WebApiNext
             services.AddRouting(options => options.LowercaseUrls = true);
             services.AddMvc(options =>
             {
-            } ).AddJsonOptions(options =>
-            {
-                options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-            });
+            }).AddJsonOptions(options =>
+           {
+               options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+           });
 
             services.AddDbContext<LiverpoolContext>(options =>
             {
@@ -93,7 +94,7 @@ namespace MyLiverpool.Web.WebApiNext
 
             services.AddDataProtection().SetApplicationName("liverpoolfc-app")
                 .PersistKeysToFileSystem(new DirectoryInfo(Directory.GetCurrentDirectory()));
-            
+
             services.AddIdentity<User, Role>(options =>
             {
                 options.Password.RequireDigit = false;
@@ -119,10 +120,19 @@ namespace MyLiverpool.Web.WebApiNext
                 options.ClaimsIdentity.RoleClaimType = OpenIdConnectConstants.Claims.Role;
             });
 
-            services.AddAuthentication(opt =>
-            {
-                
-            }).AddOAuthValidation();
+            services.AddAuthentication()
+            //        options =>
+            //{
+            //    options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            //    options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            //    options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            //})
+                .AddCookie(options =>
+                {
+                     options.LoginPath = "/Lite/Account/Login/";
+                     options.LogoutPath = "/Lite/Account/Logout/";
+                })
+                .AddOAuthValidation();
 
             services.AddOpenIddict<int>(options =>
             {
@@ -248,9 +258,14 @@ namespace MyLiverpool.Web.WebApiNext
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IAntiforgery antiforgery)
         {
             app.UseMiddleware<ExceptionHandlerMiddleware>();
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            });
+
             app.UseResponseCompression();
 
-           // app.UseXsrf();
+            // app.UseXsrf();
             if (env.IsDevelopment())
             {
                 loggerFactory.AddConsole(Configuration.GetSection("Logging"));
@@ -258,10 +273,10 @@ namespace MyLiverpool.Web.WebApiNext
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
                 app.UseBrowserLink();
-                app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions()
-                {
-                    HotModuleReplacement = true,
-                });
+                //app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions()
+              //  {
+              //      HotModuleReplacement = true,
+              //  });
 
                 app.UseSwagger();
                 app.UseSwaggerUI(c =>
@@ -285,11 +300,6 @@ namespace MyLiverpool.Web.WebApiNext
                     ctx.Context.Response.Headers.Append("Cache-Control", "public,max-age=86400");
                 }
             });
-            app.UseForwardedHeaders(new ForwardedHeadersOptions
-            {
-                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
-            });
-            
             app.UseAuthentication();//UseIdentity();
 
             //app.UseSignalR(routes =>
@@ -301,16 +311,12 @@ namespace MyLiverpool.Web.WebApiNext
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
-                    name: "lite",
-                    template: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
-                );
-                routes.MapRoute(
                     name: "default",
                     template: "{controller=Spa}/{action=Index}/{id?}");
 
                 routes.MapSpaFallbackRoute(
                     name: "spa-fallback",
-                    defaults: new {controller = "Spa", action = "Index"});
+                    defaults: new { controller = "Spa", action = "Index" });
             });
         }
 

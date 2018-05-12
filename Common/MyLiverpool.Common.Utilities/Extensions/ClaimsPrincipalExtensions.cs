@@ -27,5 +27,18 @@ namespace MyLiverpool.Common.Utilities.Extensions
             }
             throw new UnauthorizedAccessException("problem with getUserId");
         }
+
+        public static int GetIdSafe(this ClaimsPrincipal principal)
+        {
+            ;
+            // var claim = principal.Claims.FirstOrDefault(x => x.Value == "sub");//FindFirst(ClaimTypes.WindowsSubAuthority);
+            var claim = principal?.FindFirst("sub");
+            if (claim != null)
+            {
+                return int.Parse(claim.Value);
+            }
+
+            return 0;
+        }
     }
 }

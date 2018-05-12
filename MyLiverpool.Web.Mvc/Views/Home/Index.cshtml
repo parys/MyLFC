@@ -1,0 +1,10 @@
+﻿@model PageableData<MaterialMiniDto>
+
+@await Component.InvokeAsync("MatchPanel")
+@Html.Partial("../Shared/_ListPartialAsync.cshtml", Model)
+@section scripts {
+    <environment names="Development">
+    </environment>
+    <environment names="Staging,Production">
+    </environment>
+}

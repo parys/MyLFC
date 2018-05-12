@@ -8,10 +8,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.SyndicationFeed;
 using Microsoft.SyndicationFeed.Rss;
+using MyLfc.Common.Web;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto.Filters;
 using MyLiverpool.Data.Common;
-using MyLiverpool.Web.WebApiNext.Extensions;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
