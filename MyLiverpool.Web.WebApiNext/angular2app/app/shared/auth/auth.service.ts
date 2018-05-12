@@ -60,7 +60,7 @@ export class AuthService {
             tap(() => this.scheduleRefresh()));
     }
 
-    public register(data: IRegisterModel): Observable<Response> {
+    public register(data: IRegisterModel): Observable<any> {
         return this.http1.post("api/v1/account/register", data).pipe(
             catchError(res => throwError(res.error)));
     }

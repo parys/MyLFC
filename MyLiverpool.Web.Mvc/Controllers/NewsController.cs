@@ -63,7 +63,8 @@ namespace MyLiverpool.Web.Mvc.Controllers
         public async Task<IActionResult> Detail(int id)
         {
             var hasAccess = User != null && (User.IsInRole(nameof(RolesEnum.NewsStart)) || User.IsInRole(nameof(RolesEnum.BlogStart)));
-            var model = await _cache.GetOrCreateAsync(CacheKeysConstants.Material + id, async x => await _materialService.GetDtoAsync(id, hasAccess));
+            var model = //await _cache.GetOrCreateAsync(CacheKeysConstants.Material + id, async x =>
+                await _materialService.GetDtoAsync(id, hasAccess);//);
             if (model == null)
             {
                 return RedirectToAction("Index", "News");

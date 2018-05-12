@@ -1,29 +1,62 @@
-﻿{
-  "$schema": "./node_modules/@angular-devkit/core/src/workspace/workspace-schema.json",
-  "project": {
-    "name": "myLfc"
-  },
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
   "projects": {
     "angular2app": {
-      "root": "angular2app",
+      "root": "",
+      "sourceRoot": "angular2app",
       "projectType": "application",
-      "tsconfig": "../tsconfig.cli.json",
-      "outDir": "./wwwroot/dist",
-      "assets": [
-        {
-          "glob": "**/*",
-          "input": "../wwwroot/",
-          "output": "./",
-          "allowOutsideOutDir": true
-        }
-      ],
-      "main": "main.browser.cli.ts",
-      "polyfills": "polyfills/polyfills.ts",
-
       "prefix": "app",
-      "scripts": [],
-      "index": "index.html"
-
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "wwwroot/dist",
+            "index": "angular2app/index.html",
+            "main": "angular2app/main.browser.cli.ts",
+            "polyfills": "angular2app/polyfills/polyfills.ts",
+            "tsConfig": "tsconfig.cli.json",
+            "assets": [
+            ],
+            "styles": [
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "angular2app/environments/environment.ts",
+                  "with": "angular2app/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "angular2app:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "angular2app:build:production"
+            }
+          }
+        }
+      }
     }
-  }
+  },
+  "defaultProject": "angular2app"
 }

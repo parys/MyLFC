@@ -136,7 +136,82 @@ namespace MyLiverpool.Web.Mvc
                     // This allows flowing large OpenID Connect requests even when using
                     // an external authentication provider like Google, Facebook or Twitter.
                     .EnableRequestCaching();
+                if (Env.IsDevelopment())
+                {
+                    // Register a new ephemeral key, that is discarded when the application
+                    // shuts down. Tokens signed using this key are automatically invalidated.
+                    // This method should only be used during development.
+                    //      options.AddEphemeralSigningKey();
+                }
+                else
+                {
+                    //try
+                    //{
+                    //    options.AddSigningCertificate(
+                    //        new FileStream(Directory.GetCurrentDirectory() + "/cert.pfx", FileMode.Open),
+                    //        Configuration.GetSection("Cert")["password"]);
+                    //}
+                    //catch
+                    //{
+                    //    options.AddSigningCertificate(
+                    //        new FileStream(Directory.GetCurrentDirectory() + "/cert2.pfx", FileMode.Open),
+                    //        Configuration.GetSection("Cert")["password"]);
+                    //}
+                }
             });
+
+            /*
+            services.AddOpenIddict()
+              .AddCore(options =>
+              {
+                  options.UseDefaultModels();
+                  options.AddEntityFrameworkCoreStores<LiverpoolContext>();
+              }).AddServer(options =>
+              {
+                  options.AddMvcBinders();
+
+                  options.EnableLogoutEndpoint("/connect/logout")
+                      // Enable the token endpoint (required to use the password flow).
+                      .EnableTokenEndpoint("/connect/token");
+
+                  options.AllowPasswordFlow()
+                      .AllowRefreshTokenFlow()
+                      .SetRefreshTokenLifetime(TimeSpan.FromDays(14))
+                      .DisableHttpsRequirement() // During development, you can disable the HTTPS requirement.
+                                                 // When request caching is enabled, authorization and logout requests
+                                                 // are stored in the distributed cache by OpenIddict and the user agent
+                                                 // is redirected to the same page with a single parameter (request_id).
+                                                 // This allows flowing large OpenID Connect requests even when using
+                                                 // an external authentication provider like Google, Facebook or Twitter.
+                      .EnableRequestCaching();
+
+                  options.RegisterScopes(OpenIdConnectConstants.Scopes.Email,
+                      OpenIdConnectConstants.Scopes.Profile,
+                      OpenIddictConstants.Scopes.Roles);
+
+                  if (Env.IsDevelopment())
+                  {
+                        // Register a new ephemeral key, that is discarded when the application
+                        // shuts down. Tokens signed using this key are automatically invalidated.
+                        // This method should only be used during development.
+                        //      options.AddEphemeralSigningKey();
+                    }
+                  else
+                  {
+                        //try
+                        //{
+                        //    options.AddSigningCertificate(
+                        //        new FileStream(Directory.GetCurrentDirectory() + "/cert.pfx", FileMode.Open),
+                        //        Configuration.GetSection("Cert")["password"]);
+                        //}
+                        //catch
+                        //{
+                        //    options.AddSigningCertificate(
+                        //        new FileStream(Directory.GetCurrentDirectory() + "/cert2.pfx", FileMode.Open),
+                        //        Configuration.GetSection("Cert")["password"]);
+                        //}
+                    }
+              });*/
 
             RegisterCoreHelpers(services);
             services.RegisterRepositories();

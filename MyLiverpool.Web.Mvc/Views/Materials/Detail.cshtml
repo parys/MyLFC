@@ -8,20 +8,20 @@
 <div class="flex-vertical-center material-header">
     <h3 class="col-xs-12 col-sm-12 container-row">
         <span class="beauty-font">@Model.Title</span>@*todo ngIf = " roles.isSelf(item.userId)"*@
-        @if (User.IsInRole(nameof(RolesEnum.NewsFull)))
+        @*@if (User.IsInRole(nameof(RolesEnum.NewsFull)))
             {
             <span class="pull-right">
                 <a role="button" *ngIf="item.pending && roles.isEditor" (click)="showActivateModal(i)"><span class="glyphicon glyphicon-ok"></span></a>
                 <a [routerLink]="['./edit']"><span class="glyphicon glyphicon-pencil"></span></a>
                 <a role="button" (click)="showDeleteModal(i)"><span class="glyphicon glyphicon-trash"></span></a>
             </span>
-        }
+        }*@
     </h3>
 </div>
 <div class="col-xs-12 col-sm-12 container-row">
     @if (Model.UsePhotoInBody)
     {
-        <img src="@Model.Photo" alt="" style="height: auto; max-width: 100%"/>
+        <img src="@Model.Photo" class="material-preview" alt="" style="height: auto; max-width: 100%"/>
         <!--todo move to css-->
         <br/>
         <i>@Html.Raw(Model.Brief)</i>

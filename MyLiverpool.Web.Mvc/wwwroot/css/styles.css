@@ -641,17 +641,6 @@ img.material-preview {
         vertical-align: top;
     }
 
-    /* invalid & (dirty or touched) => red -- CSS3 only */
-    /*.mat-input-container.ng-invalid.ng-dirty:not(:focus),
-.mat-input-container.ng-invalid.ng-touched:not(:focus) {
-    border-left: 5px solid #e74c3c;
-}
-
-/* valid & dirty => green 
-.mat-input-container.ng-valid.ng-dirty.ng-touched {
-    border-left: 5px solid #2ecc71;
-}*/
-
     /* error display font italic, text-danger is red in BS */
     .validation.text-danger {
         font-style: italic;

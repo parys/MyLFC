@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MyLiverpool.Data.Entities;
 using System.Linq;
-using System.Security.Claims;
 using AspNet.Security.OpenIdConnect.Primitives;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;

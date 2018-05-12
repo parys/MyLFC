@@ -19,7 +19,8 @@ namespace MyLiverpool.Web.WebApiNext.Areas.Lite.Controllers.Components
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var result = await _cache.GetOrCreateAsync(CacheKeysConstants.LastComments, async x => await _commentService.GetLastListAsync());
+            var result = //await _cache.GetOrCreateAsync(CacheKeysConstants.LastComments, async x => 
+                await _commentService.GetLastListAsync();//);
             return View(result);
         }
     }

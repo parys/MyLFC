@@ -20,8 +20,9 @@ namespace MyLiverpool.Web.Mvc.Controllers.Components
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var result = await _cache.GetOrCreateAsync(CacheKeysConstants.MatchCalendarCacheConst,
-                async x => await _matchService.GetForCalendarAsync());
+            var result = //await _cache.GetOrCreateAsync(CacheKeysConstants.MatchCalendarCacheConst,
+                // async x =>
+                    await _matchService.GetForCalendarAsync();//);
             return View(result.ToList());
         }
     }

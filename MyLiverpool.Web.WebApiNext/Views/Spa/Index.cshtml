@@ -10,13 +10,13 @@ else
 
 @section scripts {
     <environment names="Development">
-        <script src="~/src/vendor.js" asp-append-version="true"></script>
+        @*<script src="~/src/vendor.js" asp-append-version="true"></script>
         <script src="~/src/main-client.js" asp-append-version="true"></script>
     </environment>
-    <environment names="Staging,Production">
+    <environment names="Staging,Production">*@
         <!-- Latest compiled and minified CSS -->
-        <script src="~/dist/inline.bundle.js" async asp-append-version="true"></script>
-        <script src="~/dist/polyfills.bundle.js" async asp-append-version="true"></script>
-        <script src="~/dist/main.bundle.js" async defer asp-append-version="true"></script>
+        <script src="~/dist/runtime.js" async asp-append-version="true"></script>
+        <script src="~/dist/polyfills.js" async asp-append-version="true"></script>
+        <script src="~/dist/main.js" async defer asp-append-version="true"></script>
     </environment>
 }

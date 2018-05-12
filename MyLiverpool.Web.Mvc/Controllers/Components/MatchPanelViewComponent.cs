@@ -23,8 +23,9 @@ namespace MyLiverpool.Web.Mvc.Controllers.Components
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var helpEntity = await _cache.GetOrCreateAsync(CacheKeysConstants.HeaderMatchId,
-                async x => await _helperService.GetAsync(HelperEntityType.HeaderMatch));
+            var helpEntity = //await _cache.GetOrCreateAsync(CacheKeysConstants.HeaderMatchId,
+              //  async x => 
+                    await _helperService.GetAsync(HelperEntityType.HeaderMatch);//);
             if (!string.IsNullOrWhiteSpace(helpEntity))
             {
                 var result = await _matchService.GetByIdAsync(int.Parse(helpEntity));

@@ -1,9 +1,9 @@
 ﻿<form class="form-horizontal flex-space-around" name="editForm" role="form" [formGroup]="editForm" (ngSubmit)="onSubmit()">
-    <mat-input-container class="full-width">
+    <mat-form-field class="full-width">
         <input matInput placeholder="Название" name="name" formControlName="name" />
-    </mat-input-container>
-    <mat-input-container class="full-width">
+    </mat-form-field>
+    <mat-form-field class="full-width">
         <input matInput placeholder="Город" name="city" formControlName="city" />
-    </mat-input-container>
+    </mat-form-field>
     <button mat-raised-button type="submit" [disabled]="!editForm.valid" class="">Сохранить</button>
 </form>

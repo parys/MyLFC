@@ -1,6 +1,6 @@
 ﻿import { Component, EventEmitter, forwardRef, Input, Output, NgZone, } from "@angular/core";
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from "@angular/forms";
-import { Settings, Editor } from "tinymce";
+//import { Editor } from "tinymce";
 import { LazyLoadingLibraryService } from "./lazyLoadingLibrary.service";
 
 declare let tinymce: any;
@@ -27,7 +27,7 @@ export class EditorComponent implements ControlValueAccessor {
     public elementId: string = Math.random().toString(36).substring(2);
     public zone: NgZone;
     //   public tinymce: EditorManager = new EditorManager();
-    public editor: Editor;
+    public editor: any;//Editor;
     //  @ViewChild("nativeElement") public nativeElement: ElementRef;
 
     constructor(
@@ -158,7 +158,7 @@ export class EditorComponent implements ControlValueAccessor {
                     customEmoticons: "/src/plugins/customEmoticons/plugin.js"
                 },
                 skin_url: "/src/lightgray",
-                setup: (editor: Editor) => {
+                setup: (editor: any) => {//Editor) => {
                     this.editor = editor;
                     editor.on("change", () => {
                         const content: any = editor.getContent();
@@ -173,7 +173,7 @@ export class EditorComponent implements ControlValueAccessor {
         tinymce.init(settings1);
     }
 
-    private setupFunction(editor: Editor) {
+    private setupFunction(editor: any) {//Editor) {
         this.editor = editor;
         if (editor) {
             editor.on("change",

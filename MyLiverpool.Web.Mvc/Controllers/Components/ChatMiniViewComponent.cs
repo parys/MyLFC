@@ -25,10 +25,9 @@ namespace MyLiverpool.Web.Mvc.Controllers.Components
             IEnumerable<ChatMessageDto> result;
             if (lastMessageId == 0)
             {
-                result = await _cache.GetOrCreateAsync(
-                    CacheKeysConstants.ChatName + (int)ChatMessageTypeEnum.Mini,
-                    async x =>
-                        await _chatMessageService.GetListAsync(lastMessageId, ChatMessageTypeEnum.Mini));
+                result = //await _cache.GetOrCreateAsync(CacheKeysConstants.ChatName + (int)ChatMessageTypeEnum.Mini,
+                  //  async x =>
+                        await _chatMessageService.GetListAsync(lastMessageId, ChatMessageTypeEnum.Mini);//);
             }
             else
             {
