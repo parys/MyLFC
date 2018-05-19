@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title></title>
+
+    <base href="/" />
+
+    <meta charset="utf-8" />
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+    <link rel="shortcut icon" type="image/png" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta name="description" content="Сайт футбольного клуба Ливерпуль. FC Liverpool. Новости, матчи, история, турнирные таблицы, статистика, статьи, составы команд. Русскоязычные болельщики.">
+    <meta name="keywords" content="ливерпуль, liverpool, ливерпуль фк, liverpool fc, lfc, liverpoolfc, клуб ливерпуль, ливерпуль футбольный клуб, сайт ливерпуля, трансляция ливерпуль, ливерпуль видео">
+    <meta name="theme-color" content="#731010">
+    <link title="MyLFC.ru / Последние материалы" type="application/rss+xml" rel="alternate" href="~/rss" />
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/@angular/material@6.0.1/prebuilt-themes/indigo-pink.css" rel="stylesheet">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">-->
+    <link rel="manifest" href="manifest.json">
+    <!--<script type="text/javascript" async src="src/tinymce.min.js" asp-append-version="true"></script>-->
+</head>
+<body>
+    <app></app>
+    <span>Если загрузка не происходит,<a href="https://m.mylfc.ru/"> здесь </a> есть сильно облегченная версия сайта</span>
+    <noscript>
+        <p>
+            Извините, но для этого приложения нужен JavaScript. Воспользуейтесь облегченной версией, пожалуйста.
+        </p>
+    </noscript>
+    <script type="text/javascript">document.write("<a href='https://www.liveinternet.ru/click' target=_blank><img src='https://counter.yadro.ru/hit?t14.6;r" + escape(document.referrer) + ((typeof (screen) == "undefined") ? "" : ";s" + screen.width + "*" + screen.height + "*" + (screen.colorDepth ? screen.colorDepth : screen.pixelDepth)) + ";u" + escape(document.URL) + ";" + Math.random() + "' alt='' title='LiveInternet' border='0' width='88' height='31'><\/a>")</script>
+
+    <script type="text/javascript">
+        function addAd() {
+            (function (w, d, n, s, t) {
+                w[n] = w[n] || [];
+                w[n].push(function () {
+                    Ya.Context.AdvManager.render({
+                        blockId: "R-A-255349-2",
+                        renderTo: "yandex_rtb_R-A-255349-2",
+                        async: true
+                    });
+                    Ya.Context.AdvManager.render({
+                        blockId: "R-A-255349-3",
+                        renderTo: "yandex_rtb_R-A-255349-3",
+                        async: true
+                    });
+                });
+                t = d.getElementsByTagName("script")[0];
+                s = d.createElement("script");
+                s.type = "text/javascript";
+                s.src = "https://an.yandex.ru/system/context.js";
+                t.parentNode.insertBefore(s, t);
+            })(this, this.document, "yandexContextAsyncCallbacks");
+            include("https://platform.twitter.com/widgets.js");
+            include("https://platform.instagram.com/en_US/embeds.js");
+        }
+
+        function include(url) {
+            const s = document.createElement("script");
+            s.setAttribute("type", "text/javascript");
+            s.setAttribute("src", url);
+            s.setAttribute("async", true);
+            const nodes = document.getElementsByTagName("*");
+            const node = nodes[nodes.length - 1].parentNode;
+            node.appendChild(s);
+        }
+    </script>
+    <script async type="text/javascript" src="/src/tinymce.min.js" asp-append-version="true"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</body>
+</html>

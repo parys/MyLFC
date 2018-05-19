@@ -7,7 +7,6 @@ using AspNet.Security.OpenIdConnect.Primitives;
 using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
-using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -27,6 +26,7 @@ using MyLiverpool.Data.ResourceAccess.Helpers;
 using MyLiverpool.Web.WebApiNext.Extensions;
 using Newtonsoft.Json.Serialization;
 using Swashbuckle.AspNetCore.Swagger;
+using Microsoft.AspNetCore.SpaServices.AngularCli;
 
 namespace MyLiverpool.Web.WebApiNext
 {
@@ -293,6 +293,12 @@ namespace MyLiverpool.Web.WebApiNext
             //{
             //    new DatabaseInitializer(context).Seed();
             //}
+
+            // In production, the Angular files will be served from this directory
+            services.AddSpaStaticFiles(configuration =>
+            {
+                configuration.RootPath = "ClientApp/dist/aspnetcorespa";
+            });
         }
 
         /// <summary>
@@ -304,7 +310,7 @@ namespace MyLiverpool.Web.WebApiNext
         /// <param name="antiforgery"></param>
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IAntiforgery antiforgery)
         {
-            app.UseMiddleware<ExceptionHandlerMiddleware>();
+          //  app.UseMiddleware<ExceptionHandlerMiddleware>();
             app.UseForwardedHeaders(new ForwardedHeadersOptions
             {
                 ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
@@ -319,11 +325,6 @@ namespace MyLiverpool.Web.WebApiNext
                 loggerFactory.AddDebug();
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
-                app.UseBrowserLink();
-                //app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions()
-              //  {
-              //      HotModuleReplacement = true,
-              //  });
 
                 app.UseSwagger();
                 app.UseSwaggerUI(c =>
@@ -339,6 +340,8 @@ namespace MyLiverpool.Web.WebApiNext
 
             app.UseCors("MyPolicy");
 
+            app.UseAuthentication();
+
             app.UseDefaultFiles();
             app.UseStaticFiles(new StaticFileOptions
             {
@@ -347,24 +350,58 @@ namespace MyLiverpool.Web.WebApiNext
                     ctx.Context.Response.Headers.Append("Cache-Control", "public,max-age=86400");
                 }
             });
-            app.UseAuthentication();//UseIdentity();
+            app.UseSpaStaticFiles();
 
             //app.UseSignalR(routes =>
             //{
             //    routes.MapHub<LfcHub>("hub");
             //});
 
-
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Spa}/{action=Index}/{id?}");
+                    template: "{controller}/{action=Index}/{id?}");
 
-                routes.MapSpaFallbackRoute(
-                    name: "spa-fallback",
-                    defaults: new { controller = "Spa", action = "Index" });
+                //routes.MapSpaFallbackRoute(
+                //    name: "spa-fallback",
+                //    defaults: new { controller = "Spa", action = "Index" });
             });
+            app.UseSpa(spa =>
+            {
+                // To learn more about options for serving an Angular SPA from ASP.NET Core,
+                // see https://go.microsoft.com/fwlink/?linkid=864501
+
+                spa.Options.SourcePath = "ClientApp";
+
+                /*
+                         // If you want to enable server-side rendering (SSR),
+                         // [1] In AspNetCoreSpa.csproj, change the <BuildServerSideRenderer> property
+                         //     value to 'true', so that the SSR bundle is built during publish
+                         // [2] Uncomment this code block
+                         */
+
+                //   spa.UseSpaPrerendering(options =>
+                //    {
+                //        options.BootModulePath = $"{spa.Options.SourcePath}/dist-server/main.bundle.js";
+                //        options.BootModuleBuilder = env.IsDevelopment() ? new AngularCliBuilder(npmScript: "build:ssr") : null;
+                //        options.ExcludeUrls = new[] { "/sockjs-node" };
+                //        options.SupplyData = (requestContext, obj) =>
+                //        {
+                //          //  var result = appService.GetApplicationData(requestContext).GetAwaiter().GetResult();
+                //          obj.Add("Cookies", requestContext.Request.Cookies);
+                //        };
+                //    });
+
+                if (env.IsDevelopment())
+                {
+                       spa.UseAngularCliServer(npmScript: "start");
+                    //   OR
+                   // spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
+                }
+            });
+
+
         }
 
         private void RegisterCoreHelpers(IServiceCollection services)

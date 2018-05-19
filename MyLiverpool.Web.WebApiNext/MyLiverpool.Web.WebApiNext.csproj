@@ -10,6 +10,11 @@
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
     <ServerGarbageCollection>true</ServerGarbageCollection>
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
+    <SpaRoot>ClientApp\</SpaRoot>
+    <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
+
+    <!-- Set this to true if you enable server-side prerendering -->
+    <BuildServerSideRenderer>false</BuildServerSideRenderer>
     <ApplicationIcon />
     <StartupObject />
     <ApplicationInsightsResourceId>/subscriptions/507ed435-fb15-46bf-94df-1c7cfad40e7a/resourcegroups/Default-ApplicationInsights-EastUS/providers/microsoft.insights/components/MyLiverpool.Web.WebApiNext</ApplicationInsightsResourceId>
@@ -17,32 +22,54 @@
 
   <ItemGroup>
       <!-- Files not to publish (note that the 'dist' subfolders are re-added below) -->
-    <Compile Remove="angular2app\app\fonts\**" />
-    <Compile Remove="angular2app\fonts\**" />
+    <Compile Remove="ClientApp\node_modules\**" />
+    <Compile Remove="ClientApp\src\fonts\**" />
+    <Compile Remove="ClientApp\src\app\person\NewFolder\**" />
+    <Compile Remove="ClientApp\src\fonts\**" />
     <Compile Remove="wwwroot\content\persons\**" />
-    <Content Remove="angular2app\**" />
-    <Content Remove="angular2app\app\fonts\**" />
-    <Content Remove="angular2app\fonts\**" />
-    <Content Remove="package-lock.json" />
-    <Content Remove="package.json" />
-    <Content Remove="proxy.conf.json" />
-    <Content Remove="tsconfig.cli.json" />
-    <Content Remove="tsconfig.json" />
+    <Compile Remove="wwwroot\src\langs\**" />
+    <Compile Remove="wwwroot\src\lightgray\**" />
+    <Compile Remove="wwwroot\src\plugins\**" />
+    <Compile Remove="wwwroot\src\skins\**" />
+    <Compile Remove="wwwroot\src\themes\**" />
+    <Content Remove="ClientApp\node_modules\**" />
+    <Content Remove="ClientApp\src\fonts\**" />
+    <Content Remove="ClientApp\src\app\person\NewFolder\**" />
+    <Content Remove="ClientApp\src\**" />
+    <Content Remove="ClientApp\src\fonts\**" />
+    <Content Remove="wwwroot\src\langs\**" />
+    <Content Remove="wwwroot\src\lightgray\**" />
+    <Content Remove="wwwroot\src\plugins\**" />
+    <Content Remove="wwwroot\src\skins\**" />
+    <Content Remove="wwwroot\src\themes\**" />
+    <Content Remove="ClientApp\package-lock.json" />
+    <Content Remove="wwwroot\src\tinymce.min.js" />
     <Content Remove="wwwroot\content\**" />
     <Content Remove="wwwroot\fonts\**" />
     <Content Remove="wwwroot\swagger\**" />
-    <EmbeddedResource Remove="angular2app\app\fonts\**" />
-    <EmbeddedResource Remove="angular2app\fonts\**" />
-    <EmbeddedResource Remove="temp-js\**" />
+    <EmbeddedResource Remove="ClientApp\node_modules\**" />
+    <EmbeddedResource Remove="ClientApp\src\fonts\**" />
+    <EmbeddedResource Remove="ClientApp\src\app\person\NewFolder\**" />
+    <EmbeddedResource Remove="ClientApp\src\fonts\**" />
     <EmbeddedResource Remove="wwwroot\content\persons\**" />
-    <None Remove="angular2app\app\fonts\**" />
-    <None Remove="angular2app\fonts\**" />
+    <EmbeddedResource Remove="wwwroot\src\langs\**" />
+    <EmbeddedResource Remove="wwwroot\src\lightgray\**" />
+    <EmbeddedResource Remove="wwwroot\src\plugins\**" />
+    <EmbeddedResource Remove="wwwroot\src\skins\**" />
+    <EmbeddedResource Remove="wwwroot\src\themes\**" />
+    <None Remove="ClientApp\node_modules\**" />
+    <None Remove="ClientApp\src\fonts\**" />
+    <None Remove="ClientApp\src\app\person\NewFolder\**" />
+    <None Remove="ClientApp\src\fonts\**" />
     <None Remove="wwwroot\content\persons\**" />
-    <Content Include="angular2app\index.html" />
-
-    <None Update="node_modules\**;*.pdb">
-      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
-    </None>
+    <None Remove="wwwroot\src\langs\**" />
+    <None Remove="wwwroot\src\lightgray\**" />
+    <None Remove="wwwroot\src\plugins\**" />
+    <None Remove="wwwroot\src\skins\**" />
+    <None Remove="wwwroot\src\themes\**" />
+    <Content Include="ClientApp\src\manifest.json" />
+    <Content Include="ClientApp\src\index.html" />
+    <Content Include="ClientApp\src\tsconfig.cli.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -60,224 +87,77 @@
   <ItemGroup>
     <PackageReference Include="AspNet.Security.OAuth.Validation" Version="2.0.0-rc3-0300" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.2.1" />
-    <PackageReference Include="Microsoft.AspNetCore" Version="2.0.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.OAuth" Version="2.0.3" />
-    <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.0.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics" Version="2.0.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.Abstractions" Version="2.0.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="2.0.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.0.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.0.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.0.3" />
-    <PackageReference Include="Microsoft.AspNetCore.NodeServices" Version="2.0.3" />
-    <PackageReference Include="Microsoft.AspNetCore.ResponseCompression" Version="2.0.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Server.IISIntegration" Version="2.0.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel" Version="2.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore" Version="2.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.OAuth" Version="2.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics" Version="2.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.Abstractions" Version="2.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="2.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.NodeServices" Version="2.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.ResponseCompression" Version="2.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Server.IISIntegration" Version="2.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel" Version="2.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.0.0-alpha2-final" />
-    <PackageReference Include="Microsoft.AspNetCore.SpaServices" Version="2.0.3" />
-    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.0.2" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.0.2" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.0.2" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="2.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="2.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="2.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="2.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices" Version="2.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="2.0.0-preview1-final" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.0.3" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="2.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="2.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="2.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="2.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.0.2" />
     <PackageReference Include="Microsoft.SyndicationFeed.ReaderWriter" Version="1.0.2" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.0.2" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.3" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.0.3" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.4" />
     <PackageReference Include="OpenIddict.Mvc" Version="2.0.0-rc3-0916" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="2.4.0" />
   </ItemGroup>
 
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <Optimize>false</Optimize>
-    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DefineConstants>TRACE;DEBUG;NETCOREAPP2_0</DefineConstants>
-    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
-    <WarningsAsErrors>NU1605</WarningsAsErrors>
-    <OutputPath>bin\Debug\netcoreapp2.0</OutputPath>
-    <DocumentationFile>obj\Debug\netcoreapp2.0\MyLiverpool.Web.WebApiNext.xml</DocumentationFile>
-  </PropertyGroup>
-    
-    <Target Name="PrepublishScript" BeforeTargets="PrepareForPublish">
-        <Exec Command="node node_modules/@angular/cli/commands/build.js --prod --build-optimizer --output-hashing none" ContinueOnError="False" />
-    </Target>
-        
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
   </ItemGroup>
-        
+
   <ItemGroup>
-    <Folder Include="angular2app\app\chat\miniChat\" />
-    <Folder Include="wwwroot\content\">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Folder>
+    <!-- Don't publish the SPA source files, but do show them in the project files list -->
+    <Content Remove="$(SpaRoot)**" />
+    <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
-        
+
   <ItemGroup>
-    <None Include="package.json" />
-    <None Include="proxy.conf.json" />
-    <None Include="tsconfig.cli.json" />
-    <None Include="tsconfig.json" />
-    <None Include="web.config" />
-    <None Include="wwwroot\src\89889688147bd7575d6327160d64e760.svg" />
-    <None Include="wwwroot\src\langs\ru.js" />
-    <None Include="wwwroot\src\lightgray\fonts\tinymce-small.svg" />
-    <None Include="wwwroot\src\lightgray\fonts\tinymce.svg" />
-    <None Include="wwwroot\src\plugins\advlist\index.js" />
-    <None Include="wwwroot\src\plugins\advlist\plugin.js" />
-    <None Include="wwwroot\src\plugins\advlist\plugin.min.js" />
-    <None Include="wwwroot\src\plugins\anchor\index.js" />
-    <None Include="wwwroot\src\plugins\anchor\plugin.js" />
-    <None Include="wwwroot\src\plugins\anchor\plugin.min.js" />
-    <None Include="wwwroot\src\plugins\autolink\index.js" />
-    <None Include="wwwroot\src\plugins\autolink\plugin.js" />
-    <None Include="wwwroot\src\plugins\autolink\plugin.min.js" />
-    <None Include="wwwroot\src\plugins\autoresize\index.js" />
-    <None Include="wwwroot\src\plugins\autoresize\plugin.js" />
-    <None Include="wwwroot\src\plugins\autoresize\plugin.min.js" />
-    <None Include="wwwroot\src\plugins\autosave\index.js" />
-    <None Include="wwwroot\src\plugins\autosave\plugin.js" />
-    <None Include="wwwroot\src\plugins\autosave\plugin.min.js" />
-    <None Include="wwwroot\src\plugins\bbcode\index.js" />
-    <None Include="wwwroot\src\plugins\bbcode\plugin.js" />
-    <None Include="wwwroot\src\plugins\bbcode\plugin.min.js" />
-    <None Include="wwwroot\src\plugins\charmap\index.js" />
-    <None Include="wwwroot\src\plugins\charmap\plugin.js" />
-    <None Include="wwwroot\src\plugins\charmap\plugin.min.js" />
-    <None Include="wwwroot\src\plugins\codesample\index.js" />
-    <None Include="wwwroot\src\plugins\codesample\plugin.js" />
-    <None Include="wwwroot\src\plugins\codesample\plugin.min.js" />
-    <None Include="wwwroot\src\plugins\code\index.js" />
-    <None Include="wwwroot\src\plugins\code\plugin.js" />
-    <None Include="wwwroot\src\plugins\code\plugin.min.js" />
-    <None Include="wwwroot\src\plugins\colorpicker\index.js" />
-    <None Include="wwwroot\src\plugins\colorpicker\plugin.js" />
-    <None Include="wwwroot\src\plugins\colorpicker\plugin.min.js" />
-    <None Include="wwwroot\src\plugins\contextmenu\index.js" />
-    <None Include="wwwroot\src\plugins\contextmenu\plugin.js" />
-    <None Include="wwwroot\src\plugins\contextmenu\plugin.min.js" />
-    <None Include="wwwroot\src\plugins\customEmoticons\plugin.js" />
-    <None Include="wwwroot\src\plugins\customEmoticons\plugin.min.js" />
-    <None Include="wwwroot\src\plugins\directionality\index.js" />
-    <None Include="wwwroot\src\plugins\directionality\plugin.js" />
-    <None Include="wwwroot\src\plugins\directionality\plugin.min.js" />
-    <None Include="wwwroot\src\plugins\emoticons\index.js" />
-    <None Include="wwwroot\src\plugins\emoticons\plugin.js" />
-    <None Include="wwwroot\src\plugins\emoticons\plugin.min.js" />
-    <None Include="wwwroot\src\plugins\fullpage\index.js" />
-    <None Include="wwwroot\src\plugins\fullpage\plugin.js" />
-    <None Include="wwwroot\src\plugins\fullpage\plugin.min.js" />
-    <None Include="wwwroot\src\plugins\fullscreen\index.js" />
-    <None Include="wwwroot\src\plugins\fullscreen\plugin.js" />
-    <None Include="wwwroot\src\plugins\fullscreen\plugin.min.js" />
-    <None Include="wwwroot\src\plugins\help\index.js" />
-    <None Include="wwwroot\src\plugins\help\plugin.js" />
-    <None Include="wwwroot\src\plugins\help\plugin.min.js" />
-    <None Include="wwwroot\src\plugins\hr\index.js" />
-    <None Include="wwwroot\src\plugins\hr\plugin.js" />
-    <None Include="wwwroot\src\plugins\hr\plugin.min.js" />
-    <None Include="wwwroot\src\plugins\imagetools\index.js" />
-    <None Include="wwwroot\src\plugins\imagetools\plugin.js" />
-    <None Include="wwwroot\src\plugins\imagetools\plugin.min.js" />
-    <None Include="wwwroot\src\plugins\image\index.js" />
-    <None Include="wwwroot\src\plugins\image\plugin.js" />
-    <None Include="wwwroot\src\plugins\image\plugin.min.js" />
-    <None Include="wwwroot\src\plugins\importcss\index.js" />
-    <None Include="wwwroot\src\plugins\importcss\plugin.js" />
-    <None Include="wwwroot\src\plugins\importcss\plugin.min.js" />
-    <None Include="wwwroot\src\plugins\insertdatetime\index.js" />
-    <None Include="wwwroot\src\plugins\insertdatetime\plugin.js" />
-    <None Include="wwwroot\src\plugins\insertdatetime\plugin.min.js" />
-    <None Include="wwwroot\src\plugins\legacyoutput\index.js" />
-    <None Include="wwwroot\src\plugins\legacyoutput\plugin.js" />
-    <None Include="wwwroot\src\plugins\legacyoutput\plugin.min.js" />
-    <None Include="wwwroot\src\plugins\link\index.js" />
-    <None Include="wwwroot\src\plugins\link\plugin.js" />
-    <None Include="wwwroot\src\plugins\link\plugin.min.js" />
-    <None Include="wwwroot\src\plugins\lists\index.js" />
-    <None Include="wwwroot\src\plugins\lists\plugin.js" />
-    <None Include="wwwroot\src\plugins\lists\plugin.min.js" />
-    <None Include="wwwroot\src\plugins\media\index.js" />
-    <None Include="wwwroot\src\plugins\media\plugin.js" />
-    <None Include="wwwroot\src\plugins\media\plugin.min.js" />
-    <None Include="wwwroot\src\plugins\nonbreaking\index.js" />
-    <None Include="wwwroot\src\plugins\nonbreaking\plugin.js" />
-    <None Include="wwwroot\src\plugins\nonbreaking\plugin.min.js" />
-    <None Include="wwwroot\src\plugins\noneditable\index.js" />
-    <None Include="wwwroot\src\plugins\noneditable\plugin.js" />
-    <None Include="wwwroot\src\plugins\noneditable\plugin.min.js" />
-    <None Include="wwwroot\src\plugins\pagebreak\index.js" />
-    <None Include="wwwroot\src\plugins\pagebreak\plugin.js" />
-    <None Include="wwwroot\src\plugins\pagebreak\plugin.min.js" />
-    <None Include="wwwroot\src\plugins\paste\index.js" />
-    <None Include="wwwroot\src\plugins\paste\plugin.js" />
-    <None Include="wwwroot\src\plugins\paste\plugin.min.js" />
-    <None Include="wwwroot\src\plugins\preview\index.js" />
-    <None Include="wwwroot\src\plugins\preview\plugin.js" />
-    <None Include="wwwroot\src\plugins\preview\plugin.min.js" />
-    <None Include="wwwroot\src\plugins\print\index.js" />
-    <None Include="wwwroot\src\plugins\print\plugin.js" />
-    <None Include="wwwroot\src\plugins\print\plugin.min.js" />
-    <None Include="wwwroot\src\plugins\save\index.js" />
-    <None Include="wwwroot\src\plugins\save\plugin.js" />
-    <None Include="wwwroot\src\plugins\save\plugin.min.js" />
-    <None Include="wwwroot\src\plugins\searchreplace\index.js" />
-    <None Include="wwwroot\src\plugins\searchreplace\plugin.js" />
-    <None Include="wwwroot\src\plugins\searchreplace\plugin.min.js" />
-    <None Include="wwwroot\src\plugins\spellchecker\index.js" />
-    <None Include="wwwroot\src\plugins\spellchecker\plugin.js" />
-    <None Include="wwwroot\src\plugins\spellchecker\plugin.min.js" />
-    <None Include="wwwroot\src\plugins\tabfocus\index.js" />
-    <None Include="wwwroot\src\plugins\tabfocus\plugin.js" />
-    <None Include="wwwroot\src\plugins\tabfocus\plugin.min.js" />
-    <None Include="wwwroot\src\plugins\table\index.js" />
-    <None Include="wwwroot\src\plugins\table\plugin.js" />
-    <None Include="wwwroot\src\plugins\table\plugin.min.js" />
-    <None Include="wwwroot\src\plugins\template\index.js" />
-    <None Include="wwwroot\src\plugins\template\plugin.js" />
-    <None Include="wwwroot\src\plugins\template\plugin.min.js" />
-    <None Include="wwwroot\src\plugins\textcolor\index.js" />
-    <None Include="wwwroot\src\plugins\textcolor\plugin.js" />
-    <None Include="wwwroot\src\plugins\textcolor\plugin.min.js" />
-    <None Include="wwwroot\src\plugins\textpattern\index.js" />
-    <None Include="wwwroot\src\plugins\textpattern\plugin.js" />
-    <None Include="wwwroot\src\plugins\textpattern\plugin.min.js" />
-    <None Include="wwwroot\src\plugins\toc\index.js" />
-    <None Include="wwwroot\src\plugins\toc\plugin.js" />
-    <None Include="wwwroot\src\plugins\toc\plugin.min.js" />
-    <None Include="wwwroot\src\plugins\visualblocks\index.js" />
-    <None Include="wwwroot\src\plugins\visualblocks\plugin.js" />
-    <None Include="wwwroot\src\plugins\visualblocks\plugin.min.js" />
-    <None Include="wwwroot\src\plugins\visualchars\index.js" />
-    <None Include="wwwroot\src\plugins\visualchars\plugin.js" />
-    <None Include="wwwroot\src\plugins\visualchars\plugin.min.js" />
-    <None Include="wwwroot\src\plugins\wordcount\index.js" />
-    <None Include="wwwroot\src\plugins\wordcount\plugin.js" />
-    <None Include="wwwroot\src\plugins\wordcount\plugin.min.js" />
-    <None Include="wwwroot\src\themes\inlite\index.js" />
-    <None Include="wwwroot\src\themes\inlite\theme.js" />
-    <None Include="wwwroot\src\themes\inlite\theme.min.js" />
-    <None Include="wwwroot\src\themes\modern\index.js" />
-    <None Include="wwwroot\src\themes\modern\theme.js" />
-    <None Include="wwwroot\src\themes\modern\theme.min.js" />
-    <None Include="wwwroot\src\tinymce.min.js" />
+    <None Remove="ClientApp\package-lock.json" />
   </ItemGroup>
-        
-  <ItemGroup>
-    <Content Update="web.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-        
-  <ItemGroup>
-    <WCFMetadata Include="Connected Services" />
-  </ItemGroup>
-        
-  <ProjectExtensions><VisualStudio><UserProperties package_1json__JSONSchema="http://json.schemastore.org/resjson" /></VisualStudio></ProjectExtensions>
+
+  <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
+    <!-- Ensure Node.js is installed -->
+    <Exec Command="node --version" ContinueOnError="true">
+      <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
+    </Exec>
+    <Error Condition="'$(ErrorCode)' != '0'" Text="Node.js is required to build and run this project. To continue, please install Node.js from https://nodejs.org/, and then restart your command prompt or IDE." />
+    <Message Importance="high" Text="Restoring dependencies using 'npm'. This may take several minutes..." />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
+  </Target>
+
+  <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
+    <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build -- --prod" />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build:ssr -- --prod" Condition=" '$(BuildServerSideRenderer)' == 'true' " />
+
+    <!-- Include the newly-built files in the publish output -->
+    <ItemGroup>
+      <DistFiles Include="$(SpaRoot)dist\**; $(SpaRoot)dist-server\**" />
+      <DistFiles Include="$(SpaRoot)node_modules\**" Condition="'$(BuildServerSideRenderer)' == 'true'" />
+      <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
+        <RelativePath>%(DistFiles.Identity)</RelativePath>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </ResolvedFileToPublish>
+    </ItemGroup>
+  </Target>
 
 </Project>

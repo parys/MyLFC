@@ -28,11 +28,7 @@ namespace MyLiverpool.Web.WebApiNext
                 //.CaptureStartupErrors(true)
                 .UseKestrel()
                 .UseContentRoot(Directory.GetCurrentDirectory())
-
-#if DEBUG        
-    .UseIISIntegration()
-#endif
-                .UseStartup<Startup>()
+         .UseStartup<Startup>()
                 .Build();
 
             host.Run();

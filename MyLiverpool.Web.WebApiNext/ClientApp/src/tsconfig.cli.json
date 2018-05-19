@@ -1,0 +1,12 @@
+﻿{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": "./",
+    "module": "es2015",
+    "types": [],
+    "outDir": "../out-tsc/app"
+  },
+  "exclude": [
+    "angular2app/main.server.ts"
+  ]
+}
