@@ -31,19 +31,24 @@ export class EditorComponent implements ControlValueAccessor {
     //  @ViewChild("nativeElement") public nativeElement: ElementRef;
 
     constructor(
-        private lazyService: LazyLoadingLibraryService,
+      //  private lazyService: LazyLoadingLibraryService,
         zone: NgZone) {
         this.zone = zone;
+        console.warn(1);
       //  lazyService.loadJs("/src/tinymce.min.js").subscribe(_ => this.initTiny());
     }
 
     public ngAfterViewInit(): void {
+        console.warn(2);
         if (this.isTinyDefined()) {
+            console.warn(3);
             this.initTiny();
         }
+        console.warn(4);
     }
 
     public setFocus() {
+        console.warn(5);
         if (this.isTinyDefined() && tinymce.editors && tinymce.editors[this.elementId]) {
             tinymce.editors[this.elementId].selection.select(tinymce.editors[this.elementId].getBody(), true);
             tinymce.editors[this.elementId].selection.collapse(false);
@@ -56,6 +61,7 @@ export class EditorComponent implements ControlValueAccessor {
     };
 
     public set value(value: string) {
+        console.info(14);
         if (value !== this._value) {
             this._value = value;
             this.onChange(value);
@@ -64,7 +70,9 @@ export class EditorComponent implements ControlValueAccessor {
     }
 
     public updateValue(value: any): void {
+        console.info(12);
         this.zone.run(() => {
+            console.info(13);
             this.value = value;
             this.onChange(value);
             this.onTouched();
@@ -73,12 +81,14 @@ export class EditorComponent implements ControlValueAccessor {
     }
 
     public ngOnDestroy(): void {
+        console.info(11);
         if (this.isTinyDefined() && this.editor) {
             tinymce.remove(this.editor);
         }
     }
 
     public writeValue(value: any): void {
+        console.info(8);
         this.value = value;
         if (this.isTinyDefined()) {
                 this.initTiny();
@@ -132,6 +142,7 @@ export class EditorComponent implements ControlValueAccessor {
     }
 
     private initTiny(): void {
+        console.info(7);
         const settings1//: Settings
             = {
                 autoresize_overflow_padding: 0,
@@ -170,7 +181,9 @@ export class EditorComponent implements ControlValueAccessor {
                     });
                 }
             }
+        console.info(9);
         tinymce.init(settings1);
+        console.info(10);
     }
 
     private setupFunction(editor: any) {//Editor) {
@@ -190,6 +203,7 @@ export class EditorComponent implements ControlValueAccessor {
     }
 
     private isTinyDefined(): boolean {
+        console.error(6);
         return typeof tinymce !== "undefined";
     }
 }

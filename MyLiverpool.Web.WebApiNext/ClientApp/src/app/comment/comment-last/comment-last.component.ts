@@ -36,10 +36,10 @@ export class CommentLastComponent implements OnInit, OnDestroy {
     }
 
     private scheduleUpdateCount() {
-        //this.sub = interval(this.config.updateLastComments).pipe(
-        //        map(x => this.update())
-        //    )
-        //    .subscribe();
+        this.sub = interval(this.config.updateLastComments).pipe(
+                map(x => this.update())
+            )
+            .subscribe();
     }
 
     public update(): void {

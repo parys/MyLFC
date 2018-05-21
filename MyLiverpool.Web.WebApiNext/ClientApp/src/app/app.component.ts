@@ -2,7 +2,7 @@
 import { isPlatformBrowser } from "@angular/common";  
 import { Router, ActivatedRoute, NavigationEnd } from "@angular/router";
 import { Title } from "@angular/platform-browser";
-import { Observable } from "rxjs"
+import { Observable, timer } from "rxjs"
 import { filter, map, mergeMap } from "rxjs/operators"
 import { RolesCheckedService, AuthService, IAuthStateModel, BreadcrumbService } from "@app/shared";
 
@@ -60,24 +60,57 @@ export class AppComponent implements OnInit {
     }
 
     private initTitleSubscriber() {
+        //this.router.events.pipe(
+        //    filter((event: any) => event instanceof NavigationEnd),
+        //    map(() => this.activatedRoute),
+        //    map((route: ActivatedRoute) => {
+        //        while (route.firstChild) route = route.firstChild;
+        //        return route;
+        //    }),
+        //    filter((route: ActivatedRoute) => route.outlet === "primary"),
+
+        //    mergeMap((route: ActivatedRoute) => route.data))
+        //    .subscribe((event) => {
+        //        window.scrollTo(0,0); //todo find solution to get if is fragment
+        //        this.titleService.setTitle(event["title"]);
+        //        let tmr = timer(1500);
+        //        tmr.subscribe(_ => addAd()); //todo
+        //        //}, 1500);
+
+        //        // this.isRoot = (event["title"] === "MyLFC.ru - Сайт русскоязычных болельщиков \"Ливерпуля\"");
+        //    });
         this.router.events.pipe(
             filter((event: any) => event instanceof NavigationEnd),
-            map(() => this.activatedRoute),
-            map((route: ActivatedRoute) => {
-                while (route.firstChild) route = route.firstChild;
-                return route;
-            }),
-            filter((route: ActivatedRoute) => route.outlet === "primary"),
-            mergeMap((route: ActivatedRoute) => route.data))
-            .subscribe((event) => {
-               // window.scrollTo(0,0); //todo find solution to get if is fragment
-                this.titleService.setTitle(event["title"]);
-                //setTimeout(() => {
-                    addAd(); //todo
-                //}, 1500);
+            map(() => {
+                let child = this.activatedRoute.firstChild;
+                while (child) {
+                    if (child.firstChild) {
+                        child = child.firstChild;
+                    } else if (child.snapshot.data && child.snapshot.data["title"]) {
+                        if (!child.snapshot.fragment) {
+                            window.scrollTo(0, 0); //todo find solution to get if is fragment
+                        }
+                        return child.snapshot.data["title"];
+                    } else {
+                        return null;
+                    }
+                }
+                return null;
+            })).subscribe((title: any) => {
+            this.titleService.setTitle(title);
+            let tmr = timer(1500);
+            tmr.subscribe(_ => addAd());
+        });
+        //mergeMap((route: ActivatedRoute) => route.data))
+        //.subscribe((event) => {
+        //    
+        //    this.titleService.setTitle(event["title"]);
+        //    let tmr = timer(1500);
+        //    tmr.subscribe(_ => addAd()); //todo
+        //}, 1500);
 
-                // this.isRoot = (event["title"] === "MyLFC.ru - Сайт русскоязычных болельщиков \"Ливерпуля\"");
-            });
+        // this.isRoot = (event["title"] === "MyLFC.ru - Сайт русскоязычных болельщиков \"Ливерпуля\"");
+        //  });
         //this.router.events.subscribe(event => {
         //    if (event instanceof NavigationEnd) {
         //        const fragment = this.router.parseUrl(this.router.url).fragment;
