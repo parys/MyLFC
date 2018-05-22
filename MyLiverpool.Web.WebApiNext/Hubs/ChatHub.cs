@@ -37,7 +37,7 @@ namespace MyLiverpool.Web.WebApiNext.Hubs
           //  var result = await _chatMessageService.CreateAsync(chatMessage1);
           //  if (result != null)
             {
-                await Clients.All.InvokeAsync("SendChat", chatMessage);
+                await Clients.All.SendAsync("SendChat", chatMessage);
             }
         }
     }

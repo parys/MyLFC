@@ -348,9 +348,14 @@ namespace MyLiverpool.Web.WebApiNext
                 OnPrepareResponse = ctx =>
                 {
                     ctx.Context.Response.Headers.Append("Cache-Control", "public,max-age=86400");
-                }
+                },
+             //   ServeUnknownFileTypes = true
             });
-            app.UseSpaStaticFiles();
+            app.UseSpaStaticFiles(new StaticFileOptions()
+                {
+               //     ServeUnknownFileTypes = true
+                }
+            );
 
             //app.UseSignalR(routes =>
             //{

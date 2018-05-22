@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
     <AssemblyName>MyLiverpool.Data.Entities</AssemblyName>
     <PackageId>MyLiverpool.Data.Entities</PackageId>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.1.0-rc1-final" />
     <PackageReference Include="OpenIddict" Version="2.0.0-rc3-0916" />
     <PackageReference Include="OpenIddict.EntityFrameworkCore" Version="2.0.0-rc3-0916" />
     <PackageReference Include="OpenIddict.Mvc" Version="2.0.0-rc3-0916" />
