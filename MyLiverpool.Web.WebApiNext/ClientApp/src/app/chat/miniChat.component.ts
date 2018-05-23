@@ -114,15 +114,15 @@ export class MiniChatComponent implements OnInit, OnDestroy {
     }
 
     private scheduleUpdate(selectedValue: number) {
-        //if (selectedValue === 0) {
-        //    if (this.updater$) {
-        //        this.updater$.unsubscribe();
-        //    }
-        //} else {
-        //    this.updater$ = interval(1000 * selectedValue).pipe(
-        //        map(x => this.update()))
-        //        .subscribe();
-        //}
+        if (selectedValue === 0) {
+            if (this.updater$) {
+                this.updater$.unsubscribe();
+            }
+        } else {
+            this.updater$ = interval(1000 * selectedValue).pipe(
+                map(x => this.update()))
+                .subscribe();
+        }
     }
 
     private delete(index: number): void {

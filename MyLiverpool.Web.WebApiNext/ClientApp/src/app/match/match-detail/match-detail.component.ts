@@ -32,10 +32,10 @@ export class MatchDetailComponent implements OnInit, OnDestroy {
                         if (!data.scoreHome) {
                             this.countDown$ =
                                 new BehaviorSubject<string>(this.updateTimeRemaining(this.item.dateTime));
-                            //this.sub$ = interval(1000).pipe(
-                            //        map(() => this.countDown$.next(this.updateTimeRemaining(this.item.dateTime)))
-                            //    )
-                            //    .subscribe();
+                            this.sub$ = interval(1000).pipe(
+                                    map(() => this.countDown$.next(this.updateTimeRemaining(this.item.dateTime)))
+                                )
+                                .subscribe();
 
                         }
                     },

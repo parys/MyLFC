@@ -35,9 +35,9 @@ export class NotificationCounterComponent implements OnInit, OnDestroy {
     }
 
     private scheduleUpdateCount() {
-        //this.sub2 = interval(this.config.updateNotifications).pipe(
-        //    map(x => this.updateCount()))
-        //    .subscribe();
+        this.sub2 = interval(this.config.updateNotifications).pipe(
+            map(x => this.updateCount()))
+            .subscribe();
     }
 
     private updateCount() {

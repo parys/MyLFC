@@ -33,9 +33,9 @@ export class PmCounterComponent implements OnInit, OnDestroy {
     }
 
     private scheduleUpdateCount() {
-        //this.sub2 = interval(this.config.updateUnreadPmCountTime).pipe(
-        //    map(x => this.updateCount()))
-        //    .subscribe();
+        this.sub2 = interval(this.config.updateUnreadPmCountTime).pipe(
+            map(x => this.updateCount()))
+            .subscribe();
     }
 
     private updateCount() {

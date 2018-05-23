@@ -104,13 +104,13 @@ export class MaxiChatComponent implements OnInit, OnDestroy {
 
     private scheduleUpdate(selectedValue: number) {
         if (selectedValue === 0) {
-            //if (this.updater$) {
-            //    this.updater$.unsubscribe();
-            //}
+            if (this.updater$) {
+                this.updater$.unsubscribe();
+            }
         } else {
-            //this.updater$ = interval(1000 * selectedValue).pipe(
-            //    map(x => this.update()))
-            //    .subscribe();
+            this.updater$ = interval(1000 * selectedValue).pipe(
+                map(x => this.update()))
+                .subscribe();
         }
     }
 
