@@ -10,7 +10,7 @@
     <div *ngFor="let person of items">
         <mat-card class="stuff-card">
             <mat-card-header>
-                <mat-card-title role="button" *ngIf="roles.isInformer" [routerLink]="['/persons', person.id, 'edit']" [textContent]="person.russianName"></mat-card-title>
+                <mat-card-title role="button" *ngIf="roles.isInformer" [routerLink]="['/persons', person.id, 'edit']" [textContent]="person.russianName"></mat-card-title>&nbsp;
                 <mat-card-title *ngIf="!roles.isInformer" [textContent]="person.russianName"></mat-card-title>
                 <mat-card-subtitle [textContent]="person.position"></mat-card-subtitle>
             </mat-card-header>

@@ -13,14 +13,14 @@
             <mat-card class="stuff-card">
                 <mat-card-header>
                     <mat-card-title>
-                        <b *ngIf="person.number">#<span [textContent]="person.number"></span></b>
+                        <b *ngIf="person.number">#<span [textContent]="person.number"></span></b>&nbsp;
                         <span role="button" *ngIf="roles.isInformer" [routerLink]="['/persons', person.id, 'edit']" [textContent]="person.russianName"></span>
                         <span *ngIf="!roles.isInformer" [textContent]="person.russianName"></span>
                     </mat-card-title>
                 </mat-card-header>
                 <img mat-card-image [src]="person.photo" [alt]="person.russianName">
                 <mat-card-content>
-                    <p *ngIf="person.country"><span [textContent]="person.country"></span></p>
+                    <p *ngIf="person.country"><span [textContent]="person.country"></span></p>&nbsp;
                     <p><span [textContent]="person.birthday | date"></span></p>
                 </mat-card-content>
             </mat-card>
@@ -34,7 +34,7 @@
             <mat-card class="stuff-card">
                 <mat-card-header>
                     <mat-card-title>
-                        <b *ngIf="person.number">#<span [textContent]="person.number"></span></b>
+                        <b *ngIf="person.number">#<span [textContent]="person.number"></span></b>&nbsp;
                         <span role="button" *ngIf="roles.isInformer" [routerLink]="['/persons', person.id, 'edit']" [textContent]="person.russianName"></span>
                         <span *ngIf="!roles.isInformer" [textContent]="person.russianName"></span>
                     </mat-card-title>
@@ -55,7 +55,7 @@
             <mat-card class="stuff-card">
                 <mat-card-header>
                     <mat-card-title>
-                        <b *ngIf="person.number">#<span [textContent]="person.number"></span></b>
+                        <b *ngIf="person.number">#<span [textContent]="person.number"></span></b>&nbsp;
                         <span role="button" *ngIf="roles.isInformer" [routerLink]="['/persons', person.id, 'edit']" [textContent]="person.russianName"></span>
                         <span *ngIf="!roles.isInformer" [textContent]="person.russianName"></span>
                     </mat-card-title>
@@ -76,7 +76,7 @@
             <mat-card class="stuff-card">
                 <mat-card-header>
                     <mat-card-title>
-                        <b *ngIf="person.number">#<span [textContent]="person.number"></span></b>
+                        <b *ngIf="person.number">#<span [textContent]="person.number"></span></b>&nbsp;
                         <span role="button" *ngIf="roles.isInformer" [routerLink]="['/persons', person.id, 'edit']" [textContent]="person.russianName"></span>
                         <span *ngIf="!roles.isInformer" [textContent]="person.russianName"></span>
                     </mat-card-title>

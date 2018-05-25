@@ -15,9 +15,11 @@
             <img [src]="next.awayClubLogo" class="center" [alt]="next.awayClubName" [title]="next.awayClubName">
             <strong style="font-size: 1.2em;" class="text-center" [textContent]="next.awayClubName"></strong>
         </div>
-        <div class="col-xs-12 text-center"><a *ngIf="next.previewId" class="text-white" [routerLink]="['/news', next.previewId]">Превью</a>
-            <a class="text-white" [routerLink]="['/seasons/calendar']">Календарь</a>
-            <a class="text-white" [routerLink]="['matches', next.id]">Обсуждение</a></div>
+        <div class="col-xs-12 text-center">
+            <a *ngIf="next.previewId" class="text-white" [routerLink]="['/news', next.previewId]">Превью</a>&nbsp;
+            <a class="text-white" [routerLink]="['/seasons/calendar']">Календарь</a>&nbsp;
+            <a class="text-white" [routerLink]="['matches', next.id]">Обсуждение</a>
+        </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 bg-light-blue flex padding0 border-panel border-lgray match-calendar" *ngIf="last">
         <div class="col-xs-12 col-sm-12 col-md-5">Последняя игра 
@@ -44,10 +46,10 @@
         </div>
         <div class="col-xs-12 infodate">
             <br>
-            <a *ngIf="last.previewId" [routerLink]="['news', last.previewId]">Превью</a>
-            <a [routerLink]="['matches', last.id]">Обсуждение</a>
-            <a *ngIf="last.photoUrl" [routerLink]="['news', last.photoUrl]">Фото</a>
-            <a *ngIf="last.videoUrl" [href]="last.videoUrl" target="_blank">Видео</a>
+            <a *ngIf="last.previewId" [routerLink]="['news', last.previewId]">Превью</a>&nbsp;
+            <a [routerLink]="['matches', last.id]">Обсуждение</a>&nbsp;
+            <a *ngIf="last.photoUrl" [routerLink]="['news', last.photoUrl]">Фото</a>&nbsp;
+            <a *ngIf="last.videoUrl" [href]="last.videoUrl" target="_blank">Видео</a>&nbsp;
             <a *ngIf="last.reportId" [routerLink]="['news', last.reportId]">Вердикт</a>
         </div>
     </div>
