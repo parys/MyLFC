@@ -64,7 +64,7 @@ namespace MyLiverpool.Business.Services
         public async Task<IEnumerable<ChatMessageDto>> GetListAsync(int lastMessageId, ChatMessageTypeEnum type)
         {
             Expression<Func<ChatMessage, bool>> filter = x => x.Type == type && x.Id > lastMessageId;
-            var messages = await _chatMessageRepository.GetListAsync(1, GlobalConstants.TakingChatMessagesCount, filter,
+            var messages = await _chatMessageRepository.GetListAsync(1, GlobalConstants.TakingChatMessagesCount, true, filter,
                 SortOrder.Descending, x => x.AdditionTime, x => x.Author);
             return _mapper.Map<IEnumerable<ChatMessageDto>>(messages);
         }

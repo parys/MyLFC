@@ -65,7 +65,7 @@ namespace MyLiverpool.Business.Services
         {
             Expression<Func<Injury, bool>> filter = m => true;
 
-            var injuries = await _injuryRepository.GetListAsync(page, itemsPerPage, filter, SortOrder.Descending, i => i.StartTime, x => x.Person);
+            var injuries = await _injuryRepository.GetListAsync(page, itemsPerPage, true, filter, SortOrder.Descending, i => i.StartTime, x => x.Person);
             var dtos = _mapper.Map<IEnumerable<InjuryDto>>(injuries);
             var count = await _injuryRepository.CountAsync(filter);
             return new PageableData<InjuryDto>(dtos, page, count);

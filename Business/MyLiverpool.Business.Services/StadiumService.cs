@@ -78,7 +78,7 @@ namespace MyLiverpool.Business.Services
         public async Task<IEnumerable<StadiumDto>> GetListByNameAsync(string typed)
         {
             Expression<Func<Stadium, bool>> filter = x => string.IsNullOrWhiteSpace(typed) || x.Name.Contains(typed);
-            var list = await _stadiumRepository.GetListAsync(1, GlobalConstants.CountStadiumsForAutocomlete, filter);
+            var list = await _stadiumRepository.GetListAsync(1, GlobalConstants.CountStadiumsForAutocomlete, true, filter);
             return _mapper.Map<IEnumerable<StadiumDto>>(list);
         }
     }

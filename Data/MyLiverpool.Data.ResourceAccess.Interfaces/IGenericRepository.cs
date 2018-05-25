@@ -21,13 +21,18 @@ namespace MyLiverpool.Data.ResourceAccess.Interfaces
 
         Task<bool> DeleteAsync(int id);
 
+        Task DeleteRangeAsync(List<T> entities);
+
         Task<int> CountAsync(Expression<Func<T, bool>> filter = null);
 
-        Task<IEnumerable<T>> GetListAsync(int? page = null, int itemPerPage = 15,
-            Expression<Func<T, bool>> filter = null,
+        Task<IEnumerable<T>> GetListAsync(Expression<Func<T, bool>> filter = null,
             SortOrder order = SortOrder.Ascending, Expression<Func<T, object>> orderBy = null, params Expression<Func<T, object>>[] includes);
 
-        Task<IEnumerable<T>> GetListAsync(Expression<Func<T, bool>> filter = null,
+        Task<IEnumerable<T>> GetListAsync(bool asNoTracking = true, Expression<Func<T, bool>> filter = null,
+            SortOrder order = SortOrder.Ascending, Expression<Func<T, object>> orderBy = null, params Expression<Func<T, object>>[] includes);
+        
+        Task<IEnumerable<T>> GetListAsync(int? page = null, int itemPerPage = 15, bool asNoTracking = true,
+            Expression<Func<T, bool>> filter = null,
             SortOrder order = SortOrder.Ascending, Expression<Func<T, object>> orderBy = null, params Expression<Func<T, object>>[] includes);
 
         Task<T> GetFirstByFilterAsync(Expression<Func<T, bool>> filter);

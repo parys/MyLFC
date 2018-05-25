@@ -69,6 +69,15 @@ namespace MyLiverpool.Data.ResourceAccess
             return await DeleteAsync(entity);
         }
 
+        public async Task DeleteRangeAsync(List<T> entities)
+        {
+            if (entities.Any())
+            {
+                _context.Set<T>().RemoveRange(entities);
+                await _context.SaveChangesAsync();
+            }
+        }
+
         public async Task<int> CountAsync(Expression<Func<T, bool>> filter = null)
         {
             IQueryable<T> query = _context.Set<T>().AsNoTracking();
@@ -79,10 +88,17 @@ namespace MyLiverpool.Data.ResourceAccess
             return await query.CountAsync();
         }
 
-        public async Task<IEnumerable<T>> GetListAsync(int? page = null, int itemPerPage = 15, Expression<Func<T, bool>> filter = null, SortOrder order = SortOrder.Ascending,
+        public async Task<IEnumerable<T>> GetListAsync(Expression<Func<T, bool>> filter = null, SortOrder order = SortOrder.Ascending, Expression<Func<T, object>> orderBy = null,
+            params Expression<Func<T, object>>[] includes)
+        {
+            return await GetListAsync(null, 0, true, filter, order, orderBy, includes);
+        }
+
+        public async Task<IEnumerable<T>> GetListAsync(int? page = null, int itemPerPage = 15, bool asNoTracking = true,
+            Expression<Func<T, bool>> filter = null, SortOrder order = SortOrder.Ascending,
             Expression<Func<T, object>> orderBy = null, params Expression<Func<T, object>>[] includes)
         {
-            IQueryable<T> query = _context.Set<T>().AsNoTracking();
+            IQueryable<T> query = _context.Set<T>();
             if (includes != null && includes.Any())
             {
                 query = includes.Aggregate(query, (current, include) => current.Include(include));
@@ -99,14 +115,19 @@ namespace MyLiverpool.Data.ResourceAccess
             {
                 query = query.Skip((page.Value - 1) * itemPerPage).Take(itemPerPage);
             }
+
+            if (asNoTracking)
+            {
+                query = query.AsNoTracking();
+            }
             return await query.ToListAsync();
         }
 
-        public async Task<IEnumerable<T>> GetListAsync(Expression<Func<T, bool>> filter = null,
+        public async Task<IEnumerable<T>> GetListAsync(bool asNoTracking = true,Expression<Func<T, bool>> filter = null, 
             SortOrder order = SortOrder.Ascending, Expression<Func<T, object>> orderBy = null,
             params Expression<Func<T, object>>[] includes)
         {
-            return await GetListAsync(null, 0, filter, order, orderBy, includes);
+            return await GetListAsync(null, 0, asNoTracking, filter, order, orderBy, includes);
         }
 
         public async Task<T> GetFirstByFilterAsync(Expression<Func<T, bool>> filter)
