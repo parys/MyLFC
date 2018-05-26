@@ -7,23 +7,20 @@
             </mat-option>
         </mat-autocomplete>
     </mat-form-field>
-    <div class="form-group">
-        <label class="control-label col-xs-2 col-sm-2"> Категория:</label>
-        <div class="col-xs-10 col-sm-10">
-            <mat-select class="form-control" formControlName="typeId">
-                <mat-option *ngFor="let type of types" [value]="type.id" [textContent]="type.name"></mat-option>
-            </mat-select>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-xs-2 col-sm-2"> Сезон:</label>
-        <div class="col-xs-10 col-sm-10">
-            <mat-select class="form-control" formControlName="seasonId">
-                <mat-option *ngFor="let season of seasons" [value]="season.id" [textContent]="season.startSeasonYear + '-' + season.endSeasonYear"></mat-option>
-            </mat-select>
-        </div>
-    </div>
-    <div class="form-group">
+
+    <mat-form-field class="full-width">
+        <mat-select placeholder="Категория" formControlName="typeId">
+            <mat-option *ngFor="let type of types" [value]="type.id" [textContent]="type.name"></mat-option>
+        </mat-select>
+    </mat-form-field>
+    
+    <mat-form-field class="full-width">
+        <mat-select placeholder="Сезон" formControlName="seasonId">
+            <mat-option *ngFor="let season of seasons" [value]="season.id" [textContent]="season.startSeasonYear + '-' + season.endSeasonYear"></mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <div class="full-width text-center">
         Выезд <mat-slide-toggle formControlName="isHome"
                                 color="warn">
             Дома
@@ -48,34 +45,20 @@
         <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
         <mat-datepicker #datePicker startView="year" touchUi="true"></mat-datepicker>
     </mat-form-field>
+    <mat-form-field class="full-width">
+        <input matInput placeholder="Превью id" formControlName="previewId">
+    </mat-form-field>
+    <mat-form-field class="full-width">
+        <input matInput placeholder="Фото id" formControlName="photoUrl">
+    </mat-form-field>
+    <mat-form-field class="full-width">
+        <input matInput placeholder="Видео url" formControlName="videoUrl">
+    </mat-form-field>
+    <mat-form-field class="full-width">
+        <input matInput placeholder="Вердикт id" formControlName="reportId">
+    </mat-form-field>
 
-    <div class="form-group">
-        <label class="control-label col-xs-2 col-sm-2"> Превью:</label>
-        <div class="col-xs-10 col-sm-10">
-            <input class="form-control" formControlName="previewId" />
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-xs-2 col-sm-2"> Фото:</label>
-        <div class="col-xs-10 col-sm-10">
-            <input class="form-control" formControlName="photoUrl" />
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-xs-2 col-sm-2"> Видео:</label>
-        <div class="col-xs-10 col-sm-10">
-            <input class="form-control" formControlName="videoUrl" />
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-xs-2 col-sm-2"> Вердикт:</label>
-        <div class="col-xs-10 col-sm-10">
-            <input class="form-control" formControlName="reportId" />
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <button type="submit" [disabled]="!editMatchForm.valid" class="btn btn-default">Сохранить</button>
-        </div>
+    <div class="full-width">
+        <button mat-raised-button color="warn" type="submit" [disabled]="!editMatchForm.valid">Сохранить</button>
     </div>
 </form>

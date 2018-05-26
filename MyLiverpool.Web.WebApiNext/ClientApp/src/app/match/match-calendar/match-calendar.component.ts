@@ -7,7 +7,8 @@ import { RolesCheckedService } from "@app/shared";
 @Component({
     selector: "match-calendar",
     templateUrl: "./match-calendar.component.html",
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    preserveWhitespaces : true
 })
 export class MatchCalendarComponent implements OnInit, OnDestroy {
     private sub: Subscription;
