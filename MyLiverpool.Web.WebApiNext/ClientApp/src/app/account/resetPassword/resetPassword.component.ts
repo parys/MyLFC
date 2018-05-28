@@ -18,6 +18,7 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
     public finish: boolean;
     public error: boolean = false;
     public code: string;
+    public isHuman: boolean = false;
 
     constructor(private service: AccountService,
         private route: ActivatedRoute,
@@ -61,5 +62,6 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
             },
             e => console.log(e)
         );
+        this.isHuman = false;
     }
 }

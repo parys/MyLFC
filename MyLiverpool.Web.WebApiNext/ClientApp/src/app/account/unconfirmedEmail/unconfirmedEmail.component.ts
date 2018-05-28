@@ -10,6 +10,7 @@ import { AccountService } from "../account.service";
 export class UnconfirmedEmailComponent implements OnInit {
     public unconfirmedForm: FormGroup; 
     public finish: boolean;
+    public isHuman: boolean = false;
 
     constructor(private service: AccountService, private formBuilder: FormBuilder) {
     }
@@ -32,5 +33,6 @@ export class UnconfirmedEmailComponent implements OnInit {
             },
             e => console.log(e)
         );
+        this.isHuman = false;
     }
 }

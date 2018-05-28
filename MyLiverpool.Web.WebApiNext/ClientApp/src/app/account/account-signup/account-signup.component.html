@@ -7,7 +7,7 @@
     </div>
     <div class="full-width" *ngIf="isAgreeWithRules">
         <form class="full-width" *ngIf="!result" [formGroup]="registerForm" (ngSubmit)="onSubmit()" role="form">
-            <div class="form-group full-width">
+            <div class="full-width">
                 <mat-form-field class="full-width">
                     <input matInput formControlName="userName" placeholder="Логин"/>
                 </mat-form-field>
@@ -17,7 +17,7 @@
                     <div *ngIf="registerForm.controls['userName'].hasError('notUniqueUserName')">Пользователь с таким логином уже зарегистрирован.</div>
                 </div>
             </div>
-            <div class="form-group full-width">
+            <div class="full-width">
                 <mat-form-field class="full-width">
                     <input matInput formControlName="email" type="email" placeholder="Почта"/>
                 </mat-form-field>
@@ -28,7 +28,7 @@
                     <div *ngIf="registerForm.controls['email'].hasError('notUniqueEmail')">Пользователь с таким адресом уже зарегистрирован.</div>
                 </div>
             </div>
-            <div class="form-group">
+            <div class="full-width">
                 <mat-form-field class="full-width">
                     <input matInput formControlName="password" type="password" placeholder="Пароль" />
                 </mat-form-field>
@@ -37,7 +37,7 @@
                     <div *ngIf="registerForm.controls['password'].hasError('minlength')">Значение должно превышать 6 символов.</div> <!--todo move to config-->
                 </div>
             </div>
-            <div class="form-group">
+            <div class="full-width">
                 <mat-form-field class="full-width">
                     <input matInput formControlName="confirmPassword" type="password" placeholder="Ещё раз пароль" />
                 </mat-form-field>
@@ -48,17 +48,15 @@
                     <div *ngIf="registerForm.hasError('mismatchedPasswords')">Введенные пароли должны совпадать.</div>
                 </div>
             </div>
-            <div class="form-group" *ngIf="isHuman">
-                <div class="text-center">
-                    <button mat-raised-button color="warn" [disabled]="!registerForm.valid" type="submit">Зарегистрироваться</button>
-                </div>
-            </div>
-            <div class="form-group" [hidden]="isHuman">
-                <div class="text-center">
-                    <recaptcha (isHuman)="isHuman = $event"></recaptcha>
-                </div>
+            <div class="full-width text-center">
+                    <button mat-raised-button
+                            color="warn"
+                            [disabled]="!registerForm.valid"
+                            type="submit"
+                            *ngIf="isHuman">Зарегистрироваться</button>
+                    <recaptcha [hidden]="isHuman" (isHuman)="isHuman = $event"></recaptcha>
             </div>
         </form>
-        <span *ngIf="result">Регистрация прошла успешно, пожалуйста, подтвердите регистрацию. Письмо отправлено на введенную вами почту.</span>
+        <span *ngIf="result">Регистрация прошла успешно, пожалуйста, подтвердите ваш почтовый адрес. Письмо отправлено на введенную вами почту.</span>
     </div>
 </div>

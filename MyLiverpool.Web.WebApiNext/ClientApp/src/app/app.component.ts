@@ -1,9 +1,9 @@
-﻿import { Component, ViewContainerRef, OnInit, ViewEncapsulation, ElementRef, PLATFORM_ID, Inject, Renderer2 } from "@angular/core";  
+﻿import { Component, ViewContainerRef, OnInit, ViewEncapsulation, ElementRef, PLATFORM_ID, Inject, Renderer2, NgZone } from "@angular/core";  
 import { isPlatformBrowser } from "@angular/common";  
 import { Router, ActivatedRoute, NavigationEnd } from "@angular/router";
 import { Title } from "@angular/platform-browser";
 import { Observable, timer } from "rxjs"
-import { filter, map, mergeMap } from "rxjs/operators"
+import { filter, map } from "rxjs/operators"
 import { RolesCheckedService, AuthService, IAuthStateModel, BreadcrumbService } from "@app/shared";
 
 declare let addAd: any;
@@ -28,7 +28,8 @@ export class AppComponent implements OnInit {
         @Inject(PLATFORM_ID) private platformId: Object,
         private renderer: Renderer2,
         private elRef: ElementRef,
-        private breadcrumbService: BreadcrumbService
+        private breadcrumbService: BreadcrumbService,
+        private ngZone: NgZone
     ) {       
         this.setUpBreadcrumbs();
     }
@@ -60,25 +61,6 @@ export class AppComponent implements OnInit {
     }
 
     private initTitleSubscriber() {
-        //this.router.events.pipe(
-        //    filter((event: any) => event instanceof NavigationEnd),
-        //    map(() => this.activatedRoute),
-        //    map((route: ActivatedRoute) => {
-        //        while (route.firstChild) route = route.firstChild;
-        //        return route;
-        //    }),
-        //    filter((route: ActivatedRoute) => route.outlet === "primary"),
-
-        //    mergeMap((route: ActivatedRoute) => route.data))
-        //    .subscribe((event) => {
-        //        window.scrollTo(0,0); //todo find solution to get if is fragment
-        //        this.titleService.setTitle(event["title"]);
-        //        let tmr = timer(1500);
-        //        tmr.subscribe(_ => addAd()); //todo
-        //        //}, 1500);
-
-        //        // this.isRoot = (event["title"] === "MyLFC.ru - Сайт русскоязычных болельщиков \"Ливерпуля\"");
-        //    });
         this.router.events.pipe(
             filter((event: any) => event instanceof NavigationEnd),
             map(() => {
@@ -88,7 +70,7 @@ export class AppComponent implements OnInit {
                         child = child.firstChild;
                     } else if (child.snapshot.data && child.snapshot.data["title"]) {
                         if (!child.snapshot.fragment) {
-                            window.scrollTo(0, 0); //todo find solution to get if is fragment
+                            window.scrollTo(0, 0);
                         }
                         return child.snapshot.data["title"];
                     } else {
@@ -97,40 +79,16 @@ export class AppComponent implements OnInit {
                 }
                 return null;
             })).subscribe((title: any) => {
-            this.titleService.setTitle(title);
-            let tmr = timer(1500);
-            tmr.subscribe(_ => addAd());
+                this.titleService.setTitle(title);
+             //   let sub = this.ngZone.onStable.subscribe(() => this.updateAdd());
+              //  sub.unsubscribe();
+            //this.ngZone.runOutsideAngular(() => addAd());
+                 let tmr = timer(1500);
+                tmr.subscribe(_ => addAd());
         });
-        //mergeMap((route: ActivatedRoute) => route.data))
-        //.subscribe((event) => {
-        //    
-        //    this.titleService.setTitle(event["title"]);
-        //    let tmr = timer(1500);
-        //    tmr.subscribe(_ => addAd()); //todo
-        //}, 1500);
 
         // this.isRoot = (event["title"] === "MyLFC.ru - Сайт русскоязычных болельщиков \"Ливерпуля\"");
-        //  });
-        //this.router.events.subscribe(event => {
-        //    if (event instanceof NavigationEnd) {
-        //        const fragment = this.router.parseUrl(this.router.url).fragment;
-        //        if (fragment) {
-        //            console.log(fragment);
-
-        //            const element = document.querySelector('#' + fragment);
-        //            const element2 = document.querySelector(fragment);
-        //            const element3 = document.getElementById('#' + fragment);
-        //            const element4 = document.getElementById(fragment);
-        //            console.log(element);
-        //            console.log(element2);
-        //            console.log(element3);
-        //            console.log(element4);
-        //            if (element2) {
-        //                console.log(1234);
-        //                element2.scrollTo();}
-        //        }
-        //    }
-        //});
+        
         /* todo research
         this.router.events
             .filter(event => event instanceof NavigationEnd)
@@ -145,7 +103,7 @@ export class AppComponent implements OnInit {
                 if (event) {
                     this.renderer.setProperty(document.body, "scrollTop", 0);
                 }
-            }); */
+            }; */
     }
 
     private setUpBreadcrumbs(): void {

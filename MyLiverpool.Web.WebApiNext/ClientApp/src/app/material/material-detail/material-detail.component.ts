@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, PLATFORM_ID, Inject } from "@angular/core";
+﻿import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, PLATFORM_ID, Inject, NgZone } from "@angular/core";
 import { isPlatformServer } from "@angular/common";
 import { Title, DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { Router, ActivatedRoute } from "@angular/router";
@@ -10,6 +10,8 @@ import { MaterialType } from "@app/materialCategory";
 import { RolesCheckedService, StorageService, DeleteDialogComponent } from "@app/shared";
 import { MaterialActivateDialogComponent } from "../material-activate-dialog.component";
 
+declare let ssn: any;
+
 @Component({
     selector: "material-detail",
     templateUrl: "./material-detail.component.html",
@@ -18,6 +20,7 @@ import { MaterialActivateDialogComponent } from "../material-activate-dialog.com
 
 export class MaterialDetailComponent implements OnInit, OnDestroy {
     private sub: Subscription;
+    private subs: Subscription;
     public item: Material;
     public brief: SafeHtml;
     public body: SafeHtml;
@@ -33,7 +36,8 @@ export class MaterialDetailComponent implements OnInit, OnDestroy {
         private sanitizer: DomSanitizer,
         private titleService: Title,
         private snackBar: MatSnackBar,
-        private dialog: MatDialog) {
+        private dialog: MatDialog,
+        private ngZone: NgZone) {
     }
 
     public ngOnInit(): void {
@@ -42,15 +46,22 @@ export class MaterialDetailComponent implements OnInit, OnDestroy {
                 this.router.navigate(["/"]); //bug temporary workaround
             } else {
                 this.service.getSingle(+params["id"])
-                    .subscribe(data => this.parse(data),
+                    .subscribe(data => {
+                        this.parse(data);
+                        },
                         e => console.log(e));
             }
         });
-
+        this.subs = this.ngZone.onStable.subscribe(() => this.updateSocialNetworkJs());
     }
 
     public ngOnDestroy(): void {
         if(this.sub) this.sub.unsubscribe();
+    }
+
+    public updateSocialNetworkJs(): void {
+        ssn();
+        if (this.subs) this.subs.unsubscribe();
     }
     
     public showActivateModal(): void {
