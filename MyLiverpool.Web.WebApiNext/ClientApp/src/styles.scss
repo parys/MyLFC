@@ -77,11 +77,6 @@ hr {
     border-top-color: maroon;
 }
 
-  .news-mini {
-        height: 140px;
-        width: 300px;
-    }
-
 textarea {
     resize: vertical;
 }
@@ -346,6 +341,13 @@ textarea {
     flex-wrap: wrap;
 }
 
+.flex-space-between {
+    display: flex;
+    justify-content: space-between;
+    flex-flow: row;
+    flex-wrap: wrap;
+}
+
 .flex-wrap {
     flex-wrap: wrap;
 }
@@ -422,6 +424,10 @@ textarea {
     padding-left: 0;
 }
 
+.ghost-white {
+    background-color: ghostwhite;
+}
+
 @media (min-width: 768px) and (max-width: 992px) {
     .chat-button {
         min-width: 80px !important;
@@ -438,12 +444,17 @@ textarea {
 @media(min-width: 1210px) {
     .liverbird-navbar { margin-left: auto; }
 
-    .liverbird-navbar > img { max-height: 90px; }
+    .liverbird-navbar > img { max-height: 81px; }
 }
 
     .login-list-panel {
         list-style: none;
     }
+
+.news-mini {
+    height: 140px;
+    width: 300px;
+}
 
 
     /* background image*/
@@ -522,18 +533,19 @@ textarea {
         height: 50px;
     }
 
-    .navbar {
+    nav {
         margin-bottom: 0;
         text-transform: uppercase;
     }
 
-    .navbar-default .navbar-nav > li > a {
+    .nav > li > a {
         color: #FFF;
         font-family: "Beauty";
     }
 
-        .navbar-default .navbar-nav > li > a:hover {
+        .nav > li > a:hover {
             color: #6e6e6e;
+            background-color: transparent;
         }
 
     .maroon-panel {
@@ -547,6 +559,10 @@ textarea {
 
     .padding0 {
         padding: 0;
+    }
+
+    .padding5 {
+        padding: 0 5px;
     }
 
     .padding10 {
@@ -633,6 +649,10 @@ textarea {
 
     .width50p {
         width: 50%;
+    }
+
+    .width25 {
+        width: 25%;
     }
 
     .vertical-center {

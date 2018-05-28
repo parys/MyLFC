@@ -1,20 +1,16 @@
 ﻿<div class="full-width">
-    <button class="btn btn-success" [routerLink]="[0, 'edit']">Добавить</button>
+    <button mat-raised-button color="primary" type="button" [routerLink]="[0, 'edit']">Добавить</button>
 </div>
-<form class="form-inline" [formGroup]="filterForm" (ngSubmit)="update()">
-    <div class="form-group">
+<form class="form-inline flex-space-around flex-vertical-center" [formGroup]="filterForm" (ngSubmit)="update()">
         <mat-form-field>
             <mat-select formControlName="typeId" placeholder="Тип">
                 <mat-option value="">Все типы</mat-option>
                 <mat-option *ngFor="let type of personTypes" [value]="type.id" [textContent]="type.name"></mat-option>
             </mat-select>
         </mat-form-field>
-    </div>
-    <div class="form-group">
         <mat-form-field>
             <input matInput formControlName="name" placeholder="Имя" />
         </mat-form-field>
-    </div>
     <button mat-raised-button> Отфильтровать</button>
 </form>
 <div class="top20" *ngFor="let person of items | paginate: { itemsPerPage: itemsPerPage,

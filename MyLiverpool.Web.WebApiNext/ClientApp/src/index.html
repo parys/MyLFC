@@ -19,8 +19,6 @@
     <meta name="keywords" content="ливерпуль, liverpool, ливерпуль фк, liverpool fc, lfc, liverpoolfc, клуб ливерпуль, ливерпуль футбольный клуб, сайт ливерпуля, трансляция ливерпуль, ливерпуль видео">
     <meta name="theme-color" content="#731010">
     <link title="MyLFC.ru / Последние материалы" type="application/rss+xml" rel="alternate" href="~/rss" />
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://unpkg.com/@angular/material@6.0.1/prebuilt-themes/indigo-pink.css" rel="stylesheet">
     <link rel="manifest" href="manifest.json">
 </head>
 <body>
@@ -35,27 +33,26 @@
 
     <script type="text/javascript">
         function addAd() {
-            console.warn(342);
-            //(function (w, d, n, s, t) {
-            //    w[n] = w[n] || [];
-            //    w[n].push(function () {
-            //        Ya.Context.AdvManager.render({
-            //            blockId: "R-A-255349-2",
-            //            renderTo: "yandex_rtb_R-A-255349-2",
-            //            async: true
-            //        });
-            //        Ya.Context.AdvManager.render({
-            //            blockId: "R-A-255349-3",
-            //            renderTo: "yandex_rtb_R-A-255349-3",
-            //            async: true
-            //        });
-            //    });
-            //    t = d.getElementsByTagName("script")[0];
-            //    s = d.createElement("script");
-            //    s.type = "text/javascript";
-            //    s.src = "https://an.yandex.ru/system/context.js";
-            //    t.parentNode.insertBefore(s, t);
-            //})(this, this.document, "yandexContextAsyncCallbacks");
+            (function (w, d, n, s, t) {
+                w[n] = w[n] || [];
+                w[n].push(function () {
+                    Ya.Context.AdvManager.render({
+                        blockId: "R-A-255349-2",
+                        renderTo: "yandex_rtb_R-A-255349-2",
+                        async: true
+                    });
+                    Ya.Context.AdvManager.render({
+                        blockId: "R-A-255349-3",
+                        renderTo: "yandex_rtb_R-A-255349-3",
+                        async: true
+                    });
+                });
+                t = d.getElementsByTagName("script")[0];
+                s = d.createElement("script");
+                s.type = "text/javascript";
+                s.src = "https://an.yandex.ru/system/context.js";
+                t.parentNode.insertBefore(s, t);
+            })(this, this.document, "yandexContextAsyncCallbacks");
         }
 
         function ssn() {

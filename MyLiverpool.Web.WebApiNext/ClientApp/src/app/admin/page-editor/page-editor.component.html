@@ -1,12 +1,12 @@
 ﻿<div class="top20" *ngIf="editPageForm">
-    <form class="form-horizontal" name="editPageForm" role="form" [formGroup]="editPageForm" (ngSubmit)="onSubmit()">
-        <div class="form-group">
-            <label class="col-xs-12"> Текст страницы(<span [textContent]="title"></span>):</label>
-            <div class="col-xs-12">
+    <form class="form-horizontal" role="form" [formGroup]="editPageForm" (ngSubmit)="onSubmit()">
+        <div class="full-width">
+            <label class="full-width"> Текст страницы(<span [textContent]="title"></span>):</label>
+            <div class="full-width">
                 <bbeditor name="message" [type]="2" [value]="content" [height]="550" formControlName="content"></bbeditor>
             </div>
         </div>
-        <div class="form-group text-center">
+        <div class="full-width text-center top10">
             <button mat-raised-button color="warn" type="submit" [disabled]="!editPageForm.valid">Сохранить</button>
         </div>
     </form>

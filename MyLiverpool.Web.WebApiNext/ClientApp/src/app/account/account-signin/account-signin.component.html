@@ -1,11 +1,11 @@
-﻿<form name="loginForm" class="top10" role="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
+﻿<form class="top10" role="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div class="full-width">
         <input class="form-control" formControlName="username" placeholder="Логин" type="text" />
       </div>
-    <div class="form-group">
+    <div class="full-width top10">
         <input class="form-control" formControlName="password" placeholder="Пароль" type="password" />
     </div>
-    <div class="flex-space-around flex-vertical-center">
+    <div class="flex-space-around flex-vertical-center top10">
         <span>
             <a [routerLink]="['/forgotPassword']" class="text-white">Забыли пароль?</a></span>
         <span>

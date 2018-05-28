@@ -23,7 +23,11 @@ export class CupTableComponent implements OnInit, OnDestroy {
     public ngOnInit(): void {
         this.sub = this.service
             .getValue(HelperType.CupTable)
-            .subscribe(data => this.cupTable = this.sanitizeByHtml(data),
+            .subscribe(data => {
+                if (data) {
+                        this.cupTable = this.sanitizeByHtml(data);
+                    }
+                },
                 error => console.log(error),
                 () => {
                     this.cd.markForCheck();

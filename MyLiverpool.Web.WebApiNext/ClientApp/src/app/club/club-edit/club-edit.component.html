@@ -1,4 +1,4 @@
-﻿<form class="col-xs-12 flex-space-around" name="editForm" role="form" [formGroup]="editForm" (ngSubmit)="onSubmit()">
+﻿<form class="full-width flex-space-around" name="editForm" role="form" [formGroup]="editForm" (ngSubmit)="onSubmit()">
     <div class="full-width text-center">
             <img class="img-medium" *ngIf="imagePath" [src]="imagePath" alt="" />
     </div>
@@ -13,8 +13,7 @@
         </mat-form-field>
     </div>
     <div class="full-width">
-        <div class="col-xs-1 col-sm-1"></div>
-        <div class="col-xs-10 col-sm-10 input-group" *ngIf="editForm?.controls['englishName'].value">
+        <div class="full-width input-group" *ngIf="editForm?.controls['englishName'].value">
             <input formControlName="logo" class="form-control" novalidate readonly />
             <span class="input-group-btn">
                 <label for="upload-image"
@@ -36,7 +35,7 @@
             </mat-option>
         </mat-autocomplete>
     </mat-form-field>
-    <div class="form-group full-width text-center">
+    <div class="full-width text-center">
             <button mat-raised-button color="warn" type="submit" [disabled]="!editForm.valid">Сохранить</button>
     </div>
 </form>

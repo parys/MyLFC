@@ -58,8 +58,8 @@ export class PageEditorComponent implements OnInit, OnDestroy {
     }
 
     public onSubmit(): void {
-        const model: string = this.editPageForm.controls["content"].value;
-        
+        let model: string = this.editPageForm.controls["content"].value;
+        if (model === "&nbsp;") model = "";
         this.service.updateValue(this.id, model).subscribe(data => {
             if (data) {
                 this.snackBar.open("Страница успешно обновлена.", null, { duration: 5000 });

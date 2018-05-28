@@ -22,8 +22,8 @@
 
   <ItemGroup>
       <!-- Files not to publish (note that the 'dist' subfolders are re-added below) -->
-    <Compile Remove="ClientApp\dist\aspnetcorespa\**" />
     <Compile Remove="ClientApp\node_modules\**" />
+    <Compile Remove="ClientApp\src\app\forum\**" />
     <Compile Remove="ClientApp\src\fonts\**" />
     <Compile Remove="ClientApp\src\app\person\NewFolder\**" />
     <Compile Remove="ClientApp\src\fonts\**" />
@@ -33,7 +33,6 @@
     <Compile Remove="wwwroot\src\plugins\**" />
     <Compile Remove="wwwroot\src\skins\**" />
     <Compile Remove="wwwroot\src\themes\**" />
-    <Content Remove="ClientApp\dist\aspnetcorespa\**" />
     <Content Remove="ClientApp\node_modules\**" />
     <Content Remove="ClientApp\src\fonts\**" />
     <Content Remove="ClientApp\src\app\person\NewFolder\**" />
@@ -51,6 +50,7 @@
     <Content Remove="wwwroot\swagger\**" />
     <EmbeddedResource Remove="ClientApp\dist\**" />
     <EmbeddedResource Remove="ClientApp\node_modules\**" />
+    <EmbeddedResource Remove="ClientApp\src\app\forum\**" />
     <EmbeddedResource Remove="ClientApp\src\fonts\**" />
     <EmbeddedResource Remove="ClientApp\src\app\person\NewFolder\**" />
     <EmbeddedResource Remove="ClientApp\src\fonts\**" />
@@ -62,6 +62,7 @@
     <EmbeddedResource Remove="wwwroot\src\themes\**" />
     <None Remove="ClientApp\dist\**" />
     <None Remove="ClientApp\node_modules\**" />
+    <None Remove="ClientApp\src\app\forum\**" />
     <None Remove="ClientApp\src\fonts\**" />
     <None Remove="ClientApp\src\app\person\NewFolder\**" />
     <None Remove="ClientApp\src\fonts\**" />
@@ -132,26 +133,61 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="ClientApp\dist\aspnetcorespa\10427.721bd1b8284243373456.ttf" />
-    <None Remove="ClientApp\dist\aspnetcorespa\3rdpartylicenses.txt" />
-    <None Remove="ClientApp\dist\aspnetcorespa\Cuprum-Regular.11249be508ffbb38a58c.ttf" />
-    <None Remove="ClientApp\dist\aspnetcorespa\glyphicons-halflings-regular.448c34a56d699c29117a.woff2" />
-    <None Remove="ClientApp\dist\aspnetcorespa\glyphicons-halflings-regular.89889688147bd7575d63.svg" />
-    <None Remove="ClientApp\dist\aspnetcorespa\glyphicons-halflings-regular.e18bbf611f2a2e43afc0.ttf" />
-    <None Remove="ClientApp\dist\aspnetcorespa\glyphicons-halflings-regular.f4769f9bdb7466be6508.eot" />
-    <None Remove="ClientApp\dist\aspnetcorespa\glyphicons-halflings-regular.fa2772327f55d8198301.woff" />
-    <None Remove="ClientApp\dist\aspnetcorespa\index.html" />
-    <None Remove="ClientApp\dist\aspnetcorespa\main.2dbede9be2e7db0ac490.js" />
-    <None Remove="ClientApp\dist\aspnetcorespa\manifest.json" />
-    <None Remove="ClientApp\dist\aspnetcorespa\ngsw-worker.js" />
-    <None Remove="ClientApp\dist\aspnetcorespa\ngsw.json" />
-    <None Remove="ClientApp\dist\aspnetcorespa\polyfills.eae8172e32f152df2d96.js" />
-    <None Remove="ClientApp\dist\aspnetcorespa\runtime.a66f828dca56eeb90e02.js" />
-    <None Remove="ClientApp\dist\aspnetcorespa\safety-worker.js" />
-    <None Remove="ClientApp\dist\aspnetcorespa\scripts.fe0811a990aafb0ccb77.js" />
-    <None Remove="ClientApp\dist\aspnetcorespa\styles.2ef425a8f0826a684729.css" />
-    <None Remove="ClientApp\dist\aspnetcorespa\worker-basic.min.js" />
     <None Remove="ClientApp\package-lock.json" />
+    <None Remove="ClientApp\src\app\forum\forum.module.ts" />
+    <None Remove="ClientApp\src\app\forum\forum.module.ts" />
+    <None Remove="ClientApp\src\app\forum\forum.routes.ts" />
+    <None Remove="ClientApp\src\app\forum\forum.routes.ts" />
+    <None Remove="ClientApp\src\app\forum\forumMessage\forumMessage-addition.component.html" />
+    <None Remove="ClientApp\src\app\forum\forumMessage\forumMessage-addition.component.html" />
+    <None Remove="ClientApp\src\app\forum\forumMessage\forumMessage-addition.component.ts" />
+    <None Remove="ClientApp\src\app\forum\forumMessage\forumMessage-addition.component.ts" />
+    <None Remove="ClientApp\src\app\forum\forumMessage\forumMessage.model.ts" />
+    <None Remove="ClientApp\src\app\forum\forumMessage\forumMessage.model.ts" />
+    <None Remove="ClientApp\src\app\forum\forumMessage\forumMessage.service.ts" />
+    <None Remove="ClientApp\src\app\forum\forumMessage\forumMessage.service.ts" />
+    <None Remove="ClientApp\src\app\forum\forumMessage\index.ts" />
+    <None Remove="ClientApp\src\app\forum\forumMessage\index.ts" />
+    <None Remove="ClientApp\src\app\forum\forumSection\forumSection-list.component.html" />
+    <None Remove="ClientApp\src\app\forum\forumSection\forumSection-list.component.html" />
+    <None Remove="ClientApp\src\app\forum\forumSection\forumSection-list.component.ts" />
+    <None Remove="ClientApp\src\app\forum\forumSection\forumSection-list.component.ts" />
+    <None Remove="ClientApp\src\app\forum\forumSection\forumSection.model.ts" />
+    <None Remove="ClientApp\src\app\forum\forumSection\forumSection.model.ts" />
+    <None Remove="ClientApp\src\app\forum\forumSection\forumSection.service.ts" />
+    <None Remove="ClientApp\src\app\forum\forumSection\forumSection.service.ts" />
+    <None Remove="ClientApp\src\app\forum\forumSection\index.ts" />
+    <None Remove="ClientApp\src\app\forum\forumSection\index.ts" />
+    <None Remove="ClientApp\src\app\forum\forumSubsection\forumSubsection-edit.component.html" />
+    <None Remove="ClientApp\src\app\forum\forumSubsection\forumSubsection-edit.component.html" />
+    <None Remove="ClientApp\src\app\forum\forumSubsection\forumSubsection-edit.component.ts" />
+    <None Remove="ClientApp\src\app\forum\forumSubsection\forumSubsection-edit.component.ts" />
+    <None Remove="ClientApp\src\app\forum\forumSubsection\forumSubsection-list.component.html" />
+    <None Remove="ClientApp\src\app\forum\forumSubsection\forumSubsection-list.component.html" />
+    <None Remove="ClientApp\src\app\forum\forumSubsection\forumSubsection-list.component.ts" />
+    <None Remove="ClientApp\src\app\forum\forumSubsection\forumSubsection-list.component.ts" />
+    <None Remove="ClientApp\src\app\forum\forumSubsection\forumSubsection.model.ts" />
+    <None Remove="ClientApp\src\app\forum\forumSubsection\forumSubsection.model.ts" />
+    <None Remove="ClientApp\src\app\forum\forumSubsection\forumSubsection.service.ts" />
+    <None Remove="ClientApp\src\app\forum\forumSubsection\forumSubsection.service.ts" />
+    <None Remove="ClientApp\src\app\forum\forumSubsection\index.ts" />
+    <None Remove="ClientApp\src\app\forum\forumSubsection\index.ts" />
+    <None Remove="ClientApp\src\app\forum\forumTheme\forumTheme-edit.component.html" />
+    <None Remove="ClientApp\src\app\forum\forumTheme\forumTheme-edit.component.html" />
+    <None Remove="ClientApp\src\app\forum\forumTheme\forumTheme-edit.component.ts" />
+    <None Remove="ClientApp\src\app\forum\forumTheme\forumTheme-edit.component.ts" />
+    <None Remove="ClientApp\src\app\forum\forumTheme\forumTheme-list.component.html" />
+    <None Remove="ClientApp\src\app\forum\forumTheme\forumTheme-list.component.html" />
+    <None Remove="ClientApp\src\app\forum\forumTheme\forumTheme-list.component.ts" />
+    <None Remove="ClientApp\src\app\forum\forumTheme\forumTheme-list.component.ts" />
+    <None Remove="ClientApp\src\app\forum\forumTheme\forumTheme.model.ts" />
+    <None Remove="ClientApp\src\app\forum\forumTheme\forumTheme.model.ts" />
+    <None Remove="ClientApp\src\app\forum\forumTheme\forumTheme.service.ts" />
+    <None Remove="ClientApp\src\app\forum\forumTheme\forumTheme.service.ts" />
+    <None Remove="ClientApp\src\app\forum\forumTheme\index.ts" />
+    <None Remove="ClientApp\src\app\forum\forumTheme\index.ts" />
+    <None Remove="ClientApp\src\app\forum\index.ts" />
+    <None Remove="ClientApp\src\app\forum\index.ts" />
   </ItemGroup>
 
   <ItemGroup>

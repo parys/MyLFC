@@ -32,32 +32,35 @@
     </div>
 
     <div class="form-horizontal top10" role="form">
-        <div *ngIf="roles.isModerator && !roles.isSelf(item.id)" class="form-group col-xs-12 col-md-6">
-            <form *ngIf="!item.lockoutEnd" class="form-inline" name="banForm" role="form" [formGroup]="banForm" (ngSubmit)="onSubmitBan()">
-                <mat-form-field>
-                    <input matInput placeholder="Блокировка(Количество дней)" formControlName="banDaysCount" min="1" type="number">
-                </mat-form-field>
-                <button mat-raised-button color="warn" type="submit" [disabled]="!banForm.valid">Забанить</button>
-            </form>
-            <div class="col-xs-12" *ngIf="item.lockoutEnd">
-                <mat-form-field>
-                    <input matInput placeholder="Заблокирован до" [value]="item.lockoutEnd | customDate:true">
-                </mat-form-field>
-                <button mat-raised-button color="primary" *ngIf="roles.isMainModerator" (click)="unban()">Снять бан</button>
+        <div *ngIf="roles.isModerator && !roles.isSelf(item.id)" class="flex-space-around flex-vertical-center">
+            <div>
+                <form *ngIf="!item.lockoutEnd" class="form-inline" role="form" [formGroup]="banForm" (ngSubmit)="onSubmitBan()">
+                    <mat-form-field>
+                        <input matInput placeholder="Блокировка(Количество дней)" formControlName="banDaysCount" min="1" type="number">
+                    </mat-form-field>
+                    <button mat-raised-button color="warn" type="submit" [disabled]="!banForm.valid">Забанить</button>
+                </form>
+                <div class="full-width" *ngIf="item.lockoutEnd">
+                    <mat-form-field>
+                        <input matInput placeholder="Заблокирован до" [value]="item.lockoutEnd | customDate:true">
+                    </mat-form-field>
+                    <button mat-raised-button color="primary" *ngIf="roles.isMainModerator" (click)="unban()">Снять бан</button>
+                </div>
             </div>
-        </div>
-        <mat-form-field *ngIf="!roles.isAdminAssistant || roles.isSelf(item.id)" class="full-width">
-            <input matInput placeholder="Группа" readonly [value]="item.roleGroupName">
-        </mat-form-field>
-        <div class="form-group col-xs-12 col-md-6" *ngIf="roles.isAdminAssistant && !roles.isSelf(item.id)">
-            <form class="form-inline" name="roleForm" role="form" [formGroup]="roleForm" (ngSubmit)="onSubmit()">
-                <mat-form-field>
-                    <mat-select placeholder="Группа" name="roleGroup" formControlName="roleGroupId">
-                        <mat-option *ngFor="let roleGroup of roleGroups" [value]="roleGroup.id" [textContent]="roleGroup.name"></mat-option>
-                    </mat-select>
-                </mat-form-field>
-                <button mat-raised-button type="submit" color="warn" [disabled]="!roleForm.valid">Сохранить</button>
-            </form>
+            <div>
+            <mat-form-field *ngIf="!roles.isAdminAssistant || roles.isSelf(item.id)">
+                <input matInput placeholder="Группа" readonly [value]="item.roleGroupName">
+            </mat-form-field>
+            <div *ngIf="roles.isAdminAssistant && !roles.isSelf(item.id)">
+                <form class="form-inline" role="form" [formGroup]="roleForm" (ngSubmit)="onSubmit()">
+                    <mat-form-field>
+                        <mat-select placeholder="Группа" name="roleGroup" formControlName="roleGroupId">
+                            <mat-option *ngFor="let roleGroup of roleGroups" [value]="roleGroup.id" [textContent]="roleGroup.name"></mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <button mat-raised-button type="submit" color="warn" [disabled]="!roleForm.valid">Сохранить</button>
+                </form>
+            </div></div>
         </div>
         <mat-form-field class="full-width" *ngIf="(roles.isSelf(item.id) || roles.isAdminAssistant)">
             <input matInput placeholder="Почта" readonly [value]="item.email">

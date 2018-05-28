@@ -1,4 +1,4 @@
-﻿<form class="form-horizontal col-xs-12" name="editForm" role="form" [formGroup]="editInjuryForm" (ngSubmit)="onSubmit()">
+﻿<form class="form-horizontal full-width" role="form" [formGroup]="editInjuryForm" (ngSubmit)="onSubmit()">
     <mat-form-field class="full-width">
         <input matInput placeholder="Игрок" [matAutocomplete]="person" formControlName="personName">
         <mat-autocomplete #person="matAutocomplete">
@@ -24,7 +24,7 @@
         <input matInput placeholder="Описание травмы(краткое)" formControlName="description">
     </mat-form-field>
 
-    <div class="form-group">
-        <button mat-raised-button color="warn" type="submit" [disabled]="!editInjuryForm.valid" class="text-center full-width">Сохранить</button>
+    <div class="full-width text-center">
+        <button mat-raised-button color="warn" type="submit" [disabled]="!editInjuryForm.valid" class="full-width">Сохранить</button>
     </div>
 </form>

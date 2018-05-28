@@ -1,21 +1,19 @@
-﻿<div class="container-fluid">
-    <form class="form-horizontal col-md-12" role="form" [formGroup]="userEditForm" (ngSubmit)="onSubmit()">
-        <mat-form-field>
-            <input matInput [matDatepicker]="datePicker" placeholder="Выберите дату рождения" formControlName="birthday">
-            <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
-            <mat-datepicker #datePicker startView="year" touchUi="true"></mat-datepicker>
-        </mat-form-field>
-        <div class="form-group">
-            Парень <mat-slide-toggle formControlName="gender"
-                                   color="warn">
-                Девушка
-            </mat-slide-toggle>
-        </div>
-        <mat-form-field class="full-width">
-            <input matInput placeholder="Полное имя" formControlName="fullName">
-        </mat-form-field>
-        <div class="form-group">
-            <button mat-raised-button color="warn" type="submit">Сохранить</button>
-        </div>
-    </form>
-</div>
+﻿<form class="form-horizontal full-width" role="form" [formGroup]="userEditForm" (ngSubmit)="onSubmit()">
+    <mat-form-field class="full-width">
+        <input matInput [matDatepicker]="datePicker" placeholder="Выберите дату рождения" formControlName="birthday">
+        <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
+        <mat-datepicker #datePicker startView="year" touchUi="true"></mat-datepicker>
+    </mat-form-field>
+    <div class="full-width text-center">
+        Парень <mat-slide-toggle formControlName="gender"
+                                 color="warn">
+            Девушка
+        </mat-slide-toggle>
+    </div>
+    <mat-form-field class="full-width top10">
+        <input matInput placeholder="Полное имя" formControlName="fullName">
+    </mat-form-field>
+    <div class="full-width">
+        <button mat-raised-button color="warn" class="full-width" type="submit">Сохранить</button>
+    </div>
+</form>

@@ -1,17 +1,7 @@
 ﻿<div>
-    <div class="btn-group">
-        <form class="form-inline btn-block">
-            <!--<div class="form-group">
-        <select class="form-control"
-                ng-model="vm.typeId"
-                ng-options="type.id as type.name for type in vm.types" ng-change="vm.changeTypeId()"></select>
-    </div>-->
-            <div class="form-group">
-                <!--<input class="form-control" ng-model="vm.filterText" ng-model-options="{debounce: 1000}" ng-change="vm.filterByText()" placeholder="Поиск в тексте пожеланий" />-->
-            </div>
-            <button mat-raised-button color="primary" type="button" [routerLink]="[0, 'edit']">Добавить</button>
-        </form>
-    </div>
+                 
+    <button mat-raised-button color="primary" type="button" [routerLink]="[0, 'edit']">Добавить</button>
+
     <div class="top20" *ngFor="let wish of items | paginate: { itemsPerPage: itemsPerPage,
                                                       currentPage: page,
                                                       totalItems: totalItems }; let i = index;">

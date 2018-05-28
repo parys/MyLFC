@@ -30,8 +30,8 @@
         </mat-form-field>
         <image-addition [isMultiple]="false" (loadedImage)="updateImage($event)"></image-addition>
 
-        <div class="form-group col-sm-12">
-            <label class="control-label col-xs-2 col-sm-2"> Дополнительные фото:</label>
+        <div class="full-width">
+            <span> Дополнительные фото:</span>
             <image-addition [isMultiple]="true" [controlName]="additional"></image-addition>
         </div>
         <div class="full-width">

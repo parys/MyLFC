@@ -1,4 +1,4 @@
-﻿<form class="form-horizontal col-xs-12" name="editForm" role="form" [formGroup]="editTransferForm" (ngSubmit)="onSubmit()">
+﻿<form class="form-horizontal full-width" name="editForm" role="form" [formGroup]="editTransferForm" (ngSubmit)="onSubmit()">
     <mat-form-field class="full-width">
         <input matInput placeholder="Игрок" [matAutocomplete]="person" formControlName="personName">
         <mat-autocomplete #person="matAutocomplete">
@@ -29,7 +29,7 @@
         <mat-datepicker-toggle matSuffix [for]="datePicker1"></mat-datepicker-toggle>
         <mat-datepicker #datePicker1 startView="year" touchUi="true"></mat-datepicker> 
     </mat-form-field>
-    <div class="form-group">
+    <div class="full-width">
         <mat-slide-toggle formControlName="onLoan"
                          color="warn">Аренда
         </mat-slide-toggle>
@@ -44,13 +44,13 @@
     <mat-form-field class="col-xs-12">
         <input matInput placeholder="Сумма трансфера в фунтах(цифра)" type="number" formControlName="amount">
     </mat-form-field>
-    <div class="form-group">Ушел
+    <div class="full-width">Ушел
         <mat-slide-toggle formControlName="coming"
                          color="warn">Пришел
         </mat-slide-toggle>
     </div>
 
-    <div class="form-group">
-        <button mat-raised-button type="submit" [disabled]="!editTransferForm.valid" class="text-center full-width">Сохранить</button>
+    <div class="full-width">
+        <button mat-raised-button type="submit" [disabled]="!editTransferForm.valid" class="full-width">Сохранить</button>
     </div>
 </form>

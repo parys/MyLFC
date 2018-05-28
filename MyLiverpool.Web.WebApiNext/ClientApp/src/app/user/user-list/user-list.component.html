@@ -30,18 +30,18 @@
         </tbody>
     </table>
     <div>
-        <form class="form-inline" [formGroup]="filterForm" (ngSubmit)="update()">
-            <div class="form-group">
-                <select class="form-control"
-                        formControlName="roleGroupId">
-                    <option value="">Все группы</option>
-                    <option *ngFor="let roleGroup of roleGroups" [value]="roleGroup.id" [textContent]="roleGroup.russianName"></option>
-                </select>
-            </div>
-            <div class="form-group">
-                <input class="form-control" formControlName="userName" placeholder="Логин" />
-            </div>
-            <button class="btn btn-success"> Отфильтровать</button>
+        <form class="flex-space-around" [formGroup]="filterForm" (ngSubmit)="update()">
+            <mat-form-field>
+                <mat-select placeholder="Тип" formControlName="roleGroupId">
+                    <mat-option value="">Все группы</mat-option>
+                    <mat-option *ngFor="let roleGroup of roleGroups" [value]="roleGroup.id" [textContent]="roleGroup.russianName">
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>    
+            <mat-form-field>
+                <input matInput placeholder="Логин" formControlName="userName">
+            </mat-form-field>
+            <button mat-raised-button color="warn" type="submit">Искать</button>
         </form>
     </div>
 </div>

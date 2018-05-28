@@ -1,76 +1,74 @@
-﻿<nav class="navbar navbar-default maroon-panel container-row beauty-font bg-header">
-    <div class="navbar-collapse container-row" style="margin-right: 0; padding-right: 0;"> <!--todo need some research-->
-        <ul class="nav navbar-nav flex-vertical-center flex-space-around" style="font-size: large; width: 100%;">
-            <!--<li><a [routerLink]="['/']" style="color: aliceblue; font-weight: bold;">My<span style="color: yellow;">LFC</span>.ru</a></li>-->
-            <li><a role="button" [routerLink]="['/news', 0]" style="display: inline;">
-                <img src="/content/logo34.png" style="max-width: 310px; margin: 0 -15px;" alt="MyLFC.ru"/>
-            </a></li>
-            <li>
-                <a role="button" [matMenuTriggerFor]="newsMenu">
-                    Новости<b class="caret"></b>
-                </a>
-                <mat-menu #newsMenu="matMenu">
-                    <a [routerLink]="['/news']" [queryParams]="{page: 1}" mat-menu-item>Новости</a>
-                    <a *ngIf="roles.isNewsmaker" [routerLink]="['/news', 0, 'edit']" mat-menu-item>Добавить</a>
-                    <a [routerLink]="['/newsCategories']" mat-menu-item>Категории</a>
-                </mat-menu>
-            </li>
-            <li>
-                <a role="button" [matMenuTriggerFor]="blogsMenu">
-                    Блоги<b class="caret"></b>
-                </a>
-                <mat-menu #blogsMenu="matMenu">
-                    <a [routerLink]="['/blogs']" [queryParams]="{page: 1}" mat-menu-item>Блоги</a>
-                    <a *ngIf="roles.isAuthor" [routerLink]="['/blogs', 0, 'edit']" mat-menu-item>Добавить</a>
-                    <a [routerLink]="['/blogCategories']" mat-menu-item>Категории</a>
-                </mat-menu>
-            </li>
-            <li>
-                <a role="button" [matMenuTriggerFor]="fcClub">
-                    ФК Ливерпуль<b class="caret"></b>
-                </a>
-                <mat-menu #fcClub="matMenu">
-                    <a [routerLink]="['/clubHistory']" mat-menu-item>История</a>
-                    <a [routerLink]="['/aboutClub']" mat-menu-item>О Клубе</a>
-                    <a [routerLink]="['/stuff/first']" mat-menu-item>Тренерский штаб</a>
-                    <a [routerLink]="['/squad/first']" mat-menu-item>Состав</a>
-                </mat-menu>
-            </li>
-            <li>
-                <a role="button" [matMenuTriggerFor]="seasonMenu">
-                    Сезон<b class="caret"></b>
-                </a>
-                <mat-menu #seasonMenu="matMenu">
-                    <a [routerLink]="['/seasons/calendar']" mat-menu-item>Календарь</a>
-                    <!--<button [routerLink]="['/season/eplTable']" mat-menu-item>Полная таблица АПЛ</button>-->
-                    <a [routerLink]="['/seasons/statistics']" mat-menu-item>Статистика игроков</a>
-                    <a *ngIf="roles.isAdmin" [routerLink]="['/seasons']" mat-menu-item>Список сезонов</a>
-                    <a [routerLink]="['/transfers/current']" mat-menu-item>Трансферы</a>
-                </mat-menu>
-            </li>
-            <li>
-                <a [routerLink]="['/users']" [queryParams]="{page: 1}">Пользователи</a>
-            </li>
-            <li><a [routerLink]="['/rules']"><b class="text-danger color-red beauty-font">Правила</b></a></li>
-            <!--li> <a [routerLink]="['/forum']">Форум</a></!--li>-->
-            <li *ngIf="roles.isNewsmaker || roles.isAuthor || roles.isModerator">
-                <a role="button" [matMenuTriggerFor]="adminMenu">
-                    Админка<b class="caret"></b>
-                </a>
-                <mat-menu #adminMenu="matMenu">
-                    <a *ngIf="roles.isInformer" [routerLink]="['/matches']" mat-menu-item>Матчи</a>
-                    <a *ngIf="roles.isInformer" [routerLink]="['/clubs']" mat-menu-item>Клубы</a>
-                    <a *ngIf="roles.isAdminAssistant" [routerLink]="['/roleGroups']" mat-menu-item>Роли</a>
-                    <a *ngIf="roles.isInformer" [routerLink]="['/persons']" mat-menu-item>Люди</a>
-                    <a *ngIf="roles.isInformer" [routerLink]="['/stadiums']" mat-menu-item>Стадионы</a>
-                    <a *ngIf="roles.isInformer" [routerLink]="['/injuries']" mat-menu-item>Травмы</a>
-                    <a *ngIf="roles.isNewsmaker || roles.isAuthor" [routerLink]="['/images']" mat-menu-item>Изображения</a>
-                    <a *ngIf="roles.isModerator" [routerLink]="['/materialComments']" [queryParams]="{page: 1}" mat-menu-item>Комментарии</a>
-                </mat-menu>
-            </li>
-            <li class="liverbird-navbar">
-                <img alt="125 лет со дня основания ФК Ливерпуль" src="/content/liverbird5.png">
-            </li>
-        </ul>
-    </div>
+﻿<nav class="maroon-panel beauty-font bg-h1eader text-white">
+    <ul class="nav flex-vertical-center flex-space-around" style="font-size: large; width: 100%;">
+        <!--<li><a [routerLink]="['/']" style="color: aliceblue; font-weight: bold;">My<span style="color: yellow;">LFC</span>.ru</a></li>-->
+        <li><a role="button" [routerLink]="['/news', 0]" style="display: inline;">
+            <img src="/content/logo34.png" style="max-width: 310px; margin: 0 -15px;" alt="MyLFC.ru"/>
+        </a></li>
+        <li>
+            <a role="button" [matMenuTriggerFor]="newsMenu">
+                Новости<b class="caret"></b>
+            </a>
+            <mat-menu #newsMenu="matMenu">
+                <a [routerLink]="['/news']" [queryParams]="{page: 1}" mat-menu-item>Новости</a>
+                <a *ngIf="roles.isNewsmaker" [routerLink]="['/news', 0, 'edit']" mat-menu-item>Добавить</a>
+                <a [routerLink]="['/newsCategories']" mat-menu-item>Категории</a>
+            </mat-menu>
+        </li>
+        <li>
+            <a role="button" [matMenuTriggerFor]="blogsMenu">
+                Блоги<b class="caret"></b>
+            </a>
+            <mat-menu #blogsMenu="matMenu">
+                <a [routerLink]="['/blogs']" [queryParams]="{page: 1}" mat-menu-item>Блоги</a>
+                <a *ngIf="roles.isAuthor" [routerLink]="['/blogs', 0, 'edit']" mat-menu-item>Добавить</a>
+                <a [routerLink]="['/blogCategories']" mat-menu-item>Категории</a>
+            </mat-menu>
+        </li>
+        <li>
+            <a role="button" [matMenuTriggerFor]="fcClub">
+                ФК Ливерпуль<b class="caret"></b>
+            </a>
+            <mat-menu #fcClub="matMenu">
+                <a [routerLink]="['/clubHistory']" mat-menu-item>История</a>
+                <a [routerLink]="['/aboutClub']" mat-menu-item>О Клубе</a>
+                <a [routerLink]="['/stuff/first']" mat-menu-item>Тренерский штаб</a>
+                <a [routerLink]="['/squad/first']" mat-menu-item>Состав</a>
+            </mat-menu>
+        </li>
+        <li>
+            <a role="button" [matMenuTriggerFor]="seasonMenu">
+                Сезон<b class="caret"></b>
+            </a>
+            <mat-menu #seasonMenu="matMenu">
+                <a [routerLink]="['/seasons/calendar']" mat-menu-item>Календарь</a>
+                <!--<button [routerLink]="['/season/eplTable']" mat-menu-item>Полная таблица АПЛ</button>-->
+                <a [routerLink]="['/seasons/statistics']" mat-menu-item>Статистика игроков</a>
+                <a *ngIf="roles.isAdmin" [routerLink]="['/seasons']" mat-menu-item>Список сезонов</a>
+                <a [routerLink]="['/transfers/current']" mat-menu-item>Трансферы</a>
+            </mat-menu>
+        </li>
+        <li>
+            <a [routerLink]="['/users']" [queryParams]="{page: 1}">Пользователи</a>
+        </li>
+        <li><a [routerLink]="['/rules']"><b class="text-danger color-red beauty-font">Правила</b></a></li>
+        <!--li> <a [routerLink]="['/forum']">Форум</a></!--li>-->
+        <li *ngIf="roles.isNewsmaker || roles.isAuthor || roles.isModerator">
+            <a role="button" [matMenuTriggerFor]="adminMenu">
+                Админка<b class="caret"></b>
+            </a>
+            <mat-menu #adminMenu="matMenu">
+                <a *ngIf="roles.isInformer" [routerLink]="['/matches']" mat-menu-item>Матчи</a>
+                <a *ngIf="roles.isInformer" [routerLink]="['/clubs']" mat-menu-item>Клубы</a>
+                <a *ngIf="roles.isAdminAssistant" [routerLink]="['/roleGroups']" mat-menu-item>Роли</a>
+                <a *ngIf="roles.isInformer" [routerLink]="['/persons']" mat-menu-item>Люди</a>
+                <a *ngIf="roles.isInformer" [routerLink]="['/stadiums']" mat-menu-item>Стадионы</a>
+                <a *ngIf="roles.isInformer" [routerLink]="['/injuries']" mat-menu-item>Травмы</a>
+                <a *ngIf="roles.isNewsmaker || roles.isAuthor" [routerLink]="['/images']" mat-menu-item>Изображения</a>
+                <a *ngIf="roles.isModerator" [routerLink]="['/materialComments']" [queryParams]="{page: 1}" mat-menu-item>Комментарии</a>
+            </mat-menu>
+        </li>
+        <li class="liverbird-navbar">
+            <img alt="125 лет со дня основания ФК Ливерпуль" src="/content/liverbird5.png">
+        </li>
+    </ul>
 </nav>

@@ -2,7 +2,7 @@
     <button mat-raised-button color="warn" [routerLink]="['/transfers', 0, 'edit']">Добавить</button>
     <button mat-raised-button [routerLink]="['/transfers']">К полному списку</button>
 </div>
-<mat-card class="top10">Общая сумма: <span [textContent]="totalOut - totalIn | currency:'GBP':true"></span></mat-card>
+<mat-card class="top10">Общая сумма: <span [textContent]="totalOut - totalIn | currency:'GBP'"></span></mat-card>
 <div class="top20">
     <div class="panel panel-success">
         <div class="panel-heading">
@@ -21,7 +21,7 @@
                 </div>
                 <div *ngIf="transfer.onLoan" class="full-width">В аренде</div>
                 <div>
-                    Сумма: <span *ngIf="transfer.amount>0" [textContent]="transfer.amount | currency:'GBP':true"></span>
+                    Сумма: <span *ngIf="transfer.amount>0" [textContent]="transfer.amount | currency:'GBP'"></span>
                     <span *ngIf="transfer.amount===null">Не определена</span>
                     <span *ngIf="transfer.amount===0">Свободный агент</span>
                 </div>
@@ -29,7 +29,7 @@
             </div>
         </div>
         <div class="panel-footer">
-            <div>Всего: <span [textContent]="totalIn | currency:'GBP':true"></span></div>
+            <div>Всего: <span [textContent]="totalIn | currency:'GBP'"></span></div>
         </div>
     </div>
 </div>
@@ -49,7 +49,7 @@
                     Дата: <span [textContent]="transfer.startDate | date: 'yMMMMd'"></span>
                 </div>
                 <div *ngIf="transfer.onLoan" class="full-width">В аренде</div>
-                <div>Сумма: <span *ngIf="transfer.amount>0"[textContent]="transfer.amount | currency:'GBP':true"></span>
+                <div>Сумма: <span *ngIf="transfer.amount>0"[textContent]="transfer.amount | currency:'GBP'"></span>
                     <span *ngIf="transfer.amount===null">Не определена</span>
                     <span *ngIf="transfer.amount===0">Свободный агент</span>
                 </div>
@@ -57,7 +57,7 @@
             </div>
         </div>
         <div class="panel-footer">
-            <div>Всего: <span [textContent]="totalOut | currency:'GBP':true"></span></div>
+            <div>Всего: <span [textContent]="totalOut | currency:'GBP'"></span></div>
         </div>
     </div>
 </div>
