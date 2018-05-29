@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <title></title>
 
@@ -29,61 +29,62 @@
             Извините, но для этого приложения нужен JavaScript. Воспользуйтесь облегченной версией, пожалуйста.
         </p>
     </noscript>
-    <script type="text/javascript">document.write("<a href='https://www.liveinternet.ru/click' target=_blank><img src='https://counter.yadro.ru/hit?t14.6;r" + escape(document.referrer) + ((typeof (screen) == "undefined") ? "" : ";s" + screen.width + "*" + screen.height + "*" + (screen.colorDepth ? screen.colorDepth : screen.pixelDepth)) + ";u" + escape(document.URL) + ";" + Math.random() + "' alt='' title='LiveInternet' border='0' width='88' height='31'><\/a>")</script>
-
-    <script type="text/javascript">
-        function addAd() {
-            (function (w, d, n, s, t) {
-                w[n] = w[n] || [];
-                w[n].push(function () {
-                    Ya.Context.AdvManager.render({
-                        blockId: "R-A-255349-2",
-                        renderTo: "yandex_rtb_R-A-255349-2",
-                        async: true
-                    });
-                    Ya.Context.AdvManager.render({
-                        blockId: "R-A-255349-3",
-                        renderTo: "yandex_rtb_R-A-255349-3",
-                        async: true
-                    });
-                });
-                t = d.getElementsByTagName("script")[0];
-                s = d.createElement("script");
-                s.type = "text/javascript";
-                s.src = "https://an.yandex.ru/system/context.js";
-                t.parentNode.insertBefore(s, t);
-            })(this, this.document, "yandexContextAsyncCallbacks");
-        }
-
-        function ssn() {
-            include("https://platform.twitter.com/widgets.js");
-            include("https://platform.instagram.com/en_US/embeds.js");
-        }
-
-        function include(url) {
-            exclude(url);
-            const s = document.createElement("script");
-            s.setAttribute("type", "text/javascript");
-            s.setAttribute("src", url);
-            s.setAttribute("async", true);
-            s.setAttribute("defer", true);
-            s.setAttribute('onload', 'update()');
-            const nodes = document.getElementsByTagName("*");
-            const node = nodes[nodes.length - 1].parentNode;
-            node.appendChild(s);
-        }
-
-        function update() {
-            if (window.instgrm) window.instgrm.Embeds.process();
-        }
-
-        function exclude(url) {
-            var elem = document.querySelector(`script[src$="${url}"]`);
-            if (elem) {
-                elem.parentNode.removeChild(elem);
-            }
-        }
+    <script type="text/javascript">document.write("<a href='https://www.liveinternet.ru/click' target=_blank><img src='https://counter.yadro.ru/hit?t14.6;r" + escape(document.referrer) + ((typeof (screen) == "undefined") ? "" : ";s" + screen.width + "*" + screen.height + "*" + (screen.colorDepth ? screen.colorDepth : screen.pixelDepth)) + ";u" + escape(document.URL) + ";" + Math.random() + "' alt='' title='LiveInternet' border='0' width='88' height='31'><\/a>")
     </script>
+
+<script type="text/javascript">
+    (function (w, d, n, s, t) {
+        w[n] = w[n] || [];
+        w[n].push(addAd);
+        t = d.getElementsByTagName("script")[0];
+        s = d.createElement("script");
+        s.type = "text/javascript";
+        s.src = "https://an.yandex.ru/system/context.js";
+        t.parentNode.insertBefore(s, t);
+        })(this, this.document, "yandexContextAsyncCallbacks");
+
+    function addAd() {
+        Ya.Context.AdvManager.render({
+            blockId: "R-A-255349-2",
+            renderTo: "yandex_rtb_R-A-255349-2",
+            async: true
+        });
+        Ya.Context.AdvManager.render({
+            blockId: "R-A-255349-3",
+            renderTo: "yandex_rtb_R-A-255349-3",
+            async: true
+        });
+    }
+
+    function ssn() {
+        include("https://platform.twitter.com/widgets.js");
+        include("https://platform.instagram.com/en_US/embeds.js");
+    }
+
+    function include(url) {
+        exclude(url);
+        const s = document.createElement("script");
+        s.setAttribute("type", "text/javascript");
+        s.setAttribute("src", url);
+        s.setAttribute("async", true);
+        s.setAttribute("defer", true);
+        s.setAttribute('onload', 'update()');
+        const nodes = document.getElementsByTagName("*");
+        const node = nodes[nodes.length - 1].parentNode;
+        node.appendChild(s);
+    }
+
+    function update() {
+        if (window.instgrm) window.instgrm.Embeds.process();
+    }
+
+    function exclude(url) {
+        var elem = document.querySelector(`script[src$="${url}"]`);
+        if (elem) {
+            elem.parentNode.removeChild(elem);
+        }
+    }
+</script>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </body>
 </html>
