@@ -18,8 +18,8 @@
 
                     </span>
                 </div>
-                <div class="col-xs-6 col-sm-12 col-md-12 col-lg-6">
-                    <img class="img-thumbnail news-mini center-block" [alt]="item.title" [src]="item.photo" />
+                <div class="col-xs-6 col-sm-12 col-md-12 col-lg-6" (deferLoad)="item.show=true">
+                    <img *ngIf="item.show" class="img-thumbnail news-mini center-block" [alt]="item.title" [src]="item.photo" />
                 </div>
                 <div class="col-xs-6 col-sm-12 col-md-12 col-lg-6 flex-vertical-center">
                     <i class=""> <span [innerHTML]="item.brief"></span></i>

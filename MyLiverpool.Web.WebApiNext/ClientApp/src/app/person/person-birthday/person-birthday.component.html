@@ -4,8 +4,8 @@
             В этот день родился <b [textContent]="items[currentPersonIndex].russianName"></b>
         </mat-card-title>
     </mat-card-header>
-    <mat-card-content>
-        <img [src]="items[currentPersonIndex].photo" class="center-block avatar-medium" [alt]="items[currentPersonIndex].russianName" />
+    <mat-card-content (deferLoad)="items.show=true">
+        <img *ngIf="items.show" [src]="items[currentPersonIndex].photo" class="center-block avatar-medium" [alt]="items[currentPersonIndex].russianName" />
     </mat-card-content>
     <mat-card-actions *ngIf="items.length > 1">
         <button mat-button (click)="goToPrevious()"><span class="glyphicon glyphicon-triangle-left"></span></button>

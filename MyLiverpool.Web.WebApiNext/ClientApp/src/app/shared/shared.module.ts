@@ -18,6 +18,7 @@ import { RoleGuard, UnSignedGuard, AuthService } from "./auth";
 import { CustomDatePipe } from "./pipes";
 import { BreadcrumbComponent, BreadcrumbService } from "./breadcrumb";
 import { NgxPaginationModule } from "ngx-pagination";
+import { DeferLoadDirective } from "./lazy";
 
 export function getStorage() {
     const result = typeof window !== "undefined" ? window.localStorage : null;
@@ -56,7 +57,8 @@ export function getStorage() {
         RecaptchaComponent,
         LoaderComponent,
         CustomDatePipe,
-        BreadcrumbComponent
+        BreadcrumbComponent,
+        DeferLoadDirective
     ],
     exports: [
         CommonModule,
@@ -84,7 +86,8 @@ export function getStorage() {
         MatSelectModule,
         MatSlideToggleModule,
         MatSnackBarModule,
-        MatTabsModule
+        MatTabsModule,
+        DeferLoadDirective
     ],
     providers: [
         AuthService,
