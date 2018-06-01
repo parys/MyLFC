@@ -33,8 +33,10 @@
         </div>
         <div *ngIf="!isEditMode">
             <div class="row">
-                <div class="col-xs-2 col-sm-2" (deferLoad)="item.show=true">
-                    <img *ngIf="item.show" class="avatar-medium" [src]="item.photo" [alt]="item.authorUserName" />
+                <!--<div class="col-xs-2 col-sm-2" (deferLoad)="item.show=true">
+                    <img *ngIf="item.show" class="avatar-medium" [src]="item.photo" [alt]="item.authorUserName" />-->
+                <div class="col-xs-2 col-sm-2">
+                    <img class="avatar-medium" [src]="item.photo" [alt]="item.authorUserName" />
                 </div>
                 <div class="col-xs-10 col-sm-10 container-row">
                     <p [innerHTML]="sanitizeByHtml(item.message)"></p>

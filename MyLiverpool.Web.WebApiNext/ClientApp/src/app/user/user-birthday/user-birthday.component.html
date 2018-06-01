@@ -4,8 +4,8 @@
             В этот день родился <a [routerLink]="['/users', items[currentUserIndex].id]"><b [textContent]="items[currentUserIndex].userName"></b></a>
         </mat-card-title>
     </mat-card-header>
-    <mat-card-content (deferLoad)="items.show=true">
-        <img *ngIf="items.show" [src]="items[currentUserIndex].photo" class="center-block avatar-medium" [alt]="items[currentUserIndex].userName"/>
+    <mat-card-content>
+        <img [src]="items[currentUserIndex].photo" class="center-block avatar-medium" [alt]="items[currentUserIndex].userName"/>
     </mat-card-content>
     <mat-card-actions *ngIf="items.length > 1">
         <button mat-button (click)="goToPrevious()"><span class="glyphicon glyphicon-triangle-left"></span></button>
