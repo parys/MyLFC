@@ -28,7 +28,7 @@
             <td>
                 <span [textContent]="match.stadiumName"></span>
             </td>
-            <td>
+            <td class="flex-space-around">
                 <a *ngIf="match.previewId" [routerLink]="['/news', match.previewId]">Превью</a>
                 <a *ngIf="match.reportUrl" [routerLink]="['/news', match.reportUrl]">Отчет</a>
                 <a *ngIf="!match.reportUrl" [routerLink]="['/matches', match.id]">Обсуждение</a>

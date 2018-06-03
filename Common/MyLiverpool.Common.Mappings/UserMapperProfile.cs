@@ -38,7 +38,6 @@ namespace MyLiverpool.Common.Mappings
                 .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id))
                 .ForMember(dest => dest.EmailConfirmed, src => src.MapFrom(x => x.EmailConfirmed))
                 .ForMember(dest => dest.LastModified, src => src.MapFrom(x => x.LastModified))
-                .ForMember(dest => dest.RegistrationDate, src => src.MapFrom(x => x.RegistrationDate))
                 .ForMember(dest => dest.RoleGroupName, src => src.MapFrom(x => x.RoleGroup.RussianName))
                 .ForMember(dest => dest.Photo, src => src.MapFrom(x => x.Photo))
                 .ForMember(dest => dest.UserName, src => src.MapFrom(x => x.UserName));

@@ -1,4 +1,4 @@
-﻿<mat-card class="col-xs-12 container-row" *ngIf="currentUserIndex != null">
+﻿<mat-card class="full-width" *ngIf="currentUserIndex != null">
     <mat-card-header>
         <mat-card-title>
             В этот день родился <a [routerLink]="['/users', items[currentUserIndex].id]"><b [textContent]="items[currentUserIndex].userName"></b></a>

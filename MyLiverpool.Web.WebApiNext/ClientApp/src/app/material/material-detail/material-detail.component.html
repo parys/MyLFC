@@ -1,18 +1,18 @@
 ﻿<div *ngIf="item">
     <div class="flex-vertical-center material-header">
-        <h3 class="col-xs-12 col-sm-12 container-row">
+        <h3 class="full-width flex-space-between">
             <span class="beauty-font" [textContent]="item.title"></span>
-            <span class="pull-right" *ngIf="roles.isEditor || roles.isSelf(item.userId)">
+            <span *ngIf="roles.isEditor || roles.isSelf(item.userId)">
                 <a role="button" *ngIf="item.pending && roles.isEditor" (click)="showActivateModal(i)"><span class="glyphicon glyphicon-ok"></span></a>
                 <a [routerLink]="['./edit']"><span class="glyphicon glyphicon-pencil"></span></a>
                 <a role="button" (click)="showDeleteModal(i)"><span class="glyphicon glyphicon-trash"></span></a>
             </span>
         </h3>
     </div>
-    <div class="col-xs-12 col-sm-12 container-row">
-        <div *ngIf="item.usePhotoInBody" class="col-xs-12 container-row">
+    <div class="full-width">
+        <div *ngIf="item.usePhotoInBody" class="full-width bottom10">
             <img [src]="item.photo" class="material-preview" alt="" />
-            <b><i class="bottom10 col-xs-12 container-row" [innerHTML]="brief"></i></b>
+            <b><i class="full-width" [innerHTML]="brief"></i></b>
         </div>
         <article class="material-body" [innerHTML]="body"></article>
         <div class="alert-warning top10">
@@ -25,11 +25,11 @@
             </ul>
         </div>
     </div>
-    <div class="col-xs-12 flex-space-around"><span class="col-xs-12">К другим новостям: </span>
+    <div class="full-width flex-space-around"><span class="full-width">К другим новостям: </span>
         <a *ngIf="item.prevMaterialId" [routerLink]="['/', item.typeName, item.prevMaterialId]"><span [textContent]="item.prevMaterialTitle"></span>(назад)</a>
         <a *ngIf="item.nextMaterialId" [routerLink]="['/', item.typeName, item.nextMaterialId]"><span [textContent]="item.nextMaterialTitle"></span>(вперед)</a>
     </div>
-    <div class="col-xs-12">
+    <div class="full-width">
         <div id="yandex_rtb_R-A-255349-2"></div>
     </div>
     <div class="full-width flex">

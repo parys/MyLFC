@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
@@ -15,6 +16,11 @@ namespace MyLiverpool.Data.ResourceAccess.Interfaces
         Task<IEnumerable<User>> GetListAsync(int page, int itemPerPage = 15,
             Expression<Func<User, bool>> filter = null,
             SortOrder order = SortOrder.Ascending, Expression<Func<User, object>> orderBy = null);
+
+        IQueryable<User> GetQuerableList(int page, int itemPerPage = 15,
+            Expression<Func<User, bool>> filter = null,
+            SortOrder order = SortOrder.Ascending, Expression<Func<User, object>> orderBy = null);
+
         
         Task<IdentityResult> SetLockoutEndDateAsync(User user, DateTimeOffset? dateTimeOffset);
 

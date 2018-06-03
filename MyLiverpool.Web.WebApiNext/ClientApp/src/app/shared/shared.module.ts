@@ -11,7 +11,9 @@ import { GlobalValidators } from "./globalValidators";
 import { ReCaptchaModule } from "angular2-recaptcha";
 import { DeleteDialogComponent } from "./delete-dialog";
 import { MatAutocompleteModule, MatButtonModule, MatCardModule, MatCheckboxModule, MatDatepickerModule, MatDialogModule, MatExpansionModule,
-    MatIconModule, MatInputModule, MatMenuModule, MatNativeDateModule, MatProgressBarModule, MatSelectModule, MatSlideToggleModule, MatSnackBarModule, MatTabsModule } from "@angular/material";
+    MatIconModule, MatInputModule, MatMenuModule, MatNativeDateModule, MatProgressBarModule, MatSelectModule, MatSlideToggleModule,
+    MatSnackBarModule, MatTabsModule, MatTableModule, MatSortModule
+} from "@angular/material";
 import { LoaderComponent, LoaderService } from "./loader";
 import { BearerInterceptor } from "./interceptors";
 import { RoleGuard, UnSignedGuard, AuthService } from "./auth";
@@ -49,7 +51,9 @@ export function getStorage() {
         MatSelectModule,
         MatSlideToggleModule,
         MatSnackBarModule,
-        MatTabsModule
+        MatSortModule,
+        MatTabsModule,
+        MatTableModule
 
     ],
     declarations: [
@@ -86,7 +90,9 @@ export function getStorage() {
         MatSelectModule,
         MatSlideToggleModule,
         MatSnackBarModule,
+        MatSortModule,
         MatTabsModule,
+        MatTableModule,
         DeferLoadDirective
     ],
     providers: [

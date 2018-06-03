@@ -18,11 +18,11 @@
                                                       totalItems: totalItems }; let i = index;">
     <div class="panel">
         <div class="panel-heading">
-            <h3 class="panel-title">
+            <h3 class="panel-title flex-space-between">
                 <a [routerLink]="[person.id, 'edit']">
                     <span [textContent]="person.lastRussianName + ' ' + person.firstRussianName"></span>
                 </a>
-                <span class="col-xs-2 col-sm-2 pull-right">
+                <span>
                     <a *ngIf="person.type === 1" (click)="setAsBestPlayer(person.id)"><span class="glyphicon glyphicon-bookmark"></span></a>
                     <!--<a ng-click="vm.delete(i)"><span class="glyphicon glyphicon-trash"></span></a>-->
                 </span>

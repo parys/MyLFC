@@ -34,8 +34,9 @@ export class UserListComponent implements OnInit {
         this.page = +this.route.snapshot.queryParams["page"] || 1;
         let userName = this.route.snapshot.queryParams["userName"] || "";
         let roleGroupId = this.route.snapshot.queryParams["roleGroupId"] || "";
+        let itemsPerPage = this.route.snapshot.queryParams["itemsPerPage"] || 15;
         this.updateRoleGroups();
-        this.initFilterForm(userName, roleGroupId);
+        this.initFilterForm(userName, roleGroupId, itemsPerPage);
         this.update();
     }
 
@@ -90,10 +91,11 @@ export class UserListComponent implements OnInit {
             e => console.log(e));
     }
 
-    private initFilterForm(userName: string, roleGroupId: string) {
+    private initFilterForm(userName: string, roleGroupId: string, itemsPerPage: number) {
         this.filterForm = this.formBuilder.group({
             roleGroupId: [roleGroupId],
-            userName: [userName]
+            userName: [userName],
+            itemsPerPage: [itemsPerPage]
         });
     }
 }

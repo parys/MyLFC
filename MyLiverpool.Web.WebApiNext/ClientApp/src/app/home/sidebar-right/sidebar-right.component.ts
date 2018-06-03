@@ -3,7 +3,8 @@ import { RolesCheckedService, AuthService } from "@app/shared";
 
 @Component({
     selector: "sidebar-right",
-    templateUrl: "./sidebar-right.component.html"
+    templateUrl: "./sidebar-right.component.html",
+    styleUrls: ["./sidebar-right.component.scss"]
 })
 export class SidebarRightComponent {
     constructor(public roles: RolesCheckedService,

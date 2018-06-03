@@ -1,14 +1,12 @@
-﻿<div class="btn-group" *ngIf="roles.isModerator">
-    <form class="form-inline btn-block" [formGroup]="filterForm" (ngSubmit)="update()">
-        <mat-checkbox formControlName="onlyUnverified" color="warn">Только непроверенные</mat-checkbox>
-        <mat-form-field>
-            <mat-select placeholder="Количество на странице" color="warn" formControlName="itemsPerPage">
-                <mat-option *ngFor="let interval of intervalArray" [value]="interval.value" [textContent]="interval.key"></mat-option>
-            </mat-select>
-        </mat-form-field>
-        <button mat-raised-button color="primary">Отфильтровать</button>
-    </form>
-</div>
+﻿    <form *ngIf="roles.isModerator" class="flex-vertical-center flex-space-between" [formGroup]="filterForm" (ngSubmit)="update()">
+    <mat-checkbox formControlName="onlyUnverified" color="warn">Только непроверенные</mat-checkbox>
+    <mat-form-field>
+        <mat-select placeholder="Количество на странице" color="warn" formControlName="itemsPerPage">
+            <mat-option *ngFor="let interval of intervalArray" [value]="interval.value" [textContent]="interval.key"></mat-option>
+        </mat-select>
+    </mat-form-field>
+    <button mat-raised-button color="primary">Отфильтровать</button>
+</form>
 <div *ngFor="let comment of items | paginate: { itemsPerPage: itemsPerPage,
                                                       currentPage: page,
                                                       totalItems: totalItems }; let i = index;">

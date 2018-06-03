@@ -14,6 +14,7 @@ using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace MyLiverpool.Business.Services
 {
@@ -44,7 +45,7 @@ namespace MyLiverpool.Business.Services
             var result = await _userRepository.SetLockoutEndDateAsync(user, new DateTimeOffset?());
             return result == IdentityResult.Success;
         }
-        
+
         public async Task<UserDto> GetUserProfileDtoAsync(int id)
         {
             var user = await _userRepository.GetByIdAsync(id);
@@ -64,11 +65,19 @@ namespace MyLiverpool.Business.Services
                 filter = filter.And(x => x.UserName.Contains(dto.UserName));
             }
 
-            var users = await _userRepository.GetListAsync(dto.Page, filter: filter, order: SortOrder.Descending,
-                orderBy: x => x.LastModified);
-            var usersDto = _mapper.Map<IEnumerable<UserMiniDto>>(users);
+            var usersDto = await _userRepository.GetQuerableList(dto.Page, dto.ItemsPerPage, filter, SortOrder.Descending,
+                x => x.LastModified).Select(x => new UserMiniDto
+                {
+                    Id = x.Id,
+                    EmailConfirmed = x.EmailConfirmed,
+                    LastModified = x.LastModified,
+                    CommentsCount = x.Comments.Count,
+                    RoleGroupName = x.RoleGroup.Name,
+                    Photo = x.Photo,
+                    UserName = x.UserName
+                }).ToListAsync();
             var allUsersCount = await _userRepository.GetCountAsync(filter);
-            var result = new PageableData<UserMiniDto>(usersDto, dto.Page, allUsersCount);
+            var result = new PageableData<UserMiniDto>(usersDto, dto.Page, allUsersCount, dto.ItemsPerPage);
             return result;
         }
 
@@ -93,7 +102,7 @@ namespace MyLiverpool.Business.Services
             }
             catch (Exception)
             {
-                
+
             }
             await _userRepository.UpdateAsync(user);
             return true;
@@ -106,7 +115,7 @@ namespace MyLiverpool.Business.Services
                 typed = "";
             }
             var users = await _userRepository.GetListAsync(1, GlobalConstants.CountLoginsForAutocomlete, x => x.UserName.Contains(typed));
-            return users.Select(x => new UsernameDto() { Id = x.Id, Username = x.UserName} );
+            return users.Select(x => new UsernameDto() { Id = x.Id, Username = x.UserName });
         }
 
         public async Task<string> GetPhotoPathAsync(int userId)

@@ -5,11 +5,9 @@
                                                       totalItems: totalItems }; let i = index;">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">
+                <h3 class="panel-title flex-space-between">
                     <a [routerLink]="[item.id, 'edit']"><span [textContent]="item.name"></span></a>
-                    <span class="col-xs-1 col-sm-1 pull-right">
-                        <a (click)="showDeleteModal(i)"><span class="glyphicon glyphicon-trash"></span></a>
-                    </span>
+                    <a (click)="showDeleteModal(i)"><span class="glyphicon glyphicon-trash"></span></a>
                 </h3>
             </div>
             <div class="panel-body">

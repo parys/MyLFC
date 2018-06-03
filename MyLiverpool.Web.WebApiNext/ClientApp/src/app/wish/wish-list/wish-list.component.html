@@ -1,15 +1,14 @@
 ﻿<div>
-                 
-    <button mat-raised-button color="primary" type="button" [routerLink]="[0, 'edit']">Добавить</button>
+    <button mat-raised-button color="primary" type="button" [routerLink]="[0, 'edit']">Предложить улучшение (анонимно)</button>
 
     <div class="top20" *ngFor="let wish of items | paginate: { itemsPerPage: itemsPerPage,
                                                       currentPage: page,
                                                       totalItems: totalItems }; let i = index;">
         <div class="panel" [ngClass]="getTypeClass(wish.type)">
             <div class="panel-heading">
-                <h3 class="panel-title">
+                <h3 class="panel-title flex-space-between">
                     <span [textContent]="wish.title"></span>
-                    <span class="col-xs-2 col-sm-2 pull-right" *ngIf="roles.isAdmin">
+                    <span *ngIf="roles.isAdmin">
                         <a [routerLink]="[wish.id, 'edit']"><span class="glyphicon glyphicon-pencil"></span></a>
                         <a (click)="showDeleteModal(i)"><span class="glyphicon glyphicon-trash"></span></a>
                     </span>

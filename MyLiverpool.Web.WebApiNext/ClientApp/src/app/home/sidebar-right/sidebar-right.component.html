@@ -9,13 +9,15 @@
         <a role="button" (click)="logout()" class="text-white">Выйти</a>
     </li>
 </ul>
-<a mat-raised-button class="col-xs-6 col-sm-12 col-md-6 color-back-gold" [routerLink]="['/news']" [queryParams]="{page: 1, categoryId: 90}"><b>Клуб Прогнозов</b></a>
-<a mat-raised-button class="col-xs-6 col-sm-12 col-md-6 color-back-maroon color-gold" [routerLink]="['/fantasy']"><b>Fantasy</b></a>
+<div class="full-width flex">
+    <a mat-raised-button class="split-button color-back-gold" [routerLink]="['/news']" [queryParams]="{page: 1, categoryId: 90}"><b>Клуб Прогнозов</b></a>
+    <a mat-raised-button class="split-button color-back-maroon color-gold" [routerLink]="['/fantasy']"><b>Fantasy</b></a>
+</div>
 <section class="top10">
        <mini-chat></mini-chat>
-    <a mat-raised-button class="col-xs-12 color-back-gold" [routerLink]="['/news', 18096]"><b>Галерея личностей</b></a>
+    <a mat-raised-button class="full-width color-back-gold" [routerLink]="['/news', 18096]"><b>Галерея личностей</b></a>
 </section>
-<section class="col-xs-12 container-row top10">
+<section class="full-width top10">
  <user-birthday></user-birthday> 
 </section>
 <comment-last></comment-last>
@@ -23,4 +25,4 @@
     <a [routerLink]="['/plans']">Планы</a>
     <a [routerLink]="['/instructions']">Инструкции</a>
 </div>
-<a mat-raised-button class="col-xs-12 color-back-gold" [routerLink]="['/job']"><b>Вакансии</b></a>
+<a mat-raised-button class="full-width color-back-gold" [routerLink]="['/job']"><b>Вакансии</b></a>

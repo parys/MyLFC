@@ -10,7 +10,7 @@
             <mat-option *ngFor="let type of types" [value]="type.id" [textContent]="type.name">
             </mat-option>
         </mat-select>
-    </mat-form-field>       
+    </mat-form-field>
     <mat-form-field class="full-width">
         <input matInput placeholder="Номер на футболке" formControlName="number">
     </mat-form-field>
@@ -27,11 +27,9 @@
         <mat-form-field class="full-width">
             <input matInput placeholder="Страна рождения" formControlName="country">
         </mat-form-field>
-        <div class="full-width text-center top20" *ngIf="editPersonForm.get('firstName').value && editPersonForm.get('lastName').value">
-            <div class="col-xs-2">
-                <img class="avatar" *ngIf="photo" [src]="photo" alt="" />
-            </div>
-            <div class="col-xs-10">
+        <div class="full-width top20 flex-vertical-center flex-space-around flex" *ngIf="editPersonForm.get('firstName').value && editPersonForm.get('lastName').value">
+            <img class="avatar" *ngIf="photo" [src]="photo" alt="" />
+            <div>
                 <button mat-raised-button type="button">
                     <label for="update-input">
                         Загрузить фото
@@ -50,7 +48,7 @@
             <mat-datepicker #datePicker startView="year" touchUi="true"></mat-datepicker>
         </mat-form-field>
     </div>
-    <div class="full-width text-center">
-        <button mat-raised-button color="warn" type="submit" [disabled]="!editPersonForm.valid">Сохранить</button>
+    <div class="full-width">
+        <button mat-raised-button color="warn" class="full-width" type="submit" [disabled]="!editPersonForm.valid">Сохранить</button>
     </div>
 </form>

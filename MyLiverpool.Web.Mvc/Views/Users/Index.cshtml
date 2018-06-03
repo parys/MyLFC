@@ -10,7 +10,7 @@
     <tr>
         <th>Последний вход</th>
         <th>Логин</th>
-        <th>Дата регистрации</th>
+        <th>Комментарии</th>
         <th>Группа</th>
     </tr>
     </thead>
@@ -29,7 +29,7 @@
                 @*<span class="text-danger" tooltip="Почта не подтверждена" *ngIf="!user.emailConfirmed && (roles.isAdminAssist || roles.isSelf(user.id))"> *</span>*@
                 @*<a class="col-sm-2" role="button" *ngIf="roles.isLogined && !roles.isSelf(user.id)" (click)="writePm(i)"><span class="glyphicon glyphicon-envelope"></span></a>*@
             </td>
-            <td class=""><span data-date="@user.RegistrationDate.ToString("O")" data-dow="true" data-sec="false" class="timeConvert"></span></td>
+            <td class="">@user.CommentsCount</td>
             <td class="">@user.RoleGroupName</td>
         </tr>
     }

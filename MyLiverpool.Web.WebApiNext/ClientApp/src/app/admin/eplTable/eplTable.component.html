@@ -1,13 +1,13 @@
-﻿<span class="col-xs-12" *ngIf="roles.isInformer">
+﻿<span class="full-width" *ngIf="roles.isInformer">
     <a role="button" (click)="updateEplTable()">Обновить таблицу</a>
 </span>
-<button mat-raised-button color="primary" (click)="opened = !opened" class="col-xs-12 top10">
+<button mat-raised-button color="primary" (click)="opened = !opened" class="full-width top10">
     <span *ngIf="!opened">Показать таблицу АПЛ</span>
     <span *ngIf="opened">Скрыть таблицу</span>
 </button>
 <div *ngIf="opened" class="border-panel border-lgray clearfix eplTable" [innerHTML]="eplTable"></div>
 <!--<mat-expansion-panel class="top10">
-    <span class="col-xs-12" *ngIf="roles.isInformer">
+    <span class="full-width" *ngIf="roles.isInformer">
         <a role="button" (click)="updateEplTable()">Обновить таблицу</a>
     </span>
     <mat-expansion-panel-header>

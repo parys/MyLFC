@@ -1,6 +1,6 @@
-﻿<section class="col-xs-12 bg-maroon text-white">
+﻿<section class="full-width flex bg-maroon text-white padding5">
     Последние комментарии:
-    <div *ngFor="let item of items; let i = index;" class="col-xs-12 container-row">
+    <div *ngFor="let item of items; let i = index;" class="full-width">
         <a [textContent]="item.authorUserName"
            [routerLink]="['/users', item.authorId]"
            class="color-gold"></a>: <a [routerLink]="['/', item.typeName, item.materialId || item.matchId]"
