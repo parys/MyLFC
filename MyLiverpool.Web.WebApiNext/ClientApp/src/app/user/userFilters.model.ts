@@ -3,4 +3,6 @@
     userName: string;
     roleGroupId: number;
     itemsPerPage: number = 15;
+    order: string;
+    sortBy: string;
 }

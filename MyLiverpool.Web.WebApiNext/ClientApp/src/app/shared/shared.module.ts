@@ -12,7 +12,7 @@ import { ReCaptchaModule } from "angular2-recaptcha";
 import { DeleteDialogComponent } from "./delete-dialog";
 import { MatAutocompleteModule, MatButtonModule, MatCardModule, MatCheckboxModule, MatDatepickerModule, MatDialogModule, MatExpansionModule,
     MatIconModule, MatInputModule, MatMenuModule, MatNativeDateModule, MatProgressBarModule, MatSelectModule, MatSlideToggleModule,
-    MatSnackBarModule, MatTabsModule, MatTableModule, MatSortModule
+    MatSnackBarModule, MatTabsModule, MatTableModule, MatSortModule, MatPaginatorModule, MatPaginatorIntl
 } from "@angular/material";
 import { LoaderComponent, LoaderService } from "./loader";
 import { BearerInterceptor } from "./interceptors";
@@ -21,6 +21,9 @@ import { CustomDatePipe } from "./pipes";
 import { BreadcrumbComponent, BreadcrumbService } from "./breadcrumb";
 import { NgxPaginationModule } from "ngx-pagination";
 import { DeferLoadDirective } from "./lazy";
+
+
+import { getRussianPaginatorIntl } from './intl/russian-paginator-intl';
 
 export function getStorage() {
     const result = typeof window !== "undefined" ? window.localStorage : null;
@@ -51,6 +54,7 @@ export function getStorage() {
         MatSelectModule,
         MatSlideToggleModule,
         MatSnackBarModule,
+        MatPaginatorModule,
         MatSortModule,
         MatTabsModule,
         MatTableModule
@@ -87,6 +91,7 @@ export function getStorage() {
         MatInputModule,
         MatMenuModule,
         MatNativeDateModule,
+        MatPaginatorModule,
         MatSelectModule,
         MatSlideToggleModule,
         MatSnackBarModule,
@@ -106,7 +111,8 @@ export function getStorage() {
         LoaderService,
         BreadcrumbService,
         { provide: LocalStorage, useFactory: getStorage },
-        { provide: HTTP_INTERCEPTORS, useClass: BearerInterceptor, multi: true, deps: [StorageService, LoaderService] }
+        { provide: HTTP_INTERCEPTORS, useClass: BearerInterceptor, multi: true, deps: [StorageService, LoaderService] },
+        { provide: MatPaginatorIntl, useValue: getRussianPaginatorIntl() }
     ],
     entryComponents: [
         DeleteDialogComponent

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -85,6 +86,26 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             if (orderBy != null)
             {
                 query = query.ObjectSort(orderBy, order);
+            }
+            query = query.Skip((page - 1) * itemPerPage).Take(itemPerPage);
+            return query;
+        }
+
+        public IQueryable<User> GetQuerableList(int page, int itemPerPage = 15, Expression<Func<User, bool>> filter = null,
+            SortOrder order = SortOrder.Ascending, string orderBy = null)
+        {
+            IQueryable<User> query = _context.Users.Include(x => x.RoleGroup);
+
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+            if (orderBy != null)
+            {
+                var prop = typeof(User).GetProperty(orderBy, BindingFlags.IgnoreCase);
+                query = order == SortOrder.Ascending
+                    ? query.OrderBy(x => prop.GetValue(x, null)) 
+                    : query.OrderByDescending(x => prop.GetValue(x, null));
             }
             query = query.Skip((page - 1) * itemPerPage).Take(itemPerPage);
             return query;

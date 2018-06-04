@@ -10,8 +10,7 @@ namespace MyLiverpool.Data.ResourceAccess
 
         public static IOrderedQueryable<T> ObjectSort<T>(this IQueryable<T> entities, Expression<Func<T, object>> expression, SortOrder order = SortOrder.Ascending)
         {
-            var unaryExpression = expression.Body as UnaryExpression;
-            if (unaryExpression != null)
+            if (expression.Body is UnaryExpression unaryExpression)
             {
                 var propertyExpression = (MemberExpression)unaryExpression.Operand;
                 var parameters = expression.Parameters;
@@ -36,7 +35,9 @@ namespace MyLiverpool.Data.ResourceAccess
 
                 throw new NotSupportedException("Object type resolution not implemented for this type");
             }
-            return entities.OrderBy(expression);
+            return order == SortOrder.Ascending 
+                ? entities.OrderBy(expression)
+                : entities.OrderByDescending(expression);
         }
     }
 }

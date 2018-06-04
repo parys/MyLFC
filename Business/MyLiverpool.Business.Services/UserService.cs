@@ -64,15 +64,33 @@ namespace MyLiverpool.Business.Services
             {
                 filter = filter.And(x => x.UserName.Contains(dto.UserName));
             }
+            Expression<Func<User, object>> sortBy = x => x.LastModified;
+            if (!string.IsNullOrWhiteSpace(dto.SortBy))
+            {
+                if (dto.SortBy.Contains(nameof(UserMiniDto.RoleGroupName), StringComparison.InvariantCultureIgnoreCase))
+                {
+                    sortBy = x => x.RoleGroup.RussianName;
+                }
+                else if (dto.SortBy.Contains(nameof(UserMiniDto.CommentsCount),
+                    StringComparison.InvariantCultureIgnoreCase))
+                {
+                    sortBy = x => x.Comments.Count;
+                }
+                else if (dto.SortBy.Contains(nameof(UserMiniDto.UserName),
+                    StringComparison.InvariantCultureIgnoreCase))
+                {
+                    sortBy = x => x.UserName;
+                }
+            }
 
-            var usersDto = await _userRepository.GetQuerableList(dto.Page, dto.ItemsPerPage, filter, SortOrder.Descending,
-                x => x.LastModified).Select(x => new UserMiniDto
+            var usersDto = await _userRepository.GetQuerableList(dto.Page, dto.ItemsPerPage, filter, dto.SortOrder, sortBy)
+                .Select(x => new UserMiniDto
                 {
                     Id = x.Id,
                     EmailConfirmed = x.EmailConfirmed,
                     LastModified = x.LastModified,
                     CommentsCount = x.Comments.Count,
-                    RoleGroupName = x.RoleGroup.Name,
+                    RoleGroupName = x.RoleGroup.RussianName,
                     Photo = x.Photo,
                     UserName = x.UserName
                 }).ToListAsync();

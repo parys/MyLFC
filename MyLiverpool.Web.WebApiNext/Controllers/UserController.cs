@@ -101,7 +101,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [AllowAnonymous, HttpGet("list/{dto}")]
         public async Task<IActionResult> List(string dto)
         {
-            if (dto == null)
+            if (string.IsNullOrWhiteSpace(dto))
             {
                 return BadRequest();
             }

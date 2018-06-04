@@ -21,6 +21,10 @@ namespace MyLiverpool.Data.ResourceAccess.Interfaces
             Expression<Func<User, bool>> filter = null,
             SortOrder order = SortOrder.Ascending, Expression<Func<User, object>> orderBy = null);
 
+        IQueryable<User> GetQuerableList(int page, int itemPerPage = 15,
+            Expression<Func<User, bool>> filter = null,
+            SortOrder order = SortOrder.Ascending, string orderBy = null);
+
         
         Task<IdentityResult> SetLockoutEndDateAsync(User user, DateTimeOffset? dateTimeOffset);
 
