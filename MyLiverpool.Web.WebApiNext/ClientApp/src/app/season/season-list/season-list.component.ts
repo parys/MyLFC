@@ -16,4 +16,9 @@ export class SeasonListComponent implements OnInit {
         this.service.getAll().subscribe(data => this.seasons = data,
             e => console.log(e));
     }
+
+    public setAsCurrent(index: number): void {
+        this.service.setAsCurrent(this.seasons[index].id)
+            .subscribe(data => data, e => console.log(e));
+    }
 }

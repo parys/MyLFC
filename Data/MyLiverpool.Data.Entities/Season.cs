@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MyLiverpool.Data.Entities
 {
@@ -16,5 +17,8 @@ namespace MyLiverpool.Data.Entities
         public virtual ICollection<Match> Matches { get; set; }
 
         public virtual ICollection<MatchEvent> Events { get; set; }
+
+        [NotMapped]
+        public int EndSeasonYear => StartSeasonYear + 1;
     }
 }

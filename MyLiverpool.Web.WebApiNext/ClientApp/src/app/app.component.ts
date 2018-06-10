@@ -139,6 +139,7 @@ export class AppComponent implements OnInit {
 
         this.breadcrumbService.addFriendlyNameForRoute("/seasons", "Сезоны");
         this.breadcrumbService.addFriendlyNameForRoute("/seasons/calendar", "Календарь");
+        this.breadcrumbService.addFriendlyNameForRouteRegex("/seasons/[0-9]+/calendar", "Календарь");
         this.breadcrumbService.addFriendlyNameForRoute("/seasons/statistics", "Статистика");
         this.breadcrumbService.hideRouteRegex("^/seasons/[0-9]+$"); //  this.breadcrumbService.addFriendlyNameForRouteRegex("^/season/[0-9]+$", "Сезон");
         this.breadcrumbService.addFriendlyNameForRouteRegex("^/season/[0-9]+/edit$", "Редактирование");

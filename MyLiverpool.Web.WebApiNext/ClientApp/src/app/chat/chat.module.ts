@@ -4,10 +4,11 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { SharedModule } from "@app/shared";
 import { MiniChatComponent } from "./miniChat.component";
 import { MaxiChatComponent } from "./maxiChat.component";
+import { ChatWindowComponent } from "./chat-window";
 import { chatRoutes } from "./chat.routes";
 import { UserModule } from "@app/user";
 import { EditorModule } from "@app/editor";
-import { ChatMessageService } from "@app/chat/chatMessage.service";
+import { ChatMessageService } from "./chatMessage.service";
 
 
 @NgModule({
@@ -19,13 +20,15 @@ import { ChatMessageService } from "@app/chat/chatMessage.service";
     ],
     declarations: [
         MiniChatComponent,
-        MaxiChatComponent
+        MaxiChatComponent,
+        ChatWindowComponent
     ],
     exports: [
         FormsModule,
         ReactiveFormsModule,
         MiniChatComponent,
-        MaxiChatComponent
+        MaxiChatComponent,
+        ChatWindowComponent
     ],
     providers: [
         ChatMessageService

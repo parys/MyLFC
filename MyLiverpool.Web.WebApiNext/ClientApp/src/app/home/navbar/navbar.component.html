@@ -40,7 +40,7 @@
                 Сезон<b class="caret"></b>
             </a>
             <mat-menu #seasonMenu="matMenu">
-                <a [routerLink]="['/seasons/calendar']" mat-menu-item>Календарь</a>
+                <a [routerLink]="['/seasons/0/calendar']" mat-menu-item>Календарь</a>
                 <!--<button [routerLink]="['/season/eplTable']" mat-menu-item>Полная таблица АПЛ</button>-->
                 <a [routerLink]="['/seasons/statistics']" mat-menu-item>Статистика игроков</a>
                 <a *ngIf="roles.isAdmin" [routerLink]="['/seasons']" mat-menu-item>Список сезонов</a>

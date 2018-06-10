@@ -17,5 +17,6 @@
         CupTable = 13,
         HeaderMatch = 14,
         Cooperation = 15,
+        CurrentSeason = 16
     }
 }

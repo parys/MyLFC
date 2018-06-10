@@ -122,6 +122,18 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         }
 
         /// <summary>
+        /// Deletes season.
+        /// </summary>
+        /// <param name="id">The identifier of removing object.</param>
+        /// <returns>Result of deleting season.</returns>
+        [Authorize(Roles = nameof(RolesEnum.InfoFull)), HttpPut("{id:int}/SetAsCurrent")]
+        public async Task<IActionResult> SetAsCurrentAsync(int id)
+        {
+            await _seasonService.SetCurrentSeasonAsync(id);
+            return Ok(true);
+        }
+
+        /// <summary>
         /// Returns seasons which year contain types string.
         /// </summary>
         /// <param name="typed">Part of season year for search.</param>

@@ -13,6 +13,8 @@ namespace MyLiverpool.Business.Contracts
 
         Task<IEnumerable<KeyValuePair<int, string>>> GetSeasonsByYearAsync(string typed);
 
-        Task<Season> GetCurrentSeasonAsync();
+        Task<int> GetCurrentSeasonIdAsync();
+
+        Task SetCurrentSeasonAsync(int currentSeasonId);
     }
 }

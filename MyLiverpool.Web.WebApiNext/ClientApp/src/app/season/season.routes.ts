@@ -11,15 +11,20 @@ export const seasonRoutes: Routes = [
         children: [
             { path: "", component: SeasonListComponent, data: { title: "Список сезонов" } },
             {
-                path: ":id/edit",
-                component: SeasonEditComponent,
-                data: {
-                    title: "Редактирование сезона",
-                    roles: ["infoStart"]
-                },
-                canActivate: [RoleGuard]
+                path: ":id",
+                children: [
+                    {
+                        path: "edit",
+                        component: SeasonEditComponent,
+                        data: {
+                            title: "Редактирование сезона",
+                            roles: ["infoStart"]
+                        },
+                        canActivate: [RoleGuard]
+                    },
+                    { path: "calendar", component: SeasonCalendarComponent, data: { title: "Календарь" } },
+                ]
             },
-            { path: "calendar", component: SeasonCalendarComponent, data: { title: "Календарь" } },
             { path: "statistics", component: SeasonStatisticsComponent, data: { title: "Статистика" } },
         ]
     }

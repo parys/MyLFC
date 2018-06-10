@@ -42,4 +42,8 @@ export class SeasonService {
     public getStatistics(seasonId: number): Observable<PersonStatistics[]> {
         return this.http.get<PersonStatistics[]>(`${this.actionUrl}${seasonId}/statistics`);
     }
+
+    public setAsCurrent(id: number): Observable<boolean> {
+        return this.http.put<boolean>(this.actionUrl + id + "/setAsCurrent", "");
+    };
 }

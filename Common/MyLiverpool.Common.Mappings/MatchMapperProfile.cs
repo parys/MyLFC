@@ -69,8 +69,8 @@ namespace MyLiverpool.Common.Mappings
                 return events.Any()
                     ? CalculateScore(events, isHome)
                     : isHome
-                        ? score.Split('-', StringSplitOptions.RemoveEmptyEntries).FirstOrDefault()
-                        : score.Split('-', StringSplitOptions.RemoveEmptyEntries).LastOrDefault();
+                        ? score?.Split('-', StringSplitOptions.RemoveEmptyEntries).FirstOrDefault()
+                        : score?.Split('-', StringSplitOptions.RemoveEmptyEntries).LastOrDefault();
             }
             return null;
         }

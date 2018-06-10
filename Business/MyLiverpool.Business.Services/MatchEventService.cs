@@ -75,12 +75,7 @@ namespace MyLiverpool.Business.Services
         {
             if (seasonId == 0)
             {
-                var season = await _seasonService.GetCurrentSeasonAsync();
-                if (season == null)
-                {
-                    return null;
-                }
-                seasonId = season.Id;
+                seasonId = await _seasonService.GetCurrentSeasonIdAsync();
             }
             var events = await _matchEventRepository.GetListAsync(
                 x => x.Match.SeasonId == seasonId && x.Match.MatchType != MatchTypeEnum.PreSeason && x.Person.Type != PersonType.Rival,
