@@ -27,9 +27,11 @@ using MyLiverpool.Web.WebApiNext.Extensions;
 using Newtonsoft.Json.Serialization;
 using Swashbuckle.AspNetCore.Swagger;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
+using MyLfc.Common.Web.Middlewares;
 
 namespace MyLiverpool.Web.WebApiNext
 {
+
     /// <summary>
     /// Startup class.
     /// </summary>
@@ -127,103 +129,8 @@ namespace MyLiverpool.Web.WebApiNext
             //})
             .AddOAuthValidation();
 
-            services.AddOpenIddict<int>(options =>
-              {
-                  options.AddEntityFrameworkCoreStores<LiverpoolContext>()
-                      .AddMvcBinders()
-                      .EnableLogoutEndpoint("/connect/logout")
-                      // Enable the token endpoint (required to use the password flow).
-                      .EnableTokenEndpoint("/connect/token")
-                      .AllowPasswordFlow()
-                      .AllowRefreshTokenFlow()
-                      //    .SetIdentityTokenLifetime(TimeSpan.FromDays(14))
-                      //   .SetAccessTokenLifetime(TimeSpan.FromSeconds(10))
-                      .SetRefreshTokenLifetime(TimeSpan.FromDays(14))
-                      // During development, you can disable the HTTPS requirement.
-                      .DisableHttpsRequirement()
-                      // When request caching is enabled, authorization and logout requests
-                      // are stored in the distributed cache by OpenIddict and the user agent
-                      // is redirected to the same page with a single parameter (request_id).
-                      // This allows flowing large OpenID Connect requests even when using
-                      // an external authentication provider like Google, Facebook or Twitter.
-                      .EnableRequestCaching();
-                  if (Env.IsDevelopment())
-                  {
-                      // Register a new ephemeral key, that is discarded when the application
-                      // shuts down. Tokens signed using this key are automatically invalidated.
-                      // This method should only be used during development.
-                      //      options.AddEphemeralSigningKey();
-                  }
-                  else
-                  {
-                      //try
-                      //{
-                      //    options.AddSigningCertificate(
-                      //        new FileStream(Directory.GetCurrentDirectory() + "/cert.pfx", FileMode.Open),
-                      //        Configuration.GetSection("Cert")["password"]);
-                      //}
-                      //catch
-                      //{
-                      //    options.AddSigningCertificate(
-                      //        new FileStream(Directory.GetCurrentDirectory() + "/cert2.pfx", FileMode.Open),
-                      //        Configuration.GetSection("Cert")["password"]);
-                      //}
-                  }
-              });
-
-            /*  services.AddOpenIddict()
-                  .AddCore(options =>
-                  {
-                      options.UseDefaultModels();
-                      options.AddEntityFrameworkCoreStores<LiverpoolContext>();
-                  })
-                  .AddServer(options =>
-                  {
-                      options.AddMvcBinders();
-
-                      options.EnableLogoutEndpoint("/connect/logout")
-                          // Enable the token endpoint (required to use the password flow).
-                          .EnableTokenEndpoint("/connect/token");
-
-                      options.AllowPasswordFlow()
-                          .AllowRefreshTokenFlow()
-                          .SetRefreshTokenLifetime(TimeSpan.FromDays(14))
-                          .DisableHttpsRequirement() // During development, you can disable the HTTPS requirement.
-                          // When request caching is enabled, authorization and logout requests
-                          // are stored in the distributed cache by OpenIddict and the user agent
-                          // is redirected to the same page with a single parameter (request_id).
-                          // This allows flowing large OpenID Connect requests even when using
-                          // an external authentication provider like Google, Facebook or Twitter.
-                          .EnableRequestCaching();
-
-                      options.RegisterScopes(OpenIdConnectConstants.Scopes.Email,
-                          OpenIdConnectConstants.Scopes.Profile,
-                          OpenIddictConstants.Scopes.Roles);
-
-                      if (Env.IsDevelopment())
-                      {
-                          // Register a new ephemeral key, that is discarded when the application
-                          // shuts down. Tokens signed using this key are automatically invalidated.
-                          // This method should only be used during development.
-                          //      options.AddEphemeralSigningKey();
-                      }
-                      else
-                      {
-                          //try
-                          //{
-                          //    options.AddSigningCertificate(
-                          //        new FileStream(Directory.GetCurrentDirectory() + "/cert.pfx", FileMode.Open),
-                          //        Configuration.GetSection("Cert")["password"]);
-                          //}
-                          //catch
-                          //{
-                          //    options.AddSigningCertificate(
-                          //        new FileStream(Directory.GetCurrentDirectory() + "/cert2.pfx", FileMode.Open),
-                          //        Configuration.GetSection("Cert")["password"]);
-                          //}
-                      }
-                  });*/
-
+            services.ApplyCustomOpenIdDict(Env);
+            
             //    services.AddSignalR();
 
             RegisterCoreHelpers(services);
@@ -351,7 +258,7 @@ namespace MyLiverpool.Web.WebApiNext
                 },
              //   ServeUnknownFileTypes = true
             });
-            app.UseSpaStaticFiles(new StaticFileOptions()
+            app.UseSpaStaticFiles(new StaticFileOptions
                 {
                //     ServeUnknownFileTypes = true
                 }

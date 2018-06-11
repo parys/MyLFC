@@ -12,11 +12,12 @@ using Microsoft.Extensions.Options;
 using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
 using MyLiverpool.Data.Entities;
-using OpenIddict.Core;
-using OpenIddict.Models;
 
 namespace MyLiverpool.Data.ResourceAccess
 {
+    using OpenIddict.Abstractions;
+    using OpenIddict.EntityFrameworkCore.Models;
+
     public class DatabaseInitializer
     {
         private readonly LiverpoolContext _context;

@@ -25,9 +25,9 @@ namespace MyLiverpool.Web.WebApiNext
             var host = WebHost.CreateDefaultBuilder(args)
                 //                .UseApplicationInsights()
                 .UseConfiguration(config)
-//#if DEBUG
-//    .UseIISIntegration()
-//#endif
+#if DEBUG
+    .UseIISIntegration()
+#endif
                 //.CaptureStartupErrors(true)
                 .UseKestrel()
                 .UseContentRoot(Directory.GetCurrentDirectory())

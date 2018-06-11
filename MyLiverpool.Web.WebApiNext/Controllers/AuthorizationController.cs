@@ -13,10 +13,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using MyLiverpool.Business.Contracts;
 using OpenIddict.Core;
-using OpenIddict.Models;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
+    using OpenIddict.Abstractions;
+    using OpenIddict.EntityFrameworkCore.Models;
+
     /// <inheritdoc />
     /// <summary>
     /// Controller for authorization actions.

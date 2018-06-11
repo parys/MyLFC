@@ -903,6 +903,7 @@ nav {
     font-family: "Beauty";
 }
 
+.nav > li > a:focus,
 .nav > li > a:hover {
     color: #6e6e6e;
     background-color: transparent;
@@ -986,7 +987,6 @@ nav {
     max-width: 90px;
     max-height: 90px;
 }
-
 /* AngularJS Form validation styling */
 .validation.help-block {
     color: #E07676;
@@ -996,7 +996,6 @@ nav {
 .va-top {
     vertical-align: top;
 }
-
 /* error display font italic, text-danger is red in BS */
 .validation.text-danger {
     font-style: italic;
@@ -1009,6 +1008,7 @@ nav {
 .width15p {
     width: 15%;
 }
+
 .width20p {
     width: 20%;
 }
@@ -1050,9 +1050,7 @@ nav {
 .mini-logo {
     height: 20px;
 }
-
 /* ===== forum Start ===== */
-
 a.postuser1:link, a.postuser1:visited, a.postuser1:hover {
     color: #000000;
     font-weight: normal;
@@ -1112,7 +1110,6 @@ a.postuser10:link, a.postuser10:visited, a.postuser10:hover {
     font-weight: bold;
     text-decoration: none
 }
-
 /* General forum Table View */
 .gTable {
     background: #EBEBEB;
@@ -1166,10 +1163,7 @@ a.postuser10:link, a.postuser10:visited, a.postuser10:hover {
     background: #F1FFDD;
     color: #FF0000;
 }
-
-
 /* ------------------------ */
-
 /* Forums Styles */
 .forumNameTd, .forumLastPostTd {
     padding: 2px;
@@ -1216,7 +1210,6 @@ a.catLink:active {
     font-weight: bold;
 }
 /* ------------- */
-
 /* forum Titles & other */
 .forum {
     font-weight: bold;
@@ -1252,7 +1245,6 @@ a.forum:active, a.lastPostUserLink:active, a.forumLastPostLink:active, a.threadA
     color: #BD0A00;
 }
 /* -------------------- */
-
 /* forum Navigation Bar */
 .forumNamesBar {
     font-weight: bold;
@@ -1283,13 +1275,11 @@ a.forumBarA:active {
     color: #BD0A00;
 }
 /* -------------------- */
-
 /* forum Fast Navigation Blocks */
 .fastNav, .fastSearch, .fastLoginForm {
     font-size: 7pt;
 }
 /* ---------------------------- */
-
 /* forum Fast Navigation Menu */
 .fastNavMain {
     background: #CEF0C6;
@@ -1308,7 +1298,6 @@ a.forumBarA:active {
     color: #0000FF
 }
 /* -------------------------- */
-
 /* forum Page switches */
 .switches {
     background: #418E00;
@@ -1353,7 +1342,6 @@ a.switchDigit:active, a.switchBack:active, a.switchNext:active {
     color: #FF0000;
 }
 /* ------------------- */
-
 /* forum Threads Style */
 .threadNametd, .threadAuthTd, .threadLastPostTd {
     padding: 2px;
@@ -1456,7 +1444,6 @@ a.threadLink:active {
     text-align: right;
 }
 /* ------------------- */
-
 /* forum Posts View */
 /*.postTable {}*/
 .postPoll {
@@ -1587,7 +1574,6 @@ a.threadLink:active {
     color: #FF0000;
 }
 /* ------------------ */
-
 /* forum AllInOne Fast Add */
 .newThreadBlock {
     background: #F9F9F9;
@@ -1604,7 +1590,6 @@ a.threadLink:active {
     background: url('http://src.ucoz.ru/t/631/19.gif') no-repeat 0 4px;
 }
 /* ----------------------- */
-
 /* forum Post Form */
 .pollBut, .loginButton, .searchSbmFl, .commSbmFl, .signButton, .codeButtons, .codeCloseAll {
     font-size: 7pt;
@@ -1665,11 +1650,8 @@ a.threadLink:active {
     text-align: center
 }
 /* ----------------- */
-
 /* ====== forum End ====== */
-
 /*--------------------- Forum start ---------------------*/
-
 .modBut {
     font-size: 12px;
 }
@@ -1679,11 +1661,9 @@ a.threadLink:active {
     background-color: #ffffff;
     padding: 0 5px 0 5px;
 }
-
 /*.forumContent a {}
 
 .forumContent table {}*/
-
 .gTable, .postTable {
     background: #ffffff;
 }
@@ -1720,9 +1700,7 @@ td.postRest1, td.postRest2, td.postFirst {
 .gTableTop a {
     color: #ffffff;
 }
-
 /*.gTableTop a:hover {}*/
-
 .gTable td.gTableSubTop {
     background: #e1e1e1;
     color: #848484;
@@ -1763,11 +1741,9 @@ td.postRest1, td.postRest2, td.postFirst {
 .threadPostTd, .threadViewTd, .threadAuthTd, .forumThreadTd, .forumPostTd {
     text-align: center !important;
 }
-
 /*a.TopSortLink {}
 
 a.TopSortLink:hover {}*/
-
 a.postUser {
     font-weight: bold;
 }
@@ -1776,9 +1752,7 @@ a.forum, a.threadLink {
     font-size: 12px;
     color: #c48b49;
 }
-
 /*.quoteMessage {}*/
-
 .forumDescr, .threadDescr {
     font-size: 10px;
     color: #a1a1a1;
@@ -1787,9 +1761,7 @@ a.forum, a.threadLink {
 td.postTdTop {
     background: #e1e1e1;
 }
-
 /*td.postTdTop a {}*/
-
 td.forumIcoTd, td.forumThreadTd, td.forumPostTd, td.gTableRight, td.threadIcoTd, td.threadPostTd,
 td.threadViewTd {
     padding: 2px;
@@ -1798,21 +1770,16 @@ td.threadViewTd {
 td.pollQuestion, .pollResults td, td.pollResults, td.pollTotal, td.pollAnswer, td.pollButtons, .smiles td {
     border: 0px;
 }
-
 /*td.pagesInfo, td.switch, td.switchActive {}
 
 td.switch, td.switchActive {}
 
 td.switch a {}*/
-
 .switchActive {
     font-weight: bold;
 }
-
 /*--------------------- Forum end ---------------------*/
-
 /* old site start*/
-
 .left1 {
     display: block;
     float: left;
@@ -1852,8 +1819,6 @@ td.switch a {}*/
     font-size: 12px;
     color: #000000;
 }
-
-
 /* old site end*/
 .spoiler {
     border: 1px solid #ff0000;
