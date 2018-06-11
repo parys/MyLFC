@@ -26,7 +26,7 @@ namespace MyLiverpool.Web.Mvc.Controllers
 
         public async Task<IActionResult> Statistics(int id = 0)
         {
-            var result = await _matchEventService.GetStatistics(id);
+            var result = await _matchEventService.GetStatisticsAsync(id);
             return View(result);
         }
     }

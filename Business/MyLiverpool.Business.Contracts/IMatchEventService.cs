@@ -8,6 +8,6 @@ namespace MyLiverpool.Business.Contracts
     {
         Task<IEnumerable<MatchEventDto>> GetListByMatchIdAsync(int matchId);
 
-        Task<IEnumerable<PersonStatisticDto>> GetStatistics(int seasonId);
+        Task<IEnumerable<PersonStatisticDto>> GetStatisticsAsync(int seasonId);
     }
 }

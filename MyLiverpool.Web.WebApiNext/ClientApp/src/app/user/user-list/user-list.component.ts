@@ -1,6 +1,6 @@
 ﻿import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { Location } from "@angular/common";
-import { MatPaginator, MatSort, MatSelect, MatInput } from '@angular/material';
+import { MatPaginator, MatSort, MatSelect } from '@angular/material';
 import { ActivatedRoute } from "@angular/router";
 import { User } from "../user.model";
 import { UserFilters } from "../userFilters.model";
@@ -18,11 +18,7 @@ import { Pageable, RolesCheckedService } from "@app/shared";
 export class UserListComponent implements OnInit {
     public items: User[];
     public roleGroups: RoleGroup[];
-    public itemsPerPage: number = 15;
-    public totalItems: number;
     public selectedUserId: number;
-    public sortBy: string;
-    public order: string;
     displayedColumns = ['lastModified', 'userName', 'commentsCount', 'roleGroupName'];
 
     @ViewChild(MatSort) sort: MatSort;
@@ -39,15 +35,13 @@ export class UserListComponent implements OnInit {
 
     public ngOnInit(): void {
         this.paginator.pageIndex = +this.route.snapshot.queryParams["page"] - 1 || 0;
-        let userName = this.route.snapshot.queryParams["userName"] || "";
-        let roleGroupId = this.route.snapshot.queryParams["roleGroupId"] || "";
+        this.paginator.pageSize = +this.route.snapshot.queryParams["itemsPerPage"] || 15;
+        this.userInput.nativeElement.value = this.route.snapshot.queryParams["userName"] || "";
+        this.roleSelect.value = this.route.snapshot.queryParams["roleGroupId"] || "";
         this.updateRoleGroups();
 
-
-        console.log(this.userInput);
         merge(this.sort.sortChange,
                 this.roleSelect.selectionChange,
-             //   this.userInput.stateChanges
             fromEvent(this.userInput.nativeElement, 'keyup')
                 .pipe(debounceTime(1000),
                     distinctUntilChanged()))
@@ -55,29 +49,28 @@ export class UserListComponent implements OnInit {
 
         merge(this.sort.sortChange, this.paginator.page, this.roleSelect.selectionChange,
                 fromEvent(this.userInput.nativeElement, 'keyup')
-      //  merge(this.sort.sortChange, this.paginator.page, this.roleSelect.selectionChange, this.userInput.stateChanges
                 .pipe(debounceTime(1000),
                     distinctUntilChanged()))
             .pipe(
                 startWith({}),
                 switchMap(() => {
-                    this.sortBy = this.sort.active;
-                    this.order = this.sort.direction;
                     return this.update();
                 }),
                 map((data: Pageable<User>) => {
                     this.paginator.pageIndex = data.pageNo - 1;
-                    this.itemsPerPage = data.itemPerPage;
-                    this.totalItems = data.totalItems;
+                    this.paginator.pageSize = data.itemPerPage;
+                    this.paginator.length = data.totalItems;
 
                     return data.list;
                 }),
                 catchError(() => {
                     return of([]);
                 })
-            ).subscribe(data => this.items = data,
-                e => console.log(e),
-                () => { this.updateUrl() });
+        ).subscribe(data => {
+            this.items = data;
+                    this.updateUrl();
+                },
+                e => console.log(e));
     }
 
     public writePm(index: number): void {
@@ -91,10 +84,11 @@ export class UserListComponent implements OnInit {
     public update(): Observable<Pageable<User>> {
         const filters = new UserFilters();
         filters.page = this.paginator.pageIndex + 1;
+        filters.itemsPerPage = this.paginator.pageSize;
         filters.roleGroupId = this.roleSelect.value;
         filters.userName = this.userInput.nativeElement.value;
-        filters.sortBy = this.sortBy;
-        filters.order = this.order;
+        filters.sortBy = this.sort.active;
+        filters.order = this.sort.direction;
 
         return this.userService
             .getAll(filters);

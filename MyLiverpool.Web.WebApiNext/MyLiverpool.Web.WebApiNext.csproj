@@ -130,6 +130,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\plugins\customEmoticons\plugin.js" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="ClientApp\dist\aspnetcorespa\10427.721bd1b8284243373456.ttf" />
     <None Remove="ClientApp\dist\aspnetcorespa\3rdpartylicenses.txt" />
     <None Remove="ClientApp\dist\aspnetcorespa\Cuprum-Regular.11249be508ffbb38a58c.ttf" />
@@ -204,6 +208,10 @@
     <None Remove="ClientApp\src\app\forum\forumTheme\index.ts" />
     <None Remove="ClientApp\src\app\forum\index.ts" />
     <None Remove="ClientApp\src\app\forum\index.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\plugins\customEmoticons\plugin.js" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

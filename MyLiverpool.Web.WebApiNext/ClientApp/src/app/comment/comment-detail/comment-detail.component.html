@@ -1,5 +1,5 @@
 ﻿<div *ngIf="item" class="comment-container com-offset-{{deep}}" [class.nested]="item.children.length > 0">
-    <div class="comment container-fluid" [id]="'com'+item.id">
+    <div class="comment padding5" [id]="'com'+item.id">
         <div class="flex-space-between">
             <span>
                 <span>
@@ -32,7 +32,7 @@
             </span>
         </div>
         <div *ngIf="!isEditMode">
-            <div class="flex top10">
+            <div class="flex top5">
                 <!--<div class="col-xs-2 col-sm-2" (deferLoad)="item.show=true">
                     <img *ngIf="item.show" class="avatar-medium" [src]="item.photo" [alt]="item.authorUserName" />-->
                 <div class="width15p">

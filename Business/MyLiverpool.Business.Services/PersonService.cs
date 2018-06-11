@@ -18,41 +18,70 @@ namespace MyLiverpool.Business.Services
     public class PersonService: IPersonService
     {
         private readonly IMapper _mapper;
-        private readonly IPersonRepository _personRepository;
+        private readonly IGenericRepository<Person> _personRepository;
         private readonly IHelperEntityRepository _helperEntityRepository;
 
-        public PersonService(IMapper mapper, IPersonRepository personRepository, IHelperEntityRepository helperEntityRepository)
+        public PersonService(IMapper mapper, IHelperEntityRepository helperEntityRepository, IGenericRepository<Person> personRepository)
         {
             _mapper = mapper;
-            _personRepository = personRepository;
             _helperEntityRepository = helperEntityRepository;
+            _personRepository = personRepository;
         }
 
         public async Task<PersonDto> CreateAsync(PersonDto dto)
         {
             var model = _mapper.Map<Person>(dto);
-            var result = await _personRepository.AddAsync(model);
+            var result = await _personRepository.CreateAsync(model);
             return _mapper.Map<PersonDto>(result);
         }
 
-        public async Task<PageableData<PersonDto>> GetListAsync(PersonFiltersDto filters)
+        public async Task<PageableData<PersonDto>> GetListAsync(PersonFiltersDto dto)
         {
             Expression<Func<Person, bool>> filter = x => true;
-            if (filters.Type.HasValue)
+            if (dto.Type.HasValue)
             {
-                filter = filter.And(x => x.Type == filters.Type.Value);
+                filter = filter.And(x => x.Type == dto.Type.Value);
             }
-            if (!string.IsNullOrWhiteSpace(filters.Name))
+            if (!string.IsNullOrWhiteSpace(dto.Name))
             {
-                filter = filter.And(x => x.FirstName.Contains(filters.Name) ||
-                                         x.LastName.Contains(filters.Name) ||
-                                         x.FirstRussianName.Contains(filters.Name) ||
-                                         x.LastRussianName.Contains(filters.Name));
+                filter = filter.And(x => x.FirstName.Contains(dto.Name) ||
+                                         x.LastName.Contains(dto.Name) ||
+                                         x.FirstRussianName.Contains(dto.Name) ||
+                                         x.LastRussianName.Contains(dto.Name));
             }
-            var model = await _personRepository.GetListAsync(filters.Page, filters.ItemsPerPage, filter, orderBy: x => x.LastRussianName);
-            var dto = _mapper.Map<IEnumerable<PersonDto>>(model);
-            var count = await _personRepository.GetCountAsync(filter);
-            return new PageableData<PersonDto>(dto, filters.Page, count, filters.ItemsPerPage);
+
+            Expression<Func<Person, object>> sortBy = x => x.LastRussianName;
+            if (!string.IsNullOrWhiteSpace(dto.SortBy))
+            {
+                if (dto.SortBy.Contains(nameof(Person.LastRussianName),
+                    StringComparison.InvariantCultureIgnoreCase))
+                {
+                    sortBy = x => x.LastRussianName;
+                }
+                else if (dto.SortBy.Contains(nameof(Person.FirstRussianName),
+                    StringComparison.InvariantCultureIgnoreCase))
+                {
+                    sortBy = x => x.FirstRussianName;
+                }
+                else if (dto.SortBy.Contains(nameof(Person.Birthday),
+                    StringComparison.InvariantCultureIgnoreCase))
+                {
+                    sortBy = x => x.Birthday;
+                }
+                else if (dto.SortBy.Contains(nameof(Person.Position),
+                    StringComparison.InvariantCultureIgnoreCase))
+                {
+                    sortBy = x => x.Position;
+                }else if (dto.SortBy.Contains(nameof(Person.Country),
+                    StringComparison.InvariantCultureIgnoreCase))
+                {
+                    sortBy = x => x.Country;
+                }
+            }
+            var model = await _personRepository.GetListAsync(dto.Page, dto.ItemsPerPage, true, filter, dto.SortOrder, sortBy);
+            var personDto = _mapper.Map<IEnumerable<PersonDto>>(model);
+            var count = await _personRepository.CountAsync(filter);
+            return new PageableData<PersonDto>(personDto, dto.Page, count, dto.ItemsPerPage);
         }
 
         public async Task<PersonDto> GetByIdAsync(int id)
@@ -111,7 +140,7 @@ namespace MyLiverpool.Business.Services
 
         public async Task<IEnumerable<PersonDto>> GetStuffListAsync(PersonType personType)
         {
-            var stuffList1 = await _personRepository.GetListAsync(1, 1000, x => x.Type == personType);
+            var stuffList1 = await _personRepository.GetListAsync(true, x => x.Type == personType);
             var stuffList = stuffList1.ToList();
             var tempList = new List<Person>();
             var coach = stuffList.FirstOrDefault(x => x.Position == "Главный тренер");
@@ -152,7 +181,7 @@ namespace MyLiverpool.Business.Services
                               !x.Transfers.Any(y => y.OnLoan && !y.Coming &&
                                                     y.FinishDate.Value.Date >= DateTime.Today.Date);
             }
-            var squadList1 = await _personRepository.GetListAsync(1, 100, filter);
+            var squadList1 = await _personRepository.GetListAsync(true, filter);
             var squadList = _mapper.Map<IEnumerable<PersonDto>>(squadList1).ToList();
             var goalkeepers = squadList.Where(x => x.Position == "Вратарь");
             var defenders = squadList.Where(x => x.Position == "Защитник");
@@ -169,13 +198,14 @@ namespace MyLiverpool.Business.Services
 
         public async Task<IEnumerable<KeyValuePair<int, string>>> GetPersonsByNameAsync(string typed)
         {
+            typed = typed?.ToLowerInvariant();
             Expression<Func<Person, bool>> filter = x => true;
             if (!string.IsNullOrWhiteSpace(typed))
             {
-                filter = filter.And(x => x.FirstName.ToLower().Contains(typed.ToLower()) ||
-                                         x.FirstRussianName.ToLower().Contains(typed.ToLower()) ||
-                                         x.LastName.ToLower().Contains(typed.ToLower()) ||
-                                         x.LastRussianName.ToLower().Contains(typed.ToLower()));
+                filter = filter.And(x => x.FirstName.ToLower().Contains(typed) ||
+                                         x.FirstRussianName.ToLower().Contains(typed) ||
+                                         x.LastName.ToLower().Contains(typed) ||
+                                         x.LastRussianName.ToLower().Contains(typed));
             }
             var persons = await _personRepository.GetListAsync(1, filter: filter);
             return persons.Select(x => new KeyValuePair<int, string>(x.Id, x.RussianName));
@@ -189,8 +219,9 @@ namespace MyLiverpool.Business.Services
                                                        x.Type != PersonType.Rival &&
                                                        x.Type != PersonType.CompetitorCoach &&
                                                        x.Type != PersonType.Referee;
-            var list = await _personRepository.GetListAsync(1, 100, filter);
+            var list = await _personRepository.GetListAsync(true, filter);
             return _mapper.Map<IEnumerable<PersonDto>>(list);
         }
     }
 }
+

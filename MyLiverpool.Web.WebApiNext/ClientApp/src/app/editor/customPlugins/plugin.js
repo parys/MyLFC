@@ -156,7 +156,9 @@ define(
 		["ynwa", "sarcasm", "diablo", "wall"],
 		["liverpool", "new_russian", "thumbup", "thumbdown"],
 		["help", "fool", "friends", "drinks"],
-		["cool", "punish", "rtfm", "crazy"]
+		["cool", "punish", "rtfm", "crazy"],
+		["popcorn", "shout", "blush", "dance"],
+          ["stop", "writer", "wacko", "unknw"]
       ];
 
       function getHtml() {

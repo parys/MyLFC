@@ -71,7 +71,7 @@ namespace MyLiverpool.Business.Services
             return _mapper.Map<IEnumerable<MatchEventDto>>(events);
         }
 
-        public async Task<IEnumerable<PersonStatisticDto>> GetStatistics(int seasonId)
+        public async Task<IEnumerable<PersonStatisticDto>> GetStatisticsAsync(int seasonId)
         {
             if (seasonId == 0)
             {

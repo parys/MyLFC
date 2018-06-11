@@ -1,9 +1,9 @@
-﻿import { Component, OnInit, OnDestroy } from "@angular/core";
+﻿import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { Location } from "@angular/common";
-import { FormBuilder, FormGroup } from "@angular/forms"; 
+import { MatPaginator, MatSort, MatSelect, MatDialog } from '@angular/material';
 import { ActivatedRoute } from "@angular/router";
-import { MatDialog } from "@angular/material";
-import { Subscription } from "rxjs";
+import { merge, of, Observable, fromEvent } from 'rxjs';
+import { startWith, switchMap, map, catchError, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { Person } from "../person.model";
 import { PersonService } from "../person.service";
 import { Pageable, DeleteDialogComponent } from "@app/shared";
@@ -15,41 +15,57 @@ import { PersonFilters } from "../personFilters.model";
     templateUrl: "./person-list.component.html"
 })
 
-export class PersonListComponent implements OnInit, OnDestroy {
-    private sub: Subscription;
-    private sub2: Subscription;
+export class PersonListComponent implements OnInit {
     public items: Person[];
-    public filterForm: FormGroup;
     public personTypes: PersonType[];
-    public page: number = 1;
-    public itemsPerPage: number = 15;
-    public totalItems: number;
-    public name: string;
-    public typeId: number;
+    displayedColumns = ['lastRussianName', 'firstRussianName', 'birthday', 'position', 'country'];
+
+    @ViewChild(MatSort) sort: MatSort;
+    @ViewChild(MatPaginator) paginator: MatPaginator;
+    @ViewChild("typeSelect") typeSelect: MatSelect;
+    @ViewChild("nameInput") nameInput: ElementRef;
 
     constructor(private personService: PersonService,
         private route: ActivatedRoute,
         private location: Location,
-        private formBuilder: FormBuilder,
         private dialog: MatDialog) {
     }
 
     public ngOnInit(): void {
-        this.initFilterForm();
-        this.sub = this.route.queryParams.subscribe(qParams => {
-                this.page = +qParams["page"] || 1;
-                this.itemsPerPage = +qParams["itemsPerPage"] || 15;
-                this.name = qParams["name"] || null;
-                this.typeId = +qParams["typeId"] || null;
-            },
-            e => console.log(e));
-        this.update();
+        this.parseQueryParams();
         this.personService.getTypes().subscribe(data => this.personTypes = data, e => console.log(e));
-    }
 
-    public ngOnDestroy(): void {
-        if(this.sub) this.sub.unsubscribe();
-        if(this.sub2) this.sub2.unsubscribe();
+        merge(this.sort.sortChange,
+            this.typeSelect.selectionChange,
+            fromEvent(this.nameInput.nativeElement, 'keyup')
+                .pipe(debounceTime(1000),
+                    distinctUntilChanged()))
+            .subscribe(() => this.paginator.pageIndex = 0);
+
+        merge(this.sort.sortChange, this.paginator.page, this.typeSelect.selectionChange,
+            fromEvent(this.nameInput.nativeElement, 'keyup')
+                .pipe(debounceTime(1000),
+                    distinctUntilChanged()))
+            .pipe(
+                startWith({}),
+                switchMap(() => {
+                    return this.update();
+                }),
+                map((data: Pageable<Person>) => {
+                    this.paginator.pageIndex = data.pageNo - 1;
+                    this.paginator.pageSize = data.itemPerPage;
+                    this.paginator.length = data.totalItems;
+
+                    return data.list;
+                }),
+                catchError(() => {
+                    return of([]);
+                })
+            ).subscribe(data => {
+                this.items = data;
+                this.updateUrl();
+            },
+                e => console.log(e));
     }
 
     public showDeleteModal(index: number): void {
@@ -61,44 +77,39 @@ export class PersonListComponent implements OnInit, OnDestroy {
         }, e => console.log(e));
     }
 
-    public update(): void {
+    public update(): Observable<Pageable<Person>> {
         const filters = new PersonFilters();
-        filters.name = this.filterForm.get("name").value;
-        filters.type = this.filterForm.get("typeId").value;
-        filters.page = this.page;
+        filters.name = this.nameInput.nativeElement.value;
+        filters.type = this.typeSelect.value;
+        filters.page = this.paginator.pageIndex + 1;
+        filters.itemsPerPage = this.paginator.pageSize;
+        filters.sortBy = this.sort.active;
+        filters.order = this.sort.direction;
 
-        this.personService
-            .getAll(filters)
-            .subscribe(data => this.parsePageable(data),
-                e => console.log(e),
-                () => { this.updateUrl() });
+        return this.personService
+            .getAll(filters);
     }
-
-    public pageChanged(event: any): void {
-        this.page = event;
-        this.update();
-    };
 
     public setAsBestPlayer(personId: number): void {
         this.personService.setBestPlayer(personId)
             .subscribe(data => data,
-            e => console.log(e));
+                e => console.log(e));
     }
 
     private updateUrl(): void {
-        let newUrl = `persons?page=${this.page}`;
+        let newUrl = `persons?page=${this.paginator.pageIndex + 1}`;
 
-        this.name = this.filterForm.get("name").value;
-        if (this.name) {
-            newUrl = `${newUrl}&name=${this.name}`;
+        const name = this.nameInput.nativeElement.value;
+        if (name) {
+            newUrl = `${newUrl}&name=${name}`;
         }
-        this.typeId = this.filterForm.get("typeId").value;
-        if (this.typeId) {
-            newUrl = `${newUrl}&typeId=${this.typeId}`;
+        const typeId = this.typeSelect.value;
+        if (typeId) {
+            newUrl = `${newUrl}&typeId=${typeId}`;
         }
-        
+
         this.location.replaceState(newUrl);
-        
+
     }
 
     private delete(index: number): void {
@@ -109,23 +120,15 @@ export class PersonListComponent implements OnInit, OnDestroy {
                 () => {
                     if (result) {
                         this.items.splice(index, 1);
-                        this.totalItems -= 1;
+                        this.paginator.length -= 1;
                     }
                 });
     }
 
-    private parsePageable(pageable: Pageable<Person>): void {
-        this.items = pageable.list;
-        this.page = pageable.pageNo;
-        this.itemsPerPage = pageable.itemPerPage;
-        this.totalItems = pageable.totalItems;
-    }
-
-    private initFilterForm() {
-        this.filterForm = this.formBuilder.group({
-            typeId: [],
-            name: [],
-            page: []
-        });
+    private parseQueryParams(): void {
+        this.paginator.pageIndex = +this.route.snapshot.queryParams["page"] - 1 || 0;
+        this.paginator.pageSize = +this.route.snapshot.queryParams["itemsPerPage"] || 15;
+        this.nameInput.nativeElement.value = this.route.snapshot.queryParams["name"] || null;
+        this.typeSelect.value = +this.route.snapshot.queryParams["typeId"] || null;
     }
 }

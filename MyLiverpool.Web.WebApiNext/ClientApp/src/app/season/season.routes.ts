@@ -23,9 +23,9 @@ export const seasonRoutes: Routes = [
                         canActivate: [RoleGuard]
                     },
                     { path: "calendar", component: SeasonCalendarComponent, data: { title: "Календарь" } },
+                    { path: "statistics", component: SeasonStatisticsComponent, data: { title: "Статистика" } },
                 ]
             },
-            { path: "statistics", component: SeasonStatisticsComponent, data: { title: "Статистика" } },
         ]
     }
 ];

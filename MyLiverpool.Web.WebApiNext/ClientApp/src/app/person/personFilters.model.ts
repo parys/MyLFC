@@ -2,5 +2,7 @@
     public name: string;
     public type: number;
     public page: number;
-    public itemsPerPage: number;
+    itemsPerPage: number = 15;
+    order: string;
+    sortBy: string;
 }

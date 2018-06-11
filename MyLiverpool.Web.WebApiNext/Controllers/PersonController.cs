@@ -93,9 +93,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [AllowAnonymous, HttpGet("stuff")]
         public async Task<IActionResult> GetStuffListAsync([FromQuery]string type)
         {
-            PersonType personType;
-
-            if (!Enum.TryParse(type, out personType))
+            if (!Enum.TryParse(type, out PersonType personType))
             {
                 personType = PersonType.Stuff;
             }
@@ -114,8 +112,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [AllowAnonymous, HttpGet("squad")]
         public async Task<IActionResult> GetSquadListAsync([FromQuery]string type)
         {
-            PersonType squadType;
-            if (!Enum.TryParse(type, out squadType))
+            if (!Enum.TryParse(type, out PersonType squadType))
             {
                 squadType = PersonType.First;
             }

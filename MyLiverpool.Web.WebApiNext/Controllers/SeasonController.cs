@@ -72,7 +72,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [AllowAnonymous, HttpGet("{id:int}/statistics")]
         public async Task<IActionResult> GetStatisticsAsync(int id)
         {
-            var result = await _matchEventService.GetStatistics(id);
+            var result = await _matchEventService.GetStatisticsAsync(id);
             return Json(result);
         }
 
