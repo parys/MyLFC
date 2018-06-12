@@ -3,8 +3,10 @@ import { isPlatformBrowser } from "@angular/common";
 import { interval, Subscription } from "rxjs";
 import { map } from "rxjs/operators";
 import { UserService } from "../+core";
+import { StorageService } from "@app/shared";
 import { IUserOnline } from "../user-online.model";
 import { Configuration } from "@app/app.constants";
+import { HubConnection, HubConnectionBuilder } from "@aspnet/signalr";
 
 @Component({
     selector: "user-online-counter",
@@ -17,9 +19,11 @@ export class UserOnlineCounterComponent implements OnInit, OnDestroy {
     public allCount: number = 0;
     public guestCount: number = 0;
     public users: IUserOnline[] = new Array();
+    private chatHub: HubConnection;
 
     constructor(private userService: UserService,
         private cd: ChangeDetectorRef,
+        private storage: StorageService,
         @Inject(PLATFORM_ID) private platformId: Object,
         private config: Configuration) { }
 

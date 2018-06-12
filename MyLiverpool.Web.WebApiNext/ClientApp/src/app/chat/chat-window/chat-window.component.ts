@@ -8,7 +8,7 @@ import { ChatMessage } from "../chatMessage.model";
 import { ChatMessageService } from "../chatMessage.service";
 import { RolesCheckedService, DeleteDialogComponent, StorageService } from "@app/shared";
 import { EditorComponent } from "@app/editor";
-import { HubConnection, HubConnectionBuilder, IHttpConnectionOptions } from "@aspnet/signalr";
+import { HubConnection, HubConnectionBuilder } from "@aspnet/signalr";
 
 @Component({
     selector: "chat-window",
