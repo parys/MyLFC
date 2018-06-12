@@ -14,7 +14,7 @@
             </div>
         </div>
     </div>
-    <form *ngIf="roles.isLogined" class="form-horizontal clearfix" name="messageForm" role="form" [formGroup]="messageForm" (ngSubmit)="onSubmit()">
+    <form *ngIf="roles.isLogined" class="form-horizontal clearfix" role="form" [formGroup]="messageForm" (ngSubmit)="onSubmit()">
         <div>
             <div class="full-width">
                 <bbeditor [type]="3" [value]="messageForm?.message" [height]="150" formControlName="message" #chatInput></bbeditor>
@@ -30,11 +30,6 @@
     </form>
     <div *ngIf="!roles.isLogined" class="text-white text-center">Для добавления сообщений необходимо войти.</div>
     <div class="full-width text-center flex-space-around top20">
-        <form role="form" [formGroup]="chatTimerForm">
-            <select title="Автообновление чата" color="warn" formControlName="timerValue" (change)="updateSchedule($event)">
-                <option *ngFor="let interval of intervalArray" [value]="interval.value" [textContent]="interval.key"></option>
-            </select>
-        </form>
         <button type="button" (click)="update()"><span class="glyphicon glyphicon-refresh"></span></button>
         <a *ngIf="type ===0" mat-raised-button role="button" class="color-back-gold" [routerLink]="['/chat']"><b>Флудилка</b></a>
     </div>

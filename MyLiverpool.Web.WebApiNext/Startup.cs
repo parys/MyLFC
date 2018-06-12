@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.IO.Compression;
+using System.Threading.Tasks;
+using AspNet.Security.OAuth.Validation;
 using AspNet.Security.OpenIdConnect.Primitives;
 using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Builder;
@@ -28,6 +30,8 @@ using Newtonsoft.Json.Serialization;
 using Swashbuckle.AspNetCore.Swagger;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using MyLfc.Common.Web.Middlewares;
+using MyLiverpool.Web.WebApiNext.Hubs;
+using MyLiverpool.Web.WebApiNext.Middlewares;
 
 namespace MyLiverpool.Web.WebApiNext
 {
@@ -86,57 +90,6 @@ namespace MyLiverpool.Web.WebApiNext
                options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
            });
 
-            services.AddDbContext<LiverpoolContext>(options =>
-            {
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
-                options.UseOpenIddict<int>();
-            });
-
-            services.AddDataProtection().SetApplicationName("liverpoolfc-app")
-                .PersistKeysToFileSystem(new DirectoryInfo(Directory.GetCurrentDirectory()));
-
-            services.AddIdentity<User, Role>(options =>
-            {
-                options.Password.RequireDigit = false;
-                options.Password.RequiredLength = 6;
-                options.Password.RequireLowercase = false;
-                options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequireUppercase = false;
-                options.User.RequireUniqueEmail = true;
-                options.User.AllowedUserNameCharacters =
-                    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@!#$&?абвгдеёжзийклмнопрстуфхцчшщъыьэюяAБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
-                options.SignIn.RequireConfirmedEmail = true;
-                options.SignIn.RequireConfirmedPhoneNumber = false;
-                options.Lockout.AllowedForNewUsers = true;
-                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromSeconds(10);
-            })
-                .AddEntityFrameworkStores<LiverpoolContext>()
-                .AddDefaultTokenProviders();
-
-            services.Configure<IdentityOptions>(options =>
-            {
-                options.ClaimsIdentity.UserNameClaimType = OpenIdConnectConstants.Claims.Name;
-                options.ClaimsIdentity.UserIdClaimType = OpenIdConnectConstants.Claims.Subject;
-                options.ClaimsIdentity.RoleClaimType = OpenIdConnectConstants.Claims.Role;
-            });
-
-            services.AddAuthentication()
-            //        options =>
-            //{
-            //    options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-            //    options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-            //    options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-            //})
-            .AddOAuthValidation();
-
-            services.ApplyCustomOpenIdDict(Env);
-            
-            //    services.AddSignalR();
-
-            RegisterCoreHelpers(services);
-            services.RegisterRepositories();
-            services.RegisterServices();
-
             services.AddCors(options =>
             {
                 options.AddPolicy("MyPolicy", builder =>
@@ -146,9 +99,37 @@ namespace MyLiverpool.Web.WebApiNext
                         .AllowAnyHeader().Build();
                 });
             });
+
+            services.AddCustomDbContext(Configuration);
+
+            services.AddDataProtection().SetApplicationName("liverpoolfc-app")
+                .PersistKeysToFileSystem(new DirectoryInfo(Directory.GetCurrentDirectory()));
+
+            services.AddCustomIdentitySettings();
+
+            services.AddAuthentication()
+                .AddOAuthValidation(options =>
+                {
+                    options.Events.OnRetrieveToken = context =>
+                    {
+                        context.Token = context.Request.Query["access_token"];
+                        if (context.Token != null)
+                        {
+                            var c = 1;
+                        }
+                        return Task.CompletedTask;
+                    };
+                });
+            services.ApplyCustomOpenIdDict(Env);
+            
+            services.AddSignalR();
+
+            RegisterCoreHelpers(services);
+            services.RegisterRepositories();
+            services.RegisterServices();
+
             services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
-
-
+            
             services.AddMemoryCache();
 
             //   services.AddAntiforgery(options => options.HeaderName = "X-XSRF-TOKEN");
@@ -169,7 +150,7 @@ namespace MyLiverpool.Web.WebApiNext
                     //s    options.IncludeXmlComments(filePath);
                     options.OperationFilter<HandleModelbinding>();
 
-                    options.AddSecurityDefinition("oauth2", new OAuth2Scheme()
+                    options.AddSecurityDefinition("oauth2", new OAuth2Scheme
                     {
                         Type = "oauth2",
                         Flow = "implicit",
@@ -194,8 +175,8 @@ namespace MyLiverpool.Web.WebApiNext
 
              //   options.InvocationTimeoutMilliseconds = 140000;
             });
-            var context = (LiverpoolContext) services.BuildServiceProvider().GetService(typeof(LiverpoolContext));
-            context.Database.Migrate();
+            var dbContext = (LiverpoolContext) services.BuildServiceProvider().GetService(typeof(LiverpoolContext));
+            dbContext.Database.Migrate();
             //if (Env.IsDevelopment())
             //{
             //    new DatabaseInitializer(context).Seed();
@@ -246,8 +227,7 @@ namespace MyLiverpool.Web.WebApiNext
             }
 
             app.UseCors("MyPolicy");
-
-            app.UseAuthentication();
+         //   app.UseSignalRAuthentication();
 
             app.UseDefaultFiles();
             app.UseStaticFiles(new StaticFileOptions
@@ -263,21 +243,18 @@ namespace MyLiverpool.Web.WebApiNext
                //     ServeUnknownFileTypes = true
                 }
             );
+            app.UseAuthentication();
 
-            //app.UseSignalR(routes =>
-            //{
-            //    routes.MapHub<LfcHub>("hub");
-            //});
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<MiniChatHub>("/hubs/miniChat");
+            });
 
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
                     template: "{controller}/{action=Index}/{id?}");
-
-                //routes.MapSpaFallbackRoute(
-                //    name: "spa-fallback",
-                //    defaults: new { controller = "Spa", action = "Index" });
             });
             app.UseSpa(spa =>
             {

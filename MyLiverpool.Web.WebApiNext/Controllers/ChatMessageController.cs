@@ -3,12 +3,15 @@ using System.Threading.Tasks;
 using AspNet.Security.OAuth.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Caching.Memory;
 using MyLfc.Common.Web;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
+using MyLiverpool.Web.WebApiNext.Extensions;
+using MyLiverpool.Web.WebApiNext.Hubs;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
@@ -20,13 +23,15 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     {
         private readonly IChatMessageService _chatMessageService;
         private readonly IMemoryCache _cache;
+        private readonly IHubContext<MiniChatHub> _miniChatHub;
         /// <summary>
         /// Controller.
         /// </summary>
-        public ChatMessageController(IChatMessageService chatMessageService, IMemoryCache cache)
+        public ChatMessageController(IChatMessageService chatMessageService, IMemoryCache cache, IHubContext<MiniChatHub> miniChatHub)
         {
             _chatMessageService = chatMessageService;
             _cache = cache;
+            _miniChatHub = miniChatHub;
         }
 
         /// <summary>
@@ -38,12 +43,12 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         public async Task<IActionResult> CreateAsync([FromBody]ChatMessageDto dto)
         {
             dto.AuthorId = User.GetUserId();
+            dto.Ip = HttpContext.GetIp();
             var result = await _chatMessageService.CreateAsync(dto);
-          //  result.Ip = HttpContext.GetIp();
+            result.Ip = string.Empty;
             RemoveCache((int)dto.Type);
 
-         //   var hubContext = new LfcHub(_chatMessageService);
-         //   hubContext.SendChatMessage(result);
+            await _miniChatHub.Clients.All.SendAsync("SendMiniChat", result);
             return Ok(result);
         }
 
@@ -109,6 +114,9 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 userId = User.GetUserId();
             }
             var result = await _chatMessageService.UpdateAsync(dto, userId);
+            result.Ip = string.Empty;
+
+            await _miniChatHub.Clients.All.SendAsync("SendMiniChat", result);
             RemoveCache((int)dto.Type);
             return Ok(result);
         }

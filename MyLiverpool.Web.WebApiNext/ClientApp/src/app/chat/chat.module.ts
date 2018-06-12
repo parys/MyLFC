@@ -2,8 +2,8 @@
 import { RouterModule } from "@angular/router";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { SharedModule } from "@app/shared";
-import { MiniChatComponent } from "./miniChat.component";
-import { MaxiChatComponent } from "./maxiChat.component";
+import { MiniChatComponent } from "./miniChat";
+import { MaxiChatComponent } from "./maxiChat";
 import { ChatWindowComponent } from "./chat-window";
 import { chatRoutes } from "./chat.routes";
 import { UserModule } from "@app/user";

@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.IO.Compression;
-using AspNet.Security.OpenIdConnect.Primitives;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
@@ -18,7 +15,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using MyLiverpool.Business.Services.Helpers;
 using MyLiverpool.Common.Utilities;
-using MyLiverpool.Data.Entities;
 using MyLiverpool.Data.ResourceAccess;
 using MyLiverpool.Data.ResourceAccess.Helpers;
 using Newtonsoft.Json.Serialization;
@@ -35,12 +31,6 @@ namespace MyLiverpool.Web.Mvc
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
-
-            if (env.IsDevelopment())
-            {
-                // For more details on using the user secret store see http://go.microsoft.com/fwlink/?LinkID=532709
-                // builder.AddUserSecrets<Startup>();
-            }
 
             builder.AddEnvironmentVariables();
             Configuration = builder.Build();
@@ -65,53 +55,19 @@ namespace MyLiverpool.Web.Mvc
                 options.RequestCultureProviders = new List<IRequestCultureProvider>();
             });
             services.AddRouting(options => options.LowercaseUrls = true);
-            services.AddMvc(options =>
-            {
-            }).AddJsonOptions(options =>
+            services.AddMvc().AddJsonOptions(options =>
             {
                 options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             });
-
-            services.AddDbContext<LiverpoolContext>(options =>
-            {
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
-                options.UseOpenIddict<int>();
-            });
+            
+            services.AddCustomDbContext(Configuration);
 
             services.AddDataProtection().SetApplicationName("liverpoolfc-app")
                 .PersistKeysToFileSystem(new DirectoryInfo(Directory.GetCurrentDirectory()));
 
-            services.AddIdentity<User, Role>(options =>
-            {
-                options.Password.RequireDigit = false;
-                options.Password.RequiredLength = 6;
-                options.Password.RequireLowercase = false;
-                options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequireUppercase = false;
-                options.User.RequireUniqueEmail = true;
-                options.User.AllowedUserNameCharacters =
-                    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@!#$&?абвгдеёжзийклмнопрстуфхцчшщъыьэюяAБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
-                options.SignIn.RequireConfirmedEmail = true;
-                options.SignIn.RequireConfirmedPhoneNumber = false;
-                options.Lockout.AllowedForNewUsers = true;
-                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromSeconds(10);
-            })
-                .AddEntityFrameworkStores<LiverpoolContext>()
-                .AddDefaultTokenProviders();
+            services.AddCustomIdentitySettings();
 
-            services.Configure<IdentityOptions>(options =>
-            {
-                options.ClaimsIdentity.UserNameClaimType = OpenIdConnectConstants.Claims.Name;
-                options.ClaimsIdentity.UserIdClaimType = OpenIdConnectConstants.Claims.Subject;
-                options.ClaimsIdentity.RoleClaimType = OpenIdConnectConstants.Claims.Role;
-            });
             services.AddAuthentication()
-                //        options =>
-                //{
-                //    options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                //    options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                //    options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                //})
                 .AddCookie(options =>
                 {
                     options.LoginPath = "/Account/Login/";

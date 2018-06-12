@@ -1,44 +1,32 @@
-﻿import { Component, OnInit, OnDestroy, ChangeDetectorRef, PLATFORM_ID, Input, Inject, ViewChild, ChangeDetectionStrategy } from "@angular/core";
+﻿import { Component, OnInit, ChangeDetectorRef, PLATFORM_ID, Input, Inject, ViewChild, ChangeDetectionStrategy } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
-import { isPlatformBrowser } from "@angular/common";
+//import { isPlatformBrowser } from "@angular/common";
 import { MatDialog, MatSnackBar } from "@angular/material";
-import { interval, Subscription } from "rxjs";
-import { map } from "rxjs/operators";
 import { Configuration } from "@app/app.constants";
 import { ChatMessage } from "../chatMessage.model";
-//import { ChatMessageType } from "../chatMessageType.enum";
 import { ChatMessageService } from "../chatMessage.service";
 import { RolesCheckedService, DeleteDialogComponent, StorageService } from "@app/shared";
 import { EditorComponent } from "@app/editor";
-//import { HubConnection } from '@aspnet/signalr-client/dist/browser/signalr-clientES5-1.0.0-alpha2-final.js';
-//import { HubConnection } from '@aspnet/signalr-client';
+import { HubConnection, HubConnectionBuilder, IHttpConnectionOptions } from "@aspnet/signalr";
 
 @Component({
     selector: "chat-window",
     templateUrl: "./chat-window.component.html",
     changeDetection: ChangeDetectionStrategy.Default //todo temporary before doing roles observable
 })
-export class ChatWindowComponent implements OnInit, OnDestroy {
-    private sub: Subscription;
-    private updater$: Subscription;
+export class ChatWindowComponent implements OnInit {
     public messageForm: FormGroup;
-    public chatTimerForm: FormGroup;
     public items: ChatMessage[] = new Array<ChatMessage>();
     public selectedEditIndex: number = null;
-    //    private chatHub: HubConnection;
-    public intervalArray: { key: string, value: number }[]
-        = [{ key: "---", value: 0 },
-        { key: "15 сек", value: 15 },
-        { key: "30 сек", value: 30 },
-        { key: "1 мин", value: 60 },
-        { key: "2 мин", value: 120 }];
+    private chatHub: HubConnection;
+
     @ViewChild("chatInput") private elementRef: EditorComponent;
     @Input("type") public type: number;
     @Input() public height: number = 200;
 
     constructor(private service: ChatMessageService,
-        @Inject(PLATFORM_ID) private platformId: Object,
+     //   @Inject(PLATFORM_ID) private platformId: Object,
         private formBuilder: FormBuilder,
         private cd: ChangeDetectorRef,
         private snackBar: MatSnackBar,
@@ -46,22 +34,44 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
         private sanitizer: DomSanitizer,
         public roles: RolesCheckedService,
         private storage: StorageService,
-        private dialog: MatDialog) {
-
-        //this.chatHub = new HubConnection("/hub");
-        //this.chatHub.on("sendChat", (data) => {
-        //   console.warn(data);
-        //});
-        //this.chatHub.start();
+        private dialog: MatDialog,
+        @Inject('BASE_URL') private baseUrl: string) {
     }
 
     public ngOnInit(): void {
+        let tokens = this.storage.retrieveTokens();
+        let accessToken = "";
+        if (tokens) {
+            accessToken = tokens.access_token;
+        }
+        var options = {
+            accessTokenFactory: function () { return accessToken; }
+        };
+        //if (isPlatformBrowser(this.platformId)) {
+   //     let options = new IHttpConnectionOptions();
+        this.chatHub = new HubConnectionBuilder().withUrl(`${this.baseUrl}hubs/miniChat`, options).build();
+       // this.chatHub = new HubConnectionBuilder().withUrl(`${this.baseUrl}hubs/miniChat?access_token=${accessToken}`, options).build();
+        this.chatHub.on("sendMiniChat", (data: ChatMessage) => {
+            if (this.type === data.type) {
+                const index = this.items.findIndex(x => x.id === data.id);
+                if (index !== -1) {
+                    this.items[index] = data;
+                } else {
+                    this.items.unshift(data);
+                }
+                this.messageForm.get("message").patchValue("");
+                this.cd.markForCheck();
+            }
+        });
+
+        this.chatHub.start()
+            .then(() => {
+            })
+            .catch(err => {
+                alert("ошибка хаба чата");
+            });
         this.initForm();
         this.update();
-    }
-
-    public ngOnDestroy() {
-        if (this.updater$) { this.updater$.unsubscribe(); }
     }
 
     public update(): void {
@@ -71,10 +81,10 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
             .subscribe((data: ChatMessage[]) => {
                 this.items = data.concat(this.items);
             },
-            error => console.log(error),
-            () => {
-                this.cd.markForCheck();
-            });
+                error => console.log(error),
+                () => {
+                    this.cd.markForCheck();
+                });
     }
 
     public onSubmit(): void {
@@ -83,50 +93,27 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
             const message: ChatMessage = this.items[this.selectedEditIndex];
             message.message = this.messageForm.get("message").value;
             this.service.update(message.id, message).subscribe(data => {
-                this.cancelEdit();
-            },
+                    this.cancelEdit();
+                },
                 e => console.log(e));
         } else {
-            //    this.chatHub.invoke("sendChat", this.messageForm.value);
             const message: ChatMessage = this.messageForm.value;
             message.type = this.type;
             this.service.create(message)
                 .subscribe(data => {
-                    this.items.unshift(data);
-                    this.messageForm.get("message").patchValue("");
-                    this.cd.markForCheck();
-                },
-                (e) => console.log(e));
+                    },
+                    (e) => console.log(e));
         }
     }
 
     public showDeleteModal(index: number): void {
-        //     this.chatHub.invoke("send", this.count*10);
         const dialogRef = this.dialog.open(DeleteDialogComponent);
         dialogRef.afterClosed().subscribe(result => {
-            if (result) {
-                this.delete(index);
-            }
-        },
+                if (result) {
+                    this.delete(index);
+                }
+            },
             e => console.log(e));
-    }
-
-    public updateSchedule(event: any): void {
-        let value = event.value || event.target.value;
-        this.scheduleUpdate(value);
-        this.storage.setChatUpdateTime(value, this.type);
-    }
-
-    private scheduleUpdate(selectedValue: number) {
-        if (selectedValue === 0) {
-            if (this.updater$) {
-                this.updater$.unsubscribe();
-            }
-        } else {
-            this.updater$ = interval(1000 * selectedValue).pipe(
-                map(x => this.update()))
-                .subscribe();
-        }
     }
 
     private delete(index: number): void {
@@ -176,15 +163,6 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
         });
         this.messageForm.valueChanges.subscribe(() => {
             this.cd.markForCheck();
-        });
-        let timerValue: number = this.storage.getChatUpdateTime(this.type);
-        if (isPlatformBrowser(this.platformId)) {
-            if (timerValue) {
-                this.scheduleUpdate(timerValue);
-            }
-        }
-        this.chatTimerForm = this.formBuilder.group({
-            timerValue: [timerValue]
         });
     }
 }

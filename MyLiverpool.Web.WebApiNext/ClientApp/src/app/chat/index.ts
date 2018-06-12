@@ -1,3 +1,3 @@
 ﻿export * from "./chat.module";
-export * from "./miniChat.component";
-export * from "./maxiChat.component";
+export * from "./miniChat";
+export * from "./maxiChat";
