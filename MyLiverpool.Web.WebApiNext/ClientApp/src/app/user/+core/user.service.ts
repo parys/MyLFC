@@ -3,7 +3,7 @@ import { Observable } from "rxjs";
 import { HttpWrapper, Pageable } from "@app/shared";
 import { UserFilters } from "../userFilters.model";
 import { User } from "../user.model";
-import { UsersOnline } from "../user-online.model";
+import { UsersOnline } from "@app/+common-models";
 import { UserConfig } from "../user-config.model";
 
 @Injectable()
