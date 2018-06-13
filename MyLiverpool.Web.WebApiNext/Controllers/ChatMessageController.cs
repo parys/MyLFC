@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using AspNet.Security.OAuth.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Caching.Memory;
 using MyLfc.Common.Web;
 using MyLiverpool.Business.Contracts;
@@ -23,15 +22,15 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     {
         private readonly IChatMessageService _chatMessageService;
         private readonly IMemoryCache _cache;
-        private readonly IHubContext<MiniChatHub> _miniChatHub;
+        private readonly ISignalRHubAggregator _signalRHub;
         /// <summary>
         /// Controller.
         /// </summary>
-        public ChatMessageController(IChatMessageService chatMessageService, IMemoryCache cache, IHubContext<MiniChatHub> miniChatHub)
+        public ChatMessageController(IChatMessageService chatMessageService, IMemoryCache cache, ISignalRHubAggregator signalRHub)
         {
             _chatMessageService = chatMessageService;
             _cache = cache;
-            _miniChatHub = miniChatHub;
+            _signalRHub = signalRHub;
         }
 
         /// <summary>
@@ -48,7 +47,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             result.Ip = string.Empty;
             RemoveCache((int)dto.Type);
 
-            await _miniChatHub.Clients.All.SendAsync("SendMiniChat", result);
+             _signalRHub.Send(HubEndpointConstants.ChatEndpoint, result);
             return Ok(result);
         }
 
@@ -116,7 +115,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             var result = await _chatMessageService.UpdateAsync(dto, userId);
             result.Ip = string.Empty;
 
-            await _miniChatHub.Clients.All.SendAsync("SendMiniChat", result);
+            _signalRHub.Send(HubEndpointConstants.ChatEndpoint, result);
             RemoveCache((int)dto.Type);
             return Ok(result);
         }

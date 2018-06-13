@@ -1,7 +1,7 @@
 ﻿import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { HttpWrapper } from "@app/shared";
-import { ChatMessage } from "./chatMessage.model";
+import { ChatMessage } from "@app/+common-models";
 
 @Injectable()
 export class ChatMessageService {

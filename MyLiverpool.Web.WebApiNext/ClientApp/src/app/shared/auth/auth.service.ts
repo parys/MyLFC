@@ -3,12 +3,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { filter, map, tap, catchError, flatMap, first } from "rxjs/operators";
 import { Observable, Subscription, BehaviorSubject, of, interval, throwError } from "rxjs";
 import { IRefreshGrantModel } from "./models/refresh-grant-model";
-import { IProfileModel } from "./models/profile-model";
-import { IAuthStateModel } from "./models/auth-state-model";
-import { IAuthTokenModel } from "./models/auth-token-model";
-import { IRegisterModel } from "./models/register-model";
-import { ILoginModel } from "./models/login-model";
-import { IUserProfile } from "./models/userProfile.model";
+import { IProfileModel, IAuthStateModel, IAuthTokenModel, IRegisterModel, ILoginModel, IUserProfile } from "./models";
 import { HttpWrapper } from "../httpWrapper";
 import { StorageService } from "../storage.service";
 import { RolesCheckedService } from "../roles-checked.service";
@@ -147,7 +142,7 @@ export class AuthService {
         this.refreshSubscription$ = this.tokens$.pipe(
             first(),
             // refresh every half the total expiration time
-        //    flatMap((tokens: IAuthTokenModel) => interval(tokens.expires_in * 500)),
+            flatMap((tokens: IAuthTokenModel) => interval(tokens.expires_in * 500)),
             flatMap(() => this.refreshTokens()))
             .subscribe();
     }

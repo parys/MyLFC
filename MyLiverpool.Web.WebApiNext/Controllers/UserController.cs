@@ -153,20 +153,20 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [AllowAnonymous, HttpGet("online")]
         public IActionResult GetOnlineCounter()//todo think maybe get unique id like guid from frontend
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                var model = new OnlineCounterModel
-                {
-                    Id = User.GetUserId(),
-                    Date = DateTimeOffset.Now,
-                    UserName = User.Identity.Name
-                };
-                OnlineCounter.AddUserToOnline(model);
-            }
-            else
-            {
-                OnlineCounter.AddGuestToOnline(HttpContext.Connection.RemoteIpAddress.ToString());
-            }
+        //    if (User.Identity.IsAuthenticated)
+        //    {
+        //        var model = new OnlineCounterModel
+        //        {
+        //            Id = User.GetUserId(),
+        //            Date = DateTimeOffset.Now,
+        //            UserName = User.Identity.Name
+        //        };
+        //        OnlineCounter.AddUserToOnline(model);
+        //    }
+        //    else
+        //    {
+        //        OnlineCounter.AddGuestToOnline(HttpContext.Connection.RemoteIpAddress.ToString());
+        //    }
             return Json(OnlineCounter.GetStats());
         }
 

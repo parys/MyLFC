@@ -7,6 +7,6 @@
     "outDir": "../out-tsc/app"
   },
   "exclude": [
-    "angular2app/main.server.ts"
+    "ClientApp/main.server.ts"
   ]
 }

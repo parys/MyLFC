@@ -32,9 +32,9 @@ export class BearerInterceptor implements HttpInterceptor {
     }
 
     private addAuth(req: HttpRequest<any>): HttpRequest<any> {
-        const tokens = this.storage.retrieveTokens();
+        const tokens = this.storage.getAccessToken();
         return req.clone({
-            headers: req.headers.set("Authorization", `Bearer ${tokens ? tokens.access_token : ""}`)
+            headers: req.headers.set("Authorization", `Bearer ${tokens}`)
         });
     }
 

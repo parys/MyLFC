@@ -1,12 +1,9 @@
-﻿import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, PLATFORM_ID, Inject } from "@angular/core";
-import { isPlatformBrowser } from "@angular/common";  
-import { interval, Subscription } from "rxjs";
-import { map } from "rxjs/operators";
+﻿import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
+import { Subscription } from "rxjs";
 import { UserService } from "../+core";
-import { StorageService } from "@app/shared";
-import { IUserOnline } from "../user-online.model";
+import { IUserOnline } from "@app/+common-models";
 import { Configuration } from "@app/app.constants";
-import { HubConnection, HubConnectionBuilder } from "@aspnet/signalr";
+import { SignalRService } from "@app/+signalr";
 
 @Component({
     selector: "user-online-counter",
@@ -15,44 +12,38 @@ import { HubConnection, HubConnectionBuilder } from "@aspnet/signalr";
 })
 export class UserOnlineCounterComponent implements OnInit, OnDestroy {
     private sub: Subscription;
-    private sub2: Subscription;
     public allCount: number = 0;
     public guestCount: number = 0;
     public users: IUserOnline[] = new Array();
-    private chatHub: HubConnection;
 
     constructor(private userService: UserService,
         private cd: ChangeDetectorRef,
-        private storage: StorageService,
-        @Inject(PLATFORM_ID) private platformId: Object,
+        private signalRService: SignalRService,
         private config: Configuration) { }
 
     public ngOnInit(): void {
         this.updateCount();
-        if (isPlatformBrowser(this.platformId)) {
-            this.scheduleUpdateCount();
-        }
+        this.signalRService.onlineSubject
+            .subscribe(data => this.parse(data),
+            e => console.log(e));
     }
 
     public ngOnDestroy(): void {
         if(this.sub) { this.sub.unsubscribe(); }
-        if(this.sub2) { this.sub2.unsubscribe(); }
-    }
-
-    private scheduleUpdateCount() {
-        this.sub2 = interval(this.config.updateUserOnline).pipe(
-            map(x => this.updateCount()))
-            .subscribe();
     }
 
     private updateCount() {
         this.sub = this.userService.getOnlineCount()
             .subscribe(data => {
-                    this.allCount = data.allCount;
-                    this.guestCount = data.guestCount;
-                    this.users = data.users;
-                    this.cd.markForCheck();
+                    this.parse(data);
                 },
                 e => console.log(e));
+    }
+
+    private parse(data: any): void {
+        this.allCount = data.allCount;
+        this.guestCount = data.guestCount;
+        this.users = data.users;
+        this.cd.markForCheck();
     }
 }

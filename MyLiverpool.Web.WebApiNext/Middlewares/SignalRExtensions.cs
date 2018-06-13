@@ -1,14 +1,20 @@
 ﻿using System;
 using System.Linq;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.WebSockets.Internal;
 
 namespace MyLiverpool.Web.WebApiNext.Middlewares
 {
+    /// <summary>
+    /// SignalR extensions.
+    /// </summary>
     public static class SignalRExtensions
     {
         private static readonly String AUTH_QUERY_STRING_KEY = "access_token";
 
+        /// <summary>
+        /// Extension for adding authentication.
+        /// </summary>
+        /// <param name="app"></param>
         public static void UseSignalRAuthentication(this IApplicationBuilder app)
         {
             app.Use(async (context, next) =>

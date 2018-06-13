@@ -1,14 +1,13 @@
-﻿import { Component, OnInit, ChangeDetectorRef, PLATFORM_ID, Input, Inject, ViewChild, ChangeDetectionStrategy } from "@angular/core";
+﻿import { Component, OnInit, ChangeDetectorRef, Input, ViewChild, ChangeDetectionStrategy } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
-//import { isPlatformBrowser } from "@angular/common";
 import { MatDialog, MatSnackBar } from "@angular/material";
 import { Configuration } from "@app/app.constants";
-import { ChatMessage } from "../chatMessage.model";
+import { ChatMessage } from "@app/+common-models";
 import { ChatMessageService } from "../chatMessage.service";
-import { RolesCheckedService, DeleteDialogComponent, StorageService } from "@app/shared";
+import { RolesCheckedService, DeleteDialogComponent } from "@app/shared";
 import { EditorComponent } from "@app/editor";
-import { HubConnection, HubConnectionBuilder } from "@aspnet/signalr";
+import { SignalRService } from "@app/+signalr";
 
 @Component({
     selector: "chat-window",
@@ -19,39 +18,26 @@ export class ChatWindowComponent implements OnInit {
     public messageForm: FormGroup;
     public items: ChatMessage[] = new Array<ChatMessage>();
     public selectedEditIndex: number = null;
-    private chatHub: HubConnection;
 
     @ViewChild("chatInput") private elementRef: EditorComponent;
     @Input("type") public type: number;
     @Input() public height: number = 200;
 
     constructor(private service: ChatMessageService,
-     //   @Inject(PLATFORM_ID) private platformId: Object,
         private formBuilder: FormBuilder,
         private cd: ChangeDetectorRef,
         private snackBar: MatSnackBar,
         private configuration: Configuration,
         private sanitizer: DomSanitizer,
         public roles: RolesCheckedService,
-        private storage: StorageService,
         private dialog: MatDialog,
-        @Inject('BASE_URL') private baseUrl: string) {
+        private signalRService: SignalRService) {
     }
 
     public ngOnInit(): void {
-        let tokens = this.storage.retrieveTokens();
-        let accessToken = "";
-        if (tokens) {
-            accessToken = tokens.access_token;
-        }
-        var options = {
-            accessTokenFactory: function () { return accessToken; }
-        };
-        //if (isPlatformBrowser(this.platformId)) {
-   //     let options = new IHttpConnectionOptions();
-        this.chatHub = new HubConnectionBuilder().withUrl(`${this.baseUrl}hubs/miniChat`, options).build();
-       // this.chatHub = new HubConnectionBuilder().withUrl(`${this.baseUrl}hubs/miniChat?access_token=${accessToken}`, options).build();
-        this.chatHub.on("sendMiniChat", (data: ChatMessage) => {
+        this.initForm();
+        this.update();
+        this.signalRService.chatSubject.subscribe((data: ChatMessage) => {
             if (this.type === data.type) {
                 const index = this.items.findIndex(x => x.id === data.id);
                 if (index !== -1) {
@@ -63,15 +49,6 @@ export class ChatWindowComponent implements OnInit {
                 this.cd.markForCheck();
             }
         });
-
-        this.chatHub.start()
-            .then(() => {
-            })
-            .catch(err => {
-                alert("ошибка хаба чата");
-            });
-        this.initForm();
-        this.update();
     }
 
     public update(): void {

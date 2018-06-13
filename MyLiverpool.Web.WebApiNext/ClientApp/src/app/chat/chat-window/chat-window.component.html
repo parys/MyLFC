@@ -29,8 +29,7 @@
         </div>
     </form>
     <div *ngIf="!roles.isLogined" class="text-white text-center">Для добавления сообщений необходимо войти.</div>
-    <div class="full-width text-center flex-space-around top20">
-        <button type="button" (click)="update()"><span class="glyphicon glyphicon-refresh"></span></button>
+    <div class="full-width text-center flex-space-around top10">
         <a *ngIf="type ===0" mat-raised-button role="button" class="color-back-gold" [routerLink]="['/chat']"><b>Флудилка</b></a>
     </div>
 </div>

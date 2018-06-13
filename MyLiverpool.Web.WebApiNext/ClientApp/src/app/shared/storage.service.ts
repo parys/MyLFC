@@ -12,11 +12,20 @@ export class StorageService {
         const tokensString = this.get("auth-tokens");
         if (tokensString) {
             const tokens: IAuthTokenModel = JSON.parse(tokensString);
-            tokens.refresh_token = this.getRefreshToken();
-            return tokens;
-        } else {
-            return null;
+            if (tokens && +tokens.expiration_date > +new Date()) {
+                tokens.refresh_token = this.getRefreshToken();
+                return tokens;
+            }
         }
+        return null;
+    }
+
+    public getAccessToken(): string {
+        const tokens = this.retrieveTokens();
+        if (tokens) {
+            return tokens.access_token;
+        }
+        return null;
     }
 
     public getRoles(): string[] {

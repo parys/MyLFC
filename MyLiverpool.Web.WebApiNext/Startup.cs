@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.IO.Compression;
 using System.Threading.Tasks;
-using AspNet.Security.OAuth.Validation;
-using AspNet.Security.OpenIdConnect.Primitives;
 using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
@@ -22,7 +18,6 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using MyLiverpool.Business.Services.Helpers;
 using MyLiverpool.Common.Utilities;
-using MyLiverpool.Data.Entities;
 using MyLiverpool.Data.ResourceAccess;
 using MyLiverpool.Data.ResourceAccess.Helpers;
 using MyLiverpool.Web.WebApiNext.Extensions;
@@ -31,7 +26,6 @@ using Swashbuckle.AspNetCore.Swagger;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using MyLfc.Common.Web.Middlewares;
 using MyLiverpool.Web.WebApiNext.Hubs;
-using MyLiverpool.Web.WebApiNext.Middlewares;
 
 namespace MyLiverpool.Web.WebApiNext
 {
@@ -113,10 +107,6 @@ namespace MyLiverpool.Web.WebApiNext
                     options.Events.OnRetrieveToken = context =>
                     {
                         context.Token = context.Request.Query["access_token"];
-                        if (context.Token != null)
-                        {
-                            var c = 1;
-                        }
                         return Task.CompletedTask;
                     };
                 });
@@ -247,7 +237,8 @@ namespace MyLiverpool.Web.WebApiNext
 
             app.UseSignalR(routes =>
             {
-                routes.MapHub<MiniChatHub>("/hubs/miniChat");
+                routes.MapHub<AnonymHub>("/hubs/anonym");
+                routes.MapHub<AuthHub>("/hubs/auth");
             });
 
             app.UseMvc(routes =>
@@ -289,15 +280,14 @@ namespace MyLiverpool.Web.WebApiNext
                    // spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
                 }
             });
-
-
         }
 
         private void RegisterCoreHelpers(IServiceCollection services)
         {
             services.AddSingleton<IHostingEnvironment>(Env);
             services.AddSingleton<IConfigurationRoot>(Configuration);
-            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddTransient<ISignalRHubAggregator, SignalRHubAggregator>();
         }
     }
 }

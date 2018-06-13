@@ -11,6 +11,7 @@ import { UserDetailComponent } from "./user-detail";
 import { UserConfigComponent } from "./user-config";
 import { UserOnlineCounterComponent } from "./user-online-counter";
 import { PmModule } from "@app/pm";
+import { SignalRModule } from "@app/+signalr";
 
 @NgModule({
     imports: [
@@ -18,7 +19,8 @@ import { PmModule } from "@app/pm";
         NgxPaginationModule,
         UserCoreModule,
         PmModule,
-        RouterModule.forRoot(userRoutes)
+        RouterModule.forRoot(userRoutes),
+        SignalRModule
     ],
     declarations: [
         UserBirthdayComponent,
