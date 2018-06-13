@@ -25,7 +25,6 @@
 
   <ItemGroup>
       <!-- Files not to publish (note that the 'dist' subfolders are re-added below) -->
-    <Compile Remove="ClientApp\dist\**" />
     <Compile Remove="ClientApp\node_modules\**" />
     <Compile Remove="ClientApp\src\app\forum\**" />
     <Compile Remove="ClientApp\src\fonts\**" />
@@ -37,7 +36,6 @@
     <Compile Remove="wwwroot\src\plugins\**" />
     <Compile Remove="wwwroot\src\skins\**" />
     <Compile Remove="wwwroot\src\themes\**" />
-    <Content Remove="ClientApp\dist\**" />
     <Content Remove="ClientApp\node_modules\**" />
     <Content Remove="ClientApp\src\fonts\**" />
     <Content Remove="ClientApp\src\app\person\NewFolder\**" />
@@ -51,7 +49,6 @@
     <Content Remove="wwwroot\content\**" />
     <Content Remove="wwwroot\fonts\**" />
     <Content Remove="wwwroot\swagger\**" />
-    <EmbeddedResource Remove="ClientApp\dist\**" />
     <EmbeddedResource Remove="ClientApp\node_modules\**" />
     <EmbeddedResource Remove="ClientApp\src\app\forum\**" />
     <EmbeddedResource Remove="ClientApp\src\fonts\**" />
@@ -63,7 +60,6 @@
     <EmbeddedResource Remove="wwwroot\src\plugins\**" />
     <EmbeddedResource Remove="wwwroot\src\skins\**" />
     <EmbeddedResource Remove="wwwroot\src\themes\**" />
-    <None Remove="ClientApp\dist\**" />
     <None Remove="ClientApp\node_modules\**" />
     <None Remove="ClientApp\src\app\forum\**" />
     <None Remove="ClientApp\src\fonts\**" />
@@ -109,6 +105,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Server.IISIntegration" Version="2.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel" Version="2.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.MessagePack" Version="1.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices" Version="2.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="2.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.1.0" />
@@ -137,26 +134,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="ClientApp\dist\aspnetcorespa\10427.721bd1b8284243373456.ttf" />
-    <None Remove="ClientApp\dist\aspnetcorespa\3rdpartylicenses.txt" />
-    <None Remove="ClientApp\dist\aspnetcorespa\Cuprum-Regular.11249be508ffbb38a58c.ttf" />
-    <None Remove="ClientApp\dist\aspnetcorespa\glyphicons-halflings-regular.448c34a56d699c29117a.woff2" />
-    <None Remove="ClientApp\dist\aspnetcorespa\glyphicons-halflings-regular.89889688147bd7575d63.svg" />
-    <None Remove="ClientApp\dist\aspnetcorespa\glyphicons-halflings-regular.e18bbf611f2a2e43afc0.ttf" />
-    <None Remove="ClientApp\dist\aspnetcorespa\glyphicons-halflings-regular.f4769f9bdb7466be6508.eot" />
-    <None Remove="ClientApp\dist\aspnetcorespa\glyphicons-halflings-regular.fa2772327f55d8198301.woff" />
-    <None Remove="ClientApp\dist\aspnetcorespa\index.html" />
-    <None Remove="ClientApp\dist\aspnetcorespa\main.35ed1e03536cb8444883.js" />
-    <None Remove="ClientApp\dist\aspnetcorespa\manifest.json" />
-    <None Remove="ClientApp\dist\aspnetcorespa\ngsw-worker.js" />
-    <None Remove="ClientApp\dist\aspnetcorespa\ngsw.json" />
-    <None Remove="ClientApp\dist\aspnetcorespa\polyfills.eae8172e32f152df2d96.js" />
-    <None Remove="ClientApp\dist\aspnetcorespa\runtime.a66f828dca56eeb90e02.js" />
-    <None Remove="ClientApp\dist\aspnetcorespa\safety-worker.js" />
-    <None Remove="ClientApp\dist\aspnetcorespa\scripts.fe0811a990aafb0ccb77.js" />
-    <None Remove="ClientApp\dist\aspnetcorespa\stats.json" />
-    <None Remove="ClientApp\dist\aspnetcorespa\styles.1a8f581c0b58fea2e2d8.css" />
-    <None Remove="ClientApp\dist\aspnetcorespa\worker-basic.min.js" />
     <None Remove="ClientApp\src\app\forum\forum.module.ts" />
     <None Remove="ClientApp\src\app\forum\forum.module.ts" />
     <None Remove="ClientApp\src\app\forum\forum.routes.ts" />

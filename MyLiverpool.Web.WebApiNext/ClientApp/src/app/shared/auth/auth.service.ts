@@ -7,6 +7,7 @@ import { IProfileModel, IAuthStateModel, IAuthTokenModel, IRegisterModel, ILogin
 import { HttpWrapper } from "../httpWrapper";
 import { StorageService } from "../storage.service";
 import { RolesCheckedService } from "../roles-checked.service";
+import { SignalRService } from "../signalr.common.service";
 //const jwtDecode = require("jwt-decode");
 
 @Injectable()
@@ -26,6 +27,7 @@ export class AuthService {
     constructor(private http: HttpWrapper,
         private http1: HttpClient,
         private storage: StorageService,
+        private signalRservice: SignalRService,
         private rolesCheckedService: RolesCheckedService
     ) {
 
@@ -64,6 +66,7 @@ export class AuthService {
         return this.getTokens(user, "password").pipe(
             catchError(res => throwError(res.error)),
             tap(res => {
+                this.signalRservice.init();
                 this.scheduleRefresh();
             }));
     }
@@ -75,6 +78,7 @@ export class AuthService {
         }
 
         this.storage.removeAuthTokens();
+        this.signalRservice.init();
         this.rolesCheckedService.checkRoles();
     }
 

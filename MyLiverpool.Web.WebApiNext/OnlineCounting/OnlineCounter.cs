@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MyLiverpool.Web.WebApiNext.OnlineCounting
 {
@@ -25,11 +26,14 @@ namespace MyLiverpool.Web.WebApiNext.OnlineCounting
         /// <returns></returns>
         public static OnlineUsersDto GetStats()
         {
+            var users = CurrentOnlineV2.Values
+                .GroupBy(p => p.UserName)
+                .Select(g => g.First());
             return new OnlineUsersDto
             {
-                AllCount = CurrentOnlineV2.Count + CurrentOnlineGuestsV2.Count,
+                AllCount = users.Count() + CurrentOnlineGuestsV2.Count,
                 GuestCount = CurrentOnlineGuestsV2.Count,
-                Users = CurrentOnlineV2.Values
+                Users = users
             };
         }
     }
@@ -48,11 +52,6 @@ namespace MyLiverpool.Web.WebApiNext.OnlineCounting
         /// UserName.
         /// </summary>
         public string UserName { get; set; }
-
-        /// <summary>
-        /// Last
-        /// </summary>
-        public DateTimeOffset Date { get; set; }
     }
 
     /// <summary>
@@ -73,6 +72,6 @@ namespace MyLiverpool.Web.WebApiNext.OnlineCounting
         /// <summary>
         /// List of signed users.
         /// </summary>
-        public ICollection<OnlineCounterModel> Users { get; set; } = new List<OnlineCounterModel>();
+        public IEnumerable<OnlineCounterModel> Users { get; set; } = new List<OnlineCounterModel>();
     }
 }

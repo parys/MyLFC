@@ -3,7 +3,7 @@ import { Subscription } from "rxjs";
 import { UserService } from "../+core";
 import { IUserOnline } from "@app/+common-models";
 import { Configuration } from "@app/app.constants";
-import { SignalRService } from "@app/+signalr";
+import { SignalRService } from "@app/shared";
 
 @Component({
     selector: "user-online-counter",

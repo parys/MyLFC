@@ -8,3 +8,4 @@ export * from "./recaptcha.component";
 export * from "./delete-dialog";             
 export * from "./auth";
 export * from "./breadcrumb";
+export * from "./signalr.common.service";

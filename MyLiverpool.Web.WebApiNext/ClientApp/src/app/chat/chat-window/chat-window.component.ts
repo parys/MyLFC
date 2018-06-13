@@ -5,9 +5,9 @@ import { MatDialog, MatSnackBar } from "@angular/material";
 import { Configuration } from "@app/app.constants";
 import { ChatMessage } from "@app/+common-models";
 import { ChatMessageService } from "../chatMessage.service";
-import { RolesCheckedService, DeleteDialogComponent } from "@app/shared";
+import { RolesCheckedService, DeleteDialogComponent, SignalRService } from "@app/shared";
 import { EditorComponent } from "@app/editor";
-import { SignalRService } from "@app/+signalr";
+//import {  } from "@app/+signalr";
 
 @Component({
     selector: "chat-window",

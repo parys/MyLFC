@@ -14,7 +14,6 @@ using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using MyLiverpool.Business.Services.Helpers;
 using MyLiverpool.Common.Utilities;
@@ -113,6 +112,7 @@ namespace MyLiverpool.Web.WebApiNext
             services.ApplyCustomOpenIdDict(Env);
             
             services.AddSignalR();
+               // .AddMessagePackProtocol();
 
             RegisterCoreHelpers(services);
             services.RegisterRepositories();

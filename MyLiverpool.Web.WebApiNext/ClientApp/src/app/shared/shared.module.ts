@@ -24,6 +24,7 @@ import { DeferLoadDirective } from "./lazy";
 
 
 import { getRussianPaginatorIntl } from './intl/russian-paginator-intl';
+import { SignalRService } from "./signalr.common.service";
 
 export function getStorage() {
     const result = typeof window !== "undefined" ? window.localStorage : null;
@@ -110,6 +111,7 @@ export function getStorage() {
         RolesCheckedService,
         LoaderService,
         BreadcrumbService,
+        SignalRService,
         { provide: LocalStorage, useFactory: getStorage },
         { provide: HTTP_INTERCEPTORS, useClass: BearerInterceptor, multi: true, deps: [StorageService, LoaderService] },
         { provide: MatPaginatorIntl, useValue: getRussianPaginatorIntl() }
