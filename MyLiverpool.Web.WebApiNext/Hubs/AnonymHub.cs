@@ -61,8 +61,8 @@ namespace MyLiverpool.Web.WebApiNext.Hubs
             }
             else
             {
-                var conntectionId = Context.ConnectionId;
-                OnlineCounter.CurrentOnlineGuestsV2.TryTake(out conntectionId);
+                var connectionId = Context.ConnectionId;
+                OnlineCounter.CurrentOnlineGuestsV2.TryTake(out connectionId);
             }
             _signalRHub.Send(HubEndpointConstants.UsersOnlineEndpoint, OnlineCounter.GetStats());
             return base.OnConnectedAsync();

@@ -9,7 +9,7 @@ if (environment.production) {
 }
 
 export function getBaseUrl() {
-    return document.getElementsByTagName('base')[0].href;
+    return document.getElementsByTagName("base")[0].href;
 }
 
 const providers = [

@@ -9,6 +9,10 @@ namespace MyLiverpool.Web.WebApiNext.Hubs
     [Authorize(AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme)]
     public class AuthHub : AnonymHub
     {
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="signalRHub"></param>
         public AuthHub(ISignalRHubAggregator signalRHub) : base(signalRHub)
         {
         }

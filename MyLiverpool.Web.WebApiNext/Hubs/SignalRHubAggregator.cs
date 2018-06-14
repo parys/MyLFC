@@ -2,6 +2,9 @@
 
 namespace MyLiverpool.Web.WebApiNext.Hubs
 {
+    /// <summary>
+    /// Provides calls to both hubs.
+    /// </summary>
     public class SignalRHubAggregator : ISignalRHubAggregator
     {
         private readonly IHubContext<AnonymHub> _anonymHub;
@@ -43,9 +46,19 @@ namespace MyLiverpool.Web.WebApiNext.Hubs
         }
     }
 
+    /// <summary>
+    /// Provides constants for hub methods or endpoints.
+    /// </summary>
     public sealed class HubEndpointConstants
     {
+        /// <summary>
+        /// Chat endpoint.
+        /// </summary>
         public const string ChatEndpoint = "UpdateChat";
+
+        /// <summary>
+        /// Users online endpoint.
+        /// </summary>
         public const string UsersOnlineEndpoint = "UpdateOnline";
     }
 }

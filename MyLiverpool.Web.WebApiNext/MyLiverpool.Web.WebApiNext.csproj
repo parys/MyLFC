@@ -26,6 +26,7 @@
   <ItemGroup>
       <!-- Files not to publish (note that the 'dist' subfolders are re-added below) -->
     <Compile Remove="ClientApp\node_modules\**" />
+    <Compile Remove="ClientApp\src\app\editor\langs\**" />
     <Compile Remove="ClientApp\src\app\forum\**" />
     <Compile Remove="ClientApp\src\fonts\**" />
     <Compile Remove="ClientApp\src\app\person\NewFolder\**" />
@@ -37,6 +38,7 @@
     <Compile Remove="wwwroot\src\skins\**" />
     <Compile Remove="wwwroot\src\themes\**" />
     <Content Remove="ClientApp\node_modules\**" />
+    <Content Remove="ClientApp\src\app\editor\langs\**" />
     <Content Remove="ClientApp\src\fonts\**" />
     <Content Remove="ClientApp\src\app\person\NewFolder\**" />
     <Content Remove="ClientApp\src\**" />
@@ -50,6 +52,7 @@
     <Content Remove="wwwroot\fonts\**" />
     <Content Remove="wwwroot\swagger\**" />
     <EmbeddedResource Remove="ClientApp\node_modules\**" />
+    <EmbeddedResource Remove="ClientApp\src\app\editor\langs\**" />
     <EmbeddedResource Remove="ClientApp\src\app\forum\**" />
     <EmbeddedResource Remove="ClientApp\src\fonts\**" />
     <EmbeddedResource Remove="ClientApp\src\app\person\NewFolder\**" />
@@ -61,6 +64,7 @@
     <EmbeddedResource Remove="wwwroot\src\skins\**" />
     <EmbeddedResource Remove="wwwroot\src\themes\**" />
     <None Remove="ClientApp\node_modules\**" />
+    <None Remove="ClientApp\src\app\editor\langs\**" />
     <None Remove="ClientApp\src\app\forum\**" />
     <None Remove="ClientApp\src\fonts\**" />
     <None Remove="ClientApp\src\app\person\NewFolder\**" />
@@ -130,10 +134,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Remove="wwwroot\plugins\customEmoticons\plugin.js" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Remove="ClientApp\src\app\forum\forum.module.ts" />
     <None Remove="ClientApp\src\app\forum\forum.module.ts" />
     <None Remove="ClientApp\src\app\forum\forum.routes.ts" />
@@ -188,10 +188,6 @@
     <None Remove="ClientApp\src\app\forum\forumTheme\index.ts" />
     <None Remove="ClientApp\src\app\forum\index.ts" />
     <None Remove="ClientApp\src\app\forum\index.ts" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="wwwroot\plugins\customEmoticons\plugin.js" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

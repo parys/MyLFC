@@ -32,7 +32,7 @@
               "src/styles.scss"
             ],
             "scripts": [
-              "../wwwroot/src/tinymce.min.js"
+              "node_modules/tinymce/tinymce.min.js"
             ]
           },
           "configurations": {
@@ -52,7 +52,8 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
-              "serviceWorker": true
+              "serviceWorker": true,
+              "statsJson": true
             }
           }
         },

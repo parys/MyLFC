@@ -44,6 +44,7 @@
         })(this, this.document, "yandexContextAsyncCallbacks");
 
     function addAd() {
+        if (location.hostname === "localhost") return;
         Ya.Context.AdvManager.render({
             blockId: "R-A-255349-2",
             renderTo: "yandex_rtb_R-A-255349-2",

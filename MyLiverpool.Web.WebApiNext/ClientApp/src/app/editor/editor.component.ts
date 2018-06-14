@@ -24,10 +24,10 @@ import "tinymce/plugins/spellchecker";
 import "tinymce/plugins/table";
 import "tinymce/plugins/textcolor";
 import "tinymce/plugins/visualblocks";
+import "./langs/ru.js";
 /*
-import "tinymce/plugins/emoticons";
-import "tinymce/plugins/preview";*/
-
+import "tinymce/plugins/preview";
+*/
 
 @Component({
     selector: "bbeditor",
