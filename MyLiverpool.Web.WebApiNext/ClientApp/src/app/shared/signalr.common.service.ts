@@ -14,11 +14,11 @@ export class SignalRService {
     constructor(
         private storage: StorageService,
         @Inject("BASE_URL") private baseUrl: string) {
-        this.init();
+        this.initializeHub();
         this.initSubs();
     }
 
-    public init(): void {
+    public initializeHub(): void {
         let hubUrl = "anonym";
 
         const token = this.storage.getAccessToken();
@@ -27,7 +27,6 @@ export class SignalRService {
         }
         const options = {
             accessTokenFactory() { return token; },
-            
         };
 
         if (this.alreadyStarted) {
@@ -51,8 +50,8 @@ export class SignalRService {
             .then(() => {
                 this.alreadyStarted = true;
             })
-            .catch(err => {
-                console.warn(err);
+            .catch((err: Error) => {
+                console.error(err);
             });
     }
 

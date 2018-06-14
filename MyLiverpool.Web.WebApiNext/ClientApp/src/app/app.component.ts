@@ -70,7 +70,7 @@ export class AppComponent implements OnInit {
                         child = child.firstChild;
                     } else if (child.snapshot.data && child.snapshot.data["title"]) {
                         if (!child.snapshot.fragment) {
-                            window.scrollTo(0, 0);
+                         //   window.scrollTo(0, 0);
                         }
                         return child.snapshot.data["title"];
                     } else {

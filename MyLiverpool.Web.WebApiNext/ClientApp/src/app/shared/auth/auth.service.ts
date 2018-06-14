@@ -66,20 +66,21 @@ export class AuthService {
         return this.getTokens(user, "password").pipe(
             catchError(res => throwError(res.error)),
             tap(res => {
-                this.signalRservice.init();
+                this.signalRservice.initializeHub();
                 this.scheduleRefresh();
             }));
     }
 
     public logout(): void {
         this.updateState({ profile: null, tokens: null });
+        
+        this.storage.removeAuthTokens();
+        this.rolesCheckedService.checkRoles();
+
         if (this.refreshSubscription$) {
             this.refreshSubscription$.unsubscribe();
+            this.signalRservice.initializeHub();
         }
-
-        this.storage.removeAuthTokens();
-        this.signalRservice.init();
-        this.rolesCheckedService.checkRoles();
     }
 
     public refreshTokens(): Observable<IAuthTokenModel> {
