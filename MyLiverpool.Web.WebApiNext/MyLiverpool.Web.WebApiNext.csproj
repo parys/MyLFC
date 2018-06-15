@@ -32,22 +32,18 @@
     <Compile Remove="ClientApp\src\app\person\NewFolder\**" />
     <Compile Remove="ClientApp\src\fonts\**" />
     <Compile Remove="wwwroot\content\persons\**" />
-    <Compile Remove="wwwroot\src\langs\**" />
     <Compile Remove="wwwroot\src\lightgray\**" />
     <Compile Remove="wwwroot\src\plugins\**" />
     <Compile Remove="wwwroot\src\skins\**" />
-    <Compile Remove="wwwroot\src\themes\**" />
     <Content Remove="ClientApp\node_modules\**" />
     <Content Remove="ClientApp\src\app\editor\langs\**" />
     <Content Remove="ClientApp\src\fonts\**" />
     <Content Remove="ClientApp\src\app\person\NewFolder\**" />
     <Content Remove="ClientApp\src\**" />
     <Content Remove="ClientApp\src\fonts\**" />
-    <Content Remove="wwwroot\src\langs\**" />
     <Content Remove="wwwroot\src\lightgray\**" />
     <Content Remove="wwwroot\src\plugins\**" />
     <Content Remove="wwwroot\src\skins\**" />
-    <Content Remove="wwwroot\src\themes\**" />
     <Content Remove="wwwroot\content\**" />
     <Content Remove="wwwroot\fonts\**" />
     <Content Remove="wwwroot\swagger\**" />
@@ -62,7 +58,6 @@
     <EmbeddedResource Remove="wwwroot\src\lightgray\**" />
     <EmbeddedResource Remove="wwwroot\src\plugins\**" />
     <EmbeddedResource Remove="wwwroot\src\skins\**" />
-    <EmbeddedResource Remove="wwwroot\src\themes\**" />
     <None Remove="ClientApp\node_modules\**" />
     <None Remove="ClientApp\src\app\editor\langs\**" />
     <None Remove="ClientApp\src\app\forum\**" />
@@ -70,11 +65,9 @@
     <None Remove="ClientApp\src\app\person\NewFolder\**" />
     <None Remove="ClientApp\src\fonts\**" />
     <None Remove="wwwroot\content\persons\**" />
-    <None Remove="wwwroot\src\langs\**" />
     <None Remove="wwwroot\src\lightgray\**" />
     <None Remove="wwwroot\src\plugins\**" />
     <None Remove="wwwroot\src\skins\**" />
-    <None Remove="wwwroot\src\themes\**" />
     <Content Include="ClientApp\src\manifest.json" />
     <Content Include="ClientApp\src\index.html" />
     <Content Include="ClientApp\src\tsconfig.cli.json" />
@@ -188,12 +181,6 @@
     <None Remove="ClientApp\src\app\forum\forumTheme\index.ts" />
     <None Remove="ClientApp\src\app\forum\index.ts" />
     <None Remove="ClientApp\src\app\forum\index.ts" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="wwwroot\plugins\visualblocks\index.js" />
-    <None Include="wwwroot\plugins\visualblocks\plugin.js" />
-    <None Include="wwwroot\plugins\visualblocks\plugin.min.js" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
