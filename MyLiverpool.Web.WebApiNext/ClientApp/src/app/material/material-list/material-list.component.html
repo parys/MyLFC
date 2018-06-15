@@ -10,16 +10,23 @@
                         <h3 class="beauty-font" [textContent]="item.title"></h3>
                     </a>
                     <span *ngIf="roles.isEditor || roles.isSelf(item.userId)">
-                        <a role="button" *ngIf="item.pending && roles.isEditor" (click)="showActivateModal(i)"><span class="glyphicon glyphicon-ok"></span></a>
-                        <a [routerLink]="['/', item.typeName, item.id, 'edit']"><span class="glyphicon glyphicon-pencil"></span></a>
-                        <a role="button" (click)="showDeleteModal(i)"><span class="glyphicon glyphicon-trash"></span></a>
+                        <a role="button" *ngIf="item.pending && roles.isEditor" (click)="showActivateModal(i)">
+                            <i class="material-icons">done</i>
+                        </a>
+                        <a [routerLink]="['/', item.typeName, item.id, 'edit']">
+                            <i class="material-icons">edit</i>
+                        </a>
+                        <a role="button" (click)="showDeleteModal(i)">
+                            <i class="material-icons">clear</i></a>
                     </span>
                 </div>
-                <div class="col-xs-6 col-sm-12 col-md-12 col-lg-6" >
-                    <img class="img-thumbnail news-mini center-block" [alt]="item.title" [src]="item.photo" />
-                </div>
-                <div class="col-xs-6 col-sm-12 col-md-12 col-lg-6 flex-vertical-center">
-                    <i class=""> <span [innerHTML]="item.brief"></span></i>
+                <div class="mat-preview-list full-width">
+                    <span>
+                        <img class="img-thumbnail news-mini" [alt]="item.title" [src]="item.photo" />
+                    </span>
+                    <span class="flex-vertical-center preview-text">
+                        <i class="padding5" [innerHTML]="item.brief"></i>
+                    </span>
                 </div>
                 <div class="full-width material-info-panel">
                     <ul class="list-inline small small-offset padding5">

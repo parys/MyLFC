@@ -22,6 +22,7 @@ html {
 
 body {
     margin: 0;
+    display: table; //hack
 }
 
 /**
@@ -381,6 +382,7 @@ ol {
 
 a {
     color: maroon;
+    text-decoration: none;
 }
 
 a:hover {
@@ -423,7 +425,9 @@ img.material-preview {
 }
 
 h3 {
-    margin-top: 10px;
+    font-size: 24px;
+    line-height: 1.1;
+    margin: 10px 0;
 }
 
 hr {
@@ -693,6 +697,10 @@ textarea {
     display: flex;
     justify-content: center;
     flex-flow: row wrap;
+}
+
+.flex-inline {
+    display: inline-flex;
 }
 
 .flex-space-around {

@@ -12,7 +12,8 @@ import { MaterialActivateDialogComponent } from "../material-activate-dialog.com
 
 @Component({
     selector: "material-list",
-    templateUrl: "./material-list.component.html"
+    templateUrl: "./material-list.component.html",
+    styleUrls: ["./material-list.component.scss"],
 })
 export class MaterialListComponent implements OnInit, OnDestroy {
     private type: MaterialType;
