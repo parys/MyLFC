@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using AspNet.Security.OAuth.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -8,6 +9,7 @@ using MyLfc.Common.Web;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Business.Dto.Filters;
+using MyLiverpool.Common.Utilities;
 using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
 using MyLiverpool.Web.WebApiNext.Hubs;
@@ -67,6 +69,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [AllowAnonymous, HttpGet("list/last")]
         public async Task<IActionResult> GetLastList()
         {
+
             var result = await _cache.GetOrCreateAsync(CacheKeysConstants.LastComments, async x => await _commentService.GetLastListAsync());
             return Json(result);
         }
@@ -131,7 +134,12 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             CleanMaterialCache();
             _cache.Remove(CacheKeysConstants.LastComments);
             result.AuthorUserName = User.Identity.Name;
-            _signalRHubAggregator.Send("addComment", dto);
+            SanitizeComment(result);
+            if (!string.IsNullOrWhiteSpace(result.Message))
+            {
+                _signalRHubAggregator.Send("addComment", result);
+            }
+
             return Ok(result);
         }
 
@@ -222,5 +230,15 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             _cache.Remove("MaterialList");//duplicate here and in material ctrl
           //  _cache.Remove(GetBasicMaterialFilters(true).ToString());
         }
-    }
+
+        //todo duplicate in commentService 
+        private void SanitizeComment(CommentDto comment)
+        {
+            comment.Message = Regex.Replace(Regex.Replace(comment.Message, "&.*?;", string.Empty), "<.*?>", string.Empty);
+            if (comment.Message.Length > GlobalConstants.LastCommentMessageSymbolCount)
+            {
+                comment.Message = comment.Message.Substring(0, GlobalConstants.LastCommentMessageSymbolCount) +
+                                  "...";
+            }
+        }}
 }
