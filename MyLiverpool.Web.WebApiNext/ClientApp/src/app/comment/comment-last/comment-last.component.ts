@@ -1,51 +1,51 @@
-﻿import { Component, OnInit, OnDestroy, Inject, PLATFORM_ID } from "@angular/core";
-import { isPlatformBrowser } from "@angular/common";
-import { ActivatedRoute } from "@angular/router";
-import { interval, Subscription } from "rxjs";
-import { map } from "rxjs/operators";
+﻿import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
+import { Subscription } from "rxjs";
 import { CommentService } from "../comment.service";
-import { Comment } from "../comment.model";
+import { Comment } from "@app/+common-models";
+import { SignalRService } from "@app/shared";
 import { Configuration } from "@app/app.constants";
 
 @Component({
     selector: "<comment-last>",
-    templateUrl: "./comment-last.component.html"
+    templateUrl: "./comment-last.component.html",
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CommentLastComponent implements OnInit, OnDestroy {
-    private sub: Subscription;
     private sub2: Subscription;
     public items: Comment[];
 
     constructor(private service: CommentService,
-        private route: ActivatedRoute,
-        @Inject(PLATFORM_ID) private platformId: Object,
-        private config: Configuration) {
+        private config: Configuration,
+        private cd: ChangeDetectorRef,
+        private signalRService: SignalRService) {
     }
 
     public ngOnInit(): void {
         this.update();
 
-        if (isPlatformBrowser(this.platformId)) {
-            this.scheduleUpdateCount();
-        }
+        this.signalRService.lastCommentsSubject.subscribe((data: Comment) => {
+            const index = this.items.findIndex(x => x.id === data.id);
+            if (index !== -1) {
+                this.items[index] = data;
+            } else {
+                this.items.unshift(data);
+                this.items.pop();
+            }
+            this.cd.markForCheck();
+        });
     }
 
     public ngOnDestroy(): void {
-        if (this.sub) { this.sub.unsubscribe(); }
         if (this.sub2) { this.sub2.unsubscribe(); }
-    }
-
-    private scheduleUpdateCount() {
-        this.sub = interval(this.config.updateLastComments).pipe(
-                map(x => this.update())
-            )
-            .subscribe();
     }
 
     public update(): void {
         this.sub2 = this.service
             .getLastList()
-            .subscribe(data => this.items = data,
+            .subscribe(data => {
+                    this.items = data;
+                    this.cd.markForCheck();
+                },
             e => console.log(e));
     }
 }

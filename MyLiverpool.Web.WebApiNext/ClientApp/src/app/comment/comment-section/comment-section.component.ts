@@ -1,7 +1,7 @@
 ﻿import { Component, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef, OnChanges, AfterViewChecked, ElementRef, Renderer2 } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
-import { Comment } from "../comment.model";
+import { Comment } from "@app/+common-models";
 import { CommentService } from "../comment.service";
 import { RolesCheckedService, Pageable } from "@app/shared";
 

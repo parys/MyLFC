@@ -4,7 +4,7 @@ import { Location } from "@angular/common";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { MatDialog } from "@angular/material";
 import { Subscription } from "rxjs"
-import { Comment } from "../comment.model";
+import { Comment } from "@app/+common-models";
 import { CommentVote } from "../commentVote.model";
 import { CommentService } from "../comment.service";
 import { RolesCheckedService, DeleteDialogComponent } from "@app/shared";

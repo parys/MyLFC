@@ -10,6 +10,7 @@ using MyLiverpool.Business.Dto;
 using MyLiverpool.Business.Dto.Filters;
 using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
+using MyLiverpool.Web.WebApiNext.Hubs;
 using Newtonsoft.Json;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
@@ -23,16 +24,19 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     {
         private readonly ICommentService _commentService;
         private readonly IMemoryCache _cache;
+        private readonly ISignalRHubAggregator _signalRHubAggregator;
 
         /// <summary>
         /// Constructor.
         /// </summary>
         /// <param name="commentService"></param>
         /// <param name="cache"></param>
-        public CommentController(ICommentService commentService, IMemoryCache cache)
+        /// <param name="signalRHubAggregator"></param>
+        public CommentController(ICommentService commentService, IMemoryCache cache, ISignalRHubAggregator signalRHubAggregator)
         {
             _commentService = commentService;
             _cache = cache;
+            _signalRHubAggregator = signalRHubAggregator;
         }
 
         /// <summary>
@@ -126,6 +130,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             var result = await _commentService.AddAsync(dto);
             CleanMaterialCache();
             _cache.Remove(CacheKeysConstants.LastComments);
+            result.AuthorUserName = User.Identity.Name;
+            _signalRHubAggregator.Send("addComment", dto);
             return Ok(result);
         }
 

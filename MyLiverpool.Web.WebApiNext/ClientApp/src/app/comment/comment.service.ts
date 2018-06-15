@@ -1,6 +1,6 @@
 ﻿import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { Comment } from "./comment.model";
+import { Comment } from "@app/+common-models";
 import { CommentVote } from "./commentVote.model";
 import { CommentFilter } from "./commentFilter.model";
 import { HttpWrapper, Pageable } from "@app/shared";

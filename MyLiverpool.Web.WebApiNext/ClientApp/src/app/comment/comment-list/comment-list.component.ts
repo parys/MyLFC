@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder } from "@angular/forms";
 import { Location } from "@angular/common";
 import { MatDialog } from "@angular/material";
 import { Subscription } from "rxjs";
-import { Comment } from "../comment.model";
+import { Comment } from "@app/+common-models";
 import { CommentService } from "../comment.service";
 import { RolesCheckedService, DeleteDialogComponent, Pageable } from "@app/shared";
 import { CommentFilter } from "../commentFilter.model";

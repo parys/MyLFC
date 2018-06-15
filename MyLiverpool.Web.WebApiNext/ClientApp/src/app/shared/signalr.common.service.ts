@@ -1,7 +1,7 @@
 ﻿import { Injectable, Inject } from "@angular/core";
 import { Subject } from "rxjs";
 import { StorageService } from "./storage.service";
-import { ChatMessage } from "@app/+common-models";
+import { ChatMessage, Comment } from "@app/+common-models";
 import { HubConnection, HubConnectionBuilder, LogLevel } from "@aspnet/signalr";
 
 @Injectable()
@@ -10,6 +10,7 @@ export class SignalRService {
     private alreadyStarted: boolean = false;
     public chatSubject: Subject<ChatMessage>;
     public onlineSubject: Subject<ChatMessage>;
+    public lastCommentsSubject: Subject<Comment>;
 
     constructor(
         private storage: StorageService,
@@ -45,6 +46,12 @@ export class SignalRService {
         this.hubConnection.on("updateOnline", (data: any) => {
             this.onlineSubject.next(data);
         });
+        this.hubConnection.on("addComment", (data: Comment) => {
+            this.lastCommentsSubject.next(data);
+        });
+        this.hubConnection.on("updateComment", (data: Comment) => {
+            this.lastCommentsSubject.next(data);
+        });
 
         this.hubConnection.start()
             .then(() => {
@@ -58,5 +65,6 @@ export class SignalRService {
     private initSubs(): void {
         this.chatSubject = new Subject<ChatMessage>();
         this.onlineSubject = new Subject<any>();
+        this.lastCommentsSubject = new Subject<Comment>();
     }
 }
