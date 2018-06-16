@@ -5,8 +5,6 @@ import { Comment } from "@app/+common-models";
 import { CommentService } from "../comment.service";
 import { RolesCheckedService, Pageable } from "@app/shared";
 
-declare let addAd2: any;
-
 @Component({
     selector: "comment-section",
     templateUrl: "./comment-section.component.html",
@@ -64,13 +62,9 @@ export class CommentSectionComponent implements OnInit, OnChanges, AfterViewChec
                     this.prevHeight = top;
                 } else {
                     element.scrollIntoView();
-                    addAd2();
                     this.isScrolled = true;
                 }
             }
-        } else {
-            addAd2();
-            this.isScrolled = true;
         }
     }
 

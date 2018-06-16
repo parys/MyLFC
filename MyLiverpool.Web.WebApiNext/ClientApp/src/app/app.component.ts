@@ -1,10 +1,12 @@
-﻿import { Component, ViewContainerRef, OnInit, ViewEncapsulation, ElementRef, PLATFORM_ID, Inject, Renderer2, NgZone } from "@angular/core";  
+﻿import { Component, ViewContainerRef, OnInit, ViewEncapsulation, ElementRef, PLATFORM_ID, Inject, Renderer2, NgZone, AfterViewInit } from "@angular/core";  
 import { isPlatformBrowser } from "@angular/common";  
 import { Router, ActivatedRoute, NavigationEnd } from "@angular/router";
 import { Title } from "@angular/platform-browser";
 import { Observable } from "rxjs"
 import { filter, map } from "rxjs/operators"
 import { RolesCheckedService, AuthService, IAuthStateModel, BreadcrumbService } from "@app/shared";
+
+declare let addAd: any;
 
 @Component({
     selector: "app",
@@ -13,7 +15,8 @@ import { RolesCheckedService, AuthService, IAuthStateModel, BreadcrumbService } 
     encapsulation: ViewEncapsulation.None
 })
 
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewInit {
+
    // public isRoot: boolean = false;
     private authState$: Observable<IAuthStateModel>;
 
@@ -43,6 +46,7 @@ export class AppComponent implements OnInit {
                 );
         }
 
+
         this.initTitleSubscriber();
         //this.activatedRoute.fragment.subscribe(f => {
        //    if (f) {
@@ -56,6 +60,10 @@ export class AppComponent implements OnInit {
        //        }
        //    }
        //});
+    }
+
+    public ngAfterViewInit(): void {
+        addAd();
     }
 
     private initTitleSubscriber() {
@@ -78,10 +86,10 @@ export class AppComponent implements OnInit {
                 return null;
             })).subscribe((title: any) => {
                 this.titleService.setTitle(title);
-        });
+            });
 
         // this.isRoot = (event["title"] === "MyLFC.ru - Сайт русскоязычных болельщиков \"Ливерпуля\"");
-        
+
         /* todo research
         this.router.events
             .filter(event => event instanceof NavigationEnd)

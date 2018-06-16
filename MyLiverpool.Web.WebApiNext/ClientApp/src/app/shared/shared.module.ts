@@ -21,6 +21,7 @@ import { CustomDatePipe } from "./pipes";
 import { BreadcrumbComponent, BreadcrumbService } from "./breadcrumb";
 import { NgxPaginationModule } from "ngx-pagination";
 import { DeferLoadDirective } from "./lazy";
+import { AdComponent } from "./ad";
 
 
 import { getRussianPaginatorIntl } from './intl/russian-paginator-intl';
@@ -67,7 +68,8 @@ export function getStorage() {
         LoaderComponent,
         CustomDatePipe,
         BreadcrumbComponent,
-        DeferLoadDirective
+        DeferLoadDirective,
+        AdComponent
     ],
     exports: [
         CommonModule,
@@ -80,6 +82,7 @@ export function getStorage() {
         LoaderComponent, 
         CustomDatePipe,
         BreadcrumbComponent,
+        AdComponent,
 
         MatAutocompleteModule,
         MatButtonModule,

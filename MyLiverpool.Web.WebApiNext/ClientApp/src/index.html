@@ -35,29 +35,28 @@
 <script type="text/javascript">
     (function (w, d, n, s, t) {
         w[n] = w[n] || [];
-        w[n].push(addAd);
+        w[n].push(function()
+        {
+            addAd("R-A-255349-2");
+            addAd("R-A-255349-3");
+        });
+        console.log(w);
         t = d.getElementsByTagName("script")[0];
         s = d.createElement("script");
         s.type = "text/javascript";
         s.src = "https://an.yandex.ru/system/context.js";
+        s.async = true;
         t.parentNode.insertBefore(s, t);
         })(this, this.document, "yandexContextAsyncCallbacks");
-
-    function addAd2() {
-        if (location.hostname === "localhost") return;
+    
+    function addAd(name) {
+        if (location.hostname === "localhost" || !windown.Ya) return false;
         Ya.Context.AdvManager.render({
-            blockId: "R-A-255349-2",
-            renderTo: "yandex_rtb_R-A-255349-2",
+            blockId: name,
+            renderTo: `yandex_rtb_${name}`,
             async: true
         });
-    }
-    function addAd() {
-        if (location.hostname === "localhost") return;
-        Ya.Context.AdvManager.render({
-            blockId: "R-A-255349-3",
-            renderTo: "yandex_rtb_R-A-255349-3",
-            async: true
-        });
+        return true;
     }
 
     function ssn() {

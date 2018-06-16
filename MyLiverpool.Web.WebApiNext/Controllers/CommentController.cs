@@ -134,11 +134,16 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             CleanMaterialCache();
             _cache.Remove(CacheKeysConstants.LastComments);
             result.AuthorUserName = User.Identity.Name;
+
+            var oldMessage = result.Message.Substring(0);
             SanitizeComment(result);
+
             if (!string.IsNullOrWhiteSpace(result.Message))
             {
                 _signalRHubAggregator.Send("addComment", result);
             }
+
+            result.Message = oldMessage;
 
             return Ok(result);
         }
