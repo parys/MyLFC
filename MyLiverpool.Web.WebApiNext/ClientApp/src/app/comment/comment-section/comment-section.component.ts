@@ -5,6 +5,8 @@ import { Comment } from "@app/+common-models";
 import { CommentService } from "../comment.service";
 import { RolesCheckedService, Pageable } from "@app/shared";
 
+declare let addAd2: any;
+
 @Component({
     selector: "comment-section",
     templateUrl: "./comment-section.component.html",
@@ -52,7 +54,7 @@ export class CommentSectionComponent implements OnInit, OnChanges, AfterViewChec
         const fragment = this.router.parseUrl(this.router.url).fragment;
         if (fragment) {
             const element = document.getElementById(fragment);
-        //    const element = document.getElementsByTagName("footer")[0];
+            //    const element = document.getElementsByTagName("footer")[0];
             if (element) {
                 this.renderer.addClass(element, "active");
                 const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
@@ -61,10 +63,14 @@ export class CommentSectionComponent implements OnInit, OnChanges, AfterViewChec
                 if (this.prevHeight !== top) {
                     this.prevHeight = top;
                 } else {
-                   element.scrollIntoView();
+                    element.scrollIntoView();
+                    addAd2();
                     this.isScrolled = true;
                 }
             }
+        } else {
+            addAd2();
+            this.isScrolled = true;
         }
     }
 

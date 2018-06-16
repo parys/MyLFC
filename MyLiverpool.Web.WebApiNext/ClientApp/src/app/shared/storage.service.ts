@@ -12,7 +12,7 @@ export class StorageService {
         const tokensString = this.get("auth-tokens");
         if (tokensString) {
             const tokens: IAuthTokenModel = JSON.parse(tokensString);
-            if (tokens && +tokens.expiration_date > +new Date()) {
+            if (tokens) {
                 tokens.refresh_token = this.getRefreshToken();
                 return tokens;
             }
@@ -35,15 +35,7 @@ export class StorageService {
     public getUserId(): number {
         return +this.get("userId");
     }
-
-    public setChatUpdateTime(value: number, type: number = null): void {
-        this.set(`chatTimer${type}`, value.toString());
-    }
-
-    public getChatUpdateTime(type: number = null): number {
-        return +this.get(`chatTimer${type}`);
-    }
-
+    
     public removeAuthTokens(): void {
         this.remove("roles");
         this.remove("userId");

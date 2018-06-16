@@ -2,11 +2,9 @@
 import { isPlatformBrowser } from "@angular/common";  
 import { Router, ActivatedRoute, NavigationEnd } from "@angular/router";
 import { Title } from "@angular/platform-browser";
-import { Observable, timer } from "rxjs"
+import { Observable } from "rxjs"
 import { filter, map } from "rxjs/operators"
 import { RolesCheckedService, AuthService, IAuthStateModel, BreadcrumbService } from "@app/shared";
-
-declare let addAd: any;
 
 @Component({
     selector: "app",
@@ -80,11 +78,6 @@ export class AppComponent implements OnInit {
                 return null;
             })).subscribe((title: any) => {
                 this.titleService.setTitle(title);
-             //   let sub = this.ngZone.onStable.subscribe(() => this.updateAdd());
-              //  sub.unsubscribe();
-            //this.ngZone.runOutsideAngular(() => addAd());
-                 let tmr = timer(1500);
-                tmr.subscribe(_ => addAd());
         });
 
         // this.isRoot = (event["title"] === "MyLFC.ru - Сайт русскоязычных болельщиков \"Ливерпуля\"");

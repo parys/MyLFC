@@ -11,7 +11,7 @@ import { SeasonStatisticsComponent } from "./season-statistics";
 @NgModule({
     imports: [
         SharedModule,
-        RouterModule.forRoot(seasonRoutes)
+        RouterModule.forChild(seasonRoutes)
     ],
     declarations: [
         SeasonCalendarComponent,
@@ -20,6 +20,7 @@ import { SeasonStatisticsComponent } from "./season-statistics";
         SeasonStatisticsComponent
     ],
     exports: [
+        RouterModule
     ],
     providers: [
         SeasonService

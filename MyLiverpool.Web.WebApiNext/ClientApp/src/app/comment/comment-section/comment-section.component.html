@@ -1,4 +1,9 @@
-﻿<div id="comments">Комментарии: <span [textContent]="totalItems"></span>&nbsp;
+﻿<div class="full-width">
+    <div id="yandex_rtb_R-A-255349-2"></div>
+</div>
+
+<div id="comments">
+    Комментарии: <span [textContent]="totalItems"></span>&nbsp;
     <button (click)="update()"><span class="glyphicon glyphicon-refresh text-success"></span></button>
 </div>
 
@@ -11,7 +16,7 @@
 <form class="form-horizontal" role="form" [formGroup]="commentAddForm" (ngSubmit)="onSubmit()">
     <div class="full-width" *ngIf="canCommentary && roles.isLogined">
         <bbeditor class="full-width" name="message" formControlName="message"></bbeditor>
-        <div class="comment-action-buttons" style="margin-bottom: 0">            
+        <div class="comment-action-buttons" style="margin-bottom: 0">
             <button mat-raised-button color="warn" type="submit" [disabled]="!commentAddForm.valid">Добавить</button>
         </div>
     </div>
