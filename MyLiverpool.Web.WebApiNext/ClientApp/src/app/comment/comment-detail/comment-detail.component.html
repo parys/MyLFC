@@ -17,18 +17,21 @@
                 <span class="color-green">
                     <span [textContent]="item.positiveCount"></span>
                     <button class="no-style font-size13" (click)="vote(true)" *ngIf="item.canPositiveVote && !roles.isSelf(item.authorId)">
-                        <span class="glyphicon glyphicon-thumbs-up"></span>
+                        <i class="material-icons">thump_up</i>
                     </button>
                 </span>/
                 <span class="color-red">
                     <span [textContent]="item.negativeCount"></span>
                     <button class="no-style font-size13" (click)="vote(false)" *ngIf="item.canNegativeVote && !roles.isSelf(item.authorId)">
-                        <span class="glyphicon glyphicon-thumbs-down"></span>
+                        <i class="material-icons">thump_down</i>
                     </button>
                 </span>
-                <a *ngIf="roles.isModerator && !item.isVerified" (click)="verify()"><span class="glyphicon glyphicon-ok"></span></a>
-                <a *ngIf="roles.isModerator || roles.isSelf(item.authorId)" role="button" (click)="showEditModal()"><span class="glyphicon glyphicon-pencil"> </span></a>
-                <a *ngIf="roles.isModerator" role="button" (click)="showDeleteModal()"><span class="glyphicon glyphicon-trash"> </span></a>
+                <a *ngIf="roles.isModerator && !item.isVerified" (click)="verify()">
+                    <i class="material-icons">done</i></a>
+                <a *ngIf="roles.isModerator || roles.isSelf(item.authorId)" role="button" (click)="showEditModal()">
+                    <i class="material-icons">edit</i></a>
+                <a *ngIf="roles.isModerator" role="button" (click)="showDeleteModal()">
+                    <i class="material-icons">clear</i></a>
             </span>
         </div>
         <div *ngIf="!isEditMode">
@@ -39,7 +42,7 @@
                     <img class="avatar-medium" [src]="item.photo" [alt]="item.authorUserName" />
                 </div>
                 <div class="width85p">
-                    <p [innerHTML]="sanitizeByHtml(item.message)"></p>
+                    <p class="padding5" [innerHTML]="sanitizeByHtml(item.message)"></p>
                 </div>
             </div>
             <div class="flex" *ngIf="item.answer || (isEditMode && roles.isEditor)">

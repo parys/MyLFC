@@ -7,7 +7,7 @@
             <div class="panel-heading">
                 <h3 class="panel-title flex-space-between">
                     <a [routerLink]="[item.id, 'edit']"><span [textContent]="item.name"></span></a>
-                    <a (click)="showDeleteModal(i)"><span class="glyphicon glyphicon-trash"></span></a>
+                    <a (click)="showDeleteModal(i)"><i class="material-icons">clear</i></a>
                 </h3>
             </div>
             <div class="panel-body">

@@ -2,7 +2,7 @@
 
 <div id="comments">
     Комментарии: <span [textContent]="totalItems"></span>&nbsp;
-    <button (click)="update()"><span class="glyphicon glyphicon-refresh text-success"></span></button>
+    <button (click)="update()"><i class="material-icons text-success">refresh</i></button>
 </div>
 
 <div *ngFor="let comment of items | paginate: { itemsPerPage: itemsPerPage,

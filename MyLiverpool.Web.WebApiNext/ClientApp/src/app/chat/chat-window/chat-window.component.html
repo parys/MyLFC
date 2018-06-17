@@ -16,7 +16,7 @@
             <div class="full-width" style="text-align: left;" [innerHTML]="sanitizeByHtml(message.message)">
             </div>
             <div class="full-width">
-                <a role="button" (click)="addReply(i)"><span *ngIf="roles.isLogined && !roles.isSelf(message.authorId)" class="glyphicon glyphicon-share-alt"></span></a>
+                <a role="button" (click)="addReply(i)"><i *ngIf="roles.isLogined && !roles.isSelf(message.authorId)" class="material-icons">reply</i></a>
             </div>
         </div>
     </div>

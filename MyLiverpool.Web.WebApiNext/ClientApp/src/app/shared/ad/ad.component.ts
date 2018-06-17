@@ -1,4 +1,4 @@
-﻿import { Component, Input, OnInit, AfterViewChecked } from "@angular/core";
+﻿import { Component, Input, OnInit, AfterViewInit } from "@angular/core";
 
 declare let addAd: any;
 
@@ -7,7 +7,7 @@ declare let addAd: any;
     templateUrl: "ad.component.html"
 })
 
-export class AdComponent implements AfterViewChecked, OnInit {
+export class AdComponent implements AfterViewInit, OnInit {
     private done: boolean = false;
     public name: string = null;
     @Input() blockName: string = "";
@@ -16,7 +16,7 @@ export class AdComponent implements AfterViewChecked, OnInit {
         this.name = `yandex_rtb_${this.blockName}`;
     }
 
-    public ngAfterViewChecked() {
+    public ngAfterViewInit() {
         if (this.done) return;
         if (addAd(this.blockName)) {
             this.done = true;

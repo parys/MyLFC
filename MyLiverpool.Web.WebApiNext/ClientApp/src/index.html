@@ -40,7 +40,6 @@
             addAd("R-A-255349-2");
             addAd("R-A-255349-3");
         });
-        console.log(w);
         t = d.getElementsByTagName("script")[0];
         s = d.createElement("script");
         s.type = "text/javascript";
@@ -50,7 +49,7 @@
         })(this, this.document, "yandexContextAsyncCallbacks");
     
     function addAd(name) {
-        if (location.hostname === "localhost" || !windown.Ya) return false;
+        if (location.hostname === "localhost" || !window.Ya) return false;
         Ya.Context.AdvManager.render({
             blockId: name,
             renderTo: `yandex_rtb_${name}`,

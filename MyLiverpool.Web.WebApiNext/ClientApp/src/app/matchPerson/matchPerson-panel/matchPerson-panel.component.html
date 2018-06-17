@@ -4,15 +4,15 @@
             Главный судья: {{mainRef?.personName}}
             <span *ngIf="roles.isInformer && !mainRef" role="button" (click)="addMatchPerson(7)"><mat-icon>add</mat-icon></span>
             <span *ngIf="roles.isInformer && mainRef">
-                <span role="button" (click)="selectMatchPerson(mainRef)" class="glyphicon glyphicon-pencil"></span>
-                <span role="button" (click)="showDeleteModal(mainRef)" class="glyphicon glyphicon-trash"></span>
+                <i role="button" (click)="selectMatchPerson(mainRef)" class="material-icons">edit</i>
+                <i role="button" (click)="showDeleteModal(mainRef)" class="material-icons">clear</i>
             </span>
         </div>
         <div class="full-width text-center">
             Помощники судьи: <span *ngFor="let ref of assistantRef; let last = last;">
                 {{ref.personName}}
-                <span *ngIf="roles.isInformer" role="button" (click)="selectMatchPerson(person)" class="glyphicon glyphicon-pencil"></span>
-                <span *ngIf="roles.isInformer" role="button" (click)="showDeleteModal(person)" class="glyphicon glyphicon-trash"></span><span *ngIf="!last">, </span>
+                <span *ngIf="roles.isInformer" role="button" (click)="selectMatchPerson(person)" class="material-icons">edit</span>
+                <span *ngIf="roles.isInformer" role="button" (click)="showDeleteModal(person)" class="material-icons">clear</span><span *ngIf="!last">, </span>
             </span>
             <span *ngIf="roles.isInformer && assistantRef.length < 2" role="button" (click)="addMatchPerson(8)"><mat-icon>add</mat-icon></span>
         </div>
@@ -20,8 +20,8 @@
             Дополнительные судьи: <span *ngFor="let ref of additionalRef; let last=last;">
                 {{ref.personName}}
                 <span *ngIf="roles.isInformer">
-                    <span role="button" (click)="selectMatchPerson(ref)" class="glyphicon glyphicon-pencil"></span>
-                    <span role="button" (click)="showDeleteModal(ref)" class="glyphicon glyphicon-trash"></span>
+                    <span role="button" (click)="selectMatchPerson(ref)" class="material-icons">edit</span>
+                    <span role="button" (click)="showDeleteModal(ref)" class="material-icons">clear</span>
                 </span>
                 <span *ngIf="!last">, </span>
             </span>
@@ -30,8 +30,8 @@
             Резервный судья: {{fourthRef?.personName}}
             <span *ngIf="roles.isInformer && !fourthRef" role="button" (click)="addMatchPerson(9)"><mat-icon>add</mat-icon></span>
             <span *ngIf="roles.isInformer && fourthRef">
-                <span role="button" (click)="selectMatchPerson(fourthRef)" class="glyphicon glyphicon-pencil"></span>
-                <span role="button" (click)="showDeleteModal(fourthRef)" class="glyphicon glyphicon-trash"></span>
+                <span role="button" (click)="selectMatchPerson(fourthRef)" class="material-icons">edit</span>
+                <span role="button" (click)="showDeleteModal(fourthRef)" class="material-icons">clear</span>
             </span>
         </div>
         <div class="width50p container-row">
@@ -39,8 +39,8 @@
                 Главный тренер:
                 <span *ngIf="roles.isInformer && !homeCoach" role="button" (click)="addMatchPerson(isHome ? 5 : 6)"><mat-icon>add</mat-icon></span>
                 <span *ngIf="roles.isInformer && homeCoach">
-                    <span role="button" (click)="selectMatchPerson(homeCoach)" class="glyphicon glyphicon-pencil"></span>
-                    <span role="button" (click)="showDeleteModal(homeCoach)" class="glyphicon glyphicon-trash"></span>
+                    <span role="button" (click)="selectMatchPerson(homeCoach)" class="material-icons">edit</span>
+                    <span role="button" (click)="showDeleteModal(homeCoach)" class="material-icons">clear</span>
                 </span>
             </i>
             <div class="full-width" [textContent]="homeCoach?.personName"></div>
@@ -51,8 +51,8 @@
             <div class="full-width" *ngFor="let person of homeTeam">
                 {{person.number}} - {{person.personName}}
                 <span *ngIf="roles.isInformer">
-                    <span role="button" (click)="selectMatchPerson(person)" class="glyphicon glyphicon-pencil"></span>
-                    <span role="button" (click)="showDeleteModal(person)" class="glyphicon glyphicon-trash"></span>
+                    <span role="button" (click)="selectMatchPerson(person)" class="material-icons">edit</span>
+                    <span role="button" (click)="showDeleteModal(person)" class="material-icons">clear</span>
                 </span>
             </div>
             <i class="full-width top10">
@@ -62,8 +62,8 @@
             <div class="full-width" *ngFor="let person of homeBench">
                 {{person.number}} - {{person.personName}}     
                 <span *ngIf="roles.isInformer">
-                    <span role="button" (click)="selectMatchPerson(person)" class="glyphicon glyphicon-pencil"></span>
-                    <span role="button" (click)="showDeleteModal(person)" class="glyphicon glyphicon-trash"></span>
+                    <span role="button" (click)="selectMatchPerson(person)" class="material-icons">edit</span>
+                    <span role="button" (click)="showDeleteModal(person)" class="material-icons">clear</span>
                 </span>
             </div>
             <div class="full-width top10" *ngIf="homeBan.length > 0">
@@ -71,8 +71,8 @@
                 <div class="full-width" *ngFor="let person of homeBan">
                     {{person.number}} - {{person.personName}}
                     <span *ngIf="roles.isInformer">
-                        <span role="button" (click)="selectMatchPerson(person)" class="glyphicon glyphicon-pencil"></span>
-                        <span role="button" (click)="showDeleteModal(person)" class="glyphicon glyphicon-trash"></span>
+                        <span role="button" (click)="selectMatchPerson(person)" class="material-icons">edit</span>
+                        <span role="button" (click)="showDeleteModal(person)" class="material-icons">clear</span>
                     </span>
                 </div>
             </div>
@@ -81,8 +81,8 @@
                 <div class="full-width" *ngFor="let person of homeInjury">
                     {{person.number}} - {{person.personName}}
                     <span *ngIf="roles.isInformer">
-                        <span role="button" (click)="selectMatchPerson(person)" class="glyphicon glyphicon-pencil"></span>
-                        <span role="button" (click)="showDeleteModal(person)" class="glyphicon glyphicon-trash"></span>
+                        <span role="button" (click)="selectMatchPerson(person)" class="material-icons">edit</span>
+                        <span role="button" (click)="showDeleteModal(person)" class="material-icons">clear</span>
                     </span>
                 </div>
             </div>
@@ -92,8 +92,8 @@
                 Главный тренер:
                 <span *ngIf="roles.isInformer && !awayCoach" role="button" (click)="addMatchPerson(isHome ? 6 : 5)"><mat-icon>add</mat-icon></span>     
                 <span *ngIf="roles.isInformer && awayCoach">
-                    <span role="button" (click)="selectMatchPerson(awayCoach)" class="glyphicon glyphicon-pencil"></span>
-                    <span role="button" (click)="showDeleteModal(awayCoach)" class="glyphicon glyphicon-trash"></span>
+                    <span role="button" (click)="selectMatchPerson(awayCoach)" class="material-icons">edit</span>
+                    <span role="button" (click)="showDeleteModal(awayCoach)" class="material-icons">clear</span>
                 </span>
             </i>
             <div class="full-width" [textContent]="awayCoach?.personName"></div>
@@ -104,8 +104,8 @@
             <div class="full-width" *ngFor="let person of awayTeam">
                 {{person.number}} - {{person.personName}}                    
                 <span *ngIf="roles.isInformer">
-                    <span role="button" (click)="selectMatchPerson(person)" class="glyphicon glyphicon-pencil"></span>
-                    <span role="button" (click)="showDeleteModal(person)" class="glyphicon glyphicon-trash"></span>
+                    <span role="button" (click)="selectMatchPerson(person)" class="material-icons">edit</span>
+                    <span role="button" (click)="showDeleteModal(person)" class="material-icons">clear</span>
                 </span>
             </div>
             <i class="full-width top10">
@@ -115,8 +115,8 @@
             <div class="full-width" *ngFor="let person of awayBench">
                 {{person.number}} - {{person.personName}}
                 <span *ngIf="roles.isInformer">
-                    <span role="button" (click)="selectMatchPerson(person)" class="glyphicon glyphicon-pencil"></span>
-                    <span role="button" (click)="showDeleteModal(person)" class="glyphicon glyphicon-trash"></span>
+                    <span role="button" (click)="selectMatchPerson(person)" class="material-icons">edit</span>
+                    <span role="button" (click)="showDeleteModal(person)" class="material-icons">clear</span>
                 </span>
             </div>
             <div class="full-width top10" *ngIf="awayBan.length > 0">
@@ -124,8 +124,8 @@
                 <div class="full-width" *ngFor="let person of awayBan">
                     {{person.number}} - {{person.personName}}
                     <span *ngIf="roles.isInformer">
-                        <span role="button" (click)="selectMatchPerson(person)" class="glyphicon glyphicon-pencil"></span>
-                        <span role="button" (click)="showDeleteModal(person)" class="glyphicon glyphicon-trash"></span>
+                        <span role="button" (click)="selectMatchPerson(person)" class="material-icons">edit</span>
+                        <span role="button" (click)="showDeleteModal(person)" class="material-icons">clear</span>
                     </span>
                 </div>
             </div>
@@ -134,8 +134,8 @@
                 <div class="full-width" *ngFor="let person of awayInjury">
                     {{person.number}} - {{person.personName}}
                     <span *ngIf="roles.isInformer">
-                        <span role="button" (click)="selectMatchPerson(person)" class="glyphicon glyphicon-pencil"></span>
-                        <span role="button" (click)="showDeleteModal(person)" class="glyphicon glyphicon-trash"></span>
+                        <span role="button" (click)="selectMatchPerson(person)" class="material-icons">edit</span>
+                        <span role="button" (click)="showDeleteModal(person)" class="material-icons">clear</span>
                     </span>
                 </div>
             </div>

@@ -127,6 +127,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\dist\aspnetcorespa\main.0e93ea76c62e93cb33af.js" />
+    <None Remove="ClientApp\dist\aspnetcorespa\main.0e93ea76c62e93cb33af.js" />
+    <None Remove="ClientApp\dist\aspnetcorespa\polyfills.97d1f2412b3b8ed06ea2.js" />
+    <None Remove="ClientApp\dist\aspnetcorespa\polyfills.97d1f2412b3b8ed06ea2.js" />
+    <None Remove="ClientApp\dist\aspnetcorespa\styles.4c940d98f61ecb9691fc.css" />
+    <None Remove="ClientApp\dist\aspnetcorespa\styles.4c940d98f61ecb9691fc.css" />
     <None Remove="ClientApp\src\app\forum\forum.module.ts" />
     <None Remove="ClientApp\src\app\forum\forum.module.ts" />
     <None Remove="ClientApp\src\app\forum\forum.routes.ts" />

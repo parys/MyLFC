@@ -9,8 +9,8 @@
                 <h3 class="panel-title">
                     <a [routerLink]="[item.id]"> <span [textContent]="item.dateTime | customDate:false:true"></span> - <span [textContent]="item.stadiumName"></span></a>
                     <span class="col-xs-2 col-sm-2 pull-right">
-                        <a [routerLink]="[item.id, 'edit']"><span class="glyphicon glyphicon-pencil"></span></a>
-                        <a (click)="showDeleteModal(i)"><span class="glyphicon glyphicon-trash"></span></a>
+                        <a [routerLink]="[item.id, 'edit']"><i class="material-icons">edit</i></a>
+                        <a (click)="showDeleteModal(i)"><i class="material-icons">clear</i></a>
                     </span>
                 </h3>
             </div>
