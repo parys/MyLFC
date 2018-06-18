@@ -518,6 +518,12 @@ textarea {
     border-style: solid;
 }
 
+.center-block {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+}
+
 .block-minichat {
     background-color: #731010;
     border-radius: 10px;
@@ -596,7 +602,6 @@ textarea {
 .com-offset-7 {
     margin-left: 21%;
 }*/
-
 .center {
     margin: auto;
 }
@@ -834,8 +839,6 @@ textarea {
     height: 140px;
     width: 300px;
 }
-
-
 /* background image*/
 /*
 .main {

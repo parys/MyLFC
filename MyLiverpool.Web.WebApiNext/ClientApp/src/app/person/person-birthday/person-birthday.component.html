@@ -4,11 +4,11 @@
             В этот день родился <b [textContent]="items[currentPersonIndex].russianName"></b>
         </mat-card-title>
     </mat-card-header>
-    <mat-card-content>
+    <mat-card-content class="center">
         <img [src]="items[currentPersonIndex].photo" class="center-block avatar-medium" [alt]="items[currentPersonIndex].russianName" />
     </mat-card-content>
-    <mat-card-actions *ngIf="items.length > 1">
-        <button mat-button (click)="goToPrevious()"><span class="glyphicon glyphicon-triangle-left"></span></button>
-        <button mat-button (click)="goToNext()" class="pull-right"><span class="glyphicon glyphicon-triangle-right"></span></button>
+    <mat-card-actions *ngIf="items.length > 1" class="flex-space-between">
+        <button mat-button (click)="goToPrevious()"><mat-icon>arrow_left</mat-icon></button>
+        <button mat-button (click)="goToNext()"><mat-icon>arrow_right</mat-icon></button>
     </mat-card-actions>
 </mat-card>

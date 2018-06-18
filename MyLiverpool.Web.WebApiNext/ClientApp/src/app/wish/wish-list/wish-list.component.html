@@ -9,8 +9,8 @@
                 <h3 class="panel-title flex-space-between">
                     <span [textContent]="wish.title"></span>
                     <span *ngIf="roles.isAdmin">
-                        <a [routerLink]="[wish.id, 'edit']"><span class="glyphicon glyphicon-pencil"></span></a>
-                        <a (click)="showDeleteModal(i)"><span class="glyphicon glyphicon-trash"></span></a>
+                        <a [routerLink]="[wish.id, 'edit']"><mat-icon>edit</mat-icon></a>
+                        <a (click)="showDeleteModal(i)"><mat-icon>clear</mat-icon></a>
                     </span>
                 </h3>
             </div>

@@ -1,8 +1,11 @@
 ﻿<ad [blockName]="'R-A-255349-2'"></ad>
 
-<div id="comments">
+<div id="comments" class="flex-vertical-center">
     Комментарии: <span [textContent]="totalItems"></span>&nbsp;
-    <button (click)="update()"><i class="material-icons text-success">refresh</i></button>
+    <a (click)="update()"
+       role="button">
+        <mat-icon>refresh</mat-icon>
+    </a>
 </div>
 
 <div *ngFor="let comment of items | paginate: { itemsPerPage: itemsPerPage,

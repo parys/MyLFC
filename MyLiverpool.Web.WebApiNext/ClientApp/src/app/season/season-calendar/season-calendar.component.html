@@ -14,7 +14,12 @@
                     <span [textContent]="match.typeName"></span>
                 </td>
                 <td>
-                    <span><span [textContent]="match.dateTime | customDate"></span><a *ngIf="roles.isAdminAssistant" [routerLink]="['/matches', match.id, 'edit']"><span class="glyphicon glyphicon-pencil"></span></a></span>
+                    <span>
+                        <span [textContent]="match.dateTime | customDate"></span>
+                        <a *ngIf="roles.isAdminAssistant" [routerLink]="['/matches', match.id, 'edit']">
+                            <mat-icon>edit</mat-icon>
+                        </a>
+                    </span>
                 </td>
                 <td>
                     <div class="flex-vertical-center">

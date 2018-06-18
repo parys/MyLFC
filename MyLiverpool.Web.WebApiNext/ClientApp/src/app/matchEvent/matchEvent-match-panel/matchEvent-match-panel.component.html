@@ -12,8 +12,8 @@
             <span *ngIf="event.type === 8" class="flex-vertical-center" [title]="event.typeName"><mat-icon class="color-green">arrow_upward</mat-icon>{{event.personName}} - {{event.minute}}' </span>
             <span *ngIf="event.type === 10"><img class="width20px" alt="Гол" src="/img/goal_own.png" [title]="event.typeName">П(нереализованный){{event.personName}} - {{event.minute}}' </span>
             <span *ngIf="event.type === 12"><span class="">Травма </span>{{event.personName}} - {{event.minute}}' </span>
-            <i *ngIf="roles.isInformer" role="button" (click)="selectEvent(i)" class="material-icons">edit</i>
-            <i *ngIf="roles.isInformer" role="button" (click)="showDeleteModal(i)" class="material-icons">clear</i>
+            <i *ngIf="roles.isInformer" role="button" (click)="selectEvent(i)"><mat-icon style="font-size: 100%;">edit</mat-icon></i>
+            <i *ngIf="roles.isInformer" role="button" (click)="showDeleteModal(i)"><mat-icon style="font-size: 100%;">clear</mat-icon></i>
         </div>
     </div>
 </div>
