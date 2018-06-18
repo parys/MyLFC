@@ -6,5 +6,21 @@
     "/connect": {
         "target": "http://localhost:1669",
         "secure": false
+    },
+    "/hubs": {
+        "target": "http://localhost:1669",
+        "secure": false
+    },
+    "/content": {
+        "target": "http://localhost:1669",
+        "secure": false
+    },
+    "/src": {
+        "target": "http://localhost:1669",
+        "secure": false
+    },
+    "/img": {
+        "target": "http://localhost:1669",
+        "secure": false
     }
 }

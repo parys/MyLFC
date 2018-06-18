@@ -8,7 +8,7 @@
     "ng": "ng",
     "start": "ng serve",
     "lint": "ng lint",
-    "analyze": "npm run build -- --stats-json && webpack-bundle-analyzer dist/stats.json"
+    "analyze": "npm run build -- --stats-json && webpack-bundle-analyzer dist/aspnetcorespa/stats.json"
   },
   "dependencies": {
     "@angular/animations": "6.0.5",
