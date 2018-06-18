@@ -12,9 +12,13 @@ export const routes: Routes = [
     ...imageRoutes,
     ...materialRoutes,
     ...roleGroupRoutes,
-    //{
-    //    path: "seasons",
-    //    loadChildren: "app/season/season.module#SeasonModule"
-    //},
+    {
+        path: "seasons",
+        loadChildren: "app/season/season.module#SeasonModule"
+    },
+    {
+        path: "wishes",
+        loadChildren: "app/wish/wish.module#WishModule"
+    },
     { path: "", component: MaterialListComponent, data: { title: "MyLFC.ru - Сайт русскоязычных болельщиков ФК \"Ливерпуль\"", type: "Both" } }
 ];

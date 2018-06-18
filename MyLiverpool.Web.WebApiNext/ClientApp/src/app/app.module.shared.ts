@@ -21,7 +21,7 @@ import { PersonModule } from "./person";
 import * as roleGroup from "./roleGroup";
 import { SharedModule } from "./shared";
 import { StadiumModule } from "./stadium";
-import { WishModule } from "./wish";
+//import { WishModule } from "./wish";
 import * as admin from "./admin";
 import { NgxPaginationModule } from "ngx-pagination";
 import { AccountModule } from "./account";
@@ -30,7 +30,7 @@ import { CommentModule } from "./comment";
 import { NotificationModule } from "./notification";
 import { MaterialCategoryModule } from "./materialCategory";
 import { UserModule } from "./user";
-import { SeasonModule } from "./season";
+//import { SeasonModule } from "./season";
 
 registerLocaleData(localeRU);
 
@@ -53,10 +53,10 @@ registerLocaleData(localeRU);
         NotificationModule,
         PersonModule,
         RouterModule.forRoot(routes),
-        SeasonModule,
+     //   SeasonModule,
         StadiumModule,
         UserModule,
-        WishModule,
+     //   WishModule,
     ],
     declarations: [
         home.StaticPageComponent,

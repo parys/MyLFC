@@ -13,7 +13,7 @@ import { SharedModule } from "@app/shared";
     imports: [
         CommonModule,
         FormsModule,
-        RouterModule.forRoot(wishRoutes),
+        RouterModule.forChild(wishRoutes),
         ReactiveFormsModule,
         NgxPaginationModule,
         SharedModule

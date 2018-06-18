@@ -1,7 +1,7 @@
 ﻿import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { SharedModule } from "@app/shared";
-import { seasonRoutes } from "./season.routes";
+import { routing } from "./season.routes";
 import { SeasonService } from "./season.service";
 import { SeasonCalendarComponent } from "./season-calendar";
 import { SeasonEditComponent } from "./season-edit";
@@ -11,16 +11,13 @@ import { SeasonStatisticsComponent } from "./season-statistics";
 @NgModule({
     imports: [
         SharedModule,
-        RouterModule.forChild(seasonRoutes)
+        routing
     ],
     declarations: [
         SeasonCalendarComponent,
         SeasonEditComponent,
         SeasonListComponent,
         SeasonStatisticsComponent
-    ],
-    exports: [
-        RouterModule
     ],
     providers: [
         SeasonService
