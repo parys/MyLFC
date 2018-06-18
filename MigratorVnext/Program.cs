@@ -1,15 +1,12 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -1604,14 +1601,14 @@ namespace MigratorVnext
                         continue;
                         //moduleID (1=>'blog',2=>'news',3=>'publ',4=>'photo',5=>'load',6=>'dir',7=>'board')
                     }
-                    var materialType = MaterialType.Both;
+                    var materialType = CommentType.News;
                     if (ModuleId == 2)
                     {
-                        materialType = MaterialType.News;
+                        materialType = CommentType.News;
                     }
                     else if (ModuleId == 1)
                     {
-                        materialType = MaterialType.Blogs;
+                        materialType = CommentType.Blogs;
                     }
                     User author = null;
                     if (!string.IsNullOrEmpty(userName))
@@ -1626,7 +1623,7 @@ namespace MigratorVnext
 
                     MaterialComment comment = new MaterialComment()
                     {
-                        MaterialType = materialType,
+                        Type = materialType,
                    //     MaterialId = int.Parse(materialId),
                         OldId = int.Parse(id),
                         IsVerified = true,

@@ -1,3 +1,5 @@
 ﻿<a [routerLink]="['/pms']" class="text-white flex-vertical-center">
-    <mat-icon>mail</mat-icon><span [class.color-red]="count > 0">(<span [class.color-gold]="count>0"[textContent]="count"></span>)</span>
+    <mat-icon [matBadge]="count"
+              matBadgeColor="warn"
+              [matBadgeHidden]="count == 0">mail</mat-icon>
 </a>

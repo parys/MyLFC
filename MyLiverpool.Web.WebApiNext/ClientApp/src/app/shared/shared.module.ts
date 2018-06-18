@@ -10,9 +10,10 @@ import { RolesCheckedService } from "./roles-checked.service";
 import { GlobalValidators } from "./globalValidators";
 import { ReCaptchaModule } from "angular2-recaptcha";
 import { DeleteDialogComponent } from "./delete-dialog";
-import { MatAutocompleteModule, MatButtonModule, MatCardModule, MatCheckboxModule, MatDatepickerModule, MatDialogModule, MatExpansionModule,
+import {
+    MatAutocompleteModule, MatBadgeModule, MatButtonModule, MatCardModule, MatCheckboxModule, MatDatepickerModule, MatDialogModule, MatExpansionModule,
     MatIconModule, MatInputModule, MatMenuModule, MatNativeDateModule, MatProgressBarModule, MatSelectModule, MatSlideToggleModule,
-    MatSnackBarModule, MatTabsModule, MatTableModule, MatSortModule, MatPaginatorModule, MatPaginatorIntl
+    MatSnackBarModule, MatTabsModule, MatTableModule, MatTooltipModule, MatSortModule, MatPaginatorModule, MatPaginatorIntl
 } from "@angular/material";
 import { LoaderComponent, LoaderService } from "./loader";
 import { BearerInterceptor } from "./interceptors";
@@ -20,12 +21,13 @@ import { RoleGuard, UnSignedGuard, AuthService } from "./auth";
 import { CustomDatePipe } from "./pipes";
 import { BreadcrumbComponent, BreadcrumbService } from "./breadcrumb";
 import { NgxPaginationModule } from "ngx-pagination";
-import { DeferLoadDirective } from "./lazy";
+//import { DeferLoadDirective } from "./lazy";
 import { AdComponent } from "./ad";
 
 
 import { getRussianPaginatorIntl } from './intl/russian-paginator-intl';
 import { SignalRService } from "./signalr.common.service";
+//import { DeferLoadDirective } from "./lazy/defer-load.directive";
 
 export function getStorage() {
     const result = typeof window !== "undefined" ? window.localStorage : null;
@@ -42,6 +44,7 @@ export function getStorage() {
       //  McBreadcrumbsModule.forRoot(),
 
         MatAutocompleteModule,
+        MatBadgeModule,
         MatButtonModule,
         MatCardModule,
         MatCheckboxModule,
@@ -59,7 +62,8 @@ export function getStorage() {
         MatPaginatorModule,
         MatSortModule,
         MatTabsModule,
-        MatTableModule
+        MatTableModule,
+        MatTooltipModule
 
     ],
     declarations: [
@@ -68,7 +72,7 @@ export function getStorage() {
         LoaderComponent,
         CustomDatePipe,
         BreadcrumbComponent,
-        DeferLoadDirective,
+     //   DeferLoadDirective,
         AdComponent
     ],
     exports: [
@@ -85,6 +89,7 @@ export function getStorage() {
         AdComponent,
 
         MatAutocompleteModule,
+        MatBadgeModule,
         MatButtonModule,
         MatCardModule,
         MatCheckboxModule,
@@ -102,7 +107,7 @@ export function getStorage() {
         MatSortModule,
         MatTabsModule,
         MatTableModule,
-        DeferLoadDirective
+        MatTooltipModule,
     ],
     providers: [
         AuthService,

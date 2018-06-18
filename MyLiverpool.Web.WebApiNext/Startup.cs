@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.IO.Compression;
@@ -276,6 +277,7 @@ namespace MyLiverpool.Web.WebApiNext
                 if (env.IsDevelopment())
                 {
                        spa.UseAngularCliServer(npmScript: "start");
+                    spa.Options.StartupTimeout = TimeSpan.FromSeconds(120);
                     //   OR
                    // spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
                 }

@@ -1,4 +1,4 @@
-﻿<button class="btn btn-success" [routerLink]="[0, 'edit']">Добавить</button>
+﻿<button mat-raised-button color="warn" [routerLink]="[0, 'edit']">Добавить</button>
 <div class="top20" *ngFor="let injury of items | paginate: { itemsPerPage: itemsPerPage,
                                                       currentPage: page,
                                                       totalItems: totalItems }; let i = index;">

@@ -2,7 +2,7 @@
     <div class="full-width bg-primary flex padding5 border-panel border-lgray match-calendar" *ngIf="next">
         <div class="full-width flex-space-between">
             <span>Следующая игра
-                <a *ngIf="roles.isInformer" [routerLink]="['/matches', next.id, 'edit']"><i class="material-icons color-red">edit</i></a>
+                <a *ngIf="roles.isInformer" [routerLink]="['/matches', next.id, 'edit']"><i class="material-icons color-red" style="font-size: 100%">edit</i></a>
             </span>
             <span>
                 <b style="font-size: 1.2em;" class="pull-right" [textContent]="next.dateTime | customDate:false:true"></b>
@@ -32,7 +32,7 @@
         <div class="full-width flex-space-between">
             <span>
                 Последняя игра
-                <a *ngIf="roles.isInformer" [routerLink]="['/matches', last.id, 'edit']"><i class="material-icons color-red">edit</i></a>
+                <a *ngIf="roles.isInformer" [routerLink]="['/matches', last.id, 'edit']"><i class="material-icons color-red" style="font-size: 100%">edit</i></a>
             </span><!--todo add back color for win|drar|lost-->
             <span>
                 <span class="pull-right" [textContent]="last.dateTime | customDate:false:true"></span>

@@ -52,7 +52,6 @@ export class CommentSectionComponent implements OnInit, OnChanges, AfterViewChec
         const fragment = this.router.parseUrl(this.router.url).fragment;
         if (fragment) {
             const element = document.getElementById(fragment);
-            //    const element = document.getElementsByTagName("footer")[0];
             if (element) {
                 this.renderer.addClass(element, "active");
                 const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;

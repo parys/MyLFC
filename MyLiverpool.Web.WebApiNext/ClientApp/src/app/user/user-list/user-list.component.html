@@ -16,7 +16,7 @@
                     <span [textContent]="user.userName"></span>
                 </a>
                 <span class="text-danger" tooltip="Почта не подтверждена" *ngIf="!user.emailConfirmed && (roles.isAdminAssist || roles.isSelf(user.id))"> *</span>
-                <a role="button" *ngIf="roles.isLogined && !roles.isSelf(user.id)" (click)="writePm(i)"><span class="glyphicon glyphicon-envelope"></span></a>
+                <a role="button" *ngIf="roles.isLogined && !roles.isSelf(user.id)" (click)="writePm(i)"><i class="material-icons">email</i></a>
             </td>
         </ng-container>
 

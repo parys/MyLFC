@@ -8,7 +8,7 @@
         <img [src]="items[currentUserIndex].photo" class="center-block avatar-medium" [alt]="items[currentUserIndex].userName"/>
     </mat-card-content>
     <mat-card-actions *ngIf="items.length > 1">
-        <button mat-button (click)="goToPrevious()"><span class="glyphicon glyphicon-triangle-left"></span></button>
-        <button mat-button (click)="goToNext()" class="pull-right"><span class="glyphicon glyphicon-triangle-right"></span></button>
+        <button mat-button (click)="goToPrevious()"><mat-icon>arrow_left</mat-icon></button>
+        <button mat-button (click)="goToNext()"><mat-icon>arrow_right</mat-icon></button>
     </mat-card-actions>
 </mat-card>
