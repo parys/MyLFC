@@ -26,7 +26,7 @@ namespace MyLiverpool.Web.WebApiNext
                 //                .UseApplicationInsights()
                 .UseConfiguration(config)
 #if DEBUG
-    .UseIISIntegration()
+   // .UseIISIntegration()
 #endif
                 //.CaptureStartupErrors(true)
                 .UseKestrel()

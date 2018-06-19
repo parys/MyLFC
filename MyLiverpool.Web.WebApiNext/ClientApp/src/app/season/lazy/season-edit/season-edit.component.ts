@@ -2,8 +2,8 @@
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs";
-import { Season } from "../season.model";
-import { SeasonService } from "../season.service";
+import { Season } from "../../season.model";
+import { SeasonService } from "../../season.service";
 
 @Component({
     selector: "season-edit",

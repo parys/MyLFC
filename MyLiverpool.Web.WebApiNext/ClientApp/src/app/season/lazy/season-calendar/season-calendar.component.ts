@@ -1,8 +1,8 @@
 ﻿import { Component, OnInit, ViewChild, ChangeDetectionStrategy } from "@angular/core";
 import { MatSelect, MatSelectChange } from "@angular/material";
 import { ActivatedRoute } from "@angular/router";
-import { Season } from "../season.model";
-import { SeasonService } from "../season.service";
+import { Season } from "../../season.model";
+import { SeasonService } from "../../season.service";
 import { RolesCheckedService } from "@app/shared";
 
 @Component({

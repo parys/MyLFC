@@ -3,10 +3,10 @@ import { ModuleWithProviders } from '@angular/core';
 import { SeasonListComponent } from "./season-list";
 import { SeasonEditComponent } from "./season-edit";
 import { SeasonCalendarComponent } from "./season-calendar";
-import { RoleGuard } from "@app/shared/";
+import { RoleGuard } from "@app/shared";
 import { SeasonStatisticsComponent } from "./season-statistics";
 
-const seasonRoutes: Routes = [
+export const seasonRoutes: Routes = [
     {
         path: "seasons",
         children: [
@@ -30,5 +30,3 @@ const seasonRoutes: Routes = [
         ]
     }
 ];
-
-export const routing: ModuleWithProviders = RouterModule.forChild(seasonRoutes);

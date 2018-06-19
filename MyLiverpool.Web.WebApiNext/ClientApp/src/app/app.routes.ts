@@ -13,12 +13,16 @@ export const routes: Routes = [
     ...materialRoutes,
     ...roleGroupRoutes,
     {
-        path: "seasons",
-        loadChildren: "app/season/season.module#SeasonModule"
+        path: "wishes",
+        loadChildren: "./wish/wish.module#WishModule"
     },
     {
-        path: "wishes",
-        loadChildren: "app/wish/wish.module#WishModule"
+        path: "seasons",
+        loadChildren: "./season/lazy/season.module#SeasonModule"
+    },
+    {
+        path: "z",
+        loadChildren: "./z/z.module#ZModule"
     },
     { path: "", component: MaterialListComponent, data: { title: "MyLFC.ru - Сайт русскоязычных болельщиков ФК \"Ливерпуль\"", type: "Both" } }
 ];

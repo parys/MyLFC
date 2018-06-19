@@ -7,7 +7,7 @@ import { registerLocaleData } from "@angular/common";
 import localeRU from "@angular/common/locales/ru";
 import { AppComponent } from "./app.component";
 import { routes } from "./app.routes";
-import { ForumModule } from "./forum";
+//import { ForumModule } from "./forum";
 import { Configuration } from "./app.constants";
 import * as material from "./material";
 import { EditorModule } from "./editor";
@@ -23,14 +23,13 @@ import { SharedModule } from "./shared";
 import { StadiumModule } from "./stadium";
 //import { WishModule } from "./wish";
 import * as admin from "./admin";
-import { NgxPaginationModule } from "ngx-pagination";
 import { AccountModule } from "./account";
 import { TransferModule } from "./transfer";
 import { CommentModule } from "./comment";
 import { NotificationModule } from "./notification";
 import { MaterialCategoryModule } from "./materialCategory";
 import { UserModule } from "./user";
-//import { SeasonModule } from "./season";
+import { SeasonCoreModule } from "./season";
 
 registerLocaleData(localeRU);
 
@@ -43,7 +42,6 @@ registerLocaleData(localeRU);
         AccountModule,
       //  ForumModule,
         InjuryModule,
-        NgxPaginationModule,
         ChatModule,
         CommentModule,
         ClubModule,
@@ -52,8 +50,8 @@ registerLocaleData(localeRU);
         MaterialCategoryModule,
         NotificationModule,
         PersonModule,
+        SeasonCoreModule,
         RouterModule.forRoot(routes),
-     //   SeasonModule,
         StadiumModule,
         UserModule,
      //   WishModule,
@@ -79,6 +77,9 @@ registerLocaleData(localeRU);
     entryComponents: [
         material.MaterialActivateDialogComponent,
     ],
+    exports: [
+        RouterModule
+        ],
     providers: [// services
         image.ImageService,
         roleGroup.RoleGroupService,
