@@ -1,8 +1,8 @@
-﻿//import { Routes } from "@angular/router";
+﻿import { Routes } from "@angular/router";
 
-//export const seasonCoreRoutes: Routes = [
-//    {
-//        path: "seasons",
-//        loadChildren: "./lazy/season.module#SeasonModule"
-//    }
-//];
+export const seasonCoreRoutes: Routes = [
+    {
+        path: "seasons",
+        loadChildren: "./lazy/season.module#SeasonModule"
+    }
+];

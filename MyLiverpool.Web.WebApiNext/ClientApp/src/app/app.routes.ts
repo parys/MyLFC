@@ -20,9 +20,5 @@ export const routes: Routes = [
         path: "seasons",
         loadChildren: "./season/lazy/season.module#SeasonModule"
     },
-    {
-        path: "z",
-        loadChildren: "./z/z.module#ZModule"
-    },
     { path: "", component: MaterialListComponent, data: { title: "MyLFC.ru - Сайт русскоязычных болельщиков ФК \"Ливерпуль\"", type: "Both" } }
 ];
