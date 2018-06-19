@@ -173,14 +173,8 @@ namespace MyLiverpool.Web.WebApiNext
             //    new DatabaseInitializer(context).Seed();
             //}
 
-            if (Env.IsDevelopment())
-            {
                 // In production, the Angular files will be served from this directory
-                services.AddSpaStaticFiles(configuration =>
-            {
-                configuration.RootPath = "ClientApp/dist/aspnetcorespa";
-            });
-            }
+            services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist/aspnetcorespa"; });
         }
 
         /// <summary>

@@ -1,13 +1,13 @@
 ﻿<div *ngIf="item" class="comment-container com-offset-{{deep}}" [class.nested]="item.children.length > 0">
     <div class="comment padding5" [id]="'com'+item.id">
-        <div class="flex-space-between">
+        <div class="flex-space-between flex-vertical-center">
             <span>
                 <span>
-                    <a *ngIf="item.number" [routerLink]="['/', item.typeName, item.materialId || item.matchId]"
+                    <a [routerLink]="['/', item.typeName, item.materialId || item.matchId]"
                        fragment="com{{item.id}}"
                        [textContent]="item.number"></a>
                 </span>&nbsp;
-                <a [routerLink]="['/users', item.authorId]" [textContent]="item.authorUserName"></a>
+                <a class=" font-size20" [routerLink]="['/users', item.authorId]" [textContent]="item.authorUserName"></a>
             </span>
             <span>
                 <span class="small" [textContent]="item.additionTime | customDate:true"></span>
@@ -15,22 +15,22 @@
             </span>
             <span>
                 <span>
-                    <span class="color-green" [textContent]="item.positiveCount"></span>
-                    <a class="color-green" (click)="vote(true)" *ngIf="item.canPositiveVote && !roles.isSelf(item.authorId)">
+                    <span class="color-green font-size24" [textContent]="item.positiveCount"></span>
+                    <a class="color-green" role="button" (click)="vote(true)" *ngIf="item.canPositiveVote && !roles.isSelf(item.authorId)">
                         <mat-icon>thumb_up</mat-icon>
                     </a>
                     /
-                    <span class="color-red" [textContent]="item.negativeCount"></span>
-                    <a class="color-red" (click)="vote(false)" *ngIf="item.canNegativeVote && !roles.isSelf(item.authorId)">
+                    <span class="color-red font-size24" [textContent]="item.negativeCount"></span>
+                    <a class="color-red" role="button" (click)="vote(false)" *ngIf="item.canNegativeVote && !roles.isSelf(item.authorId)">
                         <mat-icon>thumb_down</mat-icon>
                     </a>
                 </span>
                 <a *ngIf="roles.isModerator && !item.isVerified" (click)="verify()">
-                    <i class="material-icons" style="font-size: 100%">done</i></a>
+                    <i class="material-icons">done</i></a>
                 <a *ngIf="roles.isModerator || roles.isSelf(item.authorId)" role="button" (click)="showEditModal()">
-                    <i class="material-icons" style="font-size: 100%">edit</i></a>
+                    <i class="material-icons">edit</i></a>
                 <a *ngIf="roles.isModerator" role="button" (click)="showDeleteModal()">
-                    <i class="material-icons" style="font-size: 100%">clear</i></a>
+                    <i class="material-icons">clear</i></a>
             </span>
         </div>
         <div *ngIf="!isEditMode">

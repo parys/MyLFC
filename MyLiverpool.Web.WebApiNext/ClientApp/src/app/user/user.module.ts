@@ -10,6 +10,7 @@ import { UserDetailComponent } from "./user-detail";
 import { UserConfigComponent } from "./user-config";
 import { UserOnlineCounterComponent } from "./user-online-counter";
 import { PmModule } from "@app/pm";
+import { RoleGroupCoreModule } from "../roleGroup/roleGroup-core.module";
 //import { SignalRModule } from "@app/+signalr";
 
 @NgModule({
@@ -17,7 +18,9 @@ import { PmModule } from "@app/pm";
         SharedModule,
         UserCoreModule,
         PmModule,
-        RouterModule.forRoot(userRoutes)//,
+        RouterModule.forRoot(userRoutes),
+        RoleGroupCoreModule
+
      //   SignalRModule
     ],
     declarations: [

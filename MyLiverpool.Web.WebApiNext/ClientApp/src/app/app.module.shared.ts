@@ -18,10 +18,8 @@ import * as image from "./image";
 import { InjuryModule } from "./injury";
 import { MatchModule } from "./match";
 import { PersonModule } from "./person";
-import * as roleGroup from "./roleGroup";
 import { SharedModule } from "./shared";
 import { StadiumModule } from "./stadium";
-//import { WishModule } from "./wish";
 import * as admin from "./admin";
 import { AccountModule } from "./account";
 import { TransferModule } from "./transfer";
@@ -64,7 +62,6 @@ registerLocaleData(localeRU);
         image.ImageAdditionComponent,
         image.ImageDetailComponent,
         image.ImageListComponent,
-        roleGroup.RoleGroupListComponent,
         AppComponent,
         admin.CupTableComponent,
         admin.EplTableComponent,
@@ -77,12 +74,8 @@ registerLocaleData(localeRU);
     entryComponents: [
         material.MaterialActivateDialogComponent,
     ],
-    exports: [
-        RouterModule
-        ],
     providers: [// services
         image.ImageService,
-        roleGroup.RoleGroupService,
         admin.AdminService,
         { provide: LOCALE_ID, useValue: "ru-RU" },
         Configuration,

@@ -3,7 +3,7 @@
     <div *ngFor="let item of items | paginate: { itemsPerPage: itemsPerPage,
                                                       currentPage: page,
                                                       totalItems: totalItems }; let i = index;">
-        <div class="padding10" *ngIf="!item.pending || roles.isNewsmaker || roles.isAuthor && roles.isSelf(item.userId)">
+        <div class="bottom10" *ngIf="!item.pending || roles.isNewsmaker || roles.isAuthor && roles.isSelf(item.userId)">
             <div class="row flex border-left-maroon" [class.material-pending]="item.pending">
                 <div class="flex-vertical-center material-header full-width flex-space-between">
                     <a [routerLink]="['/', item.typeName, item.id]">
@@ -28,6 +28,7 @@
                         <i class="padding5" [innerHTML]="item.brief"></i>
                     </span>
                 </div>
+
                 <div class="full-width material-info-panel">
                     <ul class="list-inline small small-offset padding5">
                         <li class="">Категория:</li>

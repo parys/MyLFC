@@ -1,5 +1,5 @@
-﻿<div class="col-xs-12 container-row" *ngIf="item">
-    <div class="col-xs-12 text-center bottom10">
+﻿<div class="full-width flex" *ngIf="item">
+    <div class="full-width text-center bottom10">
         {{item.dateTime | customDate:false:true }}, {{item.typeName}}, {{item.stadiumName}}
     </div>
     <div class="col-xs-4">
@@ -25,5 +25,5 @@
             <b class="font-size20" [textContent]="item.awayClubName"></b>
         </div>
     </div>
-    <div class="col-xs-12 text-center"> <a [routerLink]="['/matches', item.id]">Перейти к обсуждению({{item.commentCount}})</a></div>
+    <div class="full-width text-center"> <a [routerLink]="['/matches', item.id]">Перейти к обсуждению({{item.commentCount}})</a></div>
 </div>

@@ -6,7 +6,7 @@
         </a></li>
         <li>
             <a role="button" [matMenuTriggerFor]="newsMenu">
-                Новости<b class="caret"></b>
+                Новости<mat-icon style="font-size: 100%; height: 18px; width: 18px;">arrow_drop_down</mat-icon>
             </a>
             <mat-menu #newsMenu="matMenu">
                 <a [routerLink]="['/news']" [queryParams]="{page: 1}" mat-menu-item>Новости</a>
@@ -16,7 +16,7 @@
         </li>
         <li>
             <a role="button" [matMenuTriggerFor]="blogsMenu">
-                Блоги<b class="caret"></b>
+                Блоги<mat-icon style="font-size: 100%; height: 18px; width: 18px;">arrow_drop_down</mat-icon>
             </a>
             <mat-menu #blogsMenu="matMenu">
                 <a [routerLink]="['/blogs']" [queryParams]="{page: 1}" mat-menu-item>Блоги</a>
@@ -26,7 +26,7 @@
         </li>
         <li>
             <a role="button" [matMenuTriggerFor]="fcClub">
-                ФК Ливерпуль<b class="caret"></b>
+                ФК Ливерпуль<mat-icon style="font-size: 100%; height: 18px; width: 18px;">arrow_drop_down</mat-icon>
             </a>
             <mat-menu #fcClub="matMenu">
                 <a [routerLink]="['/clubHistory']" mat-menu-item>История</a>
@@ -37,7 +37,7 @@
         </li>
         <li>
             <a role="button" [matMenuTriggerFor]="seasonMenu">
-                Сезон<b class="caret"></b>
+                Сезон<mat-icon style="font-size: 100%; height: 18px; width: 18px;">arrow_drop_down</mat-icon>
             </a>
             <mat-menu #seasonMenu="matMenu">
                 <a [routerLink]="['/seasons/0/calendar']" mat-menu-item>Календарь</a>
@@ -54,7 +54,7 @@
         <!--li> <a [routerLink]="['/forum']">Форум</a></!--li>-->
         <li *ngIf="roles.isNewsmaker || roles.isAuthor || roles.isModerator">
             <a role="button" [matMenuTriggerFor]="adminMenu">
-                Админка<b class="caret"></b>
+                Админка<mat-icon style="font-size: 100%; height: 18px; width: 18px;">arrow_drop_down</mat-icon>
             </a>
             <mat-menu #adminMenu="matMenu">
                 <a *ngIf="roles.isInformer" [routerLink]="['/matches']" mat-menu-item>Матчи</a>

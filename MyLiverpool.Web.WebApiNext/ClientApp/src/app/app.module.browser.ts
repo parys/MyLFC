@@ -10,7 +10,7 @@ import { environment } from '../environments/environment';
     imports: [
         BrowserAnimationsModule,
         AppModuleShared,
-   //     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
+        ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
     ],
     providers: [
         //   { provide: 'BASE_URL', useFactory: getBaseUrl }
