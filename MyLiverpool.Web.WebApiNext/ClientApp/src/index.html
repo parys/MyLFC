@@ -50,7 +50,7 @@
         })(this, this.document, "yandexContextAsyncCallbacks");
     
     function addAd(name) {
-        if (location.hostname === "localhost" || !window.Ya) return false;
+        if (location.hostname === "localhost" || !window.Ya || !window.Ya.Context || !window.Ya.Context.AdvManager) return false;
         Ya.Context.AdvManager.render({
             blockId: name,
             renderTo: `yandex_rtb_${name}`,

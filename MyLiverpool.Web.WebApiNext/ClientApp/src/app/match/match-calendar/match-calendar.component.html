@@ -23,7 +23,7 @@
             </div>
         </div>
         <div class="full-width flex-space-around top10">
-            <a *ngIf="next.previewId" class="text-white" [routerLink]="['/news', next.previewId]">Превью</a>
+            <a *ngIf="next.previewId" [routerLink]="['/news', next.previewId]">Превью</a>
             <a [routerLink]="['/seasons/0/calendar']">Календарь</a>
             <a [routerLink]="['matches', next.id]">Обсуждение</a>
         </div>

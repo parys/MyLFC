@@ -1,1 +1,33 @@
-﻿
+﻿.left-container {
+    display: flex;
+    width: 100%;
+}
+@media (min-width: 768px) {
+    .left-container {
+        order: 0;
+        width: 25%;
+    }
+}
+
+.main-container {
+    display: flex;
+    width: 100%;
+}
+@media (min-width: 768px){
+    .main-container {
+        order: 1;
+        width: 50%;
+    }
+}
+
+.right-container {
+    display: flex;
+    width: 100%;
+}
+@media (min-width: 768px) {
+    .right-container {
+        order: 2;
+        width: 25%;
+    }
+}
+

@@ -1,20 +1,23 @@
 ﻿<div class="full-width">
     <http-loader></http-loader>
     <navbar></navbar>
-    <div class="main clearfix">
+    <div class="full-width main">
         <div class="bg-gray full-width flex-space-between">
             <breadcrumb prefix="Главная"></breadcrumb>
             <a mat-raised-button class="color-back-gold width25p" [routerLink]="['/wishes']"><b>Ваши идеи</b></a>
         </div>
         <!--<div class="col-xs-12 container-fluid main-container" [class.col-sm-6]="isRoot" [class.col-sm-9]="!isRoot" [class.col-sm-push-3]="isRoot">-->
-        <div class="col-xs-12 padding0-10 container-fluid main-container col-sm-6 col-sm-push-3">
+        <!-- col-xs-12  col-sm-6 col-sm-push-3  -->
+        <div class="padding0-10 main-container">
             <router-outlet></router-outlet>
             <ad [blockName]="'R-A-255349-3'"></ad>
         </div>
-        <div class="col-xs-12 col-sm-pull-6 col-sm-3 padding0">
+        <!-- col-xs-12 col-sm-pull-6 col-sm-3  -->
+        <div class="padding0 left-container">
             <sidebar-left></sidebar-left>
         </div>
-        <div class="col-xs-12 col-sm-3 container-row">
+        <!-- col-xs-12 col-sm-3  -->
+        <div class="container-row right-container">
             <sidebar-right></sidebar-right>
             <!--<sidebar-left *ngIf="!isRoot"></sidebar-left>-->
         </div>

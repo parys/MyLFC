@@ -2,27 +2,29 @@
     <div class="full-width text-center bottom10">
         {{item.dateTime | customDate:false:true }}, {{item.typeName}}, {{item.stadiumName}}
     </div>
-    <div class="col-xs-4">
-        <div class="full-width text-center">
-            <img [src]="item.homeClubLogo" [alt]="item.homeClubName" [title]="item.homeClubName"/>
+    <div class="flex-space-between full-width">
+        <div class="">
+            <div class="full-width text-center">
+                <img [src]="item.homeClubLogo" [alt]="item.homeClubName" [title]="item.homeClubName" />
+            </div>
+            <div class="full-width text-center">
+                <b class="font-size20" [textContent]="item.homeClubName"></b>
+            </div>
         </div>
-        <div class="full-width text-center">
-            <b class="font-size20" [textContent]="item.homeClubName"></b>
+        <div class="font-size40 text-center flex-vertical-center">
+            <b class="col-xs-5"><span [textContent]="item.scoreHome"></span></b>
+            <span class="col-xs-2 padding0">:</span>
+            <b class="col-xs-5"><span [textContent]="item.scoreAway"></span></b>
+            <!--<i class="font-size13">Серия пенальти:</i>-->
+            <b *ngIf="item.scorePenaltyHome || item.scorePenaltyAway">({{item.scorePenaltyHome}}-{{item.scorePenaltyAway}})</b>
         </div>
-    </div>
-    <div class="col-xs-4 font-size40 text-center">
-        <b class="col-xs-5"><span [textContent]="item.scoreHome"></span></b>
-        <span class="col-xs-2 padding0">:</span>
-        <b class="col-xs-5"><span [textContent]="item.scoreAway"></span></b>
-        <!--<i class="font-size13">Серия пенальти:</i>-->
-        <b *ngIf="item.scorePenaltyHome || item.scorePenaltyAway">({{item.scorePenaltyHome}}-{{item.scorePenaltyAway}})</b>
-    </div>
-    <div class="col-xs-4">
-        <div class="full-width text-center">
-            <img [src]="item.awayClubLogo" [alt]="item.awayClubName" [title]="item.awayClubName"/>
-        </div>
-        <div class="full-width text-center">
-            <b class="font-size20" [textContent]="item.awayClubName"></b>
+        <div class="">
+            <div class="full-width text-center">
+                <img [src]="item.awayClubLogo" [alt]="item.awayClubName" [title]="item.awayClubName" />
+            </div>
+            <div class="full-width text-center">
+                <b class="font-size20" [textContent]="item.awayClubName"></b>
+            </div>
         </div>
     </div>
     <div class="full-width text-center"> <a [routerLink]="['/matches', item.id]">Перейти к обсуждению({{item.commentCount}})</a></div>
