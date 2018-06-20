@@ -22,5 +22,17 @@ export const routes: Routes = [
         path: "roleGroups",
         loadChildren: "./roleGroup/lazy/roleGroup.module#RoleGroupModule"
     },
+    {
+        path: "clubs",
+        loadChildren: "./club/lazy/club.module#ClubModule"
+    },
+    {
+        path: "users",
+        loadChildren: "./user/lazy/user.module#UserModule"
+    },
+    {
+        path: "persons",
+        loadChildren: "./person/lazy/person.module#PersonModule"
+    },
     { path: "", component: MaterialListComponent, data: { title: "MyLFC.ru - Сайт русскоязычных болельщиков ФК \"Ливерпуль\"", type: "Both" } }
 ];

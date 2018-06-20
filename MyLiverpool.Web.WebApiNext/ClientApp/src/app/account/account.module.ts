@@ -1,7 +1,5 @@
 ﻿import { NgModule } from "@angular/core";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
-import { CommonModule } from "@angular/common";
 import { SharedModule } from "@app/shared";
 import { accountRoutes } from "./account.routes";
 import { AccountSigninComponent } from "./account-signin/index";
@@ -16,11 +14,8 @@ import { AccountValidators } from "./account.validators";
 
 @NgModule({
     imports: [
-        CommonModule,
-        FormsModule,
-        ReactiveFormsModule,
-        RouterModule.forRoot(accountRoutes),
-        SharedModule
+        SharedModule,
+        RouterModule.forRoot(accountRoutes)
     ],
     declarations: [
         AccountSigninComponent,

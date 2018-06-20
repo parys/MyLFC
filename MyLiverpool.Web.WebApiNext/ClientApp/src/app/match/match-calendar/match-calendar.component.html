@@ -5,7 +5,7 @@
                 <a *ngIf="roles.isInformer" [routerLink]="['/matches', next.id, 'edit']"><i class="material-icons color-red" style="font-size: 100%">edit</i></a>
             </span>
             <span>
-                <b style="font-size: 1.2em;" class="pull-right" [textContent]="next.dateTime | customDate:false:true"></b>
+                <b style="font-size: 1.2em;" [textContent]="next.dateTime | customDate:false:true"></b>
             </span>
         </div>
         
@@ -24,8 +24,8 @@
         </div>
         <div class="full-width flex-space-around top10">
             <a *ngIf="next.previewId" class="text-white" [routerLink]="['/news', next.previewId]">Превью</a>
-            <a class="text-white" [routerLink]="['/seasons/0/calendar']">Календарь</a>
-            <a class="text-white" [routerLink]="['matches', next.id]">Обсуждение</a>
+            <a [routerLink]="['/seasons/0/calendar']">Календарь</a>
+            <a [routerLink]="['matches', next.id]">Обсуждение</a>
         </div>
     </div>
     <div class="full-width ghost-white flex padding5 border-panel border-lgray match-calendar" *ngIf="last">
@@ -35,7 +35,7 @@
                 <a *ngIf="roles.isInformer" [routerLink]="['/matches', last.id, 'edit']"><i class="material-icons color-red" style="font-size: 100%">edit</i></a>
             </span><!--todo add back color for win|drar|lost-->
             <span>
-                <span class="pull-right" [textContent]="last.dateTime | customDate:false:true"></span>
+                <span [textContent]="last.dateTime | customDate:false:true"></span>
             </span>
         </div>
         <div class="full-width flex-space-around flex-vertical-center">

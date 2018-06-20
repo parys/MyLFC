@@ -29,7 +29,6 @@
     <Compile Remove="ClientApp\src\app\editor\langs\**" />
     <Compile Remove="ClientApp\src\app\forum\**" />
     <Compile Remove="ClientApp\src\fonts\**" />
-    <Compile Remove="ClientApp\src\app\person\NewFolder\**" />
     <Compile Remove="ClientApp\src\fonts\**" />
     <Compile Remove="wwwroot\content\persons\**" />
     <Compile Remove="wwwroot\src\lightgray\**" />
@@ -38,7 +37,6 @@
     <Content Remove="ClientApp\node_modules\**" />
     <Content Remove="ClientApp\src\app\editor\langs\**" />
     <Content Remove="ClientApp\src\fonts\**" />
-    <Content Remove="ClientApp\src\app\person\NewFolder\**" />
     <Content Remove="ClientApp\src\**" />
     <Content Remove="ClientApp\src\fonts\**" />
     <Content Remove="wwwroot\src\lightgray\**" />
@@ -51,7 +49,6 @@
     <EmbeddedResource Remove="ClientApp\src\app\editor\langs\**" />
     <EmbeddedResource Remove="ClientApp\src\app\forum\**" />
     <EmbeddedResource Remove="ClientApp\src\fonts\**" />
-    <EmbeddedResource Remove="ClientApp\src\app\person\NewFolder\**" />
     <EmbeddedResource Remove="ClientApp\src\fonts\**" />
     <EmbeddedResource Remove="wwwroot\content\persons\**" />
     <EmbeddedResource Remove="wwwroot\src\langs\**" />
@@ -62,7 +59,6 @@
     <None Remove="ClientApp\src\app\editor\langs\**" />
     <None Remove="ClientApp\src\app\forum\**" />
     <None Remove="ClientApp\src\fonts\**" />
-    <None Remove="ClientApp\src\app\person\NewFolder\**" />
     <None Remove="ClientApp\src\fonts\**" />
     <None Remove="wwwroot\content\persons\**" />
     <None Remove="wwwroot\src\lightgray\**" />
@@ -86,7 +82,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AspNet.Security.OAuth.Validation" Version="2.0.0-rc3-0312" />
+    <PackageReference Include="AspNet.Security.OAuth.Validation" Version="2.0.0-rc3-final" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.3.0" />
     <PackageReference Include="Microsoft.AspNetCore" Version="2.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.OAuth" Version="2.1.0" />

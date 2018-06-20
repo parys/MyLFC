@@ -6,7 +6,7 @@ import { MiniChatComponent } from "./miniChat";
 import { MaxiChatComponent } from "./maxiChat";
 import { ChatWindowComponent } from "./chat-window";
 import { chatRoutes } from "./chat.routes";
-import { UserModule } from "@app/user";
+import { UserCoreModule } from "@app/user";
 import { EditorModule } from "@app/editor";
 //import { SignalRModule } from "@app/+signalr";
 import { ChatMessageService } from "./chatMessage.service";
@@ -17,7 +17,7 @@ import { ChatMessageService } from "./chatMessage.service";
         SharedModule,
         RouterModule.forRoot(chatRoutes),
         EditorModule,
-        UserModule//,
+        UserCoreModule//,
 //        SignalRModule
     ],
     declarations: [

@@ -12,12 +12,12 @@ import { Configuration } from "./app.constants";
 import * as material from "./material";
 import { EditorModule } from "./editor";
 import { ChatModule } from "./chat";
-import { ClubModule } from "./club";
+import { ClubCoreModule } from "./club";
 import * as home from "./home";
 import * as image from "./image";
 import { InjuryModule } from "./injury";
 import { MatchModule } from "./match";
-import { PersonModule } from "./person";
+import { PersonCoreModule } from "./person";
 import { SharedModule } from "./shared";
 import { StadiumModule } from "./stadium";
 import * as admin from "./admin";
@@ -26,7 +26,7 @@ import { TransferModule } from "./transfer";
 import { CommentModule } from "./comment";
 import { NotificationModule } from "./notification";
 import { MaterialCategoryModule } from "./materialCategory";
-import { UserModule } from "./user";
+import { UserCoreModule } from "./user";
 import { SeasonCoreModule } from "./season";
 
 registerLocaleData(localeRU);
@@ -42,16 +42,16 @@ registerLocaleData(localeRU);
         InjuryModule,
         ChatModule,
         CommentModule,
-        ClubModule,
+        ClubCoreModule,
         MatchModule,
         TransferModule,
         MaterialCategoryModule,
         NotificationModule,
-        PersonModule,
+        PersonCoreModule,
         SeasonCoreModule,
         RouterModule.forRoot(routes),
         StadiumModule,
-        UserModule,
+        UserCoreModule,
      //   WishModule,
     ],
     declarations: [
