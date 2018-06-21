@@ -1,1 +1,2 @@
-﻿export * from "./match.module";
+﻿export * from "./core";
+export * from "./model";

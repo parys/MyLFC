@@ -187,12 +187,6 @@ namespace MyLiverpool.Web.WebApiNext
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IAntiforgery antiforgery)
         {
           //  app.UseMiddleware<ExceptionHandlerMiddleware>();
-            app.UseForwardedHeaders(new ForwardedHeadersOptions
-            {
-                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
-            });
-
-            app.UseResponseCompression();
 
             // app.UseXsrf();
             if (env.IsDevelopment())
@@ -212,6 +206,12 @@ namespace MyLiverpool.Web.WebApiNext
             else
             {
                 app.UseExceptionHandler("/Home/Error");
+                app.UseForwardedHeaders(new ForwardedHeadersOptions
+                {
+                    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+                });
+
+                app.UseResponseCompression();
             }
 
             app.UseCors("MyPolicy");

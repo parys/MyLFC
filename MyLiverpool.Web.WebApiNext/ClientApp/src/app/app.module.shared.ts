@@ -15,15 +15,15 @@ import { ChatModule } from "./chat";
 import { ClubCoreModule } from "./club";
 import * as home from "./home";
 import * as image from "./image";
-import { InjuryModule } from "./injury";
-import { MatchModule } from "./match";
+import { InjuryCoreModule } from "./injury";
+import { MatchCoreModule } from "./match";
 import { PersonCoreModule } from "./person";
 import { SharedModule } from "./shared";
 import { StadiumModule } from "./stadium";
 import * as admin from "./admin";
 import { AccountModule } from "./account";
-import { TransferModule } from "./transfer";
-import { CommentModule } from "./comment";
+import { TransferCoreModule } from "./transfer";
+import { CommentCoreModule } from "./comment";
 import { NotificationModule } from "./notification";
 import { MaterialCategoryModule } from "./materialCategory";
 import { UserCoreModule } from "./user";
@@ -39,12 +39,12 @@ registerLocaleData(localeRU);
         HttpClientModule,
         AccountModule,
       //  ForumModule,
-        InjuryModule,
+        InjuryCoreModule,
         ChatModule,
-        CommentModule,
+        CommentCoreModule,
         ClubCoreModule,
-        MatchModule,
-        TransferModule,
+        MatchCoreModule,
+        TransferCoreModule,
         MaterialCategoryModule,
         NotificationModule,
         PersonCoreModule,

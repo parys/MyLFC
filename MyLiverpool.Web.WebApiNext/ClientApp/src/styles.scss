@@ -7,7 +7,6 @@
  * 1. Correct the line height in all browsers.
  * 2. Prevent adjustments of font size after orientation changes in iOS.
  */
-
 html {
     line-height: 1.15; /* 1 */
     -webkit-text-size-adjust: 100%; /* 2 */
@@ -21,8 +20,11 @@ html {
  */
 
 body {
+    background-color: #f5f5f5;
+    display: table;
+   // flex-direction: column;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     margin: 0;
-    display: table; //hack
 }
 
 /**
@@ -358,10 +360,6 @@ ol {
     src: url('./fonts/Cuprum-Regular.ttf');
 }
 
-body {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-
-}
     /* override theme material */
     .mat-ink-bar {
         background-color: maroon;
@@ -392,10 +390,6 @@ body {
         color: red;
     }
 
-    body {
-        background-color: #f5f5f5;
-        /*color: #6e6e6e;'*/
-    }
 
     blockquote {
         background-color: rgba(128, 0, 0, .1);

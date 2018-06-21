@@ -1,1 +1,2 @@
-﻿export * from "./injury.module";
+﻿export * from "./core";
+export * from "./model";

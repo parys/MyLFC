@@ -1,1 +1,2 @@
-﻿export * from "./comment.module";
+﻿export * from "./core";
+export * from "./model";

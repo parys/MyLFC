@@ -186,6 +186,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="ClientApp\dist\aspnetcorespa\" />
+    <Folder Include="ClientApp\src\app\account\lazy\" />
+    <Folder Include="ClientApp\src\app\account\core\" />
     <Folder Include="ClientApp\src\app\roleGroup\+core\" />
   </ItemGroup>
 

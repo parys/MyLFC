@@ -13,7 +13,7 @@ export class AccountSignupComponent implements OnInit {
     public registerForm: FormGroup;
     public result: boolean = false;
     public isHuman: boolean = false;
-    public isAgreeWithRules: boolean = true;
+    public isAgreeWithRules: boolean = false;
 
     constructor(private accountService: AccountService,
         private authService: AuthService,
