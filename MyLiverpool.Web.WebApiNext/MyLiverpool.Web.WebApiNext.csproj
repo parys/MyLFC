@@ -84,35 +84,35 @@
   <ItemGroup>
     <PackageReference Include="AspNet.Security.OAuth.Validation" Version="2.0.0-rc3-final" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.3.0" />
-    <PackageReference Include="Microsoft.AspNetCore" Version="2.1.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.OAuth" Version="2.1.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.1.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics" Version="2.1.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.Abstractions" Version="2.1.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="2.1.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.1.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.1.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.1.0" />
-    <PackageReference Include="Microsoft.AspNetCore.NodeServices" Version="2.1.0" />
-    <PackageReference Include="Microsoft.AspNetCore.ResponseCompression" Version="2.1.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Server.IISIntegration" Version="2.1.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel" Version="2.1.0" />
-    <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.MessagePack" Version="1.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.SpaServices" Version="2.1.0" />
-    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="2.1.0" />
-    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.1.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="2.1.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="2.1.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="2.1.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.1.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="2.1.0" />
-    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.1.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.OAuth" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.Abstractions" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.NodeServices" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.ResponseCompression" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Server.IISIntegration" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.MessagePack" Version="1.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.1" />
     <PackageReference Include="Microsoft.SyndicationFeed.ReaderWriter" Version="1.0.2" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.1.0" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.1.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="2.5.0" />
   </ItemGroup>
 
@@ -123,66 +123,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="ClientApp\dist\aspnetcorespa\main.0e93ea76c62e93cb33af.js" />
-    <None Remove="ClientApp\dist\aspnetcorespa\main.0e93ea76c62e93cb33af.js" />
-    <None Remove="ClientApp\dist\aspnetcorespa\polyfills.97d1f2412b3b8ed06ea2.js" />
-    <None Remove="ClientApp\dist\aspnetcorespa\polyfills.97d1f2412b3b8ed06ea2.js" />
-    <None Remove="ClientApp\dist\aspnetcorespa\styles.4c940d98f61ecb9691fc.css" />
-    <None Remove="ClientApp\dist\aspnetcorespa\styles.4c940d98f61ecb9691fc.css" />
-    <None Remove="ClientApp\src\app\forum\forum.module.ts" />
-    <None Remove="ClientApp\src\app\forum\forum.module.ts" />
-    <None Remove="ClientApp\src\app\forum\forum.routes.ts" />
-    <None Remove="ClientApp\src\app\forum\forum.routes.ts" />
-    <None Remove="ClientApp\src\app\forum\forumMessage\forumMessage-addition.component.html" />
-    <None Remove="ClientApp\src\app\forum\forumMessage\forumMessage-addition.component.html" />
-    <None Remove="ClientApp\src\app\forum\forumMessage\forumMessage-addition.component.ts" />
-    <None Remove="ClientApp\src\app\forum\forumMessage\forumMessage-addition.component.ts" />
-    <None Remove="ClientApp\src\app\forum\forumMessage\forumMessage.model.ts" />
-    <None Remove="ClientApp\src\app\forum\forumMessage\forumMessage.model.ts" />
-    <None Remove="ClientApp\src\app\forum\forumMessage\forumMessage.service.ts" />
-    <None Remove="ClientApp\src\app\forum\forumMessage\forumMessage.service.ts" />
-    <None Remove="ClientApp\src\app\forum\forumMessage\index.ts" />
-    <None Remove="ClientApp\src\app\forum\forumMessage\index.ts" />
-    <None Remove="ClientApp\src\app\forum\forumSection\forumSection-list.component.html" />
-    <None Remove="ClientApp\src\app\forum\forumSection\forumSection-list.component.html" />
-    <None Remove="ClientApp\src\app\forum\forumSection\forumSection-list.component.ts" />
-    <None Remove="ClientApp\src\app\forum\forumSection\forumSection-list.component.ts" />
-    <None Remove="ClientApp\src\app\forum\forumSection\forumSection.model.ts" />
-    <None Remove="ClientApp\src\app\forum\forumSection\forumSection.model.ts" />
-    <None Remove="ClientApp\src\app\forum\forumSection\forumSection.service.ts" />
-    <None Remove="ClientApp\src\app\forum\forumSection\forumSection.service.ts" />
-    <None Remove="ClientApp\src\app\forum\forumSection\index.ts" />
-    <None Remove="ClientApp\src\app\forum\forumSection\index.ts" />
-    <None Remove="ClientApp\src\app\forum\forumSubsection\forumSubsection-edit.component.html" />
-    <None Remove="ClientApp\src\app\forum\forumSubsection\forumSubsection-edit.component.html" />
-    <None Remove="ClientApp\src\app\forum\forumSubsection\forumSubsection-edit.component.ts" />
-    <None Remove="ClientApp\src\app\forum\forumSubsection\forumSubsection-edit.component.ts" />
-    <None Remove="ClientApp\src\app\forum\forumSubsection\forumSubsection-list.component.html" />
-    <None Remove="ClientApp\src\app\forum\forumSubsection\forumSubsection-list.component.html" />
-    <None Remove="ClientApp\src\app\forum\forumSubsection\forumSubsection-list.component.ts" />
-    <None Remove="ClientApp\src\app\forum\forumSubsection\forumSubsection-list.component.ts" />
-    <None Remove="ClientApp\src\app\forum\forumSubsection\forumSubsection.model.ts" />
-    <None Remove="ClientApp\src\app\forum\forumSubsection\forumSubsection.model.ts" />
-    <None Remove="ClientApp\src\app\forum\forumSubsection\forumSubsection.service.ts" />
-    <None Remove="ClientApp\src\app\forum\forumSubsection\forumSubsection.service.ts" />
-    <None Remove="ClientApp\src\app\forum\forumSubsection\index.ts" />
-    <None Remove="ClientApp\src\app\forum\forumSubsection\index.ts" />
-    <None Remove="ClientApp\src\app\forum\forumTheme\forumTheme-edit.component.html" />
-    <None Remove="ClientApp\src\app\forum\forumTheme\forumTheme-edit.component.html" />
-    <None Remove="ClientApp\src\app\forum\forumTheme\forumTheme-edit.component.ts" />
-    <None Remove="ClientApp\src\app\forum\forumTheme\forumTheme-edit.component.ts" />
-    <None Remove="ClientApp\src\app\forum\forumTheme\forumTheme-list.component.html" />
-    <None Remove="ClientApp\src\app\forum\forumTheme\forumTheme-list.component.html" />
-    <None Remove="ClientApp\src\app\forum\forumTheme\forumTheme-list.component.ts" />
-    <None Remove="ClientApp\src\app\forum\forumTheme\forumTheme-list.component.ts" />
-    <None Remove="ClientApp\src\app\forum\forumTheme\forumTheme.model.ts" />
-    <None Remove="ClientApp\src\app\forum\forumTheme\forumTheme.model.ts" />
-    <None Remove="ClientApp\src\app\forum\forumTheme\forumTheme.service.ts" />
-    <None Remove="ClientApp\src\app\forum\forumTheme\forumTheme.service.ts" />
-    <None Remove="ClientApp\src\app\forum\forumTheme\index.ts" />
-    <None Remove="ClientApp\src\app\forum\forumTheme\index.ts" />
-    <None Remove="ClientApp\src\app\forum\index.ts" />
-    <None Remove="ClientApp\src\app\forum\index.ts" />
+    <None Remove="ClientApp\dist\aspnetcorespa\**" />
+    <None Remove="ClientApp\src\app\forum\**" />
   </ItemGroup>
 
   <ItemGroup>
