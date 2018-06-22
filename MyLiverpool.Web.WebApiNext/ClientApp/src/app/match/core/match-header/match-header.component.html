@@ -12,9 +12,9 @@
             </div>
         </div>
         <div class="font-size40 text-center flex-vertical-center">
-            <b class="col-xs-5"><span [textContent]="item.scoreHome"></span></b>
-            <span class="col-xs-2 padding0">:</span>
-            <b class="col-xs-5"><span [textContent]="item.scoreAway"></span></b>
+            <b [textContent]="item.scoreHome"></b>
+            <span class="padding0">:</span>
+            <b [textContent]="item.scoreAway"></b>
             <!--<i class="font-size13">Серия пенальти:</i>-->
             <b *ngIf="item.scorePenaltyHome || item.scorePenaltyAway">({{item.scorePenaltyHome}}-{{item.scorePenaltyAway}})</b>
         </div>

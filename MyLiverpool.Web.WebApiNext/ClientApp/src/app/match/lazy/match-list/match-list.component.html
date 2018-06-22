@@ -8,21 +8,21 @@
             <div class="panel-heading">
                 <h3 class="panel-title">
                     <a [routerLink]="[item.id]"> <span [textContent]="item.dateTime | customDate:false:true"></span> - <span [textContent]="item.stadiumName"></span></a>
-                    <span class="col-xs-2 col-sm-2 pull-right">
+                    <span class="col-xs-2 pull-right">
                         <a [routerLink]="[item.id, 'edit']"><i class="material-icons">edit</i></a>
                         <a (click)="showDeleteModal(i)"><i class="material-icons">clear</i></a>
                     </span>
                 </h3>
             </div>
-            <div class="panel-body col-xs-12 row">
-                <div class="col-xs-4">
+            <div class="panel-body full-width flex-space-between">
+                <div>
                     <img class="club-logo" [src]="item.homeClubLogo" [alt]="item.homeClubName">
                     <span [textContent]="item.homeClubName"></span>
                 </div>
-                <div class="col-xs-4 font-size30">
+                <div class=" font-size30">
                     <span [textContent]="item.scoreHome"></span>:<span [textContent]="item.scoreAway"></span>
                 </div>
-                <div class="col-xs-4">
+                <div class="">
                     <img class="club-logo" [src]="item.awayClubLogo" [alt]="item.awayClubName">
                     <span [textContent]="item.awayClubName"></span>
                 </div>

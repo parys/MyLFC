@@ -9,14 +9,14 @@
         <div class="full-width flex">
             <!--<div class=" main-container" [class.co-sm-6]="isRoot" [class.co-sm-9]="!isRoot" [class.co-sm-push-3]="isRoot">-->
             <div class="padding0-10 main-container">
-                <router-outlet></router-outlet>
+                <router-outlet class="full-width"></router-outlet>
                 <ad [blockName]="'R-A-255349-3'"></ad>
             </div>
             <div class="padding0 left-container">
-                <sidebar-left></sidebar-left>
+                <sidebar-left class="full-width"></sidebar-left>
             </div>
             <div class="container-row right-container">
-                <sidebar-right></sidebar-right>
+                <sidebar-right class="full-width"></sidebar-right>
                 <!--<sidebar-left *ngIf="!isRoot"></sidebar-left>-->
             </div>
         </div>
