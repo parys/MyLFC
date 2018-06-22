@@ -12,7 +12,7 @@ import { EditorComponent } from "@app/editor";
 @Component({
     selector: "chat-window",
     templateUrl: "./chat-window.component.html",
-    changeDetection: ChangeDetectionStrategy.Default //todo temporary before doing roles observable
+    changeDetection: ChangeDetectionStrategy.OnPush //todo temporary before doing roles observable
 })
 export class ChatWindowComponent implements OnInit {
     public messageForm: FormGroup;
@@ -49,6 +49,8 @@ export class ChatWindowComponent implements OnInit {
                 this.cd.markForCheck();
             }
         });
+        this.roles.rolesChanged.subscribe(_ =>
+            this.cd.markForCheck());
     }
 
     public update(): void {

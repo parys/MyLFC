@@ -78,8 +78,8 @@ export class AuthService {
 
         if (this.refreshSubscription$) {
             this.refreshSubscription$.unsubscribe();
-            this.signalRservice.initializeHub();
         }
+        this.signalRservice.initializeHub();
     }
 
     public refreshTokens(): Observable<IAuthTokenModel> {

@@ -45,7 +45,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
                 this.router.navigate(["/users", { page: 1 }]);
             }
         });
-        if (this.roles.isAdminAssistant) {
+        if (this.roles.userRoles.isAdminAssistant) {
             this.loadRoleGroups();
         }
     }
