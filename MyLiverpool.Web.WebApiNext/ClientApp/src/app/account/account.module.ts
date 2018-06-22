@@ -15,7 +15,7 @@ import { AccountValidators } from "./account.validators";
 @NgModule({
     imports: [
         SharedModule,
-        RouterModule.forRoot(accountRoutes)
+        RouterModule.forChild(accountRoutes)
     ],
     declarations: [
         AccountSigninComponent,

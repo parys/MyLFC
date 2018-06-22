@@ -66,7 +66,6 @@ export class AuthService {
         return this.getTokens(user, "password").pipe(
             catchError(res => throwError(res.error)),
             tap(res => {
-                this.signalRservice.initializeHub();
                 this.scheduleRefresh();
             }));
     }
@@ -85,7 +84,10 @@ export class AuthService {
 
     public refreshTokens(): Observable<IAuthTokenModel> {
         return this.getTokens({ refresh_token: this.storage.getRefreshToken() }, "refresh_token")
-            .pipe(catchError(error => throwError("Session Expired")));
+            .pipe(tap(_ => {
+                    this.signalRservice.initializeHub();
+                }),
+                catchError(error => throwError("Expired")));
     }
 
     private updateState(newState: IAuthStateModel): void {
@@ -123,7 +125,7 @@ export class AuthService {
             flatMap((tokens: IAuthTokenModel) => {
                 if (!tokens) {
                     this.updateState({ authReady: true });
-                    return throwError("No token in Storage");
+                    return throwError("No token");
                 }
                // const profile = jwtDecode(tokens.id_token);
 

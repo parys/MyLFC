@@ -10,7 +10,7 @@ import { NotificationService } from "./notification.service";
 @NgModule({
     imports: [
         CommonModule,
-        RouterModule.forRoot(notificationRoutes),
+        RouterModule.forChild(notificationRoutes),
         SharedModule
     ],
     declarations: [

@@ -15,7 +15,7 @@ import { ChatMessageService } from "./chatMessage.service";
 @NgModule({
     imports: [
         SharedModule,
-        RouterModule.forRoot(chatRoutes),
+        RouterModule.forChild(chatRoutes),
         EditorModule,
         UserCoreModule//,
 //        SignalRModule

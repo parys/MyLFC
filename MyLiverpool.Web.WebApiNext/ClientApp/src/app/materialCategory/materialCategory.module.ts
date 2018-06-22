@@ -9,7 +9,7 @@ import { MaterialCategoryService } from "./materialCategory.service";
 @NgModule({
     imports: [
         SharedModule,
-        RouterModule.forRoot(materialCategoryRoutes)
+        RouterModule.forChild(materialCategoryRoutes)
     ],
     declarations: [
         MaterialCategoryListComponent,

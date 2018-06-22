@@ -12,7 +12,7 @@ import { PmService } from "./pm.service";
 @NgModule({
     imports: [
         SharedModule,
-        RouterModule.forRoot(pmRoutes)
+        RouterModule.forChild(pmRoutes)
     ],
     declarations: [
         PmCounterComponent,
