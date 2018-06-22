@@ -1,44 +1,46 @@
-﻿import { Injectable, ApplicationRef } from "@angular/core";
+﻿import { Injectable } from "@angular/core";
+import { Subject } from "rxjs";
 import { StorageService } from "./storage.service";
 
 @Injectable()
 export class RolesCheckedService {
-    public isLogined: boolean = false;
-    public isEditor: boolean =  false;
-    public isNewsmaker: boolean =  false;
-    public isModerator: boolean =  false;
-    public isMainModerator: boolean =  false;
-    public isAdminAssistant: boolean =  false;
-    public isAdmin: boolean =  false;
-    public isAuthor: boolean =  false;
-    public isInformer: boolean =  false;
-    public isMainInformer: boolean =  false;
+    //public isLogined: boolean = false;
+    //public isEditor: boolean =  false;
+    //public isNewsmaker: boolean =  false;
+    //public isModerator: boolean =  false;
+    //public isMainModerator: boolean =  false;
+    //public isAdminAssistant: boolean =  false;
+    //public isAdmin: boolean =  false;
+    //public isAuthor: boolean =  false;
+    //public isInformer: boolean =  false;
+    //public isMainInformer: boolean =  false;
 
     private roles: string[];
+    private userRoles: UserRoles = new UserRoles();
+    public rolesChanged: Subject<UserRoles> = new Subject<UserRoles>();
 
     constructor(
-        private storage: StorageService,
-        private cd: ApplicationRef ) {
+        private storage: StorageService) {
         this.checkRoles();
     }
 
     public checkRoles(): void {
         this.roles = this.storage.getRoles();
-        this.isLogined = false;
+        this.userRoles.isLogined = false;
         if (!this.roles) {
             return;
         };
-        this.isLogined = true;
-        this.checkEditor();
-        this.checkNewsmaker();
-        this.checkModerator();
-        this.checkMainModerator();
-        this.checkAdminAssistant();
-        this.checkAdmin();
-        this.checkAuthor();
-        this.checkInformer();
-        this.checkMainInformer();
-        this.cd.tick();
+        this.userRoles.isLogined = true;
+        this.userRoles.isEditor = this.checkRole("NewsFull") || this.checkRole("BlogFull");
+        this.userRoles.isNewsmaker = this.checkRole("NewsStart");
+        this.userRoles.isModerator = this.checkRole("UserStart");
+        this.userRoles.isMainModerator = this.checkRole("UserFull");
+        this.userRoles.isAdminAssistant = this.checkRole("AdminStart");
+        this.userRoles.isAdmin = this.checkRole("AdminFull");
+        this.userRoles.isAuthor = this.checkRole("BlogStart");
+        this.userRoles.isInformer = this.checkRole("InfoStart");
+        this.userRoles.isMainInformer = this.checkRole("InfoFull");
+        this.rolesChanged.next(this.userRoles);
     }
 
     public isUserInRole(role: string): boolean {
@@ -50,64 +52,23 @@ export class RolesCheckedService {
         return (userId === authorId);
     }
 
-    private checkEditor(): void {
-        if (this.checkRole("NewsFull") || this.checkRole("BlogFull")) {
-            this.isEditor = true;
-        }
-    }
-
-    private checkNewsmaker(): void {
-        if (this.checkRole("NewsStart")) {
-            this.isNewsmaker = true;
-        }
-    }
-
-    private checkModerator(): void {
-        if (this.checkRole("UserStart")) {
-            this.isModerator = true;
-        }
-    }
-
-    private checkMainModerator(): void {
-        if (this.checkRole("UserFull")) {
-            this.isMainModerator = true;
-        }
-    }
-
-    private checkAdminAssistant(): void {
-        if (this.checkRole("AdminStart")) {
-            this.isAdminAssistant = true;
-        }
-    }
-
-    private checkAdmin(): void {
-        if (this.checkRole("AdminFull")) {
-            this.isAdmin = true;
-        }
-    }
-
-    private checkAuthor(): void {
-        if (this.checkRole("BlogStart")) {
-            this.isAuthor = true;
-        }
-    }
-
-    private checkInformer(): void {
-        if (this.checkRole("InfoStart")) {
-            this.isInformer = true;
-        }
-    }
-
-    private checkMainInformer(): void {
-        if (this.checkRole("InfoFull")) {
-            this.isMainInformer = true;
-        }
-    }
-
     private checkRole(role: string): boolean {
         if (this.roles.find(x => x.toLowerCase() === role.toLowerCase())) {
             return true;
         }
         return false;
     }
+}
+
+export class UserRoles {
+    public isLogined: boolean = false;
+    public isEditor: boolean = false;
+    public isNewsmaker: boolean = false;
+    public isModerator: boolean = false;
+    public isMainModerator: boolean = false;
+    public isAdminAssistant: boolean = false;
+    public isAdmin: boolean = false;
+    public isAuthor: boolean = false;
+    public isInformer: boolean = false;
+    public isMainInformer: boolean = false;
 }
