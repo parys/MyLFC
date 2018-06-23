@@ -78,8 +78,8 @@ export class AuthService {
 
         if (this.refreshSubscription$) {
             this.refreshSubscription$.unsubscribe();
+            this.signalRservice.initializeHub();
         }
-        this.signalRservice.initializeHub();
     }
 
     public refreshTokens(): Observable<IAuthTokenModel> {
@@ -122,6 +122,7 @@ export class AuthService {
             flatMap((tokens: IAuthTokenModel) => {
                 if (!tokens) {
                     this.updateState({ authReady: true });
+                    this.signalRservice.initializeHub();
                     return throwError("No token");
                 }
                // const profile = jwtDecode(tokens.id_token);

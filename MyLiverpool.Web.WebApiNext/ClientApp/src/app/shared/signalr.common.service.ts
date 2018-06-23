@@ -9,17 +9,14 @@ import {  } from "../+common-models/pm.model";
 export class SignalRService {
     private hubConnection: HubConnection;
     private alreadyStarted: boolean = false;
-    public chatSubject: Subject<ChatMessage>;
-    public onlineSubject: Subject<ChatMessage>;
-    public lastCommentsSubject: Subject<Comment>;
-    public readPm: Subject<boolean>;
-    public newPm: Subject<Pm>;
+    public chatSubject: Subject<ChatMessage> = new Subject<ChatMessage>();
+    public onlineSubject: Subject<ChatMessage> = new Subject<any>();
+    public lastCommentsSubject: Subject<Comment> = new Subject<Comment>();
+    public readPm: Subject<boolean> = new Subject<boolean>();
+    public newPm: Subject<Pm> = new Subject<Pm>();
 
-    constructor(
-        private storage: StorageService,
+    constructor(private storage: StorageService,
         @Inject("BASE_URL") private baseUrl: string) {
-        this.initializeHub();
-        this.initSubs();
     }
 
     public initializeHub(): void {
@@ -73,13 +70,5 @@ export class SignalRService {
             .catch((err: Error) => {
                 console.error(err);
             });
-    }
-
-    private initSubs(): void {
-        this.chatSubject = new Subject<ChatMessage>();
-        this.onlineSubject = new Subject<any>();
-        this.lastCommentsSubject = new Subject<Comment>();
-        this.newPm = new Subject<Pm>();
-        this.readPm = new Subject<boolean>();
     }
 }
