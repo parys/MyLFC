@@ -26,7 +26,8 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
 
         public async Task<Material> GetByIdAsync(int id)
         {
-            return await _context.Materials.Include(x => x.Category)
+            return await _context.Materials
+                .Include(x => x.Category)
                 .Include(x => x.Author)
                 .FirstOrDefaultAsync(x => x.Id == id);
         }

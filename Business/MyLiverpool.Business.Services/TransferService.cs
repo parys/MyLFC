@@ -15,12 +15,14 @@ namespace MyLiverpool.Business.Services
     public class TransferService : ITransferService
     {
         private readonly ITransferRepository _transferRepository;
+        private readonly ISeasonService _seasonService;
         private readonly IMapper _mapper;
 
-        public TransferService(ITransferRepository transferRepository, IMapper mapper)
+        public TransferService(ITransferRepository transferRepository, IMapper mapper, ISeasonService seasonService)
         {
             _transferRepository = transferRepository;
             _mapper = mapper;
+            _seasonService = seasonService;
         }
 
         public async Task<TransferDto> CreateAsync(TransferDto dto)
@@ -75,9 +77,10 @@ namespace MyLiverpool.Business.Services
 
         public async Task<IEnumerable<TransferDto>> GetCurrentListAsync()
         {
-            Expression<Func<Transfer, bool>> filter = x => x.StartDate >= DateTimeOffset.Now.AddMonths(-6);//todo maybe link by season
+            var currentSeason = await _seasonService.GetCurrentSeasonIdAsync();
+            Expression<Func<Transfer, bool>> filter = x => x.SeasonId == currentSeason;//todo maybe link by season
             var transfers =
-                await _transferRepository.GetListAsync(1, 1000, filter, SortOrder.Ascending, x => x.StartDate);
+                await _transferRepository.GetListAsync(1, 1000, filter, SortOrder.Descending, x => x.StartDate);
             return _mapper.Map<ICollection<TransferDto>>(transfers);
         }
     }

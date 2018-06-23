@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using System.Linq;
+using Microsoft.AspNetCore.SignalR;
+using MyLiverpool.Web.WebApiNext.OnlineCounting;
 
 namespace MyLiverpool.Web.WebApiNext.Hubs
 {
@@ -43,6 +45,23 @@ namespace MyLiverpool.Web.WebApiNext.Hubs
         {
             await _anonymHub.Clients.All.SendAsync(endpoint);
             await _authHub.Clients.All.SendAsync(endpoint);
+        }
+        
+        /// <summary>
+        /// Sends message to specific authenticated user to all him clients
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="endpoint"></param>
+        /// <param name="obj"></param>
+        /// <param name="userId"></param>
+        public async void SendToUser<T>(string endpoint, T obj, int userId)
+        {
+            var receivers = OnlineUsers.CurrentOnline.Values.Where(x => x.Id == userId);
+            if (receivers.Any())
+            {
+                //   await _authHub.Clients.User(receiver.Id.ToString()).SendAsync(HubEndpointConstants.PmReadEndpoint, true);
+                await _authHub.Clients.Clients(receivers.Select(x => x.ConnectionId).ToList()).SendAsync(endpoint, obj);
+            }
         }
     }
 

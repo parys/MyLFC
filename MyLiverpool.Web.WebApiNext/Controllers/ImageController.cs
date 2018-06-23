@@ -6,6 +6,7 @@ using AspNet.Security.OAuth.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Data.Common;
@@ -68,19 +69,30 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
 
             foreach (var entry in subdirectoryFolders)
             {
+                var index = entry.LastIndexOf(_pathFull, StringComparison.OrdinalIgnoreCase);
+                if (index == -1)
+                {
+                    index = entry.LastIndexOf(PathContent, StringComparison.OrdinalIgnoreCase);
+                }
                 files.Add(new ImageDto
                 {
                     Name = entry.Substring(entry.LastIndexOf(Path.DirectorySeparatorChar) + 1),
-                    Path = entry.Substring(entry.LastIndexOf(_pathFull, StringComparison.OrdinalIgnoreCase)),
+                    Path = entry.Substring(index),
                     IsFolder = true
                 });
             }
             foreach (var entry in subdirectoryFiles)
             {
+
+                var index = entry.LastIndexOf(_pathFull, StringComparison.OrdinalIgnoreCase);
+                if (index == -1)
+                {
+                    index = entry.LastIndexOf(PathContent, StringComparison.OrdinalIgnoreCase);
+                }
                 files.Add(new ImageDto
                 {
                     Name = entry.Substring(entry.LastIndexOf(Path.DirectorySeparatorChar) + 1),
-                    Path = entry.Substring(entry.LastIndexOf(_pathFull, StringComparison.OrdinalIgnoreCase)),
+                    Path = entry.Substring(index),
                     IsFolder = false
                 });
             }

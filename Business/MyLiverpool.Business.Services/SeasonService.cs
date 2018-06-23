@@ -95,6 +95,7 @@ namespace MyLiverpool.Business.Services
             return season != null ? _mapper.Map<SeasonDto>(season) : null;
         }
 
+        //todo rewrite to cached prop maybe init on start
         public async Task<int> GetCurrentSeasonIdAsync()
         {
             return Int32.Parse(await _helperService.GetAsync(HelperEntityType.CurrentSeason));

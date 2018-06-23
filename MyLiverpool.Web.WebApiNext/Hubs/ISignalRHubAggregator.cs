@@ -18,5 +18,8 @@
         /// </summary>
         /// <param name="endpoint"></param>
         void Send(string endpoint);
+
+
+        void SendToUser<T>(string endpoint, T obj, int userId);
     }
 }

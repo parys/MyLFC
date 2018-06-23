@@ -4,26 +4,26 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from "@angular/forms";
 import { LazyLoadingLibraryService } from "./lazyLoadingLibrary.service";
 
 declare let tinymce: any;
-import "tinymce/themes/modern"
+//import "tinymce/themes/modern"
 
-import "tinymce/plugins/advlist";
-import "tinymce/plugins/anchor";
-import "tinymce/plugins/autolink";
-import "tinymce/plugins/autoresize";
-import "tinymce/plugins/code";
-import "tinymce/plugins/colorpicker";
+//import "tinymce/plugins/advlist";
+//import "tinymce/plugins/anchor";
+//import "tinymce/plugins/autolink";
+//import "tinymce/plugins/autoresize";
+//import "tinymce/plugins/code";
+//import "tinymce/plugins/colorpicker";
 import "./customPlugins";
-import "tinymce/plugins/fullscreen";
-import "tinymce/plugins/image";
-import "tinymce/plugins/hr";
-import "tinymce/plugins/link";
-import "tinymce/plugins/lists";
-import "tinymce/plugins/media";
-import "tinymce/plugins/paste";
-import "tinymce/plugins/spellchecker";
-import "tinymce/plugins/table";
-import "tinymce/plugins/textcolor";
-import "tinymce/plugins/visualblocks";
+//import "tinymce/plugins/fullscreen";
+//import "tinymce/plugins/image";
+//import "tinymce/plugins/hr";
+//import "tinymce/plugins/link";
+//import "tinymce/plugins/lists";
+//import "tinymce/plugins/media";
+//import "tinymce/plugins/paste";
+//import "tinymce/plugins/spellchecker";
+//import "tinymce/plugins/table";
+//import "tinymce/plugins/textcolor";
+//import "tinymce/plugins/visualblocks";
 import "./langs/ru.js";
 /*
 import "tinymce/plugins/preview";

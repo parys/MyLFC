@@ -34,15 +34,15 @@ export class ImageAdditionComponent {
                 .subscribe(result => {
                         if (this.isMultiple) {
                             this.uploadedFiles = result;
-                            this.snackBar.open("Изображения успешно загружены", null, { duration: 5000 });
+                            this.snackBar.open("Изображения успешно загружены", null);
                         } else {
                             this.loadedImage.emit(result[0]);
-                            this.snackBar.open("Изображение успешно загружено", null, { duration: 5000 });
+                            this.snackBar.open("Изображение успешно загружено", null);
                         }
                     },
                     error => {
                         console.log(error);
-                        this.snackBar.open("Ошибка при загрузке", null, { duration: 5000 });
+                        this.snackBar.open("Ошибка при загрузке", null);
                     });
         }
     }
