@@ -39,14 +39,7 @@ export class ChatWindowComponent implements OnInit {
         this.update();
         this.signalRService.chatSubject.subscribe((data: ChatMessage) => {
             if (this.type === data.type) {
-                const index = this.items.findIndex(x => x.id === data.id);
-                if (index !== -1) {
-                    this.items[index] = data;
-                } else {
-                    this.items.unshift(data);
-                }
-                this.messageForm.get("message").patchValue("");
-                this.cd.markForCheck();
+                this.putToChat(data);
             }
         });
         this.roles.rolesChanged.subscribe(_ =>
@@ -58,8 +51,8 @@ export class ChatWindowComponent implements OnInit {
         this.service
             .getAll(id, this.type)
             .subscribe((data: ChatMessage[]) => {
-                this.items = data.concat(this.items);
-            },
+                    this.items = data.concat(this.items);
+                },
                 error => console.log(error),
                 () => {
                     this.cd.markForCheck();
@@ -72,6 +65,8 @@ export class ChatWindowComponent implements OnInit {
             const message: ChatMessage = this.items[this.selectedEditIndex];
             message.message = this.messageForm.get("message").value;
             this.service.update(message.id, message).subscribe(data => {
+
+                    this.putToChat(data);
                     this.cancelEdit();
                 },
                 e => console.log(e));
@@ -80,6 +75,7 @@ export class ChatWindowComponent implements OnInit {
             message.type = this.type;
             this.service.create(message)
                 .subscribe(data => {
+                        this.putToChat(data);
                     },
                     (e) => console.log(e));
         }
@@ -93,22 +89,6 @@ export class ChatWindowComponent implements OnInit {
                 }
             },
             e => console.log(e));
-    }
-
-    private delete(index: number): void {
-        this.service.delete(this.items[index].id).subscribe(data => {
-            if (data) {
-                this.items.slice(index, 1);
-                this.items = this.items.concat([]);
-                this.snackBar.open("Комментарий успешно удален", null, { duration: 5000 });
-            }
-        },
-            e => {
-                console.log(e);
-                this.snackBar.open("Комментарий НЕ удален", null, { duration: 5000 });
-            }, () => {
-                this.cd.markForCheck();
-            });
     }
 
     public addReply(index: number): void {
@@ -131,6 +111,33 @@ export class ChatWindowComponent implements OnInit {
 
     public cancelEdit(): void {
         this.selectedEditIndex = null;
+        this.messageForm.get("message").patchValue("");
+        this.cd.markForCheck();
+    }
+
+    private delete(index: number): void {
+        this.service.delete(this.items[index].id).subscribe(data => {
+            if (data) {
+                this.items.slice(index, 1);
+                this.items = this.items.concat([]);
+                this.snackBar.open("Комментарий успешно удален", null, { duration: 5000 });
+            }
+        },
+            e => {
+                console.log(e);
+                this.snackBar.open("Комментарий НЕ удален", null, { duration: 5000 });
+            }, () => {
+                this.cd.markForCheck();
+            });
+    }
+
+    private putToChat(message: ChatMessage): void {
+        const index = this.items.findIndex(x => x.id === message.id);
+        if (index !== -1) {
+            this.items[index] = message;
+        } else {
+            this.items.unshift(message);
+        }
         this.messageForm.get("message").patchValue("");
         this.cd.markForCheck();
     }

@@ -1,6 +1,6 @@
 ﻿import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { Pm } from "../pm.model";
+import { Pm } from "@app/+common-models";
 import { PmService } from "../pm.service";
 
 @Component({

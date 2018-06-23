@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
 
 namespace MyLiverpool.Business.Dto
 {
@@ -24,5 +25,8 @@ namespace MyLiverpool.Business.Dto
         public DateTimeOffset SentTime { get; set; }
 
         public bool IsRead { get; set; }
+
+        [JsonIgnore]
+        public bool JustRead { get; set; }
     }
 }

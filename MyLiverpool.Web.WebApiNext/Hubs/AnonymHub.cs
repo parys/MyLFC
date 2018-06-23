@@ -34,17 +34,18 @@ namespace MyLiverpool.Web.WebApiNext.Hubs
                 var model = new OnlineCounterModel
                 {
                     Id = int.Parse(Context.User.Claims.First(x => x.Type == "sub").Value),
-                    UserName = Context.User.Identity.Name
+                    UserName = Context.User.Identity.Name,
+                    ConnectionId = Context.ConnectionId
                 };
-                OnlineCounter.CurrentOnlineV2.AddOrUpdate(Context.ConnectionId, model,
+                OnlineUsers.CurrentOnline.AddOrUpdate(Context.ConnectionId, model,
                     (k, v) => model);
             }
             else 
             {
-                OnlineCounter.CurrentOnlineGuestsV2.Add(Context.ConnectionId);
+                OnlineUsers.CurrentOnlineGuests.Add(Context.ConnectionId);
             }
 
-            _signalRHub.Send(HubEndpointConstants.UsersOnlineEndpoint, OnlineCounter.GetStats());
+            _signalRHub.Send(HubEndpointConstants.UsersOnlineEndpoint, OnlineUsers.GetStats());
             return base.OnConnectedAsync();
         }
 
@@ -57,14 +58,14 @@ namespace MyLiverpool.Web.WebApiNext.Hubs
         {
             if (Context.User.Identity.IsAuthenticated)
             {
-                OnlineCounter.CurrentOnlineV2.TryRemove(Context.ConnectionId, out var value);
+                OnlineUsers.CurrentOnline.TryRemove(Context.ConnectionId, out var value);
             }
             else
             {
                 var connectionId = Context.ConnectionId;
-                OnlineCounter.CurrentOnlineGuestsV2.TryTake(out connectionId);
+                OnlineUsers.CurrentOnlineGuests.TryTake(out connectionId);
             }
-            _signalRHub.Send(HubEndpointConstants.UsersOnlineEndpoint, OnlineCounter.GetStats());
+            _signalRHub.Send(HubEndpointConstants.UsersOnlineEndpoint, OnlineUsers.GetStats());
             return base.OnConnectedAsync();
         }
     }

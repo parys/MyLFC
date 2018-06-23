@@ -5,7 +5,7 @@ import { RolesCheckedService } from "@app/shared";
 @Component({
     selector: "sidebar-left",
     templateUrl: "./sidebar-left.component.html",
-    styleUrls: ["./sidebar-left.component.css"]
+    styleUrls: ["./sidebar-left.component.scss"]
 })
 export class SidebarLeftComponent {
     @HostListener("window:scroll", [])

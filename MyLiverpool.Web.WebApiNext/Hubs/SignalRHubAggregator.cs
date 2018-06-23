@@ -60,5 +60,15 @@ namespace MyLiverpool.Web.WebApiNext.Hubs
         /// Users online endpoint.
         /// </summary>
         public const string UsersOnlineEndpoint = "UpdateOnline";
+
+        /// <summary>
+        /// New pm sent endpoint.
+        /// </summary>
+        public const string NewPmEndpoint = "NewPm";
+
+        /// <summary>
+        /// Pn was read endpoint.
+        /// </summary>
+        public const string PmReadEndpoint = "ReadPm";
     }
 }

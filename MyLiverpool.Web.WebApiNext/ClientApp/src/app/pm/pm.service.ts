@@ -1,7 +1,7 @@
 ﻿import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { HttpWrapper } from "@app/shared";
-import { Pm } from "./pm.model";
+import { Pm } from "@app/+common-models";
 import { User } from "@app/user";
 
 @Injectable()

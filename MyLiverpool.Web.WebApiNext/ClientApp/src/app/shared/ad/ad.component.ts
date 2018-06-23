@@ -1,10 +1,12 @@
-﻿import { Component, Input, OnInit, AfterViewInit } from "@angular/core";
+﻿import { Component, Input, OnInit, AfterViewInit, ChangeDetectionStrategy } from "@angular/core";
 
 declare let addAd: any;
 
 @Component({
     selector: "ad",
-    templateUrl: "ad.component.html"
+    templateUrl: "ad.component.html",
+    styleUrls: ["ad.component.scss"],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class AdComponent implements AfterViewInit, OnInit {

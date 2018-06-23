@@ -9,7 +9,7 @@ namespace MyLiverpool.Business.Contracts
 
         Task<PrivateMessageDto> GetAsync(int messageId, int userId);
 
-        Task<bool> SaveAsync(PrivateMessageDto model);
+        Task<PrivateMessageDto> SaveAsync(PrivateMessageDto model);
 
         Task<int> GetUnreadPmCountAsync(int userId);
     }

@@ -1,11 +1,15 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using AspNet.Security.OAuth.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Caching.Memory;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Common.Utilities.Extensions;
+using MyLiverpool.Web.WebApiNext.Hubs;
+using MyLiverpool.Web.WebApiNext.OnlineCounting;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
@@ -16,6 +20,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     public class PmController : Controller
     {
         private readonly IPmService _pmService;
+        private readonly IHubContext<AuthHub> _authHub;
         private readonly IMemoryCache _cache;
         private const string UserPm = "userPm";
 
@@ -24,10 +29,11 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <param name="pmService"></param>
         /// <param name="cache"></param>
-        public PmController(IPmService pmService, IMemoryCache cache)
+        public PmController(IPmService pmService, IMemoryCache cache, IHubContext<AuthHub> authHub)
         {
             _pmService = pmService;
             _cache = cache;
+            _authHub = authHub;
         }
 
         /// <summary>
@@ -51,9 +57,14 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         {
             var userId = User.GetUserId();
             var model = await _pmService.GetAsync(id, userId);
+            if (model.JustRead)
+            {
+                UpdatePmCounter(userId);
+            }
       //      _cache.Remove(UserPm + userId);
             return Ok(model);
         }
+
 
         /// <summary>
         /// Creates new private message.
@@ -73,6 +84,10 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 return BadRequest();
             }
             var result = await _pmService.SaveAsync(model);
+            if (result != null)
+            {
+                TryNotifyUser(model.ReceiverId, result);
+            }
          //   _cache.Remove(UserPm + model.ReceiverId);
             return Ok(result);
         }
@@ -88,6 +103,26 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             var result = //await _cache.GetOrCreate(UserPm + userId, async x =>
             await _pmService.GetUnreadPmCountAsync(userId);//);
             return Json(result);
+        }
+
+        private async void TryNotifyUser(int receiverId, PrivateMessageDto message)
+        {
+            var receiver = OnlineUsers.CurrentOnline.Values.FirstOrDefault(x => x.Id == receiverId);
+            if (receiver != null)
+            {
+               // await _authHub.Clients.User(receiver.Id.ToString()).SendAsync(HubEndpointConstants.NewPmEndpoint, message);
+                await _authHub.Clients.Client(receiver.ConnectionId).SendAsync(HubEndpointConstants.NewPmEndpoint, message);
+            }
+        }
+
+        private async void UpdatePmCounter(int userId)
+        {
+            var receiver = OnlineUsers.CurrentOnline.Values.FirstOrDefault(x => x.Id == userId);
+            if (receiver != null)
+            {
+             //   await _authHub.Clients.User(receiver.Id.ToString()).SendAsync(HubEndpointConstants.PmReadEndpoint, true);
+                await _authHub.Clients.Client(receiver.ConnectionId).SendAsync(HubEndpointConstants.PmReadEndpoint, true);
+            }
         }
     }
 }

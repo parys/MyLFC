@@ -40,19 +40,24 @@ namespace MyLiverpool.Business.Services
         public async Task<PrivateMessageDto> GetAsync(int messageId, int userId)
         {
             var message = await _pmRepository.GetByIdAsync(messageId, false, x => x.Receiver, y => y.Sender);
-            if (message.ReceiverId != userId && message.SenderId != userId)
+            if (message == null || message.ReceiverId != userId && message.SenderId != userId)
             {
                 throw new UnauthorizedAccessException();
             }
+
+            var result = _mapper.Map<PrivateMessageDto>(message);
             if (!message.IsRead && message.ReceiverId == userId)
             {
                 message.IsRead = true;
                 await _pmRepository.UpdateAsync(message);
+                result.IsRead = true;
+                result.JustRead = true;
             }
-            return _mapper.Map<PrivateMessageDto>(message);
+
+            return result;
         }
 
-        public async Task<bool> SaveAsync(PrivateMessageDto model)
+        public async Task<PrivateMessageDto> SaveAsync(PrivateMessageDto model)
         {
             await RemoveOldMessagesAsync(model.SenderId);
             await RemoveOldMessagesAsync(model.ReceiverId);
@@ -63,12 +68,12 @@ namespace MyLiverpool.Business.Services
             {
                 message = await _pmRepository.CreateAsync(message);
                 await _messageService.SendNewPmToEmailAsync(message.ReceiverId, message.Message, message.Id);
+                return _mapper.Map<PrivateMessageDto>(message);
             }
             catch (Exception)
             {
-                return false;
+                return null;
             }
-            return true;
         }
 
         public async Task<int> GetUnreadPmCountAsync(int userId)

@@ -84,10 +84,7 @@ export class AuthService {
 
     public refreshTokens(): Observable<IAuthTokenModel> {
         return this.getTokens({ refresh_token: this.storage.getRefreshToken() }, "refresh_token")
-            .pipe(tap(_ => {
-                    this.signalRservice.initializeHub();
-                }),
-                catchError(error => throwError("Expired")));
+                .pipe(catchError(error => throwError("Expired")));
     }
 
     private updateState(newState: IAuthStateModel): void {
@@ -159,7 +156,8 @@ export class AuthService {
             .subscribe((data: IUserProfile) => {
                     this.storage.setUserId(+data.userId);
                     this.storage.setRoles(data.roles.split(", "));
-                    this.rolesCheckedService.checkRoles();
+                this.rolesCheckedService.checkRoles();
+                    this.signalRservice.initializeHub();//WARNING---------------------------------------------------------
                 },
                 e => console.log(e)
             );

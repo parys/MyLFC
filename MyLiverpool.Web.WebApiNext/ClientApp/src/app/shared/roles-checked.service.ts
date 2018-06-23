@@ -41,7 +41,6 @@ export class RolesCheckedService {
         this.userRoles.isLogined = false;
         if (!this.roles) {
             this.rolesChanged.next(null);
-            this.cd.tick();
             return;
         };
         this.userRoles.isLogined = true;

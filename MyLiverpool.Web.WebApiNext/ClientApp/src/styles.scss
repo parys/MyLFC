@@ -22,7 +22,6 @@ html {
 body {
     background-color: #f5f5f5;
     font-size: 15px;
-   // flex-direction: column;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     margin: 0;
 }
@@ -776,19 +775,6 @@ ol {
     .infodate {
         text-align: center;
         color: #000000;
-    }
-
-    .injuries {
-        background-color: antiquewhite;
-    }
-
-    .injury-item {
-        border-left: maroon solid 3px;
-        margin-bottom: 5px;
-    }
-
-    .injury-item img {
-        max-width: 40px;
     }
 
 

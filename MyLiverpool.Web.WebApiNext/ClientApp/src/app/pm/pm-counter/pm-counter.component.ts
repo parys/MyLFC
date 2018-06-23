@@ -1,10 +1,10 @@
-﻿import { Component, OnInit, OnDestroy, Inject, PLATFORM_ID } from "@angular/core";
-import { isPlatformBrowser } from "@angular/common";
+﻿import { Component, OnInit, OnDestroy, } from "@angular/core";
 import { MatSnackBar } from "@angular/material";
-import { Subscription, interval } from "rxjs";
-import { map } from "rxjs/operators";
+import { Router } from "@angular/router";
+import { Subscription } from "rxjs";
 import { PmService } from "../pm.service";
 import { Configuration } from "@app/app.constants";
+import { SignalRService } from "@app/shared";
 
 @Component({
     selector: "pm-counter",
@@ -12,30 +12,32 @@ import { Configuration } from "@app/app.constants";
 })
 export class PmCounterComponent implements OnInit, OnDestroy {
     private sub: Subscription;
-    private sub2: Subscription;
     public count: number = 0;
+    private action: string = "Перейти";
 
     constructor(private pmService: PmService,
         private snackBar: MatSnackBar,
-        @Inject(PLATFORM_ID) private platformId: Object,
+        private signalR: SignalRService,
+        private router: Router,
         private config: Configuration) { }
 
     public ngOnInit(): void {
         this.updateCount();
-        if (isPlatformBrowser(this.platformId)) {
-            this.scheduleUpdateCount();
-        }
+
+        this.signalR.readPm.subscribe(data => {
+            this.count--;
+        });
+        this.signalR.newPm.subscribe(data => {
+            this.count++;
+            this.snackBar.open("Вам прислали сообщение", this.action)
+                .onAction()
+                .subscribe(_ => this.router.navigate(["/pms", data.id]));;
+
+        });
     }
 
     public ngOnDestroy(): void {
         if(this.sub) { this.sub.unsubscribe(); }
-        if(this.sub2) { this.sub2.unsubscribe(); }
-    }
-
-    private scheduleUpdateCount() {
-        this.sub2 = interval(this.config.updateUnreadPmCountTime).pipe(
-            map(x => this.updateCount()))
-            .subscribe();
     }
 
     private updateCount() {
@@ -43,8 +45,10 @@ export class PmCounterComponent implements OnInit, OnDestroy {
             .subscribe(data => {
                 this.count = +data;
                 if (+data > 0) {
-                    this.snackBar.open("У вас есть непрочитанные личные сообщения",
-                        null, {  duration: 5000 });
+                    this.snackBar
+                        .open("У вас есть непрочитанные личные сообщения", this.action)
+                        .onAction()
+                        .subscribe(data => this.router.navigate(["/pms"]));
                 }},
                 e => console.log(e));
     }

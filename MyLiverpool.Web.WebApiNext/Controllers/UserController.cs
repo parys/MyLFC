@@ -167,7 +167,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         //    {
         //        OnlineCounter.AddGuestToOnline(HttpContext.Connection.RemoteIpAddress.ToString());
         //    }
-            return Json(OnlineCounter.GetStats());
+            return Json(OnlineUsers.GetStats());
         }
 
         /// <summary>

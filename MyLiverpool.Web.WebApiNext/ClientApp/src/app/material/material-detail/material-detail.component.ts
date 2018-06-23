@@ -15,6 +15,7 @@ declare let ssn: any;
 @Component({
     selector: "material-detail",
     templateUrl: "./material-detail.component.html",
+    styleUrls: ["./material-detail.component.scss"],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 

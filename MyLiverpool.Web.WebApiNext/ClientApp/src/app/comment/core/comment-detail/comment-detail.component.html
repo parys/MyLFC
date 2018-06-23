@@ -7,7 +7,7 @@
                        fragment="com{{item.id}}"
                        [textContent]="item.number"></a>
                 </span>&nbsp;
-                <a class=" font-size20" [routerLink]="['/users', item.authorId]" [textContent]="item.authorUserName"></a>
+                <a [routerLink]="['/users', item.authorId]" [textContent]="item.authorUserName"></a>
             </span>
             <span>
                 <span class="small" [textContent]="item.additionTime | customDate:true"></span>
@@ -15,22 +15,22 @@
             </span>
             <span>
                 <span>
-                    <span class="color-green font-size24" [textContent]="item.positiveCount"></span>
+                    <span class="color-green font-size20" [textContent]="item.positiveCount"></span>
                     <a class="color-green" role="button" (click)="vote(true)" *ngIf="item.canPositiveVote && !roles.isSelf(item.authorId)">
-                        <mat-icon>thumb_up</mat-icon>
+                        <mat-icon style="font-size: 100%;">thumb_up</mat-icon>
                     </a>
                     /
-                    <span class="color-red font-size24" [textContent]="item.negativeCount"></span>
+                    <span class="color-red font-size20" [textContent]="item.negativeCount"></span>
                     <a class="color-red" role="button" (click)="vote(false)" *ngIf="item.canNegativeVote && !roles.isSelf(item.authorId)">
-                        <mat-icon>thumb_down</mat-icon>
+                        <mat-icon style="font-size: 100%;">thumb_down</mat-icon>
                     </a>
                 </span>
-                <a *ngIf="roles.isModerator && !item.isVerified" (click)="verify()">
-                    <i class="material-icons">done</i></a>
+                <a *ngIf="roles.isModerator && !item.isVerified" (click)="verify()" role="button">
+                    <mat-icon style="font-size: 100%;">done</mat-icon></a>
                 <a *ngIf="roles.isModerator || roles.isSelf(item.authorId)" role="button" (click)="showEditModal()">
-                    <i class="material-icons">edit</i></a>
+                    <mat-icon style="font-size: 100%;">edit</mat-icon></a>
                 <a *ngIf="roles.isModerator" role="button" (click)="showDeleteModal()">
-                    <i class="material-icons">clear</i></a>
+                    <mat-icon style="font-size: 100%;">clear</mat-icon></a>
             </span>
         </div>
         <div *ngIf="!isEditMode">

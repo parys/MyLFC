@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,17 +7,17 @@ namespace MyLiverpool.Web.WebApiNext.OnlineCounting
     /// <summary>
     /// 
     /// </summary>
-    public static class OnlineCounter
+    public static class OnlineUsers
     {
         /// <summary>
         /// Current online guests.
         /// </summary>
-        public static readonly ConcurrentBag<string> CurrentOnlineGuestsV2 = new ConcurrentBag<string>();
+        public static readonly ConcurrentBag<string> CurrentOnlineGuests = new ConcurrentBag<string>();
 
         /// <summary>
         /// Current online users.
         /// </summary>
-        public static readonly ConcurrentDictionary<string, OnlineCounterModel> CurrentOnlineV2 = new ConcurrentDictionary<string, OnlineCounterModel>();
+        public static readonly ConcurrentDictionary<string, OnlineCounterModel> CurrentOnline = new ConcurrentDictionary<string, OnlineCounterModel>();
         
         /// <summary>
         /// 
@@ -26,13 +25,13 @@ namespace MyLiverpool.Web.WebApiNext.OnlineCounting
         /// <returns></returns>
         public static OnlineUsersDto GetStats()
         {
-            var users = CurrentOnlineV2.Values
+            var users = CurrentOnline.Values
                 .GroupBy(p => p.UserName)
                 .Select(g => g.First());
             return new OnlineUsersDto
             {
-                AllCount = users.Count() + CurrentOnlineGuestsV2.Count,
-                GuestCount = CurrentOnlineGuestsV2.Count,
+                AllCount = users.Count() + CurrentOnlineGuests.Count,
+                GuestCount = CurrentOnlineGuests.Count,
                 Users = users
             };
         }
@@ -52,6 +51,11 @@ namespace MyLiverpool.Web.WebApiNext.OnlineCounting
         /// UserName.
         /// </summary>
         public string UserName { get; set; }
+
+        /// <summary>
+        /// UserName.
+        /// </summary>
+        public string ConnectionId { get; set; }
     }
 
     /// <summary>

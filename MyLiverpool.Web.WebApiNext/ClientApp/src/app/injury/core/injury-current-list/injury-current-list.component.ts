@@ -6,7 +6,8 @@ import { RolesCheckedService } from "@app/shared";
 
 @Component({
     selector: "<injury-current-list>",
-    templateUrl: "./injury-current-list.component.html"
+    templateUrl: "./injury-current-list.component.html",
+    styleUrls: ["./injury-current-list.component.scss"]
 })
 export class InjuryCurrentListComponent implements OnInit, OnDestroy {
     private sub2: Subscription;

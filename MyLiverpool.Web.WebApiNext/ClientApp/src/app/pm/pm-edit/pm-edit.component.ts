@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { MatSnackBar } from "@angular/material";
 import { Observable, Subscription } from "rxjs";
 import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
-import { Pm } from "../pm.model";
+import { Pm } from "@app/+common-models";
 import { PmService } from "../pm.service";
 import { User } from "@app/user";
 
