@@ -6,9 +6,11 @@
       "installMode": "prefetch",
       "resources": {
         "files": [
-          "/scripts.*.js",
           "/favicon.ico",
-          "/index.html",
+          "/index.html"
+        ],
+        "versionedFiles": [
+          "/scripts.*.js",
           "/*.css",
           "/*.js"
         ]
@@ -30,7 +32,8 @@
         "urls": [
           "https://fonts.googleapis.com/**",
           "https://fonts.gstatic.com/**",
-          "/fontawesome-webfont.*"
+          "/fontawesome-webfont.*",
+          "/10427.*"
         ]
       }
     }
