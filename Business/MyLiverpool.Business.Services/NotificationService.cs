@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using MyLfc.Common.Web.Hubs;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Common.Utilities;
@@ -14,12 +16,14 @@ namespace MyLiverpool.Business.Services
     public class NotificationService : INotificationService
     {
         private readonly IGenericRepository<Notification> _notificationRepository;
+        private readonly ISignalRHubAggregator _signalRHubAggregator;
         private readonly IMapper _mapper;
 
-        public NotificationService(IGenericRepository<Notification> notificationRepository, IMapper mapper)
+        public NotificationService(IGenericRepository<Notification> notificationRepository, IMapper mapper, ISignalRHubAggregator signalRHubAggregator)
         {
             _notificationRepository = notificationRepository;
             _mapper = mapper;
+            _signalRHubAggregator = signalRHubAggregator;
         }
 
         public async Task<NotificationDto> CreateAsync(NotificationDto dto)
@@ -60,15 +64,12 @@ namespace MyLiverpool.Business.Services
 
         public async Task<bool> MarkAsReadAsync(int[] ids, int userId)
         {
-            foreach (var id in ids)
-            {
-                var entity = await _notificationRepository.GetByIdAsync(id);
-                if (entity != null && !entity.IsRead && entity.UserId == userId)
-                {
-                    entity.IsRead = true;
-                    await _notificationRepository.UpdateAsync(entity);
-                }
-            }
+            var entities =
+                (await _notificationRepository.GetListAsync(x => ids.Contains(x.Id) && !x.IsRead && x.UserId == userId))
+                .ToList();
+            entities.ForEach(x =>x.IsRead = true);
+            await _notificationRepository.UpdateRangeAsync(entities);
+            _signalRHubAggregator.SendToUser(HubEndpointConstants.NotifyReadEndpoint, entities.Count, userId);
             return true;
         }
 

@@ -52,6 +52,12 @@ namespace MyLiverpool.Data.ResourceAccess
             return entity;
         }
 
+        public async Task UpdateRangeAsync(List<T> entities)
+        {
+            _context.Set<T>().UpdateRange(entities);
+            await _context.SaveChangesAsync();
+        }
+
         public async Task<bool> DeleteAsync(T entity)
         {
             _context.Set<T>().Remove(entity);

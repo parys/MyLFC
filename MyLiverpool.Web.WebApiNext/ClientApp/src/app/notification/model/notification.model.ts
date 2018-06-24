@@ -7,4 +7,12 @@
     public text: string;
     public isRead: boolean;
     public dateTime: Date;
+
+    public getRoute(): string {
+        return `/${this.typeName}${this.entityId}`;
+    }
+
+    public getFragment(): string {
+        return this.commentId ? `com${this.commentId}` : "";
+    }
 }

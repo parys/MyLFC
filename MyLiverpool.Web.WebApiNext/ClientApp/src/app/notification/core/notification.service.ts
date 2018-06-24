@@ -1,7 +1,7 @@
 ﻿import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { HttpWrapper } from "@app/shared";
-import { Notification } from "./notification.model";
+import { Notification } from "@app/notification/model";
 
 @Injectable()
 export class NotificationService {

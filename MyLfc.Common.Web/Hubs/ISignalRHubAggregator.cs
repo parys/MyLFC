@@ -1,4 +1,4 @@
-﻿namespace MyLiverpool.Web.WebApiNext.Hubs
+﻿namespace MyLfc.Common.Web.Hubs
 {
     /// <summary>
     /// Provides calls to both hubs.

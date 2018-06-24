@@ -5,12 +5,12 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using MyLfc.Common.Web;
+using MyLfc.Common.Web.Hubs;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
 using MyLiverpool.Web.WebApiNext.Extensions;
-using MyLiverpool.Web.WebApiNext.Hubs;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {

@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
+using MyLfc.Common.Web.Hubs;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Business.Dto.Filters;
@@ -26,12 +27,14 @@ namespace MyLiverpool.Business.Services
         private readonly IUserService _userService;
         private readonly IEmailSender _messageService;
         private readonly IHttpContextAccessor _accessor;
+        private readonly ISignalRHubAggregator _signalRHubAggregator;
 
         private const int ItemPerPage = GlobalConstants.CommentsPerPageList * 10 /*todo should be fixed*/;
 
         public CommentService(IMapper mapper, IMaterialCommentRepository commentService,
             IUserService userService, IHttpContextAccessor accessor,
-            IEmailSender messageService, INotificationService notificationService)
+            IEmailSender messageService, INotificationService notificationService,
+            ISignalRHubAggregator signalRHubAggregator)
         {
             _mapper = mapper;
             _commentService = commentService;
@@ -39,6 +42,7 @@ namespace MyLiverpool.Business.Services
             _accessor = accessor;
             _messageService = messageService;
             _notificationService = notificationService;
+            _signalRHubAggregator = signalRHubAggregator;
         }
 
         public async Task<bool> DeleteAsync(int id)
@@ -246,7 +250,8 @@ namespace MyLiverpool.Business.Services
                 CommentId = commentId,
                 Text = $"Пользователь {authorUserName} оставил ответ на ваш комментарий: \"{commentText}\"."
             };
-            await _notificationService.CreateAsync(notification);
+            var notificationDto = await _notificationService.CreateAsync(notification);
+            _signalRHubAggregator.SendToUser(HubEndpointConstants.NewNotifyEndpoint, notificationDto, parentComment.AuthorId);
         }
 
         private async Task SendNotificationToEmailAsync(MaterialComment parentComment, int commentId, string authorUserName, string commentText)

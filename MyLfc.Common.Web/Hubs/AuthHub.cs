@@ -1,7 +1,7 @@
 ﻿using AspNet.Security.OAuth.Validation;
 using Microsoft.AspNetCore.Authorization;
 
-namespace MyLiverpool.Web.WebApiNext.Hubs
+namespace MyLfc.Common.Web.Hubs
 {
     /// <summary>
     /// Hub for athenticated users.

@@ -24,7 +24,7 @@ import * as admin from "./admin";
 import { AccountModule } from "./account";
 import { TransferCoreModule } from "./transfer";
 import { CommentCoreModule } from "./comment";
-import { NotificationModule } from "./notification";
+import { NotificationCoreModule } from "./notification";
 import { MaterialCategoryModule } from "./materialCategory";
 import { UserCoreModule } from "./user";
 import { SeasonCoreModule } from "./season";
@@ -46,7 +46,7 @@ registerLocaleData(localeRU);
         MatchCoreModule,
         TransferCoreModule,
         MaterialCategoryModule,
-        NotificationModule,
+        NotificationCoreModule,
         PersonCoreModule,
         SeasonCoreModule,
         RouterModule.forRoot(routes),

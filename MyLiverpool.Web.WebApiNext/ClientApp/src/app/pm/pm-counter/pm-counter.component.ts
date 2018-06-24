@@ -3,7 +3,6 @@ import { MatSnackBar } from "@angular/material";
 import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { PmService } from "../pm.service";
-import { Configuration } from "@app/app.constants";
 import { SignalRService } from "@app/shared";
 
 @Component({
@@ -18,8 +17,7 @@ export class PmCounterComponent implements OnInit, OnDestroy {
     constructor(private pmService: PmService,
         private snackBar: MatSnackBar,
         private signalR: SignalRService,
-        private router: Router,
-        private config: Configuration) { }
+        private router: Router) { }
 
     public ngOnInit(): void {
         this.updateCount();
@@ -31,8 +29,7 @@ export class PmCounterComponent implements OnInit, OnDestroy {
             this.count++;
             this.snackBar.open("Вам прислали сообщение", this.action)
                 .onAction()
-                .subscribe(_ => this.router.navigate(["/pms", data.id]));;
-
+                .subscribe(_ => this.router.navigate(["/pms", data.id]));
         });
     }
 

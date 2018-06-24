@@ -27,6 +27,10 @@ export const routes: Routes = [
         loadChildren: "./match/lazy/match.module#MatchModule"
     },
     {
+        path: "notifications",
+        loadChildren: "./notification/lazy/notification.module#NotificationModule"
+    },
+    {
         path: "persons",
         loadChildren: "./person/lazy/person.module#PersonModule"
     },

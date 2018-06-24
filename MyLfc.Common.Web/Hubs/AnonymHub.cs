@@ -3,9 +3,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
-using MyLiverpool.Web.WebApiNext.OnlineCounting;
+using MyLfc.Common.Web.OnlineCounting;
 
-namespace MyLiverpool.Web.WebApiNext.Hubs
+namespace MyLfc.Common.Web.Hubs
 {
     /// <summary>
     /// Contains all signalR methods.

@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using Microsoft.AspNetCore.SignalR;
-using MyLiverpool.Web.WebApiNext.OnlineCounting;
+using MyLfc.Common.Web.OnlineCounting;
 
-namespace MyLiverpool.Web.WebApiNext.Hubs
+namespace MyLfc.Common.Web.Hubs
 {
     /// <summary>
     /// Provides calls to both hubs.
@@ -89,5 +89,15 @@ namespace MyLiverpool.Web.WebApiNext.Hubs
         /// Pn was read endpoint.
         /// </summary>
         public const string PmReadEndpoint = "ReadPm";
+
+        /// <summary>
+        /// New pm sent endpoint.
+        /// </summary>
+        public const string NewNotifyEndpoint = "NewNotify";
+
+        /// <summary>
+        /// Pn was read endpoint.
+        /// </summary>
+        public const string NotifyReadEndpoint = "ReadNotify";
     }
 }

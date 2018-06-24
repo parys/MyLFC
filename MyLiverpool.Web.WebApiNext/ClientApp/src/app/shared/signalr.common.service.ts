@@ -3,7 +3,7 @@ import { Subject } from "rxjs";
 import { StorageService } from "./storage.service";
 import { ChatMessage, Comment, Pm } from "@app/+common-models";
 import { HubConnection, HubConnectionBuilder, LogLevel } from "@aspnet/signalr";
-import {  } from "../+common-models/pm.model";
+import { Notification } from "@app/notification";
 
 @Injectable()
 export class SignalRService {
@@ -14,6 +14,8 @@ export class SignalRService {
     public lastCommentsSubject: Subject<Comment> = new Subject<Comment>();
     public readPm: Subject<boolean> = new Subject<boolean>();
     public newPm: Subject<Pm> = new Subject<Pm>();
+    public newNotify: Subject<Notification> = new Subject<Notification>();
+    public readNotify: Subject<number> = new Subject<number>();
 
     constructor(private storage: StorageService,
         @Inject("BASE_URL") private baseUrl: string) {
@@ -61,6 +63,14 @@ export class SignalRService {
                 (data: Pm) => {
                     this.newPm.next(data);
                 });
+            this.hubConnection.on("newNotify",
+                (data: Notification) => {
+                    this.newNotify.next(data);
+                });
+            this.hubConnection.on("readNotify",
+                (data: number) => {
+                    this.readNotify.next(data);
+                });
         }
 
         this.hubConnection.start()
@@ -70,5 +80,10 @@ export class SignalRService {
             .catch((err: Error) => {
                 console.error(err);
             });
+
+        this.hubConnection.onclose(() => {
+            this.initializeHub();
+            console.warn("RECONNECT");
+        });
     }
 }

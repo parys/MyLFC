@@ -1,2 +1,2 @@
-﻿export * from "./notification.module";
-export * from "./notification-counter/index";
+﻿export * from "./core";
+export * from "./model";

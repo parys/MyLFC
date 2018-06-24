@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MyLiverpool.Web.WebApiNext.OnlineCounting
+namespace MyLfc.Common.Web.OnlineCounting
 {
     /// <summary>
     /// 
