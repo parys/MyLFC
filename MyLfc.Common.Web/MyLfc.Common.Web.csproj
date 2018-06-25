@@ -24,4 +24,10 @@
     <ProjectReference Include="..\Data\MyLiverpool.Data.ResourceAccess\MyLiverpool.Data.ResourceAccess.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="Microsoft.AspNetCore.ResponseCompression">
+      <HintPath>..\..\..\Users\User\.nuget\packages\microsoft.aspnetcore.responsecompression\2.1.1\lib\netstandard2.0\Microsoft.AspNetCore.ResponseCompression.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

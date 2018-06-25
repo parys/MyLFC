@@ -23,12 +23,12 @@ using MyLiverpool.Web.WebApiNext.Extensions;
 using Newtonsoft.Json.Serialization;
 using Swashbuckle.AspNetCore.Swagger;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
+using MyLfc.Common.Web;
 using MyLfc.Common.Web.Hubs;
 using MyLfc.Common.Web.Middlewares;
 
 namespace MyLiverpool.Web.WebApiNext
 {
-
     /// <summary>
     /// Startup class.
     /// </summary>
@@ -67,7 +67,7 @@ namespace MyLiverpool.Web.WebApiNext
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<GzipCompressionProviderOptions>(options => options.Level = CompressionLevel.Optimal);
-            services.AddResponseCompression(options => { });
+            services.AddCustomResponseCompression();
 
             services.Configure<RequestLocalizationOptions>(options =>
             {
@@ -210,8 +210,8 @@ namespace MyLiverpool.Web.WebApiNext
                     ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
                 });
 
-                app.UseResponseCompression();
             }
+            app.UseCustomResponseCompression();
 
             app.UseCors("MyPolicy");
          //   app.UseSignalRAuthentication();
