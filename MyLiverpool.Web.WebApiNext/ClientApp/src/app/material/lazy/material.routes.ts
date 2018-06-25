@@ -1,6 +1,7 @@
 ﻿import { Routes } from "@angular/router";
-import { MaterialListComponent, MaterialDetailComponent, MaterialEditComponent } from "./index";
+import { MaterialDetailComponent, MaterialEditComponent } from "./index";
 import { RoleGuard } from "@app/shared";
+import { MaterialListComponent } from "../core/material-list/";
 
 export const materialRoutes: Routes = [
     {

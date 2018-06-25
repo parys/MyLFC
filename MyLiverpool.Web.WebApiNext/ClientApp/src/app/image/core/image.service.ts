@@ -1,6 +1,6 @@
 ﻿import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { Image } from "./image.model";
+import { Image } from "../model";
 import { HttpWrapper } from "@app/shared";
 
 @Injectable()

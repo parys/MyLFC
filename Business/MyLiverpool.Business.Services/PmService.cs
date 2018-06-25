@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using MyLfc.Common.Web.Hubs;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Common.Utilities;
@@ -16,13 +17,15 @@ namespace MyLiverpool.Business.Services
     {
         private readonly IGenericRepository<PrivateMessage> _pmRepository;
         private readonly IEmailSender _messageService;
+        private readonly ISignalRHubAggregator _signalRHub;
         private readonly IMapper _mapper;
 
-        public PmService(IGenericRepository<PrivateMessage> pmRepository, IMapper mapper, IEmailSender messageService)
+        public PmService(IGenericRepository<PrivateMessage> pmRepository, IMapper mapper, IEmailSender messageService, ISignalRHubAggregator signalRHub)
         {
             _pmRepository = pmRepository;
             _mapper = mapper;
             _messageService = messageService;
+            _signalRHub = signalRHub;
         }
 
         public async Task<PrivateMessagesDto> GetListAsync(int id)
@@ -45,15 +48,14 @@ namespace MyLiverpool.Business.Services
                 throw new UnauthorizedAccessException();
             }
 
-            var result = _mapper.Map<PrivateMessageDto>(message);
             if (!message.IsRead && message.ReceiverId == userId)
             {
                 message.IsRead = true;
                 await _pmRepository.UpdateAsync(message);
-                result.IsRead = true;
-                result.JustRead = true;
+                _signalRHub.SendToUser(HubEndpointConstants.PmReadEndpoint, true, userId);
             }
 
+            var result = _mapper.Map<PrivateMessageDto>(message);
             return result;
         }
 

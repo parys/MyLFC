@@ -9,14 +9,13 @@ import { AppComponent } from "./app.component";
 import { routes } from "./app.routes";
 //import { ForumModule } from "./forum";
 import { Configuration } from "./app.constants";
-import * as material from "./material";
 import { EditorModule } from "./editor";
 import { ChatModule } from "./chat";
 import { ClubCoreModule } from "./club";
 import * as home from "./home";
-import * as image from "./image";
 import { InjuryCoreModule } from "./injury";
 import { MatchCoreModule } from "./match";
+import { MaterialCoreModule } from "./material";
 import { PersonCoreModule } from "./person";
 import { SharedModule } from "./shared";
 import { StadiumModule } from "./stadium";
@@ -28,6 +27,7 @@ import { NotificationCoreModule } from "./notification";
 import { MaterialCategoryModule } from "./materialCategory";
 import { UserCoreModule } from "./user";
 import { SeasonCoreModule } from "./season";
+import { MaterialModule } from "./material/lazy/material.module";
 
 registerLocaleData(localeRU);
 
@@ -46,6 +46,8 @@ registerLocaleData(localeRU);
         MatchCoreModule,
         TransferCoreModule,
         MaterialCategoryModule,
+        MaterialCoreModule,
+        MaterialModule,//todo temporary
         NotificationCoreModule,
         PersonCoreModule,
         SeasonCoreModule,
@@ -59,27 +61,15 @@ registerLocaleData(localeRU);
         home.NavbarComponent,
         home.SidebarLeftComponent,
         home.SidebarRightComponent,
-        image.ImageAdditionComponent,
-        image.ImageDetailComponent,
-        image.ImageListComponent,
         AppComponent,
         admin.CupTableComponent,
         admin.EplTableComponent,
         admin.PageEditorComponent,
-        material.MaterialListComponent,
-        material.MaterialDetailComponent,
-        material.MaterialEditComponent,
-        material.MaterialActivateDialogComponent
-    ], // components and directives
-    entryComponents: [
-        material.MaterialActivateDialogComponent,
     ],
     providers: [// services
-        image.ImageService,
         admin.AdminService,
         { provide: LOCALE_ID, useValue: "ru-RU" },
         Configuration,
-        material.MaterialService,
         Title
     ]
 })

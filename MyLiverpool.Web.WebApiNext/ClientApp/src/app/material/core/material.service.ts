@@ -1,9 +1,8 @@
 ﻿import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { Material } from "./material.model";
-import { MaterialType } from "../materialCategory/materialType.enum";
+import { MaterialType } from "@app/materialCategory";
 import { Pageable, HttpWrapper } from "@app/shared";
-import { MaterialFilters } from "./materialFilters.model";
+import { MaterialFilters, Material } from "../model";
 
 @Injectable()
 export class MaterialService {

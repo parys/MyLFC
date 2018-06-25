@@ -2,8 +2,8 @@
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
 import { MatSnackBar } from "@angular/material";
-import { MaterialService } from "../material.service";
-import { Material } from "../material.model";
+import { MaterialService } from "../../core";
+import { Material } from "../../model";
 import { MaterialCategoryService, MaterialCategory, MaterialType } from "@app/materialCategory";
 import { RolesCheckedService } from "@app/shared";
 

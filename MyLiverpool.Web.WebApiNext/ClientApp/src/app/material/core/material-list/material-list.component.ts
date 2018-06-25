@@ -4,11 +4,10 @@ import { MatDialog, MatSnackBar } from "@angular/material";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs";
 import { MaterialService } from "../material.service";
-import { Material } from "../material.model";
-import { MaterialFilters } from "../materialFilters.model";
+import { MaterialActivateDialogComponent } from "../material-activate-dialog";
+import { Material, MaterialFilters } from "../../model";
 import { RolesCheckedService, DeleteDialogComponent,Pageable } from "@app/shared";
 import { MaterialType } from "@app/materialCategory";
-import { MaterialActivateDialogComponent } from "../material-activate-dialog.component";
 
 @Component({
     selector: "material-list",

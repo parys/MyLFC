@@ -4,11 +4,10 @@ import { Title, DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { Router, ActivatedRoute } from "@angular/router";
 import { MatDialog, MatSnackBar } from "@angular/material";
 import { Subscription } from "rxjs";
-import { MaterialService } from "../material.service";
-import { Material } from "../material.model";                
+import { MaterialService, MaterialActivateDialogComponent } from "../../core";
+import { Material } from "../../model";                
 import { MaterialType } from "@app/materialCategory";                
 import { RolesCheckedService, StorageService, DeleteDialogComponent } from "@app/shared";
-import { MaterialActivateDialogComponent } from "../material-activate-dialog.component";
 
 declare let ssn: any;
 

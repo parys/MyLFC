@@ -55,10 +55,6 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         {
             var userId = User.GetUserId();
             var model = await _pmService.GetAsync(id, userId);
-            if (model.JustRead)
-            {
-                _signalRHub.SendToUser(HubEndpointConstants.PmReadEndpoint, true, userId);
-            }
       //      _cache.Remove(UserPm + userId);
             return Ok(model);
         }

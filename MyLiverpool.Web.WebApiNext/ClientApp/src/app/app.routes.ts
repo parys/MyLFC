@@ -1,15 +1,15 @@
 ﻿import { Routes } from "@angular/router";
 import { MaterialListComponent } from "./material";
 import { helperRoutes } from "./admin/admin.routes";
-import { materialRoutes } from "./material/material.routes";
 import { homeRoutes } from "./home/home.routes";
-import { imageRoutes } from "./image/image.routes";
 
 export const routes: Routes = [
     ...helperRoutes,
     ...homeRoutes,
-    ...imageRoutes,
-    ...materialRoutes,
+    //{
+    //    path: "blogs",
+    //    loadChildren: "./material/lazy/material.module#MaterialModule"
+    //},
     {
         path: "materialComments",
         loadChildren: "./comment/lazy/comment.module#CommentModule"
@@ -19,6 +19,10 @@ export const routes: Routes = [
         loadChildren: "./club/lazy/club.module#ClubModule"
     },
     {
+        path: "images",
+        loadChildren: "./image/lazy/image.module#ImageModule"
+    },
+    {
         path: "injuries",
         loadChildren: "./injury/lazy/injury.module#InjuryModule"
     },
@@ -26,6 +30,10 @@ export const routes: Routes = [
         path: "matches",
         loadChildren: "./match/lazy/match.module#MatchModule"
     },
+    //{
+    //    path: "news",
+    //    loadChildren: "./material/lazy/material.module#MaterialModule"
+    //},
     {
         path: "notifications",
         loadChildren: "./notification/lazy/notification.module#NotificationModule"

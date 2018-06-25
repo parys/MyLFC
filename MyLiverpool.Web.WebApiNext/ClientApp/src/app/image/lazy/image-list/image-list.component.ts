@@ -2,8 +2,8 @@
 import { Location } from "@angular/common";
 import { ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs";
-import { Image } from "./image.model";
-import { ImageService } from "./image.service";
+import { Image } from "../../model";
+import { ImageService } from "../../core";
 
 @Component({
     selector: "image-list",
@@ -31,7 +31,7 @@ export class ImageListComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-       // this.sub.unsubscribe();
+       if(this.sub) this.sub.unsubscribe();
     }
 
     showDetails(file: Image): void {

@@ -26,7 +26,6 @@
               "src/manifest.json"
             ],
             "styles": [
-              //  "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/bstyles.scss",
               "src/styles.scss"
@@ -71,7 +70,7 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
-              "serviceWorker": true
+              "serviceWorker": true              
             }
           }
         },

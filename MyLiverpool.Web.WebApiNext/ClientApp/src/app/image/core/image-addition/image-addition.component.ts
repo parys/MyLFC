@@ -1,7 +1,7 @@
 ﻿import { Component, Input, Output, EventEmitter } from "@angular/core";
 import { MatSnackBar } from "@angular/material";
 import { Configuration } from "@app/app.constants";
-import { ImageService } from "./image.service";
+import { ImageService } from "../image.service";
 
 @Component({
     selector: "image-addition",

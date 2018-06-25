@@ -1,7 +1,5 @@
 ﻿import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
-import { CommonModule } from "@angular/common";
-import { NgxPaginationModule } from "ngx-pagination";
 import { SharedModule } from "@app/shared";
 import { CommentService } from "./comment.service";
 import { CommentDetailComponent } from "./comment-detail";
@@ -23,7 +21,8 @@ import { EditorModule } from "@app/editor";
     exports: [
         CommentSectionComponent,
         CommentDetailComponent,
-        CommentLastComponent
+        CommentLastComponent,
+        EditorModule,
     ],
     providers: [
         CommentService

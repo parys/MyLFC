@@ -89,16 +89,10 @@ namespace MyLiverpool.Business.Services
             return clubs.Select(x => new KeyValuePair<int, string>(x.Id, $"{x.StartSeasonYear.ToString()}-{x.EndSeasonYear.ToString()}"));
         }
 
-        public async Task<SeasonDto> GetByStartYearAsync(int startSeason)
-        {
-            var season = await _seasonRepository.GetSingleByFilterAsync(x => x.StartSeasonYear == startSeason);
-            return season != null ? _mapper.Map<SeasonDto>(season) : null;
-        }
-
         //todo rewrite to cached prop maybe init on start
         public async Task<int> GetCurrentSeasonIdAsync()
         {
-            return Int32.Parse(await _helperService.GetAsync(HelperEntityType.CurrentSeason));
+            return Int32.Parse(await _helperService.GetAsync(HelperEntityType.CurrentSeason) ?? DateTime.Today.Year.ToString());
         }
 
         public async Task SetCurrentSeasonAsync(int currentSeasonId)
