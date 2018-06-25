@@ -2,6 +2,7 @@
 import { Location } from "@angular/common";
 import { MatDialog, MatSnackBar } from "@angular/material";
 import { Router, ActivatedRoute } from "@angular/router";
+import { Title } from "@angular/platform-browser";
 import { Subscription } from "rxjs";
 import { MaterialService } from "../material.service";
 import { MaterialActivateDialogComponent } from "../material-activate-dialog";
@@ -32,6 +33,7 @@ export class MaterialListComponent implements OnInit, OnDestroy {
         private location: Location,
         public roles: RolesCheckedService,
         private snackBar: MatSnackBar,
+        private titleService: Title,
         private dialog: MatDialog) {
     }
 
@@ -54,9 +56,11 @@ export class MaterialListComponent implements OnInit, OnDestroy {
     }
 
     public ngOnInit(): void {
-        if (this.route.snapshot.data["type"] === MaterialType[MaterialType.News]) {
+        if (this.router.url.startsWith("/news")) {
+            this.titleService.setTitle("Новости");
             this.type = MaterialType.News;
-        } else if (this.route.snapshot.data["type"] === MaterialType[MaterialType.Blogs]) {
+        } else if (this.router.url.startsWith("/blogs")){
+            this.titleService.setTitle("Блоги");
             this.type = MaterialType.Blogs;
         } else {
             this.type = MaterialType.Both;

@@ -7,7 +7,7 @@
         <input matInput placeholder="Заголовок" maxlength="50" formControlName="title" />
     </mat-form-field>
     <mat-form-field class="full-width">
-        <textarea matTextareaAutosize rows="4" matInput placeholder="Сообщение" formControlName="message" maxlength="2500"></textarea>
+        <textarea matTextareaAutosize matAutosizeMinRows="4" matInput placeholder="Сообщение" formControlName="message" maxlength="2500"></textarea>
     </mat-form-field>
     <button mat-raised-button color="warn" [disabled]="!pmReplyEditForm.valid" type="submit">Отправить</button>
     <button mat-raised-button type="button" (click)="closeWindow()">Отмена</button>

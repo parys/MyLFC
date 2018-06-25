@@ -41,13 +41,21 @@ export class MaterialDetailComponent implements OnInit, OnDestroy {
     }
 
     public ngOnInit(): void {
+        if (this.router.url.startsWith("/news")) {
+            this.titleService.setTitle("Новости");
+            this.type = MaterialType.News;
+        } else {
+            this.titleService.setTitle("Блоги");
+            this.type = MaterialType.Blogs;
+        }
+        
         this.sub = this.route.params.subscribe(params => {
             if (+params["id"] === 0) {
                 this.router.navigate(["/"]); //bug temporary workaround
             } else {
                 this.service.getSingle(+params["id"])
                     .subscribe(data => {
-                        this.parse(data);
+                            this.parse(data);
                         },
                         e => console.log(e));
             }
@@ -106,9 +114,9 @@ export class MaterialDetailComponent implements OnInit, OnDestroy {
                     if (res) {
                         this.item.pending = false;
                         this.cd.markForCheck();
-                        this.snackBar.open("Материал успешно активирован", null, { duration: 5000 });
+                        this.snackBar.open("Материал успешно активирован", null,);
                     } else {
-                        this.snackBar.open("Материал НЕ БЫЛ активирован", null, { duration: 5000 });
+                        this.snackBar.open("Материал НЕ БЫЛ активирован", null,);
                     }
                 },
             e => console.log(e));

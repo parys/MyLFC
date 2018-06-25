@@ -13,7 +13,8 @@ import { DeleteDialogComponent } from "./delete-dialog";
 import {
     MatAutocompleteModule, MatBadgeModule, MatButtonModule, MatCardModule, MatCheckboxModule, MatDatepickerModule, MatDialogModule, MatExpansionModule,
     MatIconModule, MatInputModule, MatMenuModule, MatNativeDateModule, MatProgressBarModule, MatSelectModule, MatSlideToggleModule,
-    MatSnackBarModule, MatTabsModule, MatTableModule, MatTooltipModule, MatSortModule, MatPaginatorModule, MatPaginatorIntl, MAT_SNACK_BAR_DEFAULT_OPTIONS
+    MatSnackBarModule, MatTabsModule, MatTableModule, MatTooltipModule, MatSortModule, MatPaginatorModule, MatPaginatorIntl, MAT_SNACK_BAR_DEFAULT_OPTIONS,
+    ErrorStateMatcher, ShowOnDirtyErrorStateMatcher
 } from "@angular/material";
 import { LoaderComponent, LoaderService } from "./loader";
 import { BearerInterceptor } from "./interceptors";
@@ -123,7 +124,8 @@ export function getStorage() {
         { provide: LocalStorage, useFactory: getStorage },
         { provide: HTTP_INTERCEPTORS, useClass: BearerInterceptor, multi: true, deps: [StorageService, LoaderService] },
         { provide: MatPaginatorIntl, useValue: getRussianPaginatorIntl() },
-    { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 5000 } }
+        { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 5000 } },
+        { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher }
     ],
     entryComponents: [
         DeleteDialogComponent

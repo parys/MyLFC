@@ -12,20 +12,17 @@
             <input matInput placeholder="Название на английском" formControlName="englishName">
         </mat-form-field>
     </div>
-    <div class="full-width">
-        <div class="full-width input-group" *ngIf="editForm?.controls['englishName'].value">
-            <input formControlName="logo" class="form-control" novalidate readonly />
-            <span class="input-group-btn">
-                <label for="upload-image"
-                       class="btn btn-info">Загрузить логотип</label>
-                <input type="file"
-                       class="hidden"
-                       accept="image/*"
-                       [multiple]="false"
-                       (change)="onUploadImage($event)"
-                       id="upload-image" />
-            </span>
-        </div>
+    <div class="full-width" *ngIf="editForm?.controls['englishName'].value">
+        <mat-form-field class="full-width">
+            <input formControlName="logo" matInput novalidate readonly />
+            <label for="upload-image" mat-button matSuffix role="button"><mat-icon>add_photo_alternate</mat-icon></label>
+            <input type="file"
+                   class="hidden"
+                   accept="image/*"
+                   [multiple]="false"
+                   (change)="onUploadImage($event)"
+                   id="upload-image" />
+        </mat-form-field>
     </div>
     <mat-form-field class="full-width">
         <input matInput placeholder="Стадион" [matAutocomplete]="stadium" formControlName="stadiumName">

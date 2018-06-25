@@ -11,18 +11,20 @@
         </mat-form-field>
         <div class="full-width">
             <label class="control-label"> Краткое описание:</label>
-            <bbeditor name="brief" [type]="1" [value]="item.brief" [height]="150" formControlName="brief"></bbeditor>
+            <bbeditor name="brief" [type]="1" [value]="item.brief" [height]="110" formControlName="brief"></bbeditor>
         </div>
         <div class="full-width">
             <label class="control-label"> Текст новости:</label>
             <bbeditor name="message" [type]="2" [value]="item.message" [height]="350" formControlName="message"></bbeditor>
         </div>
         <div class="full-width">
-            <mat-form-field class="col-xs-8">
+            <mat-form-field class="full-width">
                 <input matInput formControlName="source" placeholder="Источник" />
+                <button mat-button matSuffix role="button"[disabled]="!editForm.get('source').value" (click)="copyPhoto()" matTooltip="Скопировать фото в материал">
+                    <mat-icon>burst_mode</mat-icon>
+                </button>
             </mat-form-field>
-            <span class="col-xs-4">
-                <button mat-raised-button type="button" [disabled]="!editForm.get('source').value" (click)="copyPhoto()">Скопировать фото</button>
+            <span class="">
             </span>
         </div>
         <mat-form-field class="full-width">

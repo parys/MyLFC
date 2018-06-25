@@ -5,59 +5,51 @@ import { MaterialListComponent } from "../core/material-list/";
 
 export const materialRoutes: Routes = [
     {
-        path: "news",
+        path: "",
+        component: MaterialListComponent
+    },
+    {
+        path: ":id",
         children: [
             {
                 path: "",
-                component: MaterialListComponent,
-                data: { title: "Новости", type: "News" }
+                component: MaterialDetailComponent
             },
             {
-                path: ":id",
-                children: [
-                    {
-                        path: "",
-                        component: MaterialDetailComponent,
-                        data: { title: "Новость", type: "News" }
-                    },
-                    {
-                        path: "edit",
-                        component: MaterialEditComponent,
-                        data: {
-                            title: "Редактирование новости",
-                            roles: ["newsStart"],
-                            type: "News"
-                        },
-                        canActivate: [RoleGuard]
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        path: "blogs",
-        children: [
-            { path: "", component: MaterialListComponent, data: { title: "Блоги", type: "Blogs" } },
-            {
-                path: ":id",
-                children: [
-                    {
-                        path: "",
-                        component: MaterialDetailComponent,
-                        data: { title: "Блог", type: "Blogs" }
-                    },
-                    {
-                        path: "edit",
-                        component: MaterialEditComponent,
-                        data: {
-                            title: "Редактирование блога",
-                            roles: ["blogStart"],
-                            type: "Blogs"
-                        },
-                        canActivate: [RoleGuard]
-                    }
-                ]
+                path: "edit",
+                component: MaterialEditComponent,
+                data: {
+                    title: "Редактирование",
+                    roles: ["newsStart", "blogStart"]
+                },
+                canActivate: [RoleGuard]
             }
         ]
     }
+    //{
+    //    path: "blogs",
+    //    children: [
+    //        { path: "", component: MaterialListComponent, data: { title: "Блоги", type: "Blogs" } },
+    //        {
+    //            path: ":id",
+    //            children: [
+    //                {
+    //                    path: "",
+    //                    component: MaterialDetailComponent,
+    //                    data: { title: "Блог", type: "Blogs" }
+    //                },
+    //                {
+    //                    path: "edit",
+    //                    component: MaterialEditComponent,
+    //                    data: {
+    //                        title: "Редактирование",
+    //                        roles: ["blogStart"],
+    //                        type: "Blogs"
+    //                    },
+    //                    canActivate: [RoleGuard]
+    //                }
+    //            ]
+    //        }
+    //    ]
+    //}
 ];

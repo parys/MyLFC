@@ -6,10 +6,10 @@ import { homeRoutes } from "./home/home.routes";
 export const routes: Routes = [
     ...helperRoutes,
     ...homeRoutes,
-    //{
-    //    path: "blogs",
-    //    loadChildren: "./material/lazy/material.module#MaterialModule"
-    //},
+    {
+        path: "blogs",
+        loadChildren: "./material/lazy/material.module#MaterialModule"
+    },
     {
         path: "materialComments",
         loadChildren: "./comment/lazy/comment.module#CommentModule"
@@ -30,10 +30,10 @@ export const routes: Routes = [
         path: "matches",
         loadChildren: "./match/lazy/match.module#MatchModule"
     },
-    //{
-    //    path: "news",
-    //    loadChildren: "./material/lazy/material.module#MaterialModule"
-    //},
+    {
+        path: "news",
+        loadChildren: "./material/lazy/material.module#MaterialModule"
+    },
     {
         path: "notifications",
         loadChildren: "./notification/lazy/notification.module#NotificationModule"
@@ -62,5 +62,5 @@ export const routes: Routes = [
         path: "wishes",
         loadChildren: "./wish/wish.module#WishModule"
     },
-    { path: "", component: MaterialListComponent, data: { title: "MyLFC.ru - Сайт русскоязычных болельщиков ФК \"Ливерпуль\"", type: "Both" } }
+    { path: "", component: MaterialListComponent, data: { title: "MyLFC.ru - Сайт русскоязычных болельщиков ФК \"Ливерпуль\"" } }
 ];

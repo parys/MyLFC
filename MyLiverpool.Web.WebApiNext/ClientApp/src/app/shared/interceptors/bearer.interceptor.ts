@@ -55,7 +55,7 @@ export class BearerInterceptor implements HttpInterceptor {
 
                 this.storage.setAuthTokens(tokens);
 
-                console.warn("refreshed !");
+                console.warn("refreshed!");
             }));
     }
 }

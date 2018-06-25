@@ -27,13 +27,13 @@ export class MaterialEditComponent implements OnInit {
         private snackBar: MatSnackBar,
         public roles: RolesCheckedService,
         private formBuilder: FormBuilder) {
-        if (route.snapshot.data["type"] === MaterialType[MaterialType.News]) {
-            this.type = MaterialType.News;
-        } else {
-            this.type = MaterialType.Blogs;
-        }
+            if (this.router.url.startsWith("/news")) {
+                this.type = MaterialType.News;
+            } else if (this.router.url.startsWith("/blogs")) {
+                this.type = MaterialType.Blogs;
+            }
     }
-                                                             
+
     public ngOnInit(): void {
         this.initForm();
         if(+this.route.snapshot.params["id"]){
@@ -58,11 +58,11 @@ export class MaterialEditComponent implements OnInit {
                             this.router.navigate([`/${MaterialType[this.type].toLowerCase()}`, data.id]);
                     }
                         this.id = data.id;
-                        this.snackBar.open("Материал успешно обновлен", null, { duration: 5000 });
+                        this.snackBar.open("Материал успешно обновлен", null);
                     },
                 e => {
                     console.log(e);
-                    this.snackBar.open("Материал не был обновлен", null, { duration: 5000 });
+                    this.snackBar.open("Материал не был обновлен", null);
                 });
         } else {
             this.service.create(newsItem, this.type)
@@ -71,11 +71,11 @@ export class MaterialEditComponent implements OnInit {
                             this.router.navigate([`/${MaterialType[this.type].toLowerCase()}`, data.id]);
                     }
                         this.id = data.id;
-                        this.snackBar.open("Материал успешно создан", null, { duration: 5000 });
+                        this.snackBar.open("Материал успешно создан", null);
                     },
                 e => {
                     console.log(e);
-                    this.snackBar.open("Материал не был создан", null, { duration: 5000 });
+                    this.snackBar.open("Материал не был создан", null);
                 });
         }
     }

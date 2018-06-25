@@ -9,7 +9,6 @@ import { AppComponent } from "./app.component";
 import { routes } from "./app.routes";
 //import { ForumModule } from "./forum";
 import { Configuration } from "./app.constants";
-import { EditorModule } from "./editor";
 import { ChatModule } from "./chat";
 import { ClubCoreModule } from "./club";
 import * as home from "./home";
@@ -27,7 +26,7 @@ import { NotificationCoreModule } from "./notification";
 import { MaterialCategoryModule } from "./materialCategory";
 import { UserCoreModule } from "./user";
 import { SeasonCoreModule } from "./season";
-import { MaterialModule } from "./material/lazy/material.module";
+//import { MaterialModule } from "./material/lazy/material.module";
 
 registerLocaleData(localeRU);
 
@@ -35,7 +34,6 @@ registerLocaleData(localeRU);
     imports: [
         BrowserModule,//.withServerTransition({ appId: 'mylfc-app' }),
         SharedModule,
-        EditorModule,
         HttpClientModule,
         AccountModule,
       //  ForumModule,
@@ -47,14 +45,13 @@ registerLocaleData(localeRU);
         TransferCoreModule,
         MaterialCategoryModule,
         MaterialCoreModule,
-        MaterialModule,//todo temporary
+      //  MaterialModule,//todo temporary
         NotificationCoreModule,
         PersonCoreModule,
         SeasonCoreModule,
-        RouterModule.forRoot(routes),
+        RouterModule.forRoot(routes, { onSameUrlNavigation: "reload" }),
         StadiumModule,
-        UserCoreModule,
-     //   WishModule,
+        UserCoreModule
     ],
     declarations: [
         home.StaticPageComponent,
