@@ -55,6 +55,10 @@ export const routes: Routes = [
         loadChildren: "./person/lazy/person.module#PersonModule"
     },
     {
+        path: "pms",
+        loadChildren: "./pm/lazy/pm.module#PmModule"
+    },
+    {
         path: "roleGroups",
         loadChildren: "./roleGroup/lazy/roleGroup.module#RoleGroupModule"
     },

@@ -2,9 +2,9 @@
 import { ActivatedRoute } from "@angular/router";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { Subscription } from "rxjs";
-import { PmService } from "../pm.service";
+import { PmService } from "../../core";
 import { RolesCheckedService } from "@app/shared";
-import { Pm } from "@app/+common-models";
+import { Pm } from "../../model";
 
 @Component({
     selector: "pm-detail",

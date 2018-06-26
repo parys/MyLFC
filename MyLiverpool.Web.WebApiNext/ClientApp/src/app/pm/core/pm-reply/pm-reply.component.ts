@@ -2,7 +2,7 @@
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { MatSnackBar } from "@angular/material";
 import { Subscription } from "rxjs";
-import { Pm } from "@app/+common-models";
+import { Pm } from "../../model";
 import { PmService } from "../pm.service";
 
 @Component({

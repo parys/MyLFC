@@ -4,13 +4,13 @@ import { RouterModule } from "@angular/router";
 import { UserService } from "./user.service";
 import { UserBirthdayComponent } from "./user-birthday";
 import { UserOnlineCounterComponent } from "./user-online-counter";
-import { PmModule } from "@app/pm";
+import { PmCoreModule } from "@app/pm";
 
 @NgModule({
     imports: [
         SharedModule,
         RouterModule,
-        PmModule
+        PmCoreModule
     ],
     declarations: [
         UserBirthdayComponent,
@@ -19,7 +19,7 @@ import { PmModule } from "@app/pm";
     exports: [
         UserOnlineCounterComponent,
         UserBirthdayComponent,
-        PmModule
+        PmCoreModule
     ],
     providers: [
         UserService

@@ -43,18 +43,6 @@ export class AppComponent implements OnInit, AfterViewInit {
         }
 
         this.initTitleSubscriber();
-        //this.activatedRoute.fragment.subscribe(f => {
-       //    if (f) {
-       //        console.warn(f);
-       //        const element = document.querySelector('#' + f);
-       //        const tt =this.elRef.nativeElement.querySelector('#comments44');
-       //        console.warn(element);
-       //        console.warn(tt);
-       //        if (element) {
-       //            element.scrollIntoView(); // <-- omit element from the argument
-       //        }
-       //    }
-       //});
     }
 
     public ngAfterViewInit(): void {

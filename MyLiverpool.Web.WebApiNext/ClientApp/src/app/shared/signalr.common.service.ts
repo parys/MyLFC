@@ -1,9 +1,10 @@
 ﻿import { Injectable, Inject } from "@angular/core";
 import { Subject } from "rxjs";
 import { StorageService } from "./storage.service";
-import { ChatMessage, Comment, Pm } from "@app/+common-models";
+import { ChatMessage, Comment } from "@app/+common-models";
+import { Pm } from "@app/pm/model"
 import { HubConnection, HubConnectionBuilder, LogLevel } from "@aspnet/signalr";
-import { Notification } from "@app/notification";
+import { Notification } from "@app/notification/model";
 
 @Injectable()
 export class SignalRService {

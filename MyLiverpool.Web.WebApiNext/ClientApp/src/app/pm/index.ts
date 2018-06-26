@@ -1,3 +1,2 @@
-﻿export * from "./pm.module";
-export * from "./pm-reply";
-export * from "./pm-counter";
+﻿export * from "./core";
+export * from "./model";

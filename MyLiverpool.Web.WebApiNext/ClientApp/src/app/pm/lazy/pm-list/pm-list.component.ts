@@ -1,7 +1,7 @@
 ﻿import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { Pm } from "@app/+common-models";
-import { PmService } from "../pm.service";
+import { Pm } from "../../model";
+import { PmService } from "../../core";
 
 @Component({
     selector: "pm-list",

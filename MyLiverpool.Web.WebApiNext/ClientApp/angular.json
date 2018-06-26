@@ -50,7 +50,9 @@
               "node_modules/tinymce/plugins/spellchecker/plugin.min.js",
               "node_modules/tinymce/plugins/table/plugin.min.js",
               "node_modules/tinymce/plugins/textcolor/plugin.min.js",
-              "node_modules/tinymce/plugins/visualblocks/plugin.min.js"
+              "node_modules/tinymce/plugins/visualblocks/plugin.min.js",
+              "src/app/editor/langs/ru.js",
+              "src/app/editor/customPlugins/plugin.min.js"
             ]
           },
           "configurations": {

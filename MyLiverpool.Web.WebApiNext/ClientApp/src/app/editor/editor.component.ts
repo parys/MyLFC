@@ -1,7 +1,7 @@
 ﻿import { Component, EventEmitter, forwardRef, Input, Output, NgZone, } from "@angular/core";
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from "@angular/forms";
 //import { Editor, Settings } from "tinymce";
-import { LazyLoadingLibraryService } from "./lazyLoadingLibrary.service";
+//import { LazyLoadingLibraryService } from "./lazyLoadingLibrary.service";
 
 declare let tinymce: any;
 //import "tinymce/themes/modern"
@@ -12,7 +12,6 @@ declare let tinymce: any;
 //import "tinymce/plugins/autoresize";
 //import "tinymce/plugins/code";
 //import "tinymce/plugins/colorpicker";
-import "./customPlugins";
 //import "tinymce/plugins/fullscreen";
 //import "tinymce/plugins/image";
 //import "tinymce/plugins/hr";
@@ -24,7 +23,10 @@ import "./customPlugins";
 //import "tinymce/plugins/table";
 //import "tinymce/plugins/textcolor";
 //import "tinymce/plugins/visualblocks";
-import "./langs/ru.js";
+
+
+//import "./customPlugins";
+//import "./langs/ru.js";
 /*
 import "tinymce/plugins/preview";
 */
