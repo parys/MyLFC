@@ -114,6 +114,30 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="2.5.0" />
   </ItemGroup>
 
+  <!-- Defines text replace task-->
+  <UsingTask TaskName="ReplaceFileText" TaskFactory="CodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll">
+    <ParameterGroup>
+      <InputFilename ParameterType="System.String" Required="true" />
+      <OutputFilename ParameterType="System.String" Required="true" />
+      <!--<MatchExpression ParameterType="System.String" Required="true" />-->
+      <!--<ReplacementText ParameterType="System.String" Required="false" />-->
+    </ParameterGroup>
+    <Task>
+      <Reference Include="System.Core" />
+      <Using Namespace="System" />
+      <Using Namespace="System.IO" />
+      <Using Namespace="System.Text.RegularExpressions" />
+      <Code Type="Fragment" Language="cs">
+        <![CDATA[
+            File.WriteAllText(
+                OutputFilename,
+                Regex.Replace(File.ReadAllText(InputFilename), "<script [a-z\"=//]* src=\"scripts.[0-9A-Za-z]*.js\"><.script>", String.Empty)
+                );
+          ]]>
+      </Code>
+    </Task>
+  </UsingTask>
+
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
     <Content Remove="$(SpaRoot)**" />
@@ -146,6 +170,13 @@
     <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build -- --prod" />
     <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build:ssr -- --prod" Condition=" '$(BuildServerSideRenderer)' == 'true' " />
 
+    <!-- Removes hashing from scripts-->
+    <ItemGroup>
+      <FilesToMove Include="$(SpaRoot)dist\aspnetcorespa\scripts*.js" />
+    </ItemGroup>
+    <Move SourceFiles="@(FilesToMove)" DestinationFiles="$(SpaRoot)dist\aspnetcorespa\scripts.js" />
+    <!--remove scripts from index-->
+    <ReplaceFileText InputFilename="$(SpaRoot)dist\aspnetcorespa\index.html" OutputFilename="$(SpaRoot)dist\aspnetcorespa\index.html" />
     <!-- Include the newly-built files in the publish output -->
     <ItemGroup>
       <DistFiles Include="$(SpaRoot)dist\**; $(SpaRoot)dist-server\**" />
@@ -156,5 +187,7 @@
       </ResolvedFileToPublish>
     </ItemGroup>
   </Target>
+
+
 
 </Project>
