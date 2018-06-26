@@ -1,3 +1,2 @@
-﻿export * from "./stadium.module";
-export * from "./stadium.model";
-export * from "./stadium.service";
+﻿export * from "./core";
+export * from "./model";

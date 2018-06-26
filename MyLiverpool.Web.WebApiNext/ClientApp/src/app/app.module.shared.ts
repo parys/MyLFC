@@ -10,23 +10,18 @@ import { routes } from "./app.routes";
 //import { ForumModule } from "./forum";
 import { Configuration } from "./app.constants";
 import { ChatModule } from "./chat";
-import { ClubCoreModule } from "./club";
 import * as home from "./home";
 import { InjuryCoreModule } from "./injury";
 import { MatchCoreModule } from "./match";
 import { MaterialCoreModule } from "./material";
 import { PersonCoreModule } from "./person";
 import { SharedModule } from "./shared";
-import { StadiumModule } from "./stadium";
 import * as admin from "./admin";
-import { AccountModule } from "./account";
+import { AccountCoreModule } from "./account";
 import { TransferCoreModule } from "./transfer";
 import { CommentCoreModule } from "./comment";
 import { NotificationCoreModule } from "./notification";
-import { MaterialCategoryModule } from "./materialCategory";
 import { UserCoreModule } from "./user";
-import { SeasonCoreModule } from "./season";
-//import { MaterialModule } from "./material/lazy/material.module";
 
 registerLocaleData(localeRU);
 
@@ -35,22 +30,17 @@ registerLocaleData(localeRU);
         BrowserModule,//.withServerTransition({ appId: 'mylfc-app' }),
         SharedModule,
         HttpClientModule,
-        AccountModule,
+        AccountCoreModule,
       //  ForumModule,
         InjuryCoreModule,
         ChatModule,
         CommentCoreModule,
-        ClubCoreModule,
         MatchCoreModule,
         TransferCoreModule,
-        MaterialCategoryModule,
         MaterialCoreModule,
-      //  MaterialModule,//todo temporary
         NotificationCoreModule,
         PersonCoreModule,
-        SeasonCoreModule,
         RouterModule.forRoot(routes, { onSameUrlNavigation: "reload" }),
-        StadiumModule,
         UserCoreModule
     ],
     declarations: [

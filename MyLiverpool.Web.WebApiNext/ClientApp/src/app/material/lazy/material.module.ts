@@ -7,6 +7,7 @@ import { MaterialDetailComponent } from "./material-detail";
 import { MaterialEditComponent } from "./material-edit";
 import { CommentCoreModule } from "@app/comment";
 import { ImageCoreModule } from "@app/image";
+import { MaterialCategoryCoreModule } from "@app/materialCategory";
 
 @NgModule({
     imports: [
@@ -14,6 +15,7 @@ import { ImageCoreModule } from "@app/image";
         RouterModule.forChild(materialRoutes),
         CommentCoreModule,
         MaterialCoreModule,
+        MaterialCategoryCoreModule,
         ImageCoreModule
     ],
     declarations: [

@@ -3,7 +3,7 @@
 @Component({
     selector: "mini-chat",
     templateUrl: "./miniChat.component.html",
-    changeDetection: ChangeDetectionStrategy.OnPush //todo
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MiniChatComponent {
 }

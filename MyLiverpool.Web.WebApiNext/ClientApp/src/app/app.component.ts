@@ -1,4 +1,4 @@
-﻿import { Component, ViewContainerRef, OnInit, ViewEncapsulation, ElementRef, PLATFORM_ID, Inject, Renderer2, NgZone, AfterViewInit } from "@angular/core";  
+﻿import { Component, OnInit, ViewEncapsulation, PLATFORM_ID, Inject, AfterViewInit } from "@angular/core";  
 import { isPlatformBrowser } from "@angular/common";  
 import { Router, ActivatedRoute, NavigationEnd } from "@angular/router";
 import { Title } from "@angular/platform-browser";
@@ -23,14 +23,10 @@ export class AppComponent implements OnInit, AfterViewInit {
     constructor(private router: Router,
         public roles: RolesCheckedService,
         private authService: AuthService,
-        private viewContainerRef: ViewContainerRef,
         private activatedRoute: ActivatedRoute,
         private titleService: Title,
         @Inject(PLATFORM_ID) private platformId: Object,
-        private renderer: Renderer2,
-        private elRef: ElementRef,
-        private breadcrumbService: BreadcrumbService,
-        private ngZone: NgZone
+        private breadcrumbService: BreadcrumbService
     ) {       
         this.setUpBreadcrumbs();
     }
@@ -45,7 +41,6 @@ export class AppComponent implements OnInit, AfterViewInit {
                     e => console.warn(e)
                 );
         }
-
 
         this.initTitleSubscriber();
         //this.activatedRoute.fragment.subscribe(f => {
@@ -160,7 +155,7 @@ this.breadcrumbService.addFriendlyNameForRouteRegex("^/newsCategories/[0-9]+/edi
 
         this.breadcrumbService.addFriendlyNameForRouteRegex("/wishes", "Пожелания");
         this.breadcrumbService.hideRouteRegex("^/wishes/[0-9]+$"); // this.breadcrumbService.addCallbackForRouteRegex("^/news/[0-9]+$", this.getTitle);
-this.breadcrumbService.addFriendlyNameForRouteRegex("^/wishes/[0-9]+/edit$", "Редактирование");
+        this.breadcrumbService.addFriendlyNameForRouteRegex("^/wishes/[0-9]+/edit$", "Редактирование");
 
         this.breadcrumbService.addFriendlyNameForRouteRegex("/matches", "Матчи");
         this.breadcrumbService.addFriendlyNameForRouteRegex("^/matches/[0-9]+$", "Матч"); // this.breadcrumbService.addCallbackForRouteRegex("^/news/[0-9]+$", this.getTitle);
@@ -183,12 +178,13 @@ this.breadcrumbService.addFriendlyNameForRouteRegex("^/wishes/[0-9]+/edit$", "Р
 
         this.breadcrumbService.addFriendlyNameForRouteRegex("/pms", "Личные сообщения");
 
-        this.breadcrumbService.addFriendlyNameForRoute("/signup", "Регистрация");
-        this.breadcrumbService.addFriendlyNameForRouteRegex("/confirmEmail", "Подтверждение пароля");
-        this.breadcrumbService.addFriendlyNameForRoute("/forgotPassword", "Восстановление забытого пароля");
-        this.breadcrumbService.addFriendlyNameForRoute("/unconfirmedEmail", "Ваша почта не подтверждена");
-        this.breadcrumbService.addFriendlyNameForRouteRegex("/resetPassword", "Сброс пароля");
-        this.breadcrumbService.addFriendlyNameForRoute("/changePassword", "Изменение пароля");
+        this.breadcrumbService.hideRouteRegex("^/account");
+        this.breadcrumbService.addFriendlyNameForRoute("/account/signup", "Регистрация");
+        this.breadcrumbService.addFriendlyNameForRouteRegex("/account/confirmEmail", "Подтверждение пароля");
+        this.breadcrumbService.addFriendlyNameForRoute("/account/forgotPassword", "Восстановление забытого пароля");
+        this.breadcrumbService.addFriendlyNameForRoute("/account/unconfirmedEmail", "Ваша почта не подтверждена");
+        this.breadcrumbService.addFriendlyNameForRouteRegex("/account/resetPassword", "Сброс пароля");
+        this.breadcrumbService.addFriendlyNameForRoute("/account/changePassword", "Изменение пароля");
 
 
         this.breadcrumbService.addFriendlyNameForRoute("/transfers", "Трансферы");

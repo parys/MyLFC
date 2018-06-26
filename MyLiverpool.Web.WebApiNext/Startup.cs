@@ -209,9 +209,8 @@ namespace MyLiverpool.Web.WebApiNext
                 {
                     ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
                 });
-
+                app.UseCustomResponseCompression();
             }
-            app.UseCustomResponseCompression();
 
             app.UseCors("MyPolicy");
          //   app.UseSignalRAuthentication();

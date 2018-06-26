@@ -126,7 +126,7 @@ namespace MyLiverpool.Business.Services
             string code = await _userRepository.GenerateEmailConfirmationTokenAsync(userId);
             code = code.Base64ForUrlEncode();
             
-            var callbackUrl = $"http://{host}/confirmEmail?userId={userId}&code={code}";
+            var callbackUrl = $"http://{host}/account/confirmEmail?userId={userId}&code={code}";
             return $"Пожалуйста, подтвердите ваш аккаунт, кликнув <a href=\"{callbackUrl}\">здесь</a>.";
         }
 
@@ -136,7 +136,7 @@ namespace MyLiverpool.Business.Services
             string code = await _userRepository.GeneratePasswordResetTokenAsync(userId);
             code = code.Base64ForUrlEncode();
 
-            var callbackUrl = $"http://{host}/resetPassword?code={code}";
+            var callbackUrl = $"http://{host}/account/resetPassword?code={code}";
             return $"Пожалуйста, сбросьте ваш пароль, кликнув <a href=\"{callbackUrl}\"> здесь </a>.";
         }
 

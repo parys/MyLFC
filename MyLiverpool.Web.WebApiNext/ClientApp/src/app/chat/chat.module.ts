@@ -26,8 +26,6 @@ import { ChatMessageService } from "./chatMessage.service";
         ChatWindowComponent
     ],
     exports: [
-        FormsModule,
-        ReactiveFormsModule,
         MiniChatComponent,
         MaxiChatComponent,
         ChatWindowComponent

@@ -35,19 +35,15 @@
         </mat-autocomplete>
     </mat-form-field>
     <div class="full-width flex-space-around flex-vertical-center">
-        <span>
-            <span> Время:</span>
-            <span>
-                <input type="time" formControlName="time" />
-            </span>
-        </span>
-        <span>
-            <mat-form-field>
-                <input matInput [matDatepicker]="datePicker" placeholder="Выберите дату" formControlName="date">
-                <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
-                <mat-datepicker #datePicker startView="year" touchUi="true"></mat-datepicker>
-            </mat-form-field>
-        </span>
+        <mat-form-field>
+            <input matInput type="time" formControlName="time" placeholder="Время"/>
+        </mat-form-field>
+        
+        <mat-form-field>
+            <input matInput [matDatepicker]="datePicker" placeholder="Выберите дату" formControlName="date">
+            <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
+            <mat-datepicker #datePicker startView="year" touchUi="true"></mat-datepicker>
+        </mat-form-field>
     </div>
     <mat-form-field class="full-width">
         <input matInput placeholder="Превью id" formControlName="previewId">

@@ -9,7 +9,8 @@ import { SharedModule } from "@app/shared";
 
 @NgModule({
     imports: [
-        SharedModule
+        SharedModule,
+        RouterModule
     ],
     declarations: [
         BestPlayerComponent,

@@ -9,6 +9,9 @@ import { MatchPersonModule } from "@app/matchPerson";
 import { CommentCoreModule } from "@app/comment";
 import { SharedModule } from "@app/shared";
 import { MatchCoreModule } from "../core";
+import { ClubCoreModule } from "@app/club";
+import { StadiumCoreModule } from "@app/stadium";
+import { SeasonCoreModule } from "@app/season";
 
 @NgModule({
     imports: [
@@ -17,7 +20,10 @@ import { MatchCoreModule } from "../core";
         MatchEventModule,
         MatchPersonModule,
         RouterModule.forChild(matchRoutes),
-        MatchCoreModule
+        MatchCoreModule,
+        ClubCoreModule,
+        SeasonCoreModule,
+        StadiumCoreModule
     ],
     declarations: [
         MatchEditComponent,

@@ -7,8 +7,16 @@ export const routes: Routes = [
     ...helperRoutes,
     ...homeRoutes,
     {
+        path: "account",
+        loadChildren: "./account/lazy/account.module#AccountModule"
+    },
+    {
         path: "blogs",
         loadChildren: "./material/lazy/material.module#MaterialModule"
+    },
+    {
+        path: "blogCategories",
+        loadChildren: "./materialCategory/lazy/materialCategory.module#MaterialCategoryModule"
     },
     {
         path: "materialComments",
@@ -35,6 +43,10 @@ export const routes: Routes = [
         loadChildren: "./material/lazy/material.module#MaterialModule"
     },
     {
+        path: "newsCategories",
+        loadChildren: "./materialCategory/lazy/materialCategory.module#MaterialCategoryModule"
+    },
+    {
         path: "notifications",
         loadChildren: "./notification/lazy/notification.module#NotificationModule"
     },
@@ -49,6 +61,10 @@ export const routes: Routes = [
     {
         path: "seasons",
         loadChildren: "./season/lazy/season.module#SeasonModule"
+    },
+    {
+        path: "stadiums",
+        loadChildren: "./stadium/lazy/stadium.module#StadiumModule"
     },
     {
         path: "transfers",

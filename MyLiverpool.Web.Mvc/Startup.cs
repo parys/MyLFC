@@ -13,6 +13,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using MyLfc.Common.Web;
+using MyLfc.Common.Web.Hubs;
 using MyLiverpool.Business.Services.Helpers;
 using MyLiverpool.Common.Utilities;
 using MyLiverpool.Data.ResourceAccess;
@@ -45,7 +47,7 @@ namespace MyLiverpool.Web.Mvc
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<GzipCompressionProviderOptions>(options => options.Level = CompressionLevel.Optimal);
-            services.AddResponseCompression(options => { });
+            services.AddCustomResponseCompression();
 
 
             services.Configure<RequestLocalizationOptions>(options =>
@@ -98,7 +100,7 @@ namespace MyLiverpool.Web.Mvc
                 ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
             });
 
-            app.UseResponseCompression();
+            app.UseCustomResponseCompression();
 
             if (env.IsDevelopment())
             {
@@ -134,6 +136,7 @@ namespace MyLiverpool.Web.Mvc
             services.AddSingleton<IHostingEnvironment>(Env);
             services.AddSingleton<IConfigurationRoot>(Configuration);
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddTransient<ISignalRHubAggregator, SignalRHubAggregator>();
         }
     }
 }
