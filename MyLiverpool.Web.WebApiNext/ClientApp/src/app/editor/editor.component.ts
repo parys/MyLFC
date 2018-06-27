@@ -1,7 +1,7 @@
 ﻿import { Component, EventEmitter, forwardRef, Input, Output, NgZone, } from "@angular/core";
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from "@angular/forms";
 //import { Editor, Settings } from "tinymce";
-//import { LazyLoadingLibraryService } from "./lazyLoadingLibrary.service";
+import { LazyLoadingLibraryService } from "./lazyLoadingLibrary.service";
 
 declare let tinymce: any;
 //import "tinymce/themes/modern"
@@ -51,17 +51,16 @@ export class EditorComponent implements ControlValueAccessor {
     @Input() public type: number = 1;
     @Input() public height: number = 200;
     public elementId: string = Math.random().toString(36).substring(2);
-    public zone: NgZone;
     //   public tinymce: EditorManager = new EditorManager();
     public editor: any;//Editor;
     //  @ViewChild("nativeElement") public nativeElement: ElementRef;
 
     constructor(
-      //  private lazyService: LazyLoadingLibraryService,
-        zone: NgZone) {
-        this.zone = zone;
-       // console.warn(1);
-      //  lazyService.loadJs("/src/tinymce.min.js").subscribe(_ => this.initTiny());
+        private lazyService: LazyLoadingLibraryService,
+        private zone: NgZone) {
+        if (!this.isTinyDefined()) {
+            lazyService.loadJs("./scripts.js").subscribe(_ => this.initTiny());
+        }
     }
 
     public ngAfterViewInit(): void {
