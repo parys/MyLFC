@@ -30,7 +30,9 @@ namespace MyLiverpool.Business.Dto
         public string Source { get; set; }
 
         public string Photo { get; set; }
-        
+
+        public string PhotoPreview { get; set; }
+
         public bool Pending { get; set; }
 
         public bool OnTop { get; set; }

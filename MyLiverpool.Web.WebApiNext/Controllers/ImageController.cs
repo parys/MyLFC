@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AspNet.Security.OAuth.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http.Internal;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using MyLiverpool.Business.Contracts;
@@ -113,6 +114,21 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
 
                 return Ok(result);
             }
+            return BadRequest();
+        }
+
+        /// <summary>
+        /// Upload new images.
+        /// </summary>
+        /// <returns>Result of uploading.</returns>
+        [Authorize(Roles = nameof(RolesEnum.NewsStart) + "," + nameof(RolesEnum.BlogStart)), HttpPost("base64")]
+        public async Task<IActionResult> UploadImageBase64Async([FromBody] string imageBase64)
+        {
+            if (!string.IsNullOrWhiteSpace(imageBase64))
+            {
+                return Json(await _uploadService.UploadAsync(imageBase64));
+            }
+
             return BadRequest();
         }
     }

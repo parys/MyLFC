@@ -22,4 +22,8 @@ export class ImageService {
         };
         return this.http.post<string[]>(`${this.actionUrl}`, formData, true);
     };
+
+    public uploadBase64Image(imageString: string): Observable<string> {
+        return this.http.post<string>(`${this.actionUrl}base64`, JSON.stringify(imageString));
+    };
 }

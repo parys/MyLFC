@@ -6,6 +6,7 @@
            [multiple]="isMultiple"
            (change)="onUploadImage($event)"
            [id]="controlName" />
+    <button mat-raised-button color="warn"></button>
     <div *ngFor="let file of uploadedFiles">
         <img [src]="file" alt="" class="full-width" style="max-height: 100px;" />
         

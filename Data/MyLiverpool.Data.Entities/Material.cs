@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions.Internal;
 using MyLiverpool.Data.Common;
 
 namespace MyLiverpool.Data.Entities
@@ -32,14 +34,18 @@ namespace MyLiverpool.Data.Entities
 
         public virtual User Author { get; set; }
 
+        [MaxLength(200)]
         public string Title { get; set; }
-        
+
+        [MaxLength(1000)]
         public string Brief { get; set; }
-        
+
+        [MaxLength(80000)]
         public string Message { get; set; }
 
         public int Reads { get; set; }
 
+        [MaxLength(300)]
         public string Source { get; set; }
 
         public float Rating { get; set; }
@@ -48,7 +54,11 @@ namespace MyLiverpool.Data.Entities
 
         public int RatingSumm { get; set; }
 
+        [MaxLength(400)]
         public string PhotoPath { get; set; }
+
+        [MaxLength(400)]
+        public string PhotoPreview { get; set; }
 
         public DateTimeOffset LastModified { get; set; }
 

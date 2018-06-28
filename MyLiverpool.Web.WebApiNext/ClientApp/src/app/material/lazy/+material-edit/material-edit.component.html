@@ -20,13 +20,16 @@
         <div class="full-width">
             <mat-form-field class="full-width">
                 <input matInput formControlName="source" placeholder="Источник" />
-                <button mat-button matSuffix role="button"[disabled]="!editForm.get('source').value" (click)="copyPhoto()" matTooltip="Скопировать фото в материал">
+                <button mat-button matSuffix role="button" [disabled]="!editForm.get('source').value" (click)="copyPhoto()" matTooltip="Скопировать фото в материал">
                     <mat-icon>burst_mode</mat-icon>
                 </button>
             </mat-form-field>
-            <span class="">
-            </span>
         </div>
+        <mat-form-field class="full-width">
+            <input matInput readonly formControlName="photoPreview" placeholder="Фото для превью" />
+        </mat-form-field>
+        <image-crop-addition (loadedImage)="updatePreviewImage($event)"></image-crop-addition>
+
         <mat-form-field class="full-width">
             <input matInput formControlName="photo" placeholder="Главное фото" />
         </mat-form-field>

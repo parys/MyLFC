@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using MyLiverpool.Data.Common;
 
@@ -7,12 +8,6 @@ namespace MyLiverpool.Data.Entities
 {
     public class MaterialComment : IEntity
     {
-        public MaterialComment()
-        {
-            Children = new HashSet<MaterialComment>();
-            CommentVotes = new HashSet<CommentVote>();
-        }
-
         public int Id { get; set; }
 
         public int OldId { get; set; }
@@ -26,16 +21,18 @@ namespace MyLiverpool.Data.Entities
         public virtual User Author { get; set; }
 
         public int AuthorId { get; set; }
-        
+
+        [MaxLength(40000)]
         public string Message { get; set; }
-        
+
+        [MaxLength(5000)]
         public string Answer { get; set; }
 
-        public virtual ICollection<MaterialComment> Children { get; set; }
+        public virtual ICollection<MaterialComment> Children { get; set; } = new HashSet<MaterialComment>();
 
         public virtual MaterialComment Parent { get; set; }
 
-        public virtual ICollection<CommentVote> CommentVotes { get; set; }
+        public virtual ICollection<CommentVote> CommentVotes { get; set; } = new HashSet<CommentVote>();
 
         public int? ParentId { get; set; }
 

@@ -5,7 +5,8 @@ import { ImageService } from "../image.service";
 
 @Component({
     selector: "image-addition",
-    templateUrl: "./image-addition.component.html"
+    templateUrl: "./image-addition.component.html",
+    styleUrls: ["./image-addition.component.scss"]
 })
 export class ImageAdditionComponent {
     public uploadedFiles: string[];
@@ -21,11 +22,11 @@ export class ImageAdditionComponent {
     constructor(private configuration: Configuration,
         private service: ImageService,
         private snackBar: MatSnackBar
-    ) { 
+    ) {
     }
 
     public ngAfterViewInit(): void {
-        this.buttonName = this.isMultiple ? "Загрузить изображения" : "Загрузить изображение";
+        this.buttonName = `Загрузить изображени${this.isMultiple ? "я" : "е"}`;
     }
 
     public onUploadImage(event: any) {

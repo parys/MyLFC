@@ -84,6 +84,10 @@ export class MaterialEditComponent implements OnInit {
         this.editForm.patchValue({ photo: path });
     }
 
+    public updatePreviewImage(path: string): void {
+        this.editForm.patchValue({ previewImage: path });
+    }
+
     public copyPhoto(): void {
         const url = this.editForm.get("source").value;
         let imgTags: string = "";
@@ -120,10 +124,11 @@ export class MaterialEditComponent implements OnInit {
             brief: ["", Validators.required],
             message: ["", Validators.required],
             source: [""],
-            photo: ["", Validators.required],
-            canCommentary: [true, Validators.required],
-            onTop: [false, Validators.required],
-            pending: [true, Validators.required],
+            photoPreview: [{ value: null, readonly: true }, Validators.required],
+            photo: [null, Validators.required],
+            canCommentary: [true],
+            onTop: [false],
+            pending: [true],
             stayOnPage: [true],
             usePhotoInBody: [true]
     });

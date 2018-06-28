@@ -65,7 +65,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                     var item = new SyndicationItem
                     {
                         Title = material.Title,
-                        Description = $"<img src='{material.Photo}' /><br/>{material.Brief}",
+                        Description = $"<img src='{material.PhotoPreview}' /><br/>{material.Brief}",
                         Id = material.Id.ToString(),
                         Published = material.AdditionTime,
                         LastUpdated = material.AdditionTime,

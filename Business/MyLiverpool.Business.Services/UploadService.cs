@@ -139,6 +139,18 @@ namespace MyLiverpool.Business.Services
             return result;
         }
 
+        public async Task<string> UploadAsync(string base64File)
+        {
+            base64File = base64File.Replace("data:image/webp;base64,", "");
+            string newName = GenerateNewName() + ".webp";
+            var newPath = GenerateNewPath(ImagesPath);
+            var relativePath = Path.Combine(newPath, newName);
+            var path = GetFullPath(relativePath);
+            relativePath = Regex.Replace(relativePath, "\\\\", "/");
+            await File.WriteAllBytesAsync(path, Convert.FromBase64String(base64File));
+            return "/" + relativePath;
+        }
+
         public async Task<string> UpdatePersonPhotoAsync(string name, IFormFile file)
         {
             if (string.IsNullOrWhiteSpace(name))

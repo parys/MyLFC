@@ -18,7 +18,7 @@ import { EditorModule } from "@app/editor";
         ImageCoreModule
     ],
     declarations: [
-        MaterialEditComponent,
+        MaterialEditComponent
     ]
 })
 export class MaterialEditModule { }

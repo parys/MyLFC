@@ -4,32 +4,6 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from "@angular/forms";
 import { LazyLoadingLibraryService } from "./lazyLoadingLibrary.service";
 
 declare let tinymce: any;
-//import "tinymce/themes/modern"
-
-//import "tinymce/plugins/advlist";
-//import "tinymce/plugins/anchor";
-//import "tinymce/plugins/autolink";
-//import "tinymce/plugins/autoresize";
-//import "tinymce/plugins/code";
-//import "tinymce/plugins/colorpicker";
-//import "tinymce/plugins/fullscreen";
-//import "tinymce/plugins/image";
-//import "tinymce/plugins/hr";
-//import "tinymce/plugins/link";
-//import "tinymce/plugins/lists";
-//import "tinymce/plugins/media";
-//import "tinymce/plugins/paste";
-//import "tinymce/plugins/spellchecker";
-//import "tinymce/plugins/table";
-//import "tinymce/plugins/textcolor";
-//import "tinymce/plugins/visualblocks";
-
-
-//import "./customPlugins";
-//import "./langs/ru.js";
-/*
-import "tinymce/plugins/preview";
-*/
 
 @Component({
     selector: "bbeditor",
@@ -134,13 +108,13 @@ export class EditorComponent implements ControlValueAccessor {
     }
 
     private getPlugins(): string {
-        const common: string = ` autolink lists link anchor image fullscreen hr
-        visualblocks code media table paste textcolor colorpicker autolink customEmoticons visualblocks`;
+        const common: string = `autolink image paste customEmoticons`;
+        const type1: string = `advlist lists link hr media textcolor colorpicker ${common}`;
         if (this.type === 1) {
-            return `advlist ${common}`;
+            return ` ${common}`;
         }
         if (this.type === 2) {
-            return `advlist ${common}`;
+            return `code fullscreen table visualblocks ${type1}`;
         }
         if (this.type === 3) {
             return `${common}`;
@@ -150,10 +124,10 @@ export class EditorComponent implements ControlValueAccessor {
 
     private getToolbar(): string {
         const common: string =
-            `bold italic underline strikethrough | customEmoticons |`;//poiler-add spoiler-remove`;
-        const type1: string = `styleselect | link image media | alignleft aligncenter alignright alignjustify |
-                                 | bullist numlist | outdent indent | forecolor backcolor | ${common} | fontsizeselect visualblocks`;
-        const type2: string = `undo redo | fullscreen | colorpicker table code ${type1}`;
+            `bold italic underline strikethrough | customEmoticons`;//poiler-add spoiler-remove`;
+        const type1: string = `styleselect | ${common} | link image media | fontsizeselect hr
+                                 | bullist numlist | forecolor backcolor | alignleft aligncenter alignright alignjustify | outdent indent`;
+        const type2: string = `undo redo | fullscreen ${type1} | table code | visualblocks`;
         if (this.type === 1) {
             return type1;
         }
@@ -174,7 +148,7 @@ export class EditorComponent implements ControlValueAccessor {
                 selector: `#${this.elementId}`,
                 convert_urls: true,
                 schema: "html5",
-                fontsize_formats: "8pt 9pt 10pt 11pt 12pt 14pt 16pt 18pt",
+                fontsize_formats: "8pt 10pt 11pt 12pt 14pt 16pt",
                 forced_root_block: "",
                 min_height: this.height,
                 browser_spellcheck: true,

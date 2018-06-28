@@ -14,6 +14,8 @@ namespace MyLiverpool.Business.Contracts
 
         Task<IEnumerable<string>> UploadAsync(IFormFileCollection files);
 
+        Task<string> UploadAsync(string base64File);
+
         Task<string> UpdatePersonPhotoAsync(string name, IFormFile file);
     }
 }

@@ -8,7 +8,7 @@ declare var require: any;
 if (environment.production) {
     enableProdMode();
 } else {
-    Error["stackTraceLimit"] = Infinity;
+  //  Error["stackTraceLimit"] = Infinity;
   //  require("zone.js/dist/long-stack-trace-zone");
 }
 

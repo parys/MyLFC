@@ -12,6 +12,7 @@
     public reads: number;
     public source: string;
     public photo: string;
+    public photoPreview: string;
     public pending: boolean;
     public onTop: boolean;
     public canCommentary: boolean;
