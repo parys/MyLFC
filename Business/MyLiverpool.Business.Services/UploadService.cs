@@ -141,8 +141,10 @@ namespace MyLiverpool.Business.Services
 
         public async Task<string> UploadAsync(string base64File)
         {
-            base64File = base64File.Replace("data:image/webp;base64,", "");
-            string newName = GenerateNewName() + ".webp";
+           // base64File = base64File.Replace("data:image/webp;base64,", "");
+            base64File = base64File.Replace("data:image/jpeg;base64,", "");
+         //   string newName = GenerateNewName() + ".webp";
+            string newName = GenerateNewName() + ".jpeg";
             var newPath = GenerateNewPath(ImagesPath);
             var relativePath = Path.Combine(newPath, newName);
             var path = GetFullPath(relativePath);
