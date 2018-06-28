@@ -26,7 +26,7 @@
             </mat-form-field>
         </div>
         <mat-form-field class="full-width">
-            <input matInput readonly formControlName="photoPreview" placeholder="Фото для превью" />
+            <input matInput formControlName="photoPreview" placeholder="Фото для превью" />
         </mat-form-field>
         <image-crop-addition (loadedImage)="updatePreviewImage($event)"></image-crop-addition>
 

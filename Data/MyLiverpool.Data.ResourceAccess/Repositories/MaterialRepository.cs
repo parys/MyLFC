@@ -86,6 +86,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
                 OldId = x.OldId,
                 Pending = x.Pending,
                 PhotoPath = x.PhotoPath,
+                PhotoPreview = x.PhotoPreview,
                 Rating = x.Rating,
                 RatingNumbers = x.RatingNumbers,
                 RatingSumm = x.RatingSumm,
@@ -150,7 +151,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
                     (current, includeProperty) => current.Include(includeProperty));
             }
             query = query.Skip((page - 1) * itemPerPage).Take(itemPerPage);
-            return await query.Select(x => new Material()
+            return await query.Select(x => new Material
             {
                 Type = x.Type,
                 Id = x.Id,
@@ -165,12 +166,9 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
                 CategoryId = x.CategoryId,
                 Message = x.Message,
                 CommentsCount = x.Comments.Count,
-                OldId = x.OldId,
                 Pending = x.Pending,
                 PhotoPath = x.PhotoPath,
-                Rating = x.Rating,
-                RatingNumbers = x.RatingNumbers,
-                RatingSumm = x.RatingSumm,
+                PhotoPreview = x.PhotoPreview,
                 Reads = x.Reads,
                 Source = x.Source,
                 Title = x.Title

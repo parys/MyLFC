@@ -173,6 +173,7 @@ namespace MyLiverpool.Business.Services
             updatingItem.OnTop = model.OnTop;
             updatingItem.Pending = model.Pending;
             updatingItem.PhotoPath = model.Photo;
+            updatingItem.PhotoPreview = model.PhotoPreview;
             updatingItem.Source = model.Source;
             updatingItem.Category = null;
             updatingItem.CategoryId = model.CategoryId;

@@ -85,7 +85,8 @@ export class MaterialEditComponent implements OnInit {
     }
 
     public updatePreviewImage(path: string): void {
-        this.editForm.patchValue({ previewImage: path });
+        console.log(path);
+        this.editForm.patchValue({ photoPreview: path });
     }
 
     public copyPhoto(): void {
@@ -112,6 +113,8 @@ export class MaterialEditComponent implements OnInit {
 
     private parseForm(): Material {
         const item: Material = this.editForm.value;
+        console.warn(this.editForm.value);
+        console.warn(item);
         item.id = this.id;
         item.userId = this.item.userId;//todo should move to input
         return item;
@@ -124,7 +127,7 @@ export class MaterialEditComponent implements OnInit {
             brief: ["", Validators.required],
             message: ["", Validators.required],
             source: [""],
-            photoPreview: [{ value: null, readonly: true }, Validators.required],
+            photoPreview: [{ value: null, readonly: true}, Validators.required],
             photo: [null, Validators.required],
             canCommentary: [true],
             onTop: [false],
