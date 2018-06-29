@@ -2,7 +2,7 @@
 import { ForumSectionListComponent } from "./forumSection";
 import { ForumSubsectionListComponent, ForumSubsectionEditComponent } from "./forumSubsection";
 import { ForumThemeListComponent, ForumThemeEditComponent } from "./forumTheme";
-import { RoleGuard } from "@app/shared";
+import { RoleGuard } from "@app/+auth";
 
 export const forumRoutes: Routes = [
     {

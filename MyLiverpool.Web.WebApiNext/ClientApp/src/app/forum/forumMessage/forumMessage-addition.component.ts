@@ -2,7 +2,7 @@
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { ForumMessage } from "./forumMessage.model";
 import { ForumMessageService } from "./forumMessage.service";
-import { RolesCheckedService } from "@app/shared";
+import { RolesCheckedService } from "@app/+auth";
 
 @Component({
     selector: "forumMessage-addition",

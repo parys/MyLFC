@@ -1,8 +1,8 @@
-﻿import { FormControl } from "@angular/forms";
+﻿import { FormControl, FormGroup } from "@angular/forms";
 import { Injectable } from "@angular/core";
 import { Observable, Subject } from "rxjs";
 import { AccountService } from "../core";
-import { Configuration } from "../../app.constants";
+import { Configuration } from "@app/app.constants";
 import { debounceTime, takeUntil, take, switchMap } from "rxjs/operators";
 
 @Injectable()
@@ -68,6 +68,20 @@ export class AccountValidators {
                     obs.complete();
                 });
         });
+    }
+
+    static matchingPasswords(passwordKey: string, confirmPasswordKey: string) {
+        return (group: FormGroup): IValidationResult => {
+            const password = group.controls[passwordKey];
+            const confirmPassword = group.controls[confirmPasswordKey];
+
+            if (password.value !== confirmPassword.value) {
+                return {
+                    "mismatchedPasswords": true
+                };
+            }
+            return null;
+        };
     }
 }
 

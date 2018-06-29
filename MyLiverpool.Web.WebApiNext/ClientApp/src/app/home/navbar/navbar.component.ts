@@ -1,5 +1,5 @@
 ﻿import { Component } from "@angular/core";
-import { RolesCheckedService } from "@app/shared";
+import { RolesCheckedService } from "@app/+auth";
 
 @Component({
     selector: "<navbar>",

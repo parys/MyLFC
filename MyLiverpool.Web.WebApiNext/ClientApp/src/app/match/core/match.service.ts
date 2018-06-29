@@ -1,7 +1,8 @@
 ﻿import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { Match, MatchType } from "@app/match/model";
-import { HttpWrapper, Pageable } from "@app/shared";
+import { HttpWrapper } from "@app/+httpWrapper";
+import { Pageable } from "@app/shared";
 
 @Injectable()
 export class MatchService {

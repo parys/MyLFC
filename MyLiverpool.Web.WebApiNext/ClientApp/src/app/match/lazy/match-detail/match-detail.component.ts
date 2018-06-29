@@ -5,7 +5,7 @@ import { Title } from "@angular/platform-browser";
 import { map } from "rxjs/operators";
 import { MatchService } from "@app/match/core";
 import { Match } from "@app/match/model";
-import { RolesCheckedService } from "@app/shared";
+import { RolesCheckedService } from "@app/+auth";
 
 @Component({
     selector: "match-detail",

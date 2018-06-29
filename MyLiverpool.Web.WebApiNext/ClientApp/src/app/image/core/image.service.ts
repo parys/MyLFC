@@ -1,7 +1,7 @@
 ﻿import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { Image } from "../model";
-import { HttpWrapper } from "@app/shared";
+import { HttpWrapper } from "@app/+httpWrapper";
 
 @Injectable()
 export class ImageService {

@@ -2,7 +2,7 @@
 import { Subscription } from "rxjs";
 import { InjuryService } from "../injury.service";
 import { Injury } from "@app/injury/model";
-import { RolesCheckedService } from "@app/shared";
+import { RolesCheckedService } from "@app/+auth";
 
 @Component({
     selector: "<injury-current-list>",

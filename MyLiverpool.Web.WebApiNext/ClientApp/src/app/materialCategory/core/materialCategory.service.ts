@@ -1,7 +1,7 @@
 ﻿import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { MaterialCategory, MaterialType } from "../model";
-import { HttpWrapper } from "@app/shared";
+import { HttpWrapper } from "@app/+httpWrapper";
 
 @Injectable()
 export class MaterialCategoryService {

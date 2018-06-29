@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, OnDestroy, Input, ChangeDetectionStrategy, ChangeDetectorRef, ElementRef, ViewChild } from "@angular/core";
+﻿import { Component, OnInit, OnDestroy, Input, ChangeDetectionStrategy, ChangeDetectorRef, ViewChild } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Location } from "@angular/common";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
@@ -7,7 +7,8 @@ import { Subscription } from "rxjs"
 import { Comment } from "@app/+common-models";
 import { CommentVote } from "@app/comment/model";
 import { CommentService } from "../comment.service";
-import { RolesCheckedService, DeleteDialogComponent } from "@app/shared";
+import { DeleteDialogComponent } from "@app/shared";
+import { RolesCheckedService } from "@app/+auth";
 import { EditorComponent } from "@app/editor";
 
 @Component({

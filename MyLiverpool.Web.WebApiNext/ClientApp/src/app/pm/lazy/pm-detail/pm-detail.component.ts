@@ -3,7 +3,7 @@ import { ActivatedRoute } from "@angular/router";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { Subscription } from "rxjs";
 import { PmService } from "../../core";
-import { RolesCheckedService } from "@app/shared";
+import { RolesCheckedService } from "@app/+auth";
 import { Pm } from "../../model";
 
 @Component({

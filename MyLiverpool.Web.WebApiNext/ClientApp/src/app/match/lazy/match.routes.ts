@@ -1,5 +1,5 @@
 ﻿import { Routes } from "@angular/router";
-import { RoleGuard } from "@app/shared";
+import { RoleGuard } from "@app/+auth";
 import { MatchListComponent } from "./match-list";
 import { MatchDetailComponent } from "./match-detail";
 import { MatchEditComponent } from "./match-edit";

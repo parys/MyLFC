@@ -7,7 +7,7 @@ import { Wish } from "../wish.model";
 import { WishType } from "../wishType.model";
 import { WishState } from "../wishState.model";
 import { WishService } from "../wish.service";
-import { RolesCheckedService } from "@app/shared";
+import { RolesCheckedService } from "@app/+auth";
 
 @Component({
     selector: "wish-edit",

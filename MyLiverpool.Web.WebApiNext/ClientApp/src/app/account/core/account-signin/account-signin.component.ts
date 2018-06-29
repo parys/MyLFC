@@ -2,7 +2,7 @@
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { MatSnackBar } from "@angular/material";
-import { AuthService } from "@app/shared";
+import { AuthService } from "@app/+auth";
 
 @Component({
     selector: "account-signin",

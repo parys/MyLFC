@@ -2,7 +2,7 @@
 import { Subscription } from "rxjs";
 import { CommentService } from "../comment.service";
 import { Comment } from "@app/+common-models";
-import { SignalRService } from "@app/shared";
+import { SignalRService } from "@app/+signalr";
 import { Configuration } from "@app/app.constants";
 
 @Component({

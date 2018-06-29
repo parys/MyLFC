@@ -4,8 +4,8 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { MatSnackBar } from "@angular/material";
 import { Subscription } from "rxjs";
 import { AccountService } from "../../core";
-import { GlobalValidators } from "@app/shared";
 import { ResetPassword } from "../../model";
+import { AccountValidators } from "../account.validators";
 
 @Component({
     selector: "reset-password",
@@ -43,7 +43,7 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
                 Validators.required, Validators.minLength(6)])],
             confirmPassword: ["", Validators.compose([
                 Validators.required, Validators.minLength(6)])],
-        }, { validator: GlobalValidators.matchingPasswords("password", "confirmPassword") });
+        }, { validator: AccountValidators.matchingPasswords("password", "confirmPassword") });
     }
 
     public ngOnDestroy(): void {

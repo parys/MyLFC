@@ -27,7 +27,6 @@
       <!-- Files not to publish (note that the 'dist' subfolders are re-added below) -->
     <Compile Remove="ClientApp\node_modules\**" />
     <Compile Remove="ClientApp\src\app\editor\langs\**" />
-    <Compile Remove="ClientApp\src\app\forum\**" />
     <Compile Remove="ClientApp\src\fonts\**" />
     <Compile Remove="ClientApp\src\fonts\**" />
     <Compile Remove="wwwroot\content\persons\**" />
@@ -47,7 +46,6 @@
     <Content Remove="wwwroot\swagger\**" />
     <EmbeddedResource Remove="ClientApp\node_modules\**" />
     <EmbeddedResource Remove="ClientApp\src\app\editor\langs\**" />
-    <EmbeddedResource Remove="ClientApp\src\app\forum\**" />
     <EmbeddedResource Remove="ClientApp\src\fonts\**" />
     <EmbeddedResource Remove="ClientApp\src\fonts\**" />
     <EmbeddedResource Remove="wwwroot\content\persons\**" />
@@ -57,7 +55,6 @@
     <EmbeddedResource Remove="wwwroot\src\skins\**" />
     <None Remove="ClientApp\node_modules\**" />
     <None Remove="ClientApp\src\app\editor\langs\**" />
-    <None Remove="ClientApp\src\app\forum\**" />
     <None Remove="ClientApp\src\fonts\**" />
     <None Remove="ClientApp\src\fonts\**" />
     <None Remove="wwwroot\content\persons\**" />
@@ -146,7 +143,6 @@
 
   <ItemGroup>
     <None Remove="ClientApp\dist\aspnetcorespa\**" />
-    <None Remove="ClientApp\src\app\forum\**" />
   </ItemGroup>
 
   <ItemGroup>

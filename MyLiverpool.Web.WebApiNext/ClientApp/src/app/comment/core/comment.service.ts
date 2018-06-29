@@ -2,7 +2,8 @@
 import { Observable } from "rxjs";
 import { Comment } from "@app/+common-models";
 import { CommentVote, CommentFilter } from "../model";
-import { HttpWrapper, Pageable } from "@app/shared";
+import { Pageable } from "@app/shared";
+import { HttpWrapper } from "@app/+httpWrapper";
 
 @Injectable()
 export class CommentService {

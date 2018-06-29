@@ -2,9 +2,8 @@
 import { HttpInterceptor, HttpRequest, HttpEvent, HttpHandler, HttpErrorResponse, HttpResponse, HttpHeaders, HttpClient } from "@angular/common/http";
 import { Observable, throwError } from "rxjs";
 import { tap, catchError, flatMap } from "rxjs/operators";
-import { StorageService } from "../storage.service";
-import { IRefreshGrantModel } from "../auth/models/refresh-grant-model";
-import { IAuthTokenModel } from "../auth/models/auth-token-model";
+import { StorageService } from "@app/+storage";
+import { IRefreshGrantModel, IAuthTokenModel } from "@app/+auth";
 import { LoaderService } from "../loader";
 
 @Injectable()

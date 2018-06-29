@@ -1,5 +1,5 @@
 ﻿import { Routes } from "@angular/router";
-import { RoleGuard } from "@app/shared";
+import { RoleGuard } from "@app/+auth";
 import { ImageAdditionComponent } from "../core";
 import { ImageListComponent } from "./image-list";
 

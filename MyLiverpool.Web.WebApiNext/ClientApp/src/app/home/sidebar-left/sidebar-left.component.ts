@@ -1,6 +1,6 @@
 ﻿import { Component, HostListener, PLATFORM_ID, Inject } from "@angular/core";
 import { isPlatformBrowser } from "@angular/common";
-import { RolesCheckedService } from "@app/shared";
+import { RolesCheckedService } from "@app/+auth";
 
 @Component({
     selector: "sidebar-left",

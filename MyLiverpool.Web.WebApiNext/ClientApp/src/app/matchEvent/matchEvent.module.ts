@@ -11,9 +11,6 @@ import { MatchEventMatchPanelComponent } from "./matchEvent-match-panel";
 @NgModule({
     imports: [
         CommonModule,
-        FormsModule,
-        NgxPaginationModule,
-        ReactiveFormsModule,
         SharedModule
     ],
     declarations: [

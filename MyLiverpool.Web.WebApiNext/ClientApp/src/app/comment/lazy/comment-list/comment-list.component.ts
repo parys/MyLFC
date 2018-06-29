@@ -6,7 +6,8 @@ import { MatDialog } from "@angular/material";
 import { Subscription } from "rxjs";
 import { Comment } from "@app/+common-models";
 import { CommentService } from "@app/comment/core";
-import { RolesCheckedService, DeleteDialogComponent, Pageable } from "@app/shared";
+import { DeleteDialogComponent, Pageable } from "@app/shared";
+import { RolesCheckedService } from "@app/+auth";
 import { CommentFilter } from "@app/comment/model";
 
 @Component({

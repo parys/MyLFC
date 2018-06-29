@@ -4,7 +4,8 @@ import { Router, ActivatedRoute, NavigationEnd } from "@angular/router";
 import { Title } from "@angular/platform-browser";
 import { Observable } from "rxjs"
 import { filter, map } from "rxjs/operators"
-import { RolesCheckedService, AuthService, IAuthStateModel, BreadcrumbService } from "@app/shared";
+import { BreadcrumbService } from "@app/shared";
+import { AuthService, IAuthStateModel } from "@app/+auth";
 
 declare let addAd: any;
 
@@ -21,14 +22,12 @@ export class AppComponent implements OnInit, AfterViewInit {
     private authState$: Observable<IAuthStateModel>;
 
     constructor(private router: Router,
-        public roles: RolesCheckedService,
         private authService: AuthService,
         private activatedRoute: ActivatedRoute,
         private titleService: Title,
         @Inject(PLATFORM_ID) private platformId: Object,
         private breadcrumbService: BreadcrumbService
     ) {       
-        this.setUpBreadcrumbs();
     }
 
     public ngOnInit(): void {
@@ -42,6 +41,7 @@ export class AppComponent implements OnInit, AfterViewInit {
                 );
         }
 
+        this.setUpBreadcrumbs();
         this.initTitleSubscriber();
     }
 
@@ -72,22 +72,6 @@ export class AppComponent implements OnInit, AfterViewInit {
             });
 
         // this.isRoot = (event["title"] === "MyLFC.ru - Сайт русскоязычных болельщиков \"Ливерпуля\"");
-
-        /* todo research
-        this.router.events
-            .filter(event => event instanceof NavigationEnd)
-            .map(() => this.activatedRoute)
-            .map((route: ActivatedRoute) => {
-                while (route.firstChild) route = route.firstChild;
-                return route;
-            })
-            .filter((route: ActivatedRoute) => route.outlet === "primary")
-            .mergeMap((route: ActivatedRoute) => route.fragment)
-            .subscribe((event) => {
-                if (event) {
-                    this.renderer.setProperty(document.body, "scrollTop", 0);
-                }
-            }; */
     }
 
     private setUpBreadcrumbs(): void {

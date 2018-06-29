@@ -1,6 +1,6 @@
 ﻿import { Routes } from "@angular/router";
 import { PageEditorComponent } from "./page-editor";
-import { RoleGuard } from "@app/shared";
+import { RoleGuard } from "@app/+auth";
 
 export const helperRoutes: Routes = [
     {

@@ -5,7 +5,7 @@ import { MatSnackBar } from "@angular/material";
 import { MaterialService } from "../../core";
 import { Material } from "../../model";
 import { MaterialCategoryService, MaterialCategory, MaterialType } from "@app/materialCategory";
-import { RolesCheckedService } from "@app/shared";
+import { RolesCheckedService } from "@app/+auth";
 
 @Component({
     selector: "material-edit",

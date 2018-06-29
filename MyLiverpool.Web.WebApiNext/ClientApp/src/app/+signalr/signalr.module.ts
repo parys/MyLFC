@@ -1,13 +1,13 @@
-﻿//import { NgModule } from "@angular/core";
-//import { SignalRService } from "./signalr.common.service";
-//import { SharedModule } from "@app/shared";
+﻿import { NgModule } from "@angular/core";
+import { SignalRService } from "./signalr.common.service";
+import { StorageModule } from "@app/+storage";
 
-//@NgModule({
-//    imports: [
-//        SharedModule
-//    ],
-//    providers: [
-//        SignalRService
-//    ]
-//})
-//export class SignalRModule { }
+@NgModule({
+    imports: [
+        StorageModule
+    ],
+    providers: [
+        SignalRService
+    ]
+})
+export class SignalRModule { }

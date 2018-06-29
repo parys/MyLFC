@@ -4,8 +4,8 @@ import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { NotificationService } from "../notification.service";
 import { Notification } from "../../model";
-import { RolesCheckedService } from "@app/shared";
-import { SignalRService } from "@app/shared";
+import { RolesCheckedService } from "@app/+auth";
+import { SignalRService } from "@app/+signalr";
 
 @Component({
     selector: "notification-counter",

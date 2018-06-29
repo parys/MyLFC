@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { Title } from "@angular/platform-browser";
 import { MaterialCategory, MaterialType } from "../../model";
 import { MaterialCategoryService } from "../../core";
-import { RolesCheckedService } from "@app/shared";
+import { RolesCheckedService } from "@app/+auth";
 
 @Component({
     selector: "materialCategory-list",

@@ -1,7 +1,8 @@
 ﻿import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { MaterialType } from "@app/materialCategory";
-import { Pageable, HttpWrapper } from "@app/shared";
+import { Pageable } from "@app/shared";
+import { HttpWrapper } from "@app/+httpWrapper";
 import { MaterialFilters, Material } from "../model";
 
 @Injectable()

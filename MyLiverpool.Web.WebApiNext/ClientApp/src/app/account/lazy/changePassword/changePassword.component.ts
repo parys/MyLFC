@@ -1,9 +1,9 @@
 ﻿import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { AccountService } from "../../core";
-import { GlobalValidators } from "@app/shared";
 import { ChangePassword } from "../../model";
 import { MatSnackBar } from "@angular/material";
+import { AccountValidators } from "../account.validators";
 
 @Component({
     selector: "change-password",
@@ -27,7 +27,7 @@ export class ChangePasswordComponent implements OnInit {
                 Validators.required, Validators.minLength(6)])],
             confirmPassword: ["", Validators.compose([
                 Validators.required, Validators.minLength(6)])]
-        }, { validator: GlobalValidators.matchingPasswords("newPassword", "confirmPassword") });
+        }, { validator: AccountValidators.matchingPasswords("newPassword", "confirmPassword") });
     }
 
     public onSubmit(): void {

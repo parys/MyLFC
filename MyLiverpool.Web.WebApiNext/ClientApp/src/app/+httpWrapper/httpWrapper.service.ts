@@ -1,7 +1,7 @@
 ﻿import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { Configuration } from "../app.constants";
+import { Configuration } from "@app/app.constants";
 
 @Injectable()
 export class HttpWrapper {

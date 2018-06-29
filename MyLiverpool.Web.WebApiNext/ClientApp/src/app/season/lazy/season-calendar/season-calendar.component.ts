@@ -3,7 +3,7 @@ import { MatSelect, MatSelectChange } from "@angular/material";
 import { ActivatedRoute } from "@angular/router";
 import { Season } from "../../season.model";
 import { SeasonService } from "../../season.service";
-import { RolesCheckedService } from "@app/shared";
+import { RolesCheckedService } from "@app/+auth";
 
 @Component({
     selector: "<season-calendar>",

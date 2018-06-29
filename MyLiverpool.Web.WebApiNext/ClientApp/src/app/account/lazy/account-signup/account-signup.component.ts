@@ -1,6 +1,6 @@
 ﻿import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { IRegisterModel, AuthService, GlobalValidators } from "@app/shared";
+import { IRegisterModel, AuthService } from "@app/+auth";
 import { AccountService } from "../../core";
 import { AccountValidators } from "../account.validators";
 
@@ -36,7 +36,7 @@ export class AccountSignupComponent implements OnInit {
                 Validators.required, Validators.minLength(6)])],
             confirmPassword: ["", Validators.compose([
                 Validators.required, Validators.minLength(6)])]
-        }, { validator: GlobalValidators.matchingPasswords("password", "confirmPassword") });                      
+        }, { validator: AccountValidators.matchingPasswords("password", "confirmPassword") });                      
     }
 
     public onSubmit(): void {

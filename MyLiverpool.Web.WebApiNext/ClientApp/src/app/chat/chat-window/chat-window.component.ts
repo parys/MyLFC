@@ -5,14 +5,15 @@ import { MatDialog, MatSnackBar } from "@angular/material";
 import { Configuration } from "@app/app.constants";
 import { ChatMessage } from "@app/+common-models";
 import { ChatMessageService } from "../chatMessage.service";
-import { RolesCheckedService, DeleteDialogComponent, SignalRService } from "@app/shared";
+import { DeleteDialogComponent } from "@app/shared";
+import { RolesCheckedService } from "@app/+auth";
+import { SignalRService } from "@app/+signalr";
 import { EditorComponent } from "@app/editor";
-//import {  } from "@app/+signalr";
 
 @Component({
     selector: "chat-window",
     templateUrl: "./chat-window.component.html",
-    changeDetection: ChangeDetectionStrategy.OnPush //todo temporary before doing roles observable
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ChatWindowComponent implements OnInit {
     public messageForm: FormGroup;

@@ -2,7 +2,7 @@
 import { SeasonListComponent } from "./season-list";
 import { SeasonEditComponent } from "./season-edit";
 import { SeasonCalendarComponent } from "./season-calendar";
-import { RoleGuard } from "@app/shared";
+import { RoleGuard } from "@app/+auth";
 import { SeasonStatisticsComponent } from "./season-statistics";
 
 export const seasonRoutes: Routes = [

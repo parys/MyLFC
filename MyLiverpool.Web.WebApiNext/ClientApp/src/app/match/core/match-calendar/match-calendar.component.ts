@@ -2,7 +2,7 @@
 import { Subscription } from "rxjs";
 import { MatchService } from "../match.service";
 import { Match } from "@app/match/model";
-import { RolesCheckedService } from "@app/shared";
+import { RolesCheckedService } from "@app/+auth";
 
 @Component({
     selector: "match-calendar",

@@ -7,7 +7,9 @@ import { Subscription } from "rxjs";
 import { MaterialService, MaterialActivateDialogComponent } from "../../core";
 import { Material } from "../../model";                
 import { MaterialType } from "@app/materialCategory";                
-import { RolesCheckedService, StorageService, DeleteDialogComponent } from "@app/shared";
+import { DeleteDialogComponent } from "@app/shared";
+import { RolesCheckedService } from "@app/+auth";
+import { StorageService } from "@app/+storage";
 
 declare let ssn: any;
 

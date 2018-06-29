@@ -1,5 +1,5 @@
 ﻿import { Routes } from "@angular/router";
-import { RoleGuard } from "@app/shared";
+import { RoleGuard } from "@app/+auth";
 import { UserDetailComponent } from "./user-detail";
 import { UserListComponent } from "./user-list";
 import { UserConfigComponent } from "./user-config";

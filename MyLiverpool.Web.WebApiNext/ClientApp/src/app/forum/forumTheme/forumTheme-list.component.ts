@@ -8,7 +8,8 @@ import { Subscription } from "rxjs";
 import { ForumThemeService } from "./forumTheme.service";
 import { ForumMessage, ForumMessageService } from "@app/forum/forumMessage";
 import { ForumTheme } from "./forumTheme.model";
-import { RolesCheckedService, DeleteDialogComponent } from "@app/shared";
+import { DeleteDialogComponent } from "@app/shared";
+import { RolesCheckedService } from "@app/+auth";
 
 @Component({
     selector: "forumTheme-list",

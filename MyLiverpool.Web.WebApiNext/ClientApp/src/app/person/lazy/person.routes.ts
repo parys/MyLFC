@@ -2,7 +2,7 @@
 import { PersonListComponent } from "./person-list";
 import { StuffListComponent } from "./stuff-list";
 import { SquadComponent } from "./squad";
-import { RoleGuard } from "@app/shared";
+import { RoleGuard } from "@app/+auth";
 import { PersonEditComponent } from "@app/person/core";
 
 export const personRoutes: Routes = [

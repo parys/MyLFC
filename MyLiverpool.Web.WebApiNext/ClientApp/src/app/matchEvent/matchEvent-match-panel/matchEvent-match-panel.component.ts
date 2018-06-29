@@ -1,7 +1,8 @@
 ﻿import { Component, OnInit, Input } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import { MatDialog, MatSnackBar } from "@angular/material";
-import { DeleteDialogComponent, RolesCheckedService } from "@app/shared";
+import { DeleteDialogComponent } from "@app/shared";
+import { RolesCheckedService } from "@app/+auth";
 import { Observable } from "rxjs";
 import { MatchEventService } from "../matchEvent.service";
 import { MatchEvent } from "../matchEvent.model";

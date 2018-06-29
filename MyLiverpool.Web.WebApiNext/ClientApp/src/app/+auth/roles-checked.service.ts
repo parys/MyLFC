@@ -1,6 +1,6 @@
 ﻿import { Injectable, ApplicationRef } from "@angular/core";
 import { Subject } from "rxjs";
-import { StorageService } from "./storage.service";
+import { StorageService } from "@app/+storage";
 
 @Injectable()
 export class RolesCheckedService {

@@ -2,7 +2,7 @@
 import { TransferEditComponent } from "./transfer-edit";
 import { TransferListComponent } from "./transfer-list";
 import { TransferCurrentListComponent } from "./transfer-current-list";
-import { RoleGuard } from "@app/shared";
+import { RoleGuard } from "@app/+auth";
 
 export const transferRoutes: Routes = [
     {

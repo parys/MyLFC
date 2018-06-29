@@ -7,7 +7,8 @@ import { Subscription } from "rxjs";
 import { MaterialService } from "../material.service";
 import { MaterialActivateDialogComponent } from "../material-activate-dialog";
 import { Material, MaterialFilters } from "../../model";
-import { RolesCheckedService, DeleteDialogComponent,Pageable } from "@app/shared";
+import { DeleteDialogComponent, Pageable } from "@app/shared";
+import { RolesCheckedService } from "@app/+auth";
 import { MaterialType } from "@app/materialCategory";
 
 @Component({

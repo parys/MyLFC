@@ -6,7 +6,8 @@ import { User, UserFilters, UserService } from "@app/user";
 import { merge, of, Observable, fromEvent } from 'rxjs';
 import { startWith, switchMap, map, catchError, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { RoleGroup, RoleGroupService } from "@app/roleGroup";
-import { Pageable, RolesCheckedService } from "@app/shared";
+import { Pageable } from "@app/shared";
+import { RolesCheckedService } from "@app/+auth";
 
 @Component({
     selector: "user-list",

@@ -4,10 +4,10 @@ import { filter, map, tap, catchError, flatMap, first } from "rxjs/operators";
 import { Observable, Subscription, BehaviorSubject, of, interval, throwError } from "rxjs";
 import { IRefreshGrantModel } from "./models/refresh-grant-model";
 import { IProfileModel, IAuthStateModel, IAuthTokenModel, IRegisterModel, ILoginModel, IUserProfile } from "./models";
-import { HttpWrapper } from "../httpWrapper";
-import { StorageService } from "../storage.service";
-import { RolesCheckedService } from "../roles-checked.service";
-import { SignalRService } from "../signalr.common.service";
+import { HttpWrapper } from "@app/+httpWrapper";
+import { StorageService } from "@app/+storage";
+import { RolesCheckedService } from "./roles-checked.service";
+import { SignalRService } from "@app/+signalr";
 //const jwtDecode = require("jwt-decode");
 
 @Injectable()

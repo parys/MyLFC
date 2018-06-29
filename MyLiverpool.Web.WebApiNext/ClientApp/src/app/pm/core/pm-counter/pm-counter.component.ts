@@ -3,7 +3,7 @@ import { MatSnackBar } from "@angular/material";
 import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { PmService } from "../pm.service";
-import { SignalRService } from "@app/shared";
+import { SignalRService } from "@app/+signalr";
 
 @Component({
     selector: "pm-counter",

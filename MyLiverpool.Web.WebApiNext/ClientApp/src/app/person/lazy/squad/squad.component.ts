@@ -2,7 +2,7 @@
 import { ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs";
 import { SquadList, PersonService, PersonTypeEnum } from "@app/person/core";
-import { RolesCheckedService } from "@app/shared";
+import { RolesCheckedService } from "@app/+auth";
 
 @Component({
     selector: "<squad>",

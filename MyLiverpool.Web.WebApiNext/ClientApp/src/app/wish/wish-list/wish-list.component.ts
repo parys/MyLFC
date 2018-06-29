@@ -4,7 +4,8 @@ import { ActivatedRoute } from "@angular/router";
 import { MatDialog } from "@angular/material";
 import { Wish } from "../wish.model";
 import { WishService } from "../wish.service";
-import { Pageable, RolesCheckedService, DeleteDialogComponent } from "@app/shared";
+import { Pageable, DeleteDialogComponent } from "@app/shared";
+import { RolesCheckedService } from "@app/+auth";
 
 @Component({
     selector: "wish-list",

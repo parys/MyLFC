@@ -3,7 +3,7 @@ import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { Subscription } from "rxjs";
 import { AdminService } from "../admin.service";
 import { HelperType } from "../helperType.enum";
-import { RolesCheckedService } from "@app/shared";
+import { RolesCheckedService } from "@app/+auth";
 
 @Component({
     selector: "cup-table",

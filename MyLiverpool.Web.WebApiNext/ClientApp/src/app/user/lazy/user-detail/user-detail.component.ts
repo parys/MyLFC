@@ -6,7 +6,7 @@ import { MatSnackBar } from "@angular/material";
 import { Subscription } from "rxjs";
 import { Configuration } from "@app/app.constants";
 import { User, UserService } from "@app/user";
-import { RolesCheckedService } from "@app/shared";
+import { RolesCheckedService } from "@app/+auth";
 import { RoleGroupService, RoleGroup } from "@app/roleGroup";
 
 @Component({

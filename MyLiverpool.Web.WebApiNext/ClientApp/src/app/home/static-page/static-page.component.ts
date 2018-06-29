@@ -3,7 +3,7 @@ import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs";
 import { AdminService } from "@app/admin";
-import { RolesCheckedService } from "@app/shared";
+import { RolesCheckedService } from "@app/+auth";
 
 @Component({
     selector: "<static-page>",

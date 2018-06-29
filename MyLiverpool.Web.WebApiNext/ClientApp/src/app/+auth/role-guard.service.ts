@@ -3,7 +3,7 @@ import { Location } from "@angular/common";
 import { CanActivate, Router,
     ActivatedRouteSnapshot,
     RouterStateSnapshot } from "@angular/router";
-import { RolesCheckedService } from "../roles-checked.service";
+import { RolesCheckedService } from "./roles-checked.service";
 
 @Injectable()
 export class RoleGuard implements CanActivate {

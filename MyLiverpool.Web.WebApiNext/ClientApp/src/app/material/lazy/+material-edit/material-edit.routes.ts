@@ -1,6 +1,6 @@
 ﻿import { Routes } from "@angular/router";
 import { MaterialEditComponent } from "./material-edit.component";
-import { RoleGuard } from "@app/shared";
+import { RoleGuard } from "@app/+auth";
 
 export const materialEditRoutes: Routes = [
     {

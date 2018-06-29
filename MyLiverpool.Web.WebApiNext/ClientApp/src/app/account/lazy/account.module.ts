@@ -10,12 +10,14 @@ import { ResetPasswordComponent } from "./resetPassword";
 import { UnconfirmedEmailComponent } from "./unconfirmedEmail";
 import { AccountValidators } from "./account.validators";
 import { AccountCoreModule } from "../core";
+import { RecaptchaModule } from "@app/shared/modules";
 
 @NgModule({
     imports: [
         SharedModule,
         RouterModule.forChild(accountRoutes),
-        AccountCoreModule
+        AccountCoreModule,
+        RecaptchaModule
     ],
     declarations: [
         AccountSignupComponent,

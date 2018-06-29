@@ -2,7 +2,7 @@
 import { Observable } from "rxjs";
 import { MatchEvent } from "./matchEvent.model";
 import { MatchEventType } from "./matchEventType.model";
-import { HttpWrapper } from "@app/shared";
+import { HttpWrapper } from "@app/+httpWrapper";
 
 @Injectable()
 export class MatchEventService {

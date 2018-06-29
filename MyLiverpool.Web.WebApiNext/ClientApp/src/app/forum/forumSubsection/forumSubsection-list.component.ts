@@ -5,7 +5,7 @@ import { Subscription } from "rxjs";
 import { ForumSubsectionService } from "./forumSubsection.service";
 import { ForumSubsection } from "./forumSubsection.model";
 import { ForumTheme } from "../forumTheme";
-import { RolesCheckedService } from "@app/shared";
+import { RolesCheckedService } from "@app/+auth";
 
 @Component({
     selector: "forumSubsection-list",
