@@ -28,11 +28,12 @@ namespace MyLfc.Common.Web.Middlewares
                       .EnableTokenEndpoint("/connect/token")
                       .AllowPasswordFlow()
                       .AllowRefreshTokenFlow()
-                      //    .SetIdentityTokenLifetime(TimeSpan.FromDays(14))
+                      .SetIdentityTokenLifetime(TimeSpan.FromDays(1))
                       //   .SetAccessTokenLifetime(TimeSpan.FromSeconds(10))
                       .SetRefreshTokenLifetime(TimeSpan.FromDays(14))
                       // During development, you can disable the HTTPS requirement.
                       .DisableHttpsRequirement()
+                        .AcceptAnonymousClients()//todo fix needed
                       // When request caching is enabled, authorization and logout requests
                       // are stored in the distributed cache by OpenIddict and the user agent
                       // is redirected to the same page with a single parameter (request_id).

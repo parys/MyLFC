@@ -2,9 +2,7 @@
 <html lang="ru">
 <head>
     <title></title>
-
     <base href="/" />
-
     <meta charset="utf-8" />
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -18,7 +16,7 @@
     <meta name="description" content="Сайт футбольного клуба Ливерпуль. FC Liverpool. Новости, матчи, история, турнирные таблицы, статистика, статьи, составы команд. Русскоязычные болельщики.">
     <meta name="keywords" content="ливерпуль, liverpool, ливерпуль фк, liverpool fc, lfc, liverpoolfc, клуб ливерпуль, ливерпуль футбольный клуб, сайт ливерпуля, трансляция ливерпуль, ливерпуль видео">
     <meta name="theme-color" content="#731010">
-    <link title="MyLFC.ru / Последние материалы" type="application/rss+xml" rel="alternate" href="~/rss" />
+    <link title="MyLFC.ru - Последние материалы" type="application/rss+xml" rel="alternate" href="~/rss" />
     <link rel="manifest" href="manifest.json">
 </head>
 <body>
@@ -30,25 +28,26 @@
         </p>
     </noscript>
 <script type="text/javascript">
-    document.write("<a href='https://www.liveinternet.ru/click' target=_blank><img src='https://counter.yadro.ru/hit?t14.6;r" + escape(document.referrer) + ((typeof (screen) == "undefined") ? "" : ";s" + screen.width + "*" + screen.height + "*" + (screen.colorDepth ? screen.colorDepth : screen.pixelDepth)) + ";u" + escape(document.URL) + ";" + Math.random() + "' alt='' title='LiveInternet' border='0' width='88' height='31'><\/a>")
-</script>
-
-<script type="text/javascript">
-    var global = global || window;
-    (function (w, d, n, s, t) {
-        w[n] = w[n] || [];
-        w[n].push(function()
-        {
-            addAd("R-A-255349-2");
-            addAd("R-A-255349-3");
-        });
-        t = d.getElementsByTagName("script")[0];
-        s = d.createElement("script");
-        s.type = "text/javascript";
-        s.src = "https://an.yandex.ru/system/context.js";
-        s.async = true;
-        t.parentNode.insertBefore(s, t);
-    })(this, this.document, "yandexContextAsyncCallbacks");
+    var crawlerAgent = (/bot|google|aolbuild|baidu|bing|msn|duckduckgo|teoma|slurp|yandex/i).test(navigator.userAgent);
+    if (!crawlerAgent) {
+        document.write("<a href='https://www.liveinternet.ru/click' target=_blank><img src='https://counter.yadro.ru/hit?t14.6;r" +escape(document.referrer) +((typeof (screen) == "undefined")? "": ";s" +screen.width +"*" +screen.height +"*" +(screen.colorDepth ? screen.colorDepth : screen.pixelDepth))+";u" +escape(document.URL) +";" +Math.random() +"' alt='' title='LiveInternet' border='0' width='88' height='31'><\/a>");
+        
+        var global = global || window;
+        (function (w, d, n, s, t) {
+            w[n] = w[n] || [];
+            w[n].push(function()
+            {
+                addAd("R-A-255349-2");
+                addAd("R-A-255349-3");
+            });
+            t = d.getElementsByTagName("script")[0];
+            s = d.createElement("script");
+            s.type = "text/javascript";
+            s.src = "https://an.yandex.ru/system/context.js";
+            s.async = true;
+            t.parentNode.insertBefore(s, t);
+        })(this, this.document, "yandexContextAsyncCallbacks");
+    }
     
     function addAd(name) {
         if (location.hostname === "localhost" || !window.Ya || !window.Ya.Context || !window.Ya.Context.AdvManager) return false;
@@ -61,8 +60,10 @@
     }
 
     function ssn() {
-        include("https://platform.twitter.com/widgets.js");
-        include("https://platform.instagram.com/en_US/embeds.js");
+        if (!crawlerAgent) {
+            include("https://platform.twitter.com/widgets.js");
+            include("https://platform.instagram.com/en_US/embeds.js");
+        }
     }
 
     function include(url) {

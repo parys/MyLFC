@@ -17,8 +17,7 @@
     <BuildServerSideRenderer>false</BuildServerSideRenderer>
     <ApplicationIcon />
     <StartupObject />
-    <ApplicationInsightsResourceId>/subscriptions/507ed435-fb15-46bf-94df-1c7cfad40e7a/resourcegroups/Default-ApplicationInsights-EastUS/providers/microsoft.insights/components/MyLiverpool.Web.WebApiNext</ApplicationInsightsResourceId>
-  </PropertyGroup>
+    </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile />
   </PropertyGroup>
@@ -80,7 +79,6 @@
 
   <ItemGroup>
     <PackageReference Include="AspNet.Security.OAuth.Validation" Version="2.0.0-rc3-final" />
-    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.3.0" />
     <PackageReference Include="Microsoft.AspNetCore" Version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.OAuth" Version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.1.1" />

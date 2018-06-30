@@ -7,12 +7,16 @@ import { SharedModule } from "@app/shared";
 import { PersonCoreModule } from "@app/person";
 import { TransferCoreModule } from "../core";
 import { TransferCurrentListComponent } from "./transfer-current-list";
+import { ClubCoreModule } from "@app/club";
+import { SeasonCoreModule } from "@app/season";
 
 @NgModule({
     imports: [
         SharedModule,
         RouterModule.forChild(transferRoutes),
         PersonCoreModule,
+        ClubCoreModule,
+        SeasonCoreModule,
         TransferCoreModule
     ],
     declarations: [

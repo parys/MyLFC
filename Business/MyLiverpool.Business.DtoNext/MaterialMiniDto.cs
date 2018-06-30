@@ -32,6 +32,7 @@ namespace MyLiverpool.Business.Dto
         //     public string Source { get; set; }
 
         public string PhotoPreview { get; set; }
+        public string Photo { get; set; }
 
         public MaterialType Type { get; set; }
 

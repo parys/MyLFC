@@ -17,7 +17,7 @@ import { RolesCheckedService } from "@app/+auth";
 export class UserListComponent implements OnInit {
     public items: User[];
     public roleGroups: RoleGroup[];
-    public selectedUserId: number;
+    public selectedUserIndex: number;
     displayedColumns = ['lastModified', 'userName', 'commentsCount', 'roleGroupName'];
 
     @ViewChild(MatSort) sort: MatSort;
@@ -73,11 +73,12 @@ export class UserListComponent implements OnInit {
     }
 
     public writePm(index: number): void {
-        this.selectedUserId = index;
+        console.log(index);
+        this.selectedUserIndex = index;
     }
 
     public closePmWindow(event: any): void {
-        this.selectedUserId = null;
+        this.selectedUserIndex = null;
     }
 
     public update(): Observable<Pageable<User>> {

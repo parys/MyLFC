@@ -1,5 +1,5 @@
 ﻿<div class="full-width">
-    <pm-reply *ngIf="selectedUserId" [userId]="items[selectedUserId].id" (close)="closePmWindow($event);" [userName]="items[selectedUserId].userName"></pm-reply>
+    <pm-reply *ngIf="selectedUserIndex" [userId]="items[selectedUserIndex].id" (close)="closePmWindow($event);" [userName]="items[selectedUserIndex].userName"></pm-reply>
     
     <table mat-table [dataSource]="items" matSort class="full-width">
 
@@ -31,7 +31,7 @@
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+        <tr mat-row *matRowDef="let row; let i = index; columns: displayedColumns;">
         </tr>
     </table>
     
