@@ -14,7 +14,7 @@
     <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
 
     <!-- Set this to true if you enable server-side prerendering -->
-    <BuildServerSideRenderer>false</BuildServerSideRenderer>
+    <BuildServerSideRenderer>true</BuildServerSideRenderer>
     <ApplicationIcon />
     <StartupObject />
     </PropertyGroup>
@@ -48,7 +48,6 @@
     <EmbeddedResource Remove="ClientApp\src\fonts\**" />
     <EmbeddedResource Remove="ClientApp\src\fonts\**" />
     <EmbeddedResource Remove="wwwroot\content\persons\**" />
-    <EmbeddedResource Remove="wwwroot\src\langs\**" />
     <EmbeddedResource Remove="wwwroot\src\lightgray\**" />
     <EmbeddedResource Remove="wwwroot\src\plugins\**" />
     <EmbeddedResource Remove="wwwroot\src\skins\**" />
@@ -146,6 +145,7 @@
   <ItemGroup>
     <Folder Include="ClientApp\dist\aspnetcorespa\" />
     <Folder Include="ClientApp\src\app\roleGroup\+core\" />
+    <Folder Include="wwwroot\src\" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
@@ -162,7 +162,7 @@
     <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
     <!--<Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />-->
     <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build -- --prod" />
-    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build:ssr -- --prod" Condition=" '$(BuildServerSideRenderer)' == 'true' " />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build3" Condition=" '$(BuildServerSideRenderer)' == 'true' " />
 
     <!-- Removes hashing from scripts-->
     <ItemGroup>
@@ -174,7 +174,7 @@
     <!-- Include the newly-built files in the publish output -->
     <ItemGroup>
       <DistFiles Include="$(SpaRoot)dist\**; $(SpaRoot)dist-server\**" />
-      <DistFiles Include="$(SpaRoot)node_modules\**" Condition="'$(BuildServerSideRenderer)' == 'true'" />
+      <!--<DistFiles Include="$(SpaRoot)node_modules\**" Condition="'$(BuildServerSideRenderer)' == 'true'" />-->
       <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
         <RelativePath>%(DistFiles.Identity)</RelativePath>
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>

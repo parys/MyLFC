@@ -7,8 +7,6 @@ import { filter, map } from "rxjs/operators"
 import { BreadcrumbService } from "@app/shared";
 import { AuthService, IAuthStateModel } from "@app/+auth";
 
-declare let addAd: any;
-
 @Component({
     selector: "app",
     templateUrl: "./app.component.html",
@@ -46,7 +44,9 @@ export class AppComponent implements OnInit, AfterViewInit {
     }
 
     public ngAfterViewInit(): void {
-        addAd();
+        if (isPlatformBrowser(this.platformId)) {
+            addAd();
+        }
     }
 
     private initTitleSubscriber() {
@@ -59,7 +59,9 @@ export class AppComponent implements OnInit, AfterViewInit {
                         child = child.firstChild;
                     } else if (child.snapshot.data && child.snapshot.data["title"]) {
                         if (!child.snapshot.fragment) {
-                            window.scrollTo(0, 0);
+                            if (isPlatformBrowser(this.platformId)) {
+                                window.scrollTo(0, 0);
+                            }
                         }
                         return child.snapshot.data["title"];
                     } else {
@@ -89,7 +91,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         this.breadcrumbService.addFriendlyNameForRouteRegex("^/news/[0-9]+/edit$", "Редактирование");
         this.breadcrumbService.addFriendlyNameForRouteRegex("/newsCategories", "Категории новостей");
         this.breadcrumbService.hideRouteRegex("^/newsCategories/[0-9]+$"); // this.breadcrumbService.addCallbackForRouteRegex("^/blog/[0-9]+$", this.getTitle);
-this.breadcrumbService.addFriendlyNameForRouteRegex("^/newsCategories/[0-9]+/edit$", "Редактирование");
+        this.breadcrumbService.addFriendlyNameForRouteRegex("^/newsCategories/[0-9]+/edit$", "Редактирование");
 
         this.breadcrumbService.addFriendlyNameForRouteRegex("/blogs", "Блоги");
         this.breadcrumbService.addFriendlyNameForRouteRegex("^/blogs/[0-9]+$", "Блог"); // this.breadcrumbService.addCallbackForRouteRegex("^/blog/[0-9]+$", this.getTitle);

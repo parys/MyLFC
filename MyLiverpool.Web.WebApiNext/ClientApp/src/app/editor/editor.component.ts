@@ -111,7 +111,7 @@ export class EditorComponent implements ControlValueAccessor {
         const common: string = `autolink image paste customEmoticons`;
         const type1: string = `advlist lists link hr media textcolor colorpicker ${common}`;
         if (this.type === 1) {
-            return ` ${common}`;
+            return type1;
         }
         if (this.type === 2) {
             return `code fullscreen table visualblocks ${type1}`;

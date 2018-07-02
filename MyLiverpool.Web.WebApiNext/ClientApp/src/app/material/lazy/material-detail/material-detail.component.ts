@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, PLATFORM_ID, Inject, NgZone } from "@angular/core";
-import { isPlatformServer } from "@angular/common";
+import { isPlatformServer, isPlatformBrowser } from "@angular/common";
 import { Title, DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { Router, ActivatedRoute } from "@angular/router";
 import { MatDialog, MatSnackBar } from "@angular/material";
@@ -10,8 +10,6 @@ import { MaterialType } from "@app/materialCategory";
 import { DeleteDialogComponent } from "@app/shared";
 import { RolesCheckedService } from "@app/+auth";
 import { StorageService } from "@app/+storage";
-
-declare let ssn: any;
 
 @Component({
     selector: "material-detail",
@@ -70,7 +68,9 @@ export class MaterialDetailComponent implements OnInit, OnDestroy {
     }
 
     public updateSocialNetworkJs(): void {
-        ssn();
+        if (isPlatformBrowser(this.platformId)) {
+            ssn();
+        }
         if (this.subs) this.subs.unsubscribe();
     }
     

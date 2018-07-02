@@ -71,7 +71,7 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
-              "serviceWorker": true              
+              "serviceWorker": true
             }
           }
         },
@@ -83,6 +83,32 @@
           "configurations": {
             "production": {
               "browserTarget": "angular2app:build:production"
+            }
+          }
+        }
+      }
+    },
+    "ssr": {
+      "root": "",
+      "projectType": "application",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist-server",
+            "main": "src/main.server.ts",
+            "tsConfig": "src/tsconfig.server.json",
+            "progress": true
+          },
+          "configurations": {
+            "production": {
+              "optimization": false,
+              "outputHashing": "media",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "bundleDependencies": "all"
             }
           }
         }

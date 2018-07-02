@@ -1,4 +1,5 @@
-﻿import { Injectable, Inject } from "@angular/core";
+﻿import { Injectable, Inject, PLATFORM_ID } from "@angular/core";
+import { isPlatformServer } from "@angular/common";  
 import { Subject } from "rxjs";
 import { StorageService } from "@app/+storage";
 import { ChatMessage, Comment } from "@app/+common-models";
@@ -19,10 +20,14 @@ export class SignalRService {
     public readNotify: Subject<number> = new Subject<number>();
 
     constructor(private storage: StorageService,
+        @Inject(PLATFORM_ID) private platformId: Object,
         @Inject("BASE_URL") private baseUrl: string) {
     }
 
     public initializeHub(): void {
+        if (isPlatformServer(this.platformId)) {
+            return;
+        }
         let hubUrl = "anonym";
 
         const token = this.storage.getAccessToken();

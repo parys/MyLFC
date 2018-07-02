@@ -249,3 +249,4 @@ ModelManifest.xml
 /MyLiverpool.Web.WebApiNext/.vscode/angular2app
 /MyLiverpool.Web.WebApiNext/ClientApp/package-lock.json
 /MyLiverpool.Web.WebApiNext/wwwroot/content
+/MyLiverpool.Web.WebApiNext/ClientApp/dist-server

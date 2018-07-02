@@ -1,6 +1,5 @@
-﻿import { Component, Input, OnInit, AfterViewInit, ChangeDetectionStrategy } from "@angular/core";
-
-declare let addAd: any;
+﻿import { Component, Input, OnInit, AfterViewInit, ChangeDetectionStrategy, Inject, PLATFORM_ID } from "@angular/core";
+import { isPlatformBrowser } from "@angular/common";
 
 @Component({
     selector: "ad",
@@ -14,12 +13,15 @@ export class AdComponent implements AfterViewInit, OnInit {
     public name: string = null;
     @Input() blockName: string = "";
 
+    constructor(
+        @Inject(PLATFORM_ID) private platformId: Object) {}
+
     ngOnInit(): void {
         this.name = `yandex_rtb_${this.blockName}`;
     }
 
     public ngAfterViewInit() {
-        if (this.done) return;
+        if (this.done || isPlatformBrowser(this.platformId)) return;
         if (addAd(this.blockName)) {
             this.done = true;
         }

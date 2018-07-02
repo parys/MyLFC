@@ -27,7 +27,7 @@ registerLocaleData(localeRU);
 
 @NgModule({
     imports: [
-        BrowserModule,//.withServerTransition({ appId: 'mylfc-app' }),
+        BrowserModule.withServerTransition({ appId: "mylfc" }),
         SharedModule,
         HttpClientModule,
         AccountCoreModule,

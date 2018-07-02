@@ -1,5 +1,6 @@
-﻿import { Component, OnInit, OnDestroy } from "@angular/core";
+﻿import { Component, OnInit, OnDestroy, PLATFORM_ID, Inject } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
+import { isPlatformBrowser } from "@angular/common";  
 import { BehaviorSubject, Subscription, interval } from "rxjs";
 import { Title } from "@angular/platform-browser";
 import { map } from "rxjs/operators";
@@ -19,6 +20,7 @@ export class MatchDetailComponent implements OnInit, OnDestroy {
     constructor(private matchService: MatchService,
         public roles: RolesCheckedService,
         private title: Title,
+        @Inject(PLATFORM_ID) private platformId: Object,
         private route: ActivatedRoute) {
     }
 
@@ -27,15 +29,20 @@ export class MatchDetailComponent implements OnInit, OnDestroy {
         if (id) {
             this.matchService.getSingle(id)
                 .subscribe(data => {
-                    this.item = data;
-                    this.title.setTitle(`${this.item.homeClubName} ${this.item.scoreHome}-${this.item.scoreAway} ${this.item.awayClubName}`);
-                        if (!data.scoreHome) {
-                            this.countDown$ =
-                                new BehaviorSubject<string>(this.updateTimeRemaining(this.item.dateTime));
-                            this.sub$ = interval(1000).pipe(
-                                    map(() => this.countDown$.next(this.updateTimeRemaining(this.item.dateTime)))
-                                )
-                                .subscribe();
+                        this.item = data;
+                        this.title.setTitle(
+                            `${this.item.homeClubName} ${this.item.scoreHome
+                            ? this.item.scoreHome + "-" + this.item.scoreAway
+                            : ""}- ${this.item.awayClubName}`);
+                        if (isPlatformBrowser(this.platformId)) {
+                            if (!data.scoreHome) {
+                                this.countDown$ =
+                                    new BehaviorSubject<string>(this.updateTimeRemaining(this.item.dateTime));
+                                this.sub$ = interval(1000).pipe(
+                                        map(() => this.countDown$.next(this.updateTimeRemaining(this.item.dateTime)))
+                                    )
+                                    .subscribe();
+                            }
 
                         }
                     },
