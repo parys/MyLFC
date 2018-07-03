@@ -14,6 +14,7 @@ import { EditorComponent } from "@app/editor";
 @Component({
     selector: "comment-detail",
     templateUrl: "./comment-detail.component.html",
+    styleUrls: ["./comment-detail.component.scss"],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 

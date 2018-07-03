@@ -9,7 +9,7 @@
                                                       currentPage: page,
                                                       totalItems: totalItems }; let i = index;">
             <td class="">
-                <table class="col-sm-12 col-xs-12 postTable">
+                <table class="full-width postTable">
                     <tbody>
                         <tr>
                             <td width="23%" class="postTdTop" align="center">
@@ -31,7 +31,7 @@
                             <td class="postTdInfo" valign="top">
                                 <img [title]="message.authorUserName" class="userAvatar margin-auto" [src]="message.photo" [alt]="message.authorUserName">
                                 <div class="postRankName">Fields of Anfield Road</div>
-                                <div class="postRankIco">
+                                <div style="margin-bottom: 5px;">
                                     <b>Знатоки</b>
                                 </div>
                                 <div class="numposts">Сообщений: <span>N/A</span></div>
@@ -52,7 +52,7 @@
                                 <form *ngIf="isEditMode && selectedCommentIndex === i" class="form-horizontal" role="form" [formGroup]="commentForm" (ngSubmit)="editComment(i)">
                                     <div class="modal-body">
                                         <div>
-                                            <bbeditor name="message" formControlName="message"></bbeditor>
+                                            <bbeditor formControlName="message"></bbeditor>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -67,7 +67,7 @@
                                 <div class="postip">
                                     <a *ngIf="roles.isAdminAssist" class="postIpLink" href="http://www.ripe.net/perl/whois?91.220.155.248" target="_blank"></a>
                                     <!--   (<a href="javascript://" onclick="prompt( & quot;&quot;,&quot;Российская Федерация & quot;);return false;">RU</a>) ]-->
-                                    <span class="statusOffline">Оффлайн</span>
+                                    <span class="">Оффлайн</span>
                                 </div>
                             </td>
                             <td class="postBottom">

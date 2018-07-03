@@ -5,7 +5,7 @@
     <span *ngIf="!opened"><b>Показать таблицу АПЛ</b></span>
     <span *ngIf="opened"><b>Скрыть таблицу</b></span>
 </button>
-<div *ngIf="opened" class="border-panel border-lgray clearfix eplTable" [innerHTML]="eplTable"></div>
+<div *ngIf="opened" class="eplTable" [innerHTML]="eplTable"></div>
 <!--<mat-accordion class="" [displayMode]="flat">
     <mat-expansion-panel class="top10">
         <span class="full-width" *ngIf="roles.isInformer">
@@ -16,6 +16,6 @@
                 <b>Таблица АПЛ</b>
             </mat-panel-title>
         </mat-expansion-panel-header>
-        <div class="border-panel border-lgray clearfix eplTable" [innerHTML]="eplTable"></div>
+        <div class="eplTable" [innerHTML]="eplTable"></div>
     </mat-expansion-panel>
 </mat-accordion>-->

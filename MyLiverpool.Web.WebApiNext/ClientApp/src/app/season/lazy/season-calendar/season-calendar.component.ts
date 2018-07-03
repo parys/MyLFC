@@ -8,6 +8,7 @@ import { RolesCheckedService } from "@app/+auth";
 @Component({
     selector: "<season-calendar>",
     templateUrl: "./season-calendar.component.html",
+    styleUrls: ["./season-calendar.component.scss"],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SeasonCalendarComponent implements OnInit {

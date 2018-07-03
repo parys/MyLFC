@@ -452,9 +452,9 @@ textarea {
     .liverbird-navbar > img { max-height: 90px; }
 }
 
-    .login-list-panel {
-        list-style: none;
-    }
+.login-list-panel {
+    list-style: none;
+}
 
 
     /* background image*/

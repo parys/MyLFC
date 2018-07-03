@@ -1,24 +1,37 @@
 ﻿import { Component, OnInit, OnDestroy } from "@angular/core";
+import { TransferState, makeStateKey } from "@angular/platform-browser";
 import { Subscription } from "rxjs";
 import { UserService } from "../user.service";
 import { User } from "../user.model";
 
+const USER_BIRTHDAY_KEY = makeStateKey<User[]>("user-birthday");
+
 @Component({
     selector: "user-birthday",
-    templateUrl: "./user-birthday.component.html"
+    templateUrl: "./user-birthday.component.html",
+    styleUrls: ["./user-birthday.component.scss"]
 })
 export class UserBirthdayComponent implements OnInit, OnDestroy {
     private sub: Subscription;
     public items: User[];
     public currentUserIndex: number = null;
 
-    constructor(private service: UserService) {
+    constructor(private transferState: TransferState,
+        private service: UserService) {
     }
 
     public ngOnInit(): void {
-        this.sub = this.service.getBirthdays()
-            .subscribe(data => this.parse(data),
-                e => console.log(e));
+        const savedData = this.transferState.get(USER_BIRTHDAY_KEY, null);
+        if (savedData) {
+            this.parse(savedData);
+        } else {
+            this.sub = this.service.getBirthdays()
+                .subscribe(data => {
+                    this.parse(data);
+                    this.transferState.set(USER_BIRTHDAY_KEY, data);
+                },
+                    e => console.log(e));
+        }
     }
 
     public ngOnDestroy(): void {

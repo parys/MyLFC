@@ -11,11 +11,10 @@
                 <b class="font-size20" [textContent]="item.homeClubName"></b>
             </div>
         </div>
-        <div class="font-size40 text-center flex-vertical-center">
+        <div class="font-size40 text-center flex-v-c">
             <b [textContent]="item.scoreHome"></b>
             <span class="padding0">:</span>
             <b [textContent]="item.scoreAway"></b>
-            <!--<i class="font-size13">Серия пенальти:</i>-->
             <b *ngIf="item.scorePenaltyHome || item.scorePenaltyAway">({{item.scorePenaltyHome}}-{{item.scorePenaltyAway}})</b>
         </div>
         <div class="">

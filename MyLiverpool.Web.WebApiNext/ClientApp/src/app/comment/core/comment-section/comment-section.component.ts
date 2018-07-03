@@ -9,6 +9,7 @@ import { RolesCheckedService } from "@app/+auth";
 @Component({
     selector: "comment-section",
     templateUrl: "./comment-section.component.html",
+    styleUrls: ["./comment-section.component.scss"],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CommentSectionComponent implements OnInit, OnChanges, AfterViewChecked {
@@ -43,8 +44,6 @@ export class CommentSectionComponent implements OnInit, OnChanges, AfterViewChec
             this.cd.markForCheck();
         }
         );
-        this.update();
-        this.cd.markForCheck();
         this.type = this.type ? this.type : 3;
     }
 
@@ -70,6 +69,7 @@ export class CommentSectionComponent implements OnInit, OnChanges, AfterViewChec
 
     public ngOnChanges(): void {
         this.update();
+        this.isScrolled = false;
     }
 
     public pageChanged(event: any): void {

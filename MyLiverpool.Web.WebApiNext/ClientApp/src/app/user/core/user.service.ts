@@ -26,8 +26,8 @@ export class UserService {
         return this.http.get<User[]>(`${this.actionUrl}getUserNames?typed=${typed}`);
     };
 
-    public update(itemToUpdate: User): Observable<User>;
-    update(): any;
+ //   public update(itemToUpdate: User): Observable<User>;
+   // update(): any;
     public update(itemToUpdate?: User): Observable<User> {
         return this.http.put<User>(this.actionUrl, JSON.stringify(itemToUpdate));
     };

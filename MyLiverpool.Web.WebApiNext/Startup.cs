@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.IO.Compression;
@@ -119,6 +120,7 @@ namespace MyLiverpool.Web.WebApiNext
             services.RegisterServices();
 
             services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
+            services.Configure<SsrSettings>(Configuration.GetSection("SSR"));
             
             services.AddMemoryCache();
 
@@ -244,13 +246,11 @@ namespace MyLiverpool.Web.WebApiNext
                     template: "{controller}/{action=Index}/{id?}");
             });
 
-        //    if (!Env.IsDevelopment())
+            //    if (!Env.IsDevelopment())
             {
+                var ssrEnabled = Configuration.GetSection("SSR") != null && Convert.ToBoolean(Configuration.GetSection("SSR")["Enabled"]);
                 app.UseSpa(spa =>
                 {
-                    // To learn more about options for serving an Angular SPA from ASP.NET Core,
-                    // see https://go.microsoft.com/fwlink/?linkid=864501
-
                     spa.Options.SourcePath = "ClientApp";
 
                     /*
@@ -259,18 +259,22 @@ namespace MyLiverpool.Web.WebApiNext
                              //     value to 'true', so that the SSR bundle is built during publish
                              // [2] Uncomment this code block
                              */
-
-                    spa.UseSpaPrerendering(options =>
-                     {
-                         options.BootModulePath = $"{spa.Options.SourcePath}/dist-server/main.js";
-                         options.BootModuleBuilder = env.IsDevelopment() ? new AngularCliBuilder(npmScript: "build:ssr") : null;
-                         options.ExcludeUrls = new[] { "/sockjs-node" };
-                         options.SupplyData = (requestContext, obj) =>
-                         {
+                        
+                    if (ssrEnabled)
+                    {
+                        spa.UseSpaPrerendering(options =>
+                        {
+                            options.BootModulePath = $"{spa.Options.SourcePath}/dist-server/main.js";
+                            options.BootModuleBuilder =
+                                env.IsDevelopment() ? new AngularCliBuilder(npmScript: "build:ssr") : null;
+                            options.ExcludeUrls = new[] {"/sockjs-node", "/src", "/content", "/hubs", "/null", "/users"};
+                            options.SupplyData = (requestContext, obj) =>
+                            {
                                 //  var result = appService.GetApplicationData(requestContext).GetAwaiter().GetResult();
                                 obj.Add("Cookies", requestContext.Request.Cookies);
-                         };
-                     });
+                            };
+                        });
+                    }
 
                     if (env.IsDevelopment())
                     {

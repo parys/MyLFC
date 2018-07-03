@@ -11,7 +11,8 @@ import { Configuration } from "@app/app.constants";
 
 @Component({
     selector: "matchEvent-match-panel",
-    templateUrl: "./matchEvent-match-panel.component.html"
+    templateUrl: "./matchEvent-match-panel.component.html",
+    styleUrls: ["./matchEvent-match-panel.component.scss"]
 })
 export class MatchEventMatchPanelComponent implements OnInit {
     @Input() public matchId: number;

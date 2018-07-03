@@ -4,8 +4,8 @@
                                                       currentPage: page,
                                                       totalItems: totalItems }; let i = index;">
         <div class="bottom10" *ngIf="!item.pending || roles.isNewsmaker || roles.isAuthor && roles.isSelf(item.userId)">
-            <div class="row flex border-left-maroon" [class.material-pending]="item.pending">
-                <div class="flex-vertical-center material-header full-width flex-space-between">
+            <div class="material" [class.material-pending]="item.pending">
+                <div class="header">
                     <a [routerLink]="['/', item.typeName, item.id]">
                         <h3 class="beauty-font" [textContent]="item.title"></h3>
                     </a>
@@ -22,9 +22,9 @@
                 </div>
                 <div class="mat-preview-list full-width">
                     <span>
-                        <img class="img-thumbnail news-mini" [alt]="item.title" [src]="item.photoPreview" />
+                        <img class="img-thumbnail" [alt]="item.title" [src]="item.photoPreview" />
                     </span>
-                    <span class="flex-vertical-center preview-text">
+                    <span class="flex-v-c preview-text">
                         <i class="padding5" [innerHTML]="item.brief"></i>
                     </span>
                 </div>

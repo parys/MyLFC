@@ -7,7 +7,8 @@ import { MatchPerson } from "../matchPerson.model";
 
 @Component({
     selector: "matchPerson-panel",
-    templateUrl: "./matchPerson-panel.component.html"
+    templateUrl: "./matchPerson-panel.component.html",
+    styleUrls: ["./matchPerson-panel.component.scss"]
 })
 export class MatchPersonPanelComponent implements OnInit {
     private matchPersons: MatchPerson[] = [];

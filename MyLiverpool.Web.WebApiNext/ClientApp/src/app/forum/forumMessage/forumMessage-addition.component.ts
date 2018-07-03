@@ -6,7 +6,8 @@ import { RolesCheckedService } from "@app/+auth";
 
 @Component({
     selector: "forumMessage-addition",
-    templateUrl: "forumMessage-addition.component.html"
+    templateUrl: "forumMessage-addition.component.html",
+    styleUrls: ["forumMessage-addition.component.scss"]
 })
 export class ForumMessageAdditionComponent implements OnInit {
                     

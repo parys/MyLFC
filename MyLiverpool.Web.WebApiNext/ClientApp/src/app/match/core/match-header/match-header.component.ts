@@ -4,7 +4,8 @@ import { Match } from "@app/match/model";
 
 @Component({
     selector: "match-header",
-    templateUrl: "./match-header.component.html"
+    templateUrl: "./match-header.component.html",
+    styleUrls: ["./match-header.component.scss"]
 })
 
 export class MatchHeaderComponent implements OnInit {

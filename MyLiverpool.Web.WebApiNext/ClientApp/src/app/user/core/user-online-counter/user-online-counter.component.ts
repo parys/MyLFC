@@ -1,9 +1,12 @@
 ﻿import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
+import { TransferState, makeStateKey } from "@angular/platform-browser";
 import { Subscription } from "rxjs";
 import { UserService } from "../user.service";
-import { IUserOnline } from "@app/+common-models";
+import { IUserOnline, UsersOnline } from "@app/+common-models";
 import { Configuration } from "@app/app.constants";
 import { SignalRService } from "@app/+signalr";
+
+const USER_ONLINE_KEY = makeStateKey<UsersOnline>("user-online");
 
 @Component({
     selector: "user-online-counter",
@@ -18,6 +21,7 @@ export class UserOnlineCounterComponent implements OnInit, OnDestroy {
 
     constructor(private userService: UserService,
         private cd: ChangeDetectorRef,
+        private transferState: TransferState,
         private signalRService: SignalRService,
         private config: Configuration) { }
 
@@ -33,14 +37,20 @@ export class UserOnlineCounterComponent implements OnInit, OnDestroy {
     }
 
     private updateCount() {
-        this.sub = this.userService.getOnlineCount()
-            .subscribe(data => {
-                    this.parse(data);
-                },
-                e => console.log(e));
+        const savedData = this.transferState.get(USER_ONLINE_KEY, null);
+        if (savedData) {
+            this.parse(savedData);
+        } else {
+            this.sub = this.userService.getOnlineCount()
+                .subscribe(data => {
+                        this.parse(data);
+                        this.transferState.set(USER_ONLINE_KEY, data);
+                    },
+                    e => console.log(e));
+        }
     }
 
-    private parse(data: any): void {
+    private parse(data: UsersOnline): void {
         this.allCount = data.allCount;
         this.guestCount = data.guestCount;
         this.users = data.users;

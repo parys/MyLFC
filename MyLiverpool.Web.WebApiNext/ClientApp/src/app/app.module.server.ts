@@ -1,10 +1,10 @@
-﻿import { NgModule, RendererFactory2, NgZone } from '@angular/core';
-import { ServerModule, ɵServerRendererFactory2 } from '@angular/platform-server';
-import { AppModuleShared } from './app.module.shared';
+﻿import { NgModule } from '@angular/core';
+import { ServerModule, ServerTransferStateModule } from '@angular/platform-server';
+import { AppModuleShared } from './app.module';
 import { ModuleMapLoaderModule } from '@nguniversal/module-map-ngfactory-loader';
 import { AppComponent } from './app.component';
-import { ɵAnimationEngine } from '@angular/animations/browser';
-import { NoopAnimationsModule, ɵAnimationRendererFactory } from '@angular/platform-browser/animations';
+//import { ɵAnimationEngine } from '@angular/animations/browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 // declarations
 //export function instantiateServerRendererFactory(
@@ -42,6 +42,7 @@ import { NoopAnimationsModule, ɵAnimationRendererFactory } from '@angular/platf
         ServerModule,
         ModuleMapLoaderModule,
         NoopAnimationsModule,
+        ServerTransferStateModule,
     ],
     providers: [
    //     SERVER_RENDER_PROVIDERS

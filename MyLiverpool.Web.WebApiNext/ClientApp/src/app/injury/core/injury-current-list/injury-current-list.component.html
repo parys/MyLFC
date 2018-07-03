@@ -1,7 +1,7 @@
-﻿<div class="full-width injuries padding5" *ngIf="items?.length > 0">
+﻿<div class="injuries" *ngIf="items?.length > 0">
     <h4><b>Травмированные:</b>
         <a *ngIf="roles.isAdminAssistant" [routerLink]="['/injuries', 0, 'edit']"><i class="material-icons color-red" style="font-size: 100%;">add</i></a></h4>
-    <div class="full-width injury-item" *ngFor="let injury of items">
+    <div class="injury-item" *ngFor="let injury of items">
         <div class="full-width">
             <img [src]="injury.personPhoto" [alt]="injury.personName"/>
             <b [textContent]="injury.personName"></b>

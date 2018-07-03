@@ -5,10 +5,10 @@
         <!--<span *ngIf="event.type === 3"> <span class="">Г</span>{{event.personName}} - {{event.minute}}' </span>-->
         <span *ngIf="event.type === 4"><img class="width20px" alt="Гол" src="/img/goal_own.png" [title]="event.typeName">(А){{event.personName}} - {{event.minute}}' </span>
         <span *ngIf="event.type === 5" [title]="event.typeName">({{event.personName}})</span>
-        <span *ngIf="event.type === 6" class="flex-vertical-center"><mat-icon class="color-gold">sim_card_alert</mat-icon>{{event.personName}} - {{event.minute}}' </span>
-        <span *ngIf="event.type === 7" class="flex-vertical-center"><mat-icon class="color-red" [title]="event.typeName">sim_card_alert</mat-icon>{{event.personName}} - {{event.minute}}' </span>
-        <span *ngIf="event.type === 9" class="flex-vertical-center" [title]="event.typeName"> <mat-icon class="color-red">arrow_downward</mat-icon>{{event.personName}} - {{event.minute}}' </span>
-        <span *ngIf="event.type === 8" class="flex-vertical-center" [title]="event.typeName"><mat-icon class="color-green">arrow_upward</mat-icon>{{event.personName}} - {{event.minute}}' </span>
+        <span *ngIf="event.type === 6" class="flex-v-c"><mat-icon class="color-gold">sim_card_alert</mat-icon>{{event.personName}} - {{event.minute}}' </span>
+        <span *ngIf="event.type === 7" class="flex-v-c"><mat-icon class="color-red" [title]="event.typeName">sim_card_alert</mat-icon>{{event.personName}} - {{event.minute}}' </span>
+        <span *ngIf="event.type === 9" class="flex-v-c" [title]="event.typeName"> <mat-icon class="color-red">arrow_downward</mat-icon>{{event.personName}} - {{event.minute}}' </span>
+        <span *ngIf="event.type === 8" class="flex-v-c" [title]="event.typeName"><mat-icon class="color-green">arrow_upward</mat-icon>{{event.personName}} - {{event.minute}}' </span>
         <span *ngIf="event.type === 10"><img class="width20px" alt="Гол" src="/img/goal_own.png" [title]="event.typeName">П(нереализованный){{event.personName}} - {{event.minute}}' </span>
         <span *ngIf="event.type === 12"><span class="">Травма </span>{{event.personName}} - {{event.minute}}' </span>
         <i *ngIf="roles.isInformer" role="button" (click)="selectEvent(i)"><mat-icon style="font-size: 100%;">edit</mat-icon></i>

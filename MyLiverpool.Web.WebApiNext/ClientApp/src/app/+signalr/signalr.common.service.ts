@@ -2,7 +2,7 @@
 import { isPlatformServer } from "@angular/common";  
 import { Subject } from "rxjs";
 import { StorageService } from "@app/+storage";
-import { ChatMessage, Comment } from "@app/+common-models";
+import { ChatMessage, Comment, UsersOnline } from "@app/+common-models";
 import { Pm } from "@app/pm/model"
 import { HubConnection, HubConnectionBuilder, LogLevel } from "@aspnet/signalr";
 import { Notification } from "@app/notification/model";
@@ -12,7 +12,7 @@ export class SignalRService {
     private hubConnection: HubConnection;
     private alreadyStarted: boolean = false;
     public chatSubject: Subject<ChatMessage> = new Subject<ChatMessage>();
-    public onlineSubject: Subject<ChatMessage> = new Subject<any>();
+    public onlineSubject: Subject<UsersOnline> = new Subject<UsersOnline>();
     public lastCommentsSubject: Subject<Comment> = new Subject<Comment>();
     public readPm: Subject<boolean> = new Subject<boolean>();
     public newPm: Subject<Pm> = new Subject<Pm>();

@@ -1,14 +1,18 @@
 ﻿import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
+import { TransferState, makeStateKey } from '@angular/platform-browser';
 import { Subscription } from "rxjs";
 import { MatchService } from "../match.service";
 import { Match } from "@app/match/model";
 import { RolesCheckedService } from "@app/+auth";
 
+const MATCH_CALENDAR_KEY = makeStateKey<Match[]>("match-calendar");
+
 @Component({
     selector: "match-calendar",
     templateUrl: "./match-calendar.component.html",
+    styleUrls: ["./match-calendar.component.scss"],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    preserveWhitespaces : true
+    preserveWhitespaces: true
 })
 export class MatchCalendarComponent implements OnInit, OnDestroy {
     private sub: Subscription;
@@ -17,24 +21,32 @@ export class MatchCalendarComponent implements OnInit, OnDestroy {
 
     constructor(private service: MatchService,
         public roles: RolesCheckedService,
+        private transferState: TransferState,
         private cd: ChangeDetectorRef) { }
 
     public ngOnInit(): void {
-        this.sub = this.service.getForCalendar().subscribe(data => {
-            if (data) {
-                if (data.length === 1) {
-                    if (data[0].scoreHome) {
-                        this.last = data[0];
-                    } else {
-                        this.next = data[0];
-                    }
-                } else {
-                    [this.last, this.next] = data;
-                }
+        const savedData = this.transferState.get(MATCH_CALENDAR_KEY, null);
+        if (savedData) {
+            this.parse(savedData);
+        } else {
+            this.sub = this.service.getForCalendar().subscribe(data => {
+                this.parse(data);
+                this.transferState.set(MATCH_CALENDAR_KEY, data);
+            },
+                e => console.log(e));
+        }
+    }
+    private parse(mathes: Match[]): void {
+        if (mathes.length === 1) {
+            if (mathes[0].scoreHome) {
+                this.last = mathes[0];
+            } else {
+                this.next = mathes[0];
             }
-        },
-            e => console.log(e),
-            () => { this.cd.markForCheck(); });
+        } else {
+            [this.last, this.next] = mathes;
+        }
+        this.cd.markForCheck();
     }
 
     public ngOnDestroy(): void {

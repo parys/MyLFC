@@ -1,3 +1,53 @@
-﻿article {
-    line-height: 1.4;
+﻿:host {
+    article {
+        line-height: 1.4;
+    }
+
+    img.material-preview {
+        border: lightgray solid 5px;
+        display: flex;
+        height: auto;
+        margin: auto;
+        max-width: 100%;
+        width: auto;
+    }
+
+    .list-inline.small-offset > li {
+        display: inline-block;
+        padding-right: 5px;
+        padding-left: 0;
+    }
+
+    .material-body img {
+        border: lightgray solid 5px;
+        display: flex;
+        height: auto;
+        margin: auto;
+        max-width: 100%;
+        width: auto;
+    }
+
+    .material-info-panel {
+        background-color: lightgray;
+    }
+
+    .material-info-panel > ul {
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+    .material-header {
+        color: #731010;
+        font-weight: bold;
+        padding-left: 10px;
+        text-transform: uppercase;
+    }
+
+    .material-header > a {
+        color: #731010;
+    }
+
+    .material-header > a > h4 {
+        font-weight: bold;
+    }
 }

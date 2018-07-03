@@ -1,0 +1,16 @@
+﻿
+    @media(max-width: 1209px) { /* should based on menu length? todo*/
+        .liverbird-navbar > img {
+            display: none;
+        }
+    }
+
+    @media(min-width: 1210px) {
+        .liverbird-navbar {
+            margin-left: auto;
+        }
+
+        .liverbird-navbar > img {
+            max-height: 81px;
+        }
+    }

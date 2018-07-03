@@ -13,6 +13,7 @@ import { EditorComponent } from "@app/editor";
 @Component({
     selector: "chat-window",
     templateUrl: "./chat-window.component.html",
+    styleUrls: ["./chat-window.component.scss"],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ChatWindowComponent implements OnInit {

@@ -1,9 +1,9 @@
 ﻿import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { Location } from "@angular/common";
-import { MatPaginator, MatSort, MatSelect } from '@angular/material';
+import { MatPaginator, MatSort, MatSelect } from "@angular/material";
 import { ActivatedRoute } from "@angular/router";
 import { User, UserFilters, UserService } from "@app/user";
-import { merge, of, Observable, fromEvent } from 'rxjs';
+import { merge, of, Observable, fromEvent } from "rxjs";
 import { startWith, switchMap, map, catchError, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { RoleGroup, RoleGroupService } from "@app/roleGroup";
 import { Pageable } from "@app/shared";
@@ -11,7 +11,8 @@ import { RolesCheckedService } from "@app/+auth";
 
 @Component({
     selector: "user-list",
-    templateUrl: "./user-list.component.html"
+    templateUrl: "./user-list.component.html",
+    styleUrls: ["./user-list.component.scss"]
 })
 
 export class UserListComponent implements OnInit {

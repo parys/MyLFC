@@ -13,7 +13,7 @@ declare let tinymce: any;
             useExisting: forwardRef(() => EditorComponent),
             multi: true
         }],
-
+    styleUrls: ["./editor.component.scss"],
     template: `<textarea id="{{elementId}}">{{_value}}</textarea>`
 })
 

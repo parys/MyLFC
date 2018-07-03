@@ -16,7 +16,7 @@
                     <span [textContent]="user.userName"></span>
                 </a>
                 <span class="text-danger" tooltip="Почта не подтверждена" *ngIf="!user.emailConfirmed && (roles.isAdminAssist || roles.isSelf(user.id))"> *</span>
-                <a role="button" *ngIf="roles.isLogined && !roles.isSelf(user.id)" (click)="writePm(i)"><i class="material-icons">email</i></a>
+                <!--<a role="button" *ngIf="roles.isLogined && todo!! !roles.isSelf(user.id)" (click)="writePm(i)"><i class="material-icons">email</i></a>-->
             </td>
         </ng-container>
 
@@ -37,7 +37,7 @@
     
     <mat-paginator [showFirstLastButtons]="true" [pageSizeOptions]="[15, 25, 50]"></mat-paginator>
     
-    <div class="flex-space-around flex-vertical-center">
+    <div class="flex-space-around flex-v-c">
         <mat-form-field>
             <mat-select #roleSelect placeholder="Тип">
                 <mat-option value="">Все группы</mat-option>

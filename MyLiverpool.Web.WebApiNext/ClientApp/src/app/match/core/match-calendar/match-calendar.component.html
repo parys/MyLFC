@@ -1,5 +1,5 @@
 ﻿<section class="flex">
-    <div class="full-width bg-darkgray flex padding5 border-panel border-lgray match-calendar" *ngIf="next">
+    <div class="flex next match-calendar" *ngIf="next">
         <div class="full-width flex-space-between">
             <span>Следующая игра
                 <a *ngIf="roles.isInformer" [routerLink]="['/matches', next.id, 'edit']"><i class="material-icons color-red" style="font-size: 100%">edit</i></a>
@@ -9,7 +9,7 @@
             </span>
         </div>
         
-        <div class="full-width flex-space-around flex-vertical-center">
+        <div class="full-width flex-space-around flex-v-c">
             <div class="text-center">
                 <img [src]="next.homeClubLogo" class="center" [alt]="next.homeClubName" [title]="next.homeClubName">
                 <strong style="font-size: 1.2em;" class="" [textContent]="next.homeClubName"></strong>
@@ -28,7 +28,7 @@
             <a [routerLink]="['matches', next.id]">Обсуждение</a>
         </div>
     </div>
-    <div class="full-width ghost-white flex padding5 border-panel border-lgray match-calendar" *ngIf="last">
+    <div class="last flex match-calendar" *ngIf="last">
         <div class="full-width flex-space-between">
             <span>
                 Последняя игра
@@ -38,12 +38,12 @@
                 <span [textContent]="last.dateTime | customDate:false:true"></span>
             </span>
         </div>
-        <div class="full-width flex-space-around flex-vertical-center">
+        <div class="full-width flex-space-around flex-v-c">
             <div class="text-center">
                 <img [src]="last.homeClubLogo" class="center " [alt]="last.homeClub" [title]="last.homeClubName">
                 <strong style="font-size: 1.2em;" [textContent]="last.homeClubName"></strong>
             </div>
-            <div class="flex-vertical-center flex-center-h padding0">
+            <div class="flex-v-c flex-center-h padding0">
                 <a [routerLink]="['matches', last.id]" class="score text-center">
                     <strong>
                         <span [textContent]="last.scoreHome"></span><span>:</span><span [textContent]="last.scoreAway"></span>

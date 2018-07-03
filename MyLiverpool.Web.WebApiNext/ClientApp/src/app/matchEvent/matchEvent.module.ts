@@ -1,10 +1,7 @@
 ﻿import { NgModule } from "@angular/core";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
-import { NgxPaginationModule } from "ngx-pagination";
 import { SharedModule } from "@app/shared";
 import { MatchEventEditPanelComponent } from "./matchEvent-edit-panel";
-import { MatchEventListComponent } from "./matchEvent-list.component";
 import { MatchEventService } from "./matchEvent.service";
 import { MatchEventMatchPanelComponent } from "./matchEvent-match-panel";
 
@@ -15,8 +12,7 @@ import { MatchEventMatchPanelComponent } from "./matchEvent-match-panel";
     ],
     declarations: [
         MatchEventEditPanelComponent,
-        MatchEventMatchPanelComponent,
-        MatchEventListComponent
+        MatchEventMatchPanelComponent
     ],
     exports: [
         MatchEventEditPanelComponent,

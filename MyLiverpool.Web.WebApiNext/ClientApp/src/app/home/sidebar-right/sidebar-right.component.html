@@ -2,8 +2,8 @@
     <li *ngIf="!roles.isLogined">
         <account-signin></account-signin>
     </li>
-    <li *ngIf="roles.isLogined" class="flex-space-around flex-vertical-center">
-        <a [routerLink]="['/users', 0]" class="text-white flex-space-around flex-vertical-center"><mat-icon>person</mat-icon>Профиль</a>
+    <li *ngIf="roles.isLogined" class="flex-space-around flex-v-c">
+        <a [routerLink]="['/users', 0]" class="text-white flex-space-around flex-v-c"><mat-icon>person</mat-icon>Профиль</a>
         <pm-counter></pm-counter>
         <notification-counter></notification-counter>
         <a role="button" (click)="logout()" class="text-white">Выйти</a>

@@ -1,0 +1,424 @@
+﻿
+/* ===== forum Start ===== */
+a.postuser1:link, a.postuser1:visited, a.postuser1:hover {
+    color: #000000;
+    font-weight: normal;
+    text-decoration: none
+}
+
+a.postuser2:link, a.postuser2:visited, a.postuser2:hover {
+    color: #993399;
+    font-weight: bold;
+    text-decoration: none
+}
+
+a.postuser3:link, a.postuser3:visited, a.postuser3:hover {
+    color: #009900;
+    font-weight: bold;
+    text-decoration: none
+}
+
+a.postuser4:link, a.postuser4:visited, a.postuser4:hover {
+    color: red;
+    font-weight: bold;
+    text-decoration: none
+}
+
+a.postuser5:link, a.postuser5:visited, a.postuser5:hover {
+    color: #3333FF;
+    font-weight: bold;
+    text-decoration: none
+}
+
+a.postuser6:link, a.postuser6:visited, a.postuser6:hover {
+    color: orange;
+    font-weight: bold;
+    text-decoration: none
+}
+
+a.postuser7:link, a.postuser7:visited, a.postuser7:hover {
+    color: #000000;
+    font-weight: bold;
+    text-decoration: none
+}
+
+a.postuser8:link, a.postuser8:visited, a.postuser8:hover {
+    color: #009900;
+    font-weight: bold;
+    text-decoration: none
+}
+
+a.postuser9:link, a.postuser9:visited, a.postuser9:hover {
+    color: #000000;
+    font-weight: bold;
+    text-decoration: none
+}
+
+a.postuser10:link, a.postuser10:visited, a.postuser10:hover {
+    color: #000000;
+    font-weight: bold;
+    text-decoration: none
+}
+/* General forum Table View */
+.gTable {
+    background: #EBEBEB;
+    width: 98%;
+    margin-left: 1%;
+    margin-right: 1%;
+}
+
+.gTableTop {
+    padding: 2px;
+    background: url('http://src.ucoz.ru/t/631/17.gif') #B60600;
+    color: #FFFFFF;
+    font-weight: bold;
+    height: 23px;
+    padding-left: 17px;
+    font-size: 10pt;
+}
+
+.gTableSubTop {
+    padding: 2px;
+    background: url('http://src.ucoz.ru/t/631/5.gif') center #418E00;
+    color: #000000;
+    height: 20px;
+    font-size: 10px;
+}
+
+.gTableBody, .gTableBottom {
+    padding: 2px;
+    background: #F1FFDD;
+}
+
+.gTableBody1 {
+    padding: 2px;
+    background: #FFFFFF;
+}
+
+.gTableLeft {
+    padding: 2px;
+    background: #F1FFDD;
+    font-weight: bold;
+    color: #BD0A00
+}
+
+.gTableRight {
+    padding: 2px;
+    background: #F1FFDD
+}
+
+.gTableError {
+    padding: 2px;
+    background: #F1FFDD;
+    color: #FF0000;
+}
+/* ------------------------ */
+/* Forums Styles */
+.forumNameTd, .forumLastPostTd {
+    padding: 2px;
+    background: #FFFFFF
+}
+
+.forumIcoTd, .forumThreadTd, .forumPostTd {
+    padding: 2px;
+    background: #F1FFDD
+}
+
+.forumLastPostTd, .forumArchive {
+    padding: 2px;
+    font-size: 7pt;
+}
+
+a.catLink:link {
+    text-decoration: none;
+    color: #FFFFFF;
+}
+
+a.catLink:visited {
+    text-decoration: none;
+    color: #FFFFFF;
+}
+
+a.catLink:hover {
+    text-decoration: underline;
+    color: #FFFFFF;
+}
+
+a.catLink:active {
+    text-decoration: underline;
+    color: #FFFFFF;
+}
+
+.lastPostGuest, .lastPostUser, .threadAuthor {
+    font-weight: bold
+}
+
+/* forum Titles & other */
+.forum {
+    font-weight: bold;
+    font-size: 9pt;
+}
+
+.forumDescr {
+    color: #858585;
+    font-size: 7pt;
+}
+
+a.forum:link, a.lastPostUserLink:link, a.forumLastPostLink:link, a.threadAuthorLink:link {
+    text-decoration: none;
+    color: #BD0A00;
+}
+
+a.forum:visited, a.lastPostUserLink:visited, a.forumLastPostLink:visited, a.threadAuthorLink:visited {
+    text-decoration: none;
+    color: #BD0A00;
+}
+
+a.forum:hover, a.lastPostUserLink:hover, a.forumLastPostLink:hover, a.threadAuthorLink:hover {
+    text-decoration: underline;
+    color: #79B56C;
+}
+
+a.forum:active, a.lastPostUserLink:active, a.forumLastPostLink:active, a.threadAuthorLink:active {
+    text-decoration: underline;
+    color: #BD0A00;
+}
+
+/* forum Threads Style */
+.threadNametd, .threadAuthTd, .threadLastPostTd {
+    padding: 2px;
+    background: #FFFFFF
+}
+
+.threadIcoTd, .threadPostTd, .threadViewTd {
+    padding: 2px;
+    background: #F1FFDD
+}
+
+.threadLastPostTd {
+    padding: 2px;
+    font-size: 7pt;
+}
+
+.threadDescr {
+    color: #858585;
+    font-size: 7pt;
+}
+
+.threadNoticeLink {
+    font-weight: bold;
+}
+
+.threadsType {
+    padding: 2px;
+    background: #FFF799;
+    height: 20px;
+    font-weight: bold;
+    font-size: 7pt;
+    color: #BD0A00;
+    padding-left: 40px;
+}
+
+.threadsDetails {
+    padding: 2px;
+    background: #8EBC4D;
+    height: 20px;
+    color: #000000;
+}
+
+.forumOnlineBar {
+    padding: 2px;
+    background: #8EBC4D;
+    height: 20px;
+    color: #000000;
+}
+
+a.threadPinnedLink:link {
+    text-decoration: none;
+    color: #0000FF;
+}
+
+a.threadPinnedLink:visited {
+    text-decoration: none;
+    color: #0000FF;
+}
+
+a.threadPinnedLink:hover {
+    text-decoration: none;
+    color: #FF0000;
+}
+
+a.threadPinnedLink:active {
+    text-decoration: underline;
+    color: #FF0000;
+}
+
+a.threadLink:link {
+    text-decoration: none;
+    color: #BD0A00;
+}
+
+a.threadLink:visited {
+    text-decoration: none;
+    color: #BD0A00;
+}
+
+a.threadLink:hover {
+    text-decoration: underline;
+    color: #000000;
+}
+
+a.threadLink:active {
+    text-decoration: underline;
+    color: #000000;
+}
+
+.postpSwithces {
+    font-size: 7pt;
+}
+
+.thDescr {
+    font-weight: normal;
+}
+
+.threadFrmBlock {
+    font-size: 7pt;
+    text-align: right;
+}
+/* forum Posts View */
+
+.postSeparator {
+    height: 3px;
+    background: #B60600;
+}
+
+.postUser {
+    font-weight: bold;
+}
+
+.postTdInfo {
+    text-align: center;
+    padding: 5px;
+    background: #F1FFDD;
+}
+
+.postRankName {
+    margin-top: 5px;
+}
+
+.signatureHr {
+    margin-top: 20px;
+    color: #649A56;
+}
+
+.posttdMessage {
+    padding: 5px;
+    background: #FFFFFF;
+}
+
+.codeMessage {
+    background: #FFFFFF;
+    padding: 5px;
+}
+
+.quoteMessage {
+    background: #FFFFFF;
+    padding: 5px;
+}
+
+/* ====== forum End ====== */
+/*--------------------- Forum start ---------------------*/
+.modBut {
+    font-size: 12px;
+}
+
+.gTable, .postTable {
+    background: #ffffff;
+}
+
+.gTable td {
+    background: #ffffff;
+    border: 1px solid #e1e1e1;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.postTable td {
+    border-collapse: collapse;
+    border: 1px solid #e1e1e1;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.gTable td.gTableTop {
+    padding: 0 10px;
+    border: 1px solid #debc72;
+    background: url(http://myliverpool.ru/desighn/img/126.png) repeat top right;
+    font: 14px/32px 'Tahoma';
+    color: #ffffff;
+    text-transform: uppercase;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.gTableTop a {
+    color: #ffffff;
+}
+/*.gTableTop a:hover {}*/
+.gTable td.gTableSubTop {
+    background: #e1e1e1;
+    color: #848484;
+    border: 0px;
+    font-size: 10px;
+}
+
+.gTableSubTop a {
+    color: #848484;
+}
+
+.gTableTop, .gTableSubTop, .forumNameTd, .forumThreadTd, .forumPosrTd, .forumLastPostTd, .threadNametd,
+.threadPostTd, .threadAuthTd, .threadViewTd, .threadLastPostTd, td.threadsDetails, td.forumOnlineBar {
+    padding: 4px 10px;
+}
+
+#frM6 td, #frM14 td, #frM50 td, #frM56 td, #frM59 td, #frM3 td, #frM45 td {
+    padding: 4px 10px;
+}
+
+.postTable td {
+    padding: 1px 5px;
+    color: #333;
+}
+
+.postSeparator {
+    display: none;
+}
+
+.posttdMessage {
+    text-align: justify;
+}
+
+.threadPostTd, .threadViewTd, .threadAuthTd, .forumThreadTd, .forumPostTd {
+    text-align: center !important;
+}
+
+a.postUser {
+    font-weight: bold;
+}
+
+a.forum, a.threadLink {
+    font-size: 12px;
+    color: #c48b49;
+}
+
+.forumDescr, .threadDescr {
+    font-size: 10px;
+    color: #a1a1a1;
+}
+
+td.forumIcoTd, td.forumThreadTd, td.forumPostTd, td.gTableRight, td.threadIcoTd, td.threadPostTd,
+td.threadViewTd {
+    padding: 2px;
+}
+
+/*--------------------- Forum end ---------------------*/

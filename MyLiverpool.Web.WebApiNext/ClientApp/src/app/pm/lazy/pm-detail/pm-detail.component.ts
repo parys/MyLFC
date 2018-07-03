@@ -8,7 +8,8 @@ import { Pm } from "../../model";
 
 @Component({
     selector: "pm-detail",
-    templateUrl: "./pm-detail.component.html"
+    templateUrl: "./pm-detail.component.html",
+    styleUrls: ["./pm-detail.component.scss"]
 })
 
 export class PmDetailComponent implements OnInit, OnDestroy {

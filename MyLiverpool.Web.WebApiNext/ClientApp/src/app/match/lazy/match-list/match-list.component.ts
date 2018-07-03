@@ -9,7 +9,8 @@ import { Pageable, DeleteDialogComponent } from "@app/shared";
 
 @Component({
     selector: "match-list",
-    templateUrl: "./match-list.component.html"
+    templateUrl: "./match-list.component.html",
+    styleUrls: ["./match-list.component.scss"]
 })
 
 export class MatchListComponent implements OnInit, OnDestroy {

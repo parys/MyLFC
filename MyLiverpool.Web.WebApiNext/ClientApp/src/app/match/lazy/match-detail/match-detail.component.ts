@@ -10,7 +10,8 @@ import { RolesCheckedService } from "@app/+auth";
 
 @Component({
     selector: "match-detail",
-    templateUrl: "./match-detail.component.html"
+    templateUrl: "./match-detail.component.html",
+    styleUrls: ["./match-detail.component.scss"]
 })
 export class MatchDetailComponent implements OnInit, OnDestroy {
     private sub$: Subscription;

@@ -8,7 +8,8 @@ import { RolesCheckedService } from "@app/+auth";
 
 @Component({
     selector: "<transfer-current-list>",
-    templateUrl: "./transfer-current-list.component.html"
+    templateUrl: "./transfer-current-list.component.html",
+    styleUrls: ["./transfer-current-list.component.scss"]
 })
 export class TransferCurrentListComponent implements OnInit, OnDestroy {
     private sub2: Subscription;

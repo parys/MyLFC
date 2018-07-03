@@ -45,7 +45,7 @@
     </div>
 
     <div class="form-horizontal top10" role="form">
-        <div *ngIf="roles.isModerator && !roles.isSelf(item.id)" class="flex-space-around flex-vertical-center">
+        <div *ngIf="roles.isModerator && !roles.isSelf(item.id)" class="flex-space-around flex-v-c">
             <div>
                 <form *ngIf="!item.lockoutEnd" class="form-inline" role="form" [formGroup]="banForm" (ngSubmit)="onSubmitBan()">
                     <mat-form-field>

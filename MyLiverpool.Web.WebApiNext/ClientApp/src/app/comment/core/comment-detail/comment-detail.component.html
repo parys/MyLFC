@@ -1,6 +1,6 @@
 ﻿<div *ngIf="item" class="comment-container com-offset-{{deep}}" [class.nested]="item.children.length > 0">
-    <div class="comment padding5" [id]="'com'+item.id">
-        <div class="flex-space-between flex-vertical-center">
+    <div class="comment" [id]="'com'+item.id">
+        <div class="flex-space-between flex-v-c">
             <span>
                 <span>
                     <a [routerLink]="['/', item.typeName, item.materialId || item.matchId]"

@@ -1,5 +1,5 @@
 ﻿import { Component, Input, OnInit, AfterViewInit, ChangeDetectionStrategy, Inject, PLATFORM_ID } from "@angular/core";
-import { isPlatformBrowser } from "@angular/common";
+import { isPlatformServer } from "@angular/common";
 
 @Component({
     selector: "ad",
@@ -21,7 +21,7 @@ export class AdComponent implements AfterViewInit, OnInit {
     }
 
     public ngAfterViewInit() {
-        if (this.done || isPlatformBrowser(this.platformId)) return;
+        if (this.done || isPlatformServer(this.platformId)) return;
         if (addAd(this.blockName)) {
             this.done = true;
         }

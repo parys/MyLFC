@@ -5,7 +5,8 @@ import { Person } from "../person.model";
 
 @Component({
     selector: "person-birthday",
-    templateUrl: "./person-birthday.component.html"
+    templateUrl: "./person-birthday.component.html",
+    styleUrls: ["./person-birthday.component.scss"]
 })
 export class PersonBirthdayComponent implements OnInit, OnDestroy {
     private sub: Subscription;

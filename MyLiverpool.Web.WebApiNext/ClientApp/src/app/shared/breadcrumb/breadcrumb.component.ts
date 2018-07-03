@@ -17,7 +17,8 @@ import {BreadcrumbService} from './breadcrumb.service';
                 <span *ngIf="last && url == prefix">{{friendlyName('/')}}</span>
             </li>
         </ul>
-    `
+    `,
+    styleUrls: ["./breadcrumb.component.scss"]
 })
 export class BreadcrumbComponent implements OnInit, OnChanges {
     @Input() useBootstrap: boolean = true;

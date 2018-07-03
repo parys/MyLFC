@@ -9,7 +9,8 @@ import { Stadium, StadiumService } from "@app/stadium";
 
 @Component({
     selector: "club-edit",
-    templateUrl: "./club-edit.component.html"
+    templateUrl: "./club-edit.component.html",
+    styleUrls: ["./club-edit.component.scss"]
 })
 
 export class ClubEditComponent implements OnInit, OnDestroy {

@@ -1,5 +1,5 @@
 ﻿<nav class="maroon-panel beauty-font bg-heade1r text-white full-width">
-    <ul class="nav flex-vertical-center flex-space-around" style="font-size: large;">
+    <ul class="nav flex-v-c flex-space-around" style="font-size: large;">
         <!--<li><a [routerLink]="['/']" style="color: aliceblue; font-weight: bold;">My<span style="color: yellow;">LFC</span>.ru</a></li>-->
         <li><a role="button" [routerLink]="['/news', 0]" style="display: inline;">
             <img src="/content/logo34.png" style="max-width: 310px; margin: 0 -15px;" alt="MyLFC.ru"/>
@@ -41,7 +41,6 @@
             </a>
             <mat-menu #seasonMenu="matMenu">
                 <a [routerLink]="['/seasons/0/calendar']" mat-menu-item>Календарь</a>
-                <!--<button [routerLink]="['/season/eplTable']" mat-menu-item>Полная таблица АПЛ</button>-->
                 <a [routerLink]="['/seasons/0/statistics']" mat-menu-item>Статистика игроков</a>
                 <a *ngIf="roles.isAdmin" [routerLink]="['/seasons']" mat-menu-item>Список сезонов</a>
                 <a [routerLink]="['/transfers/current']" mat-menu-item>Трансферы</a>

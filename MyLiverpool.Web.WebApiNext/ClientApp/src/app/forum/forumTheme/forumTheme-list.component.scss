@@ -1,0 +1,32 @@
+﻿:host {
+
+    .margin-auto {
+        margin: auto;
+    }
+
+    .userAvatar {
+        max-width: 90px;
+        max-height: 90px;
+    }
+
+    .postTdTop {
+        background: center #418E00;
+        color: #000000;
+        height: 20px;
+        font-size: 10px;
+    }
+
+
+    td.postTdTop {
+        background: #e1e1e1;
+    }
+
+    .postBottom {
+        background: #FFF799;
+        height: 20px
+    }
+
+    .postBottom table td {
+        border: 0px;
+    }
+}

@@ -1,7 +1,7 @@
-﻿<div class="col-xs-12 col-sm-12">
+﻿<div class="full-width">
     <form class="form-horizontal" role="form" [formGroup]="commentForm" (ngSubmit)="onSubmit()">
-        <div class="col-md-12" *ngIf="roles.isLogined">
-            <div class="col-md-12">
+        <div class="full-width" *ngIf="roles.isLogined">
+            <div class="full-width">
                 <bbeditor name="message" formControlName="message"></bbeditor>
             </div>
             <div class="">
