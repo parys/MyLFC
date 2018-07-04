@@ -15,7 +15,7 @@ import { Pageable, DeleteDialogComponent } from "@app/shared";
 export class PersonListComponent implements OnInit {
     public items: Person[];
     public personTypes: PersonType[];
-    displayedColumns = ['lastRussianName', 'firstRussianName', 'birthday', 'position', 'country'];
+    displayedColumns = ["lastRussianName", "firstRussianName", "birthday", "position", "country"];
 
     @ViewChild(MatSort) sort: MatSort;
     @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -34,13 +34,13 @@ export class PersonListComponent implements OnInit {
 
         merge(this.sort.sortChange,
             this.typeSelect.selectionChange,
-            fromEvent(this.nameInput.nativeElement, 'keyup')
+            fromEvent(this.nameInput.nativeElement, "keyup")
                 .pipe(debounceTime(1000),
                     distinctUntilChanged()))
             .subscribe(() => this.paginator.pageIndex = 0);
 
         merge(this.sort.sortChange, this.paginator.page, this.typeSelect.selectionChange,
-            fromEvent(this.nameInput.nativeElement, 'keyup')
+            fromEvent(this.nameInput.nativeElement, "keyup")
                 .pipe(debounceTime(1000),
                     distinctUntilChanged()))
             .pipe(

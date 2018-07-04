@@ -4,7 +4,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
+using MyLiverpool.Business.Dto.Filters;
 using MyLiverpool.Data.Common;
+using Newtonsoft.Json;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
@@ -12,7 +14,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// Manages club entity.
     /// </summary>
     [Authorize(AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme, Roles = nameof(RolesEnum.InfoStart)), Route("api/v1/[controller]")]
-    public class ClubController : Controller
+    public class ClubsController : Controller
     {
         private readonly IClubService _clubService;
         private readonly IUploadService _uploadService;
@@ -22,7 +24,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <param name="clubService"></param>
         /// <param name="uploadService"></param>
-        public ClubController(IClubService clubService, IUploadService uploadService)
+        public ClubsController(IClubService clubService, IUploadService uploadService)
         {
             _clubService = clubService;
             _uploadService = uploadService;
@@ -47,16 +49,22 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <summary>
         /// Returns pageable club list.
         /// </summary>
-        /// <param name="page">Current page.</param>
+        /// <param name="filters"></param>
         /// <returns>Clubs list.</returns>
-        [AllowAnonymous, HttpGet("list/{page}")]
-        public async Task<IActionResult> GetListAsync(int page = 1)
+        [AllowAnonymous, HttpGet("")]
+        public async Task<IActionResult> GetListAsync([FromQuery] string filters)
         {
-            if (page < 1)
+            ClubFiltersDto filtersObj;
+            if (filters == null)
             {
-                page = 1;
+                filtersObj = new ClubFiltersDto();
             }
-            var result = await _clubService.GetListAsync(page);
+            else
+            {
+                filtersObj = (ClubFiltersDto)JsonConvert.DeserializeObject(filters, typeof(ClubFiltersDto));
+            }
+            var result = await _clubService.GetListAsync(filtersObj);
+           
             return Ok(result);
         }
 

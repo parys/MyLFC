@@ -2,18 +2,18 @@
 import { Observable } from "rxjs";
 import { Pageable } from "@app/shared";
 import { HttpWrapper } from "@app/+httpWrapper";
-import { Club } from "./club.model";
+import { Club, ClubFilters } from "../model";
 
 @Injectable()
 export class ClubService {
     private actionUrl: string;
 
     constructor(private http: HttpWrapper) {
-        this.actionUrl = "club/";
+        this.actionUrl = "clubs/";
     }
 
-    public getAll(page: number): Observable<Pageable<Club>> {
-        return this.http.get<Pageable<Club>>(this.actionUrl + `list/${page}`);
+    public getAll(filters: ClubFilters): Observable<Pageable<Club>> {
+        return this.http.get<Pageable<Club>>(this.actionUrl + `?filters=${encodeURIComponent(JSON.stringify(filters))}`);
     };
 
     public getSingle(id: number): Observable<Club> {

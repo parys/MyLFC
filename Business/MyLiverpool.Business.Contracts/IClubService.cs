@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using MyLiverpool.Business.Dto;
+using MyLiverpool.Business.Dto.Filters;
 using MyLiverpool.Common.Utilities;
 
 namespace MyLiverpool.Business.Contracts
@@ -13,7 +14,7 @@ namespace MyLiverpool.Business.Contracts
 
         Task UpdateLogoAsync(string clubName, string relativePath);
 
-        Task<PageableData<ClubDto>> GetListAsync(int page);
+        Task<PageableData<ClubDto>> GetListAsync(ClubFiltersDto filters);
 
         Task<IEnumerable<KeyValuePair<int, string>>> GetClubsByNameAsync(string typed);
 

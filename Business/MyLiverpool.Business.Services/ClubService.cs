@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
+using MyLiverpool.Business.Dto.Filters;
 using MyLiverpool.Common.Utilities;
 using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Entities;
@@ -81,12 +82,37 @@ namespace MyLiverpool.Business.Services
             }
         }
 
-        public async Task<PageableData<ClubDto>> GetListAsync(int page)
+        public async Task<PageableData<ClubDto>> GetListAsync(ClubFiltersDto filters)
         {
-            var clubs = await _clubRepository.GetListAsync(page, orderBy: x => x.Name);
-            var dtos =  _mapper.Map<ICollection<ClubDto>>(clubs);
-            var count = await _clubRepository.CountAsync();
-            return new PageableData<ClubDto>(dtos, page, count);
+            Expression<Func<Club, bool>> filter = x => true;
+            if (!string.IsNullOrWhiteSpace(filters.Name))
+            {
+                filter = filter.And(x => x.Name.Contains(filters.Name) || x.EnglishName.Contains(filters.Name));
+            }
+        
+            Expression<Func<Club, object>> sortBy = x => x.Name;
+            if (!string.IsNullOrWhiteSpace(filters.SortBy))
+            {
+                if (filters.SortBy.Contains(nameof(Club.Name),
+                    StringComparison.InvariantCultureIgnoreCase))
+                {
+                    sortBy = x => x.Name;
+                }
+                else if (filters.SortBy.Contains(nameof(Club.EnglishName),
+                    StringComparison.InvariantCultureIgnoreCase))
+                {
+                    sortBy = x => x.EnglishName;
+                }
+                else if (filters.SortBy.Contains(nameof(ClubDto.StadiumName),
+                    StringComparison.InvariantCultureIgnoreCase))
+                {
+                    sortBy = x => x.Stadium.Name;
+                }
+            }
+            var model = await _clubRepository.GetListAsync(filters.Page, filters.ItemsPerPage, true, filter, filters.SortOrder, sortBy, c => c.Stadium);
+            var clubDtos = _mapper.Map<IEnumerable<ClubDto>>(model);
+            var count = await _clubRepository.CountAsync(filter);
+            return new PageableData<ClubDto>(clubDtos, filters.Page, count);
         }
 
         public async Task<IEnumerable<KeyValuePair<int, string>>> GetClubsByNameAsync(string typed)

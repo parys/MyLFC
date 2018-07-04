@@ -3,7 +3,8 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Observable, Subscription } from "rxjs";
 import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
-import { ClubService, Club } from "@app/club/core";
+import { ClubService } from "@app/club/core";
+import { Club } from "@app/club/model";
 import { Configuration } from "@app/app.constants";
 import { Stadium, StadiumService } from "@app/stadium";
 

@@ -4,6 +4,7 @@ using FluentAssertions.Common;
 using Microsoft.EntityFrameworkCore;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
+using MyLiverpool.Business.Dto.Filters;
 using MyLiverpool.Business.Services.Tests.Helpers;
 using MyLiverpool.Common.Mappings;
 using MyLiverpool.Data.Entities;
@@ -42,7 +43,7 @@ namespace MyLiverpool.Business.Services.Tests
         [Theory, ClassData(typeof(ClubGetListTestData))]
         public async void GetListClub(int page, List<ClubDto> expected)
         {
-            var result = await _clubService.GetListAsync(page);
+            var result = await _clubService.GetListAsync(new ClubFiltersDto {Page = 1});
 
             Assert.Equal(3, result.TotalItems);//bug list gets initial with created count
             Assert.Equal(page, result.PageNo);

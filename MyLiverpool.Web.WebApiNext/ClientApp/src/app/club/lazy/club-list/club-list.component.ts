@@ -1,22 +1,26 @@
-﻿import { Component, OnInit } from "@angular/core";
+﻿import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { Location } from "@angular/common";
 import { ActivatedRoute } from "@angular/router";
-import { MatDialog } from "@angular/material";
-import { Club, ClubService } from "@app/club/core";
+import { MatPaginator, MatSort, MatDialog } from "@angular/material";
+import { merge, of, Observable, fromEvent } from "rxjs";
+import { startWith, switchMap, map, catchError, debounceTime, distinctUntilChanged } from "rxjs/operators";
+import { ClubService } from "@app/club/core";
+import { Club, ClubFilters } from "@app/club/model";
 import { Pageable, DeleteDialogComponent } from "@app/shared";
 
 @Component({
     selector: "club-list",
-    templateUrl: "./club-list.component.html"
+    templateUrl: "./club-list.component.html",
+    styleUrls: ["./club-list.component.scss"]
 })
 
 export class ClubListComponent implements OnInit {
     public items: Club[];
-    public page: number = 1;
-    public itemsPerPage: number = 15;
-    public totalItems: number;
-    //categoryId: number;
-    public userName: string;
+    displayedColumns = ["logo" ,"name", "englishName", "stadiumName", "tool"];
+
+    @ViewChild(MatSort) sort: MatSort;
+    @ViewChild(MatPaginator) paginator: MatPaginator;
+    @ViewChild("nameInput") nameInput: ElementRef;
 
     constructor(private clubService: ClubService,
         private route: ActivatedRoute,
@@ -26,12 +30,43 @@ export class ClubListComponent implements OnInit {
 
     public ngOnInit(): void {
         if(+this.route.snapshot.queryParams["page"]) {
-            this.page = +this.route.snapshot.queryParams["page"];
+            this.paginator.pageIndex = +this.route.snapshot.queryParams["page"] - 1;
             }
-            //  this.categoryId = +params['categoryId'];
-            //  this.userName = params['userName'];
-            this.update();
-        }
+        this.update();
+
+        merge(this.sort.sortChange,
+                fromEvent(this.nameInput.nativeElement, "keyup")
+                .pipe(debounceTime(1000),
+                    distinctUntilChanged()))
+            .subscribe(() => this.paginator.pageIndex = 0);
+
+
+        merge(this.sort.sortChange, this.paginator.page, fromEvent(this.nameInput.nativeElement, "keyup")
+                .pipe(debounceTime(1000),
+                    distinctUntilChanged()))
+            .pipe(
+                startWith({}),
+                switchMap(() => {
+                    return this.update();
+                }),
+                map((data: Pageable<Club>) => {
+                    this.paginator.pageIndex = data.pageNo - 1;
+                    this.paginator.pageSize = data.itemPerPage;
+                    this.paginator.length = data.totalItems;
+
+                    return data.list;
+                }),
+                catchError(() => {
+                    return of([]);
+                })
+            ).subscribe(data => {
+                    this.items = data;
+                    this.updateUrl();
+                },
+                e => console.log(e));
+    }
+
+
 
     public showDeleteModal(index: number): void {
         const dialogRef = this.dialog.open(DeleteDialogComponent);
@@ -42,23 +77,20 @@ export class ClubListComponent implements OnInit {
         }, e => console.log(e));
     }
 
-    public update(): void {
-        //let filters = new UserFilters();
-        ////  filters.categoryId = this.categoryId;
-        ////  filters.materialType = "News";
-        //filters.userName = this.userName;
-        //filters.page = this.page;
+    public update(): Observable<Pageable<Club>> {
+        const filters = new ClubFilters();
+        filters.name = this.nameInput.nativeElement.value;
+        filters.page = this.paginator.pageIndex + 1;
+        filters.itemsPerPage = this.paginator.pageSize;
+        filters.sortBy = this.sort.active;
+        filters.order = this.sort.direction;
 
-        this.clubService
-            .getAll(this.page)
-            .subscribe(data => this.parsePageable(data),
-            error => console.log(error));
+        return this.clubService
+            .getAll(filters);
     }
 
-    public pageChanged(event: any): void {
-        this.page = event;
-        this.update();
-        let newUrl = `clubs?page=${this.page}`;
+    public updateUrl(): void {
+        let newUrl = `clubs?page=${this.paginator.pageIndex + 1}`;
         //if (this.categoryId) {
        //     newUrl = `${newUrl}/${this.categoryId}`;
        // }
@@ -66,22 +98,16 @@ export class ClubListComponent implements OnInit {
     };
 
     private delete(index: number): void {
+        console.log(index);
         let result: boolean;
         this.clubService.delete(this.items[index].id)
             .subscribe(res => result = res,
                 e => console.log(e),
                 () => {
-                    if (result) {
+                    if (result) {   
                         this.items.splice(index, 1);
                     }
                 }
             );
-    }
-
-    private parsePageable(pageable: Pageable<Club>): void {
-        this.items = pageable.list;
-        this.page = pageable.pageNo;
-        this.itemsPerPage = pageable.itemPerPage;
-        this.totalItems = pageable.totalItems;
     }
 }
