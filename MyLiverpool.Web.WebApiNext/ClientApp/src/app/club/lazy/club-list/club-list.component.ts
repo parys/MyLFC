@@ -32,7 +32,6 @@ export class ClubListComponent implements OnInit {
         if(+this.route.snapshot.queryParams["page"]) {
             this.paginator.pageIndex = +this.route.snapshot.queryParams["page"] - 1;
             }
-        this.update();
 
         merge(this.sort.sortChange,
                 fromEvent(this.nameInput.nativeElement, "keyup")
@@ -59,14 +58,12 @@ export class ClubListComponent implements OnInit {
                 catchError(() => {
                     return of([]);
                 })
-            ).subscribe(data => {
+            ).subscribe((data : Club[]) => {
                     this.items = data;
                     this.updateUrl();
                 },
                 e => console.log(e));
     }
-
-
 
     public showDeleteModal(index: number): void {
         const dialogRef = this.dialog.open(DeleteDialogComponent);
@@ -91,22 +88,20 @@ export class ClubListComponent implements OnInit {
 
     public updateUrl(): void {
         let newUrl = `clubs?page=${this.paginator.pageIndex + 1}`;
-        //if (this.categoryId) {
-       //     newUrl = `${newUrl}/${this.categoryId}`;
-       // }
         this.location.replaceState(newUrl);
     };
 
     private delete(index: number): void {
-        console.log(index);
-        let result: boolean;
         this.clubService.delete(this.items[index].id)
-            .subscribe(res => result = res,
+            .subscribe((result: boolean) => {
+                    if (result) {
+                        this.items.splice(index, 1);
+                        this.paginator.length -= 1;
+                    }
+                },
                 e => console.log(e),
                 () => {
-                    if (result) {   
-                        this.items.splice(index, 1);
-                    }
+
                 }
             );
     }

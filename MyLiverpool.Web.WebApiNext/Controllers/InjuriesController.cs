@@ -4,7 +4,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
+using MyLiverpool.Business.Dto.Filters;
 using MyLiverpool.Data.Common;
+using Newtonsoft.Json;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
@@ -12,7 +14,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// Manages injuries.
     /// </summary>
     [Authorize(AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme, Roles = nameof(RolesEnum.InfoStart)), Route("api/v1/[controller]")]
-    public class InjuryController : Controller
+    public class InjuriesController : Controller
     {
         private readonly IInjuryService _injuryService;
         
@@ -20,7 +22,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// Constructor.
         /// </summary>
         /// <param name="injuryService"></param>
-        public InjuryController(IInjuryService injuryService)
+        public InjuriesController(IInjuryService injuryService)
         {
             _injuryService = injuryService;
         }
@@ -44,16 +46,21 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <summary>
         /// Returns pageable injury list.
         /// </summary>
-        /// <param name="page">Current page.</param>
+        /// <param name="filters">Applied filters.</param>
         /// <returns>Injuries list.</returns>
-        [AllowAnonymous, HttpGet("list/{page}")]
-        public async Task<IActionResult> GetListAsync(int page = 1)
+        [AllowAnonymous, HttpGet("")]
+        public async Task<IActionResult> GetListAsync([FromQuery] string filters)
         {
-            if (page < 1)
+            InjuryFiltersDto filtersObj;
+            if (filters == null)
             {
-                page = 1;
+                filtersObj = new InjuryFiltersDto();
             }
-            var result = await _injuryService.GetListAsync(page);
+            else
+            {
+                filtersObj = (InjuryFiltersDto)JsonConvert.DeserializeObject(filters, typeof(InjuryFiltersDto));
+            }
+            var result = await _injuryService.GetListAsync(filtersObj);
             return Ok(result);
         }
 

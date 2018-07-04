@@ -1,9 +1,10 @@
-﻿import { Component, OnInit, OnDestroy } from "@angular/core";
+﻿import { Component, OnInit, OnDestroy, ViewChild, ElementRef  } from "@angular/core"; 
 import { Location } from "@angular/common";
+import { MatPaginator, MatSort, MatDialog } from "@angular/material";
 import { ActivatedRoute } from "@angular/router";
-import { MatDialog } from "@angular/material";
-import { Subscription } from "rxjs";
-import { Injury } from "@app/injury/model";
+import { merge, of, fromEvent, Observable, Subscription } from "rxjs";
+import { startWith, switchMap, map, catchError, debounceTime, distinctUntilChanged } from "rxjs/operators";
+import { Injury, InjuryFilters } from "@app/injury/model";
 import { InjuryService } from "@app/injury/core";
 import { Pageable, DeleteDialogComponent } from "@app/shared";
 
@@ -14,11 +15,12 @@ import { Pageable, DeleteDialogComponent } from "@app/shared";
 
 export class InjuryListComponent implements OnInit, OnDestroy {
     private sub: Subscription;
-    private sub2: Subscription;
     public items: Injury[];
-    public page: number = 1;
-    public itemsPerPage: number = 15;
-    public totalItems: number;
+    displayedColumns = ["personName", "startTime", "endTime", "description", "tool"];
+
+    @ViewChild(MatSort) sort: MatSort;
+    @ViewChild(MatPaginator) paginator: MatPaginator;
+    @ViewChild("nameInput") nameInput: ElementRef;
 
     constructor(private injuryService: InjuryService,
         private route: ActivatedRoute,
@@ -28,15 +30,44 @@ export class InjuryListComponent implements OnInit, OnDestroy {
 
     public ngOnInit(): void {
         this.sub = this.route.queryParams.subscribe(qParams => {
-                this.page = qParams["page"] || 1;
+            this.paginator.pageIndex = +qParams["page"] - 1 || 0;
             },
             e => console.log(e));
-        this.update();
+
+        merge(this.sort.sortChange,
+                fromEvent(this.nameInput.nativeElement, "keyup")
+                .pipe(debounceTime(1000),
+                    distinctUntilChanged()))
+            .subscribe(() => this.paginator.pageIndex = 0);
+
+
+        merge(this.sort.sortChange, this.paginator.page, fromEvent(this.nameInput.nativeElement, "keyup")
+                .pipe(debounceTime(1000),
+                    distinctUntilChanged()))
+            .pipe(
+                startWith({}),
+                switchMap(() => {
+                    return this.update();
+                }),
+                map((data: Pageable<Injury>) => {
+                    this.paginator.pageIndex = data.pageNo - 1;
+                    this.paginator.pageSize = data.itemPerPage;
+                    this.paginator.length = data.totalItems;
+
+                    return data.list;
+                }),
+                catchError(() => {
+                    return of([]);
+                })
+            ).subscribe((data: Injury[]) => {
+                    this.items = data;
+                    this.updateUrl();
+                },
+                e => console.log(e));
     }
 
     public ngOnDestroy(): void {
         if (this.sub) this.sub.unsubscribe();
-        if (this.sub2) this.sub2.unsubscribe();
     }
 
     public showDeleteModal(index: number): void {
@@ -48,17 +79,20 @@ export class InjuryListComponent implements OnInit, OnDestroy {
         }, e => console.log(e));
     }
 
-    public update(): void {
-        this.sub2 = this.injuryService
-            .getAll(this.page)
-            .subscribe(data => this.parsePageable(data),
-                e => console.log(e));
+    public update(): Observable<Pageable<Injury>> {
+        const filters = new InjuryFilters();
+        filters.name = this.nameInput.nativeElement.value;
+        filters.page = this.paginator.pageIndex + 1;
+        filters.itemsPerPage = this.paginator.pageSize;
+        filters.sortBy = this.sort.active;
+        filters.order = this.sort.direction;
+
+        return this.injuryService
+            .getAll(filters);
     }
 
-    public pageChanged(event: any): void {
-        this.page = event;
-        this.update();
-        const newUrl = `injuries?page=${this.page}`;
+    public updateUrl(): void {
+        const newUrl = `injuries?page=${this.paginator.pageIndex + 1}`;
         this.location.replaceState(newUrl);
     };
     
@@ -70,15 +104,8 @@ export class InjuryListComponent implements OnInit, OnDestroy {
                 () => {
                     if (result) {
                         this.items.splice(index, 1);
-                        this.totalItems -= 1;
+                        this.paginator.length -= 1;
                     }
                 });
-    }
-
-    private parsePageable(pageable: Pageable<Injury>): void {
-        this.items = pageable.list;
-        this.page = pageable.pageNo;
-        this.itemsPerPage = pageable.itemPerPage;
-        this.totalItems = pageable.totalItems;
     }
 }

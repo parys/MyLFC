@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 using AutoMapper;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
+using MyLiverpool.Business.Dto.Filters;
 using MyLiverpool.Common.Utilities;
+using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Entities;
 using MyLiverpool.Data.ResourceAccess.Interfaces;
 
@@ -61,14 +63,43 @@ namespace MyLiverpool.Business.Services
             return null;
         }
 
-        public async Task<PageableData<InjuryDto>> GetListAsync(int page, int itemsPerPage = 15)
+        public async Task<PageableData<InjuryDto>> GetListAsync(InjuryFiltersDto filters)
         {
-            Expression<Func<Injury, bool>> filter = m => true;
-
-            var injuries = await _injuryRepository.GetListAsync(page, itemsPerPage, true, filter, SortOrder.Descending, i => i.StartTime, x => x.Person);
-            var dtos = _mapper.Map<IEnumerable<InjuryDto>>(injuries);
+            Expression<Func<Injury, bool>> filter = x => true;
+            if (!string.IsNullOrWhiteSpace(filters.Name))
+            {
+                filter = filter.And(x => x.Description.Contains(filters.Name) 
+                                         || x.Person.FirstRussianName.Contains(filters.Name)
+                                         || x.Person.LastRussianName.Contains(filters.Name));
+            }
+            Expression<Func<Injury, object>> sortBy = x => x.StartTime;
+            if (!string.IsNullOrWhiteSpace(filters.SortBy))
+            {
+                if (filters.SortBy.Contains(nameof(InjuryDto.PersonName),
+                    StringComparison.InvariantCultureIgnoreCase))
+                {
+                    sortBy = x => x.Person.FirstRussianName;
+                }
+                else if (filters.SortBy.Contains(nameof(Injury.StartTime),
+                    StringComparison.InvariantCultureIgnoreCase))
+                {
+                    sortBy = x => x.StartTime;
+                }
+                else if (filters.SortBy.Contains(nameof(Injury.EndTime),
+                    StringComparison.InvariantCultureIgnoreCase))
+                {
+                    sortBy = x => x.EndTime;
+                }
+                else if (filters.SortBy.Contains(nameof(Injury.Description),
+                    StringComparison.InvariantCultureIgnoreCase))
+                {
+                    sortBy = x => x.Description;
+                }
+            }
+            var injuries = await _injuryRepository.GetListAsync(filters.Page, filters.ItemsPerPage, true, filter, filters.SortOrder, sortBy, c => c.Person);
+            var injuryDtos = _mapper.Map<IEnumerable<InjuryDto>>(injuries);
             var count = await _injuryRepository.CountAsync(filter);
-            return new PageableData<InjuryDto>(dtos, page, count);
+            return new PageableData<InjuryDto>(injuryDtos, filters.Page, count);
         }
 
         public async Task<IEnumerable<InjuryDto>> GetCurrentListAsync()

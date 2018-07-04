@@ -20,6 +20,11 @@ namespace MyLiverpool.Data.ResourceAccess
                     var newExpression = Expression.Lambda<Func<T, DateTime>>(propertyExpression, parameters);
                     return order == SortOrder.Ascending ? entities.OrderBy(newExpression) : entities.OrderByDescending(newExpression);
                 }
+                if (propertyExpression.Type == typeof(DateTime?))
+                {
+                    var newExpression = Expression.Lambda<Func<T, DateTime?>>(propertyExpression, parameters);
+                    return order == SortOrder.Ascending ? entities.OrderBy(newExpression) : entities.OrderByDescending(newExpression);
+                }
 
                 if (propertyExpression.Type == typeof(int))
                 {

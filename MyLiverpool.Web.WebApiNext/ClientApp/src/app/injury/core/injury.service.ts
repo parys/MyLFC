@@ -2,18 +2,18 @@
 import { Observable } from "rxjs";
 import { Pageable } from "@app/shared";
 import { HttpWrapper } from "@app/+httpWrapper";
-import { Injury } from "../model";
+import { Injury, InjuryFilters } from "../model";
 
 @Injectable()
 export class InjuryService {
     private actionUrl: string;
 
     constructor(private http: HttpWrapper) {
-        this.actionUrl = "injury/";
+        this.actionUrl = "injuries/";
     }
 
-    public getAll(page: number): Observable<Pageable<Injury>> {
-        return this.http.get<Pageable<Injury>>(this.actionUrl + `list/${page}`);
+    public getAll(filters: InjuryFilters): Observable<Pageable<Injury>> {
+        return this.http.get<Pageable<Injury>>(this.actionUrl + `?filters=${encodeURIComponent(JSON.stringify(filters))}`);
     };
 
     public getSingle(id: number): Observable<Injury> {
