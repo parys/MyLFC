@@ -1,4 +1,6 @@
-﻿
+﻿.logo {
+    max-width: 310px;
+}
     @media(max-width: 1209px) { /* should based on menu length? todo*/
         .liverbird-navbar > img {
             display: none;

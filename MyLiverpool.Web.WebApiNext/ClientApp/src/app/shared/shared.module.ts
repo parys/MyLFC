@@ -7,7 +7,7 @@ import {
     MatAutocompleteModule, MatBadgeModule, MatButtonModule, MatCardModule, MatCheckboxModule, MatDatepickerModule, MatDialogModule, MatExpansionModule,
     MatIconModule, MatInputModule, MatMenuModule, MatNativeDateModule, MatProgressBarModule, MatSelectModule, MatSlideToggleModule,
     MatSnackBarModule, MatTabsModule, MatTableModule, MatTooltipModule, MatSortModule, MatPaginatorModule, MatPaginatorIntl, MAT_SNACK_BAR_DEFAULT_OPTIONS,
-    ErrorStateMatcher, ShowOnDirtyErrorStateMatcher
+    ErrorStateMatcher, ShowOnDirtyErrorStateMatcher, MatSidenavModule
 } from "@angular/material";
 import { LoaderComponent, LoaderService } from "./loader";
 import { BearerInterceptor } from "./interceptors";
@@ -54,7 +54,8 @@ import { AuthModule } from "@app/+auth";
         MatSortModule,
         MatTabsModule,
         MatTableModule,
-        MatTooltipModule
+        MatTooltipModule,
+        MatSidenavModule
 
     ],
     declarations: [
@@ -97,6 +98,7 @@ import { AuthModule } from "@app/+auth";
         MatTabsModule,
         MatTableModule,
         MatTooltipModule,
+        MatSidenavModule
     ],
     providers: [
         LoaderService,

@@ -113,8 +113,6 @@ export class MaterialEditComponent implements OnInit {
 
     private parseForm(): Material {
         const item: Material = this.editForm.value;
-        console.warn(this.editForm.value);
-        console.warn(item);
         item.id = this.id;
         item.userId = this.item.userId;//todo should move to input
         return item;

@@ -32,27 +32,31 @@ export class EditorComponent implements ControlValueAccessor {
     constructor(
         private lazyService: LazyLoadingLibraryService,
         private zone: NgZone) {
+ //       console.warn("ctor");
         if (!this.isTinyDefined()) {
+      //      console.warn("ctor-2");
             lazyService.loadJs("./scripts.js").subscribe(_ => this.initTiny());
         }
     }
 
     public ngAfterViewInit(): void {
-       // console.warn(2);
+      //  console.warn("ngAfterViewInit start");
         if (this.isTinyDefined()) {
-       //     console.warn(3);
+    //        console.warn("ngAfterViewInit middle");
             this.initTiny();
         }
-      //  console.warn(4);
+     //   console.warn("ngAfterViewInit end");
     }
 
     public setFocus() {
-       // console.warn(5);
+     //   console.warn("setFocus start");
         if (this.isTinyDefined() && tinymce.editors && tinymce.editors[this.elementId]) {
+    //        console.warn("setFocus middle");
             tinymce.editors[this.elementId].selection.select(tinymce.editors[this.elementId].getBody(), true);
             tinymce.editors[this.elementId].selection.collapse(false);
             tinymce.editors[this.elementId].focus();
         }
+     //   console.warn("setFocus end");
     }
 
     public get value(): string {
@@ -60,7 +64,7 @@ export class EditorComponent implements ControlValueAccessor {
     };
 
     public set value(value: string) {
-      //  console.info(14);
+     //   console.warn("value start");
         if (value !== this._value) {
             this._value = value;
             this.onChange(value);
@@ -69,9 +73,9 @@ export class EditorComponent implements ControlValueAccessor {
     }
 
     public updateValue(value: any): void {
-     //   console.info(12);
+       // console.warn("updateValue start");
         this.zone.run(() => {
-         //   console.info(13);
+        //    console.warn("updateValue middle");
             this.value = value;
             this.onChange(value);
             this.onTouched();
@@ -80,16 +84,18 @@ export class EditorComponent implements ControlValueAccessor {
     }
 
     public ngOnDestroy(): void {
-    //    console.info(11);
+        //console.warn("ngOnDestroy start");
         if (this.isTinyDefined() && this.editor) {
-            tinymce.remove(this.editor);
+            console.warn("ngOnDestroy middle");
+        //    tinymce.remove(this.editor);
         }
     }
 
     public writeValue(value: any): void {
-      //  console.info(8);
+      //  console.warn("writeValue start");
         this.value = value;
         if (this.isTinyDefined()) {
+          //  console.warn("writeValue middle");
                 this.initTiny();
                 if (tinymce.editors && tinymce.editors[this.elementId]) {
                     tinymce.editors[this.elementId].setContent((value) ? value : "");
@@ -141,7 +147,7 @@ export class EditorComponent implements ControlValueAccessor {
     }
 
     private initTiny(): void {
-     //   console.info(7);
+      //  console.warn("initTiny start");
         const settings1//: Settings
             = {
                 autoresize_overflow_padding: 0,
@@ -181,9 +187,9 @@ export class EditorComponent implements ControlValueAccessor {
                     });
                 }
             }
-     //   console.info(9);
+      //  console.warn("initTiny mid");
         tinymce.init(settings1);
-     //   console.info(10);
+      //  console.warn("initTiny end");
     }
 
     private setupFunction(editor: any) {//Editor) {
@@ -203,7 +209,7 @@ export class EditorComponent implements ControlValueAccessor {
     }
 
     private isTinyDefined(): boolean {
-       // console.error(6);
+      //  console.info("isTinyDefined");
         return typeof tinymce !== "undefined";
     }
 }

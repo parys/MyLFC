@@ -48,12 +48,16 @@ registerLocaleData(localeRU);
     declarations: [
         home.StaticPageComponent,
         home.NavbarComponent,
+        home.NavbarMenuComponent,
         home.SidebarLeftComponent,
         home.SidebarRightComponent,
         AppComponent,
         admin.CupTableComponent,
         admin.EplTableComponent,
         admin.PageEditorComponent,
+    ],
+    exports: [
+        home.NavbarMenuComponent
     ],
     providers: [// services
         admin.AdminService,

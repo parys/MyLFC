@@ -1,31 +1,46 @@
-﻿<div class="full-width">
-    <http-loader></http-loader>
-    <navbar></navbar>
-    <div class="full-width main">
-        <div class="bg-gray full-width flex-space-between">
-            <breadcrumb prefix="Главная"></breadcrumb>
-            <a mat-raised-button class="color-back-gold width25p" [routerLink]="['/wishes']"><b>Ваши идеи</b></a>
+﻿<mat-sidenav-container class="example-container" (backdropClick)="sidenav.close('backdrop')">
+    <mat-sidenav #sidenav mode="over"
+                 class="example-sidenav"
+                 (keydown.escape)="close('escape')"
+                 [fixedInViewport]="true"
+                 [fixedTopGap]="0"
+                 [fixedBottomGap]="0">
+        <navbar-menu></navbar-menu>
+        <button type="button" mat-button (click)="sidenav.close()">
+            <mat-icon>close</mat-icon>
+        </button>
+    </mat-sidenav>
+<mat-sidenav-content>
+    <div class="full-width">
+        <http-loader></http-loader>
+        <navbar (toggle)="sidenav.open()"></navbar>
+        <div class="full-width main">
+            <div class="bg-gray full-width flex-space-between">
+                <breadcrumb prefix="Главная"></breadcrumb>
+                <a mat-raised-button class="color-back-gold width25p" [routerLink]="['/wishes']"><b>Ваши идеи</b></a>
+            </div>
+            <div class="full-width flex">
+                <!--<div class=" main-container" [class.co-sm-6]="isRoot" [class.co-sm-9]="!isRoot" [class.co-sm-push-3]="isRoot">-->
+                <div class="padding0-10 main-container">
+                    <router-outlet class="full-width"></router-outlet>
+                    <ad [blockName]="'R-A-255349-3'"></ad>
+                </div>
+                <div class="padding0 left-container">
+                    <sidebar-left class="full-width"></sidebar-left>
+                </div>
+                <div class="container-row right-container">
+                    <sidebar-right class="full-width"></sidebar-right>
+                    <!--<sidebar-left *ngIf="!isRoot"></sidebar-left>-->
+                </div>
+            </div>
         </div>
-        <div class="full-width flex">
-            <!--<div class=" main-container" [class.co-sm-6]="isRoot" [class.co-sm-9]="!isRoot" [class.co-sm-push-3]="isRoot">-->
-            <div class="padding0-10 main-container">
-                <router-outlet class="full-width"></router-outlet>
-                <ad [blockName]="'R-A-255349-3'"></ad>
-            </div>
-            <div class="padding0 left-container">
-                <sidebar-left class="full-width"></sidebar-left>
-            </div>
-            <div class="container-row right-container">
-                <sidebar-right class="full-width"></sidebar-right>
-                <!--<sidebar-left *ngIf="!isRoot"></sidebar-left>-->
-            </div>
-        </div>
-    </div>
-    <hr />
-    <footer class="flex-space-around flex-v-c full-width">
-        <a [routerLink]="['/about']">О нас</a>
-        <a [routerLink]="['/copyright']">О перепечатке информации</a>
-        <p>&copy; 2018 - MyLFC.ru</p>
-        <a style="word-wrap: break-word" [routerLink]="['/cooperation']">Сотрудничество</a>
-    </footer>
+        <hr />
+        <footer class="flex-space-around flex-v-c full-width">
+            <a [routerLink]="['/about']">О нас</a>
+            <a [routerLink]="['/copyright']">О перепечатке информации</a>
+            <p>&copy; 2018 - MyLFC.ru</p>
+            <a style="word-wrap: break-word" [routerLink]="['/cooperation']">Сотрудничество</a>
+        </footer>
 </div>
+</mat-sidenav-content>
+</mat-sidenav-container>
