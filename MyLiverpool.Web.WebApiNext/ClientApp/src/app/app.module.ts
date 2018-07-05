@@ -3,7 +3,7 @@ import { Title, BrowserModule } from "@angular/platform-browser";
 import { RouterModule } from "@angular/router";
 import { HttpClientModule } from "@angular/common/http";
 import { registerLocaleData } from "@angular/common";
-import { PrebootModule } from "preboot";
+//import { PrebootModule } from "preboot";
 
 import localeRU from "@angular/common/locales/ru";
 import { AppComponent } from "./app.component";
@@ -29,7 +29,7 @@ registerLocaleData(localeRU);
 @NgModule({
     imports: [
         BrowserModule.withServerTransition({ appId: "mylfc" }),
-        PrebootModule.withConfig({ appRoot: "app" }),
+    //    PrebootModule.withConfig({ appRoot: "app" }),
         SharedModule,
         HttpClientModule,
         AccountCoreModule,

@@ -11,6 +11,7 @@
     public message: string;
     public reads: number;
     public source: string;
+    public shortLink: string;
     public photo: string;
     public photoPreview: string;
     public pending: boolean;
@@ -18,6 +19,7 @@
     public canCommentary: boolean;
     public type: number;
     public typeName: string;
+    public socialLinks: string;
     public nextMaterialId: number;
     public nextMaterialTitle: string;
     public prevMaterialId: number;

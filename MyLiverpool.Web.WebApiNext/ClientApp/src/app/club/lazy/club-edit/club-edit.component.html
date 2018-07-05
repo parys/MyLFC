@@ -28,7 +28,7 @@
         <input matInput placeholder="Стадион" [matAutocomplete]="stadium" formControlName="stadiumName">
         <mat-autocomplete #stadium="matAutocomplete">
             <mat-option *ngFor="let stadium of stadiums$ | async" [value]="stadium.name" (click)="selectStadium(stadium.id)">
-                <span>{{ stadium.name }}</span>
+                <span>{{ stadium.name }}-{{stadium.city}}</span>
             </mat-option>
         </mat-autocomplete>
     </mat-form-field>

@@ -1,5 +1,5 @@
-﻿import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, PLATFORM_ID, Inject, NgZone } from "@angular/core";
-import { isPlatformServer, isPlatformBrowser } from "@angular/common";
+﻿import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, PLATFORM_ID, Inject } from "@angular/core";
+import { isPlatformBrowser } from "@angular/common";
 import { Title, DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { Router, ActivatedRoute } from "@angular/router";
 import { MatDialog, MatSnackBar } from "@angular/material";
@@ -36,8 +36,7 @@ export class MaterialDetailComponent implements OnInit, OnDestroy {
         private sanitizer: DomSanitizer,
         private titleService: Title,
         private snackBar: MatSnackBar,
-        private dialog: MatDialog,
-        private ngZone: NgZone) {
+        private dialog: MatDialog) {
     }
 
     public ngOnInit(): void {
@@ -57,21 +56,18 @@ export class MaterialDetailComponent implements OnInit, OnDestroy {
                     .subscribe(data => {
                             this.parse(data);
                         },
-                        e => console.log(e));
+                    e => console.log(e),
+                    () => {
+                        if (isPlatformBrowser(this.platformId) && this.item.socialLinks) {
+                            ssn();
+                        }
+                    });
             }
         });
-        this.subs = this.ngZone.onStable.subscribe(() => this.updateSocialNetworkJs());
     }
 
     public ngOnDestroy(): void {
         if(this.sub) this.sub.unsubscribe();
-    }
-
-    public updateSocialNetworkJs(): void {
-        if (isPlatformBrowser(this.platformId)) {
-            ssn();
-        }
-        if (this.subs) this.subs.unsubscribe();
     }
     
     public showActivateModal(): void {
@@ -84,7 +80,7 @@ export class MaterialDetailComponent implements OnInit, OnDestroy {
     }
 
     public showDeleteModal(): void {
-        let dialogRef = this.dialog.open(DeleteDialogComponent);
+        const dialogRef = this.dialog.open(DeleteDialogComponent);
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
                 this.delete();
@@ -94,16 +90,6 @@ export class MaterialDetailComponent implements OnInit, OnDestroy {
 
     public sanitizeByHtml(text: string): SafeHtml {
         return this.sanitizer.bypassSecurityTrustHtml(text);
-    }
-
-    public getShortLink(url: string): string {
-        if (!url || isPlatformServer(this.platformId)) {
-            return "";
-        }
-        if (url.indexOf("http://") === -1 && url.indexOf("https://") === -1) {
-            url = `http://${url}`;
-        }
-        return new URL(url).hostname;
     }
 
     public sanitizeByUrl(text: string): SafeHtml {
@@ -116,9 +102,9 @@ export class MaterialDetailComponent implements OnInit, OnDestroy {
                     if (res) {
                         this.item.pending = false;
                         this.cd.markForCheck();
-                        this.snackBar.open("Материал успешно активирован", null,);
+                        this.snackBar.open("Материал успешно активирован");
                     } else {
-                        this.snackBar.open("Материал НЕ БЫЛ активирован", null,);
+                        this.snackBar.open("Материал НЕ БЫЛ активирован");
                     }
                 },
             e => console.log(e));
@@ -130,7 +116,7 @@ export class MaterialDetailComponent implements OnInit, OnDestroy {
                 if (result) {
                     this.router.navigate([`/${MaterialType[this.type].toLowerCase()}`]);
                 } else {
-                    this.snackBar.open("Ошибка удаления", null, { duration: 2000 });
+                    this.snackBar.open("Ошибка удаления");
                 }
                 },
                 e => console.log(e));

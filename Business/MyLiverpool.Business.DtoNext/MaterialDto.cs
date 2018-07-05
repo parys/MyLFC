@@ -29,6 +29,8 @@ namespace MyLiverpool.Business.Dto
 
         public string Source { get; set; }
 
+        public string ShortLink { get; set; }
+
         public string Photo { get; set; }
 
         public string PhotoPreview { get; set; }
@@ -38,6 +40,8 @@ namespace MyLiverpool.Business.Dto
         public bool OnTop { get; set; }
 
         public bool CanCommentary { get; set; }
+
+        public bool SocialLinks { get; set; }
 
         public MaterialType Type { get; set; }
 
