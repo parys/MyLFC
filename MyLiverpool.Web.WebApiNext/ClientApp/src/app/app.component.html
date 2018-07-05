@@ -1,12 +1,12 @@
 ﻿<mat-sidenav-container class="example-container" (backdropClick)="sidenav.close('backdrop')">
     <mat-sidenav #sidenav mode="over"
-                 class="example-sidenav"
-                 (keydown.escape)="close('escape')"
+                 class="sidenav"
+                 (keydown.escape)="sidenav.close('escape')"
                  [fixedInViewport]="true"
                  [fixedTopGap]="0"
                  [fixedBottomGap]="0">
-        <navbar-menu></navbar-menu>
-        <button type="button" mat-button (click)="sidenav.close()">
+        <navbar-menu class="flex-v-c flex-space-around nav-menu beauty-font"></navbar-menu>
+        <button type="button" mat-button (click)="sidenav.close()" class="full-width text-white">
             <mat-icon>close</mat-icon>
         </button>
     </mat-sidenav>

@@ -1,7 +1,15 @@
 ﻿a[role=button] {
+    align-self: center;
     color: white;
+    font: "beauty-font";
 }
 
 a:hover {
-    color: blue;
+    color: darkgoldenrod;
+}
+
+div {
+    display: flex;
+    height: 100%;
+    margin-right: 10px;
 }

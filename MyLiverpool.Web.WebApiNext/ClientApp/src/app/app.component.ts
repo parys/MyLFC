@@ -1,5 +1,6 @@
-﻿import { Component, OnInit, ViewEncapsulation, PLATFORM_ID, Inject, AfterViewInit } from "@angular/core";  
+﻿import { Component, OnInit, ViewEncapsulation, PLATFORM_ID, Inject, AfterViewInit, ViewChild } from "@angular/core";  
 import { isPlatformBrowser } from "@angular/common";  
+import { MatSidenav } from "@angular/material";  
 import { Router, ActivatedRoute, NavigationEnd } from "@angular/router";
 import { Title } from "@angular/platform-browser";
 import { Observable } from "rxjs"
@@ -18,7 +19,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
    // public isRoot: boolean = false;
     private authState$: Observable<IAuthStateModel>;
-
+    @ViewChild("sidenav") sidenav: MatSidenav;
     constructor(private router: Router,
         private authService: AuthService,
         private activatedRoute: ActivatedRoute,
@@ -70,8 +71,9 @@ export class AppComponent implements OnInit, AfterViewInit {
                 }
                 return null;
             })).subscribe((title: any) => {
-                this.titleService.setTitle(title);
-            });
+            this.sidenav.close();
+            this.titleService.setTitle(title);
+        });
 
         // this.isRoot = (event["title"] === "MyLFC.ru - Сайт русскоязычных болельщиков \"Ливерпуля\"");
     }

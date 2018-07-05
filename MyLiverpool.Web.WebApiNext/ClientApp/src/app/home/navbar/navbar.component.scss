@@ -1,18 +1,48 @@
-﻿.logo {
-    max-width: 310px;
+﻿.logo-link {
+    height: 81px;
+    min-width: 310px;
 }
-    @media(max-width: 1209px) { /* should based on menu length? todo*/
-        .liverbird-navbar > img {
-            display: none;
-        }
-    }
 
-    @media(min-width: 1210px) {
-        .liverbird-navbar {
-            margin-left: auto;
-        }
+.logo {
+    width: 100%;
+}
 
-        .liverbird-navbar > img {
-            max-height: 81px;
-        }
+@media(max-width: 1209px) { /* should based on menu length? todo*/
+    .liverbird-navbar {
+        display: none;
     }
+}
+
+@media(min-width: 1210px) {
+    .liverbird-navbar {
+        margin-left: auto;
+        max-height: 81px;
+    }
+}
+
+.header-nav {
+    font-size: large;
+    height: 81px;
+    overflow: hidden;
+
+    div:not(:first-child) {
+        margin-left: 10px;
+    }
+}
+
+@media(max-width: 700px) {
+    .header-nav {
+        display: none;
+    }
+}
+
+.mat-button {
+    margin-left: auto;
+    min-width: 66px;
+}
+
+@media(min-width: 1200px) {
+    .mat-button {
+        display: none;
+    }
+}

@@ -1,10 +1,10 @@
-﻿  <nav class="maroon-panel beauty-font bg-heade1r text-white full-width" style="display: flex; flex: auto;">
-      <a role="button" [routerLink]="['/news', 0]">
-          <img src="/content/logo34.png" class="logo" alt="MyLFC.ru"/>
-      </a>
-      <navbar-menu></navbar-menu>
-      <button type="button" mat-button (click)="toggle.emit()">
-          <mat-icon>menu</mat-icon>
-      </button>
-      <img class="liverbird-navbar" alt="125 лет со дня основания ФК Ливерпуль" src="/content/liverbird5.png" />
-  </nav>
+﻿<nav class="maroon-panel beauty-font full-width" style="display: flex; flex: auto;">
+    <a class="logo-link" role="button" [routerLink]="['/news', 0]">
+        <img src="/content/logo34.png" class="logo" alt="MyLFC.ru" />
+    </a>
+    <navbar-menu class="flex-v-c flex-space-around header-nav"></navbar-menu>
+    <button type="button" mat-button (click)="toggle.emit()" class="text-white">
+        <mat-icon>menu</mat-icon>
+    </button>
+    <img class="liverbird-navbar" alt="125 лет со дня основания ФК Ливерпуль" src="/content/liverbird5.png" />
+</nav>

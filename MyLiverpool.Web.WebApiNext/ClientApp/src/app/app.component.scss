@@ -9,6 +9,19 @@
     }
 }
 
+.nav-menu {
+    flex-direction: column;
+    font-size: large;
+
+    div {
+        margin: 10px;
+    }
+}
+
+.sidenav {
+    background-color: maroon;
+}
+
 .main-container {
     //  display: flex;
     padding: 0 10px;
