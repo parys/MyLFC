@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, ViewEncapsulation, PLATFORM_ID, Inject, AfterViewInit, ViewChild } from "@angular/core";  
+﻿import { Component, OnInit, ViewEncapsulation, PLATFORM_ID, Inject, AfterViewInit, ViewChild, HostListener } from "@angular/core";  
 import { isPlatformBrowser } from "@angular/common";  
 import { MatSidenav } from "@angular/material";  
 import { Router, ActivatedRoute, NavigationEnd } from "@angular/router";
@@ -7,17 +7,85 @@ import { Observable } from "rxjs"
 import { filter, map } from "rxjs/operators"
 import { BreadcrumbService } from "@app/shared";
 import { AuthService, IAuthStateModel } from "@app/+auth";
+import { trigger, keyframes, animate, transition, state, style, group } from "@angular/animations";
+import * as kf from "./+keyframes";
 
+
+export const SlideInOutAnimation = [
+    trigger("slideInOut",
+        [
+            state("slideOutLeft", style({
+                'display': "none"
+            })),
+            state("slideOutRight", style({
+                'display': "none"
+            })),
+            state("slideInRight", style({
+                'display': "flex"
+            })),
+            state("slideInLeft", style({
+                'display': "flex"
+            })),
+            transition("* => slideOutLeft", animate(500, keyframes(kf.slideOutLeft))),
+            transition("* => slideOutRight", animate(500, keyframes(kf.slideOutRight))),
+            transition("* => slideInRight", animate(1000, keyframes(kf.slideInRight))),
+            transition("* => slideInLeft", animate(1000, keyframes(kf.slideInLeft))),
+            //transition('in => out',
+            //    [
+            //        group([
+            //                animate('400ms ease-out',
+            //                    style({
+            //                        'opacity': '0'
+            //                    })),
+            //                animate('600ms ease-out',
+            //                    style({
+            //                        'width': '0%'
+            //                    })),
+            //                animate('700ms ease-out',
+            //                    style({
+            //                        'visibility': 'hidden'
+            //                    }))
+            //            ]
+            //        )
+            //    ]),
+            //transition('out => in',
+            //    [
+            //        group([
+            //                animate('1ms ease-in',
+            //                    style({
+            //                        'visibility': 'visible'
+            //                    })),
+            //            animate('600ms ease-in',
+            //                    style({
+            //                        'width': '100%'
+            //                    })),
+            //            animate('800ms ease-in',
+            //                    style({
+            //                        'opacity': '1'
+            //                    }))
+            //            ]
+            //        )
+            //    ])
+        ]),
+];
 @Component({
     selector: "app",
     templateUrl: "./app.component.html",
     styleUrls: ["./app.component.scss"],
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    animations: [SlideInOutAnimation]
 })
 
 export class AppComponent implements OnInit, AfterViewInit {
-    private currentPageIndex = 1;
+    public currentPageIndex = 1;
+    animationState = ["slideOutLeft", "slideInLeft", "slideOutRight"];
+    orderState = [0, 1, 2];
     eventText = '';
+    @HostListener("window:resize", ["$event"])
+    sizeChange(event: any) {
+        console.log(event);
+        console.log('size changed.', event);
+    }
    // public isRoot: boolean = false;
     private authState$: Observable<IAuthStateModel>;
     @ViewChild("sidenav") sidenav: MatSidenav;
@@ -50,12 +118,49 @@ export class AppComponent implements OnInit, AfterViewInit {
             addAd();
         }
     }
+
     swiperight(evt: any) {
-        this.eventText += `right`;
+        this.eventText = `right`;
+        //    console.log(this.animationState);
+        console.log(this.orderState);
+        this.animationState[this.currentPageIndex] = "slideOutRight";
+        if (this.currentPageIndex === 2) {
+            this.orderState = [1, 2, 0];
+            this.currentPageIndex = 0;//0
+        } else {
+            if (this.currentPageIndex === 1) {
+                this.orderState = [2, 0, 1];//2
+            } else {
+                this.orderState = [1, 2, 0];//1
+            }
+            this.currentPageIndex++;
+        }
+        this.animationState[this.currentPageIndex] = "slideInLeft";
+        console.log(this.orderState);
+        //  this.animationState[this.currentPageIndex] = this.animationState[this.currentPageIndex] === 'out' ? 'in' : 'out';
+        console.log(this.animationState);
     }
 
     swipeleft(evt: any) {
-        this.eventText += `left`;
+        this.eventText = `left`;
+   //     console.log(this.animationState);
+        console.log(this.orderState);
+        this.animationState[this.currentPageIndex] = "slideOutLeft";
+        if (this.currentPageIndex === 0) {
+            this.orderState = [0, 1, 2];
+            this.currentPageIndex = 2;
+        } else {
+            if (this.currentPageIndex === 1) {
+                this.orderState = [2, 0, 1];
+            } else {
+                this.orderState = [1, 2, 0];
+            }
+            this.currentPageIndex--;
+        }
+        this.animationState[this.currentPageIndex] = "slideInRight";
+        console.log(this.orderState);
+        //   this.animationState[this.currentPageIndex] = this.animationState[this.currentPageIndex] === 'out' ? 'in' : 'out';
+        console.log(this.animationState);
     }
 
     private initTitleSubscriber() {
@@ -195,4 +300,6 @@ export class AppComponent implements OnInit, AfterViewInit {
         this.breadcrumbService.addFriendlyNameForRoute("/editPage", "Редактирование страницы");
         this.breadcrumbService.hideRouteRegex("^/editPage/[0-9]+$"); 
     }
+
+
 }

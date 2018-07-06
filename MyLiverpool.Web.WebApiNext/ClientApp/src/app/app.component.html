@@ -15,35 +15,47 @@
         <http-loader></http-loader>
         <navbar (toggle)="sidenav.open()"></navbar>
         <div class="full-width main">
-            <div class="bg-gray full-width flex-space-between">
+            <div class="bg-gray flex-space-between breadcrumb-row">
                 <breadcrumb prefix="Главная"></breadcrumb>
                 <a mat-raised-button class="color-back-gold width25p" [routerLink]="['/wishes']"><b>Ваши идеи</b></a>
             </div>
             <p [innerHTML]="eventText"></p>
-            <div class="full-width flex">
+            {{currentPageIndex}}
+            {{currentPageIndex !== 0}}
+            {{currentPageIndex !== 1}}
+            {{currentPageIndex !== 2}}
+            <div class="full-width flex"
+                 (swiperight)="swiperight($event)"
+                 (swipeleft)="swipeleft($event)">
                 <!--<div class=" main-container" [class.co-sm-6]="isRoot" [class.co-sm-9]="!isRoot" [class.co-sm-push-3]="isRoot">-->
+                <!-- [hidden]="currentPageIndex !== 0"-->
+                <div class="padding0 left-container"
+                     [style.order]="orderState[0]"
+                     [@slideInOut]="animationState[0]">
+                    <sidebar-left class="full-width"></sidebar-left>
+                </div>
+                <!--<div class="padding0-10 main-container" [hidden]="currentPageIndex !== 1"-->
                 <div class="padding0-10 main-container"
-                     (swiperight)="swiperight(employee)"
-                     (swipeleft)="swipeleft(employee)">
+                     [style.order]="orderState[1]"
+                     [@slideInOut]="animationState[1]">
                     <router-outlet class="full-width"></router-outlet>
                     <ad [blockName]="'R-A-255349-3'"></ad>
                 </div>
-                <div class="padding0 left-container" (swipe)="onSwipe($event)">
-                    <sidebar-left class="full-width"></sidebar-left>
-                </div>
-                <div class="container-row right-container" (swipe)="onSwipe($event)">
+                <div class="container-row right-container"
+                     [style.order]="orderState[2]"
+                     [@slideInOut]="animationState[2]">
                     <sidebar-right class="full-width"></sidebar-right>
                     <!--<sidebar-left *ngIf="!isRoot"></sidebar-left>-->
-                </div>
             </div>
         </div>
-        <hr />
-        <footer class="flex-space-around flex-v-c full-width">
-            <a [routerLink]="['/about']">О нас</a>
-            <a [routerLink]="['/copyright']">О перепечатке информации</a>
-            <p>&copy; 2018 - MyLFC.ru</p>
-            <a style="word-wrap: break-word" [routerLink]="['/cooperation']">Сотрудничество</a>
-        </footer>
-</div>
+                </div>
+                <hr />
+                <footer class="flex-space-around flex-v-c full-width">
+                    <a [routerLink]="['/about']">О нас</a>
+                    <a [routerLink]="['/copyright']">О перепечатке информации</a>
+                    <p>&copy; 2018 - MyLFC.ru</p>
+                    <a style="word-wrap: break-word" [routerLink]="['/cooperation']">Сотрудничество</a>
+                </footer>
+            </div>
 </mat-sidenav-content>
 </mat-sidenav-container>
