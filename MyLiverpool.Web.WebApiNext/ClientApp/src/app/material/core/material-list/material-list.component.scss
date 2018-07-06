@@ -1,18 +1,19 @@
 ﻿:host {
-
     .img-thumbnail {
         display: inline-block;
-        height: 140px;
-        max-width: 100%;
+        max-width: 300px;
         padding: 4px;
         line-height: 1.42857143;
         background-color: #fff;
         border: 1px solid #ddd;
         border-radius: 4px;
-        -webkit-transition: all .2s ease-in-out;
-        -o-transition: all .2s ease-in-out;
-        transition: all .2s ease-in-out;
-        width: 300px;
+    }
+
+    @media (max-width: 340px) {
+        .img-thumbnail {
+            display: inline-block;
+            max-width: 100%;
+        }
     }
 
     .list-inline.small-offset > li {
@@ -84,9 +85,9 @@
     }
 
     .preview-text {
-        height: 100%;
+        /*height: 100%;*/
         text-align: center;
-        width: calc(100% - 300px);
+        /*width: calc(100% - 300px);*/
         justify-content: center;
     }
 }

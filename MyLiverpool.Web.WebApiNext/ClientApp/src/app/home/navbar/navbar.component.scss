@@ -1,10 +1,15 @@
 ﻿.logo-link {
     height: 81px;
-    min-width: 310px;
+    width: 310px;
 }
+@media(max-width: 1050px) {
+    .logo-link {
+        height: 63px;
+        width: 240px;
+    }}
 
 .logo {
-    width: 100%;
+    width: inherit;
 }
 
 @media(max-width: 1209px) { /* should based on menu length? todo*/
@@ -22,7 +27,7 @@
 
 .header-nav {
     font-size: large;
-    height: 81px;
+    height: auto;
     overflow: hidden;
 
     div:not(:first-child) {

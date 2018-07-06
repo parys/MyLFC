@@ -16,7 +16,8 @@ import { AuthService, IAuthStateModel } from "@app/+auth";
 })
 
 export class AppComponent implements OnInit, AfterViewInit {
-
+    private currentPageIndex = 1;
+    eventText = '';
    // public isRoot: boolean = false;
     private authState$: Observable<IAuthStateModel>;
     @ViewChild("sidenav") sidenav: MatSidenav;
@@ -48,6 +49,13 @@ export class AppComponent implements OnInit, AfterViewInit {
         if (isPlatformBrowser(this.platformId)) {
             addAd();
         }
+    }
+    swiperight(evt: any) {
+        this.eventText += `right`;
+    }
+
+    swipeleft(evt: any) {
+        this.eventText += `left`;
     }
 
     private initTitleSubscriber() {

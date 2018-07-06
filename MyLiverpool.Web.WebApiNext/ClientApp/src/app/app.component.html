@@ -19,16 +19,19 @@
                 <breadcrumb prefix="Главная"></breadcrumb>
                 <a mat-raised-button class="color-back-gold width25p" [routerLink]="['/wishes']"><b>Ваши идеи</b></a>
             </div>
+            <p [innerHTML]="eventText"></p>
             <div class="full-width flex">
                 <!--<div class=" main-container" [class.co-sm-6]="isRoot" [class.co-sm-9]="!isRoot" [class.co-sm-push-3]="isRoot">-->
-                <div class="padding0-10 main-container">
+                <div class="padding0-10 main-container"
+                     (swiperight)="swiperight(employee)"
+                     (swipeleft)="swipeleft(employee)">
                     <router-outlet class="full-width"></router-outlet>
                     <ad [blockName]="'R-A-255349-3'"></ad>
                 </div>
-                <div class="padding0 left-container">
+                <div class="padding0 left-container" (swipe)="onSwipe($event)">
                     <sidebar-left class="full-width"></sidebar-left>
                 </div>
-                <div class="container-row right-container">
+                <div class="container-row right-container" (swipe)="onSwipe($event)">
                     <sidebar-right class="full-width"></sidebar-right>
                     <!--<sidebar-left *ngIf="!isRoot"></sidebar-left>-->
                 </div>

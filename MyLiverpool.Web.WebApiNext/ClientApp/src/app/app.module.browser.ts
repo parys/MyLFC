@@ -1,8 +1,8 @@
 ﻿import { NgModule } from "@angular/core";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { AppModuleShared } from './app.module';
-import { AppComponent } from './app.component';
-import { ServiceWorkerModule } from '@angular/service-worker';
+import { AppModuleShared } from "./app.module";
+import { AppComponent } from "./app.component";
+import { ServiceWorkerModule } from "@angular/service-worker";
 import { environment } from "../environments/environment";
 import { BrowserTransferStateModule } from "@angular/platform-browser";
 
