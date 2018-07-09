@@ -1,4 +1,4 @@
-import { NgModule, LOCALE_ID } from "@angular/core";
+import { NgModule, LOCALE_ID, Injectable, ErrorHandler } from "@angular/core";
 import { Title, BrowserModule } from "@angular/platform-browser";
 import { RouterModule } from "@angular/router";
 import { HttpClientModule } from "@angular/common/http";
@@ -38,6 +38,18 @@ export class MyHammerConfig extends HammerGestureConfig {
             touchAction: "pan-y"
         });
         return mc;
+    }
+}
+
+
+@Injectable()
+export class UIErrorHandler extends ErrorHandler {
+    constructor() {
+        super();
+    }
+    handleError(error: any) {
+        super.handleError(error);
+        alert(`Error occurred:${error.message}`);
     }
 }
 
@@ -84,6 +96,10 @@ export class MyHammerConfig extends HammerGestureConfig {
             provide: HAMMER_GESTURE_CONFIG,
             useClass: MyHammerConfig,
         },
+        {
+            provide: ErrorHandler,
+            useClass: UIErrorHandler
+        }
     ]
 })
 export class AppModuleShared { }

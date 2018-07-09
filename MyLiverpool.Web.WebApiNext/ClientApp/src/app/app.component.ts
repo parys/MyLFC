@@ -15,26 +15,27 @@ export const SlideInOutAnimation = [
     trigger("slideInOut",
         [
             state("none", style({
-                'display': "none"
+       //         display: "none"
             })),
             state("slideOutLeft", style({
-                'display': "none"
+          //      display: "none"
             })),
             state("slideOutRight", style({
-                'display': "none"
+      //          display: "none"
             })),
             state("slideInRight", style({
-                'display': "flex"
+      //          display: "flex"
             })),
             state("slideInLeft", style({
-                'display': "flex"
+      //          display: "flex"
             })),
-            transition("* => slideOutLeft", animate(500, keyframes(kf.slideOutLeft))),
-            transition("* => slideOutRight", animate(500, keyframes(kf.slideOutRight))),
-            transition("* => slideInRight", animate(1000, keyframes(kf.slideInRight))),
-            transition("* => slideInLeft", animate(1000, keyframes(kf.slideInLeft)))
+            transition("* => slideOutLeft", [animate(250, keyframes(kf.slideOutLeft))]),
+            transition("* => slideOutRight", [animate(250, keyframes(kf.slideOutRight))]),
+            transition("* => slideInRight", [animate(500, keyframes(kf.slideInRight))]),
+            transition("* => slideInLeft", [animate(500, keyframes(kf.slideInLeft))])
         ])
 ];
+
 @Component({
     selector: "app",
     templateUrl: "./app.component.html",
@@ -42,17 +43,23 @@ export const SlideInOutAnimation = [
     encapsulation: ViewEncapsulation.None,
     animations: [SlideInOutAnimation]
 })
-
 export class AppComponent implements OnInit, AfterViewInit {
     public currentPageIndex = 1;
     animationState = ["none", "", "none"];
     orderState = [0, 1, 2];
+    text: string = "";
     private resizeDisable: boolean = true;
+
     @HostListener("window:resize", ["$event"])
     public sizeChange(event: any) {
         this.updateGetsureState();
     }
-   // public isRoot: boolean = false;
+
+    public animationDone(index: number) {
+        alert("done = " + index);
+    }
+
+// public isRoot: boolean = false;
     private authState$: Observable<IAuthStateModel>;
     @ViewChild("sidenav") sidenav: MatSidenav;
     constructor(private router: Router,
@@ -85,11 +92,16 @@ export class AppComponent implements OnInit, AfterViewInit {
             addAd();
         }
     }
+     delay(ms: number) {
+        ms += new Date().getTime();
+         while (new Date().getTime() < ms) { }
+    }
 
     swiperight(evt: any) {
         if (this.resizeDisable) {
             return;
         }
+        this.text += "right";
         this.animationState[this.currentPageIndex] = "slideOutRight";
  
         if (this.currentPageIndex === 0) {
@@ -103,6 +115,7 @@ export class AppComponent implements OnInit, AfterViewInit {
             }
             this.currentPageIndex--;
         }
+    //    this.delay(5000);
         this.animationState[this.currentPageIndex] = "slideInLeft";
     }
 
@@ -110,6 +123,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         if (this.resizeDisable) {
             return;
         }
+        this.text += "left";
         this.animationState[this.currentPageIndex] = "slideOutLeft";
         if (this.currentPageIndex === 2) {
             this.orderState = [1, 2, 0];
@@ -122,6 +136,7 @@ export class AppComponent implements OnInit, AfterViewInit {
             }
             this.currentPageIndex++;
         }
+  //      this.delay(5000);
         this.animationState[this.currentPageIndex] = "slideInRight";
     }
 
@@ -273,6 +288,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         } else {
             this.animationState = ["", "", ""];
         }
+
         this.currentPageIndex = 1;
         this.orderState = [0, 1, 2];
     }

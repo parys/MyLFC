@@ -53,7 +53,7 @@
         if (location.hostname === "localhost" || !window.Ya || !window.Ya.Context || !window.Ya.Context.AdvManager) return false;
         Ya.Context.AdvManager.render({
             blockId: name,
-            renderTo: `yandex_rtb_${name}`,
+            renderTo: "yandex_rtb_" + name,
             async: true
         });
         return true;

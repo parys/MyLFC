@@ -21,28 +21,36 @@
             </div>
             <div class="flex content-container"
                  (swiperight)="swiperight($event)"
-                 (swipeleft)="swipeleft($event)">
+                 (swipeleft)="swipeleft($event)"
+                 >
+                {{text}}
+                {{animationState | json}}
+                <br/>
                 <!--<div class=" main-container" [class.co-sm-6]="isRoot" [class.co-sm-9]="!isRoot" [class.co-sm-push-3]="isRoot">-->
                 <!-- [hidden]="currentPageIndex !== 0"-->
                 <div class="padding0 left-container"
                      [style.order]="orderState[0]"
+                     
+                     (@slideInOut.done)="animationDone(0)"
                      [@slideInOut]="animationState[0]">
                     <sidebar-left class="full-width"></sidebar-left>
                 </div>
                 <!--<div class="padding0-10 main-container" [hidden]="currentPageIndex !== 1"-->
                 <div class="padding0-10 main-container"
                      [style.order]="orderState[1]"
+                     (@slideInOut.done)="animationDone(1)"
                      [@slideInOut]="animationState[1]">
                     <router-outlet></router-outlet>
                     <ad [blockName]="'R-A-255349-3'"></ad>
                 </div>
                 <div class="container-row right-container"
                      [style.order]="orderState[2]"
+                     (@slideInOut.done)="animationDone(2)"
                      [@slideInOut]="animationState[2]">
                     <sidebar-right class="full-width"></sidebar-right>
                     <!--<sidebar-left *ngIf="!isRoot"></sidebar-left>-->
+                </div>
             </div>
-        </div>
                 </div>
                 <hr />
                 <footer class="flex-space-around flex-v-c full-width">
