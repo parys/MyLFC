@@ -96,10 +96,10 @@ export class UIErrorHandler extends ErrorHandler {
             provide: HAMMER_GESTURE_CONFIG,
             useClass: MyHammerConfig,
         },
-        {
-            provide: ErrorHandler,
-            useClass: UIErrorHandler
-        }
+        //{
+        //    provide: ErrorHandler,
+        //    useClass: UIErrorHandler
+        //}
     ]
 })
 export class AppModuleShared { }

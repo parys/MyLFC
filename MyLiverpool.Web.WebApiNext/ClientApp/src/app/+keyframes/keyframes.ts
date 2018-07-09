@@ -1,75 +1,49 @@
-﻿import { keyframes, style, } from "@angular/animations";
-
-//export const slideOutLeft = [
-//    style({ transform: "translate3d(0, 0, 0)", offset: .2 }),
-//    style({
-//        transform: "translate3d(-100%, 0, 0)",
-//        visibility: "hidden",
-//        offset: 1
-//    })
-//];
-
-//export const slideOutRight = [
-//    style({ transform: "translate3d(0, 0, 0)", offset: .2 }),
-//    style({
-//        transform: "translate3d(100%, 0, 0)",
-//        visibility: "hidden", offset: 1 })
-//];
-
-//export const slideInLeft = [
-//    style({
-//        transform: "translate3d(-100%, 0, 0)",
-//        offset: .2,
-//        visibility: "visible",
-//    }),
-//    style({ transform: "translate3d(0, 0, 0)", offset: 1 })
-//];
-
-//export const slideInRight = [
-//    style({
-//        transform: "translate3d(100%, 0, 0)",
-//        visibility: "visible",
-//        offset: .2
-//    }),
-//    style({ transform: "translate3d(0, 0, 0)", offset: 1 })
-//];
+﻿import { style } from "@angular/animations";
 
 export const slideOutLeft = [
-    style({ transform: "translate3d(0, 0, 0)", offset: 0 }),
     style({
-        transform: "translate3d(-100%, 0, 0)",
-    //    display: "none",
+        left: "0",
+        position: "fixed",
+        offset: 0
+    }),
+    style({
+        left: "-99%",
         offset: 1
     })
 ];
 
 export const slideOutRight = [
-    style({ transform: "translate3d(0, 0, 0)", offset: 0 }),
     style({
-        transform: "translate3d(100%, 0, 0)",
-     //   display: "none",
+        left: "0",
+        position: "fixed",
+        offset: 0
+    }),
+    style({
+        left: "99%",
         offset: 1
     })
 ];
 
 export const slideInLeft = [
     style({
-        transform: "translate3d(-100%, 0, 0)",
+        left: "-99%",
+        position: "initial",
         offset: 0
     }),
-    style({ transform: "translate3d(0, 0, 0)",
-    //    display: "flex",
+    style({
+        left: "0",
         offset: 1
     })
 ];
 
 export const slideInRight = [
     style({
-        transform: "translate3d(100%, 0, 0)",
+        left: "99%",
+        position: "initial",
         offset: 0
     }),
-    style({ transform: "translate3d(0, 0, 0)",
-//        display: "flex",
+    style({
+        left: "0",
         offset: 1
     })
 ];

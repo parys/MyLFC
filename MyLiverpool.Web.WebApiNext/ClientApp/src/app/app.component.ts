@@ -14,20 +14,19 @@ import * as kf from "./+keyframes";
 export const SlideInOutAnimation = [
     trigger("slideInOut",
         [
-            state("none", style({
-       //         display: "none"
-            })),
             state("slideOutLeft", style({
-          //      display: "none"
+                left: "-99%",
+                position: "fixed"
             })),
             state("slideOutRight", style({
-      //          display: "none"
+                left: "99%",
+                position: "fixed"
             })),
             state("slideInRight", style({
-      //          display: "flex"
+                left: "0%",
             })),
             state("slideInLeft", style({
-      //          display: "flex"
+                left: "0%",
             })),
             transition("* => slideOutLeft", [animate(250, keyframes(kf.slideOutLeft))]),
             transition("* => slideOutRight", [animate(250, keyframes(kf.slideOutRight))]),
@@ -45,18 +44,13 @@ export const SlideInOutAnimation = [
 })
 export class AppComponent implements OnInit, AfterViewInit {
     public currentPageIndex = 1;
-    animationState = ["none", "", "none"];
+    animationState = ["slideOutLeft", "", "slideOutRight"];
     orderState = [0, 1, 2];
-    text: string = "";
     private resizeDisable: boolean = true;
 
     @HostListener("window:resize", ["$event"])
     public sizeChange(event: any) {
         this.updateGetsureState();
-    }
-
-    public animationDone(index: number) {
-        alert("done = " + index);
     }
 
 // public isRoot: boolean = false;
@@ -92,16 +86,11 @@ export class AppComponent implements OnInit, AfterViewInit {
             addAd();
         }
     }
-     delay(ms: number) {
-        ms += new Date().getTime();
-         while (new Date().getTime() < ms) { }
-    }
 
-    swiperight(evt: any) {
+    public swiperight(evt: any): void {
         if (this.resizeDisable) {
             return;
         }
-        this.text += "right";
         this.animationState[this.currentPageIndex] = "slideOutRight";
  
         if (this.currentPageIndex === 0) {
@@ -115,28 +104,25 @@ export class AppComponent implements OnInit, AfterViewInit {
             }
             this.currentPageIndex--;
         }
-    //    this.delay(5000);
         this.animationState[this.currentPageIndex] = "slideInLeft";
     }
 
-    swipeleft(evt: any) {
+    public swipeleft(evt: any): void {
         if (this.resizeDisable) {
             return;
         }
-        this.text += "left";
         this.animationState[this.currentPageIndex] = "slideOutLeft";
         if (this.currentPageIndex === 2) {
             this.orderState = [1, 2, 0];
-            this.currentPageIndex = 0;//0
+            this.currentPageIndex = 0;
         } else {
             if (this.currentPageIndex === 1) {
-                this.orderState = [2, 0, 1];//2
+                this.orderState = [2, 0, 1];
             } else {
-                this.orderState = [1, 2, 0];//1
+                this.orderState = [1, 2, 0];
             }
             this.currentPageIndex++;
         }
-  //      this.delay(5000);
         this.animationState[this.currentPageIndex] = "slideInRight";
     }
 
@@ -284,7 +270,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         if (this.resizeDisable === resizeDisableNow && !force) { return; }
         this.resizeDisable = resizeDisableNow;
         if (!resizeDisableNow) {
-            this.animationState = ["none", "", "none"];
+            this.animationState = ["slideOutLeft", "", "slideOutRight"];
         } else {
             this.animationState = ["", "", ""];
         }
