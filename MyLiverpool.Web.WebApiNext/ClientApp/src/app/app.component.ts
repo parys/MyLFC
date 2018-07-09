@@ -14,6 +14,9 @@ import * as kf from "./+keyframes";
 export const SlideInOutAnimation = [
     trigger("slideInOut",
         [
+            state("none", style({
+                'display': "none"
+            })),
             state("slideOutLeft", style({
                 'display': "none"
             })),
@@ -29,44 +32,8 @@ export const SlideInOutAnimation = [
             transition("* => slideOutLeft", animate(500, keyframes(kf.slideOutLeft))),
             transition("* => slideOutRight", animate(500, keyframes(kf.slideOutRight))),
             transition("* => slideInRight", animate(1000, keyframes(kf.slideInRight))),
-            transition("* => slideInLeft", animate(1000, keyframes(kf.slideInLeft))),
-            //transition('in => out',
-            //    [
-            //        group([
-            //                animate('400ms ease-out',
-            //                    style({
-            //                        'opacity': '0'
-            //                    })),
-            //                animate('600ms ease-out',
-            //                    style({
-            //                        'width': '0%'
-            //                    })),
-            //                animate('700ms ease-out',
-            //                    style({
-            //                        'visibility': 'hidden'
-            //                    }))
-            //            ]
-            //        )
-            //    ]),
-            //transition('out => in',
-            //    [
-            //        group([
-            //                animate('1ms ease-in',
-            //                    style({
-            //                        'visibility': 'visible'
-            //                    })),
-            //            animate('600ms ease-in',
-            //                    style({
-            //                        'width': '100%'
-            //                    })),
-            //            animate('800ms ease-in',
-            //                    style({
-            //                        'opacity': '1'
-            //                    }))
-            //            ]
-            //        )
-            //    ])
-        ]),
+            transition("* => slideInLeft", animate(1000, keyframes(kf.slideInLeft)))
+        ])
 ];
 @Component({
     selector: "app",
@@ -78,13 +45,12 @@ export const SlideInOutAnimation = [
 
 export class AppComponent implements OnInit, AfterViewInit {
     public currentPageIndex = 1;
-    animationState = ["slideOutLeft", "slideInLeft", "slideOutRight"];
+    animationState = ["none", "", "none"];
     orderState = [0, 1, 2];
-    eventText = '';
+    private resizeDisable: boolean = true;
     @HostListener("window:resize", ["$event"])
-    sizeChange(event: any) {
-        console.log(event);
-        console.log('size changed.', event);
+    public sizeChange(event: any) {
+        this.updateGetsureState();
     }
    // public isRoot: boolean = false;
     private authState$: Observable<IAuthStateModel>;
@@ -108,6 +74,7 @@ export class AppComponent implements OnInit, AfterViewInit {
                     e => console.warn(e)
                 );
         }
+        this.updateGetsureState();
 
         this.setUpBreadcrumbs();
         this.initTitleSubscriber();
@@ -120,32 +87,11 @@ export class AppComponent implements OnInit, AfterViewInit {
     }
 
     swiperight(evt: any) {
-        this.eventText = `right`;
-        //    console.log(this.animationState);
-        console.log(this.orderState);
-        this.animationState[this.currentPageIndex] = "slideOutRight";
-        if (this.currentPageIndex === 2) {
-            this.orderState = [1, 2, 0];
-            this.currentPageIndex = 0;//0
-        } else {
-            if (this.currentPageIndex === 1) {
-                this.orderState = [2, 0, 1];//2
-            } else {
-                this.orderState = [1, 2, 0];//1
-            }
-            this.currentPageIndex++;
+        if (this.resizeDisable) {
+            return;
         }
-        this.animationState[this.currentPageIndex] = "slideInLeft";
-        console.log(this.orderState);
-        //  this.animationState[this.currentPageIndex] = this.animationState[this.currentPageIndex] === 'out' ? 'in' : 'out';
-        console.log(this.animationState);
-    }
-
-    swipeleft(evt: any) {
-        this.eventText = `left`;
-   //     console.log(this.animationState);
-        console.log(this.orderState);
-        this.animationState[this.currentPageIndex] = "slideOutLeft";
+        this.animationState[this.currentPageIndex] = "slideOutRight";
+ 
         if (this.currentPageIndex === 0) {
             this.orderState = [0, 1, 2];
             this.currentPageIndex = 2;
@@ -157,10 +103,26 @@ export class AppComponent implements OnInit, AfterViewInit {
             }
             this.currentPageIndex--;
         }
+        this.animationState[this.currentPageIndex] = "slideInLeft";
+    }
+
+    swipeleft(evt: any) {
+        if (this.resizeDisable) {
+            return;
+        }
+        this.animationState[this.currentPageIndex] = "slideOutLeft";
+        if (this.currentPageIndex === 2) {
+            this.orderState = [1, 2, 0];
+            this.currentPageIndex = 0;//0
+        } else {
+            if (this.currentPageIndex === 1) {
+                this.orderState = [2, 0, 1];//2
+            } else {
+                this.orderState = [1, 2, 0];//1
+            }
+            this.currentPageIndex++;
+        }
         this.animationState[this.currentPageIndex] = "slideInRight";
-        console.log(this.orderState);
-        //   this.animationState[this.currentPageIndex] = this.animationState[this.currentPageIndex] === 'out' ? 'in' : 'out';
-        console.log(this.animationState);
     }
 
     private initTitleSubscriber() {
@@ -169,6 +131,8 @@ export class AppComponent implements OnInit, AfterViewInit {
             map(() => {
                 let child = this.activatedRoute.firstChild;
                 while (child) {
+                    this.sidenav.close();
+                    this.updateGetsureState(true);
                     if (child.firstChild) {
                         child = child.firstChild;
                     } else if (child.snapshot.data && child.snapshot.data["title"]) {
@@ -184,7 +148,6 @@ export class AppComponent implements OnInit, AfterViewInit {
                 }
                 return null;
             })).subscribe((title: any) => {
-            this.sidenav.close();
             this.titleService.setTitle(title);
         });
 
@@ -301,5 +264,16 @@ export class AppComponent implements OnInit, AfterViewInit {
         this.breadcrumbService.hideRouteRegex("^/editPage/[0-9]+$"); 
     }
 
-
+    private updateGetsureState(force: boolean = false): void {
+        const resizeDisableNow = window.innerWidth > 767;
+        if (this.resizeDisable === resizeDisableNow && !force) { return; }
+        this.resizeDisable = resizeDisableNow;
+        if (!resizeDisableNow) {
+            this.animationState = ["none", "", "none"];
+        } else {
+            this.animationState = ["", "", ""];
+        }
+        this.currentPageIndex = 1;
+        this.orderState = [0, 1, 2];
+    }
 }

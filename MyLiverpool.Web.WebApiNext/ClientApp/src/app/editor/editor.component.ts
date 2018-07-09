@@ -35,7 +35,7 @@ export class EditorComponent implements ControlValueAccessor {
  //       console.warn("ctor");
         if (!this.isTinyDefined()) {
       //      console.warn("ctor-2");
-            lazyService.loadJs("./scripts.js").subscribe(_ => this.initTiny());
+            //lazyService.loadJs("./scripts.js").subscribe(_ => this.initTiny());
         }
     }
 

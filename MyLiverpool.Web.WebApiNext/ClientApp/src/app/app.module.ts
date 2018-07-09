@@ -25,15 +25,30 @@ import { NotificationCoreModule } from "./notification";
 import { UserCoreModule } from "./user";
 
 registerLocaleData(localeRU);
+import {
+    HammerGestureConfig,
+    HAMMER_GESTURE_CONFIG,
+} from '@angular/platform-browser';
+
+declare var Hammer: any;
+
+export class MyHammerConfig extends HammerGestureConfig {
+    buildHammer(element: HTMLElement) {
+        let mc = new Hammer(element, {
+            touchAction: "pan-y"
+        });
+        return mc;
+    }
+}
 
 @NgModule({
     imports: [
         BrowserModule.withServerTransition({ appId: "mylfc" }),
-    //    PrebootModule.withConfig({ appRoot: "app" }),
+        //    PrebootModule.withConfig({ appRoot: "app" }),
         SharedModule,
         HttpClientModule,
         AccountCoreModule,
-      //  ForumModule,
+        //  ForumModule,
         InjuryCoreModule,
         ChatModule,
         CommentCoreModule,
@@ -63,7 +78,12 @@ registerLocaleData(localeRU);
         admin.AdminService,
         { provide: LOCALE_ID, useValue: "ru-RU" },
         Configuration,
-        Title
+        Title,
+        {
+            // hammer instantion with custom config
+            provide: HAMMER_GESTURE_CONFIG,
+            useClass: MyHammerConfig,
+        },
     ]
 })
 export class AppModuleShared { }
