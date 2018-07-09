@@ -26,104 +26,108 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
-    <navbar>
-        <nav class="navbar navbar-default maroon-panel container-row beauty-font bg-header">
-            <div class="navbar-collapse container-row" style="margin-right: 0; padding-right: 0;">
-                <!--todo need some research-->
-                <ul class="nav navbar-nav flex-vertical-center flex-space-around" style="font-size: large; width: 100%;">
-                    <!--<li><a [routerLink]="['/']" style="color: aliceblue; font-weight: bold;">My<span style="color: yellow;">LFC</span>.ru</a></li>-->
-                    <li>
-                        <a role="button" asp-action="Index" asp-controller="Home" style="display: inline;">
-                            <img src="/content/logo34.png" style="max-width: 310px; margin: 0 -15px;" alt="MyLFC.ru" />
-                        </a>
-                    </li>
-                    <li class="dropdown">
-                        <button class="dropdown-toggle no-style text-white" type="button" id="newsMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Новости
-                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="newsMenu">
-                            <li><a asp-action="Index" asp-controller="News">Новости</a></li>
-                            <li><a asp-action="Index" asp-controller="MaterialCategories" asp-route-type="News">Категории</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <button class="dropdown-toggle no-style text-white" type="button" id="blogs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Блоги
-                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="blogs">
-                            <li><a asp-action="Index" asp-controller="Blogs">Блоги</a></li>
-                            <li><a asp-action="Index" asp-controller="MaterialCategories" asp-route-type="Blogs">Категории</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <button class="dropdown-toggle no-style text-white" type="button" id="fcClub" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            ФК Ливерпуль
-                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="fcClub">
-                            <li><a asp-action="ClubHistory" asp-controller="Home">История</a></li>
-                            <li><a asp-action="AboutClub" asp-controller="Home">О клубе</a></li>
-                        </ul>
-                    </li>
-                    @* <li>
-                            <a role="button" [matMenuTriggerFor]="fcClub">
-                                ФК Ливерпуль<b class="caret"></b>
-                            </a>
-                            <mat-menu #fcClub="matMenu">
-                                <a [routerLink]="['/stuff/first']" mat-menu-item>Тренерский штаб</a>
-                                <a [routerLink]="['/squad/first']" mat-menu-item>Состав</a>
-                            </mat-menu>
-                        </li>*@
+<nav class="navbar navbar-default maroon-panel container-row beauty-font bg-header">
+    <div class="container-fluid flex-space-between">
+        <a role="button" asp-action="Index" asp-controller="Home" style="margin-right: 10px; z-index: 9999">
+            <img src="/content/logo34.png" style="max-width: 310px; margin: 0;" alt="MyLFC.ru" />
+        </a>
+        <div class="navbar-header flex-v-c">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="collapse navbar-collapse container-row" id="navbar-collapse-1" style="margin-right: 0; padding-right: 0;">
+            <ul class="nav navbar-nav flex-vertical-center flex-space-around" style="font-size: large; width: 100%;">
+                <li class="dropdown">
+                    <button class="dropdown-toggle no-style text-white" type="button" id="newsMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Новости
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="newsMenu">
+                        <li><a asp-action="Index" asp-controller="News">Новости</a></li>
+                        <li><a asp-action="Index" asp-controller="MaterialCategories" asp-route-type="News">Категории</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <button class="dropdown-toggle no-style text-white" type="button" id="blogs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Блоги
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="blogs">
+                        <li><a asp-action="Index" asp-controller="Blogs">Блоги</a></li>
+                        <li><a asp-action="Index" asp-controller="MaterialCategories" asp-route-type="Blogs">Категории</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <button class="dropdown-toggle no-style text-white" type="button" id="fcClub" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        ФК Ливерпуль
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="fcClub">
+                        <li><a asp-action="ClubHistory" asp-controller="Home">История</a></li>
+                        <li><a asp-action="AboutClub" asp-controller="Home">О клубе</a></li>
+                    </ul>
+                </li>
+                @* <li>
+                    <a role="button" [matMenuTriggerFor]="fcClub">
+                        ФК Ливерпуль<b class="caret"></b>
+                    </a>
+                    <mat-menu #fcClub="matMenu">
+                        <a [routerLink]="['/stuff/first']" mat-menu-item>Тренерский штаб</a>
+                        <a [routerLink]="['/squad/first']" mat-menu-item>Состав</a>
+                    </mat-menu>
+                </li>*@
 
-                    <li class="dropdown">
-                        <button class="dropdown-toggle no-style text-white" type="button" id="seasonMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Сезон
-                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="seasonMenu">
-                            <li><a asp-action="Calendar" asp-controller="Seasons">Календарь</a></li>
-                            <li><a asp-action="Statistics" asp-controller="Seasons">Статистика игроков</a></li>
-                            <li><a asp-action="Current" asp-controller="Transfers">Трансферы</a></li>
-                        </ul>
-                    </li>
-                    @* <li>
-                        <a role="button" [matMenuTriggerFor]="seasonMenu">
-                            Сезон<b class="caret"></b>
-                        </a>
-                        <mat-menu #seasonMenu="matMenu">
-                        <!--<button [routerLink]="['/season/eplTable']" mat-menu-item>Полная таблица АПЛ</button>->
-                        <a *ngIf="roles.isAdmin" [routerLink]="['/seasons']" mat-menu-item>Список сезонов</a>
-                        </mat-menu>
-                        </li>*@
-                    <li>
-                        <a asp-action="index" asp-controller="Users">Пользователи</a>
-                    </li>
-                    <li><a asp-action="Rules" asp-controller="Home"><b class="text-danger color-red beauty-font">Правила</b></a></li>
-                    @* <!--li> <a [routerLink]="['/forum']">Форум</a></!--li>->
-                        <li *ngIf="roles.isNewsmaker || roles.isAuthor || roles.isModerator">
-                            <a role="button" [matMenuTriggerFor]="adminMenu">
-                                Админка<b class="caret"></b>
-                            </a>
-                            <mat-menu #adminMenu="matMenu">
-                                <a *ngIf="roles.isInformer" [routerLink]="['/matches']" mat-menu-item>Матчи</a>
-                                <a *ngIf="roles.isInformer" [routerLink]="['/clubs']" mat-menu-item>Клубы</a>
-                                <a *ngIf="roles.isAdminAssistant" [routerLink]="['/roleGroups']" mat-menu-item>Роли</a>
-                                <a *ngIf="roles.isInformer" [routerLink]="['/persons']" mat-menu-item>Люди</a>
-                                <a *ngIf="roles.isInformer" [routerLink]="['/stadiums']" mat-menu-item>Стадионы</a>
-                                <a *ngIf="roles.isInformer" [routerLink]="['/injuries']" mat-menu-item>Травмы</a>
-                                <a *ngIf="roles.isNewsmaker || roles.isAuthor" [routerLink]="['/images']" mat-menu-item>Изображения</a>
-                                <a *ngIf="roles.isModerator" [routerLink]="['/materialComments']" [queryParams]="{page: 1}" mat-menu-item>Комментарии</a>
-                            </mat-menu>
-                        </li>*@
-                    <li class="liverbird-navbar">
-                        <img alt="125 лет со дня основания ФК Ливерпуль" src="/content/liverbird5.png">
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </navbar>
+                <li class="dropdown">
+                    <button class="dropdown-toggle no-style text-white" type="button" id="seasonMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Сезон
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="seasonMenu">
+                        <li><a asp-action="Calendar" asp-controller="Seasons">Календарь</a></li>
+                        <li><a asp-action="Statistics" asp-controller="Seasons">Статистика игроков</a></li>
+                        <li><a asp-action="Current" asp-controller="Transfers">Трансферы</a></li>
+                    </ul>
+                </li>
+                @* <li>
+                <a role="button" [matMenuTriggerFor]="seasonMenu">
+                    Сезон<b class="caret"></b>
+                </a>
+                <mat-menu #seasonMenu="matMenu">
+                <!--<button [routerLink]="['/season/eplTable']" mat-menu-item>Полная таблица АПЛ</button>->
+                <a *ngIf="roles.isAdmin" [routerLink]="['/seasons']" mat-menu-item>Список сезонов</a>
+                </mat-menu>
+                </li>*@
+                <li>
+                    <a asp-action="index" asp-controller="Users">Пользователи</a>
+                </li>
+                <li><a asp-action="Rules" asp-controller="Home"><b class="text-danger color-red beauty-font">Правила</b></a></li>
+                @* <!--li> <a [routerLink]="['/forum']">Форум</a></!--li>->
+                <li *ngIf="roles.isNewsmaker || roles.isAuthor || roles.isModerator">
+                    <a role="button" [matMenuTriggerFor]="adminMenu">
+                        Админка<b class="caret"></b>
+                    </a>
+                    <mat-menu #adminMenu="matMenu">
+                        <a *ngIf="roles.isInformer" [routerLink]="['/matches']" mat-menu-item>Матчи</a>
+                        <a *ngIf="roles.isInformer" [routerLink]="['/clubs']" mat-menu-item>Клубы</a>
+                        <a *ngIf="roles.isAdminAssistant" [routerLink]="['/roleGroups']" mat-menu-item>Роли</a>
+                        <a *ngIf="roles.isInformer" [routerLink]="['/persons']" mat-menu-item>Люди</a>
+                        <a *ngIf="roles.isInformer" [routerLink]="['/stadiums']" mat-menu-item>Стадионы</a>
+                        <a *ngIf="roles.isInformer" [routerLink]="['/injuries']" mat-menu-item>Травмы</a>
+                        <a *ngIf="roles.isNewsmaker || roles.isAuthor" [routerLink]="['/images']" mat-menu-item>Изображения</a>
+                        <a *ngIf="roles.isModerator" [routerLink]="['/materialComments']" [queryParams]="{page: 1}" mat-menu-item>Комментарии</a>
+                    </mat-menu>
+                </li>*@
+                <li class="liverbird-navbar">
+                    <img alt="125 лет со дня основания ФК Ливерпуль" src="/content/liverbird5.png">
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
     <b class="col-xs-12 text-center">Облегченная версия сайта <a href="//mylfc.ru">mylfc.ru</a> только для чтения. Преимущественное развитие будет получать только основная версия.</b>
     <div class="main clearfix">
         <div class="col-xs-12 container-fluid main-container col-sm-6 col-sm-push-3">
