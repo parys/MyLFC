@@ -247,7 +247,6 @@ textarea {
 .com-offset-7 {
     margin-left: 21%;
 }*/
-
 .center {
     margin: auto;
 }
@@ -455,10 +454,11 @@ textarea {
 .login-list-panel {
     list-style: none;
 }
-
-
-    /* background image*/
-    /*
+.match-header-logo-club {
+    width: 70px;
+}
+/* background image*/
+/*
 .main {
     overflow: hidden;
 }
@@ -478,10 +478,10 @@ textarea {
         
         background-size: 100%;
     }*/
-    .match-calendar img {
-        display: block;
-        width: 45px;
-    }
+.match-calendar img {
+    display: block;
+    width: 45px;
+}
 
 img.material-preview {
     border: lightgray solid 5px;

@@ -8,16 +8,14 @@
         </div>
         <div class="col-xs-4">
             <div class="full-width text-center">
-                <img src="@Model.HomeClubLogo" alt="@Model.HomeClubName" title="@Model.HomeClubName" />
+                <img class="match-header-logo-club" src="@Model.HomeClubLogo" alt="@Model.HomeClubName" title="@Model.HomeClubName" />
             </div>
-            <div class="full-width text-center">
+            <div class="full-width text-center hidden-xs">
                 <b class="font-size20">@Model.HomeClubName</b>
             </div>
         </div>
         <div class="col-xs-4 font-size40 text-center">
-            <b class="col-xs-5">@Model.ScoreHome</b>
-            <span class="col-xs-2 padding0">:</span>
-            <b class="col-xs-5">@Model.ScoreAway</b>
+            <b class="col-xs-5">@Model.ScoreHome:@Model.ScoreAway</b>
             <!--<i class="font-size13">Серия пенальти:</i>-->
             @if (Model.ScorePenaltyHome.HasValue && Model.ScorePenaltyAway.HasValue)
             {
@@ -26,9 +24,9 @@
         </div>
         <div class="col-xs-4">
             <div class="full-width text-center">
-                <img src="@Model.AwayClubLogo" alt="@Model.AwayClubName" title="@Model.AwayClubName" />
+                <img class="match-header-logo-club"  src="@Model.AwayClubLogo" alt="@Model.AwayClubName" title="@Model.AwayClubName" />
             </div>
-            <div class="full-width text-center">
+            <div class="full-width text-center hidden-xs">
                 <b class="font-size20">@Model.AwayClubName</b>
             </div>
         </div>

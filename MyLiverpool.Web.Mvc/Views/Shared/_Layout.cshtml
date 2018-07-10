@@ -6,7 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <meta name="description" content="Сайт футбольного клуба Ливерпуль. FC Liverpool. Новости, матчи, история, турнирные таблицы, статистика, статьи, составы команд. Русскоязычные болельщики.">
     <meta name="keywords" content="ливерпуль, liverpool, ливерпуль фк, liverpool fc, lfc, liverpoolfc, клуб ливерпуль, ливерпуль футбольный клуб, сайт ливерпуля, трансляция ливерпуль, ливерпуль видео">
-    <title>@ViewBag.Title - MyLFC.ru - Сайт русскоязычных болельщиков ФК "Ливерпуль"</title>
+    <title>
+        @ViewBag.Title @if (!string.IsNullOrWhiteSpace(ViewBag.Title))
+        {
+          @Html.Raw("-")
+        } MyLFC.ru - Сайт русскоязычных болельщиков ФК "Ливерпуль"
+    </title>
     <base href="/" />
     <link rel="shortcut icon" type="image/x-icon" href="~/favicon.ico" />
     <!-- Latest compiled and minified CSS -->
@@ -29,7 +34,7 @@
 <nav class="navbar navbar-default maroon-panel container-row beauty-font bg-header">
     <div class="container-fluid flex-space-between">
         <a role="button" asp-action="Index" asp-controller="Home" style="margin-right: 10px; z-index: 9999">
-            <img src="/content/logo34.png" style="max-width: 310px; margin: 0;" alt="MyLFC.ru" />
+            <img src="/content/logo34.png" style="max-width: 240px; margin: 0;" alt="MyLFC.ru" />
         </a>
         <div class="navbar-header flex-v-c">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
@@ -128,6 +133,33 @@
         </div>
     </div>
 </nav>
+<environment names="Staging,Production">
+    <div class="full-width">
+        <div id="yandex_rtb_R-A-255349-1"></div>
+        <script type="text/javascript">
+            var crawlerAgent =
+                (/bot|google|aolbuild|baidu|bing|msn|duckduckgo|teoma|slurp|yandex/i).test(navigator.userAgent);
+            if (!crawlerAgent) {
+                (function(w, d, n, s, t) {
+                    w[n] = w[n] || [];
+                    w[n].push(function() {
+                        Ya.Context.AdvManager.render({
+                            blockId: "R-A-255349-1",
+                            renderTo: "yandex_rtb_R-A-255349-1",
+                            async: true
+                        });
+                    });
+                    t = d.getElementsByTagName("script")[0];
+                    s = d.createElement("script");
+                    s.type = "text/javascript";
+                    s.src = "//an.yandex.ru/system/context.js";
+                    s.async = true;
+                    t.parentNode.insertBefore(s, t);
+                })(this, this.document, "yandexContextAsyncCallbacks");
+            }
+        </script>
+    </div>
+</environment>
     <b class="col-xs-12 text-center">Облегченная версия сайта <a href="//mylfc.ru">mylfc.ru</a> только для чтения. Преимущественное развитие будет получать только основная версия.</b>
     <div class="main clearfix">
         <div class="col-xs-12 container-fluid main-container col-sm-6 col-sm-push-3">
@@ -166,17 +198,17 @@
     </div>
     <hr />
     <footer class="bottom container-fluid">
-        <div>
-            <div class="col-xs-3 text-center">
+        <div class="col-sm-12 col-xs-12">
+            <div class="col-xs-6 col-sm-3 text-center">
                 <a asp-action="About" asp-controller="Home">О нас</a>
             </div>
-            <div class="col-xs-3 text-center">
+            <div class="col-xs-6 col-sm-3 text-center">
                 <a asp-action="Copyright" asp-controller="Home">О перепечатке информации</a>
             </div>
-            <div class="col-xs-3 text-center">
+            <div class="col-xs-6 col-sm-3 text-center">
                 <p>&copy; 2018 - MyLFC.ru</p>
             </div>
-            <div class="col-xs-3 text-center">
+            <div class="col-xs-6 col-sm-3 text-center">
                 <a asp-action="Cooperation" asp-controller="Home">Сотрудничество</a>
             </div>
         </div>
@@ -184,11 +216,39 @@
     @RenderSection("scripts", required: false)
 
     <environment names="Staging,Production">
-        <script>(function (i, s, o, g, r, a, m) { i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () { (i[r].q = i[r].q || []).push(arguments) }, i[r].l = 1 * new Date(); a = s.createElement(o), m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m) })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga'); ga('create', 'UA-79219562-2', 'auto'); ga('require', 'GTM-WFBPL67'); ga('send', 'pageview');</script>
-        <script type="text/javascript">(function (d, w, c) { (w[c] = w[c] || []).push(function () { try { w.yaCounter44979745 = new Ya.Metrika({ id: 44979745, clickmap: true, trackLinks: true, accurateTrackBounce: true }); } catch (e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script><noscript><div><img src="https://mc.yandex.ru/watch/44979745" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+        <script>(function (i, s, o, g, r, a, m) { i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () { (i[r].q = i[r].q || []).push(arguments) }, i[r].l = 1 * new Date(); a = s.createElement(o), m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m) })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga'); ga('create', 'UA-79219562-2', 'auto'); ga('require', 'GTM-WFBPL67'); ga('send', 'pageview');
+        </script>
+        <script type="text/javascript">
+            var crawlerAgent =
+                (/bot|google|aolbuild|baidu|bing|msn|duckduckgo|teoma|slurp|yandex/i).test(navigator.userAgent);
+            if (!crawlerAgent) {
+                (function(d, w, c) {
+                    (w[c] = w[c] || []).push(function() {
+                        try {
+                            w.yaCounter44979745 = new Ya.Metrika({
+                                id: 44979745,
+                                clickmap: true,
+                                trackLinks: true,
+                                accurateTrackBounce: true
+                            });
+                        } catch (e) {
+                        }
+                    });
+                    var n = d.getElementsByTagName("script")[0],
+                        s = d.createElement("script"),
+                        f = function() { n.parentNode.insertBefore(s, n); };
+                    s.type = "text/javascript";
+                    s.async = true;
+                    s.src = "https://mc.yandex.ru/metrika/watch.js";
+                    if (w.opera == "[object Opera]") {
+                        d.addEventListener("DOMContentLoaded", f, false);
+                    } else {
+                        f();
+                    }
+                })(document, window, "yandex_metrika_callbacks");
+            }
+        </script><noscript><div><img src="https://mc.yandex.ru/watch/44979745" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
         <script type="text/javascript">document.write("<a href='https://www.liveinternet.ru/click' target=_blank><img src='https://counter.yadro.ru/hit?t14.6;r" + escape(document.referrer) + ((typeof (screen) == "undefined") ? "" : ";s" + screen.width + "*" + screen.height + "*" + (screen.colorDepth ? screen.colorDepth : screen.pixelDepth)) + ";u" + escape(document.URL) + ";" + Math.random() + "' alt='' title='LiveInternet' border='0' width='88' height='31'><\/a>")</script>
-        <script type="text/javascript" async src="https://platform.instagram.com/en_US/embeds.js"></script>
-        <script type="text/javascript" async src="https://platform.twitter.com/widgets.js"></script>
     </environment>
 </body>
 </html>

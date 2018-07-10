@@ -30,13 +30,7 @@
     <div class="alert-warning top10">
         <ul class="list-inline">
             <li><label>Просмотры:</label> @Model.Reads<span [textContent]="item.reads"></span></li>
-            @if (!string.IsNullOrWhiteSpace(Model.Source) && Uri.IsWellFormedUriString(Model.Source, UriKind.RelativeOrAbsolute))
-            {
-                if (Uri.TryCreate(Model.Source, UriKind.Absolute, out var uri))
-                {
-                    <li><label>Источник:</label> <a href="@Model.Source" target="_blank"> @(uri.Host)</a></li>
-                }
-            }
+            <li><label>Источник:</label> <a href="@Model.Source" target="_blank"> @Model.ShortLink</a></li>
             <li><label>Дата добавления:</label> <span class="timeConvert" data-date="@Model.AdditionTime.ToString("O")" data-dow="true" data-sec="false"></span></li>
             <li><label>Категория:</label>
                 <a asp-action="Index"
@@ -64,31 +58,13 @@
            asp-controller="@(Model.Type.ToString())"
            asp-route-id="@Model.NextMaterialId">@Model.NextMaterialTitle (вперед)</a>
     }
-</div>
-<environment names="Staging,Production">
-    <div class="col-xs-12">
-        <div id="yandex_rtb_R-A-255349-1"></div>
-        <script type="text/javascript">
-            (function (w, d, n, s, t) {
-                w[n] = w[n] || [];
-                w[n].push(function () {
-                    Ya.Context.AdvManager.render({
-                        blockId: "R-A-255349-1",
-                        renderTo: "yandex_rtb_R-A-255349-1",
-                        async: true
-                    });
-                });
-                t = d.getElementsByTagName("script")[0];
-                s = d.createElement("script");
-                s.type = "text/javascript";
-                s.src = "//an.yandex.ru/system/context.js";
-                s.async = true;
-                t.parentNode.insertBefore(s, t);
-            })(this, this.document, "yandexContextAsyncCallbacks");
-        </script>
-    </div>
-</environment>
+
 <div class="container-row col-xs-12">
     @await Component.InvokeAsync("CommentSection", new {materialId = Model.Id})
 </div>
+@if (Model.SocialLinks)
+{
+    <script type="text/javascript" async src="https://platform.instagram.com/en_US/embeds.js"></script>
+    <script type="text/javascript" async src="https://platform.twitter.com/widgets.js"></script>
+}
 @*<comment-section id="comments" [materialId]="item.id" [type]="item.type" [canCommentary]="item.canCommentary"></comment-section>*@
