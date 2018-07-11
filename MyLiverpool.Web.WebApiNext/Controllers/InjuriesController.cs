@@ -2,6 +2,7 @@
 using AspNet.Security.OAuth.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MyLfc.Common.Web;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Business.Dto.Filters;
@@ -17,14 +18,17 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     public class InjuriesController : Controller
     {
         private readonly IInjuryService _injuryService;
-        
+        private readonly IDistributedCacheManager _cacheManager;
+
         /// <summary>
         /// Constructor.
         /// </summary>
         /// <param name="injuryService"></param>
-        public InjuriesController(IInjuryService injuryService)
+        /// <param name="cacheManager"></param>
+        public InjuriesController(IInjuryService injuryService, IDistributedCacheManager cacheManager)
         {
             _injuryService = injuryService;
+            _cacheManager = cacheManager;
         }
 
         /// <summary>
@@ -90,6 +94,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 return BadRequest();
             }
             var result = await _injuryService.UpdateAsync(dto);
+            _cacheManager.RemoveAsync(CacheKeysConstants.LastInjuries);
             return Ok(result);
         }
 
@@ -102,6 +107,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         public async Task<IActionResult> DeleteAsync(int id)
         {
             var result = await _injuryService.DeleteAsync(id);
+            _cacheManager.RemoveAsync(CacheKeysConstants.LastInjuries);
             return Ok(result);
         }
 
@@ -112,7 +118,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [AllowAnonymous, HttpGet("current")]
         public async Task<IActionResult> GetCurrentListAsync()
         {
-            var result = await _injuryService.GetCurrentListAsync();
+            var result = await _cacheManager.GetOrCreateAsync(CacheKeysConstants.LastInjuries,
+                async () => await _injuryService.GetCurrentListAsync());
             return Json(result);
         }
     }

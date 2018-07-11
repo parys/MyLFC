@@ -34,7 +34,6 @@ namespace MyLiverpool.Business.Services
         
         public async Task<PageableData<MaterialMiniDto>> GetDtoAllAsync(MaterialFiltersDto filters)
         {
-            var itemPerPage = GlobalConstants.NewsPerPage;
             Expression<Func<Material, bool>> filter = x => true;
             if (!filters.IsInNewsmakerRole)
             {
@@ -72,7 +71,7 @@ namespace MyLiverpool.Business.Services
             
             var news =
                 await
-                    _materialRepository.GetOrderedByDescAndNotTopAsync(filters.Page, itemPerPage, filter,
+                    _materialRepository.GetOrderedByDescAndNotTopAsync(filters.Page, filters.ItemsPerPage, filter,
                         x => x.AdditionTime);
             var newsForView = topNews.Concat(news.OrderByDescending(x => x.AdditionTime));//bug need to research why need to order one more time
             var newsDtos = _mapper.Map<IEnumerable<MaterialMiniDto>>(newsForView);
@@ -124,23 +123,23 @@ namespace MyLiverpool.Business.Services
             return true;
         }
 
-        public async Task<bool> ActivateAsync(int id, ClaimsPrincipal claims)
+        public async Task<MaterialDto> ActivateAsync(int id, ClaimsPrincipal claims)
         {
             var material = await _materialRepository.GetByIdAsync(id);
             if (material == null)
             {
-                return false;
+                return null;
             }
 
             if ((!claims.IsInRole(nameof(RolesEnum.NewsFull)) && material.Type == MaterialType.News) ||
                 (!claims.IsInRole(nameof(RolesEnum.BlogFull)) && material.Type == MaterialType.Blogs))
             {
-                return false;
+                return null;
             }
 
                 material.Pending = false;
             await _materialRepository.UpdateAsync(material);
-            return true;
+            return _mapper.Map<MaterialDto>(material);
         }
 
         public async Task<MaterialDto> CreateAsync(MaterialDto model, int userId)

@@ -84,7 +84,7 @@ namespace MyLiverpool.Web.Mvc
 
             services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
 
-            services.AddMemoryCache();
+            services.AddCustomRedisCache(Configuration);
 
             var context = (LiverpoolContext)services.BuildServiceProvider().GetService(typeof(LiverpoolContext));
             context.Database.Migrate();

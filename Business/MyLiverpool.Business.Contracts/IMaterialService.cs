@@ -11,7 +11,7 @@ namespace MyLiverpool.Business.Contracts
     {
         Task<bool> DeleteAsync(int id, ClaimsPrincipal claims);
 
-        Task<bool> ActivateAsync(int id, ClaimsPrincipal claims);
+        Task<MaterialDto> ActivateAsync(int id, ClaimsPrincipal claims);
 
         Task<PageableData<MaterialMiniDto>> GetDtoAllAsync(MaterialFiltersDto filters);
 

@@ -4,7 +4,6 @@ using AspNet.Security.OAuth.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Caching.Memory;
 using MyLfc.Common.Web;
 using MyLfc.Common.Web.Hubs;
 using MyLiverpool.Business.Contracts;
@@ -25,7 +24,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     public class CommentController : Controller
     {
         private readonly ICommentService _commentService;
-        private readonly IMemoryCache _cache;
+        private readonly IDistributedCacheManager _cacheManager;
         private readonly ISignalRHubAggregator _signalRHubAggregator;
 
         /// <summary>
@@ -34,10 +33,10 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <param name="commentService"></param>
         /// <param name="cache"></param>
         /// <param name="signalRHubAggregator"></param>
-        public CommentController(ICommentService commentService, IMemoryCache cache, ISignalRHubAggregator signalRHubAggregator)
+        public CommentController(ICommentService commentService, IDistributedCacheManager cache, ISignalRHubAggregator signalRHubAggregator)
         {
             _commentService = commentService;
-            _cache = cache;
+            _cacheManager = cache;
             _signalRHubAggregator = signalRHubAggregator;
         }
 
@@ -69,8 +68,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [AllowAnonymous, HttpGet("list/last")]
         public async Task<IActionResult> GetLastList()
         {
-
-            var result = await _cache.GetOrCreateAsync(CacheKeysConstants.LastComments, async x => await _commentService.GetLastListAsync());
+            var result = await _cacheManager.GetOrCreateAsync(CacheKeysConstants.LastComments,
+                async () => await _commentService.GetLastListAsync());
             return Json(result);
         }
 
@@ -131,8 +130,9 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             dto.IsVerified = IsSiteTeamMember();
             dto.AuthorId = User.GetUserId();
             var result = await _commentService.AddAsync(dto);
-            CleanMaterialCache();
-            _cache.Remove(CacheKeysConstants.LastComments);
+            
+            _cacheManager.RemoveAsync(CacheKeysConstants.MaterialList);
+            _cacheManager.RemoveAsync(CacheKeysConstants.LastComments);
             result.AuthorUserName = User.Identity.Name;
 
             var oldMessage = result.Message.Substring(0);
@@ -140,7 +140,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
 
             if (!string.IsNullOrWhiteSpace(result.Message))
             {
-                _signalRHubAggregator.Send("addComment", result);
+                _signalRHubAggregator.Send(HubEndpointConstants.AddComment, result);
             }
 
             result.Message = oldMessage;
@@ -162,7 +162,9 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             }
 
             var result = await _commentService.DeleteAsync(id);
-            CleanMaterialCache();
+
+            _cacheManager.RemoveAsync(CacheKeysConstants.MaterialList);
+            _cacheManager.RemoveAsync(CacheKeysConstants.LastComments);
             return Ok(result);
         }
 
@@ -187,6 +189,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             dto.IsVerified = IsSiteTeamMember();
 
             var result = await _commentService.UpdateAsync(dto);
+            _cacheManager.RemoveAsync(CacheKeysConstants.LastComments);
+
             return Ok(result);
         }       
         
@@ -219,7 +223,6 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                                  || User.IsInRole(nameof(RolesEnum.UserStart)));
         }
 
-
         private MaterialFiltersDto GetBasicMaterialFilters(bool isNewsMaker)
         {
             return new MaterialFiltersDto
@@ -228,12 +231,6 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 MaterialType = MaterialType.Both,
                 IsInNewsmakerRole = isNewsMaker
             };
-        }
-
-        private void CleanMaterialCache()
-        {
-            _cache.Remove("MaterialList");//duplicate here and in material ctrl
-          //  _cache.Remove(GetBasicMaterialFilters(true).ToString());
         }
 
         //todo duplicate in commentService 
@@ -245,5 +242,6 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 comment.Message = comment.Message.Substring(0, GlobalConstants.LastCommentMessageSymbolCount) +
                                   "...";
             }
-        }}
+        }
+    }
 }

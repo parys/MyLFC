@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Caching.Memory;
 using MyLiverpool.Business.Contracts;
 
 namespace MyLiverpool.Web.Mvc.Controllers
@@ -9,12 +8,10 @@ namespace MyLiverpool.Web.Mvc.Controllers
     {
         private readonly ISeasonService _seasonService;
         private readonly IMatchEventService _matchEventService;
-        private readonly IMemoryCache _cache;
 
-        public SeasonsController(ISeasonService seasonService, IMemoryCache cache, IMatchEventService matchEventService)
+        public SeasonsController(ISeasonService seasonService, IMatchEventService matchEventService)
         {
             _seasonService = seasonService;
-            _cache = cache;
             _matchEventService = matchEventService;
         }
 

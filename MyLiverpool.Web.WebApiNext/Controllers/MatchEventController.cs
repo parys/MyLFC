@@ -21,17 +21,17 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     public class MatchEventController : Controller
     {
         private readonly IMatchEventService _matchEventService;
-        private readonly IMemoryCache _cache;
+        private readonly IDistributedCacheManager _cacheManager;
 
         /// <summary>
         /// Constructor.
         /// </summary>
         /// <param name="matchEventService"></param>
-        /// <param name="cache"></param>
-        public MatchEventController(IMatchEventService matchEventService, IMemoryCache cache)
+        /// <param name="cacheManager"></param>
+        public MatchEventController(IMatchEventService matchEventService,  IDistributedCacheManager cacheManager)
         {
             _matchEventService = matchEventService;
-            _cache = cache;
+            _cacheManager = cacheManager;
         }
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             }
             var result = await _matchEventService.CreateAsync(dto);
 
-            _cache.Remove(CacheKeysConstants.MatchCalendarCacheConst);
+            _cacheManager.RemoveAsync(CacheKeysConstants.MatchCalendarCacheConst);
             return Ok(result);
         }
 
@@ -67,7 +67,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             }
             var result = await _matchEventService.UpdateAsync(dto);
 
-            _cache.Remove(CacheKeysConstants.MatchCalendarCacheConst);
+            _cacheManager.RemoveAsync(CacheKeysConstants.MatchCalendarCacheConst);
             return Ok(result);
         }
 
@@ -123,7 +123,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         {
             var result = await _matchEventService.DeleteAsync(id);
 
-            _cache.Remove(CacheKeysConstants.MatchCalendarCacheConst);
+            _cacheManager.RemoveAsync(CacheKeysConstants.MatchCalendarCacheConst);
             return Ok(result);
         }
     }

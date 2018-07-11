@@ -8,15 +8,15 @@
         /// <summary>
         /// Key name of match calendar.
         /// </summary>
-        public const string MatchCalendarCacheConst = "calendarMatch";
+        public const string MatchCalendarCacheConst = "CalendarMatch";
         /// <summary>
         /// Key name of match header.
         /// </summary>
-        public const string HeaderMatchId = "headerMatchId";
+        public const string HeaderMatchId = "HeaderMatchId";
         /// <summary>
         /// Key name of notification.
         /// </summary>
-        public const string NotificationUserId = "notificationForUser";
+        public const string NotificationUserId = "NotificationForUser";
 
 
         public const string Material = "Material";
@@ -25,6 +25,14 @@
 
         public const string ChatName = "Chat";
 
-        public const string LastComments = "lastComments";
+        public const string LastComments = "LastComments";
+
+        public const string LastInjuries = "LastInjuries";
+
+        public const string PersonBday = "PersonBday";
+
+        public const string BestPlayerMemKey = "BestPlayer";
+
+        public const string UserBirthdays = "UserBirthdays";
     }
 }

@@ -2,6 +2,7 @@
 
 namespace MyLiverpool.Business.Dto
 {
+    [Serializable]
     public class InjuryDto : IDto
     {
         public int Id { get; set; }

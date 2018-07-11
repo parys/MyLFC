@@ -1,7 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace MyLiverpool.Business.Dto
 {
+    [Serializable]
     public class ClubDto : IDto
     {
         public int Id { get; set; }

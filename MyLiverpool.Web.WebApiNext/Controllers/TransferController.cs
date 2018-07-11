@@ -14,7 +14,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     [Authorize(AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme), Route("api/v1/[controller]")]
     public class TransferController : Controller
     {
-        private readonly ITransferService _transferService; 
+        private readonly ITransferService _transferService;
 
         /// <summary>
         /// Controller.

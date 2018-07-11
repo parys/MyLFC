@@ -4,6 +4,7 @@ using MyLiverpool.Data.Common;
 
 namespace MyLiverpool.Business.Dto
 {
+    [Serializable]
     public class CommentDto : IDto
     {
         public CommentDto()

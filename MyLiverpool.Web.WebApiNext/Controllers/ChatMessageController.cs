@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using AspNet.Security.OAuth.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Caching.Memory;
 using MyLfc.Common.Web;
 using MyLfc.Common.Web.Hubs;
 using MyLiverpool.Business.Contracts;
@@ -21,16 +20,17 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     public class ChatMessageController : Controller
     {
         private readonly IChatMessageService _chatMessageService;
-        private readonly IMemoryCache _cache;
+        private readonly IDistributedCacheManager _cacheManager;
         private readonly ISignalRHubAggregator _signalRHub;
+
         /// <summary>
         /// Controller.
         /// </summary>
-        public ChatMessageController(IChatMessageService chatMessageService, IMemoryCache cache, ISignalRHubAggregator signalRHub)
+        public ChatMessageController(IChatMessageService chatMessageService, ISignalRHubAggregator signalRHub, IDistributedCacheManager cacheManager)
         {
             _chatMessageService = chatMessageService;
-            _cache = cache;
             _signalRHub = signalRHub;
+            _cacheManager = cacheManager;
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             dto.Ip = HttpContext.GetIp();
             var result = await _chatMessageService.CreateAsync(dto);
             result.Ip = string.Empty;
-            RemoveCache((int)dto.Type);
+            _cacheManager.RemoveAsync(CacheKeysConstants.ChatName + (int)dto.Type);
 
              _signalRHub.Send(HubEndpointConstants.ChatEndpoint, result);
             return Ok(result);
@@ -60,8 +60,9 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         public async Task<IActionResult> DeleteAsync(int id)
         {
             var result = await _chatMessageService.DeleteAsync(id);
-            RemoveCache((int)ChatMessageTypeEnum.Mini);
-            RemoveCache((int)ChatMessageTypeEnum.All);
+
+            _cacheManager.RemoveAsync(CacheKeysConstants.ChatName + (int)ChatMessageTypeEnum.Mini);
+            _cacheManager.RemoveAsync(CacheKeysConstants.ChatName + (int)ChatMessageTypeEnum.All);
             return Ok(result);
         }     
         
@@ -75,9 +76,9 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             IEnumerable<ChatMessageDto> result;
             if (lastMessageId == 0)
             {
-                result = await _cache.GetOrCreateAsync(
+                result = await _cacheManager.GetOrCreateAsync(
                     CacheKeysConstants.ChatName + typeId,
-                    async x =>
+                    async () =>
                         await _chatMessageService.GetListAsync(lastMessageId, (ChatMessageTypeEnum)typeId));
             }
             else
@@ -116,13 +117,9 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             result.Ip = string.Empty;
 
             _signalRHub.Send(HubEndpointConstants.ChatEndpoint, result);
-            RemoveCache((int)dto.Type);
-            return Ok(result);
-        }
 
-        private void RemoveCache(int typeId)
-        {
-            _cache.Remove(CacheKeysConstants.ChatName + typeId);
+            _cacheManager.RemoveAsync(CacheKeysConstants.ChatName + (int)dto.Type);
+            return Ok(result);
         }
     }
 }

@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using System.Xml;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Caching.Memory;
 using Microsoft.SyndicationFeed;
 using Microsoft.SyndicationFeed.Rss;
 using MyLfc.Common.Web;
@@ -23,17 +22,17 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     public class RssController : Controller
     {
         private readonly IMaterialService _materialService;
-        private readonly IMemoryCache _cache;
+        private readonly IDistributedCacheManager _cacheManager;
 
         /// <summary>
         /// Constructor.
         /// </summary>
         /// <param name="materialService"></param>
         /// <param name="cache"></param>
-        public RssController(IMaterialService materialService, IMemoryCache cache)
+        public RssController(IMaterialService materialService, IDistributedCacheManager cache)
         {
             _materialService = materialService;
-            _cache = cache;
+            _cacheManager = cache;
         }
 
         /// <summary>
@@ -44,7 +43,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [AllowAnonymous, HttpGet]
         public async Task<IActionResult> GetRssAsync()
         {
-            var result = await _cache.GetOrCreateAsync(CacheKeysConstants.MaterialList, async x =>
+            var result = await _cacheManager.GetOrCreateAsync(CacheKeysConstants.MaterialList, async () =>
                 await _materialService.GetDtoAllAsync(GetBasicMaterialFilters(false)));
 
             var host = Request.Scheme + "://" + Request.Host + "/";

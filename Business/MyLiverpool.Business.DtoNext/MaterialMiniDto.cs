@@ -3,6 +3,7 @@ using MyLiverpool.Data.Common;
 
 namespace MyLiverpool.Business.Dto
 {
+    [Serializable]
     public class MaterialMiniDto : IDto
     {
         public int Id { get; set; }

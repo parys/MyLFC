@@ -2,7 +2,6 @@
 using AspNet.Security.OAuth.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Caching.Memory;
 using MyLfc.Common.Web.Hubs;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
@@ -18,19 +17,15 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     {
         private readonly IPmService _pmService;
         private readonly ISignalRHubAggregator _signalRHub;
-        private readonly IMemoryCache _cache;
-        private const string UserPm = "userPm";
 
         /// <summary>
         /// Constructor.
         /// </summary>
         /// <param name="pmService"></param>
-        /// <param name="cache"></param>
         /// <param name="signalRHub"></param>
-        public PmController(IPmService pmService, IMemoryCache cache, ISignalRHubAggregator signalRHub)
+        public PmController(IPmService pmService, ISignalRHubAggregator signalRHub)
         {
             _pmService = pmService;
-            _cache = cache;
             _signalRHub = signalRHub;
         }
 

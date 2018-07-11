@@ -2,24 +2,24 @@
 
 export const slideOutLeft = [
     style({
-        left: "0",
-        position: "fixed",
+        left: "-50%",
         offset: 0
     }),
     style({
         left: "-99%",
+        position: "fixed",
         offset: 1
     })
 ];
 
 export const slideOutRight = [
     style({
-        left: "0",
-        position: "fixed",
+        left: "50%",
         offset: 0
     }),
     style({
         left: "99%",
+        position: "fixed",
         offset: 1
     })
 ];

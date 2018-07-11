@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace MyLiverpool.Business.Dto
 {
+    [Serializable]
     public class MatchDto : IDto
     {
         public int Id { get; set; }

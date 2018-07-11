@@ -4,6 +4,7 @@ using MyLiverpool.Data.Common;
 
 namespace MyLiverpool.Business.Dto
 {
+    [Serializable]
     public class PersonDto: IDto
     {
         public int Id { get; set; }

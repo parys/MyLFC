@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using AspNet.Security.OAuth.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Caching.Memory;
+using MyLfc.Common.Web;
 using MyLfc.Common.Web.OnlineCounting;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
@@ -24,8 +24,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     {
         private readonly IUserService _userService;
         private readonly IUploadService _uploadService;//todo should call remove and method move to user service
-        private readonly IMemoryCache _cache; 
-        private const string UserBirthdays = "UserBirthdays";
+        private readonly IDistributedCacheManager _cacheManager; 
 
         /// <summary>
         /// Constructor.
@@ -33,11 +32,11 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <param name="userService"></param>
         /// <param name="uploadService"></param>
         /// <param name="cache"></param>
-        public UserController(IUserService userService, IUploadService uploadService, IMemoryCache cache)
+        public UserController(IUserService userService, IUploadService uploadService, IDistributedCacheManager cache)
         {
             _userService = userService;
             _uploadService = uploadService;
-            _cache = cache;
+            _cacheManager = cache;
         }
         
         /// <summary>
@@ -90,6 +89,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             }
             dto.Id = User.GetUserId();
             var result = await _userService.UpdateAsync(dto);
+            _cacheManager.RemoveAsync(CacheKeysConstants.UserBirthdays);
             return Ok(result);
         }
 
@@ -151,22 +151,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <returns></returns>
         [AllowAnonymous, HttpGet("online")]
-        public IActionResult GetOnlineCounter()//todo think maybe get unique id like guid from frontend
+        public IActionResult GetOnlineCounter()
         {
-        //    if (User.Identity.IsAuthenticated)
-        //    {
-        //        var model = new OnlineCounterModel
-        //        {
-        //            Id = User.GetUserId(),
-        //            Date = DateTimeOffset.Now,
-        //            UserName = User.Identity.Name
-        //        };
-        //        OnlineCounter.AddUserToOnline(model);
-        //    }
-        //    else
-        //    {
-        //        OnlineCounter.AddGuestToOnline(HttpContext.Connection.RemoteIpAddress.ToString());
-        //    }
             return Json(OnlineUsers.GetStats());
         }
 
@@ -188,7 +174,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [AllowAnonymous, HttpGet("birthdays")]
         public async Task<IActionResult> GetBirthdaysAsync()
         {
-            var result = await _cache.GetOrCreateAsync(UserBirthdays + DateTime.Today, async x => await _userService.GetBirthdaysAsync());
+            var result = await _cacheManager.GetOrCreateAsync(CacheKeysConstants.UserBirthdays + DateTime.Today,
+                async () => await _userService.GetBirthdaysAsync());
             return Json(result);
         }
 

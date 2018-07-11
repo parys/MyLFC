@@ -2,7 +2,7 @@
 using AspNet.Security.OAuth.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Caching.Memory;
+using MyLfc.Common.Web;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Common.Utilities;
 using MyLiverpool.Data.Common;
@@ -16,17 +16,17 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     public class HelperController: Controller
     {
         private readonly IHelperService _helperService;
-        private readonly IMemoryCache _cache;
+        private readonly IDistributedCacheManager _cacheManager;
 
         /// <summary>
         /// Constructor.
         /// </summary>
         /// <param name="helperService"></param>
         /// <param name="cache"></param>
-        public HelperController(IHelperService helperService, IMemoryCache cache)
+        public HelperController(IHelperService helperService, IDistributedCacheManager cache)
         {
             _helperService = helperService;
-            _cache = cache;
+            _cacheManager = cache;
         }
 
         /// <summary>
@@ -36,7 +36,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [AllowAnonymous, HttpGet("value/{id:int}")]
         public async Task<IActionResult> GetAsync(int id)
         {
-            var result = await _cache.GetOrCreateAsync(GlobalConstants.HelperEntity + id, async x => await _helperService.GetAsync((HelperEntityType)id));
+            var result = await _cacheManager.GetOrCreateStringAsync(GlobalConstants.HelperEntity + id,
+                async () => await _helperService.GetAsync((HelperEntityType) id));
             return Ok(result);
         }
 
@@ -47,8 +48,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Authorize(Roles = nameof(RolesEnum.AdminStart)), HttpPut("value/{id:int}")]
         public async Task<IActionResult> UpdateAsync(int id, [FromBody]string value)
         {
-            _cache.Remove(GlobalConstants.HelperEntity + id);
             var result = await _helperService.UpdateAsync((HelperEntityType)id, value);
+            _cacheManager.SetStringAsync(GlobalConstants.HelperEntity + id, value);
             return Json(result);
         }
     }

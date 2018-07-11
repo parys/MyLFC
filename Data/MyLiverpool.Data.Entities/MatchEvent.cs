@@ -1,7 +1,9 @@
-﻿using MyLiverpool.Data.Common;
+﻿using System;
+using MyLiverpool.Data.Common;
 
 namespace MyLiverpool.Data.Entities
 {
+    [Serializable]
     public class MatchEvent : IEntity
     {
         public int Id { get; set; }

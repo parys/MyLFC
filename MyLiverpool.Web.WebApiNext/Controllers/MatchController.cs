@@ -4,13 +4,11 @@ using System.Threading.Tasks;
 using AspNet.Security.OAuth.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Caching.Memory;
 using MyLfc.Common.Web;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
-using MyLiverpool.Web.WebApiNext.Extensions;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
@@ -23,19 +21,19 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     {
         private readonly IMatchService _matchService;
         private readonly IHelperService _helperService;
-        private readonly IMemoryCache _cache;
+        private readonly IDistributedCacheManager _cacheManager;
 
         /// <summary>
         /// Constructor.
         /// </summary>
         /// <param name="matchService">Injected value.</param>
-        /// <param name="cache"></param>
         /// <param name="helperService"></param>
-        public MatchController(IMatchService matchService, IMemoryCache cache, IHelperService helperService)
+        /// <param name="cacheManager"></param>
+        public MatchController(IMatchService matchService, IHelperService helperService, IDistributedCacheManager cacheManager)
         {
             _matchService = matchService;
-            _cache = cache;
             _helperService = helperService;
+            _cacheManager = cacheManager;
         }
 
         /// <summary>
@@ -51,7 +49,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 return BadRequest(ModelState);
             }
             var result = await _matchService.CreateAsync(dto);
-            RemoveCalendarFromCache();
+            _cacheManager.RemoveAsync(CacheKeysConstants.MatchCalendarCacheConst);
             return Ok(result);
         }
 
@@ -69,7 +67,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 return BadRequest();
             }
             var result = await _matchService.UpdateAsync(dto);
-            RemoveCalendarFromCache();
+            _cacheManager.RemoveAsync(CacheKeysConstants.MatchCalendarCacheConst);
             return Ok(result);
         }      
         
@@ -96,8 +94,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [AllowAnonymous, HttpGet("header")]
         public async Task<IActionResult> GetForHeaderAsync()
         {
-            var helpEntity = await _cache.GetOrCreateAsync(CacheKeysConstants.HeaderMatchId,
-                async x => await _helperService.GetAsync(HelperEntityType.HeaderMatch));
+            var helpEntity = await _cacheManager.GetOrCreateAsync(CacheKeysConstants.HeaderMatchId,
+                async () => await _helperService.GetAsync(HelperEntityType.HeaderMatch));
             if (!string.IsNullOrWhiteSpace(helpEntity))
             {
                 var result = await _matchService.GetByIdAsync(int.Parse(helpEntity));
@@ -115,7 +113,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         public async Task<IActionResult> SetAsHeader(int id)
         {
             await _helperService.UpdateAsync(HelperEntityType.HeaderMatch, id > 0 ? id.ToString() : null);
-            _cache.Remove(CacheKeysConstants.HeaderMatchId);
+            _cacheManager.RemoveAsync(CacheKeysConstants.HeaderMatchId);
             return Json(true);
         }
 
@@ -126,8 +124,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [AllowAnonymous, HttpGet("getForCalendar")]
         public async Task<IActionResult> GetForCalendarAsync()
         {
-            var result = await _cache.GetOrCreateAsync(CacheKeysConstants.MatchCalendarCacheConst,
-                async x => await _matchService.GetForCalendarAsync());
+            var result = await _cacheManager.GetOrCreateAsync(CacheKeysConstants.MatchCalendarCacheConst,
+                async () => await _matchService.GetForCalendarAsync());
             return Ok(result);
         }
 
@@ -169,14 +167,9 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Authorize(Roles = nameof(RolesEnum.InfoStart)), HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteAsync(int id)
         {
-            RemoveCalendarFromCache();
+            _cacheManager.RemoveAsync(CacheKeysConstants.MatchCalendarCacheConst);
             var result = await _matchService.DeleteAsync(id);
             return Ok(result);
-        }
-
-        private void RemoveCalendarFromCache()
-        {
-            _cache.Remove(CacheKeysConstants.MatchCalendarCacheConst);
         }
     }
 }

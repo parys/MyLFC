@@ -5,6 +5,7 @@ using AspNet.Security.OAuth.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
+using MyLfc.Common.Web;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Business.Dto.Filters;
@@ -23,21 +24,19 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     {
         private readonly IPersonService _personService;
         private readonly IUploadService _uploadService;
-        private readonly IMemoryCache _cache;
-        private const string BestPlayerMemKey = "bestPlayer";
-        private const string PersonBday = "PersonBday";
+        private readonly IDistributedCacheManager _cacheManager;
 
         /// <summary>
         /// Controller.
         /// </summary>
         /// <param name="personService"></param>
         /// <param name="uploadService"></param>
-        /// <param name="cache"></param>
-        public PersonController(IPersonService personService, IUploadService uploadService, IMemoryCache cache)
+        /// <param name="cacheManager"></param>
+        public PersonController(IPersonService personService, IUploadService uploadService, IDistributedCacheManager cacheManager)
         {
             _personService = personService;
             _uploadService = uploadService;
-            _cache = cache;
+            _cacheManager = cacheManager;
         }
 
         /// <summary>
@@ -53,7 +52,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 return BadRequest();
             }
             var result = await _personService.CreateAsync(dto);
-            _cache.Remove(PersonBday + DateTime.Today);
+            _cacheManager.RemoveAsync(CacheKeysConstants.PersonBday + DateTime.Today);
             return Ok(result);
         }
 
@@ -139,7 +138,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [AllowAnonymous, HttpGet("bestPlayer")]
         public async Task<IActionResult> GetBestPlayerAsync()
         {
-            var result = await _cache.GetOrCreateAsync(BestPlayerMemKey, async x => await _personService.GetBestPlayerAsync());
+            var result = await _cacheManager.GetOrCreateAsync(CacheKeysConstants.BestPlayerMemKey,
+                async () => await _personService.GetBestPlayerAsync());
             return Ok(result);
         }
 
@@ -151,7 +151,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         public async Task<IActionResult> SetBestPlayerAsync(int personId)
         {
             await _personService.SetBestPlayerAsync(personId);
-            _cache.Remove(BestPlayerMemKey);
+            _cacheManager.RemoveAsync(CacheKeysConstants.BestPlayerMemKey);
             return Ok(true);
         }
 
@@ -162,7 +162,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [AllowAnonymous, HttpGet("birthdays")]
         public async Task<IActionResult> GetBirthdaysAsync()
         {
-            var result = await _cache.GetOrCreateAsync(PersonBday + DateTime.Today, async x => await _personService.GetBirthdaysAsync());
+            var result = await _cacheManager.GetOrCreateAsync(CacheKeysConstants.PersonBday + DateTime.Today,
+                async () => await _personService.GetBirthdaysAsync());
             return Json(result);
         }
 
@@ -180,7 +181,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 return BadRequest();
             }
             var result = await _personService.UpdateAsync(dto);
-            _cache.Remove(PersonBday + DateTime.Today);
+            _cacheManager.RemoveAsync(CacheKeysConstants.PersonBday + DateTime.Today);
             return Ok(result);
         }
 
