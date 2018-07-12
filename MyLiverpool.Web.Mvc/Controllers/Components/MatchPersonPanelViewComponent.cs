@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Caching.Memory;
 using MyLfc.Business.ViewModels;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
@@ -13,12 +12,10 @@ namespace MyLiverpool.Web.Mvc.Controllers.Components
     public class MatchPersonPanelViewComponent : ViewComponent
     {
         private readonly IMatchPersonService _matchPersonService;
-        private readonly IMemoryCache _cache;
 
-        public MatchPersonPanelViewComponent(IMatchPersonService matchPersonService, IMemoryCache cache)
+        public MatchPersonPanelViewComponent(IMatchPersonService matchPersonService)
         {
             _matchPersonService = matchPersonService;
-            _cache = cache;
         }
 
         public async Task<IViewComponentResult> InvokeAsync(int matchId, bool isHome)

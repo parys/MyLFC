@@ -69,5 +69,5 @@
         @*<comment-section id="comments" [matchId]="item.id" [canCommentary]="true"></comment-section>*@
         <vc:comment-section match-id="@Model.Id"></vc:comment-section>
         @await Component.InvokeAsync("CommentSection", new { matchId = Model.Id })
-             
+
     </div>

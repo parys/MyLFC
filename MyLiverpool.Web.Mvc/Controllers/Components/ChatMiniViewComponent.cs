@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Caching.Memory;
 using MyLfc.Common.Web;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
@@ -12,12 +11,12 @@ namespace MyLiverpool.Web.Mvc.Controllers.Components
     public class ChatMiniViewComponent : ViewComponent
     {
         private readonly IChatMessageService _chatMessageService;
-        private readonly IMemoryCache _cache;
+        private readonly IDistributedCacheManager _cacheManager;
 
-        public ChatMiniViewComponent(IChatMessageService chatMessageService, IMemoryCache cache)
+        public ChatMiniViewComponent(IChatMessageService chatMessageService, IDistributedCacheManager cache)
         {
             _chatMessageService = chatMessageService;
-            _cache = cache;
+            _cacheManager = cache;
         }
 
         public async Task<IViewComponentResult> InvokeAsync(int lastMessageId = 0)
@@ -25,9 +24,8 @@ namespace MyLiverpool.Web.Mvc.Controllers.Components
             IEnumerable<ChatMessageDto> result;
             if (lastMessageId == 0)
             {
-                result = //await _cache.GetOrCreateAsync(CacheKeysConstants.ChatName + (int)ChatMessageTypeEnum.Mini,
-                  //  async x =>
-                        await _chatMessageService.GetListAsync(lastMessageId, ChatMessageTypeEnum.Mini);//);
+                result = await _cacheManager.GetOrCreateAsync(CacheKeysConstants.ChatName + (int)ChatMessageTypeEnum.Mini,
+                    async () => await _chatMessageService.GetListAsync(lastMessageId, ChatMessageTypeEnum.Mini));
             }
             else
             {

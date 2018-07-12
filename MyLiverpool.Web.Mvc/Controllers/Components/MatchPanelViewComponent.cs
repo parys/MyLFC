@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Caching.Memory;
 using MyLfc.Common.Web;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
@@ -12,20 +11,19 @@ namespace MyLiverpool.Web.Mvc.Controllers.Components
     {
         private readonly IMatchService _matchService;
         private readonly IHelperService _helperService;
-        private readonly IMemoryCache _cache;
+        private readonly IDistributedCacheManager _cacheManager;
 
-        public MatchPanelViewComponent(IMatchService matchService, IMemoryCache cache, IHelperService helperService)
+        public MatchPanelViewComponent(IMatchService matchService, IDistributedCacheManager cache, IHelperService helperService)
         {
             _matchService = matchService;
-            _cache = cache;
+            _cacheManager = cache;
             _helperService = helperService;
         }
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var helpEntity = //await _cache.GetOrCreateAsync(CacheKeysConstants.HeaderMatchId,
-              //  async x => 
-                    await _helperService.GetAsync(HelperEntityType.HeaderMatch);//);
+            var helpEntity = await _cacheManager.GetOrCreateAsync(CacheKeysConstants.HeaderMatchId,
+                async () => await _helperService.GetAsync(HelperEntityType.HeaderMatch));
             if (!string.IsNullOrWhiteSpace(helpEntity))
             {
                 var result = await _matchService.GetByIdAsync(int.Parse(helpEntity));

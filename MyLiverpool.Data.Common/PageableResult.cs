@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MyLiverpool.Common.Utilities
+namespace MyLiverpool.Data.Common
 {
+    [Serializable]
     public class PageableData<T> where T : class
     {
         protected int ItemPerPageDefault = 15;

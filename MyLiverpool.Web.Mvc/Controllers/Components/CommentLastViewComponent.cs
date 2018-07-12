@@ -1,26 +1,25 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Caching.Memory;
 using MyLfc.Common.Web;
 using MyLiverpool.Business.Contracts;
 
-namespace MyLiverpool.Web.WebApiNext.Areas.Lite.Controllers.Components
+namespace MyLiverpool.Web.Mvc.Controllers.Components
 {
     public class CommentLastViewComponent : ViewComponent
     {
-        private readonly IMemoryCache _cache;
+        private readonly IDistributedCacheManager _cacheManager;
         private readonly ICommentService _commentService;
 
-        public CommentLastViewComponent(IMemoryCache cache, ICommentService commentService)
+        public CommentLastViewComponent(IDistributedCacheManager cache, ICommentService commentService)
         {
-            _cache = cache;
+            _cacheManager = cache;
             _commentService = commentService;
         }
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var result = //await _cache.GetOrCreateAsync(CacheKeysConstants.LastComments, async x => 
-                await _commentService.GetLastListAsync();//);
+            var result = await _cacheManager.GetOrCreateAsync(CacheKeysConstants.LastComments, async () => 
+                await _commentService.GetLastListAsync());
             return View(result);
         }
     }

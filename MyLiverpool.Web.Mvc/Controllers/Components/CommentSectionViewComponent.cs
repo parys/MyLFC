@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
-using MyLiverpool.Common.Utilities;
+using MyLiverpool.Data.Common;
 
-namespace MyLiverpool.Web.WebApiNext.Areas.Lite.Controllers.Components
+namespace MyLiverpool.Web.Mvc.Controllers.Components
 {
     [ViewComponent(Name = "CommentSection")]
     public class CommentSectionViewComponent : ViewComponent

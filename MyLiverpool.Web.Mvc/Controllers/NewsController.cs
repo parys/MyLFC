@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using MyLfc.Common.Web;
 using MyLiverpool.Business.Contracts;
+using MyLiverpool.Business.Dto;
 using MyLiverpool.Business.Dto.Filters;
 using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
@@ -19,17 +21,17 @@ namespace MyLiverpool.Web.Mvc.Controllers
     public class NewsController : Controller
     {
         private readonly IMaterialService _materialService;
-        private readonly IMemoryCache _cache;
+        private readonly IDistributedCacheManager _cacheManager;
 
         /// <summary>
         /// Constructor.
         /// </summary>
         /// <param name="materialService"></param>
         /// <param name="cache"></param>
-        public NewsController(IMaterialService materialService, IMemoryCache cache)
+        public NewsController(IMaterialService materialService, IDistributedCacheManager cache)
         {
             _materialService = materialService;
-            _cache = cache;
+            _cacheManager = cache;
         }
 
         /// <summary>
@@ -63,8 +65,8 @@ namespace MyLiverpool.Web.Mvc.Controllers
         public async Task<IActionResult> Detail(int id)
         {
             var hasAccess = User != null && (User.IsInRole(nameof(RolesEnum.NewsStart)) || User.IsInRole(nameof(RolesEnum.BlogStart)));
-            var model = //await _cache.GetOrCreateAsync(CacheKeysConstants.Material + id, async x =>
-                await _materialService.GetDtoAsync(id, hasAccess);//);
+            var model = await _cacheManager.GetOrCreateAsync(CacheKeysConstants.Material + id, 
+                async () => await _materialService.GetDtoAsync(id, hasAccess));
             if (model == null)
             {
                 return RedirectToAction("Index", "News");
@@ -84,11 +86,29 @@ namespace MyLiverpool.Web.Mvc.Controllers
                 Response.Cookies.Append(label, "1", options);
                 model.Reads++;
                 await _materialService.AddViewAsync(id);
-                _cache.Remove(CacheKeysConstants.Material + id);
-                _cache.Remove(CacheKeysConstants.MaterialList);
+                UpdateMaterialCacheAddViewAsync(id);
             }
 
             return View("../Materials/Detail", model);
+        }
+
+        private async void UpdateMaterialCacheAddViewAsync(int materialId)
+        {
+            var materialCache = await _cacheManager.GetAsync<MaterialDto>(CacheKeysConstants.Material + materialId);
+            if (materialCache != null)
+            {
+                materialCache.Reads++;
+                _cacheManager.SetAsync(CacheKeysConstants.Material + materialId, materialCache);
+            }
+
+            var materialsCache = await _cacheManager.GetAsync<PageableData<MaterialMiniDto>>(CacheKeysConstants.MaterialList);
+
+            var material = materialsCache?.List.FirstOrDefault(x => x.Id == materialId);
+            if (material != null)
+            {
+                material.Reads++;
+                _cacheManager.SetAsync(CacheKeysConstants.MaterialList, materialsCache);
+            }
         }
     }
 }

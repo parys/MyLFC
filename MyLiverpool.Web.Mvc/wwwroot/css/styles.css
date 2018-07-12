@@ -441,14 +441,14 @@ textarea {
 }
 
 @media(max-width: 1209px) { /* should based on menu length? todo*/
-    .liverbird-navbar > img {
+    .liverbird-navbar {
         display: none;
     }
 }
 @media(min-width: 1210px) {
     .liverbird-navbar { margin-left: auto; }
 
-    .liverbird-navbar > img { max-height: 90px; }
+    .liverbird-navbar > img { max-height: 65px; }
 }
 
 .login-list-panel {

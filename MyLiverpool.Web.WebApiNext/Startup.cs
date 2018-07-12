@@ -122,7 +122,6 @@ namespace MyLiverpool.Web.WebApiNext
             services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
             services.Configure<SsrSettings>(Configuration.GetSection("SSR"));
 
-            services.AddMemoryCache();//todo
             services.AddCustomRedisCache(Configuration);
 
             //   services.AddAntiforgery(options => options.HeaderName = "X-XSRF-TOKEN");

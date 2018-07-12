@@ -15,7 +15,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "MyLiverpool.Web.WebApiNext": {
+    "Kestrel-SPA": {
       "commandName": "Project",
       "launchBrowser": false,
       "environmentVariables": {

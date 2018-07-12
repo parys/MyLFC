@@ -32,12 +32,12 @@
 </head>
 <body>
 <nav class="navbar navbar-default maroon-panel container-row beauty-font bg-header">
-    <div class="container-fluid flex-space-between">
+    <div class="flex-space-between">
         <a role="button" asp-action="Index" asp-controller="Home" style="margin-right: 10px; z-index: 9999">
             <img src="/content/logo34.png" style="max-width: 240px; margin: 0;" alt="MyLFC.ru" />
         </a>
-        <div class="navbar-header flex-v-c">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+        <div class="navbar-header flex-v-c collapsed">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -126,10 +126,10 @@
                         <a *ngIf="roles.isModerator" [routerLink]="['/materialComments']" [queryParams]="{page: 1}" mat-menu-item>Комментарии</a>
                     </mat-menu>
                 </li>*@
-                <li class="liverbird-navbar">
-                    <img alt="125 лет со дня основания ФК Ливерпуль" src="/content/liverbird5.png">
-                </li>
             </ul>
+        </div>
+        <div class="liverbird-navbar">
+            <img alt="125 лет со дня основания ФК Ливерпуль" src="/content/liverbird5.png">
         </div>
     </div>
 </nav>

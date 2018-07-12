@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Business.Dto.Filters;
-using MyLiverpool.Common.Utilities;
+using MyLiverpool.Data.Common;
 using MyLiverpool.Data.Entities;
 
 namespace MyLiverpool.Business.Contracts

@@ -1,4 +1,4 @@
-﻿using MyLiverpool.Common.Utilities;
+﻿using MyLiverpool.Data.Common;
 
 namespace MyLiverpool.Business.Dto
 {

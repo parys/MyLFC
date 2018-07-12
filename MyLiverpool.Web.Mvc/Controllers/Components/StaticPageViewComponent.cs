@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Caching.Memory;
+using MyLfc.Common.Web;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Common.Utilities;
 using MyLiverpool.Data.Common;
@@ -10,18 +10,18 @@ namespace MyLiverpool.Web.Mvc.Controllers.Components
     public class StaticPageViewComponent : ViewComponent
     {
         private readonly IHelperService _helperService;
-        private readonly IMemoryCache _cache;
+        private readonly IDistributedCacheManager _cacheManager;
 
-        public StaticPageViewComponent(IHelperService helperService, IMemoryCache cache)
+        public StaticPageViewComponent(IHelperService helperService, IDistributedCacheManager cache)
         {
             _helperService = helperService;
-            _cache = cache;
+            _cacheManager = cache;
         }
 
         public async Task<IViewComponentResult> InvokeAsync(HelperEntityType type)
         {
-            var result = //await _cache.GetOrCreateAsync(GlobalConstants.HelperEntity + (int)type, async x => 
-                await _helperService.GetAsync(type);//);
+            var result = await _cacheManager.GetOrCreateStringAsync(GlobalConstants.HelperEntity + (int)type, 
+                async () => await _helperService.GetAsync(type));
             return View(model:result);
         }
     }
