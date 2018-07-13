@@ -5,6 +5,7 @@ using AspNet.Security.OAuth.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyLfc.Common.Web;
+using MyLfc.Common.Web.DistributedCache;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Common.Utilities.Extensions;
@@ -49,7 +50,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 return BadRequest(ModelState);
             }
             var result = await _matchService.CreateAsync(dto);
-            _cacheManager.RemoveAsync(CacheKeysConstants.MatchCalendarCacheConst);
+            _cacheManager.Remove(CacheKeysConstants.MatchCalendarCacheConst);
             return Ok(result);
         }
 
@@ -67,7 +68,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 return BadRequest();
             }
             var result = await _matchService.UpdateAsync(dto);
-            _cacheManager.RemoveAsync(CacheKeysConstants.MatchCalendarCacheConst);
+            _cacheManager.Remove(CacheKeysConstants.MatchCalendarCacheConst);
             return Ok(result);
         }      
         
@@ -113,7 +114,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         public async Task<IActionResult> SetAsHeader(int id)
         {
             await _helperService.UpdateAsync(HelperEntityType.HeaderMatch, id > 0 ? id.ToString() : null);
-            _cacheManager.RemoveAsync(CacheKeysConstants.HeaderMatchId);
+            _cacheManager.Remove(CacheKeysConstants.HeaderMatchId);
             return Json(true);
         }
 
@@ -167,7 +168,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Authorize(Roles = nameof(RolesEnum.InfoStart)), HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteAsync(int id)
         {
-            _cacheManager.RemoveAsync(CacheKeysConstants.MatchCalendarCacheConst);
+            _cacheManager.Remove(CacheKeysConstants.MatchCalendarCacheConst);
             var result = await _matchService.DeleteAsync(id);
             return Ok(result);
         }

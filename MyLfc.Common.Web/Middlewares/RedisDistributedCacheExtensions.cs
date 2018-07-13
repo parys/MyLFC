@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MyLfc.Common.Web.DistributedCache;
 
 namespace MyLfc.Common.Web.Middlewares
 {
@@ -12,7 +13,14 @@ namespace MyLfc.Common.Web.Middlewares
             {
                 opts.Configuration = redisConfig["Domain"] + ":" + redisConfig["Port"];
             });
-            services.AddTransient<IDistributedCacheManager, DistributedCacheManager>();
+            if (bool.Parse(redisConfig["Enabled"]))
+            {
+                services.AddTransient<IDistributedCacheManager, DistributedCacheManager>();
+            }
+            else
+            {
+                services.AddTransient<IDistributedCacheManager, DisabledCacheManager>();
+            }
 
             return services;
         }

@@ -4,6 +4,7 @@ using AspNet.Security.OAuth.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyLfc.Common.Web;
+using MyLfc.Common.Web.DistributedCache;
 using MyLfc.Common.Web.Hubs;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
@@ -45,7 +46,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             dto.Ip = HttpContext.GetIp();
             var result = await _chatMessageService.CreateAsync(dto);
             result.Ip = string.Empty;
-            _cacheManager.RemoveAsync(CacheKeysConstants.ChatName + (int)dto.Type);
+            _cacheManager.Remove(CacheKeysConstants.ChatName + (int)dto.Type);
 
              _signalRHub.Send(HubEndpointConstants.ChatEndpoint, result);
             return Ok(result);
@@ -61,8 +62,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         {
             var result = await _chatMessageService.DeleteAsync(id);
 
-            _cacheManager.RemoveAsync(CacheKeysConstants.ChatName + (int)ChatMessageTypeEnum.Mini);
-            _cacheManager.RemoveAsync(CacheKeysConstants.ChatName + (int)ChatMessageTypeEnum.All);
+            _cacheManager.Remove(CacheKeysConstants.ChatName + (int)ChatMessageTypeEnum.Mini);
+            _cacheManager.Remove(CacheKeysConstants.ChatName + (int)ChatMessageTypeEnum.All);
             return Ok(result);
         }     
         
@@ -118,7 +119,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
 
             _signalRHub.Send(HubEndpointConstants.ChatEndpoint, result);
 
-            _cacheManager.RemoveAsync(CacheKeysConstants.ChatName + (int)dto.Type);
+            _cacheManager.Remove(CacheKeysConstants.ChatName + (int)dto.Type);
             return Ok(result);
         }
     }

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MyLfc.Common.Web;
+using MyLfc.Common.Web.DistributedCache;
 using MyLfc.Common.Web.Hubs;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
@@ -131,8 +132,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             dto.AuthorId = User.GetUserId();
             var result = await _commentService.AddAsync(dto);
             
-            _cacheManager.RemoveAsync(CacheKeysConstants.MaterialList);
-            _cacheManager.RemoveAsync(CacheKeysConstants.LastComments);
+            _cacheManager.Remove(CacheKeysConstants.MaterialList);
+            _cacheManager.Remove(CacheKeysConstants.LastComments);
             result.AuthorUserName = User.Identity.Name;
 
             var oldMessage = result.Message.Substring(0);
@@ -163,8 +164,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
 
             var result = await _commentService.DeleteAsync(id);
 
-            _cacheManager.RemoveAsync(CacheKeysConstants.MaterialList);
-            _cacheManager.RemoveAsync(CacheKeysConstants.LastComments);
+            _cacheManager.Remove(CacheKeysConstants.MaterialList);
+            _cacheManager.Remove(CacheKeysConstants.LastComments);
             return Ok(result);
         }
 
@@ -189,7 +190,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             dto.IsVerified = IsSiteTeamMember();
 
             var result = await _commentService.UpdateAsync(dto);
-            _cacheManager.RemoveAsync(CacheKeysConstants.LastComments);
+            _cacheManager.Remove(CacheKeysConstants.LastComments);
 
             return Ok(result);
         }       

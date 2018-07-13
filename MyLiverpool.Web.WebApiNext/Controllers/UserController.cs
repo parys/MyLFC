@@ -5,6 +5,7 @@ using AspNet.Security.OAuth.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyLfc.Common.Web;
+using MyLfc.Common.Web.DistributedCache;
 using MyLfc.Common.Web.OnlineCounting;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
@@ -89,7 +90,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             }
             dto.Id = User.GetUserId();
             var result = await _userService.UpdateAsync(dto);
-            _cacheManager.RemoveAsync(CacheKeysConstants.UserBirthdays);
+            _cacheManager.Remove(CacheKeysConstants.UserBirthdays);
             return Ok(result);
         }
 

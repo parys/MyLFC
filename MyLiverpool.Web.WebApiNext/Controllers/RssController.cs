@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.SyndicationFeed;
 using Microsoft.SyndicationFeed.Rss;
 using MyLfc.Common.Web;
+using MyLfc.Common.Web.DistributedCache;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto.Filters;
 using MyLiverpool.Data.Common;

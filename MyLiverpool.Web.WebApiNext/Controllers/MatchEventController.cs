@@ -5,6 +5,7 @@ using AspNet.Security.OAuth.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyLfc.Common.Web;
+using MyLfc.Common.Web.DistributedCache;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Common.Utilities.Extensions;
@@ -47,7 +48,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             }
             var result = await _matchEventService.CreateAsync(dto);
 
-            _cacheManager.RemoveAsync(CacheKeysConstants.MatchCalendarCacheConst);
+            _cacheManager.Remove(CacheKeysConstants.MatchCalendarCacheConst);
             return Ok(result);
         }
 
@@ -66,7 +67,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             }
             var result = await _matchEventService.UpdateAsync(dto);
 
-            _cacheManager.RemoveAsync(CacheKeysConstants.MatchCalendarCacheConst);
+            _cacheManager.Remove(CacheKeysConstants.MatchCalendarCacheConst);
             return Ok(result);
         }
 
@@ -122,7 +123,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         {
             var result = await _matchEventService.DeleteAsync(id);
 
-            _cacheManager.RemoveAsync(CacheKeysConstants.MatchCalendarCacheConst);
+            _cacheManager.Remove(CacheKeysConstants.MatchCalendarCacheConst);
             return Ok(result);
         }
     }

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using MyLfc.Common.Web;
+using MyLfc.Common.Web.DistributedCache;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Business.Dto.Filters;
@@ -98,7 +99,7 @@ namespace MyLiverpool.Web.Mvc.Controllers
             if (materialCache != null)
             {
                 materialCache.Reads++;
-                _cacheManager.SetAsync(CacheKeysConstants.Material + materialId, materialCache);
+                _cacheManager.Set(CacheKeysConstants.Material + materialId, materialCache);
             }
 
             var materialsCache = await _cacheManager.GetAsync<PageableData<MaterialMiniDto>>(CacheKeysConstants.MaterialList);
@@ -107,7 +108,7 @@ namespace MyLiverpool.Web.Mvc.Controllers
             if (material != null)
             {
                 material.Reads++;
-                _cacheManager.SetAsync(CacheKeysConstants.MaterialList, materialsCache);
+                _cacheManager.Set(CacheKeysConstants.MaterialList, materialsCache);
             }
         }
     }

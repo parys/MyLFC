@@ -3,6 +3,7 @@ using AspNet.Security.OAuth.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyLfc.Common.Web;
+using MyLfc.Common.Web.DistributedCache;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Common.Utilities;
 using MyLiverpool.Data.Common;
@@ -38,7 +39,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         public async Task<IActionResult> UpdateEplTable()
         {
             var result = await _adminService.UpdateTableAsync();
-            _cacheManager.SetStringAsync(GlobalConstants.HelperEntity + (int)HelperEntityType.EplTable, result);
+            _cacheManager.SetString(GlobalConstants.HelperEntity + (int)HelperEntityType.EplTable, result);
             return Ok(result);
         }
     }

@@ -4,7 +4,7 @@ using Microsoft.Extensions.Caching.Distributed;
 using MyLiverpool.Common.Utilities;
 using StackExchange.Redis;
 
-namespace MyLfc.Common.Web
+namespace MyLfc.Common.Web.DistributedCache
 {
     public class DistributedCacheManager : IDistributedCacheManager
     {
@@ -15,7 +15,7 @@ namespace MyLfc.Common.Web
             _distributedCache = distributedCache;
         }
 
-        public async void SetAsync<T>(string key, T obj)
+        public async void Set<T>(string key, T obj)
         {
             try
             {
@@ -26,7 +26,7 @@ namespace MyLfc.Common.Web
             }
         }
 
-        public async void SetStringAsync(string key, string obj)
+        public async void SetString(string key, string obj)
         {
             try
             {
@@ -67,7 +67,7 @@ namespace MyLfc.Common.Web
             return null;
         }
 
-        public async void RemoveAsync(string key)
+        public async void Remove(string key)
         {
             try
             {

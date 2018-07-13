@@ -3,6 +3,7 @@ using AspNet.Security.OAuth.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyLfc.Common.Web;
+using MyLfc.Common.Web.DistributedCache;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Common.Utilities;
 using MyLiverpool.Data.Common;
@@ -49,7 +50,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         public async Task<IActionResult> UpdateAsync(int id, [FromBody]string value)
         {
             var result = await _helperService.UpdateAsync((HelperEntityType)id, value);
-            _cacheManager.SetStringAsync(GlobalConstants.HelperEntity + id, value);
+            _cacheManager.SetString(GlobalConstants.HelperEntity + id, value);
             return Json(result);
         }
     }

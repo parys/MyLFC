@@ -5,6 +5,7 @@ using AspNet.Security.OAuth.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyLfc.Common.Web;
+using MyLfc.Common.Web.DistributedCache;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Business.Dto.Filters;
@@ -51,7 +52,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 return BadRequest();
             }
             var result = await _personService.CreateAsync(dto);
-            _cacheManager.RemoveAsync(CacheKeysConstants.PersonBday + DateTime.Today);
+            _cacheManager.Remove(CacheKeysConstants.PersonBday + DateTime.Today);
             return Ok(result);
         }
 
@@ -150,7 +151,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         public async Task<IActionResult> SetBestPlayerAsync(int personId)
         {
             await _personService.SetBestPlayerAsync(personId);
-            _cacheManager.RemoveAsync(CacheKeysConstants.BestPlayerMemKey);
+            _cacheManager.Remove(CacheKeysConstants.BestPlayerMemKey);
             return Ok(true);
         }
 
@@ -180,7 +181,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 return BadRequest();
             }
             var result = await _personService.UpdateAsync(dto);
-            _cacheManager.RemoveAsync(CacheKeysConstants.PersonBday + DateTime.Today);
+            _cacheManager.Remove(CacheKeysConstants.PersonBday + DateTime.Today);
             return Ok(result);
         }
 

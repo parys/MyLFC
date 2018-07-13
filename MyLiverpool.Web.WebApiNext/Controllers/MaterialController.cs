@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MyLfc.Common.Web;
+using MyLfc.Common.Web.DistributedCache;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Business.Dto.Filters;
@@ -101,8 +102,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             var result = await _materialService.DeleteAsync(id, User);
-            _cacheManager.RemoveAsync(CacheKeysConstants.Material + id);
-            _cacheManager.RemoveAsync(CacheKeysConstants.MaterialList);
+            _cacheManager.Remove(CacheKeysConstants.Material + id);
+            _cacheManager.Remove(CacheKeysConstants.MaterialList);
             return Json(result);
         }
 
@@ -117,8 +118,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             var result = await _materialService.ActivateAsync(id, User);
             if (result != null)
             {
-                _cacheManager.RemoveAsync(CacheKeysConstants.MaterialList);
-                _cacheManager.SetAsync(CacheKeysConstants.Material + id, result);
+                _cacheManager.Remove(CacheKeysConstants.MaterialList);
+                _cacheManager.Set(CacheKeysConstants.Material + id, result);
             }
 
             return Ok(result);
@@ -146,7 +147,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             var result = await _materialService.CreateAsync(model, User.GetUserId());
             if (!model.Pending)
             {
-                _cacheManager.RemoveAsync(CacheKeysConstants.MaterialList);
+                _cacheManager.Remove(CacheKeysConstants.MaterialList);
             }
             return Ok(result);
         }
@@ -179,8 +180,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 model.Pending = true;
             }
             var result = await _materialService.EditAsync(model);
-            _cacheManager.SetAsync(CacheKeysConstants.Material + id, result);
-            _cacheManager.RemoveAsync(CacheKeysConstants.MaterialList);
+            _cacheManager.Set(CacheKeysConstants.Material + id, result);
+            _cacheManager.Remove(CacheKeysConstants.MaterialList);
             return Ok(result);
         }
 
@@ -224,7 +225,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             if (materialCache != null)
             {
                 materialCache.Reads++;
-                _cacheManager.SetAsync(CacheKeysConstants.Material + materialId, materialCache);
+                _cacheManager.Set(CacheKeysConstants.Material + materialId, materialCache);
             }
 
             var materialsCache = await _cacheManager.GetAsync<PageableData<MaterialMiniDto>>(CacheKeysConstants.MaterialList);
@@ -233,7 +234,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             if (material != null)
             {
                 material.Reads++;
-                _cacheManager.SetAsync(CacheKeysConstants.MaterialList, materialsCache);
+                _cacheManager.Set(CacheKeysConstants.MaterialList, materialsCache);
             }
         }
     }
