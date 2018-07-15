@@ -55,8 +55,8 @@ export class BreadcrumbService {
     getFriendlyNameForRoute(route: string): string {
         route = route.toString();
         let name: string;
-        let routeEnd = route.substr(route.lastIndexOf('/')+1, route.length);
-        
+        const routeEnd = route.substr(route.lastIndexOf("/")+1, route.length);
+
         this.routesFriendlyNames.forEach((value, key, map) => {
             if (key === route) {
                 name = value;
@@ -80,11 +80,8 @@ export class BreadcrumbService {
                 name = value(routeEnd);
             }
         });
-
         return name ? name : routeEnd;
     }
-
-
     
     /**
      * Specify a route (url) that should not be shown in the breadcrumb.

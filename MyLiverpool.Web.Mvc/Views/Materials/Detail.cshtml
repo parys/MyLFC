@@ -58,7 +58,7 @@
            asp-controller="@(Model.Type.ToString())"
            asp-route-id="@Model.NextMaterialId">@Model.NextMaterialTitle (вперед)</a>
     }
-
+</div>
 <div class="container-row col-xs-12">
     @await Component.InvokeAsync("CommentSection", new {materialId = Model.Id})
 </div>

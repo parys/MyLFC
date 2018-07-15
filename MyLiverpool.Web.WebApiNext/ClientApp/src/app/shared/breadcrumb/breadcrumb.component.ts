@@ -1,6 +1,6 @@
-﻿import {Component, Input, OnInit, OnChanges} from '@angular/core';
-import {Router, NavigationEnd} from '@angular/router';
-import {BreadcrumbService} from './breadcrumb.service';
+﻿import { Component, OnInit, OnChanges, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
+import { BreadcrumbService } from './breadcrumb.service';
 
 /**
  * This component shows a breadcrumb trail for available routes the router can navigate to.
@@ -9,7 +9,7 @@ import {BreadcrumbService} from './breadcrumb.service';
 @Component({
     selector: 'breadcrumb',
     template: `
-        <ul [class.breadcrumb]="useBootstrap">
+        <ul class="breadcrumb">
             <li *ngFor="let url of urls; let last = last" [ngClass]="{'active': last}"> <!-- disable link of last item -->
                 <a role="button" *ngIf="!last && url == prefix" (click)="navigateTo('/')">{{url}}</a>
                 <a role="button" *ngIf="!last && url != prefix" (click)="navigateTo(url)">{{friendlyName(url)}}</a>
@@ -18,28 +18,29 @@ import {BreadcrumbService} from './breadcrumb.service';
             </li>
         </ul>
     `,
-    styleUrls: ["./breadcrumb.component.scss"]
+    styleUrls: ["./breadcrumb.component.scss"],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BreadcrumbComponent implements OnInit, OnChanges {
-    @Input() useBootstrap: boolean = true;
-    @Input() prefix:       string  = '';
-    
+    useBootstrap: boolean = true;
+    prefix: string = "Главная";
+
     public urls: string[] = new Array();
     private _routerSubscription: any;
 
     constructor(
         private router: Router,
+        private cd: ChangeDetectorRef,
         private breadcrumbService: BreadcrumbService
     ) {
         this._routerSubscription = this.router.events.subscribe((navigationEnd: NavigationEnd) => {
-            this.urls.length = 0; //Fastest way to clear out array
             if (!navigationEnd.urlAfterRedirects && !navigationEnd.url) return;
-             this.generateBreadcrumbTrail(navigationEnd.urlAfterRedirects ? navigationEnd.urlAfterRedirects : navigationEnd.url);
+            this.urls.length = 0; //Fastest way to clear out array
+            this.generateBreadcrumbTrail(navigationEnd.urlAfterRedirects ? navigationEnd.urlAfterRedirects : navigationEnd.url);
         });
     }
 
     ngOnInit(): void {
-        
         if (this.prefix.length > 0) {
             this.urls.unshift(this.prefix);
         }
@@ -49,7 +50,6 @@ export class BreadcrumbComponent implements OnInit, OnChanges {
         if (!this.urls) {
             return;
         }
-        
         this.urls.length = 0;
         this.generateBreadcrumbTrail(this.router.url);
     }
@@ -65,6 +65,7 @@ export class BreadcrumbComponent implements OnInit, OnChanges {
         } else if (this.prefix.length > 0) {
             this.urls.unshift(this.prefix);
         }
+        this.cd.markForCheck();
     }
 
     navigateTo(url: string): void {

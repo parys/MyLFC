@@ -7,7 +7,7 @@ import { Observable } from "rxjs"
 import { filter, map } from "rxjs/operators"
 import { BreadcrumbService } from "@app/shared";
 import { AuthService, IAuthStateModel } from "@app/+auth";
-import { trigger, keyframes, animate, transition, state, style, group } from "@angular/animations";
+import { trigger, keyframes, animate, transition, state, style } from "@angular/animations";
 import * as kf from "./+keyframes";
 
 
@@ -39,7 +39,7 @@ export const SlideInOutAnimation = [
     selector: "app",
     templateUrl: "./app.component.html",
     styleUrls: ["./app.component.scss"],
-    encapsulation: ViewEncapsulation.None,
+    encapsulation: ViewEncapsulation.Emulated,
     animations: [SlideInOutAnimation]
 })
 export class AppComponent implements OnInit, AfterViewInit {
@@ -137,11 +137,6 @@ export class AppComponent implements OnInit, AfterViewInit {
                     if (child.firstChild) {
                         child = child.firstChild;
                     } else if (child.snapshot.data && child.snapshot.data["title"]) {
-                        if (!child.snapshot.fragment) {
-                            if (isPlatformBrowser(this.platformId)) {
-                                window.scrollTo(0, 0);
-                            }
-                        }
                         return child.snapshot.data["title"];
                     } else {
                         return null;
