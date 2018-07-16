@@ -11,6 +11,7 @@ import { PersonStatistics } from "../../personStatistics.model";
 export class SeasonStatisticsComponent implements OnInit {
     public statistics: PersonStatistics[];
     public seasons: Season[];
+    displayedColumns = ["personName", "goals", "assists", "yellows", "reds"];
 
     @ViewChild("seasonSelect") seasonSelect: MatSelect;
 

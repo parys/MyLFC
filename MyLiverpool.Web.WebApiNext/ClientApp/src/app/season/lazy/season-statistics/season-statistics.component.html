@@ -5,6 +5,51 @@
         </mat-option>
     </mat-select>
 </mat-form-field>
+<!--<div>
+    <table mat-table [dataSource]="statistics" matSort class="statistic-table full-width">
+
+        <ng-container matColumnDef="personName" sticky>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Игрок </th>
+            <td mat-cell *matCellDef="let statistic">
+                    <span [textContent]="statistic.personName"></span>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="goals">
+            <th mat-header-cell *matHeaderCellDef> Голы </th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>                  
+                <td>АПЛ</td>
+                <td>ЛЧ</td>
+                <td>ЛЕ</td>
+                <td>КЛ</td>
+                <td>КА</td>
+                <td>Σ</td> 
+            </th>
+            <td mat-cell *matCellDef="let statistic">
+                <season-statistics-item [personStat]="statistic.goals"></season-statistics-item>
+            </td>
+            
+            </ng-container>
+
+        <ng-container matColumnDef="assists">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Ассисты </th>
+            <td mat-cell *matCellDef="let statistic" [textContent]="statistic.commentsCount"></td>
+        </ng-container>
+
+        <ng-container matColumnDef="yellows">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Желтые </th>
+            <td mat-cell *matCellDef="let statistic" [textContent]="statistic.registrationDate | customDate:true"></td>
+        </ng-container>
+
+        <ng-container matColumnDef="reds">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Красные </th>
+            <td mat-cell *matCellDef="let statistic" [textContent]="statistic.roleGroupName"></td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; let i = index; columns: displayedColumns;"></tr>
+    </table>
+</div>-->
 <div style="position: relative;">
     <div class="overflowable container-row" style="margin-left: 150px; width: calc(100%-150px);
                                                                                                  overflow-x: auto;
@@ -32,8 +77,8 @@
                     <td>ЛЧ</td>
                     <td>ЛЕ</td>
                     <td>КЛ</td>
-                    <td>КА</td>
                     <td>Σ</td>
+                    <td>КА</td>
                     <td>АПЛ</td>
                     <td>ЛЧ</td>
                     <td>ЛЕ</td>

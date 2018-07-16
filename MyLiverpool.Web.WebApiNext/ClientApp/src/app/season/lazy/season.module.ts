@@ -7,6 +7,7 @@ import { SeasonCalendarComponent } from "./season-calendar";
 import { SeasonEditComponent } from "./season-edit";
 import { SeasonListComponent } from "./season-list";
 import { SeasonStatisticsComponent } from "./season-statistics";
+import { SeasonStatisticsItemComponent } from "./season-statistics-item";
 
 @NgModule({
     imports: [
@@ -18,7 +19,8 @@ import { SeasonStatisticsComponent } from "./season-statistics";
         SeasonCalendarComponent,
         SeasonEditComponent,
         SeasonListComponent,
-        SeasonStatisticsComponent
+        SeasonStatisticsComponent,
+        SeasonStatisticsItemComponent
     ]
 })
 export class SeasonModule { }
