@@ -7,6 +7,8 @@ import { MaterialCoreModule } from "../../core/material-core.module";
 import { MaterialEditComponent } from "./material-edit.component";
 import { materialEditRoutes } from "./material-edit.routes";
 import { EditorModule } from "@app/editor";
+import { MaterialGuardDialogComponent } from "./material-guard-dialog/material-guard-dialog.component";
+import { MaterialLeaveGuard } from "./leave-guard/leave-guard.service";
 
 @NgModule({
     imports: [
@@ -18,7 +20,14 @@ import { EditorModule } from "@app/editor";
         ImageCoreModule
     ],
     declarations: [
-        MaterialEditComponent
+        MaterialEditComponent,
+        MaterialGuardDialogComponent
+    ],
+    entryComponents: [
+        MaterialGuardDialogComponent
+    ],
+    providers: [
+        MaterialLeaveGuard
     ]
 })
 export class MaterialEditModule { }

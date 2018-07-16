@@ -1,6 +1,7 @@
 ﻿import { Routes } from "@angular/router";
 import { MaterialEditComponent } from "./material-edit.component";
 import { RoleGuard } from "@app/+auth";
+import { MaterialLeaveGuard } from "./leave-guard/leave-guard.service";
 
 export const materialEditRoutes: Routes = [
     {
@@ -10,6 +11,7 @@ export const materialEditRoutes: Routes = [
             title: "Редактирование",
             roles: ["newsStart", "blogStart"]
         },
-        canActivate: [RoleGuard]
+        canActivate: [RoleGuard],
+        canDeactivate: [MaterialLeaveGuard]
     }
 ];

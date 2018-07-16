@@ -86,7 +86,7 @@ export class EditorComponent implements ControlValueAccessor {
     public ngOnDestroy(): void {
         //console.warn("ngOnDestroy start");
         if (this.isTinyDefined() && this.editor) {
-            console.warn("ngOnDestroy middle");
+            //console.warn("ngOnDestroy middle");
         //    tinymce.remove(this.editor);
         }
     }
