@@ -111,9 +111,9 @@ namespace MyLiverpool.Web.WebApiNext
                     };
                 });
             services.ApplyCustomOpenIdDict(Env);
-            
+
             services.AddSignalR();
-               // .AddMessagePackProtocol();
+             //   .AddMessagePackProtocol();
 
             RegisterCoreHelpers(services);
             services.RegisterRepositories();
@@ -162,19 +162,19 @@ namespace MyLiverpool.Web.WebApiNext
 
             services.AddNodeServices(options =>
             {
-              //  options.DebuggingPort = 8888;
-             //   options.LaunchWithDebugging = true;
+                //  options.DebuggingPort = 8888;
+                //   options.LaunchWithDebugging = true;
 
-             //   options.InvocationTimeoutMilliseconds = 140000;
+                //   options.InvocationTimeoutMilliseconds = 140000;
             });
-            var dbContext = (LiverpoolContext) services.BuildServiceProvider().GetService(typeof(LiverpoolContext));
+            var dbContext = (LiverpoolContext)services.BuildServiceProvider().GetService(typeof(LiverpoolContext));
             dbContext.Database.Migrate();
             //if (Env.IsDevelopment())
             //{
             //    new DatabaseInitializer(context).Seed();
             //}
 
-                // In production, the Angular files will be served from this directory
+            // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist/aspnetcorespa"; });
         }
 
@@ -187,7 +187,7 @@ namespace MyLiverpool.Web.WebApiNext
         /// <param name="antiforgery"></param>
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IAntiforgery antiforgery)
         {
-          //  app.UseMiddleware<ExceptionHandlerMiddleware>();
+            //  app.UseMiddleware<ExceptionHandlerMiddleware>();
 
             // app.UseXsrf();
             if (env.IsDevelopment())
@@ -201,7 +201,7 @@ namespace MyLiverpool.Web.WebApiNext
                 app.UseSwaggerUI(c =>
                 {
                     c.SwaggerEndpoint("/swagger/v1/swagger.json", "V1 Docs");
-                 //   c.ConfigureOAuth2("test-client-id123", "test-client-secr43et", "test-rea32lm", "test-a11pp");
+                    //   c.ConfigureOAuth2("test-client-id123", "test-client-secr43et", "test-rea32lm", "test-a11pp");
                 });
             }
             else
@@ -215,7 +215,7 @@ namespace MyLiverpool.Web.WebApiNext
             }
 
             app.UseCors("MyPolicy");
-         //   app.UseSignalRAuthentication();
+            //   app.UseSignalRAuthentication();
 
             app.UseDefaultFiles();
             app.UseStaticFiles(new StaticFileOptions
@@ -224,9 +224,9 @@ namespace MyLiverpool.Web.WebApiNext
                 {
                     ctx.Context.Response.Headers.Append("Cache-Control", "public,max-age=86400");
                 },
-             //   ServeUnknownFileTypes = true
+                //   ServeUnknownFileTypes = true
             });
-          //  if (!Env.IsDevelopment())
+            //  if (!Env.IsDevelopment())
             {
                 app.UseSpaStaticFiles(new StaticFileOptions());
             }
@@ -259,7 +259,7 @@ namespace MyLiverpool.Web.WebApiNext
                              //     value to 'true', so that the SSR bundle is built during publish
                              // [2] Uncomment this code block
                              */
-                        
+
                     if (ssrEnabled)
                     {
                         spa.UseSpaPrerendering(options =>
@@ -267,7 +267,7 @@ namespace MyLiverpool.Web.WebApiNext
                             options.BootModulePath = $"{spa.Options.SourcePath}/dist-server/main.js";
                             options.BootModuleBuilder =
                                 env.IsDevelopment() ? new AngularCliBuilder(npmScript: "build:ssr") : null;
-                            options.ExcludeUrls = new[] {"/sockjs-node", "/src", "/content", "/hubs", "/null", "/users"};
+                            options.ExcludeUrls = new[] { "/sockjs-node", "/src", "/content", "/hubs", "/null", "/users" };
                             options.SupplyData = (requestContext, obj) =>
                             {
                                 //  var result = appService.GetApplicationData(requestContext).GetAwaiter().GetResult();
@@ -278,7 +278,7 @@ namespace MyLiverpool.Web.WebApiNext
 
                     if (env.IsDevelopment())
                     {
-                            spa.UseAngularCliServer(npmScript: "start");
+                        spa.UseAngularCliServer(npmScript: "start");
                         //   OR
                         // spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
                     }

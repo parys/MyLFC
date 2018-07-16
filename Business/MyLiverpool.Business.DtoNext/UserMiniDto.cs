@@ -15,6 +15,8 @@ namespace MyLiverpool.Business.Dto
 
         public DateTimeOffset LastModified { get; set; }
 
+        public DateTimeOffset RegistrationDate { get; set; }
+
         public string RoleGroupName { get; set; }
 
         public string Photo { get; set; }

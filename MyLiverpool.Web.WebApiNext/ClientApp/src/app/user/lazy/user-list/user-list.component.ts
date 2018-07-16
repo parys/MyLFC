@@ -19,7 +19,7 @@ export class UserListComponent implements OnInit {
     public items: User[];
     public roleGroups: RoleGroup[];
     public selectedUserIndex: number;
-    displayedColumns = ['lastModified', 'userName', 'commentsCount', 'roleGroupName'];
+    displayedColumns = ["userName", "lastModified", "commentsCount", "registrationDate", "roleGroupName"];
 
     @ViewChild(MatSort) sort: MatSort;
     @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -42,13 +42,13 @@ export class UserListComponent implements OnInit {
 
         merge(this.sort.sortChange,
                 this.roleSelect.selectionChange,
-            fromEvent(this.userInput.nativeElement, 'keyup')
+            fromEvent(this.userInput.nativeElement, "keyup")
                 .pipe(debounceTime(1000),
                     distinctUntilChanged()))
             .subscribe(() => this.paginator.pageIndex = 0);
 
         merge(this.sort.sortChange, this.paginator.page, this.roleSelect.selectionChange,
-                fromEvent(this.userInput.nativeElement, 'keyup')
+                fromEvent(this.userInput.nativeElement, "keyup")
                 .pipe(debounceTime(1000),
                     distinctUntilChanged()))
             .pipe(

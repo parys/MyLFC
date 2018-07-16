@@ -5,6 +5,7 @@ import { StorageService } from "@app/+storage";
 import { ChatMessage, Comment, UsersOnline } from "@app/+common-models";
 import { Pm } from "@app/pm/model"
 import { HubConnection, HubConnectionBuilder, LogLevel } from "@aspnet/signalr";
+import { MessagePackHubProtocol } from "@aspnet/signalr-protocol-msgpack";
 import { Notification } from "@app/notification/model";
 
 @Injectable()
@@ -45,7 +46,7 @@ export class SignalRService {
 
         this.hubConnection = new HubConnectionBuilder()
             .withUrl(`${this.baseUrl}hubs/${hubUrl}`, options)
-            //   .withHubProtocol(new MessagePackHubProtocol())
+        //       .withHubProtocol(new MessagePackHubProtocol())
             .configureLogging(LogLevel.Error)
             .build();
         this.hubConnection.on("updateChat", (data: ChatMessage) => {

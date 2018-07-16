@@ -72,6 +72,10 @@ namespace MyLiverpool.Business.Services
                 {
                     sortBy = x => x.RoleGroup.RussianName;
                 }
+                if (dto.SortBy.Contains(nameof(UserMiniDto.RegistrationDate), StringComparison.InvariantCultureIgnoreCase))
+                {
+                    sortBy = x => x.RegistrationDate;
+                }
                 else if (dto.SortBy.Contains(nameof(UserMiniDto.CommentsCount),
                     StringComparison.InvariantCultureIgnoreCase))
                 {
@@ -90,6 +94,7 @@ namespace MyLiverpool.Business.Services
                     Id = x.Id,
                     EmailConfirmed = x.EmailConfirmed,
                     LastModified = x.LastModified,
+                    RegistrationDate = x.RegistrationDate,
                     CommentsCount = x.Comments.Count,
                     RoleGroupName = x.RoleGroup.RussianName,
                     Photo = x.Photo,
