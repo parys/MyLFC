@@ -1,8 +1,10 @@
 ﻿using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using MyLiverpool.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using MyLiverpool.Data.Entities.Polls;
 
 namespace MyLiverpool.Data.ResourceAccess
 {
@@ -45,6 +47,9 @@ namespace MyLiverpool.Data.ResourceAccess
         public DbSet<MatchEvent> MatchEvents { get; set; }
         public DbSet<MatchPerson> MatchPersons { get; set; }
         public DbSet<Notification> Notifications { get; set; }
+        public DbSet<Poll> Polls { get; set; }
+        public DbSet<PollAnswer> PollAnswers { get; set; }
+        public DbSet<PollAnswerUser> PollAnswerUsers { get; set; }
 
         //public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         //{
@@ -76,6 +81,7 @@ namespace MyLiverpool.Data.ResourceAccess
             modelBuilder.Entity<Material>().HasOne(x => x.Category).WithMany(x => x.Materials).HasForeignKey(x => x.CategoryId);
             modelBuilder.Entity<MaterialComment>().HasOne(u => u.Material).WithMany(x => x.Comments).HasForeignKey(x => x.MaterialId).IsRequired(false);
             modelBuilder.Entity<MaterialComment>().HasOne(u => u.Match).WithMany(x => x.Comments).HasForeignKey(x => x.MatchId).IsRequired(false);
+            modelBuilder.Entity<MaterialComment>().HasOne(u => u.Poll).WithMany(x => x.Comments).HasForeignKey(x => x.PollId).IsRequired(false);
             
 
             modelBuilder.Entity<ForumSubsection>().HasOne(x => x.Section).WithMany(x => x.Subsections).HasForeignKey(x => x.SectionId);
@@ -142,6 +148,11 @@ namespace MyLiverpool.Data.ResourceAccess
             modelBuilder.Entity<MatchEvent>().HasOne(x => x.Season).WithMany(x => x.Events).HasForeignKey(x => x.SeasonId);
             modelBuilder.Entity<MatchEvent>().HasOne(x => x.Person).WithMany(x => x.Events).HasForeignKey(x => x.PersonId);
             modelBuilder.Entity<MatchEvent>().HasOne(x => x.Match).WithMany(x => x.Events).HasForeignKey(x => x.MatchId);
+
+            modelBuilder.Entity<PollAnswer>().HasOne(x => x.Poll).WithMany(x => x.Answers).HasForeignKey(x => x.PollId);
+            modelBuilder.Entity<PollAnswerUser>().HasOne(x => x.Poll).WithMany().HasForeignKey(x => x.PollId);
+            modelBuilder.Entity<PollAnswerUser>().HasKey(t => new {t.PollAnswerId, t.UserId});
+
             //research todo maybe it doesn't need https://docs.microsoft.com/en-us/aspnet/core/migration/1x-to-2x/identity-2x
             modelBuilder.Entity<User>()
                 .HasMany(e => e.Claims)

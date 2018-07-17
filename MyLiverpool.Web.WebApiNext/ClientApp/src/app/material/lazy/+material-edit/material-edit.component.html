@@ -20,7 +20,7 @@
         <div class="full-width">
             <mat-form-field class="full-width">
                 <input matInput formControlName="source" placeholder="Источник" />
-                <button mat-button matSuffix role="button" [disabled]="!editForm.get('source').value" (click)="copyPhoto()" matTooltip="Скопировать фото в материал">
+                <button mat-button matSuffix role="button" type="button" [disabled]="!editForm.get('source').value" (click)="copyPhoto()" matTooltip="Скопировать фото в материал">
                     <mat-icon>burst_mode</mat-icon>
                 </button>
             </mat-form-field>

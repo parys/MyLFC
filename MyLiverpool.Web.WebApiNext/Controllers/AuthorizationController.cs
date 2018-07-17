@@ -77,10 +77,14 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 {
                     if (result.IsLockedOut)
                     {
+                        var lockDate = await _userManager.GetLockoutEndDateAsync(user);
+                        var c = lockDate.Value.ToUnixTimeMilliseconds();
+                        var c2 = lockDate.Value.ToUnixTimeSeconds();
                         return BadRequest(new OpenIdConnectResponse
                         {
                             Error = OpenIdConnectConstants.Errors.AccessDenied,
-                            ErrorDescription = "The user is locked out."
+                            ErrorDescription = "The user is locked out.",
+                            ExpiresIn = lockDate.Value.ToUnixTimeMilliseconds()
                         });
                     }
                     return BadRequest(new OpenIdConnectResponse

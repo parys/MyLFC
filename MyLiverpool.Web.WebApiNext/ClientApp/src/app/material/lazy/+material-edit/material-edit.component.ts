@@ -62,7 +62,6 @@ export class MaterialEditComponent implements OnInit {
                     if (!this.editForm.get("stayOnPage").value) {
                         this.router.navigate([`/${MaterialType[this.type].toLowerCase()}`, data.id]);
                     }
-                    this.id = data.id;
                     this.snackBar.open("Материал успешно обновлен", null);
                 },
                     e => {
@@ -111,7 +110,7 @@ export class MaterialEditComponent implements OnInit {
     }
 
     public showLeaveModal(): Observable<boolean> | boolean {
-        if (this.editForm.dirty && !this.editForm.value._submitted) {
+        if (!this.editForm.value._submitted) {
             const dialogRef = this.dialog.open(MaterialGuardDialogComponent);
             return dialogRef.afterClosed();
         }

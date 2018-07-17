@@ -28,17 +28,23 @@ export class AccountSigninComponent implements OnInit {
 
     public onSubmit(): void {
         const result = this.authService.login(this.loginForm.value)
-            .subscribe(data => data, e => {
-            if (e.error === "unconfirmed_email") {
-                this.router.navigate(["/account/unconfirmedEmail"]);
-                return;
-            }
-            if (e.error === "invalid_grant" && e.error_description === "The username/password couple is invalid.") {
-                this.snackBar.open("Неверный логин и/или пароль", null);
-            }
-            if (e.error === "access_denied" && e.error_description === "The user is locked out.") {
-                this.snackBar.open("Активность вашего аккаунта временно заблокирована за нарушение правил сайта.", null, { duration: 35000 });
-            }
-        });
+            .subscribe(data => data,
+                e => {
+                    if (e.error === "unconfirmed_email") {
+                        this.router.navigate(["/account/unconfirmedEmail"]);
+                        return;
+                    }
+                    if (e.error === "invalid_grant" &&
+                        e.error_description === "The username/password couple is invalid.") {
+                        this.snackBar.open("Неверный логин и/или пароль", null);
+                    }
+                    if (e.error === "access_denied" && e.error_description === "The user is locked out.") {
+                        this.snackBar.open(
+                            `Активность вашего аккаунта временно заблокирована за нарушение правил сайта до ${new
+                            Date(e.expires_in)}.`,
+                            null,
+                            { duration: 65000 });
+                    }
+                });
     }
 }

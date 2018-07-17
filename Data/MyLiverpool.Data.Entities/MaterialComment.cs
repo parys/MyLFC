@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using MyLiverpool.Data.Common;
+using MyLiverpool.Data.Entities.Polls;
 
 namespace MyLiverpool.Data.Entities
 {
@@ -30,11 +31,11 @@ namespace MyLiverpool.Data.Entities
 
         public virtual ICollection<MaterialComment> Children { get; set; } = new HashSet<MaterialComment>();
 
-        public virtual MaterialComment Parent { get; set; }
-
         public virtual ICollection<CommentVote> CommentVotes { get; set; } = new HashSet<CommentVote>();
-
+        
         public int? ParentId { get; set; }
+
+        public virtual MaterialComment Parent { get; set; }
 
         public int? OldParentId { get; set; }
 
@@ -45,6 +46,10 @@ namespace MyLiverpool.Data.Entities
         public virtual Match Match { get; set; }
 
         public int? MatchId { get; set; }
+
+        public virtual Poll Poll { get; set; }
+
+        public int? PollId { get; set; }
 
         public CommentType Type { get; set; }
 

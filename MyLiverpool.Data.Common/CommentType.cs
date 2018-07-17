@@ -8,5 +8,6 @@
         News = 1,
         Blogs = 2,
         Matches = 3,
+        Poll = 4,
     }
 }

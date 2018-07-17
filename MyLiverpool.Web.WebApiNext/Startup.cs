@@ -192,8 +192,8 @@ namespace MyLiverpool.Web.WebApiNext
             // app.UseXsrf();
             if (env.IsDevelopment())
             {
-                loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-                loggerFactory.AddDebug();
+               // loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+ //               loggerFactory.AddDebug();
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
 
