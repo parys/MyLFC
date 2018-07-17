@@ -38,7 +38,7 @@ namespace MyLiverpool.Business.Services
                 ? GenerateNewName()
                 : path.Split('.')
                     .First()
-                    .Split(Path.DirectorySeparatorChar)
+                    .Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)
                     .Last();
             relativePath = relativePath + "." + file.FileName.Split('.').Last();
 
