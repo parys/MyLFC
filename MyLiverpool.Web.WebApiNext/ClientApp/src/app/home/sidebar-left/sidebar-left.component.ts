@@ -1,11 +1,11 @@
-﻿import { Component, HostListener, PLATFORM_ID, Inject } from "@angular/core";
+﻿import { Component, HostListener, PLATFORM_ID, Inject, ChangeDetectionStrategy } from "@angular/core";
 import { isPlatformBrowser } from "@angular/common";
-import { RolesCheckedService } from "@app/+auth";
 
 @Component({
     selector: "sidebar-left",
     templateUrl: "./sidebar-left.component.html",
-    styleUrls: ["./sidebar-left.component.scss"]
+    styleUrls: ["./sidebar-left.component.scss"],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SidebarLeftComponent {
     @HostListener("window:scroll", [])
@@ -19,8 +19,7 @@ export class SidebarLeftComponent {
                 document.getElementById("goToTop").className = "hidden";
         }
     }
-    constructor(public roles: RolesCheckedService,
-        @Inject(PLATFORM_ID) private platformId: Object) {
+    constructor(@Inject(PLATFORM_ID) private platformId: Object) {
     }
 
     public goToTop(): void {

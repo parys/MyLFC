@@ -41,11 +41,13 @@ export class MaterialDetailComponent implements OnInit, OnDestroy {
 
     public ngOnInit(): void {
         if (this.router.url.startsWith("/news")) {
-            this.titleService.setTitle("Новости");
+            this.titleService.setTitle("Новость");
             this.type = MaterialType.News;
+            this.cd.markForCheck();
         } else {
-            this.titleService.setTitle("Блоги");
+            this.titleService.setTitle("Блог");
             this.type = MaterialType.Blogs;
+            this.cd.markForCheck();
         }
         
         this.sub = this.route.params.subscribe(params => {
@@ -61,6 +63,7 @@ export class MaterialDetailComponent implements OnInit, OnDestroy {
                         if (isPlatformBrowser(this.platformId) && this.item.socialLinks) {
                             ssn();
                         }
+                        this.cd.markForCheck();
                     });
             }
         });
@@ -128,8 +131,7 @@ export class MaterialDetailComponent implements OnInit, OnDestroy {
         this.body = this.sanitizeByHtml(item.message);
         this.brief = this.sanitizeByHtml(item.brief);
         this.addView();
-        this.cd.markForCheck();
-        this.cd.detectChanges();
+    //    this.cd.detectChanges();
     }
 
     private addView(): void {

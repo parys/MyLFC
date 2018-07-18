@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, OnDestroy } from "@angular/core";
+﻿import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
 import { Subscription } from "rxjs";
 import { PersonService } from "../person.service";
 import { Person } from "../person.model";
@@ -6,20 +6,25 @@ import { Person } from "../person.model";
 @Component({
     selector: "person-birthday",
     templateUrl: "./person-birthday.component.html",
-    styleUrls: ["./person-birthday.component.scss"]
+    styleUrls: ["./person-birthday.component.scss"],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PersonBirthdayComponent implements OnInit, OnDestroy {
     private sub: Subscription;
     public items: Person[];
     public currentPersonIndex: number = null;
 
-    constructor(private service: PersonService) {
+    constructor(private service: PersonService,
+        private cd: ChangeDetectorRef) {
     }
 
     public ngOnInit(): void {
         this.sub = this.service.getBirthdays()
             .subscribe(data => this.parse(data),
-                e => console.log(e));
+            e => console.log(e),
+            () => {
+                this.cd.markForCheck();
+            });
     }
 
     public ngOnDestroy(): void {
@@ -31,16 +36,20 @@ export class PersonBirthdayComponent implements OnInit, OnDestroy {
     public goToPrevious(): void {
         if (this.currentPersonIndex === 0) {
             this.currentPersonIndex = this.items.length - 1;
+            this.cd.markForCheck();
         } else {
             this.currentPersonIndex -= 1;
+            this.cd.markForCheck();
         }
     }
 
     public goToNext(): void {
         if (this.items.length === this.currentPersonIndex + 1) {
             this.currentPersonIndex = 0;
+            this.cd.markForCheck();
         } else {
             this.currentPersonIndex += 1;
+            this.cd.markForCheck();
         }
     }
 

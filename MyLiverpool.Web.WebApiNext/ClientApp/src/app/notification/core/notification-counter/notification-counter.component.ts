@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, OnDestroy } from "@angular/core";
+﻿import { Component, OnInit, OnDestroy, ChangeDetectorRef, ChangeDetectionStrategy } from "@angular/core";
 import { MatSnackBar } from "@angular/material";
 import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
@@ -9,7 +9,8 @@ import { SignalRService } from "@app/+signalr";
 
 @Component({
     selector: "notification-counter",
-    templateUrl: "./notification-counter.component.html"
+    templateUrl: "./notification-counter.component.html",
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NotificationCounterComponent implements OnInit, OnDestroy {
     private sub: Subscription;
@@ -20,12 +21,16 @@ export class NotificationCounterComponent implements OnInit, OnDestroy {
         public roles: RolesCheckedService,
         private signalR: SignalRService,
         private router: Router,
+        private cd: ChangeDetectorRef,
         private snackBar: MatSnackBar) { }
 
     public ngOnInit(): void {
         this.updateCount();
 
-        this.signalR.readNotify.subscribe(data => this.count -=data);
+        this.signalR.readNotify.subscribe(data => this.count -= data,
+            () => {
+                this.cd.markForCheck();
+            });
         this.signalR.newNotify.subscribe((data : Notification) => {
             this.count++;
             this.snackBar.open("Вам пришло уведомление", this.action)
@@ -51,6 +56,9 @@ export class NotificationCounterComponent implements OnInit, OnDestroy {
                         .subscribe(_ => this.router.navigate(["/notifications"]));
                 }
                 },
-                e => console.log(e));
+            e => console.log(e),
+            () => {
+                this.cd.markForCheck();
+            });
     }
 }

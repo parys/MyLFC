@@ -1,4 +1,4 @@
-﻿import { Component, OnInit } from "@angular/core";
+﻿import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { MatSnackBar } from "@angular/material";
@@ -7,7 +7,8 @@ import { AuthService } from "@app/+auth";
 @Component({
     selector: "account-signin",
     templateUrl: "./account-signin.component.html",
-    styleUrls: ["./account-signin.component.scss"]
+    styleUrls: ["./account-signin.component.scss"],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class AccountSigninComponent implements OnInit {
