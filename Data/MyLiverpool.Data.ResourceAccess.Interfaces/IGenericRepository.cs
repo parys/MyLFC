@@ -17,13 +17,13 @@ namespace MyLiverpool.Data.ResourceAccess.Interfaces
 
         Task<T> UpdateAsync(T entity);
 
-        Task UpdateRangeAsync(List<T> entities);
+        Task UpdateRangeAsync(IEnumerable<T> entities);
 
         Task<bool> DeleteAsync(T entity);
 
         Task<bool> DeleteAsync(int id);
 
-        Task DeleteRangeAsync(List<T> entities);
+        Task DeleteRangeAsync(IEnumerable<T> entities);
 
         Task<int> CountAsync(Expression<Func<T, bool>> filter = null);
 

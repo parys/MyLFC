@@ -29,6 +29,7 @@ namespace MyLiverpool.Business.Services.Helpers
             services.AddTransient<INotificationService, NotificationService>();
             services.AddTransient<IPersonService, PersonService>();
             services.AddTransient<IPmService, PmService>();
+            services.AddTransient<IPollService, PollService>();
             services.AddTransient<IRoleService, RoleService>();
             services.AddTransient<ISeasonService, SeasonService>();
             services.AddTransient<IStadiumService, StadiumService>();

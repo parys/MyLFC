@@ -1,0 +1,19 @@
+﻿<form class="form-horizontal" role="form" [formGroup]="editPollForm" (ngSubmit)="onSubmit()">
+    <h2>Создать опрос</h2>
+    <mat-form-field class="full-width">
+        <input matInput placeholder="Вопрос" formControlName="question">
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+        <input matInput placeholder="Время начала" readonly formControlName="startTime" type="datetime">
+    </mat-form-field>
+    
+    <div class="full-width">
+        <div *ngFor="let answer of item.answers">
+            {{answer.text}}<br/>
+        </div>
+    </div>
+    <div class="full-width text-center">
+        <button mat-raised-button color="warn" [disabled]="!editPollForm.valid" type="submit">Отправить</button>
+    </div>
+</form>

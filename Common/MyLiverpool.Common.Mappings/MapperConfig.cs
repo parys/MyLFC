@@ -23,6 +23,7 @@ namespace MyLiverpool.Common.Mappings
             cfg.AddProfile(new NotificationMapperProfile());
             cfg.AddProfile(new PersonMapperProfile());
             cfg.AddProfile(new PmMapperProfile());
+            cfg.AddProfile(new PollMapperProfile());
             cfg.AddProfile(new RoleGroupsMapperProfile());
             cfg.AddProfile(new SeasonMapperProfile());
             cfg.AddProfile(new StadiumMapperProfile());

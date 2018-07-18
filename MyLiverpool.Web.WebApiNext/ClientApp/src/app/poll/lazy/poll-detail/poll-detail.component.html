@@ -1,0 +1,15 @@
+﻿<!--<div class="form-horizontal margin-top-middle" *ngIf="item">
+    <mat-form-field class="full-width">
+        <input matInput readonly [placeholder]="roles.isSelf(item.senderId) ? 'Получатель' : 'Отправитель'" [value]="roles.isSelf(item.senderId) ? item.receiver : item.sender" />
+    </mat-form-field>
+    <mat-form-field class="full-width">
+        <input matInput placeholder="Заголовок" [value]="item.title"/>
+    </mat-form-field>
+    <mat-form-field class="full-width">
+        <textarea matInput matTextareaAutosize matAutosizeMinRows="4" placeholder="Сообщение" [innerHTML]="sanitizeByHtml(item.message)"></textarea>
+    </mat-form-field>
+    <div class="full-width text-center">
+            <a mat-raised-button color="warn" role="button" (click)="writePm()">Ответить</a>
+    </div>
+    <pm-reply *ngIf="selectedUserId" [userId]="selectedUserId" (close)="closePmWindow($event);" [userName]="selectedUserName" [title]="item.title"></pm-reply>
+</div>-->

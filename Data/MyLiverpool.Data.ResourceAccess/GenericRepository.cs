@@ -52,7 +52,7 @@ namespace MyLiverpool.Data.ResourceAccess
             return entity;
         }
 
-        public async Task UpdateRangeAsync(List<T> entities)
+        public async Task UpdateRangeAsync(IEnumerable<T> entities)
         {
             _context.Set<T>().UpdateRange(entities);
             await _context.SaveChangesAsync();
@@ -75,7 +75,7 @@ namespace MyLiverpool.Data.ResourceAccess
             return await DeleteAsync(entity);
         }
 
-        public async Task DeleteRangeAsync(List<T> entities)
+        public async Task DeleteRangeAsync(IEnumerable<T> entities)
         {
             if (entities.Any())
             {

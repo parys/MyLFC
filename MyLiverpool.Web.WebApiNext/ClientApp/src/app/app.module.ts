@@ -28,7 +28,8 @@ registerLocaleData(localeRU);
 import {
     HammerGestureConfig,
     HAMMER_GESTURE_CONFIG,
-} from '@angular/platform-browser';
+} from "@angular/platform-browser";
+import { PollCoreModule } from "./poll";
 
 declare var Hammer: any;
 
@@ -71,6 +72,7 @@ export class UIErrorHandler extends ErrorHandler {
         TransferCoreModule,
         MaterialCoreModule,
         NotificationCoreModule,
+        PollCoreModule,
         PersonCoreModule,
         RouterModule.forRoot(routes, { onSameUrlNavigation: "reload", initialNavigation: "enabled" }),
         UserCoreModule

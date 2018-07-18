@@ -7,11 +7,6 @@ namespace MyLiverpool.Business.Dto
     [Serializable]
     public class CommentDto : IDto
     {
-        public CommentDto()
-        {
-            Children = new HashSet<CommentDto>();
-        }
-
         public int Id { get; set; }
 
         public int Number { get; set; }
@@ -35,7 +30,7 @@ namespace MyLiverpool.Business.Dto
 
         public int? ParentId { get; set; }
 
-        public virtual ICollection<CommentDto> Children { get; set; }
+        public virtual ICollection<CommentDto> Children { get; set; } = new HashSet<CommentDto>();
 
         public bool IsVerified { get; set; }
 
