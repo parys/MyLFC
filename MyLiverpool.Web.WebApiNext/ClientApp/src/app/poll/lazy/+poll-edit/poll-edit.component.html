@@ -7,12 +7,13 @@
     <mat-form-field class="full-width">
         <input matInput placeholder="Время начала" readonly formControlName="startTime" type="datetime">
     </mat-form-field>
+    <hr />
     
-    <div class="full-width">
-        <div *ngFor="let answer of item.answers">
-            {{answer.text}}<br/>
-        </div>
+    <div class="full-width answer" *ngFor="let answer of item.answers">
+        {{answer.text}}
     </div>
+    
+
     <div class="full-width text-center">
         <button mat-raised-button color="warn" [disabled]="!editPollForm.valid" type="submit">Отправить</button>
     </div>

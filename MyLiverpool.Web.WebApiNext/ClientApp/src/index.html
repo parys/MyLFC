@@ -24,71 +24,82 @@
     <app>
         <span>Если загрузка не происходит,<a href="https://m.mylfc.ru/"> здесь </a> есть сильно облегченная версия сайта</span>
     </app>
-    <noscript>
-        <p>
-            Извините, но для этого приложения нужно включить JavaScript. <a href="https://m.mylfc.ru/">Воспользуйтесь облегченной версией</a>, пожалуйста.
-        </p>
-    </noscript>
-    <script type="text/javascript">
-        var crawlerAgent = (/bot|google|aolbuild|baidu|bing|msn|duckduckgo|teoma|slurp|yandex/i).test(navigator.userAgent);
-        if (!crawlerAgent) {
-            document.write("<a href='https://www.liveinternet.ru/click' target=_blank><img src='https://counter.yadro.ru/hit?t14.6;r" + escape(document.referrer) + ((typeof (screen) == "undefined") ? "" : ";s" + screen.width + "*" + screen.height + "*" + (screen.colorDepth ? screen.colorDepth : screen.pixelDepth)) + ";u" + escape(document.URL) + ";" + Math.random() + "' alt='' title='LiveInternet' border='0' width='88' height='31'><\/a>");
+<noscript>
+    <p>
+        Извините, но для этого приложения нужно включить JavaScript. <a href="https://m.mylfc.ru/">Воспользуйтесь облегченной версией</a>, пожалуйста.
+    </p>
+</noscript>
 
-            var global = global || window;
-            (function (w, d, n, s, t) {
-                w[n] = w[n] || [];
-                w[n].push(function () {
-                    addAd("R-A-255349-2");
-                    addAd("R-A-255349-3");
-                });
-                t = d.getElementsByTagName("script")[0];
-                s = d.createElement("script");
-                s.type = "text/javascript";
-                s.src = "https://an.yandex.ru/system/context.js";
-                s.async = true;
-                t.parentNode.insertBefore(s, t);
-            })(this, this.document, "yandexContextAsyncCallbacks");
-        }
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-79219562-3"></script>
+<script>
+    var global = global || window;
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
 
-        function addAd(name) {
-            if (location.hostname === "localhost" || !window.Ya || !window.Ya.Context || !window.Ya.Context.AdvManager) return false;
-            Ya.Context.AdvManager.render({
-                blockId: name,
-                renderTo: "yandex_rtb_" + name,
-                async: true
+    gtag('config', 'UA-79219562-3');
+</script>
+<script type="text/javascript">
+
+    var crawlerAgent = (/bot|google|aolbuild|baidu|bing|msn|duckduckgo|teoma|slurp|yandex/i).test(navigator.userAgent);
+    if (!crawlerAgent) {
+        //document.write("<a href='https://www.liveinternet.ru/click' target=_blank><img src='https://counter.yadro.ru/hit?t14.6;r" + escape(document.referrer) + ((typeof (screen) == "undefined") ? "" : ";s" + screen.width + "*" + screen.height + "*" + (screen.colorDepth ? screen.colorDepth : screen.pixelDepth)) + ";u" + escape(document.URL) + ";" + Math.random() + "' alt='' title='LiveInternet' border='0' width='88' height='31'><\/a>");
+
+        var global = global || window;
+        (function (w, d, n, s, t) {
+            w[n] = w[n] || [];
+            w[n].push(function () {
+                addAd("R-A-255349-2");
+                addAd("R-A-255349-3");
             });
-            return true;
-        }
+            t = d.getElementsByTagName("script")[0];
+            s = d.createElement("script");
+            s.type = "text/javascript";
+            s.src = "https://an.yandex.ru/system/context.js";
+            s.async = true;
+            t.parentNode.insertBefore(s, t);
+        })(this, this.document, "yandexContextAsyncCallbacks");
+    }
 
-        function ssn() {
-            if (!crawlerAgent) {
-                include("https://platform.twitter.com/widgets.js");
-                include("https://platform.instagram.com/en_US/embeds.js");
-            }
-        }
+    function addAd(name) {
+        if (location.hostname === "localhost" || !window.Ya || !window.Ya.Context || !window.Ya.Context.AdvManager) return false;
+        Ya.Context.AdvManager.render({
+            blockId: name,
+            renderTo: "yandex_rtb_" + name,
+            async: true
+        });
+        return true;
+    }
 
-        function include(url) {
-            exclude(url);
-            const s = document.createElement("script");
-            s.setAttribute("type", "text/javascript");
-            s.setAttribute("src", url);
-            s.setAttribute("async", true);
-            s.setAttribute('onload', 'update()');
-            const nodes = document.getElementsByTagName("*");
-            const node = nodes[nodes.length - 1].parentNode;
-            node.appendChild(s);
+    function ssn() {
+        if (!crawlerAgent) {
+            include("https://platform.twitter.com/widgets.js");
+            include("https://platform.instagram.com/en_US/embeds.js");
         }
+    }
 
-        function update() {
-            if (window.instgrm) window.instgrm.Embeds.process();
-        }
+    function include(url) {
+        exclude(url);
+        const s = document.createElement("script");
+        s.setAttribute("type", "text/javascript");
+        s.setAttribute("src", url);
+        s.setAttribute("async", true);
+        s.setAttribute('onload', 'update()');
+        const nodes = document.getElementsByTagName("*");
+        const node = nodes[nodes.length - 1].parentNode;
+        node.appendChild(s);
+    }
 
-        function exclude(url) {
-            var elem = document.querySelector(`script[src$="${url}"]`);
-            if (elem) {
-                elem.parentNode.removeChild(elem);
-            }
+    function update() {
+        if (window.instgrm) window.instgrm.Embeds.process();
+    }
+
+    function exclude(url) {
+        var elem = document.querySelector(`script[src$="${url}"]`);
+        if (elem) {
+            elem.parentNode.removeChild(elem);
         }
-    </script>
+    }
+</script>
 </body>
 </html>

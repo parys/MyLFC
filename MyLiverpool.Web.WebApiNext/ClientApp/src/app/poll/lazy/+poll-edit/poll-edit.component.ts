@@ -9,13 +9,14 @@ import { PollService } from "../../core";
 
 @Component({
     selector: "poll-edit",
-    templateUrl: "./poll-edit.component.html"
+    templateUrl: "./poll-edit.component.html",
+    styleUrls: ["./poll-edit.component.scss"]
 })
 export class PollEditComponent implements OnInit, OnDestroy {
     private sub: Subscription;
     private sub2: Subscription;
     public editPollForm: FormGroup;
-    public item: Poll;
+    public item: Poll = new Poll();
 
     constructor(private service: PollService,
         private formBuilder: FormBuilder,
@@ -26,9 +27,7 @@ export class PollEditComponent implements OnInit, OnDestroy {
 
     public ngOnInit(): void {
         this.sub = this.route.params.subscribe(params => {
-            if (+params["id"] === 0) {
-                this.item = new Poll();
-            } else {
+            if (+params["id"] !== 0) {  
                 this.sub2 = this.service.getSingle(+params["id"])
                     .subscribe(data => {
                         this.item = data;

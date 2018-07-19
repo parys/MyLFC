@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using AutoMapper;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto.Polls;
-using MyLiverpool.Data.Entities;
 using MyLiverpool.Data.Entities.Polls;
 using MyLiverpool.Data.ResourceAccess.Interfaces;
 
@@ -35,8 +34,10 @@ namespace MyLiverpool.Business.Services
             var model = _mapper.Map<Poll>(dto);
             var newAnswers = model.Answers;
             var oldAnswers = await _pollAnswerRepository.GetListAsync(x => x.PollId == dto.Id);
+            await UpdatePollAnswersAsync(oldAnswers, newAnswers);
             model.Answers = null;
             model = await _pollRepository.UpdateAsync(model);
+            model.Answers = newAnswers;
             return _mapper.Map<PollDto>(model);
         }
 
