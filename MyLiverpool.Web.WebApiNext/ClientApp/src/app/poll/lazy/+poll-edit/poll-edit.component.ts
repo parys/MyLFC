@@ -4,7 +4,7 @@ import { ActivatedRoute } from "@angular/router";
 import { MatSnackBar } from "@angular/material";
 import { Observable, Subscription } from "rxjs";
 import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
-import { Poll } from "../../models";
+import { Poll, PollAnswer } from "../../models";
 import { PollService } from "../../core";
 
 @Component({
@@ -45,12 +45,25 @@ export class PollEditComponent implements OnInit, OnDestroy {
 
     public onSubmit(): void {
         this.item.question = this.editPollForm.get("question").value;
+        this.item.answers = this.item.answers.filter(x => x.text);
 
-        //this.sub = this.service.create(model).subscribe(data => {
-        //    this.editPollForm.patchValue({ message: "" });
-        //        this.snackBar.open("Сообщение отправлено.", null, { duration: 5000 });
-        //    },
-        //    e => console.log(e));
+        if (this.item.id === 0) {
+            this.sub = this.service.create(this.item).subscribe(data => {
+                    this.editPollForm.patchValue({ message: "" });
+                    this.snackBar.open("Создан");
+                },
+                e => console.log(e));
+        } else {
+            this.sub = this.service.update(this.item.id, this.item).subscribe(data => {
+                    this.editPollForm.patchValue({ message: "" });
+                    this.snackBar.open("Обновлен");
+                },
+                e => console.log(e));
+        }
+    }
+
+    public addAnswer(): void {
+        this.item.answers.push(new PollAnswer(this.item.id));
     }
 
     private initForm(): void {

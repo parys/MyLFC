@@ -1,8 +1,8 @@
 ﻿::ng-deep .answer:nth-child(odd) {
-    background-color: aqua;
+    background-color: lightgray;
     width: 100%;
 }
 ::ng-deep .answer:nth-child(even) {
-    background-color: blue;
+    background-color: darkgray;
     width: 100%;
 }
