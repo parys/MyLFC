@@ -144,7 +144,9 @@ export class AppComponent implements OnInit, AfterViewInit {
                 }
                 return null;
             })).subscribe((title: any) => {
-            this.titleService.setTitle(title);
+            if (title) {
+                this.titleService.setTitle(title);
+            }
         });
 
         // this.isRoot = (event["title"] === "MyLFC.ru - Сайт русскоязычных болельщиков \"Ливерпуля\"");

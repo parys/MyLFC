@@ -1,16 +1,13 @@
 import { PollAnswer } from "./pollAnswer.model";
 
 export class Poll {
-    constructor() {
-        this.answers = [];
-    }
-    id: number;
+    id: number = 0;
 
-    answers: PollAnswer[];
+    answers: PollAnswer[] = [];
 
     question: string;
 
-    startTime: Date;
+    startTime: Date = new Date();
 
     endTime: Date;
 }

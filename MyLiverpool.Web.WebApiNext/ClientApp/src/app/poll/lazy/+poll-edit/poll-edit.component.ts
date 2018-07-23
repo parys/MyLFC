@@ -72,7 +72,7 @@ export class PollEditComponent implements OnInit, OnDestroy {
                 Validators.required,
                 Validators.maxLength(100)
             ])],
-            startTime: ["", Validators.required],
+            startTime: [""],
         });
     }
 }
