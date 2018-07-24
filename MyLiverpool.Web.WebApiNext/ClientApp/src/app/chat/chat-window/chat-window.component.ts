@@ -41,7 +41,7 @@ export class ChatWindowComponent implements OnInit {
         this.update();
         this.signalRService.chatSubject.subscribe((data: ChatMessage) => {
             if (this.type === data.type) {
-                this.putToChat(data);
+                this.putToChat(data, false);
             }
         });
         this.roles.rolesChanged.subscribe(_ =>
@@ -122,25 +122,27 @@ export class ChatWindowComponent implements OnInit {
             if (data) {
                 this.items.slice(index, 1);
                 this.items = this.items.concat([]);
-                this.snackBar.open("Комментарий успешно удален", null, { duration: 5000 });
+                this.snackBar.open("Комментарий успешно удален");
             }
         },
             e => {
                 console.log(e);
-                this.snackBar.open("Комментарий НЕ удален", null, { duration: 5000 });
+                this.snackBar.open("Комментарий НЕ удален");
             }, () => {
                 this.cd.markForCheck();
             });
     }
 
-    private putToChat(message: ChatMessage): void {
+    private putToChat(message: ChatMessage, clearAfter: boolean = true): void {
         const index = this.items.findIndex(x => x.id === message.id);
         if (index !== -1) {
             this.items[index] = message;
         } else {
             this.items.unshift(message);
         }
-        this.messageForm.get("message").patchValue("");
+        if (clearAfter) {
+            this.messageForm.get("message").patchValue("");
+        }
         this.cd.markForCheck();
     }
 
