@@ -16,5 +16,7 @@ namespace MyLiverpool.Business.Dto.Polls
         public DateTimeOffset? EndTime { get; set; }
 
         public ICollection<PollAnswerDto> Answers { get; set; } = new HashSet<PollAnswerDto>();
+
+        public int VoteCount { get; set; }
     }
 }

@@ -10,5 +10,7 @@ namespace MyLiverpool.Business.Dto.Polls
 
         [MaxLength(100)]
         public string Text { get; set; }
+
+        public int VotesCount { get; set; }
     }
 }

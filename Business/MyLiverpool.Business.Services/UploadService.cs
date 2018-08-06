@@ -191,7 +191,7 @@ namespace MyLiverpool.Business.Services
                 {
                     Directory.CreateDirectory(fullPath);
                 }
-                //workaround for folders _nw and _bl to slip them
+                //workaround for folders _nw and _bl to skip them
                 var directoryInfo = Directory.EnumerateDirectories(fullPath).LastOrDefault(x => !x.Contains("_"));
                 if (directoryInfo == null)
                 {
@@ -203,7 +203,7 @@ namespace MyLiverpool.Business.Services
                 if (Directory.GetFiles(directoryInfo).Length >= FilesPerFolder)
                 {
                     directoryName = (lastFolderName + 1).ToString() + Path.DirectorySeparatorChar;
-                    directoryInfo = Path.Combine(fullPath + directoryName);
+                    directoryInfo = Path.Combine(fullPath, directoryName);
                     Directory.CreateDirectory(directoryInfo);
                 }
             }

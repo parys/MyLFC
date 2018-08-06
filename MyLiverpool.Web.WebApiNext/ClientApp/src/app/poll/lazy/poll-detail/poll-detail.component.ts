@@ -4,6 +4,7 @@ import { Subscription } from "rxjs";
 import { PollService } from "../../core";
 import { RolesCheckedService } from "@app/+auth";
 import { Poll } from "../../models";
+import { PollChart } from "../../models/pollChart.model";
 
 @Component({
     selector: "poll-detail",
@@ -13,42 +14,57 @@ import { Poll } from "../../models";
 export class PollDetailComponent implements OnInit, OnDestroy {
     private sub: Subscription;
     private sub2: Subscription;
-    public item: Poll;
-    public selectedUserId: number;
-    public selectedUserName: string;
+    public item: Poll = new Poll();
+    public pollCharts: PollChart[] = [];
 
-    constructor(private pmService: PollService,
+    view: any[] = [700, 400];
+
+    // options
+    showXAxis = true;
+    showYAxis = true;
+    gradient = false;
+    showLegend = true;
+    showXAxisLabel = true;
+    xAxisLabel = 'Country';
+    showYAxisLabel = true;
+    yAxisLabel = 'Population';
+
+    colorScheme = {
+        domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
+    };
+
+    constructor(private pollService: PollService,
         public roles: RolesCheckedService,
         private route: ActivatedRoute) { }
 
     public ngOnInit(): void {
         this.sub = this.route.params.subscribe(params => {
-            this.sub2 = this.pmService.getSingle(+params["id"])
-                .subscribe(data => this.item = data,
-                e => console.log(e));
+            this.sub2 = this.pollService.getSingle(+params["id"])
+                .subscribe(data => {
+                    this.item = data;
+                    this.convertToChart();
+                },
+                    e => console.log(e));
         });
     }
 
     public ngOnDestroy(): void {
-        if(this.sub) { this.sub.unsubscribe(); }
-        if(this.sub2) { this.sub2.unsubscribe(); }
+        if (this.sub) { this.sub.unsubscribe(); }
+        if (this.sub2) { this.sub2.unsubscribe(); }
     }
 
-    public writePm(): void {
-        //if (this.roles.isSelf(this.item.senderId)) {
-        //    this.selectedUserId = this.item.receiverId;
-        //    this.selectedUserName = this.item.receiver;
-        //} else {
-        //    this.selectedUserId = this.item.senderId;
-        //    this.selectedUserName = this.item.sender;
-        //}
+
+    onSelect(event: any): void {
+        console.log(event);
     }
 
-    public closePmWindow(event: any): void {
-        this.selectedUserId = null;
+    private convertToChart(): void {
+        for (let i = 0; i < this.item.answers.length; i++) {
+            let pollChart = new PollChart();
+            pollChart.name = this.item.answers[i].text;
+            pollChart.value = 44 / 3.0;
+            this.pollCharts.push(pollChart);
+        }
+        console.warn(this.pollCharts);
     }
-
-   // public sanitizeByHtml(text: string): SafeHtml {
-//        return this.sanitizer.bypassSecurityTrustHtml(text);
-  //  }
 }

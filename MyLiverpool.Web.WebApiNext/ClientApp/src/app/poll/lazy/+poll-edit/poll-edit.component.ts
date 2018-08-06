@@ -63,7 +63,9 @@ export class PollEditComponent implements OnInit, OnDestroy {
     }
 
     public addAnswer(): void {
-        this.item.answers.push(new PollAnswer(this.item.id));
+        const poll = new PollAnswer();
+        poll.pollId = this.item.id;
+        this.item.answers.push(poll);
     }
 
     private initForm(): void {

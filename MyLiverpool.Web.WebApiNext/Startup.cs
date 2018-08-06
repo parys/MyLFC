@@ -162,8 +162,8 @@ namespace MyLiverpool.Web.WebApiNext
 
             services.AddNodeServices(options =>
             {
-                //  options.DebuggingPort = 8888;
-                //   options.LaunchWithDebugging = true;
+                  options.DebuggingPort = 9229;
+                   options.LaunchWithDebugging = true;
 
                 //   options.InvocationTimeoutMilliseconds = 140000;
             });
@@ -266,7 +266,8 @@ namespace MyLiverpool.Web.WebApiNext
                         {
                             options.BootModulePath = $"{spa.Options.SourcePath}/dist-server/main.js";
                             options.BootModuleBuilder =
-                                env.IsDevelopment() ? new AngularCliBuilder(npmScript: "build:ssr") : null;
+                                env.IsDevelopment() ? new AngularCliBuilder(npmScript: "build3") : null;
+                           //     env.IsDevelopment() ? new AngularCliBuilder(npmScript: "build:ssr") : null;
                             options.ExcludeUrls = new[] { "/sockjs-node", "/src", "/content", "/hubs", "/null", "/users" };
                             options.SupplyData = (requestContext, obj) =>
                             {

@@ -78,6 +78,8 @@ export class AuthService {
 
         if (this.refreshSubscription$) {
             this.refreshSubscription$.unsubscribe();
+
+            console.warn("init hub from logout");
             this.signalRservice.initializeHub();
         }
     }
@@ -122,6 +124,8 @@ export class AuthService {
             flatMap((tokens: IAuthTokenModel) => {
                 if (!tokens) {
                     this.updateState({ authReady: true });
+
+                    console.warn("init hub from refresh");
                     this.signalRservice.initializeHub();
                     return throwError("No token");
                 }
@@ -160,6 +164,8 @@ export class AuthService {
                     this.storage.setUserId(+data.userId);
                     this.storage.setRoles(data.roles.split(", "));
                 this.rolesCheckedService.checkRoles();
+
+                    console.warn("init hub from getUserProfile");
                     this.signalRservice.initializeHub();//WARNING---------------------------------------------------------
                 },
                 e => console.log(e)

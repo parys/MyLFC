@@ -40,7 +40,7 @@ export class WishEditComponent implements OnInit, OnDestroy {
             ],
             message: ["", Validators.required],
             type: ["", Validators.required],
-            state: [1]
+            state: ["1"]
         });
         this.sub = this.route.params.subscribe(params => {
             this.id = +params["id"];
@@ -71,7 +71,7 @@ export class WishEditComponent implements OnInit, OnDestroy {
         } else {
             let result = this.service.create(model).subscribe(data => {
                 res = data;
-                this.snackBar.open("Пожелание успешно создано", null, { duration: 5000 });
+                this.snackBar.open("Пожелание успешно создано");
             }, e => {
                 console.log(e);
             });

@@ -20,7 +20,8 @@ namespace MyLiverpool.Common.Mappings
 
         private void MapPollAnswer()
         {
-            CreateMap<PollAnswer, PollAnswerDto>();
+            CreateMap<PollAnswer, PollAnswerDto>()
+                .ForMember(dst => dst.Value, src => );
             CreateMap<PollAnswerDto, PollAnswer>();
         }
     }

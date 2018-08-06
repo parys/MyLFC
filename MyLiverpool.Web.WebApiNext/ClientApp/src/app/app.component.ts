@@ -73,9 +73,9 @@ export class AppComponent implements OnInit, AfterViewInit {
                 .subscribe(
                     () => { console.info("Startup success"); },
                     e => console.warn(e)
-                );
+            );
+            this.updateGetsureState();
         }
-        this.updateGetsureState();
 
         this.setUpBreadcrumbs();
         this.initTitleSubscriber();
@@ -258,10 +258,18 @@ export class AppComponent implements OnInit, AfterViewInit {
         this.breadcrumbService.addFriendlyNameForRoute("/editPage", "Редактирование страницы");
         this.breadcrumbService.hideRouteRegex("^/editPage/[0-9]+$");
 
+
+        this.breadcrumbService.addFriendlyNameForRoute("/polls", "Опросы");
+        this.breadcrumbService.addFriendlyNameForRoute("^/polls/[0-9]+$", "Опрос");
+
         this.breadcrumbService.addFriendlyNameForRouteRegex("^/[a-zA-Z]+/[0-9]+/edit$", "Редактирование");
     }
 
     private updateGetsureState(force: boolean = false): void {
+
+        if (!isPlatformBrowser(this.platformId)) {
+            return;
+        }
         const resizeDisableNow = window.innerWidth > 767;
         if (this.resizeDisable === resizeDisableNow && !force) { return; }
         this.resizeDisable = resizeDisableNow;

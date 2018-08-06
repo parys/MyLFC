@@ -45,6 +45,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 return BadRequest();
             }
             var result = await _injuryService.CreateAsync(dto);
+            _cacheManager.Remove(CacheKeysConstants.LastInjuries);
             return Ok(result);
         }
 

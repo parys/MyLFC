@@ -40,6 +40,7 @@ export class SignalRService {
         };
 
         if (this.alreadyStarted) {
+            console.warn("already started");
             this.alreadyStarted = false;
             this.hubConnection.stop();
         }
@@ -90,7 +91,7 @@ export class SignalRService {
 
         this.hubConnection.onclose(() => {
             this.initializeHub();
-            console.warn("RECONNECT");
+      //      console.warn("RECONNECT");
         });
     }
 }
