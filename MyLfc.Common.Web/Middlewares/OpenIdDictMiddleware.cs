@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using MyLiverpool.Data.ResourceAccess;
 using Microsoft.AspNetCore.Hosting;
+using OpenIddict.Server;
 
 namespace MyLfc.Common.Web.Middlewares
 {
@@ -63,7 +65,20 @@ namespace MyLfc.Common.Web.Middlewares
                         //}
                     }
                 })
-              .AddValidation();
+              .AddValidation(opt =>
+                {
+                    //opt.Configure(options =>
+                    //{
+                    //    if (options.Events != null)
+                    //    {
+                    //        options.Events.OnRetrieveToken = context =>
+                    //        {
+                    //            context.Token = context.Request.Query["access_token"];
+                    //            return Task.CompletedTask;
+                    //        };
+                    //    }
+                    //});
+                });
 
             return services;
         }

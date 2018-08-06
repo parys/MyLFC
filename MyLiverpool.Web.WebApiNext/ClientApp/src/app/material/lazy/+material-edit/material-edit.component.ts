@@ -56,6 +56,7 @@ export class MaterialEditComponent implements OnInit {
 
     public onSubmit(): void {
         const newsItem: Material = this.parseForm();
+        this.editForm.markAsPristine();
         if (this.id > 0) {
             this.service.update(this.id, newsItem)
                 .subscribe(data => {
@@ -110,10 +111,13 @@ export class MaterialEditComponent implements OnInit {
     }
 
     public showLeaveModal(): Observable<boolean> | boolean {
-        if (!this.editForm.value._submitted) {
+        console.log(this.editForm.value);
+        if (this.editForm.dirty) {
+            console.log("false");
             const dialogRef = this.dialog.open(MaterialGuardDialogComponent);
             return dialogRef.afterClosed();
         }
+        console.log("true");
         return true;
     }
 
