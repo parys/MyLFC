@@ -111,13 +111,10 @@ export class MaterialEditComponent implements OnInit {
     }
 
     public showLeaveModal(): Observable<boolean> | boolean {
-        console.log(this.editForm.value);
         if (this.editForm.dirty) {
-            console.log("false");
             const dialogRef = this.dialog.open(MaterialGuardDialogComponent);
             return dialogRef.afterClosed();
         }
-        console.log("true");
         return true;
     }
 

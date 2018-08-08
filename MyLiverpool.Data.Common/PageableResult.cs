@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace MyLiverpool.Data.Common
 {
     [Serializable]
-    public class PageableData<T> where T : class
+    public class PageableData<T> : IPageable where T : class
     {
         protected int ItemPerPageDefault = 15;
         public IEnumerable<T> List { get; set; }
@@ -22,5 +22,9 @@ namespace MyLiverpool.Data.Common
             List = list;
             TotalPages = (int) Math.Ceiling(TotalItems / (double) ItemPerPage);
         }
+
+        public bool HasPreviousPage => PageNo > 1;
+
+        public bool HasNextPage => PageNo < TotalPages;
     }
 }

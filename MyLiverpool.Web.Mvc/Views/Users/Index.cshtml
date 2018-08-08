@@ -35,20 +35,7 @@
     }
     </tbody>
 </table>
-@{
-    var prevDisabled = Model.PageNo == 1 ? "disabled" : "";
-    var nextDisabled = Model.PageNo == Model.TotalPages ? "disabled" : "";
-}
 
-<a asp-action="Index"
-   asp-controller="Users"
-   asp-route-page="@(Model.PageNo - 1)"
-   class="btn btn-default @prevDisabled">
-    Предыдущая
-</a>
-<a asp-action="Index"
-   asp-controller="Users"
-   asp-route-page="@(Model.PageNo + 1)"
-   class="btn btn-default @nextDisabled">
-    Следующая
-</a>
+<page-link page-model="@Model" page-action="Index">
+
+</page-link>

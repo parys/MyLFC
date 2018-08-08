@@ -48,8 +48,7 @@ namespace MyLiverpool.Web.Mvc
         {
             services.Configure<GzipCompressionProviderOptions>(options => options.Level = CompressionLevel.Optimal);
             services.AddCustomResponseCompression();
-
-
+            
             services.Configure<RequestLocalizationOptions>(options =>
             {
                 options.DefaultRequestCulture = new RequestCulture("ru-RU");

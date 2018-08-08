@@ -25,8 +25,8 @@
                         else
                         {
                             <a asp-action="Detail"
-                            asp-controller="Blogs"
-                            asp-route-id="@item.Id">
+                               asp-controller="Blogs"
+                               asp-route-id="@item.Id">
                                 <h3 class="beauty-font">@item.Title</h3>
                             </a>
                         }
@@ -77,44 +77,38 @@
                                    asp-route-id="@item.UserId">@item.UserName</a>
                             </li>
                             @if (item.CanCommentary)
-                            { 
-                               if (item.Type == MaterialType.News)
-                               {
-                                   <li class="">
-                                       | <a asp-action="Detail"
-                                            asp-controller="News"
-                                            asp-route-id="@item.Id"
-                                            asp-fragment="comments">Комментарии:@item.CommentsCount</a>
-                                   </li>
-                               }
-                                 else
-                                 {
-                                     <li class="">
-                                         |
-                                         <a asp-action="Detail"
-                                            asp-controller="Blogs"
-                                            asp-route-id="@item.Id"
-                                            asp-fragment="comments">Комментарии:@item.CommentsCount</a>
-                                     </li>
-                                 }
-                            }
+                            {
+                                if (item.Type == MaterialType.News)
+                                {
+                                    <li class="">
+                                        | <a asp-action="Detail"
+                                             asp-controller="News"
+                                             asp-route-id="@item.Id"
+                                             asp-fragment="comments">Комментарии:@item.CommentsCount</a>
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        <li class="">
+                                            |
+                                            <a asp-action="Detail"
+                                               asp-controller="Blogs"
+                                               asp-route-id="@item.Id"
+                                               asp-fragment="comments">Комментарии:@item.CommentsCount</a>
+                                        </li>
+                                    }
+                                }
                         </ul>
                     </div>
                 </div>
             </div>
         }
     }
-    @{
-        var prevDisabled = Model.PageNo == 1 ? "disabled" : "";
-        var nextDisabled = Model.PageNo == Model.TotalPages ? "disabled" : "";
-    }
+    @*page-url-name="@(Model.FilterViewModel.SelectedName)"
+        page-url-company="@(Model.FilterViewModel.SelectedCompany)"
+        page-url-sortorder="@(Model.SortViewModel.Current)"
+        page-url-categoryId="@item.CategoryId">*@
+    <page-link page-model="@Model" page-action="Index">
 
-    <a asp-route-page="@(Model.PageNo - 1)"
-       class="btn btn-default @prevDisabled">
-        Предыдущая
-    </a>
-    <a asp-route-page="@(Model.PageNo + 1)"
-       class="btn btn-default @nextDisabled">
-        Следующая
-    </a>
+    </page-link>
 </div>
