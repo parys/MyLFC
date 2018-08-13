@@ -62,6 +62,6 @@
         <a *ngIf="roles.isInformer" [routerLink]="['/injuries']" mat-menu-item>Травмы</a>
         <a *ngIf="roles.isNewsmaker || roles.isAuthor" [routerLink]="['/images']" mat-menu-item>Изображения</a>
         <a *ngIf="roles.isModerator" [routerLink]="['/materialComments']" [queryParams]="{page: 1}" mat-menu-item>Комментарии</a>
-        <a *ngIf="roles.isNewsmaker || roles.isAuthor" [routerLink]="['/polls']" [queryParams]="{page: 1}" mat-menu-item>Опросы</a>
+        <!--<a *ngIf="roles.isNewsmaker || roles.isAuthor" [routerLink]="['/polls']" [queryParams]="{page: 1}" mat-menu-item>Опросы</a>-->
     </mat-menu>
 </div>

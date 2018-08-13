@@ -72,7 +72,7 @@ export class UIErrorHandler extends ErrorHandler {
         TransferCoreModule,
         MaterialCoreModule,
         NotificationCoreModule,
-        PollCoreModule,
+     //   PollCoreModule,
         PersonCoreModule,
         RouterModule.forRoot(routes, {
             onSameUrlNavigation: "reload",
