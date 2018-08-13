@@ -4,11 +4,13 @@ import { SharedModule } from "@app/shared";
 import { PmReplyComponent } from "./pm-reply";
 import { PmCounterComponent } from "./pm-counter";
 import { PmService } from "./pm.service";
+import { EditorModule } from "@app/editor";
 
 @NgModule({
     imports: [
         SharedModule,
-        RouterModule
+        RouterModule,
+        EditorModule
     ],
     declarations: [
         PmCounterComponent,

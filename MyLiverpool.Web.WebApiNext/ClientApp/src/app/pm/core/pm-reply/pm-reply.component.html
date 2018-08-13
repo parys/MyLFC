@@ -1,14 +1,15 @@
-﻿<form *ngIf="pmReplyEditForm" class="form-horizontal" role="form" [formGroup]="pmReplyEditForm" (ngSubmit)="onSubmit()">
-    <h2>Написать сообщение</h2>
+﻿<h3>Написать сообщение</h3>
+<form *ngIf="pmReplyEditForm" class="form-horizontal" role="form" [formGroup]="pmReplyEditForm" (ngSubmit)="onSubmit()">
     <mat-form-field class="full-width">
         <input matInput readonly placeholder="Получатель" [value]="userName" />
     </mat-form-field>
     <mat-form-field class="full-width">
         <input matInput placeholder="Заголовок" maxlength="50" formControlName="title" />
     </mat-form-field>
-    <mat-form-field class="full-width">
-        <textarea matTextareaAutosize matAutosizeMinRows="4" matInput placeholder="Сообщение" formControlName="message" maxlength="2500"></textarea>
-    </mat-form-field>
+    <div class="full-width">
+        <label class="control-label"> Сообщение:</label>
+        <bbeditor [type]="1" [height]="100" formControlName="message" maxlength="2500"></bbeditor>
+    </div>
     <button mat-raised-button color="warn" [disabled]="!pmReplyEditForm.valid" type="submit">Отправить</button>
     <button mat-raised-button type="button" (click)="closeWindow()">Отмена</button>
 </form>

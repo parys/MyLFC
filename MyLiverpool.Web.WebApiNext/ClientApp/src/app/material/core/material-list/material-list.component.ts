@@ -1,7 +1,7 @@
 ﻿import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Location } from "@angular/common";
 import { MatDialog, MatSnackBar } from "@angular/material";
-import { Router, ActivatedRoute } from "@angular/router";
+import { Router, ActivatedRoute, NavigationEnd } from "@angular/router";
 import { Title } from "@angular/platform-browser";
 import { Subscription } from "rxjs";
 import { MaterialService } from "../material.service";
@@ -20,6 +20,7 @@ export class MaterialListComponent implements OnInit, OnDestroy {
     private type: MaterialType;
     private sub: Subscription;
     private sub2: Subscription;
+    private navigationSubscription: Subscription;
     private userName: string;
     private userId: number = null;
     public items: Material[];
@@ -36,6 +37,13 @@ export class MaterialListComponent implements OnInit, OnDestroy {
         private snackBar: MatSnackBar,
         private titleService: Title,
         private dialog: MatDialog) {
+        this.navigationSubscription = this.router.events.subscribe((e: any) => {
+            // If it is a NavigationEnd event re-initalise the component
+            if (e instanceof NavigationEnd) {
+                this.parseQueryParamsAndUpdate();
+            }
+        });
+
     }
 
     public showActivateModal(index: number): void {
@@ -66,12 +74,12 @@ export class MaterialListComponent implements OnInit, OnDestroy {
         } else {
             this.type = MaterialType.Both;
         }
-        this.parseQueryParamsAndUpdate(this.route);
     }
 
     public ngOnDestroy(): void {
         if(this.sub) this.sub.unsubscribe();
         if(this.sub2) this.sub2.unsubscribe();
+        if(this.navigationSubscription) this.navigationSubscription.unsubscribe();
     }
 
     public pageChanged(event: any): void {
@@ -146,8 +154,8 @@ export class MaterialListComponent implements OnInit, OnDestroy {
                 error => console.log(error));
     }
 
-    private parseQueryParamsAndUpdate(route: ActivatedRoute): void {
-        this.sub2 = route.queryParams.subscribe(qParams => {
+    private parseQueryParamsAndUpdate(): void {
+        this.sub2 = this.route.queryParams.subscribe(qParams => {
                 this.page = qParams["page"] || 1;
                 this.categoryId = qParams["categoryId"] || null;
                 this.userName = qParams["userName"] || "";

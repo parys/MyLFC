@@ -1,5 +1,4 @@
-﻿<form class="form-horizontal" role="form" [formGroup]="editPmForm" (ngSubmit)="onSubmit()">
-    <h2>Написать сообщение</h2>
+﻿<form *ngIf="editPmForm" class="form-horizontal full-width" role="form" [formGroup]="editPmForm" (ngSubmit)="onSubmit()">
     <mat-form-field class="full-width">
         <input matInput placeholder="Получатель" [matAutocomplete]="user" formControlName="receiver">
         <mat-autocomplete #user="matAutocomplete">
@@ -13,10 +12,10 @@
         <input matInput placeholder="Заголовок" formControlName="title">
     </mat-form-field>
 
-    <mat-form-field class="full-width">
-        <textarea matInput matTextareaAutosize matAutosizeMinRows="4" placeholder="Сообщение" formControlName="message"></textarea>
-    </mat-form-field>
-
+    <div class="editor">
+        <label class="control-label"> Сообщение:</label>
+        <bbeditor [type]="1" [height]="100" formControlName="message"></bbeditor>
+    </div>
     <div class="full-width text-center">
         <button mat-raised-button color="warn" [disabled]="!editPmForm.valid" type="submit">Отправить</button>
     </div>

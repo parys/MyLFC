@@ -74,7 +74,12 @@ export class UIErrorHandler extends ErrorHandler {
         NotificationCoreModule,
         PollCoreModule,
         PersonCoreModule,
-        RouterModule.forRoot(routes, { onSameUrlNavigation: "reload", initialNavigation: "enabled" }),
+        RouterModule.forRoot(routes, {
+            onSameUrlNavigation: "reload",
+            initialNavigation: "enabled",
+            anchorScrolling: "enabled",
+            scrollPositionRestoration: "enabled"
+        }),
         UserCoreModule
     ],
     declarations: [

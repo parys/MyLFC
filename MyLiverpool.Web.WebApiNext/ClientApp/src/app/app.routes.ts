@@ -82,5 +82,10 @@ export const routes: Routes = [
         path: "wishes",
         loadChildren: "./wish/wish.module#WishModule"
     },
-    { path: "", component: MaterialListComponent, data: { title: "MyLFC.ru - Сайт русскоязычных болельщиков ФК \"Ливерпуль\"" } }
+    {
+        path: "",
+        component: MaterialListComponent,
+        data: { title: "MyLFC.ru - Сайт русскоязычных болельщиков ФК \"Ливерпуль\"" },
+        runGuardsAndResolvers: "always"
+    }
 ];

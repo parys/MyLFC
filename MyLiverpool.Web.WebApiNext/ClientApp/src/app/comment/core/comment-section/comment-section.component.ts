@@ -47,6 +47,61 @@ export class CommentSectionComponent implements OnInit, OnChanges, AfterViewChec
         this.type = this.type ? this.type : 3;
     }
 
+    //todo research
+    //public ngAfterViewChecked(): void {
+    //    if (this.isScrolled) return;
+    //    console.log("ngAfterViewChecked");
+    //    const fragment = this.router.parseUrl(this.router.url).fragment;
+    //    if (fragment) {
+    //        const element = document.getElementById(fragment);
+    //        if (element) {
+    //            let scrollTop = document.body.offsetHeight || window.pageYOffset ||
+    //                document.documentElement.offsetHeight;
+    //            let clientTop = document.documentElement.clientTop || document.body.clientTop || 0;
+    //            let top = element.getBoundingClientRect().top + scrollTop - clientTop;
+
+    //            console.log("scrTop= " + scrollTop);
+    //            console.log("clientTop= " + clientTop);
+    //            console.log("top= " + top);
+    //            console.log("prevHeight= " + this.prevHeight);
+    //            console.log("----------------");
+    //            this.renderer.addClass(element, "active");
+    //            while (this.prevHeight !== top) {
+    //           // do {
+    //                console.log("element ");
+
+    //                console.log("scrTop= " + scrollTop);
+    //                console.log("clientTop= " + clientTop);
+    //                console.log("top= " + top);
+    //                console.log("prevHeight= " + this.prevHeight);
+    //                console.log("/");
+    //                console.log(document.body.scrollTop);
+    //                console.log(window.pageYOffset);
+    //                console.log(document.documentElement.scrollTop);
+    //                console.log(document.documentElement.clientTop);
+    //                console.log(document.body.clientTop);
+    //                console.log("/");
+    //                if (this.prevHeight !== top) {
+    //                    console.log("!=");
+    //                    console.warn("prevHeight= " + this.prevHeight);
+    //                    this.prevHeight = top;
+    //                    console.warn("prevHeight= " + this.prevHeight);
+    //                } else {
+    //                    console.log("===");
+    //                }
+    //                scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+    //                clientTop = document.documentElement.clientTop || document.body.clientTop || 0;
+    //                top = element.getBoundingClientRect().top + scrollTop - clientTop;
+    //            } 
+    //            console.error("scroll");
+    //            element.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" } );
+    //           // this.isScrolled = true;
+            
+    //        }
+    //    }
+    //}
+
     public ngAfterViewChecked(): void {
         if (this.isScrolled) return;
         const fragment = this.router.parseUrl(this.router.url).fragment;

@@ -47,7 +47,7 @@ export class SignalRService {
 
         this.hubConnection = new HubConnectionBuilder()
             .withUrl(`${this.baseUrl}hubs/${hubUrl}`, options)
-        //       .withHubProtocol(new MessagePackHubProtocol())
+          //       .withHubProtocol(new MessagePackHubProtocol())
             .configureLogging(LogLevel.Error)
             .build();
         this.hubConnection.on("updateChat", (data: ChatMessage) => {
@@ -90,8 +90,8 @@ export class SignalRService {
             });
 
         this.hubConnection.onclose(() => {
-            this.initializeHub();
-      //      console.warn("RECONNECT");
+      //      this.initializeHub();
+            console.warn("RECONNECT");
         });
     }
 }

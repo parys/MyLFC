@@ -51,9 +51,9 @@ export class MaterialDetailComponent implements OnInit, OnDestroy {
         }
         
         this.sub = this.route.params.subscribe(params => {
-            if (+params["id"] === 0) {
-                this.router.navigate(["/"]); //bug temporary workaround
-            } else {
+            //if (+params["id"] === 0) {
+            //    this.router.navigate(["/"]); //bug temporary workaround
+            //} else {
                 this.service.getSingle(+params["id"])
                     .subscribe(data => {
                             this.parse(data);
@@ -65,7 +65,7 @@ export class MaterialDetailComponent implements OnInit, OnDestroy {
                         }
                         this.cd.markForCheck();
                     });
-            }
+           // }
         });
     }
 
