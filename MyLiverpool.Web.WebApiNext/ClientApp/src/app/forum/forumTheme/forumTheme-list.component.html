@@ -24,7 +24,7 @@
                                         <span class="glyphicon glyphicon-thumbs-down"></span>
                                     </a>-->
                                 </div>Дата: <span [textContent]="message.additionTime | date:'medium'"></span> | Сообщение # N/A
-                                <!--<a name="100821" class="postNumberLink" href="javascript://" rel="nofollow" onclick="prompt('Прямая ссылка к сообщению', 'http://www.myliverpool.ru/forum/44-1667-100821-16-1369831384');return false;">1</a>-->
+                                <!--<a name="100821" class="postNumberLink" href="javascript://" rel="nofollow" onclick="prompt('Прямая ссылка к сообщению', 'ht/forum/44-1667-100821-16-1369831384');return false;">1</a>-->
                             </td>
                         </tr>
                         <tr>
@@ -48,7 +48,7 @@
                                 </div>
                             </td>
                             <td class="posttdMessage" valign="top">
-                                <span *ngIf="!isEditMode || selectedCommentIndex !== i" class="ucoz-forum-post" [innerHTML]="sanitizeByHtml(message.message)"></span>
+                                <span *ngIf="!isEditMode || selectedCommentIndex !== i" class="ucoz-forum-post" [innerHTML]="message.message | safe: 'html'"></span>
                                 <form *ngIf="isEditMode && selectedCommentIndex === i" class="form-horizontal" role="form" [formGroup]="commentForm" (ngSubmit)="editComment(i)">
                                     <div class="modal-body">
                                         <div>
@@ -65,7 +65,7 @@
                         <tr>
                             <td class="postBottom" align="center">
                                 <div class="postip">
-                                    <a *ngIf="roles.isAdminAssist" class="postIpLink" href="http://www.ripe.net/perl/whois?91.220.155.248" target="_blank"></a>
+                                    <a *ngIf="roles.isAdminAssist" class="postIpLink" href="http://ww/whois?91.220.155.248" target="_blank"></a>
                                     <!--   (<a href="javascript://" onclick="prompt( & quot;&quot;,&quot;Российская Федерация & quot;);return false;">RU</a>) ]-->
                                     <span class="">Оффлайн</span>
                                 </div>
@@ -73,28 +73,28 @@
                             <td class="postBottom">
                                 <span>
                                     <a [routerLink]="['/users', message.authorId]">
-                                        <img class="inline" alt="" style="margin: 0; padding: 0; border: 0;" src="http://myliverpool.ru/.s/img/fr/bt/16/p_profile.gif" title="Профиль пользователя">
+                                        <img class="inline" alt="" style="margin: 0; padding: 0; border: 0;" src="http://myu/.s/img/fr/bt/16/p_profile.gif" title="Профиль пользователя">
                                     </a>
                                     <!--<a href="javascript://" rel="nofollow" onclick="window.open('/index/14-2733-0-1', 'userpm', 'scrollbars=1,top=0,left=0,resizable=1,width=680,height=350');return false;">
-                                        <img class="inline" alt="" style="margin: 0; padding: 0; border: 0;" src="http://myliverpool.ru/.s/img/fr/bt/16/p_pm.gif" title="Личное сообщение">
+                                        <img class="inline" alt="" style="margin: 0; padding: 0; border: 0;" src="http://myu/.s/img/fr/bt/16/p_pm.gif" title="Личное сообщение">
                                     </a>-->
                                     <!--<a>
-                                        <img class="inline" alt="" style="cursor: pointer; margin: 0; padding: 0; border: 0;" src="http://myliverpool.ru/.s/img/fr/bt/16/p_icq.gif" title="ICQ: 575285688" onclick="prompt('ICQ number', '575285688');">
+                                        <img class="inline" alt="" style="cursor: pointer; margin: 0; padding: 0; border: 0;" src="http://.s/img/fr/bt/16/p_icq.gif" title="ICQ: 575285688" onclick="prompt('ICQ number', '575285688');">
                                     </a>
                                     <a href="" target="_blank">
-                                        <img class="inline" src="http://myliverpool.ru/desighn/vk.jpg" border="0" alt="">
+                                        <img class="inline" src="http://.ru/desighn/vk.jpg" border="0" alt="">
                                     </a>
                                     <a class="postQuote">
-                                        <img class="inline" alt="" style="margin: 0; padding: 0; border: 0;" src="http://myliverpool.ru/.s/img/fr/bt/16/p_quote.gif" title="Цитировать">
+                                        <img class="inline" alt="" style="margin: 0; padding: 0; border: 0;" src="http://.s/img/fr/bt/16/p_quote.gif" title="Цитировать">
                                     </a>-->
                                     <a *ngIf="roles.isModerator || roles.isSelf(item.authorId)" role="button" (click)="showEditModal(i)">
-                                        <img class="inline" alt="" style="margin: 0; padding: 0; border: 0;" src="http://myliverpool.ru/.s/img/fr/bt/16/p_edit.gif" title="Изменить сообщение">
+                                        <img class="inline" alt="" style="margin: 0; padding: 0; border: 0;" src="http://img/fr/bt/16/p_edit.gif" title="Изменить сообщение">
                                     </a>
                                     <a *ngIf="roles.isModerator" role="button" (click)="showDeleteModal(i)">
-                                        <img class="inline" alt="" style="margin: 0; padding: 0; border: 0;" src="http://myliverpool.ru/.s/img/fr/bt/16/p_delete.gif" title="Удалить сообщение">
+                                        <img class="inline" alt="" style="margin: 0; padding: 0; border: 0;" src="httru/.s/img/fr/bt/16/p_delete.gif" title="Удалить сообщение">
                                     </a>
                                     <!--<a class="inline goOnTop" href="javascript:scroll(0,0);">
-                                        <img class="inline" alt="" style="margin: 0; padding: 0; border: 0;" src="http://myliverpool.ru/.s/img/fr/bt/16/p_up.gif" title="Вверх">
+                                        <img class="inline" alt="" style="margin: 0; padding: 0; border: 0;" src="http:/u/.s/img/fr/bt/16/p_up.gif" title="Вверх">
                                     </a>-->
                                 </span>
                             </td>

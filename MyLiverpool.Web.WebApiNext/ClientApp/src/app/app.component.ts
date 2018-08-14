@@ -173,8 +173,6 @@ export class AppComponent implements OnInit, AfterViewInit {
         this.breadcrumbService.hideRouteRegex("^/blogCategories/[0-9]+$"); // this.breadcrumbService.addCallbackForRouteRegex("^/blog/[0-9]+$", this.getTitle);
     //    this.breadcrumbService.addFriendlyNameForRouteRegex("^/blogCategories/[0-9]+/edit$", "Редактирование");
 
-        this.breadcrumbService.addFriendlyNameForRoute("/clubHistory", "История клуба");
-        this.breadcrumbService.addFriendlyNameForRoute("/aboutClub", "О клубе");
         this.breadcrumbService.addFriendlyNameForRoute("/squad", "Состав");
         this.breadcrumbService.addFriendlyNameForRoute("/squad/first", "Первая команда");
         this.breadcrumbService.addFriendlyNameForRoute("/squad/academy", "Академия");
@@ -194,7 +192,6 @@ export class AppComponent implements OnInit, AfterViewInit {
         this.breadcrumbService.addFriendlyNameForRouteRegex("^/users/[0-9]+/settings$", "Настройки");
     //    this.breadcrumbService.addFriendlyNameForRouteRegex("^/users/[0-9]+/edit$", "Редактирование");
 
-        this.breadcrumbService.addFriendlyNameForRoute("/rules", "Правила");
 
         this.breadcrumbService.addFriendlyNameForRoute("/notifications", "Уведомления");
 
@@ -224,6 +221,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         this.breadcrumbService.addFriendlyNameForRouteRegex("/materialComments", "Комментарии");
 
         this.breadcrumbService.addFriendlyNameForRouteRegex("/pms", "Личные сообщения");
+        this.breadcrumbService.addFriendlyNameForRouteRegex("/pms/[0-9]+$", "Сообщение");
 
         this.breadcrumbService.hideRouteRegex("^/account");
         this.breadcrumbService.addFriendlyNameForRoute("/account/signup", "Регистрация");
@@ -248,12 +246,17 @@ export class AppComponent implements OnInit, AfterViewInit {
         this.breadcrumbService.hideRouteRegex("^/stadiums/[0-9]+$"); // this.breadcrumbService.addCallbackForRouteRegex("^/news/[0-9]+$", this.getTitle);
      //   this.breadcrumbService.addFriendlyNameForRouteRegex("^/stadiums/[0-9]+/edit$", "Редактирование");
 
+        this.breadcrumbService.addFriendlyNameForRoute("/about", "О нас");
+        this.breadcrumbService.addFriendlyNameForRoute("/aboutClub", "О клубе");
         this.breadcrumbService.addFriendlyNameForRoute("/chat", "Чат");
+        this.breadcrumbService.addFriendlyNameForRoute("/clubHistory", "История клуба");
+        this.breadcrumbService.addFriendlyNameForRoute("/cooperation", "Сотрудничество");
+        this.breadcrumbService.addFriendlyNameForRoute("/copyright", "О перепечатке информации");
+        this.breadcrumbService.addFriendlyNameForRoute("/fantasy", "Fantasy Лига MyLFC");
+        this.breadcrumbService.addFriendlyNameForRoute("/instructions", "Инструкции");
         this.breadcrumbService.addFriendlyNameForRoute("/job", "Работа на сайте");
         this.breadcrumbService.addFriendlyNameForRoute("/plans", "Планы");
-        this.breadcrumbService.addFriendlyNameForRoute("/instructions", "Инструкции");
-        this.breadcrumbService.addFriendlyNameForRoute("/fantasy", "Fantasy Лига MyLFC");
-        this.breadcrumbService.addFriendlyNameForRoute("/cooperation", "Сотрудничество");
+        this.breadcrumbService.addFriendlyNameForRoute("/rules", "Правила");
 
         this.breadcrumbService.addFriendlyNameForRoute("/editPage", "Редактирование страницы");
         this.breadcrumbService.hideRouteRegex("^/editPage/[0-9]+$");

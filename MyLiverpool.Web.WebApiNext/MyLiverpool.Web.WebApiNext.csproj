@@ -127,6 +127,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="ClientApp\dist-server\" />
     <Folder Include="ClientApp\src\app\roleGroup\+core\" />
     <Folder Include="wwwroot\src\" />
   </ItemGroup>

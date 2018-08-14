@@ -1,6 +1,5 @@
 ﻿import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
 import { TransferState, makeStateKey } from "@angular/platform-browser";
-import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { Subscription } from "rxjs";
 import { AdminService } from "../admin.service";
 import { HelperType } from "../helperType.enum";
@@ -16,11 +15,10 @@ const CUP_TABLE_KEY = makeStateKey<string>("cup-table");
 })
 export class CupTableComponent implements OnInit, OnDestroy {
     private sub: Subscription;
-    public cupTable: SafeHtml;
+    public cupTable: string;
 
     constructor(private service: AdminService,
         private cd: ChangeDetectorRef,
-        private sanitizer: DomSanitizer,
         private transferState: TransferState,
         public roles: RolesCheckedService) {
     }
@@ -44,12 +42,8 @@ export class CupTableComponent implements OnInit, OnDestroy {
         if (this.sub) this.sub.unsubscribe();
     }
 
-    public sanitizeByHtml(text: string): SafeHtml {
-        return this.sanitizer.bypassSecurityTrustHtml(text);
-    }
-
     private parse(data: string): void {
-        this.cupTable = this.sanitizeByHtml(data);
+        this.cupTable = data;
         this.cd.markForCheck();
     }
 }

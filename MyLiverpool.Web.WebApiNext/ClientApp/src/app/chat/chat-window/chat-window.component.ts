@@ -1,6 +1,5 @@
 ﻿import { Component, OnInit, ChangeDetectorRef, Input, ViewChild, ChangeDetectionStrategy } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { MatDialog, MatSnackBar } from "@angular/material";
 import { Configuration } from "@app/app.constants";
 import { ChatMessage } from "@app/+common-models";
@@ -30,7 +29,6 @@ export class ChatWindowComponent implements OnInit {
         private cd: ChangeDetectorRef,
         private snackBar: MatSnackBar,
         private configuration: Configuration,
-        private sanitizer: DomSanitizer,
         public roles: RolesCheckedService,
         private dialog: MatDialog,
         private signalRService: SignalRService) {
@@ -101,11 +99,7 @@ export class ChatWindowComponent implements OnInit {
         this.elementRef.setFocus();
         this.cd.markForCheck();
     }
-
-    public sanitizeByHtml(text: string): SafeHtml {
-        return this.sanitizer.bypassSecurityTrustHtml(text);
-    }
-
+    
     public edit(index: number): void {
         this.selectedEditIndex = index;
         this.messageForm.get("message").patchValue(this.items[index].message);

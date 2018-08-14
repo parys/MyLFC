@@ -1,5 +1,4 @@
 ﻿import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
-import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs";
 import { AdminService } from "@app/admin";
@@ -12,14 +11,13 @@ import { RolesCheckedService } from "@app/+auth";
 })
 export class StaticPageComponent implements OnInit, OnDestroy {
     private sub: Subscription;
-    public content: SafeHtml;
+    public content: string;
     public typeId: number;
 
     constructor(private service: AdminService,
         public roles: RolesCheckedService,
         private route: ActivatedRoute,
-        private cd: ChangeDetectorRef,
-        private sanitizer: DomSanitizer) {
+        private cd: ChangeDetectorRef) {
 
         this.typeId = +route.snapshot.data["type"];
     }
@@ -27,7 +25,7 @@ export class StaticPageComponent implements OnInit, OnDestroy {
     public ngOnInit(): void {
         this.sub = this.service.getValue(this.typeId).subscribe(pageData => {
                 if (pageData) {
-                    this.content = this.sanitizeByHtml(pageData);
+                    this.content = pageData;
                     this.cd.markForCheck();
                 }
             },
@@ -36,9 +34,5 @@ export class StaticPageComponent implements OnInit, OnDestroy {
 
     public ngOnDestroy(): void {
         if (this.sub) this.sub.unsubscribe();
-    }
-
-    public sanitizeByHtml(text: string): SafeHtml {
-        return this.sanitizer.bypassSecurityTrustHtml(text);
     }
 }

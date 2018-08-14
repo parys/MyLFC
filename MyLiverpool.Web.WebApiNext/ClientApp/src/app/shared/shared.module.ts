@@ -11,7 +11,7 @@ import {
 } from "@angular/material";
 import { LoaderComponent, LoaderService } from "./loader";
 import { BearerInterceptor } from "./interceptors";
-import { CustomDatePipe } from "./pipes";
+import { CustomDatePipe, SafePipe } from "./pipes";
 import { BreadcrumbComponent, BreadcrumbService } from "./breadcrumb";
 import { NgxPaginationModule } from "ngx-pagination";
 //import { DeferLoadDirective } from "./lazy";
@@ -62,6 +62,7 @@ import { AuthModule } from "@app/+auth";
         DeleteDialogComponent,
         LoaderComponent,
         CustomDatePipe,
+        SafePipe,
         BreadcrumbComponent,
      //   DeferLoadDirective,
         AdComponent
@@ -75,6 +76,7 @@ import { AuthModule } from "@app/+auth";
         DeleteDialogComponent,
         LoaderComponent, 
         CustomDatePipe,
+        SafePipe,
         BreadcrumbComponent,
         AdComponent,
 

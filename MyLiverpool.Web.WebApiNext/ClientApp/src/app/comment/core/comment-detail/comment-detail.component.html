@@ -41,13 +41,13 @@
                     <img class="avatar-medium" [src]="item.photo" [alt]="item.authorUserName" />
                 </div>
                 <div class="width85p">
-                    <p class="padding5" [innerHTML]="sanitizeByHtml(item.message)"></p>
+                    <p class="padding5" [innerHTML]="item.message | safe: 'html'"></p>
                 </div>
             </div>
             <div class="flex" *ngIf="item.answer || (isEditMode && roles.isEditor)">
                 <div class="width15p"><b>Ответ:</b></div>
                 <div class="width85p">
-                    <i *ngIf="!isEditMode" [innerHTML]="item.answer"></i>
+                    <i *ngIf="!isEditMode" [innerHTML]="item.answer | safe: 'html'"></i>
                     <bbeditor *ngIf="isEditMode" [value]="item.answer" formControlName="answer"></bbeditor>
                 </div>
             </div>

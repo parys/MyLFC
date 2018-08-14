@@ -18,14 +18,14 @@
     <div class="full-width">
         <div *ngIf="item.usePhotoInBody" class="full-width bottom10">
             <img [src]="item.photo" class="material-preview" alt="" />
-            <b><i class="full-width" [innerHTML]="brief"></i></b>
+            <b><i class="full-width" [innerHTML]="item.brief | safe: 'html'"></i></b>
         </div>
-        <article class="material-body" [innerHTML]="body"></article>
+        <article class="material-body" [innerHTML]="item.message | safe: 'html'"></article>
         <div class="full-width material-info-panel top10">
             <ul class="list-inline small small-offset padding5">
                 <li><label>Просмотры:</label>&nbsp; <span [textContent]="item.reads"></span></li>
                 <li class="">|</li>
-                <li *ngIf="item.source"><label>Источник:</label>&nbsp; <a [href]="sanitizeByUrl(item.source)" target="_blank" [textContent]="item.shortLink"></a></li>
+                <li *ngIf="item.source"><label>Источник:</label>&nbsp; <a [href]="item.source | safe: 'url'" target="_blank" [textContent]="item.shortLink"></a></li>
                 <li class="">|</li>
                 <li><label>Дата добавления:</label>&nbsp; <span [textContent]="item.additionTime | customDate:true"></span></li>
                 <li class="">|</li>

@@ -1,4 +1,4 @@
 ﻿<span class="full-width" *ngIf="roles.isInformer">
     <a role="button" [routerLink]="['/editPage', 13]">Отредактировать кубки</a>
 </span>
-<div *ngIf="cupTable" class="eplTable" [innerHTML]="cupTable"></div>
+<div *ngIf="cupTable" class="eplTable" [innerHTML]="cupTable | safe: 'html'"></div>

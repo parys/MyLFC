@@ -1,6 +1,5 @@
 ﻿import { Component, OnInit, OnDestroy } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { Subscription } from "rxjs";
 import { PmService } from "../../core";
 import { RolesCheckedService } from "@app/+auth";
@@ -21,7 +20,6 @@ export class PmDetailComponent implements OnInit, OnDestroy {
 
     constructor(private pmService: PmService,
         public roles: RolesCheckedService,
-        private sanitizer: DomSanitizer,
         private route: ActivatedRoute) { }
 
     public ngOnInit(): void {
@@ -49,9 +47,5 @@ export class PmDetailComponent implements OnInit, OnDestroy {
 
     public closePmWindow(event: any): void {
         this.selectedUserId = null;
-    }
-
-    public sanitizeByHtml(text: string): SafeHtml {
-        return this.sanitizer.bypassSecurityTrustHtml(text);
     }
 }

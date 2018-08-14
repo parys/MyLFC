@@ -3,7 +3,6 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 import { Location } from "@angular/common";
 import { MatDialog } from "@angular/material";
-import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { Subscription } from "rxjs";
 import { ForumThemeService } from "./forumTheme.service";
 import { ForumMessage, ForumMessageService } from "@app/forum/forumMessage";
@@ -30,7 +29,6 @@ export class ForumThemeListComponent implements OnInit, OnDestroy {
         private messageService: ForumMessageService,
         public roles: RolesCheckedService,
         private route: ActivatedRoute,
-        private sanitizer: DomSanitizer,
         private formBuilder: FormBuilder,
         private location: Location,
         private dialog: MatDialog) {
@@ -90,10 +88,6 @@ export class ForumThemeListComponent implements OnInit, OnDestroy {
                 this.hideEditModal();
             },
             error => console.log(error));
-    }
-
-    public sanitizeByHtml(text: string): SafeHtml {
-        return this.sanitizer.bypassSecurityTrustHtml(text);
     }
 
     private delete(index: number): void {

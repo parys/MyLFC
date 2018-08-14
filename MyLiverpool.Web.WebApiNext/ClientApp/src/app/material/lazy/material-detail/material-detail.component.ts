@@ -1,6 +1,6 @@
 ﻿import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, PLATFORM_ID, Inject } from "@angular/core";
 import { isPlatformBrowser } from "@angular/common";
-import { Title, DomSanitizer, SafeHtml } from "@angular/platform-browser";
+import { Title } from "@angular/platform-browser";
 import { Router, ActivatedRoute } from "@angular/router";
 import { MatDialog, MatSnackBar } from "@angular/material";
 import { Subscription } from "rxjs";
@@ -22,8 +22,6 @@ export class MaterialDetailComponent implements OnInit, OnDestroy {
     private sub: Subscription;
     private subs: Subscription;
     public item: Material;
-    public brief: SafeHtml;
-    public body: SafeHtml;
     public type: MaterialType;
     
     constructor(private service: MaterialService,
@@ -33,7 +31,6 @@ export class MaterialDetailComponent implements OnInit, OnDestroy {
         private storage: StorageService,
         public roles: RolesCheckedService,
         private router: Router,
-        private sanitizer: DomSanitizer,
         private titleService: Title,
         private snackBar: MatSnackBar,
         private dialog: MatDialog) {
@@ -91,14 +88,6 @@ export class MaterialDetailComponent implements OnInit, OnDestroy {
         }, e => console.log(e));
     }
 
-    public sanitizeByHtml(text: string): SafeHtml {
-        return this.sanitizer.bypassSecurityTrustHtml(text);
-    }
-
-    public sanitizeByUrl(text: string): SafeHtml {
-        return this.sanitizer.bypassSecurityTrustResourceUrl(text);
-    }
-
     private activate() : void {
         this.service.activate(this.item.id)
             .subscribe(res => {
@@ -128,8 +117,6 @@ export class MaterialDetailComponent implements OnInit, OnDestroy {
     private parse(item: Material): void {
         this.titleService.setTitle(item.title);
         this.item = item;
-        this.body = this.sanitizeByHtml(item.message);
-        this.brief = this.sanitizeByHtml(item.brief);
         this.addView();
     //    this.cd.detectChanges();
     }

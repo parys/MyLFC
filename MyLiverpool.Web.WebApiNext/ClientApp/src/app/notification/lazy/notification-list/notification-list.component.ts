@@ -6,7 +6,7 @@ import { NotificationService } from "@app/notification/core";
 @Component({
         selector: "notification-list",
         templateUrl: "./notification-list.component.html",
-        styleUrls: ["./notification-list.component.css"]
+        styleUrls: ["./notification-list.component.scss"]
     })
 
 export class NotificationListComponent implements OnInit {

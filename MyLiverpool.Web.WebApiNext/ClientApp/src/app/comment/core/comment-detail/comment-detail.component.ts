@@ -1,7 +1,6 @@
 ﻿import { Component, OnInit, OnDestroy, Input, ChangeDetectionStrategy, ChangeDetectorRef, ViewChild } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Location } from "@angular/common";
-import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { MatDialog } from "@angular/material";
 import { Subscription } from "rxjs"
 import { Comment } from "@app/+common-models";
@@ -36,7 +35,6 @@ export class CommentDetailComponent implements OnInit, OnDestroy {
 
     constructor(private materialCommentService: CommentService,
         private location: Location,
-        private sanitizer: DomSanitizer,
         public roles: RolesCheckedService,
         private dialog: MatDialog,
         private cd: ChangeDetectorRef,
@@ -150,10 +148,6 @@ export class CommentDetailComponent implements OnInit, OnDestroy {
     public cancelEdit(): void {
         this.isEditMode = false;
         this.cd.markForCheck();
-    }
-
-    public sanitizeByHtml(text: string): SafeHtml {
-        return this.sanitizer.bypassSecurityTrustHtml(text);
     }
 
     private delete(): void {

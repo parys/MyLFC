@@ -11,6 +11,6 @@
             <span [textContent]="event.dateTime | customDate"></span>
             <a *ngIf="!event.isRead" role="button" (click)="read(i)">Пометить как прочитанное</a>
         </div>
-        <a role="button" (click)="readAndGo(i)" [innerHtml]="event.text"></a>
+        <a role="button" (click)="readAndGo(i)" [innerHtml]="event.text | safe: 'html'"></a>
     </div>
 </div>

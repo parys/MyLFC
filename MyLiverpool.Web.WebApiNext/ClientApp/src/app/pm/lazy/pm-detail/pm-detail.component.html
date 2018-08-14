@@ -5,7 +5,7 @@
     <mat-form-field class="full-width">
         <input matInput placeholder="Заголовок" [value]="item.title"/>
     </mat-form-field>
-    <div class="full-width" [innerHTML]="sanitizeByHtml(item.message)">
+    <div class="full-width" [innerHTML]="item.message | safe: 'html'">
     </div>
     <div class="full-width text-center">
             <a mat-raised-button color="warn" role="button" (click)="writePm()">Ответить</a>
