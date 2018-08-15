@@ -65,6 +65,10 @@ namespace MyLiverpool.Business.Services
             {
                 filter = filter.And(x => x.UserName.Contains(dto.UserName));
             }
+            if (!string.IsNullOrWhiteSpace(dto.Ip))
+            {
+                filter = filter.And(x => x.Ip.Contains(dto.Ip));
+            }
             Expression<Func<User, object>> sortBy = x => x.LastModified;
             if (!string.IsNullOrWhiteSpace(dto.SortBy))
             {

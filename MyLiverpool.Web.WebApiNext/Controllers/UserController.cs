@@ -111,7 +111,12 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 MissingMemberHandling = MissingMemberHandling.Ignore,
                 NullValueHandling = NullValueHandling.Include,
                 DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate
-            }); 
+            });
+
+            if (!User.IsInRole(nameof(RolesEnum.AdminStart)))
+            {
+                obj.Ip = null;
+            }
             var model = await _userService.GetUsersDtoAsync(obj);
             return Json(model);
         }
