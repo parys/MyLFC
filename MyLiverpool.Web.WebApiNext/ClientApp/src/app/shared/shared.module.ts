@@ -4,9 +4,9 @@ import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { DeleteDialogComponent } from "./delete-dialog";
 import {
-    MatAutocompleteModule, MatBadgeModule, MatButtonModule, MatCardModule, MatCheckboxModule, MatDatepickerModule, MatDialogModule, MatExpansionModule,
-    MatIconModule, MatInputModule, MatMenuModule, MatNativeDateModule, MatProgressBarModule, MatSelectModule, MatSlideToggleModule,
-    MatSnackBarModule, MatTabsModule, MatTableModule, MatTooltipModule, MatSortModule, MatPaginatorModule, MatPaginatorIntl, MAT_SNACK_BAR_DEFAULT_OPTIONS,
+    MatAutocompleteModule, MatBadgeModule, MatButtonModule, MatCardModule, MatCheckboxModule, MatDialogModule, MatExpansionModule,
+    MatIconModule, MatInputModule, MatMenuModule, MatProgressBarModule, MatSelectModule, MatSlideToggleModule,
+    MatSnackBarModule, MatTableModule, MatTooltipModule, MatSortModule, MatPaginatorModule, MatPaginatorIntl, MAT_SNACK_BAR_DEFAULT_OPTIONS,
     ErrorStateMatcher, ShowOnDirtyErrorStateMatcher, MatSidenavModule
 } from "@angular/material";
 import { LoaderComponent, LoaderService } from "./loader";
@@ -39,20 +39,17 @@ import { AuthModule } from "@app/+auth";
         MatButtonModule,
         MatCardModule,
         MatCheckboxModule,
-        MatDatepickerModule,
         MatDialogModule,
         MatExpansionModule,
         MatIconModule,
         MatInputModule,
         MatMenuModule,
-        MatNativeDateModule,
         MatProgressBarModule,
         MatSelectModule,
         MatSlideToggleModule,
         MatSnackBarModule,
         MatPaginatorModule,
         MatSortModule,
-        MatTabsModule,
         MatTableModule,
         MatTooltipModule,
         MatSidenavModule
@@ -85,19 +82,16 @@ import { AuthModule } from "@app/+auth";
         MatButtonModule,
         MatCardModule,
         MatCheckboxModule,
-        MatDatepickerModule,
         MatDialogModule,
         MatExpansionModule,
         MatIconModule,
         MatInputModule,
         MatMenuModule,
-        MatNativeDateModule,
         MatPaginatorModule,
         MatSelectModule,
         MatSlideToggleModule,
         MatSnackBarModule,
         MatSortModule,
-        MatTabsModule,
         MatTableModule,
         MatTooltipModule,
         MatSidenavModule

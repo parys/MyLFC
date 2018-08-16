@@ -5,6 +5,6 @@ export * from "./squad-list.model";
 export * from "./personType.model";
 export * from "./personType.enum";
 export * from "./person.service";
-export * from "./person-edit";
+export * from "./+person-edit";
 export * from "./person-birthday";
 export * from "./best-player";

@@ -6,13 +6,15 @@ import { SquadComponent } from "./squad";
 import { personRoutes } from "./person.routes";
 import { SharedModule } from "@app/shared";
 import { PersonCoreModule } from "../core";
+import { MatTabsModule } from "@angular/material";
 
 
 @NgModule({
     imports: [
         RouterModule.forChild(personRoutes),
         SharedModule,
-        PersonCoreModule
+        PersonCoreModule,
+        MatTabsModule
     ],
     declarations: [
         PersonListComponent,

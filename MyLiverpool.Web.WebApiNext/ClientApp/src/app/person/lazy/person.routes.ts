@@ -2,19 +2,12 @@
 import { PersonListComponent } from "./person-list";
 import { StuffListComponent } from "./stuff-list";
 import { SquadComponent } from "./squad";
-import { RoleGuard } from "@app/+auth";
-import { PersonEditComponent } from "@app/person/core";
 
 export const personRoutes: Routes = [
     { path: "", component: PersonListComponent, data: { title: "Люди" }, },
     {
         path: ":id/edit",
-        component: PersonEditComponent,
-        data: {
-            title: "Редактирование человека",
-            roles: ["infoStart"]
-        },
-        canActivate: [RoleGuard]
+        loadChildren: "../core/+person-edit/person-edit.module#PersonEditModule"
     },
     {
         path: "stuff",
