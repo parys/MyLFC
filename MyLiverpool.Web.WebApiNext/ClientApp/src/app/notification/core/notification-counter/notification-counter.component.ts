@@ -36,9 +36,13 @@ export class NotificationCounterComponent implements OnInit, OnDestroy {
             this.snackBar.open("Вам пришло уведомление", this.action)
                 .onAction()
                 .subscribe(_ => {
-                    this.service.read(([data.id])).subscribe(_ =>
-                        this.router.navigate([`/${data.typeName}/${data.entityId}`], { fragment: data.commentId ? `com${data.commentId}` : "" }));
-                });
+                        this.service.read(([data.id])).subscribe(_ =>
+                            this.router.navigate([`/${data.typeName}/${data.entityId}`],
+                                { fragment: data.commentId ? `com${data.commentId}` : "" }));
+                    },
+                    () => {
+                        this.cd.markForCheck();
+                    });
         });
     }
 
