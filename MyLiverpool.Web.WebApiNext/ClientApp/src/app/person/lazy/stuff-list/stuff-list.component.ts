@@ -1,5 +1,6 @@
 ﻿import { Component, OnInit, OnDestroy } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
+import { Location } from "@angular/common";
 import { Subscription } from "rxjs";
 import { Person, PersonService, PersonTypeEnum } from "@app/person/core";
 import { RolesCheckedService } from "@app/+auth";
@@ -16,6 +17,7 @@ export class StuffListComponent implements OnInit, OnDestroy {
 
     constructor(private personService: PersonService,
         private route: ActivatedRoute,
+        private location: Location,
         public roles: RolesCheckedService){
     }
 
@@ -28,15 +30,22 @@ export class StuffListComponent implements OnInit, OnDestroy {
         } else {
             this.activeLinkIndex = 1;
         }
-        this.updateState(PersonTypeEnum[this.activeLinkIndex].toString());
+        this.updateState();
     }
 
     public ngOnDestroy(): void {
         if(this.sub) { this.sub.unsubscribe(); }
     }
 
-    public updateState(type: string): void {
+    public updateState(): void {
+        const type = PersonTypeEnum[this.activeLinkIndex].toString();
         this.sub = this.personService.getStuff(type).subscribe(data => this.items = data,
             e => console.log(e));
+    }
+
+    public changeTab(index: any): void {
+        this.activeLinkIndex = index;
+        this.updateState();
+        this.location.go(this.routeLinks[this.activeLinkIndex].link);
     }
 }

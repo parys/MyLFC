@@ -10,7 +10,7 @@ import { SignalRService } from "@app/+signalr";
 @Component({
     selector: "notification-counter",
     templateUrl: "./notification-counter.component.html",
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class NotificationCounterComponent implements OnInit, OnDestroy {
     private sub: Subscription;
@@ -31,19 +31,19 @@ export class NotificationCounterComponent implements OnInit, OnDestroy {
             () => {
                 this.cd.markForCheck();
             });
-        this.signalR.newNotify.subscribe((data : Notification) => {
-            this.count++;
-            this.snackBar.open("Вам пришло уведомление", this.action)
-                .onAction()
-                .subscribe(_ => {
+        this.signalR.newNotify.subscribe((data: Notification) => {
+                this.count++;
+                this.snackBar.open("Вам пришло уведомление", this.action)
+                    .onAction()
+                    .subscribe(_ => {
                         this.service.read(([data.id])).subscribe(_ =>
                             this.router.navigate([`/${data.typeName}/${data.entityId}`],
                                 { fragment: data.commentId ? `com${data.commentId}` : "" }));
-                    },
-                    () => {
-                        this.cd.markForCheck();
                     });
-        });
+            },
+            () => {
+                this.cd.markForCheck();
+            });
     }
 
     public ngOnDestroy(): void {

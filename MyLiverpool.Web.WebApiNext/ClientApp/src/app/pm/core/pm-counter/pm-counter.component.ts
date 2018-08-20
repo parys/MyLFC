@@ -8,7 +8,7 @@ import { SignalRService } from "@app/+signalr";
 @Component({
     selector: "pm-counter",
     templateUrl: "./pm-counter.component.html",
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class PmCounterComponent implements OnInit, OnDestroy {
     private sub: Subscription;
