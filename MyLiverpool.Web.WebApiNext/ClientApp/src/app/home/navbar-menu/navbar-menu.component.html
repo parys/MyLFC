@@ -56,7 +56,7 @@
     <mat-menu #siteMenu="matMenu">
         <a [routerLink]="['/about']" mat-menu-item>О нас</a>
         <a class="color-tomato" [routerLink]="['/job']" mat-menu-item>Вакансии</a>
-        <a [routerLink]="['/copyright']" mat-menu-item>О перепечатки информации</a>
+        <a [routerLink]="['/copyright']" mat-menu-item>О перепечатке информации</a>
         <a [routerLink]="['/cooperation']" mat-menu-item>Сотрудничество</a>
         <a [routerLink]="['/materialComments']" [queryParams]="{page: 1}" mat-menu-item>Комментарии</a>
         <a *ngIf="roles.isAdminAssistant" [routerLink]="['/roleGroups']" mat-menu-item>Роли</a>
