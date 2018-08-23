@@ -90,7 +90,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
         {
             return await _context.Matches.Include(m => m.Club).Include(m => m.Events)
                 .OrderBy(m => m.DateTime)
-                .LastOrDefaultAsync(m => m.DateTime <= DateTimeOffset.Now.AddHours(1.5));
+                .LastOrDefaultAsync(m => m.DateTime <= DateTimeOffset.Now.AddHours(0.5));
                // .LastOrDefaultAsync(m => !string.IsNullOrWhiteSpace(m.Score));
         }
 
@@ -98,7 +98,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
         {
             return await _context.Matches.Include(m => m.Club).Include(m => m.Stadium).Include(m => m.Events)
                 .OrderBy(m => m.DateTime)
-                .FirstOrDefaultAsync(m => m.DateTime >= DateTimeOffset.Now.AddHours(1.5));
+                .FirstOrDefaultAsync(m => m.DateTime >= DateTimeOffset.Now.AddHours(0.5));
              //   .FirstOrDefaultAsync(m => string.IsNullOrWhiteSpace(m.Score));
         }
     }

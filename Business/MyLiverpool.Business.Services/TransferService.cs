@@ -14,11 +14,11 @@ namespace MyLiverpool.Business.Services
 {
     public class TransferService : ITransferService
     {
-        private readonly ITransferRepository _transferRepository;
+        private readonly IGenericRepository<Transfer> _transferRepository;
         private readonly ISeasonService _seasonService;
         private readonly IMapper _mapper;
 
-        public TransferService(ITransferRepository transferRepository, IMapper mapper, ISeasonService seasonService)
+        public TransferService(IGenericRepository<Transfer> transferRepository, IMapper mapper, ISeasonService seasonService)
         {
             _transferRepository = transferRepository;
             _mapper = mapper;
@@ -28,13 +28,16 @@ namespace MyLiverpool.Business.Services
         public async Task<TransferDto> CreateAsync(TransferDto dto)
         {
             var entity = _mapper.Map<Transfer>(dto);
-            entity = await _transferRepository.AddAsync(entity);
+            entity = await _transferRepository.CreateAsync(entity);
             return _mapper.Map<TransferDto>(entity);
         }
 
         public async Task<TransferDto> UpdateAsync(TransferDto dto)
         {
-            var entity = await _transferRepository.GetByIdAsync(dto.Id);
+            var entity = await _transferRepository.GetByIdAsync(dto.Id, false,
+                x => x.Person,
+                x => x.Club,
+                x => x.Season);
             entity.Club = null;
             entity.ClubId = dto.ClubId;
             entity.Person = null;
@@ -58,20 +61,29 @@ namespace MyLiverpool.Business.Services
 
         public async Task<TransferDto> GetByIdAsync(int id)
         {
-            var entity = await _transferRepository.GetByIdAsync(id);
+            var entity = await _transferRepository.GetByIdAsync(id, false,
+                x => x.Person,
+                x => x.Club,
+                x => x.Season);
             return _mapper.Map<TransferDto>(entity);
         }
 
         public async Task<PageableData<TransferDto>> GetListAsync(int page, int itemsPerPage = 15)
         {
-            Expression<Func<Transfer, bool>> filter = m => true;
+            //Expression<Func<Transfer, bool>> filter = m => true;
            // if (seasonId.HasValue)
             {
           //      filter = filter.And(m => m.SeasonId == seasonId.Value);
             }
-            var transfers = await _transferRepository.GetListAsync(page, orderBy: x => x.StartDate);
+            var transfers = await _transferRepository.GetListAsync(page, 15, true,
+                null,
+                SortOrder.Ascending,
+                y => y.StartDate,
+                x => x.Person,
+                x => x.Club,
+                x => x.Season);
             var dtos = _mapper.Map<ICollection<TransferDto>>(transfers);
-            var count = await _transferRepository.GetCountAsync();
+            var count = await _transferRepository.CountAsync();
             return new PageableData<TransferDto>(dtos, page, count);
         }
 
@@ -80,7 +92,10 @@ namespace MyLiverpool.Business.Services
             var currentSeason = await _seasonService.GetCurrentSeasonIdAsync();
             Expression<Func<Transfer, bool>> filter = x => x.SeasonId == currentSeason;//todo maybe link by season
             var transfers =
-                await _transferRepository.GetListAsync(1, 1000, filter, SortOrder.Descending, x => x.StartDate);
+                await _transferRepository.GetListAsync(filter, SortOrder.Descending, y => y.StartDate,
+                    x => x.Person,
+                    x => x.Club,
+                    x => x.Season);
             return _mapper.Map<ICollection<TransferDto>>(transfers);
         }
     }
