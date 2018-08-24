@@ -64,12 +64,14 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             return await _context.MatchPersons
                 .Include(x => x.Person)
                 .Include(x => x.Match)
-                .FirstOrDefaultAsync(x => x.MatchId == matchId && x.PersonId == personId);
+                .FirstOrDefaultAsync(x => x.MatchId == matchId
+                                          && x.PersonId == personId);
         }
 
         public async Task<IEnumerable<MatchPerson>> GetListAsync(Expression<Func<MatchPerson, bool>> filter = null, SortOrder order = SortOrder.Ascending, Expression<Func<MatchPerson, object>> orderBy = null)
         {
-            IQueryable<MatchPerson> query = _context.MatchPersons.Include(m => m.Person);
+            IQueryable<MatchPerson> query = _context.MatchPersons.
+                Include(m => m.Person);
 
             if (filter != null)
             {
@@ -84,7 +86,8 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
 
         public async Task DeleteAsync(int matchId, int personId)
         {
-            var entity = await _context.MatchPersons.FindAsync(matchId, personId);
+            var entity = await _context.MatchPersons.
+                FindAsync(matchId, personId);
             if (entity != null)
             {
                 await DeleteAsync(entity);

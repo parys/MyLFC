@@ -20,7 +20,8 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
 
         public async Task<RoleGroup> GetByIdAsync(int id)
         {
-            return await _context.RoleGroups.Include(x => x.RoleGroups)
+            return await _context.RoleGroups
+                .Include(x => x.RoleGroups)
                 .ThenInclude(x => x.Role)
                 .FirstOrDefaultAsync(x => x.Id == id);
         }

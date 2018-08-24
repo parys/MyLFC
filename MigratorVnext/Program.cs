@@ -22,7 +22,7 @@ namespace MigratorVnext
 {
     public class Program
     {
-        private static readonly IForumMessageRepository ForumMessageRepository;
+        private static readonly IGenericRepository<ForumMessage> ForumMessageRepository;
         private static readonly IForumSectionRepository ForumSectionRepository;
         private static readonly IForumSubsectionRepository ForumSubsectionRepository;
         private static readonly IForumThemeRepository ForumThemeRepository;
@@ -59,7 +59,7 @@ namespace MigratorVnext
             var userManager = new UserManager<User>(store, options, hasher, null, null, normalizer, null, null, null);
 
             UserRepository = new UserRepository(_db, userManager);
-            ForumMessageRepository = new ForumMessageRepository(GetNewContext());
+            ForumMessageRepository = new GenericRepository<ForumMessage>(GetNewContext());
             ForumSectionRepository = new ForumSectionRepository(GetNewContext());
             ForumSubsectionRepository = new ForumSubsectionRepository(GetNewContext());
             ForumThemeRepository = new ForumThemeRepository(GetNewContext());
@@ -2066,7 +2066,7 @@ namespace MigratorVnext
                     //     }
                     if (theme != null)
                     {
-                        var result = ForumMessageRepository.AddAsync(forumMessage).Result;
+                        var result = ForumMessageRepository.CreateAsync(forumMessage).Result;
                     }
 
                     Console.Write("| " + (i*1.00 / chars.Length).ToString("P"));
@@ -2198,7 +2198,7 @@ namespace MigratorVnext
         {
             Console.WriteLine("Start UpdateCommentsForum");
 
-            var posts = ForumMessageRepository.GetListAsync().Result;
+            var posts = ForumMessageRepository.GetListAsync(null, 15, true).Result;
             var themes = ForumThemeRepository.GetListAsync().Result;
             foreach (var theme in themes)
             {

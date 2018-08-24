@@ -9,7 +9,6 @@ namespace MyLiverpool.Data.ResourceAccess.Helpers
         public static void RegisterRepositories(this IServiceCollection services)
         {
             services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-            services.AddScoped<IForumMessageRepository, ForumMessageRepository>();
             services.AddScoped<IForumSectionRepository, ForumSectionRepository>();
             services.AddScoped<IForumSubsectionRepository, ForumSubsectionRepository>();
             services.AddScoped<IForumThemeRepository, ForumThemeRepository>();
