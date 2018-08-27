@@ -24,7 +24,7 @@ namespace MyLiverpool.Business.Services
         public async Task<MatchPersonDto> CreateAsync(MatchPersonDto dto)
         {
             var entity = _mapper.Map<MatchPerson>(dto);
-            entity.Created = DateTime.Now;
+      //todo      entity.Created = DateTime.Now;
             await _matchPersonRepository.AddAsync(entity);
             return dto;
         }
@@ -55,7 +55,7 @@ namespace MyLiverpool.Business.Services
 
         public async Task<IEnumerable<MatchPersonDto>> GetListByMatchIdAsync(int matchId)
         {
-            var events = await _matchPersonRepository.GetListAsync(x => x.MatchId == matchId, SortOrder.Ascending, x => x.Created);
+            var events = await _matchPersonRepository.GetListAsync(x => x.MatchId == matchId);//todo, SortOrder.Ascending, x => x.Created);
             return _mapper.Map<IEnumerable<MatchPersonDto>>(events);
         }
 
