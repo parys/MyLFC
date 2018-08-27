@@ -270,7 +270,7 @@ namespace MyLiverpool.Business.Services
 
             var link = parentComment.Type.ToString().ToLowerInvariant();
 
-            var callbackUrl = $"http://{host}/{link}/{parentComment.MaterialId ?? parentComment.MatchId}#com{commentId}";
+            var callbackUrl = $"https://{host}/{link}/{parentComment.MaterialId ?? parentComment.MatchId}#com{commentId}";
             return $"Пользователь {authorUserName} оставил <a href=\"{callbackUrl}\">ответ</a> на ваш комментарий: \"{commentText}\".";
         }
 
