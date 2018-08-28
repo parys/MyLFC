@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using MyLiverpool.Data.Entities;
@@ -40,5 +41,9 @@ namespace MyLiverpool.Data.ResourceAccess.Interfaces
         Task<T> GetFirstByFilterAsync(Expression<Func<T, bool>> filter);
 
         Task<T> GetSingleByFilterAsync(Expression<Func<T, bool>> filter);
+        
+        IQueryable<T> GetQueryableList(int? page = null, int itemPerPage = 15, bool asNoTracking = true,
+            Expression<Func<T, bool>> filter = null, SortOrder order = SortOrder.Ascending,
+            Expression<Func<T, object>> orderBy = null, params Expression<Func<T, object>>[] includes);
     }
 }

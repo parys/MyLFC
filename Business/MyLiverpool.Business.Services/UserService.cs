@@ -22,11 +22,11 @@ namespace MyLiverpool.Business.Services
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
-        private readonly IRoleGroupRepository _roleGroupRepository;
+        private readonly IGenericRepository<RoleGroup> _roleGroupRepository;
         private readonly IMapper _mapper;
         private readonly string _defaultPhotoPath = Path.Combine("content", "avatars", "default.png");
 
-        public UserService(IMapper mapper, IUserRepository userRepository, IRoleGroupRepository roleGroupRepository)
+        public UserService(IMapper mapper, IUserRepository userRepository, IGenericRepository<RoleGroup> roleGroupRepository)
         {
             _mapper = mapper;
             _userRepository = userRepository;
@@ -112,8 +112,8 @@ namespace MyLiverpool.Business.Services
         public async Task<bool> EditRoleGroupAsync(int userId, int roleGroupId)
         {
             var user = await _userRepository.GetByIdFromManagerAsync(userId);
-            var oldRoleGroup = await _roleGroupRepository.GetByIdAsync(user.RoleGroupId);
-            var newRoleGroup = await _roleGroupRepository.GetByIdAsync(roleGroupId);
+            var oldRoleGroup = await _roleGroupRepository.GetByIdAsync(user.RoleGroupId, false, r => r.RoleGroups.Select(x => x.Role));
+            var newRoleGroup = await _roleGroupRepository.GetByIdAsync(roleGroupId, false, r => r.RoleGroups.Select(x => x.Role));
             var rolesToDelete = GetRolesToDelete(oldRoleGroup.RoleGroups.Select(x => x.Role), newRoleGroup.RoleGroups.Select(x => x.Role));
             var rolesToAdd = GetRolesToAdd(oldRoleGroup.RoleGroups.Select(x => x.Role), newRoleGroup.RoleGroups.Select(x => x.Role));
             user.RoleGroupId = roleGroupId;

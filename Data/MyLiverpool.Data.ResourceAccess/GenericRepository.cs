@@ -94,8 +94,8 @@ namespace MyLiverpool.Data.ResourceAccess
             return await query.CountAsync();
         }
 
-        public async Task<IEnumerable<T>> GetListAsync(Expression<Func<T, bool>> filter = null, SortOrder order = SortOrder.Ascending, Expression<Func<T, object>> orderBy = null,
-            params Expression<Func<T, object>>[] includes)
+        public async Task<IEnumerable<T>> GetListAsync(Expression<Func<T, bool>> filter = null, SortOrder order = SortOrder.Ascending,
+            Expression<Func<T, object>> orderBy = null, params Expression<Func<T, object>>[] includes)
         {
             return await GetListAsync(null, 0, true, filter, order, orderBy, includes);
         }
@@ -104,29 +104,7 @@ namespace MyLiverpool.Data.ResourceAccess
             Expression<Func<T, bool>> filter = null, SortOrder order = SortOrder.Ascending,
             Expression<Func<T, object>> orderBy = null, params Expression<Func<T, object>>[] includes)
         {
-            IQueryable<T> query = _context.Set<T>();
-            if (includes != null && includes.Any())
-            {
-                query = includes.Aggregate(query, (current, include) => current.Include(include));
-            }
-            if (filter != null)
-            {
-                query = query.Where(filter);
-            }
-            if (orderBy != null)
-            {
-                query = query.ObjectSort(orderBy, order);
-            }
-            if (page.HasValue)
-            {
-                query = query.Skip((page.Value - 1) * itemPerPage).Take(itemPerPage);
-            }
-
-            if (asNoTracking)
-            {
-                query = query.AsNoTracking();
-            }
-            return await query.ToListAsync();
+            return await GetQueryableList().ToListAsync();
         }
 
         public async Task<IEnumerable<T>> GetListAsync(bool asNoTracking = true,Expression<Func<T, bool>> filter = null, 
@@ -154,6 +132,35 @@ namespace MyLiverpool.Data.ResourceAccess
                 query = query.Where(filter);
             }
             return await query.SingleOrDefaultAsync();
+        }
+        
+        public IQueryable<T> GetQueryableList(int? page = null, int itemPerPage = 15, bool asNoTracking = true,
+            Expression<Func<T, bool>> filter = null, SortOrder order = SortOrder.Ascending,
+            Expression<Func<T, object>> orderBy = null, params Expression<Func<T, object>>[] includes)
+        {
+            IQueryable<T> query = _context.Set<T>();
+            if (includes != null && includes.Any())
+            {
+                query = includes.Aggregate(query, (current, include) => current.Include(include));
+            }
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+            if (orderBy != null)
+            {
+                query = query.ObjectSort(orderBy, order);
+            }
+            if (page.HasValue)
+            {
+                query = query.Skip((page.Value - 1) * itemPerPage).Take(itemPerPage);
+            }
+
+            if (asNoTracking)
+            {
+                query = query.AsNoTracking();
+            }
+            return query;
         }
     }
 }

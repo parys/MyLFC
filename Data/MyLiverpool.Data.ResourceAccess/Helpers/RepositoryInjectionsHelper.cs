@@ -18,7 +18,6 @@ namespace MyLiverpool.Data.ResourceAccess.Helpers
             services.AddScoped<IMaterialCategoryRepository, MaterialCategoryRepository>();
             services.AddScoped<IMaterialCommentRepository, MaterialCommentRepository>();
             services.AddScoped<IMaterialRepository, MaterialRepository>();
-            services.AddScoped<IRoleGroupRepository, RoleGroupRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
         }
     }
