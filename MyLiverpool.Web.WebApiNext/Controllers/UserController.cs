@@ -24,6 +24,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     public class UserController : Controller
     {
         private readonly IUserService _userService;
+        private readonly IRoleService _roleService;
         private readonly IUploadService _uploadService;//todo should call remove and method move to user service
         private readonly IDistributedCacheManager _cacheManager; 
 
@@ -33,11 +34,12 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <param name="userService"></param>
         /// <param name="uploadService"></param>
         /// <param name="cache"></param>
-        public UserController(IUserService userService, IUploadService uploadService, IDistributedCacheManager cache)
+        public UserController(IUserService userService, IUploadService uploadService, IDistributedCacheManager cache, IRoleService roleService)
         {
             _userService = userService;
             _uploadService = uploadService;
             _cacheManager = cache;
+            _roleService = roleService;
         }
         
         /// <summary>
@@ -134,7 +136,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             {
                 return BadRequest("Cannot update role by self.");
             }
-            var result = await _userService.EditRoleGroupAsync(userId, roleGroupId);
+            var result = await _roleService.EditRoleGroupAsync(roleGroupId, userId);
             return Ok(result);
         }
 

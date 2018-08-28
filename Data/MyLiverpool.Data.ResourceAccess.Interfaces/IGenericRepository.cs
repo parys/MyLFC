@@ -4,46 +4,53 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.Query;
 using MyLiverpool.Data.Entities;
 
 namespace MyLiverpool.Data.ResourceAccess.Interfaces
 {
-    public interface IGenericRepository<T> where T: IEntity
+    public interface IGenericRepository<TEntity> where TEntity: IEntity
     {
-        Task<T> CreateAsync(T entity);
+        Task<TEntity> CreateAsync(TEntity entity);
 
-        Task<T> GetByIdAsync(int id, bool noTracking = false, params Expression<Func<T, object>>[] includes);
+        Task<TEntity> GetByIdAsync(int id, bool noTracking = false, params Expression<Func<TEntity, object>>[] includes);
 
-        Task<T> GetByComplexIdAsync(int id, int id2);
+        Task<TEntity> GetByComplexIdAsync(int id, int id2);
 
-        Task<T> UpdateAsync(T entity);
+        Task<TEntity> UpdateAsync(TEntity entity);
 
-        Task UpdateRangeAsync(IEnumerable<T> entities);
+        Task UpdateRangeAsync(IEnumerable<TEntity> entities);
 
-        Task<bool> DeleteAsync(T entity);
+        Task<bool> DeleteAsync(TEntity entity);
 
         Task<bool> DeleteAsync(int id);
 
-        Task DeleteRangeAsync(IEnumerable<T> entities);
+        Task DeleteRangeAsync(IEnumerable<TEntity> entities);
 
-        Task<int> CountAsync(Expression<Func<T, bool>> filter = null);
+        Task<int> CountAsync(Expression<Func<TEntity, bool>> filter = null);
 
-        Task<IEnumerable<T>> GetListAsync(Expression<Func<T, bool>> filter = null,
-            SortOrder order = SortOrder.Ascending, Expression<Func<T, object>> orderBy = null, params Expression<Func<T, object>>[] includes);
+        Task<IEnumerable<TEntity>> GetListAsync(Expression<Func<TEntity, bool>> filter = null,
+            SortOrder order = SortOrder.Ascending, Expression<Func<TEntity, object>> orderBy = null, params Expression<Func<TEntity, object>>[] includes);
 
-        Task<IEnumerable<T>> GetListAsync(bool asNoTracking = true, Expression<Func<T, bool>> filter = null,
-            SortOrder order = SortOrder.Ascending, Expression<Func<T, object>> orderBy = null, params Expression<Func<T, object>>[] includes);
+        Task<IEnumerable<TEntity>> GetListAsync(bool asNoTracking = true, Expression<Func<TEntity, bool>> filter = null,
+            SortOrder order = SortOrder.Ascending, Expression<Func<TEntity, object>> orderBy = null, params Expression<Func<TEntity, object>>[] includes);
         
-        Task<IEnumerable<T>> GetListAsync(int? page = null, int itemPerPage = 15, bool asNoTracking = true,
-            Expression<Func<T, bool>> filter = null,
-            SortOrder order = SortOrder.Ascending, Expression<Func<T, object>> orderBy = null, params Expression<Func<T, object>>[] includes);
+        Task<IEnumerable<TEntity>> GetListAsync(int? page = null, int itemPerPage = 15, bool asNoTracking = true,
+            Expression<Func<TEntity, bool>> filter = null,
+            SortOrder order = SortOrder.Ascending, Expression<Func<TEntity, object>> orderBy = null, params Expression<Func<TEntity, object>>[] includes);
 
-        Task<T> GetFirstByFilterAsync(Expression<Func<T, bool>> filter);
+        Task<TEntity> GetFirstByFilterAsync(Expression<Func<TEntity, bool>> filter);
 
-        Task<T> GetSingleByFilterAsync(Expression<Func<T, bool>> filter);
+        Task<TEntity> GetSingleByFilterAsync(Expression<Func<TEntity, bool>> filter);
         
-        IQueryable<T> GetQueryableList(int? page = null, int itemPerPage = 15, bool asNoTracking = true,
-            Expression<Func<T, bool>> filter = null, SortOrder order = SortOrder.Ascending,
-            Expression<Func<T, object>> orderBy = null, params Expression<Func<T, object>>[] includes);
+        IQueryable<TEntity> GetQueryableList(int? page = null, int itemPerPage = 15, bool asNoTracking = true,
+            Expression<Func<TEntity, bool>> filter = null, SortOrder order = SortOrder.Ascending,
+            Expression<Func<TEntity, object>> orderBy = null, params Expression<Func<TEntity, object>>[] includes);
+
+        IQueryable<TEntity> GetQueryableList(int? page = null, int itemPerPage = 15, bool asNoTracking = true,
+            Expression<Func<TEntity, bool>> filter = null, SortOrder order = SortOrder.Ascending,
+            Expression<Func<TEntity, object>> orderBy = null,
+            Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null);
+
     }
 }

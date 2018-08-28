@@ -109,33 +109,6 @@ namespace MyLiverpool.Business.Services
             return result;
         }
 
-        public async Task<bool> EditRoleGroupAsync(int userId, int roleGroupId)
-        {
-            var user = await _userRepository.GetByIdFromManagerAsync(userId);
-            var oldRoleGroup = await _roleGroupRepository.GetByIdAsync(user.RoleGroupId, false, r => r.RoleGroups.Select(x => x.Role));
-            var newRoleGroup = await _roleGroupRepository.GetByIdAsync(roleGroupId, false, r => r.RoleGroups.Select(x => x.Role));
-            var rolesToDelete = GetRolesToDelete(oldRoleGroup.RoleGroups.Select(x => x.Role), newRoleGroup.RoleGroups.Select(x => x.Role));
-            var rolesToAdd = GetRolesToAdd(oldRoleGroup.RoleGroups.Select(x => x.Role), newRoleGroup.RoleGroups.Select(x => x.Role));
-            user.RoleGroupId = roleGroupId;
-            try
-            {
-                if (rolesToDelete.Any())
-                {
-                    await _userRepository.RemoveFromRolesAsync(user, rolesToDelete);
-                }
-                if (rolesToAdd.Any())
-                {
-                    await _userRepository.AddToRolesAsync(user, rolesToAdd);
-                }
-            }
-            catch (Exception)
-            {
-
-            }
-            await _userRepository.UpdateAsync(user);
-            return true;
-        }
-
         public async Task<IEnumerable<UsernameDto>> GetUserNamesAsync(string typed)
         {
             if (string.IsNullOrEmpty(typed))
@@ -249,18 +222,5 @@ namespace MyLiverpool.Business.Services
             var list = await _userRepository.GetListAsync(1, 1000, filter, SortOrder.Descending, u => u.LastModified);
             return _mapper.Map<IEnumerable<UserMiniDto>>(list);
         }
-
-        #region private
-
-        private IEnumerable<string> GetRolesToDelete(IEnumerable<Role> oldRoles, IEnumerable<Role> newRoles)
-        {
-            return oldRoles.Where(x => newRoles.All(n => n.Id != x.Id)).Select(x => x.Name);
-        }
-        private IEnumerable<string> GetRolesToAdd(IEnumerable<Role> oldRoles, IEnumerable<Role> newRoles)
-        {
-            return newRoles.Where(x => oldRoles.All(n => n.Id != x.Id)).Select(x => x.Name);
-        }
-
-        #endregion
     }
 }
