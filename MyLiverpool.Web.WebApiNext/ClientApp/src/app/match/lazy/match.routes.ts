@@ -13,7 +13,8 @@ export const matchRoutes: Routes = [
             roles: ["infoStart"]
         },
         canActivate: [RoleGuard]
-    }, {
+    },
+    {
         path: ":id",
         children: [
             {

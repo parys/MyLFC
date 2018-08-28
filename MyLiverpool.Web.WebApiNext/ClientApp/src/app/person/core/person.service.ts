@@ -2,10 +2,7 @@
 import { Observable } from "rxjs";
 import { Pageable } from "@app/shared";
 import { HttpWrapper } from "@app/+httpWrapper";
-import { Person } from "./person.model";
-import { SquadList } from "./squad-list.model";
-import { PersonType } from "./personType.model";
-import { PersonFilters } from "./personFilters.model";
+import { Person, SquadList, PersonType, PersonFilters } from "@app/person/model";
 
 @Injectable()
 export class PersonService {

@@ -7,6 +7,7 @@ import { personRoutes } from "./person.routes";
 import { SharedModule } from "@app/shared";
 import { PersonCoreModule } from "../core";
 import { MatTabsModule } from "@angular/material";
+import { PersonEditModule } from "../core/+person-edit";
 
 
 @NgModule({
@@ -14,6 +15,7 @@ import { MatTabsModule } from "@angular/material";
         RouterModule.forChild(personRoutes),
         SharedModule,
         PersonCoreModule,
+        PersonEditModule,
         MatTabsModule
     ],
     declarations: [

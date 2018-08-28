@@ -4,7 +4,8 @@ import { MatPaginator, MatSort, MatSelect, MatDialog } from "@angular/material";
 import { ActivatedRoute } from "@angular/router";
 import { merge, of, Observable, fromEvent } from "rxjs";
 import { startWith, switchMap, map, catchError, debounceTime, distinctUntilChanged } from "rxjs/operators";
-import { Person, PersonService, PersonType, PersonFilters } from "@app/person/core";
+import { PersonService } from "@app/person/core";
+import { Person, PersonType, PersonFilters } from "@app/person/model";
 import { Pageable, DeleteDialogComponent } from "@app/shared";
 
 @Component({

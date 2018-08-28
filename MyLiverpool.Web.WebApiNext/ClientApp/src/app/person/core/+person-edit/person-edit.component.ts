@@ -3,8 +3,7 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
 import { MatSnackBar } from "@angular/material";
 import { PersonService } from "../person.service";
-import { Person } from "../person.model";
-import { PersonType } from "../personType.model";
+import { Person, PersonType } from "@app/person/model";
 
 @Component({
     selector: "person-edit",
@@ -37,7 +36,6 @@ export class PersonEditComponent implements OnInit, AfterViewInit {
                         e => console.log(e));
             }
         }
-
         this.updateTypes();
     }
 

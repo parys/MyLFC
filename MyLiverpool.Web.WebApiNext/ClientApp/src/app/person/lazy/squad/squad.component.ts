@@ -2,7 +2,8 @@
 import { Location } from "@angular/common";
 import { ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs";
-import { SquadList, PersonService, PersonTypeEnum } from "@app/person/core";
+import { PersonService } from "@app/person/core";
+import { SquadList, PersonTypeEnum } from "@app/person/model";
 import { RolesCheckedService } from "@app/+auth";
 
 @Component({
