@@ -27,7 +27,7 @@ namespace MigratorVnext
         private static readonly IForumSubsectionRepository ForumSubsectionRepository;
         private static readonly IForumThemeRepository ForumThemeRepository;
         private static readonly IMaterialRepository MaterialRepository;
-        private static readonly IMaterialCategoryRepository MaterialCategoryRepository;
+        private static readonly IGenericRepository<MaterialCategory> MaterialCategoryRepository;
         private static readonly IMaterialCommentRepository MaterialCommentRepository;
         private static readonly IUserRepository UserRepository;
         private const string Path = @"D:\\downloads\11\_s1\";
@@ -64,7 +64,7 @@ namespace MigratorVnext
             ForumSubsectionRepository = new ForumSubsectionRepository(GetNewContext());
             ForumThemeRepository = new ForumThemeRepository(GetNewContext());
             MaterialRepository = new MaterialRepository(GetNewContext());
-            MaterialCategoryRepository = new MaterialCategoryRepository(GetNewContext());
+            MaterialCategoryRepository = new GenericRepository<MaterialCategory>(GetNewContext());
             MaterialCommentRepository = new MaterialCommentRepository(GetNewContext());
 
         }
@@ -575,7 +575,7 @@ namespace MigratorVnext
                     limit = MaxChars;
                 }
 
-                var categories = MaterialCategoryRepository.GetAsync().Result.Where(x => x.MaterialType == MaterialType.Blogs).ToList();
+                var categories = MaterialCategoryRepository.GetListAsync(true).Result.Where(x => x.MaterialType == MaterialType.Blogs).ToList();
 
                 for (int i = 0; i < limit; i++)
                 {
@@ -912,7 +912,7 @@ namespace MigratorVnext
                     limit = MaxChars * 10;
                 }
                 
-                var categories = MaterialCategoryRepository.GetAsync().Result.Where(x => x.MaterialType == MaterialType.News).ToList();
+                var categories = MaterialCategoryRepository.GetListAsync(true).Result.Where(x => x.MaterialType == MaterialType.News).ToList();
 
                 for (int i = 0; i < limit; i++)
                 {
@@ -1327,7 +1327,7 @@ namespace MigratorVnext
                     i++;
                     
                     Console.Write("| " + (i * 1.00 / chars.Length).ToString("P"));
-                    var result = MaterialCategoryRepository.AddAsync(blogCategory).Result;
+                    var result = MaterialCategoryRepository.CreateAsync(blogCategory).Result;
                 }
              //    MaterialCategoryRepository.SaveChangesAsync().Wait();
             }
@@ -1402,7 +1402,7 @@ namespace MigratorVnext
                         }
                         i++;
                     }
-                    var result = MaterialCategoryRepository.AddAsync(newsCategory).Result;
+                    var result = MaterialCategoryRepository.CreateAsync(newsCategory).Result;
                     Console.Write("| " + (i * 1.00 / chars.Length).ToString("P"));
                 }
               //    MaterialCategoryRepository.SaveChangesAsync().Wait();

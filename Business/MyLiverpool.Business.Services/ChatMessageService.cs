@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Common.Utilities;
@@ -64,8 +65,9 @@ namespace MyLiverpool.Business.Services
         public async Task<IEnumerable<ChatMessageDto>> GetListAsync(int lastMessageId, ChatMessageTypeEnum type)
         {
             Expression<Func<ChatMessage, bool>> filter = x => x.Type == type && x.Id > lastMessageId;
-            var messages = await _chatMessageRepository.GetListAsync(1, GlobalConstants.TakingChatMessagesCount, true, filter,
-                SortOrder.Descending, x => x.AdditionTime, x => x.Author);
+            var messages = await _chatMessageRepository.GetQueryableList(1, GlobalConstants.TakingChatMessagesCount, true, filter,
+                SortOrder.Descending, x => x.AdditionTime, c => c.Include(y => y.Author))
+                    .ToListAsync();
             return _mapper.Map<IEnumerable<ChatMessageDto>>(messages);
         }
     }

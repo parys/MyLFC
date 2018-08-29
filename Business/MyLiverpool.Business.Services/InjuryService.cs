@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Business.Dto.Filters;
@@ -105,7 +106,11 @@ namespace MyLiverpool.Business.Services
         public async Task<IEnumerable<InjuryDto>> GetCurrentListAsync()
         {
             Expression<Func<Injury, bool>> filter = x => !x.EndTime.HasValue;
-            var injuries = await _injuryRepository.GetListAsync(filter, SortOrder.Descending, i => i.StartTime, x => x.Person);
+            var injuries = await _injuryRepository.GetQueryableList(filter: filter,
+                order: SortOrder.Descending,
+                orderBy: i => i.StartTime,
+                include: x => x.Include(i => i.Person))
+                .ToListAsync();
             return _mapper.Map<ICollection<InjuryDto>>(injuries);
         }
     }

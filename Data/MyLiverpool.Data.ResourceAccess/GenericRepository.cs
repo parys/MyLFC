@@ -41,6 +41,22 @@ namespace MyLiverpool.Data.ResourceAccess
             return await query.FirstOrDefaultAsync(x => x.Id == id);
         }
 
+        public async Task<TEntity> GetByPredicateAsync(Expression<Func<TEntity, bool>> predicate,
+            bool noTracking = false,
+            Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null)
+        {
+            IQueryable<TEntity> query = _context.Set<TEntity>();
+            if (noTracking)
+            {
+                query = query.AsNoTracking();
+            }
+            if (include != null)
+            {
+                query = include(query);
+            }
+            return await query.FirstOrDefaultAsync(predicate);
+        }
+
         public async Task<TEntity> GetByComplexIdAsync(int id, int id2)
         {
             return await _context.Set<TEntity>().FindAsync(id, id2);//todo include props
@@ -137,7 +153,8 @@ namespace MyLiverpool.Data.ResourceAccess
         
         public IQueryable<TEntity> GetQueryableList(int? page = null, int itemPerPage = 15, bool asNoTracking = true,
             Expression<Func<TEntity, bool>> filter = null, SortOrder order = SortOrder.Ascending,
-            Expression<Func<TEntity, object>> orderBy = null, params Expression<Func<TEntity, object>>[] includes)
+            Expression<Func<TEntity, object>> orderBy = null,
+            params Expression<Func<TEntity, object>>[] includes)
         {
             IQueryable<TEntity> query = _context.Set<TEntity>();
             if (includes != null && includes.Any())
