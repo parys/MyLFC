@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Common.Utilities;
@@ -17,9 +19,9 @@ namespace MyLiverpool.Business.Services
     {
         private readonly IClubService _clubService;
         private readonly IMapper _mapper;
-        private readonly IMatchRepository _matchRepository;
+        private readonly IGenericRepository<Match> _matchRepository;
 
-        public MatchService(IMatchRepository matchRepository, IMapper mapper,
+        public MatchService(IGenericRepository<Match> matchRepository, IMapper mapper,
             IClubService clubService)
         {
             _clubService = clubService;
@@ -30,14 +32,14 @@ namespace MyLiverpool.Business.Services
         public async Task<MatchDto> CreateAsync(MatchDto dto)
         {
             var match = _mapper.Map<Match>(dto);
-            match = await _matchRepository.AddAsync(match);
+            match = await _matchRepository.CreateAsync(match);
             dto = _mapper.Map<MatchDto>(match);
             return dto;
         }
 
         public async Task<MatchDto> UpdateAsync(MatchDto dto)
         {
-            var match = await _matchRepository.GetByIdAsync(dto.Id);
+            var match = await _matchRepository.GetFirstByPredicateAsync(x => x.Id == dto.Id);
             match.DateTime = dto.DateTime;//todo think about it use automapper?
             match.IsHome = dto.IsHome;
             match.MatchType = (MatchTypeEnum)dto.TypeId;
@@ -62,8 +64,8 @@ namespace MyLiverpool.Business.Services
             {
                 return null;
             }
-            var lastMatch = await _matchRepository.GetLastMatchAsync();
-            var nextMatch = await _matchRepository.GetNextMatchAsync();
+            var lastMatch = await GetLastMatchAsync();
+            var nextMatch = await GetNextMatchAsync();
             var dtos = new List<MatchDto>();
             var matches = new List<Match>();
             if (lastMatch != null)
@@ -93,7 +95,7 @@ namespace MyLiverpool.Business.Services
 
         public async Task<bool> DeleteAsync(int id)
         {
-            await _matchRepository.DeleteAsync(id);
+            await _matchRepository.DeleteAsync(x => x.Id == id);
             return true;
         }
 
@@ -104,7 +106,10 @@ namespace MyLiverpool.Business.Services
             {
                 return null;
             }
-            var match = await _matchRepository.GetByIdAsync(id);
+            var match = await _matchRepository.GetFirstByPredicateAsync(x => x.Id == id, true, 
+                include: x => x.Include(m => m.Club)
+                .Include(m => m.Stadium)
+                .Include(m => m.Events).ThenInclude(m => m.Person));
             if (match == null)
             {
                 return null;
@@ -131,7 +136,7 @@ namespace MyLiverpool.Business.Services
                 filter = filter.And(m => m.SeasonId == seasonId.Value);
             }
             var dtos = await GetMatchesAsync(page, itemsPerPage, filter);
-            var count = await _matchRepository.GetCountAsync(filter);
+            var count = await _matchRepository.CountAsync(filter);
             return new PageableData<MatchDto>(dtos, page, count);
         }
 
@@ -148,7 +153,11 @@ namespace MyLiverpool.Business.Services
             Expression<Func<Match, bool>> filter)
         {
             var liverpoolClub = await _clubService.GetByNameAsync(GlobalConstants.LiverpoolClubEnglishName);
-            var matches = await _matchRepository.GetListAsync(page, itemsPerPage, filter, orderBy: m => m.DateTime);
+            var matches = await _matchRepository.GetListAsync(page, itemsPerPage, true, filter,
+                orderBy: m => m.DateTime,
+                include: x => x.Include(m => m.Club)
+                    .Include(m => m.Stadium)
+                    .Include(m => m.Events));
             var dtos = new List<MatchDto>();
             foreach (var match in matches)
             {
@@ -175,6 +184,24 @@ namespace MyLiverpool.Business.Services
             dto.AwayClubId = awayClub.Id;
             dto.AwayClubName = awayClub.Name;
             dto.AwayClubLogo = awayClub.Logo;
+        }
+
+        private async Task<Match> GetLastMatchAsync()
+        {
+            return await _matchRepository
+                .GetQueryableList(order: SortOrder.Ascending,
+                    orderBy: m => m.DateTime,
+                    include: x => x.Include(m => m.Club).Include(m => m.Events))
+                .LastOrDefaultAsync(m => m.DateTime <= DateTimeOffset.Now.AddHours(0.5));
+        }
+
+        private async Task<Match> GetNextMatchAsync()
+        {
+            return await _matchRepository
+                .GetQueryableList(order: SortOrder.Ascending,
+                    orderBy: m => m.DateTime,
+                    include: x=> x.Include(m => m.Club).Include(m => m.Stadium).Include(m => m.Events))
+                .FirstOrDefaultAsync(m => m.DateTime >= DateTimeOffset.Now.AddHours(0.5));
         }
     }
 }

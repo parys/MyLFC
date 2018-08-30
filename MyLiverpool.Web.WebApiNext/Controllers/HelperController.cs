@@ -38,7 +38,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         public async Task<IActionResult> GetAsync(int id)
         {
             var result = await _cacheManager.GetOrCreateStringAsync(GlobalConstants.HelperEntity + id,
-                async () => await _helperService.GetAsync((HelperEntityType) id));
+                async () => await _helperService.GetValueAsync((HelperEntityType) id));
             return Ok(result);
         }
 
@@ -49,7 +49,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Authorize(Roles = nameof(RolesEnum.AdminStart)), HttpPut("value/{id:int}")]
         public async Task<IActionResult> UpdateAsync(int id, [FromBody]string value)
         {
-            var result = await _helperService.UpdateAsync((HelperEntityType)id, value);
+            var result = await _helperService.CreateOrUpdateAsync((HelperEntityType)id, value);
             _cacheManager.SetString(GlobalConstants.HelperEntity + id, value);
             return Json(result);
         }

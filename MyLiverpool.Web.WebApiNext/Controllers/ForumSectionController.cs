@@ -62,7 +62,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         //[AllowAnonymous]
         //public async Task<IActionResult> Get()
         //{
-        //    var result = await _forumSectionService.GetAsync();
+        //    var result = await _forumSectionService.GetValueAsync();
         //    return Ok(result);
         //}
 

@@ -19,12 +19,12 @@ namespace MyLiverpool.Business.Services
     {
         private readonly IMapper _mapper;
         private readonly IGenericRepository<Person> _personRepository;
-        private readonly IHelperEntityRepository _helperEntityRepository;
+        private readonly IHelperService _helperEntityService;
 
-        public PersonService(IMapper mapper, IHelperEntityRepository helperEntityRepository, IGenericRepository<Person> personRepository)
+        public PersonService(IMapper mapper, IHelperService helperEntityService, IGenericRepository<Person> personRepository)
         {
             _mapper = mapper;
-            _helperEntityRepository = helperEntityRepository;
+            _helperEntityService = helperEntityService;
             _personRepository = personRepository;
         }
 
@@ -119,7 +119,7 @@ namespace MyLiverpool.Business.Services
         
         public async Task<PersonDto> GetBestPlayerAsync()
         {
-            var playerHelpEntity = await _helperEntityRepository.GetByTypeAsync(HelperEntityType.BestPlayer);
+            var playerHelpEntity = await _helperEntityService.GetAsync(HelperEntityType.BestPlayer);
             if (playerHelpEntity != null && int.TryParse(playerHelpEntity.Value, out int playerId))
             {
                 var player = await _personRepository.GetFirstByPredicateAsync(x => x.Id == playerId);
@@ -135,7 +135,7 @@ namespace MyLiverpool.Business.Services
             //    Type = HelperEntityType.BestPlayer,
             //    Value = personId.ToString()
             //};
-            //await _helperEntityRepository.UpdateAndSaveAsync(entity);
+            //await _helperEntityService.UpdateAndSaveAsync(entity);
         }
 
         public async Task<IEnumerable<PersonDto>> GetStuffListAsync(PersonType personType)

@@ -96,7 +96,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         public async Task<IActionResult> GetForHeaderAsync()
         {
             var helpEntity = await _cacheManager.GetOrCreateAsync(CacheKeysConstants.HeaderMatchId,
-                async () => await _helperService.GetAsync(HelperEntityType.HeaderMatch));
+                async () => await _helperService.GetValueAsync(HelperEntityType.HeaderMatch));
             if (!string.IsNullOrWhiteSpace(helpEntity))
             {
                 var result = await _matchService.GetByIdAsync(int.Parse(helpEntity));
@@ -113,7 +113,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Authorize(Roles = nameof(RolesEnum.InfoStart)), HttpPut("{id:int}/setAsHeader")]
         public async Task<IActionResult> SetAsHeader(int id)
         {
-            await _helperService.UpdateAsync(HelperEntityType.HeaderMatch, id > 0 ? id.ToString() : null);
+            await _helperService.CreateOrUpdateAsync(HelperEntityType.HeaderMatch, id > 0 ? id.ToString() : null);
             _cacheManager.Remove(CacheKeysConstants.HeaderMatchId);
             return Json(true);
         }

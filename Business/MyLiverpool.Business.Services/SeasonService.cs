@@ -93,12 +93,12 @@ namespace MyLiverpool.Business.Services
         //todo rewrite to cached prop maybe init on start
         public async Task<int> GetCurrentSeasonIdAsync()
         {
-            return Int32.Parse(await _helperService.GetAsync(HelperEntityType.CurrentSeason) ?? DateTime.Today.Year.ToString());
+            return Int32.Parse(await _helperService.GetValueAsync(HelperEntityType.CurrentSeason) ?? DateTime.Today.Year.ToString());
         }
 
         public async Task SetCurrentSeasonAsync(int currentSeasonId)
         {
-            await _helperService.UpdateAsync(HelperEntityType.CurrentSeason, currentSeasonId.ToString());
+            await _helperService.CreateOrUpdateAsync(HelperEntityType.CurrentSeason, currentSeasonId.ToString());
         }
     }
 }

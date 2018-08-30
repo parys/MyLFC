@@ -11,8 +11,6 @@ namespace MyLiverpool.Data.ResourceAccess.Helpers
             services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IForumSubsectionRepository, ForumSubsectionRepository>();
             services.AddScoped<IForumThemeRepository, ForumThemeRepository>();
-            services.AddScoped<IHelperEntityRepository, HelperEntityRepository>();
-            services.AddScoped<IMatchRepository, MatchRepository>();
             services.AddScoped<IMaterialCommentRepository, MaterialCommentRepository>();
             services.AddScoped<IMaterialRepository, MaterialRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
