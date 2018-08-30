@@ -55,19 +55,19 @@ namespace MyLiverpool.Business.Services
 
         public async Task<WishDto> GetAsync(int wishId)
         {
-            var wish = await _wishRepository.GetByIdAsync(wishId);
+            var wish = await _wishRepository.GetFirstByPredicateAsync(x => x.Id == wishId);
             return _mapper.Map<WishDto>(wish);
         }
 
         public async Task<bool> DeleteAsync(int id)
         {
-            await _wishRepository.DeleteAsync(id);
+            await _wishRepository.DeleteAsync(x => x.Id == id);
             return true;
         }
 
         public async Task<WishDto> UpdateAsync(WishDto dto)
         {
-            var wish = await _wishRepository.GetByIdAsync(dto.Id);
+            var wish = await _wishRepository.GetFirstByPredicateAsync(x => x.Id == dto.Id);
             if (wish != null)
             {
                 wish.State = (WishStateEnum) dto.State;

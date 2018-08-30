@@ -25,7 +25,7 @@ namespace MyLiverpool.Business.Services
 
         public async Task<StadiumDto> GetByIdAsync(int id)
         {
-            var stadium = await _stadiumRepository.GetByIdAsync(id);
+            var stadium = await _stadiumRepository.GetFirstByPredicateAsync(x => x.Id == id);
             if (stadium != null)
             {
                 return _mapper.Map<StadiumDto>(stadium);
@@ -56,7 +56,7 @@ namespace MyLiverpool.Business.Services
 
         public async Task<StadiumDto> UpdateAsync(StadiumDto dto)
         {
-            var stadium = await _stadiumRepository.GetByIdAsync(dto.Id);
+            var stadium = await _stadiumRepository.GetFirstByPredicateAsync(x => x.Id == dto.Id);
             stadium.Name = dto.Name;
             stadium.City = dto.City;
             await _stadiumRepository.UpdateAsync(stadium);
@@ -67,7 +67,7 @@ namespace MyLiverpool.Business.Services
         {
             try
             {
-                await _stadiumRepository.DeleteAsync(id);
+                await _stadiumRepository.DeleteAsync(x => x.Id == id);
             }
             catch (Exception)
             {

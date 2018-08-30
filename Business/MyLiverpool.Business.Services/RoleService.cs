@@ -26,13 +26,10 @@ namespace MyLiverpool.Business.Services
         public async Task<bool> EditRoleGroupAsync(int newRoleGroupId, int userId)
         {
             var user = await _userRepository.GetByIdFromManagerAsync(userId);
-            var oldRoleGroup = await _roleGroupRepository.GetQueryableList(filter: x => x.Id == user.RoleGroupId,
-                include: s => s.Include(x => x.RoleGroups).ThenInclude(x => x.Role))
-                .FirstOrDefaultAsync();//todo rewrite to FOD 
-            //todo rewrite to FOD 
-            var newRoleGroup = await _roleGroupRepository.GetQueryableList(filter: x => x.Id == newRoleGroupId,
-                    include: s => s.Include(x => x.RoleGroups).ThenInclude(x => x.Role))
-                .FirstOrDefaultAsync();//todo rewrite to FOD 
+            var oldRoleGroup = await _roleGroupRepository.GetFirstByPredicateAsync(x => x.Id == user.RoleGroupId,
+                include: s => s.Include(x => x.RoleGroups).ThenInclude(x => x.Role));
+            var newRoleGroup = await _roleGroupRepository.GetFirstByPredicateAsync(x => x.Id == newRoleGroupId,
+                    include: s => s.Include(x => x.RoleGroups).ThenInclude(x => x.Role));
 
             var rolesToDelete = GetRolesToDelete(oldRoleGroup.RoleGroups.Select(x => x.Role), newRoleGroup.RoleGroups.Select(x => x.Role));
             var rolesToAdd = GetRolesToAdd(oldRoleGroup.RoleGroups.Select(x => x.Role), newRoleGroup.RoleGroups.Select(x => x.Role));
@@ -55,14 +52,15 @@ namespace MyLiverpool.Business.Services
 
         public async Task<IEnumerable<RoleGroupDto>> GetRoleGroupsWithRolesAsync()
         {
-            var roleGroups = await _roleGroupRepository.GetQueryableList(include: s => s.Include(x => x.RoleGroups).ThenInclude(x => x.Role))
-                .ToListAsync();//todo rewrite to FOD ;
+            var roleGroups = await _roleGroupRepository
+                .GetQueryableList(include: s => s.Include(x => x.RoleGroups).ThenInclude(x => x.Role))
+                .ToListAsync();
             return _mapper.Map<IEnumerable<RoleGroupDto>>(roleGroups);
         }
 
         public async Task<IEnumerable<RoleGroupDto>> GetRoleGroupsAsync()
         {
-            var roleGroups = await _roleGroupRepository.GetListAsync(true);
+            var roleGroups = await _roleGroupRepository.GetListAsync();
             return _mapper.Map<IEnumerable<RoleGroupDto>>(roleGroups);
         }
 

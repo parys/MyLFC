@@ -26,7 +26,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         private readonly IUserService _userService;
         private readonly IRoleService _roleService;
         private readonly IUploadService _uploadService;//todo should call remove and method move to user service
-        private readonly IDistributedCacheManager _cacheManager; 
+        private readonly IDistributedCacheManager _cacheManager;
 
         /// <summary>
         /// Constructor.
@@ -34,6 +34,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <param name="userService"></param>
         /// <param name="uploadService"></param>
         /// <param name="cache"></param>
+        /// <param name="roleService"></param>
         public UserController(IUserService userService, IUploadService uploadService, IDistributedCacheManager cache, IRoleService roleService)
         {
             _userService = userService;

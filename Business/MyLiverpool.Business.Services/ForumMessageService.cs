@@ -32,7 +32,7 @@ namespace MyLiverpool.Business.Services
 
         public async Task<ForumMessageDto> UpdateAsync(ForumMessageDto dto)
         {
-            var model = await _forumMessageRepository.GetByIdAsync(dto.Id);
+            var model = await _forumMessageRepository.GetFirstByPredicateAsync(x => x.Id == dto.Id);
             model.LastModifiedTime = DateTime.Now;
             model.Message = dto.Message;
             await _forumMessageRepository.UpdateAsync(model);
@@ -41,7 +41,7 @@ namespace MyLiverpool.Business.Services
 
         public async Task<bool> DeleteAsync(int id)
         {
-            await _forumMessageRepository.DeleteAsync(id);
+            await _forumMessageRepository.DeleteAsync(x => x.Id == id);
             return true;
         }
     }

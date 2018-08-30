@@ -64,7 +64,7 @@ namespace MyLiverpool.Business.Services
 
         public async Task<MaterialCategoryDto> UpdateAsync(MaterialCategoryDto dto)
         {
-            var model = await _categoryRepository.GetByIdAsync(dto.Id);
+            var model = await _categoryRepository.GetFirstByPredicateAsync(x => x.Id == dto.Id);
             model.Name = dto.Name;
             model.Description = dto.Description;
             await _categoryRepository.UpdateAsync(model);
@@ -74,12 +74,12 @@ namespace MyLiverpool.Business.Services
 
         public async Task<bool> DeleteAsync(int id)
         {
-            var category = await _categoryRepository.GetByIdAsync(id);
+            var category = await _categoryRepository.GetFirstByPredicateAsync(x => x.Id == id);
             if (category.Materials.Count > 0)
             {
                 return false;
             }
-            await _categoryRepository.DeleteAsync(id);
+            await _categoryRepository.DeleteAsync(x => x.Id == id);
             return true;
         }
     }

@@ -23,7 +23,7 @@ namespace MigratorVnext
     public class Program
     {
         private static readonly IGenericRepository<ForumMessage> ForumMessageRepository;
-        private static readonly IForumSectionRepository ForumSectionRepository;
+        private static readonly IGenericRepository<ForumSection> ForumSectionRepository;
         private static readonly IForumSubsectionRepository ForumSubsectionRepository;
         private static readonly IForumThemeRepository ForumThemeRepository;
         private static readonly IMaterialRepository MaterialRepository;
@@ -60,7 +60,7 @@ namespace MigratorVnext
 
             UserRepository = new UserRepository(_db, userManager);
             ForumMessageRepository = new GenericRepository<ForumMessage>(GetNewContext());
-            ForumSectionRepository = new ForumSectionRepository(GetNewContext());
+            ForumSectionRepository = new GenericRepository<ForumSection>(GetNewContext());
             ForumSubsectionRepository = new ForumSubsectionRepository(GetNewContext());
             ForumThemeRepository = new ForumThemeRepository(GetNewContext());
             MaterialRepository = new MaterialRepository(GetNewContext());
@@ -575,7 +575,7 @@ namespace MigratorVnext
                     limit = MaxChars;
                 }
 
-                var categories = MaterialCategoryRepository.GetListAsync(true).Result.Where(x => x.MaterialType == MaterialType.Blogs).ToList();
+                var categories = MaterialCategoryRepository.GetListAsync().Result.Where(x => x.MaterialType == MaterialType.Blogs).ToList();
 
                 for (int i = 0; i < limit; i++)
                 {
@@ -912,7 +912,7 @@ namespace MigratorVnext
                     limit = MaxChars * 10;
                 }
                 
-                var categories = MaterialCategoryRepository.GetListAsync(true).Result.Where(x => x.MaterialType == MaterialType.News).ToList();
+                var categories = MaterialCategoryRepository.GetListAsync().Result.Where(x => x.MaterialType == MaterialType.News).ToList();
 
                 for (int i = 0; i < limit; i++)
                 {
@@ -1721,7 +1721,7 @@ namespace MigratorVnext
                             forumSection.Name += chars[i];
                             i++;
                         }
-                        ForumSectionRepository.AddAsync(forumSection);
+                        ForumSectionRepository.CreateAsync(forumSection);
                         while (chars[i] != 10)
                         {
                             i++;
@@ -1801,7 +1801,7 @@ namespace MigratorVnext
         private static void UpdateForumSubsectionsFromList()
         {
             Console.WriteLine("Start UpdateForumSubsections");
-            var sections = ForumSectionRepository.GetListAsync(true).Result;
+            var sections = ForumSectionRepository.GetListAsync().Result;
 
             foreach (var subsection in Subsections)
             {
@@ -2217,7 +2217,7 @@ namespace MigratorVnext
         public static void UpdateForumSectionAndSubsection()
         {
             Console.WriteLine("Start UpdateForumSectionAndSubsection");
-            var sections = ForumSectionRepository.GetListAsync(true).Result;
+            var sections = ForumSectionRepository.GetListAsync().Result;
             var subSections = ForumSubsectionRepository.GetListAsync().Result;
             foreach (var section in sections)
             {
@@ -2234,7 +2234,7 @@ namespace MigratorVnext
                     }
                 }
             }
-          //  ForumSubsectionRepository.SaveChangesAsync().RunSynchronously(); //todo above not duplicating?
+          //  ForumSubsectionRepository.SaveChangesAsync().RunSynchronously(); // above not duplicating?
 
         }
 
@@ -2256,7 +2256,7 @@ namespace MigratorVnext
                     subSection.Themes.Add(theme);
                 }
             }
-          //  ForumSubsectionRepository.SaveChangesAsync().RunSynchronously(); //todo above not duplicating?
+          //  ForumSubsectionRepository.SaveChangesAsync().RunSynchronously(); // above not duplicating?
         }
 
 

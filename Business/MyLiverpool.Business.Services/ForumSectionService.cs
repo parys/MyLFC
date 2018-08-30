@@ -40,7 +40,7 @@ namespace MyLiverpool.Business.Services
 
         public async Task<bool> DeleteAsync(int id)
         {
-            var section = await _forumSectionRepository.GetByIdAsync(id);
+            var section = await _forumSectionRepository.GetFirstByPredicateAsync(x => x.Id == id);
             if (section.Subsections.Count > 0)
             {
                 return false;
@@ -51,7 +51,7 @@ namespace MyLiverpool.Business.Services
 
         public async Task<ForumSectionDto> GetAsync(int id)
         {
-            var section = await _forumSectionRepository.GetByIdAsync(id);
+            var section = await _forumSectionRepository.GetFirstByPredicateAsync(x => x.Id == id);
             return _mapper.Map<ForumSectionDto>(section);
         }
 
@@ -62,7 +62,8 @@ namespace MyLiverpool.Business.Services
             {
                 filter = s => s.Name != "MyLiverpool Shop" &&
                               s.Name != "Администрация" &&
-                              s.Name != "Новости" && s.Name != "Рабочие темы";
+                              s.Name != "Новости" &&
+                              s.Name != "Рабочие темы";
             }
             var sections = await _forumSectionRepository
                 .GetQueryableList()

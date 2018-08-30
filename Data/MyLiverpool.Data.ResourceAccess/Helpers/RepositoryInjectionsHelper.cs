@@ -13,7 +13,6 @@ namespace MyLiverpool.Data.ResourceAccess.Helpers
             services.AddScoped<IForumThemeRepository, ForumThemeRepository>();
             services.AddScoped<IHelperEntityRepository, HelperEntityRepository>();
             services.AddScoped<IMatchRepository, MatchRepository>();
-            services.AddScoped<IMatchPersonRepository, MatchPersonRepository>();
             services.AddScoped<IMaterialCommentRepository, MaterialCommentRepository>();
             services.AddScoped<IMaterialRepository, MaterialRepository>();
             services.AddScoped<IUserRepository, UserRepository>();

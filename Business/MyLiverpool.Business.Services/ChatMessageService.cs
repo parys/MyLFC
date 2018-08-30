@@ -29,7 +29,7 @@ namespace MyLiverpool.Business.Services
             dto.AdditionTime = DateTime.Now;
             var model = _mapper.Map<ChatMessage>(dto);
             await _chatMessageRepository.CreateAsync(model);
-            model = await _chatMessageRepository.GetByIdAsync(model.Id, true, x => x.Author);
+            model = await _chatMessageRepository.GetFirstByPredicateAsync(x => x.Id == model.Id, true, x => x.Include(c => c.Author));
             return _mapper.Map<ChatMessageDto>(model);
         }
 
@@ -40,7 +40,7 @@ namespace MyLiverpool.Business.Services
 
         public async Task<ChatMessageDto> UpdateAsync(ChatMessageDto dto, int? userId)
         {
-            var entity = await _chatMessageRepository.GetByIdAsync(dto.Id, false, x => x.Author);
+            var entity = await _chatMessageRepository.GetFirstByPredicateAsync(x => x.Id == dto.Id, false, x => x.Include(c => c.Author));
             if (userId.HasValue && entity.AuthorId != userId)
             {
                 return null;
@@ -52,13 +52,13 @@ namespace MyLiverpool.Business.Services
 
         public async Task<bool> DeleteAsync(int id)
         {
-            await _chatMessageRepository.DeleteAsync(id);
+            await _chatMessageRepository.DeleteAsync(x => x.Id == id);
             return true;
         }
 
         public async Task<ChatMessageDto> GetByIdAsync(int id)
         {
-            var model = await _chatMessageRepository.GetByIdAsync(id, true, x => x.Author);
+            var model = await _chatMessageRepository.GetFirstByPredicateAsync(x => x.Id == id, true, x => x.Include(c => c.Author));
             return _mapper.Map<ChatMessageDto>(model);
         }
 

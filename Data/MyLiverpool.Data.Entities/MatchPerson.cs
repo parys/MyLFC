@@ -15,6 +15,6 @@ namespace MyLiverpool.Data.Entities
 
         public MatchPersonType PersonType { get; set; }
 
-     //   public DateTime Created { get; set; }
+        public DateTime Created { get; set; }
     }
 }

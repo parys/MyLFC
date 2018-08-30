@@ -5,6 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Data.Common;
@@ -37,7 +38,7 @@ namespace MyLiverpool.Business.Services
 
         public async Task<SeasonDto> UpdateAsync(SeasonDto dto)
         {
-            var model = await _seasonRepository.GetByIdAsync(dto.Id);
+            var model = await _seasonRepository.GetFirstByPredicateAsync(x => x.Id == dto.Id);
             model.StartSeasonYear = dto.StartSeasonYear;
             await _seasonRepository.UpdateAsync(model);
             var result = _mapper.Map<SeasonDto>(model);
@@ -46,20 +47,20 @@ namespace MyLiverpool.Business.Services
 
         public async Task<bool> DeleteAsync(int id)
         {
-            await _seasonRepository.DeleteAsync(id);
+            await _seasonRepository.DeleteAsync(x => x.Id == id);
             return true;
         }
 
         public async Task<SeasonDto> GetByIdAsync(int id)
         {
-            var model = await _seasonRepository.GetByIdAsync(id);
+            var model = await _seasonRepository.GetFirstByPredicateAsync(x => x.Id == id);
             var dto = _mapper.Map<SeasonDto>(model);
             return dto;
         }
 
         public async Task<ICollection<SeasonDto>> GetListAsync()
         {
-            var seasons = await _seasonRepository.GetListAsync(null, SortOrder.Descending, x => x.StartSeasonYear);
+            var seasons = await _seasonRepository.GetListAsync(order: SortOrder.Descending, orderBy: x => x.StartSeasonYear);
             var dtos = _mapper.Map<ICollection<SeasonDto>>(seasons);
             return dtos;
         }
@@ -70,7 +71,7 @@ namespace MyLiverpool.Business.Services
             {
                 id = await GetCurrentSeasonIdAsync();
             }
-            var season = await _seasonRepository.GetByIdAsync(id, true);//todo, x => x.Matches);
+            var season = await _seasonRepository.GetFirstByPredicateAsync(x => x.Id == id, true, x => x.Include(s => s.Matches));
             
             if (season == null)
             {
@@ -85,7 +86,7 @@ namespace MyLiverpool.Business.Services
         {
             Expression<Func<Season, bool>> filter = x => x.StartSeasonYear.ToString().Contains(typed);
             
-            var clubs = await _seasonRepository.GetListAsync(filter);
+            var clubs = await _seasonRepository.GetListAsync(filter: filter);
             return clubs.Select(x => new KeyValuePair<int, string>(x.Id, $"{x.StartSeasonYear.ToString()}-{x.EndSeasonYear.ToString()}"));
         }
 
