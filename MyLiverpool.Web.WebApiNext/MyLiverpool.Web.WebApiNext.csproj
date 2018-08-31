@@ -126,6 +126,7 @@
 
   <ItemGroup>
     <Folder Include="ClientApp\dist-server\" />
+    <Folder Include="ClientApp\dist\aspnetcorespa\" />
     <Folder Include="ClientApp\src\app\roleGroup\+core\" />
     <Folder Include="Connected Services\" />
     <Folder Include="wwwroot\src\" />

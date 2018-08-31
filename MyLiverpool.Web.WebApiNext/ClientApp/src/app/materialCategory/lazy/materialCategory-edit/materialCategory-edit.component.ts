@@ -2,10 +2,10 @@
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { MatSnackBar } from "@angular/material";
 import { ActivatedRoute, Router } from "@angular/router";
-import { Title } from "@angular/platform-browser";
 import { Subscription } from "rxjs";
 import { MaterialCategoryService } from "../../core";
 import { MaterialType } from "../../model";
+import { CustomTitleService } from "@app/shared";
 
 @Component({
     selector: "materialCategory-edit",
@@ -21,7 +21,7 @@ export class MaterialCategoryEditComponent implements OnInit, OnDestroy {
         private formBuilder: FormBuilder,
         private snackBar: MatSnackBar,
         private router: Router,
-        private titleService: Title,
+        private titleService: CustomTitleService,
         private route: ActivatedRoute) {
         if (this.router.url.startsWith("/newsCategories")) {
             this.titleService.setTitle("Категории новостей");

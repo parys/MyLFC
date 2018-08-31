@@ -1,5 +1,8 @@
 import { NgModule, LOCALE_ID, Injectable, ErrorHandler } from "@angular/core";
-import { Title, BrowserModule } from "@angular/platform-browser";
+import {
+    BrowserModule,
+    HammerGestureConfig,
+    HAMMER_GESTURE_CONFIG, } from "@angular/platform-browser";
 import { RouterModule } from "@angular/router";
 import { HttpClientModule } from "@angular/common/http";
 import { registerLocaleData } from "@angular/common";
@@ -25,10 +28,6 @@ import { NotificationCoreModule } from "./notification";
 import { UserCoreModule } from "./user";
 
 registerLocaleData(localeRU);
-import {
-    HammerGestureConfig,
-    HAMMER_GESTURE_CONFIG,
-} from "@angular/platform-browser";
 import { PollCoreModule } from "./poll";
 
 declare var Hammer: any;
@@ -100,7 +99,6 @@ export class UIErrorHandler extends ErrorHandler {
         admin.AdminService,
         { provide: LOCALE_ID, useValue: "ru-RU" },
         Configuration,
-        Title,
         {
             // hammer instantion with custom config
             provide: HAMMER_GESTURE_CONFIG,

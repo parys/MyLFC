@@ -1,13 +1,12 @@
 ﻿import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { Title } from "@angular/platform-browser";
 import { MatSnackBar } from "@angular/material";
 import { Subscription } from "rxjs";
-import { Configuration } from "@app/app.constants";
 import { User, UserService } from "@app/user";
 import { RolesCheckedService } from "@app/+auth";
 import { RoleGroupService, RoleGroup } from "@app/roleGroup";
+import { CustomTitleService } from "@app/shared";
 
 @Component({
     selector: "user-detail",
@@ -23,14 +22,14 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     public selectedUserId: number;
     public banDaysCount: number = 0;    
 
-    constructor(private configuration: Configuration,
+    constructor(
         private service: UserService,
         private route: ActivatedRoute,
         public roles: RolesCheckedService,
         private roleGroupService: RoleGroupService,
         private formBuilder: FormBuilder,
         private snackBar: MatSnackBar,
-        private titleService: Title,
+        private titleService: CustomTitleService,
         private router: Router) { }
 
     public ngOnInit(): void { 
@@ -60,9 +59,9 @@ export class UserDetailComponent implements OnInit, OnDestroy {
             .subscribe(data => {
                 if (data) {
                     this.roleForm.patchValue(roleGroupId);
-                    this.snackBar.open("Группа была успешно изменена", null, { duration: 5000 });
+                    this.snackBar.open("Группа изменена");
                 } else {
-                    this.snackBar.open("Не удалось изменить группу", null, { duration: 5000 });
+                    this.snackBar.open("Не удалось изменить группу");
                 }
             });
     }

@@ -2,7 +2,6 @@
 import { Location } from "@angular/common";
 import { MatDialog, MatSnackBar } from "@angular/material";
 import { Router, ActivatedRoute, NavigationEnd } from "@angular/router";
-import { Title } from "@angular/platform-browser";
 import { Subscription } from "rxjs";
 import { MaterialService } from "../material.service";
 import { MaterialActivateDialogComponent } from "../material-activate-dialog";
@@ -10,6 +9,7 @@ import { Material, MaterialFilters } from "../../model";
 import { DeleteDialogComponent, Pageable } from "@app/shared";
 import { RolesCheckedService } from "@app/+auth";
 import { MaterialType } from "@app/materialCategory";
+import { CustomTitleService } from "@app/shared";
 
 @Component({
     selector: "material-list",
@@ -35,7 +35,7 @@ export class MaterialListComponent implements OnInit, OnDestroy {
         private location: Location,
         public roles: RolesCheckedService,
         private snackBar: MatSnackBar,
-        private titleService: Title,
+        private titleService: CustomTitleService,
         private dialog: MatDialog) {
         this.navigationSubscription = this.router.events.subscribe((e: any) => {
             // If it is a NavigationEnd event re-initalise the component

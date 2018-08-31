@@ -4,7 +4,7 @@ import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { PmService } from "../pm.service";
 import { SignalRService } from "@app/+signalr";
-
+import { CustomTitleService } from "@app/shared";
 @Component({
     selector: "pm-counter",
     templateUrl: "./pm-counter.component.html",
@@ -19,6 +19,7 @@ export class PmCounterComponent implements OnInit, OnDestroy {
         private snackBar: MatSnackBar,
         private signalR: SignalRService,
         private cd: ChangeDetectorRef,
+        private titleService: CustomTitleService,
         private router: Router) {
     }
 
@@ -26,11 +27,13 @@ export class PmCounterComponent implements OnInit, OnDestroy {
         this.updateCount();
 
         this.signalR.readPm.subscribe(data => {
-                this.count--;
+            this.count--;
+                this.titleService.removeCount(1);
             },
             () => this.cd.markForCheck());
         this.signalR.newPm.subscribe(data => {
-                this.count++;
+            this.count++;
+                this.titleService.addCount(1);
                 this.snackBar.open("Вам прислали сообщение", this.action)
                     .onAction()
                     .subscribe(_ => this.router.navigate(["/pms", data.id]));
@@ -48,7 +51,8 @@ export class PmCounterComponent implements OnInit, OnDestroy {
         this.sub = this.pmService.getUnreadCount()
             .subscribe(data => {
                     this.count = +data;
-                    if (+data > 0) {
+                if (+data > 0) {
+                    this.titleService.addCount(this.count);
                         this.snackBar
                             .open("У вас есть непрочитанные личные сообщения", this.action)
                             .onAction()

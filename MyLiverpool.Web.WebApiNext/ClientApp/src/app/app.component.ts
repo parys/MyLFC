@@ -2,12 +2,12 @@
 import { isPlatformBrowser } from "@angular/common";  
 import { MatSidenav } from "@angular/material";  
 import { Router, ActivatedRoute, NavigationEnd } from "@angular/router";
-import { Title } from "@angular/platform-browser";
 import { Observable } from "rxjs"
 import { filter, map } from "rxjs/operators"
 import { AuthService, IAuthStateModel } from "@app/+auth";
 import { trigger, keyframes, animate, transition, state, style } from "@angular/animations";
 import * as kf from "./+keyframes";
+import { CustomTitleService } from "@app/shared";
 
 export const SLIDE_IN_LEFT = "slideInLeft";
 export const SLIDE_IN_RIGHT = "slideInRight";
@@ -61,7 +61,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     constructor(private router: Router,
         private authService: AuthService,
         private activatedRoute: ActivatedRoute,
-        private titleService: Title,
+        private titleService: CustomTitleService,
         @Inject(PLATFORM_ID) private platformId: Object
     ) {       
     }

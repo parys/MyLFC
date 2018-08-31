@@ -6,6 +6,7 @@ import { NotificationService } from "../notification.service";
 import { Notification } from "../../model";
 import { RolesCheckedService } from "@app/+auth";
 import { SignalRService } from "@app/+signalr";
+import { CustomTitleService } from "@app/shared";
 
 @Component({
     selector: "notification-counter",
@@ -21,18 +22,23 @@ export class NotificationCounterComponent implements OnInit, OnDestroy {
         public roles: RolesCheckedService,
         private signalR: SignalRService,
         private router: Router,
+        private titleService: CustomTitleService,
         private cd: ChangeDetectorRef,
         private snackBar: MatSnackBar) { }
 
     public ngOnInit(): void {
         this.updateCount();
 
-        this.signalR.readNotify.subscribe(data => this.count -= data,
+        this.signalR.readNotify.subscribe(data => {
+            this.count -= data;
+                this.titleService.removeCount(this.count);
+            },
             () => {
                 this.cd.markForCheck();
             });
         this.signalR.newNotify.subscribe((data: Notification) => {
-                this.count++;
+            this.count++;
+                this.titleService.addCount(1);
                 this.snackBar.open("Вам пришло уведомление", this.action)
                     .onAction()
                     .subscribe(_ => {
@@ -54,8 +60,9 @@ export class NotificationCounterComponent implements OnInit, OnDestroy {
         this.sub = this.service.getUnreadCount()
             .subscribe(data => {
                 this.count = +data;
+                    this.titleService.addCount(this.count);
                 if (+data > 0) {
-                    this.snackBar.open("У вас есть новые уведомления", this.action)
+                    this.snackBar.open("Есть новые уведомления", this.action)
                         .onAction()
                         .subscribe(_ => this.router.navigate(["/notifications"]));
                 }
