@@ -22,7 +22,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// Controller for manage comments.
     /// </summary>
     [Authorize(AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme), Route("api/v1/[controller]")]
-    public class CommentController : Controller
+    public class CommentsController : Controller
     {
         private readonly ICommentService _commentService;
         private readonly IDistributedCacheManager _cacheManager;
@@ -34,7 +34,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <param name="commentService"></param>
         /// <param name="cache"></param>
         /// <param name="signalRHubAggregator"></param>
-        public CommentController(ICommentService commentService, IDistributedCacheManager cache, ISignalRHubAggregator signalRHubAggregator)
+        public CommentsController(ICommentService commentService, IDistributedCacheManager cache, ISignalRHubAggregator signalRHubAggregator)
         {
             _commentService = commentService;
             _cacheManager = cache;
@@ -46,7 +46,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <param name="filtersObj">Contains filters.</param>
         /// <returns>Selected page comments list.</returns>
-        [AllowAnonymous, HttpGet("list/{filtersObj}")]
+        [AllowAnonymous, HttpGet("{filtersObj}")]
         public async Task<IActionResult> GetList([FromRoute] string filtersObj)
         {
             MaterialCommentFiltersDto filters;
@@ -66,7 +66,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// Returns last comments list.
         /// </summary>
         /// <returns>Last comments list.</returns>
-        [AllowAnonymous, HttpGet("list/last")]
+        [AllowAnonymous, HttpGet("last")]
         public async Task<IActionResult> GetLastList()
         {
             var result = await _cacheManager.GetOrCreateAsync(CacheKeysConstants.LastComments,

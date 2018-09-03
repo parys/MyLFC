@@ -2,7 +2,7 @@
 import { CustomTitleService } from "./customTitle.service";
 
 @NgModule({
-    Services: [
+    providers: [
         CustomTitleService
     ]
 })

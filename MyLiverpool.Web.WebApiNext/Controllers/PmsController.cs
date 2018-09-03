@@ -13,7 +13,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// Manages private messages.
     /// </summary>
     [Authorize(AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme), Route("api/v1/[controller]")]
-    public class PmController : Controller
+    public class PmsController : Controller
     {
         private readonly IPmService _pmService;
         private readonly ISignalRHubAggregator _signalRHub;
@@ -23,7 +23,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <param name="pmService"></param>
         /// <param name="signalRHub"></param>
-        public PmController(IPmService pmService, ISignalRHubAggregator signalRHub)
+        public PmsController(IPmService pmService, ISignalRHubAggregator signalRHub)
         {
             _pmService = pmService;
             _signalRHub = signalRHub;

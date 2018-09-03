@@ -11,11 +11,12 @@ using MyLiverpool.Data.Common;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
+    /// <inheritdoc />
     /// <summary>
     /// Manages wishes.
     /// </summary>
     [Authorize(AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme), Route("api/v1/[controller]")]
-    public class WishController : Controller
+    public class WishesController : Controller
     {
         private readonly IWishService _wishService;
 
@@ -23,7 +24,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// Constructor.
         /// </summary>
         /// <param name="wishService"></param>
-        public WishController(IWishService wishService)
+        public WishesController(IWishService wishService)
         {
             _wishService = wishService;
         }
@@ -81,7 +82,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <param name="typeId"></param>
         /// <param name="filterText"></param>
         /// <returns>Pageable wish list.</returns>
-        [AllowAnonymous, HttpGet("List")]
+        [AllowAnonymous, HttpGet]
         public async Task<IActionResult> GetListAsync([FromQuery]int page = 1, [FromQuery]int? typeId = null, [FromQuery]string filterText = null)
         {
             if (page < 1)

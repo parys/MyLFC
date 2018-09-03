@@ -3,16 +3,17 @@ import { Observable } from "rxjs";
 import { Pageable } from "@app/shared";
 import { HttpWrapper } from "@app/+httpWrapper";
 import { Transfer } from "@app/transfer/model";
+import { TRANSFERS_ROUTE } from "../../routes.constants";
 
 @Injectable()
 export class TransferService {
-    private actionUrl: string = "transfer/";
+    private actionUrl: string = TRANSFERS_ROUTE + "/";
 
     constructor(private http: HttpWrapper) {
     }
 
     public getAll(page: number): Observable<Pageable<Transfer>> {
-        return this.http.get<Pageable<Transfer>>(this.actionUrl + `list?page=${page}`);
+        return this.http.get<Pageable<Transfer>>(this.actionUrl + `?page=${page}`);
     };
 
     public getCurrentAll(): Observable<Transfer[]> {

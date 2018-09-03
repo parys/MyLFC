@@ -20,10 +20,10 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// Manages materials.
     /// </summary>
     [Authorize(AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme), Route("api/v1/[controller]")]
-    public class MaterialController : Controller
+    public class MaterialsController : Controller
     {
         private readonly IMaterialService _materialService;
-        private readonly ILogger<MaterialController> _logger;
+        private readonly ILogger<MaterialsController> _logger;
         private readonly IDistributedCacheManager _cacheManager;
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <param name="materialService">Injecting materialService.</param>
         /// <param name="logger">Injecting logger.</param>
         /// <param name="cacheManager"></param>
-        public MaterialController(IMaterialService materialService, ILogger<MaterialController> logger, IDistributedCacheManager cacheManager)
+        public MaterialsController(IMaterialService materialService, ILogger<MaterialsController> logger, IDistributedCacheManager cacheManager)
         {
             _materialService = materialService;
             _logger = logger;
@@ -44,7 +44,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <param name="filtersObj">Contains filters.</param>
         /// <returns>List of materials.</returns>
-        [AllowAnonymous, HttpGet("list/{filtersObj}")]
+        [AllowAnonymous, HttpGet("{filtersObj}")]
         public async Task<IActionResult> GetListItems([FromRoute] string filtersObj)
         {
            // _logger.LogError(Process.GetCurrentProcess().Threads.Count.ToString());

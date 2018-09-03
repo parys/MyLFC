@@ -45,7 +45,7 @@
     "ngx-pagination": "3.0.1",
     "node-sass": "4.9.3",
     "preboot": "6.0.0-beta.5",
-    "rxjs": "6.3.0",
+    "rxjs": "6.3.1",
     "swagger-ui": "3.18.2",
     "@swimlane/ngx-charts": "9.0.0",
     "zone.js": "0.8.26"

@@ -16,7 +16,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// Manages images.
     /// </summary>
     [Authorize(AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme, Roles = nameof(RolesEnum.NewsStart) +"," + nameof(RolesEnum.BlogStart)), Route("api/v1/[controller]")]
-    public class ImageController : Controller
+    public class ImagesController : Controller
     {
         private const string PathContent = "content";
         private const string PathImages = "images";
@@ -27,7 +27,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <summary>
         /// Constructor.
         /// </summary>
-        public ImageController(IHostingEnvironment environment, IUploadService uploadService)
+        public ImagesController(IHostingEnvironment environment, IUploadService uploadService)
         {
             _env = environment;
             _uploadService = uploadService;

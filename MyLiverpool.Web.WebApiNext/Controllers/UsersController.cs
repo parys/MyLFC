@@ -21,7 +21,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// Manages users.
     /// </summary>
     [Authorize(AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme), Route("api/v1/[controller]")]
-    public class UserController : Controller
+    public class UsersController : Controller
     {
         private readonly IUserService _userService;
         private readonly IRoleService _roleService;
@@ -35,7 +35,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <param name="uploadService"></param>
         /// <param name="cache"></param>
         /// <param name="roleService"></param>
-        public UserController(IUserService userService, IUploadService uploadService, IDistributedCacheManager cache, IRoleService roleService)
+        public UsersController(IUserService userService, IUploadService uploadService, IDistributedCacheManager cache, IRoleService roleService)
         {
             _userService = userService;
             _uploadService = uploadService;
@@ -102,7 +102,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <param name="dto">Filters.</param>
         /// <returns>List with users.</returns>
-        [AllowAnonymous, HttpGet("list/{dto}")]
+        [AllowAnonymous, HttpGet("{dto}")]
         public async Task<IActionResult> List(string dto)
         {
             if (string.IsNullOrWhiteSpace(dto))

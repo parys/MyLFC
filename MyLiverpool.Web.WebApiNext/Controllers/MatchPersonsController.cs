@@ -16,7 +16,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// Manages match events.
     /// </summary>
     [Authorize(AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme), Route("api/v1/[controller]")]
-    public class MatchPersonController : Controller
+    public class MatchPersonsController : Controller
     {
         private readonly IMatchPersonService _matchPersonService;
 
@@ -24,7 +24,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// Constructor.
         /// </summary>
         /// <param name="matchPersonService"></param>
-        public MatchPersonController(IMatchPersonService matchPersonService)
+        public MatchPersonsController(IMatchPersonService matchPersonService)
         {
             _matchPersonService = matchPersonService;
         }

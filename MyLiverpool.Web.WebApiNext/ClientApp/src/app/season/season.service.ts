@@ -3,16 +3,17 @@ import { Observable } from "rxjs";
 import { HttpWrapper } from "@app/+httpWrapper";
 import { Season } from "./season.model";
 import { PersonStatistics } from "./personStatistics.model";
+import { SEASONS_ROUTE } from "../routes.constants";
 
 @Injectable()
 export class SeasonService {
-    private actionUrl: string = "season/";
+    private actionUrl: string = SEASONS_ROUTE + "/";
 
     constructor(private http: HttpWrapper) {
     }
 
     public getAll(): Observable<Season[]> {
-        return this.http.get<Season[]>(`${this.actionUrl}list/`);
+        return this.http.get<Season[]>(`${this.actionUrl}`);
     };
 
     public getListByYear(typed: string): Observable<Season[]> {

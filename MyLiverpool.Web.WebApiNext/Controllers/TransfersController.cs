@@ -12,7 +12,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// Manages transfers.
     /// </summary>
     [Authorize(AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme), Route("api/v1/[controller]")]
-    public class TransferController : Controller
+    public class TransfersController : Controller
     {
         private readonly ITransferService _transferService;
 
@@ -20,7 +20,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// Controller.
         /// </summary>
         /// <param name="transferService"></param>
-        public TransferController(ITransferService transferService)
+        public TransfersController(ITransferService transferService)
         {
             _transferService = transferService;
         }
@@ -41,7 +41,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// Returns transfers list.
         /// </summary>
         /// <returns>List with transfers.</returns>
-        [AllowAnonymous, HttpGet("list")]
+        [AllowAnonymous, HttpGet]
         public async Task<IActionResult> GetListAsync([FromQuery]int page)
         {
             var result = await _transferService.GetListAsync(page);

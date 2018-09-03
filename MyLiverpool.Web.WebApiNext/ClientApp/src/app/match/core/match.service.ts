@@ -3,17 +3,18 @@ import { Observable } from "rxjs";
 import { Match, MatchType } from "@app/match/model";
 import { HttpWrapper } from "@app/+httpWrapper";
 import { Pageable } from "@app/shared";
+import { MATCHES_ROUTE } from "../../routes.constants";
 
 @Injectable()
 export class MatchService {
     private actionUrl: string;
 
     constructor(private http: HttpWrapper) {
-        this.actionUrl = "match/";
+        this.actionUrl = MATCHES_ROUTE + "/";
     }
 
     public getAll(page: number): Observable<Pageable<Match>> {
-        return this.http.get<Pageable<Match>>(this.actionUrl + "list?page=" + page);
+        return this.http.get<Pageable<Match>>(this.actionUrl + "?page=" + page);
     };
 
     public getForCalendar(): Observable<Match[]> {

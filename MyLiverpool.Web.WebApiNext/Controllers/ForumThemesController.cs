@@ -12,7 +12,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// Manages forum themes.
     /// </summary>
     [Authorize(AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme), Route("api/v1/[controller]")]
-    public class ForumThemeController : Controller
+    public class ForumThemesController : Controller
     {
         private readonly IForumThemeService _forumThemeService;
 
@@ -20,7 +20,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// Constructor.
         /// </summary>
         /// <param name="forumThemeService"></param>
-        public ForumThemeController(IForumThemeService forumThemeService)
+        public ForumThemesController(IForumThemeService forumThemeService)
         {
             _forumThemeService = forumThemeService;
         }

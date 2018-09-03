@@ -3,13 +3,14 @@ import { Observable } from "rxjs";
 import { Pageable } from "@app/shared";
 import { HttpWrapper } from "@app/+httpWrapper";
 import { Club, ClubFilters } from "../model";
+import { CLUBS_ROUTE } from "../../routes.constants";
 
 @Injectable()
 export class ClubService {
     private actionUrl: string;
 
     constructor(private http: HttpWrapper) {
-        this.actionUrl = "clubs/";
+        this.actionUrl = CLUBS_ROUTE + "/";
     }
 
     public getAll(filters: ClubFilters): Observable<Pageable<Club>> {

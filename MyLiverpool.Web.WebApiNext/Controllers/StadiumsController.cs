@@ -12,7 +12,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// Manages stadiums.
     /// </summary>
     [Authorize(AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme), Route("api/v1/[controller]")]
-    public class StadiumController: Controller
+    public class StadiumsController: Controller
     {
         private readonly IStadiumService _stadiumService;
 
@@ -20,7 +20,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// Constructor.
         /// </summary>
         /// <param name="stadiumService"></param>
-        public StadiumController(IStadiumService stadiumService)
+        public StadiumsController(IStadiumService stadiumService)
         {
             _stadiumService = stadiumService;
         }
@@ -54,7 +54,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <param name="page">The identifier of stadium.</param>
         /// <returns>List with stadiums.</returns>
-        [AllowAnonymous, HttpGet("list")]
+        [AllowAnonymous, HttpGet]
         public async Task<IActionResult> GetListAsync([FromQuery]int page)
         {
             var stadium = await _stadiumService.GeListAsync(page);

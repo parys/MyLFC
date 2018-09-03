@@ -6,16 +6,17 @@ import { UserFilters } from "./userFilters.model";
 import { User } from "./user.model";
 import { UsersOnline } from "@app/+common-models";
 import { UserConfig } from "./user-config.model";
+import { USERS_ROUTE } from "../../routes.constants";
 
 @Injectable()
 export class UserService {
-    private actionUrl: string = "user/";
+    private actionUrl: string = USERS_ROUTE + "/";
 
     constructor(private http: HttpWrapper) {
     }
 
     public getAll(filters: UserFilters): Observable<Pageable<User>> {
-        return this.http.get<Pageable<User>>(this.actionUrl + "list/" + encodeURIComponent(JSON.stringify(filters)));
+        return this.http.get<Pageable<User>>(this.actionUrl + encodeURIComponent(JSON.stringify(filters)));
     };
 
     public getSingle(id: number): Observable<User> {
@@ -23,7 +24,7 @@ export class UserService {
     };
 
     public getListByUserName(typed: string): Observable<User[]> {
-        return this.http.get<User[]>(`${this.actionUrl}getUserNames?typed=${typed}`);
+        return this.http.get<User[]>(`${this.actionUrl}getUserNames?typed=${typed}`); //todo combine with list
     };
 
  //   public update(itemToUpdate: User): Observable<User>;

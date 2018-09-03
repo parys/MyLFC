@@ -2,10 +2,11 @@
 import { Observable } from "rxjs";
 import { RoleGroup } from "./roleGroup.model";
 import { HttpWrapper } from "@app/+httpWrapper";
+import { ROLE_GROUPS_ROUTE } from "../routes.constants";
 
 @Injectable()
 export class RoleGroupService {
-    private actionUrl: string = "roleGroup/";
+    private actionUrl: string = ROLE_GROUPS_ROUTE + "/";
 
     constructor(private http: HttpWrapper) {
     }
@@ -15,7 +16,7 @@ export class RoleGroupService {
     };
 
     public getAll(): Observable<RoleGroup[]> {
-        return this.http.get<RoleGroup[]> (this.actionUrl + "list/");
+        return this.http.get<RoleGroup[]> (this.actionUrl);
     };
 
     // getSingle = (id: number): Observable<RoleGroup> => {

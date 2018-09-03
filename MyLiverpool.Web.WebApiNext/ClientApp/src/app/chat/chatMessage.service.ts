@@ -2,10 +2,11 @@
 import { Observable } from "rxjs";
 import { HttpWrapper } from "@app/+httpWrapper";
 import { ChatMessage } from "@app/+common-models";
+import { CHAT_MESSAGES_ROUTE } from "../routes.constants";
 
 @Injectable()
 export class ChatMessageService {
-    private actionUrl: string = "chatMessage/";
+    private actionUrl: string = CHAT_MESSAGES_ROUTE + "/";
 
     constructor(private http: HttpWrapper) {
     }

@@ -12,7 +12,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// Manages forum sections.
     /// </summary>
     [Authorize(AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme), Route("api/v1/[controller]")]
-    public class ForumSectionController : Controller
+    public class ForumSectionsController : Controller
     {
         private readonly IForumSectionService _forumSectionService;
 
@@ -20,7 +20,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// Constructor.
         /// </summary>
         /// <param name="forumSectionService"></param>
-        public ForumSectionController(IForumSectionService forumSectionService)
+        public ForumSectionsController(IForumSectionService forumSectionService)
         {
             _forumSectionService = forumSectionService;
         }
@@ -82,7 +82,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// Returns list of all sections.
         /// </summary>
         /// <returns>Sections list.</returns>
-        [AllowAnonymous, HttpGet("list")]
+        [AllowAnonymous, HttpGet]
         public async Task<IActionResult> List()
         {
             var hasAdminAccess = User.Identity.IsAuthenticated

@@ -11,7 +11,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// Manages role groups.
     /// </summary>
     [Authorize(AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme, Roles = nameof(RolesEnum.AdminFull)), Route("api/v1/[controller]")]
-    public class RoleGroupController : Controller
+    public class RoleGroupsController : Controller
     {
         private readonly IRoleService _roleService;
 
@@ -19,7 +19,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// Constructor.
         /// </summary>
         /// <param name="roleService"></param>
-        public RoleGroupController(IRoleService roleService)
+        public RoleGroupsController(IRoleService roleService)
         {
             _roleService = roleService;
         }
@@ -39,7 +39,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// Returns all role groups.
         /// </summary>
         /// <returns>Role groups list.</returns>
-        [AllowAnonymous, HttpGet("list")]
+        [AllowAnonymous, HttpGet]
         public async Task<IActionResult> GetAllAsync()
         {
             var result = await _roleService.GetRoleGroupsAsync();

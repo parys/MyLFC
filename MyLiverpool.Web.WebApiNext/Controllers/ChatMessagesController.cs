@@ -15,10 +15,10 @@ using MyLiverpool.Web.WebApiNext.Extensions;
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
     /// <summary>
-    /// Manages chat entitties.
+    /// Manages chat entities.
     /// </summary>
     [Authorize(AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme), Route("api/v1/[controller]")]
-    public class ChatMessageController : Controller
+    public class ChatMessagesController : Controller
     {
         private readonly IChatMessageService _chatMessageService;
         private readonly IDistributedCacheManager _cacheManager;
@@ -27,7 +27,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <summary>
         /// Controller.
         /// </summary>
-        public ChatMessageController(IChatMessageService chatMessageService, ISignalRHubAggregator signalRHub, IDistributedCacheManager cacheManager)
+        public ChatMessagesController(IChatMessageService chatMessageService, ISignalRHubAggregator signalRHub, IDistributedCacheManager cacheManager)
         {
             _chatMessageService = chatMessageService;
             _signalRHub = signalRHub;

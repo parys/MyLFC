@@ -18,7 +18,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// Manages match events.
     /// </summary>
     [Authorize(AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme), Route("api/v1/[controller]")]
-    public class MatchEventController : Controller
+    public class MatchEventsController : Controller
     {
         private readonly IMatchEventService _matchEventService;
         private readonly IDistributedCacheManager _cacheManager;
@@ -28,7 +28,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <param name="matchEventService"></param>
         /// <param name="cacheManager"></param>
-        public MatchEventController(IMatchEventService matchEventService,  IDistributedCacheManager cacheManager)
+        public MatchEventsController(IMatchEventService matchEventService,  IDistributedCacheManager cacheManager)
         {
             _matchEventService = matchEventService;
             _cacheManager = cacheManager;

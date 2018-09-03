@@ -15,7 +15,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// Manages forum messages.
     /// </summary>
     [Authorize(AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme), Route("api/v1/[controller]")]
-    public class ForumMessageController : Controller
+    public class ForumMessagesController : Controller
     {
         private readonly IForumMessageService _forumMessageService;
 
@@ -23,7 +23,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// Constructor.
         /// </summary>
         /// <param name="forumMessageService"></param>
-        public ForumMessageController(IForumMessageService forumMessageService)
+        public ForumMessagesController(IForumMessageService forumMessageService)
         {
             _forumMessageService = forumMessageService;
         }

@@ -3,13 +3,14 @@ import { Observable } from "rxjs";
 import { Pageable } from "@app/shared";
 import { HttpWrapper } from "@app/+httpWrapper";
 import { Injury, InjuryFilters } from "../model";
+import { INJURIES_ROUTE } from "../../routes.constants";
 
 @Injectable()
 export class InjuryService {
     private actionUrl: string;
 
     constructor(private http: HttpWrapper) {
-        this.actionUrl = "injuries/";
+        this.actionUrl = INJURIES_ROUTE + "/";
     }
 
     public getAll(filters: InjuryFilters): Observable<Pageable<Injury>> {

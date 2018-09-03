@@ -13,7 +13,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// Manages news categories.
     /// </summary>
     [Authorize(AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme), Route("api/v1/[controller]")]
-    public class MaterialCategoryController : Controller
+    public class MaterialCategoriesController : Controller
     {
         private readonly IMaterialCategoryService _materialCategoryService;
 
@@ -21,7 +21,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// Constructor.
         /// </summary>
         /// <param name="materialCategoryService"></param>
-        public MaterialCategoryController(IMaterialCategoryService materialCategoryService)
+        public MaterialCategoriesController(IMaterialCategoryService materialCategoryService)
         {
             _materialCategoryService = materialCategoryService;
         }

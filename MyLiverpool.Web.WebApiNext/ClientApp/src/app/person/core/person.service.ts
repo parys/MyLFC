@@ -3,16 +3,17 @@ import { Observable } from "rxjs";
 import { Pageable } from "@app/shared";
 import { HttpWrapper } from "@app/+httpWrapper";
 import { Person, SquadList, PersonType, PersonFilters } from "@app/person/model";
+import { PERSONS_ROUTE } from "../../routes.constants";
 
 @Injectable()
 export class PersonService {
-    private actionUrl: string = "person/";
+    private actionUrl: string = PERSONS_ROUTE + "/";
 
     constructor(private http: HttpWrapper) {
     }
 
     public getAll(filters: PersonFilters): Observable<Pageable<Person>> {
-        return this.http.get<Pageable<Person>>(this.actionUrl + `list/${encodeURIComponent(JSON.stringify(filters))}`);
+        return this.http.get<Pageable<Person>>(this.actionUrl + `${encodeURIComponent(JSON.stringify(filters))}`);
     };
 
     public getListByName(typed: string): Observable<Person[]> {

@@ -3,13 +3,14 @@ import { Observable } from "rxjs";
 import { MatchEvent } from "./matchEvent.model";
 import { MatchEventType } from "./matchEventType.model";
 import { HttpWrapper } from "@app/+httpWrapper";
+import { MATCH_EVENTS_ROUTE } from "../routes.constants";
 
 @Injectable()
 export class MatchEventService {
     private actionUrl: string;
 
     constructor(private http: HttpWrapper) {
-        this.actionUrl = "matchEvent/";
+        this.actionUrl = MATCH_EVENTS_ROUTE + "/";
     }
 /*
     public getAll(page: number): Observable<Pageable<MatchEvent>> {

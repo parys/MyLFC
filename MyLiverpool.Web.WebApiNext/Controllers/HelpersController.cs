@@ -2,7 +2,6 @@
 using AspNet.Security.OAuth.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MyLfc.Common.Web;
 using MyLfc.Common.Web.DistributedCache;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Common.Utilities;
@@ -14,7 +13,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// Manages common things.
     /// </summary>
     [Authorize(AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme), Route("api/v1/[controller]")]
-    public class HelperController: Controller
+    public class HelpersController: Controller
     {
         private readonly IHelperService _helperService;
         private readonly IDistributedCacheManager _cacheManager;
@@ -24,7 +23,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <param name="helperService"></param>
         /// <param name="cache"></param>
-        public HelperController(IHelperService helperService, IDistributedCacheManager cache)
+        public HelpersController(IHelperService helperService, IDistributedCacheManager cache)
         {
             _helperService = helperService;
             _cacheManager = cache;

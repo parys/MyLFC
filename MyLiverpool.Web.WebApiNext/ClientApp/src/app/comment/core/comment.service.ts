@@ -4,16 +4,17 @@ import { Comment } from "@app/+common-models";
 import { CommentVote, CommentFilter } from "../model";
 import { Pageable } from "@app/shared";
 import { HttpWrapper } from "@app/+httpWrapper";
+import { COMMENTS_ROUTE } from "../../routes.constants";
 
 @Injectable()
 export class CommentService {
-    private actionUrl: string = "comment/";
+    private actionUrl: string = COMMENTS_ROUTE + "/";
 
     constructor(private http: HttpWrapper) {
     }
 
     public getAll(filters: CommentFilter): Observable<Pageable<Comment>> {
-        return this.http.get<Pageable<Comment>>(this.actionUrl + "list/" + encodeURIComponent(JSON.stringify(filters)));
+        return this.http.get<Pageable<Comment>>(this.actionUrl + encodeURIComponent(JSON.stringify(filters)));
     };
 
     public getLastList(): Observable<Comment[]> {
@@ -21,11 +22,11 @@ export class CommentService {
     };
 
     public getAllByMaterial(page: number, id: number): Observable<Pageable<Comment>> {
-        return this.http.get<Pageable<Comment>>(`${this.actionUrl}material/${id}/list/${page}`);
+        return this.http.get<Pageable<Comment>>(`${this.actionUrl}material/${id}/list/${page}`);//todo move to material service
     };
 
     public getAllByMatch(page: number, id: number): Observable<Pageable<Comment>> {
-        return this.http.get<Pageable<Comment>>(`${this.actionUrl}match/${id}/list/${page}`);
+        return this.http.get<Pageable<Comment>>(`${this.actionUrl}match/${id}/list/${page}`);//todo move to match service
     };
 
     public getSingle(id: number): Observable<Comment> {

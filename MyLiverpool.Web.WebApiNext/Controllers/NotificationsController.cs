@@ -9,10 +9,10 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
 {
     /// <inheritdoc />
     /// <summary>
-    /// Manages notifiacations.
+    /// Manages notifications.
     /// </summary>
     [Authorize(AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme), Route("api/v1/[controller]")]
-    public class NotificationController : Controller
+    public class NotificationsController : Controller
     {
         private readonly INotificationService _notificationService;
         
@@ -20,7 +20,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// Constructor.
         /// </summary>
         /// <param name="notificationService"></param>
-        public NotificationController(INotificationService notificationService)
+        public NotificationsController(INotificationService notificationService)
         {
             _notificationService = notificationService;
         }

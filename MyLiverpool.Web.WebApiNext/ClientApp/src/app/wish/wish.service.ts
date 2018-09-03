@@ -5,16 +5,17 @@ import { HttpWrapper } from "@app/+httpWrapper";
 import { Wish } from "./wish.model";
 import { WishType } from "./wishType.model";
 import { WishState } from "./wishState.model";
+import { WISHES_ROUTE } from "../routes.constants";
 
 @Injectable()
 export class WishService {
-    private actionUrl: string = "wish/";
+    private actionUrl: string = WISHES_ROUTE + "/";
 
     constructor(private http: HttpWrapper) {
     }
 
     public getAll(page: number): Observable<Pageable<Wish>> {
-        return this.http.get<Pageable<Wish>> (`${this.actionUrl}list?page=${page}`);
+        return this.http.get<Pageable<Wish>> (`${this.actionUrl}?page=${page}`);
     };
 
     public getSingle(id: number): Observable<Wish> {

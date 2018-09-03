@@ -2,6 +2,7 @@
 import { MaterialListComponent } from "./material";
 import { helperRoutes } from "./admin/admin.routes";
 import { homeRoutes } from "./home/home.routes";
+import { WISHES_ROUTE } from "./routes.constants";
 
 export const routes: Routes = [
     ...helperRoutes,
@@ -79,7 +80,7 @@ export const routes: Routes = [
         loadChildren: "./user/lazy/user.module#UserModule"
     },
     {
-        path: "wishes",
+        path: WISHES_ROUTE,
         loadChildren: "./wish/wish.module#WishModule"
     },
     {

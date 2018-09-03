@@ -11,7 +11,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// Manages forum subsections.
     /// </summary>
     [Authorize(AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme), Route("api/v1/[controller]")]
-    public class ForumSubsectionController : Controller
+    public class ForumSubsectionsController : Controller
     {
         private readonly IForumSubsectionService _forumSubsectionService;
 
@@ -19,7 +19,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// Constructor.
         /// </summary>
         /// <param name="forumSubsectionService"></param>
-        public ForumSubsectionController(IForumSubsectionService forumSubsectionService)
+        public ForumSubsectionsController(IForumSubsectionService forumSubsectionService)
         {
             _forumSubsectionService = forumSubsectionService;
         }
@@ -82,7 +82,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// Returns forum subsections.
         /// </summary>
         /// <returns>Forum subsection list.</returns>
-        [AllowAnonymous, HttpGet("list")]
+        [AllowAnonymous, HttpGet]
         public async Task<IActionResult> GetListAsync()
         {
             var model = await _forumSubsectionService.GetListAsync();

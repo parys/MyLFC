@@ -13,7 +13,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// Manages seasons.
     /// </summary>
     [Authorize(AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme), Route("api/v1/[controller]")]
-    public class SeasonController : Controller
+    public class SeasonsController : Controller
     {
         private readonly ISeasonService _seasonService;
         private readonly IMatchEventService _matchEventService;
@@ -23,7 +23,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <param name="seasonService"></param>
         /// <param name="matchEventService"></param>
-        public SeasonController(ISeasonService seasonService, IMatchEventService matchEventService)
+        public SeasonsController(ISeasonService seasonService, IMatchEventService matchEventService)
         {
             _seasonService = seasonService;
             _matchEventService = matchEventService;
@@ -33,7 +33,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// Returns seasons list.
         /// </summary>
         /// <returns>List with seasons.</returns>
-        [AllowAnonymous, HttpGet("list")]
+        [AllowAnonymous, HttpGet]
         public async Task<IActionResult> GetListAsync()
         {
             var result = await _seasonService.GetListAsync();

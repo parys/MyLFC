@@ -20,7 +20,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// Controller for manage persons.
     /// </summary>
     [Authorize(AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme), Route("api/v1/[controller]")]
-    public class PersonController : Controller
+    public class PersonsController : Controller
     {
         private readonly IPersonService _personService;
         private readonly IUploadService _uploadService;
@@ -32,7 +32,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <param name="personService"></param>
         /// <param name="uploadService"></param>
         /// <param name="cacheManager"></param>
-        public PersonController(IPersonService personService, IUploadService uploadService, IDistributedCacheManager cacheManager)
+        public PersonsController(IPersonService personService, IUploadService uploadService, IDistributedCacheManager cacheManager)
         {
             _personService = personService;
             _uploadService = uploadService;
@@ -60,7 +60,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// Returns pageable person list.
         /// </summary>
         /// <returns>Persons list.</returns>
-        [AllowAnonymous, HttpGet("list/{filtersObj}")]
+        [AllowAnonymous, HttpGet("{filtersObj}")]
         public async Task<IActionResult> GetListAsync([FromRoute] string filtersObj)
         {
             PersonFiltersDto filters;
@@ -236,7 +236,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <param name="typed">Part of person name for search.</param>
         /// <returns>List of keyValuePair of persons with identifiers.</returns>
         [AllowAnonymous, HttpGet("getPersonsByName")]
-        public async Task<IActionResult> GetPrsonsByNameAsync([FromQuery]string typed)
+        public async Task<IActionResult> GetPersonsByNameAsync([FromQuery]string typed)
         {
             var result = await _personService.GetPersonsByNameAsync(typed);
             return Ok(result);

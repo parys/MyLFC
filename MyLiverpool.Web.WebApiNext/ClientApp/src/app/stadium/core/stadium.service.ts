@@ -3,20 +3,21 @@ import { Observable } from "rxjs";
 import { Pageable } from "@app/shared";
 import { HttpWrapper } from "@app/+httpWrapper";
 import { Stadium } from "../model";
+import { STADIUMS_ROUTE } from "../../routes.constants";
 
 @Injectable()
 export class StadiumService {
-    private actionUrl: string = "stadium/";
+    private actionUrl: string = STADIUMS_ROUTE + "/";
 
     constructor(private http: HttpWrapper) {
     }
 
     public getAll(page: number): Observable<Pageable<Stadium>> {
-        return this.http.get<Pageable<Stadium>>(this.actionUrl + `list?page=${page}`);
+        return this.http.get<Pageable<Stadium>>(this.actionUrl + `?page=${page}`);
     };
     
     public getListByName(typed: string): Observable<Stadium[]> {
-        return this.http.get<Stadium[]>(this.actionUrl + `getListByName?typed=${typed}`);
+        return this.http.get<Stadium[]>(this.actionUrl + `getListByName?typed=${typed}`);//todo combine with list
     };
 
     public getSingle(id: number): Observable<Stadium> {

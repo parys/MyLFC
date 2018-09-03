@@ -12,6 +12,7 @@ using Newtonsoft.Json;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
+    /// <inheritdoc />
     /// <summary>
     /// Manages injuries.
     /// </summary>

@@ -18,7 +18,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// Manages matches.
     /// </summary>
     [Authorize(AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme), Route("api/v1/[controller]")]
-    public class MatchController : Controller
+    public class MatchesController : Controller
     {
         private readonly IMatchService _matchService;
         private readonly IHelperService _helperService;
@@ -30,7 +30,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <param name="matchService">Injected value.</param>
         /// <param name="helperService"></param>
         /// <param name="cacheManager"></param>
-        public MatchController(IMatchService matchService, IHelperService helperService, IDistributedCacheManager cacheManager)
+        public MatchesController(IMatchService matchService, IHelperService helperService, IDistributedCacheManager cacheManager)
         {
             _matchService = matchService;
             _helperService = helperService;
@@ -135,7 +135,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <param name="page">The page of match list.</param>
         /// <returns>Selected page match list.</returns>
-        [AllowAnonymous, HttpGet("list")]
+        [AllowAnonymous, HttpGet]
         public async Task<IActionResult> GetListAsync([FromQuery]int page = 1)
         {
             if (page < 1)
