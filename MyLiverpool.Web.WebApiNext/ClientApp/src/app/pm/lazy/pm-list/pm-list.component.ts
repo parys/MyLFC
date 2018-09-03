@@ -1,26 +1,35 @@
-﻿import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
+﻿import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Router, NavigationEnd } from "@angular/router";
 import { Pm } from "../../model";
 import { PmService } from "../../core";
+import { Subscription } from "rxjs";
 
 @Component({
     selector: "pm-list",
     templateUrl: "./pm-list.component.html"
 })
 
-export class PmListComponent implements OnInit {
+export class PmListComponent implements OnInit, OnDestroy {
+
+    private navigationSubscription: Subscription;
     public received: Pm[];
     public sent: Pm[];
 
     constructor(private pmService: PmService,
         private router: Router) {
+        this.navigationSubscription = this.router.events.subscribe((e: any) => {
+            if (e instanceof NavigationEnd) {
+                this.init();
+            }
+        });
     }
 
     public ngOnInit(): void {
-        this.pmService
-            .getAll()
-            .subscribe(data => this.parse(data),
-            error => console.log(error));
+        this.init();
+    }
+
+    public ngOnDestroy(): void {
+        if(this.navigationSubscription) this.navigationSubscription.unsubscribe();
     }
 
     private parse(model: any): void {
@@ -37,5 +46,12 @@ export class PmListComponent implements OnInit {
 
     public writePm(): void {           
         this.router.navigate(["/pms", 0, "edit"]);  
+    }
+
+    private init(): void {
+        this.pmService
+            .getAll()
+            .subscribe(data => this.parse(data),
+                error => console.log(error));
     }
 }

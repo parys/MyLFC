@@ -34,11 +34,7 @@ export class MaterialCategoryEditComponent implements OnInit, OnDestroy {
 
     public ngOnInit(): void {
         this.editCategoryForm = this.formBuilder.group({
-            name: [
-                "", Validators.compose([
-                    Validators.required
-                ])
-            ],
+            name: ["", Validators.required],
             description: [""]
         });
         this.sub = this.route.params.subscribe(params => {
@@ -63,13 +59,13 @@ export class MaterialCategoryEditComponent implements OnInit, OnDestroy {
         if (this.id > 0) {
             this.service.update(this.id, model).subscribe(data => {
                 if (data) {
-                    this.snackBar.open("Категория успешно обновлена", null);
+                    this.snackBar.open("Категория обновлена", null);
                 }
             }, e => console.log(e));
         } else {
             this.service.create(model, this.type).subscribe(data => {
                 if (data) {
-                    this.snackBar.open("Категория успешно создана", null);
+                    this.snackBar.open("Категория создана", null);
                 }
             }, e => console.log(e));
         }

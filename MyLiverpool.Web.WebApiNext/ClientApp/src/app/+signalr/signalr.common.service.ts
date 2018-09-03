@@ -89,9 +89,9 @@ export class SignalRService {
                 console.error(err);
             });
 
-        this.hubConnection.onclose(() => {
+      //  this.hubConnection.onclose(() => {
       //      this.initializeHub();
-            console.warn("RECONNECT");
-        });
+           // console.warn("RECONNECT");
+      //  });
     }
 }
