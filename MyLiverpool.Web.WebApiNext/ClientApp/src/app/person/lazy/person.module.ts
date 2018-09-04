@@ -8,6 +8,7 @@ import { SharedModule } from "@app/shared";
 import { PersonCoreModule } from "../core";
 import { MatTabsModule } from "@angular/material";
 import { PersonEditModule } from "../core/+person-edit";
+import { PersonDetailComponent } from "./person-detail";
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { PersonEditModule } from "../core/+person-edit";
     declarations: [
         PersonListComponent,
         SquadComponent,
-        StuffListComponent
+        StuffListComponent,
+        PersonDetailComponent
     ]
 })
 export class PersonModule { }

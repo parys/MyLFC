@@ -10,13 +10,13 @@ import { Pageable } from "@app/shared";
 import { RolesCheckedService } from "@app/+auth";
 import { USERS_ROUTE } from "../../../routes.constants";
 
+const keyup = "keyup";
 @Component({
     selector: "user-list",
     templateUrl: "./user-list.component.html",
     styleUrls: ["./user-list.component.scss"]
 })
 
-const keyup = "keyup";
 export class UserListComponent implements OnInit {
     public items: User[];
     public roleGroups: RoleGroup[];
