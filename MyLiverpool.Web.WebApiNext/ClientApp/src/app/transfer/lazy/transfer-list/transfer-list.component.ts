@@ -6,9 +6,10 @@ import { TransferService } from "@app/transfer/core";
 import { Transfer } from "@app/transfer/model";
 import { Pageable } from "@app/shared";
 import { RolesCheckedService } from "@app/+auth";
+import { TRANSFERS_ROUTE } from "../../../routes.constants";
 
 @Component({
-    selector: "<transfer-list>",
+    selector: "transfer-list",
     templateUrl: "./transfer-list.component.html"
 })
 export class TransferListComponent implements OnInit, OnDestroy {
@@ -49,7 +50,7 @@ export class TransferListComponent implements OnInit, OnDestroy {
     public pageChanged(event: any): void {
         this.page = event;
         this.update();
-        let newUrl = `transfers?page=${this.page}`;
+        let newUrl = `${TRANSFERS_ROUTE}?page=${this.page}`;
         this.location.replaceState(newUrl);
     };
 

@@ -18,7 +18,7 @@ export class CommentService {
     };
 
     public getLastList(): Observable<Comment[]> {
-        return this.http.get<Comment[]>(this.actionUrl + "list/last");
+        return this.http.get<Comment[]>(this.actionUrl + "last");
     };
 
     public getAllByMaterial(page: number, id: number): Observable<Pageable<Comment>> {

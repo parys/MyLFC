@@ -77,7 +77,7 @@ export class CommentListComponent implements OnInit, OnDestroy {
     }
 
     private updateLocation(): void {
-        let newUrl = `materialComments?page=${this.page}&itemsPerPage=${this.itemsPerPage}`;
+        let newUrl = `comments?page=${this.page}&itemsPerPage=${this.itemsPerPage}`;
         if (this.userId) {
             newUrl = `${newUrl}&userId=${this.userId}`;
         }

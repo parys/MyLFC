@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs";
 import { Season } from "../../season.model";
 import { SeasonService } from "../../season.service";
+import { SEASONS_ROUTE } from "../../../routes.constants";
 
 @Component({
     selector: "season-edit",
@@ -47,6 +48,6 @@ export class SeasonEditComponent implements OnInit, OnDestroy {
         } else {
             this.service.create(model).subscribe(data => res = data);
         }
-        this.router.navigate(["/seasons"]);
+        this.router.navigate([SEASONS_ROUTE]);
     }
 }

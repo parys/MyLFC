@@ -8,6 +8,7 @@ import { WishType } from "../wishType.model";
 import { WishState } from "../wishState.model";
 import { WishService } from "../wish.service";
 import { RolesCheckedService } from "@app/+auth";
+import { WISHES_ROUTE } from "../../routes.constants";
 
 @Component({
     selector: "wish-edit",
@@ -71,13 +72,13 @@ export class WishEditComponent implements OnInit, OnDestroy {
         } else {
             let result = this.service.create(model).subscribe(data => {
                 res = data;
-                this.snackBar.open("Пожелание успешно создано");
+                this.snackBar.open("Пожелание создано");
             }, e => {
                 console.log(e);
             });
         }
         this.isHuman = false;
-        this.router.navigate(["/wishes"]);
+        this.router.navigate([WISHES_ROUTE]);
     }
 
     public updateTypes(): void {

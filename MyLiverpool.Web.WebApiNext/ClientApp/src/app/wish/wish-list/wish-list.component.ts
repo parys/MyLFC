@@ -6,6 +6,7 @@ import { Wish } from "../wish.model";
 import { WishService } from "../wish.service";
 import { Pageable, DeleteDialogComponent } from "@app/shared";
 import { RolesCheckedService } from "@app/+auth";
+import { WISHES_ROUTE } from "../../routes.constants";
 
 @Component({
     selector: "wish-list",
@@ -38,7 +39,7 @@ export class WishListComponent implements OnInit {
     public pageChanged(event: any): void {
         this.page = event;
         this.update();
-        const newUrl: string = `$wishes?page=${this.page}`;
+        const newUrl: string = `${WISHES_ROUTE}?page=${this.page}`;
         // if (this.categoryId) {
         //     newUrl = `${newUrl}&categoryId=${this.categoryId}`;
         //  }

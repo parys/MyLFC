@@ -21,7 +21,7 @@ export class SeasonService {
     };
 
     public getSingle(id: number): Observable<Season> {
-        return this.http.get<Season>(`${this.actionUrl}/${id}`);
+        return this.http.get<Season>(`${this.actionUrl}${id}`);
     };
 
     public create(item: Season): Observable<Season> {

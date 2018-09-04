@@ -8,6 +8,7 @@ import { startWith, switchMap, map, catchError, debounceTime, distinctUntilChang
 import { RoleGroup, RoleGroupService } from "@app/roleGroup";
 import { Pageable } from "@app/shared";
 import { RolesCheckedService } from "@app/+auth";
+import { USERS_ROUTE } from "../../../routes.constants";
 
 @Component({
     selector: "user-list",
@@ -15,6 +16,7 @@ import { RolesCheckedService } from "@app/+auth";
     styleUrls: ["./user-list.component.scss"]
 })
 
+const keyup = "keyup";
 export class UserListComponent implements OnInit {
     public items: User[];
     public roleGroups: RoleGroup[];
@@ -44,8 +46,8 @@ export class UserListComponent implements OnInit {
 
         merge(this.sort.sortChange,
             this.roleSelect.selectionChange,
-            fromEvent(this.userInput.nativeElement, "keyup"),
-            fromEvent(this.ipInput.nativeElement, "keyup")
+            fromEvent(this.userInput.nativeElement, keyup),
+            fromEvent(this.ipInput.nativeElement, keyup)
                 .pipe(debounceTime(1000),
                     distinctUntilChanged()))
             .subscribe(() => this.paginator.pageIndex = 0);
@@ -53,8 +55,8 @@ export class UserListComponent implements OnInit {
         merge(this.sort.sortChange,
             this.paginator.page,
             this.roleSelect.selectionChange,
-            fromEvent(this.userInput.nativeElement, "keyup"),
-            fromEvent(this.ipInput.nativeElement, "keyup")
+            fromEvent(this.userInput.nativeElement, keyup),
+            fromEvent(this.ipInput.nativeElement, keyup)
                 .pipe(debounceTime(1000),
                     distinctUntilChanged()))
             .pipe(
@@ -103,7 +105,7 @@ export class UserListComponent implements OnInit {
     }
 
     private updateUrl(): void {
-        let newUrl = `users?page=${this.paginator.pageIndex + 1}`;
+        let newUrl = `${USERS_ROUTE}?page=${this.paginator.pageIndex + 1}`;
 
         const userName = this.userInput.nativeElement.value;
         if (userName) {

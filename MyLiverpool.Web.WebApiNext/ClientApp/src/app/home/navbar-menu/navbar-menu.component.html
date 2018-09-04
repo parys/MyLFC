@@ -58,7 +58,7 @@
         <a class="color-tomato" [routerLink]="['/job']" mat-menu-item>Вакансии</a>
         <a [routerLink]="['/copyright']" mat-menu-item>О перепечатке информации</a>
         <a [routerLink]="['/cooperation']" mat-menu-item>Сотрудничество</a>
-        <a [routerLink]="['/materialComments']" [queryParams]="{page: 1}" mat-menu-item>Комментарии</a>
+        <a [routerLink]="['/comments']" [queryParams]="{page: 1}" mat-menu-item>Комментарии</a>
         <a *ngIf="roles.isAdminAssistant" [routerLink]="['/roleGroups']" mat-menu-item>Роли</a>
         <a *ngIf="roles.isAdminAssistant" [routerLink]="['/plans']" mat-menu-item>Планы</a>
         <a *ngIf="roles.isAdminAssistant" [routerLink]="['/instructions']" mat-menu-item>Инструкции</a>

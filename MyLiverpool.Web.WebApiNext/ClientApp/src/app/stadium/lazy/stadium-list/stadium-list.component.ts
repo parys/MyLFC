@@ -6,6 +6,7 @@ import { Subscription } from "rxjs";
 import { Stadium } from "../../model";
 import { StadiumService } from "../../core";
 import { Pageable, DeleteDialogComponent } from "@app/shared";
+import { STADIUMS_ROUTE } from "../../../routes.constants";
 
 @Component({
     selector: "stadium-list",
@@ -58,7 +59,7 @@ export class StadiumListComponent implements OnInit, OnDestroy {
     public pageChanged(event: any): void {
         this.page = event;
         this.update();
-        let newUrl = `stadiums?page=${this.page}`;
+        let newUrl = `${STADIUMS_ROUTE}?page=${this.page}`;
         this.location.replaceState(newUrl);
     };
 

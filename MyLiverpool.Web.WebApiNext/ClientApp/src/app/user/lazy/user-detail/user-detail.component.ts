@@ -36,13 +36,9 @@ export class UserDetailComponent implements OnInit, OnDestroy {
         this.initRoleForm();
         this.initBanForm();
         this.sub = this.route.params.subscribe(params => {
-            if (params["id"] !== undefined) {
-                this.service.getSingle(+params["id"])
-                    .subscribe(data => this.parse(data),
-                        e => console.log(e));
-            } else {
-                this.router.navigate(["/users", { page: 1 }]);
-            }
+            this.service.getSingle(+params["id"])
+                .subscribe(data => this.parse(data),
+                    e => console.log(e));
         });
         if (this.roles.userRoles.isAdminAssistant) {
             this.loadRoleGroups();
@@ -134,12 +130,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
 
     private initBanForm(): void {
         this.banForm = this.formBuilder.group({
-            banDaysCount: [
-                "", Validators.compose([
-                    Validators.required,
-                    Validators.min(1)
-                ])
-            ]
+            banDaysCount: ["", Validators.min(1)]
         });
     }
 }
