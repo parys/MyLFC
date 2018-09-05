@@ -22,7 +22,6 @@ export class PmReplyComponent implements OnInit {
     }
 
     public ngOnInit(): void {
-        console.log(11);
         this.pmReplyEditForm = this.formBuilder.group({
             title: [
                 this.getTitle(), Validators.compose([

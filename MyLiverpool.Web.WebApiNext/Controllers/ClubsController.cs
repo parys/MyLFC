@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using AspNet.Security.OAuth.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -52,7 +53,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <param name="filters"></param>
         /// <returns>Clubs list.</returns>
         [AllowAnonymous, HttpGet("")]
-        public async Task<IActionResult> GetListAsync([FromQuery] string filters)
+        [Obsolete("Remove after 1.10.18")]
+        public async Task<IActionResult> GetListOldAsync([FromQuery] string filters)
         {
             ClubFiltersDto filtersObj;
             if (filters == null)
@@ -62,6 +64,28 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             else
             {
                 filtersObj = (ClubFiltersDto)JsonConvert.DeserializeObject(filters, typeof(ClubFiltersDto));
+            }
+            var result = await _clubService.GetListAsync(filtersObj);
+           
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// Returns pageable club list.
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns>Clubs list.</returns>
+        [AllowAnonymous, HttpGet("{dto}")]
+        public async Task<IActionResult> GetListAsync(string dto)
+        {
+            ClubFiltersDto filtersObj;
+            if (dto == null)
+            {
+                filtersObj = new ClubFiltersDto();
+            }
+            else
+            {
+                filtersObj = (ClubFiltersDto)JsonConvert.DeserializeObject(dto, typeof(ClubFiltersDto));
             }
             var result = await _clubService.GetListAsync(filtersObj);
            

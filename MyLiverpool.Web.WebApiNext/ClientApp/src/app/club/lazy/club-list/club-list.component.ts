@@ -7,16 +7,16 @@ import { startWith, switchMap, map, catchError, debounceTime, distinctUntilChang
 import { ClubService } from "@app/club/core";
 import { Club, ClubFilters } from "@app/club/model";
 import { Pageable, DeleteDialogComponent } from "@app/shared";
+import { CLUBS_ROUTE } from "../../../routes.constants";
 
 @Component({
     selector: "club-list",
     templateUrl: "./club-list.component.html",
     styleUrls: ["./club-list.component.scss"]
 })
-
 export class ClubListComponent implements OnInit {
     public items: Club[];
-    displayedColumns = ["logo" ,"name", "englishName", "stadiumName", "tool"];
+    displayedColumns = ["logo", "name", "englishName", "stadiumName", "tool"];
 
     @ViewChild(MatSort) sort: MatSort;
     @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -29,9 +29,9 @@ export class ClubListComponent implements OnInit {
     }
 
     public ngOnInit(): void {
-        if(+this.route.snapshot.queryParams["page"]) {
+        if (+this.route.snapshot.queryParams["page"]) {
             this.paginator.pageIndex = +this.route.snapshot.queryParams["page"] - 1;
-            }
+        }
 
         merge(this.sort.sortChange,
                 fromEvent(this.nameInput.nativeElement, "keyup")
@@ -40,7 +40,9 @@ export class ClubListComponent implements OnInit {
             .subscribe(() => this.paginator.pageIndex = 0);
 
 
-        merge(this.sort.sortChange, this.paginator.page, fromEvent(this.nameInput.nativeElement, "keyup")
+        merge(this.sort.sortChange,
+                this.paginator.page,
+                fromEvent(this.nameInput.nativeElement, "keyup")
                 .pipe(debounceTime(1000),
                     distinctUntilChanged()))
             .pipe(
@@ -58,7 +60,7 @@ export class ClubListComponent implements OnInit {
                 catchError(() => {
                     return of([]);
                 })
-            ).subscribe((data : Club[]) => {
+            ).subscribe((data: Club[]) => {
                     this.items = data;
                     this.updateUrl();
                 },
@@ -68,10 +70,11 @@ export class ClubListComponent implements OnInit {
     public showDeleteModal(index: number): void {
         const dialogRef = this.dialog.open(DeleteDialogComponent);
         dialogRef.afterClosed().subscribe(result => {
-            if (result) {
-                this.delete(index);
-            }
-        }, e => console.log(e));
+                if (result) {
+                    this.delete(index);
+                }
+            },
+            e => console.log(e));
     }
 
     public update(): Observable<Pageable<Club>> {
@@ -87,7 +90,7 @@ export class ClubListComponent implements OnInit {
     }
 
     public updateUrl(): void {
-        let newUrl = `clubs?page=${this.paginator.pageIndex + 1}`;
+        let newUrl = `${CLUBS_ROUTE}?page=${this.paginator.pageIndex + 1}`;
         this.location.replaceState(newUrl);
     };
 
@@ -99,10 +102,7 @@ export class ClubListComponent implements OnInit {
                         this.paginator.length -= 1;
                     }
                 },
-                e => console.log(e),
-                () => {
-
-                }
+                e => console.log(e)
             );
     }
 }

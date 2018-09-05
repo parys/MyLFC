@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Identity;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Business.Dto.Filters;
-using MyLiverpool.Common.Utilities;
 using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Entities;
 using MyLiverpool.Data.ResourceAccess.Interfaces;
@@ -107,16 +106,6 @@ namespace MyLiverpool.Business.Services
             var allUsersCount = await _userRepository.GetCountAsync(filter);
             var result = new PageableData<UserMiniDto>(usersDto, dto.Page, allUsersCount, dto.ItemsPerPage);
             return result;
-        }
-
-        public async Task<IEnumerable<UsernameDto>> GetUserNamesAsync(string typed)
-        {
-            if (string.IsNullOrEmpty(typed))
-            {
-                typed = "";
-            }
-            var users = await _userRepository.GetListAsync(1, GlobalConstants.CountLoginsForAutocomlete, x => x.UserName.Contains(typed));
-            return users.Select(x => new UsernameDto() { Id = x.Id, Username = x.UserName });
         }
 
         public async Task<string> GetPhotoPathAsync(int userId)

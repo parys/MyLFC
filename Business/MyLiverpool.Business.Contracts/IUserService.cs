@@ -16,8 +16,6 @@ namespace MyLiverpool.Business.Contracts
         Task<UserDto> GetUserProfileDtoAsync(int id);
 
         Task<PageableData<UserMiniDto>> GetUsersDtoAsync(UserFiltersDto dto);
-        
-        Task<IEnumerable<UsernameDto>> GetUserNamesAsync(string typed);
 
         Task<string> GetPhotoPathAsync(int userId);
 

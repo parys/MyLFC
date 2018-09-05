@@ -7,6 +7,7 @@ import { ClubService } from "@app/club/core";
 import { Club } from "@app/club/model";
 import { Configuration } from "@app/app.constants";
 import { Stadium, StadiumService } from "@app/stadium";
+import { CLUBS_ROUTE } from "../../../routes.constants";
 
 @Component({
     selector: "club-edit",
@@ -49,15 +50,9 @@ export class ClubEditComponent implements OnInit, OnDestroy {
 
     public onSubmit(): void {
         const club: Club = this.parseForm();
-        if (this.id > 0) {
-            this.clubService.update(this.id, club)
-                .subscribe(data => this.router.navigate(["/clubs"]),
+            this.clubService.createOrUpdate(this.id, club)
+                .subscribe(data => this.router.navigate([CLUBS_ROUTE]),
                 e => console.log(e));
-        } else {
-            this.clubService.create(club)
-                .subscribe(data => this.router.navigate(["/clubs"]),
-                e => console.log(e));
-        }
     }
 
     public onUploadImage(event: any): void {

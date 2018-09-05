@@ -85,6 +85,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <param name="dto">Modified user entity.</param>
         /// <returns>Result of editing.</returns>
         [Authorize, HttpPut]
+        [Obsolete("remove after 01.10.18")]
         public async Task<IActionResult> UpdateAsync([FromBody]UserDto dto)
         {
             if (!ModelState.IsValid)
@@ -92,6 +93,24 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 return BadRequest();
             }
             dto.Id = User.GetUserId();
+            var result = await _userService.UpdateAsync(dto);
+            _cacheManager.Remove(CacheKeysConstants.UserBirthdays);
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// Updates user.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="dto">Modified user entity.</param>
+        /// <returns>Result of editing.</returns>
+        [Authorize, HttpPut]
+        public async Task<IActionResult> UpdateAsync(int id, [FromBody]UserDto dto)
+        {
+            if (id != dto.Id && id != User.GetUserId() || !ModelState.IsValid)
+            {
+                return BadRequest();
+            }
             var result = await _userService.UpdateAsync(dto);
             _cacheManager.Remove(CacheKeysConstants.UserBirthdays);
             return Ok(result);
@@ -140,20 +159,6 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             var result = await _roleService.EditRoleGroupAsync(roleGroupId, userId);
             return Ok(result);
         }
-
-        /// <summary>
-        /// Returns first users whose userNames contain typed
-        /// </summary>
-        /// <param name="typed"></param>
-        /// <returns></returns>
-        [AllowAnonymous, HttpGet("GetUserNames")]
-        public async Task<IActionResult> GetUserNamesAsync([FromQuery]string typed)
-        {
-            var result = await _userService.GetUserNamesAsync(typed);
-           //bug var userId = User.GetUserId();
-           // result = result.Where(x => x.Id != userId);
-            return Ok(result);
-        }      
         
         /// <summary>
         /// Returns first 

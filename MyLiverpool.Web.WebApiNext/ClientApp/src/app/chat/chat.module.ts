@@ -1,6 +1,5 @@
 ﻿import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { SharedModule } from "@app/shared";
 import { MiniChatComponent } from "./miniChat";
 import { MaxiChatComponent } from "./maxiChat";
