@@ -1,7 +1,7 @@
 ﻿import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { HttpWrapper } from "@app/+httpWrapper";
-import { HELPERS_ROUTE } from "../routes.constants";
+import { HELPERS_ROUTE } from "@app/+constants";
 
 @Injectable()
 export class AdminService {

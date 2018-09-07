@@ -6,11 +6,10 @@ import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
 import { TransferService } from "@app/transfer/core";
 import { PersonService, Person } from "@app/person";
 import { Transfer } from "@app/transfer/model";
-import { Configuration } from "@app/app.constants";
-import { ClubService, Club, ClubFilters } from "@app/club";
+import { ClubService, Club, } from "@app/club";
 import { SeasonService, Season } from "@app/season";
-import { TRANSFERS_ROUTE } from "../../../routes.constants";
-import { Pageable } from "../../../shared/pageable.model";
+import { TRANSFERS_ROUTE, DEBOUNCE_TIME } from "@app/+constants";
+import { Pageable } from "@app/shared";
 
 @Component({
     selector: "transfer-edit",
@@ -29,7 +28,6 @@ export class TransferEditComponent implements OnInit, OnDestroy {
     constructor(private transferService: TransferService,    
         private route: ActivatedRoute,
         private router: Router,
-        private config: Configuration,
         private formBuilder: FormBuilder,
         private personService: PersonService,
         private clubService: ClubService,
@@ -121,7 +119,7 @@ export class TransferEditComponent implements OnInit, OnDestroy {
         });
 
         this.persons$ = this.editTransferForm.controls["personName"].valueChanges.pipe(
-            debounceTime(this.config.debounceTime),
+            debounceTime(DEBOUNCE_TIME),
             distinctUntilChanged(),
             switchMap((value: string) => this.personService.getListByName(value)));
 
@@ -140,12 +138,12 @@ export class TransferEditComponent implements OnInit, OnDestroy {
         //);
 
         this.clubs$ = this.editTransferForm.controls["clubName"].valueChanges.pipe(
-            debounceTime(this.config.debounceTime),
+            debounceTime(DEBOUNCE_TIME),
             distinctUntilChanged(),
             switchMap((value: string) => this.clubService.getListByName(value)));
         
         this.seasons$ = this.editTransferForm.controls["seasonName"].valueChanges.pipe(
-            debounceTime(this.config.debounceTime),
+            debounceTime(DEBOUNCE_TIME),
             distinctUntilChanged(),
             switchMap((value: string) => this.seasonService.getListByYear(value)));
     }

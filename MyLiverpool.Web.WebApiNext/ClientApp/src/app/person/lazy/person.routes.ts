@@ -5,7 +5,11 @@ import { SquadComponent } from "./squad";
 import { PersonEditComponent } from "../core/+person-edit";
 
 export const personRoutes: Routes = [
-    { path: "", component: PersonListComponent, data: { title: "Люди" }, },
+    {
+        path: "",
+        component: PersonListComponent,
+        data: { title: "Люди" },
+    },
     {
         path: ":id/edit",
         component: PersonEditComponent

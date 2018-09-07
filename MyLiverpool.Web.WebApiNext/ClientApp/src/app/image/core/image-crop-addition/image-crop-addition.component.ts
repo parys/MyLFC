@@ -1,6 +1,5 @@
 ﻿import { Component, Input, Output, EventEmitter } from "@angular/core";
 import { MatSnackBar } from "@angular/material";
-import { Configuration } from "@app/app.constants";
 import { ImageService } from "../image.service";
 
 @Component({
@@ -18,8 +17,7 @@ export class ImageCropAdditionComponent {
     croppedImage: any = "";
 
 
-    constructor(private configuration: Configuration,
-        private service: ImageService,
+    constructor(private service: ImageService,
         private snackBar: MatSnackBar
     ) {
     }

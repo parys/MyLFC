@@ -5,9 +5,8 @@ import { Observable, Subscription } from "rxjs";
 import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
 import { ClubService } from "@app/club/core";
 import { Club } from "@app/club/model";
-import { Configuration } from "@app/app.constants";
 import { Stadium, StadiumService } from "@app/stadium";
-import { CLUBS_ROUTE } from "../../../routes.constants";
+import { CLUBS_ROUTE, DEBOUNCE_TIME } from "@app/+constants";
 
 @Component({
     selector: "club-edit",
@@ -27,7 +26,6 @@ export class ClubEditComponent implements OnInit, OnDestroy {
         private stadiumService: StadiumService,
         private route: ActivatedRoute,
         private router: Router,
-        private config: Configuration,
         private formBuilder: FormBuilder) {
     }
 
@@ -99,7 +97,7 @@ export class ClubEditComponent implements OnInit, OnDestroy {
         });
 
         this.stadiums$ = this.editForm.controls["stadiumName"].valueChanges.pipe(
-            debounceTime(this.config.debounceTime),
+            debounceTime(DEBOUNCE_TIME),
             distinctUntilChanged(),
             switchMap((value: string) => this.stadiumService.getListByName(value))
         );

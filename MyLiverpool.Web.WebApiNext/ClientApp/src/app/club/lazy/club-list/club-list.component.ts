@@ -7,7 +7,7 @@ import { startWith, switchMap, map, catchError, debounceTime, distinctUntilChang
 import { ClubService } from "@app/club/core";
 import { Club, ClubFilters } from "@app/club/model";
 import { Pageable, DeleteDialogComponent } from "@app/shared";
-import { CLUBS_ROUTE } from "../../../routes.constants";
+import { CLUBS_ROUTE } from "@app/+constants";
 
 @Component({
     selector: "club-list",

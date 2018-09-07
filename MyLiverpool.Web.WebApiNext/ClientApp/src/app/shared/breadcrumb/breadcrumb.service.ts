@@ -14,7 +14,7 @@ import { NEWS_ROUTE, SEASONS_ROUTE, BLOGS_ROUTE, NEWS_CATEGORIES_ROUTE, BLOG_CAT
     INJURIES_ROUTE,
     STADIUMS_ROUTE,
     POLLS_ROUTE
-} from "../../routes.constants";
+} from "@app/+constants";
 
 @Injectable()
 export class BreadcrumbService {

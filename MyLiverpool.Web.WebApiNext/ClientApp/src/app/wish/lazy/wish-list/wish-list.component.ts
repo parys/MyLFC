@@ -2,11 +2,11 @@
 import { Location } from "@angular/common";
 import { ActivatedRoute } from "@angular/router";
 import { MatDialog } from "@angular/material";
-import { Wish } from "../wish.model";
+import { Wish, WishFilter } from "../../model";
 import { WishService } from "../wish.service";
 import { Pageable, DeleteDialogComponent } from "@app/shared";
 import { RolesCheckedService } from "@app/+auth";
-import { WISHES_ROUTE } from "../../routes.constants";
+import { WISHES_ROUTE } from "@app/+constants";
 
 @Component({
     selector: "wish-list",
@@ -14,8 +14,8 @@ import { WISHES_ROUTE } from "../../routes.constants";
 })
 export class WishListComponent implements OnInit {
     public items: Wish[];
-    public page: number = 1;
-    public itemsPerPage: number = 15;
+    public page: number = 1; //todo add functionality for paging
+    public itemsPerPage: number = 25; 
     public totalItems: number;
     public categoryId: number;
 
@@ -51,14 +51,13 @@ export class WishListComponent implements OnInit {
     };
 
     public update(): void {
-        //let filters = new MaterialFilters();
-        //filters.categoryId = this.categoryId;
-        //filters.materialType = "News";
-        //filters.userName = this.userName;
-        //filters.page = this.page;
+        let filters = new WishFilter();
+        filters.categoryId = this.categoryId;
+        filters.itemsPerPage = this.itemsPerPage;
+        filters.page = this.page;
 
         this.service
-            .getAll(this.page)
+            .getAll(filters)
             .subscribe(data => this.parsePageable(data),
             e => console.log(e));
     }

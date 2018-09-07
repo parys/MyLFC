@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
-using MyLiverpool.Common.Utilities;
+using MyLiverpool.Business.Dto.Filters;
 using MyLiverpool.Data.Entities;
 using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
@@ -51,6 +51,22 @@ namespace MyLiverpool.Business.Services
             var wishesDto = _mapper.Map<IEnumerable<WishDto>>(wishes);
             var wishesCount = await _wishRepository.CountAsync(filter);
             return new PageableData<WishDto>(wishesDto, page, wishesCount);
+        }
+
+        public async Task<PageableData<WishDto>> GetListAsync(WishFiltersDto filters)
+        {
+            Expression<Func<Wish, bool>> filter = x => true;
+            filter = filter.And(x => (int)x.State == 1 || x.State == 0);
+
+            if (!string.IsNullOrWhiteSpace(filters.FilterText) && filters.FilterText != "undefined")
+            {
+                filter = filter.And(x => x.Title.Contains(filters.FilterText) || x.Message.Contains(filters.FilterText));
+            }
+            var wishes = await _wishRepository.GetListAsync(filters.Page, filter: filter, order: SortOrder.Descending, orderBy: x => x.Id);
+
+            var wishesDto = _mapper.Map<IEnumerable<WishDto>>(wishes);
+            var wishesCount = await _wishRepository.CountAsync(filter);
+            return new PageableData<WishDto>(wishesDto, filters.Page, wishesCount);
         }
 
         public async Task<WishDto> GetAsync(int wishId)

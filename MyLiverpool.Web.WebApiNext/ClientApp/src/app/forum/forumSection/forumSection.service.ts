@@ -2,7 +2,7 @@
 import { Observable } from "rxjs";
 import { HttpWrapper } from "@app/+httpWrapper";
 import { ForumSection } from "./forumSection.model";
-import { FORUM_SECTIONS_ROUTE } from "../../routes.constants";
+import { FORUM_SECTIONS_ROUTE } from "@app/+constants";
 
 @Injectable()
 export class ForumSectionService {

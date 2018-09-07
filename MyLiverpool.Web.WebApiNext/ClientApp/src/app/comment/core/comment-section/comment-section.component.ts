@@ -165,7 +165,7 @@ export class CommentSectionComponent implements OnInit, OnChanges, AfterViewChec
         comment.materialId = this.materialId;
         comment.matchId = this.matchId;
         comment.type = this.type ? this.type : 3;//todo
-        this.commentService.create(comment)
+        this.commentService.createOrUpdate(comment.id, comment)
             .subscribe(data => {
                 this.items.push(data);
                 this.totalItems += 1;

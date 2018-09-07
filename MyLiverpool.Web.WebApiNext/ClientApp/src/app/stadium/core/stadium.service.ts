@@ -3,7 +3,7 @@ import { Observable } from "rxjs";
 import { Pageable } from "@app/shared";
 import { HttpWrapper } from "@app/+httpWrapper";
 import { Stadium } from "../model";
-import { STADIUMS_ROUTE } from "../../routes.constants";
+import { STADIUMS_ROUTE } from "@app/+constants";
 
 @Injectable()
 export class StadiumService {

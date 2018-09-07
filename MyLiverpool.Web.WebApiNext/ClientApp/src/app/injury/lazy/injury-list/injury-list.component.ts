@@ -7,6 +7,7 @@ import { startWith, switchMap, map, catchError, debounceTime, distinctUntilChang
 import { Injury, InjuryFilters } from "@app/injury/model";
 import { InjuryService } from "@app/injury/core";
 import { Pageable, DeleteDialogComponent } from "@app/shared";
+import { DEBOUNCE_TIME, INJURIES_ROUTE, KEYUP } from "@app/+constants";
 
 @Component({
     selector: "injury-list",
@@ -35,14 +36,14 @@ export class InjuryListComponent implements OnInit, OnDestroy {
             e => console.log(e));
 
         merge(this.sort.sortChange,
-                fromEvent(this.nameInput.nativeElement, "keyup")
-                .pipe(debounceTime(1000),
+            fromEvent(this.nameInput.nativeElement, KEYUP)
+                .pipe(debounceTime(DEBOUNCE_TIME),
                     distinctUntilChanged()))
             .subscribe(() => this.paginator.pageIndex = 0);
 
 
-        merge(this.sort.sortChange, this.paginator.page, fromEvent(this.nameInput.nativeElement, "keyup")
-                .pipe(debounceTime(1000),
+        merge(this.sort.sortChange, this.paginator.page, fromEvent(this.nameInput.nativeElement, KEYUP)
+            .pipe(debounceTime(DEBOUNCE_TIME),
                     distinctUntilChanged()))
             .pipe(
                 startWith({}),
@@ -70,11 +71,11 @@ export class InjuryListComponent implements OnInit, OnDestroy {
         if (this.sub) this.sub.unsubscribe();
     }
 
-    public showDeleteModal(index: number): void {
+    public showDeleteModal(injury: Injury): void {
         let dialogRef = this.dialog.open(DeleteDialogComponent);
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
-                this.delete(index);
+                this.delete(injury.id);
             }
         }, e => console.log(e));
     }
@@ -92,7 +93,7 @@ export class InjuryListComponent implements OnInit, OnDestroy {
     }
 
     public updateUrl(): void {
-        const newUrl = `injuries?page=${this.paginator.pageIndex + 1}`;
+        const newUrl = `${INJURIES_ROUTE}?page=${this.paginator.pageIndex + 1}`;
         this.location.replaceState(newUrl);
     };
     

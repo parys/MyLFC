@@ -9,6 +9,7 @@ import { CommentService } from "@app/comment/core";
 import { DeleteDialogComponent, Pageable } from "@app/shared";
 import { RolesCheckedService } from "@app/+auth";
 import { CommentFilter } from "@app/comment/model";
+import { COMMENTS_ROUTE } from "@app/+constants";
 
 @Component({
     selector: "comment-list",
@@ -77,7 +78,7 @@ export class CommentListComponent implements OnInit, OnDestroy {
     }
 
     private updateLocation(): void {
-        let newUrl = `comments?page=${this.page}&itemsPerPage=${this.itemsPerPage}`;
+        let newUrl = `${COMMENTS_ROUTE}?page=${this.page}&itemsPerPage=${this.itemsPerPage}`;
         if (this.userId) {
             newUrl = `${newUrl}&userId=${this.userId}`;
         }

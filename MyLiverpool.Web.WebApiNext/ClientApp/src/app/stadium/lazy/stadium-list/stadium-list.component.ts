@@ -6,7 +6,7 @@ import { Subscription } from "rxjs";
 import { Stadium } from "../../model";
 import { StadiumService } from "../../core";
 import { Pageable, DeleteDialogComponent } from "@app/shared";
-import { STADIUMS_ROUTE } from "../../../routes.constants";
+import { STADIUMS_ROUTE } from "@app/+constants";
 
 @Component({
     selector: "stadium-list",

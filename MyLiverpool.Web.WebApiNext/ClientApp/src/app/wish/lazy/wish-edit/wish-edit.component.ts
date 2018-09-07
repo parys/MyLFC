@@ -3,12 +3,10 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
 import { MatSnackBar } from "@angular/material";
 import { Subscription } from "rxjs";
-import { Wish } from "../wish.model";
-import { WishType } from "../wishType.model";
-import { WishState } from "../wishState.model";
+import { Wish, WishType, WishState } from "../../model";
 import { WishService } from "../wish.service";
 import { RolesCheckedService } from "@app/+auth";
-import { WISHES_ROUTE } from "../../routes.constants";
+import { WISHES_ROUTE } from "@app/+constants";
 
 @Component({
     selector: "wish-edit",
@@ -62,21 +60,19 @@ export class WishEditComponent implements OnInit, OnDestroy {
     }
 
     public onSubmit(): void {
-        let model: Wish = this.editWishForm.value;
+        const model: Wish = this.editWishForm.value;
         this.editWishForm.markAsPending();
         model.id = this.id;
 
-        let res: any;
-        if (this.id > 0) {
-            let result = this.service.update(this.id, model).subscribe(data => res = data);
-        } else {
-            let result = this.service.create(model).subscribe(data => {
-                res = data;
-                this.snackBar.open("Пожелание создано");
-            }, e => {
-                console.log(e);
-            });
-        }
+        this.service.createOrUpdate(this.id, model)
+            .subscribe(data => {
+                    this.snackBar.open("Пожелание создано");
+                },
+                e => {
+                    console.log(e);
+                });
+
+        
         this.isHuman = false;
         this.router.navigate([WISHES_ROUTE]);
     }

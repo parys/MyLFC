@@ -6,7 +6,7 @@ import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
 import { InjuryService } from "@app/injury/core";
 import { Injury } from "@app/injury/model";
 import { PersonService, Person } from "@app/person";
-import { Configuration } from "@app/app.constants";
+import { INJURIES_ROUTE, DEBOUNCE_TIME } from "@app/+constants";
 
 @Component({
     selector: "injury-edit",
@@ -25,7 +25,6 @@ export class InjuryEditComponent implements OnInit, OnDestroy {
         private personService: PersonService,
         private route: ActivatedRoute,
         private router: Router,
-        private config: Configuration,
         private formBuilder: FormBuilder) {
     }
     
@@ -48,15 +47,9 @@ export class InjuryEditComponent implements OnInit, OnDestroy {
 
     public onSubmit(): void {
         const injury: Injury = this.parseForm();
-        if (this.id > 0) {
-            this.injuryService.update(this.id, injury)
-                .subscribe(data => this.router.navigate(["/injuries"]),
+            this.injuryService.createOrUpdate(this.id, injury)
+                .subscribe(data => this.router.navigate([INJURIES_ROUTE]),
                     e => console.log(e));
-        } else {
-            this.injuryService.create(injury)
-                .subscribe(data => this.router.navigate(["/injuries"]),
-                    e => console.log(e));
-        }
     }
 
     public selectPerson(id: number) {
@@ -96,7 +89,7 @@ export class InjuryEditComponent implements OnInit, OnDestroy {
         });
 
         this.persons$ = this.editInjuryForm.controls["personName"].valueChanges.pipe(
-            debounceTime(this.config.debounceTime),
+            debounceTime(DEBOUNCE_TIME),
             distinctUntilChanged(),
             switchMap((value: string) => this.personService.getListByName(value)));
     }

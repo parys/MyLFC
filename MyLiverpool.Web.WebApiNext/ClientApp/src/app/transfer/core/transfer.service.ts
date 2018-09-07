@@ -3,7 +3,7 @@ import { Observable } from "rxjs";
 import { Pageable } from "@app/shared";
 import { HttpWrapper } from "@app/+httpWrapper";
 import { Transfer } from "@app/transfer/model";
-import { TRANSFERS_ROUTE } from "../../routes.constants";
+import { TRANSFERS_ROUTE } from "@app/+constants";
 
 @Injectable()
 export class TransferService {

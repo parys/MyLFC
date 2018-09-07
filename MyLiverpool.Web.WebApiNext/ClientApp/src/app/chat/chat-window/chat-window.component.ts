@@ -1,13 +1,13 @@
 ﻿import { Component, OnInit, ChangeDetectorRef, Input, ViewChild, ChangeDetectionStrategy } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { MatDialog, MatSnackBar } from "@angular/material";
-import { Configuration } from "@app/app.constants";
 import { ChatMessage } from "@app/+common-models";
 import { ChatMessageService } from "../chatMessage.service";
 import { DeleteDialogComponent } from "@app/shared";
 import { RolesCheckedService } from "@app/+auth";
 import { SignalRService } from "@app/+signalr";
 import { EditorComponent } from "@app/editor";
+import { MAX_CHAT_MESSAGE_LENGTH } from "@app/+constants";
 
 @Component({
     selector: "chat-window",
@@ -28,7 +28,6 @@ export class ChatWindowComponent implements OnInit {
         private formBuilder: FormBuilder,
         private cd: ChangeDetectorRef,
         private snackBar: MatSnackBar,
-        private configuration: Configuration,
         public roles: RolesCheckedService,
         private dialog: MatDialog,
         private signalRService: SignalRService) {
@@ -142,7 +141,7 @@ export class ChatWindowComponent implements OnInit {
 
     private initForm(message: string = ""): void {
         this.messageForm = this.formBuilder.group({
-            message: [message, Validators.compose([Validators.required, Validators.maxLength(this.configuration.maxChatMessageLength)])], //todo add visual warning
+            message: [message, Validators.compose([Validators.required, Validators.maxLength(MAX_CHAT_MESSAGE_LENGTH)])], //todo add visual warning
             typeId: [this.type, Validators.required]
         });
         this.messageForm.valueChanges.subscribe(() => {

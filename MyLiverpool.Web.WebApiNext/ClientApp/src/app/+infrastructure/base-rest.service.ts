@@ -1,4 +1,4 @@
-﻿import { Injectable } from "@angular/core";
+﻿import { Injectable, Inject } from "@angular/core";
 import { Observable } from "rxjs";
 import { Pageable } from "@app/shared";
 import { HttpWrapper } from "@app/+httpWrapper";
@@ -7,7 +7,7 @@ import { BaseRestFilter } from "./base-rest-filter.model";
 @Injectable()
 export class BaseRestService<T, TF extends BaseRestFilter> {
     constructor(public http: HttpWrapper,
-        private baseActionUrl: string) {
+        @Inject("baseActionUrl") public baseActionUrl: string) {
     }
 
     public getAll(filters: TF): Observable<Pageable<T>> {

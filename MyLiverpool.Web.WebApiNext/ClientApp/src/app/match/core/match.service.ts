@@ -3,7 +3,7 @@ import { Observable } from "rxjs";
 import { Match, MatchType } from "@app/match/model";
 import { HttpWrapper } from "@app/+httpWrapper";
 import { Pageable } from "@app/shared";
-import { MATCHES_ROUTE } from "../../routes.constants";
+import { MATCHES_ROUTE } from "@app/+constants";
 
 @Injectable()
 export class MatchService {

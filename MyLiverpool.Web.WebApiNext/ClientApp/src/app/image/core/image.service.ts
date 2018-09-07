@@ -2,7 +2,7 @@
 import { Observable } from "rxjs";
 import { Image } from "../model";
 import { HttpWrapper } from "@app/+httpWrapper";
-import { IMAGES_ROUTE } from "../../routes.constants";
+import { IMAGES_ROUTE } from "@app/+constants";
 
 @Injectable()
 export class ImageService {

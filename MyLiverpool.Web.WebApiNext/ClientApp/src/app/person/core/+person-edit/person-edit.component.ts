@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { MatSnackBar } from "@angular/material";
 import { PersonService } from "../person.service";
 import { Person, PersonType } from "@app/person/model";
+import { PERSONS_ROUTE } from "@app/+constants";
 
 @Component({
     selector: "person-edit",
@@ -51,11 +52,11 @@ export class PersonEditComponent implements OnInit, AfterViewInit {
                 .subscribe((result: any) => {
                     this.editPersonForm.controls["photo"].patchValue(result.path);
                     this.photo = `${result.path}?${Math.random()}`;
-                    this.snackBar.open("Фото успешно загружено", null, { duration: 5000 });
+                    this.snackBar.open("Фото успешно загружено");
                 },
                 e => {
                     console.log(e);
-                    this.snackBar.open("Ошибка при загрузке фото", null, { duration: 5000 });
+                    this.snackBar.open("Ошибка при загрузке фото");
                 });
         }
     }
@@ -66,33 +67,22 @@ export class PersonEditComponent implements OnInit, AfterViewInit {
             person.birthday = new Date(person.birthday.setHours(person.birthday.getHours() +
                 (-1) * person.birthday.getTimezoneOffset() / 60));
         }
-        if (this.id > 0) {
-            this.service.update(this.id, person)
-                .subscribe(data => {
-                    this.snackBar.open("Профиль успешно обновлен", null, { duration: 5000 });
-                    this.router.navigate(["/persons"]);
+        this.service.createOrUpdate(this.id, person)
+            .subscribe(data => {
+                    this.snackBar.open("Изменения сохранены");
+                    if (this.isFull) {
+                        this.router.navigate([PERSONS_ROUTE]);
+                    } else {
+                        this.newPerson.emit(data);
+                        this.editPersonForm.get("firstRussianName").setValue(null);
+                        this.editPersonForm.get("lastRussianName").setValue(null);
+                    }
                 },
                 e => {
                     console.log(e);
-                    this.snackBar.open("Ошибка при обновлении профиля", null, { duration: 5000 });
+                    this.snackBar.open("Изменения НЕ сохранены");
                 });
-        } else {
-            this.service.create(person)
-                .subscribe(data => {
-                    this.snackBar.open("Профиль успешно создан", null, { duration: 5000 });
-                    if (this.isFull) {
-                        this.router.navigate(["/persons"]);
-                    } else {
-                      this.newPerson.emit(data);
-                      this.editPersonForm.get("firstRussianName").setValue(null);
-                      this.editPersonForm.get("lastRussianName").setValue(null);
-                    }
-                    },
-                e => {
-                    console.log(e);
-                    this.snackBar.open("Ошибка при создании профиля", null, { duration: 5000 });
-                });
-        }
+
     }
 
     public getRandomNumber(): number {

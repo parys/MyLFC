@@ -2,7 +2,7 @@
 import { Observable } from "rxjs";
 import { HttpWrapper } from "@app/+httpWrapper";
 import { ForumTheme } from "./forumTheme.model";
-import { FORUM_THEMES_ROUTE } from "../../routes.constants";
+import { FORUM_THEMES_ROUTE } from "@app/+constants";
 
 @Injectable()
 export class ForumThemeService {

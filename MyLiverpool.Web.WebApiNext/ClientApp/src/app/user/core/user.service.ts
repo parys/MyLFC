@@ -5,7 +5,7 @@ import { UserFilters } from "./userFilters.model";
 import { User } from "./user.model";
 import { UsersOnline } from "@app/+common-models";
 import { UserConfig } from "./user-config.model";
-import { USERS_ROUTE } from "../../routes.constants";
+import { USERS_ROUTE } from "@app/+constants";
 import { BaseRestService } from "@app/+infrastructure";
 
 @Injectable()

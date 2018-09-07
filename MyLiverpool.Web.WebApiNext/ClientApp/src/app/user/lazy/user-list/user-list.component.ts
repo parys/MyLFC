@@ -8,7 +8,7 @@ import { startWith, switchMap, map, catchError, debounceTime, distinctUntilChang
 import { RoleGroup, RoleGroupService } from "@app/roleGroup";
 import { Pageable } from "@app/shared";
 import { RolesCheckedService } from "@app/+auth";
-import { USERS_ROUTE } from "../../../routes.constants";
+import { USERS_ROUTE } from "@app/+constants";
 
 const keyup = "keyup";
 @Component({
@@ -82,7 +82,6 @@ export class UserListComponent implements OnInit {
     }
 
     public writePm(index: number): void {
-        console.log(index);
         this.selectedUserIndex = index;
     }
 

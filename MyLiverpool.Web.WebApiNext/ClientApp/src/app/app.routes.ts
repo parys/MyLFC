@@ -15,7 +15,7 @@ import { WISHES_ROUTE, NEWS_ROUTE, ACCOUNT_ROUTE, BLOGS_ROUTE, BLOG_CATEGORIES_R
     STADIUMS_ROUTE,
     TRANSFERS_ROUTE,
     USERS_ROUTE
-} from "./routes.constants";
+} from "@app/+constants";
 
 export const routes: Routes = [
     ...helperRoutes,
@@ -94,7 +94,7 @@ export const routes: Routes = [
     },
     {
         path: WISHES_ROUTE,
-        loadChildren: "./wish/wish.module#WishModule"
+        loadChildren: "./wish/lazy/wish.module#WishModule"
     },
     {
         path: "",

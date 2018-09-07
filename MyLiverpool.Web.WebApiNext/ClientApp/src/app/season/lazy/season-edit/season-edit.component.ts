@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs";
 import { Season } from "../../season.model";
 import { SeasonService } from "../../season.service";
-import { SEASONS_ROUTE } from "../../../routes.constants";
+import { SEASONS_ROUTE } from "@app/+constants";
 
 @Component({
     selector: "season-edit",

@@ -12,7 +12,6 @@ import localeRU from "@angular/common/locales/ru";
 import { AppComponent } from "./app.component";
 import { routes } from "./app.routes";
 //import { ForumModule } from "./forum";
-import { Configuration } from "./app.constants";
 import { ChatModule } from "./chat";
 import * as home from "./home";
 import { InjuryCoreModule } from "./injury";
@@ -98,7 +97,6 @@ export class UIErrorHandler extends ErrorHandler {
     providers: [// services
         admin.AdminService,
         { provide: LOCALE_ID, useValue: "ru-RU" },
-        Configuration,
         {
             // hammer instantion with custom config
             provide: HAMMER_GESTURE_CONFIG,

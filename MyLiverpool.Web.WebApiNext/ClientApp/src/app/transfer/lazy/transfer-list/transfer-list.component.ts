@@ -6,7 +6,7 @@ import { TransferService } from "@app/transfer/core";
 import { Transfer } from "@app/transfer/model";
 import { Pageable } from "@app/shared";
 import { RolesCheckedService } from "@app/+auth";
-import { TRANSFERS_ROUTE } from "../../../routes.constants";
+import { TRANSFERS_ROUTE } from "@app/+constants";
 
 @Component({
     selector: "transfer-list",

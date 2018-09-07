@@ -2,7 +2,7 @@
 import { Observable } from "rxjs";
 import { HttpWrapper } from "@app/+httpWrapper";
 import { Club, ClubFilters } from "../model";
-import { CLUBS_ROUTE } from "../../routes.constants";
+import { CLUBS_ROUTE } from "@app/+constants";
 import { BaseRestService } from "@app/+infrastructure";
 
 @Injectable()

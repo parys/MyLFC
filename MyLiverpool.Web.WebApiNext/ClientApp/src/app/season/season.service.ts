@@ -3,7 +3,7 @@ import { Observable } from "rxjs";
 import { HttpWrapper } from "@app/+httpWrapper";
 import { Season } from "./season.model";
 import { PersonStatistics } from "./personStatistics.model";
-import { SEASONS_ROUTE } from "../routes.constants";
+import { SEASONS_ROUTE } from "@app/+constants";
 
 @Injectable()
 export class SeasonService {

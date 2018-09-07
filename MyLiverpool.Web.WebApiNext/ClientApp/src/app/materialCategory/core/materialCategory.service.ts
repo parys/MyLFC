@@ -2,7 +2,7 @@
 import { Observable } from "rxjs";
 import { MaterialCategory, MaterialType } from "../model";
 import { HttpWrapper } from "@app/+httpWrapper";
-import { MATERIAL_CATEGORIES_ROUTE } from "../../routes.constants";
+import { MATERIAL_CATEGORIES_ROUTE } from "@app/+constants";
 
 @Injectable()
 export class MaterialCategoryService {

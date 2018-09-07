@@ -2,7 +2,7 @@
 import { Observable } from "rxjs";
 import { RoleGroup } from "./roleGroup.model";
 import { HttpWrapper } from "@app/+httpWrapper";
-import { ROLE_GROUPS_ROUTE } from "../routes.constants";
+import { ROLE_GROUPS_ROUTE } from "@app/+constants";
 
 @Injectable()
 export class RoleGroupService {

@@ -4,7 +4,7 @@ import { MaterialType } from "@app/materialCategory";
 import { Pageable } from "@app/shared";
 import { HttpWrapper } from "@app/+httpWrapper";
 import { MaterialFilters, Material } from "../model";
-import { MATERIALS_ROUTE } from "../../routes.constants";
+import { MATERIALS_ROUTE } from "@app/+constants";
 
 @Injectable()
 export class MaterialService {

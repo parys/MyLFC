@@ -4,19 +4,17 @@ import { Comment } from "@app/+common-models";
 import { CommentVote, CommentFilter } from "../model";
 import { Pageable } from "@app/shared";
 import { HttpWrapper } from "@app/+httpWrapper";
-import { COMMENTS_ROUTE } from "../../routes.constants";
+import { COMMENTS_ROUTE } from "@app/+constants";
+import { BaseRestService } from "@app/+infrastructure";
 
 @Injectable()
-export class CommentService {
+export class CommentService extends BaseRestService<Comment, CommentFilter> {
     private actionUrl: string = COMMENTS_ROUTE + "/";
 
-    constructor(private http: HttpWrapper) {
+    constructor(public http: HttpWrapper) {
+        super(http, COMMENTS_ROUTE + "/");
     }
-
-    public getAll(filters: CommentFilter): Observable<Pageable<Comment>> {
-        return this.http.get<Pageable<Comment>>(this.actionUrl + encodeURIComponent(JSON.stringify(filters)));
-    };
-
+    
     public getLastList(): Observable<Comment[]> {
         return this.http.get<Comment[]>(this.actionUrl + "last");
     };
@@ -28,23 +26,7 @@ export class CommentService {
     public getAllByMatch(page: number, id: number): Observable<Pageable<Comment>> {
         return this.http.get<Pageable<Comment>>(`${this.actionUrl}match/${id}/list/${page}`);//todo move to match service
     };
-
-    public getSingle(id: number): Observable<Comment> {
-        return this.http.get<Comment>(this.actionUrl + id);
-    };
-
-    public create(item: Comment): Observable<Comment> {
-        return this.http.post<Comment>(this.actionUrl, JSON.stringify(item));
-    };
-
-    public update(id: number, itemToUpdate: Comment): Observable<Comment> {
-        return this.http.put<Comment>(this.actionUrl + id, JSON.stringify(itemToUpdate));
-    };
-
-    public delete(id: number): Observable<boolean> {
-        return this.http.delete<boolean>(this.actionUrl + id);
-    };
-
+    
     public verify(id: number): Observable<boolean> {
         return this.http.get<boolean>(this.actionUrl + "verify/" + id);
     };
