@@ -1,5 +1,4 @@
 ﻿export const API_URL: string = "api/v1/";
-export const serverWithApiUrl: string = this.apiUrl;
 
 export const allowedImageTypes: string[] = [".jpeg", ".jpg", ".png", ".gif", ".bmp"];
 

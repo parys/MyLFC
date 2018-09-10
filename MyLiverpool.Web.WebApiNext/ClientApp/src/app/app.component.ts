@@ -8,11 +8,8 @@ import { AuthService, IAuthStateModel } from "@app/+auth";
 import { trigger, keyframes, animate, transition, state, style } from "@angular/animations";
 import * as kf from "./+keyframes";
 import { CustomTitleService } from "@app/shared";
+import { SLIDE_OUT_LEFT, SLIDE_OUT_RIGHT, SLIDE_IN_RIGHT, SLIDE_IN_LEFT } from "@app/+constants";
 
-export const SLIDE_IN_LEFT = "slideInLeft";
-export const SLIDE_IN_RIGHT = "slideInRight";
-export const SLIDE_OUT_LEFT = "slideOutLeft";
-export const SLIDE_OUT_RIGHT = "slideOutRight";
 export const SlideInOutAnimation = [
     trigger("slideInOut",
         [
@@ -52,7 +49,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     @HostListener("window:resize", ["$event"])
     public sizeChange(event: any) {
-        this.updateGetsureState();
+        this.updateGestureState();
     }
 
 // public isRoot: boolean = false;
@@ -75,7 +72,7 @@ export class AppComponent implements OnInit, AfterViewInit {
                     () => { console.info("Startup success"); },
                     e => console.warn(e)
             );
-            this.updateGetsureState();
+            this.updateGestureState();
         }
 
         this.initTitleSubscriber();
@@ -132,7 +129,7 @@ export class AppComponent implements OnInit, AfterViewInit {
             map(() => {
                 let child = this.activatedRoute.firstChild;
                 this.sidenav.close();
-                this.updateGetsureState(true);
+                this.updateGestureState(true);
                 while (child) {
                     if (child.firstChild) {
                         child = child.firstChild;
@@ -150,7 +147,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         });
     }
 
-    private updateGetsureState(force: boolean = false): void {
+    private updateGestureState(force: boolean = false): void {
 
         if (!isPlatformBrowser(this.platformId)) {
             return;

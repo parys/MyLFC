@@ -4,11 +4,11 @@ import { MatPaginator, MatSort, MatSelect } from "@angular/material";
 import { ActivatedRoute } from "@angular/router";
 import { User, UserFilters, UserService } from "@app/user";
 import { merge, of, Observable, fromEvent } from "rxjs";
-import { startWith, switchMap, map, catchError, debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { startWith, switchMap, map, catchError, debounceTime, distinctUntilChanged } from "rxjs/operators";
 import { RoleGroup, RoleGroupService } from "@app/roleGroup";
 import { Pageable } from "@app/shared";
 import { RolesCheckedService } from "@app/+auth";
-import { USERS_ROUTE } from "@app/+constants";
+import { DEBOUNCE_TIME, PAGE, USERS_ROUTE } from "@app/+constants";
 
 const keyup = "keyup";
 @Component({
@@ -48,7 +48,7 @@ export class UserListComponent implements OnInit {
             this.roleSelect.selectionChange,
             fromEvent(this.userInput.nativeElement, keyup),
             fromEvent(this.ipInput.nativeElement, keyup)
-                .pipe(debounceTime(1000),
+                .pipe(debounceTime(DEBOUNCE_TIME),
                     distinctUntilChanged()))
             .subscribe(() => this.paginator.pageIndex = 0);
 
@@ -57,7 +57,7 @@ export class UserListComponent implements OnInit {
             this.roleSelect.selectionChange,
             fromEvent(this.userInput.nativeElement, keyup),
             fromEvent(this.ipInput.nativeElement, keyup)
-                .pipe(debounceTime(1000),
+                .pipe(debounceTime(DEBOUNCE_TIME),
                     distinctUntilChanged()))
             .pipe(
                 startWith({}),
@@ -104,7 +104,7 @@ export class UserListComponent implements OnInit {
     }
 
     private updateUrl(): void {
-        let newUrl = `${USERS_ROUTE}?page=${this.paginator.pageIndex + 1}`;
+        let newUrl = `${USERS_ROUTE}?${PAGE}=${this.paginator.pageIndex + 1}`;
 
         const userName = this.userInput.nativeElement.value;
         if (userName) {

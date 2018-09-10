@@ -1,4 +1,4 @@
-﻿    <form *ngIf="roles.isModerator" class="flex-v-c flex-space-between" [formGroup]="filterForm" (ngSubmit)="update()">
+﻿<form *ngIf="roles.isModerator" class="flex-v-c flex-space-between" [formGroup]="filterForm" (ngSubmit)="update()">
     <mat-checkbox formControlName="onlyUnverified" color="warn">Только непроверенные</mat-checkbox>
     <mat-form-field>
         <mat-select placeholder="Количество на странице" color="warn" formControlName="itemsPerPage">
@@ -12,13 +12,4 @@
                                                       totalItems: totalItems }; let i = index;">
     <comment-detail [item]="comment" [deep]="0" [canCommentary]="false"></comment-detail>
 </div>
-<div class="pagination">
-    <pagination-controls (pageChange)="pageChanged($event)"
-                         directionLinks="true"
-                         autoHide="true"
-                         previousLabel="Назад"
-                         nextLabel="Вперед"
-                         screenReaderPaginationLabel="Постраничный вид"
-                         screenReaderPageLabel="Страница"
-                         screenReaderCurrentLabel="Вы на странице"></pagination-controls>
-</div>
+<mat-paginator [showFirstLastButtons]="true" [pageSizeOptions]="[15, 25, 50]"></mat-paginator>

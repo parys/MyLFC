@@ -4,6 +4,7 @@ export const BLOG_CATEGORIES_ROUTE: string = "blogCategories";
 export const CHAT_MESSAGES_ROUTE: string = "chatMessages";
 export const CLUBS_ROUTE: string = "clubs";
 export const COMMENTS_ROUTE: string = "comments";
+export const EDIT_ROUTE: string = "edit";
 export const FORUM_MESSAGES_ROUTE: string = "forumMessages";
 export const FORUM_SECTIONS_ROUTE: string = "forumSections";
 export const FORUM_SUBSECTIONS_ROUTE: string = "forumSubsections";

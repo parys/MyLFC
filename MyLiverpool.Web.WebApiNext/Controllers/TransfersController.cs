@@ -1,10 +1,13 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using AspNet.Security.OAuth.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
+using MyLiverpool.Business.Dto.Filters;
 using MyLiverpool.Data.Common;
+using Newtonsoft.Json;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
@@ -42,10 +45,34 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <returns>List with transfers.</returns>
         [AllowAnonymous, HttpGet]
+        [Obsolete("Remove after 10.10.18")]
         public async Task<IActionResult> GetListAsync([FromQuery]int page)
         {
             var result = await _transferService.GetListAsync(page);
             return Json(result);
+        }
+        
+        /// <summary>
+        /// Returns filtered users list.
+        /// </summary>
+        /// <param name="dto">Filters.</param>
+        /// <returns>List with users.</returns>
+        [AllowAnonymous, HttpGet("{dto}")]
+        public async Task<IActionResult> List(string dto)
+        {
+            if (string.IsNullOrWhiteSpace(dto))
+            {
+                return BadRequest();
+            }
+            var obj = JsonConvert.DeserializeObject<TransferFiltersDto>(dto, new JsonSerializerSettings() //todo should be application wide settings
+            {
+                MissingMemberHandling = MissingMemberHandling.Ignore,
+                NullValueHandling = NullValueHandling.Include,
+                DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate
+            });
+
+            var model = await _transferService.GetListAsync(obj);
+            return Json(model);
         }
 
         /// <summary>

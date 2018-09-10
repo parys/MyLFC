@@ -8,6 +8,7 @@ import { Injury, InjuryFilters } from "@app/injury/model";
 import { InjuryService } from "@app/injury/core";
 import { Pageable, DeleteDialogComponent } from "@app/shared";
 import { DEBOUNCE_TIME, INJURIES_ROUTE, KEYUP } from "@app/+constants";
+import { PAGE } from "../../../+constants/help.constants";
 
 @Component({
     selector: "injury-list",
@@ -93,7 +94,7 @@ export class InjuryListComponent implements OnInit, OnDestroy {
     }
 
     public updateUrl(): void {
-        const newUrl = `${INJURIES_ROUTE}?page=${this.paginator.pageIndex + 1}`;
+        const newUrl = `${INJURIES_ROUTE}?${PAGE}=${this.paginator.pageIndex + 1}`;
         this.location.replaceState(newUrl);
     };
     

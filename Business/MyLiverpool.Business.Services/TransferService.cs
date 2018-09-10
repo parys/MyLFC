@@ -7,6 +7,7 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
+using MyLiverpool.Business.Dto.Filters;
 using MyLiverpool.Data.Common;
 using MyLiverpool.Data.Entities;
 using MyLiverpool.Data.ResourceAccess.Interfaces;
@@ -87,6 +88,21 @@ namespace MyLiverpool.Business.Services
             var dtos = _mapper.Map<ICollection<TransferDto>>(transfers);
             var count = await _transferRepository.CountAsync();
             return new PageableData<TransferDto>(dtos, page, count);
+        }
+
+        public async Task<PageableData<TransferDto>> GetListAsync(TransferFiltersDto filters)
+        {
+            var transfers = await _transferRepository.GetQueryableList(filters.Page, filters.ItemsPerPage, true,
+                    null,
+                    filters.SortOrder,
+                    y => y.StartDate,
+                    t => t.Include(x => x.Person)
+                        .Include(x => x.Club)
+                        .Include(x => x.Season))
+                .ToListAsync();
+            var dtos = _mapper.Map<ICollection<TransferDto>>(transfers);
+            var count = await _transferRepository.CountAsync();
+            return new PageableData<TransferDto>(dtos, filters.Page, count);
         }
 
         public async Task<IEnumerable<TransferDto>> GetCurrentListAsync()

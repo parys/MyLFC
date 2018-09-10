@@ -73,15 +73,9 @@ export class TransferEditComponent implements OnInit, OnDestroy {
                 transfer.finishDate.getDate(),
                 (-1) * transfer.finishDate.getTimezoneOffset() / 60);
         }
-        if (this.id > 0) {
-            this.transferService.update(this.id, transfer)
-                .subscribe(data => this.router.navigate([TRANSFERS_ROUTE]),
-                    e => console.log(e));
-        } else {
-            this.transferService.create(transfer)
-                .subscribe(data => this.router.navigate([TRANSFERS_ROUTE]),
-                    e => console.log(e));
-        }
+        this.transferService.createOrUpdate(this.id, transfer)
+            .subscribe(data => this.router.navigate([TRANSFERS_ROUTE]),
+                e => console.log(e));
     }
 
     private parse(data: Transfer): void {

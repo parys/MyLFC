@@ -1,6 +1,6 @@
 ﻿import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { RoleGroup } from "./roleGroup.model";
+import { RoleGroup } from "../model";
 import { HttpWrapper } from "@app/+httpWrapper";
 import { ROLE_GROUPS_ROUTE } from "@app/+constants";
 

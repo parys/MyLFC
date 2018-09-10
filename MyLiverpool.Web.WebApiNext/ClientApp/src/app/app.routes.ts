@@ -14,7 +14,8 @@ import { WISHES_ROUTE, NEWS_ROUTE, ACCOUNT_ROUTE, BLOGS_ROUTE, BLOG_CATEGORIES_R
     SEASONS_ROUTE,
     STADIUMS_ROUTE,
     TRANSFERS_ROUTE,
-    USERS_ROUTE
+    USERS_ROUTE,
+    TITLE_RU
 } from "@app/+constants";
 
 export const routes: Routes = [
@@ -99,7 +100,7 @@ export const routes: Routes = [
     {
         path: "",
         component: MaterialListComponent,
-        data: { title: "MyLFC.ru - Сайт русскоязычных болельщиков ФК \"Ливерпуль\"" },
+        data: { title: TITLE_RU },
         runGuardsAndResolvers: "always"
     }
 ];

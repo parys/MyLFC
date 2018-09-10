@@ -10,6 +10,8 @@ import { DeleteDialogComponent, Pageable } from "@app/shared";
 import { RolesCheckedService } from "@app/+auth";
 import { MaterialType } from "@app/materialCategory";
 import { CustomTitleService } from "@app/shared";
+import { PAGE } from "@app/+constants";
+import { TITLE_RU } from "../../../+constants/ru.constants";
 
 @Component({
     selector: "material-list",
@@ -73,6 +75,7 @@ export class MaterialListComponent implements OnInit, OnDestroy {
             this.type = MaterialType.Blogs;
         } else {
             this.type = MaterialType.Both;
+            this.titleService.setTitle(TITLE_RU);
         }
     }
 
@@ -89,7 +92,7 @@ export class MaterialListComponent implements OnInit, OnDestroy {
     };
 
     private updateUrl(): void {
-        let newUrl: string = `${MaterialType[this.type].toLowerCase()}?page=${this.page}`;
+        let newUrl: string = `${MaterialType[this.type].toLowerCase()}?${PAGE}=${this.page}`;
         if (this.categoryId) {
             newUrl = `${newUrl}&categoryId=${this.categoryId}`;
         }
@@ -110,9 +113,9 @@ export class MaterialListComponent implements OnInit, OnDestroy {
                 () => {
                     if (result) {
                         news.pending = false;
-                        this.snackBar.open("Материал успешно активирован", null, { duration: 5000 });
+                        this.snackBar.open("Материал активирован");
                     } else {
-                        this.snackBar.open("Материал НЕ БЫЛ активирован", null, { duration: 5000 });
+                        this.snackBar.open("Материал НЕ активирован");
                     }
                 }
             );
@@ -127,7 +130,7 @@ export class MaterialListComponent implements OnInit, OnDestroy {
                     if (result) {
                         this.items.splice(index, 1);
                     } else {
-                        this.snackBar.open("Ошибка удаления", null, {duration: 5000});
+                        this.snackBar.open("Ошибка удаления");
                     }
                 }
             );

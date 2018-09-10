@@ -1,10 +1,11 @@
 ﻿import { Injectable } from "@angular/core";
 import { Title } from "@angular/platform-browser";
+import { TITLE_RU } from "../../+constants/ru.constants";
 
 @Injectable({providedIn: "root"})
 export class CustomTitleService {
     private count: number = 0;
-    private title: string = `MyLFC.ru - Сайт русскоязычных болельщиков "Ливерпуля"`;
+    private title: string = TITLE_RU;
     constructor(private titleService: Title) {
     }
 
