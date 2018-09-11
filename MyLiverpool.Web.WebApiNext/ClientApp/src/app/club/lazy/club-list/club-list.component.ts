@@ -7,7 +7,7 @@ import { startWith, switchMap, map, catchError, debounceTime, distinctUntilChang
 import { ClubService } from "@app/club/core";
 import { Club, ClubFilters } from "@app/club/model";
 import { Pageable, DeleteDialogComponent } from "@app/shared";
-import { CLUBS_ROUTE } from "@app/+constants";
+import { CLUBS_ROUTE, DEBOUNCE_TIME, KEYUP, PAGE } from "@app/+constants";
 
 @Component({
     selector: "club-list",
@@ -34,16 +34,16 @@ export class ClubListComponent implements OnInit {
         }
 
         merge(this.sort.sortChange,
-                fromEvent(this.nameInput.nativeElement, "keyup")
-                .pipe(debounceTime(1000),
+                fromEvent(this.nameInput.nativeElement, KEYUP)
+                .pipe(debounceTime(DEBOUNCE_TIME),
                     distinctUntilChanged()))
             .subscribe(() => this.paginator.pageIndex = 0);
 
 
         merge(this.sort.sortChange,
                 this.paginator.page,
-                fromEvent(this.nameInput.nativeElement, "keyup")
-                .pipe(debounceTime(1000),
+            fromEvent(this.nameInput.nativeElement, KEYUP)
+                .pipe(debounceTime(DEBOUNCE_TIME),
                     distinctUntilChanged()))
             .pipe(
                 startWith({}),
@@ -90,7 +90,7 @@ export class ClubListComponent implements OnInit {
     }
 
     public updateUrl(): void {
-        let newUrl = `${CLUBS_ROUTE}?page=${this.paginator.pageIndex + 1}`;
+        let newUrl = `${CLUBS_ROUTE}?${PAGE}=${this.paginator.pageIndex + 1}`;
         this.location.replaceState(newUrl);
     };
 

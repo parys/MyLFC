@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 using AutoMapper;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
+using MyLiverpool.Business.Dto.Filters;
 using MyLiverpool.Common.Utilities;
+using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
 using MyLiverpool.Data.Entities;
 using MyLiverpool.Data.ResourceAccess.Interfaces;
@@ -81,6 +83,19 @@ namespace MyLiverpool.Business.Services
             Expression<Func<Stadium, bool>> filter = x => string.IsNullOrWhiteSpace(typed) || x.Name.Contains(typed);
             var list = await _stadiumRepository.GetListAsync(1, GlobalConstants.CountStadiumsForAutocomlete, true, filter);
             return _mapper.Map<IEnumerable<StadiumDto>>(list);
+        }
+
+        public async Task<PageableData<StadiumDto>> GetListAsync(StadiumFiltersDto filters)
+        {
+            Expression<Func<Stadium, bool>> filter = x => true;
+            if(!string.IsNullOrWhiteSpace(filters.Name))
+            {
+                filter = filter.And(x => x.Name.Contains(filters.Name));
+            }
+            var stadiums = await _stadiumRepository.GetListAsync(filters.Page, filters.ItemsPerPage, true, filter, orderBy: x => x.Name);
+            var dtos = _mapper.Map<ICollection<StadiumDto>>(stadiums);
+            var count = await _stadiumRepository.CountAsync(filter);
+            return new PageableData<StadiumDto>(dtos, filters.Page, count);
         }
     }
 }

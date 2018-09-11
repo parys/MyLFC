@@ -160,7 +160,7 @@ namespace MyLiverpool.Business.Services
             return dtos;
         }
 
-        private async Task<IEnumerable<MatchDto>> GetMatchesAsync(int page, int itemsPerPage,
+        private async Task<IEnumerable<MatchDto>> GetMatchesAsync(int? page, int itemsPerPage,
             Expression<Func<Match, bool>> filter)
         {
             var liverpoolClub = await _clubService.GetByNameAsync(GlobalConstants.LiverpoolClubEnglishName);

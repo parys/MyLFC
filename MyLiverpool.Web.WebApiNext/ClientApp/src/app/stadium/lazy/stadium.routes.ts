@@ -1,7 +1,7 @@
 ﻿import { Routes } from "@angular/router";
 import { StadiumEditComponent } from "./stadium-edit"
 import { StadiumListComponent } from "./stadium-list";
-import { RoleGuard } from "@app/+auth";
+import { RoleGuard, RolesEnum } from "@app/+auth";
 
 export const stadiumRoutes: Routes = [
     {
@@ -9,7 +9,7 @@ export const stadiumRoutes: Routes = [
         component: StadiumListComponent,
         data: {
             title: "Стадионы",
-            roles: ["infoStart"]
+            roles: [RolesEnum[RolesEnum.InfoStart]]
         },
         canActivate: [RoleGuard]
     },
@@ -21,7 +21,7 @@ export const stadiumRoutes: Routes = [
                 component: StadiumEditComponent,
                 data: {
                     title: "Редактирование стадиона",
-                    roles: ["infoStart"]
+                    roles: [RolesEnum[RolesEnum.InfoStart]]
                 },
                 canActivate: [RoleGuard]
             }

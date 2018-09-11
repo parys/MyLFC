@@ -2,7 +2,7 @@
 import { Location } from "@angular/common";
 import { ActivatedRoute } from "@angular/router";
 import { Subscription, merge, of, Observable } from "rxjs";
-import { startWith, switchMap, map, catchError, debounceTime, distinctUntilChanged } from "rxjs/operators";
+import { startWith, switchMap, map, catchError } from "rxjs/operators";
 import { TransferService } from "@app/transfer/core";
 import { Transfer } from "@app/transfer/model";
 import { Pageable } from "@app/shared";

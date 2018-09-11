@@ -1,10 +1,13 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using AspNet.Security.OAuth.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
+using MyLiverpool.Business.Dto.Filters;
 using MyLiverpool.Data.Common;
+using Newtonsoft.Json;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
@@ -35,14 +38,38 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         {
             var stadium = await _stadiumService.GetByIdAsync(id);
             return Ok(stadium);
-        }  
-        
+        }
+
+        /// <summary>
+        /// Returns wishes list by filter.
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
+        [AllowAnonymous, HttpGet("{dto}")]
+        public async Task<IActionResult> List([FromRoute] string dto)
+        {
+            if (string.IsNullOrWhiteSpace(dto))
+            {
+                return BadRequest();
+            }
+            var obj = JsonConvert.DeserializeObject<StadiumFiltersDto>(dto, new JsonSerializerSettings() //todo should be application wide settings
+            {
+                MissingMemberHandling = MissingMemberHandling.Ignore,
+                NullValueHandling = NullValueHandling.Include,
+                DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate
+            });
+
+            var model = await _stadiumService.GetListAsync(obj);
+            return Json(model);
+        }
+
         /// <summary>
         /// Returns top 10 stadiums by name.
         /// </summary>
         /// <param name="typed">The part of name of stadium.</param>
         /// <returns>Found stadiums.</returns>
         [AllowAnonymous, HttpGet("getListByName")]
+        [Obsolete("Remove after 11.11.18")]
         public async Task<IActionResult> GetListByNameAsync([FromQuery]string typed)
         {
             var stadium = await _stadiumService.GetListByNameAsync(typed);

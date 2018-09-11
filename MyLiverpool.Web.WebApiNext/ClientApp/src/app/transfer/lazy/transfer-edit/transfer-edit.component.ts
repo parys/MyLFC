@@ -1,12 +1,12 @@
 ﻿import { Component, OnInit, OnDestroy } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
-import { Subscription, Observable, from } from "rxjs";
+import { Subscription, Observable, from, of } from "rxjs";
 import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
 import { TransferService } from "@app/transfer/core";
-import { PersonService, Person } from "@app/person";
+import { PersonService, Person, PersonFilters } from "@app/person";
 import { Transfer } from "@app/transfer/model";
-import { ClubService, Club, } from "@app/club";
+import { ClubService, Club, ClubFilters } from "@app/club";
 import { SeasonService, Season } from "@app/season";
 import { TRANSFERS_ROUTE, DEBOUNCE_TIME } from "@app/+constants";
 import { Pageable } from "@app/shared";
@@ -25,7 +25,7 @@ export class TransferEditComponent implements OnInit, OnDestroy {
     public persons$: Observable<Person[]>;
     public seasons$: Observable<Season[]>;
 
-    constructor(private transferService: TransferService,    
+    constructor(private transferService: TransferService,
         private route: ActivatedRoute,
         private router: Router,
         private formBuilder: FormBuilder,
@@ -46,8 +46,8 @@ export class TransferEditComponent implements OnInit, OnDestroy {
     }
 
     public ngOnDestroy(): void {
-        if(this.sub) { this.sub.unsubscribe(); }
-        if(this.sub3) { this.sub3.unsubscribe(); }
+        if (this.sub) { this.sub.unsubscribe(); }
+        if (this.sub3) { this.sub3.unsubscribe(); }
     }
 
     public selectSeason(id: number) {
@@ -115,26 +115,28 @@ export class TransferEditComponent implements OnInit, OnDestroy {
         this.persons$ = this.editTransferForm.controls["personName"].valueChanges.pipe(
             debounceTime(DEBOUNCE_TIME),
             distinctUntilChanged(),
-            switchMap((value: string) => this.personService.getListByName(value)));
+            switchMap((value: string) => {
+                const filter = new PersonFilters();
+                filter.name = value;
+                return this.personService.getAll(filter);
+            }),
+            switchMap((pagingClubs: Pageable<Person>): Observable<Person[]> => {
+                return of(pagingClubs.list);
+            }));
 
-        //this.clubs$ = this.editTransferForm.controls["clubName"].valueChanges.pipe(
-        //    debounceTime(this.config.debounceTime),
-        //    distinctUntilChanged(),
-        //    switchMap((value: string) => {
-        //            const filter = new ClubFilters();
-        //            filter.name = value;
-        //        return this.clubService.getAll(filter);
-        //    }),
-        //    switchMap((pagingClubs: Pageable<Club>) => {
-        //        console.log(pagingClubs.list);
-        //        return from(pagingClubs.list);
-        //    })
-        //);
-
-        this.clubs$ = this.editTransferForm.controls["clubName"].valueChanges.pipe(
-            debounceTime(DEBOUNCE_TIME),
-            distinctUntilChanged(),
-            switchMap((value: string) => this.clubService.getListByName(value)));
+        this.clubs$ = this.editTransferForm.controls["clubName"].valueChanges
+            .pipe(
+                debounceTime(DEBOUNCE_TIME),
+                distinctUntilChanged(),
+                switchMap((value: string): Observable<Pageable<Club>> => {
+                    const filter = new ClubFilters();
+                    filter.name = value;
+                    return this.clubService.getAll(filter);
+                }),
+                switchMap((pagingClubs: Pageable<Club>): Observable<Club[]> => {
+                    return of(pagingClubs.list);
+                })
+            );
         
         this.seasons$ = this.editTransferForm.controls["seasonName"].valueChanges.pipe(
             debounceTime(DEBOUNCE_TIME),

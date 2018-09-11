@@ -1,14 +1,15 @@
 ﻿import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
-import { Observable } from "rxjs";
+import { Observable, of } from "rxjs";
 import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
 import { MatchService } from "@app/match/core";
 import { SeasonService, Season } from "@app/season";
 import { Match, MatchType } from "@app/match/model";
-import { Stadium, StadiumService } from "@app/stadium";
-import { Club, ClubService } from "@app/club";
+import { Stadium, StadiumService, StadiumFilters } from "@app/stadium";
+import { Club, ClubService, ClubFilters } from "@app/club";
 import { DEBOUNCE_TIME, MATCHES_ROUTE } from "@app/+constants";
+import { Pageable } from "@app/shared";
 
 @Component({
     selector: "match-edit",
@@ -101,12 +102,28 @@ export class MatchEditComponent implements OnInit {
         this.stadiums$ = this.editMatchForm.controls["stadiumName"].valueChanges.pipe(
             debounceTime(DEBOUNCE_TIME),
             distinctUntilChanged(),
-            switchMap((value: string) => this.stadiumService.getListByName(value)));
+            switchMap((value: string) => {
+                const filter = new StadiumFilters();
+                filter.name = value;
+                return this.stadiumService.getAll(filter);
+            }),
+            switchMap((pagingStadiums: Pageable<Stadium>): Observable<Stadium[]> => {
+                return of(pagingStadiums.list);
+            }));
 
         this.clubs$ = this.editMatchForm.controls["clubName"].valueChanges.pipe(
             debounceTime(DEBOUNCE_TIME),
             distinctUntilChanged(),
-            switchMap((value: string) => this.clubService.getListByName(value)));
+            switchMap((value: string): Observable<Pageable<Club>> => {
+                const filter = new ClubFilters();
+                filter.name = value;
+                return this.clubService.getAll(filter);
+            }),
+            switchMap((pagingClubs: Pageable<Club>): Observable<Club[]> => {
+                return of(pagingClubs.list);
+            })
+        );
+
     }
 
     private getIdFromUrl(url: string): string {

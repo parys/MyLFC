@@ -1,12 +1,14 @@
 ﻿import { Component, OnInit, OnDestroy } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
-import { Subscription, Observable } from "rxjs";
+import { Subscription, Observable, of } from "rxjs";
 import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
 import { InjuryService } from "@app/injury/core";
 import { Injury } from "@app/injury/model";
 import { PersonService, Person } from "@app/person";
 import { INJURIES_ROUTE, DEBOUNCE_TIME } from "@app/+constants";
+import { PersonFilters } from "../../../person/model/personFilters.model";
+import { Pageable } from "../../../shared/pageable.model";
 
 @Component({
     selector: "injury-edit",
@@ -91,7 +93,14 @@ export class InjuryEditComponent implements OnInit, OnDestroy {
         this.persons$ = this.editInjuryForm.controls["personName"].valueChanges.pipe(
             debounceTime(DEBOUNCE_TIME),
             distinctUntilChanged(),
-            switchMap((value: string) => this.personService.getListByName(value)));
+            switchMap((value: string) => {
+                const filter = new PersonFilters();
+                filter.name = value;
+                return this.personService.getAll(filter);
+            }),
+            switchMap((pagingClubs: Pageable<Person>): Observable<Person[]> => {
+                return of(pagingClubs.list);
+            }));
     }
 
     private normalizeDate(date: Date): Date {

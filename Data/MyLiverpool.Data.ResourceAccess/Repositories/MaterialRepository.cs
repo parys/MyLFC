@@ -58,7 +58,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             _context.Materials.Remove(entity);
             await _context.SaveChangesAsync();
         }
-        
+
         public async Task UpdateAsync(Material entity)
         {
             _context.Materials.Attach(entity);
@@ -74,31 +74,31 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
                 .Where(filter)
                 .Where(x => x.OnTop)
                 .Select(x => new Material()
-            {
-                Type = x.Type,
-                Id = x.Id,
-                OnTop = x.OnTop,
-                LastModified = x.LastModified,
-                Author = x.Author,
-                AdditionTime = x.AdditionTime,
-                AuthorId = x.AuthorId,
-                Brief = x.Brief,
-                CanCommentary = x.CanCommentary,
-                Category = x.Category,
-                CategoryId = x.CategoryId,
-                Message = x.Message,
-                CommentsCount = x.Comments.Count,
-                OldId = x.OldId,
-                Pending = x.Pending,
-                PhotoPath = x.PhotoPath,
-                PhotoPreview = x.PhotoPreview,
-                Rating = x.Rating,
-                RatingNumbers = x.RatingNumbers,
-                RatingSumm = x.RatingSumm,
-                Reads = x.Reads,
-                Source = x.Source,
-                Title = x.Title
-            }).ToListAsync();
+                {
+                    Type = x.Type,
+                    Id = x.Id,
+                    OnTop = x.OnTop,
+                    LastModified = x.LastModified,
+                    Author = x.Author,
+                    AdditionTime = x.AdditionTime,
+                    AuthorId = x.AuthorId,
+                    Brief = x.Brief,
+                    CanCommentary = x.CanCommentary,
+                    Category = x.Category,
+                    CategoryId = x.CategoryId,
+                    Message = x.Message,
+                    CommentsCount = x.Comments.Count,
+                    OldId = x.OldId,
+                    Pending = x.Pending,
+                    PhotoPath = x.PhotoPath,
+                    PhotoPreview = x.PhotoPreview,
+                    Rating = x.Rating,
+                    RatingNumbers = x.RatingNumbers,
+                    RatingSumm = x.RatingSumm,
+                    Reads = x.Reads,
+                    Source = x.Source,
+                    Title = x.Title
+                }).ToListAsync();
         }
 
         public async Task<int> GetCountAsync(Expression<Func<Material, bool>> filter = null)
@@ -119,7 +119,7 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             throw new NotImplementedException();
         }
 
-        public async Task<ICollection<Material>> GetOrderedByAsync(int page, int itemPerPage = 15, SortOrder order = SortOrder.Ascending, Expression<Func<Material, bool>> filter = null,
+        public async Task<ICollection<Material>> GetOrderedByAsync(int? page, int itemPerPage = 15, SortOrder order = SortOrder.Ascending, Expression<Func<Material, bool>> filter = null,
             Expression<Func<Material, object>> orderBy = null, params Expression<Func<Material, object>>[] includeProperties)
         {
             IQueryable<Material> query = _context.Materials
@@ -138,10 +138,16 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
                 query = includeProperties.Aggregate(query,
                     (current, includeProperty) => current.Include(includeProperty));
             }
-            query = query.Skip((page - 1) * itemPerPage).Take(itemPerPage);
+
+            if (page.HasValue)
+            {
+                query = query.Skip((page.Value - 1) * itemPerPage).Take(itemPerPage);
+            }
+
             return await query.ToListAsync();
         }
-        public async Task<ICollection<Material>> GetOrderedByDescAndNotTopAsync(int page, int itemPerPage = 15, Expression<Func<Material, bool>> filter = null,
+
+        public async Task<ICollection<Material>> GetOrderedByDescAndNotTopAsync(int? page, int itemPerPage = 15, Expression<Func<Material, bool>> filter = null,
             Expression<Func<Material, object>> orderBy = null, params Expression<Func<Material, object>>[] includeProperties)
         {
             IQueryable<Material> query = _context.Materials.Include(x => x.Category).Include(x => x.Author).Where(x => !x.OnTop);
@@ -154,12 +160,17 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             {
                 query = query.ObjectSort(orderBy, SortOrder.Descending);
             }
-            if (includeProperties != null && includeProperties.Any()) 
+            if (includeProperties != null && includeProperties.Any())
             {
                 query = includeProperties.Aggregate(query,
                     (current, includeProperty) => current.Include(includeProperty));
             }
-            query = query.Skip((page - 1) * itemPerPage).Take(itemPerPage);
+
+            if (page.HasValue)
+            {
+                query = query.Skip((page.Value - 1) * itemPerPage).Take(itemPerPage);
+            }
+
             return await query.Select(x => new Material
             {
                 Type = x.Type,

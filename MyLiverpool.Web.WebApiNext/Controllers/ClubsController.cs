@@ -53,7 +53,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <param name="filters"></param>
         /// <returns>Clubs list.</returns>
         [AllowAnonymous, HttpGet("")]
-        [Obsolete("Remove after 1.10.18")]
+        [Obsolete("Remove after 11.11.18")]
         public async Task<IActionResult> GetListOldAsync([FromQuery] string filters)
         {
             ClubFiltersDto filtersObj;
@@ -139,6 +139,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <param name="typed">Part of club name for search.</param>
         /// <returns>List of keyValuePair of club with identifiers.</returns>
         [AllowAnonymous, HttpGet("getClubsByName")]
+        [Obsolete("Remove after 11.11.18")]
         public async Task<IActionResult> GetClubsByNameAsync([FromQuery]string typed)
         {
             var result = await _clubService.GetClubsByNameWithoutLiverpoolAsync(typed);

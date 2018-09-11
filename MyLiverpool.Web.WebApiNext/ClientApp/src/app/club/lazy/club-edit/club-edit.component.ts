@@ -1,12 +1,13 @@
 ﻿import { Component, OnInit, OnDestroy } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
-import { Observable, Subscription } from "rxjs";
+import { Observable, Subscription, of } from "rxjs";
 import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
 import { ClubService } from "@app/club/core";
 import { Club } from "@app/club/model";
-import { Stadium, StadiumService } from "@app/stadium";
+import { Stadium, StadiumService, StadiumFilters } from "@app/stadium";
 import { CLUBS_ROUTE, DEBOUNCE_TIME } from "@app/+constants";
+import { Pageable } from "@app/shared";
 
 @Component({
     selector: "club-edit",
@@ -99,7 +100,13 @@ export class ClubEditComponent implements OnInit, OnDestroy {
         this.stadiums$ = this.editForm.controls["stadiumName"].valueChanges.pipe(
             debounceTime(DEBOUNCE_TIME),
             distinctUntilChanged(),
-            switchMap((value: string) => this.stadiumService.getListByName(value))
-        );
+            switchMap((value: string) => {
+                const filter = new StadiumFilters();
+                filter.name = value;
+                return this.stadiumService.getAll(filter);
+            }),
+            switchMap((pagingStadiums: Pageable<Stadium>): Observable<Stadium[]> => {
+                return of(pagingStadiums.list);
+            }));
     }
 }
