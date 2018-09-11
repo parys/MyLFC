@@ -8,8 +8,10 @@ using MyLfc.Common.Web;
 using MyLfc.Common.Web.DistributedCache;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
+using MyLiverpool.Business.Dto.Filters;
 using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
+using Newtonsoft.Json;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
@@ -136,6 +138,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <param name="page">The page of match list.</param>
         /// <returns>Selected page match list.</returns>
         [AllowAnonymous, HttpGet]
+        [Obsolete("Remove after 11.11")]
         public async Task<IActionResult> GetListAsync([FromQuery]int page = 1)
         {
             if (page < 1)
@@ -145,6 +148,31 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             var result = await _matchService.GetListAsync(page);
             return Ok(result);
         }
+
+        /// <summary>
+        /// Returns matches list by filter.
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
+        [AllowAnonymous, HttpGet("{dto}")]
+        public async Task<IActionResult> List([FromRoute] string dto)
+        {
+            if (string.IsNullOrWhiteSpace(dto))
+            {
+                return BadRequest();
+            }
+            var obj = JsonConvert.DeserializeObject<MatchFiltersDto>(dto, new JsonSerializerSettings() //todo should be application wide settings
+            {
+                MissingMemberHandling = MissingMemberHandling.Ignore,
+                NullValueHandling = NullValueHandling.Include,
+                DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate
+            });
+
+            var model = await _matchService.GetListAsync(obj);
+            return Json(model);
+        }
+
+
 
         /// <summary>
         /// Returns all types of matches.

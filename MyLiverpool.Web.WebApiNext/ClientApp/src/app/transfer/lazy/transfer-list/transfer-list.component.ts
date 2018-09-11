@@ -7,7 +7,7 @@ import { TransferService } from "@app/transfer/core";
 import { Transfer } from "@app/transfer/model";
 import { Pageable } from "@app/shared";
 import { RolesCheckedService } from "@app/+auth";
-import { TRANSFERS_ROUTE, DEBOUNCE_TIME, PAGE } from "@app/+constants";
+import { TRANSFERS_ROUTE, PAGE } from "@app/+constants";
 import { MatSort, MatPaginator } from "@angular/material";
 import { TransferFilters } from "../../model/transferFilters.model";
 
@@ -47,13 +47,7 @@ export class TransferListComponent implements OnInit, OnDestroy {
       //      .subscribe(() => this.paginator.pageIndex = 0);
 
         merge(this.sort.sortChange,
-                this.paginator.page,
-          //      this.roleSelect.selectionChange,
-         //       fromEvent(this.userInput.nativeElement, keyup),
-        //        fromEvent(this.ipInput.nativeElement, keyup)
-         //       .pipe(debounceTime(DEBOUNCE_TIME),
-            //           distinctUntilChanged())
-                )
+                this.paginator.page)
             .pipe(
                 startWith({}),
                 switchMap(() => {

@@ -7,6 +7,7 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
+using MyLiverpool.Business.Dto.Filters;
 using MyLiverpool.Common.Utilities;
 using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
@@ -130,14 +131,24 @@ namespace MyLiverpool.Business.Services
 
         public async Task<PageableData<MatchDto>> GetListAsync(int page, int itemsPerPage = 15, int? seasonId = null)
         {
-            Expression<Func<Match, bool>> filter = m => true;
-            if (seasonId.HasValue)
+            return await GetListAsync(new MatchFiltersDto
             {
-                filter = filter.And(m => m.SeasonId == seasonId.Value);
+                Page = page,
+                ItemsPerPage = itemsPerPage,
+                SeasonId = seasonId
+            });
+        }
+
+        public async Task<PageableData<MatchDto>> GetListAsync(MatchFiltersDto filters)
+        {
+            Expression<Func<Match, bool>> filter = m => true;
+            if (filters.SeasonId.HasValue)
+            {
+                filter = filter.And(m => m.SeasonId == filters.SeasonId.Value);
             }
-            var dtos = await GetMatchesAsync(page, itemsPerPage, filter);
+            var dtos = await GetMatchesAsync(filters.Page, filters.ItemsPerPage, filter);
             var count = await _matchRepository.CountAsync(filter);
-            return new PageableData<MatchDto>(dtos, page, count);
+            return new PageableData<MatchDto>(dtos, filters.Page, count);
         }
 
         public async Task<IEnumerable<MatchDto>> GetListForSeasonAsync(int seasonId)

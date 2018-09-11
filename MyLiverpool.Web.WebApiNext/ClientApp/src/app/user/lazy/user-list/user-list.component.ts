@@ -8,9 +8,9 @@ import { startWith, switchMap, map, catchError, debounceTime, distinctUntilChang
 import { RoleGroup, RoleGroupService } from "@app/roleGroup";
 import { Pageable } from "@app/shared";
 import { RolesCheckedService } from "@app/+auth";
-import { DEBOUNCE_TIME, PAGE, USERS_ROUTE } from "@app/+constants";
+import { KEYUP, DEBOUNCE_TIME, PAGE, USERS_ROUTE } from "@app/+constants";
 
-const keyup = "keyup";
+
 @Component({
     selector: "user-list",
     templateUrl: "./user-list.component.html",
@@ -46,8 +46,8 @@ export class UserListComponent implements OnInit {
 
         merge(this.sort.sortChange,
             this.roleSelect.selectionChange,
-            fromEvent(this.userInput.nativeElement, keyup),
-            fromEvent(this.ipInput.nativeElement, keyup)
+            fromEvent(this.userInput.nativeElement, KEYUP),
+            fromEvent(this.ipInput.nativeElement, KEYUP)
                 .pipe(debounceTime(DEBOUNCE_TIME),
                     distinctUntilChanged()))
             .subscribe(() => this.paginator.pageIndex = 0);
@@ -55,8 +55,8 @@ export class UserListComponent implements OnInit {
         merge(this.sort.sortChange,
             this.paginator.page,
             this.roleSelect.selectionChange,
-            fromEvent(this.userInput.nativeElement, keyup),
-            fromEvent(this.ipInput.nativeElement, keyup)
+            fromEvent(this.userInput.nativeElement, KEYUP),
+            fromEvent(this.ipInput.nativeElement, KEYUP)
                 .pipe(debounceTime(DEBOUNCE_TIME),
                     distinctUntilChanged()))
             .pipe(

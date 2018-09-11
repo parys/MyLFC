@@ -1,15 +1,17 @@
-﻿import { Component, OnInit, OnDestroy } from "@angular/core";
+﻿import { Component, OnInit, OnDestroy, ViewChild } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { FormGroup, FormBuilder } from "@angular/forms";
 import { Location } from "@angular/common";
-import { MatDialog } from "@angular/material";
+import { MatDialog, MatPaginator } from "@angular/material";
+import { merge, of, Observable } from "rxjs";
+import { startWith, switchMap, map, catchError } from "rxjs/operators";
 import { Subscription } from "rxjs";
 import { Comment } from "@app/+common-models";
 import { CommentService } from "@app/comment/core";
 import { DeleteDialogComponent, Pageable } from "@app/shared";
 import { RolesCheckedService } from "@app/+auth";
 import { CommentFilter } from "@app/comment/model";
-import { COMMENTS_ROUTE } from "@app/+constants";
+import { COMMENTS_ROUTE, PAGE } from "@app/+constants";
 
 @Component({
     selector: "comment-list",
@@ -20,17 +22,12 @@ export class CommentListComponent implements OnInit, OnDestroy {
     private sub2: Subscription;
     public filterForm: FormGroup;
     public items: Comment[];
-    public page: number = 1;
     public onlyUnverified: boolean = false;
     public categoryId: number;
     public userName: string;
     public userId: number;
-    public itemsPerPage: number;
-    public totalItems: number;
-    public intervalArray: { key: string, value: number }[]
-        = [{ key: "15", value: 15 },
-            { key: "25", value: 25 },
-            { key: "50", value: 50 }];
+
+    @ViewChild(MatPaginator) paginator: MatPaginator;
 
     constructor(private materialCommentService: CommentService,
         private route: ActivatedRoute,
@@ -43,15 +40,37 @@ export class CommentListComponent implements OnInit, OnDestroy {
     public ngOnInit(): void {
         this.initForm();
         this.sub = this.route.queryParams.subscribe(qParams => {
-                this.page = qParams["page"] || 1;
-                this.categoryId = qParams["categoryId"] || null;
-                this.userName = qParams["userName"] || "";
-                this.userId = qParams["userId"];
-                this.onlyUnverified = qParams["onlyUnverified"] || false;
-                this.itemsPerPage = qParams["itemsPerPage"] || 15;
-            },
+            this.paginator.pageIndex = qParams["page"] - 1 || 0;
+            this.paginator.pageSize = +qParams["itemsPerPage"] || 15;
+
+            this.categoryId = qParams["categoryId"] || null;
+            this.userName = qParams["userName"] || "";
+            this.userId = qParams["userId"];
+            this.onlyUnverified = qParams["onlyUnverified"] || false;
+        },
             e => console.log(e));
-        this.update();
+
+        merge(this.paginator.page)
+            .pipe(
+                startWith({}),
+                switchMap(() => {
+                    return this.update();
+                }),
+                map((data: Pageable<Comment>) => {
+                    this.paginator.pageIndex = data.pageNo - 1;
+                    this.paginator.pageSize = data.itemPerPage;
+                    this.paginator.length = data.totalItems;
+
+                    return data.list;
+                }),
+                catchError(() => {
+                    return of([]);
+                })
+            ).subscribe(data => {
+                this.items = data;
+                this.updateUrl();
+            },
+                e => console.log(e));
     }
 
     public ngOnDestroy(): void {
@@ -59,26 +78,18 @@ export class CommentListComponent implements OnInit, OnDestroy {
         if (this.sub2) this.sub2.unsubscribe();
     }
 
-    public pageChanged(event: any): void {
-        this.page = event;
-        this.update();
-    };
-
-    public update(): void {
+    public update(): Observable<Pageable<Comment>> {
         const filters = new CommentFilter();
         filters.onlyUnverified = this.filterForm.get("onlyUnverified").value;
         filters.userId = this.userId;
-        filters.page = this.page;
-        filters.itemsPerPage = this.filterForm.get("itemsPerPage").value;
-        this.sub2 = this.materialCommentService
-            .getAll(filters)
-            .subscribe(data => this.parsePageable(data),
-                e => console.log(e),
-                () => { this.updateLocation(); });
+        filters.page = this.paginator.pageIndex + 1;
+        filters.itemsPerPage = this.paginator.pageSize;
+        return this.materialCommentService
+            .getAll(filters);
     }
 
-    private updateLocation(): void {
-        let newUrl = `${COMMENTS_ROUTE}?page=${this.page}&itemsPerPage=${this.itemsPerPage}`;
+    private updateUrl(): void {
+        let newUrl = `${COMMENTS_ROUTE}?${PAGE}=${this.paginator.pageIndex + 1}&itemsPerPage=${this.paginator.pageSize}`;
         if (this.userId) {
             newUrl = `${newUrl}&userId=${this.userId}`;
         }
@@ -86,13 +97,6 @@ export class CommentListComponent implements OnInit, OnDestroy {
             newUrl = `${newUrl}&onlyUnverified=${this.onlyUnverified}`;
         }
         this.location.replaceState(newUrl);
-    }
-
-    private parsePageable(pageable: Pageable<Comment>): void {
-        this.items = pageable.list;
-        this.page = pageable.pageNo;
-        this.itemsPerPage = pageable.itemPerPage;
-        this.totalItems = pageable.totalItems;
     }
 
     public verify(index: number): void {
@@ -111,10 +115,10 @@ export class CommentListComponent implements OnInit, OnDestroy {
     private showDeleteModal(index: number): void {
         const dialogRef = this.dialog.open(DeleteDialogComponent);
         dialogRef.afterClosed().subscribe(result => {
-                if (result) {
-                    this.delete(index);
-                }
-            },
+            if (result) {
+                this.delete(index);
+            }
+        },
             e => console.log(e));
     }
 
@@ -126,15 +130,14 @@ export class CommentListComponent implements OnInit, OnDestroy {
                 () => {
                     if (result) {
                         this.items.splice(index, 1);
-                        this.totalItems -= 1;
+                        this.paginator.length -= 1;
                     }
                 });
     }
 
     private initForm(): void {
         this.filterForm = this.formBuilder.group({
-            onlyUnverified: [this.onlyUnverified],
-            itemsPerPage: [this.itemsPerPage || 15]
+            onlyUnverified: [this.onlyUnverified]
         });
     }
 }
