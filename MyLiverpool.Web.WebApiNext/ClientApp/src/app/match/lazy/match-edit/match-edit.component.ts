@@ -46,7 +46,7 @@ export class MatchEditComponent implements OnInit {
             .subscribe(data => this.types = data,
                 e => console.log(e));
 
-        this.seasonService.getAll()
+        this.seasonService.getAllWithoutFilter()
             .subscribe(data => this.seasons = data,
             e => console.log(e));
     }

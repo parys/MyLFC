@@ -1,13 +1,13 @@
 ﻿import { Component, OnInit, OnDestroy } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
-import { Subscription, Observable, from, of } from "rxjs";
+import { Subscription, Observable, of } from "rxjs";
 import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
 import { TransferService } from "@app/transfer/core";
 import { PersonService, Person, PersonFilters } from "@app/person";
 import { Transfer } from "@app/transfer/model";
 import { ClubService, Club, ClubFilters } from "@app/club";
-import { SeasonService, Season } from "@app/season";
+import { SeasonService, Season, SeasonFilters } from "@app/season";
 import { TRANSFERS_ROUTE, DEBOUNCE_TIME } from "@app/+constants";
 import { Pageable } from "@app/shared";
 
@@ -137,10 +137,17 @@ export class TransferEditComponent implements OnInit, OnDestroy {
                     return of(pagingClubs.list);
                 })
             );
-        
+
         this.seasons$ = this.editTransferForm.controls["seasonName"].valueChanges.pipe(
             debounceTime(DEBOUNCE_TIME),
             distinctUntilChanged(),
-            switchMap((value: string) => this.seasonService.getListByYear(value)));
+            switchMap((value: string): Observable<Pageable<Season>> => {
+                const filter = new SeasonFilters();
+                filter.name = value;
+                return this.seasonService.getAll(filter);
+            }),
+            switchMap((pagingSeasons: Pageable<Season>): Observable<Season[]> => {
+                return of(pagingSeasons.list);
+            }));
     }
 }

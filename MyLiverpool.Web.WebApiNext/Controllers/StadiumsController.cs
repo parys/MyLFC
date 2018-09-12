@@ -41,7 +41,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         }
 
         /// <summary>
-        /// Returns wishes list by filter.
+        /// Returns stadiums list by filter.
         /// </summary>
         /// <param name="dto"></param>
         /// <returns></returns>

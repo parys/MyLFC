@@ -1,10 +1,13 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using AspNet.Security.OAuth.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
+using MyLiverpool.Business.Dto.Filters;
 using MyLiverpool.Data.Common;
+using Newtonsoft.Json;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
@@ -38,6 +41,29 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         {
             var result = await _seasonService.GetListAsync();
             return Json(result);
+        }
+
+        /// <summary>
+        /// Returns wishes list by filter.
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
+        [AllowAnonymous, HttpGet("{dto}")]
+        public async Task<IActionResult> List([FromRoute] string dto)
+        {
+            if (string.IsNullOrWhiteSpace(dto))
+            {
+                return BadRequest();
+            }
+            var obj = JsonConvert.DeserializeObject<SeasonFiltersDto>(dto, new JsonSerializerSettings() //todo should be application wide settings
+            {
+                MissingMemberHandling = MissingMemberHandling.Ignore,
+                NullValueHandling = NullValueHandling.Include,
+                DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate
+            });
+
+            var model = await _seasonService.GetListAsync(obj);
+            return Json(model);
         }
 
         /// <summary>
@@ -139,6 +165,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <param name="typed">Part of season year for search.</param>
         /// <returns>List of keyValuePair of seasons with identifiers.</returns>
         [AllowAnonymous, HttpGet("getSeasonsByYear")]
+        [Obsolete("Remove after 11.11.18")]
         public async Task<IActionResult> GetSeasonsByYearAsync([FromQuery]string typed)
         {
             var result = await _seasonService.GetSeasonsByYearAsync(typed);

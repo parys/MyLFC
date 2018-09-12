@@ -1,9 +1,8 @@
 ﻿import { Injectable } from "@angular/core";
 import { HttpWrapper } from "@app/+httpWrapper";
-import { Stadium } from "../model";
+import { Stadium, StadiumFilters } from "../model";
 import { STADIUMS_ROUTE } from "@app/+constants";
 import { BaseRestService } from "@app/+infrastructure";
-import { StadiumFilters } from "../model/stadiumFilters.model";
 
 @Injectable()
 export class StadiumService extends BaseRestService<Stadium, StadiumFilters> {

@@ -7,6 +7,7 @@ import { NEWS_ROUTE, SEASONS_ROUTE, BLOGS_ROUTE, NEWS_CATEGORIES_ROUTE, BLOG_CAT
     ACCOUNT_ROUTE,
     CLUBS_ROUTE,
     MATCHES_ROUTE,
+    EDIT_ROUTE,
     WISHES_ROUTE,
     IMAGES_ROUTE,
     COMMENTS_ROUTE,
@@ -15,7 +16,7 @@ import { NEWS_ROUTE, SEASONS_ROUTE, BLOGS_ROUTE, NEWS_CATEGORIES_ROUTE, BLOG_CAT
     STADIUMS_ROUTE,
     POLLS_ROUTE
 } from "@app/+constants";
-import { EDITING_RU, WISHES_RU, USERS_RU, USER_RU } from "../../+constants/ru.constants";
+import { EDITING_RU, WISHES_RU, USERS_RU, USER_RU, CALENDAR_RU, STATISTICS_RU, INJURIES_RU, TRANSFERS_RU } from "@app/+constants/ru.constants";
 
 @Injectable()
 export class BreadcrumbService {
@@ -161,9 +162,9 @@ export class BreadcrumbService {
 
 
         this.addFriendlyNameForRouteRegex(`/${SEASONS_ROUTE}`, "Сезоны");
-        this.addFriendlyNameForRoute(`/${SEASONS_ROUTE}/calendar`, "Календарь");
-        this.addFriendlyNameForRouteRegex(`/${SEASONS_ROUTE}/[0-9]+/calendar`, "Календарь");
-        this.addFriendlyNameForRoute(`/${SEASONS_ROUTE}/statistics`, "Статистика");
+        this.addFriendlyNameForRoute(`/${SEASONS_ROUTE}/calendar`, CALENDAR_RU);
+        this.addFriendlyNameForRouteRegex(`/${SEASONS_ROUTE}/[0-9]+/calendar`, CALENDAR_RU);
+        this.addFriendlyNameForRoute(`/${SEASONS_ROUTE}/statistics`, STATISTICS_RU);
         this.hideRouteRegex(`^/${SEASONS_ROUTE}/[0-9]+$`); //  this.addFriendlyNameForRouteRegex("^/season/[0-9]+$", "Сезон");
         //   this.addFriendlyNameForRouteRegex("^/season/[0-9]+/edit$", "Редактирование");
 
@@ -218,13 +219,13 @@ export class BreadcrumbService {
         this.addFriendlyNameForRoute(`/${ACCOUNT_ROUTE}/changePassword`, "Изменение пароля");
 
 
-        this.addFriendlyNameForRouteRegex(`/${TRANSFERS_ROUTE}`, "Трансферы");
+        this.addFriendlyNameForRouteRegex(`/${TRANSFERS_ROUTE}`, TRANSFERS_RU);
         this.addFriendlyNameForRoute(`/${TRANSFERS_ROUTE}/current`, "Текущие");
         this.hideRouteRegex(`^/${TRANSFERS_ROUTE}/[0-9]+$`); // this.addCallbackForRouteRegex("^/news/[0-9]+$", this.getTitle);
         // this.addFriendlyNameForRouteRegex("^/${INJURIES_ROUTE}/[0-9]+/edit$", "Редактирование");
 
 
-        this.addFriendlyNameForRouteRegex(`/${INJURIES_ROUTE}`, "Травмы");
+        this.addFriendlyNameForRouteRegex(`/${INJURIES_ROUTE}`, INJURIES_RU);
         this.hideRouteRegex(`^/${INJURIES_ROUTE}/[0-9]+$`); // this.addCallbackForRouteRegex("^/blog/[0-9]+$", this.getTitle);
         //    this.addFriendlyNameForRouteRegex("^/injuries/[0-9]+/edit$", "Редактирование");
 
@@ -251,6 +252,6 @@ export class BreadcrumbService {
         this.addFriendlyNameForRoute(`/${POLLS_ROUTE}`, "Опросы");
         this.addFriendlyNameForRoute(`^/${POLLS_ROUTE}/[0-9]+$`, "Опрос");
 
-        this.addFriendlyNameForRouteRegex("^/[a-zA-Z]+/[0-9]+/edit$", EDITING_RU);
+        this.addFriendlyNameForRouteRegex(`^/[a-zA-Z]+/[0-9]+/${EDIT_ROUTE}`, EDITING_RU);
     }
 }
