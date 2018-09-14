@@ -7,7 +7,7 @@ import { Person, PersonTypeEnum } from "@app/person/model";
 import { RolesCheckedService } from "@app/+auth";
 
 @Component({
-    selector: "<stuff-list>",
+    selector: "stuff-list",
     templateUrl: "./stuff-list.component.html"
 })
 export class StuffListComponent implements OnInit, OnDestroy {

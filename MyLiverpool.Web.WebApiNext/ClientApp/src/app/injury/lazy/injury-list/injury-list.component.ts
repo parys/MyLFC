@@ -7,8 +7,7 @@ import { startWith, switchMap, map, catchError, debounceTime, distinctUntilChang
 import { Injury, InjuryFilters } from "@app/injury/model";
 import { InjuryService } from "@app/injury/core";
 import { Pageable, DeleteDialogComponent } from "@app/shared";
-import { DEBOUNCE_TIME, INJURIES_ROUTE, KEYUP } from "@app/+constants";
-import { PAGE } from "../../../+constants/help.constants";
+import { DEBOUNCE_TIME, INJURIES_ROUTE, KEYUP, PAGE } from "@app/+constants";
 
 @Component({
     selector: "injury-list",
@@ -32,7 +31,7 @@ export class InjuryListComponent implements OnInit, OnDestroy {
 
     public ngOnInit(): void {
         this.sub = this.route.queryParams.subscribe(qParams => {
-            this.paginator.pageIndex = +qParams["page"] - 1 || 0;
+            this.paginator.pageIndex = +qParams[PAGE] - 1 || 0;
             },
             e => console.log(e));
 

@@ -25,11 +25,7 @@ export class MatchService extends BaseRestService<Match, MatchFilters> {
     public pin(id?: number): Observable<boolean> {
         return this.http.put<boolean>(this.actionUrl + id + "/setAsHeader", "");
     };
-
-    public updateScore(id: number, score: string): Observable<Match> {
-        return this.http.put<Match>(`${this.actionUrl}updateScore?id=${id}&score=${score}`, null);
-    };
-
+    
     public getTypes(): Observable<MatchType[]> {
         return this.http.get<MatchType[]>(this.actionUrl + "getTypes/");
     };

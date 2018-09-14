@@ -45,7 +45,7 @@ export class PmReplyComponent implements OnInit {
         this.service.create(model).subscribe(data => {
                 if (data) {
                     this.closeWindow();
-                    this.snackBar.open("Сообщение отправлено.");
+                    this.snackBar.open("Сообщение отправлено");
                 }
             },
             e => console.log(e));

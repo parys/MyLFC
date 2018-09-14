@@ -3,6 +3,7 @@ import { Router, NavigationEnd } from "@angular/router";
 import { Pm } from "../../model";
 import { PmService } from "../../core";
 import { Subscription } from "rxjs";
+import { EDIT_ROUTE, PMS_ROUTE } from "../../../+constants/routes.constants";
 
 @Component({
     selector: "pm-list",
@@ -45,7 +46,7 @@ export class PmListComponent implements OnInit, OnDestroy {
     }
 
     public writePm(): void {           
-        this.router.navigate(["/pms", 0, "edit"]);  
+        this.router.navigate([PMS_ROUTE, 0, EDIT_ROUTE]);  
     }
 
     private init(): void {

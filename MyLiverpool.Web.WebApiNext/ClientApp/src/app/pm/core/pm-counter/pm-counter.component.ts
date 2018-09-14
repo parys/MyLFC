@@ -5,6 +5,8 @@ import { Subscription } from "rxjs";
 import { PmService } from "../pm.service";
 import { SignalRService } from "@app/+signalr";
 import { CustomTitleService } from "@app/shared";
+import { PMS_ROUTE } from "@app/+constants";
+
 @Component({
     selector: "pm-counter",
     templateUrl: "./pm-counter.component.html",
@@ -36,7 +38,7 @@ export class PmCounterComponent implements OnInit, OnDestroy {
                 this.titleService.addCount(1);
                 this.snackBar.open("Вам прислали сообщение", this.action)
                     .onAction()
-                    .subscribe(_ => this.router.navigate(["/pms", data.id]));
+                    .subscribe(_ => this.router.navigate([PMS_ROUTE, data.id]));
             },
             () => this.cd.markForCheck());
     }
@@ -56,7 +58,7 @@ export class PmCounterComponent implements OnInit, OnDestroy {
                         this.snackBar
                             .open("У вас есть непрочитанные личные сообщения", this.action)
                             .onAction()
-                            .subscribe(data => this.router.navigate(["/pms"]));
+                            .subscribe(data => this.router.navigate([PMS_ROUTE]));
                     }
                 },
                 e => console.log(e),

@@ -13,10 +13,6 @@ export class ClubService extends BaseRestService<Club, ClubFilters> {
         super(http, CLUBS_ROUTE + "/");
     }
 
-    public getListByName(typed: string): Observable<Club[]> {
-        return this.http.get<Club[]>(`${this.actionUrl}getClubsByName?typed=${typed}`); //todo use common list with filter
-    };
-
     public uploadLogo(file: File, fileName: string): Observable<Object> {
         let formData: FormData = new FormData();
         formData.append("uploadFile", file, file.name);

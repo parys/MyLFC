@@ -16,7 +16,7 @@ import { NEWS_ROUTE, SEASONS_ROUTE, BLOGS_ROUTE, NEWS_CATEGORIES_ROUTE, BLOG_CAT
     STADIUMS_ROUTE,
     POLLS_ROUTE
 } from "@app/+constants";
-import { EDITING_RU, WISHES_RU, USERS_RU, USER_RU, CALENDAR_RU, STATISTICS_RU, INJURIES_RU, TRANSFERS_RU } from "@app/+constants/ru.constants";
+import { EDITING_RU, WISHES_RU, USERS_RU, USER_RU, CALENDAR_RU, STATISTICS_RU, INJURIES_RU, TRANSFERS_RU, COMMENTS_RU } from "@app/+constants/ru.constants";
 
 @Injectable()
 export class BreadcrumbService {
@@ -205,7 +205,7 @@ export class BreadcrumbService {
 
         this.addFriendlyNameForRouteRegex(`/${IMAGES_ROUTE}`, "Изображения");
 
-        this.addFriendlyNameForRouteRegex(`/${COMMENTS_ROUTE}`, "Комментарии");
+        this.addFriendlyNameForRouteRegex(`/${COMMENTS_ROUTE}`, COMMENTS_RU);
 
         this.addFriendlyNameForRouteRegex(`/${PMS_ROUTE}`, "Личные сообщения");
         this.addFriendlyNameForRouteRegex(`/${PMS_ROUTE}/[0-9]+$`, "Сообщение");

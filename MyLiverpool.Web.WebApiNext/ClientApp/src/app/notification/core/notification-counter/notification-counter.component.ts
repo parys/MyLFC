@@ -7,6 +7,7 @@ import { Notification } from "../../model";
 import { RolesCheckedService } from "@app/+auth";
 import { SignalRService } from "@app/+signalr";
 import { CustomTitleService } from "@app/shared";
+import { NOTIFICATIONS_ROUTE } from "@app/+constants";
 
 @Component({
     selector: "notification-counter",
@@ -39,7 +40,7 @@ export class NotificationCounterComponent implements OnInit, OnDestroy {
         this.signalR.newNotify.subscribe((data: Notification) => {
             this.count++;
                 this.titleService.addCount(1);
-                this.snackBar.open("Вам пришло уведомление", this.action)
+                this.snackBar.open("Новое уведомление", this.action)
                     .onAction()
                     .subscribe(_ => {
                         this.service.read(([data.id])).subscribe(_ =>
@@ -64,7 +65,7 @@ export class NotificationCounterComponent implements OnInit, OnDestroy {
                 if (+data > 0) {
                     this.snackBar.open("Есть новые уведомления", this.action)
                         .onAction()
-                        .subscribe(_ => this.router.navigate(["/notifications"]));
+                        .subscribe(_ => this.router.navigate([NOTIFICATIONS_ROUTE]));
                 }
                 },
             e => console.log(e),

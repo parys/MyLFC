@@ -18,21 +18,4 @@ export class RoleGroupService {
     public getAll(): Observable<RoleGroup[]> {
         return this.http.get<RoleGroup[]> (this.actionUrl);
     };
-
-    // getSingle = (id: number): Observable<RoleGroup> => {
-    //    return this.http.get(this.actionUrl + id).map(res => res.json());
-    // };
-
-    // create = (item: RoleGroup): Observable<RoleGroup> => {
-    //    return this.http.post(this.actionUrl, JSON.stringify(item)).map(res => res.json());
-    // };
-
-    // update = (id: number, itemToUpdate: RoleGroup): Observable<RoleGroup> => {
-    //    return this.http.put(this.actionUrl + id, JSON.stringify(itemToUpdate))
-    //        .map(res => res.json());
-    // };
-
-    // delete = (id: number): Observable<boolean> => {
-    //    return this.http.delete(this.actionUrl + id).map(response => response.json());
-    // };
 }

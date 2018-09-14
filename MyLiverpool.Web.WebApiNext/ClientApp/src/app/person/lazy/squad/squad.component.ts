@@ -7,7 +7,7 @@ import { SquadList, PersonTypeEnum } from "@app/person/model";
 import { RolesCheckedService } from "@app/+auth";
 
 @Component({
-    selector: "<squad>",
+    selector: "squad",
     templateUrl: "./squad.component.html"
 })
 export class SquadComponent {

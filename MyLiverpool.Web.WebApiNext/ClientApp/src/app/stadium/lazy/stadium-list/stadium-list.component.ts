@@ -4,11 +4,10 @@ import { ActivatedRoute } from "@angular/router";
 import { MatDialog, MatPaginator } from "@angular/material";
 import { Subscription, merge, of, Observable } from "rxjs";
 import { startWith, switchMap, map, catchError } from "rxjs/operators";
-import { Stadium } from "../../model";
+import { Stadium, StadiumFilters } from "../../model";
 import { StadiumService } from "../../core";
 import { Pageable, DeleteDialogComponent } from "@app/shared";
 import { PAGE, STADIUMS_ROUTE } from "@app/+constants";
-import { StadiumFilters } from "../../model/stadiumFilters.model";
 
 @Component({
     selector: "stadium-list",
@@ -30,7 +29,7 @@ export class StadiumListComponent implements OnInit, OnDestroy {
 
     public ngOnInit(): void {
         this.sub = this.route.queryParams.subscribe(qParams => {
-                this.paginator.pageIndex = +qParams["page"] - 1 || 0;
+                this.paginator.pageIndex = +qParams[PAGE] - 1 || 0;
                 this.paginator.pageSize = +qParams["itemsPerPage"] || 15;
 
             },

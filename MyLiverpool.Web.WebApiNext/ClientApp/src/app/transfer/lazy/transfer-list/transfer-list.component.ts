@@ -4,12 +4,11 @@ import { ActivatedRoute } from "@angular/router";
 import { Subscription, merge, of, Observable } from "rxjs";
 import { startWith, switchMap, map, catchError } from "rxjs/operators";
 import { TransferService } from "@app/transfer/core";
-import { Transfer } from "@app/transfer/model";
+import { Transfer, TransferFilters } from "@app/transfer/model";
 import { Pageable } from "@app/shared";
 import { RolesCheckedService } from "@app/+auth";
 import { TRANSFERS_ROUTE, PAGE } from "@app/+constants";
 import { MatSort, MatPaginator } from "@angular/material";
-import { TransferFilters } from "../../model/transferFilters.model";
 
 @Component({
     selector: "transfer-list",
@@ -32,7 +31,7 @@ export class TransferListComponent implements OnInit, OnDestroy {
 
     public ngOnInit(): void {
         this.sub = this.route.queryParams.subscribe(qParams => {
-            this.paginator.pageIndex = +qParams["page"] - 1 || 0;
+            this.paginator.pageIndex = +qParams[PAGE] - 1 || 0;
             this.paginator.pageSize = +qParams["itemsPerPage"] || 15;
 
         },

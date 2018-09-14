@@ -13,10 +13,6 @@ export class PersonService extends BaseRestService<Person, PersonFilters> {
         super(http, PERSONS_ROUTE + "/");
     }
 
-    public getListByName(typed: string): Observable<Person[]> {
-        return this.http.get<Person[]>(`${this.actionUrl}getPersonsByName?typed=${typed}`);
-    };
-
     public getBestPlayer(): Observable<Person> {
         return this.http.get<Person>(this.actionUrl + "bestPlayer/");
     };

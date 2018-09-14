@@ -1,10 +1,8 @@
 ﻿import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { HttpWrapper } from "@app/+httpWrapper";
-import { UserFilters } from "./userFilters.model";
-import { User } from "./user.model";
+import { UserFilters, User, UserConfig } from "../model";
 import { UsersOnline } from "@app/+common-models";
-import { UserConfig } from "./user-config.model";
 import { USERS_ROUTE } from "@app/+constants";
 import { BaseRestService } from "@app/+infrastructure";
 

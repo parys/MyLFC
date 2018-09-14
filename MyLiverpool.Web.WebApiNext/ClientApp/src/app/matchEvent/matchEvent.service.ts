@@ -22,7 +22,7 @@ export class MatchEventService {
     };*/
 
     public getForMatch(matchId: number): Observable<MatchEvent[]> {
-        return this.http.get<MatchEvent[]>(`${this.actionUrl}getForMatch/${matchId}`);
+        return this.http.get<MatchEvent[]>(`${this.actionUrl}getForMatch/${matchId}`); // todo go to match endpoint
     };
 
     public create(item: MatchEvent): Observable<MatchEvent> {

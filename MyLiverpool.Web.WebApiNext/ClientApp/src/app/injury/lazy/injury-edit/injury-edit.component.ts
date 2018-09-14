@@ -5,10 +5,9 @@ import { Subscription, Observable, of } from "rxjs";
 import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
 import { InjuryService } from "@app/injury/core";
 import { Injury } from "@app/injury/model";
-import { PersonService, Person } from "@app/person";
+import { PersonService, Person, PersonFilters } from "@app/person";
 import { INJURIES_ROUTE, DEBOUNCE_TIME } from "@app/+constants";
-import { PersonFilters } from "../../../person/model/personFilters.model";
-import { Pageable } from "../../../shared/pageable.model";
+import { Pageable } from "@app/shared/";
 
 @Component({
     selector: "injury-edit",

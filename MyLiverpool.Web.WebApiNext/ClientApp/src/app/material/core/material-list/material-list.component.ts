@@ -10,8 +10,7 @@ import { DeleteDialogComponent, Pageable } from "@app/shared";
 import { RolesCheckedService } from "@app/+auth";
 import { MaterialType } from "@app/materialCategory";
 import { CustomTitleService } from "@app/shared";
-import { PAGE } from "@app/+constants";
-import { TITLE_RU } from "../../../+constants/ru.constants";
+import { PAGE, TITLE_RU } from "@app/+constants";
 
 @Component({
     selector: "material-list",
@@ -159,7 +158,7 @@ export class MaterialListComponent implements OnInit, OnDestroy {
 
     private parseQueryParamsAndUpdate(): void {
         this.sub2 = this.route.queryParams.subscribe(qParams => {
-                this.page = qParams["page"] || 1;
+                this.page = qParams[PAGE] || 1;
                 this.categoryId = qParams["categoryId"] || null;
                 this.userName = qParams["userName"] || "";
                 this.userId = qParams["userId"] || null;

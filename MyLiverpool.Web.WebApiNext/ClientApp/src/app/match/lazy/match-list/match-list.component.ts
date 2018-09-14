@@ -5,12 +5,10 @@ import { MatDialog, MatPaginator } from "@angular/material";
 import { Subscription, merge, of, Observable } from "rxjs";
 import { startWith, switchMap, map, catchError } from "rxjs/operators";
 
-import { Match } from "@app/match/model";
+import { Match, MatchFilters } from "@app/match/model";
 import { MatchService } from "@app/match/core";
 import { Pageable, DeleteDialogComponent } from "@app/shared";
-import { PAGE } from "../../../+constants/help.constants";
-import { MATCHES_ROUTE } from "../../../+constants/routes.constants";
-import { MatchFilters } from "../../model/matchFilters.model";
+import { PAGE, MATCHES_ROUTE } from "@app/+constants/";
 
 @Component({
     selector: "match-list",
@@ -33,7 +31,7 @@ export class MatchListComponent implements OnInit, OnDestroy {
 
     public ngOnInit(): void {
         this.route.queryParams.subscribe(qParams => {
-                this.paginator.pageIndex = +qParams["page"] - 1 || 0;
+                this.paginator.pageIndex = +qParams[PAGE] - 1 || 0;
                 this.paginator.pageSize = +qParams["itemsPerPage"] || 15;
                 this.categoryId = +qParams["categoryId"];
             },

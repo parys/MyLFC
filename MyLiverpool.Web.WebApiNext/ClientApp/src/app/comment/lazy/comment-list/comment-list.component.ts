@@ -40,7 +40,7 @@ export class CommentListComponent implements OnInit, OnDestroy {
     public ngOnInit(): void {
         this.initForm();
         this.sub = this.route.queryParams.subscribe(qParams => {
-            this.paginator.pageIndex = qParams["page"] - 1 || 0;
+            this.paginator.pageIndex = +qParams[PAGE] - 1 || 0;
             this.paginator.pageSize = +qParams["itemsPerPage"] || 15;
 
             this.categoryId = qParams["categoryId"] || null;

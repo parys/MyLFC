@@ -1,6 +1,6 @@
 ﻿import { Routes } from "@angular/router";
 import { PageEditorComponent } from "./page-editor";
-import { RoleGuard } from "@app/+auth";
+import { RoleGuard, RolesEnum } from "@app/+auth";
 
 export const helperRoutes: Routes = [
     {
@@ -12,7 +12,7 @@ export const helperRoutes: Routes = [
                 component: PageEditorComponent,
                 data: {
                     title: "Редактирование страницы",
-                    roles: ["adminStart", "infoStart"]
+                    roles: [RolesEnum[RolesEnum.AdminStart], RolesEnum[RolesEnum.InfoStart]]
                 },
                 canActivate: [RoleGuard]
             }

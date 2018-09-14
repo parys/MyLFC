@@ -29,8 +29,8 @@ export class ClubListComponent implements OnInit {
     }
 
     public ngOnInit(): void {
-        if (+this.route.snapshot.queryParams["page"]) {
-            this.paginator.pageIndex = +this.route.snapshot.queryParams["page"] - 1;
+        if (+this.route.snapshot.queryParams[PAGE]) {
+            this.paginator.pageIndex = +this.route.snapshot.queryParams[PAGE] - 1;
         }
 
         merge(this.sort.sortChange,

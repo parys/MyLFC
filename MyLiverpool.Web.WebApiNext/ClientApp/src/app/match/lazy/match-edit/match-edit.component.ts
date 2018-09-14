@@ -123,14 +123,5 @@ export class MatchEditComponent implements OnInit {
                 return of(pagingClubs.list);
             })
         );
-
-    }
-
-    private getIdFromUrl(url: string): string {
-        if (url) {
-            const pieces = url.split("/");
-            return pieces[pieces.length - 1];
-        }
-        return null;
     }
 }
