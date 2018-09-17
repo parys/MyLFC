@@ -19,13 +19,15 @@ namespace MyLiverpool.Business.Services
     public class MatchService : IMatchService
     {
         private readonly IClubService _clubService;
+        private readonly ICommentService _commentService;
         private readonly IMapper _mapper;
         private readonly IGenericRepository<Match> _matchRepository;
 
         public MatchService(IGenericRepository<Match> matchRepository, IMapper mapper,
-            IClubService clubService)
+            IClubService clubService, ICommentService commentService)
         {
             _clubService = clubService;
+            _commentService = commentService;
             _mapper = mapper;
             _matchRepository = matchRepository;
         }
@@ -107,10 +109,11 @@ namespace MyLiverpool.Business.Services
             {
                 return null;
             }
-            var match = await _matchRepository.GetFirstByPredicateAsync(x => x.Id == id, true, 
+            var match = await _matchRepository.GetQueryableList(filter: x => x.Id == id, asNoTracking: true, 
                 include: x => x.Include(m => m.Club)
                 .Include(m => m.Stadium)
-                .Include(m => m.Events).ThenInclude(m => m.Person));
+                .Include(m => m.Events).ThenInclude(m => m.Person))
+                .FirstOrDefaultAsync();
             if (match == null)
             {
                 return null;
@@ -125,7 +128,8 @@ namespace MyLiverpool.Business.Services
             {
                 FillClubsFields(dto, clubDto, liverpoolClub);
             }
-            
+            dto.CommentCount = await _commentService.CountAsync(x => x.MatchId == dto.Id);
+
             return dto;
         }
 
@@ -211,7 +215,9 @@ namespace MyLiverpool.Business.Services
             return await _matchRepository
                 .GetQueryableList(order: SortOrder.Ascending,
                     orderBy: m => m.DateTime,
-                    include: x=> x.Include(m => m.Club).Include(m => m.Stadium).Include(m => m.Events))
+                    include: x=> x.Include(m => m.Club)
+                        .Include(m => m.Stadium)
+                        .Include(m => m.Events))
                 .FirstOrDefaultAsync(m => m.DateTime >= DateTimeOffset.Now.AddHours(0.5));
         }
     }

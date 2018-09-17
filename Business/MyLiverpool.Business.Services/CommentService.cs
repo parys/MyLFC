@@ -148,6 +148,11 @@ namespace MyLiverpool.Business.Services
             return new PageableData<CommentDto>(commentDtos, page, commentsCount, ItemPerPage);
         }
 
+        public async Task<int> CountAsync(Expression<Func<MaterialComment, bool>> filter = null)
+        {
+            return await _commentService.GetCountAsync(filter);
+        }
+
         public async Task<bool> VerifyAsync(int id)
         {
             var comment = await _commentService.GetByIdAsync(id);

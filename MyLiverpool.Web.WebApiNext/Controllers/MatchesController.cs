@@ -101,7 +101,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 async () => await _helperService.GetValueAsync(HelperEntityType.HeaderMatch));
             if (!string.IsNullOrWhiteSpace(helpEntity))
             {
-                var result = await _matchService.GetByIdAsync(int.Parse(helpEntity));
+                var result = await _matchService.GetByIdAsync(int.Parse(helpEntity));//todo add cache?
                 return Json(result);
             }
             return Json(null);
