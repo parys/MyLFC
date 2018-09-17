@@ -113,7 +113,7 @@ namespace MyLiverpool.Web.WebApiNext
             services.ApplyCustomOpenIdDict(Env);
 
             services.AddSignalR()
-              //  .AddMessagePackProtocol()
+                .AddMessagePackProtocol()
                 ;
 
             RegisterCoreHelpers(services);
