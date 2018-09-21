@@ -1,8 +1,7 @@
-﻿import { Component, OnInit, OnDestroy, ViewChild } from "@angular/core";
+﻿import { Component, OnDestroy, ViewChild, AfterViewInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { FormGroup, FormBuilder } from "@angular/forms";
 import { Location } from "@angular/common";
-import { MatDialog, MatPaginator } from "@angular/material";
+import { MatDialog, MatPaginator, MatCheckbox } from "@angular/material";
 import { merge, of, Observable } from "rxjs";
 import { startWith, switchMap, map, catchError } from "rxjs/operators";
 import { Subscription } from "rxjs";
@@ -11,46 +10,44 @@ import { CommentService } from "@app/comment/core";
 import { DeleteDialogComponent, Pageable } from "@app/shared";
 import { RolesCheckedService } from "@app/+auth";
 import { CommentFilter } from "@app/comment/model";
-import { COMMENTS_ROUTE, PAGE } from "@app/+constants";
+import { COMMENTS_ROUTE, PAGE, USER_ID } from "@app/+constants";
 
 @Component({
     selector: "comment-list",
     templateUrl: "./comment-list.component.html"
 })
-export class CommentListComponent implements OnInit, OnDestroy {
+export class CommentListComponent implements OnDestroy, AfterViewInit {
     private sub: Subscription;
-    private sub2: Subscription;
-    public filterForm: FormGroup;
     public items: Comment[];
-    public onlyUnverified: boolean = false;
     public categoryId: number;
     public userName: string;
     public userId: number;
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
+    @ViewChild("onlyUnverified") onlyUnverified: MatCheckbox;
 
     constructor(private materialCommentService: CommentService,
         private route: ActivatedRoute,
         private location: Location,
-        private formBuilder: FormBuilder,
         public roles: RolesCheckedService,
         private dialog: MatDialog) {
     }
 
-    public ngOnInit(): void {
-        this.initForm();
+    public ngAfterViewInit(): void {
         this.sub = this.route.queryParams.subscribe(qParams => {
-            this.paginator.pageIndex = +qParams[PAGE] - 1 || 0;
-            this.paginator.pageSize = +qParams["itemsPerPage"] || 15;
+                this.paginator.pageIndex = +qParams[PAGE] - 1 || 0;
+                this.paginator.pageSize = +qParams["itemsPerPage"] || 15;
 
-            this.categoryId = qParams["categoryId"] || null;
-            this.userName = qParams["userName"] || "";
-            this.userId = qParams["userId"];
-            this.onlyUnverified = qParams["onlyUnverified"] || false;
-        },
+                this.categoryId = qParams["categoryId"] || null;
+                this.userName = qParams["userName"] || "";
+                this.userId = qParams[USER_ID];
+                this.onlyUnverified.checked = qParams["onlyUnverified"] || false;
+            },
             e => console.log(e));
 
-        merge(this.paginator.page)
+        merge(this.paginator.page,
+                this.onlyUnverified.change
+            )
             .pipe(
                 startWith({}),
                 switchMap(() => {
@@ -67,20 +64,19 @@ export class CommentListComponent implements OnInit, OnDestroy {
                     return of([]);
                 })
             ).subscribe(data => {
-                this.items = data;
-                this.updateUrl();
-            },
+                    this.items = data;
+                    this.updateUrl();
+                },
                 e => console.log(e));
     }
 
     public ngOnDestroy(): void {
         if (this.sub) this.sub.unsubscribe();
-        if (this.sub2) this.sub2.unsubscribe();
     }
 
     public update(): Observable<Pageable<Comment>> {
         const filters = new CommentFilter();
-        filters.onlyUnverified = this.filterForm.get("onlyUnverified").value;
+        filters.onlyUnverified = this.onlyUnverified.checked;
         filters.userId = this.userId;
         filters.page = this.paginator.pageIndex + 1;
         filters.itemsPerPage = this.paginator.pageSize;
@@ -91,10 +87,10 @@ export class CommentListComponent implements OnInit, OnDestroy {
     private updateUrl(): void {
         let newUrl = `${COMMENTS_ROUTE}?${PAGE}=${this.paginator.pageIndex + 1}&itemsPerPage=${this.paginator.pageSize}`;
         if (this.userId) {
-            newUrl = `${newUrl}&userId=${this.userId}`;
+            newUrl = `${newUrl}&${USER_ID}=${this.userId}`;
         }
         if (this.onlyUnverified !== undefined) {
-            newUrl = `${newUrl}&onlyUnverified=${this.onlyUnverified}`;
+            newUrl = `${newUrl}&onlyUnverified=${this.onlyUnverified.checked}`;
         }
         this.location.replaceState(newUrl);
     }
@@ -133,11 +129,5 @@ export class CommentListComponent implements OnInit, OnDestroy {
                         this.paginator.length -= 1;
                     }
                 });
-    }
-
-    private initForm(): void {
-        this.filterForm = this.formBuilder.group({
-            onlyUnverified: [this.onlyUnverified]
-        });
     }
 }
