@@ -1,7 +1,5 @@
 ﻿export const API_URL: string = "api/v1/";
 
-export const allowedImageTypes: string[] = [".jpeg", ".jpg", ".png", ".gif", ".bmp"];
-
 export const DEBOUNCE_TIME: number = 1000;
 export const MIN_EMAIL_LENGTH: number = 6;
 export const MIN_USERNAME_LENGTH: number = 3;

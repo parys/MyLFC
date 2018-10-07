@@ -10,7 +10,7 @@ import { DeleteDialogComponent, Pageable } from "@app/shared";
 import { RolesCheckedService } from "@app/+auth";
 import { MaterialType } from "@app/materialCategory";
 import { CustomTitleService } from "@app/shared";
-import { PAGE, TITLE_RU } from "@app/+constants";
+import { PAGE, TITLE_RU, NEWSS_RU, BLOGS_RU } from "@app/+constants";
 
 @Component({
     selector: "material-list",
@@ -67,10 +67,10 @@ export class MaterialListComponent implements OnInit, OnDestroy {
 
     public ngOnInit(): void {
         if (this.router.url.startsWith("/news")) {
-            this.titleService.setTitle("Новости");
+            this.titleService.setTitle(NEWSS_RU);
             this.type = MaterialType.News;
         } else if (this.router.url.startsWith("/blogs")){
-            this.titleService.setTitle("Блоги");
+            this.titleService.setTitle(BLOGS_RU);
             this.type = MaterialType.Blogs;
         } else {
             this.type = MaterialType.Both;

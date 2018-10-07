@@ -7,3 +7,4 @@ export const SLIDE_OUT_LEFT = "slideOutLeft";
 export const SLIDE_OUT_RIGHT = "slideOutRight";
 
 export const MESSAGE = "message";
+export const USER_ID = "userId";

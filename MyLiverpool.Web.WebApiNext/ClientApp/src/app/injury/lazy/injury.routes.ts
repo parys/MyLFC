@@ -2,8 +2,7 @@
 import { InjuryEditComponent } from "./injury-edit";
 import { InjuryListComponent } from "./injury-list";
 import { RoleGuard, RolesEnum } from "@app/+auth";
-import {  } from "../../+auth/models/roles.enum";
-import { EDITING_RU, INJURIES_RU } from "../../+constants/ru.constants";
+import { EDITING_RU, INJURIES_RU } from "@app/+constants";
 
 export const injuryRoutes: Routes = [
     {

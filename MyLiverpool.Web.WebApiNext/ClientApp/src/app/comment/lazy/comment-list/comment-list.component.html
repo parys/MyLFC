@@ -1,7 +1,6 @@
-﻿<form *ngIf="roles.isModerator" class="flex-v-c flex-space-between" [formGroup]="filterForm" (ngSubmit)="update()">
-    <mat-checkbox formControlName="onlyUnverified" color="warn">Только непроверенные</mat-checkbox>
-    <button mat-raised-button color="primary">Отфильтровать</button>
-</form>
+﻿<div *ngIf="roles.isModerator" class="flex-v-c flex-space-between">
+    <mat-checkbox #onlyUnverified color="warn">Только непроверенные</mat-checkbox>
+</div>
 <div *ngFor="let comment of items">
     <comment-detail [item]="comment" [deep]="0" [canCommentary]="false"></comment-detail>
 </div>

@@ -10,6 +10,7 @@ import { DeleteDialogComponent } from "@app/shared";
 import { RolesCheckedService } from "@app/+auth";
 import { StorageService } from "@app/+storage";
 import { CustomTitleService } from "@app/shared";
+import { NEWS_RU, BLOG_RU } from "@app/+constants/ru.constants";
 
 @Component({
     selector: "material-detail",
@@ -71,11 +72,11 @@ export class MaterialDetailComponent implements OnInit, OnDestroy {
 
     private init(): void {
         if (this.router.url.startsWith("/news")) {
-            this.titleService.setTitle("Новость");
+            this.titleService.setTitle(NEWS_RU);
             this.type = MaterialType.News;
             this.cd.markForCheck();
         } else {
-            this.titleService.setTitle("Блог");
+            this.titleService.setTitle(BLOG_RU);
             this.type = MaterialType.Blogs;
             this.cd.markForCheck();
         }
