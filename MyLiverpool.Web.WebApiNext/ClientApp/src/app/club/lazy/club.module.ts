@@ -6,6 +6,8 @@ import { ClubEditComponent } from "./club-edit";
 import { ClubListComponent } from "./club-list";
 import { ClubCoreModule } from "../core";
 import { StadiumCoreModule } from "@app/stadium";
+import { BreadcrumbService } from "@app/shared/breadcrumb";
+import { CLUBS_ROUTE, CLUBS_RU } from "@app/+constants";
 
 @NgModule({
     imports: [
@@ -19,4 +21,11 @@ import { StadiumCoreModule } from "@app/stadium";
         ClubListComponent
     ]
 })
-export class ClubModule { }
+export class ClubModule {
+    constructor(
+        private breadcrumbService: BreadcrumbService
+    ) {
+        this.breadcrumbService.addFriendlyNameForRouteRegex(`/${CLUBS_ROUTE}`, CLUBS_RU);
+        this.breadcrumbService.hideRouteRegex(`^/${CLUBS_ROUTE}/[0-9]+$`); 
+    }
+}

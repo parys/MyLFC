@@ -28,6 +28,7 @@ import { UserCoreModule } from "./user";
 
 registerLocaleData(localeRU);
 import { PollCoreModule } from "./poll";
+import { BreadcrumbService } from "@app/shared/breadcrumb";
 
 declare var Hammer: any;
 
@@ -42,7 +43,6 @@ export class MyHammerConfig extends HammerGestureConfig {
         return mc;
     }
 }
-
 
 @Injectable()
 export class UIErrorHandler extends ErrorHandler {
@@ -96,6 +96,7 @@ export class UIErrorHandler extends ErrorHandler {
     ],
     providers: [// services
         admin.AdminService,
+        BreadcrumbService,
         { provide: LOCALE_ID, useValue: "ru-RU" },
         {
             // hammer instantion with custom config
