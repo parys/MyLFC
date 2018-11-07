@@ -8,7 +8,7 @@ import { UserCoreModule } from "@app/user";
 import { UserDetailComponent } from "./user-detail";
 import { UserConfigComponent } from "./user-config";
 import { RoleGroupCoreModule } from "@app/roleGroup";
-import { MatNativeDateModule, MatDatepickerModule, MatInputModule } from "@angular/material";
+import { MatNativeDateModule, MatDatepickerModule, MatInputModule, MatTableModule, MatSelectModule } from "@angular/material";
 import { BreadcrumbService } from "@app/shared/breadcrumb";
 import { USERS_ROUTE, USERS_RU, USER_RU } from "@app/+constants";
 //import { SignalRModule } from "@app/+signalr";
@@ -21,7 +21,9 @@ import { USERS_ROUTE, USERS_RU, USER_RU } from "@app/+constants";
         RoleGroupCoreModule,
         MatNativeDateModule,
         MatInputModule,
-        MatDatepickerModule
+        MatDatepickerModule,
+        MatTableModule,
+        MatSelectModule
 
      //   SignalRModule
     ],

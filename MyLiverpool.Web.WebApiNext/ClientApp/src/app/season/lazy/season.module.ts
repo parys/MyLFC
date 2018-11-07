@@ -10,12 +10,14 @@ import { SeasonStatisticsComponent } from "./season-statistics";
 import { SeasonStatisticsItemComponent } from "./season-statistics-item";
 import { BreadcrumbService } from "@app/shared/breadcrumb";
 import { CALENDAR_RU, SEASONS_ROUTE, STATISTICS_RU } from "@app/+constants";
+import { MatSelectModule } from "@angular/material";
 
 @NgModule({
     imports: [
         SharedModule,
         RouterModule.forChild(seasonRoutes),
-        SeasonCoreModule
+        SeasonCoreModule,
+        MatSelectModule
     ],
     declarations: [
         SeasonCalendarComponent,

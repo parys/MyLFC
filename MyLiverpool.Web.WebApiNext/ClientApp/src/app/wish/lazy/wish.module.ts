@@ -7,12 +7,14 @@ import { wishRoutes } from "./wish.routes";
 import { SharedModule, BreadcrumbService } from "@app/shared";
 import { RecaptchaModule } from "@app/shared/modules";
 import { WISHES_ROUTE, WISHES_RU } from "@app/+constants";
+import { MatSelectModule } from "@angular/material";
 
 @NgModule({
     imports: [
         SharedModule,
         RouterModule.forChild(wishRoutes),
-        RecaptchaModule
+        RecaptchaModule,
+        MatSelectModule
     ],
     declarations: [
         WishEditComponent,

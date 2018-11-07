@@ -6,8 +6,8 @@ import { DeleteDialogComponent } from "./delete-dialog";
 import { MatBadgeModule } from '@angular/material/badge';
 import {
     MatAutocompleteModule, MatButtonModule, MatCardModule, MatCheckboxModule, MatDialogModule, MatExpansionModule,
-    MatIconModule, MatInputModule, MatMenuModule, MatProgressBarModule, MatSelectModule, MatSlideToggleModule,
-    MatSnackBarModule, MatTableModule, MatTooltipModule, MatSortModule, MatPaginatorModule, MatPaginatorIntl,
+    MatIconModule, MatInputModule, MatMenuModule, MatProgressBarModule, MatSlideToggleModule,
+    MatSnackBarModule, MatTooltipModule, MatSortModule, MatPaginatorModule, MatPaginatorIntl,
     MAT_SNACK_BAR_DEFAULT_OPTIONS,
     ErrorStateMatcher, ShowOnDirtyErrorStateMatcher, MatSidenavModule
 } from "@angular/material";
@@ -23,7 +23,6 @@ import { getRussianPaginatorIntl } from './intl/russian-paginator-intl';
 import { SignalRModule } from "@app/+signalr";
 import { StorageModule, StorageService } from "@app/+storage";
 import { AuthModule } from "@app/+auth";
-import { CustomTitleModule } from "./titleService";
 //import { DeferLoadDirective } from "./lazy/defer-load.directive";
 
 @NgModule({
@@ -48,15 +47,12 @@ import { CustomTitleModule } from "./titleService";
         MatInputModule,
         MatMenuModule,
         MatProgressBarModule,
-        MatSelectModule,
         MatSlideToggleModule,
         MatSnackBarModule,
         MatPaginatorModule,
         MatSortModule,
-        MatTableModule,
         MatTooltipModule,
-        MatSidenavModule,
-        CustomTitleModule
+        MatSidenavModule
 
     ],
     declarations: [
@@ -92,11 +88,9 @@ import { CustomTitleModule } from "./titleService";
         MatInputModule,
         MatMenuModule,
         MatPaginatorModule,
-        MatSelectModule,
         MatSlideToggleModule,
         MatSnackBarModule,
         MatSortModule,
-        MatTableModule,
         MatTooltipModule,
         MatSidenavModule
     ],

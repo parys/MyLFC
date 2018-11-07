@@ -8,13 +8,15 @@ import { ClubCoreModule } from "../core";
 import { StadiumCoreModule } from "@app/stadium";
 import { BreadcrumbService } from "@app/shared/breadcrumb";
 import { CLUBS_ROUTE, CLUBS_RU } from "@app/+constants";
+import { MatTableModule } from "@angular/material";
 
 @NgModule({
     imports: [
         SharedModule,
         ClubCoreModule,
         RouterModule.forChild(clubRoutes),
-        StadiumCoreModule
+        StadiumCoreModule,
+        MatTableModule
     ],
     declarations: [
         ClubEditComponent,
