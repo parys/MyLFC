@@ -112,11 +112,13 @@ namespace MyLiverpool.Web.Mvc
             }
 
             app.UseDefaultFiles();
+
+            var cachePeriod = env.IsDevelopment() ? "600" : "604800";
             app.UseStaticFiles(new StaticFileOptions
             {
                 OnPrepareResponse = ctx =>
                 {
-                    ctx.Context.Response.Headers.Append("Cache-Control", "public,max-age=86400");
+                    ctx.Context.Response.Headers.Append("Cache-Control", $"public, max-age={cachePeriod}");
                 }
             });
 

@@ -166,6 +166,8 @@
     </ItemGroup>
   </Target>
 
+  <ProjectExtensions><VisualStudio><UserProperties ClientApp_4angular_1json__JSONSchema="" /></VisualStudio></ProjectExtensions>
+
 
 
 </Project>

@@ -219,13 +219,14 @@ namespace MyLiverpool.Web.WebApiNext
             //   app.UseSignalRAuthentication();
 
             app.UseDefaultFiles();
+
+            var cachePeriod = env.IsDevelopment() ? "600" : "604800";
             app.UseStaticFiles(new StaticFileOptions
             {
                 OnPrepareResponse = ctx =>
                 {
-                    ctx.Context.Response.Headers.Append("Cache-Control", "public,max-age=86400");
-                },
-                //   ServeUnknownFileTypes = true
+                    ctx.Context.Response.Headers.Append("Cache-Control", $"public, max-age={cachePeriod}");
+                }
             });
             //  if (!Env.IsDevelopment())
             {
