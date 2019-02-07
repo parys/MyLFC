@@ -194,11 +194,13 @@ ol {
 }
 
 @font-face {
+    font-display: swap;
     font-family: "Beauty";
     src: url('./fonts/10427.ttf') format('truetype');
 }
 
 @font-face {
+    font-display: swap;
     font-family: "AnotherFont";
     src: url('./fonts/Cuprum-Regular.ttf');
 }
@@ -256,10 +258,11 @@ ol {
     .avatar {
         width: 100px;
     }
-    
-    .beauty-font {
-        font-family: "Beauty";
-    }
+
+.beauty-font {
+    font-display: swap;
+    font-family: "Beauty";
+}
 
     .bg-maroon {
         background-color: #731010;

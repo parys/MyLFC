@@ -27,19 +27,12 @@ export class ImageCropAdditionComponent {
     }
 
     imageCropped(image: string) {
-     //   console.log(image);
         this.croppedImage = image;
         
     }
-    imageLoaded() {
-        // show cropper
-    }
-    loadImageFailed() {
-        // show message
-    }
 
     crop() {
-        this.service.uploadBase64Image(this.croppedImage)
+        this.service.uploadBase64Image(this.croppedImage.base64)
             .subscribe(result => {
                 this.loadedImage.emit(result);
                 this.snackBar.open("Изображение обрезано");
@@ -47,7 +40,6 @@ export class ImageCropAdditionComponent {
                 this.croppedImage = null;
                 },
                 error => {
-                    console.log(error);
                     this.snackBar.open("Ошибка при загрузке", null);
                 });
     }

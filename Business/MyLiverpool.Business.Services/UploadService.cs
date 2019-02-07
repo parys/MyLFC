@@ -18,7 +18,7 @@ namespace MyLiverpool.Business.Services
         public readonly string LogoPath = Path.Combine(ContentPath, "logos");
         public readonly string ImagesPath = Path.Combine(ContentPath, "images");
         public readonly string PersonPath = Path.Combine(ContentPath, "persons");
-        public const int FilesPerFolder = 200;
+        public const int FilesPerFolder = 1200;
         private readonly IUserService _userService;
         private readonly IClubService _clubService;
         private readonly IHostingEnvironment _appEnvironment;
