@@ -36,7 +36,7 @@ export class ClubEditComponent implements OnInit, OnDestroy {
             this.id = +params["id"];
             if (this.id > 0) {
                 this.sub2 = this.clubService.getSingle(this.id)
-                    .subscribe(data => this.parse(data),
+                    .subscribe((data: Club) => this.parse(data),
                     e => console.log(e));
             }
         });
@@ -50,7 +50,7 @@ export class ClubEditComponent implements OnInit, OnDestroy {
     public onSubmit(): void {
         const club: Club = this.parseForm();
             this.clubService.createOrUpdate(this.id, club)
-                .subscribe(data => this.router.navigate([CLUBS_ROUTE]),
+                .subscribe((data: Club) => this.router.navigate([CLUBS_ROUTE]),
                 e => console.log(e));
     }
 

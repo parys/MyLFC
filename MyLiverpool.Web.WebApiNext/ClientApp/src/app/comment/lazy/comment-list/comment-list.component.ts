@@ -2,9 +2,8 @@
 import { ActivatedRoute } from "@angular/router";
 import { Location } from "@angular/common";
 import { MatDialog, MatPaginator, MatCheckbox } from "@angular/material";
-import { merge, of, Observable } from "rxjs";
+import { merge, of, Observable, Subscription } from "rxjs";
 import { startWith, switchMap, map, catchError } from "rxjs/operators";
-import { Subscription } from "rxjs";
 import { Comment } from "@app/+common-models";
 import { CommentService } from "@app/comment/core";
 import { DeleteDialogComponent, Pageable } from "@app/shared";
@@ -63,7 +62,7 @@ export class CommentListComponent implements OnDestroy, AfterViewInit {
                 catchError(() => {
                     return of([]);
                 })
-            ).subscribe(data => {
+        ).subscribe((data: Comment[]) => {
                     this.items = data;
                     this.updateUrl();
                 },
@@ -96,16 +95,10 @@ export class CommentListComponent implements OnDestroy, AfterViewInit {
     }
 
     public verify(index: number): void {
-        let result: boolean;
         this.materialCommentService
             .verify(this.items[index].id)
-            .subscribe(data => result = data,
-                e => console.log(e),
-                () => {
-                    if (result) {
-                        this.items[index].isVerified = true;
-                    }
-                });
+            .subscribe((data: boolean) => this.items[index].isVerified = data,
+                e => console.log(e));
     }
 
     private showDeleteModal(index: number): void {

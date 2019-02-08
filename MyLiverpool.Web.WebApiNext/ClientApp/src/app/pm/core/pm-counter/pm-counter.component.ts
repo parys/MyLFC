@@ -6,6 +6,7 @@ import { PmService } from "../pm.service";
 import { SignalRService } from "@app/+signalr";
 import { CustomTitleService } from "@app/shared";
 import { PMS_ROUTE } from "@app/+constants";
+import { Pm } from "../../model/pm.model";
 
 @Component({
     selector: "pm-counter",
@@ -28,15 +29,15 @@ export class PmCounterComponent implements OnInit, OnDestroy {
     public ngOnInit(): void {
         this.updateCount();
 
-        this.signalR.readPm.subscribe(data => {
+        this.signalR.readPm.subscribe((data: boolean) => {
             this.count--;
                 this.titleService.removeCount(1);
             },
             () => this.cd.markForCheck());
-        this.signalR.newPm.subscribe(data => {
+        this.signalR.newPm.subscribe((data: Pm) => {
             this.count++;
                 this.titleService.addCount(1);
-                this.snackBar.open("Вам прислали сообщение", this.action)
+                this.snackBar.open("Новое сообщение", this.action)
                     .onAction()
                     .subscribe(_ => this.router.navigate([PMS_ROUTE, data.id]));
             },
@@ -51,7 +52,7 @@ export class PmCounterComponent implements OnInit, OnDestroy {
 
     private updateCount() {
         this.sub = this.pmService.getUnreadCount()
-            .subscribe(data => {
+            .subscribe((data : string) => {
                     this.count = +data;
                 if (+data > 0) {
                     this.titleService.addCount(this.count);

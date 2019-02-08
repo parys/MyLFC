@@ -44,12 +44,8 @@ export class AccountSignupComponent implements OnInit {
 
         this.authService
             .register(signup)
-            .subscribe(data => {
-                    if (data) {
-                        this.result = true;
-                    }
-                },
-            e => console.log(e));
+            .subscribe((data: boolean) => this.result = data,
+                e => console.log(e));
         this.isHuman = false;
     }
 }

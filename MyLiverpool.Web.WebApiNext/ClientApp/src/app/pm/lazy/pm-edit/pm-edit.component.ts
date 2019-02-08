@@ -20,8 +20,7 @@ export class PmEditComponent implements OnInit, OnDestroy {
 
     constructor(private service: PmService,
         private formBuilder: FormBuilder,
-        private snackBar: MatSnackBar,
-   //     private userService: UserService
+        private snackBar: MatSnackBar
     ) {
     }
 

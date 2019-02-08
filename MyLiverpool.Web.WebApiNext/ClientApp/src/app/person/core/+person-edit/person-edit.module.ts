@@ -19,8 +19,7 @@ import { MatInputModule, MatNativeDateModule, MatDatepickerModule, MatSelectModu
     exports: [
         PersonEditComponent,
         MatNativeDateModule,
-        MatDatepickerModule,
-        MatSelectModule
+        MatDatepickerModule
     ],
     providers: [
         PersonService

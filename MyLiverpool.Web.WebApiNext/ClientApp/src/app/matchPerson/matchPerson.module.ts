@@ -1,4 +1,5 @@
 ﻿import { NgModule } from "@angular/core";
+import { MatAutocompleteModule, MatSelectModule } from "@angular/material";
 import { SharedModule } from "@app/shared";
 import { MatchPersonEditPanelComponent } from "./matchPerson-edit-panel";
 import { MatchPersonService } from "./matchPerson.service";
@@ -8,7 +9,9 @@ import { PersonEditModule } from "@app/person";
 @NgModule({
     imports: [
         SharedModule,
-        PersonEditModule
+        PersonEditModule,
+        MatAutocompleteModule,
+        MatSelectModule
     ],
     declarations: [
         MatchPersonEditPanelComponent,

@@ -50,7 +50,7 @@ export class MatchDetailComponent implements OnInit, OnDestroy {
         const id = this.route.snapshot.params["id"];
         if (id) {
             this.matchService.getSingle(id)
-                .subscribe(data => {
+                .subscribe((data: Match) => {
                         this.item = data;
                         this.title.setTitle(
                             `${this.item.homeClubName} ${this.item.scoreHome

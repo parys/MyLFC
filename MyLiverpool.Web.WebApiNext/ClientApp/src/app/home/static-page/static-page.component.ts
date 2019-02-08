@@ -23,7 +23,8 @@ export class StaticPageComponent implements OnInit, OnDestroy {
     }
 
     public ngOnInit(): void {
-        this.sub = this.service.getValue(this.typeId).subscribe(pageData => {
+        this.sub = this.service.getValue(this.typeId)
+            .subscribe((pageData: string) => {
                 if (pageData) {
                     this.content = pageData;
                     this.cd.markForCheck();

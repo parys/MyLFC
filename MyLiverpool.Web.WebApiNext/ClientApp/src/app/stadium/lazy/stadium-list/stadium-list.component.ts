@@ -13,13 +13,13 @@ import { PAGE, STADIUMS_ROUTE } from "@app/+constants";
     selector: "stadium-list",
     templateUrl: "./stadium-list.component.html"
 })
-
 export class StadiumListComponent implements OnInit, OnDestroy {
     private sub: Subscription;
     private sub2: Subscription;
     public items: Stadium[];
 
-    @ViewChild(MatPaginator) paginator: MatPaginator;
+    @ViewChild(MatPaginator)
+    paginator: MatPaginator;
 
     constructor(private service: StadiumService,
         private route: ActivatedRoute,
@@ -52,7 +52,7 @@ export class StadiumListComponent implements OnInit, OnDestroy {
                 catchError(() => {
                     return of([]);
                 })
-            ).subscribe(data => {
+        ).subscribe((data: Stadium[]) => {
                     this.items = data;
                     this.updateUrl();
                 },
@@ -67,10 +67,11 @@ export class StadiumListComponent implements OnInit, OnDestroy {
     public showDeleteModal(index: number): void {
         let dialogRef = this.dialog.open(DeleteDialogComponent);
         dialogRef.afterClosed().subscribe(result => {
-            if (result) {
-                this.delete(index);
-            }
-        }, e => console.log(e));
+                if (result) {
+                    this.delete(index);
+                }
+            },
+            e => console.log(e));
     }
 
     public update(): Observable<Pageable<Stadium>> {
@@ -88,15 +89,13 @@ export class StadiumListComponent implements OnInit, OnDestroy {
     };
 
     private delete(index: number): void {
-        let result: boolean;
         this.service.delete(this.items[index].id)
-            .subscribe(res => result = res,
-                e => console.log(e),
-                () => {
-                    if (result) {
+            .subscribe((res: boolean) => {
+                    if (res) {
                         this.items.splice(index, 1);
                         this.paginator.length -= 1;
                     }
-                });
+                },
+                e => console.log(e));
     }
 }

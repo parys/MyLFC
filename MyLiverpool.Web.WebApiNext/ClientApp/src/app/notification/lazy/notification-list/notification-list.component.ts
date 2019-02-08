@@ -19,17 +19,14 @@ export class NotificationListComponent implements OnInit {
     public ngOnInit(): void {
         this.service
             .getAll()
-            .subscribe(data => this.items = data,
+            .subscribe((data: Notification[]) => this.items = data,
             e => console.log(e));
     }
 
     public read(index: number): void {
         if (!this.items[index].isRead) {
-            this.service.read([this.items[index].id]).subscribe(res => {
-                if (res) {  
-                    this.items[index].isRead = true;
-                }
-            },
+            this.service.read([this.items[index].id])
+                .subscribe((res: boolean) => this.items[index].isRead = res,
                 e => {
                     console.log(e);
                 });
@@ -37,11 +34,8 @@ export class NotificationListComponent implements OnInit {
     }
 
     public readAll(): void {
-        this.service.read(this.items.filter(x => !x.isRead).map(x => x.id)).subscribe(res => {
-                if (res) {
-                    this.items.forEach(x => x.isRead = true);
-                }
-            },
+        this.service.read(this.items.filter(x => !x.isRead).map(x => x.id))
+            .subscribe((res: boolean) => this.items.forEach(x => x.isRead = res),
             e => {
                 console.log(e);
             });

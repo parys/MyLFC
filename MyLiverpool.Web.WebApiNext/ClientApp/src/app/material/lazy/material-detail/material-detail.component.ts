@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, PLATFORM_ID, Inject } from "@angular/core";
+﻿import { Component, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, PLATFORM_ID, Inject } from "@angular/core";
 import { isPlatformBrowser } from "@angular/common";
 import { Router, ActivatedRoute, NavigationEnd } from "@angular/router";
 import { MatDialog, MatSnackBar } from "@angular/material";
@@ -19,7 +19,7 @@ import { NEWS_RU, BLOG_RU } from "@app/+constants/ru.constants";
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class MaterialDetailComponent implements OnInit, OnDestroy {
+export class MaterialDetailComponent implements OnDestroy {
     private sub: Subscription;
     private navigationSubscription: Subscription;
     public item: Material;
@@ -36,15 +36,10 @@ export class MaterialDetailComponent implements OnInit, OnDestroy {
         private snackBar: MatSnackBar,
         private dialog: MatDialog) {
         this.navigationSubscription = this.router.events.subscribe((e: any) => {
-            // If it is a NavigationEnd event re-initalise the component
             if (e instanceof NavigationEnd) {
                 this.init();
             }
         });
-    }
-
-    public ngOnInit(): void {
-        this.init();
     }
 
     public ngOnDestroy(): void {

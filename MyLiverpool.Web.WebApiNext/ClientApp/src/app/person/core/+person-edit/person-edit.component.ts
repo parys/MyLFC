@@ -33,7 +33,7 @@ export class PersonEditComponent implements OnInit, AfterViewInit {
             this.id = +this.route.snapshot.params["id"] || 0;
             if (this.id > 0) {
                 this.service.getSingle(this.id)
-                    .subscribe(data => this.parse(data),
+                    .subscribe((data: Person) => this.parse(data),
                         e => console.log(e));
             }
         }
@@ -68,7 +68,7 @@ export class PersonEditComponent implements OnInit, AfterViewInit {
                 (-1) * person.birthday.getTimezoneOffset() / 60));
         }
         this.service.createOrUpdate(this.id, person)
-            .subscribe(data => {
+            .subscribe((data: Person) => {
                     this.snackBar.open("Изменения сохранены");
                     if (this.isFull) {
                         this.router.navigate([PERSONS_ROUTE]);
@@ -92,7 +92,7 @@ export class PersonEditComponent implements OnInit, AfterViewInit {
     private updateTypes(): void {
         this.service
             .getTypes()
-            .subscribe(data => this.types = data);
+            .subscribe((data: PersonType[]) => this.types = data);
     }
 
     private parse(data: Person): void {

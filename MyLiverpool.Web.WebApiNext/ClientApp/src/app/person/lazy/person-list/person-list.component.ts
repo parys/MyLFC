@@ -32,7 +32,9 @@ export class PersonListComponent implements OnInit {
 
     public ngOnInit(): void {
         this.parseQueryParams();
-        this.personService.getTypes().subscribe(data => this.personTypes = data, e => console.log(e));
+        this.personService.getTypes()
+            .subscribe((data: PersonType[]) => this.personTypes = data,
+                e => console.log(e));
 
         merge(this.sort.sortChange,
             this.typeSelect.selectionChange,

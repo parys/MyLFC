@@ -29,7 +29,7 @@ export class SeasonEditComponent implements OnInit, OnDestroy {
         if (this.id > 0) {
             this.sub2 = this.service
                 .getSingle(this.id)
-                .subscribe(data => this.editForm.patchValue(data),
+                .subscribe((data: Season) => this.editForm.patchValue(data),
                     e => console.log(e));
         }
     };

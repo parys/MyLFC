@@ -82,25 +82,24 @@ export class ForumThemeListComponent implements OnInit, OnDestroy {
         let comment = this.items[index];
         comment.message = this.commentForm.get("message").value;
         this.messageService.update(comment.id, comment)
-            .subscribe(data => {
+            .subscribe((data: ForumMessage) => {
                 this.items[index].message = data.message;
                 this.items[index].lastModifiedTime = data.lastModifiedTime;
                 this.hideEditModal();
             },
-            error => console.log(error));
+            e => console.log(e));
     }
 
     private delete(index: number): void {
-        let result : boolean;
         this.messageService.delete(this.items[index].id)
-            .subscribe(res => result = res,
-            e => console.log(e),
-            () => {
-                if (result) {
-                    this.items.splice(index, 1);
-                    this.totalItems -= 1;
-                }
-            });
+            .subscribe((res: boolean) => {
+                    if (res) {
+
+                        this.items.splice(index, 1);
+                        this.totalItems -= 1;
+                    }
+                },
+            e => console.log(e));
     }
 
     private initForm(index: number = null) {

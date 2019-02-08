@@ -3,12 +3,11 @@ import { CommonModule } from "@angular/common";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { DeleteDialogComponent } from "./delete-dialog";
-import { MatBadgeModule } from '@angular/material/badge';
 import {
-    MatAutocompleteModule, MatButtonModule, MatCardModule, MatCheckboxModule, MatDialogModule, MatExpansionModule,
+    MatButtonModule, MatCardModule, MatCheckboxModule, MatDialogModule, MatExpansionModule,
     MatIconModule, MatInputModule, MatMenuModule, MatProgressBarModule, MatSlideToggleModule,
     MatSnackBarModule, MatTooltipModule, MatSortModule, MatPaginatorModule, MatPaginatorIntl,
-    MAT_SNACK_BAR_DEFAULT_OPTIONS,
+    MAT_SNACK_BAR_DEFAULT_OPTIONS, MatBadgeModule,
     ErrorStateMatcher, ShowOnDirtyErrorStateMatcher, MatSidenavModule
 } from "@angular/material";
 import { LoaderComponent, LoaderService } from "./loader";
@@ -36,7 +35,6 @@ import { AuthModule } from "@app/+auth";
         AuthModule, //todo temporary?
       //  McBreadcrumbsModule.forRoot(),
 
-        MatAutocompleteModule,
         MatBadgeModule,
         MatButtonModule,
         MatCardModule,
@@ -77,7 +75,6 @@ import { AuthModule } from "@app/+auth";
         BreadcrumbComponent,
         AdComponent,
 
-        MatAutocompleteModule,
         MatBadgeModule,
         MatButtonModule,
         MatCardModule,

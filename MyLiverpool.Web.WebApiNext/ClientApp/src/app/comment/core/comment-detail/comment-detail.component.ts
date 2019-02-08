@@ -95,11 +95,11 @@ export class CommentDetailComponent implements OnInit, OnDestroy {
         this.commentForm.markAsPending();
         let comment = this.getNewComment();
         this.materialCommentService.createOrUpdate(comment.id, comment)
-            .subscribe(data => {
-                this.item.children.push(data);
-                this.cancelAdding();
+            .subscribe((data: Comment) => {
+                    this.item.children.push(data);
+                    this.cancelAdding();
                 },
-            e => console.log(e));
+                e => console.log(e));
     }
 
     public vote(positive: boolean): void {
@@ -109,7 +109,6 @@ export class CommentDetailComponent implements OnInit, OnDestroy {
         this.vote$ = this.materialCommentService.vote(vote).subscribe(data => {
                 if (data) {
                     this.updateVotes(positive);
-                    //todo add snackBar комментарий оценен
                 }
             },
             e => console.log(e));
@@ -138,11 +137,11 @@ export class CommentDetailComponent implements OnInit, OnDestroy {
         this.commentForm.markAsPending();
         const comment: Comment = this.getComment();
         this.materialCommentService.createOrUpdate(this.item.id, comment)
-            .subscribe(data => {
-                this.item = comment;
-                this.cancelEdit();
+            .subscribe((data: Comment) => {
+                    this.item = comment;
+                    this.cancelEdit();
                 },
-            e => console.log(e));
+                e => console.log(e));
     }
 
     public cancelEdit(): void {
@@ -152,9 +151,9 @@ export class CommentDetailComponent implements OnInit, OnDestroy {
 
     private delete(): void {
         this.materialCommentService.delete(this.item.id)
-            .subscribe(res => {
+            .subscribe((res: boolean) => {
                 if (res) {
-                    this.item.children.forEach(x => {
+                    this.item.children.forEach((x: Comment) => {
                         if (this.parent) {
                             x.parentId = this.parent.id;
                             this.parent.children.push(x);

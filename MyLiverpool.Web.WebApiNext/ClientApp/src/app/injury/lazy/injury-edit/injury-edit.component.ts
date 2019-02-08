@@ -35,7 +35,7 @@ export class InjuryEditComponent implements OnInit, OnDestroy {
             this.id = +params["id"];
             if (this.id > 0) {
                 this.sub2 = this.injuryService.getSingle(this.id)
-                    .subscribe(data => this.parse(data),
+                    .subscribe((data : Injury) => this.parse(data),
                         e => console.log(e));
             }
         });
@@ -49,7 +49,7 @@ export class InjuryEditComponent implements OnInit, OnDestroy {
     public onSubmit(): void {
         const injury: Injury = this.parseForm();
             this.injuryService.createOrUpdate(this.id, injury)
-                .subscribe(data => this.router.navigate([INJURIES_ROUTE]),
+                .subscribe((data: Injury) => this.router.navigate([INJURIES_ROUTE]),
                     e => console.log(e));
     }
 

@@ -46,8 +46,8 @@ export class WishEditComponent implements OnInit, OnDestroy {
             if (this.id > 0) {
                 this.sub2 = this.service
                     .getSingle(this.id)
-                    .subscribe(data => this.editWishForm.patchValue(data),
-                    error => console.log(error));
+                    .subscribe((data: Wish) => this.editWishForm.patchValue(data),
+                    e => console.log(e));
             }
         });
         this.updateTypes();
@@ -65,7 +65,7 @@ export class WishEditComponent implements OnInit, OnDestroy {
         model.id = this.id;
 
         this.service.createOrUpdate(this.id, model)
-            .subscribe(data => {
+            .subscribe((data: Wish) => {
                     this.snackBar.open("Пожелание создано");
                 },
                 e => {

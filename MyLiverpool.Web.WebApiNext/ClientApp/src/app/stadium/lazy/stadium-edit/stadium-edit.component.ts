@@ -28,8 +28,8 @@ export class StadiumEditComponent implements OnInit, OnDestroy {
         this.id = +this.route.snapshot.params["id"] || 0;
         if (this.id > 0) {
             this.sub2 = this.service.getSingle(this.id)
-                .subscribe(data => this.parse(data),
-                    error => console.log(error));
+                .subscribe((data: Stadium) => this.parse(data),
+                    e => console.log(e));
         }
     }
 
@@ -41,7 +41,7 @@ export class StadiumEditComponent implements OnInit, OnDestroy {
     public onSubmit(): void {
         const stadium = this.editForm.value;
         this.service.createOrUpdate(this.id, stadium)
-            .subscribe(data => this.router.navigate([STADIUMS_ROUTE]),
+            .subscribe((data: Stadium) => this.router.navigate([STADIUMS_ROUTE]),
                 e => console.log(e));
     }
 

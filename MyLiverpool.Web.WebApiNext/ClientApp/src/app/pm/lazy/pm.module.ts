@@ -7,7 +7,7 @@ import { PmDetailComponent } from "./pm-detail";
 import { PmEditComponent } from "./pm-edit";
 import { PmCoreModule } from "../core";
 import { EditorModule } from "@app/editor";
-import { MatTabsModule } from "@angular/material";
+import { MatTabsModule, MatAutocompleteModule } from "@angular/material";
 import { BreadcrumbService } from "@app/shared/breadcrumb";
 import { PMS_ROUTE } from "@app/+constants";
 
@@ -17,7 +17,8 @@ import { PMS_ROUTE } from "@app/+constants";
         RouterModule.forChild(pmRoutes),
         EditorModule,
         PmCoreModule,
-        MatTabsModule
+        MatTabsModule,
+        MatAutocompleteModule
     ],
     declarations: [
         PmEditComponent,

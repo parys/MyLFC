@@ -51,7 +51,7 @@ export class WishListComponent implements OnInit {
                 catchError(() => {
                     return of([]);
                 })
-            ).subscribe(data => {
+            ).subscribe((data: Wish[]) => {
                     this.items = data;
                     this.updateUrl();
                 },
@@ -71,7 +71,7 @@ export class WishListComponent implements OnInit {
     };
 
     public update(): Observable<Pageable<Wish>> {
-        let filters = new WishFilter();
+        const filters = new WishFilter();
         filters.categoryId = this.categoryId;
         filters.itemsPerPage = this.paginator.pageSize;
         filters.page = this.paginator.pageIndex + 1;
@@ -105,7 +105,7 @@ export class WishListComponent implements OnInit {
 
     private delete(index: number): void {
         this.service.delete(this.items[index].id)
-            .subscribe(res => {
+            .subscribe((res: boolean) => {
                 if (res) {
                     this.items.splice(index, 1);
                     this.paginator.length -= 1;

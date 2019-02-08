@@ -24,7 +24,7 @@ export class MatchEditComponent implements OnInit {
     public clubs$: Observable<Club[]>;
     public stadiums$: Observable<Stadium[]>;
 
-    constructor(private matchService: MatchService,    
+    constructor(private matchService: MatchService,
         private route: ActivatedRoute,
         private stadiumService: StadiumService,
         private router: Router,
@@ -36,25 +36,25 @@ export class MatchEditComponent implements OnInit {
     public ngOnInit(): void {
         this.initForm();
         let id = this.route.snapshot.params["id"];
-        if(+id > 0) {
-                this.matchService.getSingle(id)
-                    .subscribe(data => this.parse(data),
+        if (+id > 0) {
+            this.matchService.getSingle(id)
+                .subscribe((data: Match) => this.parse(data),
                     e => console.log(e));
-            };
-        
+        };
+
         this.matchService.getTypes()
-            .subscribe(data => this.types = data,
+            .subscribe((data: MatchType[]) => this.types = data,
                 e => console.log(e));
 
         this.seasonService.getAllWithoutFilter()
-            .subscribe(data => this.seasons = data,
-            e => console.log(e));
+            .subscribe((data: Season[]) => this.seasons = data,
+                e => console.log(e));
     }
 
     public onSubmit(): void {
         const match = this.parseForm();
         this.matchService.createOrUpdate(this.id, match)
-            .subscribe(data => this.router.navigate([MATCHES_ROUTE, data.id]),
+            .subscribe((data: Match) => this.router.navigate([MATCHES_ROUTE, data.id]),
                 e => console.log(e));
     }
 
