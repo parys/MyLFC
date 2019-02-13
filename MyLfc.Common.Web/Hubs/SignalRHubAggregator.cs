@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Microsoft.AspNetCore.SignalR;
+using MyLfc.Common.Web.MessagePack;
 using MyLfc.Common.Web.OnlineCounting;
 
 namespace MyLfc.Common.Web.Hubs
@@ -30,7 +31,7 @@ namespace MyLfc.Common.Web.Hubs
         /// <param name="endpoint"></param>
         /// <param name="model"></param>
         /// <returns></returns>
-        public async void Send<T>(string endpoint, T model)
+        public async void Send<T>(string endpoint, T model)// where T : IMessagePackObject
         {
             await _anonymHub.Clients.All.SendAsync(endpoint, model);
             await _authHub.Clients.All.SendAsync(endpoint, model);
@@ -54,7 +55,7 @@ namespace MyLfc.Common.Web.Hubs
         /// <param name="endpoint"></param>
         /// <param name="obj"></param>
         /// <param name="userId"></param>
-        public async void SendToUser<T>(string endpoint, T obj, int userId)
+        public async void SendToUser<T>(string endpoint, T obj, int userId)// where T : IMessagePackObject
         {
             var receivers = OnlineUsers.CurrentOnline.Values.Where(x => x.Id == userId);
             if (receivers.Any())

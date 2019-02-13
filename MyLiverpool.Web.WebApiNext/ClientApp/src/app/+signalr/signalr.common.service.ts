@@ -8,7 +8,7 @@ import { HubConnection, HubConnectionBuilder, LogLevel } from "@aspnet/signalr";
 import { MessagePackHubProtocol } from "@aspnet/signalr-protocol-msgpack";
 import { Notification } from "@app/notification/model";
 
-@Injectable()
+@Injectable({ providedIn: "root" })
 export class SignalRService {
     private hubConnection: HubConnection;
     private alreadyStarted: boolean = false;
@@ -40,24 +40,20 @@ export class SignalRService {
         };
 
         if (this.alreadyStarted) {
-            console.warn("already started");
             this.alreadyStarted = false;
             this.hubConnection.stop();
         }
 
         this.hubConnection = new HubConnectionBuilder()
             .withUrl(`${this.baseUrl}hubs/${hubUrl}`, options)
- //                .withHubProtocol(new MessagePackHubProtocol())
+          //  .withHubProtocol(new MessagePackHubProtocol())
             .configureLogging(LogLevel.Error)
             .build();
         this.hubConnection.on("updateChat", (data: ChatMessage) => {
+     //       console.info(data);
             this.chatSubject.next(data);
         });
         this.hubConnection.on("updateOnline", (data: UsersOnline) => {
-            //console.warn(data);
-            //console.warn(data.allCount);
-            //console.warn(data.guestCount);
-            //console.warn(data.users.length);
             this.onlineSubject.next(data);
         });
         this.hubConnection.on("addComment", (data: Comment) => {

@@ -4,6 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.IO.Compression;
 using System.Threading.Tasks;
+using MessagePack;
 using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
@@ -73,16 +74,14 @@ namespace MyLiverpool.Web.WebApiNext
             services.Configure<RequestLocalizationOptions>(options =>
             {
                 options.DefaultRequestCulture = new RequestCulture("ru-RU");
-                options.SupportedCultures = new List<CultureInfo> { new CultureInfo("ru-RU") };
+                options.SupportedCultures = new List<CultureInfo> {new CultureInfo("ru-RU")};
                 options.RequestCultureProviders = new List<IRequestCultureProvider>();
             });
             services.AddRouting(options => options.LowercaseUrls = true);
-            services.AddMvc(options =>
+            services.AddMvc(options => { }).AddJsonOptions(options =>
             {
-            }).AddJsonOptions(options =>
-           {
-               options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-           });
+                options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            });
 
             services.AddCors(options =>
             {
@@ -113,10 +112,12 @@ namespace MyLiverpool.Web.WebApiNext
             services.ApplyCustomOpenIdDict(Env);
 
             services.AddSignalR()
-              //  .AddMessagePackProtocol()
-                ;
+              // todo .AddMessagePackProtocol(options =>
+             //       options.FormatterResolvers = new List<IFormatterResolver>
+             //           {MessagePack.Resolvers.ContractlessStandardResolver.Instance})
+                        ;
 
-            RegisterCoreHelpers(services);
+        RegisterCoreHelpers(services);
             services.RegisterRepositories();
             services.RegisterServices();
 
@@ -164,9 +165,9 @@ namespace MyLiverpool.Web.WebApiNext
             services.AddNodeServices(options =>
             {
                   options.DebuggingPort = 9229;
-                   options.LaunchWithDebugging = true;
+                  options.LaunchWithDebugging = false;
 
-                //   options.InvocationTimeoutMilliseconds = 140000;
+                  //   options.InvocationTimeoutMilliseconds = 140000;
             });
             var dbContext = (LiverpoolContext)services.BuildServiceProvider().GetService(typeof(LiverpoolContext));
             dbContext.Database.Migrate();

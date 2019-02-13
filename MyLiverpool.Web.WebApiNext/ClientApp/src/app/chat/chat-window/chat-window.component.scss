@@ -34,8 +34,11 @@
         overflow-x: auto;
     }
 
-    .chat-message img {
-        max-width: 100%;
-        height: auto;
+    .message {
+        text-align: left;
+
+        ::ng-deep img {
+            max-width: 100%;
+        }
     }
 }

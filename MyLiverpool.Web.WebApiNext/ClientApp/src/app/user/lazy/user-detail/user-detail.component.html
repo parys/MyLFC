@@ -25,7 +25,7 @@
                 <button mat-raised-button
                         color="primary"
                         (click)="resetAvatar()">
-                    Сбросить аватар
+                    Удалить аватар
                 </button>
                 <button mat-raised-button color="warn" *ngIf="roles.isSelf(item.id)" [routerLink]="['/account/changePassword']">Изменить пароль</button>
             </div>        

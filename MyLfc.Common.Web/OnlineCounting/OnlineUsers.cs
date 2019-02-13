@@ -48,16 +48,19 @@ namespace MyLfc.Common.Web.OnlineCounting
         /// <summary>
         /// The identifier of user.
         /// </summary>
+        [Key("id")]
         public int Id { get; set; }
 
         /// <summary>
         /// UserName.
         /// </summary>
+        [Key("userName")]
         public string UserName { get; set; }
 
         /// <summary>
         /// UserName.
         /// </summary>
+        [Key("connectionId")]
         public string ConnectionId { get; set; }
     }
 

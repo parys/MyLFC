@@ -31,7 +31,7 @@
           "https://fonts.googleapis.com/**",
           "https://fonts.gstatic.com/**",
           "/fontawesome-webfont.*",
-          "/10427.*"
+          "/10427.ttf"
         ]
       }
     }

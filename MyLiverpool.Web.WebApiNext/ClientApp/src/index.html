@@ -18,6 +18,7 @@
     <meta name="theme-color" content="#731010">
     <link title="MyLFC.ru - Последние материалы" type="application/rss+xml" rel="alternate" href="~/rss" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="10427.ttf" rel="preload" as="font" type="font/ttf" crossorigin="anonymous">
     <link rel="manifest" href="manifest.json">
 </head>
 <body>
@@ -29,8 +30,6 @@
         Извините, но для этого приложения нужно включить JavaScript. <a href="https://m.mylfc.ru/">Воспользуйтесь облегченной версией</a>, пожалуйста.
     </p>
 </noscript>
-
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-79219562-3"></script>
 <script>
     var global = global || window;
     var Buffer = Buffer || [];
@@ -48,7 +47,6 @@
 
     var crawlerAgent = (/bot|google|aolbuild|baidu|bing|msn|duckduckgo|teoma|slurp|yandex/i).test(navigator.userAgent);
     if (!crawlerAgent) {
-        //document.write("<a href='https://www.liveinternet.ru/click' target=_blank><img src='https://counter.yadro.ru/hit?t14.6;r" + escape(document.referrer) + ((typeof (screen) == "undefined") ? "" : ";s" + screen.width + "*" + screen.height + "*" + (screen.colorDepth ? screen.colorDepth : screen.pixelDepth)) + ";u" + escape(document.URL) + ";" + Math.random() + "' alt='' title='LiveInternet' border='0' width='88' height='31'><\/a>");
 
         var global = global || window;
         (function (w, d, n, s, t) {

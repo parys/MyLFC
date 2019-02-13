@@ -55,7 +55,7 @@ export class MatchDetailComponent implements OnInit, OnDestroy {
                         this.title.setTitle(
                             `${this.item.homeClubName} ${this.item.scoreHome
                             ? this.item.scoreHome + "-" + this.item.scoreAway
-                            : ""}- ${this.item.awayClubName}`);
+                            : "-"} ${this.item.awayClubName}`);
                         if (isPlatformBrowser(this.platformId)) {
                             if (!data.scoreHome) {
                                 this.countDown$ =

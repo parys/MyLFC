@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using MyLfc.Common.Web.MessagePack;
 
 namespace MyLfc.Common.Web.Hubs
 {
     public class EmptyHubAggregator : ISignalRHubAggregator
     {
-        public void Send<T>(string endpoint, T model)
+        public void Send<T>(string endpoint, T model)// where T : IMessagePackObject
         {
         }
 
@@ -14,7 +12,7 @@ namespace MyLfc.Common.Web.Hubs
         {
         }
 
-        public void SendToUser<T>(string endpoint, T obj, int userId)
+        public void SendToUser<T>(string endpoint, T obj, int userId)// where T : IMessagePackObject
         {
         }
     }

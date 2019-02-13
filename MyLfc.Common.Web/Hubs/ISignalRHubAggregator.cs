@@ -1,4 +1,6 @@
-﻿namespace MyLfc.Common.Web.Hubs
+﻿using MyLfc.Common.Web.MessagePack;
+
+namespace MyLfc.Common.Web.Hubs
 {
     /// <summary>
     /// Provides calls to both hubs.
@@ -11,7 +13,7 @@
         /// <typeparam name="T"></typeparam>
         /// <param name="endpoint"></param>
         /// <param name="model"></param>
-        void Send<T>(string endpoint, T model);
+        void Send<T>(string endpoint, T model);// where T : IMessagePackObject;
 
         /// <summary>
         /// Invoke signalR method without model.
@@ -20,6 +22,6 @@
         void Send(string endpoint);
 
 
-        void SendToUser<T>(string endpoint, T obj, int userId);
+        void SendToUser<T>(string endpoint, T obj, int userId);// where T : IMessagePackObject;
     }
 }
