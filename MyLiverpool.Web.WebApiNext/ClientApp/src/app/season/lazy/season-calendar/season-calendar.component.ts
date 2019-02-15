@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, ViewChild, ChangeDetectionStrategy } from "@angular/core";
+﻿import { Component, OnInit, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
 import { MatSelect, MatSelectChange } from "@angular/material";
 import { ActivatedRoute } from "@angular/router";
 import { Season } from "../../model";
@@ -20,6 +20,7 @@ export class SeasonCalendarComponent implements OnInit {
 
     constructor(private service: SeasonService,
         public roles: RolesCheckedService,
+        private cd: ChangeDetectorRef,
         private route: ActivatedRoute) {
     }
 
@@ -41,13 +42,16 @@ export class SeasonCalendarComponent implements OnInit {
     }
 
     private update(selectUpdate: boolean): void {
-        this.service.getSingleWithMatches(this.id)
-            .subscribe(data => {
-                this.selected = data;
+        this.service.getSingleCalendarWithMatches(this.id)
+            .subscribe((data: Season) => {
+                    this.selected = data;
                 if (selectUpdate) {
                     this.seasonSelect.value = data;
                 }
-            },
-                e => console.log(e));
+            
+                },
+            e => console.log(e), () => {
+                this.cd.markForCheck();
+            });
     }
 }

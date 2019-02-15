@@ -4,8 +4,8 @@ using AspNet.Security.OAuth.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyLiverpool.Business.Contracts;
-using MyLiverpool.Business.Dto;
 using MyLiverpool.Business.Dto.Filters;
+using MyLiverpool.Business.Dto.Seasons;
 using MyLiverpool.Data.Common;
 using Newtonsoft.Json;
 
@@ -83,10 +83,23 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <param name="id">The identifier of season.</param>
         /// <returns>Found season by id with matches.</returns>
+        [Obsolete("Remove after 01.05.19")]
         [AllowAnonymous, HttpGet("getWithMatches/{id:int}")]
         public async Task<IActionResult> GetWithMatchesAsync(int id)
         {
             var result = await _seasonService.GetByIdWithMatchesAsync(id);
+            return Json(result);
+        }
+
+        /// <summary>
+        /// Returns season by id with matches for calendar.
+        /// </summary>
+        /// <param name="id">The identifier of season.</param>
+        /// <returns>Found season by id with matches.</returns>
+        [AllowAnonymous, HttpGet("{id:int}/calendar")]
+        public async Task<IActionResult> GetSeasonCalendarWithMatchesAsync(int id)
+        {
+            var result = await _seasonService.GetCalendarByIdWithMatchesAsync(id);
             return Json(result);
         }
 

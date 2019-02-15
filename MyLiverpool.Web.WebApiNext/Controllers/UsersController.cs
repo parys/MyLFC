@@ -82,25 +82,6 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <summary>
         /// Updates user.
         /// </summary>
-        /// <param name="dto">Modified user entity.</param>
-        /// <returns>Result of editing.</returns>
-        [Authorize, HttpPut]
-        [Obsolete("remove after 01.10.18")]
-        public async Task<IActionResult> UpdateAsync([FromBody]UserDto dto)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
-            dto.Id = User.GetUserId();
-            var result = await _userService.UpdateAsync(dto);
-            _cacheManager.Remove(CacheKeysConstants.UserBirthdays);
-            return Ok(result);
-        }
-
-        /// <summary>
-        /// Updates user.
-        /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="dto">Modified user entity.</param>
         /// <returns>Result of editing.</returns>

@@ -43,7 +43,7 @@ export class MatchDetailComponent implements OnInit, OnDestroy {
     }
 
     public pin(id?: number): void {
-        this.matchService.pin(id).subscribe(data => data, e => console.log(e));
+        this.matchService.pin(id).subscribe((data: boolean) => data, e => console.log(e));
     }
 
     private init(): void {

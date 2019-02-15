@@ -1,53 +1,61 @@
 ﻿<mat-form-field class="full-width">
     <mat-select #seasonSelect placeholder="Сезон">
         <mat-option *ngFor="let season of seasons" [value]="season.id" [textContent]="season.startSeasonYear + '-' + season.endSeasonYear">
-        </mat-option>
+        Выберите сезон
+            </mat-option>
     </mat-select>
 </mat-form-field>
+<mat-accordion *ngIf="selected2" [multi]="true">
+    <mat-expansion-panel *ngFor="let month of selected.months" [expanded]="!month.collapsed">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                {{month.name}}
+            </mat-panel-title>
+        </mat-expansion-panel-header>
 
-<div style="overflow-x:auto">
-    <table *ngIf="selected" class="table table-condensed table-bordered table-hover table-responsive">
-        <tbody class="">
-            <tr *ngFor="let match of selected.matches; let i = index;" class="center-middle">
-                <td [textContent]="i+1"></td>
-                <td>
-                    <span [textContent]="match.typeName"></span>
-                </td>
-                <td>
-                    <span>
-                        <span [textContent]="match.dateTime | customDate"></span>
-                        <a *ngIf="roles.isAdminAssistant" [routerLink]="['/matches', match.id, 'edit']">
-                            <mat-icon>edit</mat-icon>
-                        </a>
-                    </span>
-                </td>
-                <td>
-                    <div class="flex-v-c">
-                        <span class="text-center">
-                            <img class="club-logo" [src]="match.homeClubLogo" [alt]="match.homeClubName">
-                            <span [textContent]="match.homeClubName"></span>
+        <table *ngIf="selected" class="table table-condensed table-bordered table-hover table-responsive">
+            <tbody class="">
+                <tr *ngFor="let match of month.matches; let i = index;" class="center-middle">
+                    <td>
+                        <span [textContent]="match.typeName"></span>
+                    </td>
+                    <td>
+                        <span>
+                            <span [textContent]="match.dateTime | customDate"></span>
+                            <a *ngIf="roles.isAdminAssistant" [routerLink]="['/matches', match.id, 'edit']">
+                                <mat-icon>edit</mat-icon>
+                            </a>
                         </span>
-                        <span class="text-center">
-                            <a [routerLink]="['/matches', match.id]"> <b [textContent]="match.scoreHome"></b>:<b [textContent]="match.scoreAway"></b></a>
-                        </span>
-                        <span class="text-center">
-                            <img class="club-logo" [src]="match.awayClubLogo" [alt]="match.awayClubName">
-                            <span [textContent]="match.awayClubName"></span>
-                        </span>
-                    </div>
-                </td>
-                <td>
-                    <span [textContent]="match.stadiumName"></span>
-                </td>
-                <td class="flex-space-around" style="height: 100%">
-                    <a *ngIf="match.previewId" [routerLink]="['/news', match.previewId]">Превью</a>
-                    <a *ngIf="match.reportUrl" [routerLink]="['/news', match.reportUrl]">Отчет</a>
-                    <a *ngIf="!match.reportUrl" [routerLink]="['/matches', match.id]">Обсуждение</a>
-                    <a *ngIf="match.photoUrl" [routerLink]="['/news', match.photoUrl]">Фото</a>
-                    <a *ngIf="match.videoUrl" [href]="match.videoUrl" target="_blank">Видео</a>
-                    <a *ngIf="match.reportId" [routerLink]="['/news', match.reportId]">Вердикт</a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+                    </td>
+                    <td>
+                        <div class="flex-v-c">
+                            <span class="text-center">
+                                <img class="club-logo" [src]="match.homeClubLogo" [alt]="match.homeClubName">
+                                <span [textContent]="match.homeClubName"></span>
+                            </span>
+                            <span class="text-center">
+                                <a [routerLink]="['/matches', match.id]"> <b [textContent]="match.scoreHome"></b>:<b [textContent]="match.scoreAway"></b></a>
+                            </span>
+                            <span class="text-center">
+                                <img class="club-logo" [src]="match.awayClubLogo" [alt]="match.awayClubName">
+                                <span [textContent]="match.awayClubName"></span>
+                            </span>
+                        </div>
+                    </td>
+                    <td>
+                        <span [textContent]="match.stadiumName"></span>
+                    </td>
+                    <td class="flex-space-around" style="height: 100%">
+                        <a *ngIf="match.previewId" [routerLink]="['/news', match.previewId]">Превью</a>
+                        <a *ngIf="match.reportUrl" [routerLink]="['/news', match.reportUrl]">Отчет</a>
+                        <a *ngIf="!match.reportUrl" [routerLink]="['/matches', match.id]">Обсуждение</a>
+                        <a *ngIf="match.photoUrl" [routerLink]="['/news', match.photoUrl]">Фото</a>
+                        <a *ngIf="match.videoUrl" [href]="match.videoUrl" target="_blank">Видео</a>
+                        <a *ngIf="match.reportId" [routerLink]="['/news', match.reportId]">Вердикт</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </mat-expansion-panel>
+</mat-accordion>

@@ -43,7 +43,7 @@ export class SquadComponent {
 
     public updateState(): void {
         const type = PersonTypeEnum[this.activeLinkIndex].toString();
-        this.sub = this.personService.getSquad(type).subscribe(data => this.item = data,
+        this.sub = this.personService.getSquad(type).subscribe((data: SquadList) => this.item = data,
             e => console.log(e));
     }
 

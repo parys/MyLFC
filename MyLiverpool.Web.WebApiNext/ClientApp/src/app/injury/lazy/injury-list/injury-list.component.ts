@@ -98,15 +98,12 @@ export class InjuryListComponent implements OnInit, OnDestroy {
     };
     
     private delete(index: number): void {
-        let result: boolean;
         this.injuryService.delete(this.items[index].id)
-            .subscribe(res => result = res,
-                e => console.log(e),
-                () => {
-                    if (result) {
-                        this.items.splice(index, 1);
-                        this.paginator.length -= 1;
-                    }
-                });
+            .subscribe((res: boolean) => {
+                if (res) {
+                    this.items.splice(index, 1);
+                    this.paginator.length -= 1;
+                }},
+                e => console.log(e));
     }
 }

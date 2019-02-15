@@ -1,6 +1,4 @@
 ﻿import { Component, OnInit, OnDestroy } from "@angular/core";
-import { Location } from "@angular/common";
-import { ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs";
 import { TransferService } from "@app/transfer/core";
 import { Transfer } from "@app/transfer/model";
@@ -19,8 +17,6 @@ export class TransferCurrentListComponent implements OnInit, OnDestroy {
     public totalOut: number = 0;
 
     constructor(private service: TransferService,
-        private route: ActivatedRoute,
-        private location: Location,
         public roles: RolesCheckedService) {
     }
 
@@ -35,8 +31,8 @@ export class TransferCurrentListComponent implements OnInit, OnDestroy {
     public update(): void {
         this.sub2 = this.service
             .getCurrentAll()
-            .subscribe(data => this.parseList(data),
-                error => console.log(error));
+            .subscribe((data: Transfer[]) => this.parseList(data),
+                e => console.log(e));
     }
 
     private parseList(list: Transfer[]): void {

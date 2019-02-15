@@ -29,8 +29,8 @@ export class AccountSigninComponent implements OnInit {
     }
 
     public onSubmit(): void {
-        const result = this.authService.login(this.loginForm.value)
-            .subscribe(data => data,
+        this.authService.login(this.loginForm.value)
+            .subscribe((data: any) => data,
                 e => {
                     if (e.error === "unconfirmed_email") {
                         this.router.navigate([`/${ACCOUNT_ROUTE}/unconfirmedEmail`]);

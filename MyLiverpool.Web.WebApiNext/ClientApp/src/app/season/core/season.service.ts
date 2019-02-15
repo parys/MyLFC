@@ -21,6 +21,10 @@ export class SeasonService extends BaseRestService<Season, SeasonFilters> {
         return this.http.get<Season>(`${this.actionUrl}getWithMatches/${seasonId}`);
     }
 
+    public getSingleCalendarWithMatches(seasonId: number): Observable<Season> {
+        return this.http.get<Season>(`${this.actionUrl}${seasonId}/calendar`);
+    }
+
     public getStatistics(seasonId: number): Observable<PersonStatistics[]> {
         return this.http.get<PersonStatistics[]>(`${this.actionUrl}${seasonId}/statistics`);
     }

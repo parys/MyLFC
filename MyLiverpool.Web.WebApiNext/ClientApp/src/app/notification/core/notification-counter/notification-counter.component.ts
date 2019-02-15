@@ -30,7 +30,7 @@ export class NotificationCounterComponent implements OnInit, OnDestroy {
     public ngOnInit(): void {
         this.updateCount();
 
-        this.signalR.readNotify.subscribe(data => {
+        this.signalR.readNotify.subscribe((data: number) => {
             this.count -= data;
                 this.titleService.removeCount(this.count);
             },

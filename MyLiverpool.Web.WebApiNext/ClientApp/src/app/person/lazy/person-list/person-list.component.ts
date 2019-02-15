@@ -62,7 +62,7 @@ export class PersonListComponent implements OnInit {
                 catchError(() => {
                     return of([]);
                 })
-            ).subscribe(data => {
+        ).subscribe((data: Person[]) => {
                 this.items = data;
                 this.updateUrl();
             },
@@ -93,7 +93,7 @@ export class PersonListComponent implements OnInit {
 
     public setAsBestPlayer(personId: number): void {
         this.personService.setBestPlayer(personId)
-            .subscribe(data => data,
+            .subscribe((data: boolean) => data,
                 e => console.log(e));
     }
 
@@ -114,16 +114,13 @@ export class PersonListComponent implements OnInit {
     }
 
     private delete(index: number): void {
-        let result: boolean;
         this.personService.delete(this.items[index].id)
-            .subscribe(res => result = res,
-                e => console.log(e),
-                () => {
-                    if (result) {
-                        this.items.splice(index, 1);
-                        this.paginator.length -= 1;
-                    }
-                });
+            .subscribe((data: boolean) => {
+                if (data) {
+                    this.items.splice(index, 1);
+                    this.paginator.length -= 1;
+                }},
+                e => console.log(e));
     }
 
     private parseQueryParams(): void {

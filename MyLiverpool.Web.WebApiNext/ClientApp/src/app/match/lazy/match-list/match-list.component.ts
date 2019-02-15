@@ -15,13 +15,13 @@ import { PAGE, MATCHES_ROUTE } from "@app/+constants/";
     templateUrl: "./match-list.component.html",
     styleUrls: ["./match-list.component.scss"]
 })
-
 export class MatchListComponent implements OnInit, OnDestroy {
     private sub: Subscription;
     private sub2: Subscription;
     public items: Match[];
     private categoryId: number;
-    @ViewChild(MatPaginator) paginator: MatPaginator;
+    @ViewChild(MatPaginator)
+    paginator: MatPaginator;
 
     constructor(private matchService: MatchService,
         private route: ActivatedRoute,
@@ -53,7 +53,7 @@ export class MatchListComponent implements OnInit, OnDestroy {
                 catchError(() => {
                     return of([]);
                 })
-            ).subscribe(data => {
+        ).subscribe((data: Match[]) => {
                     this.items = data;
                     this.updateUrl();
                 },
@@ -61,12 +61,16 @@ export class MatchListComponent implements OnInit, OnDestroy {
     }
 
     public ngOnDestroy(): void {
-        if(this.sub) { this.sub.unsubscribe(); }
-        if(this.sub2) { this.sub2.unsubscribe(); }
+        if (this.sub) {
+            this.sub.unsubscribe();
+        }
+        if (this.sub2) {
+            this.sub2.unsubscribe();
+        }
     }
 
-    public update(): Observable<Pageable<Match>>  {
-        let filters = new MatchFilters();
+    public update(): Observable<Pageable<Match>> {
+        const filters = new MatchFilters();
         filters.categoryId = this.categoryId;
         filters.itemsPerPage = this.paginator.pageSize;
         filters.page = this.paginator.pageIndex + 1;
@@ -81,24 +85,22 @@ export class MatchListComponent implements OnInit, OnDestroy {
     };
 
     public showDeleteModal(index: number): void {
-        let dialogRef = this.dialog.open(DeleteDialogComponent);
+        const dialogRef = this.dialog.open(DeleteDialogComponent);
         dialogRef.afterClosed().subscribe(result => {
-            if (result) {
-                this.delete(index);
-            }
-        }, e => console.log(e));
+                if (result) {
+                    this.delete(index);
+                }
+            },
+            e => console.log(e));
     }
 
     private delete(index: number): void {
-        let result: boolean;
         this.matchService.delete(this.items[index].id)
-            .subscribe(res => result = res,
-                e => console.log(e),
-                () => {
-                    if (result) {
+            .subscribe((res: boolean) => {
+                    if (res) {
                         this.items.splice(index, 1);
                     }
-                }
-            );
+                },
+                e => console.log(e));
     }
 }

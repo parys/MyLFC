@@ -36,7 +36,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
         this.initBanForm();
         this.sub = this.route.params.subscribe(params => {
             this.service.getSingle(+params["id"])
-                .subscribe(data => this.parse(data),
+                .subscribe((data: User) => this.parse(data),
                     e => console.log(e));
         });
         if (this.roles.userRoles.isAdminAssistant) {
@@ -51,7 +51,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     public onSubmit(): void {
         let roleGroupId = this.roleForm.controls["roleGroupId"].value;
         this.service.updateRoleGroup(this.item.id, roleGroupId)
-            .subscribe(data => {
+            .subscribe((data: boolean) => {
                 if (data) {
                     this.roleForm.patchValue(roleGroupId);
                     this.snackBar.open("Группа изменена");
@@ -64,7 +64,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     public onSubmitBan(): void {
         let banDaysCount = this.banForm.controls["banDaysCount"].value;
         this.service.ban(this.item.id, banDaysCount)
-            .subscribe(data => {
+            .subscribe((data: boolean) => {
                 if (data) {
                     let time = new Date();
                     this.item.lockoutEnd = new Date(time.setHours(time.getHours() + banDaysCount * 24 * 60 * 60));
@@ -94,7 +94,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
 
     public unban(): void {
         this.service.unban(this.item.id)
-            .subscribe(data => {
+            .subscribe((data: boolean) => {
                 if (data) {               
                     this.item.lockoutEnd = null;                            
                 }
@@ -117,7 +117,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
 
     private loadRoleGroups(): void {
         this.roleGroupService.getAll()
-            .subscribe(data => this.roleGroups = data,
+            .subscribe((data: RoleGroup[]) => this.roleGroups = data,
                 e => console.log(e));
     }
 

@@ -51,7 +51,7 @@ export class NotificationListComponent implements OnInit {
     }
 
     private readArray(ids: number[]): boolean {
-        this.service.read(ids).subscribe(res => {
+        this.service.read(ids).subscribe((res: boolean) => {
             if (res && ids.length > 1) {
                 this.items.forEach(x => x.isRead = true);
             }

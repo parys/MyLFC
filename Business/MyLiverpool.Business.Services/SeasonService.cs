@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Business.Dto.Filters;
+using MyLiverpool.Business.Dto.Seasons;
 using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
 using MyLiverpool.Data.Entities;
@@ -86,7 +87,7 @@ namespace MyLiverpool.Business.Services
             {
                 id = await GetCurrentSeasonIdAsync();
             }
-            var season = await _seasonRepository.GetFirstByPredicateAsync(x => x.Id == id, true, x => x.Include(s => s.Matches));
+            var season = await _seasonRepository.GetFirstByPredicateAsync(x => x.Id == id, true);
             
             if (season == null)
             {
@@ -94,6 +95,23 @@ namespace MyLiverpool.Business.Services
             }
             var seasonDto = _mapper.Map<SeasonDto>(season);
             seasonDto.Matches = await _matchService.GetListForSeasonAsync(season.Id);
+            return seasonDto;
+        }
+
+        public async Task<SeasonCalendarDto> GetCalendarByIdWithMatchesAsync(int id)
+        {
+            if (id == 0)
+            {
+                id = await GetCurrentSeasonIdAsync();
+            }
+            var season = await _seasonRepository.GetFirstByPredicateAsync(x => x.Id == id, true, x => x.Include(s => s.Matches));
+
+            if (season == null)
+            {
+                return null;
+            }
+            var seasonDto = _mapper.Map<SeasonCalendarDto>(season);
+            seasonDto.Months = GetMonthsWithMatches(await _matchService.GetListForSeasonAsync(season.Id));
             return seasonDto;
         }
 
@@ -114,6 +132,36 @@ namespace MyLiverpool.Business.Services
         public async Task SetCurrentSeasonAsync(int currentSeasonId)
         {
             await _helperService.CreateOrUpdateAsync(HelperEntityType.CurrentSeason, currentSeasonId.ToString());
+        }
+
+        private List<SeasonMonthDto> GetMonthsWithMatches(IEnumerable<MatchDto> matches)
+        {
+            return new List<SeasonMonthDto>
+            {
+                GetMonth("Июнь", 6, matches),
+                GetMonth("Июль", 7, matches),
+                GetMonth("Август", 8, matches),
+                GetMonth("Сентябрь", 9, matches),
+                GetMonth("Октябрь", 10, matches),
+                GetMonth("Ноябрь", 11, matches),
+                GetMonth("Декабрь", 12, matches),
+                GetMonth("Январь", 1, matches),
+                GetMonth("Февраль", 2, matches),
+                GetMonth("Март", 3, matches),
+                GetMonth("Апрель", 4, matches),
+                GetMonth("Май", 5, matches)
+            };
+        }
+
+        private SeasonMonthDto GetMonth(string name, int monthCount, IEnumerable<MatchDto> matches)
+        {
+            var matchesForMonth = matches.Where(x => x.DateTime.Month == monthCount);
+            return new SeasonMonthDto
+            {
+                Name = name,
+                Matches = matchesForMonth,
+                Collapsed = matchesForMonth.All(x => x.DateTime < DateTimeOffset.Now)
+            };
         }
     }
 }

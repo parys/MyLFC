@@ -26,7 +26,7 @@ export class UserOnlineCounterComponent implements OnInit, OnDestroy {
     public ngOnInit(): void {
         this.updateCount();
         this.signalRService.onlineSubject
-            .subscribe(data => this.parse(data),
+            .subscribe((data: UsersOnline) => this.parse(data),
             e => console.log(e));
     }
 

@@ -40,7 +40,7 @@ export class StuffListComponent implements OnInit, OnDestroy {
 
     public updateState(): void {
         const type = PersonTypeEnum[this.activeLinkIndex].toString();
-        this.sub = this.personService.getStuff(type).subscribe(data => this.items = data,
+        this.sub = this.personService.getStuff(type).subscribe((data: Person[]) => this.items = data,
             e => console.log(e));
     }
 

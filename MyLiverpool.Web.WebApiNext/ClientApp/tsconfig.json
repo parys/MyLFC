@@ -2,6 +2,7 @@
   "compilerOptions": {
     "target": "es5",
     "moduleResolution": "node",
+    "baseUrl": "./",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "removeComments": true,

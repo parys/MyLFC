@@ -74,7 +74,7 @@ export class UserListComponent implements OnInit {
                 catchError(() => {
                     return of([]);
                 })
-            ).subscribe(data => {
+        ).subscribe((data: User[]) => {
                 this.items = data;
                 this.updateUrl();
             },
@@ -119,7 +119,7 @@ export class UserListComponent implements OnInit {
     }
 
     private updateRoleGroups() {
-        this.roleGroupService.getAll().subscribe(data => this.roleGroups = data,
+        this.roleGroupService.getAll().subscribe((data: RoleGroup[]) => this.roleGroups = data,
             e => console.log(e));
     }
 }

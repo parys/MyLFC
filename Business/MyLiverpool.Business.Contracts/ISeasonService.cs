@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using MyLiverpool.Business.Dto;
 using MyLiverpool.Business.Dto.Filters;
+using MyLiverpool.Business.Dto.Seasons;
 using MyLiverpool.Data.Common;
 
 namespace MyLiverpool.Business.Contracts
@@ -13,6 +13,9 @@ namespace MyLiverpool.Business.Contracts
         Task<PageableData<SeasonDto>> GetListAsync(SeasonFiltersDto filters);
 
         Task<SeasonDto> GetByIdWithMatchesAsync(int id);
+
+        //todo could reduce size of dto
+        Task<SeasonCalendarDto> GetCalendarByIdWithMatchesAsync(int id);
 
         Task<IEnumerable<KeyValuePair<int, string>>> GetSeasonsByYearAsync(string typed);
 

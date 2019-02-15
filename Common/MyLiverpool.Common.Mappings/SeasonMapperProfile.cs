@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MyLiverpool.Business.Dto;
+using MyLiverpool.Business.Dto.Seasons;
 using MyLiverpool.Data.Entities;
 
 namespace MyLiverpool.Common.Mappings
@@ -15,6 +16,7 @@ namespace MyLiverpool.Common.Mappings
         {
             CreateMap<Season, SeasonDto>();
             CreateMap<SeasonDto, Season>();
+            CreateMap<Season, SeasonCalendarDto>();
         }
     }
 }

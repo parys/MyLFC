@@ -20,7 +20,7 @@ export class UserConfigComponent implements OnInit, OnDestroy {
     public ngOnInit(): void {     
         this.initUserConfigForm();
         this.sub = this.service.getConfig()
-            .subscribe(data => this.parse(data),
+            .subscribe((data: UserConfig) => this.parse(data),
                 e => console.log(e));
     }
 
@@ -31,7 +31,7 @@ export class UserConfigComponent implements OnInit, OnDestroy {
     public onSubmit(): void {
         const userConfig: UserConfig = this.userConfigForm.value;
         this.service.updateConfig(userConfig)
-            .subscribe(data => {
+            .subscribe((data: UserConfig) => {
                 if (data) {
                     this.snackBar.open("Настройки изменены");
                 } else {
