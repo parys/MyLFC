@@ -61,8 +61,8 @@ export class NotificationCounterComponent implements OnInit, OnDestroy {
         this.sub = this.service.getUnreadCount()
             .subscribe(data => {
                 this.count = +data;
-                    this.titleService.addCount(this.count);
                 if (+data > 0) {
+                    this.titleService.addCount(this.count);
                     this.snackBar.open("Есть новые уведомления", this.action)
                         .onAction()
                         .subscribe(_ => this.router.navigate([NOTIFICATIONS_ROUTE]));

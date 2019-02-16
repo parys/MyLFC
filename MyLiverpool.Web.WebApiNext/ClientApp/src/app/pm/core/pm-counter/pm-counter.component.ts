@@ -56,11 +56,11 @@ export class PmCounterComponent implements OnInit, OnDestroy {
                     this.count = +data;
                 if (+data > 0) {
                     this.titleService.addCount(this.count);
-                        this.snackBar
-                            .open("У вас есть непрочитанные личные сообщения", this.action)
-                            .onAction()
-                            .subscribe(data => this.router.navigate([PMS_ROUTE]));
-                    }
+                    this.snackBar
+                        .open("Есть новые сообщения", this.action)
+                        .onAction()
+                        .subscribe(data => this.router.navigate([PMS_ROUTE]));
+                }
                 },
                 e => console.log(e),
                 () => this.cd.markForCheck());

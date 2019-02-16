@@ -15,6 +15,7 @@
 
     <!-- Set this to true if you enable server-side prerendering -->
     <BuildServerSideRenderer>false</BuildServerSideRenderer>
+    <RemoveHashFromTiny>false</RemoveHashFromTiny>
     <ApplicationIcon />
     <StartupObject />
     </PropertyGroup>
@@ -149,17 +150,17 @@
     <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build3" Condition=" '$(BuildServerSideRenderer)' == 'true' " />
 
     <!-- Removes hashing from scripts-->
-    <!--<ItemGroup>
+    <ItemGroup>
       <FilesToMove Include="$(SpaRoot)dist\aspnetcorespa\scripts*.js" />
     </ItemGroup>
-    <Move SourceFiles="@(FilesToMove)" DestinationFiles="$(SpaRoot)dist\aspnetcorespa\scripts.js" />-->
+    <Move SourceFiles="@(FilesToMove)" DestinationFiles="$(SpaRoot)dist\aspnetcorespa\scripts.js" Condition="'$(RemoveHashFromTiny)' == 'true'" />
     <!--remove scripts from index-->
-    <!--<ReplaceFileText InputFilename="$(SpaRoot)dist\aspnetcorespa\index.html" OutputFilename="$(SpaRoot)dist\aspnetcorespa\index.html" />-->
+    <ReplaceFileText InputFilename="$(SpaRoot)dist\aspnetcorespa\index.html" OutputFilename="$(SpaRoot)dist\aspnetcorespa\index.html"  Condition="'$(RemoveHashFromTiny)' == 'true'"/>
     <!-- Include the newly-built files in the publish output -->
     <ItemGroup>
       <DistFiles Include="$(SpaRoot)dist\**;" />
       <DistFiles Include="$(SpaRoot)dist-server\**" Condition=" '$(BuildServerSideRenderer)' == 'true' " />
-      <!--<DistFiles Include="$(SpaRoot)node_modules\**" Condition="'$(BuildServerSideRenderer)' == 'true'" />-->
+      <DistFiles Include="$(SpaRoot)node_modules\**" Condition="'$(BuildServerSideRenderer)' == 'true'" />
       <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
         <RelativePath>%(DistFiles.Identity)</RelativePath>
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
