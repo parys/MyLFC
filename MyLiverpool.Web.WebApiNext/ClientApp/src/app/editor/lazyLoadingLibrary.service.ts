@@ -1,9 +1,9 @@
 ﻿import { Injectable, Inject } from "@angular/core";
 import { Observable, ReplaySubject } from "rxjs";
-
 import { DOCUMENT } from "@angular/common";
 
-@Injectable()//todo maybe for serverside need to workaround
+//todo maybe for serverside need to workaround
+@Injectable()
 export class LazyLoadingLibraryService {
     private loadedLibraries: { [url: string]: ReplaySubject<any> } = {};
 
