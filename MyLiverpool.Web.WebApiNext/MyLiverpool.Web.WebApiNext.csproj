@@ -67,7 +67,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AspNet.Security.OAuth.Validation" Version="2.0.0-rc3-final" />
+    <PackageReference Include="AspNet.Security.OAuth.Validation" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.OAuth" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.2.0" />
@@ -155,7 +155,7 @@
     </ItemGroup>
     <Move SourceFiles="@(FilesToMove)" DestinationFiles="$(SpaRoot)dist\aspnetcorespa\scripts.js" Condition="'$(RemoveHashFromTiny)' == 'true'" />
     <!--remove scripts from index-->
-    <ReplaceFileText InputFilename="$(SpaRoot)dist\aspnetcorespa\index.html" OutputFilename="$(SpaRoot)dist\aspnetcorespa\index.html"  Condition="'$(RemoveHashFromTiny)' == 'true'"/>
+    <ReplaceFileText InputFilename="$(SpaRoot)dist\aspnetcorespa\index.html" OutputFilename="$(SpaRoot)dist\aspnetcorespa\index.html" Condition="'$(RemoveHashFromTiny)' == 'true'" />
     <!-- Include the newly-built files in the publish output -->
     <ItemGroup>
       <DistFiles Include="$(SpaRoot)dist\**;" />
