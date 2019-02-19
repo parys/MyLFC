@@ -8,36 +8,31 @@ import { ImageService } from "../image.service";
     styleUrls: ["./image-crop-addition.component.scss"]
 })
 export class ImageCropAdditionComponent {
-    public uploadedFiles: string[];
     @Input()
     public controlName: string = "upload-crop-image";
     @Output()
     public loadedImage: EventEmitter<string> = new EventEmitter<string>();
-    imageChangedEvent: any = "";
-    croppedImage: any = "";
-
+    public imageChangedEvent: any = "";
+    public croppedImage: any = "";
 
     constructor(private service: ImageService,
         private snackBar: MatSnackBar
-    ) {
-    }
+    ) {}
 
-    public onUploadImage(event: any) {
+    public onUploadImage(event: any): void  {
         this.imageChangedEvent = event;
     }
 
-    imageCropped(image: string) {
+    public imageCropped(image: string): void  {
         this.croppedImage = image;
-        
     }
 
-    crop() {
+    public crop(): void {
         this.service.uploadBase64Image(this.croppedImage.base64)
             .subscribe(result => {
                 this.loadedImage.emit(result);
                 this.snackBar.open("Изображение обрезано");
-                this.imageChangedEvent = null;
-                this.croppedImage = null;
+                this.imageChangedEvent = this.croppedImage = null;
                 },
                 error => {
                     this.snackBar.open("Ошибка при загрузке", null);

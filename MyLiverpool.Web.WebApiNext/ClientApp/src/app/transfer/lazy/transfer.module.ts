@@ -9,7 +9,7 @@ import { TransferCoreModule } from "../core";
 import { TransferCurrentListComponent } from "./transfer-current-list";
 import { ClubCoreModule } from "@app/club";
 import { SeasonCoreModule } from "@app/season";
-import { MatNativeDateModule, MatDatepickerModule, MatTableModule, MatAutocompleteModule } from "@angular/material";
+import { MatNativeDateModule, MatDatepickerModule, MatTableModule, MatAutocompleteModule, MatSlideToggleModule, MatSortModule } from "@angular/material";
 import { BreadcrumbService } from "@app/shared/breadcrumb";
 import { TRANSFERS_ROUTE, TRANSFERS_RU } from "@app/+constants";
 
@@ -24,7 +24,9 @@ import { TRANSFERS_ROUTE, TRANSFERS_RU } from "@app/+constants";
         MatNativeDateModule,
         MatDatepickerModule,
         MatTableModule,
-        MatAutocompleteModule
+        MatAutocompleteModule,
+        MatSlideToggleModule,
+        MatSortModule
     ],
     declarations: [
         TransferEditComponent,

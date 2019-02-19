@@ -20,7 +20,6 @@
     "suppressImplicitAnyIndexErrors": true,
     "lib": [
       "es2017",
-      "es2016.array.include",
       "dom"
     ],
     "paths": {
@@ -34,11 +33,6 @@
     "node",
     "tinymce"
   ],
-
-  "awesomeTypescriptLoaderOptions": {
-    "forkChecker": true,
-    "useWebpackText": true
-  },
   "compileOnSave": false,
   "atom": { "rewriteTsconfig": false }
 }

@@ -2,7 +2,7 @@
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Comment } from "@app/+common-models";
-import { CommentService } from "../comment.service";
+import { CommentService } from "../../core/comment.service";
 import { Pageable } from "@app/shared";
 import { RolesCheckedService } from "@app/+auth";
 

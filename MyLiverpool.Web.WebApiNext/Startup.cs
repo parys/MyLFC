@@ -100,15 +100,15 @@ namespace MyLiverpool.Web.WebApiNext
 
             services.AddCustomIdentitySettings();
 
-            //services.AddAuthentication()
-            //    .AddOAuthValidation(options =>
-            //    {
-            //        options.Events.OnRetrieveToken = context =>
-            //        {
-            //            context.Token = context.Request.Query["access_token"];
-            //            return Task.CompletedTask;
-            //        };
-            //    });
+            services.AddAuthentication()
+                .AddOAuthValidation(options =>
+                {
+                    options.Events.OnRetrieveToken = context =>
+                    {
+                        context.Token = context.Request.Query["access_token"];
+                        return Task.CompletedTask;
+                    };
+                });
             services.ApplyCustomOpenIdDict(Env);
 
             services.AddSignalR()

@@ -29,6 +29,7 @@ import { UserCoreModule } from "./user";
 registerLocaleData(localeRU);
 import { PollCoreModule } from "./poll";
 import { BreadcrumbService } from "@app/shared/breadcrumb";
+import { EditorModule } from "@app/editor"; //todo need for static page edit, move to separate module when will split
 
 declare var Hammer: any;
 
@@ -70,6 +71,7 @@ export class UIErrorHandler extends ErrorHandler {
         TransferCoreModule,
         MaterialCoreModule,
         NotificationCoreModule,
+        EditorModule,
      //   PollCoreModule,
         PersonCoreModule,
         RouterModule.forRoot(routes, {
