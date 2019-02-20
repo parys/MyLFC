@@ -15,11 +15,13 @@
     "allowUnreachableCode": false,
     "alwaysStrict": false,
     "skipDefaultLibCheck": true,
+    "importHelpers": true,
     "skipLibCheck": true, // Workaround for https://github.com/angular/angular/issues/17863. Remove this if you upgrade to a fixed version of Angular.
     // "allowSyntheticDefaultImports": true,
     "suppressImplicitAnyIndexErrors": true,
     "lib": [
-      "es2017",
+      "es2018",
+      "es2016.array.include",
       "dom"
     ],
     "paths": {

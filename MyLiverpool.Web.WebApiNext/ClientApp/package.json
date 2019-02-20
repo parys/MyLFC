@@ -13,7 +13,8 @@
     "ng": "ng",
     "start": "ng serve",
     "lint": "ng lint",
-    "analyze": "npm run build -- --stats-json && webpack-bundle-analyzer dist/aspnetcorespa/stats.json"
+    "analyze": "npm run build -- --stats-json && webpack-bundle-analyzer dist/aspnetcorespa/stats.json",
+    "source-map": "npm run build -- --sourceMap=true --outputHashing=none && source-map-explorer dist/aspnetcorespa/main.js dist/aspnetcorespa/main.js.map"
   },
   "dependencies": {
     "@angular/animations": "7.2.5",
@@ -60,7 +61,8 @@
     "@types/node": "11.9.3",
     "@types/tinymce": "4.5.18",
     "webpack-bundle-analyzer": "3.0.4",
-    "acorn": "6.1.0"
+    "acorn": "6.1.0",
+    "source-map-explorer": "1.7.0"
   },
   "main": "package.json",
   "author": "Andrei Kapitanchik",
