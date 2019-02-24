@@ -15,11 +15,17 @@ export class LazyLoadingLibraryService {
         }
         
         this.loadedLibraries[url] = new ReplaySubject();
-
+        if (this.getTinymce()) {
+            console.warn("!!! SCRIPT ALREADY LOADED !!!");
+            this.loadedLibraries[url].next("");
+            this.loadedLibraries[url].complete();
+            return this.loadedLibraries[url].asObservable();
+        }
         const script = this.document.createElement("script");
         script.type = "text/javascript";
         script.src = url;
         script.onload = () => {
+            console.warn("!!! SCRIPT LOADED !!!");
             this.loadedLibraries[url].next("");
             this.loadedLibraries[url].complete();
         };
@@ -27,4 +33,9 @@ export class LazyLoadingLibraryService {
         this.document.body.appendChild(script);
         return this.loadedLibraries[url].asObservable();
     }
+
+    public getTinymce = () => {
+        const w = typeof window !== 'undefined' ? (window as any) : undefined;
+        return w && w.tinymce ? w.tinymce : null;
+    };
 }

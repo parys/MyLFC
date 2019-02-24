@@ -41,7 +41,7 @@ export class ChatWindowComponent implements OnInit {
                 this.putToChat(data, false);
             }
         });
-        this.roles.rolesChanged.subscribe(_ =>
+        this.roles.rolesChanged.subscribe(() =>
             this.cd.markForCheck());
     }
 
@@ -52,10 +52,7 @@ export class ChatWindowComponent implements OnInit {
             .subscribe((data: ChatMessage[]) => {
                     this.items = data.concat(this.items);
                 },
-                error => console.log(error),
-                () => {
-                    this.cd.markForCheck();
-                });
+                () => this.cd.markForCheck());
     }
 
     public onSubmit(): void {
@@ -71,8 +68,7 @@ export class ChatWindowComponent implements OnInit {
         this.service.createOrUpdate(message.id, message).subscribe(data => {
                 this.putToChat(data);
                 this.cancelEdit();
-            },
-            e => console.log(e));
+            });
         //} else {
         //    this.service.create(message)
         //        .subscribe(data => {
@@ -88,8 +84,7 @@ export class ChatWindowComponent implements OnInit {
                 if (result) {
                     this.delete(index);
                 }
-            },
-            e => console.log(e));
+            });
     }
 
     public addReply(index: number): void {

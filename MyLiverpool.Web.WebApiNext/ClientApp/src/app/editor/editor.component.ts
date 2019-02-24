@@ -1,8 +1,9 @@
-﻿import { Component, EventEmitter, forwardRef, Input, Output, NgZone, } from "@angular/core";
+﻿import { Component, EventEmitter, forwardRef, Input, Output, NgZone, AfterViewInit, OnDestroy} from "@angular/core";
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from "@angular/forms";
 import { Observable, ReplaySubject } from "rxjs";
 //import { Editor, Settings } from "tinymce";
 import { LazyLoadingLibraryService } from "./lazyLoadingLibrary.service";
+import { Events } from "./events";
 
 declare let tinymce: any;
 
@@ -15,13 +16,14 @@ declare let tinymce: any;
             multi: true
         }],
     styleUrls: ["./editor.component.scss"],
-    template: `<textarea id="{{elementId}}">{{_value}}</textarea>`
+    template: `<textarea id="{{elementId}}"></textarea>`
 })
 
-export class EditorComponent implements ControlValueAccessor {
+export class EditorComponent extends Events implements AfterViewInit, ControlValueAccessor, OnDestroy  {
     @Output() public change = new EventEmitter();
     @Output() public ready = new EventEmitter();
     @Output() public blur = new EventEmitter();
+    @Input() public initialValue: string = "";
     @Input("value") public _value: string = "";
     @Input() public type: number = 1;
     @Input() public height: number = 200;
@@ -34,7 +36,8 @@ export class EditorComponent implements ControlValueAccessor {
     constructor(
         private lazyService: LazyLoadingLibraryService,
         private zone: NgZone) {
-        //console.warn("tiny ctor " + this.elementId);
+        super();
+    //    console.warn("tiny ctor " + this.elementId);
         //if (!this.isTinyDefined()) {
         //    console.warn("tiny ctor-2 " + this.elementId);
         //    console.warn("tiny ctor-3 " + this.elementId);
@@ -43,25 +46,25 @@ export class EditorComponent implements ControlValueAccessor {
     }
 
     public ngAfterViewInit(): void {
-        console.warn("ngAfterViewInit start " + this.elementId);
+   //     console.warn("ngAfterViewInit start " + this.elementId);
         this.lazyService.loadJs("./scripts.js").subscribe(_ => {
-            console.warn("ngAfterViewInit middle " + this.elementId);
+   //         console.warn("ngAfterViewInit middle " + this.elementId);
             this.initTiny();
         });
-        console.warn("ngAfterViewInit end " + this.elementId);
+     //   console.warn("ngAfterViewInit end " + this.elementId);
     }
 
     public setFocus() {
-        console.warn("setFocus start " + this.elementId);
+      //  console.warn("setFocus start " + this.elementId);
         this.isTinyDefinedO().subscribe(_ => {
             if (tinymce.editors && tinymce.editors[this.elementId]) {
-                console.warn("setFocus middle " + this.elementId);
+       //         console.warn("setFocus middle " + this.elementId);
                 tinymce.editors[this.elementId].selection.select(tinymce.editors[this.elementId].getBody(), true);
                 tinymce.editors[this.elementId].selection.collapse(false);
                 tinymce.editors[this.elementId].focus();
             }
         });
-        console.warn("setFocus end " + this.elementId);
+    //    console.warn("setFocus end " + this.elementId);
     }
 
     public get value(): string {
@@ -69,56 +72,56 @@ export class EditorComponent implements ControlValueAccessor {
     };
 
     public set value(value: string) {
-        console.warn("value start " + this.elementId);
+   //     console.warn("value start " + this.elementId);
         this.isTinyDefinedO().subscribe(_ => {
-            console.warn("value mid " + this.elementId);
+   //         console.warn("value mid " + this.elementId);
             if (value !== this._value) {
                 this._value = value;
-                this.onChange(value);
-                this.onTouched();
+                this.onChangeCallback(value);
+                this.onTouchedCallback();
             }
         });
     }
 
     public updateValue(value: any): void {
-        console.warn("updateValue start " + this.elementId);
+  //      console.warn("updateValue start " + this.elementId);
         this.zone.run(() => {
-            console.warn("updateValue middle " + this.elementId);
+ //          console.warn("updateValue middle " + this.elementId);
             this.value = value;
-            this.onChange(value);
-            this.onTouched();
+            this.onChangeCallback(value);
+            this.onTouchedCallback();
             this.change.emit(value);
         });
     }
 
     public ngOnDestroy(): void {
-        console.warn("ngOnDestroy start " + this.elementId);
-    //    if (this.isTinyDefined() && this.editor) {
-            console.warn("ngOnDestroy middle " + this.elementId);
-           // tinymce.remove(this.editor);
-     //   }
+   //     console.warn("ngOnDestroy start " + this.elementId);
+        if (this.isTinyDefinedO() && this.editor) {
+ //           console.warn("ngOnDestroy middle " + this.elementId);
+            tinymce.remove(this.editor);
+        }
     }
 
     public writeValue(value: any): void {
-        console.warn("writeValue start " + this.elementId);
+ //       console.warn("writeValue start " + this.elementId);
         this.isTinyDefinedO().subscribe(_ => {
-            console.warn("writeValue middle " + this.elementId);
+ //           console.warn("writeValue middle " + this.elementId);
             this.value = value;
             if (tinymce.editors && tinymce.editors[this.elementId]) {
                 tinymce.editors[this.elementId].setContent((value) ? value : "");
             }
         });
     }
-
-    public onChange(_: any): void { }
-    public onTouched(): void { }
-    public registerOnChange(fn: any): void {
-        this.onChange = fn;
+    public registerOnChange(fn: (_: any) => void): void {
+        this.onChangeCallback = fn;
     }
 
     public registerOnTouched(fn: any): void {
-        this.onTouched = fn;
+        this.onTouchedCallback = fn;
     }
+
+    private onTouchedCallback = () => { };
+    private onChangeCallback = (x: any) => { };
 
     private getPlugins(): string {
         const common: string = `autolink image paste customEmoticons`;
@@ -154,7 +157,7 @@ export class EditorComponent implements ControlValueAccessor {
     }
 
     private initTiny(): void {
-      //  console.warn("initTiny start " + this.elementId);
+  //      console.warn("initTiny start " + this.elementId);
         const settings1//: Settings
             = {
                 autoresize_overflow_padding: 0,
@@ -182,43 +185,52 @@ export class EditorComponent implements ControlValueAccessor {
                     customEmoticons: "/plugins/customEmoticons/plugin.js"
                 },
                 skin_url: "/src/lightgray",
-                setup: (editor: any) => {//Editor) => {
+                setup: (editor: any) => { //Editor) => {
                     this.editor = editor;
-                    editor.on("change", () => {
-                        const content: any = editor.getContent();
+                    editor.on("init",
+                        () =>
+                        this.zone.run(() => editor.setContent(this._value))
+                    );
+                    editor.on(
+                        "setcontent",
+                        ({ content, format }: any) => format === "html" &&
+                        content &&
+                        this.zone.run(() => this.onChangeCallback(content))
+                    );
+                    editor.on("change keyup undo redo", () => {
+                        const content: any = this.onChangeCallback(editor.getContent());
                         this.updateValue(content);
                     });
-                    editor.on("keyup", () => {
-                        const content: any = editor.getContent();
-                        this.updateValue(content);
-                    });
+                    editor.on("blur", () => this.zone.run(() => this.onTouchedCallback()));
                 }
             }
-        console.warn("initTiny mid " + this.elementId);
-        tinymce.init(settings1);
-        console.warn("initTiny end " + this.elementId);
+ //       console.warn("initTiny mid " + this.elementId);
+        this.zone.runOutsideAngular(() => {
+            tinymce.init(settings1);
+        });
+ //       console.warn("initTiny end " + this.elementId);
         this.elementLoaded.next("");
         this.elementLoaded.complete();
     }
 
-    private setupFunction(editor: any) {//Editor) {
-        this.editor = editor;
-        if (editor) {
-            editor.on("change",
-                () => {
-                    const content: any = editor.getContent();
-                    this.updateValue(content);
-                });
-            editor.on("keyup",
-                () => {
-                    const content: any = editor.getContent();
-                    this.updateValue(content);
-                });
-        }
-    }
+    //private setupFunction(editor: any) {//Editor) {
+    //    this.editor = editor;
+    //    if (editor) {
+    //        editor.on("change",
+    //            () => {
+    //                const content: any = editor.getContent();
+    //                this.updateValue(content);
+    //            });
+    //        editor.on("keyup",
+    //            () => {
+    //                const content: any = editor.getContent();
+    //                this.updateValue(content);
+    //            });
+    //    }
+    //}
 
     private isTinyDefinedO(): Observable<any> {
-        console.info("isTinyDefinedO " + this.elementId);
+//        console.info("isTinyDefinedO " + this.elementId);
         return this.elementLoaded.asObservable();
     }
 }
