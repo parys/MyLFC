@@ -2,8 +2,6 @@
 import { RouterModule } from "@angular/router";
 import { SharedModule } from "@app/shared";
 import { CommentService } from "./comment.service";
-import { CommentDetailComponent } from "./comment-detail";
-import { CommentSectionComponent } from "./comment-section";
 import { CommentLastComponent } from "./comment-last";
 import { EditorModule } from "@app/editor";
 
@@ -14,15 +12,10 @@ import { EditorModule } from "@app/editor";
         RouterModule,
     ],
     declarations: [
-        CommentDetailComponent,
-        CommentSectionComponent,
         CommentLastComponent,
     ],
     exports: [
-        CommentSectionComponent,
-        CommentDetailComponent,
         CommentLastComponent,
-        EditorModule,
     ],
     providers: [
         CommentService

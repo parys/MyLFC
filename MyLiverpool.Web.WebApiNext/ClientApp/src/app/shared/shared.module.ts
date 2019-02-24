@@ -4,9 +4,9 @@ import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { DeleteDialogComponent } from "./delete-dialog";
 import {
-    MatButtonModule, MatCardModule, MatCheckboxModule, MatDialogModule, MatExpansionModule,
-    MatIconModule, MatInputModule, MatMenuModule, MatProgressBarModule, MatSlideToggleModule,
-    MatSnackBarModule, MatTooltipModule, MatSortModule, MatPaginatorModule, MatPaginatorIntl,
+    MatButtonModule, MatDialogModule, MatExpansionModule, MatCardModule,
+    MatIconModule, MatInputModule, MatMenuModule, MatProgressBarModule,
+    MatSnackBarModule, MatTooltipModule, MatPaginatorModule, MatPaginatorIntl,
     MAT_SNACK_BAR_DEFAULT_OPTIONS, MatBadgeModule,
     ErrorStateMatcher, ShowOnDirtyErrorStateMatcher, MatSidenavModule
 } from "@angular/material";
@@ -38,17 +38,17 @@ import { AuthModule } from "@app/+auth";
         MatBadgeModule,
         MatButtonModule,
         MatCardModule,
-        MatCheckboxModule,
+      //  MatCheckboxModule,
         MatDialogModule,
-        MatExpansionModule,
+      //  MatExpansionModule,
         MatIconModule,
         MatInputModule,
         MatMenuModule,
         MatProgressBarModule,
-        MatSlideToggleModule,
+     //   MatSlideToggleModule,
         MatSnackBarModule,
         MatPaginatorModule,
-        MatSortModule,
+     //   MatSortModule,
         MatTooltipModule,
         MatSidenavModule
 
@@ -78,16 +78,16 @@ import { AuthModule } from "@app/+auth";
         MatBadgeModule,
         MatButtonModule,
         MatCardModule,
-        MatCheckboxModule,
+      //  MatCheckboxModule,
         MatDialogModule,
         MatExpansionModule,
         MatIconModule,
         MatInputModule,
         MatMenuModule,
         MatPaginatorModule,
-        MatSlideToggleModule,
+      //  MatSlideToggleModule,
         MatSnackBarModule,
-        MatSortModule,
+      //  MatSortModule,
         MatTooltipModule,
         MatSidenavModule
     ],

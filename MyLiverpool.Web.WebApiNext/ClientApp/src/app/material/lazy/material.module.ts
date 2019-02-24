@@ -4,7 +4,7 @@ import { SharedModule } from "@app/shared";
 import { materialRoutes } from "./material.routes";
 import { MaterialCoreModule } from "../core/material-core.module";
 import { MaterialDetailComponent } from "./material-detail";
-import { CommentCoreModule } from "@app/comment";
+import { CommentSharedModule } from "@app/comment";
 import { BreadcrumbService } from "@app/shared/breadcrumb";
 import { NEWS_ROUTE, BLOGS_ROUTE, NEWSS_RU, NEWS_RU, BLOGS_RU, BLOG_RU } from "@app/+constants";
 
@@ -12,7 +12,7 @@ import { NEWS_ROUTE, BLOGS_ROUTE, NEWSS_RU, NEWS_RU, BLOGS_RU, BLOG_RU } from "@
     imports: [
         SharedModule,
         RouterModule.forChild(materialRoutes),
-        CommentCoreModule,
+        CommentSharedModule,
         MaterialCoreModule
     ],
     declarations: [

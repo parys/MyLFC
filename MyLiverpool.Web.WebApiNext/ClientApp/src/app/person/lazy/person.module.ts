@@ -6,7 +6,7 @@ import { SquadComponent } from "./squad";
 import { personRoutes } from "./person.routes";
 import { SharedModule } from "@app/shared";
 import { PersonCoreModule } from "../core";
-import { MatTabsModule, MatTableModule, MatSelectModule } from "@angular/material";
+import { MatTabsModule, MatTableModule, MatSelectModule, MatSortModule } from "@angular/material";
 import { PersonEditModule } from "../core/+person-edit";
 import { PersonDetailComponent } from "./person-detail";
 import { BreadcrumbService } from "../../shared/breadcrumb";
@@ -21,7 +21,8 @@ import { PERSONS_ROUTE, STUFF_ROUTE, SQUAD_ROUTE } from "@app/+constants";
         PersonEditModule,
         MatTabsModule,
         MatTableModule,
-        MatSelectModule
+        MatSelectModule,
+        MatSortModule
     ],
     declarations: [
         PersonListComponent,

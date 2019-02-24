@@ -119,8 +119,7 @@ export class PersonListComponent implements OnInit {
                 if (data) {
                     this.items.splice(index, 1);
                     this.paginator.length -= 1;
-                }},
-                e => console.log(e));
+                }});
     }
 
     private parseQueryParams(): void {

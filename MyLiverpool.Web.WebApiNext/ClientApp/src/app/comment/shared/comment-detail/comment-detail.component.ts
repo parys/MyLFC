@@ -5,7 +5,7 @@ import { MatDialog } from "@angular/material";
 import { Subscription } from "rxjs"
 import { Comment } from "@app/+common-models";
 import { CommentVote } from "@app/comment/model";
-import { CommentService } from "../comment.service";
+import { CommentService } from "../../core/comment.service";
 import { DeleteDialogComponent } from "@app/shared";
 import { RolesCheckedService } from "@app/+auth";
 import { EditorComponent } from "@app/editor";

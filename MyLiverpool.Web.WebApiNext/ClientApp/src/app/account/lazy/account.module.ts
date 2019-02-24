@@ -1,5 +1,6 @@
 ﻿import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
+import { MatCheckboxModule } from "@angular/material";
 import { SharedModule } from "@app/shared";
 import { accountRoutes } from "./account.routes";
 import { AccountSignupComponent } from "./account-signup";
@@ -19,7 +20,8 @@ import { ACCOUNT_ROUTE } from "@app/+constants";
         SharedModule,
         RouterModule.forChild(accountRoutes),
         AccountCoreModule,
-        RecaptchaModule
+        RecaptchaModule,
+        MatCheckboxModule
     ],
     declarations: [
         AccountSignupComponent,
