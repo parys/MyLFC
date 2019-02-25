@@ -16,7 +16,7 @@ export class LazyLoadingLibraryService {
         
         this.loadedLibraries[url] = new ReplaySubject();
         if (this.getTinymce()) {
-            console.warn("!!! SCRIPT ALREADY LOADED !!!");
+       //     console.warn("!!! SCRIPT ALREADY LOADED !!!");
             this.loadedLibraries[url].next("");
             this.loadedLibraries[url].complete();
             return this.loadedLibraries[url].asObservable();
@@ -25,7 +25,7 @@ export class LazyLoadingLibraryService {
         script.type = "text/javascript";
         script.src = url;
         script.onload = () => {
-            console.warn("!!! SCRIPT LOADED !!!");
+    //        console.warn("!!! SCRIPT LOADED !!!");
             this.loadedLibraries[url].next("");
             this.loadedLibraries[url].complete();
         };

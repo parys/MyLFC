@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, ChangeDetectorRef, Input, ViewChild, ChangeDetectionStrategy } from "@angular/core";
+﻿import { Component, OnInit, ChangeDetectorRef, Input, ViewChild, ChangeDetectionStrategy, AfterContentChecked } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { MatDialog, MatSnackBar } from "@angular/material";
 import { ChatMessage } from "@app/+common-models";
@@ -15,7 +15,7 @@ import { MAX_CHAT_MESSAGE_LENGTH, MESSAGE } from "@app/+constants";
     styleUrls: ["./chat-window.component.scss"],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ChatWindowComponent implements OnInit {
+export class ChatWindowComponent implements OnInit, AfterContentChecked {
     public messageForm: FormGroup;
     public items: ChatMessage[] = new Array<ChatMessage>();
     public selectedEditIndex: number = null;
@@ -43,6 +43,10 @@ export class ChatWindowComponent implements OnInit {
         });
         this.roles.rolesChanged.subscribe(() =>
             this.cd.markForCheck());
+    }
+
+    public ngAfterContentChecked(): void {
+        this.cd.markForCheck();
     }
 
     public update(): void {

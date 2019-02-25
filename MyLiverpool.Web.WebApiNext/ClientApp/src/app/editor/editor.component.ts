@@ -3,7 +3,6 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from "@angular/forms";
 import { Observable, ReplaySubject } from "rxjs";
 //import { Editor, Settings } from "tinymce";
 import { LazyLoadingLibraryService } from "./lazyLoadingLibrary.service";
-import { Events } from "./events";
 
 declare let tinymce: any;
 
@@ -19,11 +18,10 @@ declare let tinymce: any;
     template: `<textarea id="{{elementId}}"></textarea>`
 })
 
-export class EditorComponent extends Events implements AfterViewInit, ControlValueAccessor, OnDestroy  {
+export class EditorComponent implements AfterViewInit, ControlValueAccessor, OnDestroy  {
     @Output() public change = new EventEmitter();
     @Output() public ready = new EventEmitter();
     @Output() public blur = new EventEmitter();
-    @Input() public initialValue: string = "";
     @Input("value") public _value: string = "";
     @Input() public type: number = 1;
     @Input() public height: number = 200;
@@ -36,7 +34,6 @@ export class EditorComponent extends Events implements AfterViewInit, ControlVal
     constructor(
         private lazyService: LazyLoadingLibraryService,
         private zone: NgZone) {
-        super();
     //    console.warn("tiny ctor " + this.elementId);
         //if (!this.isTinyDefined()) {
         //    console.warn("tiny ctor-2 " + this.elementId);
@@ -84,9 +81,7 @@ export class EditorComponent extends Events implements AfterViewInit, ControlVal
     }
 
     public updateValue(value: any): void {
-  //      console.warn("updateValue start " + this.elementId);
         this.zone.run(() => {
- //          console.warn("updateValue middle " + this.elementId);
             this.value = value;
             this.onChangeCallback(value);
             this.onTouchedCallback();
@@ -95,9 +90,9 @@ export class EditorComponent extends Events implements AfterViewInit, ControlVal
     }
 
     public ngOnDestroy(): void {
-   //     console.warn("ngOnDestroy start " + this.elementId);
+    //    console.warn("ngOnDestroy start " + this.elementId);
         if (this.isTinyDefinedO() && this.editor) {
- //           console.warn("ngOnDestroy middle " + this.elementId);
+  //          console.warn("ngOnDestroy middle " + this.elementId);
             tinymce.remove(this.editor);
         }
     }
@@ -188,18 +183,17 @@ export class EditorComponent extends Events implements AfterViewInit, ControlVal
                 setup: (editor: any) => { //Editor) => {
                     this.editor = editor;
                     editor.on("init",
-                        () =>
-                        this.zone.run(() => editor.setContent(this._value))
+                        () => {
+                            this.zone.run(() => editor.setContent(this._value));
+                        }
                     );
                     editor.on(
                         "setcontent",
-                        ({ content, format }: any) => format === "html" &&
-                        content &&
-                        this.zone.run(() => this.onChangeCallback(content))
-                    );
+                        ({ content, format }: any) => format === "html" && content &&
+                        this.zone.run(() => this.onChangeCallback(content)));
                     editor.on("change keyup undo redo", () => {
-                        const content: any = this.onChangeCallback(editor.getContent());
-                        this.updateValue(content);
+                        this.onChangeCallback(editor.getContent());
+                        this.updateValue(editor.getContent());
                     });
                     editor.on("blur", () => this.zone.run(() => this.onTouchedCallback()));
                 }
