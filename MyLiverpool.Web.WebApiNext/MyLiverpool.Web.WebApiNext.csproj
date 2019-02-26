@@ -130,6 +130,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\+auth\uri-encoder.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="ClientApp\dist-server\" />
     <Folder Include="ClientApp\dist\aspnetcorespa\" />
     <Folder Include="Connected Services\" />

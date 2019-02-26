@@ -46,7 +46,7 @@
     "node-sass": "4.11.0",
     "preboot": "7.0.0",
     "rxjs": "6.4.0",
-    "swagger-ui": "3.20.8",
+    "swagger-ui": "3.20.9",
     "zone.js": "0.8.29"
   },
   "devDependencies": {
