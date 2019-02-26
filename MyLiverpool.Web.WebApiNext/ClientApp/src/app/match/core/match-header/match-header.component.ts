@@ -19,7 +19,6 @@ export class MatchHeaderComponent implements OnInit {
     public ngOnInit(): void {
             this.matchService.getHeaderMatch()
                 .subscribe(data => this.item = data,
-                e => console.log(e),
                 () => {
                     this.cd.markForCheck();
                 });
