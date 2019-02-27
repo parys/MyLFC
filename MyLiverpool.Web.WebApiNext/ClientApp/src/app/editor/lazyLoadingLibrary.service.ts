@@ -5,7 +5,7 @@ import { DOCUMENT } from "@angular/common";
 //todo maybe for serverside need to workaround
 @Injectable()
 export class LazyLoadingLibraryService {
-    private loadedLibraries: { [url: string]: ReplaySubject<any> } = {};
+    private loadedLibraries: { [url: string]: ReplaySubject<boolean> } = {};
 
     constructor( @Inject(DOCUMENT) private readonly document: any) { }
 
@@ -16,8 +16,8 @@ export class LazyLoadingLibraryService {
         
         this.loadedLibraries[url] = new ReplaySubject();
         if (this.getTinymce()) {
-            console.warn("!!! SCRIPT ALREADY LOADED !!!");
-            this.loadedLibraries[url].next("");
+      //      console.warn("!!! SCRIPT ALREADY LOADED !!!");
+            this.loadedLibraries[url].next(true);
             this.loadedLibraries[url].complete();
             return this.loadedLibraries[url].asObservable();
         }
@@ -25,8 +25,8 @@ export class LazyLoadingLibraryService {
         script.type = "text/javascript";
         script.src = url;
         script.onload = () => {
-            console.warn("!!! SCRIPT LOADED !!!");
-            this.loadedLibraries[url].next("");
+     //       console.warn("!!! SCRIPT LOADED !!!");
+            this.loadedLibraries[url].next(true);
             this.loadedLibraries[url].complete();
         };
 

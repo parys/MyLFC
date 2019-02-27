@@ -231,7 +231,7 @@ namespace MyLiverpool.Web.WebApiNext
 
             app.UseDefaultFiles();
 
-            var cachePeriod = env.IsDevelopment() ? "600" : "604800";
+            var cachePeriod = env.IsDevelopment() ? "600" : "6048000";
             app.UseStaticFiles(new StaticFileOptions
             {
                 OnPrepareResponse = ctx =>

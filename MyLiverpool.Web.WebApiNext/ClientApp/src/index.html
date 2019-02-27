@@ -61,6 +61,7 @@
             s.type = "text/javascript";
             s.src = "https://an.yandex.ru/system/context.js";
             s.async = true;
+            s.defer = true;
             t.parentNode.insertBefore(s, t);
         })(this, this.document, "yandexContextAsyncCallbacks");
     }
@@ -88,6 +89,7 @@
         s.setAttribute("type", "text/javascript");
         s.setAttribute("src", url);
         s.setAttribute("async", true);
+        s.setAttribute("defer", true);
         s.setAttribute('onload', 'update()');
         const nodes = document.getElementsByTagName("*");
         const node = nodes[nodes.length - 1].parentNode;

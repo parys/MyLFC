@@ -7,15 +7,12 @@ import {
 } from "@angular/router";
 import { LazyLoadingLibraryService } from "@app/editor/lazyLoadingLibrary.service";
 
-
 @Injectable()
 export class CanLoadEditMaterial implements CanLoad {
-    constructor(private lazyLoadService: LazyLoadingLibraryService) {
-        console.log("olo322lo");}
- 
+    constructor(private lazyLoadService: LazyLoadingLibraryService) {}
+
     canLoad(route: Route, segments: UrlSegment[])
         : Observable<boolean> | Promise<boolean> | boolean {
-        console.log("ololo");
         return this.lazyLoadService.loadJs("./scripts.js");
     }
 }

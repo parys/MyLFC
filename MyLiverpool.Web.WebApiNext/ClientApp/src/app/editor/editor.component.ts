@@ -43,12 +43,12 @@ export class EditorComponent implements AfterViewInit, ControlValueAccessor, OnD
     }
 
     public ngAfterViewInit(): void {
-        console.warn("ngAfterViewInit start " + this.elementId);
+  //      console.warn("ngAfterViewInit start " + this.elementId);
         this.lazyService.loadJs("./scripts.js").subscribe(_ => {
-            console.warn("ngAfterViewInit middle " + this.elementId);
+  //          console.warn("ngAfterViewInit middle " + this.elementId);
             this.initTiny();
         });
-        console.warn("ngAfterViewInit end " + this.elementId);
+  //      console.warn("ngAfterViewInit end " + this.elementId);
     }
 
     public setFocus() {
@@ -152,7 +152,7 @@ export class EditorComponent implements AfterViewInit, ControlValueAccessor, OnD
     }
 
     private initTiny(): void {
-        console.warn("initTiny start " + this.elementId);
+  //      console.warn("initTiny start " + this.elementId);
         const settings1//: Settings
             = {
                 autoresize_overflow_padding: 0,
@@ -198,11 +198,11 @@ export class EditorComponent implements AfterViewInit, ControlValueAccessor, OnD
                     editor.on("blur", () => this.zone.run(() => this.onTouchedCallback()));
                 }
             }
-        console.warn("initTiny mid " + this.elementId);
+      //  console.warn("initTiny mid " + this.elementId);
         this.zone.runOutsideAngular(() => {
             tinymce.init(settings1);
         });
-        console.warn("initTiny end " + this.elementId);
+    //    console.warn("initTiny end " + this.elementId);
         this.elementLoaded.next("");
         this.elementLoaded.complete();
     }
@@ -224,7 +224,7 @@ export class EditorComponent implements AfterViewInit, ControlValueAccessor, OnD
     //}
 
     private isTinyDefinedO(): Observable<any> {
-        console.info("isTinyDefinedO " + this.elementId);
+  //      console.info("isTinyDefinedO " + this.elementId);
         return this.elementLoaded.asObservable();
     }
 }
