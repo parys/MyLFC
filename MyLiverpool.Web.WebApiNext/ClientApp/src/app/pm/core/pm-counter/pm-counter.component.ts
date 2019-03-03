@@ -62,7 +62,6 @@ export class PmCounterComponent implements OnInit, OnDestroy {
                         .subscribe(data => this.router.navigate([PMS_ROUTE]));
                 }
                 },
-                e => console.log(e),
                 () => this.cd.markForCheck());
     }
 }

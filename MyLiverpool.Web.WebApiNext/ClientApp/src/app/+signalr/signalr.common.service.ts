@@ -65,18 +65,22 @@ export class SignalRService {
         if (token) {
             this.hubConnection.on("readPm",
                 (data: boolean) => {
+                    console.info("readPM " + data);
                     this.readPm.next(data);
                 });
             this.hubConnection.on("newPm",
                 (data: Pm) => {
+                    console.info("newPm ");
                     this.newPm.next(data);
                 });
             this.hubConnection.on("newNotify",
                 (data: Notification) => {
+                    console.info("newNotify ");
                     this.newNotify.next(data);
                 });
             this.hubConnection.on("readNotify",
                 (data: number) => {
+                    console.info("readNotify " + data);
                     this.readNotify.next(data);
                 });
         }
@@ -88,10 +92,5 @@ export class SignalRService {
             .catch((err: Error) => {
                 console.error(err);
             });
-
-      //  this.hubConnection.onclose(() => {
-      //      this.initializeHub();
-           // console.warn("RECONNECT");
-      //  });
     }
 }
