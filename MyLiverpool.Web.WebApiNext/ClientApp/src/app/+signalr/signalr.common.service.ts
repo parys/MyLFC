@@ -5,7 +5,7 @@ import { StorageService } from "@app/+storage";
 import { ChatMessage, Comment, UsersOnline } from "@app/+common-models";
 import { Pm } from "@app/pm/model"
 import { HubConnection, HubConnectionBuilder, LogLevel } from "@aspnet/signalr";
-import { MessagePackHubProtocol } from "@aspnet/signalr-protocol-msgpack";
+//import { MessagePackHubProtocol } from "@aspnet/signalr-protocol-msgpack";
 import { Notification } from "@app/notification/model";
 
 @Injectable({ providedIn: "root" })
@@ -50,7 +50,6 @@ export class SignalRService {
             .configureLogging(LogLevel.Error)
             .build();
         this.hubConnection.on("updateChat", (data: ChatMessage) => {
-     //       console.info(data);
             this.chatSubject.next(data);
         });
         this.hubConnection.on("updateOnline", (data: UsersOnline) => {
@@ -65,22 +64,18 @@ export class SignalRService {
         if (token) {
             this.hubConnection.on("readPm",
                 (data: boolean) => {
-                    console.info("readPM " + data);
                     this.readPm.next(data);
                 });
             this.hubConnection.on("newPm",
                 (data: Pm) => {
-                    console.info("newPm ");
                     this.newPm.next(data);
                 });
             this.hubConnection.on("newNotify",
                 (data: Notification) => {
-                    console.info("newNotify ");
                     this.newNotify.next(data);
                 });
             this.hubConnection.on("readNotify",
                 (data: number) => {
-                    console.info("readNotify " + data);
                     this.readNotify.next(data);
                 });
         }
@@ -90,7 +85,7 @@ export class SignalRService {
                 this.alreadyStarted = true;
             })
             .catch((err: Error) => {
-                console.error(err);
+               // console.error(err);
             });
     }
 }
