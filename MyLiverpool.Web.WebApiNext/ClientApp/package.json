@@ -47,6 +47,7 @@
     "preboot": "7.0.0",
     "rxjs": "6.4.0",
     "swagger-ui": "3.21.0",
+    "@webcomponents/webcomponentsjs": "2.2.7",
     "zone.js": "0.8.29"
   },
   "devDependencies": {

@@ -56,6 +56,7 @@ export class ChatWindowComponent implements OnInit, AfterContentChecked {
             .subscribe((data: ChatMessage[]) => {
                     this.items = data.concat(this.items);
                 },
+                () => {},
                 () => this.cd.markForCheck());
     }
 
