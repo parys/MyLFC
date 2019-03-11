@@ -98,8 +98,7 @@ export class CommentDetailComponent implements OnInit, OnDestroy {
             .subscribe((data: Comment) => {
                     this.item.children.push(data);
                     this.cancelAdding();
-                },
-                e => console.log(e));
+                });
     }
 
     public vote(positive: boolean): void {
@@ -110,8 +109,7 @@ export class CommentDetailComponent implements OnInit, OnDestroy {
                 if (data) {
                     this.updateVotes(positive);
                 }
-            },
-            e => console.log(e));
+            });
     }
 
     private updateVotes(positive: boolean): void {

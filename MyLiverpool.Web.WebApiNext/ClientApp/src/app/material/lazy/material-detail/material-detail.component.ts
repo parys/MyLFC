@@ -88,7 +88,6 @@ export class MaterialDetailComponent implements OnDestroy {
                         }
                         this.cd.markForCheck();
                     });
-            // }
         });
     }
 
