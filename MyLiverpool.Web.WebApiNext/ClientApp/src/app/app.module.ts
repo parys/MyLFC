@@ -1,4 +1,4 @@
-import { NgModule, LOCALE_ID, Injectable, ErrorHandler } from "@angular/core";
+import { NgModule, LOCALE_ID } from "@angular/core";
 import {
     BrowserModule,
     HammerGestureConfig,
@@ -93,13 +93,12 @@ export class MyHammerConfig extends HammerGestureConfig {
     exports: [
         home.NavbarMenuComponent
     ],
-    providers: [// services
+    providers: [
         admin.AdminService,
         BreadcrumbService,
         CustomTitleService,
         { provide: LOCALE_ID, useValue: "ru-RU" },
         {
-            // hammer instantion with custom config
             provide: HAMMER_GESTURE_CONFIG,
             useClass: MyHammerConfig,
         },
