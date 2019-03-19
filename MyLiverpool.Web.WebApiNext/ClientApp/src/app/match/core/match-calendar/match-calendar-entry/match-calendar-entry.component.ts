@@ -10,8 +10,9 @@ import { RolesCheckedService } from "@app/+auth";
 })
 export class MatchCalendarEntryComponent {
     @Input() public match: Match;
-    @Input() public title: string;
+    @Input() public name: string;
+    @Input() public next: boolean;
 
     constructor(
-        public roles: RolesCheckedService) { }
+        public roles: RolesCheckedService) {}
 }

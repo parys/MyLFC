@@ -8,7 +8,8 @@ import { RolesCheckedService } from "@app/+auth";
 
 @Component({
     selector: "stuff-list",
-    templateUrl: "./stuff-list.component.html"
+    templateUrl: "./stuff-list.component.html",
+    styleUrls: ["./stuff-list.component.scss"],
 })
 export class StuffListComponent implements OnInit, OnDestroy {
     private sub: Subscription;

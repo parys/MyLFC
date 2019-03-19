@@ -1,11 +1,21 @@
-﻿:host {    
+﻿:host {
     img {
         display: block;
         width: 45px;
     }
 
+    .clubName, .info {
+        font-size: 1.2em;
+    }
+
+    @media (min-width: 768px) and (max-width: 1250px) {
+        .clubName {
+            display: none;
+        }
+    }
+
     .score {
-        font-size: 20px;
+        font-size: 25px;
     }
 
     .stadium {

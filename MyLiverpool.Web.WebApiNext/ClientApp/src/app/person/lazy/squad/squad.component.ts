@@ -8,7 +8,8 @@ import { RolesCheckedService } from "@app/+auth";
 
 @Component({
     selector: "squad",
-    templateUrl: "./squad.component.html"
+    templateUrl: "./squad.component.html",
+    styleUrls: ["./squad.component.scss"]
 })
 export class SquadComponent {
     private sub: Subscription;

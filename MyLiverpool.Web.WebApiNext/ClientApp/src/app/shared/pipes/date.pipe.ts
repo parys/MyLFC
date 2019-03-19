@@ -6,11 +6,11 @@ export class CustomDatePipe implements PipeTransform {
     public transform(value: string, withSeconds: boolean = false, withDayOfWeek: boolean = false, withoutTime: boolean = false, withoutYear: boolean = false): string {
         const datePipe = new DatePipe("ru-RU");
         let dateString = "";
-        if (this.isToday(value, withoutYear)) {
+        if (this.isExactDate(value, withoutYear, 0)) {
             dateString += "сегодня";
-        } else if (this.isYesterday(value, withoutYear)) {
+        } else if (this.isExactDate(value, withoutYear, -1)) {
             dateString += "вчера";
-        } else if (this.isTomorrow(value, withoutYear)) {
+        } else if (this.isExactDate(value, withoutYear, +1)) {
             dateString += "завтра";
         } else {
             dateString += datePipe.transform(value,`d MMM y ${withDayOfWeek ? "EEE" : ""}`);
@@ -18,28 +18,11 @@ export class CustomDatePipe implements PipeTransform {
         return dateString + datePipe.transform(value, ` ${withoutTime ? "" : " HH:mm"}${!withoutTime && withSeconds ? ":ss" : ""}`);
     }
 
-    private isToday(date: string, withoutYear: boolean): boolean {
-        if (this.isDateEqual(new Date(date), new Date(), withoutYear)) {
-            return true;
-        }
-        return false;
-    }
-
-    private isTomorrow(date: string, withoutYear: boolean): boolean {
+    private isExactDate(date: string, withoutYear: boolean, dateDirection: number): boolean {
         const newDate = new Date();
-        newDate.setTime(newDate.getTime() + (24 * 3600000));
+        newDate.setTime(newDate.getTime() + dateDirection * (24 * 3600000));
 
         if (this.isDateEqual(new Date(date), newDate, withoutYear)) {
-            return true;
-        }
-        return false;
-    }
-
-    private isYesterday(date: string, withoutYear: boolean): boolean {
-        const oldDate = new Date();
-        oldDate.setTime(oldDate.getTime() - (24 * 3600000));
-
-        if (this.isDateEqual(new Date(date), oldDate, withoutYear)) {
             return true;
         }
         return false;

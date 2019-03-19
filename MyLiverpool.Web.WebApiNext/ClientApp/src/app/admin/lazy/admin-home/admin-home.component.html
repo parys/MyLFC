@@ -1,12 +1,10 @@
-﻿e6yLLIkU-Bopo6yLLIku
-
-<div>
+﻿<div>
         <span *ngIf="roles.isInformer">
-            <a [routerLink]="['/matches']" >Матчи</a>
-            <a [routerLink]="['/clubs']" >Клубы</a>
-            <a [routerLink]="['/persons']" >Люди</a>
-            <a [routerLink]="['/stadiums']" >Стадионы</a>
-            <a [routerLink]="['/injuries']" >Травмы</a>
+            <a [routerLink]="['/matches']" mat-menu-item >Матчи</a>
+            <a [routerLink]="['/clubs']" mat-menu-item >Клубы</a>
+            <a [routerLink]="['/persons']" mat-menu-item >Люди</a>
+            <a [routerLink]="['/stadiums']" mat-menu-item >Стадионы</a>
+            <a [routerLink]="['/injuries']" mat-menu-item >Травмы</a>
         </span>
         <a [routerLink]="['/images']" mat-menu-item>Изображения</a>
         <!--<a *ngIf="roles.isNewsmaker || roles.isAuthor" [routerLink]="['/polls']" [queryParams]="{page: 1}" mat-menu-item>Опросы</a>-->
