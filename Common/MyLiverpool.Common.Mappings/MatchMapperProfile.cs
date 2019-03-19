@@ -71,7 +71,7 @@ namespace MyLiverpool.Common.Mappings
                 return events.Any()
                     ? CalculateScore(events, isHome)
                     : score == null
-                        ? "0-0"
+                        ? "0"
                         : isHome
                             ? score?.Split('-', StringSplitOptions.RemoveEmptyEntries).FirstOrDefault()
                             : score?.Split('-', StringSplitOptions.RemoveEmptyEntries).LastOrDefault();

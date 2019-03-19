@@ -12,8 +12,9 @@
     <comment-detail [item]="comment" [deep]="0" [materialId]="materialId" [canCommentary]="canCommentary" [type]="type" [matchId]="matchId"></comment-detail>
 </div>
 
-<form class="form-horizontal" role="form" [formGroup]="commentAddForm" (ngSubmit)="onSubmit()">
-    <div class="full-width" *ngIf="canCommentary && roles.isLogined">
+<form *ngIf="canCommentary && roles.isLogined" 
+       class="form-horizontal" role="form" [formGroup]="commentAddForm" (ngSubmit)="onSubmit()">
+    <div class="full-width">
         <bbeditor class="full-width" name="message" formControlName="message"></bbeditor>
         <div class="comment-action-buttons" style="margin-bottom: 0">
             <button mat-raised-button color="warn" type="submit" [disabled]="!commentAddForm.valid">Добавить</button>
