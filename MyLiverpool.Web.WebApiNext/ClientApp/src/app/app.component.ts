@@ -60,18 +60,17 @@ export class AppComponent implements OnInit, AfterViewInit {
             return;
         }
         this.animationState[this.currentPageIndex] = SLIDE_OUT_RIGHT;
- 
+
         if (this.currentPageIndex === 0) {
             this.orderState = [0, 1, 2];
             this.currentPageIndex = 2;
+        } else if (this.currentPageIndex === 1) {
+            this.orderState = [2, 0, 1];
         } else {
-            if (this.currentPageIndex === 1) {
-                this.orderState = [2, 0, 1];
-            } else {
-                this.orderState = [1, 2, 0];
-            }
-            this.currentPageIndex--;
+            this.orderState = [1, 2, 0];
         }
+        this.currentPageIndex--;
+
         this.animationState[this.currentPageIndex] = SLIDE_IN_LEFT;
     }
 
@@ -83,14 +82,13 @@ export class AppComponent implements OnInit, AfterViewInit {
         if (this.currentPageIndex === 2) {
             this.orderState = [1, 2, 0];
             this.currentPageIndex = 0;
+        } else if (this.currentPageIndex === 1) {
+            this.orderState = [2, 0, 1];
         } else {
-            if (this.currentPageIndex === 1) {
-                this.orderState = [2, 0, 1];
-            } else {
-                this.orderState = [1, 2, 0];
-            }
-            this.currentPageIndex++;
+            this.orderState = [1, 2, 0];
         }
+        this.currentPageIndex++;
+
         this.animationState[this.currentPageIndex] = SLIDE_IN_RIGHT;
     }
 
