@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, ViewEncapsulation, PLATFORM_ID, Inject, AfterViewInit, ViewChild, HostListener } from "@angular/core";  
+﻿import { Component, OnInit, ViewEncapsulation, PLATFORM_ID, Inject, AfterViewInit, ViewChild, HostListener, ChangeDetectorRef, ChangeDetectionStrategy } from "@angular/core";  
 import { isPlatformBrowser } from "@angular/common";  
 import { MatSidenav } from "@angular/material";  
 import { Router, ActivatedRoute, NavigationEnd } from "@angular/router";
@@ -14,7 +14,8 @@ import { SLIDE_OUT_LEFT, SLIDE_OUT_RIGHT, SLIDE_IN_RIGHT, SLIDE_IN_LEFT } from "
     templateUrl: "./app.component.html",
     styleUrls: ["./app.component.scss"],
     encapsulation: ViewEncapsulation.Emulated,
-    animations: [SlideInOutAnimation]
+    animations: [SlideInOutAnimation],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent implements OnInit, AfterViewInit {
     public currentPageIndex = 1;
@@ -32,6 +33,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         private authService: AuthService,
         private activatedRoute: ActivatedRoute,
         private titleService: CustomTitleService,
+        private cd: ChangeDetectorRef,
         @Inject(PLATFORM_ID) private platformId: Object
     ) {       
     }
