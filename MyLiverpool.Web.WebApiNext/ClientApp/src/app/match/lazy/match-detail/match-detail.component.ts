@@ -45,7 +45,7 @@ export class MatchDetailComponent implements OnInit, OnDestroy {
     }
 
     public pin(id?: number): void {
-        this.matchService.pin(id).subscribe((data: boolean) => data, e => console.log(e));
+        this.matchService.pin(id).subscribe((data: boolean) => data);
     }
 
     private init(): void {
@@ -57,26 +57,28 @@ export class MatchDetailComponent implements OnInit, OnDestroy {
                     const title = `${this.item.homeClubName} ${this.item.scoreHome
                         ? this.item.scoreHome + "-" + this.item.scoreAway
                         : "-"} ${this.item.awayClubName}`;
-                        this.title.setTitle(title);
+                    this.title.setTitle(title);
 
-                    this.meta.updateTag({ name: "description", content: `${title}. Результат матча Ливерпуля. Составы команд. События матча. Обсуждение матча.` });
+                    this.meta.updateTag({
+                        name: "description",
+                        content: `${title}. Результат матча Ливерпуля. Составы команд. События матча. Обсуждение матча.`
+                    });
                     this.meta.updateTag({
                         name: "keywords",
-                        content: `${title}, ${data.awayClubName}, ${data.homeClubName}, ${data.typeName}, ${data.stadiumName}, составы команд, события`
+                        content: `${title}, ${data.awayClubName}, ${data.homeClubName}, ${data.typeName}, ${
+                            data.stadiumName}, составы команд, события`
                     });
-                        if (isPlatformBrowser(this.platformId)) {
-                            if (!data.scoreHome) {
-                                this.countDown$ =
-                                    new BehaviorSubject<string>(this.updateTimeRemaining(this.item.dateTime));
-                                this.sub$ = interval(1000).pipe(
-                                        map(() => this.countDown$.next(this.updateTimeRemaining(this.item.dateTime)))
-                                    )
-                                    .subscribe();
-                            }
-
+                    if (isPlatformBrowser(this.platformId)) {
+                        if (!data.scoreHome) {
+                            this.countDown$ =
+                                new BehaviorSubject<string>(this.updateTimeRemaining(this.item.dateTime));
+                            this.sub$ = interval(1000).pipe(
+                                    map(() => this.countDown$.next(this.updateTimeRemaining(this.item.dateTime)))
+                                )
+                                .subscribe();
                         }
-                    },
-                    e => console.log(e));
+                    }
+                });
         };
     }
 
