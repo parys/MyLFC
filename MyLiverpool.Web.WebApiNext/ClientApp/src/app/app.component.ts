@@ -1,6 +1,7 @@
 ﻿import { Component, OnInit, ViewEncapsulation, PLATFORM_ID, Inject, ViewChild, HostListener, ChangeDetectorRef, ChangeDetectionStrategy } from "@angular/core";  
 import { isPlatformBrowser } from "@angular/common";  
-import { MatSidenav } from "@angular/material";  
+import { MatSidenav } from "@angular/material";
+import { Meta } from "@angular/platform-browser";
 import { Router, ActivatedRoute, NavigationEnd } from "@angular/router";
 import { filter, map } from "rxjs/operators"
 import { AuthService } from "@app/+auth";
@@ -34,6 +35,7 @@ export class AppComponent implements OnInit {
         private activatedRoute: ActivatedRoute,
         private titleService: CustomTitleService,
         private cd: ChangeDetectorRef,
+        private meta: Meta,
         @Inject(PLATFORM_ID) private platformId: Object
     ) {       
     }
@@ -98,17 +100,19 @@ export class AppComponent implements OnInit {
                 while (child) {
                     if (child.firstChild) {
                         child = child.firstChild;
-                    } else if (child.snapshot.data && child.snapshot.data["title"]) {
-                        return child.snapshot.data["title"];
                     } else {
-                        return null;
+                        return child.snapshot.data;
                     }
                 }
                 return null;
-            })).subscribe((title: any) => {
-            if (title) {
-                this.titleService.setTitle(title);
-            }
+            })).subscribe((data: any) => {
+            if (data["title"]) {
+                this.titleService.setTitle(data["title"]);
+                }
+            this.meta.updateTag({ name: "keywords", content: data["keywords"] || "" });
+            this.meta.updateTag({ name: "description", content: data["description"] || "" });
+                
+                console.log(data);
         });
     }
 

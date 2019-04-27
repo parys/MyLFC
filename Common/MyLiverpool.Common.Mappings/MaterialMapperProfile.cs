@@ -90,11 +90,16 @@ namespace MyLiverpool.Common.Mappings
 
         private string BeautifyTags(string tagsString)
         {
+            if (tagsString == null)
+            {
+                return string.Empty;
+            }
             var tags = tagsString.Split(',').ToList();
             for (var i = 0; i < tags.Count; i++)
             {
                 tags[i] = tags[i].Trim();
             }
+
             return string.Join(", ", tags);
         }
     }

@@ -7,6 +7,7 @@ import { MatchService } from "@app/match/core";
 import { Match } from "@app/match/model";
 import { RolesCheckedService } from "@app/+auth";
 import { CustomTitleService } from "@app/shared";
+import { Meta } from "@angular/platform-browser";
 
 @Component({
     selector: "match-detail",
@@ -23,6 +24,7 @@ export class MatchDetailComponent implements OnInit, OnDestroy {
         private matchService: MatchService,
         public roles: RolesCheckedService,
         private title: CustomTitleService,
+        private meta: Meta,
         @Inject(PLATFORM_ID) private platformId: Object,
         private route: ActivatedRoute) {
         this.sub2 = this.router.events.subscribe((e: any) => {
@@ -51,11 +53,17 @@ export class MatchDetailComponent implements OnInit, OnDestroy {
         if (id) {
             this.matchService.getSingle(id)
                 .subscribe((data: Match) => {
-                        this.item = data;
-                        this.title.setTitle(
-                            `${this.item.homeClubName} ${this.item.scoreHome
-                            ? this.item.scoreHome + "-" + this.item.scoreAway
-                            : "-"} ${this.item.awayClubName}`);
+                    this.item = data;
+                    const title = `${this.item.homeClubName} ${this.item.scoreHome
+                        ? this.item.scoreHome + "-" + this.item.scoreAway
+                        : "-"} ${this.item.awayClubName}`;
+                        this.title.setTitle(title);
+
+                    this.meta.updateTag({ name: "description", content: `${title}. Результат матча Ливерпуля. Составы команд. События матча. Обсуждение матча.` });
+                    this.meta.updateTag({
+                        name: "keywords",
+                        content: `${title}, ${data.awayClubName}, ${data.homeClubName}, ${data.typeName}, ${data.stadiumName}, составы команд, события`
+                    });
                         if (isPlatformBrowser(this.platformId)) {
                             if (!data.scoreHome) {
                                 this.countDown$ =

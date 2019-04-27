@@ -1,5 +1,6 @@
 ﻿import { Component, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, PLATFORM_ID, Inject } from "@angular/core";
 import { isPlatformBrowser } from "@angular/common";
+import { Meta } from "@angular/platform-browser";
 import { Router, ActivatedRoute, NavigationEnd } from "@angular/router";
 import { MatDialog, MatSnackBar } from "@angular/material";
 import { Subscription } from "rxjs";
@@ -34,6 +35,7 @@ export class MaterialDetailComponent implements OnDestroy {
         private router: Router,
         private titleService: CustomTitleService,
         private snackBar: MatSnackBar,
+        private meta: Meta,
         private dialog: MatDialog) {
         this.navigationSubscription = this.router.events.subscribe((e: any) => {
             if (e instanceof NavigationEnd) {
@@ -119,7 +121,8 @@ export class MaterialDetailComponent implements OnDestroy {
         this.titleService.setTitle(item.title);
         this.item = item;
         this.addView();
-        //    this.cd.detectChanges();
+        this.meta.updateTag({ name: "description", content: item.brief });
+        this.meta.updateTag({ name: "keywords", content: item.tags });
     }
 
     private addView(): void {
