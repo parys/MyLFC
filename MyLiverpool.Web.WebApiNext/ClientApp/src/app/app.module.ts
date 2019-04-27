@@ -81,7 +81,6 @@ export class MyHammerConfig extends HammerGestureConfig {
         UserCoreModule
     ],
     declarations: [
-        home.StaticPageComponent,
         home.NavbarComponent,
         home.NavbarMenuComponent,
         home.SidebarLeftComponent,

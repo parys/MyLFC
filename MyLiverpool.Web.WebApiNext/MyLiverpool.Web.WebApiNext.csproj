@@ -149,9 +149,7 @@
     </ItemGroup>
     <Move SourceFiles="@(FilesToMove)" DestinationFiles="$(SpaRoot)dist\aspnetcorespa\scripts.js" Condition="'$(RemoveHashFromTiny)' == 'true'" />
     <!--remove scripts from index-->
-    <ReplaceFileText InputFilename="$(SpaRoot)dist\aspnetcorespa\index.html"
-                     OutputFilename="$(SpaRoot)dist\aspnetcorespa\index.html"
-                     Condition="'$(RemoveHashFromTiny)' == 'true'" />
+    <ReplaceFileText InputFilename="$(SpaRoot)dist\aspnetcorespa\index.html" OutputFilename="$(SpaRoot)dist\aspnetcorespa\index.html" Condition="'$(RemoveHashFromTiny)' == 'true'" />
     <!-- Include the newly-built files in the publish output -->
     <ItemGroup>
       <DistFiles Include="$(SpaRoot)dist\**;" />

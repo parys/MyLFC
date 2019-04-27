@@ -31,4 +31,5 @@ export const STADIUMS_ROUTE: string = "stadiums";
 export const STUFF_ROUTE: string = "stuff";
 export const TRANSFERS_ROUTE: string = "transfers";
 export const USERS_ROUTE: string = "users";
+export const WAL_ROUTE: string = "wal";
 export const WISHES_ROUTE: string = "wishes";

@@ -18,6 +18,7 @@
         HeaderMatch = 14,
         Cooperation = 15,
         CurrentSeason = 16,
-        RudWords = 17
+        RudWords = 17,
+        WalMainInfo = 18,
     }
 }

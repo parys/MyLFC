@@ -23,7 +23,8 @@ import {
     TRANSFERS_ROUTE,
     USERS_ROUTE,
     POLLS_ROUTE,
-    TITLE_RU
+    TITLE_RU,
+    WAL_ROUTE
 } from "@app/+constants";
 
 export const routes: Routes = [
@@ -113,7 +114,13 @@ export const routes: Routes = [
         loadChildren: "./user/lazy/user.module#UserModule"
     },
     {
+        path: WAL_ROUTE,
+     //   loadChildren: () => import("./wal/lazy/wal.module").then(m => m.WalModule)
+        loadChildren: "./wal/lazy/wal.module#WalModule"
+    },
+    {
         path: WISHES_ROUTE,
+     //   loadChildren: () => import("./wish/lazy/wish.module").then(m => m.WishModule)
         loadChildren: "./wish/lazy/wish.module#WishModule"
     },
     {

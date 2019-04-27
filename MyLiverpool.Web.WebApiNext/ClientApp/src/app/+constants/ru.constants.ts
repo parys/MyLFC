@@ -17,4 +17,5 @@ export const TRANSFERS_RU: string = "Трансферы";
 export const USER_RU: string = "Пользователь";
 export const USERS_RU: string = "Пользователи";
 
+export const WAL_RU: string = "Фан Движение We are Liverpool";
 export const WISHES_RU: string = "Пожелания";

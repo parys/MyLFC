@@ -1,6 +1,7 @@
 ﻿import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
+import { RouterModule } from "@angular/router";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { DeleteDialogComponent } from "./delete-dialog";
 import {
@@ -22,6 +23,7 @@ import { getRussianPaginatorIntl } from './intl/russian-paginator-intl';
 import { SignalRModule } from "@app/+signalr";
 import { StorageModule, StorageService } from "@app/+storage";
 import { AuthModule } from "@app/+auth";
+import { StaticPageComponent } from "./static-page";
 //import { DeferLoadDirective } from "./lazy/defer-load.directive";
 
 @NgModule({
@@ -29,6 +31,7 @@ import { AuthModule } from "@app/+auth";
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
+        RouterModule,
         NgxPaginationModule,
         SignalRModule,
         StorageModule,
@@ -54,7 +57,8 @@ import { AuthModule } from "@app/+auth";
         SafePipe,
         BreadcrumbComponent,
      //   DeferLoadDirective,
-        AdComponent
+        AdComponent,
+        StaticPageComponent,
     ],
     exports: [
         CommonModule,
@@ -68,6 +72,7 @@ import { AuthModule } from "@app/+auth";
         SafePipe,
         BreadcrumbComponent,
         AdComponent,
+        StaticPageComponent,
 
         MatBadgeModule,
         MatButtonModule,
