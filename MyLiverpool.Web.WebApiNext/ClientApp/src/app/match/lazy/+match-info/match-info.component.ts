@@ -6,7 +6,7 @@
 //import { MatchService } from "@app/match/core";
 //import { Match } from "@app/match/model";
 //import { RolesCheckedService } from "@app/+auth";
-//import { CustomTitleService } from "@app/shared";
+//import { CustomTitleMetaService } from "@app/shared";
 
 //@Component({
 //    selector: "match-detail",
@@ -22,7 +22,7 @@
 //    constructor(private router: Router,
 //        private matchService: MatchService,
 //        public roles: RolesCheckedService,
-//        private title: CustomTitleService,
+//        private title: CustomTitleMetaService,
 //        @Inject(PLATFORM_ID) private platformId: Object,
 //        private route: ActivatedRoute) {
 //        this.sub2 = this.router.events.subscribe((e: any) => {

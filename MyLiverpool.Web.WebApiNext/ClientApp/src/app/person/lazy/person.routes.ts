@@ -34,7 +34,8 @@ export const personRoutes: Routes = [
                     title: "Тренерский штаб",
                     type: "First",
                     keywords: "тренерский штаб ливерпуля, тренер ливерпуля, тренеры первой команды, тренер лфк",
-                    description: "Тренерский штаб Ливерпуля. Тренеры первой команды."
+                    description: "Тренерский штаб Ливерпуля. Тренеры первой команды.",
+                    ogType: "sport"
                 }
             },
             {
@@ -42,7 +43,8 @@ export const personRoutes: Routes = [
                     title: "Тренерский штаб",
                     type: "Academy",
                     keywords: "тренерский штаб ливерпуля, тренер ливерпуля, тренер лфк",
-                    description: "Тренерский штаб Ливерпуля. Тренеры академии ЛФК."
+                    description: "Тренерский штаб Ливерпуля. Тренеры академии ЛФК.",
+                    ogType: "sport"
                 }
             },
         ]
@@ -56,21 +58,25 @@ export const personRoutes: Routes = [
                     title: "Состав команды",
                     type: "First",
                     keywords: "Состав команды ливерпуля, игроки ливерпуля, футболисты первой команды лфк",
-                    description: "Игроки Ливерпуля. Футболисты ЛФК."
+                    description: "Игроки Ливерпуля. Футболисты ЛФК.",
+                    ogType: "sport"
                 }
             },
             {
                 path: "academy", component: SquadComponent, data: {
                     title: "Состав академии", type: "Academy",
                     keywords: "Состав академии ливерпуля, игроки академии ливерпуля, футболисты академии лфк",
-                    description: "Игроки академии Ливерпуля. Футболисты академии Ливерпуля." }
+                    description: "Игроки академии Ливерпуля. Футболисты академии Ливерпуля.",
+                    ogType: "sport"
+                }
             },
             {
                 path: "loan", component: SquadComponent, data: {
                     title: "В аренде",
                     type: "Loan",
                     keywords: "аренда, игроки ливерпуля, арендованные игроки",
-                    description: "Арендованные игроки ливерпуля. Игроки ливерпуля в аренде."
+                    description: "Арендованные игроки ливерпуля. Игроки ливерпуля в аренде.",
+                    ogType: "sport"
                 }
             }
         ]

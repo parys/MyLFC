@@ -1,12 +1,11 @@
-﻿import { Component, OnInit, ViewEncapsulation, PLATFORM_ID, Inject, ViewChild, HostListener, ChangeDetectorRef, ChangeDetectionStrategy } from "@angular/core";  
+﻿import { Component, OnInit, ViewEncapsulation, PLATFORM_ID, Inject, ViewChild, HostListener, ChangeDetectionStrategy } from "@angular/core";  
 import { isPlatformBrowser } from "@angular/common";  
 import { MatSidenav } from "@angular/material";
-import { Meta } from "@angular/platform-browser";
 import { Router, ActivatedRoute, NavigationEnd } from "@angular/router";
 import { filter, map } from "rxjs/operators"
 import { AuthService } from "@app/+auth";
 import { SlideInOutAnimation } from "./+keyframes";
-import { CustomTitleService } from "@app/shared";
+import { CustomTitleMetaService as CustomTitleService } from "@app/shared";
 import { SLIDE_OUT_LEFT, SLIDE_OUT_RIGHT, SLIDE_IN_RIGHT, SLIDE_IN_LEFT } from "@app/+constants";
 
 
@@ -34,8 +33,6 @@ export class AppComponent implements OnInit {
         private authService: AuthService,
         private activatedRoute: ActivatedRoute,
         private titleService: CustomTitleService,
-        private cd: ChangeDetectorRef,
-        private meta: Meta,
         @Inject(PLATFORM_ID) private platformId: Object
     ) {       
     }
@@ -108,11 +105,11 @@ export class AppComponent implements OnInit {
             })).subscribe((data: any) => {
             if (data["title"]) {
                 this.titleService.setTitle(data["title"]);
-                }
-            this.meta.updateTag({ name: "keywords", content: data["keywords"] || "" });
-            this.meta.updateTag({ name: "description", content: data["description"] || "" });
-                
-                console.log(data);
+            }
+            this.titleService.updateKeywordsMetaTag(data["keywords"] || "" );
+            this.titleService.updateDescriptionMetaTag(data["description"] || "" );
+            this.titleService.updateTypeMetaTag(data["ogType"] || "website" );
+                this.titleService.updateOgImageMetaTag("https://mylfc.ru/content/logo34.png");
         });
     }
 

@@ -15,7 +15,7 @@
 
     <!-- Set this to true if you enable server-side prerendering -->
     <BuildServerSideRenderer>true</BuildServerSideRenderer>
-    <RemoveHashFromTiny>true</RemoveHashFromTiny>
+    <RemoveHashFromTiny>false</RemoveHashFromTiny>
     <ApplicationIcon />
     <StartupObject />
     </PropertyGroup>

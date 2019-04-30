@@ -22,7 +22,8 @@ export const matchRoutes: Routes = [
                 path: "",
                 component: MatchDetailComponent,
                 data: {
-                    title: MATCH_RU
+                    title: MATCH_RU,
+                    ogType: "sport"
                 }
             },
             {

@@ -6,7 +6,7 @@ import { NotificationService } from "../notification.service";
 import { Notification } from "../../model";
 import { RolesCheckedService } from "@app/+auth";
 import { SignalRService } from "@app/+signalr";
-import { CustomTitleService } from "@app/shared";
+import { CustomTitleMetaService } from "@app/shared";
 import { NOTIFICATIONS_ROUTE } from "@app/+constants";
 
 @Component({
@@ -23,7 +23,7 @@ export class NotificationCounterComponent implements OnInit, OnDestroy {
         public roles: RolesCheckedService,
         private signalR: SignalRService,
         private router: Router,
-        private titleService: CustomTitleService,
+        private titleService: CustomTitleMetaService,
         private cd: ChangeDetectorRef,
         private snackBar: MatSnackBar) { }
 

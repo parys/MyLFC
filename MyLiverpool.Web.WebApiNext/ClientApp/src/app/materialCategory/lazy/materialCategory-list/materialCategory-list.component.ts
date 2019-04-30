@@ -3,7 +3,7 @@ import { Router } from "@angular/router";
 import { MaterialCategory, MaterialType } from "../../model";
 import { MaterialCategoryService } from "../../core";
 import { RolesCheckedService } from "@app/+auth";
-import { CustomTitleService } from "@app/shared";
+import { CustomTitleMetaService as CustomTitleService } from "@app/shared";
 
 @Component({
     selector: "materialCategory-list",

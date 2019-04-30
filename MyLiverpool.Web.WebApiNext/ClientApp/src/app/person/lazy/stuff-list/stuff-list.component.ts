@@ -41,8 +41,7 @@ export class StuffListComponent implements OnInit, OnDestroy {
 
     public updateState(): void {
         const type = PersonTypeEnum[this.activeLinkIndex].toString();
-        this.sub = this.personService.getStuff(type).subscribe((data: Person[]) => this.items = data,
-            e => console.log(e));
+        this.sub = this.personService.getStuff(type).subscribe((data: Person[]) => this.items = data);
     }
 
     public changeTab(index: any): void {

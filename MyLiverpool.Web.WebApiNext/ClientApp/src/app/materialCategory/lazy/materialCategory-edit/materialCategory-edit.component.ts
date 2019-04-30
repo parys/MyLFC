@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { MaterialCategoryService } from "../../core";
 import { MaterialType } from "../../model";
-import { CustomTitleService } from "@app/shared";
+import { CustomTitleMetaService } from "@app/shared";
 
 @Component({
     selector: "materialCategory-edit",
@@ -21,7 +21,7 @@ export class MaterialCategoryEditComponent implements OnInit, OnDestroy {
         private formBuilder: FormBuilder,
         private snackBar: MatSnackBar,
         private router: Router,
-        private titleService: CustomTitleService,
+        private titleService: CustomTitleMetaService,
         private route: ActivatedRoute) {
         if (this.router.url.startsWith("/newsCategories")) {
             this.titleService.setTitle("Категории новостей");

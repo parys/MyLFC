@@ -1,6 +1,5 @@
 ﻿import { Component, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, PLATFORM_ID, Inject } from "@angular/core";
 import { isPlatformBrowser } from "@angular/common";
-import { Meta } from "@angular/platform-browser";
 import { Router, ActivatedRoute, NavigationEnd } from "@angular/router";
 import { MatDialog, MatSnackBar } from "@angular/material";
 import { Subscription } from "rxjs";
@@ -10,7 +9,7 @@ import { MaterialType } from "@app/materialCategory";
 import { DeleteDialogComponent } from "@app/shared";
 import { RolesCheckedService } from "@app/+auth";
 import { StorageService } from "@app/+storage";
-import { CustomTitleService } from "@app/shared";
+import { CustomTitleMetaService as CustomTitleService } from "@app/shared";
 import { NEWS_RU, BLOG_RU } from "@app/+constants/ru.constants";
 
 @Component({
@@ -35,7 +34,6 @@ export class MaterialDetailComponent implements OnDestroy {
         private router: Router,
         private titleService: CustomTitleService,
         private snackBar: MatSnackBar,
-        private meta: Meta,
         private dialog: MatDialog) {
         this.navigationSubscription = this.router.events.subscribe((e: any) => {
             if (e instanceof NavigationEnd) {
@@ -121,13 +119,14 @@ export class MaterialDetailComponent implements OnDestroy {
         this.titleService.setTitle(item.title);
         this.item = item;
         this.addView();
-        this.meta.updateTag({ name: "description", content: item.brief });
-        this.meta.updateTag({ name: "keywords", content: item.tags });
+        this.titleService.updateDescriptionMetaTag(item.brief);
+        this.titleService.updateKeywordsMetaTag(item.tags);
+        this.titleService.updateOgImageMetaTag(`https://mylfc.ru${item.photoPreview}`);
     }
 
     private addView(): void {
         if (this.storage.tryAddViewForMaterial(this.item.id)) {
-            this.service.addView(this.item.id).subscribe(data => data, e => console.log(e));
+            this.service.addView(this.item.id).subscribe(data => data);
             this.item.reads += 1;
         }
     }

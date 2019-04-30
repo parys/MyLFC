@@ -14,7 +14,10 @@ export const materialRoutes: Routes = [
         children: [
             {
                 path: "",
-                component: MaterialDetailComponent
+                component: MaterialDetailComponent,
+                data: {
+                    ogType: "article"
+                }
             },
             {
                 path: EDIT_ROUTE,

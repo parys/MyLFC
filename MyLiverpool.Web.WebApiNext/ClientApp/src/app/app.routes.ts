@@ -126,10 +126,12 @@ export const routes: Routes = [
     {
         path: "",
         component: MaterialListComponent,
+
         data: {
             title: TITLE_RU,
             keywords: "ливерпуль, liverpool, лфк, фк ливерпуль, liverpool fc, lfc, клуб ливерпуль, ливерпуль фан, сайт ливерпуля, матч ливерпуля, ливерпуль обсуждение",
-            description: "Сайт футбольного клуба Ливерпуль. FC Liverpool. Новости, матчи, история, таблицы, статистика, статьи, составы. Русскоязычные болельщики."
+            description: "Сайт футбольного клуба Ливерпуль. FC Liverpool. Новости, матчи, история, таблицы, статистика, статьи, составы. Русскоязычные болельщики.",
+ 
         },
         runGuardsAndResolvers: "always"
     }

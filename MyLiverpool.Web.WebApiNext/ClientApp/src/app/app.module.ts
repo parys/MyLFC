@@ -18,7 +18,7 @@ import { InjuryCoreModule } from "./injury";
 import { MatchCoreModule } from "./match";
 import { MaterialCoreModule } from "./material";
 import { PersonCoreModule } from "./person";
-import { SharedModule, CustomTitleService } from "./shared";
+import { SharedModule, CustomTitleMetaService } from "./shared";
 import * as admin from "./admin";
 import { AccountCoreModule } from "./account";
 import { TransferCoreModule } from "./transfer";
@@ -95,7 +95,7 @@ export class MyHammerConfig extends HammerGestureConfig {
     providers: [
         admin.AdminService,
         BreadcrumbService,
-        CustomTitleService,
+        CustomTitleMetaService,
         { provide: LOCALE_ID, useValue: "ru-RU" },
         {
             provide: HAMMER_GESTURE_CONFIG,

@@ -9,7 +9,7 @@ import { Material, MaterialFilters } from "../../model";
 import { DeleteDialogComponent, Pageable } from "@app/shared";
 import { RolesCheckedService } from "@app/+auth";
 import { MaterialType } from "@app/materialCategory";
-import { CustomTitleService } from "@app/shared";
+import { CustomTitleMetaService as CustomTitleService } from "@app/shared";
 import { PAGE, TITLE_RU, NEWSS_RU, BLOGS_RU } from "@app/+constants";
 
 @Component({

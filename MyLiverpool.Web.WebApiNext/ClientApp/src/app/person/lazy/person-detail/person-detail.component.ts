@@ -2,7 +2,7 @@
 import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { RolesCheckedService } from "@app/+auth";
-import { CustomTitleService } from "@app/shared";
+import { CustomTitleMetaService } from "@app/shared";
 import { PersonService } from "../../core/person.service";
 import { Person } from "../../model";
 
@@ -18,7 +18,7 @@ export class PersonDetailComponent implements OnInit, OnDestroy {
     constructor(private router: Router,
         private personService: PersonService,
         public roles: RolesCheckedService,
-        private title: CustomTitleService,
+        private title: CustomTitleMetaService,
         @Inject(PLATFORM_ID) private platformId: Object,
         private route: ActivatedRoute) {
         this.sub2 = this.router.events.subscribe((e: any) => {

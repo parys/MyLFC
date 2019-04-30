@@ -6,7 +6,7 @@ import { Subscription } from "rxjs";
 import { User, UserService } from "@app/user";
 import { RolesCheckedService } from "@app/+auth";
 import { RoleGroupService, RoleGroup } from "@app/roleGroup";
-import { CustomTitleService } from "@app/shared";
+import { CustomTitleMetaService as CustomTitleService } from "@app/shared";
 
 @Component({
     selector: "user-detail",
