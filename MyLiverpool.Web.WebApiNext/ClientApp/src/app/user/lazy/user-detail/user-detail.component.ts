@@ -1,5 +1,6 @@
 ﻿import { Component, OnInit, OnDestroy } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
+import { Location } from "@angular/common";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { MatSnackBar } from "@angular/material";
 import { Subscription } from "rxjs";
@@ -29,6 +30,8 @@ export class UserDetailComponent implements OnInit, OnDestroy {
         private roleGroupService: RoleGroupService,
         private formBuilder: FormBuilder,
         private snackBar: MatSnackBar,
+        private router: Router,
+        private location: Location,
         private titleService: CustomTitleService) { }
 
     public ngOnInit(): void { 
@@ -110,6 +113,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
         this.item = item;
         this.titleService.setTitle(item.userName);
         this.roleForm.patchValue(item);
+        this.location.go(this.router.createUrlTree(["users", item.id]).toString());
     }
 
     private loadRoleGroups(): void {
