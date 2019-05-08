@@ -138,7 +138,6 @@ namespace MyLiverpool.Business.Services
         {
             return new List<SeasonMonthDto>
             {
-                GetMonth("Июнь", 6, matches),
                 GetMonth("Июль", 7, matches),
                 GetMonth("Август", 8, matches),
                 GetMonth("Сентябрь", 9, matches),
@@ -149,7 +148,8 @@ namespace MyLiverpool.Business.Services
                 GetMonth("Февраль", 2, matches),
                 GetMonth("Март", 3, matches),
                 GetMonth("Апрель", 4, matches),
-                GetMonth("Май", 5, matches)
+                GetMonth("Май", 5, matches),
+                GetMonth("Июнь", 6, matches)
             };
         }
 
