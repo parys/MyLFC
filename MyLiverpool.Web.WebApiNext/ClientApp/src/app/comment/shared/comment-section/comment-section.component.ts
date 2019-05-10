@@ -5,6 +5,7 @@ import { Comment } from "@app/+common-models";
 import { CommentService } from "../../core/comment.service";
 import { Pageable } from "@app/shared";
 import { RolesCheckedService } from "@app/+auth";
+import { SignalRService } from '../../../+signalr/signalr.common.service';
 
 @Component({
     selector: "comment-section",
@@ -31,8 +32,9 @@ export class CommentSectionComponent implements OnInit, OnChanges, AfterViewChec
         private route: ActivatedRoute,
         private renderer: Renderer2,
         public element: ElementRef,
-        private router: Router
-        , private formBuilder: FormBuilder) {
+        private router: Router,
+        private formBuilder: FormBuilder,
+        private signalRService: SignalRService) {
     }
 
     public ngOnInit(): void {
@@ -45,6 +47,47 @@ export class CommentSectionComponent implements OnInit, OnChanges, AfterViewChec
         }
         );
         this.type = this.type ? this.type : 3;
+
+        //todo adding comment immediately
+     /*   this.signalRService.lastCommentsSubject.subscribe((data: Comment) => {
+            if (data.matchId == this.matchId || data.materialId == this.materialId) {
+                const index = this.items.findIndex(x => x.id === data.id);
+                if (index !== -1) {
+                    this.items[index] = data;
+                } else {
+                    if (data.parentId == null) {
+                        this.items.push(data);
+                    } else {
+                        const parentIndex = this.items.findIndex(x => x.id === data.parentId);
+                        if (parentIndex !== -1) {
+                            const childIndex = this.items[parentIndex].children.findIndex(x => x.id === data.id);
+                            if (childIndex !== -1) {
+                                this.items[parentIndex].children[childIndex] = data;
+                            } else {
+                                this.items[parentIndex].children.push(data);
+                            }
+                        } else {
+                            for (var i = 0; i < this.items.length; i++) {
+                                for (var j = 0; j < this.items[i].children.length; j++) {
+                                    const parentIndex = this.items[i].children.findIndex(x => x.id === data.parentId);
+                                    if (parentIndex !== -1) {
+                                        const childIndex = this.items[parentIndex].children.findIndex(x => x.id === data.id);
+                                        if (childIndex !== -1) {
+                                            this.items[parentIndex].children[childIndex] = data;
+                                        } else {
+                                            this.items[parentIndex].children.push(data);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                this.cd.markForCheck();
+            } else {
+                console.log("SKIPPED");
+            }
+        });*/
     }
 
     //todo research
