@@ -1,7 +1,7 @@
-﻿import { Component, OnInit, Input, Output, EventEmitter, ElementRef, ViewChild, AfterViewInit } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter, ElementRef, ViewChild, AfterViewInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
-import { MatSnackBar } from "@angular/material";
+import { MatSnackBar } from "@angular/material/snack-bar";
 import { PersonService } from "@app/person/core";
 import { Person, PersonType } from "@app/person/model";
 import { PERSONS_ROUTE } from "@app/+constants";
@@ -18,7 +18,7 @@ export class PersonEditComponent implements OnInit, AfterViewInit {
     public types: PersonType[];
     @Input() public isFull: boolean = true;
     @Output() public newPerson = new EventEmitter<Person>();
-    @ViewChild("pInput") private elementRef: ElementRef;
+    @ViewChild("pInput", { static: true })private elementRef: ElementRef;
 
     constructor(private service: PersonService,
         private route: ActivatedRoute,

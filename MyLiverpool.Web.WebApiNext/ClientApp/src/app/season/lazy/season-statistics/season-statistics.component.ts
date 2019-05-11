@@ -1,5 +1,5 @@
-﻿import { Component, OnInit, ViewChild } from "@angular/core";
-import { MatSelect, MatSelectChange } from "@angular/material";
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { MatSelect, MatSelectChange } from "@angular/material/select";
 import { SeasonService } from "../../core";
 import { PersonStatistics, Season } from "../../model";
 
@@ -12,7 +12,7 @@ export class SeasonStatisticsComponent implements OnInit {
     public seasons: Season[];
     displayedColumns = ["personName", "goals", "assists", "yellows", "reds"];
 
-    @ViewChild("seasonSelect") seasonSelect: MatSelect;
+    @ViewChild("seasonSelect", { static: true })seasonSelect: MatSelect;
 
     constructor(private seasonService: SeasonService) {
 

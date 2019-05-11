@@ -1,7 +1,8 @@
-﻿import { Component, OnInit, OnDestroy, ViewChild } from "@angular/core";
+import { Component, OnInit, OnDestroy, ViewChild } from "@angular/core";
 import { Location } from "@angular/common";
 import { ActivatedRoute } from "@angular/router";
-import { MatDialog, MatPaginator } from "@angular/material";
+import { MatDialog } from "@angular/material/dialog";
+import { MatPaginator } from "@angular/material/paginator";
 import { Subscription, merge, of, Observable } from "rxjs";
 import { startWith, switchMap, map, catchError } from "rxjs/operators";
 
@@ -20,7 +21,7 @@ export class MatchListComponent implements OnInit, OnDestroy {
     private sub2: Subscription;
     public items: Match[];
     private categoryId: number;
-    @ViewChild(MatPaginator)
+    @ViewChild(MatPaginator, { static: true })
     paginator: MatPaginator;
 
     constructor(private matchService: MatchService,

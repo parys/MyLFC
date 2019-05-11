@@ -1,5 +1,5 @@
-﻿import { Component, OnInit, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
-import { MatSelect, MatSelectChange } from "@angular/material";
+import { Component, OnInit, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
+import { MatSelect, MatSelectChange } from "@angular/material/select";
 import { ActivatedRoute } from "@angular/router";
 import { Season } from "../../model";
 import { SeasonService } from "../../core";
@@ -16,7 +16,7 @@ export class SeasonCalendarComponent implements OnInit {
     private id: number = 0;
     public seasons: Season[];
 
-    @ViewChild("seasonSelect") seasonSelect: MatSelect;
+    @ViewChild("seasonSelect", { static: true })seasonSelect: MatSelect;
 
     constructor(private service: SeasonService,
         public roles: RolesCheckedService,

@@ -1,8 +1,8 @@
-﻿import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 import { Location } from "@angular/common";
-import { MatDialog } from "@angular/material";
+import { MatDialog } from "@angular/material/dialog";
 import { Subscription } from "rxjs";
 import { ForumThemeService } from "./forumTheme.service";
 import { ForumMessage, ForumMessageService } from "@app/forum/forumMessage";

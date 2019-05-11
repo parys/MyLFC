@@ -1,4 +1,4 @@
-﻿import { NgModule } from "@angular/core";
+import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { SharedModule } from "@app/shared";
 import { clubRoutes } from "./club.routes";
@@ -8,7 +8,10 @@ import { ClubCoreModule } from "../core";
 import { StadiumCoreModule } from "@app/stadium";
 import { BreadcrumbService } from "@app/shared/breadcrumb";
 import { CLUBS_ROUTE, CLUBS_RU } from "@app/+constants";
-import { MatTableModule, MatAutocompleteModule, MatSortModule, MatInputModule } from "@angular/material";
+import { MatAutocompleteModule } from "@angular/material/autocomplete";
+import { MatInputModule } from "@angular/material/input";
+import { MatSortModule } from "@angular/material/sort";
+import { MatTableModule } from "@angular/material/table";
 
 @NgModule({
     imports: [

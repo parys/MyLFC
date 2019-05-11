@@ -1,16 +1,22 @@
-﻿import { NgModule } from "@angular/core";
+import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { RouterModule } from "@angular/router";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { DeleteDialogComponent } from "./delete-dialog";
-import {
-    MatButtonModule, MatDialogModule, MatExpansionModule, MatCardModule,
-    MatIconModule, MatMenuModule, MatProgressBarModule,
-    MatSnackBarModule, MatTooltipModule, MatPaginatorModule, MatPaginatorIntl,
-    MAT_SNACK_BAR_DEFAULT_OPTIONS, MatBadgeModule,
-    ErrorStateMatcher, ShowOnDirtyErrorStateMatcher, MatSidenavModule
-} from "@angular/material";
+import { MatBadgeModule } from "@angular/material/badge";
+import { MatButtonModule } from "@angular/material/button";
+import { MatCardModule } from "@angular/material/card";
+import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from "@angular/material/core";
+import { MatDialogModule } from "@angular/material/dialog";
+import { MatExpansionModule } from "@angular/material/expansion";
+import { MatIconModule } from "@angular/material/icon";
+import { MatMenuModule } from "@angular/material/menu";
+import { MatPaginatorModule, MatPaginatorIntl } from "@angular/material/paginator";
+import { MatProgressBarModule } from "@angular/material/progress-bar";
+import { MatSidenavModule } from "@angular/material/sidenav";
+import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from "@angular/material/snack-bar";
+import { MatTooltipModule } from "@angular/material/tooltip";
 import { LoaderComponent, LoaderService } from "./loader";
 import { BearerInterceptor } from "./interceptors";
 import { CustomDatePipe, SafePipe } from "./pipes";

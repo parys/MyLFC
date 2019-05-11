@@ -1,5 +1,5 @@
-﻿import { Component, Input, Output, EventEmitter } from "@angular/core";
-import { MatSnackBar } from "@angular/material";
+import { Component, Input, Output, EventEmitter } from "@angular/core";
+import { MatSnackBar } from "@angular/material/snack-bar";
 import { ImageService } from "../image.service";
 
 @Component({

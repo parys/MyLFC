@@ -1,6 +1,7 @@
-﻿import { Component, OnInit, ChangeDetectorRef, Input, ViewChild, ChangeDetectionStrategy, AfterContentChecked } from "@angular/core";
+import { Component, OnInit, ChangeDetectorRef, Input, ViewChild, ChangeDetectionStrategy, AfterContentChecked } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { MatDialog, MatSnackBar } from "@angular/material";
+import { MatDialog } from "@angular/material/dialog";
+import { MatSnackBar } from "@angular/material/snack-bar";
 import { ChatMessage } from "@app/+common-models";
 import { ChatMessageService } from "../chatMessage.service";
 import { DeleteDialogComponent } from "@app/shared";
@@ -20,7 +21,7 @@ export class ChatWindowComponent implements OnInit, AfterContentChecked {
     public items: ChatMessage[] = new Array<ChatMessage>();
     public selectedEditIndex: number = null;
 
-    @ViewChild("chatInput") private elementRef: EditorComponent;
+    @ViewChild("chatInput", { static: true })private elementRef: EditorComponent;
     @Input() public type: number;
     @Input() public height: number = 200;
 

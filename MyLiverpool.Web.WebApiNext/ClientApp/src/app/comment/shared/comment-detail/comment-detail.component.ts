@@ -1,7 +1,7 @@
-﻿import { Component, OnInit, OnDestroy, Input, ChangeDetectionStrategy, ChangeDetectorRef, ViewChild } from "@angular/core";
+import { Component, OnInit, OnDestroy, Input, ChangeDetectionStrategy, ChangeDetectorRef, ViewChild } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Location } from "@angular/common";
-import { MatDialog } from "@angular/material";
+import { MatDialog } from "@angular/material/dialog";
 import { Subscription } from "rxjs"
 import { Comment } from "@app/+common-models";
 import { CommentVote } from "@app/comment/model";
@@ -26,7 +26,7 @@ export class CommentDetailComponent implements OnInit, OnDestroy {
     @Input() public matchId: number;
     @Input() public parent: Comment;
     @Input() public type: number;
-    @ViewChild("replyInput") private elementRef: EditorComponent;
+    @ViewChild("replyInput", { static: true })private elementRef: EditorComponent;
 
     public commentForm: FormGroup;          
     private oldCopy: Comment;

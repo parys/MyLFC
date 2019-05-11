@@ -1,7 +1,8 @@
-﻿import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { Location } from "@angular/common";
 import { ActivatedRoute } from "@angular/router";
-import { MatDialog, MatPaginator } from "@angular/material";
+import { MatDialog } from "@angular/material/dialog";
+import { MatPaginator } from "@angular/material/paginator";
 import { merge, of, Observable } from "rxjs";
 import { startWith, switchMap, map, catchError } from "rxjs/operators";
 import { Wish, WishFilter } from "../../model";
@@ -18,7 +19,7 @@ import { PAGE, WISHES_ROUTE } from "@app/+constants";
 export class WishListComponent implements OnInit {
     public items: Wish[];
     public categoryId: number;
-    @ViewChild(MatPaginator) paginator: MatPaginator;
+    @ViewChild(MatPaginator, { static: true })paginator: MatPaginator;
 
     constructor(private service: WishService,
         public roles: RolesCheckedService,

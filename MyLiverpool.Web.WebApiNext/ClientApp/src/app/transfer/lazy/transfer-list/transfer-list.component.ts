@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, OnDestroy, ViewChild } from "@angular/core";
+import { Component, OnInit, OnDestroy, ViewChild } from "@angular/core";
 import { Location } from "@angular/common";
 import { ActivatedRoute } from "@angular/router";
 import { Subscription, merge, of, Observable } from "rxjs";
@@ -8,7 +8,8 @@ import { Transfer, TransferFilters } from "@app/transfer/model";
 import { Pageable } from "@app/shared";
 import { RolesCheckedService } from "@app/+auth";
 import { TRANSFERS_ROUTE, PAGE } from "@app/+constants";
-import { MatSort, MatPaginator } from "@angular/material";
+import { MatPaginator } from "@angular/material/paginator";
+import { MatSort } from "@angular/material/sort";
 
 @Component({
     selector: "transfer-list",
@@ -20,8 +21,8 @@ export class TransferListComponent implements OnInit, OnDestroy {
     public items: Transfer[];
     displayedColumns = ["personName", "clubName", "startDate", "onLoan", "amount"];
 
-    @ViewChild(MatSort) sort: MatSort;
-    @ViewChild(MatPaginator) paginator: MatPaginator;
+    @ViewChild(MatSort, { static: true })sort: MatSort;
+    @ViewChild(MatPaginator, { static: true })paginator: MatPaginator;
 
     constructor(private service: TransferService,
         private route: ActivatedRoute,

@@ -1,6 +1,6 @@
-﻿import { NgModule } from "@angular/core";
+import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
-import { MatCheckboxModule } from "@angular/material";
+import { MatCheckboxModule } from "@angular/material/checkbox";
 import { SharedModule } from "@app/shared";
 import { commentRoutes } from "./comment.routes";
 import { CommentListComponent } from "./comment-list";

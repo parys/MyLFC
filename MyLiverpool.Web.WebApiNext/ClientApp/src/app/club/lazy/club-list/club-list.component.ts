@@ -1,7 +1,9 @@
-﻿import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
+import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { Location } from "@angular/common";
 import { ActivatedRoute } from "@angular/router";
-import { MatPaginator, MatSort, MatDialog } from "@angular/material";
+import { MatDialog } from "@angular/material/dialog";
+import { MatPaginator } from "@angular/material/paginator";
+import { MatSort } from "@angular/material/sort";
 import { merge, of, Observable, fromEvent } from "rxjs";
 import { startWith, switchMap, map, catchError, debounceTime, distinctUntilChanged } from "rxjs/operators";
 import { ClubService } from "@app/club/core";
@@ -18,9 +20,9 @@ export class ClubListComponent implements OnInit {
     public items: Club[];
     displayedColumns = ["logo", "name", "englishName", "stadiumName", "tool"];
 
-    @ViewChild(MatSort) sort: MatSort;
-    @ViewChild(MatPaginator) paginator: MatPaginator;
-    @ViewChild("nameInput") nameInput: ElementRef;
+    @ViewChild(MatSort, { static: true })sort: MatSort;
+    @ViewChild(MatPaginator, { static: true })paginator: MatPaginator;
+    @ViewChild("nameInput", { static: true })nameInput: ElementRef;
 
     constructor(private clubService: ClubService,
         private route: ActivatedRoute,

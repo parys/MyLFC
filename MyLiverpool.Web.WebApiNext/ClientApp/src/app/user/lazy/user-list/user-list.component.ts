@@ -1,6 +1,8 @@
-﻿import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
+import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { Location } from "@angular/common";
-import { MatPaginator, MatSort, MatSelect } from "@angular/material";
+import { MatPaginator } from "@angular/material/paginator";
+import { MatSelect } from "@angular/material/select";
+import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute } from "@angular/router";
 import { User, UserFilters, UserService } from "@app/user";
 import { merge, of, Observable, fromEvent } from "rxjs";
@@ -23,11 +25,11 @@ export class UserListComponent implements OnInit {
     public selectedUserIndex: number;
     displayedColumns = ["userName", "lastModified", "commentsCount", "registrationDate", "roleGroupName"];
 
-    @ViewChild(MatSort) sort: MatSort;
-    @ViewChild(MatPaginator) paginator: MatPaginator;
-    @ViewChild("roleSelect") roleSelect: MatSelect;
-    @ViewChild("userInput") userInput: ElementRef;
-    @ViewChild("ipInput") ipInput: ElementRef;
+    @ViewChild(MatSort, { static: true })sort: MatSort;
+    @ViewChild(MatPaginator, { static: true })paginator: MatPaginator;
+    @ViewChild("roleSelect", { static: true })roleSelect: MatSelect;
+    @ViewChild("userInput", { static: true })userInput: ElementRef;
+    @ViewChild("ipInput", { static: true })ipInput: ElementRef;
 
     constructor(private userService: UserService,
         private location: Location,

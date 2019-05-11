@@ -1,4 +1,4 @@
-﻿import { NgModule } from "@angular/core";
+import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { PersonListComponent } from "./person-list";
 import { StuffListComponent } from "./stuff-list";
@@ -6,7 +6,10 @@ import { SquadComponent } from "./squad";
 import { personRoutes } from "./person.routes";
 import { SharedModule } from "@app/shared";
 import { PersonCoreModule } from "../core";
-import { MatTabsModule, MatTableModule, MatSelectModule, MatSortModule } from "@angular/material";
+import { MatSelectModule } from "@angular/material/select";
+import { MatSortModule } from "@angular/material/sort";
+import { MatTableModule } from "@angular/material/table";
+import { MatTabsModule } from "@angular/material/tabs";
 import { PersonEditModule } from "../shared";
 import { PersonDetailComponent } from "./person-detail";
 import { BreadcrumbService } from "../../shared/breadcrumb";

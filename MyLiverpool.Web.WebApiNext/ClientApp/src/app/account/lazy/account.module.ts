@@ -1,6 +1,7 @@
-﻿import { NgModule } from "@angular/core";
+import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
-import { MatCheckboxModule, MatInputModule } from "@angular/material";
+import { MatCheckboxModule } from "@angular/material/checkbox";
+import { MatInputModule } from "@angular/material/input";
 import { SharedModule } from "@app/shared";
 import { accountRoutes } from "./account.routes";
 import { AccountSignupComponent } from "./account-signup";

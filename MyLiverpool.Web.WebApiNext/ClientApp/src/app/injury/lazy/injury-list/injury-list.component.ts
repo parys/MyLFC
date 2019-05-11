@@ -1,6 +1,8 @@
-﻿import { Component, OnInit, OnDestroy, ViewChild, ElementRef  } from "@angular/core"; 
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef  } from "@angular/core"; 
 import { Location } from "@angular/common";
-import { MatPaginator, MatSort, MatDialog } from "@angular/material";
+import { MatDialog } from "@angular/material/dialog";
+import { MatPaginator } from "@angular/material/paginator";
+import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute } from "@angular/router";
 import { merge, of, fromEvent, Observable, Subscription } from "rxjs";
 import { startWith, switchMap, map, catchError, debounceTime, distinctUntilChanged } from "rxjs/operators";
@@ -19,9 +21,9 @@ export class InjuryListComponent implements OnInit, OnDestroy {
     public items: Injury[];
     displayedColumns = ["personName", "startTime", "endTime", "description", "tool"];
 
-    @ViewChild(MatSort) sort: MatSort;
-    @ViewChild(MatPaginator) paginator: MatPaginator;
-    @ViewChild("nameInput") nameInput: ElementRef;
+    @ViewChild(MatSort, { static: true })sort: MatSort;
+    @ViewChild(MatPaginator, { static: true })paginator: MatPaginator;
+    @ViewChild("nameInput", { static: true })nameInput: ElementRef;
 
     constructor(private injuryService: InjuryService,
         private route: ActivatedRoute,

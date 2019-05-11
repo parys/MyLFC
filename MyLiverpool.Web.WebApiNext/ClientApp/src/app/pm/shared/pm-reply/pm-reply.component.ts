@@ -1,6 +1,6 @@
-﻿import { Component, OnInit, Input, Output, EventEmitter, ViewChild, AfterViewInit, ChangeDetectorRef } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, AfterViewInit, ChangeDetectorRef } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { MatSnackBar } from "@angular/material";
+import { MatSnackBar } from "@angular/material/snack-bar";
 import { Pm } from "../../model";
 import { PmService } from "../../core/pm.service";
 import { EditorComponent } from "@app/editor";
@@ -16,7 +16,7 @@ export class PmReplyComponent implements OnInit, AfterViewInit {
     @Input() public userId: number;
     @Input() public title: string;
     @Output() public close = new EventEmitter();
-    @ViewChild("mpInput") private elementRef: EditorComponent;
+    @ViewChild("mpInput", { static: false })private elementRef: EditorComponent;
 
     constructor(private service: PmService,
         private snackBar: MatSnackBar,

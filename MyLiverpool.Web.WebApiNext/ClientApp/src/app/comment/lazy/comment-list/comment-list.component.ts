@@ -1,7 +1,9 @@
-﻿import { Component, OnDestroy, ViewChild, AfterViewInit } from "@angular/core";
+import { Component, OnDestroy, ViewChild, AfterViewInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { Location } from "@angular/common";
-import { MatDialog, MatPaginator, MatCheckbox } from "@angular/material";
+import { MatCheckbox } from "@angular/material/checkbox";
+import { MatDialog } from "@angular/material/dialog";
+import { MatPaginator } from "@angular/material/paginator";
 import { merge, of, Observable, Subscription } from "rxjs";
 import { startWith, switchMap, map, catchError } from "rxjs/operators";
 import { Comment } from "@app/+common-models";
@@ -22,8 +24,8 @@ export class CommentListComponent implements OnDestroy, AfterViewInit {
     public userName: string;
     public userId: number;
 
-    @ViewChild(MatPaginator) paginator: MatPaginator;
-    @ViewChild("onlyUnverified") onlyUnverified: MatCheckbox;
+    @ViewChild(MatPaginator, { static: true })paginator: MatPaginator;
+    @ViewChild("onlyUnverified", { static: true })onlyUnverified: MatCheckbox;
 
     constructor(private materialCommentService: CommentService,
         private route: ActivatedRoute,

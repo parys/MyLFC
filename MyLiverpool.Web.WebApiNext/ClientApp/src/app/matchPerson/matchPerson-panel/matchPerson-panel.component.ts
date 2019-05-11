@@ -1,5 +1,6 @@
-﻿import { Component, OnInit, Input } from "@angular/core";
-import { MatDialog, MatSnackBar } from "@angular/material";
+import { Component, OnInit, Input } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { MatSnackBar } from "@angular/material/snack-bar";
 import { DeleteDialogComponent } from "@app/shared";
 import { RolesCheckedService } from "@app/+auth";
 import { MatchPersonService } from "../matchPerson.service";

@@ -1,4 +1,4 @@
-﻿import { NgModule } from "@angular/core";
+import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { SharedModule } from "@app/shared";
 import { materialCategoryRoutes } from "./materialCategory.routes";
@@ -7,7 +7,7 @@ import { MaterialCategoryEditComponent } from "./materialCategory-edit";
 import { MaterialCategoryCoreModule } from "../core";
 import { BreadcrumbService } from "@app/shared/breadcrumb";
 import { BLOG_CATEGORIES_ROUTE, NEWS_CATEGORIES_ROUTE } from "@app/+constants";
-import { MatInputModule } from '@angular/material';
+import { MatInputModule } from "@angular/material/input";
 
 @NgModule({
     imports: [

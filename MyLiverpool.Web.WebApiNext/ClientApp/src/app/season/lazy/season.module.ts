@@ -1,4 +1,4 @@
-﻿import { NgModule } from "@angular/core";
+import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { SharedModule } from "@app/shared";
 import { seasonRoutes } from "./season.routes";
@@ -10,7 +10,7 @@ import { SeasonStatisticsComponent } from "./season-statistics";
 import { SeasonStatisticsItemComponent } from "./season-statistics-item";
 import { BreadcrumbService } from "@app/shared/breadcrumb";
 import { CALENDAR_RU, SEASONS_ROUTE, STATISTICS_RU } from "@app/+constants";
-import { MatSelectModule } from "@angular/material";
+import { MatSelectModule } from "@angular/material/select";
 
 @NgModule({
     imports: [

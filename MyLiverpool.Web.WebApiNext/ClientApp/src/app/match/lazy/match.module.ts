@@ -1,4 +1,4 @@
-﻿import { NgModule } from "@angular/core";
+import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { MatchEditComponent } from "./match-edit";
 import { MatchListComponent } from "./match-list";
@@ -12,10 +12,14 @@ import { MatchCoreModule } from "../core";
 import { ClubCoreModule } from "@app/club";
 import { StadiumCoreModule } from "@app/stadium";
 import { SeasonCoreModule } from "@app/season";
-import {
-    MatNativeDateModule, MatDatepickerModule, MatAutocompleteModule,
-    MatSelectModule, MatSlideToggleModule, MatInputModule, MatTableModule, MatTabsModule
-} from "@angular/material";
+import { MatAutocompleteModule } from "@angular/material/autocomplete";
+import { MatNativeDateModule } from "@angular/material/core";
+import { MatDatepickerModule } from "@angular/material/datepicker";
+import { MatInputModule } from "@angular/material/input";
+import { MatSelectModule } from "@angular/material/select";
+import { MatSlideToggleModule } from "@angular/material/slide-toggle";
+import { MatTableModule } from "@angular/material/table";
+import { MatTabsModule } from "@angular/material/tabs";
 import { BreadcrumbService } from "@app/shared/breadcrumb";
 import { MATCHES_ROUTE, MATCHES_RU, MATCH_RU  } from "@app/+constants";
 

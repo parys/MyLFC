@@ -1,4 +1,4 @@
-﻿import { NgModule } from "@angular/core";
+import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { SharedModule } from "@app/shared";
 import { pmRoutes } from "./pm.routes";
@@ -6,7 +6,9 @@ import { PmListComponent } from "./pm-list";
 import { PmDetailComponent } from "./pm-detail";
 import { PmEditComponent } from "./pm-edit";
 import { EditorModule } from "@app/editor";
-import { MatTabsModule, MatAutocompleteModule, MatInputModule } from "@angular/material";
+import { MatAutocompleteModule } from "@angular/material/autocomplete";
+import { MatInputModule } from "@angular/material/input";
+import { MatTabsModule } from "@angular/material/tabs";
 import { BreadcrumbService } from "@app/shared/breadcrumb";
 import { PMS_ROUTE } from "@app/+constants";
 import { PmSharedModule } from "../shared";

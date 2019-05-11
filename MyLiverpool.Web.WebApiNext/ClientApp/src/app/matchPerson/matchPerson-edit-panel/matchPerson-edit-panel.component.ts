@@ -27,7 +27,7 @@ export class MatchPersonEditPanelComponent implements OnInit, AfterViewInit {
     @Output() public exit = new EventEmitter();
     public editMatchPersonForm: FormGroup;
     public persons$: Observable<Person[]>;
-    @ViewChild("mpInput") private elementRef: ElementRef;
+    @ViewChild("mpInput", { static: true })private elementRef: ElementRef;
 
     public types: MatchPersonType[];
 
