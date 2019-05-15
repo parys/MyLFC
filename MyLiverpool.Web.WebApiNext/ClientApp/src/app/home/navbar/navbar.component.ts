@@ -8,4 +8,9 @@
 })
 export class NavbarComponent {
     @Output() public toggle: EventEmitter<any> = new EventEmitter();
+    public showAd: boolean;
+
+    constructor() {
+        this.showAd = window.innerWidth > 1640;
+    }
 }

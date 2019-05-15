@@ -1,30 +1,23 @@
 ﻿<div>
     <a role="button" [matMenuTriggerFor]="newsMenu">
-        Новости<mat-icon>arrow_drop_down</mat-icon>
+        Материалы<mat-icon>arrow_drop_down</mat-icon>
     </a>
     <mat-menu #newsMenu="matMenu">
         <a [routerLink]="['/news']" mat-menu-item>Новости</a>
         <a *ngIf="roles.isNewsmaker" [routerLink]="['/news', 0, 'edit']" mat-menu-item>+</a>
-        <a [routerLink]="['/newsCategories']" mat-menu-item>Категории</a>
-    </mat-menu>
-</div>
-<div>
-    <a role="button" [matMenuTriggerFor]="blogsMenu">
-        Блоги<mat-icon>arrow_drop_down</mat-icon>
-    </a>
-    <mat-menu #blogsMenu="matMenu">
+        <a [routerLink]="['/newsCategories']" mat-menu-item>Категории новостей</a>
         <a [routerLink]="['/blogs']" mat-menu-item>Блоги</a>
         <a *ngIf="roles.isAuthor" [routerLink]="['/blogs', 0, 'edit']" mat-menu-item>+</a>
-        <a [routerLink]="['/blogCategories']" mat-menu-item>Категории</a>
+        <a [routerLink]="['/blogCategories']" mat-menu-item>Категории блогов</a>
     </mat-menu>
 </div>
 <div>
     <a role="button" [matMenuTriggerFor]="fcClub">
-        ФК Ливерпуль<mat-icon>arrow_drop_down</mat-icon>
+        Клуб<mat-icon>arrow_drop_down</mat-icon>
     </a>
     <mat-menu #fcClub="matMenu">
         <ng-template matMenuContent>
-            <a [routerLink]="['/clubHistory']" mat-menu-item>История</a>
+            <a [routerLink]="['/clubHistory']" mat-menu-item>История ФК Ливерпуль</a>
             <a [routerLink]="['/aboutClub']" mat-menu-item>О Клубе</a>
             <a [routerLink]="['/persons/stuff/first']" mat-menu-item>Тренерский штаб</a>
             <a [routerLink]="['/persons/squad/first']" mat-menu-item>Состав</a>
@@ -42,7 +35,7 @@
     </mat-menu>
 </div>
 <div>
-    <a role="button" [routerLink]="['/users']">Пользователи</a>
+    <a role="button" [routerLink]="['/users']">Юзеры</a>
 </div>
 <div>
     <a role="button" [routerLink]="['/rules']"><b class="color-red beauty-font">Правила</b></a>

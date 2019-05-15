@@ -1,4 +1,4 @@
-﻿<nav class="maroon-panel beauty-font full-width" style="display: flex; flex: auto;">
+﻿<nav class="maroon-panel beauty-font nav">
     <a class="logo-link" role="button" [routerLink]="['/']">
         <img src="/content/logo34.png" class="logo" alt="MyLFC.ru" />
     </a>
@@ -6,5 +6,6 @@
     <button type="button" mat-button (click)="toggle.emit()" class="text-white">
         <mat-icon>menu</mat-icon>
     </button>
-    <img class="liverbird-navbar" alt="125 лет со дня основания ФК Ливерпуль" src="/content/liverbird5.png" />
+    
+    <ad [blockName]="'R-A-255349-4'" class="ad" *ngIf="showAd">12</ad>
 </nav>
