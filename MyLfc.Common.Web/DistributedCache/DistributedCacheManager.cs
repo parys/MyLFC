@@ -51,7 +51,7 @@ namespace MyLfc.Common.Web.DistributedCache
             {
             }
 
-            return default(T);
+            return default;
         }
 
         public async Task<string> GetStringAsync(string key)
