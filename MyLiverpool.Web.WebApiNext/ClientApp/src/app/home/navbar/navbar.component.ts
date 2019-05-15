@@ -1,4 +1,5 @@
-﻿import { Component, Output, EventEmitter, ChangeDetectionStrategy } from "@angular/core";
+﻿import { Component, Output, EventEmitter, ChangeDetectionStrategy, PLATFORM_ID, Inject, HostListener } from "@angular/core";
+import { isPlatformBrowser } from "@angular/common";
 
 @Component({
     selector: "navbar",
@@ -7,10 +8,21 @@
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NavbarComponent {
-    @Output() public toggle: EventEmitter<any> = new EventEmitter();
-    public showAd: boolean;
+    @Output()
+    public toggle: EventEmitter<any> = new EventEmitter();
+    public showAd: boolean = false;
 
-    constructor() {
-        this.showAd = window.innerWidth > 1640;
+    @HostListener("window:resize", ["$event"])
+    public sizeChange(event: any) {
+        if (isPlatformBrowser(this.platformId)) {
+            this.showAd = window.innerWidth > 1640;
+        }
+    }
+
+    constructor(
+        @Inject(PLATFORM_ID) private platformId: Object) {
+        if (isPlatformBrowser(this.platformId)) {
+            this.showAd = window.innerWidth > 1640;
+        }
     }
 }
