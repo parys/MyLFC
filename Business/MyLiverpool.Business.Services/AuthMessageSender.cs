@@ -41,7 +41,7 @@ namespace MyLiverpool.Business.Services
             try
             {
                 var client = new SmtpClient();
-                await client.ConnectAsync("smtp.gmail.com", 465, SecureSocketOptions.SslOnConnect);
+                await client.ConnectAsync(_settings.Value.Host, _settings.Value.Port);
                 await client.AuthenticateAsync(_settings.Value.Email, _settings.Value.Password);
 
                 await client.SendAsync(emailMessage);
