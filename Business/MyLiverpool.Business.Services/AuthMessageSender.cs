@@ -41,7 +41,11 @@ namespace MyLiverpool.Business.Services
             try
             {
                 var client = new SmtpClient();
-                await client.ConnectAsync(_settings.Value.Host, _settings.Value.Port);
+
+                //TODO fix and test on test env
+                client.ServerCertificateValidationCallback = (s, c, ch, e) => true;
+
+                await client.ConnectAsync(_settings.Value.Host, _settings.Value.Port, SecureSocketOptions.Auto);
                 await client.AuthenticateAsync(_settings.Value.Email, _settings.Value.Password);
 
                 await client.SendAsync(emailMessage);

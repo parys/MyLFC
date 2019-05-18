@@ -280,7 +280,7 @@ namespace MyLiverpool.Web.WebApiNext
                             options.BootModulePath = $"{spa.Options.SourcePath}/dist-server/main.js";
                             options.BootModuleBuilder =
                                 env.IsDevelopment() ? new AngularCliBuilder(npmScript: "build:ssr") : null;
-                            options.ExcludeUrls = new[] { "/sockjs-node", "/src", "/content", "/hubs", "/null" };
+                            options.ExcludeUrls = new[] { "/sockjs-node", "/src", "/content", "/hubs", "/null", "/0", "/lite" };
                             options.SupplyData = (requestContext, obj) =>
                             {
                                 //  var result = appService.GetApplicationData(requestContext).GetAwaiter().GetResult();

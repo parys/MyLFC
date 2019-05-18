@@ -134,5 +134,6 @@ export const routes: Routes = [
  
         },
         runGuardsAndResolvers: "always"
-    }
+    },
+    { path: '**', redirectTo: '/' }
 ];
