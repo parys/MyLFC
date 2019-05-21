@@ -31,7 +31,7 @@ export class AdComponent implements AfterContentInit {
         this.zone.runOutsideAngular(() => {
             loadYa();
             if (addAd(this.blockName)) {
-                this.sub$.unsubscribe();
+                this.zone.run(() => this.sub$.unsubscribe());
             }
         });
     }

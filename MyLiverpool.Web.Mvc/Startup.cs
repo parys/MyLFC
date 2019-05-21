@@ -21,6 +21,7 @@ using MyLiverpool.Data.ResourceAccess;
 using MyLiverpool.Data.ResourceAccess.Helpers;
 using Newtonsoft.Json.Serialization;
 using MyLfc.Common.Web.Middlewares;
+using MyLfc.Persistence;
 
 namespace MyLiverpool.Web.Mvc
 {

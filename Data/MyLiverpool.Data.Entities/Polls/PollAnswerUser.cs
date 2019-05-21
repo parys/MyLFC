@@ -1,4 +1,6 @@
-﻿namespace MyLiverpool.Data.Entities.Polls
+﻿using MyLfc.Domain;
+
+namespace MyLiverpool.Data.Entities.Polls
 {
     public class PollAnswerUser
     {

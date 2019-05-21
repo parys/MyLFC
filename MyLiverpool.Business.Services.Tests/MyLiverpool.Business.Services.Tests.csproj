@@ -27,7 +27,7 @@
     <ProjectReference Include="..\Business\MyLiverpool.Business.Services\MyLiverpool.Business.Services.csproj" />
     <ProjectReference Include="..\Common\MyLiverpool.Common.Mappings\MyLiverpool.Common.Mappings.csproj" />
     <ProjectReference Include="..\Data\MyLiverpool.Data.ResourceAccess.Interfaces\MyLiverpool.Data.ResourceAccess.Interfaces.csproj" />
-    <ProjectReference Include="..\Data\MyLiverpool.Data.ResourceAccess\MyLiverpool.Data.ResourceAccess.csproj" />
+    <ProjectReference Include="..\Data\MyLiverpool.Data.ResourceAccess\MyLfc.Persistence.csproj" />
   </ItemGroup>
 
   <ItemGroup>

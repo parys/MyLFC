@@ -41,8 +41,8 @@
   <ItemGroup>
     <ProjectReference Include="..\Business\MyLiverpool.Business.Contracts\MyLiverpool.Business.Contracts.csproj" />
     <ProjectReference Include="..\Business\MyLiverpool.Business.Services\MyLiverpool.Business.Services.csproj" />
-    <ProjectReference Include="..\Data\MyLiverpool.Data.Entities\MyLiverpool.Data.Entities.csproj" />
-    <ProjectReference Include="..\Data\MyLiverpool.Data.ResourceAccess\MyLiverpool.Data.ResourceAccess.csproj" />
+    <ProjectReference Include="..\Data\MyLiverpool.Data.Entities\MyLfc.Domain.csproj" />
+    <ProjectReference Include="..\Data\MyLiverpool.Data.ResourceAccess\MyLfc.Persistence.csproj" />
     <ProjectReference Include="..\MyLfc.Common.Web\MyLfc.Common.Web.csproj" />
   </ItemGroup>
 

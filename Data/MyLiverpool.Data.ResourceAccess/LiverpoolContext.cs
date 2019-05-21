@@ -1,12 +1,11 @@
 ﻿using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using MyLiverpool.Data.Entities;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
+using MyLfc.Domain;
+using MyLiverpool.Data.Entities;
 using MyLiverpool.Data.Entities.Polls;
 
-namespace MyLiverpool.Data.ResourceAccess
+namespace MyLfc.Persistence
 {
     public class LiverpoolContext : IdentityDbContext<User, Role, int>
     {

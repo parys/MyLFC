@@ -5,6 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using MyLfc.Domain;
 using MyLiverpool.Data.Entities;
 
 namespace MyLiverpool.Data.ResourceAccess.Interfaces

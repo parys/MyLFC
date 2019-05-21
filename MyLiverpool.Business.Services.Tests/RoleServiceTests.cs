@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using MyLfc.Domain;
+using MyLfc.Persistence;
 using MyLiverpool.Business.Services.Tests.Helpers;
 using Xunit;
 using MyLiverpool.Business.Contracts;

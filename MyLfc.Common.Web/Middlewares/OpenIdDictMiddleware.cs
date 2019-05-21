@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using MyLiverpool.Data.ResourceAccess;
 using Microsoft.AspNetCore.Hosting;
+using MyLfc.Persistence;
 using OpenIddict.Server;
 
 namespace MyLfc.Common.Web.Middlewares

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using MyLfc.Domain;
 
 namespace MyLiverpool.Data.Entities
 {

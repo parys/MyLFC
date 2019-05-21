@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using AspNet.Security.OAuth.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using MyLfc.Application.Materials;
 using MyLfc.Common.Web;
 using MyLfc.Common.Web.DistributedCache;
 using MyLiverpool.Business.Contracts;
@@ -19,8 +19,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// <summary>
     /// Manages materials.
     /// </summary>
-    [Authorize(AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme), Route("api/v1/[controller]")]
-    public class MaterialsController : Controller
+    public class MaterialsController : BaseController
     {
         private readonly IMaterialService _materialService;
         private readonly ILogger<MaterialsController> _logger;
@@ -39,6 +38,9 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             _cacheManager = cacheManager;
         }
 
+        #region Old
+
+        
         /// <summary>
         /// Returns list of filtered materials.  
         /// </summary>
@@ -104,7 +106,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             var result = await _materialService.DeleteAsync(id, User);
             _cacheManager.Remove(CacheKeysConstants.Material + id);
             _cacheManager.Remove(CacheKeysConstants.MaterialList);
-            return Json(result);
+            return Ok(result);
         }
 
         /// <summary>
@@ -195,7 +197,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         {
             await _materialService.AddViewAsync(id);
             UpdateMaterialCacheAddViewAsync(id);
-            return Json(true);
+            return Ok(true);
         }
 
         /// <summary>
@@ -207,7 +209,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         public async Task<IActionResult> GetExtractedImageLinksAsync(string url)
         {
             var fileLinks = await _materialService.GetExtractedImageLinks(url);
-            return Json(fileLinks);
+            return Ok(fileLinks);
         }
 
         private MaterialFiltersDto GetBasicMaterialFilters(bool isNewsMaker)
@@ -237,5 +239,22 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 _cacheManager.Set(CacheKeysConstants.MaterialList, materialsCache);
             }
         }
+
+        #endregion
+
+        #region Mediatr
+
+
+        /// <summary>
+        /// Returns latest list materials.  
+        /// </summary>
+        /// <returns>List of materials.</returns>
+        [AllowAnonymous, HttpGet("latest")]
+        public async Task<IActionResult> GetLatestList()
+        {
+            return Ok(await Mediator.Send(new GetLatestMaterialsQuery.Request()));
+        }
+
+        #endregion
     }
 }

@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using MyLiverpool.Data.Common;
+using MyLiverpool.Data.Entities;
 using MyLiverpool.Data.Entities.Polls;
 
-namespace MyLiverpool.Data.Entities
+namespace MyLfc.Domain
 {
     public class MaterialComment : IEntity
     {

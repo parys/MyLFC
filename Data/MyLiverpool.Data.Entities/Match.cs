@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using MyLiverpool.Data.Common;
+using MyLiverpool.Data.Entities;
 
-namespace MyLiverpool.Data.Entities
+namespace MyLfc.Domain
 {
     public class Match : IEntity
     {

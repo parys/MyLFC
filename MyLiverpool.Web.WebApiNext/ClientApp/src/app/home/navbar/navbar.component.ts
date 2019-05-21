@@ -15,14 +15,14 @@ export class NavbarComponent {
     @HostListener("window:resize", ["$event"])
     public sizeChange(event: any) {
         if (isPlatformBrowser(this.platformId)) {
-            this.showAd = window.innerWidth > 1640;
+            this.showAd = window.innerWidth > 1673;
         }
     }
 
     constructor(
         @Inject(PLATFORM_ID) private platformId: Object) {
         if (isPlatformBrowser(this.platformId)) {
-            this.showAd = window.innerWidth > 1640;
+            this.sizeChange("");
         }
     }
 }

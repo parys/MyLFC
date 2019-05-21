@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Identity;
+using MyLiverpool.Data.Entities;
 
-namespace MyLiverpool.Data.Entities
+namespace MyLfc.Domain
 {
     public class User : IdentityUser<int>// UserLogin, UserRole, UserClaim>, IEntity
     {

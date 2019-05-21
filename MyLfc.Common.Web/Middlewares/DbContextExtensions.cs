@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MyLfc.Persistence;
 using MyLiverpool.Data.ResourceAccess;
 
 namespace MyLfc.Common.Web.Middlewares

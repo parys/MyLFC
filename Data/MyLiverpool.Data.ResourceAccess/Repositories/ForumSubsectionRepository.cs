@@ -6,6 +6,7 @@ using MyLiverpool.Data.Entities;
 using MyLiverpool.Data.ResourceAccess.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using MyLfc.Persistence;
 
 namespace MyLiverpool.Data.ResourceAccess.Repositories
 {

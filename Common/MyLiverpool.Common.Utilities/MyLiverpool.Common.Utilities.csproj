@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Data\MyLiverpool.Data.Entities\MyLiverpool.Data.Entities.csproj" />
+    <ProjectReference Include="..\..\Data\MyLiverpool.Data.Entities\MyLfc.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>

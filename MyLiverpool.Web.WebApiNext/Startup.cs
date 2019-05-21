@@ -4,7 +4,6 @@ using System.Globalization;
 using System.IO;
 using System.IO.Compression;
 using System.Threading.Tasks;
-using MessagePack;
 using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
@@ -19,15 +18,16 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using MyLiverpool.Business.Services.Helpers;
 using MyLiverpool.Common.Utilities;
-using MyLiverpool.Data.ResourceAccess;
 using MyLiverpool.Data.ResourceAccess.Helpers;
 using MyLiverpool.Web.WebApiNext.Extensions;
 using Newtonsoft.Json.Serialization;
 using Swashbuckle.AspNetCore.Swagger;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
+using MyLfc.Application.Infrastructure;
 using MyLfc.Common.Web;
 using MyLfc.Common.Web.Hubs;
 using MyLfc.Common.Web.Middlewares;
+using MyLfc.Persistence;
 
 namespace MyLiverpool.Web.WebApiNext
 {
@@ -168,6 +168,7 @@ namespace MyLiverpool.Web.WebApiNext
                 });
             }
 
+            services.AddMediatR();
             services.AddNodeServices(options =>
             {
                   options.DebuggingPort = 9229;

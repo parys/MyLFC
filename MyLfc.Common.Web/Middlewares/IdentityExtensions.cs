@@ -2,6 +2,8 @@
 using AspNet.Security.OpenIdConnect.Primitives;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
+using MyLfc.Domain;
+using MyLfc.Persistence;
 using MyLiverpool.Data.Entities;
 using MyLiverpool.Data.ResourceAccess;
 

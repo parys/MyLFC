@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using FluentAssertions.Common;
 using Microsoft.EntityFrameworkCore;
+using MyLfc.Persistence;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Business.Dto.Filters;

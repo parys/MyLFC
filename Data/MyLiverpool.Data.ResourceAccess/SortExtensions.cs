@@ -3,7 +3,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace MyLiverpool.Data.ResourceAccess
+namespace MyLfc.Persistence
 {
     public static class SortExtensions
     {

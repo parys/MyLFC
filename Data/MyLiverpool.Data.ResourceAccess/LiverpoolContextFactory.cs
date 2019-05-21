@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.Extensions.DependencyInjection;
+using MyLiverpool.Data.ResourceAccess;
 
-namespace MyLiverpool.Data.ResourceAccess
+namespace MyLfc.Persistence
 {
     public class LiverpoolContextFactory : IDesignTimeDbContextFactory<LiverpoolContext>
     {

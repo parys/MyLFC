@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using MyLfc.Domain;
 
 namespace MyLiverpool.Data.Entities
 {

@@ -11,7 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Common\MyLiverpool.Common.Utilities\MyLiverpool.Common.Utilities.csproj" />
-    <ProjectReference Include="..\MyLiverpool.Data.Entities\MyLiverpool.Data.Entities.csproj" />
+    <ProjectReference Include="..\MyLiverpool.Data.Entities\MyLfc.Domain.csproj" />
     <ProjectReference Include="..\MyLiverpool.Data.ResourceAccess.Interfaces\MyLiverpool.Data.ResourceAccess.Interfaces.csproj" />
   </ItemGroup>
 

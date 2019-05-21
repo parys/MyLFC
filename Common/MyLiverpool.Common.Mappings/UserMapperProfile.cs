@@ -1,5 +1,6 @@
 ﻿using System;
 using AutoMapper;
+using MyLfc.Domain;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Data.Entities;
 

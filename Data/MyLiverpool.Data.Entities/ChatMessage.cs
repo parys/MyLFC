@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using MyLfc.Domain;
 using MyLiverpool.Data.Common;
 
 namespace MyLiverpool.Data.Entities

@@ -1,4 +1,6 @@
-﻿namespace MyLiverpool.Data.Entities
+﻿using MyLfc.Domain;
+
+namespace MyLiverpool.Data.Entities
 {
     public class CommentVote
     {

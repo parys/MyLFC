@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.Internal;
 using MyLiverpool.Data.Common;
 using MyLiverpool.Data.ResourceAccess;
 using System;
+using MyLfc.Persistence;
 
 namespace MyLiverpool.Data.ResourceAccess.Migrations
 {

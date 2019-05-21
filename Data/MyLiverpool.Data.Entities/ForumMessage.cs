@@ -1,6 +1,7 @@
 ﻿using System;
+using MyLiverpool.Data.Entities;
 
-namespace MyLiverpool.Data.Entities
+namespace MyLfc.Domain
 {
     public class ForumMessage : IEntity
     {
