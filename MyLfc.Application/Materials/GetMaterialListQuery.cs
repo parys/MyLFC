@@ -12,10 +12,27 @@ using MyLiverpool.Data.Common;
 
 namespace MyLfc.Application.Materials
 {
-    public class GetLatestMaterialsQuery
+    public class GetMaterialListQuery
     {
         public class Request : PagedQueryBase, IRequest<Response>
         {
+            public int? CategoryId { get; set; }
+
+            public int? UserId { get; set; }
+
+            public MaterialType MaterialType { get; set; }
+
+            [Obsolete("Remove after 1 Aug 2019")]
+            public int? Page { get; set; } = 1;
+
+            [Obsolete("Remove after 1 Aug 2019")]
+            public int ItemsPerPage { get; set; } = 15;
+
+            [Obsolete("Remove after 1 Aug 2019")]
+            public string Order { get; set; }
+
+            [Obsolete("Remove after 1 Aug 2019")]
+            public string SortBy { get; set; }
         }
 
 
@@ -37,17 +54,32 @@ namespace MyLfc.Application.Materials
 
                 materialsQuery = materialsQuery.Where(x => !x.Pending).OrderByDescending(x => x.AdditionTime);
 
-                return await materialsQuery.GetPagedAsync<Response, Material, MaterialLatestListDto>(request, _mapper);
+                if (request.CategoryId.HasValue)
+                {
+                    materialsQuery = materialsQuery.Where(x => x.CategoryId == request.CategoryId.Value);
+                }
+
+                if (request.UserId.HasValue)
+                {
+                    materialsQuery = materialsQuery.Where(x => x.AuthorId == request.UserId.Value);
+                }
+
+                if (request.MaterialType != MaterialType.Both)
+                {
+                    materialsQuery = materialsQuery.Where(x => x.Type == request.MaterialType);
+                }
+
+                return await materialsQuery.GetPagedAsync<Response, Material, MaterialListDto>(request, _mapper);
             }
         }
 
 
-        public class Response : PagedResult<MaterialLatestListDto>
+        public class Response : PagedResult<MaterialListDto>
         {
         }
 
 
-        public class MaterialLatestListDto
+        public class MaterialListDto
         {
             public int Id { get; set; }
 

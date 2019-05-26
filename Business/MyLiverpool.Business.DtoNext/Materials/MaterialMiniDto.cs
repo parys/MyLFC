@@ -30,15 +30,11 @@ namespace MyLiverpool.Business.Dto
 
         public int Reads { get; set; }
 
-        //     public string Source { get; set; }
-
         public string PhotoPreview { get; set; }
         public string Photo { get; set; }
 
         public MaterialType Type { get; set; }
 
         public string TypeName { get; set; }
-
-        //   public DateTime LastModified { get; set; }
     }
 }

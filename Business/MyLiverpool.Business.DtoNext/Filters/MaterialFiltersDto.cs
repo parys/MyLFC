@@ -1,7 +1,9 @@
-﻿using MyLiverpool.Data.Common;
+﻿using System;
+using MyLiverpool.Data.Common;
 
 namespace MyLiverpool.Business.Dto.Filters
 {
+    [Obsolete("Remove after 1 Aug 19")]
     public class MaterialFiltersDto: BaseFiltersDto
     {
         public int? CategoryId { get; set; }

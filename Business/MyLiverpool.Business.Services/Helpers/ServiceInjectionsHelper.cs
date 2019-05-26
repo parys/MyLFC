@@ -38,7 +38,7 @@ namespace MyLiverpool.Business.Services.Helpers
             services.AddTransient<IUploadService, UploadService>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IWishService, WishService>();
-            services.AddSingleton<IMapper>(MapperConfig.GetConfiration.CreateMapper());
+        //    services.AddSingleton<IMapper>(MapperConfig.GetConfiration.CreateMapper());
         }
     }
 }

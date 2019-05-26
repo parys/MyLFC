@@ -40,25 +40,33 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
 
         #region Old
 
-        
         /// <summary>
         /// Returns list of filtered materials.  
         /// </summary>
-        /// <param name="filtersObj">Contains filters.</param>
+        /// <param name="request">Contains filters.</param>
         /// <returns>List of materials.</returns>
         [AllowAnonymous, HttpGet("{filtersObj}")]
-        public async Task<IActionResult> GetListItems([FromRoute] string filtersObj)
+        public async Task<IActionResult> GetListItems([FromQuery] GetMaterialListQuery.Request request, [FromRoute] string filtersObj)
         {
-           // _logger.LogError(Process.GetCurrentProcess().Threads.Count.ToString());
-            MaterialFiltersDto filters;
-            if (filtersObj == null)
+            if (string.IsNullOrWhiteSpace(filtersObj))
             {
-                filters = GetBasicMaterialFilters(false);
+                GetMaterialListQuery.Response response;
+                if (request.CurrentPage != 1)
+                {
+                    response = await _cacheManager.GetOrCreateAsync(CacheKeysConstants.MaterialList,
+                        async () => await Mediator.Send(request));
+                }
+                else
+                {
+                    response = await Mediator.Send(request);
+                }
+
+                return Ok(response);
             }
-            else
-            {
-                filters = (MaterialFiltersDto) JsonConvert.DeserializeObject(filtersObj, typeof(MaterialFiltersDto));
-            }
+
+            // _logger.LogError(Process.GetCurrentProcess().Threads.Count.ToString());
+            MaterialFiltersDto filters = (MaterialFiltersDto)JsonConvert.DeserializeObject(filtersObj, typeof(MaterialFiltersDto));
+            
             filters.IsInNewsmakerRole = User.IsInRole(nameof(RolesEnum.NewsStart)) || User.IsInRole(nameof(RolesEnum.BlogStart));
             PageableData<MaterialMiniDto> result;
             if (filters.Page == 1 && !filters.IsInNewsmakerRole && filters.MaterialType == MaterialType.Both)
@@ -214,12 +222,27 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
 
         private MaterialFiltersDto GetBasicMaterialFilters(bool isNewsMaker)
         {
-            return new MaterialFiltersDto {
+            return new MaterialFiltersDto
+            {
                 Page = 1,
                 MaterialType = MaterialType.Both,
                 IsInNewsmakerRole = isNewsMaker
             };
         }
+
+        //private MaterialFiltersDto GetBasicMaterialFilters(GetMaterialListQuery.Request request)
+        //{
+        //    return new MaterialFiltersDto {
+        //        Page = request.Page,
+        //        MaterialType = request.MaterialType,
+        //        IsInNewsmakerRole = false,
+        //        CategoryId = request.CategoryId,
+        //        UserId = request.UserId,
+        //        ItemsPerPage = request.ItemsPerPage,
+        //        Order = request.Order,
+        //        SortBy = request.SortBy
+        //    };
+        //}
 
         private async void UpdateMaterialCacheAddViewAsync(int materialId)
         {

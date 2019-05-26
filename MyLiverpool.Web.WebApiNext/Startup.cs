@@ -4,6 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.IO.Compression;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
@@ -167,7 +168,7 @@ namespace MyLiverpool.Web.WebApiNext
                     //   options.OperationFilter<AssignSecurityRequirements>();
                 });
             }
-
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddMediatR();
             services.AddNodeServices(options =>
             {

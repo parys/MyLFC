@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using MyLfc.Application.Infrastructure.Profiles;
 using MyLiverpool.Common.Mappings.Vm;
 
 namespace MyLiverpool.Common.Mappings
@@ -18,6 +19,7 @@ namespace MyLiverpool.Common.Mappings
             cfg.AddProfile(new MatchEventMapperProfile());
             cfg.AddProfile(new MatchPersonMapperProfile());
             cfg.AddProfile(new MaterialMapperProfile());
+            cfg.AddProfile(new MaterialProfile());
             cfg.AddProfile(new MaterialCategoryMapperProfile());
             cfg.AddProfile(new MaterialCommentMapperProfile());
             cfg.AddProfile(new NotificationMapperProfile());
