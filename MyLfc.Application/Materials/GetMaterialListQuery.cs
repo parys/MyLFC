@@ -21,18 +21,6 @@ namespace MyLfc.Application.Materials
             public int? UserId { get; set; }
 
             public MaterialType MaterialType { get; set; }
-
-            [Obsolete("Remove after 1 Aug 2019")]
-            public int? Page { get; set; } = 1;
-
-            [Obsolete("Remove after 1 Aug 2019")]
-            public int ItemsPerPage { get; set; } = 15;
-
-            [Obsolete("Remove after 1 Aug 2019")]
-            public string Order { get; set; }
-
-            [Obsolete("Remove after 1 Aug 2019")]
-            public string SortBy { get; set; }
         }
 
 

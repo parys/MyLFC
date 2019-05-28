@@ -45,40 +45,45 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <param name="request">Contains filters.</param>
         /// <returns>List of materials.</returns>
+        [Obsolete("Remove after 1 Aug 2019")]
         [AllowAnonymous, HttpGet("{filtersObj}")]
-        public async Task<IActionResult> GetListItems([FromQuery] GetMaterialListQuery.Request request, [FromRoute] string filtersObj)
+        public async Task<IActionResult> GetListItemsObsolete([FromRoute] string filtersObj)
         {
-            if (string.IsNullOrWhiteSpace(filtersObj))
+            MaterialFiltersDto filters;
+            if (filtersObj == null)
             {
-                GetMaterialListQuery.Response response;
-                if (request.CurrentPage != 1)
-                {
-                    response = await _cacheManager.GetOrCreateAsync(CacheKeysConstants.MaterialList,
-                        async () => await Mediator.Send(request));
-                }
-                else
-                {
-                    response = await Mediator.Send(request);
-                }
-
-                return Ok(response);
-            }
-
-            // _logger.LogError(Process.GetCurrentProcess().Threads.Count.ToString());
-            MaterialFiltersDto filters = (MaterialFiltersDto)JsonConvert.DeserializeObject(filtersObj, typeof(MaterialFiltersDto));
-            
-            filters.IsInNewsmakerRole = User.IsInRole(nameof(RolesEnum.NewsStart)) || User.IsInRole(nameof(RolesEnum.BlogStart));
-            PageableData<MaterialMiniDto> result;
-            if (filters.Page == 1 && !filters.IsInNewsmakerRole && filters.MaterialType == MaterialType.Both)
-            {
-                result = await _cacheManager.GetOrCreateAsync(CacheKeysConstants.MaterialList,
-                    async () => await _materialService.GetDtoAllAsync(filters));
+                filters = GetBasicMaterialFilters(false);
             }
             else
             {
-                result = await _materialService.GetDtoAllAsync(filters);
+                filters = (MaterialFiltersDto)JsonConvert.DeserializeObject(filtersObj, typeof(MaterialFiltersDto));
             }
+            filters.IsInNewsmakerRole = User.IsInRole(nameof(RolesEnum.NewsStart)) || User.IsInRole(nameof(RolesEnum.BlogStart));
+            PageableData<MaterialMiniDto> result = await _materialService.GetDtoAllAsync(filters);
+            
             return Ok(result);
+        }
+
+        /// <summary>
+        /// Returns list of filtered materials.  
+        /// </summary>
+        /// <param name="request">Contains filters.</param>
+        /// <returns>List of materials.</returns>
+        [AllowAnonymous, HttpGet("")]
+        public async Task<IActionResult> GetListItems([FromQuery] GetMaterialListQuery.Request request)
+        {
+            GetMaterialListQuery.Response response;
+            if (request.CurrentPage != 1)
+            {
+                response = await _cacheManager.GetOrCreateAsync(CacheKeysConstants.MaterialList,
+                    async () => await Mediator.Send(request));
+            }
+            else
+            {
+                response = await Mediator.Send(request);
+            }
+
+            return Ok(response);
         }
 
         /// <summary>

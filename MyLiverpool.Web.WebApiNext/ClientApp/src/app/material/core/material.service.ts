@@ -1,7 +1,7 @@
 ﻿import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { MaterialType } from "@app/materialCategory";
-import { Pageable } from "@app/shared";
+import { PagedList } from "@app/shared";
 import { HttpWrapper } from "@app/+httpWrapper";
 import { MaterialFilters, Material } from "../model";
 import { MATERIALS_ROUTE } from "@app/+constants";
@@ -11,11 +11,15 @@ export class MaterialService {
     private actionUrl: string;
 
     constructor(private http: HttpWrapper) {
-        this.actionUrl = MATERIALS_ROUTE + "/";
+        this.actionUrl = MATERIALS_ROUTE + "";
     }
 
-    public getAll(filters: MaterialFilters): Observable<Pageable<Material>> {
-        return this.http.get<Pageable<Material>>(this.actionUrl + encodeURIComponent(JSON.stringify(filters)));
+    public getAll(filters: MaterialFilters | any): Observable<PagedList<Material>> {
+        return this.http.getWithParams<PagedList<Material>>(this.actionUrl, filters );
+    };
+
+    public getLatest(): Observable<PagedList<Material>> {
+        return this.http.get<PagedList<Material>>(this.actionUrl + "latest/");
     };
 
     public getSingle(id: number): Observable<Material> {

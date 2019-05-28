@@ -6,7 +6,7 @@ import { Router, ActivatedRoute, NavigationEnd } from "@angular/router";
 import { Subscription } from "rxjs";
 import { MaterialService } from "../material.service";
 import { MaterialActivateDialogComponent } from "../material-activate-dialog";
-import { Material, MaterialFilters } from "../../model";
+import { Material } from "../../model";
 import { DeleteDialogComponent, PagedList } from "@app/shared";
 import { RolesCheckedService } from "@app/+auth";
 import { MaterialType } from "@app/materialCategory";
@@ -14,16 +14,17 @@ import { CustomTitleMetaService as CustomTitleService } from "@app/shared";
 import { PAGE, TITLE_RU, NEWSS_RU, BLOGS_RU } from "@app/+constants";
 
 @Component({
-    selector: "material-list",
-    templateUrl: "./material-list.component.html",
-    styleUrls: ["./material-list.component.scss"],
+    selector: "material-latest",
+    templateUrl: "./material-latest.component.html",
+    styleUrls: ["./material-latest.component.scss"],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MaterialListComponent implements OnInit, OnDestroy {
-    private type: MaterialType = MaterialType.Both;
+export class MaterialLatestComponent implements OnInit, OnDestroy {
+    private type: MaterialType;
     private sub: Subscription;
     private sub2: Subscription;
     private navigationSubscription: Subscription;
+    private userName: string;
     private userId: number = null;
     public items: Material[];
     public page: number = 1;
@@ -44,7 +45,7 @@ export class MaterialListComponent implements OnInit, OnDestroy {
         this.navigationSubscription = this.router.events.subscribe((e: any) => {
             // If it is a NavigationEnd event re-initalise the component
             if (e instanceof NavigationEnd) {
-                this.parseQueryParamsAndUpdate();
+                this.update();
             }
         });
     }
@@ -97,6 +98,9 @@ export class MaterialListComponent implements OnInit, OnDestroy {
         if (this.categoryId) {
             newUrl = `${newUrl}&categoryId=${this.categoryId}`;
         }
+        if (this.userName) {
+            newUrl = `${newUrl}&userName=${this.userName}`;
+        }
 
         this.location.replaceState(newUrl);
     }
@@ -137,26 +141,10 @@ export class MaterialListComponent implements OnInit, OnDestroy {
     }
 
     private update(): void {
-        const filters: MaterialFilters = new MaterialFilters();
-        filters.categoryId = this.categoryId || null;
-        filters.materialType = MaterialType[this.type];
-        filters.userId = this.userId || null;
-        filters.currentPage = this.page;
-        console.log(filters);
-        console.log(this.type);
         this.sub = this.materialService
-            .getAll(filters)
+            .getLatest()
             .subscribe(data => this.parsePageable(data),
                 () => {},
                 () => this.cd.markForCheck());
-    }
-
-    private parseQueryParamsAndUpdate(): void {
-        this.sub2 = this.route.queryParams.subscribe(qParams => {
-                this.page = qParams[PAGE] || 1;
-                this.categoryId = qParams["categoryId"] || null;
-                this.userId = qParams["userId"] || null;
-            });
-        this.update();
     }
 }
