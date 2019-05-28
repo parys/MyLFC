@@ -59,7 +59,7 @@
     "tslint": "5.16.0",
     "codelyzer": "5.0.1",
     "tinymce": "4.9.3",
-    "@types/node": "11.13.11",
+    "@types/node": "11.13.12",
     "@types/tinymce": "4.5.20",
     "webpack-bundle-analyzer": "3.3.2",
     "acorn": "6.1.1",
