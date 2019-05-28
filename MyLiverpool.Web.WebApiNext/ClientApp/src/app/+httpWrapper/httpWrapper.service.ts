@@ -60,7 +60,6 @@ export class HttpWrapper {
                 searchParams = searchParams.append(key, params[key] || "");
             }
         }
-        console.log(searchParams);
         return searchParams;
     }
 }

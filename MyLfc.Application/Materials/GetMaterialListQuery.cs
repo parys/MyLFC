@@ -76,7 +76,9 @@ namespace MyLfc.Application.Materials
             public string CategoryName { get; set; }
 
             public bool CanCommentary { get; set; }
-            
+
+            public bool Pending { get; set; }
+
             public DateTimeOffset AdditionTime { get; set; }
 
             public int CommentsCount { get; set; }
@@ -86,7 +88,9 @@ namespace MyLfc.Application.Materials
             public int UserId { get; set; }
 
             public string Title { get; set; }
-            
+
+            public string Brief { get; set; }
+
             public int Reads { get; set; }
 
             public string PhotoPreview { get; set; }

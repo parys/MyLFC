@@ -20,15 +20,11 @@ import { PAGE, TITLE_RU, NEWSS_RU, BLOGS_RU } from "@app/+constants";
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MaterialLatestComponent implements OnInit, OnDestroy {
-    private type: MaterialType;
     private sub: Subscription;
     private sub2: Subscription;
     private navigationSubscription: Subscription;
-    private userName: string;
-    private userId: number = null;
     public items: Material[];
     public page: number = 1;
-    public itemsPerPage: number = 15;
     public totalItems: number;
     public categoryId: number;
 
@@ -86,25 +82,7 @@ export class MaterialLatestComponent implements OnInit, OnDestroy {
         if(this.sub2) this.sub2.unsubscribe();
         if(this.navigationSubscription) this.navigationSubscription.unsubscribe();
     }
-
-    public pageChanged(event: any): void {
-        this.page = event;
-        this.update();
-        this.updateUrl();
-    };
-
-    private updateUrl(): void {
-        let newUrl: string = `${MaterialType[this.type].toLowerCase()}?${PAGE}=${this.page}`;
-        if (this.categoryId) {
-            newUrl = `${newUrl}&categoryId=${this.categoryId}`;
-        }
-        if (this.userName) {
-            newUrl = `${newUrl}&userName=${this.userName}`;
-        }
-
-        this.location.replaceState(newUrl);
-    }
-
+    
     private activate(index: number): void {
         const news: Material = this.items[index];
         this.materialService.activate(news.id)

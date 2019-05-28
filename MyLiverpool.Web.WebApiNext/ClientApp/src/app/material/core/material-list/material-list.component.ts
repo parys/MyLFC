@@ -142,8 +142,6 @@ export class MaterialListComponent implements OnInit, OnDestroy {
         filters.materialType = MaterialType[this.type];
         filters.userId = this.userId || null;
         filters.currentPage = this.page;
-        console.log(filters);
-        console.log(this.type);
         this.sub = this.materialService
             .getAll(filters)
             .subscribe(data => this.parsePageable(data),

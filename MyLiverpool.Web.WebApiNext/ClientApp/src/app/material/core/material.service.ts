@@ -11,7 +11,7 @@ export class MaterialService {
     private actionUrl: string;
 
     constructor(private http: HttpWrapper) {
-        this.actionUrl = MATERIALS_ROUTE + "";
+        this.actionUrl = MATERIALS_ROUTE + "/";
     }
 
     public getAll(filters: MaterialFilters | any): Observable<PagedList<Material>> {

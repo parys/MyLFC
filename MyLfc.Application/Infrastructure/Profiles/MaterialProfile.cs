@@ -22,6 +22,23 @@ namespace MyLfc.Application.Infrastructure.Profiles
                 .ForMember(dest => dest.Type, src => src.MapFrom(x => x.Type))
                 .ForMember(dest => dest.TypeName, src => src.MapFrom(x => x.Type.ToString().ToLowerInvariant()))
                 .ForMember(dest => dest.Reads, src => src.MapFrom(x => x.Reads));
+
+            CreateMap<Material, GetMaterialListQuery.MaterialListDto>()
+                .ForMember(dest => dest.AdditionTime, src => src.MapFrom(x => x.AdditionTime))
+                .ForMember(dest => dest.UserId, src => src.MapFrom(x => x.AuthorId))
+                .ForMember(dest => dest.UserName, src => src.MapFrom(x => x.Author.UserName))
+                .ForMember(dest => dest.Brief, src => src.MapFrom(x => x.Brief))
+                .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id))
+                .ForMember(dest => dest.CategoryId, src => src.MapFrom(x => x.CategoryId))
+                .ForMember(dest => dest.CategoryName, src => src.MapFrom(x => x.Category.Name))
+                .ForMember(dest => dest.CommentsCount, src => src.MapFrom(x => x.CommentsCount))
+                .ForMember(dest => dest.Pending, src => src.MapFrom(x => x.Pending))
+                .ForMember(dest => dest.Title, src => src.MapFrom(x => x.Title))
+                .ForMember(dest => dest.PhotoPreview, src => src.MapFrom(x => x.PhotoPreview ?? x.PhotoPath))
+                .ForMember(dest => dest.Photo, src => src.MapFrom(x => x.PhotoPreview ?? x.PhotoPath)) //remove when cache will updated
+                .ForMember(dest => dest.Type, src => src.MapFrom(x => x.Type))
+                .ForMember(dest => dest.TypeName, src => src.MapFrom(x => x.Type.ToString().ToLowerInvariant()))
+                .ForMember(dest => dest.Reads, src => src.MapFrom(x => x.Reads));
         }
     }
 }

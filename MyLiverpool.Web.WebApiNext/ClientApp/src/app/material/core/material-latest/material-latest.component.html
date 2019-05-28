@@ -1,8 +1,6 @@
 ﻿<div>
     <match-header></match-header>
-    <div *ngFor="let item of items | paginate: { itemsPerPage: itemsPerPage,
-                                                      currentPage: page,
-                                                      totalItems: totalItems }; let i = index;">
+    <div *ngFor="let item of items; let i = index;">
         <div class="bottom10" *ngIf="!item.pending || roles.isNewsmaker || roles.isAuthor && roles.isSelf(item.userId)">
             <div class="material" [class.material-pending]="item.pending">
                 <div class="header">
@@ -36,7 +34,6 @@
                             <a [routerLink]="['/', item.typeName]" [queryParams]="{page: page, categoryId: item.categoryId, userName: userName
                                         }" [textContent]="item.categoryName"></a>
                         </li>
-                        <!--todo!!, userId: userId-->
                         <li class="">|</li>
                         <li class="">Время добавления:</li>
                         <li class="" [textContent]="item.additionTime | customDate:true"></li>
