@@ -1,6 +1,5 @@
 ﻿<div>
     <match-header></match-header>
-    <material-top></material-top>
     <div *ngFor="let item of items; let i = index;">
         <div class="bottom10" *ngIf="!item.pending || roles.isNewsmaker || roles.isAuthor && roles.isSelf(item.userId)">
             <div class="material" [class.material-pending]="item.pending">

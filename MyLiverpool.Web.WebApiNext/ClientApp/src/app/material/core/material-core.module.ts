@@ -6,15 +6,17 @@ import { MaterialLatestComponent } from "./material-latest";
 import { MaterialActivateDialogComponent } from "./material-activate-dialog";
 import { MaterialService } from "./material.service";
 import { MatchCoreModule } from "@app/match";
+import { MaterialTopComponent } from './material-top';
 
 @NgModule({
     imports: [
         SharedModule,
         RouterModule,
-        MatchCoreModule,
+        MatchCoreModule
     ],
     declarations: [
         MaterialLatestComponent,
+        MaterialTopComponent,
         MaterialListComponent,
         MaterialActivateDialogComponent
     ],

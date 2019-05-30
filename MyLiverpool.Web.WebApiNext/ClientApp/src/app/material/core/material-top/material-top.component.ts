@@ -1,24 +1,27 @@
 import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
+import { Location } from "@angular/common";
 import { MatDialog } from "@angular/material/dialog";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { Router, NavigationEnd } from "@angular/router";
+import { Router, ActivatedRoute, NavigationEnd } from "@angular/router";
 import { Subscription } from "rxjs";
 import { MaterialService } from "../material.service";
 import { MaterialActivateDialogComponent } from "../material-activate-dialog";
 import { Material } from "../../model";
 import { DeleteDialogComponent, PagedList } from "@app/shared";
 import { RolesCheckedService } from "@app/+auth";
+import { MaterialType } from "@app/materialCategory";
 import { CustomTitleMetaService as CustomTitleService } from "@app/shared";
-import { TITLE_RU } from "@app/+constants";
+import { PAGE, TITLE_RU, NEWSS_RU, BLOGS_RU } from "@app/+constants";
 
 @Component({
-    selector: "material-latest",
-    templateUrl: "./material-latest.component.html",
-    styleUrls: ["./material-latest.component.scss"],
+    selector: "material-top",
+    templateUrl: "./material-top.component.html",
+    styleUrls: ["./material-top.component.scss"],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MaterialLatestComponent implements OnInit, OnDestroy {
+export class MaterialTopComponent implements OnInit, OnDestroy {
     private sub: Subscription;
+    private sub2: Subscription;
     private navigationSubscription: Subscription;
     public items: Material[];
     public page: number = 1;
@@ -27,6 +30,8 @@ export class MaterialLatestComponent implements OnInit, OnDestroy {
 
     constructor(private router: Router,
         private materialService: MaterialService,
+        private route: ActivatedRoute,
+        private location: Location,
         private cd: ChangeDetectorRef,
         public roles: RolesCheckedService,
         
@@ -60,11 +65,18 @@ export class MaterialLatestComponent implements OnInit, OnDestroy {
     }
 
     public ngOnInit(): void {
-        this.titleService.setTitle(TITLE_RU);
+        if (this.router.url.startsWith("/news")) {
+            this.titleService.setTitle(NEWSS_RU);
+        } else if (this.router.url.startsWith("/blogs")){
+            this.titleService.setTitle(BLOGS_RU);
+        } else {
+            this.titleService.setTitle(TITLE_RU);
+        }
     }
 
     public ngOnDestroy(): void {
         if(this.sub) this.sub.unsubscribe();
+        if(this.sub2) this.sub2.unsubscribe();
         if(this.navigationSubscription) this.navigationSubscription.unsubscribe();
     }
     
