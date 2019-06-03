@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using MyLfc.Domain;
 using MyLiverpool.Data.Common;
+using MyLiverpool.Data.Entities;
 
-namespace MyLiverpool.Data.Entities
+namespace MyLfc.Domain
 {
     public class MaterialCategory : IEntity
     {
