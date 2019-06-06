@@ -1,51 +1,48 @@
-﻿<div>
-    <match-header></match-header>
-    <div *ngFor="let item of items; let i = index;">
-        <div class="bottom10" *ngIf="!item.pending || roles.isNewsmaker || roles.isAuthor && roles.isSelf(item.userId)">
-            <div class="material" [class.material-pending]="item.pending">
-                <div class="header">
-                    <a [routerLink]="['/', item.typeName, item.id]">
-                        <h3 class="beauty-font" [textContent]="item.title"></h3>
+﻿<div *ngFor="let item of items; let i = index;">
+    <div class="bottom10" *ngIf="!item.pending || roles.isNewsmaker || roles.isAuthor && roles.isSelf(item.userId)">
+        <div class="material" [class.material-pending]="item.pending">
+            <div class="header">
+                <a [routerLink]="['/', item.typeName, item.id]">
+                    <h3 class="beauty-font" [textContent]="item.title"></h3>
+                </a>
+                <span *ngIf="roles.isEditor || roles.isSelf(item.userId)">
+                    <a role="button" *ngIf="item.pending && roles.isEditor" (click)="showActivateModal(i)">
+                        <i class="material-icons">done</i>
                     </a>
-                    <span *ngIf="roles.isEditor || roles.isSelf(item.userId)">
-                        <a role="button" *ngIf="item.pending && roles.isEditor" (click)="showActivateModal(i)">
-                            <i class="material-icons">done</i>
-                        </a>
-                        <a [routerLink]="['/', item.typeName, item.id, 'edit']">
-                            <i class="material-icons">edit</i>
-                        </a>
-                        <a role="button" (click)="showDeleteModal(i)">
-                            <i class="material-icons">clear</i></a>
-                    </span>
-                </div>
-                <div class="mat-preview-list full-width">
-                    <span>
-                        <img class="img-thumbnail" [alt]="item.title" [src]="item.photoPreview" />
-                    </span>
-                    <span class="flex-v-c preview-text">
-                        <i class="padding5" [innerHTML]="item.brief"></i>
-                    </span>
-                </div>
+                    <a [routerLink]="['/', item.typeName, item.id, 'edit']">
+                        <i class="material-icons">edit</i>
+                    </a>
+                    <a role="button" (click)="showDeleteModal(i)">
+                        <i class="material-icons">clear</i></a>
+                </span>
+            </div>
+            <div class="mat-preview-list full-width">
+                <span>
+                    <img class="img-thumbnail" [alt]="item.title" [src]="item.photoPreview"/>
+                </span>
+                <span class="flex-v-c preview-text">
+                    <i class="padding5" [innerHTML]="item.brief"></i>
+                </span>
+            </div>
 
-                <div class="full-width material-info-panel">
-                    <ul class="list-inline small small-offset padding5">
-                        <li class="">Категория:</li>
-                        <li class="">
-                            <a [routerLink]="['/', item.typeName]" [queryParams]="{page: page, categoryId: item.categoryId, userName: userName
+            <div class="full-width material-info-panel">
+                <ul class="list-inline small small-offset padding5">
+                    <li class="">Категория:</li>
+                    <li class="">
+                        <a [routerLink]="['/', item.typeName]" [queryParams]="{page: page, categoryId: item.categoryId, userName: userName
                                         }" [textContent]="item.categoryName"></a>
-                        </li>
-                        <li class="">|</li>
-                        <li class="">Время добавления:</li>
-                        <li class="" [textContent]="item.additionTime | customDate:true"></li>
-                        <li class="">|</li>
-                        <li class="">Просмотры:</li>
-                        <li class="" [textContent]="item.reads"></li>
-                        <li class="">|</li>
-                        <li class="">Автор:</li>
-                        <li class=""><a [routerLink]="['/users', item.userId ]" [textContent]="item.userName"></a></li>
-                        <li *ngIf="item.canCommentary" class="">| <a [routerLink]="['/', item.typeName, item.id]" fragment="comments">Комментарии: {{item.commentsCount}}</a></li>
-                    </ul>
-                </div>
+                    </li>
+                    <li class="">|</li>
+                    <li class="">Время добавления:</li>
+                    <li class="" [textContent]="item.additionTime | customDate:true"></li>
+                    <li class="">|</li>
+                    <li class="">Просмотры:</li>
+                    <li class="" [textContent]="item.reads"></li>
+                    <li class="">|</li>
+                    <li class="">Автор:</li>
+                    <li class=""><a [routerLink]="['/users', item.userId ]" [textContent]="item.userName"></a></li>
+                    <li *ngIf="item.canCommentary" class="">| <a [routerLink]="['/', item.typeName, item.id]" fragment="comments">Комментарии: {{item.commentsCount}}</a></li>
+                </ul>
             </div>
         </div>
     </div>

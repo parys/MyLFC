@@ -22,6 +22,10 @@ export class MaterialService {
         return this.http.get<PagedList<Material>>(this.actionUrl + "latest/");
     };
 
+    public getTop(): Observable<PagedList<Material>> {
+        return this.http.get<PagedList<Material>>(this.actionUrl + "pinned/");
+    };
+
     public getSingle(id: number): Observable<Material> {
         return this.http.get<Material>(this.actionUrl + id);
     };

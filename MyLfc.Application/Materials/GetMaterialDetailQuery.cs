@@ -1,27 +1,23 @@
 ﻿using System;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using MyLfc.Application.Infrastructure;
-using MyLfc.Application.Infrastructure.Extensions;
+using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Domain;
 using MyLfc.Persistence;
 using MyLiverpool.Data.Common;
 
 namespace MyLfc.Application.Materials
 {
-    public class GetMaterialListQuery
+    public class GetMaterialDetailQuery
     {
-        public class Request : PagedQueryBase, IRequest<Response>
+        public class Request : IRequest<Response>
         {
-            public int? CategoryId { get; set; }
+            public int Id { get; set; }
 
-            public int? UserId { get; set; }
-
-            public MaterialType MaterialType { get; set; }
+            public bool IncludePending { get; set; } = false;
         }
 
 
@@ -30,7 +26,7 @@ namespace MyLfc.Application.Materials
             private readonly LiverpoolContext _context;
 
             private readonly IMapper _mapper;
-            
+
             public Handler(LiverpoolContext context, IMapper mapper)
             {
                 _context = context;
@@ -41,34 +37,18 @@ namespace MyLfc.Application.Materials
             {
                 var materialsQuery = _context.Materials.AsNoTracking();
 
-                materialsQuery = materialsQuery.Where(x => !x.Pending).OrderByDescending(x => x.AdditionTime);
-
-                if (request.CategoryId.HasValue)
+                var material = await materialsQuery.FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
+                if (material == null || (material.Pending && !request.IncludePending))
                 {
-                    materialsQuery = materialsQuery.Where(x => x.CategoryId == request.CategoryId.Value);
+                    throw new NotFoundException(nameof(Material), request.Id);
                 }
 
-                if (request.UserId.HasValue)
-                {
-                    materialsQuery = materialsQuery.Where(x => x.AuthorId == request.UserId.Value);
-                }
-
-                if (request.MaterialType != MaterialType.Both)
-                {
-                    materialsQuery = materialsQuery.Where(x => x.Type == request.MaterialType);
-                }
-
-                return await materialsQuery.GetPagedAsync<Response, Material, MaterialListDto>(request, _mapper);
+                return _mapper.Map<Response>(material);
             }
         }
 
 
-        public class Response : PagedResult<MaterialListDto>
-        {
-        }
-
-
-        public class MaterialListDto
+        public class Response
         {
             public int Id { get; set; }
 
@@ -76,30 +56,45 @@ namespace MyLfc.Application.Materials
 
             public string CategoryName { get; set; }
 
-            public bool CanCommentary { get; set; }
-
-            public bool Pending { get; set; }
-
             public DateTimeOffset AdditionTime { get; set; }
 
             public int CommentsCount { get; set; }
 
-            public string UserName { get; set; }
-
             public int UserId { get; set; }
+
+            public string UserName { get; set; }
 
             public string Title { get; set; }
 
             public string Brief { get; set; }
 
+            public string Message { get; set; }
+
             public int Reads { get; set; }
 
-            public string PhotoPreview { get; set; }
+            public string Source { get; set; }
+
+            public string ShortLink { get; set; }
+
             public string Photo { get; set; }
+
+            public string PhotoPreview { get; set; }
+
+            public bool Pending { get; set; }
+
+            public bool OnTop { get; set; }
+
+            public bool CanCommentary { get; set; }
+
+            public bool SocialLinks { get; set; }
 
             public MaterialType Type { get; set; }
 
             public string TypeName { get; set; }
+
+            public bool UsePhotoInBody { get; set; }
+
+            public string Tags { get; set; }
         }
     }
 }

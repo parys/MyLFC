@@ -1,27 +1,22 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using MyLfc.Application.Infrastructure;
-using MyLfc.Application.Infrastructure.Extensions;
-using MyLfc.Domain;
 using MyLfc.Persistence;
 using MyLiverpool.Data.Common;
 
 namespace MyLfc.Application.Materials
 {
-    public class GetMaterialListQuery
+    public class GetPinnedMaterialsQuery
     {
-        public class Request : PagedQueryBase, IRequest<Response>
+        public class Request : IRequest<Response>
         {
-            public int? CategoryId { get; set; }
-
-            public int? UserId { get; set; }
-
-            public MaterialType MaterialType { get; set; }
+            public bool IncludePending { get; set; } = false;
         }
 
 
@@ -41,34 +36,32 @@ namespace MyLfc.Application.Materials
             {
                 var materialsQuery = _context.Materials.AsNoTracking();
 
-                materialsQuery = materialsQuery.Where(x => !x.Pending).OrderByDescending(x => x.AdditionTime);
+                materialsQuery = request.IncludePending
+                    ? materialsQuery.Where(x => x.OnTop || x.Pending)
+                    : materialsQuery.Where(x => x.OnTop && !x.Pending);
 
-                if (request.CategoryId.HasValue)
+                materialsQuery = materialsQuery.OrderByDescending(x => x.AdditionTime);
+
+                var result = await materialsQuery
+                    .Take(10)
+                    .ProjectTo<MaterialPinnedListDto>(_mapper.ConfigurationProvider)
+                    .ToListAsync(cancellationToken);
+
+                return new Response
                 {
-                    materialsQuery = materialsQuery.Where(x => x.CategoryId == request.CategoryId.Value);
-                }
-
-                if (request.UserId.HasValue)
-                {
-                    materialsQuery = materialsQuery.Where(x => x.AuthorId == request.UserId.Value);
-                }
-
-                if (request.MaterialType != MaterialType.Both)
-                {
-                    materialsQuery = materialsQuery.Where(x => x.Type == request.MaterialType);
-                }
-
-                return await materialsQuery.GetPagedAsync<Response, Material, MaterialListDto>(request, _mapper);
+                    Results = result
+                };
             }
         }
 
 
-        public class Response : PagedResult<MaterialListDto>
+        public class Response
         {
+            public List<MaterialPinnedListDto> Results { get; set; } = new List<MaterialPinnedListDto>();
         }
 
 
-        public class MaterialListDto
+        public class MaterialPinnedListDto
         {
             public int Id { get; set; }
 
@@ -77,9 +70,7 @@ namespace MyLfc.Application.Materials
             public string CategoryName { get; set; }
 
             public bool CanCommentary { get; set; }
-
-            public bool Pending { get; set; }
-
+            
             public DateTimeOffset AdditionTime { get; set; }
 
             public int CommentsCount { get; set; }
@@ -89,12 +80,13 @@ namespace MyLfc.Application.Materials
             public int UserId { get; set; }
 
             public string Title { get; set; }
-
-            public string Brief { get; set; }
-
+            
             public int Reads { get; set; }
 
+            public bool Pending { get; set; }
+
             public string PhotoPreview { get; set; }
+
             public string Photo { get; set; }
 
             public MaterialType Type { get; set; }

@@ -1,5 +1,4 @@
 ﻿import { Routes } from "@angular/router";
-import { MaterialListComponent } from "./material";
 import { homeRoutes } from "./home/home.routes";
 import {
     ADMIN_ROUTE,
@@ -26,6 +25,7 @@ import {
     TITLE_RU,
     WAL_ROUTE
 } from "@app/+constants";
+import { MaterialHomeComponent } from './material';
 
 export const routes: Routes = [
     ...homeRoutes,
@@ -125,7 +125,7 @@ export const routes: Routes = [
     },
     {
         path: "",
-        component: MaterialListComponent,
+        component: MaterialHomeComponent,
 
         data: {
             title: TITLE_RU,

@@ -1,12 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using MediatR;
-using MyLfc.Application.Infrastructure;
-using MyLfc.Application.Infrastructure.Extensions;
-using MyLfc.Domain;
+using Microsoft.EntityFrameworkCore;
 using MyLfc.Persistence;
 using MyLiverpool.Data.Common;
 
@@ -14,7 +14,7 @@ namespace MyLfc.Application.Materials
 {
     public class GetLatestMaterialsQuery
     {
-        public class Request : PagedQueryBase, IRequest<Response>
+        public class Request : IRequest<Response>
         {
         }
 
@@ -33,17 +33,26 @@ namespace MyLfc.Application.Materials
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var materialsQuery = _context.Materials.AsQueryable();
+                var materialsQuery = _context.Materials.AsNoTracking();
 
                 materialsQuery = materialsQuery.Where(x => !x.Pending).OrderByDescending(x => x.AdditionTime);
 
-                return await materialsQuery.GetPagedAsync<Response, Material, MaterialLatestListDto>(request, _mapper);
+                var result = await materialsQuery
+                    .Take(10)
+                    .ProjectTo<MaterialLatestListDto>(_mapper.ConfigurationProvider)
+                    .ToListAsync(cancellationToken);
+
+                return new Response
+                {
+                    Results = result
+                };
             }
         }
 
 
-        public class Response : PagedResult<MaterialLatestListDto>
+        public class Response
         {
+            public List<MaterialLatestListDto> Results { get; set; } = new List<MaterialLatestListDto>();
         }
 
 

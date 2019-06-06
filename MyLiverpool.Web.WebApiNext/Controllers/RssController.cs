@@ -7,11 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.SyndicationFeed;
 using Microsoft.SyndicationFeed.Rss;
-using MyLfc.Common.Web;
-using MyLfc.Common.Web.DistributedCache;
-using MyLiverpool.Business.Contracts;
-using MyLiverpool.Business.Dto.Filters;
-using MyLiverpool.Data.Common;
+using MyLfc.Application.Materials;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
@@ -20,22 +16,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// Manages Rss.
     /// </summary>
     [AllowAnonymous, Route("Rss")]
-    public class RssController : Controller
+    public class RssController : BaseController
     {
-        private readonly IMaterialService _materialService;
-        private readonly IDistributedCacheManager _cacheManager;
-
-        /// <summary>
-        /// Constructor.
-        /// </summary>
-        /// <param name="materialService"></param>
-        /// <param name="cache"></param>
-        public RssController(IMaterialService materialService, IDistributedCacheManager cache)
-        {
-            _materialService = materialService;
-            _cacheManager = cache;
-        }
-
         /// <summary>
         /// Gets latest materials as rss.
         /// </summary>
@@ -44,8 +26,11 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [AllowAnonymous, HttpGet]
         public async Task<IActionResult> GetRssAsync()
         {
-            var result = await _cacheManager.GetOrCreateAsync(CacheKeysConstants.MaterialList, async () =>
-                await _materialService.GetDtoAllAsync(GetBasicMaterialFilters(false)));
+            var result = await Mediator.Send(new GetMaterialListQuery.Request
+                {
+                    CurrentPage = 1,
+                    PageSize = 10
+                });
 
             var host = Request.Scheme + "://" + Request.Host + "/";
             var sw = new StringWriter();
@@ -60,7 +45,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 await writer.WriteTitle("MyLFC.ru - новостная лента");
                 var formatter = new RssFormatter(attributes, xmlWriter.Settings);
 
-                foreach (var material in result.List)
+                foreach (var material in result.Results)
                 {
                     var item = new SyndicationItem
                     {
@@ -94,18 +79,6 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
 
             return Content(xml.InnerXml, "application/xml");
             // return Ok(xml.InnerXml);
-        }
-
-
-
-        private MaterialFiltersDto GetBasicMaterialFilters(bool isNewsMaker)
-        {
-            return new MaterialFiltersDto
-            {
-                Page = 1,
-                MaterialType = MaterialType.Both,
-                IsInNewsmakerRole = isNewsMaker
-            };
         }
     }
 }

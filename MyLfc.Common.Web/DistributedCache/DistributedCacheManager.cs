@@ -78,6 +78,20 @@ namespace MyLfc.Common.Web.DistributedCache
             }
         }
 
+        public async void Remove(params string[] keys)
+        {
+            try
+            {
+                foreach (var key in keys)
+                {
+                    await _distributedCache.RemoveAsync(key);
+                }
+            }
+            catch (RedisConnectionException)
+            {
+            }
+        }
+
         public async Task<T> GetOrCreateAsync<T>(string key, Func<Task<T>> method)
         {
             T result;

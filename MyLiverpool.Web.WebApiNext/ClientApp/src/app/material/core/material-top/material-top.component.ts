@@ -1,17 +1,13 @@
 import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
-import { Location } from "@angular/common";
 import { MatDialog } from "@angular/material/dialog";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { Router, ActivatedRoute, NavigationEnd } from "@angular/router";
+import { Router, NavigationEnd } from "@angular/router";
 import { Subscription } from "rxjs";
 import { MaterialService } from "../material.service";
 import { MaterialActivateDialogComponent } from "../material-activate-dialog";
 import { Material } from "../../model";
 import { DeleteDialogComponent, PagedList } from "@app/shared";
 import { RolesCheckedService } from "@app/+auth";
-import { MaterialType } from "@app/materialCategory";
-import { CustomTitleMetaService as CustomTitleService } from "@app/shared";
-import { PAGE, TITLE_RU, NEWSS_RU, BLOGS_RU } from "@app/+constants";
 
 @Component({
     selector: "material-top",
@@ -30,13 +26,10 @@ export class MaterialTopComponent implements OnInit, OnDestroy {
 
     constructor(private router: Router,
         private materialService: MaterialService,
-        private route: ActivatedRoute,
-        private location: Location,
         private cd: ChangeDetectorRef,
         public roles: RolesCheckedService,
         
         private snackBar: MatSnackBar,
-        private titleService: CustomTitleService,
         private dialog: MatDialog) {
         this.navigationSubscription = this.router.events.subscribe((e: any) => {
             // If it is a NavigationEnd event re-initalise the component
@@ -65,13 +58,7 @@ export class MaterialTopComponent implements OnInit, OnDestroy {
     }
 
     public ngOnInit(): void {
-        if (this.router.url.startsWith("/news")) {
-            this.titleService.setTitle(NEWSS_RU);
-        } else if (this.router.url.startsWith("/blogs")){
-            this.titleService.setTitle(BLOGS_RU);
-        } else {
-            this.titleService.setTitle(TITLE_RU);
-        }
+      this.update();
     }
 
     public ngOnDestroy(): void {
@@ -110,13 +97,11 @@ export class MaterialTopComponent implements OnInit, OnDestroy {
 
     private parsePageable(pageable: PagedList<Material>): void {
         this.items = pageable.results;
-        this.page = pageable.currentPage;
-        this.totalItems = pageable.rowCount;
     }
 
     private update(): void {
         this.sub = this.materialService
-            .getLatest()
+            .getTop()
             .subscribe(data => this.parsePageable(data),
                 () => {},
                 () => this.cd.markForCheck());

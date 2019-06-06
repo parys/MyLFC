@@ -8,6 +8,7 @@ import { CommentSharedModule } from "@app/comment";
 import { BreadcrumbService } from "@app/shared/breadcrumb";
 import { NEWS_ROUTE, BLOGS_ROUTE, NEWSS_RU, NEWS_RU, BLOGS_RU, BLOG_RU } from "@app/+constants";
 import { CanLoadEditMaterial } from "./canLoadEdit.guard";
+import { MaterialListComponent } from './material-list';
 
 @NgModule({
     imports: [
@@ -17,7 +18,8 @@ import { CanLoadEditMaterial } from "./canLoadEdit.guard";
         MaterialCoreModule
     ],
     declarations: [
-        MaterialDetailComponent
+        MaterialDetailComponent,
+        MaterialListComponent
     ],
     providers: [
         CanLoadEditMaterial

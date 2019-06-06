@@ -20,6 +20,9 @@ namespace MyLfc.Common.Web.DistributedCache
         }
 
         public void Remove(string key){}
+        public void Remove(params string[] keys)
+        {
+        }
 
         public async Task<T> GetOrCreateAsync<T>(string key, Func<Task<T>> method)
         {

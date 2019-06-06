@@ -20,8 +20,10 @@
 
 
         public const string Material = "Material";
+        
+        public const string MaterialsLatest = "MaterialsLatest";
 
-        public const string MaterialList = "MaterialList";
+        public const string MaterialsPinned = "MaterialsPinned";
 
         public const string ChatName = "Chat";
 

@@ -131,9 +131,9 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             dto.IsVerified = IsSiteTeamMember();
             dto.AuthorId = User.GetUserId();
             var result = await _commentService.AddAsync(dto);
-            
-            _cacheManager.Remove(CacheKeysConstants.MaterialList);
-            _cacheManager.Remove(CacheKeysConstants.LastComments);
+
+            _cacheManager.Remove(CacheKeysConstants.MaterialsLatest,
+                CacheKeysConstants.MaterialsPinned, CacheKeysConstants.LastComments);
             result.AuthorUserName = User.Identity.Name;
 
             var oldMessage = result.Message.Substring(0);
@@ -164,8 +164,9 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
 
             var result = await _commentService.DeleteAsync(id);
 
-            _cacheManager.Remove(CacheKeysConstants.MaterialList);
-            _cacheManager.Remove(CacheKeysConstants.LastComments);
+            _cacheManager.Remove(CacheKeysConstants.MaterialsLatest, 
+                CacheKeysConstants.MaterialsPinned, CacheKeysConstants.LastComments);
+
             return Ok(result);
         }
 
@@ -222,16 +223,6 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                                  || User.IsInRole(nameof(RolesEnum.InfoStart))
                                  || User.IsInRole(nameof(RolesEnum.NewsStart))
                                  || User.IsInRole(nameof(RolesEnum.UserStart)));
-        }
-
-        private MaterialFiltersDto GetBasicMaterialFilters(bool isNewsMaker)
-        {
-            return new MaterialFiltersDto
-            {
-                Page = 1,
-                MaterialType = MaterialType.Both,
-                IsInNewsmakerRole = isNewsMaker
-            };
         }
 
         //todo duplicate in commentService 

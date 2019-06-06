@@ -1,7 +1,7 @@
 ﻿import { Routes } from "@angular/router";
 import { MaterialDetailComponent } from "./material-detail";
-import { MaterialListComponent } from "../core";
-import { EDIT_ROUTE } from "@app/+constants/";
+import { MaterialListComponent } from './material-list';
+import { EDIT_ROUTE } from "@app/+constants";
 import { CanLoadEditMaterial } from "./canLoadEdit.guard";
 
 export const materialRoutes: Routes = [
