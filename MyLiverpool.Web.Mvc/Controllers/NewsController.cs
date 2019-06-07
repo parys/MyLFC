@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
+using MyLfc.Application.Materials;
 using MyLfc.Common.Web;
 using MyLfc.Common.Web.DistributedCache;
 using MyLiverpool.Business.Contracts;
@@ -95,20 +96,31 @@ namespace MyLiverpool.Web.Mvc.Controllers
 
         private async void UpdateMaterialCacheAddViewAsync(int materialId)
         {
-            var materialCache = await _cacheManager.GetAsync<MaterialDto>(CacheKeysConstants.Material + materialId);
+            var materialCache = await _cacheManager.GetAsync<GetMaterialDetailQuery.Response>(CacheKeysConstants.Material + materialId);
             if (materialCache != null)
             {
                 materialCache.Reads++;
                 _cacheManager.Set(CacheKeysConstants.Material + materialId, materialCache);
             }
 
-            var materialsCache = await _cacheManager.GetAsync<PageableData<MaterialMiniDto>>(CacheKeysConstants.MaterialList);
+            var materialsCache =
+                await _cacheManager.GetAsync<GetLatestMaterialsQuery.Response>(CacheKeysConstants.MaterialsLatest);
 
-            var material = materialsCache?.List.FirstOrDefault(x => x.Id == materialId);
+            var material = materialsCache?.Results.FirstOrDefault(x => x.Id == materialId);
             if (material != null)
             {
                 material.Reads++;
-                _cacheManager.Set(CacheKeysConstants.MaterialList, materialsCache);
+                _cacheManager.Set(CacheKeysConstants.MaterialsLatest, materialsCache);
+            }
+
+            var materialsPinnedCache =
+                await _cacheManager.GetAsync<GetPinnedMaterialsQuery.Response>(CacheKeysConstants.MaterialsPinned);
+
+            var materialPinned = materialsPinnedCache?.Results.FirstOrDefault(x => x.Id == materialId);
+            if (material != null)
+            {
+                material.Reads++;
+                _cacheManager.Set(CacheKeysConstants.MaterialsPinned, materialPinned);
             }
         }
     }

@@ -20,6 +20,8 @@ namespace MyLiverpool.Data.Common
         [Display(Name = "Суперкубок Англии")]
         CommunityShield = 7,
         [Display(Name = "Суперкубок Европы")]
-        EuropeSuperCup = 8
+        EuropeSuperCup = 8,
+        [Display(Name = "Клубный Чемпионат Мира")]
+        WorldClubCup = 9
     }
 }

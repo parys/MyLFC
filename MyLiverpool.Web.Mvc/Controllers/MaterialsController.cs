@@ -30,16 +30,8 @@ namespace MyLiverpool.Web.Mvc.Controllers
                 CategoryId = categoryId,
                 UserId = userId
             };
-            PageableData<MaterialMiniDto> result;
-            if (filters.Page == 1 && !filters.IsInNewsmakerRole && filters.MaterialType == MaterialType.Both)
-            {
-                result = await _cacheManager.GetOrCreateAsync(CacheKeysConstants.MaterialList,
-                    async () => await _materialService.GetDtoAllAsync(filters));
-            }
-            else
-            {
-                result = await _materialService.GetDtoAllAsync(filters);
-            }
+            PageableData<MaterialMiniDto> result = await _materialService.GetDtoAllAsync(filters);
+            
             return View(result);
         }
     }
