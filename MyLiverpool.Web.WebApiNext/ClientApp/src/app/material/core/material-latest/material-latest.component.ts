@@ -1,110 +1,70 @@
-import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
-import { MatDialog } from "@angular/material/dialog";
-import { MatSnackBar } from "@angular/material/snack-bar";
-import { Router, NavigationEnd } from "@angular/router";
-import { Subscription } from "rxjs";
-import { MaterialService } from "../material.service";
-import { MaterialActivateDialogComponent } from "../material-activate-dialog";
-import { Material } from "../../model";
-import { DeleteDialogComponent, PagedList } from "@app/shared";
-import { RolesCheckedService } from "@app/+auth";
-import { CustomTitleMetaService as CustomTitleService } from "@app/shared";
-import { TITLE_RU } from "@app/+constants";
+//import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
+//import { Router, NavigationEnd } from "@angular/router";
+//import { Subscription } from "rxjs";
+//import { MaterialService } from "../material.service";
+//import { Material } from "../../model";
+//import { PagedList } from "@app/shared";
 
-@Component({
-    selector: "material-latest",
-    templateUrl: "./material-latest.component.html",
-    styleUrls: ["./material-latest.component.scss"],
-    changeDetection: ChangeDetectionStrategy.OnPush
-})
-export class MaterialLatestComponent implements OnInit, OnDestroy {
-    private sub: Subscription;
-    private navigationSubscription: Subscription;
-    public items: Material[];
-    public page: number = 1;
-    public totalItems: number;
-    public categoryId: number;
+//@Component({
+//    selector: "material-latest",
+//    templateUrl: "./material-latest.component.html",
+//    styleUrls: ["./material-latest.component.scss"],
+//    changeDetection: ChangeDetectionStrategy.OnPush
+//})
+//export class MaterialLatestComponent implements OnInit, OnDestroy {
+//    private $latest: Subscription;
+//    private $pinned: Subscription;
+//    private navigationSubscription: Subscription;
+//    public latest: Material[];
+//    public pinned: Material[];
 
-    constructor(private router: Router,
-        private materialService: MaterialService,
-        private cd: ChangeDetectorRef,
-        public roles: RolesCheckedService,
-        
-        private snackBar: MatSnackBar,
-        private titleService: CustomTitleService,
-        private dialog: MatDialog) {
-        this.navigationSubscription = this.router.events.subscribe((e: any) => {
-            // If it is a NavigationEnd event re-initalise the component
-            if (e instanceof NavigationEnd) {
-                this.update();
-            }
-        });
-    }
+//    constructor(private router: Router,
+//        private materialService: MaterialService,
+//        private cd: ChangeDetectorRef) {
+//        this.navigationSubscription = this.router.events.subscribe((e: any) => {
+//            // If it is a NavigationEnd event re-initalise the component
+//            if (e instanceof NavigationEnd) {
+//                this.update();
+//            }
+//        });
+//    }
 
-    public showActivateModal(index: number): void {
-        const dialogRef = this.dialog.open(MaterialActivateDialogComponent);
-        dialogRef.afterClosed().subscribe(result => {
-            if (result) {
-                this.activate(index);
-            }
-        });
-    }
+//    public ngOnInit(): void {
+//        this.update();
+//    }
 
-    public showDeleteModal(index: number): void {
-        const dialogRef = this.dialog.open(DeleteDialogComponent);
-        dialogRef.afterClosed().subscribe(result => {
-            if (result) {
-                this.delete(index);
-            }
-        });
-    }
+//    public ngOnDestroy(): void {
+//        if (this.$latest) this.$latest.unsubscribe();
+//        if (this.$pinned) this.$pinned.unsubscribe();
+//        if(this.navigationSubscription) this.navigationSubscription.unsubscribe();
+//    }
 
-    public ngOnInit(): void {
-        this.update();
-    }
+//    private update(): void {
+//        this.updateLatest();
+//        this.updatePinned();
+//    }
 
-    public ngOnDestroy(): void {
-        if(this.sub) this.sub.unsubscribe();
-        if(this.navigationSubscription) this.navigationSubscription.unsubscribe();
-    }
-    
-    private activate(index: number): void {
-        const news: Material = this.items[index];
-        this.materialService.activate(news.id)
-            .subscribe(res => {
-                    if (res) {
-                        news.pending = false;
-                        this.snackBar.open("Материал активирован");
-                    } else {
-                        this.snackBar.open("Материал НЕ активирован");
-                    }
-                },
-                () => {},
-                () => this.cd.markForCheck());
-    }
+//    private parseLatest(pageable: PagedList<Material>): void {
+//        this.latest = pageable.results;
+//    }
 
-    private delete(index: number): void {
-        this.materialService.delete(this.items[index].id)
-            .subscribe(res => {
-                if (res) {
-                    this.items.splice(index, 1);
-                } else {
-                    this.snackBar.open("Ошибка удаления");
-                }
-            },
-            () => { },
-            () => this.cd.markForCheck());
-    }
+//    private parsePinned(pageable: PagedList<Material>): void {
+//        this.pinned = pageable.results;
+//    }
 
-    private parsePageable(pageable: PagedList<Material>): void {
-        this.items = pageable.results;
-    }
+//    private updateLatest(): void {
+//        this.$latest = this.materialService
+//            .getLatest()
+//            .subscribe(data => this.parseLatest(data),
+//                () => {},
+//                () => this.cd.markForCheck());
+//    }
 
-    private update(): void {
-        this.sub = this.materialService
-            .getLatest()
-            .subscribe(data => this.parsePageable(data),
-                () => {},
-                () => this.cd.markForCheck());
-    }
-}
+//    private updatePinned(): void {
+//        this.$pinned = this.materialService
+//            .getTop()
+//            .subscribe(data => this.parsePinned(data),
+//                () => { },
+//                () => this.cd.markForCheck());
+//    }
+//}

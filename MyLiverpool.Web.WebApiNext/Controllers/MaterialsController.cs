@@ -287,10 +287,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <param name="id">Material identifier.</param>
         /// <returns>Found material.</returns>
         [AllowAnonymous, HttpGet("{id:int}")]
-        public async Task<IActionResult> GetById(int id)
+        public async Task<IActionResult> GetById([FromRoute]GetMaterialDetailQuery.Request request)
         {
-            var request = new GetMaterialDetailQuery.Request();
-
             if (User != null)
             {
                 if (User.IsInRole(nameof(RolesEnum.NewsStart))
@@ -300,7 +298,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 }
             }
 
-            var model = await _cacheManager.GetOrCreateAsync(CacheKeysConstants.Material + id,
+            var model = await _cacheManager.GetOrCreateAsync(CacheKeysConstants.Material + request.Id,
                 async () => await Mediator.Send(request));
            
             return Ok(model);

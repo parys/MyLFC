@@ -1,7 +1,9 @@
-﻿<div>
-    <match-header></match-header>
-    topcheg
-    <material-top></material-top>
-    latest
-    <material-latest></material-latest>
-</div>
+﻿    <match-header></match-header>
+    <div class="flex-space-around">
+        <div *ngFor="let item of pinned">
+            <material-item [item]="item"></material-item>
+        </div>
+        <div *ngFor="let item of latest">
+            <material-item [item]="item"></material-item>
+        </div>
+    </div>

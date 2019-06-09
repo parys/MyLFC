@@ -35,7 +35,10 @@ namespace MyLfc.Application.Materials
             {
                 var materialsQuery = _context.Materials.AsNoTracking();
 
-                materialsQuery = materialsQuery.Where(x => !x.Pending).OrderByDescending(x => x.AdditionTime);
+                materialsQuery = materialsQuery
+                    .Where(x => !x.Pending)
+                    .Where(x => !x.OnTop)
+                    .OrderByDescending(x => x.AdditionTime);
 
                 var result = await materialsQuery
                     .Take(10)

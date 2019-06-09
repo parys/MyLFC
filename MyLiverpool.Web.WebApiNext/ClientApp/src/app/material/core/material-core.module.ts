@@ -1,12 +1,11 @@
 ﻿import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { SharedModule } from "@app/shared";
-import { MaterialLatestComponent } from "./material-latest";
 import { MaterialActivateDialogComponent } from "./material-activate-dialog";
 import { MaterialService } from "./material.service";
 import { MatchCoreModule } from "@app/match";
-import { MaterialTopComponent } from './material-top';
-import { MaterialHomeComponent } from './material-home/material-home.component';
+import { MaterialHomeComponent } from './material-home';
+import { MaterialItemComponent } from './material-item';
 
 @NgModule({
     imports: [
@@ -15,10 +14,9 @@ import { MaterialHomeComponent } from './material-home/material-home.component';
         MatchCoreModule
     ],
     declarations: [
-        MaterialLatestComponent,
-        MaterialTopComponent,
         MaterialHomeComponent,
-        MaterialActivateDialogComponent
+        MaterialActivateDialogComponent,
+        MaterialItemComponent
     ],
     entryComponents: [
         MaterialActivateDialogComponent
