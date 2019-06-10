@@ -1,9 +1,9 @@
 ﻿<match-header></match-header>
 <div class="flex-space-around">
-    <div *ngFor="let item of pinned">
+    <div *ngFor="let item of pinned"  class="material-container">
         <material-item [item]="item"></material-item>
     </div>
-    <div *ngFor="let item of latest">
+    <div *ngFor="let item of latest" class="material-container">
         <material-item [item]="item"></material-item>
     </div>
 </div>

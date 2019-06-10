@@ -83,11 +83,28 @@
         flex-flow: row wrap;
         justify-content: center;
     }
+}
 
-    .preview-text {
-        /*height: 100%;*/
-        text-align: center;
-        /*width: calc(100% - 300px);*/
-        justify-content: center;
+
+.material-container {
+    max-width:250px;
+    margin-bottom: 5px;
+}
+
+@media (min-width: 768px) and (max-width: 1056px), (max-width: 536px) {
+    .material-container {
+        max-width: 100%;
+    }
+}
+
+@media (min-width: 1057px) and (max-width: 1556px), (min-width: 537px) and (max-width: 767px) {
+    .material-container {
+        max-width: 50%;
+    }
+}
+
+@media (min-width: 1557px) and (max-width: 2056px) {
+    .material-container {
+        max-width: 33.33%;
     }
 }
