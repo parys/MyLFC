@@ -1,9 +1,13 @@
-﻿    <match-header></match-header>
-    <div class="flex-space-around">
-        <div *ngFor="let item of pinned">
-            <material-item [item]="item"></material-item>
-        </div>
-        <div *ngFor="let item of latest">
-            <material-item [item]="item"></material-item>
-        </div>
+﻿<match-header></match-header>
+<div class="flex-space-around">
+    <div *ngFor="let item of pinned">
+        <material-item [item]="item"></material-item>
     </div>
+    <div *ngFor="let item of latest">
+        <material-item [item]="item"></material-item>
+    </div>
+</div>
+
+<div class="text-center">
+    <a [routerLink]="['/materials']"> Больше новостей > </a>
+</div>

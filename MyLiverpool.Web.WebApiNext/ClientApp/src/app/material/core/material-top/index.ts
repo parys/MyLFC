@@ -1,1 +1,0 @@
-﻿export * from "./material-top.component";

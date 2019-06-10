@@ -18,21 +18,23 @@
             <bbeditor name="message" [type]="2" [value]="item.message" [height]="350" formControlName="message"></bbeditor>
         </div>
         <div class="full-width">
+            <button mat-raised-button color="warn" class="full-width" type="submit" [disabled]="!editForm.valid">Сохранить</button>
+        </div>
+        <div class="full-width">
             <mat-form-field class="full-width">
                 <input matInput formControlName="source" placeholder="Источник" />
                 <button mat-button matSuffix role="button" type="button" [disabled]="!editForm.get('source').value" (click)="copyPhoto()" matTooltip="Скопировать фото в материал">
                     <mat-icon>burst_mode</mat-icon>
                 </button>
             </mat-form-field>
-        </div>
+        </div>        
+        <mat-form-field class="full-width">
+            <input matInput formControlName="tags" placeholder="Тэги через запятую и пробел" />
+        </mat-form-field>
         <mat-form-field class="full-width">
             <input matInput formControlName="photoPreview" placeholder="Фото для превью" />
         </mat-form-field>
         <image-crop-addition (loadedImage)="updatePreviewImage($event)"></image-crop-addition>
-        <mat-form-field class="full-width">
-            <input matInput formControlName="tags" placeholder="Тэги через запятую и пробел" />
-        </mat-form-field>
-
         <mat-form-field class="full-width">
             <input matInput formControlName="photo" placeholder="Главное фото" />
         </mat-form-field>
@@ -56,9 +58,6 @@
         </div>
         <div class="full-width">
             <mat-checkbox color="warn" formControlName="usePhotoInBody">Использовать главное фото в новости</mat-checkbox>
-        </div>
-        <div class="full-width">
-            <button mat-raised-button color="warn" class="full-width" type="submit" [disabled]="!editForm.valid">Сохранить</button>
         </div>
     </form>
 </div>

@@ -1,4 +1,4 @@
-﻿<div class="bottom10 material-container" *ngIf="item && (!item.pending || roles.isNewsmaker || roles.isAuthor && roles.isSelf(item.userId))">
+﻿<div class="material-container" *ngIf="item && (!item.pending || roles.isNewsmaker || roles.isAuthor && roles.isSelf(item.userId))">
     <div class="material" [class.material-pending]="item.pending">
         <div class="header">
             <a [routerLink]="['/', item.typeName, item.id]">

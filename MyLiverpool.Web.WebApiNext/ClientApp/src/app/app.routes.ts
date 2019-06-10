@@ -12,6 +12,7 @@ import {
     IMAGES_ROUTE,
     INJURIES_ROUTE,
     MATCHES_ROUTE,
+    MATERIALS_ROUTE,
     NOTIFICATIONS_ROUTE,
     NEWS_CATEGORIES_ROUTE,
     PERSONS_ROUTE,
@@ -64,6 +65,10 @@ export const routes: Routes = [
     {
         path: INJURIES_ROUTE,
         loadChildren: "./injury/lazy/injury.module#InjuryModule"
+    },
+    {
+        path: MATERIALS_ROUTE,
+        loadChildren: "./material/lazy/material.module#MaterialModule"
     },
     {
         path: MATCHES_ROUTE,
