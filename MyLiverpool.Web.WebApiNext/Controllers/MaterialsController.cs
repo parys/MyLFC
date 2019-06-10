@@ -246,7 +246,9 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [AllowAnonymous, HttpGet("latest")]
         public async Task<IActionResult> GetLatestList()
         {
-            return Ok(await Mediator.Send(new GetLatestMaterialsQuery.Request()));
+            var model = await _cacheManager.GetOrCreateAsync(CacheKeysConstants.MaterialsLatest,
+                async () => await Mediator.Send(new GetLatestMaterialsQuery.Request()));
+            return Ok(model);
         }
 
         /// <summary>
@@ -284,7 +286,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <summary>
         /// Gets material by id.
         /// </summary>
-        /// <param name="id">Material identifier.</param>
+        /// <param name="request">Contains material identifier.</param>
         /// <returns>Found material.</returns>
         [AllowAnonymous, HttpGet("{id:int}")]
         public async Task<IActionResult> GetById([FromRoute]GetMaterialDetailQuery.Request request)

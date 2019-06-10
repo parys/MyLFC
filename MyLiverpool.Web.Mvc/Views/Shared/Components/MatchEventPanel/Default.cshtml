@@ -70,17 +70,8 @@
                         
                     case MatchEventType.NotGoalPenaltySeries:
                         break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
                 }
             </div>
         </div>
     </div>
 }
-@*<div *ngIf="roles.isInformer" class="col-xs-12">
-        <button mat-raised-button color="warn" (click)="addEvent()" *ngIf="!isEditEvent">Добавить событие</button>
-        <button mat-raised-button (click)="cancelEventEdit()" *ngIf="isEditEvent">Отменить редактирование</button>
-        <div class="full-width top20" *ngIf="isEditEvent">
-            <matchEvent-edit-panel [matchId]="matchId" [seasonId]="seasonId" [selectedEvent]="selectedEvent" (matchEvent)="updateEvent($event)"></matchEvent-edit-panel>
-        </div>
-    </div>*@

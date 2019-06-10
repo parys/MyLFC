@@ -1,5 +1,6 @@
 import { Component, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, PLATFORM_ID, Inject } from "@angular/core";
 import { isPlatformBrowser } from "@angular/common";
+import { TransferState, makeStateKey } from "@angular/platform-browser";
 import { Router, ActivatedRoute, NavigationEnd } from "@angular/router";
 import { MatDialog } from "@angular/material/dialog";
 import { MatSnackBar } from "@angular/material/snack-bar";
@@ -12,6 +13,9 @@ import { RolesCheckedService } from "@app/+auth";
 import { StorageService } from "@app/+storage";
 import { CustomTitleMetaService as CustomTitleService } from "@app/shared";
 import { NEWS_RU, BLOG_RU } from "@app/+constants/ru.constants";
+
+
+const MAT_DETAIL_KEY = makeStateKey<Material>("mat-detail");
 
 @Component({
     selector: "material-detail",
@@ -26,7 +30,8 @@ export class MaterialDetailComponent implements OnDestroy {
     public item: Material;
     public type: MaterialType;
 
-    constructor(private service: MaterialService,
+    constructor(private transferState: TransferState,
+        private service: MaterialService,
         @Inject(PLATFORM_ID) private platformId: Object,
         private route: ActivatedRoute,
         private cd: ChangeDetectorRef,
