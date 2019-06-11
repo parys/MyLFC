@@ -8,7 +8,7 @@ import { User, UserFilters, UserService } from "@app/user";
 import { merge, of, Observable, fromEvent } from "rxjs";
 import { startWith, switchMap, map, catchError, debounceTime, distinctUntilChanged } from "rxjs/operators";
 import { RoleGroup, RoleGroupService } from "@app/roleGroup";
-import { Pageable } from "@app/shared";
+import { PagedList } from "@app/shared";
 import { RolesCheckedService } from "@app/+auth";
 import { KEYUP, DEBOUNCE_TIME, PAGE, USERS_ROUTE } from "@app/+constants";
 
@@ -66,12 +66,12 @@ export class UserListComponent implements OnInit {
                 switchMap(() => {
                     return this.update();
                 }),
-                map((data: Pageable<User>) => {
-                    this.paginator.pageIndex = data.pageNo - 1;
-                    this.paginator.pageSize = data.itemPerPage;
-                    this.paginator.length = data.totalItems;
+                map((data: PagedList<User>) => {
+                    this.paginator.pageIndex = data.currentPage - 1;
+                    this.paginator.pageSize = data.pageSize;
+                    this.paginator.length = data.rowCount;
 
-                    return data.list;
+                    return data.results;
                 }),
                 catchError(() => {
                     return of([]);
@@ -90,18 +90,18 @@ export class UserListComponent implements OnInit {
         this.selectedUserIndex = null;
     }
 
-    public update(): Observable<Pageable<User>> {
+    public update(): Observable<PagedList<User>> {
         const filters = new UserFilters();
-        filters.page = this.paginator.pageIndex + 1;
-        filters.itemsPerPage = this.paginator.pageSize;
+        filters.currentPage = this.paginator.pageIndex + 1;
+        filters.pageSize = this.paginator.pageSize;
         filters.roleGroupId = this.roleSelect.value;
         filters.userName = this.userInput.nativeElement.value;
         filters.ip = this.ipInput.nativeElement.value;
-        filters.sortBy = this.sort.active;
-        filters.order = this.sort.direction;
+        filters.sortOn = this.sort.active;
+        filters.sortDirection = this.sort.direction;
 
         return this.userService
-            .getAll(filters);
+            .getList(filters);
     }
 
     private updateUrl(): void {

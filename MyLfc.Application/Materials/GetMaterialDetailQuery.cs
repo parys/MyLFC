@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure.Exceptions;
@@ -37,13 +38,14 @@ namespace MyLfc.Application.Materials
             {
                 var materialsQuery = _context.Materials.AsNoTracking();
 
-                var material = await materialsQuery.FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
+                var material = await materialsQuery.ProjectTo<Response>(_mapper.ConfigurationProvider)
+                    .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
                 if (material == null || (material.Pending && !request.IncludePending))
                 {
                     throw new NotFoundException(nameof(Material), request.Id);
                 }
 
-                return _mapper.Map<Response>(material);
+                return material;
             }
         }
 

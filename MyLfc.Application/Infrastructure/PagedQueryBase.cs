@@ -12,5 +12,7 @@
         /// Contains sort direction such as asc, desc
         /// </summary>
         public string SortDirection { get; set; }
+
+        public 
     }
 }

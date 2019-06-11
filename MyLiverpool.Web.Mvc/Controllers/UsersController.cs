@@ -1,60 +1,25 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using MyLiverpool.Business.Contracts;
-using MyLiverpool.Business.Dto.Filters;
-using MyLiverpool.Common.Utilities.Extensions;
-using MyLiverpool.Data.Common;
+using MyLfc.Application.Users;
 
 namespace MyLiverpool.Web.Mvc.Controllers
 {
-    /// <inheritdoc />
-    /// <summary>
-    /// Manages users.
-    /// </summary>
     [Route("[controller]")]
-    public class UsersController : Controller
+    public class UsersController : BaseController
     {
-        private readonly IUserService _userService;
-
-        /// <summary>
-        /// Controller.
-        /// </summary>
-        /// <param name="userService"></param>
-        public UsersController(IUserService userService)
+        public async Task<IActionResult> Index(GetUserListQuery.Request request)
         {
-            _userService = userService;
-        }
-
-        public async Task<IActionResult> Index(int page = 1)
-        {
-            var obj = new UserFiltersDto
-            {
-                Page = page,
-                ItemsPerPage = 15,
-            };
-            var model = await _userService.GetUsersDtoAsync(obj);
-            return View(model);
+            var users = await Mediator.Send(request);
+            return View(users);
         }
 
         [HttpGet("{id}")]
-    //    [AllowAnonymous]
-        public async Task<IActionResult> Detail(int id)
+        public async Task<IActionResult> Detail(GetUserDetailQuery.Request request)
         {
-            if (id == 0)
-            {
-                id = User?.GetUserId() ?? 0;
-            }
-            if (id == 0)
-            {
-                return BadRequest();
-            }
-            var user = await _userService.GetUserAsync(id);
-            if (User == null || !User.Identity.IsAuthenticated ||
-                (!User.IsInRole(nameof(RolesEnum.AdminStart)) && User.GetUserId() != user.Id))
-            {
-                user.Email = null;
-                user.Ip = null;
-            }
+            var user = await Mediator.Send(request);
+            user.Email = string.Empty;
+            user.Ip = string.Empty;
+
             return View(user);
         }
     }

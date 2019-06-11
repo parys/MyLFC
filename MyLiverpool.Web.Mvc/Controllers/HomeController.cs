@@ -1,9 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MyLiverpool.Business.Contracts;
-using MyLiverpool.Business.Dto.Filters;
-using MyLiverpool.Data.Common;
+using MyLfc.Application.Materials;
 
 namespace MyLiverpool.Web.Mvc.Controllers
 {
@@ -12,34 +10,11 @@ namespace MyLiverpool.Web.Mvc.Controllers
     /// Home controller.
     /// </summary>
     [AllowAnonymous]
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
-        private readonly IMaterialService _materialService;
-
-        /// <summary>
-        /// Constructor.
-        /// </summary>
-        /// <param name="materialService"></param>
-        public HomeController(IMaterialService materialService)
+        public async Task<IActionResult> Index(GetMaterialListQuery.Request request)
         {
-            _materialService = materialService;
-        }
-
-        /// <summary>
-        /// Returns index wiew with prerended view.
-        /// </summary>
-        /// <returns></returns>
-        public async Task<IActionResult> Index(int page = 1, int? categoryId = null)
-        {
-            var filters = new MaterialFiltersDto
-            {
-                Page = page,
-                MaterialType = MaterialType.Both,
-                IsInNewsmakerRole = false,
-                CategoryId = categoryId
-            };
-            var result = await _materialService.GetDtoAllAsync(filters);
-            return View(result);
+            return View(await Mediator.Send(request));
         }
 
         [HttpGet("About")]

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Net;
 using System.Threading.Tasks;
-using AspNet.Security.OAuth.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MyLfc.Application.Users;
 using MyLfc.Common.Web;
 using MyLfc.Common.Web.DistributedCache;
 using MyLfc.Common.Web.OnlineCounting;
@@ -20,8 +20,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// <summary>
     /// Manages users.
     /// </summary>
-    [Authorize(AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme), Route("api/v1/[controller]")]
-    public class UsersController : Controller
+    public class UsersController : BaseController
     {
         private readonly IUserService _userService;
         private readonly IRoleService _roleService;
@@ -52,31 +51,32 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         {
             return Ok(User.GetUserId());
         }
-        
+
         /// <summary>
         /// Returns user by id.
         /// </summary>
-        /// <param name="id">The identifier of user.</param>
+        /// <param name="request">The identifier of user.</param>
         /// <returns>Found user.</returns>
         [AllowAnonymous, HttpGet("{id:int}")]
-        public async Task<IActionResult> Get(int id)
+        public async Task<IActionResult> GetById([FromRoute]GetUserDetailQuery.Request request)
         {
-            if (id == 0)
+            if (request.Id == 0)
             {
-                id = User?.GetUserId() ?? 0;
+                request.Id = User?.GetUserId() ?? 0;
             }
-            if (id == 0)
+            if (request.Id == 0)
             {
                 return BadRequest();
             }
-            var user = await _userService.GetUserAsync(id);
+            var user = await Mediator.Send(request);
+            //todo add selfCheck or something like this
             if (User == null || !User.Identity.IsAuthenticated ||
                 (!User.IsInRole(nameof(RolesEnum.AdminStart)) && User.GetUserId() != user.Id))
             {
                 user.Email = null;
                 user.Ip = null;
             }
-            return Json(user);
+            return Ok(user);
         }
 
         /// <summary>
@@ -102,6 +102,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <param name="dto">Filters.</param>
         /// <returns>List with users.</returns>
+        [Obsolete("Remove after 1 July 19")]
         [AllowAnonymous, HttpGet("{dto}")]
         public async Task<IActionResult> List(string dto)
         {
@@ -121,7 +122,24 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 obj.Ip = null;
             }
             var model = await _userService.GetUsersDtoAsync(obj);
-            return Json(model);
+            return Ok(model);
+        }
+
+        /// <summary>
+        /// Returns filtered users list.
+        /// </summary>
+        /// <param name="request">Filters.</param>
+        /// <returns>List with users.</returns>
+        [AllowAnonymous, HttpGet("")]
+        public async Task<IActionResult> List([FromQuery]GetUserListQuery.Request request)
+        {
+            if (!User.IsInRole(nameof(RolesEnum.AdminStart)))
+            {
+                request.Ip = null;
+            }
+
+            var result = await Mediator.Send(request);
+            return Ok(result);
         }
 
         /// <summary>
@@ -148,7 +166,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [AllowAnonymous, HttpGet("online")]
         public IActionResult GetOnlineCounter()
         {
-            return Json(OnlineUsers.GetStats());
+            return Ok(OnlineUsers.GetStats());
         }
 
         /// <summary>
@@ -159,7 +177,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         public async Task<IActionResult> GetConfigAsync()
         {
             var result = await _userService.GetUserConfigAsync(User.GetUserId());
-            return Json(result);
+            return Ok(result);
         }
 
         /// <summary>
@@ -171,7 +189,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         {
             var result = await _cacheManager.GetOrCreateAsync(CacheKeysConstants.UserBirthdays + DateTime.Today,
                 async () => await _userService.GetBirthdaysAsync());
-            return Json(result);
+            return Ok(result);
         }
 
         /// <summary>
@@ -182,7 +200,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         public async Task<IActionResult> UpdateConfigAsync([FromBody]UserConfigDto dto)
         {
             var result = await _userService.UpdateUserConfigAsync(dto, User.GetUserId());
-            return Json(result);
+            return Ok(result);
         }
 
         /// <summary>
@@ -225,7 +243,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                     var file = Request.Form.Files[0];
                     var result = await _uploadService.UpdateAvatarAsync(User.GetUserId(), file);
 
-                    return Json(new { path = result});
+                    return Ok(new { path = result});
                 }
             }
             return BadRequest();
@@ -244,7 +262,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 return StatusCode((int)HttpStatusCode.Forbidden);
             }
             var result = await _userService.ResetAvatarAsync(userId);
-            return Json(new { path = result });
+            return Ok(new { path = result });
         }
     }
 }

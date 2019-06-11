@@ -7,7 +7,6 @@ using MyLfc.Application.Materials;
 using MyLfc.Common.Web;
 using MyLfc.Common.Web.DistributedCache;
 using MyLiverpool.Business.Contracts;
-using MyLiverpool.Business.Dto.Filters;
 using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
 
@@ -18,7 +17,7 @@ namespace MyLiverpool.Web.Mvc.Controllers
     /// Manages blogs.
     /// </summary>
     [Route("[controller]")]
-    public class BlogsController : Controller
+    public class BlogsController : BaseController
     {
         private readonly IMaterialService _materialService;
         private readonly IDistributedCacheManager _cacheManager;
@@ -34,38 +33,18 @@ namespace MyLiverpool.Web.Mvc.Controllers
             _cacheManager = cache;
         }
 
-        /// <summary>
-        /// Shows blogs lits.
-        /// </summary>
-        /// <param name="page"></param>
-        /// <param name="categoryId"></param>
-        /// <param name="userId"></param>
-        /// <returns></returns>
         [Route("")]
-        public async Task<IActionResult> Index(int page = 1, int? categoryId = null, int? userId = null)
+        public async Task<IActionResult> Index(GetMaterialListQuery.Request request)
         {
-            var filters = new MaterialFiltersDto
-            {
-                Page = page,
-                MaterialType = MaterialType.Blogs,
-                IsInNewsmakerRole = false,
-                CategoryId = categoryId,
-                UserId = userId
-            };
-            var result = await _materialService.GetDtoAllAsync(filters);
-            return View("../Materials/Index", result);
+            return View("../Materials/Index", await Mediator.Send(request));
         }
 
-        /// <summary>
-        /// Returns blog item.
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
         [HttpGet("{id:int}")]
-        public async Task<IActionResult> Detail(int id)
+        public async Task<IActionResult> Detail(GetMaterialDetailQuery.Request request)
         {
-            var hasAccess = User != null && (User.IsInRole(nameof(RolesEnum.NewsStart)) || User.IsInRole(nameof(RolesEnum.BlogStart)));
-            var model = await _materialService.GetDtoAsync(id, hasAccess);
+            request.IncludePending = User != null && (User.IsInRole(nameof(RolesEnum.NewsStart)) || User.IsInRole(nameof(RolesEnum.BlogStart)));
+            
+            var model = await Mediator.Send(request);
             if (model == null)
             {
                 return RedirectToAction("Index", "Blogs");
@@ -78,14 +57,14 @@ namespace MyLiverpool.Web.Mvc.Controllers
                     return BadRequest();
                 }
             }
-            var label = CacheKeysConstants.Material + id;
+            var label = CacheKeysConstants.Material + request.Id;
             if (string.IsNullOrWhiteSpace(Request.Cookies[label]))
             {
                 var options = new CookieOptions { Expires = DateTime.Now.AddMonths(1) };
                 Response.Cookies.Append(label, "1", options);
                 model.Reads++;
-                await _materialService.AddViewAsync(id);
-                UpdateMaterialCacheAddViewAsync(id);
+                await _materialService.AddViewAsync(request.Id);
+                UpdateMaterialCacheAddViewAsync(request.Id);
             }
 
             return View("../Materials/Detail", model);

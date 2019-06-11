@@ -1,4 +1,4 @@
-﻿@model PageableData<UserMiniDto>
+﻿@model MyLfc.Application.Users.GetUserListQuery.Response
 
 @{
     ViewBag.Title = "Пользователи";
@@ -15,7 +15,7 @@
     </tr>
     </thead>
     <tbody>
-    @foreach (var user in Model.List)
+    @foreach (var user in Model.Results)
     {
         <tr>
             <td class=""><span data-date="@user.LastModified.ToString("O")" data-dow="true" data-sec="false" class="timeConvert"></span></td>

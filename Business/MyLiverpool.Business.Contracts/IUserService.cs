@@ -4,7 +4,6 @@ using MyLfc.Domain;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Business.Dto.Filters;
 using MyLiverpool.Data.Common;
-using MyLiverpool.Data.Entities;
 
 namespace MyLiverpool.Business.Contracts
 {
@@ -13,8 +12,6 @@ namespace MyLiverpool.Business.Contracts
         Task<bool> BanUser(int userId, int banDayCount);
 
         Task<bool> UnbanUser(int userId);
-        
-        Task<UserDto> GetUserProfileDtoAsync(int id);
 
         Task<PageableData<UserMiniDto>> GetUsersDtoAsync(UserFiltersDto dto);
 

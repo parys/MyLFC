@@ -1,38 +1,14 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using MyLfc.Common.Web;
-using MyLfc.Common.Web.DistributedCache;
-using MyLiverpool.Business.Contracts;
-using MyLiverpool.Business.Dto;
-using MyLiverpool.Business.Dto.Filters;
-using MyLiverpool.Data.Common;
+using MyLfc.Application.Materials;
 
 namespace MyLiverpool.Web.Mvc.Controllers
 {
-    public class MaterialsController : Controller
+    public class MaterialsController : BaseController
     {
-        private readonly IMaterialService _materialService;
-        private readonly IDistributedCacheManager _cacheManager;
-
-        public MaterialsController(IMaterialService materialService, IDistributedCacheManager cache)
+        public async Task<IActionResult> Index(GetMaterialListQuery.Request request)
         {
-            _materialService = materialService;
-            _cacheManager = cache;
-        }
-
-        public async Task<IActionResult> Index(int page = 1, int? categoryId = null, MaterialType type = MaterialType.Both, int? userId = null)
-        {
-            var filters = new MaterialFiltersDto
-            {
-                Page = page,
-                MaterialType = type,
-                IsInNewsmakerRole = false,
-                CategoryId = categoryId,
-                UserId = userId
-            };
-            PageableData<MaterialMiniDto> result = await _materialService.GetDtoAllAsync(filters);
-            
-            return View(result);
+            return View(await Mediator.Send(request));
         }
     }
 }

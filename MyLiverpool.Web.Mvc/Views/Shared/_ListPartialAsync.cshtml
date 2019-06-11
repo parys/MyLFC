@@ -1,10 +1,10 @@
-﻿@model PageableData<MaterialMiniDto>
+﻿@model MyLfc.Application.Materials.GetMaterialListQuery.Response
 
 @{
 }
 
 <div>
-    @foreach (var item in Model.List)
+    @foreach (var item in Model.Results)
     {
         if (!item.Pending ||
             User.IsInRole(nameof(RolesEnum.NewsStart)) ||

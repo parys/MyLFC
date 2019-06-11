@@ -3,7 +3,7 @@ using MyLiverpool.Data.Common;
 
 namespace MyLiverpool.Business.Dto.Filters
 {
-    [Obsolete("Remove after 1 Aug 19")]
+    [Obsolete("Remove after 1 Jul 19")]
     public class MaterialFiltersDto: BaseFiltersDto
     {
         public int? CategoryId { get; set; }

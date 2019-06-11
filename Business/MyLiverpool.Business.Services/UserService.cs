@@ -47,13 +47,6 @@ namespace MyLiverpool.Business.Services
             return result == IdentityResult.Success;
         }
 
-        public async Task<UserDto> GetUserProfileDtoAsync(int id)
-        {
-            var user = await _userRepository.GetByIdAsync(id);
-            var dto = _mapper.Map<UserDto>(user);
-            return dto;
-        }
-
         public async Task<PageableData<UserMiniDto>> GetUsersDtoAsync(UserFiltersDto dto)
         {
             Expression<Func<User, bool>> filter = x => true;

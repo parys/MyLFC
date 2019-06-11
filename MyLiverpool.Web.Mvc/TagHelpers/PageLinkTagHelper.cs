@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using MyLiverpool.Data.Common;
+using MyLfc.Application.Infrastructure;
 
 namespace MyLiverpool.Web.Mvc.TagHelpers
 {
@@ -18,7 +18,7 @@ namespace MyLiverpool.Web.Mvc.TagHelpers
         [ViewContext]
         [HtmlAttributeNotBound]
         public ViewContext ViewContext { get; set; }
-        public IPageable PageModel { get; set; }
+        public PagedResultBase PageModel { get; set; }
         public string PageAction { get; set; }
         
         [HtmlAttributeName(DictionaryAttributePrefix = "page-url-")]
@@ -32,43 +32,45 @@ namespace MyLiverpool.Web.Mvc.TagHelpers
             TagBuilder tag = new TagBuilder("ul");
             tag.AddCssClass("pagination");
 
-            if (PageModel.PageNo != 1)
+            if (PageModel.CurrentPage != 1)
             {
                 var firstPage = CreateTag(1, urlHelper);
                 tag.InnerHtml.AppendHtml(firstPage);
             }
 
-            TagBuilder currentItem = CreateTag(PageModel.PageNo, urlHelper);
+            TagBuilder currentItem = CreateTag(PageModel.CurrentPage, urlHelper);
 
-            if (PageModel.HasPreviousPage && PageModel.PageNo > 2)
+            if (HasPreviousPage && PageModel.CurrentPage > 1)
             {
-                TagBuilder prevItem = CreateTag(PageModel.PageNo - 1, urlHelper);
+                TagBuilder prevItem = CreateTag(PageModel.CurrentPage - 1, urlHelper);
                 tag.InnerHtml.AppendHtml(prevItem);
             }
 
             tag.InnerHtml.AppendHtml(currentItem);
 
-            if (PageModel.HasNextPage && PageModel.PageNo < PageModel.TotalPages - 1)
+            if (HasNextPage && PageModel.CurrentPage < PageModel.PageCount - 1)
             {
-                TagBuilder nextItem = CreateTag(PageModel.PageNo + 1, urlHelper);
+                TagBuilder nextItem = CreateTag(PageModel.CurrentPage + 1, urlHelper);
                 tag.InnerHtml.AppendHtml(nextItem);
             }
 
-            if (PageModel.PageNo != PageModel.TotalPages)
+            if (PageModel.CurrentPage != PageModel.PageCount)
             {
-                var lastPage = CreateTag(PageModel.TotalPages, urlHelper);
+                var lastPage = CreateTag(PageModel.PageCount, urlHelper);
                 tag.InnerHtml.AppendHtml(lastPage);
             }
 
             output.Content.AppendHtml(tag);
-
         }
+        public bool HasPreviousPage => PageModel.CurrentPage > 1;
+
+        public bool HasNextPage => PageModel.CurrentPage < PageModel.PageCount;
 
         private TagBuilder CreateTag(int pageNumber, IUrlHelper urlHelper, string text = null)
         {
             TagBuilder item = new TagBuilder("li");
             TagBuilder link = new TagBuilder("a");
-            if (pageNumber == PageModel.PageNo)
+            if (pageNumber == PageModel.CurrentPage)
             {
                 item.AddCssClass("active");
             }

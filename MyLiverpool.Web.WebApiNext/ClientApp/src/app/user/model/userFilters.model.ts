@@ -1,7 +1,6 @@
-﻿import { BaseRestFilter } from "@app/+infrastructure";
+﻿import { PagedQueryBase } from '@app/+infrastructure';
 
-export class UserFilters extends BaseRestFilter {
-    page: number = 1;
+export class UserFilters extends PagedQueryBase {
     userName: string;
     ip: string;
     roleGroupId: number;
