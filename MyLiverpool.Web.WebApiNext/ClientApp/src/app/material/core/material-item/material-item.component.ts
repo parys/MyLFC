@@ -49,9 +49,9 @@ export class MaterialItemComponent implements OnInit {
             .subscribe(res => {
                     if (res) {
                         this.item.pending = false;
-                        this.snackBar.open('Ìàòåðèàë àêòèâèðîâàí');
+                        this.snackBar.open('ÐœÐ°Ñ‚ÐµÑ€Ð¸Ð°Ð» Ð°ÐºÑ‚Ð¸Ð²Ð¸Ñ€Ð¾Ð²Ð°Ð½');
                     } else {
-                        this.snackBar.open('Ìàòåðèàë ÍÅ àêòèâèðîâàí');
+                        this.snackBar.open('ÐœÐ°Ñ‚ÐµÑ€Ð¸Ð°Ð» ÐÐ• Ð°ÐºÑ‚Ð¸Ð²Ð¸Ñ€Ð¾Ð²Ð°Ð½');
                     }
                 },
                 () => { },
@@ -64,7 +64,7 @@ export class MaterialItemComponent implements OnInit {
                     if (res) {
                         this.item = null;
                     } else {
-                        this.snackBar.open('Îøèáêà óäàëåíèÿ');
+                        this.snackBar.open('ÐžÑˆÐ¸Ð±ÐºÐ° ÑƒÐ´Ð°Ð»ÐµÐ½Ð¸Ñ');
                     }
                 },
                 () => { },

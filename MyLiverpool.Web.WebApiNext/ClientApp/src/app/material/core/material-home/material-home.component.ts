@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
 import { Router, NavigationEnd } from "@angular/router";
+import { TransferState, makeStateKey } from "@angular/platform-browser";
 import { Subscription } from "rxjs";
 import { MaterialService } from "../material.service";
 import { Material } from "../../model";
@@ -7,6 +8,9 @@ import { PagedList } from "@app/shared";
 import { RolesCheckedService } from "@app/+auth";
 import { CustomTitleMetaService as CustomTitleService } from "@app/shared";
 import { TITLE_RU } from "@app/+constants";
+
+const MAT_LATEST_KEY = makeStateKey<Material>("mat-latest");
+const MAT_PINNED_KEY = makeStateKey<Material>("mat-pinned");
 
 @Component({
     selector: "material-home",
@@ -21,7 +25,8 @@ export class MaterialHomeComponent implements OnInit, OnDestroy {
     public latest: Material[];
     public pinned: Material[];
 
-    constructor(private router: Router,
+    constructor(private transferState: TransferState,
+        private router: Router,
         private materialService: MaterialService,
         private cd: ChangeDetectorRef,
         public roles: RolesCheckedService,
@@ -59,18 +64,36 @@ export class MaterialHomeComponent implements OnInit, OnDestroy {
     }
 
     private updateLatest(): void {
-        this.$latest = this.materialService
-            .getLatest()
-            .subscribe(data => this.parseLatest(data),
-                () => { },
-                () => this.cd.markForCheck());
+        const savedData = this.transferState.get(MAT_LATEST_KEY, null);
+        if (savedData) {
+            this.parseLatest(savedData);
+        } else {
+            this.$latest = this.materialService
+                .getLatest()
+                .subscribe(data => {
+                        this.parseLatest(data);
+                        this.transferState.set(MAT_LATEST_KEY, data);
+
+                    },
+                    () => { },
+                    () => this.cd.markForCheck());
+        }
     }
 
     private updatePinned(): void {
-        this.$pinned = this.materialService
-            .getTop()
-            .subscribe(data => this.parsePinned(data),
-                () => { },
-                () => this.cd.markForCheck());
+        const savedData = this.transferState.get(MAT_PINNED_KEY, null);
+        if (savedData) {
+            this.parseLatest(savedData);
+        } else {
+            this.$pinned = this.materialService
+                .getTop()
+                .subscribe(data => {
+                        this.parsePinned(data);
+                        this.transferState.set(MAT_PINNED_KEY, data);
+
+                    },
+                    () => {},
+                    () => this.cd.markForCheck());
+        }
     }
 }

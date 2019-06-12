@@ -268,7 +268,10 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 }
             }
 
-            return Ok(await Mediator.Send(request));
+            var model = await _cacheManager.GetOrCreateAsync(CacheKeysConstants.MaterialsPinned,
+                async () => await Mediator.Send(request));
+
+            return Ok(model);
         }
 
         /// <summary>

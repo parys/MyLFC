@@ -4,7 +4,7 @@ import { Subscription } from "rxjs";
 import { UserService } from "../user.service";
 import { User } from "../../model";
 
-const USER_BIRTHDAY_KEY = makeStateKey<User[]>("user-birthday");
+const USER_BIRTHDAY_KEY = makeStateKey<User[]>("user-bday");
 
 @Component({
     selector: "user-birthday",

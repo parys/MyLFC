@@ -81,20 +81,7 @@ export class MaterialDetailComponent implements OnDestroy {
             this.type = MaterialType.Blogs;
             this.cd.markForCheck();
         }
-
-        this.sub = this.route.params.subscribe(params => {
-            this.service.getSingle(+params["id"])
-                .subscribe(data => {
-                    this.parse(data);
-                },
-                    () => {},
-                    () => {
-                    if (this.item.socialLinks && isPlatformBrowser(this.platformId)) {
-                            ssn();
-                        }
-                        this.cd.markForCheck();
-                    });
-        });
+        this.update();
     }
 
     private activate(): void {
@@ -108,6 +95,29 @@ export class MaterialDetailComponent implements OnDestroy {
                     this.snackBar.open("Материал НЕ активирован");
                 }
             });
+    }
+
+    private update(): void {
+        const savedData = this.transferState.get(MAT_DETAIL_KEY, null);
+        if (savedData) {
+            this.parse(savedData);
+        } else {
+            this.sub = this.route.params.subscribe(params => {
+                this.service.getSingle(+params["id"])
+                    .subscribe(data => {
+                            this.parse(data);
+                            this.transferState.set(MAT_DETAIL_KEY, data);
+
+                        },
+                        () => {},
+                        () => {
+                            this.cd.markForCheck();
+                        });
+            });
+        }
+        if (this.item.socialLinks && isPlatformBrowser(this.platformId)) {
+            ssn();
+        }
     }
 
     private delete(): void {
