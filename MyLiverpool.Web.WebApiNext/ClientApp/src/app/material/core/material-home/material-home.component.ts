@@ -9,8 +9,8 @@ import { RolesCheckedService } from "@app/+auth";
 import { CustomTitleMetaService as CustomTitleService } from "@app/shared";
 import { TITLE_RU } from "@app/+constants";
 
-const MAT_LATEST_KEY = makeStateKey<Material>("mat-latest");
-const MAT_PINNED_KEY = makeStateKey<Material>("mat-pinned");
+const MAT_LATEST_KEY = makeStateKey<PagedList<Material>>("mat-latest");
+const MAT_PINNED_KEY = makeStateKey<PagedList<Material>>("mat-pinned");
 
 @Component({
     selector: "material-home",
@@ -67,6 +67,7 @@ export class MaterialHomeComponent implements OnInit, OnDestroy {
         const savedData = this.transferState.get(MAT_LATEST_KEY, null);
         if (savedData) {
             this.parseLatest(savedData);
+            this.transferState.remove(MAT_LATEST_KEY);
         } else {
             this.$latest = this.materialService
                 .getLatest()
@@ -83,7 +84,8 @@ export class MaterialHomeComponent implements OnInit, OnDestroy {
     private updatePinned(): void {
         const savedData = this.transferState.get(MAT_PINNED_KEY, null);
         if (savedData) {
-            this.parseLatest(savedData);
+            this.parsePinned(savedData);
+            this.transferState.remove(MAT_PINNED_KEY);
         } else {
             this.$pinned = this.materialService
                 .getTop()

@@ -60,8 +60,6 @@ namespace MyLfc.Application.Materials
 
             public DateTimeOffset AdditionTime { get; set; }
 
-            public int CommentsCount { get; set; }
-
             public int UserId { get; set; }
 
             public string UserName { get; set; }

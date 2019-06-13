@@ -75,13 +75,12 @@ export class MaterialDetailComponent implements OnDestroy {
         if (this.router.url.startsWith("/news")) {
             this.titleService.setTitle(NEWS_RU);
             this.type = MaterialType.News;
-            this.cd.markForCheck();
         } else {
             this.titleService.setTitle(BLOG_RU);
             this.type = MaterialType.Blogs;
-            this.cd.markForCheck();
         }
         this.update();
+        this.cd.markForCheck();
     }
 
     private activate(): void {
@@ -101,6 +100,7 @@ export class MaterialDetailComponent implements OnDestroy {
         const savedData = this.transferState.get(MAT_DETAIL_KEY, null);
         if (savedData) {
             this.parse(savedData);
+            this.transferState.remove(MAT_DETAIL_KEY);
         } else {
             this.sub = this.route.params.subscribe(params => {
                 this.service.getSingle(+params["id"])
