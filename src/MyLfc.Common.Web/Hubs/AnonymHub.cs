@@ -66,7 +66,7 @@ namespace MyLfc.Common.Web.Hubs
                 OnlineUsers.CurrentOnlineGuests.TryTake(out connectionId);
             }
             _signalRHub.Send(HubEndpointConstants.UsersOnlineEndpoint, OnlineUsers.GetStats());
-            return base.OnConnectedAsync();
+            return base.OnConnectedAsync();//todo research
         }
     }
 }

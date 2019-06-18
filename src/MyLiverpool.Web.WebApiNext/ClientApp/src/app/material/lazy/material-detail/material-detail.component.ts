@@ -27,7 +27,7 @@ const MAT_DETAIL_KEY = makeStateKey<Material>("mat-detail");
 export class MaterialDetailComponent implements OnDestroy {
     private sub: Subscription;
     private navigationSubscription: Subscription;
-    public item: Material;
+    public item: Material = new Material();
     public type: MaterialType;
 
     constructor(private transferState: TransferState,
@@ -97,24 +97,23 @@ export class MaterialDetailComponent implements OnDestroy {
     }
 
     private update(): void {
-        const savedData = this.transferState.get(MAT_DETAIL_KEY, null);
-        if (savedData) {
-            this.parse(savedData);
-            this.transferState.remove(MAT_DETAIL_KEY);
-        } else {
+        //todo const savedData = this.transferState.get(MAT_DETAIL_KEY, null);
+        //if (savedData) {
+        //    this.parse(savedData);
+        //    this.transferState.remove(MAT_DETAIL_KEY);
+        //} else {
             this.sub = this.route.params.subscribe(params => {
                 this.service.getSingle(+params["id"])
                     .subscribe(data => {
                             this.parse(data);
                             this.transferState.set(MAT_DETAIL_KEY, data);
-
                         },
                         () => {},
                         () => {
                             this.cd.markForCheck();
                         });
             });
-        }
+       // }
         if (this.item.socialLinks && isPlatformBrowser(this.platformId)) {
             ssn();
         }

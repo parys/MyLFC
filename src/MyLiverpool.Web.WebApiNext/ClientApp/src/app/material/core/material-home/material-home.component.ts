@@ -64,11 +64,11 @@ export class MaterialHomeComponent implements OnInit, OnDestroy {
     }
 
     private updateLatest(): void {
-        const savedData = this.transferState.get(MAT_LATEST_KEY, null);
-        if (savedData) {
-            this.parseLatest(savedData);
-            this.transferState.remove(MAT_LATEST_KEY);
-        } else {
+        //todo const savedData = this.transferState.get(MAT_LATEST_KEY, null);
+        //if (savedData) {
+        //    this.parseLatest(savedData);
+        //    this.transferState.remove(MAT_LATEST_KEY);
+        //} else {
             this.$latest = this.materialService
                 .getLatest()
                 .subscribe(data => {
@@ -78,15 +78,15 @@ export class MaterialHomeComponent implements OnInit, OnDestroy {
                     },
                     () => { },
                     () => this.cd.markForCheck());
-        }
+      //  }
     }
 
     private updatePinned(): void {
-        const savedData = this.transferState.get(MAT_PINNED_KEY, null);
-        if (savedData) {
-            this.parsePinned(savedData);
-            this.transferState.remove(MAT_PINNED_KEY);
-        } else {
+        //const savedData = this.transferState.get(MAT_PINNED_KEY, null);
+        //if (savedData) {
+        //    this.parsePinned(savedData);
+        //    this.transferState.remove(MAT_PINNED_KEY);
+        //} else {
             this.$pinned = this.materialService
                 .getTop()
                 .subscribe(data => {
@@ -96,6 +96,6 @@ export class MaterialHomeComponent implements OnInit, OnDestroy {
                     },
                     () => {},
                     () => this.cd.markForCheck());
-        }
+       // }
     }
 }
