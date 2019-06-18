@@ -59,19 +59,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Business\MyLiverpool.Business.Contracts\MyLiverpool.Business.Contracts.csproj" />
-    <ProjectReference Include="..\Business\MyLiverpool.Business.DtoNext\MyLiverpool.Business.Dto.csproj" />
-    <ProjectReference Include="..\Business\MyLiverpool.Business.Services\MyLiverpool.Business.Services.csproj" />
-    <ProjectReference Include="..\Common\MyLiverpool.Common.Mappings\MyLiverpool.Common.Mappings.csproj" />
-    <ProjectReference Include="..\Common\MyLiverpool.Common.Utilities\MyLiverpool.Common.Utilities.csproj" />
-    <ProjectReference Include="..\MyLfc.Application\MyLfc.Application.csproj" />
-    <ProjectReference Include="..\MyLfc.Common.Web\MyLfc.Common.Web.csproj" />
-    <ProjectReference Include="..\MyLiverpool.Data.Common\MyLiverpool.Data.Common.csproj" />
-    <ProjectReference Include="..\Data\MyLiverpool.Data.Entities\MyLfc.Domain.csproj" />
-    <ProjectReference Include="..\Data\MyLiverpool.Data.ResourceAccess\MyLfc.Persistence.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="MediatR" Version="7.0.0" />
     <PackageReference Include="AspNet.Security.OAuth.Validation" Version="2.0.0" />
@@ -143,7 +130,4 @@
       </ResolvedFileToPublish>
     </ItemGroup>
   </Target>
-
-  <ProjectExtensions><VisualStudio><UserProperties clientapp_4package_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
-
 </Project>
