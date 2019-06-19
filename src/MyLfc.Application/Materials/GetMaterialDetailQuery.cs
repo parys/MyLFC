@@ -50,6 +50,7 @@ namespace MyLfc.Application.Materials
         }
 
 
+        [Serializable]
         public class Response
         {
             public int Id { get; set; }

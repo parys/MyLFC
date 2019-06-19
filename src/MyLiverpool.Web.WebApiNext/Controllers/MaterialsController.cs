@@ -145,10 +145,11 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <param name="id">Material identifier.</param>
         /// <returns>Result of addition view.</returns>
+        [Obsolete("Remove after 15 july 19")]
         [AllowAnonymous, HttpGet("AddView/{id:int}")]
-        public async Task<IActionResult> AddViewAsync(int id)
+        public async Task<IActionResult> AddViewOldAsync(int id)
         {
-            await _materialService.AddViewAsync(id);
+            await Mediator.Send(new AddMaterialReadCommand.Request { Id = id });
             UpdateMaterialCacheAddViewAsync(id);
             return Ok(true);
         }
@@ -156,12 +157,12 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <summary>
         /// Extracts and returns file links for images.
         /// </summary>
-        /// <param name="url">Url of page with images.</param>
+        /// <param name="request">Url of page with images.</param>
         /// <returns>Found images links.</returns>
         [Authorize(Roles = nameof(RolesEnum.NewsStart)), HttpGet("imageLinks/{*url}")]
-        public async Task<IActionResult> GetExtractedImageLinksAsync(string url)
+        public async Task<IActionResult> GetExtractedImageLinksAsync(GetExtractedImageLinksQuery.Request request)
         {
-            var fileLinks = await _materialService.GetExtractedImageLinks(url);
+            var fileLinks = await Mediator.Send(request);
             return Ok(fileLinks);
         }
 
@@ -270,6 +271,18 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             return Ok(model);
         }
 
+        /// <summary>
+        /// Adds view to material.
+        /// </summary>
+        /// <param name="request">Material identifier.</param>
+        /// <returns>Result of addition view.</returns>
+        [AllowAnonymous, HttpPatch("{id:int}/read")]
+        public async Task<IActionResult> AddReadAsync(AddMaterialReadCommand.Request request)
+        {
+            await Mediator.Send(request);
+            UpdateMaterialCacheAddViewAsync(request.Id);
+            return Ok(true);
+        }
         #endregion
     }
 }

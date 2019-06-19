@@ -26,21 +26,18 @@
   <ItemGroup>
       <!-- Files not to publish (note that the 'dist' subfolders are re-added below) -->
     <Compile Remove="ClientApp\dist-server\**" />
-    <Compile Remove="ClientApp\dist\**" />
     <Compile Remove="ClientApp\node_modules\**" />
-    <Content Remove="ClientApp\dist\**" />
+    <Content Remove="ClientApp\dist-server\**" />
     <Content Remove="wwwroot\src\**" />
     <Content Remove="wwwroot\content\**" />
     <Content Remove="wwwroot\fonts\**" />
     <Content Remove="wwwroot\swagger\**" />
     <EmbeddedResource Remove="ClientApp\dist-server\**" />
-    <EmbeddedResource Remove="ClientApp\dist\**" />
     <EmbeddedResource Remove="ClientApp\node_modules\**" />
     <EmbeddedResource Remove="ClientApp\src\**" />
     <EmbeddedResource Remove="wwwroot\content\**" />
     <EmbeddedResource Remove="wwwroot\src\**" />
     <None Remove="ClientApp\dist-server\**" />
-    <None Remove="ClientApp\dist\**" />
     <None Remove="ClientApp\node_modules\**" />
     <None Remove="ClientApp\src\app\editor\langs\**" />
     <None Remove="ClientApp\src\fonts\**" />
@@ -51,8 +48,6 @@
     <Content Include="ClientApp\src\manifest.json" />
     <Content Include="ClientApp\src\index.html" />
     <Content Include="ClientApp\src\tsconfig.cli.json" />
-    <Folder Include="ClientApp\dist-server\" />
-    <Folder Include="ClientApp\dist\aspnetcorespa\" />
     <Folder Include="Connected Services\" />
     <Folder Include="wwwroot\assets\icons\" />
     <Folder Include="wwwroot\src\" />
@@ -99,11 +94,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\dist-server\main.js" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\MyLfc.Application\MyLfc.Application.csproj" />
     <ProjectReference Include="..\MyLfc.Common.Web\MyLfc.Common.Web.csproj" />
     <ProjectReference Include="..\MyLiverpool.Business.Contracts\MyLiverpool.Business.Contracts.csproj" />
     <ProjectReference Include="..\MyLiverpool.Business.DtoNext\MyLiverpool.Business.Dto.csproj" />
     <ProjectReference Include="..\MyLiverpool.Business.Services\MyLiverpool.Business.Services.csproj" />
+    <ProjectReference Include="..\MyLiverpool.Common.Mappings\MyLiverpool.Common.Mappings.csproj" />
     <ProjectReference Include="..\MyLiverpool.Common.Utilities\MyLiverpool.Common.Utilities.csproj" />
     <ProjectReference Include="..\MyLiverpool.Data.Common\MyLiverpool.Data.Common.csproj" />
   </ItemGroup>

@@ -55,12 +55,14 @@ namespace MyLfc.Application.Materials
         }
 
 
+        [Serializable]
         public class Response
         {
             public List<MaterialPinnedListDto> Results { get; set; } = new List<MaterialPinnedListDto>();
         }
 
 
+        [Serializable]
         public class MaterialPinnedListDto
         {
             public int Id { get; set; }

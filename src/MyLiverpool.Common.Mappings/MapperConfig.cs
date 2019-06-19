@@ -30,6 +30,7 @@ namespace MyLiverpool.Common.Mappings
             cfg.AddProfile(new SeasonMapperProfile());
             cfg.AddProfile(new StadiumMapperProfile());
             cfg.AddProfile(new TransferMapperProfile());
+            cfg.AddProfile(new UserProfile());
             cfg.AddProfile(new UserMapperProfile());
             cfg.AddProfile(new WishMapperProfile());
 

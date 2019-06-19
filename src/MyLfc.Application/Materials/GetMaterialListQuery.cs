@@ -63,11 +63,13 @@ namespace MyLfc.Application.Materials
         }
 
 
+        [Serializable]
         public class Response : PagedResult<MaterialListDto>
         {
         }
 
 
+        [Serializable]
         public class MaterialListDto
         {
             public int Id { get; set; }

@@ -53,12 +53,13 @@ namespace MyLfc.Application.Materials
         }
 
 
+        [Serializable]
         public class Response
         {
             public List<MaterialLatestListDto> Results { get; set; } = new List<MaterialLatestListDto>();
         }
 
-
+        [Serializable]
         public class MaterialLatestListDto
         {
             public int Id { get; set; }

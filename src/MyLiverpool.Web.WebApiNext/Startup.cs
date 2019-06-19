@@ -25,10 +25,12 @@ using Newtonsoft.Json.Serialization;
 using Swashbuckle.AspNetCore.Swagger;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using MyLfc.Application.Infrastructure;
+using MyLfc.Application.Infrastructure.Profiles;
 using MyLfc.Common.Web;
 using MyLfc.Common.Web.Hubs;
 using MyLfc.Common.Web.Middlewares;
 using MyLfc.Persistence;
+using MyLiverpool.Common.Mappings;
 
 namespace MyLiverpool.Web.WebApiNext
 {
@@ -168,7 +170,7 @@ namespace MyLiverpool.Web.WebApiNext
                     //   options.OperationFilter<AssignSecurityRequirements>();
                 });
             }
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddAutoMapper(typeof(MaterialProfile), typeof(NotificationMapperProfile));
             services.AddMediatR();
             services.AddNodeServices(options =>
             {

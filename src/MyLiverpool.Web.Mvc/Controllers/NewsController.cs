@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using MyLfc.Application.Materials;
 using MyLfc.Common.Web;
 using MyLfc.Common.Web.DistributedCache;
-using MyLiverpool.Business.Contracts;
 using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
 
@@ -19,17 +18,14 @@ namespace MyLiverpool.Web.Mvc.Controllers
     [Route("[controller]")]
     public class NewsController : BaseController
     {
-        private readonly IMaterialService _materialService;
         private readonly IDistributedCacheManager _cacheManager;
 
         /// <summary>
         /// Constructor.
         /// </summary>
-        /// <param name="materialService"></param>
         /// <param name="cache"></param>
-        public NewsController(IMaterialService materialService, IDistributedCacheManager cache)
+        public NewsController(IDistributedCacheManager cache)
         {
-            _materialService = materialService;
             _cacheManager = cache;
         }
 
@@ -63,7 +59,7 @@ namespace MyLiverpool.Web.Mvc.Controllers
                 var options = new CookieOptions { Expires = DateTime.Now.AddMonths(1) };
                 Response.Cookies.Append(label, "1", options);
                 model.Reads++;
-                await _materialService.AddViewAsync(request.Id);
+                await Mediator.Send(new AddMaterialReadCommand.Request{Id = request.Id});
                 UpdateMaterialCacheAddViewAsync(request.Id);
             }
 
