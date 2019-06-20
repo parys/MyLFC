@@ -56,6 +56,8 @@ namespace MyLfc.Domain
 
         public bool IsVerified { get; set; }
 
+        public bool Deleted { get; set; }
+
         [NotMapped]
         public int Number { get; set; }
 

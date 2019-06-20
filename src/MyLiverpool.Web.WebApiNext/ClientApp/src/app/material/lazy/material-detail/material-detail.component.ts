@@ -114,9 +114,6 @@ export class MaterialDetailComponent implements OnDestroy {
                         });
             });
        // }
-        if (this.item.socialLinks && isPlatformBrowser(this.platformId)) {
-            ssn();
-        }
     }
 
     private delete(): void {
@@ -137,6 +134,9 @@ export class MaterialDetailComponent implements OnDestroy {
         this.titleService.updateDescriptionMetaTag(item.brief);
         this.titleService.updateKeywordsMetaTag(item.tags);
         this.titleService.updateOgImageMetaTag(`https://mylfc.ru${item.photoPreview}`);
+        if (item.socialLinks && isPlatformBrowser(this.platformId)) {
+            ssn();
+        }
     }
 
     private addView(): void {

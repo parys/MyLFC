@@ -175,6 +175,9 @@ namespace MyLfc.Persistence
                 .OnDelete(DeleteBehavior.Cascade);
             //end research
 
+            modelBuilder.Entity<Material>().HasQueryFilter(x => !x.Deleted);
+
+            modelBuilder.Entity<MaterialComment>().HasQueryFilter(x => !x.Deleted);
 
             foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
             {

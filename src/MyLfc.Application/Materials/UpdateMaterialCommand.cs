@@ -3,18 +3,19 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
-using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
+using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Domain;
 using MyLfc.Persistence;
-using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
 
 namespace MyLfc.Application.Materials
 {
-    public class CreateMaterialCommand
+    public class UpdateMaterialCommand
     {
         public class Request : IRequest<Response>
         {
+            public int Id { get; set; }
             public int CategoryId { get; set; }
             
             public int UserId { get; set; }
@@ -49,25 +50,27 @@ namespace MyLfc.Application.Materials
         {
             private readonly LiverpoolContext _context;
 
-            private readonly IHttpContextAccessor _contextAccessor;
-
             private readonly IMapper _mapper;
             
-            public Handler(LiverpoolContext context, IHttpContextAccessor contextAccessor, IMapper mapper)
+            public Handler(LiverpoolContext context, IMapper mapper)
             {
                 _context = context;
-                _contextAccessor = contextAccessor;
                 _mapper = mapper;
             }
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var material = _mapper.Map<Material>(request);
-                material.AdditionTime = DateTime.Now;
-                material.AuthorId = _contextAccessor.HttpContext.User.GetUserId();
+                var material = await _context.Materials
+                    .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
+
+                if (material == null)
+                {
+                    throw new NotFoundException(nameof(Material), request.Id);
+                }
+
+                material = _mapper.Map(request, material);
                 material.LastModified = DateTime.Now;
 
-                _context.Add(material);
                 await _context.SaveChangesAsync(cancellationToken);
 
                 return _mapper.Map<Response>(material);

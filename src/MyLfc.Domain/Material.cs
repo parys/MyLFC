@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using MyLiverpool.Data.Common;
-using MyLiverpool.Data.Entities;
 
 namespace MyLfc.Domain
 {
@@ -15,11 +14,7 @@ namespace MyLfc.Domain
         
         public virtual MaterialCategory Category { get; set; }
 
-        //public int Year { get; set; }
-
-        //public int Month { get; set; }
-
-        //public int Day { get; set; }
+        public bool Deleted { get; set; }
 
         public bool Pending { get; set; }
 
@@ -47,12 +42,6 @@ namespace MyLfc.Domain
 
         [MaxLength(300)]
         public string Source { get; set; }
-
-        public float Rating { get; set; }
-
-        public int RatingNumbers { get; set; }
-
-        public int RatingSumm { get; set; }
 
         [MaxLength(400)]
         public string PhotoPath { get; set; }

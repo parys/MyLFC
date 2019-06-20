@@ -8,7 +8,7 @@ using MyLfc.Persistence;
 
 namespace MyLfc.Application.Materials
 {
-    public class ActivateMaterialCommand
+    public class AddMaterialReadCommand
     {
         public class Request : IRequest
         {
@@ -34,7 +34,7 @@ namespace MyLfc.Application.Materials
                     throw new NotFoundException(nameof(Material), request.Id);
                 }
 
-                material.Reads++;
+                material.Pending = false;
                 await _context.SaveChangesAsync(cancellationToken);
                 return Unit.Value;
             }

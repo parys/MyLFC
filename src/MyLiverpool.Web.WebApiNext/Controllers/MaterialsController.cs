@@ -7,8 +7,6 @@ using Microsoft.Extensions.Logging;
 using MyLfc.Application.Materials;
 using MyLfc.Common.Web;
 using MyLfc.Common.Web.DistributedCache;
-using MyLiverpool.Business.Contracts;
-using MyLiverpool.Business.Dto;
 using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
 
@@ -19,36 +17,35 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// </summary>
     public class MaterialsController : BaseController
     {
-        private readonly IMaterialService _materialService;
         private readonly ILogger<MaterialsController> _logger;
         private readonly IDistributedCacheManager _cacheManager;
 
         /// <summary>
         /// Constructor.
         /// </summary>
-        /// <param name="materialService">Injecting materialService.</param>
         /// <param name="logger">Injecting logger.</param>
         /// <param name="cacheManager"></param>
-        public MaterialsController(IMaterialService materialService, ILogger<MaterialsController> logger,
+        public MaterialsController(ILogger<MaterialsController> logger,
             IDistributedCacheManager cacheManager)
         {
-            _materialService = materialService;
             _logger = logger;
             _cacheManager = cacheManager;
         }
 
         #region Old
-        
+
         /// <summary>
         /// Removes material.
         /// </summary>
-        /// <param name="id">Material identifier.</param>
+        /// <param name="request">Material identifier.</param>
         /// <returns>Result of removing.</returns>
         [Authorize(Roles = nameof(RolesEnum.NewsStart) + "," + nameof(RolesEnum.BlogStart)), HttpDelete("{id:int}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(DeleteMaterialCommand.Request request)
         {
-            var result = await _materialService.DeleteAsync(id, User);
-            _cacheManager.Remove(CacheKeysConstants.Material + id);
+            request.Claims = User;
+            var result = await Mediator.Send(request);
+
+            _cacheManager.Remove(CacheKeysConstants.Material + request.Id);
             _cacheManager.Remove(CacheKeysConstants.MaterialsPinned, CacheKeysConstants.MaterialsLatest);
             return Ok(result);
         }
@@ -56,45 +53,42 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <summary>
         /// Activates material.
         /// </summary>
-        /// <param name="id">Material identifier.</param>
+        /// <param name="request">Material identifier.</param>
         /// <returns>Result of activation.</returns>
-        [Authorize(Roles = nameof(RolesEnum.NewsFull) + "," + nameof(RolesEnum.BlogFull)), HttpGet("activate/{id:int}")]
-        public async Task<IActionResult> ActivateAsync(int id)
+        [Authorize(Roles = nameof(RolesEnum.NewsFull) + "," + nameof(RolesEnum.BlogFull)), HttpGet("{id:int}/activate")]
+        public async Task<IActionResult> ActivateAsync(ActivateMaterialCommand.Request request)
         {
-            var result = await _materialService.ActivateAsync(id, User);
-            if (result != null)
-            {
+            var result = await Mediator.Send(request);
                 _cacheManager.Remove(CacheKeysConstants.MaterialsPinned, CacheKeysConstants.MaterialsLatest);
-                _cacheManager.Set(CacheKeysConstants.Material + id, result);
-            }
-
-            return Ok(result);
+         //todo think about different models       _cacheManager.Set(CacheKeysConstants.Material + id, result);
+            
+            return Ok(true);
         }
 
         /// <summary>
         /// Creates new material.
         /// </summary>
         /// <param name="type">Material type.</param>
-        /// <param name="model">Contains material model.</param>
+        /// <param name="request">Contains material model.</param>
         /// <returns>Result of creation.</returns>
         [Authorize(Roles = nameof(RolesEnum.NewsStart) + "," + nameof(RolesEnum.BlogStart)),
          HttpPost("{type}")] //todo add cutting absolute path to relative
-        public async Task<IActionResult> CreateAsync(string type, [FromBody] MaterialDto model)
+        public async Task<IActionResult> CreateAsync(string type, [FromBody] CreateMaterialCommand.Request request)
         {
             if (!ModelState.IsValid || !Enum.TryParse(type, true, out MaterialType materialType))
             {
                 return BadRequest(ModelState);
             }
 
-            model.Type = materialType;
+            request.Type = materialType;
             if (!User.IsInRole(nameof(RolesEnum.NewsFull)) &&
                 !User.IsInRole(nameof(RolesEnum.BlogFull)))
             {
-                model.Pending = true;
+                request.Pending = true;
             }
 
-            var result = await _materialService.CreateAsync(model, User.GetUserId());
-            if (!model.Pending)
+            var result = await Mediator.Send(request);
+            if (!result.Pending)
             {
                 _cacheManager.Remove(CacheKeysConstants.MaterialsPinned, CacheKeysConstants.MaterialsLatest);
             }
@@ -107,13 +101,13 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// Updates material.
         /// </summary>
         /// <param name="id">Material identifier.</param>
-        /// <param name="model">Contains material model.</param>
+        /// <param name="request">Contains material model.</param>
         /// <returns>Result of update.</returns>
         [Authorize(Roles = nameof(RolesEnum.NewsStart) + "," + nameof(RolesEnum.BlogStart)), HttpPut("{id:int}")]
         public async Task<IActionResult>
-            UpdateAsync(int id, [FromBody] MaterialDto model) //todo add cutting absolute path to relative
+            UpdateAsync(int id, [FromBody] UpdateMaterialCommand.Request request) //todo add cutting absolute path to relative
         {
-            if (id != model.Id)
+            if (id != request.Id)
             {
                 return BadRequest();
             }
@@ -126,16 +120,16 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             if (!User.IsInRole(nameof(RolesEnum.NewsFull)) &&
                 !User.IsInRole(nameof(RolesEnum.BlogFull)))
             {
-                if (model.UserId != User?.GetUserId())
+                if (request.UserId != User?.GetUserId())
                 {
                     return Unauthorized();
                 }
 
-                model.Pending = true;
+                request.Pending = true;
             }
 
-            var result = await _materialService.EditAsync(model);
-            _cacheManager.Set(CacheKeysConstants.Material + id, result);
+            var result = await Mediator.Send(request);
+        //todo    _cacheManager.Set(CacheKeysConstants.Material + id, result);
             _cacheManager.Remove(CacheKeysConstants.MaterialsPinned, CacheKeysConstants.MaterialsLatest);
             return Ok(result);
         }
