@@ -79,7 +79,6 @@ namespace MyLfc.Application.Infrastructure.Profiles
                 .ForMember(dest => dest.Tags, src => src.MapFrom(x => BeautifyTags(x.Tags)));
 
             CreateMap<CreateMaterialCommand.Request, Material>()
-                .ForMember(dest => dest.AuthorId, src => src.MapFrom(x => x.UserId))
                 .ForMember(dest => dest.Brief, src => src.MapFrom(x => x.Brief))
                 .ForMember(dest => dest.CanCommentary, src => src.MapFrom(x => x.CanCommentary))
                 .ForMember(dest => dest.Comments, src => src.Ignore())

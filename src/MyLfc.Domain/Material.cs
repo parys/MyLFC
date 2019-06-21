@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using MyLiverpool.Data.Common;
 
 namespace MyLfc.Domain
@@ -24,29 +22,20 @@ namespace MyLfc.Domain
 
         public DateTimeOffset AdditionTime { get; set; }
 
-        [NotMapped]
-        public int CommentsCount { get; set; }
-
         public virtual User Author { get; set; }
 
-        [MaxLength(200)]
         public string Title { get; set; }
 
-        [MaxLength(1000)]
         public string Brief { get; set; }
 
-        [MaxLength(80000)]
         public string Message { get; set; }
 
         public int Reads { get; set; }
 
-        [MaxLength(300)]
         public string Source { get; set; }
 
-        [MaxLength(400)]
         public string PhotoPath { get; set; }
 
-        [MaxLength(400)]
         public string PhotoPreview { get; set; }
 
         public DateTimeOffset LastModified { get; set; }

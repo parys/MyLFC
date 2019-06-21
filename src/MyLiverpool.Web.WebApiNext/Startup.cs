@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -31,6 +32,7 @@ using MyLfc.Common.Web.Hubs;
 using MyLfc.Common.Web.Middlewares;
 using MyLfc.Persistence;
 using MyLiverpool.Common.Mappings;
+using MyLiverpool.Web.WebApiNext.Infrastructure.Filters;
 
 namespace MyLiverpool.Web.WebApiNext
 {
@@ -87,10 +89,12 @@ namespace MyLiverpool.Web.WebApiNext
                 options.RequestCultureProviders = new List<IRequestCultureProvider>();
             });
             services.AddRouting(options => options.LowercaseUrls = true);
-            services.AddMvc(options => { }).AddJsonOptions(options =>
-            {
-                options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-            });
+            services.AddMvc(options => { options.Filters.Add(typeof(RequestDecorator)); })
+                .AddJsonOptions(options =>
+                {
+                    options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                })
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddCors(options =>
             {
@@ -188,6 +192,8 @@ namespace MyLiverpool.Web.WebApiNext
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist/aspnetcorespa"; });
+            
+            services.AddScoped<RequestContext>();
         }
 
         /// <summary>

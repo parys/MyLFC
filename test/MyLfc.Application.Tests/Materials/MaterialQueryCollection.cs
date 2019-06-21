@@ -70,7 +70,7 @@ namespace MyLfc.Application.Tests.Materials
         private void SeedMaterialCategories()
         {
             var materialCategories = new Fixture()
-                .Customize(new MaterialCategoryCustomization())
+                .Customize(new MaterialCategoryCustomization(MaterialType.News))
                 .CreateMany<MaterialCategory>(3).ToList();
 
             Context.MaterialCategories.AddRange(materialCategories);

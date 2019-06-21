@@ -13,36 +13,11 @@ namespace MyLfc.Application.Materials
 {
     public class UpdateMaterialCommand
     {
-        public class Request : IRequest<Response>
+        public class Request : UpsertMaterialCommand.Request, IRequest<Response>
         {
             public int Id { get; set; }
-            public int CategoryId { get; set; }
             
             public int UserId { get; set; }
-
-            public string Title { get; set; }
-
-            public string Brief { get; set; }
-
-            public string Message { get; set; }
-
-            public string Source { get; set; }
-            
-            public string Photo { get; set; }
-
-            public string PhotoPreview { get; set; }
-
-            public bool Pending { get; set; }
-
-            public bool OnTop { get; set; }
-
-            public bool CanCommentary { get; set; }
-            
-            public MaterialType Type { get; set; }
-            
-            public bool UsePhotoInBody { get; set; }
-
-            public string Tags { get; set; }                                                       
         }
 
 
