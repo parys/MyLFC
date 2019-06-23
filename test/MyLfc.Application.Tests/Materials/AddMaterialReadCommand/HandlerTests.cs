@@ -9,18 +9,18 @@ using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Persistence;
 using Xunit;
-using Handler = MyLfc.Application.Materials.ActivateMaterialCommand.Handler;
-using Request = MyLfc.Application.Materials.ActivateMaterialCommand.Request;
+using Handler = MyLfc.Application.Materials.AddMaterialReadCommand.Handler;
+using Request = MyLfc.Application.Materials.AddMaterialReadCommand.Request;
 
-namespace MyLfc.Application.Tests.Materials.ActivateMaterialCommand
+namespace MyLfc.Application.Tests.Materials.AddMaterialReadCommand
 {
-    [Collection(nameof(ActivateMaterialCommandCollection))]
+    [Collection(nameof(AddMaterialReadCommandCollection))]
     public class HandlerTests
     {
         private readonly LiverpoolContext _context;
         private readonly IRequestHandler<Request, Unit> _handler;
 
-        public HandlerTests(ActivateMaterialCommandTestFixture fixture)
+        public HandlerTests(AddMaterialReadCommandTestFixture fixture)
         {
             _handler = new Handler(fixture.Context);
             _context = fixture.Context;
@@ -28,7 +28,7 @@ namespace MyLfc.Application.Tests.Materials.ActivateMaterialCommand
 
         [Theory]
         [MemberData(nameof(InvalidMaterialIds))]
-        public void ActivateMaterialCommand_WhenMaterialIsNotExist_ThrowsNotFoundException(int id)
+        public void AddMaterialReadCommand_WhenMaterialIsNotExist_ThrowsNotFoundException(int id)
         {
             Func<Task> result = async () => await _handler.Handle(new Request { Id = id }, CancellationToken.None);
 
@@ -36,18 +36,17 @@ namespace MyLfc.Application.Tests.Materials.ActivateMaterialCommand
         }
 
         [Fact]
-        public async Task ActivateMaterialCommand_WhenActivateCommandIsValid_ShouldChangeMaterialPerndingToFalse()
+        public async Task AddMaterialReadCommand_WhenAddReadCommandIsValid_ShouldAddNewRead()
         {
-            var material = _context.Materials.First(x => x.Id == ActivateMaterialCommandTestFixture.PendingId);
-            material.Pending.Should().BeTrue();
-
+            var material = _context.Materials.First(x => x.Id == AddMaterialReadCommandTestFixture.MaterialId);
+            var oldRead = material.Reads;
             var result = await _handler.Handle(new Request{Id = material.Id}, CancellationToken.None);
 
             result.Should().NotBeNull();
 
-            var updatedEntity = await _context.Materials.FirstOrDefaultAsync(x => x.Id == ActivateMaterialCommandTestFixture.PendingId);
+            var updatedEntity = await _context.Materials.FirstOrDefaultAsync(x => x.Id == AddMaterialReadCommandTestFixture.MaterialId);
 
-            updatedEntity.Pending.Should().BeFalse();
+            updatedEntity.Reads.Should().Be(oldRead + 1);
         }
 
         public static IEnumerable<object[]> InvalidMaterialIds()

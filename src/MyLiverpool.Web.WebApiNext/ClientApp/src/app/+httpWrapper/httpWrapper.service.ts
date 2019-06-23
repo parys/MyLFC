@@ -43,6 +43,12 @@ export class HttpWrapper {
         });
     }
 
+    public patch<T>(url: string, data: any): Observable<T> {
+        return this.http.patch<T>(this.baseUrl + API_URL + url, data, {
+            headers: this.updateHeaders()
+        });
+    }
+
     public delete<T>(url: string): Observable<T> {
         return this.http.delete<T>(this.baseUrl + API_URL + url, {
             headers: this.updateHeaders()

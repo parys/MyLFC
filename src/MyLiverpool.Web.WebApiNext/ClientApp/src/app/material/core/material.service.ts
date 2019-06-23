@@ -43,11 +43,11 @@ export class MaterialService {
     };
 
     public addView(id: number): Observable<boolean> {
-        return this.http.get<boolean>(this.actionUrl + "addView/" + id);
+        return this.http.patch<boolean>(this.actionUrl + id + "/read", {});
     };
 
     public activate(id: number): Observable<boolean> {
-        return this.http.get<boolean>(this.actionUrl + "activate/" + id);
+        return this.http.patch<boolean>(this.actionUrl + id + "/activate", {});
     };
 
     public extractPhoto(url: string): Observable<string[]> {

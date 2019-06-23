@@ -38,6 +38,8 @@ namespace MyLfc.Application.Materials
                 var materialsQuery = _context.Materials.AsNoTracking();
 
                 var material = await materialsQuery
+                    .Include(x =>x.Author)
+                    .Include(x =>x.Category)
                     .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 
                 //needs to avoid projectTo because using a lot of functions

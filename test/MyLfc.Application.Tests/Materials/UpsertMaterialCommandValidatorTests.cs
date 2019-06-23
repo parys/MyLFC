@@ -1,6 +1,5 @@
 ﻿using FluentValidation.TestHelper;
 using MyLfc.Application.Materials;
-using MyLiverpool.Data.Common;
 using Xunit;
 
 namespace MyLfc.Application.Tests.Materials

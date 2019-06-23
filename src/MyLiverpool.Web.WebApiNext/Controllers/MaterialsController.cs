@@ -55,8 +55,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <param name="request">Material identifier.</param>
         /// <returns>Result of activation.</returns>
-        [Authorize(Roles = nameof(RolesEnum.NewsFull) + "," + nameof(RolesEnum.BlogFull)), HttpGet("{id:int}/activate")]
-        public async Task<IActionResult> ActivateAsync(ActivateMaterialCommand.Request request)
+        [Authorize(Roles = nameof(RolesEnum.NewsFull) + "," + nameof(RolesEnum.BlogFull)), HttpPatch("{id:int}/activate")]
+        public async Task<IActionResult> ActivateAsync([FromRoute]ActivateMaterialCommand.Request request)
         {
             var result = await Mediator.Send(request);
                 _cacheManager.Remove(CacheKeysConstants.MaterialsPinned, CacheKeysConstants.MaterialsLatest);
@@ -271,7 +271,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <param name="request">Material identifier.</param>
         /// <returns>Result of addition view.</returns>
         [AllowAnonymous, HttpPatch("{id:int}/read")]
-        public async Task<IActionResult> AddReadAsync(AddMaterialReadCommand.Request request)
+        public async Task<IActionResult> AddReadAsync([FromRoute]AddMaterialReadCommand.Request request)
         {
             await Mediator.Send(request);
             UpdateMaterialCacheAddViewAsync(request.Id);
