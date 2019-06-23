@@ -17,7 +17,7 @@ namespace MyLfc.Application.Tests.Infrastructure.Seeds
             context.MaterialCategories.AddRange(newsCategories);
 
             var blogsCategories = new Fixture()
-                .Customize(new MaterialCategoryCustomization(MaterialType.Blogs))
+                .Customize(new MaterialCategoryCustomization(MaterialType.Blogs, 5))
                 .CreateMany<MaterialCategory>(3);
 
             context.MaterialCategories.AddRange(blogsCategories);

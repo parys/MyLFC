@@ -172,21 +172,21 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             var materialsCache =
                 await _cacheManager.GetAsync<GetLatestMaterialsQuery.Response>(CacheKeysConstants.MaterialsLatest);
 
-            var material = materialsCache?.Results.FirstOrDefault(x => x.Id == materialId);
-            if (material != null)
+            var matIndex = materialsCache?.Results.FindIndex(x => x.Id == materialId);
+            if (matIndex.HasValue)
             {
-                material.Reads++;
+                materialsCache.Results[matIndex.Value].Reads++;
                 _cacheManager.Set(CacheKeysConstants.MaterialsLatest, materialsCache);
             }
 
             var materialsPinnedCache =
                 await _cacheManager.GetAsync<GetPinnedMaterialsQuery.Response>(CacheKeysConstants.MaterialsPinned);
 
-            var materialPinned = materialsPinnedCache?.Results.FirstOrDefault(x => x.Id == materialId);
-            if (material != null)
+            var matPinnedIndex = materialsPinnedCache?.Results.FindIndex(x => x.Id == materialId);
+            if (matPinnedIndex.HasValue)
             {
-                material.Reads++;
-                _cacheManager.Set(CacheKeysConstants.MaterialsPinned, materialPinned);
+                materialsPinnedCache.Results[matPinnedIndex.Value].Reads++;
+                _cacheManager.Set(CacheKeysConstants.MaterialsPinned, materialsPinnedCache);
             }
         }
 

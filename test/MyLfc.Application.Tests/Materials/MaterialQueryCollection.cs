@@ -29,7 +29,7 @@ namespace MyLfc.Application.Tests.Materials
         public static List<MaterialComment> Comments { get; private set; }
 
 
-        public MaterialQueryTestFixture() : base()
+        public MaterialQueryTestFixture()
         {
             SeedUsers();
         //    SeedVisits();
@@ -54,12 +54,11 @@ namespace MyLfc.Application.Tests.Materials
         private void SeedMaterials()
         {
             var materials = new Fixture()
-                .Customize(new MaterialCustomization())
+                .Customize(new MaterialCustomization(MaterialType.News))
                 .CreateMany<Material>(50).ToList();
 
             materials.ForEach(x => x.AuthorId = UserId);
             materials.ForEach(x => x.CategoryId = MaterialCategoryId);
-         //   materials.ForEach(x => x.Type = MaterialType.News);
 
             Context.Materials.AddRange(materials);
             Context.SaveChanges();
@@ -70,7 +69,7 @@ namespace MyLfc.Application.Tests.Materials
         private void SeedMaterialCategories()
         {
             var materialCategories = new Fixture()
-                .Customize(new MaterialCategoryCustomization(MaterialType.News))
+                .Customize(new MaterialCategoryCustomization(MaterialType.News, 100))
                 .CreateMany<MaterialCategory>(3).ToList();
 
             Context.MaterialCategories.AddRange(materialCategories);

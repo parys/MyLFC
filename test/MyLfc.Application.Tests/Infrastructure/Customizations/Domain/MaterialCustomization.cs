@@ -7,6 +7,15 @@ namespace MyLfc.Application.Tests.Infrastructure.Customizations.Domain
 {
     public class MaterialCustomization : ICustomization
     {
+        private MaterialType Type { get; }
+        private bool Deleted { get; }
+
+        public MaterialCustomization(MaterialType type, bool deleted = false)
+        {
+            Type = type;
+            Deleted = deleted;
+        }
+
         public void Customize(IFixture fixture)
         {
             fixture.Customizations.Add(new IgnoreMembers(new[]
@@ -18,7 +27,8 @@ namespace MyLfc.Application.Tests.Infrastructure.Customizations.Domain
 
             fixture.Customize<Material>(
                 o => o.With(p => p.Pending, false)
-                    .With(x => x.Type, MaterialType.News));
+                    .With(x => x.Deleted, Deleted)
+                    .With(x => x.Type, Type));
         }
     }
 }

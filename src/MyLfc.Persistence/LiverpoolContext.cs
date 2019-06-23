@@ -213,7 +213,6 @@ namespace MyLfc.Persistence
         
         protected override void OnConfiguring(DbContextOptionsBuilder modelBuilder)
         {
-            modelBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
             if (_isMigrator)
             {
                 modelBuilder.UseOpenIddict<int>();

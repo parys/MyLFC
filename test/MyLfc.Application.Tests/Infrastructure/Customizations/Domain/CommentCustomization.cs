@@ -1,4 +1,5 @@
-﻿using AutoFixture;
+﻿using System;
+using AutoFixture;
 using MyLfc.Application.Tests.Infrastructure.FixtureBuilders;
 using MyLfc.Domain;
 
@@ -6,6 +7,13 @@ namespace MyLfc.Application.Tests.Infrastructure.Customizations.Domain
 {
     public class CommentCustomization : ICustomization
     {
+        private bool Deleted { get; }
+
+        public CommentCustomization(bool deleted = false)
+        {
+            Deleted = deleted;
+        }
+
         public void Customize(IFixture fixture)
         {
             fixture.Customizations.Add(new IgnoreMembers(new[] {
@@ -17,6 +25,10 @@ namespace MyLfc.Application.Tests.Infrastructure.Customizations.Domain
                 nameof(MaterialComment.Parent),
                 nameof(MaterialComment.Poll),
             }));
+
+            fixture.Customize<MaterialComment>(
+                o => o.With(p => p.Pending, false)
+                    .With(x => x.Deleted, Deleted));
         }
     }
 }

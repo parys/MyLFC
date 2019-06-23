@@ -8,7 +8,7 @@ using MyLfc.Persistence;
 
 namespace MyLfc.Application.Materials
 {
-    public class ActivateMaterialCommand
+    public class AddMaterialReadCommand
     {
         public class Request : IRequest
         {

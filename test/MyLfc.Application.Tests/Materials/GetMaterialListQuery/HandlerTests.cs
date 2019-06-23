@@ -49,8 +49,9 @@ namespace MyLfc.Application.Tests.Materials.GetMaterialListQuery
             result.Results.Count.Should().Be(expectedCount);
             result.Results.All(x => x.UserId == MaterialQueryTestFixture.UserId).Should().BeTrue();
             result.Results.All(x => x.CategoryId == MaterialQueryTestFixture.MaterialCategoryId).Should().BeTrue();
-            result.Results.First(x => x.Id == MaterialQueryTestFixture.MaterialWithComments)
-                .CommentsCount.Should().Be(MaterialQueryTestFixture.Comments.Count);
+            var resultMaterial = result.Results.First(x => x.Id == MaterialQueryTestFixture.MaterialWithComments);
+
+            resultMaterial.CommentsCount.Should().Be(MaterialQueryTestFixture.Comments.Count);
         }
     }
 }

@@ -9,9 +9,19 @@ namespace MyLfc.Application.Tests.Infrastructure.Customizations.Domain
     {
         private MaterialType Type { get; }
 
-        public MaterialCategoryCustomization(MaterialType type)
+        private int _startId;
+
+        private int StartId()
+        {
+            _startId++;
+            return _startId;
+        }
+
+
+        public MaterialCategoryCustomization(MaterialType type, int startId = 0)
         {
             Type = type;
+            _startId = startId;
         }
 
         public void Customize(IFixture fixture)
@@ -21,8 +31,9 @@ namespace MyLfc.Application.Tests.Infrastructure.Customizations.Domain
             }));
 
 
-            fixture.Customize<MaterialCategory>(
-                o => o.With(p => p.MaterialType, Type));
+            fixture.Customize<MaterialCategory>(o => o
+                .With(p => p.Id, StartId)
+                .With(p => p.MaterialType, Type));
         }
     }
 }
