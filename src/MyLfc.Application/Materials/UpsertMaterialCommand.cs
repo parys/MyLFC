@@ -27,8 +27,6 @@ namespace MyLfc.Application.Materials
 
             public bool CanCommentary { get; set; }
 
-            public MaterialType Type { get; set; }
-
             public bool UsePhotoInBody { get; set; }
 
             public string Tags { get; set; }
@@ -39,8 +37,6 @@ namespace MyLfc.Application.Materials
         {
             protected Validator()
             {
-                RuleFor(v => v.Type).IsInEnum().NotEqual(MaterialType.Both);
-
                 RuleFor(x => x.Title.Length).InclusiveBetween(1, 200);
 
                 RuleFor(x => x.Brief.Length).InclusiveBetween(1, 1000);

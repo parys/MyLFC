@@ -40,7 +40,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <param name="request">Material identifier.</param>
         /// <returns>Result of removing.</returns>
         [Authorize(Roles = nameof(RolesEnum.NewsStart) + "," + nameof(RolesEnum.BlogStart)), HttpDelete("{id:int}")]
-        public async Task<IActionResult> Delete(DeleteMaterialCommand.Request request)
+        public async Task<IActionResult> Delete([FromRoute]DeleteMaterialCommand.Request request)
         {
             request.Claims = User;
             var result = await Mediator.Send(request);

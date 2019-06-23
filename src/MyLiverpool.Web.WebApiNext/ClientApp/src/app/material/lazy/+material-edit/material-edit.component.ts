@@ -66,7 +66,7 @@ export class MaterialEditComponent implements OnInit {
             this.service.update(this.id, newsItem)
                 .subscribe(data => {
                     if (!this.editForm.get("stayOnPage").value) {
-                        this.router.navigate([`/${MaterialType[this.type].toLowerCase()}`, data.id]);
+                        this.router.navigate([`/${MaterialType[this.type].toLowerCase()}`, this.id]);
                     }
                     this.snackBar.open("Материал обновлен");
                 },

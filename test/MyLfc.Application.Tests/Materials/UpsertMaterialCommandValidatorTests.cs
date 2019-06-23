@@ -14,25 +14,7 @@ namespace MyLfc.Application.Tests.Materials
         protected TValidator Validator { get; set; }
 
         #endregion
-
-        #region Material Type
-
-        [Fact]
-        public void UpsertMaterial_RuleForType_WhenTypeIsBoth_ShouldHaveValidationError()
-        {
-            Validator.ShouldHaveValidationErrorFor(x => x.Type, MaterialType.Both);
-        }
-
-        [Theory]
-        [InlineData(MaterialType.News)]
-        [InlineData(MaterialType.Blogs)]
-        public void UpsertMaterial_RuleForType_WhenTypeIsNotBoth_ShouldNotHaveValidationError(MaterialType type)
-        {
-            Validator.ShouldNotHaveValidationErrorFor(x => x.Type, type);
-        }
-
-        #endregion
-
+        
         #region Title Rules 
 
         [Theory]

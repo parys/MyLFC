@@ -35,7 +35,7 @@ namespace MyLfc.Application.Materials
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var material = await _context.Materials
+                var material = await _context.Materials.AsNoTracking()
                     .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 
                 if (material == null)
@@ -46,6 +46,7 @@ namespace MyLfc.Application.Materials
                 material = _mapper.Map(request, material);
                 material.LastModified = DateTime.Now;
 
+                _context.Materials.Update(material);
                 await _context.SaveChangesAsync(cancellationToken);
 
                 return _mapper.Map<Response>(material);

@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using FluentValidation;
 using MediatR;
 using MyLfc.Application.Infrastructure;
 using MyLfc.Domain;
@@ -14,13 +15,14 @@ namespace MyLfc.Application.Materials
     {
         public class Request : UpsertMaterialCommand.Request, IRequest<Response>
         {
-                                         
+            public MaterialType Type { get; set; }
         }
 
         public class Validator : UpsertMaterialCommand.Validator<Request>
         {
             public Validator() : base()
             {
+                RuleFor(v => v.Type).IsInEnum().NotEqual(MaterialType.Both);
             }
         }
 
