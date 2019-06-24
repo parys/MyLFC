@@ -1,4 +1,4 @@
-﻿<div *ngIf="item" class="comment-container com-offset-{{deep}}" [class.nested]="item.children.length > 0">
+﻿<div *ngIf="item" class="comment-container com-offset-{{deep}}" [class.nested]="item.children?.length > 0">
     <div class="comment" [id]="'com'+item.id">
         <div class="flex-space-between flex-v-c">
             <span>

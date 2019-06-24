@@ -11,7 +11,6 @@ using MyLfc.Common.Web.Hubs;
 using MyLfc.Domain;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
-using MyLiverpool.Business.Dto.Filters;
 using MyLiverpool.Common.Utilities;
 using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
@@ -105,25 +104,6 @@ namespace MyLiverpool.Business.Services
                 return false;
             }
             return true;
-        }
-
-        public async Task<PageableData<CommentDto>> GetListAsync(MaterialCommentFiltersDto filters)
-        {
-            Expression<Func<MaterialComment, bool>> filter = x => true;
-            if (filters.OnlyUnverified)
-            {
-                filter = filter.And(x => !x.IsVerified);
-            }
-            if (filters.UserId.HasValue)
-            {
-                filter = filter.And(x => x.AuthorId == filters.UserId.Value);
-            }
-            var comments = await _commentService.GetOrderedByAsync(filters.Page, filters.ItemsPerPage, filter, SortOrder.Descending, m => m.AdditionTime);
-
-            UpdateCurrentUserField(comments);
-            var commentDtos = _mapper.Map<IEnumerable<CommentDto>>(comments);
-            var commentsCount = await _commentService.GetCountAsync(filter);
-            return new PageableData<CommentDto>(commentDtos, filters.Page, commentsCount, filters.ItemsPerPage);
         }
 
         public async Task<PageableData<CommentDto>> GetListByMaterialIdAsync(int materialId, int page)

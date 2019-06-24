@@ -27,7 +27,7 @@ namespace MyLfc.Application.Tests.Materials.CreateMaterialCommand
 
         [Theory]
         [InlineData(MaterialType.News)]
-     //   [InlineData(MaterialType.Blogs)]
+        [InlineData(MaterialType.Blogs)]
         public void UpsertMaterial_RuleForType_WhenTypeIsNotBoth_ShouldNotHaveValidationError(MaterialType type)
         {
             Validator.ShouldNotHaveValidationErrorFor(x => x.Type, type);

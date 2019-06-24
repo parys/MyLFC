@@ -4,7 +4,6 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using MyLfc.Domain;
 using MyLiverpool.Business.Dto;
-using MyLiverpool.Business.Dto.Filters;
 using MyLiverpool.Data.Common;
 
 namespace MyLiverpool.Business.Contracts
@@ -17,8 +16,6 @@ namespace MyLiverpool.Business.Contracts
 
         Task<bool> UpdateAsync(CommentDto model);
         
-        Task<PageableData<CommentDto>> GetListAsync(MaterialCommentFiltersDto filters);
-
         Task<PageableData<CommentDto>> GetListByMaterialIdAsync(int materialId, int page);
 
         Task<bool> VerifyAsync(int id);

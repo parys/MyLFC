@@ -8,7 +8,7 @@ import { merge, of, Observable, Subscription } from "rxjs";
 import { startWith, switchMap, map, catchError } from "rxjs/operators";
 import { Comment } from "@app/+common-models";
 import { CommentService } from "@app/comment/core";
-import { DeleteDialogComponent, Pageable } from "@app/shared";
+import { DeleteDialogComponent, PagedList } from "@app/shared";
 import { RolesCheckedService } from "@app/+auth";
 import { CommentFilter } from "@app/comment/model";
 import { COMMENTS_ROUTE, PAGE, USER_ID } from "@app/+constants";
@@ -53,12 +53,12 @@ export class CommentListComponent implements OnDestroy, AfterViewInit {
                 switchMap(() => {
                     return this.update();
                 }),
-                map((data: Pageable<Comment>) => {
-                    this.paginator.pageIndex = data.pageNo - 1;
-                    this.paginator.pageSize = data.itemPerPage;
-                    this.paginator.length = data.totalItems;
+                map((data: PagedList<Comment>) => {
+                    this.paginator.pageIndex = data.currentPage - 1;
+                    this.paginator.pageSize = data.pageSize;
+                    this.paginator.length = data.rowCount;
 
-                    return data.list;
+                    return data.results;
                 }),
                 catchError(() => {
                     return of([]);
@@ -73,14 +73,14 @@ export class CommentListComponent implements OnDestroy, AfterViewInit {
         if (this.sub) this.sub.unsubscribe();
     }
 
-    public update(): Observable<Pageable<Comment>> {
+    public update(): Observable<PagedList<Comment>> {
         const filters = new CommentFilter();
         filters.onlyUnverified = this.onlyUnverified.checked;
         filters.userId = this.userId;
         filters.page = this.paginator.pageIndex + 1;
         filters.itemsPerPage = this.paginator.pageSize;
         return this.materialCommentService
-            .getAll(filters);
+            .getAllNew(filters);
     }
 
     private updateUrl(): void {

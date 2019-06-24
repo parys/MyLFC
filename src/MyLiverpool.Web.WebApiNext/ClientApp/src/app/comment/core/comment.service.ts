@@ -2,7 +2,7 @@
 import { Observable } from "rxjs";
 import { Comment } from "@app/+common-models";
 import { CommentVote, CommentFilter } from "../model";
-import { Pageable } from "@app/shared";
+import { Pageable, PagedList } from "@app/shared";
 import { HttpWrapper } from "@app/+httpWrapper";
 import { COMMENTS_ROUTE } from "@app/+constants";
 import { BaseRestService } from "@app/+infrastructure";
@@ -14,6 +14,10 @@ export class CommentService extends BaseRestService<Comment, CommentFilter> {
     constructor(public http: HttpWrapper) {
         super(http, COMMENTS_ROUTE + "/");
     }
+
+    public getAllNew(filters: CommentFilter | any): Observable<PagedList<Comment>> {
+        return this.http.getWithParams<PagedList<Comment>>(this.actionUrl, filters);
+    };
     
     public getLastList(): Observable<Comment[]> {
         return this.http.get<Comment[]>(this.actionUrl + "last");

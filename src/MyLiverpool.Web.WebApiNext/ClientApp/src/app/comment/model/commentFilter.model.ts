@@ -1,6 +1,6 @@
-﻿import { BaseRestFilter } from "@app/+infrastructure";
+﻿import { PagedQueryBase } from '@app/+infrastructure';
 
-export class CommentFilter extends BaseRestFilter {
+export class CommentFilter extends PagedQueryBase {
     public onlyUnverified: boolean;
     public userId: number;
 }

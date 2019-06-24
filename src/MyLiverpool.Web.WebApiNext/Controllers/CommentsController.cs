@@ -1,9 +1,11 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.Data.SqlClient;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using AspNet.Security.OAuth.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MyLfc.Application.Comments;
 using MyLfc.Common.Web;
 using MyLfc.Common.Web.DistributedCache;
 using MyLfc.Common.Web.Hubs;
@@ -21,8 +23,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// <summary>
     /// Controller for manage comments.
     /// </summary>
-    [Authorize(AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme), Route("api/v1/[controller]")]
-    public class CommentsController : Controller
+    public class CommentsController : BaseController
     {
         private readonly ICommentService _commentService;
         private readonly IDistributedCacheManager _cacheManager;
@@ -46,8 +47,9 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <param name="filtersObj">Contains filters.</param>
         /// <returns>Selected page comments list.</returns>
+        [Obsolete("Remove after 15 July 19")]
         [AllowAnonymous, HttpGet("{filtersObj}")]
-        public async Task<IActionResult> GetList([FromRoute] string filtersObj)
+        public async Task<IActionResult> GetListOld([FromRoute] string filtersObj)
         {
             MaterialCommentFiltersDto filters;
             if (filtersObj == null)
@@ -58,8 +60,31 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             {
                 filters = (MaterialCommentFiltersDto)JsonConvert.DeserializeObject(filtersObj, typeof(MaterialCommentFiltersDto));
             }
-            var result = await _commentService.GetListAsync(filters);
+            GetCommentListQuery.Request request = new GetCommentListQuery.Request()
+            {
+                OnlyUnverified = filters.OnlyUnverified,
+                SortOn = filters.SortBy,
+                CurrentPage = filters.Page ?? 1,
+                PageSize = filters.ItemsPerPage,
+                UserId = filters.UserId,
+                SortDirection = filters.SortOrder == SortOrder.Ascending ? "ASC" : "DESC"
+                
+            };
+            var result = await Mediator.Send(request);
+            
             return Ok(result);
+        }
+
+
+        /// <summary>
+        /// Returns list of filtered materials.  
+        /// </summary>
+        /// <param name="request">Contains filters.</param>
+        /// <returns>List of materials.</returns>
+        [AllowAnonymous, HttpGet("")]
+        public async Task<IActionResult> GetListItems([FromQuery] GetCommentListQuery.Request request)
+        {
+            return Ok(await Mediator.Send(request));
         }
 
         /// <summary>
@@ -71,7 +96,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         {
             var result = await _cacheManager.GetOrCreateAsync(CacheKeysConstants.LastComments,
                 async () => await _commentService.GetLastListAsync());
-            return Json(result);
+            return Ok(result);
         }
 
         /// <summary>
@@ -212,7 +237,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             dto.UserId = User.GetUserId();
             var result = await _commentService.UpdateVoteAsync(dto);
 
-            return Json(result);
+            return Ok(result);
         }
 
         private bool IsSiteTeamMember()
