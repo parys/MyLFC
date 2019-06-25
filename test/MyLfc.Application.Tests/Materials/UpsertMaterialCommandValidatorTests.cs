@@ -13,7 +13,7 @@ namespace MyLfc.Application.Tests.Materials
         protected TValidator Validator { get; set; }
 
         #endregion
-        
+
         #region Title Rules 
 
         [Theory]
@@ -27,14 +27,14 @@ namespace MyLfc.Application.Tests.Materials
         [Fact]
         public void UpsertMaterial_RuleForTitle_WhenValueLengthIs80_ShouldNotHaveValidationError()
         {
-            var value = new string('1', 80);
+            var value = new string('1', 200);
             Validator.ShouldNotHaveValidationErrorFor(x => x.Title, value);
         }
 
         [Fact]
         public void UpsertMaterial_RuleForTitle_WhenValueIsLongerThan81Symbols_ShouldHaveValidationError()
         {
-            var value = new string('1', 81);
+            var value = new string('1', 201);
             Validator.ShouldHaveValidationErrorFor(x => x.Title, value);
         }
 

@@ -37,18 +37,17 @@ namespace MyLfc.Application.Materials
         {
             protected Validator()
             {
-                RuleFor(x => x.Title.Length).InclusiveBetween(1, 200);
+                RuleFor(x => x.Title).NotEmpty().Length(1, 200);
 
-                RuleFor(x => x.Brief.Length).InclusiveBetween(1, 1000);
+                RuleFor(x => x.Brief).NotEmpty().Length(1, 1000);
 
-                RuleFor(x => x.Message.Length).InclusiveBetween(1, 80000);
+                RuleFor(x => x.Message).NotEmpty().Length(1, 80000);
 
-                RuleFor(x => x.Source.Length).LessThanOrEqualTo(300)
-                    .When(y => string.IsNullOrWhiteSpace(y.Source));
+                RuleFor(x => x.Source).MaximumLength(300);
 
-                RuleFor(x => x.Photo.Length).InclusiveBetween(1, 400);
+                RuleFor(x => x.Photo).NotEmpty().Length(1, 400);
 
-                RuleFor(x => x.PhotoPreview.Length).InclusiveBetween(1, 400);
+                RuleFor(x => x.PhotoPreview).NotEmpty().Length(1, 400);
             }
         }
     }
