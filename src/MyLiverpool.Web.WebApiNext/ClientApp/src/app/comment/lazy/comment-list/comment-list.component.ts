@@ -75,10 +75,10 @@ export class CommentListComponent implements OnDestroy, AfterViewInit {
 
     public update(): Observable<PagedList<Comment>> {
         const filters = new CommentFilter();
-        filters.onlyUnverified = this.onlyUnverified.checked;
+        filters.onlyUnverified = this.onlyUnverified.checked || false;
         filters.userId = this.userId;
-        filters.page = this.paginator.pageIndex + 1;
-        filters.itemsPerPage = this.paginator.pageSize;
+        filters.currentPage = this.paginator.pageIndex + 1;
+        filters.pageSize = this.paginator.pageSize;
         return this.materialCommentService
             .getAllNew(filters);
     }

@@ -18,6 +18,7 @@ namespace MyLfc.Application.Materials
             public MaterialType Type { get; set; }
         }
 
+
         public class Validator : UpsertMaterialCommand.Validator<Request>
         {
             public Validator() : base()
@@ -44,6 +45,12 @@ namespace MyLfc.Application.Materials
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
+                if (!_requestContext.User.IsInRole(nameof(RolesEnum.NewsFull)) &&
+                    !_requestContext.User.IsInRole(nameof(RolesEnum.BlogFull)))
+                {
+                    request.Pending = true;
+                }
+
                 var material = _mapper.Map<Material>(request);
                 material.AdditionTime = DateTime.Now;
                 material.AuthorId = _requestContext.UserId.Value;

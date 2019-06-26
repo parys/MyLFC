@@ -19,7 +19,7 @@ namespace MyLfc.Application.Comments
         {
             public int? UserId { get; set; }
 
-            public bool OnlyUnverified { get; set; }
+            public bool? OnlyUnverified { get; set; }
         }
 
 
@@ -45,7 +45,7 @@ namespace MyLfc.Application.Comments
                     .Include(x => x.CommentVotes)
                     .Where(x => !x.Pending);
 
-                if (request.OnlyUnverified)
+                if (request.OnlyUnverified.GetValueOrDefault())
                 {
                     comments = comments.Where(x => !x.IsVerified);
                 }

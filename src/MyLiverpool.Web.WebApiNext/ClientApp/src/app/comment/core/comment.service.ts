@@ -8,7 +8,7 @@ import { COMMENTS_ROUTE } from "@app/+constants";
 import { BaseRestService } from "@app/+infrastructure";
 
 @Injectable()
-export class CommentService extends BaseRestService<Comment, CommentFilter> {
+export class CommentService extends BaseRestService<Comment, CommentFilter | any> {
     private actionUrl: string = COMMENTS_ROUTE + "/";
 
     constructor(public http: HttpWrapper) {

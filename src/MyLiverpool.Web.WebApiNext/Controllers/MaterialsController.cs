@@ -81,11 +81,6 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             }
 
             request.Type = materialType;
-            if (!User.IsInRole(nameof(RolesEnum.NewsFull)) &&
-                !User.IsInRole(nameof(RolesEnum.BlogFull)))
-            {
-                request.Pending = true;
-            }
 
             var result = await Mediator.Send(request);
             if (!result.Pending)
@@ -110,22 +105,6 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             if (id != request.Id)
             {
                 return BadRequest();
-            }
-
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (!User.IsInRole(nameof(RolesEnum.NewsFull)) &&
-                !User.IsInRole(nameof(RolesEnum.BlogFull)))
-            {
-                if (request.UserId != User?.GetUserId())
-                {
-                    return Unauthorized();
-                }
-
-                request.Pending = true;
             }
 
             var result = await Mediator.Send(request);
