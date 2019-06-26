@@ -1,0 +1,77 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <ServerGarbageCollection>true</ServerGarbageCollection>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="wwwroot\content\avatars\**" />
+    <Compile Remove="wwwroot\content\fonts\**" />
+    <Compile Remove="wwwroot\content\images\**" />
+    <Compile Remove="wwwroot\content\logos\**" />
+    <Compile Remove="wwwroot\content\persons\**" />
+    <Compile Remove="wwwroot\fonts\**" />
+    <Content Remove="wwwroot\content\avatars\**" />
+    <Content Remove="wwwroot\content\fonts\**" />
+    <Content Remove="wwwroot\content\images\**" />
+    <Content Remove="wwwroot\content\logos\**" />
+    <Content Remove="wwwroot\content\persons\**" />
+    <Content Remove="wwwroot\fonts\**" />
+    <EmbeddedResource Remove="wwwroot\content\avatars\**" />
+    <EmbeddedResource Remove="wwwroot\content\fonts\**" />
+    <EmbeddedResource Remove="wwwroot\content\images\**" />
+    <EmbeddedResource Remove="wwwroot\content\logos\**" />
+    <EmbeddedResource Remove="wwwroot\content\persons\**" />
+    <EmbeddedResource Remove="wwwroot\fonts\**" />
+    <None Remove="wwwroot\content\avatars\**" />
+    <None Remove="wwwroot\content\fonts\**" />
+    <None Remove="wwwroot\content\images\**" />
+    <None Remove="wwwroot\content\logos\**" />
+    <None Remove="wwwroot\content\persons\**" />
+    <None Remove="wwwroot\fonts\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\content\header4.png" />
+    <Content Remove="wwwroot\content\liverbird5.png" />
+    <Content Remove="wwwroot\content\logo34.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\favicon.ico">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\js\site.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Connected Services\" />
+    <Folder Include="wwwroot\content\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="8.1.1" />
+    <PackageReference Include="MediatR" Version="7.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MyLfc.Application\MyLfc.Application.csproj" />
+    <ProjectReference Include="..\MyLfc.Business.ViewModels\MyLfc.Business.ViewModels.csproj" />
+    <ProjectReference Include="..\MyLfc.Common.Web\MyLfc.Common.Web.csproj" />
+    <ProjectReference Include="..\MyLfc.Domain\MyLfc.Domain.csproj" />
+    <ProjectReference Include="..\MyLiverpool.Business.Contracts\MyLiverpool.Business.Contracts.csproj" />
+    <ProjectReference Include="..\MyLiverpool.Business.DtoNext\MyLiverpool.Business.Dto.csproj" />
+    <ProjectReference Include="..\MyLiverpool.Business.Services\MyLiverpool.Business.Services.csproj" />
+    <ProjectReference Include="..\MyLiverpool.Common.Utilities\MyLiverpool.Common.Utilities.csproj" />
+    <ProjectReference Include="..\MyLiverpool.Data.Common\MyLiverpool.Data.Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services" />
+  </ItemGroup>
+
+</Project>

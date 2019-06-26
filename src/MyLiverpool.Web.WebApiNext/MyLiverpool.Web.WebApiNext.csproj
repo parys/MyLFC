@@ -1,0 +1,148 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <PreserveCompilationContext>true</PreserveCompilationContext>
+    <AssemblyName>MyLiverpool.Web.WebApiNext</AssemblyName>
+    <PackageId>MyLiverpool.Web.WebApiNext</PackageId>
+      <IsPackable>false</IsPackable>
+      <OutputType>Exe</OutputType>
+    <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+    <ServerGarbageCollection>true</ServerGarbageCollection>
+    <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
+    <SpaRoot>ClientApp\</SpaRoot>
+    <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
+
+    <!-- Set this to true if you enable server-side prerendering -->
+    <BuildServerSideRenderer>true</BuildServerSideRenderer>
+    <RemoveHashFromTiny>false</RemoveHashFromTiny>
+    <ApplicationIcon />
+    <StartupObject />
+    </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile />
+  </PropertyGroup>
+
+  <ItemGroup>
+      <!-- Files not to publish (note that the 'dist' subfolders are re-added below) -->
+    <Compile Remove="ClientApp\dist-server\**" />
+    <Compile Remove="ClientApp\node_modules\**" />
+    <Content Remove="ClientApp\dist-server\**" />
+    <Content Remove="wwwroot\src\**" />
+    <Content Remove="wwwroot\content\**" />
+    <Content Remove="wwwroot\fonts\**" />
+    <Content Remove="wwwroot\swagger\**" />
+    <EmbeddedResource Remove="ClientApp\dist-server\**" />
+    <EmbeddedResource Remove="ClientApp\node_modules\**" />
+    <EmbeddedResource Remove="ClientApp\src\**" />
+    <EmbeddedResource Remove="wwwroot\content\**" />
+    <EmbeddedResource Remove="wwwroot\src\**" />
+    <None Remove="ClientApp\dist-server\**" />
+    <None Remove="ClientApp\node_modules\**" />
+    <None Remove="ClientApp\src\app\editor\langs\**" />
+    <None Remove="ClientApp\src\fonts\**" />
+    <None Remove="wwwroot\content\persons\**" />
+    <None Remove="wwwroot\src\lightgray\**" />
+    <None Remove="wwwroot\src\plugins\**" />
+    <None Remove="wwwroot\src\skins\**" />
+    <Content Include="ClientApp\src\manifest.json" />
+    <Content Include="ClientApp\src\index.html" />
+    <Content Include="ClientApp\src\tsconfig.cli.json" />
+    <Folder Include="Connected Services\" />
+    <Folder Include="wwwroot\assets\icons\" />
+    <Folder Include="wwwroot\src\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="MediatR" Version="7.0.0" />
+    <PackageReference Include="AspNet.Security.OAuth.Validation" Version="2.0.0" />
+    <PackageReference Include="Microsoft.SyndicationFeed.ReaderWriter" Version="1.0.2" />
+    <PackageReference Include="OpenIddict.EntityFrameworkCore.Models" Version="2.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="4.0.1" />
+  </ItemGroup>
+
+  <!-- Defines text replace task-->
+  <UsingTask TaskName="ReplaceFileText" TaskFactory="CodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll">
+    <ParameterGroup>
+      <InputFilename ParameterType="System.String" Required="true" />
+      <OutputFilename ParameterType="System.String" Required="true" />
+      <!--<MatchExpression ParameterType="System.String" Required="true" />-->
+      <!--<ReplacementText ParameterType="System.String" Required="false" />-->
+    </ParameterGroup>
+    <Task>
+      <Reference Include="System.Core" />
+      <Using Namespace="System" />
+      <Using Namespace="System.IO" />
+      <Using Namespace="System.Text.RegularExpressions" />
+      <Code Type="Fragment" Language="cs">
+        <![CDATA[
+            File.WriteAllText(
+                OutputFilename,
+                Regex.Replace(File.ReadAllText(InputFilename), "<script [a-z\"=//]* src=\"scripts.[0-9A-Za-z]*.js\"><.script>", String.Empty)
+                );
+          ]]>
+      </Code>
+    </Task>
+  </UsingTask>
+
+  <ItemGroup>
+    <!-- Don't publish the SPA source files, but do show them in the project files list -->
+    <Content Remove="$(SpaRoot)**" />
+    <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="ClientApp\dist-server\main.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MyLfc.Application\MyLfc.Application.csproj" />
+    <ProjectReference Include="..\MyLfc.Common.Web\MyLfc.Common.Web.csproj" />
+    <ProjectReference Include="..\MyLiverpool.Business.Contracts\MyLiverpool.Business.Contracts.csproj" />
+    <ProjectReference Include="..\MyLiverpool.Business.DtoNext\MyLiverpool.Business.Dto.csproj" />
+    <ProjectReference Include="..\MyLiverpool.Business.Services\MyLiverpool.Business.Services.csproj" />
+    <ProjectReference Include="..\MyLiverpool.Common.Mappings\MyLiverpool.Common.Mappings.csproj" />
+    <ProjectReference Include="..\MyLiverpool.Common.Utilities\MyLiverpool.Common.Utilities.csproj" />
+    <ProjectReference Include="..\MyLiverpool.Data.Common\MyLiverpool.Data.Common.csproj" />
+  </ItemGroup>
+
+  <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
+    <!-- Ensure Node.js is installed -->
+    <Exec Command="node --version" ContinueOnError="true">
+      <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
+    </Exec>
+    <Error Condition="'$(ErrorCode)' != '0'" Text="Node.js is required to build and run this project. To continue, please install Node.js from https://nodejs.org/, and then restart your command prompt or IDE." />
+    <Message Importance="high" Text="Restoring dependencies using 'npm'. This may take several minutes..." />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
+  </Target>
+
+  <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
+    <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
+    <!--<Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />-->
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build" />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build:ssr" Condition=" '$(BuildServerSideRenderer)' == 'true' " />
+
+    <!-- Removes hashing from scripts-->
+    <ItemGroup>
+      <FilesToMove Include="$(SpaRoot)dist\aspnetcorespa\scripts*.js" />
+    </ItemGroup>
+    <Move SourceFiles="@(FilesToMove)" DestinationFiles="$(SpaRoot)dist\aspnetcorespa\scripts.js" Condition="'$(RemoveHashFromTiny)' == 'true'" />
+    <!--remove scripts from index-->
+    <ReplaceFileText InputFilename="$(SpaRoot)dist\aspnetcorespa\index.html" OutputFilename="$(SpaRoot)dist\aspnetcorespa\index.html" Condition="'$(RemoveHashFromTiny)' == 'true'" />
+    <!-- Include the newly-built files in the publish output -->
+    <ItemGroup>
+      <DistFiles Include="$(SpaRoot)dist\**;" />
+      <DistFiles Include="$(SpaRoot)dist-server\**" Condition=" '$(BuildServerSideRenderer)' == 'true' " />
+      <!--<DistFiles Include="$(SpaRoot)node_modules\**" Condition="'$(BuildServerSideRenderer)' == 'true'" />-->
+      <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
+        <RelativePath>%(DistFiles.Identity)</RelativePath>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </ResolvedFileToPublish>
+    </ItemGroup>
+  </Target>
+
+  <ProjectExtensions><VisualStudio><UserProperties clientapp_4package_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
+
+</Project>

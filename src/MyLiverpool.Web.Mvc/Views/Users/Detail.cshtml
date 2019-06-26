@@ -1,0 +1,174 @@
+﻿@model MyLfc.Application.Users.GetUserDetailQuery.Response
+
+@{
+    ViewBag.Title = Model.UserName;
+    Layout = "_Layout";
+}
+
+<h2>
+    <span>@Model.UserName</span>
+    @*<span *ngIf="roles.isLogined && !roles.isSelf(item.id)">
+            <a role="button" (click)="writePm()"><span class="glyphicon glyphicon-envelope"></span></a>
+        </span>*@
+</h2>
+
+@*<pm-reply *ngIf="selectedUserId" [userId]="selectedUserId" (close)="closePmWindow($event);" [userName]="item.userName"></pm-reply>*@
+<div class="col-xs-12">
+    <div class="col-xs-4 col-sm-4">
+        <img class="avatar" src="@Model.Photo" alt="@Model.UserName" />
+    </div>
+    <div class="col-xs-8 col-sm-8">
+        @*@if (User.IsInRole(nameof(RolesEnum.UserStart)))
+            {
+            <div *ngIf="roles.isSelf(item.id) || roles.isModerator">
+                <label for="update-avatar-input"
+                       *ngIf="roles.isSelf(item.id)"
+                       class="btn btn-info">Обновить аватар</label>
+                <input type="file"
+                       class="hidden"
+                       accept="image/*"
+                       (change)="onChangeAvatar($event)"
+                       id="update-avatar-input" />
+                <button mat-raised-button color="primary" (click)="resetAvatar()">
+                    Сбросить аватар
+                </button>
+                <button mat-raised-button color="warn" *ngIf="roles.isSelf(item.id)" [routerLink]="['/changePassword']">Изменить пароль</button>
+                <button mat-raised-button *ngIf="roles.isSelf(item.id)" [routerLink]="['./settings']">Изменить настройки</button>
+                <button mat-raised-button *ngIf="roles.isSelf(item.id)" [routerLink]="['./edit']">Изменить профиль</button>
+                <br><br>
+            </div>
+        }*@
+    </div>
+</div>
+
+<div class="form-horizontal top10" role="form">
+    @*<div *ngIf="roles.isModerator && !roles.isSelf(item.id)" class="form-group col-xs-12 col-md-6">
+            <form *ngIf="!item.lockoutEnd" class="form-inline" name="banForm" role="form" [formGroup]="banForm" (ngSubmit)="onSubmitBan()">
+                <mat-fo rm-field>
+                    <input matInput placeholder="Блокировка(Количество дней)" formControlName="banDaysCount" min="1" type="number">
+                </mat-form-field>
+                <button mat-raised-button color="warn" type="submit" [disabled]="!banForm.valid">Забанить</button>
+            </form>
+            <div class="col-xs-12" *ngIf="item.lockoutEnd">
+                <mat-form-field>
+                    <input matInput placeholder="Заблокирован до" [value]="item.lockoutEnd | customDate:true">
+                </mat-form-field>
+                <button mat-raised-button color="primary" *ngIf="roles.isMainModerator" (click)="unban()">Снять бан</button>
+            </div>
+        </div>*@
+    <div class="form-group">
+        <label class="col-xs-2 control-label">Группа</label>
+        <div class="col-xs-10">
+            <span class="form-control">@Model.RoleGroupName</span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-xs-2 control-label">Последний вход</label>
+        <div class="col-xs-10">
+            <span class="form-control timeConvert" data-date="@Model.LastModifiedOn.ToString("O")" data-dow="true" data-sec="false"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-xs-2 control-label">Дата регистрации</label>
+        <div class="col-xs-10">
+            <span class="form-control timeConvert" data-date="@Model.RegistrationDate.ToString("O")" data-dow="true" data-sec="false"></span>
+        </div>
+    </div>
+    @if (!string.IsNullOrWhiteSpace(Model.FullName))
+    {
+        <div class="form-group">
+            <label class="col-xs-2 control-label">Полное имя</label>
+            <div class="col-xs-10">
+                <span class="form-control">@Model.FullName</span>
+            </div>
+        </div>
+    }
+    @if (Model.Birthday.HasValue)
+    {
+        <div class="form-group">
+            <label class="col-xs-2 control-label">День рождения</label>
+            <div class="col-xs-10">
+                <span class="form-control">@Model.Birthday.Value.ToString("G")</span>
+            </div>
+        </div>
+    }
+    <div class="form-group">
+        <label class="col-xs-2 control-label">Пол</label>
+        <div class="col-xs-10">
+            @if (Model.Gender)
+            {
+                <span class="form-control">Женский</span>
+            }
+            else
+            {
+                <span class="form-control">Мужской</span>
+            }
+        </div>
+    </div>
+
+    @*<div class="form-group col-xs-12 col-md-6" *ngIf="roles.isAdminAssistant && !roles.isSelf(item.id)">
+            <form class="form-inline" name="roleForm" role="form" [formGroup]="roleForm" (ngSubmit)="onSubmit()">
+                <mat-form-field>
+                    <mat-select placeholder="Группа" name="roleGroup" formControlName="roleGroupId">
+                        <mat-option *ngFor="let roleGroup of roleGroups" [value]="roleGroup.id" [textContent]="roleGroup.name"></mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <button mat-raised-button type="submit" color="warn" [disabled]="!roleForm.valid">Сохранить</button>
+            </form>
+        </div>*@
+    @*<mat-form-field class="full-width" *ngIf="(roles.isSelf(item.id) || roles.isAdminAssistant)">
+            <input matInput placeholder="Почта" readonly [value]="item.email">
+            <div *ngIf="!item.emailConfirmed" class="text-danger">Почта не подтверждена</div>
+        </mat-form-field>*@
+    @*<mat-form-field *ngIf="roles.isAdminAssistant" class="full-width">
+            <input matInput placeholder="Ip" readonly [value]="item.ip">
+        </mat-form-field>*@
+    <div>
+        <ul class="list-inline">
+            @if (Model.NewsCount > 0)
+            {
+                <li>
+                    <a asp-action="Index" asp-controller="Materials" asp-route-type="News" asp-route-userId="@Model.Id">Новости(@Model.NewsCount)</a>
+                </li>
+                <li>|</li>
+            }
+            @if (Model.BlogsCount > 0)
+            {
+                <li *ngIf="item.blogsCount > 0">
+                    <a asp-action="Index" asp-controller="Materials" asp-route-type="Blogs" asp-route-userId="@Model.Id">Блоги(@Model.BlogsCount)</a>
+                </li>
+                <li>|</li>
+            }
+            @*@if (Model.CommentsCount > 0)
+            {
+                <li>
+                    <a [routerLink]="['/materialComments']" [queryParams]="{page: 1, userId: item.id}">Комментарии(<span [textContent]="item.commentsCount"></span>)</a>
+                </li>
+            }*@
+    </ul>
+    </div>
+</div>
+
+<environment names="Staging,Production">
+    <div class="col-xs-12">
+        <div id="yandex_rtb_R-A-255349-1"></div>
+        <script type="text/javascript">
+            (function (w, d, n, s, t) {
+                w[n] = w[n] || [];
+                w[n].push(function () {
+                    Ya.Context.AdvManager.render({
+                        blockId: "R-A-255349-1",
+                        renderTo: "yandex_rtb_R-A-255349-1",
+                        async: true
+                    });
+                });
+                t = d.getElementsByTagName("script")[0];
+                s = d.createElement("script");
+                s.type = "text/javascript";
+                s.src = "//an.yandex.ru/system/context.js";
+                s.async = true;
+                t.parentNode.insertBefore(s, t);
+            })(this, this.document, "yandexContextAsyncCallbacks");
+        </script>
+    </div>
+</environment>

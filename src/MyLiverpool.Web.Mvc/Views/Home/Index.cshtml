@@ -1,0 +1,10 @@
+﻿@model MyLfc.Application.Materials.GetMaterialListQuery.Response
+
+@await Component.InvokeAsync("MatchPanel")
+@await Html.PartialAsync("../Shared/_ListPartialAsync.cshtml", Model)
+@section scripts {
+    <environment names="Development">
+    </environment>
+    <environment names="Staging,Production">
+    </environment>
+}

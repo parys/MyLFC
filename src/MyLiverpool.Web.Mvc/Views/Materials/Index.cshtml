@@ -1,0 +1,10 @@
+﻿@model MyLfc.Application.Materials.GetMaterialListQuery.Response
+
+@{
+    ViewBag.Title = "Материалы";
+    Layout = "_Layout";
+}
+
+@{
+    await Html.RenderPartialAsync("_ListPartialAsync", Model);
+}

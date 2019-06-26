@@ -1,0 +1,75 @@
+﻿@model IEnumerable<MatchEventDto>
+@foreach (var ev in Model)
+{
+    var pullRight = !ev.Home ? "pull-right" : "";
+
+    <div *ngFor="let event of events; let i = index;" class="col-xs-12 container-row">
+        <div class="col-xs-12 container-row">
+            <div class="inline-flex @pullRight">
+                @switch (ev.Type)
+                {
+                    case MatchEventType.Goal:
+                        {
+                            <span><img class="width20px" alt="Гол" src="/img/goal.png" title="@ev.TypeName">@ev.PersonName - @ev.Minute' </span>
+                            break;
+                        }
+                    case MatchEventType.GoalPenalty:
+                        {
+                            <span><img class="width20px" alt="Гол" src="/img/goal.png" title="@ev.TypeName">(П)@ev.PersonName - @ev.Minute' </span>
+                            break;
+                        }
+
+                    case MatchEventType.GoalOwn:
+                        {
+                            <span><img class="width20px" alt="Гол" src="/img/goal_own.png" title="@ev.TypeName">(А)@ev.PersonName - @ev.Minute' </span>
+                            break;
+                        }
+                    case MatchEventType.Assist:
+                        {
+                            <span title="@ev.TypeName">(@ev.PersonName)</span>
+                            break;
+                        }
+
+                    case MatchEventType.Yellow:
+                        {
+                            <span class="flex-vertical-center"><span class="glyphicon glyphicon-file color-gold"></span>@ev.PersonName - @ev.Minute' </span>
+                            break;
+                        }
+                    case MatchEventType.Red:
+                        {
+                            <span *ngIf="event.type === 7" class="flex-vertical-center"><span class="glyphicon glyphicon-file color-red" title="@ev.TypeName"></span>@ev.PersonName - @ev.Minute' </span>
+                            break;
+                        }
+
+                    case MatchEventType.SubstitudeIn:
+                        {
+                            <span *ngIf="event.type === 9" class="flex-vertical-center" title="@ev.TypeName"> <span class="glyphicon glyphicon-triangle-bottom color-red"></span>@ev.PersonName - @ev.Minute' </span>
+                            break;
+                        }
+                    case MatchEventType.SubstitudeOut:
+                        {
+                            <span *ngIf="event.type === 8" class="flex-vertical-center" title="@ev.TypeName"><span class="glyphicon glyphicon-triangle-top color-green"></span>@ev.PersonName - @ev.Minute' </span>
+                            break;
+                        }
+                    case MatchEventType.NotGoalPenalty:
+                        {
+                            <span *ngIf="event.type === 10"><img class="width20px" alt="Гол" src="/img/goal_own.png" title="@ev.TypeName">П(нереализованный)@ev.PersonName - @ev.Minute' </span>
+                            break;
+                        }
+
+                    case MatchEventType.Injury:
+                    {
+                        <span>Травма @ev.PersonName - @ev.Minute' </span>
+                        break;
+                    }
+
+                    case MatchEventType.GoalPenaltySeries:
+                        break;
+                        
+                    case MatchEventType.NotGoalPenaltySeries:
+                        break;
+                }
+            </div>
+        </div>
+    </div>
+}
