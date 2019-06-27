@@ -1,22 +1,14 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using MyLiverpool.Business.Contracts;
+using MyLfc.Application.Transfers;
 
 namespace MyLiverpool.Web.Mvc.Controllers
 {
-    public class TransfersController : Controller
+    public class TransfersController : BaseController
     {
-        private readonly ITransferService _transferService;
-
-        public TransfersController(ITransferService transferService)
-        {
-            _transferService = transferService;
-        }
-
         public async Task<IActionResult> Current()
         {
-            var result = await _transferService.GetCurrentListAsync();
-            return View(result);
+            return View(await Mediator.Send(new GetCurrentTransferListQuery.Request()));
         }
     }
 }

@@ -1,10 +1,9 @@
 ﻿using System;
+using System.Data.SqlClient;
 using System.Threading.Tasks;
-using AspNet.Security.OAuth.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MyLiverpool.Business.Contracts;
-using MyLiverpool.Business.Dto;
+using MyLfc.Application.Transfers;
 using MyLiverpool.Business.Dto.Filters;
 using MyLiverpool.Data.Common;
 using Newtonsoft.Json;
@@ -14,50 +13,26 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// <summary>
     /// Manages transfers.
     /// </summary>
-    [Authorize(AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme), Route("api/v1/[controller]")]
-    public class TransfersController : Controller
+    public class TransfersController : BaseController
     {
-        private readonly ITransferService _transferService;
-
-        /// <summary>
-        /// Controller.
-        /// </summary>
-        /// <param name="transferService"></param>
-        public TransfersController(ITransferService transferService)
-        {
-            _transferService = transferService;
-        }
-
         /// <summary>
         /// Returns transfer by id.
         /// </summary>
-        /// <param name="id">The identifier of transfer.</param>
+        /// <param name="request">The identifier of transfer.</param>
         /// <returns>Found transfer by id.</returns>
         [AllowAnonymous, HttpGet("{id:int}")]
-        public async Task<IActionResult> GetAsync(int id)
+        public async Task<IActionResult> GetAsync([FromRoute] GetTransferDetailQuery.Request request)
         {
-            var result = await _transferService.GetByIdAsync(id);
-            return Json(result);
+            return Ok(await Mediator.Send(request));
         }
 
-        /// <summary>
-        /// Returns transfers list.
-        /// </summary>
-        /// <returns>List with transfers.</returns>
-        [AllowAnonymous, HttpGet]
-        [Obsolete("Remove after 10.10.18")]
-        public async Task<IActionResult> GetListAsync([FromQuery]int page)
-        {
-            var result = await _transferService.GetListAsync(page);
-            return Json(result);
-        }
-        
         /// <summary>
         /// Returns filtered users list.
         /// </summary>
         /// <param name="dto">Filters.</param>
         /// <returns>List with users.</returns>
         [AllowAnonymous, HttpGet("{dto}")]
+        [Obsolete("Remove after 15 July 19")]
         public async Task<IActionResult> List(string dto)
         {
             if (string.IsNullOrWhiteSpace(dto))
@@ -70,9 +45,27 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 NullValueHandling = NullValueHandling.Include,
                 DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate
             });
+            var request = new GetTransferListQuery.Request
+            {
+                CurrentPage = obj.Page ?? 1,
+                PageSize = obj.ItemsPerPage,
+                SortOn = obj.SortBy,
+                SortDirection = obj.SortOrder == SortOrder.Ascending ? "ASC" : "DESC"
+            };
 
-            var model = await _transferService.GetListAsync(obj);
-            return Json(model);
+            return Ok(await Mediator.Send(request));
+        }
+
+        /// <summary>
+        /// Returns filtered users list.
+        /// </summary>
+        /// <param name="request">Filters.</param>
+        /// <returns>List with users.</returns>
+        [AllowAnonymous, HttpGet]
+        [Obsolete("Remove after 15 July 19")]
+        public async Task<IActionResult> List([FromQuery] GetTransferListQuery.Request request)
+        {
+            return Ok(await Mediator.Send(request));
         }
 
         /// <summary>
@@ -82,43 +75,34 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [AllowAnonymous, HttpGet("current")]
         public async Task<IActionResult> GetCurrentListAsync()
         {
-            var result = await _transferService.GetCurrentListAsync();
-            return Json(result);
+            return Ok(await Mediator.Send(new GetCurrentTransferListQuery.Request()));
         }
 
         /// <summary>
         /// Creates new transfer.
         /// </summary>
-        /// <param name="dto">Filled transfer model.</param>
+        /// <param name="request">Filled transfer model.</param>
         /// <returns>Created entity.</returns>
         [Authorize(Roles = nameof(RolesEnum.InfoStart)), HttpPost("")]
-        public async Task<IActionResult> CreateAsync([FromBody]TransferDto dto)
+        public async Task<IActionResult> CreateAsync([FromBody]CreateTransferCommand.Request request)
         {
-            if (dto == null || !ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            var result = await _transferService.CreateAsync(dto);
-         //   RemoveCalendarFromCache();
-            return Ok(result);
+            return Ok(await Mediator.Send(request));
         }
 
         /// <summary>
         /// Updates transfer.
         /// </summary>
         /// <param name="id">The identifier of entity.</param>
-        /// <param name="dto">Updated transfer dto.</param>
+        /// <param name="request">Updated transfer dto.</param>
         /// <returns>Updated entity.</returns>
         [Authorize(Roles = nameof(RolesEnum.InfoStart)), HttpPut("{id:int}")]
-        public async Task<IActionResult> UpdateAsync(int id, [FromBody]TransferDto dto)
+        public async Task<IActionResult> UpdateAsync(int id, [FromBody]UpdateTransferCommand.Request request)
         {
-            if (!ModelState.IsValid || id != dto.Id)
+            if (id != request.Id)
             {
                 return BadRequest();
             }
-            var result = await _transferService.UpdateAsync(dto);
-          //  RemoveCalendarFromCache();
-            return Ok(result);
+            return Ok(await Mediator.Send(request));
         }
     }
 }

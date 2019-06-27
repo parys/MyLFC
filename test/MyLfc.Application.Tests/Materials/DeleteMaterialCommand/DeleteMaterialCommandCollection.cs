@@ -18,7 +18,7 @@ namespace MyLfc.Application.Tests.Materials.DeleteMaterialCommand
         public static int PendingMaterialId;
         public static List<Material> Materials { get; private set; }
         
-        public DeleteMaterialCommandTestFixture() : base()
+        public DeleteMaterialCommandTestFixture()
         {
             Materials = MaterialSeed.Seed(Context);
             SeedMaterials();

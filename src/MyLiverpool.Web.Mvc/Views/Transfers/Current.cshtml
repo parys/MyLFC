@@ -1,14 +1,13 @@
 ﻿@using System.Globalization
-@using MyLiverpool.Data.Entities
-@model IEnumerable<TransferDto>
+@model MyLfc.Application.Transfers.GetCurrentTransferListQuery.Response
 
 @{
     ViewBag.Title = "Трансферы этого сезона";
     Layout = "_Layout";
 }
 @{
-    var totalOut = Model.Where(x => x.Coming).Sum(x => x.Amount.GetValueOrDefault(0));
-    var totalIn = Model.Where(x => !x.Coming).Sum(x => x.Amount.GetValueOrDefault(0));
+    var totalOut = Model.Results.Where(x => x.Coming).Sum(x => x.Amount.GetValueOrDefault(0));
+    var totalIn = Model.Results.Where(x => !x.Coming).Sum(x => x.Amount.GetValueOrDefault(0));
 }
 <h3 class="top20">Общая сумма: @if (totalIn < totalOut)
                                {
@@ -21,7 +20,7 @@
             <h3 class="panel-title">Пришли</h3>
         </div>
         <div class="panel-body">
-            @foreach (var transfer in Model.Where(x => x.Coming))
+            @foreach (var transfer in Model.Results.Where(x => x.Coming))
             {
                 <div>
                     @*<a *ngIf="roles.isInformer" [routerLink]="['/persons', transfer.personId, 'edit']">
@@ -74,7 +73,7 @@
             <h3 class="panel-title">Ушли</h3>
         </div>
         <div class="panel-body">
-            @foreach (var transfer in Model.Where(x => !x.Coming))
+            @foreach (var transfer in Model.Results.Where(x => !x.Coming))
             {
                 <div>
                     @*<a *ngIf="roles.isInformer" [routerLink]="['/transfers', transfer.id, 'edit']">

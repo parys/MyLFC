@@ -18,7 +18,6 @@ namespace MyLiverpool.Common.Mappings
             cfg.AddProfile(new MatchMapperProfile());
             cfg.AddProfile(new MatchEventMapperProfile());
             cfg.AddProfile(new MatchPersonMapperProfile());
-            cfg.AddProfile(new MaterialProfile());
             cfg.AddProfile(new MaterialCategoryMapperProfile());
             cfg.AddProfile(new MaterialCommentMapperProfile());
             cfg.AddProfile(new NotificationMapperProfile());
@@ -28,10 +27,13 @@ namespace MyLiverpool.Common.Mappings
             cfg.AddProfile(new RoleGroupsMapperProfile());
             cfg.AddProfile(new SeasonMapperProfile());
             cfg.AddProfile(new StadiumMapperProfile());
-            cfg.AddProfile(new TransferMapperProfile());
-            cfg.AddProfile(new UserProfile());
             cfg.AddProfile(new UserMapperProfile());
             cfg.AddProfile(new WishMapperProfile());
+
+
+            cfg.AddProfile(new UserProfile());
+            cfg.AddProfile(new MaterialProfile());
+            cfg.AddProfile(new TransferProfile());
 
 
 

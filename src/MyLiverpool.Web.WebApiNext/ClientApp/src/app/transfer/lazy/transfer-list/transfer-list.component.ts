@@ -5,7 +5,7 @@ import { Subscription, merge, of, Observable } from "rxjs";
 import { startWith, switchMap, map, catchError } from "rxjs/operators";
 import { TransferService } from "@app/transfer/core";
 import { Transfer, TransferFilters } from "@app/transfer/model";
-import { Pageable } from "@app/shared";
+import { PagedList } from "@app/shared";
 import { RolesCheckedService } from "@app/+auth";
 import { TRANSFERS_ROUTE, PAGE } from "@app/+constants";
 import { MatPaginator } from "@angular/material/paginator";
@@ -17,7 +17,6 @@ import { MatSort } from "@angular/material/sort";
 })
 export class TransferListComponent implements OnInit, OnDestroy {
     private sub: Subscription;
-    private sub2: Subscription;
     public items: Transfer[];
     displayedColumns = ["personName", "clubName", "startDate", "onLoan", "amount"];
 
@@ -34,9 +33,7 @@ export class TransferListComponent implements OnInit, OnDestroy {
         this.sub = this.route.queryParams.subscribe(qParams => {
             this.paginator.pageIndex = +qParams[PAGE] - 1 || 0;
             this.paginator.pageSize = +qParams["itemsPerPage"] || 15;
-
-        },
-            e => console.log(e));
+        });
 
        // merge(this.sort.sortChange,
         //        this.roleSelect.selectionChange,
@@ -53,12 +50,12 @@ export class TransferListComponent implements OnInit, OnDestroy {
                 switchMap(() => {
                     return this.update();
                 }),
-            map((data: Pageable<Transfer>) => {
-                    this.paginator.pageIndex = data.pageNo - 1;
-                    this.paginator.pageSize = data.itemPerPage;
-                    this.paginator.length = data.totalItems;
+            map((data: PagedList<Transfer>) => {
+                    this.paginator.pageIndex = data.currentPage - 1;
+                    this.paginator.pageSize = data.pageSize;
+                    this.paginator.length = data.rowCount;
 
-                    return data.list;
+                    return data.results;
                 }),
                 catchError(() => {
                     return of([]);
@@ -66,28 +63,23 @@ export class TransferListComponent implements OnInit, OnDestroy {
             ).subscribe(data => {
                     this.items = data;
                     this.updateUrl();
-                },
-                e => console.log(e));
+                });
     }
 
     public ngOnDestroy(): void {
         if (this.sub) { this.sub.unsubscribe(); }
-        if (this.sub2) { this.sub2.unsubscribe(); }
     }
 
 
-    public update(): Observable<Pageable<Transfer>> {
+    public update(): Observable<PagedList<Transfer>> {
         const filters = new TransferFilters();
-        filters.page = this.paginator.pageIndex + 1;
-        filters.itemsPerPage = this.paginator.pageSize;
-  //      filters.roleGroupId = this.roleSelect.value;
-   //     filters.userName = this.userInput.nativeElement.value;
-  //      filters.ip = this.ipInput.nativeElement.value;
-        filters.sortBy = this.sort.active;
-        filters.order = this.sort.direction;
+        filters.currentPage = this.paginator.pageIndex + 1;
+        filters.pageSize = this.paginator.pageSize;
+        filters.sortOn = this.sort.active;
+        filters.sortDirection = this.sort.direction;
 
         return this.service
-            .getAll(filters);
+            .getAllNew(filters);
     }
 
     public updateUrl(): void {

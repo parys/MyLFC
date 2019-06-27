@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using MyLfc.Application.Infrastructure;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Persistence;
 using Xunit;
@@ -24,7 +25,10 @@ namespace MyLfc.Application.Tests.Materials.DeleteMaterialCommand
         public HandlerTests(DeleteMaterialCommandTestFixture fixture)
         {
             _context = fixture.Context;
-            _handler = new Handler(fixture.Context);
+            _handler = new Handler(fixture.Context, new RequestContext()
+            {
+                User = new ClaimsPrincipal(new ClaimsIdentity(new List<Claim>()))
+            });
         }
 
         [Fact]
@@ -68,13 +72,8 @@ namespace MyLfc.Application.Tests.Materials.DeleteMaterialCommand
         {
             var result = await _handler.Handle(new Request
                 {
-                    Id = DeleteMaterialCommandTestFixture.Materials[0].Id,
-                    Claims = new ClaimsPrincipal(new ClaimsIdentity(new List<Claim>()
-                    {
-                     //   new Claim()
-                    }))
-                },
-                    CancellationToken.None);
+                    Id = DeleteMaterialCommandTestFixture.Materials[0].Id
+                },CancellationToken.None);
 
             result.Should().NotBeNull();
 

@@ -1,4 +1,4 @@
-﻿import { BaseRestFilter } from "@app/+infrastructure";
+﻿import { PagedQueryBase } from "@app/+infrastructure";
 
-export class TransferFilters extends BaseRestFilter {
+export class TransferFilters extends PagedQueryBase {
 }

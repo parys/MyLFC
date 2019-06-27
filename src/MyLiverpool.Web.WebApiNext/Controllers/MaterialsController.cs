@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -7,7 +6,6 @@ using Microsoft.Extensions.Logging;
 using MyLfc.Application.Materials;
 using MyLfc.Common.Web;
 using MyLfc.Common.Web.DistributedCache;
-using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
@@ -42,7 +40,6 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Authorize(Roles = nameof(RolesEnum.NewsStart) + "," + nameof(RolesEnum.BlogStart)), HttpDelete("{id:int}")]
         public async Task<IActionResult> Delete([FromRoute]DeleteMaterialCommand.Request request)
         {
-            request.Claims = User;
             var result = await Mediator.Send(request);
 
             _cacheManager.Remove(CacheKeysConstants.Material + request.Id);
@@ -133,7 +130,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <param name="request">Url of page with images.</param>
         /// <returns>Found images links.</returns>
         [Authorize(Roles = nameof(RolesEnum.NewsStart)), HttpGet("imageLinks/{*url}")]
-        public async Task<IActionResult> GetExtractedImageLinksAsync(GetExtractedImageLinksQuery.Request request)
+        public async Task<IActionResult> GetExtractedImageLinksAsync([FromRoute]GetExtractedImageLinksQuery.Request request)
         {
             var fileLinks = await Mediator.Send(request);
             return Ok(fileLinks);

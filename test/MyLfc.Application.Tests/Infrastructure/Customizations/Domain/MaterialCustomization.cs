@@ -28,6 +28,7 @@ namespace MyLfc.Application.Tests.Infrastructure.Customizations.Domain
             fixture.Customize<Material>(
                 o => o.With(p => p.Pending, false)
                     .With(x => x.Deleted, Deleted)
+                    .With(x => x.Id, 0)
                     .With(x => x.Type, Type));
         }
     }
