@@ -104,5 +104,16 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             }
             return Ok(await Mediator.Send(request));
         }
+
+        /// <summary>
+        /// Deletes transfer.
+        /// </summary>
+        /// <param name="request">The identifier of removing object.</param>
+        /// <returns>Result of deleting season.</returns>
+        [Authorize(Roles = nameof(RolesEnum.InfoStart)), HttpDelete("{id:int}")]
+        public async Task<IActionResult> DeleteAsync([FromRoute] DeleteTransferCommand.Request request)
+        {
+            return Ok(await Mediator.Send(request));
+        }
     }
 }

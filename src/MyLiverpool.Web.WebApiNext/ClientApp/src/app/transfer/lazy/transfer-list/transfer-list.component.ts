@@ -5,11 +5,13 @@ import { Subscription, merge, of, Observable } from "rxjs";
 import { startWith, switchMap, map, catchError } from "rxjs/operators";
 import { TransferService } from "@app/transfer/core";
 import { Transfer, TransferFilters } from "@app/transfer/model";
-import { PagedList } from "@app/shared";
+import { PagedList, DeleteDialogComponent } from "@app/shared";
 import { RolesCheckedService } from "@app/+auth";
 import { TRANSFERS_ROUTE, PAGE } from "@app/+constants";
 import { MatPaginator } from "@angular/material/paginator";
+import { MatSnackBar } from "@angular/material/snack-bar";
 import { MatSort } from "@angular/material/sort";
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
     selector: "transfer-list",
@@ -26,6 +28,8 @@ export class TransferListComponent implements OnInit, OnDestroy {
     constructor(private service: TransferService,
         private route: ActivatedRoute,
         private location: Location,
+        private snackBar: MatSnackBar,
+        private dialog: MatDialog,
         public roles: RolesCheckedService) {
     }
 
@@ -34,14 +38,6 @@ export class TransferListComponent implements OnInit, OnDestroy {
             this.paginator.pageIndex = +qParams[PAGE] - 1 || 0;
             this.paginator.pageSize = +qParams["itemsPerPage"] || 15;
         });
-
-       // merge(this.sort.sortChange,
-        //        this.roleSelect.selectionChange,
-       //         fromEvent(this.userInput.nativeElement, keyup),
-       //         fromEvent(this.ipInput.nativeElement, keyup)
-        //        .pipe(debounceTime(DEBOUNCE_TIME),
-       //             distinctUntilChanged()))
-      //      .subscribe(() => this.paginator.pageIndex = 0);
 
         merge(this.sort.sortChange,
                 this.paginator.page)
@@ -86,4 +82,24 @@ export class TransferListComponent implements OnInit, OnDestroy {
         let newUrl = `${TRANSFERS_ROUTE}?${PAGE}=${this.paginator.pageIndex + 1}`;
         this.location.replaceState(newUrl);
     };
+
+    public showDeleteModal(id: number): void {
+        const dialogRef = this.dialog.open(DeleteDialogComponent);
+        dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                this.delete(id);
+            }
+        });
+    }
+
+    private delete(id: number): void {
+        this.service.delete(id)
+            .subscribe(res => {
+                if (res) {
+                    this.snackBar.open('Удалено');
+                    } else {
+                        this.snackBar.open('Ошибка удаления');
+                    }
+                });
+    }
 }
