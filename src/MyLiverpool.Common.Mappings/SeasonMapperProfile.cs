@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
-using MyLiverpool.Business.Dto;
+using MyLfc.Domain;
 using MyLiverpool.Business.Dto.Seasons;
-using MyLiverpool.Data.Entities;
 
 namespace MyLiverpool.Common.Mappings
 {

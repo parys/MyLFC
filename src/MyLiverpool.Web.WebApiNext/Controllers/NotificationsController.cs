@@ -1,9 +1,7 @@
 ﻿using System.Threading.Tasks;
-using AspNet.Security.OAuth.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MyLiverpool.Business.Contracts;
-using MyLiverpool.Common.Utilities.Extensions;
+using MyLfc.Application.Notifications;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
@@ -11,20 +9,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// <summary>
     /// Manages notifications.
     /// </summary>
-    [Authorize(AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme), Route("api/v1/[controller]")]
-    public class NotificationsController : Controller
+    public class NotificationsController : BaseController
     {
-        private readonly INotificationService _notificationService;
-        
-        /// <summary>
-        /// Constructor.
-        /// </summary>
-        /// <param name="notificationService"></param>
-        public NotificationsController(INotificationService notificationService)
-        {
-            _notificationService = notificationService;
-        }
-
         /// <summary>
         /// Returns user notifications.
         /// </summary>
@@ -32,21 +18,18 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Authorize, HttpGet("")]
         public async Task<IActionResult> GetListAsync()
         {
-            var model = await _notificationService.GetListAsync(User.GetUserId());
-            return Json(model);
+            return Ok(await Mediator.Send(new GetNotificationListQuery.Request()));
         }
 
         /// <summary>
         /// Mark notifications as read.
         /// </summary>
-        /// <param name="ids">Array with ids for </param>
+        /// <param name="request">Array with ids for </param>
         /// <returns></returns>
         [Authorize, HttpPut("read")]
-        public async Task<IActionResult> ReadAsync([FromBody]int[] ids)
+        public async Task<IActionResult> ReadAsync([FromBody]MarkNotificationsAsReadCommand.Request request)
         {
-            var userId = User.GetUserId();
-            var model = await _notificationService.MarkAsReadAsync(ids, userId);
-            return Json(model);
+            return Ok(await Mediator.Send(request));
         }
         
         /// <summary>
@@ -56,10 +39,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Authorize, HttpGet("unread")]
         public async Task<IActionResult> GetUnreadCount()
         {
-            var userId = User.GetUserId();
-            var result = //await _cache.GetOrCreate(CacheKeysConstants.NotificationUserId + userId, async x =>
-                await _notificationService.GetUnreadCountAsync(userId);//);
-            return Json(result);
+            return Ok(await Mediator.Send(new GetUnreadNotificationCountQuery.Request()));
         }
     }
 }

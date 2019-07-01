@@ -16,8 +16,6 @@ using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Common.Mappings;
 using MyLiverpool.Data.Common;
-using MyLiverpool.Data.Entities;
-using MyLiverpool.Data.ResourceAccess;
 using MyLiverpool.Data.ResourceAccess.Interfaces;
 using MyLiverpool.Data.ResourceAccess.Repositories;
 

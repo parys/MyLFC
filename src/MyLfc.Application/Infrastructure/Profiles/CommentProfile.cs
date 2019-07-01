@@ -3,7 +3,6 @@ using System.Linq;
 using AutoMapper;
 using MyLfc.Application.Comments;
 using MyLfc.Domain;
-using MyLiverpool.Data.Entities;
 
 namespace MyLfc.Application.Infrastructure.Profiles
 {

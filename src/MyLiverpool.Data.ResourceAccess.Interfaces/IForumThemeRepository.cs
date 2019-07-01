@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using MyLiverpool.Data.Entities;
+using MyLfc.Domain;
 
 namespace MyLiverpool.Data.ResourceAccess.Interfaces
 {

@@ -4,7 +4,6 @@ using System.Data.SqlClient;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using MyLfc.Domain;
-using MyLiverpool.Data.Entities;
 
 namespace MyLiverpool.Data.ResourceAccess.Interfaces
 {

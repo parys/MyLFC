@@ -1,26 +1,27 @@
 ﻿using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using MyLfc.Application.Injuries;
 using MyLfc.Common.Web;
 using MyLfc.Common.Web.DistributedCache;
-using MyLiverpool.Business.Contracts;
 
 namespace MyLiverpool.Web.Mvc.Controllers.Components
 {
     public class InjuryPanelViewComponent : ViewComponent
     {
-        private readonly IInjuryService _injuryService;
+        private readonly IMediator _mediator;
         private readonly IDistributedCacheManager _cacheManager;
 
-        public InjuryPanelViewComponent(IInjuryService injuryService, IDistributedCacheManager cacheManager)
+        public InjuryPanelViewComponent(IMediator mediator, IDistributedCacheManager cacheManager)
         {
-            _injuryService = injuryService;
+            _mediator = mediator;
             _cacheManager = cacheManager;
         }
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
             var result = await _cacheManager.GetOrCreateAsync(CacheKeysConstants.LastInjuries,
-                async () => await _injuryService.GetCurrentListAsync());
+                async () => await _mediator.Send(new GetCurrentInjuryListQuery.Request()));
             return View(result);
         }
     }

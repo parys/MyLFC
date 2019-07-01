@@ -1,5 +1,4 @@
 ﻿using System;
-using MyLiverpool.Data.Entities;
 
 namespace MyLfc.Domain
 {

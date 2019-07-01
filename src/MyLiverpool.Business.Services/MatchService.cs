@@ -12,7 +12,6 @@ using MyLiverpool.Business.Dto.Filters;
 using MyLiverpool.Common.Utilities;
 using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
-using MyLiverpool.Data.Entities;
 using MyLiverpool.Data.ResourceAccess.Interfaces;
 
 namespace MyLiverpool.Business.Services
@@ -135,14 +134,9 @@ namespace MyLiverpool.Business.Services
             return dto;
         }
 
-        public async Task<PageableData<MatchDto>> GetListAsync(int page, int itemsPerPage = 15, int? seasonId = null)
+        public Task<PageableData<MatchDto>> GetListAsync(int page, int itemsPerPage = 15, int? seasonId = null)
         {
-            return await GetListAsync(new MatchFiltersDto
-            {
-                Page = page,
-                ItemsPerPage = itemsPerPage,
-                SeasonId = seasonId
-            });
+            throw new NotImplementedException();
         }
 
         public async Task<PageableData<MatchDto>> GetListAsync(MatchFiltersDto filters)

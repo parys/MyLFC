@@ -9,10 +9,8 @@ using MyLfc.Common.Web.DistributedCache;
 using MyLfc.Common.Web.OnlineCounting;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
-using MyLiverpool.Business.Dto.Filters;
 using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
-using Newtonsoft.Json;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
@@ -42,16 +40,6 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             _roleService = roleService;
         }
         
-        /// <summary>
-        /// Returns current user id.
-        /// </summary>
-        /// <returns>User id.</returns>
-        [Authorize, HttpGet("GetId")]
-        public IActionResult GetId()
-        {
-            return Ok(User.GetUserId());
-        }
-
         /// <summary>
         /// Returns user by id.
         /// </summary>
@@ -95,34 +83,6 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             var result = await _userService.UpdateAsync(dto);
             _cacheManager.Remove(CacheKeysConstants.UserBirthdays);
             return Ok(result);
-        }
-
-        /// <summary>
-        /// Returns filtered users list.
-        /// </summary>
-        /// <param name="dto">Filters.</param>
-        /// <returns>List with users.</returns>
-        [Obsolete("Remove after 1 July 19")]
-        [AllowAnonymous, HttpGet("{dto}")]
-        public async Task<IActionResult> List(string dto)
-        {
-            if (string.IsNullOrWhiteSpace(dto))
-            {
-                return BadRequest();
-            }
-            var obj = JsonConvert.DeserializeObject<UserFiltersDto>(dto, new JsonSerializerSettings() //todo should be application wide settings
-            {
-                MissingMemberHandling = MissingMemberHandling.Ignore,
-                NullValueHandling = NullValueHandling.Include,
-                DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate
-            });
-
-            if (!User.IsInRole(nameof(RolesEnum.AdminStart)))
-            {
-                obj.Ip = null;
-            }
-            var model = await _userService.GetUsersDtoAsync(obj);
-            return Ok(model);
         }
 
         /// <summary>

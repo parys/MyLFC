@@ -4,7 +4,6 @@ using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Business.Dto.Filters;
 using MyLiverpool.Common.Utilities.Extensions;
-using MyLiverpool.Data.Entities;
 using MyLiverpool.Data.ResourceAccess.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -45,61 +44,6 @@ namespace MyLiverpool.Business.Services
             var user = await _userRepository.GetByIdAsync(userId);
             var result = await _userRepository.SetLockoutEndDateAsync(user, new DateTimeOffset?());
             return result == IdentityResult.Success;
-        }
-
-        public async Task<PageableData<UserMiniDto>> GetUsersDtoAsync(UserFiltersDto dto)
-        {
-            Expression<Func<User, bool>> filter = x => true;
-            if (dto.RoleGroupId.HasValue)
-            {
-                filter = filter.And(x => x.RoleGroupId == dto.RoleGroupId.Value);
-            }
-            if (!string.IsNullOrWhiteSpace(dto.UserName))
-            {
-                filter = filter.And(x => x.UserName.Contains(dto.UserName));
-            }
-            if (!string.IsNullOrWhiteSpace(dto.Ip))
-            {
-                filter = filter.And(x => x.Ip.Contains(dto.Ip));
-            }
-            Expression<Func<User, object>> sortBy = x => x.LastModified;
-            if (!string.IsNullOrWhiteSpace(dto.SortBy))
-            {
-                if (dto.SortBy.Contains(nameof(UserMiniDto.RoleGroupName), StringComparison.InvariantCultureIgnoreCase))
-                {
-                    sortBy = x => x.RoleGroup.RussianName;
-                }
-                if (dto.SortBy.Contains(nameof(UserMiniDto.RegistrationDate), StringComparison.InvariantCultureIgnoreCase))
-                {
-                    sortBy = x => x.RegistrationDate;
-                }
-                else if (dto.SortBy.Contains(nameof(UserMiniDto.CommentsCount),
-                    StringComparison.InvariantCultureIgnoreCase))
-                {
-                    sortBy = x => x.Comments.Count;
-                }
-                else if (dto.SortBy.Contains(nameof(UserMiniDto.UserName),
-                    StringComparison.InvariantCultureIgnoreCase))
-                {
-                    sortBy = x => x.UserName;
-                }
-            }
-
-            var usersDto = await _userRepository.GetQuerableList(dto.Page, dto.ItemsPerPage, filter, dto.SortOrder, sortBy)
-                .Select(x => new UserMiniDto
-                {
-                    Id = x.Id,
-                    EmailConfirmed = x.EmailConfirmed,
-                    LastModified = x.LastModified,
-                    RegistrationDate = x.RegistrationDate,
-                    CommentsCount = x.Comments.Count,
-                    RoleGroupName = x.RoleGroup.RussianName,
-                    Photo = x.Photo,
-                    UserName = x.UserName
-                }).ToListAsync();
-            var allUsersCount = await _userRepository.GetCountAsync(filter);
-            var result = new PageableData<UserMiniDto>(usersDto, dto.Page, allUsersCount, dto.ItemsPerPage);
-            return result;
         }
 
         public async Task<string> GetPhotoPathAsync(int userId)

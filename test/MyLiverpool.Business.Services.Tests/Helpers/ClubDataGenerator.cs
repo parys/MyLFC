@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
+using MyLfc.Domain;
 using MyLiverpool.Business.Dto;
-using MyLiverpool.Data.Entities;
 
 namespace MyLiverpool.Business.Services.Tests.Helpers
 {

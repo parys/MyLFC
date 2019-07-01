@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using FluentAssertions.Common;
 using Microsoft.EntityFrameworkCore;
+using MyLfc.Domain;
 using MyLfc.Persistence;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Business.Dto.Filters;
 using MyLiverpool.Business.Services.Tests.Helpers;
 using MyLiverpool.Common.Mappings;
-using MyLiverpool.Data.Entities;
 using Xunit;
 
 namespace MyLiverpool.Business.Services.Tests

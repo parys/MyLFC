@@ -9,13 +9,15 @@ import { BreadcrumbService } from "@app/shared/breadcrumb";
 import { NEWS_ROUTE, BLOGS_ROUTE, NEWSS_RU, NEWS_RU, BLOGS_RU, BLOG_RU } from "@app/+constants";
 import { CanLoadEditMaterial } from "./canLoadEdit.guard";
 import { MaterialListComponent } from './material-list';
+import { NgxPaginationModule } from "ngx-pagination";
 
 @NgModule({
     imports: [
         SharedModule,
         RouterModule.forChild(materialRoutes),
         CommentSharedModule,
-        MaterialCoreModule
+        MaterialCoreModule,
+        NgxPaginationModule
     ],
     declarations: [
         MaterialDetailComponent,

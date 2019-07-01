@@ -139,10 +139,22 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <param name="id">Id of verifiable comment.</param>
         /// <returns>Result of verification.</returns>
         [Authorize(Roles = nameof(RolesEnum.UserStart)), HttpGet("verify/{id:int}")]
-        public async Task<IActionResult> VerifyAsync(int id)
+        [Obsolete("Remove after 15 JUly 19")]
+        public async Task<IActionResult> VerifyOldAsync(int id)
         {
-            var result = await _commentService.VerifyAsync(id);
-            return Ok(result);
+            var request = new VerifyCommentCommand.Request{Id = id};
+            return Ok(await Mediator.Send(request));
+        }
+
+        /// <summary>
+        /// Mark comment as verified by moderator.
+        /// </summary>
+        /// <param name="request">Id of verifiable comment.</param>
+        /// <returns>Result of verification.</returns>
+        [Authorize(Roles = nameof(RolesEnum.UserStart)), HttpPut("{id:int}/verify")]
+        public async Task<IActionResult> VerifyAsync(VerifyCommentCommand.Request request)
+        {
+            return Ok(await Mediator.Send(request));
         }
 
         /// <summary>
@@ -177,17 +189,12 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <summary>
         /// Deletes material comment.
         /// </summary>
-        /// <param name="id">The identifier of removing comment.</param>
+        /// <param name="request">The identifier of removing comment.</param>
         /// <returns>Result of removing.</returns>
         [Authorize(Roles = nameof(RolesEnum.UserStart)), HttpDelete("{id:int}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(DeleteCommentCommand.Request request)
         {
-            if (id <= 0)
-            {
-                return BadRequest();
-            }
-
-            var result = await _commentService.DeleteAsync(id);
+            var result = await Mediator.Send(request);
 
             _cacheManager.Remove(CacheKeysConstants.MaterialsLatest, 
                 CacheKeysConstants.MaterialsPinned, CacheKeysConstants.LastComments);

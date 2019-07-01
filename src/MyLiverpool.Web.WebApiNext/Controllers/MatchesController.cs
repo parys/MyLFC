@@ -132,24 +132,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 async () => await _matchService.GetForCalendarAsync());
             return Ok(result);
         }
-
-        /// <summary>
-        /// Returns match list.
-        /// </summary>
-        /// <param name="page">The page of match list.</param>
-        /// <returns>Selected page match list.</returns>
-        [AllowAnonymous, HttpGet]
-        [Obsolete("Remove after 11.11")]
-        public async Task<IActionResult> GetListAsync([FromQuery]int page = 1)
-        {
-            if (page < 1)
-            {
-                page = 1;
-            }
-            var result = await _matchService.GetListAsync(page);
-            return Ok(result);
-        }
-
+        
         /// <summary>
         /// Returns matches list by filter.
         /// </summary>

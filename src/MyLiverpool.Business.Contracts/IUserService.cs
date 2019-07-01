@@ -2,8 +2,6 @@
 using System.Threading.Tasks;
 using MyLfc.Domain;
 using MyLiverpool.Business.Dto;
-using MyLiverpool.Business.Dto.Filters;
-using MyLiverpool.Data.Common;
 
 namespace MyLiverpool.Business.Contracts
 {
@@ -12,9 +10,7 @@ namespace MyLiverpool.Business.Contracts
         Task<bool> BanUser(int userId, int banDayCount);
 
         Task<bool> UnbanUser(int userId);
-
-        Task<PageableData<UserMiniDto>> GetUsersDtoAsync(UserFiltersDto dto);
-
+        
         Task<string> GetPhotoPathAsync(int userId);
 
         Task<bool> UpdatePhotoPathAsync(int userId, string photo);

@@ -4,7 +4,6 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using MyLiverpool.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Domain;
 using MyLfc.Persistence;

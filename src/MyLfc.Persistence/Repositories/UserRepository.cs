@@ -10,7 +10,6 @@ using Microsoft.EntityFrameworkCore;
 using MyLfc.Domain;
 using MyLfc.Persistence;
 using MyLiverpool.Data.Common;
-using MyLiverpool.Data.Entities;
 using MyLiverpool.Data.ResourceAccess.Interfaces;
 
 namespace MyLiverpool.Data.ResourceAccess.Repositories

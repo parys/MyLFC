@@ -1,8 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using MyLfc.Domain;
 
-namespace MyLiverpool.Data.Entities
+namespace MyLfc.Domain
 {
     public class PrivateMessage : IEntity
     {

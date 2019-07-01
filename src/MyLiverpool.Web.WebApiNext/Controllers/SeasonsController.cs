@@ -1,13 +1,9 @@
-﻿using System;
-using System.Threading.Tasks;
-using AspNet.Security.OAuth.Validation;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MyLfc.Application.Seasons;
 using MyLiverpool.Business.Contracts;
-using MyLiverpool.Business.Dto.Filters;
-using MyLiverpool.Business.Dto.Seasons;
 using MyLiverpool.Data.Common;
-using Newtonsoft.Json;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
@@ -15,8 +11,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// <summary>
     /// Manages seasons.
     /// </summary>
-    [Authorize(AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme), Route("api/v1/[controller]")]
-    public class SeasonsController : Controller
+    public class SeasonsController : BaseController
     {
         private readonly ISeasonService _seasonService;
         private readonly IMatchEventService _matchEventService;
@@ -33,62 +28,25 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         }
 
         /// <summary>
-        /// Returns seasons list.
-        /// </summary>
-        /// <returns>List with seasons.</returns>
-        [AllowAnonymous, HttpGet]
-        public async Task<IActionResult> GetListAsync()
-        {
-            var result = await _seasonService.GetListAsync();
-            return Json(result);
-        }
-
-        /// <summary>
         /// Returns wishes list by filter.
         /// </summary>
-        /// <param name="dto"></param>
+        /// <param name="request"></param>
         /// <returns></returns>
-        [AllowAnonymous, HttpGet("{dto}")]
-        public async Task<IActionResult> List([FromRoute] string dto)
+        [AllowAnonymous, HttpGet("")]
+        public async Task<IActionResult> List([FromQuery] GetSeasonListQuery.Request request)
         {
-            if (string.IsNullOrWhiteSpace(dto))
-            {
-                return BadRequest();
-            }
-            var obj = JsonConvert.DeserializeObject<SeasonFiltersDto>(dto, new JsonSerializerSettings() //todo should be application wide settings
-            {
-                MissingMemberHandling = MissingMemberHandling.Ignore,
-                NullValueHandling = NullValueHandling.Include,
-                DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate
-            });
-
-            var model = await _seasonService.GetListAsync(obj);
-            return Json(model);
+            return Ok(await Mediator.Send(request));
         }
 
         /// <summary>
         /// Returns season by id.
         /// </summary>
-        /// <param name="id">The identifier of season.</param>
+        /// <param name="request">The identifier of season.</param>
         /// <returns>Found season by id.</returns>
         [AllowAnonymous, HttpGet("{id:int}")]
-        public async Task<IActionResult> GetAsync(int id)
+        public async Task<IActionResult> GetAsync([FromRoute] GetSeasonDetailQuery.Request request)
         {
-            var result = await _seasonService.GetByIdAsync(id);
-            return Json(result);
-        }
-
-        /// <summary>
-        /// Returns season by id with matches.
-        /// </summary>
-        /// <param name="id">The identifier of season.</param>
-        /// <returns>Found season by id with matches.</returns>
-        [Obsolete("Remove after 01.05.19")]
-        [AllowAnonymous, HttpGet("getWithMatches/{id:int}")]
-        public async Task<IActionResult> GetWithMatchesAsync(int id)
-        {
-            var result = await _seasonService.GetByIdWithMatchesAsync(id);
-            return Json(result);
+            return Ok(await Mediator.Send(request));
         }
 
         /// <summary>
@@ -100,7 +58,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         public async Task<IActionResult> GetSeasonCalendarWithMatchesAsync(int id)
         {
             var result = await _seasonService.GetCalendarByIdWithMatchesAsync(id);
-            return Json(result);
+            return Ok(result);
         }
 
         /// <summary>
@@ -112,52 +70,45 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         public async Task<IActionResult> GetStatisticsAsync(int id)
         {
             var result = await _matchEventService.GetStatisticsAsync(id);
-            return Json(result);
+            return Ok(result);
         }
 
         /// <summary>
         /// Creates new season.
         /// </summary>
-        /// <param name="dto">Filled dto for new season.</param>
-        /// <returns>Created season objec.t</returns>
+        /// <param name="request">Filled dto for new season.</param>
+        /// <returns>Created season object.</returns>
         [Authorize(Roles = nameof(RolesEnum.InfoStart)), HttpPost("")]
-        public async Task<IActionResult> CreateAsync([FromBody] SeasonDto dto)
+        public async Task<IActionResult> CreateAsync([FromBody] CreateSeasonCommand.Request request)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(dto);
-            }
-            var result = await _seasonService.CreateAsync(dto);
-            return Json(result);
+            return Ok(await Mediator.Send(request));
         }
 
         /// <summary>
         /// Updates season.
         /// </summary>
         /// <param name="id">The identifier of updatable object.</param>
-        /// <param name="dto">Filled dto contains new values.</param>
+        /// <param name="request">Filled dto contains new values.</param>
         /// <returns>Updated season object.</returns>
         [Authorize(Roles = nameof(RolesEnum.InfoStart)), HttpPut("{id:int}")]
-        public async Task<IActionResult> UpdateAsync(int id, [FromBody] SeasonDto dto)
+        public async Task<IActionResult> UpdateAsync(int id, [FromBody] UpdateSeasonCommand.Request request)
         {
-            if (!ModelState.IsValid || id != dto.Id)
+            if (id != request.Id)
             {
                 return BadRequest();
             }
-            var result = await _seasonService.UpdateAsync(dto);
-            return Json(result);
+            return Ok(await Mediator.Send(request));
         }
 
         /// <summary>
         /// Deletes season.
         /// </summary>
-        /// <param name="id">The identifier of removing object.</param>
+        /// <param name="request">The identifier of removing object.</param>
         /// <returns>Result of deleting season.</returns>
         [Authorize(Roles = nameof(RolesEnum.InfoStart)), HttpDelete("{id:int}")]
-        public async Task<IActionResult> DeleteAsync(int id)
+        public async Task<IActionResult> DeleteAsync([FromRoute] DeleteSeasonCommand.Request request)
         {
-            var result = await _seasonService.DeleteAsync(id);
-            return Ok(result);
+            return Ok(await Mediator.Send(request));
         }
 
         /// <summary>
@@ -170,19 +121,6 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         {
             await _seasonService.SetCurrentSeasonAsync(id);
             return Ok(true);
-        }
-
-        /// <summary>
-        /// Returns seasons which year contain types string.
-        /// </summary>
-        /// <param name="typed">Part of season year for search.</param>
-        /// <returns>List of keyValuePair of seasons with identifiers.</returns>
-        [AllowAnonymous, HttpGet("getSeasonsByYear")]
-        [Obsolete("Remove after 11.11.18")]
-        public async Task<IActionResult> GetSeasonsByYearAsync([FromQuery]string typed)
-        {
-            var result = await _seasonService.GetSeasonsByYearAsync(typed);
-            return Ok(result);
         }
     }
 }

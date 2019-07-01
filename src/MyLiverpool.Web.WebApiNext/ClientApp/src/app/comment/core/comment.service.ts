@@ -31,8 +31,8 @@ export class CommentService extends BaseRestService<Comment, CommentFilter | any
         return this.http.get<Pageable<Comment>>(`${this.actionUrl}match/${id}/list/${page}`);//todo move to match service
     };
     
-    public verify(id: number): Observable<boolean> {
-        return this.http.get<boolean>(this.actionUrl + "verify/" + id);
+    public verify(id: number): Observable<number> {
+        return this.http.put<number>(this.actionUrl + id + "/verify", {});
     };
 
     public vote(vote: CommentVote): Observable<boolean> {

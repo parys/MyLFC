@@ -21,7 +21,6 @@ import { LoaderComponent, LoaderService } from "./loader";
 import { BearerInterceptor } from "./interceptors";
 import { CustomDatePipe, SafePipe } from "./pipes";
 import { BreadcrumbComponent } from "./breadcrumb";
-import { NgxPaginationModule } from "ngx-pagination";
 //import { DeferLoadDirective } from "./lazy";
 import { AdComponent } from "./ad";
 
@@ -38,7 +37,6 @@ import { StaticPageComponent } from "./static-page";
         FormsModule,
         ReactiveFormsModule,
         RouterModule,
-        NgxPaginationModule,
         SignalRModule,
         StorageModule,
         AuthModule, //todo temporary?
@@ -70,7 +68,6 @@ import { StaticPageComponent } from "./static-page";
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        NgxPaginationModule,
 
         DeleteDialogComponent,
         LoaderComponent, 
