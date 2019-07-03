@@ -1,13 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Domain;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
-using MyLiverpool.Data.Common;
 using MyLiverpool.Data.ResourceAccess.Interfaces;
 
 namespace MyLiverpool.Business.Services
@@ -15,14 +13,12 @@ namespace MyLiverpool.Business.Services
     public class MatchEventService : IMatchEventService
     {
         private readonly IGenericRepository<MatchEvent> _matchEventRepository;
-        private readonly ISeasonService _seasonService;
         private readonly IMapper _mapper;
 
-        public MatchEventService(IGenericRepository<MatchEvent> matchEventRepository, IMapper mapper, ISeasonService seasonService)
+        public MatchEventService(IGenericRepository<MatchEvent> matchEventRepository, IMapper mapper)
         {
             _matchEventRepository = matchEventRepository;
             _mapper = mapper;
-            _seasonService = seasonService;
         }
 
         public async Task<MatchEventDto> CreateAsync(MatchEventDto dto)
@@ -72,43 +68,6 @@ namespace MyLiverpool.Business.Services
                 await _matchEventRepository.GetListAsync(filter: x => x.MatchId == matchId, order: SortOrder.Descending,
                     orderBy: x => x.Minute, include: me => me.Include(x => x.Person));
             return _mapper.Map<IEnumerable<MatchEventDto>>(events);
-        }
-
-        public async Task<IEnumerable<PersonStatisticDto>> GetStatisticsAsync(int seasonId)
-        {
-            if (seasonId == 0)
-            {
-                seasonId = await _seasonService.GetCurrentSeasonIdAsync();
-            }
-            var events = _matchEventRepository.GetQueryableList(
-                filter: x => x.Match.SeasonId == seasonId
-                     && x.Match.MatchType != MatchTypeEnum.PreSeason
-                     && x.Person.Type != PersonType.Rival,
-                include: x => x.Include(mp => mp.Person).Include(mp => mp.Match));
-            var persons = events.GroupBy(x => x.PersonId);
-
-            return await persons.Select(person => new PersonStatisticDto
-                {
-                    PersonId = person.Key,
-                    PersonName = person.First().Person.RussianName,
-                    Goals = Count(person.Where(x => x.Type == MatchEventType.Goal || x.Type == MatchEventType.GoalPenalty)),
-                    Assists = Count(person.Where(x => x.Type == MatchEventType.Assist)),
-                    Yellows = Count(person.Where(x => x.Type == MatchEventType.Yellow)),
-                    Reds = Count(person.Where(x => x.Type == MatchEventType.Red))
-                }).ToListAsync();
-        }
-
-        private StatisticsDto Count(IEnumerable<MatchEvent> events)
-        {
-            return new StatisticsDto
-            {
-                Cl = events.Count(x => x.Match.MatchType == MatchTypeEnum.ChampionsLeague),
-                Ec = events.Count(x => x.Match.MatchType == MatchTypeEnum.EnglandCup),
-                El = events.Count(x => x.Match.MatchType == MatchTypeEnum.EuropeLeague),
-                Epl = events.Count(x => x.Match.MatchType == MatchTypeEnum.Epl),
-                Lc = events.Count(x => x.Match.MatchType == MatchTypeEnum.CurlingCup),
-                Total = events.Count()
-            };
         }
     }
 }

@@ -117,18 +117,7 @@ namespace MyLiverpool.Business.Services
             var count = await _clubRepository.CountAsync(filter);
             return new PageableData<ClubDto>(clubDtos, filters.Page, count);
         }
-
-        public async Task<IEnumerable<KeyValuePair<int, string>>> GetClubsByNameAsync(string typed)
-        {
-            Expression<Func<Club, bool>> filter = x => true;
-            if (!string.IsNullOrWhiteSpace(typed))
-            {
-                filter = filter.And(x => x.Name.Contains(typed));
-            }
-            var clubs = await _clubRepository.GetListAsync(1, filter: filter);
-            return clubs.Select(x => new KeyValuePair<int, string>(x.Id, x.Name));
-        }
-
+        
         public async Task<ClubDto> GetByNameAsync(string name)
         {
             Expression<Func<Club, bool>> filter = x => string.IsNullOrWhiteSpace(name) || x.EnglishName.ToLowerInvariant() == name.ToLowerInvariant();

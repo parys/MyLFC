@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MyLfc.Application.HelpEntities;
 using MyLfc.Application.Seasons;
-using MyLiverpool.Business.Contracts;
 using MyLiverpool.Data.Common;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
@@ -13,20 +13,6 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// </summary>
     public class SeasonsController : BaseController
     {
-        private readonly ISeasonService _seasonService;
-        private readonly IMatchEventService _matchEventService;
-
-        /// <summary>
-        /// Constructor.
-        /// </summary>
-        /// <param name="seasonService"></param>
-        /// <param name="matchEventService"></param>
-        public SeasonsController(ISeasonService seasonService, IMatchEventService matchEventService)
-        {
-            _seasonService = seasonService;
-            _matchEventService = matchEventService;
-        }
-
         /// <summary>
         /// Returns wishes list by filter.
         /// </summary>
@@ -52,25 +38,23 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <summary>
         /// Returns season by id with matches for calendar.
         /// </summary>
-        /// <param name="id">The identifier of season.</param>
+        /// <param name="request">The identifier of season.</param>
         /// <returns>Found season by id with matches.</returns>
-        [AllowAnonymous, HttpGet("{id:int}/calendar")]
-        public async Task<IActionResult> GetSeasonCalendarWithMatchesAsync(int id)
+        [AllowAnonymous, HttpGet("{seasonId:int}/calendar")]
+        public async Task<IActionResult> GetSeasonCalendarWithMatchesAsync([FromRoute]GetSeasonCalendarQuery.Request request)
         {
-            var result = await _seasonService.GetCalendarByIdWithMatchesAsync(id);
-            return Ok(result);
+            return Ok(await Mediator.Send(request));
         }
 
         /// <summary>
         /// Returns statistics for season.
         /// </summary>
-        /// <param name="id">The identifier of season.</param>
+        /// <param name="request">The identifier of season.</param>
         /// <returns>Statistics for season.</returns>
-        [AllowAnonymous, HttpGet("{id:int}/statistics")]
-        public async Task<IActionResult> GetStatisticsAsync(int id)
+        [AllowAnonymous, HttpGet("{seasonId:int}/statistics")]
+        public async Task<IActionResult> GetStatisticsAsync([FromRoute] GetSeasonStatisticsQuery.Request request)
         {
-            var result = await _matchEventService.GetStatisticsAsync(id);
-            return Ok(result);
+            return Ok(await Mediator.Send(request));
         }
 
         /// <summary>
@@ -87,7 +71,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <summary>
         /// Updates season.
         /// </summary>
-        /// <param name="id">The identifier of updatable object.</param>
+        /// <param name="id">The identifier of update object.</param>
         /// <param name="request">Filled dto contains new values.</param>
         /// <returns>Updated season object.</returns>
         [Authorize(Roles = nameof(RolesEnum.InfoStart)), HttpPut("{id:int}")]
@@ -112,15 +96,19 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         }
 
         /// <summary>
-        /// Deletes season.
+        /// Ser season as current.
         /// </summary>
-        /// <param name="id">The identifier of removing object.</param>
-        /// <returns>Result of deleting season.</returns>
+        /// <param name="id">The identifier of season.</param>
+        /// <returns></returns>
         [Authorize(Roles = nameof(RolesEnum.InfoFull)), HttpPut("{id:int}/SetAsCurrent")]
-        public async Task<IActionResult> SetAsCurrentAsync(int id)
+        public async Task<IActionResult> SetAsCurrentAsync([FromRoute] int id)
         {
-            await _seasonService.SetCurrentSeasonAsync(id);
-            return Ok(true);
+            var request = new CreateOrUpdateEntityCommand.Request
+            {
+                Type = HelperEntityType.CurrentSeason,
+                Value = id.ToString()
+            };
+            return Ok(await Mediator.Send(request));
         }
     }
 }

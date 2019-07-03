@@ -1,30 +1,19 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using MyLiverpool.Business.Contracts;
+using MyLfc.Application.Seasons;
 
 namespace MyLiverpool.Web.Mvc.Controllers
 {
-    public class SeasonsController : Controller
+    public class SeasonsController : BaseController
     {
-        private readonly ISeasonService _seasonService;
-        private readonly IMatchEventService _matchEventService;
-
-        public SeasonsController(ISeasonService seasonService, IMatchEventService matchEventService)
-        {
-            _seasonService = seasonService;
-            _matchEventService = matchEventService;
-        }
-
         public async Task<IActionResult> Calendar(int id = 0)
         {
-            var result = await _seasonService.GetByIdWithMatchesAsync(id);
-            return View(result);
+            return View(await Mediator.Send(new GetSeasonCalendarQuery.Request {SeasonId = id}));
         }
 
         public async Task<IActionResult> Statistics(int id = 0)
         {
-            var result = await _matchEventService.GetStatisticsAsync(id);
-            return View(result);
+            return View(await Mediator.Send(new GetSeasonStatisticsQuery.Request {SeasonId = id}));
         }
     }
 }

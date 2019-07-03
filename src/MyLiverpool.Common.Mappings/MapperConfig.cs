@@ -23,7 +23,6 @@ namespace MyLiverpool.Common.Mappings
             cfg.AddProfile(new PmMapperProfile());
             cfg.AddProfile(new PollMapperProfile());
             cfg.AddProfile(new RoleGroupsMapperProfile());
-            cfg.AddProfile(new SeasonMapperProfile());
             cfg.AddProfile(new UserMapperProfile());
             cfg.AddProfile(new WishMapperProfile());
 
