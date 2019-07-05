@@ -2,34 +2,25 @@
 using Microsoft.AspNetCore.Identity;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
-using MyLiverpool.Business.Dto.Filters;
-using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.ResourceAccess.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.IO;
-using System.Linq;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using MyLfc.Domain;
-using MyLiverpool.Data.Common;
 
 namespace MyLiverpool.Business.Services
 {
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
-        private readonly IGenericRepository<RoleGroup> _roleGroupRepository;
         private readonly IMapper _mapper;
         private readonly string _defaultPhotoPath = Path.Combine("content", "avatars", "default.png");
 
-        public UserService(IMapper mapper, IUserRepository userRepository, IGenericRepository<RoleGroup> roleGroupRepository)
+        public UserService(IMapper mapper, IUserRepository userRepository)
         {
             _mapper = mapper;
             _userRepository = userRepository;
-            _roleGroupRepository = roleGroupRepository;
         }
 
         public async Task<bool> BanUser(int userId, int banDayCount)
@@ -138,16 +129,6 @@ namespace MyLiverpool.Business.Services
             model.UserId = currentUserId;
             var result = await _userRepository.CreateOrUpdateUserConfigAsync(model);
             return _mapper.Map<UserConfigDto>(result);
-        }
-
-        public async Task<IEnumerable<UserMiniDto>> GetBirthdaysAsync()
-        {
-            Expression<Func<User, bool>> filter = x => x.Birthday.HasValue &&
-                                                       x.Birthday.Value.Date.Day == DateTimeOffset.Now.Date.Day &&
-                                                       x.Birthday.Value.Date.Month == DateTimeOffset.Now.Date.Month &&
-                                                       x.LastModified.AddMonths(1).Date > DateTimeOffset.Now.Date;
-            var list = await _userRepository.GetListAsync(1, 1000, filter, SortOrder.Descending, u => u.LastModified);
-            return _mapper.Map<IEnumerable<UserMiniDto>>(list);
         }
     }
 }

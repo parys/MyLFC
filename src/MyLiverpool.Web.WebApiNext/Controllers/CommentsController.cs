@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Data.SqlClient;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -11,11 +10,9 @@ using MyLfc.Common.Web.DistributedCache;
 using MyLfc.Common.Web.Hubs;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
-using MyLiverpool.Business.Dto.Filters;
 using MyLiverpool.Common.Utilities;
 using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
-using Newtonsoft.Json;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
@@ -41,41 +38,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             _cacheManager = cache;
             _signalRHubAggregator = signalRHubAggregator;
         }
-
-        /// <summary>
-        /// Returns pageable comments list.
-        /// </summary>
-        /// <param name="filtersObj">Contains filters.</param>
-        /// <returns>Selected page comments list.</returns>
-        [Obsolete("Remove after 15 July 19")]
-        [AllowAnonymous, HttpGet("{filtersObj}")]
-        public async Task<IActionResult> GetListOld([FromRoute] string filtersObj)
-        {
-            MaterialCommentFiltersDto filters;
-            if (filtersObj == null)
-            {
-                filters = new MaterialCommentFiltersDto { Page = 1 };
-            }
-            else
-            {
-                filters = (MaterialCommentFiltersDto)JsonConvert.DeserializeObject(filtersObj, typeof(MaterialCommentFiltersDto));
-            }
-            GetCommentListQuery.Request request = new GetCommentListQuery.Request()
-            {
-                OnlyUnverified = filters.OnlyUnverified,
-                SortOn = filters.SortBy,
-                CurrentPage = filters.Page ?? 1,
-                PageSize = filters.ItemsPerPage,
-                UserId = filters.UserId,
-                SortDirection = filters.SortOrder == SortOrder.Ascending ? "ASC" : "DESC"
-                
-            };
-            var result = await Mediator.Send(request);
-            
-            return Ok(result);
-        }
-
-
+        
         /// <summary>
         /// Returns list of filtered materials.  
         /// </summary>

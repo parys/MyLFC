@@ -4,20 +4,20 @@
 //using System;
 //using System.Threading;
 //using System.Threading.Tasks;
-//using Wentrum.Application.Infrastructure.Exceptions;
-//using Wentrum.Persistence;
+//using MyLfc.Application.Infrastructure.Exceptions;
+//using MyLfc.Persistence;
 //using Xunit;
-//using Handler = Wentrum.Application.Exams.UpdateExamAssignTimeCommand.Handler;
-//using Request = Wentrum.Application.Exams.UpdateExamAssignTimeCommand.Request;
-//using Response = Wentrum.Application.Exams.UpdateExamAssignTimeCommand.Response;
+//using Handler = MyLfc.Application.Exams.UpdateExamAssignTimeCommand.Handler;
+//using Request = MyLfc.Application.Exams.UpdateExamAssignTimeCommand.Request;
+//using Response = MyLfc.Application.Exams.UpdateExamAssignTimeCommand.Response;
 
 
-//namespace Wentrum.Application.Tests.Exams.UpdateExamAssignTimeCommand
+//namespace MyLfc.Application.Tests.Exams.UpdateExamAssignTimeCommand
 //{
 //    [Collection(nameof(UpdateExamAssignTimeCommandCollection))]
 //    public class HandlerTests
 //    {
-//        private readonly WentrumDbContext _context;
+//        private readonly LiverpoolContext _context;
 //        private readonly IRequestHandler<Request, Response> _handler;
 
 //        public HandlerTests(UpdateExamAssignTimeCommandTestFixture fixture)

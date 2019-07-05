@@ -10,33 +10,33 @@ namespace MyLfc.Application.Infrastructure.Extensions
 {
     public static class QueryableExtensions
     {
-        /// <summary>
-        /// Asynchronously does any sort and gets one page of results with model type.
-        /// </summary>
-        /// <typeparam name="TEntity">Type of source</typeparam>
-        /// <typeparam name="TDto">Type of destination target results</typeparam>
-        /// <param name="source">Data source</param>
-        /// <param name="query">Paged query</param>
-        /// <param name="mapper">AutoMapper instance</param>
-        /// <returns></returns>
-        public static async Task<PagedResult<TDto>> GetPagedAsync<TEntity, TDto>(this IQueryable<TEntity> source,
-                                            PagedQueryBase query,
-                                            IMapper mapper) where TDto : class
-        {
+        ///// <summary>
+        ///// Asynchronously does any sort and gets one page of results with model type.
+        ///// </summary>
+        ///// <typeparam name="TEntity">Type of source</typeparam>
+        ///// <typeparam name="TDto">Type of destination target results</typeparam>
+        ///// <param name="source">Data source</param>
+        ///// <param name="query">Paged query</param>
+        ///// <param name="mapper">AutoMapper instance</param>
+        ///// <returns></returns>
+        //public static async Task<PagedResult<TDto>> GetPagedAsync<TEntity, TDto>(this IQueryable<TEntity> source,
+        //                                    PagedQueryBase query,
+        //                                    IMapper mapper) where TDto : class
+        //{
 
-            if (!string.IsNullOrEmpty(query.SortOn) && !string.IsNullOrEmpty(query.SortDirection))
-            {
-                source = query.SortDirection.ToUpper() == "ASC" ? source.OrderBy(query.SortOn) : source.OrderByDescending(query.SortOn);
-            }
+        //    if (!string.IsNullOrEmpty(query.SortOn) && !string.IsNullOrEmpty(query.SortDirection))
+        //    {
+        //        source = query.SortDirection.ToUpper() == "ASC" ? source.OrderBy(query.SortOn) : source.OrderByDescending(query.SortOn);
+        //    }
 
-            return new PagedResult<TDto>
-            {
-                CurrentPage = query.CurrentPage,
-                PageSize = query.PageSize,
-                RowCount = await source.CountAsync(),
-                Results = await source.Skip(query.SkipCount()).Take(query.PageSize).ProjectTo<TDto>(mapper.ConfigurationProvider).ToListAsync()
-            };
-        }
+        //    return new PagedResult<TDto>
+        //    {
+        //        CurrentPage = query.CurrentPage,
+        //        PageSize = query.PageSize,
+        //        RowCount = await source.CountAsync(),
+        //        Results = await source.Skip(query.SkipCount()).Take(query.PageSize).ProjectTo<TDto>(mapper.ConfigurationProvider).ToListAsync()
+        //    };
+        //}
 
         /// <summary>
         /// Asynchronously does any sort and gets one page of results with model type.
@@ -47,14 +47,26 @@ namespace MyLfc.Application.Infrastructure.Extensions
         /// <param name="source">Data source</param>
         /// <param name="query">Paged query</param>
         /// <param name="mapper">AutoMapper instance</param>
+        /// <param name="customSortBy"></param>
         /// <returns></returns>
         public static async Task<TResponse> GetPagedAsync<TResponse, TEntity, TDto>(this IQueryable<TEntity> source,
-            PagedQueryBase query,
-            IMapper mapper) where TDto : class where TResponse : PagedResult<TDto>, new()
+            PagedQueryBase query, IMapper mapper, Expression<Func<TEntity, object>> customSortBy = null)
+            where TDto : class where TResponse : PagedResult<TDto>, new()
         {
-            if (!string.IsNullOrEmpty(query.SortOn) && !string.IsNullOrEmpty(query.SortDirection))
+            if (!string.IsNullOrEmpty(query.SortDirection))
             {
-                source = query.SortDirection.ToUpper() == "ASC" ? source.OrderBy(query.SortOn) : source.OrderByDescending(query.SortOn);
+                if (customSortBy != null)
+                {
+                    source = query.SortDirection.ToUpper() == "ASC"
+                        ? source.OrderBy(customSortBy)
+                        : source.OrderByDescending(customSortBy);
+                }
+                else if (!string.IsNullOrEmpty(query.SortOn))
+                {
+                    source = query.SortDirection.ToUpper() == "ASC"
+                        ? source.OrderBy(query.SortOn)
+                        : source.OrderByDescending(query.SortOn);
+                }
             }
 
             return new TResponse

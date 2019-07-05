@@ -4,12 +4,13 @@ using System.Data.SqlClient;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
+using MyLfc.Application.Clubs;
 using MyLfc.Domain;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Business.Dto.Filters;
-using MyLiverpool.Common.Utilities;
 using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
 using MyLiverpool.Data.ResourceAccess.Interfaces;
@@ -18,16 +19,16 @@ namespace MyLiverpool.Business.Services
 {
     public class MatchService : IMatchService
     {
-        private readonly IClubService _clubService;
         private readonly ICommentService _commentService;
         private readonly IMapper _mapper;
         private readonly IGenericRepository<Match> _matchRepository;
+        private readonly IMediator _mediator;
 
         public MatchService(IGenericRepository<Match> matchRepository, IMapper mapper,
-            IClubService clubService, ICommentService commentService)
+            ICommentService commentService, IMediator mediator)
         {
-            _clubService = clubService;
             _commentService = commentService;
+            _mediator = mediator;
             _mapper = mapper;
             _matchRepository = matchRepository;
         }
@@ -62,7 +63,7 @@ namespace MyLiverpool.Business.Services
 
         public async Task<IEnumerable<MatchDto>> GetForCalendarAsync()
         {
-            var liverpoolClub = await _clubService.GetByNameAsync(GlobalConstants.LiverpoolClubEnglishName);
+            var liverpoolClub = await _mediator.Send(new GetLiverpoolClubQuery.Request());
             if (liverpoolClub == null)
             {
                 return null;
@@ -82,14 +83,13 @@ namespace MyLiverpool.Business.Services
             foreach (var match in matches)
             {
                 var dto = _mapper.Map<MatchDto>(match);
-                var clubDto = _mapper.Map<ClubDto>(match.Club);
                 if (match.IsHome)
                 {
-                    FillClubsFields(dto, liverpoolClub, clubDto);
+                    FillClubsFields(dto, liverpoolClub, match.Club);
                 }
                 else
                 {
-                    FillClubsFields(dto, clubDto, liverpoolClub);
+                    FillClubsFields(dto, match.Club, liverpoolClub);
                 }
                 dto.Events = new List<MatchEventDto>(); //made events null because they don't need at UI calendar. Maybe create dto for match calendar only
                 dtos.Add(dto);
@@ -105,7 +105,7 @@ namespace MyLiverpool.Business.Services
 
         public async Task<MatchDto> GetByIdAsync(int id)
         {
-            var liverpoolClub = await _clubService.GetByNameAsync(GlobalConstants.LiverpoolClubEnglishName);
+            var liverpoolClub = await _mediator.Send(new GetLiverpoolClubQuery.Request());
             if (liverpoolClub == null)
             {
                 return null;
@@ -120,14 +120,13 @@ namespace MyLiverpool.Business.Services
                 return null;
             }
             var dto = _mapper.Map<MatchDto>(match);
-            var clubDto = _mapper.Map<ClubDto>(match.Club);
             if (match.IsHome)
             {
-                FillClubsFields(dto, liverpoolClub, clubDto);
+                FillClubsFields(dto, liverpoolClub, match.Club);
             }
             else
             {
-                FillClubsFields(dto, clubDto, liverpoolClub);
+                FillClubsFields(dto, match.Club, liverpoolClub);
             }
             dto.CommentCount = await _commentService.CountAsync(x => x.MatchId == dto.Id);
 
@@ -163,7 +162,7 @@ namespace MyLiverpool.Business.Services
         private async Task<IEnumerable<MatchDto>> GetMatchesAsync(int? page, int itemsPerPage,
             Expression<Func<Match, bool>> filter)
         {
-            var liverpoolClub = await _clubService.GetByNameAsync(GlobalConstants.LiverpoolClubEnglishName);
+            var liverpoolClub = await _mediator.Send(new GetLiverpoolClubQuery.Request());
             var matches = await _matchRepository.GetListAsync(page, itemsPerPage, true, filter,
                 orderBy: m => m.DateTime,
                 include: x => x.Include(m => m.Club)
@@ -173,21 +172,20 @@ namespace MyLiverpool.Business.Services
             foreach (var match in matches)
             {
                 var dto = _mapper.Map<MatchDto>(match);
-                var clubDto = _mapper.Map<ClubDto>(match.Club);
                 if (match.IsHome)
                 {
-                    FillClubsFields(dto, liverpoolClub, clubDto);
+                    FillClubsFields(dto, liverpoolClub, match.Club);
                 }
                 else
                 {
-                    FillClubsFields(dto, clubDto, liverpoolClub);
+                    FillClubsFields(dto, match.Club, liverpoolClub);
                 }
                 dtos.Add(dto);
             }
             return dtos;
         }
 
-        private static void FillClubsFields(MatchDto dto, ClubDto homeClub, ClubDto awayClub)
+        private static void FillClubsFields(MatchDto dto, Club homeClub, Club awayClub)
         {
             dto.HomeClubId = homeClub.Id;
             dto.HomeClubName = homeClub.Name;

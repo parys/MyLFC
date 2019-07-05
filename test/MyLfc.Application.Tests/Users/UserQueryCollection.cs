@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AutoFixture;
 using MyLfc.Application.Tests.Infrastructure;
@@ -7,22 +8,19 @@ using MyLfc.Domain;
 using MyLiverpool.Data.Common;
 using Xunit;
 
-namespace MyLfc.Application.Tests.Materials
+namespace MyLfc.Application.Tests.Users
 {
-    [CollectionDefinition(nameof(MaterialQueryCollection))]
-    public class MaterialQueryCollection : ICollectionFixture<MaterialQueryTestFixture> { }
+    [CollectionDefinition(nameof(UserQueryCollection))]
+    public class UserQueryCollection : ICollectionFixture<UserQueryTestFixture> { }
 
 
-    public class MaterialQueryTestFixture : BaseTestFixture
+    public class UserQueryTestFixture : BaseTestFixture
     {
         public static int UserId => Users[0].Id;
 
         public static int MaterialCategoryId => MaterialCategories[0].Id;
 
         public static int MaterialWithComments => Materials[1].Id;
-
-        public static int DeletedMaterial => Materials[2].Id;
-        public static int PendingMaterial => Materials[3].Id;
 
         public static List<User> Users { get; private set; }
 
@@ -32,14 +30,12 @@ namespace MyLfc.Application.Tests.Materials
         public static List<MaterialComment> Comments { get; private set; }
 
 
-        public MaterialQueryTestFixture()
+        public UserQueryTestFixture()
         {
             SeedUsers();
-        //    SeedVisits();
             SeedMaterialCategories();
             SeedMaterials();
             SeedComments();
-        //    SeedExamHistoryEntries();
         }
 
         private void SeedUsers()
@@ -47,7 +43,10 @@ namespace MyLfc.Application.Tests.Materials
             var users = new Fixture()
                 .Customize(new UserCustomization())
                 .CreateMany<User>(5).ToList();
-            
+
+            users[0].Birthday = DateTimeOffset.UtcNow;
+            users[0].LastModified = DateTimeOffset.UtcNow;
+
             Context.Users.AddRange(users);
             Context.SaveChanges();
 
@@ -62,9 +61,6 @@ namespace MyLfc.Application.Tests.Materials
 
             materials.ForEach(x => x.AuthorId = UserId);
             materials.ForEach(x => x.CategoryId = MaterialCategoryId);
-
-            materials[2].Deleted = true;
-            materials[3].Pending = true;
 
             Context.Materials.AddRange(materials);
             Context.SaveChanges();

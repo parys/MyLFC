@@ -1,10 +1,10 @@
 ﻿//using AutoFixture;
-//using Wentrum.Application.Exams;
-//using Wentrum.Shared.Tests.Extensions;
+//using MyLfc.Application.Exams;
+//using MyLfc.Shared.Tests.Extensions;
 
-//namespace Wentrum.Shared.Tests.Customizations.Exams
+//namespace MyLfc.Shared.Tests.Customizations.Exams
 //{
-//    public class UpsertExamCommandCustomization<T> : ICustomization where T : UpsertExamCommand.Request
+//    public class UpsertMaterialCommandCustomization<T> : ICustomization where T : UpsertMaterialCommand.Request
 //    {
 //        public virtual void Customize(IFixture fixture)
 //        {

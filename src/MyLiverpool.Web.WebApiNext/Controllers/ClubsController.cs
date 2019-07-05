@@ -1,149 +1,86 @@
-﻿using System;
-using System.Threading.Tasks;
-using AspNet.Security.OAuth.Validation;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MyLfc.Application.Clubs;
 using MyLiverpool.Business.Contracts;
-using MyLiverpool.Business.Dto;
-using MyLiverpool.Business.Dto.Filters;
 using MyLiverpool.Data.Common;
-using Newtonsoft.Json;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
     /// <summary>
     /// Manages club entity.
     /// </summary>
-    [Authorize(AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme, Roles = nameof(RolesEnum.InfoStart)), Route("api/v1/[controller]")]
-    public class ClubsController : Controller
+    public class ClubsController : BaseController
     {
-        private readonly IClubService _clubService;
         private readonly IUploadService _uploadService;
 
         /// <summary>
         /// Constructor.
         /// </summary>
-        /// <param name="clubService"></param>
         /// <param name="uploadService"></param>
-        public ClubsController(IClubService clubService, IUploadService uploadService)
+        public ClubsController(IUploadService uploadService)
         {
-            _clubService = clubService;
             _uploadService = uploadService;
         }
 
         /// <summary>
         /// Creates new club item.
         /// </summary>
-        /// <param name="dto">New club model.</param>
+        /// <param name="request">New club model.</param>
         /// <returns></returns>
         [Authorize(Roles = nameof(RolesEnum.InfoStart)), HttpPost("")]
-        public async Task<IActionResult> CreateAsync([FromBody]ClubDto dto)
+        public async Task<IActionResult> CreateAsync([FromBody]CreateClubCommand.Request request)
         {
-            if (dto == null || !ModelState.IsValid)
-            {
-                return BadRequest();
-            }
-            var result = await _clubService.CreateAsync(dto);
-            return Ok(result);
+            return Ok(await Mediator.Send(request));
         }
 
         /// <summary>
         /// Returns pageable club list.
         /// </summary>
-        /// <param name="filters"></param>
+        /// <param name="request"></param>
         /// <returns>Clubs list.</returns>
         [AllowAnonymous, HttpGet("")]
-        [Obsolete("Remove after 11.11.18")]
-        public async Task<IActionResult> GetListOldAsync([FromQuery] string filters)
+        public async Task<IActionResult> GetListAsync([FromQuery] GetClubListQuery.Request request)
         {
-            ClubFiltersDto filtersObj;
-            if (filters == null)
-            {
-                filtersObj = new ClubFiltersDto();
-            }
-            else
-            {
-                filtersObj = (ClubFiltersDto)JsonConvert.DeserializeObject(filters, typeof(ClubFiltersDto));
-            }
-            var result = await _clubService.GetListAsync(filtersObj);
-           
-            return Ok(result);
-        }
-
-        /// <summary>
-        /// Returns pageable club list.
-        /// </summary>
-        /// <param name="dto"></param>
-        /// <returns>Clubs list.</returns>
-        [AllowAnonymous, HttpGet("{dto}")]
-        public async Task<IActionResult> GetListAsync(string dto)
-        {
-            ClubFiltersDto filtersObj;
-            if (dto == null)
-            {
-                filtersObj = new ClubFiltersDto();
-            }
-            else
-            {
-                filtersObj = (ClubFiltersDto)JsonConvert.DeserializeObject(dto, typeof(ClubFiltersDto));
-            }
-            var result = await _clubService.GetListAsync(filtersObj);
-           
-            return Ok(result);
+            return Ok(await Mediator.Send(request));
         }
 
         /// <summary>
         /// Returns club by id.
         /// </summary>
-        /// <param name="id">The identifier of club.</param>
+        /// <param name="request">The identifier of club.</param>
         /// <returns>Club.</returns>
         [AllowAnonymous, HttpGet("{id:int}")]
-        public async Task<IActionResult> GetAsync(int id)
+        public async Task<IActionResult> GetAsync([FromRoute] GetClubDetailQuery.Request request)
         {
-            var result = await _clubService.GetByIdAsync(id);
-            return Ok(result);
+            return Ok(await Mediator.Send(request));
         }
 
         /// <summary>
         /// Updates club.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <param name="dto">Modified club entity.</param>
+        /// <param name="request">Modified club entity.</param>
         /// <returns>Returns of editing.</returns>
         [Authorize(Roles = nameof(RolesEnum.InfoStart)), HttpPut("{id:int}")]
-        public async Task<IActionResult> EditAsync(int id, [FromBody]ClubDto dto)
+        public async Task<IActionResult> EditAsync(int id, [FromBody]UpdateClubCommand.Request request)
         {
-            if (id != dto.Id || !ModelState.IsValid)
+            if (id != request.Id)
             {
                 return BadRequest();
             }
-            var result = await _clubService.UpdateAsync(dto);
-            return Ok(result);
+            return Ok(await Mediator.Send(request));
         }
 
         /// <summary>
         /// Deletes club.
         /// </summary>
-        /// <param name="id">The identifier of deleting club.</param>
+        /// <param name="request">The identifier of deleting club.</param>
         /// <returns>Result of deleting.</returns>
         [Authorize(Roles = nameof(RolesEnum.InfoStart)), HttpDelete("{id:int}")]
-        public async Task<IActionResult> DeleteAsync(int id)
+        public async Task<IActionResult> DeleteAsync([FromRoute]DeleteClubCommand.Request request)
         {
-            var result = await _clubService.DeleteAsync(id);
-            return Ok(result);
-        }
-
-        /// <summary>
-        /// Returns clubs which names contain types string.
-        /// </summary>
-        /// <param name="typed">Part of club name for search.</param>
-        /// <returns>List of keyValuePair of club with identifiers.</returns>
-        [AllowAnonymous, HttpGet("getClubsByName")]
-        [Obsolete("Remove after 11.11.18")]
-        public async Task<IActionResult> GetClubsByNameAsync([FromQuery]string typed)
-        {
-            var result = await _clubService.GetClubsByNameWithoutLiverpoolAsync(typed);
-            return Ok(result);
+            return Ok(await Mediator.Send(request));
         }
 
         /// <summary>
@@ -164,7 +101,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 var file = Request.Form.Files[0];
                 var result = await _uploadService.UpdateLogoAsync(clubEnglishName.ToLower().Replace(" ", ""), file);
 
-                return Json(new { path = result });
+                return Ok(new { path = result });
             }
             return BadRequest();
         }

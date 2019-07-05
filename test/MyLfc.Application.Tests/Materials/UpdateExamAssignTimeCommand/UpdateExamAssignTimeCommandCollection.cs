@@ -3,12 +3,12 @@
 //using System.Linq;
 //using AutoFixture;
 //using MyLfc.Application.Tests.Infrastructure;
-//using Wentrum.Application.Tests.Infrastructure;
-//using Wentrum.Domain.Entities;
-//using Wentrum.Shared.Tests.Customizations.Domain;
+//using MyLfc.Application.Tests.Infrastructure;
+//using MyLfc.Domain.Entities;
+//using MyLfc.Shared.Tests.Customizations.Domain;
 //using Xunit;
 
-//namespace Wentrum.Application.Tests.Exams.UpdateExamAssignTimeCommand
+//namespace MyLfc.Application.Tests.Exams.UpdateExamAssignTimeCommand
 //{
 //    [CollectionDefinition(nameof(UpdateExamAssignTimeCommandCollection))]
 //    public class UpdateExamAssignTimeCommandCollection : ICollectionFixture<UpdateExamAssignTimeCommandTestFixture> { }

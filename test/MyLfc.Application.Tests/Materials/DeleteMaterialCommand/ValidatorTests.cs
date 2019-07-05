@@ -1,9 +1,9 @@
 ﻿//using FluentValidation.TestHelper;
 //using System;
 //using Xunit;
-//using Validator = Wentrum.Application.Exams.DeleteExamCommand.Validator;
+//using Validator = MyLfc.Application.Exams.DeleteExamCommand.Validator;
 
-//namespace Wentrum.Application.Tests.Exams.DeleteExamCommand
+//namespace MyLfc.Application.Tests.Exams.DeleteExamCommand
 //{
 //    [Collection(nameof(DeleteExamCommandCollection))]
 //    public class ValidatorTests

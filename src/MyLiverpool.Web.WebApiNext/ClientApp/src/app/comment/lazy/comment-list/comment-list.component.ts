@@ -97,7 +97,7 @@ export class CommentListComponent implements OnDestroy, AfterViewInit {
     public verify(index: number): void {
         this.materialCommentService
             .verify(this.items[index].id)
-            .subscribe((data: boolean) => this.items[index].isVerified = data);
+            .subscribe((data: number) => this.items[index].isVerified = true);
     }
 
     private showDeleteModal(index: number): void {

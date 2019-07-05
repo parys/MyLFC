@@ -4,19 +4,19 @@
 //using FluentAssertions;
 //using MediatR;
 //using Microsoft.EntityFrameworkCore;
-//using Wentrum.Application.Infrastructure.Exceptions;
-//using Wentrum.Persistence;
+//using MyLfc.Application.Infrastructure.Exceptions;
+//using MyLfc.Persistence;
 //using Xunit;
-//using Handler = Wentrum.Application.Exams.UpdateExamCommand.Handler;
-//using Request = Wentrum.Application.Exams.UpdateExamCommand.Request;
-//using Response = Wentrum.Application.Exams.UpdateExamCommand.Response;
+//using Handler = MyLfc.Application.Exams.UpdateExamCommand.Handler;
+//using Request = MyLfc.Application.Exams.UpdateExamCommand.Request;
+//using Response = MyLfc.Application.Exams.UpdateExamCommand.Response;
 
-//namespace Wentrum.Application.Tests.Exams.UpdateExamCommand
+//namespace MyLfc.Application.Tests.Exams.UpdateExamCommand
 //{
 //    [Collection(nameof(UpdateExamCommandCollection))]
 //    public class HandlerTests
 //    {
-//        private readonly WentrumDbContext _context;
+//        private readonly LiverpoolContext _context;
 //        private readonly IRequestHandler<Request, Response> _handler;
 
 //        public HandlerTests(UpdateExamCommandTestFixture fixture)

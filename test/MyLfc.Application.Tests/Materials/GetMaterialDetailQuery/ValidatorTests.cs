@@ -1,9 +1,9 @@
 ﻿//using FluentValidation.TestHelper;
 //using System;
 //using Xunit;
-//using Validator = Wentrum.Application.Exams.GetExamDetailQuery.Validator;
+//using Validator = MyLfc.Application.Exams.GetExamDetailQuery.Validator;
 
-//namespace Wentrum.Application.Tests.Exams.GetExamDetailQuery
+//namespace MyLfc.Application.Tests.Exams.GetExamDetailQuery
 //{
 //    [Collection(nameof(MaterialQueryCollection))]
 //    public class ValidatorTests

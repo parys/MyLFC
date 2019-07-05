@@ -20,13 +20,11 @@ namespace MyLiverpool.Business.Services
         public readonly string PersonPath = Path.Combine(ContentPath, "persons");
         public const int FilesPerFolder = 1200;
         private readonly IUserService _userService;
-        private readonly IClubService _clubService;
         private readonly IHostingEnvironment _appEnvironment;
 
-        public UploadService(IUserService userService, IClubService clubService, IHostingEnvironment appEnvironment)
+        public UploadService(IUserService userService, IHostingEnvironment appEnvironment)
         {
             _userService = userService;
-            _clubService = clubService;
             _appEnvironment = appEnvironment;
         }
 
@@ -60,36 +58,7 @@ namespace MyLiverpool.Business.Services
 
             return relativePath;
         }
-
-        public async Task<string> UpdateLogoAsync(int? clubId, IFormFile file)
-        {
-            string path = string.Empty;
-            if (clubId.HasValue)
-            {
-                path = await _clubService.GetNameAsync(clubId.Value);
-            }
-            var relativePath = path;
-            if (string.IsNullOrEmpty(path) || !path.Contains(LogoPath))
-            {
-                var newName = (string.IsNullOrWhiteSpace(path) ? GenerateNewName() : path) + "." + file.FileName.Split('.').Last();
-                var newPath = GenerateNewPath(LogoPath);
-                relativePath = Path.Combine(newPath, newName);
-                path = GetFullPath(relativePath);
-            }
-            else
-            {
-                path = GetFullPath(path);
-            }
-            
-            file.CopyTo(new FileStream(path, FileMode.Create));
-            relativePath = Regex.Replace(relativePath, "\\\\", "/");
-            if (clubId.HasValue)
-            {
-                await _clubService.UpdateLogoAsync(clubId.Value, relativePath);
-            }
-            return relativePath;
-        }
-
+        
         public async Task<string> UpdateLogoAsync(string clubName, IFormFile file)
         {
             string path = clubName;

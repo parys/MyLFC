@@ -2,10 +2,10 @@
 //using FluentValidation.TestHelper;
 
 //using Xunit;
-//using Validator = Wentrum.Application.Exams.UpdateExamAssignTimeCommand.Validator;
+//using Validator = MyLfc.Application.Exams.UpdateExamAssignTimeCommand.Validator;
 
 
-//namespace Wentrum.Application.Tests.Exams.UpdateExamAssignTimeCommand
+//namespace MyLfc.Application.Tests.Exams.UpdateExamAssignTimeCommand
 //{
 //    [Collection(nameof(UpdateExamAssignTimeCommandCollection))]
 //    public class ValidatorTests

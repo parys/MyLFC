@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -54,27 +55,28 @@ namespace MyLfc.Application.Users
                     users = users.Where(x => x.Ip.Contains(request.Ip));
                 }
 
-                if (string.IsNullOrEmpty(request.SortOn))
+                Expression<Func<User, object>> sortBy = x => x.LastModified;
+                if (!string.IsNullOrWhiteSpace(request.SortOn))
                 {
-                    users = users.OrderByDescending(x => x.LastModified);
-                }
-                else if (request.SortOn.Contains(nameof(UserListDto.RoleGroupName), StringComparison.InvariantCultureIgnoreCase))
-                {
-            //todo need to add linq        request.SortOn = "RoleGroup.RussianName";
-                }
-                else if (request.SortOn.Contains(nameof(UserListDto.CommentsCount),
-                    StringComparison.InvariantCultureIgnoreCase))
-                {
-                    //todo need to add linq             request.SortOn = "Comments.Count";
-                }
-                else if (request.SortOn.Contains(nameof(UserListDto.UserName),
-                    StringComparison.InvariantCultureIgnoreCase))
-                {
-                    //todo need to add linq           request.SortOn = "UserName";
+                    if (request.SortOn.Contains("RoleGroupName", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        sortBy = x => x.RoleGroup.RussianName;
+                    }
+                    if (request.SortOn.Contains("RegistrationDate", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        sortBy = x => x.RegistrationDate;
+                    }
+                    else if (request.SortOn.Contains("CommentsCount", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        sortBy = x => x.Comments.Count;
+                    }
+                    else if (request.SortOn.Contains("UserName", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        sortBy = x => x.UserName;
+                    }
                 }
 
-
-                return await users.GetPagedAsync<Response, User, UserListDto>(request, _mapper);
+                return await users.GetPagedAsync<Response, User, UserListDto>(request, _mapper, sortBy);
             }
         }
 

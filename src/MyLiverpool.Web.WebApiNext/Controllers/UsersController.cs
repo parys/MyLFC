@@ -148,7 +148,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         public async Task<IActionResult> GetBirthdaysAsync()
         {
             var result = await _cacheManager.GetOrCreateAsync(CacheKeysConstants.UserBirthdays + DateTime.Today,
-                async () => await _userService.GetBirthdaysAsync());
+                async () => await Mediator.Send(new GetUserBirthdaysQuery.Request()));
             return Ok(result);
         }
 

@@ -10,7 +10,6 @@ namespace MyLiverpool.Business.Services.Helpers
             services.AddTransient<IAccountService, AccountService>();
             services.AddTransient<IAdminService, AdminService>();
             services.AddTransient<IChatMessageService, ChatMessageService>();
-            services.AddTransient<IClubService, ClubService>();
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<IForumMessageService, ForumMessageService>();
             services.AddTransient<IForumSectionService, ForumSectionService>();
@@ -23,7 +22,6 @@ namespace MyLiverpool.Business.Services.Helpers
             services.AddTransient<IMaterialCategoryService, MaterialCategoryService>();
             services.AddTransient<ICommentService, CommentService>();
             services.AddTransient<IPersonService, PersonService>();
-            services.AddTransient<IPmService, PmService>();
             services.AddTransient<IPollService, PollService>();
             services.AddTransient<IRoleService, RoleService>();
             services.AddTransient<ISmsSender, AuthMessageSender>();

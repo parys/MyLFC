@@ -30,4 +30,8 @@
     <ProjectReference Include="..\..\src\MyLiverpool.Data.Common\MyLiverpool.Data.Common.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Materials\GetExtractedImageLinksQuery\" />
+  </ItemGroup>
+
 </Project>

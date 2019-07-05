@@ -34,14 +34,6 @@ namespace MyLiverpool.Common.Mappings
                 .ForMember(dest => dest.RoleGroupId, src => src.MapFrom(x => x.RoleGroupId))
                 .ForMember(dest => dest.UserName, src => src.MapFrom(x => x.UserName));
 
-            CreateMap<User, UserMiniDto>()
-                .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id))
-                .ForMember(dest => dest.EmailConfirmed, src => src.MapFrom(x => x.EmailConfirmed))
-                .ForMember(dest => dest.LastModified, src => src.MapFrom(x => x.LastModified))
-                .ForMember(dest => dest.RoleGroupName, src => src.MapFrom(x => x.RoleGroup.RussianName))
-                .ForMember(dest => dest.Photo, src => src.MapFrom(x => x.Photo))
-                .ForMember(dest => dest.UserName, src => src.MapFrom(x => x.UserName));
-
             CreateMap<RegisterUserDto, User>()
                 .ForMember(dest => dest.Birthday, src => src.MapFrom(x => x.Birthday))
                 .ForMember(dest => dest.Email, src => src.MapFrom(x => x.Email))
