@@ -32,14 +32,14 @@ namespace MyLfc.Application.Pms
             {
                 var count = await _context.PrivateMessages
                     .CountAsync(x => !x.IsRead && x.ReceiverId == _requestContext.UserId, cancellationToken);
-                return new Response {Count = count};
+                return new Response {Result = count};
             }
         }
 
 
         public class Response
         {
-            public int Count { get; set; }
+            public int Result { get; set; }
         }
     }
 }
