@@ -32,11 +32,10 @@ export class NotificationCounterComponent implements OnInit, OnDestroy {
         this.updateCount();
 
         this.signalR.readNotify.subscribe((data: number) => {
-                this.count -= data;
+            this.count -= data;
+            this.cd.markForCheck();
                 this.titleService.removeCount(data);
-            },
-            () => {},
-            () => this.cd.markForCheck());
+            });
         this.signalR.newNotify.subscribe((data: Notification) => {
                 this.count++;
                 this.titleService.addCount(1);
@@ -47,11 +46,9 @@ export class NotificationCounterComponent implements OnInit, OnDestroy {
                             this.router.navigate([`/${data.typeName}/${data.entityId}`],
                                 { fragment: data.commentId ? `com${data.commentId}` : "" }));
                     });
-        },
-            () => {},
-            () => {
+
                 this.cd.markForCheck();
-            });
+        });
     }
 
     public ngOnDestroy(): void {

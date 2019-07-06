@@ -4,6 +4,7 @@ import { ActivatedRoute } from "@angular/router";
 import { Season } from "../../model";
 import { SeasonService } from "../../core";
 import { RolesCheckedService } from "@app/+auth";
+import { PagedList } from '@app/shared';
 
 @Component({
     selector: "season-calendar",
@@ -35,7 +36,7 @@ export class SeasonCalendarComponent implements OnInit {
         });
 
         this.service.getAllWithoutFilter()
-            .subscribe(data => this.seasons = data);
+            .subscribe((data: PagedList<Season>) => this.seasons = data.results);
 
         this.update(true);
     }
@@ -45,8 +46,9 @@ export class SeasonCalendarComponent implements OnInit {
             .subscribe((data: Season) => {
                     this.selected = data;
                     if (selectUpdate) {
-                        this.seasonSelect.value = data;
+                        this.seasonSelect.value = data.id;
                     }
+                    console.log(this.seasonSelect);
                 },
                 () => {},
                 () => {

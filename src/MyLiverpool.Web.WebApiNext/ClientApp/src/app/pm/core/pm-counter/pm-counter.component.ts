@@ -31,22 +31,18 @@ export class PmCounterComponent implements OnInit, OnDestroy {
         this.updateCount();
 
         this.signalR.readPm.subscribe((data: any) => {
-                console.warn(data + " " + this.count);
             this.count--;
-            console.warn(data + " " + this.count);
             this.titleService.removeCount(1);
-            },
-            () => { },
-            () => this.cd.markForCheck());
+            this.cd.markForCheck();
+        });
         this.signalR.newPm.subscribe((data: Pm) => {
                 this.count++;
                 this.titleService.addCount(1);
                 this.snackBar.open("Новое сообщение", this.action)
                     .onAction()
-                    .subscribe(_ => this.router.navigate([PMS_ROUTE, data.id]));
-            },
-            () => {},
-            () => this.cd.markForCheck());
+                .subscribe(_ => this.router.navigate([PMS_ROUTE, data.id]));
+                this.cd.markForCheck();
+            });
     }
 
     public ngOnDestroy(): void {

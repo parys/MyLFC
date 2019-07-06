@@ -1,6 +1,7 @@
 ﻿import { Component, OnInit } from "@angular/core";
 import { SeasonService } from "../../core";
 import { Season } from "../../model";
+import { PagedList } from '@app/shared';
 
 @Component({
     selector: "season-list",
@@ -13,12 +14,12 @@ export class SeasonListComponent implements OnInit {
     }
 
     public ngOnInit(): void {     
-        this.service.getAllWithoutFilter().subscribe(data => this.seasons = data,
-            e => console.log(e));
+        this.service.getAllWithoutFilter()
+            .subscribe((data: PagedList<Season>) => this.seasons = data.results);
     }
 
     public setAsCurrent(index: number): void {
         this.service.setAsCurrent(this.seasons[index].id)
-            .subscribe(data => data, e => console.log(e));
+            .subscribe(data => data);
     }
 }

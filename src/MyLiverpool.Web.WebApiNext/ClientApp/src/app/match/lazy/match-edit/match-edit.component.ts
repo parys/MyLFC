@@ -10,6 +10,7 @@ import { Stadium, StadiumService, StadiumFilters } from "@app/stadium";
 import { Club, ClubService, ClubFilters } from "@app/club";
 import { DEBOUNCE_TIME, MATCHES_ROUTE } from "@app/+constants";
 import { Pageable } from "@app/shared";
+import { PagedList } from '../../../shared/pagedList.model';
 
 @Component({
     selector: "match-edit",
@@ -45,7 +46,7 @@ export class MatchEditComponent implements OnInit {
             .subscribe((data: MatchType[]) => this.types = data);
 
         this.seasonService.getAllWithoutFilter()
-            .subscribe((data: Season[]) => this.seasons = data);
+            .subscribe((data: PagedList<Season>) => this.seasons = data.results);
     }
 
     public onSubmit(): void {

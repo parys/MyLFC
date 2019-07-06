@@ -41,7 +41,7 @@ namespace MyLfc.Application.Seasons
                     seasons = seasons.Where(x => x.StartSeasonYear.ToString().Contains(request.Name));
                 }
 
-                seasons = seasons.OrderByDescending(x => x.Id);
+                seasons = seasons.OrderByDescending(x => x.StartSeasonYear);
 
                 return await seasons.GetPagedAsync<Response, Season, SeasonListDto>(request, _mapper);
             }

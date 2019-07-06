@@ -21,6 +21,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [AllowAnonymous, HttpGet("")]
         public async Task<IActionResult> List([FromQuery] GetSeasonListQuery.Request request)
         {
+            request.PageSize = 200;
             return Ok(await Mediator.Send(request));
         }
 
