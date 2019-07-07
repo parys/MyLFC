@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using AutoFixture;
 using FluentAssertions;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Persistence;
 using MyLiverpool.Data.Common;

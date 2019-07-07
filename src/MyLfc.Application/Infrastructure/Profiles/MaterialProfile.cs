@@ -76,7 +76,7 @@ namespace MyLfc.Application.Infrastructure.Profiles
                 .ForMember(dest => dest.Type, src => src.MapFrom(x => x.Type))
                 .ForMember(dest => dest.TypeName, src => src.MapFrom(x => x.Type.ToString().ToLowerInvariant()))
                 .ForMember(dest => dest.Title, src => src.MapFrom(x => x.Title))
-                .ForMember(dest => dest.Tags, src => src.MapFrom(x => BeautifyTags(x.Tags)));
+                .ForMember(dest => dest.Tags, src => src.MapFrom(x => x.Tags));
 
             CreateMap<CreateMaterialCommand.Request, Material>()
                 .ForMember(dest => dest.Brief, src => src.MapFrom(x => x.Brief))
@@ -110,11 +110,6 @@ namespace MyLfc.Application.Infrastructure.Profiles
                .ForMember(dest => dest.PhotoPreview, src => src.MapFrom(x => x.PhotoPreview))
                .ForMember(dest => dest.Source, src => src.MapFrom(x => x.Source))
                .ForMember(dest => dest.Title, src => src.MapFrom(x => x.Title))
-               .ForMember(dest => dest.Tags, src => src.MapFrom(x => BeautifyTags(x.Tags)));
-
-           CreateMap<Material, UpdateMaterialCommand.Response>()
-               .ForMember(dest => dest.UserId, src => src.MapFrom(x => x.AuthorId))
-               .ForMember(dest => dest.Photo, src => src.MapFrom(x => x.PhotoPath))
                .ForMember(dest => dest.Tags, src => src.MapFrom(x => BeautifyTags(x.Tags)));
         }
 

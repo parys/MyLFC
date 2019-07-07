@@ -6,7 +6,7 @@ using FluentValidation;
 using MediatR;
 using ValidationException = MyLfc.Application.Infrastructure.Exceptions.ValidationException;
 
-namespace Wentrum.Application.Infrastructure.Pipelines
+namespace MyLfc.Application.Infrastructure.Pipelines
 {
     public class RequestValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
         where TRequest : IRequest<TResponse>

@@ -1,8 +1,9 @@
-﻿//using MyLfc.Application.Exams;
+﻿using MyLfc.Application.Materials;
+using MyLfc.Application.Tests.Infrastructure.Customizations.Material;
 
-//namespace MyLfc.Shared.Tests.Customizations.Exams
-//{
-//    public class CreateMaterialCommandCustomization : UpsertMaterialCommandCustomization<CreateMaterialCommand.Request>
-//    {
-//    }
-//}
+namespace MyLfc.Shared.Tests.Customizations.Exams
+{
+    public class CreateMaterialCommandCustomization : UpsertMaterialCommandCustomization<CreateMaterialCommand.Request>
+    {
+    }
+}

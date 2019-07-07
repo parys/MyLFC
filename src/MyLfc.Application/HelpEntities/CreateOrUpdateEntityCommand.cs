@@ -24,6 +24,7 @@ namespace MyLfc.Application.HelpEntities
         {
             public Validator()
             {
+                RuleFor(x => x.Type).IsInEnum();
             }
         }
 
@@ -42,7 +43,6 @@ namespace MyLfc.Application.HelpEntities
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-
                 var entity =
                     await _context.HelpEntities.FirstOrDefaultAsync(x => x.Type == request.Type, cancellationToken);
                 
@@ -53,7 +53,7 @@ namespace MyLfc.Application.HelpEntities
                 }
                 else
                 {
-                    entity = _mapper.Map<HelpEntity>(request);
+                    entity = _mapper.Map(request, entity);
                     _context.HelpEntities.Update(entity);
                 }
 

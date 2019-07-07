@@ -1,5 +1,4 @@
-﻿using System;
-using AutoFixture;
+﻿using AutoFixture;
 using MyLfc.Application.Tests.Infrastructure.FixtureBuilders;
 using MyLfc.Domain;
 

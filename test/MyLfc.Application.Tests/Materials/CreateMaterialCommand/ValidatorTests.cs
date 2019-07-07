@@ -11,7 +11,7 @@ namespace MyLfc.Application.Tests.Materials.CreateMaterialCommand
     {
         #region Initialize
 
-        public ValidatorTests(CreateMaterialCommandTestFixture fixture)
+        public ValidatorTests()
         {
             Validator = new Validator();
         }

@@ -1,80 +1,77 @@
-﻿//using System;
-//using System.Threading;
-//using System.Threading.Tasks;
-//using FluentAssertions;
-//using MediatR;
-//using Microsoft.EntityFrameworkCore;
-//using MyLfc.Application.Infrastructure.Exceptions;
-//using MyLfc.Persistence;
-//using Xunit;
-//using Handler = MyLfc.Application.Exams.UpdateExamCommand.Handler;
-//using Request = MyLfc.Application.Exams.UpdateExamCommand.Request;
-//using Response = MyLfc.Application.Exams.UpdateExamCommand.Response;
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
+using AutoFixture;
+using FluentAssertions;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
+using MyLfc.Application.Infrastructure.Exceptions;
+using MyLfc.Application.Tests.Infrastructure.Customizations.Material;
+using MyLfc.Persistence;
+using Xunit;
+using Handler = MyLfc.Application.Materials.UpdateMaterialCommand.Handler;
+using Request = MyLfc.Application.Materials.UpdateMaterialCommand.Request;
+using Response = MyLfc.Application.Materials.UpdateMaterialCommand.Response;
 
-//namespace MyLfc.Application.Tests.Exams.UpdateExamCommand
-//{
-//    [Collection(nameof(UpdateExamCommandCollection))]
-//    public class HandlerTests
-//    {
-//        private readonly LiverpoolContext _context;
-//        private readonly IRequestHandler<Request, Response> _handler;
+namespace MyLfc.Application.Tests.Materials.UpdateMaterialCommand
+{
+    [Collection(nameof(UpdateMaterialCommandCollection))]
+    public class HandlerTests
+    {
+        private readonly LiverpoolContext _context;
+        private readonly IRequestHandler<Request, Response> _handler;
 
-//        public HandlerTests(UpdateExamCommandTestFixture fixture)
-//        {
-//            _context = fixture.Context;
-//            _handler = new Handler(fixture.Context);
-//        }
+        public HandlerTests(UpdateMaterialCommandTestFixture fixture)
+        {
+            _context = fixture.Context;
+            _handler = new Handler(fixture.Context, fixture.Mapper, fixture.AdminRequestContext);
+        }
 
-//        [Fact]
-//        public void WhenUpdateExamContainsNonExistExamId_ThrowsNotFoundException()
-//        {
-//            Func<Task> result = async () =>
-//                await _handler.Handle(new Request { ExamId = Guid.NewGuid() }, CancellationToken.None);
+        [Fact]
+        public void WhenUpdateMaterialContainsNonExistMaterialId_ThrowsNotFoundException()
+        {
+            Func<Task> result = async () =>
+                await _handler.Handle(new Request { Id = 111111 }, CancellationToken.None);
 
-//            result.Should().Throw<NotFoundException>();
-//        }
+            result.Should().Throw<NotFoundException>();
+        }
 
-//        [Fact]
-//        public async Task WhenUpdateExamContainsDeletedExamId_ThrowsNotFoundException()
-//        {
-//            Func<Task> result = async () =>
-//                await _handler.Handle(new Request { ExamId = UpdateExamCommandTestFixture.DeletedExamId }, CancellationToken.None);
+        [Fact]
+        public async Task WhenUpdateMaterialContainsDeletedMaterialId_ThrowsNotFoundException()
+        {
+            Func<Task> result = async () =>
+                await _handler.Handle(new Request { Id = UpdateMaterialCommandTestFixture.DeletedMaterialId }, CancellationToken.None);
 
-//            result.Should().Throw<NotFoundException>();
+            result.Should().Throw<NotFoundException>();
 
-//            var deletedExam = await _context.Exams.IgnoreQueryFilters()
-//                .FirstOrDefaultAsync(x => x.ExamId == UpdateExamCommandTestFixture.DeletedExamId);
-//            deletedExam.Should().NotBeNull();
-//            deletedExam.ExamId.Should().Be(UpdateExamCommandTestFixture.DeletedExamId);
-//        }
+            var deletedExam = await _context.Materials.IgnoreQueryFilters()
+                .FirstOrDefaultAsync(x => x.Id == UpdateMaterialCommandTestFixture.DeletedMaterialId);
+            deletedExam.Should().NotBeNull();
+            deletedExam.Id.Should().Be(UpdateMaterialCommandTestFixture.DeletedMaterialId);
+        }
 
-//        [Fact]
-//        public async Task WhenUpdateExamCommandIsValid_ReturnsGuidOfUpdatedExam()
-//        {
-//            var examToUpdate = await _context.Exams.FirstAsync();
-//            var oldAnesthesiologistValue = examToUpdate.Anesthesiologist;
-//            var oldSurgeonValue = examToUpdate.Surgeon;
-//            var examCommand = new Request
-//            {
-//                ExamId = examToUpdate.ExamId,
-//                Anesthesiologist = "updated Anesthesiologist",
-//                Surgeon = "new Surgeon"
-//            };
-            
-//            var result = await _handler.Handle(examCommand, CancellationToken.None);
+        [Fact]
+        public async Task WhenUpdateMaterialCommandIsValid_ReturnsIdOfUpdatedMaterial()
+        {
+            var examToUpdate = await _context.Materials.FirstAsync();
+            var oldTitle = examToUpdate.Title;
+            var oldBrief = examToUpdate.Brief;
 
-//            result.Should().NotBeNull();
-//            result.ExamId.Should().NotBeEmpty();
+            var materialCommand = new Fixture().Customize(new UpdateMaterialCommandCustomization())
+                .Create<Request>();
+            materialCommand.Id = UpdateMaterialCommandTestFixture.Materials[0].Id;
 
-//            var updatedEntity = await _context.Exams.FirstOrDefaultAsync(x => x.ExamId == result.ExamId);
+            var result = await _handler.Handle(materialCommand, CancellationToken.None);
 
-//            updatedEntity.Should().NotBeNull();
-//            updatedEntity.ExamId.Should().Be(result.ExamId);
-//            updatedEntity.Anesthesiologist.Should().Be(examCommand.Anesthesiologist);
-//            updatedEntity.Surgeon.Should().Be(examCommand.Surgeon);
+            result.Should().NotBeNull();
+            result.Id.Should().BeGreaterThan(0);
 
-//            updatedEntity.Anesthesiologist.Should().NotBe(oldAnesthesiologistValue);
-//            updatedEntity.Surgeon.Should().NotBe(oldSurgeonValue);
-//        }
-//    }
-//}
+            var updatedEntity = await _context.Materials.FirstOrDefaultAsync(x => x.Id == result.Id);
+
+            updatedEntity.Should().NotBeNull();
+            updatedEntity.Id.Should().Be(result.Id);
+            updatedEntity.Title.Should().NotBe(oldTitle);
+            updatedEntity.Brief.Should().NotBe(oldBrief);
+        }
+    }
+}
