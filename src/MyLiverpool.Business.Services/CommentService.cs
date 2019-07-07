@@ -29,14 +29,13 @@ namespace MyLiverpool.Business.Services
         private readonly IEmailSender _messageService;
         private readonly IHttpContextAccessor _accessor;
         private readonly ISignalRHubAggregator _signalRHubAggregator;
-        private readonly IHelperService _helperService;
 
         private const int ItemPerPage = GlobalConstants.CommentsPerPageList * 10 /*todo should be fixed*/;
 
         public CommentService(IMapper mapper, IMaterialCommentRepository commentService,
             IUserService userService, IHttpContextAccessor accessor,
             IEmailSender messageService, ISignalRHubAggregator signalRHubAggregator,
-            IHelperService helperService, IMediator mediator)
+            IMediator mediator)
         {
             _mapper = mapper;
             _commentService = commentService;
@@ -44,7 +43,6 @@ namespace MyLiverpool.Business.Services
             _accessor = accessor;
             _messageService = messageService;
             _signalRHubAggregator = signalRHubAggregator;
-            _helperService = helperService;
             _mediator = mediator;
         }
         
@@ -52,7 +50,7 @@ namespace MyLiverpool.Business.Services
         {
             var comment = _mapper.Map<MaterialComment>(model);
             comment.AdditionTime = comment.LastModified = DateTime.Now;
-            comment.Message = await _helperService.SanitizeRudWordsAsync(comment.Message);
+    //todo        comment.Message = await _helperService.SanitizeRudWordsAsync(comment.Message);
             try
             {
                 comment = await _commentService.AddAsync(comment);
@@ -80,7 +78,7 @@ namespace MyLiverpool.Business.Services
             }
             comment.LastModified = DateTime.Now;
             comment.Answer = model.Answer;
-            comment.Message = await _helperService.SanitizeRudWordsAsync(model.Message);
+          //todo  comment.Message = await _helperService.SanitizeRudWordsAsync(model.Message);
             try
             {
                 await _commentService.UpdateAsync(comment);

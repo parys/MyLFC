@@ -3,7 +3,7 @@ using MyLfc.Application.Tests.Infrastructure.FixtureBuilders;
 using MyLfc.Domain;
 using MyLiverpool.Data.Common;
 
-namespace MyLfc.Application.Tests.Infrastructure.Customizations.Domain
+namespace MyLfc.Application.Tests.Infrastructure.Customizations.Domains
 {
     public class MaterialCategoryCustomization : ICustomization
     {

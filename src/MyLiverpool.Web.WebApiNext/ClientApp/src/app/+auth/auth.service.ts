@@ -137,10 +137,10 @@ export class AuthService {
     }
     
     private getUserProfile(): void {
-        this.http.get<any>("role") //bug make list request form service
+        this.http.get<any>('users/roles') //bug make list request form service
             .subscribe((data: any) => {
                     this.storage.setUserId(+data.userId);
-                    this.storage.setRoles(data.roles.split(", "));
+                    this.storage.setRoles(data.roles);
                 this.rolesCheckedService.checkRoles();
 
      //               console.warn("init hub from getUserProfile");

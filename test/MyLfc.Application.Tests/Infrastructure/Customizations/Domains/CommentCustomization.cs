@@ -2,7 +2,7 @@
 using MyLfc.Application.Tests.Infrastructure.FixtureBuilders;
 using MyLfc.Domain;
 
-namespace MyLfc.Application.Tests.Infrastructure.Customizations.Domain
+namespace MyLfc.Application.Tests.Infrastructure.Customizations.Domains
 {
     public class CommentCustomization : ICustomization
     {

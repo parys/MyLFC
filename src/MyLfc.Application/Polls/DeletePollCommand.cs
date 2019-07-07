@@ -3,12 +3,12 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure.Exceptions;
-using MyLfc.Domain;
+using MyLfc.Domain.Polls;
 using MyLfc.Persistence;
 
-namespace MyLfc.Application.Injuries
+namespace MyLfc.Application.Polls
 {
-    public class DeleteInjuryCommand
+    public class DeletePollCommand
     {
         public class Request : IRequest<Response>
         {
@@ -27,18 +27,18 @@ namespace MyLfc.Application.Injuries
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var injury = await _context.Injuries
+                var poll = await _context.Polls
                     .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
                 
-                if (injury == null)
+                if (poll == null)
                 {
-                    throw new NotFoundException(nameof(Injury), request.Id);
+                    throw new NotFoundException(nameof(Poll), request.Id);
                 }
 
-                _context.Injuries.Remove(injury);
+                _context.Polls.Remove(poll);
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return new Response { Id = injury.Id };
+                return new Response {Id = poll.Id};
             }
         }
 

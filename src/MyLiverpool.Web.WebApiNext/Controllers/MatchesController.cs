@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using AspNet.Security.OAuth.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MyLfc.Application.HelpEntities;
 using MyLfc.Common.Web;
-using MyLfc.Common.Web.DistributedCache;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Business.Dto.Filters;
@@ -19,24 +18,17 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// <summary>
     /// Manages matches.
     /// </summary>
-    [Authorize(AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme), Route("api/v1/[controller]")]
-    public class MatchesController : Controller
+    public class MatchesController : BaseController
     {
         private readonly IMatchService _matchService;
-        private readonly IHelperService _helperService;
-        private readonly IDistributedCacheManager _cacheManager;
 
         /// <summary>
         /// Constructor.
         /// </summary>
         /// <param name="matchService">Injected value.</param>
-        /// <param name="helperService"></param>
-        /// <param name="cacheManager"></param>
-        public MatchesController(IMatchService matchService, IHelperService helperService, IDistributedCacheManager cacheManager)
+        public MatchesController(IMatchService matchService)
         {
             _matchService = matchService;
-            _helperService = helperService;
-            _cacheManager = cacheManager;
         }
 
         /// <summary>
@@ -52,7 +44,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 return BadRequest(ModelState);
             }
             var result = await _matchService.CreateAsync(dto);
-            _cacheManager.Remove(CacheKeysConstants.MatchCalendarCacheConst);
+            CacheManager.Remove(CacheKeysConstants.MatchCalendarCacheConst);
             return Ok(result);
         }
 
@@ -70,7 +62,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 return BadRequest();
             }
             var result = await _matchService.UpdateAsync(dto);
-            _cacheManager.Remove(CacheKeysConstants.MatchCalendarCacheConst);
+            CacheManager.Remove(CacheKeysConstants.MatchCalendarCacheConst);
             return Ok(result);
         }      
         
@@ -97,15 +89,18 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [AllowAnonymous, HttpGet("header")]
         public async Task<IActionResult> GetForHeaderAsync()
         {
-            var helpEntity = await _cacheManager.GetOrCreateAsync(CacheKeysConstants.HeaderMatchId,
-                async () => await _helperService.GetValueAsync(HelperEntityType.HeaderMatch));
+            var helpEntity = await CacheManager.GetOrCreateAsync(CacheKeysConstants.HeaderMatchId,
+                async () => (await Mediator.Send(new GetEntityQuery.Request
+                {
+                    Type = HelperEntityType.HeaderMatch
+                })).Value);
             if (!string.IsNullOrWhiteSpace(helpEntity))
             {
                 var result = await _matchService.GetByIdAsync(int.Parse(helpEntity));//todo add cache?
                 result.Events = new List<MatchEventDto>(); //not need events on UI for header
-                return Json(result);
+                return Ok(result);
             }
-            return Json(null);
+            return Ok(null);
         }
 
         /// <summary>
@@ -116,9 +111,13 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Authorize(Roles = nameof(RolesEnum.InfoStart)), HttpPut("{id:int}/setAsHeader")]
         public async Task<IActionResult> SetAsHeader(int id)
         {
-            await _helperService.CreateOrUpdateAsync(HelperEntityType.HeaderMatch, id > 0 ? id.ToString() : null);
-            _cacheManager.Remove(CacheKeysConstants.HeaderMatchId);
-            return Json(true);
+            await Mediator.Send(new CreateOrUpdateEntityCommand.Request
+            {
+                Type = HelperEntityType.HeaderMatch,
+                Value = id > 0 ? id.ToString() : null
+            });
+            CacheManager.Remove(CacheKeysConstants.HeaderMatchId);
+            return Ok(true);
         }
 
         /// <summary>
@@ -128,7 +127,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [AllowAnonymous, HttpGet("getForCalendar")]
         public async Task<IActionResult> GetForCalendarAsync()
         {
-            var result = await _cacheManager.GetOrCreateAsync(CacheKeysConstants.MatchCalendarCacheConst,
+            var result = await CacheManager.GetOrCreateAsync(CacheKeysConstants.MatchCalendarCacheConst,
                 async () => await _matchService.GetForCalendarAsync());
             return Ok(result);
         }
@@ -153,10 +152,8 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             });
 
             var model = await _matchService.GetListAsync(obj);
-            return Json(model);
+            return Ok(model);
         }
-
-
 
         /// <summary>
         /// Returns all types of matches.
@@ -180,7 +177,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Authorize(Roles = nameof(RolesEnum.InfoStart)), HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteAsync(int id)
         {
-            _cacheManager.Remove(CacheKeysConstants.MatchCalendarCacheConst);
+            CacheManager.Remove(CacheKeysConstants.MatchCalendarCacheConst);
             var result = await _matchService.DeleteAsync(id);
             return Ok(result);
         }

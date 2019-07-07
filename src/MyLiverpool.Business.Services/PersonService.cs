@@ -4,7 +4,9 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
+using MyLfc.Application.HelpEntities;
 using MyLfc.Domain;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
@@ -19,13 +21,13 @@ namespace MyLiverpool.Business.Services
     {
         private readonly IMapper _mapper;
         private readonly IGenericRepository<Person> _personRepository;
-        private readonly IHelperService _helperEntityService;
+        private readonly IMediator _mediator;
 
-        public PersonService(IMapper mapper, IHelperService helperEntityService, IGenericRepository<Person> personRepository)
+        public PersonService(IMapper mapper, IGenericRepository<Person> personRepository, IMediator mediator)
         {
             _mapper = mapper;
-            _helperEntityService = helperEntityService;
             _personRepository = personRepository;
+            _mediator = mediator;
         }
 
         public async Task<PersonDto> CreateAsync(PersonDto dto)
@@ -124,8 +126,8 @@ namespace MyLiverpool.Business.Services
         
         public async Task<PersonDto> GetBestPlayerAsync()
         {
-            var playerHelpEntity = await _helperEntityService.GetAsync(HelperEntityType.BestPlayer);
-            if (playerHelpEntity != null && int.TryParse(playerHelpEntity.Value, out int playerId))
+            var playerHelpEntity = await _mediator.Send(new GetEntityQuery.Request{Type = HelperEntityType.BestPlayer});
+            if (playerHelpEntity != null && int.TryParse(playerHelpEntity.Value, out var playerId))
             {
                 var player = await _personRepository.GetFirstByPredicateAsync(x => x.Id == playerId);
                 return _mapper.Map<PersonDto>(player);

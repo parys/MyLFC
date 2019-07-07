@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyLfc.Application.Users;
 using MyLfc.Common.Web;
-using MyLfc.Common.Web.DistributedCache;
 using MyLfc.Common.Web.OnlineCounting;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
@@ -21,23 +20,17 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     public class UsersController : BaseController
     {
         private readonly IUserService _userService;
-        private readonly IRoleService _roleService;
         private readonly IUploadService _uploadService;//todo should call remove and method move to user service
-        private readonly IDistributedCacheManager _cacheManager;
 
         /// <summary>
         /// Constructor.
         /// </summary>
         /// <param name="userService"></param>
         /// <param name="uploadService"></param>
-        /// <param name="cache"></param>
-        /// <param name="roleService"></param>
-        public UsersController(IUserService userService, IUploadService uploadService, IDistributedCacheManager cache, IRoleService roleService)
+        public UsersController(IUserService userService, IUploadService uploadService)
         {
             _userService = userService;
             _uploadService = uploadService;
-            _cacheManager = cache;
-            _roleService = roleService;
         }
         
         /// <summary>
@@ -81,7 +74,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
                 return BadRequest();
             }
             var result = await _userService.UpdateAsync(dto);
-            _cacheManager.Remove(CacheKeysConstants.UserBirthdays);
+            CacheManager.Remove(CacheKeysConstants.UserBirthdays);
             return Ok(result);
         }
 
@@ -105,18 +98,16 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <summary>
         /// Updates user group.
         /// </summary>
-        /// <param name="userId">The identifier of updatable user.</param>
-        /// <param name="roleGroupId">New role group id.</param>
+        /// <param name="request">UserId and roleGroupId.</param>
         /// <returns>Result of updating role group.</returns>
-        [Authorize(Roles = nameof(RolesEnum.AdminStart)), HttpPut("updateRoleGroup/{userId:int}/{roleGroupId:int}")]
-        public async Task<IActionResult> UpdateRole(int userId, int roleGroupId)
+        [Authorize(Roles = nameof(RolesEnum.AdminStart)), HttpPut("{userId:int}/roleGroup/{roleGroupId:int}")]
+        public async Task<IActionResult> UpdateRole([FromRoute]SetUserRoleGroupCommand.Request request)
         {
-            if (userId == User.GetUserId())
+            if (request.UserId == User.GetUserId())
             {
                 return BadRequest("Cannot update role by self.");
             }
-            var result = await _roleService.EditRoleGroupAsync(roleGroupId, userId);
-            return Ok(result);
+            return Ok(await Mediator.Send(request));
         }
         
         /// <summary>
@@ -147,7 +138,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [AllowAnonymous, HttpGet("birthdays")]
         public async Task<IActionResult> GetBirthdaysAsync()
         {
-            var result = await _cacheManager.GetOrCreateAsync(CacheKeysConstants.UserBirthdays + DateTime.Today,
+            var result = await CacheManager.GetOrCreateAsync(CacheKeysConstants.UserBirthdays + DateTime.Today,
                 async () => await Mediator.Send(new GetUserBirthdaysQuery.Request()));
             return Ok(result);
         }
@@ -223,6 +214,16 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
             }
             var result = await _userService.ResetAvatarAsync(userId);
             return Ok(new { path = result });
+        }
+
+        /// <summary>
+        /// Gets current user roles.
+        /// </summary>
+        /// <returns>List of current user roles.</returns>
+        [Authorize, HttpGet("roles")]
+        public async Task<IActionResult> GetUserRolesAsync()
+        {
+            return Ok(await Mediator.Send(new GetUserRolesQuery.Request()));
         }
     }
 }

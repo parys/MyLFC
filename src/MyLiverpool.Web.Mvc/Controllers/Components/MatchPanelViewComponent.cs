@@ -1,5 +1,7 @@
 ﻿using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using MyLfc.Application.HelpEntities;
 using MyLfc.Common.Web;
 using MyLfc.Common.Web.DistributedCache;
 using MyLiverpool.Business.Contracts;
@@ -11,20 +13,21 @@ namespace MyLiverpool.Web.Mvc.Controllers.Components
     public class MatchPanelViewComponent : ViewComponent
     {
         private readonly IMatchService _matchService;
-        private readonly IHelperService _helperService;
+        private readonly IMediator _mediator;
         private readonly IDistributedCacheManager _cacheManager;
 
-        public MatchPanelViewComponent(IMatchService matchService, IDistributedCacheManager cache, IHelperService helperService)
+        public MatchPanelViewComponent(IMatchService matchService, IDistributedCacheManager cache, IMediator mediator)
         {
             _matchService = matchService;
             _cacheManager = cache;
-            _helperService = helperService;
+            _mediator = mediator;
         }
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
             var helpEntity = await _cacheManager.GetOrCreateAsync(CacheKeysConstants.HeaderMatchId,
-                async () => await _helperService.GetValueAsync(HelperEntityType.HeaderMatch));
+            async () => (await _mediator.Send(new GetEntityQuery.Request { Type = HelperEntityType.HeaderMatch })).Value);
+
             if (!string.IsNullOrWhiteSpace(helpEntity))
             {
                 var result = await _matchService.GetByIdAsync(int.Parse(helpEntity));

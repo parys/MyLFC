@@ -1,5 +1,5 @@
 ﻿using AutoFixture;
-using MyLfc.Application.Tests.Infrastructure.Customizations.Domain;
+using MyLfc.Application.Tests.Infrastructure.Customizations.Domains;
 using MyLfc.Domain;
 using MyLfc.Persistence;
 

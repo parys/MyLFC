@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using MyLfc.Domain;
 using MyLiverpool.Business.Dto;
 
@@ -18,9 +17,7 @@ namespace MyLiverpool.Business.Contracts
         Task<User> FindAsync(string userName, string password);
 
         Task<UserDto> UpdateAsync(UserDto user);
-
-        Task<IList<string>> GetRolesAsync(int id);
-
+        
         Task<UserDto> GetUserAsync(int id);
 
         Task<string> GetUsernameAsync(int id);

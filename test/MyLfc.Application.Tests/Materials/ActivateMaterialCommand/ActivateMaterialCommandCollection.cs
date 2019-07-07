@@ -1,6 +1,6 @@
 ﻿using AutoFixture;
 using MyLfc.Application.Tests.Infrastructure;
-using MyLfc.Application.Tests.Infrastructure.Customizations.Domain;
+using MyLfc.Application.Tests.Infrastructure.Customizations.Domains;
 using MyLfc.Domain;
 using MyLiverpool.Data.Common;
 using Xunit;

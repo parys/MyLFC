@@ -1,9 +1,8 @@
 ﻿using AutoFixture;
 using MyLfc.Application.Tests.Infrastructure.FixtureBuilders;
-using MyLfc.Domain;
 using MyLiverpool.Data.Common;
 
-namespace MyLfc.Application.Tests.Infrastructure.Customizations.Domain
+namespace MyLfc.Application.Tests.Infrastructure.Customizations.Domains
 {
     public class MaterialCustomization : ICustomization
     {
@@ -20,12 +19,12 @@ namespace MyLfc.Application.Tests.Infrastructure.Customizations.Domain
         {
             fixture.Customizations.Add(new IgnoreMembers(new[]
             {
-                nameof(Material.Author),
-                nameof(Material.Category),
-                nameof(Material.Comments),
+                nameof(Domain.Material.Author),
+                nameof(Domain.Material.Category),
+                nameof(Domain.Material.Comments),
             }));
 
-            fixture.Customize<Material>(
+            fixture.Customize<Domain.Material>(
                 o => o.With(p => p.Pending, false)
                     .With(x => x.Deleted, Deleted)
                     .With(x => x.Id, 0)
