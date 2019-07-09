@@ -10,16 +10,12 @@ namespace MyLiverpool.Business.Contracts
 {
     public interface ICommentService
     {
-        Task<bool> DeleteAsync(int id);
-
         Task<CommentDto> AddAsync(CommentDto model);
 
         Task<bool> UpdateAsync(CommentDto model);
         
         Task<PageableData<CommentDto>> GetListByMaterialIdAsync(int materialId, int page);
-
-        Task<bool> VerifyAsync(int id);
-
+        
         Task<bool> UpdateVoteAsync(CommentVoteDto dto);
 
         Task<IEnumerable<CommentDto>> GetLastListAsync();

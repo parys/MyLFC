@@ -50,17 +50,14 @@ export class CommentDetailComponent implements OnInit, OnDestroy {
     }
 
     public verify(): void {
-        let result: boolean;
         this.materialCommentService
             .verify(this.item.id)
-            .subscribe(data => result = data,
-                () => {},
-                () => {
-                    if (result) {
-                        this.item.isVerified = true;
-                        this.cd.markForCheck();
-                    }
-                });
+            .subscribe(data => {
+                if (data) {
+                    this.item.isVerified = true;
+                    this.cd.markForCheck();
+                }
+            });
     }
 
     public showAddCommentModal(): void {
@@ -83,7 +80,7 @@ export class CommentDetailComponent implements OnInit, OnDestroy {
             if (result) {
                 this.delete();
             }
-        }, e => console.log(e));
+        });
     }
 
     public cancelAdding(): void {

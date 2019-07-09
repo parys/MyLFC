@@ -7,11 +7,12 @@ import { SignalRService } from "@app/+signalr";
 import { CustomTitleMetaService as CustomTitleService } from "@app/shared";
 import { PMS_ROUTE } from "@app/+constants";
 import { Pm } from "../../model/pm.model";
+import { SingleResponse } from '@app/+common-models';
 
 @Component({
     selector: "pm-counter",
     templateUrl: "./pm-counter.component.html",
-    changeDetection: ChangeDetectionStrategy.Default
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PmCounterComponent implements OnInit, OnDestroy {
     private sub: Subscription;
@@ -29,21 +30,19 @@ export class PmCounterComponent implements OnInit, OnDestroy {
     public ngOnInit(): void {
         this.updateCount();
 
-        this.signalR.readPm.subscribe((data: boolean) => {
-                this.count--;
-                this.titleService.removeCount(1);
-            },
-            () => { },
-            () => this.cd.markForCheck());
+        this.signalR.readPm.subscribe((data: any) => {
+            this.count--;
+            this.titleService.removeCount(1);
+            this.cd.markForCheck();
+        });
         this.signalR.newPm.subscribe((data: Pm) => {
                 this.count++;
                 this.titleService.addCount(1);
                 this.snackBar.open("Новое сообщение", this.action)
                     .onAction()
-                    .subscribe(_ => this.router.navigate([PMS_ROUTE, data.id]));
-            },
-            () => {},
-            () => this.cd.markForCheck());
+                .subscribe(_ => this.router.navigate([PMS_ROUTE, data.id]));
+                this.cd.markForCheck();
+            });
     }
 
     public ngOnDestroy(): void {
@@ -54,9 +53,9 @@ export class PmCounterComponent implements OnInit, OnDestroy {
 
     private updateCount() {
         this.sub = this.pmService.getUnreadCount()
-            .subscribe((data : string) => {
-                    this.count = +data;
-                if (+data > 0) {
+            .subscribe((data : SingleResponse<number>) => {
+                    this.count = data.result;
+                if (this.count  > 0) {
                     this.titleService.addCount(this.count);
                     this.snackBar
                         .open("Есть новые сообщения", this.action)

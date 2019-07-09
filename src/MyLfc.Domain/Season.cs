@@ -1,23 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using MyLfc.Domain;
 
-namespace MyLiverpool.Data.Entities
+namespace MyLfc.Domain
 {
     public class Season : IEntity
     {
-        public Season()
-        {
-            Matches = new HashSet<Match>();
-            Events = new HashSet<MatchEvent>();
-        }
         public int Id { get; set; }
 
         public int StartSeasonYear { get; set; }
 
-        public virtual ICollection<Match> Matches { get; set; }
+        public ICollection<Match> Matches { get; set; } = new HashSet<Match>();
 
-        public virtual ICollection<MatchEvent> Events { get; set; }
+        public ICollection<MatchEvent> Events { get; set; } = new HashSet<MatchEvent>();
 
         [NotMapped]
         public int EndSeasonYear => StartSeasonYear + 1;

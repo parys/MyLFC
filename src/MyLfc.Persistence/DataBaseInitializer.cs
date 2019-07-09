@@ -12,7 +12,6 @@ using Microsoft.Extensions.Options;
 using MyLfc.Domain;
 using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
-using MyLiverpool.Data.Entities;
 using OpenIddict.Abstractions;
 using OpenIddict.EntityFrameworkCore.Models;
 

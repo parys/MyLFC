@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Domain;
 using MyLfc.Domain.Polls;
-using MyLiverpool.Data.Entities;
 
 namespace MyLfc.Persistence
 {

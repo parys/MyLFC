@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using MyLfc.Domain;
 
-namespace MyLiverpool.Data.Entities
+namespace MyLfc.Domain
 {
     public class Club : IEntity
     {

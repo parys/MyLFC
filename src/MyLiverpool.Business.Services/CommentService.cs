@@ -6,7 +6,9 @@ using System.Linq.Expressions;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using AutoMapper;
+using MediatR;
 using Microsoft.AspNetCore.Http;
+using MyLfc.Application.Notifications;
 using MyLfc.Common.Web.Hubs;
 using MyLfc.Domain;
 using MyLiverpool.Business.Contracts;
@@ -14,7 +16,6 @@ using MyLiverpool.Business.Dto;
 using MyLiverpool.Common.Utilities;
 using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
-using MyLiverpool.Data.Entities;
 using MyLiverpool.Data.ResourceAccess.Interfaces;
 
 namespace MyLiverpool.Business.Services
@@ -22,51 +23,34 @@ namespace MyLiverpool.Business.Services
     public class CommentService : ICommentService
     {
         private readonly IMaterialCommentRepository _commentService;
-        private readonly INotificationService _notificationService;
+        private readonly IMediator _mediator;
         private readonly IMapper _mapper;
         private readonly IUserService _userService;
         private readonly IEmailSender _messageService;
         private readonly IHttpContextAccessor _accessor;
         private readonly ISignalRHubAggregator _signalRHubAggregator;
-        private readonly IHelperService _helperService;
 
         private const int ItemPerPage = GlobalConstants.CommentsPerPageList * 10 /*todo should be fixed*/;
 
         public CommentService(IMapper mapper, IMaterialCommentRepository commentService,
             IUserService userService, IHttpContextAccessor accessor,
-            IEmailSender messageService, INotificationService notificationService,
-            ISignalRHubAggregator signalRHubAggregator, IHelperService helperService)
+            IEmailSender messageService, ISignalRHubAggregator signalRHubAggregator,
+            IMediator mediator)
         {
             _mapper = mapper;
             _commentService = commentService;
             _userService = userService;
             _accessor = accessor;
             _messageService = messageService;
-            _notificationService = notificationService;
             _signalRHubAggregator = signalRHubAggregator;
-            _helperService = helperService;
+            _mediator = mediator;
         }
-
-        public async Task<bool> DeleteAsync(int id)
-        {
-            var comment = await _commentService.GetByIdAsync(id);
-            if (comment.Children.Any())
-            {
-                foreach (var item in comment.Children)
-                {
-                    item.Parent = comment.Parent;
-                }
-                comment.Children.ToList().ForEach(async x => await _commentService.UpdateAsync(x));
-            }
-            await _commentService.DeleteAsync(id);
-            return true;
-        }
-
+        
         public async Task<CommentDto> AddAsync(CommentDto model)
         {
             var comment = _mapper.Map<MaterialComment>(model);
             comment.AdditionTime = comment.LastModified = DateTime.Now;
-            comment.Message = await _helperService.SanitizeRudWordsAsync(comment.Message);
+    //todo        comment.Message = await _helperService.SanitizeRudWordsAsync(comment.Message);
             try
             {
                 comment = await _commentService.AddAsync(comment);
@@ -94,7 +78,7 @@ namespace MyLiverpool.Business.Services
             }
             comment.LastModified = DateTime.Now;
             comment.Answer = model.Answer;
-            comment.Message = await _helperService.SanitizeRudWordsAsync(model.Message);
+          //todo  comment.Message = await _helperService.SanitizeRudWordsAsync(model.Message);
             try
             {
                 await _commentService.UpdateAsync(comment);
@@ -135,14 +119,6 @@ namespace MyLiverpool.Business.Services
         public async Task<int> CountAsync(Expression<Func<MaterialComment, bool>> filter = null)
         {
             return await _commentService.GetCountAsync(filter);
-        }
-
-        public async Task<bool> VerifyAsync(int id)
-        {
-            var comment = await _commentService.GetByIdAsync(id);
-            comment.IsVerified = true;
-            await _commentService.UpdateAsync(comment);
-            return true;
         }
 
         public async Task<bool> UpdateVoteAsync(CommentVoteDto dto)
@@ -229,17 +205,16 @@ namespace MyLiverpool.Business.Services
 
         private async Task SendNotificationAsync(MaterialComment parentComment, int commentId, string authorUserName, string commentText)
         {
-            var notification = new NotificationDto
+            var notification = new CreateNotificationCommand.Request
             {
                 DateTime = DateTimeOffset.Now,
                 UserId = parentComment.AuthorId,
                 Type = (NotificationType)parentComment.Type,
                 EntityId = parentComment.MaterialId ?? parentComment.MatchId,
-                IsRead = false,
                 CommentId = commentId,
                 Text = $"Пользователь {authorUserName} оставил ответ на ваш комментарий: \"{commentText}\"."
             };
-            var notificationDto = await _notificationService.CreateAsync(notification);
+            var notificationDto = await _mediator.Send(notification);
             _signalRHubAggregator.SendToUser(HubEndpointConstants.NewNotifyEndpoint, notificationDto, parentComment.AuthorId);
         }
 

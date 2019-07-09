@@ -2,7 +2,7 @@
 using System.Linq;
 using AutoFixture;
 using MyLfc.Application.Tests.Infrastructure;
-using MyLfc.Application.Tests.Infrastructure.Customizations.Domain;
+using MyLfc.Application.Tests.Infrastructure.Customizations.Domains;
 using MyLfc.Domain;
 using MyLiverpool.Data.Common;
 using Xunit;
@@ -20,6 +20,9 @@ namespace MyLfc.Application.Tests.Materials
         public static int MaterialCategoryId => MaterialCategories[0].Id;
 
         public static int MaterialWithComments => Materials[1].Id;
+
+        public static int DeletedMaterial => Materials[2].Id;
+        public static int PendingMaterial => Materials[3].Id;
 
         public static List<User> Users { get; private set; }
 
@@ -59,6 +62,9 @@ namespace MyLfc.Application.Tests.Materials
 
             materials.ForEach(x => x.AuthorId = UserId);
             materials.ForEach(x => x.CategoryId = MaterialCategoryId);
+
+            materials[2].Deleted = true;
+            materials[3].Pending = true;
 
             Context.Materials.AddRange(materials);
             Context.SaveChanges();

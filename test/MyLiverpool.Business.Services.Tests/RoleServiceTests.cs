@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using FluentAssertions;
 using FluentAssertions.Common;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -16,8 +15,6 @@ using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Common.Mappings;
 using MyLiverpool.Data.Common;
-using MyLiverpool.Data.Entities;
-using MyLiverpool.Data.ResourceAccess;
 using MyLiverpool.Data.ResourceAccess.Interfaces;
 using MyLiverpool.Data.ResourceAccess.Repositories;
 
@@ -34,17 +31,9 @@ namespace MyLiverpool.Business.Services.Tests
             InitRoles();
             UserRepository = new UserRepository(Context, GetUserManager());
             RoleService = new RoleService(new GenericRepository<RoleGroup>(GetFakeContextWithRolesAndRoleGroups()),
-                MapperConfig.GetConfiration.CreateMapper(), UserRepository);
+                MapperConfig.GetConfiration.CreateMapper());
         }
-
-        [Theory, ClassData(typeof(GetUserRolesTestData))]
-        public async void GetUserRolesAsync(int userId, string expected)
-        {
-            var result = await RoleService.GetUserRolesAsync(userId);
-            
-            result.IsSameOrEqualTo(expected);
-        }
-
+        
         [Theory, ClassData(typeof(GetRoleGroupsDtoTestData))]
         public async void GetRoleGroupsDtoAsync(IEnumerable<RoleGroupDto> expected)
         {
@@ -53,18 +42,7 @@ namespace MyLiverpool.Business.Services.Tests
             result.Count().IsSameOrEqualTo(expected.Count());
             result.IsSameOrEqualTo(expected);
         }
-
-        [Theory, ClassData(typeof(GetEditRoleGroupTestData))]
-        public async void EditRoleGroupAsync(int newRoleGroup, int userId, bool expected)
-        {
-            var oldRoles = await UserRepository.GetRolesAsync(userId);
-            var result = await RoleService.EditRoleGroupAsync(newRoleGroup, userId);
-            var newRoles = await UserRepository.GetRolesAsync(userId);
-            
-            (oldRoles != newRoles).Should().BeTrue();
-            result.IsSameOrEqualTo(expected);
-        }
-
+        
         public void Dispose()
         {
             Console.WriteLine("RoleServiceTests.Dispose()");
@@ -177,59 +155,6 @@ namespace MyLiverpool.Business.Services.Tests
             {
                 RoleDataGenerator.GetRoleGroupDtos()
             }
-        };
-    }
-
-
-    public class GetEditRoleGroupTestData : ClassTestData
-    {
-        protected override List<object[]> TestData => new List<object[]>
-        {
-            new object[]
-            {
-                1,
-                2,
-                true
-            },
-            new object[]
-            {
-                1,
-                3,
-                true
-            },
-            new object[]
-            {
-                2,
-                3,
-                true
-            }
-        };
-    }
-
-    public class GetUserRolesTestData : ClassTestData
-    {
-        protected override List<object[]> TestData => new List<object[]>
-        {
-            new object[]
-            {
-                112,
-                string.Empty,
-            },
-            new object[]
-            {
-                3,
-                string.Join(", ", RolesEnum.Simple.ToString(), RolesEnum.NewsFull.ToString(), RolesEnum.AdminFull.ToString())
-            },
-            new object[]
-            {
-                1,
-                string.Join(", ", RolesEnum.Simple.ToString())
-            },
-            new object[]
-            {
-                2,
-                string.Join(", ", RolesEnum.Simple.ToString(), RolesEnum.NewsFull.ToString())
-            },
         };
     }
 }

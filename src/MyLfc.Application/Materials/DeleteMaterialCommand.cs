@@ -13,13 +13,13 @@ namespace MyLfc.Application.Materials
 {
     public class DeleteMaterialCommand
     {
-        public class Request : IRequest
+        public class Request : IRequest<Response>
         {
             public int Id { get; set; }
         }
 
 
-        public class Handler : IRequestHandler<Request, Unit>
+        public class Handler : IRequestHandler<Request, Response>
         {
             private readonly LiverpoolContext _context;
 
@@ -31,7 +31,7 @@ namespace MyLfc.Application.Materials
                 _requestContext = requestContext;
             }
 
-            public async Task<Unit> Handle(Request request, CancellationToken cancellationToken)
+            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
                 var material = await _context.Materials
                     .Include(x => x.Comments)
@@ -55,8 +55,13 @@ namespace MyLfc.Application.Materials
                 }
 
                 await _context.SaveChangesAsync(cancellationToken);
-                return Unit.Value;
+                return new Response {Id = material.Id};
             }
+        }
+
+        public class Response
+        {
+            public int Id { get; set; }
         }
     }
 }

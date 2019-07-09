@@ -71,39 +71,13 @@ namespace MyLfc.Application.Materials
 
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return _mapper.Map<Response>(material);
+                return new Response {Id = material.Id};
             }
         }
 
         public class Response
         {
-            public int CategoryId { get; set; }
-
-            public int UserId { get; set; }
-
-            public string Title { get; set; }
-
-            public string Brief { get; set; }
-
-            public string Message { get; set; }
-
-            public string Source { get; set; }
-
-            public string Photo { get; set; }
-
-            public string PhotoPreview { get; set; }
-
-            public bool Pending { get; set; }
-
-            public bool OnTop { get; set; }
-
-            public bool CanCommentary { get; set; }
-
-            public MaterialType Type { get; set; }
-
-            public bool UsePhotoInBody { get; set; }
-
-            public string Tags { get; set; }
+            public int Id { get; set; }
         }
     }
 }

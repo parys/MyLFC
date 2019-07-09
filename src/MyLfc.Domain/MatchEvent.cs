@@ -1,6 +1,5 @@
 ﻿using System;
 using MyLiverpool.Data.Common;
-using MyLiverpool.Data.Entities;
 
 namespace MyLfc.Domain
 {

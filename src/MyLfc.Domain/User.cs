@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Identity;
-using MyLiverpool.Data.Entities;
 
 namespace MyLfc.Domain
 {

@@ -1,9 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using MyLfc.Domain;
 using MyLiverpool.Business.Dto;
-using MyLiverpool.Business.Dto.Filters;
-using MyLiverpool.Data.Common;
 
 namespace MyLiverpool.Business.Contracts
 {
@@ -12,9 +9,7 @@ namespace MyLiverpool.Business.Contracts
         Task<bool> BanUser(int userId, int banDayCount);
 
         Task<bool> UnbanUser(int userId);
-
-        Task<PageableData<UserMiniDto>> GetUsersDtoAsync(UserFiltersDto dto);
-
+        
         Task<string> GetPhotoPathAsync(int userId);
 
         Task<bool> UpdatePhotoPathAsync(int userId, string photo);
@@ -22,9 +17,7 @@ namespace MyLiverpool.Business.Contracts
         Task<User> FindAsync(string userName, string password);
 
         Task<UserDto> UpdateAsync(UserDto user);
-
-        Task<IList<string>> GetRolesAsync(int id);
-
+        
         Task<UserDto> GetUserAsync(int id);
 
         Task<string> GetUsernameAsync(int id);
@@ -36,7 +29,5 @@ namespace MyLiverpool.Business.Contracts
         Task<UserConfigDto> GetUserConfigAsync(int userId);
 
         Task<UserConfigDto> UpdateUserConfigAsync(UserConfigDto config, int currentUserId);
-
-        Task<IEnumerable<UserMiniDto>> GetBirthdaysAsync();
     }
 }

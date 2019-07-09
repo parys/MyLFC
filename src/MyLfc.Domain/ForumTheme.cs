@@ -1,17 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using MyLfc.Domain;
 
-namespace MyLiverpool.Data.Entities
+namespace MyLfc.Domain
 {
     public class ForumTheme : IEntity
     {
-        public ForumTheme()
-        {
-            this.Messages = new HashSet<ForumMessage>();
-        }
-
         public int Id { get; set; }
 
         public int IdOld { get; set; }
@@ -44,7 +38,7 @@ namespace MyLiverpool.Data.Entities
 
         public int LastAnswerUserId { get; set; }
 
-        public virtual ICollection<ForumMessage> Messages { get; set; }
+        public virtual ICollection<ForumMessage> Messages { get; set; } = new HashSet<ForumMessage>();
 
         [NotMapped]
         public int MessagesCount { get; set; }

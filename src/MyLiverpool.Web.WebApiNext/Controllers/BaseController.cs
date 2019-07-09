@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
+using MyLfc.Common.Web.DistributedCache;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
 {
@@ -19,10 +20,16 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     public class BaseController : ControllerBase
     {
         private IMediator _mediator;
+        private IDistributedCacheManager _cacheManager;
 
         /// <summary>
         /// Returns existing or new mediator entity.
         /// </summary>
         protected IMediator Mediator => _mediator ?? (_mediator = HttpContext.RequestServices.GetService<IMediator>());
+        
+        /// <summary>
+        /// Returns existing or new cache manager.
+        /// </summary>
+        protected IDistributedCacheManager CacheManager => _cacheManager ?? (_cacheManager = HttpContext.RequestServices.GetService<IDistributedCacheManager>());
     }
 }

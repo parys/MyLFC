@@ -37,14 +37,22 @@ namespace MyLfc.Application.Users
             {
                 var users = _context.Users.AsNoTracking();
 
-                var user = await users.ProjectTo<Response>(_mapper.ConfigurationProvider)
+                var user = await users
+                //    .ProjectTo<Response>(_mapper.ConfigurationProvider)
                     .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
                 if (user == null)
                 {
                     throw new NotFoundException(nameof(User), request.Id);
                 }
 
-                return user;
+                if (!request.IsModerator)
+                {
+                    user.Ip = string.Empty;
+                    user.Email = string.Empty;
+                }
+
+             //   return user;
+                return _mapper.Map<Response>(user);
             }
         }
 

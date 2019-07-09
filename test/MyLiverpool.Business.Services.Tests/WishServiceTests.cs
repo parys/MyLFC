@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using FluentAssertions.Common;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Domain;
@@ -41,17 +40,6 @@ namespace MyLiverpool.Business.Services.Tests
 
             result.IsSameOrEqualTo(expected);
 		}
-
-        [Theory(Skip = ""), ClassData(typeof(WishGetListTestData))]
-        public async void GetListWish(int page, List<WishDto> expected, int expectedCount, int? typeId = null, string filterText = null)
-        {
-            var result = await _wishService.GetListAsync(page, typeId, filterText);
-
-         //   Assert.Equal(expectedCount, result.TotalItems);//bug list gets initial with created count
-            Assert.Equal(page, result.PageNo);
-
-            result.List.IsSameOrEqualTo(expected);
-        }
 
         [Theory, ClassData(typeof(WishDeleteTestData))]
         public async void DeleteWish(int wishId, bool expected)
@@ -121,46 +109,7 @@ namespace MyLiverpool.Business.Services.Tests
             },
         };
     }
-    public class WishGetListTestData : ClassTestData
-    {
-        protected override List<object[]> TestData => new List<object[]>
-        {
-            new object[]
-            {
-                1,
-                WishDataGenerator.GetWishDtos(),
-                5
-            },
-            new object[]
-            {
-                5,
-                new List<WishDto>(),
-                5
-            },
-            new object[]
-            {
-                10,
-                new List<WishDto>(),
-                5
-            },
-            new object[]
-            {
-                1,
-                WishDataGenerator.GetWishDtos().Where(w => w.Type == 3).ToList(),
-                3,
-                3
-            },
-            new object[]
-            {
-                1,
-                WishDataGenerator.GetWishDtos().Where(w => w.Message.Contains("help")).ToList(),
-                3,
-                null,
-                "help"
-            }
-        };
-    }
-
+  
     public class WishDeleteTestData : ClassTestData
     {
         protected override List<object[]> TestData => new List<object[]>

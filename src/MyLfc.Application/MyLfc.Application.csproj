@@ -10,14 +10,21 @@
     <PackageReference Include="FluentValidation" Version="8.4.0" />
     <PackageReference Include="MediatR" Version="7.0.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.6" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MyLfc.Common.Web\MyLfc.Common.Web.csproj" />
     <ProjectReference Include="..\MyLfc.Domain\MyLfc.Domain.csproj" />
     <ProjectReference Include="..\MyLfc.Persistence\MyLfc.Persistence.csproj" />
+    <ProjectReference Include="..\MyLiverpool.Business.Contracts\MyLiverpool.Business.Contracts.csproj" />
     <ProjectReference Include="..\MyLiverpool.Data.Common\MyLiverpool.Data.Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="RoleGroup\" />
   </ItemGroup>
 
 </Project>

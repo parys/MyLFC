@@ -8,6 +8,7 @@ import { RolesCheckedService } from "@app/+auth";
 import { SignalRService } from "@app/+signalr";
 import { CustomTitleMetaService } from "@app/shared";
 import { NOTIFICATIONS_ROUTE } from "@app/+constants";
+import { SingleResponse } from '@app/+common-models';
 
 @Component({
     selector: "notification-counter",
@@ -31,11 +32,10 @@ export class NotificationCounterComponent implements OnInit, OnDestroy {
         this.updateCount();
 
         this.signalR.readNotify.subscribe((data: number) => {
-                this.count -= data;
+            this.count -= data;
+            this.cd.markForCheck();
                 this.titleService.removeCount(data);
-            },
-            () => {},
-            () => this.cd.markForCheck());
+            });
         this.signalR.newNotify.subscribe((data: Notification) => {
                 this.count++;
                 this.titleService.addCount(1);
@@ -46,11 +46,9 @@ export class NotificationCounterComponent implements OnInit, OnDestroy {
                             this.router.navigate([`/${data.typeName}/${data.entityId}`],
                                 { fragment: data.commentId ? `com${data.commentId}` : "" }));
                     });
-        },
-            () => {},
-            () => {
+
                 this.cd.markForCheck();
-            });
+        });
     }
 
     public ngOnDestroy(): void {
@@ -59,9 +57,9 @@ export class NotificationCounterComponent implements OnInit, OnDestroy {
 
     private updateCount() {
         this.sub = this.service.getUnreadCount()
-            .subscribe(data => {
-                    this.count = +data;
-                    if (+data > 0) {
+            .subscribe((data: SingleResponse<number>) => {
+                    this.count = data.result;
+                    if (this.count > 0) {
                         this.titleService.addCount(this.count);
                         this.snackBar.open("Есть новые уведомления", this.action)
                             .onAction()

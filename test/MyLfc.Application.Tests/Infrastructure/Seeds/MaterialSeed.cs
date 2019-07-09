@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using AutoFixture;
-using MyLfc.Application.Tests.Infrastructure.Customizations.Domain;
+using MyLfc.Application.Tests.Infrastructure.Customizations.Domains;
 using MyLfc.Domain;
 using MyLfc.Persistence;
 using MyLiverpool.Data.Common;

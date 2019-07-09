@@ -32,7 +32,7 @@ namespace MyLfc.Application.Transfers
                 
                 if (transfer == null)
                 {
-                    throw new NotFoundException(nameof(Material), request.Id);
+                    throw new NotFoundException(nameof(Transfer), request.Id);
                 }
 
                 _context.Transfers.Remove(transfer);

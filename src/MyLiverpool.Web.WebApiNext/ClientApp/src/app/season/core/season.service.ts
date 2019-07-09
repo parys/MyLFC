@@ -4,6 +4,7 @@ import { HttpWrapper } from "@app/+httpWrapper";
 import { Season, PersonStatistics, SeasonFilters } from "../model";
 import { SEASONS_ROUTE } from "@app/+constants";
 import { BaseRestService } from "@app/+infrastructure";
+import { PagedList } from '@app/shared';
 
 @Injectable()
 export class SeasonService extends BaseRestService<Season, SeasonFilters> {
@@ -13,8 +14,8 @@ export class SeasonService extends BaseRestService<Season, SeasonFilters> {
         super(http, SEASONS_ROUTE + "/");
     }
 
-    public getAllWithoutFilter(): Observable<Season[]> {
-        return this.http.get<Season[]>(`${this.actionUrl}`);
+    public getAllWithoutFilter(): Observable<PagedList<Season>> {
+        return this.http.get<PagedList<Season>>(`${this.actionUrl}`);
     };
     
     public getSingleWithMatches(seasonId: number): Observable<Season> {

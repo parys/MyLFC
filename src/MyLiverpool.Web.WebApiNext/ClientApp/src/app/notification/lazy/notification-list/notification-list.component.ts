@@ -2,6 +2,7 @@
 import { Router } from "@angular/router";
 import { Notification } from "@app/notification/model";
 import { NotificationService } from "@app/notification/core";
+import { ManyResponse } from '@app/+common-models';
 
 @Component({
         selector: "notification-list",
@@ -19,7 +20,7 @@ export class NotificationListComponent implements OnInit {
     public ngOnInit(): void {
         this.service
             .getAll()
-            .subscribe((data: Notification[]) => this.items = data);
+            .subscribe((data: ManyResponse<Notification>) => this.items = data.results);
     }
 
     public read(index: number): void {

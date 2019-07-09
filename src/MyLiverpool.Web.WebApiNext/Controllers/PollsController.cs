@@ -1,9 +1,7 @@
 ﻿using System.Threading.Tasks;
-using AspNet.Security.OAuth.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MyLiverpool.Business.Contracts;
-using MyLiverpool.Business.Dto.Polls;
+using MyLfc.Application.Polls;
 using MyLiverpool.Data.Common;
 
 namespace MyLiverpool.Web.WebApiNext.Controllers
@@ -11,72 +9,56 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
     /// <summary>
     /// Manages polls.
     /// </summary>
- //   [Authorize(AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme, Roles = nameof(RolesEnum.NewsStart)), Route("api/v1/[controller]")]
-    [AllowAnonymous, Route("api/v1/[controller]")]
-    public class PollsController : Controller
+    public class PollsController : BaseController
     {
-        private readonly IPollService _pollService;
-
-        /// <summary>
-        /// Constructor.
-        /// </summary>
-        /// <param name="pollService"></param>
-        public PollsController(IPollService pollService)
-        {
-            _pollService = pollService;
-        }
-
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="request"></param>
         /// <returns></returns>
         [AllowAnonymous, HttpGet("")]
-        public async Task<JsonResult> GetListAsync()
+        public async Task<IActionResult> GetListAsync([FromQuery]GetPollListQuery.Request request)
         {
-            var result = await _pollService.GetListAsync();
-            return Json(result);
+            return Ok(await Mediator.Send(request));
         }
 
         /// <summary>
         /// Returns poll by id.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="request"></param>
         /// <returns></returns>
         [AllowAnonymous, HttpGet("{id:int}")]
-        public async Task<JsonResult> GetAsync(int id)
+        public async Task<IActionResult> GetAsync([FromQuery]GetPollDetailQuery.Request request)
         {
-            var result = await _pollService.GetByIdAsync(id);
-            return Json(result);
+            return Ok(await Mediator.Send(request));
         }
 
         /// <summary>
         /// Creates new poll.
         /// </summary>
-        /// <param name="dto"></param>
+        /// <param name="request"></param>
         /// <returns></returns>
-      //  [Authorize(), HttpPost("")]
+        [Authorize(Roles = nameof(RolesEnum.InfoStart))]
         [HttpPost("")]
-        public async Task<JsonResult> CreateAsync([FromBody] PollDto dto)
+        public async Task<IActionResult> CreateAsync([FromBody] CreatePollCommand.Request request)
         {
-            var result = await _pollService.CreateAsync(dto);
-            return Json(result);
+            return Ok(await Mediator.Send(request));
         }
 
         /// <summary>
         /// Updates poll.
         /// </summary>
         /// <param name="id"></param>
-        /// <param name="dto"></param>
+        /// <param name="request"></param>
         /// <returns></returns>
         [HttpPut("{id:int}")]
-        public async Task<IActionResult> UpdateAsync(int id, [FromBody] PollDto dto)
+        public async Task<IActionResult> UpdateAsync(int id, [FromBody] UpdatePollCommand.Request request)
         {
-            if (id != dto.Id || !ModelState.IsValid)
+            if (id != request.Id)
             {
                 return BadRequest();
             }
-            var result = await _pollService.UpdateAsync(dto);
-            return Json(result);
+            return Ok(await Mediator.Send(request));
         }
     }
 }

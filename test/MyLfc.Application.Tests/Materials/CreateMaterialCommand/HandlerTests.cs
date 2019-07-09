@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using AutoFixture;
 using FluentAssertions;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Persistence;
 using MyLiverpool.Data.Common;
@@ -22,7 +21,7 @@ namespace MyLfc.Application.Tests.Materials.CreateMaterialCommand
 
         public HandlerTests(CreateMaterialCommandTestFixture fixture)
         {
-            _handler = new Handler(fixture.Context, fixture.RequestContext, fixture.Mapper);
+            _handler = new Handler(fixture.Context, fixture.AdminRequestContext, fixture.Mapper);
             _context = fixture.Context;
         }
 

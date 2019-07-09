@@ -3,7 +3,6 @@ using MyLfc.Domain;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Common.Utilities.Extensions;
 using MyLiverpool.Data.Common;
-using MyLiverpool.Data.Entities;
 
 namespace MyLiverpool.Business.Services.Tests.Helpers
 {

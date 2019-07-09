@@ -1,6 +1,4 @@
-﻿using MyLiverpool.Data.Entities;
-
-namespace MyLfc.Domain
+﻿namespace MyLfc.Domain
 {
     public class RoleRoleGroup //temporary for non MtoM in ef core
     {

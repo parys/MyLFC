@@ -1,23 +1,17 @@
 ﻿using System.Collections.Generic;
-using MyLfc.Domain;
 
-namespace MyLiverpool.Data.Entities
+namespace MyLfc.Domain
 {
-    public class RoleGroup: IEntity
+    public class RoleGroup : IEntity
     {
-        public RoleGroup()
-        {
-            RoleGroups = new HashSet<RoleRoleGroup>();
-            Users = new HashSet<User>();
-        }
         public int Id { get; set; }
 
         public string Name { get; set; }
 
         public string RussianName { get; set; }
 
-        public virtual ICollection<RoleRoleGroup> RoleGroups { get; set; } 
+        public ICollection<RoleRoleGroup> RoleGroups { get; set; } = new HashSet<RoleRoleGroup>();
 
-        public virtual ICollection<User> Users { get; set; } 
+        public ICollection<User> Users { get; set; } = new HashSet<User>();
     }
 }
