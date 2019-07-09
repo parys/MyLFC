@@ -16,6 +16,7 @@ namespace MyLfc.Application.Tests.Pms
     public class PmQueryTestFixture : BaseTestFixture
     {
         public static int UserId { get; set; }
+        public static int SecondUserId { get; set; }
         public static PrivateMessage ImmutablePrivateMessage => PrivateMessages[0];
         public static PrivateMessage PrivateMessageForRead => PrivateMessages[1];
         public static PrivateMessage PrivateMessageThatNotRelatedToAdmin => PrivateMessages[3];
@@ -46,6 +47,8 @@ namespace MyLfc.Application.Tests.Pms
 
             privateMessages[2].SenderId = 1;
             privateMessages[2].ReceiverId = UserId;
+            privateMessages[3].SenderId = UserId;
+            privateMessages[3].ReceiverId = SecondUserId;
             privateMessages[4].ReceiverId = 1;
             privateMessages[4].SenderId = UserId;
 
@@ -57,12 +60,15 @@ namespace MyLfc.Application.Tests.Pms
 
         private void SeedUser()
         {
-            var user = new Fixture().Customize(new UserCustomization()).Create<User>();
+            var users = new Fixture()
+                .Customize(new UserCustomization())
+                .CreateMany<User>(2).ToList();
 
-            Context.Users.Add(user);
+            Context.Users.AddRange(users);
             Context.SaveChanges();
 
-            UserId = user.Id;
+            UserId = users[0].Id;
+            SecondUserId = users[1].Id;
         }
     }
 }
