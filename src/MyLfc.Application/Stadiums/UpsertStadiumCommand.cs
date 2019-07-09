@@ -16,9 +16,13 @@ namespace MyLfc.Application.Stadiums
         {
             protected Validator()
             {
-                //RuleFor(x => x)
-                //    .Must(x => x.StartDate.UtcTicks <= x.FinishDate.Value.UtcTicks)
-                //    .When(x => x.FinishDate.HasValue);
+                RuleFor(x => x.Name)
+                    .NotNull()
+                    .MaximumLength(50);
+
+                RuleFor(x => x.City)
+                    .NotNull()
+                    .MaximumLength(50);
             }
         }
     }

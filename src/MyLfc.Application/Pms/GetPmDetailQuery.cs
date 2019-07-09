@@ -1,11 +1,12 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure;
+using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Common.Web.Hubs;
+using MyLfc.Domain;
 using MyLfc.Persistence;
 
 namespace MyLfc.Application.Pms
@@ -36,7 +37,6 @@ namespace MyLfc.Application.Pms
                 _signalRHub = signalRHub;
             }
 
-
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
                 var message = await _context.PrivateMessages
@@ -46,7 +46,7 @@ namespace MyLfc.Application.Pms
 
                 if (message == null || message.ReceiverId != _requestContext.UserId && message.SenderId != _requestContext.UserId)
                 {
-                    throw new UnauthorizedAccessException();
+                    throw new NotFoundException(nameof(PrivateMessage), request.Id);
                 }
 
                 if (!message.IsRead && message.ReceiverId == _requestContext.UserId)

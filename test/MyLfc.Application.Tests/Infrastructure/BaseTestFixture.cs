@@ -25,7 +25,6 @@ namespace MyLfc.Application.Tests.Infrastructure
                 UserId = 1,
                 User = new ClaimsPrincipal(new ClaimsIdentity(GetClaims(), 
                     "Identity.Application", "name", "role"))
-                
             };
         }
 

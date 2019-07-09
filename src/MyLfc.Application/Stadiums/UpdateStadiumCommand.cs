@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure.Exceptions;
@@ -16,11 +17,11 @@ namespace MyLfc.Application.Stadiums
             public int Id { get; set; }
         }
 
-        public class Validator : UpsertStadiumCommand.Validator<UpsertStadiumCommand.Request>
+        public class Validator : UpsertStadiumCommand.Validator<Request>
         {
-            public Validator() : base()
+            public Validator()
             {
-              //  RuleFor(v => v.Id).NotEmpty();
+                RuleFor(v => v.Id).GreaterThan(0);
             }
         }
 
@@ -50,17 +51,12 @@ namespace MyLfc.Application.Stadiums
 
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return _mapper.Map<Response>(stadium.Id);
+                return new Response {Id = stadium.Id};
             }
         }
 
         public class Response
         {
-            public Response(int id)
-            {
-                Id = id;
-            }
-
             public int Id { get; set; }
         }
     }
