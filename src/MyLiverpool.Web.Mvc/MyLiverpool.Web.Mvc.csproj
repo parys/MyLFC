@@ -66,6 +66,7 @@
     <ProjectReference Include="..\MyLiverpool.Business.Contracts\MyLiverpool.Business.Contracts.csproj" />
     <ProjectReference Include="..\MyLiverpool.Business.DtoNext\MyLiverpool.Business.Dto.csproj" />
     <ProjectReference Include="..\MyLiverpool.Business.Services\MyLiverpool.Business.Services.csproj" />
+    <ProjectReference Include="..\MyLiverpool.Common.Mappings\MyLiverpool.Common.Mappings.csproj" />
     <ProjectReference Include="..\MyLiverpool.Common.Utilities\MyLiverpool.Common.Utilities.csproj" />
     <ProjectReference Include="..\MyLiverpool.Data.Common\MyLiverpool.Data.Common.csproj" />
   </ItemGroup>

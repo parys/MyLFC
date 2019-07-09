@@ -20,7 +20,7 @@ namespace MyLfc.Application.Tests.Materials.DeleteMaterialCommand
         
         public DeleteMaterialCommandTestFixture()
         {
-            Materials = MaterialSeed.Seed(Context);
+            Materials = MaterialSeeder.Seed(Context);
             SeedMaterials();
         }
 

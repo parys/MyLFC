@@ -25,7 +25,7 @@ namespace MyLfc.Application.Tests.Pms
 
         public PmQueryTestFixture()
         {
-            UserSeed.Seed(Context);
+            UserSeeder.Seed(Context);
             SeedUser();
             SeedPms();
         }

@@ -6,13 +6,18 @@ using MyLfc.Persistence;
 
 namespace MyLfc.Application.Tests.Infrastructure.Seeds
 {
-    public class UserSeed
+    public class UserSeeder
     {
         public static void Seed(LiverpoolContext context)
         {
             var users = new Fixture()
                 .Customize(new UserCustomization())
-                .CreateMany<User>(3).ToList();
+                .CreateMany<User>(3)
+                .Select(x =>
+                {
+                    x.RoleGroupId = RoleGroupsSeeder.DefaultRoleGroupId;
+                    return x;
+                }).ToList();
 
             users[0].Id = 1;
 

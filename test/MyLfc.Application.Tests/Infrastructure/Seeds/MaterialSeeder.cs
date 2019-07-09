@@ -8,7 +8,7 @@ using MyLiverpool.Data.Common;
 
 namespace MyLfc.Application.Tests.Infrastructure.Seeds
 {
-    public class MaterialSeed
+    public class MaterialSeeder
     {
         public static List<Material> Seed(LiverpoolContext context)
         {

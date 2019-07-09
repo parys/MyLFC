@@ -20,9 +20,9 @@ namespace MyLfc.Application.Tests.Materials.UpdateMaterialCommand
         
         public UpdateMaterialCommandTestFixture()
         {
-            MaterialCategorySeed.Seed(Context);
-            Materials = MaterialSeed.Seed(Context);
-            UserSeed.Seed(Context);
+            MaterialCategorySeeder.Seed(Context);
+            Materials = MaterialSeeder.Seed(Context);
+            UserSeeder.Seed(Context);
             SeedMaterials();
         }
 

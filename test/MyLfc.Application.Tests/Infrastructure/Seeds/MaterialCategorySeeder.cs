@@ -7,7 +7,7 @@ using MyLiverpool.Data.Common;
 
 namespace MyLfc.Application.Tests.Infrastructure.Seeds
 {
-    public class MaterialCategorySeed
+    public class MaterialCategorySeeder
     {
         public static int DefaultCategoryId { get; set; }
 

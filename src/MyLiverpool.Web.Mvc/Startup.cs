@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.IO.Compression;
@@ -16,6 +15,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using MyLfc.Application.Infrastructure;
+using MyLfc.Application.Infrastructure.Profiles;
 using MyLfc.Common.Web;
 using MyLfc.Common.Web.Hubs;
 using MyLiverpool.Business.Services.Helpers;
@@ -24,6 +24,7 @@ using MyLiverpool.Data.ResourceAccess.Helpers;
 using Newtonsoft.Json.Serialization;
 using MyLfc.Common.Web.Middlewares;
 using MyLfc.Persistence;
+using MyLiverpool.Common.Mappings;
 
 namespace MyLiverpool.Web.Mvc
 {
@@ -91,7 +92,7 @@ namespace MyLiverpool.Web.Mvc
             var context = (LiverpoolContext)services.BuildServiceProvider().GetService(typeof(LiverpoolContext));
             context.Database.Migrate();
 
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddAutoMapper(typeof(MaterialProfile), typeof(WishMapperProfile));
             services.AddMediatR();
             services.AddMvc();
         }

@@ -24,8 +24,7 @@ export class SeasonStatisticsComponent implements OnInit {
         });
 
         this.seasonService.getAllWithoutFilter()
-            .subscribe(data => this.seasons = data,
-                e => console.log(e));
+            .subscribe(data => this.seasons = data.results);
 
         this.update(0, true);
     }
@@ -37,7 +36,6 @@ export class SeasonStatisticsComponent implements OnInit {
                     if (selectUpdate) {
                         this.seasonSelect.value = data;
                     }
-                },
-                e => console.log(e));
+                });
     }
 }

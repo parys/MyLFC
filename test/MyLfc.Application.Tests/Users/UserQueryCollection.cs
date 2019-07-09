@@ -4,6 +4,7 @@ using System.Linq;
 using AutoFixture;
 using MyLfc.Application.Tests.Infrastructure;
 using MyLfc.Application.Tests.Infrastructure.Customizations.Domains;
+using MyLfc.Application.Tests.Infrastructure.Seeds;
 using MyLfc.Domain;
 using MyLiverpool.Data.Common;
 using Xunit;
@@ -32,6 +33,7 @@ namespace MyLfc.Application.Tests.Users
 
         public UserQueryTestFixture()
         {
+            RoleGroupsSeeder.Seed(Context);
             SeedUsers();
             SeedMaterialCategories();
             SeedMaterials();
@@ -42,7 +44,11 @@ namespace MyLfc.Application.Tests.Users
         {
             var users = new Fixture()
                 .Customize(new UserCustomization())
-                .CreateMany<User>(5).ToList();
+                .CreateMany<User>(5).Select(x =>
+                {
+                    x.RoleGroupId = RoleGroupsSeeder.DefaultRoleGroupId;
+                    return x;
+                }).ToList();
 
             users[0].Birthday = DateTimeOffset.UtcNow;
             users[0].LastModified = DateTimeOffset.UtcNow;

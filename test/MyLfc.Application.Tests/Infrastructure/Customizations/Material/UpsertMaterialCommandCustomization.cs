@@ -17,7 +17,7 @@ namespace MyLfc.Application.Tests.Infrastructure.Customizations.Material
                 .With(x => x.Source, () => Generator.Generate(nameof(UpsertMaterialCommand.Request.Source), 50))
                 .With(x => x.Tags, () => Generator.Generate(nameof(UpsertMaterialCommand.Request.Tags), 50))
                 .With(x => x.Title, () => Generator.Generate(nameof(UpsertMaterialCommand.Request.Title), 512))
-                .With(x => x.CategoryId, () => MaterialCategorySeed.DefaultCategoryId));
+                .With(x => x.CategoryId, () => MaterialCategorySeeder.DefaultCategoryId));
         }
     }
 }

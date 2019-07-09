@@ -56,18 +56,18 @@ namespace MyLfc.Application.Tests.Pms.GetPmDetailQuery
         [Fact]
         public async Task GivenValidPmId_WhenPmIsNotReadBefore_ReturnsPmAndMarkAsRead()
         {
-            var messageBefore = _context.PrivateMessages.First(x => x.Id == PmQueryTestFixture.PrivateMessageThatNotRelatedToAdmin.Id);
+            var messageBefore = _context.PrivateMessages.First(x => x.Id == PmQueryTestFixture.PrivateMessageForRead.Id);
 
             messageBefore.Should().NotBeNull();
             messageBefore.IsRead.Should().BeFalse();
             
             var result = await _handler.Handle(
-                new Request{Id = PmQueryTestFixture.PrivateMessageThatNotRelatedToAdmin.Id }, CancellationToken.None);
+                new Request{Id = PmQueryTestFixture.PrivateMessageForRead.Id }, CancellationToken.None);
 
             result.Should().NotBeNull();
             result.Id.Should().BeGreaterThan(0);
 
-            var updatedEntity = await _context.PrivateMessages.FirstOrDefaultAsync(x => x.Id == PmQueryTestFixture.PrivateMessageThatNotRelatedToAdmin.Id);
+            var updatedEntity = await _context.PrivateMessages.FirstOrDefaultAsync(x => x.Id == PmQueryTestFixture.PrivateMessageForRead.Id);
 
             updatedEntity.Should().NotBeNull();
             updatedEntity.IsRead.Should().BeTrue();

@@ -11,8 +11,8 @@ namespace MyLfc.Application.Tests.Materials.CreateMaterialCommand
     {
         public CreateMaterialCommandTestFixture() : base()
         {
-            MaterialCategorySeed.Seed(Context);
-            UserSeed.Seed(Context);
+            MaterialCategorySeeder.Seed(Context);
+            UserSeeder.Seed(Context);
         }
     }
 }
