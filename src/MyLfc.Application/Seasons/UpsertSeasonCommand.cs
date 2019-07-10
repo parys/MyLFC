@@ -6,6 +6,7 @@ namespace MyLfc.Application.Seasons
     {
         public abstract class Request
         {
+            public int StartSeasonYear { get; set; }
         }
 
 
@@ -13,6 +14,7 @@ namespace MyLfc.Application.Seasons
         {
             protected Validator()
             {
+                RuleFor(x => x.StartSeasonYear).GreaterThanOrEqualTo(1892);
             }
         }
     }

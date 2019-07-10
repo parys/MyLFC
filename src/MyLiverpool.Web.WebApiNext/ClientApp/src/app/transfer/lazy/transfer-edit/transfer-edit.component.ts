@@ -9,7 +9,7 @@ import { Transfer } from "@app/transfer/model";
 import { ClubService, Club, ClubFilters } from "@app/club";
 import { SeasonService, Season, SeasonFilters } from "@app/season";
 import { TRANSFERS_ROUTE, DEBOUNCE_TIME } from "@app/+constants";
-import { Pageable } from "@app/shared";
+import { Pageable, PagedList } from "@app/shared";
 
 @Component({
     selector: "transfer-edit",
@@ -126,26 +126,26 @@ export class TransferEditComponent implements OnInit, OnDestroy {
             .pipe(
                 debounceTime(DEBOUNCE_TIME),
                 distinctUntilChanged(),
-                switchMap((value: string): Observable<Pageable<Club>> => {
+                switchMap((value: string): Observable<PagedList<Club>> => {
                     const filter = new ClubFilters();
                     filter.name = value;
-                    return this.clubService.getAll(filter);
+                    return this.clubService.getAllNew(filter);
                 }),
-                switchMap((pagingClubs: Pageable<Club>): Observable<Club[]> => {
-                    return of(pagingClubs.list);
+                switchMap((pagingClubs: PagedList<Club>): Observable<Club[]> => {
+                    return of(pagingClubs.results);
                 })
             );
 
         this.seasons$ = this.editTransferForm.controls["seasonName"].valueChanges.pipe(
             debounceTime(DEBOUNCE_TIME),
             distinctUntilChanged(),
-            switchMap((value: string): Observable<Pageable<Season>> => {
+            switchMap((value: string): Observable<PagedList<Season>> => {
                 const filter = new SeasonFilters();
                 filter.name = value;
-                return this.seasonService.getAll(filter);
+                return this.seasonService.getAllNew(filter);
             }),
-            switchMap((pagingSeasons: Pageable<Season>): Observable<Season[]> => {
-                return of(pagingSeasons.list);
+            switchMap((pagingSeasons: PagedList<Season>): Observable<Season[]> => {
+                return of(pagingSeasons.results);
             }));
     }
 }

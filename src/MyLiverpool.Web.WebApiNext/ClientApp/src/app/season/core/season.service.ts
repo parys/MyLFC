@@ -1,18 +1,22 @@
 ﻿import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { HttpWrapper } from "@app/+httpWrapper";
-import { Season, PersonStatistics, SeasonFilters } from "../model";
+import { Season, PersonStatistics, SeasonFilters, SeasonFiltersOld } from "../model";
 import { SEASONS_ROUTE } from "@app/+constants";
 import { BaseRestService } from "@app/+infrastructure";
 import { PagedList } from '@app/shared';
 
 @Injectable()
-export class SeasonService extends BaseRestService<Season, SeasonFilters> {
+export class SeasonService extends BaseRestService<Season, SeasonFiltersOld> {
     private actionUrl: string = SEASONS_ROUTE + "/";
 
     constructor(public http: HttpWrapper) {
         super(http, SEASONS_ROUTE + "/");
     }
+
+    public getAllNew(filters: SeasonFilters | any): Observable<PagedList<Season>> {
+        return this.http.getWithParams<PagedList<Season>>(this.actionUrl, filters);
+    };
 
     public getAllWithoutFilter(): Observable<PagedList<Season>> {
         return this.http.get<PagedList<Season>>(`${this.actionUrl}`);

@@ -8,7 +8,7 @@ import { merge, of, Observable, fromEvent } from "rxjs";
 import { startWith, switchMap, map, catchError, debounceTime, distinctUntilChanged } from "rxjs/operators";
 import { ClubService } from "@app/club/core";
 import { Club, ClubFilters } from "@app/club/model";
-import { Pageable, DeleteDialogComponent } from "@app/shared";
+import { PagedList, DeleteDialogComponent } from "@app/shared";
 import { CLUBS_ROUTE, DEBOUNCE_TIME, KEYUP, PAGE } from "@app/+constants";
 
 @Component({
@@ -52,12 +52,12 @@ export class ClubListComponent implements OnInit {
                 switchMap(() => {
                     return this.update();
                 }),
-                map((data: Pageable<Club>) => {
-                    this.paginator.pageIndex = data.pageNo - 1;
-                    this.paginator.pageSize = data.itemPerPage;
-                    this.paginator.length = data.totalItems;
+                map((data: PagedList<Club>) => {
+                    this.paginator.pageIndex = data.currentPage - 1;
+                    this.paginator.pageSize = data.pageSize;
+                    this.paginator.length = data.rowCount;
 
-                    return data.list;
+                    return data.results;
                 }),
                 catchError(() => {
                     return of([]);
@@ -77,16 +77,16 @@ export class ClubListComponent implements OnInit {
             });
     }
 
-    public update(): Observable<Pageable<Club>> {
+    public update(): Observable<PagedList<Club>> {
         const filters = new ClubFilters();
         filters.name = this.nameInput.nativeElement.value;
-        filters.page = this.paginator.pageIndex + 1;
-        filters.itemsPerPage = this.paginator.pageSize;
-        filters.sortBy = this.sort.active;
-        filters.order = this.sort.direction;
+        filters.currentPage = this.paginator.pageIndex + 1;
+        filters.pageSize = this.paginator.pageSize;
+        filters.sortOn = this.sort.active;
+        filters.sortDirection = this.sort.direction;
 
         return this.clubService
-            .getAll(filters);
+            .getAllNew(filters);
     }
 
     public updateUrl(): void {

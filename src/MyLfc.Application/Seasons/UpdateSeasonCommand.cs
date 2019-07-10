@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure.Exceptions;
@@ -16,11 +17,11 @@ namespace MyLfc.Application.Seasons
             public int Id { get; set; }
         }
 
-        public class Validator : UpsertSeasonCommand.Validator<UpsertSeasonCommand.Request>
+        public class Validator : UpsertSeasonCommand.Validator<Request>
         {
             public Validator() : base()
             {
-              //  RuleFor(v => v.Id).NotEmpty();
+                RuleFor(v => v.Id).GreaterThan(0);
             }
         }
 
@@ -50,17 +51,12 @@ namespace MyLfc.Application.Seasons
 
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return _mapper.Map<Response>(season.Id);
+                return new Response {Id = season.Id};
             }
         }
 
         public class Response
         {
-            public Response(int id)
-            {
-                Id = id;
-            }
-
             public int Id { get; set; }
         }
     }

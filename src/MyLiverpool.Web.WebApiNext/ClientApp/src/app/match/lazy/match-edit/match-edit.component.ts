@@ -9,8 +9,7 @@ import { Match, MatchType } from "@app/match/model";
 import { Stadium, StadiumService, StadiumFilters } from "@app/stadium";
 import { Club, ClubService, ClubFilters } from "@app/club";
 import { DEBOUNCE_TIME, MATCHES_ROUTE } from "@app/+constants";
-import { Pageable } from "@app/shared";
-import { PagedList } from '../../../shared/pagedList.model';
+import { Pageable, PagedList } from "@app/shared";
 
 @Component({
     selector: "match-edit",
@@ -111,13 +110,13 @@ export class MatchEditComponent implements OnInit {
         this.clubs$ = this.editMatchForm.controls["clubName"].valueChanges.pipe(
             debounceTime(DEBOUNCE_TIME),
             distinctUntilChanged(),
-            switchMap((value: string): Observable<Pageable<Club>> => {
+            switchMap((value: string): Observable<PagedList<Club>> => {
                 const filter = new ClubFilters();
                 filter.name = value;
-                return this.clubService.getAll(filter);
+                return this.clubService.getAllNew(filter);
             }),
-            switchMap((pagingClubs: Pageable<Club>): Observable<Club[]> => {
-                return of(pagingClubs.list);
+            switchMap((pagingClubs: PagedList<Club>): Observable<Club[]> => {
+                return of(pagingClubs.results);
             })
         );
     }

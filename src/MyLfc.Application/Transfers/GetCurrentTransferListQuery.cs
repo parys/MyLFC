@@ -37,7 +37,7 @@ namespace MyLfc.Application.Transfers
 
                 var currentSeason = await GetCurrentSeasonIdAsync();
                 transfersQuery = transfersQuery
-                    .Where(x => !x.SeasonId.HasValue && x.SeasonId.Value == currentSeason);
+                    .Where(x => x.SeasonId == currentSeason);
 
                 var result = await transfersQuery
                     .ProjectTo<TransferListDto>(_mapper.ConfigurationProvider)
