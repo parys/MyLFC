@@ -115,7 +115,7 @@ export class MatchPersonEditPanelComponent implements OnInit, AfterViewInit {
             switchMap((value: string) => {
                 const filter = new PersonFilters();
                 filter.name = value;
-                filter.type = this.personTypeId;
+           //todo fix during rewrite to Mediatr     filter.type = this.personTypeId;
                 return this.personService.getAll(filter);
             }),
             switchMap((pagingClubs: Pageable<Person>): Observable<Person[]> => {

@@ -17,6 +17,6 @@ export class AdminService {
 
     ///duplicates in static page service
     public getValue(id: number): Observable<string> {
-        return this.http.getString(`${this.actionHelperUrl}value/${id}`);
+        return this.http.getString(`${this.actionHelperUrl}${id}`);
     };
 }

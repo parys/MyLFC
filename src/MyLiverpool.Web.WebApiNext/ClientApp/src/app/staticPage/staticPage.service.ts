@@ -12,11 +12,11 @@ export class StaticPageService {
     }
 
     public updateValue(id: number, value: string): Observable<boolean> {
-        return this.http.put<boolean>(`${this.actionHelperUrl}value/${id}`, JSON.stringify(value));
+        return this.http.put<boolean>(`${this.actionHelperUrl}${id}`, JSON.stringify(value));
     };
 
     //duplicates in admin service
     public getValue(id: number): Observable<string> {
-        return this.http.getString(`${this.actionHelperUrl}value/${id}`);
+        return this.http.getString(`${this.actionHelperUrl}${id}`);
     };
 }
