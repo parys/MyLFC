@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using MyLfc.Domain;
@@ -13,28 +10,7 @@ namespace MyLiverpool.Data.ResourceAccess.Interfaces
     {
         Task<string> GetUsernameAsync(int id);
         
-        Task<IEnumerable<User>> GetListAsync(int page, int itemPerPage = 15,
-            Expression<Func<User, bool>> filter = null,
-            SortOrder order = SortOrder.Ascending, Expression<Func<User, object>> orderBy = null);
-
-        IQueryable<User> GetQuerableList(int? page, int itemPerPage = 15,
-            Expression<Func<User, bool>> filter = null,
-            SortOrder order = SortOrder.Ascending, Expression<Func<User, object>> orderBy = null);
-
-        IQueryable<User> GetQuerableList(int page, int itemPerPage = 15,
-            Expression<Func<User, bool>> filter = null,
-            SortOrder order = SortOrder.Ascending, string orderBy = null);
-
-        
-        Task<IdentityResult> SetLockoutEndDateAsync(User user, DateTimeOffset? dateTimeOffset);
-
         Task<DateTimeOffset?> GetLockoutEndDateAsync(int userId);
-
-        Task<IdentityResult> RemoveFromRolesAsync(User user, IEnumerable<string> roles);
-
-        Task<IdentityResult> AddToRoleAsync(User user, string role);
-
-        Task<IdentityResult> AddToRolesAsync(User user, IEnumerable<string> roles);
 
         Task<User> FindByNameAsync(string username);
 
@@ -59,9 +35,5 @@ namespace MyLiverpool.Data.ResourceAccess.Interfaces
         Task<User> GetByIdFromManagerAsync(int userId);
 
         Task<User> GetByIdForUpdateAsync(int userId);
-
-        Task<UserConfig> GetUserConfigAsync(int userId);
-
-        Task<UserConfig> CreateOrUpdateUserConfigAsync(UserConfig config);
     }
 }

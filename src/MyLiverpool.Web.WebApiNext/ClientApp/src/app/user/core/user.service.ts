@@ -23,12 +23,12 @@ export class UserService extends BaseRestService<User, UserFiltersOld> {
         return this.http.put<boolean>(`${this.actionUrl}updateRoleGroup/${id}/${roleGroupId}`, "");
     };
 
-    public ban(id: number, banDaysCount: number): Observable<boolean> {
-        return this.http.put<boolean>(`${this.actionUrl}ban/${id}/${banDaysCount}`, "");
+    public ban(id: number, days: number): Observable<boolean> {
+        return this.http.put<boolean>(`${this.actionUrl}${id}/ban/${days}`, "");
     };
 
     public unban(id: number): Observable<boolean> {
-        return this.http.put<boolean>(`${this.actionUrl}unban/${id}`, "");
+        return this.http.put<boolean>(`${this.actionUrl}${id}/unban`, "");
     };
 
     public resetAvatar(id: number): Observable<Object> {

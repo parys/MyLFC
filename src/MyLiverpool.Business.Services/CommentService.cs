@@ -9,6 +9,7 @@ using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using MyLfc.Application.Notifications;
+using MyLfc.Application.Users;
 using MyLfc.Common.Web.Hubs;
 using MyLfc.Domain;
 using MyLiverpool.Business.Contracts;
@@ -158,7 +159,7 @@ namespace MyLiverpool.Business.Services
         private async Task SendNotificationsAsync(int parentCommentId, int commentId, string authorUserName, string commentText)
         {
             var parentComment = await _commentService.GetByIdAsync(parentCommentId);
-            var userConfig = await _userService.GetUserConfigAsync(parentComment.AuthorId);
+            var userConfig = await _mediator.Send(new GetUserConfigQuery.Request {UserId = parentComment.AuthorId});
             if (userConfig.IsReplyToPmEnabled)
             {
                 await SendNotificationAsync(parentComment, commentId, authorUserName, commentText);

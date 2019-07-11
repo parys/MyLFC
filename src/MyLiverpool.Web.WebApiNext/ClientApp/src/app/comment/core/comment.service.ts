@@ -32,7 +32,7 @@ export class CommentService extends BaseRestService<Comment, CommentFilter | any
     };
     
     public verify(id: number): Observable<number> {
-        return this.http.put<number>(this.actionUrl + id + "/verify", {});
+        return this.http.put<number>(this.actionUrl + id + "/verify", new Object());
     };
 
     public vote(vote: CommentVote): Observable<boolean> {

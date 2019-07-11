@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -68,87 +66,19 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             var user = await _context.Users.FindAsync(id);
             return user.UserName;
         }
-
-        public async Task<IEnumerable<User>> GetListAsync(int page, int itemPerPage = 15, Expression<Func<User, bool>> filter = null, SortOrder order = SortOrder.Ascending,
-            Expression<Func<User, object>> orderBy = null){
-            
-            return await GetQuerableList(page, itemPerPage, filter, order, orderBy).ToListAsync();
-        }
-
-        public IQueryable<User> GetQuerableList(int? page, int itemPerPage = 15, Expression<Func<User, bool>> filter = null,
-            SortOrder order = SortOrder.Ascending, Expression<Func<User, object>> orderBy = null)
-        {
-            IQueryable<User> query = _context.Users.Include(x => x.RoleGroup);
-
-            if (filter != null)
-            {
-                query = query.Where(filter);
-            }
-            if (orderBy != null)
-            {
-                query = query.ObjectSort(orderBy, order);
-            }
-
-            if (page.HasValue)
-            {
-                query = query.Skip((page.Value - 1) * itemPerPage).Take(itemPerPage);
-            }
-
-            return query;
-        }
-
-        public IQueryable<User> GetQuerableList(int page, int itemPerPage = 15, Expression<Func<User, bool>> filter = null,
-            SortOrder order = SortOrder.Ascending, string orderBy = null)
-        {
-            IQueryable<User> query = _context.Users.Include(x => x.RoleGroup);
-
-            if (filter != null)
-            {
-                query = query.Where(filter);
-            }
-            if (orderBy != null)
-            {
-                var prop = typeof(User).GetProperty(orderBy, BindingFlags.IgnoreCase);
-                query = order == SortOrder.Ascending
-                    ? query.OrderBy(x => prop.GetValue(x, null)) 
-                    : query.OrderByDescending(x => prop.GetValue(x, null));
-            }
-            query = query.Skip((page - 1) * itemPerPage).Take(itemPerPage);
-            return query;
-        }
-
+        
         public async Task UpdateAsync(User user)
         {
           //  await _userManager.UpdateAsync(user);todo do
             _context.Users.Update(user);
             await _context.SaveChangesAsync();
         }
-
-        public async Task<IdentityResult> SetLockoutEndDateAsync(User user, DateTimeOffset? dateTimeOffset)
-        {
-            return await _userManager.SetLockoutEndDateAsync(user, dateTimeOffset);
-        }
-
+        
         public async Task<DateTimeOffset?> GetLockoutEndDateAsync(int userId)
         {
             return await _userManager.GetLockoutEndDateAsync(new User(userId));
         }
-
-        public async Task<IdentityResult> RemoveFromRolesAsync(User user, IEnumerable<string> roles)
-        {
-            return await _userManager.RemoveFromRolesAsync(user, roles);
-        }
-
-        public async Task<IdentityResult> AddToRoleAsync(User user, string role)
-        {
-            return await _userManager.AddToRoleAsync(user, role);
-        }
-
-        public async Task<IdentityResult> AddToRolesAsync(User user, IEnumerable<string> roles)
-        {
-            return await _userManager.AddToRolesAsync(user, roles);
-        }
-
+        
         public async Task<User> FindByNameAsync(string username)
         {
             return await _userManager.FindByNameAsync(username);
@@ -245,11 +175,6 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             await _userManager.UpdateAsync(entity);
         }
 
-        public async Task SaveChangesAsync()
-        {
-            await _context.SaveChangesAsync();
-        }
-
         public async Task<int> GetCountAsync(Expression<Func<User, bool>> filter = null)
         {
             IQueryable<User> query = _context.Users;
@@ -259,35 +184,10 @@ namespace MyLiverpool.Data.ResourceAccess.Repositories
             }
             return await query.CountAsync();
         }
-
-        public Task<IEnumerable<User>> GetListAsync()
-        {
-            throw new NotImplementedException("Not need to implement");
-        }
-
+        
         public async Task<User> GetByIdFromManagerAsync(int userId)
         {
             return await _userManager.FindByIdAsync(userId.ToString());
-        }
-
-        public async Task<UserConfig> GetUserConfigAsync(int userId)
-        {
-            return await _context.UserConfigs.FindAsync(userId);
-        }
-
-        public async Task<UserConfig> CreateOrUpdateUserConfigAsync(UserConfig config)
-        {
-            var configEntity = await _context.UserConfigs.FindAsync(config.UserId);
-            if (configEntity != null)
-            {
-                _context.UserConfigs.Update(config);
-            }
-            else
-            {
-                await _context.UserConfigs.AddAsync(config);
-            }
-            await SaveChangesAsync();
-            return config;
         }
     }
 }

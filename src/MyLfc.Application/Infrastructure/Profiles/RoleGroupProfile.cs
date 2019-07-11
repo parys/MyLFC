@@ -1,29 +1,20 @@
 ﻿using System.Linq;
 using AutoMapper;
+using MyLfc.Application.RoleGroups;
 using MyLfc.Domain;
-using MyLiverpool.Business.Dto;
 
-namespace MyLiverpool.Common.Mappings
+namespace MyLfc.Application.Infrastructure.Profiles
 {
-    public class RoleGroupsMapperProfile : Profile
+    public class RoleGroupProfile : Profile
     {
-        public RoleGroupsMapperProfile()
+        public RoleGroupProfile()
         {
-            RegisterRoleGroupsMapping();
-            RegisterRolesMapping();
-        }
-        
-        private void RegisterRoleGroupsMapping()
-        {
-            CreateMap<RoleGroup, RoleGroupDto>()
+            CreateMap<RoleGroup, GetRoleGroupsQuery.RoleGroupListDto>()
                 .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id))
                 .ForMember(dest => dest.Name, src => src.MapFrom(x => x.RussianName))
                 .ForMember(dest => dest.Roles, src => src.MapFrom(x => x.RoleGroups.Select(y => y.Role)));
-        }
 
-        private void RegisterRolesMapping()
-        {
-            CreateMap<Role, RoleDto>()
+            CreateMap<Role, GetRoleGroupsQuery.RoleDto>()
                 .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id))
                 .ForMember(dest => dest.Name, src => src.MapFrom(x => x.Name));
         }

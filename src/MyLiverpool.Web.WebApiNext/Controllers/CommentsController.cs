@@ -99,23 +99,10 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// <summary>
         /// Mark comment as verified by moderator.
         /// </summary>
-        /// <param name="id">Id of verifiable comment.</param>
-        /// <returns>Result of verification.</returns>
-        [Authorize(Roles = nameof(RolesEnum.UserStart)), HttpGet("verify/{id:int}")]
-        [Obsolete("Remove after 15 JUly 19")]
-        public async Task<IActionResult> VerifyOldAsync(int id)
-        {
-            var request = new VerifyCommentCommand.Request{Id = id};
-            return Ok(await Mediator.Send(request));
-        }
-
-        /// <summary>
-        /// Mark comment as verified by moderator.
-        /// </summary>
         /// <param name="request">Id of verifiable comment.</param>
         /// <returns>Result of verification.</returns>
         [Authorize(Roles = nameof(RolesEnum.UserStart)), HttpPut("{id:int}/verify")]
-        public async Task<IActionResult> VerifyAsync(VerifyCommentCommand.Request request)
+        public async Task<IActionResult> VerifyAsync([FromRoute]VerifyCommentCommand.Request request)
         {
             return Ok(await Mediator.Send(request));
         }

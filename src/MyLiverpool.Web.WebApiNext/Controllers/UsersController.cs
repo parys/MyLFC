@@ -127,8 +127,7 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         [Authorize, HttpGet("config")]
         public async Task<IActionResult> GetConfigAsync()
         {
-            var result = await _userService.GetUserConfigAsync(User.GetUserId());
-            return Ok(result);
+            return Ok(await Mediator.Send(new GetUserConfigQuery.Request {UserId = User.GetUserId()}));
         }
 
         /// <summary>
@@ -148,35 +147,31 @@ namespace MyLiverpool.Web.WebApiNext.Controllers
         /// </summary>
         /// <returns>Updated config.</returns>
         [Authorize, HttpPut("config")]
-        public async Task<IActionResult> UpdateConfigAsync([FromBody]UserConfigDto dto)
+        public async Task<IActionResult> UpdateConfigAsync([FromBody]UpdateUserConfigCommand.Request request)
         {
-            var result = await _userService.UpdateUserConfigAsync(dto, User.GetUserId());
-            return Ok(result);
+            return Ok(await Mediator.Send(request));
         }
 
         /// <summary>
         /// Bans user.
         /// </summary>
-        /// <param name="userId">The identifier of blocking user.</param>
-        /// <param name="daysCount"></param>
+        /// <param name="request">The identifier of blocking user.</param>
         /// <returns>Result of block user.</returns>
-        [Authorize(Roles = nameof(RolesEnum.UserStart)), HttpPut("Ban/{userId:int}/{daysCount:int}")]
-        public async Task<IActionResult> BanUser(int userId, int daysCount)
+        [Authorize(Roles = nameof(RolesEnum.UserStart)), HttpPut("{id:int}/ban/{days:int}")]
+        public async Task<IActionResult> BanUser([FromRoute]BanUserCommand.Request request)
         {
-            var result = await _userService.BanUser(userId, daysCount);
-            return Ok(result);
+            return Ok(await Mediator.Send(request));
         }
 
         /// <summary>
         /// Unbans user.
         /// </summary>
-        /// <param name="userId">The identifier of unblocking user.</param>
+        /// <param name="request">The identifier of unblocking user.</param>
         /// <returns>Result of unblocking user.</returns>
-        [Authorize(Roles = nameof(RolesEnum.UserFull)), HttpPut("Unban/{userId:int}")]
-        public async Task<IActionResult> UnbanUser(int userId)
+        [Authorize(Roles = nameof(RolesEnum.UserFull)), HttpPut("{id:int}/unban")]
+        public async Task<IActionResult> UnbanUser([FromRoute]BanUserCommand.Request request)
         {
-            var result = await _userService.UnbanUser(userId);
-            return Ok(result);
+            return Ok(await Mediator.Send(request));
         }
 
         // <param name="userId">The identifier of updatable user.</param>

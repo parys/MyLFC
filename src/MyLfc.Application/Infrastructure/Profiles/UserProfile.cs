@@ -25,6 +25,10 @@ namespace MyLfc.Application.Infrastructure.Profiles
                 .ForMember(dest => dest.RoleGroupName, src => src.MapFrom(x => x.RoleGroup.RussianName));
 
             CreateMap<User, GetUserBirthdaysQuery.UserBirthdayDto>();
+
+            CreateMap<UserConfig, GetUserConfigQuery.Response>();
+
+            CreateMap<UpdateUserConfigCommand.Request, UserConfig>();
         }
     }
 }

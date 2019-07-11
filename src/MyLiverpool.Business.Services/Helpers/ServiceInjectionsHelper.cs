@@ -20,7 +20,6 @@ namespace MyLiverpool.Business.Services.Helpers
             services.AddTransient<IMaterialCategoryService, MaterialCategoryService>();
             services.AddTransient<ICommentService, CommentService>();
             services.AddTransient<IPersonService, PersonService>();
-            services.AddTransient<IRoleService, RoleService>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
             services.AddTransient<IUploadService, UploadService>();
             services.AddTransient<IUserService, UserService>();

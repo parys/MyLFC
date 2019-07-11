@@ -6,10 +6,6 @@ namespace MyLiverpool.Business.Contracts
 {
     public interface IUserService
     {
-        Task<bool> BanUser(int userId, int banDayCount);
-
-        Task<bool> UnbanUser(int userId);
-        
         Task<string> GetPhotoPathAsync(int userId);
 
         Task<bool> UpdatePhotoPathAsync(int userId, string photo);
@@ -25,9 +21,5 @@ namespace MyLiverpool.Business.Contracts
         Task<string> ResetAvatarAsync(int userId);
 
         Task UpdateUserIpAddress(string ipAddress, int userId);
-
-        Task<UserConfigDto> GetUserConfigAsync(int userId);
-
-        Task<UserConfigDto> UpdateUserConfigAsync(UserConfigDto config, int currentUserId);
     }
 }

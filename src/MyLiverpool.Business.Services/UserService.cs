@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Identity;
 using MyLiverpool.Business.Contracts;
 using MyLiverpool.Business.Dto;
 using MyLiverpool.Data.ResourceAccess.Interfaces;
@@ -21,20 +20,6 @@ namespace MyLiverpool.Business.Services
         {
             _mapper = mapper;
             _userRepository = userRepository;
-        }
-
-        public async Task<bool> BanUser(int userId, int banDayCount)
-        {
-            var user = await _userRepository.GetByIdAsync(userId);
-            var result = await _userRepository.SetLockoutEndDateAsync(user, new DateTimeOffset(DateTime.Now.AddDays(banDayCount)));
-            return result == IdentityResult.Success;
-        }
-
-        public async Task<bool> UnbanUser(int userId)
-        {
-            var user = await _userRepository.GetByIdAsync(userId);
-            var result = await _userRepository.SetLockoutEndDateAsync(user, new DateTimeOffset?());
-            return result == IdentityResult.Success;
         }
 
         public async Task<string> GetPhotoPathAsync(int userId)
@@ -115,20 +100,6 @@ namespace MyLiverpool.Business.Services
                 user.Ip = ipAddress;
                 await _userRepository.UpdateAsync(user);
             }
-        }
-
-        public async Task<UserConfigDto> GetUserConfigAsync(int userId)
-        {
-            var model = await _userRepository.GetUserConfigAsync(userId) ?? new UserConfig();
-            return _mapper.Map<UserConfigDto>(model);
-        }
-
-        public async Task<UserConfigDto> UpdateUserConfigAsync(UserConfigDto config, int currentUserId)
-        {
-            var model = _mapper.Map<UserConfig>(config);
-            model.UserId = currentUserId;
-            var result = await _userRepository.CreateOrUpdateUserConfigAsync(model);
-            return _mapper.Map<UserConfigDto>(result);
         }
     }
 }
