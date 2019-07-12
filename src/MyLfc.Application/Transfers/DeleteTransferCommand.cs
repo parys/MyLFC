@@ -38,18 +38,13 @@ namespace MyLfc.Application.Transfers
                 _context.Transfers.Remove(transfer);
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return new Response(transfer.Id);
+                return new Response { Id = transfer.Id };
             }
         }
 
 
         public class Response
         {
-            public Response(int id)
-            {
-                Id = id;
-            }
-
             public int Id { get; set; }
         }
     }

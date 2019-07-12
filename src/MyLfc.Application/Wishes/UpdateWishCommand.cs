@@ -1,23 +1,27 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using FluentValidation;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
+using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Domain;
 using MyLfc.Persistence;
 
-namespace MyLfc.Application.Transfers
+namespace MyLfc.Application.Wishes
 {
-    public class CreateTransferCommand
+    public class UpdateWishCommand
     {
-        public class Request : UpsertTransferCommand.Request, IRequest<Response>
+        public class Request : UpsertWishCommand.Request, IRequest<Response>
         {
+            public int Id { get; set; }
         }
 
-
-        public class Validator : UpsertTransferCommand.Validator<Request>
+        public class Validator : UpsertWishCommand.Validator<Request>
         {
             public Validator()
             {
+                RuleFor(v => v.Id).NotEmpty();
             }
         }
 
@@ -36,15 +40,21 @@ namespace MyLfc.Application.Transfers
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var entity = _mapper.Map<Transfer>(request);
+                var wish = await _context.Wishes
+                    .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 
-                _context.Transfers.Add(entity);
+                if (wish == null)
+                {
+                    throw new NotFoundException(nameof(Wish), request.Id);
+                }
+
+                wish = _mapper.Map(request, wish);
+
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return new Response {Id = entity.Id};
+                return new Response { Id = wish.Id };
             }
         }
-
 
         public class Response
         {

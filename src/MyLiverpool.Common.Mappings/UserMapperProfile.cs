@@ -10,7 +10,6 @@ namespace MyLiverpool.Common.Mappings
         public UserMapperProfile()
         {
             RegisterUserMapping();
-            RegisterUserConfigMapping();
         }
         
         private void RegisterUserMapping()
@@ -60,12 +59,6 @@ namespace MyLiverpool.Common.Mappings
                 .ForMember(dest => dest.PhoneNumber, src => src.Ignore()) //MapFrom(x => x.))
                 .ForMember(dest => dest.PhoneNumberConfirmed, src => src.Ignore()) //MapFrom(x => x.))
                 .ForMember(dest => dest.SecurityStamp, src => src.Ignore()); //MapFrom(x => x.))
-        }
-
-        private void RegisterUserConfigMapping()
-        {
-            CreateMap<UserConfig, UserConfigDto>();
-            CreateMap<UserConfigDto, UserConfig>();
         }
     }
 }

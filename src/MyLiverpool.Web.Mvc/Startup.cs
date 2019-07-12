@@ -92,7 +92,7 @@ namespace MyLiverpool.Web.Mvc
             var context = (LiverpoolContext)services.BuildServiceProvider().GetService(typeof(LiverpoolContext));
             context.Database.Migrate();
 
-            services.AddAutoMapper(typeof(MaterialProfile), typeof(WishMapperProfile));
+            services.AddAutoMapper(typeof(MaterialProfile), typeof(MatchEventMapperProfile));
             services.AddMediatR();
             services.AddMvc();
         }

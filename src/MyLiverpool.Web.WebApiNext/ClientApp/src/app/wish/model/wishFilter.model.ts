@@ -1,7 +1,7 @@
-﻿import { BaseRestFilter } from "@app/+infrastructure";
+﻿import { PagedQueryBase } from "@app/+infrastructure";
 
-export class WishFilter extends BaseRestFilter {
+export class WishFilter extends PagedQueryBase {
     public typeId? : number;
-    public categoryId? : number;
+    public stateId? : number;
     public filterText?: string;
 }

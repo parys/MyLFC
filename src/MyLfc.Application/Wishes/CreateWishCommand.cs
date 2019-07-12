@@ -5,16 +5,16 @@ using MediatR;
 using MyLfc.Domain;
 using MyLfc.Persistence;
 
-namespace MyLfc.Application.Transfers
+namespace MyLfc.Application.Wishes
 {
-    public class CreateTransferCommand
+    public class CreateWishCommand
     {
-        public class Request : UpsertTransferCommand.Request, IRequest<Response>
+        public class Request : UpsertWishCommand.Request, IRequest<Response>
         {
         }
 
 
-        public class Validator : UpsertTransferCommand.Validator<Request>
+        public class Validator : UpsertWishCommand.Validator<Request>
         {
             public Validator()
             {
@@ -36,9 +36,9 @@ namespace MyLfc.Application.Transfers
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var entity = _mapper.Map<Transfer>(request);
+                var entity = _mapper.Map<Wish>(request);
 
-                _context.Transfers.Add(entity);
+                _context.Wishes.Add(entity);
                 await _context.SaveChangesAsync(cancellationToken);
 
                 return new Response {Id = entity.Id};

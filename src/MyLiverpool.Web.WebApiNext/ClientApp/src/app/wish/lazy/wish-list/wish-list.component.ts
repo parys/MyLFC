@@ -7,7 +7,7 @@ import { merge, of, Observable } from "rxjs";
 import { startWith, switchMap, map, catchError } from "rxjs/operators";
 import { Wish, WishFilter } from "../../model";
 import { WishService } from "../wish.service";
-import { Pageable, DeleteDialogComponent } from "@app/shared";
+import { PagedList, DeleteDialogComponent } from "@app/shared";
 import { RolesCheckedService } from "@app/+auth";
 import { PAGE, WISHES_ROUTE } from "@app/+constants";
 
@@ -18,7 +18,7 @@ import { PAGE, WISHES_ROUTE } from "@app/+constants";
 })
 export class WishListComponent implements OnInit {
     public items: Wish[];
-    public categoryId: number;
+    public stateId: number;
     @ViewChild(MatPaginator, { static: true })paginator: MatPaginator;
 
     constructor(private service: WishService,
@@ -30,12 +30,11 @@ export class WishListComponent implements OnInit {
 
     public ngOnInit(): void {
         this.route.queryParams.subscribe(qParams => {
-                this.paginator.pageIndex = +qParams[PAGE] - 1 || 0;
-                this.paginator.pageSize = +qParams["itemsPerPage"] || 15;
-                this.categoryId = +qParams["categoryId"];
+            this.paginator.pageIndex = +qParams[PAGE] - 1 || 0;
+            this.paginator.pageSize = +qParams["itemsPerPage"] || 15;
+            this.stateId = +qParams["stateId"];
 
-            },
-            e => console.log(e));
+        });
 
         merge(this.paginator.page)
             .pipe(
@@ -43,12 +42,12 @@ export class WishListComponent implements OnInit {
                 switchMap(() => {
                     return this.update();
                 }),
-                map((data: Pageable<Wish>) => {
-                    this.paginator.pageIndex = data.pageNo - 1;
-                    this.paginator.pageSize = data.itemPerPage;
-                    this.paginator.length = data.totalItems;
+                map((data: PagedList<Wish>) => {
+                    this.paginator.pageIndex = data.currentPage - 1;
+                    this.paginator.pageSize = data.pageSize;
+                    this.paginator.length = data.rowCount;
 
-                    return data.list;
+                    return data.results;
                 }),
                 catchError(() => {
                     return of([]);
@@ -56,29 +55,21 @@ export class WishListComponent implements OnInit {
             ).subscribe((data: Wish[]) => {
                     this.items = data;
                     this.updateUrl();
-                },
-                e => console.log(e));
+                });
     }
 
     public updateUrl(): void {
         const newUrl: string = `${WISHES_ROUTE}?${PAGE}=${this.paginator.pageIndex + 1}`;
-        // if (this.categoryId) {
-        //     newUrl = `${newUrl}&categoryId=${this.categoryId}`;
-        //  }
-        // if (this.userName) {
-        //      newUrl = `${newUrl}&userName=${this.userName}`;
-        //  }
-
         this.location.replaceState(newUrl);
     };
 
-    public update(): Observable<Pageable<Wish>> {
+    public update(): Observable<PagedList<Wish>> {
         const filters = new WishFilter();
-        filters.categoryId = this.categoryId;
-        filters.itemsPerPage = this.paginator.pageSize;
-        filters.page = this.paginator.pageIndex + 1;
+        filters.stateId = this.stateId;
+        filters.pageSize = this.paginator.pageSize;
+        filters.currentPage = this.paginator.pageIndex + 1;
 
-        return this.service.getAll(filters);
+        return this.service.getAllNew(filters);
     }
 
     public getTypeClass(i: number): string {
@@ -102,7 +93,7 @@ export class WishListComponent implements OnInit {
             if (result) {
                 this.delete(index);
             }
-        }, e => console.log(e));
+        });
     }
 
     private delete(index: number): void {

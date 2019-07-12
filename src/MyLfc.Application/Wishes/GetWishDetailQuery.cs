@@ -1,28 +1,22 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
-using FluentValidation;
+using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Domain;
 using MyLfc.Persistence;
+using MyLiverpool.Data.Common;
 
-namespace MyLfc.Application.Transfers
+namespace MyLfc.Application.Wishes
 {
-    public class UpdateTransferCommand
+    public class GetWishDetailQuery
     {
-        public class Request : UpsertTransferCommand.Request, IRequest<Response>
+        public class Request : IRequest<Response>
         {
             public int Id { get; set; }
-        }
-
-        public class Validator : UpsertTransferCommand.Validator<Request>
-        {
-            public Validator()
-            {
-                RuleFor(v => v.Id).NotEmpty();
-            }
         }
 
 
@@ -31,7 +25,7 @@ namespace MyLfc.Application.Transfers
             private readonly LiverpoolContext _context;
 
             private readonly IMapper _mapper;
-            
+
             public Handler(LiverpoolContext context, IMapper mapper)
             {
                 _context = context;
@@ -40,25 +34,36 @@ namespace MyLfc.Application.Transfers
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var transfer = await _context.Transfers
+                var transfer = await _context.Wishes.AsNoTracking()
+                    .ProjectTo<Response>(_mapper.ConfigurationProvider)
                     .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 
                 if (transfer == null)
                 {
-                    throw new NotFoundException(nameof(Transfer), request.Id);
+                    throw new NotFoundException(nameof(Wish), request.Id);
                 }
 
-                transfer = _mapper.Map(request, transfer);
-
-                await _context.SaveChangesAsync(cancellationToken);
-
-                return new Response { Id = transfer.Id };
+                return transfer;
             }
         }
 
+
+        [Serializable]
         public class Response
         {
             public int Id { get; set; }
+
+            public string Title { get; set; }
+
+            public string Message { get; set; }
+
+            public WishType Type { get; set; }
+
+            public string TypeName { get; set; }
+
+            public WishStateEnum State { get; set; }
+
+            public string StateName { get; set; }
         }
     }
 }

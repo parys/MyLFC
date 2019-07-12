@@ -1,60 +1,47 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
-using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MyLfc.Application.Infrastructure.Exceptions;
 using MyLfc.Domain;
 using MyLfc.Persistence;
 
-namespace MyLfc.Application.Transfers
+namespace MyLfc.Application.Wishes
 {
-    public class UpdateTransferCommand
+    public class DeleteWishCommand
     {
-        public class Request : UpsertTransferCommand.Request, IRequest<Response>
+        public class Request : IRequest<Response>
         {
             public int Id { get; set; }
-        }
-
-        public class Validator : UpsertTransferCommand.Validator<Request>
-        {
-            public Validator()
-            {
-                RuleFor(v => v.Id).NotEmpty();
-            }
         }
 
 
         public class Handler : IRequestHandler<Request, Response>
         {
             private readonly LiverpoolContext _context;
-
-            private readonly IMapper _mapper;
             
-            public Handler(LiverpoolContext context, IMapper mapper)
+            public Handler(LiverpoolContext context)
             {
                 _context = context;
-                _mapper = mapper;
             }
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var transfer = await _context.Transfers
+                var wish = await _context.Wishes
                     .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
-
-                if (transfer == null)
+                
+                if (wish == null)
                 {
                     throw new NotFoundException(nameof(Transfer), request.Id);
                 }
 
-                transfer = _mapper.Map(request, transfer);
-
+                _context.Wishes.Remove(wish);
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return new Response { Id = transfer.Id };
+                return new Response { Id = wish.Id };
             }
         }
+
 
         public class Response
         {

@@ -21,7 +21,6 @@ namespace MyLiverpool.Common.Mappings
             cfg.AddProfile(new PersonMapperProfile());
             cfg.AddProfile(new PollMapperProfile());
             cfg.AddProfile(new UserMapperProfile());
-            cfg.AddProfile(new WishMapperProfile());
 
 
             cfg.AddProfile(new UserProfile());
